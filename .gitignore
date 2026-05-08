@@ -20,6 +20,10 @@ dist-ssr
 .env.*
 !.env.example
 
+# Supabase CLI runtime (locally cached versions, linked-project.json, etc.)
+supabase/.temp/
+supabase/.branches/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
