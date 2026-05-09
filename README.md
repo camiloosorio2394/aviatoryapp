@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# AviatorYapp
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+App built by Camilo Osorio (`camiloosorio2394`) and Nico (`MGN14`).
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Frontend:** Vite 8 + React 19 + TypeScript + Tailwind v4 + shadcn v4 (Radix / Nova preset, Lucide icons, Geist font)
+- **Backend:** Supabase (Postgres + Auth + Storage + Edge Functions)
+- **Hosting:** Vercel (auto-deploy from GitHub `main`)
 
-## React Compiler
+## Local development
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev          # http://localhost:5173
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+You need a `.env.local` with:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+```
+
+The fastest way to populate it: `vercel link` (once) then `vercel env pull`.
+
+## Useful commands
+
+```bash
+npm run build                       # type-check + production build
+npm run lint                        # eslint
+npx shadcn@latest add <component>   # add a shadcn/ui component
+supabase db push                    # apply local migrations to remote
+vercel deploy --prod                # one-off prod deploy from CLI
+```
+
+## Workflow
+
+- Branch off `main` for every feature: `git checkout -b feat/<name>`.
+- Open PRs (`gh pr create`); merge with squash.
+- Vercel deploys a unique preview URL for every PR.
