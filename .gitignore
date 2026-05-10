@@ -24,6 +24,9 @@ dist-ssr
 supabase/.temp/
 supabase/.branches/
 
+# Brand asset packs (raw zips dropped during onboarding — extract into brand/ then ignore the archive)
+*_logo_pack.zip
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
