@@ -13,6 +13,24 @@ export function AppTopbar({ onMenuClick }: Props) {
   const { user } = useSession()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
+  const [username, setUsername] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    supabase
+      .from("profiles")
+      .select("username")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled) return
+        setUsername(((data as { username?: string } | null)?.username) ?? null)
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [user])
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -32,7 +50,8 @@ export function AppTopbar({ onMenuClick }: Props) {
   }
 
   const email = user?.email ?? ""
-  const initials = email ? email[0]?.toUpperCase() : "?"
+  const handle = username ? `@${username}` : email
+  const initials = (username ?? email)[0]?.toUpperCase() ?? "?"
 
   return (
     <header className="sticky top-0 z-20 h-16 bg-background/70 backdrop-blur-xl border-b border-border/50 flex items-center justify-between px-4 sm:px-6">
@@ -61,19 +80,21 @@ export function AppTopbar({ onMenuClick }: Props) {
           <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-500/30">
             {initials}
           </span>
-          <span className="hidden sm:block text-sm text-muted-foreground max-w-[160px] truncate">
-            {email}
+          <span className="hidden sm:block text-sm text-muted-foreground max-w-[200px] truncate">
+            {handle}
           </span>
         </button>
 
         {open && (
           <div
-            className="absolute right-0 mt-2 w-56 rounded-xl border border-border/60 bg-card shadow-lg overflow-hidden"
+            className="absolute right-0 mt-2 w-64 rounded-xl border border-border/60 bg-card shadow-lg overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="px-4 py-3 border-b border-border/40">
-              <p className="text-xs text-muted-foreground">Logueado como</p>
-              <p className="text-sm font-medium truncate">{email}</p>
+              {username && (
+                <p className="text-sm font-semibold">@{username}</p>
+              )}
+              <p className="text-xs text-muted-foreground truncate">{email}</p>
             </div>
             <Link
               to="/app/perfil"

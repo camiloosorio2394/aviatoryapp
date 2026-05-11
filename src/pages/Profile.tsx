@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { toast } from "sonner"
-import { Loader2, Save } from "lucide-react"
+import { AtSign, Check, Loader2, Save, X } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -14,6 +14,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
+const USERNAME_REGEX = /^[a-z0-9_]{3,30}$/
+
+type UsernameStatus =
+  | { state: "idle" }
+  | { state: "unchanged" }
+  | { state: "invalid"; reason: string }
+  | { state: "checking" }
+  | { state: "available" }
+  | { state: "taken" }
 
 type Stage =
   | "student_ppl"
@@ -40,6 +50,9 @@ export function Profile() {
   const [saving, setSaving] = useState(false)
   const [fullName, setFullName] = useState("")
   const [country, setCountry] = useState("")
+  const [username, setUsername] = useState("")
+  const [originalUsername, setOriginalUsername] = useState("")
+  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>({ state: "idle" })
   const [stage, setStage] = useState<Stage | "">("")
   const [totalHours, setTotalHours] = useState("")
   const [hoursPic, setHoursPic] = useState("")
@@ -53,13 +66,21 @@ export function Profile() {
     async function load() {
       try {
         const [profileRes, pilotRes] = await Promise.all([
-          supabase.from("profiles").select("full_name, country").eq("id", user!.id).maybeSingle(),
+          supabase
+            .from("profiles")
+            .select("full_name, country, username")
+            .eq("id", user!.id)
+            .maybeSingle(),
           supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
         ])
         if (cancelled) return
         if (profileRes.data) {
-          setFullName((profileRes.data as { full_name?: string }).full_name ?? "")
-          setCountry((profileRes.data as { country?: string }).country ?? "")
+          const p = profileRes.data as { full_name?: string; country?: string; username?: string }
+          setFullName(p.full_name ?? "")
+          setCountry(p.country ?? "")
+          setUsername(p.username ?? "")
+          setOriginalUsername(p.username ?? "")
+          setUsernameStatus(p.username ? { state: "unchanged" } : { state: "idle" })
         }
         if (pilotRes.data) {
           const p = pilotRes.data as {
@@ -89,14 +110,52 @@ export function Profile() {
     }
   }, [user])
 
+  // Username availability check (debounced) — only when changed
+  const checkTimer = useRef<number | undefined>(undefined)
+  useEffect(() => {
+    if (username === originalUsername) {
+      setUsernameStatus({ state: "unchanged" })
+      return
+    }
+    if (!username) {
+      setUsernameStatus({ state: "idle" })
+      return
+    }
+    if (!USERNAME_REGEX.test(username)) {
+      setUsernameStatus({
+        state: "invalid",
+        reason: "3–30 caracteres, minúsculas, números o _",
+      })
+      return
+    }
+    setUsernameStatus({ state: "checking" })
+    window.clearTimeout(checkTimer.current)
+    checkTimer.current = window.setTimeout(async () => {
+      const { data } = await supabase.rpc("check_username_available", { p_username: username })
+      setUsernameStatus({ state: data ? "available" : "taken" })
+    }, 400)
+    return () => window.clearTimeout(checkTimer.current)
+  }, [username, originalUsername])
+
+  const usernameOK =
+    usernameStatus.state === "unchanged" || usernameStatus.state === "available"
+
   async function handleSave() {
     if (!user) return
+    if (!usernameOK) {
+      toast.error("Tu usuario no está disponible o no es válido")
+      return
+    }
     setSaving(true)
     try {
       const [pRes, sRes] = await Promise.all([
         supabase
           .from("profiles")
-          .update({ full_name: fullName || null, country: country || null })
+          .update({
+            full_name: fullName || null,
+            country: country || null,
+            username: username || null,
+          })
           .eq("id", user.id),
         supabase.from("pilot_state").upsert({
           user_id: user.id,
@@ -111,6 +170,8 @@ export function Profile() {
       ])
       if (pRes.error) throw pRes.error
       if (sRes.error) throw sRes.error
+      setOriginalUsername(username)
+      setUsernameStatus({ state: "unchanged" })
       toast.success("Perfil actualizado ✈️")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
@@ -151,7 +212,31 @@ export function Profile() {
             <Field label="Email">
               <Input value={user?.email ?? ""} disabled className="h-11 rounded-xl" />
             </Field>
-            <Field label="Nombre completo">
+            <Field label="Usuario (público en la comunidad)">
+              <div className="relative">
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  <AtSign className="h-4 w-4" />
+                </span>
+                <Input
+                  value={username}
+                  onChange={(e) =>
+                    setUsername(
+                      e.target.value
+                        .toLowerCase()
+                        .replace(/[^a-z0-9_]/g, "")
+                        .slice(0, 30)
+                    )
+                  }
+                  placeholder="capi_juanma"
+                  className="h-11 rounded-xl pl-9 pr-11"
+                />
+                <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <UsernameIcon status={usernameStatus} />
+                </span>
+              </div>
+              <UsernameHelp status={usernameStatus} />
+            </Field>
+            <Field label="Nombre completo (privado)">
               <Input
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
@@ -251,9 +336,9 @@ export function Profile() {
 
           <Button
             onClick={handleSave}
-            disabled={saving}
+            disabled={saving || !usernameOK}
             size="lg"
-            className="btn-apple shine-on-hover rounded-full h-12 px-6 border-0"
+            className="btn-apple shine-on-hover rounded-full h-12 px-6 border-0 disabled:opacity-50"
           >
             {saving ? (
               <>
@@ -269,6 +354,37 @@ export function Profile() {
       </div>
     </AppLayout>
   )
+}
+
+function UsernameIcon({ status }: { status: UsernameStatus }) {
+  switch (status.state) {
+    case "checking":
+      return <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
+    case "available":
+      return <Check className="h-4 w-4 text-green-600" />
+    case "taken":
+    case "invalid":
+      return <X className="h-4 w-4 text-red-500" />
+    default:
+      return null
+  }
+}
+
+function UsernameHelp({ status }: { status: UsernameStatus }) {
+  switch (status.state) {
+    case "invalid":
+      return <p className="text-xs text-muted-foreground mt-1">{status.reason}</p>
+    case "checking":
+      return <p className="text-xs text-muted-foreground mt-1">Verificando disponibilidad…</p>
+    case "available":
+      return <p className="text-xs text-green-600 dark:text-green-400 mt-1">Disponible ✓</p>
+    case "taken":
+      return <p className="text-xs text-red-600 dark:text-red-400 mt-1">Ese usuario ya está tomado</p>
+    case "unchanged":
+      return null
+    default:
+      return <p className="text-xs text-muted-foreground mt-1">3–30 caracteres, minúsculas, números o _</p>
+  }
 }
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
