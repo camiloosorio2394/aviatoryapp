@@ -9,11 +9,19 @@ export function Hero() {
       {/* Background layers */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50/70 via-background to-background dark:from-blue-950/30"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-100/80 via-blue-50/40 to-background dark:from-blue-950/40 dark:via-blue-950/20"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[700px] max-w-6xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-400/25 via-transparent to-transparent dark:from-blue-500/15"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] text-blue-900 dark:opacity-[0.06] dark:text-blue-300 pattern-grid"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[700px] max-w-6xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-400/30 via-transparent to-transparent dark:from-blue-500/20"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-b from-transparent to-background"
       />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">

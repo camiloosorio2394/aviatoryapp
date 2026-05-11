@@ -4,10 +4,10 @@ import { LogoIsotype } from "@/components/Logo"
 
 export function FounderStory() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="relative py-24 sm:py-32 bg-background overflow-hidden">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         <Reveal>
-          <div className="relative rounded-3xl border border-border/60 bg-gradient-to-br from-card via-card to-blue-50/30 dark:to-blue-950/20 p-8 sm:p-12 lg:p-16 overflow-hidden">
+          <div className="relative rounded-3xl bg-gradient-to-br from-blue-50 via-card to-blue-100/40 dark:from-blue-950/40 dark:via-card dark:to-blue-950/30 p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl shadow-blue-500/10 ring-1 ring-blue-500/10">
             <div
               aria-hidden
               className="absolute -top-12 -right-12 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl pointer-events-none"
