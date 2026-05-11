@@ -51,11 +51,11 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-3">
-          <Button asChild variant="ghost" size="sm">
+        <div className="hidden md:flex items-center gap-2">
+          <Button asChild variant="ghost" size="sm" className="rounded-full h-9 px-4">
             <Link to="/login">Iniciar sesión</Link>
           </Button>
-          <Button asChild size="sm" className="rounded-full">
+          <Button asChild size="sm" className="btn-apple rounded-full h-9 px-5 border-0">
             <Link to="/login?mode=signup">Empezar gratis</Link>
           </Button>
         </div>
@@ -89,12 +89,12 @@ export function Header() {
               </NavLink>
             ))}
             <div className="pt-3 border-t border-border/50 flex flex-col gap-2">
-              <Button asChild variant="outline" className="w-full">
+              <Button asChild variant="outline" className="w-full rounded-full h-11">
                 <Link to="/login" onClick={() => setMobileOpen(false)}>
                   Iniciar sesión
                 </Link>
               </Button>
-              <Button asChild className="w-full">
+              <Button asChild className="btn-apple rounded-full w-full h-11 border-0">
                 <Link to="/login?mode=signup" onClick={() => setMobileOpen(false)}>
                   Empezar gratis
                 </Link>

@@ -130,12 +130,11 @@ export function PricingPreview() {
               <Button
                 asChild
                 size="lg"
-                className={`mt-8 w-full rounded-full ${
+                className={`mt-8 w-full rounded-full h-12 text-base border-0 ${
                   p.highlight
-                    ? "bg-white text-blue-700 hover:bg-blue-50"
-                    : ""
+                    ? "btn-apple-light shine-on-hover"
+                    : "btn-apple shine-on-hover"
                 }`}
-                variant={p.highlight ? "default" : "outline"}
               >
                 <Link to={p.href}>{p.cta}</Link>
               </Button>

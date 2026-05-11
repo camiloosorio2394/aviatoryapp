@@ -35,13 +35,13 @@ export function Hero() {
         </p>
 
         <div className="animate-fade-in-up [animation-delay:300ms] mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Button asChild size="lg" className="rounded-full text-base px-8 h-12">
+          <Button asChild size="lg" className="btn-apple shine-on-hover rounded-full text-base px-8 h-12 border-0">
             <Link to="/login?mode=signup">
               Empezar 7 días gratis
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </Button>
-          <Button asChild variant="ghost" size="lg" className="rounded-full text-base px-6 h-12">
+          <Button asChild size="lg" className="btn-apple-ghost rounded-full text-base px-6 h-12">
             <a href="#como-funciona">
               <PlayCircle className="mr-2 h-5 w-5" />
               Ver cómo funciona

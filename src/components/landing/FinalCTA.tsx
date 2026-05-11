@@ -34,7 +34,7 @@ export function FinalCTA() {
               <Button
                 asChild
                 size="lg"
-                className="rounded-full text-base px-8 h-12 bg-white text-blue-700 hover:bg-blue-50"
+                className="btn-apple-light shine-on-hover rounded-full text-base px-8 h-12 border-0"
               >
                 <Link to="/login?mode=signup">
                   Empezar mi prueba gratis
@@ -44,8 +44,7 @@ export function FinalCTA() {
               <Button
                 asChild
                 size="lg"
-                variant="ghost"
-                className="rounded-full text-base px-6 h-12 text-white hover:bg-white/10 hover:text-white"
+                className="rounded-full text-base px-6 h-12 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-0.5 active:scale-[0.98]"
               >
                 <Link to="/pricing">Ver planes</Link>
               </Button>

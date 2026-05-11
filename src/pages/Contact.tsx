@@ -140,7 +140,12 @@ export function Contact() {
                   />
                 </div>
 
-                <Button type="submit" size="lg" disabled={sending} className="rounded-full">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={sending}
+                  className="btn-apple shine-on-hover rounded-full h-12 text-base px-8 border-0"
+                >
                   {sending ? (
                     "Enviando…"
                   ) : (
