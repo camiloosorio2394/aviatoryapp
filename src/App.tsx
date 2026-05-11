@@ -7,16 +7,24 @@ import { Contact } from "@/pages/Contact"
 import { Login } from "@/pages/Login"
 import { Onboarding } from "@/pages/Onboarding"
 import { Dashboard } from "@/pages/Dashboard"
+import { Quiz } from "@/pages/Quiz"
+import { QuizPlayer } from "@/pages/QuizPlayer"
+import { Route as RoutePage } from "@/pages/Route"
+import { Airlines } from "@/pages/Airlines"
+import { Profile } from "@/pages/Profile"
 import { NotFound } from "@/pages/NotFound"
 
 function App() {
   return (
     <>
       <Routes>
+        {/* Public */}
         <Route path="/" element={<Landing />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Auth-required onboarding */}
         <Route
           path="/onboarding"
           element={
@@ -25,6 +33,8 @@ function App() {
             </RequireAuth>
           }
         />
+
+        {/* App (auth required) */}
         <Route
           path="/app"
           element={
@@ -33,6 +43,47 @@ function App() {
             </RequireAuth>
           }
         />
+        <Route
+          path="/app/quiz"
+          element={
+            <RequireAuth>
+              <Quiz />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/quiz/:slug"
+          element={
+            <RequireAuth>
+              <QuizPlayer />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/ruta"
+          element={
+            <RequireAuth>
+              <RoutePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolineas"
+          element={
+            <RequireAuth>
+              <Airlines />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/perfil"
+          element={
+            <RequireAuth>
+              <Profile />
+            </RequireAuth>
+          }
+        />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
