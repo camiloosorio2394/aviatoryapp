@@ -59,8 +59,8 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.55 0.22 264);
+    --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
@@ -70,7 +70,7 @@
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --ring: oklch(0.55 0.22 264);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -93,8 +93,8 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
+    --primary: oklch(0.62 0.22 264);
+    --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
@@ -127,5 +127,167 @@
   }
   html {
     @apply font-sans;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Apple-style CTA button — primary (gradient + shine + scale) */
+  .btn-apple {
+    position: relative;
+    background-image: linear-gradient(180deg, oklch(0.62 0.22 264) 0%, oklch(0.52 0.22 264) 100%);
+    color: oklch(1 0 0);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 15%) inset,
+      0 1px 2px 0 rgb(0 0 0 / 10%),
+      0 8px 24px -6px rgb(37 99 235 / 35%);
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      filter 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-apple:hover {
+    transform: translateY(-1px) scale(1.015);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 20%) inset,
+      0 2px 4px 0 rgb(0 0 0 / 12%),
+      0 16px 32px -8px rgb(37 99 235 / 50%);
+    filter: brightness(1.05);
+  }
+  .btn-apple:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 100ms;
+  }
+
+  /* Apple-style CTA button — light (on dark backgrounds) */
+  .btn-apple-light {
+    position: relative;
+    background-image: linear-gradient(180deg, oklch(1 0 0) 0%, oklch(0.96 0 0) 100%);
+    color: oklch(0.4 0.18 264);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 60%) inset,
+      0 1px 2px 0 rgb(0 0 0 / 8%),
+      0 8px 24px -6px rgb(0 0 0 / 15%);
+    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-apple-light:hover {
+    transform: translateY(-1px) scale(1.015);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 80%) inset,
+      0 2px 4px 0 rgb(0 0 0 / 10%),
+      0 16px 32px -8px rgb(0 0 0 / 20%);
+  }
+  .btn-apple-light:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 100ms;
+  }
+
+  /* Apple-style CTA button — ghost / glass (transparent) */
+  .btn-apple-ghost {
+    position: relative;
+    background-color: rgb(255 255 255 / 5%);
+    backdrop-filter: blur(12px);
+    color: oklch(0.205 0 0);
+    border: 1px solid rgb(0 0 0 / 8%);
+    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-apple-ghost:hover {
+    background-color: rgb(0 0 0 / 5%);
+    transform: translateY(-1px);
+  }
+  .btn-apple-ghost:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 100ms;
+  }
+  .dark .btn-apple-ghost {
+    background-color: rgb(255 255 255 / 5%);
+    color: oklch(0.985 0 0);
+    border-color: rgb(255 255 255 / 12%);
+  }
+  .dark .btn-apple-ghost:hover {
+    background-color: rgb(255 255 255 / 10%);
+  }
+
+  /* Card hover with subtle Apple-style lift */
+  .card-apple {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-apple:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 12%);
+  }
+
+  /* Pulse halo around premium element */
+  @keyframes halo-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+  .halo-pulse {
+    position: relative;
+  }
+  .halo-pulse::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, oklch(0.7 0.22 264), oklch(0.5 0.22 264), oklch(0.7 0.22 280));
+    z-index: -1;
+    animation: halo-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    filter: blur(8px);
+  }
+
+  /* Glassmorphism for premium cards */
+  .glass-blue {
+    background: linear-gradient(135deg, rgb(37 99 235 / 95%) 0%, rgb(30 64 175 / 95%) 100%);
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 15%) inset,
+      0 24px 48px -16px rgb(37 99 235 / 50%);
+  }
+
+  /* Subtle shine effect for hover - overlay sweep */
+  .shine-on-hover {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .shine-on-hover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 30%,
+      rgb(255 255 255 / 30%) 50%,
+      transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+  .shine-on-hover:hover::after {
+    transform: translateX(100%);
   }
 }
