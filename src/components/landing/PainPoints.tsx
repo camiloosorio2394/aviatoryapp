@@ -36,8 +36,12 @@ const pains = [
 
 export function PainPoints() {
   return (
-    <section className="py-24 sm:py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 section-soft overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.025] text-foreground pattern-dots"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <div className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
@@ -61,7 +65,7 @@ export function PainPoints() {
         <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {pains.map((p, i) => (
             <Reveal key={p.title} delay={i * 70}>
-              <div className="group h-full rounded-2xl border border-border/60 bg-card p-6 card-apple hover:border-blue-500/30">
+              <div className="group h-full rounded-2xl card-elevated p-6 card-apple hover:border-blue-500/30">
                 <div className="flex items-center justify-center h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 mb-4 transition-transform duration-300 group-hover:scale-110">
                   <p.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </div>

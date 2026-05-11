@@ -3,8 +3,12 @@ import { Reveal } from "@/components/Reveal"
 
 export function Solutions() {
   return (
-    <section className="py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 bg-background overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-1/3 -translate-y-1/2 mx-auto h-[500px] max-w-4xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-300/15 via-transparent to-transparent dark:from-blue-500/10"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Reveal>
             <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
@@ -108,8 +112,8 @@ function BentoCard({
     <div
       className={`group relative h-full rounded-3xl overflow-hidden card-apple ${
         isHero
-          ? `bg-gradient-to-br ${gradient} text-white p-8 sm:p-10`
-          : "bg-card border border-border/60 p-7"
+          ? `bg-gradient-to-br ${gradient} text-white p-8 sm:p-10 shadow-2xl shadow-blue-500/30 ring-1 ring-white/10`
+          : "card-elevated p-7"
       }`}
     >
       {/* Decorative glow */}

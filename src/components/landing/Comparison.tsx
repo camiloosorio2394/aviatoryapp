@@ -45,8 +45,12 @@ function cell(v: boolean | string, accent = false) {
 
 export function Comparison() {
   return (
-    <section className="py-24 sm:py-32">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 overflow-hidden bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto h-96 max-w-4xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-300/15 via-transparent to-transparent dark:from-blue-500/10"
+      />
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-14">
           <Reveal>
             <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
@@ -63,7 +67,7 @@ export function Comparison() {
         </div>
 
         <Reveal delay={200}>
-          <div className="rounded-3xl border border-border/60 bg-card overflow-hidden shadow-sm">
+          <div className="rounded-3xl border border-border/60 bg-card overflow-hidden shadow-2xl shadow-blue-500/5 ring-1 ring-blue-500/10">
             {/* Header */}
             <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] sm:grid-cols-4 bg-muted/40">
               <div className="px-3 sm:px-6 py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-muted-foreground">

@@ -38,19 +38,23 @@ const stats: Stat[] = [
 
 export function Stats() {
   return (
-    <section className="py-24 sm:py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 section-dark-mesh overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06] text-white pattern-grid"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Reveal>
-            <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <div className="text-sm font-semibold text-blue-300 uppercase tracking-wider">
               Lo que cambia con Aviatory
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05] text-white">
               Estudiar para pilotear,
               <br />
-              <span className="text-muted-foreground">finalmente con estructura.</span>
+              <span className="text-blue-200/70">finalmente con estructura.</span>
             </h2>
           </Reveal>
         </div>
@@ -69,12 +73,12 @@ export function Stats() {
 
 function StatCard({ stat }: { stat: Stat }) {
   return (
-    <div className="rounded-2xl border border-border/60 bg-card card-apple p-7 text-center">
-      <div className="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-br from-blue-600 to-blue-500 bg-clip-text text-transparent">
+    <div className="rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 p-7 text-center transition-all duration-300 hover:bg-white/[0.07] hover:-translate-y-1 hover:border-blue-400/30">
+      <div className="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
         <CountUp value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
       </div>
-      <div className="mt-3 text-base font-semibold">{stat.label}</div>
-      <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{stat.sub}</p>
+      <div className="mt-3 text-base font-semibold text-white">{stat.label}</div>
+      <p className="mt-1.5 text-sm text-blue-100/60 leading-relaxed">{stat.sub}</p>
     </div>
   )
 }

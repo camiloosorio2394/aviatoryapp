@@ -25,8 +25,15 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="como-funciona" className="py-24 sm:py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section
+      id="como-funciona"
+      className="relative py-24 sm:py-32 section-soft overflow-hidden"
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.025] text-foreground pattern-dots"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <Reveal>
             <div className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">

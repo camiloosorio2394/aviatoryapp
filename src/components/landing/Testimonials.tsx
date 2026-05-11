@@ -38,8 +38,12 @@ const testimonials: Testimonial[] = [
 
 export function Testimonials() {
   return (
-    <section className="py-24 sm:py-32 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-24 sm:py-32 section-blue-soft overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04] text-blue-900 dark:opacity-[0.06] dark:text-blue-300 pattern-dots"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <Reveal>
             <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
@@ -58,7 +62,7 @@ export function Testimonials() {
         <div className="grid lg:grid-cols-3 gap-6">
           {testimonials.map((t, i) => (
             <Reveal key={t.name} delay={i * 100}>
-              <div className="h-full rounded-3xl border border-border/60 bg-card card-apple p-7 sm:p-8 flex flex-col">
+              <div className="h-full rounded-3xl card-elevated card-apple p-7 sm:p-8 flex flex-col">
                 <div className="flex items-center gap-1 mb-5">
                   {Array.from({ length: 5 }).map((_, idx) => (
                     <Star

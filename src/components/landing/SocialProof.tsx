@@ -4,8 +4,12 @@ const airlines = ["Avianca", "LATAM", "Copa", "Wingo", "JetSmart", "SATENA"]
 
 export function SocialProof() {
   return (
-    <section className="py-12 sm:py-16 border-y border-border/40 bg-background">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-14 sm:py-20 border-y border-border/40 bg-card overflow-hidden">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.04] text-foreground pattern-dots"
+      />
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <Reveal>
           <p className="text-center text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-[0.18em]">
             Pilotos preparándose para postular a aerolíneas de Latinoamérica
