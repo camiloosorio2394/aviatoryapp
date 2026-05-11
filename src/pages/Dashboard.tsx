@@ -37,6 +37,7 @@ interface PilotState {
 
 interface Profile {
   full_name: string | null
+  username: string | null
 }
 
 interface Streak {
@@ -155,7 +156,7 @@ export function Dashboard() {
     async function load() {
       try {
         const [profileRes, pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
-          supabase.from("profiles").select("full_name").eq("id", user!.id).maybeSingle(),
+          supabase.from("profiles").select("full_name, username").eq("id", user!.id).maybeSingle(),
           supabase
             .from("pilot_state")
             .select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date")
@@ -224,7 +225,11 @@ export function Dashboard() {
   const stage = pilot?.stage ?? null
   const stageLabel = stage ? STAGE_LABEL[stage] : "—"
   const progress = stage ? STAGE_PROGRESS[stage] : 0
-  const firstName = profile?.full_name?.split(" ")[0] ?? user?.email?.split("@")[0] ?? "piloto"
+  const firstName =
+    profile?.full_name?.split(" ")[0] ??
+    profile?.username ??
+    user?.email?.split("@")[0] ??
+    "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const nextStep = buildNextStep(stage)
 
