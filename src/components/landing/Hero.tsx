@@ -1,47 +1,64 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, Award, BookOpen, Flame, PlayCircle, Plane, TrendingUp } from "lucide-react"
+import { ArrowRight, Award, BookOpen, Flame, PlayCircle, Plane, Shield, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden pt-20 pb-32 sm:pt-28 sm:pb-40">
-      {/* Subtle gradient bg */}
+    <section className="relative overflow-hidden pt-16 pb-24 sm:pt-24 sm:pb-36">
+      {/* Background layers */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50/60 via-background to-background dark:from-blue-950/30"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50/70 via-background to-background dark:from-blue-950/30"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[600px] max-w-5xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-400/20 via-transparent to-transparent dark:from-blue-500/10"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[700px] max-w-6xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-400/25 via-transparent to-transparent dark:from-blue-500/15"
       />
 
       <div className="max-w-6xl mx-auto px-6 lg:px-8 text-center">
         <div className="animate-fade-in-up">
-          <Badge variant="secondary" className="mb-6 rounded-full px-4 py-1.5 text-xs">
-            🛫 Plataforma para pilotos LATAM
+          <Badge
+            variant="secondary"
+            className="mb-7 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide"
+          >
+            <span className="mr-1.5">🛫</span>
+            La plataforma de pilotos para Latinoamérica
           </Badge>
         </div>
 
-        <h1 className="animate-fade-in-up [animation-delay:100ms] text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-balance leading-[1.05]">
+        <h1 className="animate-fade-in-up [animation-delay:100ms] text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.03em] text-balance leading-[1]">
           De estudiante piloto
           <br />
-          a <span className="bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">candidato de aerolínea</span>.
+          a{" "}
+          <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 bg-clip-text text-transparent">
+            candidato de aerolínea
+          </span>
+          .
         </h1>
 
         <p className="animate-fade-in-up [animation-delay:200ms] mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-balance leading-relaxed">
-          Prepara tus exámenes PPL/CPL Aerocivil, mejora tu inglés ICAO y avanza
-          paso a paso hacia tu primer empleo en aerolínea. Todo en español.
+          Prepara tus exámenes PPL y CPL de Aerocivil, mejora tu inglés ICAO
+          y avanza paso a paso hasta tu primer empleo en aerolínea. Todo en
+          una sola plataforma, en español.
         </p>
 
         <div className="animate-fade-in-up [animation-delay:300ms] mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
-          <Button asChild size="lg" className="btn-apple shine-on-hover rounded-full text-base px-8 h-12 border-0">
+          <Button
+            asChild
+            size="lg"
+            className="btn-apple shine-on-hover rounded-full text-base px-8 h-12 border-0 font-medium"
+          >
             <Link to="/login?mode=signup">
-              Empezar 7 días gratis
+              Comenzar 7 días gratis
               <ArrowRight className="ml-1 h-4 w-4" />
             </Link>
           </Button>
-          <Button asChild size="lg" className="btn-apple-ghost rounded-full text-base px-6 h-12">
+          <Button
+            asChild
+            size="lg"
+            className="btn-apple-ghost rounded-full text-base px-6 h-12 font-medium"
+          >
             <a href="#como-funciona">
               <PlayCircle className="mr-2 h-5 w-5" />
               Ver cómo funciona
@@ -49,11 +66,18 @@ export function Hero() {
           </Button>
         </div>
 
-        <p className="animate-fade-in-up [animation-delay:400ms] mt-6 text-sm text-muted-foreground">
-          Sin tarjeta de crédito · Cancelá cuando quieras
+        <p className="animate-fade-in-up [animation-delay:400ms] mt-6 text-sm text-muted-foreground flex items-center justify-center gap-2 flex-wrap">
+          <span className="inline-flex items-center gap-1.5">
+            <Shield className="h-3.5 w-3.5" />
+            Sin tarjeta de crédito
+          </span>
+          <span className="text-border">·</span>
+          <span>Cancela cuando quieras</span>
+          <span className="text-border">·</span>
+          <span>Datos cifrados</span>
         </p>
 
-        {/* Visual: dashboard mockup */}
+        {/* Dashboard mockup */}
         <div className="animate-fade-in-up [animation-delay:500ms] mt-20 relative">
           <div className="relative mx-auto max-w-5xl">
             <div className="rounded-2xl border border-border/60 bg-card shadow-2xl shadow-blue-500/10 overflow-hidden text-left">
@@ -64,20 +88,25 @@ export function Hero() {
                   <div className="h-3 w-3 rounded-full bg-yellow-500/70" />
                   <div className="h-3 w-3 rounded-full bg-green-500/70" />
                 </div>
-                <div className="ml-4 text-xs text-muted-foreground font-mono">aviatory.app/dashboard</div>
+                <div className="ml-4 text-xs text-muted-foreground font-mono">
+                  aviatory.app/app
+                </div>
               </div>
 
-              {/* Dashboard content */}
               <div className="bg-gradient-to-br from-background to-muted/30 p-6 sm:p-8 space-y-6">
-                {/* Header row */}
+                {/* Profile header row */}
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-3">
                     <div className="h-11 w-11 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center font-bold text-base shadow-lg shadow-blue-500/30">
                       JM
                     </div>
                     <div>
-                      <div className="text-sm font-semibold">Buenas, Juan Manuel ✈️</div>
-                      <div className="text-xs text-muted-foreground">CPL en curso · 184h · Bogotá</div>
+                      <div className="text-sm font-semibold">
+                        Hola, Juan Manuel ✈️
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        CPL en curso · 184 horas · Bogotá
+                      </div>
                     </div>
                   </div>
                   <div className="hidden sm:flex items-center gap-2">
@@ -91,7 +120,7 @@ export function Hero() {
                   </div>
                 </div>
 
-                {/* Progress to airline — big card */}
+                {/* Big progress card */}
                 <div className="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-blue-50/50 to-transparent dark:from-blue-950/40 dark:via-blue-950/20 p-5 sm:p-6 relative overflow-hidden">
                   <div
                     aria-hidden
@@ -103,24 +132,28 @@ export function Hero() {
                         <Plane className="h-3.5 w-3.5" /> Tu progreso a Avianca
                       </div>
                       <div className="mt-1 flex items-baseline gap-2">
-                        <span className="text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400">47%</span>
+                        <span className="text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                          47%
+                        </span>
                         <span className="inline-flex items-center text-xs text-green-600 dark:text-green-400 font-medium">
                           <TrendingUp className="h-3 w-3 mr-0.5" />
                           +12% este mes
                         </span>
                       </div>
                     </div>
-                    {/* Mini sparkline */}
-                    <svg viewBox="0 0 120 40" className="h-12 w-32 text-blue-600 dark:text-blue-400 hidden sm:block">
+                    <svg
+                      viewBox="0 0 120 40"
+                      className="h-12 w-32 text-blue-600 dark:text-blue-400 hidden sm:block"
+                    >
                       <defs>
-                        <linearGradient id="spark" x1="0" x2="0" y1="0" y2="1">
+                        <linearGradient id="spark-hero" x1="0" x2="0" y1="0" y2="1">
                           <stop offset="0%" stopColor="currentColor" stopOpacity="0.4" />
                           <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
                         </linearGradient>
                       </defs>
                       <path
                         d="M0 32 L15 30 L30 28 L45 26 L60 20 L75 18 L90 12 L105 10 L120 5 L120 40 L0 40 Z"
-                        fill="url(#spark)"
+                        fill="url(#spark-hero)"
                       />
                       <path
                         d="M0 32 L15 30 L30 28 L45 26 L60 20 L75 18 L90 12 L105 10 L120 5"
@@ -132,13 +165,14 @@ export function Hero() {
                       />
                     </svg>
                   </div>
-                  {/* Progress bar */}
                   <div className="mt-4 h-2 rounded-full bg-blue-100 dark:bg-blue-950/60 overflow-hidden">
-                    <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-[0_0_12px_rgb(37_99_235_/_40%)]" style={{ width: "47%" }} />
+                    <div
+                      className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-[0_0_12px_rgb(37_99_235_/_40%)]"
+                      style={{ width: "47%" }}
+                    />
                   </div>
                 </div>
 
-                {/* 3 secondary widgets */}
                 <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
                   <MiniWidget
                     icon={<BookOpen className="h-4 w-4" />}
@@ -156,13 +190,12 @@ export function Hero() {
                     icon={<Plane className="h-4 w-4" />}
                     label="Horas faltantes"
                     value="266h"
-                    sub="para CPL ATPL · Avianca"
+                    sub="para postular a Avianca"
                   />
                 </div>
               </div>
             </div>
 
-            {/* Glow under */}
             <div
               aria-hidden
               className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-blue-600/20 via-transparent to-blue-400/20 blur-2xl"

@@ -15,34 +15,48 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 12)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  // Lock scroll when mobile open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
+
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-background/70 backdrop-blur-xl border-b border-border/50"
+          ? "bg-background/75 backdrop-blur-2xl border-b border-border/40 shadow-sm"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link to="/" className="flex items-center" aria-label="Aviatory home">
-          <LogoHorizontal className="h-8 w-auto" />
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+        <Link
+          to="/"
+          className="flex items-center transition-transform hover:scale-[1.02]"
+          aria-label="Aviatory — inicio"
+        >
+          <LogoHorizontal className="h-10 w-auto" />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-9">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               end={link.to === "/"}
               className={({ isActive }) =>
-                `text-sm font-medium transition-colors ${
-                  isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"
+                `text-sm font-medium tracking-tight transition-colors ${
+                  isActive
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`
               }
             >
@@ -52,27 +66,37 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm" className="rounded-full h-9 px-4">
+          <Button
+            asChild
+            variant="ghost"
+            size="sm"
+            className="rounded-full h-10 px-5 text-sm"
+          >
             <Link to="/login">Iniciar sesión</Link>
           </Button>
-          <Button asChild size="sm" className="btn-apple rounded-full h-9 px-5 border-0">
-            <Link to="/login?mode=signup">Empezar gratis</Link>
+          <Button
+            asChild
+            size="sm"
+            className="btn-apple rounded-full h-10 px-6 text-sm border-0 font-medium"
+          >
+            <Link to="/login?mode=signup">Comenzar gratis</Link>
           </Button>
         </div>
 
         <button
           type="button"
-          className="md:hidden p-2 -mr-2"
+          className="md:hidden p-2 -mr-2 text-foreground"
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
+          aria-expanded={mobileOpen}
         >
-          {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
       </div>
 
       {mobileOpen && (
-        <div className="md:hidden border-t border-border/50 bg-background/95 backdrop-blur-xl">
-          <div className="px-6 py-4 space-y-3">
+        <div className="md:hidden border-t border-border/40 bg-background/95 backdrop-blur-2xl">
+          <div className="px-6 py-6 space-y-1">
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
@@ -80,23 +104,34 @@ export function Header() {
                 end={link.to === "/"}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `block py-2 text-base font-medium ${
-                    isActive ? "text-foreground" : "text-muted-foreground"
+                  `block py-3 text-lg font-semibold transition-colors ${
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground"
                   }`
                 }
               >
                 {link.label}
               </NavLink>
             ))}
-            <div className="pt-3 border-t border-border/50 flex flex-col gap-2">
-              <Button asChild variant="outline" className="w-full rounded-full h-11">
+            <div className="pt-4 mt-2 border-t border-border/40 flex flex-col gap-2.5">
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="w-full rounded-full h-12 text-base"
+              >
                 <Link to="/login" onClick={() => setMobileOpen(false)}>
                   Iniciar sesión
                 </Link>
               </Button>
-              <Button asChild className="btn-apple rounded-full w-full h-11 border-0">
+              <Button
+                asChild
+                size="lg"
+                className="btn-apple w-full rounded-full h-12 text-base border-0"
+              >
                 <Link to="/login?mode=signup" onClick={() => setMobileOpen(false)}>
-                  Empezar gratis
+                  Comenzar gratis
                 </Link>
               </Button>
             </div>
