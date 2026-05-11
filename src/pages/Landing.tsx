@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom"
 import { Button } from "@/components/ui/button"
+import { LogoHorizontal } from "@/components/Logo"
 
 export function Landing() {
   return (
     <main className="min-h-screen flex items-center justify-center p-8">
-      <div className="max-w-2xl text-center space-y-6">
-        <h1 className="text-5xl md:text-6xl font-bold tracking-tight">Aviatory</h1>
+      <div className="max-w-2xl text-center space-y-8">
+        <LogoHorizontal className="mx-auto w-full max-w-md h-auto" />
         <p className="text-xl text-muted-foreground">
           De estudiante piloto a candidato de aerolínea. Exámenes PPL/CPL, inglés ICAO,
           tutor IA y comunidad — todo en un solo lugar.
