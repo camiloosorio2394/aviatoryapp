@@ -4,7 +4,9 @@ import { ArrowLeft, ArrowRight, CheckCircle2, XCircle, RotateCcw, Trophy, Sparkl
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
+import { useWingman } from "@/hooks/useWingman"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { WingmanPanel } from "@/components/wingman/WingmanPanel"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -43,6 +45,9 @@ export function QuizPlayer() {
   const [selected, setSelected] = useState<number | null>(null)
   const [answered, setAnswered] = useState<{ questionId: number; optionId: number; correct: boolean }[]>([])
   const [finished, setFinished] = useState(false)
+
+  // Wingman AI tutor
+  const wingman = useWingman()
 
   useEffect(() => {
     if (!slug || !user) return
@@ -240,7 +245,7 @@ export function QuizPlayer() {
             })}
           </div>
 
-          {hasAnswered && current.explanation && (
+          {hasAnswered && (current.explanation || true) && (
             <div className={`mt-5 rounded-xl border p-4 ${isCorrect ? "border-green-500/30 bg-green-50/50 dark:bg-green-950/20" : "border-blue-500/30 bg-blue-50/50 dark:bg-blue-950/20"}`}>
               <div className="flex items-center gap-2 text-xs font-semibold mb-1">
                 {isCorrect ? (
@@ -249,7 +254,23 @@ export function QuizPlayer() {
                   <span className="text-blue-700 dark:text-blue-300">💡 Por qué</span>
                 )}
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{current.explanation}</p>
+              {current.explanation && (
+                <p className="text-sm text-muted-foreground leading-relaxed">{current.explanation}</p>
+              )}
+              <button
+                type="button"
+                onClick={() =>
+                  wingman.openWith({
+                    kind: "quiz_explain",
+                    question_id: current.id,
+                    attempt_id: attemptId ?? undefined,
+                  })
+                }
+                className="mt-3 inline-flex items-center gap-2 text-xs font-medium text-blue-700 dark:text-blue-300 hover:underline"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                Preguntale a Wingman
+              </button>
             </div>
           )}
         </div>
@@ -276,6 +297,16 @@ export function QuizPlayer() {
           )}
         </div>
       </div>
+
+      <WingmanPanel
+        state={wingman.state}
+        usage={wingman.usage}
+        isPro={wingman.isPro}
+        freeLimit={wingman.freeLimit}
+        onClose={wingman.close}
+        onSend={wingman.send}
+        onFeedback={wingman.giveFeedback}
+      />
     </AppLayout>
   )
 }
