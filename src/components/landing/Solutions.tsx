@@ -48,21 +48,37 @@ export function Solutions() {
           {solutions.map((s, i) => (
             <div
               key={s.title}
-              className="group relative rounded-3xl border border-border/60 bg-card p-8 sm:p-10 overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-blue-500/10 hover:-translate-y-1"
+              className="group relative rounded-3xl border border-border/60 bg-gradient-to-br from-card via-card to-muted/20 backdrop-blur-xl p-8 sm:p-10 overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-blue-500/10 hover:border-blue-500/20"
             >
+              {/* Hover glow */}
               <div
                 aria-hidden
-                className={`absolute -top-20 -right-20 h-60 w-60 rounded-full bg-gradient-to-br ${s.accent} opacity-0 group-hover:opacity-10 blur-3xl transition-opacity duration-700`}
+                className={`absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gradient-to-br ${s.accent} opacity-0 group-hover:opacity-15 blur-3xl transition-opacity duration-700`}
               />
+              {/* Decorative grid pattern (very subtle) */}
               <div
-                className={`inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-br ${s.accent} text-white shadow-lg shadow-blue-500/20`}
-              >
-                <s.icon className="h-6 w-6" />
-              </div>
-              <div className="mt-6">
-                <div className="text-xs font-mono text-muted-foreground">0{i + 1}</div>
-                <h3 className="mt-1 text-2xl font-bold tracking-tight">{s.title}</h3>
-                <p className="mt-3 text-base text-muted-foreground leading-relaxed">{s.body}</p>
+                aria-hidden
+                className="absolute inset-0 opacity-[0.025] pointer-events-none"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(currentColor 1px, transparent 1px), linear-gradient(90deg, currentColor 1px, transparent 1px)",
+                  backgroundSize: "32px 32px",
+                }}
+              />
+
+              <div className="relative">
+                <div
+                  className={`inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br ${s.accent} text-white shadow-lg shadow-blue-500/30 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3`}
+                >
+                  <s.icon className="h-7 w-7" />
+                </div>
+                <div className="mt-6">
+                  <div className="text-xs font-mono text-blue-600/80 dark:text-blue-400/80 tracking-widest">
+                    0{i + 1}
+                  </div>
+                  <h3 className="mt-1 text-2xl sm:text-3xl font-bold tracking-tight">{s.title}</h3>
+                  <p className="mt-4 text-base text-muted-foreground leading-relaxed">{s.body}</p>
+                </div>
               </div>
             </div>
           ))}

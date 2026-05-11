@@ -233,6 +233,40 @@
     box-shadow: 0 24px 48px -16px rgb(0 0 0 / 12%);
   }
 
+  /* Pulse halo around premium element */
+  @keyframes halo-pulse {
+    0%, 100% {
+      opacity: 0.5;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.8;
+      transform: scale(1.05);
+    }
+  }
+  .halo-pulse {
+    position: relative;
+  }
+  .halo-pulse::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: linear-gradient(135deg, oklch(0.7 0.22 264), oklch(0.5 0.22 264), oklch(0.7 0.22 280));
+    z-index: -1;
+    animation: halo-pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    filter: blur(8px);
+  }
+
+  /* Glassmorphism for premium cards */
+  .glass-blue {
+    background: linear-gradient(135deg, rgb(37 99 235 / 95%) 0%, rgb(30 64 175 / 95%) 100%);
+    backdrop-filter: blur(20px);
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 15%) inset,
+      0 24px 48px -16px rgb(37 99 235 / 50%);
+  }
+
   /* Subtle shine effect for hover - overlay sweep */
   .shine-on-hover {
     position: relative;

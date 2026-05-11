@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import { ArrowRight, PlayCircle } from "lucide-react"
+import { ArrowRight, Award, BookOpen, Flame, PlayCircle, Plane, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -53,10 +53,11 @@ export function Hero() {
           Sin tarjeta de crédito · Cancelá cuando quieras
         </p>
 
-        {/* Visual placeholder — dashboard mockup */}
+        {/* Visual: dashboard mockup */}
         <div className="animate-fade-in-up [animation-delay:500ms] mt-20 relative">
           <div className="relative mx-auto max-w-5xl">
-            <div className="rounded-2xl border border-border/60 bg-card shadow-2xl shadow-blue-500/10 overflow-hidden">
+            <div className="rounded-2xl border border-border/60 bg-card shadow-2xl shadow-blue-500/10 overflow-hidden text-left">
+              {/* Browser chrome */}
               <div className="bg-muted/40 px-4 py-2.5 border-b border-border/60 flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="h-3 w-3 rounded-full bg-red-500/70" />
@@ -65,12 +66,103 @@ export function Hero() {
                 </div>
                 <div className="ml-4 text-xs text-muted-foreground font-mono">aviatory.app/dashboard</div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 bg-gradient-to-br from-background to-muted/30">
-                <DashCard label="Tu progreso a aerolínea" value="47%" sub="+12% este mes" accent />
-                <DashCard label="Próximo paso" value="Meteorología" sub="12 preguntas pendientes" />
-                <DashCard label="Días estudiando" value="14" sub="Tu mejor racha 🔥" />
+
+              {/* Dashboard content */}
+              <div className="bg-gradient-to-br from-background to-muted/30 p-6 sm:p-8 space-y-6">
+                {/* Header row */}
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3">
+                    <div className="h-11 w-11 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white flex items-center justify-center font-bold text-base shadow-lg shadow-blue-500/30">
+                      JM
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold">Buenas, Juan Manuel ✈️</div>
+                      <div className="text-xs text-muted-foreground">CPL en curso · 184h · Bogotá</div>
+                    </div>
+                  </div>
+                  <div className="hidden sm:flex items-center gap-2">
+                    <Badge variant="secondary" className="rounded-full text-xs">
+                      <Flame className="h-3 w-3 mr-1 text-orange-500" />
+                      14 días
+                    </Badge>
+                    <Badge variant="secondary" className="rounded-full text-xs">
+                      ICAO 3 → 4
+                    </Badge>
+                  </div>
+                </div>
+
+                {/* Progress to airline — big card */}
+                <div className="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-blue-50/50 to-transparent dark:from-blue-950/40 dark:via-blue-950/20 p-5 sm:p-6 relative overflow-hidden">
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-blue-500/10 blur-2xl"
+                  />
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
+                        <Plane className="h-3.5 w-3.5" /> Tu progreso a Avianca
+                      </div>
+                      <div className="mt-1 flex items-baseline gap-2">
+                        <span className="text-4xl font-bold tracking-tight text-blue-600 dark:text-blue-400">47%</span>
+                        <span className="inline-flex items-center text-xs text-green-600 dark:text-green-400 font-medium">
+                          <TrendingUp className="h-3 w-3 mr-0.5" />
+                          +12% este mes
+                        </span>
+                      </div>
+                    </div>
+                    {/* Mini sparkline */}
+                    <svg viewBox="0 0 120 40" className="h-12 w-32 text-blue-600 dark:text-blue-400 hidden sm:block">
+                      <defs>
+                        <linearGradient id="spark" x1="0" x2="0" y1="0" y2="1">
+                          <stop offset="0%" stopColor="currentColor" stopOpacity="0.4" />
+                          <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d="M0 32 L15 30 L30 28 L45 26 L60 20 L75 18 L90 12 L105 10 L120 5 L120 40 L0 40 Z"
+                        fill="url(#spark)"
+                      />
+                      <path
+                        d="M0 32 L15 30 L30 28 L45 26 L60 20 L75 18 L90 12 L105 10 L120 5"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        fill="none"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </div>
+                  {/* Progress bar */}
+                  <div className="mt-4 h-2 rounded-full bg-blue-100 dark:bg-blue-950/60 overflow-hidden">
+                    <div className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-[0_0_12px_rgb(37_99_235_/_40%)]" style={{ width: "47%" }} />
+                  </div>
+                </div>
+
+                {/* 3 secondary widgets */}
+                <div className="grid sm:grid-cols-3 gap-3 sm:gap-4">
+                  <MiniWidget
+                    icon={<BookOpen className="h-4 w-4" />}
+                    label="Próximo paso"
+                    value="Meteorología"
+                    sub="12 preguntas pendientes"
+                  />
+                  <MiniWidget
+                    icon={<Award className="h-4 w-4" />}
+                    label="Materias dominadas"
+                    value="3 / 8"
+                    sub="Reglamento · Motores · W&B"
+                  />
+                  <MiniWidget
+                    icon={<Plane className="h-4 w-4" />}
+                    label="Horas faltantes"
+                    value="266h"
+                    sub="para CPL ATPL · Avianca"
+                  />
+                </div>
               </div>
             </div>
+
+            {/* Glow under */}
             <div
               aria-hidden
               className="pointer-events-none absolute -inset-4 -z-10 rounded-3xl bg-gradient-to-tr from-blue-600/20 via-transparent to-blue-400/20 blur-2xl"
@@ -82,30 +174,25 @@ export function Hero() {
   )
 }
 
-function DashCard({
+function MiniWidget({
+  icon,
   label,
   value,
   sub,
-  accent = false,
 }: {
+  icon: React.ReactNode
   label: string
   value: string
   sub: string
-  accent?: boolean
 }) {
   return (
-    <div
-      className={`rounded-xl border p-5 text-left transition-transform hover:-translate-y-0.5 ${
-        accent
-          ? "border-blue-500/30 bg-blue-50/50 dark:bg-blue-950/20"
-          : "border-border/60 bg-card"
-      }`}
-    >
-      <div className="text-xs font-medium text-muted-foreground">{label}</div>
-      <div className={`mt-2 text-3xl font-bold tracking-tight ${accent ? "text-blue-600 dark:text-blue-400" : ""}`}>
-        {value}
+    <div className="rounded-xl border border-border/60 bg-card/80 backdrop-blur-sm p-4 transition-transform hover:-translate-y-0.5">
+      <div className="flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+        <span className="text-blue-600 dark:text-blue-400">{icon}</span>
+        {label}
       </div>
-      <div className="mt-1 text-xs text-muted-foreground">{sub}</div>
+      <div className="mt-1.5 text-xl font-bold tracking-tight">{value}</div>
+      <div className="mt-0.5 text-xs text-muted-foreground truncate">{sub}</div>
     </div>
   )
 }

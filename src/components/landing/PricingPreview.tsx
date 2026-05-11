@@ -72,14 +72,14 @@ export function PricingPreview() {
           </p>
         </div>
 
-        <div className="mt-16 grid lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="mt-16 grid lg:grid-cols-3 gap-6 lg:gap-8 lg:items-start">
           {plans.map((p) => (
             <div
               key={p.name}
               className={`relative rounded-3xl p-8 transition-all duration-500 ${
                 p.highlight
-                  ? "bg-gradient-to-br from-blue-600 to-blue-800 text-white shadow-2xl shadow-blue-500/30 scale-100 lg:scale-105"
-                  : "bg-card border border-border/60 hover:shadow-xl hover:-translate-y-1"
+                  ? "glass-blue halo-pulse text-white scale-100 lg:scale-105"
+                  : "bg-card/80 backdrop-blur-sm border border-border/60 card-apple"
               }`}
             >
               {p.highlight && (
