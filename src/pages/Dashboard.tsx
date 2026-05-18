@@ -15,6 +15,7 @@ import {
   Users,
   Calendar,
   Lightbulb,
+  Sun,
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
@@ -74,6 +75,12 @@ interface ActivityDay {
   date: string
   activities_count: number
   questions_answered: number
+}
+
+interface DailyQuizQuestion {
+  question_id: number
+  statement: string
+  subject_name: string
 }
 
 interface Peer {
@@ -196,6 +203,7 @@ export function Dashboard() {
   const [allAchievements, setAllAchievements] = useState<Achievement[]>([])
   const [heatmap, setHeatmap] = useState<ActivityDay[]>([])
   const [peers, setPeers] = useState<Peer[]>([])
+  const [daily, setDaily] = useState<DailyQuizQuestion[]>([])
 
   useEffect(() => {
     if (!user) return
@@ -213,6 +221,7 @@ export function Dashboard() {
           userAchievementsRes,
           heatmapRes,
           peersRes,
+          dailyRes,
         ] = await Promise.all([
           supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase
@@ -247,6 +256,7 @@ export function Dashboard() {
             .limit(4),
           supabase.rpc("get_activity_heatmap"),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
+          supabase.rpc("get_daily_quiz"),
         ])
 
         // Disparar chequeo de vencimientos (idempotente — solo crea notifs nuevas)
@@ -277,6 +287,7 @@ export function Dashboard() {
 
         setHeatmap((heatmapRes.data ?? []) as ActivityDay[])
         setPeers((peersRes.data ?? []) as Peer[])
+        setDaily((dailyRes.data ?? []) as DailyQuizQuestion[])
 
         if (!ps?.stage) {
           navigate("/onboarding", { replace: true })
@@ -406,6 +417,11 @@ export function Dashboard() {
             icao={pilot?.icao_english_level ?? null}
           />
         </section>
+
+        {/* Quiz of the Day */}
+        {daily.length > 0 && (
+          <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
+        )}
 
         {/* Stats + Peers */}
         <section className="grid lg:grid-cols-3 gap-4">
@@ -861,6 +877,39 @@ function StatCard({
       <div className="mt-2 text-2xl font-bold tracking-tight">{value}</div>
       <div className="text-xs text-muted-foreground mt-1 truncate">{sub}</div>
     </div>
+  )
+}
+
+function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
+  return (
+    <section className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-50 via-amber-50/40 to-transparent dark:from-amber-950/30 dark:via-amber-950/15 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-amber-400/15 blur-3xl"
+      />
+      <div className="relative flex items-center gap-4">
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-amber-500/30">
+          <Sun className="h-6 w-6" />
+        </div>
+        <div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
+            Quiz del día
+          </div>
+          <h3 className="text-lg sm:text-xl font-bold tracking-tight">
+            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
+          </h3>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Curadas para vos. Se renueva mañana — no las dejes pasar.
+          </p>
+        </div>
+      </div>
+      <Button asChild size="lg" className="btn-apple shine-on-hover rounded-full h-11 px-6 border-0 self-start sm:self-auto">
+        <Link to="/app/quiz">
+          Empezar quiz
+          <ArrowRight className="ml-1 h-4 w-4" />
+        </Link>
+      </Button>
+    </section>
   )
 }
 

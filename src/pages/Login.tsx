@@ -47,6 +47,7 @@ type UsernameStatus =
 export function Login() {
   const [searchParams] = useSearchParams()
   const initialMode: Mode = searchParams.get("mode") === "signup" ? "signup" : "signin"
+  const referralCode = searchParams.get("ref")?.toUpperCase() ?? null
 
   const [mode, setMode] = useState<Mode>(initialMode)
   const [email, setEmail] = useState("")
@@ -146,7 +147,10 @@ export function Login() {
           email,
           password,
           options: {
-            data: { username },
+            data: {
+              username,
+              ...(referralCode ? { referral_code: referralCode } : {}),
+            },
           },
         })
         if (error) throw error
@@ -265,6 +269,17 @@ export function Login() {
                 ? "7 días gratis. Sin tarjeta. Cancelás cuando quieras."
                 : "Bienvenido de vuelta. Ingresá para seguir."}
             </p>
+
+            {isSignup && referralCode && (
+              <div className="mt-4 rounded-xl border border-blue-500/30 bg-blue-50/60 dark:bg-blue-950/30 p-3 text-sm">
+                <div className="font-semibold flex items-center gap-1.5">
+                  🎁 Te invitó un piloto
+                </div>
+                <p className="text-muted-foreground mt-0.5 text-xs">
+                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibís 14 días de prueba en lugar de 7
+                </p>
+              </div>
+            )}
 
             <div className="mt-8 space-y-3">
               <Button

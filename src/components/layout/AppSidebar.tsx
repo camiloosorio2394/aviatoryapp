@@ -9,6 +9,7 @@ import {
   Users,
   Clock,
   Calendar,
+  Gift,
 } from "lucide-react"
 import { LogoIsotype, LogoHorizontal } from "@/components/Logo"
 
@@ -20,6 +21,7 @@ const navItems = [
   { to: "/app/comunidad", label: "Comunidad", icon: Users },
   { to: "/app/ruta", label: "Mi ruta", icon: Map },
   { to: "/app/aerolineas", label: "Aerolíneas", icon: Plane },
+  { to: "/app/referidos", label: "Referidos", icon: Gift },
   { to: "/app/perfil", label: "Mi perfil", icon: User },
 ]
 
