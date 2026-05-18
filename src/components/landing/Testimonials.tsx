@@ -51,10 +51,10 @@ export function Testimonials() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
               Construido con pilotos,
               <br />
-              <span className="text-muted-foreground">para pilotos.</span>
+              <span className="text-gradient-blue">para pilotos.</span>
             </h2>
           </Reveal>
         </div>
