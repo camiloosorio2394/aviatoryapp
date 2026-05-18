@@ -248,6 +248,9 @@ export function Dashboard() {
           supabase.rpc("get_activity_heatmap"),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
         ])
+
+        // Disparar chequeo de vencimientos (idempotente — solo crea notifs nuevas)
+        supabase.rpc("check_my_expiries").then(() => undefined)
         if (cancelled) return
 
         setProfile(profileRes.data as Profile | null)

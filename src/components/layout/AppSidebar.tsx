@@ -1,10 +1,22 @@
 import { NavLink, Link } from "react-router-dom"
-import { LayoutDashboard, BookOpen, Map, Plane, User, X, Users } from "lucide-react"
+import {
+  LayoutDashboard,
+  BookOpen,
+  Map,
+  Plane,
+  User,
+  X,
+  Users,
+  Clock,
+  Calendar,
+} from "lucide-react"
 import { LogoIsotype, LogoHorizontal } from "@/components/Logo"
 
 const navItems = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/app/quiz", label: "Banco de preguntas", icon: BookOpen },
+  { to: "/app/logbook", label: "Logbook", icon: Clock },
+  { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
   { to: "/app/comunidad", label: "Comunidad", icon: Users },
   { to: "/app/ruta", label: "Mi ruta", icon: Map },
   { to: "/app/aerolineas", label: "Aerolíneas", icon: Plane },
