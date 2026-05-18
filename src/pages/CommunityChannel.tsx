@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
+import { UserAvatar } from "@/components/UserAvatar"
 
 interface Channel {
   id: number
@@ -18,7 +19,8 @@ interface Channel {
 interface ProfileLite {
   id: string
   username: string | null
-  full_name: string | null
+  full_name?: string | null
+  photo_url: string | null
 }
 
 interface StreakLite {
@@ -112,9 +114,7 @@ export function CommunityChannel() {
 
     if (missingProfiles.length > 0) {
       supabase
-        .from("profiles")
-        .select("id, username, full_name")
-        .in("id", missingProfiles)
+        .rpc("get_profile_avatars", { p_user_ids: missingProfiles })
         .then(({ data }) => {
           if (!data) return
           setProfiles((prev) => {
@@ -398,7 +398,6 @@ function MessageBubble({
   const displayName = profile?.username
     ? `@${profile.username}`
     : profile?.full_name?.split(" ")[0] ?? "anónimo"
-  const initials = (profile?.username?.[0] ?? profile?.full_name?.[0] ?? "?").toUpperCase()
   const time = new Date(message.created_at).toLocaleTimeString("es-CO", {
     hour: "2-digit",
     minute: "2-digit",
@@ -419,15 +418,14 @@ function MessageBubble({
     <div className={`flex gap-3 group ${compact ? "mt-0.5" : "mt-4"}`}>
       <div className="w-9 flex-shrink-0">
         {!compact && (
-          <div
-            className={`h-9 w-9 rounded-full text-white text-sm font-semibold flex items-center justify-center shadow-md ${
-              isOwn
-                ? "bg-gradient-to-br from-blue-500 to-blue-700"
-                : "bg-gradient-to-br from-slate-500 to-slate-700"
-            }`}
-          >
-            {initials}
-          </div>
+          <UserAvatar
+            photoUrl={profile?.photo_url}
+            username={profile?.username}
+            fullName={profile?.full_name}
+            size="md"
+            gradient={isOwn ? "from-blue-500 to-blue-700" : "from-slate-500 to-slate-700"}
+            className="!h-9 !w-9 shadow-md"
+          />
         )}
       </div>
       <div className="flex-1 min-w-0">
