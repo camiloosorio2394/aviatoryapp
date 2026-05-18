@@ -5,6 +5,7 @@ import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
+import { NotificationsBell } from "@/components/NotificationsBell"
 
 interface Props {
   onMenuClick: () => void
@@ -69,7 +70,9 @@ export function AppTopbar({ onMenuClick }: Props) {
 
       <div className="flex-1" />
 
-      <div className="relative">
+      <NotificationsBell />
+
+      <div className="relative ml-1">
         <button
           type="button"
           onClick={(e) => {

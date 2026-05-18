@@ -14,6 +14,8 @@ import { Airlines } from "@/pages/Airlines"
 import { Profile } from "@/pages/Profile"
 import { Community } from "@/pages/Community"
 import { CommunityChannel } from "@/pages/CommunityChannel"
+import { Terms } from "@/pages/Terms"
+import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/terminos" element={<Terms />} />
+        <Route path="/privacidad" element={<Privacy />} />
         <Route path="/login" element={<Login />} />
 
         {/* Auth-required onboarding */}

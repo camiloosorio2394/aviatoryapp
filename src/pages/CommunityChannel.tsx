@@ -44,7 +44,6 @@ interface Message {
 }
 
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
-const POLL_MS = 4000
 
 export function CommunityChannel() {
   const { slug } = useParams<{ slug: string }>()
@@ -86,7 +85,7 @@ export function CommunityChannel() {
     }
   }, [slug])
 
-  // ---- Poll messages every POLL_MS
+  // ---- Initial fetch + Realtime subscription
   const fetchMessages = useCallback(async () => {
     if (!channel) return
     const { data, error } = await supabase
@@ -102,8 +101,86 @@ export function CommunityChannel() {
   useEffect(() => {
     if (!channel) return
     fetchMessages()
-    const interval = window.setInterval(fetchMessages, POLL_MS)
-    return () => window.clearInterval(interval)
+
+    // Realtime: nuevos mensajes en este canal
+    const rt = supabase
+      .channel(`channel-${channel.id}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "community_messages",
+          filter: `channel_id=eq.${channel.id}`,
+        },
+        (payload) => {
+          const m = payload.new as Message
+          // Skip si ya está (optimistic UI ya lo agregó)
+          setMessages((prev) =>
+            prev.some((x) => x.id === m.id) ? prev : [...prev, m]
+          )
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "community_messages",
+          filter: `channel_id=eq.${channel.id}`,
+        },
+        (payload) => {
+          const oldId = (payload.old as { id: number }).id
+          setMessages((prev) => prev.filter((m) => m.id !== oldId))
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "community_reactions",
+        },
+        (payload) => {
+          const r = payload.new as Reaction
+          setReactions((prev) =>
+            prev.some(
+              (x) =>
+                x.message_id === r.message_id &&
+                x.user_id === r.user_id &&
+                x.emoji === r.emoji
+            )
+              ? prev
+              : [...prev, r]
+          )
+        }
+      )
+      .on(
+        "postgres_changes",
+        {
+          event: "DELETE",
+          schema: "public",
+          table: "community_reactions",
+        },
+        (payload) => {
+          const o = payload.old as Reaction
+          setReactions((prev) =>
+            prev.filter(
+              (r) =>
+                !(
+                  r.message_id === o.message_id &&
+                  r.user_id === o.user_id &&
+                  r.emoji === o.emoji
+                )
+            )
+          )
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(rt)
+    }
   }, [channel, fetchMessages])
 
   // ---- Fetch profile + streak data for users in messages

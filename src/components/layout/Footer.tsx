@@ -21,9 +21,9 @@ const cols = [
   {
     title: "Legal",
     links: [
-      { to: "/", label: "Términos y condiciones" },
-      { to: "/", label: "Política de privacidad" },
-      { to: "/", label: "Política de cookies" },
+      { to: "/terminos", label: "Términos y condiciones" },
+      { to: "/privacidad", label: "Política de privacidad" },
+      { to: "/privacidad", label: "Política de cookies" },
     ],
   },
 ]
