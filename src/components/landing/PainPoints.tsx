@@ -49,10 +49,10 @@ export function PainPoints() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
               Ser piloto en Latinoamérica hoy
               <br />
-              <span className="text-muted-foreground">es una carrera de obstáculos invisibles.</span>
+              <span className="text-muted-foreground/80">es una carrera de obstáculos invisibles.</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>

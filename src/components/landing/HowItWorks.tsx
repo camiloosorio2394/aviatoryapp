@@ -41,10 +41,10 @@ export function HowItWorks() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
               En 4 pasos pasas de
               <br />
-              <span className="text-muted-foreground">"no sé por dónde empezar" a saber qué hacer hoy.</span>
+              <span className="text-muted-foreground/80">"no sé por dónde empezar" a saber qué hacer hoy.</span>
             </h2>
           </Reveal>
         </div>

@@ -72,10 +72,10 @@ export function PricingPreview() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
               Precios pensados
               <br />
-              <span className="text-muted-foreground">para piloto en formación.</span>
+              <span className="text-gradient-blue">para piloto en formación.</span>
             </h2>
           </Reveal>
           <Reveal delay={200}>

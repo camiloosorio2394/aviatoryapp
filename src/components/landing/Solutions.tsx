@@ -1,5 +1,6 @@
 import { Brain, Compass, Globe2, Plane, BookOpen, Sparkles } from "lucide-react"
 import { Reveal } from "@/components/Reveal"
+import { TiltCard } from "@/components/TiltCard"
 
 export function Solutions() {
   return (
@@ -16,10 +17,10 @@ export function Solutions() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05]">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
               Una plataforma para todo lo que
               <br />
-              <span className="text-muted-foreground">te separa de la cabina.</span>
+              <span className="text-gradient-blue">te separa de la cabina.</span>
             </h2>
           </Reveal>
         </div>
@@ -109,8 +110,9 @@ function BentoCard({
   const isHero = !!gradient
 
   return (
-    <div
-      className={`group relative h-full rounded-3xl overflow-hidden card-apple ${
+    <TiltCard
+      intensity={isHero ? 3 : 4}
+      className={`group relative h-full rounded-3xl overflow-hidden ${
         isHero
           ? `bg-gradient-to-br ${gradient} text-white p-8 sm:p-10 shadow-2xl shadow-blue-500/30 ring-1 ring-white/10`
           : "card-elevated p-7"
@@ -162,7 +164,7 @@ function BentoCard({
 
         {visual && <div className="mt-auto pt-8">{visual}</div>}
       </div>
-    </div>
+    </TiltCard>
   )
 }
 

@@ -25,10 +25,10 @@ export function FinalCTA() {
                 className="h-16 w-16 mx-auto rounded-2xl shadow-xl"
               />
 
-              <h2 className="mt-8 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-white text-balance leading-[1.05]">
+              <h2 className="mt-8 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.04em] text-white text-balance leading-[0.95]">
                 Tu próximo vuelo
                 <br />
-                empieza con un clic.
+                <span className="bg-gradient-to-r from-cyan-200 via-blue-100 to-white bg-clip-text text-transparent">empieza con un clic.</span>
               </h2>
               <p className="mt-6 text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto text-balance">
                 Únete a los pilotos que dejaron de estudiar en círculos

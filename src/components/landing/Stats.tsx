@@ -51,10 +51,10 @@ export function Stats() {
             </div>
           </Reveal>
           <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.025em] text-balance leading-[1.05] text-white">
+            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98] text-white">
               Estudiar para pilotear,
               <br />
-              <span className="text-blue-200/70">finalmente con estructura.</span>
+              <span className="bg-gradient-to-r from-blue-200 via-blue-300 to-cyan-200 bg-clip-text text-transparent">finalmente con estructura.</span>
             </h2>
           </Reveal>
         </div>
@@ -73,11 +73,11 @@ export function Stats() {
 
 function StatCard({ stat }: { stat: Stat }) {
   return (
-    <div className="rounded-2xl bg-white/[0.04] backdrop-blur-md border border-white/10 p-7 text-center transition-all duration-300 hover:bg-white/[0.07] hover:-translate-y-1 hover:border-blue-400/30">
-      <div className="text-5xl sm:text-6xl font-bold tracking-tight bg-gradient-to-br from-blue-300 via-blue-400 to-blue-500 bg-clip-text text-transparent">
+    <div className="rounded-3xl bg-white/[0.04] backdrop-blur-xl border border-white/10 p-7 text-center transition-all duration-500 hover:bg-white/[0.08] hover:-translate-y-1.5 hover:border-blue-300/40 hover:shadow-2xl hover:shadow-blue-500/30">
+      <div className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] tabular bg-gradient-to-br from-blue-200 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
         <CountUp value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
       </div>
-      <div className="mt-3 text-base font-semibold text-white">{stat.label}</div>
+      <div className="mt-3 text-base font-semibold text-white tracking-tight">{stat.label}</div>
       <p className="mt-1.5 text-sm text-blue-100/60 leading-relaxed">{stat.sub}</p>
     </div>
   )
@@ -95,16 +95,23 @@ function CountUp({
   const { ref, inView } = useInView<HTMLSpanElement>({ threshold: 0.4 })
   const [display, setDisplay] = useState(0)
   const startRef = useRef<number | null>(null)
-  const durationMs = 1100
+  const durationMs = 1600
 
   useEffect(() => {
     if (!inView) return
     let raf = 0
+    // Spring-like easing: overshoot ligero + settle
+    function spring(t: number) {
+      // ease-out-elastic-ish; suave en el approach final
+      if (t === 0 || t === 1) return t
+      const p = 0.4
+      return Math.pow(2, -10 * t) * Math.sin(((t - p / 4) * (2 * Math.PI)) / p) + 1
+    }
     function tick(t: number) {
       if (startRef.current === null) startRef.current = t
       const elapsed = t - startRef.current
       const progress = Math.min(elapsed / durationMs, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
+      const eased = Math.min(spring(progress), 1)
       setDisplay(Math.round(eased * value))
       if (progress < 1) raf = requestAnimationFrame(tick)
     }
@@ -113,7 +120,7 @@ function CountUp({
   }, [inView, value])
 
   return (
-    <span ref={ref}>
+    <span ref={ref} className="tabular">
       {prefix}
       {display.toLocaleString("es-CO")}
       {suffix}
