@@ -12,6 +12,8 @@ import { QuizPlayer } from "@/pages/QuizPlayer"
 import { Route as RoutePage } from "@/pages/Route"
 import { Airlines } from "@/pages/Airlines"
 import { Profile } from "@/pages/Profile"
+import { Community } from "@/pages/Community"
+import { CommunityChannel } from "@/pages/CommunityChannel"
 import { NotFound } from "@/pages/NotFound"
 
 function App() {
@@ -72,6 +74,22 @@ function App() {
           element={
             <RequireAuth>
               <Airlines />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/comunidad"
+          element={
+            <RequireAuth>
+              <Community />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/comunidad/:slug"
+          element={
+            <RequireAuth>
+              <CommunityChannel />
             </RequireAuth>
           }
         />

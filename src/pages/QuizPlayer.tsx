@@ -177,6 +177,15 @@ export function QuizPlayer() {
         } catch {
           /* silent — streak is non-critical */
         }
+        try {
+          await supabase.rpc("record_daily_activity", {
+            p_questions: total,
+            p_correct: correctCount,
+            p_minutes: 0,
+          })
+        } catch {
+          /* silent — activity log is non-critical */
+        }
       }
       setFinished(true)
       return
