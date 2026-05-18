@@ -1,10 +1,12 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Check, Sparkles, X } from "lucide-react"
 import { PublicLayout } from "@/components/layout/PublicLayout"
+import { Seo } from "@/components/Seo"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { track, Events } from "@/lib/analytics"
 
 type Billing = "monthly" | "annual"
 
@@ -99,8 +101,17 @@ function renderCell(v: boolean | string) {
 export function Pricing() {
   const [billing, setBilling] = useState<Billing>("monthly")
 
+  useEffect(() => {
+    track(Events.PAYWALL_VIEWED, { source: "pricing_page" })
+  }, [])
+
   return (
     <PublicLayout>
+      <Seo
+        path="/pricing"
+        title="Planes y precios"
+        description="Empieza gratis 7 días. Pro desde $39.000 COP/mes con tutor IA, banco de preguntas Aerocivil ilimitado y comunidad. Sin tarjeta para empezar."
+      />
       <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
           <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">
@@ -179,7 +190,18 @@ export function Pricing() {
                         : "btn-apple shine-on-hover"
                     }`}
                   >
-                    <Link to={t.href}>{t.cta}</Link>
+                    <Link
+                      to={t.href}
+                      onClick={() =>
+                        track(Events.PLAN_CLICKED, {
+                          plan: t.name,
+                          billing,
+                          source: "pricing_page",
+                        })
+                      }
+                    >
+                      {t.cta}
+                    </Link>
                   </Button>
                 </div>
               )

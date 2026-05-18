@@ -9,6 +9,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { WingmanPanel } from "@/components/wingman/WingmanPanel"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { track, Events } from "@/lib/analytics"
 
 interface AnswerOption {
   id: number
@@ -101,6 +102,10 @@ export function QuizPlayer() {
         if (attemptRes.error || !attemptRes.data) throw attemptRes.error
         if (cancelled) return
         setAttemptId(attemptRes.data.id as number)
+        track(Events.QUIZ_STARTED, {
+          subject: (subRes.data as Subject).slug,
+          questions: picked.length,
+        })
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos iniciar el quiz")
         navigate("/app/quiz", { replace: true })
@@ -186,6 +191,13 @@ export function QuizPlayer() {
         } catch {
           /* silent — activity log is non-critical */
         }
+        track(Events.QUIZ_COMPLETED, {
+          subject: subject?.slug,
+          total,
+          correct: correctCount,
+          score: Math.round(score),
+          passed: score >= 70,
+        })
       }
       setFinished(true)
       return

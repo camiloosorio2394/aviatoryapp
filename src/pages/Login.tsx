@@ -18,6 +18,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
+import { Seo } from "@/components/Seo"
+import { track, Events } from "@/lib/analytics"
 
 type Mode = "signin" | "signup"
 
@@ -128,6 +130,7 @@ export function Login() {
     setSubmitting(true)
     try {
       if (isSignup) {
+        track(Events.SIGNUP_STARTED, { method: "email" })
         // Double-check username right before signup (race-safe)
         const { data: stillAvailable, error: checkErr } = await supabase.rpc(
           "check_username_available",
@@ -147,6 +150,7 @@ export function Login() {
           },
         })
         if (error) throw error
+        track(Events.SIGNUP_COMPLETED, { method: "email" })
         if (data.session) {
           navigate("/onboarding", { replace: true })
         } else {
@@ -156,6 +160,7 @@ export function Login() {
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password })
         if (error) throw error
+        track(Events.LOGIN_COMPLETED, { method: "email" })
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "Algo salió mal"
@@ -167,6 +172,7 @@ export function Login() {
 
   async function handleGoogle() {
     setError(null)
+    track(isSignup ? Events.SIGNUP_STARTED : Events.LOGIN_COMPLETED, { method: "google" })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo: `${window.location.origin}/app` },
@@ -176,6 +182,12 @@ export function Login() {
 
   return (
     <main className="min-h-screen grid lg:grid-cols-5 bg-background">
+      <Seo
+        path={isSignup ? "/login?mode=signup" : "/login"}
+        title={isSignup ? "Crear cuenta" : "Iniciar sesión"}
+        description="Sumate a Aviatory — 7 días gratis, sin tarjeta."
+        noindex
+      />
       {/* LEFT — brand panel */}
       <aside className="hidden lg:flex lg:col-span-2 relative overflow-hidden flex-col justify-between p-12 text-white">
         <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900" />

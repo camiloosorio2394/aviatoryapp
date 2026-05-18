@@ -1,4 +1,5 @@
 import { PublicLayout } from "@/components/layout/PublicLayout"
+import { Seo } from "@/components/Seo"
 import { Hero } from "@/components/landing/Hero"
 import { SocialProof } from "@/components/landing/SocialProof"
 import { PainPoints } from "@/components/landing/PainPoints"
@@ -30,6 +31,7 @@ import { FinalCTA } from "@/components/landing/FinalCTA"
 export function Landing() {
   return (
     <PublicLayout>
+      <Seo path="/" />
       <Hero />
       <SocialProof />
       <PainPoints />
