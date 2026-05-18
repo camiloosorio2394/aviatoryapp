@@ -20,6 +20,7 @@ import { Community } from "@/pages/Community"
 import { CommunityChannel } from "@/pages/CommunityChannel"
 import { Logbook } from "@/pages/Logbook"
 import { Expiries } from "@/pages/Expiries"
+import { Referrals } from "@/pages/Referrals"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -111,6 +112,14 @@ function App() {
           element={
             <RequireAuth>
               <Expiries />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/referidos"
+          element={
+            <RequireAuth>
+              <Referrals />
             </RequireAuth>
           }
         />

@@ -30,8 +30,18 @@ const tiers = [
     highlight: true,
   },
   {
+    name: "Pro+",
+    description: "Pro + Wingman IA ilimitado + mock interview con voz.",
+    monthly: { price: "$79.000", suffix: "COP / mes", note: "Equivale a $19.99 USD" },
+    annual: { price: "$790.000", suffix: "COP / año", note: "2 meses gratis vs mensual" },
+    cta: "Probar Pro+ gratis",
+    href: "/login?mode=signup&plan=pro_plus",
+    highlight: false,
+    badge: "Más AI",
+  },
+  {
     name: "Founder",
-    description: "Acceso de por vida + comunidad fundadora.",
+    description: "Acceso Pro+ de por vida + comunidad fundadora.",
     monthly: { price: "$599.000", suffix: "COP · pago único", note: "Solo 100 cupos · ~$149 USD" },
     annual: { price: "$599.000", suffix: "COP · pago único", note: "Solo 100 cupos · ~$149 USD" },
     cta: "Reservar mi cupo",
@@ -41,53 +51,56 @@ const tiers = [
   },
 ]
 
+type Cell = boolean | string
+
 type Feature = {
   category: string
-  rows: Array<{ name: string; free: boolean | string; pro: boolean | string; founder: boolean | string }>
+  rows: Array<{ name: string; free: Cell; pro: Cell; proPlus: Cell; founder: Cell }>
 }
 
 const matrix: Feature[] = [
   {
     category: "Tu ruta",
     rows: [
-      { name: "Perfil de piloto", free: true, pro: true, founder: true },
-      { name: "Dashboard de progreso", free: "Básico", pro: "Completo", founder: "Completo" },
-      { name: "Plan personalizado semanal", free: false, pro: true, founder: true },
-      { name: "Alertas de vencimientos", free: false, pro: true, founder: true },
+      { name: "Perfil de piloto", free: true, pro: true, proPlus: true, founder: true },
+      { name: "Dashboard de progreso", free: "Básico", pro: "Completo", proPlus: "Completo", founder: "Completo" },
+      { name: "Plan personalizado semanal", free: false, pro: true, proPlus: true, founder: true },
+      { name: "Alertas de vencimientos", free: false, pro: true, proPlus: true, founder: true },
+      { name: "Logbook digital", free: "10 vuelos", pro: "Ilimitado", proPlus: "Ilimitado", founder: "Ilimitado" },
     ],
   },
   {
     category: "Exámenes",
     rows: [
-      { name: "Preguntas Aerocivil PPL/CPL", free: "30 / mes", pro: "Ilimitado", founder: "Ilimitado" },
-      { name: "Simulacros con tiempo", free: false, pro: true, founder: true },
-      { name: "Tutor IA (explicaciones)", free: false, pro: "100 / mes", founder: "Ilimitado" },
+      { name: "Preguntas Aerocivil PPL/CPL", free: "30 / mes", pro: "Ilimitado", proPlus: "Ilimitado", founder: "Ilimitado" },
+      { name: "Simulacros con tiempo", free: false, pro: true, proPlus: true, founder: true },
+      { name: "Quiz del día", free: "Vista", pro: true, proPlus: true, founder: true },
+      { name: "Wingman IA (explicaciones)", free: "5 / mes", pro: "100 / mes", proPlus: "Ilimitado", founder: "Ilimitado" },
     ],
   },
   {
     category: "Inglés ICAO",
     rows: [
-      { name: "Vocabulario aeronáutico", free: false, pro: true, founder: true },
-      { name: "Práctica oral con IA", free: false, pro: true, founder: true },
-      { name: "Simulacros TEA/ELPAC", free: false, pro: true, founder: true },
+      { name: "Vocabulario aeronáutico", free: false, pro: true, proPlus: true, founder: true },
+      { name: "Práctica oral con Wingman Voice", free: false, pro: false, proPlus: true, founder: true },
+      { name: "Simulacros TEA/ELPAC", free: false, pro: true, proPlus: true, founder: true },
     ],
   },
   {
     category: "Carrera",
     rows: [
-      { name: "Requisitos por aerolínea", free: "Vista", pro: "Completo", founder: "Completo" },
-      { name: "Simulacros de entrevista", free: false, pro: true, founder: true },
-      { name: "Plantilla CV piloto", free: true, pro: true, founder: true },
+      { name: "Requisitos por aerolínea", free: "Vista", pro: "Completo", proPlus: "Completo", founder: "Completo" },
+      { name: "Simulacros de entrevista AI", free: false, pro: false, proPlus: true, founder: true },
+      { name: "CV piloto con AI", free: false, pro: true, proPlus: true, founder: true },
     ],
   },
   {
     category: "Comunidad",
     rows: [
-      { name: "Acceso a comunidad pública", free: true, pro: true, founder: true },
-      { name: "Canales privados Pro", free: false, pro: true, founder: true },
-      { name: "Comunidad fundadores", free: false, pro: false, founder: true },
-      { name: "Sesiones 1-a-1 con el equipo", free: false, pro: false, founder: true },
-      { name: "Voto en roadmap", free: false, pro: false, founder: true },
+      { name: "Acceso a comunidad pública", free: true, pro: true, proPlus: true, founder: true },
+      { name: "Comunidad fundadores", free: false, pro: false, proPlus: false, founder: true },
+      { name: "Sesiones 1-a-1 con el equipo", free: false, pro: false, proPlus: false, founder: true },
+      { name: "Voto en roadmap", free: false, pro: false, proPlus: false, founder: true },
     ],
   },
 ]
@@ -141,7 +154,7 @@ export function Pricing() {
 
       <section className="pb-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 lg:items-start">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6 lg:items-start">
             {tiers.map((t) => {
               const p = t[billing]
               return (
@@ -223,6 +236,7 @@ export function Pricing() {
                   <th className="text-left p-4 font-medium text-muted-foreground"></th>
                   <th className="p-4 text-center font-semibold">Free</th>
                   <th className="p-4 text-center font-semibold text-blue-600 dark:text-blue-400">Pro</th>
+                  <th className="p-4 text-center font-semibold">Pro+</th>
                   <th className="p-4 text-center font-semibold">Founder</th>
                 </tr>
               </thead>
@@ -230,7 +244,7 @@ export function Pricing() {
                 {matrix.map((cat) => (
                   <>
                     <tr key={cat.category} className="bg-muted/20">
-                      <td colSpan={4} className="p-3 font-semibold text-xs uppercase tracking-wider text-muted-foreground">
+                      <td colSpan={5} className="p-3 font-semibold text-xs uppercase tracking-wider text-muted-foreground">
                         {cat.category}
                       </td>
                     </tr>
@@ -241,6 +255,7 @@ export function Pricing() {
                         <td className="p-4 text-center bg-blue-50/40 dark:bg-blue-950/20">
                           {renderCell(r.pro)}
                         </td>
+                        <td className="p-4 text-center">{renderCell(r.proPlus)}</td>
                         <td className="p-4 text-center">{renderCell(r.founder)}</td>
                       </tr>
                     ))}
