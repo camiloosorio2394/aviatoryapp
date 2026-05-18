@@ -1,6 +1,10 @@
+import { useEffect } from "react"
 import { Route, Routes } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { useSession } from "@/hooks/useSession"
+import { usePageViewTracking } from "@/hooks/usePageViewTracking"
+import { identifyUser, resetIdentity } from "@/lib/analytics"
 import { Landing } from "@/pages/Landing"
 import { Pricing } from "@/pages/Pricing"
 import { Contact } from "@/pages/Contact"
@@ -19,6 +23,17 @@ import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
 
 function App() {
+  // Analytics: page views + user identification
+  usePageViewTracking()
+  const { user } = useSession()
+  useEffect(() => {
+    if (user) {
+      identifyUser(user.id, { email: user.email ?? undefined })
+    } else {
+      resetIdentity()
+    }
+  }, [user])
+
   return (
     <>
       <Routes>

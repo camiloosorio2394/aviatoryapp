@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { LogoHorizontal } from "@/components/Logo"
+import { track, Events } from "@/lib/analytics"
 
 type Stage =
   | "student_ppl"
@@ -119,6 +120,12 @@ export function Onboarding() {
         updated_at: new Date().toISOString(),
       })
       if (error) throw error
+      track(Events.ONBOARDING_COMPLETED, {
+        stage: form.stage || null,
+        target_airline: form.target_airline || null,
+        total_hours: form.total_hours ? Number(form.total_hours) : 0,
+        icao: form.icao_english_level ? Number(form.icao_english_level) : null,
+      })
       toast.success("Listo. Bienvenido a tu cabina ✈️")
       navigate("/app", { replace: true })
     } catch (err) {

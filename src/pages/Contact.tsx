@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react"
 import { Mail, MessageCircle, Send, MapPin } from "lucide-react"
 import { toast } from "sonner"
 import { PublicLayout } from "@/components/layout/PublicLayout"
+import { Seo } from "@/components/Seo"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -47,6 +48,11 @@ export function Contact() {
 
   return (
     <PublicLayout>
+      <Seo
+        path="/contact"
+        title="Contacto"
+        description="Hablanos. Email, WhatsApp o el formulario. Te respondemos en menos de 24h."
+      />
       <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
           <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">

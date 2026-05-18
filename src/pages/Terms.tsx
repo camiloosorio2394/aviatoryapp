@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom"
 import { PublicLayout } from "@/components/layout/PublicLayout"
+import { Seo } from "@/components/Seo"
 
 export function Terms() {
   return (
     <PublicLayout>
+      <Seo
+        path="/terminos"
+        title="Términos y condiciones"
+        description="Términos de uso de Aviatory. Cuentas, suscripciones, comunidad, propiedad intelectual."
+      />
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16 sm:py-24">
         <header className="mb-12">
           <p className="text-sm text-muted-foreground">Última actualización: 18 de mayo de 2026</p>

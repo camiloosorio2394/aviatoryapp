@@ -1,0 +1,26 @@
+{
+  "name": "Aviatory",
+  "short_name": "Aviatory",
+  "description": "De estudiante piloto a candidato de aerolínea — la plataforma para pilotos LATAM",
+  "start_url": "/app",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "lang": "es-CO",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
