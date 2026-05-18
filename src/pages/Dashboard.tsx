@@ -22,6 +22,7 @@ import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { UserAvatar } from "@/components/UserAvatar"
 
 type PilotStage =
   | "student_ppl"
@@ -44,6 +45,7 @@ interface PilotState {
 interface Profile {
   full_name: string | null
   username: string | null
+  photo_url: string | null
 }
 
 interface Streak {
@@ -212,7 +214,7 @@ export function Dashboard() {
           heatmapRes,
           peersRes,
         ] = await Promise.all([
-          supabase.from("profiles").select("full_name, username").eq("id", user!.id).maybeSingle(),
+          supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase
             .from("pilot_state")
             .select(
@@ -323,18 +325,29 @@ export function Dashboard() {
     <AppLayout>
       <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
         {/* Greeting with identity priming */}
-        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <p className="text-sm text-muted-foreground font-medium">
-              {greetingTime()}, {firstName}
-            </p>
-            <h1 className="mt-1 text-3xl sm:text-4xl font-bold tracking-tight">
-              Hola, <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">{identity}</span> ✈️
-            </h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {stageLabel} · {pilot?.total_hours ?? 0}h totales
-              {pilot?.target_airline ? ` · objetivo: ${pilot.target_airline}` : ""}
-            </p>
+        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <UserAvatar
+              photoUrl={profile?.photo_url}
+              username={profile?.username}
+              fullName={profile?.full_name}
+              email={user?.email}
+              size="xl"
+              ring
+              className="!h-14 !w-14 !text-lg"
+            />
+            <div>
+              <p className="text-sm text-muted-foreground font-medium">
+                {greetingTime()}, {firstName}
+              </p>
+              <h1 className="mt-0.5 text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
+                Hola, <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">{identity}</span> ✈️
+              </h1>
+              <p className="mt-1 text-sm text-muted-foreground tabular">
+                {stageLabel} · {pilot?.total_hours ?? 0}h totales
+                {pilot?.target_airline ? ` · objetivo: ${pilot.target_airline}` : ""}
+              </p>
+            </div>
           </div>
           {trialLeft !== null && (
             <Badge variant="secondary" className="rounded-full px-3 py-1.5 text-xs w-fit">

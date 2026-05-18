@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type ChangeEvent } from "react"
 import { toast } from "sonner"
-import { AtSign, Check, Loader2, Save, X } from "lucide-react"
+import { AtSign, Camera, Check, Loader2, Save, Trash2, X } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -14,6 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { UserAvatar } from "@/components/UserAvatar"
 
 const USERNAME_REGEX = /^[a-z0-9_]{3,30}$/
 
@@ -48,11 +49,14 @@ export function Profile() {
   const { user } = useSession()
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState(false)
   const [fullName, setFullName] = useState("")
   const [country, setCountry] = useState("")
   const [username, setUsername] = useState("")
   const [originalUsername, setOriginalUsername] = useState("")
   const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>({ state: "idle" })
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [stage, setStage] = useState<Stage | "">("")
   const [totalHours, setTotalHours] = useState("")
   const [hoursPic, setHoursPic] = useState("")
@@ -68,19 +72,25 @@ export function Profile() {
         const [profileRes, pilotRes] = await Promise.all([
           supabase
             .from("profiles")
-            .select("full_name, country, username")
+            .select("full_name, country, username, photo_url")
             .eq("id", user!.id)
             .maybeSingle(),
           supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
         ])
         if (cancelled) return
         if (profileRes.data) {
-          const p = profileRes.data as { full_name?: string; country?: string; username?: string }
+          const p = profileRes.data as {
+            full_name?: string
+            country?: string
+            username?: string
+            photo_url?: string
+          }
           setFullName(p.full_name ?? "")
           setCountry(p.country ?? "")
           setUsername(p.username ?? "")
           setOriginalUsername(p.username ?? "")
           setUsernameStatus(p.username ? { state: "unchanged" } : { state: "idle" })
+          setPhotoUrl(p.photo_url ?? null)
         }
         if (pilotRes.data) {
           const p = pilotRes.data as {
@@ -139,6 +149,67 @@ export function Profile() {
 
   const usernameOK =
     usernameStatus.state === "unchanged" || usernameStatus.state === "available"
+
+  async function handleAvatarChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file || !user) return
+
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("La imagen es demasiado pesada (máx 5MB)")
+      e.target.value = ""
+      return
+    }
+    const ext = (file.name.split(".").pop() ?? "png").toLowerCase()
+    if (!["png", "jpg", "jpeg", "webp"].includes(ext)) {
+      toast.error("Formato no permitido. Usa PNG, JPG o WebP.")
+      e.target.value = ""
+      return
+    }
+    setUploading(true)
+    try {
+      const path = `${user.id}/avatar.${ext}`
+      const { error: upErr } = await supabase.storage
+        .from("avatars")
+        .upload(path, file, { upsert: true, cacheControl: "0", contentType: file.type })
+      if (upErr) throw upErr
+      const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(path)
+      const finalUrl = `${urlData.publicUrl}?v=${Date.now()}`  // cache-bust
+      const { error: dbErr } = await supabase
+        .from("profiles")
+        .update({ photo_url: finalUrl })
+        .eq("id", user.id)
+      if (dbErr) throw dbErr
+      setPhotoUrl(finalUrl)
+      toast.success("Tu foto se actualizó ✨")
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "No pudimos subir tu foto")
+    } finally {
+      setUploading(false)
+      e.target.value = ""
+    }
+  }
+
+  async function handleAvatarRemove() {
+    if (!user || !photoUrl) return
+    setUploading(true)
+    try {
+      // Try common extensions (we don't know which one was uploaded)
+      for (const ext of ["png", "jpg", "jpeg", "webp"]) {
+        await supabase.storage.from("avatars").remove([`${user.id}/avatar.${ext}`])
+      }
+      const { error } = await supabase
+        .from("profiles")
+        .update({ photo_url: null })
+        .eq("id", user.id)
+      if (error) throw error
+      setPhotoUrl(null)
+      toast.success("Foto eliminada")
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "No pudimos eliminar")
+    } finally {
+      setUploading(false)
+    }
+  }
 
   async function handleSave() {
     if (!user) return
@@ -208,6 +279,65 @@ export function Profile() {
         </header>
 
         <div className="space-y-6">
+          <Section title="Tu foto">
+            <div className="flex items-center gap-5">
+              <div className="relative">
+                <UserAvatar
+                  photoUrl={photoUrl}
+                  username={username}
+                  fullName={fullName}
+                  email={user?.email}
+                  size="xl"
+                  ring
+                  className="!h-20 !w-20 !text-2xl"
+                />
+                {uploading && (
+                  <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center">
+                    <Loader2 className="h-5 w-5 animate-spin text-white" />
+                  </div>
+                )}
+              </div>
+              <div className="flex-1 space-y-2">
+                <div className="flex gap-2 flex-wrap">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="rounded-full h-9"
+                  >
+                    <Camera className="h-3.5 w-3.5" />
+                    {photoUrl ? "Cambiar foto" : "Subir foto"}
+                  </Button>
+                  {photoUrl && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={handleAvatarRemove}
+                      disabled={uploading}
+                      className="rounded-full h-9 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                      Eliminar
+                    </Button>
+                  )}
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  JPG, PNG o WebP · Máx 5MB · Cuadrada se ve mejor
+                </p>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/png,image/jpeg,image/jpg,image/webp"
+                  onChange={handleAvatarChange}
+                  className="hidden"
+                />
+              </div>
+            </div>
+          </Section>
+
           <Section title="Identidad">
             <Field label="Email">
               <Input value={user?.email ?? ""} disabled className="h-11 rounded-xl" />

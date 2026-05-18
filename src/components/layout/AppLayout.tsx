@@ -1,9 +1,12 @@
 import { useState, type ReactNode } from "react"
 import { AppSidebar } from "./AppSidebar"
 import { AppTopbar } from "./AppTopbar"
+import { useAchievementToasts } from "@/hooks/useAchievementToasts"
 
 export function AppLayout({ children }: { children: ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  // Detecta y celebra achievements desbloqueados en toda la app autenticada
+  useAchievementToasts()
 
   return (
     <div className="min-h-screen flex bg-background">

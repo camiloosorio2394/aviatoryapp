@@ -1,0 +1,54 @@
+interface Props {
+  username?: string | null
+  fullName?: string | null
+  email?: string | null
+  photoUrl?: string | null
+  size?: "xs" | "sm" | "md" | "lg" | "xl"
+  gradient?: string
+  ring?: boolean
+  className?: string
+}
+
+const sizeClasses: Record<NonNullable<Props["size"]>, string> = {
+  xs: "h-6 w-6 text-[10px]",
+  sm: "h-8 w-8 text-xs",
+  md: "h-10 w-10 text-sm",
+  lg: "h-12 w-12 text-base",
+  xl: "h-16 w-16 text-xl",
+}
+
+export function UserAvatar({
+  username,
+  fullName,
+  email,
+  photoUrl,
+  size = "md",
+  gradient = "from-blue-500 to-blue-700",
+  ring = false,
+  className = "",
+}: Props) {
+  const source = username ?? fullName ?? email ?? "?"
+  const initials = (source[0] ?? "?").toUpperCase()
+  const sizeClass = sizeClasses[size]
+  const ringClass = ring ? "ring-2 ring-white dark:ring-card shadow-md" : ""
+
+  if (photoUrl) {
+    return (
+      <img
+        src={photoUrl}
+        alt={username ?? fullName ?? "Avatar"}
+        loading="lazy"
+        className={`${sizeClass} ${ringClass} rounded-full object-cover bg-muted flex-shrink-0 ${className}`}
+      />
+    )
+  }
+
+  return (
+    <div
+      className={`${sizeClass} ${ringClass} flex-shrink-0 rounded-full bg-gradient-to-br ${gradient} text-white font-semibold flex items-center justify-center ${className}`}
+      aria-label={username ?? fullName ?? "Avatar"}
+    >
+      {initials}
+    </div>
+  )
+}

@@ -4,6 +4,7 @@ import { Menu, LogOut, User } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
+import { UserAvatar } from "@/components/UserAvatar"
 
 interface Props {
   onMenuClick: () => void
@@ -14,18 +15,21 @@ export function AppTopbar({ onMenuClick }: Props) {
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
+  const [photoUrl, setPhotoUrl] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
     let cancelled = false
     supabase
       .from("profiles")
-      .select("username")
+      .select("username, photo_url")
       .eq("id", user.id)
       .maybeSingle()
       .then(({ data }) => {
         if (cancelled) return
-        setUsername(((data as { username?: string } | null)?.username) ?? null)
+        const p = data as { username?: string; photo_url?: string } | null
+        setUsername(p?.username ?? null)
+        setPhotoUrl(p?.photo_url ?? null)
       })
     return () => {
       cancelled = true
@@ -51,7 +55,6 @@ export function AppTopbar({ onMenuClick }: Props) {
 
   const email = user?.email ?? ""
   const handle = username ? `@${username}` : email
-  const initials = (username ?? email)[0]?.toUpperCase() ?? "?"
 
   return (
     <header className="sticky top-0 z-20 h-16 bg-background/70 backdrop-blur-xl border-b border-border/50 flex items-center justify-between px-4 sm:px-6">
@@ -77,9 +80,13 @@ export function AppTopbar({ onMenuClick }: Props) {
           aria-haspopup="menu"
           aria-expanded={open}
         >
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white text-sm font-semibold shadow-md shadow-blue-500/30">
-            {initials}
-          </span>
+          <UserAvatar
+            photoUrl={photoUrl}
+            username={username}
+            email={email}
+            size="sm"
+            className="shadow-md shadow-blue-500/30"
+          />
           <span className="hidden sm:block text-sm text-muted-foreground max-w-[200px] truncate">
             {handle}
           </span>
