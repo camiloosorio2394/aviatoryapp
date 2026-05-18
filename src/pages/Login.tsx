@@ -423,9 +423,9 @@ export function Login() {
 
               {isSignup && (
                 <p className="text-xs text-muted-foreground text-center leading-relaxed">
-                  Al crear tu cuenta aceptás los{" "}
-                  <Link to="/" className="underline hover:text-foreground">Términos</Link> y la{" "}
-                  <Link to="/" className="underline hover:text-foreground">Política de privacidad</Link>.
+                  Al crear tu cuenta aceptas los{" "}
+                  <Link to="/terminos" className="underline hover:text-foreground">Términos</Link> y la{" "}
+                  <Link to="/privacidad" className="underline hover:text-foreground">Política de privacidad</Link>.
                 </p>
               )}
             </form>
