@@ -18,6 +18,8 @@ import { Airlines } from "@/pages/Airlines"
 import { Profile } from "@/pages/Profile"
 import { Community } from "@/pages/Community"
 import { CommunityChannel } from "@/pages/CommunityChannel"
+import { Logbook } from "@/pages/Logbook"
+import { Expiries } from "@/pages/Expiries"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -93,6 +95,22 @@ function App() {
           element={
             <RequireAuth>
               <Airlines />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/logbook"
+          element={
+            <RequireAuth>
+              <Logbook />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/vencimientos"
+          element={
+            <RequireAuth>
+              <Expiries />
             </RequireAuth>
           }
         />
