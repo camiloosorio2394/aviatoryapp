@@ -10,12 +10,14 @@ import {
   Clock,
   Calendar,
   Gift,
+  Radar,
 } from "lucide-react"
 import { LogoIsotype, LogoHorizontal } from "@/components/Logo"
 
 const navItems = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true },
   { to: "/app/quiz", label: "Banco de preguntas", icon: BookOpen },
+  { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
   { to: "/app/logbook", label: "Logbook", icon: Clock },
   { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
   { to: "/app/comunidad", label: "Comunidad", icon: Users },

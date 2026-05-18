@@ -21,6 +21,8 @@ import { CommunityChannel } from "@/pages/CommunityChannel"
 import { Logbook } from "@/pages/Logbook"
 import { Expiries } from "@/pages/Expiries"
 import { Referrals } from "@/pages/Referrals"
+import { ExamTracker } from "@/pages/ExamTracker"
+import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -120,6 +122,22 @@ function App() {
           element={
             <RequireAuth>
               <Referrals />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/exam-tracker"
+          element={
+            <RequireAuth>
+              <ExamTracker />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/exam-tracker/:slug"
+          element={
+            <RequireAuth>
+              <ExamTrackerSubject />
             </RequireAuth>
           }
         />
