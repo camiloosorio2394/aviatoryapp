@@ -90,7 +90,7 @@ const STEPS = [
   { title: "¿En qué etapa de tu carrera de aviación estás?", sub: "Para crear una ruta adaptada a tu proceso" },
   { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook." },
   { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
-  { title: "¿Tu inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
+  { title: "¿Cuál es tu nivel de inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
   { title: "Tu objetivo", sub: "¿A qué aerolínea apuntás y para cuándo?" },
   { title: "Confirmá tus datos", sub: "Vas a poder editarlos después." },
 ]
@@ -288,7 +288,7 @@ export function Onboarding() {
             {step === 3 && (
               <div className="space-y-3">
                 <p className="text-xs text-muted-foreground">
-                  Nivel ICAO actual. Sin nivel 4+ no entrás a aerolínea internacional.
+                  El nivel ICAO 4 o superior es requisito obligatorio para ingresar a una aerolínea internacional.
                 </p>
                 <div className="grid grid-cols-3 gap-2">
                   {ICAO_LEVELS.map((n) => {
