@@ -26,7 +26,7 @@ type Stage =
   | "airline_candidate"
   | "instructor"
 
-type License = "PPL" | "CPL" | "IFR" | "MEP" | "ATPL"
+type License = "PPL" | "CPL" | "IFR" | "MEP" | "ATPL" | "IVA"
 
 const STAGES: { value: Stage; label: string; sub: string }[] = [
   {
@@ -56,7 +56,14 @@ const STAGES: { value: Stage; label: string; sub: string }[] = [
   },
 ]
 
-const LICENSES: License[] = ["PPL", "CPL", "IFR", "MEP", "ATPL"]
+const LICENSES: { value: License; label: string }[] = [
+  { value: "PPL", label: "PPA" },
+  { value: "CPL", label: "PCA" },
+  { value: "IFR", label: "IFR" },
+  { value: "MEP", label: "HME" },
+  { value: "ATPL", label: "ATPL" },
+  { value: "IVA", label: "IVA" },
+]
 const ICAO_LEVELS = [1, 2, 3, 4, 5, 6] as const
 
 interface FormState {
@@ -81,8 +88,8 @@ const INITIAL: FormState = {
 
 const STEPS = [
   { title: "¿En qué etapa de tu carrera de aviación estás?", sub: "Para crear una ruta adaptada a tu proceso" },
-  { title: "¿Cuántas horas tenés?", sub: "Las que están en tu logbook." },
-  { title: "¿Qué licencias tenés?", sub: "Marca todas las que apliquen." },
+  { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook." },
+  { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
   { title: "¿Tu inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
   { title: "Tu objetivo", sub: "¿A qué aerolínea apuntás y para cuándo?" },
   { title: "Confirmá tus datos", sub: "Vas a poder editarlos después." },
@@ -238,7 +245,7 @@ export function Onboarding() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="pic-hours" className="text-sm">Horas como PIC (opcional)</Label>
+                  <Label htmlFor="pic-hours" className="text-sm">Horas como PIC (Opcional)</Label>
                   <Input
                     id="pic-hours"
                     type="number"
@@ -255,22 +262,22 @@ export function Onboarding() {
 
             {step === 2 && (
               <div className="space-y-3">
-                <p className="text-xs text-muted-foreground">Tocá las que ya tenés emitidas.</p>
+                <p className="text-xs text-muted-foreground">Toca las que ya tienes emitidas.</p>
                 <div className="grid grid-cols-3 gap-2">
                   {LICENSES.map((lic) => {
-                    const active = form.licenses.includes(lic)
+                    const active = form.licenses.includes(lic.value)
                     return (
                       <button
-                        key={lic}
+                        key={lic.value}
                         type="button"
-                        onClick={() => toggleLicense(lic)}
+                        onClick={() => toggleLicense(lic.value)}
                         className={`p-4 rounded-xl border text-base font-semibold transition-all ${
                           active
                             ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/30 scale-[1.02]"
                             : "border-border/60 bg-card hover:border-blue-500/30 hover:bg-muted/40"
                         }`}
                       >
-                        {lic}
+                        {lic.label}
                       </button>
                     )
                   })}
