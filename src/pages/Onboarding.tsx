@@ -24,16 +24,36 @@ type Stage =
   | "cpl_ready"
   | "hour_building"
   | "airline_candidate"
+  | "instructor"
 
 type License = "PPL" | "CPL" | "IFR" | "MEP" | "ATPL"
 
 const STAGES: { value: Stage; label: string; sub: string }[] = [
-  { value: "student_ppl", label: "Estudiante PPL", sub: "Recién arrancando, sin licencia" },
-  { value: "ppl", label: "PPL emitido", sub: "Ya tengo mi licencia privada" },
-  { value: "cpl_in_progress", label: "Cursando CPL", sub: "Preparando licencia comercial" },
-  { value: "cpl_ready", label: "CPL emitido", sub: "Licencia comercial obtenida" },
-  { value: "hour_building", label: "Hour building", sub: "Sumando horas para aerolínea" },
-  { value: "airline_candidate", label: "Candidato a aerolínea", sub: "Postulando o entrevistando" },
+  {
+    value: "student_ppl",
+    label: "ALUMNO CURSO DE PILOTO AVIÓN (APA)",
+    sub: "Cursando para obtener licencia PPA y PCA.",
+  },
+  {
+    value: "ppl",
+    label: "PILOTO PRIVADO DE AVIÓN (PPA)",
+    sub: "Licencia de Piloto Privado de Avión Obtenida.",
+  },
+  {
+    value: "cpl_ready",
+    label: "PILOTO COMERCIAL DE AVIÓN (PCA)",
+    sub: "Licencia de Piloto Comercial de Avión Obtenida.",
+  },
+  {
+    value: "airline_candidate",
+    label: "PCA EN PREPARACIÓN PARA INGRESO A AEROLÍNEA",
+    sub: "Con licencia PCA sumando horas y/o postulando a diferentes aerolíneas.",
+  },
+  {
+    value: "instructor",
+    label: "INSTRUCTOR DE VUELO AVIÓN (IVA)",
+    sub: "Volando como instructor habilitado en una escuela.",
+  },
 ]
 
 const LICENSES: License[] = ["PPL", "CPL", "IFR", "MEP", "ATPL"]
@@ -60,7 +80,7 @@ const INITIAL: FormState = {
 }
 
 const STEPS = [
-  { title: "¿En qué etapa estás?", sub: "Para armarte un plan acorde." },
+  { title: "¿En qué etapa de tu carrera de aviación estás?", sub: "Para crear una ruta adaptada a tu proceso" },
   { title: "¿Cuántas horas tenés?", sub: "Las que están en tu logbook." },
   { title: "¿Qué licencias tenés?", sub: "Marca todas las que apliquen." },
   { title: "¿Tu inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
