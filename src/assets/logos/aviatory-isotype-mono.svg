@@ -1,5 +1,23 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1024" height="1024" rx="250" fill="#0B0F19"/>
-  <path d="M512 178C512 178 304 606 236 756C226 778 249 798 270 790L440 724C460 716 482 728 489 749L542 890C552 918 592 917 600 888L787 206C798 165 751 139 722 170L512 402" fill="white"/>
-  <path d="M512 178L516 592C516 616 543 630 563 616L787 206" fill="#0B0F19" fill-opacity="0.22"/>
+  <!-- iOS-style squircle on solid navy -->
+  <rect width="1024" height="1024" rx="224" fill="#0B1426"/>
+
+  <!-- Subtle radial sheen from top -->
+  <rect width="1024" height="1024" rx="224" fill="url(#sheen)"/>
+
+  <!-- Wing/paper-plane glyph (solid white) -->
+  <path d="M 512 178 C 512 178 304 606 236 756 C 226 778 249 798 270 790 L 440 724 C 460 716 482 728 489 749 L 542 890 C 552 918 592 917 600 888 L 787 206 C 798 165 751 139 722 170 L 512 402 Z" fill="white"/>
+
+  <!-- Subtle inner shadow on right wing for depth -->
+  <path d="M 512 178 L 722 170 C 751 139 798 165 787 206 L 600 670 C 596 680 583 678 583 666 L 512 178 Z" fill="#0B1426" fill-opacity="0.18"/>
+
+  <!-- Subtle rim highlight -->
+  <rect x="2" y="2" width="1020" height="1020" rx="222" fill="none" stroke="white" stroke-opacity="0.08" stroke-width="2"/>
+
+  <defs>
+    <radialGradient id="sheen" cx="512" cy="0" r="700" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E3A8A" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#0B1426" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
 </svg>

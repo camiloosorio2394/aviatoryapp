@@ -1,20 +1,46 @@
 <svg width="1440" height="420" viewBox="0 0 1440 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1440" height="420" rx="72" fill="#FFFFFF"/>
-  <g transform="translate(96 60)">
-    <rect width="300" height="300" rx="78" fill="url(#g1)"/>
-    <path d="M150 58C150 58 89 184 69 228C67 233 72 238 77 236L129 216C135 214 141 217 143 223L159 266C161 272 169 272 171 266L231 66C234 58 224 52 218 58L150 126" fill="white" fill-opacity="0.98"/>
-    <path d="M150 58L151 181C151 188 158 192 164 188L231 66" fill="white" fill-opacity="0.72"/>
-    <path d="M83 239C123 262 188 269 242 217" stroke="white" stroke-opacity="0.42" stroke-width="14" stroke-linecap="round"/>
+  <!-- Transparent canvas (no bg rect — lets it sit on any surface) -->
+
+  <!-- Isotype, scaled to 300x300, sitting at left -->
+  <g transform="translate(60 60)">
+    <!-- Squircle bg with refined gradient -->
+    <rect width="300" height="300" rx="66" fill="url(#g1)"/>
+
+    <!-- Glassy top sheen -->
+    <rect width="300" height="300" rx="66" fill="url(#sheen)"/>
+
+    <!-- Cyan glow -->
+    <ellipse cx="150" cy="228" rx="94" ry="14" fill="url(#glow)"/>
+
+    <!-- Wing glyph (scaled 1024→300, ratio 0.293) -->
+    <path d="M 150 52 C 150 52 89 178 69 222 C 67 228 73 232 79 230 L 129 218 C 135 217 139 220 138 226 L 132 264 C 132 269 138 272 142 268 L 235 65 C 239 56 234 51 228 56 L 156 59 Z" fill="white"/>
+
+    <!-- Right wing inner shadow -->
+    <path d="M 150 52 L 212 50 C 220 41 234 46 230 60 L 176 198 C 174 202 170 201 170 197 L 150 52 Z" fill="#0F172A" fill-opacity="0.10"/>
+
+    <!-- Rim -->
+    <rect x="0.5" y="0.5" width="299" height="299" rx="65.5" fill="none" stroke="white" stroke-opacity="0.10" stroke-width="1"/>
   </g>
-  <g transform="translate(454 117)">
-    <text x="0" y="88" font-family="Inter, SF Pro Display, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="92" font-weight="760" letter-spacing="-4" fill="#0B0F19">Aviatory</text>
-    <text x="3" y="148" font-family="Inter, SF Pro Text, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="31" font-weight="520" letter-spacing="1.8" fill="#64748B">DE ESTUDIANTE PILOTO A CANDIDATO DE AEROLÍNEA</text>
+
+  <!-- Wordmark -->
+  <g transform="translate(420 130)">
+    <text x="0" y="88" font-family="'Plus Jakarta Sans', 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif" font-size="100" font-weight="800" letter-spacing="-5" fill="#0B1426">Aviatory</text>
+    <text x="3" y="148" font-family="'JetBrains Mono', 'SF Mono', 'Menlo', monospace" font-size="22" font-weight="600" letter-spacing="3.6" fill="#475569">DE ESTUDIANTE PILOTO A CANDIDATO DE AEROLÍNEA</text>
   </g>
+
   <defs>
-    <linearGradient id="g1" x1="37" y1="21" x2="267" y2="283" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#38BDF8"/>
-      <stop offset="0.52" stop-color="#2563EB"/>
-      <stop offset="1" stop-color="#111827"/>
+    <linearGradient id="g1" x1="150" y1="0" x2="150" y2="300" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7DD3FC"/>
+      <stop offset="0.42" stop-color="#3B82F6"/>
+      <stop offset="1" stop-color="#1E3A8A"/>
     </linearGradient>
+    <linearGradient id="sheen" x1="150" y1="0" x2="150" y2="125" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="white" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="150" cy="228" r="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#67E8F9" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
+    </radialGradient>
   </defs>
 </svg>
