@@ -144,11 +144,11 @@ export function Hero() {
                         JM
                       </div>
                       <div>
-                        <div className="text-sm font-semibold">
+                        <div className="text-base font-extrabold italic tracking-tight">
                           Hola, futuro Capitán ✈️
                         </div>
                         <div className="text-xs text-muted-foreground tabular">
-                          CPL en curso · 184 horas · Bogotá
+                          Candidato a aerolínea · 200 horas · Bogotá
                         </div>
                       </div>
                     </div>
@@ -223,20 +223,20 @@ export function Hero() {
                     <MiniWidget
                       icon={<BookOpen className="h-4 w-4" />}
                       label="Próximo paso"
-                      value="Meteorología"
+                      value="PBN"
                       sub="12 preguntas pendientes"
                     />
                     <MiniWidget
                       icon={<Award className="h-4 w-4" />}
-                      label="Materias dominadas"
-                      value="3 / 8"
-                      sub="Reglamento · Motores · W&B"
+                      label="Materias cursadas"
+                      value="7 / 15"
+                      sub="Meteorología · NOTAMS · Performance"
                     />
                     <MiniWidget
                       icon={<Plane className="h-4 w-4" />}
-                      label="Horas faltantes"
-                      value="266h"
-                      sub="para postular a Avianca"
+                      label="Tiempo de curso restante"
+                      value="40h"
+                      sub="para postular a aerolínea"
                     />
                   </div>
                 </div>
