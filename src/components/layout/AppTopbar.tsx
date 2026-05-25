@@ -1,24 +1,63 @@
-import { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { Menu, LogOut, User, PanelLeftClose, PanelLeftOpen } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Link, useLocation, useNavigate } from "react-router-dom"
+import {
+  Menu,
+  LogOut,
+  User,
+  PanelLeftClose,
+  PanelLeftOpen,
+  ChevronRight,
+  Search,
+  Flame,
+  Sun,
+  Moon,
+} from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
 import { NotificationsBell } from "@/components/NotificationsBell"
 
+const ROUTE_LABEL: Record<string, string> = {
+  "/app": "Dashboard",
+  "/app/quiz": "Banco de preguntas",
+  "/app/exam-tracker": "Exam Tracker",
+  "/app/logbook": "Logbook",
+  "/app/vencimientos": "Vencimientos",
+  "/app/comunidad": "Comunidad",
+  "/app/ruta": "Mi ruta",
+  "/app/aerolineas": "Aerolíneas",
+  "/app/referidos": "Referidos",
+  "/app/perfil": "Mi perfil",
+}
+
 interface Props {
   onMenuClick: () => void
   sidebarHidden?: boolean
   onToggleSidebar?: () => void
+  streak?: number
+  onCmdK?: () => void
 }
 
-export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props) {
+/**
+ * Top bar with breadcrumb, ⌘K search button, streak chip, theme toggle, notifications, avatar.
+ */
+export function AppTopbar({
+  onMenuClick,
+  sidebarHidden,
+  onToggleSidebar,
+  streak,
+  onCmdK,
+}: Props) {
   const { user } = useSession()
   const navigate = useNavigate()
+  const location = useLocation()
   const [open, setOpen] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
+  const [theme, setTheme] = useState<"light" | "dark">(() =>
+    document.documentElement.classList.contains("dark") ? "dark" : "light"
+  )
 
   useEffect(() => {
     if (!user) return
@@ -39,13 +78,17 @@ export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props
     }
   }, [user])
 
-  // Close dropdown on outside click
   useEffect(() => {
     if (!open) return
     const close = () => setOpen(false)
     window.addEventListener("click", close)
     return () => window.removeEventListener("click", close)
   }, [open])
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle("dark")
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light")
+  }
 
   async function handleSignOut() {
     const { error } = await supabase.auth.signOut()
@@ -59,9 +102,18 @@ export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props
   const email = user?.email ?? ""
   const handle = username ? `@${username}` : email
 
+  // Find best matching label (longest prefix match)
+  const label =
+    Object.entries(ROUTE_LABEL)
+      .filter(([k]) => location.pathname === k || location.pathname.startsWith(k + "/"))
+      .sort((a, b) => b[0].length - a[0].length)[0]?.[1] ?? "App"
+
   return (
-    <header className="sticky top-0 z-20 h-16 bg-background/70 backdrop-blur-xl border-b border-border/50 flex items-center justify-between px-4 sm:px-6">
-      {/* Mobile: hamburger drawer */}
+    <header
+      className="sticky top-0 z-20 h-14 flex items-center gap-3 px-5 backdrop-blur-xl border-b border-border"
+      style={{ background: "color-mix(in oklab, var(--background) 78%, transparent)" }}
+    >
+      {/* Mobile menu */}
       <button
         type="button"
         onClick={onMenuClick}
@@ -71,27 +123,63 @@ export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props
         <Menu className="h-5 w-5" />
       </button>
 
-      {/* Desktop: toggle sidebar hide/show */}
+      {/* Desktop: toggle sidebar */}
       {onToggleSidebar && (
         <button
           type="button"
           onClick={onToggleSidebar}
-          className="hidden lg:inline-flex items-center justify-center p-2 -ml-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="hidden lg:inline-flex items-center justify-center w-8 h-8 -ml-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           aria-label={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
           title={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
         >
-          {sidebarHidden ? (
-            <PanelLeftOpen className="h-5 w-5" />
-          ) : (
-            <PanelLeftClose className="h-5 w-5" />
-          )}
+          {sidebarHidden ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
         </button>
       )}
 
+      {/* Breadcrumb */}
+      <div className="hidden sm:flex items-center gap-2 text-[13px]">
+        <span className="text-muted-foreground">Aviatory</span>
+        <ChevronRight className="h-3 w-3 text-muted-foreground" />
+        <span className="font-semibold text-foreground">{label}</span>
+      </div>
+
       <div className="flex-1" />
+
+      {/* Command palette */}
+      <button
+        type="button"
+        onClick={onCmdK}
+        className="hidden md:flex items-center gap-2.5 h-[34px] pl-3 pr-2.5 rounded-lg border border-border bg-muted/40 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/30 min-w-[260px]"
+      >
+        <Search className="h-3.5 w-3.5" />
+        <span>Buscar materias, vuelos, aerolíneas…</span>
+        <span className="flex-1" />
+        <kbd className="mono text-[10px] px-1.5 py-0.5 rounded border border-border bg-background text-muted-foreground">
+          ⌘K
+        </kbd>
+      </button>
+
+      {/* Streak chip */}
+      {streak !== undefined && streak > 0 && (
+        <div className="chip chip-amber mono tabular-nums h-[30px] px-3 text-xs">
+          <Flame className="h-3.5 w-3.5" />
+          {streak} días
+        </div>
+      )}
+
+      {/* Theme toggle */}
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        aria-label="Toggle theme"
+      >
+        {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+      </button>
 
       <NotificationsBell />
 
+      {/* Avatar */}
       <div className="relative ml-1">
         <button
           type="button"
@@ -108,22 +196,21 @@ export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props
             username={username}
             email={email}
             size="sm"
-            className="shadow-md shadow-blue-500/30"
+            className="shadow-md"
+            style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-cyan-400)" } as React.CSSProperties}
           />
-          <span className="hidden sm:block text-sm text-muted-foreground max-w-[200px] truncate">
+          <span className="hidden sm:block text-xs font-semibold text-muted-foreground max-w-[200px] truncate">
             {handle}
           </span>
         </button>
 
         {open && (
           <div
-            className="absolute right-0 mt-2 w-64 rounded-xl border border-border/60 bg-card shadow-lg overflow-hidden"
+            className="absolute right-0 mt-2 w-64 rounded-xl border border-border bg-card shadow-lg overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="px-4 py-3 border-b border-border/40">
-              {username && (
-                <p className="text-sm font-semibold">@{username}</p>
-              )}
+            <div className="px-4 py-3 border-b border-border">
+              {username && <p className="text-sm font-semibold">@{username}</p>}
               <p className="text-xs text-muted-foreground truncate">{email}</p>
             </div>
             <Link
@@ -131,16 +218,14 @@ export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props
               onClick={() => setOpen(false)}
               className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-muted transition-colors"
             >
-              <User className="h-4 w-4" />
-              Mi perfil
+              <User className="h-4 w-4" /> Mi perfil
             </Link>
             <button
               type="button"
               onClick={handleSignOut}
               className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
             >
-              <LogOut className="h-4 w-4" />
-              Cerrar sesión
+              <LogOut className="h-4 w-4" /> Cerrar sesión
             </button>
           </div>
         )}

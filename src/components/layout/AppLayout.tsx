@@ -1,14 +1,28 @@
 import { useEffect, useState, type ReactNode } from "react"
 import { AppSidebar } from "./AppSidebar"
 import { AppTopbar } from "./AppTopbar"
+import { Wingman } from "@/components/Wingman"
 import { useAchievementToasts } from "@/hooks/useAchievementToasts"
 
 const SIDEBAR_HIDDEN_KEY = "aviatory.sidebarHidden"
 
-export function AppLayout({ children }: { children: ReactNode }) {
+/**
+ * App shell:
+ * - Desktop: sidebar 64px (icon rail) → expands to 240px on hover.
+ *   Hide it entirely with the topbar toggle (persisted).
+ * - Mobile: sidebar slides in as drawer.
+ * - Wingman floats bottom-right on every authenticated page.
+ *
+ * `streak` opcional: pasalo desde la página si querés mostrar el chip de racha.
+ */
+interface Props {
+  children: ReactNode
+  streak?: number
+}
+
+export function AppLayout({ children, streak }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
 
-  // Desktop sidebar visibility — persiste en localStorage
   const [sidebarHidden, setSidebarHidden] = useState<boolean>(() => {
     if (typeof window === "undefined") return false
     try {
@@ -26,14 +40,13 @@ export function AppLayout({ children }: { children: ReactNode }) {
     }
   }, [sidebarHidden])
 
-  // Detecta y celebra achievements desbloqueados en toda la app autenticada
   useAchievementToasts()
 
   return (
     <div className="min-h-screen flex bg-background">
-      {/* Desktop sidebar — slide out si está oculto */}
+      {/* Desktop sidebar — slide out if hidden */}
       <div
-        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 lg:w-64 z-30 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 z-30 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           sidebarHidden ? "-translate-x-full" : "translate-x-0"
         }`}
         aria-hidden={sidebarHidden}
@@ -41,7 +54,7 @@ export function AppLayout({ children }: { children: ReactNode }) {
         <AppSidebar />
       </div>
 
-      {/* Mobile sidebar drawer */}
+      {/* Mobile drawer */}
       {mobileOpen && (
         <>
           <div
@@ -50,23 +63,26 @@ export function AppLayout({ children }: { children: ReactNode }) {
             aria-hidden
           />
           <div className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl animate-in slide-in-from-left duration-200">
-            <AppSidebar onClose={() => setMobileOpen(false)} />
+            <AppSidebar onClose={() => setMobileOpen(false)} forceExpanded />
           </div>
         </>
       )}
 
       <div
         className={`flex-1 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          sidebarHidden ? "lg:pl-0" : "lg:pl-64"
+          sidebarHidden ? "lg:pl-0" : "lg:pl-16"
         }`}
       >
         <AppTopbar
           onMenuClick={() => setMobileOpen(true)}
           sidebarHidden={sidebarHidden}
           onToggleSidebar={() => setSidebarHidden((v) => !v)}
+          streak={streak}
         />
         <main className="flex-1">{children}</main>
       </div>
+
+      <Wingman />
     </div>
   )
 }

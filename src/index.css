@@ -498,3 +498,156 @@
     transform: translateX(100%);
   }
 }
+
+/* ============================================================
+ * AVIATORY · App design tokens (v2 — aviation HUD)
+ * APPEND THIS TO THE END OF src/index.css
+ * Convive con tus tokens existentes (--primary, --sidebar, etc.)
+ * ============================================================ */
+
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Brand palette */
+  --av-navy-950: oklch(0.14 0.025 250);
+  --av-navy-900: oklch(0.18 0.03 250);
+  --av-navy-800: oklch(0.22 0.035 250);
+  --av-navy-700: oklch(0.28 0.04 250);
+  --av-navy-600: oklch(0.36 0.06 250);
+  --av-blue-500: oklch(0.6 0.22 264);
+  --av-blue-400: oklch(0.7 0.2 254);
+  --av-cyan-400: oklch(0.78 0.16 215);
+  --av-cyan-300: oklch(0.86 0.14 210);
+  --av-amber-400: oklch(0.82 0.16 78);
+  --av-green-400: oklch(0.74 0.18 155);
+  --av-red-400: oklch(0.7 0.22 25);
+  --av-violet-400: oklch(0.7 0.22 295);
+
+  /* Rail (always dark) */
+  --rail: oklch(0.16 0.025 250);
+  --rail-2: oklch(0.22 0.035 250);
+  --rail-border: oklch(0.28 0.04 250 / 0.6);
+  --rail-text: oklch(0.7 0.025 250);
+  --rail-text-active: oklch(0.98 0 0);
+
+  /* Mono font */
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  /* Motion */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Shadows */
+  --shadow-navy: 0 12px 32px -12px oklch(0.14 0.025 250 / 30%);
+  --shadow-cyan: 0 0 0 1px oklch(0.78 0.16 215 / 30%), 0 8px 24px -8px oklch(0.78 0.16 215 / 40%);
+}
+
+/* === Typography helpers === */
+.mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
+
+/* === Chips === */
+.chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  height: 22px; padding: 0 8px;
+  border-radius: 9999px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  background: var(--muted); color: var(--muted-foreground);
+  border: 1px solid var(--border);
+}
+.chip-cyan { background: oklch(0.78 0.16 215 / 12%); color: oklch(0.45 0.18 220); border-color: oklch(0.78 0.16 215 / 30%); }
+.dark .chip-cyan { color: var(--av-cyan-300); }
+.chip-amber { background: oklch(0.82 0.16 78 / 14%); color: oklch(0.5 0.16 60); border-color: oklch(0.82 0.16 78 / 30%); }
+.dark .chip-amber { color: var(--av-amber-400); }
+.chip-green { background: oklch(0.74 0.18 155 / 14%); color: oklch(0.42 0.16 155); border-color: oklch(0.74 0.18 155 / 30%); }
+.dark .chip-green { color: var(--av-green-400); }
+.chip-red { background: oklch(0.7 0.22 25 / 12%); color: oklch(0.45 0.2 25); border-color: oklch(0.7 0.22 25 / 30%); }
+.dark .chip-red { color: var(--av-red-400); }
+.chip-violet { background: oklch(0.7 0.22 295 / 12%); color: oklch(0.45 0.2 295); border-color: oklch(0.7 0.22 295 / 30%); }
+.dark .chip-violet { color: var(--av-violet-400); }
+
+/* === Animations === */
+@keyframes av-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes av-scale-in { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
+@keyframes av-pulse-ring { 0% { transform: scale(0.7); opacity: 0.7; } 100% { transform: scale(1.8); opacity: 0; } }
+
+.anim-fade-up { animation: av-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-scale-in { animation: av-scale-in 500ms var(--ease-spring) both; }
+
+.stagger > * { opacity: 0; animation: av-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.stagger > *:nth-child(1) { animation-delay: 30ms; }
+.stagger > *:nth-child(2) { animation-delay: 90ms; }
+.stagger > *:nth-child(3) { animation-delay: 150ms; }
+.stagger > *:nth-child(4) { animation-delay: 210ms; }
+.stagger > *:nth-child(5) { animation-delay: 270ms; }
+.stagger > *:nth-child(6) { animation-delay: 330ms; }
+.stagger > *:nth-child(7) { animation-delay: 390ms; }
+.stagger > *:nth-child(8) { animation-delay: 450ms; }
+.stagger > *:nth-child(9) { animation-delay: 510ms; }
+.stagger > *:nth-child(10) { animation-delay: 570ms; }
+
+/* === KPI Ring === */
+.ring-bg { stroke: oklch(0.78 0.02 250 / 18%); fill: none; }
+.dark .ring-bg { stroke: oklch(0.5 0.02 250 / 25%); }
+.ring-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 1100ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+/* === Sparkline === */
+.spark-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+
+/* === Cockpit dark band (use inside light pages for emphasis) === */
+.cockpit {
+  background:
+    radial-gradient(at 12% 18%, oklch(0.32 0.12 220 / 50%) 0%, transparent 45%),
+    radial-gradient(at 88% 12%, oklch(0.28 0.16 280 / 40%) 0%, transparent 55%),
+    radial-gradient(at 50% 100%, oklch(0.36 0.18 215 / 30%) 0%, transparent 60%),
+    linear-gradient(180deg, var(--av-navy-900) 0%, var(--av-navy-950) 100%);
+  color: oklch(0.98 0 0);
+}
+.cockpit-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 4%) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* === Map tile (for Mi ruta) === */
+.map-tile {
+  background:
+    radial-gradient(circle at 30% 30%, oklch(0.78 0.16 215 / 18%) 0%, transparent 50%),
+    radial-gradient(circle at 75% 70%, oklch(0.65 0.22 264 / 12%) 0%, transparent 50%),
+    linear-gradient(135deg, var(--av-navy-900) 0%, var(--av-navy-950) 100%);
+}
+.map-grid {
+  background-image:
+    linear-gradient(oklch(0.78 0.16 215 / 8%) 1px, transparent 1px),
+    linear-gradient(90deg, oklch(0.78 0.16 215 / 8%) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* === Dotted divider === */
+.div-dotted {
+  background-image: linear-gradient(90deg, var(--border) 50%, transparent 0);
+  background-size: 6px 1px;
+  background-repeat: repeat-x;
+  background-position: 0 50%;
+  height: 1px;
+}
+
+/* === Shine sweep (already similar to shine-on-hover, kept for new components) === */
+.av-shine { position: relative; overflow: hidden; isolation: isolate; }
+.av-shine::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 35%) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.av-shine:hover::after { transform: translateX(120%); }
+
+/* === Radar pulse (for Wingman button + step markers) === */
+.radar-pulse {
+  position: absolute; inset: -2px; border-radius: inherit;
+  border: 2px solid var(--av-cyan-400);
+  animation: av-pulse-ring 2.4s ease-out infinite;
+  pointer-events: none;
+}
+.radar-pulse-delay { animation-delay: 1.2s; }

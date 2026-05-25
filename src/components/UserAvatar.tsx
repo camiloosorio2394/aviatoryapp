@@ -1,3 +1,5 @@
+import type { CSSProperties } from "react"
+
 interface Props {
   username?: string | null
   fullName?: string | null
@@ -7,6 +9,7 @@ interface Props {
   gradient?: string
   ring?: boolean
   className?: string
+  style?: CSSProperties
 }
 
 const sizeClasses: Record<NonNullable<Props["size"]>, string> = {
@@ -26,6 +29,7 @@ export function UserAvatar({
   gradient = "from-blue-500 to-blue-700",
   ring = false,
   className = "",
+  style,
 }: Props) {
   const source = username ?? fullName ?? email ?? "?"
   const initials = (source[0] ?? "?").toUpperCase()
@@ -39,6 +43,7 @@ export function UserAvatar({
         alt={username ?? fullName ?? "Avatar"}
         loading="lazy"
         className={`${sizeClass} ${ringClass} rounded-full object-cover bg-muted flex-shrink-0 ${className}`}
+        style={style}
       />
     )
   }
@@ -47,6 +52,7 @@ export function UserAvatar({
     <div
       className={`${sizeClass} ${ringClass} flex-shrink-0 rounded-full bg-gradient-to-br ${gradient} text-white font-semibold flex items-center justify-center ${className}`}
       aria-label={username ?? fullName ?? "Avatar"}
+      style={style}
     >
       {initials}
     </div>
