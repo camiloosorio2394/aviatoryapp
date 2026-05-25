@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, Loader2, Send } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
+import { LogoHorizontal } from "@/components/Logo"
 import { track, Events } from "@/lib/analytics"
 
 type Stage =
@@ -186,8 +186,14 @@ export function Onboarding() {
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-xl">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-xl shadow-blue-500/30 mb-6">
-              <LogoIsotype variant="mono" className="h-7 w-7 brightness-0 invert" />
+            <div
+              key={step}
+              className="inline-flex items-center justify-center h-14 w-14 rounded-2xl border-2 border-slate-900 bg-gradient-to-br from-sky-400 via-blue-600 to-indigo-900 text-white shadow-xl shadow-blue-500/30 mb-6 animate-in fade-in-0 zoom-in-95 duration-500"
+            >
+              <Send
+                className="h-8 w-8 [filter:drop-shadow(0_0_6px_rgb(255_255_255_/_55%))]"
+                strokeWidth={2.2}
+              />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
               {STEPS[step].title}
