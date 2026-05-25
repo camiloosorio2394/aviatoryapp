@@ -1,29 +1,27 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import {
-  Award,
   BookOpen,
   Brain,
-  Clock,
   Flame,
   Plane,
   Sparkles,
-  TrendingUp,
   AlertTriangle,
   ArrowRight,
   Trophy,
   Users,
-  Calendar,
   Lightbulb,
   Sun,
+  Target,
+  Activity,
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { UserAvatar } from "@/components/UserAvatar"
+import { SectionTitle } from "@/components/ui/section-title"
+import { CountUp } from "@/components/ui/count-up"
+import { KpiTile } from "@/components/ui/kpi-tile"
 
 type PilotStage =
   | "student_ppl"
@@ -98,7 +96,6 @@ const STAGE_LABEL: Record<PilotStage, string> = {
   airline_candidate: "Candidato a Aerolínea",
 }
 
-// Identity priming — call them by who they're becoming, not just who they are
 const STAGE_IDENTITY: Record<PilotStage, string> = {
   student_ppl: "futuro piloto",
   ppl: "Piloto",
@@ -123,10 +120,10 @@ interface NextStep {
   href: string
   cta: string
   minutes: number
-  icon: React.ComponentType<{ className?: string }>
+  icon: typeof BookOpen
+  tone: "cyan" | "violet" | "blue" | "amber"
 }
 
-// Implementation intentions — 3 specific micro-actions for today
 function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseQuiz: NextStep = {
     title: "Quiz de hoy",
@@ -135,14 +132,16 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Comenzar quiz",
     minutes: 12,
     icon: BookOpen,
+    tone: "cyan",
   }
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
-    description: "Aclará un concepto que te quedó dando vueltas la semana pasada.",
+    description: "Aclará un concepto que te quedó dando vueltas.",
     href: "/app/quiz",
     cta: "Abrir Wingman",
     minutes: 8,
     icon: Brain,
+    tone: "violet",
   }
   const baseAirline: NextStep = {
     title: "Revisá tu match",
@@ -151,6 +150,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Ver aerolíneas",
     minutes: 5,
     icon: Plane,
+    tone: "blue",
   }
   const baseCommunity: NextStep = {
     title: "Saluda a tu cohorte",
@@ -159,10 +159,10 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Ir a comunidad",
     minutes: 3,
     icon: Users,
+    tone: "amber",
   }
 
   if (!stage) return [baseQuiz, baseWingman, baseCommunity]
-
   switch (stage) {
     case "student_ppl":
     case "ppl":
@@ -190,6 +190,14 @@ function greetingTime(): string {
   return "Buenas noches"
 }
 
+const COLOR_MAP: Record<string, string> = {
+  cyan: "var(--av-cyan-400)",
+  blue: "var(--av-blue-400)",
+  violet: "var(--av-violet-400)",
+  amber: "var(--av-amber-400)",
+  green: "var(--av-green-400)",
+}
+
 export function Dashboard() {
   const { user } = useSession()
   const navigate = useNavigate()
@@ -211,55 +219,19 @@ export function Dashboard() {
 
     async function load() {
       try {
-        const [
-          profileRes,
-          pilotRes,
-          streakRes,
-          subRes,
-          attemptsRes,
-          allAchievementsRes,
-          userAchievementsRes,
-          heatmapRes,
-          peersRes,
-          dailyRes,
-        ] = await Promise.all([
+        const [profileRes, pilotRes, streakRes, subRes, attemptsRes, allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes] = await Promise.all([
           supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
-          supabase
-            .from("pilot_state")
-            .select(
-              "stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date"
-            )
-            .eq("user_id", user!.id)
-            .maybeSingle(),
-          supabase
-            .from("streaks")
-            .select("current_streak, longest_streak, last_activity_date")
-            .eq("user_id", user!.id)
-            .maybeSingle(),
-          supabase
-            .from("subscriptions")
-            .select("status, plan, current_period_end")
-            .eq("user_id", user!.id)
-            .order("created_at", { ascending: false })
-            .limit(1)
-            .maybeSingle(),
-          supabase
-            .from("quiz_attempts")
-            .select("id", { count: "exact", head: true })
-            .eq("user_id", user!.id),
+          supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
+          supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
+          supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
+          supabase.from("quiz_attempts").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
           supabase.from("achievements").select("*").order("order_index"),
-          supabase
-            .from("user_achievements")
-            .select("achievement_id, unlocked_at, achievements(*)")
-            .eq("user_id", user!.id)
-            .order("unlocked_at", { ascending: false })
-            .limit(4),
+          supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }).limit(4),
           supabase.rpc("get_activity_heatmap"),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
           supabase.rpc("get_daily_quiz"),
         ])
 
-        // Disparar chequeo de vencimientos (idempotente — solo crea notifs nuevas)
         supabase.rpc("check_my_expiries").then(() => undefined)
         if (cancelled) return
 
@@ -272,15 +244,10 @@ export function Dashboard() {
 
         setAllAchievements((allAchievementsRes.data ?? []) as Achievement[])
 
-        type UARow = {
-          unlocked_at: string
-          achievements: Achievement | Achievement[] | null
-        }
+        type UARow = { unlocked_at: string; achievements: Achievement | Achievement[] | null }
         const unlocked: Achievement[] = []
         for (const row of (userAchievementsRes.data ?? []) as UARow[]) {
-          const ach = Array.isArray(row.achievements)
-            ? row.achievements[0]
-            : row.achievements
+          const ach = Array.isArray(row.achievements) ? row.achievements[0] : row.achievements
           if (ach) unlocked.push({ ...ach, unlocked_at: row.unlocked_at })
         }
         setAchievements(unlocked)
@@ -317,485 +284,295 @@ export function Dashboard() {
   const stageLabel = stage ? STAGE_LABEL[stage] : "—"
   const identity = stage ? STAGE_IDENTITY[stage] : "piloto"
   const progress = stage ? STAGE_PROGRESS[stage] : 0
-  const firstName =
-    profile?.full_name?.split(" ")[0] ??
-    profile?.username ??
-    user?.email?.split("@")[0] ??
-    "piloto"
-  const trialLeft =
-    subscription?.status === "trialing"
-      ? trialDaysLeft(subscription.current_period_end)
-      : null
+  const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
+  const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
 
-  // Loss-aversion framing on streak
   const streakDays = streak?.current_streak ?? 0
   const longestStreak = streak?.longest_streak ?? 0
-  const streakAtRisk = streakDays > 0 && streak?.last_activity_date
-    ? (new Date(streak.last_activity_date).toDateString() !== new Date().toDateString())
-    : false
+  const streakAtRisk =
+    streakDays > 0 && streak?.last_activity_date
+      ? new Date(streak.last_activity_date).toDateString() !== new Date().toDateString()
+      : false
 
   return (
-    <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-7xl mx-auto space-y-8">
-        {/* Greeting with identity priming */}
-        <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <UserAvatar
-              photoUrl={profile?.photo_url}
-              username={profile?.username}
-              fullName={profile?.full_name}
-              email={user?.email}
-              size="xl"
-              ring
-              className="!h-14 !w-14 !text-lg"
-            />
-            <div>
-              <p className="text-sm text-muted-foreground font-medium">
-                {greetingTime()}, {firstName}
-              </p>
-              <h1 className="mt-0.5 text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
-                Hola, <span className="bg-gradient-to-r from-blue-600 to-blue-500 bg-clip-text text-transparent">{identity}</span> ✈️
-              </h1>
-              <p className="mt-1 text-sm text-muted-foreground tabular">
-                {stageLabel} · {pilot?.total_hours ?? 0}h totales
-                {pilot?.target_airline ? ` · objetivo: ${pilot.target_airline}` : ""}
-              </p>
-            </div>
-          </div>
-          {trialLeft !== null && (
-            <Badge variant="secondary" className="rounded-full px-3 py-1.5 text-xs w-fit">
-              <Sparkles className="h-3 w-3 mr-1 text-blue-600 dark:text-blue-400" />
-              {trialLeft > 0
-                ? `Tu prueba: ${trialLeft} día${trialLeft !== 1 ? "s" : ""} restantes`
-                : "Tu prueba expiró"}
-            </Badge>
-          )}
-        </header>
-
-        {/* Hero progress card */}
-        <ProgressHero
-          progress={progress}
-          targetAirline={pilot?.target_airline ?? null}
+    <AppLayout streak={streakDays}>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        {/* Cockpit hero */}
+        <CockpitHero
+          firstName={firstName}
+          identity={identity}
           stageLabel={stageLabel}
+          totalHours={pilot?.total_hours ?? 0}
+          targetAirline={pilot?.target_airline ?? null}
+          streakDays={streakDays}
+          progress={progress}
           firstStep={todayPlan[0]}
+          trialLeft={trialLeft}
         />
 
-        {/* Today's plan — implementation intentions */}
-        <section>
-          <SectionTitle
-            icon={<Calendar className="h-4 w-4" />}
-            title="Tu plan de hoy"
-            subtitle="3 micro-acciones para mantener el ritmo"
-          />
-          <div className="mt-5 grid sm:grid-cols-3 gap-4">
-            {todayPlan.map((step) => (
-              <TodayActionCard key={step.title} step={step} />
-            ))}
-          </div>
-        </section>
+        {/* Instrument cluster */}
+        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
+          <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" sparkline={[12, 18, 22, 19, 28, 24, 32]} sparklineColor="var(--av-cyan-400)" />
+          <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" sparkline={[1, 2, 3, 4, 5, 6, streakDays || 1]} sparklineColor="var(--av-amber-400)" />
+          <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} sparkline={[2, 5, 4, 7, 9, 12, 8]} sparklineColor="var(--av-violet-400)" />
+          <KpiTile eyebrow="ICAO English" value={pilot?.icao_english_level ?? 0} sparkline={[3, 3, 3.5, 4, 4, 4, pilot?.icao_english_level ?? 4]} sparklineColor="var(--av-green-400)" />
+        </div>
 
-        {/* Streak + Heatmap — loss aversion + progress visualization */}
-        <section className="grid lg:grid-cols-[1fr_2fr] gap-6">
-          <StreakCard
-            current={streakDays}
-            longest={longestStreak}
-            atRisk={streakAtRisk}
-          />
-          <HeatmapCard data={heatmap} />
-        </section>
+        {/* Today's plan + Wingman insight */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
+          <section>
+            <SectionTitle
+              icon={Target}
+              eyebrow="Tu plan de hoy"
+              title="3 micro-acciones para no romper la racha"
+              hint="Cada paso suma. No tenés que hacer los 3 hoy."
+            />
+            <div className="stagger grid grid-cols-3 gap-3 mt-3">
+              {todayPlan.map((step) => (
+                <TodayCard key={step.title} step={step} />
+              ))}
+            </div>
+          </section>
+          <WingmanInsight stage={stage} recentAttempts={recentAttempts} icao={pilot?.icao_english_level ?? null} />
+        </div>
 
-        {/* Achievements + Wingman insight */}
-        <section className="grid lg:grid-cols-[2fr_1fr] gap-6">
-          <AchievementsCard
-            unlocked={achievements}
-            next={nextAchievement ?? null}
-          />
-          <WingmanInsightCard
-            stage={stage}
-            recentAttempts={recentAttempts}
-            icao={pilot?.icao_english_level ?? null}
-          />
-        </section>
+        {/* Streak + Heatmap */}
+        <div className="grid grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
+          <StreakCard current={streakDays} longest={longestStreak} atRisk={streakAtRisk} />
+          <ActivityHeatmap data={heatmap} />
+        </div>
 
-        {/* Quiz of the Day */}
+        {/* Achievements + Cohort */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
+          <AchievementsCard unlocked={achievements} next={nextAchievement ?? null} total={allAchievements.length} />
+          <CohortCard peers={peers} stageLabel={stageLabel} />
+        </div>
+
+        {/* Daily quiz callout */}
         {daily.length > 0 && (
           <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
-        )}
-
-        {/* Stats + Peers */}
-        <section className="grid lg:grid-cols-3 gap-4">
-          <StatCard
-            icon={<Clock className="h-4 w-4" />}
-            label="Horas totales"
-            value={`${pilot?.total_hours ?? 0}h`}
-            sub={`${pilot?.hours_pic ?? 0}h como PIC`}
-          />
-          <StatCard
-            icon={<BookOpen className="h-4 w-4" />}
-            label="Quizzes hechos"
-            value={String(recentAttempts)}
-            sub={recentAttempts === 0 ? "Comenzá tu primer quiz" : "Seguí practicando"}
-          />
-          <StatCard
-            icon={<Award className="h-4 w-4" />}
-            label="Inglés ICAO"
-            value={
-              pilot?.icao_english_level
-                ? `Nivel ${pilot.icao_english_level}`
-                : "—"
-            }
-            sub={
-              pilot?.icao_english_level && pilot.icao_english_level < 4
-                ? "Subí a 4+ para aerolínea"
-                : "Listo para internacional"
-            }
-          />
-        </section>
-
-        <PeersCard peers={peers} stageLabel={stageLabel} />
-
-        {/* Upgrade banner */}
-        {subscription && subscription.plan === "free" && trialLeft === 0 && (
-          <section className="rounded-2xl glass-blue text-white p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div>
-              <h3 className="text-xl font-bold">Tu prueba terminó</h3>
-              <p className="mt-1 text-blue-100">
-                Sigue avanzando hacia la cabina sin perder tu progreso ni tu racha.
-              </p>
-            </div>
-            <Button
-              asChild
-              size="lg"
-              className="btn-apple-light shine-on-hover rounded-full h-12 px-6 border-0"
-            >
-              <Link to="/pricing">Ver planes</Link>
-            </Button>
-          </section>
         )}
       </div>
     </AppLayout>
   )
 }
 
-// ---------- Sub-components ----------
-
-function SectionTitle({
-  icon,
-  title,
-  subtitle,
-}: {
-  icon: React.ReactNode
-  title: string
-  subtitle: string
-}) {
-  return (
-    <div>
-      <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-        {icon}
-        {title}
-      </div>
-      <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
-    </div>
-  )
-}
-
-function ProgressHero({
-  progress,
-  targetAirline,
+function CockpitHero({
+  firstName,
   stageLabel,
+  totalHours,
+  targetAirline,
+  streakDays,
+  progress,
   firstStep,
+  trialLeft,
 }: {
-  progress: number
-  targetAirline: string | null
+  firstName: string
+  identity?: string
   stageLabel: string
+  totalHours: number
+  targetAirline: string | null
+  streakDays: number
+  progress: number
   firstStep: NextStep
+  trialLeft: number | null
 }) {
-  const closeToGoal = progress >= 75
   return (
-    <section className="relative overflow-hidden rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white p-7 sm:p-10 shadow-2xl shadow-blue-500/30">
+    <section
+      className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
+      style={{
+        borderColor: "oklch(0.32 0.04 250 / 0.6)",
+        boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
+      }}
+    >
+      <div className="cockpit-grid absolute inset-0 opacity-60" />
       <div
-        aria-hidden
-        className="pointer-events-none absolute -top-20 -right-20 h-80 w-80 rounded-full bg-cyan-300/20 blur-3xl"
+        className="absolute inset-0"
+        style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
       />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -bottom-32 -left-12 h-80 w-80 rounded-full bg-blue-300/15 blur-3xl"
-      />
-      <div className="relative flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-        <div className="flex-1">
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-200 uppercase tracking-wider">
-            <Plane className="h-3.5 w-3.5" />
-            Tu progreso {targetAirline ? `a ${targetAirline}` : "a aerolínea"}
-          </div>
-          <div className="mt-2 flex items-baseline gap-3">
-            <span className="text-6xl sm:text-7xl font-bold tracking-tight">{progress}%</span>
-            <span className="inline-flex items-center text-sm text-green-300 font-medium">
-              <TrendingUp className="h-4 w-4 mr-0.5" />
-              {stageLabel}
-            </span>
-          </div>
-          <div className="relative mt-5 h-2.5 rounded-full bg-white/15 overflow-hidden">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-blue-200 shadow-[0_0_16px_rgb(255_255_255_/_40%)] transition-all duration-700"
-              style={{ width: `${progress}%` }}
+
+      <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+        <div>
+          <div
+            className="mono tabular-nums inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+            style={{
+              color: "var(--av-cyan-300)",
+              background: "oklch(0.78 0.16 215 / 12%)",
+              border: "1px solid oklch(0.78 0.16 215 / 30%)",
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "var(--av-cyan-400)", boxShadow: "0 0 8px var(--av-cyan-400)" }}
             />
+            MISSION · {stageLabel.toUpperCase()}
+            {targetAirline && ` · TARGET ${targetAirline.toUpperCase()}`}
           </div>
-          <p className="mt-4 text-sm text-blue-100/90">
-            {closeToGoal
-              ? "Estás muy cerca. Cada paso ahora pesa más que nunca."
-              : "Tu primer paso hoy: " + firstStep.title.toLowerCase() + "."}
-          </p>
+          <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
+            {greetingTime()},{" "}
+            <span
+              style={{
+                background: "linear-gradient(135deg, var(--av-cyan-300), white)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              {firstName}
+            </span>
+          </h1>
+          <div className="text-sm flex flex-wrap gap-3.5 items-center" style={{ color: "oklch(0.78 0.02 250)" }}>
+            <span>
+              {stageLabel} · {totalHours}h totales
+            </span>
+            {targetAirline && (
+              <>
+                <span style={{ color: "oklch(0.55 0.02 250)" }}>·</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Plane className="h-3 w-3" /> objetivo: {targetAirline}
+                </span>
+              </>
+            )}
+            {streakDays > 0 && (
+              <>
+                <span style={{ color: "oklch(0.55 0.02 250)" }}>·</span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Flame className="h-3 w-3" style={{ color: "var(--av-amber-400)" }} />
+                  {streakDays} días
+                </span>
+              </>
+            )}
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-6 max-w-[560px]">
+            <div className="flex justify-between items-baseline mb-2">
+              <span
+                className="mono text-[11px] font-bold tracking-[0.14em] uppercase"
+                style={{ color: "var(--av-cyan-300)" }}
+              >
+                Avance a aerolínea
+              </span>
+              <span className="mono tabular-nums text-2xl font-bold text-white tracking-[-0.03em]">
+                <CountUp to={progress} />%
+              </span>
+            </div>
+            <div
+              className="relative h-2.5 rounded-full overflow-hidden"
+              style={{
+                background: "oklch(0.28 0.04 250 / 0.6)",
+                border: "1px solid oklch(0.32 0.04 250)",
+              }}
+            >
+              <div
+                className="h-full rounded-full"
+                style={{
+                  width: `${progress}%`,
+                  background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-cyan-300), white)",
+                  boxShadow: "0 0 16px var(--av-cyan-400)",
+                  animation: "av-fade-up 1.2s",
+                }}
+              />
+              {[25, 50, 75].map((t) => (
+                <div
+                  key={t}
+                  className="absolute top-0 bottom-0 w-px"
+                  style={{ left: `${t}%`, background: "oklch(0.5 0.04 250 / 0.5)" }}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-        <Button
-          asChild
-          size="lg"
-          className="btn-apple-light shine-on-hover rounded-full h-12 px-6 border-0 self-start lg:self-auto"
-        >
-          <Link to={firstStep.href}>
-            {firstStep.cta}
-            <ArrowRight className="ml-1 h-4 w-4" />
+
+        {/* Right CTA */}
+        <div className="flex flex-col items-end gap-2.5">
+          {trialLeft !== null && trialLeft > 0 && (
+            <span
+              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full"
+              style={{
+                color: "var(--av-amber-400)",
+                background: "oklch(0.82 0.16 78 / 14%)",
+                border: "1px solid oklch(0.82 0.16 78 / 30%)",
+              }}
+            >
+              <Sparkles className="h-3 w-3" /> Trial: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+            </span>
+          )}
+          <Link
+            to={firstStep.href}
+            className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-sm"
+            style={{
+              background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
+              color: "var(--av-navy-950)",
+              boxShadow: "0 1px 0 rgb(255 255 255 / 30%) inset, var(--shadow-cyan)",
+            }}
+          >
+            {firstStep.cta} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
-        </Button>
+          <div
+            className="mono text-[10px] tracking-[0.12em] uppercase"
+            style={{ color: "oklch(0.6 0.02 250)" }}
+          >
+            ~{firstStep.minutes} min
+          </div>
+        </div>
       </div>
     </section>
   )
 }
 
-function TodayActionCard({ step }: { step: NextStep }) {
+function TodayCard({ step }: { step: NextStep }) {
+  const Ic = step.icon
+  const accent = COLOR_MAP[step.tone]
   return (
     <Link
       to={step.href}
-      className="group block h-full rounded-2xl border border-border/60 bg-card card-apple p-5 hover:border-blue-500/30"
+      className="relative overflow-hidden rounded-xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 block"
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "oklch(0.78 0.16 215 / 50%)"
+        e.currentTarget.style.boxShadow = "var(--shadow-cyan)"
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--border)"
+        e.currentTarget.style.boxShadow = "none"
+      }}
     >
-      <div className="flex items-center justify-between">
-        <div className="inline-flex items-center justify-center h-10 w-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 transition-transform group-hover:scale-110">
-          <step.icon className="h-5 w-5" />
+      <div
+        aria-hidden
+        className="absolute -top-6 -right-6 w-20 h-20 rounded-full blur-2xl"
+        style={{ background: accent, opacity: 0.06 }}
+      />
+      <div className="relative">
+        <div className="flex items-center justify-between">
+          <div
+            className="w-[38px] h-[38px] rounded-lg flex items-center justify-center"
+            style={{
+              background: `color-mix(in oklab, ${accent} 14%, transparent)`,
+              color: accent,
+              border: `1px solid color-mix(in oklab, ${accent} 28%, transparent)`,
+            }}
+          >
+            <Ic className="h-[18px] w-[18px]" />
+          </div>
+          <span className="mono tabular-nums text-[10px] text-muted-foreground tracking-[0.1em] uppercase">
+            ~{step.minutes} min
+          </span>
         </div>
-        <span className="text-xs text-muted-foreground">~{step.minutes} min</span>
-      </div>
-      <h3 className="mt-4 font-semibold text-base">{step.title}</h3>
-      <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{step.description}</p>
-      <div className="mt-4 flex items-center gap-1 text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:gap-1.5 transition-all">
-        {step.cta} <ArrowRight className="h-3.5 w-3.5" />
+        <div className="mt-3.5 text-sm font-bold text-foreground tracking-[-0.015em]">{step.title}</div>
+        <div className="mt-1 text-xs text-muted-foreground leading-relaxed">{step.description}</div>
+        <div
+          className="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold"
+          style={{ color: accent }}
+        >
+          {step.cta} <ArrowRight className="h-3 w-3" />
+        </div>
       </div>
     </Link>
   )
 }
 
-function StreakCard({
-  current,
-  longest,
-  atRisk,
-}: {
-  current: number
-  longest: number
-  atRisk: boolean
-}) {
-  const isZero = current === 0
-  return (
-    <div className="rounded-2xl border border-border/60 bg-card card-apple p-6 h-full">
-      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        <Flame className="h-3.5 w-3.5 text-orange-500" />
-        Tu racha
-      </div>
-
-      <div className="mt-3 flex items-baseline gap-2">
-        <span
-          className={`text-5xl sm:text-6xl font-bold tracking-tight ${
-            isZero
-              ? "text-muted-foreground"
-              : "bg-gradient-to-br from-orange-500 to-red-500 bg-clip-text text-transparent"
-          }`}
-        >
-          {current}
-        </span>
-        <span className="text-sm text-muted-foreground">
-          {current === 1 ? "día" : "días"}
-        </span>
-      </div>
-
-      {longest > current && (
-        <p className="mt-1 text-xs text-muted-foreground">
-          Tu mejor racha: {longest} días
-        </p>
-      )}
-
-      {atRisk && current > 0 && (
-        <div className="mt-4 flex items-start gap-2 rounded-xl border border-orange-500/30 bg-orange-50 dark:bg-orange-950/30 p-3">
-          <AlertTriangle className="h-4 w-4 text-orange-600 flex-shrink-0 mt-0.5" />
-          <div>
-            <div className="text-xs font-semibold text-orange-700 dark:text-orange-300">
-              Tu racha está en riesgo
-            </div>
-            <p className="mt-0.5 text-xs text-orange-600/80 dark:text-orange-400/80">
-              Si no estudias hoy se reinicia.
-            </p>
-          </div>
-        </div>
-      )}
-
-      {isZero && (
-        <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-          Una pregunta hoy enciende tu racha 🔥
-        </p>
-      )}
-    </div>
-  )
-}
-
-function HeatmapCard({ data }: { data: ActivityDay[] }) {
-  // 12 weeks × 7 days grid
-  const weeks: ActivityDay[][] = []
-  for (let i = 0; i < data.length; i += 7) {
-    weeks.push(data.slice(i, i + 7))
-  }
-  const total = data.reduce((acc, d) => acc + d.activities_count, 0)
-
-  return (
-    <div className="rounded-2xl border border-border/60 bg-card card-apple p-6 h-full">
-      <div className="flex items-start justify-between gap-4 mb-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <TrendingUp className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-            Tu actividad
-          </div>
-          <p className="mt-1 text-sm text-muted-foreground">Últimas 12 semanas</p>
-        </div>
-        <div className="text-right">
-          <div className="text-2xl font-bold tracking-tight">{total}</div>
-          <div className="text-xs text-muted-foreground">actividades</div>
-        </div>
-      </div>
-
-      <div className="flex gap-[3px] overflow-x-auto pb-1">
-        {weeks.map((week, wi) => (
-          <div key={wi} className="flex flex-col gap-[3px]">
-            {week.map((day) => (
-              <HeatCell key={day.date} day={day} />
-            ))}
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-4 flex items-center gap-2 text-[10px] text-muted-foreground">
-        <span>Menos</span>
-        <div className="h-2.5 w-2.5 rounded-sm bg-muted" />
-        <div className="h-2.5 w-2.5 rounded-sm bg-blue-200 dark:bg-blue-900" />
-        <div className="h-2.5 w-2.5 rounded-sm bg-blue-400 dark:bg-blue-700" />
-        <div className="h-2.5 w-2.5 rounded-sm bg-blue-600 dark:bg-blue-500" />
-        <div className="h-2.5 w-2.5 rounded-sm bg-blue-800 dark:bg-blue-400" />
-        <span>Más</span>
-      </div>
-    </div>
-  )
-}
-
-function HeatCell({ day }: { day: ActivityDay }) {
-  const count = day.activities_count
-  const cls =
-    count === 0
-      ? "bg-muted"
-      : count === 1
-        ? "bg-blue-200 dark:bg-blue-900"
-        : count <= 3
-          ? "bg-blue-400 dark:bg-blue-700"
-          : count <= 6
-            ? "bg-blue-600 dark:bg-blue-500"
-            : "bg-blue-800 dark:bg-blue-400"
-  return (
-    <div
-      className={`h-3 w-3 rounded-sm transition-transform hover:scale-150 ${cls}`}
-      title={`${day.date} · ${count} actividad${count !== 1 ? "es" : ""}`}
-    />
-  )
-}
-
-function AchievementsCard({
-  unlocked,
-  next,
-}: {
-  unlocked: Achievement[]
-  next: Achievement | null
-}) {
-  return (
-    <div className="rounded-2xl border border-border/60 bg-card card-apple p-6 h-full">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-          <Trophy className="h-3.5 w-3.5 text-amber-500" />
-          Tus logros
-        </div>
-        <Badge variant="secondary" className="rounded-full text-xs">
-          {unlocked.length} desbloqueados
-        </Badge>
-      </div>
-
-      {unlocked.length === 0 ? (
-        <div className="py-6 text-center">
-          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-amber-50 dark:bg-amber-950/30 text-amber-600 dark:text-amber-400 text-2xl mb-3">
-            🏆
-          </div>
-          <p className="text-sm text-muted-foreground">
-            Tu primer logro está a un quiz de distancia.
-          </p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
-          {unlocked.map((a) => (
-            <AchievementBadge key={a.code} achievement={a} unlocked />
-          ))}
-        </div>
-      )}
-
-      {next && (
-        <div className="mt-5 pt-5 border-t border-border/40 flex items-center gap-3">
-          <AchievementBadge achievement={next} unlocked={false} small />
-          <div className="flex-1 min-w-0">
-            <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-              Próximo logro
-            </div>
-            <div className="text-sm font-semibold truncate">{next.name}</div>
-            <div className="text-xs text-muted-foreground truncate">{next.description}</div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
-}
-
-function AchievementBadge({
-  achievement,
-  unlocked,
-  small = false,
-}: {
-  achievement: Achievement
-  unlocked: boolean
-  small?: boolean
-}) {
-  const tierGradient =
-    achievement.tier === "platinum"
-      ? "from-violet-400 to-blue-500"
-      : achievement.tier === "gold"
-        ? "from-amber-400 to-orange-500"
-        : achievement.tier === "silver"
-          ? "from-slate-300 to-slate-500"
-          : "from-orange-300 to-orange-500"
-  const size = small ? "h-11 w-11 text-xl" : "h-12 w-12 text-2xl"
-  return (
-    <div
-      className={`group relative aspect-square rounded-2xl flex items-center justify-center ${size} ${
-        unlocked
-          ? `bg-gradient-to-br ${tierGradient} text-white shadow-md`
-          : "bg-muted text-muted-foreground/40 grayscale"
-      } transition-transform hover:scale-110`}
-      title={`${achievement.name}: ${achievement.description}`}
-    >
-      <span>{achievement.icon}</span>
-    </div>
-  )
-}
-
-function WingmanInsightCard({
+function WingmanInsight({
   stage,
   recentAttempts,
   icao,
@@ -804,7 +581,6 @@ function WingmanInsightCard({
   recentAttempts: number
   icao: number | null
 }) {
-  // Personalized weekly insight (heuristic until we have real performance data)
   const insight = (() => {
     if (recentAttempts === 0) {
       return {
@@ -839,150 +615,387 @@ function WingmanInsightCard({
   })()
 
   return (
-    <div className="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-blue-50/50 to-transparent dark:from-blue-950/40 dark:via-blue-950/20 p-6 h-full">
-      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300">
-        <Lightbulb className="h-3.5 w-3.5" />
-        Insight de Wingman
+    <div
+      className="anim-fade-up relative overflow-hidden rounded-xl border p-5"
+      style={{
+        background:
+          "linear-gradient(160deg, color-mix(in oklab, var(--av-violet-400) 7%, var(--card)) 0%, var(--card) 100%)",
+        borderColor: "color-mix(in oklab, var(--av-violet-400) 25%, var(--border))",
+      }}
+    >
+      <div
+        className="absolute -top-8 -right-8 w-32 h-32 rounded-full blur-3xl"
+        style={{ background: "var(--av-violet-400)", opacity: 0.1 }}
+      />
+      <div className="relative">
+        <div
+          className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+          style={{ color: "var(--av-violet-400)" }}
+        >
+          <Sparkles className="h-3 w-3" /> Insight de Wingman
+        </div>
+        <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
+        <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{insight.body}</p>
+        <Link
+          to={insight.href}
+          className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+        >
+          <Lightbulb className="h-3 w-3" /> {insight.cta}
+        </Link>
       </div>
-      <h3 className="mt-3 text-lg font-bold tracking-tight">{insight.title}</h3>
-      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{insight.body}</p>
-      <Button
-        asChild
-        size="sm"
-        className="btn-apple shine-on-hover rounded-full mt-4 h-9 px-4 border-0 text-xs"
-      >
-        <Link to={insight.href}>{insight.cta}</Link>
-      </Button>
     </div>
   )
 }
 
-function StatCard({
-  icon,
-  label,
-  value,
-  sub,
-}: {
-  icon: React.ReactNode
-  label: string
-  value: string
-  sub: string
-}) {
+function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
+  const isZero = current === 0
   return (
-    <div className="rounded-2xl border border-border/60 bg-card card-apple p-5">
-      <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground">
-        <span className="text-blue-600 dark:text-blue-400">{icon}</span>
-        {label}
+    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
+      <div
+        className="absolute -top-10 -right-10 w-[140px] h-[140px] rounded-full blur-3xl"
+        style={{ background: "var(--av-amber-400)", opacity: 0.12 }}
+      />
+      <div className="relative">
+        <div
+          className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+          style={{ color: "var(--av-amber-400)" }}
+        >
+          <Flame className="h-3 w-3" /> Tu racha
+        </div>
+        <div className="mt-4 flex items-baseline gap-2">
+          <span
+            className="mono tabular-nums text-[64px] font-bold leading-none tracking-[-0.05em]"
+            style={
+              isZero
+                ? { color: "var(--muted-foreground)" }
+                : {
+                    background:
+                      "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.22 25) 100%)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }
+            }
+          >
+            <CountUp to={current} />
+          </span>
+          <span className="text-sm text-muted-foreground font-semibold">
+            {current === 1 ? "día" : "días"}
+          </span>
+        </div>
+        {longest > current && (
+          <p className="mt-2 mono tabular-nums text-xs text-muted-foreground">
+            Mejor racha: <span className="font-semibold text-foreground">{longest} días</span>
+          </p>
+        )}
+
+        {atRisk && current > 0 && (
+          <div
+            className="mt-4 flex items-start gap-2 rounded-xl p-3"
+            style={{
+              background: "color-mix(in oklab, var(--av-amber-400) 12%, transparent)",
+              border: "1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent)",
+            }}
+          >
+            <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-amber-400)" }} />
+            <div>
+              <div
+                className="text-xs font-bold"
+                style={{ color: "var(--av-amber-400)" }}
+              >
+                Tu racha está en riesgo
+              </div>
+              <p className="mt-0.5 text-[11px] text-muted-foreground">
+                Si no estudiás hoy se reinicia.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {isZero && (
+          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+            Una pregunta hoy enciende tu racha 🔥
+          </p>
+        )}
+
+        <div className="div-dotted my-4" />
+        <div className="flex gap-1">
+          {Array.from({ length: 7 }).map((_, i) => (
+            <div
+              key={i}
+              className="flex-1 h-1.5 rounded-full"
+              style={{
+                background: i < current ? "var(--av-amber-400)" : "var(--muted)",
+                boxShadow: i < current ? "0 0 6px var(--av-amber-400)" : "none",
+              }}
+            />
+          ))}
+        </div>
       </div>
-      <div className="mt-2 text-2xl font-bold tracking-tight">{value}</div>
-      <div className="text-xs text-muted-foreground mt-1 truncate">{sub}</div>
+    </div>
+  )
+}
+
+function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
+  const weeks: ActivityDay[][] = []
+  for (let i = 0; i < data.length; i += 7) weeks.push(data.slice(i, i + 7))
+  const total = data.reduce((a, d) => a + d.activities_count, 0)
+  const color = (c: number) => {
+    if (c === 0) return "var(--muted)"
+    if (c === 1) return "oklch(0.78 0.16 215 / 25%)"
+    if (c <= 3) return "oklch(0.78 0.16 215 / 50%)"
+    if (c <= 5) return "oklch(0.78 0.16 215 / 80%)"
+    return "var(--av-cyan-400)"
+  }
+
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <div className="flex justify-between items-start gap-4 mb-4">
+        <div>
+          <div
+            className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+            style={{ color: "var(--av-cyan-400)" }}
+          >
+            <Activity className="h-3 w-3" /> Tu actividad
+          </div>
+          <div className="text-sm font-semibold text-foreground mt-0.5">Últimas 12 semanas</div>
+        </div>
+        <div className="text-right">
+          <div className="mono tabular-nums text-[22px] font-bold text-foreground tracking-[-0.03em]">
+            <CountUp to={total} />
+          </div>
+          <div className="mono text-[9px] text-muted-foreground uppercase tracking-[0.12em]">
+            actividades
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-1 items-start">
+        <div className="flex flex-col gap-[3px] mt-0.5 mr-1">
+          {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
+            <div
+              key={i}
+              className="mono text-[9px] text-muted-foreground text-right"
+              style={{ height: 14, lineHeight: "14px", width: 12 }}
+            >
+              {i % 2 === 0 ? d : ""}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-[3px] overflow-x-auto flex-1 pb-1">
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-col gap-[3px]">
+              {week.map((d) => (
+                <div
+                  key={d.date}
+                  className="w-[14px] h-[14px] rounded-[3px] transition-transform hover:scale-150 cursor-pointer"
+                  style={{ background: color(d.activities_count) }}
+                  title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-3.5 flex items-center gap-1.5 text-[10px] text-muted-foreground justify-end">
+        <span>Menos</span>
+        {[0, 1, 3, 5, 7].map((c) => (
+          <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
+        ))}
+        <span>Más</span>
+      </div>
+    </div>
+  )
+}
+
+function AchievementsCard({
+  unlocked,
+  next,
+  total,
+}: {
+  unlocked: Achievement[]
+  next: Achievement | null
+  total: number
+}) {
+  const TIER_GRAD: Record<Achievement["tier"], string> = {
+    bronze: "linear-gradient(135deg, oklch(0.75 0.12 60), oklch(0.55 0.15 40))",
+    silver: "linear-gradient(135deg, oklch(0.85 0.01 250), oklch(0.55 0.02 250))",
+    gold: "linear-gradient(135deg, oklch(0.85 0.14 85), oklch(0.65 0.16 65))",
+    platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
+  }
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <SectionTitle
+        icon={Trophy}
+        eyebrow="Logros"
+        title={`${unlocked.length} / ${total} desbloqueados`}
+        right={
+          <Link
+            to="/app/perfil"
+            className="text-xs font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
+            style={{ color: "var(--av-cyan-400)" }}
+          >
+            Ver todos <ArrowRight className="h-3 w-3" />
+          </Link>
+        }
+      />
+      {unlocked.length === 0 ? (
+        <div className="py-6 text-center">
+          <div
+            className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-3 text-2xl"
+            style={{
+              background: "color-mix(in oklab, var(--av-amber-400) 10%, transparent)",
+              color: "var(--av-amber-400)",
+            }}
+          >
+            🏆
+          </div>
+          <p className="text-sm text-muted-foreground">Tu primer logro está a un quiz de distancia.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-8 gap-2.5">
+          {unlocked.slice(0, 8).map((a) => (
+            <div key={a.code} className="aspect-square relative group" title={`${a.name}: ${a.description}`}>
+              <div
+                className="w-full h-full rounded-xl flex items-center justify-center text-xl transition-transform hover:scale-110 cursor-pointer"
+                style={{
+                  background: TIER_GRAD[a.tier],
+                  boxShadow:
+                    "0 4px 12px -4px rgb(0 0 0 / 20%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+                }}
+              >
+                {a.icon}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {next && (
+        <>
+          <div className="div-dotted my-4" />
+          <div className="flex items-center gap-3">
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-lg opacity-40"
+              style={{ background: TIER_GRAD[next.tier], filter: "grayscale(0.5)" }}
+            >
+              {next.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="mono text-[9px] text-muted-foreground tracking-[0.12em] uppercase font-bold">
+                Próximo
+              </div>
+              <div className="text-sm font-semibold text-foreground truncate">{next.name}</div>
+              <div className="text-xs text-muted-foreground truncate">{next.description}</div>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <SectionTitle icon={Users} eyebrow="Tu cohorte" title={`${peers.length} pilotos en ${stageLabel}`} />
+      {peers.length === 0 ? (
+        <div className="py-6 text-center text-sm text-muted-foreground">
+          Aún no hay otros pilotos en tu etapa.
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {peers.map((p) => (
+            <div
+              key={p.user_id}
+              className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg transition-colors hover:bg-muted/50"
+            >
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
+                style={{
+                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-navy-800))",
+                  boxShadow: "0 2px 8px -2px rgb(0 0 0 / 25%)",
+                }}
+              >
+                {p.username[0]?.toUpperCase() ?? "?"}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="mono text-[13px] font-semibold text-foreground">@{p.username}</div>
+              </div>
+              {p.current_streak > 0 && (
+                <div className="chip chip-amber mono tabular-nums">
+                  <Flame className="h-2.5 w-2.5" /> {p.current_streak}d
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
 function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-amber-500/20 bg-gradient-to-br from-amber-50 via-amber-50/40 to-transparent dark:from-amber-950/30 dark:via-amber-950/15 p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <Link
+      to="/app/quiz"
+      className="anim-fade-up relative overflow-hidden flex items-center justify-between gap-4 rounded-2xl p-6 text-white"
+      style={{
+        background: "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.18 65) 100%)",
+        boxShadow:
+          "0 16px 40px -16px oklch(0.7 0.18 65 / 50%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+      }}
+    >
       <div
-        aria-hidden
-        className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-amber-400/15 blur-3xl"
+        className="absolute -right-10 -top-10 w-[200px] h-[200px] rounded-full"
+        style={{ background: "white", opacity: 0.08 }}
       />
       <div className="relative flex items-center gap-4">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 text-white shadow-lg shadow-amber-500/30">
+        <div
+          className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center"
+          style={{
+            background: "rgb(255 255 255 / 20%)",
+            boxShadow: "inset 0 1px 0 rgb(255 255 255 / 30%)",
+          }}
+        >
           <Sun className="h-6 w-6" />
         </div>
         <div>
-          <div className="text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300">
+          <div className="mono text-[10px] font-bold tracking-[0.14em] uppercase opacity-85">
             Quiz del día
           </div>
-          <h3 className="text-lg sm:text-xl font-bold tracking-tight">
-            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
-          </h3>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            Curadas para vos. Se renueva mañana — no las dejes pasar.
-          </p>
-        </div>
-      </div>
-      <Button asChild size="lg" className="btn-apple shine-on-hover rounded-full h-11 px-6 border-0 self-start sm:self-auto">
-        <Link to="/app/quiz">
-          Empezar quiz
-          <ArrowRight className="ml-1 h-4 w-4" />
-        </Link>
-      </Button>
-    </section>
-  )
-}
-
-function PeersCard({
-  peers,
-  stageLabel,
-}: {
-  peers: Peer[]
-  stageLabel: string
-}) {
-  return (
-    <section className="rounded-2xl border border-border/60 bg-card card-apple p-6">
-      <div className="flex items-center justify-between mb-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            <Users className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
-            Tu cohorte
+          <div className="text-xl font-bold tracking-[-0.02em]">
+            {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
           </div>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Pilotos en {stageLabel.toLowerCase()} dentro de Aviatory
-          </p>
+          <div className="text-xs opacity-85 mt-0.5">
+            Curadas para vos. Se renueva mañana — no las dejes pasar.
+          </div>
         </div>
-        <Button asChild size="sm" variant="outline" className="rounded-full h-9">
-          <Link to="/app/comunidad">
-            <Users className="h-3.5 w-3.5 mr-1" />
-            Ir a la comunidad
-          </Link>
-        </Button>
       </div>
-
-      {peers.length === 0 ? (
-        <div className="py-6 text-center text-sm text-muted-foreground">
-          Aún no hay otros pilotos en tu etapa. Sé el primero en presentarte.
-        </div>
-      ) : (
-        <div className="flex flex-wrap gap-3">
-          {peers.map((p) => (
-            <div
-              key={p.user_id}
-              className="flex items-center gap-2.5 rounded-full bg-muted/60 hover:bg-muted px-3 py-1.5 transition-colors"
-            >
-              <div className="h-7 w-7 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white text-xs font-semibold flex items-center justify-center shadow-md">
-                {p.username[0]?.toUpperCase() ?? "?"}
-              </div>
-              <span className="text-sm font-medium">@{p.username}</span>
-              {p.current_streak > 0 && (
-                <span className="inline-flex items-center text-xs text-orange-600 dark:text-orange-400">
-                  <Flame className="h-3 w-3 mr-0.5" />
-                  {p.current_streak}
-                </span>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
-    </section>
+      <span
+        className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm"
+        style={{ background: "white", color: "oklch(0.45 0.15 60)", boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)" }}
+      >
+        Empezar quiz <ArrowRight className="h-3.5 w-3.5" />
+      </span>
+    </Link>
   )
 }
 
 function DashboardSkeleton() {
   return (
     <AppLayout>
-      <div className="p-8 space-y-6 animate-pulse max-w-7xl mx-auto">
+      <div className="px-7 py-7 max-w-[1480px] mx-auto space-y-6 animate-pulse">
         <div className="h-8 w-64 bg-muted rounded-lg" />
         <div className="h-44 bg-muted rounded-3xl" />
-        <div className="grid sm:grid-cols-3 gap-4">
-          <div className="h-32 bg-muted rounded-2xl" />
-          <div className="h-32 bg-muted rounded-2xl" />
-          <div className="h-32 bg-muted rounded-2xl" />
+        <div className="grid grid-cols-4 gap-3.5">
+          <div className="h-28 bg-muted rounded-xl" />
+          <div className="h-28 bg-muted rounded-xl" />
+          <div className="h-28 bg-muted rounded-xl" />
+          <div className="h-28 bg-muted rounded-xl" />
         </div>
-        <div className="grid lg:grid-cols-[1fr_2fr] gap-6">
-          <div className="h-40 bg-muted rounded-2xl" />
-          <div className="h-40 bg-muted rounded-2xl" />
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
+          <div className="h-40 bg-muted rounded-xl" />
+          <div className="h-40 bg-muted rounded-xl" />
         </div>
       </div>
     </AppLayout>
