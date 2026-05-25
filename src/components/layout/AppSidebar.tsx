@@ -1,18 +1,21 @@
-import { NavLink, Link } from "react-router-dom"
+import { useState } from "react"
+import { Link, NavLink } from "react-router-dom"
 import {
   LayoutDashboard,
   BookOpen,
-  Map,
-  Plane,
-  User,
-  X,
-  Users,
+  Radar,
   Clock,
   Calendar,
+  Users,
+  Map,
+  Plane,
   Gift,
-  Radar,
+  User,
+  Sparkles,
+  ArrowRight,
+  X,
 } from "lucide-react"
-import { LogoIsotype, LogoHorizontal } from "@/components/Logo"
+import { LogoIsotype } from "@/components/Logo"
 
 const navItems = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true },
@@ -27,62 +30,174 @@ const navItems = [
   { to: "/app/perfil", label: "Mi perfil", icon: User },
 ]
 
-export function AppSidebar({ onClose }: { onClose?: () => void }) {
+interface Props {
+  onClose?: () => void
+  /** When true (mobile drawer), force-expanded; desktop ignores this and uses hover. */
+  forceExpanded?: boolean
+}
+
+/**
+ * Collapsible icon rail (64px → 240px on hover).
+ * Dark navy with cyan accent for active state.
+ */
+export function AppSidebar({ onClose, forceExpanded = false }: Props) {
+  const [hovered, setHovered] = useState(false)
+  const expanded = forceExpanded || hovered
+
   return (
-    <aside className="flex flex-col h-full w-64 bg-muted/30 border-r border-border/60">
-      <div className="flex items-center justify-between px-5 h-16 border-b border-border/40">
-        <Link to="/app" className="flex items-center" onClick={onClose}>
-          <LogoHorizontal className="h-7 w-auto" />
+    <aside
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="flex flex-col h-full overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      style={{
+        width: expanded ? 240 : 64,
+        background: "var(--rail)",
+        borderRight: "1px solid var(--rail-border)",
+        color: "var(--rail-text)",
+      }}
+    >
+      {/* Logo */}
+      <div
+        className="flex items-center gap-2.5 px-3.5"
+        style={{
+          height: 60,
+          borderBottom: "1px solid var(--rail-border)",
+        }}
+      >
+        <Link to="/app" onClick={onClose} className="flex items-center gap-2.5 flex-1 min-w-0">
+          <div
+            className="flex-shrink-0 flex items-center justify-center"
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: 10,
+              background:
+                "linear-gradient(135deg, var(--av-cyan-300) 0%, var(--av-blue-500) 60%, var(--av-navy-900) 100%)",
+              boxShadow:
+                "0 4px 12px -2px oklch(0.55 0.22 264 / 50%), inset 0 1px 0 rgb(255 255 255 / 30%)",
+            }}
+          >
+            <LogoIsotype className="h-5 w-5" />
+          </div>
+          <div
+            className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap transition-opacity duration-200"
+            style={{ opacity: expanded ? 1 : 0 }}
+          >
+            Aviatory
+          </div>
         </Link>
         {onClose && (
           <button
             type="button"
             onClick={onClose}
-            className="lg:hidden p-2 -mr-2 text-muted-foreground hover:text-foreground"
+            className="lg:hidden p-2 -mr-1 text-white/60 hover:text-white"
             aria-label="Cerrar menú"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         )}
       </div>
 
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      {/* Section label */}
+      <div
+        className="px-3.5 pt-4 pb-1.5 mono text-[10px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
+        style={{
+          color: "oklch(0.55 0.02 250)",
+          opacity: expanded ? 1 : 0,
+        }}
+      >
+        Navegación
+      </div>
+
+      {/* Nav */}
+      <nav className="flex-1 px-2.5 flex flex-col gap-0.5">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
             onClick={onClose}
-            className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                isActive
-                  ? "bg-blue-600 text-white shadow-md shadow-blue-500/25"
-                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
-              }`
+            className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors"
+            style={({ isActive }) =>
+              isActive
+                ? {
+                    color: "var(--rail-text-active)",
+                    background:
+                      "linear-gradient(90deg, oklch(0.78 0.16 215 / 18%) 0%, oklch(0.78 0.16 215 / 8%) 100%)",
+                    boxShadow:
+                      "inset 2px 0 0 var(--av-cyan-400), inset 0 1px 0 rgb(255 255 255 / 4%)",
+                  }
+                : { color: "var(--rail-text)" }
             }
           >
-            <item.icon className="h-4 w-4" />
-            {item.label}
+            {({ isActive }) => (
+              <>
+                <item.icon
+                  size={18}
+                  className="flex-shrink-0 transition-colors"
+                  style={{ color: isActive ? "var(--av-cyan-400)" : "currentColor" }}
+                />
+                <span
+                  className="whitespace-nowrap overflow-hidden transition-opacity duration-200"
+                  style={{ opacity: expanded ? 1 : 0 }}
+                >
+                  {item.label}
+                </span>
+                {!expanded && (
+                  <span
+                    className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[11px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
+                  >
+                    {item.label}
+                  </span>
+                )}
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
 
-      <div className="p-4 border-t border-border/40">
-        <div className="rounded-xl border border-blue-500/20 bg-gradient-to-br from-blue-50 to-transparent dark:from-blue-950/30 p-4">
-          <div className="flex items-center gap-2 text-xs font-semibold text-blue-700 dark:text-blue-300">
-            <LogoIsotype variant="color" className="h-5 w-5 rounded" />
-            Prueba gratis
-          </div>
-          <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-            Tu trial termina pronto. Upgradeá a Pro y desbloqueá todo.
-          </p>
-          <Link
-            to="/pricing"
-            className="mt-3 inline-flex w-full justify-center items-center btn-apple shine-on-hover rounded-full h-8 px-4 text-xs font-medium text-white border-0"
-          >
-            Ver planes
-          </Link>
-        </div>
+      {/* Pro upgrade */}
+      <div className="p-2.5">
+        <Link
+          to="/pricing"
+          className="block transition-transform hover:-translate-y-0.5"
+          style={{
+            padding: expanded ? 14 : 10,
+            borderRadius: 12,
+            background:
+              "linear-gradient(135deg, oklch(0.78 0.16 215 / 12%) 0%, oklch(0.55 0.22 264 / 16%) 100%)",
+            border: "1px solid oklch(0.78 0.16 215 / 25%)",
+          }}
+        >
+          {expanded ? (
+            <>
+              <div
+                className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.1em]"
+                style={{ color: "var(--av-cyan-300)" }}
+              >
+                <Sparkles className="h-3 w-3" /> Prueba gratis
+              </div>
+              <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.78 0.02 250)" }}>
+                Pasá a Pro y desbloqueá todo Aviatory.
+              </div>
+              <div
+                className="av-shine mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold"
+                style={{
+                  background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
+                  color: "var(--av-navy-950)",
+                  boxShadow:
+                    "0 1px 0 rgb(255 255 255 / 30%) inset, 0 8px 24px -8px oklch(0.78 0.16 215 / 40%)",
+                }}
+              >
+                Ver planes <ArrowRight className="h-3 w-3" />
+              </div>
+            </>
+          ) : (
+            <div className="flex justify-center">
+              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-cyan-300)" }} />
+            </div>
+          )}
+        </Link>
       </div>
     </aside>
   )
