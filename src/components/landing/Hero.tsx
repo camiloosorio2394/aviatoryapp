@@ -47,30 +47,25 @@ export function Hero() {
             variant="secondary"
             className="mb-7 rounded-full px-4 py-1.5 text-xs font-medium tracking-wide bg-white/60 dark:bg-white/5 backdrop-blur-xl border-white/40 dark:border-white/10"
           >
-            <span className="mr-1.5">🛫</span>
-            La plataforma de pilotos para Latinoamérica
+            La plataforma más completa para pilotos en Latinoamérica
           </Badge>
         </div>
 
         {/* Headline con letter reveal + gradient animado */}
         <h1 className="text-5xl sm:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.04em] text-balance leading-[0.98]">
-          <TextReveal as="span" text="De estudiante piloto" className="block" />
-          <span className="block mt-1">
-            <TextReveal as="span" text="a " delayMs={400} />
-            <TextReveal
-              as="span"
-              text="candidato de aerolínea"
-              delayMs={500}
-              className="text-gradient-blue"
-            />
-            <TextReveal as="span" text="." delayMs={1100} />
+          <TextReveal as="span" text="De estudiante" className="block" />
+          <span className="block mt-1 animate-spring-up [animation-delay:500ms]">
+            <span>a </span>
+            <span className="text-gradient-gold">Piloto de Aerolínea</span>
+            <span>.</span>
           </span>
         </h1>
 
         <p className="animate-spring-up [animation-delay:1100ms] mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-balance leading-relaxed font-medium">
-          Prepara tus exámenes PPL y CPL de Aerocivil, mejora tu inglés ICAO
-          y avanza paso a paso hasta tu primer empleo en aerolínea.
-          <span className="text-foreground"> Todo en una sola plataforma, en español.</span>
+          Prepara tus chequeos de Piloto Comercial de Avión, mejora tu nivel
+          de inglés ICAO, preparate para tus entrevistas psicológicas y tus
+          chequeos de simulador, y avanza paso a paso hasta obtener tu primer
+          empleo en aerolínea.
         </p>
 
         <div className="animate-spring-up [animation-delay:1300ms] mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">

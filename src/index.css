@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/geist";
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -50,7 +50,7 @@
 @layer base {
   .theme {
     --font-heading: var(--font-sans);
-    --font-sans: 'Geist Variable', sans-serif
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif
   }
   :root {
     --background: oklch(1 0 0);
@@ -337,6 +337,22 @@
    * ======================================== */
   .text-gradient-blue {
     background: linear-gradient(135deg, oklch(0.6 0.22 260) 0%, oklch(0.7 0.18 220) 50%, oklch(0.6 0.22 280) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  .text-gradient-gold {
+    background: linear-gradient(135deg, oklch(0.88 0.12 85) 0%, oklch(0.75 0.16 78) 35%, oklch(0.6 0.15 72) 65%, oklch(0.78 0.14 80) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% 200%;
+    animation: gradient-shift 8s ease infinite;
+  }
+  .text-gradient-silver {
+    background: linear-gradient(135deg, oklch(0.95 0.005 250) 0%, oklch(0.62 0.015 250) 30%, oklch(0.9 0.008 250) 55%, oklch(0.58 0.015 250) 80%, oklch(0.85 0.008 250) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

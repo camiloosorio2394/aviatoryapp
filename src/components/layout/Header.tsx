@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import { Menu, X } from "lucide-react"
-import { LogoHorizontal } from "@/components/Logo"
+import { Menu, Send, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const navLinks = [
@@ -37,26 +36,32 @@ export function Header() {
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">
         <Link
           to="/"
-          className="flex items-center transition-transform hover:scale-[1.02]"
+          className="flex items-center gap-3 transition-transform hover:scale-[1.02]"
           aria-label="Aviatory — inicio"
         >
-          <LogoHorizontal className="h-10 w-auto" />
+          <div className="inline-flex items-center justify-center h-11 w-11 rounded-xl border-2 border-slate-900 bg-gradient-to-br from-sky-400 via-blue-600 to-indigo-900 text-white shadow-md shadow-blue-500/30">
+            <Send
+              className="h-6 w-6 [filter:drop-shadow(0_0_5px_rgb(255_255_255_/_55%))]"
+              strokeWidth={2.2}
+            />
+          </div>
+          <span className="text-2xl font-bold tracking-tight">Aviatory</span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-9">
+        <nav className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <NavLink
               key={link.to}
               to={link.to}
               end={link.to === "/"}
               className={({ isActive }) =>
-                `text-sm font-medium tracking-tight transition-colors ${
+                `relative px-4 py-2 text-[15px] font-semibold tracking-tight rounded-full transition-all ${
                   isActive
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    ? "text-foreground bg-foreground/[0.06]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
                 }`
               }
             >
@@ -70,14 +75,14 @@ export function Header() {
             asChild
             variant="ghost"
             size="sm"
-            className="rounded-full h-10 px-5 text-sm"
+            className="rounded-full h-11 px-5 text-[15px] font-semibold"
           >
             <Link to="/login">Iniciar sesión</Link>
           </Button>
           <Button
             asChild
             size="sm"
-            className="btn-apple rounded-full h-10 px-6 text-sm border-0 font-medium"
+            className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
           >
             <Link to="/login?mode=signup">Comenzar gratis</Link>
           </Button>
