@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react"
-import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, Check } from "lucide-react"
+import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -14,6 +14,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { PageHeader } from "@/components/ui/page-header"
+import { CountUp } from "@/components/ui/count-up"
 
 type LicenseType =
   | "medical_class_1"
@@ -57,6 +59,22 @@ const LICENSE_TYPE_LABEL: Record<LicenseType, string> = {
   other: "Otra",
 }
 
+const LICENSE_CATEGORY: Record<LicenseType, string> = {
+  medical_class_1: "Médico",
+  medical_class_2: "Médico",
+  medical_class_3: "Médico",
+  ppl: "Licencia",
+  cpl: "Licencia",
+  atpl: "Licencia",
+  ifr: "Habilitación",
+  multi_engine: "Habilitación",
+  flight_instructor: "Habilitación",
+  type_rating: "Type Rating",
+  icao_english: "Inglés",
+  recurrent_check: "Currency",
+  other: "Otra",
+}
+
 function daysUntil(date: string): number {
   const target = new Date(date)
   const today = new Date()
@@ -64,12 +82,23 @@ function daysUntil(date: string): number {
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 }
 
-function tone(daysLeft: number) {
-  if (daysLeft < 0) return { color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-950/30", border: "border-red-500/30", label: "Vencido" }
-  if (daysLeft <= 7) return { color: "text-red-600 dark:text-red-400", bg: "bg-red-50 dark:bg-red-950/30", border: "border-red-500/30", label: "Urgente" }
-  if (daysLeft <= 30) return { color: "text-orange-600 dark:text-orange-400", bg: "bg-orange-50 dark:bg-orange-950/30", border: "border-orange-500/30", label: "Próximo" }
-  if (daysLeft <= 90) return { color: "text-yellow-700 dark:text-yellow-400", bg: "bg-yellow-50 dark:bg-yellow-950/30", border: "border-yellow-500/30", label: "Mantén ojo" }
-  return { color: "text-green-700 dark:text-green-400", bg: "bg-green-50 dark:bg-green-950/30", border: "border-green-500/30", label: "Vigente" }
+type Status = "expired" | "critical" | "urgent" | "warn" | "ok" | "none"
+function statusOf(d: number | null): Status {
+  if (d === null) return "none"
+  if (d < 0) return "expired"
+  if (d <= 7) return "critical"
+  if (d <= 30) return "urgent"
+  if (d <= 120) return "warn"
+  return "ok"
+}
+
+const STATUS_META: Record<Status, { color: string; label: string }> = {
+  expired: { color: "var(--av-red-400)", label: "VENCIDO" },
+  critical: { color: "var(--av-red-400)", label: "CRÍTICO" },
+  urgent: { color: "oklch(0.65 0.18 50)", label: "URGENTE" },
+  warn: { color: "var(--av-amber-400)", label: "ATENCIÓN" },
+  ok: { color: "var(--av-green-400)", label: "AL DÍA" },
+  none: { color: "var(--muted-foreground)", label: "SIN FECHA" },
 }
 
 export function Expiries() {
@@ -85,17 +114,13 @@ export function Expiries() {
       .select("*")
       .eq("user_id", user.id)
       .order("expires_date", { ascending: true, nullsFirst: false })
-    if (error) {
-      toast.error(error.message)
-    } else {
-      setLicenses((data ?? []) as License[])
-    }
+    if (error) toast.error(error.message)
+    else setLicenses((data ?? []) as License[])
     setLoading(false)
   }
 
   useEffect(() => {
     load()
-    // Trigger expiry check (creates notifs si corresponde)
     supabase.rpc("check_my_expiries").then(() => undefined)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
@@ -113,55 +138,99 @@ export function Expiries() {
     }
   }
 
+  // Bucket counts
+  const withDates = licenses.map((l) => ({ l, d: l.expires_date ? daysUntil(l.expires_date) : null }))
+  const critical = withDates.filter((x) => x.d !== null && x.d < 14).length
+  const urgent = withDates.filter((x) => x.d !== null && x.d >= 14 && x.d < 30).length
+  const upcoming = withDates.filter((x) => x.d !== null && x.d >= 30 && x.d < 120).length
+  const ok = withDates.filter((x) => x.d !== null && x.d >= 120).length
+
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-4xl mx-auto space-y-8">
-        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
-              Vencimientos
-            </h1>
-            <p className="mt-1 text-muted-foreground">
-              Tu médico clase 1, licencias y recurrent checks. Te avisamos antes que venzan.
-            </p>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow={`VENCIMIENTOS · ${critical} CRÍTICOS`}
+          title={critical > 0 ? "Lo que vence pronto" : "Tus vencimientos al día"}
+          subtitle={critical > 0
+            ? "Renová antes que venzan para no perder legalidad."
+            : "Te avisamos automáticamente en los 30, 15, 7 y 1 días previos a vencer."}
+          actions={
+            <button
+              type="button"
+              onClick={() => setFormOpen(true)}
+              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow:
+                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+              }}
+            >
+              <Plus className="h-3.5 w-3.5" /> Agregar
+            </button>
+          }
+        />
+
+        {/* Summary tiles */}
+        {!loading && licenses.length > 0 && (
+          <div className="grid grid-cols-4 gap-3 mb-6">
+            <SummaryTile label="Críticos (<14d)" value={critical} color="red" icon={AlertTriangle} />
+            <SummaryTile label="Por vencer (<30d)" value={urgent} color="amber" icon={Clock} />
+            <SummaryTile label="Próximos 4 meses" value={upcoming} color="cyan" icon={Calendar} />
+            <SummaryTile label="Al día" value={ok} color="green" icon={CheckCircle} />
           </div>
-          <Button
-            onClick={() => setFormOpen(true)}
-            size="lg"
-            className="btn-apple rounded-full h-11 px-5 border-0"
+        )}
+
+        {/* Critical alert */}
+        {critical > 0 && (
+          <div
+            className="anim-fade-up flex items-center gap-3.5 px-5 py-4 rounded-xl mb-6"
+            style={{
+              background:
+                "linear-gradient(135deg, color-mix(in oklab, var(--av-red-400) 12%, var(--card)) 0%, var(--card) 70%)",
+              border: "1px solid color-mix(in oklab, var(--av-red-400) 35%, transparent)",
+            }}
           >
-            <Plus className="h-4 w-4" />
-            Agregar
-          </Button>
-        </header>
+            <div
+              className="relative flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
+              style={{
+                background: "color-mix(in oklab, var(--av-red-400) 20%, transparent)",
+                color: "var(--av-red-400)",
+              }}
+            >
+              <AlertTriangle className="h-5 w-5" />
+              <span className="radar-pulse" style={{ borderColor: "var(--av-red-400)" }} />
+            </div>
+            <div className="flex-1">
+              <div className="text-sm font-bold text-foreground tracking-[-0.015em]">
+                {critical} ítem{critical !== 1 ? "s necesitan" : " necesita"} acción esta semana
+              </div>
+              <div className="text-xs text-muted-foreground mt-0.5">
+                Si no renovás antes del vencimiento perdés legalidad para volar PIC.
+              </div>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="animate-pulse space-y-2">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-20 rounded-xl bg-muted" />
+              <div key={i} className="h-16 rounded-xl bg-muted" />
             ))}
           </div>
         ) : licenses.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <ul className="space-y-2.5">
-            {licenses.map((l) => (
-              <LicenseRow key={l.id} license={l} onDelete={() => deleteOne(l.id)} />
+          <div className="rounded-xl border border-border bg-card overflow-hidden">
+            {licenses.map((l, i) => (
+              <LicenseRow
+                key={l.id}
+                license={l}
+                isLast={i === licenses.length - 1}
+                onDelete={() => deleteOne(l.id)}
+              />
             ))}
-          </ul>
-        )}
-
-        <div className="rounded-2xl border border-blue-500/20 bg-blue-50/40 dark:bg-blue-950/20 p-5 flex gap-3 items-start">
-          <Calendar className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-          <div>
-            <h3 className="text-sm font-semibold">Te avisamos automático</h3>
-            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
-              Cuando una licencia entra en los 30, 15, 7 o 1 días previos a vencer, te
-              llega una notificación en la campanita 🔔. Sin que tengas que abrir
-              esta pantalla.
-            </p>
           </div>
-        </div>
+        )}
       </div>
 
       {formOpen && (
@@ -178,7 +247,52 @@ export function Expiries() {
   )
 }
 
-function LicenseRow({ license, onDelete }: { license: License; onDelete: () => void }) {
+function SummaryTile({
+  label,
+  value,
+  color,
+  icon: Ic,
+}: {
+  label: string
+  value: number
+  color: "red" | "amber" | "cyan" | "green"
+  icon: typeof AlertTriangle
+}) {
+  const TONES = {
+    red: { c: "var(--av-red-400)", bg: "color-mix(in oklab, var(--av-red-400) 8%, var(--card))" },
+    amber: { c: "var(--av-amber-400)", bg: "color-mix(in oklab, var(--av-amber-400) 8%, var(--card))" },
+    cyan: { c: "var(--av-cyan-400)", bg: "color-mix(in oklab, var(--av-cyan-400) 8%, var(--card))" },
+    green: { c: "var(--av-green-400)", bg: "color-mix(in oklab, var(--av-green-400) 8%, var(--card))" },
+  }
+  const t = TONES[color]
+  return (
+    <div
+      className="rounded-xl border p-4"
+      style={{
+        background: t.bg,
+        borderColor: `color-mix(in oklab, ${t.c} 25%, var(--border))`,
+      }}
+    >
+      <Ic className="h-4 w-4" style={{ color: t.c }} />
+      <div className="mono tabular-nums mt-3.5 text-3xl font-bold leading-none tracking-[-0.04em] text-foreground">
+        <CountUp to={value} />
+      </div>
+      <div className="mono mt-1 text-[10px] uppercase tracking-[0.12em] font-semibold text-muted-foreground">
+        {label}
+      </div>
+    </div>
+  )
+}
+
+function LicenseRow({
+  license,
+  isLast,
+  onDelete,
+}: {
+  license: License
+  isLast: boolean
+  onDelete: () => void
+}) {
   const label =
     license.license_type === "type_rating" && license.custom_name
       ? `Type Rating ${license.custom_name}`
@@ -186,84 +300,132 @@ function LicenseRow({ license, onDelete }: { license: License; onDelete: () => v
         ? license.custom_name
         : LICENSE_TYPE_LABEL[license.license_type]
 
-  const daysLeft = license.expires_date ? daysUntil(license.expires_date) : null
-  const t = daysLeft !== null ? tone(daysLeft) : null
+  const d = license.expires_date ? daysUntil(license.expires_date) : null
+  const s = statusOf(d)
+  const meta = STATUS_META[s]
+  const dangerous = s === "critical" || s === "urgent" || s === "expired"
 
   return (
-    <li
-      className={`group flex items-start gap-4 rounded-2xl border p-4 sm:p-5 ${
-        t ? `${t.border} ${t.bg}` : "border-border/60 bg-card"
-      }`}
+    <div
+      className="grid items-center gap-4 px-[18px] py-4 transition-colors group"
+      style={{
+        gridTemplateColumns: "8px 1fr 200px 110px 120px 100px",
+        borderBottom: isLast ? "none" : "1px solid var(--border)",
+      }}
+      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--muted)")}
+      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
-      <div className={`flex-shrink-0 mt-0.5 ${t?.color ?? "text-muted-foreground"}`}>
-        {t && daysLeft !== null && daysLeft <= 30 ? (
-          <AlertTriangle className="h-5 w-5" />
+      <div
+        className="w-1 h-8 rounded-full"
+        style={{
+          background: meta.color,
+          boxShadow: dangerous ? `0 0 8px ${meta.color}` : "none",
+        }}
+      />
+      <div>
+        <div className="text-sm font-bold text-foreground">{label}</div>
+        <div className="mono text-[10px] text-muted-foreground uppercase tracking-[0.1em] mt-0.5">
+          {LICENSE_CATEGORY[license.license_type]}
+        </div>
+      </div>
+      <div className="mono tabular-nums text-sm font-semibold text-foreground">
+        {license.expires_date ? (
+          new Date(license.expires_date).toLocaleDateString("es-CO", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+          })
         ) : (
-          <Check className="h-5 w-5" />
+          <span className="text-muted-foreground">—</span>
         )}
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <h3 className="text-base font-semibold">{label}</h3>
-          {t && (
-            <span className={`text-xs font-medium ${t.color}`}>{t.label}</span>
-          )}
-        </div>
-        <div className="mt-1 text-sm text-muted-foreground tabular">
-          {license.expires_date ? (
-            <>
-              Vence el {new Date(license.expires_date).toLocaleDateString("es-CO", {
-                day: "2-digit",
-                month: "long",
-                year: "numeric",
-              })}
-              {daysLeft !== null && (
-                <span className={`ml-2 font-medium ${t?.color}`}>
-                  {daysLeft < 0
-                    ? `· hace ${Math.abs(daysLeft)} días`
-                    : daysLeft === 0
-                      ? "· hoy"
-                      : `· en ${daysLeft} día${daysLeft !== 1 ? "s" : ""}`}
-                </span>
-              )}
-            </>
-          ) : (
-            <span>Sin fecha de vencimiento</span>
-          )}
-        </div>
-        {license.notes && (
-          <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">
-            {license.notes}
-          </p>
+      <div>
+        {d !== null && (
+          <div
+            className="mono tabular-nums text-lg font-bold tracking-[-0.025em]"
+            style={{ color: meta.color }}
+          >
+            {Math.abs(d)}
+            <span className="text-[11px] text-muted-foreground font-semibold ml-0.5">d</span>
+            {d < 0 && <span className="text-[10px] text-muted-foreground ml-1">vencido</span>}
+          </div>
         )}
       </div>
-      <button
-        type="button"
-        onClick={onDelete}
-        className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
-        aria-label="Eliminar"
-      >
-        <Trash2 className="h-4 w-4" />
-      </button>
-    </li>
+      <div>
+        <span
+          className="mono px-2 py-0.5 rounded text-[9px] font-bold tracking-[0.12em]"
+          style={{
+            color: meta.color,
+            background: `color-mix(in oklab, ${meta.color} 14%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${meta.color} 30%, transparent)`,
+          }}
+        >
+          {meta.label}
+        </span>
+      </div>
+      <div className="text-right flex items-center justify-end gap-1">
+        <button
+          type="button"
+          className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md text-xs font-semibold border border-border bg-background hover:bg-muted transition-colors"
+        >
+          Renovar <ArrowRight className="h-3 w-3" />
+        </button>
+        <button
+          type="button"
+          onClick={onDelete}
+          className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+          aria-label="Eliminar"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
   )
 }
 
 function EmptyState({ onAdd }: { onAdd: () => void }) {
   return (
-    <div className="rounded-3xl border border-dashed border-border/60 p-12 text-center">
-      <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 mb-4">
+    <div className="rounded-3xl border border-dashed border-border p-12 text-center max-w-[520px] mx-auto">
+      <div
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.78 0.16 215 / 14%), oklch(0.55 0.22 264 / 14%))",
+          border: "1px solid oklch(0.78 0.16 215 / 30%)",
+          color: "var(--av-cyan-400)",
+        }}
+      >
         <FileText className="h-7 w-7" />
       </div>
-      <h3 className="text-base font-semibold">Carga tus licencias y certificaciones</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-md mx-auto">
-        Médico clase 1, PPL, CPL, IFR, recurrent check… Una vez cargadas, te
-        recordamos antes que venzan.
+      <h3 className="text-lg font-bold text-foreground">Carga tus licencias y certificaciones</h3>
+      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+        Médico clase 1, PPL, CPL, IFR, recurrent check… Una vez cargadas, te recordamos antes que venzan.
       </p>
-      <Button onClick={onAdd} size="lg" className="btn-apple rounded-full mt-5 h-11 px-5 border-0">
-        <Plus className="h-4 w-4" />
-        Agregar la primera
-      </Button>
+      <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
+        {[
+          "Agregá tu médico clase 1 (lo más urgente)",
+          "Sumá tus licencias y habilitaciones",
+          "Activamos los recordatorios automáticos",
+        ].map((s, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[11px] font-bold text-foreground">
+              {i + 1}
+            </span>
+            {s}
+          </li>
+        ))}
+      </ol>
+      <button
+        type="button"
+        onClick={onAdd}
+        className="av-shine mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white"
+        style={{
+          background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+          boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+        }}
+      >
+        <Plus className="h-3.5 w-3.5" /> Agregar la primera
+      </button>
     </div>
   )
 }
@@ -313,9 +475,9 @@ function NewLicenseDialog({
       <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
-          className="pointer-events-auto w-full max-w-md rounded-3xl bg-card shadow-2xl my-8"
+          className="pointer-events-auto w-full max-w-md rounded-3xl bg-card border border-border shadow-2xl my-8"
         >
-          <header className="flex items-center justify-between px-6 py-4 border-b border-border/40">
+          <header className="flex items-center justify-between px-6 py-4 border-b border-border">
             <h2 className="text-lg font-bold">Nueva licencia o certificación</h2>
             <button
               type="button"
@@ -390,7 +552,7 @@ function NewLicenseDialog({
               />
             </div>
           </div>
-          <footer className="flex items-center justify-end gap-2 px-6 py-4 border-t border-border/40">
+          <footer className="flex items-center justify-end gap-2 px-6 py-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>
@@ -398,7 +560,12 @@ function NewLicenseDialog({
               type="submit"
               disabled={saving}
               size="lg"
-              className="btn-apple rounded-full h-11 px-6 border-0"
+              className="rounded-full h-11 px-6 border-0 text-white"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow:
+                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+              }}
             >
               {saving ? (
                 <>

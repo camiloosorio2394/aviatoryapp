@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { Plane, Check, X, Clock, Globe2 } from "lucide-react"
+import { Check, X, Globe, Target, MapPin } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { Badge } from "@/components/ui/badge"
+import { PageHeader } from "@/components/ui/page-header"
+import { KpiRing } from "@/components/ui/kpi-ring"
 
 interface AirlineRequirements {
   min_hours_total?: number
@@ -29,6 +30,13 @@ interface PilotState {
   hours_pic: number | null
   licenses: string[] | null
   icao_english_level: number | null
+}
+
+interface MatchCheck {
+  label: string
+  have: string
+  need: string
+  passed: boolean
 }
 
 export function Airlines() {
@@ -66,147 +74,208 @@ export function Airlines() {
     }
   }, [user])
 
+  // Compute matches
+  const matches = airlines
+    .map((a) => {
+      const checks = buildChecks(a.requirements, pilot)
+      const matchPct = checks.length
+        ? Math.round((checks.filter((c) => c.passed).length / checks.length) * 100)
+        : 0
+      const missing = checks.filter((c) => !c.passed).length
+      return { airline: a, checks, matchPct, missing }
+    })
+    .sort((a, b) => b.matchPct - a.matchPct)
+
+  const bestMatch = matches[0]
+
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-6xl mx-auto">
-        <header className="mb-8">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">Aerolíneas LATAM</h1>
-          <p className="mt-2 text-muted-foreground">
-            Los requisitos reales para entrar como cadete o primer oficial. Comparados con tu perfil actual.
-          </p>
-        </header>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow="AEROLÍNEAS · MATCH CON TU PERFIL"
+          title="¿Para cuál calificás hoy?"
+          subtitle="Comparamos tus horas, licencias e inglés contra los requisitos públicos de cada aerolínea."
+        />
 
         {loading ? (
-          <div className="grid sm:grid-cols-2 gap-4 animate-pulse">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-64 rounded-2xl bg-muted" />
+          <div className="grid grid-cols-3 gap-3.5 animate-pulse">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div key={i} className="h-[280px] rounded-xl bg-muted" />
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 gap-6">
-            {airlines.map((a) => {
-              const req = a.requirements
-              const checks = [
-                req.min_hours_total
-                  ? {
-                      label: `Mín. ${req.min_hours_total}h totales`,
-                      passed: (pilot?.total_hours ?? 0) >= (req.min_hours_total ?? 0),
-                      hint: pilot
-                        ? `Tenés ${pilot.total_hours ?? 0}h`
-                        : "Cargá tu perfil",
-                    }
-                  : null,
-                req.min_hours_pic
-                  ? {
-                      label: `Mín. ${req.min_hours_pic}h PIC`,
-                      passed: (pilot?.hours_pic ?? 0) >= (req.min_hours_pic ?? 0),
-                      hint: pilot ? `Tenés ${pilot.hours_pic ?? 0}h PIC` : "Cargá tu perfil",
-                    }
-                  : null,
-                req.icao_english
-                  ? {
-                      label: `ICAO inglés ${req.icao_english}+`,
-                      passed: (pilot?.icao_english_level ?? 0) >= (req.icao_english ?? 0),
-                      hint: pilot?.icao_english_level
-                        ? `Tu nivel: ${pilot.icao_english_level}`
-                        : "Sin nivel cargado",
-                    }
-                  : null,
-                req.licenses && req.licenses.length > 0
-                  ? {
-                      label: `Licencias: ${req.licenses.join(" + ")}`,
-                      passed: req.licenses.every((l) => pilot?.licenses?.includes(l)),
-                      hint:
-                        pilot?.licenses && pilot.licenses.length > 0
-                          ? `Tenés: ${pilot.licenses.join(", ")}`
-                          : "Sin licencias cargadas",
-                    }
-                  : null,
-              ].filter(Boolean) as { label: string; passed: boolean; hint: string }[]
-              const passedCount = checks.filter((c) => c.passed).length
-              const totalChecks = checks.length || 1
-              const matchPct = Math.round((passedCount / totalChecks) * 100)
-              const brand = a.brand_color ?? "#2563EB"
-
-              return (
+          <>
+            {/* Best match callout */}
+            {bestMatch && (
+              <div
+                className="anim-fade-up rounded-xl border p-6 mb-6 overflow-hidden relative"
+                style={{
+                  background:
+                    "linear-gradient(135deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 70%)",
+                  borderColor: "color-mix(in oklab, var(--av-cyan-400) 35%, var(--border))",
+                }}
+              >
                 <div
-                  key={a.id}
-                  className="rounded-2xl border border-border/60 bg-card card-apple p-6 overflow-hidden relative"
-                >
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full blur-3xl opacity-20"
-                    style={{ background: brand }}
-                  />
-                  <div className="relative">
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="h-9 w-9 rounded-xl flex items-center justify-center text-white shadow-md"
-                            style={{ background: brand }}
-                          >
-                            <Plane className="h-4 w-4" />
-                          </div>
-                          <div>
-                            <h3 className="text-lg font-bold tracking-tight">{a.name}</h3>
-                            <p className="text-xs text-muted-foreground flex items-center gap-1">
-                              <Globe2 className="h-3 w-3" /> {a.country}
-                              {a.code ? ` · ${a.code}` : ""}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <Badge
-                        variant="secondary"
-                        className="rounded-full text-xs whitespace-nowrap"
-                      >
-                        {matchPct}% match
-                      </Badge>
+                  aria-hidden
+                  className="absolute -top-10 -right-10 w-[180px] h-[180px] rounded-full blur-3xl"
+                  style={{ background: "var(--av-cyan-400)", opacity: 0.12 }}
+                />
+                <div className="relative flex items-center gap-5">
+                  <KpiRing value={bestMatch.matchPct} max={100} size={104} trailing="%" color="cyan" />
+                  <div className="flex-1">
+                    <div
+                      className="mono text-[10px] font-bold tracking-[0.14em] uppercase inline-flex items-center gap-1.5"
+                      style={{ color: "var(--av-cyan-400)" }}
+                    >
+                      <Target className="h-[11px] w-[11px]" /> Tu mejor match hoy
                     </div>
-
-                    <div className="mt-5 space-y-2.5">
-                      {checks.map((c) => (
-                        <div key={c.label} className="flex items-start gap-2.5 text-sm">
-                          {c.passed ? (
-                            <CheckCircleSmall className="text-green-600 dark:text-green-400" />
-                          ) : (
-                            <XCircleSmall className="text-muted-foreground" />
-                          )}
-                          <div className="flex-1">
-                            <div className={c.passed ? "" : "text-muted-foreground"}>{c.label}</div>
-                            <div className="text-xs text-muted-foreground">{c.hint}</div>
-                          </div>
-                        </div>
-                      ))}
-                      {req.age_max && (
-                        <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
-                          <Clock className="h-4 w-4" /> Edad máxima cadete: {req.age_max} años
-                        </div>
-                      )}
-                    </div>
+                    <h2 className="mt-2 mb-1 text-[26px] font-extrabold tracking-[-0.03em] text-foreground">
+                      {bestMatch.airline.name} · {bestMatch.matchPct}% match
+                    </h2>
+                    <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
+                      {bestMatch.missing === 0
+                        ? "Cumplís todos los requisitos públicos. Postulá cuando abran convocatoria."
+                        : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mirá los detalles abajo.`}
+                    </p>
                   </div>
                 </div>
-              )
-            })}
-          </div>
+              </div>
+            )}
+
+            {/* Grid */}
+            <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+              {matches.map((m) => (
+                <AirlineCard key={m.airline.id} airline={m.airline} checks={m.checks} matchPct={m.matchPct} missing={m.missing} />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </AppLayout>
   )
 }
 
-function CheckCircleSmall({ className = "" }: { className?: string }) {
-  return (
-    <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-green-100 dark:bg-green-950/40 flex-shrink-0 ${className}`}>
-      <Check className="h-3 w-3" />
-    </span>
-  )
+function buildChecks(req: AirlineRequirements, pilot: PilotState | null): MatchCheck[] {
+  const checks: MatchCheck[] = []
+  if (req.min_hours_total) {
+    checks.push({
+      label: "Horas totales",
+      have: `${pilot?.total_hours ?? 0}h`,
+      need: `${req.min_hours_total}h`,
+      passed: (pilot?.total_hours ?? 0) >= req.min_hours_total,
+    })
+  }
+  if (req.min_hours_pic) {
+    checks.push({
+      label: "Horas PIC",
+      have: `${pilot?.hours_pic ?? 0}h`,
+      need: `${req.min_hours_pic}h`,
+      passed: (pilot?.hours_pic ?? 0) >= req.min_hours_pic,
+    })
+  }
+  if (req.icao_english) {
+    checks.push({
+      label: "ICAO English",
+      have: pilot?.icao_english_level ? `Nivel ${pilot.icao_english_level}` : "—",
+      need: `Nivel ${req.icao_english}`,
+      passed: (pilot?.icao_english_level ?? 0) >= req.icao_english,
+    })
+  }
+  if (req.licenses && req.licenses.length > 0) {
+    checks.push({
+      label: "Licencias",
+      have: pilot?.licenses?.join(", ") || "—",
+      need: req.licenses.join(" + "),
+      passed: req.licenses.every((l) => pilot?.licenses?.includes(l)),
+    })
+  }
+  return checks
 }
-function XCircleSmall({ className = "" }: { className?: string }) {
+
+function AirlineCard({
+  airline,
+  checks,
+  matchPct,
+  missing,
+}: {
+  airline: Airline
+  checks: MatchCheck[]
+  matchPct: number
+  missing: number
+}) {
+  const brand = airline.brand_color ?? "#2563EB"
+  const code = airline.code ?? airline.name.slice(0, 2).toUpperCase()
+  const ringColor = matchPct > 60 ? "cyan" : matchPct > 40 ? "amber" : "red"
+
   return (
-    <span className={`flex h-5 w-5 items-center justify-center rounded-full bg-muted flex-shrink-0 ${className}`}>
-      <X className="h-3 w-3" />
-    </span>
+    <div
+      className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg cursor-pointer"
+    >
+      <div
+        aria-hidden
+        className="absolute -top-12 -right-12 w-[160px] h-[160px] rounded-full blur-3xl opacity-15"
+        style={{ background: brand }}
+      />
+      <div className="relative">
+        <div className="flex justify-between items-start">
+          <div
+            className="w-12 h-12 rounded-xl flex items-center justify-center font-extrabold text-base tracking-[-0.02em] text-white"
+            style={{
+              background: brand,
+              boxShadow: `0 4px 12px -4px ${brand}`,
+            }}
+          >
+            {code}
+          </div>
+          <KpiRing value={matchPct} max={100} size={64} trailing="%" color={ringColor} />
+        </div>
+
+        <h3 className="mt-4 mb-1 text-lg font-bold tracking-[-0.02em] text-foreground">{airline.name}</h3>
+        <div className="mono text-[11px] text-muted-foreground flex gap-1.5 items-center">
+          <MapPin className="h-2.5 w-2.5" /> {airline.country}
+          {airline.code ? ` · ${airline.code}` : ""}
+        </div>
+
+        <div className="div-dotted my-4" />
+
+        <div className="flex flex-col gap-2">
+          {checks.map((c) => (
+            <div key={c.label} className="mono flex items-center justify-between text-xs">
+              <span className="text-muted-foreground">{c.label}</span>
+              <span className="inline-flex items-center gap-1.5">
+                <span
+                  className="tabular-nums font-bold"
+                  style={{
+                    color: c.passed
+                      ? "var(--av-green-400)"
+                      : "var(--av-red-400)",
+                  }}
+                >
+                  {c.have}
+                </span>
+                <span className="text-muted-foreground">/ {c.need}</span>
+                {c.passed ? (
+                  <Check className="h-3 w-3" style={{ color: "var(--av-green-400)" }} />
+                ) : (
+                  <X className="h-3 w-3" style={{ color: "var(--av-red-400)" }} />
+                )}
+              </span>
+            </div>
+          ))}
+          {airline.requirements.age_max && (
+            <div className="mono flex items-center gap-1.5 text-[11px] text-muted-foreground">
+              <Globe className="h-3 w-3" /> Edad máxima cadete: {airline.requirements.age_max} años
+            </div>
+          )}
+        </div>
+
+        <button
+          type="button"
+          className="mt-4 w-full h-9 rounded-lg border border-border bg-background text-foreground font-semibold text-[13px] hover:bg-muted transition-colors"
+        >
+          {missing === 0 ? "Cumplís requisitos" : `Ver requisitos · ${missing} faltante${missing !== 1 ? "s" : ""}`}
+        </button>
+      </div>
+    </div>
   )
 }

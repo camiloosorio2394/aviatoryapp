@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react"
-import { Plane, Plus, Trash2, X, Loader2, MapPin } from "lucide-react"
+import { Plane, Plus, Trash2, X, Loader2, Download, Filter, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -7,7 +7,9 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
+import { PageHeader } from "@/components/ui/page-header"
+import { Sparkline } from "@/components/ui/sparkline"
+import { CountUp } from "@/components/ui/count-up"
 
 interface Flight {
   id: number
@@ -41,11 +43,14 @@ function hoursToMinutes(h: string): number {
   return Math.round(n * 60)
 }
 
+type FilterTab = "all" | "last30" | "year" | "pic" | "ifr"
+
 export function Logbook() {
   const { user } = useSession()
   const [flights, setFlights] = useState<Flight[]>([])
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
+  const [filter, setFilter] = useState<FilterTab>("all")
 
   async function loadFlights() {
     if (!user) return
@@ -56,11 +61,8 @@ export function Logbook() {
       .order("flight_date", { ascending: false })
       .order("id", { ascending: false })
       .limit(500)
-    if (error) {
-      toast.error(error.message)
-    } else {
-      setFlights((data ?? []) as Flight[])
-    }
+    if (error) toast.error(error.message)
+    else setFlights((data ?? []) as Flight[])
     setLoading(false)
   }
 
@@ -83,15 +85,12 @@ export function Logbook() {
   }
 
   const stats = useMemo(() => {
-    const sum = (key: keyof Flight) =>
-      flights.reduce((acc, f) => acc + (Number(f[key]) || 0), 0)
-
+    const sum = (key: keyof Flight) => flights.reduce((acc, f) => acc + (Number(f[key]) || 0), 0)
     const last30Cutoff = new Date()
     last30Cutoff.setDate(last30Cutoff.getDate() - 30)
     const last30 = flights
       .filter((f) => new Date(f.flight_date) >= last30Cutoff)
       .reduce((acc, f) => acc + f.total_minutes, 0)
-
     return {
       total: sum("total_minutes"),
       pic: sum("pic_minutes"),
@@ -100,58 +99,135 @@ export function Logbook() {
       night: sum("night_minutes"),
       xc: sum("cross_country_minutes"),
       landings: sum("landings_day") + sum("landings_night"),
-      flightsCount: flights.length,
       last30,
     }
   }, [flights])
 
+  // Build a sparkline of total hours accumulated per month (last 8 months)
+  const trendSpark = useMemo(() => {
+    const buckets = new Map<string, number>()
+    const now = new Date()
+    for (let i = 7; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+      buckets.set(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`, 0)
+    }
+    for (const f of flights) {
+      const k = f.flight_date.slice(0, 7)
+      if (buckets.has(k)) buckets.set(k, (buckets.get(k) ?? 0) + f.total_minutes)
+    }
+    let running = 0
+    return Array.from(buckets.values()).map((v) => {
+      running += v / 60
+      return running
+    })
+  }, [flights])
+
+  // Filtered flights for the list
+  const filtered = useMemo(() => {
+    if (filter === "all") return flights
+    if (filter === "last30") {
+      const cutoff = new Date()
+      cutoff.setDate(cutoff.getDate() - 30)
+      return flights.filter((f) => new Date(f.flight_date) >= cutoff)
+    }
+    if (filter === "year") {
+      const year = new Date().getFullYear()
+      return flights.filter((f) => new Date(f.flight_date).getFullYear() === year)
+    }
+    if (filter === "pic") return flights.filter((f) => f.pic_minutes > 0)
+    if (filter === "ifr") return flights.filter((f) => f.instrument_real_minutes + f.instrument_sim_minutes > 0)
+    return flights
+  }, [flights, filter])
+
   // Group by year-month for display
   const grouped = useMemo(() => {
     const map = new Map<string, Flight[]>()
-    for (const f of flights) {
+    for (const f of filtered) {
       const d = new Date(f.flight_date)
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
       if (!map.has(key)) map.set(key, [])
       map.get(key)!.push(f)
     }
     return Array.from(map.entries())
-  }, [flights])
+  }, [filtered])
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-6xl mx-auto space-y-8">
-        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
-              Logbook
-            </h1>
-            <p className="mt-1 text-muted-foreground">
-              Tu bitácora digital — cada vuelo cuenta hacia tu próxima aerolínea.
-            </p>
-          </div>
-          <Button
-            onClick={() => setFormOpen(true)}
-            size="lg"
-            className="btn-apple rounded-full h-11 px-5 border-0"
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow={`LOGBOOK · ${minutesToHours(stats.total)}h TOTALES`}
+          title="Bitácora de vuelo"
+          subtitle="Cada vuelo cuenta hacia tu próxima aerolínea. Registrá apenas aterrices."
+          actions={
+            <>
+              <Button variant="outline" className="rounded-lg h-9 text-[13px]">
+                <Download className="h-3.5 w-3.5" /> Exportar PDF
+              </Button>
+              <button
+                type="button"
+                onClick={() => setFormOpen(true)}
+                className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+                style={{
+                  background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                  boxShadow:
+                    "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+                }}
+              >
+                <Plus className="h-3.5 w-3.5" /> Nuevo vuelo
+              </button>
+            </>
+          }
+        />
+
+        {/* Stats strip */}
+        <div className="stagger grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 mb-6">
+          <BigStat label="Total" valueMin={stats.total} unit="h" highlight sparkline={trendSpark} />
+          <BigStat label="PIC" valueMin={stats.pic} unit="h" />
+          <BigStat label="SIC" valueMin={stats.sic} unit="h" />
+          <BigStat label="IFR" valueMin={stats.ifr} unit="h" />
+          <BigStat label="Nocturno" valueMin={stats.night} unit="h" />
+          <BigStat label="Cross-country" valueMin={stats.xc} unit="h" />
+          <BigStat label="Landings" value={stats.landings} unit="" />
+        </div>
+
+        {/* Filters */}
+        <div className="flex items-center gap-2 mb-3.5 flex-wrap">
+          <div
+            className="flex gap-1 p-[3px] rounded-lg border border-border"
+            style={{ background: "var(--muted)" }}
           >
-            <Plus className="h-4 w-4" />
-            Nuevo vuelo
+            {([
+              ["all", "Todos"],
+              ["last30", "Últimos 30d"],
+              ["year", "Este año"],
+              ["pic", "PIC"],
+              ["ifr", "IFR"],
+            ] as [FilterTab, string][]).map(([key, label]) => (
+              <button
+                key={key}
+                type="button"
+                onClick={() => setFilter(key)}
+                className="mono px-3 py-1 rounded-md text-[11px] font-semibold uppercase tracking-[0.04em] transition-colors"
+                style={{
+                  background: filter === key ? "var(--card)" : "transparent",
+                  color: filter === key ? "var(--foreground)" : "var(--muted-foreground)",
+                  boxShadow: filter === key ? "var(--shadow-1)" : "none",
+                }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+          <Button variant="ghost" size="sm" className="rounded-md h-8 text-xs">
+            <Filter className="h-3 w-3" /> Filtros
           </Button>
-        </header>
+          <div className="flex-1" />
+          <span className="mono text-[11px] text-muted-foreground uppercase tracking-[0.1em]">
+            {filtered.length} vuelos
+          </span>
+        </div>
 
-        {/* Stats grid */}
-        <section className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <StatBox label="Total" value={minutesToHours(stats.total)} unit="h" tone="hero" />
-          <StatBox label="PIC" value={minutesToHours(stats.pic)} unit="h" />
-          <StatBox label="IFR" value={minutesToHours(stats.ifr)} unit="h" />
-          <StatBox label="Nocturno" value={minutesToHours(stats.night)} unit="h" />
-          <StatBox label="Cross-country" value={minutesToHours(stats.xc)} unit="h" />
-          <StatBox label="SIC" value={minutesToHours(stats.sic)} unit="h" />
-          <StatBox label="Landings" value={String(stats.landings)} unit="" />
-          <StatBox label="Últimos 30 días" value={minutesToHours(stats.last30)} unit="h" highlight />
-        </section>
-
-        {/* Flights list */}
+        {/* Dense table */}
         {loading ? (
           <div className="animate-pulse space-y-2">
             {Array.from({ length: 5 }).map((_, i) => (
@@ -161,30 +237,53 @@ export function Logbook() {
         ) : flights.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <div className="space-y-8">
+          <div className="rounded-xl border border-border bg-card overflow-hidden">
+            {/* Header */}
+            <div
+              className="mono grid items-center px-[18px] py-3 text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-b border-border"
+              style={{
+                gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
+                background: "var(--muted)",
+              }}
+            >
+              <span>Fecha</span>
+              <span>Aeronave</span>
+              <span>Ruta</span>
+              <span className="text-right">Total</span>
+              <span className="text-right">PIC</span>
+              <span className="text-right">IFR</span>
+              <span className="text-right">Noche</span>
+              <span className="text-right">XC</span>
+              <span className="text-right">Land.</span>
+              <span />
+            </div>
+
+            {/* Grouped rows */}
             {grouped.map(([month, monthFlights]) => {
               const [y, m] = month.split("-")
-              const monthLabel = new Date(Number(y), Number(m) - 1).toLocaleDateString(
-                "es-CO",
-                { month: "long", year: "numeric" }
-              )
+              const monthLabel = new Date(Number(y), Number(m) - 1).toLocaleDateString("es-CO", {
+                month: "long",
+                year: "numeric",
+              })
               const monthTotal = monthFlights.reduce((a, f) => a + f.total_minutes, 0)
               return (
-                <section key={month}>
-                  <div className="flex items-baseline justify-between mb-3">
-                    <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                      {monthLabel}
-                    </h2>
-                    <Badge variant="secondary" className="rounded-full text-xs tabular">
-                      {monthFlights.length} vuelos · {minutesToHours(monthTotal)} h
-                    </Badge>
+                <div key={month}>
+                  <div
+                    className="mono flex justify-between items-center px-[18px] py-2.5 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border"
+                    style={{
+                      background:
+                        "color-mix(in oklab, var(--av-cyan-400) 5%, var(--card))",
+                    }}
+                  >
+                    <span>{monthLabel}</span>
+                    <span className="tabular-nums">
+                      {monthFlights.length} vuelos · {minutesToHours(monthTotal)}h
+                    </span>
                   </div>
-                  <ul className="space-y-2">
-                    {monthFlights.map((f) => (
-                      <FlightRow key={f.id} flight={f} onDelete={() => deleteFlight(f.id)} />
-                    ))}
-                  </ul>
-                </section>
+                  {monthFlights.map((f) => (
+                    <FlightRow key={f.id} f={f} onDelete={() => deleteFlight(f.id)} />
+                  ))}
+                </div>
               )
             })}
           </div>
@@ -205,151 +304,211 @@ export function Logbook() {
   )
 }
 
-// ───────────────────────── Sub-components
-
-function StatBox({
+function BigStat({
   label,
   value,
+  valueMin,
   unit,
-  tone,
   highlight,
+  sparkline,
 }: {
   label: string
-  value: string
+  value?: number
+  valueMin?: number
   unit: string
-  tone?: "hero"
   highlight?: boolean
+  sparkline?: number[]
 }) {
-  const isHero = tone === "hero"
+  const computed = valueMin !== undefined ? valueMin / 60 : value ?? 0
   return (
     <div
-      className={`rounded-2xl p-4 sm:p-5 border ${
-        isHero
-          ? "border-blue-500/30 bg-gradient-to-br from-blue-50 via-blue-50/40 to-transparent dark:from-blue-950/40"
-          : highlight
-            ? "border-blue-500/20 bg-blue-50/30 dark:bg-blue-950/20"
-            : "border-border/60 bg-card"
-      }`}
+      className="relative overflow-hidden rounded-xl border p-3.5"
+      style={{
+        background: highlight
+          ? "linear-gradient(160deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 100%)"
+          : "var(--card)",
+        borderColor: highlight
+          ? "color-mix(in oklab, var(--av-cyan-400) 30%, var(--border))"
+          : "var(--border)",
+      }}
     >
-      <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+      <div className="mono text-[9px] font-bold text-muted-foreground uppercase tracking-[0.14em]">
         {label}
       </div>
       <div
-        className={`mt-1 font-bold tracking-[-0.03em] tabular ${
-          isHero ? "text-3xl sm:text-4xl text-blue-600 dark:text-blue-400" : "text-xl sm:text-2xl"
-        }`}
+        className="mono tabular-nums mt-1.5 text-[22px] font-bold leading-none tracking-[-0.03em]"
+        style={{ color: highlight ? "var(--av-cyan-400)" : "var(--foreground)" }}
       >
-        {value}
+        <CountUp to={computed} format={(v) => (unit === "" ? v.toFixed(0) : v.toFixed(1))} />
         {unit && (
-          <span className="text-sm font-medium text-muted-foreground ml-0.5">{unit}</span>
+          <span className="text-xs text-muted-foreground font-semibold ml-0.5">{unit}</span>
         )}
       </div>
+      {sparkline && sparkline.length > 0 && (
+        <div className="mt-2">
+          <Sparkline
+            data={sparkline}
+            color={highlight ? "var(--av-cyan-400)" : "var(--muted-foreground)"}
+            width={120}
+            height={20}
+          />
+        </div>
+      )}
     </div>
   )
 }
 
-function FlightRow({ flight, onDelete }: { flight: Flight; onDelete: () => void }) {
-  const date = new Date(flight.flight_date)
-  const dayLabel = date.toLocaleDateString("es-CO", {
-    day: "2-digit",
-    month: "short",
-    weekday: "short",
-  })
-  const route =
-    flight.from_airport && flight.to_airport
-      ? `${flight.from_airport} → ${flight.to_airport}`
-      : flight.from_airport ?? flight.to_airport ?? ""
+function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
+  const date = new Date(f.flight_date)
+  const day = String(date.getDate()).padStart(2, "0")
+  const month = date.toLocaleDateString("es-CO", { month: "short" }).replace(".", "").toUpperCase()
+  const dow = date.toLocaleDateString("es-CO", { weekday: "short" }).replace(".", "").toUpperCase()
+  const ifrTotal = f.instrument_real_minutes + f.instrument_sim_minutes
 
-  const tags: string[] = []
-  if (flight.pic_minutes > 0)
-    tags.push(`PIC ${minutesToHours(flight.pic_minutes)}h`)
-  if (flight.instrument_real_minutes + flight.instrument_sim_minutes > 0)
-    tags.push(
-      `IFR ${minutesToHours(
-        flight.instrument_real_minutes + flight.instrument_sim_minutes
-      )}h`
-    )
-  if (flight.night_minutes > 0)
-    tags.push(`Noche ${minutesToHours(flight.night_minutes)}h`)
-  if (flight.cross_country_minutes > 0) tags.push("XC")
+  const tags: { label: string; color: "violet" | "cyan" | "green" }[] = []
+  if (ifrTotal > 0) tags.push({ label: "IFR", color: "violet" })
+  if (f.night_minutes > 0) tags.push({ label: "NIGHT", color: "cyan" })
+  if (f.cross_country_minutes > 0) tags.push({ label: "XC", color: "green" })
 
   return (
-    <li className="group flex items-center gap-4 rounded-xl border border-border/60 bg-card p-3 sm:p-4 hover:border-blue-500/30 transition-colors">
-      <div className="flex-shrink-0 w-16 sm:w-20 text-center">
-        <div className="text-xs text-muted-foreground uppercase">
-          {dayLabel.split(",")[0]}
+    <div
+      className="mono grid items-center px-[18px] py-3.5 text-[13px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
+      style={{
+        gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
+      }}
+    >
+      <div>
+        <div className="text-[9px] text-muted-foreground uppercase tracking-[0.1em] font-bold">
+          {dow}
         </div>
-        <div className="text-base font-semibold tabular">
-          {dayLabel.split(",")[1]?.trim()}
+        <div className="tabular-nums text-sm font-bold text-foreground">
+          {day} {month}
         </div>
       </div>
-
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 text-sm font-semibold">
-          <Plane className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-          <span className="tabular">{flight.aircraft_registration ?? "—"}</span>
-          {flight.aircraft_type && (
-            <span className="text-muted-foreground font-normal">· {flight.aircraft_type}</span>
-          )}
-        </div>
-        {route && (
-          <div className="mt-0.5 text-xs text-muted-foreground flex items-center gap-1.5">
-            <MapPin className="h-3 w-3" />
-            <span className="tabular">{route}</span>
+      <div>
+        <div className="tabular-nums font-bold text-foreground">{f.aircraft_registration ?? "—"}</div>
+        <div className="text-[11px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
+      </div>
+      <div>
+        {f.from_airport || f.to_airport ? (
+          <div className="tabular-nums flex items-center gap-1.5 text-foreground font-semibold">
+            {f.from_airport ?? "—"}{" "}
+            <ArrowRight className="h-2.5 w-2.5" style={{ color: "var(--av-cyan-400)" }} />{" "}
+            {f.to_airport ?? "—"}
           </div>
+        ) : (
+          <span className="text-muted-foreground">—</span>
         )}
         {tags.length > 0 && (
-          <div className="mt-1.5 flex flex-wrap gap-1">
+          <div className="mt-1 flex gap-1">
             {tags.map((t) => (
-              <span
-                key={t}
-                className="text-[10px] rounded-full px-2 py-0.5 bg-muted text-muted-foreground tabular"
-              >
-                {t}
+              <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[9px]`}>
+                {t.label}
               </span>
             ))}
           </div>
         )}
       </div>
-
-      <div className="flex-shrink-0 text-right">
-        <div className="text-lg font-bold tracking-tight tabular">
-          {minutesToHours(flight.total_minutes)}
-          <span className="text-xs font-medium text-muted-foreground ml-0.5">h</span>
-        </div>
-        <div className="text-[10px] text-muted-foreground uppercase tracking-wider">total</div>
-      </div>
-
-      <button
-        type="button"
-        onClick={onDelete}
-        className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
-        aria-label="Eliminar vuelo"
+      <div
+        className="tabular-nums text-right text-[15px] font-bold"
+        style={{ color: "var(--av-cyan-400)" }}
       >
-        <Trash2 className="h-4 w-4" />
-      </button>
-    </li>
+        {minutesToHours(f.total_minutes)}
+      </div>
+      <div
+        className="tabular-nums text-right"
+        style={{ color: f.pic_minutes > 0 ? "var(--foreground)" : "var(--muted-foreground)" }}
+      >
+        {minutesToHours(f.pic_minutes)}
+      </div>
+      <div
+        className="tabular-nums text-right"
+        style={{ color: ifrTotal > 0 ? "var(--foreground)" : "var(--muted-foreground)" }}
+      >
+        {minutesToHours(ifrTotal)}
+      </div>
+      <div
+        className="tabular-nums text-right"
+        style={{ color: f.night_minutes > 0 ? "var(--foreground)" : "var(--muted-foreground)" }}
+      >
+        {minutesToHours(f.night_minutes)}
+      </div>
+      <div
+        className="tabular-nums text-right"
+        style={{
+          color: f.cross_country_minutes > 0 ? "var(--foreground)" : "var(--muted-foreground)",
+        }}
+      >
+        {minutesToHours(f.cross_country_minutes)}
+      </div>
+      <div className="tabular-nums text-right text-foreground">
+        {f.landings_day + f.landings_night}
+      </div>
+      <div className="text-right">
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete()
+          }}
+          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 mr-1"
+          aria-label="Eliminar"
+        >
+          <Trash2 className="h-3.5 w-3.5" />
+        </button>
+      </div>
+    </div>
   )
 }
 
 function EmptyState({ onAdd }: { onAdd: () => void }) {
   return (
-    <div className="rounded-3xl border border-dashed border-border/60 p-12 text-center">
-      <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 mb-4">
+    <div className="rounded-3xl border border-dashed border-border p-12 text-center max-w-[520px] mx-auto">
+      <div
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4"
+        style={{
+          background:
+            "linear-gradient(135deg, oklch(0.78 0.16 215 / 14%), oklch(0.55 0.22 264 / 14%))",
+          border: "1px solid oklch(0.78 0.16 215 / 30%)",
+          color: "var(--av-cyan-400)",
+        }}
+      >
         <Plane className="h-7 w-7" />
       </div>
-      <h3 className="text-base font-semibold">Empezá tu logbook digital</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-md mx-auto">
-        Cada vuelo que registres se suma a tus horas totales y actualiza tu progreso a
-        aerolínea automáticamente.
+      <h3 className="text-lg font-bold text-foreground">Empezá tu logbook digital</h3>
+      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+        Cada vuelo que registres se suma a tus horas totales y actualiza tu progreso a aerolínea automáticamente.
       </p>
-      <Button onClick={onAdd} size="lg" className="btn-apple rounded-full mt-5 h-11 px-5 border-0">
-        <Plus className="h-4 w-4" />
-        Registrar mi primer vuelo
-      </Button>
+      <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
+        {[
+          "Tomá tu logbook actual o pantalla del último vuelo",
+          "Cargá fecha, ruta, matrícula y tiempo total",
+          "El resto se calcula y se suma a tus stats",
+        ].map((s, i) => (
+          <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
+            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[11px] font-bold text-foreground">
+              {i + 1}
+            </span>
+            {s}
+          </li>
+        ))}
+      </ol>
+      <button
+        type="button"
+        onClick={onAdd}
+        className="av-shine mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white"
+        style={{
+          background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+          boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+        }}
+      >
+        <Plus className="h-3.5 w-3.5" /> Registrar mi primer vuelo
+      </button>
     </div>
   )
 }
+
+// ───────────────────────── New Flight Dialog (form fully preserved)
 
 function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const { user } = useSession()
@@ -417,9 +576,9 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
       <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
-          className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
+          className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card border border-border shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
         >
-          <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border/40">
+          <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
               <h2 className="text-lg font-bold">Nuevo vuelo</h2>
               <p className="text-xs text-muted-foreground">Datos básicos abajo, detalles opcionales</p>
@@ -435,185 +594,69 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
           </header>
 
           <div className="p-6 space-y-6">
-            {/* Section: básico */}
             <Section title="Datos del vuelo">
               <Row>
                 <Field label="Fecha">
-                  <Input
-                    type="date"
-                    value={date}
-                    onChange={(e) => setDate(e.target.value)}
-                    className="h-11 rounded-xl"
-                    required
-                  />
+                  <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="h-11 rounded-xl" required />
                 </Field>
                 <Field label="Tiempo total (horas)">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={totalH}
-                    onChange={(e) => setTotalH(e.target.value)}
-                    placeholder="1.5"
-                    className="h-11 rounded-xl"
-                    required
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={totalH} onChange={(e) => setTotalH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl mono tabular-nums" required />
                 </Field>
               </Row>
               <Row>
                 <Field label="Matrícula">
-                  <Input
-                    value={registration}
-                    onChange={(e) => setRegistration(e.target.value)}
-                    placeholder="HK-1234"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input value={registration} onChange={(e) => setRegistration(e.target.value)} placeholder="HK-1234" className="h-11 rounded-xl mono" />
                 </Field>
                 <Field label="Tipo de aeronave">
-                  <Input
-                    value={aircraftType}
-                    onChange={(e) => setAircraftType(e.target.value)}
-                    placeholder="C172, PA28, A320..."
-                    className="h-11 rounded-xl"
-                  />
+                  <Input value={aircraftType} onChange={(e) => setAircraftType(e.target.value)} placeholder="C172, PA28, A320..." className="h-11 rounded-xl mono" />
                 </Field>
               </Row>
               <Row>
                 <Field label="Desde (ICAO)">
-                  <Input
-                    value={from}
-                    onChange={(e) => setFrom(e.target.value)}
-                    placeholder="SKBO"
-                    maxLength={5}
-                    className="h-11 rounded-xl tabular"
-                  />
+                  <Input value={from} onChange={(e) => setFrom(e.target.value)} placeholder="SKBO" maxLength={5} className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="Hasta (ICAO)">
-                  <Input
-                    value={to}
-                    onChange={(e) => setTo(e.target.value)}
-                    placeholder="SKMD"
-                    maxLength={5}
-                    className="h-11 rounded-xl tabular"
-                  />
+                  <Input value={to} onChange={(e) => setTo(e.target.value)} placeholder="SKMD" maxLength={5} className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
               </Row>
             </Section>
 
-            {/* Section: tiempos específicos */}
             <Section title="Tiempos específicos (opcionales, en horas)">
               <Row>
                 <Field label="PIC">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={picH}
-                    onChange={(e) => setPicH(e.target.value)}
-                    placeholder="1.5"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={picH} onChange={(e) => setPicH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="SIC">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={sicH}
-                    onChange={(e) => setSicH(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={sicH} onChange={(e) => setSicH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="Dual recibido">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={dualH}
-                    onChange={(e) => setDualH(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={dualH} onChange={(e) => setDualH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
               </Row>
               <Row>
                 <Field label="IFR real">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={instReal}
-                    onChange={(e) => setInstReal(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instReal} onChange={(e) => setInstReal(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="IFR simulador">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={instSim}
-                    onChange={(e) => setInstSim(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instSim} onChange={(e) => setInstSim(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="Nocturno">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={nightH}
-                    onChange={(e) => setNightH(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={nightH} onChange={(e) => setNightH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
               </Row>
               <Row>
                 <Field label="Cross-country">
-                  <Input
-                    type="number"
-                    inputMode="decimal"
-                    step="0.1"
-                    min="0"
-                    value={xcH}
-                    onChange={(e) => setXcH(e.target.value)}
-                    placeholder="0"
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={xcH} onChange={(e) => setXcH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="Landings día">
-                  <Input
-                    type="number"
-                    min="0"
-                    value={landingsDay}
-                    onChange={(e) => setLandingsDay(e.target.value)}
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" min="0" value={landingsDay} onChange={(e) => setLandingsDay(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
                 <Field label="Landings noche">
-                  <Input
-                    type="number"
-                    min="0"
-                    value={landingsNight}
-                    onChange={(e) => setLandingsNight(e.target.value)}
-                    className="h-11 rounded-xl"
-                  />
+                  <Input type="number" min="0" value={landingsNight} onChange={(e) => setLandingsNight(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
                 </Field>
               </Row>
             </Section>
 
-            {/* Remarks */}
             <Field label="Observaciones">
               <textarea
                 value={remarks}
@@ -625,7 +668,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             </Field>
           </div>
 
-          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 py-4 border-t border-border/40">
+          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 py-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>
@@ -633,7 +676,11 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               type="submit"
               disabled={saving}
               size="lg"
-              className="btn-apple rounded-full h-11 px-6 border-0"
+              className="rounded-full h-11 px-6 border-0 text-white"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+              }}
             >
               {saving ? (
                 <>
@@ -655,7 +702,9 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{title}</h3>
+      <h3 className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+        {title}
+      </h3>
       <div className="space-y-3">{children}</div>
     </div>
   )

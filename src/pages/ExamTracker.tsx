@@ -15,6 +15,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { PageHeader } from "@/components/ui/page-header"
+import { KpiRing } from "@/components/ui/kpi-ring"
+import { CountUp } from "@/components/ui/count-up"
 
 interface SubjectIntel {
   subject_id: number
@@ -41,11 +44,8 @@ export function ExamTracker() {
 
   async function load() {
     const { data, error } = await supabase.rpc("get_all_subjects_intel")
-    if (error) {
-      toast.error(error.message)
-    } else {
-      setIntel((data ?? []) as SubjectIntel[])
-    }
+    if (error) toast.error(error.message)
+    else setIntel((data ?? []) as SubjectIntel[])
     setLoading(false)
   }
 
@@ -54,76 +54,99 @@ export function ExamTracker() {
   }, [])
 
   const totalReports = intel.reduce((acc, i) => acc + i.total_reports, 0)
+  const totalSubjects = intel.length
+  const subjectsWithData = intel.filter((i) => i.total_reports > 0).length
+  const avgPass = intel.length
+    ? Math.round(
+        intel.filter((i) => i.pass_rate !== null).reduce((a, i) => a + (i.pass_rate ?? 0), 0) /
+          Math.max(intel.filter((i) => i.pass_rate !== null).length, 1)
+      )
+    : 0
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-6xl mx-auto space-y-8">
-        <header className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-              <Users className="h-4 w-4" />
-              Inteligencia colectiva
-            </div>
-            <h1 className="mt-2 text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
-              Exam Tracker
-            </h1>
-            <p className="mt-2 text-muted-foreground max-w-2xl leading-relaxed">
-              Pilotos que ya tomaron el examen Aerocivil comparten qué cayó.
-              Tú aprendes de los que ya pasaron, y aportás cuando llegue tu turno.
-              <strong className="text-foreground"> El Waze de los exámenes.</strong>
-            </p>
-          </div>
-          <Button
-            onClick={() => setFormOpen(true)}
-            size="lg"
-            className="btn-apple rounded-full h-11 px-5 border-0"
-          >
-            <Plus className="h-4 w-4" />
-            Reportar mi examen
-          </Button>
-        </header>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow="EXAM TRACKER · INTELIGENCIA COLECTIVA"
+          title="El Waze de los exámenes Aerocivil"
+          subtitle="Pilotos que ya tomaron el examen comparten qué cayó. Vos aprendés de los que pasaron, y aportás cuando te toque a vos."
+          actions={
+            <button
+              type="button"
+              onClick={() => setFormOpen(true)}
+              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow:
+                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+              }}
+            >
+              <Plus className="h-3.5 w-3.5" /> Reportar mi examen
+            </button>
+          }
+        />
 
-        {/* Community stat */}
-        <section className="rounded-3xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-blue-50/40 to-transparent dark:from-blue-950/40 p-6 sm:p-7 flex items-center gap-5">
-          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30 flex-shrink-0">
-            <Users className="h-7 w-7" />
-          </div>
-          <div className="flex-1">
-            <div className="text-xs font-semibold uppercase tracking-wider text-blue-700 dark:text-blue-300">
-              Reportes en los últimos 90 días
+        {/* Cockpit hero with KPIs */}
+        <div
+          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-8 mb-7"
+          style={{ borderColor: "oklch(0.32 0.04 250 / 0.6)" }}
+        >
+          <div className="cockpit-grid absolute inset-0 opacity-45" />
+          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "auto 1fr auto" }}>
+            <KpiRing value={subjectsWithData * 100 / Math.max(totalSubjects, 1)} max={100} size={140} trailing="%" sub="Cobertura" color="cyan" />
+            <div>
+              <div
+                className="mono text-[11px] font-bold tracking-[0.14em] uppercase"
+                style={{ color: "var(--av-cyan-300)" }}
+              >
+                Reportes en los últimos 90 días
+              </div>
+              <h2 className="mt-2 mb-1 text-3xl font-extrabold tracking-[-0.03em] text-white">
+                <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
+              </h2>
+              <p className="m-0 text-[14px] leading-relaxed max-w-[520px]" style={{ color: "oklch(0.78 0.02 250)" }}>
+                {totalReports === 0
+                  ? "Sé el primero en reportar — tu data ayuda a todos los próximos pilotos."
+                  : `${subjectsWithData} de ${totalSubjects} materias con inteligencia. Cada reporte sirve para que otro piloto entre al examen mejor preparado.`}
+              </p>
             </div>
-            <div className="mt-1 text-3xl sm:text-4xl font-bold tracking-[-0.03em] tabular">
-              {loading ? "…" : totalReports}
+            <div className="text-right">
+              <div
+                className="mono text-[10px] uppercase tracking-[0.12em]"
+                style={{ color: "var(--av-cyan-300)" }}
+              >
+                Pass rate promedio
+              </div>
+              <div
+                className="mono tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-white mt-1"
+              >
+                {avgPass}<span className="text-lg" style={{ color: "oklch(0.7 0.02 250)" }}>%</span>
+              </div>
             </div>
-            <p className="text-sm text-muted-foreground">
-              {totalReports === 0
-                ? "Sé el primero en reportar — tu data ayuda a todos"
-                : "Cada reporte sirve para que otro piloto entre al examen mejor preparado"}
-            </p>
           </div>
-        </section>
+        </div>
 
-        {/* Subjects grid */}
+        {/* Subject grid */}
         {loading ? (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-pulse">
+          <div className="grid grid-cols-3 gap-3.5 animate-pulse mb-7">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-48 rounded-2xl bg-muted" />
+              <div key={i} className="h-48 rounded-xl bg-muted" />
             ))}
           </div>
         ) : (
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="stagger grid grid-cols-3 gap-3.5 mb-8">
             {intel.map((i) => (
-              <SubjectCard key={i.subject_id} intel={i} />
+              <SubjectIntelCard key={i.subject_id} intel={i} />
             ))}
           </div>
         )}
 
         {/* How it works */}
-        <section className="grid sm:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-3 gap-4">
           <HowStep n="1" title="Reportá tu examen" body="Después de salir, tomate 2 min para contar qué cayó." />
-          <HowStep n="2" title="La data se anonimiza" body="Tu identidad no se ve. Solo cuenta cuánto pesó cada tema." />
-          <HowStep n="3" title="Todos ganan" body="El próximo piloto entra al examen con tu inteligencia adentro." />
-        </section>
+          <HowStep n="2" title="Tu data se anonimiza" body="Tu identidad no se ve. Solo cuenta cuánto pesó cada tema." />
+          <HowStep n="3" title="Todos ganan" body="El próximo piloto entra al examen con tu inteligencia." />
+        </div>
       </div>
 
       {formOpen && (
@@ -139,35 +162,41 @@ export function ExamTracker() {
   )
 }
 
-function SubjectCard({ intel }: { intel: SubjectIntel }) {
+function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   const emoji = SUBJECT_EMOJI[intel.subject_slug] ?? "📘"
   const empty = intel.total_reports === 0
 
   return (
     <Link
       to={`/app/exam-tracker/${intel.subject_slug}`}
-      className="group block rounded-2xl border border-border/60 bg-card card-apple p-6 hover:border-blue-500/30"
+      className="group block rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5"
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = "oklch(0.78 0.16 215 / 50%)"
+        e.currentTarget.style.boxShadow = "var(--shadow-cyan)"
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = "var(--border)"
+        e.currentTarget.style.boxShadow = "none"
+      }}
     >
       <div className="flex items-start gap-3">
         <div className="text-3xl flex-shrink-0">{emoji}</div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-semibold">{intel.subject_name}</h3>
+          <h3 className="text-base font-bold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
-            <p className="mt-1 text-xs text-muted-foreground">
-              Sin reportes aún · sé el primero
+            <p className="mt-1 mono text-[11px] text-muted-foreground uppercase tracking-[0.08em]">
+              Sin reportes · sé el primero
             </p>
           ) : (
             <div className="mt-1 space-y-1">
-              <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+              <div className="mono text-[11px] text-muted-foreground flex items-center gap-1.5">
                 <Users className="h-3 w-3" />
-                {intel.total_reports} reporte{intel.total_reports !== 1 ? "s" : ""}{" "}
-                · últimos 90 días
-              </p>
+                {intel.total_reports} reporte{intel.total_reports !== 1 ? "s" : ""} · 90d
+              </div>
               {intel.pass_rate !== null && (
-                <p className="text-xs text-muted-foreground tabular">
-                  <span className="font-semibold text-foreground">{intel.pass_rate}%</span>{" "}
-                  aprobaron
-                </p>
+                <div className="mono tabular-nums text-[11px] text-muted-foreground">
+                  <span className="font-bold text-foreground">{intel.pass_rate}%</span> aprobaron
+                </div>
               )}
             </div>
           )}
@@ -175,18 +204,30 @@ function SubjectCard({ intel }: { intel: SubjectIntel }) {
       </div>
 
       {intel.hottest_topic && (
-        <div className="mt-4 rounded-xl bg-orange-50 dark:bg-orange-950/30 border border-orange-500/20 p-3 flex items-start gap-2">
-          <Flame className="h-4 w-4 text-orange-500 flex-shrink-0 mt-0.5" />
-          <div>
-            <div className="text-[10px] font-semibold uppercase tracking-wider text-orange-700 dark:text-orange-300">
+        <div
+          className="mt-4 rounded-xl p-3 flex items-start gap-2"
+          style={{
+            background: "color-mix(in oklab, var(--av-red-400) 8%, transparent)",
+            border: "1px solid color-mix(in oklab, var(--av-red-400) 28%, transparent)",
+          }}
+        >
+          <Flame className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-red-400)" }} />
+          <div className="flex-1 min-w-0">
+            <div
+              className="mono text-[9px] font-bold uppercase tracking-[0.12em]"
+              style={{ color: "var(--av-red-400)" }}
+            >
               Tema más caliente
             </div>
-            <div className="text-sm font-medium mt-0.5">{intel.hottest_topic}</div>
+            <div className="text-sm font-semibold text-foreground mt-0.5 truncate">{intel.hottest_topic}</div>
           </div>
         </div>
       )}
 
-      <div className="mt-4 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 group-hover:gap-1.5 transition-all">
+      <div
+        className="mt-4 mono inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em]"
+        style={{ color: "var(--av-cyan-400)" }}
+      >
         Ver inteligencia <ArrowRight className="h-3 w-3" />
       </div>
     </Link>
@@ -195,17 +236,23 @@ function SubjectCard({ intel }: { intel: SubjectIntel }) {
 
 function HowStep({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-border/60 bg-card p-5">
-      <div className="flex items-center justify-center h-9 w-9 rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white text-sm font-bold shadow-md shadow-blue-500/30">
+    <div className="rounded-xl border border-border bg-card p-5">
+      <div
+        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold"
+        style={{
+          background: "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))",
+          boxShadow: "0 4px 12px -4px oklch(0.55 0.22 264 / 40%)",
+        }}
+      >
         {n}
       </div>
-      <h3 className="mt-3 font-semibold text-sm">{title}</h3>
+      <h3 className="mt-3 font-bold text-sm text-foreground">{title}</h3>
       <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{body}</p>
     </div>
   )
 }
 
-// ───────────────────────── New Report Dialog
+// ───────────────────────── New Report Dialog (full form preserved)
 
 interface Subject {
   id: number
@@ -238,7 +285,6 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
   const [topics, setTopics] = useState<Topic[]>([])
   const [saving, setSaving] = useState(false)
 
-  // Form state
   const [subjectId, setSubjectId] = useState<string>("")
   const [examDate, setExamDate] = useState<string>(new Date().toISOString().slice(0, 10))
   const [region, setRegion] = useState<string>("bogota")
@@ -321,9 +367,9 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
       <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
-          className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
+          className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card border border-border shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
         >
-          <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border/40">
+          <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
               <h2 className="text-lg font-bold">Reportá tu examen</h2>
               <p className="text-xs text-muted-foreground">
@@ -341,7 +387,6 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
           </header>
 
           <div className="p-6 space-y-6">
-            {/* Subject + date + region */}
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label className="text-xs">Materia</Label>
@@ -386,36 +431,42 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               </Select>
             </div>
 
-            {/* Pass/fail */}
             <div className="space-y-2">
               <Label className="text-xs">¿Aprobaste?</Label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setPassed("yes")}
-                  className={`rounded-xl border p-3 text-sm font-medium transition-all ${
+                  className={`rounded-xl border p-3 text-sm font-semibold transition-all ${
                     passed === "yes"
-                      ? "bg-green-600 border-green-600 text-white shadow-md shadow-green-500/30"
-                      : "border-border/60 bg-card hover:border-green-500/30"
+                      ? "text-white"
+                      : "border-border bg-card hover:border-foreground/30"
                   }`}
+                  style={passed === "yes" ? {
+                    background: "var(--av-green-400)",
+                    borderColor: "var(--av-green-400)",
+                    boxShadow: "0 4px 12px -2px color-mix(in oklab, var(--av-green-400) 40%, transparent)",
+                  } : undefined}
                 >
                   ✓ Aprobé
                 </button>
                 <button
                   type="button"
                   onClick={() => setPassed("no")}
-                  className={`rounded-xl border p-3 text-sm font-medium transition-all ${
-                    passed === "no"
-                      ? "bg-red-600 border-red-600 text-white shadow-md shadow-red-500/30"
-                      : "border-border/60 bg-card hover:border-red-500/30"
+                  className={`rounded-xl border p-3 text-sm font-semibold transition-all ${
+                    passed === "no" ? "text-white" : "border-border bg-card hover:border-foreground/30"
                   }`}
+                  style={passed === "no" ? {
+                    background: "var(--av-red-400)",
+                    borderColor: "var(--av-red-400)",
+                    boxShadow: "0 4px 12px -2px color-mix(in oklab, var(--av-red-400) 40%, transparent)",
+                  } : undefined}
                 >
                   ✗ No pasé
                 </button>
               </div>
             </div>
 
-            {/* Score + difficulty */}
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
                 <Label className="text-xs">Score (opcional)</Label>
@@ -427,7 +478,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                   value={score}
                   onChange={(e) => setScore(e.target.value)}
                   placeholder="87"
-                  className="h-11 rounded-xl tabular"
+                  className="h-11 rounded-xl mono tabular-nums"
                 />
               </div>
               <div className="space-y-1.5">
@@ -438,11 +489,14 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                       key={n}
                       type="button"
                       onClick={() => setDifficulty(n)}
-                      className={`flex-1 h-11 rounded-xl border font-semibold transition-all tabular ${
-                        difficulty === n
-                          ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/30"
-                          : "border-border/60 bg-card hover:border-blue-500/30"
+                      className={`mono tabular-nums flex-1 h-11 rounded-xl border font-bold transition-all ${
+                        difficulty === n ? "text-white" : "border-border bg-card hover:border-foreground/30"
                       }`}
+                      style={difficulty === n ? {
+                        background: "var(--av-blue-500)",
+                        borderColor: "var(--av-blue-500)",
+                        boxShadow: "0 4px 12px -2px color-mix(in oklab, var(--av-blue-500) 40%, transparent)",
+                      } : undefined}
                     >
                       {n}
                     </button>
@@ -451,14 +505,11 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               </div>
             </div>
 
-            {/* Topics multiselect */}
             {subjectId && filteredTopics.length > 0 && (
               <div className="space-y-2">
                 <div className="flex items-baseline justify-between">
                   <Label className="text-xs">¿Qué temas cayeron?</Label>
-                  <span className="text-[10px] text-muted-foreground">
-                    Elegí todos los que apliquen
-                  </span>
+                  <span className="text-[10px] text-muted-foreground">Elegí todos los que apliquen</span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {filteredTopics.map((t) => {
@@ -469,14 +520,17 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                         type="button"
                         onClick={() => toggleTopic(t.id)}
                         className={`rounded-xl border p-3 text-left text-sm transition-all ${
-                          active
-                            ? "bg-blue-50 dark:bg-blue-950/30 border-blue-500/50 ring-1 ring-blue-500/30"
-                            : "border-border/60 bg-card hover:border-blue-500/30"
+                          active ? "" : "border-border bg-card hover:border-foreground/30"
                         }`}
+                        style={active ? {
+                          background: "color-mix(in oklab, var(--av-cyan-400) 12%, transparent)",
+                          borderColor: "color-mix(in oklab, var(--av-cyan-400) 50%, transparent)",
+                          boxShadow: "0 0 0 1px color-mix(in oklab, var(--av-cyan-400) 30%, transparent)",
+                        } : undefined}
                       >
                         <div className="flex items-center justify-between">
                           <span>{t.label}</span>
-                          {active && <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />}
+                          {active && <Check className="h-3.5 w-3.5" style={{ color: "var(--av-cyan-400)" }} />}
                         </div>
                       </button>
                     )
@@ -485,7 +539,6 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               </div>
             )}
 
-            {/* Tips */}
             <div className="space-y-1.5">
               <Label className="text-xs">Tips para el próximo piloto (opcional)</Label>
               <textarea
@@ -497,7 +550,6 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               />
             </div>
 
-            {/* Recalled questions */}
             <div className="space-y-1.5">
               <Label className="text-xs">Preguntas que recordás (opcional)</Label>
               <textarea
@@ -514,7 +566,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             </div>
           </div>
 
-          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 py-4 border-t border-border/40">
+          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 py-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>
@@ -522,7 +574,11 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               type="submit"
               disabled={saving || !subjectId}
               size="lg"
-              className="btn-apple rounded-full h-11 px-6 border-0"
+              className="rounded-full h-11 px-6 border-0 text-white"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+              }}
             >
               {saving ? (
                 <>

@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight } from "lucide-react"
+import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
+import { PageHeader } from "@/components/ui/page-header"
+import { SectionTitle } from "@/components/ui/section-title"
 
 type PilotStage =
   | "student_ppl"
@@ -41,6 +42,15 @@ const STAGE_LABEL: Record<PilotStage, string> = {
   hour_building: "Hour Building",
   airline_candidate: "Candidato a Aerolínea",
 }
+
+const STAGE_ORDER: PilotStage[] = [
+  "student_ppl",
+  "ppl",
+  "cpl_in_progress",
+  "cpl_ready",
+  "hour_building",
+  "airline_candidate",
+]
 
 export function Route() {
   const { user } = useSession()
@@ -102,9 +112,7 @@ export function Route() {
 
         setItems((itemsRes.data ?? []) as Item[])
         setCompletedIds(
-          new Set(
-            ((progressRes.data ?? []) as { item_id: number }[]).map((p) => p.item_id)
-          )
+          new Set(((progressRes.data ?? []) as { item_id: number }[]).map((p) => p.item_id))
         )
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos cargar tu ruta")
@@ -123,7 +131,6 @@ export function Route() {
     if (!user || togglingId === item.id) return
     setTogglingId(item.id)
     const isCompleted = completedIds.has(item.id)
-    // Optimistic
     setCompletedIds((prev) => {
       const next = new Set(prev)
       if (isCompleted) next.delete(item.id)
@@ -144,13 +151,11 @@ export function Route() {
           .from("checklist_progress")
           .insert({ user_id: user.id, item_id: item.id })
         if (error) throw error
-        // Pequeño feedback de éxito
         if (item.title.includes("🎉")) {
           toast.success("¡Hito conseguido! 🎉")
         }
       }
     } catch (err) {
-      // Revertir
       setCompletedIds((prev) => {
         const next = new Set(prev)
         if (isCompleted) next.add(item.id)
@@ -217,138 +222,228 @@ export function Route() {
     )
   }
 
+  const currentIdx = STAGE_ORDER.indexOf(stage)
+
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-4xl mx-auto space-y-8">
-        <header>
-          <div className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-            {STAGE_LABEL[stage]}
-          </div>
-          <h1 className="mt-1 text-3xl sm:text-4xl font-bold tracking-[-0.03em]">
-            {checklist.name}
-          </h1>
-          {checklist.description && (
-            <p className="mt-2 text-muted-foreground leading-relaxed">
-              {checklist.description}
-            </p>
-          )}
-        </header>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow={`MI RUTA · ${STAGE_LABEL[stage].toUpperCase()}`}
+          title={checklist.name}
+          subtitle={checklist.description ?? undefined}
+        />
 
-        {/* Progress hero */}
-        <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white p-7 sm:p-9 shadow-2xl shadow-blue-500/30">
+        {/* Mission map dark band */}
+        <div
+          className="map-tile map-grid anim-fade-up relative rounded-3xl border p-8 mb-7 overflow-hidden"
+          style={{
+            borderColor: "oklch(0.32 0.04 250 / 0.6)",
+            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 6%)",
+          }}
+        >
           <div
-            aria-hidden
-            className="pointer-events-none absolute -top-16 -right-16 h-60 w-60 rounded-full bg-cyan-300/20 blur-3xl"
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 100%, oklch(0.78 0.16 215 / 25%) 0%, transparent 60%)",
+            }}
           />
-          <div className="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
-            <div>
-              <div className="text-xs font-semibold text-blue-200 uppercase tracking-wider">
-                Tu progreso en esta ruta
+          <div className="relative">
+            {/* Track */}
+            <div className="relative py-2 pb-8">
+              <div
+                className="absolute left-0 right-0 h-0.5 rounded-full"
+                style={{ top: 24, background: "oklch(0.4 0.04 250 / 0.6)" }}
+              />
+              <div
+                className="absolute left-0 h-0.5 rounded-full"
+                style={{
+                  top: 24,
+                  width: `${(currentIdx / (STAGE_ORDER.length - 1)) * 100}%`,
+                  background: "linear-gradient(90deg, var(--av-cyan-400), white)",
+                  boxShadow: "0 0 12px var(--av-cyan-400)",
+                }}
+              />
+              <div className="flex justify-between relative">
+                {STAGE_ORDER.map((s, i) => {
+                  const done = i < currentIdx
+                  const current = i === currentIdx
+                  return (
+                    <div
+                      key={s}
+                      className="flex flex-col items-center gap-3.5"
+                      style={{ minWidth: 100, maxWidth: 140 }}
+                    >
+                      <div
+                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center text-white font-extrabold text-sm"
+                        style={{
+                          background: done
+                            ? "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))"
+                            : current
+                              ? "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))"
+                              : "oklch(0.24 0.035 250)",
+                          border: current
+                            ? "2px solid var(--av-cyan-400)"
+                            : "2px solid oklch(0.36 0.05 250)",
+                          color: done || current ? "white" : "oklch(0.55 0.04 250)",
+                          boxShadow:
+                            done || current
+                              ? "0 0 0 6px oklch(0.78 0.16 215 / 15%), 0 8px 24px -8px oklch(0.78 0.16 215 / 60%)"
+                              : "none",
+                        }}
+                      >
+                        {done ? <Check className="h-5 w-5" /> : <span className="mono">{i + 1}</span>}
+                        {current && <span className="radar-pulse" />}
+                      </div>
+                      <div className="text-center">
+                        <div
+                          className="mono text-[13px] font-bold tracking-[-0.015em]"
+                          style={{
+                            color: done || current ? "white" : "oklch(0.65 0.04 250)",
+                          }}
+                        >
+                          {STAGE_LABEL[s]}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
-              <div className="mt-2 flex items-baseline gap-3">
-                <span className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] tabular">
-                  {percent}%
-                </span>
-                <span className="text-sm text-blue-100/90">
-                  {completedCount} de {totalCount} items
-                </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress strip */}
+        <div className="rounded-xl border border-border bg-card p-6 mb-6">
+          <div className="flex justify-between items-baseline mb-3">
+            <div>
+              <div
+                className="mono text-[10px] font-bold tracking-[0.14em] uppercase"
+                style={{ color: "var(--av-cyan-400)" }}
+              >
+                Tu progreso en esta etapa
+              </div>
+              <div className="mono tabular-nums mt-2 text-4xl font-extrabold tracking-[-0.04em] text-foreground">
+                {percent}%
+              </div>
+              <div className="text-sm text-muted-foreground mt-1">
+                {completedCount} de {totalCount} items completados
               </div>
             </div>
             {allDone && (
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur px-4 py-2 text-sm font-semibold">
-                <Trophy className="h-4 w-4" /> ¡Etapa completa!
+              <div
+                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
+                style={{
+                  background: "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))",
+                  boxShadow: "var(--shadow-cyan)",
+                }}
+              >
+                <Trophy className="h-3.5 w-3.5" /> ¡Etapa completa!
               </div>
             )}
           </div>
-          <div className="relative mt-5 h-2.5 rounded-full bg-white/15 overflow-hidden">
+          <div
+            className="relative h-2.5 rounded-full overflow-hidden border border-border"
+            style={{ background: "var(--muted)" }}
+          >
             <div
-              className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-blue-200 shadow-[0_0_16px_rgb(255_255_255_/_40%)] transition-all duration-700"
-              style={{ width: `${percent}%` }}
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${percent}%`,
+                background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-cyan-300), white)",
+                boxShadow: "0 0 12px var(--av-cyan-400)",
+              }}
             />
           </div>
-        </section>
+        </div>
 
-        {/* Categories with items */}
+        {/* Categories */}
         {categories.map(([cat, catItems]) => {
           const catComplete = catItems.filter((i) => completedIds.has(i.id)).length
           return (
-            <section key={cat}>
-              <div className="flex items-baseline justify-between mb-4">
-                <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  {cat}
-                </h2>
-                <Badge variant="secondary" className="rounded-full text-xs">
-                  {catComplete} / {catItems.length}
-                </Badge>
-              </div>
-              <ul className="space-y-2">
-                {catItems.map((item) => {
+            <section key={cat} className="mb-7">
+              <SectionTitle
+                icon={Target}
+                eyebrow={cat}
+                title={`${catComplete} / ${catItems.length} completos`}
+              />
+              <div className="rounded-xl border border-border bg-card overflow-hidden">
+                {catItems.map((item, i) => {
                   const checked = completedIds.has(item.id)
                   const toggling = togglingId === item.id
                   return (
-                    <li key={item.id}>
-                      <button
-                        type="button"
-                        onClick={() => toggleItem(item)}
-                        disabled={toggling}
-                        className={`w-full text-left flex items-start gap-4 rounded-2xl border p-4 sm:p-5 transition-all ${
-                          checked
-                            ? "border-blue-500/30 bg-blue-50/40 dark:bg-blue-950/20"
-                            : "border-border/60 bg-card hover:border-blue-500/30 hover:bg-muted/30"
-                        }`}
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => toggleItem(item)}
+                      disabled={toggling}
+                      className="w-full text-left flex items-start gap-3.5 p-4 transition-colors hover:bg-muted/50"
+                      style={{
+                        borderBottom: i < catItems.length - 1 ? "1px solid var(--border)" : "none",
+                      }}
+                    >
+                      <span
+                        className="flex h-[22px] w-[22px] items-center justify-center rounded-md flex-shrink-0 mt-0.5 transition-all"
+                        style={{
+                          background: checked ? "var(--av-cyan-400)" : "transparent",
+                          border: checked ? "none" : "1.5px solid var(--border)",
+                          color: "white",
+                          boxShadow: checked
+                            ? "0 0 0 3px color-mix(in oklab, var(--av-cyan-400) 20%, transparent)"
+                            : "none",
+                        }}
                       >
-                        <span
-                          className={`flex h-6 w-6 items-center justify-center rounded-md border-2 flex-shrink-0 transition-all mt-0.5 ${
-                            checked
-                              ? "bg-gradient-to-br from-blue-500 to-blue-700 border-transparent text-white shadow-md shadow-blue-500/30"
-                              : "border-border bg-background"
+                        {toggling ? (
+                          <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                        ) : checked ? (
+                          <Check className="h-3.5 w-3.5" strokeWidth={3} />
+                        ) : null}
+                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div
+                          className={`text-[13px] font-semibold ${
+                            checked ? "line-through text-muted-foreground" : "text-foreground"
                           }`}
                         >
-                          {toggling ? (
-                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                          ) : checked ? (
-                            <Check className="h-4 w-4" strokeWidth={3} />
-                          ) : null}
-                        </span>
-                        <div className="flex-1 min-w-0">
-                          <div
-                            className={`text-sm sm:text-base font-medium ${
-                              checked ? "line-through text-muted-foreground" : ""
+                          {item.title}
+                        </div>
+                        {item.description && (
+                          <p
+                            className={`mt-1 text-xs leading-relaxed ${
+                              checked ? "text-muted-foreground/70" : "text-muted-foreground"
                             }`}
                           >
-                            {item.title}
-                          </div>
-                          {item.description && (
-                            <p
-                              className={`mt-1 text-xs sm:text-sm leading-relaxed ${
-                                checked
-                                  ? "text-muted-foreground/70"
-                                  : "text-muted-foreground"
-                              }`}
-                            >
-                              {item.description}
-                            </p>
-                          )}
-                        </div>
-                      </button>
-                    </li>
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                    </button>
                   )
                 })}
-              </ul>
+              </div>
             </section>
           )
         })}
 
         {allDone && (
-          <section className="rounded-2xl border border-blue-500/20 bg-gradient-to-br from-blue-50 via-blue-50/40 to-transparent dark:from-blue-950/40 p-6 flex flex-col sm:flex-row sm:items-center gap-4">
-            <Sparkles className="h-7 w-7 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+          <section
+            className="rounded-2xl border p-6 flex items-center gap-4"
+            style={{
+              background:
+                "linear-gradient(135deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 70%)",
+              borderColor: "color-mix(in oklab, var(--av-cyan-400) 35%, var(--border))",
+            }}
+          >
+            <Sparkles className="h-7 w-7 flex-shrink-0" style={{ color: "var(--av-cyan-400)" }} />
             <div className="flex-1">
-              <h3 className="text-base font-semibold">¡Completaste todos los items!</h3>
+              <h3 className="text-base font-bold text-foreground">¡Completaste todos los items!</h3>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                Actualiza tu etapa en tu perfil para desbloquear la siguiente ruta.
+                Actualizá tu etapa en tu perfil para desbloquear la siguiente ruta.
               </p>
             </div>
-            <Button asChild className="btn-apple rounded-full border-0">
+            <Button asChild className="rounded-full border-0 text-white" style={{
+              background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+            }}>
               <Link to="/app/perfil">
                 Actualizar etapa <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
