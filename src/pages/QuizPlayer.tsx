@@ -9,6 +9,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { WingmanPanel } from "@/components/wingman/WingmanPanel"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ProtectedContent } from "@/components/ProtectedContent"
 import { track, Events } from "@/lib/analytics"
 
 interface AnswerOption {
@@ -228,7 +229,7 @@ export function QuizPlayer() {
           />
         </div>
 
-        <div className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8 shadow-sm">
+        <ProtectedContent className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8 shadow-sm">
           <h2 className="text-xl sm:text-2xl font-semibold leading-snug">{current.statement}</h2>
 
           <div className="mt-6 space-y-3">
@@ -294,7 +295,7 @@ export function QuizPlayer() {
               </button>
             </div>
           )}
-        </div>
+        </ProtectedContent>
 
         <div className="mt-6 flex justify-end">
           {!hasAnswered ? (
