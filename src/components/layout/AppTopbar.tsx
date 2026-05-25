@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Menu, LogOut, User } from "lucide-react"
+import { Menu, LogOut, User, PanelLeftClose, PanelLeftOpen } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -9,9 +9,11 @@ import { NotificationsBell } from "@/components/NotificationsBell"
 
 interface Props {
   onMenuClick: () => void
+  sidebarHidden?: boolean
+  onToggleSidebar?: () => void
 }
 
-export function AppTopbar({ onMenuClick }: Props) {
+export function AppTopbar({ onMenuClick, sidebarHidden, onToggleSidebar }: Props) {
   const { user } = useSession()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
@@ -59,6 +61,7 @@ export function AppTopbar({ onMenuClick }: Props) {
 
   return (
     <header className="sticky top-0 z-20 h-16 bg-background/70 backdrop-blur-xl border-b border-border/50 flex items-center justify-between px-4 sm:px-6">
+      {/* Mobile: hamburger drawer */}
       <button
         type="button"
         onClick={onMenuClick}
@@ -67,6 +70,23 @@ export function AppTopbar({ onMenuClick }: Props) {
       >
         <Menu className="h-5 w-5" />
       </button>
+
+      {/* Desktop: toggle sidebar hide/show */}
+      {onToggleSidebar && (
+        <button
+          type="button"
+          onClick={onToggleSidebar}
+          className="hidden lg:inline-flex items-center justify-center p-2 -ml-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          aria-label={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
+          title={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
+        >
+          {sidebarHidden ? (
+            <PanelLeftOpen className="h-5 w-5" />
+          ) : (
+            <PanelLeftClose className="h-5 w-5" />
+          )}
+        </button>
+      )}
 
       <div className="flex-1" />
 
