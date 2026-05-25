@@ -110,125 +110,150 @@ export function AppTopbar({
 
   return (
     <header
-      className="sticky top-0 z-20 h-14 flex items-center gap-3 px-5 backdrop-blur-xl border-b border-border"
-      style={{ background: "color-mix(in oklab, var(--background) 78%, transparent)" }}
+      className="sticky top-0 z-30 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-3 px-5 backdrop-blur-xl border-b border-border"
+      style={{ background: "color-mix(in oklab, var(--background) 82%, transparent)" }}
     >
-      {/* Mobile menu */}
-      <button
-        type="button"
-        onClick={onMenuClick}
-        className="lg:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground"
-        aria-label="Abrir menú"
-      >
-        <Menu className="h-5 w-5" />
-      </button>
-
-      {/* Desktop: toggle sidebar */}
-      {onToggleSidebar && (
+      {/* === LEFT COLUMN === */}
+      <div className="flex items-center gap-3 min-w-0">
+        {/* Mobile menu */}
         <button
           type="button"
-          onClick={onToggleSidebar}
-          className="hidden lg:inline-flex items-center justify-center w-8 h-8 -ml-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
-          title={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
+          onClick={onMenuClick}
+          className="lg:hidden p-2 -ml-2 text-muted-foreground hover:text-foreground"
+          aria-label="Abrir menú"
         >
-          {sidebarHidden ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          <Menu className="h-5 w-5" />
         </button>
-      )}
 
-      {/* Breadcrumb */}
-      <div className="hidden sm:flex items-center gap-2 text-[13px]">
-        <span className="text-muted-foreground">Aviatory</span>
-        <ChevronRight className="h-3 w-3 text-muted-foreground" />
-        <span className="font-semibold text-foreground">{label}</span>
+        {/* Desktop: toggle sidebar */}
+        {onToggleSidebar && (
+          <button
+            type="button"
+            onClick={onToggleSidebar}
+            className="hidden lg:inline-flex items-center justify-center w-8 h-8 -ml-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            aria-label={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
+            title={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
+          >
+            {sidebarHidden ? <PanelLeftOpen className="h-4 w-4" /> : <PanelLeftClose className="h-4 w-4" />}
+          </button>
+        )}
+
+        {/* Breadcrumb */}
+        <div className="hidden sm:flex items-center gap-2 text-[13px] min-w-0">
+          <span className="text-muted-foreground whitespace-nowrap">Aviatory</span>
+          <ChevronRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+          <span className="font-semibold text-foreground truncate">{label}</span>
+        </div>
       </div>
 
-      <div className="flex-1" />
-
-      {/* Command palette */}
-      <button
-        type="button"
-        onClick={onCmdK}
-        className="hidden md:flex items-center gap-2.5 h-[34px] pl-3 pr-2.5 rounded-lg border border-border bg-muted/40 text-xs font-medium text-muted-foreground transition-colors hover:border-foreground/30 min-w-[260px]"
-      >
-        <Search className="h-3.5 w-3.5" />
-        <span>Buscar materias, vuelos, aerolíneas…</span>
-        <span className="flex-1" />
-        <kbd className="mono text-[10px] px-1.5 py-0.5 rounded border border-border bg-background text-muted-foreground">
-          ⌘K
-        </kbd>
-      </button>
-
-      {/* Streak chip */}
-      {streak !== undefined && streak > 0 && (
-        <div className="chip chip-amber mono tabular-nums h-[30px] px-3 text-xs">
-          <Flame className="h-3.5 w-3.5" />
-          {streak} días
-        </div>
-      )}
-
-      {/* Theme toggle */}
-      <button
-        type="button"
-        onClick={toggleTheme}
-        className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-        aria-label="Toggle theme"
-      >
-        {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-      </button>
-
-      <NotificationsBell />
-
-      {/* Avatar */}
-      <div className="relative ml-1">
+      {/* === CENTER COLUMN — Command palette (always centered, prominent) === */}
+      <div className="flex justify-center">
         <button
           type="button"
-          onClick={(e) => {
-            e.stopPropagation()
-            setOpen((v) => !v)
+          onClick={onCmdK}
+          className="search-cmdk hidden md:flex items-center gap-2.5 w-full max-w-[460px] h-11 pl-4 pr-2 rounded-xl text-sm font-medium transition-all group"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--background) 96%, transparent) 0%, color-mix(in oklab, var(--muted) 60%, transparent) 100%)",
+            border: "1px solid oklch(0.78 0.16 215 / 28%)",
+            color: "var(--foreground)",
+            boxShadow:
+              "0 1px 0 rgb(255 255 255 / 5%) inset, 0 8px 24px -10px oklch(0.78 0.16 215 / 28%), 0 0 0 1px oklch(0.78 0.16 215 / 6%)",
           }}
-          className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-muted transition-colors"
-          aria-haspopup="menu"
-          aria-expanded={open}
         >
-          <UserAvatar
-            photoUrl={photoUrl}
-            username={username}
-            email={email}
-            size="sm"
-            className="shadow-md"
-            style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-cyan-400)" } as React.CSSProperties}
+          <Search
+            className="h-4 w-4 flex-shrink-0 transition-colors"
+            style={{ color: "var(--av-cyan-400)" }}
           />
-          <span className="hidden sm:block text-xs font-semibold text-muted-foreground max-w-[200px] truncate">
-            {handle}
+          <span className="truncate text-left flex-1 text-muted-foreground group-hover:text-foreground transition-colors">
+            Buscar materias, vuelos, aerolíneas…
           </span>
-        </button>
-
-        {open && (
-          <div
-            className="absolute right-0 mt-2 w-64 rounded-xl border border-border bg-card shadow-lg overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
+          <kbd
+            className="mono text-[10px] font-bold px-2 py-1 rounded-md flex-shrink-0"
+            style={{
+              background: "oklch(0.78 0.16 215 / 12%)",
+              color: "var(--av-cyan-400)",
+              border: "1px solid oklch(0.78 0.16 215 / 25%)",
+            }}
           >
-            <div className="px-4 py-3 border-b border-border">
-              {username && <p className="text-sm font-semibold">@{username}</p>}
-              <p className="text-xs text-muted-foreground truncate">{email}</p>
-            </div>
-            <Link
-              to="/app/perfil"
-              onClick={() => setOpen(false)}
-              className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-muted transition-colors"
-            >
-              <User className="h-4 w-4" /> Mi perfil
-            </Link>
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-            >
-              <LogOut className="h-4 w-4" /> Cerrar sesión
-            </button>
+            ⌘K
+          </kbd>
+        </button>
+      </div>
+
+      {/* === RIGHT COLUMN === */}
+      <div className="flex items-center gap-2">
+        {/* Streak chip */}
+        {streak !== undefined && streak > 0 && (
+          <div className="chip chip-amber mono tabular-nums h-[30px] px-3 text-xs hidden sm:inline-flex">
+            <Flame className="h-3.5 w-3.5" />
+            {streak} días
           </div>
         )}
+
+        {/* Theme toggle */}
+        <button
+          type="button"
+          onClick={toggleTheme}
+          className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          aria-label="Toggle theme"
+        >
+          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+        </button>
+
+        <NotificationsBell />
+
+        {/* Avatar */}
+        <div className="relative ml-1">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation()
+              setOpen((v) => !v)
+            }}
+            className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-muted transition-colors"
+            aria-haspopup="menu"
+            aria-expanded={open}
+          >
+            <UserAvatar
+              photoUrl={photoUrl}
+              username={username}
+              email={email}
+              size="sm"
+              className="shadow-md"
+              style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-cyan-400)" } as React.CSSProperties}
+            />
+            <span className="hidden sm:block text-xs font-semibold text-muted-foreground max-w-[200px] truncate">
+              {handle}
+            </span>
+          </button>
+
+          {open && (
+            <div
+              className="absolute right-0 mt-2 w-64 rounded-xl border border-border bg-card shadow-lg overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="px-4 py-3 border-b border-border">
+                {username && <p className="text-sm font-semibold">@{username}</p>}
+                <p className="text-xs text-muted-foreground truncate">{email}</p>
+              </div>
+              <Link
+                to="/app/perfil"
+                onClick={() => setOpen(false)}
+                className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-muted transition-colors"
+              >
+                <User className="h-4 w-4" /> Mi perfil
+              </Link>
+              <button
+                type="button"
+                onClick={handleSignOut}
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+              >
+                <LogOut className="h-4 w-4" /> Cerrar sesión
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   )

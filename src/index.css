@@ -651,3 +651,22 @@
   pointer-events: none;
 }
 .radar-pulse-delay { animation-delay: 1.2s; }
+
+/* === Command palette search (centered in AppTopbar) === */
+.search-cmdk { cursor: pointer; }
+.search-cmdk:hover {
+  border-color: var(--av-cyan-400) !important;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 8%) inset,
+    0 10px 28px -10px oklch(0.78 0.16 215 / 42%),
+    0 0 0 4px oklch(0.78 0.16 215 / 14%) !important;
+  transform: translateY(-1px);
+}
+.search-cmdk:active { transform: translateY(0); }
+.search-cmdk:focus-visible {
+  outline: none;
+  border-color: var(--av-cyan-400) !important;
+  box-shadow:
+    0 1px 0 rgb(255 255 255 / 8%) inset,
+    0 0 0 4px oklch(0.78 0.16 215 / 30%) !important;
+}
