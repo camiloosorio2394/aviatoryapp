@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Check, Loader2, Plane } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { LogoHorizontal } from "@/components/Logo"
+import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
 import { track, Events } from "@/lib/analytics"
 
 type Stage =
@@ -91,7 +91,7 @@ const STEPS = [
   { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook." },
   { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
   { title: "¿Cuál es tu nivel de inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
-  { title: "Tu objetivo", sub: "¿A qué aerolínea apuntás y para cuándo?" },
+  { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?" },
   { title: "Confirmá tus datos", sub: "Vas a poder editarlos después." },
 ]
 
@@ -186,8 +186,8 @@ export function Onboarding() {
       <div className="flex-1 flex items-center justify-center px-4 py-12">
         <div className="w-full max-w-xl">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-xl shadow-blue-500/30 mb-6">
-              <Plane className="h-6 w-6" />
+            <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-xl shadow-blue-500/30 mb-6">
+              <LogoIsotype variant="mono" className="h-7 w-7 brightness-0 invert" />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
               {STEPS[step].title}
@@ -324,17 +324,27 @@ export function Onboarding() {
                       <SelectValue placeholder="Elegí una aerolínea" />
                     </SelectTrigger>
                     <SelectContent>
+                      <SelectItem value="Aerolíneas Argentinas">Aerolíneas Argentinas</SelectItem>
+                      <SelectItem value="AeroMéxico">AeroMéxico</SelectItem>
+                      <SelectItem value="Aerogal">Aerogal</SelectItem>
+                      <SelectItem value="Arajet">Arajet</SelectItem>
                       <SelectItem value="Avianca">Avianca</SelectItem>
-                      <SelectItem value="LATAM Colombia">LATAM Colombia</SelectItem>
+                      <SelectItem value="Avianca Cargo">Avianca Cargo</SelectItem>
+                      <SelectItem value="Clic">Clic</SelectItem>
                       <SelectItem value="Copa Airlines">Copa Airlines</SelectItem>
-                      <SelectItem value="Wingo">Wingo</SelectItem>
+                      <SelectItem value="EasyFly">EasyFly</SelectItem>
                       <SelectItem value="JetSmart">JetSmart</SelectItem>
-                      <SelectItem value="Viva Air">Viva Air</SelectItem>
+                      <SelectItem value="LATAM Airlines">LATAM Airlines</SelectItem>
+                      <SelectItem value="Satena">Satena</SelectItem>
+                      <SelectItem value="SKY Airline">SKY Airline</SelectItem>
+                      <SelectItem value="Volaris">Volaris</SelectItem>
+                      <SelectItem value="Wingo">Wingo</SelectItem>
+                      <SelectItem value="Otra">Otra</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="target-date" className="text-sm">Fecha objetivo (opcional)</Label>
+                  <Label htmlFor="target-date" className="text-sm">Fecha objetivo (Opcional)</Label>
                   <Input
                     id="target-date"
                     type="date"
