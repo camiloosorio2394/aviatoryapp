@@ -18,6 +18,8 @@ import {
   Sparkles,
   ArrowRight,
   X,
+  Library as LibraryIcon,
+  Video,
 } from "lucide-react"
 import { LogoIsotype } from "@/components/Logo"
 
@@ -50,6 +52,7 @@ const navSections: NavSection[] = [
     label: "Carrera",
     items: [
       { to: "/app/aerolinea", label: "Ingreso a Aerolínea", icon: Briefcase },
+      { to: "/app/entrevistas", label: "Simulador entrevistas", icon: Video },
       { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu },
       { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
       { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
@@ -58,6 +61,7 @@ const navSections: NavSection[] = [
   {
     label: "Operación",
     items: [
+      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon },
       { to: "/app/logbook", label: "Logbook", icon: Clock },
       { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
       { to: "/app/ruta", label: "Mi ruta", icon: Map },
