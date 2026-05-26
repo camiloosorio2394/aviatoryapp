@@ -103,7 +103,13 @@ export function AppSidebar({ onClose, forceExpanded = false }: Props) {
         color: "var(--rail-text)",
       }}
     >
-      {/* Logo */}
+      {/*
+        Logo — el isotype solo ocupa el ancho del rail colapsado (64px) para
+        no solaparse con el topbar cuando el sidebar se expande on-hover.
+        El wordmark "Aviatory" SOLO se muestra en el drawer mobile (forceExpanded)
+        donde el topbar no aparece — en desktop el topbar muestra el breadcrumb
+        "Aviatory · Sección".
+      */}
       <div
         className="flex items-center gap-2.5 px-3.5"
         style={{
@@ -126,12 +132,12 @@ export function AppSidebar({ onClose, forceExpanded = false }: Props) {
           >
             <LogoIsotype className="h-5 w-5" />
           </div>
-          <div
-            className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap transition-opacity duration-200"
-            style={{ opacity: expanded ? 1 : 0 }}
-          >
-            Aviatory
-          </div>
+          {/* Wordmark solo en mobile drawer */}
+          {forceExpanded && (
+            <div className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
+              Aviatory
+            </div>
+          )}
         </Link>
         {onClose && (
           <button
