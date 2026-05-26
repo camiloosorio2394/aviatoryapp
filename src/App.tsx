@@ -27,6 +27,8 @@ import { Icao } from "@/pages/Icao"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
+import { Library } from "@/pages/Library"
+import { InterviewSim } from "@/pages/InterviewSim"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -124,6 +126,22 @@ function App() {
           element={
             <RequireAuth>
               <PsychTests />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/biblioteca"
+          element={
+            <RequireAuth>
+              <Library />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/entrevistas"
+          element={
+            <RequireAuth>
+              <InterviewSim />
             </RequireAuth>
           }
         />

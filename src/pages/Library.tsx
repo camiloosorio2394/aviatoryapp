@@ -1,0 +1,286 @@
+import { Link } from "react-router-dom"
+import {
+  BookOpen,
+  ListChecks,
+  FileText,
+  TrendingUp,
+  Scale,
+  Mic,
+  Lightbulb,
+  Users,
+  AlertTriangle,
+  Sparkles,
+  ArrowRight,
+  Check,
+  Clock,
+  Library as LibraryIcon,
+} from "lucide-react"
+import { AppLayout } from "@/components/layout/AppLayout"
+
+/**
+ * Módulo Biblioteca Operacional.
+ * 9 categorías: manuales, SOPs, quick refs, performance tools, W&B,
+ * briefings, checklist philosophy, CRM/TEM cases, accident studies.
+ * Backend: library_categories, library_items, user_library_bookmarks,
+ * user_library_views.
+ */
+export function Library() {
+  return (
+    <AppLayout>
+      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <section
+          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
+          style={{
+            borderColor: "oklch(0.32 0.04 250 / 0.6)",
+            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
+          }}
+        >
+          <div className="cockpit-grid absolute inset-0 opacity-60" />
+          <div
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
+          />
+          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+            <div>
+              <div
+                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                style={{
+                  color: "var(--av-cyan-300)",
+                  background: "oklch(0.78 0.16 215 / 12%)",
+                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
+                }}
+              >
+                <span
+                  className="w-1.5 h-1.5 rounded-full"
+                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
+                />
+                MÓDULO BIBLIOTECA · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
+              </div>
+              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
+                Biblioteca Operacional,{" "}
+                <span
+                  style={{
+                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
+                    WebkitBackgroundClip: "text",
+                    backgroundClip: "text",
+                    color: "transparent",
+                  }}
+                >
+                  útil incluso cuando no estás estudiando
+                </span>
+              </h1>
+              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+                <strong className="text-white">9 categorías</strong> de contenido operacional para
+                consultar día a día: manuales, SOPs, QRH, performance tools, W&amp;B, briefings,
+                checklist philosophy, casos CRM/TEM y accident case studies. La diferencia entre
+                "una app más" y "la app que abrís todos los días".
+              </p>
+            </div>
+            <div className="flex flex-col items-center gap-3 pr-2">
+              <div
+                className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
+                style={{
+                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
+                  boxShadow:
+                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+                }}
+              >
+                <LibraryIcon className="h-14 w-14 text-white" strokeWidth={1.5} />
+              </div>
+              <div className="mono text-[10px] tracking-[0.16em] text-white/50">CONSULTA · ENGAGE</div>
+            </div>
+          </div>
+        </section>
+
+        {/* === 9 CATEGORÍAS === */}
+        <div className="mt-10 mb-5 flex items-end justify-between">
+          <div>
+            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+              CATEGORÍAS · 9
+            </div>
+            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+              Todo lo que vas a poder consultar
+            </h2>
+          </div>
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
+            <Clock className="h-3.5 w-3.5" />Carga gradual · prioridad Avianca/LATAM/Copa
+          </div>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <CategoryTile key={c.slug} {...c} />
+          ))}
+        </div>
+
+        {/* === CTA === */}
+        <section
+          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
+          style={{
+            borderColor: "oklch(0.78 0.16 215 / 25%)",
+            background:
+              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
+          }}
+        >
+          <div>
+            <div
+              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              style={{ color: "var(--av-cyan-400)" }}
+            >
+              <Sparkles className="h-3 w-3" /> Aporta tu material
+            </div>
+            <h3 className="mt-1.5 text-lg font-bold">
+              ¿Tienes manuales/SOPs/quick references que aportar?
+            </h3>
+            <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
+              Aporta material y se lo damos al resto de la comunidad (con tu crédito si quieres).
+              Solo material no-propietario o de dominio público — el equipo revisa antes de publicar.
+            </p>
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <Link
+              to="/app/comunidad"
+              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
+              style={{
+                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+                boxShadow:
+                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
+              }}
+            >
+              Comunidad #biblioteca <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+        </section>
+      </div>
+    </AppLayout>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
+const TILE_COLOR: Record<ColorKey, string> = {
+  cyan: "var(--av-cyan-400)",
+  blue: "var(--av-blue-500)",
+  violet: "var(--av-violet-400)",
+  amber: "var(--av-amber-400)",
+  green: "var(--av-green-400)",
+  red: "var(--av-red-400)",
+}
+
+interface CategoryProps {
+  slug: string
+  name: string
+  description: string
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
+  color: ColorKey
+  bullets: string[]
+}
+
+const CATEGORIES: CategoryProps[] = [
+  {
+    slug: "manuales",
+    name: "Manuales",
+    icon: BookOpen,
+    color: "cyan",
+    description: "FCOM, AFM, manuales operacionales por aeronave.",
+    bullets: ["A320 family", "B737NG / MAX", "ATR 42/72", "Genéricos PPL/CPL"],
+  },
+  {
+    slug: "sops",
+    name: "SOPs",
+    icon: ListChecks,
+    color: "blue",
+    description: "Standard Operating Procedures por aerolínea.",
+    bullets: ["Avianca / LATAM / Copa SOPs", "Flow patterns", "Callouts esperados"],
+  },
+  {
+    slug: "quick_refs",
+    name: "Quick References",
+    icon: FileText,
+    color: "amber",
+    description: "QRH, emergency checklists, abnormal procedures.",
+    bullets: ["QRH por aeronave", "Emergency memory items", "Abnormal flowcharts"],
+  },
+  {
+    slug: "performance",
+    name: "Performance Tools",
+    icon: TrendingUp,
+    color: "green",
+    description: "Calculadoras de despegue, aterrizaje, ascenso.",
+    bullets: ["TOLD interactive", "Climb/cruise/descent", "Engine-out planning"],
+  },
+  {
+    slug: "w_and_b",
+    name: "Weight & Balance",
+    icon: Scale,
+    color: "violet",
+    description: "Tools de cálculo W&B por aeronave.",
+    bullets: ["Calculadora interactiva", "Templates por aeronave", "Validación CG envelope"],
+  },
+  {
+    slug: "briefings",
+    name: "Briefings",
+    icon: Mic,
+    color: "cyan",
+    description: "Templates de briefing pre-vuelo, takeoff, approach.",
+    bullets: ["Pre-flight briefing", "Takeoff briefing template", "Approach briefing guidelines"],
+  },
+  {
+    slug: "checklist_philosophy",
+    name: "Checklist Philosophy",
+    icon: Lightbulb,
+    color: "blue",
+    description: "Por qué se hacen los checks como se hacen — flow patterns.",
+    bullets: ["Origen de cada checklist", "Read & verify vs do & verify", "Common errors"],
+  },
+  {
+    slug: "crm_tem_cases",
+    name: "CRM / TEM Cases",
+    icon: Users,
+    color: "violet",
+    description: "Casos reales de CRM y TEM para discusión.",
+    bullets: ["Casos clásicos comentados", "Discussion prompts", "Lessons learned por caso"],
+  },
+  {
+    slug: "accident_studies",
+    name: "Accident Case Studies",
+    icon: AlertTriangle,
+    color: "red",
+    description: "NTSB, BEA, AAIB — qué aprender de cada accidente.",
+    bullets: ["Reports oficiales linkeados", "Resumen pedagógico", "TEM/CRM takeaways"],
+  },
+]
+
+function CategoryTile({ icon: Icon, color, name, description, bullets }: CategoryProps) {
+  return (
+    <div
+      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
+      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
+    >
+      <div className="flex items-start gap-3.5">
+        <div
+          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+          style={{
+            background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
+            color: TILE_COLOR[color],
+          }}
+        >
+          <Icon className="h-5 w-5" strokeWidth={2} />
+        </div>
+        <div className="flex-1 pt-0.5">
+          <div className="text-[15px] font-bold tracking-[-0.01em]">{name}</div>
+          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
+        </div>
+      </div>
+      <ul className="space-y-1.5 pl-1">
+        {bullets.map((b) => (
+          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
+            <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: TILE_COLOR[color] }} strokeWidth={3} />
+            <span>{b}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}

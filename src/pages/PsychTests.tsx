@@ -7,13 +7,21 @@ import {
   Sparkles,
   ArrowRight,
   Check,
-  Clock,
   Cpu,
+  Sigma,
+  Compass,
+  Users,
+  UserCheck,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
 /**
- * Módulo Psicotécnicas — preparación para tests psicotécnicos de aerolínea.
+ * Módulo Psicotécnicos y Assessment — separado completamente de entrevistas.
+ * 9 categorías: atención dividida, memoria operacional, multitasking, lógica,
+ * espacial, coordinación, cognitivos, dinámicas grupales, personality tests.
+ * Plus simulaciones tipo COMPASS / CUT-E / PILAPT.
+ * Backend: psych_categories, psych_tests, user_psych_attempts,
+ * psych_group_dynamics, psych_personality_tests.
  */
 export function PsychTests() {
   return (
@@ -29,12 +37,8 @@ export function PsychTests() {
           <div className="cockpit-grid absolute inset-0 opacity-60" />
           <div
             className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)",
-            }}
+            style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
           />
-
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
@@ -47,15 +51,12 @@ export function PsychTests() {
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full"
-                  style={{
-                    background: "var(--av-amber-400)",
-                    boxShadow: "0 0 8px var(--av-amber-400)",
-                  }}
+                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
                 />
-                MÓDULO PSICOTÉCNICAS · EARLY ACCESS · ETA Q4 2026
+                MÓDULO PSICOTÉCNICAS · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
               </div>
               <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-                Psicotécnicas,{" "}
+                Psicotécnicos y Assessment,{" "}
                 <span
                   style={{
                     background: "linear-gradient(135deg, var(--av-cyan-300), white)",
@@ -64,14 +65,15 @@ export function PsychTests() {
                     color: "transparent",
                   }}
                 >
-                  entrenadas como el simulador
+                  entrenables, no innatos
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[640px] mt-3 leading-relaxed">
-                Los tests psicotécnicos son entrenables — pero solo si practicas el formato exacto
-                que usa cada aerolínea. Vamos a tener baterías de razonamiento espacial, atención
-                dividida, memoria de trabajo y coordinación psicomotriz, con métricas de progreso
-                para que llegues al día del test sin sorpresas.
+              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+                Las aerolíneas manejan assessment, aptitude, psychometric y group dynamics como un
+                proceso aparte de las entrevistas. <strong className="text-white">9 categorías</strong>{" "}
+                de baterías + simuladores compatibles con los engines más usados
+                (<strong className="text-white">COMPASS, CUT-E, PILAPT</strong>).
+                Diferencial real: te entrenamos en formatos específicos, no en "tests genéricos".
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 pr-2">
@@ -90,67 +92,53 @@ export function PsychTests() {
           </div>
         </section>
 
-        <div className="mt-10 mb-5 flex items-end justify-between">
-          <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-              ROADMAP DEL MÓDULO
-            </div>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-              Baterías de entrenamiento
-            </h2>
+        {/* === 9 CATEGORÍAS === */}
+        <div className="mt-10 mb-5">
+          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            CATEGORÍAS · 9
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
-            <Clock className="h-3.5 w-3.5" />4 áreas · liberación gradual
-          </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Las 9 baterías que vas a entrenar
+          </h2>
+        </div>
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <CategoryCard key={c.slug} {...c} />
+          ))}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
-          <FeatureTile
-            icon={Eye}
-            color="cyan"
-            title="Razonamiento espacial"
-            description="Compass test, mental rotation, instruments interpretation. Las baterías más temidas porque no las entrenan en el curso de PPL — pero sí se entrenan con repetición correcta."
-            bullets={[
-              "Compass / heading interpretation drills",
-              "3D mental rotation con feedback instantáneo",
-              "Bank/pitch attitude reading bajo presión",
-            ]}
+        {/* === ENGINES === */}
+        <div className="mt-10 mb-5">
+          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            ENGINES SOPORTADOS
+          </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Simuladores compatibles con los tests reales
+          </h2>
+          <p className="mt-1.5 text-sm text-muted-foreground max-w-[680px]">
+            Las aerolíneas tercerizan psicotécnicas a 3 grandes proveedores. Replicamos sus formatos
+            para que cuando hagas el real, no haya sorpresa.
+          </p>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <EngineCard
+            name="COMPASS"
+            description="Computerised Pilot Aptitude Screening System. Usado por LATAM, Lufthansa, otras."
+            features={["Spatial orientation", "Math & reasoning", "Multi-tasking", "Memory"]}
           />
-          <FeatureTile
-            icon={Layers}
-            color="blue"
-            title="Atención dividida"
-            description="Ejercicios multi-task que simulan estar atendiendo radio, instrumentos, navegación y ATC al mismo tiempo. Mejora real de capacidad mental bajo carga."
-            bullets={[
-              "Doble + triple task con timers",
-              "Auditory + visual stimuli combinados",
-              "Métrica de degradación bajo fatiga",
-            ]}
+          <EngineCard
+            name="CUT-E (Aon)"
+            description="Suite de tests cognitivos. Usado por Avianca y muchas low-cost europeas."
+            features={["Aptitude scales", "Personality (PILOT)", "Logical reasoning", "Numerical"]}
           />
-          <FeatureTile
-            icon={Brain}
-            color="violet"
-            title="Memoria de trabajo"
-            description="Secuencias numéricas, alfa-numéricas, ATC clearances completos. Si ya te has quedado en blanco cuando el controller te dispara una clearance larga, este módulo es para ti."
-            bullets={[
-              "Digit span forward/backward",
-              "ATC clearance recall (real audio)",
-              "Métrica de span máximo + accuracy",
-            ]}
-          />
-          <FeatureTile
-            icon={Activity}
-            color="green"
-            title="Coordinación psicomotriz"
-            description="Tiempo de reacción, hand-eye coordination, control under stress. Los tests tipo DLR que LATAM usa en su evaluación final."
-            bullets={[
-              "Reaction time tracking + percentiles",
-              "Simple, choice, complex reaction",
-              "Comparación con el promedio de pilotos contratados",
-            ]}
+          <EngineCard
+            name="PILAPT"
+            description="Pilot Aptitude Test. Estándar para hand-eye y spatial — Copa y otras lo usan."
+            features={["Coordination", "Mental rotation", "Reaction time", "Instrument reading"]}
           />
         </div>
 
+        {/* === CTA === */}
         <section
           className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
           style={{
@@ -164,15 +152,14 @@ export function PsychTests() {
               className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
-              <Sparkles className="h-3 w-3" /> Cómo aportar
+              <Sparkles className="h-3 w-3" /> Aporta datos para calibrar
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
               ¿Ya pasaste por psicotécnicas de Avianca, LATAM o Copa?
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground max-w-[640px]">
-              Comparte en la comunidad qué tests cayeron, qué duración, qué formato. Esa
-              data nos ayuda a calibrar los simuladores para que estén lo más cerca posible
-              de lo real.
+            <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
+              Reporta en la comunidad qué tests cayeron, duración y formato — esa data ajusta los
+              simuladores. Más reportes = simulación más cercana a lo real.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -185,13 +172,13 @@ export function PsychTests() {
                   "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
               }}
             >
-              Ir a #psicotecnicas <ArrowRight className="h-3.5 w-3.5" />
+              Reportar en #psicotecnicas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/aerolinea"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
-              Ver Ingreso a Aerolínea <ArrowRight className="h-3.5 w-3.5" />
+              Ingreso a Aerolínea <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </section>
@@ -200,52 +187,75 @@ export function PsychTests() {
   )
 }
 
-interface TileProps {
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: "cyan" | "blue" | "violet" | "amber" | "green"
-  title: string
-  description: string
-  bullets: string[]
-}
-
-const TILE_COLOR: Record<TileProps["color"], string> = {
+// ────────────────────────────────────────────────────────────────────────────
+type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
+const TILE_COLOR: Record<ColorKey, string> = {
   cyan: "var(--av-cyan-400)",
   blue: "var(--av-blue-500)",
   violet: "var(--av-violet-400)",
   amber: "var(--av-amber-400)",
   green: "var(--av-green-400)",
+  red: "var(--av-red-400)",
 }
 
-function FeatureTile({ icon: Icon, color, title, description, bullets }: TileProps) {
+const CATEGORIES: { slug: string; name: string; family: string; description: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }[] = [
+  { slug: "atencion_dividida", name: "Atención dividida", family: "Attention", description: "Atender ATC + instrumentos + nav simultáneamente.", icon: Eye, color: "cyan" },
+  { slug: "memoria_operacional", name: "Memoria operacional", family: "Memory", description: "Working memory para clearances y secuencias.", icon: Brain, color: "violet" },
+  { slug: "multitasking", name: "Multitasking", family: "Attention", description: "Cambio rápido de tarea sin perder calidad.", icon: Layers, color: "blue" },
+  { slug: "razonamiento_logico", name: "Razonamiento lógico", family: "Reasoning", description: "Inferencia y resolución de problemas bajo tiempo.", icon: Sigma, color: "amber" },
+  { slug: "spatial_awareness", name: "Spatial awareness", family: "Spatial", description: "Orientación 3D, compass test, mental rotation.", icon: Compass, color: "cyan" },
+  { slug: "coordinacion", name: "Coordinación psicomotriz", family: "Coordination", description: "Hand-eye, reaction time bajo presión.", icon: Activity, color: "green" },
+  { slug: "cognitivos_generales", name: "Cognitivos generales", family: "Cognitive", description: "IQ, verbal, numeric, abstract reasoning.", icon: Cpu, color: "blue" },
+  { slug: "dinamicas_grupales", name: "Dinámicas grupales", family: "Dynamics", description: "Group assessment, role-plays, panel discussions.", icon: Users, color: "violet" },
+  { slug: "personality", name: "Personality tests", family: "Personality", description: "Big5, DISC, Hogan — fit cultural para aerolínea.", icon: UserCheck, color: "red" },
+]
+
+// ────────────────────────────────────────────────────────────────────────────
+function CategoryCard({ name, family, description, icon: Icon, color }: { slug: string; name: string; family: string; description: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }) {
   return (
     <div
-      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
+      className="card card-hover rounded-2xl border p-5 flex items-start gap-3.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
     >
-      <div className="flex items-start gap-3.5">
-        <div
-          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
-          }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </div>
-        <div className="flex-1 pt-0.5">
-          <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
-        </div>
+      <div
+        className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+        style={{
+          background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
+          border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
+          color: TILE_COLOR[color],
+        }}
+      >
+        <Icon className="h-5 w-5" />
       </div>
-      <ul className="space-y-1.5 pl-1">
-        {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
-            <Check
-              className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
-              style={{ color: TILE_COLOR[color] } as React.CSSProperties}
-              strokeWidth={3}
-            />
-            <span>{b}</span>
+      <div className="flex-1 min-w-0 pt-0.5">
+        <div className="flex items-baseline gap-2">
+          <div className="text-[14.5px] font-bold tracking-[-0.01em]">{name}</div>
+          <div className="mono text-[9.5px] tracking-[0.1em] uppercase text-muted-foreground">{family}</div>
+        </div>
+        <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
+      </div>
+    </div>
+  )
+}
+
+function EngineCard({ name, description, features }: { name: string; description: string; features: string[] }) {
+  return (
+    <div
+      className="rounded-2xl border p-5"
+      style={{
+        background: "linear-gradient(180deg, color-mix(in oklab, var(--av-cyan-400) 4%, var(--card)) 0%, var(--card) 100%)",
+        borderColor: "oklch(0.78 0.16 215 / 22%)",
+      }}
+    >
+      <div className="mono text-[13px] font-extrabold tracking-[0.04em]" style={{ color: "var(--av-cyan-400)" }}>
+        {name}
+      </div>
+      <p className="mt-1.5 text-[13px] text-foreground/85 leading-relaxed">{description}</p>
+      <ul className="mt-3 space-y-1">
+        {features.map((f) => (
+          <li key={f} className="flex items-start gap-1.5 text-[12px] text-foreground/75">
+            <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: "var(--av-cyan-400)" }} strokeWidth={3} />
+            <span>{f}</span>
           </li>
         ))}
       </ul>
