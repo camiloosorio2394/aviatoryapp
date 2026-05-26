@@ -372,7 +372,7 @@ export function Profile() {
                 <Field label="Etapa actual">
                   <Select value={stage} onValueChange={(v) => setStage(v as Stage)}>
                     <SelectTrigger className="h-11 rounded-xl">
-                      <SelectValue placeholder="Elegí una etapa" />
+                      <SelectValue placeholder="Elige una etapa" />
                     </SelectTrigger>
                     <SelectContent>
                       {STAGES.map((s) => (

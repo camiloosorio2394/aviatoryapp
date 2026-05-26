@@ -140,7 +140,7 @@ export function Login() {
         if (checkErr) throw checkErr
         if (!stillAvailable) {
           setUsernameStatus({ state: "taken" })
-          throw new Error("Ese usuario ya fue tomado mientras escribías. Probá otro.")
+          throw new Error("Ese usuario ya fue tomado mientras escribías. Prueba otro.")
         }
 
         const { data, error } = await supabase.auth.signUp({
@@ -158,7 +158,7 @@ export function Login() {
         if (data.session) {
           navigate("/onboarding", { replace: true })
         } else {
-          toast.success("Te enviamos un email de confirmación. Revisá tu bandeja.")
+          toast.success("Te enviamos un email de confirmación. Revisa tu bandeja.")
           setMode("signin")
         }
       } else {
@@ -210,7 +210,7 @@ export function Login() {
             <Plane className="h-7 w-7 mb-6 text-blue-200" />
             <h2 className="text-4xl font-bold tracking-tight leading-tight text-balance">
               {isSignup
-                ? "Empezá hoy. Llegá a la cabina antes."
+                ? "Empieza hoy. Llega a la cabina antes."
                 : "Bienvenido de vuelta a tu próximo vuelo."}
             </h2>
             <p className="mt-4 text-blue-100/90 text-lg leading-relaxed">
@@ -262,12 +262,12 @@ export function Login() {
         <div className="flex-1 flex items-center justify-center px-6 pb-12">
           <div className="w-full max-w-md">
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
-              {isSignup ? "Crea tu cuenta" : "Iniciá sesión"}
+              {isSignup ? "Crea tu cuenta" : "Inicia sesión"}
             </h1>
             <p className="mt-2 text-muted-foreground">
               {isSignup
                 ? "7 días gratis. Sin tarjeta. Cancelás cuando quieras."
-                : "Bienvenido de vuelta. Ingresá para seguir."}
+                : "Bienvenido de vuelta. Ingresa para seguir."}
             </p>
 
             {isSignup && referralCode && (
@@ -307,7 +307,7 @@ export function Login() {
                   id="email"
                   type="email"
                   autoComplete="email"
-                  placeholder="vos@email.com"
+                  placeholder="tu@email.com"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -391,13 +391,13 @@ export function Login() {
 
               {isSignup && (
                 <div className="space-y-2">
-                  <Label htmlFor="confirm" className="text-sm">Confirmá tu contraseña</Label>
+                  <Label htmlFor="confirm" className="text-sm">Confirma tu contraseña</Label>
                   <div className="relative">
                     <Input
                       id="confirm"
                       type={showPassword ? "text" : "password"}
                       autoComplete="new-password"
-                      placeholder="Repetí la contraseña"
+                      placeholder="Repite la contraseña"
                       required
                       value={confirm}
                       onChange={(e) => setConfirm(e.target.value)}
@@ -460,16 +460,16 @@ export function Login() {
             <p className="mt-8 text-sm text-center text-muted-foreground">
               {isSignup ? (
                 <>
-                  ¿Ya tenés cuenta?{" "}
+                  ¿Ya tienes cuenta?{" "}
                   <Link to="/login" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                    Iniciá sesión
+                    Inicia sesión
                   </Link>
                 </>
               ) : (
                 <>
-                  ¿No tenés cuenta todavía?{" "}
+                  ¿No tienes cuenta todavía?{" "}
                   <Link to="/login?mode=signup" className="font-medium text-blue-600 dark:text-blue-400 hover:underline">
-                    Empezá gratis
+                    Empieza gratis
                   </Link>
                 </>
               )}

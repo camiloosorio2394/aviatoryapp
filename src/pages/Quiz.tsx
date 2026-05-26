@@ -127,12 +127,12 @@ export function Quiz() {
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow={`BANCO DE PREGUNTAS · ${totalQuestions} PREGUNTAS`}
-          title="Practicá donde más te falta"
-          subtitle="Cada quiz tiene 10 preguntas estilo examen Aerocivil PCA. Tu mastery se actualiza con cada intento."
+          eyebrow={`MATERIAS · ${totalQuestions} PREGUNTAS`}
+          title="Estudia donde más te falta"
+          subtitle="Cada materia tiene quices estilo examen Aerocivil PCA. Próximamente: contenido teórico y exámenes completos por materia. Tu mastery se actualiza con cada intento."
           actions={
             <Link
-              to="/app/quiz"
+              to="/app/materias"
               className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white"
               style={{
                 background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
@@ -166,10 +166,10 @@ export function Quiz() {
                 {strongest && weakest && (
                   <>
                     <strong className="text-foreground">{strongest.name}</strong> está cerca de dominio.{" "}
-                    <strong className="text-foreground">{weakest.name}</strong> sigue siendo tu materia más débil — empezá ahí hoy.
+                    <strong className="text-foreground">{weakest.name}</strong> sigue siendo tu materia más débil — empieza ahí hoy.
                   </>
                 )}
-                {!strongest && "Hacé tu primer quiz para empezar a medir tu mastery."}
+                {!strongest && "Haz tu primer quiz para empezar a medir tu mastery."}
               </p>
               <div className="mt-4 flex gap-4 flex-wrap">
                 <MiniStat label="Quizzes" value={totalAttempts} icon={BookOpen} />
@@ -315,5 +315,5 @@ function SubjectCard({ s }: { s: Subject }) {
   )
 
   if (locked) return card
-  return <Link to={`/app/quiz/${s.slug}`}>{card}</Link>
+  return <Link to={`/app/materias/${s.slug}`}>{card}</Link>
 }

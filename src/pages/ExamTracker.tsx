@@ -69,7 +69,7 @@ export function ExamTracker() {
         <PageHeader
           eyebrow="EXAM TRACKER · INTELIGENCIA COLECTIVA"
           title="El Waze de los exámenes Aerocivil"
-          subtitle="Pilotos que ya tomaron el examen comparten qué cayó. Vos aprendés de los que pasaron, y aportás cuando te toque a vos."
+          subtitle="Pilotos que ya tomaron el examen comparten qué cayó. Tú aprendes de los que pasaron, y aportas cuando te toque a ti."
           actions={
             <button
               type="button"
@@ -143,7 +143,7 @@ export function ExamTracker() {
 
         {/* How it works */}
         <div className="grid sm:grid-cols-3 gap-4">
-          <HowStep n="1" title="Reportá tu examen" body="Después de salir, tomate 2 min para contar qué cayó." />
+          <HowStep n="1" title="Reporta tu examen" body="Después de salir, tomate 2 min para contar qué cayó." />
           <HowStep n="2" title="Tu data se anonimiza" body="Tu identidad no se ve. Solo cuenta cuánto pesó cada tema." />
           <HowStep n="3" title="Todos ganan" body="El próximo piloto entra al examen con tu inteligencia." />
         </div>
@@ -371,7 +371,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         >
           <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
-              <h2 className="text-lg font-bold">Reportá tu examen</h2>
+              <h2 className="text-lg font-bold">Reporta tu examen</h2>
               <p className="text-xs text-muted-foreground">
                 Anónimo · 2 minutos · ayuda a todos los próximos pilotos
               </p>
@@ -392,7 +392,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <Label className="text-xs">Materia</Label>
                 <Select value={subjectId} onValueChange={setSubjectId}>
                   <SelectTrigger className="h-11 rounded-xl">
-                    <SelectValue placeholder="Elegí" />
+                    <SelectValue placeholder="Elige" />
                   </SelectTrigger>
                   <SelectContent>
                     {subjects.map((s) => (
@@ -509,7 +509,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               <div className="space-y-2">
                 <div className="flex items-baseline justify-between">
                   <Label className="text-xs">¿Qué temas cayeron?</Label>
-                  <span className="text-[10px] text-muted-foreground">Elegí todos los que apliquen</span>
+                  <span className="text-[10px] text-muted-foreground">Elige todos los que apliquen</span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {filteredTopics.map((t) => {
@@ -545,7 +545,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 value={tips}
                 onChange={(e) => setTips(e.target.value)}
                 rows={3}
-                placeholder="Estudiá bien los METAR, cayó mucha pregunta sobre frentes ocluidos..."
+                placeholder="Estudia bien los METAR, cayó mucha pregunta sobre frentes ocluidos..."
                 className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
               />
             </div>

@@ -443,7 +443,7 @@ function EmptyChannel() {
       </div>
       <h3 className="text-base font-semibold">Sé el primero en escribir</h3>
       <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto">
-        Presentate, haz una pregunta o compartí un avance. Tu mensaje arranca la conversación.
+        PresÃ©ntate, haz una pregunta o comparte un avance. Tu mensaje arranca la conversación.
       </p>
     </div>
   )

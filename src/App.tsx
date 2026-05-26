@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { RequireAuth } from "@/components/auth/RequireAuth"
 import { useSession } from "@/hooks/useSession"
@@ -23,6 +23,10 @@ import { Expiries } from "@/pages/Expiries"
 import { Referrals } from "@/pages/Referrals"
 import { ExamTracker } from "@/pages/ExamTracker"
 import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
+import { Icao } from "@/pages/Icao"
+import { Pca } from "@/pages/Pca"
+import { AirlinePrep } from "@/pages/AirlinePrep"
+import { PsychTests } from "@/pages/PsychTests"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -69,8 +73,9 @@ function App() {
             </RequireAuth>
           }
         />
+        {/* New unified module: Materias (= old "Banco de preguntas" + future info/exams per materia) */}
         <Route
-          path="/app/quiz"
+          path="/app/materias"
           element={
             <RequireAuth>
               <Quiz />
@@ -78,10 +83,47 @@ function App() {
           }
         />
         <Route
-          path="/app/quiz/:slug"
+          path="/app/materias/:slug"
           element={
             <RequireAuth>
               <QuizPlayer />
+            </RequireAuth>
+          }
+        />
+        {/* Backward-compat redirects from /app/quiz → /app/materias */}
+        <Route path="/app/quiz" element={<Navigate to="/app/materias" replace />} />
+        <Route path="/app/quiz/:slug" element={<RequireAuth><QuizPlayer /></RequireAuth>} />
+
+        {/* New career modules */}
+        <Route
+          path="/app/icao"
+          element={
+            <RequireAuth>
+              <Icao />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/pca"
+          element={
+            <RequireAuth>
+              <Pca />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea"
+          element={
+            <RequireAuth>
+              <AirlinePrep />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/psicotecnicas"
+          element={
+            <RequireAuth>
+              <PsychTests />
             </RequireAuth>
           }
         />

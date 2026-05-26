@@ -115,7 +115,7 @@ export function Privacy() {
             </p>
             <p>
               No publicamos tu email, horas reales, licencias ni etapa en lugares
-              públicos. Esa data solo es visible para vos en tu perfil.
+              públicos. Esa data solo es visible para ti en tu perfil.
             </p>
           </Section>
 

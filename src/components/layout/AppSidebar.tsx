@@ -1,8 +1,12 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import {
   LayoutDashboard,
   BookOpen,
+  Radio,
+  Award,
+  Briefcase,
+  Cpu,
   Radar,
   Clock,
   Calendar,
@@ -17,17 +21,56 @@ import {
 } from "lucide-react"
 import { LogoIsotype } from "@/components/Logo"
 
-const navItems = [
-  { to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true },
-  { to: "/app/quiz", label: "Banco de preguntas", icon: BookOpen },
-  { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
-  { to: "/app/logbook", label: "Logbook", icon: Clock },
-  { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
-  { to: "/app/comunidad", label: "Comunidad", icon: Users },
-  { to: "/app/ruta", label: "Mi ruta", icon: Map },
-  { to: "/app/aerolineas", label: "Aerolíneas", icon: Plane },
-  { to: "/app/referidos", label: "Referidos", icon: Gift },
-  { to: "/app/perfil", label: "Mi perfil", icon: User },
+interface NavItem {
+  to: string
+  label: string
+  icon: React.ComponentType<{ className?: string; size?: number; style?: React.CSSProperties }>
+  end?: boolean
+}
+
+interface NavSection {
+  /** Section header; omit on first group (Dashboard standalone). */
+  label?: string
+  items: NavItem[]
+}
+
+const navSections: NavSection[] = [
+  {
+    items: [{ to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true }],
+  },
+  {
+    label: "Estudio",
+    items: [
+      { to: "/app/materias", label: "Materias", icon: BookOpen },
+      { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
+      { to: "/app/pca", label: "Examen PCA", icon: Award },
+    ],
+  },
+  {
+    label: "Carrera",
+    items: [
+      { to: "/app/aerolinea", label: "Ingreso a Aerolínea", icon: Briefcase },
+      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu },
+      { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
+      { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
+    ],
+  },
+  {
+    label: "Operación",
+    items: [
+      { to: "/app/logbook", label: "Logbook", icon: Clock },
+      { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
+      { to: "/app/ruta", label: "Mi ruta", icon: Map },
+    ],
+  },
+  {
+    label: "Comunidad",
+    items: [
+      { to: "/app/comunidad", label: "Comunidad", icon: Users },
+      { to: "/app/referidos", label: "Referidos", icon: Gift },
+      { to: "/app/perfil", label: "Mi perfil", icon: User },
+    ],
+  },
 ]
 
 interface Props {
@@ -98,61 +141,73 @@ export function AppSidebar({ onClose, forceExpanded = false }: Props) {
         )}
       </div>
 
-      {/* Section label */}
-      <div
-        className="px-3.5 pt-4 pb-1.5 mono text-[10px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
-        style={{
-          color: "oklch(0.55 0.02 250)",
-          opacity: expanded ? 1 : 0,
-        }}
-      >
-        Navegación
-      </div>
-
-      {/* Nav */}
-      <nav className="flex-1 px-2.5 flex flex-col gap-0.5">
-        {navItems.map((item) => (
-          <NavLink
-            key={item.to}
-            to={item.to}
-            end={item.end}
-            onClick={onClose}
-            className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors"
-            style={({ isActive }) =>
-              isActive
-                ? {
-                    color: "var(--rail-text-active)",
-                    background:
-                      "linear-gradient(90deg, oklch(0.78 0.16 215 / 18%) 0%, oklch(0.78 0.16 215 / 8%) 100%)",
-                    boxShadow:
-                      "inset 2px 0 0 var(--av-cyan-400), inset 0 1px 0 rgb(255 255 255 / 4%)",
-                  }
-                : { color: "var(--rail-text)" }
-            }
-          >
-            {({ isActive }) => (
+      {/* Nav — agrupada en secciones */}
+      <nav className="flex-1 px-2.5 pt-2 pb-2 flex flex-col gap-0.5 overflow-y-auto">
+        {navSections.map((section, sectionIdx) => (
+          <Fragment key={section.label ?? `s-${sectionIdx}`}>
+            {/* Section header — only when expanded; collapsed = subtle divider */}
+            {section.label && (
               <>
-                <item.icon
-                  size={18}
-                  className="flex-shrink-0 transition-colors"
-                  style={{ color: isActive ? "var(--av-cyan-400)" : "currentColor" }}
-                />
-                <span
-                  className="whitespace-nowrap overflow-hidden transition-opacity duration-200"
-                  style={{ opacity: expanded ? 1 : 0 }}
-                >
-                  {item.label}
-                </span>
-                {!expanded && (
-                  <span
-                    className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[11px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
+                {expanded ? (
+                  <div
+                    className="px-2.5 pt-3 pb-1 mono text-[10px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
+                    style={{ color: "oklch(0.55 0.02 250)" }}
                   >
-                    {item.label}
-                  </span>
+                    {section.label}
+                  </div>
+                ) : (
+                  <div
+                    className="mx-2.5 my-1 border-t"
+                    style={{ borderColor: "var(--rail-border)" }}
+                  />
                 )}
               </>
             )}
-          </NavLink>
+
+            {section.items.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                onClick={onClose}
+                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors"
+                style={({ isActive }) =>
+                  isActive
+                    ? {
+                        color: "var(--rail-text-active)",
+                        background:
+                          "linear-gradient(90deg, oklch(0.78 0.16 215 / 18%) 0%, oklch(0.78 0.16 215 / 8%) 100%)",
+                        boxShadow:
+                          "inset 2px 0 0 var(--av-cyan-400), inset 0 1px 0 rgb(255 255 255 / 4%)",
+                      }
+                    : { color: "var(--rail-text)" }
+                }
+              >
+                {({ isActive }) => (
+                  <>
+                    <item.icon
+                      size={18}
+                      className="flex-shrink-0 transition-colors"
+                      style={{ color: isActive ? "var(--av-cyan-400)" : "currentColor" }}
+                    />
+                    <span
+                      className="whitespace-nowrap overflow-hidden transition-opacity duration-200"
+                      style={{ opacity: expanded ? 1 : 0 }}
+                    >
+                      {item.label}
+                    </span>
+                    {!expanded && (
+                      <span
+                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[11px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
+                      >
+                        {item.label}
+                      </span>
+                    )}
+                  </>
+                )}
+              </NavLink>
+            ))}
+          </Fragment>
         ))}
       </nav>
 
@@ -178,7 +233,7 @@ export function AppSidebar({ onClose, forceExpanded = false }: Props) {
                 <Sparkles className="h-3 w-3" /> Prueba gratis
               </div>
               <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.78 0.02 250)" }}>
-                Pasá a Pro y desbloqueá todo Aviatory.
+                Pasa a Pro y desbloquea todo Aviatory.
               </div>
               <div
                 className="av-shine mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold"

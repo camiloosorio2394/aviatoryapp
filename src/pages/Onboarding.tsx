@@ -92,7 +92,7 @@ const STEPS = [
   { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
   { title: "¿Cuál es tu nivel de inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
   { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?" },
-  { title: "Confirmá tus datos", sub: "Vas a poder editarlos después." },
+  { title: "Confirma tus datos", sub: "Vas a poder editarlos después." },
 ]
 
 export function Onboarding() {
@@ -130,7 +130,7 @@ export function Onboarding() {
 
   async function handleSubmit() {
     if (!user) {
-      toast.error("Sesión perdida. Iniciá sesión de nuevo.")
+      toast.error("Sesión perdida. Inicia sesión de nuevo.")
       return
     }
     setSubmitting(true)
@@ -327,7 +327,7 @@ export function Onboarding() {
                   <Label htmlFor="airline" className="text-sm">Aerolínea objetivo</Label>
                   <Select value={form.target_airline} onValueChange={(v) => update("target_airline", v)}>
                     <SelectTrigger className="h-12 rounded-xl">
-                      <SelectValue placeholder="Elegí una aerolínea" />
+                      <SelectValue placeholder="Elige una aerolínea" />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="Aerolíneas Argentinas">Aerolíneas Argentinas</SelectItem>

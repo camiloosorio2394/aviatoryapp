@@ -403,8 +403,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       </p>
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
         {[
-          "Agregá tu médico clase 1 (lo más urgente)",
-          "Sumá tus licencias y habilitaciones",
+          "Agrega tu médico clase 1 (lo más urgente)",
+          "Suma tus licencias y habilitaciones",
           "Activamos los recordatorios automáticos",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">

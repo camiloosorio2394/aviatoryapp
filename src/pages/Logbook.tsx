@@ -475,7 +475,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       >
         <Plane className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-bold text-foreground">Empezá tu logbook digital</h3>
+      <h3 className="text-lg font-bold text-foreground">Empieza tu logbook digital</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
         Cada vuelo que registres se suma a tus horas totales y actualiza tu progreso a aerolínea automáticamente.
       </p>
