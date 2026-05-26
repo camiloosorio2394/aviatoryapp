@@ -123,7 +123,7 @@ export function Community() {
             <h3 className="text-sm font-bold text-foreground">Normas de la comunidad</h3>
             <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido pirata.
-              Si necesitás moderación, escribinos a <span className="font-semibold">hola@aviatory.app</span>.
+              Si necesitas moderación, escribinos a <span className="font-semibold">hola@aviatory.app</span>.
             </p>
           </div>
         </div>

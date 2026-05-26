@@ -128,7 +128,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseQuiz: NextStep = {
     title: "Quiz de hoy",
     description: "10 preguntas Aerocivil PCA, listo en una pausa.",
-    href: "/app/quiz",
+    href: "/app/materias",
     cta: "Comenzar quiz",
     minutes: 12,
     icon: BookOpen,
@@ -137,15 +137,15 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
     description: "Aclará un concepto que te quedó dando vueltas.",
-    href: "/app/quiz",
+    href: "/app/materias",
     cta: "Abrir Wingman",
     minutes: 8,
     icon: Brain,
     tone: "violet",
   }
   const baseAirline: NextStep = {
-    title: "Revisá tu match",
-    description: "Mirá qué te falta para postular a tu aerolínea objetivo.",
+    title: "Revisa tu match",
+    description: "Mira qué te falta para postular a tu aerolínea objetivo.",
     href: "/app/aerolineas",
     cta: "Ver aerolíneas",
     minutes: 5,
@@ -326,7 +326,7 @@ export function Dashboard() {
               icon={Target}
               eyebrow="Tu plan de hoy"
               title="3 micro-acciones para no romper la racha"
-              hint="Cada paso suma. No tenés que hacer los 3 hoy."
+              hint="Cada paso suma. No tienes que hacer los 3 hoy."
             />
             <div className="stagger grid grid-cols-3 gap-3 mt-3">
               {todayPlan.map((step) => (
@@ -584,33 +584,33 @@ function WingmanInsight({
   const insight = (() => {
     if (recentAttempts === 0) {
       return {
-        title: "Empezá con Meteorología",
+        title: "Empieza con Meteorología",
         body: "Es la materia más densa y la que más cae en el examen Aerocivil. Si la dominás primero, el resto fluye.",
         cta: "Comenzar Meteo",
-        href: "/app/quiz/meteorologia",
+        href: "/app/materias/meteorologia",
       }
     }
     if (icao && icao < 4) {
       return {
-        title: "Subí tu inglés ICAO a 4",
-        body: "Tenés todo lo técnico pero el inglés te está frenando. Esta semana enfocá 30 min/día en ICAO English.",
+        title: "Sube tu inglés ICAO a 4",
+        body: "Tienes todo lo técnico pero el inglés te está frenando. Esta semana enfoca 30 min/día en ICAO English.",
         cta: "Practicar inglés",
-        href: "/app/quiz",
+        href: "/app/materias",
       }
     }
     if (stage === "hour_building" || stage === "airline_candidate") {
       return {
         title: "Tu CV está rezagado",
-        body: "Tenés horas y exámenes, pero faltan los detalles. Pasá 20 min puliendo tu hoja de vida.",
+        body: "Tienes horas y exámenes, pero faltan los detalles. Pasa 20 min puliendo tu hoja de vida.",
         cta: "Ver requisitos",
         href: "/app/aerolineas",
       }
     }
     return {
       title: "Diversificá las materias",
-      body: "Llevás varios quizzes de la misma materia. Probá otra: tu cerebro consolida mejor con variedad.",
+      body: "Llevas varios quizzes de la misma materia. Prueba otra: tu cerebro consolida mejor con variedad.",
       cta: "Ver materias",
-      href: "/app/quiz",
+      href: "/app/materias",
     }
   })()
 
@@ -706,7 +706,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
                 Tu racha está en riesgo
               </div>
               <p className="mt-0.5 text-[11px] text-muted-foreground">
-                Si no estudiás hoy se reinicia.
+                Si no estudias hoy se reinicia.
               </p>
             </div>
           </div>
@@ -937,7 +937,7 @@ function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }
 function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
   return (
     <Link
-      to="/app/quiz"
+      to="/app/materias"
       className="anim-fade-up relative overflow-hidden flex items-center justify-between gap-4 rounded-2xl p-6 text-white"
       style={{
         background: "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.18 65) 100%)",
@@ -964,10 +964,10 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
             Quiz del día
           </div>
           <div className="text-xl font-bold tracking-[-0.02em]">
-            {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
+            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
           <div className="text-xs opacity-85 mt-0.5">
-            Curadas para vos. Se renueva mañana — no las dejes pasar.
+            Curadas para ti. Se renueva mañana — no las dejes pasar.
           </div>
         </div>
       </div>

@@ -77,7 +77,7 @@ export function QuizPlayer() {
         const all = (qRes.data ?? []) as Question[]
         if (all.length === 0) {
           toast.info("Esta materia todavía no tiene preguntas cargadas.")
-          navigate("/app/quiz", { replace: true })
+          navigate("/app/materias", { replace: true })
           return
         }
         // Pick up to 10 random
@@ -109,7 +109,7 @@ export function QuizPlayer() {
         })
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos iniciar el quiz")
-        navigate("/app/quiz", { replace: true })
+        navigate("/app/materias", { replace: true })
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -213,7 +213,7 @@ export function QuizPlayer() {
     <AppLayout>
       <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-3xl mx-auto">
         <div className="mb-6 flex items-center justify-between">
-          <Link to="/app/quiz" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
+          <Link to="/app/materias" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
             <ArrowLeft className="h-4 w-4" />
             Salir
           </Link>
@@ -352,7 +352,7 @@ function QuizResults({
           {passed ? <Trophy className="h-10 w-10" /> : <Sparkles className="h-10 w-10" />}
         </div>
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-          {passed ? "¡Aprobaste!" : "Casi llegás"}
+          {passed ? "¡Aprobaste!" : "Casi llegas"}
         </h1>
         <p className="mt-3 text-muted-foreground">
           {subject?.name} · {correctCount} de {total} correctas
@@ -364,20 +364,20 @@ function QuizResults({
           </div>
           <p className="mt-2 text-sm text-muted-foreground">
             {passed
-              ? "Tu progreso quedó registrado. Mantené la racha."
-              : "Necesitás 70% para aprobar. Repasá la teoría y volvé a intentar."}
+              ? "Tu progreso quedó registrado. Mantén la racha."
+              : "Necesitas 70% para aprobar. Repasa la teoría y vuelve a intentar."}
           </p>
         </div>
 
         <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
           <Button asChild size="lg" className="btn-apple shine-on-hover rounded-full h-12 px-8 border-0">
-            <Link to={`/app/quiz/${subject?.slug}`}>
+            <Link to={`/app/materias/${subject?.slug}`}>
               <RotateCcw className="mr-1 h-4 w-4" />
               Reintentar
             </Link>
           </Button>
           <Button asChild size="lg" variant="outline" className="rounded-full h-12 px-8">
-            <Link to="/app/quiz">Otras materias</Link>
+            <Link to="/app/materias">Otras materias</Link>
           </Button>
           <Button asChild size="lg" variant="ghost" className="rounded-full h-12 px-8">
             <Link to="/app">Volver al dashboard</Link>

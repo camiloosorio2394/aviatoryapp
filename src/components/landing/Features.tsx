@@ -21,7 +21,7 @@ export function Features() {
             Lo que recibís
           </div>
           <h2 className="mt-4 text-4xl sm:text-5xl font-bold tracking-tight text-balance">
-            Todo lo que necesitás. Nada de lo que no.
+            Todo lo que necesitas. Nada de lo que no.
           </h2>
         </div>
 

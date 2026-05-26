@@ -115,7 +115,7 @@ export function useWingman() {
       try {
         const { data: sessionData } = await supabase.auth.getSession()
         const token = sessionData.session?.access_token
-        if (!token) throw new Error("Sesión expirada. Iniciá sesión de nuevo.")
+        if (!token) throw new Error("Sesión expirada. Inicia sesión de nuevo.")
 
         // Pull current state for fields we need
         let pendingId = ""
@@ -153,7 +153,7 @@ export function useWingman() {
           const errCode = (json.error as string) || "error"
           const errMsg =
             (json.message as string) ||
-            "Algo salió mal. Probá de nuevo."
+            "Algo salió mal. Prueba de nuevo."
           // Treat 503/402 as banner errors (show big message, no retry)
           if (res.status === 503 || res.status === 402) {
             setState((prev) => ({

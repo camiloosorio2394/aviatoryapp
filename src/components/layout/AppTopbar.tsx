@@ -20,13 +20,18 @@ import { NotificationsBell } from "@/components/NotificationsBell"
 
 const ROUTE_LABEL: Record<string, string> = {
   "/app": "Dashboard",
-  "/app/quiz": "Banco de preguntas",
+  "/app/materias": "Materias",
+  "/app/quiz": "Materias",
+  "/app/icao": "Inglés ICAO",
+  "/app/pca": "Examen PCA",
+  "/app/aerolinea": "Ingreso a Aerolínea",
+  "/app/psicotecnicas": "Psicotécnicas",
   "/app/exam-tracker": "Exam Tracker",
+  "/app/aerolineas": "Match aerolíneas",
   "/app/logbook": "Logbook",
   "/app/vencimientos": "Vencimientos",
   "/app/comunidad": "Comunidad",
   "/app/ruta": "Mi ruta",
-  "/app/aerolineas": "Aerolíneas",
   "/app/referidos": "Referidos",
   "/app/perfil": "Mi perfil",
 }

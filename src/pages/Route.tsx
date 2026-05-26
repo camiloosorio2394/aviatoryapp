@@ -200,7 +200,7 @@ export function Route() {
       <AppLayout>
         <div className="px-6 py-12 max-w-2xl mx-auto text-center">
           <MapIcon className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
-          <h2 className="text-xl font-semibold">Completá tu perfil primero</h2>
+          <h2 className="text-xl font-semibold">Completa tu perfil primero</h2>
           <p className="mt-2 text-muted-foreground">
             Para mostrarte una ruta personalizada necesitamos saber tu etapa.
           </p>
@@ -438,7 +438,7 @@ export function Route() {
             <div className="flex-1">
               <h3 className="text-base font-bold text-foreground">¡Completaste todos los items!</h3>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                Actualizá tu etapa en tu perfil para desbloquear la siguiente ruta.
+                Actualiza tu etapa en tu perfil para desbloquear la siguiente ruta.
               </p>
             </div>
             <Button asChild className="rounded-full border-0 text-white" style={{

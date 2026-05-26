@@ -62,7 +62,7 @@ export function Contact() {
             ¿Hablamos?
           </h1>
           <p className="mt-6 text-lg text-muted-foreground text-balance">
-            Si sos piloto LATAM con feedback, idea o pregunta — escribínos. Respondemos en menos de 24h.
+            Si eres piloto LATAM con feedback, idea o pregunta — escríbenos. Respondemos en menos de 24h.
           </p>
         </div>
       </section>
@@ -73,7 +73,7 @@ export function Contact() {
             <div>
               <h2 className="text-2xl font-bold">Canales directos</h2>
               <p className="mt-2 text-muted-foreground">
-                Elegí el que te quede más cómodo.
+                Elige el que te quede más cómodo.
               </p>
               <div className="mt-8 space-y-4">
                 {channels.map((c) => (
@@ -100,9 +100,9 @@ export function Contact() {
 
               <div className="mt-12 rounded-2xl bg-muted/40 p-6">
                 <p className="text-sm text-muted-foreground">
-                  <span className="font-semibold text-foreground">¿Sos escuela de aviación?</span>{" "}
+                  <span className="font-semibold text-foreground">¿Eres escuela de aviación?</span>{" "}
                   Tenemos un programa B2B para integrar Aviatory en tu academia.{" "}
-                  Escribínos a{" "}
+                  Escríbenos a{" "}
                   <a href="mailto:partners@aviatory.app" className="text-blue-600 dark:text-blue-400 hover:underline">
                     partners@aviatory.app
                   </a>
@@ -131,7 +131,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="topic">Asunto</Label>
-                  <Input id="topic" name="topic" placeholder="¿Sobre qué nos escribís?" className="mt-2 rounded-xl" />
+                  <Input id="topic" name="topic" placeholder="¿Sobre qué nos escribes?" className="mt-2 rounded-xl" />
                 </div>
 
                 <div>
@@ -142,7 +142,7 @@ export function Contact() {
                     rows={6}
                     required
                     className="mt-2 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
-                    placeholder="Contanos qué necesitás…"
+                    placeholder="Contanos qué necesitas…"
                   />
                 </div>
 

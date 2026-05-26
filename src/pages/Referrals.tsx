@@ -66,8 +66,8 @@ export function Referrals() {
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="REFERIDOS · GANÁ MESES GRATIS"
-          title="Compartí Aviatory, ganen los dos"
-          subtitle="Por cada piloto que se registre con tu código, los dos reciben +7 días extra. Cuando upgradee a Pro, sumás 1 mes gratis."
+          title="Comparte Aviatory, ganen los dos"
+          subtitle="Por cada piloto que se registre con tu código, los dos reciben +7 días extra. Cuando upgradee a Pro, sumas 1 mes gratis."
         />
 
         {/* Hero referral code (cockpit) */}
@@ -156,7 +156,7 @@ export function Referrals() {
 
         {/* How it works */}
         <div className="grid sm:grid-cols-3 gap-4 mb-6">
-          <Step n="1" title="Compartí tu código" body="WhatsApp, story, grupos. Donde tengas piloto-amigos." />
+          <Step n="1" title="Comparte tu código" body="WhatsApp, story, grupos. Donde tengas piloto-amigos." />
           <Step n="2" title="Tu amigo se registra" body="Con tu código recibe 14 días de prueba (7 + 7 extra) sin tarjeta." />
           <Step n="3" title="Ambos ganan" body="Cuando upgradee a Pro, te llega 1 mes gratis." />
         </div>
@@ -165,7 +165,7 @@ export function Referrals() {
           <div className="flex items-start gap-3">
             <Gift className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "var(--av-cyan-400)" }} />
             <p className="text-sm text-muted-foreground leading-relaxed m-0">
-              <strong className="text-foreground">Tip:</strong> los códigos funcionan mejor cuando los compartís con piloto-amigos de tu cohorte, escuela o grupo de WhatsApp. La invitación de alguien que ya está dentro convierte mucho mejor que un anuncio frío.
+              <strong className="text-foreground">Tip:</strong> los códigos funcionan mejor cuando los compartes con piloto-amigos de tu cohorte, escuela o grupo de WhatsApp. La invitación de alguien que ya está dentro convierte mucho mejor que un anuncio frío.
             </p>
           </div>
         </div>

@@ -13,7 +13,7 @@ const SIDEBAR_HIDDEN_KEY = "aviatory.sidebarHidden"
  * - Mobile: sidebar slides in as drawer.
  * - Wingman floats bottom-right on every authenticated page.
  *
- * `streak` opcional: pasalo desde la página si querés mostrar el chip de racha.
+ * `streak` opcional: pásalo desde la página si quieres mostrar el chip de racha.
  */
 interface Props {
   children: ReactNode

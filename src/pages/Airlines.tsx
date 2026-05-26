@@ -135,7 +135,7 @@ export function Airlines() {
                     <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
                       {bestMatch.missing === 0
                         ? "Cumplís todos los requisitos públicos. Postulá cuando abran convocatoria."
-                        : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mirá los detalles abajo.`}
+                        : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mira los detalles abajo.`}
                     </p>
                   </div>
                 </div>

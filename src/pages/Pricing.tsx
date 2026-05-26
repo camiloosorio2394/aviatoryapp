@@ -13,7 +13,7 @@ type Billing = "monthly" | "annual"
 const tiers = [
   {
     name: "Free",
-    description: "Probá la plataforma sin compromiso.",
+    description: "Prueba la plataforma sin compromiso.",
     monthly: { price: "$0", suffix: "/ mes", note: "Para siempre, sin tarjeta." },
     annual: { price: "$0", suffix: "/ año", note: "Para siempre, sin tarjeta." },
     cta: "Empezar gratis",
@@ -22,7 +22,7 @@ const tiers = [
   },
   {
     name: "Pro",
-    description: "Todo lo que necesitás para llegar a aerolínea.",
+    description: "Todo lo que necesitas para llegar a aerolínea.",
     monthly: { price: "$39.000", suffix: "COP / mes", note: "Equivale a $9.99 USD" },
     annual: { price: "$390.000", suffix: "COP / año", note: "2 meses gratis vs mensual" },
     cta: "Empezar 7 días gratis",
@@ -134,7 +134,7 @@ export function Pricing() {
             Plan claro. Resultado claro.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground text-balance">
-            Empezá gratis. Si te ayuda a llegar a la cabina, pagás. Si no, no.
+            Empieza gratis. Si te ayuda a llegar a la cabina, pagas. Si no, no.
           </p>
 
           <div className="mt-10 inline-flex">
