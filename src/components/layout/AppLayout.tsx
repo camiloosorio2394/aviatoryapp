@@ -22,6 +22,11 @@ interface Props {
 
 export function AppLayout({ children, streak }: Props) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  // Estado del hover desktop: cuando el sidebar se expande (64 → 240),
+  // empujamos el contenido principal (incluido el topbar) para que NO se
+  // interponga visualmente con el rail. El topbar siempre queda a la
+  // derecha del sidebar, jamás encima.
+  const [sidebarHovered, setSidebarHovered] = useState(false)
 
   const [sidebarHidden, setSidebarHidden] = useState<boolean>(() => {
     if (typeof window === "undefined") return false
@@ -42,6 +47,17 @@ export function AppLayout({ children, streak }: Props) {
 
   useAchievementToasts()
 
+  // Padding-left del contenido principal:
+  //   - sidebar oculto        → 0
+  //   - sidebar colapsado     → 64px (lg:pl-16)
+  //   - sidebar expandido hover → 240px (lg:pl-60)
+  // Las tres clases aparecen como literal strings para que Tailwind las compile.
+  const contentPaddingClass = sidebarHidden
+    ? "lg:pl-0"
+    : sidebarHovered
+      ? "lg:pl-60"
+      : "lg:pl-16"
+
   return (
     <div className="min-h-screen flex bg-background">
       {/* Desktop sidebar — slide out if hidden */}
@@ -51,7 +67,7 @@ export function AppLayout({ children, streak }: Props) {
         }`}
         aria-hidden={sidebarHidden}
       >
-        <AppSidebar />
+        <AppSidebar onHoverChange={setSidebarHovered} />
       </div>
 
       {/* Mobile drawer */}
@@ -69,9 +85,7 @@ export function AppLayout({ children, streak }: Props) {
       )}
 
       <div
-        className={`flex-1 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          sidebarHidden ? "lg:pl-0" : "lg:pl-16"
-        }`}
+        className={`flex-1 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${contentPaddingClass}`}
       >
         <AppTopbar
           onMenuClick={() => setMobileOpen(true)}
