@@ -81,20 +81,32 @@ interface Props {
   onClose?: () => void
   /** When true (mobile drawer), force-expanded; desktop ignores this and uses hover. */
   forceExpanded?: boolean
+  /** Notifica al parent del estado hover desktop para que reflowee el contenido principal. */
+  onHoverChange?: (hovered: boolean) => void
 }
 
 /**
  * Collapsible icon rail (64px → 240px on hover).
  * Dark navy with cyan accent for active state.
+ *
+ * Para que el topbar no se interponga con la expansión, el AppLayout consume
+ * `onHoverChange` y empuja el contenido principal (incluido el topbar)
+ * dinámicamente — el rail nunca se solapa con el header.
  */
-export function AppSidebar({ onClose, forceExpanded = false }: Props) {
+export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Props) {
   const [hovered, setHovered] = useState(false)
   const expanded = forceExpanded || hovered
 
   return (
     <aside
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={() => {
+        setHovered(true)
+        onHoverChange?.(true)
+      }}
+      onMouseLeave={() => {
+        setHovered(false)
+        onHoverChange?.(false)
+      }}
       className="flex flex-col h-full overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
       style={{
         width: expanded ? 240 : 64,
