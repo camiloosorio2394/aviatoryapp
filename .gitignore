@@ -40,3 +40,9 @@ supabase/.branches/
 
 .vercel
 .env*.local
+
+# Private content batches — NUNCA commitear preguntas en plano al repo.
+# Solo el template .example va al control de versiones.
+private-batches/*
+!private-batches/_template.json.example
+!private-batches/README.md

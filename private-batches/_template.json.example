@@ -1,0 +1,24 @@
+{
+  "subject_slug": "aerodinamica",
+  "subject_name": "Aerodinámica Básica",
+  "module": "pca",
+  "batch_name": "aerodinamica-batch1",
+  "source": "uaeac_pca",
+  "questions": [
+    {
+      "external_id": 1,
+      "question": "¿Si un avión es calificado de categoría utilitaria, significaría que este avión podría ser operado en cuál de las siguientes maniobras?",
+      "options": {
+        "a": "Acrobacias limitadas, excluyendo barrenas.",
+        "b": "Acrobacias limitadas, incluyendo barrenas (si se aprueba).",
+        "c": "Cualquier maniobra excepto acrobáticas y barrenas."
+      },
+      "correct_answer": "b",
+      "explanation": "La categoría utilitaria permite todo lo de la categoría normal más acrobacias limitadas y barrenas (si están aprobadas).",
+      "pedagogical_note": null,
+      "difficulty": 2,
+      "tags": ["categoria-avion"],
+      "exam_year": null
+    }
+  ]
+}
