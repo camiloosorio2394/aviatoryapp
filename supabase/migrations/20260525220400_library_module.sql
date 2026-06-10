@@ -34,6 +34,7 @@ create table if not exists public.library_items (
   tags text[] default '{}',
   is_premium boolean default false,             -- solo Pro / Pro+
   is_published boolean default false,
+  order_index int default 0,                    -- orden dentro de la categoría
   views_count int default 0,
   published_at timestamptz,
   created_at timestamptz default now(),
