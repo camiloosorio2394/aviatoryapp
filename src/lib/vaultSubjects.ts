@@ -82,6 +82,13 @@ export const SUBJECT_META: Record<string, SubjectMetaEntry> = {
     color: "blue",
     description: "CG, distribución de carga, momentos, límites",
   },
+  sistemas: {
+    name: "Sistemas de Aeronaves",
+    shortName: "Sistemas",
+    icon: Wrench,
+    color: "amber",
+    description: "Magnetos, carburador, mezcla, hélices, detonación, enfriamiento",
+  },
   // Add more as content is loaded
 }
 
