@@ -2,8 +2,8 @@ import { Fragment, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import {
   LayoutDashboard,
+  BookOpen,
   Radio,
-  Award,
   Briefcase,
   Cpu,
   Radar,
@@ -42,7 +42,7 @@ const navSections: NavSection[] = [
   {
     label: "Estudio",
     items: [
-      { to: "/app/pca", label: "Examen PCA", icon: Award },
+      { to: "/app/pca", label: "Materias", icon: BookOpen },
       { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
     ],
   },

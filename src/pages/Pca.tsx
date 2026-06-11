@@ -56,10 +56,10 @@ export function Pca() {
                     boxShadow: "0 0 8px var(--av-amber-400)",
                   }}
                 />
-                MÓDULO PCA · EARLY ACCESS · ETA Q3 2026
+                MATERIAS · BANCO PCA AEROCIVIL
               </div>
               <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-                Examen PCA Aerocivil,{" "}
+                Estudiá por materia,{" "}
                 <span
                   style={{
                     background: "linear-gradient(135deg, var(--av-cyan-300), white)",
@@ -68,13 +68,14 @@ export function Pca() {
                     color: "transparent",
                   }}
                 >
-                  simulado al detalle
+                  simulá el examen
                 </span>
               </h1>
               <p className="text-[17px] text-white/75 max-w-[640px] mt-3 leading-relaxed">
-                Simulacros completos con el mismo formato, tiempo y dificultad del examen oficial
-                de Aerocivil. Después del simulacro vas a ver exactamente qué materias frenaron tu
-                aprobación y cuál es el siguiente quiz que te conviene hacer.
+                El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practicá
+                cada materia por separado para reforzar lo que te cuesta, o lanzá un{" "}
+                <strong className="text-white">Simulacro Examen PCA</strong> con preguntas
+                mezcladas de todas las materias para medir qué tan listo estás.
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 pr-2">
@@ -266,15 +267,64 @@ function AvailableSubjects() {
     return null // Nada cargado todavía — los tiles del roadmap explican qué viene
   }
 
+  const totalQuestions = subjects.reduce((acc, s) => acc + s.question_count, 0)
+
   return (
     <section className="mt-10">
+      {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
+      <Link
+        to="/app/pca/quiz/examen?module=pca&count=20"
+        className="av-shine group relative overflow-hidden rounded-2xl border p-6 flex items-center gap-5 mb-8 transition-transform hover:-translate-y-0.5"
+        style={{
+          borderColor: "oklch(0.78 0.16 215 / 30%)",
+          background:
+            "linear-gradient(135deg, var(--av-navy-900) 0%, oklch(0.30 0.06 255) 60%, oklch(0.40 0.12 255) 100%)",
+          boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
+        }}
+      >
+        <div className="cockpit-grid absolute inset-0 opacity-30" />
+        <div
+          className="relative flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
+          style={{
+            background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
+            boxShadow: "0 8px 24px -6px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+          }}
+        >
+          <Award className="h-7 w-7 text-white" strokeWidth={1.8} />
+        </div>
+        <div className="relative flex-1 min-w-0">
+          <div
+            className="mono text-[10px] font-bold uppercase tracking-[0.16em]"
+            style={{ color: "var(--av-cyan-300)" }}
+          >
+            Simulacro Examen PCA
+          </div>
+          <div className="mt-0.5 text-[18px] font-extrabold tracking-[-0.02em] text-white">
+            20 preguntas mezcladas de todas las materias
+          </div>
+          <div className="mt-0.5 text-[13px] text-white/65">
+            Como el examen real de Aerocivil. {totalQuestions} preguntas en el banco · al terminar
+            ves tu nota.
+          </div>
+        </div>
+        <div
+          className="relative hidden sm:flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-bold flex-shrink-0"
+          style={{
+            background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
+            color: "var(--av-navy-950)",
+          }}
+        >
+          Empezar <ArrowRight className="h-4 w-4" />
+        </div>
+      </Link>
+
       <div className="mb-5 flex items-end justify-between">
         <div>
           <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            DISPONIBLE AHORA
+            ESTUDIAR POR MATERIA
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            Materias listas para practicar
+            Reforzá donde más te cuesta
           </h2>
         </div>
         <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">

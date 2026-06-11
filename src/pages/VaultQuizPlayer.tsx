@@ -47,6 +47,8 @@ export function VaultQuizPlayer() {
   const subjectSlug = params.subject ?? ""
   const module = searchParams.get("module") ?? "pca"
   const count = Number(searchParams.get("count") ?? "10")
+  // 'examen' = simulacro: preguntas mezcladas de TODAS las materias (sin filtro)
+  const isExam = subjectSlug === "examen"
 
   const { session, loading, startQuiz, submitAnswer, resetSession } = useVaultQuiz()
 
@@ -63,7 +65,7 @@ export function VaultQuizPlayer() {
       navigate("/app/pca", { replace: true })
       return
     }
-    startQuiz({ subjectSlug, module, count: Math.min(Math.max(count, 1), 20) })
+    startQuiz({ subjectSlug: isExam ? undefined : subjectSlug, module, count: Math.min(Math.max(count, 1), 20) })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subjectSlug, module, count])
 
@@ -72,7 +74,9 @@ export function VaultQuizPlayer() {
     return session.questions.find((q) => q.position === position) ?? null
   }, [session, position])
 
-  const subjectMeta = SUBJECT_META[subjectSlug] ?? { name: subjectSlug, color: "cyan" as const }
+  const subjectMeta = isExam
+    ? { name: "Simulacro Examen PCA", color: "cyan" as const }
+    : SUBJECT_META[subjectSlug] ?? { name: subjectSlug, color: "cyan" as const }
   const total = session?.questionCount ?? 0
   const correctCount = history.filter((h) => h.correct).length
   const progressPct = total > 0 ? Math.round((Math.min(position - 1 + (result ? 1 : 0), total) / total) * 100) : 0
@@ -106,7 +110,7 @@ export function VaultQuizPlayer() {
     setResult(null)
     setHistory([])
     setCompleted(false)
-    startQuiz({ subjectSlug, module, count: Math.min(Math.max(count, 1), 20) })
+    startQuiz({ subjectSlug: isExam ? undefined : subjectSlug, module, count: Math.min(Math.max(count, 1), 20) })
   }
 
   // ──────────────────── Loading ────────────────────
