@@ -1,4 +1,4 @@
-import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, type LucideIcon } from "lucide-react"
+import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, Gauge, type LucideIcon } from "lucide-react"
 
 export type SubjectColor = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 
@@ -88,6 +88,13 @@ export const SUBJECT_META: Record<string, SubjectMetaEntry> = {
     icon: Wrench,
     color: "amber",
     description: "Magnetos, carburador, mezcla, hélices, detonación, enfriamiento",
+  },
+  instrumentos: {
+    name: "Instrumentos de Vuelo",
+    shortName: "Instrumentos",
+    icon: Gauge,
+    color: "blue",
+    description: "Velocidades V, altímetro, número Mach, brújula, giroscópicos, EFD",
   },
   // Add more as content is loaded
 }
