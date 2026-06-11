@@ -9,8 +9,12 @@ import {
   Check,
   Clock,
   Award,
+  Loader2,
+  PlayCircle,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { useVaultSubjects } from "@/hooks/useVaultQuiz"
+import { getSubjectMeta, type SubjectColor } from "@/lib/vaultSubjects"
 
 /**
  * Módulo Examen PCA Aerocivil — simulacros completos del examen oficial.
@@ -88,6 +92,9 @@ export function Pca() {
             </div>
           </div>
         </section>
+
+        {/* === MATERIAS DISPONIBLES (en vivo desde vault_questions) === */}
+        <AvailableSubjects />
 
         <div className="mt-10 mb-5 flex items-end justify-between">
           <div>
@@ -248,5 +255,88 @@ function FeatureTile({ icon: Icon, color, title, description, bullets }: TilePro
         ))}
       </ul>
     </div>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Materias disponibles (live desde vault_questions vía vault_list_subjects)
+// ────────────────────────────────────────────────────────────────────────────
+
+function AvailableSubjects() {
+  const { subjects, loading } = useVaultSubjects("pca")
+
+  if (loading) {
+    return (
+      <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground py-6">
+        <Loader2 className="h-4 w-4 animate-spin" /> Cargando materias disponibles…
+      </div>
+    )
+  }
+
+  if (subjects.length === 0) {
+    return null // Nada cargado todavía — los tiles del roadmap explican qué viene
+  }
+
+  return (
+    <section className="mt-10">
+      <div className="mb-5 flex items-end justify-between">
+        <div>
+          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            DISPONIBLE AHORA
+          </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Materias listas para practicar
+          </h2>
+        </div>
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
+          <Sparkles className="h-3.5 w-3.5" />Encriptado · revisado · sin spoilers
+        </div>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {subjects.map((s) => (
+          <SubjectQuizCard
+            key={s.subject_slug}
+            slug={s.subject_slug}
+            count={s.question_count}
+          />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
+  const meta = getSubjectMeta(slug)
+  const color: SubjectColor = meta.color
+  const Icon = meta.icon
+  const quizCount = Math.min(10, count)
+  // SubjectColor incluye 'red' que no está en TILE_COLOR — fallback a cyan
+  const baseColor = (TILE_COLOR as Record<string, string>)[color] ?? TILE_COLOR.cyan
+
+  return (
+    <Link
+      to={`/app/pca/quiz/${slug}?module=pca&count=${quizCount}`}
+      className="card card-hover rounded-2xl border p-5 flex items-center gap-4 transition-all hover:-translate-y-0.5"
+      style={{ borderColor: `color-mix(in oklab, ${baseColor} 28%, transparent)` }}
+    >
+      <div
+        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+        style={{
+          background: `color-mix(in oklab, ${baseColor} 14%, transparent)`,
+          border: `1px solid color-mix(in oklab, ${baseColor} 30%, transparent)`,
+          color: baseColor,
+        }}
+      >
+        {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="text-[15px] font-bold tracking-[-0.01em] truncate">{meta.name}</div>
+        <div className="mt-0.5 text-[12.5px] text-muted-foreground">
+          {count} preguntas · quiz de {quizCount}
+        </div>
+      </div>
+      <ArrowRight className="h-4 w-4 flex-shrink-0" style={{ color: baseColor }} />
+    </Link>
   )
 }

@@ -28,6 +28,7 @@ import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
 import { Library } from "@/pages/Library"
+import { VaultQuizPlayer } from "@/pages/VaultQuizPlayer"
 import { InterviewSim } from "@/pages/InterviewSim"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
@@ -110,6 +111,14 @@ function App() {
           element={
             <RequireAuth>
               <Pca />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/pca/quiz/:subject"
+          element={
+            <RequireAuth>
+              <VaultQuizPlayer />
             </RequireAuth>
           }
         />
