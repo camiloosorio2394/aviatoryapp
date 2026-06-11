@@ -1,4 +1,4 @@
-import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, Gauge, TowerControl, type LucideIcon } from "lucide-react"
+import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, Gauge, TowerControl, CloudDrizzle, type LucideIcon } from "lucide-react"
 
 export type SubjectColor = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 
@@ -34,7 +34,14 @@ export const SUBJECT_META: Record<string, SubjectMetaEntry> = {
     shortName: "Meteo",
     icon: Cloud,
     color: "blue",
-    description: "Clima operacional, frentes, masas de aire, METAR/TAF",
+    description: "Clima operacional, frentes, masas de aire, estabilidad, tormentas",
+  },
+  servicios_meteo: {
+    name: "Servicios Meteorológicos",
+    shortName: "Servicios Meteo",
+    icon: CloudDrizzle,
+    color: "violet",
+    description: "METAR, TAF, SIGMET, AIRMET, PIREP, cartas de análisis y pronóstico",
   },
   navegacion: {
     name: "Navegación",
