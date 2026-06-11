@@ -20,7 +20,8 @@ import { NotificationsBell } from "@/components/NotificationsBell"
 
 const ROUTE_LABEL: Record<string, string> = {
   "/app": "Dashboard",
-  "/app/pca": "Examen PCA",
+  "/app/pca": "Materias",
+  "/app/pca/quiz": "Materias",
   "/app/icao": "Inglés ICAO",
   "/app/aerolinea": "Ingreso a Aerolínea",
   "/app/entrevistas": "Simulador entrevistas",
