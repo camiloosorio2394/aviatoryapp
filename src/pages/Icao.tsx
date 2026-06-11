@@ -180,7 +180,7 @@ export function Icao() {
               Comunidad #icao <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
-              to="/app/materias"
+              to="/app/pca"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Estudio general <ArrowRight className="h-3.5 w-3.5" />

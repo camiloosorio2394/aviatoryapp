@@ -170,10 +170,10 @@ export function Pca() {
               className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
-              <Sparkles className="h-3 w-3" /> Mientras se construye
+              <Sparkles className="h-3 w-3" /> Cómo estudiar
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
-              Practica con los quices del banco de preguntas por materia.
+              Elegí una materia de arriba y arrancá un quiz de 10 preguntas.
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[640px]">
               Cada quiz que apruebas con 70%+ acerca tu readiness al examen real.
@@ -181,17 +181,6 @@ export function Pca() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <Link
-              to="/app/materias"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
-            >
-              Ir a Materias <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
             <Link
               to="/app/exam-tracker"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"

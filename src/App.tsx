@@ -11,8 +11,6 @@ import { Contact } from "@/pages/Contact"
 import { Login } from "@/pages/Login"
 import { Onboarding } from "@/pages/Onboarding"
 import { Dashboard } from "@/pages/Dashboard"
-import { Quiz } from "@/pages/Quiz"
-import { QuizPlayer } from "@/pages/QuizPlayer"
 import { Route as RoutePage } from "@/pages/Route"
 import { Airlines } from "@/pages/Airlines"
 import { Profile } from "@/pages/Profile"
@@ -76,26 +74,13 @@ function App() {
             </RequireAuth>
           }
         />
-        {/* New unified module: Materias (= old "Banco de preguntas" + future info/exams per materia) */}
-        <Route
-          path="/app/materias"
-          element={
-            <RequireAuth>
-              <Quiz />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/materias/:slug"
-          element={
-            <RequireAuth>
-              <QuizPlayer />
-            </RequireAuth>
-          }
-        />
-        {/* Backward-compat redirects from /app/quiz → /app/materias */}
-        <Route path="/app/quiz" element={<Navigate to="/app/materias" replace />} />
-        <Route path="/app/quiz/:slug" element={<RequireAuth><QuizPlayer /></RequireAuth>} />
+        {/* Materias y el viejo banco de preguntas se consolidaron en el módulo
+            Examen PCA (vault-backed). Estas rutas legacy redirigen ahí para que
+            cualquier link viejo (Dashboard, deep links) siga funcionando. */}
+        <Route path="/app/materias" element={<Navigate to="/app/pca" replace />} />
+        <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
+        <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
+        <Route path="/app/quiz/:slug" element={<Navigate to="/app/pca" replace />} />
 
         {/* New career modules */}
         <Route
