@@ -128,7 +128,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseQuiz: NextStep = {
     title: "Quiz de hoy",
     description: "10 preguntas Aerocivil PCA, listo en una pausa.",
-    href: "/app/materias",
+    href: "/app/pca",
     cta: "Comenzar quiz",
     minutes: 12,
     icon: BookOpen,
@@ -137,7 +137,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
     description: "Aclará un concepto que te quedó dando vueltas.",
-    href: "/app/materias",
+    href: "/app/pca",
     cta: "Abrir Wingman",
     minutes: 8,
     icon: Brain,
@@ -587,7 +587,7 @@ function WingmanInsight({
         title: "Empieza con Meteorología",
         body: "Es la materia más densa y la que más cae en el examen Aerocivil. Si la dominás primero, el resto fluye.",
         cta: "Comenzar Meteo",
-        href: "/app/materias/meteorologia",
+        href: "/app/pca/quiz/meteorologia",
       }
     }
     if (icao && icao < 4) {
@@ -595,7 +595,7 @@ function WingmanInsight({
         title: "Sube tu inglés ICAO a 4",
         body: "Tienes todo lo técnico pero el inglés te está frenando. Esta semana enfoca 30 min/día en ICAO English.",
         cta: "Practicar inglés",
-        href: "/app/materias",
+        href: "/app/pca",
       }
     }
     if (stage === "hour_building" || stage === "airline_candidate") {
@@ -610,7 +610,7 @@ function WingmanInsight({
       title: "Diversificá las materias",
       body: "Llevas varios quizzes de la misma materia. Prueba otra: tu cerebro consolida mejor con variedad.",
       cta: "Ver materias",
-      href: "/app/materias",
+      href: "/app/pca",
     }
   })()
 
@@ -937,7 +937,7 @@ function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }
 function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
   return (
     <Link
-      to="/app/materias"
+      to="/app/pca"
       className="anim-fade-up relative overflow-hidden flex items-center justify-between gap-4 rounded-2xl p-6 text-white"
       style={{
         background: "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.18 65) 100%)",

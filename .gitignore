@@ -46,3 +46,4 @@ supabase/.branches/
 private-batches/*
 !private-batches/_template.json.example
 !private-batches/README.md
+.claude/
