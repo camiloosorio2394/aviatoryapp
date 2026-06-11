@@ -1,4 +1,4 @@
-import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, Gauge, type LucideIcon } from "lucide-react"
+import { Plane, Cloud, Compass, FileText, Settings, Activity, Brain, Shield, Wrench, Gauge, TowerControl, type LucideIcon } from "lucide-react"
 
 export type SubjectColor = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 
@@ -95,6 +95,13 @@ export const SUBJECT_META: Record<string, SubjectMetaEntry> = {
     icon: Gauge,
     color: "blue",
     description: "Velocidades V, altímetro, número Mach, brújula, giroscópicos, EFD",
+  },
+  procedimientos: {
+    name: "Procedimientos y Aeródromos",
+    shortName: "Procedimientos",
+    icon: TowerControl,
+    color: "green",
+    description: "Espacio aéreo, mínimos VFR, comunicaciones, LAHSO, luces, señalización de pista",
   },
   // Add more as content is loaded
 }
