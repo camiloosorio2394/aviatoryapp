@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react"
-import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock, ArrowRight } from "lucide-react"
+import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -364,12 +364,6 @@ function LicenseRow({
         </span>
       </div>
       <div className="text-right flex items-center justify-end gap-1">
-        <button
-          type="button"
-          className="inline-flex items-center gap-1 h-7 px-2.5 rounded-md text-xs font-semibold border border-border bg-background hover:bg-muted transition-colors"
-        >
-          Renovar <ArrowRight className="h-3 w-3" />
-        </button>
         <button
           type="button"
           onClick={onDelete}

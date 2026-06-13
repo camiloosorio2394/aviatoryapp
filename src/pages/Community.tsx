@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Hash, ArrowRight, Plus, Check } from "lucide-react"
+import { Hash, ArrowRight, Check } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -52,19 +52,7 @@ export function Community() {
         <PageHeader
           eyebrow={`COMUNIDAD · ${totalChannels} CANALES`}
           title="Comunidad Aviatory"
-          subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo."
-          actions={
-            <button
-              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 1px 2px rgb(15 22 41 / 18%), 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
-              }}
-            >
-              <Plus className="h-3.5 w-3.5" /> Nuevo post
-            </button>
-          }
+          subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo. Entrá a un canal para escribir."
         />
 
         {loading ? (
