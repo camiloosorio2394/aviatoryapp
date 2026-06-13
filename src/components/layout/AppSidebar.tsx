@@ -27,6 +27,8 @@ interface NavItem {
   label: string
   icon: React.ComponentType<{ className?: string; size?: number; style?: React.CSSProperties }>
   end?: boolean
+  /** Módulo en construcción (página placeholder) — muestra chip "Pronto". */
+  soon?: boolean
 }
 
 interface NavSection {
@@ -43,15 +45,15 @@ const navSections: NavSection[] = [
     label: "Estudio",
     items: [
       { to: "/app/pca", label: "Materias", icon: BookOpen },
-      { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
+      { to: "/app/icao", label: "Inglés ICAO", icon: Radio, soon: true },
     ],
   },
   {
     label: "Carrera",
     items: [
-      { to: "/app/aerolinea", label: "Ingreso a Aerolínea", icon: Briefcase },
-      { to: "/app/entrevistas", label: "Simulador entrevistas", icon: Video },
-      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu },
+      { to: "/app/aerolinea", label: "Ingreso a Aerolínea", icon: Briefcase, soon: true },
+      { to: "/app/entrevistas", label: "Simulador entrevistas", icon: Video, soon: true },
+      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
       { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
       { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
     ],
@@ -59,7 +61,7 @@ const navSections: NavSection[] = [
   {
     label: "Operación",
     items: [
-      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon },
+      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon, soon: true },
       { to: "/app/logbook", label: "Logbook", icon: Clock },
       { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
       { to: "/app/ruta", label: "Mi ruta", icon: Map },
@@ -211,16 +213,36 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
                       style={{ color: isActive ? "var(--av-cyan-400)" : "currentColor" }}
                     />
                     <span
-                      className="whitespace-nowrap overflow-hidden transition-opacity duration-200"
+                      className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
                       style={{ opacity: expanded ? 1 : 0 }}
                     >
                       {item.label}
                     </span>
+                    {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
+                    {item.soon && expanded && (
+                      <span
+                        className="flex-shrink-0 mono text-[9px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
+                        style={{
+                          color: "oklch(0.72 0.02 250)",
+                          background: "oklch(1 0 0 / 6%)",
+                          border: "1px solid var(--rail-border)",
+                        }}
+                      >
+                        Pronto
+                      </span>
+                    )}
+                    {/* Punto indicador "pronto" cuando está colapsado */}
+                    {item.soon && !expanded && (
+                      <span
+                        className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
+                        style={{ background: "var(--av-amber-400)" }}
+                      />
+                    )}
                     {!expanded && (
                       <span
                         className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[11px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
                       >
-                        {item.label}
+                        {item.label}{item.soon ? " · Pronto" : ""}
                       </span>
                     )}
                   </>

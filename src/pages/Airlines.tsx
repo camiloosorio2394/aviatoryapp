@@ -269,12 +269,16 @@ function AirlineCard({
           )}
         </div>
 
-        <button
-          type="button"
-          className="mt-4 w-full h-9 rounded-lg border border-border bg-background text-foreground font-semibold text-[13px] hover:bg-muted transition-colors"
+        <div
+          className="mt-4 w-full h-9 rounded-lg border flex items-center justify-center font-semibold text-[13px]"
+          style={
+            missing === 0
+              ? { borderColor: "oklch(0.7 0.15 150 / 35%)", background: "oklch(0.7 0.15 150 / 10%)", color: "var(--av-green-400)" }
+              : { borderColor: "var(--border)", background: "var(--background)", color: "var(--muted-foreground)" }
+          }
         >
-          {missing === 0 ? "Cumplís requisitos" : `Ver requisitos · ${missing} faltante${missing !== 1 ? "s" : ""}`}
-        </button>
+          {missing === 0 ? "✓ Cumplís los requisitos" : `Te faltan ${missing} requisito${missing !== 1 ? "s" : ""}`}
+        </div>
       </div>
     </div>
   )

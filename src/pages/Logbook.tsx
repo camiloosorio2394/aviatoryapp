@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type FormEvent } from "react"
-import { Plane, Plus, Trash2, X, Loader2, Download, Filter, ArrowRight } from "lucide-react"
+import { Plane, Plus, Trash2, X, Loader2, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -160,9 +160,6 @@ export function Logbook() {
           subtitle="Cada vuelo cuenta hacia tu próxima aerolínea. Registrá apenas aterrices."
           actions={
             <>
-              <Button variant="outline" className="rounded-lg h-9 text-[13px]">
-                <Download className="h-3.5 w-3.5" /> Exportar PDF
-              </Button>
               <button
                 type="button"
                 onClick={() => setFormOpen(true)}
@@ -218,9 +215,6 @@ export function Logbook() {
               </button>
             ))}
           </div>
-          <Button variant="ghost" size="sm" className="rounded-md h-8 text-xs">
-            <Filter className="h-3 w-3" /> Filtros
-          </Button>
           <div className="flex-1" />
           <span className="mono text-[11px] text-muted-foreground uppercase tracking-[0.1em]">
             {filtered.length} vuelos

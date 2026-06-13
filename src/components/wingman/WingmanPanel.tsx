@@ -43,10 +43,13 @@ export function WingmanPanel({
     if (
       state.isOpen &&
       state.context &&
+      state.context.kind !== "general" &&
       state.messages.length === 0 &&
       !state.sending &&
       !autoSentRef.current
     ) {
+      // Solo auto-enviamos cuando hay una pregunta concreta que explicar
+      // (quiz_explain / study_help). En modo "general" el usuario escribe.
       autoSentRef.current = true
       onSend()
     }

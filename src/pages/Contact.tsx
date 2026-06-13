@@ -37,13 +37,25 @@ export function Contact() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = e.currentTarget
+    const data = new FormData(form)
+    const name = String(data.get("name") ?? "").trim()
+    const email = String(data.get("email") ?? "").trim()
+    const topic = String(data.get("topic") ?? "").trim() || "Consulta desde aviatoryapp.com"
+    const message = String(data.get("message") ?? "").trim()
+
+    // Sin backend de email todavía: abrimos el cliente de correo del usuario
+    // pre-rellenado hacia hola@aviatory.app. Honesto y funcional para el beta.
+    const body = `${message}\n\n— ${name} (${email})`
+    const mailto = `mailto:hola@aviatory.app?subject=${encodeURIComponent(topic)}&body=${encodeURIComponent(body)}`
+
     setSending(true)
-    // TODO: wire to backend/email service
+    window.location.href = mailto
     setTimeout(() => {
       setSending(false)
-      toast.success("¡Gracias! Te respondemos en menos de 24h.")
-      ;(e.target as HTMLFormElement).reset()
-    }, 700)
+      toast.success("Te abrimos tu correo con el mensaje listo para enviar 📩")
+      form.reset()
+    }, 600)
   }
 
   return (
