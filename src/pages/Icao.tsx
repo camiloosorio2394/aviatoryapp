@@ -254,7 +254,7 @@ const SECTIONS: SectionDef[] = [
     color: "violet",
     part: "TEA · Part 2",
     title: "Interactive Comprehension",
-    description: "Escuchás situaciones no rutinarias y reaccionás. 2A short · 2B long · 2C interactive, con audios reproducibles y respuestas modelo.",
+    description: "Escuchás situaciones no rutinarias y reaccionás. 2A short · 2B long · 2C interactive, con audios reales del material de práctica.",
     status: "ready",
     cta: "Practicar comprensión",
   },
