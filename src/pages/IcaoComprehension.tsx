@@ -15,6 +15,8 @@ import {
   Check,
   HelpCircle,
   MessageSquare,
+  BookOpen,
+  ChevronDown,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import {
@@ -22,6 +24,8 @@ import {
   SHORT_AUDIO_TOTAL,
   LONG_AUDIOS,
   INTERACTIVE_ITEMS,
+  SAMPLE_MESSAGES_2A,
+  SAMPLE_SCENARIOS_2C,
   type Speaker,
   type LongAudio,
 } from "@/lib/icaoComprehension"
@@ -184,7 +188,11 @@ function ShortAudiosSection() {
   return (
     <>
       <SectionIntro text={`${SHORT_AUDIO_TOTAL} mensajes cortos en 3 sets. Después de cada uno, respondé mentalmente: ¿cuál era el mensaje? ¿hablaba un piloto o un controlador? No hace falta repetir palabra por palabra — sí transmitir toda la info relevante.`} />
-      <PendingKeyNote />
+      <WorkbookSamples
+        title={`Frases modelo del workbook · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
+        intro="Ejemplos oficiales del tipo de mensaje que vas a escuchar (Aviation English Now). Practicá parafrasear cada uno: ¿cuál es el mensaje y quién habla?"
+        items={SAMPLE_MESSAGES_2A}
+      />
       <div className="space-y-7">
         {SHORT_AUDIO_SETS.map((set) => (
           <div key={set.key}>
@@ -276,7 +284,11 @@ function InteractiveSection() {
   return (
     <>
       <SectionIntro text="Situaciones cortas no rutinarias. Tras escuchar, tenés ~20s para formular preguntas que te den más información. Después, dá recomendaciones o consejos para resolver. Se evalúa interacción natural en Plain English: preguntas relevantes + soluciones apropiadas." />
-      <PendingKeyNote />
+      <WorkbookSamples
+        title={`Escenarios modelo del workbook · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
+        intro="Situaciones oficiales del tipo de la Parte 2C (Aviation English Now). Para cada una: formulá 2-3 preguntas para obtener más info y luego dá un consejo."
+        items={SAMPLE_SCENARIOS_2C}
+      />
       <div className="space-y-2.5">
         {INTERACTIVE_ITEMS.map((it) => (
           <div key={it.id} className="rounded-xl border bg-card p-4" style={cardBorder}>
@@ -302,11 +314,45 @@ const revealBox = {
   background: "color-mix(in oklab, var(--av-violet-400) 6%, transparent)",
 }
 
-function PendingKeyNote() {
+function WorkbookSamples({ title, intro, items }: { title: string; intro: string; items: string[] }) {
+  const [open, setOpen] = useState(false)
   return (
-    <div className="mb-4 rounded-lg border border-border/60 bg-muted/30 p-3 text-[12px] text-muted-foreground leading-relaxed">
-      Estos audios son práctica de escucha: <strong className="text-foreground/80">respondé vos</strong> en
-      voz alta. La clave de respuestas (transcripts y solución modelo) se va a cargar desde el material TEA.
+    <div
+      className="mb-5 rounded-xl border overflow-hidden"
+      style={{ borderColor: "color-mix(in oklab, var(--av-violet-400) 22%, transparent)" }}
+    >
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="w-full flex items-center justify-between gap-3 p-3.5 text-left"
+        style={{ background: "color-mix(in oklab, var(--av-violet-400) 6%, transparent)" }}
+      >
+        <div className="flex items-center gap-2 min-w-0">
+          <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-violet-400)]" />
+          <span className="text-[13px] font-bold tracking-[-0.01em] truncate">{title}</span>
+        </div>
+        <ChevronDown
+          className="flex-shrink-0 h-4 w-4 text-muted-foreground transition-transform"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        />
+      </button>
+      {open && (
+        <div className="p-4 pt-3">
+          <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">{intro}</p>
+          <ol className="space-y-1.5">
+            {items.map((s, i) => (
+              <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/85 leading-relaxed">
+                <span
+                  className="mono flex-shrink-0 w-6 text-right text-[11px] font-bold pt-0.5"
+                  style={{ color: "var(--av-violet-400)" }}
+                >
+                  {i + 1}.
+                </span>
+                <span>&ldquo;{s}&rdquo;</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
     </div>
   )
 }
