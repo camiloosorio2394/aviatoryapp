@@ -28,7 +28,6 @@ import { IcaoQuiz } from "@/pages/IcaoQuiz"
 import { IcaoInterview } from "@/pages/IcaoInterview"
 import { IcaoComprehension } from "@/pages/IcaoComprehension"
 import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
-import { IcaoDiscussion } from "@/pages/IcaoDiscussion"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
@@ -139,14 +138,9 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path="/app/icao/discussion"
-          element={
-            <RequireAuth>
-              <IcaoDiscussion />
-            </RequireAuth>
-          }
-        />
+        {/* Picture Description y Discussion se unificaron en un solo módulo
+            (TEA Part 3). La ruta vieja /discussion redirige para no romper links. */}
+        <Route path="/app/icao/discussion" element={<Navigate to="/app/icao/picture-description" replace />} />
         <Route
           path="/app/pca"
           element={
