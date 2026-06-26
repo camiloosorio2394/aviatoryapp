@@ -22,12 +22,16 @@ import { Referrals } from "@/pages/Referrals"
 import { ExamTracker } from "@/pages/ExamTracker"
 import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
 import { Icao } from "@/pages/Icao"
+import { IcaoIntro } from "@/pages/IcaoIntro"
+import { IcaoVocabulary } from "@/pages/IcaoVocabulary"
+import { IcaoQuiz } from "@/pages/IcaoQuiz"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
 import { Library } from "@/pages/Library"
 import { VaultQuizPlayer } from "@/pages/VaultQuizPlayer"
 import { InterviewSim } from "@/pages/InterviewSim"
+import { InterviewSpeakingIntro } from "@/pages/InterviewSpeakingIntro"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -92,6 +96,30 @@ function App() {
           }
         />
         <Route
+          path="/app/icao/intro"
+          element={
+            <RequireAuth>
+              <IcaoIntro />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/vocabulario"
+          element={
+            <RequireAuth>
+              <IcaoVocabulary />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/quiz"
+          element={
+            <RequireAuth>
+              <IcaoQuiz />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/app/pca"
           element={
             <RequireAuth>
@@ -136,6 +164,14 @@ function App() {
           element={
             <RequireAuth>
               <InterviewSim />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/entrevistas/speaking"
+          element={
+            <RequireAuth>
+              <InterviewSpeakingIntro />
             </RequireAuth>
           }
         />

@@ -15,6 +15,7 @@ import {
   Check,
   Clock,
   Award,
+  Bookmark,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
@@ -54,7 +55,7 @@ export function Icao() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
                 />
-                MÓDULO ICAO · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
+                MÓDULO ICAO · GLOSARIO + QUIZ + SPEAKING LISTOS
               </div>
               <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
                 Inglés ICAO,{" "}
@@ -91,6 +92,62 @@ export function Icao() {
             </div>
           </div>
         </section>
+
+        {/* === EMPEZAR YA — 3 puertas activas === */}
+        <div className="mt-10 mb-5 flex items-end justify-between">
+          <div>
+            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-amber-400)]">
+              EMPEZÁ YA · CONTENIDO CARGADO
+            </div>
+            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+              Lo que ya está listo para usar
+            </h2>
+          </div>
+          <Link
+            to="/app/icao/intro"
+            className="hidden md:inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mono"
+          >
+            <Bookmark className="h-3.5 w-3.5" /> Leé primero el intro
+          </Link>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          <ActiveCta
+            to="/app/icao/intro"
+            icon={Bookmark}
+            color="violet"
+            title="Mensaje intro"
+            description="Por qué este módulo existe y cómo aprovecharlo. Léelo primero."
+            tagline="2 min de lectura"
+          />
+          <ActiveCta
+            to="/app/icao/vocabulario"
+            icon={BookOpen}
+            color="cyan"
+            title="Glosario de vocabulario"
+            description="~350 términos buscables del libro ICAO. Disponible siempre."
+            tagline="Buscador instantáneo"
+          />
+          <ActiveCta
+            to="/app/icao/quiz"
+            icon={ClipboardCheck}
+            color="blue"
+            title="Quiz vocabulario + comprensión"
+            description="Tandas de 10 preguntas MC con explicación. Por tema o random."
+            tagline="10 min por tanda"
+          />
+        </div>
+
+        <div className="mt-4 grid">
+          <ActiveCta
+            to="/app/entrevistas/speaking"
+            icon={Mic}
+            color="amber"
+            title="Entrevista intro · Speaking"
+            description="Las 15 preguntas que toda aerolínea hace al inicio para evaluar tu fluidez. Cada una con intención + topics esperados + follow-ups."
+            tagline="Practicá en voz alta · grabate"
+            wide
+          />
+        </div>
 
         {/* === NIVELES === */}
         <div className="mt-10 mb-5">
@@ -343,6 +400,42 @@ interface TileProps {
   title: string
   description: string
   bullets: string[]
+}
+
+function ActiveCta({ to, icon: Icon, color, title, description, tagline, wide }: { to: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; color: ColorKey; title: string; description: string; tagline: string; wide?: boolean }) {
+  return (
+    <Link
+      to={to}
+      className="card card-hover rounded-2xl border p-5 flex items-start gap-4 transition-all hover:-translate-y-0.5"
+      style={{
+        borderColor: `color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
+        background: `linear-gradient(135deg, color-mix(in oklab, ${TILE_COLOR[color]} 6%, transparent) 0%, transparent 100%)`,
+      }}
+    >
+      <div
+        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+        style={{
+          background: `color-mix(in oklab, ${TILE_COLOR[color]} 18%, transparent)`,
+          border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 35%, transparent)`,
+          color: TILE_COLOR[color],
+        }}
+      >
+        <Icon className="h-5 w-5" strokeWidth={2} />
+      </div>
+      <div className={`flex-1 min-w-0 ${wide ? "flex items-center justify-between gap-4" : ""}`}>
+        <div className={wide ? "flex-1 min-w-0" : ""}>
+          <div className="text-[15px] font-extrabold tracking-[-0.01em]">{title}</div>
+          <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
+          <div className="mt-2 mono text-[10px] uppercase tracking-[0.12em]" style={{ color: TILE_COLOR[color] }}>
+            {tagline}
+          </div>
+        </div>
+        <div className="flex-shrink-0 mt-1 inline-flex items-center gap-1 text-[12px] font-semibold" style={{ color: TILE_COLOR[color] }}>
+          Abrir <ArrowRight className="h-3 w-3" />
+        </div>
+      </div>
+    </Link>
+  )
 }
 
 function FeatureTile({ icon: Icon, color, title, description, bullets }: TileProps) {
