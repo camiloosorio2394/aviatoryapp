@@ -254,9 +254,9 @@ const SECTIONS: SectionDef[] = [
     color: "violet",
     part: "TEA · Part 2",
     title: "Interactive Comprehension",
-    description: "Escuchás situaciones no rutinarias y reaccionás. Comprensión auditiva pura, con ruido y acentos. Flujo interactivo en construcción.",
-    status: "soon",
-    cta: "Ver de qué se trata",
+    description: "Escuchás situaciones no rutinarias y reaccionás. 2A short · 2B long · 2C interactive, con audios reproducibles y respuestas modelo.",
+    status: "ready",
+    cta: "Practicar comprensión",
   },
   {
     to: "/app/icao/picture-description",
