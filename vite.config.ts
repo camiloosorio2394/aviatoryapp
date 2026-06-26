@@ -10,7 +10,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
     VitePWA({
-      registerType: 'autoUpdate',
+      // 'prompt' (no 'autoUpdate'): cuando hay una versión nueva NO recargamos
+      // sola — mostramos un aviso ("Actualizar") vía ReloadPrompt para que el
+      // usuario no pierda lo que esté haciendo. Ver src/components/ReloadPrompt.tsx
+      registerType: 'prompt',
       injectRegister: 'auto',
       includeAssets: [
         'favicon-16x16.png',

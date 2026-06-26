@@ -1,34 +1,33 @@
 import { Link } from "react-router-dom"
 import {
-  Headphones,
-  Mic,
-  Volume2,
-  Radio,
-  AlertTriangle,
   BookOpen,
-  PlayCircle,
-  ClipboardCheck,
-  MessageCircle,
-  Brain,
-  Sparkles,
+  Mic,
+  Headphones,
+  Image as ImageIcon,
+  MessagesSquare,
+  Radio,
   ArrowRight,
-  Check,
   Clock,
-  Award,
-  Bookmark,
+  Check,
+  Sparkles,
+  ClipboardCheck,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
 /**
- * Módulo Inglés ICAO — mercado propio, separado de Aerolínea.
- * Niveles 3/4/5 · 5 skills · preparación · evaluación con IA.
- * Backend: icao_levels, icao_skills, icao_exercises, icao_phrases,
- * icao_emergencies, icao_roleplays, user_icao_attempts, user_icao_level.
+ * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for
+ * Aviation, Mayflower College). 5 secciones:
+ *   1. Vocabulario   (glosario + quiz)            — LISTO
+ *   2. Interview      (TEA Part 1)                 — LISTO
+ *   3. Interactive Comprehension (TEA Part 2)      — Pronto
+ *   4. Picture Description (TEA Part 3a)           — Pronto
+ *   5. Discussion     (TEA Part 3b)                — Pronto
  */
 export function Icao() {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
+        {/* === HERO === */}
         <section
           className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
           style={{
@@ -55,7 +54,7 @@ export function Icao() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
                 />
-                MÓDULO ICAO · GLOSARIO + QUIZ + SPEAKING LISTOS
+                MÓDULO INGLÉS ICAO · ESTRUCTURA TEA
               </div>
               <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
                 Inglés ICAO,{" "}
@@ -67,14 +66,14 @@ export function Icao() {
                     color: "transparent",
                   }}
                 >
-                  del nivel 3 al 5 con método
+                  preparado para el examen TEA
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
-                Mercado propio, lógica pedagógica propia. <strong className="text-white">3 niveles oficiales</strong>{" "}
-                (3 / 4 / 5), <strong className="text-white">5 skills</strong> evaluadas
-                (listening, speaking, pronunciation, radiotelephony, unexpected situations),
-                preparación dirigida al examen y evaluación con IA basada en los descriptores OACI Doc 9835.
+              <p className="text-[16px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+                Organizado exactamente como el <strong className="text-white">Test of English for
+                Aviation</strong>: 5 secciones que cubren las dos habilidades que el examen mide —
+                <strong className="text-white"> hablar y comprender</strong> inglés en contexto
+                aeronáutico.
               </p>
             </div>
             <div className="flex flex-col items-center gap-3 pr-2">
@@ -88,118 +87,72 @@ export function Icao() {
               >
                 <Radio className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">ICAO LANG PROF</div>
+              <div className="mono text-[10px] tracking-[0.16em] text-white/50">TEA · 25–30 MIN</div>
             </div>
           </div>
         </section>
 
-        {/* === EMPEZAR YA — 3 puertas activas === */}
-        <div className="mt-10 mb-5 flex items-end justify-between">
-          <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-amber-400)]">
-              EMPEZÁ YA · CONTENIDO CARGADO
-            </div>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-              Lo que ya está listo para usar
-            </h2>
-          </div>
-          <Link
-            to="/app/icao/intro"
-            className="hidden md:inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mono"
-          >
-            <Bookmark className="h-3.5 w-3.5" /> Leé primero el intro
-          </Link>
-        </div>
-        <div className="grid gap-3 md:grid-cols-3">
-          <ActiveCta
-            to="/app/icao/intro"
-            icon={Bookmark}
-            color="violet"
-            title="Mensaje intro"
-            description="Por qué este módulo existe y cómo aprovecharlo. Léelo primero."
-            tagline="2 min de lectura"
-          />
-          <ActiveCta
-            to="/app/icao/vocabulario"
-            icon={BookOpen}
-            color="cyan"
-            title="Glosario de vocabulario"
-            description="~350 términos buscables del libro ICAO. Disponible siempre."
-            tagline="Buscador instantáneo"
-          />
-          <ActiveCta
-            to="/app/icao/quiz"
-            icon={ClipboardCheck}
-            color="blue"
-            title="Quiz vocabulario + comprensión"
-            description="Tandas de 10 preguntas MC con explicación. Por tema o random."
-            tagline="10 min por tanda"
-          />
-        </div>
-
-        <div className="mt-4 grid">
-          <ActiveCta
-            to="/app/entrevistas/speaking"
-            icon={Mic}
-            color="amber"
-            title="Entrevista intro · Speaking"
-            description="Las 15 preguntas que toda aerolínea hace al inicio para evaluar tu fluidez. Cada una con intención + topics esperados + follow-ups."
-            tagline="Practicá en voz alta · grabate"
-            wide
-          />
-        </div>
-
-        {/* === NIVELES === */}
-        <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            NIVELACIÓN · 3 NIVELES OFICIALES
-          </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            ¿En qué nivel estás y a cuál quieres llegar?
-          </h2>
-        </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {LEVELS.map((l) => (
-            <LevelCard key={l.level} {...l} />
-          ))}
-        </div>
-
-        {/* === SKILLS === */}
-        <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            SKILLS EVALUADAS · 5
-          </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            Lo que el evaluador mide
-          </h2>
-        </div>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
-          {SKILLS.map((s) => (
-            <SkillChip key={s.slug} {...s} />
-          ))}
-        </div>
-
-        {/* === SUBMÓDULOS === */}
-        <div className="mt-10 mb-5 flex items-end justify-between">
+        {/* === DESCRIPCIÓN DEL EXAMEN === */}
+        <section className="mt-9 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-              PREPARACIÓN + EVALUACIÓN
+              QUÉ ES EL TEA
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-              Cómo te llevamos al examen
+              Test of English for Aviation
             </h2>
+            <p className="mt-3 text-[14px] text-foreground/80 leading-relaxed">
+              El TEA es un examen diseñado por <strong className="text-foreground">Mayflower College</strong>{" "}
+              para evaluar la competencia en inglés de pilotos y controladores según los requisitos
+              lingüísticos de la ICAO. Evalúa <strong className="text-foreground">exclusivamente las
+              habilidades de hablar y comprender</strong> inglés, en un contexto aeronáutico —{" "}
+              <strong className="text-foreground">sin medir conocimientos técnicos ni fraseología
+              estándar</strong>.
+            </p>
+            <p className="mt-3 text-[14px] text-foreground/80 leading-relaxed">
+              La entrevista de la Parte 1 busca evaluar tu capacidad para mantener una conversación
+              espontánea usando un inglés natural, técnico y profesional. Las partes siguientes miden
+              tu comprensión auditiva y tu capacidad de describir, comparar y opinar.
+            </p>
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
-            <Clock className="h-3.5 w-3.5" />Backend listo · contenido gradual
+
+          <div
+            className="rounded-2xl border p-5"
+            style={{ borderColor: "color-mix(in oklab, var(--av-cyan-400) 25%, transparent)", background: "color-mix(in oklab, var(--av-cyan-400) 5%, transparent)" }}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <Clock className="h-4 w-4 text-[var(--av-cyan-400)]" />
+              <div className="text-[13px] font-bold">Duración total: 25–30 min</div>
+            </div>
+            <ul className="space-y-2.5">
+              <FactRow label="Parte 1 · Interview" detail="7–8 min · conversación sobre tu rol" />
+              <FactRow label="Parte 2 · Comprehension" detail="audios de situaciones no rutinarias" />
+              <FactRow label="Parte 3 · Picture + Discussion" detail="describir, comparar y opinar" />
+            </ul>
+            <div className="mt-4 pt-3 border-t border-border/50 text-[12px] text-muted-foreground leading-relaxed">
+              Solo mide <strong className="text-foreground/80">speaking y listening</strong>. No hay
+              parte escrita ni preguntas técnicas de aeronáutica.
+            </div>
           </div>
+        </section>
+
+        {/* === LAS 5 SECCIONES === */}
+        <div className="mt-10 mb-5">
+          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            EL MÓDULO · 5 SECCIONES
+          </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Por dónde entrenás cada habilidad
+          </h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {SUBMODULES.map((s) => (
-            <FeatureTile key={s.title} {...s} />
+        <div className="grid gap-3.5 md:grid-cols-2 lg:grid-cols-3">
+          {SECTIONS.map((s) => (
+            <SectionCard key={s.title} {...s} />
           ))}
         </div>
 
+        {/* === Wingman helper === */}
         <section
           className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
           style={{
@@ -213,36 +166,26 @@ export function Icao() {
               className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
-              <Sparkles className="h-3 w-3" /> Cómo empezar ya
+              <Sparkles className="h-3 w-3" /> Tip de práctica
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">
-              Mientras se carga el contenido del módulo completo
-            </h3>
+            <h3 className="mt-1.5 text-lg font-bold">Practicá en voz alta — y grabate</h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
-              Pásale tu ICAO actual a Wingman (el asistente) y te ayuda con frases, vocabulary y
-              roleplays mientras cargamos el contenido oficial. En la comunidad #icao puedes pedir
-              priorización de skills específicas.
+              El TEA es oral. Leer las respuestas no alcanza: respondé en voz alta, grabate con el
+              celular y escuchate. Es lo más incómodo y lo que más rápido te sube el nivel. En la
+              comunidad #icao podés pedir feedback y practicar con otros.
             </p>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <Link
-              to="/app/comunidad"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
-            >
-              Comunidad #icao <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-            <Link
-              to="/app/pca"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
-            >
-              Estudio general <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
+          <Link
+            to="/app/comunidad"
+            className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0 flex-shrink-0"
+            style={{
+              background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
+              boxShadow:
+                "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
+            }}
+          >
+            Comunidad #icao <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </section>
       </div>
     </AppLayout>
@@ -250,224 +193,156 @@ export function Icao() {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// LEVELS
-// ────────────────────────────────────────────────────────────────────────────
-type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
+function FactRow({ label, detail }: { label: string; detail: string }) {
+  return (
+    <li className="flex items-start gap-2">
+      <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" strokeWidth={3} />
+      <div>
+        <div className="text-[12.5px] font-semibold leading-tight">{label}</div>
+        <div className="text-[11.5px] text-muted-foreground leading-tight">{detail}</div>
+      </div>
+    </li>
+  )
+}
+
+type ColorKey = "cyan" | "blue" | "violet" | "green" | "amber"
 const TILE_COLOR: Record<ColorKey, string> = {
   cyan: "var(--av-cyan-400)",
   blue: "var(--av-blue-500)",
   violet: "var(--av-violet-400)",
-  amber: "var(--av-amber-400)",
   green: "var(--av-green-400)",
-  red: "var(--av-red-400)",
+  amber: "var(--av-amber-400)",
 }
 
-const LEVELS: { level: number; title: string; description: string; valid: string; color: ColorKey; criteria: string[] }[] = [
-  {
-    level: 3,
-    title: "ICAO 3 · Pre-Operational",
-    description: "Comunicación básica. No apto para operación internacional comercial.",
-    valid: "Vigencia: revisar antes del próximo CHEQUEO",
-    color: "amber",
-    criteria: ["Vocabulario limitado a fraseología", "Comprende pero responde lento", "Pronunciación inteligible con esfuerzo"],
-  },
-  {
-    level: 4,
-    title: "ICAO 4 · Operational",
-    description: "Mínimo legal para volar internacional comercial. Tu objetivo si recién postulás.",
-    valid: "Vigencia: 3 años",
-    color: "cyan",
-    criteria: ["Vocabulario aviation completo", "Fluidez en rutina", "Maneja eventos inesperados básicos"],
-  },
-  {
-    level: 5,
-    title: "ICAO 5 · Extended",
-    description: "Nivel objetivo para carrera de aerolínea. Te diferencia en procesos competitivos.",
-    valid: "Vigencia: 6 años",
-    color: "green",
-    criteria: ["Vocabulario amplio aviation + general", "Fluidez sostenida", "Maneja eventos complejos sin problema"],
-  },
-]
-
-const SKILLS: { slug: string; name: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }[] = [
-  { slug: "listening", name: "Listening", icon: Headphones, color: "cyan" },
-  { slug: "speaking", name: "Speaking", icon: Mic, color: "blue" },
-  { slug: "pronunciation", name: "Pronunciation", icon: Volume2, color: "violet" },
-  { slug: "radiotelephony", name: "Radiotelephony", icon: Radio, color: "amber" },
-  { slug: "unexpected", name: "Unexpected", icon: AlertTriangle, color: "red" },
-]
-
-const SUBMODULES: TileProps[] = [
-  {
-    icon: BookOpen,
-    color: "cyan",
-    title: "Estructura del examen",
-    description: "Los 6 holistic descriptors explicados con ejemplos reales y criterios oficiales.",
-    bullets: ["Pronunciation, Structure, Vocabulary, Fluency, Comprehension, Interactions", "Criterios Doc 9835 OACI", "Comparación Level 3 vs 4 vs 5"],
-  },
-  {
-    icon: PlayCircle,
-    color: "blue",
-    title: "Ejercicios guiados",
-    description: "Drills cortos por skill con audio + speech-to-text para auto-corrección.",
-    bullets: ["Bloques de 10 min", "Auto-corrección instantánea", "Progreso por skill, no por horas"],
-  },
-  {
-    icon: ClipboardCheck,
-    color: "violet",
-    title: "Mock tests",
-    description: "Simulacros completos con el formato y duración del examen real.",
-    bullets: ["Estructura idéntica al oficial", "Cronómetro real", "Score estimado por descriptor"],
-  },
-  {
-    icon: MessageCircle,
-    color: "green",
-    title: "Frases ICAO + emergencias",
-    description: "Biblioteca buscable de fraseología OACI estándar y respuestas a emergencias.",
-    bullets: ["Phraseology cards por fase de vuelo", "Variantes FAA/ICAO/CAA/EASA", "Escenarios de emergencia con respuesta esperada"],
-  },
-  {
-    icon: Brain,
-    color: "amber",
-    title: "Roleplay ATC-Pilot",
-    description: "Conversaciones simuladas con Wingman jugando rol de ATC. Te interrumpe, te corrige, te pide repetir.",
-    bullets: ["Escenarios: rutina, emergencia, weather, traffic", "Grabación + transcript", "Variantes por aerolínea/región"],
-  },
-  {
-    icon: Award,
-    color: "red",
-    title: "Evaluación con IA",
-    description: "Score automático por descriptor + feedback accionable + grabación de tu sesión.",
-    bullets: ["Análisis por los 6 holistic descriptors", "Comparativa histórica de tu progreso", "Recomendaciones específicas por skill débil"],
-  },
-]
-
-// ────────────────────────────────────────────────────────────────────────────
-function LevelCard({ level, title, description, valid, color, criteria }: { level: number; title: string; description: string; valid: string; color: ColorKey; criteria: string[] }) {
-  return (
-    <div
-      className="card rounded-2xl border p-5 flex flex-col gap-3"
-      style={{ borderColor: `color-mix(in oklab, ${TILE_COLOR[color]} 30%, transparent)` }}
-    >
-      <div className="flex items-baseline justify-between">
-        <div
-          className="mono text-[42px] font-extrabold tracking-[-0.04em] leading-none"
-          style={{ color: TILE_COLOR[color] }}
-        >
-          {level}
-        </div>
-        <div className="mono text-[10px] tracking-[0.12em] uppercase text-muted-foreground">{valid}</div>
-      </div>
-      <div>
-        <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
-        <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
-      </div>
-      <ul className="space-y-1 pt-1">
-        {criteria.map((c) => (
-          <li key={c} className="flex items-start gap-2 text-[12px] text-foreground/80">
-            <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: TILE_COLOR[color] }} strokeWidth={3} />
-            <span>{c}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function SkillChip({ name, icon: Icon, color }: { slug: string; name: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }) {
-  return (
-    <div
-      className="rounded-xl border p-3 flex flex-col items-center gap-2 transition-all hover:-translate-y-0.5"
-      style={{ borderColor: `color-mix(in oklab, ${TILE_COLOR[color]} 30%, transparent)` }}
-    >
-      <div
-        className="w-10 h-10 rounded-lg flex items-center justify-center"
-        style={{
-          background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
-          color: TILE_COLOR[color],
-        }}
-      >
-        <Icon className="h-5 w-5" />
-      </div>
-      <div className="text-[12.5px] font-semibold text-center">{name}</div>
-    </div>
-  )
-}
-
-interface TileProps {
+interface SectionDef {
+  to: string
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
   color: ColorKey
+  part: string
   title: string
   description: string
-  bullets: string[]
+  status: "ready" | "soon"
+  cta: string
+  secondary?: { to: string; label: string; icon: React.ComponentType<{ className?: string }> }
 }
 
-function ActiveCta({ to, icon: Icon, color, title, description, tagline, wide }: { to: string; icon: React.ComponentType<{ className?: string; strokeWidth?: number }>; color: ColorKey; title: string; description: string; tagline: string; wide?: boolean }) {
-  return (
-    <Link
-      to={to}
-      className="card card-hover rounded-2xl border p-5 flex items-start gap-4 transition-all hover:-translate-y-0.5"
-      style={{
-        borderColor: `color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
-        background: `linear-gradient(135deg, color-mix(in oklab, ${TILE_COLOR[color]} 6%, transparent) 0%, transparent 100%)`,
-      }}
-    >
-      <div
-        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-        style={{
-          background: `color-mix(in oklab, ${TILE_COLOR[color]} 18%, transparent)`,
-          border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 35%, transparent)`,
-          color: TILE_COLOR[color],
-        }}
-      >
-        <Icon className="h-5 w-5" strokeWidth={2} />
-      </div>
-      <div className={`flex-1 min-w-0 ${wide ? "flex items-center justify-between gap-4" : ""}`}>
-        <div className={wide ? "flex-1 min-w-0" : ""}>
-          <div className="text-[15px] font-extrabold tracking-[-0.01em]">{title}</div>
-          <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
-          <div className="mt-2 mono text-[10px] uppercase tracking-[0.12em]" style={{ color: TILE_COLOR[color] }}>
-            {tagline}
-          </div>
-        </div>
-        <div className="flex-shrink-0 mt-1 inline-flex items-center gap-1 text-[12px] font-semibold" style={{ color: TILE_COLOR[color] }}>
-          Abrir <ArrowRight className="h-3 w-3" />
-        </div>
-      </div>
-    </Link>
-  )
-}
+const SECTIONS: SectionDef[] = [
+  {
+    to: "/app/icao/vocabulario",
+    icon: BookOpen,
+    color: "cyan",
+    part: "Base",
+    title: "Vocabulario",
+    description: "~350 términos de aviation English buscables, agrupados por categoría. La base de todo lo demás. Incluye un quiz para autoevaluarte.",
+    status: "ready",
+    cta: "Abrir glosario",
+    secondary: { to: "/app/icao/quiz", label: "Quiz", icon: ClipboardCheck },
+  },
+  {
+    to: "/app/icao/interview",
+    icon: Mic,
+    color: "blue",
+    part: "TEA · Part 1",
+    title: "Interview",
+    description: "Las preguntas que hace el examinador sobre tu rol y la aviación. 4 sets con respuestas modelo técnicas y profesionales para captar el registro esperado.",
+    status: "ready",
+    cta: "Practicar Interview",
+  },
+  {
+    to: "/app/icao/comprension",
+    icon: Headphones,
+    color: "violet",
+    part: "TEA · Part 2",
+    title: "Interactive Comprehension",
+    description: "Escuchás situaciones no rutinarias y reaccionás. Comprensión auditiva pura, con ruido y acentos. Flujo interactivo en construcción.",
+    status: "soon",
+    cta: "Ver de qué se trata",
+  },
+  {
+    to: "/app/icao/picture-description",
+    icon: ImageIcon,
+    color: "green",
+    part: "TEA · Part 3",
+    title: "Picture Description",
+    description: "Describís y comparás imágenes de entornos aeronáuticos sin quedarte en silencio. Vocabulario descriptivo y fluidez sostenida.",
+    status: "soon",
+    cta: "Ver de qué se trata",
+  },
+  {
+    to: "/app/icao/discussion",
+    icon: MessagesSquare,
+    color: "amber",
+    part: "TEA · Part 3",
+    title: "Discussion",
+    description: "Conversación abierta sobre temas de aviación: das opinión, argumentás, especulás. El nivel más alto de fluidez del examen.",
+    status: "soon",
+    cta: "Ver de qué se trata",
+  },
+]
 
-function FeatureTile({ icon: Icon, color, title, description, bullets }: TileProps) {
+function SectionCard({ to, icon: Icon, color, part, title, description, status, cta, secondary }: SectionDef) {
+  const c = TILE_COLOR[color]
   return (
     <div
-      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
+      className="card card-hover rounded-2xl border p-5 flex flex-col gap-3"
+      style={{ borderColor: `color-mix(in oklab, ${c} ${status === "ready" ? "32%" : "22%"}, transparent)` }}
     >
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start justify-between">
         <div
-          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+          className="w-11 h-11 rounded-xl flex items-center justify-center"
           style={{
-            background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
-            color: TILE_COLOR[color],
+            background: `color-mix(in oklab, ${c} 14%, transparent)`,
+            border: `1px solid color-mix(in oklab, ${c} 32%, transparent)`,
+            color: c,
           }}
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
-        <div className="flex-1 pt-0.5">
-          <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
-        </div>
+        {status === "ready" ? (
+          <span
+            className="mono text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+            style={{ color: "var(--av-green-400)", background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)" }}
+          >
+            Listo
+          </span>
+        ) : (
+          <span
+            className="mono text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+            style={{ color: "var(--muted-foreground)", background: "color-mix(in oklab, var(--border) 40%, transparent)" }}
+          >
+            Pronto
+          </span>
+        )}
       </div>
-      <ul className="space-y-1.5 pl-1">
-        {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
-            <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: TILE_COLOR[color] }} strokeWidth={3} />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
+
+      <div>
+        <div className="mono text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: c }}>
+          {part}
+        </div>
+        <div className="mt-0.5 text-[16px] font-extrabold tracking-[-0.02em]">{title}</div>
+        <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
+      </div>
+
+      <div className="mt-auto pt-1 flex items-center gap-2">
+        <Link
+          to={to}
+          className="inline-flex items-center gap-1 text-[12.5px] font-semibold"
+          style={{ color: c }}
+        >
+          {cta} <ArrowRight className="h-3 w-3" />
+        </Link>
+        {secondary && (
+          <>
+            <span className="text-border">·</span>
+            <Link
+              to={secondary.to}
+              className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <secondary.icon className="h-3 w-3" /> {secondary.label}
+            </Link>
+          </>
+        )}
+      </div>
     </div>
   )
 }

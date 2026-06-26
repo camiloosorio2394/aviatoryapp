@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
+import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
@@ -22,9 +23,12 @@ import { Referrals } from "@/pages/Referrals"
 import { ExamTracker } from "@/pages/ExamTracker"
 import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
 import { Icao } from "@/pages/Icao"
-import { IcaoIntro } from "@/pages/IcaoIntro"
 import { IcaoVocabulary } from "@/pages/IcaoVocabulary"
 import { IcaoQuiz } from "@/pages/IcaoQuiz"
+import { IcaoInterview } from "@/pages/IcaoInterview"
+import { IcaoComprehension } from "@/pages/IcaoComprehension"
+import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
+import { IcaoDiscussion } from "@/pages/IcaoDiscussion"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
@@ -96,14 +100,6 @@ function App() {
           }
         />
         <Route
-          path="/app/icao/intro"
-          element={
-            <RequireAuth>
-              <IcaoIntro />
-            </RequireAuth>
-          }
-        />
-        <Route
           path="/app/icao/vocabulario"
           element={
             <RequireAuth>
@@ -116,6 +112,38 @@ function App() {
           element={
             <RequireAuth>
               <IcaoQuiz />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/interview"
+          element={
+            <RequireAuth>
+              <IcaoInterview />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/comprension"
+          element={
+            <RequireAuth>
+              <IcaoComprehension />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/picture-description"
+          element={
+            <RequireAuth>
+              <IcaoPictureDescription />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/discussion"
+          element={
+            <RequireAuth>
+              <IcaoDiscussion />
             </RequireAuth>
           }
         />
@@ -259,6 +287,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
+      <ReloadPrompt />
     </>
   )
 }
