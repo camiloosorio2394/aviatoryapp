@@ -84,7 +84,7 @@ insert into public.interview_sim_categories (slug, name, type, description, icon
 on conflict (slug) do nothing;
 
 insert into public.interview_sim_questions (category_id, slug, question_text, intent, expected_topics, follow_ups, ideal_duration_seconds, difficulty, order_index)
-select c.id, slug, question_text, intent, expected_topics::jsonb, follow_ups::jsonb, dur, diff, ord
+select c.id, q.slug, q.question_text, q.intent, q.expected_topics::jsonb, q.follow_ups::jsonb, q.dur, q.diff, q.ord
 from public.interview_sim_categories c, (values
   ('intro_speaking_tell_about_yourself',
    'Tell me about yourself.',
