@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -17,23 +17,23 @@ import {
   MessageSquare,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { useSpeech } from "@/hooks/useSpeech"
 import {
-  SHORT_AUDIOS,
+  SHORT_AUDIO_SETS,
+  SHORT_AUDIO_TOTAL,
   LONG_AUDIOS,
-  INTERACTIVE_SCENARIOS,
+  INTERACTIVE_ITEMS,
   type Speaker,
+  type LongAudio,
 } from "@/lib/icaoComprehension"
 
 /**
- * TEA — Part 2: Interactive Comprehension (interactivo, con voz sintetizada).
+ * TEA — Part 2: Interactive Comprehension. Audios reales (Supabase Storage).
  * 2A Short · 2B Long · 2C Interactive Response.
  */
 type Tab = "2a" | "2b" | "2c"
 
 export function IcaoComprehension() {
   const [tab, setTab] = useState<Tab>("2a")
-  const speech = useSpeech()
 
   return (
     <AppLayout>
@@ -62,8 +62,8 @@ export function IcaoComprehension() {
         <p className="mt-2 text-[14px] text-muted-foreground max-w-[720px]">
           La sección que más diferencia al TEA. Escuchás situaciones no rutinarias y de emergencia y
           tenés que demostrar que <strong className="text-foreground">comprendiste el mensaje
-          completo</strong>. Acá practicás con voz sintetizada — el examen real usa grabaciones con
-          acentos variados y ruido de cabina.
+          completo</strong>. Estos son <strong className="text-foreground">audios reales</strong> del
+          material de práctica.
         </p>
 
         {/* Regla de reproducción */}
@@ -77,24 +77,11 @@ export function IcaoComprehension() {
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[12.5px] text-foreground/85 leading-relaxed">
             <strong>Regla del examen:</strong> cada audio se reproduce <strong>una vez</strong>. Podés
-            pedir <strong>una segunda</strong> reproducción, pero <strong>nunca una tercera</strong>.
-            Pedir repetición seguido baja la nota de Comprehension. Acá replicamos esa regla: tenés 2
-            reproducciones por audio, después se habilita el transcript para autocorregirte.
+            pedir <strong>una segunda</strong>, pero <strong>nunca una tercera</strong>. Pedir
+            repetición seguido baja la nota de Comprehension. Acá replicamos esa regla: 2
+            reproducciones por audio.
           </div>
         </div>
-
-        {!speech.supported && (
-          <div className="mt-3 rounded-lg border border-border/60 bg-muted/30 p-3 text-[12px] text-muted-foreground">
-            Tu navegador no soporta síntesis de voz. Vas a ver los transcripts directamente en vez de
-            escucharlos.
-          </div>
-        )}
-        {speech.supported && !speech.hasEnglishVoice && (
-          <div className="mt-3 rounded-lg border border-border/60 bg-muted/30 p-3 text-[12px] text-muted-foreground">
-            No se detectó una voz en inglés en tu sistema. La reproducción puede sonar con otro acento;
-            usá el transcript para verificar.
-          </div>
-        )}
 
         {/* Tabs */}
         <div className="mt-7 flex gap-1.5 flex-wrap">
@@ -104,49 +91,76 @@ export function IcaoComprehension() {
         </div>
 
         <div className="mt-6">
-          {tab === "2a" && <ShortAudiosSection speech={speech} />}
-          {tab === "2b" && <LongAudiosSection speech={speech} />}
-          {tab === "2c" && <InteractiveSection speech={speech} />}
+          {tab === "2a" && <ShortAudiosSection />}
+          {tab === "2b" && <LongAudiosSection />}
+          {tab === "2c" && <InteractiveSection />}
         </div>
       </div>
     </AppLayout>
   )
 }
 
-type Speech = ReturnType<typeof useSpeech>
-
-// ─── Player reutilizable (regla 1 + 1 reproducciones) ────────────────────────
-function AudioPlayer({
-  speech,
-  transcript,
-  label,
-}: {
-  speech: Speech
-  transcript: string
-  label?: string
-}) {
+// ─── Player de audio real (regla 1 + 1 reproducciones) ───────────────────────
+function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
   const [plays, setPlays] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const [error, setError] = useState(false)
   const maxPlays = 2
   const canPlay = plays < maxPlays
 
+  useEffect(() => {
+    return () => {
+      audioRef.current?.pause()
+      audioRef.current = null
+    }
+  }, [])
+
+  function ensureAudio() {
+    if (!audioRef.current) {
+      const a = new Audio(audioUrl)
+      a.preload = "none"
+      a.onended = () => setPlaying(false)
+      a.onerror = () => { setPlaying(false); setError(true) }
+      audioRef.current = a
+    }
+    return audioRef.current
+  }
+
   function play() {
     if (!canPlay) return
-    setPlays((p) => p + 1)
-    speech.speak(transcript)
+    const a = ensureAudio()
+    a.currentTime = 0
+    a.play()
+      .then(() => {
+        setPlaying(true)
+        setError(false)
+        setPlays((p) => p + 1)
+      })
+      .catch(() => setError(true))
+  }
+
+  function stop() {
+    const a = audioRef.current
+    if (a) {
+      a.pause()
+      a.currentTime = 0
+    }
+    setPlaying(false)
   }
 
   return (
     <div className="flex items-center gap-2 flex-wrap">
       <button
-        onClick={speech.speaking ? speech.stop : play}
-        disabled={!canPlay && !speech.speaking}
+        onClick={playing ? stop : play}
+        disabled={!canPlay && !playing}
         className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[13px] font-semibold text-white border-0 disabled:opacity-40 disabled:cursor-not-allowed"
         style={{
           background: "linear-gradient(180deg, var(--av-violet-400) 0%, oklch(0.5 0.2 295) 100%)",
           boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.5 0.2 295 / 50%)",
         }}
       >
-        {speech.speaking ? (
+        {playing ? (
           <><Square className="h-3.5 w-3.5" /> Detener</>
         ) : plays === 0 ? (
           <><Play className="h-3.5 w-3.5" /> {label ?? "Reproducir"}</>
@@ -158,79 +172,62 @@ function AudioPlayer({
         {plays}/{maxPlays} reproducciones
         {plays >= maxPlays && " · sin tercera (regla TEA)"}
       </div>
-    </div>
-  )
-}
-
-// ─── 2A · SHORT AUDIOS ───────────────────────────────────────────────────────
-function ShortAudiosSection({ speech }: { speech: Speech }) {
-  return (
-    <>
-      <SectionIntro
-        text="6 mensajes cortos (5–10s). Después de cada uno, respondé mentalmente: ¿cuál era el mensaje? ¿hablaba un piloto o un controlador? No hace falta repetir palabra por palabra — sí transmitir toda la info relevante."
-      />
-      <div className="space-y-3">
-        {SHORT_AUDIOS.map((a) => (
-          <ShortAudioCard key={a.id} audio={a} speech={speech} />
-        ))}
-      </div>
-    </>
-  )
-}
-
-function ShortAudioCard({ audio, speech }: { audio: (typeof SHORT_AUDIOS)[number]; speech: Speech }) {
-  const [revealed, setRevealed] = useState(false)
-  return (
-    <div className="rounded-xl border bg-card p-4" style={cardBorder}>
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          Audio {audio.id} / {SHORT_AUDIOS.length}
-        </div>
-        <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />
-      </div>
-      <div className="mt-3">
-        <AudioPlayer speech={speech} transcript={audio.transcript} />
-      </div>
-
-      <div className="mt-3 grid gap-2 sm:grid-cols-2 text-[12px] text-muted-foreground">
-        <div className="flex items-center gap-1.5">
-          <HelpCircle className="h-3.5 w-3.5" /> What was the message?
-        </div>
-        <div className="flex items-center gap-1.5">
-          <HelpCircle className="h-3.5 w-3.5" /> Pilot or controller?
-        </div>
-      </div>
-
-      {revealed && (
-        <div className="mt-3 rounded-lg border p-3" style={revealBox}>
-          <SpeakerBadge speaker={audio.speaker} />
-          <div className="mt-2 text-[12.5px] text-foreground/90 leading-relaxed">
-            {audio.messageSummary}
-          </div>
-          <Transcript text={audio.transcript} />
-        </div>
+      {error && (
+        <div className="text-[11px] text-[var(--av-red-400)]">No se pudo cargar el audio.</div>
       )}
     </div>
   )
 }
 
-// ─── 2B · LONG AUDIOS ────────────────────────────────────────────────────────
-function LongAudiosSection({ speech }: { speech: Speech }) {
+// ─── 2A · SHORT AUDIOS ───────────────────────────────────────────────────────
+function ShortAudiosSection() {
   return (
     <>
-      <SectionIntro
-        text="4 mensajes largos (15–20s). Acá SÍ podés tomar notas. Después tenés que explicar la situación con el mayor detalle posible: cuál era el problema, qué pedía el hablante y todos los detalles importantes (fuel, POB, posición…). Cuanta más info correcta recuerdes, mejor la nota."
-      />
-      <div className="space-y-3">
-        {LONG_AUDIOS.map((a) => (
-          <LongAudioCard key={a.id} audio={a} speech={speech} />
+      <SectionIntro text={`${SHORT_AUDIO_TOTAL} mensajes cortos en 3 sets. Después de cada uno, respondé mentalmente: ¿cuál era el mensaje? ¿hablaba un piloto o un controlador? No hace falta repetir palabra por palabra — sí transmitir toda la info relevante.`} />
+      <PendingKeyNote />
+      <div className="space-y-7">
+        {SHORT_AUDIO_SETS.map((set) => (
+          <div key={set.key}>
+            <div className="flex items-baseline gap-2 mb-3">
+              <h3 className="text-[14px] font-bold tracking-[-0.01em]">{set.title}</h3>
+              <span className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{set.note}</span>
+            </div>
+            <div className="grid gap-2.5 sm:grid-cols-2">
+              {set.items.map((a) => (
+                <div key={a.id} className="rounded-xl border bg-card p-3.5" style={cardBorder}>
+                  <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground mb-2">
+                    {a.label}
+                  </div>
+                  <ClipPlayer audioUrl={a.audioUrl} />
+                  <div className="mt-2.5 grid gap-1 text-[11.5px] text-muted-foreground">
+                    <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> What was the message?</div>
+                    <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> Pilot or controller?</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </>
   )
 }
 
-function LongAudioCard({ audio, speech }: { audio: (typeof LONG_AUDIOS)[number]; speech: Speech }) {
+// ─── 2B · LONG AUDIOS ────────────────────────────────────────────────────────
+function LongAudiosSection() {
+  return (
+    <>
+      <SectionIntro text="Mensajes largos (15–20s). Acá SÍ podés tomar notas. Después explicá la situación con el mayor detalle posible: cuál era el problema, qué pedía el hablante y todos los detalles importantes. Cuanta más info correcta recuerdes, mejor la nota." />
+      <div className="space-y-3">
+        {LONG_AUDIOS.map((a) => (
+          <LongAudioCard key={a.id} audio={a} />
+        ))}
+      </div>
+    </>
+  )
+}
+
+function LongAudioCard({ audio }: { audio: LongAudio }) {
   const [revealed, setRevealed] = useState(false)
   return (
     <div className="rounded-xl border bg-card p-4" style={cardBorder}>
@@ -238,34 +235,36 @@ function LongAudioCard({ audio, speech }: { audio: (typeof LONG_AUDIOS)[number];
         <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           Audio largo {audio.id} / {LONG_AUDIOS.length}
         </div>
-        <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />
+        {audio.hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
       </div>
+      <div className="mt-1 text-[13.5px] font-semibold tracking-[-0.01em]">{audio.title}</div>
       <div className="mt-3">
-        <AudioPlayer speech={speech} transcript={audio.transcript} />
+        <ClipPlayer audioUrl={audio.audioUrl} />
       </div>
       <div className="mt-2 text-[11px] text-muted-foreground flex items-center gap-1.5">
         <Lightbulb className="h-3 w-3" /> Tomá notas: problema · pedido · detalles
       </div>
 
-      {revealed && (
+      {revealed && audio.hasKey && (
         <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
-          <SpeakerBadge speaker={audio.speaker} />
-          <RevealRow label="El problema" value={audio.problem} color="var(--av-red-400)" />
-          <RevealRow label="Qué pedía" value={audio.request} color="var(--av-cyan-400)" />
-          <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
-              DETALLES CLAVE
+          {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
+          {audio.problem && <RevealRow label="El problema" value={audio.problem} color="var(--av-red-400)" />}
+          {audio.request && <RevealRow label="Qué pedía / aviso" value={audio.request} color="var(--av-cyan-400)" />}
+          {audio.details && audio.details.length > 0 && (
+            <div>
+              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
+                DETALLES CLAVE
+              </div>
+              <ul className="space-y-1">
+                {audio.details.map((d) => (
+                  <li key={d} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
+                    <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
+                    <span>{d}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul className="space-y-1">
-              {audio.details.map((d) => (
-                <li key={d} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
-                  <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
-                  <span>{d}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <Transcript text={audio.transcript} />
+          )}
         </div>
       )}
     </div>
@@ -273,70 +272,26 @@ function LongAudioCard({ audio, speech }: { audio: (typeof LONG_AUDIOS)[number];
 }
 
 // ─── 2C · INTERACTIVE RESPONSE ───────────────────────────────────────────────
-function InteractiveSection({ speech }: { speech: Speech }) {
+function InteractiveSection() {
   return (
     <>
-      <SectionIntro
-        text="3 situaciones cortas no rutinarias. Tras escuchar, tenés ~20s para formular preguntas que te den más información. Después, el examinador te pide recomendaciones o consejos para resolver. Se evalúa interacción natural en Plain English: preguntas relevantes + soluciones apropiadas."
-      />
-      <div className="space-y-3">
-        {INTERACTIVE_SCENARIOS.map((s) => (
-          <InteractiveCard key={s.id} scenario={s} speech={speech} />
+      <SectionIntro text="Situaciones cortas no rutinarias. Tras escuchar, tenés ~20s para formular preguntas que te den más información. Después, dá recomendaciones o consejos para resolver. Se evalúa interacción natural en Plain English: preguntas relevantes + soluciones apropiadas." />
+      <PendingKeyNote />
+      <div className="space-y-2.5">
+        {INTERACTIVE_ITEMS.map((it) => (
+          <div key={it.id} className="rounded-xl border bg-card p-4" style={cardBorder}>
+            <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground mb-2">
+              {it.label}
+            </div>
+            <ClipPlayer audioUrl={it.audioUrl} label="Escuchar situación" />
+            <div className="mt-3 grid gap-1.5 text-[12px] text-muted-foreground">
+              <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
+              <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
+            </div>
+          </div>
         ))}
       </div>
     </>
-  )
-}
-
-function InteractiveCard({ scenario, speech }: { scenario: (typeof INTERACTIVE_SCENARIOS)[number]; speech: Speech }) {
-  const [revealed, setRevealed] = useState(false)
-  return (
-    <div className="rounded-xl border bg-card p-4" style={cardBorder}>
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          Situación {scenario.id} / {INTERACTIVE_SCENARIOS.length}
-        </div>
-        <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} labelShow="Ver modelo" labelHide="Ocultar modelo" />
-      </div>
-      <div className="mt-3">
-        <AudioPlayer speech={speech} transcript={scenario.situation} label="Escuchar situación" />
-      </div>
-      <div className="mt-3 grid gap-1.5 text-[12px] text-muted-foreground">
-        <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
-        <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
-      </div>
-
-      {revealed && (
-        <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
-          <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
-              PREGUNTAS QUE PODRÍAS HACER
-            </div>
-            <ul className="space-y-1">
-              {scenario.suggestedQuestions.map((q) => (
-                <li key={q} className="flex items-start gap-2 text-[12.5px] italic text-foreground/85">
-                  <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" />
-                  <span>"{q}"</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
-              RECOMENDACIONES
-            </div>
-            <ul className="space-y-1">
-              {scenario.suggestedAdvice.map((a) => (
-                <li key={a} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
-                  <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
-                  <span>{a}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
   )
 }
 
@@ -345,6 +300,15 @@ const cardBorder = { borderColor: "color-mix(in oklab, var(--border) 70%, transp
 const revealBox = {
   borderColor: "color-mix(in oklab, var(--av-violet-400) 25%, transparent)",
   background: "color-mix(in oklab, var(--av-violet-400) 6%, transparent)",
+}
+
+function PendingKeyNote() {
+  return (
+    <div className="mb-4 rounded-lg border border-border/60 bg-muted/30 p-3 text-[12px] text-muted-foreground leading-relaxed">
+      Estos audios son práctica de escucha: <strong className="text-foreground/80">respondé vos</strong> en
+      voz alta. La clave de respuestas (transcripts y solución modelo) se va a cargar desde el material TEA.
+    </div>
+  )
 }
 
 function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => void; label: string }) {
@@ -366,12 +330,10 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
 }
 
 function SectionIntro({ text }: { text: string }) {
-  return (
-    <p className="mb-4 text-[13px] text-foreground/75 leading-relaxed">{text}</p>
-  )
+  return <p className="mb-4 text-[13px] text-foreground/75 leading-relaxed">{text}</p>
 }
 
-function RevealBtn({ revealed, onClick, labelShow = "Ver respuesta", labelHide = "Ocultar" }: { revealed: boolean; onClick: () => void; labelShow?: string; labelHide?: string }) {
+function RevealBtn({ revealed, onClick }: { revealed: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
@@ -379,7 +341,7 @@ function RevealBtn({ revealed, onClick, labelShow = "Ver respuesta", labelHide =
       style={{ color: "var(--av-violet-400)" }}
     >
       {revealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-      {revealed ? labelHide : labelShow}
+      {revealed ? "Ocultar" : "Ver respuesta"}
     </button>
   )
 }
@@ -409,17 +371,6 @@ function RevealRow({ label, value, color }: { label: string; value: string; colo
         {label}
       </div>
       <div className="text-[12.5px] text-foreground/85 leading-relaxed">{value}</div>
-    </div>
-  )
-}
-
-function Transcript({ text }: { text: string }) {
-  return (
-    <div className="mt-3 pt-2.5 border-t border-border/40">
-      <div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-1">
-        TRANSCRIPT
-      </div>
-      <p className="text-[12px] italic text-muted-foreground leading-relaxed">"{text}"</p>
     </div>
   )
 }
