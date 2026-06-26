@@ -10,6 +10,7 @@ import {
   MessageCircle,
   Activity,
   PlayCircle,
+  ListChecks,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
@@ -50,7 +51,7 @@ export function InterviewSim() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
                 />
-                MÓDULO ENTREVISTAS · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
+                MÓDULO ENTREVISTAS · INTRO SPEAKING LISTO · TÉCNICO + VIDEO EN CONSTRUCCIÓN
               </div>
               <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
                 Simulador de Entrevistas,{" "}
@@ -87,6 +88,45 @@ export function InterviewSim() {
             </div>
           </div>
         </section>
+
+        {/* === CTA destacado: Intro Speaking (lo único activo hoy) === */}
+        <Link
+          to="/app/entrevistas/speaking"
+          className="mt-8 block rounded-2xl border p-5 transition-all hover:-translate-y-0.5"
+          style={{
+            borderColor: "color-mix(in oklab, var(--av-amber-400) 38%, transparent)",
+            background:
+              "linear-gradient(135deg, color-mix(in oklab, var(--av-amber-400) 10%, transparent) 0%, color-mix(in oklab, var(--av-amber-400) 4%, transparent) 100%)",
+          }}
+        >
+          <div className="flex items-start gap-4">
+            <div
+              className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+              style={{
+                background: "color-mix(in oklab, var(--av-amber-400) 20%, transparent)",
+                border: "1px solid color-mix(in oklab, var(--av-amber-400) 40%, transparent)",
+                color: "var(--av-amber-400)",
+              }}
+            >
+              <Mic className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--av-amber-400)" }}>
+                YA DISPONIBLE
+              </div>
+              <div className="mt-0.5 text-[16px] font-extrabold tracking-[-0.01em]">
+                Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
+              </div>
+              <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-relaxed">
+                Cada pregunta con su intención, topics esperados y follow-ups. Practicá en
+                voz alta antes de pasar al técnico.
+              </p>
+            </div>
+            <div className="flex-shrink-0 mt-2 inline-flex items-center gap-1 text-[12px] font-semibold" style={{ color: "var(--av-amber-400)" }}>
+              <ListChecks className="h-3.5 w-3.5" /> Abrir <ArrowRight className="h-3 w-3" />
+            </div>
+          </div>
+        </Link>
 
         {/* === 3 CATEGORÍAS === */}
         <div className="mt-10 mb-5">

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { Navigate, Route, Routes } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
+import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
@@ -22,12 +23,19 @@ import { Referrals } from "@/pages/Referrals"
 import { ExamTracker } from "@/pages/ExamTracker"
 import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
 import { Icao } from "@/pages/Icao"
+import { IcaoVocabulary } from "@/pages/IcaoVocabulary"
+import { IcaoQuiz } from "@/pages/IcaoQuiz"
+import { IcaoInterview } from "@/pages/IcaoInterview"
+import { IcaoComprehension } from "@/pages/IcaoComprehension"
+import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
+import { IcaoDiscussion } from "@/pages/IcaoDiscussion"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { PsychTests } from "@/pages/PsychTests"
 import { Library } from "@/pages/Library"
 import { VaultQuizPlayer } from "@/pages/VaultQuizPlayer"
 import { InterviewSim } from "@/pages/InterviewSim"
+import { InterviewSpeakingIntro } from "@/pages/InterviewSpeakingIntro"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
@@ -92,6 +100,54 @@ function App() {
           }
         />
         <Route
+          path="/app/icao/vocabulario"
+          element={
+            <RequireAuth>
+              <IcaoVocabulary />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/quiz"
+          element={
+            <RequireAuth>
+              <IcaoQuiz />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/interview"
+          element={
+            <RequireAuth>
+              <IcaoInterview />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/comprension"
+          element={
+            <RequireAuth>
+              <IcaoComprehension />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/picture-description"
+          element={
+            <RequireAuth>
+              <IcaoPictureDescription />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/icao/discussion"
+          element={
+            <RequireAuth>
+              <IcaoDiscussion />
+            </RequireAuth>
+          }
+        />
+        <Route
           path="/app/pca"
           element={
             <RequireAuth>
@@ -136,6 +192,14 @@ function App() {
           element={
             <RequireAuth>
               <InterviewSim />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/entrevistas/speaking"
+          element={
+            <RequireAuth>
+              <InterviewSpeakingIntro />
             </RequireAuth>
           }
         />
@@ -223,6 +287,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
+      <ReloadPrompt />
     </>
   )
 }
