@@ -54,9 +54,12 @@ for (let i = 1; i <= 16; i++) {
   manifest.push({ local, dest: `short/a/track-${String(i).padStart(2, "0")}.mp3` })
 }
 
-// SHORT set B — "0NN.{wav,mp3}"
+// SHORT set B — "0NN.{wav,mp3}" (023-041 en SHORT AUDIOS + 043-064 en TEA Materials)
 for (const f of readdirSync(join(SRC, "SHORT AUDIOS")).filter((f) => /^0\d\d\.(wav|mp3)$/i.test(f)).sort()) {
   manifest.push({ local: join(SRC, "SHORT AUDIOS", f), dest: `short/b/${f}` })
+}
+for (const f of readdirSync(join(SRC, "TEA Materials")).filter((f) => /^0\d\d\.(wav|mp3)$/i.test(f)).sort()) {
+  manifest.push({ local: join(SRC, "TEA Materials", f), dest: `short/b/${f}` })
 }
 
 // SHORT set C — "CD4Track NN.m4a"
