@@ -4,24 +4,24 @@ import {
   Mic,
   Headphones,
   Image as ImageIcon,
-  MessagesSquare,
   Radio,
   ArrowRight,
   Clock,
   Check,
   Sparkles,
   ClipboardCheck,
+  Gauge,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
 /**
  * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for
- * Aviation, Mayflower College). 5 secciones:
- *   1. Vocabulario   (glosario + quiz)            — LISTO
- *   2. Interview      (TEA Part 1)                 — LISTO
- *   3. Interactive Comprehension (TEA Part 2)      — Pronto
- *   4. Picture Description (TEA Part 3a)           — Pronto
- *   5. Discussion     (TEA Part 3b)                — Pronto
+ * Aviation, Mayflower College). 4 secciones:
+ *   1. Vocabulario   (glosario + quiz)                       — LISTO
+ *   2. Interview      (TEA Part 1)                           — LISTO
+ *   3. Interactive Comprehension (TEA Part 2)                — LISTO (audios reales)
+ *   4. Picture Description & Discussion (TEA Part 3)         — LISTO (13 pares)
+ * Además: los 6 descriptores ICAO + criterios de Nivel 4/5.
  */
 export function Icao() {
   return (
@@ -71,7 +71,7 @@ export function Icao() {
               </h1>
               <p className="text-[16px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
                 Organizado exactamente como el <strong className="text-white">Test of English for
-                Aviation</strong>: 5 secciones que cubren las dos habilidades que el examen mide —
+                Aviation</strong>: 4 secciones que cubren las dos habilidades que el examen mide —
                 <strong className="text-white"> hablar y comprender</strong> inglés en contexto
                 aeronáutico.
               </p>
@@ -136,10 +136,10 @@ export function Icao() {
           </div>
         </section>
 
-        {/* === LAS 5 SECCIONES === */}
+        {/* === LAS SECCIONES === */}
         <div className="mt-10 mb-5">
           <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            EL MÓDULO · 5 SECCIONES
+            EL MÓDULO · 4 SECCIONES
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Por dónde entrenás cada habilidad
@@ -150,6 +150,66 @@ export function Icao() {
           {SECTIONS.map((s) => (
             <SectionCard key={s.title} {...s} />
           ))}
+        </div>
+
+        {/* === CÓMO SE CALIFICA: 6 DESCRIPTORES + NIVELES === */}
+        <div className="mt-12 mb-5">
+          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            CÓMO SE CALIFICA
+          </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Los 6 descriptores ICAO
+          </h2>
+          <p className="mt-2 text-[13.5px] text-muted-foreground max-w-[760px]">
+            El TEA califica seis descriptores. <strong className="text-foreground">Tu nota final es la
+            del descriptor más bajo</strong>: si sacás 5 en cinco y 4 en comprensión, tu resultado
+            oficial es ICAO 4. Por eso no alcanza con ser bueno en algunos — hay que nivelar todos.
+          </p>
+        </div>
+
+        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+          {DESCRIPTORS.map((d) => (
+            <div
+              key={d.name}
+              className="rounded-xl border p-4"
+              style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
+            >
+              <div className="flex items-center gap-2">
+                <Gauge className="h-4 w-4 text-[var(--av-cyan-400)]" />
+                <div className="text-[14px] font-bold tracking-[-0.01em]">{d.name}</div>
+              </div>
+              <p className="mt-1 text-[12px] text-muted-foreground leading-snug">{d.detail}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <LevelPanel
+            level={4}
+            title="Operational"
+            color="cyan"
+            blurb="Mínimo legal para volar internacional comercial. Hay que llegar a 4 en CADA descriptor."
+            traits={[
+              "Mantiene conversaciones sobre temas operacionales",
+              "Comprende casi toda la comunicación normal y muchas no rutinarias",
+              "Algunos errores gramaticales, pero rara vez afectan la comunicación",
+              "Vocabulario suficiente para explicar problemas y pedir ayuda",
+              "Fluidez razonable; puede pedir aclaraciones",
+            ]}
+          />
+          <LevelPanel
+            level={5}
+            title="Extended"
+            color="green"
+            blurb="Nivel objetivo para carrera de aerolínea. Mínimo 5 en TODOS los descriptores."
+            traits={[
+              "Habla con gran naturalidad y confianza",
+              "Estructuras gramaticales variadas, muy pocos errores",
+              "Vocabulario amplio y preciso",
+              "Comprende casi todo, incluso acentos y situaciones complejas",
+              "Interactúa espontáneamente; necesita muy pocas repeticiones",
+            ]}
+          />
         </div>
 
         {/* === Wingman helper === */}
@@ -263,20 +323,10 @@ const SECTIONS: SectionDef[] = [
     icon: ImageIcon,
     color: "green",
     part: "TEA · Part 3",
-    title: "Picture Description",
-    description: "Describís y comparás imágenes de entornos aeronáuticos sin quedarte en silencio. Vocabulario descriptivo y fluidez sostenida.",
-    status: "soon",
-    cta: "Ver de qué se trata",
-  },
-  {
-    to: "/app/icao/discussion",
-    icon: MessagesSquare,
-    color: "amber",
-    part: "TEA · Part 3",
-    title: "Discussion",
-    description: "Conversación abierta sobre temas de aviación: das opinión, argumentás, especulás. El nivel más alto de fluidez del examen.",
-    status: "soon",
-    cta: "Ver de qué se trata",
+    title: "Picture Description & Discussion",
+    description: "13 pares de imágenes reales: describís, comparás, identificás riesgos, especulás causas, opinás y conversás sobre el tema.",
+    status: "ready",
+    cta: "Practicar Part 3",
   },
 ]
 
@@ -343,6 +393,49 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
           </>
         )}
       </div>
+    </div>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// DESCRIPTORES + NIVELES
+// ────────────────────────────────────────────────────────────────────────────
+const DESCRIPTORS: { name: string; detail: string }[] = [
+  { name: "Pronunciation", detail: "Claridad de la pronunciación y facilidad para ser comprendido." },
+  { name: "Structure", detail: "Uso correcto de la gramática y construcción de oraciones." },
+  { name: "Vocabulary", detail: "Amplitud y precisión del vocabulario, aeronáutico y general." },
+  { name: "Fluency", detail: "Hablar de forma continua y natural, con pocas pausas innecesarias." },
+  { name: "Comprehension", detail: "Comprender mensajes hablados, incluso con acentos o situaciones inesperadas." },
+  { name: "Interactions", detail: "Mantener la conversación, responder, pedir aclaraciones y gestionar el intercambio." },
+]
+
+function LevelPanel({ level, title, color, blurb, traits }: { level: number; title: string; color: ColorKey; blurb: string; traits: string[] }) {
+  const c = TILE_COLOR[color]
+  return (
+    <div
+      className="rounded-2xl border p-5"
+      style={{ borderColor: `color-mix(in oklab, ${c} 30%, transparent)`, background: `color-mix(in oklab, ${c} 5%, transparent)` }}
+    >
+      <div className="flex items-baseline gap-2">
+        <div className="mono text-[36px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: c }}>
+          {level}
+        </div>
+        <div>
+          <div className="text-[15px] font-bold tracking-[-0.01em]">ICAO {level} · {title}</div>
+          <div className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+            mínimo {level} en cada descriptor
+          </div>
+        </div>
+      </div>
+      <p className="mt-2 text-[12.5px] text-foreground/80 leading-relaxed">{blurb}</p>
+      <ul className="mt-3 space-y-1.5">
+        {traits.map((t) => (
+          <li key={t} className="flex items-start gap-2 text-[12px] text-foreground/80">
+            <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: c }} strokeWidth={3} />
+            <span>{t}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }
