@@ -19,6 +19,8 @@ import {
   X,
   Library as LibraryIcon,
   Video,
+  Pin,
+  PinOff,
 } from "lucide-react"
 import { LogoIsotype } from "@/components/Logo"
 
@@ -83,6 +85,10 @@ interface Props {
   forceExpanded?: boolean
   /** Notifica al parent del estado hover desktop para que reflowee el contenido principal. */
   onHoverChange?: (hovered: boolean) => void
+  /** Sidebar fijo (expandido siempre, sin depender del hover). */
+  pinned?: boolean
+  /** Toggle del fijado (muestra el botón pin/soltar en el header desktop). */
+  onPinChange?: (pinned: boolean) => void
 }
 
 /**
@@ -93,9 +99,9 @@ interface Props {
  * `onHoverChange` y empuja el contenido principal (incluido el topbar)
  * dinámicamente — el rail nunca se solapa con el header.
  */
-export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Props) {
+export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinned = false, onPinChange }: Props) {
   const [hovered, setHovered] = useState(false)
-  const expanded = forceExpanded || hovered
+  const expanded = forceExpanded || pinned || hovered
 
   return (
     <aside
@@ -159,6 +165,18 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
             aria-label="Cerrar menú"
           >
             <X className="h-4 w-4" />
+          </button>
+        )}
+        {/* Pin / soltar (solo desktop, cuando está expandido) */}
+        {onPinChange && !forceExpanded && expanded && (
+          <button
+            type="button"
+            onClick={() => onPinChange(!pinned)}
+            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md text-white/55 hover:text-white hover:bg-white/10 transition-colors"
+            aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
+            title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
+          >
+            {pinned ? <PinOff className="h-4 w-4" /> : <Pin className="h-4 w-4" />}
           </button>
         )}
       </div>
