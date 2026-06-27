@@ -38,30 +38,24 @@ const stats: Stat[] = [
 
 export function Stats() {
   return (
-    <section className="relative py-24 sm:py-32 section-dark-mesh overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.06] text-white pattern-grid"
-      />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+    <section className="relative py-20 sm:py-28 bg-background">
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-w-2xl mb-12">
           <Reveal>
-            <div className="text-sm font-semibold text-blue-300 uppercase tracking-wider">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Lo que cambia con Aviatory
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98] text-white">
-              Estudiar para pilotear,
-              <br />
-              <span className="bg-gradient-to-r from-blue-200 via-blue-300 to-cyan-200 bg-clip-text text-transparent">finalmente con estructura.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              Estudiar para pilotear, finalmente con estructura
             </h2>
           </Reveal>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
           {stats.map((s, i) => (
-            <Reveal key={s.label} delay={i * 80}>
+            <Reveal key={s.label} delay={i * 70}>
               <StatCard stat={s} />
             </Reveal>
           ))}
@@ -73,12 +67,12 @@ export function Stats() {
 
 function StatCard({ stat }: { stat: Stat }) {
   return (
-    <div className="rounded-3xl bg-white/[0.04] backdrop-blur-xl border border-white/10 p-7 text-center transition-all duration-500 hover:bg-white/[0.08] hover:-translate-y-1.5 hover:border-blue-300/40 hover:shadow-2xl hover:shadow-blue-500/30">
-      <div className="text-6xl sm:text-7xl font-bold tracking-[-0.04em] tabular bg-gradient-to-br from-blue-200 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
+    <div className="rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5">
+      <div className="text-5xl sm:text-6xl font-extrabold tracking-[-0.04em] tabular" style={{ color: "var(--av-blue-500)" }}>
         <CountUp value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
       </div>
-      <div className="mt-3 text-base font-semibold text-white tracking-tight">{stat.label}</div>
-      <p className="mt-1.5 text-sm text-blue-100/60 leading-relaxed">{stat.sub}</p>
+      <div className="mt-3 text-[15px] font-bold tracking-[-0.01em]">{stat.label}</div>
+      <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{stat.sub}</p>
     </div>
   )
 }

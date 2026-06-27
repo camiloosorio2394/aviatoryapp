@@ -2,74 +2,59 @@ import { Reveal } from "@/components/Reveal"
 
 const steps = [
   {
-    n: "01",
-    title: "Cargas tu perfil de piloto",
-    body: "Etapa, horas, licencias, nivel de inglés, aerolínea objetivo. 6 preguntas, 90 segundos.",
+    n: "1",
+    title: "Cargás tu perfil de piloto",
+    body: "Etapa, horas, licencias, nivel de inglés y aerolínea objetivo. 6 preguntas, 90 segundos.",
   },
   {
-    n: "02",
-    title: "Recibes tu plan semanal",
+    n: "2",
+    title: "Recibís tu ruta de aprendizaje",
     body: "Aviatory te muestra exactamente qué estudiar esta semana para llegar a tu meta.",
   },
   {
-    n: "03",
-    title: "Estudias, practicas, avanzas",
-    body: "Quizzes Aerocivil, inglés ICAO, simulacros. El tutor IA te explica todo lo que fallas.",
+    n: "3",
+    title: "Estudiás, practicás, avanzás",
+    body: "Cursos, quizzes Aerocivil, inglés ICAO y simulacros. Tu tutor IA te explica todo lo que fallás.",
   },
   {
-    n: "04",
+    n: "4",
     title: "Ves tu progreso real",
-    body: '"Tu progreso a aerolínea: 47%" — sabes exactamente cuánto te falta y qué hacer hoy.',
+    body: "“Tu progreso a aerolínea: 47%” — sabés cuánto te falta y qué hacer hoy.",
   },
 ]
 
 export function HowItWorks() {
   return (
-    <section
-      id="como-funciona"
-      className="relative py-24 sm:py-32 section-soft overflow-hidden"
-    >
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.025] text-foreground pattern-dots"
-      />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
+    <section id="como-funciona" className="relative py-20 sm:py-28 section-soft">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-w-2xl mb-14">
           <Reveal>
-            <div className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Cómo funciona
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
-              En 4 pasos pasas de
-              <br />
-              <span className="text-muted-foreground/80">"no sé por dónde empezar" a saber qué hacer hoy.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              De “no sé por dónde empezar” a saber qué hacer hoy
             </h2>
           </Reveal>
         </div>
 
-        <div className="mt-20 relative">
-          <div
-            aria-hidden
-            className="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-blue-500/40 to-transparent"
-          />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            {steps.map((s, i) => (
-              <Reveal key={s.n} delay={i * 100}>
-                <div className="relative">
-                  <div className="flex items-center justify-center h-24 w-24 mx-auto rounded-full bg-gradient-to-br from-blue-500 to-blue-700 text-white text-2xl font-bold shadow-xl shadow-blue-500/30 transition-transform duration-500 hover:scale-105">
-                    {s.n}
-                  </div>
-                  <h3 className="mt-6 text-xl font-semibold text-center">{s.title}</h3>
-                  <p className="mt-3 text-sm text-muted-foreground text-center leading-relaxed">
-                    {s.body}
-                  </p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {steps.map((s, i) => (
+            <Reveal key={s.n} delay={i * 80}>
+              <div className="h-full rounded-2xl border border-border bg-card p-6">
+                <div
+                  className="flex items-center justify-center h-11 w-11 rounded-xl text-white text-[18px] font-extrabold"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  {s.n}
                 </div>
-              </Reveal>
-            ))}
-          </div>
+                <h3 className="mt-5 text-[17px] font-bold tracking-[-0.01em]">{s.title}</h3>
+                <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{s.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

@@ -4,25 +4,20 @@ const airlines = ["Avianca", "LATAM", "Copa", "Wingo", "JetSmart", "SATENA"]
 
 export function SocialProof() {
   return (
-    <section className="relative py-14 sm:py-20 border-y border-border/40 bg-card overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.04] text-foreground pattern-dots"
-      />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="relative py-12 sm:py-16 border-y border-border bg-card">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8">
         <Reveal>
-          <p className="text-center text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-[0.18em]">
+          <p className="text-center text-[13px] font-medium text-muted-foreground">
             Pilotos preparándose para postular a aerolíneas de Latinoamérica
           </p>
         </Reveal>
 
         <Reveal delay={120}>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-14 gap-y-4">
-            {airlines.map((name, i) => (
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-14 gap-y-4">
+            {airlines.map((name) => (
               <span
                 key={name}
-                style={{ transitionDelay: `${i * 60}ms` }}
-                className="text-xl sm:text-2xl font-semibold tracking-tight text-muted-foreground/70 hover:text-foreground transition-colors"
+                className="text-xl sm:text-2xl font-bold tracking-tight text-muted-foreground/60 hover:text-foreground transition-colors"
               >
                 {name}
               </span>

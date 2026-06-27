@@ -38,51 +38,42 @@ const testimonials: Testimonial[] = [
 
 export function Testimonials() {
   return (
-    <section className="relative py-24 sm:py-32 section-blue-soft overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.04] text-blue-900 dark:opacity-[0.06] dark:text-blue-300 pattern-dots"
-      />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-16">
+    <section className="relative py-20 sm:py-28 section-soft">
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-w-2xl mb-12">
           <Reveal>
-            <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
-              Lo que dicen pilotos como tú
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+              Lo que dicen pilotos como vos
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
-              Construido con pilotos,
-              <br />
-              <span className="text-gradient-blue">para pilotos.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              Construido con pilotos, para pilotos
             </h2>
           </Reveal>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 100}>
-              <div className="h-full rounded-3xl card-elevated card-apple p-7 sm:p-8 flex flex-col">
-                <div className="flex items-center gap-1 mb-5">
+            <Reveal key={t.name} delay={i * 70}>
+              <div className="h-full rounded-2xl border border-border bg-card p-6 flex flex-col">
+                <div className="flex items-center gap-0.5 mb-4">
                   {Array.from({ length: 5 }).map((_, idx) => (
-                    <Star
-                      key={idx}
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
-                    />
+                    <Star key={idx} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <blockquote className="text-base sm:text-lg leading-relaxed text-foreground flex-1">
+                <blockquote className="text-[14.5px] leading-relaxed text-foreground flex-1">
                   "{t.quote}"
                 </blockquote>
-                <div className="mt-6 pt-5 border-t border-border/40 flex items-center gap-3">
+                <div className="mt-5 pt-4 border-t border-border flex items-center gap-3">
                   <div
-                    className={`h-11 w-11 rounded-full bg-gradient-to-br ${t.gradient} text-white flex items-center justify-center text-sm font-bold shadow-md`}
+                    className={`h-10 w-10 rounded-full bg-gradient-to-br ${t.gradient} text-white flex items-center justify-center text-[13px] font-bold`}
                   >
                     {t.initials}
                   </div>
                   <div>
-                    <div className="text-sm font-semibold">{t.name}</div>
-                    <div className="text-xs text-muted-foreground">{t.role}</div>
+                    <div className="text-[13.5px] font-semibold">{t.name}</div>
+                    <div className="text-[12px] text-muted-foreground">{t.role}</div>
                   </div>
                 </div>
               </div>

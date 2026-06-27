@@ -23,65 +23,57 @@ function cell(v: boolean | string, accent = false) {
   if (v === true)
     return (
       <span
-        className={`inline-flex h-7 w-7 items-center justify-center rounded-full ${
-          accent
-            ? "bg-blue-600 text-white shadow-md shadow-blue-500/30"
-            : "bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300"
-        }`}
+        className="inline-flex h-7 w-7 items-center justify-center rounded-full"
+        style={{
+          background: accent ? "var(--av-blue-500)" : "color-mix(in oklab, var(--av-blue-500) 16%, transparent)",
+          color: accent ? "#fff" : "var(--av-blue-500)",
+        }}
       >
         <Check className="h-3.5 w-3.5" strokeWidth={3} />
       </span>
     )
   if (v === false)
     return (
-      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-muted text-muted-foreground/60">
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-muted text-muted-foreground/50">
         <X className="h-3.5 w-3.5" />
       </span>
     )
-  return (
-    <span className="text-xs text-muted-foreground italic">{v}</span>
-  )
+  return <span className="text-[12px] text-muted-foreground">{v}</span>
 }
 
 export function Comparison() {
   return (
-    <section className="relative py-24 sm:py-32 overflow-hidden bg-background">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-1/2 -translate-y-1/2 mx-auto h-96 max-w-4xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-300/15 via-transparent to-transparent dark:from-blue-500/10"
-      />
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center mb-14">
+    <section className="relative py-20 sm:py-28 bg-background">
+      <div className="relative max-w-5xl mx-auto px-6 lg:px-8">
+        <div className="max-w-2xl mb-12">
           <Reveal>
-            <div className="text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Comparación
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
-              Lo que recibes con Aviatory
-              <br />
-              <span className="text-muted-foreground/80">vs. lo que tienes hoy.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              Lo que recibís con Aviatory vs. lo que tenés hoy
             </h2>
           </Reveal>
         </div>
 
-        <Reveal delay={200}>
-          <div className="rounded-3xl border border-border/60 bg-card overflow-hidden shadow-2xl shadow-blue-500/5 ring-1 ring-blue-500/10">
+        <Reveal delay={120}>
+          <div className="rounded-2xl border border-border bg-card overflow-hidden">
             {/* Header */}
-            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] sm:grid-cols-4 bg-muted/40">
-              <div className="px-3 sm:px-6 py-4 text-xs sm:text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <div className="grid grid-cols-[1.2fr_1fr_1fr_1fr] sm:grid-cols-4 border-b border-border">
+              <div className="px-3 sm:px-6 py-4 text-[11px] sm:text-[12px] font-semibold uppercase tracking-wider text-muted-foreground">
                 Característica
               </div>
-              <div className="px-3 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold">
+              <div className="px-3 sm:px-6 py-4 text-center text-[11px] sm:text-[13px] font-semibold text-muted-foreground">
                 Estudiar
                 <br className="sm:hidden" /> solo
               </div>
-              <div className="px-3 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold">
+              <div className="px-3 sm:px-6 py-4 text-center text-[11px] sm:text-[13px] font-semibold text-muted-foreground">
                 Banco
                 <br className="sm:hidden" /> tradicional
               </div>
-              <div className="px-3 sm:px-6 py-4 text-center text-xs sm:text-sm font-bold bg-gradient-to-b from-blue-600 to-blue-700 text-white">
+              <div className="px-3 sm:px-6 py-4 text-center text-[12px] sm:text-[14px] font-bold text-white" style={{ background: "var(--av-blue-500)" }}>
                 Aviatory
               </div>
             </div>
@@ -92,15 +84,18 @@ export function Comparison() {
                 <div
                   key={r.feature}
                   className={`grid grid-cols-[1.2fr_1fr_1fr_1fr] sm:grid-cols-4 items-center ${
-                    i % 2 === 0 ? "bg-background" : "bg-muted/20"
+                    i !== rows.length - 1 ? "border-b border-border" : ""
                   }`}
                 >
-                  <div className="px-3 sm:px-6 py-4 text-xs sm:text-sm font-medium">
+                  <div className="px-3 sm:px-6 py-4 text-[12px] sm:text-[14px] font-medium">
                     {r.feature}
                   </div>
                   <div className="px-3 sm:px-6 py-4 text-center">{cell(r.alone)}</div>
                   <div className="px-3 sm:px-6 py-4 text-center">{cell(r.competitor)}</div>
-                  <div className="px-3 sm:px-6 py-4 text-center bg-blue-50/50 dark:bg-blue-950/20">
+                  <div
+                    className="px-3 sm:px-6 py-4 text-center"
+                    style={{ background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
+                  >
                     {cell(r.aviatory, true)}
                   </div>
                 </div>
