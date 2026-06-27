@@ -5,6 +5,7 @@ import { Wingman } from "@/components/Wingman"
 import { useAchievementToasts } from "@/hooks/useAchievementToasts"
 
 const SIDEBAR_HIDDEN_KEY = "aviatory.sidebarHidden"
+const SIDEBAR_PINNED_KEY = "aviatory.sidebarPinned"
 
 /**
  * App shell:
@@ -37,6 +38,18 @@ export function AppLayout({ children, streak }: Props) {
     }
   })
 
+  // Sidebar fijo (pinned): por defecto SÍ — queda expandido sin necesidad de
+  // hover. Si el usuario lo "suelta", vuelve al rail que se expande on-hover.
+  const [sidebarPinned, setSidebarPinned] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true
+    try {
+      const v = window.localStorage.getItem(SIDEBAR_PINNED_KEY)
+      return v === null ? true : v === "1"
+    } catch {
+      return true
+    }
+  })
+
   useEffect(() => {
     try {
       window.localStorage.setItem(SIDEBAR_HIDDEN_KEY, sidebarHidden ? "1" : "0")
@@ -44,6 +57,12 @@ export function AppLayout({ children, streak }: Props) {
       /* localStorage podría estar bloqueado (incógnito, etc.) — sigue */
     }
   }, [sidebarHidden])
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(SIDEBAR_PINNED_KEY, sidebarPinned ? "1" : "0")
+    } catch { /* noop */ }
+  }, [sidebarPinned])
 
   useAchievementToasts()
 
@@ -54,7 +73,7 @@ export function AppLayout({ children, streak }: Props) {
   // Las tres clases aparecen como literal strings para que Tailwind las compile.
   const contentPaddingClass = sidebarHidden
     ? "lg:pl-0"
-    : sidebarHovered
+    : sidebarPinned || sidebarHovered
       ? "lg:pl-60"
       : "lg:pl-16"
 
@@ -67,7 +86,11 @@ export function AppLayout({ children, streak }: Props) {
         }`}
         aria-hidden={sidebarHidden}
       >
-        <AppSidebar onHoverChange={setSidebarHovered} />
+        <AppSidebar
+          onHoverChange={setSidebarHovered}
+          pinned={sidebarPinned}
+          onPinChange={setSidebarPinned}
+        />
       </div>
 
       {/* Mobile drawer */}
