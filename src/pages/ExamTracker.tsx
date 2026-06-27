@@ -74,7 +74,7 @@ export function ExamTracker() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
               style={{
                 background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
                 boxShadow:
@@ -96,7 +96,7 @@ export function ExamTracker() {
             <KpiRing value={subjectsWithData * 100 / Math.max(totalSubjects, 1)} max={100} size={140} trailing="%" sub="Cobertura" color="cyan" />
             <div>
               <div
-                className="mono text-[11px] font-bold tracking-[0.14em] uppercase"
+                className="mono text-[12.5px] font-bold tracking-[0.14em] uppercase"
                 style={{ color: "var(--av-cyan-300)" }}
               >
                 Reportes en los últimos 90 días
@@ -104,7 +104,7 @@ export function ExamTracker() {
               <h2 className="mt-2 mb-1 text-3xl font-extrabold tracking-[-0.03em] text-white">
                 <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
               </h2>
-              <p className="m-0 text-[14px] leading-relaxed max-w-[520px]" style={{ color: "oklch(0.78 0.02 250)" }}>
+              <p className="m-0 text-[15px] leading-relaxed max-w-[520px]" style={{ color: "oklch(0.78 0.02 250)" }}>
                 {totalReports === 0
                   ? "Sé el primero en reportar — tu data ayuda a todos los próximos pilotos."
                   : `${subjectsWithData} de ${totalSubjects} materias con inteligencia. Cada reporte sirve para que otro piloto entre al examen mejor preparado.`}
@@ -112,7 +112,7 @@ export function ExamTracker() {
             </div>
             <div className="text-right">
               <div
-                className="mono text-[10px] uppercase tracking-[0.12em]"
+                className="mono text-[12px] uppercase tracking-[0.12em]"
                 style={{ color: "var(--av-cyan-300)" }}
               >
                 Pass rate promedio
@@ -184,17 +184,17 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-bold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
-            <p className="mt-1 mono text-[11px] text-muted-foreground uppercase tracking-[0.08em]">
+            <p className="mt-1 mono text-[12.5px] text-muted-foreground uppercase tracking-[0.08em]">
               Sin reportes · sé el primero
             </p>
           ) : (
             <div className="mt-1 space-y-1">
-              <div className="mono text-[11px] text-muted-foreground flex items-center gap-1.5">
+              <div className="mono text-[12.5px] text-muted-foreground flex items-center gap-1.5">
                 <Users className="h-3 w-3" />
                 {intel.total_reports} reporte{intel.total_reports !== 1 ? "s" : ""} · 90d
               </div>
               {intel.pass_rate !== null && (
-                <div className="mono tabular-nums text-[11px] text-muted-foreground">
+                <div className="mono tabular-nums text-[12.5px] text-muted-foreground">
                   <span className="font-bold text-foreground">{intel.pass_rate}%</span> aprobaron
                 </div>
               )}
@@ -214,7 +214,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
           <Flame className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-red-400)" }} />
           <div className="flex-1 min-w-0">
             <div
-              className="mono text-[9px] font-bold uppercase tracking-[0.12em]"
+              className="mono text-[11px] font-bold uppercase tracking-[0.12em]"
               style={{ color: "var(--av-red-400)" }}
             >
               Tema más caliente
@@ -225,7 +225,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
       )}
 
       <div
-        className="mt-4 mono inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em]"
+        className="mt-4 mono inline-flex items-center gap-1 text-[12.5px] font-bold uppercase tracking-[0.08em]"
         style={{ color: "var(--av-cyan-400)" }}
       >
         Ver inteligencia <ArrowRight className="h-3 w-3" />
@@ -509,7 +509,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               <div className="space-y-2">
                 <div className="flex items-baseline justify-between">
                   <Label className="text-xs">¿Qué temas cayeron?</Label>
-                  <span className="text-[10px] text-muted-foreground">Elige todos los que apliquen</span>
+                  <span className="text-[12px] text-muted-foreground">Elige todos los que apliquen</span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {filteredTopics.map((t) => {
@@ -559,7 +559,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 placeholder="Una sobre QNH y altimetría, otra de inversión térmica..."
                 className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
               />
-              <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+              <p className="text-[12px] text-muted-foreground flex items-center gap-1">
                 <CircleHelp className="h-3 w-3" />
                 NO transcribas preguntas literales — solo el tema general.
               </p>

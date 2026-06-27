@@ -284,7 +284,7 @@ export function Profile() {
                           }}
                         />
                       </div>
-                      <span className="mono tabular-nums text-[11px] font-semibold text-foreground text-right">
+                      <span className="mono tabular-nums text-[12.5px] font-semibold text-foreground text-right">
                         {Math.round(s.value)}%
                       </span>
                     </div>
@@ -501,7 +501,7 @@ function PilotIdCard({
     >
       <div className="cockpit-grid absolute inset-0 opacity-30" />
       <div className="relative">
-        <div className="mono text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-cyan-300)" }}>
+        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-cyan-300)" }}>
           Aviatory · Pilot ID
         </div>
         <div className="mt-4 flex items-center gap-3.5">
@@ -546,7 +546,7 @@ function IdField({ label, value }: { label: string; value: string }) {
   return (
     <div>
       <div
-        className="mono text-[9px] uppercase tracking-[0.12em] font-bold"
+        className="mono text-[11px] uppercase tracking-[0.12em] font-bold"
         style={{ color: "oklch(0.6 0.02 250)" }}
       >
         {label}

@@ -79,12 +79,12 @@ export function Community() {
                   <div className="flex items-baseline justify-between mb-3.5">
                     <div>
                       <div
-                        className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+                        className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
                         style={{ color: "var(--av-cyan-400)" }}
                       >
                         <Hash className="h-[11px] w-[11px]" /> {meta.title.toUpperCase()}
                       </div>
-                      <h2 className="mt-0.5 text-[17px] font-bold text-foreground tracking-[-0.02em]">
+                      <h2 className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
                         {meta.title}
                       </h2>
                       <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
@@ -147,7 +147,7 @@ function ChannelCard({ channel }: { channel: Channel }) {
             </p>
           )}
           <div
-            className="mt-3 mono inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-[0.08em]"
+            className="mt-3 mono inline-flex items-center gap-1 text-[12.5px] font-bold uppercase tracking-[0.08em]"
             style={{ color: "var(--av-cyan-400)" }}
           >
             Entrar al canal <ArrowRight className="h-3 w-3" />

@@ -85,14 +85,14 @@ export function InterviewSpeakingIntro() {
       <div className="px-7 py-7 pb-20 max-w-[920px] mx-auto">
         <Link
           to="/app/entrevistas"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Entrevistas
         </Link>
 
         {/* Header */}
         <div
-          className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
+          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
           style={{
             color: "var(--av-amber-400)",
             background: "color-mix(in oklab, var(--av-amber-400) 12%, transparent)",
@@ -104,7 +104,7 @@ export function InterviewSpeakingIntro() {
         <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
           Las 15 preguntas que toda aerolínea hace al inicio
         </h1>
-        <p className="mt-2 text-[14px] text-muted-foreground max-w-[680px]">
+        <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
           Son las preguntas básicas que cualquier aerolínea hace antes de pasar al técnico.
           Sirven para evaluar tu <strong className="text-foreground">capacidad de respuesta
           (speaking)</strong> y si sabés armar una historia coherente. Si fallás acá, no avanzás
@@ -119,7 +119,7 @@ export function InterviewSpeakingIntro() {
           }}
         >
           <Lightbulb className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-cyan-400)" }} />
-          <div className="text-[12.5px] text-foreground/85 leading-relaxed">
+          <div className="text-[14px] text-foreground/85 leading-relaxed">
             Cada pregunta abre con la <strong>intención</strong> (qué buscan que digas y qué
             evitar), los <strong>topics que esperan que cubras</strong>, y posibles{" "}
             <strong>follow-ups</strong>. Practicá <strong>en voz alta</strong>, idealmente
@@ -161,16 +161,16 @@ export function InterviewSpeakingIntro() {
             }}
           >
             <div>
-              <div className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-cyan-400)" }}>
+              <div className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-cyan-400)" }}>
                 <Sparkles className="h-3 w-3" /> Próximo paso
               </div>
-              <div className="mt-1.5 text-[15px] font-bold tracking-[-0.01em]">
+              <div className="mt-1.5 text-[16px] font-bold tracking-[-0.01em]">
                 Cuando puedas responder estas con fluidez, pasá al Technical Interview.
               </div>
             </div>
             <Link
               to="/app/entrevistas"
-              className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-[13.5px] font-semibold text-white border-0"
+              className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-[14.5px] font-semibold text-white border-0"
               style={{
                 background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
                 boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
@@ -196,7 +196,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
         className="w-full text-left flex items-center gap-4 p-4 hover:bg-muted/40 transition-colors"
       >
         <div
-          className="mono flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[12px] font-bold"
+          className="mono flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
           style={{
             background: "color-mix(in oklab, var(--av-cyan-400) 12%, transparent)",
             color: "var(--av-cyan-300)",
@@ -205,10 +205,10 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
           {String(number).padStart(2, "0")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[14.5px] font-semibold tracking-[-0.01em]">
+          <div className="text-[15.5px] font-semibold tracking-[-0.01em]">
             {question.question_text}
           </div>
-          <div className="mt-0.5 text-[11px] text-muted-foreground mono flex items-center gap-1.5">
+          <div className="mt-0.5 text-[12.5px] text-muted-foreground mono flex items-center gap-1.5">
             <Clock className="h-3 w-3" /> Ideal: {question.ideal_duration_seconds}s
           </div>
         </div>
@@ -222,21 +222,21 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
         <div className="px-4 pb-5 pt-1 space-y-4 border-t border-border/60">
           {question.intent && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-amber-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-amber-400)] mb-1.5">
                 INTENCIÓN · QUÉ BUSCAN
               </div>
-              <p className="text-[13px] leading-relaxed text-foreground/85">{question.intent}</p>
+              <p className="text-[14px] leading-relaxed text-foreground/85">{question.intent}</p>
             </div>
           )}
 
           {question.expected_topics.length > 0 && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
                 TOPICS QUE ESPERAN
               </div>
               <ul className="space-y-1">
                 {question.expected_topics.map((t, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
+                  <li key={i} className="flex items-start gap-2 text-[14px] text-foreground/90">
                     <CheckCircle2 className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-cyan-400)" }} strokeWidth={2.5} />
                     <span>{t}</span>
                   </li>
@@ -247,12 +247,12 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
 
           {question.follow_ups.length > 0 && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
                 POSIBLES FOLLOW-UPS
               </div>
               <ul className="space-y-1">
                 {question.follow_ups.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[12.5px] italic text-foreground/75">
+                  <li key={i} className="flex items-start gap-2 text-[14px] italic text-foreground/90">
                     <ArrowRight className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-green-400)" }} strokeWidth={2.5} />
                     <span>"{f}"</span>
                   </li>

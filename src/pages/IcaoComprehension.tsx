@@ -47,14 +47,14 @@ export function IcaoComprehension() {
       <div className="px-7 py-7 pb-20 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
         </Link>
 
         {/* Header */}
         <div
-          className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
+          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
           style={{
             color: "var(--av-violet-400)",
             background: "color-mix(in oklab, var(--av-violet-400) 12%, transparent)",
@@ -66,7 +66,7 @@ export function IcaoComprehension() {
         <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
           Interactive Comprehension
         </h1>
-        <p className="mt-2 text-[14px] text-muted-foreground max-w-[720px]">
+        <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
           La sección que más diferencia al TEA. Escuchás situaciones no rutinarias y de emergencia y
           tenés que demostrar que <strong className="text-foreground">comprendiste el mensaje
           completo</strong>. Estos son <strong className="text-foreground">audios reales</strong> del
@@ -82,7 +82,7 @@ export function IcaoComprehension() {
           }}
         >
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
-          <div className="text-[12.5px] text-foreground/85 leading-relaxed">
+          <div className="text-[14px] text-foreground/85 leading-relaxed">
             <strong>Regla del examen:</strong> cada audio se reproduce <strong>una vez</strong>. Podés
             pedir <strong>una segunda</strong>, pero <strong>nunca una tercera</strong>. Pedir
             repetición seguido baja la nota de Comprehension. Acá replicamos esa regla: 2
@@ -161,7 +161,7 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       <button
         onClick={playing ? stop : play}
         disabled={!canPlay && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[13px] font-semibold text-white border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0 disabled:opacity-40 disabled:cursor-not-allowed"
         style={{
           background: "linear-gradient(180deg, var(--av-violet-400) 0%, oklch(0.5 0.2 295) 100%)",
           boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.5 0.2 295 / 50%)",
@@ -175,12 +175,12 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
           <><RotateCcw className="h-3.5 w-3.5" /> Escuchar otra vez</>
         )}
       </button>
-      <div className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
         {plays}/{maxPlays} reproducciones
         {plays >= maxPlays && " · sin tercera (regla TEA)"}
       </div>
       {error && (
-        <div className="text-[11px] text-[var(--av-red-400)]">No se pudo cargar el audio.</div>
+        <div className="text-[12.5px] text-[var(--av-red-400)]">No se pudo cargar el audio.</div>
       )}
     </div>
   )
@@ -200,11 +200,11 @@ function ShortAudiosSection() {
         {SHORT_AUDIO_SETS.map((set) => (
           <div key={set.key}>
             <div className="flex items-baseline gap-2 mb-1.5 flex-wrap">
-              <h3 className="text-[14px] font-bold tracking-[-0.01em]">{set.title}</h3>
-              <span className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{set.note}</span>
+              <h3 className="text-[15px] font-bold tracking-[-0.01em]">{set.title}</h3>
+              <span className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">{set.note}</span>
             </div>
             {set.keyNote && (
-              <p className="text-[11px] text-muted-foreground mb-3 flex items-center gap-1.5">
+              <p className="text-[12.5px] text-muted-foreground mb-3 flex items-center gap-1.5">
                 <Sparkles className="h-3 w-3 text-[var(--av-violet-400)]" /> {set.keyNote}
               </p>
             )}
@@ -226,7 +226,7 @@ function ShortAudioCard({ audio }: { audio: ShortAudio }) {
   return (
     <div className="rounded-xl border bg-card p-3.5" style={cardBorder}>
       <div className="flex items-center justify-between gap-2">
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           {audio.label}
         </div>
         {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
@@ -234,7 +234,7 @@ function ShortAudioCard({ audio }: { audio: ShortAudio }) {
       <div className="mt-2">
         <ClipPlayer audioUrl={audio.audioUrl} />
       </div>
-      <div className="mt-2.5 grid gap-1 text-[11.5px] text-muted-foreground">
+      <div className="mt-2.5 grid gap-1 text-[13px] text-muted-foreground">
         <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> What was the message?</div>
         <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> Pilot or controller?</div>
       </div>
@@ -242,7 +242,7 @@ function ShortAudioCard({ audio }: { audio: ShortAudio }) {
       {hasKey && revealed && (
         <div className="mt-3 rounded-lg border p-3" style={revealBox}>
           {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
-          <div className="mt-2 text-[12.5px] text-foreground/90 leading-relaxed">{audio.messageSummary}</div>
+          <div className="mt-2 text-[14px] text-foreground/90 leading-relaxed">{audio.messageSummary}</div>
           {audio.transcript && <Transcript text={audio.transcript} />}
         </div>
       )}
@@ -269,16 +269,16 @@ function LongAudioCard({ audio }: { audio: LongAudio }) {
   return (
     <div className="rounded-xl border bg-card p-4" style={cardBorder}>
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           Audio largo {audio.id} / {LONG_AUDIOS.length}
         </div>
         {audio.hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
       </div>
-      <div className="mt-1 text-[13.5px] font-semibold tracking-[-0.01em]">{audio.title}</div>
+      <div className="mt-1 text-[14.5px] font-semibold tracking-[-0.01em]">{audio.title}</div>
       <div className="mt-3">
         <ClipPlayer audioUrl={audio.audioUrl} />
       </div>
-      <div className="mt-2 text-[11px] text-muted-foreground flex items-center gap-1.5">
+      <div className="mt-2 text-[12.5px] text-muted-foreground flex items-center gap-1.5">
         <Lightbulb className="h-3 w-3" /> Tomá notas: problema · pedido · detalles
       </div>
 
@@ -290,12 +290,12 @@ function LongAudioCard({ audio }: { audio: LongAudio }) {
           {audio.request && <RevealRow label="Qué pedía / aviso" value={audio.request} color="var(--av-cyan-400)" />}
           {audio.details && audio.details.length > 0 && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
                 DETALLES CLAVE
               </div>
               <ul className="space-y-1">
                 {audio.details.map((d) => (
-                  <li key={d} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
+                  <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
                     <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
                     <span>{d}</span>
                   </li>
@@ -335,7 +335,7 @@ function InteractiveCard({ item }: { item: InteractiveItem }) {
   return (
     <div className="rounded-xl border bg-card p-4" style={cardBorder}>
       <div className="flex items-center justify-between gap-2">
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
           {item.label}
         </div>
         {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
@@ -343,7 +343,7 @@ function InteractiveCard({ item }: { item: InteractiveItem }) {
       <div className="mt-2">
         <ClipPlayer audioUrl={item.audioUrl} label="Escuchar situación" />
       </div>
-      <div className="mt-3 grid gap-1.5 text-[12px] text-muted-foreground">
+      <div className="mt-3 grid gap-1.5 text-[13.5px] text-muted-foreground">
         <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
         <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
       </div>
@@ -351,19 +351,19 @@ function InteractiveCard({ item }: { item: InteractiveItem }) {
       {hasKey && revealed && (
         <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
           {item.transcript && (
-            <div className="text-[12.5px] text-foreground/90">
-              <span className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
+            <div className="text-[14px] text-foreground/90">
+              <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
               <span className="italic">&ldquo;{item.transcript}&rdquo;</span>
             </div>
           )}
           {item.questions && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
                 PREGUNTAS QUE PODRÍAS HACER
               </div>
               <ul className="space-y-1">
                 {item.questions.map((q) => (
-                  <li key={q} className="flex items-start gap-2 text-[12.5px] italic text-foreground/85">
+                  <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
                     <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" />
                     <span>&ldquo;{q}&rdquo;</span>
                   </li>
@@ -373,12 +373,12 @@ function InteractiveCard({ item }: { item: InteractiveItem }) {
           )}
           {item.advice && (
             <div>
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
                 RECOMENDACIONES
               </div>
               <ul className="space-y-1">
                 {item.advice.map((a) => (
-                  <li key={a} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
+                  <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
                     <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
                     <span>{a}</span>
                   </li>
@@ -413,7 +413,7 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
       >
         <div className="flex items-center gap-2 min-w-0">
           <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-violet-400)]" />
-          <span className="text-[13px] font-bold tracking-[-0.01em] truncate">{title}</span>
+          <span className="text-[14px] font-bold tracking-[-0.01em] truncate">{title}</span>
         </div>
         <ChevronDown
           className="flex-shrink-0 h-4 w-4 text-muted-foreground transition-transform"
@@ -422,12 +422,12 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
       </button>
       {open && (
         <div className="p-4 pt-3">
-          <p className="text-[12px] text-muted-foreground leading-relaxed mb-3">{intro}</p>
+          <p className="text-[13.5px] text-muted-foreground leading-relaxed mb-3">{intro}</p>
           <ol className="space-y-1.5">
             {items.map((s, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/85 leading-relaxed">
+              <li key={i} className="flex items-start gap-2.5 text-[14px] text-foreground/85 leading-relaxed">
                 <span
-                  className="mono flex-shrink-0 w-6 text-right text-[11px] font-bold pt-0.5"
+                  className="mono flex-shrink-0 w-6 text-right text-[12.5px] font-bold pt-0.5"
                   style={{ color: "var(--av-violet-400)" }}
                 >
                   {i + 1}.
@@ -446,7 +446,7 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
   return (
     <button
       onClick={onClick}
-      className="mono px-4 h-9 rounded-full text-[12px] font-bold uppercase tracking-[0.06em] border transition-colors"
+      className="mono px-4 h-9 rounded-full text-[13.5px] font-bold uppercase tracking-[0.06em] border transition-colors"
       style={{
         borderColor: active
           ? "color-mix(in oklab, var(--av-violet-400) 45%, transparent)"
@@ -461,14 +461,14 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
 }
 
 function SectionIntro({ text }: { text: string }) {
-  return <p className="mb-4 text-[13px] text-foreground/75 leading-relaxed">{text}</p>
+  return <p className="mb-4 text-[14px] text-foreground/90 leading-relaxed">{text}</p>
 }
 
 function RevealBtn({ revealed, onClick }: { revealed: boolean; onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-colors"
+      className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold transition-colors"
       style={{ color: "var(--av-violet-400)" }}
     >
       {revealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
@@ -481,7 +481,7 @@ function SpeakerBadge({ speaker }: { speaker: Speaker }) {
   const isPilot = speaker === "pilot"
   return (
     <div
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold"
+      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12.5px] font-bold"
       style={{
         background: isPilot
           ? "color-mix(in oklab, var(--av-cyan-400) 14%, transparent)"
@@ -498,10 +498,10 @@ function SpeakerBadge({ speaker }: { speaker: Speaker }) {
 function RevealRow({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div>
-      <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color }}>
+      <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color }}>
         {label}
       </div>
-      <div className="text-[12.5px] text-foreground/85 leading-relaxed">{value}</div>
+      <div className="text-[14px] text-foreground/85 leading-relaxed">{value}</div>
     </div>
   )
 }
@@ -509,10 +509,10 @@ function RevealRow({ label, value, color }: { label: string; value: string; colo
 function Transcript({ text }: { text: string }) {
   return (
     <div className="mt-2.5 pt-2.5 border-t border-border/40">
-      <div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-1">
+      <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-1">
         TRANSCRIPT
       </div>
-      <p className="text-[12px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
+      <p className="text-[13.5px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
     </div>
   )
 }

@@ -158,7 +158,7 @@ export function Expiries() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
               style={{
                 background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
                 boxShadow:
@@ -277,7 +277,7 @@ function SummaryTile({
       <div className="mono tabular-nums mt-3.5 text-3xl font-bold leading-none tracking-[-0.04em] text-foreground">
         <CountUp to={value} />
       </div>
-      <div className="mono mt-1 text-[10px] uppercase tracking-[0.12em] font-semibold text-muted-foreground">
+      <div className="mono mt-1 text-[12px] uppercase tracking-[0.12em] font-semibold text-muted-foreground">
         {label}
       </div>
     </div>
@@ -324,7 +324,7 @@ function LicenseRow({
       />
       <div>
         <div className="text-sm font-bold text-foreground">{label}</div>
-        <div className="mono text-[10px] text-muted-foreground uppercase tracking-[0.1em] mt-0.5">
+        <div className="mono text-[12px] text-muted-foreground uppercase tracking-[0.1em] mt-0.5">
           {LICENSE_CATEGORY[license.license_type]}
         </div>
       </div>
@@ -346,14 +346,14 @@ function LicenseRow({
             style={{ color: meta.color }}
           >
             {Math.abs(d)}
-            <span className="text-[11px] text-muted-foreground font-semibold ml-0.5">d</span>
-            {d < 0 && <span className="text-[10px] text-muted-foreground ml-1">vencido</span>}
+            <span className="text-[12.5px] text-muted-foreground font-semibold ml-0.5">d</span>
+            {d < 0 && <span className="text-[12px] text-muted-foreground ml-1">vencido</span>}
           </div>
         )}
       </div>
       <div>
         <span
-          className="mono px-2 py-0.5 rounded text-[9px] font-bold tracking-[0.12em]"
+          className="mono px-2 py-0.5 rounded text-[11px] font-bold tracking-[0.12em]"
           style={{
             color: meta.color,
             background: `color-mix(in oklab, ${meta.color} 14%, transparent)`,
@@ -402,7 +402,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "Activamos los recordatorios automáticos",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[11px] font-bold text-foreground">
+            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
               {i + 1}
             </span>
             {s}

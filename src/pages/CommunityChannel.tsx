@@ -516,7 +516,7 @@ function MessageBubble({
               </span>
             )}
             {isOwn && (
-              <span className="text-[10px] text-muted-foreground uppercase tracking-wider">tú</span>
+              <span className="text-[12px] text-muted-foreground uppercase tracking-wider">tú</span>
             )}
             <span className="text-xs text-muted-foreground">{time}</span>
           </div>

@@ -28,14 +28,14 @@ export function IcaoPictureDescription() {
       <div className="px-7 py-7 pb-20 max-w-[1080px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
         </Link>
 
         {/* Header */}
         <div
-          className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
+          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
           style={{
             color: "var(--av-green-400)",
             background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)",
@@ -47,7 +47,7 @@ export function IcaoPictureDescription() {
         <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
           Picture Description &amp; Discussion
         </h1>
-        <p className="mt-2 text-[14px] text-muted-foreground max-w-[760px]">
+        <p className="mt-2 text-[15px] text-muted-foreground max-w-[760px]">
           El examinador te muestra <strong className="text-foreground">dos imágenes relacionadas</strong>.
           Tenés que describir cada una, compararlas, identificar riesgos, explicar posibles causas, dar
           tu opinión y conversar sobre el tema. Mide tu capacidad de <strong className="text-foreground">desarrollar
@@ -64,14 +64,14 @@ export function IcaoPictureDescription() {
             >
               <div className="flex items-center gap-2">
                 <span
-                  className="mono flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold"
+                  className="mono flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[12px] font-bold"
                   style={{ background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)", color: "var(--av-green-400)" }}
                 >
                   {i + 1}
                 </span>
-                <div className="text-[12.5px] font-bold tracking-[-0.01em]">{s.label}</div>
+                <div className="text-[14px] font-bold tracking-[-0.01em]">{s.label}</div>
               </div>
-              <p className="mt-1 text-[11.5px] text-muted-foreground leading-snug">{s.detail}</p>
+              <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{s.detail}</p>
             </div>
           ))}
         </div>
@@ -79,7 +79,7 @@ export function IcaoPictureDescription() {
         {/* Pair navigator */}
         <div className="mt-8 flex items-center justify-between gap-3">
           <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-green-400)]">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-green-400)]">
               PAR {pair.id} / {total} · {pair.themeEn}
             </div>
             <h2 className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">{pair.theme}</h2>
@@ -101,7 +101,7 @@ export function IcaoPictureDescription() {
                 key={p.id}
                 onClick={() => setIdx(i)}
                 title={p.theme}
-                className="mono w-8 h-8 rounded-lg text-[11px] font-bold border transition-colors"
+                className="mono w-8 h-8 rounded-lg text-[12.5px] font-bold border transition-colors"
                 style={{
                   borderColor: active
                     ? "color-mix(in oklab, var(--av-green-400) 50%, transparent)"
@@ -116,7 +116,7 @@ export function IcaoPictureDescription() {
           })}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border/60 text-[11px] text-muted-foreground mono text-center">
+        <div className="mt-10 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
           {total} pares de imágenes · TEA Part 3 · material NEW PICTURES
         </div>
       </div>
@@ -145,7 +145,7 @@ function PairView({ pair }: { pair: PicturePair }) {
       <div className="mt-5">
         <button
           onClick={() => setShowDiscussion((s) => !s)}
-          className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[13px] font-semibold text-white border-0"
+          className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0"
           style={{
             background: "linear-gradient(180deg, var(--av-green-400) 0%, oklch(0.55 0.16 155) 100%)",
             boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.55 0.16 155 / 50%)",
@@ -163,12 +163,12 @@ function PairView({ pair }: { pair: PicturePair }) {
               background: "color-mix(in oklab, var(--av-green-400) 6%, transparent)",
             }}
           >
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-2">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-2">
               DISCUSSION · respondé en voz alta, desarrollando ideas
             </div>
             <ul className="space-y-2">
               {pair.discussion.map((q) => (
-                <li key={q} className="flex items-start gap-2 text-[13.5px] text-foreground/90">
+                <li key={q} className="flex items-start gap-2 text-[14.5px] text-foreground/90">
                   <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
                   <span>{q}</span>
                 </li>
@@ -189,7 +189,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
     >
       <div className="relative">
         <div
-          className="absolute top-2 left-2 z-10 mono w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-extrabold text-white"
+          className="absolute top-2 left-2 z-10 mono w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-extrabold text-white"
           style={{ background: "oklch(0.2 0.02 250 / 0.75)", backdropFilter: "blur(4px)" }}
         >
           {letter}
@@ -200,7 +200,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
           className="w-full aspect-[4/3] object-cover bg-muted"
         />
       </div>
-      <figcaption className="px-3 py-2 text-[11.5px] text-muted-foreground leading-snug">{alt}</figcaption>
+      <figcaption className="px-3 py-2 text-[13px] text-muted-foreground leading-snug">{alt}</figcaption>
     </figure>
   )
 }
@@ -208,7 +208,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
 function Hint({ icon: Icon, color, text }: { icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; color: string; text: string }) {
   return (
     <div
-      className="flex items-start gap-2 rounded-lg border p-2.5 text-[12px] text-foreground/80"
+      className="flex items-start gap-2 rounded-lg border p-2.5 text-[13.5px] text-foreground/90"
       style={{ borderColor: "color-mix(in oklab, var(--border) 60%, transparent)" }}
     >
       <Icon className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color }} />

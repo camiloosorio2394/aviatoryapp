@@ -93,14 +93,14 @@ export function KpiRing({
             {trailing}
           </div>
           {sub && (
-            <div className="mt-1 mono text-[9px] font-semibold uppercase tracking-widest text-muted-foreground">
+            <div className="mt-1 mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
               {sub}
             </div>
           )}
         </div>
       </div>
       {label && (
-        <div className="mono text-[11px] font-bold uppercase tracking-widest text-muted-foreground">
+        <div className="mono text-[12.5px] font-bold uppercase tracking-widest text-muted-foreground">
           {label}
         </div>
       )}

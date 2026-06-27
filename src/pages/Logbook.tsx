@@ -163,7 +163,7 @@ export function Logbook() {
               <button
                 type="button"
                 onClick={() => setFormOpen(true)}
-                className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold text-white border-0 cursor-pointer"
+                className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
                 style={{
                   background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
                   boxShadow:
@@ -204,7 +204,7 @@ export function Logbook() {
                 key={key}
                 type="button"
                 onClick={() => setFilter(key)}
-                className="mono px-3 py-1 rounded-md text-[11px] font-semibold uppercase tracking-[0.04em] transition-colors"
+                className="mono px-3 py-1 rounded-md text-[12.5px] font-semibold uppercase tracking-[0.04em] transition-colors"
                 style={{
                   background: filter === key ? "var(--card)" : "transparent",
                   color: filter === key ? "var(--foreground)" : "var(--muted-foreground)",
@@ -216,7 +216,7 @@ export function Logbook() {
             ))}
           </div>
           <div className="flex-1" />
-          <span className="mono text-[11px] text-muted-foreground uppercase tracking-[0.1em]">
+          <span className="mono text-[12.5px] text-muted-foreground uppercase tracking-[0.1em]">
             {filtered.length} vuelos
           </span>
         </div>
@@ -234,7 +234,7 @@ export function Logbook() {
           <div className="rounded-xl border border-border bg-card overflow-hidden">
             {/* Header */}
             <div
-              className="mono grid items-center px-[18px] py-3 text-[9px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-b border-border"
+              className="mono grid items-center px-[18px] py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-b border-border"
               style={{
                 gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
                 background: "var(--muted)",
@@ -263,7 +263,7 @@ export function Logbook() {
               return (
                 <div key={month}>
                   <div
-                    className="mono flex justify-between items-center px-[18px] py-2.5 text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border"
+                    className="mono flex justify-between items-center px-[18px] py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border"
                     style={{
                       background:
                         "color-mix(in oklab, var(--av-cyan-400) 5%, var(--card))",
@@ -326,7 +326,7 @@ function BigStat({
           : "var(--border)",
       }}
     >
-      <div className="mono text-[9px] font-bold text-muted-foreground uppercase tracking-[0.14em]">
+      <div className="mono text-[11px] font-bold text-muted-foreground uppercase tracking-[0.14em]">
         {label}
       </div>
       <div
@@ -366,13 +366,13 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
 
   return (
     <div
-      className="mono grid items-center px-[18px] py-3.5 text-[13px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
+      className="mono grid items-center px-[18px] py-3.5 text-[14px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
       style={{
         gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
       }}
     >
       <div>
-        <div className="text-[9px] text-muted-foreground uppercase tracking-[0.1em] font-bold">
+        <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-bold">
           {dow}
         </div>
         <div className="tabular-nums text-sm font-bold text-foreground">
@@ -381,7 +381,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
       </div>
       <div>
         <div className="tabular-nums font-bold text-foreground">{f.aircraft_registration ?? "—"}</div>
-        <div className="text-[11px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
+        <div className="text-[12.5px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
       </div>
       <div>
         {f.from_airport || f.to_airport ? (
@@ -396,7 +396,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         {tags.length > 0 && (
           <div className="mt-1 flex gap-1">
             {tags.map((t) => (
-              <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[9px]`}>
+              <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[11px]`}>
                 {t.label}
               </span>
             ))}
@@ -404,7 +404,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         )}
       </div>
       <div
-        className="tabular-nums text-right text-[15px] font-bold"
+        className="tabular-nums text-right text-[16px] font-bold"
         style={{ color: "var(--av-cyan-400)" }}
       >
         {minutesToHours(f.total_minutes)}
@@ -480,7 +480,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[11px] font-bold text-foreground">
+            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -696,7 +696,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <h3 className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+      <h3 className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
         {title}
       </h3>
       <div className="space-y-3">{children}</div>

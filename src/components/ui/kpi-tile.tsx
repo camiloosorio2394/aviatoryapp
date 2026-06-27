@@ -36,12 +36,12 @@ export function KpiTile({
   return (
     <div className="rounded-xl border border-border bg-card p-[18px] flex flex-col gap-3.5 transition-all hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-2">
-        <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+        <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
           {eyebrow}
         </div>
         {delta !== undefined && (
           <div
-            className="mono tabular-nums text-[11px] font-bold inline-flex items-center gap-0.5"
+            className="mono tabular-nums text-[12.5px] font-bold inline-flex items-center gap-0.5"
             style={{ color: deltaPositive ? "oklch(0.5 0.16 155)" : "oklch(0.55 0.2 25)" }}
           >
             {deltaPositive ? <ArrowUp size={11} /> : <ArrowDown size={11} />}

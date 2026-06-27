@@ -2830,6 +2830,50 @@ export type Database = {
           },
         ]
       }
+      user_icao_mock_results: {
+        Row: {
+          created_at: string | null
+          duration_seconds: number
+          final_level: number | null
+          id: number
+          recorded: boolean | null
+          scores: Json
+          taken_at: string
+          total_items: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          duration_seconds?: number
+          final_level?: number | null
+          id?: never
+          recorded?: boolean | null
+          scores?: Json
+          taken_at?: string
+          total_items?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          duration_seconds?: number
+          final_level?: number | null
+          id?: never
+          recorded?: boolean | null
+          scores?: Json
+          taken_at?: string
+          total_items?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_icao_mock_results_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "user_pca_readiness"
+            referencedColumns: ["user_id"]
+          },
+        ]
+      }
       user_icao_quiz_attempts: {
         Row: {
           answer: string

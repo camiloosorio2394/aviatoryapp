@@ -40,7 +40,7 @@ export function InterviewSim() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                 style={{
                   color: "var(--av-cyan-300)",
                   background: "oklch(0.78 0.16 215 / 12%)",
@@ -66,7 +66,7 @@ export function InterviewSim() {
                   practica antes de que cuente
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
                 Lo separamos de "Ingreso a Aerolínea" porque tiene su propia evolución técnica:
                 grabación de audio/video, transcripción y feedback IA específico de comunicación.
                 <strong className="text-white"> 3 categorías</strong>: HR Interview, Technical
@@ -84,7 +84,7 @@ export function InterviewSim() {
               >
                 <Video className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">PRACTICE</div>
+              <div className="mono text-[12px] tracking-[0.16em] text-white/50">PRACTICE</div>
             </div>
           </div>
         </section>
@@ -111,18 +111,18 @@ export function InterviewSim() {
               <Mic className="h-5 w-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--av-amber-400)" }}>
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--av-amber-400)" }}>
                 YA DISPONIBLE
               </div>
-              <div className="mt-0.5 text-[16px] font-extrabold tracking-[-0.01em]">
+              <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">
                 Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
               </div>
-              <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-relaxed">
+              <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">
                 Cada pregunta con su intención, topics esperados y follow-ups. Practicá en
                 voz alta antes de pasar al técnico.
               </p>
             </div>
-            <div className="flex-shrink-0 mt-2 inline-flex items-center gap-1 text-[12px] font-semibold" style={{ color: "var(--av-amber-400)" }}>
+            <div className="flex-shrink-0 mt-2 inline-flex items-center gap-1 text-[13.5px] font-semibold" style={{ color: "var(--av-amber-400)" }}>
               <ListChecks className="h-3.5 w-3.5" /> Abrir <ArrowRight className="h-3 w-3" />
             </div>
           </div>
@@ -130,7 +130,7 @@ export function InterviewSim() {
 
         {/* === 3 CATEGORÍAS === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             CATEGORÍAS · 3
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -182,7 +182,7 @@ export function InterviewSim() {
 
         {/* === LO QUE EVALÚA LA IA === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             EVALUACIÓN AUTOMÁTICA
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -207,7 +207,7 @@ export function InterviewSim() {
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
               <Sparkles className="h-3 w-3" /> Cómo empezar
@@ -275,13 +275,13 @@ function CategoryCard({ icon: Icon, color, type, description, bullets }: { icon:
           <Icon className="h-5 w-5" />
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[16px] font-extrabold tracking-[-0.02em]">{type}</div>
-          <div className="text-[12.5px] text-muted-foreground">{description}</div>
+          <div className="text-[17px] font-extrabold tracking-[-0.02em]">{type}</div>
+          <div className="text-[14px] text-muted-foreground">{description}</div>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1 pt-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
+          <li key={b} className="flex items-start gap-2 text-[14px] text-foreground/90">
             <PlayCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: TILE_COLOR[color] }} strokeWidth={2.5} />
             <span>{b}</span>
           </li>
@@ -307,8 +307,8 @@ function MetricCard({ icon: Icon, color, title, detail }: { icon: React.Componen
         <Icon className="h-4.5 w-4.5" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="text-[14px] font-bold tracking-[-0.01em]">{title}</div>
-        <p className="mt-0.5 text-[12px] text-muted-foreground leading-snug">{detail}</p>
+        <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
+        <p className="mt-0.5 text-[13.5px] text-muted-foreground leading-snug">{detail}</p>
       </div>
     </div>
   )
