@@ -45,7 +45,7 @@ const navSections: NavSection[] = [
     label: "Estudio",
     items: [
       { to: "/app/pca", label: "Materias", icon: BookOpen },
-      { to: "/app/icao", label: "Inglés ICAO", icon: Radio, soon: true },
+      { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
     ],
   },
   {

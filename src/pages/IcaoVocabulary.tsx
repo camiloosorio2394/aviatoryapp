@@ -9,7 +9,9 @@ import {
   X,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { ContentGuard } from "@/components/ContentGuard"
 import { supabase } from "@/integrations/supabase/client"
+import { Lock } from "lucide-react"
 
 /**
  * Glosario consultable de vocabulario ICAO / Aviation English.
@@ -98,6 +100,7 @@ export function IcaoVocabulary() {
 
   return (
     <AppLayout>
+      <ContentGuard>
       <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
         {/* Back link */}
         <Link
@@ -221,10 +224,11 @@ export function IcaoVocabulary() {
           </div>
         )}
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
-          {filtered.length} de {data.length} términos · Fuente: ICAO Vocab Book (Cami)
+        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center flex items-center justify-center gap-1.5">
+          <Lock className="h-3 w-3" /> {filtered.length} de {data.length} términos · contenido protegido · ICAO Vocab Book (Cami)
         </div>
       </div>
+      </ContentGuard>
     </AppLayout>
   )
 }

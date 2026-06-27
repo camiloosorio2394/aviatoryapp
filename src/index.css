@@ -549,6 +549,21 @@
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
+/* === Contenido protegido (ContentGuard) === */
+/* Al imprimir / "guardar como PDF" desde una página protegida, ocultamos todo
+   y mostramos un aviso, para que no se pueda exportar el contenido por print. */
+@media print {
+  body.content-guarded * { visibility: hidden !important; }
+  body.content-guarded::after {
+    content: "Contenido protegido de Aviatory — no disponible para impresión.";
+    visibility: visible;
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: -apple-system, sans-serif; font-size: 16px; color: #333;
+    padding: 40px; text-align: center;
+  }
+}
+
 /* === Chips === */
 .chip {
   display: inline-flex; align-items: center; gap: 4px;
