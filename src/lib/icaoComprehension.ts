@@ -24,21 +24,67 @@ export interface ShortAudio {
   id: string
   label: string
   audioUrl: string
+  /** clave (cuando existe): transcripción + quién habla + resumen del mensaje */
+  transcript?: string
+  speaker?: Speaker
+  messageSummary?: string
 }
 
 export interface ShortAudioSet {
   key: "a" | "b" | "c"
   title: string
   note: string
+  /** nota sobre el origen de las claves (ej: transcripción auto + revisión) */
+  keyNote?: string
   items: ShortAudio[]
 }
 
-const setA: ShortAudio[] = Array.from({ length: 16 }, (_, i) => {
+// Set A — claves derivadas de transcripción Whisper (base.en) + revisión manual.
+// Orden = Track 1..16. speaker inferido del contenido (algunos marcados aprox.).
+const setAKeys: { transcript: string; speaker: Speaker; summary: string }[] = [
+  { transcript: "Unknown traffic is ahead of us. We are descending immediately.", speaker: "pilot",
+    summary: "Tráfico desconocido adelante; descienden de inmediato para evitarlo." },
+  { transcript: "We had a problem with our radio, so we couldn't call you.", speaker: "pilot",
+    summary: "Tuvieron una falla de radio y por eso no pudieron llamar." },
+  { transcript: "We're ready to push back, so remove the wheel chocks.", speaker: "pilot",
+    summary: "Listos para pushback; piden retirar los chocks (tacos) de las ruedas." },
+  { transcript: "There are banks of snow on the runway. It will take 30 minutes to remove them.", speaker: "controller",
+    summary: "Bancos de nieve en la pista; tomará 30 minutos removerlos." },
+  { transcript: "Your destination does not have fire and rescue services — divert to your alternate.", speaker: "controller",
+    summary: "El destino no tiene servicios de bomberos/rescate; desviar al alternativo." },
+  { transcript: "The woman has given birth. Mother and baby will require attention on arrival.", speaker: "pilot",
+    summary: "Una pasajera dio a luz; madre y bebé necesitarán atención médica a la llegada." },
+  { transcript: "We have a cracked windshield. Can we have technical support here to examine it?", speaker: "pilot",
+    summary: "Parabrisas fisurado (cracked); piden soporte técnico para revisarlo." },
+  { transcript: "We just saw a collision between two aircraft to our left. Do you have any information?", speaker: "pilot",
+    summary: "Vieron una colisión entre dos aeronaves a su izquierda; piden información." },
+  { transcript: "Our sick passenger is feeling better. The cabin crew are monitoring her.", speaker: "pilot",
+    summary: "El pasajero enfermo está mejor; la tripulación de cabina la monitorea." },
+  { transcript: "We were told that there is dense fog at our destination. Can we have a weather update?", speaker: "pilot",
+    summary: "Les reportaron niebla densa en destino; piden una actualización meteorológica." },
+  { transcript: "We have a problem. We need to get some medical help.", speaker: "pilot",
+    summary: "Tienen un problema y necesitan ayuda médica." },
+  { transcript: "We have a situation. The computers are causing problems again.", speaker: "pilot",
+    summary: "Las computadoras están dando problemas otra vez." },
+  { transcript: "We have a problem — it's gone dark.", speaker: "pilot",
+    summary: "Se quedaron a oscuras (pérdida de iluminación/pantallas). [speaker aprox.]" },
+  { transcript: "We need some help. We can't do all this work — it's too much.", speaker: "controller",
+    summary: "Sobrecarga de trabajo; piden ayuda. [speaker aprox.]" },
+  { transcript: "We need some help. We're having trouble starting the engine.", speaker: "pilot",
+    summary: "Tienen problemas para arrancar el motor." },
+  { transcript: "We need some help. We think the man has a weapon.", speaker: "pilot",
+    summary: "Creen que un hombre tiene un arma a bordo (amenaza de seguridad)." },
+]
+
+const setA: ShortAudio[] = setAKeys.map((k, i) => {
   const n = i + 1
   return {
     id: `a-${n}`,
     label: `Track ${n}`,
     audioUrl: `${BASE}/short/a/track-${String(n).padStart(2, "0")}.mp3`,
+    transcript: k.transcript,
+    speaker: k.speaker,
+    messageSummary: k.summary,
   }
 })
 
@@ -67,7 +113,8 @@ const setC: ShortAudio[] = Array.from({ length: 16 }, (_, i) => {
 })
 
 export const SHORT_AUDIO_SETS: ShortAudioSet[] = [
-  { key: "a", title: "Set A · Track 1–16", note: "16 clips cortos", items: setA },
+  { key: "a", title: "Set A · Track 1–16", note: "16 clips cortos", items: setA,
+    keyNote: "Claves: transcripción automática (Whisper) + revisión manual. El speaker se infiere del contenido." },
   { key: "b", title: "Set B · 023–064", note: `${setB.length} clips`, items: setB },
   { key: "c", title: "Set C · CD4 01–16", note: "16 clips", items: setC },
 ]
