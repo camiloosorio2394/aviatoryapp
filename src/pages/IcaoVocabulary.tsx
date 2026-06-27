@@ -42,15 +42,15 @@ type VocabCategory =
   | "non_routine"
 
 const CATEGORIES: { slug: VocabCategory | "all"; label: string; color: string }[] = [
-  { slug: "all",         label: "All",         color: "var(--av-cyan-400)" },
-  { slug: "aircraft",    label: "Aircraft",    color: "var(--av-cyan-400)" },
-  { slug: "airport",     label: "Airport",     color: "var(--av-blue-500)" },
-  { slug: "navigation",  label: "Navigation",  color: "var(--av-violet-400)" },
-  { slug: "flight_ops",  label: "Flight Ops",  color: "var(--av-green-400)" },
-  { slug: "weather",     label: "Weather",     color: "#60a5fa" },
-  { slug: "health",      label: "Health",      color: "#f87171" },
-  { slug: "security",    label: "Security",    color: "var(--av-amber-400)" },
-  { slug: "non_routine", label: "Non-routine", color: "var(--av-red-400)" },
+  { slug: "all",         label: "All",         color: "var(--av-blue-500)" },
+  { slug: "aircraft",    label: "Aircraft",    color: "#0E7490" },
+  { slug: "airport",     label: "Airport",     color: "#2563EB" },
+  { slug: "navigation",  label: "Navigation",  color: "#7C3AED" },
+  { slug: "flight_ops",  label: "Flight Ops",  color: "#047857" },
+  { slug: "weather",     label: "Weather",     color: "#2563EB" },
+  { slug: "health",      label: "Health",      color: "#DC2626" },
+  { slug: "security",    label: "Security",    color: "#B45309" },
+  { slug: "non_routine", label: "Non-routine", color: "#DC2626" },
 ]
 
 export function IcaoVocabulary() {
@@ -114,16 +114,12 @@ export function IcaoVocabulary() {
         <div className="flex items-start justify-between gap-6 flex-wrap mb-7">
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
-              style={{
-                color: "var(--av-cyan-300)",
-                background: "oklch(0.78 0.16 215 / 12%)",
-                border: "1px solid oklch(0.78 0.16 215 / 30%)",
-              }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
-              <BookOpen className="h-3 w-3" /> GLOSARIO · {data.length} TÉRMINOS
+              <BookOpen className="h-3.5 w-3.5" /> Glossary · {data.length} terms
             </div>
-            <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
+            <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
               Aviation English vocabulary
             </h1>
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
@@ -135,12 +131,8 @@ export function IcaoVocabulary() {
           <div className="flex flex-col items-end gap-2">
             <Link
               to="/app/icao/quiz"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               Test me with questions <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -148,7 +140,7 @@ export function IcaoVocabulary() {
         </div>
 
         {/* Search */}
-        <div className="sticky top-[60px] z-10 -mx-1 mb-5 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 rounded-xl">
+        <div className="sticky top-[60px] z-10 -mx-1 mb-5 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 rounded-2xl">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <input
@@ -157,7 +149,7 @@ export function IcaoVocabulary() {
               placeholder="Search: unruly, ingest, ditch, windshear, Spanish translation…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full h-12 pl-10 pr-10 rounded-xl border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-[var(--av-cyan-400)]/30"
+              className="w-full h-12 pl-10 pr-10 rounded-2xl border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-[var(--av-blue-500)]/30"
               style={{ borderColor: "color-mix(in oklab, var(--border) 80%, transparent)" }}
             />
             {query && (
@@ -181,7 +173,7 @@ export function IcaoVocabulary() {
                 <button
                   key={c.slug}
                   onClick={() => setCategory(c.slug)}
-                  className="mono inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12.5px] font-bold uppercase tracking-[0.1em] whitespace-nowrap border transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12.5px] font-semibold whitespace-nowrap border transition-colors"
                   style={{
                     borderColor: active
                       ? `color-mix(in oklab, ${c.color} 45%, transparent)`
@@ -193,7 +185,7 @@ export function IcaoVocabulary() {
                   }}
                 >
                   <span>{c.label}</span>
-                  <span className="opacity-70">{count}</span>
+                  <span className="opacity-70 tabular-nums">{count}</span>
                 </button>
               )
             })}
@@ -204,14 +196,14 @@ export function IcaoVocabulary() {
         {loading ? (
           <div className="flex items-center justify-center py-20 text-muted-foreground gap-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-sm">Cargando glosario…</span>
+            <span className="text-sm">Loading glossary…</span>
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
             <div className="text-sm">No results for "{query}".</div>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
-              className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--av-cyan-400)] hover:underline"
+              className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--av-blue-500)] hover:underline"
             >
               Clear filters
             </button>
@@ -224,7 +216,7 @@ export function IcaoVocabulary() {
           </div>
         )}
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center flex items-center justify-center gap-1.5">
+        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
           <Lock className="h-3 w-3" /> {filtered.length} of {data.length} terms · protected content · ICAO Vocab Book (Cami)
         </div>
       </div>
@@ -237,7 +229,7 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
   const cat = CATEGORIES.find((c) => c.slug === entry.category) ?? CATEGORIES[0]
   return (
     <div
-      className="card rounded-xl border p-4 flex flex-col gap-1.5"
+      className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-1.5 transition-transform hover:-translate-y-0.5 hover:shadow-md"
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">
@@ -245,13 +237,13 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
           <Highlight text={entry.term_en} query={query} />
         </div>
         <div
-          className="mono text-[11px] font-bold uppercase tracking-[0.12em] flex-shrink-0"
+          className="text-[11px] font-semibold flex-shrink-0"
           style={{ color: cat.color }}
         >
           {cat.label}
         </div>
       </div>
-      <div className="text-[14px] italic text-[var(--av-cyan-300)]/90">
+      <div className="text-[14px] italic" style={{ color: "color-mix(in oklab, var(--av-blue-500) 90%, transparent)" }}>
         <Highlight text={entry.translation_es} query={query} />
       </div>
       <p className="text-[14px] text-foreground/90 leading-relaxed mt-0.5">
@@ -285,7 +277,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
           <mark
             key={k}
             className="rounded-sm px-0.5"
-            style={{ background: "oklch(0.78 0.16 215 / 22%)", color: "inherit" }}
+            style={{ background: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", color: "inherit" }}
           >
             {p.t}
           </mark>

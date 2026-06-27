@@ -170,16 +170,12 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
   return (
     <>
       <div
-        className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
-        style={{
-          color: "var(--av-cyan-300)",
-          background: "oklch(0.78 0.16 215 / 12%)",
-          border: "1px solid oklch(0.78 0.16 215 / 30%)",
-        }}
+        className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+        style={{ color: "var(--av-blue-500)" }}
       >
-        <ClipboardCheck className="h-3 w-3" /> ENGLISH QUIZ · STUDY BANK
+        <ClipboardCheck className="h-3.5 w-3.5" /> English quiz · Study bank
       </div>
-      <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
+      <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
         Vocabulary and comprehension questions
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
@@ -189,7 +185,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
 
       <div className="mt-7 grid gap-4">
         <div>
-          <label className="text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground mono">
+          <label className="text-[13px] font-semibold text-muted-foreground">
             Topic
           </label>
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -199,13 +195,13 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
                 <button
                   key={t.value}
                   onClick={() => onTopicChange(t.value)}
-                  className="mono px-3 h-8 rounded-full text-[12.5px] font-bold uppercase tracking-[0.08em] border transition-colors"
+                  className="px-3 h-8 rounded-full text-[13px] font-semibold border transition-colors"
                   style={{
                     borderColor: active
-                      ? "color-mix(in oklab, var(--av-cyan-400) 45%, transparent)"
+                      ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
                       : "color-mix(in oklab, var(--border) 60%, transparent)",
-                    background: active ? "color-mix(in oklab, var(--av-cyan-400) 16%, transparent)" : "transparent",
-                    color: active ? "var(--av-cyan-300)" : "var(--muted-foreground)",
+                    background: active ? "color-mix(in oklab, var(--av-blue-500) 16%, transparent)" : "transparent",
+                    color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
                   }}
                 >
                   {t.label}
@@ -218,11 +214,8 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
         <button
           onClick={onStart}
           disabled={loading}
-          className="av-shine inline-flex items-center justify-center gap-2 h-12 px-6 rounded-lg text-[15px] font-semibold text-white border-0 disabled:opacity-50"
-          style={{
-            background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-            boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-          }}
+          className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+          style={{ background: "var(--av-blue-500)" }}
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
           Start quiz · {QUIZ_SIZE} questions
@@ -239,26 +232,23 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
   return (
     <>
       <div className="flex items-center justify-between mb-4">
-        <div className="mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground">
-          Question {index + 1} <span className="opacity-50">/ {total}</span> · {question.topic}
+        <div className="text-[13px] font-semibold text-muted-foreground">
+          Question {index + 1} <span className="opacity-50 tabular-nums">/ {total}</span> · {question.topic}
         </div>
         <div className="flex-1 mx-4 h-1 rounded-full bg-border/50 overflow-hidden">
           <div
             className="h-full rounded-full transition-all"
             style={{
               width: `${((index + (revealed ? 1 : 0)) / total) * 100}%`,
-              background: "var(--av-cyan-400)",
+              background: "var(--av-blue-500)",
             }}
           />
         </div>
       </div>
 
-      <div
-        className="rounded-2xl border p-6"
-        style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
-      >
+      <div className="rounded-2xl border border-border bg-card p-6">
         {question.context && (
-          <div className="text-[13.5px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-cyan-400)]/40">
+          <div className="text-[13.5px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-blue-500)]/40">
             {question.context}
           </div>
         )}
@@ -276,14 +266,14 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
               : isWrongChosen
               ? "color-mix(in oklab, var(--av-red-400) 65%, transparent)"
               : selected === k
-              ? "color-mix(in oklab, var(--av-cyan-400) 50%, transparent)"
+              ? "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
               : baseBorder
             const bg = isCorrect
               ? "color-mix(in oklab, var(--av-green-400) 10%, transparent)"
               : isWrongChosen
               ? "color-mix(in oklab, var(--av-red-400) 10%, transparent)"
               : selected === k
-              ? "color-mix(in oklab, var(--av-cyan-400) 8%, transparent)"
+              ? "color-mix(in oklab, var(--av-blue-500) 8%, transparent)"
               : "transparent"
             return (
               <button
@@ -294,7 +284,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
                 style={{ borderColor, background: bg }}
               >
                 <span
-                  className="mono flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-bold uppercase border"
+                  className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-bold uppercase border"
                   style={{ borderColor, color: isCorrect ? "var(--av-green-400)" : isWrongChosen ? "var(--av-red-400)" : "var(--muted-foreground)" }}
                 >
                   {k}
@@ -309,13 +299,13 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 
         {revealed && question.explanation && (
           <div
-            className="mt-5 rounded-xl border p-4 text-[14px] leading-relaxed"
+            className="mt-5 rounded-2xl border p-4 text-[14px] leading-relaxed"
             style={{
-              borderColor: "color-mix(in oklab, var(--av-cyan-400) 30%, transparent)",
-              background: "color-mix(in oklab, var(--av-cyan-400) 8%, transparent)",
+              borderColor: "color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
+              background: "color-mix(in oklab, var(--av-blue-500) 8%, transparent)",
             }}
           >
-            <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5">
+            <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-blue-500)" }}>
               EXPLANATION
             </div>
             {question.explanation}
@@ -326,11 +316,8 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
           <div className="mt-5 flex justify-end">
             <button
               onClick={onNext}
-              className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14.5px] font-semibold text-white border-0"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               {isLast ? "See results" : "Next"} <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -346,21 +333,21 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
   const pct = Math.round((score / total) * 100)
   const verdict =
     pct >= 80 ? { label: "Great job", color: "var(--av-green-400)" } :
-    pct >= 60 ? { label: "Passed, keep practising", color: "var(--av-cyan-400)" } :
+    pct >= 60 ? { label: "Passed, keep practising", color: "var(--av-blue-500)" } :
                 { label: "Needs review", color: "var(--av-amber-400)" }
 
   return (
     <div className="text-center pt-6">
-      <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
+      <div className="text-[13px] font-semibold text-muted-foreground">
         RESULTS
       </div>
       <div
-        className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none"
+        className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none tabular-nums"
         style={{ color: verdict.color }}
       >
         {score} / {total}
       </div>
-      <div className="mt-1 mono text-[13.5px] uppercase tracking-[0.16em]" style={{ color: verdict.color }}>
+      <div className="mt-1 text-[13.5px] font-semibold" style={{ color: verdict.color }}>
         {pct}% · {verdict.label}
       </div>
 
@@ -368,7 +355,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
         {history.map((h, i) => (
           <div
             key={i}
-            className="w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-bold mono"
+            className="w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-bold"
             style={{
               background: h.correct
                 ? "color-mix(in oklab, var(--av-green-400) 18%, transparent)"
@@ -384,17 +371,14 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
       <div className="mt-9 flex items-center justify-center gap-2">
         <button
           onClick={onRestart}
-          className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14.5px] font-semibold text-white border-0"
-          style={{
-            background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-            boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-          }}
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--av-blue-500)" }}
         >
           <RotateCcw className="h-4 w-4" /> New round
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
           Go to glossary
         </Link>

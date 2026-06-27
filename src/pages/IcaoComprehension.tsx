@@ -50,29 +50,32 @@ export function IcaoComprehension() {
         </Link>
 
         {/* Header */}
-        <div
-          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
-          style={{
-            color: "var(--av-violet-400)",
-            background: "color-mix(in oklab, var(--av-violet-400) 12%, transparent)",
-            border: "1px solid color-mix(in oklab, var(--av-violet-400) 30%, transparent)",
-          }}
-        >
-          <Headphones className="h-3 w-3" /> TEA · PART 2 · INTERACTIVE COMPREHENSION · 8–12 MIN
-        </div>
-        <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
-          Interactive Comprehension
-        </h1>
-        <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
-          The part that sets the TEA apart. You listen to non-routine and emergency situations and
-          have to show that you <strong className="text-foreground">understood the whole
-          message</strong>. These are <strong className="text-foreground">real audios</strong> from
-          the practice material.
-        </p>
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+          <div
+            className="inline-flex items-center gap-2 h-9 w-9 rounded-xl items-center justify-center"
+            style={{
+              background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
+            }}
+          >
+            <Headphones className="h-4.5 w-4.5 text-white" />
+          </div>
+          <div className="mt-3 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            TEA · Part 2 · Interactive comprehension · 8–12 min
+          </div>
+          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+            Interactive Comprehension
+          </h1>
+          <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
+            The part that sets the TEA apart. You listen to non-routine and emergency situations and
+            have to show that you <strong className="text-foreground">understood the whole
+            message</strong>. These are <strong className="text-foreground">real audios</strong> from
+            the practice material.
+          </p>
+        </section>
 
         {/* Playback rule */}
         <div
-          className="mt-5 rounded-xl border p-4 flex items-start gap-3"
+          className="mt-5 rounded-2xl border p-4 flex items-start gap-3"
           style={{
             borderColor: "color-mix(in oklab, var(--av-amber-400) 25%, transparent)",
             background: "color-mix(in oklab, var(--av-amber-400) 6%, transparent)",
@@ -157,10 +160,9 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       <button
         onClick={playing ? stop : play}
         disabled={!canPlay && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0 disabled:opacity-40 disabled:cursor-not-allowed"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         style={{
-          background: "linear-gradient(180deg, var(--av-violet-400) 0%, oklch(0.5 0.2 295) 100%)",
-          boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.5 0.2 295 / 50%)",
+          background: "var(--av-blue-500)",
         }}
       >
         {playing ? (
@@ -171,7 +173,7 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
           <><RotateCcw className="h-3.5 w-3.5" /> Play again</>
         )}
       </button>
-      <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="tabular-nums text-[12.5px] text-muted-foreground">
         {plays}/{maxPlays} plays
         {plays >= maxPlays && " · no third (TEA rule)"}
       </div>
@@ -205,7 +207,7 @@ function pickQuiz(items: QItem[]): QItem[] {
   return shuffle(items).slice(0, Math.min(QUIZ_SIZE, items.length))
 }
 
-function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]; accent?: string }) {
+function QuizRunner({ items, accent = "var(--av-blue-500)" }: { items: QItem[]; accent?: string }) {
   const [order, setOrder] = useState<QItem[]>(() => pickQuiz(items))
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<Speaker | null>(null)
@@ -234,18 +236,18 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
     const pct = scorable ? Math.round((score / scorable) * 100) : 0
     return (
       <div className="text-center pt-6">
-        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">QUIZ COMPLETE</div>
+        <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Quiz complete</div>
         {scorable > 0 ? (
           <>
-            <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: accent }}>{score} / {scorable}</div>
-            <div className="mt-1 mono text-[13px] uppercase tracking-[0.16em]" style={{ color: accent }}>{pct}% pilot/controller</div>
+            <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
+            <div className="mt-1 text-[14px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% pilot/controller</div>
           </>
         ) : (
           <div className="mt-3 text-[16px] text-foreground/80">You went through {order.length} situations.</div>
         )}
         <div className="mt-8">
-          <button onClick={restart} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
-            style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
+          <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            style={{ background: accent }}>
             <RotateCcw className="h-4 w-4" /> New quiz (new random set)
           </button>
         </div>
@@ -257,13 +259,13 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
     <>
       {/* progreso */}
       <div className="flex items-center justify-between gap-3 mb-4">
-        <div className="mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="tabular-nums text-[12.5px] text-muted-foreground">
           {idx + 1} <span className="opacity-50">/ {order.length}</span>
         </div>
         <div className="flex-1 mx-3 h-1.5 rounded-full bg-border/50 overflow-hidden">
           <div className="h-full rounded-full transition-all" style={{ width: `${((idx + (revealed ? 1 : 0)) / order.length) * 100}%`, background: accent }} />
         </div>
-        {scorable > 0 && <div className="mono text-[12.5px] text-muted-foreground">✓ {score}</div>}
+        {scorable > 0 && <div className="tabular-nums text-[12.5px] text-muted-foreground">✓ {score}</div>}
       </div>
 
       <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
@@ -307,7 +309,7 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
         {/* For 2C (no speaker): Show answer button */}
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
-            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
               <Eye className="h-4 w-4" /> Show model answer
             </button>
           </div>
@@ -319,8 +321,8 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
 
       {revealed && (
         <div className="mt-5 flex justify-end">
-          <button onClick={next} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
-            style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
+          <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            style={{ background: accent }}>
             {idx >= order.length - 1 ? "See results" : "Next"} <ArrowRight className="h-4 w-4" />
           </button>
         </div>
@@ -332,7 +334,7 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
 // ─── Reveals (la "misma info que en audios largos") ──────────────────────────
 function ShortReveal({ a }: { a: ShortAudio }) {
   return (
-    <div className="rounded-lg border p-3.5" style={revealBox}>
+    <div className="rounded-2xl border p-3.5" style={revealBox}>
       {a.speaker && <SpeakerBadge speaker={a.speaker} />}
       {a.transcript && <Transcript text={a.transcript} />}
     </div>
@@ -340,14 +342,14 @@ function ShortReveal({ a }: { a: ShortAudio }) {
 }
 function LongReveal({ a }: { a: LongAudio }) {
   return (
-    <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
+    <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
       <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{a.title}</div>
-      {a.summary && <RevealRow label="Summary" value={a.summary} color="var(--av-cyan-400)" />}
+      {a.summary && <RevealRow label="Summary" value={a.summary} color="var(--av-blue-500)" />}
       {a.problem && <RevealRow label="The problem" value={a.problem} color="var(--av-red-400)" />}
-      {a.request && <RevealRow label="Request / advisory" value={a.request} color="var(--av-cyan-400)" />}
+      {a.request && <RevealRow label="Request / advisory" value={a.request} color="var(--av-blue-500)" />}
       {a.details && a.details.length > 0 && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">KEY DETAILS</div>
+          <div className="text-[12.5px] font-semibold text-[var(--av-green-400)] mb-1.5">Key details</div>
           <ul className="space-y-1">
             {a.details.map((d) => (
               <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -363,20 +365,20 @@ function LongReveal({ a }: { a: LongAudio }) {
 }
 function InteractiveReveal({ it }: { it: InteractiveItem }) {
   return (
-    <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
+    <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
       {it.transcript && (
         <div className="text-[14px] text-foreground/90">
-          <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situation: </span>
+          <span className="text-[12.5px] font-semibold text-muted-foreground">Situation: </span>
           <span className="italic">&ldquo;{it.transcript}&rdquo;</span>
         </div>
       )}
       {it.questions && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">QUESTIONS YOU COULD ASK</div>
+          <div className="text-[12.5px] font-semibold text-[var(--av-blue-500)] mb-1.5">Questions you could ask</div>
           <ul className="space-y-1">
             {it.questions.map((q) => (
               <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
-                <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" /><span>&ldquo;{q}&rdquo;</span>
+                <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-blue-500)]" /><span>&ldquo;{q}&rdquo;</span>
               </li>
             ))}
           </ul>
@@ -384,7 +386,7 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
       )}
       {it.advice && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">RECOMMENDATIONS</div>
+          <div className="text-[12.5px] font-semibold text-[var(--av-green-400)] mb-1.5">Recommendations</div>
           <ul className="space-y-1">
             {it.advice.map((a) => (
               <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -446,24 +448,24 @@ function InteractiveSection() {
 // ─── Sub-componentes compartidos ─────────────────────────────────────────────
 const cardBorder = { borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }
 const revealBox = {
-  borderColor: "color-mix(in oklab, var(--av-violet-400) 25%, transparent)",
-  background: "color-mix(in oklab, var(--av-violet-400) 6%, transparent)",
+  borderColor: "color-mix(in oklab, var(--av-blue-500) 25%, transparent)",
+  background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)",
 }
 
 function WorkbookSamples({ title, intro, items }: { title: string; intro: string; items: string[] }) {
   const [open, setOpen] = useState(false)
   return (
     <div
-      className="mb-5 rounded-xl border overflow-hidden"
-      style={{ borderColor: "color-mix(in oklab, var(--av-violet-400) 22%, transparent)" }}
+      className="mb-5 rounded-2xl border overflow-hidden"
+      style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)" }}
     >
       <button
         onClick={() => setOpen((o) => !o)}
         className="w-full flex items-center justify-between gap-3 p-3.5 text-left"
-        style={{ background: "color-mix(in oklab, var(--av-violet-400) 6%, transparent)" }}
+        style={{ background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
       >
         <div className="flex items-center gap-2 min-w-0">
-          <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-violet-400)]" />
+          <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-blue-500)]" />
           <span className="text-[14px] font-bold tracking-[-0.01em] truncate">{title}</span>
         </div>
         <ChevronDown
@@ -478,8 +480,8 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
             {items.map((s, i) => (
               <li key={i} className="flex items-start gap-2.5 text-[14px] text-foreground/85 leading-relaxed">
                 <span
-                  className="mono flex-shrink-0 w-6 text-right text-[12.5px] font-bold pt-0.5"
-                  style={{ color: "var(--av-violet-400)" }}
+                  className="tabular-nums flex-shrink-0 w-6 text-right text-[12.5px] font-bold pt-0.5"
+                  style={{ color: "var(--av-blue-500)" }}
                 >
                   {i + 1}.
                 </span>
@@ -497,13 +499,13 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
   return (
     <button
       onClick={onClick}
-      className="mono px-4 h-9 rounded-full text-[13.5px] font-bold uppercase tracking-[0.06em] border transition-colors"
+      className="px-4 h-9 rounded-full text-[13.5px] font-semibold border transition-colors"
       style={{
         borderColor: active
-          ? "color-mix(in oklab, var(--av-violet-400) 45%, transparent)"
+          ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
           : "color-mix(in oklab, var(--border) 60%, transparent)",
-        background: active ? "color-mix(in oklab, var(--av-violet-400) 16%, transparent)" : "transparent",
-        color: active ? "var(--av-violet-400)" : "var(--muted-foreground)",
+        background: active ? "color-mix(in oklab, var(--av-blue-500) 16%, transparent)" : "transparent",
+        color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
       }}
     >
       {label}
@@ -522,9 +524,9 @@ function SpeakerBadge({ speaker }: { speaker: Speaker }) {
       className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12.5px] font-bold"
       style={{
         background: isPilot
-          ? "color-mix(in oklab, var(--av-cyan-400) 14%, transparent)"
+          ? "color-mix(in oklab, var(--av-blue-500) 14%, transparent)"
           : "color-mix(in oklab, var(--av-amber-400) 14%, transparent)",
-        color: isPilot ? "var(--av-cyan-300)" : "var(--av-amber-400)",
+        color: isPilot ? "var(--av-blue-500)" : "var(--av-amber-400)",
       }}
     >
       {isPilot ? <Plane className="h-3 w-3" /> : <RadioTower className="h-3 w-3" />}
@@ -536,7 +538,7 @@ function SpeakerBadge({ speaker }: { speaker: Speaker }) {
 function RevealRow({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div>
-      <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color }}>
+      <div className="text-[12.5px] font-semibold mb-1" style={{ color }}>
         {label}
       </div>
       <div className="text-[14px] text-foreground/85 leading-relaxed">{value}</div>
@@ -547,8 +549,8 @@ function RevealRow({ label, value, color }: { label: string; value: string; colo
 function Transcript({ text }: { text: string }) {
   return (
     <div className="mt-2.5 pt-2.5 border-t border-border/40">
-      <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-1">
-        TRANSCRIPT
+      <div className="text-[12px] font-semibold text-muted-foreground mb-1">
+        Transcript
       </div>
       <p className="text-[13.5px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
     </div>
