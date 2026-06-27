@@ -46,7 +46,7 @@ export function IcaoComprehension() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         {/* Header */}
@@ -64,13 +64,13 @@ export function IcaoComprehension() {
           Interactive Comprehension
         </h1>
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
-          La sección que más diferencia al TEA. Escuchás situaciones no rutinarias y de emergencia y
-          tenés que demostrar que <strong className="text-foreground">comprendiste el mensaje
-          completo</strong>. Estos son <strong className="text-foreground">audios reales</strong> del
-          material de práctica.
+          The part that sets the TEA apart. You listen to non-routine and emergency situations and
+          have to show that you <strong className="text-foreground">understood the whole
+          message</strong>. These are <strong className="text-foreground">real audios</strong> from
+          the practice material.
         </p>
 
-        {/* Regla de reproducción */}
+        {/* Playback rule */}
         <div
           className="mt-5 rounded-xl border p-4 flex items-start gap-3"
           style={{
@@ -80,10 +80,9 @@ export function IcaoComprehension() {
         >
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
-            <strong>Regla del examen:</strong> cada audio se reproduce <strong>una vez</strong>. Podés
-            pedir <strong>una segunda</strong>, pero <strong>nunca una tercera</strong>. Pedir
-            repetición seguido baja la nota de Comprehension. Acá replicamos esa regla: 2
-            reproducciones por audio.
+            <strong>Exam rule:</strong> each audio plays <strong>once</strong>. You may request
+            <strong> one replay</strong>, but <strong>never a third time</strong>. Asking for repeats
+            often lowers your Comprehension score. We mirror that rule here: 2 plays per audio.
           </div>
         </div>
 
@@ -165,19 +164,19 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
         }}
       >
         {playing ? (
-          <><Square className="h-3.5 w-3.5" /> Detener</>
+          <><Square className="h-3.5 w-3.5" /> Stop</>
         ) : plays === 0 ? (
-          <><Play className="h-3.5 w-3.5" /> {label ?? "Reproducir"}</>
+          <><Play className="h-3.5 w-3.5" /> {label ?? "Play"}</>
         ) : (
-          <><RotateCcw className="h-3.5 w-3.5" /> Escuchar otra vez</>
+          <><RotateCcw className="h-3.5 w-3.5" /> Play again</>
         )}
       </button>
       <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-        {plays}/{maxPlays} reproducciones
-        {plays >= maxPlays && " · sin tercera (regla TEA)"}
+        {plays}/{maxPlays} plays
+        {plays >= maxPlays && " · no third (TEA rule)"}
       </div>
       {error && (
-        <div className="text-[12.5px] text-[var(--av-red-400)]">No se pudo cargar el audio.</div>
+        <div className="text-[12.5px] text-[var(--av-red-400)]">Couldn't load the audio.</div>
       )}
     </div>
   )
@@ -201,8 +200,13 @@ function shuffle<T>(arr: T[]): T[] {
   return a
 }
 
+const QUIZ_SIZE = 10
+function pickQuiz(items: QItem[]): QItem[] {
+  return shuffle(items).slice(0, Math.min(QUIZ_SIZE, items.length))
+}
+
 function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]; accent?: string }) {
-  const [order, setOrder] = useState<QItem[]>(() => shuffle(items))
+  const [order, setOrder] = useState<QItem[]>(() => pickQuiz(items))
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<Speaker | null>(null)
   const [revealed, setRevealed] = useState(false)
@@ -223,26 +227,26 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
     setIdx((i) => i + 1); setPicked(null); setRevealed(false)
   }
   function restart() {
-    setOrder(shuffle(items)); setIdx(0); setPicked(null); setRevealed(false); setScore(0); setDone(false)
+    setOrder(pickQuiz(items)); setIdx(0); setPicked(null); setRevealed(false); setScore(0); setDone(false)
   }
 
   if (done) {
     const pct = scorable ? Math.round((score / scorable) * 100) : 0
     return (
       <div className="text-center pt-6">
-        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">RONDA COMPLETADA</div>
+        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">QUIZ COMPLETE</div>
         {scorable > 0 ? (
           <>
             <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: accent }}>{score} / {scorable}</div>
             <div className="mt-1 mono text-[13px] uppercase tracking-[0.16em]" style={{ color: accent }}>{pct}% pilot/controller</div>
           </>
         ) : (
-          <div className="mt-3 text-[16px] text-foreground/80">Recorriste las {order.length} situaciones.</div>
+          <div className="mt-3 text-[16px] text-foreground/80">You went through {order.length} situations.</div>
         )}
         <div className="mt-8">
           <button onClick={restart} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
             style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
-            <RotateCcw className="h-4 w-4" /> Otra ronda (nuevo orden)
+            <RotateCcw className="h-4 w-4" /> New quiz (new random set)
           </button>
         </div>
       </div>
@@ -264,13 +268,13 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
 
       <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
         <div className="flex items-center justify-center">
-          <ClipPlayer audioUrl={cur.audioUrl} label={cur.playLabel ?? "Reproducir"} />
+          <ClipPlayer audioUrl={cur.audioUrl} label={cur.playLabel ?? "Play"} />
         </div>
 
-        {/* Pregunta pilot/controller (verificada) */}
+        {/* Pilot/controller question (verified) */}
         {cur.speaker && (
           <div className="mt-5">
-            <div className="text-center text-[14px] font-semibold mb-2.5">¿Quién habla?</div>
+            <div className="text-center text-[14px] font-semibold mb-2.5">Who is speaking?</div>
             <div className="flex items-center justify-center gap-2.5">
               {(["pilot", "controller"] as Speaker[]).map((s) => {
                 const chosen = picked === s
@@ -294,22 +298,22 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
             </div>
             {revealed && (
               <div className="mt-2.5 text-center text-[13px] font-semibold" style={{ color: picked === cur.speaker ? "var(--av-green-400)" : "var(--av-red-400)" }}>
-                {picked === cur.speaker ? "¡Correcto!" : `Era ${cur.speaker === "pilot" ? "Pilot" : "Controller"}`}
+                {picked === cur.speaker ? "Correct!" : `It was ${cur.speaker === "pilot" ? "Pilot" : "Controller"}`}
               </div>
             )}
           </div>
         )}
 
-        {/* Para 2C (sin speaker): botón Ver respuesta */}
+        {/* For 2C (no speaker): Show answer button */}
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
             <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
-              <Eye className="h-4 w-4" /> Ver respuesta modelo
+              <Eye className="h-4 w-4" /> Show model answer
             </button>
           </div>
         )}
 
-        {/* Reveal: la misma info clave que en audios largos */}
+        {/* Reveal: the key info */}
         {revealed && <div className="mt-4">{cur.reveal}</div>}
       </div>
 
@@ -317,7 +321,7 @@ function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]
         <div className="mt-5 flex justify-end">
           <button onClick={next} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
             style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
-            {idx >= order.length - 1 ? "Ver resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+            {idx >= order.length - 1 ? "See results" : "Next"} <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       )}
@@ -330,7 +334,6 @@ function ShortReveal({ a }: { a: ShortAudio }) {
   return (
     <div className="rounded-lg border p-3.5" style={revealBox}>
       {a.speaker && <SpeakerBadge speaker={a.speaker} />}
-      {a.messageSummary && <div className="mt-2 text-[14px] text-foreground/90 leading-relaxed">{a.messageSummary}</div>}
       {a.transcript && <Transcript text={a.transcript} />}
     </div>
   )
@@ -339,12 +342,12 @@ function LongReveal({ a }: { a: LongAudio }) {
   return (
     <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
       <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{a.title}</div>
-      {a.summary && <RevealRow label="Resumen" value={a.summary} color="var(--av-cyan-400)" />}
-      {a.problem && <RevealRow label="El problema" value={a.problem} color="var(--av-red-400)" />}
-      {a.request && <RevealRow label="Qué pedía / aviso" value={a.request} color="var(--av-cyan-400)" />}
+      {a.summary && <RevealRow label="Summary" value={a.summary} color="var(--av-cyan-400)" />}
+      {a.problem && <RevealRow label="The problem" value={a.problem} color="var(--av-red-400)" />}
+      {a.request && <RevealRow label="Request / advisory" value={a.request} color="var(--av-cyan-400)" />}
       {a.details && a.details.length > 0 && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">DETALLES CLAVE</div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">KEY DETAILS</div>
           <ul className="space-y-1">
             {a.details.map((d) => (
               <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -363,13 +366,13 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
     <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
       {it.transcript && (
         <div className="text-[14px] text-foreground/90">
-          <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
+          <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situation: </span>
           <span className="italic">&ldquo;{it.transcript}&rdquo;</span>
         </div>
       )}
       {it.questions && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">PREGUNTAS QUE PODRÍAS HACER</div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">QUESTIONS YOU COULD ASK</div>
           <ul className="space-y-1">
             {it.questions.map((q) => (
               <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
@@ -381,7 +384,7 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
       )}
       {it.advice && (
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">RECOMENDACIONES</div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">RECOMMENDATIONS</div>
           <ul className="space-y-1">
             {it.advice.map((a) => (
               <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -402,38 +405,38 @@ function ShortAudiosSection() {
   )
   return (
     <>
-      <SectionIntro text={`${SHORT_AUDIO_TOTAL} mensajes cortos, en orden aleatorio (no por sets). Escuchá, decidí si habla un piloto o un controlador — te lo verifico — y después comparás con la clave.`} />
-      <WorkbookSamples title={`Frases modelo del workbook · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
-        intro="Ejemplos oficiales del tipo de mensaje (Aviation English Now). Practicá parafrasear cada uno."
+      <SectionIntro text={`A random quiz of ${Math.min(10, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}. Listen, decide whether it's a pilot or a controller — we check it — then compare with the answer key.`} />
+      <WorkbookSamples title={`Workbook model phrases · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
+        intro="Official examples of the kind of message you'll hear (Aviation English Now). Practise paraphrasing each one."
         items={SAMPLE_MESSAGES_2A} />
       <QuizRunner items={items} />
     </>
   )
 }
 
-// ─── 2B · LONG AUDIOS (quiz aleatorio) ───────────────────────────────────────
+// ─── 2B · LONG AUDIOS (random quiz) ──────────────────────────────────────────
 function LongAudiosSection() {
   const items: QItem[] = LONG_AUDIOS.map((a) => ({
     id: String(a.id), audioUrl: a.audioUrl, speaker: a.speaker, reveal: <LongReveal a={a} />,
   }))
   return (
     <>
-      <SectionIntro text="Mensajes largos en orden aleatorio. Escuchá (podés tomar notas), decidí pilot/controller — te lo verifico — y después explicá la situación; comparás con problema · pedido · detalles." />
+      <SectionIntro text="A random quiz of long messages. Listen (you can take notes), decide pilot/controller — we check it — then explain the situation and compare with problem · request · details." />
       <QuizRunner items={items} />
     </>
   )
 }
 
-// ─── 2C · INTERACTIVE RESPONSE (quiz aleatorio) ──────────────────────────────
+// ─── 2C · INTERACTIVE RESPONSE (random quiz) ─────────────────────────────────
 function InteractiveSection() {
   const items: QItem[] = INTERACTIVE_ITEMS.map((it) => ({
-    id: String(it.id), audioUrl: it.audioUrl, playLabel: "Escuchar situación", reveal: <InteractiveReveal it={it} />,
+    id: String(it.id), audioUrl: it.audioUrl, playLabel: "Play situation", reveal: <InteractiveReveal it={it} />,
   }))
   return (
     <>
-      <SectionIntro text="Situaciones no rutinarias en orden aleatorio. Escuchá, formulá preguntas para obtener info y dá recomendaciones; después comparás con el modelo." />
-      <WorkbookSamples title={`Escenarios modelo del workbook · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
-        intro="Situaciones oficiales del tipo de la Parte 2C (Aviation English Now)."
+      <SectionIntro text="A random quiz of non-routine situations. Listen, ask questions to get more info and give recommendations, then compare with the model." />
+      <WorkbookSamples title={`Workbook model scenarios · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
+        intro="Official Part 2C-style situations (Aviation English Now)."
         items={SAMPLE_SCENARIOS_2C} />
       <QuizRunner items={items} />
     </>

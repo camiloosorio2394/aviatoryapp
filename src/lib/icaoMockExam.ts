@@ -32,12 +32,12 @@ export const PARTS: Record<1 | 2 | 3, { label: string; allotSec: number }> = {
 }
 
 export const DESCRIPTORS: { key: string; name: string; detail: string }[] = [
-  { key: "pronunciation", name: "Pronunciation", detail: "Claridad y facilidad para ser comprendido." },
-  { key: "structure", name: "Structure", detail: "Gramática y construcción de oraciones." },
-  { key: "vocabulary", name: "Vocabulary", detail: "Amplitud y precisión del vocabulario." },
-  { key: "fluency", name: "Fluency", detail: "Hablar continuo y natural, pocas pausas." },
-  { key: "comprehension", name: "Comprehension", detail: "Comprender mensajes, incluso inesperados." },
-  { key: "interactions", name: "Interactions", detail: "Mantener la conversación, pedir aclaraciones." },
+  { key: "pronunciation", name: "Pronunciation", detail: "Clarity and ease of being understood." },
+  { key: "structure", name: "Structure", detail: "Grammar and sentence construction." },
+  { key: "vocabulary", name: "Vocabulary", detail: "Range and accuracy of vocabulary." },
+  { key: "fluency", name: "Fluency", detail: "Continuous, natural speech with few pauses." },
+  { key: "comprehension", name: "Comprehension", detail: "Understanding messages, even unexpected ones." },
+  { key: "interactions", name: "Interactions", detail: "Keeping the conversation going, asking for clarification." },
 ]
 
 function shuffle<T>(arr: T[]): T[] {

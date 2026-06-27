@@ -42,7 +42,7 @@ type VocabCategory =
   | "non_routine"
 
 const CATEGORIES: { slug: VocabCategory | "all"; label: string; color: string }[] = [
-  { slug: "all",         label: "Todas",       color: "var(--av-cyan-400)" },
+  { slug: "all",         label: "All",         color: "var(--av-cyan-400)" },
   { slug: "aircraft",    label: "Aircraft",    color: "var(--av-cyan-400)" },
   { slug: "airport",     label: "Airport",     color: "var(--av-blue-500)" },
   { slug: "navigation",  label: "Navigation",  color: "var(--av-violet-400)" },
@@ -107,7 +107,7 @@ export function IcaoVocabulary() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         {/* Header */}
@@ -127,9 +127,9 @@ export function IcaoVocabulary() {
               Aviation English vocabulary
             </h1>
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
-              Lo que necesitás entender (y poder usar) en situaciones rutinarias y emergencias.
-              Buscá por palabra en inglés, traducción o definición. Esto te queda disponible
-              siempre — ábrelo cuando estudies o en plena clase.
+              What you need to understand (and be able to use) in routine situations and emergencies.
+              Search by English term, translation or definition. This stays available
+              anytime — open it while you study or in class.
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
@@ -142,7 +142,7 @@ export function IcaoVocabulary() {
                   "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
               }}
             >
-              Probarme con preguntas <ArrowRight className="h-3.5 w-3.5" />
+              Test me with questions <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -154,7 +154,7 @@ export function IcaoVocabulary() {
             <input
               ref={inputRef}
               type="text"
-              placeholder="Buscar: unruly, ingest, ditch, windshear, traducción en español…"
+              placeholder="Search: unruly, ingest, ditch, windshear, Spanish translation…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="w-full h-12 pl-10 pr-10 rounded-xl border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-[var(--av-cyan-400)]/30"
@@ -164,7 +164,7 @@ export function IcaoVocabulary() {
               <button
                 onClick={() => setQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded text-muted-foreground hover:text-foreground"
-                aria-label="Limpiar búsqueda"
+                aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -208,12 +208,12 @@ export function IcaoVocabulary() {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-20 text-muted-foreground">
-            <div className="text-sm">Sin resultados para "{query}".</div>
+            <div className="text-sm">No results for "{query}".</div>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
               className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--av-cyan-400)] hover:underline"
             >
-              Limpiar filtros
+              Clear filters
             </button>
           </div>
         ) : (
@@ -225,7 +225,7 @@ export function IcaoVocabulary() {
         )}
 
         <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center flex items-center justify-center gap-1.5">
-          <Lock className="h-3 w-3" /> {filtered.length} de {data.length} términos · contenido protegido · ICAO Vocab Book (Cami)
+          <Lock className="h-3 w-3" /> {filtered.length} of {data.length} terms · protected content · ICAO Vocab Book (Cami)
         </div>
       </div>
       </ContentGuard>

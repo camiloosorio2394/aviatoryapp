@@ -30,7 +30,7 @@ export function IcaoPictureDescription() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         {/* Header */}
@@ -48,10 +48,10 @@ export function IcaoPictureDescription() {
           Picture Description &amp; Discussion
         </h1>
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[760px]">
-          El examinador te muestra <strong className="text-foreground">dos imágenes relacionadas</strong>.
-          Tenés que describir cada una, compararlas, identificar riesgos, explicar posibles causas, dar
-          tu opinión y conversar sobre el tema. Mide tu capacidad de <strong className="text-foreground">desarrollar
-          ideas, justificar opiniones y hablar con fluidez</strong>.
+          The examiner shows you <strong className="text-foreground">two related images</strong>.
+          You have to describe each one, compare them, spot risks, explain possible causes, give
+          your opinion and discuss the topic. It measures your ability to <strong className="text-foreground">develop
+          ideas, justify opinions and speak fluently</strong>.
         </p>
 
         {/* Task steps */}
@@ -80,9 +80,9 @@ export function IcaoPictureDescription() {
         <div className="mt-8 flex items-center justify-between gap-3">
           <div>
             <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-green-400)]">
-              PAR {pair.id} / {total} · {pair.themeEn}
+              PAIR {pair.id} / {total}
             </div>
-            <h2 className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">{pair.theme}</h2>
+            <h2 className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">{pair.themeEn}</h2>
           </div>
           <div className="flex items-center gap-1.5">
             <NavBtn disabled={idx === 0} onClick={() => setIdx((i) => Math.max(0, i - 1))} dir="prev" />
@@ -100,7 +100,7 @@ export function IcaoPictureDescription() {
               <button
                 key={p.id}
                 onClick={() => setIdx(i)}
-                title={p.theme}
+                title={p.themeEn}
                 className="mono w-8 h-8 rounded-lg text-[12.5px] font-bold border transition-colors"
                 style={{
                   borderColor: active
@@ -117,7 +117,7 @@ export function IcaoPictureDescription() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
-          {total} pares de imágenes · TEA Part 3 · material NEW PICTURES
+          {total} image pairs · TEA Part 3 · NEW PICTURES material
         </div>
       </div>
     </AppLayout>
@@ -136,9 +136,9 @@ function PairView({ pair }: { pair: PicturePair }) {
 
       {/* Reminders */}
       <div className="mt-4 grid gap-2 sm:grid-cols-3">
-        <Hint icon={ImageIcon} color="var(--av-green-400)" text="Describí A y B en detalle, luego compará." />
-        <Hint icon={AlertTriangle} color="var(--av-amber-400)" text="Identificá riesgos y posibles causas." />
-        <Hint icon={Lightbulb} color="var(--av-cyan-400)" text="Dá tu opinión y justificala." />
+        <Hint icon={ImageIcon} color="var(--av-green-400)" text="Describe A and B in detail, then compare them." />
+        <Hint icon={AlertTriangle} color="var(--av-amber-400)" text="Identify risks and possible causes." />
+        <Hint icon={Lightbulb} color="var(--av-cyan-400)" text="Give your opinion and justify it." />
       </div>
 
       {/* Discussion */}
@@ -152,7 +152,7 @@ function PairView({ pair }: { pair: PicturePair }) {
           }}
         >
           <MessagesSquare className="h-4 w-4" />
-          {showDiscussion ? "Ocultar preguntas de discusión" : "Ver preguntas de discusión"}
+          {showDiscussion ? "Hide discussion questions" : "Show discussion questions"}
         </button>
 
         {showDiscussion && (
@@ -164,7 +164,7 @@ function PairView({ pair }: { pair: PicturePair }) {
             }}
           >
             <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-2">
-              DISCUSSION · respondé en voz alta, desarrollando ideas
+              DISCUSSION · answer out loud, developing your ideas
             </div>
             <ul className="space-y-2">
               {pair.discussion.map((q) => (
