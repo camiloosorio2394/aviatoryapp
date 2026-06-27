@@ -59,95 +59,72 @@ const plans = [
 
 export function PricingPreview() {
   return (
-    <section className="relative py-24 sm:py-32 section-soft overflow-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-[600px] max-w-5xl bg-[radial-gradient(closest-side,_var(--tw-gradient-stops))] from-blue-300/20 via-transparent to-transparent dark:from-blue-500/10"
-      />
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
+    <section className="relative py-20 sm:py-28 bg-background">
+      <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+        <div className="max-w-2xl mb-12">
           <Reveal>
-            <div className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Planes
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
-              Precios pensados
-              <br />
-              <span className="text-gradient-blue">para piloto en formación.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              Precios pensados para piloto en formación
             </h2>
           </Reveal>
-          <Reveal delay={200}>
-            <p className="mt-6 text-lg text-muted-foreground text-balance">
-              Empiezas gratis. Pagas solo si te ayuda a llegar a tu meta.
+          <Reveal delay={140}>
+            <p className="mt-3 text-[16px] text-muted-foreground leading-relaxed">
+              Empezás gratis. Pagás solo si te ayuda a llegar a tu meta.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-16 grid lg:grid-cols-3 gap-6 lg:gap-8 lg:items-start">
+        <div className="grid lg:grid-cols-3 gap-5 lg:items-stretch">
           {plans.map((p, i) => (
-            <Reveal key={p.name} delay={i * 100}>
+            <Reveal key={p.name} delay={i * 80}>
               <div
-                className={`relative h-full rounded-3xl p-8 transition-all duration-500 ${
-                  p.highlight
-                    ? "glass-blue halo-pulse text-white scale-100 lg:scale-105"
-                    : "bg-card/80 backdrop-blur-sm border border-border/60 card-apple"
-                }`}
+                className="relative h-full rounded-2xl border bg-card p-7 flex flex-col transition-all hover:-translate-y-0.5"
+                style={{
+                  borderColor: p.highlight
+                    ? "color-mix(in oklab, var(--av-blue-500) 55%, transparent)"
+                    : "var(--border)",
+                  boxShadow: p.highlight ? "0 8px 30px color-mix(in oklab, var(--av-blue-500) 14%, transparent)" : undefined,
+                }}
               >
                 {p.highlight && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-blue-700 hover:bg-white rounded-full px-3">
+                  <Badge
+                    className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3 text-white border-0"
+                    style={{ background: "var(--av-blue-500)" }}
+                  >
                     <Sparkles className="h-3 w-3 mr-1" />
                     Recomendado
                   </Badge>
                 )}
                 {p.badge && !p.highlight && (
-                  <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3">
+                  <Badge variant="secondary" className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full px-3">
                     {p.badge}
                   </Badge>
                 )}
 
                 <div>
-                  <h3 className={`text-lg font-semibold ${p.highlight ? "text-blue-100" : ""}`}>
-                    {p.name}
-                  </h3>
+                  <h3 className="text-[15px] font-bold tracking-[-0.01em]">{p.name}</h3>
                   <div className="mt-4 flex items-baseline gap-2">
-                    <span className="text-4xl font-bold tracking-tight">{p.price}</span>
+                    <span className="text-4xl font-extrabold tracking-[-0.03em]">{p.price}</span>
                     {p.periodSub && (
-                      <span
-                        className={`text-sm ${
-                          p.highlight ? "text-blue-100" : "text-muted-foreground"
-                        }`}
-                      >
-                        {p.periodSub}
-                      </span>
+                      <span className="text-[13px] text-muted-foreground">{p.periodSub}</span>
                     )}
                   </div>
-                  <p
-                    className={`mt-1 text-xs ${
-                      p.highlight ? "text-blue-200" : "text-muted-foreground"
-                    }`}
-                  >
-                    {p.period}
-                  </p>
-                  <p
-                    className={`mt-4 text-sm ${
-                      p.highlight ? "text-blue-100" : "text-muted-foreground"
-                    }`}
-                  >
+                  <p className="mt-1 text-[12px] text-muted-foreground">{p.period}</p>
+                  <p className="mt-4 text-[14px] text-muted-foreground leading-relaxed">
                     {p.description}
                   </p>
                 </div>
 
-                <ul className="mt-8 space-y-3">
+                <ul className="mt-7 space-y-3 flex-1">
                   {p.features.map((f) => (
-                    <li key={f} className="flex gap-3 text-sm">
-                      <Check
-                        className={`h-5 w-5 flex-shrink-0 ${
-                          p.highlight ? "text-blue-200" : "text-blue-600 dark:text-blue-400"
-                        }`}
-                      />
-                      <span className={p.highlight ? "text-blue-50" : ""}>{f}</span>
+                    <li key={f} className="flex gap-2.5 text-[14px]">
+                      <Check className="h-[18px] w-[18px] flex-shrink-0 mt-0.5" style={{ color: "var(--av-blue-500)" }} />
+                      <span>{f}</span>
                     </li>
                   ))}
                 </ul>
@@ -155,11 +132,9 @@ export function PricingPreview() {
                 <Button
                   asChild
                   size="lg"
-                  className={`mt-8 w-full rounded-full h-12 text-base border-0 ${
-                    p.highlight
-                      ? "btn-apple-light shine-on-hover"
-                      : "btn-apple shine-on-hover"
-                  }`}
+                  variant={p.highlight ? "default" : "outline"}
+                  className="mt-7 w-full rounded-xl h-11 text-[15px]"
+                  style={p.highlight ? { background: "var(--av-blue-500)" } : undefined}
                 >
                   <Link to={p.href}>{p.cta}</Link>
                 </Button>
@@ -168,11 +143,12 @@ export function PricingPreview() {
           ))}
         </div>
 
-        <Reveal delay={400}>
-          <div className="mt-12 text-center">
+        <Reveal delay={300}>
+          <div className="mt-10">
             <Link
               to="/pricing"
-              className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+              className="text-[14px] font-semibold hover:underline"
+              style={{ color: "var(--av-blue-500)" }}
             >
               Comparar todos los planes en detalle →
             </Link>

@@ -43,35 +43,33 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="py-24 sm:py-32">
+    <section className="py-20 sm:py-28 section-soft">
       <div className="max-w-3xl mx-auto px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="mb-10">
           <Reveal>
-            <div className="inline-block text-sm font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Preguntas frecuentes
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-balance leading-[0.98]">
-              Lo que probablemente
-              <br />
-              <span className="text-muted-foreground/80">te estás preguntando.</span>
+          <Reveal delay={80}>
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              Lo que probablemente te estás preguntando
             </h2>
           </Reveal>
         </div>
 
-        <Reveal delay={150}>
-          <Accordion type="single" collapsible className="space-y-2">
+        <Reveal delay={120}>
+          <Accordion type="single" collapsible className="space-y-2.5">
             {faqs.map((f, i) => (
               <AccordionItem
                 key={i}
                 value={`item-${i}`}
-                className="rounded-2xl border border-border/60 bg-card px-6 data-[state=open]:shadow-md transition-shadow"
+                className="rounded-2xl border border-border bg-card px-6"
               >
-                <AccordionTrigger className="text-left text-base font-semibold py-5 hover:no-underline">
+                <AccordionTrigger className="text-left text-[15px] font-semibold py-5 hover:no-underline">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed pb-5">
+                <AccordionContent className="text-[14px] text-muted-foreground leading-relaxed pb-5">
                   {f.a}
                 </AccordionContent>
               </AccordionItem>

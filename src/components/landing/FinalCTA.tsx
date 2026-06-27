@@ -6,40 +6,29 @@ import { Reveal } from "@/components/Reveal"
 
 export function FinalCTA() {
   return (
-    <section className="py-24 sm:py-32">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <section className="py-20 sm:py-28 bg-background">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 px-8 py-20 sm:px-16 sm:py-28 text-center shadow-2xl shadow-blue-900/30">
-            <div
-              aria-hidden
-              className="pointer-events-none absolute -top-1/2 left-1/2 -translate-x-1/2 h-[400px] w-[800px] rounded-full bg-blue-300/20 blur-3xl"
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute bottom-0 right-0 h-64 w-64 rounded-full bg-cyan-400/20 blur-3xl"
-            />
-
+          <div
+            className="relative overflow-hidden rounded-3xl px-8 py-16 sm:px-16 sm:py-20 text-center"
+            style={{ background: "linear-gradient(135deg, var(--av-blue-500) 0%, color-mix(in oklab, var(--av-blue-500) 70%, #0b1020) 100%)" }}
+          >
             <div className="relative">
-              <LogoIsotype
-                variant="color"
-                className="h-16 w-16 mx-auto rounded-2xl shadow-xl"
-              />
+              <LogoIsotype variant="color" className="h-14 w-14 mx-auto rounded-2xl" />
 
-              <h2 className="mt-8 text-4xl sm:text-5xl lg:text-7xl font-bold tracking-[-0.04em] text-white text-balance leading-[0.95]">
-                Tu próximo vuelo
-                <br />
-                <span className="bg-gradient-to-r from-cyan-200 via-blue-100 to-white bg-clip-text text-transparent">empieza con un clic.</span>
+              <h2 className="mt-7 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-white leading-[1.05] text-balance">
+                Tu próximo vuelo empieza con un clic
               </h2>
-              <p className="mt-6 text-lg sm:text-xl text-blue-100 max-w-2xl mx-auto text-balance">
-                Únete a los pilotos que dejaron de estudiar en círculos
-                y empezaron a avanzar con rumbo claro.
+              <p className="mt-4 text-[16px] sm:text-lg text-blue-100 max-w-xl mx-auto text-balance leading-relaxed">
+                Sumate a los pilotos que dejaron de estudiar en círculos y empezaron a avanzar con
+                rumbo claro.
               </p>
 
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
+              <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Button
                   asChild
                   size="lg"
-                  className="btn-apple-light shine-on-hover rounded-full text-base px-8 h-12 border-0 font-medium"
+                  className="rounded-xl text-[15px] px-7 h-12 bg-white text-blue-700 hover:bg-white/90 border-0 font-semibold"
                 >
                   <Link to="/login?mode=signup">
                     Comenzar mi prueba gratis
@@ -49,21 +38,21 @@ export function FinalCTA() {
                 <Button
                   asChild
                   size="lg"
-                  className="rounded-full text-base px-6 h-12 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 transition-all hover:-translate-y-0.5 active:scale-[0.98] font-medium"
+                  className="rounded-xl text-[15px] px-6 h-12 bg-white/10 text-white hover:bg-white/20 border border-white/25 font-semibold"
                 >
                   <Link to="/pricing">Ver planes</Link>
                 </Button>
               </div>
 
-              <p className="mt-6 text-sm text-blue-100/80 flex items-center justify-center gap-2 flex-wrap">
+              <p className="mt-6 text-[13px] text-blue-100/80 flex items-center justify-center gap-2 flex-wrap">
                 <span className="inline-flex items-center gap-1.5">
                   <Shield className="h-3.5 w-3.5" />
                   Sin tarjeta
                 </span>
-                <span className="text-blue-300/40">·</span>
+                <span className="text-blue-200/40">·</span>
                 <span>7 días gratis</span>
-                <span className="text-blue-300/40">·</span>
-                <span>Cancela cuando quieras</span>
+                <span className="text-blue-200/40">·</span>
+                <span>Cancelás cuando quieras</span>
               </p>
             </div>
           </div>
