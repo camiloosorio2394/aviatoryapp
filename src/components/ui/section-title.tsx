@@ -16,10 +16,10 @@ export function SectionTitle({ icon: Ic, eyebrow, title, hint, right }: Props) {
     <div className="flex items-center justify-between gap-3 mb-3.5">
       <div>
         <div
-          className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
-          style={{ color: "var(--av-cyan-400)" }}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+          style={{ color: "var(--av-blue-500)" }}
         >
-          {Ic && <Ic size={11} />} {eyebrow}
+          {Ic && <Ic size={13} />} {eyebrow}
         </div>
         <div className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
           {title}

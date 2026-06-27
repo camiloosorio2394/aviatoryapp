@@ -34,14 +34,14 @@ export function KpiTile({
   const defaultFormat = (v: number) => v.toFixed(isDecimal ? 1 : 0)
 
   return (
-    <div className="rounded-xl border border-border bg-card p-[18px] flex flex-col gap-3.5 transition-all hover:-translate-y-0.5 hover:shadow-md">
+    <div className="rounded-2xl border border-border bg-card p-[18px] flex flex-col gap-3.5 transition-all hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-2">
-        <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+        <div className="text-[13px] font-semibold text-muted-foreground">
           {eyebrow}
         </div>
         {delta !== undefined && (
           <div
-            className="mono tabular-nums text-[12.5px] font-bold inline-flex items-center gap-0.5"
+            className="tabular-nums text-[12.5px] font-bold inline-flex items-center gap-0.5"
             style={{ color: deltaPositive ? "oklch(0.5 0.16 155)" : "oklch(0.55 0.2 25)" }}
           >
             {deltaPositive ? <ArrowUp size={11} /> : <ArrowDown size={11} />}
@@ -50,7 +50,7 @@ export function KpiTile({
         )}
       </div>
       <div className="flex items-end justify-between gap-2">
-        <div className="mono tabular-nums text-[32px] font-bold leading-none tracking-[-0.04em] text-foreground">
+        <div className="tabular-nums text-[32px] font-extrabold leading-none tracking-[-0.04em] text-foreground">
           <CountUp to={value} format={format ?? defaultFormat} />
           {suffix && (
             <span className="text-base text-muted-foreground font-semibold ml-0.5">

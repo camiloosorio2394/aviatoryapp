@@ -191,11 +191,11 @@ function greetingTime(): string {
 }
 
 const COLOR_MAP: Record<string, string> = {
-  cyan: "var(--av-cyan-400)",
-  blue: "var(--av-blue-400)",
-  violet: "var(--av-violet-400)",
-  amber: "var(--av-amber-400)",
-  green: "var(--av-green-400)",
+  cyan: "#0E7490",
+  blue: "#2563EB",
+  violet: "#7C3AED",
+  amber: "#B45309",
+  green: "#047857",
 }
 
 export function Dashboard() {
@@ -379,143 +379,72 @@ function CockpitHero({
   trialLeft: number | null
 }) {
   return (
-    <section
-      className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-      style={{
-        borderColor: "oklch(0.32 0.04 250 / 0.6)",
-        boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-      }}
-    >
-      <div className="cockpit-grid absolute inset-0 opacity-60" />
-      <div
-        className="absolute inset-0"
-        style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
-      />
-
-      <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
-        <div>
-          <div
-            className="mono tabular-nums inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
-            style={{
-              color: "var(--av-cyan-300)",
-              background: "oklch(0.78 0.16 215 / 12%)",
-              border: "1px solid oklch(0.78 0.16 215 / 30%)",
-            }}
-          >
-            <span
-              className="w-1.5 h-1.5 rounded-full"
-              style={{ background: "var(--av-cyan-400)", boxShadow: "0 0 8px var(--av-cyan-400)" }}
-            />
-            MISSION · {stageLabel.toUpperCase()}
-            {targetAirline && ` · TARGET ${targetAirline.toUpperCase()}`}
+    <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+      <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div className="min-w-0">
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            {stageLabel}
+            {targetAirline ? ` · objetivo ${targetAirline}` : ""}
           </div>
-          <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-            {greetingTime()},{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                color: "transparent",
-              }}
-            >
-              {firstName}
-            </span>
+          <h1 className="mt-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+            {greetingTime()}, {firstName} 👋
           </h1>
-          <div className="text-sm flex flex-wrap gap-3.5 items-center" style={{ color: "oklch(0.78 0.02 250)" }}>
-            <span>
-              {stageLabel} · {totalHours}h totales
-            </span>
-            {targetAirline && (
-              <>
-                <span style={{ color: "oklch(0.55 0.02 250)" }}>·</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Plane className="h-3 w-3" /> objetivo: {targetAirline}
-                </span>
-              </>
-            )}
+          <p className="mt-2 text-[15px] text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span>{totalHours}h totales</span>
             {streakDays > 0 && (
               <>
-                <span style={{ color: "oklch(0.55 0.02 250)" }}>·</span>
+                <span className="text-muted-foreground/40">·</span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Flame className="h-3 w-3" style={{ color: "var(--av-amber-400)" }} />
-                  {streakDays} días
+                  <Flame className="h-3.5 w-3.5" style={{ color: "var(--av-amber-400)" }} />
+                  {streakDays} días de racha
                 </span>
               </>
             )}
-          </div>
+          </p>
 
-          {/* Progress bar */}
+          {/* Progress to airline */}
           <div className="mt-6 max-w-[560px]">
             <div className="flex justify-between items-baseline mb-2">
-              <span
-                className="mono text-[12.5px] font-bold tracking-[0.14em] uppercase"
-                style={{ color: "var(--av-cyan-300)" }}
-              >
-                Avance a aerolínea
+              <span className="text-[13px] font-semibold text-muted-foreground">
+                Tu avance a aerolínea
               </span>
-              <span className="mono tabular-nums text-2xl font-bold text-white tracking-[-0.03em]">
+              <span
+                className="tabular-nums text-2xl font-extrabold tracking-[-0.03em]"
+                style={{ color: "var(--av-blue-500)" }}
+              >
                 <CountUp to={progress} />%
               </span>
             </div>
-            <div
-              className="relative h-2.5 rounded-full overflow-hidden"
-              style={{
-                background: "oklch(0.28 0.04 250 / 0.6)",
-                border: "1px solid oklch(0.32 0.04 250)",
-              }}
-            >
+            <div className="relative h-2.5 rounded-full overflow-hidden bg-muted">
               <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${progress}%`,
-                  background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-cyan-300), white)",
-                  boxShadow: "0 0 16px var(--av-cyan-400)",
-                  animation: "av-fade-up 1.2s",
-                }}
+                className="h-full rounded-full transition-[width] duration-1000"
+                style={{ width: `${progress}%`, background: "var(--av-blue-500)" }}
               />
-              {[25, 50, 75].map((t) => (
-                <div
-                  key={t}
-                  className="absolute top-0 bottom-0 w-px"
-                  style={{ left: `${t}%`, background: "oklch(0.5 0.04 250 / 0.5)" }}
-                />
-              ))}
             </div>
           </div>
         </div>
 
         {/* Right CTA */}
-        <div className="flex flex-col items-end gap-2.5">
+        <div className="flex flex-col items-start lg:items-end gap-2.5">
           {trialLeft !== null && trialLeft > 0 && (
             <span
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full"
+              className="inline-flex items-center gap-1.5 text-[12px] font-bold px-2.5 py-1 rounded-full"
               style={{
-                color: "var(--av-amber-400)",
-                background: "oklch(0.82 0.16 78 / 14%)",
-                border: "1px solid oklch(0.82 0.16 78 / 30%)",
+                color: "#B45309",
+                background: "color-mix(in oklab, var(--av-amber-400) 18%, transparent)",
               }}
             >
-              <Sparkles className="h-3 w-3" /> Trial: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+              <Sparkles className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
             </span>
           )}
           <Link
             to={firstStep.href}
-            className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-sm"
-            style={{
-              background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
-              color: "var(--av-navy-950)",
-              boxShadow: "0 1px 0 rgb(255 255 255 / 30%) inset, var(--shadow-cyan)",
-            }}
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
+            style={{ background: "var(--av-blue-500)" }}
           >
-            {firstStep.cta} <ArrowRight className="h-3.5 w-3.5" />
+            {firstStep.cta} <ArrowRight className="h-4 w-4" />
           </Link>
-          <div
-            className="mono text-[12px] tracking-[0.12em] uppercase"
-            style={{ color: "oklch(0.6 0.02 250)" }}
-          >
-            ~{firstStep.minutes} min
-          </div>
+          <div className="text-[12px] text-muted-foreground">~{firstStep.minutes} min</div>
         </div>
       </div>
     </section>
@@ -528,21 +457,14 @@ function TodayCard({ step }: { step: NextStep }) {
   return (
     <Link
       to={step.href}
-      className="relative overflow-hidden rounded-xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 block"
+      className="relative overflow-hidden rounded-2xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "oklch(0.78 0.16 215 / 50%)"
-        e.currentTarget.style.boxShadow = "var(--shadow-cyan)"
+        e.currentTarget.style.borderColor = `color-mix(in oklab, ${accent} 45%, transparent)`
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)"
-        e.currentTarget.style.boxShadow = "none"
       }}
     >
-      <div
-        aria-hidden
-        className="absolute -top-6 -right-6 w-20 h-20 rounded-full blur-2xl"
-        style={{ background: accent, opacity: 0.06 }}
-      />
       <div className="relative">
         <div className="flex items-center justify-between">
           <div
@@ -555,7 +477,7 @@ function TodayCard({ step }: { step: NextStep }) {
           >
             <Ic className="h-[18px] w-[18px]" />
           </div>
-          <span className="mono tabular-nums text-[12px] text-muted-foreground tracking-[0.1em] uppercase">
+          <span className="tabular-nums text-[12px] text-muted-foreground">
             ~{step.minutes} min
           </span>
         </div>
@@ -616,23 +538,18 @@ function WingmanInsight({
 
   return (
     <div
-      className="anim-fade-up relative overflow-hidden rounded-xl border p-5"
+      className="relative overflow-hidden rounded-2xl border p-5"
       style={{
-        background:
-          "linear-gradient(160deg, color-mix(in oklab, var(--av-violet-400) 7%, var(--card)) 0%, var(--card) 100%)",
-        borderColor: "color-mix(in oklab, var(--av-violet-400) 25%, var(--border))",
+        background: "color-mix(in oklab, #7C3AED 5%, var(--card))",
+        borderColor: "color-mix(in oklab, #7C3AED 22%, var(--border))",
       }}
     >
-      <div
-        className="absolute -top-8 -right-8 w-32 h-32 rounded-full blur-3xl"
-        style={{ background: "var(--av-violet-400)", opacity: 0.1 }}
-      />
       <div className="relative">
         <div
-          className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
-          style={{ color: "var(--av-violet-400)" }}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+          style={{ color: "#7C3AED" }}
         >
-          <Sparkles className="h-3 w-3" /> Insight de Wingman
+          <Sparkles className="h-3.5 w-3.5" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
         <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
@@ -650,17 +567,13 @@ function WingmanInsight({
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
   const isZero = current === 0
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
-      <div
-        className="absolute -top-10 -right-10 w-[140px] h-[140px] rounded-full blur-3xl"
-        style={{ background: "var(--av-amber-400)", opacity: 0.12 }}
-      />
+    <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
       <div className="relative">
         <div
-          className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
-          style={{ color: "var(--av-amber-400)" }}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+          style={{ color: "#B45309" }}
         >
-          <Flame className="h-3 w-3" /> Tu racha
+          <Flame className="h-3.5 w-3.5" /> Tu racha
         </div>
         <div className="mt-4 flex items-baseline gap-2">
           <span
@@ -742,31 +655,29 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
   const total = data.reduce((a, d) => a + d.activities_count, 0)
   const color = (c: number) => {
     if (c === 0) return "var(--muted)"
-    if (c === 1) return "oklch(0.78 0.16 215 / 25%)"
-    if (c <= 3) return "oklch(0.78 0.16 215 / 50%)"
-    if (c <= 5) return "oklch(0.78 0.16 215 / 80%)"
-    return "var(--av-cyan-400)"
+    if (c === 1) return "color-mix(in oklab, var(--av-blue-500) 25%, transparent)"
+    if (c <= 3) return "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
+    if (c <= 5) return "color-mix(in oklab, var(--av-blue-500) 80%, transparent)"
+    return "var(--av-blue-500)"
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
           <div
-            className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
-            style={{ color: "var(--av-cyan-400)" }}
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+            style={{ color: "var(--av-blue-500)" }}
           >
-            <Activity className="h-3 w-3" /> Tu actividad
+            <Activity className="h-3.5 w-3.5" /> Tu actividad
           </div>
           <div className="text-sm font-semibold text-foreground mt-0.5">Últimas 12 semanas</div>
         </div>
         <div className="text-right">
-          <div className="mono tabular-nums text-[22px] font-bold text-foreground tracking-[-0.03em]">
+          <div className="tabular-nums text-[22px] font-extrabold text-foreground tracking-[-0.03em]">
             <CountUp to={total} />
           </div>
-          <div className="mono text-[11px] text-muted-foreground uppercase tracking-[0.12em]">
-            actividades
-          </div>
+          <div className="text-[11px] text-muted-foreground">actividades</div>
         </div>
       </div>
       <div className="flex gap-1 items-start">
@@ -823,7 +734,7 @@ function AchievementsCard({
     platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
   }
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-2xl border border-border bg-card p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
@@ -832,7 +743,7 @@ function AchievementsCard({
           <Link
             to="/app/perfil"
             className="text-xs font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
-            style={{ color: "var(--av-cyan-400)" }}
+            style={{ color: "var(--av-blue-500)" }}
           >
             Ver todos <ArrowRight className="h-3 w-3" />
           </Link>
@@ -896,7 +807,7 @@ function AchievementsCard({
 
 function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-2xl border border-border bg-card p-5">
       <SectionTitle icon={Users} eyebrow="Tu cohorte" title={`${peers.length} pilotos en ${stageLabel}`} />
       {peers.length === 0 ? (
         <div className="py-6 text-center text-sm text-muted-foreground">
@@ -960,20 +871,20 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
           <Sun className="h-6 w-6" />
         </div>
         <div>
-          <div className="mono text-[12px] font-bold tracking-[0.14em] uppercase opacity-85">
+          <div className="text-[12px] font-bold tracking-[0.08em] uppercase opacity-85">
             Quiz del día
           </div>
           <div className="text-xl font-bold tracking-[-0.02em]">
-            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
+            {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
           </div>
           <div className="text-xs opacity-85 mt-0.5">
-            Curadas para ti. Se renueva mañana — no las dejes pasar.
+            Curadas para vos. Se renueva mañana — no las dejes pasar.
           </div>
         </div>
       </div>
       <span
-        className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm"
-        style={{ background: "white", color: "oklch(0.45 0.15 60)", boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)" }}
+        className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm flex-shrink-0"
+        style={{ background: "white", color: "#B45309", boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)" }}
       >
         Empezar quiz <ArrowRight className="h-3.5 w-3.5" />
       </span>
@@ -986,7 +897,7 @@ function DashboardSkeleton() {
     <AppLayout>
       <div className="px-7 py-7 max-w-[1480px] mx-auto space-y-6 animate-pulse">
         <div className="h-8 w-64 bg-muted rounded-lg" />
-        <div className="h-44 bg-muted rounded-3xl" />
+        <div className="h-44 bg-muted rounded-2xl" />
         <div className="grid grid-cols-4 gap-3.5">
           <div className="h-28 bg-muted rounded-xl" />
           <div className="h-28 bg-muted rounded-xl" />
