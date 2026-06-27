@@ -30,6 +30,7 @@ import {
   type Speaker,
   type LongAudio,
   type ShortAudio,
+  type InteractiveItem,
 } from "@/lib/icaoComprehension"
 
 /**
@@ -284,6 +285,7 @@ function LongAudioCard({ audio }: { audio: LongAudio }) {
       {revealed && audio.hasKey && (
         <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
           {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
+          {audio.summary && <RevealRow label="Resumen" value={audio.summary} color="var(--av-cyan-400)" />}
           {audio.problem && <RevealRow label="El problema" value={audio.problem} color="var(--av-red-400)" />}
           {audio.request && <RevealRow label="Qué pedía / aviso" value={audio.request} color="var(--av-cyan-400)" />}
           {audio.details && audio.details.length > 0 && (
@@ -301,6 +303,7 @@ function LongAudioCard({ audio }: { audio: LongAudio }) {
               </ul>
             </div>
           )}
+          {audio.transcript && <Transcript text={audio.transcript} />}
         </div>
       )}
     </div>
@@ -319,19 +322,73 @@ function InteractiveSection() {
       />
       <div className="space-y-2.5">
         {INTERACTIVE_ITEMS.map((it) => (
-          <div key={it.id} className="rounded-xl border bg-card p-4" style={cardBorder}>
-            <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground mb-2">
-              {it.label}
-            </div>
-            <ClipPlayer audioUrl={it.audioUrl} label="Escuchar situación" />
-            <div className="mt-3 grid gap-1.5 text-[12px] text-muted-foreground">
-              <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
-              <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
-            </div>
-          </div>
+          <InteractiveCard key={it.id} item={it} />
         ))}
       </div>
     </>
+  )
+}
+
+function InteractiveCard({ item }: { item: InteractiveItem }) {
+  const [revealed, setRevealed] = useState(false)
+  const hasKey = !!item.questions?.length
+  return (
+    <div className="rounded-xl border bg-card p-4" style={cardBorder}>
+      <div className="flex items-center justify-between gap-2">
+        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+          {item.label}
+        </div>
+        {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
+      </div>
+      <div className="mt-2">
+        <ClipPlayer audioUrl={item.audioUrl} label="Escuchar situación" />
+      </div>
+      <div className="mt-3 grid gap-1.5 text-[12px] text-muted-foreground">
+        <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
+        <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
+      </div>
+
+      {hasKey && revealed && (
+        <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
+          {item.transcript && (
+            <div className="text-[12.5px] text-foreground/90">
+              <span className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
+              <span className="italic">&ldquo;{item.transcript}&rdquo;</span>
+            </div>
+          )}
+          {item.questions && (
+            <div>
+              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
+                PREGUNTAS QUE PODRÍAS HACER
+              </div>
+              <ul className="space-y-1">
+                {item.questions.map((q) => (
+                  <li key={q} className="flex items-start gap-2 text-[12.5px] italic text-foreground/85">
+                    <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" />
+                    <span>&ldquo;{q}&rdquo;</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {item.advice && (
+            <div>
+              <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
+                RECOMENDACIONES
+              </div>
+              <ul className="space-y-1">
+                {item.advice.map((a) => (
+                  <li key={a} className="flex items-start gap-2 text-[12.5px] text-foreground/85">
+                    <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
+                    <span>{a}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
 
