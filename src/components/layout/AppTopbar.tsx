@@ -167,29 +167,20 @@ export function AppTopbar({
         <button
           type="button"
           onClick={onCmdK}
-          className="search-cmdk hidden md:flex items-center gap-2.5 w-full max-w-[460px] h-11 pl-4 pr-2 rounded-xl text-sm font-medium transition-all group"
-          style={{
-            background:
-              "linear-gradient(180deg, color-mix(in oklab, var(--background) 96%, transparent) 0%, color-mix(in oklab, var(--muted) 60%, transparent) 100%)",
-            border: "1px solid oklch(0.78 0.16 215 / 28%)",
-            color: "var(--foreground)",
-            boxShadow:
-              "0 1px 0 rgb(255 255 255 / 5%) inset, 0 8px 24px -10px oklch(0.78 0.16 215 / 28%), 0 0 0 1px oklch(0.78 0.16 215 / 6%)",
-          }}
+          className="hidden md:flex items-center gap-2.5 w-full max-w-[460px] h-11 pl-4 pr-2 rounded-xl text-sm font-medium transition-all group bg-muted/50 border border-border hover:border-[color-mix(in_oklab,var(--av-blue-500)_40%,transparent)]"
         >
           <Search
             className="h-4 w-4 flex-shrink-0 transition-colors"
-            style={{ color: "var(--av-cyan-400)" }}
+            style={{ color: "var(--av-blue-500)" }}
           />
           <span className="truncate text-left flex-1 text-muted-foreground group-hover:text-foreground transition-colors">
             Buscar materias, vuelos, aerolíneas…
           </span>
           <kbd
-            className="mono text-[12px] font-bold px-2 py-1 rounded-md flex-shrink-0"
+            className="text-[12px] font-semibold px-2 py-1 rounded-md flex-shrink-0"
             style={{
-              background: "oklch(0.78 0.16 215 / 12%)",
-              color: "var(--av-cyan-400)",
-              border: "1px solid oklch(0.78 0.16 215 / 25%)",
+              background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
+              color: "var(--av-blue-500)",
             }}
           >
             ⌘K
@@ -238,7 +229,7 @@ export function AppTopbar({
               email={email}
               size="sm"
               className="shadow-md"
-              style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-cyan-400)" } as React.CSSProperties}
+              style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-blue-500)" } as React.CSSProperties}
             />
             <span className="hidden sm:block text-xs font-semibold text-muted-foreground max-w-[200px] truncate">
               {handle}
@@ -272,9 +263,9 @@ export function AppTopbar({
                         onClick={() => chooseTheme(opt.key)}
                         className="flex flex-col items-center gap-1 py-2 rounded-lg border text-[11px] font-semibold transition-colors"
                         style={{
-                          borderColor: active ? "color-mix(in oklab, var(--av-cyan-400) 50%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)",
-                          background: active ? "color-mix(in oklab, var(--av-cyan-400) 14%, transparent)" : "transparent",
-                          color: active ? "var(--av-cyan-400)" : "var(--muted-foreground)",
+                          borderColor: active ? "color-mix(in oklab, var(--av-blue-500) 50%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)",
+                          background: active ? "color-mix(in oklab, var(--av-blue-500) 12%, transparent)" : "transparent",
+                          color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
                         }}
                       >
                         <opt.icon className="h-4 w-4" />

@@ -113,12 +113,10 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         setHovered(false)
         onHoverChange?.(false)
       }}
-      className="flex flex-col h-full overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      className="flex flex-col h-full overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] bg-card text-muted-foreground"
       style={{
         width: expanded ? 240 : 64,
-        background: "var(--rail)",
-        borderRight: "1px solid var(--rail-border)",
-        color: "var(--rail-text)",
+        borderRight: "1px solid var(--border)",
       }}
     >
       {/*
@@ -129,11 +127,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         "Aviatory · Sección".
       */}
       <div
-        className="flex items-center gap-2.5 px-3.5"
-        style={{
-          height: 60,
-          borderBottom: "1px solid var(--rail-border)",
-        }}
+        className="flex items-center gap-2.5 px-3.5 border-b border-border"
+        style={{ height: 60 }}
       >
         <Link to="/app" onClick={onClose} className="flex items-center gap-2.5 flex-1 min-w-0">
           <div
@@ -142,17 +137,14 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
               width: 36,
               height: 36,
               borderRadius: 10,
-              background:
-                "linear-gradient(135deg, var(--av-cyan-300) 0%, var(--av-blue-500) 60%, var(--av-navy-900) 100%)",
-              boxShadow:
-                "0 4px 12px -2px oklch(0.55 0.22 264 / 50%), inset 0 1px 0 rgb(255 255 255 / 30%)",
+              background: "linear-gradient(135deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
             }}
           >
             <LogoIsotype className="h-5 w-5" />
           </div>
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
-            <div className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
+            <div className="font-extrabold text-lg tracking-[-0.03em] text-foreground whitespace-nowrap">
               Aviatory
             </div>
           )}
@@ -161,7 +153,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={onClose}
-            className="lg:hidden p-2 -mr-1 text-white/60 hover:text-white"
+            className="lg:hidden p-2 -mr-1 text-muted-foreground hover:text-foreground"
             aria-label="Cerrar menú"
           >
             <X className="h-4 w-4" />
@@ -172,7 +164,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => onPinChange(!pinned)}
-            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md text-white/55 hover:text-white hover:bg-white/10 transition-colors"
+            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
             aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
             title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
           >
@@ -189,17 +181,11 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             {section.label && (
               <>
                 {expanded ? (
-                  <div
-                    className="px-2.5 pt-3 pb-1 mono text-[12px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "oklch(0.55 0.02 250)" }}
-                  >
+                  <div className="px-2.5 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] text-muted-foreground/70 whitespace-nowrap transition-opacity duration-200">
                     {section.label}
                   </div>
                 ) : (
-                  <div
-                    className="mx-2.5 my-1 border-t"
-                    style={{ borderColor: "var(--rail-border)" }}
-                  />
+                  <div className="mx-2.5 my-1 border-t border-border" />
                 )}
               </>
             )}
@@ -210,17 +196,15 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                 to={item.to}
                 end={item.end}
                 onClick={onClose}
-                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors"
+                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors hover:bg-muted"
                 style={({ isActive }) =>
                   isActive
                     ? {
-                        color: "var(--rail-text-active)",
-                        background:
-                          "linear-gradient(90deg, oklch(0.78 0.16 215 / 18%) 0%, oklch(0.78 0.16 215 / 8%) 100%)",
-                        boxShadow:
-                          "inset 2px 0 0 var(--av-cyan-400), inset 0 1px 0 rgb(255 255 255 / 4%)",
+                        color: "var(--av-blue-500)",
+                        background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                        boxShadow: "inset 2px 0 0 var(--av-blue-500)",
                       }
-                    : { color: "var(--rail-text)" }
+                    : { color: "var(--muted-foreground)" }
                 }
               >
                 {({ isActive }) => (
@@ -228,7 +212,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                     <item.icon
                       size={18}
                       className="flex-shrink-0 transition-colors"
-                      style={{ color: isActive ? "var(--av-cyan-400)" : "currentColor" }}
+                      style={{ color: isActive ? "var(--av-blue-500)" : "currentColor" }}
                     />
                     <span
                       className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
@@ -238,14 +222,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                     </span>
                     {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
                     {item.soon && expanded && (
-                      <span
-                        className="flex-shrink-0 mono text-[11px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
-                        style={{
-                          color: "oklch(0.72 0.02 250)",
-                          background: "oklch(1 0 0 / 6%)",
-                          border: "1px solid var(--rail-border)",
-                        }}
-                      >
+                      <span className="flex-shrink-0 text-[10px] font-semibold uppercase tracking-[0.06em] px-1.5 py-0.5 rounded bg-muted text-muted-foreground border border-border">
                         Pronto
                       </span>
                     )}
@@ -258,7 +235,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                     )}
                     {!expanded && (
                       <span
-                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[12.5px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
+                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-foreground text-background text-[12.5px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
                       >
                         {item.label}{item.soon ? " · Pronto" : ""}
                       </span>
@@ -279,37 +256,31 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           style={{
             padding: expanded ? 14 : 10,
             borderRadius: 12,
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 12%) 0%, oklch(0.55 0.22 264 / 16%) 100%)",
-            border: "1px solid oklch(0.78 0.16 215 / 25%)",
+            background: "color-mix(in oklab, var(--av-blue-500) 8%, transparent)",
+            border: "1px solid color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
           }}
         >
           {expanded ? (
             <>
               <div
-                className="flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.1em]"
-                style={{ color: "var(--av-cyan-300)" }}
+                className="flex items-center gap-1.5 text-[13px] font-semibold"
+                style={{ color: "var(--av-blue-500)" }}
               >
-                <Sparkles className="h-3 w-3" /> Prueba gratis
+                <Sparkles className="h-3.5 w-3.5" /> Prueba gratis
               </div>
-              <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.78 0.02 250)" }}>
-                Pasa a Pro y desbloquea todo Aviatory.
+              <div className="mt-1 text-xs leading-snug text-muted-foreground">
+                Pasá a Pro y desbloqueá todo Aviatory.
               </div>
               <div
-                className="av-shine mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold"
-                style={{
-                  background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
-                  color: "var(--av-navy-950)",
-                  boxShadow:
-                    "0 1px 0 rgb(255 255 255 / 30%) inset, 0 8px 24px -8px oklch(0.78 0.16 215 / 40%)",
-                }}
+                className="mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold text-white"
+                style={{ background: "var(--av-blue-500)" }}
               >
                 Ver planes <ArrowRight className="h-3 w-3" />
               </div>
             </>
           ) : (
             <div className="flex justify-center">
-              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-cyan-300)" }} />
+              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-blue-500)" }} />
             </div>
           )}
         </Link>
