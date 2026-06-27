@@ -267,8 +267,6 @@ function AvailableSubjects() {
     return null // Nada cargado todavía — los tiles del roadmap explican qué viene
   }
 
-  const totalQuestions = subjects.reduce((acc, s) => acc + s.question_count, 0)
-
   return (
     <section className="mt-10">
       {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
@@ -303,8 +301,7 @@ function AvailableSubjects() {
             20 preguntas mezcladas de todas las materias
           </div>
           <div className="mt-0.5 text-[14px] text-white/65">
-            Como el examen real de Aerocivil. {totalQuestions} preguntas en el banco · al terminar
-            ves tu nota.
+            Como el examen real de Aerocivil · al terminar ves tu nota.
           </div>
         </div>
         <div
@@ -371,11 +368,10 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-[16px] font-bold tracking-[-0.01em] truncate">{meta.name}</div>
-        <div className="mt-0.5 text-[14px] text-muted-foreground">
-          {count} preguntas · quiz de {quizCount}
+        <div className="mt-0.5 inline-flex items-center gap-1 text-[13.5px] font-semibold" style={{ color: baseColor }}>
+          Practicar <ArrowRight className="h-3.5 w-3.5" />
         </div>
       </div>
-      <ArrowRight className="h-4 w-4 flex-shrink-0" style={{ color: baseColor }} />
     </Link>
   )
 }

@@ -11,12 +11,14 @@ import {
   Flame,
   Sun,
   Moon,
+  Monitor,
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
 import { NotificationsBell } from "@/components/NotificationsBell"
+import { getThemePref, applyThemePref, isDark as themeIsDark, watchSystemTheme, type ThemePref } from "@/lib/theme"
 
 const ROUTE_LABEL: Record<string, string> = {
   "/app": "Dashboard",
@@ -61,9 +63,8 @@ export function AppTopbar({
   const [open, setOpen] = useState(false)
   const [username, setUsername] = useState<string | null>(null)
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
-  const [theme, setTheme] = useState<"light" | "dark">(() =>
-    document.documentElement.classList.contains("dark") ? "dark" : "light"
-  )
+  const [themePref, setThemePrefState] = useState<ThemePref>(() => getThemePref())
+  const [dark, setDark] = useState<boolean>(() => themeIsDark())
 
   useEffect(() => {
     if (!user) return
@@ -91,9 +92,18 @@ export function AppTopbar({
     return () => window.removeEventListener("click", close)
   }, [open])
 
+  // Mantener el ícono sincronizado si el SO cambia día/noche en modo "system".
+  useEffect(() => watchSystemTheme((d) => setDark(d)), [])
+
+  function chooseTheme(pref: ThemePref) {
+    applyThemePref(pref)
+    setThemePrefState(pref)
+    setDark(themeIsDark())
+  }
   function toggleTheme() {
-    document.documentElement.classList.toggle("dark")
-    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light")
+    // Atajo rápido: alterna claro/oscuro (queda fijo). Para volver a auto, usá
+    // el menú del avatar.
+    chooseTheme(dark ? "light" : "dark")
   }
 
   async function handleSignOut() {
@@ -202,9 +212,10 @@ export function AppTopbar({
           type="button"
           onClick={toggleTheme}
           className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
-          aria-label="Toggle theme"
+          aria-label="Cambiar tema claro/oscuro"
+          title={themePref === "system" ? "Tema: automático" : dark ? "Tema: oscuro" : "Tema: claro"}
         >
-          {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
         </button>
 
         <NotificationsBell />
@@ -243,6 +254,37 @@ export function AppTopbar({
                 {username && <p className="text-sm font-semibold">@{username}</p>}
                 <p className="text-xs text-muted-foreground truncate">{email}</p>
               </div>
+
+              {/* Tema: Claro / Oscuro / Automático (sigue al sistema) */}
+              <div className="px-4 py-2.5 border-b border-border">
+                <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Tema</div>
+                <div className="grid grid-cols-3 gap-1">
+                  {([
+                    { key: "light", label: "Claro", icon: Sun },
+                    { key: "dark", label: "Oscuro", icon: Moon },
+                    { key: "system", label: "Auto", icon: Monitor },
+                  ] as const).map((opt) => {
+                    const active = themePref === opt.key
+                    return (
+                      <button
+                        key={opt.key}
+                        type="button"
+                        onClick={() => chooseTheme(opt.key)}
+                        className="flex flex-col items-center gap-1 py-2 rounded-lg border text-[11px] font-semibold transition-colors"
+                        style={{
+                          borderColor: active ? "color-mix(in oklab, var(--av-cyan-400) 50%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)",
+                          background: active ? "color-mix(in oklab, var(--av-cyan-400) 14%, transparent)" : "transparent",
+                          color: active ? "var(--av-cyan-400)" : "var(--muted-foreground)",
+                        }}
+                      >
+                        <opt.icon className="h-4 w-4" />
+                        {opt.label}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+
               <Link
                 to="/app/perfil"
                 onClick={() => setOpen(false)}

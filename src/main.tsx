@@ -4,8 +4,11 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import { initAnalytics } from './lib/analytics'
+import { watchSystemTheme } from './lib/theme'
 
 initAnalytics()
+// Día/noche automático: si la preferencia es "system", sigue al SO en vivo.
+watchSystemTheme()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

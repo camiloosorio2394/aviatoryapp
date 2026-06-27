@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Tema: aplica día/noche antes del primer paint (persistido + auto del SO).
+         Evita el flash y que se pierda el modo oscuro al recargar. -->
+    <script>
+      (function () {
+        try {
+          var pref = localStorage.getItem("aviatory.theme") || "system";
+          var dark =
+            pref === "dark" ||
+            (pref === "system" &&
+              window.matchMedia &&
+              window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", !!dark);
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Primary meta -->
     <title>Aviatory — De estudiante piloto a candidato de aerolínea</title>
     <meta name="description" content="Prepara tus exámenes PPL/CPL Aerocivil, mejora tu inglés ICAO y avanza hasta tu primer empleo en aerolínea. Plataforma de pilotos para Latinoamérica, en español." />
