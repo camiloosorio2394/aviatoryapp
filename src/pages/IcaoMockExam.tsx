@@ -104,7 +104,7 @@ export function IcaoMockExam() {
         <StepView step={step} />
         <div className="mt-7 flex items-center justify-between">
           <div className="text-[13.5px] text-muted-foreground">
-            {idx + 1} de {steps.length}
+            {idx + 1} of {steps.length}
           </div>
           <button
             onClick={advance}
@@ -114,7 +114,7 @@ export function IcaoMockExam() {
               boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
             }}
           >
-            {idx >= steps.length - 1 ? "Terminar simulacro" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+            {idx >= steps.length - 1 ? "Finish mock exam" : "Next"} <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       </div>
@@ -128,7 +128,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
         <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4">
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         <section
@@ -140,32 +140,32 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           <div className="relative">
             <div className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
               style={{ color: "var(--av-amber-400)", background: "color-mix(in oklab, var(--av-amber-400) 12%, transparent)", border: "1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent)" }}>
-              <Award className="h-3 w-3" /> SIMULACRO · EXAMEN COMPLETO CRONOMETRADO
+              <Award className="h-3 w-3" /> MOCK EXAM · FULL TIMED TEST
             </div>
             <h1 className="mt-4 text-[40px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-              Simulacro TEA
+              TEA Mock Exam
             </h1>
             <p className="mt-3 text-[17px] text-white/88 max-w-[640px] leading-relaxed">
-              El examen completo, de corrido y cronometrado: las 3 partes, en orden, con audios reales.
-              Como en el examen real, <strong className="text-white">respondé en voz alta</strong> y sin pausas.
+              The full exam, in one go and timed: all 3 parts, in order, with real audios.
+              Just like the real exam, <strong className="text-white">answer out loud</strong> and without pauses.
             </p>
           </div>
         </section>
 
         {/* Estructura */}
         <div className="mt-7 grid gap-3 md:grid-cols-3">
-          <PartCard icon={Radio} color="var(--av-blue-500)" title="Part 1 · Interview" detail={`${EXAM_SHAPE.interview} preguntas sobre tu rol`} time="~8 min" />
+          <PartCard icon={Radio} color="var(--av-blue-500)" title="Part 1 · Interview" detail={`${EXAM_SHAPE.interview} questions about your role`} time="~8 min" />
           <PartCard icon={Headphones} color="var(--av-violet-400)" title="Part 2 · Comprehension" detail={`${EXAM_SHAPE.short} short · ${EXAM_SHAPE.long} long · ${EXAM_SHAPE.interactive} interactive`} time="~12 min" />
-          <PartCard icon={ImageIcon} color="var(--av-green-400)" title="Part 3 · Picture + Discussion" detail="1 pareja de imágenes" time="~10 min" />
+          <PartCard icon={ImageIcon} color="var(--av-green-400)" title="Part 3 · Picture + Discussion" detail="1 image pair" time="~10 min" />
         </div>
 
         {/* Reglas */}
         <div className="mt-5 rounded-xl border p-4 flex items-start gap-3" style={{ borderColor: "color-mix(in oklab, var(--av-amber-400) 25%, transparent)", background: "color-mix(in oklab, var(--av-amber-400) 6%, transparent)" }}>
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
-            <strong>Reglas:</strong> los audios se reproducen máximo 2 veces (1 + 1 repetición). No vas a ver las
-            respuestas hasta el final. Al terminar te autoevaluás en los 6 descriptores ICAO — recordá que tu nota
-            final es la del <strong>descriptor más bajo</strong>.
+            <strong>Rules:</strong> audios play a maximum of 2 times (1 + 1 replay). You won't see the
+            answers until the end. When you finish, you self-assess on the 6 ICAO descriptors — remember your
+            final result is your <strong>lowest descriptor</strong>.
           </div>
         </div>
 
@@ -184,12 +184,12 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           </div>
           <div className="flex-1">
             <div className="text-[15px] font-bold tracking-[-0.01em]">
-              Grabar mis respuestas {wantRecord ? "· activado" : "· desactivado"}
+              Record my answers {wantRecord ? "· on" : "· off"}
             </div>
             <div className="text-[13.5px] text-muted-foreground">
               {recSupported
-                ? "Te grabás respondiendo y te escuchás al final. La grabación queda solo en tu navegador, no se sube a ningún lado."
-                : "Tu navegador no soporta grabación de audio."}
+                ? "You record yourself answering and listen back at the end. The recording stays only in your browser, it's not uploaded anywhere."
+                : "Your browser doesn't support audio recording."}
             </div>
           </div>
         </button>
@@ -199,7 +199,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           className="av-shine mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[16px] font-semibold text-white border-0"
           style={{ background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)", boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 12px 28px -8px oklch(0.55 0.22 264 / 50%)" }}
         >
-          <Sparkles className="h-4.5 w-4.5" /> Empezar simulacro
+          <Sparkles className="h-4.5 w-4.5" /> Start mock exam
         </button>
       </div>
     </AppLayout>
@@ -213,8 +213,8 @@ function levelColor(lvl: number | null): string {
 
 function fmtDate(iso: string): string {
   const d = new Date(iso)
-  return d.toLocaleDateString("es", { day: "2-digit", month: "short" }) +
-    " · " + d.toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" })
+  return d.toLocaleDateString("en", { day: "2-digit", month: "short" }) +
+    " · " + d.toLocaleTimeString("en", { hour: "2-digit", minute: "2-digit" })
 }
 
 function MockHistory() {
@@ -235,14 +235,14 @@ function MockHistory() {
   if (loading) {
     return (
       <div className="mt-4 flex items-center gap-2 text-[13.5px] text-muted-foreground">
-        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Cargando tu historial…
+        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Loading your history…
       </div>
     )
   }
   if (history.length === 0) {
     return (
       <div className="mt-4 rounded-xl border border-border/60 bg-muted/20 p-4 text-[14px] text-muted-foreground flex items-center gap-2">
-        <History className="h-4 w-4" /> Todavía no guardaste ningún simulacro. Hacé uno y guardalo para ver tu progreso acá.
+        <History className="h-4 w-4" /> You haven't saved any mock exam yet. Take one and save it to see your progress here.
       </div>
     )
   }
@@ -255,12 +255,12 @@ function MockHistory() {
     <div className="mt-6">
       <div className="flex items-center gap-2 mb-3">
         <History className="h-4 w-4 text-[var(--av-cyan-400)]" />
-        <h2 className="text-[17px] font-extrabold tracking-[-0.02em]">Tu historial</h2>
+        <h2 className="text-[17px] font-extrabold tracking-[-0.02em]">Your history</h2>
       </div>
       <div className="grid grid-cols-3 gap-2.5 mb-3">
-        <Stat label="Simulacros" value={String(history.length)} color="var(--av-cyan-400)" />
-        <Stat label="Mejor nivel" value={best != null ? `ICAO ${best}` : "—"} color={levelColor(best)} />
-        <Stat label="Último" value={last != null ? `ICAO ${last}` : "—"} color={levelColor(last)} />
+        <Stat label="Mock exams" value={String(history.length)} color="var(--av-cyan-400)" />
+        <Stat label="Best level" value={best != null ? `ICAO ${best}` : "—"} color={levelColor(best)} />
+        <Stat label="Latest" value={last != null ? `ICAO ${last}` : "—"} color={levelColor(last)} />
       </div>
       <div className="space-y-1.5">
         {history.map((h) => (
@@ -271,7 +271,7 @@ function MockHistory() {
             <div className="flex-1 min-w-0">
               <div className="text-[13.5px] font-semibold">{fmtDate(h.taken_at)}</div>
               <div className="mono text-[12.5px] text-muted-foreground">
-                {fmtTime(h.duration_seconds)} · {h.total_items} ítems{h.recorded ? " · grabado" : ""}
+                {fmtTime(h.duration_seconds)} · {h.total_items} items{h.recorded ? " · recorded" : ""}
               </div>
             </div>
             <div className="hidden sm:flex gap-1">
@@ -346,7 +346,7 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "interview") {
     return (
       <Card>
-        <Kicker icon={Radio} text="Respondé en voz alta — natural, técnico y profesional" />
+        <Kicker icon={Radio} text="Answer out loud — natural, technical and professional" />
         <div className="mt-3 text-[22px] font-bold leading-snug tracking-[-0.01em]">{step.question}</div>
       </Card>
     )
@@ -354,7 +354,7 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "short") {
     return (
       <Card>
-        <Kicker icon={Headphones} text="Escuchá y respondé: ¿cuál era el mensaje? ¿pilot o controller?" />
+        <Kicker icon={Headphones} text="Listen and answer: what was the message? pilot or controller?" />
         <div className="mt-4"><ExamPlayer audioUrl={step.audio.audioUrl} /></div>
         <Prompts items={["What was the message?", "Pilot or controller?"]} />
       </Card>
@@ -363,30 +363,30 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "long") {
     return (
       <Card>
-        <Kicker icon={Headphones} text="Mensaje largo — tomá notas y explicá la situación con detalle" />
+        <Kicker icon={Headphones} text="Long message — take notes and explain the situation in detail" />
         <div className="mt-4"><ExamPlayer audioUrl={step.audio.audioUrl} /></div>
-        <Prompts items={["¿Cuál era el problema?", "¿Qué pedía / avisaba?", "Todos los detalles importantes"]} />
+        <Prompts items={["What was the problem?", "What were they requesting / advising?", "All the important details"]} />
       </Card>
     )
   }
   if (step.kind === "interactive") {
     return (
       <Card>
-        <Kicker icon={MessageSquare} text="Situación — formulá preguntas y luego dá recomendaciones" />
-        <div className="mt-4"><ExamPlayer audioUrl={step.item.audioUrl} label="Escuchar situación" /></div>
-        <Prompts items={["1) Preguntas para obtener más info (~20s)", "2) Recomendaciones para resolver"]} />
+        <Kicker icon={MessageSquare} text="Situation — ask questions, then give recommendations" />
+        <div className="mt-4"><ExamPlayer audioUrl={step.item.audioUrl} label="Play situation" /></div>
+        <Prompts items={["1) Questions to get more info (~20s)", "2) Recommendations to resolve it"]} />
       </Card>
     )
   }
   // picture
   return (
     <Card>
-      <Kicker icon={ImageIcon} text="Describí cada imagen, compará, identificá riesgos, opiná y conversá" />
+      <Kicker icon={ImageIcon} text="Describe each image, compare, identify risks, give opinions and discuss" />
       <div className="mt-4 grid gap-3 md:grid-cols-2">
         <ExamImage src={step.pair.imageA} alt={step.pair.altA} letter="A" />
         <ExamImage src={step.pair.imageB} alt={step.pair.altB} letter="B" />
       </div>
-      <Prompts items={["Describí A y B en detalle", "Compará: similitudes y diferencias", "Riesgos · posibles causas · tu opinión"]} />
+      <Prompts items={["Describe A and B in detail", "Compare: similarities and differences", "Risks · possible causes · your opinion"]} />
     </Card>
   )
 }
@@ -454,10 +454,10 @@ function ExamPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       <button onClick={playing ? stop : play} disabled={!canPlay && !playing}
         className="inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[15px] font-semibold text-white border-0 disabled:opacity-40 disabled:cursor-not-allowed"
         style={{ background: "linear-gradient(180deg, var(--av-violet-400) 0%, oklch(0.5 0.2 295) 100%)", boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
-        {playing ? <><Square className="h-4 w-4" /> Detener</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Reproducir"}</> : <><RotateCcw className="h-4 w-4" /> Escuchar otra vez</>}
+        {playing ? <><Square className="h-4 w-4" /> Stop</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Play"}</> : <><RotateCcw className="h-4 w-4" /> Play again</>}
       </button>
       <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-        {plays}/{maxPlays}{plays >= maxPlays && " · sin tercera"}
+        {plays}/{maxPlays}{plays >= maxPlays && " · no third"}
       </div>
     </div>
   )
@@ -489,17 +489,17 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
     <AppLayout>
       <div className="px-7 py-7 pb-24 max-w-[920px] mx-auto">
         <div className="text-center">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--av-green-400)" }}>SIMULACRO COMPLETADO</div>
-          <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.03em]">¡Terminaste el examen!</h1>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.18em]" style={{ color: "var(--av-green-400)" }}>MOCK EXAM COMPLETE</div>
+          <h1 className="mt-2 text-[34px] font-extrabold tracking-[-0.03em]">You finished the exam!</h1>
           <div className="mt-2 inline-flex items-center gap-1.5 mono text-[14px] text-muted-foreground">
-            <Clock className="h-4 w-4" /> Tiempo total: {fmtTime(elapsed)} · {steps.length} ítems
+            <Clock className="h-4 w-4" /> Total time: {fmtTime(elapsed)} · {steps.length} items
           </div>
         </div>
 
         {/* Autoevaluación */}
         <div className="mt-9">
-          <h2 className="text-[20px] font-extrabold tracking-[-0.02em]">Autoevaluate en los 6 descriptores</h2>
-          <p className="mt-1 text-[14px] text-muted-foreground">Sé honesto: tu nota final es la del descriptor más bajo.</p>
+          <h2 className="text-[20px] font-extrabold tracking-[-0.02em]">Self-assess on the 6 descriptors</h2>
+          <p className="mt-1 text-[14px] text-muted-foreground">Be honest: your final result is your lowest descriptor.</p>
           <div className="mt-4 space-y-2.5">
             {DESCRIPTORS.map((d) => (
               <div key={d.key} className="rounded-xl border p-3.5 flex items-center justify-between gap-4" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
@@ -529,16 +529,16 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
           {finalLevel != null && (
             <div className="mt-4 rounded-2xl border p-5 text-center" style={{ borderColor: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-cyan-400)" : "var(--av-amber-400)"} 40%, transparent)`, background: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-cyan-400)" : "var(--av-amber-400)"} 8%, transparent)` }}>
-              <div className="mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">TU NIVEL ESTIMADO (= descriptor más bajo)</div>
+              <div className="mono text-[12px] uppercase tracking-[0.16em] text-muted-foreground">YOUR ESTIMATED LEVEL (= lowest descriptor)</div>
               <div className="mt-1 text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-cyan-400)" : "var(--av-amber-400)" }}>
                 ICAO {finalLevel}
               </div>
-              <div className="text-[14px] text-muted-foreground">{finalLevel >= 5 ? "Extended — nivel para aerolínea" : finalLevel >= 4 ? "Operational — mínimo legal internacional" : "Pre-operational — a seguir practicando"}</div>
+              <div className="text-[14px] text-muted-foreground">{finalLevel >= 5 ? "Extended — airline level" : finalLevel >= 4 ? "Operational — international legal minimum" : "Pre-operational — keep practising"}</div>
 
               {/* Guardar */}
               {saveState === "saved" ? (
                 <div className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold" style={{ color: "var(--av-green-400)" }}>
-                  <CheckCircle2 className="h-4 w-4" /> Guardado en tu historial
+                  <CheckCircle2 className="h-4 w-4" /> Saved to your history
                 </div>
               ) : (
                 <button
@@ -548,14 +548,14 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
                   style={{ background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)", boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.55 0.22 264 / 45%)" }}
                 >
                   {saveState === "saving" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                  Guardar resultado
+                  Save result
                 </button>
               )}
               {saveState === "error" && (
-                <div className="mt-2 text-[13.5px] text-[var(--av-red-400)]">No se pudo guardar. Reintentá.</div>
+                <div className="mt-2 text-[13.5px] text-[var(--av-red-400)]">Couldn't save. Try again.</div>
               )}
               {!user && (
-                <div className="mt-2 text-[13px] text-muted-foreground">Iniciá sesión para guardar tu resultado.</div>
+                <div className="mt-2 text-[13px] text-muted-foreground">Sign in to save your result.</div>
               )}
             </div>
           )}
@@ -563,8 +563,8 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
         {/* Review */}
         <div className="mt-10">
-          <h2 className="text-[20px] font-extrabold tracking-[-0.02em]">Revisión — qué apareció y las respuestas</h2>
-          <p className="mt-1 text-[14px] text-muted-foreground">Volvé a escuchar, leé los transcripts y, si grabaste, escuchate.</p>
+          <h2 className="text-[20px] font-extrabold tracking-[-0.02em]">Review — what came up and the answers</h2>
+          <p className="mt-1 text-[14px] text-muted-foreground">Listen again, read the transcripts and, if you recorded, listen to yourself.</p>
           <div className="mt-4 space-y-2">
             {steps.map((s, i) => (
               <ReviewItem key={i} step={s} n={i + 1} recordingUrl={recordings[i]} />
@@ -575,10 +575,10 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
         <div className="mt-8 flex items-center justify-center gap-2">
           <button onClick={onRestart} className="av-shine inline-flex items-center gap-2 h-12 px-6 rounded-lg text-[15px] font-semibold text-white border-0"
             style={{ background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)", boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)" }}>
-            <RotateCcw className="h-4 w-4" /> Otro simulacro
+            <RotateCcw className="h-4 w-4" /> Another mock exam
           </button>
           <Link to="/app/icao" className="inline-flex items-center gap-1.5 h-12 px-6 rounded-lg text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
-            Volver al módulo
+            Back to the module
           </Link>
         </div>
       </div>
@@ -601,7 +601,7 @@ function ReviewItem({ step, n, recordingUrl }: { step: ExamStep; n: number; reco
         <div className="px-3.5 pb-3.5 space-y-3">
           {recordingUrl && (
             <div>
-              <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">TU RESPUESTA</div>
+              <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">YOUR ANSWER</div>
               <audio controls src={recordingUrl} className="w-full h-9" />
             </div>
           )}
@@ -615,10 +615,10 @@ function ReviewItem({ step, n, recordingUrl }: { step: ExamStep; n: number; reco
 function reviewMeta(step: ExamStep): { tag: string; title: string } {
   switch (step.kind) {
     case "interview": return { tag: "P1", title: step.question }
-    case "short": return { tag: "2A", title: step.audio.messageSummary ?? step.audio.label }
+    case "short": return { tag: "2A", title: step.audio.transcript ?? step.audio.label }
     case "long": return { tag: "2B", title: step.audio.title }
     case "interactive": return { tag: "2C", title: step.item.transcript ?? step.item.label }
-    case "picture": return { tag: "P3", title: step.pair.theme }
+    case "picture": return { tag: "P3", title: step.pair.themeEn }
   }
 }
 
@@ -627,7 +627,7 @@ function ReviewBody({ step }: { step: ExamStep }) {
   if (step.kind === "interview") {
     return (
       <div className="rounded-lg border p-3" style={box}>
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">RESPUESTA MODELO</div>
+        <div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">MODEL ANSWER</div>
         <p className="text-[14px] text-foreground/90 leading-relaxed">{step.suggestedAnswer}</p>
         {step.highRegisterWords && step.highRegisterWords.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -643,7 +643,7 @@ function ReviewBody({ step }: { step: ExamStep }) {
     return (
       <div className="rounded-lg border p-3 space-y-1.5" style={box}>
         {step.audio.speaker && <Badge speaker={step.audio.speaker} />}
-        {step.audio.messageSummary && <p className="text-[14px] text-foreground/90">{step.audio.messageSummary}</p>}
+        
         {step.audio.transcript && <p className="text-[13.5px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
       </div>
     )
@@ -653,8 +653,8 @@ function ReviewBody({ step }: { step: ExamStep }) {
       <div className="rounded-lg border p-3 space-y-1.5" style={box}>
         {step.audio.speaker && <Badge speaker={step.audio.speaker} />}
         {step.audio.summary && <p className="text-[14px] text-foreground/90">{step.audio.summary}</p>}
-        {step.audio.problem && <p className="text-[14px] text-foreground/90"><strong>Problema:</strong> {step.audio.problem}</p>}
-        {step.audio.request && <p className="text-[14px] text-foreground/90"><strong>Pedía:</strong> {step.audio.request}</p>}
+        {step.audio.problem && <p className="text-[14px] text-foreground/90"><strong>Problem:</strong> {step.audio.problem}</p>}
+        {step.audio.request && <p className="text-[14px] text-foreground/90"><strong>Requested:</strong> {step.audio.request}</p>}
         {step.audio.transcript && <p className="text-[13.5px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
       </div>
     )
@@ -663,8 +663,8 @@ function ReviewBody({ step }: { step: ExamStep }) {
     return (
       <div className="rounded-lg border p-3 space-y-2" style={box}>
         {step.item.transcript && <p className="text-[14px] italic text-foreground/90">&ldquo;{step.item.transcript}&rdquo;</p>}
-        {step.item.questions && <div><div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">PREGUNTAS</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13.5px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
-        {step.item.advice && <div><div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1">RECOMENDACIONES</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
+        {step.item.questions && <div><div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1">QUESTIONS</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13.5px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
+        {step.item.advice && <div><div className="mono text-[11px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1">RECOMMENDATIONS</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
       </div>
     )
   }

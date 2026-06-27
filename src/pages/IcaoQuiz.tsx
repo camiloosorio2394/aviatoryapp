@@ -35,14 +35,14 @@ interface QuizQuestion {
 }
 
 const TOPICS: { value: string; label: string }[] = [
-  { value: "all",           label: "Todos los temas" },
-  { value: "vocabulary",    label: "Vocabulario" },
-  { value: "comprehension", label: "Comprensión" },
-  { value: "phraseology",   label: "Fraseología" },
+  { value: "all",           label: "All topics" },
+  { value: "vocabulary",    label: "Vocabulary" },
+  { value: "comprehension", label: "Comprehension" },
+  { value: "phraseology",   label: "Phraseology" },
   { value: "weather",       label: "Weather" },
   { value: "medical",       label: "Medical" },
   { value: "security",      label: "Security" },
-  { value: "emergencies",   label: "Emergencias" },
+  { value: "emergencies",   label: "Emergencies" },
   { value: "technical",     label: "Technical" },
 ]
 
@@ -124,7 +124,7 @@ export function IcaoQuiz() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         {/* === Pre-start screen === */}
@@ -177,20 +177,20 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
           border: "1px solid oklch(0.78 0.16 215 / 30%)",
         }}
       >
-        <ClipboardCheck className="h-3 w-3" /> QUIZ INGLÉS · BANCO PEDAGÓGICO
+        <ClipboardCheck className="h-3 w-3" /> ENGLISH QUIZ · STUDY BANK
       </div>
       <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
-        Preguntas de vocabulario y comprensión
+        Vocabulary and comprehension questions
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
-        {QUIZ_SIZE} preguntas al azar. Cada una con explicación al final — leelas, ahí
-        es donde se aprende. No es examen, es entrenamiento.
+        {QUIZ_SIZE} random questions. Each one has an explanation at the end — read them, that's
+        where the learning happens. It's not an exam, it's training.
       </p>
 
       <div className="mt-7 grid gap-4">
         <div>
           <label className="text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground mono">
-            Tema
+            Topic
           </label>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {TOPICS.map((t) => {
@@ -225,7 +225,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
           }}
         >
           {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-          Empezar quiz · {QUIZ_SIZE} preguntas
+          Start quiz · {QUIZ_SIZE} questions
         </button>
       </div>
     </>
@@ -240,7 +240,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
     <>
       <div className="flex items-center justify-between mb-4">
         <div className="mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground">
-          Pregunta {index + 1} <span className="opacity-50">/ {total}</span> · {question.topic}
+          Question {index + 1} <span className="opacity-50">/ {total}</span> · {question.topic}
         </div>
         <div className="flex-1 mx-4 h-1 rounded-full bg-border/50 overflow-hidden">
           <div
@@ -316,7 +316,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
             }}
           >
             <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5">
-              EXPLICACIÓN
+              EXPLANATION
             </div>
             {question.explanation}
           </div>
@@ -332,7 +332,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
                 boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
               }}
             >
-              {isLast ? "Ver resultados" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
+              {isLast ? "See results" : "Next"} <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
         )}
@@ -345,14 +345,14 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 function FinishedScreen({ score, total, history, onRestart }: { score: number; total: number; history: { qId: number; correct: boolean }[]; onRestart: () => void }) {
   const pct = Math.round((score / total) * 100)
   const verdict =
-    pct >= 80 ? { label: "Muy bien", color: "var(--av-green-400)" } :
-    pct >= 60 ? { label: "Aprobado, seguí practicando", color: "var(--av-cyan-400)" } :
-                { label: "Necesita repaso", color: "var(--av-amber-400)" }
+    pct >= 80 ? { label: "Great job", color: "var(--av-green-400)" } :
+    pct >= 60 ? { label: "Passed, keep practising", color: "var(--av-cyan-400)" } :
+                { label: "Needs review", color: "var(--av-amber-400)" }
 
   return (
     <div className="text-center pt-6">
       <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">
-        RESULTADOS
+        RESULTS
       </div>
       <div
         className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none"
@@ -390,13 +390,13 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
             boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
           }}
         >
-          <RotateCcw className="h-4 w-4" /> Otra tanda
+          <RotateCcw className="h-4 w-4" /> New round
         </button>
         <Link
           to="/app/icao/vocabulario"
           className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
-          Ir al glosario
+          Go to glossary
         </Link>
       </div>
     </div>

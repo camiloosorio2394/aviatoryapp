@@ -29,7 +29,7 @@ export function IcaoInterview() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
+          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
         {/* Header */}
@@ -44,14 +44,14 @@ export function IcaoInterview() {
           <Mic className="h-3 w-3" /> TEA · PART 1 · INTERVIEW · 7–8 MIN
         </div>
         <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
-          Interview · preguntas sobre tu rol
+          Interview · questions about your role
         </h1>
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[700px]">
-          El examen abre con una entrevista sobre tu experiencia profesional y temas de aviación.
-          El objetivo es ver si podés sostener una conversación espontánea en inglés natural,
-          técnico y profesional. Cada pregunta trae una <strong className="text-foreground">respuesta
-          modelo</strong> — no para memorizarla (el examen penaliza respuestas recitadas), sino para
-          captar el registro, la estructura y el vocabulario esperado.
+          The exam opens with an interview about your professional experience and aviation topics.
+          The goal is to see whether you can hold a spontaneous conversation in natural, technical and
+          professional English. Each question comes with a <strong className="text-foreground">model
+          answer</strong> — not to memorise it (the exam penalises recited answers), but to capture
+          the register, structure and expected vocabulary.
         </p>
 
         {/* Tip */}
@@ -64,9 +64,9 @@ export function IcaoInterview() {
         >
           <Lightbulb className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
-            <strong>Cómo practicar:</strong> leé la pregunta, respondé en voz alta grabándote, y
-            recién después abrí la respuesta sugerida para comparar. Apuntá a 3–5 frases por
-            respuesta, con detalle técnico y conectores naturales — no a un "sí/no" seco.
+            <strong>How to practise:</strong> read the question, answer out loud while recording
+            yourself, and only then open the suggested answer to compare. Aim for 3–5 sentences per
+            answer, with technical detail and natural connectors — not a dry "yes/no".
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export function IcaoInterview() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
-          {TEA_PART1_TOTAL} preguntas · 4 sets · TEA Part 1 (Mayflower College)
+          {TEA_PART1_TOTAL} questions · 4 sets · TEA Part 1 (Mayflower College)
         </div>
       </div>
     </AppLayout>
@@ -135,7 +135,7 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
             style={{ color: "var(--av-cyan-400)" }}
           >
             {open ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-            {open ? "Ocultar respuesta sugerida" : "Ver respuesta sugerida"}
+            {open ? "Hide suggested answer" : "Show suggested answer"}
             <ChevronDown
               className="h-3.5 w-3.5 transition-transform"
               style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -154,7 +154,7 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
             }}
           >
             <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5 flex items-center gap-1.5">
-              <MessageSquare className="h-3 w-3" /> RESPUESTA SUGERIDA
+              <MessageSquare className="h-3 w-3" /> SUGGESTED ANSWER
             </div>
             <p className="text-[14.5px] leading-relaxed text-foreground/90">
               {q.suggestedAnswer}

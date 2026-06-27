@@ -32,12 +32,12 @@ export interface PicturePair {
 export const PICTURE_PAIRS: PicturePair[] = [
   {
     id: 1,
-    theme: "Seguridad y contrabando",
+    theme: "Security & smuggling",
     themeEn: "Security & smuggling",
     imageA: img(1),
     imageB: img(2),
-    altA: "Personal de seguridad descubre dinero oculto en las piernas de una persona",
-    altB: "Control de seguridad y escáner de equipaje en un aeropuerto",
+    altA: "Security staff discover money hidden on a person's legs",
+    altB: "Security checkpoint and baggage scanner at an airport",
     discussion: [
       "What security threats do airports face today?",
       "How effective do you think current screening methods are?",
@@ -47,12 +47,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 2,
-    theme: "Tipos de aeródromos",
+    theme: "Types of aerodromes",
     themeEn: "Types of aerodromes",
     imageA: img(3),
     imageB: img(4),
-    altA: "Pequeño aeropuerto costero con torre y avión en pista de arena",
-    altB: "Helicóptero aterrizando en un helipuerto junto al agua",
+    altA: "Small coastal airport with a tower and an aircraft on a sand runway",
+    altB: "Helicopter landing on a helipad by the water",
     discussion: [
       "What are the main differences between these two operating environments?",
       "What challenges does each type of facility present to pilots?",
@@ -62,12 +62,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 3,
-    theme: "Fuego a bordo y en motor",
+    theme: "Fire on board and engine fire",
     themeEn: "Fire — cabin & engine",
     imageA: img(5),
     imageB: img(6),
-    altA: "Tripulación de cabina usando un extintor sobre un compartimento superior",
-    altB: "Avión comercial con fuego en el motor sobre la pista",
+    altA: "Cabin crew using an extinguisher on an overhead compartment",
+    altB: "Commercial aircraft with an engine fire over the runway",
     discussion: [
       "What are the most common causes of fire on board an aircraft?",
       "How should the crew respond to each of these situations?",
@@ -77,12 +77,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 4,
-    theme: "Evacuación de emergencia",
+    theme: "Emergency evacuation",
     themeEn: "Emergency evacuation",
     imageA: img(7),
     imageB: img(8),
-    altA: "Pasajeros evacuando un avión por el ala en la plataforma",
-    altB: "Avión dañado con bomberos respondiendo en la pista",
+    altA: "Passengers evacuating an aircraft over the wing on the apron",
+    altB: "Damaged aircraft with firefighters responding on the runway",
     discussion: [
       "What can make an emergency evacuation succeed or fail?",
       "Why is the 90-second evacuation rule so important?",
@@ -92,12 +92,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 5,
-    theme: "Pista y condiciones meteorológicas",
+    theme: "Runway and weather conditions",
     themeEn: "Runway conditions & weather",
     imageA: img(9),
     imageB: img(10),
-    altA: "Jet ejecutivo aterrizando en pista mojada con gran rociado de agua",
-    altB: "Máquina quitanieve despejando la plataforma con aviones nevados",
+    altA: "Business jet landing on a wet runway with heavy spray",
+    altB: "Snowplough clearing the apron with snow-covered aircraft",
     discussion: [
       "How do wet and snow-covered runways affect aircraft performance?",
       "What is aquaplaning and why is it dangerous?",
@@ -107,12 +107,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 6,
-    theme: "Tecnología: torre y simulador",
+    theme: "Technology: tower and simulator",
     themeEn: "Technology — tower & simulator",
     imageA: img(11),
     imageB: img(12),
-    altA: "Controlador en una torre digital/remota con varias pantallas",
-    altB: "Pilotos en un simulador de vuelo / cabina de entrenamiento",
+    altA: "Controller in a digital/remote tower with several screens",
+    altB: "Pilots in a flight simulator / training cockpit",
     discussion: [
       "How is technology changing the work of pilots and controllers?",
       "What are the benefits and risks of remote or digital towers?",
@@ -122,12 +122,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 7,
-    theme: "Drones y aeromodelismo",
+    theme: "Drones and model aircraft",
     themeEn: "Drones & model aircraft",
     imageA: img(13),
     imageB: img(14),
-    altA: "Niño en un avión de aeromodelismo en un evento de modelos",
-    altB: "Un dron volando peligrosamente cerca de un avión en aproximación",
+    altA: "Child with a model aircraft at a model-flying event",
+    altB: "A drone flying dangerously close to an aircraft on approach",
     discussion: [
       "Why are drones a growing safety concern near airports?",
       "How should drone use be regulated?",
@@ -137,12 +137,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 8,
-    theme: "Tecnología en distintos roles",
+    theme: "Technology in different roles",
     themeEn: "Technology in different roles",
     imageA: img(15),
     imageB: img(16),
-    altA: "Mapa digital táctil del movimiento en tierra de un aeropuerto",
-    altB: "Cabina de un avión de combate en vuelo",
+    altA: "Touchscreen digital map of an airport's ground movement",
+    altB: "Cockpit of a fighter jet in flight",
     discussion: [
       "How do the demands on a controller and a military pilot differ?",
       "What role does situational awareness play in each environment?",
@@ -152,12 +152,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 9,
-    theme: "Evolución del cockpit",
+    theme: "Evolution of the cockpit",
     themeEn: "Evolution of the cockpit",
     imageA: img(17),
     imageB: img(18),
-    altA: "Cabina antigua y compleja con muchos instrumentos y tripulación",
-    altB: "Cabina moderna de cristal (glass cockpit) de un helicóptero",
+    altA: "Old, complex cockpit with many instruments and crew",
+    altB: "Modern glass cockpit of a helicopter",
     discussion: [
       "How has the flight deck changed over the last decades?",
       "What are the advantages of modern glass cockpits?",
@@ -167,12 +167,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 10,
-    theme: "Aviones en tierra",
+    theme: "Aircraft on the ground",
     themeEn: "Aircraft on the ground",
     imageA: img(19),
     imageB: img(20),
-    altA: "Vista aérea de una fábrica de aviones con aeronaves nuevas",
-    altB: "Vista aérea de muchos aviones estacionados/almacenados",
+    altA: "Aerial view of an aircraft factory with new aircraft",
+    altB: "Aerial view of many parked/stored aircraft",
     discussion: [
       "What situations lead to large numbers of aircraft being grounded?",
       "What challenges does storing aircraft for a long time create?",
@@ -182,12 +182,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 11,
-    theme: "Evacuación médica",
+    theme: "Medical evacuation",
     themeEn: "Medical evacuation",
     imageA: img(21),
     imageB: img(22),
-    altA: "Paciente en camilla siendo embarcado en un jet ambulancia",
-    altB: "Helicóptero de rescate en la nieve con equipo de rescatistas",
+    altA: "Patient on a stretcher being boarded onto an air ambulance jet",
+    altB: "Rescue helicopter in the snow with a rescue team",
     discussion: [
       "Why are air ambulances so important?",
       "What challenges do medical evacuation flights face?",
@@ -197,12 +197,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 12,
-    theme: "Aeropuertos desafiantes",
+    theme: "Challenging airports",
     themeEn: "Challenging airports",
     imageA: img(23),
     imageB: img(24),
-    altA: "Pista construida sobre una península rodeada de montañas y mar",
-    altB: "Pista costera estrecha junto al mar y un pueblo",
+    altA: "Runway built on a peninsula surrounded by mountains and sea",
+    altB: "Narrow coastal runway next to the sea and a town",
     discussion: [
       "What makes some airports especially difficult to operate at?",
       "How do terrain and surrounding obstacles affect approaches?",
@@ -212,12 +212,12 @@ export const PICTURE_PAIRS: PicturePair[] = [
   },
   {
     id: 13,
-    theme: "Aviones y carreteras",
+    theme: "Aircraft and roads",
     themeEn: "Aircraft & roads",
     imageA: img(25),
     imageB: img(26),
-    altA: "Avión comercial cruzando una carretera con semáforos deteniendo autos",
-    altB: "Avioneta que aterrizó de emergencia en una autopista con policía",
+    altA: "Commercial aircraft crossing a road with traffic lights stopping cars",
+    altB: "Light aircraft that made an emergency landing on a motorway, with police",
     discussion: [
       "What risks appear when aircraft and road traffic share space?",
       "What might cause a pilot to make an emergency landing on a road?",
@@ -229,10 +229,10 @@ export const PICTURE_PAIRS: PicturePair[] = [
 
 /** Pasos de la tarea en la Parte 3 (iguales para todos los pares). */
 export const PART3_TASK_STEPS: { label: string; detail: string }[] = [
-  { label: "Describí cada imagen", detail: "Detalle a detalle, foreground/background, qué ves en A y en B." },
-  { label: "Compará las dos", detail: "Similitudes y diferencias entre ambas situaciones." },
-  { label: "Identificá los riesgos", detail: "Qué peligros o problemas de seguridad aparecen." },
-  { label: "Explicá posibles causas", detail: "Especulá con 'might / could / may have': qué pudo provocarlo." },
-  { label: "Dá tu opinión", detail: "Qué pensás del tema y por qué. Justificá." },
-  { label: "Conversá sobre el tema", detail: "Respondé las preguntas de discusión desarrollando ideas." },
+  { label: "Describe each image", detail: "Detail by detail, foreground/background, what you see in A and in B." },
+  { label: "Compare the two", detail: "Similarities and differences between the two situations." },
+  { label: "Identify the risks", detail: "What dangers or safety issues appear." },
+  { label: "Explain possible causes", detail: "Speculate with 'might / could / may have': what could have caused it." },
+  { label: "Give your opinion", detail: "What you think about the topic and why. Justify it." },
+  { label: "Discuss the topic", detail: "Answer the discussion questions, developing your ideas." },
 ]
