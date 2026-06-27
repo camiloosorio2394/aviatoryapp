@@ -33,30 +33,31 @@ export function IcaoInterview() {
         </Link>
 
         {/* Header */}
-        <div
-          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
-          style={{
-            color: "var(--av-cyan-300)",
-            background: "oklch(0.78 0.16 215 / 12%)",
-            border: "1px solid oklch(0.78 0.16 215 / 30%)",
-          }}
-        >
-          <Mic className="h-3 w-3" /> TEA · PART 1 · INTERVIEW · 7–8 MIN
-        </div>
-        <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
-          Interview · questions about your role
-        </h1>
-        <p className="mt-2 text-[15px] text-muted-foreground max-w-[700px]">
-          The exam opens with an interview about your professional experience and aviation topics.
-          The goal is to see whether you can hold a spontaneous conversation in natural, technical and
-          professional English. Each question comes with a <strong className="text-foreground">model
-          answer</strong> — not to memorise it (the exam penalises recited answers), but to capture
-          the register, structure and expected vocabulary.
-        </p>
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+          <div
+            className="inline-flex items-center gap-2 w-9 h-9 rounded-xl mb-4 flex items-center justify-center"
+            style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
+          >
+            <Mic className="h-4.5 w-4.5 text-white" />
+          </div>
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            TEA · Part 1 · Interview · 7–8 min
+          </div>
+          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+            Interview · questions about your role
+          </h1>
+          <p className="mt-3 text-[15px] text-muted-foreground max-w-[700px]">
+            The exam opens with an interview about your professional experience and aviation topics.
+            The goal is to see whether you can hold a spontaneous conversation in natural, technical and
+            professional English. Each question comes with a <strong className="text-foreground">model
+            answer</strong> — not to memorise it (the exam penalises recited answers), but to capture
+            the register, structure and expected vocabulary.
+          </p>
+        </section>
 
         {/* Tip */}
         <div
-          className="mt-5 rounded-xl border p-4 flex items-start gap-3"
+          className="mt-5 rounded-2xl border p-4 flex items-start gap-3"
           style={{
             borderColor: "color-mix(in oklab, var(--av-amber-400) 25%, transparent)",
             background: "color-mix(in oklab, var(--av-amber-400) 6%, transparent)",
@@ -78,13 +79,13 @@ export function IcaoInterview() {
               <button
                 key={s.set}
                 onClick={() => setActiveSet(s.set)}
-                className="mono px-4 h-9 rounded-full text-[13.5px] font-bold uppercase tracking-[0.08em] border transition-colors"
+                className="px-4 h-9 rounded-full text-[13.5px] font-semibold border transition-colors"
                 style={{
                   borderColor: active
-                    ? "color-mix(in oklab, var(--av-cyan-400) 45%, transparent)"
+                    ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
                     : "color-mix(in oklab, var(--border) 60%, transparent)",
-                  background: active ? "color-mix(in oklab, var(--av-cyan-400) 16%, transparent)" : "transparent",
-                  color: active ? "var(--av-cyan-300)" : "var(--muted-foreground)",
+                  background: active ? "color-mix(in oklab, var(--av-blue-500) 16%, transparent)" : "transparent",
+                  color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
                 }}
               >
                 {s.label}
@@ -100,7 +101,7 @@ export function IcaoInterview() {
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
+        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center">
           {TEA_PART1_TOTAL} questions · 4 sets · TEA Part 1 (Mayflower College)
         </div>
       </div>
@@ -112,15 +113,15 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
   const [open, setOpen] = useState(false)
   return (
     <div
-      className="rounded-xl border bg-card overflow-hidden"
-      style={{ borderColor: open ? "color-mix(in oklab, var(--av-cyan-400) 32%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)" }}
+      className="rounded-2xl border bg-card overflow-hidden"
+      style={{ borderColor: open ? "color-mix(in oklab, var(--av-blue-500) 32%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-start gap-4 p-4">
         <div
-          className="mono flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
+          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
           style={{
-            background: "color-mix(in oklab, var(--av-cyan-400) 12%, transparent)",
-            color: "var(--av-cyan-300)",
+            background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
+            color: "var(--av-blue-500)",
           }}
         >
           {String(q.n).padStart(2, "0")}
@@ -132,7 +133,7 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
           <button
             onClick={() => setOpen((o) => !o)}
             className="mt-2 inline-flex items-center gap-1.5 text-[13.5px] font-semibold transition-colors"
-            style={{ color: "var(--av-cyan-400)" }}
+            style={{ color: "var(--av-blue-500)" }}
           >
             {open ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
             {open ? "Hide suggested answer" : "Show suggested answer"}
@@ -147,14 +148,14 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
       {open && (
         <div className="px-4 pb-4 pt-0">
           <div
-            className="rounded-xl border p-4"
+            className="rounded-2xl border p-4"
             style={{
-              borderColor: "color-mix(in oklab, var(--av-cyan-400) 25%, transparent)",
-              background: "color-mix(in oklab, var(--av-cyan-400) 7%, transparent)",
+              borderColor: "color-mix(in oklab, var(--av-blue-500) 25%, transparent)",
+              background: "color-mix(in oklab, var(--av-blue-500) 7%, transparent)",
             }}
           >
-            <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5 flex items-center gap-1.5">
-              <MessageSquare className="h-3 w-3" /> SUGGESTED ANSWER
+            <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "var(--av-blue-500)" }}>
+              <MessageSquare className="h-3 w-3" /> Suggested answer
             </div>
             <p className="text-[14.5px] leading-relaxed text-foreground/90">
               {q.suggestedAnswer}
@@ -162,8 +163,8 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
 
             {q.highRegisterWords && q.highRegisterWords.length > 0 && (
               <div className="mt-3 pt-3 border-t border-border/50">
-                <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-amber-400)] mb-1.5">
-                  HIGH REGISTER WORDS
+                <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-amber-400)" }}>
+                  High register words
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {q.highRegisterWords.map((w) => (

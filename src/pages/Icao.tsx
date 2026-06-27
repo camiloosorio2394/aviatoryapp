@@ -29,66 +29,30 @@ export function Icao() {
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
         {/* === HERO === */}
-        <section
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-          }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-60" />
-          <div
-            className="absolute inset-0"
-            style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
-          />
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+          <div className="grid items-center gap-7 sm:grid-cols-[1fr_auto]">
             <div>
-              <div
-                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
-                style={{
-                  color: "var(--av-cyan-300)",
-                  background: "oklch(0.78 0.16 215 / 12%)",
-                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
-                />
-                ICAO ENGLISH MODULE · TEA STRUCTURE
+              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                ICAO English · TEA structure
               </div>
-              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-                ICAO English,{" "}
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  built for the TEA exam
-                </span>
+              <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+                ICAO English, built for the TEA exam
               </h1>
-              <p className="text-[17px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
-                Organised exactly like the <strong className="text-white">Test of English for
+              <p className="text-[16px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
+                Organised exactly like the <strong className="text-foreground">Test of English for
                 Aviation</strong>: 4 sections covering the two skills the exam measures —
-                <strong className="text-white"> speaking and understanding</strong> English in an
+                <strong className="text-foreground"> speaking and understanding</strong> English in an
                 aviation context.
               </p>
             </div>
-            <div className="flex flex-col items-center gap-3 pr-2">
+            <div className="hidden sm:flex flex-col items-center gap-3 pr-2">
               <div
-                className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
-                style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-                  boxShadow:
-                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
-                }}
+                className="flex items-center justify-center w-[110px] h-[110px] rounded-2xl"
+                style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
               >
                 <Radio className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[12px] tracking-[0.16em] text-white/50">TEA · 25–30 MIN</div>
+              <div className="text-[12px] font-semibold text-muted-foreground">TEA · 25–30 min</div>
             </div>
           </div>
         </section>
@@ -96,8 +60,8 @@ export function Icao() {
         {/* === DESCRIPCIÓN DEL EXAMEN === */}
         <section className="mt-9 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-              WHAT THE TEA IS
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+              What the TEA is
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
               Test of English for Aviation
@@ -119,10 +83,10 @@ export function Icao() {
 
           <div
             className="rounded-2xl border p-5"
-            style={{ borderColor: "color-mix(in oklab, var(--av-cyan-400) 25%, transparent)", background: "color-mix(in oklab, var(--av-cyan-400) 5%, transparent)" }}
+            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
           >
             <div className="flex items-center gap-2 mb-3">
-              <Clock className="h-4 w-4 text-[var(--av-cyan-400)]" />
+              <Clock className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
               <div className="text-[14px] font-bold">Total duration: 25–30 min</div>
             </div>
             <ul className="space-y-2.5">
@@ -140,22 +104,22 @@ export function Icao() {
         {/* === SIMULACRO (destacado) === */}
         <Link
           to="/app/icao/simulacro"
-          className="av-shine group mt-9 block rounded-2xl border p-6 transition-all hover:-translate-y-0.5"
+          className="group mt-9 block rounded-2xl border p-6 transition-all hover:-translate-y-0.5 hover:shadow-md"
           style={{
-            borderColor: "color-mix(in oklab, var(--av-amber-400) 38%, transparent)",
-            background: "linear-gradient(135deg, color-mix(in oklab, var(--av-amber-400) 12%, transparent) 0%, color-mix(in oklab, var(--av-blue-500) 12%, transparent) 100%)",
+            borderColor: "color-mix(in oklab, var(--av-blue-500) 35%, transparent)",
+            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
           }}
         >
           <div className="flex items-center gap-5">
             <div
               className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, var(--av-amber-400), var(--av-blue-500))", boxShadow: "0 10px 24px -8px oklch(0.55 0.22 264 / 45%)" }}
+              style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
             >
               <Award className="h-7 w-7 text-white" strokeWidth={1.6} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-amber-400)" }}>
-                PUT YOURSELF TO THE TEST
+              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                Put yourself to the test
               </div>
               <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">TEA Mock Exam — full test</div>
               <p className="mt-1 text-[14px] text-muted-foreground max-w-[640px]">
@@ -169,8 +133,8 @@ export function Icao() {
 
         {/* === LAS SECCIONES === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            THE MODULE · 4 SECTIONS
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            The module · 4 sections
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Where you train each skill
@@ -185,8 +149,8 @@ export function Icao() {
 
         {/* === CÓMO SE CALIFICA: 6 DESCRIPTORES + NIVELES === */}
         <div className="mt-12 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            HOW IT'S SCORED
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            How it's scored
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             The 6 ICAO descriptors
@@ -206,7 +170,7 @@ export function Icao() {
               style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
             >
               <div className="flex items-center gap-2">
-                <Gauge className="h-4 w-4 text-[var(--av-cyan-400)]" />
+                <Gauge className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
                 <div className="text-[15px] font-bold tracking-[-0.01em]">{d.name}</div>
               </div>
               <p className="mt-1 text-[13.5px] text-muted-foreground leading-snug">{d.detail}</p>
@@ -247,17 +211,16 @@ export function Icao() {
         <section
           className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
           style={{
-            borderColor: "oklch(0.78 0.16 215 / 25%)",
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
+            borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
+            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
           }}
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
-              <Sparkles className="h-3 w-3" /> Practice tip
+              <Sparkles className="h-3.5 w-3.5" /> Practice tip
             </div>
             <h3 className="mt-1.5 text-lg font-bold">Practise out loud — and record yourself</h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
@@ -268,12 +231,8 @@ export function Icao() {
           </div>
           <Link
             to="/app/comunidad"
-            className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0 flex-shrink-0"
-            style={{
-              background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-              boxShadow:
-                "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-            }}
+            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+            style={{ background: "var(--av-blue-500)" }}
           >
             #icao community <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -287,7 +246,7 @@ export function Icao() {
 function FactRow({ label, detail }: { label: string; detail: string }) {
   return (
     <li className="flex items-start gap-2">
-      <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" strokeWidth={3} />
+      <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} strokeWidth={3} />
       <div>
         <div className="text-[14px] font-semibold leading-tight">{label}</div>
         <div className="text-[13px] text-muted-foreground leading-tight">{detail}</div>
@@ -298,11 +257,11 @@ function FactRow({ label, detail }: { label: string; detail: string }) {
 
 type ColorKey = "cyan" | "blue" | "violet" | "green" | "amber"
 const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "var(--av-cyan-400)",
-  blue: "var(--av-blue-500)",
-  violet: "var(--av-violet-400)",
-  green: "var(--av-green-400)",
-  amber: "var(--av-amber-400)",
+  cyan: "#0E7490",
+  blue: "#2563EB",
+  violet: "#7C3AED",
+  green: "#047857",
+  amber: "#B45309",
 }
 
 interface SectionDef {
@@ -381,14 +340,14 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
         </div>
         {status === "ready" ? (
           <span
-            className="mono text-[11px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
-            style={{ color: "var(--av-green-400)", background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)" }}
+            className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
+            style={{ color: "#047857", background: "color-mix(in oklab, #047857 12%, transparent)" }}
           >
             Ready
           </span>
         ) : (
           <span
-            className="mono text-[11px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+            className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
             style={{ color: "var(--muted-foreground)", background: "color-mix(in oklab, var(--border) 40%, transparent)" }}
           >
             Soon
@@ -397,7 +356,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
       </div>
 
       <div>
-        <div className="mono text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: c }}>
+        <div className="text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color: c }}>
           {part}
         </div>
         <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.02em]">{title}</div>
@@ -448,12 +407,12 @@ function LevelPanel({ level, title, color, blurb, traits }: { level: number; tit
       style={{ borderColor: `color-mix(in oklab, ${c} 30%, transparent)`, background: `color-mix(in oklab, ${c} 5%, transparent)` }}
     >
       <div className="flex items-baseline gap-2">
-        <div className="mono text-[36px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: c }}>
+        <div className="text-[36px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: c }}>
           {level}
         </div>
         <div>
           <div className="text-[16px] font-bold tracking-[-0.01em]">ICAO {level} · {title}</div>
-          <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+          <div className="text-[12px] text-muted-foreground">
             minimum {level} in every descriptor
           </div>
         </div>
