@@ -11,6 +11,7 @@ import {
   Sparkles,
   ClipboardCheck,
   Gauge,
+  Award,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 
@@ -135,6 +136,36 @@ export function Icao() {
             </div>
           </div>
         </section>
+
+        {/* === SIMULACRO (destacado) === */}
+        <Link
+          to="/app/icao/simulacro"
+          className="av-shine group mt-9 block rounded-2xl border p-6 transition-all hover:-translate-y-0.5"
+          style={{
+            borderColor: "color-mix(in oklab, var(--av-amber-400) 38%, transparent)",
+            background: "linear-gradient(135deg, color-mix(in oklab, var(--av-amber-400) 12%, transparent) 0%, color-mix(in oklab, var(--av-blue-500) 12%, transparent) 100%)",
+          }}
+        >
+          <div className="flex items-center gap-5">
+            <div
+              className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, var(--av-amber-400), var(--av-blue-500))", boxShadow: "0 10px 24px -8px oklch(0.55 0.22 264 / 45%)" }}
+            >
+              <Award className="h-7 w-7 text-white" strokeWidth={1.6} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="mono text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-amber-400)" }}>
+                PONETE A PRUEBA
+              </div>
+              <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em]">Simulacro TEA — examen completo</div>
+              <p className="mt-1 text-[13px] text-muted-foreground max-w-[640px]">
+                Las 3 partes de corrido, cronometradas, con audios reales. Grabate, respondé en voz alta y
+                autoevaluate en los 6 descriptores al final.
+              </p>
+            </div>
+            <ArrowRight className="hidden sm:block h-5 w-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+          </div>
+        </Link>
 
         {/* === LAS SECCIONES === */}
         <div className="mt-10 mb-5">
