@@ -1,23 +1,20 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
+  ArrowRight,
   Headphones,
   Play,
   Square,
   RotateCcw,
   Eye,
-  EyeOff,
-  Lightbulb,
   Plane,
   RadioTower,
   AlertTriangle,
   Check,
   HelpCircle,
-  MessageSquare,
   BookOpen,
   ChevronDown,
-  Sparkles,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import {
@@ -186,209 +183,260 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
   )
 }
 
-// ─── 2A · SHORT AUDIOS ───────────────────────────────────────────────────────
-function ShortAudiosSection() {
+// ─── QUIZ unificado (aleatorio, una pregunta a la vez) ───────────────────────
+interface QItem {
+  id: string
+  audioUrl: string
+  playLabel?: string
+  speaker?: Speaker // si existe → se pregunta pilot/controller y se verifica
+  reveal: ReactNode
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr]
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+function QuizRunner({ items, accent = "var(--av-violet-400)" }: { items: QItem[]; accent?: string }) {
+  const [order, setOrder] = useState<QItem[]>(() => shuffle(items))
+  const [idx, setIdx] = useState(0)
+  const [picked, setPicked] = useState<Speaker | null>(null)
+  const [revealed, setRevealed] = useState(false)
+  const [score, setScore] = useState(0)
+  const [done, setDone] = useState(false)
+
+  const scorable = order.filter((q) => q.speaker).length
+  const cur = order[idx]
+
+  function pickSpeaker(s: Speaker) {
+    if (revealed) return
+    setPicked(s)
+    setRevealed(true)
+    if (s === cur.speaker) setScore((v) => v + 1)
+  }
+  function next() {
+    if (idx >= order.length - 1) { setDone(true); return }
+    setIdx((i) => i + 1); setPicked(null); setRevealed(false)
+  }
+  function restart() {
+    setOrder(shuffle(items)); setIdx(0); setPicked(null); setRevealed(false); setScore(0); setDone(false)
+  }
+
+  if (done) {
+    const pct = scorable ? Math.round((score / scorable) * 100) : 0
+    return (
+      <div className="text-center pt-6">
+        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-muted-foreground">RONDA COMPLETADA</div>
+        {scorable > 0 ? (
+          <>
+            <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: accent }}>{score} / {scorable}</div>
+            <div className="mt-1 mono text-[13px] uppercase tracking-[0.16em]" style={{ color: accent }}>{pct}% pilot/controller</div>
+          </>
+        ) : (
+          <div className="mt-3 text-[16px] text-foreground/80">Recorriste las {order.length} situaciones.</div>
+        )}
+        <div className="mt-8">
+          <button onClick={restart} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
+            style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
+            <RotateCcw className="h-4 w-4" /> Otra ronda (nuevo orden)
+          </button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
-      <SectionIntro text={`${SHORT_AUDIO_TOTAL} mensajes cortos en 3 sets. Después de cada uno, respondé mentalmente: ¿cuál era el mensaje? ¿hablaba un piloto o un controlador? No hace falta repetir palabra por palabra — sí transmitir toda la info relevante.`} />
-      <WorkbookSamples
-        title={`Frases modelo del workbook · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
-        intro="Ejemplos oficiales del tipo de mensaje que vas a escuchar (Aviation English Now). Practicá parafrasear cada uno: ¿cuál es el mensaje y quién habla?"
-        items={SAMPLE_MESSAGES_2A}
-      />
-      <div className="space-y-7">
-        {SHORT_AUDIO_SETS.map((set) => (
-          <div key={set.key}>
-            <div className="flex items-baseline gap-2 mb-1.5 flex-wrap">
-              <h3 className="text-[15px] font-bold tracking-[-0.01em]">{set.title}</h3>
-              <span className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">{set.note}</span>
+      {/* progreso */}
+      <div className="flex items-center justify-between gap-3 mb-4">
+        <div className="mono text-[12.5px] uppercase tracking-[0.12em] text-muted-foreground">
+          {idx + 1} <span className="opacity-50">/ {order.length}</span>
+        </div>
+        <div className="flex-1 mx-3 h-1.5 rounded-full bg-border/50 overflow-hidden">
+          <div className="h-full rounded-full transition-all" style={{ width: `${((idx + (revealed ? 1 : 0)) / order.length) * 100}%`, background: accent }} />
+        </div>
+        {scorable > 0 && <div className="mono text-[12.5px] text-muted-foreground">✓ {score}</div>}
+      </div>
+
+      <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
+        <div className="flex items-center justify-center">
+          <ClipPlayer audioUrl={cur.audioUrl} label={cur.playLabel ?? "Reproducir"} />
+        </div>
+
+        {/* Pregunta pilot/controller (verificada) */}
+        {cur.speaker && (
+          <div className="mt-5">
+            <div className="text-center text-[14px] font-semibold mb-2.5">¿Quién habla?</div>
+            <div className="flex items-center justify-center gap-2.5">
+              {(["pilot", "controller"] as Speaker[]).map((s) => {
+                const chosen = picked === s
+                const isAnswer = cur.speaker === s
+                const showCorrect = revealed && isAnswer
+                const showWrong = revealed && chosen && !isAnswer
+                return (
+                  <button key={s} onClick={() => pickSpeaker(s)} disabled={revealed}
+                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-bold border transition-colors disabled:cursor-default"
+                    style={{
+                      borderColor: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : chosen ? accent : "color-mix(in oklab, var(--border) 70%, transparent)",
+                      background: showCorrect ? "color-mix(in oklab, var(--av-green-400) 14%, transparent)" : showWrong ? "color-mix(in oklab, var(--av-red-400) 14%, transparent)" : "transparent",
+                      color: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : "var(--foreground)",
+                    }}>
+                    {s === "pilot" ? <Plane className="h-4 w-4" /> : <RadioTower className="h-4 w-4" />}
+                    {s === "pilot" ? "Pilot" : "Controller"}
+                    {showCorrect && <Check className="h-4 w-4" strokeWidth={3} />}
+                  </button>
+                )
+              })}
             </div>
-            {set.keyNote && (
-              <p className="text-[12.5px] text-muted-foreground mb-3 flex items-center gap-1.5">
-                <Sparkles className="h-3 w-3 text-[var(--av-violet-400)]" /> {set.keyNote}
-              </p>
+            {revealed && (
+              <div className="mt-2.5 text-center text-[13px] font-semibold" style={{ color: picked === cur.speaker ? "var(--av-green-400)" : "var(--av-red-400)" }}>
+                {picked === cur.speaker ? "¡Correcto!" : `Era ${cur.speaker === "pilot" ? "Pilot" : "Controller"}`}
+              </div>
             )}
-            <div className="grid gap-2.5 sm:grid-cols-2">
-              {set.items.map((a) => (
-                <ShortAudioCard key={a.id} audio={a} />
-              ))}
-            </div>
           </div>
-        ))}
+        )}
+
+        {/* Para 2C (sin speaker): botón Ver respuesta */}
+        {!cur.speaker && !revealed && (
+          <div className="mt-5 flex justify-center">
+            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+              <Eye className="h-4 w-4" /> Ver respuesta modelo
+            </button>
+          </div>
+        )}
+
+        {/* Reveal: la misma info clave que en audios largos */}
+        {revealed && <div className="mt-4">{cur.reveal}</div>}
       </div>
+
+      {revealed && (
+        <div className="mt-5 flex justify-end">
+          <button onClick={next} className="av-shine inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[14px] font-semibold text-white border-0"
+            style={{ background: `linear-gradient(180deg, ${accent} 0%, oklch(0.5 0.2 295) 100%)`, boxShadow: "0 8px 20px -8px oklch(0.5 0.2 295 / 50%)" }}>
+            {idx >= order.length - 1 ? "Ver resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
+      )}
     </>
   )
 }
 
-function ShortAudioCard({ audio }: { audio: ShortAudio }) {
-  const [revealed, setRevealed] = useState(false)
-  const hasKey = !!audio.messageSummary
+// ─── Reveals (la "misma info que en audios largos") ──────────────────────────
+function ShortReveal({ a }: { a: ShortAudio }) {
   return (
-    <div className="rounded-xl border bg-card p-3.5" style={cardBorder}>
-      <div className="flex items-center justify-between gap-2">
-        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          {audio.label}
+    <div className="rounded-lg border p-3.5" style={revealBox}>
+      {a.speaker && <SpeakerBadge speaker={a.speaker} />}
+      {a.messageSummary && <div className="mt-2 text-[14px] text-foreground/90 leading-relaxed">{a.messageSummary}</div>}
+      {a.transcript && <Transcript text={a.transcript} />}
+    </div>
+  )
+}
+function LongReveal({ a }: { a: LongAudio }) {
+  return (
+    <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
+      <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{a.title}</div>
+      {a.summary && <RevealRow label="Resumen" value={a.summary} color="var(--av-cyan-400)" />}
+      {a.problem && <RevealRow label="El problema" value={a.problem} color="var(--av-red-400)" />}
+      {a.request && <RevealRow label="Qué pedía / aviso" value={a.request} color="var(--av-cyan-400)" />}
+      {a.details && a.details.length > 0 && (
+        <div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">DETALLES CLAVE</div>
+          <ul className="space-y-1">
+            {a.details.map((d) => (
+              <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
+                <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} /><span>{d}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-        {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
-      </div>
-      <div className="mt-2">
-        <ClipPlayer audioUrl={audio.audioUrl} />
-      </div>
-      <div className="mt-2.5 grid gap-1 text-[13px] text-muted-foreground">
-        <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> What was the message?</div>
-        <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> Pilot or controller?</div>
-      </div>
-
-      {hasKey && revealed && (
-        <div className="mt-3 rounded-lg border p-3" style={revealBox}>
-          {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
-          <div className="mt-2 text-[14px] text-foreground/90 leading-relaxed">{audio.messageSummary}</div>
-          {audio.transcript && <Transcript text={audio.transcript} />}
+      )}
+      {a.transcript && <Transcript text={a.transcript} />}
+    </div>
+  )
+}
+function InteractiveReveal({ it }: { it: InteractiveItem }) {
+  return (
+    <div className="rounded-lg border p-3.5 space-y-3" style={revealBox}>
+      {it.transcript && (
+        <div className="text-[14px] text-foreground/90">
+          <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
+          <span className="italic">&ldquo;{it.transcript}&rdquo;</span>
+        </div>
+      )}
+      {it.questions && (
+        <div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">PREGUNTAS QUE PODRÍAS HACER</div>
+          <ul className="space-y-1">
+            {it.questions.map((q) => (
+              <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
+                <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" /><span>&ldquo;{q}&rdquo;</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {it.advice && (
+        <div>
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">RECOMENDACIONES</div>
+          <ul className="space-y-1">
+            {it.advice.map((a) => (
+              <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
+                <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} /><span>{a}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
   )
 }
 
-// ─── 2B · LONG AUDIOS ────────────────────────────────────────────────────────
+// ─── 2A · SHORT AUDIOS (quiz aleatorio) ──────────────────────────────────────
+function ShortAudiosSection() {
+  const items: QItem[] = SHORT_AUDIO_SETS.flatMap((set) =>
+    set.items.map((a) => ({ id: a.id, audioUrl: a.audioUrl, speaker: a.speaker, reveal: <ShortReveal a={a} /> })),
+  )
+  return (
+    <>
+      <SectionIntro text={`${SHORT_AUDIO_TOTAL} mensajes cortos, en orden aleatorio (no por sets). Escuchá, decidí si habla un piloto o un controlador — te lo verifico — y después comparás con la clave.`} />
+      <WorkbookSamples title={`Frases modelo del workbook · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
+        intro="Ejemplos oficiales del tipo de mensaje (Aviation English Now). Practicá parafrasear cada uno."
+        items={SAMPLE_MESSAGES_2A} />
+      <QuizRunner items={items} />
+    </>
+  )
+}
+
+// ─── 2B · LONG AUDIOS (quiz aleatorio) ───────────────────────────────────────
 function LongAudiosSection() {
+  const items: QItem[] = LONG_AUDIOS.map((a) => ({
+    id: String(a.id), audioUrl: a.audioUrl, speaker: a.speaker, reveal: <LongReveal a={a} />,
+  }))
   return (
     <>
-      <SectionIntro text="Mensajes largos (15–20s). Acá SÍ podés tomar notas. Después explicá la situación con el mayor detalle posible: cuál era el problema, qué pedía el hablante y todos los detalles importantes. Cuanta más info correcta recuerdes, mejor la nota." />
-      <div className="space-y-3">
-        {LONG_AUDIOS.map((a) => (
-          <LongAudioCard key={a.id} audio={a} />
-        ))}
-      </div>
+      <SectionIntro text="Mensajes largos en orden aleatorio. Escuchá (podés tomar notas), decidí pilot/controller — te lo verifico — y después explicá la situación; comparás con problema · pedido · detalles." />
+      <QuizRunner items={items} />
     </>
   )
 }
 
-function LongAudioCard({ audio }: { audio: LongAudio }) {
-  const [revealed, setRevealed] = useState(false)
-  return (
-    <div className="rounded-xl border bg-card p-4" style={cardBorder}>
-      <div className="flex items-center justify-between gap-3 flex-wrap">
-        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          Audio largo {audio.id} / {LONG_AUDIOS.length}
-        </div>
-        {audio.hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
-      </div>
-      <div className="mt-1 text-[14.5px] font-semibold tracking-[-0.01em]">{audio.title}</div>
-      <div className="mt-3">
-        <ClipPlayer audioUrl={audio.audioUrl} />
-      </div>
-      <div className="mt-2 text-[12.5px] text-muted-foreground flex items-center gap-1.5">
-        <Lightbulb className="h-3 w-3" /> Tomá notas: problema · pedido · detalles
-      </div>
-
-      {revealed && audio.hasKey && (
-        <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
-          {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
-          {audio.summary && <RevealRow label="Resumen" value={audio.summary} color="var(--av-cyan-400)" />}
-          {audio.problem && <RevealRow label="El problema" value={audio.problem} color="var(--av-red-400)" />}
-          {audio.request && <RevealRow label="Qué pedía / aviso" value={audio.request} color="var(--av-cyan-400)" />}
-          {audio.details && audio.details.length > 0 && (
-            <div>
-              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
-                DETALLES CLAVE
-              </div>
-              <ul className="space-y-1">
-                {audio.details.map((d) => (
-                  <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
-                    <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
-                    <span>{d}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {audio.transcript && <Transcript text={audio.transcript} />}
-        </div>
-      )}
-    </div>
-  )
-}
-
-// ─── 2C · INTERACTIVE RESPONSE ───────────────────────────────────────────────
+// ─── 2C · INTERACTIVE RESPONSE (quiz aleatorio) ──────────────────────────────
 function InteractiveSection() {
+  const items: QItem[] = INTERACTIVE_ITEMS.map((it) => ({
+    id: String(it.id), audioUrl: it.audioUrl, playLabel: "Escuchar situación", reveal: <InteractiveReveal it={it} />,
+  }))
   return (
     <>
-      <SectionIntro text="Situaciones cortas no rutinarias. Tras escuchar, tenés ~20s para formular preguntas que te den más información. Después, dá recomendaciones o consejos para resolver. Se evalúa interacción natural en Plain English: preguntas relevantes + soluciones apropiadas." />
-      <WorkbookSamples
-        title={`Escenarios modelo del workbook · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
-        intro="Situaciones oficiales del tipo de la Parte 2C (Aviation English Now). Para cada una: formulá 2-3 preguntas para obtener más info y luego dá un consejo."
-        items={SAMPLE_SCENARIOS_2C}
-      />
-      <div className="space-y-2.5">
-        {INTERACTIVE_ITEMS.map((it) => (
-          <InteractiveCard key={it.id} item={it} />
-        ))}
-      </div>
+      <SectionIntro text="Situaciones no rutinarias en orden aleatorio. Escuchá, formulá preguntas para obtener info y dá recomendaciones; después comparás con el modelo." />
+      <WorkbookSamples title={`Escenarios modelo del workbook · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
+        intro="Situaciones oficiales del tipo de la Parte 2C (Aviation English Now)."
+        items={SAMPLE_SCENARIOS_2C} />
+      <QuizRunner items={items} />
     </>
-  )
-}
-
-function InteractiveCard({ item }: { item: InteractiveItem }) {
-  const [revealed, setRevealed] = useState(false)
-  const hasKey = !!item.questions?.length
-  return (
-    <div className="rounded-xl border bg-card p-4" style={cardBorder}>
-      <div className="flex items-center justify-between gap-2">
-        <div className="mono text-[12.5px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
-          {item.label}
-        </div>
-        {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
-      </div>
-      <div className="mt-2">
-        <ClipPlayer audioUrl={item.audioUrl} label="Escuchar situación" />
-      </div>
-      <div className="mt-3 grid gap-1.5 text-[13.5px] text-muted-foreground">
-        <div className="flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5" /> 1) Formulá preguntas para obtener más info (~20s)</div>
-        <div className="flex items-center gap-1.5"><MessageSquare className="h-3.5 w-3.5" /> 2) Dá recomendaciones para resolver</div>
-      </div>
-
-      {hasKey && revealed && (
-        <div className="mt-3 rounded-lg border p-3.5 space-y-3" style={revealBox}>
-          {item.transcript && (
-            <div className="text-[14px] text-foreground/90">
-              <span className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Situación: </span>
-              <span className="italic">&ldquo;{item.transcript}&rdquo;</span>
-            </div>
-          )}
-          {item.questions && (
-            <div>
-              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-400)] mb-1.5">
-                PREGUNTAS QUE PODRÍAS HACER
-              </div>
-              <ul className="space-y-1">
-                {item.questions.map((q) => (
-                  <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
-                    <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" />
-                    <span>&ldquo;{q}&rdquo;</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {item.advice && (
-            <div>
-              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-green-400)] mb-1.5">
-                RECOMENDACIONES
-              </div>
-              <ul className="space-y-1">
-                {item.advice.map((a) => (
-                  <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
-                    <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
-                    <span>{a}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
-    </div>
   )
 }
 
@@ -462,19 +510,6 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
 
 function SectionIntro({ text }: { text: string }) {
   return <p className="mb-4 text-[14px] text-foreground/90 leading-relaxed">{text}</p>
-}
-
-function RevealBtn({ revealed, onClick }: { revealed: boolean; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold transition-colors"
-      style={{ color: "var(--av-violet-400)" }}
-    >
-      {revealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-      {revealed ? "Ocultar" : "Ver respuesta"}
-    </button>
-  )
 }
 
 function SpeakerBadge({ speaker }: { speaker: Speaker }) {
