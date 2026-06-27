@@ -22,9 +22,14 @@ import {
   Award,
   AlertTriangle,
   Sparkles,
+  Loader2,
+  History,
+  Save,
+  CheckCircle2,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { useRecorder } from "@/hooks/useRecorder"
+import { useSession } from "@/hooks/useSession"
 import {
   buildExam,
   PARTS,
@@ -33,6 +38,7 @@ import {
   fmtTime,
   type ExamStep,
 } from "@/lib/icaoMockExam"
+import { fetchMockHistory, saveMockResult, type MockResult } from "@/lib/icaoMockResults"
 
 type Phase = "intro" | "running" | "done"
 
@@ -85,7 +91,7 @@ export function IcaoMockExam() {
     return <Intro wantRecord={wantRecord} setWantRecord={setWantRecord} recSupported={rec.supported} onStart={start} />
   }
   if (phase === "done") {
-    return <Result steps={steps} elapsed={elapsed} recordings={recordings} onRestart={() => setPhase("intro")} />
+    return <Result steps={steps} elapsed={elapsed} recordings={recordings} recorded={wantRecord} onRestart={() => setPhase("intro")} />
   }
 
   // running
@@ -163,6 +169,9 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           </div>
         </div>
 
+        {/* Historial */}
+        <MockHistory />
+
         {/* Grabación */}
         <button
           onClick={() => recSupported && setWantRecord(!wantRecord)}
@@ -194,6 +203,101 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
         </button>
       </div>
     </AppLayout>
+  )
+}
+
+function levelColor(lvl: number | null): string {
+  if (lvl == null) return "var(--muted-foreground)"
+  return lvl >= 5 ? "var(--av-green-400)" : lvl >= 4 ? "var(--av-cyan-400)" : "var(--av-amber-400)"
+}
+
+function fmtDate(iso: string): string {
+  const d = new Date(iso)
+  return d.toLocaleDateString("es", { day: "2-digit", month: "short" }) +
+    " · " + d.toLocaleTimeString("es", { hour: "2-digit", minute: "2-digit" })
+}
+
+function MockHistory() {
+  const { user } = useSession()
+  const [loading, setLoading] = useState(true)
+  const [history, setHistory] = useState<MockResult[]>([])
+
+  useEffect(() => {
+    let cancelled = false
+    if (!user) { setLoading(false); return }
+    ;(async () => {
+      const rows = await fetchMockHistory(user.id)
+      if (!cancelled) { setHistory(rows); setLoading(false) }
+    })()
+    return () => { cancelled = true }
+  }, [user])
+
+  if (loading) {
+    return (
+      <div className="mt-4 flex items-center gap-2 text-[12px] text-muted-foreground">
+        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Cargando tu historial…
+      </div>
+    )
+  }
+  if (history.length === 0) {
+    return (
+      <div className="mt-4 rounded-xl border border-border/60 bg-muted/20 p-4 text-[12.5px] text-muted-foreground flex items-center gap-2">
+        <History className="h-4 w-4" /> Todavía no guardaste ningún simulacro. Hacé uno y guardalo para ver tu progreso acá.
+      </div>
+    )
+  }
+
+  const levels = history.filter((h) => h.final_level != null).map((h) => h.final_level as number)
+  const best = levels.length ? Math.max(...levels) : null
+  const last = history[0]?.final_level ?? null
+
+  return (
+    <div className="mt-6">
+      <div className="flex items-center gap-2 mb-3">
+        <History className="h-4 w-4 text-[var(--av-cyan-400)]" />
+        <h2 className="text-[16px] font-extrabold tracking-[-0.02em]">Tu historial</h2>
+      </div>
+      <div className="grid grid-cols-3 gap-2.5 mb-3">
+        <Stat label="Simulacros" value={String(history.length)} color="var(--av-cyan-400)" />
+        <Stat label="Mejor nivel" value={best != null ? `ICAO ${best}` : "—"} color={levelColor(best)} />
+        <Stat label="Último" value={last != null ? `ICAO ${last}` : "—"} color={levelColor(last)} />
+      </div>
+      <div className="space-y-1.5">
+        {history.map((h) => (
+          <div key={h.id} className="rounded-lg border bg-card px-3.5 py-2.5 flex items-center gap-3" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
+            <div className="mono w-14 flex-shrink-0 text-[15px] font-extrabold" style={{ color: levelColor(h.final_level) }}>
+              {h.final_level != null ? `ICAO ${h.final_level}` : "—"}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[12px] font-semibold">{fmtDate(h.taken_at)}</div>
+              <div className="mono text-[10.5px] text-muted-foreground">
+                {fmtTime(h.duration_seconds)} · {h.total_items} ítems{h.recorded ? " · grabado" : ""}
+              </div>
+            </div>
+            <div className="hidden sm:flex gap-1">
+              {DESCRIPTORS.map((d) => {
+                const v = h.scores?.[d.key]
+                return (
+                  <span key={d.key} title={d.name} className="mono w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold"
+                    style={{ background: v ? `color-mix(in oklab, ${levelColor(v)} 16%, transparent)` : "transparent", color: v ? levelColor(v) : "var(--muted-foreground)" }}>
+                    {v ?? "·"}
+                  </span>
+                )
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function Stat({ label, value, color }: { label: string; value: string; color: string }) {
+  return (
+    <div className="rounded-xl border p-3 text-center" style={{ borderColor: "color-mix(in oklab, var(--border) 60%, transparent)" }}>
+      <div className="text-[18px] font-extrabold tracking-[-0.02em]" style={{ color }}>{value}</div>
+      <div className="mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">{label}</div>
+    </div>
   )
 }
 
@@ -360,10 +464,26 @@ function ExamPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
 }
 
 // ─── RESULT ──────────────────────────────────────────────────────────────────
-function Result({ steps, elapsed, recordings, onRestart }: { steps: ExamStep[]; elapsed: number; recordings: Record<number, string>; onRestart: () => void }) {
+function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: ExamStep[]; elapsed: number; recordings: Record<number, string>; recorded: boolean; onRestart: () => void }) {
+  const { user } = useSession()
   const [scores, setScores] = useState<Record<string, number>>({})
+  const [saveState, setSaveState] = useState<"idle" | "saving" | "saved" | "error">("idle")
   const allRated = DESCRIPTORS.every((d) => scores[d.key])
   const finalLevel = allRated ? Math.min(...DESCRIPTORS.map((d) => scores[d.key])) : null
+
+  async function save() {
+    if (!user || !allRated || saveState === "saving" || saveState === "saved") return
+    setSaveState("saving")
+    const { ok } = await saveMockResult({
+      userId: user.id,
+      durationSeconds: elapsed,
+      totalItems: steps.length,
+      scores,
+      finalLevel,
+      recorded,
+    })
+    setSaveState(ok ? "saved" : "error")
+  }
 
   return (
     <AppLayout>
@@ -414,6 +534,29 @@ function Result({ steps, elapsed, recordings, onRestart }: { steps: ExamStep[]; 
                 ICAO {finalLevel}
               </div>
               <div className="text-[12.5px] text-muted-foreground">{finalLevel >= 5 ? "Extended — nivel para aerolínea" : finalLevel >= 4 ? "Operational — mínimo legal internacional" : "Pre-operational — a seguir practicando"}</div>
+
+              {/* Guardar */}
+              {saveState === "saved" ? (
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold" style={{ color: "var(--av-green-400)" }}>
+                  <CheckCircle2 className="h-4 w-4" /> Guardado en tu historial
+                </div>
+              ) : (
+                <button
+                  onClick={save}
+                  disabled={!user || saveState === "saving"}
+                  className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-lg text-[13.5px] font-semibold text-white border-0 disabled:opacity-50"
+                  style={{ background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)", boxShadow: "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -8px oklch(0.55 0.22 264 / 45%)" }}
+                >
+                  {saveState === "saving" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                  Guardar resultado
+                </button>
+              )}
+              {saveState === "error" && (
+                <div className="mt-2 text-[12px] text-[var(--av-red-400)]">No se pudo guardar. Reintentá.</div>
+              )}
+              {!user && (
+                <div className="mt-2 text-[11.5px] text-muted-foreground">Iniciá sesión para guardar tu resultado.</div>
+              )}
             </div>
           )}
         </div>
