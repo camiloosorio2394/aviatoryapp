@@ -145,7 +145,7 @@ export function AppTopbar({
         )}
 
         {/* Breadcrumb */}
-        <div className="hidden sm:flex items-center gap-2 text-[13px] min-w-0">
+        <div className="hidden sm:flex items-center gap-2 text-[14px] min-w-0">
           <span className="text-muted-foreground whitespace-nowrap">Aviatory</span>
           <ChevronRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
           <span className="font-semibold text-foreground truncate">{label}</span>
@@ -175,7 +175,7 @@ export function AppTopbar({
             Buscar materias, vuelos, aerolíneas…
           </span>
           <kbd
-            className="mono text-[10px] font-bold px-2 py-1 rounded-md flex-shrink-0"
+            className="mono text-[12px] font-bold px-2 py-1 rounded-md flex-shrink-0"
             style={{
               background: "oklch(0.78 0.16 215 / 12%)",
               color: "var(--av-cyan-400)",

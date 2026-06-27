@@ -235,7 +235,7 @@ function TopicRow({ topic, rank }: { topic: Topic; rank: number }) {
               {topic.frequency_pct}%
             </span>
           </div>
-          <div className="mt-1 text-[11px] text-muted-foreground">
+          <div className="mt-1 text-[12.5px] text-muted-foreground">
             Cayó en {topic.count} reporte{topic.count !== 1 ? "s" : ""}
           </div>
         </div>
@@ -270,7 +270,7 @@ function RecentReportRow({ report }: { report: RecentReport }) {
         </div>
         <Badge
           variant={report.passed ? "secondary" : "default"}
-          className={`rounded-full text-[10px] ${
+          className={`rounded-full text-[12px] ${
             report.passed
               ? "bg-green-100 text-green-700 dark:bg-green-950/40 dark:text-green-300"
               : "bg-red-100 text-red-700 dark:bg-red-950/40 dark:text-red-300"

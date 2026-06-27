@@ -297,7 +297,7 @@ export function Route() {
                       </div>
                       <div className="text-center">
                         <div
-                          className="mono text-[13px] font-bold tracking-[-0.015em]"
+                          className="mono text-[14px] font-bold tracking-[-0.015em]"
                           style={{
                             color: done || current ? "white" : "oklch(0.65 0.04 250)",
                           }}
@@ -318,7 +318,7 @@ export function Route() {
           <div className="flex justify-between items-baseline mb-3">
             <div>
               <div
-                className="mono text-[10px] font-bold tracking-[0.14em] uppercase"
+                className="mono text-[12px] font-bold tracking-[0.14em] uppercase"
                 style={{ color: "var(--av-cyan-400)" }}
               >
                 Tu progreso en esta etapa
@@ -401,7 +401,7 @@ export function Route() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <div
-                          className={`text-[13px] font-semibold ${
+                          className={`text-[14px] font-semibold ${
                             checked ? "line-through text-muted-foreground" : "text-foreground"
                           }`}
                         >

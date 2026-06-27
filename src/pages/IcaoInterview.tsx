@@ -27,14 +27,14 @@ export function IcaoInterview() {
       <div className="px-7 py-7 pb-20 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
         </Link>
 
         {/* Header */}
         <div
-          className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
+          className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
           style={{
             color: "var(--av-cyan-300)",
             background: "oklch(0.78 0.16 215 / 12%)",
@@ -46,7 +46,7 @@ export function IcaoInterview() {
         <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
           Interview · preguntas sobre tu rol
         </h1>
-        <p className="mt-2 text-[14px] text-muted-foreground max-w-[700px]">
+        <p className="mt-2 text-[15px] text-muted-foreground max-w-[700px]">
           El examen abre con una entrevista sobre tu experiencia profesional y temas de aviación.
           El objetivo es ver si podés sostener una conversación espontánea en inglés natural,
           técnico y profesional. Cada pregunta trae una <strong className="text-foreground">respuesta
@@ -63,7 +63,7 @@ export function IcaoInterview() {
           }}
         >
           <Lightbulb className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
-          <div className="text-[12.5px] text-foreground/85 leading-relaxed">
+          <div className="text-[14px] text-foreground/85 leading-relaxed">
             <strong>Cómo practicar:</strong> leé la pregunta, respondé en voz alta grabándote, y
             recién después abrí la respuesta sugerida para comparar. Apuntá a 3–5 frases por
             respuesta, con detalle técnico y conectores naturales — no a un "sí/no" seco.
@@ -78,7 +78,7 @@ export function IcaoInterview() {
               <button
                 key={s.set}
                 onClick={() => setActiveSet(s.set)}
-                className="mono px-4 h-9 rounded-full text-[12px] font-bold uppercase tracking-[0.08em] border transition-colors"
+                className="mono px-4 h-9 rounded-full text-[13.5px] font-bold uppercase tracking-[0.08em] border transition-colors"
                 style={{
                   borderColor: active
                     ? "color-mix(in oklab, var(--av-cyan-400) 45%, transparent)"
@@ -100,7 +100,7 @@ export function IcaoInterview() {
           ))}
         </div>
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[11px] text-muted-foreground mono text-center">
+        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
           {TEA_PART1_TOTAL} preguntas · 4 sets · TEA Part 1 (Mayflower College)
         </div>
       </div>
@@ -117,7 +117,7 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
     >
       <div className="flex items-start gap-4 p-4">
         <div
-          className="mono flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[12px] font-bold"
+          className="mono flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
           style={{
             background: "color-mix(in oklab, var(--av-cyan-400) 12%, transparent)",
             color: "var(--av-cyan-300)",
@@ -126,12 +126,12 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
           {String(q.n).padStart(2, "0")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[15px] font-semibold tracking-[-0.01em] leading-snug">
+          <div className="text-[16px] font-semibold tracking-[-0.01em] leading-snug">
             {q.question}
           </div>
           <button
             onClick={() => setOpen((o) => !o)}
-            className="mt-2 inline-flex items-center gap-1.5 text-[12px] font-semibold transition-colors"
+            className="mt-2 inline-flex items-center gap-1.5 text-[13.5px] font-semibold transition-colors"
             style={{ color: "var(--av-cyan-400)" }}
           >
             {open ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
@@ -153,23 +153,23 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
               background: "color-mix(in oklab, var(--av-cyan-400) 7%, transparent)",
             }}
           >
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5 flex items-center gap-1.5">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-cyan-300)] mb-1.5 flex items-center gap-1.5">
               <MessageSquare className="h-3 w-3" /> RESPUESTA SUGERIDA
             </div>
-            <p className="text-[13.5px] leading-relaxed text-foreground/90">
+            <p className="text-[14.5px] leading-relaxed text-foreground/90">
               {q.suggestedAnswer}
             </p>
 
             {q.highRegisterWords && q.highRegisterWords.length > 0 && (
               <div className="mt-3 pt-3 border-t border-border/50">
-                <div className="mono text-[10px] font-bold uppercase tracking-[0.14em] text-[var(--av-amber-400)] mb-1.5">
+                <div className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-[var(--av-amber-400)] mb-1.5">
                   HIGH REGISTER WORDS
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {q.highRegisterWords.map((w) => (
                     <span
                       key={w}
-                      className="px-2 py-0.5 rounded-md text-[11px] font-semibold"
+                      className="px-2 py-0.5 rounded-md text-[12.5px] font-semibold"
                       style={{
                         background: "color-mix(in oklab, var(--av-amber-400) 14%, transparent)",
                         color: "var(--av-amber-400)",

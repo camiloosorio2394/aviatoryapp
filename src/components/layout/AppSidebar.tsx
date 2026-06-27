@@ -172,7 +172,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
               <>
                 {expanded ? (
                   <div
-                    className="px-2.5 pt-3 pb-1 mono text-[10px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
+                    className="px-2.5 pt-3 pb-1 mono text-[12px] font-bold uppercase tracking-[0.14em] whitespace-nowrap transition-opacity duration-200"
                     style={{ color: "oklch(0.55 0.02 250)" }}
                   >
                     {section.label}
@@ -192,7 +192,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
                 to={item.to}
                 end={item.end}
                 onClick={onClose}
-                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors"
+                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors"
                 style={({ isActive }) =>
                   isActive
                     ? {
@@ -221,7 +221,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
                     {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
                     {item.soon && expanded && (
                       <span
-                        className="flex-shrink-0 mono text-[9px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
+                        className="flex-shrink-0 mono text-[11px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
                         style={{
                           color: "oklch(0.72 0.02 250)",
                           background: "oklch(1 0 0 / 6%)",
@@ -240,7 +240,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
                     )}
                     {!expanded && (
                       <span
-                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[11px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
+                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-[var(--av-navy-950)] text-white text-[12.5px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
                       >
                         {item.label}{item.soon ? " · Pronto" : ""}
                       </span>
@@ -269,7 +269,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange }: Pr
           {expanded ? (
             <>
               <div
-                className="flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.1em]"
+                className="flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.1em]"
                 style={{ color: "var(--av-cyan-300)" }}
               >
                 <Sparkles className="h-3 w-3" /> Prueba gratis

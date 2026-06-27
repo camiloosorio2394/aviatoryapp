@@ -44,7 +44,7 @@ export function Icao() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                 style={{
                   color: "var(--av-cyan-300)",
                   background: "oklch(0.78 0.16 215 / 12%)",
@@ -70,7 +70,7 @@ export function Icao() {
                   preparado para el examen TEA
                 </span>
               </h1>
-              <p className="text-[16px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[17px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
                 Organizado exactamente como el <strong className="text-white">Test of English for
                 Aviation</strong>: 4 secciones que cubren las dos habilidades que el examen mide —
                 <strong className="text-white"> hablar y comprender</strong> inglés en contexto
@@ -88,7 +88,7 @@ export function Icao() {
               >
                 <Radio className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">TEA · 25–30 MIN</div>
+              <div className="mono text-[12px] tracking-[0.16em] text-white/50">TEA · 25–30 MIN</div>
             </div>
           </div>
         </section>
@@ -96,13 +96,13 @@ export function Icao() {
         {/* === DESCRIPCIÓN DEL EXAMEN === */}
         <section className="mt-9 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
           <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
               QUÉ ES EL TEA
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
               Test of English for Aviation
             </h2>
-            <p className="mt-3 text-[14px] text-foreground/80 leading-relaxed">
+            <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
               El TEA es un examen diseñado por <strong className="text-foreground">Mayflower College</strong>{" "}
               para evaluar la competencia en inglés de pilotos y controladores según los requisitos
               lingüísticos de la ICAO. Evalúa <strong className="text-foreground">exclusivamente las
@@ -110,7 +110,7 @@ export function Icao() {
               <strong className="text-foreground">sin medir conocimientos técnicos ni fraseología
               estándar</strong>.
             </p>
-            <p className="mt-3 text-[14px] text-foreground/80 leading-relaxed">
+            <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
               La entrevista de la Parte 1 busca evaluar tu capacidad para mantener una conversación
               espontánea usando un inglés natural, técnico y profesional. Las partes siguientes miden
               tu comprensión auditiva y tu capacidad de describir, comparar y opinar.
@@ -123,15 +123,15 @@ export function Icao() {
           >
             <div className="flex items-center gap-2 mb-3">
               <Clock className="h-4 w-4 text-[var(--av-cyan-400)]" />
-              <div className="text-[13px] font-bold">Duración total: 25–30 min</div>
+              <div className="text-[14px] font-bold">Duración total: 25–30 min</div>
             </div>
             <ul className="space-y-2.5">
               <FactRow label="Parte 1 · Interview" detail="7–8 min · conversación sobre tu rol" />
               <FactRow label="Parte 2 · Comprehension" detail="audios de situaciones no rutinarias" />
               <FactRow label="Parte 3 · Picture + Discussion" detail="describir, comparar y opinar" />
             </ul>
-            <div className="mt-4 pt-3 border-t border-border/50 text-[12px] text-muted-foreground leading-relaxed">
-              Solo mide <strong className="text-foreground/80">speaking y listening</strong>. No hay
+            <div className="mt-4 pt-3 border-t border-border/50 text-[13.5px] text-muted-foreground leading-relaxed">
+              Solo mide <strong className="text-foreground/90">speaking y listening</strong>. No hay
               parte escrita ni preguntas técnicas de aeronáutica.
             </div>
           </div>
@@ -154,11 +154,11 @@ export function Icao() {
               <Award className="h-7 w-7 text-white" strokeWidth={1.6} />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[10px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-amber-400)" }}>
+              <div className="mono text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-amber-400)" }}>
                 PONETE A PRUEBA
               </div>
-              <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em]">Simulacro TEA — examen completo</div>
-              <p className="mt-1 text-[13px] text-muted-foreground max-w-[640px]">
+              <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">Simulacro TEA — examen completo</div>
+              <p className="mt-1 text-[14px] text-muted-foreground max-w-[640px]">
                 Las 3 partes de corrido, cronometradas, con audios reales. Grabate, respondé en voz alta y
                 autoevaluate en los 6 descriptores al final.
               </p>
@@ -169,7 +169,7 @@ export function Icao() {
 
         {/* === LAS SECCIONES === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             EL MÓDULO · 4 SECCIONES
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -185,13 +185,13 @@ export function Icao() {
 
         {/* === CÓMO SE CALIFICA: 6 DESCRIPTORES + NIVELES === */}
         <div className="mt-12 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             CÓMO SE CALIFICA
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Los 6 descriptores ICAO
           </h2>
-          <p className="mt-2 text-[13.5px] text-muted-foreground max-w-[760px]">
+          <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[760px]">
             El TEA califica seis descriptores. <strong className="text-foreground">Tu nota final es la
             del descriptor más bajo</strong>: si sacás 5 en cinco y 4 en comprensión, tu resultado
             oficial es ICAO 4. Por eso no alcanza con ser bueno en algunos — hay que nivelar todos.
@@ -207,9 +207,9 @@ export function Icao() {
             >
               <div className="flex items-center gap-2">
                 <Gauge className="h-4 w-4 text-[var(--av-cyan-400)]" />
-                <div className="text-[14px] font-bold tracking-[-0.01em]">{d.name}</div>
+                <div className="text-[15px] font-bold tracking-[-0.01em]">{d.name}</div>
               </div>
-              <p className="mt-1 text-[12px] text-muted-foreground leading-snug">{d.detail}</p>
+              <p className="mt-1 text-[13.5px] text-muted-foreground leading-snug">{d.detail}</p>
             </div>
           ))}
         </div>
@@ -254,7 +254,7 @@ export function Icao() {
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
               <Sparkles className="h-3 w-3" /> Tip de práctica
@@ -289,8 +289,8 @@ function FactRow({ label, detail }: { label: string; detail: string }) {
     <li className="flex items-start gap-2">
       <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-cyan-400)]" strokeWidth={3} />
       <div>
-        <div className="text-[12.5px] font-semibold leading-tight">{label}</div>
-        <div className="text-[11.5px] text-muted-foreground leading-tight">{detail}</div>
+        <div className="text-[14px] font-semibold leading-tight">{label}</div>
+        <div className="text-[13px] text-muted-foreground leading-tight">{detail}</div>
       </div>
     </li>
   )
@@ -381,14 +381,14 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
         </div>
         {status === "ready" ? (
           <span
-            className="mono text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+            className="mono text-[11px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
             style={{ color: "var(--av-green-400)", background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)" }}
           >
             Listo
           </span>
         ) : (
           <span
-            className="mono text-[9px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
+            className="mono text-[11px] font-bold uppercase tracking-[0.12em] px-2 py-0.5 rounded-full"
             style={{ color: "var(--muted-foreground)", background: "color-mix(in oklab, var(--border) 40%, transparent)" }}
           >
             Pronto
@@ -397,17 +397,17 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
       </div>
 
       <div>
-        <div className="mono text-[9px] font-bold uppercase tracking-[0.14em]" style={{ color: c }}>
+        <div className="mono text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color: c }}>
           {part}
         </div>
-        <div className="mt-0.5 text-[16px] font-extrabold tracking-[-0.02em]">{title}</div>
-        <p className="mt-1 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
+        <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.02em]">{title}</div>
+        <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
 
       <div className="mt-auto pt-1 flex items-center gap-2">
         <Link
           to={to}
-          className="inline-flex items-center gap-1 text-[12.5px] font-semibold"
+          className="inline-flex items-center gap-1 text-[14px] font-semibold"
           style={{ color: c }}
         >
           {cta} <ArrowRight className="h-3 w-3" />
@@ -417,7 +417,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
             <span className="text-border">·</span>
             <Link
               to={secondary.to}
-              className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center gap-1 text-[14px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
             >
               <secondary.icon className="h-3 w-3" /> {secondary.label}
             </Link>
@@ -452,16 +452,16 @@ function LevelPanel({ level, title, color, blurb, traits }: { level: number; tit
           {level}
         </div>
         <div>
-          <div className="text-[15px] font-bold tracking-[-0.01em]">ICAO {level} · {title}</div>
-          <div className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">
+          <div className="text-[16px] font-bold tracking-[-0.01em]">ICAO {level} · {title}</div>
+          <div className="mono text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
             mínimo {level} en cada descriptor
           </div>
         </div>
       </div>
-      <p className="mt-2 text-[12.5px] text-foreground/80 leading-relaxed">{blurb}</p>
+      <p className="mt-2 text-[14px] text-foreground/90 leading-relaxed">{blurb}</p>
       <ul className="mt-3 space-y-1.5">
         {traits.map((t) => (
-          <li key={t} className="flex items-start gap-2 text-[12px] text-foreground/80">
+          <li key={t} className="flex items-start gap-2 text-[13.5px] text-foreground/90">
             <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: c }} strokeWidth={3} />
             <span>{t}</span>
           </li>

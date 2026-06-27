@@ -147,7 +147,7 @@ export function VaultQuizPlayer() {
             <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
               <div>
                 <div
-                  className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                  className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                   style={{
                     color: "var(--av-cyan-300)",
                     background: "oklch(0.78 0.16 215 / 12%)",
@@ -159,7 +159,7 @@ export function VaultQuizPlayer() {
                 <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
                   {passed ? "¡Aprobaste!" : "Casi llegas"}
                 </h1>
-                <p className="text-[16px] text-white/75 max-w-[520px] mt-2">
+                <p className="text-[17px] text-white/88 max-w-[520px] mt-2">
                   {correctCount} de {session.questionCount} correctas ·{" "}
                   {passed
                     ? "Sobre 70% — listo para presentar a este ritmo."
@@ -194,7 +194,7 @@ export function VaultQuizPlayer() {
                 >
                   {h.correct ? <Check className="h-4 w-4" strokeWidth={3} /> : <X className="h-4 w-4" strokeWidth={3} />}
                 </div>
-                <div className="text-[13px] font-semibold">Q{h.position}</div>
+                <div className="text-[14px] font-semibold">Q{h.position}</div>
               </div>
             ))}
           </div>
@@ -240,7 +240,7 @@ export function VaultQuizPlayer() {
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {subjectMeta.name}
           </Link>
-          <div className="mono text-[11px] font-bold tracking-[0.16em] uppercase text-muted-foreground">
+          <div className="mono text-[12.5px] font-bold tracking-[0.16em] uppercase text-muted-foreground">
             Pregunta {position} de {session.questionCount}
           </div>
         </div>
@@ -263,7 +263,7 @@ export function VaultQuizPlayer() {
             style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
           >
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase mb-3"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase mb-3"
               style={{ color: "var(--av-cyan-400)" }}
             >
               {subjectMeta.name}
@@ -313,7 +313,7 @@ export function VaultQuizPlayer() {
                     }}
                   >
                     <div
-                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center mono text-[12px] font-extrabold"
+                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center mono text-[13.5px] font-extrabold"
                       style={{
                         background: isSelected || isCorrectAnswer ? "var(--av-cyan-400)" : "var(--muted)",
                         color: isSelected || isCorrectAnswer ? "white" : "var(--foreground)",
@@ -321,7 +321,7 @@ export function VaultQuizPlayer() {
                     >
                       {key.toUpperCase()}
                     </div>
-                    <div className="flex-1 text-[14.5px] leading-relaxed text-foreground/90 pt-0.5">{text}</div>
+                    <div className="flex-1 text-[15.5px] leading-relaxed text-foreground/90 pt-0.5">{text}</div>
                     {result && isRight && (
                       <Check className="flex-shrink-0 h-5 w-5" style={{ color: "var(--av-green-400)" }} strokeWidth={3} />
                     )}
@@ -346,7 +346,7 @@ export function VaultQuizPlayer() {
                   }}
                 >
                   <div
-                    className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.14em] uppercase mb-1.5"
+                    className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.14em] uppercase mb-1.5"
                     style={{ color: result.is_correct ? "var(--av-green-400)" : "var(--av-red-400)" }}
                   >
                     {result.is_correct ? (
@@ -359,7 +359,7 @@ export function VaultQuizPlayer() {
                       </>
                     )}
                   </div>
-                  <p className="text-[13.5px] text-foreground/85 leading-relaxed mt-1">{result.explanation}</p>
+                  <p className="text-[14.5px] text-foreground/85 leading-relaxed mt-1">{result.explanation}</p>
                 </div>
 
                 {result.pedagogical_note && (
@@ -376,12 +376,12 @@ export function VaultQuizPlayer() {
                     />
                     <div>
                       <div
-                        className="mono text-[10px] font-bold tracking-[0.14em] uppercase mb-1"
+                        className="mono text-[12px] font-bold tracking-[0.14em] uppercase mb-1"
                         style={{ color: "var(--av-amber-400)" }}
                       >
                         Nota para el examen
                       </div>
-                      <p className="text-[13px] text-foreground/85 leading-relaxed">
+                      <p className="text-[14px] text-foreground/85 leading-relaxed">
                         {result.pedagogical_note}
                       </p>
                     </div>

@@ -17,7 +17,7 @@ export function PageHeader({ eyebrow, title, subtitle, actions, children }: Prop
     <div className="flex flex-wrap items-end justify-between gap-4 mb-7">
       <div>
         {eyebrow && (
-          <div className="mono tabular-nums inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.14em] uppercase mb-2"
+          <div className="mono tabular-nums inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.14em] uppercase mb-2"
             style={{ color: "var(--av-cyan-400)" }}>
             {eyebrow}
           </div>

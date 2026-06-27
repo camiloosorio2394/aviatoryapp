@@ -395,7 +395,7 @@ function CockpitHero({
       <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
         <div>
           <div
-            className="mono tabular-nums inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+            className="mono tabular-nums inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
             style={{
               color: "var(--av-cyan-300)",
               background: "oklch(0.78 0.16 215 / 12%)",
@@ -449,7 +449,7 @@ function CockpitHero({
           <div className="mt-6 max-w-[560px]">
             <div className="flex justify-between items-baseline mb-2">
               <span
-                className="mono text-[11px] font-bold tracking-[0.14em] uppercase"
+                className="mono text-[12.5px] font-bold tracking-[0.14em] uppercase"
                 style={{ color: "var(--av-cyan-300)" }}
               >
                 Avance a aerolínea
@@ -489,7 +489,7 @@ function CockpitHero({
         <div className="flex flex-col items-end gap-2.5">
           {trialLeft !== null && trialLeft > 0 && (
             <span
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.12em] uppercase px-2.5 py-1 rounded-full"
               style={{
                 color: "var(--av-amber-400)",
                 background: "oklch(0.82 0.16 78 / 14%)",
@@ -511,7 +511,7 @@ function CockpitHero({
             {firstStep.cta} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
           <div
-            className="mono text-[10px] tracking-[0.12em] uppercase"
+            className="mono text-[12px] tracking-[0.12em] uppercase"
             style={{ color: "oklch(0.6 0.02 250)" }}
           >
             ~{firstStep.minutes} min
@@ -555,7 +555,7 @@ function TodayCard({ step }: { step: NextStep }) {
           >
             <Ic className="h-[18px] w-[18px]" />
           </div>
-          <span className="mono tabular-nums text-[10px] text-muted-foreground tracking-[0.1em] uppercase">
+          <span className="mono tabular-nums text-[12px] text-muted-foreground tracking-[0.1em] uppercase">
             ~{step.minutes} min
           </span>
         </div>
@@ -629,13 +629,13 @@ function WingmanInsight({
       />
       <div className="relative">
         <div
-          className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+          className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
           style={{ color: "var(--av-violet-400)" }}
         >
           <Sparkles className="h-3 w-3" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
-        <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{insight.body}</p>
+        <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
         <Link
           to={insight.href}
           className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
@@ -657,7 +657,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
       />
       <div className="relative">
         <div
-          className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+          className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
           style={{ color: "var(--av-amber-400)" }}
         >
           <Flame className="h-3 w-3" /> Tu racha
@@ -705,7 +705,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
               >
                 Tu racha está en riesgo
               </div>
-              <p className="mt-0.5 text-[11px] text-muted-foreground">
+              <p className="mt-0.5 text-[12.5px] text-muted-foreground">
                 Si no estudias hoy se reinicia.
               </p>
             </div>
@@ -753,7 +753,7 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
           <div
-            className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.14em] uppercase"
+            className="inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
             style={{ color: "var(--av-cyan-400)" }}
           >
             <Activity className="h-3 w-3" /> Tu actividad
@@ -764,7 +764,7 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
           <div className="mono tabular-nums text-[22px] font-bold text-foreground tracking-[-0.03em]">
             <CountUp to={total} />
           </div>
-          <div className="mono text-[9px] text-muted-foreground uppercase tracking-[0.12em]">
+          <div className="mono text-[11px] text-muted-foreground uppercase tracking-[0.12em]">
             actividades
           </div>
         </div>
@@ -774,7 +774,7 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
           {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
             <div
               key={i}
-              className="mono text-[9px] text-muted-foreground text-right"
+              className="mono text-[11px] text-muted-foreground text-right"
               style={{ height: 14, lineHeight: "14px", width: 12 }}
             >
               {i % 2 === 0 ? d : ""}
@@ -796,7 +796,7 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
           ))}
         </div>
       </div>
-      <div className="mt-3.5 flex items-center gap-1.5 text-[10px] text-muted-foreground justify-end">
+      <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-muted-foreground justify-end">
         <span>Menos</span>
         {[0, 1, 3, 5, 7].map((c) => (
           <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
@@ -881,7 +881,7 @@ function AchievementsCard({
               {next.icon}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[9px] text-muted-foreground tracking-[0.12em] uppercase font-bold">
+              <div className="mono text-[11px] text-muted-foreground tracking-[0.12em] uppercase font-bold">
                 Próximo
               </div>
               <div className="text-sm font-semibold text-foreground truncate">{next.name}</div>
@@ -919,7 +919,7 @@ function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }
                 {p.username[0]?.toUpperCase() ?? "?"}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="mono text-[13px] font-semibold text-foreground">@{p.username}</div>
+                <div className="mono text-[14px] font-semibold text-foreground">@{p.username}</div>
               </div>
               {p.current_streak > 0 && (
                 <div className="chip chip-amber mono tabular-nums">
@@ -960,7 +960,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
           <Sun className="h-6 w-6" />
         </div>
         <div>
-          <div className="mono text-[10px] font-bold tracking-[0.14em] uppercase opacity-85">
+          <div className="mono text-[12px] font-bold tracking-[0.14em] uppercase opacity-85">
             Quiz del día
           </div>
           <div className="text-xl font-bold tracking-[-0.02em]">

@@ -87,7 +87,7 @@ export function Referrals() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono text-[11px] font-bold tracking-[0.16em] uppercase"
+                className="mono text-[12.5px] font-bold tracking-[0.16em] uppercase"
                 style={{ color: "var(--av-cyan-300)" }}
               >
                 Tu código de invitación
@@ -142,7 +142,7 @@ export function Referrals() {
                   <Mail className="h-3.5 w-3.5" /> Email
                 </button>
               </div>
-              <div className="mt-3 mono text-[11px] text-white/50 break-all max-w-[600px]">
+              <div className="mt-3 mono text-[12.5px] text-white/50 break-all max-w-[600px]">
                 {link || "Cargando…"}
               </div>
             </div>
@@ -191,7 +191,7 @@ function RewardStat({ label, value, icon: Ic }: { label: string; value: number; 
           <CountUp to={value} />
         </div>
         <div
-          className="mono text-[9px] uppercase tracking-[0.1em] mt-0.5"
+          className="mono text-[11px] uppercase tracking-[0.1em] mt-0.5"
           style={{ color: "oklch(0.7 0.02 250)" }}
         >
           {label}

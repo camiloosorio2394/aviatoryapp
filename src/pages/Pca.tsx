@@ -42,7 +42,7 @@ export function Pca() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                 style={{
                   color: "var(--av-cyan-300)",
                   background: "oklch(0.78 0.16 215 / 12%)",
@@ -71,7 +71,7 @@ export function Pca() {
                   simulá el examen
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[640px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-white/88 max-w-[640px] mt-3 leading-relaxed">
                 El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practicá
                 cada materia por separado para reforzar lo que te cuesta, o lanzá un{" "}
                 <strong className="text-white">Simulacro Examen PCA</strong> con preguntas
@@ -89,7 +89,7 @@ export function Pca() {
               >
                 <Award className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">EXAMEN OFICIAL</div>
+              <div className="mono text-[12px] tracking-[0.16em] text-white/50">EXAMEN OFICIAL</div>
             </div>
           </div>
         </section>
@@ -99,7 +99,7 @@ export function Pca() {
 
         <div className="mt-10 mb-5 flex items-end justify-between">
           <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
               ROADMAP DEL MÓDULO
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -168,7 +168,7 @@ export function Pca() {
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
               <Sparkles className="h-3 w-3" /> Cómo estudiar
@@ -228,13 +228,13 @@ function FeatureTile({ icon: Icon, color, title, description, bullets }: TilePro
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         <div className="flex-1 pt-0.5">
-          <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
+          <div className="text-[16px] font-bold tracking-[-0.01em]">{title}</div>
+          <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
+          <li key={b} className="flex items-start gap-2 text-[14px] text-foreground/90">
             <Check
               className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
               style={{ color: TILE_COLOR[color] } as React.CSSProperties}
@@ -294,15 +294,15 @@ function AvailableSubjects() {
         </div>
         <div className="relative flex-1 min-w-0">
           <div
-            className="mono text-[10px] font-bold uppercase tracking-[0.16em]"
+            className="mono text-[12px] font-bold uppercase tracking-[0.16em]"
             style={{ color: "var(--av-cyan-300)" }}
           >
             Simulacro Examen PCA
           </div>
-          <div className="mt-0.5 text-[18px] font-extrabold tracking-[-0.02em] text-white">
+          <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em] text-white">
             20 preguntas mezcladas de todas las materias
           </div>
-          <div className="mt-0.5 text-[13px] text-white/65">
+          <div className="mt-0.5 text-[14px] text-white/65">
             Como el examen real de Aerocivil. {totalQuestions} preguntas en el banco · al terminar
             ves tu nota.
           </div>
@@ -320,7 +320,7 @@ function AvailableSubjects() {
 
       <div className="mb-5 flex items-end justify-between">
         <div>
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             ESTUDIAR POR MATERIA
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -370,8 +370,8 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
         {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
       </div>
       <div className="flex-1 min-w-0">
-        <div className="text-[15px] font-bold tracking-[-0.01em] truncate">{meta.name}</div>
-        <div className="mt-0.5 text-[12.5px] text-muted-foreground">
+        <div className="text-[16px] font-bold tracking-[-0.01em] truncate">{meta.name}</div>
+        <div className="mt-0.5 text-[14px] text-muted-foreground">
           {count} preguntas · quiz de {quizCount}
         </div>
       </div>

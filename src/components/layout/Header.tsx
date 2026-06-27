@@ -58,7 +58,7 @@ export function Header() {
               to={link.to}
               end={link.to === "/"}
               className={({ isActive }) =>
-                `relative px-4 py-2 text-[15px] font-semibold tracking-tight rounded-full transition-all ${
+                `relative px-4 py-2 text-[16px] font-semibold tracking-tight rounded-full transition-all ${
                   isActive
                     ? "text-foreground bg-foreground/[0.06]"
                     : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
@@ -75,14 +75,14 @@ export function Header() {
             asChild
             variant="ghost"
             size="sm"
-            className="rounded-full h-11 px-5 text-[15px] font-semibold"
+            className="rounded-full h-11 px-5 text-[16px] font-semibold"
           >
             <Link to="/login">Iniciar sesión</Link>
           </Button>
           <Button
             asChild
             size="sm"
-            className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
+            className="btn-apple rounded-full h-11 px-6 text-[16px] border-0 font-semibold"
           >
             <Link to="/login?mode=signup">Comenzar gratis</Link>
           </Button>

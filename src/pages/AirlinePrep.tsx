@@ -56,7 +56,7 @@ export function AirlinePrep() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                 style={{
                   color: "var(--av-cyan-300)",
                   background: "oklch(0.78 0.16 215 / 12%)",
@@ -82,7 +82,7 @@ export function AirlinePrep() {
                   el camino completo a la cabina
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
                 El módulo central de Aviatory. <strong className="text-white">14 áreas de conocimiento</strong>{" "}
                 que las aerolíneas LATAM evalúan, organizadas en <strong className="text-white">7 submódulos</strong>:
                 banco de preguntas, mock interviews, simulaciones técnicas, exámenes completos,
@@ -100,14 +100,14 @@ export function AirlinePrep() {
               >
                 <Briefcase className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">CARRERA · CORE</div>
+              <div className="mono text-[12px] tracking-[0.16em] text-white/50">CARRERA · CORE</div>
             </div>
           </div>
         </section>
 
         {/* === 14 TOPICS GRID === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             ÁREAS DE CONOCIMIENTO · 14
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -123,7 +123,7 @@ export function AirlinePrep() {
         {/* === 7 SUBMÓDULOS === */}
         <div className="mt-10 mb-5 flex items-end justify-between">
           <div>
-            <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
               SUBMÓDULOS DEL SISTEMA · 7
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -151,7 +151,7 @@ export function AirlinePrep() {
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
               <Sparkles className="h-3 w-3" /> Mientras se carga el contenido
@@ -303,8 +303,8 @@ function TopicChip({ name, category, icon: Icon, color }: { name: string; catego
         <Icon className="h-4 w-4" />
       </div>
       <div className="min-w-0 flex-1">
-        <div className="text-[13px] font-bold tracking-[-0.01em] truncate">{name}</div>
-        <div className="mono text-[9.5px] tracking-[0.12em] uppercase text-muted-foreground">{category}</div>
+        <div className="text-[14px] font-bold tracking-[-0.01em] truncate">{name}</div>
+        <div className="mono text-[11.5px] tracking-[0.12em] uppercase text-muted-foreground">{category}</div>
       </div>
     </div>
   )
@@ -337,13 +337,13 @@ function FeatureTile({ icon: Icon, color, title, description, bullets, link }: T
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         <div className="flex-1 pt-0.5">
-          <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
+          <div className="text-[16px] font-bold tracking-[-0.01em]">{title}</div>
+          <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[12.5px] text-foreground/80">
+          <li key={b} className="flex items-start gap-2 text-[14px] text-foreground/90">
             <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: TILE_COLOR[color] }} strokeWidth={3} />
             <span>{b}</span>
           </li>

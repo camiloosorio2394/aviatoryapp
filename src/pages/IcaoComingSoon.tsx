@@ -32,7 +32,7 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
       <div className="px-7 py-7 pb-20 max-w-[900px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés ICAO
         </Link>
@@ -50,7 +50,7 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
           </div>
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] px-2 py-1 rounded-full"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.16em] px-2 py-1 rounded-full"
               style={{
                 color: c,
                 background: `color-mix(in oklab, ${c} 12%, transparent)`,
@@ -65,7 +65,7 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
           </div>
         </div>
 
-        <p className="mt-5 text-[15px] leading-relaxed text-foreground/85 max-w-[700px]">
+        <p className="mt-5 text-[16px] leading-relaxed text-foreground/85 max-w-[700px]">
           {intro}
         </p>
 
@@ -74,10 +74,10 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
             className="rounded-2xl border p-5"
             style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
           >
-            <h2 className="text-[14px] font-bold tracking-[-0.01em] mb-3">Qué evalúa esta parte</h2>
+            <h2 className="text-[15px] font-bold tracking-[-0.01em] mb-3">Qué evalúa esta parte</h2>
             <ul className="space-y-2">
               {whatItIs.map((t) => (
-                <li key={t} className="flex items-start gap-2 text-[13px] text-foreground/80 leading-relaxed">
+                <li key={t} className="flex items-start gap-2 text-[14px] text-foreground/90 leading-relaxed">
                   <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: c }} strokeWidth={3} />
                   <span>{t}</span>
                 </li>
@@ -89,10 +89,10 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
             className="rounded-2xl border p-5"
             style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
           >
-            <h2 className="text-[14px] font-bold tracking-[-0.01em] mb-3">Cómo ir preparándote ya</h2>
+            <h2 className="text-[15px] font-bold tracking-[-0.01em] mb-3">Cómo ir preparándote ya</h2>
             <ul className="space-y-2">
               {howToPrepare.map((t) => (
-                <li key={t} className="flex items-start gap-2 text-[13px] text-foreground/80 leading-relaxed">
+                <li key={t} className="flex items-start gap-2 text-[14px] text-foreground/90 leading-relaxed">
                   <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: c }} strokeWidth={3} />
                   <span>{t}</span>
                 </li>
@@ -109,7 +109,7 @@ export function IcaoComingSoon({ badge, icon: Icon, title, intro, whatItIs, howT
           }}
         >
           <Clock className="flex-shrink-0 h-4.5 w-4.5" style={{ color: c }} />
-          <div className="text-[13px] text-foreground/80">
+          <div className="text-[14px] text-foreground/90">
             El flujo interactivo de esta parte está en construcción. Mientras tanto, usá el{" "}
             <Link to="/app/icao/vocabulario" className="font-semibold underline" style={{ color: c }}>
               glosario

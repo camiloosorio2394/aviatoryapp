@@ -46,7 +46,7 @@ export function ProtectedContent({
       {watermark && email && (
         <div
           aria-hidden
-          className="pointer-events-none absolute bottom-2 right-3 text-[10px] tabular text-muted-foreground/30 select-none"
+          className="pointer-events-none absolute bottom-2 right-3 text-[12px] tabular text-muted-foreground/30 select-none"
         >
           {email} · {shortId}
         </div>

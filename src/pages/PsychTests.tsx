@@ -42,7 +42,7 @@ export function PsychTests() {
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[11px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
                 style={{
                   color: "var(--av-cyan-300)",
                   background: "oklch(0.78 0.16 215 / 12%)",
@@ -68,7 +68,7 @@ export function PsychTests() {
                   entrenables, no innatos
                 </span>
               </h1>
-              <p className="text-[17px] text-white/75 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
                 Las aerolíneas manejan assessment, aptitude, psychometric y group dynamics como un
                 proceso aparte de las entrevistas. <strong className="text-white">9 categorías</strong>{" "}
                 de baterías + simuladores compatibles con los engines más usados
@@ -87,14 +87,14 @@ export function PsychTests() {
               >
                 <Cpu className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[10px] tracking-[0.16em] text-white/50">COGNITIVO</div>
+              <div className="mono text-[12px] tracking-[0.16em] text-white/50">COGNITIVO</div>
             </div>
           </div>
         </section>
 
         {/* === 9 CATEGORÍAS === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             CATEGORÍAS · 9
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -109,7 +109,7 @@ export function PsychTests() {
 
         {/* === ENGINES === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[10px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
+          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
             ENGINES SOPORTADOS
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
@@ -149,7 +149,7 @@ export function PsychTests() {
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold tracking-[0.16em] uppercase"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
               style={{ color: "var(--av-cyan-400)" }}
             >
               <Sparkles className="h-3 w-3" /> Aporta datos para calibrar
@@ -229,10 +229,10 @@ function CategoryCard({ name, family, description, icon: Icon, color }: { slug: 
       </div>
       <div className="flex-1 min-w-0 pt-0.5">
         <div className="flex items-baseline gap-2">
-          <div className="text-[14.5px] font-bold tracking-[-0.01em]">{name}</div>
-          <div className="mono text-[9.5px] tracking-[0.1em] uppercase text-muted-foreground">{family}</div>
+          <div className="text-[15.5px] font-bold tracking-[-0.01em]">{name}</div>
+          <div className="mono text-[11.5px] tracking-[0.1em] uppercase text-muted-foreground">{family}</div>
         </div>
-        <p className="mt-0.5 text-[12.5px] text-muted-foreground leading-relaxed">{description}</p>
+        <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
     </div>
   )
@@ -247,13 +247,13 @@ function EngineCard({ name, description, features }: { name: string; description
         borderColor: "oklch(0.78 0.16 215 / 22%)",
       }}
     >
-      <div className="mono text-[13px] font-extrabold tracking-[0.04em]" style={{ color: "var(--av-cyan-400)" }}>
+      <div className="mono text-[14px] font-extrabold tracking-[0.04em]" style={{ color: "var(--av-cyan-400)" }}>
         {name}
       </div>
-      <p className="mt-1.5 text-[13px] text-foreground/85 leading-relaxed">{description}</p>
+      <p className="mt-1.5 text-[14px] text-foreground/85 leading-relaxed">{description}</p>
       <ul className="mt-3 space-y-1">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-1.5 text-[12px] text-foreground/75">
+          <li key={f} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90">
             <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: "var(--av-cyan-400)" }} strokeWidth={3} />
             <span>{f}</span>
           </li>

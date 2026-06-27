@@ -124,7 +124,7 @@ export function Airlines() {
                   <KpiRing value={bestMatch.matchPct} max={100} size={104} trailing="%" color="cyan" />
                   <div className="flex-1">
                     <div
-                      className="mono text-[10px] font-bold tracking-[0.14em] uppercase inline-flex items-center gap-1.5"
+                      className="mono text-[12px] font-bold tracking-[0.14em] uppercase inline-flex items-center gap-1.5"
                       style={{ color: "var(--av-cyan-400)" }}
                     >
                       <Target className="h-[11px] w-[11px]" /> Tu mejor match hoy
@@ -132,7 +132,7 @@ export function Airlines() {
                     <h2 className="mt-2 mb-1 text-[26px] font-extrabold tracking-[-0.03em] text-foreground">
                       {bestMatch.airline.name} · {bestMatch.matchPct}% match
                     </h2>
-                    <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
+                    <p className="m-0 text-muted-foreground text-[14px] leading-relaxed max-w-[600px]">
                       {bestMatch.missing === 0
                         ? "Cumplís todos los requisitos públicos. Postulá cuando abran convocatoria."
                         : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mira los detalles abajo.`}
@@ -231,7 +231,7 @@ function AirlineCard({
         </div>
 
         <h3 className="mt-4 mb-1 text-lg font-bold tracking-[-0.02em] text-foreground">{airline.name}</h3>
-        <div className="mono text-[11px] text-muted-foreground flex gap-1.5 items-center">
+        <div className="mono text-[12.5px] text-muted-foreground flex gap-1.5 items-center">
           <MapPin className="h-2.5 w-2.5" /> {airline.country}
           {airline.code ? ` · ${airline.code}` : ""}
         </div>
@@ -263,14 +263,14 @@ function AirlineCard({
             </div>
           ))}
           {airline.requirements.age_max && (
-            <div className="mono flex items-center gap-1.5 text-[11px] text-muted-foreground">
+            <div className="mono flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
               <Globe className="h-3 w-3" /> Edad máxima cadete: {airline.requirements.age_max} años
             </div>
           )}
         </div>
 
         <div
-          className="mt-4 w-full h-9 rounded-lg border flex items-center justify-center font-semibold text-[13px]"
+          className="mt-4 w-full h-9 rounded-lg border flex items-center justify-center font-semibold text-[14px]"
           style={
             missing === 0
               ? { borderColor: "oklch(0.7 0.15 150 / 35%)", background: "oklch(0.7 0.15 150 / 10%)", color: "var(--av-green-400)" }

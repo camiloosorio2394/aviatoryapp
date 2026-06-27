@@ -102,7 +102,7 @@ export function IcaoVocabulary() {
         {/* Back link */}
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al módulo Inglés
         </Link>
@@ -111,7 +111,7 @@ export function IcaoVocabulary() {
         <div className="flex items-start justify-between gap-6 flex-wrap mb-7">
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
+              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.18em] px-2 py-1 rounded-full"
               style={{
                 color: "var(--av-cyan-300)",
                 background: "oklch(0.78 0.16 215 / 12%)",
@@ -123,7 +123,7 @@ export function IcaoVocabulary() {
             <h1 className="mt-3 text-[34px] font-extrabold tracking-[-0.03em] leading-[1.05]">
               Aviation English vocabulary
             </h1>
-            <p className="mt-2 text-[14px] text-muted-foreground max-w-[680px]">
+            <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
               Lo que necesitás entender (y poder usar) en situaciones rutinarias y emergencias.
               Buscá por palabra en inglés, traducción o definición. Esto te queda disponible
               siempre — ábrelo cuando estudies o en plena clase.
@@ -178,7 +178,7 @@ export function IcaoVocabulary() {
                 <button
                   key={c.slug}
                   onClick={() => setCategory(c.slug)}
-                  className="mono inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[11px] font-bold uppercase tracking-[0.1em] whitespace-nowrap border transition-colors"
+                  className="mono inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12.5px] font-bold uppercase tracking-[0.1em] whitespace-nowrap border transition-colors"
                   style={{
                     borderColor: active
                       ? `color-mix(in oklab, ${c.color} 45%, transparent)`
@@ -208,7 +208,7 @@ export function IcaoVocabulary() {
             <div className="text-sm">Sin resultados para "{query}".</div>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
-              className="mt-3 inline-flex items-center gap-1.5 text-[12px] text-[var(--av-cyan-400)] hover:underline"
+              className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--av-cyan-400)] hover:underline"
             >
               Limpiar filtros
             </button>
@@ -221,7 +221,7 @@ export function IcaoVocabulary() {
           </div>
         )}
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[11px] text-muted-foreground mono text-center">
+        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground mono text-center">
           {filtered.length} de {data.length} términos · Fuente: ICAO Vocab Book (Cami)
         </div>
       </div>
@@ -237,20 +237,20 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">
-        <div className="text-[15px] font-bold tracking-[-0.01em]">
+        <div className="text-[16px] font-bold tracking-[-0.01em]">
           <Highlight text={entry.term_en} query={query} />
         </div>
         <div
-          className="mono text-[9px] font-bold uppercase tracking-[0.12em] flex-shrink-0"
+          className="mono text-[11px] font-bold uppercase tracking-[0.12em] flex-shrink-0"
           style={{ color: cat.color }}
         >
           {cat.label}
         </div>
       </div>
-      <div className="text-[12.5px] italic text-[var(--av-cyan-300)]/90">
+      <div className="text-[14px] italic text-[var(--av-cyan-300)]/90">
         <Highlight text={entry.translation_es} query={query} />
       </div>
-      <p className="text-[12.5px] text-foreground/80 leading-relaxed mt-0.5">
+      <p className="text-[14px] text-foreground/90 leading-relaxed mt-0.5">
         <Highlight text={entry.definition} query={query} />
       </p>
     </div>
