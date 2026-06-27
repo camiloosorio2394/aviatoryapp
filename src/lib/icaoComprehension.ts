@@ -98,25 +98,89 @@ const setBFiles = [
   "051.wav", "052.wav", "053.wav", "055.mp3", "057.mp3", "058.mp3", "059.mp3",
   "061.mp3", "063.mp3", "064.mp3",
 ]
+// Claves Set B (transcripción Whisper + revisión). Indexadas por número de audio.
+const setBKeys: Record<string, { s: Speaker; t: string; m: string }> = {
+  "023": { s: "pilot", t: "The flight engineer has now recovered. We're able to continue to our original destination.", m: "El ingeniero de vuelo se recuperó; pueden continuar al destino original." },
+  "024": { s: "pilot", t: "We cannot confirm the length of the delay. There is a problem with the generators.", m: "No pueden confirmar la duración de la demora; problema con los generadores." },
+  "025": { s: "pilot", t: "The wife of the sick passenger has confirmed that we have the correct medication.", m: "La esposa del pasajero enfermo confirmó que tienen la medicación correcta." },
+  "026": { s: "controller", t: "We can see you on the radar. Can you confirm your position?", m: "Te ven en el radar; piden confirmar posición." },
+  "027": { s: "pilot", t: "The first officer has had a heart attack, requesting immediate clearance to land.", m: "El primer oficial tuvo un infarto; piden autorización inmediata para aterrizar." },
+  "028": { s: "pilot", t: "We need a doctor on arrival. A passenger has fallen and is not able to move.", m: "Necesitan un médico a la llegada; un pasajero se cayó y no puede moverse." },
+  "029": { s: "pilot", t: "A bag fell on a passenger's head. She has a concussion.", m: "A una pasajera le cayó un bolso en la cabeza; tiene una conmoción." },
+  "030": { s: "pilot", t: "The captain is experiencing dizziness, unable to continue to destination.", m: "El capitán tiene mareos; no pueden continuar al destino." },
+  "031": { s: "pilot", t: "Please request an ambulance on arrival; we'll have a doctor on board.", m: "Piden una ambulancia a la llegada; habrá un médico a bordo." },
+  "032": { s: "controller", t: "Your slot has been delayed due to computer failure. We'll advise you shortly.", m: "El slot se demoró por falla de computadora; avisarán en breve." },
+  "033": { s: "pilot", t: "We've been through extreme turbulence, and several passengers are injured.", m: "Pasaron turbulencia extrema; varios pasajeros heridos." },
+  "034": { s: "pilot", t: "We have a medical update. The sick passenger is better now.", m: "Actualización médica: el pasajero enfermo está mejor." },
+  "035": { s: "pilot", t: "The cabin crew are carrying out mouth-to-mouth resuscitation.", m: "La tripulación está haciendo respiración boca a boca." },
+  "036": { s: "pilot", t: "A passenger has died, so we'll need some assistance after landing.", m: "Falleció un pasajero; necesitarán asistencia tras aterrizar." },
+  "037": { s: "pilot", t: "The flight crew have food poisoning. Request return to base.", m: "La tripulación tiene intoxicación alimentaria; piden volver a base." },
+  "039": { s: "pilot", t: "The sick passenger has got worse. I will need to land soon.", m: "El pasajero enfermo empeoró; necesitan aterrizar pronto." },
+  "040": { s: "pilot", t: "A passenger has fallen over and broken their arm.", m: "Un pasajero se cayó y se quebró el brazo." },
+  "041": { s: "pilot", t: "Two of our engines are overheating and we are losing altitude.", m: "Dos motores se recalientan y están perdiendo altitud." },
+  "043": { s: "controller", t: "The runway is closed due to a flock of birds. Please use runway 02.", m: "Pista cerrada por una bandada de aves; usar pista 02." },
+  "044": { s: "pilot", t: "We are running low on fuel. Can you confirm we are number one for landing?", m: "Bajos de combustible; piden confirmar que son número uno para aterrizar." },
+  "045": { s: "pilot", t: "A passenger has slipped and cut their arm.", m: "Un pasajero resbaló y se cortó el brazo." },
+  "046": { s: "controller", t: "There is a thunderstorm approaching the end of the runway. Hold your position.", m: "Una tormenta se acerca al final de la pista; mantené posición." },
+  "047": { s: "pilot", t: "Number 1 engine is cut off, unable to maintain altitude.", m: "Motor 1 apagado; no pueden mantener altitud." },
+  "049": { s: "pilot", t: "There's too much cloud cover, we can't see the runway.", m: "Demasiada nubosidad; no ven la pista." },
+  "050": { s: "pilot", t: "We won't have brakes on touchdown — can we have the longest runway?", m: "No tendrán frenos al tocar; piden la pista más larga." },
+  "051": { s: "controller", t: "A volcano has erupted, please change your course to 040.", m: "Erupción volcánica; cambiar rumbo a 040." },
+  "052": { s: "pilot", t: "A passenger has fallen over and cut their head, request priority landing.", m: "Un pasajero se cayó y se cortó la cabeza; piden aterrizaje prioritario." },
+  "053": { s: "pilot", t: "We've just come through some bad turbulence. We need to check if the passengers are okay.", m: "Pasaron turbulencia fuerte; necesitan chequear a los pasajeros." },
+  "055": { s: "pilot", t: "My de-icing system is unserviceable, request descent to avoid cloud.", m: "Sistema de deshielo inoperativo; piden descender para evitar nubes." },
+  "057": { s: "pilot", t: "The patient is now in a stable condition and will continue to original destination.", m: "El paciente está estable; continúan al destino original." },
+  "058": { s: "controller", t: "Avoid flight below 5,000 feet. There has been a volcanic eruption.", m: "Eviten volar por debajo de 5,000 ft; hubo una erupción volcánica." },
+  "059": { s: "pilot", t: "The hydraulic system has failed. We can't control the aircraft.", m: "Falló el sistema hidráulico; no pueden controlar la aeronave." },
+  "061": { s: "pilot", t: "We have experienced wake turbulence — has separation been maintained?", m: "Experimentaron estela turbulenta; preguntan si se mantuvo la separación." },
+  "063": { s: "pilot", t: "There's a problem with the air cooling system, I'll try to repair it.", m: "Problema con el sistema de aire acondicionado; intentarán repararlo." },
+  "064": { s: "pilot", t: "Engine 3 is cut off, request priority for landing.", m: "Motor 3 apagado; piden prioridad para aterrizar." },
+}
 const setB: ShortAudio[] = setBFiles.map((f) => {
   const num = f.replace(/\.\w+$/, "")
-  return { id: `b-${num}`, label: `Audio ${num}`, audioUrl: `${BASE}/short/b/${f}` }
+  const k = setBKeys[num]
+  return {
+    id: `b-${num}`, label: `Audio ${num}`, audioUrl: `${BASE}/short/b/${f}`,
+    ...(k ? { speaker: k.s, transcript: k.t, messageSummary: k.m } : {}),
+  }
 })
 
-const setC: ShortAudio[] = Array.from({ length: 16 }, (_, i) => {
+// Claves Set C (transcripción Whisper + revisión). Orden CD4 01..16.
+const setCKeys: { s: Speaker; t: string; m: string }[] = [
+  { s: "pilot", t: "A left main landing gear is jammed; we'll proceed to the holding area to carry out a complete check.", m: "Tren principal izquierdo trabado; van al área de espera para una revisión completa." },
+  { s: "pilot", t: "The landing gear is down but has not locked. We intend to make a low pass near the tower to have the undercarriage checked.", m: "Tren abajo pero sin trabar; harán un low pass cerca de la torre para que revisen el tren." },
+  { s: "pilot", t: "Unable to extend flaps beyond 10 degrees, request a high-speed (flapless) approach to runway 26.", m: "No pueden extender flaps más de 10°; piden aproximación de alta velocidad a la 26." },
+  { s: "pilot", t: "We have aquaplaned and have two tyres blown out on the main gear. Request passenger steps and buses to take passengers to the terminal.", m: "Hicieron aquaplaning y reventaron dos neumáticos del tren principal; piden escaleras y buses para los pasajeros." },
+  { s: "pilot", t: "We seem to have a nose gear tyre blowout on landing. Request a tug to tow us to the stand.", m: "Reventón de neumático del tren de nariz al aterrizar; piden un tug para remolcar al stand." },
+  { s: "pilot", t: "We have a chemical fire in the cargo hold. Request emergency landing.", m: "Fuego químico en la bodega de carga; piden aterrizaje de emergencia." },
+  { s: "pilot", t: "The windscreen has blown out and the cockpit has become depressurized. Request emergency landing.", m: "Se reventó el parabrisas y la cabina se despresurizó; piden aterrizaje de emergencia." },
+  { s: "pilot", t: "We can't see much because it's so foggy ahead.", m: "Casi no ven por la niebla densa adelante. [transcript aprox.]" },
+  { s: "controller", t: "I don't have you on my screen. Can you confirm your aircraft type, altitude and speed?", m: "No los tienen en pantalla; piden confirmar tipo de aeronave, altitud y velocidad." },
+  { s: "pilot", t: "We have a system failure. Our lights are not working and our displays are down.", m: "Falla de sistema; sin luces y con las pantallas caídas." },
+  { s: "pilot", t: "We have a problem. Our fuel flow is very low.", m: "El flujo de combustible está muy bajo." },
+  { s: "pilot", t: "We have a problem. I'm having trouble with my landing gear.", m: "Problemas con el tren de aterrizaje." },
+  { s: "pilot", t: "We have a situation. The windshield is icing up.", m: "El parabrisas se está congelando." },
+  { s: "pilot", t: "We need some help. A passenger is drunk and has become unruly.", m: "Un pasajero ebrio se puso agresivo (unruly)." },
+  { s: "pilot", t: "I need some help. I'm unable to release the nose gear.", m: "No pueden bajar el tren de nariz." },
+  { s: "pilot", t: "We need some help. The radio has gone down.", m: "Se cayó la radio." },
+]
+const setC: ShortAudio[] = setCKeys.map((k, i) => {
   const n = i + 1
   return {
     id: `c-${n}`,
     label: `CD4 · ${String(n).padStart(2, "0")}`,
     audioUrl: `${BASE}/short/c/cd4-${String(n).padStart(2, "0")}.m4a`,
+    speaker: k.s, transcript: k.t, messageSummary: k.m,
   }
 })
 
 export const SHORT_AUDIO_SETS: ShortAudioSet[] = [
   { key: "a", title: "Set A · Track 1–16", note: "16 clips cortos", items: setA,
     keyNote: "Claves: transcripción automática (Whisper) + revisión manual. El speaker se infiere del contenido." },
-  { key: "b", title: "Set B · 023–064", note: `${setB.length} clips`, items: setB },
-  { key: "c", title: "Set C · CD4 01–16", note: "16 clips", items: setC },
+  { key: "b", title: "Set B · 023–064", note: `${setB.length} clips`, items: setB,
+    keyNote: "Claves: transcripción automática (Whisper) + revisión manual. El speaker se infiere del contenido." },
+  { key: "c", title: "Set C · CD4 01–16", note: "16 clips", items: setC,
+    keyNote: "Claves: transcripción automática (Whisper) + revisión manual. El speaker se infiere del contenido." },
 ]
 
 export const SHORT_AUDIO_TOTAL =
@@ -131,11 +195,15 @@ export interface LongAudio {
   problem?: string
   request?: string
   details?: string[]
-  /** true si tenemos clave (problema/pedido/detalles); false para los extra */
+  /** resumen (para las narrativas largas L14-16, que no son problema/pedido/detalles) */
+  summary?: string
+  /** transcripción Whisper + revisión */
+  transcript?: string
+  /** true si tenemos clave */
   hasKey: boolean
 }
 
-export const LONG_AUDIOS: LongAudio[] = [
+const _LONG_AUDIOS: LongAudio[] = [
   {
     id: 1,
     audioUrl: `${BASE}/long/01-birds-23l.wav`,
@@ -264,21 +332,163 @@ export const LONG_AUDIOS: LongAudio[] = [
     details: ["Standard hold pattern Madrid", "FL090", "Expect 30 min delay"],
     hasKey: true,
   },
-  { id: 14, audioUrl: `${BASE}/long/14-track06.mp3`, title: "Audio largo extra (Track 06)", hasKey: false },
-  { id: 15, audioUrl: `${BASE}/long/15-track15.mp3`, title: "Audio largo extra (Track 15)", hasKey: false },
-  { id: 16, audioUrl: `${BASE}/long/16-track41.mp3`, title: "Audio largo extra (Track 41)", hasKey: false },
+  {
+    id: 14,
+    audioUrl: `${BASE}/long/14-track06.mp3`,
+    title: "Narrativa: MD-83 confunde luces cerca de Dublín",
+    speaker: "pilot",
+    summary: "Pasaje de comprensión (largo). La 28 estaba cerrada por mantenimiento, así que un MD-83 cerca de Dublín fue autorizado a una aproximación VOR/DME a la 34. A unas 5 NM y 1900 ft empezó a desviarse a la izquierda porque la tripulación confundió las luces de un hotel con las de aproximación. El comandante, desconcertado por la falta de luces de borde de pista, consultó a la torre; el controlador (distraído con mantenimiento) notó la desviación tarde y ordenó girar y trepar a 2000 ft. Iniciaron go-around a 580 ft y luego aterrizaron por ILS en la 16 sin más incidentes.",
+    hasKey: true,
+  },
+  {
+    id: 15,
+    audioUrl: `${BASE}/long/15-track15.mp3`,
+    title: "Narrativa: pérdida de separación (airprox) en Heathrow",
+    speaker: "controller",
+    summary: "Pasaje de comprensión (largo). Un MD-81 desde Dinamarca entró al holding LAM antes de aproximar a Heathrow. Dos minutos después, un B737-400 desde Ámsterdam fue instruido a esperar en el mismo punto. El MD-81 descendió a FL140 y el B737 a FL150 (colación correcta). El mínimo es 1000 ft de separación vertical, pero a las 16:44 la separación vertical cayó a 100 ft y la horizontal a ~750 m. Los controladores estaban atendiendo otros vuelos; el sistema STCA (short-term conflict alert) los alertó y el B737 volvió a trepar a FL150.",
+    hasKey: true,
+  },
+  {
+    id: 16,
+    audioUrl: `${BASE}/long/16-track41.mp3`,
+    title: "Intercambio ATC real: fuego de motor en pista",
+    speaker: "pilot",
+    summary: "Diálogo real torre–piloto–bomberos. Una aeronave ('Hatchery 339A heavy') tiene el motor derecho en llamas; va a detenerse tras vacar la pista. Coordinan con el servicio de bomberos (que pasa a otra frecuencia), confirman el motor apagado y las dos botellas extintoras descargadas, y echan espuma. El fuego parecía estar en el tailpipe; deciden no evacuar pasajeros por el momento.",
+    hasKey: true,
+  },
 ]
+
+// Transcripciones (Whisper + revisión) por id de audio largo.
+const LONG_TRANSCRIPTS: Record<number, string> = {
+  1: "Migratory bird movements have been reported in the vicinity of the approach path to runway 23 left.",
+  2: "The last flight to land reported severe wind shear half a mile from the threshold of runway 15 right, with a sudden drop in airspeed of 20 knots.",
+  3: "Line up and wait. Vehicle crossing the upwind end of the runway.",
+  4: "It looks like the Delta 767 at stand 39A has some impact damage under its right forward passenger door.",
+  5: "Maintenance work has been conducted on the far end of runway 04. As a result, the landing distance available has been reduced by 300 metres, to 2710 metres.",
+  6: "We have had a momentary power cut and we are showing nothing on our radar screens for the moment.",
+  7: "Request push back negative — there is a spillage on the ramp behind you. Hold position, anticipate a 10-minute delay.",
+  8: "Regional 259 is 2 miles from touchdown; an MD-83 has just entered the active runway.",
+  9: "Regional 319, Tower — is your rear cargo compartment closed and locked? From here it seems that the locking lever is not flush.",
+  10: "Runway 07 right is blocked by an aircraft which has not vacated. Lufthansa 338 is on short final.",
+  11: "Tower, JetBlue 1638, we are on Kilo heading for runway 10 left. There appears to be a suspicious-looking man on foot carrying a large bag on Mike.",
+  12: "We have just heard a loud thud and felt a slight vibration. Can you see if anything has impacted us?",
+  13: "Varig 221, cleared to enter the holding pattern at Madrid, Flight Level 090, expect approximately 30 minutes delay due to heavy traffic.",
+}
+
+export const LONG_AUDIOS: LongAudio[] = _LONG_AUDIOS.map((a) => ({
+  ...a,
+  transcript: a.transcript ?? LONG_TRANSCRIPTS[a.id],
+}))
 
 // ─── 2C · INTERACTIVE RESPONSE ───────────────────────────────────────────────
 export interface InteractiveItem {
   id: number
   label: string
   audioUrl: string
+  /** transcripción de la situación (Whisper + revisión) */
+  transcript?: string
+  /** preguntas modelo para obtener más info */
+  questions?: string[]
+  /** consejos/recomendaciones modelo */
+  advice?: string[]
 }
 
-export const INTERACTIVE_ITEMS: InteractiveItem[] = Array.from({ length: 6 }, (_, i) => {
+const interactiveKeys: { transcript: string; questions: string[]; advice: string[] }[] = [
+  {
+    transcript: "We have a problem. The brakes don't feel right.",
+    questions: [
+      "Are the brakes failing completely, or just feeling spongy?",
+      "Do you have any hydraulic warnings?",
+      "Are you airborne or on the ground, and how much runway is left?",
+      "How many people and how much fuel on board?",
+    ],
+    advice: [
+      "Run the abnormal brake / hydraulic checklist.",
+      "Request the longest available runway with emergency services on standby.",
+      "Use alternate braking and reverse thrust to help stop.",
+      "Reduce landing weight if airborne and time allows.",
+    ],
+  },
+  {
+    transcript: "We have a situation — some passengers are complaining.",
+    questions: [
+      "What exactly are the passengers complaining about?",
+      "Is it a safety issue or a comfort issue?",
+      "Is anyone unwell or becoming aggressive?",
+      "Does the cabin crew have it under control?",
+    ],
+    advice: [
+      "Have the cabin crew identify the cause and reassure passengers.",
+      "Separate or restrain anyone who becomes disruptive.",
+      "If it's technical (smell, temperature), investigate and report.",
+      "Keep the flight deck informed.",
+    ],
+  },
+  {
+    transcript: "We have a problem. There is a strong smell in the cabin.",
+    questions: [
+      "What does the smell resemble — smoke, fumes, fuel, electrical?",
+      "Is there any visible smoke or haze?",
+      "Are any passengers or crew feeling unwell?",
+      "Which part of the cabin is affected?",
+    ],
+    advice: [
+      "Treat any smell of smoke/fumes as a possible fire; don oxygen masks if needed.",
+      "Run the smoke/fumes checklist and isolate suspected electrical sources.",
+      "Consider a precautionary diversion with emergency services standing by.",
+      "Prepare the cabin in case an evacuation is required.",
+    ],
+  },
+  {
+    transcript: "We need some help. I could not understand what he said.",
+    questions: [
+      "Which message or instruction did you not understand?",
+      "Would you like me to say it again, more slowly?",
+      "Are you experiencing radio interference or a weak signal?",
+      "Do you need it spelled out, each word twice?",
+    ],
+    advice: [
+      "Ask the controller to 'say again' slowly, word by word.",
+      "Use standard phraseology and read back to confirm.",
+      "Relay through another aircraft or change frequency if the signal is poor.",
+      "Never act on an instruction you haven't fully understood.",
+    ],
+  },
+  {
+    transcript: "We need some help. It is difficult to steer the vehicle.",
+    questions: [
+      "Is it a nosewheel steering problem on the ground?",
+      "Are you able to stop safely where you are?",
+      "Is a taxiway or runway blocked because of you?",
+      "Do you need a tow vehicle?",
+    ],
+    advice: [
+      "Stop in a safe position and set the parking brake.",
+      "Request a tug/tow to move the aircraft.",
+      "Inform ATC so they can manage other traffic around you.",
+      "Have engineering inspect the nosewheel steering.",
+    ],
+  },
+  {
+    transcript: "We need some help. A woman has had a fit.",
+    questions: [
+      "Is the passenger conscious and breathing now?",
+      "Is there a doctor or medical professional on board?",
+      "Was she injured during the seizure?",
+      "Do you need medical assistance on arrival?",
+    ],
+    advice: [
+      "Protect her from injury; don't restrain her movements during the seizure.",
+      "Call for any medical professional on board and contact MedLink.",
+      "Give first aid and monitor her airway and breathing.",
+      "Request medical assistance on arrival; consider a diversion if serious.",
+    ],
+  },
+]
+
+export const INTERACTIVE_ITEMS: InteractiveItem[] = interactiveKeys.map((k, i) => {
   const n = i + 11 // tracks 11..16
-  return { id: n, label: `Track ${n}`, audioUrl: `${BASE}/interactive/${n}.mp3` }
+  return { id: n, label: `Track ${n}`, audioUrl: `${BASE}/interactive/${n}.mp3`, ...k }
 })
 
 // ─── FRASES MODELO DEL WORKBOOK ──────────────────────────────────────────────
