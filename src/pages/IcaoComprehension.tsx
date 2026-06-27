@@ -17,6 +17,7 @@ import {
   MessageSquare,
   BookOpen,
   ChevronDown,
+  Sparkles,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import {
@@ -28,6 +29,7 @@ import {
   SAMPLE_SCENARIOS_2C,
   type Speaker,
   type LongAudio,
+  type ShortAudio,
 } from "@/lib/icaoComprehension"
 
 /**
@@ -196,28 +198,54 @@ function ShortAudiosSection() {
       <div className="space-y-7">
         {SHORT_AUDIO_SETS.map((set) => (
           <div key={set.key}>
-            <div className="flex items-baseline gap-2 mb-3">
+            <div className="flex items-baseline gap-2 mb-1.5 flex-wrap">
               <h3 className="text-[14px] font-bold tracking-[-0.01em]">{set.title}</h3>
               <span className="mono text-[10px] uppercase tracking-[0.12em] text-muted-foreground">{set.note}</span>
             </div>
+            {set.keyNote && (
+              <p className="text-[11px] text-muted-foreground mb-3 flex items-center gap-1.5">
+                <Sparkles className="h-3 w-3 text-[var(--av-violet-400)]" /> {set.keyNote}
+              </p>
+            )}
             <div className="grid gap-2.5 sm:grid-cols-2">
               {set.items.map((a) => (
-                <div key={a.id} className="rounded-xl border bg-card p-3.5" style={cardBorder}>
-                  <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground mb-2">
-                    {a.label}
-                  </div>
-                  <ClipPlayer audioUrl={a.audioUrl} />
-                  <div className="mt-2.5 grid gap-1 text-[11.5px] text-muted-foreground">
-                    <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> What was the message?</div>
-                    <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> Pilot or controller?</div>
-                  </div>
-                </div>
+                <ShortAudioCard key={a.id} audio={a} />
               ))}
             </div>
           </div>
         ))}
       </div>
     </>
+  )
+}
+
+function ShortAudioCard({ audio }: { audio: ShortAudio }) {
+  const [revealed, setRevealed] = useState(false)
+  const hasKey = !!audio.messageSummary
+  return (
+    <div className="rounded-xl border bg-card p-3.5" style={cardBorder}>
+      <div className="flex items-center justify-between gap-2">
+        <div className="mono text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+          {audio.label}
+        </div>
+        {hasKey && <RevealBtn revealed={revealed} onClick={() => setRevealed((r) => !r)} />}
+      </div>
+      <div className="mt-2">
+        <ClipPlayer audioUrl={audio.audioUrl} />
+      </div>
+      <div className="mt-2.5 grid gap-1 text-[11.5px] text-muted-foreground">
+        <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> What was the message?</div>
+        <div className="flex items-center gap-1.5"><HelpCircle className="h-3 w-3" /> Pilot or controller?</div>
+      </div>
+
+      {hasKey && revealed && (
+        <div className="mt-3 rounded-lg border p-3" style={revealBox}>
+          {audio.speaker && <SpeakerBadge speaker={audio.speaker} />}
+          <div className="mt-2 text-[12.5px] text-foreground/90 leading-relaxed">{audio.messageSummary}</div>
+          {audio.transcript && <Transcript text={audio.transcript} />}
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -417,6 +445,17 @@ function RevealRow({ label, value, color }: { label: string; value: string; colo
         {label}
       </div>
       <div className="text-[12.5px] text-foreground/85 leading-relaxed">{value}</div>
+    </div>
+  )
+}
+
+function Transcript({ text }: { text: string }) {
+  return (
+    <div className="mt-2.5 pt-2.5 border-t border-border/40">
+      <div className="mono text-[9px] font-bold uppercase tracking-[0.14em] text-muted-foreground mb-1">
+        TRANSCRIPT
+      </div>
+      <p className="text-[12px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
     </div>
   )
 }
