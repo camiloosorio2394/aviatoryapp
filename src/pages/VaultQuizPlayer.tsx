@@ -132,34 +132,23 @@ export function VaultQuizPlayer() {
     return (
       <AppLayout>
         <div className="px-7 py-7 pb-20 max-w-[920px] mx-auto">
-          <section
-            className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-            style={{
-              borderColor: "oklch(0.32 0.04 250 / 0.6)",
-              boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-            }}
-          >
-            <div className="cockpit-grid absolute inset-0 opacity-60" />
-            <div
-              className="absolute inset-0"
-              style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
-            />
+          <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
             <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
               <div>
                 <div
-                  className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
                   style={{
-                    color: "var(--av-cyan-300)",
-                    background: "oklch(0.78 0.16 215 / 12%)",
-                    border: "1px solid oklch(0.78 0.16 215 / 30%)",
+                    color: "var(--av-blue-500)",
+                    background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                    border: "1px solid color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
                   }}
                 >
-                  <Trophy className="h-3 w-3" /> RESULTADO · {subjectMeta.name.toUpperCase()}
+                  <Trophy className="h-3 w-3" /> Resultado · {subjectMeta.name}
                 </div>
-                <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
+                <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
                   {passed ? "¡Aprobaste!" : "Casi llegas"}
                 </h1>
-                <p className="text-[17px] text-white/88 max-w-[520px] mt-2">
+                <p className="text-[17px] text-muted-foreground max-w-[520px] mt-2">
                   {correctCount} de {session.questionCount} correctas ·{" "}
                   {passed
                     ? "Sobre 70% — listo para presentar a este ritmo."
@@ -182,14 +171,14 @@ export function VaultQuizPlayer() {
             {history.map((h) => (
               <div
                 key={h.position}
-                className={`rounded-xl border p-3 flex items-center gap-2 ${
+                className={`rounded-2xl border bg-card p-3 flex items-center gap-2 ${
                   h.correct ? "border-green-500/40" : "border-red-500/40"
                 }`}
               >
                 <div
                   className="w-7 h-7 rounded-md flex items-center justify-center text-white"
                   style={{
-                    background: h.correct ? "var(--av-green-400)" : "var(--av-red-400)",
+                    background: h.correct ? "#047857" : "#DC2626",
                   }}
                 >
                   {h.correct ? <Check className="h-4 w-4" strokeWidth={3} /> : <X className="h-4 w-4" strokeWidth={3} />}
@@ -203,18 +192,14 @@ export function VaultQuizPlayer() {
             <button
               type="button"
               onClick={handleRestart}
-              className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-sm font-semibold text-white border-0 cursor-pointer"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               <RefreshCw className="h-4 w-4" /> Otra ronda
             </button>
             <Link
               to="/app/pca"
-              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a {MODULE_LABEL[module]}
             </Link>
@@ -240,7 +225,7 @@ export function VaultQuizPlayer() {
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {subjectMeta.name}
           </Link>
-          <div className="mono text-[12.5px] font-bold tracking-[0.16em] uppercase text-muted-foreground">
+          <div className="tabular-nums text-[13px] font-semibold text-muted-foreground">
             Pregunta {position} de {session.questionCount}
           </div>
         </div>
@@ -251,20 +236,17 @@ export function VaultQuizPlayer() {
             className="h-full transition-all duration-300 ease-out"
             style={{
               width: `${progressPct}%`,
-              background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-blue-500))",
+              background: "var(--av-blue-500)",
             }}
           />
         </div>
 
         {/* Question card */}
         <ProtectedContent watermark={false}>
-          <section
-            className="card rounded-2xl border p-7"
-            style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
-          >
+          <section className="card rounded-2xl border border-border bg-card p-7">
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase mb-3"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-3"
+              style={{ color: "var(--av-blue-500)" }}
             >
               {subjectMeta.name}
             </div>
@@ -284,19 +266,19 @@ export function VaultQuizPlayer() {
                 if (result) {
                   if (isRight) {
                     stateStyle = {
-                      borderColor: "var(--av-green-400)",
-                      background: "color-mix(in oklab, var(--av-green-400) 10%, var(--card))",
+                      borderColor: "#047857",
+                      background: "color-mix(in oklab, #047857 10%, var(--card))",
                     }
                   } else if (isWrong) {
                     stateStyle = {
-                      borderColor: "var(--av-red-400)",
-                      background: "color-mix(in oklab, var(--av-red-400) 10%, var(--card))",
+                      borderColor: "#DC2626",
+                      background: "color-mix(in oklab, #DC2626 10%, var(--card))",
                     }
                   }
                 } else if (isSelected) {
                   stateStyle = {
-                    borderColor: "var(--av-cyan-400)",
-                    background: "color-mix(in oklab, var(--av-cyan-400) 8%, var(--card))",
+                    borderColor: "var(--av-blue-500)",
+                    background: "color-mix(in oklab, var(--av-blue-500) 8%, var(--card))",
                   }
                 }
 
@@ -306,16 +288,16 @@ export function VaultQuizPlayer() {
                     type="button"
                     disabled={!!result || submitting}
                     onClick={() => setSelected(key)}
-                    className="w-full text-left rounded-xl border p-4 flex items-start gap-3 transition-all hover:-translate-y-0.5 disabled:hover:translate-y-0 disabled:cursor-default"
+                    className="w-full text-left rounded-2xl border p-4 flex items-start gap-3 transition-all hover:-translate-y-0.5 disabled:hover:translate-y-0 disabled:cursor-default"
                     style={{
                       borderColor: "var(--border)",
                       ...stateStyle,
                     }}
                   >
                     <div
-                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center mono text-[13.5px] font-extrabold"
+                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center tabular-nums text-[13.5px] font-extrabold"
                       style={{
-                        background: isSelected || isCorrectAnswer ? "var(--av-cyan-400)" : "var(--muted)",
+                        background: isSelected || isCorrectAnswer ? "var(--av-blue-500)" : "var(--muted)",
                         color: isSelected || isCorrectAnswer ? "white" : "var(--foreground)",
                       }}
                     >
@@ -323,10 +305,10 @@ export function VaultQuizPlayer() {
                     </div>
                     <div className="flex-1 text-[15.5px] leading-relaxed text-foreground/90 pt-0.5">{text}</div>
                     {result && isRight && (
-                      <Check className="flex-shrink-0 h-5 w-5" style={{ color: "var(--av-green-400)" }} strokeWidth={3} />
+                      <Check className="flex-shrink-0 h-5 w-5" style={{ color: "#047857" }} strokeWidth={3} />
                     )}
                     {result && isWrong && (
-                      <X className="flex-shrink-0 h-5 w-5" style={{ color: "var(--av-red-400)" }} strokeWidth={3} />
+                      <X className="flex-shrink-0 h-5 w-5" style={{ color: "#DC2626" }} strokeWidth={3} />
                     )}
                   </button>
                 )
@@ -337,17 +319,19 @@ export function VaultQuizPlayer() {
             {result && (
               <div className="mt-6 space-y-3 anim-fade-up">
                 <div
-                  className="rounded-xl border p-4"
+                  className="rounded-2xl border p-4"
                   style={{
-                    borderColor: result.is_correct ? "oklch(0.76 0.16 145 / 30%)" : "oklch(0.65 0.22 25 / 30%)",
+                    borderColor: result.is_correct
+                      ? "color-mix(in oklab, #047857 30%, transparent)"
+                      : "color-mix(in oklab, #DC2626 30%, transparent)",
                     background: result.is_correct
-                      ? "color-mix(in oklab, var(--av-green-400) 8%, transparent)"
-                      : "color-mix(in oklab, var(--av-red-400) 8%, transparent)",
+                      ? "color-mix(in oklab, #047857 8%, transparent)"
+                      : "color-mix(in oklab, #DC2626 8%, transparent)",
                   }}
                 >
                   <div
-                    className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.14em] uppercase mb-1.5"
-                    style={{ color: result.is_correct ? "var(--av-green-400)" : "var(--av-red-400)" }}
+                    className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-1.5"
+                    style={{ color: result.is_correct ? "#047857" : "#DC2626" }}
                   >
                     {result.is_correct ? (
                       <>
@@ -364,20 +348,20 @@ export function VaultQuizPlayer() {
 
                 {result.pedagogical_note && (
                   <div
-                    className="rounded-xl border p-4 flex items-start gap-3"
+                    className="rounded-2xl border p-4 flex items-start gap-3"
                     style={{
-                      borderColor: "oklch(0.78 0.18 80 / 35%)",
-                      background: "color-mix(in oklab, var(--av-amber-400) 10%, transparent)",
+                      borderColor: "color-mix(in oklab, #B45309 35%, transparent)",
+                      background: "color-mix(in oklab, #B45309 10%, transparent)",
                     }}
                   >
                     <AlertTriangle
                       className="flex-shrink-0 h-4 w-4 mt-0.5"
-                      style={{ color: "var(--av-amber-400)" }}
+                      style={{ color: "#B45309" }}
                     />
                     <div>
                       <div
-                        className="mono text-[12px] font-bold tracking-[0.14em] uppercase mb-1"
-                        style={{ color: "var(--av-amber-400)" }}
+                        className="text-[13px] font-semibold mb-1"
+                        style={{ color: "#B45309" }}
                       >
                         Nota para el examen
                       </div>
@@ -399,12 +383,8 @@ export function VaultQuizPlayer() {
               type="button"
               onClick={handleSubmit}
               disabled={!selected || submitting}
-              className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-sm font-semibold text-white border-0 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+              style={{ background: "var(--av-blue-500)" }}
             >
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
               Comprobar
@@ -413,12 +393,8 @@ export function VaultQuizPlayer() {
             <button
               type="button"
               onClick={handleNext}
-              className="av-shine inline-flex items-center gap-1.5 h-11 px-5 rounded-lg text-sm font-semibold text-white border-0 cursor-pointer"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               {position >= session.questionCount ? "Ver resultado" : "Siguiente"}
               <ArrowRight className="h-4 w-4" />
