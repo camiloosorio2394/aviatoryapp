@@ -23,73 +23,30 @@ export function Pca() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-          }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-60" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)",
-            }}
-          />
-
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+          <div className="grid items-center gap-7 sm:grid-cols-[1fr_auto]">
             <div>
-              <div
-                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
-                style={{
-                  color: "var(--av-cyan-300)",
-                  background: "oklch(0.78 0.16 215 / 12%)",
-                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{
-                    background: "var(--av-amber-400)",
-                    boxShadow: "0 0 8px var(--av-amber-400)",
-                  }}
-                />
-                MATERIAS · BANCO PCA AEROCIVIL
+              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                Materias · Banco PCA Aerocivil
               </div>
-              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-                Estudiá por materia,{" "}
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  simulá el examen
-                </span>
+              <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+                Estudiá por materia, simulá el examen
               </h1>
-              <p className="text-[18px] text-white/88 max-w-[640px] mt-3 leading-relaxed">
+              <p className="text-[16px] text-muted-foreground max-w-[640px] mt-3 leading-relaxed">
                 El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practicá
                 cada materia por separado para reforzar lo que te cuesta, o lanzá un{" "}
-                <strong className="text-white">Simulacro Examen PCA</strong> con preguntas
+                <strong className="text-foreground">Simulacro Examen PCA</strong> con preguntas
                 mezcladas de todas las materias para medir qué tan listo estás.
               </p>
             </div>
-            <div className="flex flex-col items-center gap-3 pr-2">
+            <div className="hidden sm:flex flex-col items-center gap-3 pr-2">
               <div
-                className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
-                style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-                  boxShadow:
-                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
-                }}
+                className="flex items-center justify-center w-[110px] h-[110px] rounded-2xl"
+                style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
               >
                 <Award className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[12px] tracking-[0.16em] text-white/50">EXAMEN OFICIAL</div>
+              <div className="text-[12px] font-semibold text-muted-foreground">Examen oficial</div>
             </div>
           </div>
         </section>
@@ -99,14 +56,14 @@ export function Pca() {
 
         <div className="mt-10 mb-5 flex items-end justify-between">
           <div>
-            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-              ROADMAP DEL MÓDULO
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+              Roadmap del módulo
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
               Cómo te vamos a preparar
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
             <Clock className="h-3.5 w-3.5" />4 secciones · liberación gradual
           </div>
         </div>
@@ -161,17 +118,16 @@ export function Pca() {
         <section
           className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
           style={{
-            borderColor: "oklch(0.78 0.16 215 / 25%)",
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
+            borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
+            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
           }}
         >
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
-              <Sparkles className="h-3 w-3" /> Cómo estudiar
+              <Sparkles className="h-3.5 w-3.5" /> Cómo estudiar
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
               Elegí una materia de arriba y arrancá un quiz de 10 preguntas.
@@ -204,11 +160,11 @@ interface TileProps {
 }
 
 const TILE_COLOR: Record<TileProps["color"], string> = {
-  cyan: "var(--av-cyan-400)",
-  blue: "var(--av-blue-500)",
-  violet: "var(--av-violet-400)",
-  amber: "var(--av-amber-400)",
-  green: "var(--av-green-400)",
+  cyan: "#0E7490",
+  blue: "#2563EB",
+  violet: "#7C3AED",
+  amber: "#B45309",
+  green: "#047857",
 }
 
 function FeatureTile({ icon: Icon, color, title, description, bullets }: TileProps) {
@@ -221,8 +177,8 @@ function FeatureTile({ icon: Icon, color, title, description, bullets }: TilePro
         <div
           className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
           style={{
-            background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
+            background: `color-mix(in oklab, ${TILE_COLOR[color]} 12%, transparent)`,
+            color: TILE_COLOR[color],
           }}
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
@@ -272,44 +228,32 @@ function AvailableSubjects() {
       {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
       <Link
         to="/app/pca/quiz/examen?module=pca&count=20"
-        className="av-shine group relative overflow-hidden rounded-2xl border p-6 flex items-center gap-5 mb-8 transition-transform hover:-translate-y-0.5"
+        className="group relative overflow-hidden rounded-2xl border p-6 flex items-center gap-5 mb-8 transition-all hover:-translate-y-0.5 hover:shadow-md"
         style={{
-          borderColor: "oklch(0.78 0.16 215 / 30%)",
-          background:
-            "linear-gradient(135deg, var(--av-navy-900) 0%, oklch(0.30 0.06 255) 60%, oklch(0.40 0.12 255) 100%)",
-          boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
+          borderColor: "color-mix(in oklab, var(--av-blue-500) 35%, transparent)",
+          background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
         }}
       >
-        <div className="cockpit-grid absolute inset-0 opacity-30" />
         <div
           className="relative flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
-          style={{
-            background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-            boxShadow: "0 8px 24px -6px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
-          }}
+          style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
         >
           <Award className="h-7 w-7 text-white" strokeWidth={1.8} />
         </div>
         <div className="relative flex-1 min-w-0">
-          <div
-            className="mono text-[12px] font-bold uppercase tracking-[0.16em]"
-            style={{ color: "var(--av-cyan-300)" }}
-          >
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Simulacro Examen PCA
           </div>
-          <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em] text-white">
+          <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em]">
             20 preguntas mezcladas de todas las materias
           </div>
-          <div className="mt-0.5 text-[14px] text-white/65">
+          <div className="mt-0.5 text-[14px] text-muted-foreground">
             Como el examen real de Aerocivil · al terminar ves tu nota.
           </div>
         </div>
         <div
-          className="relative hidden sm:flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-bold flex-shrink-0"
-          style={{
-            background: "linear-gradient(180deg, var(--av-cyan-300) 0%, var(--av-cyan-400) 100%)",
-            color: "var(--av-navy-950)",
-          }}
+          className="relative hidden sm:flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-bold flex-shrink-0 text-white"
+          style={{ background: "var(--av-blue-500)" }}
         >
           Empezar <ArrowRight className="h-4 w-4" />
         </div>
@@ -317,14 +261,14 @@ function AvailableSubjects() {
 
       <div className="mb-5 flex items-end justify-between">
         <div>
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            ESTUDIAR POR MATERIA
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Estudiar por materia
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Reforzá donde más te cuesta
           </h2>
         </div>
-        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
+        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
           <Sparkles className="h-3.5 w-3.5" />Encriptado · revisado · sin spoilers
         </div>
       </div>
