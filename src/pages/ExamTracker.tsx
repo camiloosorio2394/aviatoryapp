@@ -74,11 +74,9 @@ export function ExamTracker() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               <Plus className="h-3.5 w-3.5" /> Reportar mi examen
@@ -86,25 +84,21 @@ export function ExamTracker() {
           }
         />
 
-        {/* Cockpit hero with KPIs */}
-        <div
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-8 mb-7"
-          style={{ borderColor: "oklch(0.32 0.04 250 / 0.6)" }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-45" />
+        {/* Hero with KPIs */}
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-7">
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "auto 1fr auto" }}>
-            <KpiRing value={subjectsWithData * 100 / Math.max(totalSubjects, 1)} max={100} size={140} trailing="%" sub="Cobertura" color="cyan" />
+            <KpiRing value={subjectsWithData * 100 / Math.max(totalSubjects, 1)} max={100} size={140} trailing="%" sub="Cobertura" color="blue" />
             <div>
               <div
-                className="mono text-[12.5px] font-bold tracking-[0.14em] uppercase"
-                style={{ color: "var(--av-cyan-300)" }}
+                className="text-[13px] font-semibold"
+                style={{ color: "var(--av-blue-500)" }}
               >
                 Reportes en los últimos 90 días
               </div>
-              <h2 className="mt-2 mb-1 text-3xl font-extrabold tracking-[-0.03em] text-white">
+              <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
                 <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
               </h2>
-              <p className="m-0 text-[15px] leading-relaxed max-w-[520px]" style={{ color: "oklch(0.78 0.02 250)" }}>
+              <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
                 {totalReports === 0
                   ? "Sé el primero en reportar — tu data ayuda a todos los próximos pilotos."
                   : `${subjectsWithData} de ${totalSubjects} materias con inteligencia. Cada reporte sirve para que otro piloto entre al examen mejor preparado.`}
@@ -112,19 +106,19 @@ export function ExamTracker() {
             </div>
             <div className="text-right">
               <div
-                className="mono text-[12px] uppercase tracking-[0.12em]"
-                style={{ color: "var(--av-cyan-300)" }}
+                className="text-[13px] font-semibold"
+                style={{ color: "var(--av-blue-500)" }}
               >
                 Pass rate promedio
               </div>
               <div
-                className="mono tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-white mt-1"
+                className="tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-foreground mt-1"
               >
-                {avgPass}<span className="text-lg" style={{ color: "oklch(0.7 0.02 250)" }}>%</span>
+                {avgPass}<span className="text-lg text-muted-foreground">%</span>
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Subject grid */}
         {loading ? (
@@ -169,14 +163,12 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   return (
     <Link
       to={`/app/exam-tracker/${intel.subject_slug}`}
-      className="group block rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "oklch(0.78 0.16 215 / 50%)"
-        e.currentTarget.style.boxShadow = "var(--shadow-cyan)"
+        e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)"
-        e.currentTarget.style.boxShadow = "none"
       }}
     >
       <div className="flex items-start gap-3">
@@ -184,17 +176,17 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-bold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
-            <p className="mt-1 mono text-[12.5px] text-muted-foreground uppercase tracking-[0.08em]">
+            <p className="mt-1 text-[12.5px] text-muted-foreground">
               Sin reportes · sé el primero
             </p>
           ) : (
             <div className="mt-1 space-y-1">
-              <div className="mono text-[12.5px] text-muted-foreground flex items-center gap-1.5">
+              <div className="text-[12.5px] text-muted-foreground flex items-center gap-1.5">
                 <Users className="h-3 w-3" />
                 {intel.total_reports} reporte{intel.total_reports !== 1 ? "s" : ""} · 90d
               </div>
               {intel.pass_rate !== null && (
-                <div className="mono tabular-nums text-[12.5px] text-muted-foreground">
+                <div className="tabular-nums text-[12.5px] text-muted-foreground">
                   <span className="font-bold text-foreground">{intel.pass_rate}%</span> aprobaron
                 </div>
               )}
@@ -211,11 +203,11 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
             border: "1px solid color-mix(in oklab, var(--av-red-400) 28%, transparent)",
           }}
         >
-          <Flame className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-red-400)" }} />
+          <Flame className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "#DC2626" }} />
           <div className="flex-1 min-w-0">
             <div
-              className="mono text-[11px] font-bold uppercase tracking-[0.12em]"
-              style={{ color: "var(--av-red-400)" }}
+              className="text-[13px] font-semibold"
+              style={{ color: "#DC2626" }}
             >
               Tema más caliente
             </div>
@@ -225,8 +217,8 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
       )}
 
       <div
-        className="mt-4 mono inline-flex items-center gap-1 text-[12.5px] font-bold uppercase tracking-[0.08em]"
-        style={{ color: "var(--av-cyan-400)" }}
+        className="mt-4 inline-flex items-center gap-1 text-[13px] font-semibold"
+        style={{ color: "var(--av-blue-500)" }}
       >
         Ver inteligencia <ArrowRight className="h-3 w-3" />
       </div>
@@ -236,12 +228,11 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
 
 function HowStep({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-2xl border border-border bg-card p-5">
       <div
         className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold"
         style={{
-          background: "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))",
-          boxShadow: "0 4px 12px -4px oklch(0.55 0.22 264 / 40%)",
+          background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         {n}
@@ -478,7 +469,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                   value={score}
                   onChange={(e) => setScore(e.target.value)}
                   placeholder="87"
-                  className="h-11 rounded-xl mono tabular-nums"
+                  className="h-11 rounded-xl tabular-nums"
                 />
               </div>
               <div className="space-y-1.5">
@@ -489,13 +480,12 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                       key={n}
                       type="button"
                       onClick={() => setDifficulty(n)}
-                      className={`mono tabular-nums flex-1 h-11 rounded-xl border font-bold transition-all ${
+                      className={`tabular-nums flex-1 h-11 rounded-xl border font-bold transition-all ${
                         difficulty === n ? "text-white" : "border-border bg-card hover:border-foreground/30"
                       }`}
                       style={difficulty === n ? {
                         background: "var(--av-blue-500)",
                         borderColor: "var(--av-blue-500)",
-                        boxShadow: "0 4px 12px -2px color-mix(in oklab, var(--av-blue-500) 40%, transparent)",
                       } : undefined}
                     >
                       {n}
@@ -523,14 +513,14 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                           active ? "" : "border-border bg-card hover:border-foreground/30"
                         }`}
                         style={active ? {
-                          background: "color-mix(in oklab, var(--av-cyan-400) 12%, transparent)",
-                          borderColor: "color-mix(in oklab, var(--av-cyan-400) 50%, transparent)",
-                          boxShadow: "0 0 0 1px color-mix(in oklab, var(--av-cyan-400) 30%, transparent)",
+                          background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                          borderColor: "color-mix(in oklab, var(--av-blue-500) 50%, transparent)",
+                          boxShadow: "0 0 0 1px color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
                         } : undefined}
                       >
                         <div className="flex items-center justify-between">
                           <span>{t.label}</span>
-                          {active && <Check className="h-3.5 w-3.5" style={{ color: "var(--av-cyan-400)" }} />}
+                          {active && <Check className="h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} />}
                         </div>
                       </button>
                     )
@@ -574,10 +564,9 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               type="submit"
               disabled={saving || !subjectId}
               size="lg"
-              className="rounded-full h-11 px-6 border-0 text-white"
+              className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               {saving ? (
