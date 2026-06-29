@@ -45,5 +45,17 @@ export async function saveMockResult(input: {
     console.error("saveMockResult", error)
     return { ok: false }
   }
+
+  // El nivel ICAO oficial sale del módulo, no de auto-declaración: al guardar un
+  // simulacro reflejamos el resultado en pilot_state para que el Dashboard, el
+  // match de aerolíneas y el perfil usen el nivel real evaluado.
+  if (input.finalLevel != null) {
+    const { error: psErr } = await supabase
+      .from("pilot_state")
+      .update({ icao_english_level: input.finalLevel, updated_at: new Date().toISOString() })
+      .eq("user_id", input.userId)
+    if (psErr) console.error("saveMockResult:pilot_state", psErr)
+  }
+
   return { ok: true }
 }
