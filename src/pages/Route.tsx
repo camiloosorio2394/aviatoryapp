@@ -228,40 +228,26 @@ export function Route() {
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow={`MI RUTA · ${STAGE_LABEL[stage].toUpperCase()}`}
+          eyebrow={`Mi ruta · ${STAGE_LABEL[stage]}`}
           title={checklist.name}
           subtitle={checklist.description ?? undefined}
         />
 
-        {/* Mission map dark band */}
-        <div
-          className="map-tile map-grid anim-fade-up relative rounded-3xl border p-8 mb-7 overflow-hidden"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 6%)",
-          }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(circle at 50% 100%, oklch(0.78 0.16 215 / 25%) 0%, transparent 60%)",
-            }}
-          />
-          <div className="relative">
+        {/* Stage track */}
+        <div className="relative rounded-2xl border border-border bg-card p-8 mb-7 overflow-x-auto">
+          <div className="relative min-w-[640px]">
             {/* Track */}
             <div className="relative py-2 pb-8">
               <div
                 className="absolute left-0 right-0 h-0.5 rounded-full"
-                style={{ top: 24, background: "oklch(0.4 0.04 250 / 0.6)" }}
+                style={{ top: 24, background: "var(--border)" }}
               />
               <div
-                className="absolute left-0 h-0.5 rounded-full"
+                className="absolute left-0 h-0.5 rounded-full transition-all duration-700"
                 style={{
                   top: 24,
                   width: `${(currentIdx / (STAGE_ORDER.length - 1)) * 100}%`,
-                  background: "linear-gradient(90deg, var(--av-cyan-400), white)",
-                  boxShadow: "0 0 12px var(--av-cyan-400)",
+                  background: "var(--av-blue-500)",
                 }}
               />
               <div className="flex justify-between relative">
@@ -275,32 +261,20 @@ export function Route() {
                       style={{ minWidth: 100, maxWidth: 140 }}
                     >
                       <div
-                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center text-white font-extrabold text-sm"
+                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-extrabold text-sm"
                         style={{
-                          background: done
-                            ? "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))"
-                            : current
-                              ? "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))"
-                              : "oklch(0.24 0.035 250)",
-                          border: current
-                            ? "2px solid var(--av-cyan-400)"
-                            : "2px solid oklch(0.36 0.05 250)",
-                          color: done || current ? "white" : "oklch(0.55 0.04 250)",
-                          boxShadow:
-                            done || current
-                              ? "0 0 0 6px oklch(0.78 0.16 215 / 15%), 0 8px 24px -8px oklch(0.78 0.16 215 / 60%)"
-                              : "none",
+                          background: done ? "#047857" : current ? "var(--av-blue-500)" : "var(--muted)",
+                          border: current ? "2px solid var(--av-blue-500)" : "2px solid var(--border)",
+                          color: done || current ? "white" : "var(--muted-foreground)",
+                          boxShadow: current ? "0 0 0 4px color-mix(in oklab, var(--av-blue-500) 18%, transparent)" : "none",
                         }}
                       >
-                        {done ? <Check className="h-5 w-5" /> : <span className="mono">{i + 1}</span>}
-                        {current && <span className="radar-pulse" />}
+                        {done ? <Check className="h-5 w-5" /> : <span className="tabular-nums">{i + 1}</span>}
                       </div>
                       <div className="text-center">
                         <div
-                          className="mono text-[14px] font-bold tracking-[-0.015em]"
-                          style={{
-                            color: done || current ? "white" : "oklch(0.65 0.04 250)",
-                          }}
+                          className="text-[13.5px] font-bold tracking-[-0.015em]"
+                          style={{ color: done || current ? "var(--foreground)" : "var(--muted-foreground)" }}
                         >
                           {STAGE_LABEL[s]}
                         </div>
@@ -314,16 +288,13 @@ export function Route() {
         </div>
 
         {/* Progress strip */}
-        <div className="rounded-xl border border-border bg-card p-6 mb-6">
+        <div className="rounded-2xl border border-border bg-card p-6 mb-6">
           <div className="flex justify-between items-baseline mb-3">
             <div>
-              <div
-                className="mono text-[12px] font-bold tracking-[0.14em] uppercase"
-                style={{ color: "var(--av-cyan-400)" }}
-              >
+              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 Tu progreso en esta etapa
               </div>
-              <div className="mono tabular-nums mt-2 text-4xl font-extrabold tracking-[-0.04em] text-foreground">
+              <div className="tabular-nums mt-2 text-4xl font-extrabold tracking-[-0.04em] text-foreground">
                 {percent}%
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -333,26 +304,16 @@ export function Route() {
             {allDone && (
               <div
                 className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
-                style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-400), var(--av-blue-500))",
-                  boxShadow: "var(--shadow-cyan)",
-                }}
+                style={{ background: "#047857" }}
               >
                 <Trophy className="h-3.5 w-3.5" /> ¡Etapa completa!
               </div>
             )}
           </div>
-          <div
-            className="relative h-2.5 rounded-full overflow-hidden border border-border"
-            style={{ background: "var(--muted)" }}
-          >
+          <div className="relative h-2.5 rounded-full overflow-hidden bg-muted">
             <div
               className="h-full rounded-full transition-all duration-700"
-              style={{
-                width: `${percent}%`,
-                background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-cyan-300), white)",
-                boxShadow: "0 0 12px var(--av-cyan-400)",
-              }}
+              style={{ width: `${percent}%`, background: "var(--av-blue-500)" }}
             />
           </div>
         </div>
@@ -367,7 +328,7 @@ export function Route() {
                 eyebrow={cat}
                 title={`${catComplete} / ${catItems.length} completos`}
               />
-              <div className="rounded-xl border border-border bg-card overflow-hidden">
+              <div className="rounded-2xl border border-border bg-card overflow-hidden">
                 {catItems.map((item, i) => {
                   const checked = completedIds.has(item.id)
                   const toggling = togglingId === item.id
@@ -385,12 +346,9 @@ export function Route() {
                       <span
                         className="flex h-[22px] w-[22px] items-center justify-center rounded-md flex-shrink-0 mt-0.5 transition-all"
                         style={{
-                          background: checked ? "var(--av-cyan-400)" : "transparent",
+                          background: checked ? "#047857" : "transparent",
                           border: checked ? "none" : "1.5px solid var(--border)",
                           color: "white",
-                          boxShadow: checked
-                            ? "0 0 0 3px color-mix(in oklab, var(--av-cyan-400) 20%, transparent)"
-                            : "none",
                         }}
                       >
                         {toggling ? (
@@ -429,21 +387,22 @@ export function Route() {
           <section
             className="rounded-2xl border p-6 flex items-center gap-4"
             style={{
-              background:
-                "linear-gradient(135deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 70%)",
-              borderColor: "color-mix(in oklab, var(--av-cyan-400) 35%, var(--border))",
+              background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
+              borderColor: "color-mix(in oklab, var(--av-blue-500) 25%, transparent)",
             }}
           >
-            <Sparkles className="h-7 w-7 flex-shrink-0" style={{ color: "var(--av-cyan-400)" }} />
+            <Sparkles className="h-7 w-7 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
             <div className="flex-1">
               <h3 className="text-base font-bold text-foreground">¡Completaste todos los items!</h3>
               <p className="mt-0.5 text-sm text-muted-foreground">
                 Actualiza tu etapa en tu perfil para desbloquear la siguiente ruta.
               </p>
             </div>
-            <Button asChild className="rounded-full border-0 text-white" style={{
-              background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-            }}>
+            <Button
+              asChild
+              className="rounded-xl border-0 text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
+            >
               <Link to="/app/perfil">
                 Actualizar etapa <ArrowRight className="ml-1 h-4 w-4" />
               </Link>

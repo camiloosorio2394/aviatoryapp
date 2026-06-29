@@ -93,11 +93,11 @@ function statusOf(d: number | null): Status {
 }
 
 const STATUS_META: Record<Status, { color: string; label: string }> = {
-  expired: { color: "var(--av-red-400)", label: "VENCIDO" },
-  critical: { color: "var(--av-red-400)", label: "CRÍTICO" },
-  urgent: { color: "oklch(0.65 0.18 50)", label: "URGENTE" },
-  warn: { color: "var(--av-amber-400)", label: "ATENCIÓN" },
-  ok: { color: "var(--av-green-400)", label: "AL DÍA" },
+  expired: { color: "#DC2626", label: "VENCIDO" },
+  critical: { color: "#DC2626", label: "CRÍTICO" },
+  urgent: { color: "#B45309", label: "URGENTE" },
+  warn: { color: "#B45309", label: "ATENCIÓN" },
+  ok: { color: "#047857", label: "AL DÍA" },
   none: { color: "var(--muted-foreground)", label: "SIN FECHA" },
 }
 
@@ -158,12 +158,8 @@ export function Expiries() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               <Plus className="h-3.5 w-3.5" /> Agregar
             </button>
@@ -183,22 +179,21 @@ export function Expiries() {
         {/* Critical alert */}
         {critical > 0 && (
           <div
-            className="anim-fade-up flex items-center gap-3.5 px-5 py-4 rounded-xl mb-6"
+            className="anim-fade-up flex items-center gap-3.5 px-5 py-4 rounded-2xl mb-6"
             style={{
               background:
-                "linear-gradient(135deg, color-mix(in oklab, var(--av-red-400) 12%, var(--card)) 0%, var(--card) 70%)",
-              border: "1px solid color-mix(in oklab, var(--av-red-400) 35%, transparent)",
+                "linear-gradient(135deg, color-mix(in oklab, #DC2626 10%, var(--card)) 0%, var(--card) 70%)",
+              border: "1px solid color-mix(in oklab, #DC2626 35%, transparent)",
             }}
           >
             <div
-              className="relative flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
+              className="relative flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
               style={{
-                background: "color-mix(in oklab, var(--av-red-400) 20%, transparent)",
-                color: "var(--av-red-400)",
+                background: "color-mix(in oklab, #DC2626 14%, transparent)",
+                color: "#DC2626",
               }}
             >
               <AlertTriangle className="h-5 w-5" />
-              <span className="radar-pulse" style={{ borderColor: "var(--av-red-400)" }} />
             </div>
             <div className="flex-1">
               <div className="text-sm font-bold text-foreground tracking-[-0.015em]">
@@ -214,13 +209,13 @@ export function Expiries() {
         {loading ? (
           <div className="animate-pulse space-y-2">
             {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="h-16 rounded-xl bg-muted" />
+              <div key={i} className="h-16 rounded-2xl bg-muted" />
             ))}
           </div>
         ) : licenses.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden">
             {licenses.map((l, i) => (
               <LicenseRow
                 key={l.id}
@@ -259,25 +254,25 @@ function SummaryTile({
   icon: typeof AlertTriangle
 }) {
   const TONES = {
-    red: { c: "var(--av-red-400)", bg: "color-mix(in oklab, var(--av-red-400) 8%, var(--card))" },
-    amber: { c: "var(--av-amber-400)", bg: "color-mix(in oklab, var(--av-amber-400) 8%, var(--card))" },
-    cyan: { c: "var(--av-cyan-400)", bg: "color-mix(in oklab, var(--av-cyan-400) 8%, var(--card))" },
-    green: { c: "var(--av-green-400)", bg: "color-mix(in oklab, var(--av-green-400) 8%, var(--card))" },
+    red: { c: "#DC2626", bg: "color-mix(in oklab, #DC2626 8%, var(--card))" },
+    amber: { c: "#B45309", bg: "color-mix(in oklab, #B45309 8%, var(--card))" },
+    cyan: { c: "var(--av-blue-500)", bg: "color-mix(in oklab, var(--av-blue-500) 8%, var(--card))" },
+    green: { c: "#047857", bg: "color-mix(in oklab, #047857 8%, var(--card))" },
   }
   const t = TONES[color]
   return (
     <div
-      className="rounded-xl border p-4"
+      className="rounded-2xl border p-4"
       style={{
         background: t.bg,
         borderColor: `color-mix(in oklab, ${t.c} 25%, var(--border))`,
       }}
     >
       <Ic className="h-4 w-4" style={{ color: t.c }} />
-      <div className="mono tabular-nums mt-3.5 text-3xl font-bold leading-none tracking-[-0.04em] text-foreground">
+      <div className="tabular-nums mt-3.5 text-3xl font-bold leading-none tracking-[-0.04em] text-foreground">
         <CountUp to={value} />
       </div>
-      <div className="mono mt-1 text-[12px] uppercase tracking-[0.12em] font-semibold text-muted-foreground">
+      <div className="mt-1 text-[13px] font-semibold text-muted-foreground">
         {label}
       </div>
     </div>
@@ -303,7 +298,6 @@ function LicenseRow({
   const d = license.expires_date ? daysUntil(license.expires_date) : null
   const s = statusOf(d)
   const meta = STATUS_META[s]
-  const dangerous = s === "critical" || s === "urgent" || s === "expired"
 
   return (
     <div
@@ -317,18 +311,15 @@ function LicenseRow({
     >
       <div
         className="w-1 h-8 rounded-full"
-        style={{
-          background: meta.color,
-          boxShadow: dangerous ? `0 0 8px ${meta.color}` : "none",
-        }}
+        style={{ background: meta.color }}
       />
       <div>
         <div className="text-sm font-bold text-foreground">{label}</div>
-        <div className="mono text-[12px] text-muted-foreground uppercase tracking-[0.1em] mt-0.5">
+        <div className="text-[12px] text-muted-foreground mt-0.5">
           {LICENSE_CATEGORY[license.license_type]}
         </div>
       </div>
-      <div className="mono tabular-nums text-sm font-semibold text-foreground">
+      <div className="tabular-nums text-sm font-semibold text-foreground">
         {license.expires_date ? (
           new Date(license.expires_date).toLocaleDateString("es-CO", {
             day: "2-digit",
@@ -342,7 +333,7 @@ function LicenseRow({
       <div>
         {d !== null && (
           <div
-            className="mono tabular-nums text-lg font-bold tracking-[-0.025em]"
+            className="tabular-nums text-lg font-bold tracking-[-0.025em]"
             style={{ color: meta.color }}
           >
             {Math.abs(d)}
@@ -353,10 +344,10 @@ function LicenseRow({
       </div>
       <div>
         <span
-          className="mono px-2 py-0.5 rounded text-[11px] font-bold tracking-[0.12em]"
+          className="px-2 py-0.5 rounded-md text-[11px] font-bold tracking-[0.08em]"
           style={{
             color: meta.color,
-            background: `color-mix(in oklab, ${meta.color} 14%, transparent)`,
+            background: `color-mix(in oklab, ${meta.color} 12%, transparent)`,
             border: `1px solid color-mix(in oklab, ${meta.color} 30%, transparent)`,
           }}
         >
@@ -381,12 +372,9 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
   return (
     <div className="rounded-3xl border border-dashed border-border p-12 text-center max-w-[520px] mx-auto">
       <div
-        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4"
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4 text-white"
         style={{
-          background:
-            "linear-gradient(135deg, oklch(0.78 0.16 215 / 14%), oklch(0.55 0.22 264 / 14%))",
-          border: "1px solid oklch(0.78 0.16 215 / 30%)",
-          color: "var(--av-cyan-400)",
+          background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         <FileText className="h-7 w-7" />
@@ -402,7 +390,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "Activamos los recordatorios automáticos",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -412,11 +400,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <button
         type="button"
         onClick={onAdd}
-        className="av-shine mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white"
-        style={{
-          background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-          boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
-        }}
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        style={{ background: "var(--av-blue-500)" }}
       >
         <Plus className="h-3.5 w-3.5" /> Agregar la primera
       </button>
@@ -554,12 +539,8 @@ function NewLicenseDialog({
               type="submit"
               disabled={saving}
               size="lg"
-              className="rounded-full h-11 px-6 border-0 text-white"
-              style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
-              }}
+              className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               {saving ? (
                 <>

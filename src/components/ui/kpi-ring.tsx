@@ -12,13 +12,15 @@ interface Props {
   trailing?: string
 }
 
+// El acento cyan se retiró del producto: "cyan" se mapea a azul para que
+// cualquier call-site que aún pase color="cyan" quede consistente.
 const COLOR_VAR: Record<Color, string> = {
-  cyan: "var(--av-cyan-400)",
-  blue: "var(--av-blue-400)",
-  amber: "var(--av-amber-400)",
-  green: "var(--av-green-400)",
-  red: "var(--av-red-400)",
-  violet: "var(--av-violet-400)",
+  cyan: "var(--av-blue-500)",
+  blue: "var(--av-blue-500)",
+  amber: "#B45309",
+  green: "#047857",
+  red: "#DC2626",
+  violet: "#7C3AED",
 }
 
 /**
@@ -31,7 +33,7 @@ export function KpiRing({
   size = 84,
   label,
   sub,
-  color = "cyan",
+  color = "blue",
   trailing,
 }: Props) {
   const r = (size - 14) / 2
@@ -74,7 +76,6 @@ export function KpiRing({
             strokeWidth={6}
             strokeDasharray={`${totalArcLen}`}
             strokeDashoffset={offset}
-            style={{ filter: `drop-shadow(0 0 6px ${stroke})` }}
           />
           {[0, 0.25, 0.5, 0.75, 1].map((t, i) => {
             const angle = ((start + sweep * t - 90) * Math.PI) / 180
@@ -88,19 +89,19 @@ export function KpiRing({
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center pt-1">
-          <div className="mono tabular-nums text-foreground" style={valueFont}>
+          <div className="tabular-nums text-foreground" style={valueFont}>
             {value}
             {trailing}
           </div>
           {sub && (
-            <div className="mt-1 mono text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+            <div className="mt-1 text-[11px] font-semibold text-muted-foreground">
               {sub}
             </div>
           )}
         </div>
       </div>
       {label && (
-        <div className="mono text-[12.5px] font-bold uppercase tracking-widest text-muted-foreground">
+        <div className="text-[12.5px] font-semibold text-muted-foreground">
           {label}
         </div>
       )}

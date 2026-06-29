@@ -163,11 +163,9 @@ export function Logbook() {
               <button
                 type="button"
                 onClick={() => setFormOpen(true)}
-                className="av-shine inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[14px] font-semibold text-white border-0 cursor-pointer"
+                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
                 style={{
-                  background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                  boxShadow:
-                    "0 1px 0 rgb(255 255 255 / 18%) inset, 0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+                  background: "var(--av-blue-500)",
                 }}
               >
                 <Plus className="h-3.5 w-3.5" /> Nuevo vuelo
@@ -190,7 +188,7 @@ export function Logbook() {
         {/* Filters */}
         <div className="flex items-center gap-2 mb-3.5 flex-wrap">
           <div
-            className="flex gap-1 p-[3px] rounded-lg border border-border"
+            className="flex gap-1 p-[3px] rounded-xl border border-border"
             style={{ background: "var(--muted)" }}
           >
             {([
@@ -204,10 +202,10 @@ export function Logbook() {
                 key={key}
                 type="button"
                 onClick={() => setFilter(key)}
-                className="mono px-3 py-1 rounded-md text-[12.5px] font-semibold uppercase tracking-[0.04em] transition-colors"
+                className="px-3 py-1 rounded-lg text-[13px] font-semibold transition-colors"
                 style={{
                   background: filter === key ? "var(--card)" : "transparent",
-                  color: filter === key ? "var(--foreground)" : "var(--muted-foreground)",
+                  color: filter === key ? "var(--av-blue-500)" : "var(--muted-foreground)",
                   boxShadow: filter === key ? "var(--shadow-1)" : "none",
                 }}
               >
@@ -216,7 +214,7 @@ export function Logbook() {
             ))}
           </div>
           <div className="flex-1" />
-          <span className="mono text-[12.5px] text-muted-foreground uppercase tracking-[0.1em]">
+          <span className="text-[13px] font-semibold text-muted-foreground">
             {filtered.length} vuelos
           </span>
         </div>
@@ -225,16 +223,16 @@ export function Logbook() {
         {loading ? (
           <div className="animate-pulse space-y-2">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="h-16 rounded-xl bg-muted" />
+              <div key={i} className="h-16 rounded-2xl bg-muted" />
             ))}
           </div>
         ) : flights.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <div className="rounded-xl border border-border bg-card overflow-hidden">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden">
             {/* Header */}
             <div
-              className="mono grid items-center px-[18px] py-3 text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-b border-border"
+              className="grid items-center px-[18px] py-3 text-[12px] font-semibold text-muted-foreground border-b border-border"
               style={{
                 gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
                 background: "var(--muted)",
@@ -263,10 +261,10 @@ export function Logbook() {
               return (
                 <div key={month}>
                   <div
-                    className="mono flex justify-between items-center px-[18px] py-2.5 text-[12px] font-bold uppercase tracking-[0.12em] text-muted-foreground border-t border-b border-border"
+                    className="flex justify-between items-center px-[18px] py-2.5 text-[13px] font-semibold text-muted-foreground border-t border-b border-border"
                     style={{
                       background:
-                        "color-mix(in oklab, var(--av-cyan-400) 5%, var(--card))",
+                        "color-mix(in oklab, var(--av-blue-500) 5%, var(--card))",
                     }}
                   >
                     <span>{monthLabel}</span>
@@ -316,22 +314,22 @@ function BigStat({
   const computed = valueMin !== undefined ? valueMin / 60 : value ?? 0
   return (
     <div
-      className="relative overflow-hidden rounded-xl border p-3.5"
+      className="relative overflow-hidden rounded-2xl border p-3.5"
       style={{
         background: highlight
-          ? "linear-gradient(160deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 100%)"
+          ? "linear-gradient(160deg, color-mix(in oklab, var(--av-blue-500) 8%, var(--card)) 0%, var(--card) 100%)"
           : "var(--card)",
         borderColor: highlight
-          ? "color-mix(in oklab, var(--av-cyan-400) 30%, var(--border))"
+          ? "color-mix(in oklab, var(--av-blue-500) 30%, var(--border))"
           : "var(--border)",
       }}
     >
-      <div className="mono text-[11px] font-bold text-muted-foreground uppercase tracking-[0.14em]">
+      <div className="text-[12px] font-semibold text-muted-foreground">
         {label}
       </div>
       <div
-        className="mono tabular-nums mt-1.5 text-[22px] font-bold leading-none tracking-[-0.03em]"
-        style={{ color: highlight ? "var(--av-cyan-400)" : "var(--foreground)" }}
+        className="tabular-nums mt-1.5 text-[22px] font-extrabold leading-none tracking-[-0.03em]"
+        style={{ color: highlight ? "var(--av-blue-500)" : "var(--foreground)" }}
       >
         <CountUp to={computed} format={(v) => (unit === "" ? v.toFixed(0) : v.toFixed(1))} />
         {unit && (
@@ -342,7 +340,7 @@ function BigStat({
         <div className="mt-2">
           <Sparkline
             data={sparkline}
-            color={highlight ? "var(--av-cyan-400)" : "var(--muted-foreground)"}
+            color={highlight ? "var(--av-blue-500)" : "var(--muted-foreground)"}
             width={120}
             height={20}
           />
@@ -366,13 +364,13 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
 
   return (
     <div
-      className="mono grid items-center px-[18px] py-3.5 text-[14px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
+      className="grid items-center px-[18px] py-3.5 text-[14px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
       style={{
         gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
       }}
     >
       <div>
-        <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-bold">
+        <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
           {dow}
         </div>
         <div className="tabular-nums text-sm font-bold text-foreground">
@@ -387,7 +385,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         {f.from_airport || f.to_airport ? (
           <div className="tabular-nums flex items-center gap-1.5 text-foreground font-semibold">
             {f.from_airport ?? "—"}{" "}
-            <ArrowRight className="h-2.5 w-2.5" style={{ color: "var(--av-cyan-400)" }} />{" "}
+            <ArrowRight className="h-2.5 w-2.5" style={{ color: "var(--av-blue-500)" }} />{" "}
             {f.to_airport ?? "—"}
           </div>
         ) : (
@@ -405,7 +403,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
       </div>
       <div
         className="tabular-nums text-right text-[16px] font-bold"
-        style={{ color: "var(--av-cyan-400)" }}
+        style={{ color: "var(--av-blue-500)" }}
       >
         {minutesToHours(f.total_minutes)}
       </div>
@@ -459,12 +457,10 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
   return (
     <div className="rounded-3xl border border-dashed border-border p-12 text-center max-w-[520px] mx-auto">
       <div
-        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4"
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4 text-white"
         style={{
           background:
-            "linear-gradient(135deg, oklch(0.78 0.16 215 / 14%), oklch(0.55 0.22 264 / 14%))",
-          border: "1px solid oklch(0.78 0.16 215 / 30%)",
-          color: "var(--av-cyan-400)",
+            "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         <Plane className="h-7 w-7" />
@@ -480,7 +476,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="mono flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -490,10 +486,9 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <button
         type="button"
         onClick={onAdd}
-        className="av-shine mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{
-          background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-          boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+          background: "var(--av-blue-500)",
         }}
       >
         <Plus className="h-3.5 w-3.5" /> Registrar mi primer vuelo
@@ -594,23 +589,23 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                   <Input type="date" value={date} onChange={(e) => setDate(e.target.value)} className="h-11 rounded-xl" required />
                 </Field>
                 <Field label="Tiempo total (horas)">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={totalH} onChange={(e) => setTotalH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl mono tabular-nums" required />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={totalH} onChange={(e) => setTotalH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl tabular-nums" required />
                 </Field>
               </Row>
               <Row>
                 <Field label="Matrícula">
-                  <Input value={registration} onChange={(e) => setRegistration(e.target.value)} placeholder="HK-1234" className="h-11 rounded-xl mono" />
+                  <Input value={registration} onChange={(e) => setRegistration(e.target.value)} placeholder="HK-1234" className="h-11 rounded-xl" />
                 </Field>
                 <Field label="Tipo de aeronave">
-                  <Input value={aircraftType} onChange={(e) => setAircraftType(e.target.value)} placeholder="C172, PA28, A320..." className="h-11 rounded-xl mono" />
+                  <Input value={aircraftType} onChange={(e) => setAircraftType(e.target.value)} placeholder="C172, PA28, A320..." className="h-11 rounded-xl" />
                 </Field>
               </Row>
               <Row>
                 <Field label="Desde (ICAO)">
-                  <Input value={from} onChange={(e) => setFrom(e.target.value)} placeholder="SKBO" maxLength={5} className="h-11 rounded-xl mono tabular-nums" />
+                  <Input value={from} onChange={(e) => setFrom(e.target.value)} placeholder="SKBO" maxLength={5} className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="Hasta (ICAO)">
-                  <Input value={to} onChange={(e) => setTo(e.target.value)} placeholder="SKMD" maxLength={5} className="h-11 rounded-xl mono tabular-nums" />
+                  <Input value={to} onChange={(e) => setTo(e.target.value)} placeholder="SKMD" maxLength={5} className="h-11 rounded-xl tabular-nums" />
                 </Field>
               </Row>
             </Section>
@@ -618,35 +613,35 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             <Section title="Tiempos específicos (opcionales, en horas)">
               <Row>
                 <Field label="PIC">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={picH} onChange={(e) => setPicH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={picH} onChange={(e) => setPicH(e.target.value)} placeholder="1.5" className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="SIC">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={sicH} onChange={(e) => setSicH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={sicH} onChange={(e) => setSicH(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="Dual recibido">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={dualH} onChange={(e) => setDualH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={dualH} onChange={(e) => setDualH(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
               </Row>
               <Row>
                 <Field label="IFR real">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instReal} onChange={(e) => setInstReal(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instReal} onChange={(e) => setInstReal(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="IFR simulador">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instSim} onChange={(e) => setInstSim(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={instSim} onChange={(e) => setInstSim(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="Nocturno">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={nightH} onChange={(e) => setNightH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={nightH} onChange={(e) => setNightH(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
               </Row>
               <Row>
                 <Field label="Cross-country">
-                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={xcH} onChange={(e) => setXcH(e.target.value)} placeholder="0" className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" inputMode="decimal" step="0.1" min="0" value={xcH} onChange={(e) => setXcH(e.target.value)} placeholder="0" className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="Landings día">
-                  <Input type="number" min="0" value={landingsDay} onChange={(e) => setLandingsDay(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" min="0" value={landingsDay} onChange={(e) => setLandingsDay(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                 </Field>
                 <Field label="Landings noche">
-                  <Input type="number" min="0" value={landingsNight} onChange={(e) => setLandingsNight(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
+                  <Input type="number" min="0" value={landingsNight} onChange={(e) => setLandingsNight(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                 </Field>
               </Row>
             </Section>
@@ -670,10 +665,9 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               type="submit"
               disabled={saving}
               size="lg"
-              className="rounded-full h-11 px-6 border-0 text-white"
+              className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               {saving ? (
@@ -696,7 +690,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <div className="space-y-3">
-      <h3 className="mono text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+      <h3 className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
         {title}
       </h3>
       <div className="space-y-3">{children}</div>

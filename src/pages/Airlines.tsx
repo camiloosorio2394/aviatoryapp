@@ -100,7 +100,7 @@ export function Airlines() {
         {loading ? (
           <div className="grid grid-cols-3 gap-3.5 animate-pulse">
             {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-[280px] rounded-xl bg-muted" />
+              <div key={i} className="h-[280px] rounded-2xl bg-muted" />
             ))}
           </div>
         ) : (
@@ -108,26 +108,21 @@ export function Airlines() {
             {/* Best match callout */}
             {bestMatch && (
               <div
-                className="anim-fade-up rounded-xl border p-6 mb-6 overflow-hidden relative"
+                className="anim-fade-up rounded-2xl border border-border bg-card p-6 sm:p-7 mb-6 overflow-hidden relative"
                 style={{
                   background:
-                    "linear-gradient(135deg, color-mix(in oklab, var(--av-cyan-400) 8%, var(--card)) 0%, var(--card) 70%)",
-                  borderColor: "color-mix(in oklab, var(--av-cyan-400) 35%, var(--border))",
+                    "linear-gradient(135deg, color-mix(in oklab, var(--av-blue-500) 6%, var(--card)) 0%, var(--card) 70%)",
+                  borderColor: "color-mix(in oklab, var(--av-blue-500) 30%, var(--border))",
                 }}
               >
-                <div
-                  aria-hidden
-                  className="absolute -top-10 -right-10 w-[180px] h-[180px] rounded-full blur-3xl"
-                  style={{ background: "var(--av-cyan-400)", opacity: 0.12 }}
-                />
                 <div className="relative flex items-center gap-5">
                   <KpiRing value={bestMatch.matchPct} max={100} size={104} trailing="%" color="cyan" />
                   <div className="flex-1">
                     <div
-                      className="mono text-[12px] font-bold tracking-[0.14em] uppercase inline-flex items-center gap-1.5"
-                      style={{ color: "var(--av-cyan-400)" }}
+                      className="text-[13px] font-semibold inline-flex items-center gap-1.5"
+                      style={{ color: "var(--av-blue-500)" }}
                     >
-                      <Target className="h-[11px] w-[11px]" /> Tu mejor match hoy
+                      <Target className="h-[13px] w-[13px]" /> Tu mejor match hoy
                     </div>
                     <h2 className="mt-2 mb-1 text-[26px] font-extrabold tracking-[-0.03em] text-foreground">
                       {bestMatch.airline.name} · {bestMatch.matchPct}% match
@@ -209,20 +204,14 @@ function AirlineCard({
 
   return (
     <div
-      className="group relative overflow-hidden rounded-xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5 hover:shadow-lg cursor-pointer"
     >
-      <div
-        aria-hidden
-        className="absolute -top-12 -right-12 w-[160px] h-[160px] rounded-full blur-3xl opacity-15"
-        style={{ background: brand }}
-      />
       <div className="relative">
         <div className="flex justify-between items-start">
           <div
             className="w-12 h-12 rounded-xl flex items-center justify-center font-extrabold text-base tracking-[-0.02em] text-white"
             style={{
               background: brand,
-              boxShadow: `0 4px 12px -4px ${brand}`,
             }}
           >
             {code}
@@ -231,7 +220,7 @@ function AirlineCard({
         </div>
 
         <h3 className="mt-4 mb-1 text-lg font-bold tracking-[-0.02em] text-foreground">{airline.name}</h3>
-        <div className="mono text-[12.5px] text-muted-foreground flex gap-1.5 items-center">
+        <div className="text-[12.5px] text-muted-foreground flex gap-1.5 items-center">
           <MapPin className="h-2.5 w-2.5" /> {airline.country}
           {airline.code ? ` · ${airline.code}` : ""}
         </div>
@@ -240,30 +229,28 @@ function AirlineCard({
 
         <div className="flex flex-col gap-2">
           {checks.map((c) => (
-            <div key={c.label} className="mono flex items-center justify-between text-xs">
+            <div key={c.label} className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">{c.label}</span>
               <span className="inline-flex items-center gap-1.5">
                 <span
                   className="tabular-nums font-bold"
                   style={{
-                    color: c.passed
-                      ? "var(--av-green-400)"
-                      : "var(--av-red-400)",
+                    color: c.passed ? "#047857" : "#DC2626",
                   }}
                 >
                   {c.have}
                 </span>
                 <span className="text-muted-foreground">/ {c.need}</span>
                 {c.passed ? (
-                  <Check className="h-3 w-3" style={{ color: "var(--av-green-400)" }} />
+                  <Check className="h-3 w-3" style={{ color: "#047857" }} />
                 ) : (
-                  <X className="h-3 w-3" style={{ color: "var(--av-red-400)" }} />
+                  <X className="h-3 w-3" style={{ color: "#DC2626" }} />
                 )}
               </span>
             </div>
           ))}
           {airline.requirements.age_max && (
-            <div className="mono flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+            <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
               <Globe className="h-3 w-3" /> Edad máxima cadete: {airline.requirements.age_max} años
             </div>
           )}
@@ -273,7 +260,11 @@ function AirlineCard({
           className="mt-4 w-full h-9 rounded-lg border flex items-center justify-center font-semibold text-[14px]"
           style={
             missing === 0
-              ? { borderColor: "oklch(0.7 0.15 150 / 35%)", background: "oklch(0.7 0.15 150 / 10%)", color: "var(--av-green-400)" }
+              ? {
+                  borderColor: "color-mix(in oklab, #047857 35%, var(--border))",
+                  background: "color-mix(in oklab, #047857 10%, var(--card))",
+                  color: "#047857",
+                }
               : { borderColor: "var(--border)", background: "var(--background)", color: "var(--muted-foreground)" }
           }
         >
