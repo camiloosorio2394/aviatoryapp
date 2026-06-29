@@ -79,17 +79,17 @@ export function Community() {
                   <div className="flex items-baseline justify-between mb-3.5">
                     <div>
                       <div
-                        className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.14em] uppercase"
-                        style={{ color: "var(--av-cyan-400)" }}
+                        className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                        style={{ color: "var(--av-blue-500)" }}
                       >
-                        <Hash className="h-[11px] w-[11px]" /> {meta.title.toUpperCase()}
+                        <Hash className="h-[11px] w-[11px]" /> {meta.title}
                       </div>
                       <h2 className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
                         {meta.title}
                       </h2>
                       <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
                     </div>
-                    <span className="chip mono">{list.length} canales</span>
+                    <span className="chip">{list.length} canales</span>
                   </div>
                   <div className="stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {list.map((c) => (
@@ -102,10 +102,10 @@ export function Community() {
           </div>
         )}
 
-        <div className="mt-12 rounded-xl border border-border bg-muted/30 p-5 flex gap-3 items-start">
+        <div className="mt-12 rounded-2xl border border-border bg-muted/30 p-5 flex gap-3 items-start">
           <Check
             className="h-5 w-5 flex-shrink-0 mt-0.5"
-            style={{ color: "var(--av-cyan-400)" }}
+            style={{ color: "var(--av-blue-500)" }}
           />
           <div>
             <h3 className="text-sm font-bold text-foreground">Normas de la comunidad</h3>
@@ -124,10 +124,10 @@ function ChannelCard({ channel }: { channel: Channel }) {
   return (
     <Link
       to={`/app/comunidad/${channel.slug}`}
-      className="group block rounded-xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "oklch(0.78 0.16 215 / 50%)"
-        e.currentTarget.style.boxShadow = "var(--shadow-cyan)"
+        e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
+        e.currentTarget.style.boxShadow = "0 4px 16px color-mix(in oklab, var(--av-blue-500) 18%, transparent)"
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)"
@@ -139,7 +139,7 @@ function ChannelCard({ channel }: { channel: Channel }) {
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
             <Hash className="h-3.5 w-3.5 text-muted-foreground" />
-            <h3 className="mono font-semibold text-sm truncate text-foreground">{channel.name}</h3>
+            <h3 className="font-semibold text-sm truncate text-foreground">{channel.name}</h3>
           </div>
           {channel.description && (
             <p className="mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2">
@@ -147,8 +147,8 @@ function ChannelCard({ channel }: { channel: Channel }) {
             </p>
           )}
           <div
-            className="mt-3 mono inline-flex items-center gap-1 text-[12.5px] font-bold uppercase tracking-[0.08em]"
-            style={{ color: "var(--av-cyan-400)" }}
+            className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold"
+            style={{ color: "var(--av-blue-500)" }}
           >
             Entrar al canal <ArrowRight className="h-3 w-3" />
           </div>

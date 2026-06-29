@@ -37,54 +37,33 @@ export function AirlinePrep() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        {/* === Cockpit hero === */}
-        <section
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-          }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-60" />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)",
-            }}
-          />
+        {/* === Hero === */}
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 anim-fade-up">
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
                 style={{
-                  color: "var(--av-cyan-300)",
-                  background: "oklch(0.78 0.16 215 / 12%)",
-                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
+                  color: "var(--av-blue-500)",
+                  background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--av-blue-500) 24%, transparent)",
                 }}
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
+                  style={{ background: "var(--av-amber-400)" }}
                 />
-                MÓDULO CORE · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
+                Módulo core · backend listo · contenido en construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
                 Ingreso a Aerolínea,{" "}
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
+                <span style={{ color: "var(--av-blue-500)" }}>
                   el camino completo a la cabina
                 </span>
               </h1>
-              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
-                El módulo central de Aviatory. <strong className="text-white">14 áreas de conocimiento</strong>{" "}
-                que las aerolíneas LATAM evalúan, organizadas en <strong className="text-white">7 submódulos</strong>:
+              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
+                El módulo central de Aviatory. <strong className="text-foreground">14 áreas de conocimiento</strong>{" "}
+                que las aerolíneas LATAM evalúan, organizadas en <strong className="text-foreground">7 submódulos</strong>:
                 banco de preguntas, mock interviews, simulaciones técnicas, exámenes completos,
                 flashcards, casos reales reportados y perfiles personalizados por aerolínea.
               </p>
@@ -93,22 +72,20 @@ export function AirlinePrep() {
               <div
                 className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
                 style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-                  boxShadow:
-                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
                 }}
               >
                 <Briefcase className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[12px] tracking-[0.16em] text-white/50">CARRERA · CORE</div>
+              <div className="text-[13px] font-semibold text-muted-foreground">Carrera · core</div>
             </div>
           </div>
         </section>
 
         {/* === 14 TOPICS GRID === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            ÁREAS DE CONOCIMIENTO · 14
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Áreas de conocimiento · 14
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Lo que evalúan las aerolíneas
@@ -123,14 +100,14 @@ export function AirlinePrep() {
         {/* === 7 SUBMÓDULOS === */}
         <div className="mt-10 mb-5 flex items-end justify-between">
           <div>
-            <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-              SUBMÓDULOS DEL SISTEMA · 7
+            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+              Submódulos del sistema · 7
             </div>
             <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
               Cómo vas a entrenar
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground mono">
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
             <Clock className="h-3.5 w-3.5" />Backend listo · contenido gradual
           </div>
         </div>
@@ -141,18 +118,11 @@ export function AirlinePrep() {
         </div>
 
         {/* === CTA === */}
-        <section
-          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-          style={{
-            borderColor: "oklch(0.78 0.16 215 / 25%)",
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
-          }}
-        >
+        <section className="mt-10 rounded-2xl border border-border bg-card p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
               <Sparkles className="h-3 w-3" /> Mientras se carga el contenido
             </div>
@@ -168,24 +138,22 @@ export function AirlinePrep() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/aerolineas"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               Ver mi match <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/entrevistas"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Simulador entrevistas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/psicotecnicas"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Psicotécnicas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -278,20 +246,17 @@ const SUBMODULES: TileProps[] = [
 // ────────────────────────────────────────────────────────────────────────────
 type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "var(--av-cyan-400)",
+  cyan: "#0E7490",
   blue: "var(--av-blue-500)",
-  violet: "var(--av-violet-400)",
-  amber: "var(--av-amber-400)",
-  green: "var(--av-green-400)",
+  violet: "#7C3AED",
+  amber: "#B45309",
+  green: "#047857",
   red: "var(--av-red-400)",
 }
 
 function TopicChip({ name, category, icon: Icon, color }: { name: string; category: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }) {
   return (
-    <div
-      className="rounded-xl border p-3 flex items-center gap-3 transition-all hover:-translate-y-0.5 hover:shadow-sm"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-    >
+    <div className="rounded-xl border border-border bg-card p-3 flex items-center gap-3 transition-all hover:-translate-y-0.5 hover:shadow-sm">
       <div
         className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
         style={{
@@ -304,7 +269,7 @@ function TopicChip({ name, category, icon: Icon, color }: { name: string; catego
       </div>
       <div className="min-w-0 flex-1">
         <div className="text-[14px] font-bold tracking-[-0.01em] truncate">{name}</div>
-        <div className="mono text-[11.5px] tracking-[0.12em] uppercase text-muted-foreground">{category}</div>
+        <div className="text-[12px] font-semibold text-muted-foreground">{category}</div>
       </div>
     </div>
   )
@@ -321,10 +286,7 @@ interface TileProps {
 
 function FeatureTile({ icon: Icon, color, title, description, bullets, link }: TileProps) {
   return (
-    <div
-      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-    >
+    <div className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5 transition-all hover:-translate-y-0.5 hover:shadow-sm">
       <div className="flex items-start gap-3.5">
         <div
           className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
