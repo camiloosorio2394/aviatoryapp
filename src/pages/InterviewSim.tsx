@@ -25,51 +25,30 @@ export function InterviewSim() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-          }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-60" />
-          <div
-            className="absolute inset-0"
-            style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
-          />
+        <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
                 style={{
-                  color: "var(--av-cyan-300)",
-                  background: "oklch(0.78 0.16 215 / 12%)",
-                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
+                  color: "var(--av-blue-500)",
+                  background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
                 }}
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
+                  style={{ background: "var(--av-amber-400)" }}
                 />
-                MÓDULO ENTREVISTAS · INTRO SPEAKING LISTO · TÉCNICO + VIDEO EN CONSTRUCCIÓN
+                Módulo entrevistas · Intro speaking listo · Técnico + video en construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
-                Simulador de Entrevistas,{" "}
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
-                  practica antes de que cuente
-                </span>
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+                Simulador de Entrevistas, practica antes de que cuente
               </h1>
-              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Lo separamos de "Ingreso a Aerolínea" porque tiene su propia evolución técnica:
                 grabación de audio/video, transcripción y feedback IA específico de comunicación.
-                <strong className="text-white"> 3 categorías</strong>: HR Interview, Technical
+                <strong className="text-foreground"> 3 categorías</strong>: HR Interview, Technical
                 Interview y Video Interview con análisis de claridad, muletillas, pace y contenido.
               </p>
             </div>
@@ -77,14 +56,12 @@ export function InterviewSim() {
               <div
                 className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
                 style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-                  boxShadow:
-                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
                 }}
               >
                 <Video className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[12px] tracking-[0.16em] text-white/50">PRACTICE</div>
+              <div className="text-[13px] font-semibold text-muted-foreground">Practice</div>
             </div>
           </div>
         </section>
@@ -111,8 +88,8 @@ export function InterviewSim() {
               <Mic className="h-5 w-5" />
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[12px] font-bold uppercase tracking-[0.14em]" style={{ color: "var(--av-amber-400)" }}>
-                YA DISPONIBLE
+              <div className="text-[13px] font-semibold" style={{ color: "#B45309" }}>
+                Ya disponible
               </div>
               <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">
                 Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
@@ -122,7 +99,7 @@ export function InterviewSim() {
                 voz alta antes de pasar al técnico.
               </p>
             </div>
-            <div className="flex-shrink-0 mt-2 inline-flex items-center gap-1 text-[13.5px] font-semibold" style={{ color: "var(--av-amber-400)" }}>
+            <div className="flex-shrink-0 mt-2 inline-flex items-center gap-1 text-[13.5px] font-semibold" style={{ color: "#B45309" }}>
               <ListChecks className="h-3.5 w-3.5" /> Abrir <ArrowRight className="h-3 w-3" />
             </div>
           </div>
@@ -130,8 +107,8 @@ export function InterviewSim() {
 
         {/* === 3 CATEGORÍAS === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            CATEGORÍAS · 3
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Categorías · 3
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Cómo entrenas cada tipo
@@ -182,8 +159,8 @@ export function InterviewSim() {
 
         {/* === LO QUE EVALÚA LA IA === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            EVALUACIÓN AUTOMÁTICA
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Evaluación automática
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Lo que el feedback IA mide
@@ -197,18 +174,11 @@ export function InterviewSim() {
           <MetricCard icon={Mic} color="amber" title="Muletillas" detail="Conteo y patrón de filler words" />
         </div>
 
-        <section
-          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-          style={{
-            borderColor: "oklch(0.78 0.16 215 / 25%)",
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
-          }}
-        >
+        <section className="mt-10 rounded-2xl border border-border bg-card p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
               <Sparkles className="h-3 w-3" /> Cómo empezar
             </div>
@@ -224,18 +194,16 @@ export function InterviewSim() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/aerolinea"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-all hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               Ingreso a Aerolínea <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Comunidad <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -249,18 +217,18 @@ export function InterviewSim() {
 // ────────────────────────────────────────────────────────────────────────────
 type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "var(--av-cyan-400)",
+  cyan: "#0E7490",
   blue: "var(--av-blue-500)",
-  violet: "var(--av-violet-400)",
-  amber: "var(--av-amber-400)",
-  green: "var(--av-green-400)",
+  violet: "#7C3AED",
+  amber: "#B45309",
+  green: "#047857",
   red: "var(--av-red-400)",
 }
 
 function CategoryCard({ icon: Icon, color, type, description, bullets }: { icon: React.ComponentType<{ className?: string }>; color: ColorKey; type: string; description: string; bullets: string[] }) {
   return (
     <div
-      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
+      className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5 transition-all hover:-translate-y-0.5"
       style={{ borderColor: `color-mix(in oklab, ${TILE_COLOR[color]} 28%, transparent)` }}
     >
       <div className="flex items-center gap-3.5">
@@ -294,7 +262,7 @@ function CategoryCard({ icon: Icon, color, type, description, bullets }: { icon:
 function MetricCard({ icon: Icon, color, title, detail }: { icon: React.ComponentType<{ className?: string }>; color: ColorKey; title: string; detail: string }) {
   return (
     <div
-      className="rounded-xl border p-4 flex items-start gap-3"
+      className="rounded-2xl border border-border bg-card p-4 flex items-start gap-3"
       style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
     >
       <div

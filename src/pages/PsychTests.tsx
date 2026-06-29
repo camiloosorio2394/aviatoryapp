@@ -27,52 +27,34 @@ export function PsychTests() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section
-          className="cockpit anim-fade-up relative overflow-hidden rounded-3xl border p-9"
-          style={{
-            borderColor: "oklch(0.32 0.04 250 / 0.6)",
-            boxShadow: "var(--shadow-navy), inset 0 1px 0 rgb(255 255 255 / 7%)",
-          }}
-        >
-          <div className="cockpit-grid absolute inset-0 opacity-60" />
-          <div
-            className="absolute inset-0"
-            style={{ background: "radial-gradient(at 80% 0%, oklch(0.78 0.16 215 / 25%) 0%, transparent 50%)" }}
-          />
+        <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
           <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
             <div>
               <div
-                className="mono inline-flex items-center gap-1.5 text-[12.5px] font-bold tracking-[0.18em] uppercase px-2.5 py-1 rounded-full"
+                className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
                 style={{
-                  color: "var(--av-cyan-300)",
-                  background: "oklch(0.78 0.16 215 / 12%)",
-                  border: "1px solid oklch(0.78 0.16 215 / 30%)",
+                  color: "var(--av-blue-500)",
+                  background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
                 }}
               >
                 <span
                   className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--av-amber-400)", boxShadow: "0 0 8px var(--av-amber-400)" }}
+                  style={{ background: "var(--av-amber-400)" }}
                 />
-                MÓDULO PSICOTÉCNICAS · BACKEND LISTO · CONTENIDO EN CONSTRUCCIÓN
+                Módulo psicotécnicas · Backend listo · Contenido en construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-[42px] font-extrabold tracking-[-0.04em] text-white leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
                 Psicotécnicos y Assessment,{" "}
-                <span
-                  style={{
-                    background: "linear-gradient(135deg, var(--av-cyan-300), white)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }}
-                >
+                <span style={{ color: "var(--av-blue-500)" }}>
                   entrenables, no innatos
                 </span>
               </h1>
-              <p className="text-[18px] text-white/88 max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Las aerolíneas manejan assessment, aptitude, psychometric y group dynamics como un
-                proceso aparte de las entrevistas. <strong className="text-white">9 categorías</strong>{" "}
+                proceso aparte de las entrevistas. <strong className="text-foreground">9 categorías</strong>{" "}
                 de baterías + simuladores compatibles con los engines más usados
-                (<strong className="text-white">COMPASS, CUT-E, PILAPT</strong>).
+                (<strong className="text-foreground">COMPASS, CUT-E, PILAPT</strong>).
                 Diferencial real: te entrenamos en formatos específicos, no en "tests genéricos".
               </p>
             </div>
@@ -80,22 +62,20 @@ export function PsychTests() {
               <div
                 className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
                 style={{
-                  background: "linear-gradient(135deg, var(--av-cyan-300), var(--av-blue-500))",
-                  boxShadow:
-                    "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%)",
+                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
                 }}
               >
                 <Cpu className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="mono text-[12px] tracking-[0.16em] text-white/50">COGNITIVO</div>
+              <div className="text-[13px] font-semibold text-muted-foreground">Cognitivo</div>
             </div>
           </div>
         </section>
 
         {/* === 9 CATEGORÍAS === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            CATEGORÍAS · 9
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Categorías · 9
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Las 9 baterías que vas a entrenar
@@ -109,8 +89,8 @@ export function PsychTests() {
 
         {/* === ENGINES === */}
         <div className="mt-10 mb-5">
-          <div className="mono text-[12px] font-bold uppercase tracking-[0.16em] text-[var(--av-cyan-400)]">
-            ENGINES SOPORTADOS
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Engines soportados
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
             Simuladores compatibles con los tests reales
@@ -139,18 +119,11 @@ export function PsychTests() {
         </div>
 
         {/* === CTA === */}
-        <section
-          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-          style={{
-            borderColor: "oklch(0.78 0.16 215 / 25%)",
-            background:
-              "linear-gradient(135deg, oklch(0.78 0.16 215 / 8%) 0%, oklch(0.55 0.22 264 / 10%) 100%)",
-          }}
-        >
+        <section className="mt-10 rounded-2xl border border-border bg-card p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
           <div>
             <div
-              className="mono inline-flex items-center gap-1.5 text-[12px] font-bold tracking-[0.16em] uppercase"
-              style={{ color: "var(--av-cyan-400)" }}
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+              style={{ color: "var(--av-blue-500)" }}
             >
               <Sparkles className="h-3 w-3" /> Aporta datos para calibrar
             </div>
@@ -165,18 +138,16 @@ export function PsychTests() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/comunidad"
-              className="av-shine inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{
-                background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                boxShadow:
-                  "0 1px 0 rgb(255 255 255 / 18%) inset, 0 10px 24px -8px oklch(0.55 0.22 264 / 45%)",
+                background: "var(--av-blue-500)",
               }}
             >
               Reportar en #psicotecnicas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/aerolinea"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Ingreso a Aerolínea <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -190,7 +161,7 @@ export function PsychTests() {
 // ────────────────────────────────────────────────────────────────────────────
 type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
 const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "var(--av-cyan-400)",
+  cyan: "var(--av-blue-500)",
   blue: "var(--av-blue-500)",
   violet: "var(--av-violet-400)",
   amber: "var(--av-amber-400)",
@@ -230,7 +201,7 @@ function CategoryCard({ name, family, description, icon: Icon, color }: { slug: 
       <div className="flex-1 min-w-0 pt-0.5">
         <div className="flex items-baseline gap-2">
           <div className="text-[15.5px] font-bold tracking-[-0.01em]">{name}</div>
-          <div className="mono text-[11.5px] tracking-[0.1em] uppercase text-muted-foreground">{family}</div>
+          <div className="text-[11.5px] font-semibold text-muted-foreground">{family}</div>
         </div>
         <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
@@ -240,21 +211,15 @@ function CategoryCard({ name, family, description, icon: Icon, color }: { slug: 
 
 function EngineCard({ name, description, features }: { name: string; description: string; features: string[] }) {
   return (
-    <div
-      className="rounded-2xl border p-5"
-      style={{
-        background: "linear-gradient(180deg, color-mix(in oklab, var(--av-cyan-400) 4%, var(--card)) 0%, var(--card) 100%)",
-        borderColor: "oklch(0.78 0.16 215 / 22%)",
-      }}
-    >
-      <div className="mono text-[14px] font-extrabold tracking-[0.04em]" style={{ color: "var(--av-cyan-400)" }}>
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="text-[14px] font-extrabold" style={{ color: "var(--av-blue-500)" }}>
         {name}
       </div>
       <p className="mt-1.5 text-[14px] text-foreground/85 leading-relaxed">{description}</p>
       <ul className="mt-3 space-y-1">
         {features.map((f) => (
           <li key={f} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90">
-            <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: "var(--av-cyan-400)" }} strokeWidth={3} />
+            <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: "var(--av-blue-500)" }} strokeWidth={3} />
             <span>{f}</span>
           </li>
         ))}
