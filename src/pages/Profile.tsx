@@ -93,6 +93,7 @@ export function Profile() {
   // Datos reales para el mapa de habilidades (no auto-declarados)
   const [icaoLevel, setIcaoLevelState] = useState<number | null>(null) // del módulo: último simulacro TEA
   const [icaoTakenAt, setIcaoTakenAt] = useState<string | null>(null)
+  const [icaoSource, setIcaoSource] = useState<"mock" | "estimate" | null>(null)
   const [flightAgg, setFlightAgg] = useState<{ totalMin: number; picMin: number; xcMin: number; count: number }>({ totalMin: 0, picMin: 0, xcMin: 0, count: 0 })
   const [currency, setCurrency] = useState<{ valid: number; total: number }>({ valid: 0, total: 0 })
 
@@ -141,11 +142,14 @@ export function Profile() {
         const today = new Date().toISOString().slice(0, 10)
         setCurrency({ valid: lic.filter((l) => l.expires_date >= today).length, total: lic.length })
 
-        // Nivel ICAO: SOLO del módulo (último simulacro TEA). Sin auto-declaración:
-        // si no hay simulacro, queda "Sin evaluar" hasta que el piloto haga uno.
+        // Nivel ICAO: el oficial es el simulacro TEA (mock). Si no hay simulacro,
+        // se usa la estimación del test inicial (pilot_state.icao_english_level),
+        // marcada como "estimado". Nunca auto-declarado a mano.
         const mock = mockRes.data as { final_level?: number; taken_at?: string } | null
-        setIcaoLevelState(mock?.final_level ?? null)
+        const estimate = pilot?.icao_english_level ?? null
+        setIcaoLevelState(mock?.final_level ?? estimate)
         setIcaoTakenAt(mock?.taken_at ?? null)
+        setIcaoSource(mock?.final_level != null ? "mock" : estimate != null ? "estimate" : null)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos cargar tu perfil")
       } finally {
@@ -493,7 +497,7 @@ export function Profile() {
                   <Input value={targetAirline} onChange={(e) => setTargetAirline(e.target.value)} placeholder="Avianca, LATAM, Wingo…" className="h-11 rounded-xl" />
                 </Field>
                 <Field label="Inglés ICAO">
-                  <IcaoStatusField level={icaoLevel} takenAt={icaoTakenAt} />
+                  <IcaoStatusField level={icaoLevel} takenAt={icaoTakenAt} source={icaoSource} />
                 </Field>
               </div>
 
@@ -722,16 +726,16 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
   )
 }
 
-function IcaoStatusField({ level, takenAt }: { level: number | null; takenAt: string | null }) {
+function IcaoStatusField({ level, takenAt, source }: { level: number | null; takenAt: string | null; source: "mock" | "estimate" | null }) {
   if (level == null) {
     return (
       <>
         <Link
-          to="/app/icao/simulacro"
+          to="/app/test-inicial"
           className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
         >
           <span className="inline-flex items-center gap-2 text-[14px] text-muted-foreground">
-            <Headphones className="h-4 w-4" /> Sin evaluar — hacé el simulacro TEA
+            <Headphones className="h-4 w-4" /> Sin evaluar — hacé el test inicial
           </span>
           <ArrowRight className="h-4 w-4 text-muted-foreground" />
         </Link>
@@ -744,23 +748,28 @@ function IcaoStatusField({ level, takenAt }: { level: number | null; takenAt: st
   const dateStr = takenAt
     ? new Date(takenAt).toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
     : null
+  const isEstimate = source === "estimate"
   return (
     <>
       <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 h-11">
         <span className="inline-flex items-baseline gap-2">
           <span className="text-[15px] font-bold text-foreground tabular-nums">Nivel {level}</span>
-          <span className="text-[13px] text-muted-foreground">{icaoLevelLabel(level)}</span>
+          <span className="text-[13px] text-muted-foreground">
+            {icaoLevelLabel(level)}{isEstimate ? " · estimado" : ""}
+          </span>
         </span>
         <Link
           to="/app/icao/simulacro"
           className="text-[12.5px] font-semibold inline-flex items-center gap-1"
           style={{ color: "var(--av-blue-500)" }}
         >
-          {dateStr ? "Repetir" : "Evaluar"} <ArrowRight className="h-3 w-3" />
+          {isEstimate ? "Confirmar" : "Repetir"} <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
       <p className="text-[11px] text-muted-foreground mt-1">
-        {dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.
+        {isEstimate
+          ? "Estimado del test inicial — confirmá tu nivel oficial con el simulacro TEA."
+          : `${dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.`}
       </p>
     </>
   )

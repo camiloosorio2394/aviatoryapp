@@ -311,6 +311,27 @@ export function Dashboard() {
           trialLeft={trialLeft}
         />
 
+        {/* Test inicial — solo si todavía no tiene nivel/estimación */}
+        {!pilot?.icao_english_level && (
+          <Link
+            to="/app/test-inicial"
+            className="mt-5 flex items-center justify-between gap-4 rounded-2xl border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 32%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
+          >
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
+                <Sparkles className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empezá por acá</div>
+                <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">Hacé tu test inicial</div>
+                <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubrí tu Nivel Inicial.</div>
+              </div>
+            </div>
+            <ArrowRight className="hidden sm:block h-5 w-5 flex-shrink-0 text-muted-foreground" />
+          </Link>
+        )}
+
         {/* Instrument cluster */}
         <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
           <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" sparkline={[12, 18, 22, 19, 28, 24, 32]} sparklineColor="var(--av-cyan-400)" />

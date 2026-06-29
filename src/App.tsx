@@ -12,6 +12,7 @@ import { Contact } from "@/pages/Contact"
 import { Login } from "@/pages/Login"
 import { Onboarding } from "@/pages/Onboarding"
 import { Dashboard } from "@/pages/Dashboard"
+import { TestInicial } from "@/pages/TestInicial"
 import { Route as RoutePage } from "@/pages/Route"
 import { Airlines } from "@/pages/Airlines"
 import { Profile } from "@/pages/Profile"
@@ -85,6 +86,14 @@ function App() {
         {/* Materias y el viejo banco de preguntas se consolidaron en el módulo
             Examen PCA (vault-backed). Estas rutas legacy redirigen ahí para que
             cualquier link viejo (Dashboard, deep links) siga funcionando. */}
+        <Route
+          path="/app/test-inicial"
+          element={
+            <RequireAuth>
+              <TestInicial />
+            </RequireAuth>
+          }
+        />
         <Route path="/app/materias" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
