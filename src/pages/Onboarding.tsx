@@ -64,14 +64,11 @@ const LICENSES: { value: License; label: string }[] = [
   { value: "ATPL", label: "ATPL" },
   { value: "IVA", label: "IVA" },
 ]
-const ICAO_LEVELS = [1, 2, 3, 4, 5, 6] as const
-
 interface FormState {
   stage: Stage | ""
   total_hours: string
   hours_pic: string
   licenses: License[]
-  icao_english_level: string
   target_airline: string
   target_date: string
 }
@@ -81,16 +78,16 @@ const INITIAL: FormState = {
   total_hours: "",
   hours_pic: "",
   licenses: [],
-  icao_english_level: "",
   target_airline: "",
   target_date: "",
 }
 
+// El nivel de inglés ICAO ya no se auto-declara acá: sale del test inicial o del
+// simulacro TEA dentro de la app.
 const STEPS = [
   { title: "¿En qué etapa de tu carrera de aviación estás?", sub: "Para crear una ruta adaptada a tu proceso" },
   { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook." },
   { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
-  { title: "¿Cuál es tu nivel de inglés ICAO?", sub: "Honesto. Sin esto, no llegamos." },
   { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?" },
   { title: "Confirma tus datos", sub: "Vas a poder editarlos después." },
 ]
@@ -121,8 +118,6 @@ export function Onboarding() {
         return !!form.stage
       case 1:
         return form.total_hours !== ""
-      case 3:
-        return form.icao_english_level !== ""
       default:
         return true
     }
@@ -141,7 +136,7 @@ export function Onboarding() {
         total_hours: form.total_hours ? Number(form.total_hours) : null,
         hours_pic: form.hours_pic ? Number(form.hours_pic) : null,
         licenses: form.licenses,
-        icao_english_level: form.icao_english_level ? Number(form.icao_english_level) : null,
+        // icao_english_level NO se setea acá: sale del test inicial / simulacro TEA.
         target_airline: form.target_airline || null,
         target_date: form.target_date || null,
         updated_at: new Date().toISOString(),
@@ -151,10 +146,10 @@ export function Onboarding() {
         stage: form.stage || null,
         target_airline: form.target_airline || null,
         total_hours: form.total_hours ? Number(form.total_hours) : 0,
-        icao: form.icao_english_level ? Number(form.icao_english_level) : null,
       })
       toast.success("Listo. Bienvenido a tu cabina ✈️")
-      navigate("/app", { replace: true })
+      // Después del onboarding lo mandamos directo al test inicial (es skippable).
+      navigate("/app/test-inicial", { replace: true })
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar tu perfil")
     } finally {
@@ -188,14 +183,12 @@ export function Onboarding() {
           <div className="text-center mb-10">
             <div
               key={step}
-              className="inline-flex items-center justify-center h-14 w-14 rounded-2xl border-2 border-slate-900 bg-gradient-to-br from-sky-400 via-blue-600 to-indigo-900 text-white shadow-xl shadow-blue-500/30 mb-6 animate-in fade-in-0 zoom-in-95 duration-500"
+              className="inline-flex items-center justify-center h-14 w-14 rounded-2xl text-white mb-6 animate-in fade-in-0 zoom-in-95 duration-500"
+              style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
             >
-              <Send
-                className="h-8 w-8 [filter:drop-shadow(0_0_6px_rgb(255_255_255_/_55%))]"
-                strokeWidth={2.2}
-              />
+              <Send className="h-7 w-7" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-balance">
               {STEPS[step].title}
             </h1>
             <p className="mt-2 text-muted-foreground">{STEPS[step].sub}</p>
@@ -292,36 +285,6 @@ export function Onboarding() {
             )}
 
             {step === 3 && (
-              <div className="space-y-3">
-                <p className="text-xs text-muted-foreground">
-                  El nivel ICAO 4 o superior es requisito obligatorio para ingresar a una aerolínea internacional.
-                </p>
-                <div className="grid grid-cols-3 gap-2">
-                  {ICAO_LEVELS.map((n) => {
-                    const active = form.icao_english_level === String(n)
-                    return (
-                      <button
-                        key={n}
-                        type="button"
-                        onClick={() => update("icao_english_level", String(n))}
-                        className={`p-4 rounded-xl border transition-all ${
-                          active
-                            ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/30 scale-[1.02]"
-                            : "border-border/60 bg-card hover:border-blue-500/30"
-                        }`}
-                      >
-                        <div className="text-xl font-bold">{n}</div>
-                        <div className={`text-xs mt-0.5 ${active ? "text-blue-100" : "text-muted-foreground"}`}>
-                          {n <= 3 ? "Pre-operacional" : n === 4 ? "Operacional" : n === 5 ? "Extendido" : "Experto"}
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            )}
-
-            {step === 4 && (
               <div className="space-y-5">
                 <div className="space-y-2">
                   <Label htmlFor="airline" className="text-sm">Aerolínea objetivo</Label>
@@ -362,26 +325,31 @@ export function Onboarding() {
               </div>
             )}
 
-            {step === 5 && (
-              <ul className="space-y-3 text-sm">
-                <SummaryRow label="Etapa" value={STAGES.find((s) => s.value === form.stage)?.label ?? "—"} />
-                <SummaryRow
-                  label="Horas"
-                  value={`${form.total_hours || "—"} totales${form.hours_pic ? ` · ${form.hours_pic} PIC` : ""}`}
-                />
-                <SummaryRow
-                  label="Licencias"
-                  value={form.licenses.length ? form.licenses.join(", ") : "Ninguna cargada"}
-                />
-                <SummaryRow
-                  label="Inglés ICAO"
-                  value={form.icao_english_level ? `Nivel ${form.icao_english_level}` : "—"}
-                />
-                <SummaryRow
-                  label="Objetivo"
-                  value={`${form.target_airline || "—"}${form.target_date ? ` · ${form.target_date}` : ""}`}
-                />
-              </ul>
+            {step === 4 && (
+              <>
+                <ul className="space-y-3 text-sm">
+                  <SummaryRow label="Etapa" value={STAGES.find((s) => s.value === form.stage)?.label ?? "—"} />
+                  <SummaryRow
+                    label="Horas"
+                    value={`${form.total_hours || "—"} totales${form.hours_pic ? ` · ${form.hours_pic} PIC` : ""}`}
+                  />
+                  <SummaryRow
+                    label="Licencias"
+                    value={form.licenses.length ? form.licenses.join(", ") : "Ninguna cargada"}
+                  />
+                  <SummaryRow
+                    label="Objetivo"
+                    value={`${form.target_airline || "—"}${form.target_date ? ` · ${form.target_date}` : ""}`}
+                  />
+                </ul>
+                <div
+                  className="mt-4 rounded-xl border p-3.5 text-[13px] text-muted-foreground"
+                  style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
+                >
+                  Tu nivel de inglés <strong className="text-foreground">ICAO</strong> lo vas a medir con el{" "}
+                  <strong className="text-foreground">test inicial</strong> apenas entres — no hace falta declararlo a mano.
+                </div>
+              </>
             )}
           </div>
 
@@ -401,7 +369,8 @@ export function Onboarding() {
                 onClick={handleSubmit}
                 disabled={submitting}
                 size="lg"
-                className="btn-apple shine-on-hover rounded-full h-12 px-8 border-0"
+                className="rounded-xl h-12 px-8 border-0 text-white transition-transform hover:-translate-y-0.5"
+                style={{ background: "var(--av-blue-500)" }}
               >
                 {submitting ? (
                   <>
@@ -420,7 +389,8 @@ export function Onboarding() {
                 onClick={() => setStep((s) => s + 1)}
                 disabled={!canAdvance}
                 size="lg"
-                className="btn-apple shine-on-hover rounded-full h-12 px-8 border-0 disabled:opacity-50"
+                className="rounded-xl h-12 px-8 border-0 text-white disabled:opacity-50 transition-transform hover:-translate-y-0.5"
+                style={{ background: "var(--av-blue-500)" }}
               >
                 Siguiente
                 <ArrowRight className="h-4 w-4" />
