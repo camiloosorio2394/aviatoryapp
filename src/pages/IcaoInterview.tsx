@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -8,9 +8,14 @@ import {
   ChevronDown,
   Eye,
   EyeOff,
+  Sparkles,
+  UserCircle2,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { supabase } from "@/integrations/supabase/client"
+import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
+import { personalizedInterviewAnswer, type InterviewPilot } from "@/lib/personalizeInterview"
 
 /**
  * TEA — Part 1: Interview.
@@ -19,8 +24,38 @@ import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/i
  * en voz alta y recién después compare con el modelo).
  */
 export function IcaoInterview() {
+  const { user } = useSession()
   const [activeSet, setActiveSet] = useState(1)
+  const [pilot, setPilot] = useState<InterviewPilot | null>(null)
   const set = TEA_PART1_SETS.find((s) => s.set === activeSet) ?? TEA_PART1_SETS[0]
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+    supabase
+      .from("pilot_state")
+      .select("stage, total_hours, hours_pic, target_airline, licenses, country")
+      .eq("user_id", user.id)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (cancelled || !data) return
+        const p = data as {
+          stage?: InterviewPilot["stage"]; total_hours?: number; hours_pic?: number
+          target_airline?: string; licenses?: string[]; country?: string
+        }
+        setPilot({
+          stage: p.stage ?? null,
+          totalHours: p.total_hours ?? null,
+          hoursPic: p.hours_pic ?? null,
+          targetAirline: p.target_airline ?? null,
+          licenses: p.licenses ?? null,
+          country: p.country ?? null,
+        })
+      })
+    return () => { cancelled = true }
+  }, [user])
+
+  const hasProfile = !!(pilot && (pilot.stage || pilot.totalHours || pilot.targetAirline))
 
   return (
     <AppLayout>
@@ -94,10 +129,25 @@ export function IcaoInterview() {
           })}
         </div>
 
+        {/* Personalization hint */}
+        {!hasProfile && (
+          <Link
+            to="/app/perfil"
+            className="mt-3 flex items-center gap-2.5 rounded-2xl border border-dashed border-border bg-muted/30 px-4 py-3 hover:bg-muted/50 transition-colors"
+          >
+            <UserCircle2 className="h-4 w-4 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
+            <span className="text-[13.5px] text-muted-foreground">
+              Completá tu perfil (etapa, horas, aerolínea objetivo) para ver{" "}
+              <strong className="text-foreground">ejemplos armados con tus datos</strong> en las
+              preguntas sobre vos.
+            </span>
+          </Link>
+        )}
+
         {/* Questions */}
         <div className="mt-5 space-y-2.5">
           {set.questions.map((q) => (
-            <QuestionCard key={`${set.set}-${q.n}`} q={q} />
+            <QuestionCard key={`${set.set}-${q.n}`} q={q} pilot={hasProfile ? pilot : null} />
           ))}
         </div>
 
@@ -109,8 +159,9 @@ export function IcaoInterview() {
   )
 }
 
-function QuestionCard({ q }: { q: InterviewQuestion }) {
+function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilot | null }) {
   const [open, setOpen] = useState(false)
+  const mine = pilot ? personalizedInterviewAnswer(q.question, pilot) : null
   return (
     <div
       className="rounded-2xl border bg-card overflow-hidden"
@@ -146,7 +197,27 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
       </div>
 
       {open && (
-        <div className="px-4 pb-4 pt-0">
+        <div className="px-4 pb-4 pt-0 space-y-3">
+          {/* Tu versión — ejemplo armado con los datos del piloto */}
+          {mine && (
+            <div
+              className="rounded-2xl border p-4"
+              style={{
+                borderColor: "color-mix(in oklab, #047857 30%, transparent)",
+                background: "color-mix(in oklab, #047857 6%, transparent)",
+              }}
+            >
+              <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "#047857" }}>
+                <Sparkles className="h-3 w-3" /> Tu versión · con tus datos
+              </div>
+              <p className="text-[14.5px] leading-relaxed text-foreground/90">{mine}</p>
+              <p className="mt-2 text-[12px] text-muted-foreground">
+                Ejemplo armado con tu perfil — usalo de guía, no lo recites (el TEA penaliza
+                respuestas memorizadas).
+              </p>
+            </div>
+          )}
+
           <div
             className="rounded-2xl border p-4"
             style={{
@@ -155,7 +226,7 @@ function QuestionCard({ q }: { q: InterviewQuestion }) {
             }}
           >
             <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "var(--av-blue-500)" }}>
-              <MessageSquare className="h-3 w-3" /> Suggested answer
+              <MessageSquare className="h-3 w-3" /> {mine ? "Model answer · high register" : "Suggested answer"}
             </div>
             <p className="text-[14.5px] leading-relaxed text-foreground/90">
               {q.suggestedAnswer}
