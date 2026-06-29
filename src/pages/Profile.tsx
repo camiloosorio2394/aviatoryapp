@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react"
+import { Link } from "react-router-dom"
 import { toast } from "sonner"
-import { AtSign, Camera, Check, Loader2, Save, Trash2, X, Radar, Settings, User as UserIcon } from "lucide-react"
+import { AtSign, Camera, Check, Loader2, Save, Trash2, X, Radar, Settings, User as UserIcon, TrendingUp, ArrowRight, Headphones } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -47,6 +48,31 @@ const STAGES: { value: Stage; label: string }[] = [
 
 const LICENSES = ["PPL", "CPL", "IFR", "MEP", "ATPL"] as const
 
+interface Skill {
+  key: string
+  label: string
+  value: number
+  hasData: boolean
+  raw: string
+}
+
+/** Próximo paso accionable por dimensión (a qué módulo ir para mejorarla). */
+const DIM_ADVICE: Record<string, { cta: string; href: string }> = {
+  horas: { cta: "Registrá tus vuelos en el Logbook", href: "/app/logbook" },
+  pic: { cta: "Sumá horas como PIC en el Logbook", href: "/app/logbook" },
+  icao: { cta: "Hacé el simulacro TEA", href: "/app/icao/simulacro" },
+  licencias: { cta: "Cargá tus licencias en Vencimientos", href: "/app/vencimientos" },
+  xc: { cta: "Registrá vuelos cross-country", href: "/app/logbook" },
+  recurrencia: { cta: "Revisá tus vencimientos", href: "/app/vencimientos" },
+}
+
+function icaoLevelLabel(n: number): string {
+  if (n <= 3) return "Pre-operacional"
+  if (n === 4) return "Operacional"
+  if (n === 5) return "Extendido"
+  return "Experto"
+}
+
 export function Profile() {
   const { user } = useSession()
   const [loading, setLoading] = useState(true)
@@ -62,18 +88,25 @@ export function Profile() {
   const [stage, setStage] = useState<Stage | "">("")
   const [totalHours, setTotalHours] = useState("")
   const [hoursPic, setHoursPic] = useState("")
-  const [icao, setIcao] = useState("")
   const [targetAirline, setTargetAirline] = useState("")
   const [licenses, setLicenses] = useState<string[]>([])
+  // Datos reales para el mapa de habilidades (no auto-declarados)
+  const [icaoLevel, setIcaoLevelState] = useState<number | null>(null) // del módulo: último simulacro TEA
+  const [icaoTakenAt, setIcaoTakenAt] = useState<string | null>(null)
+  const [flightAgg, setFlightAgg] = useState<{ totalMin: number; picMin: number; xcMin: number; count: number }>({ totalMin: 0, picMin: 0, xcMin: 0, count: 0 })
+  const [currency, setCurrency] = useState<{ valid: number; total: number }>({ valid: 0, total: 0 })
 
   useEffect(() => {
     if (!user) return
     let cancelled = false
     async function load() {
       try {
-        const [profileRes, pilotRes] = await Promise.all([
+        const [profileRes, pilotRes, flightsRes, licRes, mockRes] = await Promise.all([
           supabase.from("profiles").select("full_name, country, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
+          supabase.from("flights").select("total_minutes, pic_minutes, cross_country_minutes").eq("user_id", user!.id),
+          supabase.from("licenses_held").select("expires_date").eq("user_id", user!.id).not("expires_date", "is", null),
+          supabase.from("user_icao_mock_results").select("final_level, taken_at").eq("user_id", user!.id).order("taken_at", { ascending: false }).limit(1).maybeSingle(),
         ])
         if (cancelled) return
         if (profileRes.data) {
@@ -85,15 +118,34 @@ export function Profile() {
           setUsernameStatus(p.username ? { state: "unchanged" } : { state: "idle" })
           setPhotoUrl(p.photo_url ?? null)
         }
-        if (pilotRes.data) {
-          const p = pilotRes.data as { stage?: Stage; total_hours?: number; hours_pic?: number; icao_english_level?: number; target_airline?: string; licenses?: string[] }
-          setStage(p.stage ?? "")
-          setTotalHours(p.total_hours?.toString() ?? "")
-          setHoursPic(p.hours_pic?.toString() ?? "")
-          setIcao(p.icao_english_level?.toString() ?? "")
-          setTargetAirline(p.target_airline ?? "")
-          setLicenses(p.licenses ?? [])
+        const pilot = pilotRes.data as { stage?: Stage; total_hours?: number; hours_pic?: number; icao_english_level?: number; target_airline?: string; licenses?: string[] } | null
+        if (pilot) {
+          setStage(pilot.stage ?? "")
+          setTotalHours(pilot.total_hours?.toString() ?? "")
+          setHoursPic(pilot.hours_pic?.toString() ?? "")
+          setTargetAirline(pilot.target_airline ?? "")
+          setLicenses(pilot.licenses ?? [])
         }
+
+        // Agregado del logbook (fuente real de horas)
+        const flights = (flightsRes.data ?? []) as { total_minutes: number; pic_minutes: number; cross_country_minutes: number }[]
+        setFlightAgg({
+          totalMin: flights.reduce((a, f) => a + (f.total_minutes ?? 0), 0),
+          picMin: flights.reduce((a, f) => a + (f.pic_minutes ?? 0), 0),
+          xcMin: flights.reduce((a, f) => a + (f.cross_country_minutes ?? 0), 0),
+          count: flights.length,
+        })
+
+        // Recurrencia: % de vigencias al día (licenses_held con vencimiento)
+        const lic = (licRes.data ?? []) as { expires_date: string }[]
+        const today = new Date().toISOString().slice(0, 10)
+        setCurrency({ valid: lic.filter((l) => l.expires_date >= today).length, total: lic.length })
+
+        // Nivel ICAO: SOLO del módulo (último simulacro TEA). Sin auto-declaración:
+        // si no hay simulacro, queda "Sin evaluar" hasta que el piloto haga uno.
+        const mock = mockRes.data as { final_level?: number; taken_at?: string } | null
+        setIcaoLevelState(mock?.final_level ?? null)
+        setIcaoTakenAt(mock?.taken_at ?? null)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos cargar tu perfil")
       } finally {
@@ -197,7 +249,7 @@ export function Profile() {
           stage: stage || null,
           total_hours: totalHours ? Number(totalHours) : null,
           hours_pic: hoursPic ? Number(hoursPic) : null,
-          icao_english_level: icao ? Number(icao) : null,
+          // icao_english_level NO se setea acá: el nivel oficial sale del simulacro TEA.
           target_airline: targetAirline || null,
           licenses,
           updated_at: new Date().toISOString(),
@@ -232,23 +284,38 @@ export function Profile() {
     )
   }
 
-  // Build skill radar from pilot_state (very simple: derive from hours, icao, etc — placeholder for real data)
-  const totalH = Number(totalHours) || 0
-  const picH = Number(hoursPic) || 0
-  const icaoLevel = Number(icao) || 0
-  const skills = [
-    { label: "Horas", value: Math.min(100, (totalH / 1500) * 100) },
-    { label: "PIC", value: Math.min(100, (picH / 1000) * 100) },
-    { label: "ICAO", value: (icaoLevel / 6) * 100 },
-    { label: "Licencias", value: (licenses.length / 5) * 100 },
-    { label: "Cross-country", value: Math.min(100, (totalH / 1000) * 50) },
-    { label: "Recurrencia", value: 60 },
+  // === Mapa de habilidades — TODO sale de datos reales, nada hardcodeado ===
+  // Horas para llegar al 100% de cada barra (referencias de carrera a aerolínea).
+  const BENCH = { totalH: 1500, picH: 1000, xcH: 200 }
+  const fmtH = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
+  const hasFlights = flightAgg.count > 0
+  // Horas/PIC: del Logbook si hay vuelos; si no, del valor en pilot_state.
+  const totalH = hasFlights ? flightAgg.totalMin / 60 : Number(totalHours) || 0
+  const picH = hasFlights ? flightAgg.picMin / 60 : Number(hoursPic) || 0
+  const xcH = flightAgg.xcMin / 60
+  const recurPct = currency.total > 0 ? (currency.valid / currency.total) * 100 : null
+  const icaoPct = icaoLevel != null ? (icaoLevel / 6) * 100 : null
+
+  const skills: Skill[] = [
+    { key: "horas", label: "Horas", value: Math.min(100, (totalH / BENCH.totalH) * 100), hasData: totalH > 0, raw: `${fmtH(totalH)} h` },
+    { key: "pic", label: "PIC", value: Math.min(100, (picH / BENCH.picH) * 100), hasData: picH > 0, raw: `${fmtH(picH)} h` },
+    { key: "icao", label: "ICAO", value: icaoPct ?? 0, hasData: icaoLevel != null, raw: icaoLevel != null ? `Nivel ${icaoLevel}` : "Sin evaluar" },
+    { key: "licencias", label: "Licencias", value: (licenses.length / 5) * 100, hasData: licenses.length > 0, raw: `${licenses.length} de 5` },
+    { key: "xc", label: "Cross-country", value: Math.min(100, (xcH / BENCH.xcH) * 100), hasData: hasFlights, raw: hasFlights ? `${fmtH(xcH)} h` : "Sin vuelos" },
+    { key: "recurrencia", label: "Recurrencia", value: recurPct ?? 0, hasData: currency.total > 0, raw: currency.total > 0 ? `${currency.valid}/${currency.total} al día` : "Sin datos" },
   ]
+
+  // Resumen de fortalezas y debilidades, derivado de las dimensiones reales.
+  const strengths = skills.filter((s) => s.hasData && s.value >= 60).sort((a, b) => b.value - a.value).slice(0, 3)
+  const gaps = skills
+    .filter((s) => !s.hasData || s.value < 45)
+    .sort((a, b) => (a.hasData ? a.value : -1) - (b.hasData ? b.value : -1))
+    .slice(0, 3)
 
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <PageHeader eyebrow="MI PERFIL" title="Tu identidad como piloto" subtitle="Tu data del perfil de piloto. Aviatory la usa para calcular tu progreso y plan." />
+        <PageHeader eyebrow="Mi perfil" title="Tu identidad como piloto" subtitle="Tu mapa de habilidades sale de datos reales: Logbook, Vencimientos y tus simulacros TEA. Aviatory lo usa para calcular tu progreso y plan." />
 
         <div className="grid gap-5" style={{ gridTemplateColumns: "360px 1fr" }}>
           {/* Pilot ID card */}
@@ -267,25 +334,27 @@ export function Profile() {
 
           {/* Skills radar + Settings */}
           <div className="flex flex-col gap-5">
-            <div className="rounded-xl border border-border bg-card p-6">
+            <div className="rounded-2xl border border-border bg-card p-6">
               <SectionTitle icon={Radar} eyebrow="Tu mapa de habilidades" title="Mastery por dimensión" />
               <div className="grid items-center gap-7 mt-4" style={{ gridTemplateColumns: "auto 1fr" }}>
                 <SkillsRadar skills={skills} />
-                <div className="flex flex-col gap-2">
+                <div className="flex flex-col gap-2.5">
                   {skills.map((s) => (
-                    <div key={s.label} className="grid items-center gap-3" style={{ gridTemplateColumns: "110px 1fr 40px" }}>
-                      <span className="text-xs text-muted-foreground font-medium">{s.label}</span>
+                    <div key={s.label} className="grid items-center gap-3" style={{ gridTemplateColumns: "104px 1fr auto" }}>
+                      <span className="text-[13px] text-foreground font-medium">{s.label}</span>
                       <div className="relative h-1.5 rounded-full bg-muted overflow-hidden">
                         <div
                           className="h-full rounded-full"
                           style={{
                             width: `${s.value}%`,
-                            background: "linear-gradient(90deg, var(--av-cyan-400), var(--av-cyan-300))",
+                            background: s.hasData ? "var(--av-blue-500)" : "var(--muted-foreground)",
+                            opacity: s.hasData ? 1 : 0.4,
                           }}
                         />
                       </div>
-                      <span className="mono tabular-nums text-[12.5px] font-semibold text-foreground text-right">
-                        {Math.round(s.value)}%
+                      <span className="text-right whitespace-nowrap">
+                        <span className="tabular-nums text-[12.5px] font-bold text-foreground">{Math.round(s.value)}%</span>
+                        <span className="ml-1.5 text-[11px] text-muted-foreground">{s.raw}</span>
                       </span>
                     </div>
                   ))}
@@ -293,8 +362,11 @@ export function Profile() {
               </div>
             </div>
 
+            {/* Resumen: fortalezas y debilidades (generado de tus datos reales) */}
+            <StrengthsSummary strengths={strengths} gaps={gaps} />
+
             {/* Form */}
-            <div className="rounded-xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
               <SectionTitle icon={UserIcon} eyebrow="Identidad" title="Datos públicos y privados" />
               <div className="space-y-4">
                 <Field label="Tu foto">
@@ -366,7 +438,7 @@ export function Profile() {
               </div>
             </div>
 
-            <div className="rounded-xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
               <SectionTitle icon={Settings} eyebrow="Tu carrera" title="Estado de piloto" />
               <div className="space-y-4">
                 <Field label="Etapa actual">
@@ -385,10 +457,10 @@ export function Profile() {
                 </Field>
                 <div className="grid sm:grid-cols-2 gap-3">
                   <Field label="Horas totales">
-                    <Input type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
+                    <Input type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                   </Field>
                   <Field label="Horas PIC">
-                    <Input type="number" value={hoursPic} onChange={(e) => setHoursPic(e.target.value)} className="h-11 rounded-xl mono tabular-nums" />
+                    <Input type="number" value={hoursPic} onChange={(e) => setHoursPic(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                   </Field>
                 </div>
                 <Field label="Licencias">
@@ -417,36 +489,20 @@ export function Profile() {
                     })}
                   </div>
                 </Field>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  <Field label="Inglés ICAO">
-                    <Select value={icao} onValueChange={setIcao}>
-                      <SelectTrigger className="h-11 rounded-xl">
-                        <SelectValue placeholder="Nivel" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5, 6].map((n) => (
-                          <SelectItem key={n} value={String(n)}>
-                            Nivel {n}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </Field>
-                  <Field label="Aerolínea objetivo">
-                    <Input value={targetAirline} onChange={(e) => setTargetAirline(e.target.value)} placeholder="Avianca, LATAM, Wingo…" className="h-11 rounded-xl" />
-                  </Field>
-                </div>
+                <Field label="Aerolínea objetivo">
+                  <Input value={targetAirline} onChange={(e) => setTargetAirline(e.target.value)} placeholder="Avianca, LATAM, Wingo…" className="h-11 rounded-xl" />
+                </Field>
+                <Field label="Inglés ICAO">
+                  <IcaoStatusField level={icaoLevel} takenAt={icaoTakenAt} />
+                </Field>
               </div>
 
               <Button
                 onClick={handleSave}
                 disabled={saving || !usernameOK}
                 size="lg"
-                className="rounded-full h-12 px-6 border-0 text-white disabled:opacity-50"
-                style={{
-                  background: "linear-gradient(180deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-                  boxShadow: "0 8px 20px -6px oklch(0.55 0.22 264 / 45%)",
-                }}
+                className="rounded-xl h-12 px-6 border-0 text-white disabled:opacity-50 transition-transform hover:-translate-y-0.5"
+                style={{ background: "var(--av-blue-500)" }}
               >
                 {saving ? (
                   <>
@@ -484,59 +540,50 @@ function PilotIdCard({
   email?: string
   totalH: number
   picH: number
-  icao: number
+  icao: number | null
   targetAirline: string
   stage: Stage | ""
   uploading: boolean
 }) {
   const stageLabel = stage ? STAGES.find((s) => s.value === stage)?.label ?? "—" : "—"
+  const fmt = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
   return (
-    <div
-      className="rounded-xl border p-6 relative overflow-hidden text-white"
-      style={{
-        background: "linear-gradient(160deg, var(--av-navy-900) 0%, var(--av-navy-950) 100%)",
-        borderColor: "oklch(0.32 0.04 250 / 0.6)",
-        boxShadow: "var(--shadow-navy)",
-      }}
-    >
-      <div className="cockpit-grid absolute inset-0 opacity-30" />
-      <div className="relative">
-        <div className="mono text-[12px] font-bold uppercase tracking-[0.16em]" style={{ color: "var(--av-cyan-300)" }}>
-          Aviatory · Pilot ID
+    <div className="rounded-2xl border border-border bg-card p-6 overflow-hidden h-fit">
+      <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+        Aviatory · Pilot ID
+      </div>
+      <div className="mt-4 flex items-center gap-3.5">
+        <div className="relative">
+          <UserAvatar
+            photoUrl={photoUrl}
+            username={username}
+            fullName={fullName}
+            email={email}
+            size="xl"
+            ring
+            className="!h-16 !w-16 !text-xl"
+          />
+          {uploading && (
+            <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center">
+              <Loader2 className="h-4 w-4 animate-spin text-white" />
+            </div>
+          )}
         </div>
-        <div className="mt-4 flex items-center gap-3.5">
-          <div className="relative">
-            <UserAvatar
-              photoUrl={photoUrl}
-              username={username}
-              fullName={fullName}
-              email={email}
-              size="xl"
-              ring
-              className="!h-16 !w-16 !text-xl"
-            />
-            {uploading && (
-              <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center">
-                <Loader2 className="h-4 w-4 animate-spin text-white" />
-              </div>
-            )}
+        <div>
+          <div className="text-xl font-extrabold tracking-[-0.025em] text-foreground">
+            {fullName || username || "Tu nombre"}
           </div>
-          <div>
-            <div className="text-xl font-extrabold tracking-[-0.025em]">
-              {fullName || username || "Tu nombre"}
-            </div>
-            <div className="mono text-xs" style={{ color: "oklch(0.78 0.02 250)" }}>
-              {username ? `@${username}` : email} · {stageLabel}
-            </div>
+          <div className="text-xs text-muted-foreground">
+            {username ? `@${username}` : email} · {stageLabel}
           </div>
         </div>
+      </div>
 
-        <div className="mt-5 grid grid-cols-2 gap-3">
-          <IdField label="Horas totales" value={`${totalH} h`} />
-          <IdField label="Horas PIC" value={`${picH} h`} />
-          <IdField label="ICAO" value={icao ? `Nivel ${icao}` : "—"} />
-          <IdField label="Objetivo" value={targetAirline || "—"} />
-        </div>
+      <div className="mt-5 grid grid-cols-2 gap-x-3 gap-y-4">
+        <IdField label="Horas totales" value={`${fmt(totalH)} h`} />
+        <IdField label="Horas PIC" value={`${fmt(picH)} h`} />
+        <IdField label="ICAO" value={icao != null ? `Nivel ${icao}` : "Sin evaluar"} />
+        <IdField label="Objetivo" value={targetAirline || "—"} />
       </div>
     </div>
   )
@@ -545,13 +592,10 @@ function PilotIdCard({
 function IdField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div
-        className="mono text-[11px] uppercase tracking-[0.12em] font-bold"
-        style={{ color: "oklch(0.6 0.02 250)" }}
-      >
+      <div className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted-foreground">
         {label}
       </div>
-      <div className="mono tabular-nums mt-0.5 text-sm font-bold text-white tracking-[-0.02em]">
+      <div className="tabular-nums mt-0.5 text-sm font-bold text-foreground tracking-[-0.02em]">
         {value}
       </div>
     </div>
@@ -581,14 +625,13 @@ function SkillsRadar({ skills }: { skills: { label: string; value: number }[] })
       })}
       <polygon
         points={pts.map((p) => p.join(",")).join(" ")}
-        fill="var(--av-cyan-400)"
-        fillOpacity={0.18}
-        stroke="var(--av-cyan-400)"
+        fill="var(--av-blue-500)"
+        fillOpacity={0.15}
+        stroke="var(--av-blue-500)"
         strokeWidth={2}
-        style={{ filter: "drop-shadow(0 0 6px var(--av-cyan-400))" }}
       />
       {pts.map((p, i) => (
-        <circle key={i} cx={p[0]} cy={p[1]} r={3.5} fill="var(--av-cyan-400)" stroke="var(--background)" strokeWidth={1.5} />
+        <circle key={i} cx={p[0]} cy={p[1]} r={3.5} fill="var(--av-blue-500)" stroke="var(--background)" strokeWidth={1.5} />
       ))}
       {skills.map((s, i) => {
         const a = (i / N) * Math.PI * 2 - Math.PI / 2
@@ -599,17 +642,127 @@ function SkillsRadar({ skills }: { skills: { label: string; value: number }[] })
             x={cx + lr * Math.cos(a)}
             y={cy + lr * Math.sin(a)}
             fontSize={9}
-            fontWeight={700}
+            fontWeight={600}
             fill="var(--muted-foreground)"
             textAnchor="middle"
             dominantBaseline="middle"
-            style={{ textTransform: "uppercase", letterSpacing: "0.1em", fontFamily: "var(--font-mono)" }}
+            style={{ letterSpacing: "0.02em" }}
           >
             {s.label.slice(0, 8)}
           </text>
         )
       })}
     </svg>
+  )
+}
+
+function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill[] }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <SectionTitle icon={TrendingUp} eyebrow="Resumen" title="Fortalezas y debilidades" />
+      <div className="grid gap-6 sm:grid-cols-2 mt-1">
+        <div>
+          <div className="text-[13px] font-semibold mb-2.5" style={{ color: "#047857" }}>
+            Tus fortalezas
+          </div>
+          {strengths.length === 0 ? (
+            <p className="text-[13px] text-muted-foreground leading-relaxed">
+              Todavía no hay datos suficientes para destacar fortalezas. Empezá por los próximos
+              pasos →
+            </p>
+          ) : (
+            <ul className="space-y-2">
+              {strengths.map((s) => (
+                <li key={s.key} className="flex items-start gap-2 text-[13.5px]">
+                  <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "#047857" }} strokeWidth={3} />
+                  <span>
+                    <span className="font-semibold text-foreground">{s.label}</span>
+                    <span className="text-muted-foreground"> — {s.raw} ({Math.round(s.value)}%)</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <div>
+          <div className="text-[13px] font-semibold mb-2.5" style={{ color: "#B45309" }}>
+            Próximos pasos
+          </div>
+          {gaps.length === 0 ? (
+            <p className="text-[13px] text-muted-foreground leading-relaxed">
+              ¡Vas muy bien! No hay debilidades marcadas ahora mismo.
+            </p>
+          ) : (
+            <ul className="space-y-3">
+              {gaps.map((s) => {
+                const adv = DIM_ADVICE[s.key]
+                return (
+                  <li key={s.key} className="text-[13.5px]">
+                    <div>
+                      <span className="font-semibold text-foreground">{s.label}</span>
+                      <span className="text-muted-foreground"> — {s.raw}</span>
+                    </div>
+                    {adv && (
+                      <Link
+                        to={adv.href}
+                        className="inline-flex items-center gap-1 text-[13px] font-semibold mt-0.5"
+                        style={{ color: "var(--av-blue-500)" }}
+                      >
+                        {adv.cta} <ArrowRight className="h-3 w-3" />
+                      </Link>
+                    )}
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function IcaoStatusField({ level, takenAt }: { level: number | null; takenAt: string | null }) {
+  if (level == null) {
+    return (
+      <>
+        <Link
+          to="/app/icao/simulacro"
+          className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
+        >
+          <span className="inline-flex items-center gap-2 text-[14px] text-muted-foreground">
+            <Headphones className="h-4 w-4" /> Sin evaluar — hacé el simulacro TEA
+          </span>
+          <ArrowRight className="h-4 w-4 text-muted-foreground" />
+        </Link>
+        <p className="text-[11px] text-muted-foreground mt-1">
+          Tu nivel ICAO sale del módulo, no se declara a mano.
+        </p>
+      </>
+    )
+  }
+  const dateStr = takenAt
+    ? new Date(takenAt).toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
+    : null
+  return (
+    <>
+      <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 h-11">
+        <span className="inline-flex items-baseline gap-2">
+          <span className="text-[15px] font-bold text-foreground tabular-nums">Nivel {level}</span>
+          <span className="text-[13px] text-muted-foreground">{icaoLevelLabel(level)}</span>
+        </span>
+        <Link
+          to="/app/icao/simulacro"
+          className="text-[12.5px] font-semibold inline-flex items-center gap-1"
+          style={{ color: "var(--av-blue-500)" }}
+        >
+          {dateStr ? "Repetir" : "Evaluar"} <ArrowRight className="h-3 w-3" />
+        </Link>
+      </div>
+      <p className="text-[11px] text-muted-foreground mt-1">
+        {dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.
+      </p>
+    </>
   )
 }
 
