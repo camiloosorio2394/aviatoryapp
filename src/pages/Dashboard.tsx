@@ -133,7 +133,8 @@ interface NextStep {
   href: string
   cta: string
   minutes: number
-  icon: typeof BookOpen}
+  icon: typeof BookOpen
+}
 
 /**
  * Acción del día. La dueña única es la card "Quiz del día" que va justo debajo
