@@ -48,12 +48,6 @@ interface PilotState {
   target_date: string | null
 }
 
-interface Profile {
-  full_name: string | null
-  username: string | null
-  photo_url: string | null
-}
-
 interface Streak {
   current_streak: number
   longest_streak: number
@@ -216,13 +210,6 @@ function trialDaysLeft(end: string | null): number | null {
   return Math.ceil(diff / (1000 * 60 * 60 * 24))
 }
 
-function greetingTime(): string {
-  const hour = new Date().getHours()
-  if (hour < 12) return "Buenos días"
-  if (hour < 19) return "Buenas tardes"
-  return "Buenas noches"
-}
-
 export function Dashboard() {
   const { user } = useSession()
   const navigate = useNavigate()
@@ -230,7 +217,6 @@ export function Dashboard() {
   /** Las tres RPC lentas (heatmap, cohorte, quiz diario) y los logros cargan
    *  después del hero, con skeleton local en su propia card. */
   const [deferredLoading, setDeferredLoading] = useState(true)
-  const [profile, setProfile] = useState<Profile | null>(null)
   const [pilot, setPilot] = useState<PilotState | null>(null)
   const [streak, setStreak] = useState<Streak | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
@@ -247,8 +233,7 @@ export function Dashboard() {
 
     async function loadCore() {
       try {
-        const [profileRes, pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
-          supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
+        const [pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
           supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
@@ -257,7 +242,6 @@ export function Dashboard() {
 
         if (cancelled) return
 
-        setProfile(profileRes.data as Profile | null)
         const ps = pilotRes.data as PilotState | null
         setPilot(ps)
         setStreak(streakRes.data as Streak | null)
@@ -344,7 +328,6 @@ export function Dashboard() {
   /** Si abajo va una card destacada, el hero no repite su mismo boton: eran dos
    *  CTA identicos a un palmo de distancia. Sin card, el hero se queda con el. */
   const hasFeaturedCard = !icaoMeasured || daily.length > 0
-  const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
 
@@ -357,14 +340,11 @@ export function Dashboard() {
 
   return (
     <AppLayout streak={streakDays}>
-      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* Cockpit hero */}
         <CockpitHero
-          firstName={firstName}
           stageLabel={stageLabel}
-          totalHours={pilot?.total_hours ?? 0}
           targetAirline={pilot?.target_airline ?? null}
-          streakDays={streakDays}
           progress={progress}
           trialLeft={trialLeft}
           primaryAction={primaryAction}
@@ -398,8 +378,8 @@ export function Dashboard() {
               </div>
               <div>
                 <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-                <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">Haz tu test inicial</div>
-                <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubre tu Nivel Inicial.</div>
+                <div className="mt-1 text-[17px] font-semibold tracking-[-0.01em]">Haz tu test inicial</div>
+                <div className="text-[13px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubre tu Nivel Inicial.</div>
               </div>
             </div>
             <ArrowRight className="hidden sm:block h-5 w-5 flex-shrink-0 text-muted-foreground" />
@@ -409,7 +389,7 @@ export function Dashboard() {
         {/* Instrument cluster: sin curvas inventadas, solo el número que la app
             sostiene. Donde todavía no hay nada medido va un guion y no un cero:
             cuatro ceros en fila el primer día se leen como un tablero roto. */}
-        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3 mt-7 mb-7">
+        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 mb-6">
           {pilot?.total_hours ? (
             <KpiTile
               eyebrow="Horas totales"
@@ -447,7 +427,7 @@ export function Dashboard() {
         </div>
 
         {/* Today's plan + Wingman insight */}
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-6">
           <section>
             <SectionTitle
               icon={WaypointIcon}
@@ -469,10 +449,17 @@ export function Dashboard() {
           />
         </div>
 
-        {/* Streak + Heatmap */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
-          <StreakCard current={streakDays} longest={longestStreak} atRisk={streakAtRisk} />
-          <ActivityHeatmap data={heatmap} loading={deferredLoading} />
+        {/* Actividad. La racha ya vive en el panel de indicadores: antes el
+            mismo dato salía tres veces (chip del hero, tile y card entera). Lo
+            único que la card aportaba de más era el aviso de riesgo, que ahora
+            va dentro de la actividad, que es su contexto natural. */}
+        <div className="mb-6">
+          <ActivityHeatmap
+            data={heatmap}
+            loading={deferredLoading}
+            streakAtRisk={streakAtRisk}
+            longestStreak={longestStreak}
+          />
         </div>
 
         {/* Achievements + Cohort */}
@@ -491,21 +478,15 @@ export function Dashboard() {
 }
 
 function CockpitHero({
-  firstName,
   stageLabel,
-  totalHours,
   targetAirline,
-  streakDays,
   progress,
   trialLeft,
   primaryAction,
   showCta,
 }: {
-  firstName: string
   stageLabel: string
-  totalHours: number
   targetAirline: string | null
-  streakDays: number
   progress: number | null
   trialLeft: number | null
   primaryAction: { href: string; cta: string; minutes: number }
@@ -514,10 +495,10 @@ function CockpitHero({
   /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
    *  oscuro en modo claro y ahí quedarían ilegibles. */
   const heroChip =
-    "inline-flex items-center gap-1.5 h-[24px] px-2.5 rounded-full text-[11.5px] font-semibold tracking-[0.01em] text-white border border-white/25 bg-white/12 backdrop-blur-sm"
+    "inline-flex items-center gap-2 h-[24px] px-3 rounded-full text-[12px] font-semibold tracking-[0.01em] text-white border border-white/25 bg-white/12 backdrop-blur-sm"
 
   return (
-    <section className="relative overflow-hidden rounded-2xl">
+    <section className="relative overflow-hidden rounded-xl">
       <img
         src={heroCockpit}
         alt=""
@@ -533,89 +514,58 @@ function CockpitHero({
         }}
       />
 
-      <div className="relative p-6 sm:p-8">
-        <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
-          <div className="min-w-0">
-            <div className="text-[13px] font-semibold text-white/70">
+      <div className="relative px-6 py-4 sm:px-8 sm:py-5">
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+          <div className="min-w-0 flex-1" style={{ minWidth: 260 }}>
+            <div className="text-[13px] text-white/70 truncate">
               {stageLabel}
               {targetAirline ? ` · objetivo ${targetAirline}` : ""}
             </div>
-            <h1 className="mt-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-white">
-              {greetingTime()}, {firstName}
-            </h1>
-            <p className="mt-2.5 text-[15px] text-white/75 flex flex-wrap items-center gap-x-2 gap-y-1.5">
-              <span className="tabular-nums">{totalHours}h totales</span>
-              {streakDays > 0 && (
-                <>
-                  <span className="text-white/30">·</span>
-                  <span className={`${heroChip} tabular-nums`}>
-                    <Flame className="h-3 w-3" />
-                    {streakDays} {streakDays === 1 ? "día" : "días"} de racha
-                  </span>
-                </>
-              )}
-            </p>
 
             {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la
                 invitación a generarlo, nunca un 0% con la barra en cero. */}
-            <div className="mt-6 max-w-[560px]">
-              {progress === null ? (
-                <>
-                  <div className="flex justify-between items-baseline gap-3 mb-2">
-                    <span className="text-[13px] font-semibold text-white/70">
-                      Tu avance a aerolínea
-                    </span>
-                    <span className="text-2xl font-semibold tracking-[-0.03em] text-white/40">
-                      —
-                    </span>
-                  </div>
-                  <Link
-                    to="/onboarding"
-                    className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
-                  >
-                    Dinos en qué etapa vas y lo calculamos
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <div className="flex justify-between items-baseline gap-3 mb-2">
-                    <span className="text-[13px] font-semibold text-white/70">
-                      Tu avance a aerolínea
-                    </span>
-                    <span className="text-gradient-gold tabular-nums text-2xl font-semibold tracking-[-0.03em]">
-                      <CountUp to={progress} />%
-                    </span>
-                  </div>
-                  <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
-                    <div
-                      className="h-full rounded-full bg-white transition-[width] duration-1000"
-                      style={{ width: `${progress}%` }}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
+            {progress === null ? (
+              <Link
+                to="/onboarding"
+                className="mt-1 inline-flex items-center gap-2 text-[15px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+              >
+                Dinos en qué etapa vas y calculamos tu avance
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            ) : (
+              <div className="mt-1 max-w-[520px]">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="text-[15px] font-semibold text-white">
+                    Tu avance a aerolínea
+                  </span>
+                  <span className="text-gradient-gold tabular-nums text-[24px] font-semibold tracking-[-0.02em]">
+                    <CountUp to={progress} />%
+                  </span>
+                </div>
+                <div className="relative mt-2 h-1.5 rounded-full overflow-hidden bg-white/20">
+                  <div
+                    className="h-full rounded-full bg-white transition-[width] duration-1000"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Right CTA */}
-          <div className="flex flex-col items-start lg:items-end gap-2.5">
+          <div className="flex items-center gap-3">
             {trialLeft !== null && trialLeft > 0 && (
               <span className={`${heroChip} tabular-nums`}>
                 <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
               </span>
             )}
             {showCta && (
-              <>
-                <Link
-                  to={primaryAction.href}
-                  className={appButtonClass({ size: "lg" })}
-                  style={appButtonStyle()}
-                >
-                  {primaryAction.cta} <ArrowRight className="h-4 w-4" />
-                </Link>
-                <div className="text-[12px] text-white/70">~{primaryAction.minutes} min</div>
-              </>
+              <Link
+                to={primaryAction.href}
+                className={appButtonClass({ size: "lg" })}
+                style={appButtonStyle()}
+              >
+                {primaryAction.cta} <ArrowRight className="h-4 w-4" />
+              </Link>
             )}
           </div>
         </div>
@@ -635,7 +585,7 @@ function TodayRow({ step, last }: { step: NextStep; last: boolean }) {
   return (
     <Link
       to={step.href}
-      className={`flex items-center gap-3.5 px-4 py-3 transition-colors hover:bg-muted/60 ${
+      className={`flex items-center gap-4 px-4 py-3 transition-colors hover:bg-muted/60 ${
         last ? "" : "border-b border-border"
       }`}
     >
@@ -644,7 +594,7 @@ function TodayRow({ step, last }: { step: NextStep; last: boolean }) {
         <div className="text-[15px] font-semibold text-foreground tracking-[-0.015em]">
           {step.title}
         </div>
-        <div className="text-[13px] text-muted-foreground leading-snug mt-0.5">
+        <div className="text-[13px] text-muted-foreground leading-snug mt-1">
           {step.description}
         </div>
       </div>
@@ -713,11 +663,11 @@ function WingmanInsight({
   return (
     <div className="relative overflow-hidden rounded-xl surface p-5">
       <div className="relative">
-        <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
+        <div className="inline-flex items-center gap-2 text-[13px] text-muted-foreground">
           <Radar className="h-3 w-3" /> Insight de Wingman
         </div>
-        <h3 className="mt-2.5 text-lg font-semibold tracking-[-0.02em] text-foreground">{insight.title}</h3>
-        <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
+        <h3 className="mt-3 text-[17px] font-semibold tracking-[-0.02em] text-foreground">{insight.title}</h3>
+        <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">{insight.body}</p>
         <Link
           to={insight.href}
           className={appButtonClass({ variant: "secondary" }, "mt-4")}
@@ -748,10 +698,10 @@ function EmptyState({
 }) {
   return (
     <div className="py-5 flex flex-col items-center text-center">
-      <div className="flex items-center justify-center h-11 w-11 rounded-md border border-border bg-muted text-muted-foreground">
+      <div className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-muted text-muted-foreground">
         <Ic className="h-5 w-5" />
       </div>
-      <div className="mt-3 text-sm font-semibold text-foreground tracking-[-0.015em]">{title}</div>
+      <div className="mt-3 text-[15px] font-semibold text-foreground tracking-[-0.015em]">{title}</div>
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[34ch]">{line}</p>
       <Link
         to={href}
@@ -763,94 +713,25 @@ function EmptyState({
   )
 }
 
-/** Preview de la semana: 7 barras, apagadas hasta el primer día de racha. */
-function StreakBars({ current }: { current: number }) {
-  return (
-    <div className="flex gap-1">
-      {Array.from({ length: 7 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex-1 h-1.5 rounded-full"
-          style={{
-            background: i < current ? "var(--av-amber-400)" : "var(--muted)",
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
-  if (current === 0) {
-    return (
-      <div className="relative overflow-hidden rounded-xl surface p-5">
-        <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
-          <Flame className="h-3 w-3" /> Tu racha
-        </span>
-        <EmptyState
-          icon={Flame}
-          title="Enciende tu racha"
-          line="Una sola pregunta hoy cuenta como día activo y arranca la cuenta."
-          cta="Responder una pregunta"
-          href={DAILY_ACTION.href}
-        />
-        <div className="div-dotted my-4" />
-        <StreakBars current={0} />
-        <p className="mt-2 text-[12px] text-muted-foreground">Así se ve tu semana: hoy es el primer casillero.</p>
-      </div>
-    )
-  }
-
-  return (
-    <div className="relative overflow-hidden rounded-xl surface p-5">
-      <div className="relative">
-        <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
-          <Flame className="h-3 w-3" /> Tu racha
-        </span>
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="tabular-nums text-[44px] font-semibold leading-none tracking-[-0.04em] text-foreground">
-            <CountUp to={current} />
-          </span>
-          <span className="text-[15px] text-muted-foreground">
-            {current === 1 ? "día" : "días"}
-          </span>
-        </div>
-        {longest > current && (
-          <p className="mt-1.5 tabular-nums text-[13px] text-muted-foreground">
-            Mejor racha: {longest} días
-          </p>
-        )}
-
-        {/* Sin caja de color dentro de la card: una caja anidada en otra caja
-            se lee como alerta de plantilla. Basta una linea fina y el aviso. */}
-        {atRisk && (
-          <div className="mt-4 pt-4 border-t border-border">
-            <span
-              className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold"
-              style={{ color: "var(--av-warn-fg)" }}
-            >
-              <AlertTriangle className="h-4 w-4" /> Tu racha está en riesgo
-            </span>
-            <p className="mt-1 text-[13px] text-muted-foreground leading-snug">
-              Si no estudias hoy se reinicia. Con una pregunta la salvas.
-            </p>
-            <Link
-              to={DAILY_ACTION.href}
-              className={appButtonClass({ variant: "secondary" }, "mt-4")}
-            >
-              Salvar mi racha <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        )}
-
-        <div className="div-dotted my-4" />
-        <StreakBars current={current} />
-      </div>
-    </div>
-  )
-}
-
-function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: boolean }) {
+/**
+ * Actividad. Sin datos no se dibujan 12 semanas en gris: una cuadrícula vacía
+ * de 280px de alto ocupa media pantalla para no decir nada. Se colapsa a los 7
+ * días de la semana en curso y crece cuando hay con qué llenarla.
+ *
+ * Absorbe además el aviso de racha en riesgo, que antes vivía en una card
+ * aparte repitiendo un dato que ya está en el panel de indicadores.
+ */
+function ActivityHeatmap({
+  data,
+  loading,
+  streakAtRisk,
+  longestStreak,
+}: {
+  data: ActivityDay[]
+  loading: boolean
+  streakAtRisk: boolean
+  longestStreak: number
+}) {
   const weeks: ActivityDay[][] = []
   for (let i = 0; i < data.length; i += 7) weeks.push(data.slice(i, i + 7))
   const total = data.reduce((a, d) => a + d.activities_count, 0)
@@ -866,29 +747,49 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
     <div className="rounded-xl surface p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
+          <div className="inline-flex items-center gap-2 text-[13px] text-muted-foreground">
             <Activity className="h-3 w-3" /> Tu actividad
           </div>
-          <div className="text-sm font-semibold text-foreground mt-1">Últimas 12 semanas</div>
+          <div className="text-[15px] font-semibold text-foreground mt-1">
+            {total > 0 ? "Últimas 12 semanas" : "Esta semana"}
+          </div>
         </div>
         <div className="text-right">
           <div className="tabular-nums text-[24px] font-semibold text-foreground tracking-[-0.03em] leading-none">
             {total > 0 ? <CountUp to={total} /> : "—"}
           </div>
-          <div className="text-[12.5px] text-muted-foreground mt-1">actividades</div>
+          <div className="text-[13px] text-muted-foreground mt-1">actividades</div>
         </div>
       </div>
 
       {loading ? (
-        <div className="h-[122px] rounded-xl bg-muted animate-pulse" />
+        <div className="h-[60px] rounded-xl bg-muted animate-pulse" />
+      ) : total === 0 ? (
+        <>
+          {/* Una sola fila de 7 días en lugar de 12 semanas en gris. */}
+          <div className="flex gap-2 items-end">
+            {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
+              <div key={i} className="flex flex-col items-center gap-2 flex-1">
+                <div
+                  className="w-full rounded-lg"
+                  style={{ height: 32, background: "var(--muted)" }}
+                />
+                <span className="text-[12px] text-muted-foreground">{d}</span>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-[13px] text-muted-foreground">
+            Tu primera actividad aparece aquí hoy.
+          </p>
+        </>
       ) : (
         <>
-          <div className="flex gap-1 items-start" style={total === 0 ? { opacity: 0.3 } : undefined}>
-            <div className="flex flex-col gap-[3px] mt-0.5 mr-1">
+          <div className="flex gap-2 items-start">
+            <div className="flex flex-col gap-[3px] mt-1 mr-1">
               {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
                 <div
                   key={i}
-                  className="mono text-[11px] text-muted-foreground text-right"
+                  className="text-[12px] text-muted-foreground text-right"
                   style={{ height: 14, lineHeight: "14px", width: 12 }}
                 >
                   {i % 2 === 0 ? d : ""}
@@ -896,47 +797,59 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
               ))}
             </div>
             <div className="flex gap-[3px] overflow-x-auto flex-1 pb-1">
-              {total === 0
-                ? Array.from({ length: 12 }).map((_, wi) => (
-                    <div key={wi} className="flex flex-col gap-[3px]">
-                      {Array.from({ length: 7 }).map((_, di) => (
-                        <div
-                          key={di}
-                          className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0"
-                          style={{ background: "var(--muted)" }}
-                        />
-                      ))}
-                    </div>
-                  ))
-                : weeks.map((week, wi) => (
-                    <div key={wi} className="flex flex-col gap-[3px]">
-                      {week.map((d) => (
-                        <div
-                          key={d.date}
-                          className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0 transition-transform hover:scale-150"
-                          style={{ background: color(d.activities_count) }}
-                          title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
-                        />
-                      ))}
-                    </div>
+              {weeks.map((week, wi) => (
+                <div key={wi} className="flex flex-col gap-[3px]">
+                  {week.map((d) => (
+                    <div
+                      key={d.date}
+                      className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0 transition-transform hover:scale-150"
+                      style={{ background: color(d.activities_count) }}
+                      title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
+                    />
                   ))}
+                </div>
+              ))}
             </div>
           </div>
 
-          {total === 0 ? (
-            <p className="mt-3.5 text-[13px] text-muted-foreground">
-              Tu primera actividad aparece aquí hoy.
-            </p>
-          ) : (
-            <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-muted-foreground justify-end">
+          <div className="mt-4 flex items-center justify-between gap-4 flex-wrap">
+            {longestStreak > 0 ? (
+              <span className="tabular-nums text-[13px] text-muted-foreground">
+                Mejor racha: {longestStreak} días
+              </span>
+            ) : (
+              <span />
+            )}
+            <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
               <span>Menos</span>
               {[0, 1, 3, 5, 7].map((c) => (
                 <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
               ))}
               <span>Más</span>
             </div>
-          )}
+          </div>
         </>
+      )}
+
+      {/* El aviso de racha vive aquí, junto a la actividad que lo produce, y no
+          en una card propia repitiendo un dato que ya está en los indicadores. */}
+      {streakAtRisk && (
+        <div className="mt-4 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0">
+            <span
+              className="inline-flex items-center gap-2 text-[15px] font-semibold"
+              style={{ color: "var(--av-warn-fg)" }}
+            >
+              <AlertTriangle className="h-4 w-4" /> Tu racha está en riesgo
+            </span>
+            <p className="mt-1 text-[13px] text-muted-foreground">
+              Si no estudias hoy se reinicia. Con una pregunta la salvas.
+            </p>
+          </div>
+          <Link to={DAILY_ACTION.href} className={appButtonClass({ variant: "secondary" })}>
+            Salvar mi racha <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
       )}
     </div>
   )
@@ -968,7 +881,7 @@ function AchievementsCard({
         right={
           <Link
             to="/app/perfil"
-            className="text-xs font-semibold inline-flex items-center gap-1 hover:gap-1.5 transition-all"
+            className="text-[12px] font-semibold inline-flex items-center gap-1 hover:gap-2 transition-all"
             style={{ color: "var(--av-blue-500)" }}
           >
             Ver todos <ArrowRight className="h-3 w-3" />
@@ -986,11 +899,11 @@ function AchievementsCard({
           href={DAILY_ACTION.href}
         />
       ) : (
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2.5">
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
           {unlocked.slice(0, 8).map((a) => (
             <div key={a.code} className="aspect-square relative group" title={`${a.name}: ${a.description}`}>
               <div
-                className="w-full h-full rounded-xl flex items-center justify-center text-xl transition-transform hover:scale-110"
+                className="w-full h-full rounded-xl flex items-center justify-center text-[20px] transition-transform hover:scale-110"
                 style={{
                   background: TIER_GRAD[a.tier],
                   boxShadow:
@@ -1009,17 +922,17 @@ function AchievementsCard({
           <div className="div-dotted my-4" />
           <div className="flex items-center gap-3">
             <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-lg opacity-40"
+              className="w-11 h-11 rounded-xl flex items-center justify-center text-[17px] opacity-40"
               style={{ background: TIER_GRAD[next.tier], filter: "grayscale(0.5)" }}
             >
               {next.icon}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[11px] text-muted-foreground tracking-[0.12em] uppercase font-semibold">
+              <div className="mono text-[12px] text-muted-foreground tracking-[0.12em] uppercase font-semibold">
                 Próximo
               </div>
-              <div className="text-sm font-semibold text-foreground truncate">{next.name}</div>
-              <div className="text-xs text-muted-foreground truncate">{next.description}</div>
+              <div className="text-[15px] font-semibold text-foreground truncate">{next.name}</div>
+              <div className="text-[12px] text-muted-foreground truncate">{next.description}</div>
             </div>
           </div>
         </>
@@ -1059,16 +972,16 @@ function CohortCard({
           {peers.map((p) => (
             <div
               key={p.user_id}
-              className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg transition-colors hover:bg-muted/50"
+              className="flex items-center gap-3 px-2 py-2 rounded-lg transition-colors hover:bg-muted/50"
             >
               <div
-                className="mono w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-xs"
+                className="mono w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-[12px]"
                 style={{ background: "var(--av-navy-800)" }}
               >
                 {p.username[0]?.toUpperCase() ?? "?"}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="mono text-[14px] font-semibold text-foreground">@{p.username}</div>
+                <div className="mono text-[15px] font-semibold text-foreground">@{p.username}</div>
               </div>
               {p.current_streak > 0 && (
                 <div className="chip chip-amber mono tabular-nums">
@@ -1094,17 +1007,17 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
       className="surface-lift anim-fade-up relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl p-5 text-white"
       style={{ background: "var(--av-navy-900)", border: "1px solid var(--av-navy-700)" }}
     >
-      <div className="flex items-center gap-3.5">
+      <div className="flex items-center gap-4">
         <Sun className="h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
         <div>
           <div className="text-[13px]" style={{ color: "var(--av-amber-400)" }}>
             Quiz del día
           </div>
-          <div className="mt-0.5 text-[18px] font-semibold tracking-[-0.021em]">
+          <div className="mt-1 text-[17px] font-semibold tracking-[-0.021em]">
             <span className="tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
             {firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
-          <div className="text-[13px] text-white/60 mt-0.5">Se renueva mañana.</div>
+          <div className="text-[13px] text-white/60 mt-1">Se renueva mañana.</div>
         </div>
       </div>
       <span
@@ -1124,12 +1037,12 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
 function DashboardSkeleton() {
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto animate-pulse">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto animate-pulse">
         {/* Hero */}
         <div className="h-[232px] bg-muted rounded-lg" />
 
         {/* Instrument cluster */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6 mb-6">
           <div className="h-[106px] bg-muted rounded-lg" />
           <div className="h-[106px] bg-muted rounded-lg" />
           <div className="h-[106px] bg-muted rounded-lg" />
@@ -1137,16 +1050,16 @@ function DashboardSkeleton() {
         </div>
 
         {/* Plan de hoy + Wingman */}
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-6">
           <div>
-            <div className="h-[52px] w-[260px] bg-muted rounded-lg mb-3.5" />
+            <div className="h-[52px] w-[260px] bg-muted rounded-lg mb-4" />
             <div className="h-[186px] bg-muted rounded-lg mt-3" />
           </div>
           <div className="h-[226px] bg-muted rounded-lg" />
         </div>
 
         {/* Racha + actividad */}
-        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-6">
           <div className="h-[248px] bg-muted rounded-lg" />
           <div className="h-[248px] bg-muted rounded-lg" />
         </div>
