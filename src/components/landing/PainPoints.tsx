@@ -2,11 +2,11 @@ import { Clock, Map, BookX, Globe2, Plane, AlertCircle } from "lucide-react"
 import { Reveal } from "@/components/Reveal"
 
 const pains = [
-  { icon: Map, title: "¿Qué estudio primero?", body: "Tantos temas y vencimientos que perdés horas decidiendo en lugar de estudiando." },
-  { icon: BookX, title: "Los exámenes Aerocivil son densos", body: "Meteorología, reglamento, navegación, motores… y solo encontrás PDFs viejos y apuntes sueltos." },
-  { icon: Globe2, title: "El inglés ICAO te frena", body: "Sabés volar, pero el ICAO 4 es la pared invisible que separa aerolínea de hangar." },
+  { icon: Map, title: "¿Qué estudio primero?", body: "Tantos temas y vencimientos que pierdes horas decidiendo en lugar de estudiando." },
+  { icon: BookX, title: "Los exámenes Aerocivil son densos", body: "Meteorología, reglamento, navegación, motores… y solo encuentras PDFs viejos y apuntes sueltos." },
+  { icon: Globe2, title: "El inglés ICAO te frena", body: "Sabes volar, pero el ICAO 4 es la pared invisible que separa aerolínea de hangar." },
   { icon: Plane, title: "¿Cómo postular a Avianca o LATAM?", body: "Cada aerolínea tiene requisitos distintos, y nadie los reúne en un solo lugar." },
-  { icon: Clock, title: "Estudiar solo es lento", body: "Sin comunidad, sin progreso visible, perdés la motivación a la tercera semana." },
+  { icon: Clock, title: "Estudiar solo es lento", body: "Sin comunidad, sin progreso visible, pierdes la motivación a la tercera semana." },
   { icon: AlertCircle, title: "Se vencen tus licencias", body: "Médico clase 1, licencia, recurrent training… cuando te das cuenta, ya vencieron." },
 ]
 

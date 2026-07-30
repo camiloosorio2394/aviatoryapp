@@ -38,18 +38,18 @@ export function Hero() {
 
           <h1 className="mt-5 text-[2.6rem] sm:text-6xl font-extrabold tracking-[-0.035em] leading-[1.04]">
             De estudiante a{" "}
-            <span style={{ color: "var(--av-blue-500)" }}>piloto de aerolínea</span>
+            <span className="text-gradient-gold">piloto de aerolínea</span>
           </h1>
 
           <p className="mt-5 text-[17px] sm:text-lg text-muted-foreground max-w-xl mx-auto lg:mx-0 leading-relaxed">
             Cursos, simulacros y práctica guiada para aprobar tus chequeos, llegar a tu nivel de
-            inglés ICAO y entrar a una aerolínea. Aprendé a tu ritmo, paso a paso.
+            inglés ICAO y entrar a una aerolínea. Aprende a tu ritmo, paso a paso.
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center lg:items-start justify-center lg:justify-start gap-3">
             <Button asChild size="lg" className="rounded-full text-base px-7 h-12 font-semibold">
               <Link to="/login?mode=signup">
-                Empezá gratis <ArrowRight className="ml-1.5 h-4 w-4" />
+                Empieza gratis <ArrowRight className="ml-1.5 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="rounded-full text-base px-6 h-12 font-semibold">
@@ -73,14 +73,14 @@ export function Hero() {
               ))}
             </div>
             <div className="text-[13.5px] text-muted-foreground">
-              <strong className="text-foreground">+2.000 pilotos</strong> ya estudian acá
+              <strong className="text-foreground">+2.000 pilotos</strong> ya estudian aquí
             </div>
           </div>
 
           <div className="mt-5 flex items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 flex-wrap text-[13px] text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> 7 días gratis</span>
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Sin tarjeta</span>
-            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Cancelás cuando quieras</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Cancelas cuando quieras</span>
           </div>
         </div>
 

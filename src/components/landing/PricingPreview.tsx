@@ -74,7 +74,7 @@ export function PricingPreview() {
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-3 text-[16px] text-muted-foreground leading-relaxed">
-              Empezás gratis. Pagás solo si te ayuda a llegar a tu meta.
+              Empiezas gratis. Pagas solo si te ayuda a llegar a tu meta.
             </p>
           </Reveal>
         </div>

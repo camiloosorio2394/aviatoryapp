@@ -276,7 +276,7 @@ export function Login() {
                   🎁 Te invitó un piloto
                 </div>
                 <p className="text-muted-foreground mt-0.5 text-xs">
-                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibís 14 días de prueba en lugar de 7
+                  Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibes 14 días de prueba en lugar de 7
                 </p>
               </div>
             )}

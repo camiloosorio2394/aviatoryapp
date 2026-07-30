@@ -13,6 +13,7 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 | `entrevistas-interview.jpg` | Card Simulador de entrevistas | https://unsplash.com/photos/eF7HN40WbAQ |
 | `aerolinea-piloto.jpg` | Card Ingreso a aerolínea | https://unsplash.com/photos/1FDKmozNMac (Oliver Streit) |
 | `wingman-cockpit-dusk.jpg` | Card Wingman | https://unsplash.com/photos/eUCmDtS9x3w (Shot By Joe) |
+| `cta-cockpit-dawn.jpg` | Banda CTA final de la landing | https://unsplash.com/photos/ypsFFH-XRv0 |
 
 Regla al agregar fotos nuevas: descargar con `?w=1000` (cards) o `?w=1600`
 (heros full-width), formato JPG, y evitar fotos con branding visible de

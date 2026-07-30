@@ -53,7 +53,7 @@ export function Comparison() {
           </Reveal>
           <Reveal delay={80}>
             <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-              Lo que recibís con Aviatory vs. lo que tenés hoy
+              Lo que recibes con Aviatory vs. lo que tienes hoy
             </h2>
           </Reveal>
         </div>
