@@ -452,9 +452,9 @@ export function Dashboard() {
               title="3 acciones cortas, además del quiz"
               hint="No hace falta completarlas hoy."
             />
-            <div className="stagger grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
-              {todayPlan.map((step) => (
-                <TodayCard key={step.title} step={step} />
+            <div className="rounded-lg border border-border bg-card overflow-hidden mt-3">
+              {todayPlan.map((step, i) => (
+                <TodayRow key={step.title} step={step} last={i === todayPlan.length - 1} />
               ))}
             </div>
           </section>
@@ -622,39 +622,31 @@ function CockpitHero({
 }
 
 /**
- * Los iconos van en un cuadro neutro. Antes cada card traía su propio tinte
- * pastel (azul, verde, violeta) sin que el color dijera nada: tres colores
- * distintos para tres acciones igual de importantes es decoración, no
- * información. El único acento vivo es el borde al pasar el cursor.
+ * Fila compacta, no card. Tres cards de 180px para decir "Revisa tu match,
+ * ~5 min" era mucho aire diciendo poco: una herramienta muestra varias cosas
+ * ordenadas en poco espacio. El icono va en un cuadro neutro, porque tres
+ * tintes pastel para tres acciones igual de importantes es decoración.
  */
-function TodayCard({ step }: { step: NextStep }) {
+function TodayRow({ step, last }: { step: NextStep; last: boolean }) {
   const Ic = step.icon
   return (
     <Link
       to={step.href}
-      className="relative overflow-hidden rounded-lg border border-border bg-card p-[18px] cursor-pointer transition-colors block"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)"
-      }}
+      className={`flex items-center gap-3.5 px-4 py-3 transition-colors hover:bg-muted/60 ${
+        last ? "" : "border-b border-border"
+      }`}
     >
-      <div className="relative">
-        <div className="flex items-center justify-between">
-          <div className="w-9 h-9 rounded-md flex items-center justify-center border border-border bg-muted text-muted-foreground">
-            <Ic className="h-[17px] w-[17px]" />
-          </div>
-          <span className="mono tabular-nums text-[11.5px] text-muted-foreground">
-            ~{step.minutes} min
-          </span>
-        </div>
-        <div className="mt-3.5 text-sm font-bold text-foreground tracking-[-0.015em]">{step.title}</div>
-        <div className="mt-1 text-xs text-muted-foreground leading-relaxed">{step.description}</div>
-        <div className="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold text-foreground">
-          {step.cta} <ArrowRight className="h-3 w-3" />
-        </div>
+      <div className="w-8 h-8 rounded-md flex items-center justify-center border border-border bg-muted text-muted-foreground flex-shrink-0">
+        <Ic className="h-4 w-4" />
       </div>
+      <div className="min-w-0 flex-1">
+        <div className="text-[14px] font-bold text-foreground tracking-[-0.01em]">{step.title}</div>
+        <div className="text-[12.5px] text-muted-foreground leading-snug">{step.description}</div>
+      </div>
+      <span className="mono tabular-nums text-[11.5px] text-muted-foreground flex-shrink-0 hidden sm:block">
+        ~{step.minutes} min
+      </span>
+      <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
     </Link>
   )
 }
@@ -876,19 +868,18 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
     <div className="rounded-lg border border-border bg-card p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
-          <div
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-            style={{ color: "var(--av-blue-500)" }}
-          >
-            <Activity className="h-3.5 w-3.5" /> Tu actividad
+          <div className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            <Activity className="h-3 w-3" /> Tu actividad
           </div>
-          <div className="text-sm font-semibold text-foreground mt-0.5">Últimas 12 semanas</div>
+          <div className="text-sm font-semibold text-foreground mt-1">Últimas 12 semanas</div>
         </div>
         <div className="text-right">
-          <div className="tabular-nums text-[22px] font-extrabold text-foreground tracking-[-0.03em]">
+          <div className="mono tabular-nums text-[22px] font-bold text-foreground tracking-[-0.02em]">
             {total > 0 ? <CountUp to={total} /> : "—"}
           </div>
-          <div className="text-[11px] text-muted-foreground">actividades</div>
+          <div className="mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
+            actividades
+          </div>
         </div>
       </div>
 
@@ -1156,11 +1147,7 @@ function DashboardSkeleton() {
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
           <div>
             <div className="h-[52px] w-[260px] bg-muted rounded-lg mb-3.5" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
-              <div className="h-[158px] bg-muted rounded-lg" />
-              <div className="h-[158px] bg-muted rounded-lg" />
-              <div className="h-[158px] bg-muted rounded-lg" />
-            </div>
+            <div className="h-[186px] bg-muted rounded-lg mt-3" />
           </div>
           <div className="h-[226px] bg-muted rounded-lg" />
         </div>
