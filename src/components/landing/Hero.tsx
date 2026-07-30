@@ -10,6 +10,7 @@ import {
   Check,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 
 /**
  * Hero estilo plataforma de cursos (Platzi / Domestika / Coursera) para pilotos.
@@ -22,11 +23,6 @@ export function Hero() {
     <section className="relative overflow-hidden pt-14 pb-20 sm:pt-20 sm:pb-28">
       {/* fondo sutil, calmo */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 bg-[var(--surface-soft,transparent)]" />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-24 right-[-10%] -z-10 h-[480px] w-[480px] rounded-full opacity-50"
-        style={{ background: "radial-gradient(circle, color-mix(in oklab, var(--av-blue-400) 18%, transparent) 0%, transparent 70%)" }}
-      />
 
       <div className="relative max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-10 items-center">
         {/* ── Copy ── */}
@@ -138,13 +134,23 @@ export function Hero() {
 
 function CourseThumb({ color, icon: Icon, tag }: { color: string; icon: React.ComponentType<{ className?: string }>; tag: string }) {
   return (
-    <div
-      className="relative h-36 flex items-center justify-center"
-      style={{ background: `linear-gradient(135deg, ${color} 0%, color-mix(in oklab, ${color} 60%, #0b1020) 100%)` }}
-    >
-      <Icon className="h-12 w-12 text-white/90" />
-      <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-black/25 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-white">
+    <div className="relative h-40 overflow-hidden">
+      <img src={icaoPhoto} alt="" className="absolute inset-0 h-full w-full object-cover" />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background: `linear-gradient(to top, color-mix(in oklab, ${color} 40%, rgb(11 16 32 / 85%)) 0%, rgb(11 16 32 / 10%) 55%, transparent 100%)`,
+        }}
+      />
+      <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-black/35 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-white">
         {tag}
+      </span>
+      <span
+        className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg backdrop-blur-sm"
+        style={{ background: "rgb(11 16 32 / 45%)" }}
+      >
+        <Icon className="h-4.5 w-4.5 text-white" />
       </span>
     </div>
   )
