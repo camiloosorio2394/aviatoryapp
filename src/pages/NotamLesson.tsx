@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
@@ -9,43 +9,60 @@ import {
   Check,
   ClipboardCheck,
   Clock,
-  GraduationCap,
   Info,
-  Lightbulb,
   Library,
+  Lightbulb,
+  ListOrdered,
   Target,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
-import { SectionTitle } from "@/components/ui/section-title"
 import { supabase } from "@/integrations/supabase/client"
 import { LEVEL_META, accentText, readLocalProgress, writeLocalProgress } from "@/lib/notam"
 import { LESSON_SCREENS, LESSON_SOURCES } from "@/lib/notamLesson"
 import type { LessonBlock } from "@/lib/notamLesson"
 
 const TOTAL = LESSON_SCREENS.length
+const TOTAL_MINUTES = LESSON_SCREENS.reduce((acc, s) => acc + s.minutes, 0)
 
 /**
- * Lección NOTAM: 9 pantallas, una a la vez.
+ * Color legible para un token --av-* pintado DENTRO de la hoja.
+ *
+ * `accentText` mezcla con --foreground, que sigue el tema de la app y en modo
+ * oscuro es casi blanco: sobre el papel quedaría ilegible. Aquí mezclamos con
+ * --doc-fg, que siempre es oscuro, así que el acento se lee igual en claro y
+ * en oscuro sin perder identidad de color.
+ */
+function docAccent(token: string, mix = 45): string {
+  return `color-mix(in oklab, ${token} ${mix}%, var(--doc-fg))`
+}
+
+/** Fondo tenue de un token sobre el papel, sin transparencias que ensucien. */
+function docTint(token: string, mix = 8): string {
+  return `color-mix(in oklab, ${token} ${mix}%, var(--doc-bg))`
+}
+
+/**
+ * Lección NOTAM en formato documento: una sola hoja clara, lectura continua,
+ * índice lateral y progreso por scroll.
  * Ruta: /app/aerolinea/notam/aprende
  */
 export function NotamLesson() {
-  const [idx, setIdx] = useState(0)
-  const [readScreens, setReadScreens] = useState<number[]>(() => readLocalProgress().lessonScreens)
-  const [finished, setFinished] = useState(false)
+  const [activeN, setActiveN] = useState(1)
+  const [readSections, setReadSections] = useState<number[]>(() => readLocalProgress().lessonScreens)
+  const [progress, setProgress] = useState(0)
+  const sheetRef = useRef<HTMLElement | null>(null)
+  const mobileTocRef = useRef<HTMLDetailsElement | null>(null)
 
-  const screen = LESSON_SCREENS[idx]
-  const level = LEVEL_META[screen.level]
-
-  // Marca la pantalla como leída: el respaldo local manda, la base de datos es un extra.
+  // Marca una sección como leída: el respaldo local manda, la base de datos es
+  // un extra. Si la RPC falla no se muestra nada: el progreso ya quedó local.
   const markRead = useCallback((n: number) => {
-    setReadScreens((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
+    setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
 
     const stored = readLocalProgress().lessonScreens
     if (stored.includes(n)) return
     writeLocalProgress({ lessonScreens: [...stored, n].sort((a, b) => a - b) })
 
-    // Si la persistencia remota falla no pasa nada: el progreso ya quedó local.
     void supabase
       .rpc("notam_mark_progress", { p_lesson_screen: n, p_practice_id: null })
       .then(
@@ -54,216 +71,292 @@ export function NotamLesson() {
       )
   }, [])
 
-  // Scroll al tope cada vez que cambia la pantalla.
+  // Sección activa + marcado de leídas. La banda de observación es la franja
+  // superior de la pantalla, justo debajo del topbar: cuando una sección entra
+  // ahí, el usuario ya llegó a ella.
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }, [idx])
+    const visible = new Set<number>()
 
-  const goTo = useCallback(
-    (nextIdx: number) => {
-      if (nextIdx < 0 || nextIdx >= TOTAL || nextIdx === idx) return
-      markRead(LESSON_SCREENS[idx].n)
-      setIdx(nextIdx)
-    },
-    [idx, markRead],
-  )
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const n = Number((entry.target as HTMLElement).dataset.section)
+          if (!Number.isFinite(n)) continue
+          if (entry.isIntersecting) {
+            visible.add(n)
+            markRead(n)
+          } else {
+            visible.delete(n)
+          }
+        }
+        if (visible.size === 0) return
+        setActiveN(Math.min(...visible))
+      },
+      { rootMargin: "-84px 0px -58% 0px", threshold: 0 },
+    )
 
-  const isLast = idx === TOTAL - 1
+    for (const s of LESSON_SCREENS) {
+      const el = document.getElementById(`s-${s.n}`)
+      if (el) observer.observe(el)
+    }
+    return () => observer.disconnect()
+  }, [markRead])
+
+  // Porcentaje leído del documento, medido sobre la hoja y no sobre la página.
+  useEffect(() => {
+    const measure = () => {
+      const el = sheetRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const recorrido = rect.height - window.innerHeight * 0.75
+      if (recorrido <= 0) {
+        setProgress(100)
+        return
+      }
+      const avance = (window.innerHeight * 0.25 - rect.top) / recorrido
+      setProgress(Math.round(Math.min(1, Math.max(0, avance)) * 100))
+    }
+
+    // La primera medición va en un frame aparte para no llamar a setState
+    // dentro del cuerpo del efecto.
+    const raf = window.requestAnimationFrame(measure)
+    window.addEventListener("scroll", measure, { passive: true })
+    window.addEventListener("resize", measure)
+    return () => {
+      window.cancelAnimationFrame(raf)
+      window.removeEventListener("scroll", measure)
+      window.removeEventListener("resize", measure)
+    }
+  }, [])
+
+  const goToSection = useCallback((n: number) => {
+    const el = document.getElementById(`s-${n}`)
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+    const details = mobileTocRef.current
+    if (details) details.open = false
+  }, [])
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <Link
-          to="/app/aerolinea/notam"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
-        </Link>
-
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1180px] mx-auto">
         <PageHeader
           eyebrow={
             <>
-              <BookOpen className="h-3.5 w-3.5" /> NOTAM · Aprende
+              <BookOpen className="h-3.5 w-3.5" /> NOTAM · Lección
             </>
           }
-          title={screen.title}
-          subtitle={screen.kicker}
+          title="Qué es un NOTAM y cómo leerlo"
+          subtitle="Documento de estudio en 9 secciones, para leer de corrido como un PDF."
           actions={
-            <>
-              <button
-                type="button"
-                onClick={() => goTo(idx - 1)}
-                disabled={idx === 0}
-                className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold border border-border bg-card text-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
-              >
-                <ArrowLeft className="h-3.5 w-3.5" /> Anterior
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (isLast) {
-                    markRead(screen.n)
-                    setFinished(true)
-                    return
-                  }
-                  goTo(idx + 1)
-                }}
-                className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-                style={{ background: "var(--av-blue-500)" }}
-              >
-                {isLast ? "Terminar" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
-              </button>
-            </>
+            <Link
+              to="/app/aerolinea/notam"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold border border-border bg-card text-foreground transition-transform hover:-translate-y-0.5"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Volver a NOTAM
+            </Link>
           }
         >
-          <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span
-              className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-2.5 py-1 rounded-full"
-              style={{
-                color: accentText(level.color),
-                background: `color-mix(in oklab, ${level.color} 12%, transparent)`,
-                border: `1px solid color-mix(in oklab, ${level.color} 30%, transparent)`,
-              }}
-            >
-              <Target className="h-3 w-3" /> {level.label}
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12.5px] font-semibold text-muted-foreground">
+            <span className="inline-flex items-center gap-1.5">
+              <Clock className="h-3 w-3" /> {TOTAL_MINUTES} min de lectura
             </span>
-            <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-muted-foreground">
-              <Clock className="h-3 w-3" /> {screen.minutes} min de lectura
+            <span className="inline-flex items-center gap-1.5">
+              <ListOrdered className="h-3 w-3" /> {TOTAL} secciones
             </span>
-            <span className="text-[12px] font-semibold text-muted-foreground tabular">
-              Pantalla {screen.n} de {TOTAL}
+            <span className="tabular">
+              {readSections.length} de {TOTAL} leídas
             </span>
           </div>
         </PageHeader>
 
-        <ProgressBar
-          current={idx}
-          readScreens={readScreens}
-          onJump={(nextIdx) => {
-            setFinished(false)
-            goTo(nextIdx)
-          }}
-        />
-
-        {/* key por pantalla para que la animación de entrada se repita al avanzar */}
-        <article
-          key={screen.n}
-          className="mt-6 rounded-2xl border border-border bg-card p-5 sm:p-7 anim-fade-up"
-        >
-          <div className="flex flex-col gap-4">
-            {screen.blocks.map((block, i) => (
-              <Block key={`${screen.n}-${i}`} block={block} />
-            ))}
-          </div>
-        </article>
-
-        {isLast && (
-          <ClosingCard
-            finished={finished || readScreens.includes(screen.n)}
-            onFinish={() => {
-              markRead(screen.n)
-              setFinished(true)
-            }}
-          />
-        )}
-
-        {/* Navegación inferior, para no obligar a subir */}
-        <div className="mt-7 flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(idx - 1)}
-            disabled={idx === 0}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card text-foreground transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+        <div className="lg:grid lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-8 lg:items-start">
+          {/* Índice lateral: usa los tokens de la app, no es papel */}
+          <aside
+            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl border border-border bg-card p-3"
+            aria-label="Índice de la lección"
           >
-            <ArrowLeft className="h-4 w-4" /> Anterior
-          </button>
-          <div className="text-[13px] text-muted-foreground tabular hidden sm:block">
-            {readScreens.length} de {TOTAL} pantallas leídas
+            <div className="px-2.5 pt-1 pb-2 text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+              Contenido
+            </div>
+            <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
+          </aside>
+
+          <div className="min-w-0">
+            {/* Índice desplegable en móvil */}
+            <details
+              ref={mobileTocRef}
+              className="lg:hidden mb-4 rounded-2xl border border-border bg-card overflow-hidden"
+            >
+              <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-4 py-3 flex items-center justify-between gap-3 text-[14px] font-semibold text-foreground">
+                <span className="inline-flex items-center gap-2">
+                  <ListOrdered className="h-4 w-4" /> Contenido de la lección
+                </span>
+                <span className="text-[12px] font-semibold text-muted-foreground tabular">
+                  {activeN} / {TOTAL}
+                </span>
+              </summary>
+              <div className="px-2 pb-3">
+                <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
+              </div>
+            </details>
+
+            {/* Barra de lectura: fina, fija y por encima de la hoja */}
+            <div className="sticky top-16 z-20 pt-2 pb-2.5 bg-background/90 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <div
+                  className="h-1 flex-1 rounded-full overflow-hidden"
+                  style={{ background: "color-mix(in oklab, var(--muted-foreground) 20%, transparent)" }}
+                  role="progressbar"
+                  aria-label="Progreso de lectura del documento"
+                  aria-valuenow={progress}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="h-full rounded-full transition-[width] duration-150"
+                    style={{ width: `${progress}%`, background: "var(--av-blue-500)" }}
+                  />
+                </div>
+                <span className="shrink-0 text-[11.5px] font-semibold text-muted-foreground tabular">
+                  Sección {activeN} de {TOTAL}
+                </span>
+              </div>
+            </div>
+
+            {/* La hoja: papel claro, continuo, con todo el contenido en orden */}
+            <article
+              ref={sheetRef}
+              className="doc-sheet rounded-2xl px-5 sm:px-10 py-8 sm:py-11"
+            >
+              <header className="pb-7 border-b doc-rule">
+                <div className="text-[11px] font-bold uppercase tracking-[0.16em] doc-muted">
+                  Documento de estudio · NOTAM
+                </div>
+                <p className="mt-3 mb-0 text-[15px] leading-[1.75] max-w-[64ch]">
+                  Basado en el Doc 8400 de la OACI (PANS-ABC, 6ª ed.), el Anexo 15 y los resúmenes
+                  mensuales de NOTAM vigentes de la Aeronáutica Civil de Colombia. Léelo de corrido:
+                  cada sección continúa la anterior y el índice te devuelve a cualquier punto.
+                </p>
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12.5px] font-semibold doc-muted">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" /> {TOTAL_MINUTES} minutos
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <ListOrdered className="h-3.5 w-3.5" /> {TOTAL} secciones
+                  </span>
+                  <span>Material de la Aerocivil con corte al 29 JUL 2026</span>
+                </div>
+              </header>
+
+              {LESSON_SCREENS.map((screen) => {
+                const level = LEVEL_META[screen.level]
+                return (
+                  <section
+                    key={screen.n}
+                    id={`s-${screen.n}`}
+                    data-section={screen.n}
+                    className="scroll-mt-24 py-8 sm:py-9 border-t doc-rule first-of-type:border-t-0"
+                  >
+                    <header className="flex items-start gap-3 sm:gap-5">
+                      <span
+                        className="mono shrink-0 text-[30px] sm:text-[40px] font-extrabold leading-none tabular"
+                        style={{ color: "color-mix(in oklab, var(--doc-fg) 17%, var(--doc-bg))" }}
+                        aria-hidden
+                      >
+                        {String(screen.n).padStart(2, "0")}
+                      </span>
+                      <div className="min-w-0">
+                        <h2 className="m-0 text-[19px] sm:text-[23px] font-extrabold tracking-[-0.02em] leading-[1.2]">
+                          {screen.title}
+                        </h2>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] doc-muted">
+                          <span>{screen.kicker}</span>
+                          <span
+                            className="inline-flex items-center gap-1 font-semibold"
+                            style={{ color: docAccent(level.color, 55) }}
+                          >
+                            {level.label}
+                          </span>
+                          <span className="inline-flex items-center gap-1">
+                            <Clock className="h-3 w-3" /> {screen.minutes} min
+                          </span>
+                        </div>
+                      </div>
+                    </header>
+
+                    <div className="doc-prose mt-5 flex flex-col gap-4">
+                      {screen.blocks.map((block, i) => (
+                        <Block key={`${screen.n}-${i}`} block={block} />
+                      ))}
+                    </div>
+                  </section>
+                )
+              })}
+
+              <SourcesBlock />
+              <NextSteps readCount={readSections.length} />
+            </article>
           </div>
-          <button
-            type="button"
-            onClick={() => {
-              if (isLast) {
-                markRead(screen.n)
-                setFinished(true)
-                return
-              }
-              goTo(idx + 1)
-            }}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--av-blue-500)" }}
-          >
-            {isLast ? "Terminar la lección" : "Siguiente"} <ArrowRight className="h-4 w-4" />
-          </button>
         </div>
       </div>
     </AppLayout>
   )
 }
 
-// ─── Progreso ────────────────────────────────────────────────────────────────
+// ─── Índice ──────────────────────────────────────────────────────────────────
 
-interface ProgressBarProps {
-  current: number
-  readScreens: number[]
-  onJump: (idx: number) => void
+interface TocListProps {
+  activeN: number
+  readSections: number[]
+  onSelect: (n: number) => void
 }
 
-function ProgressBar({ current, readScreens, onJump }: ProgressBarProps) {
+function TocList({ activeN, readSections, onSelect }: TocListProps) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
-      <div className="flex items-center gap-1.5 sm:gap-2">
-        {LESSON_SCREENS.map((s, i) => {
-          const isCurrent = i === current
-          const isRead = readScreens.includes(s.n)
-          const background = isCurrent
-            ? "var(--av-blue-500)"
-            : isRead
-              ? "color-mix(in oklab, var(--av-green-400) 55%, transparent)"
-              : "color-mix(in oklab, var(--muted-foreground) 35%, transparent)"
+    <nav>
+      <ol className="m-0 p-0 list-none flex flex-col gap-0.5">
+        {LESSON_SCREENS.map((s) => {
+          const isActive = s.n === activeN
+          const isRead = readSections.includes(s.n)
           return (
-            <button
-              key={s.n}
-              type="button"
-              onClick={() => onJump(i)}
-              aria-label={`Ir a la pantalla ${s.n}: ${s.title}`}
-              aria-current={isCurrent ? "step" : undefined}
-              title={`${s.n}. ${s.title}`}
-              className="group flex-1 min-w-0 py-3 focus-visible:outline-none"
-            >
-              <span
-                className="block h-2.5 rounded-full transition-all group-hover:opacity-80"
-                style={{ background }}
-              />
-            </button>
+            <li key={s.n}>
+              <a
+                href={`#s-${s.n}`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  onSelect(s.n)
+                }}
+                aria-current={isActive ? "location" : undefined}
+                className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  isActive ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
+                style={
+                  isActive
+                    ? { background: "color-mix(in oklab, var(--av-blue-500) 11%, transparent)" }
+                    : undefined
+                }
+              >
+                <span
+                  className="shrink-0 w-4 mt-px text-[11.5px] font-bold tabular"
+                  style={isActive ? { color: "var(--av-blue-500)" } : undefined}
+                >
+                  {s.n}
+                </span>
+                <span className="min-w-0 flex-1">{s.title}</span>
+                {isRead && (
+                  <Check
+                    className="shrink-0 mt-px h-3.5 w-3.5"
+                    strokeWidth={3}
+                    style={{ color: accentText("var(--av-green-400)") }}
+                    aria-label="Leída"
+                  />
+                )}
+              </a>
+            </li>
           )
         })}
-      </div>
-      <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12px] text-muted-foreground">
-        <span className="inline-flex items-center gap-1.5">
-          <span
-            className="h-2 w-4 rounded-full"
-            style={{ background: "var(--av-blue-500)" }}
-          />
-          Pantalla actual
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <span
-            className="h-2 w-4 rounded-full"
-            style={{ background: "color-mix(in oklab, var(--av-green-400) 55%, transparent)" }}
-          />
-          Leída
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <span
-            className="h-2 w-4 rounded-full"
-            style={{ background: "color-mix(in oklab, var(--muted-foreground) 35%, transparent)" }}
-          />
-          Pendiente
-        </span>
-        <span className="text-[11.5px]">Toca cualquier segmento para saltar a esa pantalla.</span>
-      </div>
-    </div>
+      </ol>
+    </nav>
   )
 }
 
@@ -271,7 +364,8 @@ function ProgressBar({ current, readScreens, onJump }: ProgressBarProps) {
 
 /**
  * Convierte marcado ligero a nodos de React sin dangerouslySetInnerHTML.
- * Soporta **negrita** y `codigo`.
+ * Soporta **negrita** y `codigo`. Pensado para vivir dentro de la hoja: los
+ * colores salen de las variables --doc-*.
  */
 function renderInline(text: string): ReactNode[] {
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
@@ -280,7 +374,7 @@ function renderInline(text: string): ReactNode[] {
     if (part === "") return
     if (part.length > 4 && part.startsWith("**") && part.endsWith("**")) {
       out.push(
-        <strong key={i} className="font-bold text-foreground">
+        <strong key={i} className="font-bold" style={{ color: "var(--doc-fg)" }}>
           {part.slice(2, -2)}
         </strong>,
       )
@@ -290,8 +384,8 @@ function renderInline(text: string): ReactNode[] {
       out.push(
         <code
           key={i}
-          className="mono text-[0.9em] px-1.5 py-[0.1em] rounded-md border border-border whitespace-nowrap"
-          style={{ background: "color-mix(in oklab, var(--av-blue-500) 9%, transparent)" }}
+          className="mono text-[0.88em] px-1.5 py-[0.12em] rounded-md border doc-rule break-words"
+          style={{ background: docTint("var(--av-blue-500)", 9), color: "var(--doc-fg)" }}
         >
           {part.slice(1, -1)}
         </code>,
@@ -317,65 +411,43 @@ const CALLOUT_TONE: Record<
 function Block({ block }: { block: LessonBlock }) {
   switch (block.kind) {
     case "p":
-      return (
-        <p className="text-[15px] text-foreground/90 leading-relaxed">{renderInline(block.text)}</p>
-      )
+      return <p className="m-0 text-[15.5px]">{renderInline(block.text)}</p>
 
     case "quote":
       return (
         <blockquote
-          className="pl-4 sm:pl-5 py-1 border-l-2"
-          style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 45%, transparent)" }}
+          className="m-0 pl-4 sm:pl-5 py-1 border-l-2"
+          style={{ borderColor: docAccent("var(--av-blue-500)", 35) }}
         >
-          <p className="text-[15px] sm:text-[15.5px] text-foreground/90 leading-relaxed italic">
-            {renderInline(block.text)}
-          </p>
-          {block.source && (
-            <div className="mt-1.5 text-[12.5px] text-muted-foreground">{block.source}</div>
-          )}
+          <p className="m-0 text-[15.5px] italic">{renderInline(block.text)}</p>
+          {block.source && <div className="mt-2 text-[12.5px] doc-muted">{block.source}</div>}
         </blockquote>
       )
 
     case "list": {
       const items = block.items.map((item, i) => (
-        <li key={i} className="flex items-start gap-2.5 text-[15px] text-foreground/90 leading-relaxed">
-          {block.ordered ? (
-            <span
-              className="flex-shrink-0 mt-0.5 inline-flex items-center justify-center h-5 w-5 rounded-full text-[11.5px] font-bold tabular"
-              style={{
-                color: accentText("var(--av-blue-500)"),
-                background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
-              }}
-            >
-              {i + 1}
-            </span>
-          ) : (
-            <Check
-              className="flex-shrink-0 mt-1 h-3.5 w-3.5"
-              style={{ color: "var(--av-blue-500)" }}
-              strokeWidth={3}
-            />
-          )}
-          <span>{renderInline(item)}</span>
+        <li key={i} className="pl-1 text-[15.5px] leading-[1.7]">
+          {renderInline(item)}
         </li>
       ))
+      const cls = "m-0 pl-5 flex flex-col gap-2.5 marker:font-semibold"
       return block.ordered ? (
-        <ol className="flex flex-col gap-2.5 m-0 p-0 list-none">{items}</ol>
+        <ol className={`list-decimal ${cls}`}>{items}</ol>
       ) : (
-        <ul className="flex flex-col gap-2.5 m-0 p-0 list-none">{items}</ul>
+        <ul className={`list-disc ${cls}`}>{items}</ul>
       )
     }
 
     case "table":
       return (
-        <div className="overflow-x-auto rounded-xl border border-border">
-          <table className="w-full min-w-[520px] border-collapse text-left">
-            <thead className="bg-muted">
+        <div className="overflow-x-auto rounded-lg border doc-rule">
+          <table className="w-full min-w-[440px] border-collapse text-left">
+            <thead className="doc-soft">
               <tr>
                 {block.head.map((h, i) => (
                   <th
                     key={i}
-                    className="px-3.5 py-2.5 text-[12.5px] font-bold uppercase tracking-[0.06em] text-muted-foreground border-b border-border"
+                    className="px-3.5 py-2.5 border-b doc-rule doc-muted text-[11.5px] font-bold uppercase tracking-[0.07em]"
                   >
                     {h}
                   </th>
@@ -384,12 +456,9 @@ function Block({ block }: { block: LessonBlock }) {
             </thead>
             <tbody>
               {block.rows.map((row, ri) => (
-                <tr key={ri} className="border-b border-border last:border-b-0">
+                <tr key={ri} className="border-b doc-rule last:border-b-0">
                   {row.map((cell, ci) => (
-                    <td
-                      key={ci}
-                      className="px-3.5 py-3 align-top text-[14px] text-foreground/90 leading-relaxed"
-                    >
+                    <td key={ci} className="px-3.5 py-3 align-top text-[14px] leading-[1.6]">
                       {renderInline(cell)}
                     </td>
                   ))}
@@ -402,8 +471,11 @@ function Block({ block }: { block: LessonBlock }) {
 
     case "code":
       return (
-        <pre className="overflow-x-auto rounded-xl border border-border bg-muted px-4 py-3.5">
-          <code className="mono text-[13px] leading-relaxed whitespace-pre-wrap text-foreground/90">
+        <pre className="doc-soft m-0 overflow-x-auto rounded-lg border doc-rule px-4 py-3.5">
+          <code
+            className="mono block text-[13px] leading-[1.65] whitespace-pre-wrap"
+            style={{ color: "var(--doc-fg)" }}
+          >
             {block.text}
           </code>
         </pre>
@@ -414,20 +486,23 @@ function Block({ block }: { block: LessonBlock }) {
       const Icon = tone.icon
       return (
         <div
-          className="rounded-xl border p-4 flex items-start gap-3"
+          className="rounded-lg border-l-[3px] border-y border-r p-4 flex items-start gap-3"
           style={{
-            borderColor: `color-mix(in oklab, ${tone.color} 28%, transparent)`,
-            background: `color-mix(in oklab, ${tone.color} 7%, transparent)`,
+            borderColor: docAccent(tone.color, 30),
+            borderLeftColor: docAccent(tone.color, 60),
+            background: docTint(tone.color, 7),
           }}
         >
-          <Icon className="flex-shrink-0 mt-0.5 h-4 w-4" style={{ color: tone.color }} />
-          <div>
-            <div className="text-[13.5px] font-bold" style={{ color: accentText(tone.color) }}>
+          <Icon
+            className="shrink-0 mt-0.5 h-4 w-4"
+            style={{ color: docAccent(tone.color, 70) }}
+            aria-hidden
+          />
+          <div className="min-w-0">
+            <div className="text-[13.5px] font-bold" style={{ color: docAccent(tone.color, 55) }}>
               {block.title ?? tone.fallbackTitle}
             </div>
-            <p className="mt-0.5 text-[14px] text-foreground/85 leading-relaxed">
-              {renderInline(block.text)}
-            </p>
+            <p className="m-0 mt-1 text-[14.5px]">{renderInline(block.text)}</p>
           </div>
         </div>
       )
@@ -435,135 +510,112 @@ function Block({ block }: { block: LessonBlock }) {
 
     case "kv":
       return (
-        <div className="grid gap-2.5 sm:grid-cols-2">
+        <dl className="m-0 flex flex-col gap-0">
           {block.items.map((item, i) => (
-            <div key={i} className="rounded-xl border border-border p-3.5">
-              <div
+            <div
+              key={i}
+              className="grid gap-x-4 gap-y-1 py-2.5 border-b doc-rule last:border-b-0 sm:grid-cols-[minmax(110px,180px)_minmax(0,1fr)]"
+            >
+              <dt
                 className="mono text-[13.5px] font-bold"
-                style={{ color: accentText("var(--av-blue-500)") }}
+                style={{ color: docAccent("var(--av-blue-500)", 60) }}
               >
                 {item.k}
-              </div>
-              <div className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">
-                {renderInline(item.v)}
-              </div>
+              </dt>
+              <dd className="m-0 text-[14.5px] leading-[1.65]">{renderInline(item.v)}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       )
   }
 }
 
-// ─── Cierre de la lección ────────────────────────────────────────────────────
+// ─── Cierre del documento ────────────────────────────────────────────────────
 
-function ClosingCard({ finished, onFinish }: { finished: boolean; onFinish: () => void }) {
+function SourcesBlock() {
   return (
-    <section
-      className="mt-6 rounded-2xl border p-5 sm:p-7"
-      style={{
-        borderColor: "color-mix(in oklab, var(--av-green-400) 28%, transparent)",
-        background: "color-mix(in oklab, var(--av-green-400) 6%, transparent)",
-      }}
-    >
-      <SectionTitle
-        icon={GraduationCap}
-        eyebrow="Lección completa"
-        title="Ya sabes leer un NOTAM de principio a fin"
-        hint="Lo que sigue es practicar con material real y medirte en la evaluación."
-        right={
-          finished ? (
-            <span
-              className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold px-2.5 py-1 rounded-full"
-              style={{
-                color: accentText("var(--av-green-400)"),
-                background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)",
-              }}
-            >
-              <Check className="h-3 w-3" strokeWidth={3} /> Progreso guardado
-            </span>
-          ) : (
-            <button
-              type="button"
-              onClick={onFinish}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold border border-border bg-card text-foreground transition-transform hover:-translate-y-0.5"
-            >
-              <Check className="h-3.5 w-3.5" /> Marcar como leída
-            </button>
-          )
-        }
-      />
-
-      <div className="grid gap-3 sm:grid-cols-2">
-        <Link
-          to="/app/aerolinea/notam/practica"
-          className="group rounded-xl border border-border bg-card p-4 flex items-start gap-3 transition-transform hover:-translate-y-0.5"
-        >
-          <span
-            className="flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center"
-            style={{
-              color: "var(--av-blue-500)",
-              background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
-            }}
-          >
-            <Target className="h-5 w-5" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-[15.5px] font-bold tracking-[-0.01em]">
-              Practicar con NOTAM reales
-            </span>
-            <span className="block mt-0.5 text-[13px] text-muted-foreground leading-relaxed">
-              Ejercicios de interpretación y NOTAM colombianos del resumen de la Aerocivil.
-            </span>
-          </span>
-          <ArrowRight className="hidden sm:block flex-shrink-0 mt-1 h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-        </Link>
-
-        <Link
-          to="/app/aerolinea/notam/evaluacion"
-          className="group rounded-xl border border-border bg-card p-4 flex items-start gap-3 transition-transform hover:-translate-y-0.5"
-        >
-          <span
-            className="flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center"
-            style={{
-              color: "var(--av-green-400)",
-              background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)",
-            }}
-          >
-            <ClipboardCheck className="h-5 w-5" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-[15.5px] font-bold tracking-[-0.01em]">
-              Hacer la evaluación
-            </span>
-            <span className="block mt-0.5 text-[13px] text-muted-foreground leading-relaxed">
-              20 preguntas de opción múltiple. Apruebas con 80 sobre 100.
-            </span>
-          </span>
-          <ArrowRight className="hidden sm:block flex-shrink-0 mt-1 h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-        </Link>
+    <section className="pt-8 border-t doc-rule">
+      <div
+        className="inline-flex items-center gap-1.5 text-[12.5px] font-bold uppercase tracking-[0.12em]"
+        style={{ color: docAccent("var(--av-blue-500)", 55) }}
+      >
+        <Library className="h-3.5 w-3.5" /> Fuentes
       </div>
+      <ol className="mt-3 mb-0 pl-5 list-decimal flex flex-col gap-1.5">
+        {LESSON_SOURCES.map((s, i) => (
+          <li key={i} className="text-[13.5px] leading-[1.65] doc-muted">
+            {s}
+          </li>
+        ))}
+      </ol>
+      <p className="mt-4 mb-0 text-[13px] leading-[1.7] doc-muted max-w-[68ch]">
+        El Doc 8400 y el Anexo 15 son la norma. Las guías de curso son material didáctico. La
+        edición del Doc 8400 que usamos es la 6ª (2004): confirma siempre contra la edición vigente
+        y contra los NOTAM publicados por la Aerocivil.
+      </p>
+    </section>
+  )
+}
 
-      <div className="mt-5 pt-4 border-t border-border/60">
-        <div
-          className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold mb-2"
-          style={{ color: accentText("var(--av-blue-500)") }}
-        >
-          <Library className="h-3.5 w-3.5" /> Fuentes de la lección
-        </div>
-        <ol className="flex flex-col gap-1.5 m-0 p-0 list-none">
-          {LESSON_SOURCES.map((s, i) => (
-            <li key={i} className="flex items-start gap-2 text-[13px] text-muted-foreground leading-relaxed">
-              <span className="tabular font-semibold text-foreground/70">{i + 1}.</span>
-              <span>{s}</span>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-3 text-[12.5px] text-muted-foreground leading-relaxed">
-          El Doc 8400 y el Anexo 15 son la norma. Las guías de curso son material didáctico. La
-          edición del Doc 8400 que usamos es la 6ª (2004): confirma siempre contra la edición
-          vigente y contra los NOTAM publicados por la Aerocivil.
-        </p>
+function NextSteps({ readCount }: { readCount: number }) {
+  return (
+    <section className="mt-8 pt-7 border-t doc-rule">
+      <h2 className="m-0 text-[17px] sm:text-[19px] font-extrabold tracking-[-0.02em]">
+        Ya sabes leer un NOTAM de principio a fin
+      </h2>
+      <p className="mt-1.5 mb-0 text-[14px] doc-muted leading-[1.7]">
+        Lo que sigue es practicar con material real y medirte en la evaluación. Llevas {readCount} de{" "}
+        {TOTAL} secciones leídas.
+      </p>
+
+      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+        <DocLink
+          to="/app/aerolinea/notam/practica"
+          icon={Target}
+          color="var(--av-blue-500)"
+          title="Practicar con NOTAM reales"
+          hint="Ejercicios de interpretación y NOTAM colombianos del resumen de la Aerocivil."
+        />
+        <DocLink
+          to="/app/aerolinea/notam/evaluacion"
+          icon={ClipboardCheck}
+          color="var(--av-green-400)"
+          title="Hacer la evaluación"
+          hint="20 preguntas de opción múltiple. Apruebas con 80 sobre 100."
+        />
       </div>
     </section>
+  )
+}
+
+interface DocLinkProps {
+  to: string
+  icon: typeof Target
+  color: string
+  title: string
+  hint: string
+}
+
+function DocLink({ to, icon: Icon, color, title, hint }: DocLinkProps) {
+  return (
+    <Link
+      to={to}
+      className="doc-soft group rounded-xl border doc-rule p-4 flex items-start gap-3 transition-transform hover:-translate-y-0.5"
+    >
+      <span
+        className="shrink-0 h-10 w-10 rounded-xl flex items-center justify-center"
+        style={{ color: docAccent(color, 70), background: docTint(color, 14) }}
+      >
+        <Icon className="h-5 w-5" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block text-[15px] font-bold tracking-[-0.01em]">{title}</span>
+        <span className="block mt-0.5 text-[13px] leading-[1.6] doc-muted">{hint}</span>
+      </span>
+      <ArrowRight
+        className="hidden sm:block shrink-0 mt-1 h-4 w-4 doc-muted group-hover:translate-x-0.5 transition-transform"
+        aria-hidden
+      />
+    </Link>
   )
 }

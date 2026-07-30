@@ -607,6 +607,47 @@
   }
 }
 
+/* === Hoja de lectura (documento) ===
+   Para contenido largo de estudio: lecciones, teoría, material de referencia.
+
+   Es papel a propósito: se mantiene clara aunque la app esté en modo oscuro,
+   igual que un PDF abierto dentro de una aplicación oscura. Leer varias
+   pantallas de teoría sobre --card (que en oscuro es casi negro) cansa la vista
+   y se percibe como "todo oscuro"; el resto de la interfaz sí sigue el tema.
+
+   Define sus propias variables para que los hijos hereden colores coherentes
+   sin depender del tema de la app. */
+.doc-sheet {
+  --doc-bg: oklch(0.995 0.002 95);
+  --doc-fg: oklch(0.24 0.012 260);
+  --doc-muted: oklch(0.48 0.014 260);
+  --doc-border: oklch(0.9 0.006 260);
+  --doc-soft: oklch(0.972 0.004 95);
+  --doc-accent: oklch(0.5 0.2 264);
+
+  background: var(--doc-bg);
+  color: var(--doc-fg);
+  border: 1px solid var(--doc-border);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 12px 32px -18px rgb(0 0 0 / 22%);
+}
+/* En modo oscuro el papel se atenúa apenas para no encandilar, pero sigue
+   siendo una superficie clara: el texto nunca se invierte. */
+.dark .doc-sheet {
+  --doc-bg: oklch(0.94 0.004 95);
+  --doc-fg: oklch(0.2 0.012 260);
+  --doc-muted: oklch(0.44 0.014 260);
+  --doc-border: oklch(0.84 0.006 260);
+  --doc-soft: oklch(0.905 0.004 95);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 16px 40px -20px rgb(0 0 0 / 60%);
+}
+.doc-sheet .doc-muted { color: var(--doc-muted); }
+.doc-sheet .doc-rule { border-color: var(--doc-border); }
+.doc-sheet .doc-soft { background: var(--doc-soft); }
+.doc-sheet .doc-accent { color: var(--doc-accent); }
+/* Medida de lectura cómoda y ritmo de artículo */
+.doc-prose { max-width: 68ch; }
+.doc-prose p { line-height: 1.75; }
+
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
