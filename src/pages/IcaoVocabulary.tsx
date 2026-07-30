@@ -190,7 +190,7 @@ export function IcaoVocabulary() {
               {/* Nada de "0 terms" antes de que llegue la data. */}
               <BookOpen className="h-3.5 w-3.5" /> Glosario{data.length > 0 ? ` · ${data.length} términos` : ""}
             </div>
-            <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+            <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
               Vocabulario de inglés aeronáutico
             </h1>
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
@@ -274,7 +274,7 @@ export function IcaoVocabulary() {
               <button
                 key={L}
                 onClick={() => goToLetter(L)}
-                className="w-7 h-7 rounded-md text-[12.5px] font-bold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="w-7 h-7 rounded-md text-[12.5px] font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
                 {L}
               </button>
@@ -300,7 +300,7 @@ export function IcaoVocabulary() {
             >
               <Search className="h-5 w-5" />
             </div>
-            <h2 className="mt-3.5 text-[17px] font-bold tracking-[-0.01em]">
+            <h2 className="mt-3.5 text-[17px] font-semibold tracking-[-0.01em]">
               {query.trim() ? `No hay resultados para “${query.trim()}”` : "Todavía no hay términos en esta categoría"}
             </h2>
             <p className="mt-1.5 text-[14px] text-muted-foreground max-w-[420px]">
@@ -320,7 +320,7 @@ export function IcaoVocabulary() {
             {groups.map(([L, entries]) => (
               <section key={L} id={`letter-${L}`} className="scroll-mt-32">
                 <div className="flex items-center gap-3 mb-2.5">
-                  <div className="text-[17px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--av-blue-500)" }}>
+                  <div className="text-[17px] font-semibold tracking-[-0.02em]" style={{ color: "var(--av-blue-500)" }}>
                     {L}
                   </div>
                   <div className="h-px flex-1 bg-border" />
@@ -376,7 +376,7 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">
-        <div className="text-[16px] font-bold tracking-[-0.01em]">
+        <div className="text-[16px] font-semibold tracking-[-0.01em]">
           <Highlight text={entry.term_en} query={query} />
         </div>
         {/* Etiqueta en gris: los tokens amber/green no se leen a 11px en modo claro. */}

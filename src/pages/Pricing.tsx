@@ -147,7 +147,7 @@ export function Pricing() {
           <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">
             Precios pensados para piloto LATAM
           </Badge>
-          <h1 className="mt-6 text-5xl sm:text-6xl font-bold tracking-tight text-balance">
+          <h1 className="mt-6 text-5xl sm:text-6xl font-semibold tracking-tight text-balance">
             Plan claro. Resultado claro.
           </h1>
           <p className="mt-6 text-lg text-muted-foreground text-balance">
@@ -218,7 +218,7 @@ export function Pricing() {
                     {t.description}
                   </p>
                   <div className="mt-6 flex items-baseline gap-2">
-                    <span className="text-4xl font-bold tracking-tight">{p.price}</span>
+                    <span className="text-4xl font-semibold tracking-tight">{p.price}</span>
                     <span className={`text-sm ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
                       {p.suffix}
                     </span>
@@ -258,7 +258,7 @@ export function Pricing() {
 
       <section className="pb-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-center">
             Comparación completa de planes
           </h2>
 

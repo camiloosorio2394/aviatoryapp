@@ -74,7 +74,7 @@ function AvailableSubjects() {
   if (error) {
     return (
       <section className="rounded-2xl surface p-6 text-center">
-        <div className="text-[16px] font-bold">No pudimos cargar las materias</div>
+        <div className="text-[16px] font-semibold">No pudimos cargar las materias</div>
         <p className="mt-1.5 text-[14px] text-muted-foreground">
           La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
         </p>
@@ -103,7 +103,7 @@ function AvailableSubjects() {
         >
           <BookOpen className="h-6 w-6" strokeWidth={1.8} />
         </div>
-        <h2 className="mt-4 text-[19px] font-bold tracking-[-0.02em]">
+        <h2 className="mt-4 text-[19px] font-semibold tracking-[-0.02em]">
           El banco de preguntas se abre por materias
         </h2>
         <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
@@ -151,7 +151,7 @@ function AvailableSubjects() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Simulacro Examen PCA
           </div>
-          <div className="mt-0.5 text-[18px] sm:text-[19px] font-extrabold tracking-[-0.02em]">
+          <div className="mt-0.5 text-[18px] sm:text-[19px] font-semibold tracking-[-0.02em]">
             {examCount} preguntas mezcladas de todas las materias
           </div>
           <div className="mt-0.5 text-[14px] text-muted-foreground">
@@ -159,7 +159,7 @@ function AvailableSubjects() {
           </div>
         </div>
         <div
-          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-bold flex-shrink-0 text-white"
+          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold flex-shrink-0 text-white"
           style={{ background: "var(--av-blue-500)" }}
         >
           Empezar <ArrowRight className="h-4 w-4" />
@@ -212,7 +212,7 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
           {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[16px] font-bold tracking-[-0.01em]">{meta.name}</div>
+          <div className="text-[16px] font-semibold tracking-[-0.01em]">{meta.name}</div>
           {meta.description && (
             <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug line-clamp-2">
               {meta.description}
@@ -285,7 +285,7 @@ function ComingNext() {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[14.5px] font-bold tracking-[-0.01em]">{c.title}</span>
+                <span className="text-[14.5px] font-semibold tracking-[-0.01em]">{c.title}</span>
                 <span className="chip">Pronto</span>
               </div>
               <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{c.line}</p>

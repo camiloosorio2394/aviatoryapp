@@ -365,7 +365,7 @@ export function NotamPractice() {
                       title={rotulo}
                       aria-label={`Ir al ejercicio ${i + 1} de ${list.length}: ${rotulo}${done ? ", ya resuelto" : ""}`}
                       aria-current={active ? "true" : undefined}
-                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12.5px] font-bold tabular border transition-colors"
+                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12.5px] font-semibold tabular border transition-colors"
                       style={{
                         color: active ? "white" : done ? accentText(color) : "var(--muted-foreground)",
                         background: active
@@ -398,7 +398,7 @@ export function NotamPractice() {
         {/* === EJERCICIO ACTIVO === */}
         {!item ? (
           <div className="mt-6 rounded-2xl surface p-7 text-center">
-            <div className="text-[17px] font-bold tracking-[-0.01em]">
+            <div className="text-[17px] font-semibold tracking-[-0.01em]">
               No hay ejercicios de nivel {levelLabel(level).toLowerCase()} en este modo
             </div>
             <p className="mt-1.5 text-[14px] text-muted-foreground">
@@ -429,7 +429,7 @@ export function NotamPractice() {
                     {/* En los ejercicios de texto el título es la decodificación (asunto, estado
                         y lugar), así que se guarda hasta que el usuario pide la respuesta modelo.
                         En los NOTAM reales el título es serie, número y aeródromo: no revela nada. */}
-                    <h2 className="mt-0.5 text-[22px] font-bold tracking-[-0.01em] leading-tight">
+                    <h2 className="mt-0.5 text-[22px] font-semibold tracking-[-0.01em] leading-tight">
                       {item.exercise && !revealed
                         ? `Ejercicio ${safeIdx + 1} de ${list.length}`
                         : item.titulo}
@@ -538,7 +538,7 @@ export function NotamPractice() {
                   }}
                 >
                   <div
-                    className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.08em]"
+                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em]"
                     style={{ color: accentText("var(--av-blue-500)") }}
                   >
                     <Target className="h-3.5 w-3.5" /> Tu tarea
@@ -588,13 +588,13 @@ export function NotamPractice() {
                   <div className="mt-5 anim-fade-up">
                     <div>
                       <div
-                        className="inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-[0.08em]"
+                        className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em]"
                         style={{ color: accentText("var(--av-green-400)") }}
                       >
                         <CheckCircle2 className="h-3.5 w-3.5" /> Respuesta modelo
                       </div>
                       {item.exercise && (
-                        <div className="mt-1.5 text-[15px] font-bold tracking-[-0.01em] leading-snug">
+                        <div className="mt-1.5 text-[15px] font-semibold tracking-[-0.01em] leading-snug">
                           {item.titulo}
                         </div>
                       )}
@@ -605,7 +605,7 @@ export function NotamPractice() {
 
                     {/* Checklist autoevaluable */}
                     <div className="mt-5">
-                      <div className="flex items-center gap-1.5 text-[13px] font-bold">
+                      <div className="flex items-center gap-1.5 text-[13px] font-semibold">
                         <ListChecks className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
                         Puntos clave
                       </div>

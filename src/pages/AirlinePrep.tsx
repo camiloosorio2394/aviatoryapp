@@ -140,7 +140,7 @@ export function AirlinePrep() {
 
         {/* Lo que sí puedes adelantar hoy */}
         <section className="mt-10 rounded-2xl surface p-6">
-          <div className="text-[15px] font-bold">Mientras tanto</div>
+          <div className="text-[15px] font-semibold">Mientras tanto</div>
           <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[680px]">
             Tu Logbook y tus vencimientos alimentan el Pilot ID que vas a necesitar el día que
             postules, y el match por aerolínea te dice qué requisito te falta para cada una.
@@ -188,7 +188,7 @@ function TemaAbierto({ tema }: { tema: Tema }) {
                 <span className="text-[12px] text-muted-foreground">{tema.disponible}</span>
               )}
             </div>
-            <h2 className="mt-1.5 text-[20px] font-extrabold tracking-[-0.02em]">{tema.nombre}</h2>
+            <h2 className="mt-1.5 text-[20px] font-semibold tracking-[-0.02em]">{tema.nombre}</h2>
             <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[620px]">
               {tema.resumen}
             </p>
@@ -219,7 +219,7 @@ function TemaPronto({ tema }: { tema: Tema }) {
         </span>
         <span className="chip text-[10px]">Pronto</span>
       </div>
-      <div className="mt-2.5 text-[15px] font-bold tracking-[-0.01em]">{tema.nombre}</div>
+      <div className="mt-2.5 text-[15px] font-semibold tracking-[-0.01em]">{tema.nombre}</div>
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{tema.resumen}</p>
     </div>
   )

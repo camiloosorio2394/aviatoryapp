@@ -47,7 +47,7 @@ export function PsychTests() {
                 />
                 Módulo psicotécnicas · En construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
                 Psicotécnicos y Assessment,{" "}
                 <span style={{ color: "var(--av-blue-500)" }}>
                   entrenables, no innatos
@@ -91,7 +91,7 @@ export function PsychTests() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Categorías · 9
           </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
             Las 9 baterías que vas a entrenar
           </h2>
           <p className="mt-1.5 text-sm text-muted-foreground max-w-[680px]">
@@ -109,7 +109,7 @@ export function PsychTests() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Engines soportados
           </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
             Simuladores compatibles con los tests reales
           </h2>
           <p className="mt-1.5 text-sm text-muted-foreground max-w-[680px]">
@@ -144,7 +144,7 @@ export function PsychTests() {
             >
               <Sparkles className="h-3 w-3" /> Aporta datos para calibrar
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">
+            <h3 className="mt-1.5 text-lg font-semibold">
               ¿Ya pasaste por psicotécnicas de Avianca, LATAM o Copa?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
@@ -221,7 +221,7 @@ function CategoryCard({ name, family, description, icon: Icon, color }: Category
       </div>
       <div className="flex-1 min-w-0 pt-0.5">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="text-[15.5px] font-bold tracking-[-0.01em]">{name}</div>
+          <div className="text-[15.5px] font-semibold tracking-[-0.01em]">{name}</div>
           <div className="text-[11.5px] font-semibold text-muted-foreground">{family}</div>
           <span className="chip text-[10px]">Pronto</span>
         </div>
@@ -235,7 +235,7 @@ function EngineCard({ name, description, features }: { name: string; description
   return (
     <div className="rounded-2xl surface p-5">
       <div className="flex flex-wrap items-center gap-2">
-        <div className="text-[14px] font-extrabold" style={{ color: "var(--av-blue-500)" }}>
+        <div className="text-[14px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
           {name}
         </div>
         <span className="chip text-[10px]">Pronto</span>

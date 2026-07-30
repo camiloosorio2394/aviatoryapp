@@ -43,7 +43,7 @@ export function InterviewSim() {
                 />
                 Módulo entrevistas · Solo Intro Speaking disponible
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
                 Simulador de Entrevistas, practica antes de que cuente
               </h1>
               <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
@@ -100,7 +100,7 @@ export function InterviewSim() {
             </div>
             <div className="flex-1 min-w-0">
               <span className="chip chip-amber">Ya disponible</span>
-              <div className="mt-1.5 text-[17px] font-extrabold tracking-[-0.01em]">
+              <div className="mt-1.5 text-[17px] font-semibold tracking-[-0.01em]">
                 Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
               </div>
               <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">
@@ -122,7 +122,7 @@ export function InterviewSim() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Categorías · 3
           </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
             Cómo vas a entrenar cada tipo
           </h2>
         </div>
@@ -175,7 +175,7 @@ export function InterviewSim() {
             Evaluación automática
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-2">
-            <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">
+            <h2 className="text-[22px] font-semibold tracking-[-0.02em]">
               Lo que el feedback IA va a medir
             </h2>
             <span className="chip text-[10px]">Pronto</span>
@@ -197,7 +197,7 @@ export function InterviewSim() {
             >
               <Sparkles className="h-3 w-3" /> Cómo empezar
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">
+            <h3 className="mt-1.5 text-lg font-semibold">
               ¿Ya estás en proceso con alguna aerolínea?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
@@ -255,7 +255,7 @@ function CategoryCard({ icon: Icon, color, type, description, bullets }: { icon:
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="text-[17px] font-extrabold tracking-[-0.02em]">{type}</div>
+            <div className="text-[17px] font-semibold tracking-[-0.02em]">{type}</div>
             <span className="chip text-[10px]">Pronto</span>
           </div>
           <div className="text-[14px] text-muted-foreground">{description}</div>
@@ -294,7 +294,7 @@ function MetricCard({ icon: Icon, color, title, detail }: { icon: React.Componen
         <Icon className="h-4 w-4" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
+        <div className="text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
         <p className="mt-0.5 text-[13.5px] text-muted-foreground leading-snug">{detail}</p>
       </div>
     </div>

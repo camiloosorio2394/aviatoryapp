@@ -231,7 +231,7 @@ export function Expiries() {
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="flex-1">
-              <div className="text-sm font-bold text-foreground tracking-[-0.015em]">
+              <div className="text-sm font-semibold text-foreground tracking-[-0.015em]">
                 {bannerTitle}
               </div>
               <div className="text-xs text-muted-foreground mt-0.5">
@@ -313,7 +313,7 @@ function SummaryTile({
     >
       <Ic className="h-4 w-4" style={{ color: active ? tone : "var(--muted-foreground)" }} />
       <div
-        className="tabular-nums mt-3.5 text-2xl sm:text-3xl font-bold leading-none tracking-[-0.04em]"
+        className="tabular-nums mt-3.5 text-2xl sm:text-3xl font-semibold leading-none tracking-[-0.04em]"
         style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}
       >
         <CountUp to={value} />
@@ -356,7 +356,7 @@ function LicenseRow({
 
   const daysBlock =
     d !== null ? (
-      <span className="tabular-nums font-bold tracking-[-0.025em]" style={{ color: meta.fg }}>
+      <span className="tabular-nums font-semibold tracking-[-0.025em]" style={{ color: meta.fg }}>
         {Math.abs(d)}
         <span className="text-[12.5px] text-muted-foreground font-semibold ml-0.5">d</span>
         {d < 0 && <span className="text-[12px] text-muted-foreground ml-1">vencido</span>}
@@ -380,7 +380,7 @@ function LicenseRow({
       <div className="lg:hidden flex items-start gap-3 px-4 py-4">
         <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: meta.color }} />
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-bold text-foreground">{label}</div>
+          <div className="text-sm font-semibold text-foreground">{label}</div>
           <div className="text-[12px] text-muted-foreground mt-0.5">
             {LICENSE_CATEGORY[license.license_type]} · {dateStr ?? "Sin fecha de vencimiento"}
           </div>
@@ -396,7 +396,7 @@ function LicenseRow({
       <div className="hidden lg:grid items-center gap-4 px-[18px] py-4 transition-colors group hover:bg-muted lg:grid-cols-[8px_1fr_200px_110px_120px_60px]">
         <div className="w-1 h-8 rounded-full" style={{ background: meta.color }} />
         <div>
-          <div className="text-sm font-bold text-foreground">{label}</div>
+          <div className="text-sm font-semibold text-foreground">{label}</div>
           <div className="text-[12px] text-muted-foreground mt-0.5">
             {LICENSE_CATEGORY[license.license_type]}
           </div>
@@ -423,7 +423,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       >
         <FileText className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-bold text-foreground">Carga tus licencias y certificaciones</h3>
+      <h3 className="text-lg font-semibold text-foreground">Carga tus licencias y certificaciones</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
         Médico clase 1, PPL, CPL, IFR, recurrent check. Una vez cargadas, te recordamos antes de que venzan.
       </p>
@@ -434,7 +434,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "Activamos los recordatorios automáticos",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -501,7 +501,7 @@ function NewLicenseDialog({
           className="pointer-events-auto w-full max-w-md rounded-3xl bg-card border border-border shadow-2xl my-8"
         >
           <header className="flex items-center justify-between px-6 py-4 border-b border-border">
-            <h2 className="text-lg font-bold">Nueva licencia o certificación</h2>
+            <h2 className="text-lg font-semibold">Nueva licencia o certificación</h2>
             <button
               type="button"
               onClick={onClose}

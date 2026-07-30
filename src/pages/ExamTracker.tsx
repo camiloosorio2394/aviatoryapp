@@ -128,7 +128,7 @@ export function ExamTracker() {
                     <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                       Inteligencia colectiva
                     </div>
-                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
                       Sé el primero en reportar
                     </h2>
                     <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
@@ -170,7 +170,7 @@ export function ExamTracker() {
                     <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                       Reportes en los últimos 90 días
                     </div>
-                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
                       <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
                     </h2>
                     <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
@@ -183,13 +183,13 @@ export function ExamTracker() {
                       Pass rate promedio
                     </div>
                     {avgPass !== null ? (
-                      <div className="tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-foreground mt-1">
+                      <div className="tabular-nums text-4xl font-semibold tracking-[-0.04em] text-foreground mt-1">
                         {avgPass}
                         <span className="text-lg text-muted-foreground">%</span>
                       </div>
                     ) : (
                       <>
-                        <div className="text-4xl font-extrabold tracking-[-0.04em] text-muted-foreground mt-1">
+                        <div className="text-4xl font-semibold tracking-[-0.04em] text-muted-foreground mt-1">
                           —
                         </div>
                         <div className="text-[12.5px] text-muted-foreground mt-1 md:max-w-[180px] md:ml-auto">
@@ -256,7 +256,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
           <Ic className="h-5 w-5" style={{ color: TILE_COLOR[color] }} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-bold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
+          <h3 className="text-base font-semibold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
             <p className="mt-1 text-[12.5px] text-muted-foreground">
               Sin reportes · sé el primero
@@ -269,7 +269,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
               </div>
               {intel.pass_rate !== null && (
                 <div className="tabular-nums text-[12.5px] text-muted-foreground">
-                  <span className="font-bold text-foreground">{intel.pass_rate}%</span> aprobaron
+                  <span className="font-semibold text-foreground">{intel.pass_rate}%</span> aprobaron
                 </div>
               )}
             </div>
@@ -306,14 +306,14 @@ function HowStep({ n, title, body }: { n: string; title: string; body: string })
   return (
     <div className="rounded-2xl surface p-5">
       <div
-        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold"
+        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-semibold"
         style={{
           background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         {n}
       </div>
-      <h3 className="mt-3 font-bold text-sm text-foreground">{title}</h3>
+      <h3 className="mt-3 font-semibold text-sm text-foreground">{title}</h3>
       <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{body}</p>
     </div>
   )
@@ -438,7 +438,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         >
           <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
-              <h2 className="text-lg font-bold">Reporta tu examen</h2>
+              <h2 className="text-lg font-semibold">Reporta tu examen</h2>
               <p className="text-xs text-muted-foreground">
                 Anónimo · 2 minutos · ayuda a todos los próximos pilotos
               </p>
@@ -556,7 +556,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                       key={n}
                       type="button"
                       onClick={() => setDifficulty(n)}
-                      className={`tabular-nums flex-1 h-11 rounded-xl border font-bold transition-all ${
+                      className={`tabular-nums flex-1 h-11 rounded-xl border font-semibold transition-all ${
                         difficulty === n ? "text-white" : "border-border bg-card hover:border-foreground/30"
                       }`}
                       style={difficulty === n ? {

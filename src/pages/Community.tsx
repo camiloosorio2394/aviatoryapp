@@ -200,7 +200,7 @@ export function Community() {
                       <Hash className="h-[11px] w-[11px]" />
                       {list.length === 1 ? "1 canal" : `${list.length} canales`}
                     </div>
-                    <h2 className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
+                    <h2 className="mt-0.5 text-[18px] font-semibold text-foreground tracking-[-0.02em]">
                       {meta.title}
                     </h2>
                     <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
@@ -222,7 +222,7 @@ export function Community() {
             style={{ color: "var(--av-blue-500)" }}
           />
           <div>
-            <h3 className="text-sm font-bold text-foreground">Normas de la comunidad</h3>
+            <h3 className="text-sm font-semibold text-foreground">Normas de la comunidad</h3>
             <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido pirata.
               Si necesitas moderación, escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
@@ -247,7 +247,7 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
         <TriangleAlert className="h-5 w-5" />
       </div>
       <div className="flex-1">
-        <h3 className="text-base font-bold text-foreground">No pudimos cargar los canales</h3>
+        <h3 className="text-base font-semibold text-foreground">No pudimos cargar los canales</h3>
         <p className="mt-1 text-sm text-muted-foreground leading-relaxed max-w-[560px]">
           Puede ser tu conexión o una caída momentánea. Vuelve a intentar en un segundo. Si sigue igual,
           escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
@@ -273,7 +273,7 @@ function NoChannelsYet() {
       >
         <Hash className="h-6 w-6" />
       </div>
-      <h3 className="text-base font-bold text-foreground">Los canales abren pronto</h3>
+      <h3 className="text-base font-semibold text-foreground">Los canales abren pronto</h3>
       <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
         Estamos armando los espacios por etapa, materia y aerolínea. Cuando abran, los vas a ver aquí y vas
         a poder escribir de inmediato.
@@ -302,7 +302,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
       <div className="flex items-start gap-3">
         {isAirline ? (
           <div
-            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-extrabold tracking-[0.02em]"
+            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-semibold tracking-[0.02em]"
             style={{
               background: tileTint(tileKey),
               border: `1px solid ${tileBorder(tileKey)}`,

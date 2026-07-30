@@ -368,7 +368,7 @@ export function Profile() {
                         />
                       </div>
                       <span className="text-right whitespace-nowrap">
-                        <span className="tabular-nums text-[12.5px] font-bold text-foreground">{Math.round(s.value)}%</span>
+                        <span className="tabular-nums text-[12.5px] font-semibold text-foreground">{Math.round(s.value)}%</span>
                         <span className="ml-1.5 text-[11px] text-muted-foreground">{s.raw}</span>
                       </span>
                     </div>
@@ -585,7 +585,7 @@ function PilotIdCard({
           )}
         </div>
         <div>
-          <div className="text-xl font-extrabold tracking-[-0.025em] text-foreground">
+          <div className="text-xl font-semibold tracking-[-0.025em] text-foreground">
             {fullName || username || "Tu nombre"}
           </div>
           <div className="text-xs text-muted-foreground">
@@ -610,7 +610,7 @@ function IdField({ label, value }: { label: string; value: string }) {
       <div className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted-foreground">
         {label}
       </div>
-      <div className="tabular-nums mt-0.5 text-sm font-bold text-foreground tracking-[-0.02em]">
+      <div className="tabular-nums mt-0.5 text-sm font-semibold text-foreground tracking-[-0.02em]">
         {value}
       </div>
     </div>
@@ -764,7 +764,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
     <>
       <div className="flex items-center justify-between gap-3 rounded-xl surface px-4 h-11">
         <span className="inline-flex items-baseline gap-2">
-          <span className="text-[15px] font-bold text-foreground tabular-nums">Nivel {level}</span>
+          <span className="text-[15px] font-semibold text-foreground tabular-nums">Nivel {level}</span>
           <span className="text-[13px] text-muted-foreground">
             {icaoLevelLabel(level)}{isEstimate ? " · estimado" : ""}
           </span>

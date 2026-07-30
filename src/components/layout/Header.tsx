@@ -54,7 +54,7 @@ export function Header() {
             alt=""
             className="h-11 w-11 flex-shrink-0 rounded-[10px] shadow-md"
           />
-          <span className="text-2xl font-bold tracking-tight">Aviatory</span>
+          <span className="text-2xl font-semibold tracking-tight">Aviatory</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

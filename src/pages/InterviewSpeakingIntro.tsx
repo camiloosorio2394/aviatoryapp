@@ -97,7 +97,7 @@ export function InterviewSpeakingIntro() {
         >
           <Mic className="h-3.5 w-3.5" /> Entrevista intro · Speaking
         </div>
-        <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+        <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
           {questions.length > 0
             ? `Las ${questions.length} preguntas que toda aerolínea hace al inicio`
             : "Las preguntas que toda aerolínea hace al inicio"}
@@ -144,7 +144,7 @@ export function InterviewSpeakingIntro() {
               >
                 <Mic className="h-6 w-6" />
               </div>
-              <h2 className="mt-4 text-[19px] font-bold tracking-[-0.01em]">
+              <h2 className="mt-4 text-[19px] font-semibold tracking-[-0.01em]">
                 Las preguntas intro llegan pronto
               </h2>
               <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[460px] leading-relaxed">
@@ -193,7 +193,7 @@ export function InterviewSpeakingIntro() {
               <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 <Sparkles className="h-3.5 w-3.5" /> Próximo paso
               </div>
-              <div className="mt-1.5 text-[16px] font-bold tracking-[-0.01em]">
+              <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.01em]">
                 Cuando puedas responder estas con fluidez, pasa al Technical Interview.
               </div>
             </div>
@@ -222,7 +222,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
         className="w-full text-left flex items-center gap-4 p-4 hover:bg-muted/40 transition-colors"
       >
         <div
-          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
+          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-semibold"
           style={{
             background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
             color: "var(--av-blue-500)",

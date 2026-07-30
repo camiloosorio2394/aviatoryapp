@@ -254,7 +254,7 @@ export function Onboarding() {
             <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gradient-gold mb-3">
               Tu plan de vuelo
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-balance text-foreground">
+            <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-balance text-foreground">
               {STEPS[step].title}
             </h1>
             <p className="mt-2 text-muted-foreground">{STEPS[step].sub}</p>

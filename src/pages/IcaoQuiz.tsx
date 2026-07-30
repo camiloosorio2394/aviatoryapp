@@ -225,7 +225,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
       >
         <ClipboardCheck className="h-3.5 w-3.5" /> Quiz de inglés · banco de estudio
       </div>
-      <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+      <h1 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
         Preguntas de vocabulario y comprensión
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
@@ -316,7 +316,7 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
       >
         <RotateCcw className="h-5 w-5" />
       </div>
-      <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
+      <h2 className="mt-3.5 text-[18px] font-semibold tracking-[-0.01em]">
         No pudimos cargar el banco de preguntas
       </h2>
       <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
@@ -356,7 +356,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
       >
         <ClipboardCheck className="h-5 w-5" />
       </div>
-      <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
+      <h2 className="mt-3.5 text-[18px] font-semibold tracking-[-0.01em]">
         {allEmpty ? "El banco de preguntas está en camino" : "Todavía no hay preguntas en este tema"}
       </h2>
       <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
@@ -413,7 +413,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
             {question.context}
           </div>
         )}
-        <div className="text-[18px] font-bold leading-snug tracking-[-0.01em]">
+        <div className="text-[18px] font-semibold leading-snug tracking-[-0.01em]">
           {question.prompt}
         </div>
 
@@ -445,7 +445,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
                 style={{ borderColor, background: bg }}
               >
                 <span
-                  className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-bold uppercase border"
+                  className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-semibold uppercase border"
                   style={{ borderColor, color: isCorrect ? "var(--av-success-fg)" : isWrongChosen ? "var(--av-danger-fg)" : "var(--muted-foreground)" }}
                 >
                   {k}
@@ -504,7 +504,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
       <div className="text-[13px] font-semibold text-muted-foreground">
         RESULTADOS
       </div>
-      <div className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none tabular-nums text-foreground">
+      <div className="mt-3 text-[72px] font-semibold tracking-[-0.04em] leading-none tabular-nums text-foreground">
         {score} / {total}
       </div>
       <div className="mt-2 flex items-center justify-center gap-2">
@@ -516,7 +516,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
         {history.map((h, i) => (
           <div
             key={i}
-            className="w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-bold"
+            className="w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-semibold"
             style={{
               background: h.correct
                 ? "color-mix(in oklab, var(--av-green-400) 18%, transparent)"

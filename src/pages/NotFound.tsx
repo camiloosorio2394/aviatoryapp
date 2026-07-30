@@ -15,7 +15,7 @@ export function NotFound() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Error 404
           </div>
-          <h1 className="mt-2 text-5xl sm:text-6xl font-bold tracking-tight">
+          <h1 className="mt-2 text-5xl sm:text-6xl font-semibold tracking-tight">
             Esta ruta no está en el plan de vuelo
           </h1>
           <p className="mt-4 text-muted-foreground">

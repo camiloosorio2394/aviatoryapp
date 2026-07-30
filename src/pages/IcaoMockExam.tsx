@@ -158,7 +158,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
             <span className="chip chip-amber">
               <Award className="h-3 w-3" /> Simulacro · examen completo cronometrado
             </span>
-            <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+            <h1 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
               Simulacro TEA
             </h1>
             <p className="mt-3 text-[17px] text-muted-foreground max-w-[640px] leading-relaxed">
@@ -200,7 +200,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
             {wantRecord ? <Mic className="h-5 w-5" /> : <MicOff className="h-5 w-5" />}
           </div>
           <div className="flex-1">
-            <div className="text-[15px] font-bold tracking-[-0.01em]">
+            <div className="text-[15px] font-semibold tracking-[-0.01em]">
               Grabar mis respuestas {wantRecord ? "· activado" : "· desactivado"}
             </div>
             <div className="text-[13.5px] text-muted-foreground">
@@ -279,7 +279,7 @@ function MockHistory() {
     <div className="mt-6">
       <div className="flex items-center gap-2 mb-3">
         <History className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-        <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">Tu historial</h2>
+        <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Tu historial</h2>
       </div>
       <div className="grid grid-cols-3 gap-2.5 mb-3">
         <Stat label="Simulacros" value={String(history.length)} color="var(--av-blue-500)" />
@@ -289,7 +289,7 @@ function MockHistory() {
       <div className="space-y-1.5">
         {history.map((h) => (
           <div key={h.id} className="rounded-xl border bg-card px-3.5 py-2.5 flex items-center gap-3" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
-            <div className="tabular-nums w-14 flex-shrink-0 text-[16px] font-extrabold" style={{ color: levelText(h.final_level) }}>
+            <div className="tabular-nums w-14 flex-shrink-0 text-[16px] font-semibold" style={{ color: levelText(h.final_level) }}>
               {h.final_level != null ? `ICAO ${h.final_level}` : "—"}
             </div>
             <div className="flex-1 min-w-0">
@@ -302,7 +302,7 @@ function MockHistory() {
               {DESCRIPTORS.map((d) => {
                 const v = h.scores?.[d.key]
                 return (
-                  <span key={d.key} title={descriptorEs(d.key, d.name).name} className="tabular-nums w-5 h-5 rounded flex items-center justify-center text-[12px] font-bold"
+                  <span key={d.key} title={descriptorEs(d.key, d.name).name} className="tabular-nums w-5 h-5 rounded flex items-center justify-center text-[12px] font-semibold"
                     style={{ background: v ? `color-mix(in oklab, ${levelTint(v)} 16%, transparent)` : "transparent", color: v ? levelText(v) : "var(--muted-foreground)" }}>
                     {v ?? "·"}
                   </span>
@@ -319,7 +319,7 @@ function MockHistory() {
 function Stat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div className="rounded-xl border p-3 text-center" style={{ borderColor: "color-mix(in oklab, var(--border) 60%, transparent)" }}>
-      <div className="text-[19px] font-extrabold tracking-[-0.02em]" style={{ color }}>{value}</div>
+      <div className="text-[19px] font-semibold tracking-[-0.02em]" style={{ color }}>{value}</div>
       <div className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{label}</div>
     </div>
   )
@@ -332,7 +332,7 @@ function PartCard({ icon: Icon, color, title, detail, time }: { icon: React.Comp
         <Icon className="h-4.5 w-4.5" style={{ color }} />
         <span className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground">{time}</span>
       </div>
-      <div className="mt-2 text-[14.5px] font-bold tracking-[-0.01em]">{title}</div>
+      <div className="mt-2 text-[14.5px] font-semibold tracking-[-0.01em]">{title}</div>
       <div className="text-[13px] text-muted-foreground">{detail}</div>
     </div>
   )
@@ -349,7 +349,7 @@ function RunHeader({ idx, total, part, elapsed, recording }: { idx: number; tota
         </div>
         <div className="flex items-center gap-3">
           {recording && (
-            <span className="inline-flex items-center gap-1.5 text-[12.5px] font-bold" style={{ color: "var(--av-danger-fg)" }}>
+            <span className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold" style={{ color: "var(--av-danger-fg)" }}>
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--av-red-400)" }} /> REC
             </span>
           )}
@@ -374,7 +374,7 @@ function StepView({ step, onSkip }: { step: ExamStep; onSkip: () => void }) {
     return (
       <Card>
         <Kicker icon={Radio} text="Responde en voz alta: natural, técnico y profesional" />
-        <div className="mt-3 text-[22px] font-bold leading-snug tracking-[-0.01em]">{step.question}</div>
+        <div className="mt-3 text-[22px] font-semibold leading-snug tracking-[-0.01em]">{step.question}</div>
       </Card>
     )
   }
@@ -446,7 +446,7 @@ function ExamImage({ src, alt, letter }: { src: string; alt: string; letter: str
   return (
     <figure className="rounded-2xl border overflow-hidden bg-muted" style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}>
       <div className="relative">
-        <div className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-extrabold text-white" style={{ background: "oklch(0.2 0.02 250 / 0.75)" }}>{letter}</div>
+        <div className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-semibold text-white" style={{ background: "oklch(0.2 0.02 250 / 0.75)" }}>{letter}</div>
         <img src={src} alt={alt} className="w-full aspect-[4/3] object-cover" />
       </div>
     </figure>
@@ -540,7 +540,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
       <div className="px-7 py-7 pb-24 max-w-[920px] mx-auto">
         <div className="text-center">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-success-fg)" }}>Simulacro terminado</div>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">¡Terminaste el examen!</h1>
+          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">¡Terminaste el examen!</h1>
           <div className="mt-2 inline-flex items-center gap-1.5 tabular-nums text-[14px] text-muted-foreground">
             <Clock className="h-4 w-4" /> Tiempo total: {fmtTime(elapsed)} · {steps.length} ítems
           </div>
@@ -548,7 +548,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
         {/* Autoevaluación */}
         <div className="mt-9">
-          <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">Autoevalúate en los 6 descriptores</h2>
+          <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Autoevalúate en los 6 descriptores</h2>
           <p className="mt-1 text-[14px] text-muted-foreground">Sé honesto: tu resultado final es tu descriptor más bajo.</p>
           <div className="mt-4 space-y-2.5">
             {DESCRIPTORS.map((d) => {
@@ -556,7 +556,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
               return (
               <div key={d.key} className="rounded-2xl border bg-card p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
                 <div className="min-w-0">
-                  <div className="text-[15px] font-bold tracking-[-0.01em]">{es.name}</div>
+                  <div className="text-[15px] font-semibold tracking-[-0.01em]">{es.name}</div>
                   <div className="text-[13px] text-muted-foreground">{es.detail}</div>
                 </div>
                 {/* En móvil los 3 niveles son tap targets de ancho completo: es el
@@ -568,7 +568,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
                       <button key={lvl} onClick={() => setScores((s) => ({ ...s, [d.key]: lvl }))}
                         aria-label={`${es.name}: nivel ${lvl}`}
                         aria-pressed={active}
-                        className="tabular-nums w-full sm:w-10 h-11 sm:h-10 rounded-lg text-[15px] font-extrabold border transition-colors"
+                        className="tabular-nums w-full sm:w-10 h-11 sm:h-10 rounded-lg text-[15px] font-semibold border transition-colors"
                         style={{
                           borderColor: active ? "color-mix(in oklab, var(--av-blue-500) 55%, transparent)" : "color-mix(in oklab, var(--border) 60%, transparent)",
                           background: active ? "color-mix(in oklab, var(--av-blue-500) 18%, transparent)" : "transparent",
@@ -589,7 +589,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
               <div className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground">TU NIVEL ESTIMADO (EL DESCRIPTOR MÁS BAJO)</div>
               {/* El número va en color de texto normal: --av-green-400 y
                   --av-amber-400 no se leen sobre fondo claro. El tono lo da el chip. */}
-              <div className="mt-1 tabular-nums text-[44px] font-extrabold tracking-[-0.04em] text-foreground">
+              <div className="mt-1 tabular-nums text-[44px] font-semibold tracking-[-0.04em] text-foreground">
                 ICAO {finalLevel}
               </div>
               <div className="mt-0.5">
@@ -626,7 +626,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
         {/* Review */}
         <div className="mt-10">
-          <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">Repaso: qué salió y las respuestas</h2>
+          <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Repaso: qué salió y las respuestas</h2>
           <p className="mt-1 text-[14px] text-muted-foreground">Escucha de nuevo, lee las transcripciones y, si te grabaste, escúchate.</p>
           <div className="mt-4 space-y-2">
             {steps.map((s, i) => (
@@ -655,8 +655,8 @@ function ReviewItem({ step, n, recordingUrl }: { step: ExamStep; n: number; reco
   return (
     <div className="rounded-2xl border bg-card overflow-hidden" style={{ borderColor: open ? "color-mix(in oklab, var(--av-blue-500) 30%, transparent)" : "color-mix(in oklab, var(--border) 65%, transparent)" }}>
       <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center gap-3 p-3.5 text-left">
-        <span className="tabular-nums flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-bold" style={{ background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)", color: "var(--av-blue-500)" }}>{n}</span>
-        <span className="text-[11px] font-bold uppercase tracking-[0.12em] flex-shrink-0 px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--border) 40%, transparent)", color: "var(--muted-foreground)" }}>{meta.tag}</span>
+        <span className="tabular-nums flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-semibold" style={{ background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)", color: "var(--av-blue-500)" }}>{n}</span>
+        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] flex-shrink-0 px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--border) 40%, transparent)", color: "var(--muted-foreground)" }}>{meta.tag}</span>
         <span className="flex-1 text-[14px] font-semibold truncate">{meta.title}</span>
         {open ? <EyeOff className="h-4 w-4 text-muted-foreground" /> : <Eye className="h-4 w-4 text-muted-foreground" />}
       </button>
@@ -664,7 +664,7 @@ function ReviewItem({ step, n, recordingUrl }: { step: ExamStep; n: number; reco
         <div className="px-3.5 pb-3.5 space-y-3">
           {recordingUrl && (
             <div>
-              <div className="text-[11px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>TU RESPUESTA</div>
+              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>TU RESPUESTA</div>
               <audio controls src={recordingUrl} className="w-full h-9" />
             </div>
           )}
@@ -690,7 +690,7 @@ function ReviewBody({ step }: { step: ExamStep }) {
   if (step.kind === "interview") {
     return (
       <div className="rounded-xl border p-3" style={box}>
-        <div className="text-[11px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>RESPUESTA MODELO</div>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>RESPUESTA MODELO</div>
         <p className="text-[14px] text-foreground/90 leading-relaxed">{step.suggestedAnswer}</p>
         {step.highRegisterWords && step.highRegisterWords.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1.5">
@@ -726,8 +726,8 @@ function ReviewBody({ step }: { step: ExamStep }) {
     return (
       <div className="rounded-xl border p-3 space-y-2" style={box}>
         {step.item.transcript && <p className="text-[14px] italic text-foreground/90">&ldquo;{step.item.transcript}&rdquo;</p>}
-        {step.item.questions && <div><div className="text-[11px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>PREGUNTAS</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13.5px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
-        {step.item.advice && <div><div className="text-[11px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>RECOMENDACIONES</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
+        {step.item.questions && <div><div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>PREGUNTAS</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13.5px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
+        {step.item.advice && <div><div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>RECOMENDACIONES</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
       </div>
     )
   }
@@ -738,7 +738,7 @@ function ReviewBody({ step }: { step: ExamStep }) {
         <img src={step.pair.imageA} alt={step.pair.altA} className="w-full aspect-[4/3] object-cover rounded-md" />
         <img src={step.pair.imageB} alt={step.pair.altB} className="w-full aspect-[4/3] object-cover rounded-md" />
       </div>
-      <div className="text-[11px] font-bold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>CONVERSACIÓN</div>
+      <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>CONVERSACIÓN</div>
       <ul className="space-y-0.5">{step.pair.discussion.map((q) => <li key={q} className="text-[13.5px] text-foreground/90">{q}</li>)}</ul>
     </div>
   )

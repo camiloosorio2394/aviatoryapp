@@ -100,7 +100,7 @@ export function ExamTrackerSubject() {
       <AppLayout>
         <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
           <div className="rounded-3xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
-            <h2 className="text-lg font-bold text-foreground">No encontramos esta materia</h2>
+            <h2 className="text-lg font-semibold text-foreground">No encontramos esta materia</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               El enlace puede estar viejo o la materia cambió de nombre.
             </p>
@@ -236,7 +236,7 @@ function StatBox({ label, value, chip }: { label: string; value: string; chip?: 
       </div>
       <div className="mt-1 flex items-center gap-2 flex-wrap">
         <div
-          className={`text-2xl sm:text-3xl font-bold tracking-[-0.03em] tabular ${
+          className={`text-2xl sm:text-3xl font-semibold tracking-[-0.03em] tabular ${
             isEmpty ? "text-muted-foreground" : "text-foreground"
           }`}
         >
@@ -253,7 +253,7 @@ function TopicRow({ topic, rank }: { topic: Topic; rank: number }) {
   return (
     <li className="rounded-xl surface p-4">
       <div className="flex items-center gap-3">
-        <div className="tabular flex-shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border border-border bg-muted text-muted-foreground font-bold text-xs">
+        <div className="tabular flex-shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border border-border bg-muted text-muted-foreground font-semibold text-xs">
           {rank}
         </div>
         <div className="flex-1 min-w-0">
@@ -335,7 +335,7 @@ function EmptyTopics() {
       >
         <TrendingUp className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-bold text-foreground">Todavía no hay temas marcados</h3>
+      <h3 className="text-lg font-semibold text-foreground">Todavía no hay temas marcados</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
         Apenas los reportes empiecen a marcar qué cayó, aquí queda el ranking de los temas más
         frecuentes de esta materia.
@@ -361,7 +361,7 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
       >
         <Users className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-bold text-foreground">Nadie ha reportado {subjectName}</h3>
+      <h3 className="text-lg font-semibold text-foreground">Nadie ha reportado {subjectName}</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
         Los reportes son anónimos y solo cuentan qué temas cayeron. El primero abre la
         inteligencia de esta materia para todos.
@@ -373,7 +373,7 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
           "Tu reporte queda aquí para el próximo piloto",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
+            <span className="tabular flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}

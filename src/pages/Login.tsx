@@ -208,7 +208,7 @@ export function Login() {
         <div className="relative space-y-8">
           <div>
             <Plane className="h-7 w-7 mb-6 text-blue-200" />
-            <h2 className="text-4xl font-bold tracking-tight leading-tight text-balance">
+            <h2 className="text-4xl font-semibold tracking-tight leading-tight text-balance">
               {isSignup
                 ? "Empieza hoy. Llega a la cabina antes."
                 : "Bienvenido de vuelta a tu próximo vuelo."}
@@ -261,7 +261,7 @@ export function Login() {
 
         <div className="flex-1 flex items-center justify-center px-6 pb-12">
           <div className="w-full max-w-md">
-            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-balance">
+            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
               {isSignup ? "Crea tu cuenta" : "Inicia sesión"}
             </h1>
             <p className="mt-2 text-muted-foreground">

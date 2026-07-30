@@ -83,7 +83,7 @@ export function Referrals() {
                 Tu código de invitación
               </div>
               <div
-                className="tabular-nums mt-2.5 text-5xl font-extrabold text-foreground tracking-[0.04em] inline-block px-6 py-3 rounded-2xl"
+                className="tabular-nums mt-2.5 text-5xl font-semibold text-foreground tracking-[0.04em] inline-block px-6 py-3 rounded-2xl"
                 style={{
                   background: "color-mix(in oklch, var(--av-blue-500) 8%, var(--card))",
                   border: "1px dashed color-mix(in oklch, var(--av-blue-500) 50%, transparent)",
@@ -139,7 +139,7 @@ export function Referrals() {
                   >
                     <Users className="h-4 w-4" />
                   </div>
-                  <h3 className="text-sm font-bold text-foreground">Todavía no has invitado a nadie</h3>
+                  <h3 className="text-sm font-semibold text-foreground">Todavía no has invitado a nadie</h3>
                   <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
                     Comparte tu código y aquí verás cuántos pilotos entraron con él y cuántos pasaron a Pro.
                   </p>
@@ -180,7 +180,7 @@ function RewardStat({ label, value, icon: Ic }: { label: string; value: number; 
       <Ic className="h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} />
       <div className="flex-1 min-w-0">
         <div
-          className="tabular-nums text-lg font-bold leading-none tracking-[-0.02em] text-foreground"
+          className="tabular-nums text-lg font-semibold leading-none tracking-[-0.02em] text-foreground"
         >
           <CountUp to={value} />
         </div>
@@ -196,14 +196,14 @@ function Step({ n, title, body }: { n: string; title: string; body: string }) {
   return (
     <div className="rounded-2xl surface p-5">
       <div
-        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold mb-3"
+        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-semibold mb-3"
         style={{
           background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         {n}
       </div>
-      <h3 className="mt-3 font-bold text-sm text-foreground">{title}</h3>
+      <h3 className="mt-3 font-semibold text-sm text-foreground">{title}</h3>
       <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{body}</p>
     </div>
   )

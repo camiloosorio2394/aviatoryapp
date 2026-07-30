@@ -78,7 +78,7 @@ export function IcaoInterview() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             TEA · Parte 1 · Interview · 7 a 8 minutos
           </div>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
             Entrevista: preguntas sobre tu rol
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground max-w-[700px]">
@@ -170,7 +170,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
     >
       <div className="flex items-start gap-4 p-4">
         <div
-          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-bold"
+          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-semibold"
           style={{
             background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
             color: "var(--av-blue-500)",
@@ -179,7 +179,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
           {String(q.n).padStart(2, "0")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+          <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             Pregunta del examinador
           </div>
           <div className="mt-1 text-[16px] font-semibold tracking-[-0.01em] leading-snug">
