@@ -43,7 +43,7 @@ export function Testimonials() {
         <div className="max-w-2xl mb-12">
           <Reveal>
             <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-              Lo que dicen pilotos como vos
+              Lo que dicen pilotos como tú
             </div>
           </Reveal>
           <Reveal delay={80}>

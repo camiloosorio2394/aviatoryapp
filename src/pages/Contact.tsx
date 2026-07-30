@@ -154,7 +154,7 @@ export function Contact() {
                     rows={6}
                     required
                     className="mt-2 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
-                    placeholder="Contanos qué necesitas…"
+                    placeholder="Cuéntanos qué necesitas…"
                   />
                 </div>
 

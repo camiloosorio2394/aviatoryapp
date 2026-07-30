@@ -53,8 +53,8 @@ const navSections: NavSection[] = [
   {
     label: "Carrera",
     items: [
-      { to: "/app/aerolinea", label: "Ingreso a Aerolínea", icon: Briefcase, soon: true },
-      { to: "/app/entrevistas", label: "Simulador entrevistas", icon: Video, soon: true },
+      { to: "/app/aerolinea", label: "Prep aerolínea", icon: Briefcase, soon: true },
+      { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
       { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
       { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
       { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
@@ -277,7 +277,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                 <Sparkles className="h-3.5 w-3.5" /> Prueba gratis
               </div>
               <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.82 0.02 250)" }}>
-                Pasá a Pro y desbloqueá todo Aviatory.
+                Pasa a Pro y desbloquea todo Aviatory.
               </div>
               <div
                 className="mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold text-white"

@@ -95,7 +95,7 @@ export function InterviewSim() {
                 Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
               </div>
               <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">
-                Cada pregunta con su intención, topics esperados y follow-ups. Practicá en
+                Cada pregunta con su intención, topics esperados y follow-ups. Practica en
                 voz alta antes de pasar al técnico.
               </p>
             </div>

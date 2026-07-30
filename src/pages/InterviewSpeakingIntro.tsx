@@ -103,7 +103,7 @@ export function InterviewSpeakingIntro() {
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
           Son las preguntas básicas que cualquier aerolínea hace antes de pasar al técnico.
           Sirven para evaluar tu <strong className="text-foreground">capacidad de respuesta
-          (speaking)</strong> y si sabés armar una historia coherente. Si fallás acá, no avanzás
+          (speaking)</strong> y si sabes armar una historia coherente. Si fallas aquí, no avanzas
           al resto del proceso.
         </p>
 
@@ -118,7 +118,7 @@ export function InterviewSpeakingIntro() {
           <div className="text-[14px] text-foreground/85 leading-relaxed">
             Cada pregunta abre con la <strong>intención</strong> (qué buscan que digas y qué
             evitar), los <strong>topics que esperan que cubras</strong>, y posibles{" "}
-            <strong>follow-ups</strong>. Practicá <strong>en voz alta</strong>, idealmente
+            <strong>follow-ups</strong>. Practica <strong>en voz alta</strong>, idealmente
             grabándote en el celular y escuchándote: es lo más incómodo y lo más útil.
           </div>
         </div>

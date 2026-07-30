@@ -206,7 +206,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           {[
             { icon: Radio, t: "Inglés ICAO", d: "Lectura + 1 audio" },
             { icon: BookOpen, t: "Materias PCA", d: "2 por materia" },
-            { icon: Gauge, t: "~15 min", d: "Lo podés saltar" },
+            { icon: Gauge, t: "~15 min", d: "Lo puedes saltar" },
           ].map((c) => (
             <div key={c.t} className="rounded-2xl border border-border bg-card p-4">
               <c.icon className="h-5 w-5 mb-2" style={{ color: "var(--av-blue-500)" }} />
@@ -217,7 +217,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
         </div>
 
         <div className="mt-5 rounded-2xl border p-4 text-[13px] text-muted-foreground" style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}>
-          El nivel ICAO de este test es <strong className="text-foreground">estimado</strong>. El oficial sale del <strong className="text-foreground">simulacro TEA</strong> (hablado), que podés hacer cuando quieras.
+          El nivel ICAO de este test es <strong className="text-foreground">estimado</strong>. El oficial sale del <strong className="text-foreground">simulacro TEA</strong> (hablado), que puedes hacer cuando quieras.
         </div>
 
         <div className="mt-6 flex items-center gap-3">
@@ -334,7 +334,7 @@ function Result({
             style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 30%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
           >
             <div>
-              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empezá por acá</div>
+              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
               <div className="mt-0.5 text-[16px] font-bold tracking-[-0.01em]">{weakest.label} es tu materia más floja</div>
               <div className="text-[13px] text-muted-foreground">Hacé un quiz de 10 para reforzarla.</div>
             </div>

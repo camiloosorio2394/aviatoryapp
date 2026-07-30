@@ -20,6 +20,7 @@ const COURSES: {
   meta: string
   photo: string
   highlight?: boolean
+  soon?: boolean
 }[] = [
   {
     title: "Inglés ICAO: examen TEA",
@@ -45,6 +46,7 @@ const COURSES: {
     color: "#B45309",
     meta: "Tests + práctica",
     photo: psicoPhoto,
+    soon: true,
   },
   {
     title: "Simulador de entrevistas",
@@ -53,6 +55,7 @@ const COURSES: {
     color: "#0E7490",
     meta: "HR · Técnica · Video",
     photo: entrevistasPhoto,
+    soon: true,
   },
   {
     title: "Ingreso a aerolínea",
@@ -61,6 +64,7 @@ const COURSES: {
     color: "#7C3AED",
     meta: "Requisitos por aerolínea",
     photo: aerolineaPhoto,
+    soon: true,
   },
   {
     title: "Wingman: tu tutor IA",
@@ -115,6 +119,7 @@ function CourseCard({
   meta,
   photo,
   highlight,
+  soon,
 }: {
   title: string
   blurb: string
@@ -123,6 +128,7 @@ function CourseCard({
   meta: string
   photo: string
   highlight?: boolean
+  soon?: boolean
 }) {
   return (
     <div
@@ -161,14 +167,28 @@ function CourseCard({
             <Star className="h-3 w-3 fill-current" /> Popular
           </span>
         )}
+        {soon && (
+          <span
+            className="absolute top-3 right-3 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm"
+            style={{ background: "rgb(11 16 32 / 55%)" }}
+          >
+            Pronto
+          </span>
+        )}
       </div>
 
       <div className="p-5">
         <div className="mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{meta}</div>
         <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">{title}</h3>
         <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">{blurb}</p>
-        <div className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold" style={{ color }}>
-          Ver curso <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+        <div className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold" style={{ color: soon ? "var(--muted-foreground)" : color }}>
+          {soon ? (
+            "En construcción · Muy pronto"
+          ) : (
+            <>
+              Ver curso <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+            </>
+          )}
         </div>
       </div>
     </div>

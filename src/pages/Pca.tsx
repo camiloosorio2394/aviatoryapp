@@ -33,7 +33,7 @@ export function Pca() {
                 Estudiá por materia, simulá el examen
               </h1>
               <p className="text-[16px] text-muted-foreground max-w-[640px] mt-3 leading-relaxed">
-                El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practicá
+                El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practica
                 cada materia por separado para reforzar lo que te cuesta, o lanzá un{" "}
                 <strong className="text-foreground">Simulacro Examen PCA</strong> con preguntas
                 mezcladas de todas las materias para medir qué tan listo estás.
@@ -130,7 +130,7 @@ export function Pca() {
               <Sparkles className="h-3.5 w-3.5" /> Cómo estudiar
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
-              Elegí una materia de arriba y arrancá un quiz de 10 preguntas.
+              Elige una materia de arriba y arranca un quiz de 10 preguntas.
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[640px]">
               Cada quiz que apruebas con 70%+ acerca tu readiness al examen real.
