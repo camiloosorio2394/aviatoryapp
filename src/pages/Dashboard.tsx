@@ -6,6 +6,7 @@ import {
   Timer,
   AlertTriangle,
   ArrowRight,
+  CalendarDays,
   Trophy,
   Users,
   Lightbulb,
@@ -487,6 +488,7 @@ export function Dashboard() {
             firstName={firstName}
             stageLabel={stageLabel}
             targetAirline={pilot?.target_airline ?? null}
+            targetDate={pilot?.target_date ?? null}
             progress={progress}
             trialLeft={trialLeft}
             icaoMeasured={icaoMeasured}
@@ -835,6 +837,7 @@ function CockpitHero({
   firstName,
   stageLabel,
   targetAirline,
+  targetDate,
   progress,
   trialLeft,
   icaoMeasured,
@@ -844,6 +847,7 @@ function CockpitHero({
   firstName: string
   stageLabel: string
   targetAirline: string | null
+  targetDate: string | null
   progress: number | null
   trialLeft: number | null
   icaoMeasured: boolean
@@ -914,11 +918,46 @@ function CockpitHero({
               {greetingTime()}, {firstName}
             </h1>
           </div>
-          {trialLeft !== null && trialLeft > 0 && (
-            <span className={`${heroChip} tabular-nums mt-1`}>
-              <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
-            </span>
-          )}
+          {/* Chips de contexto: la cuenta atras al examen (la fecha se fija en
+              el hero de PCA, #111) y la prueba. Bajo 14 dias el examen pasa a
+              ambar, igual que alla; vencida, invita a moverla. */}
+          <div className="flex flex-wrap items-center gap-2 mt-1">
+            {targetDate !== null &&
+              (() => {
+                const dias = daysUntil(targetDate)
+                if (dias < 0) {
+                  return (
+                    <Link to="/app/pca" className={heroChip}>
+                      <CalendarDays className="h-3 w-3" /> Tu fecha de examen ya pasó: fija una nueva
+                    </Link>
+                  )
+                }
+                const urgente = dias <= 14
+                return (
+                  <span
+                    className={`${heroChip} tabular-nums`}
+                    style={
+                      urgente
+                        ? {
+                            color: "var(--av-amber-400)",
+                            borderColor: "color-mix(in oklab, var(--av-amber-400) 45%, transparent)",
+                          }
+                        : undefined
+                    }
+                  >
+                    <CalendarDays className="h-3 w-3" />
+                    {dias === 0
+                      ? "Tu examen PCA es hoy"
+                      : `Examen PCA: en ${dias} día${dias !== 1 ? "s" : ""}`}
+                  </span>
+                )
+              })()}
+            {trialLeft !== null && trialLeft > 0 && (
+              <span className={`${heroChip} tabular-nums`}>
+                <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la

@@ -10,9 +10,6 @@ export interface SubjectRowData {
   answered: number
 }
 
-/** Bajo este número la materia se marca como banco corto. */
-const SMALL_BANK = 20
-
 /**
  * Materias en tabla, no en mosaico.
  *
@@ -56,7 +53,6 @@ function SubjectRow({
 }) {
   const meta = getSubjectMeta(data.slug)
   const quizCount = Math.min(10, data.count)
-  const short = data.count < SMALL_BANK
   const pct = data.count > 0 ? Math.round((data.answered / data.count) * 100) : 0
 
   return (
@@ -70,21 +66,11 @@ function SubjectRow({
         <Symbol className="h-[18px] w-[18px] text-muted-foreground flex-shrink-0" />
         <div className="min-w-0">
           <div className="text-[15px] font-semibold tracking-[-0.01em] truncate">{meta.name}</div>
-          {short && (
-            <div className="text-[13px] sm:hidden" style={{ color: "var(--av-warn-fg)" }}>
-              Banco corto
-            </div>
-          )}
         </div>
       </div>
 
       <div className="hidden sm:block text-right">
         <span className="tabular-nums text-[15px]">{data.count}</span>
-        {short && (
-          <div className="text-[13px]" style={{ color: "var(--av-warn-fg)" }}>
-            banco corto
-          </div>
-        )}
       </div>
 
       <div className="hidden sm:block">
