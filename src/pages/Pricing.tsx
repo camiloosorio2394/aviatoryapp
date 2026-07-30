@@ -125,7 +125,7 @@ const STICKY_SHADOW =
 function renderCell(v: boolean | string) {
   if (v === true) return <Check className="h-4 w-4 mx-auto" style={{ color: "var(--av-blue-500)" }} />
   if (v === false) return <X className="h-4 w-4 text-muted-foreground/40 mx-auto" />
-  return <span className="text-xs text-foreground">{v}</span>
+  return <span className="text-[12px] text-foreground">{v}</span>
 }
 
 export function Pricing() {
@@ -144,13 +144,13 @@ export function Pricing() {
       />
       <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">
+          <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-[12px]">
             Precios pensados para piloto LATAM
           </Badge>
-          <h1 className="mt-6 text-5xl sm:text-6xl font-semibold tracking-tight text-balance">
+          <h1 className="mt-6 text-[32px] sm:text-6xl font-semibold tracking-tight text-balance">
             Plan claro. Resultado claro.
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground text-balance">
+          <p className="mt-6 text-[17px] text-muted-foreground text-balance">
             Empieza gratis. Si te ayuda a llegar a la cabina, pagas. Si no, no.
           </p>
 
@@ -162,7 +162,7 @@ export function Pricing() {
                 </TabsTrigger>
                 <TabsTrigger value="annual" className="rounded-full px-6">
                   Anual{" "}
-                  <span className="ml-2 text-xs font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                  <span className="ml-2 text-[12px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                     -17%
                   </span>
                 </TabsTrigger>
@@ -211,26 +211,26 @@ export function Pricing() {
                     </Badge>
                   )}
 
-                  <h3 className={`text-lg font-semibold ${t.highlight ? "text-white/90" : ""}`}>
+                  <h3 className={`text-[17px] font-semibold ${t.highlight ? "text-white/90" : ""}`}>
                     {t.name}
                   </h3>
-                  <p className={`mt-2 text-sm ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
+                  <p className={`mt-2 text-[15px] ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
                     {t.description}
                   </p>
                   <div className="mt-6 flex items-baseline gap-2">
-                    <span className="text-4xl font-semibold tracking-tight">{p.price}</span>
-                    <span className={`text-sm ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
+                    <span className="text-[32px] font-semibold tracking-tight">{p.price}</span>
+                    <span className={`text-[15px] ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
                       {p.suffix}
                     </span>
                   </div>
-                  <p className={`mt-1 text-xs ${t.highlight ? "text-white/70" : "text-muted-foreground"}`}>
+                  <p className={`mt-1 text-[12px] ${t.highlight ? "text-white/70" : "text-muted-foreground"}`}>
                     {p.note}
                   </p>
 
                   <Button
                     asChild
                     size="lg"
-                    className={`mt-8 w-full rounded-full h-12 text-base border-0 ${
+                    className={`mt-8 w-full rounded-full h-12 text-[17px] border-0 ${
                       t.highlight
                         ? "btn-apple-light shine-on-hover"
                         : "btn-apple shine-on-hover"
@@ -258,12 +258,12 @@ export function Pricing() {
 
       <section className="pb-32">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-center">
+          <h2 className="text-[32px] sm:text-[32px] font-semibold tracking-tight text-center">
             Comparación completa de planes
           </h2>
 
           <div className="mt-12 overflow-x-auto rounded-2xl border border-border/60">
-            <table className="w-full min-w-[680px] text-sm">
+            <table className="w-full min-w-[680px] text-[15px]">
               <thead>
                 <tr className="bg-muted/50">
                   <th
@@ -288,7 +288,7 @@ export function Pricing() {
                   <Fragment key={cat.category}>
                     <tr className="bg-muted/20">
                       <td
-                        className="sticky left-0 z-10 p-3 font-semibold text-xs uppercase tracking-wider text-muted-foreground"
+                        className="sticky left-0 z-10 p-3 font-semibold text-[12px] uppercase tracking-wider text-muted-foreground"
                         style={{ background: stickyBg(20), boxShadow: STICKY_SHADOW }}
                       >
                         {cat.category}
@@ -316,11 +316,11 @@ export function Pricing() {
               </tbody>
             </table>
           </div>
-          <p className="mt-3 text-center text-xs text-muted-foreground sm:hidden">
+          <p className="mt-3 text-center text-[12px] text-muted-foreground sm:hidden">
             Desliza la tabla para ver todos los planes.
           </p>
 
-          <p className="mt-12 text-center text-sm text-muted-foreground">
+          <p className="mt-12 text-center text-[15px] text-muted-foreground">
             ¿Dudas?{" "}
             <Link
               to="/contact"

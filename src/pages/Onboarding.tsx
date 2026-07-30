@@ -225,7 +225,7 @@ export function Onboarding() {
         <Link to="/">
           <LogoHorizontal className="h-7 w-auto" />
         </Link>
-        <div className="text-xs text-muted-foreground">
+        <div className="text-[12px] text-muted-foreground">
           Paso {step + 1} de {STEPS.length}
         </div>
       </header>
@@ -251,10 +251,10 @@ export function Onboarding() {
             >
               <StepIcon className="h-7 w-7" strokeWidth={2} />
             </div>
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gradient-gold mb-3">
+            <div className="text-[12px] font-semibold text-gradient-gold mb-3">
               Tu plan de vuelo
             </div>
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-balance text-foreground">
+            <h1 className="text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05] text-balance text-foreground">
               {STEPS[step].title}
             </h1>
             <p className="mt-2 text-muted-foreground">{STEPS[step].sub}</p>
@@ -286,10 +286,10 @@ export function Onboarding() {
                       <div className="flex items-start justify-between gap-3">
                         <div>
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="font-semibold text-sm">{s.label}</span>
+                            <span className="font-semibold text-[15px]">{s.label}</span>
                             {s.tag && <span className="chip">{s.tag}</span>}
                           </div>
-                          <div className="text-xs text-muted-foreground mt-1">{s.sub}</div>
+                          <div className="text-[12px] text-muted-foreground mt-1">{s.sub}</div>
                         </div>
                         {active && (
                           <span
@@ -309,7 +309,7 @@ export function Onboarding() {
             {step === 1 && (
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="total-hours" className="text-sm">Horas totales de vuelo</Label>
+                  <Label htmlFor="total-hours" className="text-[15px]">Horas totales de vuelo</Label>
                   <Input
                     id="total-hours"
                     type="number"
@@ -318,12 +318,12 @@ export function Onboarding() {
                     value={form.total_hours}
                     onChange={(e) => update("total_hours", e.target.value)}
                     placeholder="Ej: 245"
-                    className="h-12 rounded-xl text-base"
+                    className="h-12 rounded-xl text-[17px]"
                     autoFocus
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="pic-hours" className="text-sm">Horas como PIC (Opcional)</Label>
+                  <Label htmlFor="pic-hours" className="text-[15px]">Horas como PIC (Opcional)</Label>
                   <Input
                     id="pic-hours"
                     type="number"
@@ -332,7 +332,7 @@ export function Onboarding() {
                     value={form.hours_pic}
                     onChange={(e) => update("hours_pic", e.target.value)}
                     placeholder="Ej: 120"
-                    className="h-12 rounded-xl text-base"
+                    className="h-12 rounded-xl text-[17px]"
                   />
                 </div>
               </div>
@@ -340,7 +340,7 @@ export function Onboarding() {
 
             {step === 2 && (
               <div className="space-y-3">
-                <p className="text-xs text-muted-foreground">Toca las que ya tienes emitidas.</p>
+                <p className="text-[12px] text-muted-foreground">Toca las que ya tienes emitidas.</p>
                 <div className="grid grid-cols-3 gap-2">
                   {LICENSES.map((lic) => {
                     const active = form.licenses.includes(lic.value)
@@ -349,7 +349,7 @@ export function Onboarding() {
                         key={lic.value}
                         type="button"
                         onClick={() => toggleLicense(lic.value)}
-                        className={`h-12 rounded-xl border text-base font-semibold transition-all ${
+                        className={`h-12 rounded-xl border text-[17px] font-semibold transition-all ${
                           active
                             ? "text-white scale-[1.02]"
                             : "border-border/60 bg-card hover:bg-muted/40"
@@ -376,7 +376,7 @@ export function Onboarding() {
             {step === 3 && (
               <div className="space-y-5">
                 <div className="space-y-2">
-                  <Label htmlFor="airline" className="text-sm">Aerolínea objetivo</Label>
+                  <Label htmlFor="airline" className="text-[15px]">Aerolínea objetivo</Label>
                   <Select value={form.target_airline} onValueChange={(v) => update("target_airline", v)}>
                     <SelectTrigger className="h-12 rounded-xl">
                       <SelectValue placeholder="Elige una aerolínea" />
@@ -402,7 +402,7 @@ export function Onboarding() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="target-date" className="text-sm">Fecha objetivo (Opcional)</Label>
+                  <Label htmlFor="target-date" className="text-[15px]">Fecha objetivo (Opcional)</Label>
                   <Input
                     id="target-date"
                     type="date"
@@ -416,7 +416,7 @@ export function Onboarding() {
 
             {step === 4 && (
               <>
-                <ul className="space-y-3 text-sm">
+                <ul className="space-y-3 text-[15px]">
                   <SummaryRow label="Etapa" value={stageSummary} />
                   <SummaryRow
                     label="Horas"

@@ -163,7 +163,7 @@ export function Logbook() {
               <button
                 type="button"
                 onClick={() => setFormOpen(true)}
-                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[13px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
                 style={{
                   background: "var(--av-blue-500)",
                 }}
@@ -329,12 +329,12 @@ function BigStat({
         {label}
       </div>
       <div
-        className="tabular-nums mt-1.5 text-[22px] font-semibold leading-none tracking-[-0.03em]"
+        className="tabular-nums mt-1.5 text-[20px] font-semibold leading-none tracking-[-0.03em]"
         style={{ color: highlight ? "var(--av-blue-500)" : "var(--foreground)" }}
       >
         <CountUp to={computed} format={(v) => (unit === "" ? v.toFixed(0) : v.toFixed(1))} />
         {unit && (
-          <span className="text-xs text-muted-foreground font-semibold ml-0.5">{unit}</span>
+          <span className="text-[12px] text-muted-foreground font-semibold ml-0.5">{unit}</span>
         )}
       </div>
       {sparkline && sparkline.length > 0 && (
@@ -378,7 +378,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
     tags.length > 0 ? (
       <div className="mt-1 flex gap-1 flex-wrap">
         {tags.map((t) => (
-          <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[11px]`}>
+          <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[12px]`}>
             {t.label}
           </span>
         ))}
@@ -399,15 +399,15 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
   return (
     <div className="border-b border-border last:border-b-0">
       {/* Móvil y tablet: tarjeta apilada, ningún dato queda fuera de pantalla */}
-      <div className="lg:hidden px-4 py-3.5 text-[14px]">
+      <div className="lg:hidden px-4 py-3.5 text-[13px]">
         <div className="flex items-start justify-between gap-3">
           <div className="min-w-0">
-            <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
+            <div className="text-[12px] text-muted-foreground font-semibold">
               {dow} {day} {month}
             </div>
             <div className="tabular-nums mt-0.5 font-semibold text-foreground">
               {f.aircraft_registration ?? "—"}
-              <span className="ml-1.5 text-[12.5px] font-normal text-muted-foreground">
+              <span className="ml-1.5 text-[12px] font-normal text-muted-foreground">
                 {f.aircraft_type ?? "—"}
               </span>
             </div>
@@ -425,7 +425,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
             {deleteButton}
           </div>
         </div>
-        <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px]">
+        <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-[12px]">
           <MiniStat label="PIC" value={minutesToHours(f.pic_minutes)} on={f.pic_minutes > 0} />
           <MiniStat label="IFR" value={minutesToHours(ifrTotal)} on={ifrTotal > 0} />
           <MiniStat label="Noche" value={minutesToHours(f.night_minutes)} on={f.night_minutes > 0} />
@@ -435,25 +435,25 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
       </div>
 
       {/* Desde lg: la grilla densa */}
-      <div className="hidden lg:grid items-center px-[18px] py-3.5 text-[14px] transition-colors group hover:bg-muted/40 lg:grid-cols-[100px_1fr_1fr_110px_70px_70px_70px_70px_70px_40px]">
+      <div className="hidden lg:grid items-center px-[18px] py-3.5 text-[13px] transition-colors group hover:bg-muted/40 lg:grid-cols-[100px_1fr_1fr_110px_70px_70px_70px_70px_70px_40px]">
       <div>
-        <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
+        <div className="text-[12px] text-muted-foreground font-semibold">
           {dow}
         </div>
-        <div className="tabular-nums text-sm font-semibold text-foreground">
+        <div className="tabular-nums text-[15px] font-semibold text-foreground">
           {day} {month}
         </div>
       </div>
       <div>
         <div className="tabular-nums font-semibold text-foreground">{f.aircraft_registration ?? "—"}</div>
-        <div className="text-[12.5px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
+        <div className="text-[12px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
       </div>
       <div>
         {route}
         {tagRow}
       </div>
       <div
-        className="tabular-nums text-right text-[16px] font-semibold"
+        className="tabular-nums text-right text-[15px] font-semibold"
         style={{ color: "var(--av-blue-500)" }}
       >
         {minutesToHours(f.total_minutes)}
@@ -496,7 +496,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
 function MiniStat({ label, value, on }: { label: string; value: string; on: boolean }) {
   return (
     <span className="inline-flex items-baseline gap-1">
-      <span className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted-foreground">
+      <span className="text-[12px] font-semibold text-muted-foreground">
         {label}
       </span>
       <span
@@ -521,8 +521,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       >
         <Plane className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-semibold text-foreground">Empieza tu logbook digital</h3>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+      <h3 className="text-[17px] font-semibold text-foreground">Empieza tu logbook digital</h3>
+      <p className="mt-2 text-[15px] text-muted-foreground max-w-md mx-auto leading-relaxed">
         Cada vuelo que registres se suma a tus horas totales y actualiza tu progreso a aerolínea automáticamente.
       </p>
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
@@ -531,8 +531,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "Carga fecha, ruta, matrícula y tiempo total",
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
-          <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
+          <li key={i} className="flex items-center gap-2.5 text-[15px] text-muted-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -542,7 +542,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <button
         type="button"
         onClick={onAdd}
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{
           background: "var(--av-blue-500)",
         }}
@@ -625,8 +625,8 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         >
           <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
-              <h2 className="text-lg font-semibold">Nuevo vuelo</h2>
-              <p className="text-xs text-muted-foreground">Datos básicos abajo, detalles opcionales</p>
+              <h2 className="text-[17px] font-semibold">Nuevo vuelo</h2>
+              <p className="text-[12px] text-muted-foreground">Datos básicos abajo, detalles opcionales</p>
             </div>
             <button
               type="button"
@@ -708,7 +708,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 onChange={(e) => setRemarks(e.target.value)}
                 rows={3}
                 placeholder="Notas del vuelo, condiciones meteorológicas, briefing..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-[15px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
               />
             </Field>
           </div>
@@ -761,7 +761,7 @@ function Row({ children }: { children: React.ReactNode }) {
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-1.5">
-      <Label className="text-xs">{label}</Label>
+      <Label className="text-[12px]">{label}</Label>
       {children}
     </div>
   )

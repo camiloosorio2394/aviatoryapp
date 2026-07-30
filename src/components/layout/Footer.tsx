@@ -35,19 +35,19 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           <div className="col-span-2 md:col-span-1 space-y-4">
             <LogoHorizontal className="h-7 w-auto" />
-            <p className="text-sm text-muted-foreground max-w-xs">
+            <p className="text-[15px] text-muted-foreground max-w-xs">
               De estudiante piloto a candidato de aerolínea. Tu copiloto digital.
             </p>
           </div>
           {cols.map((col) => (
             <div key={col.title}>
-              <h3 className="text-sm font-semibold text-foreground mb-4">{col.title}</h3>
+              <h3 className="text-[15px] font-semibold text-foreground mb-4">{col.title}</h3>
               <ul className="space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       to={link.to}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                      className="text-[15px] text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -58,10 +58,10 @@ export function Footer() {
           ))}
         </div>
         <div className="mt-12 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[12px] text-muted-foreground">
             © {new Date().getFullYear()} Aviatory. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-[12px] text-muted-foreground">
             Hecho en Colombia para pilotos LATAM
           </p>
         </div>

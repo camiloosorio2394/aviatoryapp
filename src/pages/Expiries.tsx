@@ -192,7 +192,7 @@ export function Expiries() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[13px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               <Plus className="h-3.5 w-3.5" /> Agregar
@@ -231,10 +231,10 @@ export function Expiries() {
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="flex-1">
-              <div className="text-sm font-semibold text-foreground tracking-[-0.015em]">
+              <div className="text-[15px] font-semibold text-foreground tracking-[-0.015em]">
                 {bannerTitle}
               </div>
-              <div className="text-xs text-muted-foreground mt-0.5">
+              <div className="text-[12px] text-muted-foreground mt-0.5">
                 Si no renuevas antes del vencimiento pierdes legalidad para volar PIC.
               </div>
             </div>
@@ -313,13 +313,13 @@ function SummaryTile({
     >
       <Ic className="h-4 w-4" style={{ color: active ? tone : "var(--muted-foreground)" }} />
       <div
-        className="tabular-nums mt-3.5 text-2xl sm:text-3xl font-semibold leading-none tracking-[-0.04em]"
+        className="tabular-nums mt-3.5 text-[24px] sm:text-[32px] font-semibold leading-none tracking-[-0.04em]"
         style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}
       >
         <CountUp to={value} />
       </div>
       <div className="mt-1 text-[13px] font-semibold text-foreground">{label}</div>
-      <div className="text-[11px] text-muted-foreground">{hint}</div>
+      <div className="text-[12px] text-muted-foreground">{hint}</div>
     </div>
   )
 }
@@ -358,7 +358,7 @@ function LicenseRow({
     d !== null ? (
       <span className="tabular-nums font-semibold tracking-[-0.025em]" style={{ color: meta.fg }}>
         {Math.abs(d)}
-        <span className="text-[12.5px] text-muted-foreground font-semibold ml-0.5">d</span>
+        <span className="text-[12px] text-muted-foreground font-semibold ml-0.5">d</span>
         {d < 0 && <span className="text-[12px] text-muted-foreground ml-1">vencido</span>}
       </span>
     ) : null
@@ -380,7 +380,7 @@ function LicenseRow({
       <div className="lg:hidden flex items-start gap-3 px-4 py-4">
         <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: meta.color }} />
         <div className="min-w-0 flex-1">
-          <div className="text-sm font-semibold text-foreground">{label}</div>
+          <div className="text-[15px] font-semibold text-foreground">{label}</div>
           <div className="text-[12px] text-muted-foreground mt-0.5">
             {LICENSE_CATEGORY[license.license_type]} · {dateStr ?? "Sin fecha de vencimiento"}
           </div>
@@ -396,15 +396,15 @@ function LicenseRow({
       <div className="hidden lg:grid items-center gap-4 px-[18px] py-4 transition-colors group hover:bg-muted lg:grid-cols-[8px_1fr_200px_110px_120px_60px]">
         <div className="w-1 h-8 rounded-full" style={{ background: meta.color }} />
         <div>
-          <div className="text-sm font-semibold text-foreground">{label}</div>
+          <div className="text-[15px] font-semibold text-foreground">{label}</div>
           <div className="text-[12px] text-muted-foreground mt-0.5">
             {LICENSE_CATEGORY[license.license_type]}
           </div>
         </div>
-        <div className="tabular-nums text-sm font-semibold text-foreground">
+        <div className="tabular-nums text-[15px] font-semibold text-foreground">
           {dateStr ?? <span className="text-muted-foreground">—</span>}
         </div>
-        <div className="text-lg">{daysBlock}</div>
+        <div className="text-[17px]">{daysBlock}</div>
         <div>{statusChip}</div>
         <div className="flex items-center justify-end">{deleteButton}</div>
       </div>
@@ -423,8 +423,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       >
         <FileText className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-semibold text-foreground">Carga tus licencias y certificaciones</h3>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+      <h3 className="text-[17px] font-semibold text-foreground">Carga tus licencias y certificaciones</h3>
+      <p className="mt-2 text-[15px] text-muted-foreground max-w-md mx-auto leading-relaxed">
         Médico clase 1, PPL, CPL, IFR, recurrent check. Una vez cargadas, te recordamos antes de que venzan.
       </p>
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
@@ -433,8 +433,8 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "Suma tus licencias y habilitaciones",
           "Activamos los recordatorios automáticos",
         ].map((s, i) => (
-          <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
+          <li key={i} className="flex items-center gap-2.5 text-[15px] text-muted-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -444,7 +444,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <button
         type="button"
         onClick={onAdd}
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{ background: "var(--av-blue-500)" }}
       >
         <Plus className="h-3.5 w-3.5" /> Agregar la primera
@@ -501,7 +501,7 @@ function NewLicenseDialog({
           className="pointer-events-auto w-full max-w-md rounded-3xl bg-card border border-border shadow-2xl my-8"
         >
           <header className="flex items-center justify-between px-6 py-4 border-b border-border">
-            <h2 className="text-lg font-semibold">Nueva licencia o certificación</h2>
+            <h2 className="text-[17px] font-semibold">Nueva licencia o certificación</h2>
             <button
               type="button"
               onClick={onClose}
@@ -513,7 +513,7 @@ function NewLicenseDialog({
           </header>
           <div className="p-6 space-y-4">
             <div className="space-y-1.5">
-              <Label className="text-xs">Tipo</Label>
+              <Label className="text-[12px]">Tipo</Label>
               <Select value={licenseType} onValueChange={(v) => setLicenseType(v as LicenseType)}>
                 <SelectTrigger className="h-11 rounded-xl">
                   <SelectValue />
@@ -530,7 +530,7 @@ function NewLicenseDialog({
 
             {needsCustomName && (
               <div className="space-y-1.5">
-                <Label className="text-xs">
+                <Label className="text-[12px]">
                   {licenseType === "type_rating" ? "Aeronave (ej A320, B737)" : "Nombre"}
                 </Label>
                 <Input
@@ -545,7 +545,7 @@ function NewLicenseDialog({
 
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-xs">Emitida</Label>
+                <Label className="text-[12px]">Emitida</Label>
                 <Input
                   type="date"
                   value={issuedDate}
@@ -554,7 +554,7 @@ function NewLicenseDialog({
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs">Vence el</Label>
+                <Label className="text-[12px]">Vence el</Label>
                 <Input
                   type="date"
                   value={expiresDate}
@@ -565,13 +565,13 @@ function NewLicenseDialog({
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs">Notas (opcional)</Label>
+              <Label className="text-[12px]">Notas (opcional)</Label>
               <textarea
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
                 placeholder="Restricciones, médico tratante, número de certificado..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-[15px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
               />
             </div>
           </div>

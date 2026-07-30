@@ -141,20 +141,20 @@ export function AirlinePrep() {
         {/* Lo que sí puedes adelantar hoy */}
         <section className="mt-10 rounded-2xl surface p-6">
           <div className="text-[15px] font-semibold">Mientras tanto</div>
-          <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[680px]">
+          <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">
             Tu Logbook y tus vencimientos alimentan el Pilot ID que vas a necesitar el día que
             postules, y el match por aerolínea te dice qué requisito te falta para cada una.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               to="/app/aerolineas"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver mi match <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/logbook"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Mi Logbook <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -183,19 +183,19 @@ function TemaAbierto({ tema }: { tema: Tema }) {
           </span>
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="chip chip-green text-[11px]">Disponible</span>
+              <span className="chip chip-green text-[12px]">Disponible</span>
               {tema.disponible && (
                 <span className="text-[12px] text-muted-foreground">{tema.disponible}</span>
               )}
             </div>
             <h2 className="mt-1.5 text-[20px] font-semibold tracking-[-0.02em]">{tema.nombre}</h2>
-            <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[620px]">
+            <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[620px]">
               {tema.resumen}
             </p>
           </div>
         </div>
         <span
-          className="inline-flex flex-shrink-0 items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white"
+          className="inline-flex flex-shrink-0 items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white"
           style={{ background: TILE_COLOR[tema.color] }}
         >
           Abrir tema{" "}
@@ -217,7 +217,7 @@ function TemaPronto({ tema }: { tema: Tema }) {
         <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
           <HoldingIcon className="h-4 w-4" />
         </span>
-        <span className="chip text-[10px]">Pronto</span>
+        <span className="chip text-[12px]">Pronto</span>
       </div>
       <div className="mt-2.5 text-[15px] font-semibold tracking-[-0.01em]">{tema.nombre}</div>
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{tema.resumen}</p>

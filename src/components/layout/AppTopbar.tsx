@@ -161,7 +161,7 @@ export function AppTopbar({
           móvil el rail es un drawer cerrado, así que el isotipo del topbar es
           la única marca en pantalla.
         */}
-        <div className="flex items-center gap-2 min-w-0 text-[14px]">
+        <div className="flex items-center gap-2 min-w-0 text-[13px]">
           <LogoIsotype
             variant="color"
             alt="Aviatory"
@@ -182,7 +182,7 @@ export function AppTopbar({
       <div className="flex items-center gap-1.5 sm:gap-2 justify-end">
         {/* Racha — comprimida a icono + número en móvil, completa desde 640px */}
         {streak !== undefined && streak > 0 && (
-          <div className="chip chip-amber mono tabular-nums h-[30px] px-2 sm:px-3 text-xs">
+          <div className="chip chip-amber mono tabular-nums h-[30px] px-2 sm:px-3 text-[12px]">
             <Flame className="h-3.5 w-3.5" />
             {streak}
             <span className="hidden sm:inline">&nbsp;{streak === 1 ? "día" : "días"}</span>
@@ -240,7 +240,7 @@ export function AppTopbar({
               className="shadow-md"
               style={{ boxShadow: "0 0 0 2px var(--background), 0 0 0 3px var(--av-blue-500)" } as React.CSSProperties}
             />
-            <span className="hidden sm:block text-xs font-semibold text-muted-foreground max-w-[200px] truncate">
+            <span className="hidden sm:block text-[12px] font-semibold text-muted-foreground max-w-[200px] truncate">
               {handle}
             </span>
           </button>
@@ -253,13 +253,13 @@ export function AppTopbar({
               onClick={(e) => e.stopPropagation()}
             >
               <div className="px-4 py-3 border-b border-border">
-                {username && <p className="text-sm font-semibold">@{username}</p>}
-                <p className="text-xs text-muted-foreground truncate">{email}</p>
+                {username && <p className="text-[15px] font-semibold">@{username}</p>}
+                <p className="text-[12px] text-muted-foreground truncate">{email}</p>
               </div>
 
               {/* Tema: Claro / Oscuro / Automático (sigue al sistema) */}
               <div className="px-4 py-2.5 border-b border-border">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.1em] text-muted-foreground mb-1.5">Tema</div>
+                <div className="text-[12px] font-semibold text-muted-foreground mb-1.5">Tema</div>
                 <div className="grid grid-cols-3 gap-1">
                   {([
                     { key: "light", label: "Claro", icon: Sun },
@@ -272,7 +272,7 @@ export function AppTopbar({
                         key={opt.key}
                         type="button"
                         onClick={() => chooseTheme(opt.key)}
-                        className="flex flex-col items-center gap-1 py-2 rounded-lg border text-[11px] font-semibold transition-colors"
+                        className="flex flex-col items-center gap-1 py-2 rounded-lg border text-[12px] font-semibold transition-colors"
                         style={{
                           borderColor: active ? "color-mix(in oklab, var(--av-blue-500) 50%, transparent)" : "color-mix(in oklab, var(--border) 70%, transparent)",
                           background: active ? "color-mix(in oklab, var(--av-blue-500) 12%, transparent)" : "transparent",
@@ -290,14 +290,14 @@ export function AppTopbar({
               <Link
                 to="/app/perfil"
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-muted transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 text-[15px] hover:bg-muted transition-colors"
               >
                 <User className="h-4 w-4" /> Mi perfil
               </Link>
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:bg-[color-mix(in_oklab,var(--av-red-400)_12%,transparent)]"
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-[15px] transition-colors hover:bg-[color-mix(in_oklab,var(--av-red-400)_12%,transparent)]"
                 style={{ color: "var(--av-danger-fg)" }}
               >
                 <LogOut className="h-4 w-4" /> Cerrar sesión

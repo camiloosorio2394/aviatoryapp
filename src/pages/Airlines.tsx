@@ -168,10 +168,10 @@ export function Airlines() {
                     >
                       <Target className="h-[13px] w-[13px]" /> Tu mejor match hoy
                     </div>
-                    <h2 className="mt-2 mb-1 text-[26px] font-semibold tracking-[-0.03em] text-foreground">
+                    <h2 className="mt-2 mb-1 text-[24px] font-semibold tracking-[-0.03em] text-foreground">
                       {bestMatch.airline.name} · {bestMatch.matchPct}% match
                     </h2>
-                    <p className="m-0 text-muted-foreground text-[14px] leading-relaxed max-w-[600px]">
+                    <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
                       {bestMatch.missing === 0
                         ? "Cumples todos los requisitos públicos. Postúlate cuando abran convocatoria."
                         : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mira los detalles abajo.`}
@@ -290,16 +290,16 @@ function PilotIdPrompt() {
           >
             Match con aerolíneas
           </div>
-          <h2 className="mt-2 mb-1 text-[24px] sm:text-[26px] font-semibold tracking-[-0.03em] text-foreground">
+          <h2 className="mt-2 mb-1 text-[24px] sm:text-[24px] font-semibold tracking-[-0.03em] text-foreground">
             Completa tu Pilot ID para ver tu match
           </h2>
-          <p className="m-0 text-muted-foreground text-[14px] leading-relaxed max-w-[600px]">
+          <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
             Necesitamos tus horas y tus licencias para compararlas con los requisitos públicos de
             cada aerolínea. Abajo puedes ver esos requisitos mientras tanto.
           </p>
           <Link
             to="/app/perfil"
-            className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--av-blue-500)" }}
           >
             Completar mi Pilot ID <ArrowRight className="h-3.5 w-3.5" />
@@ -333,7 +333,7 @@ function AirlineCard({
       <div className="relative">
         <div className="flex justify-between items-start gap-3">
           <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center font-semibold text-base tracking-[-0.02em] text-white"
+            className="w-12 h-12 rounded-xl flex items-center justify-center font-semibold text-[17px] tracking-[-0.02em] text-white"
             style={{ background: brand }}
           >
             {code}
@@ -342,7 +342,7 @@ function AirlineCard({
             <KpiRing value={matchPct} max={100} size={64} trailing="%" color={ringColor} />
           ) : (
             <div
-              className="h-16 w-16 rounded-full border border-dashed border-border flex items-center justify-center text-lg font-semibold text-muted-foreground"
+              className="h-16 w-16 rounded-full border border-dashed border-border flex items-center justify-center text-[17px] font-semibold text-muted-foreground"
               aria-hidden="true"
             >
               —
@@ -350,8 +350,8 @@ function AirlineCard({
           )}
         </div>
 
-        <h3 className="mt-4 mb-1 text-lg font-semibold tracking-[-0.02em] text-foreground">{airline.name}</h3>
-        <div className="text-[12.5px] text-muted-foreground flex gap-1.5 items-center">
+        <h3 className="mt-4 mb-1 text-[17px] font-semibold tracking-[-0.02em] text-foreground">{airline.name}</h3>
+        <div className="text-[12px] text-muted-foreground flex gap-1.5 items-center">
           <MapPin className="h-2.5 w-2.5" /> {airline.country}
           {airline.code ? ` · ${airline.code}` : ""}
         </div>
@@ -363,7 +363,7 @@ function AirlineCard({
 
         <div className="flex flex-col gap-2">
           {checks.map((c) => (
-            <div key={c.label} className="flex items-center justify-between gap-2 text-xs">
+            <div key={c.label} className="flex items-center justify-between gap-2 text-[12px]">
               <span className="text-muted-foreground">{c.label}</span>
               {ready ? (
                 <span className={`chip tabular-nums ${c.passed ? "chip-green" : "chip-red"}`}>
@@ -376,7 +376,7 @@ function AirlineCard({
             </div>
           ))}
           {airline.requirements.age_max && (
-            <div className="flex items-center gap-1.5 text-[12.5px] text-muted-foreground">
+            <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
               <Globe className="h-3 w-3" /> Edad máxima cadete: {airline.requirements.age_max} años
             </div>
           )}

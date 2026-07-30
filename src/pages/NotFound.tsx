@@ -15,7 +15,7 @@ export function NotFound() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Error 404
           </div>
-          <h1 className="mt-2 text-5xl sm:text-6xl font-semibold tracking-tight">
+          <h1 className="mt-2 text-[32px] sm:text-6xl font-semibold tracking-tight">
             Esta ruta no está en el plan de vuelo
           </h1>
           <p className="mt-4 text-muted-foreground">
@@ -23,10 +23,10 @@ export function NotFound() {
             inicio.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Button asChild size="lg" className="btn-apple rounded-full h-12 px-6 text-base border-0">
+            <Button asChild size="lg" className="btn-apple rounded-full h-12 px-6 text-[17px] border-0">
               <Link to="/app">Ir a mi panel</Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="rounded-full h-12 px-6 text-base">
+            <Button asChild variant="outline" size="lg" className="rounded-full h-12 px-6 text-[17px]">
               <Link to="/">Ir al inicio</Link>
             </Button>
           </div>

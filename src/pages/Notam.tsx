@@ -225,7 +225,7 @@ export function Notam() {
       <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <Link
           to="/app/aerolinea"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
@@ -242,14 +242,14 @@ export function Notam() {
             <>
               <Link
                 to="/app/aerolinea/notam/aprende"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 <Sparkles className="h-4 w-4" /> Empezar la lección
               </Link>
               <Link
                 to="/app/aerolinea/notam/decodificador"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
               >
                 <ScanSearch className="h-4 w-4" /> Decodificar un código
               </Link>
@@ -261,12 +261,12 @@ export function Notam() {
         <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
           <div className="rounded-2xl surface p-6">
             <SectionTitle icon={Info} eyebrow="Antes de arrancar" title="Qué es un NOTAM" />
-            <p className="text-[14.5px] text-foreground/90 leading-relaxed">
+            <p className="text-[15px] text-foreground/90 leading-relaxed">
               Un NOTAM es un aviso que distribuye el servicio AIS con información temporal o urgente
               que afecta la operación: cierre de pista, ILS o PAPI fuera de servicio, obras,
               obstáculos nuevos, espacios aéreos restringidos o vuelos de UAS.
             </p>
-            <p className="mt-2.5 text-[14.5px] text-foreground/90 leading-relaxed">
+            <p className="mt-2.5 text-[15px] text-foreground/90 leading-relaxed">
               Se escribe con un código de 5 letras y casillas fijas (A hasta G), así que cualquier
               piloto del mundo lo entiende sin traducirlo. Aquí aprendes a leerlo de corrido, en
               español y con ejemplos de Colombia.
@@ -282,18 +282,18 @@ export function Notam() {
           >
             <div className="flex items-center gap-2 mb-2.5">
               <FileText className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[14px] font-semibold tracking-[-0.01em]">
+              <div className="text-[13px] font-semibold tracking-[-0.01em]">
                 De dónde sale el contenido
               </div>
             </div>
-            <p className="text-[13.5px] text-muted-foreground leading-relaxed">
+            <p className="text-[13px] text-muted-foreground leading-relaxed">
               {CODE_META.fuente}
             </p>
-            <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">
+            <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
               Los ejemplos colombianos salen de los resúmenes de NOTAM vigentes que publica la
               Aerocivil.
             </p>
-            <p className="mt-3.5 pt-3 border-t border-border/60 text-[12.5px] text-muted-foreground leading-relaxed">
+            <p className="mt-3.5 pt-3 border-t border-border/60 text-[12px] text-muted-foreground leading-relaxed">
               {DISCLAIMERS.edition}
             </p>
           </div>
@@ -313,7 +313,7 @@ export function Notam() {
             right={
               !loading && !resumen.empty ? (
                 <div
-                  className="tabular text-[28px] font-semibold tracking-[-0.03em]"
+                  className="tabular text-[24px] font-semibold tracking-[-0.03em]"
                   style={{ color: "var(--av-blue-500)" }}
                 >
                   {resumen.overall}%
@@ -341,7 +341,7 @@ export function Notam() {
                   <div className="text-[17px] font-semibold tracking-[-0.01em]">
                     Todavía no empiezas esta sección
                   </div>
-                  <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[620px]">
+                  <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[620px]">
                     Arranca por la lección: son {TOTALS.lessonScreens} secciones cortas y de ahí
                     salen el código Q y las casillas que después usas en la práctica y en la
                     evaluación. Cuando termines, el decodificador te queda como herramienta de
@@ -350,7 +350,7 @@ export function Notam() {
                 </div>
                 <Link
                   to="/app/aerolinea/notam/aprende"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Empezar por la lección <ArrowRight className="h-4 w-4" />
@@ -464,7 +464,7 @@ function ParteTile({
         </div>
         {!cargando && hecho && (
           <span
-            className="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-full"
+            className="inline-flex items-center gap-1 text-[12px] font-semibold px-2 py-0.5 rounded-full"
             style={{
               color: "var(--av-green-400)",
               background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)",
@@ -476,18 +476,18 @@ function ParteTile({
       </div>
 
       <div>
-        <div className="text-[11px] font-semibold uppercase tracking-[0.1em]" style={{ color }}>
+        <div className="text-[12px] font-semibold" style={{ color }}>
           {eyebrow}
         </div>
         <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">{title}</div>
-        <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{description}</p>
+        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
 
       <div className="mt-auto pt-2.5 border-t border-border/60 flex items-center justify-between gap-2">
         {cargando ? (
           <span className="h-4 w-32 rounded bg-muted animate-pulse" aria-hidden="true" />
         ) : (
-          <span className="text-[12.5px] font-semibold text-muted-foreground">{estado}</span>
+          <span className="text-[12px] font-semibold text-muted-foreground">{estado}</span>
         )}
         <ArrowRight className="h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
       </div>
@@ -513,13 +513,13 @@ function MiniStat({
       className="rounded-xl border p-3.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
     >
-      <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="text-[12px] font-semibold text-muted-foreground">
         {label}
       </div>
-      <div className="mt-0.5 tabular text-[19px] font-semibold tracking-[-0.02em]" style={{ color }}>
+      <div className="mt-0.5 tabular text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
         {value}
       </div>
-      <div className="text-[12.5px] text-muted-foreground">{detail}</div>
+      <div className="text-[12px] text-muted-foreground">{detail}</div>
       <div className="mt-2 h-1.5 rounded-full bg-muted overflow-hidden">
         <div
           className="h-full rounded-full"

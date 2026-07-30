@@ -67,13 +67,13 @@ export function Contact() {
       />
       <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
         <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
-          <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">
+          <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-[12px]">
             Estamos a un mensaje de distancia
           </Badge>
-          <h1 className="mt-6 text-5xl sm:text-6xl font-semibold tracking-tight text-balance">
+          <h1 className="mt-6 text-[32px] sm:text-6xl font-semibold tracking-tight text-balance">
             ¿Hablamos?
           </h1>
-          <p className="mt-6 text-lg text-muted-foreground text-balance">
+          <p className="mt-6 text-[17px] text-muted-foreground text-balance">
             Si eres piloto LATAM con feedback, idea o pregunta, escríbenos. Respondemos en menos de 24h.
           </p>
         </div>
@@ -83,7 +83,7 @@ export function Contact() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-semibold">Canales directos</h2>
+              <h2 className="text-[24px] font-semibold">Canales directos</h2>
               <p className="mt-2 text-muted-foreground">
                 Elige el que te quede más cómodo.
               </p>
@@ -101,8 +101,8 @@ export function Contact() {
                     </div>
                     <div className="flex-1">
                       <h3 className="font-semibold">{c.title}</h3>
-                      <p className="text-sm text-muted-foreground mt-0.5">{c.description}</p>
-                      <p className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400 group-hover:underline">
+                      <p className="text-[15px] text-muted-foreground mt-0.5">{c.description}</p>
+                      <p className="mt-2 text-[15px] font-medium text-blue-600 dark:text-blue-400 group-hover:underline">
                         {c.action}
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export function Contact() {
               </div>
 
               <div className="mt-12 rounded-2xl bg-muted/40 p-6">
-                <p className="text-sm text-muted-foreground">
+                <p className="text-[15px] text-muted-foreground">
                   <span className="font-semibold text-foreground">¿Eres escuela de aviación?</span>{" "}
                   Tenemos un programa B2B para integrar Aviatory en tu academia.{" "}
                   Escríbenos a{" "}
@@ -124,7 +124,7 @@ export function Contact() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-semibold">O mandanos un mensaje</h2>
+              <h2 className="text-[24px] font-semibold">O mandanos un mensaje</h2>
               <p className="mt-2 text-muted-foreground">
                 Te respondemos al email que dejes.
               </p>
@@ -153,7 +153,7 @@ export function Contact() {
                     name="message"
                     rows={6}
                     required
-                    className="mt-2 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-sm shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
+                    className="mt-2 w-full rounded-xl border border-input bg-transparent px-3 py-2 text-[15px] shadow-xs transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring resize-none"
                     placeholder="Cuéntanos qué necesitas…"
                   />
                 </div>
@@ -162,7 +162,7 @@ export function Contact() {
                   type="submit"
                   size="lg"
                   disabled={sending}
-                  className="btn-apple shine-on-hover rounded-full h-12 text-base px-8 border-0"
+                  className="btn-apple shine-on-hover rounded-full h-12 text-[17px] px-8 border-0"
                 >
                   {sending ? (
                     "Enviando…"

@@ -385,17 +385,17 @@ export function CommunityChannel() {
                 {airlineInitials(channel.name)}
               </div>
             ) : (
-              <span className="text-2xl" aria-hidden>
+              <span className="text-[24px]" aria-hidden>
                 {channel.emoji}
               </span>
             )}
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-semibold tracking-tight flex items-center gap-1.5 min-w-0">
+              <h1 className="text-[17px] sm:text-xl font-semibold tracking-tight flex items-center gap-1.5 min-w-0">
                 <Hash className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="truncate">{channel.name}</span>
               </h1>
               {channel.description && (
-                <p className="text-xs text-muted-foreground truncate">
+                <p className="text-[12px] text-muted-foreground truncate">
                   {channel.description}
                 </p>
               )}
@@ -458,7 +458,7 @@ export function CommunityChannel() {
               rows={1}
               placeholder={`Mensaje a #${channel.name}`}
               disabled={sending}
-              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
+              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
               maxLength={2000}
               aria-label={`Escribir mensaje en el canal ${channel.name}`}
             />
@@ -471,7 +471,7 @@ export function CommunityChannel() {
               <Send className="h-4 w-4" />
             </Button>
           </form>
-          <p className="px-4 sm:px-6 lg:px-10 pb-3 text-xs text-muted-foreground">
+          <p className="px-4 sm:px-6 lg:px-10 pb-3 text-[12px] text-muted-foreground">
             Enter para enviar · Shift+Enter para nueva línea
           </p>
         </div>
@@ -489,8 +489,8 @@ function EmptyChannel() {
       >
         <Hash className="h-7 w-7" />
       </div>
-      <h3 className="text-base font-semibold text-foreground">Sé el primero en escribir</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto">
+      <h3 className="text-[17px] font-semibold text-foreground">Sé el primero en escribir</h3>
+      <p className="mt-1 text-[15px] text-muted-foreground max-w-sm mx-auto">
         Preséntate, haz una pregunta o comparte un avance. Tu mensaje arranca la conversación.
       </p>
     </div>
@@ -556,7 +556,7 @@ function MessageBubble({
       <div className="flex-1 min-w-0">
         {!compact && (
           <div className="flex items-baseline gap-2 mb-0.5">
-            <span className="text-sm font-semibold">{displayName}</span>
+            <span className="text-[15px] font-semibold">{displayName}</span>
             {streak > 0 && (
               <span className="chip chip-amber" title={`${streak} días de racha`}>
                 <Flame className="h-3 w-3" />
@@ -566,11 +566,11 @@ function MessageBubble({
             {isOwn && (
               <span className="text-[12px] text-muted-foreground uppercase tracking-wider">tú</span>
             )}
-            <span className="text-xs text-muted-foreground">{time}</span>
+            <span className="text-[12px] text-muted-foreground">{time}</span>
           </div>
         )}
         <div className="relative inline-block max-w-full">
-          <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
+          <p className="text-[15px] leading-relaxed whitespace-pre-wrap break-words">
             {message.content}
           </p>
           {/* Visible siempre en touch. En desktop aparece con hover o foco, y
@@ -596,7 +596,7 @@ function MessageBubble({
                 key={emoji}
                 type="button"
                 onClick={() => onReact(emoji)}
-                className="text-base hover:scale-125 transition-transform p-0.5"
+                className="text-[17px] hover:scale-125 transition-transform p-0.5"
                 aria-label={`Reaccionar con ${emoji}`}
               >
                 {emoji}

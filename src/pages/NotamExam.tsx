@@ -210,10 +210,10 @@ export function NotamExam() {
               Pregunta {idx + 1} de {total}
             </div>
             <div className="flex items-center gap-3">
-              <span className="tabular text-[12.5px] text-muted-foreground">
+              <span className="tabular text-[12px] text-muted-foreground">
                 {Object.keys(picks).length}/{total} respondidas
               </span>
-              <span className="inline-flex items-center gap-1.5 tabular text-[13.5px] text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5 tabular text-[13px] text-muted-foreground">
                 <Clock className="h-3.5 w-3.5" /> {fmtTime(elapsed)}
               </span>
             </div>
@@ -247,12 +247,12 @@ export function NotamExam() {
             >
               <Gauge className="h-3 w-3" /> {level.label}
             </span>
-            <span className="tabular text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+            <span className="tabular text-[12px] text-muted-foreground">
               {EXAM_POINTS_PER_QUESTION} puntos
             </span>
           </div>
 
-          <h2 className="mt-3.5 text-[19px] sm:text-[22px] font-semibold leading-snug tracking-[-0.01em]">
+          <h2 className="mt-3.5 text-[20px] sm:text-[20px] font-semibold leading-snug tracking-[-0.01em]">
             {q.pregunta}
           </h2>
 
@@ -297,8 +297,8 @@ export function NotamExam() {
                     </>
                   )}
                 </div>
-                <p className="mt-2 text-[14.5px] text-foreground/90 leading-relaxed">{q.explicacion}</p>
-                <div className="mt-2.5 text-[12.5px] text-muted-foreground">
+                <p className="mt-2 text-[15px] text-foreground/90 leading-relaxed">{q.explicacion}</p>
+                <div className="mt-2.5 text-[12px] text-muted-foreground">
                   Referencia: <span className="mono">{q.referencia}</span>
                 </div>
               </div>
@@ -367,7 +367,7 @@ function OptionButton({ letter, text, answered, isPicked, isCorrect, onClick }: 
       >
         {letter}
       </span>
-      <span className="flex-1 text-[14.5px] text-foreground/90 leading-relaxed">{text}</span>
+      <span className="flex-1 text-[15px] text-foreground/90 leading-relaxed">{text}</span>
       {tone && (
         <span className="flex-shrink-0 mt-0.5" style={{ color: tone }}>
           {isCorrect ? <CheckCircle2 className="h-4.5 w-4.5" /> : <XCircle className="h-4.5 w-4.5" />}
@@ -393,7 +393,7 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
       <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1100px] mx-auto">
         <Link
           to={HUB_PATH}
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
         </Link>
@@ -460,7 +460,7 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
             className="flex-shrink-0 mt-0.5 h-4.5 w-4.5"
             style={{ color: "var(--av-amber-400)" }}
           />
-          <div className="text-[14px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
+          <div className="text-[13px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
         </div>
 
         {/* Historial */}
@@ -471,13 +471,13 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
         <button
           type="button"
           onClick={onStart}
-          className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[16px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <Sparkles className="h-4.5 w-4.5" /> Empezar la evaluación
         </button>
 
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13.5px]">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px]">
           <Link
             to={LESSON_PATH}
             className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
@@ -514,7 +514,7 @@ function RuleCard({ icon: Icon, color, title, detail }: RuleCardProps) {
         <Icon className="h-4.5 w-4.5" />
       </div>
       <div className="mt-3 text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
-      <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{detail}</p>
+      <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{detail}</p>
     </div>
   )
 }
@@ -632,7 +632,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
           ))}
         </div>
       ) : !userId ? (
-        <div className="mt-3 rounded-2xl border border-border bg-muted/20 p-4 text-[14px] text-muted-foreground leading-relaxed">
+        <div className="mt-3 rounded-2xl border border-border bg-muted/20 p-4 text-[13px] text-muted-foreground leading-relaxed">
           Inicia sesión para que tus intentos queden guardados y puedas ver cómo mejoras. Igual
           puedes presentar la evaluación ahora mismo.
         </div>
@@ -642,7 +642,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
           <div className="mt-2 text-[15px] font-semibold tracking-[-0.01em]">
             Todavía no has presentado la evaluación
           </div>
-          <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed max-w-[520px] mx-auto">
+          <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[520px] mx-auto">
             Presenta el primer intento y aquí vas a ver tu puntaje, si aprobaste y cuánto tardaste.
             Puedes repetirla las veces que quieras.
           </p>
@@ -656,20 +656,20 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
               style={{ borderColor: mix("var(--border)", 65) }}
             >
               <div
-                className="tabular w-11 flex-shrink-0 text-[18px] font-semibold tracking-[-0.02em]"
+                className="tabular w-11 flex-shrink-0 text-[17px] font-semibold tracking-[-0.02em]"
                 style={{ color: scoreColor(r.score) }}
               >
                 {r.score}
               </div>
               <div className="flex-1 min-w-0">
-                <div className="text-[13.5px] font-semibold">{fmtDate(r.created_at)}</div>
-                <div className="tabular text-[12.5px] text-muted-foreground">
+                <div className="text-[13px] font-semibold">{fmtDate(r.created_at)}</div>
+                <div className="tabular text-[12px] text-muted-foreground">
                   {r.correct_count} de {r.total_questions || total} correctas
                   {r.duration_seconds != null ? ` · ${fmtTime(r.duration_seconds)}` : ""}
                 </div>
               </div>
               <span
-                className="flex-shrink-0 text-[11.5px] font-semibold px-2 py-0.5 rounded-full"
+                className="flex-shrink-0 text-[12px] font-semibold px-2 py-0.5 rounded-full"
                 style={{
                   color: accentText(r.passed ? "var(--av-green-400)" : "var(--av-red-400)"),
                   background: mix(r.passed ? "var(--av-green-400)" : "var(--av-red-400)", 12),
@@ -695,7 +695,7 @@ function Stat({ label, value, color }: { label: string; value: string; color: st
           value
         )}
       </div>
-      <div className="text-[10.5px] sm:text-[11px] uppercase tracking-[0.1em] text-muted-foreground">
+      <div className="text-[12px] sm:text-[12px] text-muted-foreground">
         {label}
       </div>
     </div>
@@ -803,21 +803,21 @@ function Result({
           className="rounded-2xl border p-6 sm:p-8 text-center anim-fade-up"
           style={{ borderColor: mix(color, 38), background: mix(color, 7) }}
         >
-          <div className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground">
+          <div className="text-[12px] text-muted-foreground">
             Tu puntaje
           </div>
           <div
-            className="mt-1 tabular text-[56px] sm:text-[68px] font-semibold tracking-[-0.04em] leading-none"
+            className="mt-1 tabular text-[32px] sm:text-[32px] font-semibold tracking-[-0.04em] leading-none"
             style={{ color }}
           >
             {score}
           </div>
           <div className="mt-1 text-[13px] text-muted-foreground">sobre 100</div>
 
-          <div className="mt-4 text-[20px] sm:text-[22px] font-semibold tracking-[-0.02em]" style={{ color }}>
+          <div className="mt-4 text-[20px] sm:text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
             {passed ? "Aprobado" : `No aprobado, necesitas ${EXAM_PASS_SCORE}`}
           </div>
-          <p className="mt-2 text-[14.5px] text-muted-foreground leading-relaxed max-w-[560px] mx-auto">
+          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed max-w-[560px] mx-auto">
             {passed
               ? "Dominas la lectura de NOTAM: sigue repasando los códigos que fallaste para no perder el filo."
               : "Te falta poco. Repasa la lección y vuelve a la práctica antes de intentarlo de nuevo."}
@@ -856,12 +856,12 @@ function Result({
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className="text-[14px] font-semibold tracking-[-0.01em]"
+                      className="text-[13px] font-semibold tracking-[-0.01em]"
                       style={{ color: accentText(meta.color) }}
                     >
                       {meta.label}
                     </span>
-                    <span className="tabular text-[16px] font-semibold tracking-[-0.02em]">
+                    <span className="tabular text-[15px] font-semibold tracking-[-0.02em]">
                       {r.ok}/{r.total}
                     </span>
                   </div>
@@ -874,7 +874,7 @@ function Result({
                       style={{ width: `${pct}%`, background: meta.color }}
                     />
                   </div>
-                  <div className="mt-2 tabular text-[12.5px] text-muted-foreground">
+                  <div className="mt-2 tabular text-[12px] text-muted-foreground">
                     {Math.round(pct)}% de acierto
                   </div>
                 </div>
@@ -915,7 +915,7 @@ function Result({
             className="flex-shrink-0 mt-0.5 h-4.5 w-4.5"
             style={{ color: "var(--av-amber-400)" }}
           />
-          <div className="text-[14px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
+          <div className="text-[13px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
         </div>
 
         {/* Acciones */}
@@ -963,7 +963,7 @@ function Result({
 function SaveNote({ state }: { state: SaveState }) {
   if (state === "saving") {
     return (
-      <div className="mt-5 inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground">
+      <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Guardando tu intento...
       </div>
     )
@@ -971,7 +971,7 @@ function SaveNote({ state }: { state: SaveState }) {
   if (state === "saved") {
     return (
       <div
-        className="mt-5 inline-flex items-center gap-1.5 text-[13.5px] font-semibold"
+        className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
         style={{ color: accentText("var(--av-green-400)") }}
       >
         <CheckCircle2 className="h-4 w-4" /> Guardado en tu historial
@@ -1020,13 +1020,13 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
         className="w-full flex items-start gap-3 p-3.5 text-left"
       >
         <span
-          className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[12.5px] font-semibold"
+          className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[12px] font-semibold"
           style={{ background: mix(tone, 14), color: tone }}
         >
           {n}
         </span>
         <span className="flex-1 min-w-0">
-          <span className="block text-[14px] font-semibold leading-snug">{question.pregunta}</span>
+          <span className="block text-[13px] font-semibold leading-snug">{question.pregunta}</span>
           <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
             <span className="text-[12px] font-semibold" style={{ color: accentText(tone) }}>
               {ok ? "Correcta" : "Fallada"}
@@ -1049,12 +1049,12 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             style={{ borderColor: mix(tone, 26), background: mix(tone, 6) }}
           >
             <div
-              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+              className="text-[12px] font-semibold"
               style={{ color: accentText(tone) }}
             >
               Tu respuesta
             </div>
-            <p className="mt-1 text-[13.5px] text-foreground/90 leading-relaxed">
+            <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
               {pickedIndex !== undefined ? question.shuffledOptions[pickedIndex] : "Sin responder"}
             </p>
           </div>
@@ -1068,12 +1068,12 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
               }}
             >
               <div
-                className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                className="text-[12px] font-semibold"
                 style={{ color: accentText("var(--av-green-400)") }}
               >
                 Respuesta correcta
               </div>
-              <p className="mt-1 text-[13.5px] text-foreground/90 leading-relaxed">
+              <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
                 {question.shuffledOptions[question.correctIndex]}
               </p>
             </div>
@@ -1087,15 +1087,15 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             }}
           >
             <div
-              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+              className="text-[12px] font-semibold"
               style={{ color: accentText("var(--av-blue-500)") }}
             >
               Por qué
             </div>
-            <p className="mt-1 text-[13.5px] text-foreground/90 leading-relaxed">
+            <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
               {question.explicacion}
             </p>
-            <div className="mt-2 text-[12.5px] text-muted-foreground">
+            <div className="mt-2 text-[12px] text-muted-foreground">
               Referencia: <span className="mono">{question.referencia}</span>
             </div>
           </div>
@@ -1128,7 +1128,7 @@ function NextStepLink({ to, icon: Icon, color, title, detail }: NextStepLinkProp
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
-        <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{detail}</p>
+        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{detail}</p>
       </div>
       <ArrowRight className="hidden sm:block flex-shrink-0 mt-1 h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
     </Link>

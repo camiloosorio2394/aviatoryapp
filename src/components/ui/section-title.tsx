@@ -21,7 +21,7 @@ export function SectionTitle({ icon: Ic, eyebrow, title, hint, right }: Props) {
         <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           {Ic && <Ic size={14} />} {eyebrow}
         </div>
-        <div className="mt-0.5 text-[19px] font-semibold text-foreground tracking-[-0.021em] leading-tight">
+        <div className="mt-0.5 text-[20px] font-semibold text-foreground tracking-[-0.021em] leading-tight">
           {title}
         </div>
         {hint && <div className="text-[13px] text-muted-foreground mt-1">{hint}</div>}

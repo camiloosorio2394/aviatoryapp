@@ -175,7 +175,7 @@ export function IcaoVocabulary() {
         {/* Back link */}
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
@@ -190,7 +190,7 @@ export function IcaoVocabulary() {
               {/* Nada de "0 terms" antes de que llegue la data. */}
               <BookOpen className="h-3.5 w-3.5" /> Glosario{data.length > 0 ? ` · ${data.length} términos` : ""}
             </div>
-            <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+            <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
               Vocabulario de inglés aeronáutico
             </h1>
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
@@ -202,7 +202,7 @@ export function IcaoVocabulary() {
           <div className="flex flex-col items-end gap-2">
             <Link
               to="/app/icao/quiz"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Ponerme a prueba con preguntas <ArrowRight className="h-3.5 w-3.5" />
@@ -222,7 +222,7 @@ export function IcaoVocabulary() {
               placeholder="Busca: unruly, ingest, ditch, windshear, o la traducción…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="w-full h-12 pl-10 pr-10 rounded-2xl border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-[var(--av-blue-500)]/30"
+              className="w-full h-12 pl-10 pr-10 rounded-2xl border bg-card text-[15px] focus:outline-none focus:ring-2 focus:ring-[var(--av-blue-500)]/30"
               style={{ borderColor: "color-mix(in oklab, var(--border) 80%, transparent)" }}
             />
             {query && (
@@ -248,7 +248,7 @@ export function IcaoVocabulary() {
                 <button
                   key={c.slug}
                   onClick={() => setCategory(c.slug)}
-                  className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12.5px] font-semibold whitespace-nowrap border transition-colors"
+                  className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12px] font-semibold whitespace-nowrap border transition-colors"
                   style={{
                     borderColor: active
                       ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
@@ -274,7 +274,7 @@ export function IcaoVocabulary() {
               <button
                 key={L}
                 onClick={() => goToLetter(L)}
-                className="w-7 h-7 rounded-md text-[12.5px] font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                className="w-7 h-7 rounded-md text-[12px] font-semibold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
               >
                 {L}
               </button>
@@ -286,7 +286,7 @@ export function IcaoVocabulary() {
         {loading ? (
           <div className="flex items-center justify-center py-20 text-muted-foreground gap-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-sm">Cargando el glosario…</span>
+            <span className="text-[15px]">Cargando el glosario…</span>
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
@@ -303,13 +303,13 @@ export function IcaoVocabulary() {
             <h2 className="mt-3.5 text-[17px] font-semibold tracking-[-0.01em]">
               {query.trim() ? `No hay resultados para “${query.trim()}”` : "Todavía no hay términos en esta categoría"}
             </h2>
-            <p className="mt-1.5 text-[14px] text-muted-foreground max-w-[420px]">
+            <p className="mt-1.5 text-[13px] text-muted-foreground max-w-[420px]">
               Prueba con una palabra más corta, con la traducción en español, o limpia los filtros
               para ver el glosario completo.
             </p>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
-              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Limpiar filtros
@@ -346,7 +346,7 @@ export function IcaoVocabulary() {
           <div className="mt-6 flex justify-center">
             <button
               onClick={() => setLimit((l) => l + PAGE_SIZE)}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[13px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver más términos
               <span className="tabular-nums text-muted-foreground">faltan {remaining}</span>
@@ -356,7 +356,7 @@ export function IcaoVocabulary() {
         )}
 
         {!loading && data.length > 0 && (
-          <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
+          <div className="mt-12 pt-6 border-t border-border/60 text-[12px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
             <Lock className="h-3 w-3" /> Mostrando {visible.length} de {filtered.length} · contenido protegido · ICAO Vocab Book (Cami)
           </div>
         )}
@@ -376,18 +376,18 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">
-        <div className="text-[16px] font-semibold tracking-[-0.01em]">
+        <div className="text-[15px] font-semibold tracking-[-0.01em]">
           <Highlight text={entry.term_en} query={query} />
         </div>
         {/* Etiqueta en gris: los tokens amber/green no se leen a 11px en modo claro. */}
-        <div className="text-[11px] font-semibold flex-shrink-0 text-muted-foreground">
+        <div className="text-[12px] font-semibold flex-shrink-0 text-muted-foreground">
           {cat.label}
         </div>
       </div>
-      <div className="text-[14px] italic" style={{ color: "color-mix(in oklab, var(--av-blue-500) 90%, transparent)" }}>
+      <div className="text-[13px] italic" style={{ color: "color-mix(in oklab, var(--av-blue-500) 90%, transparent)" }}>
         <Highlight text={entry.translation_es} query={query} />
       </div>
-      <p className="text-[14px] text-foreground/90 leading-relaxed mt-0.5">
+      <p className="text-[13px] text-foreground/90 leading-relaxed mt-0.5">
         <Highlight text={entry.definition} query={query} />
       </p>
     </div>

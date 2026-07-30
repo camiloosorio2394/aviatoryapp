@@ -163,7 +163,7 @@ export function IcaoQuiz() {
       <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
@@ -225,7 +225,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
       >
         <ClipboardCheck className="h-3.5 w-3.5" /> Quiz de inglés · banco de estudio
       </div>
-      <h1 className="mt-3 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+      <h1 className="mt-3 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
         Preguntas de vocabulario y comprensión
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
@@ -291,7 +291,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
               </div>
             )}
             {failed && (
-              <div className="mt-2 text-[13.5px]" style={{ color: "var(--av-danger-fg)" }}>
+              <div className="mt-2 text-[13px]" style={{ color: "var(--av-danger-fg)" }}>
                 No pudimos cargar las preguntas. Revisa tu conexión e inténtalo de nuevo.
               </div>
             )}
@@ -316,24 +316,24 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
       >
         <RotateCcw className="h-5 w-5" />
       </div>
-      <h2 className="mt-3.5 text-[18px] font-semibold tracking-[-0.01em]">
+      <h2 className="mt-3.5 text-[17px] font-semibold tracking-[-0.01em]">
         No pudimos cargar el banco de preguntas
       </h2>
-      <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
+      <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[520px] leading-relaxed">
         Es un problema de conexión, no un banco vacío. Inténtalo de nuevo o usa el glosario mientras
         tanto.
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <RotateCcw className="h-4 w-4" /> Intentar de nuevo
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
@@ -356,10 +356,10 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
       >
         <ClipboardCheck className="h-5 w-5" />
       </div>
-      <h2 className="mt-3.5 text-[18px] font-semibold tracking-[-0.01em]">
+      <h2 className="mt-3.5 text-[17px] font-semibold tracking-[-0.01em]">
         {allEmpty ? "El banco de preguntas está en camino" : "Todavía no hay preguntas en este tema"}
       </h2>
-      <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
+      <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[520px] leading-relaxed">
         {allEmpty
           ? "Estamos cargando las preguntas de vocabulario y comprensión. Mientras tanto el glosario está completo y se puede buscar: es el mismo material sobre el que está armado el quiz."
           : "Todavía lo estamos escribiendo. Los demás temas ya están listos, así que empieza por ahí y vuelve más adelante."}
@@ -368,7 +368,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         {!allEmpty && (
           <button
             onClick={onAllTopics}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--av-blue-500)" }}
           >
             Probar con todos los temas <ArrowRight className="h-3.5 w-3.5" />
@@ -376,7 +376,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         )}
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
@@ -409,11 +409,11 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 
       <div className="rounded-2xl surface p-6">
         {question.context && (
-          <div className="text-[13.5px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-blue-500)]/40">
+          <div className="text-[13px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-blue-500)]/40">
             {question.context}
           </div>
         )}
-        <div className="text-[18px] font-semibold leading-snug tracking-[-0.01em]">
+        <div className="text-[17px] font-semibold leading-snug tracking-[-0.01em]">
           {question.prompt}
         </div>
 
@@ -445,7 +445,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
                 style={{ borderColor, background: bg }}
               >
                 <span
-                  className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-semibold uppercase border"
+                  className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13px] font-semibold uppercase border"
                   style={{ borderColor, color: isCorrect ? "var(--av-success-fg)" : isWrongChosen ? "var(--av-danger-fg)" : "var(--muted-foreground)" }}
                 >
                   {k}
@@ -460,7 +460,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 
         {revealed && question.explanation && (
           <div
-            className="mt-5 rounded-2xl border p-4 text-[14px] leading-relaxed"
+            className="mt-5 rounded-2xl border p-4 text-[13px] leading-relaxed"
             style={{
               borderColor: "color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
               background: "color-mix(in oklab, var(--av-blue-500) 8%, transparent)",
@@ -477,7 +477,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
           <div className="mt-5 flex justify-end">
             <button
               onClick={onNext}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               {isLast ? "Ver resultados" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
@@ -504,11 +504,11 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
       <div className="text-[13px] font-semibold text-muted-foreground">
         RESULTADOS
       </div>
-      <div className="mt-3 text-[72px] font-semibold tracking-[-0.04em] leading-none tabular-nums text-foreground">
+      <div className="mt-3 text-[32px] font-semibold tracking-[-0.04em] leading-none tabular-nums text-foreground">
         {score} / {total}
       </div>
       <div className="mt-2 flex items-center justify-center gap-2">
-        <span className="tabular-nums text-[13.5px] font-semibold text-muted-foreground">{pct}%</span>
+        <span className="tabular-nums text-[13px] font-semibold text-muted-foreground">{pct}%</span>
         <span className={verdict.chip}>{verdict.label}</span>
       </div>
 
@@ -516,7 +516,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
         {history.map((h, i) => (
           <div
             key={i}
-            className="w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-semibold"
+            className="w-7 h-7 rounded-md flex items-center justify-center text-[12px] font-semibold"
             style={{
               background: h.correct
                 ? "color-mix(in oklab, var(--av-green-400) 18%, transparent)"
@@ -532,14 +532,14 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
       <div className="mt-9 flex items-center justify-center gap-2">
         <button
           onClick={onRestart}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <RotateCcw className="h-4 w-4" /> Nueva ronda
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
         >
           Ir al glosario
         </Link>

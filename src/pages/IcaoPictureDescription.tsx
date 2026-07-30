@@ -60,7 +60,7 @@ export function IcaoPictureDescription() {
       <div className="px-7 py-7 pb-20 max-w-[1080px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
@@ -81,7 +81,7 @@ export function IcaoPictureDescription() {
               TEA · Parte 3 · Picture Description &amp; Discussion · 10 minutos
             </div>
           </div>
-          <h1 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
+          <h1 className="mt-4 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
             Descripción de imágenes y conversación
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground max-w-[760px]">
@@ -108,7 +108,7 @@ export function IcaoPictureDescription() {
                   >
                     {i + 1}
                   </span>
-                  <div className="text-[14px] font-semibold tracking-[-0.01em]">{es.label}</div>
+                  <div className="text-[13px] font-semibold tracking-[-0.01em]">{es.label}</div>
                 </div>
                 <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{es.detail}</p>
               </div>
@@ -141,7 +141,7 @@ export function IcaoPictureDescription() {
                 key={p.id}
                 onClick={() => setIdx(i)}
                 title={p.themeEn}
-                className="tabular-nums w-8 h-8 rounded-lg text-[12.5px] font-semibold border transition-colors"
+                className="tabular-nums w-8 h-8 rounded-lg text-[12px] font-semibold border transition-colors"
                 style={{
                   borderColor: active
                     ? "color-mix(in oklab, var(--av-green-400) 50%, transparent)"
@@ -156,7 +156,7 @@ export function IcaoPictureDescription() {
           })}
         </div>
 
-        <div className="mt-10 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center">
+        <div className="mt-10 pt-6 border-t border-border/60 text-[12px] text-muted-foreground text-center">
           {total} pares de imágenes · TEA Parte 3 · material NEW PICTURES
         </div>
       </div>
@@ -185,7 +185,7 @@ function PairView({ pair }: { pair: PicturePair }) {
       <div className="mt-5">
         <button
           onClick={() => setShowDiscussion((s) => !s)}
-          className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <MessagesSquare className="h-4 w-4" />
@@ -205,7 +205,7 @@ function PairView({ pair }: { pair: PicturePair }) {
             </div>
             <ul className="space-y-2">
               {pair.discussion.map((q) => (
-                <li key={q} className="flex items-start gap-2 text-[14.5px] text-foreground/90">
+                <li key={q} className="flex items-start gap-2 text-[15px] text-foreground/90">
                   <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} />
                   <span>{q}</span>
                 </li>
@@ -225,7 +225,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
     >
       <div className="relative">
         <div
-          className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-semibold text-white"
+          className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-semibold text-white"
           style={{ background: "oklch(0.2 0.02 250 / 0.75)", backdropFilter: "blur(4px)" }}
         >
           {letter}
@@ -244,7 +244,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
 function Hint({ icon: Icon, color, text }: { icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; color: string; text: string }) {
   return (
     <div
-      className="flex items-start gap-2 rounded-lg surface p-2.5 text-[13.5px] text-foreground/90"
+      className="flex items-start gap-2 rounded-lg surface p-2.5 text-[13px] text-foreground/90"
     >
       <Icon className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color }} />
       <span>{text}</span>
