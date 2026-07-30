@@ -28,6 +28,7 @@ import {
   TOTALS,
   readLocalProgress,
 } from "@/lib/notam"
+import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 
 /**
  * Hub de la seccion NOTAM (modulo Ingreso a Aerolinea).
@@ -44,11 +45,6 @@ interface NotamProgress {
   lessonScreens: number[]
   practiceDone: string[]
   bestExamScore: number | null
-}
-
-interface ProgressRow {
-  lesson_screens: number[] | null
-  practice_done: string[] | null
 }
 
 interface AttemptRow {
@@ -100,11 +96,7 @@ export function Notam() {
 
       try {
         const [progRes, examRes] = await Promise.all([
-          supabase
-            .from("user_notam_progress")
-            .select("lesson_screens, practice_done")
-            .eq("user_id", user.id)
-            .maybeSingle(),
+          fetchNotamProgress(user.id),
           supabase
             .from("user_notam_exam_attempts")
             .select("score")
@@ -113,14 +105,19 @@ export function Notam() {
             .limit(1),
         ])
         if (cancelled) return
-        if (progRes.error) throw progRes.error
         if (examRes.error) throw examRes.error
+        if (!progRes) throw new Error("no se pudo leer el progreso guardado")
 
-        const row = progRes.data as ProgressRow | null
+        // Sube lo que el usuario avanzó sin sesión antes de armar el resumen: así
+        // el porcentaje que ve es el que de verdad quedó guardado, y no se pierde
+        // al abrir la app en otro dispositivo.
+        const remotoSync = await pushPendingLocalProgress(progRes)
+        if (cancelled) return
+
         const attempts = (examRes.data ?? []) as AttemptRow[]
         const remoto: NotamProgress = {
-          lessonScreens: row?.lesson_screens ?? [],
-          practiceDone: row?.practice_done ?? [],
+          lessonScreens: remotoSync.lessonScreens,
+          practiceDone: remotoSync.practiceDone,
           bestExamScore: typeof attempts[0]?.score === "number" ? attempts[0].score : null,
         }
         setProgress(unirProgreso(remoto, localProgress))
@@ -168,7 +165,7 @@ export function Notam() {
       to: "/app/aerolinea/notam/aprende",
       icon: BookOpen,
       color: "var(--av-blue-500)",
-      eyebrow: `${TOTALS.lessonScreens} pantallas`,
+      eyebrow: `${TOTALS.lessonScreens} secciones`,
       title: "Aprende",
       description:
         "La lección completa: para qué sirve un NOTAM, quién lo publica y cómo se lee casilla por casilla.",
@@ -177,7 +174,7 @@ export function Notam() {
           ? "Sin empezar"
           : resumen.lessonRead >= TOTALS.lessonScreens
             ? "Lección completa"
-            : `${resumen.lessonRead} de ${TOTALS.lessonScreens} pantallas leídas`,
+            : `${resumen.lessonRead} de ${TOTALS.lessonScreens} secciones leídas`,
       hecho: resumen.lessonRead >= TOTALS.lessonScreens,
     },
     {
@@ -345,7 +342,7 @@ export function Notam() {
                     Todavía no empiezas esta sección
                   </div>
                   <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[620px]">
-                    Arranca por la lección: son {TOTALS.lessonScreens} pantallas cortas y de ahí
+                    Arranca por la lección: son {TOTALS.lessonScreens} secciones cortas y de ahí
                     salen el código Q y las casillas que después usas en la práctica y en la
                     evaluación. Cuando termines, el decodificador te queda como herramienta de
                     consulta.
@@ -374,7 +371,7 @@ export function Notam() {
                   <MiniStat
                     label="Lección"
                     value={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
-                    detail="pantallas leídas"
+                    detail="secciones leídas"
                     pct={resumen.lessonPct}
                     color="var(--av-blue-500)"
                   />

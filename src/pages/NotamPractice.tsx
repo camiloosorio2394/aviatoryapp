@@ -12,6 +12,7 @@ import {
   Eye,
   FileText,
   Image as ImageIcon,
+  ImageOff,
   ListChecks,
   Loader2,
   Maximize2,
@@ -23,7 +24,6 @@ import {
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
-import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
   DISCLAIMERS,
@@ -35,11 +35,11 @@ import {
   accentText,
   notamImageUrl,
   readLocalProgress,
-  writeLocalProgress,
   type NationalNotam,
   type NotamExercise,
   type NotamLevel,
 } from "@/lib/notam"
+import { fetchNotamProgress, markNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 
 /**
  * Practica NOTAM (ruta /app/aerolinea/notam/practica).
@@ -125,6 +125,9 @@ export function NotamPractice() {
   const [doneKeys, setDoneKeys] = useState<string[]>(() => readLocalProgress().exercisesDone)
   const [saving, setSaving] = useState(false)
   const [zoom, setZoom] = useState(false)
+  // "ancho" entra siempre: en celular abrir en tamaño natural obliga a arrastrar
+  // dentro del modal antes de ver nada.
+  const [zoomLevel, setZoomLevel] = useState<ZoomLevel>("ancho")
 
   const modeItems = mode === "texto" ? TEXT_ITEMS : IMAGE_ITEMS
 
@@ -158,28 +161,20 @@ export function NotamPractice() {
   const revealed = current.revealed
   const ticked = current.ticked
 
-  // Progreso en Supabase: si falla, seguimos con el local
+  // Progreso en Supabase: si falla, seguimos con el local. De paso sube lo que
+  // se resolvió sin sesión, que si no se pierde al cambiar de dispositivo.
   useEffect(() => {
     const uid = user?.id
     if (!uid) return
     let cancelled = false
 
-    const load = async (): Promise<void> => {
-      try {
-        const { data, error } = await supabase
-          .from("user_notam_progress")
-          .select("practice_done")
-          .eq("user_id", uid)
-          .maybeSingle()
-        if (cancelled || error || !data) return
-        const row = data as { practice_done: string[] | null }
-        const remote = row.practice_done ?? []
-        if (remote.length > 0) setDoneKeys((prev) => Array.from(new Set([...prev, ...remote])))
-      } catch {
-        /* sin red: se queda el progreso local */
-      }
-    }
-    void load()
+    void (async () => {
+      const fetched = await fetchNotamProgress(uid)
+      if (cancelled || !fetched) return
+      const remote = await pushPendingLocalProgress(fetched)
+      if (cancelled || remote.practiceDone.length === 0) return
+      setDoneKeys((prev) => Array.from(new Set([...prev, ...remote.practiceDone])))
+    })()
 
     return () => {
       cancelled = true
@@ -196,19 +191,17 @@ export function NotamPractice() {
     return () => window.removeEventListener("keydown", onKey)
   }, [zoom])
 
+  // El nivel vuelve a "ancho" en cada apertura: es el que sirve en celular.
+  function abrirZoom(): void {
+    setZoomLevel("ancho")
+    setZoom(true)
+  }
+
   async function markDone(key: string): Promise<void> {
     setSaving(true)
     setDoneKeys((prev) => (prev.includes(key) ? prev : [...prev, key]))
-    const merged = Array.from(new Set([...readLocalProgress().exercisesDone, key]))
-    writeLocalProgress({ exercisesDone: merged })
     try {
-      const { error } = await supabase.rpc("notam_mark_progress", {
-        p_lesson_screen: null,
-        p_practice_id: key,
-      })
-      if (error) console.warn("notam_mark_progress", error.message)
-    } catch (err) {
-      console.warn("notam_mark_progress", err)
+      await markNotamProgress({ practiceId: key })
     } finally {
       setSaving(false)
     }
@@ -504,29 +497,24 @@ export function NotamPractice() {
                         Recorte del resumen oficial de la Aerocivil
                       </div>
                       <button
-                        onClick={() => setZoom(true)}
+                        onClick={abrirZoom}
                         aria-label="Ampliar la imagen del NOTAM"
                         className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-[12.5px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                       >
                         <Maximize2 className="h-3.5 w-3.5" /> Ampliar
                       </button>
                     </div>
-                    <button
-                      onClick={() => setZoom(true)}
-                      aria-label={`Ampliar la imagen del NOTAM ${item.national.serie_numero}`}
-                      className="block w-full rounded-xl border p-2.5 sm:p-3 overflow-x-auto text-left"
-                      style={{ background: "rgb(255 255 255)", borderColor: "var(--border)" }}
-                    >
-                      {/* Los recortes son de 1875 x 260 px. Reservar la proporción evita que
-                          loading="lazy" mueva el layout cuando la imagen entra en pantalla. */}
-                      <img
-                        src={notamImageUrl(item.national.imagen)}
-                        alt={item.national.transcripcion}
-                        loading="lazy"
-                        className="w-full min-w-[560px] h-auto rounded-md"
-                        style={{ aspectRatio: "1875 / 260" }}
+                    {/* min-w-0 corta la herencia del ancho del hijo: sin esto, el
+                        min-w-[560px] de la imagen empuja la grilla y el scroll
+                        horizontal se lo lleva la página entera, no el recuadro. */}
+                    <div className="min-w-0">
+                      <NotamImage
+                        key={item.national.id}
+                        national={item.national}
+                        variant="card"
+                        onZoom={abrirZoom}
                       />
-                    </button>
+                    </div>
                     <div className="mt-3">
                       <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">
                         Transcripción
@@ -750,27 +738,51 @@ export function NotamPractice() {
             aria-modal="true"
             aria-label={`Imagen ampliada del NOTAM ${item.national.serie_numero}`}
             onClick={() => setZoom(false)}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 p-3 sm:p-4"
             style={{ background: "rgb(11 16 32 / 82%)" }}
           >
+            {/* Control de ampliación: tres niveles reales. "Ajustar al ancho" es
+                el que hace usable el modal en celular. */}
             <div
               onClick={(e) => e.stopPropagation()}
-              className="relative w-full max-w-[1100px] max-h-[86vh] overflow-auto rounded-2xl p-3 sm:p-4"
-              style={{ background: "rgb(255 255 255)" }}
+              className="flex items-center gap-1 rounded-xl p-1"
+              style={{ background: "rgb(11 16 32 / 70%)" }}
+              role="group"
+              aria-label="Nivel de ampliación"
             >
-              {/* Se pinta cerca de su tamaño natural (1875 px de ancho) para que el texto del
-                  NOTAM sea legible: el usuario lo recorre con el scroll del contenedor. */}
-              <img
-                src={notamImageUrl(item.national.imagen)}
-                alt={item.national.transcripcion}
-                className="w-auto max-w-none min-w-[1100px] h-auto rounded-lg"
-                style={{ aspectRatio: "1875 / 260" }}
+              {ZOOM_LEVELS.map((lvl) => (
+                <button
+                  key={lvl.key}
+                  onClick={() => setZoomLevel(lvl.key)}
+                  aria-pressed={zoomLevel === lvl.key}
+                  className="h-9 px-3 rounded-lg text-[13px] font-semibold border-0 transition-colors"
+                  style={{
+                    background: zoomLevel === lvl.key ? "var(--av-blue-500)" : "transparent",
+                    color: zoomLevel === lvl.key ? "white" : "rgb(255 255 255 / 72%)",
+                  }}
+                >
+                  {lvl.label}
+                </button>
+              ))}
+            </div>
+
+            <div
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-[1200px] max-h-[80vh] overflow-auto rounded-2xl p-3 sm:p-4"
+              style={{ background: "rgb(255 255 255)", touchAction: "pan-x pan-y pinch-zoom" }}
+            >
+              <NotamImage
+                key={`zoom-${item.national.id}`}
+                national={item.national}
+                variant="zoom"
+                zoomLevel={zoomLevel}
               />
             </div>
+
             <button
               onClick={() => setZoom(false)}
               aria-label="Cerrar la imagen ampliada"
-              className="absolute top-4 right-4 inline-flex items-center justify-center h-10 w-10 rounded-full border-0 text-white"
+              className="absolute top-3 right-3 sm:top-4 sm:right-4 inline-flex items-center justify-center h-10 w-10 rounded-full border-0 text-white"
               style={{ background: "rgb(11 16 32 / 70%)" }}
             >
               <X className="h-5 w-5" />
@@ -779,6 +791,114 @@ export function NotamPractice() {
         )}
       </div>
     </AppLayout>
+  )
+}
+
+// ─── Imagen del recorte ──────────────────────────────────────────────────────
+
+type ZoomLevel = "ancho" | "natural" | "doble"
+
+const ZOOM_LEVELS: { key: ZoomLevel; label: string }[] = [
+  { key: "ancho", label: "Ajustar al ancho" },
+  { key: "natural", label: "Tamaño real" },
+  { key: "doble", label: "El doble" },
+]
+
+/** Los recortes son de 1875 x 260 px: "tamaño real" es su ancho natural. */
+const ZOOM_WIDTH: Record<ZoomLevel, string> = {
+  ancho: "100%",
+  natural: "1875px",
+  doble: "3750px",
+}
+
+interface NotamImageProps {
+  national: NationalNotam
+  variant: "card" | "zoom"
+  zoomLevel?: ZoomLevel
+  onZoom?: () => void
+}
+
+/**
+ * Recorte del resumen de la Aerocivil, con los tres estados que puede tener.
+ *
+ * Los PNG se sirven como assets estáticos y los precachea el service worker. Si
+ * un deploy viejo deja una entrada apuntando a un archivo que ya no está, antes
+ * se veía un recuadro blanco vacío y el usuario no entendía qué había pasado.
+ * Ahora cae a la transcripción, que es exactamente el mismo NOTAM en texto y ya
+ * viene con cada registro.
+ */
+function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamImageProps) {
+  const [state, setState] = useState<"cargando" | "lista" | "falló">("cargando")
+  const isCard = variant === "card"
+
+  if (state === "falló") {
+    return (
+      <div
+        className="rounded-xl border p-3.5"
+        style={{
+          borderColor: "color-mix(in oklab, var(--av-amber-400) 32%, transparent)",
+          background: "color-mix(in oklab, var(--av-amber-400) 8%, transparent)",
+        }}
+      >
+        <div className="flex items-start gap-2.5">
+          <span className="flex-shrink-0 mt-0.5" style={{ color: "var(--av-amber-400)" }}>
+            <ImageOff className="h-4 w-4" />
+          </span>
+          <p className="m-0 text-[13px] leading-relaxed text-foreground/85">
+            No se pudo mostrar el recorte del resumen. Trabaja con el texto del NOTAM: dice
+            exactamente lo mismo.
+          </p>
+        </div>
+        <pre
+          className="mono mt-3 mb-0 p-3 rounded-lg border border-border text-[12px] leading-relaxed whitespace-pre-wrap break-words text-foreground"
+          style={{ background: "color-mix(in oklab, var(--border) 22%, transparent)" }}
+        >
+          {national.transcripcion}
+        </pre>
+      </div>
+    )
+  }
+
+  const media = (
+    <div className={`relative ${isCard ? "w-full min-w-[560px]" : "inline-block"}`}>
+      <img
+        src={notamImageUrl(national.imagen)}
+        alt={national.transcripcion}
+        loading={isCard ? "lazy" : "eager"}
+        // Una imagen que ya está en caché puede terminar de cargar antes de que
+        // React enganche onLoad: sin este chequeo el esqueleto se quedaría fijo.
+        ref={(el) => {
+          if (el?.complete && el.naturalWidth > 0) setState("lista")
+        }}
+        onLoad={() => setState("lista")}
+        onError={() => setState("falló")}
+        className={`block h-auto ${isCard ? "w-full rounded-md" : "max-w-none rounded-lg"}`}
+        style={{
+          aspectRatio: "1875 / 260",
+          ...(isCard ? {} : { width: ZOOM_WIDTH[zoomLevel] }),
+        }}
+      />
+      {state === "cargando" && (
+        <div
+          className={`absolute inset-0 animate-pulse ${isCard ? "rounded-md" : "rounded-lg"}`}
+          style={{ background: "color-mix(in oklab, var(--muted-foreground) 16%, transparent)" }}
+          aria-hidden
+        />
+      )}
+    </div>
+  )
+
+  if (!isCard) return media
+
+  return (
+    <button
+      onClick={onZoom}
+      aria-label={`Ampliar la imagen del NOTAM ${national.serie_numero}`}
+      className="block w-full rounded-xl border p-2.5 sm:p-3 overflow-x-auto text-left"
+      style={{ background: "rgb(255 255 255)", borderColor: "var(--border)" }}
+    >
+      {media}
+    </button>
   )
 }
 

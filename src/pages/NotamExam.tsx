@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import type { RefObject } from "react"
 import { Link } from "react-router-dom"
 import {
   AlertTriangle,
@@ -113,6 +114,13 @@ export function NotamExam() {
   const [picks, setPicks] = useState<Record<number, number | undefined>>({})
   const [elapsed, setElapsed] = useState(0)
   const [historyKey, setHistoryKey] = useState(0)
+  // El guard del guardado vive acá, no dentro de Result.
+  //
+  // Result se monta y se desmonta con la fase, así que un ref suyo se reinicia
+  // en cada remonte (React lo hace a propósito en StrictMode) y el intento se
+  // podía insertar dos veces. NotamExam no se desmonta entre fases, así que este
+  // ref sí dura todo el intento. Se libera en start(), que es un intento nuevo.
+  const savedAttemptRef = useRef(false)
 
   useEffect(() => {
     if (phase !== "running") return
@@ -129,6 +137,7 @@ export function NotamExam() {
   const passed = score >= EXAM_PASS_SCORE
 
   const start = useCallback(() => {
+    savedAttemptRef.current = false
     setQuestions(buildExam())
     setPicks({})
     setIdx(0)
@@ -179,6 +188,7 @@ export function NotamExam() {
         elapsed={elapsed}
         userId={user?.id ?? null}
         sessionLoading={sessionLoading}
+        savedRef={savedAttemptRef}
         onRetry={start}
         onBackToIntro={backToIntro}
       />
@@ -703,6 +713,8 @@ interface ResultProps {
   elapsed: number
   userId: string | null
   sessionLoading: boolean
+  /** Guard del guardado, sostenido por NotamExam para sobrevivir a los remontes. */
+  savedRef: RefObject<boolean>
   onRetry: () => void
   onBackToIntro: () => void
 }
@@ -716,11 +728,11 @@ function Result({
   elapsed,
   userId,
   sessionLoading,
+  savedRef,
   onRetry,
   onBackToIntro,
 }: ResultProps) {
   const [saveState, setSaveState] = useState<SaveState>("idle")
-  const savedRef = useRef(false)
   const total = questions.length
   const color = scoreColor(score)
 
@@ -781,7 +793,7 @@ function Result({
       }
       setSaveState("saved")
     })()
-  }, [sessionLoading, userId, score, correctCount, total, passed, answers, elapsed])
+  }, [sessionLoading, userId, score, correctCount, total, passed, answers, elapsed, savedRef])
 
   return (
     <AppLayout>
