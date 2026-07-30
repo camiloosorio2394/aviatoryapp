@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import {
   ArrowRight,
   BookOpen,
+  FileText,
   PlayCircle,
   Radar,
   RefreshCw,
@@ -126,13 +127,13 @@ export function Pca() {
 
         {/* ── Avisos, en dos líneas ── */}
         <section className="grid gap-3 sm:grid-cols-2 mb-8">
+          {/* Sin enlace propio: la tarjeta de Banco oficial lleva al mismo
+              sitio y dos accesos idénticos a un palmo compiten entre sí. */}
           <Alert
             icon={ShieldCheck}
             tone="success"
             title="Preguntas verificadas contra Aerocivil"
-            line="Puedes abrir el banco oficial y comprobar cada pregunta."
-            to="/app/banco-oficial"
-            cta="Ver fuente"
+            line="Cada pregunta corresponde al documento oficial, y puedes comprobarlo."
           />
           <Alert
             icon={TriangleAlert}
@@ -143,7 +144,18 @@ export function Pca() {
         </section>
 
         {/* ── Módulos ── */}
-        <div id="materias" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+        <div id="materias" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+          {/* El documento oficial va primero y como tarjeta propia: es la
+              fuente de todo lo demás y el argumento de confianza del módulo.
+              Relegarlo a un enlace dentro de un aviso lo escondía. */}
+          <ModuleCard
+            icon={FileText}
+            title="Banco oficial"
+            description="El documento de Aerocivil completo, para consultar y verificar."
+            to="/app/banco-oficial"
+            cta="Abrir documento"
+            badge="Oficial"
+          />
           <ModuleCard
             icon={BookOpen}
             title="Banco por materia"
@@ -151,7 +163,7 @@ export function Pca() {
             to="#lista-materias"
             cta="Elegir materia"
             progress={hasActivity ? coverage : undefined}
-            meta={stats ? `${stats.answered} de ${stats.bank_total} preguntas` : undefined}
+            meta={stats ? `${stats.answered} de ${stats.bank_total}` : undefined}
           />
           <ModuleCard
             icon={PlayCircle}
