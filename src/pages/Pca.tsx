@@ -1,375 +1,321 @@
 import { Link } from "react-router-dom"
 import {
   ArrowRight,
-  Award,
   BookOpen,
-  History,
-  ListChecks,
+  PlayCircle,
+  Radar,
   RefreshCw,
   ShieldCheck,
-  FileText,
-  PlayCircle,
+  TriangleAlert,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
-import { PageHeader } from "@/components/ui/page-header"
-import { SectionTitle } from "@/components/ui/section-title"
+import { StatTile } from "@/components/pca/StatTile"
+import { ModuleCard } from "@/components/pca/ModuleCard"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
+import { usePcaStats } from "@/hooks/usePcaStats"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
-import { tileBorder, type TileColorKey } from "@/lib/tileColors"
 
-/** Bajo este número de preguntas avisamos que el banco todavía es chico. */
+/** Bajo este número de preguntas la materia se marca como banco corto. */
 const SMALL_BANK = 20
 
 /**
- * Módulo Examen PCA Aerocivil — estudio por materia + simulacro del examen.
+ * Módulo Examen PCA.
+ *
+ * Panel, no documento. La versión anterior abría con dos bloques de texto
+ * explicando la política del banco: información correcta en el sitio
+ * equivocado, porque quien entra ya decidió estudiar y lo que necesita es
+ * saber dónde continuar.
+ *
+ * El orden responde a las cuatro preguntas de entrada: qué hago (hero con una
+ * acción), cuánto llevo (indicadores), dónde continúo (tarjetas de módulo) y
+ * qué debo saber (avisos, en dos líneas).
+ *
+ * Los indicadores solo aparecen cuando hay actividad que medir. Seis celdas en
+ * blanco el primer día convierten el panel en una lista de lo que no has
+ * hecho; en su lugar va la franja de arranque.
  */
 export function Pca() {
+  const { stats, loading: statsLoading } = usePcaStats()
+  const { subjects, loading: subjectsLoading, error, reload } = useVaultSubjects("pca")
+
+  const bankTotal = stats?.bank_total ?? 0
+  const examCount = Math.min(20, bankTotal || 20)
+  const hasActivity = (stats?.sessions ?? 0) > 0
+  const coverage =
+    stats && stats.bank_total > 0 ? Math.round((stats.answered / stats.bank_total) * 100) : 0
+
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        <PageHeader
-          eyebrow={
-            <>
-              <Award className="h-3.5 w-3.5" /> Banco oficial Aerocivil
-            </>
-          }
-          title="Estudia con el banco oficial de Aerocivil"
-          subtitle="Todas las preguntas provienen del banco que la Aeronáutica Civil utiliza en sus exámenes de conocimiento para la licencia de Piloto Comercial de Avión."
-          actions={
+        {/* ── Hero: una sola pregunta contestada, qué hago ahora ── */}
+        <section className="mb-6">
+          <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
+            <ShieldCheck className="h-4 w-4" />
+            Banco oficial Aerocivil
+          </div>
+          <h1 className="mt-1.5 text-[32px] font-semibold tracking-[-0.03em] leading-[1.1]">
+            Examen PCA
+          </h1>
+          <p className="mt-2 text-[15px] text-muted-foreground max-w-[52ch] leading-relaxed">
+            Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
+          </p>
+
+          <div className="mt-5 flex flex-wrap gap-3">
             <Link
-              to="/app/examenes"
-              className={appButtonClass({ variant: "secondary" })}
+              to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
+              className={appButtonClass({ size: "lg" })}
+              style={appButtonStyle()}
             >
-              Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
+              Comenzar simulacro <ArrowRight className="h-4 w-4" />
             </Link>
-          }
-        />
+            {hasActivity && (
+              <Link to="#materias" className={appButtonClass({ variant: "secondary", size: "lg" })}>
+                Continuar por materia
+              </Link>
+            )}
+          </div>
+        </section>
 
-        <OfficialBankNote />
+        {/* ── Indicadores ── */}
+        {statsLoading ? (
+          <div className="h-[104px] rounded-xl surface animate-pulse mb-6" />
+        ) : hasActivity && stats ? (
+          <section
+            className="rounded-xl overflow-hidden mb-6 grid gap-px sm:grid-cols-2 lg:grid-cols-4"
+            style={{ background: "var(--border)", border: "1px solid var(--border)" }}
+          >
+            <StatTile
+              label="Cobertura del banco"
+              value={coverage}
+              suffix="%"
+              hint={`${stats.answered} de ${stats.bank_total} preguntas`}
+            />
+            <StatTile
+              label="Dominio"
+              value={stats.mastery_pct}
+              suffix="%"
+              hint={stats.mastery_pct === null ? "Sin datos suficientes" : "Aciertos sobre vistas"}
+              tone={stats.mastery_pct !== null && stats.mastery_pct < 70 ? "warn" : "success"}
+            />
+            <StatTile
+              label="Simulacros"
+              value={stats.sessions}
+              hint={stats.avg_minutes ? `${stats.avg_minutes} min de media` : undefined}
+            />
+            <StatTile
+              label="Racha"
+              value={stats.streak_days || null}
+              suffix="d"
+              hint={stats.streak_days ? "Días seguidos" : "Sin racha activa"}
+            />
+          </section>
+        ) : (
+          <section className="surface rounded-xl px-5 py-4 mb-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-3 min-w-0">
+              <PlayCircle className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+              <p className="text-[15px] text-muted-foreground">
+                Tus indicadores aparecen cuando termines tu primer simulacro.
+              </p>
+            </div>
+            <span className="tabular-nums text-[13px] text-muted-foreground flex-shrink-0">
+              {bankTotal || "—"} preguntas disponibles
+            </span>
+          </section>
+        )}
 
-        {/* === MATERIAS DISPONIBLES (en vivo desde vault_questions) === */}
-        <AvailableSubjects />
+        {/* ── Avisos, en dos líneas ── */}
+        <section className="grid gap-3 sm:grid-cols-2 mb-8">
+          <Alert
+            icon={ShieldCheck}
+            tone="success"
+            title="Preguntas verificadas contra Aerocivil"
+            line="Puedes abrir el banco oficial y comprobar cada pregunta."
+            to="/app/banco-oficial"
+            cta="Ver fuente"
+          />
+          <Alert
+            icon={TriangleAlert}
+            tone="warn"
+            title="El banco oficial tiene errores"
+            line="Te damos la respuesta técnica correcta y cuál marcar para aprobar."
+          />
+        </section>
 
-        <ComingNext />
+        {/* ── Módulos ── */}
+        <div id="materias" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+          <ModuleCard
+            icon={BookOpen}
+            title="Banco por materia"
+            description="Practica la materia que más te cuesta, en bloques cortos."
+            to="#lista-materias"
+            cta="Elegir materia"
+            progress={hasActivity ? coverage : undefined}
+            meta={stats ? `${stats.answered} de ${stats.bank_total} preguntas` : undefined}
+          />
+          <ModuleCard
+            icon={PlayCircle}
+            title="Simulacro"
+            description="Preguntas mezcladas de todas las materias, como el examen real."
+            to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
+            cta="Comenzar"
+          />
+          <ModuleCard
+            icon={Radar}
+            title="Qué cayó en el examen"
+            description="Lo que reportan los pilotos que ya presentaron."
+            to="/app/examenes"
+            cta="Ver reportes"
+            badge="Comunidad"
+          />
+        </div>
+
+        {/* ── Lista de materias ── */}
+        <section id="lista-materias">
+          <div className="flex items-baseline justify-between gap-3 mb-4">
+            <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Materias</h2>
+            {!subjectsLoading && !error && (
+              <span className="tabular-nums text-[13px] text-muted-foreground">
+                {subjects.length} abiertas
+              </span>
+            )}
+          </div>
+
+          {subjectsLoading ? (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="h-[92px] rounded-xl surface animate-pulse" />
+              ))}
+            </div>
+          ) : error ? (
+            <div className="surface rounded-xl p-6 text-center">
+              <p className="text-[15px] font-semibold">No pudimos cargar las materias</p>
+              <p className="mt-1 text-[13px] text-muted-foreground">
+                La conexión con el banco falló. Inténtalo de nuevo.
+              </p>
+              <button
+                type="button"
+                onClick={reload}
+                className={appButtonClass({ variant: "secondary" }, "mt-4 cursor-pointer")}
+              >
+                <RefreshCw className="h-4 w-4" /> Reintentar
+              </button>
+            </div>
+          ) : subjects.length === 0 ? (
+            <div className="surface rounded-xl p-6 text-center">
+              <p className="text-[15px] font-semibold">Todavía no hay materias abiertas</p>
+              <Link
+                to="/app/test-inicial"
+                className={appButtonClass({ variant: "secondary" }, "mt-4")}
+              >
+                Hacer el test inicial <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {[...subjects]
+                .sort((a, b) => b.question_count - a.question_count)
+                .map((s) => (
+                  <SubjectRow
+                    key={s.subject_slug}
+                    slug={s.subject_slug}
+                    count={s.question_count}
+                    answered={
+                      stats?.by_subject.find((x) => x.slug === s.subject_slug)?.answered ?? 0
+                    }
+                  />
+                ))}
+            </div>
+          )}
+        </section>
       </div>
     </AppLayout>
   )
 }
 
-/**
- * Cómo tratamos el banco oficial.
- *
- * Es el argumento de autoridad del módulo y el diferenciador real: ningún
- * competidor se hace cargo de los errores del banco.
- *
- * Va en su propio bloque y no en el subtítulo, donde 110 palabras no se leen.
- * Pero el texto se mantiene completo a propósito: aquí el detalle no sobra,
- * sostiene el argumento. Un piloto que está decidiendo si confiar en la app
- * quiere saber exactamente cómo se trata cada caso, y resumirlo en dos líneas
- * lo dejaba sonando a promesa vaga.
- */
-function OfficialBankNote() {
-  return (
-    <section className="surface rounded-xl mb-8 overflow-hidden">
-      {/* Columna de lectura, no dos columnas simétricas. Las dos ideas no pesan
-          igual: la primera es la política de contenido y la segunda un acceso a
-          un recurso. Forzarlas a columnas iguales las obligaba a fingir
-          equivalencia, y como solo una llevaba botón el bloque quedaba cojo. */}
-      <div className="p-6 sm:p-8">
-        <div className="flex items-start gap-3">
-          <ShieldCheck className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-          <div className="min-w-0">
-            <h2 className="text-[20px] font-semibold tracking-[-0.02em] leading-tight">
-              Qué hacemos cuando el banco oficial tiene errores
-            </h2>
-            <p
-              className="mt-3 text-[15px] text-muted-foreground leading-[1.65] max-w-[52ch]"
-              style={{ textWrap: "pretty" }}
-            >
-              El banco oficial contiene preguntas con respuestas técnicamente incorrectas. En esas
-              preguntas Aviatory te muestra la explicación y la respuesta técnicamente correcta, y
-              además te indica cuál debes seleccionar para aprobar el examen oficial de acuerdo con
-              el banco vigente de la Aerocivil.
-            </p>
-            <p
-              className="mt-3 text-[15px] text-foreground leading-[1.65] max-w-[52ch]"
-              style={{ textWrap: "pretty" }}
-            >
-              Así estudias con criterio técnico, que es lo que vas a necesitar volando, sin
-              arriesgar el resultado del examen.
-            </p>
-          </div>
-        </div>
-      </div>
+function Alert({
+  icon: Icon,
+  tone,
+  title,
+  line,
+  to,
+  cta,
+}: {
+  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
+  tone: "success" | "warn"
+  title: string
+  line: string
+  to?: string
+  cta?: string
+}) {
+  const color = tone === "warn" ? "var(--av-warn-fg)" : "var(--av-success-fg)"
+  const tint = tone === "warn" ? "var(--av-amber-400)" : "var(--av-green-400)"
 
-      {/* Franja de acción, separada por una línea. Es una jerarquía distinta:
-          aquí no se explica nada, se entra a un documento. */}
-      <div className="border-t border-border bg-muted/40 px-6 sm:px-8 py-5">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-start gap-3 min-w-0">
-            <FileText className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-            <div className="min-w-0">
-              <h3 className="text-[15px] font-semibold tracking-[-0.01em]">
-                Verifica cada pregunta contra la fuente
-              </h3>
-              <p
-                className="mt-1 text-[15px] text-muted-foreground leading-[1.65] max-w-[52ch]"
-                style={{ textWrap: "pretty" }}
-              >
-                El banco de preguntas oficial completo está dentro de la aplicación. No tienes que
-                creernos: puedes comprobarlo tú mismo, pregunta por pregunta.
-              </p>
-            </div>
-          </div>
+  return (
+    <div
+      className="rounded-xl px-4 py-3.5 flex items-start gap-3"
+      style={{
+        background: `color-mix(in oklab, ${tint} 8%, transparent)`,
+        border: `1px solid color-mix(in oklab, ${tint} 22%, transparent)`,
+      }}
+    >
+      <Icon className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color }} />
+      <div className="min-w-0 flex-1">
+        <div className="text-[15px] font-semibold" style={{ color }}>
+          {title}
+        </div>
+        <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{line}</p>
+        {to && cta && (
           <Link
-            to="/app/banco-oficial"
-            className={appButtonClass({ variant: "secondary" }, "flex-shrink-0")}
+            to={to}
+            className="mt-2 inline-flex items-center gap-1 text-[13px] font-semibold text-foreground"
           >
-            Abrir el banco oficial <ArrowRight className="h-4 w-4" />
+            {cta} <ArrowRight className="h-3.5 w-3.5" />
           </Link>
-        </div>
+        )}
       </div>
-    </section>
+    </div>
   )
 }
 
-// ────────────────────────────────────────────────────────────────────────────
-// Materias disponibles (live desde vault_questions vía vault_list_subjects)
-// ────────────────────────────────────────────────────────────────────────────
-
-function AvailableSubjects() {
-  const { subjects, loading, error, reload } = useVaultSubjects("pca")
-
-  if (loading) {
-    return (
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="h-[132px] rounded-xl surface animate-pulse" />
-        ))}
-      </section>
-    )
-  }
-
-  if (error) {
-    return (
-      <section className="rounded-xl surface p-6 text-center">
-        <div className="text-[15px] font-semibold">No pudimos cargar las materias</div>
-        <p className="mt-1.5 text-[13px] text-muted-foreground">
-          La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
-        </p>
-        <button
-          type="button"
-          onClick={reload}
-          className={appButtonClass({ size: "lg" }, "mt-5 cursor-pointer")}
-          style={appButtonStyle()}
-        >
-          <RefreshCw className="h-4 w-4" /> Reintentar
-        </button>
-      </section>
-    )
-  }
-
-  if (subjects.length === 0) {
-    return (
-      <section className="rounded-xl surface p-7 text-center">
-        <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-lg border border-border bg-muted text-muted-foreground">
-          <BookOpen className="h-6 w-6" />
-        </div>
-        <h2 className="mt-4 text-[20px] font-semibold tracking-[-0.02em]">
-          El banco de preguntas se abre por materias
-        </h2>
-        <p className="mt-2 text-[15px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
-          Todavía no hay ninguna materia abierta en tu cuenta. Haz el test inicial y te decimos por
-          dónde empezar.
-        </p>
-        <Link
-          to="/app/test-inicial"
-          className={appButtonClass({ size: "lg" }, "mt-5")}
-          style={appButtonStyle()}
-        >
-          Hacer el test inicial <ArrowRight className="h-4 w-4" />
-        </Link>
-      </section>
-    )
-  }
-
-  // Banco más grande primero: la escasez deja de ser una sorpresa al abrir el quiz.
-  const ordered = [...subjects].sort(
-    (a, b) =>
-      b.question_count - a.question_count ||
-      getSubjectMeta(a.subject_slug).name.localeCompare(getSubjectMeta(b.subject_slug).name),
-  )
-  const bankTotal = ordered.reduce((acc, s) => acc + s.question_count, 0)
-  const examCount = Math.min(20, bankTotal)
-
-  return (
-    <section>
-      {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
-      <Link
-        to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
-        className="surface-lift group relative overflow-hidden rounded-xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-8"
-        style={{
-          borderColor: tileBorder("blue", 35),
-          background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-        }}
-      >
-        <div
-          className="relative flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
-          style={{ background: "var(--av-blue-500)" }}
-        >
-          <Award className="h-6 w-6 text-white" />
-        </div>
-        <div className="relative flex-1 min-w-0">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Simulacro Examen PCA
-          </div>
-          <div className="mt-0.5 text-[17px] sm:text-[20px] font-semibold tracking-[-0.02em]">
-            {examCount} preguntas mezcladas de todas las materias
-          </div>
-          <div className="mt-0.5 text-[13px] text-muted-foreground">
-            Como el examen real de Aerocivil: al terminar ves tu nota y qué materia repasar.
-          </div>
-        </div>
-        <div className={appButtonClass({ size: "lg" }, "relative flex-shrink-0")} style={appButtonStyle()}>
-          Empezar <ArrowRight className="h-4 w-4" />
-        </div>
-      </Link>
-
-      <SectionTitle
-        icon={BookOpen}
-        eyebrow="Estudiar por materia"
-        title="Refuerza donde más te cuesta"
-        hint={`${ordered.length} materias abiertas · ${bankTotal} preguntas en total`}
-        right={
-          <div className="hidden md:flex items-center gap-1.5 text-[12px] text-muted-foreground">
-            <ShieldCheck className="h-4 w-4" /> Preguntas revisadas, sin spoilers
-          </div>
-        }
-      />
-
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {ordered.map((s) => (
-          <SubjectQuizCard key={s.subject_slug} slug={s.subject_slug} count={s.question_count} />
-        ))}
-      </div>
-    </section>
-  )
-}
-
-/**
- * Tarjeta de materia.
- *
- * Sin color por materia. Las 14 materias usaban 6 colores repartidos sin
- * criterio, con tres compartiendo el mismo: el color no identificaba nada, era
- * un mosaico decorativo. Y una materia salía en rojo, que en aviación
- * significa acción inmediata.
- *
- * Ahora el único color es el ámbar del banco corto, donde sí informa: avisa de
- * que esa materia todavía tiene pocas preguntas y dice cuántas faltan.
- */
-function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
+/** Fila de materia. Compacta a propósito: son hasta 14 y no compiten entre sí. */
+function SubjectRow({ slug, count, answered }: { slug: string; count: number; answered: number }) {
   const meta = getSubjectMeta(slug)
   const Icon = meta.icon
   const quizCount = Math.min(10, count)
-  const isSmallBank = count < SMALL_BANK
+  const short = count < SMALL_BANK
+  const pct = count > 0 ? Math.round((answered / count) * 100) : 0
 
   return (
     <Link
       to={`/app/pca/quiz/${slug}?module=pca&count=${quizCount}`}
-      className="surface surface-lift rounded-xl p-5 flex flex-col gap-4"
+      className="surface surface-lift rounded-xl p-4 flex items-center gap-3"
     >
-      <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center border border-border bg-muted text-muted-foreground">
-          {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="text-[15px] font-semibold tracking-[-0.01em]">{meta.name}</div>
-          {meta.description && (
-            <p className="mt-1 text-[13px] text-muted-foreground leading-snug line-clamp-2">
-              {meta.description}
-            </p>
+      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-border bg-muted text-muted-foreground flex-shrink-0">
+        {Icon ? <Icon className="h-4 w-4" /> : <BookOpen className="h-4 w-4" />}
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="text-[15px] font-semibold tracking-[-0.01em] truncate">{meta.name}</div>
+        <div className="mt-0.5 flex items-center gap-2">
+          <span className="tabular-nums text-[13px] text-muted-foreground">
+            {count} preguntas
+          </span>
+          {short && (
+            <span className="text-[13px]" style={{ color: "var(--av-warn-fg)" }}>
+              banco corto
+            </span>
           )}
         </div>
-      </div>
-
-      <div className="mt-auto flex items-end justify-between gap-3">
-        <div className="min-w-0">
-          <div className="tabular-nums text-[20px] font-semibold tracking-[-0.02em]">
-            {count}
-            <span className="ml-1 text-[13px] font-normal text-muted-foreground">preguntas</span>
-          </div>
-          {isSmallBank ? (
-            <div className="mt-1 text-[13px]" style={{ color: "var(--av-warn-fg)" }}>
-              Banco corto: faltan {SMALL_BANK - count} para el mínimo
-            </div>
-          ) : (
-            <div className="mt-1 text-[13px] text-muted-foreground">Quiz de {quizCount}</div>
-          )}
-        </div>
-        <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-foreground flex-shrink-0">
-          Practicar <ArrowRight className="h-4 w-4" />
-        </span>
-      </div>
-    </Link>
-  )
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// Qué viene: solo lo que la base puede sostener cuando salga. Nada clickeable.
-// ────────────────────────────────────────────────────────────────────────────
-
-const COMING_NEXT: { icon: typeof ListChecks; color: TileColorKey; title: string; line: string }[] = [
-  {
-    icon: ListChecks,
-    color: "blue",
-    title: "Análisis por materia",
-    line: "Al terminar un simulacro, en qué materia fallaste y qué quiz seguir.",
-  },
-  {
-    icon: History,
-    color: "violet",
-    title: "Historial de simulacros",
-    line: "Cada intento guardado para comparar tu progreso.",
-  },
-  {
-    icon: ShieldCheck,
-    color: "green",
-    title: "Banco al día",
-    line: "Actualizamos las preguntas cuando cambia la normativa.",
-  },
-]
-
-function ComingNext() {
-  return (
-    <section className="mt-10">
-      <SectionTitle
-        eyebrow="Roadmap del módulo"
-        title="Qué viene"
-        hint="En construcción."
-      />
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {COMING_NEXT.map((c) => (
-          <div
-            key={c.title}
-            className="rounded-xl surface p-4 flex items-start gap-3"
-          >
+        {pct > 0 && (
+          <div className="mt-2 h-1 rounded-full overflow-hidden bg-muted">
             <div
-              className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-              
-            >
-              <c.icon className="h-4 w-4" />
-            </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[15px] font-semibold tracking-[-0.01em]">{c.title}</span>
-                <span className="chip">Pronto</span>
-              </div>
-              <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{c.line}</p>
-            </div>
+              className="h-full rounded-full"
+              style={{ width: `${pct}%`, background: "var(--av-blue-500)" }}
+            />
           </div>
-        ))}
+        )}
       </div>
-    </section>
+      <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+    </Link>
   )
 }
