@@ -1,22 +1,24 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowRight,
   PlayCircle,
   Star,
-  Radio,
+  Clock,
+  Headphones,
+  Play,
   GraduationCap,
   Brain,
   Video,
   Check,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 
 /**
  * Hero estilo plataforma de cursos (Platzi / Domestika / Coursera) para pilotos.
- * Izquierda: propuesta de valor + CTA + prueba social. Derecha: deck de course
- * cards (los módulos como cursos) con miniatura, progreso y lecciones.
- * Minimalista, cálido y moderno — sin mesh ni glows.
+ * Izquierda: propuesta de valor + CTA + prueba social. Derecha: réplica en vivo
+ * de la pantalla del Simulacro TEA (producto real, no mockup genérico) con
+ * cronómetro corriendo y REC pulsando + mini rows de los otros cursos.
  */
 export function Hero() {
   return (
@@ -90,33 +92,71 @@ export function Hero() {
           <div aria-hidden className="absolute -right-3 top-6 hidden sm:block w-[88%] h-[88%] rounded-2xl border border-border bg-card/60 rotate-3" />
           <div aria-hidden className="absolute -left-3 top-3 hidden sm:block w-[88%] h-[88%] rounded-2xl border border-border bg-card/60 -rotate-2" />
 
-          {/* card principal */}
-          <div className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-[0_24px_60px_-24px_rgb(0_0_0_/_22%)]">
-            <CourseThumb color="var(--av-blue-500)" icon={Radio} tag="Curso · Inglés ICAO" />
+          {/* card principal: réplica en vivo del Simulacro TEA (decorativa) */}
+          <div
+            aria-hidden
+            className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-[0_24px_60px_-24px_rgb(0_0_0_/_22%)]"
+          >
             <div className="p-5">
-              <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
-                <span className="inline-flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" /> 4.9</span>
-                <span>·</span>
-                <span>Nivel 3 → 5</span>
-                <span>·</span>
-                <span>5 secciones</span>
+              {/* header del examen: parte + REC + cronómetro */}
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[12.5px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                  Simulacro TEA · Part 2
+                </span>
+                <span className="flex items-center gap-3">
+                  <span className="inline-flex items-center gap-1.5 text-[12px] font-bold" style={{ color: "var(--av-red-400)" }}>
+                    <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--av-red-400)" }} /> REC
+                  </span>
+                  <span className="inline-flex items-center gap-1 tabular-nums text-[12.5px] text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" /> <ExamTimer />
+                  </span>
+                </span>
               </div>
-              <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">Inglés ICAO: examen TEA</h3>
-              <p className="mt-1 text-[13px] text-muted-foreground leading-snug">
-                Vocabulario, comprensión auditiva, entrevista y simulacro completo.
-              </p>
-              <div className="mt-4">
-                <div className="flex items-center justify-between text-[12px] mb-1.5">
-                  <span className="text-muted-foreground">Tu progreso</span>
-                  <span className="font-semibold" style={{ color: "var(--av-blue-500)" }}>62%</span>
+              <div className="mt-2.5 h-1.5 rounded-full bg-muted overflow-hidden">
+                <div className="h-full rounded-full" style={{ width: "58%", background: "var(--av-blue-500)" }} />
+              </div>
+              <div className="mt-1.5 text-[11.5px] text-muted-foreground">Pregunta 14 de 24</div>
+
+              {/* tarjeta de pregunta con audio */}
+              <div className="mt-4 rounded-xl border border-border p-4">
+                <div className="flex items-center gap-2 text-[12.5px] text-muted-foreground">
+                  <Headphones className="h-4 w-4 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
+                  Long message: take notes and explain the situation
                 </div>
-                <div className="h-2 rounded-full bg-muted overflow-hidden">
-                  <div className="h-full rounded-full" style={{ width: "62%", background: "var(--av-blue-500)" }} />
+                <div className="mt-3 flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
+                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white" style={{ background: "var(--av-blue-500)" }}>
+                    <Play className="h-3.5 w-3.5 fill-current" />
+                  </span>
+                  <span className="relative h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
+                    <span className="absolute inset-y-0 left-0 w-[38%] rounded-full" style={{ background: "var(--av-blue-500)" }} />
+                  </span>
+                  <span className="text-[11.5px] text-muted-foreground whitespace-nowrap">1 de 2</span>
+                </div>
+                <div className="mt-3 space-y-1 text-[12.5px] text-muted-foreground">
+                  <div className="flex items-start gap-1.5">
+                    <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} /> What was the problem?
+                  </div>
+                  <div className="flex items-start gap-1.5">
+                    <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} /> What were they requesting or advising?
+                  </div>
                 </div>
               </div>
-              <button className="mt-4 w-full inline-flex items-center justify-center gap-1.5 h-10 rounded-lg text-[14px] font-semibold text-white" style={{ background: "var(--av-blue-500)" }}>
-                Continuar lección <ArrowRight className="h-4 w-4" />
-              </button>
+
+              {/* footer: nivel objetivo + siguiente */}
+              <div className="mt-4 flex items-center justify-between gap-3">
+                <span className="inline-flex items-center gap-2 text-[12px] text-muted-foreground">
+                  <span
+                    className="flex h-6 w-6 items-center justify-center rounded-md text-[11.5px] font-bold"
+                    style={{ background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)", color: "var(--av-blue-500)" }}
+                  >
+                    4
+                  </span>
+                  Nivel objetivo: ICAO 4
+                </span>
+                <span className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg text-[13.5px] font-semibold text-white" style={{ background: "var(--av-blue-500)" }}>
+                  Siguiente <ArrowRight className="h-4 w-4" />
+                </span>
+              </div>
             </div>
           </div>
 
@@ -132,27 +172,17 @@ export function Hero() {
   )
 }
 
-function CourseThumb({ color, icon: Icon, tag }: { color: string; icon: React.ComponentType<{ className?: string }>; tag: string }) {
+/** Cronómetro decorativo del simulacro: arranca en 14:32 y corre en vivo. */
+function ExamTimer() {
+  const [seconds, setSeconds] = useState(14 * 60 + 32)
+  useEffect(() => {
+    const id = setInterval(() => setSeconds((v) => v + 1), 1000)
+    return () => clearInterval(id)
+  }, [])
   return (
-    <div className="relative h-40 overflow-hidden">
-      <img src={icaoPhoto} alt="" className="absolute inset-0 h-full w-full object-cover" />
-      <div
-        aria-hidden
-        className="absolute inset-0"
-        style={{
-          background: `linear-gradient(to top, color-mix(in oklab, ${color} 40%, rgb(11 16 32 / 85%)) 0%, rgb(11 16 32 / 10%) 55%, transparent 100%)`,
-        }}
-      />
-      <span className="absolute top-3 left-3 inline-flex items-center rounded-full bg-black/35 backdrop-blur px-2.5 py-1 text-[11px] font-semibold text-white">
-        {tag}
-      </span>
-      <span
-        className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg backdrop-blur-sm"
-        style={{ background: "rgb(11 16 32 / 45%)" }}
-      >
-        <Icon className="h-4.5 w-4.5 text-white" />
-      </span>
-    </div>
+    <>
+      {Math.floor(seconds / 60)}:{String(seconds % 60).padStart(2, "0")}
+    </>
   )
 }
 
