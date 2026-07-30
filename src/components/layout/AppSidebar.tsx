@@ -14,6 +14,7 @@ import {
   Plane,
   Gift,
   GraduationCap,
+  FileText,
   User,
   Timer,
   ArrowRight,
@@ -78,6 +79,7 @@ const navSections: NavSection[] = [
   {
     label: "Herramientas",
     items: [
+      { to: "/app/banco-oficial", label: "Banco oficial", icon: FileText },
       { to: "/app/examenes", label: "Qué cayó en el examen", icon: Radar },
       { to: "/app/match", label: "Para cuál calificas", icon: Plane },
       { to: "/app/logbook", label: "Logbook", icon: Clock },

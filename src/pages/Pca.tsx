@@ -22,13 +22,6 @@ import { tileBorder, type TileColorKey } from "@/lib/tileColors"
 const SMALL_BANK = 20
 
 /**
- * Banco oficial en PDF. Vive en public/docs para que el piloto pueda abrirlo y
- * verificar cualquier pregunta contra la fuente. Si se renombra el archivo hay
- * que cambiar esta constante, o el enlace queda roto.
- */
-const OFFICIAL_BANK_PDF = "/docs/banco-preguntas-aerocivil.pdf"
-
-/**
  * Módulo Examen PCA Aerocivil — estudio por materia + simulacro del examen.
  */
 export function Pca() {
@@ -101,14 +94,12 @@ function OfficialBankNote() {
             El banco oficial completo está disponible en PDF. Puedes localizar cualquier pregunta y
             comprobar que corresponde a la que usa la Aerocivil en el examen.
           </p>
-          <a
-            href={OFFICIAL_BANK_PDF}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/app/banco-oficial"
             className={appButtonClass({ variant: "secondary" }, "mt-4")}
           >
-            Abrir el banco en PDF <ArrowRight className="h-4 w-4" />
-          </a>
+            Abrir el banco oficial <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>

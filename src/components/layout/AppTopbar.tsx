@@ -30,6 +30,7 @@ const ROUTE_LABEL: Record<string, string> = {
   "/app/entrevistas": "Simulador entrevistas",
   "/app/psicotecnicas": "Psicotécnicas",
   "/app/biblioteca": "Biblioteca",
+  "/app/banco-oficial": "Banco oficial",
   "/app/examenes": "Qué cayó en el examen",
   "/app/match": "Para cuál calificas",
   "/app/materias": "Materias generales",

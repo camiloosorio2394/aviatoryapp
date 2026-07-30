@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
 import { GeneralSubjects } from "@/pages/GeneralSubjects"
+import { OfficialBank } from "@/pages/OfficialBank"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
 import { identifyUser, resetIdentity } from "@/lib/analytics"
@@ -115,6 +116,14 @@ function App() {
           element={
             <RequireAuth>
               <GeneralSubjects />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/banco-oficial"
+          element={
+            <RequireAuth>
+              <OfficialBank />
             </RequireAuth>
           }
         />
