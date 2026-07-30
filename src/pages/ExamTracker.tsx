@@ -238,7 +238,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
 
   return (
     <Link
-      to={`/app/exam-tracker/${intel.subject_slug}`}
+      to={`/app/pca/examenes/${intel.subject_slug}`}
       className="group block rounded-2xl surface p-5 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
