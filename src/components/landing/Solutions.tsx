@@ -2,8 +2,8 @@ import { Brain, Globe2, Plane, BookOpen, Video, Sparkles, Star, ArrowRight } fro
 import { Reveal } from "@/components/Reveal"
 import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 import pcaPhoto from "@/assets/photos/pca-flightdeck.jpg"
-import psicoPhoto from "@/assets/photos/psicotecnicas-gauges.jpg"
-import entrevistasPhoto from "@/assets/photos/entrevistas-terminal.jpg"
+import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
+import entrevistasPhoto from "@/assets/photos/entrevistas-interview.jpg"
 import aerolineaPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 import wingmanPhoto from "@/assets/photos/wingman-cockpit-dusk.jpg"
 

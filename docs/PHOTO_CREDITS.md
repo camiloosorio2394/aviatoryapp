@@ -9,8 +9,8 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 |---|---|---|
 | `icao-night-cockpit.jpg` | Card Inglés ICAO (landing + hero) | https://unsplash.com/photos/vIXXmgGp4gU (Rodrigo Soares) |
 | `pca-flightdeck.jpg` | Card Examen PCA | https://unsplash.com/photos/Ff5dTEd_uxQ (Benjamin Chambon) |
-| `psicotecnicas-gauges.jpg` | Card Psicotécnicas | https://unsplash.com/photos/H6duxvl21TU (Alexandre Daoust) |
-| `entrevistas-terminal.jpg` | Card Simulador de entrevistas | https://unsplash.com/photos/nCzIcYFBZ2k |
+| `psicotecnicas-mano-panel.jpg` | Card Psicotécnicas | https://unsplash.com/photos/4UgUpo3YdKk |
+| `entrevistas-interview.jpg` | Card Simulador de entrevistas | https://unsplash.com/photos/eF7HN40WbAQ |
 | `aerolinea-piloto.jpg` | Card Ingreso a aerolínea | https://unsplash.com/photos/1FDKmozNMac (Oliver Streit) |
 | `wingman-cockpit-dusk.jpg` | Card Wingman | https://unsplash.com/photos/eUCmDtS9x3w (Shot By Joe) |
 
