@@ -174,7 +174,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseAirline: NextStep = {
     title: "Revisa tu match",
     description: "Mira qué te falta para postular a tu aerolínea objetivo.",
-    href: "/app/aerolineas",
+    href: "/app/aerolinea/match",
     cta: "Ver aerolíneas",
     minutes: 5,
     icon: AerodromeIcon,
@@ -649,7 +649,7 @@ function WingmanInsight({
         title: "Tu CV está rezagado",
         body: "Tienes horas y exámenes, pero faltan los detalles. Pasa 20 min puliendo tu hoja de vida.",
         cta: "Ver requisitos",
-        href: "/app/aerolineas",
+        href: "/app/aerolinea/match",
       }
     }
     return {

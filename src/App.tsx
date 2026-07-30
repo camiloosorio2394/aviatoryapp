@@ -1,8 +1,9 @@
 import { useEffect } from "react"
-import { Navigate, Route, Routes } from "react-router-dom"
+import { Navigate, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { GeneralSubjects } from "@/pages/GeneralSubjects"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
 import { identifyUser, resetIdentity } from "@/lib/analytics"
@@ -45,6 +46,16 @@ import { InterviewSpeakingIntro } from "@/pages/InterviewSpeakingIntro"
 import { Terms } from "@/pages/Terms"
 import { Privacy } from "@/pages/Privacy"
 import { NotFound } from "@/pages/NotFound"
+
+/**
+ * Redireccion legacy con parametro. Exam Tracker paso a vivir dentro del
+ * modulo del examen PCA, pero los enlaces a una materia concreta ya estaban
+ * compartidos: se conserva el slug al redirigir.
+ */
+function LegacyExamTracker() {
+  const { slug } = useParams()
+  return <Navigate to={`/app/pca/examenes/${slug}`} replace />
+}
 
 function App() {
   // Analytics: page views + user identification
@@ -99,7 +110,19 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route path="/app/materias" element={<Navigate to="/app/pca" replace />} />
+        <Route
+          path="/app/materias"
+          element={
+            <RequireAuth>
+              <GeneralSubjects />
+            </RequireAuth>
+          }
+        />
+        {/* Exam Tracker y Match pasaron a vivir dentro de su modulo. Las rutas
+            viejas siguen funcionando para no romper enlaces ya compartidos. */}
+        <Route path="/app/exam-tracker" element={<Navigate to="/app/pca/examenes" replace />} />
+        <Route path="/app/exam-tracker/:slug" element={<LegacyExamTracker />} />
+        <Route path="/app/aerolineas" element={<Navigate to="/app/aerolinea/match" replace />} />
         <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/quiz/:slug" element={<Navigate to="/app/pca" replace />} />
@@ -270,7 +293,7 @@ function App() {
           }
         />
         <Route
-          path="/app/aerolineas"
+          path="/app/aerolinea/match"
           element={
             <RequireAuth>
               <Airlines />
@@ -302,7 +325,7 @@ function App() {
           }
         />
         <Route
-          path="/app/exam-tracker"
+          path="/app/pca/examenes"
           element={
             <RequireAuth>
               <ExamTracker />
@@ -310,7 +333,7 @@ function App() {
           }
         />
         <Route
-          path="/app/exam-tracker/:slug"
+          path="/app/pca/examenes/:slug"
           element={
             <RequireAuth>
               <ExamTrackerSubject />

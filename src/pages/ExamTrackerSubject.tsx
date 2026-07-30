@@ -105,7 +105,7 @@ export function ExamTrackerSubject() {
               El enlace puede estar viejo o la materia cambió de nombre.
             </p>
             <Link
-              to="/app/exam-tracker"
+              to="/app/pca/examenes"
               className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
@@ -130,7 +130,7 @@ export function ExamTrackerSubject() {
           subtitle="Lo que reportaron los pilotos que ya presentaron esta materia en los últimos 90 días."
           actions={
             <Link
-              to="/app/exam-tracker"
+              to="/app/pca/examenes"
               className="btn-apple-ghost inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[13px] font-semibold no-underline"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
@@ -341,7 +341,7 @@ function EmptyTopics() {
         frecuentes de esta materia.
       </p>
       <Link
-        to="/app/exam-tracker"
+        to="/app/pca/examenes"
         className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{ background: "var(--av-blue-500)" }}
       >
@@ -381,7 +381,7 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
         ))}
       </ol>
       <Link
-        to="/app/exam-tracker"
+        to="/app/pca/examenes"
         className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{ background: "var(--av-blue-500)" }}
       >
