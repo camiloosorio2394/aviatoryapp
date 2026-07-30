@@ -71,45 +71,60 @@ export function Pca() {
  */
 function OfficialBankNote() {
   return (
-    <section className="surface rounded-xl p-5 sm:p-6 mb-8">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div>
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-            <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
+    <section className="surface rounded-xl mb-8 overflow-hidden">
+      {/* Columna de lectura, no dos columnas simétricas. Las dos ideas no pesan
+          igual: la primera es la política de contenido y la segunda un acceso a
+          un recurso. Forzarlas a columnas iguales las obligaba a fingir
+          equivalencia, y como solo una llevaba botón el bloque quedaba cojo. */}
+      <div className="p-6 sm:p-8">
+        <div className="flex items-start gap-3">
+          <ShieldCheck className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+          <div className="min-w-0">
+            <h2 className="text-[20px] font-semibold tracking-[-0.02em] leading-tight">
               Qué hacemos cuando el banco oficial tiene errores
             </h2>
+            <p
+              className="mt-3 text-[15px] text-muted-foreground leading-[1.65] max-w-[52ch]"
+              style={{ textWrap: "pretty" }}
+            >
+              El banco oficial contiene preguntas con respuestas técnicamente incorrectas. En esas
+              preguntas Aviatory te muestra la explicación y la respuesta técnicamente correcta, y
+              además te indica cuál debes seleccionar para aprobar el examen oficial de acuerdo con
+              el banco vigente de la Aerocivil.
+            </p>
+            <p
+              className="mt-3 text-[15px] text-foreground leading-[1.65] max-w-[52ch]"
+              style={{ textWrap: "pretty" }}
+            >
+              Así estudias con criterio técnico, que es lo que vas a necesitar volando, sin
+              arriesgar el resultado del examen.
+            </p>
           </div>
-          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
-            El banco oficial contiene preguntas con respuestas técnicamente incorrectas. En esas
-            preguntas Aviatory te muestra la explicación y la respuesta técnicamente correcta, y
-            además te indica cuál debes seleccionar para aprobar el examen oficial de acuerdo con el
-            banco vigente de la Aerocivil.
-          </p>
-          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-            Así estudias con criterio técnico, que es lo que vas a necesitar volando, sin arriesgar
-            el resultado del examen.
-          </p>
         </div>
+      </div>
 
-        <div>
-          <div className="flex items-center gap-2">
-            <FileText className="h-5 w-5 text-muted-foreground flex-shrink-0" />
-            <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
-              Verifica cada pregunta contra la fuente
-            </h2>
+      {/* Franja de acción, separada por una línea. Es una jerarquía distinta:
+          aquí no se explica nada, se entra a un documento. */}
+      <div className="border-t border-border bg-muted/40 px-6 sm:px-8 py-5">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-start gap-3 min-w-0">
+            <FileText className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
+            <div className="min-w-0">
+              <h3 className="text-[15px] font-semibold tracking-[-0.01em]">
+                Verifica cada pregunta contra la fuente
+              </h3>
+              <p
+                className="mt-1 text-[15px] text-muted-foreground leading-[1.65] max-w-[52ch]"
+                style={{ textWrap: "pretty" }}
+              >
+                El banco de preguntas oficial completo está dentro de la aplicación. No tienes que
+                creernos: puedes comprobarlo tú mismo, pregunta por pregunta.
+              </p>
+            </div>
           </div>
-          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
-            Dentro de la aplicación encontrarás el banco de preguntas oficial completo en formato
-            PDF. Puedes localizar cada pregunta, verificar la información y corroborar que el
-            contenido de Aviatory corresponde exactamente al banco utilizado en el examen.
-          </p>
-          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
-            No tienes que creernos: puedes comprobarlo tú mismo, pregunta por pregunta.
-          </p>
           <Link
             to="/app/banco-oficial"
-            className={appButtonClass({ variant: "secondary" }, "mt-4")}
+            className={appButtonClass({ variant: "secondary" }, "flex-shrink-0")}
           >
             Abrir el banco oficial <ArrowRight className="h-4 w-4" />
           </Link>
