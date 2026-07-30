@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <!-- Fuentes por link y no por @import dentro del CSS. El @import de
+         JetBrains Mono estaba a mitad de index.css y por especificacion un
+         @import fuera de la cabecera se ignora: la monoespaciada nunca se
+         cargo de verdad, caia al fallback del sistema. Con preconnect ademas
+         se abre la conexion antes de que el CSS la pida. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
+
     <!-- Tema: aplica día/noche antes del primer paint (persistido + auto del SO).
          Evita el flash y que se pierda el modo oscuro al recargar. -->
     <script>

@@ -1,7 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,9 +52,37 @@
     --font-sans: var(--font-sans)
   }
   :root {
-    /* Tipografía Apple: SF Pro en dispositivos Apple, Inter / system fallback */
-    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", system-ui, sans-serif;
-    --font-heading: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
+    /* Inter primero, a propósito. La pila anterior arrancaba en -apple-system,
+       que en Windows y Android no resuelve: el público real de la app (pilotos
+       LATAM, casi todos fuera del ecosistema Apple) veía Segoe UI o Roboto y no
+       la tipografía con la que se diseñaba. */
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, system-ui, "Segoe UI", Roboto, sans-serif;
+    --font-heading: var(--font-sans);
+
+    /* Escala tipográfica. Siete pasos, y nada fuera de aquí. Antes había una
+       veintena de tamaños, con valores como 13.5px o 11.5px que no eran
+       decisiones sino ajustes a ojo. */
+    --text-2xs: 12px;
+    --text-xs: 13px;
+    --text-sm: 15px;
+    --text-md: 17px;
+    --text-lg: 20px;
+    --text-xl: 24px;
+    --text-2xl: 32px;
+
+    /* Escala de espaciado. Sin medios pasos: los 2, 6, 10 y 14px que había
+       venían de gap-1.5 y mt-0.5 y rompían cualquier retícula. */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+    --space-12: 48px;
+
+    /* Radios: dos valores. Controles y superficies. */
+    --radius-control: 8px;
+    --radius-card: 12px;
 
     --background: oklch(1 0 0);
     --foreground: oklch(0.18 0.01 260);
@@ -63,7 +90,7 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.55 0.22 264);
+    --primary: oklch(0.54 0.22 264);
     --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
@@ -72,9 +99,9 @@
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
+    --border: oklch(0 0 0 / 16%);
     --input: oklch(0.922 0 0);
-    --ring: oklch(0.55 0.22 264);
+    --ring: oklch(0.54 0.22 264);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -97,7 +124,7 @@
     --card-foreground: oklch(0.985 0 0);
     --popover: oklch(0.205 0 0);
     --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.62 0.22 264);
+    --primary: oklch(0.54 0.22 264);
     --primary-foreground: oklch(1 0 0);
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
@@ -526,7 +553,6 @@
  * Convive con tus tokens existentes (--primary, --sidebar, etc.)
  * ============================================================ */
 
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap");
 
 :root {
   /* Brand palette */
@@ -535,7 +561,7 @@
   --av-navy-800: oklch(0.22 0.035 250);
   --av-navy-700: oklch(0.28 0.04 250);
   --av-navy-600: oklch(0.36 0.06 250);
-  --av-blue-500: oklch(0.6 0.22 264);
+  --av-blue-500: oklch(0.54 0.22 264);
   --av-blue-400: oklch(0.7 0.2 254);
   --av-cyan-400: oklch(0.78 0.16 215);
   --av-cyan-300: oklch(0.86 0.14 210);
@@ -594,6 +620,26 @@
    components, para que cualquier uso que quede en el repo se vea correcto y
    las utilidades de Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
 @layer components {
+  /* === Chips === */
+  .chip {
+    display: inline-flex; align-items: center; gap: 4px;
+    height: 22px; padding: 0 8px;
+    border-radius: 9999px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+    background: var(--muted); color: var(--muted-foreground);
+    border: 1px solid var(--border);
+  }
+  .chip-cyan { background: oklch(0.78 0.16 215 / 12%); color: oklch(0.45 0.18 220); border-color: oklch(0.78 0.16 215 / 30%); }
+  .dark .chip-cyan { color: var(--av-cyan-300); }
+  .chip-amber { background: oklch(0.82 0.16 78 / 14%); color: oklch(0.5 0.16 60); border-color: oklch(0.82 0.16 78 / 30%); }
+  .dark .chip-amber { color: var(--av-amber-400); }
+  .chip-green { background: oklch(0.74 0.18 155 / 14%); color: oklch(0.42 0.16 155); border-color: oklch(0.74 0.18 155 / 30%); }
+  .dark .chip-green { color: var(--av-green-400); }
+  .chip-red { background: oklch(0.7 0.22 25 / 12%); color: oklch(0.45 0.2 25); border-color: oklch(0.7 0.22 25 / 30%); }
+  .dark .chip-red { color: var(--av-red-400); }
+  .chip-violet { background: oklch(0.7 0.22 295 / 12%); color: oklch(0.45 0.2 295); border-color: oklch(0.7 0.22 295 / 30%); }
+  .dark .chip-violet { color: var(--av-violet-400); }
+
   /* Superficie de tarjeta del interior. La sombra de un píxel es lo que hace
      que la tarjeta se lea como una pieza apoyada sobre el fondo y no como una
      caja dibujada encima: sin ella el interior se veía plano. No fija el
@@ -701,26 +747,6 @@
     padding: 40px; text-align: center;
   }
 }
-
-/* === Chips === */
-.chip {
-  display: inline-flex; align-items: center; gap: 4px;
-  height: 22px; padding: 0 8px;
-  border-radius: 9999px;
-  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
-  background: var(--muted); color: var(--muted-foreground);
-  border: 1px solid var(--border);
-}
-.chip-cyan { background: oklch(0.78 0.16 215 / 12%); color: oklch(0.45 0.18 220); border-color: oklch(0.78 0.16 215 / 30%); }
-.dark .chip-cyan { color: var(--av-cyan-300); }
-.chip-amber { background: oklch(0.82 0.16 78 / 14%); color: oklch(0.5 0.16 60); border-color: oklch(0.82 0.16 78 / 30%); }
-.dark .chip-amber { color: var(--av-amber-400); }
-.chip-green { background: oklch(0.74 0.18 155 / 14%); color: oklch(0.42 0.16 155); border-color: oklch(0.74 0.18 155 / 30%); }
-.dark .chip-green { color: var(--av-green-400); }
-.chip-red { background: oklch(0.7 0.22 25 / 12%); color: oklch(0.45 0.2 25); border-color: oklch(0.7 0.22 25 / 30%); }
-.dark .chip-red { color: var(--av-red-400); }
-.chip-violet { background: oklch(0.7 0.22 295 / 12%); color: oklch(0.45 0.2 295); border-color: oklch(0.7 0.22 295 / 30%); }
-.dark .chip-violet { color: var(--av-violet-400); }
 
 /* === Animations === */
 @keyframes av-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
