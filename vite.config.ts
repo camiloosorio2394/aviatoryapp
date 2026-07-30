@@ -52,8 +52,12 @@ export default defineConfig({
         ],
       },
       workbox: {
-        // Pre-cache app shell (HTML/CSS/JS)
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
+        // Pre-cache app shell (HTML/CSS/JS) + fotos bundleadas.
+        // Los .jpg DEBEN precachearse: un cliente con SW viejo pide los
+        // hashes de imagen del deploy anterior, que ya no existen en el
+        // deploy nuevo (404 = imagen rota). Precacheadas viajan con su
+        // version de la app.
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,woff2}'],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [
