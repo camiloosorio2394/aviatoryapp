@@ -147,7 +147,7 @@ export function AirlinePrep() {
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
-              to="/app/aerolinea/match"
+              to="/app/match"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver mi match <ArrowRight className="h-3.5 w-3.5" />

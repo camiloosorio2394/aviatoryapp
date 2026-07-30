@@ -33,8 +33,6 @@ interface NavItem {
   end?: boolean
   /** Módulo en construcción (página placeholder) — muestra chip "Pronto". */
   soon?: boolean
-  /** Pertenece al módulo de arriba: se indenta para que se lea como suyo. */
-  child?: boolean
   /**
    * Cantidad de contenido publicado en el módulo (catálogo, no progreso del
    * piloto). Sirve para probar que adentro hay material de verdad.
@@ -50,16 +48,19 @@ interface NavSection {
 }
 
 /**
- * El menú se agrupa por MÓDULOS del producto, no por tipo de actividad.
+ * El menú separa lo que se ESTUDIA de lo que se USA.
  *
- * Antes agrupaba en Estudio, Carrera, Operación y Comunidad, y eso contaba una
- * historia distinta de la del producto: "Materias" era en realidad el examen
- * PCA, Exam Tracker vivía en Carrera cuando es contenido del PCA, y Match
- * aerolíneas estaba suelto cuando es parte de preparar el ingreso. Doce
- * entradas planas donde había cuatro módulos.
+ * "Módulos" es el catálogo académico: los cursos que ofrece Aviatory, y nada
+ * más. Es la vitrina del producto, así que cada curso nuevo entra ahí y la
+ * lista crece sola.
  *
- * Ahora arriba va lo que el piloto estudia y abajo lo que gestiona. Lo que
- * pertenece a un módulo va indentado dentro de él.
+ * Todo lo demás son herramientas que operan sobre datos del piloto o de la
+ * comunidad. "Qué cayó en el examen" y "Para cuál calificas" parecen contenido
+ * de un módulo pero no lo son: no se estudian, se consultan.
+ *
+ * Antes el menú agrupaba por tipo de actividad (Estudio, Carrera, Operación) y
+ * contaba una historia distinta de la del producto: doce entradas planas donde
+ * hay cuatro cursos y un puñado de utilidades.
  */
 const navSections: NavSection[] = [
   {
@@ -69,16 +70,16 @@ const navSections: NavSection[] = [
     label: "Módulos",
     items: [
       { to: "/app/pca", label: "Examen PCA", icon: BookOpen },
-      { to: "/app/pca/examenes", label: "Qué cayó en el examen", icon: Radar, child: true },
       { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
       { to: "/app/aerolinea", label: "Ingreso a aerolínea", icon: Briefcase },
-      { to: "/app/aerolinea/match", label: "Para cuál calificas", icon: Plane, child: true },
       { to: "/app/materias", label: "Materias generales", icon: GraduationCap, soon: true },
     ],
   },
   {
-    label: "Mi operación",
+    label: "Herramientas",
     items: [
+      { to: "/app/examenes", label: "Qué cayó en el examen", icon: Radar },
+      { to: "/app/match", label: "Para cuál calificas", icon: Plane },
       { to: "/app/logbook", label: "Logbook", icon: Clock },
       { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
       { to: "/app/ruta", label: "Mi ruta", icon: Map },
@@ -141,9 +142,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       end={item.end}
       onClick={onClose}
       title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className={`group relative flex items-center gap-3 h-10 rounded-lg text-[13px] transition-colors hover:bg-white/5 ${
-        item.child ? "pl-6 pr-2.5 font-normal" : "px-2.5 font-semibold"
-      }`}
+      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors hover:bg-white/5"
       style={({ isActive }) =>
         isActive
           ? {
@@ -157,7 +156,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       {({ isActive }) => (
         <>
           <item.icon
-            size={item.child ? 16 : 18}
+            size={18}
             className="flex-shrink-0 transition-colors"
             style={{ color: isActive ? "var(--av-blue-400)" : "currentColor" }}
           />
