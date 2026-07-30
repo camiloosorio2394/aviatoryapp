@@ -54,7 +54,7 @@ import { NotFound } from "@/pages/NotFound"
  */
 function LegacyExamTracker() {
   const { slug } = useParams()
-  return <Navigate to={`/app/pca/examenes/${slug}`} replace />
+  return <Navigate to={`/app/examenes/${slug}`} replace />
 }
 
 function App() {
@@ -120,9 +120,9 @@ function App() {
         />
         {/* Exam Tracker y Match pasaron a vivir dentro de su modulo. Las rutas
             viejas siguen funcionando para no romper enlaces ya compartidos. */}
-        <Route path="/app/exam-tracker" element={<Navigate to="/app/pca/examenes" replace />} />
+        <Route path="/app/exam-tracker" element={<Navigate to="/app/examenes" replace />} />
         <Route path="/app/exam-tracker/:slug" element={<LegacyExamTracker />} />
-        <Route path="/app/aerolineas" element={<Navigate to="/app/aerolinea/match" replace />} />
+        <Route path="/app/aerolineas" element={<Navigate to="/app/match" replace />} />
         <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
         <Route path="/app/quiz/:slug" element={<Navigate to="/app/pca" replace />} />
@@ -293,7 +293,7 @@ function App() {
           }
         />
         <Route
-          path="/app/aerolinea/match"
+          path="/app/match"
           element={
             <RequireAuth>
               <Airlines />
@@ -325,7 +325,7 @@ function App() {
           }
         />
         <Route
-          path="/app/pca/examenes"
+          path="/app/examenes"
           element={
             <RequireAuth>
               <ExamTracker />
@@ -333,7 +333,7 @@ function App() {
           }
         />
         <Route
-          path="/app/pca/examenes/:slug"
+          path="/app/examenes/:slug"
           element={
             <RequireAuth>
               <ExamTrackerSubject />

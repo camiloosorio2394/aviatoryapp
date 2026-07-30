@@ -37,7 +37,7 @@ export function Pca() {
           subtitle="El banco del examen Piloto Comercial de Avión de Aerocivil. Practica una materia para reforzar lo que te cuesta, o lanza un simulacro con preguntas mezcladas para medir qué tan listo estás."
           actions={
             <Link
-              to="/app/pca/examenes"
+              to="/app/examenes"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
