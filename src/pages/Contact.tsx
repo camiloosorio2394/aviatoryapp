@@ -53,7 +53,7 @@ export function Contact() {
     window.location.href = mailto
     setTimeout(() => {
       setSending(false)
-      toast.success("Te abrimos tu correo con el mensaje listo para enviar 📩")
+      toast.success("Te abrimos tu correo con el mensaje listo para enviar")
       form.reset()
     }, 600)
   }

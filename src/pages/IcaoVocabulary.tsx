@@ -47,15 +47,15 @@ type VocabCategory =
   | "non_routine"
 
 const CATEGORIES: { slug: VocabCategory | "all"; label: string }[] = [
-  { slug: "all",         label: "All" },
-  { slug: "aircraft",    label: "Aircraft" },
-  { slug: "airport",     label: "Airport" },
-  { slug: "navigation",  label: "Navigation" },
-  { slug: "flight_ops",  label: "Flight Ops" },
-  { slug: "weather",     label: "Weather" },
-  { slug: "health",      label: "Health" },
-  { slug: "security",    label: "Security" },
-  { slug: "non_routine", label: "Non-routine" },
+  { slug: "all",         label: "Todas" },
+  { slug: "aircraft",    label: "Aeronave" },
+  { slug: "airport",     label: "Aeropuerto" },
+  { slug: "navigation",  label: "Navegación" },
+  { slug: "flight_ops",  label: "Operación de vuelo" },
+  { slug: "weather",     label: "Meteorología" },
+  { slug: "health",      label: "Salud" },
+  { slug: "security",    label: "Seguridad" },
+  { slug: "non_routine", label: "No rutinario" },
 ]
 
 const PAGE_SIZE = 60
@@ -113,8 +113,14 @@ export function IcaoVocabulary() {
     })
   }, [data, query, category])
 
-  // Cada vez que cambia el filtro, volvemos al primer tramo.
-  useEffect(() => { setLimit(PAGE_SIZE) }, [query, category])
+  // Cada vez que cambia el filtro, volvemos al primer tramo. Se ajusta durante
+  // el render (no en un efecto) para no encadenar un segundo repintado.
+  const filterKey = `${query}::${category}`
+  const [prevFilterKey, setPrevFilterKey] = useState(filterKey)
+  if (prevFilterKey !== filterKey) {
+    setPrevFilterKey(filterKey)
+    setLimit(PAGE_SIZE)
+  }
 
   const visible = useMemo(() => filtered.slice(0, limit), [filtered, limit])
 
@@ -141,8 +147,14 @@ export function IcaoVocabulary() {
   // Scroll a la letra una vez que el tramo que la contiene ya está pintado.
   useEffect(() => {
     if (!pendingAnchor) return
-    document.getElementById(`letter-${pendingAnchor}`)?.scrollIntoView({ behavior: "smooth", block: "start" })
-    setPendingAnchor(null)
+    const target = pendingAnchor
+    // El scroll y el reset van en el callback del timer: así el tramo nuevo ya
+    // está pintado cuando buscamos el ancla, y no hay setState en el efecto.
+    const t = setTimeout(() => {
+      document.getElementById(`letter-${target}`)?.scrollIntoView({ behavior: "smooth", block: "start" })
+      setPendingAnchor(null)
+    }, 0)
+    return () => clearTimeout(t)
   }, [pendingAnchor, limit])
 
   function goToLetter(L: string) {
@@ -165,7 +177,7 @@ export function IcaoVocabulary() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
         {/* Header */}
@@ -176,15 +188,15 @@ export function IcaoVocabulary() {
               style={{ color: "var(--av-blue-500)" }}
             >
               {/* Nada de "0 terms" antes de que llegue la data. */}
-              <BookOpen className="h-3.5 w-3.5" /> Glossary{data.length > 0 ? ` · ${data.length} terms` : ""}
+              <BookOpen className="h-3.5 w-3.5" /> Glosario{data.length > 0 ? ` · ${data.length} términos` : ""}
             </div>
             <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-              Aviation English vocabulary
+              Vocabulario de inglés aeronáutico
             </h1>
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
-              What you need to understand (and be able to use) in routine situations and emergencies.
-              Search by English term, translation or definition. This stays available
-              anytime: open it while you study or in class.
+              Lo que necesitas entender (y poder usar) en situaciones rutinarias y en emergencias.
+              Busca por término en inglés, por su traducción o por la definición. Queda disponible
+              siempre: ábrelo mientras estudias o en clase.
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
@@ -193,7 +205,7 @@ export function IcaoVocabulary() {
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
-              Test me with questions <ArrowRight className="h-3.5 w-3.5" />
+              Ponerme a prueba con preguntas <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </div>
@@ -202,12 +214,12 @@ export function IcaoVocabulary() {
         <div className="sticky top-16 z-20 -mx-1 mb-5 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 rounded-2xl">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-            <label htmlFor="vocab-search" className="sr-only">Search the glossary</label>
+            <label htmlFor="vocab-search" className="sr-only">Buscar en el glosario</label>
             <input
               id="vocab-search"
               ref={inputRef}
               type="text"
-              placeholder="Search: unruly, ingest, ditch, windshear, Spanish translation…"
+              placeholder="Busca: unruly, ingest, ditch, windshear, o la traducción…"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               className="w-full h-12 pl-10 pr-10 rounded-2xl border bg-card text-sm focus:outline-none focus:ring-2 focus:ring-[var(--av-blue-500)]/30"
@@ -217,7 +229,7 @@ export function IcaoVocabulary() {
               <button
                 onClick={() => setQuery("")}
                 className="absolute right-3 top-1/2 -translate-y-1/2 p-1 rounded text-muted-foreground hover:text-foreground"
-                aria-label="Clear search"
+                aria-label="Borrar la búsqueda"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -257,7 +269,7 @@ export function IcaoVocabulary() {
 
         {/* Índice A-Z: sin él son 351 tarjetas sin ninguna forma de navegar */}
         {!loading && !query.trim() && letters.length > 1 && (
-          <nav aria-label="Jump to letter" className="mb-5 flex flex-wrap gap-1">
+          <nav aria-label="Ir a una letra" className="mb-5 flex flex-wrap gap-1">
             {letters.map((L) => (
               <button
                 key={L}
@@ -274,7 +286,7 @@ export function IcaoVocabulary() {
         {loading ? (
           <div className="flex items-center justify-center py-20 text-muted-foreground gap-2">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-sm">Loading glossary…</span>
+            <span className="text-sm">Cargando el glosario…</span>
           </div>
         ) : filtered.length === 0 ? (
           <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
@@ -289,18 +301,18 @@ export function IcaoVocabulary() {
               <Search className="h-5 w-5" />
             </div>
             <h2 className="mt-3.5 text-[17px] font-bold tracking-[-0.01em]">
-              {query.trim() ? `Nothing matches "${query.trim()}"` : "Nothing in this category yet"}
+              {query.trim() ? `No hay resultados para “${query.trim()}”` : "Todavía no hay términos en esta categoría"}
             </h2>
             <p className="mt-1.5 text-[14px] text-muted-foreground max-w-[420px]">
-              Try a shorter word, the Spanish translation, or clear the filters to browse the whole
-              glossary.
+              Prueba con una palabra más corta, con la traducción en español, o limpia los filtros
+              para ver el glosario completo.
             </p>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
               className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
-              Clear filters
+              Limpiar filtros
             </button>
           </div>
         ) : groups ? (
@@ -336,8 +348,8 @@ export function IcaoVocabulary() {
               onClick={() => setLimit((l) => l + PAGE_SIZE)}
               className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
-              Show more terms
-              <span className="tabular-nums text-muted-foreground">{remaining} left</span>
+              Ver más términos
+              <span className="tabular-nums text-muted-foreground">faltan {remaining}</span>
               <ChevronDown className="h-4 w-4" />
             </button>
           </div>
@@ -345,7 +357,7 @@ export function IcaoVocabulary() {
 
         {!loading && data.length > 0 && (
           <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
-            <Lock className="h-3 w-3" /> Showing {visible.length} of {filtered.length} · protected content · ICAO Vocab Book (Cami)
+            <Lock className="h-3 w-3" /> Mostrando {visible.length} de {filtered.length} · contenido protegido · ICAO Vocab Book (Cami)
           </div>
         )}
       </div>

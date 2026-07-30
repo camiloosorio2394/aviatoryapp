@@ -1,6 +1,23 @@
 import { useEffect, useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import { Users, ArrowRight, Plus, X, Loader2, Flame, Check, CircleHelp } from "lucide-react"
+import {
+  Users,
+  ArrowRight,
+  Plus,
+  X,
+  Loader2,
+  Flame,
+  Check,
+  CircleHelp,
+  CloudSun,
+  Compass,
+  Gavel,
+  Cog,
+  Plane,
+  Scale,
+  BookOpen,
+  type LucideIcon,
+} from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -18,7 +35,7 @@ import {
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { CountUp } from "@/components/ui/count-up"
-import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 interface SubjectIntel {
   subject_id: number
@@ -29,13 +46,19 @@ interface SubjectIntel {
   hottest_topic: string | null
 }
 
-const SUBJECT_EMOJI: Record<string, string> = {
-  meteorologia: "🌦️",
-  navegacion: "🧭",
-  reglamento: "📜",
-  motores: "⚙️",
-  aerodinamica: "✈️",
-  "weight-balance": "⚖️",
+/** Identidad visual de cada materia: icono y color del cuadrito tintado. */
+const SUBJECT_ICON: Record<string, { icon: LucideIcon; color: TileColorKey }> = {
+  meteorologia: { icon: CloudSun, color: "cyan" },
+  navegacion: { icon: Compass, color: "blue" },
+  reglamento: { icon: Gavel, color: "violet" },
+  motores: { icon: Cog, color: "amber" },
+  aerodinamica: { icon: Plane, color: "green" },
+  "weight-balance": { icon: Scale, color: "cyan" },
+}
+
+const SUBJECT_ICON_FALLBACK: { icon: LucideIcon; color: TileColorKey } = {
+  icon: BookOpen,
+  color: "blue",
 }
 
 export function ExamTracker() {
@@ -210,7 +233,7 @@ export function ExamTracker() {
 }
 
 function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
-  const emoji = SUBJECT_EMOJI[intel.subject_slug] ?? "📘"
+  const { icon: Ic, color } = SUBJECT_ICON[intel.subject_slug] ?? SUBJECT_ICON_FALLBACK
   const empty = intel.total_reports === 0
 
   return (
@@ -225,7 +248,13 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
       }}
     >
       <div className="flex items-start gap-3">
-        <div className="text-3xl flex-shrink-0">{emoji}</div>
+        <div
+          className="flex flex-shrink-0 items-center justify-center h-11 w-11 rounded-xl"
+          style={{ background: tileTint(color), border: `1px solid ${tileBorder(color)}` }}
+          aria-hidden="true"
+        >
+          <Ic className="h-5 w-5" style={{ color: TILE_COLOR[color] }} />
+        </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-base font-bold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
@@ -390,7 +419,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         )
       }
 
-      toast.success("¡Gracias por tu reporte! 🛫 La comunidad lo va a aprovechar.")
+      toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")
       onSaved()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")

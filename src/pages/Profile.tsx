@@ -35,6 +35,7 @@ type Stage =
   | "cpl_in_progress"
   | "cpl_ready"
   | "hour_building"
+  | "instructor"
   | "airline_candidate"
 
 const STAGES: { value: Stage; label: string }[] = [
@@ -43,6 +44,7 @@ const STAGES: { value: Stage; label: string }[] = [
   { value: "cpl_in_progress", label: "Cursando CPL" },
   { value: "cpl_ready", label: "CPL emitido" },
   { value: "hour_building", label: "Hour building" },
+  { value: "instructor", label: "Instructor de vuelo" },
   { value: "airline_candidate", label: "Candidato a aerolínea" },
 ]
 
@@ -211,7 +213,7 @@ export function Profile() {
       const { error: dbErr } = await supabase.from("profiles").update({ photo_url: finalUrl }).eq("id", user.id)
       if (dbErr) throw dbErr
       setPhotoUrl(finalUrl)
-      toast.success("Tu foto se actualizó ✨")
+      toast.success("Tu foto se actualizó")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos subir tu foto")
     } finally {
@@ -263,7 +265,7 @@ export function Profile() {
       if (sRes.error) throw sRes.error
       setOriginalUsername(username)
       setUsernameStatus({ state: "unchanged" })
-      toast.success("Perfil actualizado ✈️")
+      toast.success("Perfil actualizado")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
     } finally {

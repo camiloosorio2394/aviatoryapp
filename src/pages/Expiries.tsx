@@ -273,7 +273,7 @@ export function Expiries() {
           onSaved={() => {
             setFormOpen(false)
             load()
-            toast.success("Guardada ✈️")
+            toast.success("Guardada")
           }}
         />
       )}

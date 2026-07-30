@@ -218,17 +218,13 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         style={{ height: 60, borderBottom: "1px solid var(--rail-border)" }}
       >
         <Link to="/app" onClick={onClose} className="flex items-center gap-2.5 flex-1 min-w-0">
-          <div
-            className="flex-shrink-0 flex items-center justify-center"
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 10,
-              background: "linear-gradient(135deg, var(--av-blue-400) 0%, var(--av-blue-500) 100%)",
-            }}
-          >
-            <LogoIsotype className="h-5 w-5" />
-          </div>
+          {/*
+            El isotipo va solo: el asset ya trae su propio squircle azul. La caja
+            con gradiente que lo envolvía apilaba dos azules y dos radios.
+            36px dentro de px-3.5 deja el centro en 32px, o sea el eje exacto
+            del rail colapsado (64px).
+          */}
+          <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-lg" />
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
             <div className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
@@ -270,7 +266,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                 {expanded ? (
                   <div
                     className="px-2.5 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "oklch(0.74 0.03 250)" }}
+                    style={{ color: "oklch(0.82 0.03 250)" }}
                   >
                     {section.label}
                   </div>
@@ -294,7 +290,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             type="button"
             onClick={() => setSoonOpen((v) => !v)}
             className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-white/5"
-            style={{ color: "oklch(0.74 0.03 250)" }}
+            style={{ color: "oklch(0.82 0.03 250)" }}
             aria-expanded={soonOpen}
             title={expanded ? undefined : "Próximamente"}
           >

@@ -47,7 +47,7 @@ export function IcaoComprehension() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
         {/* Header */}
@@ -61,16 +61,16 @@ export function IcaoComprehension() {
             <Headphones className="h-4.5 w-4.5 text-white" />
           </div>
           <div className="mt-3 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            TEA · Part 2 · Interactive comprehension · 8–12 min
+            TEA · Parte 2 · Interactive Comprehension · 8 a 12 minutos
           </div>
           <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-            Interactive Comprehension
+            Comprensión interactiva
           </h1>
           <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
-            The part that sets the TEA apart. You listen to non-routine and emergency situations and
-            have to show that you <strong className="text-foreground">understood the whole
-            message</strong>. These are <strong className="text-foreground">real audios</strong> from
-            the practice material.
+            Es la parte que distingue al TEA. Escuchas situaciones no rutinarias y de emergencia, y
+            tienes que demostrar que{" "}
+            <strong className="text-foreground">entendiste el mensaje completo</strong>. Son{" "}
+            <strong className="text-foreground">audios reales</strong> del material de práctica.
           </p>
         </section>
 
@@ -84,17 +84,18 @@ export function IcaoComprehension() {
         >
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
-            <strong>Exam rule:</strong> each audio plays <strong>once</strong>. You may request
-            <strong> one replay</strong>, but <strong>never a third time</strong>. Asking for repeats
-            often lowers your Comprehension score. We mirror that rule here: 2 plays per audio.
+            <strong>Regla del examen:</strong> cada audio suena <strong>una vez</strong>. Puedes pedir
+            <strong> una repetición</strong>, pero <strong>nunca una tercera</strong>. Pedir
+            repeticiones suele bajar tu nota de Comprehension. Aquí reproducimos esa regla: 2
+            reproducciones por audio.
           </div>
         </div>
 
         {/* Tabs */}
         <div className="mt-7 flex gap-1.5 flex-wrap">
-          <TabBtn active={tab === "2a"} onClick={() => setTab("2a")} label="2A · Short Audios" />
-          <TabBtn active={tab === "2b"} onClick={() => setTab("2b")} label="2B · Long Audios" />
-          <TabBtn active={tab === "2c"} onClick={() => setTab("2c")} label="2C · Interactive Response" />
+          <TabBtn active={tab === "2a"} onClick={() => setTab("2a")} label="2A · Audios cortos" />
+          <TabBtn active={tab === "2b"} onClick={() => setTab("2b")} label="2B · Audios largos" />
+          <TabBtn active={tab === "2c"} onClick={() => setTab("2c")} label="2C · Respuesta interactiva" />
         </div>
 
         <div className="mt-6">
@@ -167,19 +168,21 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
         }}
       >
         {playing ? (
-          <><Square className="h-3.5 w-3.5" /> Stop</>
+          <><Square className="h-3.5 w-3.5" /> Detener</>
         ) : plays === 0 ? (
-          <><Play className="h-3.5 w-3.5" /> {label ?? "Play"}</>
+          <><Play className="h-3.5 w-3.5" /> {label ?? "Reproducir"}</>
         ) : (
-          <><RotateCcw className="h-3.5 w-3.5" /> Play again</>
+          <><RotateCcw className="h-3.5 w-3.5" /> Repetir</>
         )}
       </button>
       <div className="tabular-nums text-[12.5px] text-muted-foreground">
-        {plays}/{maxPlays} plays
-        {plays >= maxPlays && " · no third (TEA rule)"}
+        {plays}/{maxPlays} reproducciones
+        {plays >= maxPlays && " · no hay tercera (regla del TEA)"}
       </div>
       {error && (
-        <div className="text-[12.5px] text-[var(--av-red-400)]">Couldn't load the audio.</div>
+        <div className="text-[12.5px]" style={{ color: "var(--av-danger-fg)" }}>
+          No pudimos cargar el audio.
+        </div>
       )}
     </div>
   )
@@ -239,19 +242,19 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
     const pct = scorable ? Math.round((score / scorable) * 100) : 0
     return (
       <div className="text-center pt-6">
-        <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Quiz complete</div>
+        <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Quiz terminado</div>
         {scorable > 0 ? (
           <>
             <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
-            <div className="mt-1 text-[14px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% pilot/controller</div>
+            <div className="mt-1 text-[14px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% en piloto o controlador</div>
           </>
         ) : (
-          <div className="mt-3 text-[16px] text-foreground/80">You went through {order.length} situations.</div>
+          <div className="mt-3 text-[16px] text-foreground/80">Recorriste {order.length} situaciones.</div>
         )}
         <div className="mt-8">
           <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: accent }}>
-            <RotateCcw className="h-4 w-4" /> New quiz (new random set)
+            <RotateCcw className="h-4 w-4" /> Nuevo quiz (otra selección al azar)
           </button>
         </div>
       </div>
@@ -282,13 +285,13 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {/* El `key` es obligatorio: sin él el player se reutiliza entre ítems,
             se queda con el <audio> del clip anterior y el contador en 2/2. */}
         <div className="mt-4 flex items-center justify-center">
-          <ClipPlayer key={cur.id} audioUrl={cur.audioUrl} label={cur.playLabel ?? "Play"} />
+          <ClipPlayer key={cur.id} audioUrl={cur.audioUrl} label={cur.playLabel} />
         </div>
 
         {/* Pilot/controller question (verified) */}
         {cur.speaker && (
           <div className="mt-5">
-            <div className="text-center text-[14px] font-semibold mb-2.5">Who is speaking?</div>
+            <div className="text-center text-[14px] font-semibold mb-2.5">¿Quién habla?</div>
             <div className="flex items-center justify-center gap-2.5">
               {(["pilot", "controller"] as Speaker[]).map((s) => {
                 const chosen = picked === s
@@ -301,7 +304,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
                     style={{
                       borderColor: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : chosen ? accent : "color-mix(in oklab, var(--border) 70%, transparent)",
                       background: showCorrect ? "color-mix(in oklab, var(--av-green-400) 14%, transparent)" : showWrong ? "color-mix(in oklab, var(--av-red-400) 14%, transparent)" : "transparent",
-                      color: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : "var(--foreground)",
+                      color: showCorrect ? "var(--av-success-fg)" : showWrong ? "var(--av-danger-fg)" : "var(--foreground)",
                     }}>
                     {s === "pilot" ? <Plane className="h-4 w-4" /> : <RadioTower className="h-4 w-4" />}
                     {s === "pilot" ? "Pilot" : "Controller"}
@@ -311,8 +314,8 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
               })}
             </div>
             {revealed && (
-              <div className="mt-2.5 text-center text-[13px] font-semibold" style={{ color: picked === cur.speaker ? "var(--av-green-400)" : "var(--av-red-400)" }}>
-                {picked === cur.speaker ? "Correct!" : `It was ${cur.speaker === "pilot" ? "Pilot" : "Controller"}`}
+              <div className="mt-2.5 text-center text-[13px] font-semibold" style={{ color: picked === cur.speaker ? "var(--av-success-fg)" : "var(--av-danger-fg)" }}>
+                {picked === cur.speaker ? "¡Correcto!" : `Era ${cur.speaker === "pilot" ? "Pilot" : "Controller"}`}
               </div>
             )}
           </div>
@@ -322,7 +325,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
             <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
-              <Eye className="h-4 w-4" /> Show model answer
+              <Eye className="h-4 w-4" /> Ver la respuesta modelo
             </button>
           </div>
         )}
@@ -335,7 +338,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         <div className="mt-5 flex justify-end">
           <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: accent }}>
-            {idx >= order.length - 1 ? "See results" : "Next"} <ArrowRight className="h-4 w-4" />
+            {idx >= order.length - 1 ? "Ver resultados" : "Siguiente"} <ArrowRight className="h-4 w-4" />
           </button>
         </div>
       )}
@@ -356,12 +359,12 @@ function LongReveal({ a }: { a: LongAudio }) {
   return (
     <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
       <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{a.title}</div>
-      {a.summary && <RevealRow label="Summary" value={a.summary} color="var(--av-blue-500)" />}
-      {a.problem && <RevealRow label="The problem" value={a.problem} color="var(--av-red-400)" />}
-      {a.request && <RevealRow label="Request / advisory" value={a.request} color="var(--av-blue-500)" />}
+      {a.summary && <RevealRow label="Resumen" value={a.summary} color="var(--av-blue-500)" />}
+      {a.problem && <RevealRow label="El problema" value={a.problem} color="var(--av-danger-fg)" />}
+      {a.request && <RevealRow label="Pedido o aviso" value={a.request} color="var(--av-blue-500)" />}
       {a.details && a.details.length > 0 && (
         <div>
-          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Key details</div>
+          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Datos clave</div>
           <ul className="space-y-1">
             {a.details.map((d) => (
               <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -380,13 +383,13 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
     <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
       {it.transcript && (
         <div className="text-[14px] text-foreground/90">
-          <span className="text-[12.5px] font-semibold text-muted-foreground">Situation: </span>
+          <span className="text-[12.5px] font-semibold text-muted-foreground">Situación: </span>
           <span className="italic">&ldquo;{it.transcript}&rdquo;</span>
         </div>
       )}
       {it.questions && (
         <div>
-          <div className="text-[12.5px] font-semibold text-[var(--av-blue-500)] mb-1.5">Questions you could ask</div>
+          <div className="text-[12.5px] font-semibold text-[var(--av-blue-500)] mb-1.5">Preguntas que podrías hacer</div>
           <ul className="space-y-1">
             {it.questions.map((q) => (
               <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
@@ -398,7 +401,7 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
       )}
       {it.advice && (
         <div>
-          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Recommendations</div>
+          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Recomendaciones</div>
           <ul className="space-y-1">
             {it.advice.map((a) => (
               <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -427,11 +430,11 @@ function ShortAudiosSection() {
   })
   return (
     <>
-      <SectionIntro text={`A random set of ${Math.min(QUIZ_SIZE, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}.`} />
-      <WorkbookSamples title={`Workbook model phrases · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
-        intro="Official examples of the kind of message you'll hear (Aviation English Now). Practise paraphrasing each one."
+      <SectionIntro text={`Una selección al azar de ${Math.min(QUIZ_SIZE, SHORT_AUDIO_TOTAL)} mensajes cortos tomados del banco de ${SHORT_AUDIO_TOTAL}.`} />
+      <WorkbookSamples title={`Frases modelo del workbook · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
+        intro="Ejemplos oficiales del tipo de mensaje que vas a escuchar (Aviation English Now). Practica parafrasear cada uno."
         items={SAMPLE_MESSAGES_2A} />
-      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Listen, then decide: pilot or controller" }} />
+      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Escucha y decide: piloto o controlador" }} />
     </>
   )
 }
@@ -443,14 +446,14 @@ function LongAudiosSection() {
   const items: QItem[] = LONG_AUDIOS.map((a) => ({
     id: String(a.id),
     audioUrl: a.audioUrl,
-    eyebrow: `2B · Long audio ${String(a.id).padStart(2, "0")}`,
+    eyebrow: `2B · Audio largo ${String(a.id).padStart(2, "0")}`,
     speaker: a.speaker,
     reveal: <LongReveal a={a} />,
   }))
   return (
     <>
-      <SectionIntro text={`A random set of ${Math.min(QUIZ_SIZE, LONG_AUDIOS.length)} long messages drawn from the bank of ${LONG_AUDIOS.length}. You can take notes while you listen.`} />
-      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Explain the situation, then compare: problem · request · details" }} />
+      <SectionIntro text={`Una selección al azar de ${Math.min(QUIZ_SIZE, LONG_AUDIOS.length)} mensajes largos tomados del banco de ${LONG_AUDIOS.length}. Puedes tomar notas mientras escuchas.`} />
+      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Explica la situación y luego compara: problema, pedido y datos" }} />
     </>
   )
 }
@@ -460,17 +463,17 @@ function InteractiveSection() {
   const items: QItem[] = INTERACTIVE_ITEMS.map((it) => ({
     id: String(it.id),
     audioUrl: it.audioUrl,
-    playLabel: "Play situation",
+    playLabel: "Reproducir la situación",
     eyebrow: `2C · ${it.label}`,
     reveal: <InteractiveReveal it={it} />,
   }))
   return (
     <>
-      <SectionIntro text={`A random set of non-routine situations drawn from the bank of ${INTERACTIVE_ITEMS.length}.`} />
-      <WorkbookSamples title={`Workbook model scenarios · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
-        intro="Official Part 2C-style situations (Aviation English Now)."
+      <SectionIntro text={`Una selección al azar de situaciones no rutinarias tomadas del banco de ${INTERACTIVE_ITEMS.length}.`} />
+      <WorkbookSamples title={`Situaciones modelo del workbook · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
+        intro="Situaciones oficiales con el formato de la Parte 2C (Aviation English Now)."
         items={SAMPLE_SCENARIOS_2C} />
-      <QuizRunner items={items} kicker={{ icon: MessageSquare, text: "Ask questions to get more info, then give recommendations" }} />
+      <QuizRunner items={items} kicker={{ icon: MessageSquare, text: "Haz preguntas para conseguir más información y luego da recomendaciones" }} />
     </>
   )
 }
@@ -556,21 +559,15 @@ function Kicker({ icon: Icon, text }: { icon: React.ComponentType<{ className?: 
   )
 }
 
+/** Pilot y Controller comparten forma y tratamiento: los dos son .chip, que ya
+    trae su par de color claro/oscuro legible. */
 function SpeakerBadge({ speaker }: { speaker: Speaker }) {
   const isPilot = speaker === "pilot"
   return (
-    <div
-      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[12.5px] font-bold"
-      style={{
-        background: isPilot
-          ? "color-mix(in oklab, var(--av-blue-500) 14%, transparent)"
-          : "color-mix(in oklab, var(--av-amber-400) 14%, transparent)",
-        color: isPilot ? "var(--av-blue-500)" : "var(--av-amber-400)",
-      }}
-    >
+    <span className={isPilot ? "chip chip-cyan" : "chip chip-amber"}>
       {isPilot ? <Plane className="h-3 w-3" /> : <RadioTower className="h-3 w-3" />}
       {isPilot ? "Pilot" : "Controller"}
-    </div>
+    </span>
   )
 }
 
@@ -589,7 +586,7 @@ function Transcript({ text }: { text: string }) {
   return (
     <div className="mt-2.5 pt-2.5 border-t border-border/40">
       <div className="text-[12px] font-semibold text-muted-foreground mb-1">
-        Transcript
+        Transcripción
       </div>
       <p className="text-[13.5px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
     </div>

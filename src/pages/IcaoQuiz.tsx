@@ -36,16 +36,21 @@ interface QuizQuestion {
 }
 
 const TOPICS: { value: string; label: string }[] = [
-  { value: "all",           label: "All topics" },
-  { value: "vocabulary",    label: "Vocabulary" },
-  { value: "comprehension", label: "Comprehension" },
-  { value: "phraseology",   label: "Phraseology" },
-  { value: "weather",       label: "Weather" },
-  { value: "medical",       label: "Medical" },
-  { value: "security",      label: "Security" },
-  { value: "emergencies",   label: "Emergencies" },
-  { value: "technical",     label: "Technical" },
+  { value: "all",           label: "Todos los temas" },
+  { value: "vocabulary",    label: "Vocabulario" },
+  { value: "comprehension", label: "Comprensión" },
+  { value: "phraseology",   label: "Fraseología" },
+  { value: "weather",       label: "Meteorología" },
+  { value: "medical",       label: "Médico" },
+  { value: "security",      label: "Seguridad" },
+  { value: "emergencies",   label: "Emergencias" },
+  { value: "technical",     label: "Técnico" },
 ]
+
+/** El tema llega de la base en inglés: lo mostramos con su etiqueta en español. */
+function topicLabel(value: string): string {
+  return TOPICS.find((t) => t.value === value)?.label ?? value
+}
 
 const QUIZ_SIZE = 10
 
@@ -91,7 +96,11 @@ export function IcaoQuiz() {
     setCounts(map)
   }, [])
 
-  useEffect(() => { void loadCounts() }, [loadCounts])
+  useEffect(() => {
+    // El conteo se dispara dentro de un IIFE async: los setState del fetch no
+    // pueden colgar del cuerpo del efecto.
+    void (async () => { await loadCounts() })()
+  }, [loadCounts])
 
   async function startQuiz() {
     setLoading(true)
@@ -156,7 +165,7 @@ export function IcaoQuiz() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
         {/* === Pre-start screen === */}
@@ -214,19 +223,19 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
         className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
         style={{ color: "var(--av-blue-500)" }}
       >
-        <ClipboardCheck className="h-3.5 w-3.5" /> English quiz · Study bank
+        <ClipboardCheck className="h-3.5 w-3.5" /> Quiz de inglés · banco de estudio
       </div>
       <h1 className="mt-3 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-        Vocabulary and comprehension questions
+        Preguntas de vocabulario y comprensión
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
-        Random questions with an explanation after each one. Read them, that's where the learning
-        happens. It's not an exam, it's training.
+        Preguntas al azar con una explicación después de cada una. Léelas, que ahí está el
+        aprendizaje. No es un examen, es entrenamiento.
       </p>
 
       <div className="mt-7 grid gap-4">
         <div>
-          <div className="text-[13px] font-semibold text-muted-foreground">Topic</div>
+          <div className="text-[13px] font-semibold text-muted-foreground">Tema</div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {TOPICS.map((t) => {
               const active = topic === t.value
@@ -237,7 +246,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
                   key={t.value}
                   onClick={() => onTopicChange(t.value)}
                   disabled={empty}
-                  title={empty ? "No questions in this topic yet" : undefined}
+                  title={empty ? "Todavía no hay preguntas en este tema" : undefined}
                   className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[13px] font-semibold border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
                     borderColor: active
@@ -273,17 +282,17 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
               style={{ background: "var(--av-blue-500)" }}
             >
               {loading || counts == null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-              {counts == null ? "Loading the bank…" : `Start quiz · ${askCount} question${askCount === 1 ? "" : "s"}`}
+              {counts == null ? "Cargando el banco…" : `Empezar quiz · ${askCount} pregunta${askCount === 1 ? "" : "s"}`}
             </button>
             {available != null && available < QUIZ_SIZE && (
               <div className="mt-2 text-[13px] text-muted-foreground">
-                This topic has {available} question{available === 1 ? "" : "s"} for now. Pick "All topics" for a
-                longer round.
+                Por ahora este tema tiene {available} pregunta{available === 1 ? "" : "s"}. Elige
+                “Todos los temas” para una ronda más larga.
               </div>
             )}
             {failed && (
-              <div className="mt-2 text-[13.5px] text-[var(--av-red-400)]">
-                We couldn't load the questions. Check your connection and try again.
+              <div className="mt-2 text-[13.5px]" style={{ color: "var(--av-danger-fg)" }}>
+                No pudimos cargar las preguntas. Revisa tu conexión e inténtalo de nuevo.
               </div>
             )}
           </div>
@@ -308,10 +317,11 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
         <RotateCcw className="h-5 w-5" />
       </div>
       <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
-        We couldn't load the question bank
+        No pudimos cargar el banco de preguntas
       </h2>
       <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
-        It's a connection problem, not an empty bank. Try again, or use the glossary meanwhile.
+        Es un problema de conexión, no un banco vacío. Inténtalo de nuevo o usa el glosario mientras
+        tanto.
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
         <button
@@ -319,13 +329,13 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
           className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
-          <RotateCcw className="h-4 w-4" /> Try again
+          <RotateCcw className="h-4 w-4" /> Intentar de nuevo
         </button>
         <Link
           to="/app/icao/vocabulario"
           className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
-          <BookOpen className="h-4 w-4" /> Open the glossary
+          <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
       </div>
     </div>
@@ -347,12 +357,12 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         <ClipboardCheck className="h-5 w-5" />
       </div>
       <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
-        {allEmpty ? "The question bank is on its way" : "No questions in this topic yet"}
+        {allEmpty ? "El banco de preguntas está en camino" : "Todavía no hay preguntas en este tema"}
       </h2>
       <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
         {allEmpty
-          ? "We're loading the vocabulary and comprehension questions. Meanwhile the glossary is complete and searchable: it's the same material the quiz is built on."
-          : "We're still writing this one. The other topics are ready, so start there and come back later."}
+          ? "Estamos cargando las preguntas de vocabulario y comprensión. Mientras tanto el glosario está completo y se puede buscar: es el mismo material sobre el que está armado el quiz."
+          : "Todavía lo estamos escribiendo. Los demás temas ya están listos, así que empieza por ahí y vuelve más adelante."}
       </p>
       <div className="mt-5 flex flex-wrap gap-2">
         {!allEmpty && (
@@ -361,14 +371,14 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
             className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--av-blue-500)" }}
           >
-            Try all topics <ArrowRight className="h-3.5 w-3.5" />
+            Probar con todos los temas <ArrowRight className="h-3.5 w-3.5" />
           </button>
         )}
         <Link
           to="/app/icao/vocabulario"
           className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
-          <BookOpen className="h-4 w-4" /> Open the glossary
+          <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
       </div>
     </div>
@@ -383,7 +393,8 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
     <>
       <div className="flex items-center justify-between mb-4">
         <div className="text-[13px] font-semibold text-muted-foreground">
-          Question {index + 1} <span className="opacity-50 tabular-nums">/ {total}</span> · {question.topic}
+          Pregunta {index + 1} <span className="opacity-50 tabular-nums">/ {total}</span> ·{" "}
+          {topicLabel(question.topic)}
         </div>
         <div className="flex-1 mx-4 h-1 rounded-full bg-border/50 overflow-hidden">
           <div
@@ -435,7 +446,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
               >
                 <span
                   className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[13.5px] font-bold uppercase border"
-                  style={{ borderColor, color: isCorrect ? "var(--av-green-400)" : isWrongChosen ? "var(--av-red-400)" : "var(--muted-foreground)" }}
+                  style={{ borderColor, color: isCorrect ? "var(--av-success-fg)" : isWrongChosen ? "var(--av-danger-fg)" : "var(--muted-foreground)" }}
                 >
                   {k}
                 </span>
@@ -456,7 +467,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
             }}
           >
             <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-blue-500)" }}>
-              EXPLANATION
+              EXPLICACIÓN
             </div>
             {question.explanation}
           </div>
@@ -469,7 +480,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
               className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
-              {isLast ? "See results" : "Next"} <ArrowRight className="h-3.5 w-3.5" />
+              {isLast ? "Ver resultados" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
             </button>
           </div>
         )}
@@ -481,24 +492,24 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 // ────────────────────────────────────────────────────────────────────────────
 function FinishedScreen({ score, total, history, onRestart }: { score: number; total: number; history: { qId: number; correct: boolean }[]; onRestart: () => void }) {
   const pct = Math.round((score / total) * 100)
+  // Los tres veredictos comparten mecanismo: el número va en color de texto
+  // normal y el tono lo da el chip, que ya trae su par claro/oscuro legible.
   const verdict =
-    pct >= 80 ? { label: "Great job", color: "var(--av-green-400)" } :
-    pct >= 60 ? { label: "Passed, keep practising", color: "var(--av-blue-500)" } :
-                { label: "Needs review", color: "var(--av-amber-400)" }
+    pct >= 80 ? { label: "Muy bien", chip: "chip chip-green" } :
+    pct >= 60 ? { label: "Aprobado, sigue practicando", chip: "chip chip-cyan" } :
+                { label: "Toca repasar", chip: "chip chip-amber" }
 
   return (
     <div className="text-center pt-6">
       <div className="text-[13px] font-semibold text-muted-foreground">
-        RESULTS
+        RESULTADOS
       </div>
-      <div
-        className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none tabular-nums"
-        style={{ color: verdict.color }}
-      >
+      <div className="mt-3 text-[72px] font-extrabold tracking-[-0.04em] leading-none tabular-nums text-foreground">
         {score} / {total}
       </div>
-      <div className="mt-1 text-[13.5px] font-semibold" style={{ color: verdict.color }}>
-        {pct}% · {verdict.label}
+      <div className="mt-2 flex items-center justify-center gap-2">
+        <span className="tabular-nums text-[13.5px] font-semibold text-muted-foreground">{pct}%</span>
+        <span className={verdict.chip}>{verdict.label}</span>
       </div>
 
       <div className="mt-7 flex justify-center gap-1.5 flex-wrap max-w-[480px] mx-auto">
@@ -510,7 +521,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
               background: h.correct
                 ? "color-mix(in oklab, var(--av-green-400) 18%, transparent)"
                 : "color-mix(in oklab, var(--av-red-400) 18%, transparent)",
-              color: h.correct ? "var(--av-green-400)" : "var(--av-red-400)",
+              color: h.correct ? "var(--av-success-fg)" : "var(--av-danger-fg)",
             }}
           >
             {h.correct ? "✓" : "✗"}
@@ -524,13 +535,13 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
           className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
-          <RotateCcw className="h-4 w-4" /> New round
+          <RotateCcw className="h-4 w-4" /> Nueva ronda
         </button>
         <Link
           to="/app/icao/vocabulario"
           className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
-          Go to glossary
+          Ir al glosario
         </Link>
       </div>
     </div>

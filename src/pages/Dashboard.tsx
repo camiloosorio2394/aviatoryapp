@@ -17,6 +17,7 @@ import {
   Activity,
 } from "lucide-react"
 import { toast } from "sonner"
+import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -31,6 +32,7 @@ type PilotStage =
   | "cpl_in_progress"
   | "cpl_ready"
   | "hour_building"
+  | "instructor"
   | "airline_candidate"
 
 interface PilotState {
@@ -95,6 +97,7 @@ const STAGE_LABEL: Record<PilotStage, string> = {
   cpl_in_progress: "Cursando CPL",
   cpl_ready: "Piloto Comercial",
   hour_building: "Hour Building",
+  instructor: "Instructor de Vuelo",
   airline_candidate: "Candidato a Aerolínea",
 }
 
@@ -104,6 +107,8 @@ const STAGE_PROGRESS: Record<PilotStage, number> = {
   cpl_in_progress: 47,
   cpl_ready: 64,
   hour_building: 78,
+  // El instructor acumula horas rápido pero sigue lejos del perfil de aerolínea.
+  instructor: 74,
   airline_candidate: 92,
 }
 
@@ -184,6 +189,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     case "cpl_ready":
       return [baseWingman, baseIcao, baseAirline]
     case "hour_building":
+    case "instructor":
     case "airline_candidate":
       return [baseAirline, baseIcao, baseCommunity]
   }
@@ -441,67 +447,86 @@ function CockpitHero({
   progress: number
   trialLeft: number | null
 }) {
+  /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
+   *  oscuro en modo claro y ahí quedarían ilegibles. */
+  const heroChip =
+    "inline-flex items-center gap-1.5 h-[24px] px-2.5 rounded-full text-[11.5px] font-semibold tracking-[0.01em] text-white border border-white/25 bg-white/12 backdrop-blur-sm"
+
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
-      <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
-        <div className="min-w-0">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            {stageLabel}
-            {targetAirline ? ` · objetivo ${targetAirline}` : ""}
-          </div>
-          <h1 className="mt-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-            {greetingTime()}, {firstName} 👋
-          </h1>
-          <p className="mt-2 text-[15px] text-muted-foreground flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span>{totalHours}h totales</span>
-            {streakDays > 0 && (
-              <>
-                <span className="text-muted-foreground/40">·</span>
-                <span className="chip chip-amber tabular-nums">
-                  <Flame className="h-3 w-3" />
-                  {streakDays} {streakDays === 1 ? "día" : "días"} de racha
+    <section className="relative overflow-hidden rounded-2xl">
+      <img
+        src={heroCockpit}
+        alt=""
+        aria-hidden
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(135deg, rgb(11 16 32 / 88%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
+        }}
+      />
+
+      <div className="relative p-6 sm:p-8">
+        <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="min-w-0">
+            <div className="text-[13px] font-semibold text-white/70">
+              {stageLabel}
+              {targetAirline ? ` · objetivo ${targetAirline}` : ""}
+            </div>
+            <h1 className="mt-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-white">
+              {greetingTime()}, {firstName}
+            </h1>
+            <p className="mt-2.5 text-[15px] text-white/75 flex flex-wrap items-center gap-x-2 gap-y-1.5">
+              <span className="tabular-nums">{totalHours}h totales</span>
+              {streakDays > 0 && (
+                <>
+                  <span className="text-white/30">·</span>
+                  <span className={`${heroChip} tabular-nums`}>
+                    <Flame className="h-3 w-3" />
+                    {streakDays} {streakDays === 1 ? "día" : "días"} de racha
+                  </span>
+                </>
+              )}
+            </p>
+
+            {/* Progress to airline */}
+            <div className="mt-6 max-w-[560px]">
+              <div className="flex justify-between items-baseline gap-3 mb-2">
+                <span className="text-[13px] font-semibold text-white/70">
+                  Tu avance a aerolínea
                 </span>
-              </>
-            )}
-          </p>
-
-          {/* Progress to airline */}
-          <div className="mt-6 max-w-[560px]">
-            <div className="flex justify-between items-baseline mb-2">
-              <span className="text-[13px] font-semibold text-muted-foreground">
-                Tu avance a aerolínea
-              </span>
-              <span
-                className="tabular-nums text-2xl font-extrabold tracking-[-0.03em]"
-                style={{ color: "var(--av-blue-500)" }}
-              >
-                <CountUp to={progress} />%
-              </span>
-            </div>
-            <div className="relative h-2.5 rounded-full overflow-hidden bg-muted">
-              <div
-                className="h-full rounded-full transition-[width] duration-1000"
-                style={{ width: `${progress}%`, background: "var(--av-blue-500)" }}
-              />
+                <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
+                  <CountUp to={progress} />%
+                </span>
+              </div>
+              <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
+                <div
+                  className="h-full rounded-full bg-white transition-[width] duration-1000"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Right CTA */}
-        <div className="flex flex-col items-start lg:items-end gap-2.5">
-          {trialLeft !== null && trialLeft > 0 && (
-            <span className="chip chip-amber tabular-nums">
-              <Sparkles className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
-            </span>
-          )}
-          <Link
-            to={DAILY_ACTION.href}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--av-blue-500)" }}
-          >
-            {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
-          </Link>
-          <div className="text-[12px] text-muted-foreground">~{DAILY_ACTION.minutes} min</div>
+          {/* Right CTA */}
+          <div className="flex flex-col items-start lg:items-end gap-2.5">
+            {trialLeft !== null && trialLeft > 0 && (
+              <span className={`${heroChip} tabular-nums`}>
+                <Sparkles className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+              </span>
+            )}
+            <Link
+              to={DAILY_ACTION.href}
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
+            >
+              {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
+            </Link>
+            <div className="text-[12px] text-white/70">~{DAILY_ACTION.minutes} min</div>
+          </div>
         </div>
       </div>
     </section>

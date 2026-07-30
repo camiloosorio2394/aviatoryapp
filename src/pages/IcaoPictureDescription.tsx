@@ -18,6 +18,38 @@ import { PICTURE_PAIRS, PART3_TASK_STEPS, type PicturePair } from "@/lib/icaoPic
  * El examinador muestra 2 imágenes relacionadas; el candidato las describe,
  * compara, identifica riesgos, especula causas, opina y conversa.
  */
+/**
+ * Los pasos de la tarea viven en @/lib/icaoPictures en inglés. Aquí solo se
+ * traduce ese rótulo explicativo; si el material cambiara, cae de vuelta al
+ * texto original en lugar de romperse.
+ */
+const TASK_STEP_ES: Record<string, { label: string; detail: string }> = {
+  "Describe each image": {
+    label: "Describe cada imagen",
+    detail: "Detalle por detalle, primer plano y fondo: qué ves en A y qué ves en B.",
+  },
+  "Compare the two": {
+    label: "Compara las dos",
+    detail: "Semejanzas y diferencias entre las dos situaciones.",
+  },
+  "Identify the risks": {
+    label: "Identifica los riesgos",
+    detail: "Qué peligros o problemas de seguridad aparecen.",
+  },
+  "Explain possible causes": {
+    label: "Explica posibles causas",
+    detail: "Especula con “might / could / may have”: qué pudo haberlo provocado.",
+  },
+  "Give your opinion": {
+    label: "Da tu opinión",
+    detail: "Qué piensas del tema y por qué. Justifícalo.",
+  },
+  "Discuss the topic": {
+    label: "Conversa sobre el tema",
+    detail: "Responde las preguntas de conversación desarrollando tus ideas.",
+  },
+}
+
 export function IcaoPictureDescription() {
   const [idx, setIdx] = useState(0)
   const pair = PICTURE_PAIRS[idx]
@@ -30,7 +62,7 @@ export function IcaoPictureDescription() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
         {/* Header */}
@@ -46,46 +78,49 @@ export function IcaoPictureDescription() {
               className="text-[13px] font-semibold"
               style={{ color: "var(--av-blue-500)" }}
             >
-              TEA · Part 3 · Picture description &amp; discussion · 10 min
+              TEA · Parte 3 · Picture Description &amp; Discussion · 10 minutos
             </div>
           </div>
           <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
-            Picture Description &amp; Discussion
+            Descripción de imágenes y conversación
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground max-w-[760px]">
-            The examiner shows you <strong className="text-foreground">two related images</strong>.
-            You have to describe each one, compare them, spot risks, explain possible causes, give
-            your opinion and discuss the topic. It measures your ability to <strong className="text-foreground">develop
-            ideas, justify opinions and speak fluently</strong>.
+            El examinador te muestra <strong className="text-foreground">dos imágenes relacionadas</strong>.
+            Tienes que describir cada una, compararlas, identificar riesgos, explicar posibles causas,
+            dar tu opinión y conversar sobre el tema. Mide tu capacidad de{" "}
+            <strong className="text-foreground">desarrollar ideas, justificar opiniones y hablar con fluidez</strong>.
           </p>
         </section>
 
         {/* Task steps */}
         <div className="mt-6 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {PART3_TASK_STEPS.map((s, i) => (
-            <div
-              key={s.label}
-              className="rounded-2xl border border-border bg-card p-3"
-            >
-              <div className="flex items-center gap-2">
-                <span
-                  className="tabular-nums flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[12px] font-bold"
-                  style={{ background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)", color: "var(--av-green-400)" }}
-                >
-                  {i + 1}
-                </span>
-                <div className="text-[14px] font-bold tracking-[-0.01em]">{s.label}</div>
+          {PART3_TASK_STEPS.map((s, i) => {
+            const es = TASK_STEP_ES[s.label] ?? s
+            return (
+              <div
+                key={s.label}
+                className="rounded-2xl border border-border bg-card p-3"
+              >
+                <div className="flex items-center gap-2">
+                  <span
+                    className="tabular-nums flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[12px] font-bold"
+                    style={{ background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)", color: "var(--av-success-fg)" }}
+                  >
+                    {i + 1}
+                  </span>
+                  <div className="text-[14px] font-bold tracking-[-0.01em]">{es.label}</div>
+                </div>
+                <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{es.detail}</p>
               </div>
-              <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{s.detail}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
 
         {/* Pair navigator */}
         <div className="mt-8 flex items-center justify-between gap-3">
           <div>
-            <div className="text-[13px] font-semibold tabular-nums text-[var(--av-green-400)]">
-              Pair {pair.id} / {total}
+            <div className="text-[13px] font-semibold tabular-nums" style={{ color: "var(--av-success-fg)" }}>
+              Par {pair.id} / {total}
             </div>
             <h2 className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">{pair.themeEn}</h2>
           </div>
@@ -112,7 +147,7 @@ export function IcaoPictureDescription() {
                     ? "color-mix(in oklab, var(--av-green-400) 50%, transparent)"
                     : "color-mix(in oklab, var(--border) 60%, transparent)",
                   background: active ? "color-mix(in oklab, var(--av-green-400) 16%, transparent)" : "transparent",
-                  color: active ? "var(--av-green-400)" : "var(--muted-foreground)",
+                  color: active ? "var(--av-success-fg)" : "var(--muted-foreground)",
                 }}
               >
                 {p.id}
@@ -122,7 +157,7 @@ export function IcaoPictureDescription() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center">
-          {total} image pairs · TEA Part 3 · NEW PICTURES material
+          {total} pares de imágenes · TEA Parte 3 · material NEW PICTURES
         </div>
       </div>
     </AppLayout>
@@ -141,9 +176,9 @@ function PairView({ pair }: { pair: PicturePair }) {
 
       {/* Reminders */}
       <div className="mt-4 grid gap-2 sm:grid-cols-3">
-        <Hint icon={ImageIcon} color="var(--av-green-400)" text="Describe A and B in detail, then compare them." />
-        <Hint icon={AlertTriangle} color="var(--av-amber-400)" text="Identify risks and possible causes." />
-        <Hint icon={Lightbulb} color="var(--av-blue-500)" text="Give your opinion and justify it." />
+        <Hint icon={ImageIcon} color="var(--av-green-400)" text="Describe A y B en detalle y luego compáralas." />
+        <Hint icon={AlertTriangle} color="var(--av-amber-400)" text="Identifica riesgos y posibles causas." />
+        <Hint icon={Lightbulb} color="var(--av-blue-500)" text="Da tu opinión y justifícala." />
       </div>
 
       {/* Discussion */}
@@ -151,10 +186,10 @@ function PairView({ pair }: { pair: PicturePair }) {
         <button
           onClick={() => setShowDiscussion((s) => !s)}
           className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-          style={{ background: "var(--av-green-400)" }}
+          style={{ background: "var(--av-blue-500)" }}
         >
           <MessagesSquare className="h-4 w-4" />
-          {showDiscussion ? "Hide discussion questions" : "Show discussion questions"}
+          {showDiscussion ? "Ocultar las preguntas de conversación" : "Ver las preguntas de conversación"}
         </button>
 
         {showDiscussion && (
@@ -165,8 +200,8 @@ function PairView({ pair }: { pair: PicturePair }) {
               background: "color-mix(in oklab, var(--av-green-400) 6%, transparent)",
             }}
           >
-            <div className="text-[13px] font-semibold text-[var(--av-green-400)] mb-2">
-              Discussion · answer out loud, developing your ideas
+            <div className="text-[13px] font-semibold mb-2" style={{ color: "var(--av-success-fg)" }}>
+              Conversación: responde en voz alta desarrollando tus ideas
             </div>
             <ul className="space-y-2">
               {pair.discussion.map((q) => (
