@@ -1,9 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { supabase } from "@/integrations/supabase/client"
 
-/** Bucket privado y ruta del banco oficial dentro de Supabase Storage. */
+/** Bucket privado del banco oficial dentro de Supabase Storage. */
 export const OFFICIAL_BANK_BUCKET = "documentos-oficiales"
-export const OFFICIAL_BANK_PATH = "banco-preguntas-pca.pdf"
 
 /** Vida de la URL firmada. Corta a propósito: si alguien copia el enlace, deja
  *  de servir en una hora. Se renueva sola mientras el visor esté abierto. */
@@ -36,9 +35,32 @@ export function useOfficialBank() {
   const signRef = useRef<() => Promise<void>>(async () => {})
 
   const sign = useCallback(async () => {
+    // Se busca el PDF en lugar de fijar su nombre. Atarlo a un nombre concreto
+    // rompe el visor en cuanto alguien sube el archivo tal como lo descargó de
+    // Aerocivil, que es justo lo que pasó la primera vez.
+    const { data: files, error: listError } = await supabase.storage
+      .from(OFFICIAL_BANK_BUCKET)
+      .list("", { limit: 100, sortBy: { column: "created_at", order: "desc" } })
+
+    if (listError) {
+      const msg = listError.message.toLowerCase()
+      setState({
+        url: null,
+        loading: false,
+        error: msg.includes("permission") || msg.includes("denied") ? "denied" : "unknown",
+      })
+      return
+    }
+
+    const pdf = files?.find((f) => f.name.toLowerCase().endsWith(".pdf"))
+    if (!pdf) {
+      setState({ url: null, loading: false, error: "missing" })
+      return
+    }
+
     const { data, error } = await supabase.storage
       .from(OFFICIAL_BANK_BUCKET)
-      .createSignedUrl(OFFICIAL_BANK_PATH, SIGNED_URL_TTL_SECONDS)
+      .createSignedUrl(pdf.name, SIGNED_URL_TTL_SECONDS)
 
     if (error || !data?.signedUrl) {
       const msg = (error?.message ?? "").toLowerCase()
