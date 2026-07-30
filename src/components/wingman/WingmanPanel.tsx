@@ -65,6 +65,17 @@ export function WingmanPanel({
     return () => window.removeEventListener("keydown", onKey)
   }, [state.isOpen, onClose])
 
+  // El panel ocupa toda la pantalla en móvil: si el body sigue scrolleando
+  // detrás, el chat se mueve al hacer scroll. Lo bloqueamos mientras está
+  // abierto (mismo patrón que el Header público).
+  useEffect(() => {
+    if (!state.isOpen) return
+    document.body.style.overflow = "hidden"
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [state.isOpen])
+
   if (!state.isOpen) return null
 
   function handleSubmit(e: FormEvent) {
@@ -93,7 +104,10 @@ export function WingmanPanel({
         <header className="flex items-center gap-3 px-5 py-4 border-b border-border/40">
           <div className="relative">
             <LogoIsotype variant="color" className="h-9 w-9 rounded-lg shadow-md" />
-            <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-green-500 ring-2 ring-card" />
+            <span
+              className="absolute -top-1 -right-1 h-3 w-3 rounded-full ring-2 ring-card"
+              style={{ background: "var(--av-green-400)" }}
+            />
           </div>
           <div className="flex-1">
             <h2 className="text-base font-semibold leading-tight">Wingman</h2>
@@ -112,7 +126,11 @@ export function WingmanPanel({
         {/* Messages */}
         <div
           ref={scrollRef}
-          className="flex-1 overflow-y-auto px-5 py-4 space-y-4 bg-gradient-to-b from-blue-50/30 to-background dark:from-blue-950/20"
+          className="flex-1 overflow-y-auto px-5 py-4 space-y-4"
+          style={{
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--av-blue-500) 7%, var(--background)) 0%, var(--background) 45%)",
+          }}
         >
           {state.messages.length === 0 && !state.sending && state.bannerError === null && (
             <EmptyState />
@@ -139,16 +157,16 @@ export function WingmanPanel({
               {usage >= Math.max(freeLimit - 2, 0) && (
                 <Link
                   to="/pricing"
-                  className="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center gap-1 text-primary hover:underline font-medium"
                 >
                   <Crown className="h-3 w-3" />
-                  Upgradeá a Pro
+                  Pasa a Pro
                 </Link>
               )}
             </div>
           )}
           {isPro && (
-            <div className="px-5 pt-3 pb-1 flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400">
+            <div className="px-5 pt-3 pb-1 flex items-center gap-1.5 text-xs text-primary">
               <Crown className="h-3 w-3" />
               Pro · explicaciones ilimitadas
             </div>
@@ -165,9 +183,10 @@ export function WingmanPanel({
                 }
               }}
               rows={1}
-              placeholder="Preguntale algo a Wingman…"
+              placeholder="Pregúntale algo a Wingman…"
+              aria-label="Mensaje para Wingman"
               disabled={state.sending || state.bannerError !== null}
-              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:opacity-50"
+              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-50"
             />
             <Button
               type="submit"
@@ -189,12 +208,20 @@ export function WingmanPanel({
 function EmptyState() {
   return (
     <div className="text-center py-8">
-      <div className="inline-flex items-center justify-center h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-500/30 mb-4">
+      {/* Mismo azul que el launcher que abre el panel */}
+      <div
+        className="inline-flex items-center justify-center h-12 w-12 rounded-2xl text-white mb-4"
+        style={{
+          background:
+            "linear-gradient(135deg, var(--av-cyan-300) 0%, var(--av-blue-500) 60%, var(--av-navy-900) 100%)",
+          boxShadow: "0 12px 28px -10px oklch(0.55 0.22 264 / 55%)",
+        }}
+      >
         <Sparkles className="h-6 w-6" />
       </div>
       <h3 className="text-base font-semibold">Wingman te está escuchando</h3>
       <p className="mt-1 text-sm text-muted-foreground max-w-xs mx-auto">
-        Preguntale lo que sea sobre la materia que estás estudiando. Te explica
+        Pregúntale lo que sea sobre la materia que estás estudiando. Te explica
         en español y en aviador.
       </p>
     </div>
@@ -203,28 +230,28 @@ function EmptyState() {
 
 function BannerError({ message, isPro }: { message: string; isPro: boolean }) {
   const isLimit = message.toLowerCase().includes("límite")
+  const accent = isLimit ? "var(--av-blue-500)" : "var(--av-amber-400)"
   return (
     <div
-      className={`rounded-2xl border p-4 ${
-        isLimit
-          ? "border-blue-500/30 bg-blue-50 dark:bg-blue-950/30"
-          : "border-amber-500/30 bg-amber-50 dark:bg-amber-950/30"
-      }`}
+      className="rounded-2xl border p-4"
+      style={{
+        borderColor: `color-mix(in oklab, ${accent} 30%, transparent)`,
+        background: `color-mix(in oklab, ${accent} 10%, var(--card))`,
+      }}
     >
       <div className="flex items-start gap-3">
         <AlertCircle
-          className={`h-5 w-5 flex-shrink-0 ${
-            isLimit ? "text-blue-600 dark:text-blue-400" : "text-amber-600 dark:text-amber-400"
-          }`}
+          className="h-5 w-5 flex-shrink-0"
+          style={{ color: isLimit ? "var(--av-blue-500)" : "var(--av-warn-fg)" }}
         />
         <div>
           <p className="text-sm leading-relaxed">{message}</p>
           {isLimit && !isPro && (
             <Link
               to="/pricing"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
             >
-              <Crown className="h-3 w-3" /> Upgradeá a Pro
+              <Crown className="h-3 w-3" /> Pasa a Pro
             </Link>
           )}
         </div>
@@ -245,8 +272,11 @@ function MessageBubble({
   if (isUser) {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[85%] rounded-2xl rounded-tr-md bg-blue-600 text-white px-4 py-2.5 text-sm leading-relaxed shadow-sm">
-          {message.content || "—"}
+        <div
+          className="max-w-[85%] rounded-2xl rounded-tr-md text-white px-4 py-2.5 text-sm leading-relaxed shadow-sm"
+          style={{ background: "var(--av-blue-500)" }}
+        >
+          {message.content || "…"}
         </div>
       </div>
     )
@@ -257,9 +287,18 @@ function MessageBubble({
       <div className="flex justify-start">
         <div className="max-w-[85%] rounded-2xl rounded-tl-md bg-card border border-border/40 px-4 py-3">
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.3s]" />
-            <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce [animation-delay:-0.15s]" />
-            <span className="h-2 w-2 rounded-full bg-blue-500 animate-bounce" />
+            <span
+              className="h-2 w-2 rounded-full animate-bounce [animation-delay:-0.3s]"
+              style={{ background: "var(--av-blue-500)" }}
+            />
+            <span
+              className="h-2 w-2 rounded-full animate-bounce [animation-delay:-0.15s]"
+              style={{ background: "var(--av-blue-500)" }}
+            />
+            <span
+              className="h-2 w-2 rounded-full animate-bounce"
+              style={{ background: "var(--av-blue-500)" }}
+            />
           </div>
         </div>
       </div>
@@ -271,10 +310,17 @@ function MessageBubble({
       <div className="max-w-[90%] space-y-2">
         <div
           className={`rounded-2xl rounded-tl-md border px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
-            message.error
-              ? "border-red-300 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300"
-              : "border-border/40 bg-card"
+            message.error ? "" : "border-border/40 bg-card"
           }`}
+          style={
+            message.error
+              ? {
+                  borderColor: "color-mix(in oklab, var(--av-red-400) 35%, transparent)",
+                  background: "color-mix(in oklab, var(--av-red-400) 10%, var(--card))",
+                  color: "var(--av-danger-fg)",
+                }
+              : undefined
+          }
         >
           {message.content}
         </div>
@@ -283,24 +329,34 @@ function MessageBubble({
             <button
               type="button"
               onClick={() => onFeedback("thumbs_up")}
-              className={`p-1.5 rounded-md transition-colors ${
+              className="p-1.5 rounded-md transition-colors text-muted-foreground hover:bg-muted"
+              style={
                 message.feedback === "thumbs_up"
-                  ? "bg-green-100 dark:bg-green-950/40 text-green-700 dark:text-green-300"
-                  : "text-muted-foreground hover:bg-muted"
-              }`}
+                  ? {
+                      background: "color-mix(in oklab, var(--av-green-400) 16%, transparent)",
+                      color: "var(--av-success-fg)",
+                    }
+                  : undefined
+              }
               aria-label="Útil"
+              aria-pressed={message.feedback === "thumbs_up"}
             >
               <ThumbsUp className="h-3.5 w-3.5" />
             </button>
             <button
               type="button"
               onClick={() => onFeedback("thumbs_down")}
-              className={`p-1.5 rounded-md transition-colors ${
+              className="p-1.5 rounded-md transition-colors text-muted-foreground hover:bg-muted"
+              style={
                 message.feedback === "thumbs_down"
-                  ? "bg-red-100 dark:bg-red-950/40 text-red-700 dark:text-red-300"
-                  : "text-muted-foreground hover:bg-muted"
-              }`}
+                  ? {
+                      background: "color-mix(in oklab, var(--av-red-400) 16%, transparent)",
+                      color: "var(--av-danger-fg)",
+                    }
+                  : undefined
+              }
               aria-label="No útil"
+              aria-pressed={message.feedback === "thumbs_down"}
             >
               <ThumbsDown className="h-3.5 w-3.5" />
             </button>

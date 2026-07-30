@@ -98,7 +98,9 @@ export function InterviewSpeakingIntro() {
           <Mic className="h-3.5 w-3.5" /> Entrevista intro · Speaking
         </div>
         <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-          Las 15 preguntas que toda aerolínea hace al inicio
+          {questions.length > 0
+            ? `Las ${questions.length} preguntas que toda aerolínea hace al inicio`
+            : "Las preguntas que toda aerolínea hace al inicio"}
         </h1>
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
           Son las preguntas básicas que cualquier aerolínea hace antes de pasar al técnico.
@@ -131,8 +133,40 @@ export function InterviewSpeakingIntro() {
               <span className="text-sm">Cargando preguntas…</span>
             </div>
           ) : questions.length === 0 ? (
-            <div className="text-center py-16 text-muted-foreground text-sm">
-              No hay preguntas cargadas. Aplicá la migración del módulo de inglés.
+            <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+              <div
+                className="w-12 h-12 rounded-xl flex items-center justify-center"
+                style={{
+                  background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
+                  border: "1px solid color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
+                  color: "var(--av-blue-500)",
+                }}
+              >
+                <Mic className="h-6 w-6" />
+              </div>
+              <h2 className="mt-4 text-[19px] font-bold tracking-[-0.01em]">
+                Las preguntas intro llegan pronto
+              </h2>
+              <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[460px] leading-relaxed">
+                Aquí vas a encontrar las preguntas de apertura que hace toda aerolínea, con la
+                intención de cada una, los topics que esperan y los follow-ups. Mientras tanto,
+                entrena el speaking en el módulo de inglés ICAO.
+              </p>
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
+                <Link
+                  to="/app/icao/interview"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  Practicar Interview TEA <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <Link
+                  to="/app/icao"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+                >
+                  Ver el módulo ICAO
+                </Link>
+              </div>
             </div>
           ) : (
             questions.map((q, i) => (
@@ -160,7 +194,7 @@ export function InterviewSpeakingIntro() {
                 <Sparkles className="h-3.5 w-3.5" /> Próximo paso
               </div>
               <div className="mt-1.5 text-[16px] font-bold tracking-[-0.01em]">
-                Cuando puedas responder estas con fluidez, pasá al Technical Interview.
+                Cuando puedas responder estas con fluidez, pasa al Technical Interview.
               </div>
             </div>
             <Link
@@ -214,8 +248,8 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
         <div className="px-4 pb-5 pt-1 space-y-4 border-t border-border/60">
           {question.intent && (
             <div>
-              <div className="text-[13px] font-semibold mb-1.5" style={{ color: "#B45309" }}>
-                Intención · qué buscan
+              <div className="mb-1.5">
+                <span className="chip chip-amber">Intención · qué buscan</span>
               </div>
               <p className="text-[14px] leading-relaxed text-foreground/85">{question.intent}</p>
             </div>
@@ -223,7 +257,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
 
           {question.expected_topics.length > 0 && (
             <div>
-              <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-blue-500)" }}>
+              <div className="mb-1.5 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 Topics que esperan
               </div>
               <ul className="space-y-1">
@@ -239,13 +273,13 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
 
           {question.follow_ups.length > 0 && (
             <div>
-              <div className="text-[13px] font-semibold mb-1.5" style={{ color: "#047857" }}>
-                Posibles follow-ups
+              <div className="mb-1.5">
+                <span className="chip chip-green">Posibles follow-ups</span>
               </div>
               <ul className="space-y-1">
                 {question.follow_ups.map((f, i) => (
                   <li key={i} className="flex items-start gap-2 text-[14px] italic text-foreground/90">
-                    <ArrowRight className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "#047857" }} strokeWidth={2.5} />
+                    <ArrowRight className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-green-400)" }} strokeWidth={2.5} />
                     <span>"{f}"</span>
                   </li>
                 ))}

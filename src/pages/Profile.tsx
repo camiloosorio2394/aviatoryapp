@@ -59,8 +59,8 @@ interface Skill {
 /** Próximo paso accionable por dimensión (a qué módulo ir para mejorarla). */
 const DIM_ADVICE: Record<string, { cta: string; href: string }> = {
   horas: { cta: "Registra tus vuelos en el Logbook", href: "/app/logbook" },
-  pic: { cta: "Sumá horas como PIC en el Logbook", href: "/app/logbook" },
-  icao: { cta: "Hacé el simulacro TEA", href: "/app/icao/simulacro" },
+  pic: { cta: "Suma horas como PIC en el Logbook", href: "/app/logbook" },
+  icao: { cta: "Haz el simulacro TEA", href: "/app/icao/simulacro" },
   licencias: { cta: "Carga tus licencias en Vencimientos", href: "/app/vencimientos" },
   xc: { cta: "Registra vuelos cross-country", href: "/app/logbook" },
   recurrencia: { cta: "Revisa tus vencimientos", href: "/app/vencimientos" },
@@ -278,11 +278,20 @@ export function Profile() {
   if (loading) {
     return (
       <AppLayout>
-        <div className="p-8 max-w-2xl mx-auto animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-muted rounded" />
-          <div className="h-12 bg-muted rounded-xl" />
-          <div className="h-12 bg-muted rounded-xl" />
-          <div className="h-12 bg-muted rounded-xl" />
+        <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+          <div className="mb-6 space-y-2.5">
+            <div className="h-3 w-24 bg-muted rounded" />
+            <div className="h-8 w-72 max-w-full bg-muted rounded" />
+            <div className="h-4 w-full max-w-[520px] bg-muted rounded" />
+          </div>
+          <div className="grid gap-5 grid-cols-1 lg:grid-cols-[360px_1fr]">
+            <div className="h-[260px] rounded-2xl bg-muted" />
+            <div className="flex flex-col gap-5">
+              <div className="h-[280px] rounded-2xl bg-muted" />
+              <div className="h-[180px] rounded-2xl bg-muted" />
+              <div className="h-[420px] rounded-2xl bg-muted" />
+            </div>
+          </div>
         </div>
       </AppLayout>
     )
@@ -321,7 +330,7 @@ export function Profile() {
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader eyebrow="Mi perfil" title="Tu identidad como piloto" subtitle="Tu mapa de habilidades sale de datos reales: Logbook, Vencimientos y tus simulacros TEA. Aviatory lo usa para calcular tu progreso y plan." />
 
-        <div className="grid gap-5" style={{ gridTemplateColumns: "360px 1fr" }}>
+        <div className="grid gap-5 grid-cols-1 lg:grid-cols-[360px_1fr]">
           {/* Pilot ID card */}
           <PilotIdCard
             photoUrl={photoUrl}
@@ -340,12 +349,12 @@ export function Profile() {
           <div className="flex flex-col gap-5">
             <div className="rounded-2xl border border-border bg-card p-6">
               <SectionTitle icon={Radar} eyebrow="Tu mapa de habilidades" title="Mastery por dimensión" />
-              <div className="grid items-center gap-7 mt-4" style={{ gridTemplateColumns: "auto 1fr" }}>
+              <div className="grid items-center gap-7 mt-4 grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr] sm:justify-items-stretch">
                 <SkillsRadar skills={skills} />
-                <div className="flex flex-col gap-2.5">
+                <div className="flex flex-col gap-2.5 w-full">
                   {skills.map((s) => (
-                    <div key={s.label} className="grid items-center gap-3" style={{ gridTemplateColumns: "104px 1fr auto" }}>
-                      <span className="text-[13px] text-foreground font-medium">{s.label}</span>
+                    <div key={s.label} className="grid items-center gap-3 grid-cols-[88px_1fr_auto] sm:grid-cols-[104px_1fr_auto]">
+                      <span className="text-[13px] leading-tight text-foreground font-medium">{s.label}</span>
                       <div className="relative h-1.5 rounded-full bg-muted overflow-hidden">
                         <div
                           className="h-full rounded-full"
@@ -398,7 +407,7 @@ export function Profile() {
                           {photoUrl ? "Cambiar foto" : "Subir foto"}
                         </Button>
                         {photoUrl && (
-                          <Button type="button" variant="ghost" size="sm" onClick={handleAvatarRemove} disabled={uploading} className="rounded-full h-9 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950/30">
+                          <Button type="button" variant="ghost" size="sm" onClick={handleAvatarRemove} disabled={uploading} className="rounded-full h-9 text-[color:var(--av-red-400)] hover:text-[color:var(--av-red-400)] hover:bg-muted">
                             <Trash2 className="h-3.5 w-3.5" /> Eliminar
                           </Button>
                         )}
@@ -666,19 +675,19 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
       <SectionTitle icon={TrendingUp} eyebrow="Resumen" title="Fortalezas y debilidades" />
       <div className="grid gap-6 sm:grid-cols-2 mt-1">
         <div>
-          <div className="text-[13px] font-semibold mb-2.5" style={{ color: "#047857" }}>
-            Tus fortalezas
+          <div className="mb-2.5">
+            <span className="chip chip-green">Tus fortalezas</span>
           </div>
           {strengths.length === 0 ? (
             <p className="text-[13px] text-muted-foreground leading-relaxed">
               Todavía no hay datos suficientes para destacar fortalezas. Empieza por los próximos
-              pasos →
+              pasos que te sugerimos.
             </p>
           ) : (
             <ul className="space-y-2">
               {strengths.map((s) => (
                 <li key={s.key} className="flex items-start gap-2 text-[13.5px]">
-                  <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "#047857" }} strokeWidth={3} />
+                  <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-green-400)" }} strokeWidth={3} />
                   <span>
                     <span className="font-semibold text-foreground">{s.label}</span>
                     <span className="text-muted-foreground"> · {s.raw} ({Math.round(s.value)}%)</span>
@@ -689,12 +698,12 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
           )}
         </div>
         <div>
-          <div className="text-[13px] font-semibold mb-2.5" style={{ color: "#B45309" }}>
-            Próximos pasos
+          <div className="mb-2.5">
+            <span className="chip chip-amber">Próximos pasos</span>
           </div>
           {gaps.length === 0 ? (
             <p className="text-[13px] text-muted-foreground leading-relaxed">
-              ¡Vas muy bien! No hay debilidades marcadas ahora mismo.
+              Vas muy bien: no hay debilidades marcadas ahora mismo.
             </p>
           ) : (
             <ul className="space-y-3">
@@ -735,7 +744,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
           className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
         >
           <span className="inline-flex items-center gap-2 text-[14px] text-muted-foreground">
-            <Headphones className="h-4 w-4" /> Sin evaluar: hacé el test inicial
+            <Headphones className="h-4 w-4" /> Sin evaluar: haz el test inicial
           </span>
           <ArrowRight className="h-4 w-4 text-muted-foreground" />
         </Link>
@@ -768,7 +777,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
       </div>
       <p className="text-[11px] text-muted-foreground mt-1">
         {isEstimate
-          ? "Estimado del test inicial. Confirmá tu nivel oficial con el simulacro TEA."
+          ? "Estimado del test inicial. Confirma tu nivel oficial con el simulacro TEA."
           : `${dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.`}
       </p>
     </>
@@ -780,10 +789,10 @@ function UsernameIcon({ status }: { status: UsernameStatus }) {
     case "checking":
       return <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
     case "available":
-      return <Check className="h-4 w-4 text-green-600" />
+      return <Check className="h-4 w-4" style={{ color: "var(--av-green-400)" }} />
     case "taken":
     case "invalid":
-      return <X className="h-4 w-4 text-red-500" />
+      return <X className="h-4 w-4" style={{ color: "var(--av-red-400)" }} />
     default:
       return null
   }
@@ -796,9 +805,9 @@ function UsernameHelp({ status }: { status: UsernameStatus }) {
     case "checking":
       return <p className="text-xs text-muted-foreground mt-1">Verificando disponibilidad…</p>
     case "available":
-      return <p className="text-xs text-green-600 dark:text-green-400 mt-1">Disponible ✓</p>
+      return <p className="mt-1"><span className="chip chip-green">Disponible</span></p>
     case "taken":
-      return <p className="text-xs text-red-600 dark:text-red-400 mt-1">Ese usuario ya está tomado</p>
+      return <p className="mt-1"><span className="chip chip-red">Ese usuario ya está tomado</span></p>
     case "unchanged":
       return null
     default:

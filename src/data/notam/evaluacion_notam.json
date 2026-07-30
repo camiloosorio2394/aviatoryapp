@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "titulo": "Evaluación — Sección NOTAM",
+    "descripcion": "Banco de 20 preguntas de opción múltiple basadas en el Doc 8400 OACI (PANS-ABC, 6ª ed., 2004). Preguntas de práctica creadas para Aviatory: NO son preguntas oficiales de ningún examen.",
+    "aviso_en_pantalla": "Preguntas de práctica elaboradas a partir del Doc 8400 de la OACI. No son preguntas oficiales de la Aeronáutica Civil ni de la OACI.",
+    "calificacion": {
+      "puntaje_por_pregunta": 5,
+      "total": 100,
+      "aprobacion": 80,
+      "regla_ui": "Mostrar la explicación y la referencia SOLO después de que el usuario responda cada pregunta (o al final, según configuración). Barajar el orden de preguntas y de opciones en cada intento."
+    }
+  },
+  "preguntas": [
+    {
+      "id": 1,
+      "nivel": "basico",
+      "pregunta": "Según la OACI, un NOTAM es un aviso distribuido por medios de telecomunicaciones que contiene información relativa a...",
+      "opciones": [
+        "El establecimiento, condición o modificación de cualquier instalación aeronáutica, servicio, procedimiento o peligro, cuyo conocimiento oportuno es esencial para el personal de operaciones de vuelo",
+        "Las condiciones meteorológicas significativas en ruta que puedan afectar la seguridad de las aeronaves",
+        "Los cambios permanentes del AIP que se incorporan en cada ciclo AIRAC",
+        "Las estadísticas de tránsito aéreo que los Estados reportan a la OACI"
+      ],
+      "correcta": 0,
+      "explicacion": "Es la definición del propio Doc 8400. La opción de fenómenos meteorológicos en ruta corresponde al SIGMET; los cambios permanentes del AIP se publican por enmienda AIP (el NOTAM iniciador solo los anuncia).",
+      "referencia": "Doc 8400, pág. 3-3"
+    },
+    {
+      "id": 2,
+      "nivel": "basico",
+      "pregunta": "¿Cuántas letras tiene todo grupo del código NOTAM y cuál es siempre la primera?",
+      "opciones": [
+        "Cinco letras; la primera es siempre Q",
+        "Cuatro letras; la primera es siempre N",
+        "Cinco letras; la primera depende de la FIR",
+        "Seis letras; las dos primeras son QQ"
+      ],
+      "correcta": 0,
+      "explicacion": "Todos los grupos del código NOTAM tienen cinco letras y comienzan por Q, elegida para evitar confusión con distintivos de llamada de radio.",
+      "referencia": "Doc 8400, pág. 7-1, §3.1"
+    },
+    {
+      "id": 3,
+      "nivel": "basico",
+      "pregunta": "En el código NOTAM de cinco letras, ¿qué identifican la segunda/tercera letras y la cuarta/quinta letras, respectivamente?",
+      "opciones": [
+        "El asunto de la notificación; y su estado de funcionamiento o condición",
+        "La FIR afectada; y el aeródromo afectado",
+        "El tipo de tránsito (IFR/VFR); y la finalidad del NOTAM",
+        "La serie del NOTAM; y su número consecutivo"
+      ],
+      "correcta": 0,
+      "explicacion": "2ª y 3ª letras = objeto/asunto (qué instalación, servicio o peligro); 4ª y 5ª letras = estado (qué le ocurre). La FIR va en la línea Q y el aeródromo en la casilla A).",
+      "referencia": "Doc 8400, pág. 7-1, §3.2"
+    },
+    {
+      "id": 4,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué significa el código QMRLC?",
+      "opciones": [
+        "Pista cerrada",
+        "Calle de rodaje cerrada",
+        "Pista cerrada solo para operaciones VFR",
+        "Plataforma cerrada por mantenimiento"
+      ],
+      "correcta": 0,
+      "explicacion": "MR = pista (área de movimiento y aterrizaje); LC = cerrado (limitaciones). Calle de rodaje sería MX; cerrado solo VFR sería LV; plataforma sería MN.",
+      "referencia": "Doc 8400, págs. 7-5 (MR) y 7-12 (LC)"
+    },
+    {
+      "id": 5,
+      "nivel": "intermedio",
+      "pregunta": "Un NOTAM trae el código QNVAS. ¿Qué notifica?",
+      "opciones": [
+        "Un VOR no utilizable",
+        "Un NDB no disponible",
+        "Un VOR disponible solo de día",
+        "Un DME retirado para mantenimiento"
+      ],
+      "correcta": 0,
+      "explicacion": "NV = VOR; AS = no utilizable (u/s). NDB sería NB; disponible para operaciones diurnas sería AD; DME retirado para mantenimiento sería QNDAC.",
+      "referencia": "Doc 8400, págs. 7-7 (NV) y 7-10 (AS)"
+    },
+    {
+      "id": 6,
+      "nivel": "intermedio",
+      "pregunta": "¿Cuál es la diferencia entre los códigos de estado LC y LV?",
+      "opciones": [
+        "LC = cerrado (toda operación); LV = cerrado solo para operaciones VFR",
+        "LC = cerrado de noche; LV = cerrado de día",
+        "LC = cerrado para IFR; LV = cerrado para VFR",
+        "Son equivalentes; LV es la forma antigua de LC"
+      ],
+      "correcta": 0,
+      "explicacion": "LC = cerrado, sin distinción. LV = cerrado para operaciones VFR. Cerrado para IFR es LI y cerrado para operaciones nocturnas es LN. Confundirlos cambia por completo el alcance operacional.",
+      "referencia": "Doc 8400, pág. 7-12"
+    },
+    {
+      "id": 7,
+      "nivel": "basico",
+      "pregunta": "En el formato NOTAM, ¿qué contienen las casillas B) y C)?",
+      "opciones": [
+        "Inicio y fin de validez de la información, en fecha/hora UTC (AAMMDDHHMM)",
+        "El aeródromo de origen y el de destino",
+        "El límite vertical inferior y superior",
+        "La FIR afectada y el código NOTAM"
+      ],
+      "correcta": 0,
+      "explicacion": "B) = grupo fecha/hora de inicio de validez; C) = fin de validez. Los límites verticales van en F) y G); la FIR y el código Q van en la línea Q).",
+      "referencia": "Doc 8400, pág. 7-3, ejemplo a)"
+    },
+    {
+      "id": 8,
+      "nivel": "intermedio",
+      "pregunta": "La casilla C) de un NOTAM dice: 2608251300 EST. ¿Qué significa?",
+      "opciones": [
+        "El fin de la condición es estimado; el NOTAM sigue vigente hasta que se emita reemplazo o cancelación",
+        "El NOTAM expira exactamente a esa hora, sin excepción",
+        "La condición es permanente a partir de esa fecha",
+        "La hora está expresada en hora local del Estado (Eastern Standard Time)"
+      ],
+      "correcta": 0,
+      "explicacion": "EST = estimado. La fecha/hora de fin es una estimación y no cancela el NOTAM por sí sola. PERM indicaría condición permanente. Las horas del NOTAM son UTC, no hora local.",
+      "referencia": "Doc 8400, pág. 7-3, ejemplo b) (uso de EST); abreviatura EST/PERM, sección 1"
+    },
+    {
+      "id": 9,
+      "nivel": "intermedio",
+      "pregunta": "Un NOTAM colombiano indica B) 2608011100. ¿A qué hora local de Colombia (UTC−5) inicia la condición?",
+      "opciones": [
+        "06:00 del 1 de agosto de 2026",
+        "11:00 del 1 de agosto de 2026",
+        "16:00 del 1 de agosto de 2026",
+        "23:00 del 31 de julio de 2026"
+      ],
+      "correcta": 0,
+      "explicacion": "El grupo es AAMMDDHHMM en UTC: 1 ago 2026, 11:00 UTC. Colombia está en UTC−5: 11:00 − 5 = 06:00 hora local. Leer B)/C) como hora local es uno de los errores más comunes.",
+      "referencia": "Formato fecha/hora: Doc 8400, pág. 7-3 (ejemplos)"
+    },
+    {
+      "id": 10,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué se inserta como segunda y tercera letras del código NOTAM cuando el asunto no figura en el código?",
+      "opciones": [
+        "XX",
+        "KK",
+        "QQ",
+        "OO"
+      ],
+      "correcta": 0,
+      "explicacion": "Si el asunto no figura, se inserta XX como 2ª y 3ª letras; igual regla aplica a la condición (4ª y 5ª letras) cuando no está enumerada.",
+      "referencia": "Doc 8400, pág. 7-1, §3.3–3.4"
+    },
+    {
+      "id": 11,
+      "nivel": "avanzado",
+      "pregunta": "¿Qué identifica el código KKKK como 2ª a 5ª letras de un NOTAM?",
+      "opciones": [
+        "Un NOTAM de lista de verificación (checklist) de NOTAM válidos",
+        "Un NOTAM de cancelación múltiple",
+        "Un NOTAM militar clasificado",
+        "Un NOTAM de prueba del sistema AFS"
+      ],
+      "correcta": 0,
+      "explicacion": "KKKK se usa cuando se expide un NOTAM con la lista de verificación de NOTAM válidos: un inventario de los NOTAM vigentes para depurar registros.",
+      "referencia": "Doc 8400, pág. 7-1, §3.5"
+    },
+    {
+      "id": 12,
+      "nivel": "avanzado",
+      "pregunta": "¿Cuándo se usan las letras TT como cuarta y quinta letras del código NOTAM?",
+      "opciones": [
+        "En el NOTAM iniciador (trigger) que anuncia enmiendas o suplementos AIP AIRAC con información operacionalmente significativa",
+        "Cuando la condición es temporal",
+        "Cuando el NOTAM reemplaza a otro anterior",
+        "En NOTAM de turbulencia en aire despejado"
+      ],
+      "correcta": 0,
+      "explicacion": "TT identifica el NOTAM iniciador que anuncia la existencia de enmiendas o suplementos AIP AIRAC (Anexo 15, Ap. 4 y Cap. 6). La temporalidad se maneja con B)/C); el reemplazo es el tipo NOTAMR.",
+      "referencia": "Doc 8400, pág. 7-1, §3.5"
+    },
+    {
+      "id": 13,
+      "nivel": "avanzado",
+      "pregunta": "¿Cuál de los siguientes grupos de 4ª/5ª letras NO es uno de los códigos previstos para cancelar un NOTAM?",
+      "opciones": [
+        "AS",
+        "AK",
+        "AO",
+        "CC"
+      ],
+      "correcta": 0,
+      "explicacion": "Los códigos de cancelación son AK (reanudada la operación normal), AL (funcionando con limitaciones ya publicadas), AO (operacional), CC (completado) y XX (lenguaje claro). AS significa 'no utilizable': describe una falla, no una cancelación.",
+      "referencia": "Doc 8400, pág. 7-2, §3.8"
+    },
+    {
+      "id": 14,
+      "nivel": "intermedio",
+      "pregunta": "En la línea Q) LFFF/QNDAU/IV/BO/AE/..., ¿qué indica el calificativo IV?",
+      "opciones": [
+        "Que la información afecta tanto al tránsito IFR como al VFR",
+        "Que el NOTAM es de importancia vital",
+        "Que la instalación es la número 4 del aeródromo",
+        "Que el NOTAM pertenece a la serie internacional"
+      ],
+      "correcta": 0,
+      "explicacion": "IV = la información se refiere al tránsito IFR y VFR. En el ejemplo c) del Doc 8400, el calificativo V indica que afecta solo al tránsito VFR.",
+      "referencia": "Doc 8400, pág. 7-3, ejemplo a)"
+    },
+    {
+      "id": 15,
+      "nivel": "avanzado",
+      "pregunta": "En la línea Q del ejemplo Q) CZUL/QWMLW/IV/BO/W/000/200/4537N07400W010, ¿qué representan 000/200 y el 010 final?",
+      "opciones": [
+        "Límites vertical inferior y superior en niveles de vuelo; y el radio del área en NM",
+        "La potencia del transmisor y su frecuencia",
+        "El rumbo de entrada y salida del área; y su código de sector",
+        "La hora de inicio y fin; y los minutos de duración"
+      ],
+      "correcta": 0,
+      "explicacion": "000/200 = límites vertical inferior (superficie) y superior (FL200); 4537N07400W010 = coordenadas del centro y radio de 10 NM. Coincide con F) SFC y G) 6100 M (20000 FT) MSL del mismo ejemplo.",
+      "referencia": "Doc 8400, pág. 7-4, ejemplo e)"
+    },
+    {
+      "id": 16,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué notifica un NOTAM cuyo texto E) dice: TWY B EDGE LGT OBSCURED BY SN?",
+      "opciones": [
+        "Las luces de borde de la calle de rodaje B están disimuladas por la nieve",
+        "Las luces de borde de pista B están fuera de servicio",
+        "La calle de rodaje B está cerrada por nieve",
+        "El balizaje diurno de la calle B fue removido"
+      ],
+      "correcta": 0,
+      "explicacion": "TWY = calle de rodaje; EDGE LGT = luces de borde; OBSCURED BY SN = disimuladas/oscurecidas por la nieve. Es uno de los ejemplos oficiales de casilla E) del Doc 8400 (código asociado: LY + HO).",
+      "referencia": "Doc 8400, pág. 7-2, ejemplo b)"
+    },
+    {
+      "id": 17,
+      "nivel": "basico",
+      "pregunta": "¿Qué es un SNOWTAM?",
+      "opciones": [
+        "Una serie de NOTAM que notifica la presencia o eliminación de condiciones peligrosas por nieve, nieve fundente, hielo o agua en el área de movimiento",
+        "Un NOTAM sobre cierre de aeródromos en temporada invernal",
+        "El reporte meteorológico de nevadas para la navegación",
+        "Un aviso de deshielo de pistas emitido por el explotador"
+      ],
+      "correcta": 0,
+      "explicacion": "El SNOWTAM es una serie especial de NOTAM definida por la OACI para condiciones peligrosas por nieve, nieve fundente, hielo o agua en el área de movimiento, notificada mediante formato específico.",
+      "referencia": "Doc 8400, sección 1 (SNOWTAM), pág. 1-24"
+    },
+    {
+      "id": 18,
+      "nivel": "intermedio",
+      "pregunta": "Según las reglas de ampliación del Doc 8400, en la casilla E) la información que amplía el ASUNTO (2ª/3ª letras) debe ir...",
+      "opciones": [
+        "Antes del significado/fraseología del código NOTAM",
+        "Después del significado/fraseología del código NOTAM",
+        "Entre corchetes al final del texto",
+        "Solo en la casilla G)"
+      ],
+      "correcta": 0,
+      "explicacion": "Las ampliaciones del asunto preceden al significado (ej.: '116,9 MHZ VOR U/S' — la frecuencia antes de VOR U/S); las ampliaciones del estado (4ª/5ª letras) van después.",
+      "referencia": "Doc 8400, pág. 7-2, §6"
+    },
+    {
+      "id": 19,
+      "nivel": "avanzado",
+      "pregunta": "Un NOTAM de práctica trae Q) .../QFAAH/... y E) AD OPR HR NOW 1100-2300 UTC. ¿Qué cambió?",
+      "opciones": [
+        "El horario de servicio del aeródromo, que ahora es de 11:00 a 23:00 UTC",
+        "El aeródromo pasó a estar cerrado entre 11:00 y 23:00 UTC",
+        "La frecuencia de la torre, que ahora opera en 112.3 y 123.0",
+        "Las horas de disponibilidad de combustible del aeródromo"
+      ],
+      "correcta": 0,
+      "explicacion": "FA = aeródromo; AH = 'las horas de servicio son ahora de ... a ...'. El texto E) lo confirma: horario de operación 1100–2300 UTC. No indica cierre (sería LC/LN) ni se refiere a combustible (FU).",
+      "referencia": "Doc 8400, págs. 7-6 (FA) y 7-10 (AH)"
+    },
+    {
+      "id": 20,
+      "nivel": "avanzado",
+      "pregunta": "¿Cuál de las siguientes afirmaciones sobre el código NOTAM es correcta?",
+      "opciones": [
+        "El código NOTAM constituye la base para determinar los calificativos Tránsito, Objetivo y Alcance de la línea Q",
+        "El código NOTAM reemplazó a la línea Q a partir de 2004",
+        "Los calificativos de la línea Q se eligen libremente por el originador sin relación con el código",
+        "El código NOTAM solo aplica a NOTAM de aeródromo, no a los de espacio aéreo"
+      ],
+      "correcta": 0,
+      "explicacion": "El Doc 8400 establece que el código NOTAM es la base para determinar los calificativos TRÁNSITO, OBJETIVO y ALCANCE de la línea Q y el texto de la casilla E). Las tablas de selección detalladas están en el Doc 8126. El código cubre también restricciones de espacio aéreo (R) y avisos (W).",
+      "referencia": "Doc 8400, pág. 7-1, §1 y pág. 7-3, nota"
+    }
+  ]
+}

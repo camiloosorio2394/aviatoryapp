@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { Check, Sparkles, X } from "lucide-react"
 import { PublicLayout } from "@/components/layout/PublicLayout"
@@ -105,8 +105,25 @@ const matrix: Feature[] = [
   },
 ]
 
+/** Tinte de la columna Pro: mismo valor en el th y en cada celda. */
+const PRO_TINT = "color-mix(in oklab, var(--av-blue-500) 8%, transparent)"
+
+/**
+ * La primera columna queda fija al hacer scroll horizontal en móvil. Para que no
+ * se transparente el contenido que pasa por debajo, cada celda pegada lleva su
+ * propio fondo opaco: el tinte de la fila sobre var(--background).
+ */
+function stickyBg(tintPct: number): string {
+  if (tintPct <= 0) return "var(--background)"
+  const tint = `color-mix(in oklab, var(--muted) ${tintPct}%, transparent)`
+  return `linear-gradient(${tint}, ${tint}), var(--background)`
+}
+
+const STICKY_SHADOW =
+  "1px 0 0 0 color-mix(in oklab, var(--border) 60%, transparent), 8px 0 10px -8px color-mix(in oklab, var(--foreground) 22%, transparent)"
+
 function renderCell(v: boolean | string) {
-  if (v === true) return <Check className="h-4 w-4 text-blue-600 dark:text-blue-400 mx-auto" />
+  if (v === true) return <Check className="h-4 w-4 mx-auto" style={{ color: "var(--av-blue-500)" }} />
   if (v === false) return <X className="h-4 w-4 text-muted-foreground/40 mx-auto" />
   return <span className="text-xs text-foreground">{v}</span>
 }
@@ -144,7 +161,10 @@ export function Pricing() {
                   Mensual
                 </TabsTrigger>
                 <TabsTrigger value="annual" className="rounded-full px-6">
-                  Anual <span className="ml-2 text-xs text-blue-600 dark:text-blue-400 font-semibold">-17%</span>
+                  Anual{" "}
+                  <span className="ml-2 text-xs font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                    -17%
+                  </span>
                 </TabsTrigger>
               </TabsList>
             </Tabs>
@@ -162,12 +182,25 @@ export function Pricing() {
                   key={t.name}
                   className={`relative rounded-3xl p-8 transition-all duration-500 ${
                     t.highlight
-                      ? "glass-blue halo-pulse text-white scale-100 lg:scale-105"
+                      ? "halo-pulse text-white backdrop-blur-xl scale-100 lg:scale-105"
                       : "bg-card/80 backdrop-blur-sm border border-border/60 card-apple"
                   }`}
+                  style={
+                    t.highlight
+                      ? {
+                          background:
+                            "linear-gradient(135deg, var(--av-blue-500) 0%, color-mix(in oklab, var(--av-blue-500) 62%, var(--av-navy-900)) 100%)",
+                          boxShadow:
+                            "inset 0 1px 0 0 color-mix(in oklab, white 18%, transparent), 0 24px 48px -16px color-mix(in oklab, var(--av-blue-500) 45%, transparent)",
+                        }
+                      : undefined
+                  }
                 >
                   {t.highlight && (
-                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white text-blue-700 hover:bg-white rounded-full px-3">
+                    <Badge
+                      className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white hover:bg-white rounded-full px-3"
+                      style={{ color: "var(--av-blue-500)" }}
+                    >
                       <Sparkles className="h-3 w-3 mr-1" />
                       Recomendado
                     </Badge>
@@ -178,19 +211,19 @@ export function Pricing() {
                     </Badge>
                   )}
 
-                  <h3 className={`text-lg font-semibold ${t.highlight ? "text-blue-100" : ""}`}>
+                  <h3 className={`text-lg font-semibold ${t.highlight ? "text-white/90" : ""}`}>
                     {t.name}
                   </h3>
-                  <p className={`mt-2 text-sm ${t.highlight ? "text-blue-100" : "text-muted-foreground"}`}>
+                  <p className={`mt-2 text-sm ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
                     {t.description}
                   </p>
                   <div className="mt-6 flex items-baseline gap-2">
                     <span className="text-4xl font-bold tracking-tight">{p.price}</span>
-                    <span className={`text-sm ${t.highlight ? "text-blue-100" : "text-muted-foreground"}`}>
+                    <span className={`text-sm ${t.highlight ? "text-white/85" : "text-muted-foreground"}`}>
                       {p.suffix}
                     </span>
                   </div>
-                  <p className={`mt-1 text-xs ${t.highlight ? "text-blue-200" : "text-muted-foreground"}`}>
+                  <p className={`mt-1 text-xs ${t.highlight ? "text-white/70" : "text-muted-foreground"}`}>
                     {p.note}
                   </p>
 
@@ -230,45 +263,71 @@ export function Pricing() {
           </h2>
 
           <div className="mt-12 overflow-x-auto rounded-2xl border border-border/60">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[680px] text-sm">
               <thead>
                 <tr className="bg-muted/50">
-                  <th className="text-left p-4 font-medium text-muted-foreground"></th>
+                  <th
+                    className="sticky left-0 z-10 text-left p-4 font-medium text-muted-foreground"
+                    style={{ background: stickyBg(50), boxShadow: STICKY_SHADOW }}
+                  >
+                    Incluye
+                  </th>
                   <th className="p-4 text-center font-semibold">Free</th>
-                  <th className="p-4 text-center font-semibold text-blue-600 dark:text-blue-400">Pro</th>
+                  <th
+                    className="p-4 text-center font-semibold"
+                    style={{ color: "var(--av-blue-500)", background: PRO_TINT }}
+                  >
+                    Pro
+                  </th>
                   <th className="p-4 text-center font-semibold">Pro+</th>
                   <th className="p-4 text-center font-semibold">Founder</th>
                 </tr>
               </thead>
               <tbody>
                 {matrix.map((cat) => (
-                  <>
-                    <tr key={cat.category} className="bg-muted/20">
-                      <td colSpan={5} className="p-3 font-semibold text-xs uppercase tracking-wider text-muted-foreground">
+                  <Fragment key={cat.category}>
+                    <tr className="bg-muted/20">
+                      <td
+                        className="sticky left-0 z-10 p-3 font-semibold text-xs uppercase tracking-wider text-muted-foreground"
+                        style={{ background: stickyBg(20), boxShadow: STICKY_SHADOW }}
+                      >
                         {cat.category}
                       </td>
+                      <td colSpan={4} className="bg-muted/20" />
                     </tr>
                     {cat.rows.map((r) => (
                       <tr key={r.name} className="border-t border-border/40">
-                        <td className="p-4">{r.name}</td>
+                        <td
+                          className="sticky left-0 z-10 p-4"
+                          style={{ background: stickyBg(0), boxShadow: STICKY_SHADOW }}
+                        >
+                          {r.name}
+                        </td>
                         <td className="p-4 text-center">{renderCell(r.free)}</td>
-                        <td className="p-4 text-center bg-blue-50/40 dark:bg-blue-950/20">
+                        <td className="p-4 text-center" style={{ background: PRO_TINT }}>
                           {renderCell(r.pro)}
                         </td>
                         <td className="p-4 text-center">{renderCell(r.proPlus)}</td>
                         <td className="p-4 text-center">{renderCell(r.founder)}</td>
                       </tr>
                     ))}
-                  </>
+                  </Fragment>
                 ))}
               </tbody>
             </table>
           </div>
+          <p className="mt-3 text-center text-xs text-muted-foreground sm:hidden">
+            Desliza la tabla para ver todos los planes.
+          </p>
 
           <p className="mt-12 text-center text-sm text-muted-foreground">
             ¿Dudas?{" "}
-            <Link to="/contact" className="text-blue-600 dark:text-blue-400 hover:underline font-medium">
-              Hablá con nosotros
+            <Link
+              to="/contact"
+              className="hover:underline font-medium"
+              style={{ color: "var(--av-blue-500)" }}
+            >
+              Habla con nosotros
             </Link>
             .
           </p>

@@ -101,7 +101,7 @@ export function IcaoMockExam() {
     <AppLayout>
       <div className="px-7 py-6 pb-24 max-w-[920px] mx-auto">
         <RunHeader idx={idx} total={steps.length} part={part} elapsed={elapsed} recording={wantRecord && rec.active} />
-        <StepView step={step} />
+        <StepView step={step} onSkip={advance} />
         <div className="mt-7 flex items-center justify-between">
           <div className="text-[13.5px] text-muted-foreground">
             {idx + 1} of {steps.length}
@@ -334,7 +334,10 @@ function RunHeader({ idx, total, part, elapsed, recording }: { idx: number; tota
 }
 
 // ─── STEP VIEW ───────────────────────────────────────────────────────────────
-function StepView({ step }: { step: ExamStep }) {
+// El `key` en ExamPlayer es obligatorio: sin él, dos pasos seguidos del mismo
+// tipo reutilizan la misma instancia y el contador de reproducciones se queda
+// en 2/2, dejando el botón de Play muerto para el resto de los audios.
+function StepView({ step, onSkip }: { step: ExamStep; onSkip: () => void }) {
   if (step.kind === "interview") {
     return (
       <Card>
@@ -347,7 +350,7 @@ function StepView({ step }: { step: ExamStep }) {
     return (
       <Card>
         <Kicker icon={Headphones} text="Listen and answer: what was the message? pilot or controller?" />
-        <div className="mt-4"><ExamPlayer audioUrl={step.audio.audioUrl} /></div>
+        <div className="mt-4"><ExamPlayer key={step.audio.audioUrl} audioUrl={step.audio.audioUrl} onSkip={onSkip} /></div>
         <Prompts items={["What was the message?", "Pilot or controller?"]} />
       </Card>
     )
@@ -356,7 +359,7 @@ function StepView({ step }: { step: ExamStep }) {
     return (
       <Card>
         <Kicker icon={Headphones} text="Long message: take notes and explain the situation in detail" />
-        <div className="mt-4"><ExamPlayer audioUrl={step.audio.audioUrl} /></div>
+        <div className="mt-4"><ExamPlayer key={step.audio.audioUrl} audioUrl={step.audio.audioUrl} onSkip={onSkip} /></div>
         <Prompts items={["What was the problem?", "What were they requesting / advising?", "All the important details"]} />
       </Card>
     )
@@ -365,7 +368,7 @@ function StepView({ step }: { step: ExamStep }) {
     return (
       <Card>
         <Kicker icon={MessageSquare} text="Situation: ask questions, then give recommendations" />
-        <div className="mt-4"><ExamPlayer audioUrl={step.item.audioUrl} label="Play situation" /></div>
+        <div className="mt-4"><ExamPlayer key={step.item.audioUrl} audioUrl={step.item.audioUrl} label="Play situation" onSkip={onSkip} /></div>
         <Prompts items={["1) Questions to get more info (~20s)", "2) Recommendations to resolve it"]} />
       </Card>
     )
@@ -419,10 +422,11 @@ function ExamImage({ src, alt, letter }: { src: string; alt: string; letter: str
 }
 
 // ─── EXAM PLAYER (2 plays, sin reveal) ───────────────────────────────────────
-function ExamPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
+function ExamPlayer({ audioUrl, label, onSkip }: { audioUrl: string; label?: string; onSkip?: () => void }) {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [plays, setPlays] = useState(0)
   const [playing, setPlaying] = useState(false)
+  const [error, setError] = useState(false)
   const maxPlays = 2
   const canPlay = plays < maxPlays
 
@@ -434,23 +438,45 @@ function ExamPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       const a = new Audio(audioUrl)
       a.preload = "none"
       a.onended = () => setPlaying(false)
+      // Sin esto, un audio que no carga dejaba el botón sin hacer nada en medio
+      // de un examen cronometrado.
+      a.onerror = () => { setPlaying(false); setError(true) }
       audioRef.current = a
     }
     audioRef.current.currentTime = 0
-    audioRef.current.play().then(() => { setPlaying(true); setPlays((p) => p + 1) }).catch(() => setPlaying(false))
+    audioRef.current.play()
+      .then(() => { setPlaying(true); setError(false); setPlays((p) => p + 1) })
+      .catch(() => { setPlaying(false); setError(true) })
   }
   function stop() { audioRef.current?.pause(); if (audioRef.current) audioRef.current.currentTime = 0; setPlaying(false) }
 
   return (
-    <div className="flex items-center gap-2 flex-wrap">
-      <button onClick={playing ? stop : play} disabled={!canPlay && !playing}
-        className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-        style={{ background: "#7C3AED" }}>
-        {playing ? <><Square className="h-4 w-4" /> Stop</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Play"}</> : <><RotateCcw className="h-4 w-4" /> Play again</>}
-      </button>
-      <div className="tabular-nums text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
-        {plays}/{maxPlays}{plays >= maxPlays && " · no third"}
+    <div>
+      <div className="flex items-center gap-2 flex-wrap">
+        <button onClick={playing ? stop : play} disabled={!canPlay && !playing}
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          style={{ background: "var(--av-blue-500)" }}>
+          {playing ? <><Square className="h-4 w-4" /> Stop</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Play"}</> : <><RotateCcw className="h-4 w-4" /> Play again</>}
+        </button>
+        <div className="tabular-nums text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+          {plays}/{maxPlays}{plays >= maxPlays && " · no third"}
+        </div>
       </div>
+      {error && (
+        <div className="mt-2.5 flex flex-wrap items-center gap-2.5">
+          <span className="text-[13px] text-[var(--av-red-400)]">
+            This audio didn't load. Try Play again, or skip this item and keep going.
+          </span>
+          {onSkip && (
+            <button
+              onClick={onSkip}
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+            >
+              Skip this item <ArrowRight className="h-3.5 w-3.5" />
+            </button>
+          )}
+        </div>
+      )}
     </div>
   )
 }
@@ -494,17 +520,21 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
           <p className="mt-1 text-[14px] text-muted-foreground">Be honest: your final result is your lowest descriptor.</p>
           <div className="mt-4 space-y-2.5">
             {DESCRIPTORS.map((d) => (
-              <div key={d.key} className="rounded-2xl border bg-card p-3.5 flex items-center justify-between gap-4" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
+              <div key={d.key} className="rounded-2xl border bg-card p-3.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
                 <div className="min-w-0">
                   <div className="text-[15px] font-bold tracking-[-0.01em]">{d.name}</div>
                   <div className="text-[13px] text-muted-foreground">{d.detail}</div>
                 </div>
-                <div className="flex gap-1.5 flex-shrink-0">
+                {/* En móvil los 3 niveles son tap targets de ancho completo: es el
+                    momento en que el piloto se asigna su nivel ICAO. */}
+                <div className="grid grid-cols-3 gap-1.5 w-full sm:w-auto sm:flex sm:flex-shrink-0">
                   {[3, 4, 5].map((lvl) => {
                     const active = scores[d.key] === lvl
                     return (
                       <button key={lvl} onClick={() => setScores((s) => ({ ...s, [d.key]: lvl }))}
-                        className="tabular-nums w-10 h-10 rounded-lg text-[15px] font-extrabold border transition-colors"
+                        aria-label={`${d.name}: level ${lvl}`}
+                        aria-pressed={active}
+                        className="tabular-nums w-full sm:w-10 h-11 sm:h-10 rounded-lg text-[15px] font-extrabold border transition-colors"
                         style={{
                           borderColor: active ? "color-mix(in oklab, var(--av-blue-500) 55%, transparent)" : "color-mix(in oklab, var(--border) 60%, transparent)",
                           background: active ? "color-mix(in oklab, var(--av-blue-500) 18%, transparent)" : "transparent",
@@ -522,10 +552,16 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
           {finalLevel != null && (
             <div className="mt-4 rounded-2xl border p-5 text-center" style={{ borderColor: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)"} 40%, transparent)`, background: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)"} 8%, transparent)` }}>
               <div className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground">YOUR ESTIMATED LEVEL (= lowest descriptor)</div>
-              <div className="mt-1 tabular-nums text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)" }}>
+              {/* El número va en color de texto normal: --av-green-400 y
+                  --av-amber-400 no se leen sobre fondo claro. El tono lo da el chip. */}
+              <div className="mt-1 tabular-nums text-[44px] font-extrabold tracking-[-0.04em] text-foreground">
                 ICAO {finalLevel}
               </div>
-              <div className="text-[14px] text-muted-foreground">{finalLevel >= 5 ? "Extended: airline level" : finalLevel >= 4 ? "Operational: international legal minimum" : "Pre-operational: keep practising"}</div>
+              <div className="mt-0.5">
+                <span className={finalLevel >= 5 ? "chip chip-green" : finalLevel >= 4 ? "chip" : "chip chip-amber"}>
+                  {finalLevel >= 5 ? "Extended: airline level" : finalLevel >= 4 ? "Operational: international legal minimum" : "Pre-operational: keep practising"}
+                </span>
+              </div>
 
               {/* Guardar */}
               {saveState === "saved" ? (

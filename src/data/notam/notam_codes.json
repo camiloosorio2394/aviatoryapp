@@ -1,0 +1,1513 @@
+{
+  "meta": {
+    "fuente": "OACI Doc 8400 — Abreviaturas y códigos de la OACI (PANS-ABC), 6ª edición, 2004. Sección 7: El código NOTAM (págs. 7-1 a 7-16).",
+    "advertencia_vigencia": "Esta edición (2004) es la cargada como fuente. Existen ediciones posteriores del Doc 8400; verificar la edición vigente ante la Aerocivil/OACI antes de publicar contenido normativo.",
+    "estructura_codigo": "Grupo de 5 letras: Q (fija) + 2ª/3ª letras (asunto de la notificación) + 4ª/5ª letras (estado o condición). Ref. Doc 8400 §3.1–3.2.",
+    "reglas_especiales": {
+      "XX_asunto": "Si el asunto no figura en el código NOTAM, se inserta XX como 2ª y 3ª letras (§3.3).",
+      "XX_estado": "Si la condición no está enumerada, se inserta XX como 4ª y 5ª letras; el texto va en lenguaje claro (§3.4).",
+      "KKKK": "NOTAM de lista de verificación (checklist) de NOTAM válidos: KKKK como 2ª–5ª letras (§3.5).",
+      "TT": "NOTAM iniciador (trigger) que anuncia enmiendas o suplementos AIP AIRAC: TT como 4ª y 5ª letras (§3.5).",
+      "cancelacion": "Códigos de 4ª/5ª letras usados para cancelar un NOTAM: AK (reanudada operación normal), AL (funcionando con limitaciones ya publicadas), AO (operacional), CC (completado), XX (lenguaje claro) (§3.8)."
+    }
+  },
+  "segunda_tercera_letras": {
+    "LA": {
+      "significado": "Sistema de iluminación de aproximación (especificar pista y tipo)",
+      "fraseologia": "als",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LB": {
+      "significado": "Faro de aeródromo",
+      "fraseologia": "abn",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LC": {
+      "significado": "Luces de eje de pista (especificar pista)",
+      "fraseologia": "rcll",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LD": {
+      "significado": "Luces indicadoras de la dirección del aterrizaje",
+      "fraseologia": "ldi lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LE": {
+      "significado": "Luces de borde de pista (especificar pista)",
+      "fraseologia": "redl",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LF": {
+      "significado": "Luces de destellos en orden consecutivo (especificar pista)",
+      "fraseologia": "sequenced flg lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LH": {
+      "significado": "Luces de pista de alta intensidad (especificar pista)",
+      "fraseologia": "high intst rwy lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LI": {
+      "significado": "Luces identificadoras de extremo de pista (especificar pista)",
+      "fraseologia": "rwy end id lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LJ": {
+      "significado": "Luces indicadoras de alineación con la pista (especificar pista)",
+      "fraseologia": "rai lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LK": {
+      "significado": "Componentes de la Categoría II del sistema de iluminación de aproximación (especificar pista)",
+      "fraseologia": "cat II components als",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LL": {
+      "significado": "Luces de pista de baja intensidad (especificar pista)",
+      "fraseologia": "low intst rwy lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LM": {
+      "significado": "Luces de pista de intensidad mediana (especificar pista)",
+      "fraseologia": "medium intst rwy lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LP": {
+      "significado": "Indicador de trayectoria de aproximación de precisión (especificar pista)",
+      "fraseologia": "papi",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LR": {
+      "significado": "Todas las instalaciones de iluminación del área de aterrizaje",
+      "fraseologia": "ldg area lgt fac",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LS": {
+      "significado": "Luces de zona de parada (especificar pista)",
+      "fraseologia": "stwl",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LT": {
+      "significado": "Luces de umbral (especificar pista)",
+      "fraseologia": "thr lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LU": {
+      "significado": "Indicador de trayectoria de aproximación de helicóptero",
+      "fraseologia": "hapi",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LV": {
+      "significado": "Sistema visual indicador de pendiente de aproximación (especificar tipo y pista)",
+      "fraseologia": "vasis",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LW": {
+      "significado": "Iluminación de helipuerto",
+      "fraseologia": "heliport lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LX": {
+      "significado": "Luces de eje de calle de rodaje (especificar calle de rodaje)",
+      "fraseologia": "twy cl lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LY": {
+      "significado": "Luces de borde de calle de rodaje (especificar calle de rodaje)",
+      "fraseologia": "twy edge lgt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "LZ": {
+      "significado": "Luces de zona de toma de contacto de la pista (especificar pista)",
+      "fraseologia": "rtzl",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones de iluminación (L)"
+    },
+    "MA": {
+      "significado": "Área de movimiento",
+      "fraseologia": "mov area",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MB": {
+      "significado": "Carga admisible (especificar parte del área de aterrizaje o del área de movimiento)",
+      "fraseologia": "bearing strength",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MC": {
+      "significado": "Zona libre de obstáculos (especificar pista)",
+      "fraseologia": "cwy",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MD": {
+      "significado": "Distancias declaradas (especificar pista)",
+      "fraseologia": "declared dist",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MG": {
+      "significado": "Sistema de guía de rodaje",
+      "fraseologia": "tgs",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MH": {
+      "significado": "Dispositivo de parada en la pista (especificar pista)",
+      "fraseologia": "rag",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MK": {
+      "significado": "Zona de estacionamiento",
+      "fraseologia": "prkg area",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MM": {
+      "significado": "Balizaje diurno (especificar umbral, eje, etc.)",
+      "fraseologia": "day markings",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MN": {
+      "significado": "Plataforma",
+      "fraseologia": "apron",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MP": {
+      "significado": "Puestos de estacionamiento de aeronave (especificar)",
+      "fraseologia": "acft stand",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MR": {
+      "significado": "Pista (especificar pista)",
+      "fraseologia": "rwy",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MS": {
+      "significado": "Zona de parada (especificar pista)",
+      "fraseologia": "swy",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MT": {
+      "significado": "Umbral (especificar pista)",
+      "fraseologia": "thr",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MU": {
+      "significado": "Apartadero de viraje de pista (especificar pista)",
+      "fraseologia": "rwy turning bay",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MW": {
+      "significado": "Franja (especificar pista)",
+      "fraseologia": "strip",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "MX": {
+      "significado": "Calle o calles de rodaje (especificar)",
+      "fraseologia": "twy",
+      "seccion": "AGA",
+      "subseccion": "Área de movimiento y aterrizaje (M)"
+    },
+    "FA": {
+      "significado": "Aeródromo",
+      "fraseologia": "ad",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FB": {
+      "significado": "Dispositivo de medición del rozamiento (especificar tipo)",
+      "fraseologia": "friction measuring device",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FC": {
+      "significado": "Equipo de medición de techo",
+      "fraseologia": "ceiling measurement eqpt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FD": {
+      "significado": "Sistema de atraque (especificar AGNIS, BOLDS, etc.)",
+      "fraseologia": "dckg system",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FE": {
+      "significado": "Oxígeno (especificar tipo)",
+      "fraseologia": "oxygen",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FF": {
+      "significado": "Extinción de incendio y salvamento",
+      "fraseologia": "fire and rescue",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FG": {
+      "significado": "Control de movimiento en tierra",
+      "fraseologia": "gnd mov ctl",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FH": {
+      "significado": "Zona/plataforma de aterrizaje de helicóptero",
+      "fraseologia": "hel alighting area",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FJ": {
+      "significado": "Aceites (especificar tipo)",
+      "fraseologia": "oil",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FL": {
+      "significado": "Indicador de la dirección de aterrizaje",
+      "fraseologia": "ldi",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FM": {
+      "significado": "Servicio meteorológico (especificar tipo)",
+      "fraseologia": "met",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FO": {
+      "significado": "Equipo de dispersión de niebla",
+      "fraseologia": "fg dispersal",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FP": {
+      "significado": "Helipuerto",
+      "fraseologia": "heliport",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FS": {
+      "significado": "Equipo de remoción de la nieve",
+      "fraseologia": "sn removal eqpt",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FT": {
+      "significado": "Transmisómetro (especificar pista y, cuando corresponda, indicativo o indicativos de los transmisómetros)",
+      "fraseologia": "transmissometer",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FU": {
+      "significado": "Disponibilidad de combustible",
+      "fraseologia": "fuel avbl",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FW": {
+      "significado": "Indicador de la dirección del viento",
+      "fraseologia": "wdi",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "FZ": {
+      "significado": "Aduana",
+      "fraseologia": "cust",
+      "seccion": "AGA",
+      "subseccion": "Instalaciones y servicios (F)"
+    },
+    "CA": {
+      "significado": "Instalaciones aeroterrestres (especificar servicio y frecuencia)",
+      "fraseologia": "a/g fac",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CD": {
+      "significado": "Comunicaciones por enlace de datos entre controlador-piloto y vigilancia dependiente automática (especificar la aplicación)",
+      "fraseologia": "cpdlc/ads",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CE": {
+      "significado": "Radar de vigilancia en ruta",
+      "fraseologia": "rsr",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CG": {
+      "significado": "Sistema de aproximación dirigida desde tierra",
+      "fraseologia": "gca",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CL": {
+      "significado": "Sistema selectivo de llamada",
+      "fraseologia": "selcal",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CM": {
+      "significado": "Radar de movimiento en la superficie",
+      "fraseologia": "smr",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CP": {
+      "significado": "Radar de aproximación de precisión (especificar pista)",
+      "fraseologia": "par",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CR": {
+      "significado": "Elemento radar de vigilancia del sistema radar de aproximación de precisión (especificar longitud de onda)",
+      "fraseologia": "sre",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CS": {
+      "significado": "Radar secundario de vigilancia",
+      "fraseologia": "ssr",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "CT": {
+      "significado": "Radar de vigilancia de área terminal",
+      "fraseologia": "tar",
+      "seccion": "COM",
+      "subseccion": "Instalaciones de comunicaciones y vigilancia (C)"
+    },
+    "GA": {
+      "significado": "Operaciones GNSS específicas del aeródromo (especificar operación)",
+      "fraseologia": "gnss aeródromo",
+      "seccion": "COM",
+      "subseccion": "Operaciones GNSS (G)"
+    },
+    "GW": {
+      "significado": "Operaciones GNSS de la zona en general (especificar operación)",
+      "fraseologia": "gnss zona",
+      "seccion": "COM",
+      "subseccion": "Operaciones GNSS (G)"
+    },
+    "IC": {
+      "significado": "Sistema de aterrizaje por instrumentos (especificar pista)",
+      "fraseologia": "ils",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "ID": {
+      "significado": "DME correspondiente al ILS",
+      "fraseologia": "ils dme",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IG": {
+      "significado": "Trayectoria de planeo (ILS) (especificar pista)",
+      "fraseologia": "ils gp",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "II": {
+      "significado": "Radiobaliza interior (ILS) (especificar pista)",
+      "fraseologia": "ils im",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IL": {
+      "significado": "Localizador (ILS) (especificar pista)",
+      "fraseologia": "ils llz",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IM": {
+      "significado": "Radiobaliza intermedia (ILS) (especificar pista)",
+      "fraseologia": "ils mm",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IN": {
+      "significado": "Localizador (no asociado con un ILS)",
+      "fraseologia": "llz",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IO": {
+      "significado": "Radiobaliza exterior (ILS) (especificar pista)",
+      "fraseologia": "ils om",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IS": {
+      "significado": "ILS Categoría I (especificar pista)",
+      "fraseologia": "ils cat I",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IT": {
+      "significado": "ILS Categoría II (especificar pista)",
+      "fraseologia": "ils cat II",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IU": {
+      "significado": "ILS Categoría III (especificar pista)",
+      "fraseologia": "ils cat III",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IW": {
+      "significado": "Sistema de aterrizaje por microondas (especificar pista)",
+      "fraseologia": "mls",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IX": {
+      "significado": "Radiofaro de localización exterior (ILS) (especificar pista)",
+      "fraseologia": "ils lo",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "IY": {
+      "significado": "Radiofaro de localización intermedio (ILS) (especificar pista)",
+      "fraseologia": "ils lm",
+      "seccion": "COM",
+      "subseccion": "Sistemas de aterrizaje por instrumentos y microondas (I)"
+    },
+    "NA": {
+      "significado": "Todas las instalaciones de radionavegación (excepto ...)",
+      "fraseologia": "all rdo nav fac",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NB": {
+      "significado": "Radiofaro no direccional",
+      "fraseologia": "ndb",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NC": {
+      "significado": "DECCA",
+      "fraseologia": "decca",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "ND": {
+      "significado": "Equipo radiotelemétrico",
+      "fraseologia": "dme",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NF": {
+      "significado": "Radiobaliza tipo de abanico",
+      "fraseologia": "fan mkr",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NL": {
+      "significado": "Radiofaro de localización (especificar identificación)",
+      "fraseologia": "l",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NM": {
+      "significado": "VOR/DME",
+      "fraseologia": "vor/dme",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NN": {
+      "significado": "TACAN",
+      "fraseologia": "tacan",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NO": {
+      "significado": "OMEGA",
+      "fraseologia": "omega",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NT": {
+      "significado": "VORTAC",
+      "fraseologia": "vortac",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NV": {
+      "significado": "VOR",
+      "fraseologia": "vor",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "NX": {
+      "significado": "Estación radiogoniométrica (especificar tipo y frecuencia)",
+      "fraseologia": "df",
+      "seccion": "COM",
+      "subseccion": "Instalaciones y servicios de terminal y de navegación en ruta (N)"
+    },
+    "AA": {
+      "significado": "Altitud mínima (especificar en ruta/en la vertical/segura)",
+      "fraseologia": "mnm alt",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AC": {
+      "significado": "Zona de control",
+      "fraseologia": "ctr",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AD": {
+      "significado": "Zona de identificación de defensa aérea",
+      "fraseologia": "adiz",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AE": {
+      "significado": "Área de control",
+      "fraseologia": "cta",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AF": {
+      "significado": "Región de información de vuelo",
+      "fraseologia": "fir",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AH": {
+      "significado": "Área superior de control",
+      "fraseologia": "uta",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AL": {
+      "significado": "Nivel de vuelo mínimo utilizable",
+      "fraseologia": "mnm usable fl",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AN": {
+      "significado": "Ruta de navegación de área",
+      "fraseologia": "rnav rte",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AO": {
+      "significado": "Área oceánica de control",
+      "fraseologia": "oca",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AP": {
+      "significado": "Punto de notificación (especificar nombre o designador cifrado)",
+      "fraseologia": "rep",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AR": {
+      "significado": "Ruta ATS (especificar)",
+      "fraseologia": "ats rte",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AT": {
+      "significado": "Área de control terminal",
+      "fraseologia": "tma",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AU": {
+      "significado": "Región superior de información de vuelo",
+      "fraseologia": "uir",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AV": {
+      "significado": "Área superior con servicio de asesoramiento",
+      "fraseologia": "uda",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AX": {
+      "significado": "Intersección",
+      "fraseologia": "int",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "AZ": {
+      "significado": "Zona de tránsito de aeródromo",
+      "fraseologia": "atz",
+      "seccion": "RAC",
+      "subseccion": "Organización del espacio aéreo (A)"
+    },
+    "SA": {
+      "significado": "Servicio automático de información terminal",
+      "fraseologia": "atis",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SB": {
+      "significado": "Oficina de notificación ATS",
+      "fraseologia": "aro",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SC": {
+      "significado": "Centro de control de área",
+      "fraseologia": "acc",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SE": {
+      "significado": "Servicio de información de vuelo",
+      "fraseologia": "fis",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SF": {
+      "significado": "Servicio de información de vuelo de aeródromo",
+      "fraseologia": "afis",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SL": {
+      "significado": "Centro de control de afluencia",
+      "fraseologia": "flow ctl centre",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SO": {
+      "significado": "Centro de control de área oceánica",
+      "fraseologia": "oac",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SP": {
+      "significado": "Servicio de control de aproximación",
+      "fraseologia": "app",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SS": {
+      "significado": "Estación de servicio de vuelo",
+      "fraseologia": "fss",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "ST": {
+      "significado": "Torre de control de aeródromo",
+      "fraseologia": "twr",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SU": {
+      "significado": "Centro de control de área superior",
+      "fraseologia": "uac",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SV": {
+      "significado": "Radiodifusión VOLMET",
+      "fraseologia": "volmet",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "SY": {
+      "significado": "Servicio de asesoramiento de área superior (especificar)",
+      "fraseologia": "upper advisory ser",
+      "seccion": "RAC",
+      "subseccion": "Servicios de tránsito aéreo y VOLMET (S)"
+    },
+    "PA": {
+      "significado": "Llegada normalizada por instrumentos (especificar designador de ruta)",
+      "fraseologia": "star",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PB": {
+      "significado": "Llegada normalizada VFR",
+      "fraseologia": "std vfr arr",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PD": {
+      "significado": "Salida normalizada por instrumentos (especificar designador de ruta)",
+      "fraseologia": "sid",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PE": {
+      "significado": "Salida normalizada VFR",
+      "fraseologia": "std vfr dep",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PF": {
+      "significado": "Procedimiento de control de afluencia",
+      "fraseologia": "flow ctl proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PH": {
+      "significado": "Procedimiento de espera",
+      "fraseologia": "hldg proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PI": {
+      "significado": "Procedimiento de aproximación por instrumentos (especificar tipo y pista)",
+      "fraseologia": "inst apch proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PK": {
+      "significado": "Procedimiento de aproximación VFR",
+      "fraseologia": "vfr apch proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PM": {
+      "significado": "Mínimo de utilización de aeródromo (especificar procedimiento y mínimo enmendado)",
+      "fraseologia": "ad opr mnm",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PO": {
+      "significado": "Altitud de franqueamiento de obstáculos (especificar procedimiento)",
+      "fraseologia": "oca",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PP": {
+      "significado": "Altura de franqueamiento de obstáculos (especificar procedimiento)",
+      "fraseologia": "och",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PR": {
+      "significado": "Procedimiento de falla de radio",
+      "fraseologia": "rdo failure proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PT": {
+      "significado": "Altitud de transición",
+      "fraseologia": "ta",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PU": {
+      "significado": "Procedimiento de aproximación frustrada (especificar pista)",
+      "fraseologia": "missed apch proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PX": {
+      "significado": "Altitud mínima de espera (especificar punto de referencia)",
+      "fraseologia": "mnm hldg alt",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "PZ": {
+      "significado": "Procedimiento ADIZ",
+      "fraseologia": "adiz proc",
+      "seccion": "RAC",
+      "subseccion": "Procedimientos de tránsito aéreo (P)"
+    },
+    "RA": {
+      "significado": "Reserva de espacio aéreo (especificar)",
+      "fraseologia": "airspace reservation",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RD": {
+      "significado": "Zona peligrosa (especificar prefijo nacional y número)",
+      "fraseologia": ". . d . .",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RM": {
+      "significado": "Área de operaciones militares",
+      "fraseologia": "moa",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RO": {
+      "significado": "Sobrevuelo de ... (especificar)",
+      "fraseologia": "overflying",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RP": {
+      "significado": "Zona prohibida (especificar prefijo nacional y número)",
+      "fraseologia": ". . p . .",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RR": {
+      "significado": "Zona restringida (especificar prefijo nacional y número)",
+      "fraseologia": ". . r . .",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "RT": {
+      "significado": "Zona restringida temporalmente (especificar zona)",
+      "fraseologia": "tempo restricted area",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Restricciones del espacio aéreo (R)"
+    },
+    "WA": {
+      "significado": "Exposición aérea",
+      "fraseologia": "air display",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WB": {
+      "significado": "Vuelos acrobáticos",
+      "fraseologia": "aerobatics",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WC": {
+      "significado": "Globo cautivo o cometa",
+      "fraseologia": "captive balloon/kite",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WD": {
+      "significado": "Demolición de explosivos",
+      "fraseologia": "demolition of explosives",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WE": {
+      "significado": "Ejercicios (especificar)",
+      "fraseologia": "exer",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WF": {
+      "significado": "Reabastecimiento aéreo",
+      "fraseologia": "air refuelling",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WG": {
+      "significado": "Vuelo de planeadores",
+      "fraseologia": "gld fly",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WJ": {
+      "significado": "Remolque de banderolas/blancos",
+      "fraseologia": "banner/target towing",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WL": {
+      "significado": "Ascenso de globo libre",
+      "fraseologia": "ascent of free balloon",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WM": {
+      "significado": "Disparo de proyectiles, ejercicios de tiro o lanzamiento de cohetes",
+      "fraseologia": "missile/gun/rocket frng",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WP": {
+      "significado": "Ejercicio de lanzamiento de paracaídas",
+      "fraseologia": "pje",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WR": {
+      "significado": "Materiales radiactivos o sustancias químicas tóxicas (especificar)",
+      "fraseologia": "radioactive materials/toxic chemicals",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WS": {
+      "significado": "Incendio o escape de gases",
+      "fraseologia": "burning/blowing gas",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WT": {
+      "significado": "Movimiento masivo de aeronaves",
+      "fraseologia": "mass mov of acft",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WV": {
+      "significado": "Vuelo en formación",
+      "fraseologia": "formation flt",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WW": {
+      "significado": "Actividad volcánica importante",
+      "fraseologia": "significant volcanic act",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "WZ": {
+      "significado": "Vuelo de modelos",
+      "fraseologia": "model fly",
+      "seccion": "Avisos para la navegación",
+      "subseccion": "Avisos (W)"
+    },
+    "OA": {
+      "significado": "Servicio de información aeronáutica",
+      "fraseologia": "ais",
+      "seccion": "Otras informaciones",
+      "subseccion": "Otras informaciones (O)"
+    },
+    "OB": {
+      "significado": "Obstáculos (especificar detalles)",
+      "fraseologia": "obst",
+      "seccion": "Otras informaciones",
+      "subseccion": "Otras informaciones (O)"
+    },
+    "OE": {
+      "significado": "Requisitos para la entrada de aeronaves",
+      "fraseologia": "acft entry rqmnts",
+      "seccion": "Otras informaciones",
+      "subseccion": "Otras informaciones (O)"
+    },
+    "OL": {
+      "significado": "Luces de obstáculos en ... (especificar)",
+      "fraseologia": "obst lgt",
+      "seccion": "Otras informaciones",
+      "subseccion": "Otras informaciones (O)"
+    },
+    "OR": {
+      "significado": "Centro de coordinación de salvamento",
+      "fraseologia": "rcc",
+      "seccion": "Otras informaciones",
+      "subseccion": "Otras informaciones (O)"
+    }
+  },
+  "cuarta_quinta_letras": {
+    "AC": {
+      "significado": "Retirado para mantenimiento",
+      "fraseologia": "withdrawn maint",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AD": {
+      "significado": "Disponible para operaciones diurnas",
+      "fraseologia": "avbl day ops",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AF": {
+      "significado": "Comprobado en vuelo y considerado digno de confianza",
+      "fraseologia": "fltck okay",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AG": {
+      "significado": "Utilizable, pero se ha comprobado solamente en tierra; se espera comprobación en vuelo",
+      "fraseologia": "opr but gnd ck only, awaiting fltck",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AH": {
+      "significado": "Las horas de servicio son ahora de ... a ... (especificar)",
+      "fraseologia": "hr ser",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AK": {
+      "significado": "Reanudada la operación normal",
+      "fraseologia": "okay",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AL": {
+      "significado": "Funcionando (o de nuevo funcionando) a reserva de limitaciones/condiciones anteriormente publicadas",
+      "fraseologia": "opr subj previous cond",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AM": {
+      "significado": "Únicamente operaciones militares",
+      "fraseologia": "mil ops only",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AN": {
+      "significado": "Disponible para operaciones nocturnas",
+      "fraseologia": "avbl ngt ops",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AO": {
+      "significado": "Operacional",
+      "fraseologia": "opr",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AP": {
+      "significado": "Disponible, se necesita un permiso previo",
+      "fraseologia": "avbl, ppr",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AR": {
+      "significado": "Disponible a solicitud",
+      "fraseologia": "avbl o/r",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AS": {
+      "significado": "No utilizable",
+      "fraseologia": "u/s",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AU": {
+      "significado": "No está disponible (especificar razones, si corresponde)",
+      "fraseologia": "not avbl",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AW": {
+      "significado": "Totalmente retirado",
+      "fraseologia": "withdrawn",
+      "categoria": "Disponibilidad (A)"
+    },
+    "AX": {
+      "significado": "Se ha cancelado el cierre previamente anunciado",
+      "fraseologia": "promulgated shutdown cnl",
+      "categoria": "Disponibilidad (A)"
+    },
+    "CA": {
+      "significado": "En actividad",
+      "fraseologia": "act",
+      "categoria": "Cambios (C)"
+    },
+    "CC": {
+      "significado": "Completado",
+      "fraseologia": "cmpl",
+      "categoria": "Cambios (C)"
+    },
+    "CD": {
+      "significado": "Cese de actividades",
+      "fraseologia": "deactivated",
+      "categoria": "Cambios (C)"
+    },
+    "CE": {
+      "significado": "Montado",
+      "fraseologia": "erected",
+      "categoria": "Cambios (C)"
+    },
+    "CF": {
+      "significado": "La o las frecuencias de utilización han sido cambiadas a",
+      "fraseologia": "aopr freq changed to",
+      "categoria": "Cambios (C)",
+      "nota": "Así impreso en la ed. español 2004; la edición inglesa registra 'opr freq changed to' (posible errata tipográfica)."
+    },
+    "CG": {
+      "significado": "Se redujo a",
+      "fraseologia": "downgraded to",
+      "categoria": "Cambios (C)"
+    },
+    "CH": {
+      "significado": "Cambiado",
+      "fraseologia": "changed",
+      "categoria": "Cambios (C)"
+    },
+    "CI": {
+      "significado": "Identificación o distintivo de llamada de radio cambiadas a",
+      "fraseologia": "ident/rdo call sign changed to",
+      "categoria": "Cambios (C)"
+    },
+    "CL": {
+      "significado": "Realineado",
+      "fraseologia": "realigned",
+      "categoria": "Cambios (C)"
+    },
+    "CM": {
+      "significado": "Desplazado",
+      "fraseologia": "displaced",
+      "categoria": "Cambios (C)"
+    },
+    "CN": {
+      "significado": "Cancelado",
+      "fraseologia": "cnl",
+      "categoria": "Cambios (C)"
+    },
+    "CO": {
+      "significado": "En funcionamiento",
+      "fraseologia": "opr",
+      "categoria": "Cambios (C)"
+    },
+    "CP": {
+      "significado": "Funciona a potencia reducida",
+      "fraseologia": "opr reduced pwr",
+      "categoria": "Cambios (C)"
+    },
+    "CR": {
+      "significado": "Remplazado temporalmente por",
+      "fraseologia": "tempo rplc by",
+      "categoria": "Cambios (C)"
+    },
+    "CS": {
+      "significado": "Instalado",
+      "fraseologia": "instl",
+      "categoria": "Cambios (C)"
+    },
+    "CT": {
+      "significado": "En prueba, no utilizar",
+      "fraseologia": "on test, do not use",
+      "categoria": "Cambios (C)"
+    },
+    "HA": {
+      "significado": "La eficacia del frenado es ... : 1) deficiente, 2) mediana/deficiente, 3) mediana, 4) mediana/buena, 5) buena",
+      "fraseologia": "ba is ...",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HB": {
+      "significado": "El coeficiente de rozamiento es ... (especificar el dispositivo de rozamiento utilizado)",
+      "fraseologia": "friction coefficient is",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HC": {
+      "significado": "Cubierta por una capa de nieve compacta de un espesor de",
+      "fraseologia": "cov compacted sn depth",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HD": {
+      "significado": "Cubierta de nieve seca de un espesor de",
+      "fraseologia": "cov dry sn depth",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HE": {
+      "significado": "Cubierta de agua de ... profundidad",
+      "fraseologia": "cov water depth",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HF": {
+      "significado": "Completamente libre de nieve y hielo",
+      "fraseologia": "free of sn and ice",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HG": {
+      "significado": "Se está cortando el césped",
+      "fraseologia": "grass cutting inpr",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HH": {
+      "significado": "Peligro debido a (especificar)",
+      "fraseologia": "hazard due",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HI": {
+      "significado": "Cubierta de hielo",
+      "fraseologia": "cov ice",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HJ": {
+      "significado": "Lanzamiento proyectado (de globo; especificar identificación, lugar, período, dirección de ascenso y niveles previstos)",
+      "fraseologia": "launch plan",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HK": {
+      "significado": "Migración de aves en curso (especificar el sentido)",
+      "fraseologia": "bird migration inpr",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HL": {
+      "significado": "Se terminó de quitar la nieve",
+      "fraseologia": "sn clr cmpl",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HM": {
+      "significado": "Balizado por",
+      "fraseologia": "marked by",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HN": {
+      "significado": "Cubierta de nieve mojada o fundente de un espesor de",
+      "fraseologia": "cov wet sn/slush depth",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HO": {
+      "significado": "Disimulado/a por la nieve",
+      "fraseologia": "obscured by sn",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HP": {
+      "significado": "Se está quitando la nieve",
+      "fraseologia": "sn clr inpr",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HQ": {
+      "significado": "Operación cancelada ... (globo; especificar identificación o nombre clave del proyecto)",
+      "fraseologia": "opr cnl",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HR": {
+      "significado": "Agua estancada",
+      "fraseologia": "standing water",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HS": {
+      "significado": "Se está enarenando",
+      "fraseologia": "sanding inpr",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HT": {
+      "significado": "Aproximación de acuerdo con el área de señales únicamente",
+      "fraseologia": "apch according signal",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HU": {
+      "significado": "Lanzamiento en marcha ... (de globo; especificar identificación, lugar, fecha/hora, niveles y punto previsto de terminación)",
+      "fraseologia": "launch inpr",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HV": {
+      "significado": "Se ha terminado el trabajo",
+      "fraseologia": "work cmpl",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HW": {
+      "significado": "Prosiguen los trabajos",
+      "fraseologia": "wip",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HX": {
+      "significado": "Concentración de aves",
+      "fraseologia": "bird concentration",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HY": {
+      "significado": "Hay bancos de nieve (especificar altura)",
+      "fraseologia": "sn banks hgt",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "HZ": {
+      "significado": "Cubierto por surcos o crestas helados",
+      "fraseologia": "cov frozen ruts and ridges",
+      "categoria": "Condiciones de peligro (H)"
+    },
+    "LA": {
+      "significado": "Funciona con fuente secundaria de energía",
+      "fraseologia": "opr aux pwr",
+      "categoria": "Limitaciones (L)"
+    },
+    "LB": {
+      "significado": "Reservado para aeronaves locales",
+      "fraseologia": "reserved for acft based therein",
+      "categoria": "Limitaciones (L)"
+    },
+    "LC": {
+      "significado": "Cerrado",
+      "fraseologia": "clsd",
+      "categoria": "Limitaciones (L)"
+    },
+    "LD": {
+      "significado": "Inseguro",
+      "fraseologia": "unsafe",
+      "categoria": "Limitaciones (L)"
+    },
+    "LE": {
+      "significado": "Funciona sin fuente secundaria de energía",
+      "fraseologia": "opr two aux pwr",
+      "categoria": "Limitaciones (L)",
+      "nota": "Así impreso en la ed. español 2004; la edición inglesa registra 'opr wo aux pwr' (wo = without; errata tipográfica probable)."
+    },
+    "LF": {
+      "significado": "Interferencia causada por",
+      "fraseologia": "interference fm",
+      "categoria": "Limitaciones (L)"
+    },
+    "LG": {
+      "significado": "Funciona sin identificación",
+      "fraseologia": "opr two ident",
+      "categoria": "Limitaciones (L)",
+      "nota": "Así impreso en la ed. español 2004; la edición inglesa registra 'opr wo ident' (errata tipográfica probable)."
+    },
+    "LH": {
+      "significado": "No pueden usarlo las aeronaves que pesen más de",
+      "fraseologia": "u/s acft heavier than",
+      "categoria": "Limitaciones (L)"
+    },
+    "LI": {
+      "significado": "Cerrado para las operaciones IFR",
+      "fraseologia": "clsd ifr ops",
+      "categoria": "Limitaciones (L)"
+    },
+    "LK": {
+      "significado": "Funciona como luz fija",
+      "fraseologia": "opr as f lgt",
+      "categoria": "Limitaciones (L)"
+    },
+    "LL": {
+      "significado": "Puede usarse en una longitud de ... y un ancho de ...",
+      "fraseologia": "useable len .../wid ...",
+      "categoria": "Limitaciones (L)"
+    },
+    "LN": {
+      "significado": "Cerrado para toda clase de operaciones nocturnas",
+      "fraseologia": "clsd to all ngt ops",
+      "categoria": "Limitaciones (L)"
+    },
+    "LP": {
+      "significado": "Prohibido a",
+      "fraseologia": "prohibited to",
+      "categoria": "Limitaciones (L)"
+    },
+    "LR": {
+      "significado": "Aeronaves restringidas a pistas y a calles de rodaje",
+      "fraseologia": "acft restricted to rwy and twy",
+      "categoria": "Limitaciones (L)"
+    },
+    "LS": {
+      "significado": "Sujeto a interrupción",
+      "fraseologia": "subj intrp",
+      "categoria": "Limitaciones (L)"
+    },
+    "LT": {
+      "significado": "Limitado a",
+      "fraseologia": "ltd to",
+      "categoria": "Limitaciones (L)"
+    },
+    "LV": {
+      "significado": "Cerrado para operaciones VFR",
+      "fraseologia": "clsd vfr ops",
+      "categoria": "Limitaciones (L)"
+    },
+    "LW": {
+      "significado": "Se realizará",
+      "fraseologia": "will take place",
+      "categoria": "Limitaciones (L)"
+    },
+    "LX": {
+      "significado": "Utilizable, pero se aconseja precaución por causa de lo siguiente",
+      "fraseologia": "opr but ctn advised due to",
+      "categoria": "Limitaciones (L)"
+    },
+    "XX": {
+      "significado": "Lenguaje claro",
+      "fraseologia": "",
+      "categoria": "Otros (XX)"
+    }
+  },
+  "ejemplos_oficiales": [
+    {
+      "id": "doc8400_a",
+      "descripcion": "El equipo radiotelemétrico (DME) de París/Orly no disponible desde las 2359 UTC del 31 de marzo de 1992 hasta las 0600 UTC del 1 de abril de 1992.",
+      "notam": {
+        "Q": "LFFF/QNDAU/IV/BO/AE/...",
+        "A": "LFPO",
+        "B": "9203312359",
+        "C": "9204010600",
+        "E": "DME NOT AVBL"
+      },
+      "decodificacion": {
+        "FIR": "LFFF = FIR París",
+        "codigo": "QNDAU → ND = equipo radiotelemétrico (DME); AU = no está disponible",
+        "trafico": "IV = afecta tránsito IFR y VFR",
+        "objetivo": "BO = anotación en boletines de información previa al vuelo; información operacional significativa para vuelos IFR",
+        "alcance": "AE = instalación con finalidad doble: ayuda terminal y en ruta",
+        "A": "LFPO = París/Orly",
+        "B": "Inicio de validez: 1992-03-31 23:59 UTC",
+        "C": "Fin de validez: 1992-04-01 06:00 UTC",
+        "E": "DME NOT AVBL = DME no disponible (lenguaje claro con abreviaturas OACI)"
+      },
+      "fuente": "Doc 8400, pág. 7-3, ejemplo a) — decodificado casilla por casilla en el propio documento"
+    },
+    {
+      "id": "doc8400_b",
+      "descripcion": "Con efecto inmediato, el VOR de Nueva York/La Guardia en 116,9 MHz fuera de servicio hasta aprox. las 0900 UTC del 13 de noviembre de 1992.",
+      "notam": {
+        "Q": "KZWY/QNVAS/IV/BO/AE/...",
+        "A": "KLGA",
+        "B": "9211020615",
+        "C": "9211130900 EST",
+        "E": "116,9 MHZ VOR U/S"
+      },
+      "decodificacion": {
+        "codigo": "QNVAS → NV = VOR; AS = no utilizable",
+        "C": "EST = fecha/hora estimada de fin; requerirá NOTAM de reemplazo o cancelación"
+      },
+      "fuente": "Doc 8400, pág. 7-3, ejemplo b)"
+    },
+    {
+      "id": "doc8400_c",
+      "descripcion": "La pista 30 en Estocolmo/Bromma está permanentemente cerrada para operaciones VFR.",
+      "notam": {
+        "Q": "ESOS/QMRLV/V/NB/A/...",
+        "A": "ESSB",
+        "B": "9210221430",
+        "C": "PERM",
+        "E": "RWY 30 CLSD TO VFR OPS"
+      },
+      "decodificacion": {
+        "codigo": "QMRLV → MR = pista; LV = cerrado para operaciones VFR",
+        "trafico": "V = afecta sólo tránsito VFR",
+        "C": "PERM = permanente"
+      },
+      "fuente": "Doc 8400, pág. 7-4, ejemplo c)"
+    },
+    {
+      "id": "doc8400_d",
+      "descripcion": "El VOR VOZICE (116,30 MHz) de la FIR PRAHA fuera de servicio del 10 nov 1992 0800 UTC al 13 nov 1992 0900 UTC.",
+      "notam": {
+        "Q": "LKAA/QNVAS/IV/BO/E/...",
+        "A": "LKAA",
+        "B": "9211100800",
+        "C": "9211130900",
+        "E": "VOZ 116,30 MHZ VOR U/S"
+      },
+      "decodificacion": {
+        "codigo": "QNVAS → NV = VOR; AS = no utilizable",
+        "alcance": "E = en ruta",
+        "nota": "La ampliación (identificación VOZ y frecuencia) precede al significado del código en la casilla E)."
+      },
+      "fuente": "Doc 8400, pág. 7-4, ejemplo d)"
+    },
+    {
+      "id": "doc8400_e",
+      "descripcion": "Ejercicios de tiro en la FIR Montreal, 21 feb 1993 de 0800 a 1100 UTC, radio 10 NM alrededor de 45°37'N 74°00'W, de superficie a 6 100 m (20 000 ft) MSL.",
+      "notam": {
+        "Q": "CZUL/QWMLW/IV/BO/W/000200/4537N07400W010",
+        "A": "CZUL",
+        "B": "9302210800",
+        "C": "9302211100",
+        "E": "GUN FRNG WILL TAKE PLACE RADIO 10 NM ALREDEDOR DE 4537N07400W",
+        "F": "SFC",
+        "G": "6100 M (20000 FT) MSL"
+      },
+      "decodificacion": {
+        "codigo": "QWMLW → WM = disparo de proyectiles/ejercicios de tiro; LW = se realizará",
+        "limites": "000/200 = límites vertical inferior/superior en niveles de vuelo; 4537N07400W010 = centro y radio (10 NM)",
+        "F_G": "F) SFC = desde la superficie; G) hasta 6 100 m (20 000 ft) MSL"
+      },
+      "fuente": "Doc 8400, pág. 7-4, ejemplo e)"
+    }
+  ]
+}

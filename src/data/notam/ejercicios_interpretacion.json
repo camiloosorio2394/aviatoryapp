@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "proposito": "Ejercicios de interpretación: la app muestra el NOTAM (tarjeta/imagen) y el usuario lo describe con sus palabras. La IA evalúa contra la rúbrica.",
+    "fuentes": "Ejercicios 1–5: ejemplos oficiales del Doc 8400 (6ª ed., 2004), págs. 7-2 a 7-4. Ejercicios 6–14: NOTAMs DE PRÁCTICA creados para Aviatory con el formato y los códigos del Doc 8400 — NO son NOTAMs reales ni oficiales y así debe indicarse en pantalla.",
+    "aviso_obligatorio_en_pantalla": "Ejercicio de práctica. Este NOTAM no es real. Verifica siempre la información operacional vigente en las fuentes AIS oficiales.",
+    "nota_indicadores": "Los indicadores de lugar de los ejercicios de práctica (SKBO, SKRG, SKPB, etc.) se usan con fines pedagógicos; los escenarios son ficticios. Las FIR usadas en la línea Q de los ejercicios de práctica deben verificarse contra el AIP Colombia antes de publicar.",
+    "instrucciones_evaluador_ia": [
+      "No revelar la decodificación antes de que el usuario responda.",
+      "Evaluar contra los criterios de la rúbrica; cada criterio tiene peso propio; puntaje total 0–100; aprobado ≥ 80.",
+      "Señalar primero lo que el usuario identificó bien, luego los errores u omisiones, citando la tabla del Doc 8400 que corresponda (asunto o estado).",
+      "Si el usuario responde en hora local sin convertir, recordar que B)/C) son UTC (Colombia UTC−5).",
+      "Adaptar el rigor al nivel declarado del usuario (estudiante → aerolínea)."
+    ],
+    "criterios_rubrica_default": {
+      "asunto": {"peso": 25, "descripcion": "Identifica QUÉ instalación/servicio/peligro notifica el NOTAM (2ª/3ª letras o texto E)."},
+      "estado": {"peso": 25, "descripcion": "Identifica QUÉ le ocurre (4ª/5ª letras o texto E), con el matiz correcto (cerrado ≠ cerrado solo VFR, etc.)."},
+      "lugar": {"peso": 15, "descripcion": "Identifica aeródromo/FIR afectado (casilla A y elemento específico: pista, radioayuda, zona)."},
+      "vigencia": {"peso": 15, "descripcion": "Lee B)/C) correctamente en UTC; reconoce PERM/EST si aplican."},
+      "impacto": {"peso": 20, "descripcion": "Explica el efecto operacional para un vuelo (qué no puede hacer, qué precaución tomar)."}
+    }
+  },
+  "ejercicios": [
+    {
+      "id": 1,
+      "origen": "oficial_doc8400",
+      "nivel": "basico",
+      "titulo": "DME de París/Orly",
+      "notam": "Q) LFFF/QNDAU/IV/BO/AE/...\nA) LFPO B) 9203312359 C) 9204010600\nE) DME NOT AVBL",
+      "consigna": "Describe qué informa este NOTAM: qué equipo está afectado, dónde, desde y hasta cuándo, y a quién le importa.",
+      "respuesta_modelo": "El DME (equipo radiotelemétrico) del aeropuerto París/Orly (LFPO), en la FIR París (LFFF), no está disponible desde el 31 de marzo de 1992 a las 23:59 UTC hasta el 1 de abril de 1992 a las 06:00 UTC. QNDAU: ND = DME, AU = no disponible. Afecta tránsito IFR y VFR (IV), aparece en boletines previos al vuelo (B) y es operacionalmente significativo para IFR (O); la instalación sirve en terminal y en ruta (AE). Operacionalmente: no planificar procedimientos que dependan de ese DME en esa ventana.",
+      "puntos_clave": ["DME", "París/Orly (LFPO)", "no disponible (AU)", "vigencia 31 mar 23:59 → 1 abr 06:00 UTC", "afecta IFR y VFR", "no usar procedimientos dependientes del DME"],
+      "fuente": "Doc 8400, pág. 7-3, ejemplo a) — decodificado en el propio documento"
+    },
+    {
+      "id": 2,
+      "origen": "oficial_doc8400",
+      "nivel": "intermedio",
+      "titulo": "VOR de Nueva York/La Guardia",
+      "notam": "Q) KZWY/QNVAS/IV/BO/AE/...\nA) KLGA B) 9211020615 C) 9211130900 EST\nE) 116,9 MHZ VOR U/S",
+      "consigna": "Describe el NOTAM y explica qué significa la marca EST en la casilla C).",
+      "respuesta_modelo": "El VOR de Nueva York/La Guardia (KLGA) en 116,9 MHz está fuera de servicio (QNVAS: NV = VOR, AS = no utilizable) desde el 2 de noviembre de 1992 06:15 UTC hasta las 09:00 UTC del 13 de noviembre de 1992 ESTIMADO. EST indica que el fin de la condición es una estimación: el NOTAM sigue vigente hasta que se emita un reemplazo o cancelación. La frecuencia (ampliación del asunto) precede al significado en la casilla E).",
+      "puntos_clave": ["VOR 116,9 MHz", "La Guardia (KLGA)", "U/S = no utilizable", "EST = fin estimado, requiere NOTAM de reemplazo/cancelación", "vigencias en UTC"],
+      "fuente": "Doc 8400, pág. 7-3, ejemplo b)"
+    },
+    {
+      "id": 3,
+      "origen": "oficial_doc8400",
+      "nivel": "intermedio",
+      "titulo": "Pista 30 de Estocolmo/Bromma",
+      "notam": "Q) ESOS/QMRLV/V/NB/A/...\nA) ESSB B) 9210221430 C) PERM\nE) RWY 30 CLSD TO VFR OPS",
+      "consigna": "¿Qué informa este NOTAM y a qué tipo de tránsito afecta? Fíjate en el calificativo de tránsito y en la casilla C).",
+      "respuesta_modelo": "La pista 30 de Estocolmo/Bromma (ESSB) queda PERMANENTEMENTE cerrada para operaciones VFR desde el 22 de octubre de 1992, 14:30 UTC. QMRLV: MR = pista, LV = cerrado para operaciones VFR. El calificativo de tránsito es V: afecta solo al tránsito VFR — las operaciones IFR en esa pista no están cerradas por este NOTAM. C) PERM = condición permanente (la información pasará al AIP).",
+      "puntos_clave": ["pista 30", "ESSB", "cerrada SOLO para VFR (LV, tránsito V)", "PERM = permanente", "IFR no afectado por este NOTAM"],
+      "errores_tipicos": ["Decir que la pista está cerrada para todas las operaciones: LV ≠ LC"],
+      "fuente": "Doc 8400, pág. 7-4, ejemplo c)"
+    },
+    {
+      "id": 4,
+      "origen": "oficial_doc8400",
+      "nivel": "intermedio",
+      "titulo": "VOR VOZICE, FIR Praga",
+      "notam": "Q) LKAA/QNVAS/IV/BO/E/...\nA) LKAA B) 9211100800 C) 9211130900\nE) VOZ 116,30 MHZ VOR U/S",
+      "consigna": "Describe el NOTAM. ¿Por qué la casilla A) trae una FIR y no un aeródromo? ¿Qué indica el alcance E?",
+      "respuesta_modelo": "El VOR VOZICE (116,30 MHz) de la FIR Praga (LKAA) está fuera de servicio del 10 nov 1992 08:00 UTC al 13 nov 1992 09:00 UTC. QNVAS: NV = VOR, AS = no utilizable. La casilla A) trae la FIR porque la instalación es una ayuda EN RUTA (alcance E), no una ayuda de un aeródromo específico. La identificación VOZ y la frecuencia preceden al significado en E) por ser ampliación del asunto.",
+      "puntos_clave": ["VOR VOZICE 116,30 MHz", "FIR Praga LKAA", "fuera de servicio", "alcance E = en ruta (por eso A) = FIR)", "vigencia UTC correcta"],
+      "fuente": "Doc 8400, pág. 7-4, ejemplo d)"
+    },
+    {
+      "id": 5,
+      "origen": "oficial_doc8400",
+      "nivel": "avanzado",
+      "titulo": "Ejercicios de tiro, FIR Montreal",
+      "notam": "Q) CZUL/QWMLW/IV/BO/W/000/200/4537N07400W010\nA) CZUL B) 9302210800 C) 9302211100\nE) GUN FRNG WILL TAKE PLACE RADIO 10 NM ALREDEDOR DE 4537N07400W\nF) SFC G) 6100 M (20000 FT) MSL",
+      "consigna": "Describe la actividad, el volumen de espacio aéreo afectado (posición, radio, límites verticales) y la ventana horaria.",
+      "respuesta_modelo": "Ejercicios de tiro (QWMLW: WM = disparo de proyectiles/tiro/cohetes; LW = se realizará) en la FIR Montreal (CZUL) el 21 de febrero de 1993 entre 08:00 y 11:00 UTC, dentro de un radio de 10 NM alrededor de 45°37'N 074°00'W, desde la superficie (F) SFC) hasta 6 100 m / 20 000 ft MSL (G)). El alcance W = aviso para la navegación (warning). En la línea Q, 000/200 son los límites vertical inferior y superior en niveles de vuelo y 4537N07400W010 codifica centro y radio del área. Un vuelo por esa zona debe planificar evitarla o cruzarla fuera de la ventana.",
+      "puntos_clave": ["ejercicios de tiro", "FIR Montreal", "radio 10 NM alrededor de 4537N07400W", "SFC a 20 000 ft MSL", "ventana 08:00–11:00 UTC", "límites 000/200 en la línea Q"],
+      "fuente": "Doc 8400, pág. 7-4, ejemplo e)"
+    },
+    {
+      "id": 6,
+      "origen": "practica_no_oficial",
+      "nivel": "basico",
+      "titulo": "Pista cerrada por obras — El Dorado",
+      "notam": "(PRÁCTICA) Q) SKED/QMRLC/IV/NBO/A/000/999/0438N07409W005\nA) SKBO B) 2607281100 C) 2608152200\nE) RWY 13R/31L CLSD DUE TO WIP",
+      "consigna": "Describe qué informa este NOTAM de práctica y qué implica para un vuelo que llega a este aeródromo.",
+      "respuesta_modelo": "NOTAM de práctica: la pista 13R/31L del aeródromo SKBO está cerrada (QMRLC: MR = pista, LC = cerrado) por obras en progreso (WIP), del 28 de julio de 2026 11:00 UTC al 15 de agosto de 2026 22:00 UTC. Afecta IFR y VFR. Impacto: esa pista no está disponible para despegue ni aterrizaje; prever la pista alterna, posibles demoras y cambios en distancias declaradas disponibles.",
+      "puntos_clave": ["pista 13R/31L", "cerrada (LC = toda operación)", "causa: WIP (obras)", "vigencia en UTC", "planificar con la otra pista / demoras"],
+      "errores_tipicos": ["Convertir mal 11:00 UTC (= 06:00 hora Colombia)"],
+      "fuente": "Formato y códigos: Doc 8400, sección 7 (MR pág. 7-5; LC pág. 7-12; WIP sección 1)"
+    },
+    {
+      "id": 7,
+      "origen": "practica_no_oficial",
+      "nivel": "basico",
+      "titulo": "PAPI inoperativo — Rionegro",
+      "notam": "(PRÁCTICA) Q) SKED/QLPAS/IV/BO/A/000/999/0608N07525W005\nA) SKRG B) 2607301200 C) 2608102359\nE) RWY 01 PAPI U/S",
+      "consigna": "¿Qué sistema está afectado, qué función cumple y qué precaución implica su falla?",
+      "respuesta_modelo": "NOTAM de práctica: el PAPI de la pista 01 de SKRG está fuera de servicio (QLPAS: LP = indicador de trayectoria de aproximación de precisión, AS = no utilizable) del 30 jul 2026 12:00 UTC al 10 ago 2026 23:59 UTC. El PAPI da guía visual de pendiente en aproximación. Sin él, la referencia visual de senda para la pista 01 no está disponible: mayor atención a la senda en aproximaciones visuales, especialmente de noche.",
+      "puntos_clave": ["PAPI", "pista 01 de SKRG", "U/S / AS = no utilizable", "función: guía visual de pendiente", "precaución en aproximación visual/nocturna"],
+      "fuente": "Formato y códigos: Doc 8400 (LP pág. 7-5; AS pág. 7-10)"
+    },
+    {
+      "id": 8,
+      "origen": "practica_no_oficial",
+      "nivel": "intermedio",
+      "titulo": "Concentración de aves — Puerto Bolívar",
+      "notam": "(PRÁCTICA) Q) SKEC/QFAHX/IV/BO/A/000/999/1215N07158W005\nA) SKPB B) 2607290000 C) 2608312359\nE) BIRD CONCENTRATION WI VCY OF AD",
+      "consigna": "Describe el peligro notificado y qué debe considerar la tripulación en las fases de despegue y aterrizaje.",
+      "respuesta_modelo": "NOTAM de práctica: concentración de aves en las inmediaciones del aeródromo SKPB (QFAHX: FA = aeródromo, HX = concentración de aves), del 29 jul 2026 00:00 UTC al 31 ago 2026 23:59 UTC. E): BIRD CONCENTRATION WI VCY OF AD = concentración de aves dentro de las inmediaciones del aeródromo. Riesgo de impacto con fauna en despegue, aproximación y aterrizaje: briefing de peligro aviario, luces de aterrizaje encendidas según SOP y estar preparados para maniobra segura ante avistamiento.",
+      "puntos_clave": ["concentración de aves (HX)", "aeródromo SKPB", "inmediaciones (WI VCY OF AD)", "riesgo en despegue/aterrizaje", "vigencia UTC"],
+      "fuente": "Formato y códigos: Doc 8400 (FA pág. 7-6; HX pág. 7-11; WI/VCY/AD sección 1)"
+    },
+    {
+      "id": 9,
+      "origen": "practica_no_oficial",
+      "nivel": "intermedio",
+      "titulo": "Trabajos en la franja — La Mina",
+      "notam": "(PRÁCTICA) Q) SKEC/QMWHW/IV/M/A/000/999/1107N07235W005\nA) SKLM B) 2608010700 C) 2608301700\nE) RWY 10/28 STRIP WIP NORTH SIDE",
+      "consigna": "¿Qué área del aeródromo está afectada y por qué este NOTAM importa aunque la pista siga abierta?",
+      "respuesta_modelo": "NOTAM de práctica: trabajos en progreso en la franja de la pista 10/28 de SKLM, costado norte (QMWHW: MW = franja, HW = prosiguen los trabajos), del 1 al 30 de agosto de 2026 (07:00–17:00 UTC). La pista sigue operativa, pero la franja es el área que protege una salida de pista: con obras y posible personal/equipos, el margen de seguridad ante una excursión está reducido. El calificativo M indica información miscelánea/de menor entidad para el briefing.",
+      "puntos_clave": ["franja (strip) de RWY 10/28", "trabajos en progreso (HW/WIP)", "pista sigue abierta", "riesgo si hay salida de pista", "lado norte"],
+      "fuente": "Formato y códigos: Doc 8400 (MW pág. 7-5; HW pág. 7-11). Calificativo M: tablas del Doc 8126 (verificar)."
+    },
+    {
+      "id": 10,
+      "origen": "practica_no_oficial",
+      "nivel": "avanzado",
+      "titulo": "Lanzamiento de paracaidistas — FIR Barranquilla",
+      "notam": "(PRÁCTICA) Q) SKEC/QWPLW/IV/M/W/000/120/1030N07305W008\nA) SKEC B) 2608020800 C) 2608021600\nE) PJE WILL TAKE PLACE WI 8 NM RADIUS OF 1030N07305W\nF) SFC G) FL120",
+      "consigna": "Describe la actividad, el volumen afectado y cómo lo tratarías en la planificación de un vuelo que cruza la zona.",
+      "respuesta_modelo": "NOTAM de práctica: ejercicio de lanzamiento de paracaídas (QWPLW: WP = ejercicio de lanzamiento de paracaídas, LW = se realizará; PJE es su fraseología uniforme) en la FIR Barranquilla, el 2 de agosto de 2026 de 08:00 a 16:00 UTC, dentro de un radio de 8 NM alrededor de 10°30'N 073°05'W, desde la superficie hasta FL120 (000/120 en la línea Q). Planificación: evitar el volumen en esa ventana o coordinar con ATS; si la ruta lo cruza por debajo de FL120, replanificar nivel o desvío.",
+      "puntos_clave": ["PJE = lanzamiento de paracaídas", "radio 8 NM del punto dado", "SFC a FL120", "ventana 08:00–16:00 UTC", "evitar/replanificar"],
+      "fuente": "Formato y códigos: Doc 8400 (WP pág. 7-9; LW pág. 7-12; fraseología pje)"
+    },
+    {
+      "id": 11,
+      "origen": "practica_no_oficial",
+      "nivel": "basico",
+      "titulo": "NDB fuera de servicio — Barranquilla",
+      "notam": "(PRÁCTICA) Q) SKEC/QNBAS/IV/BO/AE/000/999/1053N07446W025\nA) SKBQ B) 2607251300 C) 2608251300 EST\nE) NDB EKO 355 KHZ U/S",
+      "consigna": "Describe el NOTAM incluyendo qué tipo de radioayuda es y qué significa el EST de la casilla C).",
+      "respuesta_modelo": "NOTAM de práctica: el NDB EKO (355 kHz) asociado a SKBQ está fuera de servicio (QNBAS: NB = radiofaro no direccional, AS = no utilizable) desde el 25 jul 2026 13:00 UTC hasta el 25 ago 2026 13:00 UTC ESTIMADO: el fin es una estimación y el NOTAM sigue vigente hasta reemplazo o cancelación. Impacto: procedimientos o tramos que usen ese NDB no disponibles; verificar aproximaciones alternas.",
+      "puntos_clave": ["NDB (radiofaro no direccional)", "355 kHz, identificación EKO", "no utilizable", "EST = fin estimado", "verificar procedimientos que lo usan"],
+      "fuente": "Formato y códigos: Doc 8400 (NB pág. 7-7; AS pág. 7-10; EST sección 1)"
+    },
+    {
+      "id": 12,
+      "origen": "practica_no_oficial",
+      "nivel": "intermedio",
+      "titulo": "Combustible no disponible — Cali",
+      "notam": "(PRÁCTICA) Q) SKED/QFUAU/IV/M/A/000/999/0323N07623W005\nA) SKCL B) 2607310600 C) 2608022200\nE) FUEL JET A1 NOT AVBL",
+      "consigna": "¿Qué informa este NOTAM y en qué fase de la planificación de vuelo pega más fuerte?",
+      "respuesta_modelo": "NOTAM de práctica: no hay disponibilidad de combustible JET A1 en SKCL (QFUAU: FU = disponibilidad de combustible, AU = no está disponible) del 31 jul 2026 06:00 UTC al 2 ago 2026 22:00 UTC. Pega directo en la planificación de combustible y alternos: no contar con reabastecimiento en SKCL; ajustar combustible de salida, considerar tanqueo en otro aeródromo o cambiar de alterno.",
+      "puntos_clave": ["combustible JET A1", "SKCL", "no disponible (AU)", "impacto en plan de combustible y alternos", "vigencia UTC"],
+      "fuente": "Formato y códigos: Doc 8400 (FU pág. 7-6; AU pág. 7-10)"
+    },
+    {
+      "id": 13,
+      "origen": "practica_no_oficial",
+      "nivel": "avanzado",
+      "titulo": "Caso especial: NOTAM de lista de verificación",
+      "notam": "(PRÁCTICA) Q) SKED/QKKKK/K/K/K/000/999/\nA) SKBO B) 2608010500 C) 2609010500 EST\nE) CHECKLIST OF VALID NOTAM ...",
+      "consigna": "Este NOTAM no informa ninguna condición operacional. ¿Qué es y para qué sirve?",
+      "respuesta_modelo": "Es un NOTAM de lista de verificación (checklist): el código KKKK como 2ª–5ª letras identifica un NOTAM que enumera los NOTAM válidos vigentes (Doc 8400, §3.5). Sirve para que operadores y servicios AIS depuren sus registros: confirma cuáles NOTAM siguen vigentes y cuáles ya no. No describe una condición operacional en sí mismo.",
+      "puntos_clave": ["KKKK = lista de verificación", "enumera NOTAM válidos", "herramienta de control/depuración", "no es condición operacional"],
+      "fuente": "Doc 8400, pág. 7-1, §3.5"
+    },
+    {
+      "id": 14,
+      "origen": "practica_no_oficial",
+      "nivel": "avanzado",
+      "titulo": "Caso especial: NOTAM iniciador (trigger)",
+      "notam": "(PRÁCTICA) Q) SKED/QPITT/I/NBO/A/000/999/0438N07409W005\nA) SKBO B) 2609040000 C) 2609172359\nE) TRIGGER NOTAM - AIRAC AIP AMDT: NEW INST APCH PROC RWY 13L",
+      "consigna": "¿Qué anuncia un NOTAM con TT como 4ª y 5ª letras y por qué existe?",
+      "respuesta_modelo": "Es un NOTAM iniciador (trigger): TT como 4ª/5ª letras se usa cuando el NOTAM anuncia la entrada en vigor de una enmienda o suplemento AIP AIRAC con información operacionalmente significativa (Doc 8400, §3.5). Aquí (práctica): avisa que con la enmienda AIRAC entra en vigor un nuevo procedimiento de aproximación por instrumentos (PI) para la pista 13L de SKBO. Existe para llamar la atención del briefing hacia el cambio del AIP durante sus primeros días de vigencia.",
+      "puntos_clave": ["TT = NOTAM iniciador/trigger", "anuncia enmienda o suplemento AIP AIRAC", "PI = procedimiento de aproximación por instrumentos", "dirige la atención al cambio del AIP"],
+      "fuente": "Doc 8400, pág. 7-1, §3.5; PI pág. 7-8"
+    },
+    {
+      "id": 15,
+      "origen": "bibliografia_real_historico",
+      "nivel": "intermedio",
+      "titulo": "Calle de rodaje cerrada — Santiago de Chile (histórico)",
+      "notam": "A0682/06 NOTAMN\nQ)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005\nA)SCEL B)0606091958 C)0606242359\nE)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
+      "consigna": "Decodifica el encabezado (serie/número/tipo), la línea Q completa y el texto E). ¿Afecta la pista?",
+      "respuesta_modelo": "NOTAM serie A, número 0682 del año 2006, tipo NOTAMN (nuevo). FIR Santiago (SCEZ); QMXLC: MX = calle de rodaje, LC = cerrada; IV = afecta IFR y VFR; M = misceláneo (no va a briefing, disponible a solicitud); A = alcance aeródromo; 000/999 = niveles por defecto; círculo de 5 NM centrado en 33°23'S 070°47'W. En SCEL (Arturo Merino Benítez), del 9 jun 2006 19:58 UTC al 24 jun 2006 23:59 UTC: calle de rodaje TANGO cerrada entre KILO y ZULU por aeronaves estacionadas. No afecta la pista: impacta el rodaje en superficie (rutas alternas de taxeo).",
+      "puntos_clave": ["encabezado A0682/06 NOTAMN", "QMXLC = TWY cerrada", "calificativos IV/M/A", "radio 5 NM", "solo rodaje, la pista no está cerrada"],
+      "fuente": "NOTAM real histórico decodificado en la guía de interpretación (66106526-interpretacion-notam.pdf, pág. 14); códigos verificados contra Doc 8400 (MX pág. 7-5; LC pág. 7-12)"
+    },
+    {
+      "id": 16,
+      "origen": "bibliografia_real_historico",
+      "nivel": "avanzado",
+      "titulo": "SID retirada permanentemente — Santiago de Chile (histórico)",
+      "notam": "A0161/06 NOTAMN\nQ)SCEZ/QPDAW/I/BO/A/000/999/3325S07047W040\nA)SCEL B)0602072359 C)PERM\nE)SCEL SID 3 (ELBOS 3) COMPLETLY WITHDRAWN",
+      "consigna": "Decodifica el NOTAM. ¿Por qué el calificativo de tránsito es solo I y qué implica C) PERM aquí?",
+      "respuesta_modelo": "NOTAM A0161/06, nuevo. FIR Santiago; QPDAW: PD = salida normalizada por instrumentos (SID), AW = totalmente retirada; tránsito I = solo IFR (una SID es un procedimiento instrumental: no aplica a VFR); BO = va al boletín previo al vuelo y es operacionalmente significativo para IFR; alcance A; radio 40 NM. En SCEL, desde el 7 feb 2006 23:59 UTC, PERMANENTE: la SID ELBOS 3 queda retirada definitivamente. PERM implica que el cambio pasará al AIP (cartas): verificar que el FMS/cartas no sigan ofreciendo esa salida.",
+      "puntos_clave": ["QPDAW = SID totalmente retirada", "tránsito I porque es procedimiento instrumental", "BO", "C) PERM → cambio definitivo que pasa al AIP", "verificar cartas/FMS"],
+      "fuente": "NOTAM real histórico decodificado en la guía de interpretación (66106526-interpretacion-notam.pdf, pág. 15); códigos verificados contra Doc 8400 (PD pág. 7-8; AW pág. 7-10)"
+    }
+  ]
+}

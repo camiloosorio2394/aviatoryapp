@@ -108,13 +108,6 @@ export type Database = {
             referencedRelation: "questions"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "ai_interactions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       airline_prep_exam_questions: {
@@ -452,13 +445,6 @@ export type Database = {
             referencedRelation: "airlines"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "airline_prep_real_cases_reported_by_user_id_fkey"
-            columns: ["reported_by_user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       airline_prep_simulations: {
@@ -610,13 +596,6 @@ export type Database = {
             referencedRelation: "airlines"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "airline_targets_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       airlines: {
@@ -746,13 +725,6 @@ export type Database = {
             referencedRelation: "checklist_items"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "checklist_progress_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       checklists: {
@@ -861,13 +833,6 @@ export type Database = {
             referencedRelation: "community_messages"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "community_messages_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       community_reactions: {
@@ -897,13 +862,6 @@ export type Database = {
             referencedRelation: "community_messages"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "community_reactions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       daily_activity: {
@@ -931,15 +889,7 @@ export type Database = {
           questions_answered?: number
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "daily_activity_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       exam_report_topics: {
         Row: {
@@ -1022,13 +972,6 @@ export type Database = {
             referencedRelation: "subjects"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "exam_reports_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       flights: {
@@ -1095,15 +1038,7 @@ export type Database = {
           total_minutes?: number
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "flights_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       icao_emergencies: {
         Row: {
@@ -1706,13 +1641,6 @@ export type Database = {
             referencedRelation: "interview_sim_categories"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "interview_sim_sessions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       library_categories: {
@@ -1862,15 +1790,7 @@ export type Database = {
           notes?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "licenses_held_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       notifications: {
         Row: {
@@ -1906,15 +1826,7 @@ export type Database = {
           type?: Database["public"]["Enums"]["notification_type"]
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "notifications_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       pca_exam_questions: {
         Row: {
@@ -2085,15 +1997,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "pilot_state_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -2126,22 +2030,7 @@ export type Database = {
           referred_by?: string | null
           username?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-          {
-            foreignKeyName: "profiles_referred_by_fkey"
-            columns: ["referred_by"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       psych_categories: {
         Row: {
@@ -2427,13 +2316,6 @@ export type Database = {
             referencedRelation: "subjects"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "quiz_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       streaks: {
@@ -2458,15 +2340,7 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "streaks_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       subject_topics: {
         Row: {
@@ -2549,15 +2423,7 @@ export type Database = {
           status?: Database["public"]["Enums"]["subscription_status"]
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "subscriptions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_achievements: {
         Row: {
@@ -2585,13 +2451,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "achievements"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_achievements_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -2667,13 +2526,6 @@ export type Database = {
             referencedRelation: "airline_prep_questions"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "user_airline_prep_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       user_airline_prep_progress: {
@@ -2711,13 +2563,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "airline_prep_topics"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_airline_prep_progress_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -2783,13 +2628,6 @@ export type Database = {
             referencedRelation: "icao_roleplays"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "user_icao_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       user_icao_level: {
@@ -2820,15 +2658,7 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_icao_level_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: true
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_icao_mock_results: {
         Row: {
@@ -2864,15 +2694,7 @@ export type Database = {
           total_items?: number
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "user_icao_mock_results_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       user_icao_quiz_attempts: {
         Row: {
@@ -2907,13 +2729,6 @@ export type Database = {
             referencedRelation: "icao_quiz_questions"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "user_icao_quiz_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       user_library_bookmarks: {
@@ -2942,13 +2757,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "library_items"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_library_bookmarks_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -2982,14 +2790,64 @@ export type Database = {
             referencedRelation: "library_items"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "user_library_views_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
+      }
+      user_notam_exam_attempts: {
+        Row: {
+          answers: Json | null
+          correct_count: number
+          created_at: string
+          duration_seconds: number | null
+          id: string
+          passed: boolean
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Insert: {
+          answers?: Json | null
+          correct_count: number
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          passed: boolean
+          score: number
+          total_questions: number
+          user_id: string
+        }
+        Update: {
+          answers?: Json | null
+          correct_count?: number
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          passed?: boolean
+          score?: number
+          total_questions?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_notam_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       user_pca_exam_attempts: {
         Row: {
@@ -3039,13 +2897,6 @@ export type Database = {
             referencedRelation: "pca_exams"
             referencedColumns: ["id"]
           },
-          {
-            foreignKeyName: "user_pca_exam_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
         ]
       }
       user_pca_lesson_progress: {
@@ -3077,13 +2928,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "pca_lessons"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_pca_lesson_progress_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -3125,13 +2969,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "psych_tests"
             referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_psych_attempts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -3226,15 +3063,7 @@ export type Database = {
           tags?: string[] | null
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "vault_questions_inserted_by_fkey"
-            columns: ["inserted_by"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
       vault_sessions: {
         Row: {
@@ -3273,15 +3102,7 @@ export type Database = {
           token?: string
           user_id?: string
         }
-        Relationships: [
-          {
-            foreignKeyName: "vault_sessions_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user_pca_readiness"
-            referencedColumns: ["user_id"]
-          },
-        ]
+        Relationships: []
       }
     }
     Views: {
@@ -3395,6 +3216,21 @@ export type Database = {
       }
       increment_streak: { Args: never; Returns: undefined }
       mark_all_notifications_read: { Args: never; Returns: number }
+      notam_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_notam_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       recalc_pilot_hours: { Args: { p_user_id: string }; Returns: undefined }
       record_daily_activity: {
         Args: { p_correct?: number; p_minutes?: number; p_questions?: number }

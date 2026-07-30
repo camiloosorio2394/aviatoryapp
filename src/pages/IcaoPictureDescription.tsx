@@ -151,7 +151,7 @@ function PairView({ pair }: { pair: PicturePair }) {
         <button
           onClick={() => setShowDiscussion((s) => !s)}
           className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-          style={{ background: "#047857" }}
+          style={{ background: "var(--av-green-400)" }}
         >
           <MessagesSquare className="h-4 w-4" />
           {showDiscussion ? "Hide discussion questions" : "Show discussion questions"}

@@ -4,6 +4,7 @@ import {
   BookOpen,
   Brain,
   Flame,
+  Languages,
   Plane,
   Sparkles,
   AlertTriangle,
@@ -22,6 +23,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile } from "@/components/ui/kpi-tile"
+import { tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
 
 type PilotStage =
   | "student_ppl"
@@ -96,15 +98,6 @@ const STAGE_LABEL: Record<PilotStage, string> = {
   airline_candidate: "Candidato a Aerolínea",
 }
 
-const STAGE_IDENTITY: Record<PilotStage, string> = {
-  student_ppl: "futuro piloto",
-  ppl: "Piloto",
-  cpl_in_progress: "futuro Capitán",
-  cpl_ready: "Capitán",
-  hour_building: "futuro First Officer",
-  airline_candidate: "futuro First Officer",
-}
-
 const STAGE_PROGRESS: Record<PilotStage, number> = {
   student_ppl: 12,
   ppl: 28,
@@ -134,27 +127,34 @@ interface NextStep {
   cta: string
   minutes: number
   icon: typeof BookOpen
-  tone: "cyan" | "violet" | "blue" | "amber"
+  tone: TileColorKey
 }
 
+/**
+ * Acción del día. La dueña única es la card "Quiz del día" que va justo debajo
+ * del hero: el CTA del hero apunta ahí y el plan de hoy ya no repite el quiz,
+ * así las 3 micro-acciones son distintas entre sí y distintas del quiz.
+ */
+const DAILY_ACTION = { href: "/app/pca", cta: "Empezar quiz de hoy", minutes: 12 }
+
 function buildTodayPlan(stage: PilotStage | null): NextStep[] {
-  const baseQuiz: NextStep = {
-    title: "Quiz de hoy",
-    description: "10 preguntas Aerocivil PCA, listo en una pausa.",
-    href: "/app/pca",
-    cta: "Comenzar quiz",
-    minutes: 12,
-    icon: BookOpen,
-    tone: "cyan",
-  }
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
-    description: "Aclará un concepto que te quedó dando vueltas.",
+    description: "Aclara un concepto que te quedó dando vueltas.",
     href: "/app/pca",
     cta: "Abrir Wingman",
     minutes: 8,
     icon: Brain,
     tone: "violet",
+  }
+  const baseIcao: NextStep = {
+    title: "Inglés ICAO",
+    description: "Vocabulario y audio del examen TEA, en bloques cortos.",
+    href: "/app/icao",
+    cta: "Practicar ICAO",
+    minutes: 15,
+    icon: Languages,
+    tone: "green",
   }
   const baseAirline: NextStep = {
     title: "Revisa tu match",
@@ -167,7 +167,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   }
   const baseCommunity: NextStep = {
     title: "Saluda a tu cohorte",
-    description: "Pilotos en tu misma etapa están activos hoy.",
+    description: "Preséntate y encuentra pilotos en tu misma etapa.",
     href: "/app/comunidad",
     cta: "Ir a comunidad",
     minutes: 3,
@@ -175,17 +175,17 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     tone: "amber",
   }
 
-  if (!stage) return [baseQuiz, baseWingman, baseCommunity]
+  if (!stage) return [baseWingman, baseIcao, baseCommunity]
   switch (stage) {
     case "student_ppl":
     case "ppl":
-      return [baseQuiz, baseWingman, baseCommunity]
+      return [baseWingman, baseIcao, baseCommunity]
     case "cpl_in_progress":
     case "cpl_ready":
-      return [baseQuiz, baseWingman, baseAirline]
+      return [baseWingman, baseIcao, baseAirline]
     case "hour_building":
     case "airline_candidate":
-      return [baseAirline, baseQuiz, baseCommunity]
+      return [baseAirline, baseIcao, baseCommunity]
   }
 }
 
@@ -203,18 +203,13 @@ function greetingTime(): string {
   return "Buenas noches"
 }
 
-const COLOR_MAP: Record<string, string> = {
-  cyan: "#0E7490",
-  blue: "#2563EB",
-  violet: "#7C3AED",
-  amber: "#B45309",
-  green: "#047857",
-}
-
 export function Dashboard() {
   const { user } = useSession()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+  /** Las tres RPC lentas (heatmap, cohorte, quiz diario) y los logros cargan
+   *  después del hero, con skeleton local en su propia card. */
+  const [deferredLoading, setDeferredLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [pilot, setPilot] = useState<PilotState | null>(null)
   const [streak, setStreak] = useState<Streak | null>(null)
@@ -230,14 +225,49 @@ export function Dashboard() {
     if (!user) return
     let cancelled = false
 
-    async function load() {
+    async function loadCore() {
       try {
-        const [profileRes, pilotRes, streakRes, subRes, attemptsRes, allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes] = await Promise.all([
+        const [profileRes, pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
           supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
           supabase.from("quiz_attempts").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
+        ])
+
+        if (cancelled) return
+
+        setProfile(profileRes.data as Profile | null)
+        const ps = pilotRes.data as PilotState | null
+        setPilot(ps)
+        setStreak(streakRes.data as Streak | null)
+        setSubscription(subRes.data as Subscription | null)
+        setRecentAttempts(attemptsRes.count ?? 0)
+
+        if (!ps?.stage) {
+          navigate("/onboarding", { replace: true })
+          return
+        }
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : "No pudimos cargar tu dashboard")
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    }
+
+    loadCore()
+    return () => {
+      cancelled = true
+    }
+  }, [user, navigate])
+
+  useEffect(() => {
+    if (!user) return
+    let cancelled = false
+
+    async function loadDeferred() {
+      try {
+        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes] = await Promise.all([
           supabase.from("achievements").select("*").order("order_index"),
           supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }).limit(4),
           supabase.rpc("get_activity_heatmap"),
@@ -247,13 +277,6 @@ export function Dashboard() {
 
         supabase.rpc("check_my_expiries").then(() => undefined)
         if (cancelled) return
-
-        setProfile(profileRes.data as Profile | null)
-        const ps = pilotRes.data as PilotState | null
-        setPilot(ps)
-        setStreak(streakRes.data as Streak | null)
-        setSubscription(subRes.data as Subscription | null)
-        setRecentAttempts(attemptsRes.count ?? 0)
 
         setAllAchievements((allAchievementsRes.data ?? []) as Achievement[])
 
@@ -268,23 +291,19 @@ export function Dashboard() {
         setHeatmap((heatmapRes.data ?? []) as ActivityDay[])
         setPeers((peersRes.data ?? []) as Peer[])
         setDaily((dailyRes.data ?? []) as DailyQuizQuestion[])
-
-        if (!ps?.stage) {
-          navigate("/onboarding", { replace: true })
-          return
-        }
-      } catch (err) {
-        toast.error(err instanceof Error ? err.message : "No pudimos cargar tu dashboard")
+      } catch {
+        // Estas cards muestran su propio estado vacío si algo falla: no
+        // interrumpimos el dashboard con un toast por el heatmap.
       } finally {
-        if (!cancelled) setLoading(false)
+        if (!cancelled) setDeferredLoading(false)
       }
     }
 
-    load()
+    loadDeferred()
     return () => {
       cancelled = true
     }
-  }, [user, navigate])
+  }, [user])
 
   const nextAchievement = useMemo(() => {
     const unlockedCodes = new Set(achievements.map((a) => a.code))
@@ -295,8 +314,10 @@ export function Dashboard() {
 
   const stage = pilot?.stage ?? null
   const stageLabel = stage ? STAGE_LABEL[stage] : "—"
-  const identity = stage ? STAGE_IDENTITY[stage] : "piloto"
-  const progress = stage ? computeAirlineProgress(stage, pilot?.icao_english_level ?? null, recentAttempts) : 0
+  const icaoLevel = pilot?.icao_english_level ?? null
+  /** Sin nivel medido no inventamos un 0: el tile muestra un guion. */
+  const icaoMeasured = icaoLevel !== null && icaoLevel > 0
+  const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : 0
   const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
@@ -310,22 +331,29 @@ export function Dashboard() {
 
   return (
     <AppLayout streak={streakDays}>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         {/* Cockpit hero */}
         <CockpitHero
           firstName={firstName}
-          identity={identity}
           stageLabel={stageLabel}
           totalHours={pilot?.total_hours ?? 0}
           targetAirline={pilot?.target_airline ?? null}
           streakDays={streakDays}
           progress={progress}
-          firstStep={todayPlan[0]}
           trialLeft={trialLeft}
         />
 
-        {/* Test inicial — solo si todavía no tiene nivel/estimación */}
-        {!pilot?.icao_english_level && (
+        {/* Acción del día: dueña única del quiz, justo debajo del hero.
+            Sin skeleton propio: si hoy no hay quiz curado la card no existe y un
+            placeholder dejaría un hueco que después se cierra de golpe. */}
+        {daily.length > 0 && (
+          <div className="mt-5">
+            <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
+          </div>
+        )}
+
+        {/* Test inicial: solo si todavía no tiene nivel ni estimación */}
+        {!icaoMeasured && (
           <Link
             to="/app/test-inicial"
             className="mt-5 flex items-center justify-between gap-4 rounded-2xl border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
@@ -337,20 +365,24 @@ export function Dashboard() {
               </div>
               <div>
                 <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-                <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">Hacé tu test inicial</div>
-                <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubrí tu Nivel Inicial.</div>
+                <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">Haz tu test inicial</div>
+                <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubre tu Nivel Inicial.</div>
               </div>
             </div>
             <ArrowRight className="hidden sm:block h-5 w-5 flex-shrink-0 text-muted-foreground" />
           </Link>
         )}
 
-        {/* Instrument cluster */}
+        {/* Instrument cluster: sin curvas inventadas, solo el número que la app sostiene */}
         <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
-          <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" sparkline={[12, 18, 22, 19, 28, 24, 32]} sparklineColor="var(--av-cyan-400)" />
-          <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" sparkline={[1, 2, 3, 4, 5, 6, streakDays || 1]} sparklineColor="var(--av-amber-400)" />
-          <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} sparkline={[2, 5, 4, 7, 9, 12, 8]} sparklineColor="var(--av-violet-400)" />
-          <KpiTile eyebrow="ICAO English" value={pilot?.icao_english_level ?? 0} sparkline={[3, 3, 3.5, 4, 4, 4, pilot?.icao_english_level ?? 4]} sparklineColor="var(--av-green-400)" />
+          <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" />
+          <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" />
+          <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} />
+          {icaoMeasured ? (
+            <KpiTile eyebrow="ICAO English" value={icaoLevel ?? 0} />
+          ) : (
+            <KpiTile eyebrow="ICAO English" value={0} format={() => "—"} suffix="Sin medir" />
+          )}
         </div>
 
         {/* Today's plan + Wingman insight */}
@@ -359,34 +391,34 @@ export function Dashboard() {
             <SectionTitle
               icon={Target}
               eyebrow="Tu plan de hoy"
-              title="3 micro-acciones para no romper la racha"
-              hint="Cada paso suma. No tienes que hacer los 3 hoy."
+              title="3 acciones cortas, además del quiz"
+              hint="Cada paso suma. No tienes que hacer las 3 hoy."
             />
-            <div className="stagger grid grid-cols-3 gap-3 mt-3">
+            <div className="stagger grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
               {todayPlan.map((step) => (
                 <TodayCard key={step.title} step={step} />
               ))}
             </div>
           </section>
-          <WingmanInsight stage={stage} recentAttempts={recentAttempts} icao={pilot?.icao_english_level ?? null} />
+          <WingmanInsight stage={stage} recentAttempts={recentAttempts} icao={icaoLevel} />
         </div>
 
         {/* Streak + Heatmap */}
-        <div className="grid grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
           <StreakCard current={streakDays} longest={longestStreak} atRisk={streakAtRisk} />
-          <ActivityHeatmap data={heatmap} />
+          <ActivityHeatmap data={heatmap} loading={deferredLoading} />
         </div>
 
         {/* Achievements + Cohort */}
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
-          <AchievementsCard unlocked={achievements} next={nextAchievement ?? null} total={allAchievements.length} />
-          <CohortCard peers={peers} stageLabel={stageLabel} />
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
+          <AchievementsCard
+            unlocked={achievements}
+            next={nextAchievement ?? null}
+            total={allAchievements.length}
+            loading={deferredLoading}
+          />
+          <CohortCard peers={peers} stageLabel={stageLabel} loading={deferredLoading} />
         </div>
-
-        {/* Daily quiz callout */}
-        {daily.length > 0 && (
-          <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
-        )}
       </div>
     </AppLayout>
   )
@@ -399,17 +431,14 @@ function CockpitHero({
   targetAirline,
   streakDays,
   progress,
-  firstStep,
   trialLeft,
 }: {
   firstName: string
-  identity?: string
   stageLabel: string
   totalHours: number
   targetAirline: string | null
   streakDays: number
   progress: number
-  firstStep: NextStep
   trialLeft: number | null
 }) {
   return (
@@ -428,8 +457,8 @@ function CockpitHero({
             {streakDays > 0 && (
               <>
                 <span className="text-muted-foreground/40">·</span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Flame className="h-3.5 w-3.5" style={{ color: "var(--av-amber-400)" }} />
+                <span className="chip chip-amber tabular-nums">
+                  <Flame className="h-3 w-3" />
                   {streakDays} {streakDays === 1 ? "día" : "días"} de racha
                 </span>
               </>
@@ -461,24 +490,18 @@ function CockpitHero({
         {/* Right CTA */}
         <div className="flex flex-col items-start lg:items-end gap-2.5">
           {trialLeft !== null && trialLeft > 0 && (
-            <span
-              className="inline-flex items-center gap-1.5 text-[12px] font-bold px-2.5 py-1 rounded-full"
-              style={{
-                color: "#B45309",
-                background: "color-mix(in oklab, var(--av-amber-400) 18%, transparent)",
-              }}
-            >
+            <span className="chip chip-amber tabular-nums">
               <Sparkles className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
             </span>
           )}
           <Link
-            to={firstStep.href}
+            to={DAILY_ACTION.href}
             className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--av-blue-500)" }}
           >
-            {firstStep.cta} <ArrowRight className="h-4 w-4" />
+            {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
           </Link>
-          <div className="text-[12px] text-muted-foreground">~{firstStep.minutes} min</div>
+          <div className="text-[12px] text-muted-foreground">~{DAILY_ACTION.minutes} min</div>
         </div>
       </div>
     </section>
@@ -487,13 +510,12 @@ function CockpitHero({
 
 function TodayCard({ step }: { step: NextStep }) {
   const Ic = step.icon
-  const accent = COLOR_MAP[step.tone]
   return (
     <Link
       to={step.href}
       className="relative overflow-hidden rounded-2xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = `color-mix(in oklab, ${accent} 45%, transparent)`
+        e.currentTarget.style.borderColor = tileBorder(step.tone, 45)
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)"
@@ -502,11 +524,10 @@ function TodayCard({ step }: { step: NextStep }) {
       <div className="relative">
         <div className="flex items-center justify-between">
           <div
-            className="w-[38px] h-[38px] rounded-lg flex items-center justify-center"
+            className="w-[38px] h-[38px] rounded-lg flex items-center justify-center text-foreground"
             style={{
-              background: `color-mix(in oklab, ${accent} 14%, transparent)`,
-              color: accent,
-              border: `1px solid color-mix(in oklab, ${accent} 28%, transparent)`,
+              background: tileTint(step.tone),
+              border: `1px solid ${tileBorder(step.tone)}`,
             }}
           >
             <Ic className="h-[18px] w-[18px]" />
@@ -517,10 +538,7 @@ function TodayCard({ step }: { step: NextStep }) {
         </div>
         <div className="mt-3.5 text-sm font-bold text-foreground tracking-[-0.015em]">{step.title}</div>
         <div className="mt-1 text-xs text-muted-foreground leading-relaxed">{step.description}</div>
-        <div
-          className="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold"
-          style={{ color: accent }}
-        >
+        <div className="mt-3.5 inline-flex items-center gap-1 text-xs font-semibold text-foreground">
           {step.cta} <ArrowRight className="h-3 w-3" />
         </div>
       </div>
@@ -563,7 +581,7 @@ function WingmanInsight({
       }
     }
     return {
-      title: "Diversificá las materias",
+      title: "Diversifica las materias",
       body: "Llevas varios quizzes de la misma materia. Prueba otra: tu cerebro consolida mejor con variedad.",
       cta: "Ver materias",
       href: "/app/pca",
@@ -574,16 +592,13 @@ function WingmanInsight({
     <div
       className="relative overflow-hidden rounded-2xl border p-5"
       style={{
-        background: "color-mix(in oklab, #7C3AED 5%, var(--card))",
-        borderColor: "color-mix(in oklab, #7C3AED 22%, var(--border))",
+        background: "color-mix(in oklab, var(--av-violet-400) 5%, var(--card))",
+        borderColor: "color-mix(in oklab, var(--av-violet-400) 22%, var(--border))",
       }}
     >
       <div className="relative">
-        <div
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-          style={{ color: "#7C3AED" }}
-        >
-          <Sparkles className="h-3.5 w-3.5" /> Insight de Wingman
+        <div className="chip chip-violet">
+          <Sparkles className="h-3 w-3" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
         <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
@@ -598,31 +613,101 @@ function WingmanInsight({
   )
 }
 
+/**
+ * Patrón único de estado vacío: tile con icono, título, una línea y una salida.
+ * Lo comparten racha, logros y cohorte, que antes tenían tres vacíos distintos.
+ */
+function EmptyState({
+  icon: Ic,
+  tone,
+  title,
+  line,
+  cta,
+  href,
+}: {
+  icon: typeof BookOpen
+  tone: TileColorKey
+  title: string
+  line: string
+  cta: string
+  href: string
+}) {
+  return (
+    <div className="py-5 flex flex-col items-center text-center">
+      <div
+        className="flex items-center justify-center h-12 w-12 rounded-2xl text-foreground"
+        style={{ background: tileTint(tone), border: `1px solid ${tileBorder(tone)}` }}
+      >
+        <Ic className="h-5 w-5" />
+      </div>
+      <div className="mt-3 text-sm font-bold text-foreground tracking-[-0.015em]">{title}</div>
+      <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[34ch]">{line}</p>
+      <Link
+        to={href}
+        className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+      >
+        {cta} <ArrowRight className="h-3 w-3" />
+      </Link>
+    </div>
+  )
+}
+
+/** Preview de la semana: 7 barras, apagadas hasta el primer día de racha. */
+function StreakBars({ current }: { current: number }) {
+  return (
+    <div className="flex gap-1">
+      {Array.from({ length: 7 }).map((_, i) => (
+        <div
+          key={i}
+          className="flex-1 h-1.5 rounded-full"
+          style={{
+            background: i < current ? "var(--av-amber-400)" : "var(--muted)",
+            boxShadow: i < current ? "0 0 6px var(--av-amber-400)" : "none",
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
-  const isZero = current === 0
+  if (current === 0) {
+    return (
+      <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+        <span className="chip chip-amber">
+          <Flame className="h-3 w-3" /> Tu racha
+        </span>
+        <EmptyState
+          icon={Flame}
+          tone="amber"
+          title="Enciende tu racha"
+          line="Una sola pregunta hoy cuenta como día activo y arranca la cuenta."
+          cta="Responder una pregunta"
+          href={DAILY_ACTION.href}
+        />
+        <div className="div-dotted my-4" />
+        <StreakBars current={0} />
+        <p className="mt-2 text-[12px] text-muted-foreground">Así se ve tu semana: hoy es el primer casillero.</p>
+      </div>
+    )
+  }
+
   return (
     <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
       <div className="relative">
-        <div
-          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-          style={{ color: "#B45309" }}
-        >
-          <Flame className="h-3.5 w-3.5" /> Tu racha
-        </div>
+        <span className="chip chip-amber">
+          <Flame className="h-3 w-3" /> Tu racha
+        </span>
         <div className="mt-4 flex items-baseline gap-2">
           <span
             className="mono tabular-nums text-[64px] font-bold leading-none tracking-[-0.05em]"
-            style={
-              isZero
-                ? { color: "var(--muted-foreground)" }
-                : {
-                    background:
-                      "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.22 25) 100%)",
-                    WebkitBackgroundClip: "text",
-                    backgroundClip: "text",
-                    color: "transparent",
-                  }
-            }
+            style={{
+              background:
+                "linear-gradient(135deg, var(--av-amber-400) 0%, var(--av-red-400) 100%)",
+              WebkitBackgroundClip: "text",
+              backgroundClip: "text",
+              color: "transparent",
+            }}
           >
             <CountUp to={current} />
           </span>
@@ -636,54 +721,37 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
           </p>
         )}
 
-        {atRisk && current > 0 && (
+        {atRisk && (
           <div
-            className="mt-4 flex items-start gap-2 rounded-xl p-3"
+            className="mt-4 rounded-xl p-3"
             style={{
-              background: "color-mix(in oklab, var(--av-amber-400) 12%, transparent)",
-              border: "1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent)",
+              background: tileTint("amber", 10),
+              border: `1px solid ${tileBorder("amber", 26)}`,
             }}
           >
-            <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-amber-400)" }} />
-            <div>
-              <div
-                className="text-xs font-bold"
-                style={{ color: "var(--av-amber-400)" }}
-              >
-                Tu racha está en riesgo
-              </div>
-              <p className="mt-0.5 text-[12.5px] text-muted-foreground">
-                Si no estudias hoy se reinicia.
-              </p>
-            </div>
+            <span className="chip chip-amber">
+              <AlertTriangle className="h-3 w-3" /> Tu racha está en riesgo
+            </span>
+            <p className="mt-2 text-[12.5px] text-muted-foreground">
+              Si no estudias hoy se reinicia. Con una pregunta la salvas.
+            </p>
+            <Link
+              to={DAILY_ACTION.href}
+              className="inline-flex items-center gap-1.5 mt-2.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+            >
+              Salvar mi racha <ArrowRight className="h-3 w-3" />
+            </Link>
           </div>
         )}
 
-        {isZero && (
-          <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-            Una pregunta hoy enciende tu racha 🔥
-          </p>
-        )}
-
         <div className="div-dotted my-4" />
-        <div className="flex gap-1">
-          {Array.from({ length: 7 }).map((_, i) => (
-            <div
-              key={i}
-              className="flex-1 h-1.5 rounded-full"
-              style={{
-                background: i < current ? "var(--av-amber-400)" : "var(--muted)",
-                boxShadow: i < current ? "0 0 6px var(--av-amber-400)" : "none",
-              }}
-            />
-          ))}
-        </div>
+        <StreakBars current={current} />
       </div>
     </div>
   )
 }
 
-function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
+function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: boolean }) {
   const weeks: ActivityDay[][] = []
   for (let i = 0; i < data.length; i += 7) weeks.push(data.slice(i, i + 7))
   const total = data.reduce((a, d) => a + d.activities_count, 0)
@@ -709,45 +777,71 @@ function ActivityHeatmap({ data }: { data: ActivityDay[] }) {
         </div>
         <div className="text-right">
           <div className="tabular-nums text-[22px] font-extrabold text-foreground tracking-[-0.03em]">
-            <CountUp to={total} />
+            {total > 0 ? <CountUp to={total} /> : "—"}
           </div>
           <div className="text-[11px] text-muted-foreground">actividades</div>
         </div>
       </div>
-      <div className="flex gap-1 items-start">
-        <div className="flex flex-col gap-[3px] mt-0.5 mr-1">
-          {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
-            <div
-              key={i}
-              className="mono text-[11px] text-muted-foreground text-right"
-              style={{ height: 14, lineHeight: "14px", width: 12 }}
-            >
-              {i % 2 === 0 ? d : ""}
-            </div>
-          ))}
-        </div>
-        <div className="flex gap-[3px] overflow-x-auto flex-1 pb-1">
-          {weeks.map((week, wi) => (
-            <div key={wi} className="flex flex-col gap-[3px]">
-              {week.map((d) => (
+
+      {loading ? (
+        <div className="h-[122px] rounded-xl bg-muted animate-pulse" />
+      ) : (
+        <>
+          <div className="flex gap-1 items-start" style={total === 0 ? { opacity: 0.3 } : undefined}>
+            <div className="flex flex-col gap-[3px] mt-0.5 mr-1">
+              {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
                 <div
-                  key={d.date}
-                  className="w-[14px] h-[14px] rounded-[3px] transition-transform hover:scale-150 cursor-pointer"
-                  style={{ background: color(d.activities_count) }}
-                  title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
-                />
+                  key={i}
+                  className="mono text-[11px] text-muted-foreground text-right"
+                  style={{ height: 14, lineHeight: "14px", width: 12 }}
+                >
+                  {i % 2 === 0 ? d : ""}
+                </div>
               ))}
             </div>
-          ))}
-        </div>
-      </div>
-      <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-muted-foreground justify-end">
-        <span>Menos</span>
-        {[0, 1, 3, 5, 7].map((c) => (
-          <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
-        ))}
-        <span>Más</span>
-      </div>
+            <div className="flex gap-[3px] overflow-x-auto flex-1 pb-1">
+              {total === 0
+                ? Array.from({ length: 12 }).map((_, wi) => (
+                    <div key={wi} className="flex flex-col gap-[3px]">
+                      {Array.from({ length: 7 }).map((_, di) => (
+                        <div
+                          key={di}
+                          className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0"
+                          style={{ background: "var(--muted)" }}
+                        />
+                      ))}
+                    </div>
+                  ))
+                : weeks.map((week, wi) => (
+                    <div key={wi} className="flex flex-col gap-[3px]">
+                      {week.map((d) => (
+                        <div
+                          key={d.date}
+                          className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0 transition-transform hover:scale-150"
+                          style={{ background: color(d.activities_count) }}
+                          title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
+                        />
+                      ))}
+                    </div>
+                  ))}
+            </div>
+          </div>
+
+          {total === 0 ? (
+            <p className="mt-3.5 text-[13px] text-muted-foreground">
+              Tu primera actividad aparece aquí hoy.
+            </p>
+          ) : (
+            <div className="mt-3.5 flex items-center gap-1.5 text-[12px] text-muted-foreground justify-end">
+              <span>Menos</span>
+              {[0, 1, 3, 5, 7].map((c) => (
+                <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
+              ))}
+              <span>Más</span>
+            </div>
+          )}
+        </>
+      )}
     </div>
   )
 }
@@ -756,10 +850,12 @@ function AchievementsCard({
   unlocked,
   next,
   total,
+  loading,
 }: {
   unlocked: Achievement[]
   next: Achievement | null
   total: number
+  loading: boolean
 }) {
   const TIER_GRAD: Record<Achievement["tier"], string> = {
     bronze: "linear-gradient(135deg, oklch(0.75 0.12 60), oklch(0.55 0.15 40))",
@@ -772,7 +868,7 @@ function AchievementsCard({
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
-        title={`${unlocked.length} / ${total} desbloqueados`}
+        title={loading ? "Cargando tus logros" : `${unlocked.length} / ${total} desbloqueados`}
         right={
           <Link
             to="/app/perfil"
@@ -783,25 +879,23 @@ function AchievementsCard({
           </Link>
         }
       />
-      {unlocked.length === 0 ? (
-        <div className="py-6 text-center">
-          <div
-            className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-3 text-2xl"
-            style={{
-              background: "color-mix(in oklab, var(--av-amber-400) 10%, transparent)",
-              color: "var(--av-amber-400)",
-            }}
-          >
-            🏆
-          </div>
-          <p className="text-sm text-muted-foreground">Tu primer logro está a un quiz de distancia.</p>
-        </div>
+      {loading ? (
+        <div className="h-[132px] rounded-xl bg-muted animate-pulse" />
+      ) : unlocked.length === 0 ? (
+        <EmptyState
+          icon={Trophy}
+          tone="amber"
+          title="Tu primer logro está a un quiz de distancia"
+          line="Completa el quiz de hoy y desbloqueas el primero de la colección."
+          cta="Empezar quiz de hoy"
+          href={DAILY_ACTION.href}
+        />
       ) : (
-        <div className="grid grid-cols-8 gap-2.5">
+        <div className="grid grid-cols-4 sm:grid-cols-8 gap-2.5">
           {unlocked.slice(0, 8).map((a) => (
             <div key={a.code} className="aspect-square relative group" title={`${a.name}: ${a.description}`}>
               <div
-                className="w-full h-full rounded-xl flex items-center justify-center text-xl transition-transform hover:scale-110 cursor-pointer"
+                className="w-full h-full rounded-xl flex items-center justify-center text-xl transition-transform hover:scale-110"
                 style={{
                   background: TIER_GRAD[a.tier],
                   boxShadow:
@@ -839,14 +933,33 @@ function AchievementsCard({
   )
 }
 
-function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }) {
+function CohortCard({
+  peers,
+  stageLabel,
+  loading,
+}: {
+  peers: Peer[]
+  stageLabel: string
+  loading: boolean
+}) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
-      <SectionTitle icon={Users} eyebrow="Tu cohorte" title={`${peers.length} pilotos en ${stageLabel}`} />
-      {peers.length === 0 ? (
-        <div className="py-6 text-center text-sm text-muted-foreground">
-          Aún no hay otros pilotos en tu etapa.
-        </div>
+      <SectionTitle
+        icon={Users}
+        eyebrow="Tu cohorte"
+        title={loading ? "Buscando pilotos como tú" : `${peers.length} pilotos en ${stageLabel}`}
+      />
+      {loading ? (
+        <div className="h-[132px] rounded-xl bg-muted animate-pulse" />
+      ) : peers.length === 0 ? (
+        <EmptyState
+          icon={Users}
+          tone="blue"
+          title="Todavía no hay pilotos en tu etapa"
+          line="Preséntate en la comunidad: el primero en llegar arma la cohorte."
+          cta="Ir a comunidad"
+          href="/app/comunidad"
+        />
       ) : (
         <div className="flex flex-col gap-2">
           {peers.map((p) => (
@@ -882,8 +995,8 @@ function CohortCard({ peers, stageLabel }: { peers: Peer[]; stageLabel: string }
 function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
   return (
     <Link
-      to="/app/pca"
-      className="anim-fade-up relative overflow-hidden flex items-center justify-between gap-4 rounded-2xl p-6 text-white"
+      to={DAILY_ACTION.href}
+      className="anim-fade-up relative overflow-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl p-6 text-white"
       style={{
         background: "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.18 65) 100%)",
         boxShadow:
@@ -909,7 +1022,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
             Quiz del día
           </div>
           <div className="text-xl font-bold tracking-[-0.02em]">
-            {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
+            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
           <div className="text-xs opacity-85 mt-0.5">
             Curadas para ti. Se renueva mañana, no las dejes pasar.
@@ -917,30 +1030,61 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
         </div>
       </div>
       <span
-        className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm flex-shrink-0"
-        style={{ background: "white", color: "#B45309", boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)" }}
+        className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm flex-shrink-0"
+        style={{
+          background: "white",
+          color: "var(--av-navy-900)",
+          boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)",
+        }}
       >
-        Empezar quiz <ArrowRight className="h-3.5 w-3.5" />
+        {DAILY_ACTION.cta} <ArrowRight className="h-3.5 w-3.5" />
       </span>
     </Link>
   )
 }
 
+/**
+ * Espeja el layout real (mismas clases de grid, mismos breakpoints y alturas
+ * parecidas) para que al cargar no salte la página.
+ */
 function DashboardSkeleton() {
   return (
     <AppLayout>
-      <div className="px-7 py-7 max-w-[1480px] mx-auto space-y-6 animate-pulse">
-        <div className="h-8 w-64 bg-muted rounded-lg" />
-        <div className="h-44 bg-muted rounded-2xl" />
-        <div className="grid grid-cols-4 gap-3.5">
-          <div className="h-28 bg-muted rounded-xl" />
-          <div className="h-28 bg-muted rounded-xl" />
-          <div className="h-28 bg-muted rounded-xl" />
-          <div className="h-28 bg-muted rounded-xl" />
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+        {/* Hero */}
+        <div className="h-[232px] bg-muted rounded-2xl" />
+
+        {/* Instrument cluster */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
+          <div className="h-[106px] bg-muted rounded-2xl" />
+          <div className="h-[106px] bg-muted rounded-2xl" />
+          <div className="h-[106px] bg-muted rounded-2xl" />
+          <div className="h-[106px] bg-muted rounded-2xl" />
         </div>
+
+        {/* Plan de hoy + Wingman */}
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
+          <div>
+            <div className="h-[52px] w-[260px] bg-muted rounded-lg mb-3.5" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
+              <div className="h-[158px] bg-muted rounded-2xl" />
+              <div className="h-[158px] bg-muted rounded-2xl" />
+              <div className="h-[158px] bg-muted rounded-2xl" />
+            </div>
+          </div>
+          <div className="h-[226px] bg-muted rounded-2xl" />
+        </div>
+
+        {/* Racha + actividad */}
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
+          <div className="h-[248px] bg-muted rounded-2xl" />
+          <div className="h-[248px] bg-muted rounded-2xl" />
+        </div>
+
+        {/* Logros + cohorte */}
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
-          <div className="h-40 bg-muted rounded-xl" />
-          <div className="h-40 bg-muted rounded-xl" />
+          <div className="h-[212px] bg-muted rounded-2xl" />
+          <div className="h-[212px] bg-muted rounded-2xl" />
         </div>
       </div>
     </AppLayout>

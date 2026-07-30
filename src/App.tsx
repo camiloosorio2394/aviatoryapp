@@ -32,6 +32,11 @@ import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
 import { IcaoMockExam } from "@/pages/IcaoMockExam"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
+import { Notam } from "@/pages/Notam"
+import { NotamLesson } from "@/pages/NotamLesson"
+import { NotamDecoder } from "@/pages/NotamDecoder"
+import { NotamPractice } from "@/pages/NotamPractice"
+import { NotamExam } from "@/pages/NotamExam"
 import { PsychTests } from "@/pages/PsychTests"
 import { Library } from "@/pages/Library"
 import { VaultQuizPlayer } from "@/pages/VaultQuizPlayer"
@@ -180,6 +185,47 @@ function App() {
           element={
             <RequireAuth>
               <AirlinePrep />
+            </RequireAuth>
+          }
+        />
+        {/* Sección NOTAM del módulo Ingreso a Aerolínea */}
+        <Route
+          path="/app/aerolinea/notam"
+          element={
+            <RequireAuth>
+              <Notam />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/notam/aprende"
+          element={
+            <RequireAuth>
+              <NotamLesson />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/notam/decodificador"
+          element={
+            <RequireAuth>
+              <NotamDecoder />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/notam/practica"
+          element={
+            <RequireAuth>
+              <NotamPractice />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/notam/evaluacion"
+          element={
+            <RequireAuth>
+              <NotamExam />
             </RequireAuth>
           }
         />

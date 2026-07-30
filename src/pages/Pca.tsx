@@ -1,206 +1,56 @@
 import { Link } from "react-router-dom"
 import {
-  FileText,
-  ListChecks,
-  Timer,
-  Target,
-  Sparkles,
   ArrowRight,
-  Check,
-  Clock,
   Award,
-  Loader2,
+  BookOpen,
+  History,
+  ListChecks,
+  RefreshCw,
+  ShieldCheck,
+  Sparkles,
   PlayCircle,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { PageHeader } from "@/components/ui/page-header"
+import { SectionTitle } from "@/components/ui/section-title"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
-import { getSubjectMeta, type SubjectColor } from "@/lib/vaultSubjects"
+import { getSubjectMeta } from "@/lib/vaultSubjects"
+import { TILE_COLOR, tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
+
+/** Bajo este número de preguntas avisamos que el banco todavía es chico. */
+const SMALL_BANK = 20
 
 /**
- * Módulo Examen PCA Aerocivil — simulacros completos del examen oficial.
+ * Módulo Examen PCA Aerocivil — estudio por materia + simulacro del examen.
  */
 export function Pca() {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
-          <div className="grid items-center gap-7 sm:grid-cols-[1fr_auto]">
-            <div>
-              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-                Materias · Banco PCA Aerocivil
-              </div>
-              <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-                Estudiá por materia, simulá el examen
-              </h1>
-              <p className="text-[16px] text-muted-foreground max-w-[640px] mt-3 leading-relaxed">
-                El banco completo del examen Piloto Comercial de Avión de Aerocivil. Practica
-                cada materia por separado para reforzar lo que te cuesta, o lanzá un{" "}
-                <strong className="text-foreground">Simulacro Examen PCA</strong> con preguntas
-                mezcladas de todas las materias para medir qué tan listo estás.
-              </p>
-            </div>
-            <div className="hidden sm:flex flex-col items-center gap-3 pr-2">
-              <div
-                className="flex items-center justify-center w-[110px] h-[110px] rounded-2xl"
-                style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
-              >
-                <Award className="h-14 w-14 text-white" strokeWidth={1.5} />
-              </div>
-              <div className="text-[12px] font-semibold text-muted-foreground">Examen oficial</div>
-            </div>
-          </div>
-        </section>
-
-        {/* === MATERIAS DISPONIBLES (en vivo desde vault_questions) === */}
-        <AvailableSubjects />
-
-        <div className="mt-10 mb-5 flex items-end justify-between">
-          <div>
-            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-              Roadmap del módulo
-            </div>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-              Cómo te vamos a preparar
-            </h2>
-          </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Clock className="h-3.5 w-3.5" />4 secciones · liberación gradual
-          </div>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          <FeatureTile
-            icon={Timer}
-            color="cyan"
-            title="Simulacros con cronómetro"
-            description="Mismo número de preguntas, mismo tiempo, mismas materias que el examen oficial Aerocivil. Sin atajos."
-            bullets={[
-              "Reloj real, no pausable (como en Aerocivil)",
-              "Mix de preguntas por materia idéntico al oficial",
-              "Modo enfoque sin distracciones",
-            ]}
-          />
-          <FeatureTile
-            icon={ListChecks}
-            color="blue"
-            title="Análisis post-examen"
-            description="Apenas terminas ves materia por materia dónde fallaste y qué quiz te conviene hacer primero para subir la nota."
-            bullets={[
-              "Score por materia + benchmark vs otros pilotos",
-              "Recomendaciones de quices específicos",
-              "Historial de simulacros para ver progreso",
-            ]}
-          />
-          <FeatureTile
-            icon={FileText}
-            color="violet"
-            title="Banco de preguntas reviewed"
-            description="Preguntas redactadas por nosotros basadas en la teoría oficial. Validadas por pilotos que ya pasaron el examen, sin riesgo legal de copiar literal del banco oficial."
-            bullets={[
-              "Cobertura completa Reglamento + Meteorología + Aerodinámica + Navegación + Radio",
-              "Cross-referenced con respuestas oficiales OACI / Aerocivil",
-              "Actualizadas cuando cambia la normativa",
-            ]}
-          />
-          <FeatureTile
-            icon={Target}
-            color="green"
-            title="Tracker de readiness"
-            description="Un número que te dice qué tan listo estás para presentar. Si está en verde, agenda el examen. Si está en rojo, todavía no gastes 250k en presentarlo."
-            bullets={[
-              "% predicho de aprobación basado en tus simulacros",
-              "Materias críticas que aún te frenan",
-              "Mínimo recomendado: 80% en 3 simulacros consecutivos",
-            ]}
-          />
-        </div>
-
-        <section
-          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-          style={{
-            borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-          }}
-        >
-          <div>
-            <div
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-              style={{ color: "var(--av-blue-500)" }}
-            >
-              <Sparkles className="h-3.5 w-3.5" /> Cómo estudiar
-            </div>
-            <h3 className="mt-1.5 text-lg font-bold">
-              Elige una materia de arriba y arranca un quiz de 10 preguntas.
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground max-w-[640px]">
-              Cada quiz que apruebas con 70%+ acerca tu readiness al examen real.
-              También puedes ver qué materias caen más usando Exam Tracker.
-            </p>
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
+      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow={
+            <>
+              <Award className="h-3.5 w-3.5" /> Banco PCA Aerocivil
+            </>
+          }
+          title="Estudia por materia, simula el examen"
+          subtitle="El banco del examen Piloto Comercial de Avión de Aerocivil. Practica una materia para reforzar lo que te cuesta, o lanza un simulacro con preguntas mezcladas para medir qué tan listo estás."
+          actions={
             <Link
               to="/app/exam-tracker"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-          </div>
-        </section>
+          }
+        />
+
+        {/* === MATERIAS DISPONIBLES (en vivo desde vault_questions) === */}
+        <AvailableSubjects />
+
+        <ComingNext />
       </div>
     </AppLayout>
-  )
-}
-
-interface TileProps {
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: "cyan" | "blue" | "violet" | "amber" | "green"
-  title: string
-  description: string
-  bullets: string[]
-}
-
-const TILE_COLOR: Record<TileProps["color"], string> = {
-  cyan: "#0E7490",
-  blue: "#2563EB",
-  violet: "#7C3AED",
-  amber: "#B45309",
-  green: "#047857",
-}
-
-function FeatureTile({ icon: Icon, color, title, description, bullets }: TileProps) {
-  return (
-    <div
-      className="card card-hover rounded-2xl border p-6 flex flex-col gap-3.5"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-    >
-      <div className="flex items-start gap-3.5">
-        <div
-          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: `color-mix(in oklab, ${TILE_COLOR[color]} 12%, transparent)`,
-            color: TILE_COLOR[color],
-          }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </div>
-        <div className="flex-1 pt-0.5">
-          <div className="text-[16px] font-bold tracking-[-0.01em]">{title}</div>
-          <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
-        </div>
-      </div>
-      <ul className="space-y-1.5 pl-1">
-        {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[14px] text-foreground/90">
-            <Check
-              className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
-              style={{ color: TILE_COLOR[color] } as React.CSSProperties}
-              strokeWidth={3}
-            />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
   )
 }
 
@@ -209,28 +59,85 @@ function FeatureTile({ icon: Icon, color, title, description, bullets }: TilePro
 // ────────────────────────────────────────────────────────────────────────────
 
 function AvailableSubjects() {
-  const { subjects, loading } = useVaultSubjects("pca")
+  const { subjects, loading, error, reload } = useVaultSubjects("pca")
 
   if (loading) {
     return (
-      <div className="mt-8 flex items-center justify-center gap-2 text-sm text-muted-foreground py-6">
-        <Loader2 className="h-4 w-4 animate-spin" /> Cargando materias disponibles…
-      </div>
+      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
+        {[0, 1, 2].map((i) => (
+          <div key={i} className="h-[132px] rounded-2xl border border-border bg-card animate-pulse" />
+        ))}
+      </section>
+    )
+  }
+
+  if (error) {
+    return (
+      <section className="rounded-2xl border border-border bg-card p-6 text-center">
+        <div className="text-[16px] font-bold">No pudimos cargar las materias</div>
+        <p className="mt-1.5 text-[14px] text-muted-foreground">
+          La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
+        </p>
+        <button
+          type="button"
+          onClick={reload}
+          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--av-blue-500)" }}
+        >
+          <RefreshCw className="h-4 w-4" /> Reintentar
+        </button>
+      </section>
     )
   }
 
   if (subjects.length === 0) {
-    return null // Nada cargado todavía — los tiles del roadmap explican qué viene
+    return (
+      <section className="rounded-2xl border border-border bg-card p-7 text-center">
+        <div
+          className="mx-auto flex items-center justify-center w-12 h-12 rounded-xl"
+          style={{
+            background: tileTint("blue"),
+            border: `1px solid ${tileBorder("blue")}`,
+            color: TILE_COLOR.blue,
+          }}
+        >
+          <BookOpen className="h-6 w-6" strokeWidth={1.8} />
+        </div>
+        <h2 className="mt-4 text-[19px] font-bold tracking-[-0.02em]">
+          El banco de preguntas se abre por materias
+        </h2>
+        <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
+          Todavía no hay ninguna materia abierta en tu cuenta. Haz el test inicial para saber por dónde
+          cuanto la primera esté lista.
+        </p>
+        <Link
+          to="/app/test-inicial"
+          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--av-blue-500)" }}
+        >
+          Hacer el test inicial <ArrowRight className="h-4 w-4" />
+        </Link>
+      </section>
+    )
   }
 
+  // Banco más grande primero: la escasez deja de ser una sorpresa al abrir el quiz.
+  const ordered = [...subjects].sort(
+    (a, b) =>
+      b.question_count - a.question_count ||
+      getSubjectMeta(a.subject_slug).name.localeCompare(getSubjectMeta(b.subject_slug).name),
+  )
+  const bankTotal = ordered.reduce((acc, s) => acc + s.question_count, 0)
+  const examCount = Math.min(20, bankTotal)
+
   return (
-    <section className="mt-10">
+    <section>
       {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
       <Link
-        to="/app/pca/quiz/examen?module=pca&count=20"
-        className="group relative overflow-hidden rounded-2xl border p-6 flex items-center gap-5 mb-8 transition-all hover:-translate-y-0.5 hover:shadow-md"
+        to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
+        className="card-apple group relative overflow-hidden rounded-2xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-8"
         style={{
-          borderColor: "color-mix(in oklab, var(--av-blue-500) 35%, transparent)",
+          borderColor: tileBorder("blue", 35),
           background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
         }}
       >
@@ -244,42 +151,36 @@ function AvailableSubjects() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Simulacro Examen PCA
           </div>
-          <div className="mt-0.5 text-[19px] font-extrabold tracking-[-0.02em]">
-            20 preguntas mezcladas de todas las materias
+          <div className="mt-0.5 text-[18px] sm:text-[19px] font-extrabold tracking-[-0.02em]">
+            {examCount} preguntas mezcladas de todas las materias
           </div>
           <div className="mt-0.5 text-[14px] text-muted-foreground">
-            Como el examen real de Aerocivil · al terminar ves tu nota.
+            Como el examen real de Aerocivil: al terminar ves tu nota y qué materia repasar.
           </div>
         </div>
         <div
-          className="relative hidden sm:flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-bold flex-shrink-0 text-white"
+          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-bold flex-shrink-0 text-white"
           style={{ background: "var(--av-blue-500)" }}
         >
           Empezar <ArrowRight className="h-4 w-4" />
         </div>
       </Link>
 
-      <div className="mb-5 flex items-end justify-between">
-        <div>
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Estudiar por materia
+      <SectionTitle
+        icon={BookOpen}
+        eyebrow="Estudiar por materia"
+        title="Refuerza donde más te cuesta"
+        hint={`${ordered.length} materias abiertas · ${bankTotal} preguntas en total`}
+        right={
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
+            <Sparkles className="h-3.5 w-3.5" /> Preguntas revisadas, sin spoilers
           </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            Reforzá donde más te cuesta
-          </h2>
-        </div>
-        <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
-          <Sparkles className="h-3.5 w-3.5" />Encriptado · revisado · sin spoilers
-        </div>
-      </div>
+        }
+      />
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {subjects.map((s) => (
-          <SubjectQuizCard
-            key={s.subject_slug}
-            slug={s.subject_slug}
-            count={s.question_count}
-          />
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {ordered.map((s) => (
+          <SubjectQuizCard key={s.subject_slug} slug={s.subject_slug} count={s.question_count} />
         ))}
       </div>
     </section>
@@ -288,34 +189,110 @@ function AvailableSubjects() {
 
 function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
   const meta = getSubjectMeta(slug)
-  const color: SubjectColor = meta.color
+  const color: TileColorKey = meta.color
   const Icon = meta.icon
   const quizCount = Math.min(10, count)
-  // SubjectColor incluye 'red' que no está en TILE_COLOR — fallback a cyan
-  const baseColor = (TILE_COLOR as Record<string, string>)[color] ?? TILE_COLOR.cyan
+  const isSmallBank = count < SMALL_BANK
 
   return (
     <Link
       to={`/app/pca/quiz/${slug}?module=pca&count=${quizCount}`}
-      className="card card-hover rounded-2xl border p-5 flex items-center gap-4 transition-all hover:-translate-y-0.5"
-      style={{ borderColor: `color-mix(in oklab, ${baseColor} 28%, transparent)` }}
+      className="card-apple rounded-2xl border bg-card p-5 flex flex-col gap-3.5"
+      style={{ borderColor: tileBorder(color) }}
     >
-      <div
-        className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-        style={{
-          background: `color-mix(in oklab, ${baseColor} 14%, transparent)`,
-          border: `1px solid color-mix(in oklab, ${baseColor} 30%, transparent)`,
-          color: baseColor,
-        }}
-      >
-        {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-[16px] font-bold tracking-[-0.01em] truncate">{meta.name}</div>
-        <div className="mt-0.5 inline-flex items-center gap-1 text-[13.5px] font-semibold" style={{ color: baseColor }}>
-          Practicar <ArrowRight className="h-3.5 w-3.5" />
+      <div className="flex items-start gap-3.5">
+        <div
+          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
+          style={{
+            background: tileTint(color),
+            border: `1px solid ${tileBorder(color, 30)}`,
+            color: TILE_COLOR[color],
+          }}
+        >
+          {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[16px] font-bold tracking-[-0.01em]">{meta.name}</div>
+          {meta.description && (
+            <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug line-clamp-2">
+              {meta.description}
+            </p>
+          )}
         </div>
       </div>
+
+      <div className="mt-auto flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-1.5 flex-wrap">
+          <span className="chip">{count} preguntas</span>
+          <span className="chip">Quiz de {quizCount}</span>
+          {isSmallBank && <span className="chip chip-amber">Banco chico</span>}
+        </div>
+        <span
+          className="inline-flex items-center gap-1 text-[13.5px] font-semibold"
+          style={{ color: TILE_COLOR[color] }}
+        >
+          Practicar <ArrowRight className="h-3.5 w-3.5" />
+        </span>
+      </div>
     </Link>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// Qué viene: solo lo que la base puede sostener cuando salga. Nada clickeable.
+// ────────────────────────────────────────────────────────────────────────────
+
+const COMING_NEXT: { icon: typeof ListChecks; color: TileColorKey; title: string; line: string }[] = [
+  {
+    icon: ListChecks,
+    color: "blue",
+    title: "Análisis por materia",
+    line: "Al terminar un simulacro, en qué materia fallaste y qué quiz seguir.",
+  },
+  {
+    icon: History,
+    color: "violet",
+    title: "Historial de simulacros",
+    line: "Cada intento guardado para comparar tu progreso.",
+  },
+  {
+    icon: ShieldCheck,
+    color: "green",
+    title: "Banco al día",
+    line: "Actualizamos las preguntas cuando cambia la normativa.",
+  },
+]
+
+function ComingNext() {
+  return (
+    <section className="mt-10">
+      <SectionTitle
+        eyebrow="Roadmap del módulo"
+        title="Qué viene"
+        hint="En construcción."
+      />
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        {COMING_NEXT.map((c) => (
+          <div
+            key={c.title}
+            className="rounded-2xl border border-border bg-card p-4 flex items-start gap-3"
+          >
+            <div
+              className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+              style={{ background: tileTint(c.color), color: TILE_COLOR[c.color] }}
+            >
+              <c.icon className="h-4 w-4" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[14.5px] font-bold tracking-[-0.01em]">{c.title}</span>
+                <span className="chip">Pronto</span>
+              </div>
+              <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{c.line}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   )
 }

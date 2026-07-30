@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target } from "lucide-react"
+import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, BookOpen, Clock } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -215,8 +215,48 @@ export function Route() {
   if (!checklist) {
     return (
       <AppLayout>
-        <div className="px-6 py-12 max-w-2xl mx-auto text-center">
-          <p className="text-muted-foreground">No hay ruta para esta etapa todavía.</p>
+        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+          <PageHeader
+            eyebrow={
+              <>
+                <MapIcon className="h-3.5 w-3.5" /> Mi ruta
+              </>
+            }
+            title="Tu ruta para esta etapa está en camino"
+            subtitle="Estamos armando el checklist de esta etapa. Mientras tanto, hay dos cosas que sí puedes adelantar hoy y que cuentan igual."
+          />
+          <div className="grid gap-4 sm:grid-cols-2 max-w-[840px]">
+            <Link
+              to="/app/pca"
+              className="rounded-2xl border border-border bg-card p-5 card-apple block"
+            >
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-xl"
+                style={{ background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)" }}
+              >
+                <BookOpen className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
+              </span>
+              <div className="mt-3 text-[15px] font-bold">Practica el examen PCA</div>
+              <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+                El banco por materia ya está cargado y cada quiz te explica lo que falles.
+              </p>
+            </Link>
+            <Link
+              to="/app/logbook"
+              className="rounded-2xl border border-border bg-card p-5 card-apple block"
+            >
+              <span
+                className="flex h-10 w-10 items-center justify-center rounded-xl"
+                style={{ background: "color-mix(in oklab, var(--av-cyan-400) 14%, transparent)" }}
+              >
+                <Clock className="h-5 w-5" style={{ color: "var(--av-cyan-400)" }} />
+              </span>
+              <div className="mt-3 text-[15px] font-bold">Registra tus horas</div>
+              <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+                Tus horas de vuelo son el requisito que más pesa para postular a una aerolínea.
+              </p>
+            </Link>
+          </div>
         </div>
       </AppLayout>
     )
@@ -263,7 +303,7 @@ export function Route() {
                       <div
                         className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-extrabold text-sm"
                         style={{
-                          background: done ? "#047857" : current ? "var(--av-blue-500)" : "var(--muted)",
+                          background: done ? "var(--av-green-400)" : current ? "var(--av-blue-500)" : "var(--muted)",
                           border: current ? "2px solid var(--av-blue-500)" : "2px solid var(--border)",
                           color: done || current ? "white" : "var(--muted-foreground)",
                           boxShadow: current ? "0 0 0 4px color-mix(in oklab, var(--av-blue-500) 18%, transparent)" : "none",
@@ -304,7 +344,7 @@ export function Route() {
             {allDone && (
               <div
                 className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
-                style={{ background: "#047857" }}
+                style={{ background: "var(--av-green-400)" }}
               >
                 <Trophy className="h-3.5 w-3.5" /> ¡Etapa completa!
               </div>
@@ -346,7 +386,7 @@ export function Route() {
                       <span
                         className="flex h-[22px] w-[22px] items-center justify-center rounded-md flex-shrink-0 mt-0.5 transition-all"
                         style={{
-                          background: checked ? "#047857" : "transparent",
+                          background: checked ? "var(--av-green-400)" : "transparent",
                           border: checked ? "none" : "1.5px solid var(--border)",
                           color: "white",
                         }}
