@@ -156,7 +156,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
             <strong>Rules:</strong> audios play a maximum of 2 times (1 + 1 replay). You won't see the
-            answers until the end. When you finish, you self-assess on the 6 ICAO descriptors — remember your
+            answers until the end. When you finish, you self-assess on the 6 ICAO descriptors. Remember your
             final result is your <strong>lowest descriptor</strong>.
           </div>
         </div>
@@ -338,7 +338,7 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "interview") {
     return (
       <Card>
-        <Kicker icon={Radio} text="Answer out loud — natural, technical and professional" />
+        <Kicker icon={Radio} text="Answer out loud: natural, technical and professional" />
         <div className="mt-3 text-[22px] font-bold leading-snug tracking-[-0.01em]">{step.question}</div>
       </Card>
     )
@@ -355,7 +355,7 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "long") {
     return (
       <Card>
-        <Kicker icon={Headphones} text="Long message — take notes and explain the situation in detail" />
+        <Kicker icon={Headphones} text="Long message: take notes and explain the situation in detail" />
         <div className="mt-4"><ExamPlayer audioUrl={step.audio.audioUrl} /></div>
         <Prompts items={["What was the problem?", "What were they requesting / advising?", "All the important details"]} />
       </Card>
@@ -364,7 +364,7 @@ function StepView({ step }: { step: ExamStep }) {
   if (step.kind === "interactive") {
     return (
       <Card>
-        <Kicker icon={MessageSquare} text="Situation — ask questions, then give recommendations" />
+        <Kicker icon={MessageSquare} text="Situation: ask questions, then give recommendations" />
         <div className="mt-4"><ExamPlayer audioUrl={step.item.audioUrl} label="Play situation" /></div>
         <Prompts items={["1) Questions to get more info (~20s)", "2) Recommendations to resolve it"]} />
       </Card>
@@ -525,7 +525,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
               <div className="mt-1 tabular-nums text-[44px] font-extrabold tracking-[-0.04em]" style={{ color: finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)" }}>
                 ICAO {finalLevel}
               </div>
-              <div className="text-[14px] text-muted-foreground">{finalLevel >= 5 ? "Extended — airline level" : finalLevel >= 4 ? "Operational — international legal minimum" : "Pre-operational — keep practising"}</div>
+              <div className="text-[14px] text-muted-foreground">{finalLevel >= 5 ? "Extended: airline level" : finalLevel >= 4 ? "Operational: international legal minimum" : "Pre-operational: keep practising"}</div>
 
               {/* Guardar */}
               {saveState === "saved" ? (
@@ -555,7 +555,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
         {/* Review */}
         <div className="mt-10">
-          <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">Review — what came up and the answers</h2>
+          <h2 className="text-[22px] font-extrabold tracking-[-0.02em]">Review: what came up and the answers</h2>
           <p className="mt-1 text-[14px] text-muted-foreground">Listen again, read the transcripts and, if you recorded, listen to yourself.</p>
           <div className="mt-4 space-y-2">
             {steps.map((s, i) => (

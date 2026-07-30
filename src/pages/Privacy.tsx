@@ -87,15 +87,15 @@ export function Privacy() {
             <p>Tu data vive en:</p>
             <ul className="list-disc pl-6 space-y-1.5 text-muted-foreground">
               <li>
-                <strong>Supabase</strong> (Postgres + Storage + Auth) — provider de
+                <strong>Supabase</strong> (Postgres + Storage + Auth): provider de
                 infraestructura con compliance SOC 2. Region: São Paulo, Brasil.
               </li>
               <li>
-                <strong>Vercel</strong> — hosting del frontend (sin persistencia
+                <strong>Vercel</strong>: hosting del frontend (sin persistencia
                 de data personal).
               </li>
               <li>
-                <strong>Anthropic</strong> — cuando usas Wingman (tutor IA), tu
+                <strong>Anthropic</strong>: cuando usas Wingman (tutor IA), tu
                 pregunta se envía a la API de Anthropic. Anthropic no usa esos
                 datos para entrenar modelos en su API empresarial.
               </li>
@@ -147,7 +147,7 @@ export function Privacy() {
               </li>
               <li>
                 <strong>Oponerte</strong> a tratamientos específicos (ej:
-                notificaciones marketing — hoy no enviamos).
+                notificaciones marketing; hoy no enviamos).
               </li>
             </ul>
           </Section>

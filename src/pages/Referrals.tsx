@@ -56,7 +56,7 @@ export function Referrals() {
     window.open(`https://wa.me/?text=${encodeURIComponent(shareText + " " + link)}`, "_blank")
   }
   function shareEmail() {
-    window.location.href = `mailto:?subject=${encodeURIComponent("Aviatory — para tu carrera de piloto")}&body=${encodeURIComponent(
+    window.location.href = `mailto:?subject=${encodeURIComponent("Aviatory: para tu carrera de piloto")}&body=${encodeURIComponent(
       shareText + "\n\n" + link
     )}`
   }

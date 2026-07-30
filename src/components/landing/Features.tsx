@@ -6,9 +6,9 @@ const features = [
   { icon: Brain, title: "Tutor IA personalizado", body: "Te explica los errores, genera preguntas similares hasta que dominás." },
   { icon: Languages, title: "Inglés ICAO 4+", body: "Vocabulario aeronáutico, comprensión oral, speaking con IA." },
   { icon: Headphones, title: "Radiofonía y comunicaciones", body: "Fraseología estándar, escenarios reales, evaluación de pronunciación." },
-  { icon: Briefcase, title: "Requisitos por aerolínea", body: "Avianca, LATAM, Copa, Wingo, JetSmart, Sky, Viva — siempre al día." },
+  { icon: Briefcase, title: "Requisitos por aerolínea", body: "Avianca, LATAM, Copa, Wingo, JetSmart, Sky, Viva, siempre al día." },
   { icon: FileCheck, title: "Simulacros de entrevista", body: "Preguntas técnicas, conductuales y HR de aerolíneas reales." },
-  { icon: Clock4, title: "Alertas de vencimientos", body: "Médico, licencia, recurrent — te avisamos 30 días antes." },
+  { icon: Clock4, title: "Alertas de vencimientos", body: "Médico, licencia, recurrent: te avisamos 30 días antes." },
   { icon: Users, title: "Comunidad de pilotos", body: "Conectate con pilotos LATAM en tu misma etapa o ya empleados." },
 ]
 

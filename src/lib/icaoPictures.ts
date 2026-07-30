@@ -63,7 +63,7 @@ export const PICTURE_PAIRS: PicturePair[] = [
   {
     id: 3,
     theme: "Fire on board and engine fire",
-    themeEn: "Fire — cabin & engine",
+    themeEn: "Fire: cabin & engine",
     imageA: img(5),
     imageB: img(6),
     altA: "Cabin crew using an extinguisher on an overhead compartment",
@@ -108,7 +108,7 @@ export const PICTURE_PAIRS: PicturePair[] = [
   {
     id: 6,
     theme: "Technology: tower and simulator",
-    themeEn: "Technology — tower & simulator",
+    themeEn: "Technology: tower & simulator",
     imageA: img(11),
     imageB: img(12),
     altA: "Controller in a digital/remote tower with several screens",

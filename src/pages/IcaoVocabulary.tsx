@@ -125,7 +125,7 @@ export function IcaoVocabulary() {
             <p className="mt-2 text-[15px] text-muted-foreground max-w-[680px]">
               What you need to understand (and be able to use) in routine situations and emergencies.
               Search by English term, translation or definition. This stays available
-              anytime — open it while you study or in class.
+              anytime: open it while you study or in class.
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">

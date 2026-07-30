@@ -100,7 +100,7 @@ export function ExamTracker() {
               </h2>
               <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
                 {totalReports === 0
-                  ? "Sé el primero en reportar — tu data ayuda a todos los próximos pilotos."
+                  ? "Sé el primero en reportar: tu data ayuda a todos los próximos pilotos."
                   : `${subjectsWithData} de ${totalSubjects} materias con inteligencia. Cada reporte sirve para que otro piloto entre al examen mejor preparado.`}
               </p>
             </div>
@@ -551,7 +551,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               />
               <p className="text-[12px] text-muted-foreground flex items-center gap-1">
                 <CircleHelp className="h-3 w-3" />
-                NO transcribas preguntas literales — solo el tema general.
+                NO transcribas preguntas literales, solo el tema general.
               </p>
             </div>
           </div>

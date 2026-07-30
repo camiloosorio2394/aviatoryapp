@@ -40,7 +40,7 @@ export function Header() {
         <Link
           to="/"
           className="flex items-center gap-3 transition-transform hover:scale-[1.02]"
-          aria-label="Aviatory — inicio"
+          aria-label="Aviatory: inicio"
         >
           <div className="inline-flex items-center justify-center h-11 w-11 rounded-xl border-2 border-slate-900 bg-gradient-to-br from-sky-400 via-blue-600 to-indigo-900 text-white shadow-md shadow-blue-500/30">
             <Send

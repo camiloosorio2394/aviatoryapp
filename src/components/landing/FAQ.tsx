@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     q: "¿Aviatory me consigue empleo en aerolínea?",
-    a: "No. Aviatory te prepara para que cumplas los requisitos, presentes los exámenes, mejores tu inglés y armes tu hoja de vida. La aerolínea decide. Pero ningún piloto sin estos pasos llega — y la mayoría se traba justo aquí.",
+    a: "No. Aviatory te prepara para que cumplas los requisitos, presentes los exámenes, mejores tu inglés y armes tu hoja de vida. La aerolínea decide. Pero ningún piloto sin estos pasos llega, y la mayoría se traba justo aquí.",
   },
   {
     q: "¿Qué pasa después de los 7 días gratis?",
@@ -33,7 +33,7 @@ const faqs = [
   },
   {
     q: "¿Hay app móvil?",
-    a: "Aviatory funciona en cualquier navegador, móvil incluido. Estamos trabajando en apps nativas para iOS y Android — los Founders las reciben primero.",
+    a: "Aviatory funciona en cualquier navegador, móvil incluido. Estamos trabajando en apps nativas para iOS y Android. Los Founders las reciben primero.",
   },
   {
     q: "¿Mis datos están seguros?",

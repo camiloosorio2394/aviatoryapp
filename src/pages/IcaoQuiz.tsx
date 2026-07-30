@@ -179,7 +179,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
         Vocabulary and comprehension questions
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
-        {QUIZ_SIZE} random questions. Each one has an explanation at the end — read them, that's
+        {QUIZ_SIZE} random questions. Each one has an explanation at the end. Read them, that's
         where the learning happens. It's not an exam, it's training.
       </p>
 

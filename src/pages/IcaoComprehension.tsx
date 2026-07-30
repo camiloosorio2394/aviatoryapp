@@ -407,7 +407,7 @@ function ShortAudiosSection() {
   )
   return (
     <>
-      <SectionIntro text={`A random quiz of ${Math.min(10, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}. Listen, decide whether it's a pilot or a controller — we check it — then compare with the answer key.`} />
+      <SectionIntro text={`A random quiz of ${Math.min(10, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}. Listen, decide whether it's a pilot or a controller (we check it), then compare with the answer key.`} />
       <WorkbookSamples title={`Workbook model phrases · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
         intro="Official examples of the kind of message you'll hear (Aviation English Now). Practise paraphrasing each one."
         items={SAMPLE_MESSAGES_2A} />
@@ -423,7 +423,7 @@ function LongAudiosSection() {
   }))
   return (
     <>
-      <SectionIntro text="A random quiz of long messages. Listen (you can take notes), decide pilot/controller — we check it — then explain the situation and compare with problem · request · details." />
+      <SectionIntro text="A random quiz of long messages. Listen (you can take notes), decide pilot/controller (we check it), then explain the situation and compare with problem · request · details." />
       <QuizRunner items={items} />
     </>
   )

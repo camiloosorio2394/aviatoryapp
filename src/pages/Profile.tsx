@@ -681,7 +681,7 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
                   <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "#047857" }} strokeWidth={3} />
                   <span>
                     <span className="font-semibold text-foreground">{s.label}</span>
-                    <span className="text-muted-foreground"> — {s.raw} ({Math.round(s.value)}%)</span>
+                    <span className="text-muted-foreground"> · {s.raw} ({Math.round(s.value)}%)</span>
                   </span>
                 </li>
               ))}
@@ -704,7 +704,7 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
                   <li key={s.key} className="text-[13.5px]">
                     <div>
                       <span className="font-semibold text-foreground">{s.label}</span>
-                      <span className="text-muted-foreground"> — {s.raw}</span>
+                      <span className="text-muted-foreground"> · {s.raw}</span>
                     </div>
                     {adv && (
                       <Link
@@ -735,7 +735,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
           className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
         >
           <span className="inline-flex items-center gap-2 text-[14px] text-muted-foreground">
-            <Headphones className="h-4 w-4" /> Sin evaluar — hacé el test inicial
+            <Headphones className="h-4 w-4" /> Sin evaluar: hacé el test inicial
           </span>
           <ArrowRight className="h-4 w-4 text-muted-foreground" />
         </Link>
@@ -768,7 +768,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
       </div>
       <p className="text-[11px] text-muted-foreground mt-1">
         {isEstimate
-          ? "Estimado del test inicial — confirmá tu nivel oficial con el simulacro TEA."
+          ? "Estimado del test inicial. Confirmá tu nivel oficial con el simulacro TEA."
           : `${dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.`}
       </p>
     </>

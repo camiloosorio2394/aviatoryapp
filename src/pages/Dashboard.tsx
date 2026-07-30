@@ -899,7 +899,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
             {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
           </div>
           <div className="text-xs opacity-85 mt-0.5">
-            Curadas para vos. Se renueva mañana — no las dejes pasar.
+            Curadas para vos. Se renueva mañana, no las dejes pasar.
           </div>
         </div>
       </div>

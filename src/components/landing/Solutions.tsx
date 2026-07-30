@@ -14,7 +14,7 @@ const COURSES: {
   highlight?: boolean
 }[] = [
   {
-    title: "Inglés ICAO — examen TEA",
+    title: "Inglés ICAO: examen TEA",
     blurb: "Vocabulario, comprensión auditiva, entrevista, descripción de imágenes y un simulacro completo.",
     icon: Globe2,
     color: "#2563EB",
@@ -50,7 +50,7 @@ const COURSES: {
     meta: "Requisitos por aerolínea",
   },
   {
-    title: "Wingman — tu tutor IA",
+    title: "Wingman: tu tutor IA",
     blurb: "Te explica cada pregunta que fallás, en español, con la teoría y un tip para recordarla. 24/7.",
     icon: Sparkles,
     color: "#0891B2",
