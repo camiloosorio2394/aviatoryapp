@@ -162,7 +162,7 @@ export function Community() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={loading || totalChannels === 0 ? "COMUNIDAD" : `COMUNIDAD · ${totalChannels} CANALES`}
           title="Comunidad Aviatory"
@@ -216,7 +216,7 @@ export function Community() {
           </div>
         )}
 
-        <div className="mt-12 rounded-2xl border border-border bg-muted/30 p-5 flex gap-3 items-start">
+        <div className="mt-8 rounded-xl surface p-5 flex gap-3 items-start">
           <Check
             className="h-5 w-5 flex-shrink-0 mt-0.5"
             style={{ color: "var(--av-blue-500)" }}
@@ -237,7 +237,7 @@ export function Community() {
 function LoadFailed({ onRetry }: { onRetry: () => void }) {
   return (
     <div
-      className="rounded-2xl border p-6 flex flex-col sm:flex-row gap-4 items-start"
+      className="rounded-xl border p-6 flex flex-col sm:flex-row gap-4 items-start"
       style={{ borderColor: tileBorder("amber"), background: tileTint("amber", 8) }}
     >
       <div
@@ -255,7 +255,7 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
         <button
           type="button"
           onClick={onRetry}
-          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[15px] font-semibold"
+          className="mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg border border-border bg-background text-[13px] font-semibold text-foreground hover:bg-muted transition-colors"
         >
           <RotateCw className="h-3.5 w-3.5" /> Reintentar
         </button>
@@ -266,9 +266,9 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
 
 function NoChannelsYet() {
   return (
-    <div className="rounded-2xl surface p-8 text-center">
+    <div className="rounded-xl surface p-8 text-center">
       <div
-        className="inline-flex items-center justify-center h-12 w-12 rounded-2xl mb-3"
+        className="inline-flex items-center justify-center h-12 w-12 rounded-xl mb-3"
         style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
       >
         <Hash className="h-6 w-6" />
@@ -289,7 +289,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
   return (
     <Link
       to={`/app/comunidad/${channel.slug}`}
-      className="group block rounded-2xl surface p-4 transition-all hover:-translate-y-0.5"
+      className="surface-lift group block rounded-xl surface p-4"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
         e.currentTarget.style.boxShadow = "0 4px 16px color-mix(in oklab, var(--av-blue-500) 18%, transparent)"
@@ -302,7 +302,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
       <div className="flex items-start gap-3">
         {isAirline ? (
           <div
-            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-semibold tracking-[0.02em]"
+            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-lg text-[13px] font-semibold tracking-[0.02em]"
             style={{
               background: tileTint(tileKey),
               border: `1px solid ${tileBorder(tileKey)}`,

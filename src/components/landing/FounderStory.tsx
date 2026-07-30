@@ -13,7 +13,7 @@ export function FounderStory() {
                 className="h-12 w-12 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ background: "var(--av-blue-500)" }}
               >
-                <LogoIsotype variant="color" className="h-7 w-7 rounded-lg" />
+                <LogoIsotype variant="color" className="h-7 w-7 rounded-full" />
               </div>
               <Quote className="h-6 w-6" style={{ color: "var(--av-blue-500)" }} />
             </div>

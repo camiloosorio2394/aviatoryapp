@@ -200,7 +200,7 @@ export function Login() {
 
         <div className="relative">
           <Link to="/" className="inline-flex items-center gap-3">
-            <LogoIsotype variant="color" className="h-10 w-10 rounded-xl shadow-lg" />
+            <LogoIsotype variant="color" className="h-10 w-10 rounded-full shadow-lg" />
             <span className="text-xl font-semibold tracking-tight">Aviatory</span>
           </Link>
         </div>

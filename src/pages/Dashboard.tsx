@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState, type ComponentType } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import {
   Flame,
-  Gauge,
   Radar,
   Timer,
   AlertTriangle,
@@ -28,7 +27,7 @@ import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
-import { KpiTile } from "@/components/ui/kpi-tile"
+import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 import {
   EXAM_PASS_SCORE as NOTAM_PASS_SCORE,
@@ -37,7 +36,8 @@ import {
   readLocalProgress as readNotamLocal,
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
-import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { badgeForCode } from "@/lib/achievementBadges"
+import { appButtonClass } from "@/lib/buttonStyles"
 
 type PilotStage =
   | "student_ppl"
@@ -56,6 +56,12 @@ interface PilotState {
   icao_english_level: number | null
   target_airline: string | null
   target_date: string | null
+}
+
+interface Profile {
+  full_name: string | null
+  username: string | null
+  photo_url: string | null
 }
 
 interface Streak {
@@ -119,6 +125,31 @@ interface NotamResumen {
 
 const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALS.exercises + NOTAM_TOTALS.national
 
+/** Documento del piloto con fecha de vencimiento (licencia, médico, habilitación). */
+interface LicenseRow {
+  id: string
+  license_type: string
+  custom_name: string | null
+  expires_date: string | null
+}
+
+/** Vista user_pca_readiness: qué tan listo está el piloto para presentar el PCA. */
+interface PcaReadiness {
+  attempts_60d: number | null
+  avg_score_60d: number | null
+  best_score: number | null
+  passed_recently: boolean | null
+  readiness_color: string | null
+}
+
+/** Días desde hoy hasta la fecha, negativo si ya pasó. */
+function daysUntil(iso: string): number {
+  const d = new Date(iso + "T00:00:00")
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  return Math.round((d.getTime() - today.getTime()) / 86400000)
+}
+
 const STAGE_LABEL: Record<PilotStage, string> = {
   student_ppl: "Estudiante PPL",
   ppl: "Piloto Privado",
@@ -175,16 +206,6 @@ const DAILY_ACTION = { href: "/app/pca", cta: "Empezar quiz de hoy", minutes: 12
  *  tablero no tiene con qué calibrar. */
 const FIRST_ACTION = { href: "/app/test-inicial", cta: "Hacer test inicial", minutes: 15 }
 
-/**
- * Una sola acción primaria por estado. Antes el hero mandaba siempre al quiz
- * mientras la card de abajo ofrecía el test inicial y Wingman proponía una
- * tercera materia: tres destinos distintos compitiendo por ser "lo primero".
- * Ahora el hero y la card destacada apuntan siempre al mismo lugar.
- */
-function resolvePrimaryAction(icaoMeasured: boolean) {
-  return icaoMeasured ? DAILY_ACTION : FIRST_ACTION
-}
-
 function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
@@ -234,6 +255,13 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   }
 }
 
+function greetingTime(): string {
+  const hour = new Date().getHours()
+  if (hour < 12) return "Buenos días"
+  if (hour < 19) return "Buenas tardes"
+  return "Buenas noches"
+}
+
 function trialDaysLeft(end: string | null): number | null {
   if (!end) return null
   const diff = new Date(end).getTime() - Date.now()
@@ -248,6 +276,7 @@ export function Dashboard() {
   /** Las tres RPC lentas (heatmap, cohorte, quiz diario) y los logros cargan
    *  después del hero, con skeleton local en su propia card. */
   const [deferredLoading, setDeferredLoading] = useState(true)
+  const [profile, setProfile] = useState<Profile | null>(null)
   const [pilot, setPilot] = useState<PilotState | null>(null)
   const [streak, setStreak] = useState<Streak | null>(null)
   const [subscription, setSubscription] = useState<Subscription | null>(null)
@@ -259,6 +288,8 @@ export function Dashboard() {
   const [daily, setDaily] = useState<DailyQuizQuestion[]>([])
   const [mastery, setMastery] = useState<SubjectMastery[]>([])
   const [notam, setNotam] = useState<NotamResumen | null>(null)
+  const [licenses, setLicenses] = useState<LicenseRow[]>([])
+  const [readiness, setReadiness] = useState<PcaReadiness | null>(null)
 
   useEffect(() => {
     if (!user) return
@@ -266,7 +297,8 @@ export function Dashboard() {
 
     async function loadCore() {
       try {
-        const [pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
+        const [profileRes, pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
+          supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
@@ -275,6 +307,7 @@ export function Dashboard() {
 
         if (cancelled) return
 
+        setProfile(profileRes.data as Profile | null)
         const ps = pilotRes.data as PilotState | null
         setPilot(ps)
         setStreak(streakRes.data as Streak | null)
@@ -304,7 +337,7 @@ export function Dashboard() {
 
     async function loadDeferred() {
       try {
-        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes, masteryRes, notamProg, notamBestRes] = await Promise.all([
+        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes, masteryRes, notamProg, notamBestRes, licensesRes, readinessRes] = await Promise.all([
           supabase.from("achievements").select("*").order("order_index"),
           // Sin limit: la card de logros muestra la colección completa y
           // necesita saber cuáles están desbloqueados, no solo los últimos 4.
@@ -315,6 +348,8 @@ export function Dashboard() {
           supabase.rpc("get_subject_mastery"),
           fetchNotamProgress(user!.id),
           supabase.from("user_notam_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1),
+          supabase.from("licenses_held").select("id, license_type, custom_name, expires_date").eq("user_id", user!.id).not("expires_date", "is", null).order("expires_date", { ascending: true }),
+          supabase.from("user_pca_readiness").select("attempts_60d, avg_score_60d, best_score, passed_recently, readiness_color").eq("user_id", user!.id).maybeSingle(),
         ])
 
         supabase.rpc("check_my_expiries").then(() => undefined)
@@ -345,6 +380,9 @@ export function Dashboard() {
         const scores = [remoteBest, local.bestExamScore].filter((v): v is number => typeof v === "number")
         const best = scores.length > 0 ? Math.max(...scores) : null
         setNotam(lesson === 0 && practice === 0 && best === null ? null : { lesson, practice, best })
+
+        setLicenses((licensesRes.data ?? []) as LicenseRow[])
+        setReadiness(readinessRes.data as PcaReadiness | null)
       } catch {
         // Estas cards muestran su propio estado vacío si algo falla: no
         // interrumpimos el dashboard con un toast por el heatmap.
@@ -359,17 +397,53 @@ export function Dashboard() {
     }
   }, [user])
 
-  /** Agregado PCA: cobertura real del banco y la materia más floja con datos. */
+  /**
+   * Documento más próximo a vencer, solo si vence dentro de 90 días o ya venció.
+   * Fuera de esa ventana no se muestra nada: un aviso permanente deja de ser un
+   * aviso y pasa a ser decoración.
+   */
+  const expiry = useMemo(() => {
+    const withDates = licenses
+      .filter((l): l is LicenseRow & { expires_date: string } => Boolean(l.expires_date))
+      .map((l) => ({ ...l, days: daysUntil(l.expires_date) }))
+      .sort((a, b) => a.days - b.days)
+    return withDates.find((l) => l.days <= 90) ?? null
+  }, [licenses])
+
+  /**
+   * Lectura de preparación para presentar el PCA. Sale de user_pca_readiness,
+   * que la app ya calculaba y ninguna pantalla mostraba. Solo habla cuando hay
+   * intentos en los últimos 60 días: sin práctica reciente no hay nada que
+   * decir sobre si estás listo.
+   */
+  const readinessHint = useMemo(() => {
+    const attempts = readiness?.attempts_60d ?? 0
+    if (!readiness || attempts === 0) return null
+    if (readiness.passed_recently) {
+      return `Vas listo para presentar: aprobaste en los últimos 60 días con ${readiness.best_score ?? 0} de 100.`
+    }
+    const avg = readiness.avg_score_60d
+    if (avg == null) return null
+    return `Promedio de los últimos 60 días: ${Math.round(avg)} de 100, en ${attempts} ${attempts === 1 ? "intento" : "intentos"}.`
+  }, [readiness])
+
+  /**
+   * Agregado PCA: materias trabajadas sobre el total y la más floja con datos.
+   *
+   * La barra NO es cobertura del banco: get_subject_mastery cuenta contra la
+   * tabla legada `questions`, casi vacía (verificado en producción: Meteorología
+   * reporta 1 pregunta y 3 intentos, o sea 300 por ciento). El banco real vive
+   * cifrado en vault_questions y la RPC no lo ve, así que attempted/total daba
+   * un 100 por ciento falso el primer día. Materias con práctica sobre materias
+   * totales sí es sostenible con estos datos.
+   */
   const pca = useMemo(() => {
-    const totalQ = mastery.reduce((a, m) => a + m.total_questions, 0)
-    const attempted = mastery.reduce((a, m) => a + m.total_attempted, 0)
-    if (totalQ === 0 || attempted === 0) return null
-    const started = mastery.filter((m) => m.total_attempted > 0)
-    const weakest = started
-      .filter((m) => m.attempts_count > 0)
-      .sort((a, b) => a.avg_score - b.avg_score)[0]
+    if (mastery.length === 0) return null
+    const started = mastery.filter((m) => m.attempts_count > 0)
+    if (started.length === 0) return null
+    const weakest = [...started].sort((a, b) => a.avg_score - b.avg_score)[0]
     return {
-      pct: Math.min(100, Math.round((attempted / totalQ) * 100)),
+      pct: Math.round((started.length / mastery.length) * 100),
       started: started.length,
       totalSubjects: mastery.length,
       weakest: weakest ?? null,
@@ -386,10 +460,8 @@ export function Dashboard() {
   /** null = todavía no hay etapa, así que no hay avance que mostrar. Un 0% con
    *  la barra vacía se leía como fracaso el primer día. */
   const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : null
-  const primaryAction = resolvePrimaryAction(icaoMeasured)
-  /** Si abajo va una card destacada, el hero no repite su mismo boton: eran dos
-   *  CTA identicos a un palmo de distancia. Sin card, el hero se queda con el. */
-  const hasFeaturedCard = !icaoMeasured || daily.length > 0
+  const firstName =
+    profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
 
@@ -403,50 +475,62 @@ export function Dashboard() {
   return (
     <AppLayout streak={streakDays}>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        {/* Cockpit hero */}
-        <CockpitHero
-          stageLabel={stageLabel}
-          targetAirline={pilot?.target_airline ?? null}
-          progress={progress}
-          trialLeft={trialLeft}
-          primaryAction={primaryAction}
-          showCta={!hasFeaturedCard}
-        />
+        {/* Consola de vuelo: el hero grande y los cuatro indicadores como una
+            sola pieza navy. El hero saluda, muestra el avance y trae integrada
+            la accion del dia (quiz de hoy o test inicial), asi que ya no hay
+            dos cards sueltas compitiendo debajo. */}
+        <div
+          className="rounded-xl overflow-hidden"
+          style={{ border: "1px solid var(--panel-border)" }}
+        >
+          <CockpitHero
+            firstName={firstName}
+            stageLabel={stageLabel}
+            targetAirline={pilot?.target_airline ?? null}
+            progress={progress}
+            trialLeft={trialLeft}
+            icaoMeasured={icaoMeasured}
+            daily={daily}
+            deferredLoading={deferredLoading}
+          />
+          <KpiPanel attached>
 
-        {/* Una sola card destacada bajo el hero, la de la acción primaria.
-            Antes podían salir las dos a la vez y el usuario nuevo tenía que
-            elegir entre el test inicial y el quiz del día sin saber cuál va
-            primero. Sin skeleton propio: si hoy no hay quiz curado la card no
-            existe y un placeholder dejaría un hueco que se cierra de golpe. */}
-        {icaoMeasured && daily.length > 0 && (
-          <div className="mt-5">
-            <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
-          </div>
-        )}
-
-        {/* Test inicial: la acción primaria mientras no haya nivel medido */}
-        {!icaoMeasured && (
-          <Link
-            to="/app/test-inicial"
-            className="surface-lift mt-5 flex items-center justify-between gap-4 rounded-xl border p-5"
-            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 32%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
-          >
-            <div className="flex items-center gap-4">
-              <div
-                className="flex items-center justify-center w-11 h-11 rounded-lg flex-shrink-0"
-                style={{ background: "var(--av-blue-500)" }}
-              >
-                <Gauge className="h-[22px] w-[22px] text-white" />
-              </div>
-              <div>
-                <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-                <div className="mt-1 text-[17px] font-semibold tracking-[-0.01em]">Haz tu test inicial</div>
-                <div className="text-[13px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubre tu Nivel Inicial.</div>
-              </div>
-            </div>
-            <ArrowRight className="hidden sm:block h-5 w-5 flex-shrink-0 text-muted-foreground" />
-          </Link>
-        )}
+            {pilot?.total_hours ? (
+            <KpiTile
+                eyebrow="Horas totales"
+                value={pilot.total_hours}
+                note={pilot.hours_pic ? `PIC ${pilot.hours_pic.toFixed(1)}` : undefined}
+              />
+            ) : (
+            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} note="Sin registrar" />
+            )}
+            {streakDays > 0 ? (
+            <KpiTile
+                eyebrow="Racha"
+                value={streakDays}
+                suffix="d"
+                note={longestStreak > 0 ? `Mejor racha: ${longestStreak}` : undefined}
+              />
+            ) : (
+            <KpiTile eyebrow="Racha" value={0} format={() => "—"} note="Sin racha" />
+            )}
+            {recentAttempts > 0 ? (
+            <KpiTile eyebrow="Quizzes" value={recentAttempts} />
+            ) : (
+            <KpiTile eyebrow="Quizzes" value={0} format={() => "—"} note="Ninguno aún" />
+            )}
+            {icaoMeasured ? (
+            <KpiTile
+                eyebrow="Inglés ICAO"
+                value={icaoLevel ?? 0}
+                note="Mínimo requerido: 4"
+                tone={(icaoLevel ?? 0) < 4 ? "warn" : undefined}
+              />
+            ) : (
+            <KpiTile eyebrow="Inglés ICAO" value={0} format={() => "—"} note="Sin medir" />
+            )}
+          </KpiPanel>
+        </div>
 
         {/* Tus cursos. Es la respuesta a "cuánto me falta para terminar", que es
             la pregunta con la que un estudiante entra, así que va antes que los
@@ -477,13 +561,14 @@ export function Dashboard() {
                 done={false}
                 status={
                   pca
-                    ? `${pca.started} de ${pca.totalSubjects} materias iniciadas`
+                    ? `${pca.started} de ${pca.totalSubjects} materias con práctica`
                     : "Ninguna materia iniciada"
                 }
                 hint={
-                  pca?.weakest
+                  readinessHint ??
+                  (pca?.weakest
                     ? `Refuerza ${pca.weakest.subject_name}: ${Math.round(pca.weakest.avg_score)}% de acierto`
-                    : "El banco completo, materia por materia, con explicación."
+                    : "El banco completo, materia por materia, con explicación.")
                 }
                 cta={pca ? "Continuar" : "Empezar el curso"}
               />
@@ -537,45 +622,10 @@ export function Dashboard() {
           )}
         </section>
 
-        {/* Instrument cluster: sin curvas inventadas, solo el número que la app
-            sostiene. Donde todavía no hay nada medido va un guion y no un cero:
-            cuatro ceros en fila el primer día se leen como un tablero roto. */}
-        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3 mt-6 mb-6">
-          {pilot?.total_hours ? (
-            <KpiTile
-              eyebrow="Horas totales"
-              value={pilot.total_hours}
-              note={pilot.hours_pic ? `PIC ${pilot.hours_pic.toFixed(1)}` : undefined}
-            />
-          ) : (
-            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} note="Sin registrar" />
-          )}
-          {streakDays > 0 ? (
-            <KpiTile
-              eyebrow="Racha"
-              value={streakDays}
-              suffix="d"
-              note={longestStreak > 0 ? `Mejor racha: ${longestStreak}` : undefined}
-            />
-          ) : (
-            <KpiTile eyebrow="Racha" value={0} format={() => "—"} note="Sin racha" />
-          )}
-          {recentAttempts > 0 ? (
-            <KpiTile eyebrow="Quizzes" value={recentAttempts} />
-          ) : (
-            <KpiTile eyebrow="Quizzes" value={0} format={() => "—"} note="Ninguno aún" />
-          )}
-          {icaoMeasured ? (
-            <KpiTile
-              eyebrow="Inglés ICAO"
-              value={icaoLevel ?? 0}
-              note="Mínimo requerido: 4"
-              tone={(icaoLevel ?? 0) < 4 ? "warn" : undefined}
-            />
-          ) : (
-            <KpiTile eyebrow="Inglés ICAO" value={0} format={() => "—"} note="Sin medir" />
-          )}
-        </div>
+        {/* Aviso de vencimiento. Solo aparece dentro de la ventana de 90 días o
+            si ya venció: un aviso permanente deja de ser aviso. Es lo único del
+            dashboard que puede dejar a un piloto en tierra, así que va arriba. */}
+        {expiry && <div className="mt-6"><ExpiryAlert item={expiry} /></div>}
 
         {/* Today's plan + Wingman insight */}
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-6">
@@ -733,28 +783,111 @@ function CourseCard({
   )
 }
 
+/**
+ * Aviso de documento por vencer.
+ *
+ * Es el único dato del dashboard con consecuencia legal: con el médico vencido
+ * un piloto no vuela, por bien que lleve los quizzes. Por eso rompe la retícula
+ * y va en su propia franja, con el color del token semántico y no del acento.
+ */
+function ExpiryAlert({
+  item,
+}: {
+  item: { id: string; license_type: string; custom_name: string | null; days: number }
+}) {
+  const vencido = item.days < 0
+  const nombre = item.custom_name ?? item.license_type
+  const color = vencido || item.days <= 30 ? "var(--av-red-400)" : "var(--av-amber-400)"
+  const texto = vencido
+    ? `Venció hace ${Math.abs(item.days)} ${Math.abs(item.days) === 1 ? "día" : "días"}`
+    : item.days === 0
+      ? "Vence hoy"
+      : `Vence en ${item.days} ${item.days === 1 ? "día" : "días"}`
+
+  return (
+    <Link
+      to="/app/vencimientos"
+      className="surface-lift mb-6 flex items-center justify-between gap-4 rounded-xl border p-4"
+      style={{
+        borderColor: `color-mix(in oklab, ${color} 38%, transparent)`,
+        background: `color-mix(in oklab, ${color} 7%, transparent)`,
+      }}
+    >
+      <div className="flex items-center gap-3 min-w-0">
+        <span className="flex-shrink-0" style={{ color: accentText(color, 75) }}>
+          <AlertTriangle className="h-5 w-5" />
+        </span>
+        <div className="min-w-0">
+          <div className="text-[15px] font-semibold text-foreground truncate">
+            {nombre}: {texto.toLowerCase()}
+          </div>
+          <div className="text-[13px] text-muted-foreground">
+            Renuévalo antes de que te deje en tierra.
+          </div>
+        </div>
+      </div>
+      <ArrowRight className="hidden sm:block h-4 w-4 flex-shrink-0 text-muted-foreground" />
+    </Link>
+  )
+}
+
 function CockpitHero({
+  firstName,
   stageLabel,
   targetAirline,
   progress,
   trialLeft,
-  primaryAction,
-  showCta,
+  icaoMeasured,
+  daily,
+  deferredLoading,
 }: {
+  firstName: string
   stageLabel: string
   targetAirline: string | null
   progress: number | null
   trialLeft: number | null
-  primaryAction: { href: string; cta: string; minutes: number }
-  showCta: boolean
+  icaoMeasured: boolean
+  daily: DailyQuizQuestion[]
+  deferredLoading: boolean
 }) {
   /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
    *  oscuro en modo claro y ahí quedarían ilegibles. */
   const heroChip =
     "inline-flex items-center gap-2 h-[24px] px-3 rounded-full text-[12px] font-semibold tracking-[0.01em] text-white border border-white/25 bg-white/12 backdrop-blur-sm"
 
+  /**
+   * La acción del día vive DENTRO del hero: antes eran dos cards sueltas
+   * debajo (quiz del día y test inicial) compitiendo con el hero por ser lo
+   * primero. Prioridad: sin nivel medido manda el test inicial; con nivel y
+   * quiz curado, el quiz de hoy; si hoy no hay quiz curado, la práctica por
+   * materia, que siempre existe. Nada de contadores inventados.
+   */
+  const accion = !icaoMeasured
+    ? {
+        eyebrow: "Empieza por aquí",
+        titulo: "Haz tu test inicial: inglés ICAO y 2 preguntas por materia",
+        detalle: "~15 min · descubre tu nivel inicial",
+        href: "/app/test-inicial",
+        cta: "Hacer test inicial",
+      }
+    : daily.length > 0
+      ? {
+          eyebrow: "Quiz del día",
+          titulo: `${daily.length} pregunta${daily.length !== 1 ? "s" : ""}${daily[0]?.subject_name ? ` · empieza con ${daily[0].subject_name}` : ""}`,
+          detalle: "Se renueva mañana",
+          href: DAILY_ACTION.href,
+          cta: DAILY_ACTION.cta,
+        }
+      : {
+          eyebrow: "Práctica del día",
+          titulo: "El banco por materia te espera",
+          detalle: "Un quiz corto mantiene tu racha viva",
+          href: "/app/pca",
+          cta: "Practicar ahora",
+        }
+
   return (
-    <section className="relative overflow-hidden rounded-xl">
+    <section className="relative overflow-hidden">
       <img
         src={heroCockpit}
         alt=""
@@ -766,65 +899,81 @@ function CockpitHero({
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, rgb(11 16 32 / 88%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
+            "linear-gradient(135deg, rgb(11 16 32 / 90%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
         }}
       />
 
-      <div className="relative px-6 py-4 sm:px-8 sm:py-5">
-        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
-          <div className="min-w-0 flex-1" style={{ minWidth: 260 }}>
+      <div className="relative px-6 pt-7 pb-6 sm:px-8 sm:pt-9 sm:pb-7">
+        <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-2">
+          <div className="min-w-0">
             <div className="text-[13px] text-white/70 truncate">
               {stageLabel}
               {targetAirline ? ` · objetivo ${targetAirline}` : ""}
             </div>
-
-            {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la
-                invitación a generarlo, nunca un 0% con la barra en cero. */}
-            {progress === null ? (
-              <Link
-                to="/onboarding"
-                className="mt-1 inline-flex items-center gap-2 text-[15px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
-              >
-                Dinos en qué etapa vas y calculamos tu avance
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            ) : (
-              <div className="mt-1 max-w-[520px]">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-[15px] font-semibold text-white">
-                    Tu avance a aerolínea
-                  </span>
-                  <span className="text-gradient-gold tabular-nums text-[24px] font-semibold tracking-[-0.02em]">
-                    <CountUp to={progress} />%
-                  </span>
-                </div>
-                <div className="relative mt-2 h-1.5 rounded-full overflow-hidden bg-white/20">
-                  <div
-                    className="h-full rounded-full bg-white transition-[width] duration-1000"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              </div>
-            )}
+            <h1 className="mt-1 text-[24px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.1] text-white">
+              {greetingTime()}, {firstName}
+            </h1>
           </div>
-
-          <div className="flex items-center gap-3">
-            {trialLeft !== null && trialLeft > 0 && (
-              <span className={`${heroChip} tabular-nums`}>
-                <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
-              </span>
-            )}
-            {showCta && (
-              <Link
-                to={primaryAction.href}
-                className={appButtonClass({ size: "lg" })}
-                style={appButtonStyle()}
-              >
-                {primaryAction.cta} <ArrowRight className="h-4 w-4" />
-              </Link>
-            )}
-          </div>
+          {trialLeft !== null && trialLeft > 0 && (
+            <span className={`${heroChip} tabular-nums mt-1`}>
+              <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+            </span>
+          )}
         </div>
+
+        {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la
+            invitación a generarlo, nunca un 0% con la barra en cero. */}
+        {progress === null ? (
+          <Link
+            to="/onboarding"
+            className="mt-5 inline-flex items-center gap-2 text-[15px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+          >
+            Dinos en qué etapa vas y calculamos tu avance
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <div className="mt-5 max-w-[560px]">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-[15px] font-semibold text-white">Tu avance a aerolínea</span>
+              <span className="text-gradient-gold tabular-nums text-[32px] font-semibold tracking-[-0.02em]">
+                <CountUp to={progress} />%
+              </span>
+            </div>
+            <div className="relative mt-2 h-1.5 rounded-full overflow-hidden bg-white/20">
+              <div
+                className="h-full rounded-full bg-white transition-[width] duration-1000"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
+        )}
+
+        {/* La franja de la acción del día, parte del hero y no una card aparte */}
+        {deferredLoading && icaoMeasured ? (
+          <div className="mt-6 h-[76px] rounded-lg bg-white/10 animate-pulse" aria-hidden />
+        ) : (
+          <div className="mt-6 rounded-lg border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-3.5 sm:px-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex items-center gap-3.5 min-w-0">
+              <Sun className="h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
+              <div className="min-w-0">
+                <div className="text-[13px]" style={{ color: "var(--av-amber-400)" }}>
+                  {accion.eyebrow}
+                </div>
+                <div className="text-[17px] font-semibold text-white leading-snug">
+                  {accion.titulo}
+                </div>
+                <div className="text-[13px] text-white/60">{accion.detalle}</div>
+              </div>
+            </div>
+            <Link
+              to={accion.href}
+              className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full font-semibold text-[15px] flex-shrink-0 transition-transform hover:-translate-y-0.5"
+              style={{ background: "white", color: "var(--av-navy-900)" }}
+            >
+              {accion.cta} <ArrowRight className="h-4 w-4" />
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   )
@@ -1190,6 +1339,7 @@ function AchievementsCard({
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-3 gap-y-4">
             {shown.map((a) => {
               const isUnlocked = unlockedCodes.has(a.code)
+              const Badge = badgeForCode(a.code)
               return (
                 <div
                   key={a.code}
@@ -1197,22 +1347,22 @@ function AchievementsCard({
                   title={`${a.name}: ${a.description}${isUnlocked ? "" : " (pendiente)"}`}
                 >
                   <div
-                    className="flex items-center justify-center w-12 h-12 rounded-full text-[20px] leading-none"
+                    className="flex items-center justify-center w-12 h-12 rounded-full"
                     style={
                       isUnlocked
                         ? {
-                            background: `color-mix(in oklab, ${TIER_COLOR[a.tier]} 16%, transparent)`,
+                            background: `color-mix(in oklab, ${TIER_COLOR[a.tier]} 14%, transparent)`,
                             border: `1.5px solid color-mix(in oklab, ${TIER_COLOR[a.tier]} 55%, transparent)`,
+                            color: accentText(TIER_COLOR[a.tier], 80),
                           }
-                        : { background: "var(--muted)", border: "1.5px dashed var(--border)" }
+                        : {
+                            background: "var(--muted)",
+                            border: "1.5px dashed var(--border)",
+                            color: "var(--muted-foreground)",
+                          }
                     }
                   >
-                    <span
-                      aria-hidden
-                      style={isUnlocked ? undefined : { filter: "grayscale(1)", opacity: 0.35 }}
-                    >
-                      {a.icon}
-                    </span>
+                    <Badge className="h-[22px] w-[22px]" />
                   </div>
                   <div
                     className={`w-full text-[12px] leading-tight line-clamp-2 ${
@@ -1309,40 +1459,6 @@ function CohortCard({
 }
 
 /**
- * Acción del día. Superficie sólida en vez del gradiente ámbar con halo: el
- * ámbar queda solo en la etiqueta, donde significa "esto es lo de hoy".
- */
-function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
-  return (
-    <Link
-      to={DAILY_ACTION.href}
-      className="surface-lift anim-fade-up relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl p-5 text-white"
-      style={{ background: "var(--av-navy-900)", border: "1px solid var(--av-navy-700)" }}
-    >
-      <div className="flex items-center gap-4">
-        <Sun className="h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
-        <div>
-          <div className="text-[13px]" style={{ color: "var(--av-amber-400)" }}>
-            Quiz del día
-          </div>
-          <div className="mt-1 text-[17px] font-semibold tracking-[-0.021em]">
-            <span className="tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
-            {firstSubject ? ` · empieza con ${firstSubject}` : ""}
-          </div>
-          <div className="text-[13px] text-white/60 mt-1">Se renueva mañana.</div>
-        </div>
-      </div>
-      <span
-        className={appButtonClass({ variant: "secondary" }, "flex-shrink-0 border-transparent")}
-        style={{ background: "white", color: "var(--av-navy-900)" }}
-      >
-        {DAILY_ACTION.cta} <ArrowRight className="h-3.5 w-3.5" />
-      </span>
-    </Link>
-  )
-}
-
-/**
  * Espeja el layout real (mismas clases de grid, mismos breakpoints y alturas
  * parecidas) para que al cargar no salte la página.
  */
@@ -1350,22 +1466,14 @@ function DashboardSkeleton() {
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto animate-pulse">
-        {/* Hero */}
-        <div className="h-[232px] bg-muted rounded-lg" />
+        {/* Consola: hero + indicadores, una sola pieza */}
+        <div className="h-[430px] bg-muted rounded-xl" />
 
         {/* Tus cursos */}
-        <div className="grid gap-4 md:grid-cols-3 mt-6">
+        <div className="grid gap-4 md:grid-cols-3 mt-6 mb-6">
           <div className="h-[184px] bg-muted rounded-lg" />
           <div className="h-[184px] bg-muted rounded-lg" />
           <div className="h-[184px] bg-muted rounded-lg" />
-        </div>
-
-        {/* Instrument cluster */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6 mb-6">
-          <div className="h-[106px] bg-muted rounded-lg" />
-          <div className="h-[106px] bg-muted rounded-lg" />
-          <div className="h-[106px] bg-muted rounded-lg" />
-          <div className="h-[106px] bg-muted rounded-lg" />
         </div>
 
         {/* Plan de hoy + Wingman */}

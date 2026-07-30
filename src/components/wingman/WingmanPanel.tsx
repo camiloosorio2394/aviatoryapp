@@ -103,7 +103,7 @@ export function WingmanPanel({
         {/* Header */}
         <header className="flex items-center gap-3 px-5 py-4 border-b border-border/40">
           <div className="relative">
-            <LogoIsotype variant="color" className="h-9 w-9 rounded-lg shadow-md" />
+            <LogoIsotype variant="color" className="h-9 w-9 rounded-full shadow-md" />
             <span
               className="absolute -top-1 -right-1 h-3 w-3 rounded-full ring-2 ring-card"
               style={{ background: "var(--av-green-400)" }}

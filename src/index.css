@@ -588,6 +588,17 @@
      ordena sin competir con los items, que son lo que se clickea. */
   --rail-section-label: oklch(0.6 0.022 250);
 
+  /* Panel de instrumentos (la fila de indicadores del dashboard).
+     Navy en los dos temas a propósito: fondo oscuro con cifra luminosa es la
+     convención de la cabina, y reusa la superficie del hero para que la parte
+     alta del dashboard se lea como una sola pieza y no como cuatro cajas
+     blancas casi invisibles sobre fondo blanco. */
+  --panel-bg: oklch(0.19 0.03 250);
+  --panel-border: oklch(1 0 0 / 12%);
+  --panel-fg: oklch(0.98 0 0);
+  --panel-muted: oklch(0.72 0.02 250);
+  --panel-warn: oklch(0.85 0.15 78);
+
   /* Mono font */
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
@@ -812,6 +823,26 @@
     linear-gradient(oklch(0.78 0.16 215 / 8%) 1px, transparent 1px),
     linear-gradient(90deg, oklch(0.78 0.16 215 / 8%) 1px, transparent 1px);
   background-size: 32px 32px;
+}
+
+/* === Panel de instrumentos: filetes entre tiles ===
+   Una consola, no cuatro cajas sueltas. En móvil la rejilla es de dos
+   columnas, así que el filete vertical va en los pares y el horizontal en
+   todos menos la primera fila. En escritorio son cuatro en línea. */
+.kpi-panel > * + * {
+  border-top: 1px solid var(--panel-border);
+}
+.kpi-panel > *:nth-child(2n) {
+  border-left: 1px solid var(--panel-border);
+}
+.kpi-panel > *:nth-child(-n + 2) {
+  border-top: 0;
+}
+@media (min-width: 1024px) {
+  .kpi-panel > * + * {
+    border-top: 0;
+    border-left: 1px solid var(--panel-border);
+  }
 }
 
 /* === Dotted divider === */

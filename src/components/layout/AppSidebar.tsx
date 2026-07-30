@@ -238,7 +238,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             36px dentro de px-3.5 deja el centro en 32px, o sea el eje exacto
             del rail colapsado (64px).
           */}
-          <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-lg" />
+          <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-full" />
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
             <div className="font-semibold text-[17px] tracking-[-0.03em] text-white whitespace-nowrap">

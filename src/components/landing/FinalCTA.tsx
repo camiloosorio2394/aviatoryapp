@@ -28,7 +28,7 @@ export function FinalCTA() {
               }}
             />
             <div className="relative">
-              <LogoIsotype variant="color" className="h-14 w-14 mx-auto rounded-2xl" />
+              <LogoIsotype variant="color" className="h-14 w-14 mx-auto rounded-full" />
 
               <h2 className="mt-7 text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-[-0.03em] text-white leading-[1.05] text-balance">
                 Tu próximo vuelo empieza con un clic

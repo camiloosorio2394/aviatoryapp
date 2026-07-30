@@ -167,7 +167,7 @@ export function AppTopbar({
           <LogoIsotype
             variant="color"
             alt="Aviatory"
-            className="h-6 w-6 rounded-md flex-shrink-0"
+            className="h-6 w-6 rounded-full flex-shrink-0"
           />
           <span className="hidden sm:inline text-muted-foreground whitespace-nowrap">Aviatory</span>
           <ChevronRight className="hidden sm:inline-block h-3 w-3 text-muted-foreground flex-shrink-0" />

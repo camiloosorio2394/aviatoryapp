@@ -44,15 +44,14 @@ export function Header() {
           aria-label="Aviatory: inicio"
         >
           {/*
-            Isotipo real de marca: el asset ya trae su propio squircle azul, su
-            brillo y su borde, así que va solo (sin caja ni gradiente extra).
-            El radio en px iguala el del SVG (22% de 44px) para que el redondeo
-            de CSS no recorte la esquina azul.
+            Isotipo circular de marca: el asset trae su propio circulo con gradiente,
+            asi que va solo, sin caja ni gradiente extra. El rounded-full solo
+            asegura que la sombra siga la forma del circulo.
           */}
           <LogoIsotype
             variant="color"
             alt=""
-            className="h-11 w-11 flex-shrink-0 rounded-[10px] shadow-md"
+            className="h-11 w-11 flex-shrink-0 rounded-full shadow-md"
           />
           <span className="text-[24px] font-semibold tracking-tight">Aviatory</span>
         </Link>

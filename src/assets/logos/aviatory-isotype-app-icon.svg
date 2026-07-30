@@ -1,60 +1,28 @@
 <svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- iOS-style squircle background (rx=224 ≈ 22% per Apple HIG) -->
-  <rect width="1024" height="1024" rx="224" fill="url(#bg)"/>
-
-  <!-- Glassy top sheen — subtle Apple-style highlight -->
-  <rect width="1024" height="1024" rx="224" fill="url(#sheen)"/>
-
-  <!-- Cyan glow halo beneath the glyph for depth -->
-  <ellipse cx="512" cy="780" rx="320" ry="48" fill="url(#glow)"/>
-
-  <!-- Wing/paper-plane glyph — single bold path, optically centered, drop shadow via filter -->
-  <g filter="url(#dropShadow)">
-    <path d="M 512 178 C 512 178 304 606 236 756 C 226 778 249 798 270 790 L 440 724 C 460 716 482 728 489 749 L 542 890 C 552 918 592 917 600 888 L 787 206 C 798 165 751 139 722 170 L 512 402 Z" fill="white"/>
-  </g>
-
-  <!-- Subtle inner highlight on top-left wing edge (3D lighting) -->
-  <path d="M 512 178 C 512 178 304 606 236 756 C 226 778 249 798 270 790 L 320 770 L 512 320 Z" fill="url(#wingHi)" opacity="0.55"/>
-
-  <!-- Subtle inner shadow on right wing for depth -->
-  <path d="M 512 178 L 722 170 C 751 139 798 165 787 206 L 600 670 C 596 680 583 678 583 666 L 512 178 Z" fill="#0F172A" fill-opacity="0.08"/>
-
-  <!-- Subtle inner rim highlight (top edge of squircle) -->
-  <rect x="2" y="2" width="1020" height="1020" rx="222" fill="none" stroke="white" stroke-opacity="0.10" stroke-width="2"/>
-
+  <!--
+    Isotipo circular de Aviatory: la A blanca con dos estelas y el avion
+    despegando, sobre circulo con gradiente azul. Version para icono de app,
+    favicon, avatar y todo espacio cuadrado. Redibujado como vector a partir
+    del arte de marca (jul 2026). El gradiente va del azul claro (arriba a la
+    derecha, donde despega el avion) al azul profundo.
+  -->
   <defs>
-    <!-- Background gradient: cyan → blue → navy (vertical) -->
-    <linearGradient id="bg" x1="512" y1="0" x2="512" y2="1024" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#7DD3FC"/>
-      <stop offset="0.42" stop-color="#3B82F6"/>
-      <stop offset="1" stop-color="#1E3A8A"/>
+    <linearGradient id="bg" x1="820" y1="180" x2="240" y2="880" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3E96E3"/>
+      <stop offset="1" stop-color="#1F4B9E"/>
     </linearGradient>
-    <!-- Top glassy sheen -->
-    <linearGradient id="sheen" x1="512" y1="0" x2="512" y2="420" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="white" stop-opacity="0.32"/>
-      <stop offset="1" stop-color="white" stop-opacity="0"/>
-    </linearGradient>
-    <!-- Wing edge highlight -->
-    <linearGradient id="wingHi" x1="270" y1="800" x2="512" y2="320" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="white" stop-opacity="0.85"/>
-      <stop offset="1" stop-color="white" stop-opacity="0"/>
-    </linearGradient>
-    <!-- Cyan glow under glyph -->
-    <radialGradient id="glow" cx="512" cy="780" r="320" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#67E8F9" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#22D3EE" stop-opacity="0"/>
-    </radialGradient>
-    <!-- Subtle drop shadow on glyph -->
-    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="8"/>
-      <feOffset dx="0" dy="8" result="offsetblur"/>
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.18"/>
-      </feComponentTransfer>
-      <feMerge>
-        <feMergeNode/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
+  <circle cx="512" cy="512" r="512" fill="url(#bg)"/>
+  <path fill-rule="evenodd" clip-rule="evenodd" fill="#FFFFFF"
+    d="M470 210 L560 210 L724 806 L628 806 L515 386 L404 806 L308 806 Z"
+    transform="translate(-60 40)"/>
+  <polygon fill="#FFFFFF" points="160,838 700,332 736,356"/>
+  <polygon fill="#FFFFFF" points="238,894 738,388 766,414"/>
+  <g fill="#FFFFFF" transform="translate(772,300) rotate(-42)">
+    <polygon points="0,0 150,-16 178,0 150,16"/>
+    <polygon points="52,-8 20,-78 52,-64 86,-12"/>
+    <polygon points="52,8 20,78 52,64 86,12"/>
+    <polygon points="132,-10 118,-46 138,-40 152,-12"/>
+    <polygon points="132,10 118,46 138,40 152,12"/>
+  </g>
 </svg>
