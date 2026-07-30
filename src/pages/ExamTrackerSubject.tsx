@@ -1,10 +1,21 @@
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Flame, TrendingUp, MapPin, Lightbulb, Users } from "lucide-react"
+import {
+  ArrowLeft,
+  ArrowRight,
+  Flame,
+  TrendingUp,
+  MapPin,
+  Lightbulb,
+  Users,
+  Radar,
+  MessagesSquare,
+} from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { SectionTitle } from "@/components/ui/section-title"
 
 interface Topic {
   key: string
@@ -50,26 +61,34 @@ export function ExamTrackerSubject() {
 
   useEffect(() => {
     if (!slug) return
-    setLoading(true)
-    supabase
-      .rpc("get_subject_intel", { p_subject_slug: slug })
-      .then(({ data, error }) => {
-        if (error) {
-          toast.error(error.message)
-        } else {
-          const row = Array.isArray(data) ? data[0] : data
-          setIntel((row as Intel) ?? null)
-        }
-        setLoading(false)
-      })
+    let alive = true
+    void (async () => {
+      setLoading(true)
+      const { data, error } = await supabase.rpc("get_subject_intel", { p_subject_slug: slug })
+      if (!alive) return
+      if (error) {
+        toast.error(error.message)
+      } else {
+        const row = Array.isArray(data) ? data[0] : data
+        setIntel((row as Intel) ?? null)
+      }
+      setLoading(false)
+    })()
+    return () => {
+      alive = false
+    }
   }, [slug])
 
   if (loading) {
     return (
       <AppLayout>
-        <div className="p-8 max-w-4xl mx-auto animate-pulse space-y-4">
-          <div className="h-8 w-48 bg-muted rounded" />
-          <div className="h-32 bg-muted rounded-2xl" />
+        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+          <div className="h-9 w-56 bg-muted rounded-xl mb-7" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className="h-24 bg-muted rounded-2xl" />
+            ))}
+          </div>
           <div className="h-64 bg-muted rounded-2xl" />
         </div>
       </AppLayout>
@@ -79,8 +98,8 @@ export function ExamTrackerSubject() {
   if (!intel) {
     return (
       <AppLayout>
-        <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-2xl mx-auto">
-          <div className="rounded-3xl border border-dashed border-border p-10 text-center">
+        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+          <div className="rounded-3xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
             <h2 className="text-lg font-bold text-foreground">No encontramos esta materia</h2>
             <p className="mt-2 text-sm text-muted-foreground">
               El enlace puede estar viejo o la materia cambió de nombre.
@@ -100,36 +119,54 @@ export function ExamTrackerSubject() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-6 lg:px-10 py-8 max-w-4xl mx-auto">
-        <Link
-          to="/app/exam-tracker"
-          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground mb-5"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Todas las materias
-        </Link>
-
-        <PageHeader eyebrow="EXAM TRACKER" title={intel.subject_name} />
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <PageHeader
+          eyebrow={
+            <>
+              <Radar className="h-3.5 w-3.5" /> EXAM TRACKER
+            </>
+          }
+          title={intel.subject_name}
+          subtitle="Lo que reportaron los pilotos que ya presentaron esta materia en los últimos 90 días."
+          actions={
+            <Link
+              to="/app/exam-tracker"
+              className="btn-apple-ghost inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold no-underline"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              Todas las materias
+            </Link>
+          }
+        />
 
         <div className="space-y-8">
           {/* Stats */}
           <section className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            <StatBox label="Reportes 90d" value={String(intel.total_reports)} />
+            <StatBox label="Reportes 90 días" value={String(intel.total_reports)} />
             <StatBox
-              label="% aprobación"
+              label="Aprobación"
               value={intel.pass_rate !== null ? `${intel.pass_rate}%` : "—"}
+              chip={passRateChip(intel.pass_rate)}
             />
             <StatBox
               label="Dificultad media"
               value={intel.avg_difficulty !== null ? `${intel.avg_difficulty} / 5` : "—"}
+              chip={difficultyChip(intel.avg_difficulty)}
             />
           </section>
 
           {/* Top topics */}
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-              Temas que más caen
-            </h2>
+            <SectionTitle
+              icon={TrendingUp}
+              eyebrow="Frecuencia"
+              title="Temas que más caen"
+              hint={
+                intel.top_topics.length > 0
+                  ? "Ordenados por cuántas veces aparecieron en los reportes."
+                  : undefined
+              }
+            />
             {intel.top_topics.length === 0 ? (
               <EmptyTopics />
             ) : (
@@ -143,9 +180,16 @@ export function ExamTrackerSubject() {
 
           {/* Recent reports */}
           <section>
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-              Reportes recientes
-            </h2>
+            <SectionTitle
+              icon={MessagesSquare}
+              eyebrow="Comunidad"
+              title="Reportes recientes"
+              hint={
+                intel.recent_reports.length > 0
+                  ? "Anónimos, del más nuevo al más viejo."
+                  : undefined
+              }
+            />
             {intel.recent_reports.length === 0 ? (
               <EmptyReports subjectName={intel.subject_name} />
             ) : (
@@ -162,19 +206,43 @@ export function ExamTrackerSubject() {
   )
 }
 
-function StatBox({ label, value }: { label: string; value: string }) {
+type Tone = "green" | "amber" | "red"
+interface Chip {
+  label: string
+  tone: Tone
+}
+
+/** El número siempre va en text-foreground; el color vive en el chip, que ya trae par claro/oscuro. */
+function passRateChip(pct: number | null): Chip | undefined {
+  if (pct === null) return undefined
+  if (pct >= 70) return { label: "Alta", tone: "green" }
+  if (pct >= 50) return { label: "Media", tone: "amber" }
+  return { label: "Baja", tone: "red" }
+}
+
+function difficultyChip(avg: number | null): Chip | undefined {
+  if (avg === null) return undefined
+  if (avg <= 2) return { label: "Llevadera", tone: "green" }
+  if (avg <= 3.5) return { label: "Media", tone: "amber" }
+  return { label: "Exigente", tone: "red" }
+}
+
+function StatBox({ label, value, chip }: { label: string; value: string; chip?: Chip }) {
   const isEmpty = value === "—"
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <div className="card-apple rounded-2xl border border-border bg-card p-4 sm:p-5">
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
         {label}
       </div>
-      <div
-        className={`mt-1 text-2xl sm:text-3xl font-bold tracking-[-0.03em] tabular ${
-          isEmpty ? "text-muted-foreground" : "text-foreground"
-        }`}
-      >
-        {value}
+      <div className="mt-1 flex items-center gap-2 flex-wrap">
+        <div
+          className={`text-2xl sm:text-3xl font-bold tracking-[-0.03em] tabular ${
+            isEmpty ? "text-muted-foreground" : "text-foreground"
+          }`}
+        >
+          {value}
+        </div>
+        {chip && !isEmpty && <span className={`chip chip-${chip.tone}`}>{chip.label}</span>}
       </div>
     </div>
   )
@@ -260,11 +328,25 @@ function RecentReportRow({ report }: { report: RecentReport }) {
 
 function EmptyTopics() {
   return (
-    <div className="rounded-2xl border border-dashed border-border p-8 text-center">
-      <TrendingUp className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
-      <p className="text-sm text-muted-foreground">
-        Cuando haya reportes con temas marcados, aquí vas a ver los que más caen.
+    <div className="rounded-2xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
+      <div
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4 text-white"
+        style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
+      >
+        <TrendingUp className="h-7 w-7" />
+      </div>
+      <h3 className="text-lg font-bold text-foreground">Todavía no hay temas marcados</h3>
+      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+        Apenas los reportes empiecen a marcar qué cayó, aquí queda el ranking de los temas más
+        frecuentes de esta materia.
       </p>
+      <Link
+        to="/app/exam-tracker"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        style={{ background: "var(--av-blue-500)" }}
+      >
+        Reportar mi examen <ArrowRight className="h-3.5 w-3.5" />
+      </Link>
     </div>
   )
 }

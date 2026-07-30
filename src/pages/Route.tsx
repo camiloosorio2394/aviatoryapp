@@ -15,6 +15,7 @@ type PilotStage =
   | "cpl_in_progress"
   | "cpl_ready"
   | "hour_building"
+  | "instructor"
   | "airline_candidate"
 
 interface Checklist {
@@ -40,6 +41,7 @@ const STAGE_LABEL: Record<PilotStage, string> = {
   cpl_in_progress: "Cursando CPL",
   cpl_ready: "Piloto Comercial",
   hour_building: "Hour Building",
+  instructor: "Instructor de Vuelo",
   airline_candidate: "Candidato a Aerolínea",
 }
 
@@ -49,6 +51,7 @@ const STAGE_ORDER: PilotStage[] = [
   "cpl_in_progress",
   "cpl_ready",
   "hour_building",
+  "instructor",
   "airline_candidate",
 ]
 
@@ -152,7 +155,7 @@ export function Route() {
           .insert({ user_id: user.id, item_id: item.id })
         if (error) throw error
         if (item.title.includes("🎉")) {
-          toast.success("¡Hito conseguido! 🎉")
+          toast.success("Hito conseguido")
         }
       }
     } catch (err) {

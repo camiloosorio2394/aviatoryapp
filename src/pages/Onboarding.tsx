@@ -1,6 +1,17 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Check, Loader2, Send } from "lucide-react"
+import {
+  ArrowLeft,
+  ArrowRight,
+  BadgeCheck,
+  Check,
+  ClipboardCheck,
+  Clock,
+  GraduationCap,
+  Loader2,
+  Target,
+  type LucideIcon,
+} from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -28,30 +39,46 @@ type Stage =
 
 type License = "PPL" | "CPL" | "IFR" | "MEP" | "ATPL" | "IVA"
 
-const STAGES: { value: Stage; label: string; sub: string }[] = [
+const STAGES: { value: Stage; label: string; tag?: string; sub: string }[] = [
   {
     value: "student_ppl",
-    label: "ALUMNO CURSO DE PILOTO AVIÓN (APA)",
-    sub: "Cursando para obtener licencia PPA y PCA.",
+    label: "Alumno del curso de piloto de avión",
+    tag: "APA",
+    sub: "Cursando para obtener tus licencias PPA y PCA.",
   },
   {
     value: "ppl",
-    label: "PILOTO PRIVADO DE AVIÓN (PPA)",
-    sub: "Licencia de Piloto Privado de Avión Obtenida.",
+    label: "Piloto privado de avión",
+    tag: "PPA",
+    sub: "Ya tienes tu licencia de piloto privado.",
+  },
+  {
+    value: "cpl_in_progress",
+    label: "Cursando el comercial",
+    tag: "PCA en curso",
+    sub: "Preparando el examen y las horas para la licencia comercial.",
   },
   {
     value: "cpl_ready",
-    label: "PILOTO COMERCIAL DE AVIÓN (PCA)",
-    sub: "Licencia de Piloto Comercial de Avión Obtenida.",
+    label: "Piloto comercial de avión",
+    tag: "PCA",
+    sub: "Ya tienes tu licencia de piloto comercial.",
+  },
+  {
+    value: "hour_building",
+    label: "Sumando horas de vuelo",
+    sub: "Con licencia comercial, acumulando experiencia para la aerolínea.",
   },
   {
     value: "airline_candidate",
-    label: "PCA EN PREPARACIÓN PARA INGRESO A AEROLÍNEA",
-    sub: "Con licencia PCA sumando horas y/o postulando a diferentes aerolíneas.",
+    label: "En preparación para entrar a una aerolínea",
+    tag: "PCA",
+    sub: "Postulando a procesos de selección de aerolíneas.",
   },
   {
     value: "instructor",
-    label: "INSTRUCTOR DE VUELO AVIÓN (IVA)",
+    label: "Instructor de vuelo de avión",
+    tag: "IVA",
     sub: "Volando como instructor habilitado en una escuela.",
   },
 ]
@@ -84,13 +111,34 @@ const INITIAL: FormState = {
 
 // El nivel de inglés ICAO ya no se auto-declara acá: sale del test inicial o del
 // simulacro TEA dentro de la app.
-const STEPS = [
-  { title: "¿En qué etapa de tu carrera de aviación estás?", sub: "Para crear una ruta adaptada a tu proceso" },
-  { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook." },
-  { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen." },
-  { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?" },
-  { title: "Confirma tus datos", sub: "Vas a poder editarlos después." },
+const STEPS: { title: string; sub: string; icon: LucideIcon }[] = [
+  {
+    title: "¿En qué etapa de tu carrera de aviación estás?",
+    sub: "Para armar una ruta adaptada a tu proceso.",
+    icon: GraduationCap,
+  },
+  { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook.", icon: Clock },
+  { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen.", icon: BadgeCheck },
+  { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?", icon: Target },
+  { title: "Confirma tus datos", sub: "Vas a poder editarlos después.", icon: ClipboardCheck },
 ]
+
+/**
+ * Formatea una fecha "YYYY-MM-DD" en español legible sin que la zona horaria
+ * la corra un día: parseamos los componentes a mano y leemos en UTC.
+ */
+function formatTargetDate(iso: string): string {
+  const parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso)
+  if (!parts) return iso
+  const date = new Date(Date.UTC(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])))
+  if (Number.isNaN(date.getTime())) return iso
+  return date.toLocaleDateString("es-CO", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    timeZone: "UTC",
+  })
+}
 
 export function Onboarding() {
   const [step, setStep] = useState(0)
@@ -147,7 +195,7 @@ export function Onboarding() {
         target_airline: form.target_airline || null,
         total_hours: form.total_hours ? Number(form.total_hours) : 0,
       })
-      toast.success("Listo. Bienvenido a tu cabina ✈️")
+      toast.success("Listo. Bienvenido a tu cabina.")
       // Después del onboarding lo mandamos directo al test inicial (es skippable).
       navigate("/app/test-inicial", { replace: true })
     } catch (err) {
@@ -159,9 +207,20 @@ export function Onboarding() {
 
   const isLast = step === STEPS.length - 1
   const progress = ((step + 1) / STEPS.length) * 100
+  const StepIcon = STEPS[step].icon
+  const selectedStage = STAGES.find((s) => s.value === form.stage)
+  const stageSummary = selectedStage
+    ? `${selectedStage.label}${selectedStage.tag ? ` (${selectedStage.tag})` : ""}`
+    : "—"
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-blue-50/40 via-background to-background dark:from-blue-950/20 flex flex-col">
+    <main
+      className="min-h-screen bg-background flex flex-col"
+      style={{
+        backgroundImage:
+          "linear-gradient(180deg, color-mix(in oklab, var(--av-blue-500) 9%, transparent) 0%, transparent 34%)",
+      }}
+    >
       <header className="px-6 lg:px-8 h-16 flex items-center justify-between border-b border-border/40 bg-background/70 backdrop-blur-xl">
         <Link to="/">
           <LogoHorizontal className="h-7 w-auto" />
@@ -173,8 +232,12 @@ export function Onboarding() {
 
       <div className="h-1 bg-muted">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 to-blue-600 shadow-[0_0_8px_rgb(37_99_235_/_50%)] transition-all duration-700"
-          style={{ width: `${progress}%` }}
+          className="h-full transition-all duration-700"
+          style={{
+            width: `${progress}%`,
+            background: "linear-gradient(90deg, var(--av-blue-400), var(--av-blue-500))",
+            boxShadow: "0 0 8px color-mix(in oklab, var(--av-blue-500) 50%, transparent)",
+          }}
         />
       </div>
 
@@ -186,15 +249,18 @@ export function Onboarding() {
               className="inline-flex items-center justify-center h-14 w-14 rounded-2xl text-white mb-6 animate-in fade-in-0 zoom-in-95 duration-500"
               style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
             >
-              <Send className="h-7 w-7" strokeWidth={2} />
+              <StepIcon className="h-7 w-7" strokeWidth={2} />
             </div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-balance">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-gradient-gold mb-3">
+              Tu plan de vuelo
+            </div>
+            <h1 className="text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-balance text-foreground">
               {STEPS[step].title}
             </h1>
             <p className="mt-2 text-muted-foreground">{STEPS[step].sub}</p>
           </div>
 
-          <div className="rounded-3xl border border-border/60 bg-card p-6 sm:p-8 shadow-sm">
+          <div className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8 shadow-sm">
             {step === 0 && (
               <div className="space-y-2">
                 {STAGES.map((s) => {
@@ -204,19 +270,32 @@ export function Onboarding() {
                       key={s.value}
                       type="button"
                       onClick={() => update("stage", s.value)}
-                      className={`w-full text-left rounded-xl border p-4 transition-all ${
-                        active
-                          ? "border-blue-500 bg-blue-50/60 dark:bg-blue-950/30 ring-1 ring-blue-500/30"
-                          : "border-border/60 hover:border-blue-500/30 hover:bg-muted/40"
+                      className={`w-full text-left rounded-2xl border p-4 transition-all ${
+                        active ? "" : "border-border/60 hover:bg-muted/40"
                       }`}
+                      style={
+                        active
+                          ? {
+                              borderColor: "color-mix(in oklab, var(--av-blue-500) 60%, transparent)",
+                              background: "color-mix(in oklab, var(--av-blue-500) 8%, transparent)",
+                              boxShadow: "0 0 0 3px color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
+                            }
+                          : undefined
+                      }
                     >
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start justify-between gap-3">
                         <div>
-                          <div className="font-semibold text-sm">{s.label}</div>
-                          <div className="text-xs text-muted-foreground mt-0.5">{s.sub}</div>
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="font-semibold text-sm">{s.label}</span>
+                            {s.tag && <span className="chip">{s.tag}</span>}
+                          </div>
+                          <div className="text-xs text-muted-foreground mt-1">{s.sub}</div>
                         </div>
                         {active && (
-                          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-600 text-white">
+                          <span
+                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white"
+                            style={{ background: "var(--av-blue-500)" }}
+                          >
                             <Check className="h-3.5 w-3.5" />
                           </span>
                         )}
@@ -270,11 +349,21 @@ export function Onboarding() {
                         key={lic.value}
                         type="button"
                         onClick={() => toggleLicense(lic.value)}
-                        className={`p-4 rounded-xl border text-base font-semibold transition-all ${
+                        className={`h-12 rounded-xl border text-base font-semibold transition-all ${
                           active
-                            ? "bg-blue-600 border-blue-600 text-white shadow-lg shadow-blue-500/30 scale-[1.02]"
-                            : "border-border/60 bg-card hover:border-blue-500/30 hover:bg-muted/40"
+                            ? "text-white scale-[1.02]"
+                            : "border-border/60 bg-card hover:bg-muted/40"
                         }`}
+                        style={
+                          active
+                            ? {
+                                background: "var(--av-blue-500)",
+                                borderColor: "var(--av-blue-500)",
+                                boxShadow:
+                                  "0 8px 20px -8px color-mix(in oklab, var(--av-blue-500) 60%, transparent)",
+                              }
+                            : undefined
+                        }
                       >
                         {lic.label}
                       </button>
@@ -328,7 +417,7 @@ export function Onboarding() {
             {step === 4 && (
               <>
                 <ul className="space-y-3 text-sm">
-                  <SummaryRow label="Etapa" value={STAGES.find((s) => s.value === form.stage)?.label ?? "—"} />
+                  <SummaryRow label="Etapa" value={stageSummary} />
                   <SummaryRow
                     label="Horas"
                     value={`${form.total_hours || "—"} totales${form.hours_pic ? ` · ${form.hours_pic} PIC` : ""}`}
@@ -339,11 +428,13 @@ export function Onboarding() {
                   />
                   <SummaryRow
                     label="Objetivo"
-                    value={`${form.target_airline || "—"}${form.target_date ? ` · ${form.target_date}` : ""}`}
+                    value={`${form.target_airline || "—"}${
+                      form.target_date ? ` · ${formatTargetDate(form.target_date)}` : ""
+                    }`}
                   />
                 </ul>
                 <div
-                  className="mt-4 rounded-xl border p-3.5 text-[13px] text-muted-foreground"
+                  className="mt-4 rounded-2xl border p-3.5 text-[13px] text-muted-foreground"
                   style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
                 >
                   Tu nivel de inglés <strong className="text-foreground">ICAO</strong> lo vas a medir con el{" "}
@@ -359,7 +450,7 @@ export function Onboarding() {
               variant="ghost"
               onClick={() => setStep((s) => s - 1)}
               disabled={step === 0 || submitting}
-              className="rounded-full h-11 px-5"
+              className="rounded-xl h-12 px-5"
             >
               <ArrowLeft className="h-4 w-4" />
               Atrás

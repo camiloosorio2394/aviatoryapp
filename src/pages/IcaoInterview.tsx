@@ -64,7 +64,7 @@ export function IcaoInterview() {
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
-          <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
         {/* Header */}
@@ -76,17 +76,18 @@ export function IcaoInterview() {
             <Mic className="h-4.5 w-4.5 text-white" />
           </div>
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            TEA · Part 1 · Interview · 7–8 min
+            TEA · Parte 1 · Interview · 7 a 8 minutos
           </div>
           <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
-            Interview · questions about your role
+            Entrevista: preguntas sobre tu rol
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground max-w-[700px]">
-            The exam opens with an interview about your professional experience and aviation topics.
-            The goal is to see whether you can hold a spontaneous conversation in natural, technical and
-            professional English. Each question comes with a <strong className="text-foreground">model
-            answer</strong>, not to memorise it (the exam penalises recited answers), but to capture
-            the register, structure and expected vocabulary.
+            El examen abre con una entrevista sobre tu experiencia profesional y temas de aviación. La
+            idea es ver si puedes sostener una conversación espontánea en inglés natural, técnico y
+            profesional. Cada pregunta viene con una{" "}
+            <strong className="text-foreground">respuesta modelo</strong>, no para memorizarla (el
+            examen penaliza las respuestas recitadas) sino para captar el registro, la estructura y el
+            vocabulario esperado.
           </p>
         </section>
 
@@ -100,9 +101,9 @@ export function IcaoInterview() {
         >
           <Lightbulb className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
           <div className="text-[14px] text-foreground/85 leading-relaxed">
-            <strong>How to practise:</strong> read the question, answer out loud while recording
-            yourself, and only then open the suggested answer to compare. Aim for 3–5 sentences per
-            answer, with technical detail and natural connectors, not a dry "yes/no".
+            <strong>Cómo practicar:</strong> lee la pregunta, respóndela en voz alta mientras te
+            grabas y recién después abre la respuesta sugerida para comparar. Apunta a 3 o 5 oraciones
+            por respuesta, con detalle técnico y conectores naturales, no un “yes/no” seco.
           </div>
         </div>
 
@@ -137,7 +138,7 @@ export function IcaoInterview() {
           >
             <UserCircle2 className="h-4 w-4 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
             <span className="text-[13.5px] text-muted-foreground">
-              Completá tu perfil (etapa, horas, aerolínea objetivo) para ver{" "}
+              Completa tu perfil (etapa, horas, aerolínea objetivo) para ver{" "}
               <strong className="text-foreground">ejemplos armados con tus datos</strong> en las
               preguntas sobre ti.
             </span>
@@ -152,7 +153,7 @@ export function IcaoInterview() {
         </div>
 
         <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center">
-          {TEA_PART1_TOTAL} questions · 4 sets · TEA Part 1 (Mayflower College)
+          {TEA_PART1_TOTAL} preguntas · 4 sets · TEA Parte 1 (Mayflower College)
         </div>
       </div>
     </AppLayout>
@@ -178,7 +179,10 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
           {String(q.n).padStart(2, "0")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[16px] font-semibold tracking-[-0.01em] leading-snug">
+          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+            Pregunta del examinador
+          </div>
+          <div className="mt-1 text-[16px] font-semibold tracking-[-0.01em] leading-snug">
             {q.question}
           </div>
           <button
@@ -187,7 +191,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
             style={{ color: "var(--av-blue-500)" }}
           >
             {open ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-            {open ? "Hide suggested answer" : "Show suggested answer"}
+            {open ? "Ocultar la respuesta sugerida" : "Ver la respuesta sugerida"}
             <ChevronDown
               className="h-3.5 w-3.5 transition-transform"
               style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
@@ -212,7 +216,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
               </div>
               <p className="text-[14.5px] leading-relaxed text-foreground/90">{mine}</p>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                Ejemplo armado con tu perfil: usalo de guía, no lo recites (el TEA penaliza
+                Ejemplo armado con tu perfil: úsalo como guía, no lo recites (el TEA penaliza las
                 respuestas memorizadas).
               </p>
             </div>
@@ -226,7 +230,8 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
             }}
           >
             <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "var(--av-blue-500)" }}>
-              <MessageSquare className="h-3 w-3" /> {mine ? "Model answer · high register" : "Suggested answer"}
+              <MessageSquare className="h-3 w-3" />{" "}
+              {mine ? "Respuesta modelo · registro alto" : "Respuesta sugerida"}
             </div>
             <p className="text-[14.5px] leading-relaxed text-foreground/90">
               {q.suggestedAnswer}
@@ -234,8 +239,8 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
 
             {q.highRegisterWords && q.highRegisterWords.length > 0 && (
               <div className="mt-3 pt-3 border-t border-border/50">
-                <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-amber-400)" }}>
-                  High register words
+                <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-warn-fg)" }}>
+                  Palabras de registro alto
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {q.highRegisterWords.map((w) => (
@@ -244,7 +249,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
                       className="px-2 py-0.5 rounded-md text-[12.5px] font-semibold"
                       style={{
                         background: "color-mix(in oklab, var(--av-amber-400) 14%, transparent)",
-                        color: "var(--av-amber-400)",
+                        color: "var(--av-warn-fg)",
                       }}
                     >
                       {w}

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-import { Menu, Send, X } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { LogoIsotype } from "@/components/Logo"
 
 const navLinks = [
   { to: "/", label: "Inicio" },
@@ -42,12 +43,17 @@ export function Header() {
           className="flex items-center gap-3 transition-transform hover:scale-[1.02]"
           aria-label="Aviatory: inicio"
         >
-          <div className="inline-flex items-center justify-center h-11 w-11 rounded-xl border-2 border-slate-900 bg-gradient-to-br from-sky-400 via-blue-600 to-indigo-900 text-white shadow-md shadow-blue-500/30">
-            <Send
-              className="h-6 w-6 [filter:drop-shadow(0_0_5px_rgb(255_255_255_/_55%))]"
-              strokeWidth={2.2}
-            />
-          </div>
+          {/*
+            Isotipo real de marca: el asset ya trae su propio squircle azul, su
+            brillo y su borde, así que va solo (sin caja ni gradiente extra).
+            El radio en px iguala el del SVG (22% de 44px) para que el redondeo
+            de CSS no recorte la esquina azul.
+          */}
+          <LogoIsotype
+            variant="color"
+            alt=""
+            className="h-11 w-11 flex-shrink-0 rounded-[10px] shadow-md"
+          />
           <span className="text-2xl font-bold tracking-tight">Aviatory</span>
         </Link>
 

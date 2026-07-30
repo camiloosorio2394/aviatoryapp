@@ -289,7 +289,7 @@ export function Logbook() {
           onSaved={() => {
             setFormOpen(false)
             loadFlights()
-            toast.success("Vuelo registrado ✈️")
+            toast.success("Vuelo registrado")
           }}
         />
       )}

@@ -17,6 +17,7 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import heroPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 
 /**
  * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for
@@ -35,30 +36,37 @@ export function Icao() {
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
         {/* === HERO === */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
-          <div className="grid items-center gap-7 sm:grid-cols-[1fr_auto]">
-            <div>
-              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-                ICAO English · TEA structure
-              </div>
-              <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
-                ICAO English, built for the TEA exam
-              </h1>
-              <p className="text-[16px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
-                Organised exactly like the <strong className="text-foreground">Test of English for
-                Aviation</strong>: 4 sections covering the two skills the exam measures:
-                <strong className="text-foreground"> speaking and understanding</strong> English in an
-                aviation context.
-              </p>
+        <section className="relative overflow-hidden rounded-2xl">
+          <img
+            src={heroPhoto}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgb(11 16 32 / 88%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
+            }}
+          />
+          <div className="relative p-7 sm:p-10">
+            <div className="text-[13px] font-semibold text-white/70">
+              Inglés ICAO · estructura del examen TEA
             </div>
-            <div className="hidden sm:flex flex-col items-center gap-3 pr-2">
-              <div
-                className="flex items-center justify-center w-[110px] h-[110px] rounded-2xl"
-                style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
-              >
-                <Radio className="h-14 w-14 text-white" strokeWidth={1.5} />
-              </div>
-              <div className="text-[12px] font-semibold text-muted-foreground">TEA · 25–30 min</div>
+            <h1 className="text-gradient-gold mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.12] pb-1">
+              Inglés ICAO, con la estructura del examen TEA
+            </h1>
+            <p className="mt-3 max-w-[680px] text-[16px] leading-relaxed text-white/70">
+              Está organizado igual que el{" "}
+              <strong className="font-semibold text-white">Test of English for Aviation</strong>: 4
+              secciones que cubren las dos habilidades que mide el examen,{" "}
+              <strong className="font-semibold text-white">hablar y comprender</strong> inglés en
+              contexto aeronáutico.
+            </p>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[12.5px] font-semibold text-white">
+              <Radio className="h-3.5 w-3.5" /> TEA · 25 a 30 minutos
             </div>
           </div>
         </section>
@@ -66,10 +74,10 @@ export function Icao() {
         {/* === LAS SECCIONES (la navegación del módulo) === */}
         <div className="mt-8 mb-4">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            The module · 4 sections
+            El módulo · 4 secciones
           </div>
           <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            Where you train each skill
+            Dónde entrenas cada habilidad
           </h2>
         </div>
 
@@ -97,12 +105,14 @@ export function Icao() {
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-                Put yourself to the test
+                Ponte a prueba
               </div>
-              <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">TEA Mock Exam: full test</div>
+              <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">
+                Simulacro TEA: examen completo
+              </div>
               <p className="mt-1 text-[14px] text-muted-foreground max-w-[640px]">
-                All 3 parts in one go, timed, with real audios. Record yourself, answer out loud and
-                self-assess on the 6 descriptors at the end.
+                Las 3 partes seguidas, cronometradas y con audios reales. Grábate, responde en voz
+                alta y autoevalúate con los 6 descriptores al final.
               </p>
             </div>
             <ArrowRight className="hidden sm:block h-5 w-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
@@ -122,13 +132,13 @@ export function Icao() {
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
               style={{ color: "var(--av-blue-500)" }}
             >
-              <Sparkles className="h-3.5 w-3.5" /> Practice tip
+              <Sparkles className="h-3.5 w-3.5" /> Consejo de práctica
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">Practise out loud and record yourself</h3>
+            <h3 className="mt-1.5 text-lg font-bold">Practica en voz alta y grábate</h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
-              The TEA is oral. Reading the answers isn't enough: answer out loud, record yourself on
-              your phone and listen back. It's the most uncomfortable thing and what raises your level
-              fastest. In the #icao community you can ask for feedback and practise with others.
+              El TEA es oral. Leer las respuestas no alcanza: respóndelas en voz alta, grábate con el
+              celular y escúchate después. Es lo más incómodo y lo que más rápido sube tu nivel. En la
+              comunidad #icao puedes pedir comentarios y practicar con otros pilotos.
             </p>
           </div>
           <Link
@@ -136,7 +146,7 @@ export function Icao() {
             className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
             style={{ background: "var(--av-blue-500)" }}
           >
-            #icao community <ArrowRight className="h-3.5 w-3.5" />
+            Comunidad #icao <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </section>
 
@@ -161,13 +171,13 @@ function ReferenceBlock() {
       >
         <div className="min-w-0">
           <div className="text-[12.5px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Reference
+            Referencia
           </div>
           <div className="mt-0.5 text-[17px] font-bold tracking-[-0.01em]">
-            What the TEA is and how it's scored
+            Qué es el TEA y cómo se califica
           </div>
           <p className="mt-0.5 text-[13.5px] text-muted-foreground">
-            Structure, duration, the 6 ICAO descriptors and what levels 4 and 5 ask for.
+            Estructura, duración, los 6 descriptores ICAO y qué piden los niveles 4 y 5.
           </p>
         </div>
         <ChevronDown
@@ -185,17 +195,20 @@ function ReferenceBlock() {
                 Test of English for Aviation
               </h3>
               <p className="mt-2 text-[15px] text-foreground/90 leading-relaxed">
-                The TEA is an exam designed by <strong className="text-foreground">Mayflower College</strong>{" "}
-                to assess the English proficiency of pilots and controllers against ICAO's language
-                requirements. It assesses <strong className="text-foreground">only speaking and
-                listening</strong> skills, in an aviation context;{" "}
-                <strong className="text-foreground">it does not test technical knowledge or standard
-                phraseology</strong>.
+                El TEA es un examen diseñado por{" "}
+                <strong className="text-foreground">Mayflower College</strong> para evaluar el nivel de
+                inglés de pilotos y controladores frente a los requisitos lingüísticos de la OACI.
+                Evalúa <strong className="text-foreground">solo hablar y escuchar</strong>, en contexto
+                aeronáutico:{" "}
+                <strong className="text-foreground">
+                  no evalúa conocimiento técnico ni fraseología estándar
+                </strong>
+                .
               </p>
               <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
-                The Part 1 interview assesses your ability to hold a spontaneous conversation in natural,
-                technical and professional English. The following parts measure your listening
-                comprehension and your ability to describe, compare and give opinions.
+                La entrevista de la Parte 1 evalúa si puedes sostener una conversación espontánea en
+                inglés natural, técnico y profesional. Las partes siguientes miden tu comprensión
+                auditiva y tu capacidad de describir, comparar y dar opiniones.
               </p>
             </div>
 
@@ -208,27 +221,28 @@ function ReferenceBlock() {
             >
               <div className="flex items-center gap-2 mb-3">
                 <Clock className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-                <div className="text-[14px] font-bold">Total duration: 25–30 min</div>
+                <div className="text-[14px] font-bold">Duración total: 25 a 30 minutos</div>
               </div>
               <ul className="space-y-2.5">
-                <FactRow label="Part 1 · Interview" detail="7–8 min · conversation about your role" />
-                <FactRow label="Part 2 · Comprehension" detail="audios of non-routine situations" />
-                <FactRow label="Part 3 · Picture + Discussion" detail="describe, compare and give opinions" />
+                <FactRow label="Parte 1 · Interview" detail="7 a 8 minutos, conversación sobre tu rol" />
+                <FactRow label="Parte 2 · Comprensión" detail="audios de situaciones no rutinarias" />
+                <FactRow label="Parte 3 · Imágenes y conversación" detail="describir, comparar y opinar" />
               </ul>
               <div className="mt-4 pt-3 border-t border-border/50 text-[13.5px] text-muted-foreground leading-relaxed">
-                It only measures <strong className="text-foreground/90">speaking and listening</strong>. There's
-                no written part and no technical aviation questions.
+                Solo mide <strong className="text-foreground/90">hablar y escuchar</strong>. No hay parte
+                escrita ni preguntas técnicas de aviación.
               </div>
             </div>
           </div>
 
           {/* Los 6 descriptores */}
           <div className="mt-8">
-            <h3 className="text-[17px] font-bold tracking-[-0.01em]">The 6 ICAO descriptors</h3>
+            <h3 className="text-[17px] font-bold tracking-[-0.01em]">Los 6 descriptores ICAO</h3>
             <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[760px]">
-              The TEA scores six descriptors. <strong className="text-foreground">Your final result is
-              your lowest descriptor</strong>: if you get 5 in five of them and 4 in comprehension, your
-              official result is ICAO 4. So being good at some isn't enough: you have to level them all up.
+              El TEA califica seis descriptores.{" "}
+              <strong className="text-foreground">Tu resultado final es tu descriptor más bajo</strong>:
+              si sacas 5 en cinco de ellos y 4 en comprensión, tu resultado oficial es ICAO 4. Ser bueno
+              en algunos no alcanza: tienes que subirlos todos.
             </p>
             <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
               {DESCRIPTORS.map((d) => (
@@ -249,32 +263,32 @@ function ReferenceBlock() {
 
           {/* Niveles 4 y 5 */}
           <div className="mt-8">
-            <h3 className="text-[17px] font-bold tracking-[-0.01em]">What levels 4 and 5 ask for</h3>
+            <h3 className="text-[17px] font-bold tracking-[-0.01em]">Qué piden los niveles 4 y 5</h3>
             <div className="mt-4 grid gap-4 md:grid-cols-2">
               <LevelPanel
                 level={4}
                 title="Operational"
                 color="cyan"
-                blurb="The legal minimum to fly international commercial. You must reach 4 in EVERY descriptor."
+                blurb="El mínimo legal para volar comercial internacional. Tienes que llegar a 4 en TODOS los descriptores."
                 traits={[
-                  "Holds conversations on operational topics",
-                  "Understands most routine communication and many non-routine ones",
-                  "Some grammatical errors, but they rarely affect communication",
-                  "Enough vocabulary to explain problems and ask for help",
-                  "Reasonable fluency; can ask for clarification",
+                  "Sostiene conversaciones sobre temas operacionales",
+                  "Entiende casi toda la comunicación rutinaria y muchas situaciones no rutinarias",
+                  "Comete algunos errores gramaticales, pero rara vez afectan la comunicación",
+                  "Tiene vocabulario suficiente para explicar problemas y pedir ayuda",
+                  "Habla con fluidez razonable y puede pedir aclaraciones",
                 ]}
               />
               <LevelPanel
                 level={5}
                 title="Extended"
                 color="green"
-                blurb="The target level for an airline career. Minimum 5 in ALL descriptors."
+                blurb="El nivel objetivo para una carrera en aerolínea. Mínimo 5 en TODOS los descriptores."
                 traits={[
-                  "Speaks with great ease and confidence",
-                  "Varied grammatical structures, very few errors",
-                  "Broad and precise vocabulary",
-                  "Understands almost everything, even accents and complex situations",
-                  "Interacts spontaneously; needs very few repetitions",
+                  "Habla con mucha soltura y confianza",
+                  "Usa estructuras gramaticales variadas y comete muy pocos errores",
+                  "Maneja vocabulario amplio y preciso",
+                  "Entiende casi todo, incluso acentos y situaciones complejas",
+                  "Interactúa de forma espontánea y necesita muy pocas repeticiones",
                 ]}
               />
             </div>
@@ -316,41 +330,41 @@ const SECTIONS: SectionDef[] = [
     icon: BookOpen,
     color: "cyan",
     part: "Base",
-    title: "Vocabulary",
-    description: "~350 searchable aviation English terms, grouped by category. The foundation of everything else. Includes a quiz to test yourself.",
+    title: "Vocabulario",
+    description: "Cerca de 350 términos de inglés aeronáutico con buscador, agrupados por categoría. Es la base de todo lo demás e incluye un quiz para ponerte a prueba.",
     status: "ready",
-    cta: "Open glossary",
+    cta: "Abrir el glosario",
     secondary: { to: "/app/icao/quiz", label: "Quiz", icon: ClipboardCheck },
   },
   {
     to: "/app/icao/interview",
     icon: Mic,
     color: "blue",
-    part: "TEA · Part 1",
-    title: "Interview",
-    description: "The questions the examiner asks about your role and aviation. 4 sets with technical, professional model answers to capture the expected register.",
+    part: "TEA · Parte 1",
+    title: "Entrevista",
+    description: "La sección Interview: las preguntas que hace el examinador sobre tu rol y sobre aviación. 4 sets con respuestas modelo para captar el registro esperado.",
     status: "ready",
-    cta: "Practise Interview",
+    cta: "Practicar la entrevista",
   },
   {
     to: "/app/icao/comprension",
     icon: Headphones,
     color: "violet",
-    part: "TEA · Part 2",
-    title: "Interactive Comprehension",
-    description: "You listen to non-routine situations and react. 2A short · 2B long · 2C interactive, with real audios from the practice material.",
+    part: "TEA · Parte 2",
+    title: "Comprensión interactiva",
+    description: "La sección Interactive Comprehension: escuchas situaciones no rutinarias y reaccionas. Bloques 2A cortos, 2B largos y 2C interactivos, con audios reales.",
     status: "ready",
-    cta: "Practise comprehension",
+    cta: "Practicar comprensión",
   },
   {
     to: "/app/icao/picture-description",
     icon: ImageIcon,
     color: "green",
-    part: "TEA · Part 3",
-    title: "Picture Description & Discussion",
-    description: "13 real image pairs: you describe, compare, spot risks, speculate on causes, give opinions and discuss the topic.",
+    part: "TEA · Parte 3",
+    title: "Descripción de imágenes",
+    description: "13 pares de imágenes reales: describes, comparas, identificas riesgos, especulas causas, das tu opinión y conversas sobre el tema.",
     status: "ready",
-    cta: "Practise Part 3",
+    cta: "Practicar la Parte 3",
   },
 ]
 
@@ -373,9 +387,9 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         {status === "ready" ? (
-          <span className="chip chip-green">Ready</span>
+          <span className="chip chip-green">Listo</span>
         ) : (
-          <span className="chip">Soon</span>
+          <span className="chip">Pronto</span>
         )}
       </div>
 
@@ -417,12 +431,12 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
 // DESCRIPTORES + NIVELES
 // ────────────────────────────────────────────────────────────────────────────
 const DESCRIPTORS: { name: string; detail: string }[] = [
-  { name: "Pronunciation", detail: "Clarity of pronunciation and ease of being understood." },
-  { name: "Structure", detail: "Correct grammar and sentence construction." },
-  { name: "Vocabulary", detail: "Range and accuracy of vocabulary, both aviation and general." },
-  { name: "Fluency", detail: "Speaking continuously and naturally, with few unnecessary pauses." },
-  { name: "Comprehension", detail: "Understanding spoken messages, even with accents or unexpected situations." },
-  { name: "Interactions", detail: "Keeping the conversation going, responding, asking for clarification and managing the exchange." },
+  { name: "Pronunciation", detail: "Pronunciación clara y fácil de entender." },
+  { name: "Structure", detail: "Gramática correcta y construcción de las oraciones." },
+  { name: "Vocabulary", detail: "Amplitud y precisión del vocabulario, aeronáutico y general." },
+  { name: "Fluency", detail: "Hablar de forma continua y natural, con pocas pausas innecesarias." },
+  { name: "Comprehension", detail: "Entender los mensajes hablados, incluso con acentos o situaciones inesperadas." },
+  { name: "Interactions", detail: "Sostener la conversación, responder, pedir aclaraciones y manejar el intercambio." },
 ]
 
 function LevelPanel({ level, title, color, blurb, traits }: { level: number; title: string; color: TileColorKey; blurb: string; traits: string[] }) {
@@ -439,7 +453,7 @@ function LevelPanel({ level, title, color, blurb, traits }: { level: number; tit
         <div>
           <div className="text-[16px] font-bold tracking-[-0.01em]">ICAO {level} · {title}</div>
           <div className="text-[12px] text-muted-foreground">
-            minimum {level} in every descriptor
+            mínimo {level} en cada descriptor
           </div>
         </div>
       </div>
