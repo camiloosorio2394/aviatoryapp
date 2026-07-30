@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { Hash, ArrowRight, Check, MessageSquare, Users, TriangleAlert, RotateCw } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import heroPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 
 interface Channel {
   id: number
@@ -136,6 +136,19 @@ export function Community() {
 
   const totalChannels = channels.length
 
+  /** El canal con el mensaje más reciente de la muestra: la puerta de entrada. */
+  const ultimoActivo = useMemo(() => {
+    let best: { channel: Channel; lastAt: string } | null = null
+    for (const c of channels) {
+      const act = activity[c.id]
+      if (!act) continue
+      if (!best || Date.parse(act.lastAt) > Date.parse(best.lastAt)) {
+        best = { channel: c, lastAt: act.lastAt }
+      }
+    }
+    return best
+  }, [channels, activity])
+
   /** Cada grupo ordenado por actividad real: primero lo que se movió último. */
   const groups = useMemo(
     () =>
@@ -163,11 +176,41 @@ export function Community() {
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        <PageHeader
-          eyebrow={loading || totalChannels === 0 ? "COMUNIDAD" : `COMUNIDAD · ${totalChannels} CANALES`}
-          title="Comunidad Aviatory"
-          subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo. Entra a un canal para escribir."
-        />
+        {/* Hero de módulo, como el de ICAO y el dashboard: la comunidad era la
+            única sección grande sin identidad propia. Las cifras son reales:
+            canales publicados y mensajes de la muestra reciente. */}
+        <section className="relative overflow-hidden rounded-xl mb-7">
+          <img src={heroPhoto} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgb(11 16 32 / 90%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
+            }}
+          />
+          <div className="relative px-6 py-7 sm:px-8 sm:py-9">
+            <div className="text-[13px] font-semibold text-white/70">
+              Comunidad{totalChannels > 0 ? ` · ${totalChannels} canales` : ""}
+            </div>
+            <h1 className="mt-1 text-[24px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.1] text-white max-w-[640px]">
+              Ningún piloto llega a la cabina solo
+            </h1>
+            <p className="mt-2 mb-0 text-[15px] text-white/75 max-w-[560px] leading-relaxed">
+              Pilotos LATAM organizados por etapa, materia y aerolínea. Entra a un canal para escribir.
+            </p>
+            {ultimoActivo && (
+              <Link
+                to={`/app/comunidad/${ultimoActivo.channel.slug}`}
+                className="mt-5 inline-flex items-center gap-2.5 rounded-full border border-white/25 bg-white/12 backdrop-blur-sm h-10 pl-4 pr-3 text-[13px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+              >
+                <MessageSquare className="h-3.5 w-3.5" style={{ color: "var(--av-amber-400)" }} />
+                La conversación sigue en {ultimoActivo.channel.name} · {relativeTime(ultimoActivo.lastAt)}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            )}
+          </div>
+        </section>
 
         {loading ? (
           <div className="space-y-6 animate-pulse">
