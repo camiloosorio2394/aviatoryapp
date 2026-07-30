@@ -343,6 +343,9 @@ export function Dashboard() {
    *  la barra vacía se leía como fracaso el primer día. */
   const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : null
   const primaryAction = resolvePrimaryAction(icaoMeasured)
+  /** Si abajo va una card destacada, el hero no repite su mismo boton: eran dos
+   *  CTA identicos a un palmo de distancia. Sin card, el hero se queda con el. */
+  const hasFeaturedCard = !icaoMeasured || daily.length > 0
   const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
@@ -367,6 +370,7 @@ export function Dashboard() {
           progress={progress}
           trialLeft={trialLeft}
           primaryAction={primaryAction}
+          showCta={!hasFeaturedCard}
         />
 
         {/* Una sola card destacada bajo el hero, la de la acción primaria.
@@ -497,6 +501,7 @@ function CockpitHero({
   progress,
   trialLeft,
   primaryAction,
+  showCta,
 }: {
   firstName: string
   stageLabel: string
@@ -506,6 +511,7 @@ function CockpitHero({
   progress: number | null
   trialLeft: number | null
   primaryAction: { href: string; cta: string; minutes: number }
+  showCta: boolean
 }) {
   /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
    *  oscuro en modo claro y ahí quedarían ilegibles. */
@@ -601,14 +607,18 @@ function CockpitHero({
                 <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
               </span>
             )}
-            <Link
-              to={primaryAction.href}
-              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
-              style={{ background: "var(--av-blue-500)" }}
-            >
-              {primaryAction.cta} <ArrowRight className="h-4 w-4" />
-            </Link>
-            <div className="text-[12px] text-white/70">~{primaryAction.minutes} min</div>
+            {showCta && (
+              <>
+                <Link
+                  to={primaryAction.href}
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg font-semibold text-[15px] text-white transition-colors"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  {primaryAction.cta} <ArrowRight className="h-4 w-4" />
+                </Link>
+                <div className="text-[12px] text-white/70">~{primaryAction.minutes} min</div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -1123,7 +1133,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
             Quiz del día
           </div>
           <div className="mt-1 text-[17px] font-bold tracking-[-0.015em]">
-            <span className="mono tabular-nums">{count}</span> preguntas
+            <span className="mono tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
             {firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
           <div className="text-[13px] text-white/60 mt-0.5">Se renueva mañana.</div>
