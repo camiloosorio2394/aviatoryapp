@@ -1,9 +1,16 @@
 import { Brain, Globe2, Plane, BookOpen, Video, Sparkles, Star, ArrowRight } from "lucide-react"
 import { Reveal } from "@/components/Reveal"
+import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
+import pcaPhoto from "@/assets/photos/pca-flightdeck.jpg"
+import psicoPhoto from "@/assets/photos/psicotecnicas-gauges.jpg"
+import entrevistasPhoto from "@/assets/photos/entrevistas-terminal.jpg"
+import aerolineaPhoto from "@/assets/photos/aerolinea-piloto.jpg"
+import wingmanPhoto from "@/assets/photos/wingman-cockpit-dusk.jpg"
 
 /**
  * Catálogo de cursos — los módulos de Aviatory presentados como cursos
- * (miniatura + meta + descripción + CTA), estilo plataforma de cursos.
+ * (miniatura fotográfica + meta + descripción + CTA), estilo plataforma de cursos.
+ * Fotos: Unsplash License (uso comercial sin atribución) — créditos en docs.
  */
 const COURSES: {
   title: string
@@ -11,6 +18,7 @@ const COURSES: {
   icon: React.ComponentType<{ className?: string }>
   color: string
   meta: string
+  photo: string
   highlight?: boolean
 }[] = [
   {
@@ -19,6 +27,7 @@ const COURSES: {
     icon: Globe2,
     color: "#2563EB",
     meta: "5 secciones · Nivel 3 → 5",
+    photo: icaoPhoto,
     highlight: true,
   },
   {
@@ -27,6 +36,7 @@ const COURSES: {
     icon: BookOpen,
     color: "#4338CA",
     meta: "Por materia · Simulacro oficial",
+    photo: pcaPhoto,
   },
   {
     title: "Psicotécnicas",
@@ -34,6 +44,7 @@ const COURSES: {
     icon: Brain,
     color: "#B45309",
     meta: "Tests + práctica",
+    photo: psicoPhoto,
   },
   {
     title: "Simulador de entrevistas",
@@ -41,6 +52,7 @@ const COURSES: {
     icon: Video,
     color: "#0E7490",
     meta: "HR · Técnica · Video",
+    photo: entrevistasPhoto,
   },
   {
     title: "Ingreso a aerolínea",
@@ -48,6 +60,7 @@ const COURSES: {
     icon: Plane,
     color: "#7C3AED",
     meta: "Requisitos por aerolínea",
+    photo: aerolineaPhoto,
   },
   {
     title: "Wingman: tu tutor IA",
@@ -55,6 +68,7 @@ const COURSES: {
     icon: Sparkles,
     color: "#0891B2",
     meta: "Asistente · siempre disponible",
+    photo: wingmanPhoto,
   },
 ]
 
@@ -99,6 +113,7 @@ function CourseCard({
   icon: Icon,
   color,
   meta,
+  photo,
   highlight,
 }: {
   title: string
@@ -106,6 +121,7 @@ function CourseCard({
   icon: React.ComponentType<{ className?: string }>
   color: string
   meta: string
+  photo: string
   highlight?: boolean
 }) {
   return (
@@ -116,14 +132,32 @@ function CourseCard({
         boxShadow: "0 1px 2px rgb(0 0 0 / 4%)",
       }}
     >
-      {/* thumbnail */}
-      <div
-        className="relative h-32 flex items-center justify-center"
-        style={{ background: `linear-gradient(135deg, ${color} 0%, color-mix(in oklab, ${color} 58%, #0b1020) 100%)` }}
-      >
-        <Icon className="h-11 w-11 text-white/90 transition-transform duration-300 group-hover:scale-110" />
+      {/* thumbnail fotográfico con tinte del color del curso */}
+      <div className="relative h-36 overflow-hidden">
+        <img
+          src={photo}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(to top, color-mix(in oklab, ${color} 45%, rgb(11 16 32 / 88%)) 0%, rgb(11 16 32 / 12%) 55%, transparent 100%)`,
+          }}
+        />
+        <span
+          className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg backdrop-blur-sm"
+          style={{ background: "rgb(11 16 32 / 45%)" }}
+        >
+          <Icon className="h-4.5 w-4.5 text-white" />
+        </span>
         {highlight && (
-          <span className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-bold" style={{ color }}>
+          <span
+            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow-sm"
+            style={{ background: "linear-gradient(135deg, oklch(0.8 0.14 85), oklch(0.63 0.15 65))" }}
+          >
             <Star className="h-3 w-3 fill-current" /> Popular
           </span>
         )}
