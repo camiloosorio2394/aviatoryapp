@@ -14,7 +14,7 @@ import {
   Plane,
   Gift,
   User,
-  Sparkles,
+  Timer,
   ArrowRight,
   ChevronDown,
   X,
@@ -170,8 +170,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
           {item.soon && expanded && (
             <span
-              className="flex-shrink-0 text-[10px] font-semibold uppercase tracking-[0.06em] px-1.5 py-0.5 rounded"
-              style={{ color: "oklch(0.78 0.02 250)", background: "oklch(1 0 0 / 6%)", border: "1px solid var(--rail-border)" }}
+              className="flex-shrink-0 text-[11px] px-1.5 py-0.5 rounded-md"
+              style={{ color: "var(--rail-section-label)", background: "oklch(1 0 0 / 6%)" }}
             >
               Pronto
             </span>
@@ -265,8 +265,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
               <>
                 {expanded ? (
                   <div
-                    className="px-2.5 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "oklch(0.82 0.03 250)" }}
+                    className="px-2.5 pt-4 pb-1 text-[12.5px] whitespace-nowrap transition-opacity duration-200"
+                    style={{ color: "var(--rail-section-label)" }}
                   >
                     {section.label}
                   </div>
@@ -289,8 +289,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => setSoonOpen((v) => !v)}
-            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-white/5"
-            style={{ color: "oklch(0.82 0.03 250)" }}
+            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12.5px] transition-colors hover:bg-white/5"
+            style={{ color: "var(--rail-section-label)" }}
             aria-expanded={soonOpen}
             title={expanded ? undefined : "Próximamente"}
           >
@@ -325,23 +325,23 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           style={{
             padding: expanded ? 14 : 10,
             borderRadius: 12,
-            background: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-            border: "1px solid color-mix(in oklab, var(--av-blue-400) 35%, transparent)",
+            background: "var(--rail-2)",
+            border: "1px solid var(--rail-border)",
           }}
         >
           {expanded ? (
             <>
-              <div
-                className="flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{ color: "var(--av-blue-400)" }}
-              >
-                <Sparkles className="h-3.5 w-3.5" /> Prueba gratis
+              <div className="text-[13.5px] font-semibold" style={{ color: "var(--rail-text-active)" }}>
+                Prueba gratis
               </div>
-              <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.82 0.02 250)" }}>
+              <div
+                className="mt-0.5 text-[12.5px] leading-snug"
+                style={{ color: "var(--rail-text)" }}
+              >
                 Pasa a Pro y desbloquea todo Aviatory.
               </div>
               <div
-                className="mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold text-white"
+                className="mt-3 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-[12.5px] font-medium text-white"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Ver planes <ArrowRight className="h-3 w-3" />
@@ -349,7 +349,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             </>
           ) : (
             <div className="flex justify-center">
-              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-blue-400)" }} />
+              <Timer className="h-[18px] w-[18px]" style={{ color: "var(--rail-text)" }} />
             </div>
           )}
         </Link>
