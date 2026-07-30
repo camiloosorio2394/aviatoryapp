@@ -139,7 +139,7 @@ export function AirlinePrep() {
         </div>
 
         {/* Lo que sí puedes adelantar hoy */}
-        <section className="mt-10 rounded-2xl border border-border bg-card p-6">
+        <section className="mt-10 rounded-2xl surface p-6">
           <div className="text-[15px] font-bold">Mientras tanto</div>
           <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[680px]">
             Tu Logbook y tus vencimientos alimentan el Pilot ID que vas a necesitar el día que
@@ -148,13 +148,13 @@ export function AirlinePrep() {
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               to="/app/aerolineas"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               Ver mi match <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
               to="/app/logbook"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               Mi Logbook <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -212,7 +212,7 @@ function TemaAbierto({ tema }: { tema: Tema }) {
  */
 function TemaPronto({ tema }: { tema: Tema }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <div className="flex items-center gap-2">
         <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
           <HoldingIcon className="h-4 w-4" />

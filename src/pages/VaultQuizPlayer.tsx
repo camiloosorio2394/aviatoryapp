@@ -185,7 +185,7 @@ export function VaultQuizPlayer() {
     return (
       <AppLayout>
         <div className="px-5 sm:px-7 py-7 pb-20 max-w-[920px] mx-auto">
-          <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8">
+          <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
             <div className="relative grid items-center gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-[1fr_auto]">
               <div>
                 <div
@@ -226,7 +226,7 @@ export function VaultQuizPlayer() {
                 const groupCorrect = g.items.filter((i) => i.correct).length
                 const allRight = groupCorrect === g.items.length
                 return (
-                  <div key={g.key} className="rounded-2xl border border-border bg-card p-5">
+                  <div key={g.key} className="rounded-2xl surface p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="text-[15px] font-bold tracking-[-0.01em]">{g.label}</div>
                       <span className={`chip flex-shrink-0 ${allRight ? "chip-green" : "chip-amber"}`}>
@@ -319,7 +319,7 @@ export function VaultQuizPlayer() {
             </button>
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a {MODULE_LABEL[module] ?? "materias"}
             </Link>
@@ -373,7 +373,7 @@ export function VaultQuizPlayer() {
 
         {/* Question card */}
         <ProtectedContent watermark={false}>
-          <section className="rounded-2xl border border-border bg-card p-5 sm:p-7">
+          <section className="rounded-2xl surface p-5 sm:p-7">
             <div
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-3"
               style={{ color: "var(--av-blue-500)" }}
@@ -585,7 +585,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
   return (
     <AppLayout>
       <div className="px-5 sm:px-7 py-10 pb-20 max-w-[560px] mx-auto">
-        <div className="rounded-2xl border border-border bg-card p-7 text-center">
+        <div className="rounded-2xl surface p-7 text-center">
           <div
             className="mx-auto flex items-center justify-center w-12 h-12 rounded-xl"
             style={{
@@ -611,7 +611,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
             )}
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a materias
             </Link>

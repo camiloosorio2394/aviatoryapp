@@ -163,7 +163,7 @@ export function Icao() {
 function ReferenceBlock() {
   const [open, setOpen] = useState(false)
   return (
-    <section className="mt-8 rounded-2xl border border-border bg-card overflow-hidden">
+    <section className="mt-8 rounded-2xl surface overflow-hidden">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -372,7 +372,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
   const c = TILE_COLOR[color]
   return (
     <div
-      className="card-apple relative rounded-2xl border border-border bg-card p-5 flex flex-col gap-3"
+      className="card-apple relative rounded-2xl surface p-5 flex flex-col gap-3"
       style={{ borderColor: tileBorder(color, status === "ready" ? 32 : 22) }}
     >
       <div className="flex items-start justify-between">

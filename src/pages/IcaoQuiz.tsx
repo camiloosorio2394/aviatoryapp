@@ -305,7 +305,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
 /** El banco no se pudo leer: no es lo mismo que estar vacío, y se dice así. */
 function BankLoadError({ onRetry }: { onRetry: () => void }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+    <div className="rounded-2xl surface p-7 flex flex-col items-start">
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center"
         style={{
@@ -333,7 +333,7 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
@@ -345,7 +345,7 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
 /** Tema (o banco entero) sin preguntas: estado de producto con una salida. */
 function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: () => void }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+    <div className="rounded-2xl surface p-7 flex flex-col items-start">
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center"
         style={{
@@ -376,7 +376,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         )}
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Abrir el glosario
         </Link>
@@ -407,7 +407,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-2xl surface p-6">
         {question.context && (
           <div className="text-[13.5px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-blue-500)]/40">
             {question.context}
@@ -539,7 +539,7 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
         >
           Ir al glosario
         </Link>

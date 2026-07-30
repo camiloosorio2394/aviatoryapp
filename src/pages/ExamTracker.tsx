@@ -154,7 +154,7 @@ export function ExamTracker() {
                 </div>
               </section>
             ) : (
-              <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-7">
+              <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8 mb-7">
                 <div className="relative grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center gap-6 md:gap-8">
                   <div className="hidden md:block flex-shrink-0">
                     <KpiRing
@@ -239,7 +239,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   return (
     <Link
       to={`/app/exam-tracker/${intel.subject_slug}`}
-      className="group block rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-5 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
       }}
@@ -304,7 +304,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
 
 function HowStep({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <div
         className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold"
         style={{

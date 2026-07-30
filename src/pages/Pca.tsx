@@ -38,7 +38,7 @@ export function Pca() {
           actions={
             <Link
               to="/app/exam-tracker"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -65,7 +65,7 @@ function AvailableSubjects() {
     return (
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-[132px] rounded-2xl border border-border bg-card animate-pulse" />
+          <div key={i} className="h-[132px] rounded-2xl surface animate-pulse" />
         ))}
       </section>
     )
@@ -73,7 +73,7 @@ function AvailableSubjects() {
 
   if (error) {
     return (
-      <section className="rounded-2xl border border-border bg-card p-6 text-center">
+      <section className="rounded-2xl surface p-6 text-center">
         <div className="text-[16px] font-bold">No pudimos cargar las materias</div>
         <p className="mt-1.5 text-[14px] text-muted-foreground">
           La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
@@ -92,7 +92,7 @@ function AvailableSubjects() {
 
   if (subjects.length === 0) {
     return (
-      <section className="rounded-2xl border border-border bg-card p-7 text-center">
+      <section className="rounded-2xl surface p-7 text-center">
         <div
           className="mx-auto flex items-center justify-center w-12 h-12 rounded-xl"
           style={{
@@ -275,7 +275,7 @@ function ComingNext() {
         {COMING_NEXT.map((c) => (
           <div
             key={c.title}
-            className="rounded-2xl border border-border bg-card p-4 flex items-start gap-3"
+            className="rounded-2xl surface p-4 flex items-start gap-3"
           >
             <div
               className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"

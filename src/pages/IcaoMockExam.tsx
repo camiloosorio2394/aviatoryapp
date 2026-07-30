@@ -153,7 +153,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="relative">
             <span className="chip chip-amber">
               <Award className="h-3 w-3" /> Simulacro · examen completo cronometrado
@@ -502,7 +502,7 @@ function ExamPlayer({ audioUrl, label, onSkip }: { audioUrl: string; label?: str
           {onSkip && (
             <button
               onClick={onSkip}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold surface hover:bg-muted transition-colors"
             >
               Saltar este ítem <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -640,7 +640,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
             style={{ background: "var(--av-blue-500)" }}>
             <RotateCcw className="h-4 w-4" /> Otro simulacro
           </button>
-          <Link to="/app/icao" className="inline-flex items-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+          <Link to="/app/icao" className="inline-flex items-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors">
             Volver al módulo
           </Link>
         </div>
