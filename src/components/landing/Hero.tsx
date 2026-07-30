@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowRight,
@@ -7,6 +7,7 @@ import {
   Clock,
   Headphones,
   Play,
+  Pause,
   GraduationCap,
   Brain,
   Video,
@@ -92,11 +93,8 @@ export function Hero() {
           <div aria-hidden className="absolute -right-3 top-6 hidden sm:block w-[88%] h-[88%] rounded-2xl border border-border bg-card/60 rotate-3" />
           <div aria-hidden className="absolute -left-3 top-3 hidden sm:block w-[88%] h-[88%] rounded-2xl border border-border bg-card/60 -rotate-2" />
 
-          {/* card principal: réplica en vivo del Simulacro TEA (decorativa) */}
-          <div
-            aria-hidden
-            className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-[0_24px_60px_-24px_rgb(0_0_0_/_22%)]"
-          >
+          {/* card principal: réplica en vivo del Simulacro TEA (el player sí funciona) */}
+          <div className="relative rounded-2xl border border-border bg-card overflow-hidden shadow-[0_24px_60px_-24px_rgb(0_0_0_/_22%)]">
             <div className="p-5">
               {/* header del examen: parte + REC + cronómetro */}
               <div className="flex items-center justify-between gap-3">
@@ -123,15 +121,7 @@ export function Hero() {
                   <Headphones className="h-4 w-4 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
                   Long message: take notes and explain the situation
                 </div>
-                <div className="mt-3 flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
-                  <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white" style={{ background: "var(--av-blue-500)" }}>
-                    <Play className="h-3.5 w-3.5 fill-current" />
-                  </span>
-                  <span className="relative h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
-                    <span className="absolute inset-y-0 left-0 w-[38%] rounded-full" style={{ background: "var(--av-blue-500)" }} />
-                  </span>
-                  <span className="text-[11.5px] text-muted-foreground whitespace-nowrap">1 de 2</span>
-                </div>
+                <HeroExamPlayer />
                 <div className="mt-3 space-y-1 text-[12.5px] text-muted-foreground">
                   <div className="flex items-start gap-1.5">
                     <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} /> What was the problem?
@@ -169,6 +159,60 @@ export function Hero() {
         </div>
       </div>
     </section>
+  )
+}
+
+/**
+ * Player funcional con un audio REAL del examen (bucket público icao-audio,
+ * el mismo que usa IcaoComprehension). El visitante escucha un mensaje ATC
+ * auténtico antes de registrarse. preload="none": no pesa hasta el click.
+ */
+const SAMPLE_AUDIO_URL =
+  "https://gvwqmfxphsbmbrhyjcmk.supabase.co/storage/v1/object/public/icao-audio/long/07-spillage-ramp.wav"
+
+function HeroExamPlayer() {
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [playing, setPlaying] = useState(false)
+  const [pct, setPct] = useState(0)
+
+  const toggle = () => {
+    const a = audioRef.current
+    if (!a) return
+    if (a.paused) void a.play().catch(() => {})
+    else a.pause()
+  }
+
+  return (
+    <div className="mt-3 flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2">
+      <audio
+        ref={audioRef}
+        src={SAMPLE_AUDIO_URL}
+        preload="none"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onEnded={() => setPct(0)}
+        onTimeUpdate={(e) => {
+          const a = e.currentTarget
+          if (a.duration > 0) setPct((a.currentTime / a.duration) * 100)
+        }}
+      />
+      <button
+        type="button"
+        onClick={toggle}
+        aria-label={playing ? "Pausar el audio de ejemplo" : "Escuchar un audio real del examen"}
+        className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform hover:scale-105 active:scale-95"
+        style={{ background: "var(--av-blue-500)" }}
+      >
+        {playing ? <Pause className="h-3.5 w-3.5 fill-current" /> : <Play className="h-3.5 w-3.5 fill-current" />}
+      </button>
+      <span className="relative h-1.5 flex-1 rounded-full bg-muted overflow-hidden">
+        <span
+          className="absolute inset-y-0 left-0 rounded-full"
+          style={{ width: `${pct}%`, background: "var(--av-blue-500)" }}
+        />
+      </span>
+      <span className="text-[11.5px] text-muted-foreground whitespace-nowrap">1 de 2</span>
+    </div>
   )
 }
 
