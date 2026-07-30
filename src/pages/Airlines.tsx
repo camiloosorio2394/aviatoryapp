@@ -168,7 +168,7 @@ export function Airlines() {
                     >
                       <Target className="h-[13px] w-[13px]" /> Tu mejor match hoy
                     </div>
-                    <h2 className="mt-2 mb-1 text-[26px] font-extrabold tracking-[-0.03em] text-foreground">
+                    <h2 className="mt-2 mb-1 text-[26px] font-semibold tracking-[-0.03em] text-foreground">
                       {bestMatch.airline.name} · {bestMatch.matchPct}% match
                     </h2>
                     <p className="m-0 text-muted-foreground text-[14px] leading-relaxed max-w-[600px]">
@@ -290,7 +290,7 @@ function PilotIdPrompt() {
           >
             Match con aerolíneas
           </div>
-          <h2 className="mt-2 mb-1 text-[24px] sm:text-[26px] font-extrabold tracking-[-0.03em] text-foreground">
+          <h2 className="mt-2 mb-1 text-[24px] sm:text-[26px] font-semibold tracking-[-0.03em] text-foreground">
             Completa tu Pilot ID para ver tu match
           </h2>
           <p className="m-0 text-muted-foreground text-[14px] leading-relaxed max-w-[600px]">
@@ -333,7 +333,7 @@ function AirlineCard({
       <div className="relative">
         <div className="flex justify-between items-start gap-3">
           <div
-            className="w-12 h-12 rounded-xl flex items-center justify-center font-extrabold text-base tracking-[-0.02em] text-white"
+            className="w-12 h-12 rounded-xl flex items-center justify-center font-semibold text-base tracking-[-0.02em] text-white"
             style={{ background: brand }}
           >
             {code}
@@ -342,7 +342,7 @@ function AirlineCard({
             <KpiRing value={matchPct} max={100} size={64} trailing="%" color={ringColor} />
           ) : (
             <div
-              className="h-16 w-16 rounded-full border border-dashed border-border flex items-center justify-center text-lg font-bold text-muted-foreground"
+              className="h-16 w-16 rounded-full border border-dashed border-border flex items-center justify-center text-lg font-semibold text-muted-foreground"
               aria-hidden="true"
             >
               —
@@ -350,7 +350,7 @@ function AirlineCard({
           )}
         </div>
 
-        <h3 className="mt-4 mb-1 text-lg font-bold tracking-[-0.02em] text-foreground">{airline.name}</h3>
+        <h3 className="mt-4 mb-1 text-lg font-semibold tracking-[-0.02em] text-foreground">{airline.name}</h3>
         <div className="text-[12.5px] text-muted-foreground flex gap-1.5 items-center">
           <MapPin className="h-2.5 w-2.5" /> {airline.country}
           {airline.code ? ` · ${airline.code}` : ""}

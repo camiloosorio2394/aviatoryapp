@@ -63,7 +63,7 @@ export function IcaoComprehension() {
           <div className="mt-3 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             TEA · Parte 2 · Interactive Comprehension · 8 a 12 minutos
           </div>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
             Comprensión interactiva
           </h1>
           <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
@@ -245,7 +245,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Quiz terminado</div>
         {scorable > 0 ? (
           <>
-            <div className="mt-2 text-[64px] font-extrabold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
+            <div className="mt-2 text-[64px] font-semibold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
             <div className="mt-1 text-[14px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% en piloto o controlador</div>
           </>
         ) : (
@@ -276,7 +276,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
 
       <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-          <div className="text-[12px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
+          <div className="text-[12px] font-semibold uppercase tracking-[0.12em]" style={{ color: accent }}>
             {cur.eyebrow}
           </div>
           <Kicker icon={kicker.icon} text={kicker.text} />
@@ -300,7 +300,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
                 const showWrong = revealed && chosen && !isAnswer
                 return (
                   <button key={s} onClick={() => pickSpeaker(s)} disabled={revealed}
-                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-bold border transition-colors disabled:cursor-default"
+                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border transition-colors disabled:cursor-default"
                     style={{
                       borderColor: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : chosen ? accent : "color-mix(in oklab, var(--border) 70%, transparent)",
                       background: showCorrect ? "color-mix(in oklab, var(--av-green-400) 14%, transparent)" : showWrong ? "color-mix(in oklab, var(--av-red-400) 14%, transparent)" : "transparent",
@@ -499,7 +499,7 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
       >
         <div className="flex items-center gap-2 min-w-0">
           <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-blue-500)]" />
-          <span className="text-[14px] font-bold tracking-[-0.01em] truncate">{title}</span>
+          <span className="text-[14px] font-semibold tracking-[-0.01em] truncate">{title}</span>
         </div>
         <ChevronDown
           className="flex-shrink-0 h-4 w-4 text-muted-foreground transition-transform"
@@ -513,7 +513,7 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
             {items.map((s, i) => (
               <li key={i} className="flex items-start gap-2.5 text-[14px] text-foreground/85 leading-relaxed">
                 <span
-                  className="tabular-nums flex-shrink-0 w-6 text-right text-[12.5px] font-bold pt-0.5"
+                  className="tabular-nums flex-shrink-0 w-6 text-right text-[12.5px] font-semibold pt-0.5"
                   style={{ color: "var(--av-blue-500)" }}
                 >
                   {i + 1}.

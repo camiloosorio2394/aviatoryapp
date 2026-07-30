@@ -329,7 +329,7 @@ function BigStat({
         {label}
       </div>
       <div
-        className="tabular-nums mt-1.5 text-[22px] font-extrabold leading-none tracking-[-0.03em]"
+        className="tabular-nums mt-1.5 text-[22px] font-semibold leading-none tracking-[-0.03em]"
         style={{ color: highlight ? "var(--av-blue-500)" : "var(--foreground)" }}
       >
         <CountUp to={computed} format={(v) => (unit === "" ? v.toFixed(0) : v.toFixed(1))} />
@@ -405,7 +405,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
             <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
               {dow} {day} {month}
             </div>
-            <div className="tabular-nums mt-0.5 font-bold text-foreground">
+            <div className="tabular-nums mt-0.5 font-semibold text-foreground">
               {f.aircraft_registration ?? "—"}
               <span className="ml-1.5 text-[12.5px] font-normal text-muted-foreground">
                 {f.aircraft_type ?? "—"}
@@ -416,7 +416,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
           </div>
           <div className="flex items-start gap-1 flex-shrink-0">
             <div
-              className="tabular-nums text-[20px] font-bold leading-none tracking-[-0.03em]"
+              className="tabular-nums text-[20px] font-semibold leading-none tracking-[-0.03em]"
               style={{ color: "var(--av-blue-500)" }}
             >
               {minutesToHours(f.total_minutes)}
@@ -440,12 +440,12 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
           {dow}
         </div>
-        <div className="tabular-nums text-sm font-bold text-foreground">
+        <div className="tabular-nums text-sm font-semibold text-foreground">
           {day} {month}
         </div>
       </div>
       <div>
-        <div className="tabular-nums font-bold text-foreground">{f.aircraft_registration ?? "—"}</div>
+        <div className="tabular-nums font-semibold text-foreground">{f.aircraft_registration ?? "—"}</div>
         <div className="text-[12.5px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
       </div>
       <div>
@@ -453,7 +453,7 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         {tagRow}
       </div>
       <div
-        className="tabular-nums text-right text-[16px] font-bold"
+        className="tabular-nums text-right text-[16px] font-semibold"
         style={{ color: "var(--av-blue-500)" }}
       >
         {minutesToHours(f.total_minutes)}
@@ -500,7 +500,7 @@ function MiniStat({ label, value, on }: { label: string; value: string; on: bool
         {label}
       </span>
       <span
-        className="tabular-nums font-bold"
+        className="tabular-nums font-semibold"
         style={{ color: on ? "var(--foreground)" : "var(--muted-foreground)" }}
       >
         {value}
@@ -521,7 +521,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       >
         <Plane className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-bold text-foreground">Empieza tu logbook digital</h3>
+      <h3 className="text-lg font-semibold text-foreground">Empieza tu logbook digital</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
         Cada vuelo que registres se suma a tus horas totales y actualiza tu progreso a aerolínea automáticamente.
       </p>
@@ -532,7 +532,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-bold text-foreground">
+            <span className="tabular-nums flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -625,7 +625,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         >
           <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
-              <h2 className="text-lg font-bold">Nuevo vuelo</h2>
+              <h2 className="text-lg font-semibold">Nuevo vuelo</h2>
               <p className="text-xs text-muted-foreground">Datos básicos abajo, detalles opcionales</p>
             </div>
             <button

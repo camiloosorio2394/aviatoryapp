@@ -238,7 +238,7 @@ export function NotamExam() {
         <div className="rounded-2xl surface p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <span
-              className="inline-flex items-center gap-1.5 text-[12px] font-bold px-2.5 py-1 rounded-full"
+              className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-2.5 py-1 rounded-full"
               style={{
                 color: accentText(level.color),
                 background: mix(level.color, 12),
@@ -252,7 +252,7 @@ export function NotamExam() {
             </span>
           </div>
 
-          <h2 className="mt-3.5 text-[19px] sm:text-[22px] font-bold leading-snug tracking-[-0.01em]">
+          <h2 className="mt-3.5 text-[19px] sm:text-[22px] font-semibold leading-snug tracking-[-0.01em]">
             {q.pregunta}
           </h2>
 
@@ -280,7 +280,7 @@ export function NotamExam() {
                 }}
               >
                 <div
-                  className="inline-flex items-center gap-1.5 text-[13px] font-bold"
+                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
                   style={{
                     color: accentText(
                       picked === q.correctIndex ? "var(--av-green-400)" : "var(--av-red-400)",
@@ -359,7 +359,7 @@ function OptionButton({ letter, text, answered, isPicked, isCorrect, onClick }: 
       style={{ borderColor, background }}
     >
       <span
-        className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-bold"
+        className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-semibold"
         style={{
           background: tone ? mix(tone, 16) : mix("var(--border)", 45),
           color: tone ? accentText(tone) : "var(--muted-foreground)",
@@ -513,7 +513,7 @@ function RuleCard({ icon: Icon, color, title, detail }: RuleCardProps) {
       >
         <Icon className="h-4.5 w-4.5" />
       </div>
-      <div className="mt-3 text-[15px] font-bold tracking-[-0.01em]">{title}</div>
+      <div className="mt-3 text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
       <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{detail}</p>
     </div>
   )
@@ -639,7 +639,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
       ) : rows.length === 0 ? (
         <div className="mt-3 rounded-2xl border border-border bg-muted/20 p-5 text-center">
           <History className="mx-auto h-5 w-5 text-muted-foreground" />
-          <div className="mt-2 text-[15px] font-bold tracking-[-0.01em]">
+          <div className="mt-2 text-[15px] font-semibold tracking-[-0.01em]">
             Todavía no has presentado la evaluación
           </div>
           <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed max-w-[520px] mx-auto">
@@ -656,7 +656,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
               style={{ borderColor: mix("var(--border)", 65) }}
             >
               <div
-                className="tabular w-11 flex-shrink-0 text-[18px] font-extrabold tracking-[-0.02em]"
+                className="tabular w-11 flex-shrink-0 text-[18px] font-semibold tracking-[-0.02em]"
                 style={{ color: scoreColor(r.score) }}
               >
                 {r.score}
@@ -669,7 +669,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
                 </div>
               </div>
               <span
-                className="flex-shrink-0 text-[11.5px] font-bold px-2 py-0.5 rounded-full"
+                className="flex-shrink-0 text-[11.5px] font-semibold px-2 py-0.5 rounded-full"
                 style={{
                   color: accentText(r.passed ? "var(--av-green-400)" : "var(--av-red-400)"),
                   background: mix(r.passed ? "var(--av-green-400)" : "var(--av-red-400)", 12),
@@ -688,7 +688,7 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
 function Stat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div className="rounded-xl border p-3 text-center" style={{ borderColor: mix("var(--border)", 60) }}>
-      <div className="tabular text-[20px] font-extrabold tracking-[-0.02em]" style={{ color }}>
+      <div className="tabular text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
         {value === "" ? (
           <span className="inline-block h-5 w-10 rounded bg-muted animate-pulse" aria-hidden="true" />
         ) : (
@@ -807,14 +807,14 @@ function Result({
             Tu puntaje
           </div>
           <div
-            className="mt-1 tabular text-[56px] sm:text-[68px] font-extrabold tracking-[-0.04em] leading-none"
+            className="mt-1 tabular text-[56px] sm:text-[68px] font-semibold tracking-[-0.04em] leading-none"
             style={{ color }}
           >
             {score}
           </div>
           <div className="mt-1 text-[13px] text-muted-foreground">sobre 100</div>
 
-          <div className="mt-4 text-[20px] sm:text-[22px] font-extrabold tracking-[-0.02em]" style={{ color }}>
+          <div className="mt-4 text-[20px] sm:text-[22px] font-semibold tracking-[-0.02em]" style={{ color }}>
             {passed ? "Aprobado" : `No aprobado, necesitas ${EXAM_PASS_SCORE}`}
           </div>
           <p className="mt-2 text-[14.5px] text-muted-foreground leading-relaxed max-w-[560px] mx-auto">
@@ -856,12 +856,12 @@ function Result({
                 >
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className="text-[14px] font-bold tracking-[-0.01em]"
+                      className="text-[14px] font-semibold tracking-[-0.01em]"
                       style={{ color: accentText(meta.color) }}
                     >
                       {meta.label}
                     </span>
-                    <span className="tabular text-[16px] font-extrabold tracking-[-0.02em]">
+                    <span className="tabular text-[16px] font-semibold tracking-[-0.02em]">
                       {r.ok}/{r.total}
                     </span>
                   </div>
@@ -1020,7 +1020,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
         className="w-full flex items-start gap-3 p-3.5 text-left"
       >
         <span
-          className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[12.5px] font-bold"
+          className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[12.5px] font-semibold"
           style={{ background: mix(tone, 14), color: tone }}
         >
           {n}
@@ -1028,7 +1028,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
         <span className="flex-1 min-w-0">
           <span className="block text-[14px] font-semibold leading-snug">{question.pregunta}</span>
           <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span className="text-[12px] font-bold" style={{ color: accentText(tone) }}>
+            <span className="text-[12px] font-semibold" style={{ color: accentText(tone) }}>
               {ok ? "Correcta" : "Fallada"}
             </span>
             <span className="text-border">·</span>
@@ -1049,7 +1049,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             style={{ borderColor: mix(tone, 26), background: mix(tone, 6) }}
           >
             <div
-              className="text-[11px] font-bold uppercase tracking-[0.14em]"
+              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
               style={{ color: accentText(tone) }}
             >
               Tu respuesta
@@ -1068,7 +1068,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
               }}
             >
               <div
-                className="text-[11px] font-bold uppercase tracking-[0.14em]"
+                className="text-[11px] font-semibold uppercase tracking-[0.14em]"
                 style={{ color: accentText("var(--av-green-400)") }}
               >
                 Respuesta correcta
@@ -1087,7 +1087,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             }}
           >
             <div
-              className="text-[11px] font-bold uppercase tracking-[0.14em]"
+              className="text-[11px] font-semibold uppercase tracking-[0.14em]"
               style={{ color: accentText("var(--av-blue-500)") }}
             >
               Por qué
@@ -1127,7 +1127,7 @@ function NextStepLink({ to, icon: Icon, color, title, detail }: NextStepLinkProp
         <Icon className="h-5 w-5" />
       </div>
       <div className="flex-1 min-w-0">
-        <div className="text-[15px] font-bold tracking-[-0.01em]">{title}</div>
+        <div className="text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
         <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{detail}</p>
       </div>
       <ArrowRight className="hidden sm:block flex-shrink-0 mt-1 h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />

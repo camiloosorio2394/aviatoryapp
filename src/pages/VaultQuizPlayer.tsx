@@ -198,7 +198,7 @@ export function VaultQuizPlayer() {
                 >
                   <Trophy className="h-3 w-3" /> Resultado · {subjectMeta.name}
                 </div>
-                <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+                <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
                   {passed ? "¡Aprobaste!" : "Casi llegas"}
                 </h1>
                 <p className="text-[17px] text-muted-foreground max-w-[520px] mt-2">
@@ -228,7 +228,7 @@ export function VaultQuizPlayer() {
                 return (
                   <div key={g.key} className="rounded-2xl surface p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
-                      <div className="text-[15px] font-bold tracking-[-0.01em]">{g.label}</div>
+                      <div className="text-[15px] font-semibold tracking-[-0.01em]">{g.label}</div>
                       <span className={`chip flex-shrink-0 ${allRight ? "chip-green" : "chip-amber"}`}>
                         {groupCorrect} de {g.items.length}
                       </span>
@@ -380,7 +380,7 @@ export function VaultQuizPlayer() {
             >
               {subjectMeta.name}
             </div>
-            <h1 className="text-[20px] sm:text-[24px] font-bold tracking-[-0.02em] leading-tight">
+            <h1 className="text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] leading-tight">
               {currentQuestion.question}
             </h1>
 
@@ -425,7 +425,7 @@ export function VaultQuizPlayer() {
                     }}
                   >
                     <div
-                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center tabular-nums text-[13.5px] font-extrabold"
+                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center tabular-nums text-[13.5px] font-semibold"
                       style={{
                         background: isSelected || isCorrectAnswer ? "var(--av-blue-500)" : "var(--muted)",
                         color: isSelected || isCorrectAnswer ? "white" : "var(--foreground)",
@@ -596,7 +596,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
           >
             <Icon className="h-6 w-6" strokeWidth={1.8} />
           </div>
-          <h1 className="mt-4 text-[20px] font-bold tracking-[-0.02em]">{title}</h1>
+          <h1 className="mt-4 text-[20px] font-semibold tracking-[-0.02em]">{title}</h1>
           <p className="mt-2 text-[14.5px] text-muted-foreground leading-relaxed">{line}</p>
           <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-center gap-2">
             {onRetry && (

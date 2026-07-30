@@ -122,7 +122,7 @@ export function TestInicial() {
         <div className="rounded-2xl surface p-5 sm:p-6">
           {item.audioUrl && <AudioItem url={item.audioUrl} />}
           {item.context && <p className="text-[13.5px] text-muted-foreground italic mb-3">{item.context}</p>}
-          <h2 className="text-[18px] font-bold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
+          <h2 className="text-[18px] font-semibold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
 
           <div className="mt-5 space-y-2.5">
             {item.options.map((o) => {
@@ -153,7 +153,7 @@ export function TestInicial() {
                   }}
                 >
                   <span
-                    className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-[12px] font-bold tabular-nums"
+                    className="flex-shrink-0 w-6 h-6 rounded-md flex items-center justify-center text-[12px] font-semibold tabular-nums"
                     style={{
                       background: showCorrect
                         ? TILE_COLOR.green
@@ -256,7 +256,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · diagnóstico</div>
-          <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
+          <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
             ¿Por dónde estás parado hoy?
           </h1>
           {size && (
@@ -273,7 +273,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           {cards.map((c) => (
             <div key={c.t} className="rounded-2xl surface p-4">
               <c.icon className="h-5 w-5 mb-2" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[14px] font-bold">{c.t}</div>
+              <div className="text-[14px] font-semibold">{c.t}</div>
               <div className="text-[12.5px] text-muted-foreground">{c.d}</div>
             </div>
           ))}
@@ -360,7 +360,7 @@ function Result({
     <AppLayout>
       <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · resultado</div>
-        <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
+        <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
 
         {/* ICAO estimate */}
         <div className="mt-6 rounded-2xl surface p-5 sm:p-6 flex items-center gap-5">
@@ -369,7 +369,7 @@ function Result({
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-muted-foreground">Nivel Inicial · Inglés ICAO (estimado)</div>
-            <div className="text-[28px] font-extrabold tracking-[-0.03em]">
+            <div className="text-[28px] font-semibold tracking-[-0.03em]">
               {estimate != null ? `Nivel ${estimate}` : "Sin datos"}
             </div>
             <p className="text-[12.5px] text-muted-foreground">
@@ -419,7 +419,7 @@ function Result({
           >
             <div>
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-              <div className="mt-0.5 text-[16px] font-bold tracking-[-0.01em]">{weakest.label}</div>
+              <div className="mt-0.5 text-[16px] font-semibold tracking-[-0.01em]">{weakest.label}</div>
               <div className="text-[13px] text-muted-foreground">
                 {weakest.correct < weakest.total
                   ? `Ahí fallaste ${weakest.total - weakest.correct} de ${weakest.total} y el banco tiene ${weakest.questionCount} preguntas para practicar.`

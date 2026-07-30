@@ -342,7 +342,7 @@ export function NotamDecoder() {
               autoComplete="off"
               spellCheck={false}
               aria-label="Código NOTAM de 5 letras"
-              className="mono w-full h-16 sm:h-20 rounded-xl border bg-background px-4 sm:px-5 pr-12 text-[26px] sm:text-[34px] font-bold uppercase tracking-[0.14em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
+              className="mono w-full h-16 sm:h-20 rounded-xl border bg-background px-4 sm:px-5 pr-12 text-[26px] sm:text-[34px] font-semibold uppercase tracking-[0.14em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
               style={{ borderColor: softBorder("var(--av-blue-500)", 28) }}
             />
             {input.length > 0 && (
@@ -450,7 +450,7 @@ export function NotamDecoder() {
                     Así se lee de forma abreviada en la casilla E):
                   </span>
                   <span
-                    className="mono text-[14px] font-bold"
+                    className="mono text-[14px] font-semibold"
                     style={{ color: accentText("var(--av-green-400)") }}
                   >
                     {shortRead}
@@ -495,7 +495,7 @@ export function NotamDecoder() {
                 placeholder="2607290230"
                 inputMode="numeric"
                 autoComplete="off"
-                className="mono tabular w-full h-14 rounded-xl border bg-background px-4 text-[19px] font-bold tracking-[0.1em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-cyan-400)_45%,transparent)]"
+                className="mono tabular w-full h-14 rounded-xl border bg-background px-4 text-[19px] font-semibold tracking-[0.1em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-cyan-400)_45%,transparent)]"
                 style={{ borderColor: softBorder("var(--av-cyan-400)", 34) }}
               />
               <div className="mt-2 flex flex-wrap gap-2">
@@ -534,7 +534,7 @@ export function NotamDecoder() {
                       { g: "30", l: "minutos" },
                     ].map((b) => (
                       <span key={b.l} className="rounded-lg surface px-2.5 py-1.5">
-                        <span className="font-bold text-foreground">{b.g}</span>{" "}
+                        <span className="font-semibold text-foreground">{b.g}</span>{" "}
                         <span className="text-[11px] text-muted-foreground">{b.l}</span>
                       </span>
                     ))}
@@ -753,13 +753,13 @@ export function NotamDecoder() {
 
           {/* Reglas especiales */}
           <div className="mt-4 rounded-2xl surface p-5">
-            <div className="text-[17px] font-bold tracking-[-0.01em]">
+            <div className="text-[17px] font-semibold tracking-[-0.01em]">
               Reglas especiales que conviene tener a mano
             </div>
             <div className="mt-3 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
               {SPECIAL_RULE_ROWS.map((r) => (
                 <div key={r.label} className="rounded-xl border border-border bg-muted/20 p-3.5">
-                  <div className="text-[13.5px] font-bold text-foreground">{r.label}</div>
+                  <div className="text-[13.5px] font-semibold text-foreground">{r.label}</div>
                   <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                     {r.text}
                   </p>
@@ -838,7 +838,7 @@ export function NotamDecoder() {
                     className="rounded-lg border border-border bg-muted/20 px-3 py-2 flex items-baseline gap-2"
                   >
                     <span
-                      className="mono text-[13px] font-bold flex-shrink-0"
+                      className="mono text-[13px] font-semibold flex-shrink-0"
                       style={{ color: accentText("var(--av-cyan-400)") }}
                     >
                       {g.abbr}
@@ -866,7 +866,7 @@ export function NotamDecoder() {
             style={{ color: "var(--av-amber-400)" }}
           />
           <div>
-            <div className="text-[14px] font-bold text-foreground">Nota de vigencia</div>
+            <div className="text-[14px] font-semibold text-foreground">Nota de vigencia</div>
             <p className="mt-1 text-[13.5px] text-foreground/85 leading-relaxed">
               {DISCLAIMERS.edition}
             </p>
@@ -892,7 +892,7 @@ function FixedQBlock() {
       }}
     >
       <div
-        className="mono text-[34px] font-bold leading-none"
+        className="mono text-[34px] font-semibold leading-none"
         style={{ color: accentText("var(--av-cyan-400)") }}
       >
         Q
@@ -957,7 +957,7 @@ function PartBlock({
       }}
     >
       <div className="flex items-baseline justify-between gap-2">
-        <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
           {role} · {caption}
         </div>
         {unresolved && (
@@ -969,7 +969,7 @@ function PartBlock({
       </div>
 
       <div
-        className="mono mt-1 text-[30px] sm:text-[34px] font-bold leading-none tracking-[0.08em]"
+        className="mono mt-1 text-[30px] sm:text-[34px] font-semibold leading-none tracking-[0.08em]"
         style={{ color: incomplete ? "var(--muted-foreground)" : accentText(tone) }}
       >
         {code.padEnd(needed, "·")}
@@ -1035,7 +1035,7 @@ function PartBlock({
 function Anatomy({ onExample }: { onExample: () => void }) {
   return (
     <div className="mt-5 rounded-xl border border-border bg-muted/25 p-4 sm:p-5">
-      <div className="text-[15px] font-bold tracking-[-0.01em]">
+      <div className="text-[15px] font-semibold tracking-[-0.01em]">
         Cómo está armado el grupo de 5 letras
       </div>
       <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed max-w-[720px]">
@@ -1062,10 +1062,10 @@ function Anatomy({ onExample }: { onExample: () => void }) {
 
       <div className="mt-3.5 flex flex-wrap items-center gap-2">
         <span className="text-[13.5px] text-muted-foreground">Entonces</span>
-        <span className="mono text-[15px] font-bold text-foreground tracking-[0.1em]">QMRLC</span>
+        <span className="mono text-[15px] font-semibold text-foreground tracking-[0.1em]">QMRLC</span>
         <span className="text-[13.5px] text-muted-foreground">se lee</span>
         <span
-          className="mono text-[14px] font-bold"
+          className="mono text-[14px] font-semibold"
           style={{ color: accentText("var(--av-green-400)") }}
         >
           RWY CLSD
@@ -1100,7 +1100,7 @@ function AnatomyCell({
       className="rounded-xl border p-3.5"
       style={{ borderColor: softBorder(color, 26), background: softBg(color, 6) }}
     >
-      <div className="mono text-[22px] font-bold leading-none" style={{ color: accentText(color) }}>
+      <div className="mono text-[22px] font-semibold leading-none" style={{ color: accentText(color) }}>
         {code}
       </div>
       <div className="mt-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
@@ -1129,7 +1129,7 @@ function Callout({
     >
       <Icon className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: tone }} />
       <div>
-        <div className="text-[13.5px] font-bold text-foreground">{title}</div>
+        <div className="text-[13.5px] font-semibold text-foreground">{title}</div>
         <p className="mt-0.5 text-[13.5px] text-foreground/85 leading-relaxed">{children}</p>
       </div>
     </div>
@@ -1144,7 +1144,7 @@ function TimeCard({ label, value, color }: { label: string; value: string; color
     >
       <div className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{label}</div>
       <div
-        className="mono tabular mt-1 text-[15px] sm:text-[16px] font-bold leading-snug"
+        className="mono tabular mt-1 text-[15px] sm:text-[16px] font-semibold leading-snug"
         style={{ color: accentText(color) }}
       >
         {value}
@@ -1245,7 +1245,7 @@ function SubjectRowCard({
     >
       <span className="flex items-start gap-3">
         <span
-          className="mono text-[15px] font-bold flex-shrink-0 w-[34px]"
+          className="mono text-[15px] font-semibold flex-shrink-0 w-[34px]"
           style={{ color: accentText(color) }}
         >
           {row.key}
@@ -1308,7 +1308,7 @@ function StatusRowCard({
     >
       <span className="flex items-start gap-3">
         <span
-          className="mono text-[15px] font-bold flex-shrink-0 w-[34px]"
+          className="mono text-[15px] font-semibold flex-shrink-0 w-[34px]"
           style={{ color: accentText(color) }}
         >
           {row.key}
@@ -1387,7 +1387,7 @@ function ExampleCard({
         className="w-full flex items-start gap-3 p-4 text-left"
       >
         <span
-          className="mono flex-shrink-0 mt-0.5 px-2 py-0.5 rounded-md text-[12px] font-bold"
+          className="mono flex-shrink-0 mt-0.5 px-2 py-0.5 rounded-md text-[12px] font-semibold"
           style={{
             background: softBg("var(--av-blue-500)", 12),
             color: accentText("var(--av-blue-500)"),
@@ -1408,14 +1408,14 @@ function ExampleCard({
       {open && (
         <div className="px-4 pb-4 grid gap-3 lg:grid-cols-2">
           <div className="rounded-xl border border-border bg-muted/25 p-3.5">
-            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               NOTAM tal como se publica
             </div>
             <div className="mt-2 grid gap-1.5">
               {boxes.map(([box, value]) => (
                 <div key={box} className="grid grid-cols-[36px_1fr] gap-2 items-baseline">
                   <span
-                    className="mono text-[12.5px] font-bold"
+                    className="mono text-[12.5px] font-semibold"
                     style={{ color: accentText("var(--av-blue-500)") }}
                     title={BOX_LABELS[box] ?? box}
                   >
@@ -1434,13 +1434,13 @@ function ExampleCard({
               background: softBg("var(--av-green-400)", 5),
             }}
           >
-            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               Decodificación
             </div>
             <dl className="mt-2 grid gap-1.5">
               {kv.map(([k, v]) => (
                 <div key={k}>
-                  <dt className="text-[12px] font-bold text-muted-foreground">
+                  <dt className="text-[12px] font-semibold text-muted-foreground">
                     {KV_LABELS[k] ?? k.replace(/_/g, " / ")}
                   </dt>
                   <dd className="text-[13px] text-foreground/90 leading-snug">{v}</dd>

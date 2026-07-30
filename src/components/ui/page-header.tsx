@@ -22,7 +22,7 @@ export function PageHeader({ eyebrow, title, subtitle, actions, children }: Prop
             {eyebrow}
           </div>
         )}
-        <h1 className="m-0 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+        <h1 className="m-0 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
           {title}
         </h1>
         {subtitle && (

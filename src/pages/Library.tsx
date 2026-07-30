@@ -47,7 +47,7 @@ export function Library() {
                 />
                 Módulo biblioteca · En construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] text-foreground leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-foreground leading-[1.05]">
                 Biblioteca Operacional,{" "}
                 <span style={{ color: "var(--av-blue-500)" }}>
                   útil incluso cuando no estás estudiando
@@ -90,7 +90,7 @@ export function Library() {
             <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Categorías · 9
             </div>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
               Todo lo que vas a poder consultar
             </h2>
           </div>
@@ -114,7 +114,7 @@ export function Library() {
             >
               <Sparkles className="h-3 w-3" /> Aporta tu material
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">
+            <h3 className="mt-1.5 text-lg font-semibold">
               ¿Tienes manuales, SOPs o quick references que aportar?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
@@ -243,7 +243,7 @@ function CategoryTile({ icon: Icon, color, name, description, bullets }: Categor
         </div>
         <div className="flex-1 pt-0.5">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="text-[16px] font-bold tracking-[-0.01em]">{name}</div>
+            <div className="text-[16px] font-semibold tracking-[-0.01em]">{name}</div>
             <span className="chip text-[10px]">Pronto</span>
           </div>
           <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>

@@ -282,7 +282,7 @@ export function Notam() {
           >
             <div className="flex items-center gap-2 mb-2.5">
               <FileText className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[14px] font-bold tracking-[-0.01em]">
+              <div className="text-[14px] font-semibold tracking-[-0.01em]">
                 De dónde sale el contenido
               </div>
             </div>
@@ -313,7 +313,7 @@ export function Notam() {
             right={
               !loading && !resumen.empty ? (
                 <div
-                  className="tabular text-[28px] font-extrabold tracking-[-0.03em]"
+                  className="tabular text-[28px] font-semibold tracking-[-0.03em]"
                   style={{ color: "var(--av-blue-500)" }}
                 >
                   {resumen.overall}%
@@ -338,7 +338,7 @@ export function Notam() {
                   <BookOpen className="h-5 w-5" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[17px] font-bold tracking-[-0.01em]">
+                  <div className="text-[17px] font-semibold tracking-[-0.01em]">
                     Todavía no empiezas esta sección
                   </div>
                   <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[620px]">
@@ -476,10 +476,10 @@ function ParteTile({
       </div>
 
       <div>
-        <div className="text-[11px] font-bold uppercase tracking-[0.1em]" style={{ color }}>
+        <div className="text-[11px] font-semibold uppercase tracking-[0.1em]" style={{ color }}>
           {eyebrow}
         </div>
-        <div className="mt-0.5 text-[17px] font-bold tracking-[-0.01em]">{title}</div>
+        <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">{title}</div>
         <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
 
@@ -513,10 +513,10 @@ function MiniStat({
       className="rounded-xl border p-3.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
     >
-      <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
         {label}
       </div>
-      <div className="mt-0.5 tabular text-[19px] font-extrabold tracking-[-0.02em]" style={{ color }}>
+      <div className="mt-0.5 tabular text-[19px] font-semibold tracking-[-0.02em]" style={{ color }}>
         {value}
       </div>
       <div className="text-[12.5px] text-muted-foreground">{detail}</div>

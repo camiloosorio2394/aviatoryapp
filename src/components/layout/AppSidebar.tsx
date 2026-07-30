@@ -227,7 +227,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-lg" />
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
-            <div className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
+            <div className="font-semibold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
               Aviatory
             </div>
           )}

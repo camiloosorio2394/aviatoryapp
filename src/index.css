@@ -620,6 +620,14 @@
    components, para que cualquier uso que quede en el repo se vea correcto y
    las utilidades de Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
 @layer components {
+  /* Trazo unico para toda la iconografia. Lucide sale con stroke-width 2 y
+     los simbolos de carta de components/icons/aero se dibujaron a 1.5: en la
+     misma fila se veian de dos sistemas distintos, porque lo eran. Lucide
+     marca sus SVG con .lucide, asi que se unifica aqui y no en cada uso. */
+  .lucide {
+    stroke-width: 1.5;
+  }
+
   /* === Chips === */
   .chip {
     display: inline-flex; align-items: center; gap: 4px;

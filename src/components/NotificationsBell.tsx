@@ -54,7 +54,7 @@ export function NotificationsBell() {
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
           <span
-            className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full text-white text-[12px] font-bold flex items-center justify-center shadow-md tabular"
+            className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full text-white text-[12px] font-semibold flex items-center justify-center shadow-md tabular"
             style={{ background: "var(--destructive)" }}
             aria-label={`${unreadCount} notificaciones sin leer`}
           >

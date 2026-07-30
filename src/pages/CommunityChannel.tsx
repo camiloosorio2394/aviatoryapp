@@ -374,7 +374,7 @@ export function CommunityChannel() {
             </Link>
             {channel.type === "airline" ? (
               <div
-                className="flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-extrabold tracking-[0.02em] flex-shrink-0"
+                className="flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-semibold tracking-[0.02em] flex-shrink-0"
                 style={{
                   background: tileTint(airlineTileKey(channel.slug)),
                   border: `1px solid ${tileBorder(airlineTileKey(channel.slug))}`,
@@ -390,7 +390,7 @@ export function CommunityChannel() {
               </span>
             )}
             <div className="min-w-0">
-              <h1 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-1.5 min-w-0">
+              <h1 className="text-lg sm:text-xl font-semibold tracking-tight flex items-center gap-1.5 min-w-0">
                 <Hash className="h-4 w-4 text-muted-foreground flex-shrink-0" />
                 <span className="truncate">{channel.name}</span>
               </h1>

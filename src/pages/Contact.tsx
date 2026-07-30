@@ -70,7 +70,7 @@ export function Contact() {
           <Badge variant="secondary" className="rounded-full px-4 py-1.5 text-xs">
             Estamos a un mensaje de distancia
           </Badge>
-          <h1 className="mt-6 text-5xl sm:text-6xl font-bold tracking-tight text-balance">
+          <h1 className="mt-6 text-5xl sm:text-6xl font-semibold tracking-tight text-balance">
             ¿Hablamos?
           </h1>
           <p className="mt-6 text-lg text-muted-foreground text-balance">
@@ -83,7 +83,7 @@ export function Contact() {
         <div className="max-w-6xl mx-auto px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
             <div>
-              <h2 className="text-2xl font-bold">Canales directos</h2>
+              <h2 className="text-2xl font-semibold">Canales directos</h2>
               <p className="mt-2 text-muted-foreground">
                 Elige el que te quede más cómodo.
               </p>
@@ -124,7 +124,7 @@ export function Contact() {
             </div>
 
             <div>
-              <h2 className="text-2xl font-bold">O mandanos un mensaje</h2>
+              <h2 className="text-2xl font-semibold">O mandanos un mensaje</h2>
               <p className="mt-2 text-muted-foreground">
                 Te respondemos al email que dejes.
               </p>

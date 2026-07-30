@@ -239,7 +239,7 @@ export function Route() {
               >
                 <BookOpen className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
               </span>
-              <div className="mt-3 text-[15px] font-bold">Practica el examen PCA</div>
+              <div className="mt-3 text-[15px] font-semibold">Practica el examen PCA</div>
               <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                 El banco por materia ya está cargado y cada quiz te explica lo que falles.
               </p>
@@ -254,7 +254,7 @@ export function Route() {
               >
                 <Clock className="h-5 w-5" style={{ color: "var(--av-cyan-400)" }} />
               </span>
-              <div className="mt-3 text-[15px] font-bold">Registra tus horas</div>
+              <div className="mt-3 text-[15px] font-semibold">Registra tus horas</div>
               <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                 Tus horas de vuelo son el requisito que más pesa para postular a una aerolínea.
               </p>
@@ -304,7 +304,7 @@ export function Route() {
                       style={{ minWidth: 100, maxWidth: 140 }}
                     >
                       <div
-                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-extrabold text-sm"
+                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-semibold text-sm"
                         style={{
                           background: done ? "var(--av-green-400)" : current ? "var(--av-blue-500)" : "var(--muted)",
                           border: current ? "2px solid var(--av-blue-500)" : "2px solid var(--border)",
@@ -316,7 +316,7 @@ export function Route() {
                       </div>
                       <div className="text-center">
                         <div
-                          className="text-[13.5px] font-bold tracking-[-0.015em]"
+                          className="text-[13.5px] font-semibold tracking-[-0.015em]"
                           style={{ color: done || current ? "var(--foreground)" : "var(--muted-foreground)" }}
                         >
                           {STAGE_LABEL[s]}
@@ -337,7 +337,7 @@ export function Route() {
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 Tu progreso en esta etapa
               </div>
-              <div className="tabular-nums mt-2 text-4xl font-extrabold tracking-[-0.04em] text-foreground">
+              <div className="tabular-nums mt-2 text-4xl font-semibold tracking-[-0.04em] text-foreground">
                 {percent}%
               </div>
               <div className="text-sm text-muted-foreground mt-1">
@@ -346,7 +346,7 @@ export function Route() {
             </div>
             {allDone && (
               <div
-                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold text-white"
+                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white"
                 style={{ background: "var(--av-green-400)" }}
               >
                 <Trophy className="h-3.5 w-3.5" /> ¡Etapa completa!
@@ -436,7 +436,7 @@ export function Route() {
           >
             <Sparkles className="h-7 w-7 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
             <div className="flex-1">
-              <h3 className="text-base font-bold text-foreground">¡Completaste todos los items!</h3>
+              <h3 className="text-base font-semibold text-foreground">¡Completaste todos los items!</h3>
               <p className="mt-0.5 text-sm text-muted-foreground">
                 Actualiza tu etapa en tu perfil para desbloquear la siguiente ruta.
               </p>

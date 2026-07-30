@@ -27,6 +27,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile } from "@/components/ui/kpi-tile"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 
 type PilotStage =
   | "student_ppl"
@@ -397,7 +398,7 @@ export function Dashboard() {
               </div>
               <div>
                 <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-                <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">Haz tu test inicial</div>
+                <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">Haz tu test inicial</div>
                 <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubre tu Nivel Inicial.</div>
               </div>
             </div>
@@ -539,7 +540,7 @@ function CockpitHero({
               {stageLabel}
               {targetAirline ? ` · objetivo ${targetAirline}` : ""}
             </div>
-            <h1 className="mt-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-white">
+            <h1 className="mt-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-white">
               {greetingTime()}, {firstName}
             </h1>
             <p className="mt-2.5 text-[15px] text-white/75 flex flex-wrap items-center gap-x-2 gap-y-1.5">
@@ -564,7 +565,7 @@ function CockpitHero({
                     <span className="text-[13px] font-semibold text-white/70">
                       Tu avance a aerolínea
                     </span>
-                    <span className="text-2xl font-extrabold tracking-[-0.03em] text-white/40">
+                    <span className="text-2xl font-semibold tracking-[-0.03em] text-white/40">
                       —
                     </span>
                   </div>
@@ -582,7 +583,7 @@ function CockpitHero({
                     <span className="text-[13px] font-semibold text-white/70">
                       Tu avance a aerolínea
                     </span>
-                    <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
+                    <span className="text-gradient-gold tabular-nums text-2xl font-semibold tracking-[-0.03em]">
                       <CountUp to={progress} />%
                     </span>
                   </div>
@@ -608,8 +609,8 @@ function CockpitHero({
               <>
                 <Link
                   to={primaryAction.href}
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg font-semibold text-[15px] text-white transition-colors"
-                  style={{ background: "var(--av-blue-500)" }}
+                  className={appButtonClass({ size: "lg" })}
+                  style={appButtonStyle()}
                 >
                   {primaryAction.cta} <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -715,11 +716,11 @@ function WingmanInsight({
         <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Radar className="h-3 w-3" /> Insight de Wingman
         </div>
-        <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
+        <h3 className="mt-2.5 text-lg font-semibold tracking-[-0.02em] text-foreground">{insight.title}</h3>
         <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
         <Link
           to={insight.href}
-          className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+          className={appButtonClass({ variant: "secondary" }, "mt-4")}
         >
           <Lightbulb className="h-3 w-3" /> {insight.cta}
         </Link>
@@ -750,11 +751,11 @@ function EmptyState({
       <div className="flex items-center justify-center h-11 w-11 rounded-md border border-border bg-muted text-muted-foreground">
         <Ic className="h-5 w-5" />
       </div>
-      <div className="mt-3 text-sm font-bold text-foreground tracking-[-0.015em]">{title}</div>
+      <div className="mt-3 text-sm font-semibold text-foreground tracking-[-0.015em]">{title}</div>
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[34ch]">{line}</p>
       <Link
         to={href}
-        className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+        className={appButtonClass({ variant: "secondary" }, "mt-4")}
       >
         {cta} <ArrowRight className="h-3 w-3" />
       </Link>
@@ -835,7 +836,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
             </p>
             <Link
               to={DAILY_ACTION.href}
-              className="inline-flex items-center gap-1.5 mt-3 h-9 px-3.5 rounded-lg border border-border bg-background text-[13px] font-medium text-foreground hover:bg-muted transition-colors"
+              className={appButtonClass({ variant: "secondary" }, "mt-4")}
             >
               Salvar mi racha <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -1014,7 +1015,7 @@ function AchievementsCard({
               {next.icon}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="mono text-[11px] text-muted-foreground tracking-[0.12em] uppercase font-bold">
+              <div className="mono text-[11px] text-muted-foreground tracking-[0.12em] uppercase font-semibold">
                 Próximo
               </div>
               <div className="text-sm font-semibold text-foreground truncate">{next.name}</div>
@@ -1107,7 +1108,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
         </div>
       </div>
       <span
-        className="inline-flex items-center justify-center gap-1.5 h-10 px-5 rounded-md font-semibold text-[14px] flex-shrink-0"
+        className={appButtonClass({ variant: "secondary" }, "flex-shrink-0 border-transparent")}
         style={{ background: "white", color: "var(--av-navy-900)" }}
       >
         {DAILY_ACTION.cta} <ArrowRight className="h-3.5 w-3.5" />

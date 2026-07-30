@@ -81,7 +81,7 @@ export function IcaoPictureDescription() {
               TEA · Parte 3 · Picture Description &amp; Discussion · 10 minutos
             </div>
           </div>
-          <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+          <h1 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
             Descripción de imágenes y conversación
           </h1>
           <p className="mt-3 text-[15px] text-muted-foreground max-w-[760px]">
@@ -103,12 +103,12 @@ export function IcaoPictureDescription() {
               >
                 <div className="flex items-center gap-2">
                   <span
-                    className="tabular-nums flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[12px] font-bold"
+                    className="tabular-nums flex-shrink-0 w-5 h-5 rounded-md flex items-center justify-center text-[12px] font-semibold"
                     style={{ background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)", color: "var(--av-success-fg)" }}
                   >
                     {i + 1}
                   </span>
-                  <div className="text-[14px] font-bold tracking-[-0.01em]">{es.label}</div>
+                  <div className="text-[14px] font-semibold tracking-[-0.01em]">{es.label}</div>
                 </div>
                 <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{es.detail}</p>
               </div>
@@ -122,7 +122,7 @@ export function IcaoPictureDescription() {
             <div className="text-[13px] font-semibold tabular-nums" style={{ color: "var(--av-success-fg)" }}>
               Par {pair.id} / {total}
             </div>
-            <h2 className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">{pair.themeEn}</h2>
+            <h2 className="mt-0.5 text-[20px] font-semibold tracking-[-0.02em]">{pair.themeEn}</h2>
           </div>
           <div className="flex items-center gap-1.5">
             <NavBtn disabled={idx === 0} onClick={() => setIdx((i) => Math.max(0, i - 1))} dir="prev" />
@@ -141,7 +141,7 @@ export function IcaoPictureDescription() {
                 key={p.id}
                 onClick={() => setIdx(i)}
                 title={p.themeEn}
-                className="tabular-nums w-8 h-8 rounded-lg text-[12.5px] font-bold border transition-colors"
+                className="tabular-nums w-8 h-8 rounded-lg text-[12.5px] font-semibold border transition-colors"
                 style={{
                   borderColor: active
                     ? "color-mix(in oklab, var(--av-green-400) 50%, transparent)"
@@ -225,7 +225,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
     >
       <div className="relative">
         <div
-          className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-extrabold text-white"
+          className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-semibold text-white"
           style={{ background: "oklch(0.2 0.02 250 / 0.75)", backdropFilter: "blur(4px)" }}
         >
           {letter}
