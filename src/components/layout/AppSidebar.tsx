@@ -5,6 +5,7 @@ import {
   BookOpen,
   Radio,
   Briefcase,
+  FileSearch,
   Cpu,
   Radar,
   Clock,
@@ -16,6 +17,7 @@ import {
   User,
   Sparkles,
   ArrowRight,
+  ChevronDown,
   X,
   Library as LibraryIcon,
   Video,
@@ -31,6 +33,12 @@ interface NavItem {
   end?: boolean
   /** Módulo en construcción (página placeholder) — muestra chip "Pronto". */
   soon?: boolean
+  /**
+   * Cantidad de contenido publicado en el módulo (catálogo, no progreso del
+   * piloto). Sirve para probar que adentro hay material de verdad.
+   * Si crece el contenido, hay que actualizar el número en esta lista.
+   */
+  count?: number
 }
 
 interface NavSection {
@@ -53,9 +61,8 @@ const navSections: NavSection[] = [
   {
     label: "Carrera",
     items: [
-      { to: "/app/aerolinea", label: "Prep aerolínea", icon: Briefcase, soon: true },
-      { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
-      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
+      { to: "/app/aerolinea", label: "Prep aerolínea", icon: Briefcase },
+      { to: "/app/aerolinea/notam", label: "NOTAM", icon: FileSearch },
       { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
       { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
     ],
@@ -63,7 +70,6 @@ const navSections: NavSection[] = [
   {
     label: "Operación",
     items: [
-      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon, soon: true },
       { to: "/app/logbook", label: "Logbook", icon: Clock },
       { to: "/app/vencimientos", label: "Vencimientos", icon: Calendar },
       { to: "/app/ruta", label: "Mi ruta", icon: Map },
@@ -77,6 +83,16 @@ const navSections: NavSection[] = [
       { to: "/app/perfil", label: "Mi perfil", icon: User },
     ],
   },
+]
+
+/**
+ * Módulos todavía sin contenido. Van juntos al final, en un bloque colapsado,
+ * para que el menú real entre completo en la pantalla de un portátil.
+ */
+const soonItems: NavItem[] = [
+  { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
+  { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
+  { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon, soon: true },
 ]
 
 interface Props {
@@ -93,7 +109,7 @@ interface Props {
 
 /**
  * Collapsible icon rail (64px → 240px on hover).
- * Dark navy with cyan accent for active state.
+ * Dark navy with blue accent for active state.
  *
  * Para que el topbar no se interponga con la expansión, el AppLayout consume
  * `onHoverChange` y empuja el contenido principal (incluido el topbar)
@@ -101,7 +117,78 @@ interface Props {
  */
 export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinned = false, onPinChange }: Props) {
   const [hovered, setHovered] = useState(false)
+  const [soonOpen, setSoonOpen] = useState(false)
   const expanded = forceExpanded || pinned || hovered
+
+  /**
+   * Fila de navegación. Cuando el rail está colapsado el nombre viaja en el
+   * atributo `title`: el tooltip flotante anterior nunca se veía porque el
+   * aside y el nav recortan todo lo que sale de sus 64px.
+   */
+  const renderItem = (item: NavItem) => (
+    <NavLink
+      key={item.to}
+      to={item.to}
+      end={item.end}
+      onClick={onClose}
+      title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
+      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors hover:bg-white/5"
+      style={({ isActive }) =>
+        isActive
+          ? {
+              color: "#fff",
+              background: "color-mix(in oklab, var(--av-blue-500) 26%, transparent)",
+              boxShadow: "inset 2px 0 0 var(--av-blue-400)",
+            }
+          : { color: "var(--rail-text)" }
+      }
+    >
+      {({ isActive }) => (
+        <>
+          <item.icon
+            size={18}
+            className="flex-shrink-0 transition-colors"
+            style={{ color: isActive ? "var(--av-blue-400)" : "currentColor" }}
+          />
+          <span
+            className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
+            style={{ opacity: expanded ? 1 : 0 }}
+          >
+            {item.label}
+          </span>
+          {/* Conteo de contenido publicado (solo expandido) */}
+          {item.count !== undefined && expanded && (
+            <span
+              className="mono tabular-nums flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded"
+              style={{
+                color: "oklch(0.82 0.02 250)",
+                background: "oklch(1 0 0 / 8%)",
+                border: "1px solid var(--rail-border)",
+              }}
+            >
+              {item.count}
+            </span>
+          )}
+          {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
+          {item.soon && expanded && (
+            <span
+              className="flex-shrink-0 text-[10px] font-semibold uppercase tracking-[0.06em] px-1.5 py-0.5 rounded"
+              style={{ color: "oklch(0.78 0.02 250)", background: "oklch(1 0 0 / 6%)", border: "1px solid var(--rail-border)" }}
+            >
+              Pronto
+            </span>
+          )}
+          {/* Punto indicador "pronto" cuando está colapsado */}
+          {item.soon && !expanded && (
+            <span
+              className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
+              style={{ background: "var(--av-amber-400)" }}
+            />
+          )}
+        </>
+      )}
+    </NavLink>
+  )
 
   return (
     <aside
@@ -185,7 +272,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                 {expanded ? (
                   <div
                     className="px-2.5 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "oklch(0.55 0.02 250)" }}
+                    style={{ color: "oklch(0.74 0.03 250)" }}
                   >
                     {section.label}
                   </div>
@@ -195,65 +282,45 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
               </>
             )}
 
-            {section.items.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                onClick={onClose}
-                className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors hover:bg-white/5"
-                style={({ isActive }) =>
-                  isActive
-                    ? {
-                        color: "#fff",
-                        background: "color-mix(in oklab, var(--av-blue-500) 26%, transparent)",
-                        boxShadow: "inset 2px 0 0 var(--av-blue-400)",
-                      }
-                    : { color: "var(--rail-text)" }
-                }
-              >
-                {({ isActive }) => (
-                  <>
-                    <item.icon
-                      size={18}
-                      className="flex-shrink-0 transition-colors"
-                      style={{ color: isActive ? "var(--av-blue-300)" : "currentColor" }}
-                    />
-                    <span
-                      className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
-                      style={{ opacity: expanded ? 1 : 0 }}
-                    >
-                      {item.label}
-                    </span>
-                    {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
-                    {item.soon && expanded && (
-                      <span
-                        className="flex-shrink-0 text-[10px] font-semibold uppercase tracking-[0.06em] px-1.5 py-0.5 rounded"
-                        style={{ color: "oklch(0.72 0.02 250)", background: "oklch(1 0 0 / 6%)", border: "1px solid var(--rail-border)" }}
-                      >
-                        Pronto
-                      </span>
-                    )}
-                    {/* Punto indicador "pronto" cuando está colapsado */}
-                    {item.soon && !expanded && (
-                      <span
-                        className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
-                        style={{ background: "var(--av-amber-400)" }}
-                      />
-                    )}
-                    {!expanded && (
-                      <span
-                        className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-foreground text-background text-[12.5px] font-semibold px-2 py-1 rounded whitespace-nowrap z-50 shadow-lg"
-                      >
-                        {item.label}{item.soon ? " · Pronto" : ""}
-                      </span>
-                    )}
-                  </>
-                )}
-              </NavLink>
-            ))}
+            {section.items.map(renderItem)}
           </Fragment>
         ))}
+
+        {/*
+          Próximamente — los módulos sin contenido van juntos y colapsados.
+          Saca 3 filas y un header del nav: el menú entra completo en un
+          portátil y desaparece el scroll interno sin indicio.
+        */}
+        <div className="mt-2 pt-2" style={{ borderTop: "1px solid var(--rail-border)" }}>
+          <button
+            type="button"
+            onClick={() => setSoonOpen((v) => !v)}
+            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-white/5"
+            style={{ color: "oklch(0.74 0.03 250)" }}
+            aria-expanded={soonOpen}
+            title={expanded ? undefined : "Próximamente"}
+          >
+            <ChevronDown
+              size={18}
+              className="flex-shrink-0 transition-transform duration-200"
+              style={{ transform: soonOpen ? "none" : "rotate(-90deg)" }}
+            />
+            <span
+              className="flex-1 text-left whitespace-nowrap overflow-hidden transition-opacity duration-200"
+              style={{ opacity: expanded ? 1 : 0 }}
+            >
+              Próximamente
+            </span>
+            <span
+              className="mono tabular-nums flex-shrink-0 text-[10px] transition-opacity duration-200"
+              style={{ opacity: expanded ? 1 : 0 }}
+            >
+              {soonItems.length}
+            </span>
+          </button>
+
+          {soonOpen && <div className="mt-0.5 flex flex-col gap-0.5">{soonItems.map(renderItem)}</div>}
+        </div>
       </nav>
 
       {/* Pro upgrade */}
@@ -272,7 +339,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             <>
               <div
                 className="flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{ color: "var(--av-blue-300)" }}
+                style={{ color: "var(--av-blue-400)" }}
               >
                 <Sparkles className="h-3.5 w-3.5" /> Prueba gratis
               </div>
@@ -288,7 +355,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             </>
           ) : (
             <div className="flex justify-center">
-              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-blue-300)" }} />
+              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-blue-400)" }} />
             </div>
           )}
         </Link>

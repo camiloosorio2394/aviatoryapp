@@ -64,6 +64,16 @@ export function AppLayout({ children, streak }: Props) {
     } catch { /* noop */ }
   }, [sidebarPinned])
 
+  // Con el drawer móvil abierto el fondo seguía scrolleando detrás del overlay:
+  // bloqueamos el scroll del body mientras está abierto (igual que el Header
+  // público).
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : ""
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [mobileOpen])
+
   useAchievementToasts()
 
   // Padding-left del contenido principal:

@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -9,6 +9,7 @@ import {
   RotateCcw,
   ClipboardCheck,
   Sparkles,
+  BookOpen,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { supabase } from "@/integrations/supabase/client"
@@ -59,12 +60,42 @@ export function IcaoQuiz() {
   const [revealed, setRevealed] = useState(false)
   const [score, setScore] = useState(0)
   const [history, setHistory] = useState<{ qId: number; correct: boolean }[]>([])
+  /** null = todavía no sabemos cuántas preguntas hay por tema */
+  const [counts, setCounts] = useState<Record<string, number> | null>(null)
+  const [countsFailed, setCountsFailed] = useState(false)
+  const [failed, setFailed] = useState(false)
 
   const current = questions[index]
   const isLast = index === questions.length - 1
 
+  // Conteo real por tema: sin esto el botón de empezar prometía 10 preguntas
+  // incluso en temas vacíos y no hacía nada al pulsarlo.
+  const loadCounts = useCallback(async () => {
+    setCountsFailed(false)
+    setCounts(null)
+    const { data, error } = await supabase
+      .from("icao_quiz_questions")
+      .select("topic")
+      .eq("is_active", true)
+      .limit(2000)
+    if (error || !data) {
+      console.error("icao_quiz_questions counts", error)
+      setCounts({})
+      setCountsFailed(true)
+      return
+    }
+    const map: Record<string, number> = { all: data.length }
+    for (const row of data) {
+      map[row.topic] = (map[row.topic] ?? 0) + 1
+    }
+    setCounts(map)
+  }, [])
+
+  useEffect(() => { void loadCounts() }, [loadCounts])
+
   async function startQuiz() {
     setLoading(true)
+    setFailed(false)
     setStarted(false)
     setIndex(0)
     setSelected(null)
@@ -82,6 +113,7 @@ export function IcaoQuiz() {
     setLoading(false)
     if (error || !data || data.length === 0) {
       console.error("icao_quiz_questions", error)
+      setFailed(true)
       return
     }
     // shuffle + slice
@@ -134,6 +166,10 @@ export function IcaoQuiz() {
             onTopicChange={setTopic}
             onStart={startQuiz}
             loading={loading}
+            counts={counts}
+            failed={failed}
+            countsFailed={countsFailed}
+            onRetryCounts={loadCounts}
           />
         )}
 
@@ -166,7 +202,12 @@ export function IcaoQuiz() {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string; onTopicChange: (t: string) => void; onStart: () => void; loading: boolean }) {
+function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, countsFailed, onRetryCounts }: { topic: string; onTopicChange: (t: string) => void; onStart: () => void; loading: boolean; counts: Record<string, number> | null; failed: boolean; countsFailed: boolean; onRetryCounts: () => void }) {
+  const total = counts ? (counts.all ?? 0) : null
+  const available = counts ? (counts[topic] ?? 0) : null
+  // El botón nunca promete más preguntas de las que existen.
+  const askCount = available == null ? QUIZ_SIZE : Math.min(QUIZ_SIZE, available)
+
   return (
     <>
       <div
@@ -179,23 +220,25 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
         Vocabulary and comprehension questions
       </h1>
       <p className="mt-2 text-[15px] text-muted-foreground max-w-[640px]">
-        {QUIZ_SIZE} random questions. Each one has an explanation at the end. Read them, that's
-        where the learning happens. It's not an exam, it's training.
+        Random questions with an explanation after each one. Read them, that's where the learning
+        happens. It's not an exam, it's training.
       </p>
 
       <div className="mt-7 grid gap-4">
         <div>
-          <label className="text-[13px] font-semibold text-muted-foreground">
-            Topic
-          </label>
+          <div className="text-[13px] font-semibold text-muted-foreground">Topic</div>
           <div className="mt-2 flex flex-wrap gap-1.5">
             {TOPICS.map((t) => {
               const active = topic === t.value
+              const n = counts ? (counts[t.value] ?? 0) : null
+              const empty = n === 0
               return (
                 <button
                   key={t.value}
                   onClick={() => onTopicChange(t.value)}
-                  className="px-3 h-8 rounded-full text-[13px] font-semibold border transition-colors"
+                  disabled={empty}
+                  title={empty ? "No questions in this topic yet" : undefined}
+                  className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[13px] font-semibold border transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{
                     borderColor: active
                       ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
@@ -204,24 +247,131 @@ function StartScreen({ topic, onTopicChange, onStart, loading }: { topic: string
                     color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
                   }}
                 >
-                  {t.label}
+                  <span>{t.label}</span>
+                  {n != null && <span className="opacity-70 tabular-nums">{n}</span>}
                 </button>
               )
             })}
           </div>
         </div>
 
-        <button
-          onClick={onStart}
-          disabled={loading}
-          className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50"
-          style={{ background: "var(--av-blue-500)" }}
-        >
-          {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-          Start quiz · {QUIZ_SIZE} questions
-        </button>
+        {available === 0 ? (
+          countsFailed ? (
+            <BankLoadError onRetry={onRetryCounts} />
+          ) : (
+            <EmptyBank
+              allEmpty={total === 0}
+              onAllTopics={() => onTopicChange("all")}
+            />
+          )
+        ) : (
+          <div>
+            <button
+              onClick={onStart}
+              disabled={loading || counts == null}
+              className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
+              style={{ background: "var(--av-blue-500)" }}
+            >
+              {loading || counts == null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
+              {counts == null ? "Loading the bank…" : `Start quiz · ${askCount} question${askCount === 1 ? "" : "s"}`}
+            </button>
+            {available != null && available < QUIZ_SIZE && (
+              <div className="mt-2 text-[13px] text-muted-foreground">
+                This topic has {available} question{available === 1 ? "" : "s"} for now. Pick "All topics" for a
+                longer round.
+              </div>
+            )}
+            {failed && (
+              <div className="mt-2 text-[13.5px] text-[var(--av-red-400)]">
+                We couldn't load the questions. Check your connection and try again.
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
+  )
+}
+
+/** El banco no se pudo leer: no es lo mismo que estar vacío, y se dice así. */
+function BankLoadError({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center"
+        style={{
+          background: "color-mix(in oklab, var(--av-red-400) 14%, transparent)",
+          border: "1px solid color-mix(in oklab, var(--av-red-400) 30%, transparent)",
+          color: "var(--av-red-400)",
+        }}
+      >
+        <RotateCcw className="h-5 w-5" />
+      </div>
+      <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
+        We couldn't load the question bank
+      </h2>
+      <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
+        It's a connection problem, not an empty bank. Try again, or use the glossary meanwhile.
+      </p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        <button
+          onClick={onRetry}
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--av-blue-500)" }}
+        >
+          <RotateCcw className="h-4 w-4" /> Try again
+        </button>
+        <Link
+          to="/app/icao/vocabulario"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+        >
+          <BookOpen className="h-4 w-4" /> Open the glossary
+        </Link>
+      </div>
+    </div>
+  )
+}
+
+/** Tema (o banco entero) sin preguntas: estado de producto con una salida. */
+function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: () => void }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+      <div
+        className="w-11 h-11 rounded-xl flex items-center justify-center"
+        style={{
+          background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
+          border: "1px solid color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
+          color: "var(--av-blue-500)",
+        }}
+      >
+        <ClipboardCheck className="h-5 w-5" />
+      </div>
+      <h2 className="mt-3.5 text-[18px] font-bold tracking-[-0.01em]">
+        {allEmpty ? "The question bank is on its way" : "No questions in this topic yet"}
+      </h2>
+      <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[520px] leading-relaxed">
+        {allEmpty
+          ? "We're loading the vocabulary and comprehension questions. Meanwhile the glossary is complete and searchable: it's the same material the quiz is built on."
+          : "We're still writing this one. The other topics are ready, so start there and come back later."}
+      </p>
+      <div className="mt-5 flex flex-wrap gap-2">
+        {!allEmpty && (
+          <button
+            onClick={onAllTopics}
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            style={{ background: "var(--av-blue-500)" }}
+          >
+            Try all topics <ArrowRight className="h-3.5 w-3.5" />
+          </button>
+        )}
+        <Link
+          to="/app/icao/vocabulario"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+        >
+          <BookOpen className="h-4 w-4" /> Open the glossary
+        </Link>
+      </div>
+    </div>
   )
 }
 

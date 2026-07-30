@@ -18,6 +18,7 @@ import {
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { CountUp } from "@/components/ui/count-up"
+import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 
 interface SubjectIntel {
   subject_id: number
@@ -56,12 +57,12 @@ export function ExamTracker() {
   const totalReports = intel.reduce((acc, i) => acc + i.total_reports, 0)
   const totalSubjects = intel.length
   const subjectsWithData = intel.filter((i) => i.total_reports > 0).length
-  const avgPass = intel.length
-    ? Math.round(
-        intel.filter((i) => i.pass_rate !== null).reduce((a, i) => a + (i.pass_rate ?? 0), 0) /
-          Math.max(intel.filter((i) => i.pass_rate !== null).length, 1)
-      )
-    : 0
+  // Solo promediamos las materias que de verdad tienen pass rate. Si ninguna lo
+  // tiene, avgPass queda en null y la pantalla muestra un guion, nunca un 0%.
+  const rated = intel.filter((i) => i.pass_rate !== null)
+  const avgPass = rated.length
+    ? Math.round(rated.reduce((a, i) => a + (i.pass_rate ?? 0), 0) / rated.length)
+    : null
 
   return (
     <AppLayout>
@@ -84,60 +85,112 @@ export function ExamTracker() {
           }
         />
 
-        {/* Hero with KPIs */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-7">
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "auto 1fr auto" }}>
-            <KpiRing value={subjectsWithData * 100 / Math.max(totalSubjects, 1)} max={100} size={140} trailing="%" sub="Cobertura" color="blue" />
-            <div>
-              <div
-                className="text-[13px] font-semibold"
-                style={{ color: "var(--av-blue-500)" }}
-              >
-                Reportes en los últimos 90 días
-              </div>
-              <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
-                <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
-              </h2>
-              <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
-                {totalReports === 0
-                  ? "Sé el primero en reportar: tu data ayuda a todos los próximos pilotos."
-                  : `${subjectsWithData} de ${totalSubjects} materias con inteligencia. Cada reporte sirve para que otro piloto entre al examen mejor preparado.`}
-              </p>
-            </div>
-            <div className="text-right">
-              <div
-                className="text-[13px] font-semibold"
-                style={{ color: "var(--av-blue-500)" }}
-              >
-                Pass rate promedio
-              </div>
-              <div
-                className="tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-foreground mt-1"
-              >
-                {avgPass}<span className="text-lg text-muted-foreground">%</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Subject grid */}
+        {/* Hero + grid: todo dentro del gate de carga para que nunca parpadeen ceros */}
         {loading ? (
-          <div className="grid grid-cols-3 gap-3.5 animate-pulse mb-7">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-48 rounded-xl bg-muted" />
-            ))}
-          </div>
+          <>
+            <div className="h-[188px] rounded-2xl bg-muted animate-pulse mb-7" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 animate-pulse mb-8">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="h-48 rounded-xl bg-muted" />
+              ))}
+            </div>
+          </>
         ) : (
-          <div className="stagger grid grid-cols-3 gap-3.5 mb-8">
-            {intel.map((i) => (
-              <SubjectIntelCard key={i.subject_id} intel={i} />
-            ))}
-          </div>
+          <>
+            {totalReports === 0 ? (
+              // Sin un solo reporte no hay KPI honesto que mostrar: hero de reclutamiento.
+              <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-dashed border-border bg-card p-7 sm:p-8 mb-7">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-6">
+                  <div>
+                    <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                      Inteligencia colectiva
+                    </div>
+                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+                      Sé el primero en reportar
+                    </h2>
+                    <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
+                      Todavía nadie ha compartido su examen. Cuenta qué cayó en el tuyo y en dos
+                      minutos queda disponible, anónimo, para todos los próximos pilotos.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setFormOpen(true)}
+                      className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                      style={{ background: "var(--av-blue-500)" }}
+                    >
+                      <Plus className="h-3.5 w-3.5" /> Reportar mi examen
+                    </button>
+                  </div>
+                  <div
+                    className="hidden md:flex items-center justify-center h-[120px] w-[120px] rounded-2xl flex-shrink-0"
+                    style={{ background: tileTint("blue"), border: `1px solid ${tileBorder("blue")}` }}
+                    aria-hidden="true"
+                  >
+                    <Users className="h-10 w-10" style={{ color: TILE_COLOR.blue }} />
+                  </div>
+                </div>
+              </section>
+            ) : (
+              <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-7">
+                <div className="relative grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center gap-6 md:gap-8">
+                  <div className="hidden md:block flex-shrink-0">
+                    <KpiRing
+                      value={Math.round((subjectsWithData * 100) / Math.max(totalSubjects, 1))}
+                      max={100}
+                      size={140}
+                      trailing="%"
+                      sub="Cobertura"
+                      color="blue"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                      Reportes en los últimos 90 días
+                    </div>
+                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05] text-foreground">
+                      <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
+                    </h2>
+                    <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
+                      {subjectsWithData} de {totalSubjects} materias con inteligencia. Cada reporte
+                      sirve para que otro piloto entre al examen mejor preparado.
+                    </p>
+                  </div>
+                  <div className="md:text-right">
+                    <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                      Pass rate promedio
+                    </div>
+                    {avgPass !== null ? (
+                      <div className="tabular-nums text-4xl font-extrabold tracking-[-0.04em] text-foreground mt-1">
+                        {avgPass}
+                        <span className="text-lg text-muted-foreground">%</span>
+                      </div>
+                    ) : (
+                      <>
+                        <div className="text-4xl font-extrabold tracking-[-0.04em] text-muted-foreground mt-1">
+                          —
+                        </div>
+                        <div className="text-[12.5px] text-muted-foreground mt-1 md:max-w-[180px] md:ml-auto">
+                          Aún nadie reporta si aprobó
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* Subject grid */}
+            <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 mb-8">
+              {intel.map((i) => (
+                <SubjectIntelCard key={i.subject_id} intel={i} />
+              ))}
+            </div>
+          </>
         )}
 
         {/* How it works */}
         <div className="grid sm:grid-cols-3 gap-4">
-          <HowStep n="1" title="Reporta tu examen" body="Después de salir, tomate 2 min para contar qué cayó." />
+          <HowStep n="1" title="Reporta tu examen" body="Después de salir, tómate 2 minutos para contar qué cayó." />
           <HowStep n="2" title="Tu data se anonimiza" body="Tu identidad no se ve. Solo cuenta cuánto pesó cada tema." />
           <HowStep n="3" title="Todos ganan" body="El próximo piloto entra al examen con tu inteligencia." />
         </div>
@@ -197,22 +250,16 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
 
       {intel.hottest_topic && (
         <div
-          className="mt-4 rounded-xl p-3 flex items-start gap-2"
+          className="mt-4 rounded-xl p-3"
           style={{
-            background: "color-mix(in oklab, var(--av-red-400) 8%, transparent)",
-            border: "1px solid color-mix(in oklab, var(--av-red-400) 28%, transparent)",
+            background: tileTint("red", 8),
+            border: `1px solid ${tileBorder("red")}`,
           }}
         >
-          <Flame className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "#DC2626" }} />
-          <div className="flex-1 min-w-0">
-            <div
-              className="text-[13px] font-semibold"
-              style={{ color: "#DC2626" }}
-            >
-              Tema más caliente
-            </div>
-            <div className="text-sm font-semibold text-foreground mt-0.5 truncate">{intel.hottest_topic}</div>
-          </div>
+          <span className="chip chip-red">
+            <Flame className="h-3 w-3" /> Tema más caliente
+          </span>
+          <div className="text-sm font-semibold text-foreground mt-1.5 truncate">{intel.hottest_topic}</div>
         </div>
       )}
 
@@ -354,8 +401,8 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
+      <div className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 z-[60] flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
           className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card border border-border shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
@@ -536,18 +583,18 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 onChange={(e) => setTips(e.target.value)}
                 rows={3}
                 placeholder="Estudia bien los METAR, cayó mucha pregunta sobre frentes ocluidos..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs">Preguntas que recordás (opcional)</Label>
+              <Label className="text-xs">Preguntas que recuerdas (opcional)</Label>
               <textarea
                 value={recalled}
                 onChange={(e) => setRecalled(e.target.value)}
                 rows={4}
                 placeholder="Una sobre QNH y altimetría, otra de inversión térmica..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               />
               <p className="text-[12px] text-muted-foreground flex items-center gap-1">
                 <CircleHelp className="h-3 w-3" />

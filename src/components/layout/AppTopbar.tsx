@@ -17,6 +17,7 @@ import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
+import { LogoIsotype } from "@/components/Logo"
 import { NotificationsBell } from "@/components/NotificationsBell"
 import { getThemePref, applyThemePref, isDark as themeIsDark, watchSystemTheme, type ThemePref } from "@/lib/theme"
 
@@ -154,48 +155,56 @@ export function AppTopbar({
           </button>
         )}
 
-        {/* Breadcrumb */}
-        <div className="hidden sm:flex items-center gap-2 text-[14px] min-w-0">
-          <span className="text-muted-foreground whitespace-nowrap">Aviatory</span>
-          <ChevronRight className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+        {/*
+          Marca + sección — visible SIEMPRE, también en móvil. Antes se apagaba
+          bajo 640px y quedaba una banda de 64px sin marca y sin contexto: en
+          móvil el rail es un drawer cerrado, así que el isotipo del topbar es
+          la única marca en pantalla.
+        */}
+        <div className="flex items-center gap-2 min-w-0 text-[14px]">
+          <LogoIsotype
+            variant="color"
+            alt="Aviatory"
+            className="h-6 w-6 rounded-md flex-shrink-0"
+          />
+          <span className="hidden sm:inline text-muted-foreground whitespace-nowrap">Aviatory</span>
+          <ChevronRight className="hidden sm:inline-block h-3 w-3 text-muted-foreground flex-shrink-0" />
           <span className="font-semibold text-foreground truncate">{label}</span>
         </div>
       </div>
 
-      {/* === CENTER COLUMN — Command palette (always centered, prominent) === */}
-      <div className="flex justify-center">
-        <button
-          type="button"
-          onClick={onCmdK}
-          className="hidden md:flex items-center gap-2.5 w-full max-w-[460px] h-11 pl-4 pr-2 rounded-xl text-sm font-medium transition-all group bg-muted/50 border border-border hover:border-[color-mix(in_oklab,var(--av-blue-500)_40%,transparent)]"
-        >
-          <Search
-            className="h-4 w-4 flex-shrink-0 transition-colors"
-            style={{ color: "var(--av-blue-500)" }}
-          />
-          <span className="truncate text-left flex-1 text-muted-foreground group-hover:text-foreground transition-colors">
-            Buscar materias, vuelos, aerolíneas…
-          </span>
-          <kbd
-            className="text-[12px] font-semibold px-2 py-1 rounded-md flex-shrink-0"
-            style={{
-              background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
-              color: "var(--av-blue-500)",
-            }}
-          >
-            {navigator.platform.toUpperCase().includes("MAC") ? "⌘K" : "Ctrl K"}
-          </kbd>
-        </button>
-      </div>
+      {/* === CENTER COLUMN === */}
+      {/* Reservada para la búsqueda global. El botón de lupa vive en la columna
+          derecha y solo se monta si el shell pasa `onCmdK`. */}
+      <div />
 
       {/* === RIGHT COLUMN === */}
-      <div className="flex items-center gap-2">
-        {/* Streak chip */}
+      <div className="flex items-center gap-1.5 sm:gap-2 justify-end">
+        {/* Racha — comprimida a icono + número en móvil, completa desde 640px */}
         {streak !== undefined && streak > 0 && (
-          <div className="chip chip-amber mono tabular-nums h-[30px] px-3 text-xs hidden sm:inline-flex">
+          <div className="chip chip-amber mono tabular-nums h-[30px] px-2 sm:px-3 text-xs">
             <Flame className="h-3.5 w-3.5" />
-            {streak} {streak === 1 ? "día" : "días"}
+            {streak}
+            <span className="hidden sm:inline">&nbsp;{streak === 1 ? "día" : "días"}</span>
           </div>
+        )}
+
+        {/*
+          Búsqueda global. Se monta solo cuando el shell entrega `onCmdK`: hoy
+          no existe la búsqueda, y un botón que no lleva a ningún lado es peor
+          que no tenerlo. Cuando exista la paleta de comandos, este botón la
+          abre (basta con pasar onCmdK desde AppLayout).
+        */}
+        {onCmdK && (
+          <button
+            type="button"
+            onClick={onCmdK}
+            className="search-cmdk w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            aria-label="Buscar en Aviatory"
+            title="Buscar en Aviatory"
+          >
+            <Search className="h-4 w-4" />
+          </button>
         )}
 
         {/* Theme toggle */}
@@ -236,9 +245,11 @@ export function AppTopbar({
             </span>
           </button>
 
+          {/* Misma receta de superficie flotante que el popover de la campana:
+              rounded-2xl + border-border/60 + shadow-2xl. */}
           {open && (
             <div
-              className="absolute right-0 mt-2 w-64 rounded-xl border border-border bg-card shadow-lg overflow-hidden"
+              className="absolute right-0 mt-2 w-64 rounded-2xl border border-border/60 bg-card shadow-2xl overflow-hidden z-50"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="px-4 py-3 border-b border-border">
@@ -286,7 +297,8 @@ export function AppTopbar({
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                className="w-full flex items-center gap-2 px-4 py-2.5 text-sm transition-colors hover:bg-[color-mix(in_oklab,var(--av-red-400)_12%,transparent)]"
+                style={{ color: "var(--av-danger-fg)" }}
               >
                 <LogOut className="h-4 w-4" /> Cerrar sesión
               </button>

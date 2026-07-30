@@ -54,7 +54,8 @@ export function NotificationsBell() {
         <Bell className="h-5 w-5" />
         {unreadCount > 0 && (
           <span
-            className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[12px] font-bold flex items-center justify-center shadow-md tabular"
+            className="absolute top-1 right-1 min-w-[18px] h-[18px] px-1 rounded-full text-white text-[12px] font-bold flex items-center justify-center shadow-md tabular"
+            style={{ background: "var(--destructive)" }}
             aria-label={`${unreadCount} notificaciones sin leer`}
           >
             {unreadCount > 99 ? "99+" : unreadCount}
@@ -67,17 +68,21 @@ export function NotificationsBell() {
           <header className="px-4 py-3 border-b border-border/40 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-semibold">Notificaciones</h3>
+              {/* "Estás al día" solo tiene sentido si alguna vez hubo algo que
+                  leer; con la lista vacía es "Nada nuevo". */}
               <p className="text-xs text-muted-foreground">
                 {unreadCount > 0
                   ? `${unreadCount} sin leer`
-                  : "Estás al día"}
+                  : notifications.length === 0
+                    ? "Nada nuevo"
+                    : "Estás al día"}
               </p>
             </div>
             {unreadCount > 0 && (
               <button
                 type="button"
                 onClick={markAllRead}
-                className="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium flex items-center gap-1"
+                className="text-xs text-primary hover:underline font-medium flex items-center gap-1"
               >
                 <Check className="h-3 w-3" />
                 Marcar todas
@@ -87,11 +92,50 @@ export function NotificationsBell() {
 
           <div className="max-h-[28rem] overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="py-10 text-center">
-                <Inbox className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">
-                  Sin notificaciones todavía
+              /* Primer contacto: en vez de un gris suelto, explicamos qué va a
+                 avisar Aviatory y dejamos una salida concreta. */
+              <div className="px-5 py-7">
+                <div
+                  className="mx-auto mb-3 flex h-11 w-11 items-center justify-center rounded-xl"
+                  style={{
+                    background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
+                    border: "1px solid color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
+                  }}
+                >
+                  <Inbox className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
+                </div>
+                <p className="text-center text-sm font-semibold text-foreground">
+                  Todavía no hay avisos
                 </p>
+                <p className="mt-1 text-center text-xs text-muted-foreground">
+                  Aviatory te avisa cuando:
+                </p>
+                <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                  <li className="flex gap-2">
+                    <span
+                      className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ background: "var(--av-amber-400)" }}
+                    />
+                    Se acerca el vencimiento de una licencia o un certificado.
+                  </li>
+                  {/* Solo los dos avisos que la app genera de verdad:
+                      check_my_expiries y trigger_notify_achievement. */}
+                  <li className="flex gap-2">
+                    <span
+                      className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                      style={{ background: "var(--av-green-400)" }}
+                    />
+                    Desbloqueas un logro nuevo.
+                  </li>
+                </ul>
+                <Link
+                  to="/app/vencimientos"
+                  onClick={() => setOpen(false)}
+                  className="mt-4 flex h-9 items-center justify-center rounded-lg text-xs font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  Cargar mis vencimientos
+                </Link>
               </div>
             ) : (
               <ul className="divide-y divide-border/40">
@@ -100,16 +144,28 @@ export function NotificationsBell() {
                     <div
                       className={`px-4 py-3 flex gap-3 transition-colors ${
                         n.action_url ? "hover:bg-muted/50 cursor-pointer" : ""
-                      } ${n.read_at === null ? "bg-blue-50/40 dark:bg-blue-950/20" : ""}`}
+                      }`}
+                      style={
+                        n.read_at === null
+                          ? { background: "color-mix(in oklab, var(--av-blue-500) 7%, transparent)" }
+                          : undefined
+                      }
                     >
-                      <div className="flex-shrink-0 text-2xl leading-none">{n.icon ?? "📬"}</div>
+                      <div className="flex-shrink-0 leading-none">
+                        {n.icon ? (
+                          <span className="text-2xl">{n.icon}</span>
+                        ) : (
+                          <Inbox className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
+                        )}
+                      </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-baseline justify-between gap-2">
                           <h4 className="text-sm font-semibold truncate">{n.title}</h4>
                           {n.read_at === null && (
                             <span
                               aria-label="Sin leer"
-                              className="flex-shrink-0 h-2 w-2 rounded-full bg-blue-500"
+                              className="flex-shrink-0 h-2 w-2 rounded-full"
+                              style={{ background: "var(--av-blue-500)" }}
                             />
                           )}
                         </div>

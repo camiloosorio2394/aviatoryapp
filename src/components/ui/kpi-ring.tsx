@@ -14,13 +14,15 @@ interface Props {
 
 // El acento cyan se retiró del producto: "cyan" se mapea a azul para que
 // cualquier call-site que aún pase color="cyan" quede consistente.
+// Los tres tokens semánticos (--av-*-fg) tienen par claro/oscuro: el arco se ve
+// bien sobre fondo blanco y sobre fondo casi negro sin tocar nada más.
 const COLOR_VAR: Record<Color, string> = {
   cyan: "var(--av-blue-500)",
   blue: "var(--av-blue-500)",
-  amber: "#B45309",
-  green: "#047857",
-  red: "#DC2626",
-  violet: "#7C3AED",
+  amber: "var(--av-warn-fg)",
+  green: "var(--av-success-fg)",
+  red: "var(--av-danger-fg)",
+  violet: "var(--av-violet-400)",
 }
 
 /**

@@ -7,11 +7,12 @@ import {
   ArrowRight,
   Loader2,
   X,
+  ChevronDown,
+  Lock,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { ContentGuard } from "@/components/ContentGuard"
 import { supabase } from "@/integrations/supabase/client"
-import { Lock } from "lucide-react"
 
 /**
  * Glosario consultable de vocabulario ICAO / Aviation English.
@@ -21,6 +22,10 @@ import { Lock } from "lucide-react"
  * UX clave: este glosario tiene que cargar rápido y ser instantáneo de buscar
  * — los usuarios lo van a abrir en pleno estudio. Por eso traemos todo en
  * memoria una vez (~350 filas, <100KB) y filtramos client-side.
+ *
+ * Render: sin búsqueda el listado se agrupa por letra (con índice A-Z) y se
+ * corta en PAGE_SIZE tarjetas. El filtro sigue siendo client-side: esto no
+ * cambia el fetch, solo evita pintar 351 tarjetas idénticas de una sola vez.
  */
 
 interface VocabEntry {
@@ -41,23 +46,33 @@ type VocabCategory =
   | "security"
   | "non_routine"
 
-const CATEGORIES: { slug: VocabCategory | "all"; label: string; color: string }[] = [
-  { slug: "all",         label: "All",         color: "var(--av-blue-500)" },
-  { slug: "aircraft",    label: "Aircraft",    color: "#0E7490" },
-  { slug: "airport",     label: "Airport",     color: "#2563EB" },
-  { slug: "navigation",  label: "Navigation",  color: "#7C3AED" },
-  { slug: "flight_ops",  label: "Flight Ops",  color: "#047857" },
-  { slug: "weather",     label: "Weather",     color: "#2563EB" },
-  { slug: "health",      label: "Health",      color: "#DC2626" },
-  { slug: "security",    label: "Security",    color: "#B45309" },
-  { slug: "non_routine", label: "Non-routine", color: "#DC2626" },
+const CATEGORIES: { slug: VocabCategory | "all"; label: string }[] = [
+  { slug: "all",         label: "All" },
+  { slug: "aircraft",    label: "Aircraft" },
+  { slug: "airport",     label: "Airport" },
+  { slug: "navigation",  label: "Navigation" },
+  { slug: "flight_ops",  label: "Flight Ops" },
+  { slug: "weather",     label: "Weather" },
+  { slug: "health",      label: "Health" },
+  { slug: "security",    label: "Security" },
+  { slug: "non_routine", label: "Non-routine" },
 ]
+
+const PAGE_SIZE = 60
+
+/** Letra de agrupación: A-Z, y "#" para cualquier otra cosa. */
+function letterOf(term: string): string {
+  const c = term.trim().charAt(0).toUpperCase()
+  return c >= "A" && c <= "Z" ? c : "#"
+}
 
 export function IcaoVocabulary() {
   const [data, setData] = useState<VocabEntry[]>([])
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState("")
   const [category, setCategory] = useState<VocabCategory | "all">("all")
+  const [limit, setLimit] = useState(PAGE_SIZE)
+  const [pendingAnchor, setPendingAnchor] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
@@ -98,6 +113,49 @@ export function IcaoVocabulary() {
     })
   }, [data, query, category])
 
+  // Cada vez que cambia el filtro, volvemos al primer tramo.
+  useEffect(() => { setLimit(PAGE_SIZE) }, [query, category])
+
+  const visible = useMemo(() => filtered.slice(0, limit), [filtered, limit])
+
+  /** Letras presentes en el resultado completo (para el índice A-Z). */
+  const letters = useMemo(() => {
+    const set = new Set<string>()
+    for (const e of filtered) set.add(letterOf(e.term_en))
+    return [...set].sort()
+  }, [filtered])
+
+  /** Sin búsqueda agrupamos por letra; con búsqueda el orden lo manda el match. */
+  const groups = useMemo(() => {
+    if (query.trim()) return null
+    const map = new Map<string, VocabEntry[]>()
+    for (const e of visible) {
+      const L = letterOf(e.term_en)
+      const bucket = map.get(L)
+      if (bucket) bucket.push(e)
+      else map.set(L, [e])
+    }
+    return [...map.entries()]
+  }, [visible, query])
+
+  // Scroll a la letra una vez que el tramo que la contiene ya está pintado.
+  useEffect(() => {
+    if (!pendingAnchor) return
+    document.getElementById(`letter-${pendingAnchor}`)?.scrollIntoView({ behavior: "smooth", block: "start" })
+    setPendingAnchor(null)
+  }, [pendingAnchor, limit])
+
+  function goToLetter(L: string) {
+    let lastIdx = -1
+    for (let i = 0; i < filtered.length; i++) {
+      if (letterOf(filtered[i].term_en) === L) lastIdx = i
+    }
+    if (lastIdx >= 0 && lastIdx + 1 > limit) setLimit(lastIdx + 1)
+    setPendingAnchor(L)
+  }
+
+  const remaining = filtered.length - visible.length
+
   return (
     <AppLayout>
       <ContentGuard>
@@ -117,7 +175,8 @@ export function IcaoVocabulary() {
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
               style={{ color: "var(--av-blue-500)" }}
             >
-              <BookOpen className="h-3.5 w-3.5" /> Glossary · {data.length} terms
+              {/* Nada de "0 terms" antes de que llegue la data. */}
+              <BookOpen className="h-3.5 w-3.5" /> Glossary{data.length > 0 ? ` · ${data.length} terms` : ""}
             </div>
             <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
               Aviation English vocabulary
@@ -140,10 +199,12 @@ export function IcaoVocabulary() {
         </div>
 
         {/* Search */}
-        <div className="sticky top-[60px] z-10 -mx-1 mb-5 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 rounded-2xl">
+        <div className="sticky top-16 z-20 -mx-1 mb-5 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70 rounded-2xl">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <label htmlFor="vocab-search" className="sr-only">Search the glossary</label>
             <input
+              id="vocab-search"
               ref={inputRef}
               type="text"
               placeholder="Search: unruly, ingest, ditch, windshear, Spanish translation…"
@@ -166,7 +227,9 @@ export function IcaoVocabulary() {
           <div className="mt-3 flex gap-1.5 overflow-x-auto pb-1 px-1">
             {CATEGORIES.map((c) => {
               const active = category === c.slug
-              const count = c.slug === "all"
+              const count = loading
+                ? null
+                : c.slug === "all"
                 ? data.length
                 : data.filter((e) => e.category === c.slug).length
               return (
@@ -176,21 +239,36 @@ export function IcaoVocabulary() {
                   className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12.5px] font-semibold whitespace-nowrap border transition-colors"
                   style={{
                     borderColor: active
-                      ? `color-mix(in oklab, ${c.color} 45%, transparent)`
+                      ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
                       : "color-mix(in oklab, var(--border) 60%, transparent)",
                     background: active
-                      ? `color-mix(in oklab, ${c.color} 18%, transparent)`
+                      ? "color-mix(in oklab, var(--av-blue-500) 16%, transparent)"
                       : "transparent",
-                    color: active ? c.color : "var(--muted-foreground)",
+                    color: active ? "var(--av-blue-500)" : "var(--muted-foreground)",
                   }}
                 >
                   <span>{c.label}</span>
-                  <span className="opacity-70 tabular-nums">{count}</span>
+                  {count != null && <span className="opacity-70 tabular-nums">{count}</span>}
                 </button>
               )
             })}
           </div>
         </div>
+
+        {/* Índice A-Z: sin él son 351 tarjetas sin ninguna forma de navegar */}
+        {!loading && !query.trim() && letters.length > 1 && (
+          <nav aria-label="Jump to letter" className="mb-5 flex flex-wrap gap-1">
+            {letters.map((L) => (
+              <button
+                key={L}
+                onClick={() => goToLetter(L)}
+                className="w-7 h-7 rounded-md text-[12.5px] font-bold text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+              >
+                {L}
+              </button>
+            ))}
+          </nav>
+        )}
 
         {/* Results */}
         {loading ? (
@@ -199,26 +277,77 @@ export function IcaoVocabulary() {
             <span className="text-sm">Loading glossary…</span>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="text-center py-20 text-muted-foreground">
-            <div className="text-sm">No results for "{query}".</div>
+          <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+            <div
+              className="w-11 h-11 rounded-xl flex items-center justify-center"
+              style={{
+                background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
+                border: "1px solid color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
+                color: "var(--av-blue-500)",
+              }}
+            >
+              <Search className="h-5 w-5" />
+            </div>
+            <h2 className="mt-3.5 text-[17px] font-bold tracking-[-0.01em]">
+              {query.trim() ? `Nothing matches "${query.trim()}"` : "Nothing in this category yet"}
+            </h2>
+            <p className="mt-1.5 text-[14px] text-muted-foreground max-w-[420px]">
+              Try a shorter word, the Spanish translation, or clear the filters to browse the whole
+              glossary.
+            </p>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
-              className="mt-3 inline-flex items-center gap-1.5 text-[13.5px] text-[var(--av-blue-500)] hover:underline"
+              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               Clear filters
             </button>
           </div>
+        ) : groups ? (
+          <div className="space-y-6">
+            {groups.map(([L, entries]) => (
+              <section key={L} id={`letter-${L}`} className="scroll-mt-32">
+                <div className="flex items-center gap-3 mb-2.5">
+                  <div className="text-[17px] font-extrabold tracking-[-0.02em]" style={{ color: "var(--av-blue-500)" }}>
+                    {L}
+                  </div>
+                  <div className="h-px flex-1 bg-border" />
+                  <div className="tabular-nums text-[12px] text-muted-foreground">{entries.length}</div>
+                </div>
+                <div className="grid gap-2.5 md:grid-cols-2">
+                  {entries.map((e) => (
+                    <TermCard key={e.id} entry={e} query={query} />
+                  ))}
+                </div>
+              </section>
+            ))}
+          </div>
         ) : (
           <div className="grid gap-2.5 md:grid-cols-2">
-            {filtered.map((e) => (
+            {visible.map((e) => (
               <TermCard key={e.id} entry={e} query={query} />
             ))}
           </div>
         )}
 
-        <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
-          <Lock className="h-3 w-3" /> {filtered.length} of {data.length} terms · protected content · ICAO Vocab Book (Cami)
-        </div>
+        {!loading && remaining > 0 && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={() => setLimit((l) => l + PAGE_SIZE)}
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+            >
+              Show more terms
+              <span className="tabular-nums text-muted-foreground">{remaining} left</span>
+              <ChevronDown className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+
+        {!loading && data.length > 0 && (
+          <div className="mt-12 pt-6 border-t border-border/60 text-[12.5px] text-muted-foreground text-center flex items-center justify-center gap-1.5">
+            <Lock className="h-3 w-3" /> Showing {visible.length} of {filtered.length} · protected content · ICAO Vocab Book (Cami)
+          </div>
+        )}
       </div>
       </ContentGuard>
     </AppLayout>
@@ -228,18 +357,18 @@ export function IcaoVocabulary() {
 function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
   const cat = CATEGORIES.find((c) => c.slug === entry.category) ?? CATEGORIES[0]
   return (
+    // Sin hover lift: una ficha de glosario no lleva a ningún lado, así que no
+    // finge ser clickeable.
     <div
-      className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-1.5 transition-transform hover:-translate-y-0.5 hover:shadow-md"
+      className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-1.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">
         <div className="text-[16px] font-bold tracking-[-0.01em]">
           <Highlight text={entry.term_en} query={query} />
         </div>
-        <div
-          className="text-[11px] font-semibold flex-shrink-0"
-          style={{ color: cat.color }}
-        >
+        {/* Etiqueta en gris: los tokens amber/green no se leen a 11px en modo claro. */}
+        <div className="text-[11px] font-semibold flex-shrink-0 text-muted-foreground">
           {cat.label}
         </div>
       </div>

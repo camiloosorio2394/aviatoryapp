@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Copy, Check, Gift, Sparkles, Users, MessageSquare, Mail, Trophy } from "lucide-react"
+import { Copy, Check, Gift, Sparkles, Users, MessageSquare, Mail } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
@@ -34,6 +34,8 @@ export function Referrals() {
   }, [user])
 
   const code = stats?.my_code ?? "—"
+  const referred = stats?.total_referred ?? 0
+  const upgraded = stats?.active_referred ?? 0
   const link = stats?.my_code
     ? `https://aviatoryapp-mu.vercel.app/login?mode=signup&ref=${stats.my_code}`
     : ""
@@ -65,14 +67,14 @@ export function Referrals() {
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow="REFERIDOS · GANÁ MESES GRATIS"
+          eyebrow="REFERIDOS · GANA MESES GRATIS"
           title="Comparte Aviatory, ganen los dos"
           subtitle="Por cada piloto que se registre con tu código, los dos reciben +7 días extra. Cuando upgradee a Pro, sumas 1 mes gratis."
         />
 
         {/* Hero referral code */}
         <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-6">
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+          <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-8">
             <div>
               <div
                 className="text-[13px] font-semibold"
@@ -123,16 +125,37 @@ export function Referrals() {
                 {link || "Cargando…"}
               </div>
             </div>
-            <div className="flex flex-col gap-3.5 min-w-[200px]">
-              <RewardStat label="Pilotos invitados" value={stats?.total_referred ?? 0} icon={Users} />
-              <RewardStat label="Upgradearon a Pro" value={stats?.active_referred ?? 0} icon={Sparkles} />
-              <RewardStat label="Meses Pro ganados" value={stats?.active_referred ?? 0} icon={Trophy} />
+            <div className="flex flex-col gap-3.5 w-full md:w-auto md:min-w-[220px]">
+              {loading ? (
+                <div className="h-[68px] rounded-2xl border border-border bg-muted/40 animate-pulse" />
+              ) : referred === 0 ? (
+                <div className="rounded-2xl border border-border bg-card p-4 md:max-w-[260px]">
+                  <div
+                    className="inline-flex items-center justify-center h-8 w-8 rounded-xl mb-2"
+                    style={{
+                      background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
+                      color: "var(--av-blue-500)",
+                    }}
+                  >
+                    <Users className="h-4 w-4" />
+                  </div>
+                  <h3 className="text-sm font-bold text-foreground">Todavía no has invitado a nadie</h3>
+                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                    Comparte tu código y aquí verás cuántos pilotos entraron con él y cuántos pasaron a Pro.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <RewardStat label="Pilotos invitados" value={referred} icon={Users} />
+                  <RewardStat label="Upgradearon a Pro" value={upgraded} icon={Sparkles} />
+                </>
+              )}
             </div>
           </div>
         </section>
 
         {/* How it works */}
-        <div className="grid sm:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
           <Step n="1" title="Comparte tu código" body="WhatsApp, story, grupos. Donde tengas piloto-amigos." />
           <Step n="2" title="Tu amigo se registra" body="Con tu código recibe 14 días de prueba (7 + 7 extra) sin tarjeta." />
           <Step n="3" title="Ambos ganan" body="Cuando upgradee a Pro, te llega 1 mes gratis." />

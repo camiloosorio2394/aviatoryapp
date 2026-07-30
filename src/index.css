@@ -544,6 +544,14 @@
   --av-red-400: oklch(0.7 0.22 25);
   --av-violet-400: oklch(0.7 0.22 295);
 
+  /* Tokens semánticos de TEXTO sobre superficie.
+     Los --av-*-400 están calibrados para iconos, arcos y barras: en modo claro
+     no alcanzan contraste para texto chico. Estos sí: oscuros en claro,
+     brillantes en oscuro (mismo mecanismo que .chip-*). */
+  --av-success-fg: oklch(0.42 0.16 155);
+  --av-warn-fg: oklch(0.5 0.16 60);
+  --av-danger-fg: oklch(0.45 0.2 25);
+
   /* Rail (always dark) */
   --rail: oklch(0.16 0.025 250);
   --rail-2: oklch(0.22 0.035 250);
@@ -562,6 +570,43 @@
   --shadow-cyan: 0 0 0 1px oklch(0.78 0.16 215 / 30%), 0 8px 24px -8px oklch(0.78 0.16 215 / 40%);
 }
 
+/* En modo oscuro el rail necesita su propio nivel: sin override quedaba a la
+   misma altura que el fondo de la página y el sidebar se disolvía en el
+   contenido. Va por encima de --background y por debajo de --card, con un
+   borde de luz que no depende del color de marca. */
+.dark {
+  --rail: oklch(0.2 0.03 250);
+  --rail-2: oklch(0.25 0.035 250);
+  --rail-border: oklch(1 0 0 / 12%);
+
+  /* Pares brillantes de los tokens de texto semántico */
+  --av-success-fg: var(--av-green-400);
+  --av-warn-fg: var(--av-amber-400);
+  --av-danger-fg: var(--av-red-400);
+}
+
+/* === Alias de compatibilidad: .card / .card-hover ===
+   Varias pantallas venían usando estas dos clases, que nunca existieron en
+   ningún CSS (quedaban sin fondo ni borde). Se definen aquí, en @layer
+   components, para que cualquier uso que quede en el repo se vea correcto y
+   las utilidades de Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
+@layer components {
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+  }
+  .card-hover {
+    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 12%);
+  }
+}
+
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
@@ -571,7 +616,7 @@
 @media print {
   body.content-guarded * { visibility: hidden !important; }
   body.content-guarded::after {
-    content: "Contenido protegido de Aviatory — no disponible para impresión.";
+    content: "Contenido protegido de Aviatory: no disponible para impresión.";
     visibility: visible;
     position: fixed; inset: 0;
     display: flex; align-items: center; justify-content: center;
@@ -688,7 +733,7 @@
 }
 .radar-pulse-delay { animation-delay: 1.2s; }
 
-/* === Command palette search (centered in AppTopbar) === */
+/* === Command palette search (botón de lupa en el AppTopbar) === */
 .search-cmdk { cursor: pointer; }
 .search-cmdk:hover {
   border-color: var(--av-cyan-400) !important;

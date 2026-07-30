@@ -16,20 +16,22 @@ import {
   Library as LibraryIcon,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 /**
  * Módulo Biblioteca Operacional.
  * 9 categorías: manuales, SOPs, quick refs, performance tools, W&B,
  * briefings, checklist philosophy, CRM/TEM cases, accident studies.
- * Backend: library_categories, library_items, user_library_bookmarks,
- * user_library_views.
+ *
+ * No hay ni un documento cargado todavía: cada tarjeta va con chip "Pronto",
+ * icono en reposo y sin hover, y la pantalla ofrece una salida real (banco PCA).
  */
 export function Library() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+          <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
             <div>
               <div
                 className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
@@ -43,7 +45,7 @@ export function Library() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: "var(--av-amber-400)" }}
                 />
-                Módulo biblioteca · backend listo · contenido en construcción
+                Módulo biblioteca · En construcción
               </div>
               <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] text-foreground leading-[1.05]">
                 Biblioteca Operacional,{" "}
@@ -52,13 +54,23 @@ export function Library() {
                 </span>
               </h1>
               <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
-                <strong className="text-foreground">9 categorías</strong> de contenido operacional para
-                consultar día a día: manuales, SOPs, QRH, performance tools, W&amp;B, briefings,
-                checklist philosophy, casos CRM/TEM y accident case studies. La diferencia entre
-                "una app más" y "la app que abrís todos los días".
+                Estamos armando <strong className="text-foreground">9 categorías</strong> de contenido
+                operacional para consultar día a día: manuales, SOPs, QRH, performance tools,
+                W&amp;B, briefings, checklist philosophy, casos CRM/TEM y accident case studies. La
+                diferencia entre una app más y la app que abres todos los días.
               </p>
+              <div className="mt-5">
+                <Link
+                  to="/app/pca"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  Mientras tanto, estudia en el banco PCA{" "}
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col items-center gap-3 pr-2">
+            <div className="hidden md:flex flex-col items-center gap-3 pr-2">
               <div
                 className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
                 style={{
@@ -67,13 +79,13 @@ export function Library() {
               >
                 <LibraryIcon className="h-14 w-14 text-white" strokeWidth={1.5} />
               </div>
-              <div className="text-[13px] font-semibold text-muted-foreground">Consulta · engage</div>
+              <div className="text-[13px] font-semibold text-muted-foreground">Consulta diaria</div>
             </div>
           </div>
         </section>
 
         {/* === 9 CATEGORÍAS === */}
-        <div className="mt-10 mb-5 flex items-end justify-between">
+        <div className="mt-10 mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
             <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Categorías · 9
@@ -87,7 +99,7 @@ export function Library() {
           </div>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {CATEGORIES.map((c) => (
             <CategoryTile key={c.slug} {...c} />
           ))}
@@ -103,11 +115,11 @@ export function Library() {
               <Sparkles className="h-3 w-3" /> Aporta tu material
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
-              ¿Tienes manuales/SOPs/quick references que aportar?
+              ¿Tienes manuales, SOPs o quick references que aportar?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
               Aporta material y se lo damos al resto de la comunidad (con tu crédito si quieres).
-              Solo material no-propietario o de dominio público: el equipo revisa antes de publicar.
+              Solo material no propietario o de dominio público: el equipo revisa antes de publicar.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -126,22 +138,12 @@ export function Library() {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
-const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "#0E7490",
-  blue: "var(--av-blue-500)",
-  violet: "#7C3AED",
-  amber: "#B45309",
-  green: "#047857",
-  red: "var(--av-red-400)",
-}
-
 interface CategoryProps {
   slug: string
   name: string
   description: string
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: ColorKey
+  color: TileColorKey
   bullets: string[]
 }
 
@@ -220,29 +222,41 @@ const CATEGORIES: CategoryProps[] = [
   },
 ]
 
+/**
+ * Tarjeta de categoría. Sin contenido cargado no hay a dónde ir: se queda en
+ * reposo (sin lift), con el icono desaturado y chip "Pronto".
+ */
 function CategoryTile({ icon: Icon, color, name, description, bullets }: CategoryProps) {
   return (
-    <div className="card-hover rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5">
+    <div className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5">
       <div className="flex items-start gap-3.5">
         <div
           className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
           style={{
-            background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
+            background: tileTint(color),
+            border: `1px solid ${tileBorder(color, 32)}`,
             color: TILE_COLOR[color],
+            opacity: 0.55,
           }}
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         <div className="flex-1 pt-0.5">
-          <div className="text-[16px] font-bold tracking-[-0.01em]">{name}</div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="text-[16px] font-bold tracking-[-0.01em]">{name}</div>
+            <span className="chip text-[10px]">Pronto</span>
+          </div>
           <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[14px] text-foreground/90">
-            <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: TILE_COLOR[color] }} strokeWidth={3} />
+          <li key={b} className="flex items-start gap-2 text-[14px] text-muted-foreground">
+            <Check
+              className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
+              style={{ color: TILE_COLOR[color], opacity: 0.55 }}
+              strokeWidth={3}
+            />
             <span>{b}</span>
           </li>
         ))}

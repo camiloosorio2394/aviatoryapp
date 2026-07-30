@@ -15,6 +15,7 @@ import {
   HelpCircle,
   BookOpen,
   ChevronDown,
+  MessageSquare,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import {
@@ -189,6 +190,8 @@ interface QItem {
   id: string
   audioUrl: string
   playLabel?: string
+  /** identidad del clip ("Set B · Audio 034"): sin esto todos los ítems se ven iguales */
+  eyebrow: string
   speaker?: Speaker // si existe → se pregunta pilot/controller y se verifica
   reveal: ReactNode
 }
@@ -207,7 +210,7 @@ function pickQuiz(items: QItem[]): QItem[] {
   return shuffle(items).slice(0, Math.min(QUIZ_SIZE, items.length))
 }
 
-function QuizRunner({ items, accent = "var(--av-blue-500)" }: { items: QItem[]; accent?: string }) {
+function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: QItem[]; kicker: { icon: React.ComponentType<{ className?: string }>; text: string }; accent?: string }) {
   const [order, setOrder] = useState<QItem[]>(() => pickQuiz(items))
   const [idx, setIdx] = useState(0)
   const [picked, setPicked] = useState<Speaker | null>(null)
@@ -269,8 +272,17 @@ function QuizRunner({ items, accent = "var(--av-blue-500)" }: { items: QItem[]; 
       </div>
 
       <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
-        <div className="flex items-center justify-center">
-          <ClipPlayer audioUrl={cur.audioUrl} label={cur.playLabel ?? "Play"} />
+        <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+          <div className="text-[12px] font-bold uppercase tracking-[0.12em]" style={{ color: accent }}>
+            {cur.eyebrow}
+          </div>
+          <Kicker icon={kicker.icon} text={kicker.text} />
+        </div>
+
+        {/* El `key` es obligatorio: sin él el player se reutiliza entre ítems,
+            se queda con el <audio> del clip anterior y el contador en 2/2. */}
+        <div className="mt-4 flex items-center justify-center">
+          <ClipPlayer key={cur.id} audioUrl={cur.audioUrl} label={cur.playLabel ?? "Play"} />
         </div>
 
         {/* Pilot/controller question (verified) */}
@@ -349,7 +361,7 @@ function LongReveal({ a }: { a: LongAudio }) {
       {a.request && <RevealRow label="Request / advisory" value={a.request} color="var(--av-blue-500)" />}
       {a.details && a.details.length > 0 && (
         <div>
-          <div className="text-[12.5px] font-semibold text-[var(--av-green-400)] mb-1.5">Key details</div>
+          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Key details</div>
           <ul className="space-y-1">
             {a.details.map((d) => (
               <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -386,7 +398,7 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
       )}
       {it.advice && (
         <div>
-          <div className="text-[12.5px] font-semibold text-[var(--av-green-400)] mb-1.5">Recommendations</div>
+          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Recommendations</div>
           <ul className="space-y-1">
             {it.advice.map((a) => (
               <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
@@ -402,29 +414,43 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
 
 // ─── 2A · SHORT AUDIOS (quiz aleatorio) ──────────────────────────────────────
 function ShortAudiosSection() {
-  const items: QItem[] = SHORT_AUDIO_SETS.flatMap((set) =>
-    set.items.map((a) => ({ id: a.id, audioUrl: a.audioUrl, speaker: a.speaker, reveal: <ShortReveal a={a} /> })),
-  )
+  const items: QItem[] = SHORT_AUDIO_SETS.flatMap((set) => {
+    // "Set A · Track 1–16" → "Set A", para poder mostrar "Set A · Track 7"
+    const setName = set.title.split(" · ")[0]
+    return set.items.map((a) => ({
+      id: a.id,
+      audioUrl: a.audioUrl,
+      eyebrow: `${setName} · ${a.label}`,
+      speaker: a.speaker,
+      reveal: <ShortReveal a={a} />,
+    }))
+  })
   return (
     <>
-      <SectionIntro text={`A random quiz of ${Math.min(10, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}. Listen, decide whether it's a pilot or a controller (we check it), then compare with the answer key.`} />
+      <SectionIntro text={`A random set of ${Math.min(QUIZ_SIZE, SHORT_AUDIO_TOTAL)} short messages drawn from the bank of ${SHORT_AUDIO_TOTAL}.`} />
       <WorkbookSamples title={`Workbook model phrases · "What is the message?" (${SAMPLE_MESSAGES_2A.length})`}
         intro="Official examples of the kind of message you'll hear (Aviation English Now). Practise paraphrasing each one."
         items={SAMPLE_MESSAGES_2A} />
-      <QuizRunner items={items} />
+      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Listen, then decide: pilot or controller" }} />
     </>
   )
 }
 
 // ─── 2B · LONG AUDIOS (random quiz) ──────────────────────────────────────────
 function LongAudiosSection() {
+  // El título del audio es la respuesta, así que en la cabecera va solo la
+  // identidad del clip: el título aparece al revelar.
   const items: QItem[] = LONG_AUDIOS.map((a) => ({
-    id: String(a.id), audioUrl: a.audioUrl, speaker: a.speaker, reveal: <LongReveal a={a} />,
+    id: String(a.id),
+    audioUrl: a.audioUrl,
+    eyebrow: `2B · Long audio ${String(a.id).padStart(2, "0")}`,
+    speaker: a.speaker,
+    reveal: <LongReveal a={a} />,
   }))
   return (
     <>
-      <SectionIntro text="A random quiz of long messages. Listen (you can take notes), decide pilot/controller (we check it), then explain the situation and compare with problem · request · details." />
-      <QuizRunner items={items} />
+      <SectionIntro text={`A random set of ${Math.min(QUIZ_SIZE, LONG_AUDIOS.length)} long messages drawn from the bank of ${LONG_AUDIOS.length}. You can take notes while you listen.`} />
+      <QuizRunner items={items} kicker={{ icon: Headphones, text: "Explain the situation, then compare: problem · request · details" }} />
     </>
   )
 }
@@ -432,15 +458,19 @@ function LongAudiosSection() {
 // ─── 2C · INTERACTIVE RESPONSE (random quiz) ─────────────────────────────────
 function InteractiveSection() {
   const items: QItem[] = INTERACTIVE_ITEMS.map((it) => ({
-    id: String(it.id), audioUrl: it.audioUrl, playLabel: "Play situation", reveal: <InteractiveReveal it={it} />,
+    id: String(it.id),
+    audioUrl: it.audioUrl,
+    playLabel: "Play situation",
+    eyebrow: `2C · ${it.label}`,
+    reveal: <InteractiveReveal it={it} />,
   }))
   return (
     <>
-      <SectionIntro text="A random quiz of non-routine situations. Listen, ask questions to get more info and give recommendations, then compare with the model." />
+      <SectionIntro text={`A random set of non-routine situations drawn from the bank of ${INTERACTIVE_ITEMS.length}.`} />
       <WorkbookSamples title={`Workbook model scenarios · "Ask questions + advice" (${SAMPLE_SCENARIOS_2C.length})`}
         intro="Official Part 2C-style situations (Aviation English Now)."
         items={SAMPLE_SCENARIOS_2C} />
-      <QuizRunner items={items} />
+      <QuizRunner items={items} kicker={{ icon: MessageSquare, text: "Ask questions to get more info, then give recommendations" }} />
     </>
   )
 }
@@ -514,7 +544,16 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
 }
 
 function SectionIntro({ text }: { text: string }) {
-  return <p className="mb-4 text-[14px] text-foreground/90 leading-relaxed">{text}</p>
+  return <p className="mb-4 text-[13.5px] text-muted-foreground leading-relaxed">{text}</p>
+}
+
+/** Instrucción corta dentro de la tarjeta (mismo patrón que el simulacro). */
+function Kicker({ icon: Icon, text }: { icon: React.ComponentType<{ className?: string }>; text: string }) {
+  return (
+    <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-muted-foreground">
+      <Icon className="h-3.5 w-3.5" /> {text}
+    </div>
+  )
 }
 
 function SpeakerBadge({ speaker }: { speaker: Speaker }) {

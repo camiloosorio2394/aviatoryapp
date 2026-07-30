@@ -9,6 +9,7 @@ import {
   Check,
   Clock,
   Briefcase,
+  FileSearch,
   Wrench,
   Users,
   Network,
@@ -26,6 +27,7 @@ import {
   Activity,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { TILE_COLOR, type TileColorKey as ColorKey } from "@/lib/tileColors"
 
 /**
  * Módulo Ingreso a Aerolínea — CORE COMERCIAL.
@@ -36,10 +38,10 @@ import { AppLayout } from "@/components/layout/AppLayout"
 export function AirlinePrep() {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         {/* === Hero === */}
         <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 anim-fade-up">
-          <div className="relative grid items-center gap-8" style={{ gridTemplateColumns: "1fr auto" }}>
+          <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
             <div>
               <div
                 className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
@@ -53,7 +55,7 @@ export function AirlinePrep() {
                   className="w-1.5 h-1.5 rounded-full"
                   style={{ background: "var(--av-amber-400)" }}
                 />
-                Módulo core · backend listo · contenido en construcción
+                Módulo core · sección NOTAM disponible · resto en construcción
               </div>
               <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">
                 Ingreso a Aerolínea,{" "}
@@ -68,7 +70,7 @@ export function AirlinePrep() {
                 flashcards, casos reales reportados y perfiles personalizados por aerolínea.
               </p>
             </div>
-            <div className="flex flex-col items-center gap-3 pr-2">
+            <div className="hidden md:flex flex-col items-center gap-3 pr-2">
               <div
                 className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
                 style={{
@@ -80,6 +82,49 @@ export function AirlinePrep() {
               <div className="text-[13px] font-semibold text-muted-foreground">Carrera · core</div>
             </div>
           </div>
+        </section>
+
+        {/* === SECCIÓN DISPONIBLE: NOTAM === */}
+        <section className="mt-8">
+          <Link
+            to="/app/aerolinea/notam"
+            className="group block rounded-2xl border bg-card p-6 sm:p-7 card-apple"
+            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 40%, transparent)" }}
+          >
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-4">
+                <span
+                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl"
+                  style={{ background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)" }}
+                >
+                  <FileSearch className="h-6 w-6" style={{ color: "var(--av-blue-500)" }} />
+                </span>
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="chip chip-green text-[11px]">Disponible</span>
+                    <span className="text-[12px] text-muted-foreground">
+                      Primera sección lista de este módulo
+                    </span>
+                  </div>
+                  <h3 className="mt-1.5 text-[20px] font-extrabold tracking-[-0.02em]">
+                    NOTAM: aprende a leerlos y decodificarlos
+                  </h3>
+                  <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed max-w-[640px]">
+                    Lección completa, decodificador de los 246 códigos del Doc 8400 de la OACI,
+                    práctica con NOTAM reales de la Aerocivil y evaluación. Leer NOTAM es parte del
+                    planeamiento de vuelo y se pregunta en entrevista técnica.
+                  </p>
+                </div>
+              </div>
+              <span
+                className="inline-flex flex-shrink-0 items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white"
+                style={{ background: "var(--av-blue-500)" }}
+              >
+                Entrar{" "}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </Link>
         </section>
 
         {/* === 14 TOPICS GRID === */}
@@ -108,7 +153,7 @@ export function AirlinePrep() {
             </h2>
           </div>
           <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
-            <Clock className="h-3.5 w-3.5" />Backend listo · contenido gradual
+            <Clock className="h-3.5 w-3.5" />Se abren por partes · NOTAM ya está
           </div>
         </div>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -124,38 +169,39 @@ export function AirlinePrep() {
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
               style={{ color: "var(--av-blue-500)" }}
             >
-              <Sparkles className="h-3 w-3" /> Mientras se carga el contenido
+              <Sparkles className="h-3 w-3" /> Mientras cargamos el resto del contenido
             </div>
             <h3 className="mt-1.5 text-lg font-bold">
-              Activá ya las herramientas disponibles que feedean este módulo.
+              Adelanta lo que ya puedes tener listo para el día que postules.
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
-              El match por aerolínea, el simulador de entrevistas y los tests psicotécnicos ya
-              corren con backend completo. Suma tu Logbook y vencimientos para que tu Pilot ID
-              esté listo el día que postules.
+              La sección NOTAM ya está completa. Además, el match por aerolínea te muestra qué te
+              falta para cada una, y tu Logbook y tus vencimientos alimentan tu Pilot ID. El
+              simulador de entrevistas y los tests psicotécnicos todavía no tienen contenido
+              cargado: los abrimos por partes, como hicimos con NOTAM.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <Link
-              to="/app/aerolineas"
+              to="/app/aerolinea/notam"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{
                 background: "var(--av-blue-500)",
               }}
             >
+              Empezar con NOTAM <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <Link
+              to="/app/aerolineas"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+            >
               Ver mi match <ArrowRight className="h-3.5 w-3.5" />
             </Link>
             <Link
-              to="/app/entrevistas"
+              to="/app/logbook"
               className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
-              Simulador entrevistas <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-            <Link
-              to="/app/psicotecnicas"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
-            >
-              Psicotécnicas <ArrowRight className="h-3.5 w-3.5" />
+              Mi Logbook <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </section>
@@ -244,19 +290,10 @@ const SUBMODULES: TileProps[] = [
 // ────────────────────────────────────────────────────────────────────────────
 // COMPONENTS
 // ────────────────────────────────────────────────────────────────────────────
-type ColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
-const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "#0E7490",
-  blue: "var(--av-blue-500)",
-  violet: "#7C3AED",
-  amber: "#B45309",
-  green: "#047857",
-  red: "var(--av-red-400)",
-}
 
 function TopicChip({ name, category, icon: Icon, color }: { name: string; category: string; icon: React.ComponentType<{ className?: string }>; color: ColorKey }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-3 flex items-center gap-3 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+    <div className="rounded-xl border border-border bg-card p-3 flex items-center gap-3">
       <div
         className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
         style={{
@@ -285,8 +322,15 @@ interface TileProps {
 }
 
 function FeatureTile({ icon: Icon, color, title, description, bullets, link }: TileProps) {
+  // Sin link no hay a donde ir: la tarjeta no debe levantarse con el mouse ni
+  // prometer un click que no existe. Se declara "Pronto" y se queda en reposo.
+  const disponible = Boolean(link)
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5 transition-all hover:-translate-y-0.5 hover:shadow-sm">
+    <div
+      className={`rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5 ${
+        disponible ? "card-apple" : ""
+      }`}
+    >
       <div className="flex items-start gap-3.5">
         <div
           className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
@@ -294,12 +338,16 @@ function FeatureTile({ icon: Icon, color, title, description, bullets, link }: T
             background: `color-mix(in oklab, ${TILE_COLOR[color]} 14%, transparent)`,
             border: `1px solid color-mix(in oklab, ${TILE_COLOR[color]} 32%, transparent)`,
             color: TILE_COLOR[color],
+            opacity: disponible ? 1 : 0.55,
           }}
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         <div className="flex-1 pt-0.5">
-          <div className="text-[16px] font-bold tracking-[-0.01em]">{title}</div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="text-[16px] font-bold tracking-[-0.01em]">{title}</div>
+            {!disponible && <span className="chip text-[10px]">Pronto</span>}
+          </div>
           <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>

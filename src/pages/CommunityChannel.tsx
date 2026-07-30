@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, Hash, Send, Smile, Flame } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
@@ -13,6 +14,7 @@ interface Channel {
   slug: string
   name: string
   description: string | null
+  type: "general" | "stage" | "subject" | "airline"
   emoji: string | null
 }
 
@@ -44,6 +46,26 @@ interface Message {
 }
 
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
+
+const AIRLINE_TILE_KEYS: TileColorKey[] = ["blue", "cyan", "violet", "amber", "green", "red"]
+
+/** Mismo tile de iniciales que el índice de Comunidad: los canales de
+ *  aerolínea traen emojis de bandera que se ven rotos en varios sistemas. */
+function airlineTileKey(slug: string): TileColorKey {
+  let sum = 0
+  for (let i = 0; i < slug.length; i += 1) sum += slug.charCodeAt(i)
+  return AIRLINE_TILE_KEYS[sum % AIRLINE_TILE_KEYS.length]
+}
+
+function airlineInitials(name: string): string {
+  const words = name
+    .trim()
+    .split(/\s+/)
+    .filter((w) => /^[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(w))
+  if (words.length === 0) return "AV"
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+  return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
+}
 
 export function CommunityChannel() {
   const { slug } = useParams<{ slug: string }>()
@@ -339,7 +361,7 @@ export function CommunityChannel() {
 
   return (
     <AppLayout>
-      <div className="flex flex-col h-[calc(100vh-4rem)]">
+      <div className="flex flex-col h-[calc(100dvh-4rem)]">
         {/* Channel header */}
         <header className="px-4 sm:px-6 lg:px-10 py-4 border-b border-border/40 bg-background/80 backdrop-blur flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
@@ -350,7 +372,23 @@ export function CommunityChannel() {
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
-            <span className="text-2xl">{channel.emoji}</span>
+            {channel.type === "airline" ? (
+              <div
+                className="flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-extrabold tracking-[0.02em] flex-shrink-0"
+                style={{
+                  background: tileTint(airlineTileKey(channel.slug)),
+                  border: `1px solid ${tileBorder(airlineTileKey(channel.slug))}`,
+                  color: TILE_COLOR[airlineTileKey(channel.slug)],
+                }}
+                aria-hidden
+              >
+                {airlineInitials(channel.name)}
+              </div>
+            ) : (
+              <span className="text-2xl" aria-hidden>
+                {channel.emoji}
+              </span>
+            )}
             <div className="min-w-0">
               <h1 className="text-lg sm:text-xl font-bold tracking-tight flex items-center gap-1.5 min-w-0">
                 <Hash className="h-4 w-4 text-muted-foreground flex-shrink-0" />
@@ -400,8 +438,14 @@ export function CommunityChannel() {
         </div>
 
         {/* Input */}
-        <div className="border-t border-border/40 bg-background">
-          <form onSubmit={handleSend} className="px-4 sm:px-6 lg:px-10 py-4 flex items-end gap-2">
+        {/* El FAB de Wingman flota fijo abajo a la derecha (60px + 24px de
+            margen), así que el composer reserva ese espacio a la derecha para
+            que el botón Enviar nunca quede debajo. */}
+        <div className="relative z-30 border-t border-border/40 bg-background">
+          <form
+            onSubmit={handleSend}
+            className="px-4 sm:px-6 lg:px-10 py-4 flex items-end gap-2"
+          >
             <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -414,8 +458,9 @@ export function CommunityChannel() {
               rows={1}
               placeholder={`Mensaje a #${channel.name}`}
               disabled={sending}
-              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:opacity-50"
+              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
               maxLength={2000}
+              aria-label={`Escribir mensaje en el canal ${channel.name}`}
             />
             <Button
               type="submit"
@@ -438,12 +483,15 @@ export function CommunityChannel() {
 function EmptyChannel() {
   return (
     <div className="text-center py-12">
-      <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 mb-4">
+      <div
+        className="inline-flex items-center justify-center h-14 w-14 rounded-2xl mb-4"
+        style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
+      >
         <Hash className="h-7 w-7" />
       </div>
-      <h3 className="text-base font-semibold">Sé el primero en escribir</h3>
+      <h3 className="text-base font-semibold text-foreground">Sé el primero en escribir</h3>
       <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto">
-        PresÃ©ntate, haz una pregunta o comparte un avance. Tu mensaje arranca la conversación.
+        Preséntate, haz una pregunta o comparte un avance. Tu mensaje arranca la conversación.
       </p>
     </div>
   )
@@ -510,8 +558,8 @@ function MessageBubble({
           <div className="flex items-baseline gap-2 mb-0.5">
             <span className="text-sm font-semibold">{displayName}</span>
             {streak > 0 && (
-              <span className="inline-flex items-center text-xs text-orange-600 dark:text-orange-400">
-                <Flame className="h-3 w-3 mr-0.5" />
+              <span className="chip chip-amber" title={`${streak} días de racha`}>
+                <Flame className="h-3 w-3" />
                 {streak}
               </span>
             )}
@@ -525,12 +573,16 @@ function MessageBubble({
           <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
             {message.content}
           </p>
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity inline-flex items-center gap-1 ml-2 align-middle">
+          {/* Visible siempre en touch. En desktop aparece con hover o foco, y
+              mientras está oculto no recibe clicks (antes dejaba un target
+              invisible pegado al mensaje que abría el menú por accidente). */}
+          <div className="inline-flex items-center gap-1 ml-2 align-middle transition-opacity opacity-100 md:opacity-0 md:pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto md:focus-within:opacity-100 md:focus-within:pointer-events-auto">
             <button
               type="button"
               onClick={onToggleReactionMenu}
               className="p-1 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-              aria-label="Reaccionar"
+              aria-label="Reaccionar a este mensaje"
+              aria-expanded={reactionMenuOpen}
             >
               <Smile className="h-3.5 w-3.5" />
             </button>
@@ -545,6 +597,7 @@ function MessageBubble({
                 type="button"
                 onClick={() => onReact(emoji)}
                 className="text-base hover:scale-125 transition-transform p-0.5"
+                aria-label={`Reaccionar con ${emoji}`}
               >
                 {emoji}
               </button>
@@ -559,11 +612,9 @@ function MessageBubble({
                 key={emoji}
                 type="button"
                 onClick={() => onReact(emoji)}
-                className={`inline-flex items-center gap-1 text-xs rounded-full px-2 py-0.5 border transition-colors ${
-                  me
-                    ? "bg-blue-50 dark:bg-blue-950/40 border-blue-500/40 text-blue-700 dark:text-blue-300"
-                    : "bg-muted border-transparent hover:bg-muted/80"
-                }`}
+                className={`chip transition-opacity hover:opacity-80 ${me ? "chip-cyan" : ""}`}
+                aria-pressed={me}
+                aria-label={`Reaccionar con ${emoji}`}
               >
                 <span>{emoji}</span>
                 <span className="font-medium">{count}</span>

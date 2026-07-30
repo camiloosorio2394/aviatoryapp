@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { Hash, ArrowRight, Check } from "lucide-react"
-import { toast } from "sonner"
+import { Hash, ArrowRight, Check, MessageSquare, Users, TriangleAlert, RotateCw } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 interface Channel {
   id: number
@@ -13,44 +13,158 @@ interface Channel {
   description: string | null
   type: "general" | "stage" | "subject" | "airline"
   emoji: string | null
+  member_count: number
   order_index: number
 }
 
+interface MessageMeta {
+  channel_id: number
+  created_at: string
+}
+
+interface ChannelActivity {
+  messages: number
+  lastAt: string
+}
+
+/**
+ * Muestra de mensajes que traemos para calcular señal de actividad por canal.
+ * Con el volumen actual entra completa; si algún día se supera, el conteo se
+ * muestra igual porque siempre es "al menos esto", nunca un número inventado.
+ */
+const MESSAGE_SAMPLE = 2000
+
 const GROUP_LABELS: Record<Channel["type"], { title: string; description: string }> = {
   general: { title: "General", description: "Conversación abierta, logros, dudas y oportunidades" },
-  stage: { title: "Por etapa", description: "Encontrá pilotos en tu mismo momento de carrera" },
+  stage: { title: "Por etapa", description: "Encuentra pilotos en tu mismo momento de carrera" },
   subject: { title: "Por materia", description: "Dudas técnicas con foco en una materia" },
   airline: { title: "Por aerolínea", description: "Preparación específica para postular a una aerolínea" },
 }
 
+const GROUP_ORDER: Channel["type"][] = ["general", "stage", "subject", "airline"]
+
+const AIRLINE_TILE_KEYS: TileColorKey[] = ["blue", "cyan", "violet", "amber", "green", "red"]
+
+/** Color estable por canal (sin azar en render): depende solo del slug. */
+function airlineTileKey(slug: string): TileColorKey {
+  let sum = 0
+  for (let i = 0; i < slug.length; i += 1) sum += slug.charCodeAt(i)
+  return AIRLINE_TILE_KEYS[sum % AIRLINE_TILE_KEYS.length]
+}
+
+/** Iniciales de la aerolínea para el tile (reemplaza los emojis de bandera). */
+function airlineInitials(name: string): string {
+  const words = name
+    .trim()
+    .split(/\s+/)
+    .filter((w) => /^[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(w))
+  if (words.length === 0) return "AV"
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+  return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
+}
+
+function relativeTime(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime()
+  const minutes = Math.floor(diff / 60_000)
+  if (minutes < 1) return "hace un momento"
+  if (minutes < 60) return `hace ${minutes} min`
+  const hours = Math.floor(minutes / 60)
+  if (hours < 24) return `hace ${hours} h`
+  const days = Math.floor(hours / 24)
+  if (days === 1) return "ayer"
+  if (days < 30) return `hace ${days} días`
+  const months = Math.floor(days / 30)
+  return months <= 1 ? "hace un mes" : `hace ${months} meses`
+}
+
 export function Community() {
   const [channels, setChannels] = useState<Channel[]>([])
+  const [activity, setActivity] = useState<Record<number, ChannelActivity>>({})
   const [loading, setLoading] = useState(true)
+  const [failed, setFailed] = useState(false)
+  const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
     let cancelled = false
-    supabase
-      .from("community_channels")
-      .select("*")
-      .order("order_index")
-      .then(({ data, error }) => {
-        if (cancelled) return
-        if (error) toast.error(error.message)
-        else setChannels((data ?? []) as Channel[])
+
+    async function load() {
+      setLoading(true)
+      setFailed(false)
+      const [channelsRes, messagesRes] = await Promise.all([
+        supabase.from("community_channels").select("*").order("order_index"),
+        supabase
+          .from("community_messages")
+          .select("channel_id, created_at")
+          .order("created_at", { ascending: false })
+          .limit(MESSAGE_SAMPLE),
+      ])
+      if (cancelled) return
+
+      if (channelsRes.error) {
+        setChannels([])
+        setActivity({})
+        setFailed(true)
         setLoading(false)
-      })
+        return
+      }
+
+      setChannels((channelsRes.data ?? []) as Channel[])
+
+      const map: Record<number, ChannelActivity> = {}
+      if (!messagesRes.error) {
+        for (const row of (messagesRes.data ?? []) as MessageMeta[]) {
+          const current = map[row.channel_id]
+          if (current) {
+            current.messages += 1
+            if (Date.parse(row.created_at) > Date.parse(current.lastAt)) {
+              current.lastAt = row.created_at
+            }
+          } else {
+            map[row.channel_id] = { messages: 1, lastAt: row.created_at }
+          }
+        }
+      }
+      setActivity(map)
+      setLoading(false)
+    }
+
+    load()
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [reloadKey])
 
   const totalChannels = channels.length
+
+  /** Cada grupo ordenado por actividad real: primero lo que se movió último. */
+  const groups = useMemo(
+    () =>
+      GROUP_ORDER.map((type) => ({
+        type,
+        list: channels
+          .filter((c) => c.type === type)
+          .slice()
+          .sort((a, b) => {
+            const actA = activity[a.id]
+            const actB = activity[b.id]
+            if (!!actA !== !!actB) return actA ? -1 : 1
+            if (actA && actB) {
+              const diff = Date.parse(actB.lastAt) - Date.parse(actA.lastAt)
+              if (diff !== 0) return diff
+            }
+            const msgs = (actB?.messages ?? 0) - (actA?.messages ?? 0)
+            if (msgs !== 0) return msgs
+            return a.order_index - b.order_index
+          }),
+      })).filter((g) => g.list.length > 0),
+    [channels, activity]
+  )
 
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow={`COMUNIDAD · ${totalChannels} CANALES`}
+          eyebrow={loading || totalChannels === 0 ? "COMUNIDAD" : `COMUNIDAD · ${totalChannels} CANALES`}
           title="Comunidad Aviatory"
           subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo. Entra a un canal para escribir."
         />
@@ -60,7 +174,7 @@ export function Community() {
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="space-y-3">
                 <div className="h-6 w-40 bg-muted rounded" />
-                <div className="grid sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <div className="h-24 bg-muted rounded-xl" />
                   <div className="h-24 bg-muted rounded-xl" />
                   <div className="h-24 bg-muted rounded-xl" />
@@ -68,32 +182,32 @@ export function Community() {
               </div>
             ))}
           </div>
+        ) : failed ? (
+          <LoadFailed onRetry={() => setReloadKey((k) => k + 1)} />
+        ) : totalChannels === 0 ? (
+          <NoChannelsYet />
         ) : (
           <div className="space-y-9">
-            {(["general", "stage", "subject", "airline"] as Channel["type"][]).map((g) => {
-              const list = channels.filter((c) => c.type === g)
-              if (list.length === 0) return null
-              const meta = GROUP_LABELS[g]
+            {groups.map(({ type, list }) => {
+              const meta = GROUP_LABELS[type]
               return (
-                <section key={g}>
-                  <div className="flex items-baseline justify-between mb-3.5">
-                    <div>
-                      <div
-                        className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                        style={{ color: "var(--av-blue-500)" }}
-                      >
-                        <Hash className="h-[11px] w-[11px]" /> {meta.title}
-                      </div>
-                      <h2 className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
-                        {meta.title}
-                      </h2>
-                      <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
+                <section key={type}>
+                  <div className="mb-3.5">
+                    <div
+                      className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{ color: "var(--av-blue-500)" }}
+                    >
+                      <Hash className="h-[11px] w-[11px]" />
+                      {list.length === 1 ? "1 canal" : `${list.length} canales`}
                     </div>
-                    <span className="chip">{list.length} canales</span>
+                    <h2 className="mt-0.5 text-[18px] font-bold text-foreground tracking-[-0.02em]">
+                      {meta.title}
+                    </h2>
+                    <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
                   </div>
-                  <div className="stagger grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {list.map((c) => (
-                      <ChannelCard key={c.id} channel={c} />
+                      <ChannelCard key={c.id} channel={c} activity={activity[c.id]} />
                     ))}
                   </div>
                 </section>
@@ -120,7 +234,58 @@ export function Community() {
   )
 }
 
-function ChannelCard({ channel }: { channel: Channel }) {
+function LoadFailed({ onRetry }: { onRetry: () => void }) {
+  return (
+    <div
+      className="rounded-2xl border p-6 flex flex-col sm:flex-row gap-4 items-start"
+      style={{ borderColor: tileBorder("amber"), background: tileTint("amber", 8) }}
+    >
+      <div
+        className="flex items-center justify-center h-11 w-11 rounded-xl flex-shrink-0"
+        style={{ background: tileTint("amber"), color: TILE_COLOR.amber }}
+      >
+        <TriangleAlert className="h-5 w-5" />
+      </div>
+      <div className="flex-1">
+        <h3 className="text-base font-bold text-foreground">No pudimos cargar los canales</h3>
+        <p className="mt-1 text-sm text-muted-foreground leading-relaxed max-w-[560px]">
+          Puede ser tu conexión o una caída momentánea. Vuelve a intentar en un segundo. Si sigue igual,
+          escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
+        </p>
+        <button
+          type="button"
+          onClick={onRetry}
+          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-sm font-semibold"
+        >
+          <RotateCw className="h-3.5 w-3.5" /> Reintentar
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function NoChannelsYet() {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-8 text-center">
+      <div
+        className="inline-flex items-center justify-center h-12 w-12 rounded-2xl mb-3"
+        style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
+      >
+        <Hash className="h-6 w-6" />
+      </div>
+      <h3 className="text-base font-bold text-foreground">Los canales abren pronto</h3>
+      <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+        Estamos armando los espacios por etapa, materia y aerolínea. Cuando abran, los vas a ver aquí y vas
+        a poder escribir de inmediato.
+      </p>
+    </div>
+  )
+}
+
+function ChannelCard({ channel, activity }: { channel: Channel; activity: ChannelActivity | undefined }) {
+  const isAirline = channel.type === "airline"
+  const tileKey = airlineTileKey(channel.slug)
+
   return (
     <Link
       to={`/app/comunidad/${channel.slug}`}
@@ -135,10 +300,26 @@ function ChannelCard({ channel }: { channel: Channel }) {
       }}
     >
       <div className="flex items-start gap-3">
-        <div className="flex-shrink-0 text-2xl">{channel.emoji ?? "#"}</div>
+        {isAirline ? (
+          <div
+            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-extrabold tracking-[0.02em]"
+            style={{
+              background: tileTint(tileKey),
+              border: `1px solid ${tileBorder(tileKey)}`,
+              color: TILE_COLOR[tileKey],
+            }}
+            aria-hidden
+          >
+            {airlineInitials(channel.name)}
+          </div>
+        ) : (
+          <div className="flex-shrink-0 text-2xl leading-9" aria-hidden>
+            {channel.emoji ?? "#"}
+          </div>
+        )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
-            <Hash className="h-3.5 w-3.5 text-muted-foreground" />
+            <Hash className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
             <h3 className="font-semibold text-sm truncate text-foreground">{channel.name}</h3>
           </div>
           {channel.description && (
@@ -146,11 +327,34 @@ function ChannelCard({ channel }: { channel: Channel }) {
               {channel.description}
             </p>
           )}
+
+          <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
+            {activity ? (
+              <>
+                <span className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-muted-foreground">
+                  <MessageSquare className="h-3 w-3" />
+                  {activity.messages === 1 ? "1 mensaje" : `${activity.messages} mensajes`}
+                </span>
+                <span className="text-[11.5px] text-muted-foreground">
+                  {relativeTime(activity.lastAt)}
+                </span>
+              </>
+            ) : (
+              <span className="chip chip-cyan">Sé el primero</span>
+            )}
+            {channel.member_count > 0 && (
+              <span className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-muted-foreground">
+                <Users className="h-3 w-3" />
+                {channel.member_count}
+              </span>
+            )}
+          </div>
+
           <div
             className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold"
             style={{ color: "var(--av-blue-500)" }}
           >
-            Entrar al canal <ArrowRight className="h-3 w-3" />
+            {activity ? "Entrar al canal" : "Abrir la conversación"} <ArrowRight className="h-3 w-3" />
           </div>
         </div>
       </div>

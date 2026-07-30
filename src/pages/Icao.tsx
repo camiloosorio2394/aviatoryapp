@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import {
   BookOpen,
@@ -12,8 +13,10 @@ import {
   ClipboardCheck,
   Gauge,
   Award,
+  ChevronDown,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 /**
  * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for
@@ -22,7 +25,10 @@ import { AppLayout } from "@/components/layout/AppLayout"
  *   2. Interview      (TEA Part 1)                           — LISTO
  *   3. Interactive Comprehension (TEA Part 2)                — LISTO (audios reales)
  *   4. Picture Description & Discussion (TEA Part 3)         — LISTO (13 pares)
- * Además: los 6 descriptores ICAO + criterios de Nivel 4/5.
+ *
+ * Jerarquía: hero → las 4 secciones (la navegación real) → simulacro → tip →
+ * bloque de referencia colapsable (qué es el TEA, los 6 descriptores, niveles).
+ * La teoría no compite con la navegación.
  */
 export function Icao() {
   return (
@@ -57,54 +63,26 @@ export function Icao() {
           </div>
         </section>
 
-        {/* === DESCRIPCIÓN DEL EXAMEN === */}
-        <section className="mt-9 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <div>
-            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-              What the TEA is
-            </div>
-            <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-              Test of English for Aviation
-            </h2>
-            <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
-              The TEA is an exam designed by <strong className="text-foreground">Mayflower College</strong>{" "}
-              to assess the English proficiency of pilots and controllers against ICAO's language
-              requirements. It assesses <strong className="text-foreground">only speaking and
-              listening</strong> skills, in an aviation context;{" "}
-              <strong className="text-foreground">it does not test technical knowledge or standard
-              phraseology</strong>.
-            </p>
-            <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
-              The Part 1 interview assesses your ability to hold a spontaneous conversation in natural,
-              technical and professional English. The following parts measure your listening
-              comprehension and your ability to describe, compare and give opinions.
-            </p>
+        {/* === LAS SECCIONES (la navegación del módulo) === */}
+        <div className="mt-8 mb-4">
+          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            The module · 4 sections
           </div>
+          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
+            Where you train each skill
+          </h2>
+        </div>
 
-          <div
-            className="rounded-2xl border p-5"
-            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <Clock className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[14px] font-bold">Total duration: 25–30 min</div>
-            </div>
-            <ul className="space-y-2.5">
-              <FactRow label="Part 1 · Interview" detail="7–8 min · conversation about your role" />
-              <FactRow label="Part 2 · Comprehension" detail="audios of non-routine situations" />
-              <FactRow label="Part 3 · Picture + Discussion" detail="describe, compare and give opinions" />
-            </ul>
-            <div className="mt-4 pt-3 border-t border-border/50 text-[13.5px] text-muted-foreground leading-relaxed">
-              It only measures <strong className="text-foreground/90">speaking and listening</strong>. There's
-              no written part and no technical aviation questions.
-            </div>
-          </div>
-        </section>
+        <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+          {SECTIONS.map((s) => (
+            <SectionCard key={s.title} {...s} />
+          ))}
+        </div>
 
         {/* === SIMULACRO (destacado) === */}
         <Link
           to="/app/icao/simulacro"
-          className="group mt-9 block rounded-2xl border p-6 transition-all hover:-translate-y-0.5 hover:shadow-md"
+          className="card-apple group mt-8 block rounded-2xl border p-6"
           style={{
             borderColor: "color-mix(in oklab, var(--av-blue-500) 35%, transparent)",
             background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
@@ -131,85 +109,9 @@ export function Icao() {
           </div>
         </Link>
 
-        {/* === LAS SECCIONES === */}
-        <div className="mt-10 mb-5">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            The module · 4 sections
-          </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            Where you train each skill
-          </h2>
-        </div>
-
-        <div className="grid gap-3.5 md:grid-cols-2 lg:grid-cols-3">
-          {SECTIONS.map((s) => (
-            <SectionCard key={s.title} {...s} />
-          ))}
-        </div>
-
-        {/* === CÓMO SE CALIFICA: 6 DESCRIPTORES + NIVELES === */}
-        <div className="mt-12 mb-5">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            How it's scored
-          </div>
-          <h2 className="mt-1 text-[22px] font-extrabold tracking-[-0.02em]">
-            The 6 ICAO descriptors
-          </h2>
-          <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[760px]">
-            The TEA scores six descriptors. <strong className="text-foreground">Your final result is
-            your lowest descriptor</strong>: if you get 5 in five of them and 4 in comprehension, your
-            official result is ICAO 4. So being good at some isn't enough: you have to level them all up.
-          </p>
-        </div>
-
-        <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-          {DESCRIPTORS.map((d) => (
-            <div
-              key={d.name}
-              className="rounded-xl border p-4"
-              style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-            >
-              <div className="flex items-center gap-2">
-                <Gauge className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-                <div className="text-[15px] font-bold tracking-[-0.01em]">{d.name}</div>
-              </div>
-              <p className="mt-1 text-[13.5px] text-muted-foreground leading-snug">{d.detail}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <LevelPanel
-            level={4}
-            title="Operational"
-            color="cyan"
-            blurb="The legal minimum to fly international commercial. You must reach 4 in EVERY descriptor."
-            traits={[
-              "Holds conversations on operational topics",
-              "Understands most routine communication and many non-routine ones",
-              "Some grammatical errors, but they rarely affect communication",
-              "Enough vocabulary to explain problems and ask for help",
-              "Reasonable fluency; can ask for clarification",
-            ]}
-          />
-          <LevelPanel
-            level={5}
-            title="Extended"
-            color="green"
-            blurb="The target level for an airline career. Minimum 5 in ALL descriptors."
-            traits={[
-              "Speaks with great ease and confidence",
-              "Varied grammatical structures, very few errors",
-              "Broad and precise vocabulary",
-              "Understands almost everything, even accents and complex situations",
-              "Interacts spontaneously; needs very few repetitions",
-            ]}
-          />
-        </div>
-
         {/* === Wingman helper === */}
         <section
-          className="mt-10 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
+          className="mt-8 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
           style={{
             borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
             background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
@@ -237,8 +139,149 @@ export function Icao() {
             #icao community <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </section>
+
+        {/* === REFERENCIA (colapsable) === */}
+        <ReferenceBlock />
       </div>
     </AppLayout>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// BLOQUE DE REFERENCIA: qué es el TEA · los 6 descriptores · niveles 4 y 5
+// ────────────────────────────────────────────────────────────────────────────
+function ReferenceBlock() {
+  const [open, setOpen] = useState(false)
+  return (
+    <section className="mt-8 rounded-2xl border border-border bg-card overflow-hidden">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="w-full flex items-center justify-between gap-4 p-5 text-left"
+      >
+        <div className="min-w-0">
+          <div className="text-[12.5px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+            Reference
+          </div>
+          <div className="mt-0.5 text-[17px] font-bold tracking-[-0.01em]">
+            What the TEA is and how it's scored
+          </div>
+          <p className="mt-0.5 text-[13.5px] text-muted-foreground">
+            Structure, duration, the 6 ICAO descriptors and what levels 4 and 5 ask for.
+          </p>
+        </div>
+        <ChevronDown
+          className="flex-shrink-0 h-4.5 w-4.5 text-muted-foreground transition-transform"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+        />
+      </button>
+
+      {open && (
+        <div className="border-t border-border p-5 sm:p-6">
+          {/* Qué es el examen */}
+          <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+            <div>
+              <h3 className="text-[17px] font-bold tracking-[-0.01em]">
+                Test of English for Aviation
+              </h3>
+              <p className="mt-2 text-[15px] text-foreground/90 leading-relaxed">
+                The TEA is an exam designed by <strong className="text-foreground">Mayflower College</strong>{" "}
+                to assess the English proficiency of pilots and controllers against ICAO's language
+                requirements. It assesses <strong className="text-foreground">only speaking and
+                listening</strong> skills, in an aviation context;{" "}
+                <strong className="text-foreground">it does not test technical knowledge or standard
+                phraseology</strong>.
+              </p>
+              <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
+                The Part 1 interview assesses your ability to hold a spontaneous conversation in natural,
+                technical and professional English. The following parts measure your listening
+                comprehension and your ability to describe, compare and give opinions.
+              </p>
+            </div>
+
+            <div
+              className="rounded-2xl border p-5"
+              style={{
+                borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
+                background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
+              }}
+            >
+              <div className="flex items-center gap-2 mb-3">
+                <Clock className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
+                <div className="text-[14px] font-bold">Total duration: 25–30 min</div>
+              </div>
+              <ul className="space-y-2.5">
+                <FactRow label="Part 1 · Interview" detail="7–8 min · conversation about your role" />
+                <FactRow label="Part 2 · Comprehension" detail="audios of non-routine situations" />
+                <FactRow label="Part 3 · Picture + Discussion" detail="describe, compare and give opinions" />
+              </ul>
+              <div className="mt-4 pt-3 border-t border-border/50 text-[13.5px] text-muted-foreground leading-relaxed">
+                It only measures <strong className="text-foreground/90">speaking and listening</strong>. There's
+                no written part and no technical aviation questions.
+              </div>
+            </div>
+          </div>
+
+          {/* Los 6 descriptores */}
+          <div className="mt-8">
+            <h3 className="text-[17px] font-bold tracking-[-0.01em]">The 6 ICAO descriptors</h3>
+            <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[760px]">
+              The TEA scores six descriptors. <strong className="text-foreground">Your final result is
+              your lowest descriptor</strong>: if you get 5 in five of them and 4 in comprehension, your
+              official result is ICAO 4. So being good at some isn't enough: you have to level them all up.
+            </p>
+            <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+              {DESCRIPTORS.map((d) => (
+                <div
+                  key={d.name}
+                  className="rounded-xl border p-4"
+                  style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
+                >
+                  <div className="flex items-center gap-2">
+                    <Gauge className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
+                    <div className="text-[15px] font-bold tracking-[-0.01em]">{d.name}</div>
+                  </div>
+                  <p className="mt-1 text-[13.5px] text-muted-foreground leading-snug">{d.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Niveles 4 y 5 */}
+          <div className="mt-8">
+            <h3 className="text-[17px] font-bold tracking-[-0.01em]">What levels 4 and 5 ask for</h3>
+            <div className="mt-4 grid gap-4 md:grid-cols-2">
+              <LevelPanel
+                level={4}
+                title="Operational"
+                color="cyan"
+                blurb="The legal minimum to fly international commercial. You must reach 4 in EVERY descriptor."
+                traits={[
+                  "Holds conversations on operational topics",
+                  "Understands most routine communication and many non-routine ones",
+                  "Some grammatical errors, but they rarely affect communication",
+                  "Enough vocabulary to explain problems and ask for help",
+                  "Reasonable fluency; can ask for clarification",
+                ]}
+              />
+              <LevelPanel
+                level={5}
+                title="Extended"
+                color="green"
+                blurb="The target level for an airline career. Minimum 5 in ALL descriptors."
+                traits={[
+                  "Speaks with great ease and confidence",
+                  "Varied grammatical structures, very few errors",
+                  "Broad and precise vocabulary",
+                  "Understands almost everything, even accents and complex situations",
+                  "Interacts spontaneously; needs very few repetitions",
+                ]}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   )
 }
 
@@ -255,19 +298,10 @@ function FactRow({ label, detail }: { label: string; detail: string }) {
   )
 }
 
-type ColorKey = "cyan" | "blue" | "violet" | "green" | "amber"
-const TILE_COLOR: Record<ColorKey, string> = {
-  cyan: "#0E7490",
-  blue: "#2563EB",
-  violet: "#7C3AED",
-  green: "#047857",
-  amber: "#B45309",
-}
-
 interface SectionDef {
   to: string
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: ColorKey
+  color: TileColorKey
   part: string
   title: string
   description: string
@@ -324,34 +358,24 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
   const c = TILE_COLOR[color]
   return (
     <div
-      className="card card-hover rounded-2xl border p-5 flex flex-col gap-3"
-      style={{ borderColor: `color-mix(in oklab, ${c} ${status === "ready" ? "32%" : "22%"}, transparent)` }}
+      className="card-apple relative rounded-2xl border border-border bg-card p-5 flex flex-col gap-3"
+      style={{ borderColor: tileBorder(color, status === "ready" ? 32 : 22) }}
     >
       <div className="flex items-start justify-between">
         <div
           className="w-11 h-11 rounded-xl flex items-center justify-center"
           style={{
-            background: `color-mix(in oklab, ${c} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${c} 32%, transparent)`,
+            background: tileTint(color, 14),
+            border: `1px solid ${tileBorder(color, 32)}`,
             color: c,
           }}
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
         {status === "ready" ? (
-          <span
-            className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
-            style={{ color: "#047857", background: "color-mix(in oklab, #047857 12%, transparent)" }}
-          >
-            Ready
-          </span>
+          <span className="chip chip-green">Ready</span>
         ) : (
-          <span
-            className="text-[11px] font-semibold px-2 py-0.5 rounded-full"
-            style={{ color: "var(--muted-foreground)", background: "color-mix(in oklab, var(--border) 40%, transparent)" }}
-          >
-            Soon
-          </span>
+          <span className="chip">Soon</span>
         )}
       </div>
 
@@ -364,9 +388,11 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
       </div>
 
       <div className="mt-auto pt-1 flex items-center gap-2">
+        {/* El ::after estira el área de click a toda la tarjeta: si se levanta con
+            hover, tiene que llevar a algún lado. */}
         <Link
           to={to}
-          className="inline-flex items-center gap-1 text-[14px] font-semibold"
+          className="inline-flex items-center gap-1 text-[14px] font-semibold after:absolute after:inset-0 after:content-['']"
           style={{ color: c }}
         >
           {cta} <ArrowRight className="h-3 w-3" />
@@ -376,7 +402,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
             <span className="text-border">·</span>
             <Link
               to={secondary.to}
-              className="inline-flex items-center gap-1 text-[14px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              className="relative z-10 inline-flex items-center gap-1 text-[14px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
             >
               <secondary.icon className="h-3 w-3" /> {secondary.label}
             </Link>
@@ -399,12 +425,12 @@ const DESCRIPTORS: { name: string; detail: string }[] = [
   { name: "Interactions", detail: "Keeping the conversation going, responding, asking for clarification and managing the exchange." },
 ]
 
-function LevelPanel({ level, title, color, blurb, traits }: { level: number; title: string; color: ColorKey; blurb: string; traits: string[] }) {
+function LevelPanel({ level, title, color, blurb, traits }: { level: number; title: string; color: TileColorKey; blurb: string; traits: string[] }) {
   const c = TILE_COLOR[color]
   return (
     <div
       className="rounded-2xl border p-5"
-      style={{ borderColor: `color-mix(in oklab, ${c} 30%, transparent)`, background: `color-mix(in oklab, ${c} 5%, transparent)` }}
+      style={{ borderColor: tileBorder(color, 30), background: tileTint(color, 5) }}
     >
       <div className="flex items-baseline gap-2">
         <div className="text-[36px] font-extrabold tracking-[-0.04em] leading-none" style={{ color: c }}>

@@ -203,11 +203,11 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
             <div
               className="rounded-2xl border p-4"
               style={{
-                borderColor: "color-mix(in oklab, #047857 30%, transparent)",
-                background: "color-mix(in oklab, #047857 6%, transparent)",
+                borderColor: "color-mix(in oklab, var(--av-green-400) 30%, transparent)",
+                background: "color-mix(in oklab, var(--av-green-400) 6%, transparent)",
               }}
             >
-              <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "#047857" }}>
+              <div className="text-[13px] font-semibold mb-1.5 flex items-center gap-1.5" style={{ color: "var(--av-success-fg)" }}>
                 <Sparkles className="h-3 w-3" /> Tu versión · con tus datos
               </div>
               <p className="text-[14.5px] leading-relaxed text-foreground/90">{mine}</p>

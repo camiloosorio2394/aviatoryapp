@@ -230,54 +230,55 @@ export function Logbook() {
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
-            {/* Header */}
-            <div
-              className="grid items-center px-[18px] py-3 text-[12px] font-semibold text-muted-foreground border-b border-border"
-              style={{
-                gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
-                background: "var(--muted)",
-              }}
-            >
-              <span>Fecha</span>
-              <span>Aeronave</span>
-              <span>Ruta</span>
-              <span className="text-right">Total</span>
-              <span className="text-right">PIC</span>
-              <span className="text-right">IFR</span>
-              <span className="text-right">Noche</span>
-              <span className="text-right">XC</span>
-              <span className="text-right">Land.</span>
-              <span />
-            </div>
-
-            {/* Grouped rows */}
-            {grouped.map(([month, monthFlights]) => {
-              const [y, m] = month.split("-")
-              const monthLabel = new Date(Number(y), Number(m) - 1).toLocaleDateString("es-CO", {
-                month: "long",
-                year: "numeric",
-              })
-              const monthTotal = monthFlights.reduce((a, f) => a + f.total_minutes, 0)
-              return (
-                <div key={month}>
-                  <div
-                    className="flex justify-between items-center px-[18px] py-2.5 text-[13px] font-semibold text-muted-foreground border-t border-b border-border"
-                    style={{
-                      background:
-                        "color-mix(in oklab, var(--av-blue-500) 5%, var(--card))",
-                    }}
-                  >
-                    <span>{monthLabel}</span>
-                    <span className="tabular-nums">
-                      {monthFlights.length} vuelos · {minutesToHours(monthTotal)}h
-                    </span>
-                  </div>
-                  {monthFlights.map((f) => (
-                    <FlightRow key={f.id} f={f} onDelete={() => deleteFlight(f.id)} />
-                  ))}
+            <div className="overflow-x-auto">
+              <div className="lg:min-w-[720px]">
+                {/* Header (solo desde lg: en móvil cada vuelo es una tarjeta) */}
+                <div
+                  className="hidden lg:grid items-center px-[18px] py-3 text-[12px] font-semibold text-muted-foreground border-b border-border lg:grid-cols-[100px_1fr_1fr_110px_70px_70px_70px_70px_70px_40px]"
+                  style={{ background: "var(--muted)" }}
+                >
+                  <span>Fecha</span>
+                  <span>Aeronave</span>
+                  <span>Ruta</span>
+                  <span className="text-right">Total</span>
+                  <span className="text-right">PIC</span>
+                  <span className="text-right">IFR</span>
+                  <span className="text-right">Noche</span>
+                  <span className="text-right">XC</span>
+                  <span className="text-right">Land.</span>
+                  <span />
                 </div>
-              )
-            })}
+
+                {/* Grouped rows */}
+                {grouped.map(([month, monthFlights]) => {
+                  const [y, m] = month.split("-")
+                  const monthLabel = new Date(Number(y), Number(m) - 1).toLocaleDateString("es-CO", {
+                    month: "long",
+                    year: "numeric",
+                  })
+                  const monthTotal = monthFlights.reduce((a, f) => a + f.total_minutes, 0)
+                  return (
+                    <div key={month}>
+                      <div
+                        className="flex flex-wrap gap-x-3 justify-between items-center px-4 lg:px-[18px] py-2.5 text-[13px] font-semibold text-muted-foreground border-t border-b border-border"
+                        style={{
+                          background:
+                            "color-mix(in oklab, var(--av-blue-500) 5%, var(--card))",
+                        }}
+                      >
+                        <span>{monthLabel}</span>
+                        <span className="tabular-nums">
+                          {monthFlights.length} vuelos · {minutesToHours(monthTotal)}h
+                        </span>
+                      </div>
+                      {monthFlights.map((f) => (
+                        <FlightRow key={f.id} f={f} onDelete={() => deleteFlight(f.id)} />
+                      ))}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -362,13 +363,79 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
   if (f.night_minutes > 0) tags.push({ label: "NIGHT", color: "cyan" })
   if (f.cross_country_minutes > 0) tags.push({ label: "XC", color: "green" })
 
-  return (
-    <div
-      className="grid items-center px-[18px] py-3.5 text-[14px] transition-colors border-b border-border last:border-b-0 group cursor-pointer hover:bg-muted/40"
-      style={{
-        gridTemplateColumns: "100px 1fr 1fr 110px 70px 70px 70px 70px 70px 40px",
-      }}
+  const route =
+    f.from_airport || f.to_airport ? (
+      <div className="tabular-nums flex items-center gap-1.5 text-foreground font-semibold">
+        {f.from_airport ?? "—"}{" "}
+        <ArrowRight className="h-2.5 w-2.5" style={{ color: "var(--av-blue-500)" }} />{" "}
+        {f.to_airport ?? "—"}
+      </div>
+    ) : (
+      <span className="text-muted-foreground">—</span>
+    )
+
+  const tagRow =
+    tags.length > 0 ? (
+      <div className="mt-1 flex gap-1 flex-wrap">
+        {tags.map((t) => (
+          <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[11px]`}>
+            {t.label}
+          </span>
+        ))}
+      </div>
+    ) : null
+
+  const deleteButton = (
+    <button
+      type="button"
+      onClick={onDelete}
+      className="opacity-60 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-[color:var(--av-red-400)] hover:bg-muted"
+      aria-label={`Eliminar el vuelo del ${day} ${month}`}
     >
+      <Trash2 className="h-3.5 w-3.5" />
+    </button>
+  )
+
+  return (
+    <div className="border-b border-border last:border-b-0">
+      {/* Móvil y tablet: tarjeta apilada, ningún dato queda fuera de pantalla */}
+      <div className="lg:hidden px-4 py-3.5 text-[14px]">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
+              {dow} {day} {month}
+            </div>
+            <div className="tabular-nums mt-0.5 font-bold text-foreground">
+              {f.aircraft_registration ?? "—"}
+              <span className="ml-1.5 text-[12.5px] font-normal text-muted-foreground">
+                {f.aircraft_type ?? "—"}
+              </span>
+            </div>
+            <div className="mt-1 text-[13px]">{route}</div>
+            {tagRow}
+          </div>
+          <div className="flex items-start gap-1 flex-shrink-0">
+            <div
+              className="tabular-nums text-[20px] font-bold leading-none tracking-[-0.03em]"
+              style={{ color: "var(--av-blue-500)" }}
+            >
+              {minutesToHours(f.total_minutes)}
+              <span className="text-[12px] text-muted-foreground font-semibold ml-0.5">h</span>
+            </div>
+            {deleteButton}
+          </div>
+        </div>
+        <div className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-[12.5px]">
+          <MiniStat label="PIC" value={minutesToHours(f.pic_minutes)} on={f.pic_minutes > 0} />
+          <MiniStat label="IFR" value={minutesToHours(ifrTotal)} on={ifrTotal > 0} />
+          <MiniStat label="Noche" value={minutesToHours(f.night_minutes)} on={f.night_minutes > 0} />
+          <MiniStat label="XC" value={minutesToHours(f.cross_country_minutes)} on={f.cross_country_minutes > 0} />
+          <MiniStat label="Land." value={String(f.landings_day + f.landings_night)} on />
+        </div>
+      </div>
+
+      {/* Desde lg: la grilla densa */}
+      <div className="hidden lg:grid items-center px-[18px] py-3.5 text-[14px] transition-colors group hover:bg-muted/40 lg:grid-cols-[100px_1fr_1fr_110px_70px_70px_70px_70px_70px_40px]">
       <div>
         <div className="text-[11px] text-muted-foreground uppercase tracking-[0.1em] font-semibold">
           {dow}
@@ -382,24 +449,8 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
         <div className="text-[12.5px] text-muted-foreground">{f.aircraft_type ?? "—"}</div>
       </div>
       <div>
-        {f.from_airport || f.to_airport ? (
-          <div className="tabular-nums flex items-center gap-1.5 text-foreground font-semibold">
-            {f.from_airport ?? "—"}{" "}
-            <ArrowRight className="h-2.5 w-2.5" style={{ color: "var(--av-blue-500)" }} />{" "}
-            {f.to_airport ?? "—"}
-          </div>
-        ) : (
-          <span className="text-muted-foreground">—</span>
-        )}
-        {tags.length > 0 && (
-          <div className="mt-1 flex gap-1">
-            {tags.map((t) => (
-              <span key={t.label} className={`chip chip-${t.color} h-4 px-1.5 text-[11px]`}>
-                {t.label}
-              </span>
-            ))}
-          </div>
-        )}
+        {route}
+        {tagRow}
       </div>
       <div
         className="tabular-nums text-right text-[16px] font-bold"
@@ -436,20 +487,25 @@ function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
       <div className="tabular-nums text-right text-foreground">
         {f.landings_day + f.landings_night}
       </div>
-      <div className="text-right">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.stopPropagation()
-            onDelete()
-          }}
-          className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 mr-1"
-          aria-label="Eliminar"
-        >
-          <Trash2 className="h-3.5 w-3.5" />
-        </button>
+      <div className="flex justify-end">{deleteButton}</div>
       </div>
     </div>
+  )
+}
+
+function MiniStat({ label, value, on }: { label: string; value: string; on: boolean }) {
+  return (
+    <span className="inline-flex items-baseline gap-1">
+      <span className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted-foreground">
+        {label}
+      </span>
+      <span
+        className="tabular-nums font-bold"
+        style={{ color: on ? "var(--foreground)" : "var(--muted-foreground)" }}
+      >
+        {value}
+      </span>
+    </span>
   )
 }
 
@@ -471,7 +527,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       </p>
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
         {[
-          "Tomá tu logbook actual o pantalla del último vuelo",
+          "Toma tu logbook actual o la pantalla del último vuelo",
           "Carga fecha, ruta, matrícula y tiempo total",
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
@@ -561,8 +617,8 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
+      <div className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 z-[60] flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
           className="pointer-events-auto w-full max-w-2xl rounded-3xl bg-card border border-border shadow-2xl my-8 max-h-[90vh] overflow-y-auto"
@@ -652,12 +708,12 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 onChange={(e) => setRemarks(e.target.value)}
                 rows={3}
                 placeholder="Notas del vuelo, condiciones meteorológicas, briefing..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
               />
             </Field>
           </div>
 
-          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 py-4 border-t border-border">
+          <footer className="sticky bottom-0 z-10 flex items-center justify-end gap-2 bg-card/95 backdrop-blur px-6 pt-4 pb-24 sm:pb-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>

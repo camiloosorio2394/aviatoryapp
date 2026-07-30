@@ -82,6 +82,11 @@ function daysUntil(date: string): number {
   return Math.ceil((target.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
 }
 
+/**
+ * Única fuente de verdad del estado de un vencimiento.
+ * Contador, eyebrow, tiles, banner y filas se derivan de aquí: no hay
+ * umbrales sueltos duplicados en la pantalla.
+ */
 type Status = "expired" | "critical" | "urgent" | "warn" | "ok" | "none"
 function statusOf(d: number | null): Status {
   if (d === null) return "none"
@@ -92,13 +97,25 @@ function statusOf(d: number | null): Status {
   return "ok"
 }
 
-const STATUS_META: Record<Status, { color: string; label: string }> = {
-  expired: { color: "#DC2626", label: "VENCIDO" },
-  critical: { color: "#DC2626", label: "CRÍTICO" },
-  urgent: { color: "#B45309", label: "URGENTE" },
-  warn: { color: "#B45309", label: "ATENCIÓN" },
-  ok: { color: "#047857", label: "AL DÍA" },
-  none: { color: "var(--muted-foreground)", label: "SIN FECHA" },
+/** color: token plano, para la barra de 4px y el contador de días. chip: utilidad con par claro/oscuro. */
+/**
+ * `color` es para superficies planas (la barra de 4px del estado): ahí los
+ * tokens --av-*-400 funcionan bien. `fg` es para TEXTO: esos mismos tokens son
+ * claros a propósito y sobre fondo blanco dan menos de 2.5:1, así que el
+ * contador de días quedaba ilegible en modo claro. Los tokens *-fg tienen su
+ * par claro/oscuro definido en index.css.
+ */
+const STATUS_META: Record<Status, { color: string; fg: string; label: string; chip: string }> = {
+  expired: { color: "var(--av-red-400)", fg: "var(--av-danger-fg)", label: "VENCIDO", chip: "chip-red" },
+  critical: { color: "var(--av-red-400)", fg: "var(--av-danger-fg)", label: "CRÍTICO", chip: "chip-red" },
+  urgent: { color: "var(--av-amber-400)", fg: "var(--av-warn-fg)", label: "URGENTE", chip: "chip-amber" },
+  warn: { color: "var(--av-amber-400)", fg: "var(--av-warn-fg)", label: "ATENCIÓN", chip: "chip-amber" },
+  ok: { color: "var(--av-green-400)", fg: "var(--av-success-fg)", label: "AL DÍA", chip: "chip-green" },
+  none: { color: "var(--muted-foreground)", fg: "var(--muted-foreground)", label: "SIN FECHA", chip: "" },
+}
+
+function plural(n: number, one: string, many: string): string {
+  return n === 1 ? one : many
 }
 
 export function Expiries() {
@@ -138,21 +155,38 @@ export function Expiries() {
     }
   }
 
-  // Bucket counts
-  const withDates = licenses.map((l) => ({ l, d: l.expires_date ? daysUntil(l.expires_date) : null }))
-  const critical = withDates.filter((x) => x.d !== null && x.d < 14).length
-  const urgent = withDates.filter((x) => x.d !== null && x.d >= 14 && x.d < 30).length
-  const upcoming = withDates.filter((x) => x.d !== null && x.d >= 30 && x.d < 120).length
-  const ok = withDates.filter((x) => x.d !== null && x.d >= 120).length
+  // Todos los buckets salen de statusOf: un ítem cae en uno y solo uno.
+  const statuses = licenses.map((l) => statusOf(l.expires_date ? daysUntil(l.expires_date) : null))
+  const countOf = (s: Status) => statuses.filter((x) => x === s).length
+  const expired = countOf("expired")
+  const critical = countOf("critical")
+  const urgent = countOf("urgent")
+  const warn = countOf("warn")
+  const ok = countOf("ok")
+  const needsAction = expired + critical
+
+  const eyebrow =
+    needsAction > 0
+      ? `VENCIMIENTOS · ${needsAction} ${plural(needsAction, "CRÍTICO", "CRÍTICOS")}`
+      : licenses.length > 0
+        ? "VENCIMIENTOS · TODO AL DÍA"
+        : "VENCIMIENTOS"
+
+  const bannerTitle =
+    expired > 0 && critical > 0
+      ? `${expired} ${plural(expired, "ítem vencido", "ítems vencidos")} y ${critical} por vencer en 7 días o menos`
+      : expired > 0
+        ? `${expired} ${plural(expired, "ítem ya venció", "ítems ya vencieron")}`
+        : `${critical} ${plural(critical, "ítem vence", "ítems vencen")} en 7 días o menos`
 
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
-          eyebrow={`VENCIMIENTOS · ${critical} CRÍTICOS`}
-          title={critical > 0 ? "Lo que vence pronto" : "Tus vencimientos al día"}
-          subtitle={critical > 0
-            ? "Renová antes que venzan para no perder legalidad."
+          eyebrow={eyebrow}
+          title={needsAction > 0 ? "Lo que vence pronto" : "Tus vencimientos al día"}
+          subtitle={needsAction > 0
+            ? "Renueva antes de que venzan para no perder legalidad."
             : "Te avisamos automáticamente en los 30, 15, 7 y 1 días previos a vencer."}
           actions={
             <button
@@ -168,36 +202,37 @@ export function Expiries() {
 
         {/* Summary tiles */}
         {!loading && licenses.length > 0 && (
-          <div className="grid grid-cols-4 gap-3 mb-6">
-            <SummaryTile label="Críticos (<14d)" value={critical} color="red" icon={AlertTriangle} />
-            <SummaryTile label="Por vencer (<30d)" value={urgent} color="amber" icon={Clock} />
-            <SummaryTile label="Próximos 4 meses" value={upcoming} color="cyan" icon={Calendar} />
-            <SummaryTile label="Al día" value={ok} color="green" icon={CheckCircle} />
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
+            <SummaryTile label="Vencidos" hint="Ya sin vigencia" value={expired} color="red" icon={AlertTriangle} />
+            <SummaryTile label="Críticos" hint="7 días o menos" value={critical} color="red" icon={Clock} />
+            <SummaryTile label="Por vencer" hint="8 a 30 días" value={urgent} color="amber" icon={Calendar} />
+            <SummaryTile label="Atención" hint="1 a 4 meses" value={warn} color="cyan" icon={Calendar} />
+            <SummaryTile label="Al día" hint="Más de 4 meses" value={ok} color="green" icon={CheckCircle} />
           </div>
         )}
 
-        {/* Critical alert */}
-        {critical > 0 && (
+        {/* Aviso: vencidos y críticos, con el mismo umbral que las filas */}
+        {needsAction > 0 && (
           <div
             className="anim-fade-up flex items-center gap-3.5 px-5 py-4 rounded-2xl mb-6"
             style={{
               background:
-                "linear-gradient(135deg, color-mix(in oklab, #DC2626 10%, var(--card)) 0%, var(--card) 70%)",
-              border: "1px solid color-mix(in oklab, #DC2626 35%, transparent)",
+                "linear-gradient(135deg, color-mix(in oklab, var(--av-red-400) 10%, var(--card)) 0%, var(--card) 70%)",
+              border: "1px solid color-mix(in oklab, var(--av-red-400) 35%, transparent)",
             }}
           >
             <div
               className="relative flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
               style={{
-                background: "color-mix(in oklab, #DC2626 14%, transparent)",
-                color: "#DC2626",
+                background: "color-mix(in oklab, var(--av-red-400) 14%, transparent)",
+                color: "var(--av-red-400)",
               }}
             >
               <AlertTriangle className="h-5 w-5" />
             </div>
             <div className="flex-1">
               <div className="text-sm font-bold text-foreground tracking-[-0.015em]">
-                {critical} ítem{critical !== 1 ? "s necesitan" : " necesita"} acción esta semana
+                {bannerTitle}
               </div>
               <div className="text-xs text-muted-foreground mt-0.5">
                 Si no renuevas antes del vencimiento pierdes legalidad para volar PIC.
@@ -216,14 +251,18 @@ export function Expiries() {
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
           <div className="rounded-2xl border border-border bg-card overflow-hidden">
-            {licenses.map((l, i) => (
-              <LicenseRow
-                key={l.id}
-                license={l}
-                isLast={i === licenses.length - 1}
-                onDelete={() => deleteOne(l.id)}
-              />
-            ))}
+            <div className="overflow-x-auto">
+              <div className="lg:min-w-[620px]">
+                {licenses.map((l, i) => (
+                  <LicenseRow
+                    key={l.id}
+                    license={l}
+                    isLast={i === licenses.length - 1}
+                    onDelete={() => deleteOne(l.id)}
+                  />
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -242,39 +281,45 @@ export function Expiries() {
   )
 }
 
+const TILE_TONE: Record<"red" | "amber" | "cyan" | "green", string> = {
+  red: "var(--av-red-400)",
+  amber: "var(--av-amber-400)",
+  cyan: "var(--av-blue-500)",
+  green: "var(--av-green-400)",
+}
+
 function SummaryTile({
   label,
+  hint,
   value,
   color,
   icon: Ic,
 }: {
   label: string
+  hint: string
   value: number
   color: "red" | "amber" | "cyan" | "green"
   icon: typeof AlertTriangle
 }) {
-  const TONES = {
-    red: { c: "#DC2626", bg: "color-mix(in oklab, #DC2626 8%, var(--card))" },
-    amber: { c: "#B45309", bg: "color-mix(in oklab, #B45309 8%, var(--card))" },
-    cyan: { c: "var(--av-blue-500)", bg: "color-mix(in oklab, var(--av-blue-500) 8%, var(--card))" },
-    green: { c: "#047857", bg: "color-mix(in oklab, #047857 8%, var(--card))" },
-  }
-  const t = TONES[color]
+  const tone = TILE_TONE[color]
+  const active = value > 0
   return (
     <div
       className="rounded-2xl border p-4"
       style={{
-        background: t.bg,
-        borderColor: `color-mix(in oklab, ${t.c} 25%, var(--border))`,
+        background: active ? `color-mix(in oklab, ${tone} 8%, var(--card))` : "var(--card)",
+        borderColor: active ? `color-mix(in oklab, ${tone} 25%, var(--border))` : "var(--border)",
       }}
     >
-      <Ic className="h-4 w-4" style={{ color: t.c }} />
-      <div className="tabular-nums mt-3.5 text-3xl font-bold leading-none tracking-[-0.04em] text-foreground">
+      <Ic className="h-4 w-4" style={{ color: active ? tone : "var(--muted-foreground)" }} />
+      <div
+        className="tabular-nums mt-3.5 text-2xl sm:text-3xl font-bold leading-none tracking-[-0.04em]"
+        style={{ color: active ? "var(--foreground)" : "var(--muted-foreground)" }}
+      >
         <CountUp to={value} />
       </div>
-      <div className="mt-1 text-[13px] font-semibold text-muted-foreground">
-        {label}
-      </div>
+      <div className="mt-1 text-[13px] font-semibold text-foreground">{label}</div>
+      <div className="text-[11px] text-muted-foreground">{hint}</div>
     </div>
   )
 }
@@ -299,70 +344,69 @@ function LicenseRow({
   const s = statusOf(d)
   const meta = STATUS_META[s]
 
-  return (
-    <div
-      className="grid items-center gap-4 px-[18px] py-4 transition-colors group"
-      style={{
-        gridTemplateColumns: "8px 1fr 200px 110px 120px 100px",
-        borderBottom: isLast ? "none" : "1px solid var(--border)",
-      }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = "var(--muted)")}
-      onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+  const dateStr = license.expires_date
+    ? new Date(license.expires_date).toLocaleDateString("es-CO", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      })
+    : null
+
+  const statusChip = <span className={`chip ${meta.chip} tracking-[0.08em]`}>{meta.label}</span>
+
+  const daysBlock =
+    d !== null ? (
+      <span className="tabular-nums font-bold tracking-[-0.025em]" style={{ color: meta.fg }}>
+        {Math.abs(d)}
+        <span className="text-[12.5px] text-muted-foreground font-semibold ml-0.5">d</span>
+        {d < 0 && <span className="text-[12px] text-muted-foreground ml-1">vencido</span>}
+      </span>
+    ) : null
+
+  const deleteButton = (
+    <button
+      type="button"
+      onClick={onDelete}
+      className="opacity-60 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-[color:var(--av-red-400)] hover:bg-muted"
+      aria-label={`Eliminar ${label}`}
     >
-      <div
-        className="w-1 h-8 rounded-full"
-        style={{ background: meta.color }}
-      />
-      <div>
-        <div className="text-sm font-bold text-foreground">{label}</div>
-        <div className="text-[12px] text-muted-foreground mt-0.5">
-          {LICENSE_CATEGORY[license.license_type]}
-        </div>
-      </div>
-      <div className="tabular-nums text-sm font-semibold text-foreground">
-        {license.expires_date ? (
-          new Date(license.expires_date).toLocaleDateString("es-CO", {
-            day: "2-digit",
-            month: "short",
-            year: "numeric",
-          })
-        ) : (
-          <span className="text-muted-foreground">—</span>
-        )}
-      </div>
-      <div>
-        {d !== null && (
-          <div
-            className="tabular-nums text-lg font-bold tracking-[-0.025em]"
-            style={{ color: meta.color }}
-          >
-            {Math.abs(d)}
-            <span className="text-[12.5px] text-muted-foreground font-semibold ml-0.5">d</span>
-            {d < 0 && <span className="text-[12px] text-muted-foreground ml-1">vencido</span>}
+      <Trash2 className="h-3.5 w-3.5" />
+    </button>
+  )
+
+  return (
+    <div style={{ borderBottom: isLast ? "none" : "1px solid var(--border)" }}>
+      {/* Móvil y tablet: tarjeta apilada. Los días restantes y el estado nunca se recortan. */}
+      <div className="lg:hidden flex items-start gap-3 px-4 py-4">
+        <div className="w-1 h-8 rounded-full flex-shrink-0" style={{ background: meta.color }} />
+        <div className="min-w-0 flex-1">
+          <div className="text-sm font-bold text-foreground">{label}</div>
+          <div className="text-[12px] text-muted-foreground mt-0.5">
+            {LICENSE_CATEGORY[license.license_type]} · {dateStr ?? "Sin fecha de vencimiento"}
           </div>
-        )}
+          <div className="mt-2 flex items-center gap-2.5 flex-wrap">
+            {statusChip}
+            {daysBlock && <span className="text-[15px]">{daysBlock}</span>}
+          </div>
+        </div>
+        <div className="flex-shrink-0">{deleteButton}</div>
       </div>
-      <div>
-        <span
-          className="px-2 py-0.5 rounded-md text-[11px] font-bold tracking-[0.08em]"
-          style={{
-            color: meta.color,
-            background: `color-mix(in oklab, ${meta.color} 12%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${meta.color} 30%, transparent)`,
-          }}
-        >
-          {meta.label}
-        </span>
-      </div>
-      <div className="text-right flex items-center justify-end gap-1">
-        <button
-          type="button"
-          onClick={onDelete}
-          className="opacity-0 group-hover:opacity-100 transition-opacity p-1.5 rounded-md text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
-          aria-label="Eliminar"
-        >
-          <Trash2 className="h-3.5 w-3.5" />
-        </button>
+
+      {/* Desde lg: la fila densa */}
+      <div className="hidden lg:grid items-center gap-4 px-[18px] py-4 transition-colors group hover:bg-muted lg:grid-cols-[8px_1fr_200px_110px_120px_60px]">
+        <div className="w-1 h-8 rounded-full" style={{ background: meta.color }} />
+        <div>
+          <div className="text-sm font-bold text-foreground">{label}</div>
+          <div className="text-[12px] text-muted-foreground mt-0.5">
+            {LICENSE_CATEGORY[license.license_type]}
+          </div>
+        </div>
+        <div className="tabular-nums text-sm font-semibold text-foreground">
+          {dateStr ?? <span className="text-muted-foreground">—</span>}
+        </div>
+        <div className="text-lg">{daysBlock}</div>
+        <div>{statusChip}</div>
+        <div className="flex items-center justify-end">{deleteButton}</div>
       </div>
     </div>
   )
@@ -381,7 +425,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       </div>
       <h3 className="text-lg font-bold text-foreground">Carga tus licencias y certificaciones</h3>
       <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
-        Médico clase 1, PPL, CPL, IFR, recurrent check… Una vez cargadas, te recordamos antes que venzan.
+        Médico clase 1, PPL, CPL, IFR, recurrent check. Una vez cargadas, te recordamos antes de que venzan.
       </p>
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
         {[
@@ -450,8 +494,8 @@ function NewLicenseDialog({
 
   return (
     <>
-      <div className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="fixed inset-0 z-50 flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
+      <div className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 z-[60] flex items-start sm:items-center justify-center overflow-y-auto p-4 pointer-events-none">
         <form
           onSubmit={handleSubmit}
           className="pointer-events-auto w-full max-w-md rounded-3xl bg-card border border-border shadow-2xl my-8"
@@ -527,11 +571,11 @@ function NewLicenseDialog({
                 onChange={(e) => setNotes(e.target.value)}
                 rows={3}
                 placeholder="Restricciones, médico tratante, número de certificado..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
               />
             </div>
           </div>
-          <footer className="flex items-center justify-end gap-2 px-6 py-4 border-t border-border">
+          <footer className="flex items-center justify-end gap-2 px-6 pt-4 pb-24 sm:pb-4 border-t border-border">
             <Button type="button" variant="ghost" onClick={onClose} disabled={saving} className="rounded-full">
               Cancelar
             </Button>
