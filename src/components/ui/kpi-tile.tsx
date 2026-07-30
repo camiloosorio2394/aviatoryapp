@@ -1,73 +1,63 @@
-import { ArrowDown, ArrowUp } from "lucide-react"
 import type { ReactNode } from "react"
 import { CountUp } from "./count-up"
-import { Sparkline } from "./sparkline"
 
 interface Props {
+  /** Etiqueta corta en mayúscula, como en un panel de instrumentos: TOT HRS, ICAO ENG. */
   eyebrow: string
   value: number
   suffix?: string
-  delta?: string
-  deltaPositive?: boolean
-  sparkline?: number[]
-  sparklineColor?: string
+  /** Dato derivado que acompaña al valor: "PIC 118.0", "MIN 4 REQ". Es lo que
+   *  distingue un instrumento de una card con un número suelto. */
+  note?: string
+  /** Solo se colorea lo que pide atención. Sin tone el tile queda neutro, así
+   *  el ámbar significa algo cuando aparece en vez de ser decoración. */
+  tone?: "warn"
   ring?: ReactNode
   format?: (v: number) => string
 }
 
 /**
- * Standard KPI tile: eyebrow + big animated number + optional delta + sparkline OR ring.
- * Use in 4-up grids on Dashboard, Logbook stats strip, etc.
+ * Tile del panel de indicadores. Cifra monoespaciada, etiqueta corta en
+ * mayúscula y un dato derivado debajo: el vocabulario del logbook y del PFD,
+ * no el de una card genérica con un número suelto y mucho aire.
  */
-export function KpiTile({
-  eyebrow,
-  value,
-  suffix,
-  delta,
-  deltaPositive,
-  sparkline,
-  sparklineColor,
-  ring,
-  format,
-}: Props) {
+export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Props) {
   const isDecimal = value < 100 && value % 1 !== 0
   const defaultFormat = (v: number) => v.toFixed(isDecimal ? 1 : 0)
+  const warn = tone === "warn"
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-[18px] flex flex-col gap-3.5">
-      <div className="flex items-start justify-between gap-2">
-        <div className="text-[13px] font-semibold text-muted-foreground">
-          {eyebrow}
-        </div>
-        {delta !== undefined && (
-          <div
-            className="tabular-nums text-[12.5px] font-bold inline-flex items-center gap-0.5"
-            style={{ color: deltaPositive ? "oklch(0.5 0.16 155)" : "oklch(0.55 0.2 25)" }}
-          >
-            {deltaPositive ? <ArrowUp size={11} /> : <ArrowDown size={11} />}
-            {delta}
-          </div>
-        )}
+    <div
+      className="rounded-lg border border-border bg-card px-4 py-3.5 flex flex-col gap-2.5"
+      style={warn ? { borderTop: "2px solid var(--av-amber-400)" } : undefined}
+    >
+      <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        {eyebrow}
       </div>
+
       <div className="flex items-end justify-between gap-2">
-        <div className="tabular-nums text-[32px] font-extrabold leading-none tracking-[-0.04em] text-foreground">
+        <div
+          className="mono tabular-nums text-[28px] font-bold leading-none tracking-[-0.02em]"
+          style={{ color: warn ? "var(--av-warn-fg)" : "var(--foreground)" }}
+        >
           <CountUp to={value} format={format ?? defaultFormat} />
           {suffix && (
-            <span className="text-base text-muted-foreground font-semibold ml-0.5">
+            <span className="text-[15px] text-muted-foreground font-semibold ml-1">
               {suffix}
             </span>
           )}
         </div>
-        {sparkline && (
-          <Sparkline
-            data={sparkline}
-            color={sparklineColor ?? "var(--av-cyan-400)"}
-            width={70}
-            height={24}
-          />
-        )}
         {ring}
       </div>
+
+      {note && (
+        <div
+          className="mono tabular-nums text-[11.5px] font-semibold uppercase tracking-[0.06em]"
+          style={{ color: warn ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}
+        >
+          {note}
+        </div>
+      )}
     </div>
   )
 }

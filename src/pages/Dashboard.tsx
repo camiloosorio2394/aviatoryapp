@@ -4,9 +4,11 @@ import {
   BookOpen,
   Brain,
   Flame,
+  Gauge,
   Languages,
   Plane,
-  Sparkles,
+  Radar,
+  Timer,
   AlertTriangle,
   ArrowRight,
   Trophy,
@@ -141,6 +143,20 @@ interface NextStep {
  * así las 3 micro-acciones son distintas entre sí y distintas del quiz.
  */
 const DAILY_ACTION = { href: "/app/pca", cta: "Empezar quiz de hoy", minutes: 12 }
+
+/** El test inicial manda mientras no haya nivel medido: sin él, el resto del
+ *  tablero no tiene con qué calibrar. */
+const FIRST_ACTION = { href: "/app/test-inicial", cta: "Hacer test inicial", minutes: 15 }
+
+/**
+ * Una sola acción primaria por estado. Antes el hero mandaba siempre al quiz
+ * mientras la card de abajo ofrecía el test inicial y Wingman proponía una
+ * tercera materia: tres destinos distintos compitiendo por ser "lo primero".
+ * Ahora el hero y la card destacada apuntan siempre al mismo lugar.
+ */
+function resolvePrimaryAction(icaoMeasured: boolean) {
+  return icaoMeasured ? DAILY_ACTION : FIRST_ACTION
+}
 
 function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseWingman: NextStep = {
@@ -323,7 +339,13 @@ export function Dashboard() {
   const icaoLevel = pilot?.icao_english_level ?? null
   /** Sin nivel medido no inventamos un 0: el tile muestra un guion. */
   const icaoMeasured = icaoLevel !== null && icaoLevel > 0
-  const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : 0
+  /** null = todavía no hay etapa, así que no hay avance que mostrar. Un 0% con
+   *  la barra vacía se leía como fracaso el primer día. */
+  const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : null
+  const primaryAction = resolvePrimaryAction(icaoMeasured)
+  /** Si abajo va una card destacada, el hero no repite su mismo boton: eran dos
+   *  CTA identicos a un palmo de distancia. Sin card, el hero se queda con el. */
+  const hasFeaturedCard = !icaoMeasured || daily.length > 0
   const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
@@ -347,27 +369,34 @@ export function Dashboard() {
           streakDays={streakDays}
           progress={progress}
           trialLeft={trialLeft}
+          primaryAction={primaryAction}
+          showCta={!hasFeaturedCard}
         />
 
-        {/* Acción del día: dueña única del quiz, justo debajo del hero.
-            Sin skeleton propio: si hoy no hay quiz curado la card no existe y un
-            placeholder dejaría un hueco que después se cierra de golpe. */}
-        {daily.length > 0 && (
+        {/* Una sola card destacada bajo el hero, la de la acción primaria.
+            Antes podían salir las dos a la vez y el usuario nuevo tenía que
+            elegir entre el test inicial y el quiz del día sin saber cuál va
+            primero. Sin skeleton propio: si hoy no hay quiz curado la card no
+            existe y un placeholder dejaría un hueco que se cierra de golpe. */}
+        {icaoMeasured && daily.length > 0 && (
           <div className="mt-5">
             <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
           </div>
         )}
 
-        {/* Test inicial: solo si todavía no tiene nivel ni estimación */}
+        {/* Test inicial: la acción primaria mientras no haya nivel medido */}
         {!icaoMeasured && (
           <Link
             to="/app/test-inicial"
-            className="mt-5 flex items-center justify-between gap-4 rounded-2xl border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+            className="mt-5 flex items-center justify-between gap-4 rounded-lg border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
             style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 32%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
           >
             <div className="flex items-center gap-4">
-              <div className="flex items-center justify-center w-12 h-12 rounded-xl flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
-                <Sparkles className="h-6 w-6 text-white" />
+              <div
+                className="flex items-center justify-center w-11 h-11 rounded-lg flex-shrink-0"
+                style={{ background: "var(--av-blue-500)" }}
+              >
+                <Gauge className="h-[22px] w-[22px] text-white" />
               </div>
               <div>
                 <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
@@ -379,15 +408,43 @@ export function Dashboard() {
           </Link>
         )}
 
-        {/* Instrument cluster: sin curvas inventadas, solo el número que la app sostiene */}
-        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
-          <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" />
-          <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" />
-          <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} />
-          {icaoMeasured ? (
-            <KpiTile eyebrow="ICAO English" value={icaoLevel ?? 0} />
+        {/* Instrument cluster: sin curvas inventadas, solo el número que la app
+            sostiene. Donde todavía no hay nada medido va un guion y no un cero:
+            cuatro ceros en fila el primer día se leen como un tablero roto. */}
+        <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3 mt-7 mb-7">
+          {pilot?.total_hours ? (
+            <KpiTile
+              eyebrow="Tot hrs"
+              value={pilot.total_hours}
+              note={pilot.hours_pic ? `PIC ${pilot.hours_pic.toFixed(1)}` : undefined}
+            />
           ) : (
-            <KpiTile eyebrow="ICAO English" value={0} format={() => "—"} suffix="Sin medir" />
+            <KpiTile eyebrow="Tot hrs" value={0} format={() => "—"} note="Sin cargar" />
+          )}
+          {streakDays > 0 ? (
+            <KpiTile
+              eyebrow="Racha"
+              value={streakDays}
+              suffix="d"
+              note={longestStreak > 0 ? `Máx ${longestStreak}` : undefined}
+            />
+          ) : (
+            <KpiTile eyebrow="Racha" value={0} format={() => "—"} note="Sin racha" />
+          )}
+          {recentAttempts > 0 ? (
+            <KpiTile eyebrow="Quiz" value={recentAttempts} />
+          ) : (
+            <KpiTile eyebrow="Quiz" value={0} format={() => "—"} note="Ninguno" />
+          )}
+          {icaoMeasured ? (
+            <KpiTile
+              eyebrow="Icao eng"
+              value={icaoLevel ?? 0}
+              note="Mín 4 req"
+              tone={(icaoLevel ?? 0) < 4 ? "warn" : undefined}
+            />
+          ) : (
+            <KpiTile eyebrow="Icao eng" value={0} format={() => "—"} note="Sin medir" />
           )}
         </div>
 
@@ -406,7 +463,12 @@ export function Dashboard() {
               ))}
             </div>
           </section>
-          <WingmanInsight stage={stage} recentAttempts={recentAttempts} icao={icaoLevel} />
+          <WingmanInsight
+            stage={stage}
+            recentAttempts={recentAttempts}
+            icao={icaoLevel}
+            icaoMeasured={icaoMeasured}
+          />
         </div>
 
         {/* Streak + Heatmap */}
@@ -438,14 +500,18 @@ function CockpitHero({
   streakDays,
   progress,
   trialLeft,
+  primaryAction,
+  showCta,
 }: {
   firstName: string
   stageLabel: string
   totalHours: number
   targetAirline: string | null
   streakDays: number
-  progress: number
+  progress: number | null
   trialLeft: number | null
+  primaryAction: { href: string; cta: string; minutes: number }
+  showCta: boolean
 }) {
   /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
    *  oscuro en modo claro y ahí quedarían ilegibles. */
@@ -492,22 +558,45 @@ function CockpitHero({
               )}
             </p>
 
-            {/* Progress to airline */}
+            {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la
+                invitación a generarlo, nunca un 0% con la barra en cero. */}
             <div className="mt-6 max-w-[560px]">
-              <div className="flex justify-between items-baseline gap-3 mb-2">
-                <span className="text-[13px] font-semibold text-white/70">
-                  Tu avance a aerolínea
-                </span>
-                <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
-                  <CountUp to={progress} />%
-                </span>
-              </div>
-              <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
-                <div
-                  className="h-full rounded-full bg-white transition-[width] duration-1000"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+              {progress === null ? (
+                <>
+                  <div className="flex justify-between items-baseline gap-3 mb-2">
+                    <span className="text-[13px] font-semibold text-white/70">
+                      Tu avance a aerolínea
+                    </span>
+                    <span className="text-2xl font-extrabold tracking-[-0.03em] text-white/40">
+                      —
+                    </span>
+                  </div>
+                  <Link
+                    to="/onboarding"
+                    className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+                  >
+                    Dinos en qué etapa vas y lo calculamos
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-between items-baseline gap-3 mb-2">
+                    <span className="text-[13px] font-semibold text-white/70">
+                      Tu avance a aerolínea
+                    </span>
+                    <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
+                      <CountUp to={progress} />%
+                    </span>
+                  </div>
+                  <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
+                    <div
+                      className="h-full rounded-full bg-white transition-[width] duration-1000"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -515,17 +604,21 @@ function CockpitHero({
           <div className="flex flex-col items-start lg:items-end gap-2.5">
             {trialLeft !== null && trialLeft > 0 && (
               <span className={`${heroChip} tabular-nums`}>
-                <Sparkles className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
+                <Timer className="h-3 w-3" /> Prueba: {trialLeft} día{trialLeft !== 1 ? "s" : ""}
               </span>
             )}
-            <Link
-              to={DAILY_ACTION.href}
-              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
-              style={{ background: "var(--av-blue-500)" }}
-            >
-              {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
-            </Link>
-            <div className="text-[12px] text-white/70">~{DAILY_ACTION.minutes} min</div>
+            {showCta && (
+              <>
+                <Link
+                  to={primaryAction.href}
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-lg font-semibold text-[15px] text-white transition-colors"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  {primaryAction.cta} <ArrowRight className="h-4 w-4" />
+                </Link>
+                <div className="text-[12px] text-white/70">~{primaryAction.minutes} min</div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -538,7 +631,7 @@ function TodayCard({ step }: { step: NextStep }) {
   return (
     <Link
       to={step.href}
-      className="relative overflow-hidden rounded-2xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
+      className="relative overflow-hidden rounded-lg border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = tileBorder(step.tone, 45)
       }}
@@ -575,12 +668,24 @@ function WingmanInsight({
   stage,
   recentAttempts,
   icao,
+  icaoMeasured,
 }: {
   stage: PilotStage | null
   recentAttempts: number
   icao: number | null
+  icaoMeasured: boolean
 }) {
   const insight = (() => {
+    /** Sin nivel medido Wingman no tiene con qué personalizar, así que refuerza
+     *  la acción primaria en vez de abrir un tercer destino. */
+    if (!icaoMeasured) {
+      return {
+        title: "Empieza por el test inicial",
+        body: "Son unos 15 minutos. Con tu nivel medido puedo decirte qué materia atacar primero y qué tan lejos estás de aerolínea.",
+        cta: FIRST_ACTION.cta,
+        href: FIRST_ACTION.href,
+      }
+    }
     if (recentAttempts === 0) {
       return {
         title: "Empieza con Meteorología",
@@ -615,7 +720,7 @@ function WingmanInsight({
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl border p-5"
+      className="relative overflow-hidden rounded-lg border p-5"
       style={{
         background: "color-mix(in oklab, var(--av-violet-400) 5%, var(--card))",
         borderColor: "color-mix(in oklab, var(--av-violet-400) 22%, var(--border))",
@@ -623,7 +728,7 @@ function WingmanInsight({
     >
       <div className="relative">
         <div className="chip chip-violet">
-          <Sparkles className="h-3 w-3" /> Insight de Wingman
+          <Radar className="h-3 w-3" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
         <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
@@ -660,7 +765,7 @@ function EmptyState({
   return (
     <div className="py-5 flex flex-col items-center text-center">
       <div
-        className="flex items-center justify-center h-12 w-12 rounded-2xl text-foreground"
+        className="flex items-center justify-center h-12 w-12 rounded-lg text-foreground"
         style={{ background: tileTint(tone), border: `1px solid ${tileBorder(tone)}` }}
       >
         <Ic className="h-5 w-5" />
@@ -687,7 +792,6 @@ function StreakBars({ current }: { current: number }) {
           className="flex-1 h-1.5 rounded-full"
           style={{
             background: i < current ? "var(--av-amber-400)" : "var(--muted)",
-            boxShadow: i < current ? "0 0 6px var(--av-amber-400)" : "none",
           }}
         />
       ))}
@@ -698,7 +802,7 @@ function StreakBars({ current }: { current: number }) {
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
   if (current === 0) {
     return (
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+      <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
         <span className="chip chip-amber">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
@@ -718,7 +822,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   }
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
       <div className="relative">
         <span className="chip chip-amber">
           <Flame className="h-3 w-3" /> Tu racha
@@ -726,13 +830,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
         <div className="mt-4 flex items-baseline gap-2">
           <span
             className="mono tabular-nums text-[64px] font-bold leading-none tracking-[-0.05em]"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--av-amber-400) 0%, var(--av-red-400) 100%)",
-              WebkitBackgroundClip: "text",
-              backgroundClip: "text",
-              color: "transparent",
-            }}
+            style={{ color: "var(--av-warn-fg)" }}
           >
             <CountUp to={current} />
           </span>
@@ -789,7 +887,7 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-lg border border-border bg-card p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
           <div
@@ -889,7 +987,7 @@ function AchievementsCard({
     platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
   }
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-lg border border-border bg-card p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
@@ -968,7 +1066,7 @@ function CohortCard({
   loading: boolean
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-lg border border-border bg-card p-5">
       <SectionTitle
         icon={Users}
         eyebrow="Tu cohorte"
@@ -993,11 +1091,8 @@ function CohortCard({
               className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg transition-colors hover:bg-muted/50"
             >
               <div
-                className="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-xs"
-                style={{
-                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-navy-800))",
-                  boxShadow: "0 2px 8px -2px rgb(0 0 0 / 25%)",
-                }}
+                className="mono w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-xs"
+                style={{ background: "var(--av-navy-800)" }}
               >
                 {p.username[0]?.toUpperCase() ?? "?"}
               </div>
@@ -1017,50 +1112,36 @@ function CohortCard({
   )
 }
 
+/**
+ * Acción del día. Superficie sólida en vez del gradiente ámbar con halo: el
+ * ámbar queda solo en la etiqueta, donde significa "esto es lo de hoy".
+ */
 function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: string | null }) {
   return (
     <Link
       to={DAILY_ACTION.href}
-      className="anim-fade-up relative overflow-hidden flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl p-6 text-white"
-      style={{
-        background: "linear-gradient(135deg, var(--av-amber-400) 0%, oklch(0.7 0.18 65) 100%)",
-        boxShadow:
-          "0 16px 40px -16px oklch(0.7 0.18 65 / 50%), inset 0 1px 0 rgb(255 255 255 / 25%)",
-      }}
+      className="anim-fade-up relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-lg p-5 text-white transition-colors"
+      style={{ background: "var(--av-navy-900)", border: "1px solid var(--av-navy-700)" }}
     >
-      <div
-        className="absolute -right-10 -top-10 w-[200px] h-[200px] rounded-full"
-        style={{ background: "white", opacity: 0.08 }}
-      />
-      <div className="relative flex items-center gap-4">
-        <div
-          className="w-[52px] h-[52px] rounded-2xl flex items-center justify-center"
-          style={{
-            background: "rgb(255 255 255 / 20%)",
-            boxShadow: "inset 0 1px 0 rgb(255 255 255 / 30%)",
-          }}
-        >
-          <Sun className="h-6 w-6" />
-        </div>
+      <div className="flex items-center gap-3.5">
+        <Sun className="h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
         <div>
-          <div className="text-[12px] font-bold tracking-[0.08em] uppercase opacity-85">
+          <div
+            className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "var(--av-amber-400)" }}
+          >
             Quiz del día
           </div>
-          <div className="text-xl font-bold tracking-[-0.02em]">
-            {count} preguntas{firstSubject ? ` · empieza con ${firstSubject}` : ""}
+          <div className="mt-1 text-[17px] font-bold tracking-[-0.015em]">
+            <span className="mono tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
+            {firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
-          <div className="text-xs opacity-85 mt-0.5">
-            Curadas para ti. Se renueva mañana, no las dejes pasar.
-          </div>
+          <div className="text-[13px] text-white/60 mt-0.5">Se renueva mañana.</div>
         </div>
       </div>
       <span
-        className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm flex-shrink-0"
-        style={{
-          background: "white",
-          color: "var(--av-navy-900)",
-          boxShadow: "0 8px 24px -8px rgb(0 0 0 / 30%)",
-        }}
+        className="inline-flex items-center justify-center gap-1.5 h-10 px-5 rounded-md font-semibold text-[14px] flex-shrink-0"
+        style={{ background: "white", color: "var(--av-navy-900)" }}
       >
         {DAILY_ACTION.cta} <ArrowRight className="h-3.5 w-3.5" />
       </span>
@@ -1077,14 +1158,14 @@ function DashboardSkeleton() {
     <AppLayout>
       <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
         {/* Hero */}
-        <div className="h-[232px] bg-muted rounded-2xl" />
+        <div className="h-[232px] bg-muted rounded-lg" />
 
         {/* Instrument cluster */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
-          <div className="h-[106px] bg-muted rounded-2xl" />
-          <div className="h-[106px] bg-muted rounded-2xl" />
-          <div className="h-[106px] bg-muted rounded-2xl" />
-          <div className="h-[106px] bg-muted rounded-2xl" />
+          <div className="h-[106px] bg-muted rounded-lg" />
+          <div className="h-[106px] bg-muted rounded-lg" />
+          <div className="h-[106px] bg-muted rounded-lg" />
+          <div className="h-[106px] bg-muted rounded-lg" />
         </div>
 
         {/* Plan de hoy + Wingman */}
@@ -1092,24 +1173,24 @@ function DashboardSkeleton() {
           <div>
             <div className="h-[52px] w-[260px] bg-muted rounded-lg mb-3.5" />
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
-              <div className="h-[158px] bg-muted rounded-2xl" />
-              <div className="h-[158px] bg-muted rounded-2xl" />
-              <div className="h-[158px] bg-muted rounded-2xl" />
+              <div className="h-[158px] bg-muted rounded-lg" />
+              <div className="h-[158px] bg-muted rounded-lg" />
+              <div className="h-[158px] bg-muted rounded-lg" />
             </div>
           </div>
-          <div className="h-[226px] bg-muted rounded-2xl" />
+          <div className="h-[226px] bg-muted rounded-lg" />
         </div>
 
         {/* Racha + actividad */}
         <div className="grid grid-cols-1 lg:grid-cols-[minmax(280px,1fr)_2.2fr] gap-4 mb-7">
-          <div className="h-[248px] bg-muted rounded-2xl" />
-          <div className="h-[248px] bg-muted rounded-2xl" />
+          <div className="h-[248px] bg-muted rounded-lg" />
+          <div className="h-[248px] bg-muted rounded-lg" />
         </div>
 
         {/* Logros + cohorte */}
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
-          <div className="h-[212px] bg-muted rounded-2xl" />
-          <div className="h-[212px] bg-muted rounded-2xl" />
+          <div className="h-[212px] bg-muted rounded-lg" />
+          <div className="h-[212px] bg-muted rounded-lg" />
         </div>
       </div>
     </AppLayout>
