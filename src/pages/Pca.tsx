@@ -7,15 +7,15 @@ import {
   ListChecks,
   RefreshCw,
   ShieldCheck,
-  Sparkles,
   PlayCircle,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
-import { TILE_COLOR, tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
+import { tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 /** Bajo este número de preguntas avisamos que el banco todavía es chico. */
 const SMALL_BANK = 20
@@ -26,7 +26,7 @@ const SMALL_BANK = 20
 export function Pca() {
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={
             <>
@@ -38,7 +38,7 @@ export function Pca() {
           actions={
             <Link
               to="/app/examenes"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[15px] font-semibold surface hover:bg-muted transition-colors"
+              className={appButtonClass({ variant: "secondary" })}
             >
               Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -65,7 +65,7 @@ function AvailableSubjects() {
     return (
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true">
         {[0, 1, 2].map((i) => (
-          <div key={i} className="h-[132px] rounded-2xl surface animate-pulse" />
+          <div key={i} className="h-[132px] rounded-xl surface animate-pulse" />
         ))}
       </section>
     )
@@ -73,7 +73,7 @@ function AvailableSubjects() {
 
   if (error) {
     return (
-      <section className="rounded-2xl surface p-6 text-center">
+      <section className="rounded-xl surface p-6 text-center">
         <div className="text-[15px] font-semibold">No pudimos cargar las materias</div>
         <p className="mt-1.5 text-[13px] text-muted-foreground">
           La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
@@ -81,8 +81,8 @@ function AvailableSubjects() {
         <button
           type="button"
           onClick={reload}
-          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
-          style={{ background: "var(--av-blue-500)" }}
+          className={appButtonClass({ size: "lg" }, "mt-5 cursor-pointer")}
+          style={appButtonStyle()}
         >
           <RefreshCw className="h-4 w-4" /> Reintentar
         </button>
@@ -92,28 +92,21 @@ function AvailableSubjects() {
 
   if (subjects.length === 0) {
     return (
-      <section className="rounded-2xl surface p-7 text-center">
-        <div
-          className="mx-auto flex items-center justify-center w-12 h-12 rounded-xl"
-          style={{
-            background: tileTint("blue"),
-            border: `1px solid ${tileBorder("blue")}`,
-            color: TILE_COLOR.blue,
-          }}
-        >
-          <BookOpen className="h-6 w-6" strokeWidth={1.8} />
+      <section className="rounded-xl surface p-7 text-center">
+        <div className="mx-auto flex items-center justify-center w-12 h-12 rounded-lg border border-border bg-muted text-muted-foreground">
+          <BookOpen className="h-6 w-6" />
         </div>
         <h2 className="mt-4 text-[20px] font-semibold tracking-[-0.02em]">
           El banco de preguntas se abre por materias
         </h2>
         <p className="mt-2 text-[15px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
-          Todavía no hay ninguna materia abierta en tu cuenta. Haz el test inicial para saber por dónde
-          cuanto la primera esté lista.
+          Todavía no hay ninguna materia abierta en tu cuenta. Haz el test inicial y te decimos por
+          dónde empezar.
         </p>
         <Link
           to="/app/test-inicial"
-          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-          style={{ background: "var(--av-blue-500)" }}
+          className={appButtonClass({ size: "lg" }, "mt-5")}
+          style={appButtonStyle()}
         >
           Hacer el test inicial <ArrowRight className="h-4 w-4" />
         </Link>
@@ -135,17 +128,17 @@ function AvailableSubjects() {
       {/* === SIMULACRO EXAMEN PCA (preguntas mezcladas de todas las materias) === */}
       <Link
         to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
-        className="card-apple group relative overflow-hidden rounded-2xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-8"
+        className="surface-lift group relative overflow-hidden rounded-xl border p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-5 mb-8"
         style={{
           borderColor: tileBorder("blue", 35),
           background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
         }}
       >
         <div
-          className="relative flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
-          style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
+          className="relative flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center"
+          style={{ background: "var(--av-blue-500)" }}
         >
-          <Award className="h-7 w-7 text-white" strokeWidth={1.8} />
+          <Award className="h-6 w-6 text-white" />
         </div>
         <div className="relative flex-1 min-w-0">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
@@ -158,10 +151,7 @@ function AvailableSubjects() {
             Como el examen real de Aerocivil: al terminar ves tu nota y qué materia repasar.
           </div>
         </div>
-        <div
-          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold flex-shrink-0 text-white"
-          style={{ background: "var(--av-blue-500)" }}
-        >
+        <div className={appButtonClass({ size: "lg" }, "relative flex-shrink-0")} style={appButtonStyle()}>
           Empezar <ArrowRight className="h-4 w-4" />
         </div>
       </Link>
@@ -173,7 +163,7 @@ function AvailableSubjects() {
         hint={`${ordered.length} materias abiertas · ${bankTotal} preguntas en total`}
         right={
           <div className="hidden md:flex items-center gap-1.5 text-[12px] text-muted-foreground">
-            <Sparkles className="h-3.5 w-3.5" /> Preguntas revisadas, sin spoilers
+            <ShieldCheck className="h-4 w-4" /> Preguntas revisadas, sin spoilers
           </div>
         }
       />
@@ -187,9 +177,19 @@ function AvailableSubjects() {
   )
 }
 
+/**
+ * Tarjeta de materia.
+ *
+ * Sin color por materia. Las 14 materias usaban 6 colores repartidos sin
+ * criterio, con tres compartiendo el mismo: el color no identificaba nada, era
+ * un mosaico decorativo. Y una materia salía en rojo, que en aviación
+ * significa acción inmediata.
+ *
+ * Ahora el único color es el ámbar del banco corto, donde sí informa: avisa de
+ * que esa materia todavía tiene pocas preguntas y dice cuántas faltan.
+ */
 function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
   const meta = getSubjectMeta(slug)
-  const color: TileColorKey = meta.color
   const Icon = meta.icon
   const quizCount = Math.min(10, count)
   const isSmallBank = count < SMALL_BANK
@@ -197,41 +197,38 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
   return (
     <Link
       to={`/app/pca/quiz/${slug}?module=pca&count=${quizCount}`}
-      className="card-apple rounded-2xl border bg-card p-5 flex flex-col gap-3.5"
-      style={{ borderColor: tileBorder(color) }}
+      className="surface surface-lift rounded-xl p-5 flex flex-col gap-4"
     >
-      <div className="flex items-start gap-3.5">
-        <div
-          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: tileTint(color),
-            border: `1px solid ${tileBorder(color, 30)}`,
-            color: TILE_COLOR[color],
-          }}
-        >
+      <div className="flex items-start gap-3">
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center border border-border bg-muted text-muted-foreground">
           {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
         </div>
         <div className="flex-1 min-w-0">
           <div className="text-[15px] font-semibold tracking-[-0.01em]">{meta.name}</div>
           {meta.description && (
-            <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug line-clamp-2">
+            <p className="mt-1 text-[13px] text-muted-foreground leading-snug line-clamp-2">
               {meta.description}
             </p>
           )}
         </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between gap-2 flex-wrap">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          <span className="chip">{count} preguntas</span>
-          <span className="chip">Quiz de {quizCount}</span>
-          {isSmallBank && <span className="chip chip-amber">Banco chico</span>}
+      <div className="mt-auto flex items-end justify-between gap-3">
+        <div className="min-w-0">
+          <div className="tabular-nums text-[20px] font-semibold tracking-[-0.02em]">
+            {count}
+            <span className="ml-1 text-[13px] font-normal text-muted-foreground">preguntas</span>
+          </div>
+          {isSmallBank ? (
+            <div className="mt-1 text-[13px]" style={{ color: "var(--av-warn-fg)" }}>
+              Banco corto: faltan {SMALL_BANK - count} para el mínimo
+            </div>
+          ) : (
+            <div className="mt-1 text-[13px] text-muted-foreground">Quiz de {quizCount}</div>
+          )}
         </div>
-        <span
-          className="inline-flex items-center gap-1 text-[13px] font-semibold"
-          style={{ color: TILE_COLOR[color] }}
-        >
-          Practicar <ArrowRight className="h-3.5 w-3.5" />
+        <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-foreground flex-shrink-0">
+          Practicar <ArrowRight className="h-4 w-4" />
         </span>
       </div>
     </Link>
@@ -275,11 +272,11 @@ function ComingNext() {
         {COMING_NEXT.map((c) => (
           <div
             key={c.title}
-            className="rounded-2xl surface p-4 flex items-start gap-3"
+            className="rounded-xl surface p-4 flex items-start gap-3"
           >
             <div
               className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-              style={{ background: tileTint(c.color), color: TILE_COLOR[c.color] }}
+              
             >
               <c.icon className="h-4 w-4" />
             </div>
