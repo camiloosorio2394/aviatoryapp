@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   TriangleAlert,
 } from "lucide-react"
+import pcaFlightdeck from "@/assets/photos/pca-flightdeck.jpg"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { StatTile } from "@/components/pca/StatTile"
@@ -49,32 +50,58 @@ export function Pca() {
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        {/* ── Hero: una sola pregunta contestada, qué hago ahora ── */}
-        <section className="mb-6">
-          <div className="flex items-center gap-2 text-[13px] text-muted-foreground">
-            <ShieldCheck className="h-4 w-4" />
-            Banco oficial Aerocivil
-          </div>
-          <h1 className="mt-1.5 text-[32px] font-semibold tracking-[-0.03em] leading-[1.1]">
-            Examen PCA
-          </h1>
-          <p className="mt-2 text-[15px] text-muted-foreground max-w-[52ch] leading-relaxed">
-            Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
-          </p>
+        {/* ── Hero ──
+            Foto solo aquí, como en el Dashboard y en ICAO. La regla del
+            proyecto es que cada módulo abre con su fotografía y el cuerpo
+            queda plano: si la foto se repite en las tarjetas deja de ser
+            identidad y pasa a ser decoración. */}
+        <section className="relative overflow-hidden rounded-xl mb-6">
+          <img
+            src={pcaFlightdeck}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(135deg, rgb(11 16 32 / 88%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
+            }}
+          />
 
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
-              className={appButtonClass({ size: "lg" })}
-              style={appButtonStyle()}
-            >
-              Comenzar simulacro <ArrowRight className="h-4 w-4" />
-            </Link>
-            {hasActivity && (
-              <Link to="#materias" className={appButtonClass({ variant: "secondary", size: "lg" })}>
-                Continuar por materia
+          <div className="relative p-6 sm:p-8">
+            <div className="flex items-center gap-2 text-[13px] text-white/70">
+              <ShieldCheck className="h-4 w-4" />
+              Banco oficial Aerocivil
+            </div>
+            <h1 className="mt-1.5 text-[32px] font-semibold tracking-[-0.03em] leading-[1.1] text-white">
+              Examen PCA
+            </h1>
+            <p className="mt-2 text-[15px] text-white/75 max-w-[52ch] leading-relaxed">
+              Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
+            </p>
+
+            <div className="mt-5 flex flex-wrap gap-3">
+              <Link
+                to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
+                className={appButtonClass({ size: "lg" })}
+                style={appButtonStyle()}
+              >
+                Comenzar simulacro <ArrowRight className="h-4 w-4" />
               </Link>
-            )}
+              {hasActivity && (
+                /* Variante propia para sobre foto: la secundaria del sistema usa
+                   la superficie de tarjeta y sobre el velo oscuro desaparece. */
+                <Link
+                  to="#materias"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-lg border border-white/25 bg-white/10 text-white text-[15px] font-medium backdrop-blur-sm transition-colors hover:bg-white/20"
+                >
+                  Continuar por materia
+                </Link>
+              )}
+            </div>
           </div>
         </section>
 
