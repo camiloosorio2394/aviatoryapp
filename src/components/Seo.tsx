@@ -23,7 +23,7 @@ export function Seo({ title, description, path = "/", image, noindex = false }: 
       ? title.includes("Aviatory")
         ? title
         : `${title} | Aviatory`
-      : "Aviatory — De estudiante piloto a candidato de aerolínea"
+      : "Aviatory · De estudiante piloto a candidato de aerolínea"
 
     document.title = fullTitle
 

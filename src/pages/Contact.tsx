@@ -74,7 +74,7 @@ export function Contact() {
             ¿Hablamos?
           </h1>
           <p className="mt-6 text-lg text-muted-foreground text-balance">
-            Si eres piloto LATAM con feedback, idea o pregunta — escríbenos. Respondemos en menos de 24h.
+            Si eres piloto LATAM con feedback, idea o pregunta, escríbenos. Respondemos en menos de 24h.
           </p>
         </div>
       </section>

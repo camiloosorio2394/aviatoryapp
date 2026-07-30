@@ -189,7 +189,7 @@ export function Login() {
       <Seo
         path={isSignup ? "/login?mode=signup" : "/login"}
         title={isSignup ? "Crear cuenta" : "Iniciar sesión"}
-        description="Sumate a Aviatory — 7 días gratis, sin tarjeta."
+        description="Sumate a Aviatory: 7 días gratis, sin tarjeta."
         noindex
       />
       {/* LEFT — brand panel */}
@@ -216,7 +216,7 @@ export function Login() {
             <p className="mt-4 text-blue-100/90 text-lg leading-relaxed">
               {isSignup
                 ? "Sumate a la plataforma para pilotos LATAM que llegan a aerolínea."
-                : "Tu progreso, tu plan, tu comunidad — te esperan."}
+                : "Tu progreso, tu plan, tu comunidad te esperan."}
             </p>
           </div>
 

@@ -40,7 +40,7 @@ export function Icao() {
               </h1>
               <p className="text-[16px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Organised exactly like the <strong className="text-foreground">Test of English for
-                Aviation</strong>: 4 sections covering the two skills the exam measures —
+                Aviation</strong>: 4 sections covering the two skills the exam measures:
                 <strong className="text-foreground"> speaking and understanding</strong> English in an
                 aviation context.
               </p>
@@ -70,7 +70,7 @@ export function Icao() {
               The TEA is an exam designed by <strong className="text-foreground">Mayflower College</strong>{" "}
               to assess the English proficiency of pilots and controllers against ICAO's language
               requirements. It assesses <strong className="text-foreground">only speaking and
-              listening</strong> skills, in an aviation context —{" "}
+              listening</strong> skills, in an aviation context;{" "}
               <strong className="text-foreground">it does not test technical knowledge or standard
               phraseology</strong>.
             </p>
@@ -121,7 +121,7 @@ export function Icao() {
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 Put yourself to the test
               </div>
-              <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">TEA Mock Exam — full test</div>
+              <div className="mt-0.5 text-[20px] font-extrabold tracking-[-0.02em]">TEA Mock Exam: full test</div>
               <p className="mt-1 text-[14px] text-muted-foreground max-w-[640px]">
                 All 3 parts in one go, timed, with real audios. Record yourself, answer out loud and
                 self-assess on the 6 descriptors at the end.
@@ -158,7 +158,7 @@ export function Icao() {
           <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[760px]">
             The TEA scores six descriptors. <strong className="text-foreground">Your final result is
             your lowest descriptor</strong>: if you get 5 in five of them and 4 in comprehension, your
-            official result is ICAO 4. So being good at some isn't enough — you have to level them all up.
+            official result is ICAO 4. So being good at some isn't enough: you have to level them all up.
           </p>
         </div>
 
@@ -222,7 +222,7 @@ export function Icao() {
             >
               <Sparkles className="h-3.5 w-3.5" /> Practice tip
             </div>
-            <h3 className="mt-1.5 text-lg font-bold">Practise out loud — and record yourself</h3>
+            <h3 className="mt-1.5 text-lg font-bold">Practise out loud and record yourself</h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
               The TEA is oral. Reading the answers isn't enough: answer out loud, record yourself on
               your phone and listen back. It's the most uncomfortable thing and what raises your level

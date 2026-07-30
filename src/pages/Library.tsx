@@ -107,7 +107,7 @@ export function Library() {
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
               Aporta material y se lo damos al resto de la comunidad (con tu crédito si quieres).
-              Solo material no-propietario o de dominio público — el equipo revisa antes de publicar.
+              Solo material no-propietario o de dominio público: el equipo revisa antes de publicar.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -199,7 +199,7 @@ const CATEGORIES: CategoryProps[] = [
     name: "Checklist Philosophy",
     icon: Lightbulb,
     color: "blue",
-    description: "Por qué se hacen los checks como se hacen — flow patterns.",
+    description: "Por qué se hacen los checks como se hacen: flow patterns.",
     bullets: ["Origen de cada checklist", "Read & verify vs do & verify", "Common errors"],
   },
   {
@@ -215,7 +215,7 @@ const CATEGORIES: CategoryProps[] = [
     name: "Accident Case Studies",
     icon: AlertTriangle,
     color: "red",
-    description: "NTSB, BEA, AAIB — qué aprender de cada accidente.",
+    description: "NTSB, BEA, AAIB: qué aprender de cada accidente.",
     bullets: ["Reports oficiales linkeados", "Resumen pedagógico", "TEM/CRM takeaways"],
   },
 ]

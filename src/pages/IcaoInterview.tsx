@@ -85,7 +85,7 @@ export function IcaoInterview() {
             The exam opens with an interview about your professional experience and aviation topics.
             The goal is to see whether you can hold a spontaneous conversation in natural, technical and
             professional English. Each question comes with a <strong className="text-foreground">model
-            answer</strong> — not to memorise it (the exam penalises recited answers), but to capture
+            answer</strong>, not to memorise it (the exam penalises recited answers), but to capture
             the register, structure and expected vocabulary.
           </p>
         </section>
@@ -102,7 +102,7 @@ export function IcaoInterview() {
           <div className="text-[14px] text-foreground/85 leading-relaxed">
             <strong>How to practise:</strong> read the question, answer out loud while recording
             yourself, and only then open the suggested answer to compare. Aim for 3–5 sentences per
-            answer, with technical detail and natural connectors — not a dry "yes/no".
+            answer, with technical detail and natural connectors, not a dry "yes/no".
           </div>
         </div>
 
@@ -212,7 +212,7 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
               </div>
               <p className="text-[14.5px] leading-relaxed text-foreground/90">{mine}</p>
               <p className="mt-2 text-[12px] text-muted-foreground">
-                Ejemplo armado con tu perfil — usalo de guía, no lo recites (el TEA penaliza
+                Ejemplo armado con tu perfil: usalo de guía, no lo recites (el TEA penaliza
                 respuestas memorizadas).
               </p>
             </div>

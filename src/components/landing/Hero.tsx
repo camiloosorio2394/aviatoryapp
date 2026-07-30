@@ -105,7 +105,7 @@ export function Hero() {
                 <span>·</span>
                 <span>5 secciones</span>
               </div>
-              <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">Inglés ICAO — examen TEA</h3>
+              <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">Inglés ICAO: examen TEA</h3>
               <p className="mt-1 text-[13px] text-muted-foreground leading-snug">
                 Vocabulario, comprensión auditiva, entrevista y simulacro completo.
               </p>

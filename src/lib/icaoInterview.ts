@@ -39,28 +39,28 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 1,
         question: "What is your job?",
         suggestedAnswer:
-          "I'm a commercial pilot. I operate a narrow-body jet on both domestic and international routes. My main responsibility is to fly the aircraft safely from departure to destination, but the role goes well beyond just handling the controls — I'm also responsible for flight planning, fuel decisions, coordinating with my crew, and making sure every phase of the flight complies with our standard operating procedures.",
+          "I'm a commercial pilot. I operate a narrow-body jet on both domestic and international routes. My main responsibility is to fly the aircraft safely from departure to destination, but the role goes well beyond just handling the controls: I'm also responsible for flight planning, fuel decisions, coordinating with my crew, and making sure every phase of the flight complies with our standard operating procedures.",
         highRegisterWords: ["commercial pilot", "narrow-body jet", "standard operating procedures (SOPs)", "comply with", "flight planning", "domestic and international routes"],
       },
       {
         n: 2,
         question: "What do you like about your job?",
         suggestedAnswer:
-          "What I enjoy most is that no two days are ever the same. The weather, the route, the traffic and the passengers all change, so I'm constantly solving new problems. I also really value the responsibility — knowing that hundreds of people trust me to get them home safely is demanding, but that's exactly what makes the job meaningful to me.",
+          "What I enjoy most is that no two days are ever the same. The weather, the route, the traffic and the passengers all change, so I'm constantly solving new problems. I also really value the responsibility: knowing that hundreds of people trust me to get them home safely is demanding, but that's exactly what makes the job meaningful to me.",
         highRegisterWords: ["no two days are the same", "solving new problems", "value the responsibility", "demanding", "meaningful"],
       },
       {
         n: 3,
         question: "Do you find your job stressful? (why?)",
         suggestedAnswer:
-          "It can be, yes, particularly during high-workload phases like an approach in poor weather, or when something unexpected happens such as a technical failure or a medical emergency on board. The pressure is real because the decisions have consequences. But our training is designed precisely to manage that — we follow checklists, we share the workload and we rely on solid crew resource management, so the stress stays controlled rather than overwhelming.",
+          "It can be, yes, particularly during high-workload phases like an approach in poor weather, or when something unexpected happens such as a technical failure or a medical emergency on board. The pressure is real because the decisions have consequences. But our training is designed precisely to manage that: we follow checklists, we share the workload and we rely on solid crew resource management, so the stress stays controlled rather than overwhelming.",
         highRegisterWords: ["high-workload phases", "crew resource management (CRM)", "technical failure", "medical emergency", "manage the workload"],
       },
       {
         n: 4,
         question: "What's the best thing about your job?",
         suggestedAnswer:
-          "For me, the best part is the sense of accomplishment at the end of a challenging flight — when you've dealt with difficult weather or a tight schedule and you still bring the aircraft in smoothly and on time. There's also the privilege of the view from the flight deck; even after years of flying, a sunrise above the clouds never gets old.",
+          "For me, the best part is the sense of accomplishment at the end of a challenging flight: when you've dealt with difficult weather or a tight schedule and you still bring the aircraft in smoothly and on time. There's also the privilege of the view from the flight deck; even after years of flying, a sunrise above the clouds never gets old.",
         highRegisterWords: ["a sense of accomplishment", "a challenging flight", "a tight schedule", "the privilege of", "flight deck"],
       },
       {
@@ -74,7 +74,7 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 6,
         question: "When did you first decide you wanted to be a pilot or controller?",
         suggestedAnswer:
-          "I knew quite early — I was around twelve when I took my first flight, and I remember being fascinated by how something so big could leave the ground so smoothly. From that moment the idea never really left me, and as I grew older I became more and more committed to turning it into a career.",
+          "I knew quite early: I was around twelve when I took my first flight, and I remember being fascinated by how something so big could leave the ground so smoothly. From that moment the idea never really left me, and as I grew older I became more and more committed to turning it into a career.",
         highRegisterWords: ["fascinated by", "committed", "turn it into a career"],
       },
       {
@@ -88,7 +88,7 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 8,
         question: "What would make your job better?",
         suggestedAnswer:
-          "Honestly, a more predictable roster would make a big difference — better scheduling means better rest and a healthier work-life balance. Beyond that, continued investment in modern aircraft and technology always helps, because newer systems reduce workload and improve safety margins.",
+          "Honestly, a more predictable roster would make a big difference: better scheduling means better rest and a healthier work-life balance. Beyond that, continued investment in modern aircraft and technology always helps, because newer systems reduce workload and improve safety margins.",
         highRegisterWords: ["a more predictable roster", "work-life balance", "reduce workload", "improve safety margins"],
       },
     ],
@@ -108,21 +108,21 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 2,
         question: "Is a pilot's or controller's job important? (why?)",
         suggestedAnswer:
-          "Absolutely. We're directly responsible for human lives — hundreds of people on every flight — so the margin for error is extremely small. Beyond safety, aviation connects the world; it moves people, trade and goods across continents. Without competent pilots and controllers, the whole system simply couldn't function safely.",
+          "Absolutely. We're directly responsible for human lives, hundreds of people on every flight, so the margin for error is extremely small. Beyond safety, aviation connects the world; it moves people, trade and goods across continents. Without competent pilots and controllers, the whole system simply couldn't function safely.",
         highRegisterWords: ["responsible for human lives", "the margin for error", "connects the world", "trade and goods", "competent"],
       },
       {
         n: 3,
         question: "Do you like your job? (why?)",
         suggestedAnswer:
-          "I do, very much. It combines so many things I value: technical skill, decision-making, teamwork and responsibility. It's also a job that never lets you become complacent — you're always learning, always being assessed — and that keeps me engaged and motivated.",
+          "I do, very much. It combines so many things I value: technical skill, decision-making, teamwork and responsibility. It's also a job that never lets you become complacent: you're always learning, always being assessed, and that keeps me engaged and motivated.",
         highRegisterWords: ["decision-making", "teamwork", "become complacent", "engaged and motivated", "constantly assessed"],
       },
       {
         n: 4,
         question: "What role do computers have in a pilot's or controller's job?",
         suggestedAnswer:
-          "A huge one. Modern aircraft are highly automated — the flight management system, the autopilot and the autothrottle handle a great deal of the routine workload, which lets us focus on monitoring and decision-making. That said, automation is a tool, not a replacement. We have to understand exactly what the systems are doing and be ready to take manual control the moment something doesn't behave as expected.",
+          "A huge one. Modern aircraft are highly automated: the flight management system, the autopilot and the autothrottle handle a great deal of the routine workload, which lets us focus on monitoring and decision-making. That said, automation is a tool, not a replacement. We have to understand exactly what the systems are doing and be ready to take manual control the moment something doesn't behave as expected.",
         highRegisterWords: ["highly automated", "flight management system (FMS)", "autopilot and autothrottle", "routine workload", "monitoring", "take manual control"],
       },
       {
@@ -178,7 +178,7 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 3,
         question: "What type of decisions does a pilot have to make?",
         suggestedAnswer:
-          "All kinds — some routine, some critical. Routine ones include how much fuel to carry, which runway to expect, or when to start the descent. Critical ones might be whether to divert because of weather, whether to reject a take-off, or how to handle a technical failure. The key is that the safety of the flight always comes first, ahead of schedule or commercial pressure.",
+          "All kinds: some routine, some critical. Routine ones include how much fuel to carry, which runway to expect, or when to start the descent. Critical ones might be whether to divert because of weather, whether to reject a take-off, or how to handle a technical failure. The key is that the safety of the flight always comes first, ahead of schedule or commercial pressure.",
         highRegisterWords: ["routine and critical decisions", "divert", "reject a take-off", "technical failure", "ahead of commercial pressure"],
       },
       {
@@ -192,28 +192,28 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 5,
         question: "Did you ever have any doubts about becoming a pilot?",
         suggestedAnswer:
-          "There were moments during training that were genuinely tough — the workload is heavy and the exams are demanding, so naturally you question whether you'll make it. But those doubts never lasted. Every time I got back in the aircraft, I remembered exactly why I'd chosen this path, and that kept me going.",
+          "There were moments during training that were genuinely tough: the workload is heavy and the exams are demanding, so naturally you question whether you'll make it. But those doubts never lasted. Every time I got back in the aircraft, I remembered exactly why I'd chosen this path, and that kept me going.",
         highRegisterWords: ["a heavy workload", "demanding exams", "chosen this path", "kept me going"],
       },
       {
         n: 6,
         question: "How did you become interested in aviation?",
         suggestedAnswer:
-          "It started in childhood. My first trip on an airliner sparked it, and from there I read everything I could about aircraft. The fascination just grew — how they're built, how they fly, how the whole system works together — until it became clear this was what I wanted to do with my life.",
+          "It started in childhood. My first trip on an airliner sparked it, and from there I read everything I could about aircraft. The fascination just grew: how they're built, how they fly, how the whole system works together, until it became clear this was what I wanted to do with my life.",
         highRegisterWords: ["sparked my interest", "fascination", "how the whole system works together"],
       },
       {
         n: 7,
         question: "What do you do to maintain your health?",
         suggestedAnswer:
-          "Health is part of the job — we can't fly without a valid medical certificate, so I take it seriously. I exercise regularly, I try to eat well even when I'm away, and I'm strict about rest, because fatigue is a real safety issue in this profession. Managing sleep around irregular rosters is probably the most important part.",
+          "Health is part of the job: we can't fly without a valid medical certificate, so I take it seriously. I exercise regularly, I try to eat well even when I'm away, and I'm strict about rest, because fatigue is a real safety issue in this profession. Managing sleep around irregular rosters is probably the most important part.",
         highRegisterWords: ["a valid medical certificate", "strict about rest", "fatigue is a real safety issue", "irregular rosters"],
       },
       {
         n: 8,
         question: "What is the most difficult part of your job?",
         suggestedAnswer:
-          "Dealing with the unexpected under time pressure. When something abnormal happens — a system warning, deteriorating weather, a medical case — you have to assess it quickly, follow the right procedures and make a decision, all while still flying the aircraft. Staying calm and methodical in those moments is the hardest and most important skill.",
+          "Dealing with the unexpected under time pressure. When something abnormal happens (a system warning, deteriorating weather, a medical case), you have to assess it quickly, follow the right procedures and make a decision, all while still flying the aircraft. Staying calm and methodical in those moments is the hardest and most important skill.",
         highRegisterWords: ["dealing with the unexpected", "under time pressure", "an abnormal situation", "follow the right procedures", "calm and methodical"],
       },
     ],
@@ -226,14 +226,14 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 1,
         question: "What is your job?",
         suggestedAnswer:
-          "I'm a professional pilot. I operate a commercial jet on scheduled passenger flights, and my core responsibility is the safety and efficiency of every operation — from the planning on the ground to the moment the passengers disembark at the destination.",
+          "I'm a professional pilot. I operate a commercial jet on scheduled passenger flights, and my core responsibility is the safety and efficiency of every operation, from the planning on the ground to the moment the passengers disembark at the destination.",
         highRegisterWords: ["a professional pilot", "scheduled passenger flights", "safety and efficiency", "disembark"],
       },
       {
         n: 2,
         question: "Why did you choose to be a pilot or controller?",
         suggestedAnswer:
-          "Because it brings together everything I'm passionate about — aviation, technical challenge, responsibility and teamwork. I wanted a career that would never be routine or boring, one that constantly pushes me to be better. Flying gives me exactly that, along with the privilege of doing something genuinely important.",
+          "Because it brings together everything I'm passionate about: aviation, technical challenge, responsibility and teamwork. I wanted a career that would never be routine or boring, one that constantly pushes me to be better. Flying gives me exactly that, along with the privilege of doing something genuinely important.",
         highRegisterWords: ["passionate about", "technical challenge", "never routine", "a privilege", "genuinely important"],
       },
       {
@@ -247,14 +247,14 @@ export const TEA_PART1_SETS: InterviewSet[] = [
         n: 4,
         question: "Is there anything you don't like about your job?",
         suggestedAnswer:
-          "The main downside is the impact on personal life — the unsocial hours, being away from home, and the constant battle against fatigue. It's the price you pay for the job, and you learn to manage it, but I'd be lying if I said it was easy.",
+          "The main downside is the impact on personal life: the unsocial hours, being away from home, and the constant battle against fatigue. It's the price you pay for the job, and you learn to manage it, but I'd be lying if I said it was easy.",
         highRegisterWords: ["the main downside", "unsocial hours", "the battle against fatigue", "learn to manage it"],
       },
       {
         n: 5,
         question: "Was the training to be a pilot or controller hard? (Why? Why not?)",
         suggestedAnswer:
-          "Yes, it was genuinely demanding. There's an enormous amount of theory to master — meteorology, navigation, systems, regulations — alongside the practical flying skills, and you're assessed continuously. It pushes you hard, both intellectually and mentally. But that difficulty is necessary; it's what makes sure that everyone in the flight deck truly deserves to be there.",
+          "Yes, it was genuinely demanding. There's an enormous amount of theory to master (meteorology, navigation, systems, regulations) alongside the practical flying skills, and you're assessed continuously. It pushes you hard, both intellectually and mentally. But that difficulty is necessary; it's what makes sure that everyone in the flight deck truly deserves to be there.",
         highRegisterWords: ["genuinely demanding", "meteorology, navigation, systems, regulations", "assessed continuously", "intellectually and mentally", "deserve to be there"],
       },
       {

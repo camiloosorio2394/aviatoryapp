@@ -95,7 +95,7 @@ export function Pca() {
             icon={FileText}
             color="violet"
             title="Banco de preguntas reviewed"
-            description="Preguntas redactadas por nosotros basadas en la teoría oficial. Validadas por pilotos que ya pasaron el examen — sin riesgo legal de copiar literal del banco oficial."
+            description="Preguntas redactadas por nosotros basadas en la teoría oficial. Validadas por pilotos que ya pasaron el examen, sin riesgo legal de copiar literal del banco oficial."
             bullets={[
               "Cobertura completa Reglamento + Meteorología + Aerodinámica + Navegación + Radio",
               "Cross-referenced con respuestas oficiales OACI / Aerocivil",

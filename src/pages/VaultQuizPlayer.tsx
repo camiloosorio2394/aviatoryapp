@@ -151,8 +151,8 @@ export function VaultQuizPlayer() {
                 <p className="text-[17px] text-muted-foreground max-w-[520px] mt-2">
                   {correctCount} de {session.questionCount} correctas ·{" "}
                   {passed
-                    ? "Sobre 70% — listo para presentar a este ritmo."
-                    : "Bajo 70% — repasá la teoría y volvé a intentar."}
+                    ? "Sobre 70%: listo para presentar a este ritmo."
+                    : "Bajo 70%: repasá la teoría y volvé a intentar."}
                 </p>
               </div>
               <KpiRing

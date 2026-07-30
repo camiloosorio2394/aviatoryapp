@@ -59,7 +59,7 @@ export function useAchievementToasts() {
         const ach = Array.isArray(row.achievements) ? row.achievements[0] : row.achievements
         if (!ach) continue
         toast.success(`${ach.icon}  ¡Logro desbloqueado!`, {
-          description: `${ach.name} — ${ach.description}`,
+          description: `${ach.name}: ${ach.description}`,
           duration: 6000,
           className: "achievement-toast",
         })

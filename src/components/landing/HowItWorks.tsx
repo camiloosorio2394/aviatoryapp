@@ -19,7 +19,7 @@ const steps = [
   {
     n: "4",
     title: "Ves tu progreso real",
-    body: "“Tu progreso a aerolínea: 47%” — sabés cuánto te falta y qué hacer hoy.",
+    body: "“Tu progreso a aerolínea: 47%”. Sabés cuánto te falta y qué hacer hoy.",
   },
 ]
 

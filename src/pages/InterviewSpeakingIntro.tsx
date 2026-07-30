@@ -119,7 +119,7 @@ export function InterviewSpeakingIntro() {
             Cada pregunta abre con la <strong>intención</strong> (qué buscan que digas y qué
             evitar), los <strong>topics que esperan que cubras</strong>, y posibles{" "}
             <strong>follow-ups</strong>. Practicá <strong>en voz alta</strong>, idealmente
-            grabándote en el celular y escuchándote — es lo más incómodo y lo más útil.
+            grabándote en el celular y escuchándote: es lo más incómodo y lo más útil.
           </div>
         </div>
 

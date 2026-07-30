@@ -113,7 +113,7 @@ export function PsychTests() {
           />
           <EngineCard
             name="PILAPT"
-            description="Pilot Aptitude Test. Estándar para hand-eye y spatial — Copa y otras lo usan."
+            description="Pilot Aptitude Test. Estándar para hand-eye y spatial. Copa y otras lo usan."
             features={["Coordination", "Mental rotation", "Reaction time", "Instrument reading"]}
           />
         </div>
@@ -131,7 +131,7 @@ export function PsychTests() {
               ¿Ya pasaste por psicotécnicas de Avianca, LATAM o Copa?
             </h3>
             <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
-              Reporta en la comunidad qué tests cayeron, duración y formato — esa data ajusta los
+              Reporta en la comunidad qué tests cayeron, duración y formato: esa data ajusta los
               simuladores. Más reportes = simulación más cercana a lo real.
             </p>
           </div>
@@ -178,7 +178,7 @@ const CATEGORIES: { slug: string; name: string; family: string; description: str
   { slug: "coordinacion", name: "Coordinación psicomotriz", family: "Coordination", description: "Hand-eye, reaction time bajo presión.", icon: Activity, color: "green" },
   { slug: "cognitivos_generales", name: "Cognitivos generales", family: "Cognitive", description: "IQ, verbal, numeric, abstract reasoning.", icon: Cpu, color: "blue" },
   { slug: "dinamicas_grupales", name: "Dinámicas grupales", family: "Dynamics", description: "Group assessment, role-plays, panel discussions.", icon: Users, color: "violet" },
-  { slug: "personality", name: "Personality tests", family: "Personality", description: "Big5, DISC, Hogan — fit cultural para aerolínea.", icon: UserCheck, color: "red" },
+  { slug: "personality", name: "Personality tests", family: "Personality", description: "Big5, DISC, Hogan: fit cultural para aerolínea.", icon: UserCheck, color: "red" },
 ]
 
 // ────────────────────────────────────────────────────────────────────────────

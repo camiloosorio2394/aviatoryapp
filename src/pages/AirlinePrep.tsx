@@ -235,7 +235,7 @@ const SUBMODULES: TileProps[] = [
     icon: Plane,
     color: "cyan",
     title: "Perfil por aerolínea",
-    description: "Avianca, LATAM, Copa, Wingo, JetSmart, Viva — cada una con su proceso, tips y prep recommendation.",
+    description: "Avianca, LATAM, Copa, Wingo, JetSmart, Viva: cada una con su proceso, tips y prep recommendation.",
     bullets: ["Match con tu perfil", "Tiempo típico del proceso", "Recruiter tips reales"],
     link: { to: "/app/aerolineas", label: "Ya disponible: Match" },
   },

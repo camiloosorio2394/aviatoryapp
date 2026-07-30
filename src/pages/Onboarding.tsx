@@ -347,7 +347,7 @@ export function Onboarding() {
                   style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)" }}
                 >
                   Tu nivel de inglés <strong className="text-foreground">ICAO</strong> lo vas a medir con el{" "}
-                  <strong className="text-foreground">test inicial</strong> apenas entres — no hace falta declararlo a mano.
+                  <strong className="text-foreground">test inicial</strong> apenas entres, no hace falta declararlo a mano.
                 </div>
               </>
             )}
