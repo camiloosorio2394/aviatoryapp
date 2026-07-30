@@ -25,7 +25,7 @@ export function IcaoPictureDescription() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1080px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1080px] mx-auto">
         <Link
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -34,7 +34,7 @@ export function IcaoPictureDescription() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="flex items-center gap-3">
             <div
               className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
@@ -65,7 +65,7 @@ export function IcaoPictureDescription() {
           {PART3_TASK_STEPS.map((s, i) => (
             <div
               key={s.label}
-              className="rounded-2xl border border-border bg-card p-3"
+              className="rounded-2xl surface p-3"
             >
               <div className="flex items-center gap-2">
                 <span
@@ -150,7 +150,7 @@ function PairView({ pair }: { pair: PicturePair }) {
       <div className="mt-5">
         <button
           onClick={() => setShowDiscussion((s) => !s)}
-          className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 h-10 px-4 rounded-full text-[14px] font-semibold text-white border-0 surface-lift"
           style={{ background: "var(--av-green-400)" }}
         >
           <MessagesSquare className="h-4 w-4" />

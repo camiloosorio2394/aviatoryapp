@@ -92,7 +92,7 @@ export function TestInicial() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[760px] mx-auto">
         <div className="flex items-center justify-between gap-3 mb-3">
           <Link
             to="/app"
@@ -119,7 +119,7 @@ export function TestInicial() {
           <div className="h-full rounded-full transition-all duration-500" style={{ width: `${(answeredCount / total) * 100}%`, background: "var(--av-blue-500)" }} />
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <div className="rounded-2xl surface p-5 sm:p-6">
           {item.audioUrl && <AudioItem url={item.audioUrl} />}
           {item.context && <p className="text-[13.5px] text-muted-foreground italic mb-3">{item.context}</p>}
           <h2 className="text-[18px] font-bold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
@@ -191,7 +191,7 @@ export function TestInicial() {
           <button
             onClick={next}
             disabled={!graded}
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-6 rounded-xl text-[15px] font-semibold text-white disabled:opacity-40 transition-transform hover:-translate-y-0.5"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-6 rounded-full text-[15px] font-semibold text-white disabled:opacity-40 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             {isLast ? "Ver resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
@@ -221,7 +221,7 @@ function AudioItem({ url }: { url: string }) {
       <button
         onClick={toggle}
         disabled={plays >= 2 && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white disabled:opacity-40"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-full text-[14px] font-semibold text-white disabled:opacity-40"
         style={{ background: "var(--av-blue-500)" }}
       >
         {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />} {playing ? "Pausar" : "Reproducir"}
@@ -250,8 +250,8 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[760px] mx-auto">
+        <section className="relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
             <Sparkles className="h-6 w-6 text-white" />
           </div>
@@ -271,7 +271,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
 
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-3 gap-3">
           {cards.map((c) => (
-            <div key={c.t} className="rounded-2xl border border-border bg-card p-4">
+            <div key={c.t} className="rounded-2xl surface p-4">
               <c.icon className="h-5 w-5 mb-2" style={{ color: "var(--av-blue-500)" }} />
               <div className="text-[14px] font-bold">{c.t}</div>
               <div className="text-[12.5px] text-muted-foreground">{c.d}</div>
@@ -287,7 +287,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           <button
             onClick={onStart}
             disabled={building}
-            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl text-[15px] font-semibold text-white disabled:opacity-60 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full text-[15px] font-semibold text-white disabled:opacity-60 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             {building ? <><Loader2 className="h-4 w-4 animate-spin" /> Armando tu test…</> : <>Empezar el test <ArrowRight className="h-4 w-4" /></>}
@@ -358,12 +358,12 @@ function Result({
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[760px] mx-auto">
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · resultado</div>
         <h1 className="mt-1.5 text-3xl sm:text-4xl font-extrabold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
 
         {/* ICAO estimate */}
-        <div className="mt-6 rounded-2xl border border-border bg-card p-5 sm:p-6 flex items-center gap-5">
+        <div className="mt-6 rounded-2xl surface p-5 sm:p-6 flex items-center gap-5">
           <div className="flex items-center justify-center w-14 h-14 rounded-2xl flex-shrink-0" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
             <Radio className="h-7 w-7 text-white" />
           </div>
@@ -381,7 +381,7 @@ function Result({
 
         {/* Por materia: pastillas discretas, una por pregunta. Sin barras de % */}
         {perSubject.length > 0 && (
-          <div className="mt-5 rounded-2xl border border-border bg-card p-5 sm:p-6">
+          <div className="mt-5 rounded-2xl surface p-5 sm:p-6">
             <div className="text-[13px] font-semibold mb-1" style={{ color: "var(--av-blue-500)" }}>Por materia</div>
             <p className="text-[12.5px] text-muted-foreground mb-3.5">
               Son hasta 2 preguntas por materia: alcanza para saber por dónde empezar, no para ponerte una nota.
@@ -434,7 +434,7 @@ function Result({
           <button
             onClick={save}
             disabled={saving}
-            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-xl text-[15px] font-semibold text-white disabled:opacity-60 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 h-12 px-7 rounded-full text-[15px] font-semibold text-white disabled:opacity-60 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             {saving ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando…</> : <>Guardar y continuar <ArrowRight className="h-4 w-4" /></>}

@@ -131,7 +131,7 @@ export function Airlines() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="AEROLÍNEAS · MATCH CON TU PERFIL"
           title="¿Para cuál calificas hoy?"
@@ -150,7 +150,7 @@ export function Airlines() {
               <PilotIdPrompt />
             ) : bestMatch && bestMatch.matchPct > 0 ? (
               <div
-                className="anim-fade-up rounded-2xl border border-border bg-card p-6 sm:p-7 mb-6 overflow-hidden relative"
+                className="anim-fade-up rounded-2xl surface p-6 sm:p-7 mb-6 overflow-hidden relative"
                 style={{
                   background:
                     "linear-gradient(135deg, color-mix(in oklab, var(--av-blue-500) 6%, var(--card)) 0%, var(--card) 70%)",
@@ -299,7 +299,7 @@ function PilotIdPrompt() {
           </p>
           <Link
             to="/app/perfil"
-            className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+            className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             Completar mi Pilot ID <ArrowRight className="h-3.5 w-3.5" />
@@ -329,7 +329,7 @@ function AirlineCard({
 
   return (
     // Sin hover-lift ni cursor-pointer: la tarjeta no es clickeable todavía.
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-2xl surface p-5">
       <div className="relative">
         <div className="flex justify-between items-start gap-3">
           <div

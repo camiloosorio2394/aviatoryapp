@@ -169,7 +169,7 @@ export function NotamLesson() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1180px] mx-auto">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1180px] mx-auto">
         <PageHeader
           eyebrow={
             <>
@@ -181,7 +181,7 @@ export function NotamLesson() {
           actions={
             <Link
               to="/app/aerolinea/notam"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold border border-border bg-card text-foreground transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[14px] font-semibold border border-border bg-card text-foreground surface-lift"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Volver a NOTAM
             </Link>
@@ -203,7 +203,7 @@ export function NotamLesson() {
         <div className="lg:grid lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-8 lg:items-start">
           {/* Índice lateral: usa los tokens de la app, no es papel */}
           <aside
-            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl border border-border bg-card p-3"
+            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl surface p-3"
             aria-label="Índice de la lección"
           >
             <div className="px-2.5 pt-1 pb-2 text-[11.5px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
@@ -216,7 +216,7 @@ export function NotamLesson() {
             {/* Índice desplegable en móvil */}
             <details
               ref={mobileTocRef}
-              className="lg:hidden mb-4 rounded-2xl border border-border bg-card overflow-hidden"
+              className="lg:hidden mb-4 rounded-2xl surface overflow-hidden"
             >
               <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-4 py-3 flex items-center justify-between gap-3 text-[14px] font-semibold text-foreground">
                 <span className="inline-flex items-center gap-2">
@@ -647,7 +647,7 @@ function DocLink({ to, icon: Icon, color, title, hint }: DocLinkProps) {
   return (
     <Link
       to={to}
-      className="doc-soft group rounded-xl border doc-rule p-4 flex items-start gap-3 transition-transform hover:-translate-y-0.5"
+      className="doc-soft group rounded-xl border doc-rule p-4 flex items-start gap-3 surface-lift"
     >
       <span
         className="shrink-0 h-10 w-10 rounded-xl flex items-center justify-center"

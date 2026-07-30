@@ -162,7 +162,7 @@ export function Community() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={loading || totalChannels === 0 ? "COMUNIDAD" : `COMUNIDAD · ${totalChannels} CANALES`}
           title="Comunidad Aviatory"
@@ -255,7 +255,7 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
         <button
           type="button"
           onClick={onRetry}
-          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-sm font-semibold"
+          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-sm font-semibold"
         >
           <RotateCw className="h-3.5 w-3.5" /> Reintentar
         </button>
@@ -266,7 +266,7 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
 
 function NoChannelsYet() {
   return (
-    <div className="rounded-2xl border border-border bg-card p-8 text-center">
+    <div className="rounded-2xl surface p-8 text-center">
       <div
         className="inline-flex items-center justify-center h-12 w-12 rounded-2xl mb-3"
         style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
@@ -289,7 +289,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
   return (
     <Link
       to={`/app/comunidad/${channel.slug}`}
-      className="group block rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-4 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
         e.currentTarget.style.boxShadow = "0 4px 16px color-mix(in oklab, var(--av-blue-500) 18%, transparent)"

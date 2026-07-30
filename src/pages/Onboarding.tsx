@@ -369,7 +369,7 @@ export function Onboarding() {
                 onClick={handleSubmit}
                 disabled={submitting}
                 size="lg"
-                className="rounded-xl h-12 px-8 border-0 text-white transition-transform hover:-translate-y-0.5"
+                className="rounded-xl h-12 px-8 border-0 text-white surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {submitting ? (
@@ -389,7 +389,7 @@ export function Onboarding() {
                 onClick={() => setStep((s) => s + 1)}
                 disabled={!canAdvance}
                 size="lg"
-                className="rounded-xl h-12 px-8 border-0 text-white disabled:opacity-50 transition-transform hover:-translate-y-0.5"
+                className="rounded-xl h-12 px-8 border-0 text-white disabled:opacity-50 surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Siguiente

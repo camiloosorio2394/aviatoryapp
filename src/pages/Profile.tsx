@@ -278,7 +278,7 @@ export function Profile() {
   if (loading) {
     return (
       <AppLayout>
-        <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+        <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto animate-pulse">
           <div className="mb-6 space-y-2.5">
             <div className="h-3 w-24 bg-muted rounded" />
             <div className="h-8 w-72 max-w-full bg-muted rounded" />
@@ -327,7 +327,7 @@ export function Profile() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader eyebrow="Mi perfil" title="Tu identidad como piloto" subtitle="Tu mapa de habilidades sale de datos reales: Logbook, Vencimientos y tus simulacros TEA. Aviatory lo usa para calcular tu progreso y plan." />
 
         <div className="grid gap-5 grid-cols-1 lg:grid-cols-[360px_1fr]">
@@ -347,7 +347,7 @@ export function Profile() {
 
           {/* Skills radar + Settings */}
           <div className="flex flex-col gap-5">
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="rounded-2xl surface p-6">
               <SectionTitle icon={Radar} eyebrow="Tu mapa de habilidades" title="Mastery por dimensión" />
               <div className="grid items-center gap-7 mt-4 grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr] sm:justify-items-stretch">
                 <SkillsRadar skills={skills} />
@@ -379,7 +379,7 @@ export function Profile() {
             <StrengthsSummary strengths={strengths} gaps={gaps} />
 
             {/* Form */}
-            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl surface p-6 space-y-5">
               <SectionTitle icon={UserIcon} eyebrow="Identidad" title="Datos públicos y privados" />
               <div className="space-y-4">
                 <Field label="Tu foto">
@@ -451,7 +451,7 @@ export function Profile() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl surface p-6 space-y-5">
               <SectionTitle icon={Settings} eyebrow="Tu carrera" title="Estado de piloto" />
               <div className="space-y-4">
                 <Field label="Etapa actual">
@@ -514,7 +514,7 @@ export function Profile() {
                 onClick={handleSave}
                 disabled={saving || !usernameOK}
                 size="lg"
-                className="rounded-xl h-12 px-6 border-0 text-white disabled:opacity-50 transition-transform hover:-translate-y-0.5"
+                className="rounded-xl h-12 px-6 border-0 text-white disabled:opacity-50 surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {saving ? (
@@ -561,7 +561,7 @@ function PilotIdCard({
   const stageLabel = stage ? STAGES.find((s) => s.value === stage)?.label ?? "—" : "—"
   const fmt = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 overflow-hidden h-fit">
+    <div className="rounded-2xl surface p-6 overflow-hidden h-fit">
       <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
         Aviatory · Pilot ID
       </div>
@@ -671,7 +671,7 @@ function SkillsRadar({ skills }: { skills: { label: string; value: number }[] })
 
 function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill[] }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
+    <div className="rounded-2xl surface p-6">
       <SectionTitle icon={TrendingUp} eyebrow="Resumen" title="Fortalezas y debilidades" />
       <div className="grid gap-6 sm:grid-cols-2 mt-1">
         <div>

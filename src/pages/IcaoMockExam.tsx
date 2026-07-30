@@ -108,7 +108,7 @@ export function IcaoMockExam() {
           </div>
           <button
             onClick={advance}
-            className="inline-flex items-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold text-white border-0 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             {idx >= steps.length - 1 ? "Finish mock exam" : "Next"} <ArrowRight className="h-4 w-4" />
@@ -123,12 +123,12 @@ export function IcaoMockExam() {
 function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecord: boolean; setWantRecord: (v: boolean) => void; recSupported: boolean; onStart: () => void }) {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[860px] mx-auto">
         <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4">
           <ArrowLeft className="h-3.5 w-3.5" /> Back to ICAO English
         </Link>
 
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="relative">
             <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
               style={{ color: "var(--av-amber-400)", background: "color-mix(in oklab, var(--av-amber-400) 12%, transparent)", border: "1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent)" }}>
@@ -188,7 +188,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
 
         <button
           onClick={onStart}
-          className="mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[16px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-full text-[16px] font-semibold text-white border-0 surface-lift"
           style={{ background: "var(--av-blue-500)" }}
         >
           <Sparkles className="h-4.5 w-4.5" /> Start mock exam
@@ -454,7 +454,7 @@ function ExamPlayer({ audioUrl, label, onSkip }: { audioUrl: string; label?: str
     <div>
       <div className="flex items-center gap-2 flex-wrap">
         <button onClick={playing ? stop : play} disabled={!canPlay && !playing}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[15px] font-semibold text-white border-0 surface-lift disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
           style={{ background: "var(--av-blue-500)" }}>
           {playing ? <><Square className="h-4 w-4" /> Stop</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Play"}</> : <><RotateCcw className="h-4 w-4" /> Play again</>}
         </button>
@@ -470,7 +470,7 @@ function ExamPlayer({ audioUrl, label, onSkip }: { audioUrl: string; label?: str
           {onSkip && (
             <button
               onClick={onSkip}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg text-[13px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Skip this item <ArrowRight className="h-3.5 w-3.5" />
             </button>
@@ -572,7 +572,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
                 <button
                   onClick={save}
                   disabled={!user || saveState === "saving"}
-                  className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
+                  className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift disabled:opacity-50 disabled:hover:translate-y-0"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   {saveState === "saving" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
@@ -601,11 +601,11 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
         </div>
 
         <div className="mt-8 flex items-center justify-center gap-2">
-          <button onClick={onRestart} className="inline-flex items-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          <button onClick={onRestart} className="inline-flex items-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold text-white border-0 surface-lift"
             style={{ background: "var(--av-blue-500)" }}>
             <RotateCcw className="h-4 w-4" /> Another mock exam
           </button>
-          <Link to="/app/icao" className="inline-flex items-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+          <Link to="/app/icao" className="inline-flex items-center gap-1.5 h-12 px-6 rounded-full text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
             Back to the module
           </Link>
         </div>

@@ -87,7 +87,7 @@ export function ExamTrackerSubject() {
             </p>
             <Link
               to="/app/exam-tracker"
-              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               Volver al tracker <ArrowRight className="h-3.5 w-3.5" />
@@ -165,7 +165,7 @@ export function ExamTrackerSubject() {
 function StatBox({ label, value }: { label: string; value: string }) {
   const isEmpty = value === "—"
   return (
-    <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <div className="rounded-2xl surface p-4 sm:p-5">
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
         {label}
       </div>
@@ -300,7 +300,7 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
       </ol>
       <Link
         to="/app/exam-tracker"
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift"
         style={{ background: "var(--av-blue-500)" }}
       >
         Reportar mi examen <ArrowRight className="h-3.5 w-3.5" />

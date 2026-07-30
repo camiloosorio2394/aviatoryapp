@@ -66,7 +66,7 @@ export function ExamTracker() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="EXAM TRACKER · INTELIGENCIA COLECTIVA"
           title="El Waze de los exámenes Aerocivil"
@@ -75,7 +75,7 @@ export function ExamTracker() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[14px] font-semibold text-white border-0 cursor-pointer surface-lift"
               style={{
                 background: "var(--av-blue-500)",
               }}
@@ -115,7 +115,7 @@ export function ExamTracker() {
                     <button
                       type="button"
                       onClick={() => setFormOpen(true)}
-                      className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                      className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift"
                       style={{ background: "var(--av-blue-500)" }}
                     >
                       <Plus className="h-3.5 w-3.5" /> Reportar mi examen
@@ -131,7 +131,7 @@ export function ExamTracker() {
                 </div>
               </section>
             ) : (
-              <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-7">
+              <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8 mb-7">
                 <div className="relative grid grid-cols-1 md:grid-cols-[auto_1fr_auto] items-center gap-6 md:gap-8">
                   <div className="hidden md:block flex-shrink-0">
                     <KpiRing
@@ -216,7 +216,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   return (
     <Link
       to={`/app/exam-tracker/${intel.subject_slug}`}
-      className="group block rounded-2xl border border-border bg-card p-5 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-5 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
       }}
@@ -275,7 +275,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
 
 function HowStep({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <div
         className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold"
         style={{
@@ -611,7 +611,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
               type="submit"
               disabled={saving || !subjectId}
               size="lg"
-              className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
+              className="rounded-xl h-11 px-6 border-0 text-white surface-lift"
               style={{
                 background: "var(--av-blue-500)",
               }}

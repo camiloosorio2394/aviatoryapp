@@ -184,8 +184,8 @@ export function VaultQuizPlayer() {
     const passed = scorePct >= 70
     return (
       <AppLayout>
-        <div className="px-5 sm:px-7 py-7 pb-20 max-w-[920px] mx-auto">
-          <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-6 sm:p-8">
+        <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[920px] mx-auto">
+          <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
             <div className="relative grid items-center gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-[1fr_auto]">
               <div>
                 <div
@@ -226,7 +226,7 @@ export function VaultQuizPlayer() {
                 const groupCorrect = g.items.filter((i) => i.correct).length
                 const allRight = groupCorrect === g.items.length
                 return (
-                  <div key={g.key} className="rounded-2xl border border-border bg-card p-5">
+                  <div key={g.key} className="rounded-2xl surface p-5">
                     <div className="flex items-start justify-between gap-3 mb-3">
                       <div className="text-[15px] font-bold tracking-[-0.01em]">{g.label}</div>
                       <span className={`chip flex-shrink-0 ${allRight ? "chip-green" : "chip-amber"}`}>
@@ -268,7 +268,7 @@ export function VaultQuizPlayer() {
                 type="button"
                 onClick={() => setReviewOpen((v) => !v)}
                 aria-expanded={reviewOpen}
-                className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border cursor-pointer transition-colors"
+                className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-sm font-semibold border cursor-pointer transition-colors"
                 style={{
                   borderColor: tileBorder("red", 32),
                   background: tileTint("red", 8),
@@ -312,14 +312,14 @@ export function VaultQuizPlayer() {
             <button
               type="button"
               onClick={handleRestart}
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full text-sm font-semibold text-white border-0 cursor-pointer surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               <RefreshCw className="h-4 w-4" /> Otra ronda
             </button>
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a {MODULE_LABEL[module] ?? "materias"}
             </Link>
@@ -373,7 +373,7 @@ export function VaultQuizPlayer() {
 
         {/* Question card */}
         <ProtectedContent watermark={false}>
-          <section className="rounded-2xl border border-border bg-card p-5 sm:p-7">
+          <section className="rounded-2xl surface p-5 sm:p-7">
             <div
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold mb-3"
               style={{ color: "var(--av-blue-500)" }}
@@ -520,7 +520,7 @@ export function VaultQuizPlayer() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={!selected || submitting}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-full text-sm font-semibold text-white border-0 cursor-pointer surface-lift disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
@@ -530,7 +530,7 @@ export function VaultQuizPlayer() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-full text-sm font-semibold text-white border-0 cursor-pointer surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {position >= session.questionCount ? "Ver resultado" : "Siguiente"}
@@ -585,7 +585,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
   return (
     <AppLayout>
       <div className="px-5 sm:px-7 py-10 pb-20 max-w-[560px] mx-auto">
-        <div className="rounded-2xl border border-border bg-card p-7 text-center">
+        <div className="rounded-2xl surface p-7 text-center">
           <div
             className="mx-auto flex items-center justify-center w-12 h-12 rounded-xl"
             style={{
@@ -603,7 +603,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
               <button
                 type="button"
                 onClick={onRetry}
-                className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full text-sm font-semibold text-white border-0 cursor-pointer surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 <RefreshCw className="h-4 w-4" /> Reintentar
@@ -611,7 +611,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
             )}
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a materias
             </Link>

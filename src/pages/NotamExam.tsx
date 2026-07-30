@@ -202,7 +202,7 @@ export function NotamExam() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[900px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[900px] mx-auto">
         {/* Encabezado de progreso */}
         <div className="mb-6">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
@@ -235,7 +235,7 @@ export function NotamExam() {
         </div>
 
         {/* Pregunta */}
-        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <div className="rounded-2xl surface p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <span
               className="inline-flex items-center gap-1.5 text-[12px] font-bold px-2.5 py-1 rounded-full"
@@ -315,7 +315,7 @@ export function NotamExam() {
             type="button"
             onClick={next}
             disabled={!answered}
-            className="inline-flex items-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+            className="inline-flex items-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold text-white border-0 surface-lift disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             style={{ background: "var(--av-blue-500)" }}
           >
             {idx >= total - 1 ? "Ver mi resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
@@ -390,7 +390,7 @@ interface IntroProps {
 function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProps) {
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1100px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1100px] mx-auto">
         <Link
           to={HUB_PATH}
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -471,7 +471,7 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
         <button
           type="button"
           onClick={onStart}
-          className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[16px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-full text-[16px] font-semibold text-white border-0 surface-lift"
           style={{ background: "var(--av-blue-500)" }}
         >
           <Sparkles className="h-4.5 w-4.5" /> Empezar la evaluación
@@ -797,7 +797,7 @@ function Result({
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[900px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[900px] mx-auto">
         {/* Puntaje */}
         <div
           className="rounded-2xl border p-6 sm:p-8 text-center anim-fade-up"
@@ -923,7 +923,7 @@ function Result({
           <button
             type="button"
             onClick={onRetry}
-            className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold text-white border-0 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             <RotateCcw className="h-4 w-4" /> Volver a intentar
@@ -931,7 +931,7 @@ function Result({
           <button
             type="button"
             onClick={onBackToIntro}
-            className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-full text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
           >
             <History className="h-4 w-4" /> Ver mi historial
           </button>

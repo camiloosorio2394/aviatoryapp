@@ -159,7 +159,7 @@ export function IcaoVocabulary() {
   return (
     <AppLayout>
       <ContentGuard>
-      <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1240px] mx-auto">
         {/* Back link */}
         <Link
           to="/app/icao"
@@ -190,7 +190,7 @@ export function IcaoVocabulary() {
           <div className="flex flex-col items-end gap-2">
             <Link
               to="/app/icao/quiz"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white border-0 surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               Test me with questions <ArrowRight className="h-3.5 w-3.5" />
@@ -277,7 +277,7 @@ export function IcaoVocabulary() {
             <span className="text-sm">Loading glossary…</span>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+          <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
             <div
               className="w-11 h-11 rounded-xl flex items-center justify-center"
               style={{
@@ -297,7 +297,7 @@ export function IcaoVocabulary() {
             </p>
             <button
               onClick={() => { setQuery(""); setCategory("all") }}
-              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[14px] font-semibold text-white border-0 surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               Clear filters
@@ -334,7 +334,7 @@ export function IcaoVocabulary() {
           <div className="mt-6 flex justify-center">
             <button
               onClick={() => setLimit((l) => l + PAGE_SIZE)}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
             >
               Show more terms
               <span className="tabular-nums text-muted-foreground">{remaining} left</span>
@@ -360,7 +360,7 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
     // Sin hover lift: una ficha de glosario no lleva a ningún lado, así que no
     // finge ser clickeable.
     <div
-      className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-1.5"
+      className="rounded-2xl surface p-4 flex flex-col gap-1.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">

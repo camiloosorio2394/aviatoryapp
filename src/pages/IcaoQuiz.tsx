@@ -151,7 +151,7 @@ export function IcaoQuiz() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[860px] mx-auto">
         <Link
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -269,7 +269,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
             <button
               onClick={onStart}
               disabled={loading || counts == null}
-              className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
+              className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold text-white border-0 surface-lift disabled:opacity-50 disabled:hover:translate-y-0"
               style={{ background: "var(--av-blue-500)" }}
             >
               {loading || counts == null ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
@@ -296,7 +296,7 @@ function StartScreen({ topic, onTopicChange, onStart, loading, counts, failed, c
 /** El banco no se pudo leer: no es lo mismo que estar vacío, y se dice así. */
 function BankLoadError({ onRetry }: { onRetry: () => void }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+    <div className="rounded-2xl surface p-7 flex flex-col items-start">
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center"
         style={{
@@ -316,14 +316,14 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
       <div className="mt-5 flex flex-wrap gap-2">
         <button
           onClick={onRetry}
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
           style={{ background: "var(--av-blue-500)" }}
         >
           <RotateCcw className="h-4 w-4" /> Try again
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Open the glossary
         </Link>
@@ -335,7 +335,7 @@ function BankLoadError({ onRetry }: { onRetry: () => void }) {
 /** Tema (o banco entero) sin preguntas: estado de producto con una salida. */
 function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: () => void }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-7 flex flex-col items-start">
+    <div className="rounded-2xl surface p-7 flex flex-col items-start">
       <div
         className="w-11 h-11 rounded-xl flex items-center justify-center"
         style={{
@@ -358,7 +358,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         {!allEmpty && (
           <button
             onClick={onAllTopics}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             Try all topics <ArrowRight className="h-3.5 w-3.5" />
@@ -366,7 +366,7 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
         )}
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
           <BookOpen className="h-4 w-4" /> Open the glossary
         </Link>
@@ -396,7 +396,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
         </div>
       </div>
 
-      <div className="rounded-2xl border border-border bg-card p-6">
+      <div className="rounded-2xl surface p-6">
         {question.context && (
           <div className="text-[13.5px] italic text-muted-foreground mb-3 border-l-2 pl-3 border-[var(--av-blue-500)]/40">
             {question.context}
@@ -466,7 +466,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
           <div className="mt-5 flex justify-end">
             <button
               onClick={onNext}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               {isLast ? "See results" : "Next"} <ArrowRight className="h-3.5 w-3.5" />
@@ -521,14 +521,14 @@ function FinishedScreen({ score, total, history, onRestart }: { score: number; t
       <div className="mt-9 flex items-center justify-center gap-2">
         <button
           onClick={onRestart}
-          className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
           style={{ background: "var(--av-blue-500)" }}
         >
           <RotateCcw className="h-4 w-4" /> New round
         </button>
         <Link
           to="/app/icao/vocabulario"
-          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
         >
           Go to glossary
         </Link>

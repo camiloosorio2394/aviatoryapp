@@ -33,9 +33,9 @@ import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileC
 export function Icao() {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1240px] mx-auto">
         {/* === HERO === */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="grid items-center gap-7 sm:grid-cols-[1fr_auto]">
             <div>
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
@@ -133,7 +133,7 @@ export function Icao() {
           </div>
           <Link
             to="/app/comunidad"
-            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white border-0 flex-shrink-0 surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             #icao community <ArrowRight className="h-3.5 w-3.5" />
@@ -153,7 +153,7 @@ export function Icao() {
 function ReferenceBlock() {
   const [open, setOpen] = useState(false)
   return (
-    <section className="mt-8 rounded-2xl border border-border bg-card overflow-hidden">
+    <section className="mt-8 rounded-2xl surface overflow-hidden">
       <button
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
@@ -358,7 +358,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
   const c = TILE_COLOR[color]
   return (
     <div
-      className="card-apple relative rounded-2xl border border-border bg-card p-5 flex flex-col gap-3"
+      className="card-apple relative rounded-2xl surface p-5 flex flex-col gap-3"
       style={{ borderColor: tileBorder(color, status === "ready" ? 32 : 22) }}
     >
       <div className="flex items-start justify-between">

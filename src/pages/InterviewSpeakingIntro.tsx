@@ -82,7 +82,7 @@ export function InterviewSpeakingIntro() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[920px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[920px] mx-auto">
         <Link
           to="/app/entrevistas"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -133,7 +133,7 @@ export function InterviewSpeakingIntro() {
               <span className="text-sm">Cargando preguntas…</span>
             </div>
           ) : questions.length === 0 ? (
-            <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+            <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center"
                 style={{
@@ -155,14 +155,14 @@ export function InterviewSpeakingIntro() {
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
                 <Link
                   to="/app/icao/interview"
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Practicar Interview TEA <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   to="/app/icao"
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
                 >
                   Ver el módulo ICAO
                 </Link>
@@ -199,7 +199,7 @@ export function InterviewSpeakingIntro() {
             </div>
             <Link
               to="/app/entrevistas"
-              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 flex-shrink-0 surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               Ver otras categorías <ArrowRight className="h-3.5 w-3.5" />

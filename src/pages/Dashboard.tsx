@@ -331,7 +331,7 @@ export function Dashboard() {
 
   return (
     <AppLayout streak={streakDays}>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         {/* Cockpit hero */}
         <CockpitHero
           firstName={firstName}
@@ -356,7 +356,7 @@ export function Dashboard() {
         {!icaoMeasured && (
           <Link
             to="/app/test-inicial"
-            className="mt-5 flex items-center justify-between gap-4 rounded-2xl border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+            className="mt-5 flex items-center justify-between gap-4 rounded-2xl border p-5 surface-lift"
             style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 32%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
           >
             <div className="flex items-center gap-4">
@@ -442,7 +442,7 @@ function CockpitHero({
   trialLeft: number | null
 }) {
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+    <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
       <div className="grid gap-7 lg:grid-cols-[1fr_auto] lg:items-center">
         <div className="min-w-0">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
@@ -496,7 +496,7 @@ function CockpitHero({
           )}
           <Link
             to={DAILY_ACTION.href}
-            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-1.5 h-11 px-5 rounded-full font-semibold text-[15px] text-white surface-lift"
             style={{ background: "var(--av-blue-500)" }}
           >
             {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
@@ -513,7 +513,7 @@ function TodayCard({ step }: { step: NextStep }) {
   return (
     <Link
       to={step.href}
-      className="relative overflow-hidden rounded-2xl border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
+      className="relative overflow-hidden rounded-2xl surface p-[18px] cursor-pointer surface-lift block"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = tileBorder(step.tone, 45)
       }}
@@ -604,7 +604,7 @@ function WingmanInsight({
         <p className="mt-2 text-[14px] text-muted-foreground leading-relaxed">{insight.body}</p>
         <Link
           to={insight.href}
-          className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+          className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-full border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
         >
           <Lightbulb className="h-3 w-3" /> {insight.cta}
         </Link>
@@ -644,7 +644,7 @@ function EmptyState({
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[34ch]">{line}</p>
       <Link
         to={href}
-        className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+        className="inline-flex items-center gap-1.5 mt-3.5 h-9 px-3 rounded-full border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
       >
         {cta} <ArrowRight className="h-3 w-3" />
       </Link>
@@ -673,7 +673,7 @@ function StreakBars({ current }: { current: number }) {
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
   if (current === 0) {
     return (
-      <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+      <div className="relative overflow-hidden rounded-2xl surface p-5">
         <span className="chip chip-amber">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
@@ -693,7 +693,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   }
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-2xl surface p-5">
       <div className="relative">
         <span className="chip chip-amber">
           <Flame className="h-3 w-3" /> Tu racha
@@ -737,7 +737,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
             </p>
             <Link
               to={DAILY_ACTION.href}
-              className="inline-flex items-center gap-1.5 mt-2.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 mt-2.5 h-9 px-3 rounded-full border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
             >
               Salvar mi racha <ArrowRight className="h-3 w-3" />
             </Link>
@@ -764,7 +764,7 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
   }
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
           <div
@@ -864,7 +864,7 @@ function AchievementsCard({
     platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
   }
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
@@ -943,7 +943,7 @@ function CohortCard({
   loading: boolean
 }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <SectionTitle
         icon={Users}
         eyebrow="Tu cohorte"
@@ -1030,7 +1030,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
         </div>
       </div>
       <span
-        className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl font-bold text-sm flex-shrink-0"
+        className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-full font-bold text-sm flex-shrink-0"
         style={{
           background: "white",
           color: "var(--av-navy-900)",
@@ -1050,7 +1050,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
 function DashboardSkeleton() {
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto animate-pulse">
         {/* Hero */}
         <div className="h-[232px] bg-muted rounded-2xl" />
 

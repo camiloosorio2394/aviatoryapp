@@ -131,7 +131,7 @@ export function NotificationsBell() {
                 <Link
                   to="/app/vencimientos"
                   onClick={() => setOpen(false)}
-                  className="mt-4 flex h-9 items-center justify-center rounded-lg text-xs font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  className="mt-4 flex h-9 items-center justify-center rounded-lg text-xs font-semibold text-white surface-lift"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Cargar mis vencimientos

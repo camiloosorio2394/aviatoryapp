@@ -42,7 +42,7 @@ export function IcaoComprehension() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[940px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -51,7 +51,7 @@ export function IcaoComprehension() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div
             className="inline-flex items-center gap-2 h-9 w-9 rounded-xl items-center justify-center"
             style={{
@@ -161,7 +161,7 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       <button
         onClick={playing ? stop : play}
         disabled={!canPlay && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-full text-[14px] font-semibold text-white border-0 surface-lift disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         style={{
           background: "var(--av-blue-500)",
         }}
@@ -249,7 +249,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
           <div className="mt-3 text-[16px] text-foreground/80">You went through {order.length} situations.</div>
         )}
         <div className="mt-8">
-          <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14px] font-semibold text-white border-0 surface-lift"
             style={{ background: accent }}>
             <RotateCcw className="h-4 w-4" /> New quiz (new random set)
           </button>
@@ -297,7 +297,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
                 const showWrong = revealed && chosen && !isAnswer
                 return (
                   <button key={s} onClick={() => pickSpeaker(s)} disabled={revealed}
-                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-bold border transition-colors disabled:cursor-default"
+                    className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14px] font-bold border transition-colors disabled:cursor-default"
                     style={{
                       borderColor: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : chosen ? accent : "color-mix(in oklab, var(--border) 70%, transparent)",
                       background: showCorrect ? "color-mix(in oklab, var(--av-green-400) 14%, transparent)" : showWrong ? "color-mix(in oklab, var(--av-red-400) 14%, transparent)" : "transparent",
@@ -321,7 +321,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {/* For 2C (no speaker): Show answer button */}
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
-            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
               <Eye className="h-4 w-4" /> Show model answer
             </button>
           </div>
@@ -333,7 +333,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
 
       {revealed && (
         <div className="mt-5 flex justify-end">
-          <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14px] font-semibold text-white border-0 surface-lift"
             style={{ background: accent }}>
             {idx >= order.length - 1 ? "See results" : "Next"} <ArrowRight className="h-4 w-4" />
           </button>

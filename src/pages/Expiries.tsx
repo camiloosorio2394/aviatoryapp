@@ -181,7 +181,7 @@ export function Expiries() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={eyebrow}
           title={needsAction > 0 ? "Lo que vence pronto" : "Tus vencimientos al día"}
@@ -192,7 +192,7 @@ export function Expiries() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[14px] font-semibold text-white border-0 cursor-pointer surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               <Plus className="h-3.5 w-3.5" /> Agregar
@@ -250,7 +250,7 @@ export function Expiries() {
         ) : licenses.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <div className="rounded-2xl border border-border bg-card overflow-hidden">
+          <div className="rounded-2xl surface overflow-hidden">
             <div className="overflow-x-auto">
               <div className="lg:min-w-[620px]">
                 {licenses.map((l, i) => (
@@ -444,7 +444,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <button
         type="button"
         onClick={onAdd}
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift"
         style={{ background: "var(--av-blue-500)" }}
       >
         <Plus className="h-3.5 w-3.5" /> Agregar la primera
@@ -583,7 +583,7 @@ function NewLicenseDialog({
               type="submit"
               disabled={saving}
               size="lg"
-              className="rounded-xl h-11 px-6 border-0 text-white transition-transform hover:-translate-y-0.5"
+              className="rounded-xl h-11 px-6 border-0 text-white surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               {saving ? (

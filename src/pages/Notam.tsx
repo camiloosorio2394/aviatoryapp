@@ -222,7 +222,7 @@ export function Notam() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <Link
           to="/app/aerolinea"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -242,14 +242,14 @@ export function Notam() {
             <>
               <Link
                 to="/app/aerolinea/notam/aprende"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 <Sparkles className="h-4 w-4" /> Empezar la lección
               </Link>
               <Link
                 to="/app/aerolinea/notam/decodificador"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+                className="inline-flex items-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
               >
                 <ScanSearch className="h-4 w-4" /> Decodificar un código
               </Link>
@@ -259,7 +259,7 @@ export function Notam() {
 
         {/* Contexto y fuente del contenido */}
         <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-2xl border border-border bg-card p-6">
+          <div className="rounded-2xl surface p-6">
             <SectionTitle icon={Info} eyebrow="Antes de arrancar" title="Qué es un NOTAM" />
             <p className="text-[14.5px] text-foreground/90 leading-relaxed">
               Un NOTAM es un aviso que distribuye el servicio AIS con información temporal o urgente
@@ -322,7 +322,7 @@ export function Notam() {
             }
           />
 
-          <div className="rounded-2xl border border-border bg-card p-6 min-h-[196px]">
+          <div className="rounded-2xl surface p-6 min-h-[196px]">
             {loading ? (
               <ProgresoSkeleton />
             ) : resumen.empty ? (
@@ -350,7 +350,7 @@ export function Notam() {
                 </div>
                 <Link
                   to="/app/aerolinea/notam/aprende"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-full text-[14.5px] font-semibold text-white border-0 flex-shrink-0 surface-lift"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Empezar por la lección <ArrowRight className="h-4 w-4" />

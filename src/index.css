@@ -552,12 +552,25 @@
   --av-warn-fg: oklch(0.5 0.16 60);
   --av-danger-fg: oklch(0.45 0.2 25);
 
-  /* Rail (always dark) */
-  --rail: oklch(0.16 0.025 250);
-  --rail-2: oklch(0.22 0.035 250);
-  --rail-border: oklch(0.28 0.04 250 / 0.6);
-  --rail-text: oklch(0.7 0.025 250);
-  --rail-text-active: oklch(0.98 0 0);
+  /* Rail (navegación lateral).
+     Era navy fijo. Como la landing es toda clara, entrar a la app se sentía
+     como cambiar de producto: el rail oscuro era la frontera. Ahora es una
+     superficie clara, separada del fondo solo por el borde, igual que la barra
+     de navegación del inicio. Todo lo que depende del tema vive en estos
+     tokens, para que el componente no tenga que saber en cuál está. */
+  --rail: oklch(0.978 0.004 260);
+  --rail-2: oklch(0.955 0.005 260);
+  --rail-border: oklch(0.9 0.005 260);
+  --rail-text: oklch(0.42 0.01 260);
+  --rail-text-active: oklch(0.2 0.01 260);
+  --rail-hover: oklch(0.2 0.01 260 / 5%);
+  --rail-chip-bg: oklch(0.2 0.01 260 / 5%);
+  --rail-chip-text: oklch(0.45 0.01 260);
+  --rail-section-label: oklch(0.5 0.01 260);
+  /* Activo: tinte azul suave con texto azul, como el desplegable del topbar */
+  --rail-active-bg: color-mix(in oklab, var(--av-blue-500) 12%, transparent);
+  --rail-active-text: oklch(0.48 0.2 264);
+  --rail-active-mark: var(--av-blue-500);
 
   /* Mono font */
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
@@ -578,6 +591,15 @@
   --rail: oklch(0.2 0.03 250);
   --rail-2: oklch(0.25 0.035 250);
   --rail-border: oklch(1 0 0 / 12%);
+  --rail-text: oklch(0.7 0.025 250);
+  --rail-text-active: oklch(0.98 0 0);
+  --rail-hover: oklch(1 0 0 / 6%);
+  --rail-chip-bg: oklch(1 0 0 / 8%);
+  --rail-chip-text: oklch(0.82 0.02 250);
+  --rail-section-label: oklch(0.74 0.03 250);
+  --rail-active-bg: color-mix(in oklab, var(--av-blue-500) 26%, transparent);
+  --rail-active-text: oklch(0.98 0 0);
+  --rail-active-mark: var(--av-blue-400);
 
   /* Pares brillantes de los tokens de texto semántico */
   --av-success-fg: var(--av-green-400);
@@ -591,6 +613,41 @@
    components, para que cualquier uso que quede en el repo se vea correcto y
    las utilidades de Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
 @layer components {
+  /* Superficie de tarjeta del interior, calcada de las tarjetas de curso del
+     inicio: borde sutil más una sombra de un píxel. Sin la sombra las tarjetas
+     se leían como cajas dibujadas sobre el fondo y no como piezas apoyadas
+     encima, que es la diferencia que hacía que el interior se viera plano al
+     lado del inicio. No fija el radio: eso lo sigue poniendo la utilidad
+     rounded-* de cada uso. */
+  .surface {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+  }
+  .dark .surface {
+    box-shadow: 0 1px 2px rgb(0 0 0 / 25%);
+  }
+  /* Levantar al pasar por encima, igual que la tarjeta de curso del inicio.
+     Solo para superficies que son un enlace o un botón. */
+  .surface-lift {
+    transition:
+      transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .surface-lift:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 1px 2px rgb(0 0 0 / 4%),
+      0 18px 36px -18px rgb(0 0 0 / 18%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .surface-lift,
+    .surface-lift:hover {
+      transition: none;
+      transform: none;
+    }
+  }
+
   .card {
     background: var(--card);
     border: 1px solid var(--border);

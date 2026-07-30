@@ -59,7 +59,7 @@ export function IcaoInterview() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[940px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -68,7 +68,7 @@ export function IcaoInterview() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div
             className="inline-flex items-center gap-2 w-9 h-9 rounded-xl mb-4 flex items-center justify-center"
             style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}

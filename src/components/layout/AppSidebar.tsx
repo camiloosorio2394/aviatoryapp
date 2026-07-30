@@ -107,7 +107,8 @@ interface Props {
 
 /**
  * Collapsible icon rail (64px → 240px on hover).
- * Dark navy with blue accent for active state.
+ * Superficie clara con acento azul en el activo, igual que la barra del inicio.
+ * Todo lo que cambia con el tema sale de los tokens --rail-*.
  *
  * Para que el topbar no se interponga con la expansión, el AppLayout consume
  * `onHoverChange` y empuja el contenido principal (incluido el topbar)
@@ -130,13 +131,13 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       end={item.end}
       onClick={onClose}
       title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors hover:bg-white/5"
+      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-full text-[14px] font-semibold transition-colors hover:bg-[var(--rail-hover)]"
       style={({ isActive }) =>
         isActive
           ? {
-              color: "#fff",
-              background: "color-mix(in oklab, var(--av-blue-500) 26%, transparent)",
-              boxShadow: "inset 2px 0 0 var(--av-blue-400)",
+              color: "var(--rail-active-text)",
+              background: "var(--rail-active-bg)",
+              boxShadow: "inset 2px 0 0 var(--rail-active-mark)",
             }
           : { color: "var(--rail-text)" }
       }
@@ -146,7 +147,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <item.icon
             size={18}
             className="flex-shrink-0 transition-colors"
-            style={{ color: isActive ? "var(--av-blue-400)" : "currentColor" }}
+            style={{ color: isActive ? "var(--rail-active-mark)" : "currentColor" }}
           />
           <span
             className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
@@ -159,8 +160,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             <span
               className="mono tabular-nums flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded"
               style={{
-                color: "oklch(0.82 0.02 250)",
-                background: "oklch(1 0 0 / 8%)",
+                color: "var(--rail-chip-text)",
+                background: "var(--rail-chip-bg)",
                 border: "1px solid var(--rail-border)",
               }}
             >
@@ -171,7 +172,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           {item.soon && expanded && (
             <span
               className="flex-shrink-0 text-[10px] font-semibold uppercase tracking-[0.06em] px-1.5 py-0.5 rounded"
-              style={{ color: "oklch(0.78 0.02 250)", background: "oklch(1 0 0 / 6%)", border: "1px solid var(--rail-border)" }}
+              style={{ color: "var(--rail-chip-text)", background: "var(--rail-chip-bg)", border: "1px solid var(--rail-border)" }}
             >
               Pronto
             </span>
@@ -231,7 +232,10 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           </div>
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
-            <div className="font-extrabold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
+            <div
+              className="font-extrabold text-lg tracking-[-0.03em] whitespace-nowrap"
+              style={{ color: "var(--rail-text-active)" }}
+            >
               Aviatory
             </div>
           )}
@@ -240,7 +244,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={onClose}
-            className="lg:hidden p-2 -mr-1 text-white/60 hover:text-white"
+            className="lg:hidden p-2 -mr-1 opacity-70 hover:opacity-100 transition-opacity"
             aria-label="Cerrar menú"
           >
             <X className="h-4 w-4" />
@@ -251,7 +255,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => onPinChange(!pinned)}
-            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md text-white/55 hover:text-white hover:bg-white/10 transition-colors"
+            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md opacity-60 hover:opacity-100 hover:bg-[var(--rail-hover)] transition-all"
             aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
             title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
           >
@@ -270,7 +274,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
                 {expanded ? (
                   <div
                     className="px-2.5 pt-3 pb-1 text-[11px] font-semibold uppercase tracking-[0.08em] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "oklch(0.74 0.03 250)" }}
+                    style={{ color: "var(--rail-section-label)" }}
                   >
                     {section.label}
                   </div>
@@ -293,8 +297,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => setSoonOpen((v) => !v)}
-            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-white/5"
-            style={{ color: "oklch(0.74 0.03 250)" }}
+            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-full text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors hover:bg-[var(--rail-hover)]"
+            style={{ color: "var(--rail-section-label)" }}
             aria-expanded={soonOpen}
             title={expanded ? undefined : "Próximamente"}
           >
@@ -325,27 +329,27 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       <div className="p-2.5">
         <Link
           to="/pricing"
-          className="block transition-transform hover:-translate-y-0.5"
+          className="block surface-lift"
           style={{
             padding: expanded ? 14 : 10,
             borderRadius: 12,
-            background: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-            border: "1px solid color-mix(in oklab, var(--av-blue-400) 35%, transparent)",
+            background: "color-mix(in oklab, var(--av-blue-500) 9%, var(--rail))",
+            border: "1px solid color-mix(in oklab, var(--av-blue-500) 24%, transparent)",
           }}
         >
           {expanded ? (
             <>
               <div
                 className="flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{ color: "var(--av-blue-400)" }}
+                style={{ color: "var(--rail-active-text)" }}
               >
                 <Sparkles className="h-3.5 w-3.5" /> Prueba gratis
               </div>
-              <div className="mt-1 text-xs leading-snug" style={{ color: "oklch(0.82 0.02 250)" }}>
+              <div className="mt-1 text-xs leading-snug" style={{ color: "var(--rail-text)" }}>
                 Pasa a Pro y desbloquea todo Aviatory.
               </div>
               <div
-                className="mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-xs font-semibold text-white"
+                className="mt-2.5 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-full text-xs font-semibold text-white"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Ver planes <ArrowRight className="h-3 w-3" />
@@ -353,7 +357,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             </>
           ) : (
             <div className="flex justify-center">
-              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--av-blue-400)" }} />
+              <Sparkles className="h-[18px] w-[18px]" style={{ color: "var(--rail-active-text)" }} />
             </div>
           )}
         </Link>

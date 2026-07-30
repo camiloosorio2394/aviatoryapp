@@ -34,7 +34,7 @@ export function KpiTile({
   const defaultFormat = (v: number) => v.toFixed(isDecimal ? 1 : 0)
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-[18px] flex flex-col gap-3.5">
+    <div className="rounded-2xl surface p-[18px] flex flex-col gap-3.5">
       <div className="flex items-start justify-between gap-2">
         <div className="text-[13px] font-semibold text-muted-foreground">
           {eyebrow}

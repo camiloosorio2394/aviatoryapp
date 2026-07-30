@@ -65,7 +65,7 @@ export function Referrals() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="REFERIDOS · GANA MESES GRATIS"
           title="Comparte Aviatory, ganen los dos"
@@ -73,7 +73,7 @@ export function Referrals() {
         />
 
         {/* Hero referral code */}
-        <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8 mb-6">
+        <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-7 sm:p-8 mb-6">
           <div className="relative grid grid-cols-1 md:grid-cols-[1fr_auto] items-center gap-8">
             <div>
               <div
@@ -96,7 +96,7 @@ export function Referrals() {
                   type="button"
                   onClick={copyLink}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-white surface-lift disabled:opacity-50"
                   style={{
                     background: "var(--av-blue-500)",
                   }}
@@ -108,7 +108,7 @@ export function Referrals() {
                   type="button"
                   onClick={shareWhatsApp}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-foreground border border-border bg-card transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-foreground border border-border bg-card surface-lift disabled:opacity-50"
                 >
                   <MessageSquare className="h-3.5 w-3.5" /> WhatsApp
                 </button>
@@ -116,7 +116,7 @@ export function Referrals() {
                   type="button"
                   onClick={shareEmail}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-foreground border border-border bg-card transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-sm font-semibold text-foreground border border-border bg-card surface-lift disabled:opacity-50"
                 >
                   <Mail className="h-3.5 w-3.5" /> Email
                 </button>
@@ -129,7 +129,7 @@ export function Referrals() {
               {loading ? (
                 <div className="h-[68px] rounded-2xl border border-border bg-muted/40 animate-pulse" />
               ) : referred === 0 ? (
-                <div className="rounded-2xl border border-border bg-card p-4 md:max-w-[260px]">
+                <div className="rounded-2xl surface p-4 md:max-w-[260px]">
                   <div
                     className="inline-flex items-center justify-center h-8 w-8 rounded-xl mb-2"
                     style={{
@@ -161,7 +161,7 @@ export function Referrals() {
           <Step n="3" title="Ambos ganan" body="Cuando upgradee a Pro, te llega 1 mes gratis." />
         </div>
 
-        <div className="rounded-2xl border border-border bg-card p-5">
+        <div className="rounded-2xl surface p-5">
           <div className="flex items-start gap-3">
             <Gift className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "var(--av-blue-500)" }} />
             <p className="text-sm text-muted-foreground leading-relaxed m-0">
@@ -176,7 +176,7 @@ export function Referrals() {
 
 function RewardStat({ label, value, icon: Ic }: { label: string; value: number; icon: typeof Users }) {
   return (
-    <div className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl border border-border bg-card">
+    <div className="flex items-center gap-3 px-3.5 py-2.5 rounded-2xl surface">
       <Ic className="h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} />
       <div className="flex-1 min-w-0">
         <div
@@ -194,7 +194,7 @@ function RewardStat({ label, value, icon: Ic }: { label: string; value: number; 
 
 function Step({ n, title, body }: { n: string; title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-5">
+    <div className="rounded-2xl surface p-5">
       <div
         className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-bold mb-3"
         style={{

@@ -241,7 +241,7 @@ export function NotamPractice() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
           className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -260,7 +260,7 @@ export function NotamPractice() {
           actions={
             <Link
               to="/app/aerolinea/notam/decodificador"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors"
             >
               <BookMarked className="h-4 w-4" /> Abrir el decodificador
             </Link>
@@ -268,7 +268,7 @@ export function NotamPractice() {
         />
 
         {/* === CONTROLES: modo, nivel, progreso y selector === */}
-        <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <section className="rounded-2xl surface p-5 sm:p-6">
           <div
             className="grid gap-2 sm:grid-cols-2 p-1 rounded-xl"
             style={{ background: "color-mix(in oklab, var(--border) 35%, transparent)" }}
@@ -397,7 +397,7 @@ export function NotamPractice() {
 
         {/* === EJERCICIO ACTIVO === */}
         {!item ? (
-          <div className="mt-6 rounded-2xl border border-border bg-card p-7 text-center">
+          <div className="mt-6 rounded-2xl surface p-7 text-center">
             <div className="text-[17px] font-bold tracking-[-0.01em]">
               No hay ejercicios de nivel {levelLabel(level).toLowerCase()} en este modo
             </div>
@@ -406,7 +406,7 @@ export function NotamPractice() {
             </p>
             <button
               onClick={() => changeLevel("todos")}
-              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[14px] font-semibold text-white border-0 surface-lift"
               style={{ background: "var(--av-blue-500)" }}
             >
               Ver todos los niveles
@@ -416,7 +416,7 @@ export function NotamPractice() {
           <>
             <div className="mt-6 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] items-start">
               {/* ── Columna del NOTAM ── */}
-              <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+              <section className="rounded-2xl surface p-5 sm:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div
@@ -499,7 +499,7 @@ export function NotamPractice() {
                       <button
                         onClick={abrirZoom}
                         aria-label="Ampliar la imagen del NOTAM"
-                        className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-[12.5px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-full text-[12.5px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                       >
                         <Maximize2 className="h-3.5 w-3.5" /> Ampliar
                       </button>
@@ -550,7 +550,7 @@ export function NotamPractice() {
               </section>
 
               {/* ── Columna de la respuesta ── */}
-              <section className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+              <section className="rounded-2xl surface p-5 sm:p-6">
                 <SectionTitle
                   icon={PencilLine}
                   eyebrow="Tu interpretación"
@@ -573,7 +573,7 @@ export function NotamPractice() {
                   <div className="mt-4">
                     <button
                       onClick={reveal}
-                      className="w-full inline-flex items-center justify-center gap-2 h-12 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                      className="w-full inline-flex items-center justify-center gap-2 h-12 px-5 rounded-full text-[15px] font-semibold text-white border-0 surface-lift"
                       style={{ background: "var(--av-blue-500)" }}
                     >
                       <Eye className="h-4 w-4" /> Comparar con la respuesta modelo
@@ -674,7 +674,7 @@ export function NotamPractice() {
 
                       {isDone ? (
                         <div
-                          className="mt-3 inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold w-full justify-center"
+                          className="mt-3 inline-flex items-center gap-1.5 h-11 px-4 rounded-full text-[14px] font-semibold w-full justify-center"
                           style={{
                             color: accentText("var(--av-green-400)"),
                             background: "color-mix(in oklab, var(--av-green-400) 10%, transparent)",
@@ -687,7 +687,7 @@ export function NotamPractice() {
                         <button
                           onClick={() => void markDone(item.key)}
                           disabled={saving}
-                          className="mt-3 w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
+                          className="mt-3 w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-full text-[14.5px] font-semibold text-white border-0 surface-lift disabled:opacity-60 disabled:hover:translate-y-0"
                           style={{ background: "var(--av-green-400)" }}
                         >
                           {saving ? (
@@ -712,7 +712,7 @@ export function NotamPractice() {
               <button
                 onClick={() => goTo(Math.max(0, safeIdx - 1))}
                 disabled={safeIdx === 0}
-                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
+                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-full text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
               >
                 <ChevronLeft className="h-4 w-4" /> Anterior
               </button>
@@ -722,7 +722,7 @@ export function NotamPractice() {
               <button
                 onClick={() => goTo(Math.min(list.length - 1, safeIdx + 1))}
                 disabled={safeIdx >= list.length - 1}
-                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-full text-[14px] font-semibold text-white border-0 surface-lift disabled:opacity-40 disabled:hover:translate-y-0"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Siguiente <ChevronRight className="h-4 w-4" />
@@ -755,7 +755,7 @@ export function NotamPractice() {
                   key={lvl.key}
                   onClick={() => setZoomLevel(lvl.key)}
                   aria-pressed={zoomLevel === lvl.key}
-                  className="h-9 px-3 rounded-lg text-[13px] font-semibold border-0 transition-colors"
+                  className="h-9 px-3 rounded-full text-[13px] font-semibold border-0 transition-colors"
                   style={{
                     background: zoomLevel === lvl.key ? "var(--av-blue-500)" : "transparent",
                     color: zoomLevel === lvl.key ? "white" : "rgb(255 255 255 / 72%)",
@@ -919,7 +919,7 @@ function ModeButton({
     <button
       onClick={onClick}
       aria-pressed={active}
-      className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg text-[13.5px] sm:text-[14px] font-semibold transition-colors text-center"
+      className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-full text-[13.5px] sm:text-[14px] font-semibold transition-colors text-center"
       style={{
         background: active ? "var(--av-blue-500)" : "transparent",
         color: active ? "white" : "var(--muted-foreground)",
