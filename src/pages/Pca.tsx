@@ -35,7 +35,7 @@ export function Pca() {
             </>
           }
           title="Estudia con el banco oficial de Aerocivil"
-          subtitle="Todas las preguntas provienen del banco que la Aerocivil usa en sus exámenes de conocimiento."
+          subtitle="Todas las preguntas provienen del banco que la Aeronáutica Civil utiliza en sus exámenes de conocimiento para la licencia de Piloto Comercial de Avión."
           actions={
             <Link
               to="/app/examenes"
@@ -60,10 +60,14 @@ export function Pca() {
 /**
  * Cómo tratamos el banco oficial.
  *
- * Es el argumento de confianza del módulo y el diferenciador real: ningún
- * competidor se hace cargo de los errores del banco. Iba enterrado en un
- * subtítulo de 110 palabras, donde nadie lo leía. Va en su propio bloque,
- * partido en dos ideas: qué hacemos con los errores, y cómo verificarlo.
+ * Es el argumento de autoridad del módulo y el diferenciador real: ningún
+ * competidor se hace cargo de los errores del banco.
+ *
+ * Va en su propio bloque y no en el subtítulo, donde 110 palabras no se leen.
+ * Pero el texto se mantiene completo a propósito: aquí el detalle no sobra,
+ * sostiene el argumento. Un piloto que está decidiendo si confiar en la app
+ * quiere saber exactamente cómo se trata cada caso, y resumirlo en dos líneas
+ * lo dejaba sonando a promesa vaga.
  */
 function OfficialBankNote() {
   return (
@@ -73,13 +77,18 @@ function OfficialBankNote() {
           <div className="flex items-center gap-2">
             <ShieldCheck className="h-5 w-5 text-muted-foreground flex-shrink-0" />
             <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
-              Cuando el banco oficial se equivoca
+              Qué hacemos cuando el banco oficial tiene errores
             </h2>
           </div>
           <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
-            Algunas preguntas del banco traen respuestas técnicamente incorrectas. En esos casos
-            verás las dos: la respuesta correcta según la técnica, con su explicación, y la que
-            debes marcar para aprobar el examen tal como está hoy el banco.
+            El banco oficial contiene preguntas con respuestas técnicamente incorrectas. En esas
+            preguntas Aviatory te muestra la explicación y la respuesta técnicamente correcta, y
+            además te indica cuál debes seleccionar para aprobar el examen oficial de acuerdo con el
+            banco vigente de la Aerocivil.
+          </p>
+          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+            Así estudias con criterio técnico, que es lo que vas a necesitar volando, sin arriesgar
+            el resultado del examen.
           </p>
         </div>
 
@@ -87,12 +96,16 @@ function OfficialBankNote() {
           <div className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-muted-foreground flex-shrink-0" />
             <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
-              Verifícalo contra la fuente
+              Verifica cada pregunta contra la fuente
             </h2>
           </div>
           <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
-            El banco oficial completo está disponible en PDF. Puedes localizar cualquier pregunta y
-            comprobar que corresponde a la que usa la Aerocivil en el examen.
+            Dentro de la aplicación encontrarás el banco de preguntas oficial completo en formato
+            PDF. Puedes localizar cada pregunta, verificar la información y corroborar que el
+            contenido de Aviatory corresponde exactamente al banco utilizado en el examen.
+          </p>
+          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
+            No tienes que creernos: puedes comprobarlo tú mismo, pregunta por pregunta.
           </p>
           <Link
             to="/app/banco-oficial"
