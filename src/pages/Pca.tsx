@@ -7,6 +7,7 @@ import {
   ListChecks,
   RefreshCw,
   ShieldCheck,
+  FileText,
   PlayCircle,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -21,6 +22,13 @@ import { tileBorder, type TileColorKey } from "@/lib/tileColors"
 const SMALL_BANK = 20
 
 /**
+ * Banco oficial en PDF. Vive en public/docs para que el piloto pueda abrirlo y
+ * verificar cualquier pregunta contra la fuente. Si se renombra el archivo hay
+ * que cambiar esta constante, o el enlace queda roto.
+ */
+const OFFICIAL_BANK_PDF = "/docs/banco-preguntas-aerocivil.pdf"
+
+/**
  * Módulo Examen PCA Aerocivil — estudio por materia + simulacro del examen.
  */
 export function Pca() {
@@ -30,11 +38,11 @@ export function Pca() {
         <PageHeader
           eyebrow={
             <>
-              <Award className="h-3.5 w-3.5" /> Banco PCA Aerocivil
+              <Award className="h-3.5 w-3.5" /> Banco oficial Aerocivil
             </>
           }
-          title="Estudia por materia, simula el examen"
-          subtitle="El banco del examen Piloto Comercial de Avión de Aerocivil. Practica una materia para reforzar lo que te cuesta, o lanza un simulacro con preguntas mezcladas para medir qué tan listo estás."
+          title="Estudia con el banco oficial de Aerocivil"
+          subtitle="Todas las preguntas provienen del banco que la Aerocivil usa en sus exámenes de conocimiento."
           actions={
             <Link
               to="/app/examenes"
@@ -45,12 +53,65 @@ export function Pca() {
           }
         />
 
+        <OfficialBankNote />
+
         {/* === MATERIAS DISPONIBLES (en vivo desde vault_questions) === */}
         <AvailableSubjects />
 
         <ComingNext />
       </div>
     </AppLayout>
+  )
+}
+
+/**
+ * Cómo tratamos el banco oficial.
+ *
+ * Es el argumento de confianza del módulo y el diferenciador real: ningún
+ * competidor se hace cargo de los errores del banco. Iba enterrado en un
+ * subtítulo de 110 palabras, donde nadie lo leía. Va en su propio bloque,
+ * partido en dos ideas: qué hacemos con los errores, y cómo verificarlo.
+ */
+function OfficialBankNote() {
+  return (
+    <section className="surface rounded-xl p-5 sm:p-6 mb-8">
+      <div className="grid gap-6 md:grid-cols-2">
+        <div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+            <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
+              Cuando el banco oficial se equivoca
+            </h2>
+          </div>
+          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
+            Algunas preguntas del banco traen respuestas técnicamente incorrectas. En esos casos
+            verás las dos: la respuesta correcta según la técnica, con su explicación, y la que
+            debes marcar para aprobar el examen tal como está hoy el banco.
+          </p>
+        </div>
+
+        <div>
+          <div className="flex items-center gap-2">
+            <FileText className="h-5 w-5 text-muted-foreground flex-shrink-0" />
+            <h2 className="text-[17px] font-semibold tracking-[-0.015em]">
+              Verifícalo contra la fuente
+            </h2>
+          </div>
+          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">
+            El banco oficial completo está disponible en PDF. Puedes localizar cualquier pregunta y
+            comprobar que corresponde a la que usa la Aerocivil en el examen.
+          </p>
+          <a
+            href={OFFICIAL_BANK_PDF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={appButtonClass({ variant: "secondary" }, "mt-4")}
+          >
+            Abrir el banco en PDF <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
   )
 }
 
