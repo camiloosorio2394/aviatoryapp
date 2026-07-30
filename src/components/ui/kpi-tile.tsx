@@ -27,22 +27,17 @@ export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Pr
   const warn = tone === "warn"
 
   return (
-    <div
-      className="rounded-lg border border-border bg-card px-4 py-3.5 flex flex-col gap-2.5"
-      style={warn ? { borderTop: "2px solid var(--av-amber-400)" } : undefined}
-    >
-      <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-        {eyebrow}
-      </div>
+    <div className="rounded-xl border border-border bg-card px-5 py-4 flex flex-col gap-1">
+      <div className="text-[13px] text-muted-foreground">{eyebrow}</div>
 
       <div className="flex items-end justify-between gap-2">
         <div
-          className="mono tabular-nums text-[28px] font-bold leading-none tracking-[-0.02em]"
+          className="tabular-nums text-[30px] font-semibold leading-none tracking-[-0.033em]"
           style={{ color: warn ? "var(--av-warn-fg)" : "var(--foreground)" }}
         >
           <CountUp to={value} format={format ?? defaultFormat} />
           {suffix && (
-            <span className="text-[15px] text-muted-foreground font-semibold ml-1">
+            <span className="text-[16px] text-muted-foreground font-normal ml-0.5">
               {suffix}
             </span>
           )}
@@ -52,7 +47,7 @@ export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Pr
 
       {note && (
         <div
-          className="mono tabular-nums text-[11.5px] font-semibold uppercase tracking-[0.06em]"
+          className="tabular-nums text-[12.5px] mt-1"
           style={{ color: warn ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}
         >
           {note}

@@ -27,7 +27,6 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile } from "@/components/ui/kpi-tile"
-import { tileBorder, tileTint } from "@/lib/tileColors"
 
 type PilotStage =
   | "student_ppl"
@@ -412,37 +411,37 @@ export function Dashboard() {
         <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3 mt-7 mb-7">
           {pilot?.total_hours ? (
             <KpiTile
-              eyebrow="Tot hrs"
+              eyebrow="Horas totales"
               value={pilot.total_hours}
               note={pilot.hours_pic ? `PIC ${pilot.hours_pic.toFixed(1)}` : undefined}
             />
           ) : (
-            <KpiTile eyebrow="Tot hrs" value={0} format={() => "—"} note="Sin cargar" />
+            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} note="Sin registrar" />
           )}
           {streakDays > 0 ? (
             <KpiTile
               eyebrow="Racha"
               value={streakDays}
               suffix="d"
-              note={longestStreak > 0 ? `Máx ${longestStreak}` : undefined}
+              note={longestStreak > 0 ? `Mejor racha: ${longestStreak}` : undefined}
             />
           ) : (
             <KpiTile eyebrow="Racha" value={0} format={() => "—"} note="Sin racha" />
           )}
           {recentAttempts > 0 ? (
-            <KpiTile eyebrow="Quiz" value={recentAttempts} />
+            <KpiTile eyebrow="Quizzes" value={recentAttempts} />
           ) : (
-            <KpiTile eyebrow="Quiz" value={0} format={() => "—"} note="Ninguno" />
+            <KpiTile eyebrow="Quizzes" value={0} format={() => "—"} note="Ninguno aún" />
           )}
           {icaoMeasured ? (
             <KpiTile
-              eyebrow="Icao eng"
+              eyebrow="Inglés ICAO"
               value={icaoLevel ?? 0}
-              note="Mín 4 req"
+              note="Mínimo requerido: 4"
               tone={(icaoLevel ?? 0) < 4 ? "warn" : undefined}
             />
           ) : (
-            <KpiTile eyebrow="Icao eng" value={0} format={() => "—"} note="Sin medir" />
+            <KpiTile eyebrow="Inglés ICAO" value={0} format={() => "—"} note="Sin medir" />
           )}
         </div>
 
@@ -455,7 +454,7 @@ export function Dashboard() {
               title="3 acciones cortas, además del quiz"
               hint="No hace falta completarlas hoy."
             />
-            <div className="rounded-lg border border-border bg-card overflow-hidden mt-3">
+            <div className="rounded-xl border border-border bg-card overflow-hidden mt-3">
               {todayPlan.map((step, i) => (
                 <TodayRow key={step.title} step={step} last={i === todayPlan.length - 1} />
               ))}
@@ -639,15 +638,17 @@ function TodayRow({ step, last }: { step: NextStep; last: boolean }) {
         last ? "" : "border-b border-border"
       }`}
     >
-      <div className="w-8 h-8 rounded-md flex items-center justify-center border border-border bg-muted text-muted-foreground flex-shrink-0">
-        <Ic className="h-4 w-4" />
-      </div>
+      <Ic className="h-[22px] w-[22px] text-muted-foreground flex-shrink-0" />
       <div className="min-w-0 flex-1">
-        <div className="text-[14px] font-bold text-foreground tracking-[-0.01em]">{step.title}</div>
-        <div className="text-[12.5px] text-muted-foreground leading-snug">{step.description}</div>
+        <div className="text-[15px] font-semibold text-foreground tracking-[-0.015em]">
+          {step.title}
+        </div>
+        <div className="text-[13px] text-muted-foreground leading-snug mt-0.5">
+          {step.description}
+        </div>
       </div>
-      <span className="mono tabular-nums text-[11.5px] text-muted-foreground flex-shrink-0 hidden sm:block">
-        ~{step.minutes} min
+      <span className="tabular-nums text-[13px] text-muted-foreground flex-shrink-0 hidden sm:block">
+        {step.minutes} min
       </span>
       <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
     </Link>
@@ -709,9 +710,9 @@ function WingmanInsight({
   })()
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
       <div className="relative">
-        <div className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Radar className="h-3 w-3" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
@@ -781,8 +782,8 @@ function StreakBars({ current }: { current: number }) {
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
   if (current === 0) {
     return (
-      <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
-        <span className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
+        <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
         <EmptyState
@@ -800,50 +801,43 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   }
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
       <div className="relative">
-        <span className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
-        <div className="mt-4 flex items-baseline gap-2">
-          <span
-            className="mono tabular-nums text-[64px] font-bold leading-none tracking-[-0.05em]"
-            style={{ color: "var(--av-warn-fg)" }}
-          >
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="tabular-nums text-[44px] font-semibold leading-none tracking-[-0.04em] text-foreground">
             <CountUp to={current} />
           </span>
-          <span className="text-sm text-muted-foreground font-semibold">
+          <span className="text-[15px] text-muted-foreground">
             {current === 1 ? "día" : "días"}
           </span>
         </div>
         {longest > current && (
-          <p className="mt-2 mono tabular-nums text-xs text-muted-foreground">
-            Mejor racha: <span className="font-semibold text-foreground">{longest} días</span>
+          <p className="mt-1.5 tabular-nums text-[13px] text-muted-foreground">
+            Mejor racha: {longest} días
           </p>
         )}
 
+        {/* Sin caja de color dentro de la card: una caja anidada en otra caja
+            se lee como alerta de plantilla. Basta una linea fina y el aviso. */}
         {atRisk && (
-          <div
-            className="mt-4 rounded-xl p-3"
-            style={{
-              background: tileTint("amber", 10),
-              border: `1px solid ${tileBorder("amber", 26)}`,
-            }}
-          >
+          <div className="mt-4 pt-4 border-t border-border">
             <span
-              className="inline-flex items-center gap-1.5 text-[12.5px] font-bold"
+              className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold"
               style={{ color: "var(--av-warn-fg)" }}
             >
-              <AlertTriangle className="h-3.5 w-3.5" /> Tu racha está en riesgo
+              <AlertTriangle className="h-4 w-4" /> Tu racha está en riesgo
             </span>
-            <p className="mt-2 text-[12.5px] text-muted-foreground">
+            <p className="mt-1 text-[13px] text-muted-foreground leading-snug">
               Si no estudias hoy se reinicia. Con una pregunta la salvas.
             </p>
             <Link
               to={DAILY_ACTION.href}
-              className="inline-flex items-center gap-1.5 mt-2.5 h-9 px-3 rounded-lg border border-border bg-background text-xs font-semibold text-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 mt-3 h-9 px-3.5 rounded-lg border border-border bg-background text-[13px] font-medium text-foreground hover:bg-muted transition-colors"
             >
-              Salvar mi racha <ArrowRight className="h-3 w-3" />
+              Salvar mi racha <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         )}
@@ -868,21 +862,19 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
   }
 
   return (
-    <div className="rounded-lg border border-border bg-card p-5">
+    <div className="rounded-xl border border-border bg-card p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
-          <div className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+          <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
             <Activity className="h-3 w-3" /> Tu actividad
           </div>
           <div className="text-sm font-semibold text-foreground mt-1">Últimas 12 semanas</div>
         </div>
         <div className="text-right">
-          <div className="mono tabular-nums text-[22px] font-bold text-foreground tracking-[-0.02em]">
+          <div className="tabular-nums text-[24px] font-semibold text-foreground tracking-[-0.03em] leading-none">
             {total > 0 ? <CountUp to={total} /> : "—"}
           </div>
-          <div className="mono text-[10.5px] uppercase tracking-[0.1em] text-muted-foreground">
-            actividades
-          </div>
+          <div className="text-[12.5px] text-muted-foreground mt-1">actividades</div>
         </div>
       </div>
 
@@ -967,7 +959,7 @@ function AchievementsCard({
     platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
   }
   return (
-    <div className="rounded-lg border border-border bg-card p-5">
+    <div className="rounded-xl border border-border bg-card p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
@@ -1045,7 +1037,7 @@ function CohortCard({
   loading: boolean
 }) {
   return (
-    <div className="rounded-lg border border-border bg-card p-5">
+    <div className="rounded-xl border border-border bg-card p-5">
       <SectionTitle
         icon={Users}
         eyebrow="Tu cohorte"
@@ -1104,14 +1096,11 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
       <div className="flex items-center gap-3.5">
         <Sun className="h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
         <div>
-          <div
-            className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
-            style={{ color: "var(--av-amber-400)" }}
-          >
+          <div className="text-[13px]" style={{ color: "var(--av-amber-400)" }}>
             Quiz del día
           </div>
-          <div className="mt-1 text-[17px] font-bold tracking-[-0.015em]">
-            <span className="mono tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
+          <div className="mt-0.5 text-[18px] font-semibold tracking-[-0.021em]">
+            <span className="tabular-nums">{count}</span> pregunta{count !== 1 ? "s" : ""}
             {firstSubject ? ` · empieza con ${firstSubject}` : ""}
           </div>
           <div className="text-[13px] text-white/60 mt-0.5">Se renueva mañana.</div>
