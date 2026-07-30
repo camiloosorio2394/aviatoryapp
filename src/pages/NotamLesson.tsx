@@ -17,12 +17,17 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
-import { supabase } from "@/integrations/supabase/client"
+import { useSession } from "@/hooks/useSession"
 import { LEVEL_META, accentText, readLocalProgress, writeLocalProgress } from "@/lib/notam"
-import { LESSON_SCREENS, LESSON_SOURCES } from "@/lib/notamLesson"
+import {
+  fetchNotamProgress,
+  markNotamProgress,
+  pushPendingLocalProgress,
+} from "@/lib/notamProgress"
+import { LESSON_SCREENS, LESSON_SOURCES, LESSON_TOTAL } from "@/lib/notamLesson"
 import type { LessonBlock } from "@/lib/notamLesson"
 
-const TOTAL = LESSON_SCREENS.length
+const TOTAL = LESSON_TOTAL
 const TOTAL_MINUTES = LESSON_SCREENS.reduce((acc, s) => acc + s.minutes, 0)
 
 /**
@@ -48,6 +53,7 @@ function docTint(token: string, mix = 8): string {
  * Ruta: /app/aerolinea/notam/aprende
  */
 export function NotamLesson() {
+  const { user, isLoading: sessionLoading } = useSession()
   const [activeN, setActiveN] = useState(1)
   const [readSections, setReadSections] = useState<number[]>(() => readLocalProgress().lessonScreens)
   const [progress, setProgress] = useState(0)
@@ -58,18 +64,43 @@ export function NotamLesson() {
   // un extra. Si la RPC falla no se muestra nada: el progreso ya quedó local.
   const markRead = useCallback((n: number) => {
     setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
-
-    const stored = readLocalProgress().lessonScreens
-    if (stored.includes(n)) return
-    writeLocalProgress({ lessonScreens: [...stored, n].sort((a, b) => a - b) })
-
-    void supabase
-      .rpc("notam_mark_progress", { p_lesson_screen: n, p_practice_id: null })
-      .then(
-        () => undefined,
-        () => undefined,
-      )
+    if (readLocalProgress().lessonScreens.includes(n)) return
+    void markNotamProgress({ lessonScreen: n })
   }, [])
+
+  // Hidrata lo leído desde la base de datos.
+  //
+  // El respaldo local solo cubre este navegador: sin esta consulta, abrir la
+  // lección en otro dispositivo o con el almacenamiento limpio la mostraba
+  // entera sin leer aunque el progreso estuviera guardado. De paso sube lo que
+  // se leyó sin sesión, que antes se unía solo para mostrarlo y se perdía al
+  // cambiar de equipo.
+  useEffect(() => {
+    if (sessionLoading) return
+    const uid = user?.id
+    if (!uid) return
+    let cancelled = false
+
+    void (async () => {
+      const fetched = await fetchNotamProgress(uid)
+      if (cancelled || !fetched) return
+      const remote = await pushPendingLocalProgress(fetched)
+      if (cancelled) return
+      const merged = Array.from(
+        new Set([...readLocalProgress().lessonScreens, ...remote.lessonScreens]),
+      ).sort((a, b) => a - b)
+      // El local se iguala al servidor para que markRead no vuelva a mandar a la
+      // RPC secciones que ya están guardadas.
+      writeLocalProgress({ lessonScreens: merged })
+      setReadSections((prev) =>
+        prev.length === merged.length && merged.every((n) => prev.includes(n)) ? prev : merged,
+      )
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id, sessionLoading])
 
   // Sección activa + marcado de leídas. La banda de observación es la franja
   // superior de la pantalla, justo debajo del topbar: cuando una sección entra
@@ -129,8 +160,8 @@ export function NotamLesson() {
     }
   }, [])
 
-  const goToSection = useCallback((n: number) => {
-    const el = document.getElementById(`s-${n}`)
+  const goToSection = useCallback((anchor: string) => {
+    const el = document.getElementById(anchor)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
     const details = mobileTocRef.current
     if (details) details.open = false
@@ -146,7 +177,7 @@ export function NotamLesson() {
             </>
           }
           title="Qué es un NOTAM y cómo leerlo"
-          subtitle="Documento de estudio en 9 secciones, para leer de corrido como un PDF."
+          subtitle={`Documento de estudio en ${TOTAL} secciones, para leer de corrido como un PDF.`}
           actions={
             <Link
               to="/app/aerolinea/notam"
@@ -294,7 +325,7 @@ export function NotamLesson() {
               })}
 
               <SourcesBlock />
-              <NextSteps readCount={readSections.length} />
+              <NextSteps readCount={readSections.length} id="cierre" />
             </article>
           </div>
         </div>
@@ -308,7 +339,7 @@ export function NotamLesson() {
 interface TocListProps {
   activeN: number
   readSections: number[]
-  onSelect: (n: number) => void
+  onSelect: (anchor: string) => void
 }
 
 function TocList({ activeN, readSections, onSelect }: TocListProps) {
@@ -324,7 +355,7 @@ function TocList({ activeN, readSections, onSelect }: TocListProps) {
                 href={`#s-${s.n}`}
                 onClick={(e) => {
                   e.preventDefault()
-                  onSelect(s.n)
+                  onSelect(`s-${s.n}`)
                 }}
                 aria-current={isActive ? "location" : undefined}
                 className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
@@ -355,6 +386,22 @@ function TocList({ activeN, readSections, onSelect }: TocListProps) {
             </li>
           )
         })}
+
+        {/* Los dos últimos pasos del temario no son lectura: son la práctica y la
+            evaluación. Van en el índice para que el recorrido completo se vea. */}
+        <li className="mt-1 pt-1 border-t border-border">
+          <a
+            href="#cierre"
+            onClick={(e) => {
+              e.preventDefault()
+              onSelect("cierre")
+            }}
+            className="flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            <ArrowRight className="shrink-0 mt-0.5 h-3.5 w-3.5" aria-hidden />
+            <span className="min-w-0 flex-1">Práctica y evaluación</span>
+          </a>
+        </li>
       </ol>
     </nav>
   )
@@ -557,9 +604,9 @@ function SourcesBlock() {
   )
 }
 
-function NextSteps({ readCount }: { readCount: number }) {
+function NextSteps({ readCount, id }: { readCount: number; id?: string }) {
   return (
-    <section className="mt-8 pt-7 border-t doc-rule">
+    <section id={id} className="scroll-mt-24 mt-8 pt-7 border-t doc-rule">
       <h2 className="m-0 text-[17px] sm:text-[19px] font-extrabold tracking-[-0.02em]">
         Ya sabes leer un NOTAM de principio a fin
       </h2>

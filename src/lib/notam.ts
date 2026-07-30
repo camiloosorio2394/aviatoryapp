@@ -16,6 +16,7 @@ import codesRaw from "@/data/notam/notam_codes.json"
 import exercisesRaw from "@/data/notam/ejercicios_interpretacion.json"
 import examRaw from "@/data/notam/evaluacion_notam.json"
 import nationalRaw from "@/data/notam/notams_nacionales.json"
+import { LESSON_TOTAL } from "@/lib/notamLesson"
 
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 
@@ -171,7 +172,9 @@ export const TOTALS = {
   exercises: EXERCISES.length,
   national: NATIONAL_NOTAMS.length,
   examQuestions: EXAM_QUESTIONS.length,
-  lessonScreens: 9,
+  // Derivado, no fijo: si se agrega o se reordena una sección de la lección, el
+  // denominador del progreso del hub tiene que moverse con ella.
+  lessonScreens: LESSON_TOTAL,
 } as const
 
 /** Puntaje mínimo de aprobación de la evaluación (sobre 100). */
