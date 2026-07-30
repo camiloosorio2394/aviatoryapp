@@ -85,7 +85,7 @@ export function InterviewSpeakingIntro() {
       <div className="px-7 py-7 pb-20 max-w-[920px] mx-auto">
         <Link
           to="/app/entrevistas"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Entrevistas
         </Link>
@@ -97,7 +97,7 @@ export function InterviewSpeakingIntro() {
         >
           <Mic className="h-3.5 w-3.5" /> Entrevista intro · Speaking
         </div>
-        <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+        <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
           {questions.length > 0
             ? `Las ${questions.length} preguntas que toda aerolínea hace al inicio`
             : "Las preguntas que toda aerolínea hace al inicio"}
@@ -117,7 +117,7 @@ export function InterviewSpeakingIntro() {
           }}
         >
           <Lightbulb className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-blue-500)" }} />
-          <div className="text-[14px] text-foreground/85 leading-relaxed">
+          <div className="text-[13px] text-foreground/85 leading-relaxed">
             Cada pregunta abre con la <strong>intención</strong> (qué buscan que digas y qué
             evitar), los <strong>topics que esperan que cubras</strong>, y posibles{" "}
             <strong>follow-ups</strong>. Practica <strong>en voz alta</strong>, idealmente
@@ -130,7 +130,7 @@ export function InterviewSpeakingIntro() {
           {loading ? (
             <div className="flex items-center justify-center py-16 text-muted-foreground gap-2">
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm">Cargando preguntas…</span>
+              <span className="text-[15px]">Cargando preguntas…</span>
             </div>
           ) : questions.length === 0 ? (
             <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
@@ -144,10 +144,10 @@ export function InterviewSpeakingIntro() {
               >
                 <Mic className="h-6 w-6" />
               </div>
-              <h2 className="mt-4 text-[19px] font-semibold tracking-[-0.01em]">
+              <h2 className="mt-4 text-[20px] font-semibold tracking-[-0.01em]">
                 Las preguntas intro llegan pronto
               </h2>
-              <p className="mt-1.5 text-[14.5px] text-muted-foreground max-w-[460px] leading-relaxed">
+              <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[460px] leading-relaxed">
                 Aquí vas a encontrar las preguntas de apertura que hace toda aerolínea, con la
                 intención de cada una, los topics que esperan y los follow-ups. Mientras tanto,
                 entrena el speaking en el módulo de inglés ICAO.
@@ -155,14 +155,14 @@ export function InterviewSpeakingIntro() {
               <div className="mt-5 flex flex-wrap items-center justify-center gap-2">
                 <Link
                   to="/app/icao/interview"
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Practicar Interview TEA <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link
                   to="/app/icao"
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
                 >
                   Ver el módulo ICAO
                 </Link>
@@ -193,13 +193,13 @@ export function InterviewSpeakingIntro() {
               <div className="inline-flex items-center gap-1.5 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 <Sparkles className="h-3.5 w-3.5" /> Próximo paso
               </div>
-              <div className="mt-1.5 text-[16px] font-semibold tracking-[-0.01em]">
+              <div className="mt-1.5 text-[15px] font-semibold tracking-[-0.01em]">
                 Cuando puedas responder estas con fluidez, pasa al Technical Interview.
               </div>
             </div>
             <Link
               to="/app/entrevistas"
-              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Ver otras categorías <ArrowRight className="h-3.5 w-3.5" />
@@ -222,7 +222,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
         className="w-full text-left flex items-center gap-4 p-4 hover:bg-muted/40 transition-colors"
       >
         <div
-          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13.5px] font-semibold"
+          className="tabular-nums flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center text-[13px] font-semibold"
           style={{
             background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
             color: "var(--av-blue-500)",
@@ -231,10 +231,10 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
           {String(number).padStart(2, "0")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[15.5px] font-semibold tracking-[-0.01em]">
+          <div className="text-[15px] font-semibold tracking-[-0.01em]">
             {question.question_text}
           </div>
-          <div className="mt-0.5 text-[12.5px] text-muted-foreground flex items-center gap-1.5">
+          <div className="mt-0.5 text-[12px] text-muted-foreground flex items-center gap-1.5">
             <Clock className="h-3 w-3" /> Ideal: {question.ideal_duration_seconds}s
           </div>
         </div>
@@ -251,7 +251,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
               <div className="mb-1.5">
                 <span className="chip chip-amber">Intención · qué buscan</span>
               </div>
-              <p className="text-[14px] leading-relaxed text-foreground/85">{question.intent}</p>
+              <p className="text-[13px] leading-relaxed text-foreground/85">{question.intent}</p>
             </div>
           )}
 
@@ -262,7 +262,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
               </div>
               <ul className="space-y-1">
                 {question.expected_topics.map((t, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[14px] text-foreground/90">
+                  <li key={i} className="flex items-start gap-2 text-[13px] text-foreground/90">
                     <CheckCircle2 className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} strokeWidth={2.5} />
                     <span>{t}</span>
                   </li>
@@ -278,7 +278,7 @@ function QuestionRow({ number, question, open, onToggle }: { number: number; que
               </div>
               <ul className="space-y-1">
                 {question.follow_ups.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-[14px] italic text-foreground/90">
+                  <li key={i} className="flex items-start gap-2 text-[13px] italic text-foreground/90">
                     <ArrowRight className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-green-400)" }} strokeWidth={2.5} />
                     <span>"{f}"</span>
                   </li>

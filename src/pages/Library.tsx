@@ -47,13 +47,13 @@ export function Library() {
                 />
                 Módulo biblioteca · En construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] text-foreground leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] text-foreground leading-[1.05]">
                 Biblioteca Operacional,{" "}
                 <span style={{ color: "var(--av-blue-500)" }}>
                   útil incluso cuando no estás estudiando
                 </span>
               </h1>
-              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[17px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Estamos armando <strong className="text-foreground">9 categorías</strong> de contenido
                 operacional para consultar día a día: manuales, SOPs, QRH, performance tools,
                 W&amp;B, briefings, checklist philosophy, casos CRM/TEM y accident case studies. La
@@ -62,7 +62,7 @@ export function Library() {
               <div className="mt-5">
                 <Link
                   to="/app/pca"
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Mientras tanto, estudia en el banco PCA{" "}
@@ -90,11 +90,11 @@ export function Library() {
             <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
               Categorías · 9
             </div>
-            <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
+            <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
               Todo lo que vas a poder consultar
             </h2>
           </div>
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="hidden md:flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <Clock className="h-3.5 w-3.5" />Carga gradual · prioridad Avianca/LATAM/Copa
           </div>
         </div>
@@ -114,10 +114,10 @@ export function Library() {
             >
               <Sparkles className="h-3 w-3" /> Aporta tu material
             </div>
-            <h3 className="mt-1.5 text-lg font-semibold">
+            <h3 className="mt-1.5 text-[17px] font-semibold">
               ¿Tienes manuales, SOPs o quick references que aportar?
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
+            <p className="mt-1 text-[15px] text-muted-foreground max-w-[680px]">
               Aporta material y se lo damos al resto de la comunidad (con tu crédito si quieres).
               Solo material no propietario o de dominio público: el equipo revisa antes de publicar.
             </p>
@@ -125,7 +125,7 @@ export function Library() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Comunidad #biblioteca <ArrowRight className="h-3.5 w-3.5" />
@@ -243,15 +243,15 @@ function CategoryTile({ icon: Icon, color, name, description, bullets }: Categor
         </div>
         <div className="flex-1 pt-0.5">
           <div className="flex flex-wrap items-center gap-2">
-            <div className="text-[16px] font-semibold tracking-[-0.01em]">{name}</div>
-            <span className="chip text-[10px]">Pronto</span>
+            <div className="text-[15px] font-semibold tracking-[-0.01em]">{name}</div>
+            <span className="chip text-[12px]">Pronto</span>
           </div>
-          <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
+          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[14px] text-muted-foreground">
+          <li key={b} className="flex items-start gap-2 text-[13px] text-muted-foreground">
             <Check
               className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
               style={{ color: TILE_COLOR[color], opacity: 0.55 }}

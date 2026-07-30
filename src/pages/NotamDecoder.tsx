@@ -297,7 +297,7 @@ export function NotamDecoder() {
       <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
         </Link>
@@ -313,7 +313,7 @@ export function NotamDecoder() {
           actions={
             <Link
               to="/app/aerolinea/notam/practica"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ir a practicar <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -342,7 +342,7 @@ export function NotamDecoder() {
               autoComplete="off"
               spellCheck={false}
               aria-label="Código NOTAM de 5 letras"
-              className="mono w-full h-16 sm:h-20 rounded-xl border bg-background px-4 sm:px-5 pr-12 text-[26px] sm:text-[34px] font-semibold uppercase tracking-[0.14em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
+              className="mono w-full h-16 sm:h-20 rounded-xl border bg-background px-4 sm:px-5 pr-12 text-[24px] sm:text-[32px] font-semibold uppercase tracking-[0.14em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
               style={{ borderColor: softBorder("var(--av-blue-500)", 28) }}
             />
             {input.length > 0 && (
@@ -362,7 +362,7 @@ export function NotamDecoder() {
 
           {/* Ejemplos clicables */}
           <div className="mt-3 flex flex-wrap items-center gap-2">
-            <span className="text-[12.5px] text-muted-foreground mr-0.5">Prueba con:</span>
+            <span className="text-[12px] text-muted-foreground mr-0.5">Prueba con:</span>
             {EXAMPLE_CHIPS.map((code) => (
               <button
                 key={code}
@@ -446,11 +446,11 @@ export function NotamDecoder() {
                     style={{ color: "var(--av-green-400)" }}
                     strokeWidth={3}
                   />
-                  <span className="text-[13.5px] text-muted-foreground">
+                  <span className="text-[13px] text-muted-foreground">
                     Así se lee de forma abreviada en la casilla E):
                   </span>
                   <span
-                    className="mono text-[14px] font-semibold"
+                    className="mono text-[13px] font-semibold"
                     style={{ color: accentText("var(--av-green-400)") }}
                   >
                     {shortRead}
@@ -495,7 +495,7 @@ export function NotamDecoder() {
                 placeholder="2607290230"
                 inputMode="numeric"
                 autoComplete="off"
-                className="mono tabular w-full h-14 rounded-xl border bg-background px-4 text-[19px] font-semibold tracking-[0.1em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-cyan-400)_45%,transparent)]"
+                className="mono tabular w-full h-14 rounded-xl border bg-background px-4 text-[20px] font-semibold tracking-[0.1em] text-foreground outline-none transition-shadow placeholder:text-muted-foreground/40 focus:ring-2 focus:ring-[color-mix(in_oklab,var(--av-cyan-400)_45%,transparent)]"
                 style={{ borderColor: softBorder("var(--av-cyan-400)", 34) }}
               />
               <div className="mt-2 flex flex-wrap gap-2">
@@ -521,7 +521,7 @@ export function NotamDecoder() {
             <div className="min-w-0">
               {dateGroup.length === 0 && (
                 <div className="rounded-xl border border-border bg-muted/30 p-4">
-                  <div className="text-[13.5px] text-muted-foreground leading-relaxed">
+                  <div className="text-[13px] text-muted-foreground leading-relaxed">
                     Escribe el grupo tal como aparece en la casilla B) o C). Se lee de dos en dos:
                     año, mes, día, hora y minutos, siempre en UTC.
                   </div>
@@ -535,7 +535,7 @@ export function NotamDecoder() {
                     ].map((b) => (
                       <span key={b.l} className="rounded-lg surface px-2.5 py-1.5">
                         <span className="font-semibold text-foreground">{b.g}</span>{" "}
-                        <span className="text-[11px] text-muted-foreground">{b.l}</span>
+                        <span className="text-[12px] text-muted-foreground">{b.l}</span>
                       </span>
                     ))}
                   </div>
@@ -554,7 +554,7 @@ export function NotamDecoder() {
                     className="h-4 w-4 flex-shrink-0 mt-0.5"
                     style={{ color: "var(--av-amber-400)" }}
                   />
-                  <div className="text-[13.5px] text-foreground/85 leading-relaxed">
+                  <div className="text-[13px] text-foreground/85 leading-relaxed">
                     Todavía no puedo convertirlo: necesito los 10 dígitos completos y una fecha
                     válida. Recuerda que PERM, EST y UFN no son grupos de fecha: PERM significa
                     permanente, EST que el fin de validez es estimado y UFN hasta nuevo aviso.
@@ -621,7 +621,7 @@ export function NotamDecoder() {
                 placeholder="Busca por código, significado o fraseología: pista, clsd, MR…"
                 autoComplete="off"
                 aria-label="Buscar en la tabla de códigos"
-                className="w-full h-11 rounded-xl border border-border bg-background pl-10 pr-10 text-[14px] text-foreground outline-none transition-colors focus:border-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
+                className="w-full h-11 rounded-xl border border-border bg-background pl-10 pr-10 text-[13px] text-foreground outline-none transition-colors focus:border-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
               />
               {query.length > 0 && (
                 <button
@@ -707,7 +707,7 @@ export function NotamDecoder() {
             >
               {results === 0 ? (
                 <div className="mt-4 rounded-xl border border-border bg-muted/30 p-6 text-center">
-                  <div className="text-[14px] font-semibold text-foreground">
+                  <div className="text-[13px] font-semibold text-foreground">
                     No encontramos ese código
                   </div>
                   <p className="mt-1 text-[13px] text-muted-foreground">
@@ -759,7 +759,7 @@ export function NotamDecoder() {
             <div className="mt-3 grid gap-2.5 sm:grid-cols-2 xl:grid-cols-3">
               {SPECIAL_RULE_ROWS.map((r) => (
                 <div key={r.label} className="rounded-xl border border-border bg-muted/20 p-3.5">
-                  <div className="text-[13.5px] font-semibold text-foreground">{r.label}</div>
+                  <div className="text-[13px] font-semibold text-foreground">{r.label}</div>
                   <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
                     {r.text}
                   </p>
@@ -811,7 +811,7 @@ export function NotamDecoder() {
                 placeholder="Busca una abreviatura: CLSD, U/S, pista…"
                 autoComplete="off"
                 aria-label="Buscar en el glosario de la casilla E)"
-                className="w-full h-11 rounded-xl border border-border bg-background pl-10 pr-10 text-[14px] text-foreground outline-none transition-colors focus:border-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
+                className="w-full h-11 rounded-xl border border-border bg-background pl-10 pr-10 text-[13px] text-foreground outline-none transition-colors focus:border-[color-mix(in_oklab,var(--av-blue-500)_45%,transparent)]"
               />
               {glossQuery.length > 0 && (
                 <button
@@ -826,7 +826,7 @@ export function NotamDecoder() {
             </div>
 
             {glossary.length === 0 ? (
-              <p className="mt-4 text-[13.5px] text-muted-foreground">
+              <p className="mt-4 text-[13px] text-muted-foreground">
                 Esa abreviatura no está en el glosario mínimo. Búscala en la tabla de códigos o en el
                 AIP de la Aerocivil.
               </p>
@@ -866,11 +866,11 @@ export function NotamDecoder() {
             style={{ color: "var(--av-amber-400)" }}
           />
           <div>
-            <div className="text-[14px] font-semibold text-foreground">Nota de vigencia</div>
-            <p className="mt-1 text-[13.5px] text-foreground/85 leading-relaxed">
+            <div className="text-[13px] font-semibold text-foreground">Nota de vigencia</div>
+            <p className="mt-1 text-[13px] text-foreground/85 leading-relaxed">
               {DISCLAIMERS.edition}
             </p>
-            <p className="mt-2 text-[12.5px] text-muted-foreground leading-relaxed">
+            <p className="mt-2 text-[12px] text-muted-foreground leading-relaxed">
               Fuente: {CODE_META.fuente}
             </p>
           </div>
@@ -892,12 +892,12 @@ function FixedQBlock() {
       }}
     >
       <div
-        className="mono text-[34px] font-semibold leading-none"
+        className="mono text-[32px] font-semibold leading-none"
         style={{ color: accentText("var(--av-cyan-400)") }}
       >
         Q
       </div>
-      <div className="mt-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="mt-1.5 text-[12px] text-muted-foreground">
         Letra fija
       </div>
     </div>
@@ -957,7 +957,7 @@ function PartBlock({
       }}
     >
       <div className="flex items-baseline justify-between gap-2">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="text-[12px] font-semibold text-muted-foreground">
           {role} · {caption}
         </div>
         {unresolved && (
@@ -969,7 +969,7 @@ function PartBlock({
       </div>
 
       <div
-        className="mono mt-1 text-[30px] sm:text-[34px] font-semibold leading-none tracking-[0.08em]"
+        className="mono mt-1 text-[32px] sm:text-[32px] font-semibold leading-none tracking-[0.08em]"
         style={{ color: incomplete ? "var(--muted-foreground)" : accentText(tone) }}
       >
         {code.padEnd(needed, "·")}
@@ -984,7 +984,7 @@ function PartBlock({
         <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{missingText}</p>
       ) : (
         <>
-          <p className="mt-2 text-[14px] font-semibold text-foreground leading-snug">
+          <p className="mt-2 text-[13px] font-semibold text-foreground leading-snug">
             {significado ?? special}
           </p>
           {fraseologia && fraseologia.length > 0 && (
@@ -1021,7 +1021,7 @@ function PartBlock({
             )}
           </div>
           {nota && (
-            <div className="mt-2.5 flex items-start gap-1.5 text-[12.5px] text-muted-foreground leading-relaxed">
+            <div className="mt-2.5 flex items-start gap-1.5 text-[12px] text-muted-foreground leading-relaxed">
               <Info className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
               <span>{nota}</span>
             </div>
@@ -1038,7 +1038,7 @@ function Anatomy({ onExample }: { onExample: () => void }) {
       <div className="text-[15px] font-semibold tracking-[-0.01em]">
         Cómo está armado el grupo de 5 letras
       </div>
-      <p className="mt-1 text-[13.5px] text-muted-foreground leading-relaxed max-w-[720px]">
+      <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[720px]">
         Todos los códigos empiezan con Q. Las dos letras siguientes dicen de qué se habla (el
         asunto) y las dos últimas dicen qué le pasa (el estado). Con eso solo ya entiendes la mitad
         del NOTAM antes de leer la casilla E).
@@ -1061,20 +1061,20 @@ function Anatomy({ onExample }: { onExample: () => void }) {
       </div>
 
       <div className="mt-3.5 flex flex-wrap items-center gap-2">
-        <span className="text-[13.5px] text-muted-foreground">Entonces</span>
+        <span className="text-[13px] text-muted-foreground">Entonces</span>
         <span className="mono text-[15px] font-semibold text-foreground tracking-[0.1em]">QMRLC</span>
-        <span className="text-[13.5px] text-muted-foreground">se lee</span>
+        <span className="text-[13px] text-muted-foreground">se lee</span>
         <span
-          className="mono text-[14px] font-semibold"
+          className="mono text-[13px] font-semibold"
           style={{ color: accentText("var(--av-green-400)") }}
         >
           RWY CLSD
         </span>
-        <span className="text-[13.5px] text-muted-foreground">o sea, pista cerrada.</span>
+        <span className="text-[13px] text-muted-foreground">o sea, pista cerrada.</span>
         <button
           type="button"
           onClick={onExample}
-          className="text-[13.5px] font-semibold"
+          className="text-[13px] font-semibold"
           style={{ color: accentText("var(--av-blue-500)") }}
         >
           Decodificarlo
@@ -1100,10 +1100,10 @@ function AnatomyCell({
       className="rounded-xl border p-3.5"
       style={{ borderColor: softBorder(color, 26), background: softBg(color, 6) }}
     >
-      <div className="mono text-[22px] font-semibold leading-none" style={{ color: accentText(color) }}>
+      <div className="mono text-[20px] font-semibold leading-none" style={{ color: accentText(color) }}>
         {code}
       </div>
-      <div className="mt-1.5 text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
+      <div className="mt-1.5 text-[12px] text-muted-foreground">
         {label}
       </div>
       <div className="mt-0.5 text-[13px] text-foreground/85">{detail}</div>
@@ -1129,8 +1129,8 @@ function Callout({
     >
       <Icon className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: tone }} />
       <div>
-        <div className="text-[13.5px] font-semibold text-foreground">{title}</div>
-        <p className="mt-0.5 text-[13.5px] text-foreground/85 leading-relaxed">{children}</p>
+        <div className="text-[13px] font-semibold text-foreground">{title}</div>
+        <p className="mt-0.5 text-[13px] text-foreground/85 leading-relaxed">{children}</p>
       </div>
     </div>
   )
@@ -1142,9 +1142,9 @@ function TimeCard({ label, value, color }: { label: string; value: string; color
       className="rounded-xl border p-4"
       style={{ borderColor: softBorder(color, 28), background: softBg(color, 6) }}
     >
-      <div className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{label}</div>
+      <div className="text-[12px] text-muted-foreground">{label}</div>
       <div
-        className="mono tabular mt-1 text-[15px] sm:text-[16px] font-semibold leading-snug"
+        className="mono tabular mt-1 text-[15px] sm:text-[15px] font-semibold leading-snug"
         style={{ color: accentText(color) }}
       >
         {value}
@@ -1174,7 +1174,7 @@ function TabButton({
       role="tab"
       aria-selected={active}
       onClick={onClick}
-      className="inline-flex items-center gap-2 h-10 px-4 rounded-xl border text-[14px] font-semibold transition-colors"
+      className="inline-flex items-center gap-2 h-10 px-4 rounded-xl border text-[13px] font-semibold transition-colors"
       style={{
         borderColor: active ? softBorder(color, 45) : "var(--border)",
         background: active ? softBg(color, 12) : "transparent",
@@ -1251,11 +1251,11 @@ function SubjectRowCard({
           {row.key}
         </span>
         <span className="flex-1 min-w-0">
-          <span className="block text-[14px] font-semibold text-foreground leading-snug">
+          <span className="block text-[13px] font-semibold text-foreground leading-snug">
             {row.data.significado}
           </span>
           {row.data.fraseologia.length > 0 && (
-            <span className="mono block text-[12.5px] text-muted-foreground mt-0.5">
+            <span className="mono block text-[12px] text-muted-foreground mt-0.5">
               {row.data.fraseologia}
             </span>
           )}
@@ -1314,11 +1314,11 @@ function StatusRowCard({
           {row.key}
         </span>
         <span className="flex-1 min-w-0">
-          <span className="block text-[14px] font-semibold text-foreground leading-snug">
+          <span className="block text-[13px] font-semibold text-foreground leading-snug">
             {row.data.significado}
           </span>
           {row.data.fraseologia.length > 0 && (
-            <span className="mono block text-[12.5px] text-muted-foreground mt-0.5">
+            <span className="mono block text-[12px] text-muted-foreground mt-0.5">
               {row.data.fraseologia}
             </span>
           )}
@@ -1395,7 +1395,7 @@ function ExampleCard({
         >
           {example.notam.Q ? example.notam.Q.split("/")[1] ?? example.id : example.id}
         </span>
-        <span className="flex-1 min-w-0 text-[14px] text-foreground leading-snug">
+        <span className="flex-1 min-w-0 text-[13px] text-foreground leading-snug">
           {example.descripcion}
         </span>
         <ChevronDown
@@ -1408,20 +1408,20 @@ function ExampleCard({
       {open && (
         <div className="px-4 pb-4 grid gap-3 lg:grid-cols-2">
           <div className="rounded-xl border border-border bg-muted/25 p-3.5">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="text-[12px] font-semibold text-muted-foreground">
               NOTAM tal como se publica
             </div>
             <div className="mt-2 grid gap-1.5">
               {boxes.map(([box, value]) => (
                 <div key={box} className="grid grid-cols-[36px_1fr] gap-2 items-baseline">
                   <span
-                    className="mono text-[12.5px] font-semibold"
+                    className="mono text-[12px] font-semibold"
                     style={{ color: accentText("var(--av-blue-500)") }}
                     title={BOX_LABELS[box] ?? box}
                   >
                     {box})
                   </span>
-                  <span className="mono text-[12.5px] text-foreground/90 break-words">{value}</span>
+                  <span className="mono text-[12px] text-foreground/90 break-words">{value}</span>
                 </div>
               ))}
             </div>
@@ -1434,7 +1434,7 @@ function ExampleCard({
               background: softBg("var(--av-green-400)", 5),
             }}
           >
-            <div className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="text-[12px] font-semibold text-muted-foreground">
               Decodificación
             </div>
             <dl className="mt-2 grid gap-1.5">

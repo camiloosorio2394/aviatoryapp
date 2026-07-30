@@ -128,7 +128,7 @@ export function IcaoMockExam() {
         <RunHeader idx={idx} total={steps.length} part={part} elapsed={elapsed} recording={wantRecord && rec.active} />
         <StepView step={step} onSkip={advance} />
         <div className="mt-7 flex items-center justify-between">
-          <div className="text-[13.5px] text-muted-foreground">
+          <div className="text-[13px] text-muted-foreground">
             {idx + 1} de {steps.length}
           </div>
           <button
@@ -149,7 +149,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
-        <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4">
+        <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4">
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
 
@@ -158,7 +158,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
             <span className="chip chip-amber">
               <Award className="h-3 w-3" /> Simulacro · examen completo cronometrado
             </span>
-            <h1 className="mt-4 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+            <h1 className="mt-4 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
               Simulacro TEA
             </h1>
             <p className="mt-3 text-[17px] text-muted-foreground max-w-[640px] leading-relaxed">
@@ -179,7 +179,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
         {/* Reglas */}
         <div className="mt-5 rounded-2xl border p-4 flex items-start gap-3" style={{ borderColor: "color-mix(in oklab, var(--av-amber-400) 25%, transparent)", background: "color-mix(in oklab, var(--av-amber-400) 6%, transparent)" }}>
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
-          <div className="text-[14px] text-foreground/85 leading-relaxed">
+          <div className="text-[13px] text-foreground/85 leading-relaxed">
             <strong>Reglas:</strong> los audios suenan máximo 2 veces (1 más 1 repetición). No vas a
             ver las respuestas hasta el final. Al terminar te autoevalúas en los 6 descriptores ICAO.
             Recuerda que tu resultado final es tu <strong>descriptor más bajo</strong>.
@@ -203,7 +203,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
             <div className="text-[15px] font-semibold tracking-[-0.01em]">
               Grabar mis respuestas {wantRecord ? "· activado" : "· desactivado"}
             </div>
-            <div className="text-[13.5px] text-muted-foreground">
+            <div className="text-[13px] text-muted-foreground">
               {recSupported
                 ? "Te grabas mientras respondes y te escuchas al final. La grabación queda solo en tu navegador, no se sube a ningún lado."
                 : "Tu navegador no permite grabar audio."}
@@ -213,7 +213,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
 
         <button
           onClick={onStart}
-          className="mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[16px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <Sparkles className="h-4.5 w-4.5" /> Empezar el simulacro
@@ -258,14 +258,14 @@ function MockHistory() {
 
   if (loading) {
     return (
-      <div className="mt-4 flex items-center gap-2 text-[13.5px] text-muted-foreground">
+      <div className="mt-4 flex items-center gap-2 text-[13px] text-muted-foreground">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Cargando tu historial…
       </div>
     )
   }
   if (history.length === 0) {
     return (
-      <div className="mt-4 rounded-2xl border border-border/60 bg-muted/20 p-4 text-[14px] text-muted-foreground flex items-center gap-2">
+      <div className="mt-4 rounded-2xl border border-border/60 bg-muted/20 p-4 text-[13px] text-muted-foreground flex items-center gap-2">
         <History className="h-4 w-4" /> Todavía no guardaste ningún simulacro. Haz uno y guárdalo para ver tu progreso aquí.
       </div>
     )
@@ -279,7 +279,7 @@ function MockHistory() {
     <div className="mt-6">
       <div className="flex items-center gap-2 mb-3">
         <History className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-        <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Tu historial</h2>
+        <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Tu historial</h2>
       </div>
       <div className="grid grid-cols-3 gap-2.5 mb-3">
         <Stat label="Simulacros" value={String(history.length)} color="var(--av-blue-500)" />
@@ -289,12 +289,12 @@ function MockHistory() {
       <div className="space-y-1.5">
         {history.map((h) => (
           <div key={h.id} className="rounded-xl border bg-card px-3.5 py-2.5 flex items-center gap-3" style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}>
-            <div className="tabular-nums w-14 flex-shrink-0 text-[16px] font-semibold" style={{ color: levelText(h.final_level) }}>
+            <div className="tabular-nums w-14 flex-shrink-0 text-[15px] font-semibold" style={{ color: levelText(h.final_level) }}>
               {h.final_level != null ? `ICAO ${h.final_level}` : "—"}
             </div>
             <div className="flex-1 min-w-0">
-              <div className="text-[13.5px] font-semibold">{fmtDate(h.taken_at)}</div>
-              <div className="tabular-nums text-[12.5px] text-muted-foreground">
+              <div className="text-[13px] font-semibold">{fmtDate(h.taken_at)}</div>
+              <div className="tabular-nums text-[12px] text-muted-foreground">
                 {fmtTime(h.duration_seconds)} · {h.total_items} ítems{h.recorded ? " · grabado" : ""}
               </div>
             </div>
@@ -319,8 +319,8 @@ function MockHistory() {
 function Stat({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div className="rounded-xl border p-3 text-center" style={{ borderColor: "color-mix(in oklab, var(--border) 60%, transparent)" }}>
-      <div className="text-[19px] font-semibold tracking-[-0.02em]" style={{ color }}>{value}</div>
-      <div className="text-[11px] uppercase tracking-[0.12em] text-muted-foreground">{label}</div>
+      <div className="text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>{value}</div>
+      <div className="text-[12px] text-muted-foreground">{label}</div>
     </div>
   )
 }
@@ -330,9 +330,9 @@ function PartCard({ icon: Icon, color, title, detail, time }: { icon: React.Comp
     <div className="rounded-2xl border bg-card p-4" style={{ borderColor: `color-mix(in oklab, ${color} 28%, transparent)` }}>
       <div className="flex items-center justify-between">
         <Icon className="h-4.5 w-4.5" style={{ color }} />
-        <span className="text-[12px] uppercase tracking-[0.12em] text-muted-foreground">{time}</span>
+        <span className="text-[12px] text-muted-foreground">{time}</span>
       </div>
-      <div className="mt-2 text-[14.5px] font-semibold tracking-[-0.01em]">{title}</div>
+      <div className="mt-2 text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
       <div className="text-[13px] text-muted-foreground">{detail}</div>
     </div>
   )
@@ -349,11 +349,11 @@ function RunHeader({ idx, total, part, elapsed, recording }: { idx: number; tota
         </div>
         <div className="flex items-center gap-3">
           {recording && (
-            <span className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold" style={{ color: "var(--av-danger-fg)" }}>
+            <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: "var(--av-danger-fg)" }}>
               <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--av-red-400)" }} /> REC
             </span>
           )}
-          <span className="inline-flex items-center gap-1.5 tabular-nums text-[13.5px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1.5 tabular-nums text-[13px] text-muted-foreground">
             <Clock className="h-3.5 w-3.5" /> {fmtTime(elapsed)}
           </span>
         </div>
@@ -374,7 +374,7 @@ function StepView({ step, onSkip }: { step: ExamStep; onSkip: () => void }) {
     return (
       <Card>
         <Kicker icon={Radio} text="Responde en voz alta: natural, técnico y profesional" />
-        <div className="mt-3 text-[22px] font-semibold leading-snug tracking-[-0.01em]">{step.question}</div>
+        <div className="mt-3 text-[20px] font-semibold leading-snug tracking-[-0.01em]">{step.question}</div>
       </Card>
     )
   }
@@ -424,7 +424,7 @@ function Card({ children }: { children: React.ReactNode }) {
 
 function Kicker({ icon: Icon, text }: { icon: React.ComponentType<{ className?: string }>; text: string }) {
   return (
-    <div className="inline-flex items-center gap-2 text-[13.5px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+    <div className="inline-flex items-center gap-2 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
       <Icon className="h-4 w-4" /> {text}
     </div>
   )
@@ -434,7 +434,7 @@ function Prompts({ items }: { items: string[] }) {
   return (
     <div className="mt-4 grid gap-1.5">
       {items.map((t) => (
-        <div key={t} className="flex items-center gap-1.5 text-[14px] text-muted-foreground">
+        <div key={t} className="flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <HelpCircle className="h-3.5 w-3.5" /> {t}
         </div>
       ))}
@@ -446,7 +446,7 @@ function ExamImage({ src, alt, letter }: { src: string; alt: string; letter: str
   return (
     <figure className="rounded-2xl border overflow-hidden bg-muted" style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}>
       <div className="relative">
-        <div className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[14px] font-semibold text-white" style={{ background: "oklch(0.2 0.02 250 / 0.75)" }}>{letter}</div>
+        <div className="absolute top-2 left-2 z-10 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-semibold text-white" style={{ background: "oklch(0.2 0.02 250 / 0.75)" }}>{letter}</div>
         <img src={src} alt={alt} className="w-full aspect-[4/3] object-cover" />
       </div>
     </figure>
@@ -490,7 +490,7 @@ function ExamPlayer({ audioUrl, label, onSkip }: { audioUrl: string; label?: str
           style={{ background: "var(--av-blue-500)" }}>
           {playing ? <><Square className="h-4 w-4" /> Detener</> : plays === 0 ? <><Play className="h-4 w-4" /> {label ?? "Reproducir"}</> : <><RotateCcw className="h-4 w-4" /> Repetir</>}
         </button>
-        <div className="tabular-nums text-[12px] uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="tabular-nums text-[12px] text-muted-foreground">
           {plays}/{maxPlays}{plays >= maxPlays && " · sin tercera"}
         </div>
       </div>
@@ -540,16 +540,16 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
       <div className="px-7 py-7 pb-24 max-w-[920px] mx-auto">
         <div className="text-center">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-success-fg)" }}>Simulacro terminado</div>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">¡Terminaste el examen!</h1>
-          <div className="mt-2 inline-flex items-center gap-1.5 tabular-nums text-[14px] text-muted-foreground">
+          <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">¡Terminaste el examen!</h1>
+          <div className="mt-2 inline-flex items-center gap-1.5 tabular-nums text-[13px] text-muted-foreground">
             <Clock className="h-4 w-4" /> Tiempo total: {fmtTime(elapsed)} · {steps.length} ítems
           </div>
         </div>
 
         {/* Autoevaluación */}
         <div className="mt-9">
-          <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Autoevalúate en los 6 descriptores</h2>
-          <p className="mt-1 text-[14px] text-muted-foreground">Sé honesto: tu resultado final es tu descriptor más bajo.</p>
+          <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Autoevalúate en los 6 descriptores</h2>
+          <p className="mt-1 text-[13px] text-muted-foreground">Sé honesto: tu resultado final es tu descriptor más bajo.</p>
           <div className="mt-4 space-y-2.5">
             {DESCRIPTORS.map((d) => {
               const es = descriptorEs(d.key, d.name, d.detail)
@@ -586,10 +586,10 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
           {finalLevel != null && (
             <div className="mt-4 rounded-2xl border p-5 text-center" style={{ borderColor: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)"} 40%, transparent)`, background: `color-mix(in oklab, ${finalLevel >= 5 ? "var(--av-green-400)" : finalLevel >= 4 ? "var(--av-blue-500)" : "var(--av-amber-400)"} 8%, transparent)` }}>
-              <div className="text-[12px] uppercase tracking-[0.16em] text-muted-foreground">TU NIVEL ESTIMADO (EL DESCRIPTOR MÁS BAJO)</div>
+              <div className="text-[12px] text-muted-foreground">Tu nivel estimado, el descriptor más bajo</div>
               {/* El número va en color de texto normal: --av-green-400 y
                   --av-amber-400 no se leen sobre fondo claro. El tono lo da el chip. */}
-              <div className="mt-1 tabular-nums text-[44px] font-semibold tracking-[-0.04em] text-foreground">
+              <div className="mt-1 tabular-nums text-[32px] font-semibold tracking-[-0.04em] text-foreground">
                 ICAO {finalLevel}
               </div>
               <div className="mt-0.5">
@@ -600,14 +600,14 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
               {/* Guardar */}
               {saveState === "saved" ? (
-                <div className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold" style={{ color: "var(--av-success-fg)" }}>
+                <div className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold" style={{ color: "var(--av-success-fg)" }}>
                   <CheckCircle2 className="h-4 w-4" /> Guardado en tu historial
                 </div>
               ) : (
                 <button
                   onClick={save}
                   disabled={!user || saveState === "saving"}
-                  className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
+                  className="mt-4 inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:hover:translate-y-0"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   {saveState === "saving" ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
@@ -615,7 +615,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
                 </button>
               )}
               {saveState === "error" && (
-                <div className="mt-2 text-[13.5px]" style={{ color: "var(--av-danger-fg)" }}>No pudimos guardar. Inténtalo de nuevo.</div>
+                <div className="mt-2 text-[13px]" style={{ color: "var(--av-danger-fg)" }}>No pudimos guardar. Inténtalo de nuevo.</div>
               )}
               {!user && (
                 <div className="mt-2 text-[13px] text-muted-foreground">Inicia sesión para guardar tu resultado.</div>
@@ -626,8 +626,8 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
         {/* Review */}
         <div className="mt-10">
-          <h2 className="text-[22px] font-semibold tracking-[-0.02em]">Repaso: qué salió y las respuestas</h2>
-          <p className="mt-1 text-[14px] text-muted-foreground">Escucha de nuevo, lee las transcripciones y, si te grabaste, escúchate.</p>
+          <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Repaso: qué salió y las respuestas</h2>
+          <p className="mt-1 text-[13px] text-muted-foreground">Escucha de nuevo, lee las transcripciones y, si te grabaste, escúchate.</p>
           <div className="mt-4 space-y-2">
             {steps.map((s, i) => (
               <ReviewItem key={i} step={s} n={i + 1} recordingUrl={recordings[i]} />
@@ -655,16 +655,16 @@ function ReviewItem({ step, n, recordingUrl }: { step: ExamStep; n: number; reco
   return (
     <div className="rounded-2xl border bg-card overflow-hidden" style={{ borderColor: open ? "color-mix(in oklab, var(--av-blue-500) 30%, transparent)" : "color-mix(in oklab, var(--border) 65%, transparent)" }}>
       <button onClick={() => setOpen((o) => !o)} className="w-full flex items-center gap-3 p-3.5 text-left">
-        <span className="tabular-nums flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[12.5px] font-semibold" style={{ background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)", color: "var(--av-blue-500)" }}>{n}</span>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.12em] flex-shrink-0 px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--border) 40%, transparent)", color: "var(--muted-foreground)" }}>{meta.tag}</span>
-        <span className="flex-1 text-[14px] font-semibold truncate">{meta.title}</span>
+        <span className="tabular-nums flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center text-[12px] font-semibold" style={{ background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)", color: "var(--av-blue-500)" }}>{n}</span>
+        <span className="text-[12px] font-semibold flex-shrink-0 px-1.5 py-0.5 rounded" style={{ background: "color-mix(in oklab, var(--border) 40%, transparent)", color: "var(--muted-foreground)" }}>{meta.tag}</span>
+        <span className="flex-1 text-[13px] font-semibold truncate">{meta.title}</span>
         {open ? <EyeOff className="h-4 w-4 text-muted-foreground" /> : <Eye className="h-4 w-4 text-muted-foreground" />}
       </button>
       {open && (
         <div className="px-3.5 pb-3.5 space-y-3">
           {recordingUrl && (
             <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>TU RESPUESTA</div>
+              <div className="text-[12px] font-semibold mb-1" style={{ color: "var(--av-blue-500)" }}>Tu respuesta</div>
               <audio controls src={recordingUrl} className="w-full h-9" />
             </div>
           )}
@@ -690,12 +690,12 @@ function ReviewBody({ step }: { step: ExamStep }) {
   if (step.kind === "interview") {
     return (
       <div className="rounded-xl border p-3" style={box}>
-        <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>RESPUESTA MODELO</div>
-        <p className="text-[14px] text-foreground/90 leading-relaxed">{step.suggestedAnswer}</p>
+        <div className="text-[12px] font-semibold mb-1" style={{ color: "var(--av-blue-500)" }}>Respuesta modelo</div>
+        <p className="text-[13px] text-foreground/90 leading-relaxed">{step.suggestedAnswer}</p>
         {step.highRegisterWords && step.highRegisterWords.length > 0 && (
           <div className="mt-2 flex flex-wrap gap-1.5">
             {step.highRegisterWords.map((w) => (
-              <span key={w} className="px-2 py-0.5 rounded-md text-[12.5px] font-semibold" style={{ background: "color-mix(in oklab, var(--av-amber-400) 14%, transparent)", color: "var(--av-warn-fg)" }}>{w}</span>
+              <span key={w} className="px-2 py-0.5 rounded-md text-[12px] font-semibold" style={{ background: "color-mix(in oklab, var(--av-amber-400) 14%, transparent)", color: "var(--av-warn-fg)" }}>{w}</span>
             ))}
           </div>
         )}
@@ -707,7 +707,7 @@ function ReviewBody({ step }: { step: ExamStep }) {
       <div className="rounded-xl border p-3 space-y-1.5" style={box}>
         {step.audio.speaker && <Badge speaker={step.audio.speaker} />}
         
-        {step.audio.transcript && <p className="text-[13.5px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
+        {step.audio.transcript && <p className="text-[13px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
       </div>
     )
   }
@@ -715,19 +715,19 @@ function ReviewBody({ step }: { step: ExamStep }) {
     return (
       <div className="rounded-xl border p-3 space-y-1.5" style={box}>
         {step.audio.speaker && <Badge speaker={step.audio.speaker} />}
-        {step.audio.summary && <p className="text-[14px] text-foreground/90">{step.audio.summary}</p>}
-        {step.audio.problem && <p className="text-[14px] text-foreground/90"><strong>Problema:</strong> {step.audio.problem}</p>}
-        {step.audio.request && <p className="text-[14px] text-foreground/90"><strong>Pedido:</strong> {step.audio.request}</p>}
-        {step.audio.transcript && <p className="text-[13.5px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
+        {step.audio.summary && <p className="text-[13px] text-foreground/90">{step.audio.summary}</p>}
+        {step.audio.problem && <p className="text-[13px] text-foreground/90"><strong>Problema:</strong> {step.audio.problem}</p>}
+        {step.audio.request && <p className="text-[13px] text-foreground/90"><strong>Pedido:</strong> {step.audio.request}</p>}
+        {step.audio.transcript && <p className="text-[13px] italic text-muted-foreground">&ldquo;{step.audio.transcript}&rdquo;</p>}
       </div>
     )
   }
   if (step.kind === "interactive") {
     return (
       <div className="rounded-xl border p-3 space-y-2" style={box}>
-        {step.item.transcript && <p className="text-[14px] italic text-foreground/90">&ldquo;{step.item.transcript}&rdquo;</p>}
-        {step.item.questions && <div><div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-blue-500)" }}>PREGUNTAS</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13.5px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
-        {step.item.advice && <div><div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>RECOMENDACIONES</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
+        {step.item.transcript && <p className="text-[13px] italic text-foreground/90">&ldquo;{step.item.transcript}&rdquo;</p>}
+        {step.item.questions && <div><div className="text-[12px] font-semibold mb-1" style={{ color: "var(--av-blue-500)" }}>Preguntas</div><ul className="space-y-0.5">{step.item.questions.map((q) => <li key={q} className="text-[13px] italic text-foreground/90">&ldquo;{q}&rdquo;</li>)}</ul></div>}
+        {step.item.advice && <div><div className="text-[12px] font-semibold mb-1" style={{ color: "var(--av-success-fg)" }}>Recomendaciones</div><ul className="space-y-0.5">{step.item.advice.map((a) => <li key={a} className="flex items-start gap-1.5 text-[13px] text-foreground/90"><Check className="flex-shrink-0 mt-0.5 h-3 w-3 text-[var(--av-green-400)]" strokeWidth={3} />{a}</li>)}</ul></div>}
       </div>
     )
   }
@@ -738,8 +738,8 @@ function ReviewBody({ step }: { step: ExamStep }) {
         <img src={step.pair.imageA} alt={step.pair.altA} className="w-full aspect-[4/3] object-cover rounded-md" />
         <img src={step.pair.imageB} alt={step.pair.altB} className="w-full aspect-[4/3] object-cover rounded-md" />
       </div>
-      <div className="text-[11px] font-semibold uppercase tracking-[0.14em] mb-1" style={{ color: "var(--av-success-fg)" }}>CONVERSACIÓN</div>
-      <ul className="space-y-0.5">{step.pair.discussion.map((q) => <li key={q} className="text-[13.5px] text-foreground/90">{q}</li>)}</ul>
+      <div className="text-[12px] font-semibold mb-1" style={{ color: "var(--av-success-fg)" }}>Conversación</div>
+      <ul className="space-y-0.5">{step.pair.discussion.map((q) => <li key={q} className="text-[13px] text-foreground/90">{q}</li>)}</ul>
     </div>
   )
 }

@@ -304,7 +304,7 @@ export function Route() {
                       style={{ minWidth: 100, maxWidth: 140 }}
                     >
                       <div
-                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-semibold text-sm"
+                        className="relative w-[50px] h-[50px] rounded-full flex items-center justify-center font-semibold text-[15px]"
                         style={{
                           background: done ? "var(--av-green-400)" : current ? "var(--av-blue-500)" : "var(--muted)",
                           border: current ? "2px solid var(--av-blue-500)" : "2px solid var(--border)",
@@ -316,7 +316,7 @@ export function Route() {
                       </div>
                       <div className="text-center">
                         <div
-                          className="text-[13.5px] font-semibold tracking-[-0.015em]"
+                          className="text-[13px] font-semibold tracking-[-0.015em]"
                           style={{ color: done || current ? "var(--foreground)" : "var(--muted-foreground)" }}
                         >
                           {STAGE_LABEL[s]}
@@ -337,16 +337,16 @@ export function Route() {
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                 Tu progreso en esta etapa
               </div>
-              <div className="tabular-nums mt-2 text-4xl font-semibold tracking-[-0.04em] text-foreground">
+              <div className="tabular-nums mt-2 text-[32px] font-semibold tracking-[-0.04em] text-foreground">
                 {percent}%
               </div>
-              <div className="text-sm text-muted-foreground mt-1">
+              <div className="text-[15px] text-muted-foreground mt-1">
                 {completedCount} de {totalCount} items completados
               </div>
             </div>
             {allDone && (
               <div
-                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-semibold text-white"
+                className="inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-[12px] font-semibold text-white"
                 style={{ background: "var(--av-green-400)" }}
               >
                 <Trophy className="h-3.5 w-3.5" /> ¡Etapa completa!
@@ -402,7 +402,7 @@ export function Route() {
                       </span>
                       <div className="flex-1 min-w-0">
                         <div
-                          className={`text-[14px] font-semibold ${
+                          className={`text-[13px] font-semibold ${
                             checked ? "line-through text-muted-foreground" : "text-foreground"
                           }`}
                         >
@@ -410,7 +410,7 @@ export function Route() {
                         </div>
                         {item.description && (
                           <p
-                            className={`mt-1 text-xs leading-relaxed ${
+                            className={`mt-1 text-[12px] leading-relaxed ${
                               checked ? "text-muted-foreground/70" : "text-muted-foreground"
                             }`}
                           >
@@ -436,8 +436,8 @@ export function Route() {
           >
             <Sparkles className="h-7 w-7 flex-shrink-0" style={{ color: "var(--av-blue-500)" }} />
             <div className="flex-1">
-              <h3 className="text-base font-semibold text-foreground">¡Completaste todos los items!</h3>
-              <p className="mt-0.5 text-sm text-muted-foreground">
+              <h3 className="text-[17px] font-semibold text-foreground">¡Completaste todos los items!</h3>
+              <p className="mt-0.5 text-[15px] text-muted-foreground">
                 Actualiza tu etapa en tu perfil para desbloquear la siguiente ruta.
               </p>
             </div>

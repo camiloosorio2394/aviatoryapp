@@ -96,7 +96,7 @@ export function TestInicial() {
         <div className="flex items-center justify-between gap-3 mb-3">
           <Link
             to="/app"
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> Salir del test
           </Link>
@@ -121,8 +121,8 @@ export function TestInicial() {
 
         <div className="rounded-2xl surface p-5 sm:p-6">
           {item.audioUrl && <AudioItem url={item.audioUrl} />}
-          {item.context && <p className="text-[13.5px] text-muted-foreground italic mb-3">{item.context}</p>}
-          <h2 className="text-[18px] font-semibold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
+          {item.context && <p className="text-[13px] text-muted-foreground italic mb-3">{item.context}</p>}
+          <h2 className="text-[17px] font-semibold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
 
           <div className="mt-5 space-y-2.5">
             {item.options.map((o) => {
@@ -165,7 +165,7 @@ export function TestInicial() {
                   >
                     {showCorrect ? <Check className="h-3.5 w-3.5" /> : showWrong ? <X className="h-3.5 w-3.5" /> : o.letter}
                   </span>
-                  <span className="text-[14.5px] text-foreground leading-snug pt-0.5">{o.text}</span>
+                  <span className="text-[15px] text-foreground leading-snug pt-0.5">{o.text}</span>
                 </button>
               )
             })}
@@ -177,7 +177,7 @@ export function TestInicial() {
                 {graded.correct ? "Correcto" : "Incorrecto"}
               </div>
               {graded.explanation && (
-                <p className="mt-2 text-[13.5px] text-muted-foreground leading-relaxed">{graded.explanation}</p>
+                <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">{graded.explanation}</p>
               )}
             </div>
           )}
@@ -221,12 +221,12 @@ function AudioItem({ url }: { url: string }) {
       <button
         onClick={toggle}
         disabled={plays >= 2 && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white disabled:opacity-40"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[13px] font-semibold text-white disabled:opacity-40"
         style={{ background: "var(--av-blue-500)" }}
       >
         {playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />} {playing ? "Pausar" : "Reproducir"}
       </button>
-      <span className="inline-flex items-center gap-1.5 text-[12.5px] text-muted-foreground"><Headphones className="h-3.5 w-3.5" /> {plays}/2 reproducciones</span>
+      <span className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground"><Headphones className="h-3.5 w-3.5" /> {plays}/2 reproducciones</span>
     </div>
   )
 }
@@ -256,7 +256,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · diagnóstico</div>
-          <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+          <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
             ¿Por dónde estás parado hoy?
           </h1>
           {size && (
@@ -264,7 +264,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
               {size.total} preguntas · {size.minutes} min aprox.
             </div>
           )}
-          <p className="mt-3 text-[16px] text-muted-foreground leading-relaxed">
+          <p className="mt-3 text-[15px] text-muted-foreground leading-relaxed">
             Un diagnóstico rápido para personalizar tu ruta: preguntas de <strong className="text-foreground">inglés ICAO</strong> (incluye 1 de audio) y <strong className="text-foreground">2 por cada materia</strong> del examen PCA. Al terminar te damos tu <strong className="text-foreground">Nivel Inicial estimado</strong> y por dónde conviene empezar.
           </p>
         </section>
@@ -273,8 +273,8 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           {cards.map((c) => (
             <div key={c.t} className="rounded-2xl surface p-4">
               <c.icon className="h-5 w-5 mb-2" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[14px] font-semibold">{c.t}</div>
-              <div className="text-[12.5px] text-muted-foreground">{c.d}</div>
+              <div className="text-[13px] font-semibold">{c.t}</div>
+              <div className="text-[12px] text-muted-foreground">{c.d}</div>
             </div>
           ))}
         </div>
@@ -292,7 +292,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           >
             {building ? <><Loader2 className="h-4 w-4 animate-spin" /> Armando tu test…</> : <>Empezar el test <ArrowRight className="h-4 w-4" /></>}
           </button>
-          <Link to="/app" className="text-[14px] font-semibold text-muted-foreground hover:text-foreground transition-colors">
+          <Link to="/app" className="text-[13px] font-semibold text-muted-foreground hover:text-foreground transition-colors">
             Saltar por ahora
           </Link>
         </div>
@@ -360,7 +360,7 @@ function Result({
     <AppLayout>
       <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · resultado</div>
-        <h1 className="mt-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
+        <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
 
         {/* ICAO estimate */}
         <div className="mt-6 rounded-2xl surface p-5 sm:p-6 flex items-center gap-5">
@@ -369,10 +369,10 @@ function Result({
           </div>
           <div className="flex-1 min-w-0">
             <div className="text-[13px] font-semibold text-muted-foreground">Nivel Inicial · Inglés ICAO (estimado)</div>
-            <div className="text-[28px] font-semibold tracking-[-0.03em]">
+            <div className="text-[24px] font-semibold tracking-[-0.03em]">
               {estimate != null ? `Nivel ${estimate}` : "Sin datos"}
             </div>
-            <p className="text-[12.5px] text-muted-foreground">
+            <p className="text-[12px] text-muted-foreground">
               Estimado. El oficial sale del{" "}
               <Link to="/app/icao/simulacro" className="font-semibold" style={{ color: "var(--av-blue-500)" }}>simulacro TEA →</Link>
             </p>
@@ -383,13 +383,13 @@ function Result({
         {perSubject.length > 0 && (
           <div className="mt-5 rounded-2xl surface p-5 sm:p-6">
             <div className="text-[13px] font-semibold mb-1" style={{ color: "var(--av-blue-500)" }}>Por materia</div>
-            <p className="text-[12.5px] text-muted-foreground mb-3.5">
+            <p className="text-[12px] text-muted-foreground mb-3.5">
               Son hasta 2 preguntas por materia: alcanza para saber por dónde empezar, no para ponerte una nota.
             </p>
             <div className="space-y-2.5">
               {perSubject.map((s) => (
                 <div key={s.slug} className="grid grid-cols-[1fr_auto] items-center gap-3">
-                  <span className="text-[13.5px] font-medium truncate">{s.label}</span>
+                  <span className="text-[13px] font-medium truncate">{s.label}</span>
                   <div className="flex items-center gap-2.5">
                     <div className="flex items-center gap-1" aria-hidden>
                       {Array.from({ length: s.total }).map((_, i) => (
@@ -400,7 +400,7 @@ function Result({
                         />
                       ))}
                     </div>
-                    <span className="tabular-nums text-[12.5px] font-semibold text-muted-foreground">
+                    <span className="tabular-nums text-[12px] font-semibold text-muted-foreground">
                       {s.correct} de {s.total}
                     </span>
                   </div>
@@ -419,7 +419,7 @@ function Result({
           >
             <div>
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
-              <div className="mt-0.5 text-[16px] font-semibold tracking-[-0.01em]">{weakest.label}</div>
+              <div className="mt-0.5 text-[15px] font-semibold tracking-[-0.01em]">{weakest.label}</div>
               <div className="text-[13px] text-muted-foreground">
                 {weakest.correct < weakest.total
                   ? `Ahí fallaste ${weakest.total - weakest.correct} de ${weakest.total} y el banco tiene ${weakest.questionCount} preguntas para practicar.`
@@ -439,7 +439,7 @@ function Result({
           >
             {saving ? <><Loader2 className="h-4 w-4 animate-spin" /> Guardando…</> : <>Guardar y continuar <ArrowRight className="h-4 w-4" /></>}
           </button>
-          <Link to="/app/icao/simulacro" className="text-[14px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+          <Link to="/app/icao/simulacro" className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Hacer el simulacro TEA (oficial)
           </Link>
         </div>

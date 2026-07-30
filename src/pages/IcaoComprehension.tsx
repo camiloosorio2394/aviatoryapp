@@ -45,7 +45,7 @@ export function IcaoComprehension() {
       <div className="px-7 py-7 pb-20 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
@@ -63,7 +63,7 @@ export function IcaoComprehension() {
           <div className="mt-3 text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             TEA · Parte 2 · Interactive Comprehension · 8 a 12 minutos
           </div>
-          <h1 className="mt-2 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+          <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
             Comprensión interactiva
           </h1>
           <p className="mt-2 text-[15px] text-muted-foreground max-w-[720px]">
@@ -83,7 +83,7 @@ export function IcaoComprehension() {
           }}
         >
           <AlertTriangle className="flex-shrink-0 mt-0.5 h-4.5 w-4.5" style={{ color: "var(--av-amber-400)" }} />
-          <div className="text-[14px] text-foreground/85 leading-relaxed">
+          <div className="text-[13px] text-foreground/85 leading-relaxed">
             <strong>Regla del examen:</strong> cada audio suena <strong>una vez</strong>. Puedes pedir
             <strong> una repetición</strong>, pero <strong>nunca una tercera</strong>. Pedir
             repeticiones suele bajar tu nota de Comprehension. Aquí reproducimos esa regla: 2
@@ -162,7 +162,7 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
       <button
         onClick={playing ? stop : play}
         disabled={!canPlay && !playing}
-        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+        className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         style={{
           background: "var(--av-blue-500)",
         }}
@@ -175,12 +175,12 @@ function ClipPlayer({ audioUrl, label }: { audioUrl: string; label?: string }) {
           <><RotateCcw className="h-3.5 w-3.5" /> Repetir</>
         )}
       </button>
-      <div className="tabular-nums text-[12.5px] text-muted-foreground">
+      <div className="tabular-nums text-[12px] text-muted-foreground">
         {plays}/{maxPlays} reproducciones
         {plays >= maxPlays && " · no hay tercera (regla del TEA)"}
       </div>
       {error && (
-        <div className="text-[12.5px]" style={{ color: "var(--av-danger-fg)" }}>
+        <div className="text-[12px]" style={{ color: "var(--av-danger-fg)" }}>
           No pudimos cargar el audio.
         </div>
       )}
@@ -245,14 +245,14 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Quiz terminado</div>
         {scorable > 0 ? (
           <>
-            <div className="mt-2 text-[64px] font-semibold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
-            <div className="mt-1 text-[14px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% en piloto o controlador</div>
+            <div className="mt-2 text-[32px] font-semibold tracking-[-0.04em] leading-none tabular-nums" style={{ color: accent }}>{score} / {scorable}</div>
+            <div className="mt-1 text-[13px] font-semibold tabular-nums" style={{ color: accent }}>{pct}% en piloto o controlador</div>
           </>
         ) : (
-          <div className="mt-3 text-[16px] text-foreground/80">Recorriste {order.length} situaciones.</div>
+          <div className="mt-3 text-[15px] text-foreground/80">Recorriste {order.length} situaciones.</div>
         )}
         <div className="mt-8">
-          <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          <button onClick={restart} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: accent }}>
             <RotateCcw className="h-4 w-4" /> Nuevo quiz (otra selección al azar)
           </button>
@@ -265,18 +265,18 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
     <>
       {/* progreso */}
       <div className="flex items-center justify-between gap-3 mb-4">
-        <div className="tabular-nums text-[12.5px] text-muted-foreground">
+        <div className="tabular-nums text-[12px] text-muted-foreground">
           {idx + 1} <span className="opacity-50">/ {order.length}</span>
         </div>
         <div className="flex-1 mx-3 h-1.5 rounded-full bg-border/50 overflow-hidden">
           <div className="h-full rounded-full transition-all" style={{ width: `${((idx + (revealed ? 1 : 0)) / order.length) * 100}%`, background: accent }} />
         </div>
-        {scorable > 0 && <div className="tabular-nums text-[12.5px] text-muted-foreground">✓ {score}</div>}
+        {scorable > 0 && <div className="tabular-nums text-[12px] text-muted-foreground">✓ {score}</div>}
       </div>
 
       <div className="rounded-2xl border bg-card p-5" style={cardBorder}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-          <div className="text-[12px] font-semibold uppercase tracking-[0.12em]" style={{ color: accent }}>
+          <div className="text-[12px] font-semibold" style={{ color: accent }}>
             {cur.eyebrow}
           </div>
           <Kicker icon={kicker.icon} text={kicker.text} />
@@ -291,7 +291,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {/* Pilot/controller question (verified) */}
         {cur.speaker && (
           <div className="mt-5">
-            <div className="text-center text-[14px] font-semibold mb-2.5">¿Quién habla?</div>
+            <div className="text-center text-[13px] font-semibold mb-2.5">¿Quién habla?</div>
             <div className="flex items-center justify-center gap-2.5">
               {(["pilot", "controller"] as Speaker[]).map((s) => {
                 const chosen = picked === s
@@ -300,7 +300,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
                 const showWrong = revealed && chosen && !isAnswer
                 return (
                   <button key={s} onClick={() => pickSpeaker(s)} disabled={revealed}
-                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border transition-colors disabled:cursor-default"
+                    className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[13px] font-semibold border transition-colors disabled:cursor-default"
                     style={{
                       borderColor: showCorrect ? "var(--av-green-400)" : showWrong ? "var(--av-red-400)" : chosen ? accent : "color-mix(in oklab, var(--border) 70%, transparent)",
                       background: showCorrect ? "color-mix(in oklab, var(--av-green-400) 14%, transparent)" : showWrong ? "color-mix(in oklab, var(--av-red-400) 14%, transparent)" : "transparent",
@@ -324,7 +324,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {/* For 2C (no speaker): Show answer button */}
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
-            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold surface hover:bg-muted transition-colors">
+            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13px] font-semibold surface hover:bg-muted transition-colors">
               <Eye className="h-4 w-4" /> Ver la respuesta modelo
             </button>
           </div>
@@ -336,7 +336,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
 
       {revealed && (
         <div className="mt-5 flex justify-end">
-          <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          <button onClick={next} className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
             style={{ background: accent }}>
             {idx >= order.length - 1 ? "Ver resultados" : "Siguiente"} <ArrowRight className="h-4 w-4" />
           </button>
@@ -358,16 +358,16 @@ function ShortReveal({ a }: { a: ShortAudio }) {
 function LongReveal({ a }: { a: LongAudio }) {
   return (
     <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
-      <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{a.title}</div>
+      <div className="text-[15px] font-semibold tracking-[-0.01em]">{a.title}</div>
       {a.summary && <RevealRow label="Resumen" value={a.summary} color="var(--av-blue-500)" />}
       {a.problem && <RevealRow label="El problema" value={a.problem} color="var(--av-danger-fg)" />}
       {a.request && <RevealRow label="Pedido o aviso" value={a.request} color="var(--av-blue-500)" />}
       {a.details && a.details.length > 0 && (
         <div>
-          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Datos clave</div>
+          <div className="text-[12px] font-semibold text-muted-foreground mb-1.5">Datos clave</div>
           <ul className="space-y-1">
             {a.details.map((d) => (
-              <li key={d} className="flex items-start gap-2 text-[14px] text-foreground/85">
+              <li key={d} className="flex items-start gap-2 text-[13px] text-foreground/85">
                 <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} /><span>{d}</span>
               </li>
             ))}
@@ -382,17 +382,17 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
   return (
     <div className="rounded-2xl border p-3.5 space-y-3" style={revealBox}>
       {it.transcript && (
-        <div className="text-[14px] text-foreground/90">
-          <span className="text-[12.5px] font-semibold text-muted-foreground">Situación: </span>
+        <div className="text-[13px] text-foreground/90">
+          <span className="text-[12px] font-semibold text-muted-foreground">Situación: </span>
           <span className="italic">&ldquo;{it.transcript}&rdquo;</span>
         </div>
       )}
       {it.questions && (
         <div>
-          <div className="text-[12.5px] font-semibold text-[var(--av-blue-500)] mb-1.5">Preguntas que podrías hacer</div>
+          <div className="text-[12px] font-semibold text-[var(--av-blue-500)] mb-1.5">Preguntas que podrías hacer</div>
           <ul className="space-y-1">
             {it.questions.map((q) => (
-              <li key={q} className="flex items-start gap-2 text-[14px] italic text-foreground/85">
+              <li key={q} className="flex items-start gap-2 text-[13px] italic text-foreground/85">
                 <HelpCircle className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-blue-500)]" /><span>&ldquo;{q}&rdquo;</span>
               </li>
             ))}
@@ -401,10 +401,10 @@ function InteractiveReveal({ it }: { it: InteractiveItem }) {
       )}
       {it.advice && (
         <div>
-          <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">Recomendaciones</div>
+          <div className="text-[12px] font-semibold text-muted-foreground mb-1.5">Recomendaciones</div>
           <ul className="space-y-1">
             {it.advice.map((a) => (
-              <li key={a} className="flex items-start gap-2 text-[14px] text-foreground/85">
+              <li key={a} className="flex items-start gap-2 text-[13px] text-foreground/85">
                 <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5 text-[var(--av-green-400)]" strokeWidth={3} /><span>{a}</span>
               </li>
             ))}
@@ -499,7 +499,7 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
       >
         <div className="flex items-center gap-2 min-w-0">
           <BookOpen className="flex-shrink-0 h-4 w-4 text-[var(--av-blue-500)]" />
-          <span className="text-[14px] font-semibold tracking-[-0.01em] truncate">{title}</span>
+          <span className="text-[13px] font-semibold tracking-[-0.01em] truncate">{title}</span>
         </div>
         <ChevronDown
           className="flex-shrink-0 h-4 w-4 text-muted-foreground transition-transform"
@@ -508,12 +508,12 @@ function WorkbookSamples({ title, intro, items }: { title: string; intro: string
       </button>
       {open && (
         <div className="p-4 pt-3">
-          <p className="text-[13.5px] text-muted-foreground leading-relaxed mb-3">{intro}</p>
+          <p className="text-[13px] text-muted-foreground leading-relaxed mb-3">{intro}</p>
           <ol className="space-y-1.5">
             {items.map((s, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-[14px] text-foreground/85 leading-relaxed">
+              <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/85 leading-relaxed">
                 <span
-                  className="tabular-nums flex-shrink-0 w-6 text-right text-[12.5px] font-semibold pt-0.5"
+                  className="tabular-nums flex-shrink-0 w-6 text-right text-[12px] font-semibold pt-0.5"
                   style={{ color: "var(--av-blue-500)" }}
                 >
                   {i + 1}.
@@ -532,7 +532,7 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
   return (
     <button
       onClick={onClick}
-      className="px-4 h-9 rounded-full text-[13.5px] font-semibold border transition-colors"
+      className="px-4 h-9 rounded-full text-[13px] font-semibold border transition-colors"
       style={{
         borderColor: active
           ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
@@ -547,7 +547,7 @@ function TabBtn({ active, onClick, label }: { active: boolean; onClick: () => vo
 }
 
 function SectionIntro({ text }: { text: string }) {
-  return <p className="mb-4 text-[13.5px] text-muted-foreground leading-relaxed">{text}</p>
+  return <p className="mb-4 text-[13px] text-muted-foreground leading-relaxed">{text}</p>
 }
 
 /** Instrucción corta dentro de la tarjeta (mismo patrón que el simulacro). */
@@ -574,10 +574,10 @@ function SpeakerBadge({ speaker }: { speaker: Speaker }) {
 function RevealRow({ label, value, color }: { label: string; value: string; color: string }) {
   return (
     <div>
-      <div className="text-[12.5px] font-semibold mb-1" style={{ color }}>
+      <div className="text-[12px] font-semibold mb-1" style={{ color }}>
         {label}
       </div>
-      <div className="text-[14px] text-foreground/85 leading-relaxed">{value}</div>
+      <div className="text-[13px] text-foreground/85 leading-relaxed">{value}</div>
     </div>
   )
 }
@@ -588,7 +588,7 @@ function Transcript({ text }: { text: string }) {
       <div className="text-[12px] font-semibold text-muted-foreground mb-1">
         Transcripción
       </div>
-      <p className="text-[13.5px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
+      <p className="text-[13px] italic text-muted-foreground leading-relaxed">&ldquo;{text}&rdquo;</p>
     </div>
   )
 }

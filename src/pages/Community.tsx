@@ -200,10 +200,10 @@ export function Community() {
                       <Hash className="h-[11px] w-[11px]" />
                       {list.length === 1 ? "1 canal" : `${list.length} canales`}
                     </div>
-                    <h2 className="mt-0.5 text-[18px] font-semibold text-foreground tracking-[-0.02em]">
+                    <h2 className="mt-0.5 text-[17px] font-semibold text-foreground tracking-[-0.02em]">
                       {meta.title}
                     </h2>
-                    <p className="text-xs text-muted-foreground mt-0.5">{meta.description}</p>
+                    <p className="text-[12px] text-muted-foreground mt-0.5">{meta.description}</p>
                   </div>
                   <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                     {list.map((c) => (
@@ -222,8 +222,8 @@ export function Community() {
             style={{ color: "var(--av-blue-500)" }}
           />
           <div>
-            <h3 className="text-sm font-semibold text-foreground">Normas de la comunidad</h3>
-            <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+            <h3 className="text-[15px] font-semibold text-foreground">Normas de la comunidad</h3>
+            <p className="mt-1 text-[15px] text-muted-foreground leading-relaxed">
               Tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido pirata.
               Si necesitas moderación, escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
             </p>
@@ -247,15 +247,15 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
         <TriangleAlert className="h-5 w-5" />
       </div>
       <div className="flex-1">
-        <h3 className="text-base font-semibold text-foreground">No pudimos cargar los canales</h3>
-        <p className="mt-1 text-sm text-muted-foreground leading-relaxed max-w-[560px]">
+        <h3 className="text-[17px] font-semibold text-foreground">No pudimos cargar los canales</h3>
+        <p className="mt-1 text-[15px] text-muted-foreground leading-relaxed max-w-[560px]">
           Puede ser tu conexión o una caída momentánea. Vuelve a intentar en un segundo. Si sigue igual,
           escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
         </p>
         <button
           type="button"
           onClick={onRetry}
-          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-sm font-semibold"
+          className="btn-apple-ghost mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[15px] font-semibold"
         >
           <RotateCw className="h-3.5 w-3.5" /> Reintentar
         </button>
@@ -273,8 +273,8 @@ function NoChannelsYet() {
       >
         <Hash className="h-6 w-6" />
       </div>
-      <h3 className="text-base font-semibold text-foreground">Los canales abren pronto</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-sm mx-auto leading-relaxed">
+      <h3 className="text-[17px] font-semibold text-foreground">Los canales abren pronto</h3>
+      <p className="mt-1 text-[15px] text-muted-foreground max-w-sm mx-auto leading-relaxed">
         Estamos armando los espacios por etapa, materia y aerolínea. Cuando abran, los vas a ver aquí y vas
         a poder escribir de inmediato.
       </p>
@@ -313,17 +313,17 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
             {airlineInitials(channel.name)}
           </div>
         ) : (
-          <div className="flex-shrink-0 text-2xl leading-9" aria-hidden>
+          <div className="flex-shrink-0 text-[24px] leading-9" aria-hidden>
             {channel.emoji ?? "#"}
           </div>
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5">
             <Hash className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-            <h3 className="font-semibold text-sm truncate text-foreground">{channel.name}</h3>
+            <h3 className="font-semibold text-[15px] truncate text-foreground">{channel.name}</h3>
           </div>
           {channel.description && (
-            <p className="mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2">
+            <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed line-clamp-2">
               {channel.description}
             </p>
           )}
@@ -331,11 +331,11 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
           <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
             {activity ? (
               <>
-                <span className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-muted-foreground">
+                <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
                   <MessageSquare className="h-3 w-3" />
                   {activity.messages === 1 ? "1 mensaje" : `${activity.messages} mensajes`}
                 </span>
-                <span className="text-[11.5px] text-muted-foreground">
+                <span className="text-[12px] text-muted-foreground">
                   {relativeTime(activity.lastAt)}
                 </span>
               </>
@@ -343,7 +343,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
               <span className="chip chip-cyan">Sé el primero</span>
             )}
             {channel.member_count > 0 && (
-              <span className="inline-flex items-center gap-1 text-[11.5px] font-semibold text-muted-foreground">
+              <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
                 <Users className="h-3 w-3" />
                 {channel.member_count}
               </span>

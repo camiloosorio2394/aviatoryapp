@@ -67,10 +67,10 @@ export function NotificationsBell() {
         <div className="absolute right-0 mt-2 w-80 sm:w-96 max-w-[calc(100vw-2rem)] rounded-2xl border border-border/60 bg-card shadow-2xl overflow-hidden z-50">
           <header className="px-4 py-3 border-b border-border/40 flex items-center justify-between">
             <div>
-              <h3 className="text-sm font-semibold">Notificaciones</h3>
+              <h3 className="text-[15px] font-semibold">Notificaciones</h3>
               {/* "Estás al día" solo tiene sentido si alguna vez hubo algo que
                   leer; con la lista vacía es "Nada nuevo". */}
-              <p className="text-xs text-muted-foreground">
+              <p className="text-[12px] text-muted-foreground">
                 {unreadCount > 0
                   ? `${unreadCount} sin leer`
                   : notifications.length === 0
@@ -82,7 +82,7 @@ export function NotificationsBell() {
               <button
                 type="button"
                 onClick={markAllRead}
-                className="text-xs text-primary hover:underline font-medium flex items-center gap-1"
+                className="text-[12px] text-primary hover:underline font-medium flex items-center gap-1"
               >
                 <Check className="h-3 w-3" />
                 Marcar todas
@@ -104,13 +104,13 @@ export function NotificationsBell() {
                 >
                   <Inbox className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
                 </div>
-                <p className="text-center text-sm font-semibold text-foreground">
+                <p className="text-center text-[15px] font-semibold text-foreground">
                   Todavía no hay avisos
                 </p>
-                <p className="mt-1 text-center text-xs text-muted-foreground">
+                <p className="mt-1 text-center text-[12px] text-muted-foreground">
                   Aviatory te avisa cuando:
                 </p>
-                <ul className="mt-3 space-y-1.5 text-xs text-muted-foreground">
+                <ul className="mt-3 space-y-1.5 text-[12px] text-muted-foreground">
                   <li className="flex gap-2">
                     <span
                       className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
@@ -131,7 +131,7 @@ export function NotificationsBell() {
                 <Link
                   to="/app/vencimientos"
                   onClick={() => setOpen(false)}
-                  className="mt-4 flex h-9 items-center justify-center rounded-lg text-xs font-semibold text-white transition-transform hover:-translate-y-0.5"
+                  className="mt-4 flex h-9 items-center justify-center rounded-lg text-[12px] font-semibold text-white transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Cargar mis vencimientos
@@ -153,14 +153,14 @@ export function NotificationsBell() {
                     >
                       <div className="flex-shrink-0 leading-none">
                         {n.icon ? (
-                          <span className="text-2xl">{n.icon}</span>
+                          <span className="text-[24px]">{n.icon}</span>
                         ) : (
                           <Inbox className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
                         )}
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-baseline justify-between gap-2">
-                          <h4 className="text-sm font-semibold truncate">{n.title}</h4>
+                          <h4 className="text-[15px] font-semibold truncate">{n.title}</h4>
                           {n.read_at === null && (
                             <span
                               aria-label="Sin leer"
@@ -170,11 +170,11 @@ export function NotificationsBell() {
                           )}
                         </div>
                         {n.body && (
-                          <p className="mt-0.5 text-xs text-muted-foreground leading-relaxed">
+                          <p className="mt-0.5 text-[12px] text-muted-foreground leading-relaxed">
                             {n.body}
                           </p>
                         )}
-                        <p className="mt-1 text-[12.5px] text-muted-foreground">
+                        <p className="mt-1 text-[12px] text-muted-foreground">
                           {timeAgo(n.created_at)}
                         </p>
                       </div>

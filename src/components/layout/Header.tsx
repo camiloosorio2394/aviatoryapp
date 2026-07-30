@@ -54,7 +54,7 @@ export function Header() {
             alt=""
             className="h-11 w-11 flex-shrink-0 rounded-[10px] shadow-md"
           />
-          <span className="text-2xl font-semibold tracking-tight">Aviatory</span>
+          <span className="text-[24px] font-semibold tracking-tight">Aviatory</span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
@@ -64,7 +64,7 @@ export function Header() {
               to={link.to}
               end={link.to === "/"}
               className={({ isActive }) =>
-                `relative px-4 py-2 text-[16px] font-semibold tracking-tight rounded-full transition-all ${
+                `relative px-4 py-2 text-[15px] font-semibold tracking-tight rounded-full transition-all ${
                   isActive
                     ? "text-foreground bg-foreground/[0.06]"
                     : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
@@ -81,14 +81,14 @@ export function Header() {
             asChild
             variant="ghost"
             size="sm"
-            className="rounded-full h-11 px-5 text-[16px] font-semibold"
+            className="rounded-full h-11 px-5 text-[15px] font-semibold"
           >
             <Link to="/login">Iniciar sesión</Link>
           </Button>
           <Button
             asChild
             size="sm"
-            className="btn-apple rounded-full h-11 px-6 text-[16px] border-0 font-semibold"
+            className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
           >
             <Link to="/login?mode=signup">Comenzar gratis</Link>
           </Button>
@@ -115,7 +115,7 @@ export function Header() {
                 end={link.to === "/"}
                 onClick={() => setMobileOpen(false)}
                 className={({ isActive }) =>
-                  `block py-3 text-lg font-semibold transition-colors ${
+                  `block py-3 text-[17px] font-semibold transition-colors ${
                     isActive
                       ? "text-foreground"
                       : "text-muted-foreground"
@@ -130,7 +130,7 @@ export function Header() {
                 asChild
                 variant="outline"
                 size="lg"
-                className="w-full rounded-full h-12 text-base"
+                className="w-full rounded-full h-12 text-[17px]"
               >
                 <Link to="/login" onClick={() => setMobileOpen(false)}>
                   Iniciar sesión
@@ -139,7 +139,7 @@ export function Header() {
               <Button
                 asChild
                 size="lg"
-                className="btn-apple w-full rounded-full h-12 text-base border-0"
+                className="btn-apple w-full rounded-full h-12 text-[17px] border-0"
               >
                 <Link to="/login?mode=signup" onClick={() => setMobileOpen(false)}>
                   Comenzar gratis

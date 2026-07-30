@@ -110,8 +110,8 @@ export function WingmanPanel({
             />
           </div>
           <div className="flex-1">
-            <h2 className="text-base font-semibold leading-tight">Wingman</h2>
-            <p className="text-xs text-muted-foreground">Tu copiloto IA en aeronáutica</p>
+            <h2 className="text-[17px] font-semibold leading-tight">Wingman</h2>
+            <p className="text-[12px] text-muted-foreground">Tu copiloto IA en aeronáutica</p>
           </div>
           <button
             type="button"
@@ -150,7 +150,7 @@ export function WingmanPanel({
         {/* Footer: usage indicator + input */}
         <div className="border-t border-border/40 bg-background">
           {!isPro && usage !== null && (
-            <div className="px-5 pt-3 pb-1 flex items-center justify-between text-xs">
+            <div className="px-5 pt-3 pb-1 flex items-center justify-between text-[12px]">
               <span className="text-muted-foreground">
                 {usage}/{freeLimit} explicaciones gratis este mes
               </span>
@@ -166,7 +166,7 @@ export function WingmanPanel({
             </div>
           )}
           {isPro && (
-            <div className="px-5 pt-3 pb-1 flex items-center gap-1.5 text-xs text-primary">
+            <div className="px-5 pt-3 pb-1 flex items-center gap-1.5 text-[12px] text-primary">
               <Crown className="h-3 w-3" />
               Pro · explicaciones ilimitadas
             </div>
@@ -186,7 +186,7 @@ export function WingmanPanel({
               placeholder="Pregúntale algo a Wingman…"
               aria-label="Mensaje para Wingman"
               disabled={state.sending || state.bannerError !== null}
-              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-50"
+              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-[15px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 disabled:opacity-50"
             />
             <Button
               type="submit"
@@ -219,8 +219,8 @@ function EmptyState() {
       >
         <Sparkles className="h-6 w-6" />
       </div>
-      <h3 className="text-base font-semibold">Wingman te está escuchando</h3>
-      <p className="mt-1 text-sm text-muted-foreground max-w-xs mx-auto">
+      <h3 className="text-[17px] font-semibold">Wingman te está escuchando</h3>
+      <p className="mt-1 text-[15px] text-muted-foreground max-w-xs mx-auto">
         Pregúntale lo que sea sobre la materia que estás estudiando. Te explica
         en español y en aviador.
       </p>
@@ -245,11 +245,11 @@ function BannerError({ message, isPro }: { message: string; isPro: boolean }) {
           style={{ color: isLimit ? "var(--av-blue-500)" : "var(--av-warn-fg)" }}
         />
         <div>
-          <p className="text-sm leading-relaxed">{message}</p>
+          <p className="text-[15px] leading-relaxed">{message}</p>
           {isLimit && !isPro && (
             <Link
               to="/pricing"
-              className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline"
+              className="mt-3 inline-flex items-center gap-1 text-[12px] font-medium text-primary hover:underline"
             >
               <Crown className="h-3 w-3" /> Pasa a Pro
             </Link>
@@ -273,7 +273,7 @@ function MessageBubble({
     return (
       <div className="flex justify-end">
         <div
-          className="max-w-[85%] rounded-2xl rounded-tr-md text-white px-4 py-2.5 text-sm leading-relaxed shadow-sm"
+          className="max-w-[85%] rounded-2xl rounded-tr-md text-white px-4 py-2.5 text-[15px] leading-relaxed shadow-sm"
           style={{ background: "var(--av-blue-500)" }}
         >
           {message.content || "…"}
@@ -309,7 +309,7 @@ function MessageBubble({
     <div className="flex justify-start">
       <div className="max-w-[90%] space-y-2">
         <div
-          className={`rounded-2xl rounded-tl-md border px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
+          className={`rounded-2xl rounded-tl-md border px-4 py-3 text-[15px] leading-relaxed whitespace-pre-wrap ${
             message.error ? "" : "border-border/40 bg-card"
           }`}
           style={

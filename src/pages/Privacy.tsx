@@ -12,8 +12,8 @@ export function Privacy() {
       />
       <div className="max-w-3xl mx-auto px-6 lg:px-8 py-16 sm:py-24">
         <header className="mb-12">
-          <p className="text-sm text-muted-foreground">Última actualización: 18 de mayo de 2026</p>
-          <h1 className="mt-2 text-4xl sm:text-5xl font-semibold tracking-[-0.035em]">
+          <p className="text-[15px] text-muted-foreground">Última actualización: 18 de mayo de 2026</p>
+          <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.035em]">
             Política de privacidad
           </h1>
           <p className="mt-4 text-muted-foreground leading-relaxed">
@@ -220,7 +220,7 @@ export function Privacy() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="text-xl sm:text-2xl font-semibold tracking-tight mb-3">{title}</h2>
+      <h2 className="text-xl sm:text-[24px] font-semibold tracking-tight mb-3">{title}</h2>
       <div className="text-muted-foreground leading-relaxed space-y-3">{children}</div>
     </section>
   )

@@ -38,7 +38,7 @@ export function Pca() {
           actions={
             <Link
               to="/app/exam-tracker"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver Exam Tracker <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -74,14 +74,14 @@ function AvailableSubjects() {
   if (error) {
     return (
       <section className="rounded-2xl surface p-6 text-center">
-        <div className="text-[16px] font-semibold">No pudimos cargar las materias</div>
-        <p className="mt-1.5 text-[14px] text-muted-foreground">
+        <div className="text-[15px] font-semibold">No pudimos cargar las materias</div>
+        <p className="mt-1.5 text-[13px] text-muted-foreground">
           La conexión con el banco de preguntas falló. Intenta de nuevo en un momento.
         </p>
         <button
           type="button"
           onClick={reload}
-          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           <RefreshCw className="h-4 w-4" /> Reintentar
@@ -103,16 +103,16 @@ function AvailableSubjects() {
         >
           <BookOpen className="h-6 w-6" strokeWidth={1.8} />
         </div>
-        <h2 className="mt-4 text-[19px] font-semibold tracking-[-0.02em]">
+        <h2 className="mt-4 text-[20px] font-semibold tracking-[-0.02em]">
           El banco de preguntas se abre por materias
         </h2>
-        <p className="mt-2 text-[14.5px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
+        <p className="mt-2 text-[15px] text-muted-foreground max-w-[440px] mx-auto leading-relaxed">
           Todavía no hay ninguna materia abierta en tu cuenta. Haz el test inicial para saber por dónde
           cuanto la primera esté lista.
         </p>
         <Link
           to="/app/test-inicial"
-          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          className="mt-5 inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
           Hacer el test inicial <ArrowRight className="h-4 w-4" />
@@ -151,15 +151,15 @@ function AvailableSubjects() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Simulacro Examen PCA
           </div>
-          <div className="mt-0.5 text-[18px] sm:text-[19px] font-semibold tracking-[-0.02em]">
+          <div className="mt-0.5 text-[17px] sm:text-[20px] font-semibold tracking-[-0.02em]">
             {examCount} preguntas mezcladas de todas las materias
           </div>
-          <div className="mt-0.5 text-[14px] text-muted-foreground">
+          <div className="mt-0.5 text-[13px] text-muted-foreground">
             Como el examen real de Aerocivil: al terminar ves tu nota y qué materia repasar.
           </div>
         </div>
         <div
-          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold flex-shrink-0 text-white"
+          className="relative inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold flex-shrink-0 text-white"
           style={{ background: "var(--av-blue-500)" }}
         >
           Empezar <ArrowRight className="h-4 w-4" />
@@ -172,7 +172,7 @@ function AvailableSubjects() {
         title="Refuerza donde más te cuesta"
         hint={`${ordered.length} materias abiertas · ${bankTotal} preguntas en total`}
         right={
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
+          <div className="hidden md:flex items-center gap-1.5 text-[12px] text-muted-foreground">
             <Sparkles className="h-3.5 w-3.5" /> Preguntas revisadas, sin spoilers
           </div>
         }
@@ -212,7 +212,7 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
           {Icon ? <Icon className="h-5 w-5" /> : <PlayCircle className="h-5 w-5" />}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[16px] font-semibold tracking-[-0.01em]">{meta.name}</div>
+          <div className="text-[15px] font-semibold tracking-[-0.01em]">{meta.name}</div>
           {meta.description && (
             <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug line-clamp-2">
               {meta.description}
@@ -228,7 +228,7 @@ function SubjectQuizCard({ slug, count }: { slug: string; count: number }) {
           {isSmallBank && <span className="chip chip-amber">Banco chico</span>}
         </div>
         <span
-          className="inline-flex items-center gap-1 text-[13.5px] font-semibold"
+          className="inline-flex items-center gap-1 text-[13px] font-semibold"
           style={{ color: TILE_COLOR[color] }}
         >
           Practicar <ArrowRight className="h-3.5 w-3.5" />
@@ -285,7 +285,7 @@ function ComingNext() {
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[14.5px] font-semibold tracking-[-0.01em]">{c.title}</span>
+                <span className="text-[15px] font-semibold tracking-[-0.01em]">{c.title}</span>
                 <span className="chip">Pronto</span>
               </div>
               <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{c.line}</p>

@@ -83,7 +83,7 @@ export function Referrals() {
                 Tu código de invitación
               </div>
               <div
-                className="tabular-nums mt-2.5 text-5xl font-semibold text-foreground tracking-[0.04em] inline-block px-6 py-3 rounded-2xl"
+                className="tabular-nums mt-2.5 text-[32px] font-semibold text-foreground tracking-[0.04em] inline-block px-6 py-3 rounded-2xl"
                 style={{
                   background: "color-mix(in oklch, var(--av-blue-500) 8%, var(--card))",
                   border: "1px dashed color-mix(in oklch, var(--av-blue-500) 50%, transparent)",
@@ -96,7 +96,7 @@ export function Referrals() {
                   type="button"
                   onClick={copyLink}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-50"
                   style={{
                     background: "var(--av-blue-500)",
                   }}
@@ -108,7 +108,7 @@ export function Referrals() {
                   type="button"
                   onClick={shareWhatsApp}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-foreground surface transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-foreground surface transition-transform hover:-translate-y-0.5 disabled:opacity-50"
                 >
                   <MessageSquare className="h-3.5 w-3.5" /> WhatsApp
                 </button>
@@ -116,12 +116,12 @@ export function Referrals() {
                   type="button"
                   onClick={shareEmail}
                   disabled={!stats?.my_code}
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-foreground surface transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-foreground surface transition-transform hover:-translate-y-0.5 disabled:opacity-50"
                 >
                   <Mail className="h-3.5 w-3.5" /> Email
                 </button>
               </div>
-              <div className="mt-3 text-[12.5px] text-muted-foreground break-all max-w-[600px]">
+              <div className="mt-3 text-[12px] text-muted-foreground break-all max-w-[600px]">
                 {link || "Cargando…"}
               </div>
             </div>
@@ -139,8 +139,8 @@ export function Referrals() {
                   >
                     <Users className="h-4 w-4" />
                   </div>
-                  <h3 className="text-sm font-semibold text-foreground">Todavía no has invitado a nadie</h3>
-                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                  <h3 className="text-[15px] font-semibold text-foreground">Todavía no has invitado a nadie</h3>
+                  <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed">
                     Comparte tu código y aquí verás cuántos pilotos entraron con él y cuántos pasaron a Pro.
                   </p>
                 </div>
@@ -164,7 +164,7 @@ export function Referrals() {
         <div className="rounded-2xl surface p-5">
           <div className="flex items-start gap-3">
             <Gift className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color: "var(--av-blue-500)" }} />
-            <p className="text-sm text-muted-foreground leading-relaxed m-0">
+            <p className="text-[15px] text-muted-foreground leading-relaxed m-0">
               <strong className="text-foreground">Tip:</strong> los códigos funcionan mejor cuando los compartes con piloto-amigos de tu cohorte, escuela o grupo de WhatsApp. La invitación de alguien que ya está dentro convierte mucho mejor que un anuncio frío.
             </p>
           </div>
@@ -180,11 +180,11 @@ function RewardStat({ label, value, icon: Ic }: { label: string; value: number; 
       <Ic className="h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} />
       <div className="flex-1 min-w-0">
         <div
-          className="tabular-nums text-lg font-semibold leading-none tracking-[-0.02em] text-foreground"
+          className="tabular-nums text-[17px] font-semibold leading-none tracking-[-0.02em] text-foreground"
         >
           <CountUp to={value} />
         </div>
-        <div className="text-[11px] font-semibold mt-0.5 text-muted-foreground">
+        <div className="text-[12px] font-semibold mt-0.5 text-muted-foreground">
           {label}
         </div>
       </div>
@@ -196,15 +196,15 @@ function Step({ n, title, body }: { n: string; title: string; body: string }) {
   return (
     <div className="rounded-2xl surface p-5">
       <div
-        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-semibold mb-3"
+        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-[15px] font-semibold mb-3"
         style={{
           background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         {n}
       </div>
-      <h3 className="mt-3 font-semibold text-sm text-foreground">{title}</h3>
-      <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{body}</p>
+      <h3 className="mt-3 font-semibold text-[15px] text-foreground">{title}</h3>
+      <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed">{body}</p>
     </div>
   )
 }

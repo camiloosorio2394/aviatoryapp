@@ -100,13 +100,13 @@ export function ExamTrackerSubject() {
       <AppLayout>
         <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
           <div className="rounded-3xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
-            <h2 className="text-lg font-semibold text-foreground">No encontramos esta materia</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <h2 className="text-[17px] font-semibold text-foreground">No encontramos esta materia</h2>
+            <p className="mt-2 text-[15px] text-muted-foreground">
               El enlace puede estar viejo o la materia cambió de nombre.
             </p>
             <Link
               to="/app/exam-tracker"
-              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+              className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Volver al tracker <ArrowRight className="h-3.5 w-3.5" />
@@ -131,7 +131,7 @@ export function ExamTrackerSubject() {
           actions={
             <Link
               to="/app/exam-tracker"
-              className="btn-apple-ghost inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold no-underline"
+              className="btn-apple-ghost inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[13px] font-semibold no-underline"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
               Todas las materias
@@ -231,12 +231,12 @@ function StatBox({ label, value, chip }: { label: string; value: string; chip?: 
   const isEmpty = value === "—"
   return (
     <div className="card-apple rounded-2xl surface p-4 sm:p-5">
-      <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+      <div className="text-[12px] font-medium text-muted-foreground uppercase tracking-wider">
         {label}
       </div>
       <div className="mt-1 flex items-center gap-2 flex-wrap">
         <div
-          className={`text-2xl sm:text-3xl font-semibold tracking-[-0.03em] tabular ${
+          className={`text-[24px] sm:text-[32px] font-semibold tracking-[-0.03em] tabular ${
             isEmpty ? "text-muted-foreground" : "text-foreground"
           }`}
         >
@@ -253,12 +253,12 @@ function TopicRow({ topic, rank }: { topic: Topic; rank: number }) {
   return (
     <li className="rounded-xl surface p-4">
       <div className="flex items-center gap-3">
-        <div className="tabular flex-shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border border-border bg-muted text-muted-foreground font-semibold text-xs">
+        <div className="tabular flex-shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border border-border bg-muted text-muted-foreground font-semibold text-[12px]">
           {rank}
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-sm font-semibold text-foreground">{topic.label}</span>
+            <span className="text-[15px] font-semibold text-foreground">{topic.label}</span>
             {isTop && (
               <span className="chip chip-amber">
                 <Flame className="h-3 w-3" /> Más frecuente
@@ -275,11 +275,11 @@ function TopicRow({ topic, rank }: { topic: Topic; rank: number }) {
                 }}
               />
             </div>
-            <span className="tabular text-sm font-semibold text-foreground w-12 text-right">
+            <span className="tabular text-[15px] font-semibold text-foreground w-12 text-right">
               {topic.frequency_pct}%
             </span>
           </div>
-          <div className="mt-1 text-[12.5px] text-muted-foreground">
+          <div className="mt-1 text-[12px] text-muted-foreground">
             Cayó en {topic.count} reporte{topic.count !== 1 ? "s" : ""}
           </div>
         </div>
@@ -298,7 +298,7 @@ function RecentReportRow({ report }: { report: RecentReport }) {
   return (
     <li className="rounded-xl surface p-4 sm:p-5">
       <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
+        <div className="flex items-center gap-2 text-[12px] text-muted-foreground flex-wrap">
           <span className="tabular">{date}</span>
           <span>·</span>
           <span className="inline-flex items-center gap-1">
@@ -317,7 +317,7 @@ function RecentReportRow({ report }: { report: RecentReport }) {
         </span>
       </div>
       {report.tips && (
-        <div className="mt-2 flex gap-2 items-start text-sm">
+        <div className="mt-2 flex gap-2 items-start text-[15px]">
           <Lightbulb className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
           <p className="text-foreground leading-relaxed">{report.tips}</p>
         </div>
@@ -335,14 +335,14 @@ function EmptyTopics() {
       >
         <TrendingUp className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-semibold text-foreground">Todavía no hay temas marcados</h3>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+      <h3 className="text-[17px] font-semibold text-foreground">Todavía no hay temas marcados</h3>
+      <p className="mt-2 text-[15px] text-muted-foreground max-w-md mx-auto leading-relaxed">
         Apenas los reportes empiecen a marcar qué cayó, aquí queda el ranking de los temas más
         frecuentes de esta materia.
       </p>
       <Link
         to="/app/exam-tracker"
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{ background: "var(--av-blue-500)" }}
       >
         Reportar mi examen <ArrowRight className="h-3.5 w-3.5" />
@@ -361,8 +361,8 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
       >
         <Users className="h-7 w-7" />
       </div>
-      <h3 className="text-lg font-semibold text-foreground">Nadie ha reportado {subjectName}</h3>
-      <p className="mt-2 text-sm text-muted-foreground max-w-md mx-auto leading-relaxed">
+      <h3 className="text-[17px] font-semibold text-foreground">Nadie ha reportado {subjectName}</h3>
+      <p className="mt-2 text-[15px] text-muted-foreground max-w-md mx-auto leading-relaxed">
         Los reportes son anónimos y solo cuentan qué temas cayeron. El primero abre la
         inteligencia de esta materia para todos.
       </p>
@@ -372,8 +372,8 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
           "Marca los temas que te cayeron y cómo te fue",
           "Tu reporte queda aquí para el próximo piloto",
         ].map((s, i) => (
-          <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">
-            <span className="tabular flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12.5px] font-semibold text-foreground">
+          <li key={i} className="flex items-center gap-2.5 text-[15px] text-muted-foreground">
+            <span className="tabular flex-shrink-0 w-[22px] h-[22px] rounded-md bg-muted border border-border flex items-center justify-center text-[12px] font-semibold text-foreground">
               {i + 1}
             </span>
             {s}
@@ -382,7 +382,7 @@ function EmptyReports({ subjectName }: { subjectName: string }) {
       </ol>
       <Link
         to="/app/exam-tracker"
-        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+        className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
         style={{ background: "var(--av-blue-500)" }}
       >
         Reportar mi examen <ArrowRight className="h-3.5 w-3.5" />

@@ -47,13 +47,13 @@ export function PsychTests() {
                 />
                 Módulo psicotécnicas · En construcción
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
                 Psicotécnicos y Assessment,{" "}
                 <span style={{ color: "var(--av-blue-500)" }}>
                   entrenables, no innatos
                 </span>
               </h1>
-              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[17px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Las aerolíneas manejan assessment, aptitude, psychometric y group dynamics como un
                 proceso aparte de las entrevistas. Estamos construyendo{" "}
                 <strong className="text-foreground">9 categorías</strong> de baterías y simuladores
@@ -64,7 +64,7 @@ export function PsychTests() {
               <div className="mt-5">
                 <Link
                   to="/app/pca"
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Mientras tanto, entrena razonamiento en el banco PCA{" "}
@@ -91,10 +91,10 @@ export function PsychTests() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Categorías · 9
           </div>
-          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
             Las 9 baterías que vas a entrenar
           </h2>
-          <p className="mt-1.5 text-sm text-muted-foreground max-w-[680px]">
+          <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[680px]">
             Ninguna está abierta todavía. Esta es la hoja de ruta del módulo, en orden de prioridad.
           </p>
         </div>
@@ -109,10 +109,10 @@ export function PsychTests() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Engines soportados
           </div>
-          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
             Simuladores compatibles con los tests reales
           </h2>
-          <p className="mt-1.5 text-sm text-muted-foreground max-w-[680px]">
+          <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[680px]">
             Las aerolíneas tercerizan psicotécnicas a 3 grandes proveedores. Vamos a replicar sus
             formatos para que cuando hagas el real, no haya sorpresa.
           </p>
@@ -144,10 +144,10 @@ export function PsychTests() {
             >
               <Sparkles className="h-3 w-3" /> Aporta datos para calibrar
             </div>
-            <h3 className="mt-1.5 text-lg font-semibold">
+            <h3 className="mt-1.5 text-[17px] font-semibold">
               ¿Ya pasaste por psicotécnicas de Avianca, LATAM o Copa?
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
+            <p className="mt-1 text-[15px] text-muted-foreground max-w-[680px]">
               Reporta en la comunidad qué tests cayeron, duración y formato: esa data ajusta los
               simuladores. Más reportes, simulación más cercana a lo real.
             </p>
@@ -155,7 +155,7 @@ export function PsychTests() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{
                 background: "var(--av-blue-500)",
               }}
@@ -164,7 +164,7 @@ export function PsychTests() {
             </Link>
             <Link
               to="/app/aerolinea"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ingreso a Aerolínea <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -221,11 +221,11 @@ function CategoryCard({ name, family, description, icon: Icon, color }: Category
       </div>
       <div className="flex-1 min-w-0 pt-0.5">
         <div className="flex flex-wrap items-center gap-2">
-          <div className="text-[15.5px] font-semibold tracking-[-0.01em]">{name}</div>
-          <div className="text-[11.5px] font-semibold text-muted-foreground">{family}</div>
-          <span className="chip text-[10px]">Pronto</span>
+          <div className="text-[15px] font-semibold tracking-[-0.01em]">{name}</div>
+          <div className="text-[12px] font-semibold text-muted-foreground">{family}</div>
+          <span className="chip text-[12px]">Pronto</span>
         </div>
-        <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">{description}</p>
+        <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
     </div>
   )
@@ -235,15 +235,15 @@ function EngineCard({ name, description, features }: { name: string; description
   return (
     <div className="rounded-2xl surface p-5">
       <div className="flex flex-wrap items-center gap-2">
-        <div className="text-[14px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+        <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
           {name}
         </div>
-        <span className="chip text-[10px]">Pronto</span>
+        <span className="chip text-[12px]">Pronto</span>
       </div>
-      <p className="mt-1.5 text-[14px] text-foreground/85 leading-relaxed">{description}</p>
+      <p className="mt-1.5 text-[13px] text-foreground/85 leading-relaxed">{description}</p>
       <ul className="mt-3 space-y-1">
         {features.map((f) => (
-          <li key={f} className="flex items-start gap-1.5 text-[13.5px] text-foreground/90">
+          <li key={f} className="flex items-start gap-1.5 text-[13px] text-foreground/90">
             <Check className="flex-shrink-0 mt-0.5 h-3 w-3" style={{ color: "var(--av-blue-500)", opacity: 0.6 }} strokeWidth={3} />
             <span>{f}</span>
           </li>

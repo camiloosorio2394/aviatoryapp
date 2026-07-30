@@ -98,7 +98,7 @@ export function ExamTracker() {
             <button
               type="button"
               onClick={() => setFormOpen(true)}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[14px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-xl text-[13px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
               style={{
                 background: "var(--av-blue-500)",
               }}
@@ -128,7 +128,7 @@ export function ExamTracker() {
                     <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                       Inteligencia colectiva
                     </div>
-                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
+                    <h2 className="mt-2 mb-1 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
                       Sé el primero en reportar
                     </h2>
                     <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
@@ -138,7 +138,7 @@ export function ExamTracker() {
                     <button
                       type="button"
                       onClick={() => setFormOpen(true)}
-                      className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                      className="mt-5 inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
                       style={{ background: "var(--av-blue-500)" }}
                     >
                       <Plus className="h-3.5 w-3.5" /> Reportar mi examen
@@ -170,7 +170,7 @@ export function ExamTracker() {
                     <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
                       Reportes en los últimos 90 días
                     </div>
-                    <h2 className="mt-2 mb-1 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
+                    <h2 className="mt-2 mb-1 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05] text-foreground">
                       <CountUp to={totalReports} /> reporte{totalReports !== 1 ? "s" : ""} compartidos
                     </h2>
                     <p className="m-0 text-[15px] leading-relaxed max-w-[520px] text-muted-foreground">
@@ -183,16 +183,16 @@ export function ExamTracker() {
                       Pass rate promedio
                     </div>
                     {avgPass !== null ? (
-                      <div className="tabular-nums text-4xl font-semibold tracking-[-0.04em] text-foreground mt-1">
+                      <div className="tabular-nums text-[32px] font-semibold tracking-[-0.04em] text-foreground mt-1">
                         {avgPass}
-                        <span className="text-lg text-muted-foreground">%</span>
+                        <span className="text-[17px] text-muted-foreground">%</span>
                       </div>
                     ) : (
                       <>
-                        <div className="text-4xl font-semibold tracking-[-0.04em] text-muted-foreground mt-1">
+                        <div className="text-[32px] font-semibold tracking-[-0.04em] text-muted-foreground mt-1">
                           —
                         </div>
-                        <div className="text-[12.5px] text-muted-foreground mt-1 md:max-w-[180px] md:ml-auto">
+                        <div className="text-[12px] text-muted-foreground mt-1 md:max-w-[180px] md:ml-auto">
                           Aún nadie reporta si aprobó
                         </div>
                       </>
@@ -256,19 +256,19 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
           <Ic className="h-5 w-5" style={{ color: TILE_COLOR[color] }} />
         </div>
         <div className="flex-1 min-w-0">
-          <h3 className="text-base font-semibold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
+          <h3 className="text-[17px] font-semibold text-foreground tracking-[-0.02em]">{intel.subject_name}</h3>
           {empty ? (
-            <p className="mt-1 text-[12.5px] text-muted-foreground">
+            <p className="mt-1 text-[12px] text-muted-foreground">
               Sin reportes · sé el primero
             </p>
           ) : (
             <div className="mt-1 space-y-1">
-              <div className="text-[12.5px] text-muted-foreground flex items-center gap-1.5">
+              <div className="text-[12px] text-muted-foreground flex items-center gap-1.5">
                 <Users className="h-3 w-3" />
                 {intel.total_reports} reporte{intel.total_reports !== 1 ? "s" : ""} · 90d
               </div>
               {intel.pass_rate !== null && (
-                <div className="tabular-nums text-[12.5px] text-muted-foreground">
+                <div className="tabular-nums text-[12px] text-muted-foreground">
                   <span className="font-semibold text-foreground">{intel.pass_rate}%</span> aprobaron
                 </div>
               )}
@@ -288,7 +288,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
           <span className="chip chip-red">
             <Flame className="h-3 w-3" /> Tema más caliente
           </span>
-          <div className="text-sm font-semibold text-foreground mt-1.5 truncate">{intel.hottest_topic}</div>
+          <div className="text-[15px] font-semibold text-foreground mt-1.5 truncate">{intel.hottest_topic}</div>
         </div>
       )}
 
@@ -306,15 +306,15 @@ function HowStep({ n, title, body }: { n: string; title: string; body: string })
   return (
     <div className="rounded-2xl surface p-5">
       <div
-        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-sm font-semibold"
+        className="flex items-center justify-center h-9 w-9 rounded-full text-white text-[15px] font-semibold"
         style={{
           background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
         }}
       >
         {n}
       </div>
-      <h3 className="mt-3 font-semibold text-sm text-foreground">{title}</h3>
-      <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{body}</p>
+      <h3 className="mt-3 font-semibold text-[15px] text-foreground">{title}</h3>
+      <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed">{body}</p>
     </div>
   )
 }
@@ -438,8 +438,8 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         >
           <header className="sticky top-0 z-10 flex items-center justify-between bg-card/95 backdrop-blur px-6 py-4 border-b border-border">
             <div>
-              <h2 className="text-lg font-semibold">Reporta tu examen</h2>
-              <p className="text-xs text-muted-foreground">
+              <h2 className="text-[17px] font-semibold">Reporta tu examen</h2>
+              <p className="text-[12px] text-muted-foreground">
                 Anónimo · 2 minutos · ayuda a todos los próximos pilotos
               </p>
             </div>
@@ -456,7 +456,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
           <div className="p-6 space-y-6">
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-xs">Materia</Label>
+                <Label className="text-[12px]">Materia</Label>
                 <Select value={subjectId} onValueChange={setSubjectId}>
                   <SelectTrigger className="h-11 rounded-xl">
                     <SelectValue placeholder="Elige" />
@@ -471,7 +471,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 </Select>
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs">Fecha del examen</Label>
+                <Label className="text-[12px]">Fecha del examen</Label>
                 <Input
                   type="date"
                   value={examDate}
@@ -483,7 +483,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs">Centro Aerocivil</Label>
+              <Label className="text-[12px]">Centro Aerocivil</Label>
               <Select value={region} onValueChange={setRegion}>
                 <SelectTrigger className="h-11 rounded-xl">
                   <SelectValue />
@@ -499,12 +499,12 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             </div>
 
             <div className="space-y-2">
-              <Label className="text-xs">¿Aprobaste?</Label>
+              <Label className="text-[12px]">¿Aprobaste?</Label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setPassed("yes")}
-                  className={`rounded-xl border p-3 text-sm font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
                     passed === "yes"
                       ? "text-white"
                       : "border-border bg-card hover:border-foreground/30"
@@ -520,7 +520,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <button
                   type="button"
                   onClick={() => setPassed("no")}
-                  className={`rounded-xl border p-3 text-sm font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
                     passed === "no" ? "text-white" : "border-border bg-card hover:border-foreground/30"
                   }`}
                   style={passed === "no" ? {
@@ -536,7 +536,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 
             <div className="grid sm:grid-cols-2 gap-3">
               <div className="space-y-1.5">
-                <Label className="text-xs">Score (opcional)</Label>
+                <Label className="text-[12px]">Score (opcional)</Label>
                 <Input
                   type="number"
                   inputMode="numeric"
@@ -549,7 +549,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 />
               </div>
               <div className="space-y-1.5">
-                <Label className="text-xs">Dificultad percibida</Label>
+                <Label className="text-[12px]">Dificultad percibida</Label>
                 <div className="flex gap-1.5">
                   {[1, 2, 3, 4, 5].map((n) => (
                     <button
@@ -574,7 +574,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             {subjectId && filteredTopics.length > 0 && (
               <div className="space-y-2">
                 <div className="flex items-baseline justify-between">
-                  <Label className="text-xs">¿Qué temas cayeron?</Label>
+                  <Label className="text-[12px]">¿Qué temas cayeron?</Label>
                   <span className="text-[12px] text-muted-foreground">Elige todos los que apliquen</span>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2">
@@ -585,7 +585,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                         key={t.id}
                         type="button"
                         onClick={() => toggleTopic(t.id)}
-                        className={`rounded-xl border p-3 text-left text-sm transition-all ${
+                        className={`rounded-xl border p-3 text-left text-[15px] transition-all ${
                           active ? "" : "border-border bg-card hover:border-foreground/30"
                         }`}
                         style={active ? {
@@ -606,24 +606,24 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
             )}
 
             <div className="space-y-1.5">
-              <Label className="text-xs">Tips para el próximo piloto (opcional)</Label>
+              <Label className="text-[12px]">Tips para el próximo piloto (opcional)</Label>
               <textarea
                 value={tips}
                 onChange={(e) => setTips(e.target.value)}
                 rows={3}
                 placeholder="Estudia bien los METAR, cayó mucha pregunta sobre frentes ocluidos..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-[15px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               />
             </div>
 
             <div className="space-y-1.5">
-              <Label className="text-xs">Preguntas que recuerdas (opcional)</Label>
+              <Label className="text-[12px]">Preguntas que recuerdas (opcional)</Label>
               <textarea
                 value={recalled}
                 onChange={(e) => setRecalled(e.target.value)}
                 rows={4}
                 placeholder="Una sobre QNH y altimetría, otra de inversión térmica..."
-                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+                className="w-full resize-none rounded-xl border border-input bg-transparent px-3 py-2 text-[15px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               />
               <p className="text-[12px] text-muted-foreground flex items-center gap-1">
                 <CircleHelp className="h-3 w-3" />

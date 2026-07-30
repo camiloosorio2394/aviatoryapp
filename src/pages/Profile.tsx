@@ -368,8 +368,8 @@ export function Profile() {
                         />
                       </div>
                       <span className="text-right whitespace-nowrap">
-                        <span className="tabular-nums text-[12.5px] font-semibold text-foreground">{Math.round(s.value)}%</span>
-                        <span className="ml-1.5 text-[11px] text-muted-foreground">{s.raw}</span>
+                        <span className="tabular-nums text-[12px] font-semibold text-foreground">{Math.round(s.value)}%</span>
+                        <span className="ml-1.5 text-[12px] text-muted-foreground">{s.raw}</span>
                       </span>
                     </div>
                   ))}
@@ -394,7 +394,7 @@ export function Profile() {
                         email={user?.email}
                         size="xl"
                         ring
-                        className="!h-20 !w-20 !text-2xl"
+                        className="!h-20 !w-20 !text-[24px]"
                       />
                       {uploading && (
                         <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center">
@@ -414,7 +414,7 @@ export function Profile() {
                           </Button>
                         )}
                       </div>
-                      <p className="text-xs text-muted-foreground">JPG, PNG o WebP · Máx 5MB · Cuadrada se ve mejor</p>
+                      <p className="text-[12px] text-muted-foreground">JPG, PNG o WebP · Máx 5MB · Cuadrada se ve mejor</p>
                       <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/jpg,image/webp" onChange={handleAvatarChange} className="hidden" />
                     </div>
                   </div>
@@ -487,7 +487,7 @@ export function Profile() {
                           key={lic}
                           type="button"
                           onClick={() => toggleLicense(lic)}
-                          className="px-4 py-2 rounded-full text-sm font-semibold border transition-all"
+                          className="px-4 py-2 rounded-full text-[15px] font-semibold border transition-all"
                           style={active ? {
                             background: "var(--av-blue-500)",
                             borderColor: "var(--av-blue-500)",
@@ -588,7 +588,7 @@ function PilotIdCard({
           <div className="text-xl font-semibold tracking-[-0.025em] text-foreground">
             {fullName || username || "Tu nombre"}
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className="text-[12px] text-muted-foreground">
             {username ? `@${username}` : email} · {stageLabel}
           </div>
         </div>
@@ -607,10 +607,10 @@ function PilotIdCard({
 function IdField({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="text-[11px] uppercase tracking-[0.06em] font-semibold text-muted-foreground">
+      <div className="text-[12px] font-semibold text-muted-foreground">
         {label}
       </div>
-      <div className="tabular-nums mt-0.5 text-sm font-semibold text-foreground tracking-[-0.02em]">
+      <div className="tabular-nums mt-0.5 text-[15px] font-semibold text-foreground tracking-[-0.02em]">
         {value}
       </div>
     </div>
@@ -688,7 +688,7 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
           ) : (
             <ul className="space-y-2">
               {strengths.map((s) => (
-                <li key={s.key} className="flex items-start gap-2 text-[13.5px]">
+                <li key={s.key} className="flex items-start gap-2 text-[13px]">
                   <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-green-400)" }} strokeWidth={3} />
                   <span>
                     <span className="font-semibold text-foreground">{s.label}</span>
@@ -712,7 +712,7 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
               {gaps.map((s) => {
                 const adv = DIM_ADVICE[s.key]
                 return (
-                  <li key={s.key} className="text-[13.5px]">
+                  <li key={s.key} className="text-[13px]">
                     <div>
                       <span className="font-semibold text-foreground">{s.label}</span>
                       <span className="text-muted-foreground"> · {s.raw}</span>
@@ -745,12 +745,12 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
           to="/app/test-inicial"
           className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
         >
-          <span className="inline-flex items-center gap-2 text-[14px] text-muted-foreground">
+          <span className="inline-flex items-center gap-2 text-[13px] text-muted-foreground">
             <Headphones className="h-4 w-4" /> Sin evaluar: haz el test inicial
           </span>
           <ArrowRight className="h-4 w-4 text-muted-foreground" />
         </Link>
-        <p className="text-[11px] text-muted-foreground mt-1">
+        <p className="text-[12px] text-muted-foreground mt-1">
           Tu nivel ICAO sale del módulo, no se declara a mano.
         </p>
       </>
@@ -771,13 +771,13 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
         </span>
         <Link
           to="/app/icao/simulacro"
-          className="text-[12.5px] font-semibold inline-flex items-center gap-1"
+          className="text-[12px] font-semibold inline-flex items-center gap-1"
           style={{ color: "var(--av-blue-500)" }}
         >
           {isEstimate ? "Confirmar" : "Repetir"} <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
-      <p className="text-[11px] text-muted-foreground mt-1">
+      <p className="text-[12px] text-muted-foreground mt-1">
         {isEstimate
           ? "Estimado del test inicial. Confirma tu nivel oficial con el simulacro TEA."
           : `${dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.`}
@@ -803,9 +803,9 @@ function UsernameIcon({ status }: { status: UsernameStatus }) {
 function UsernameHelp({ status }: { status: UsernameStatus }) {
   switch (status.state) {
     case "invalid":
-      return <p className="text-xs text-muted-foreground mt-1">{status.reason}</p>
+      return <p className="text-[12px] text-muted-foreground mt-1">{status.reason}</p>
     case "checking":
-      return <p className="text-xs text-muted-foreground mt-1">Verificando disponibilidad…</p>
+      return <p className="text-[12px] text-muted-foreground mt-1">Verificando disponibilidad…</p>
     case "available":
       return <p className="mt-1"><span className="chip chip-green">Disponible</span></p>
     case "taken":
@@ -813,14 +813,14 @@ function UsernameHelp({ status }: { status: UsernameStatus }) {
     case "unchanged":
       return null
     default:
-      return <p className="text-xs text-muted-foreground mt-1">3–30 caracteres, minúsculas, números o _</p>
+      return <p className="text-[12px] text-muted-foreground mt-1">3–30 caracteres, minúsculas, números o _</p>
   }
 }
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="space-y-2">
-      <Label className="text-sm">{label}</Label>
+      <Label className="text-[15px]">{label}</Label>
       {children}
     </div>
   )

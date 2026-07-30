@@ -32,12 +32,12 @@ export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Pr
 
       <div className="flex items-end justify-between gap-2">
         <div
-          className="tabular-nums text-[30px] font-semibold leading-none tracking-[-0.033em]"
+          className="tabular-nums text-[32px] font-semibold leading-none tracking-[-0.033em]"
           style={{ color: warn ? "var(--av-warn-fg)" : "var(--foreground)" }}
         >
           <CountUp to={value} format={format ?? defaultFormat} />
           {suffix && (
-            <span className="text-[16px] text-muted-foreground font-normal ml-0.5">
+            <span className="text-[15px] text-muted-foreground font-normal ml-0.5">
               {suffix}
             </span>
           )}
@@ -47,7 +47,7 @@ export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Pr
 
       {note && (
         <div
-          className="tabular-nums text-[12.5px] mt-1"
+          className="tabular-nums text-[12px] mt-1"
           style={{ color: warn ? "var(--av-warn-fg)" : "var(--muted-foreground)" }}
         >
           {note}

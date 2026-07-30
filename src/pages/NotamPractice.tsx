@@ -244,7 +244,7 @@ export function NotamPractice() {
       <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
-          className="inline-flex items-center gap-1.5 text-[13.5px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
         >
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
         </Link>
@@ -260,7 +260,7 @@ export function NotamPractice() {
           actions={
             <Link
               to="/app/aerolinea/notam/decodificador"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13px] font-semibold border border-border text-foreground hover:bg-muted transition-colors"
             >
               <BookMarked className="h-4 w-4" /> Abrir el decodificador
             </Link>
@@ -290,7 +290,7 @@ export function NotamPractice() {
           </div>
 
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="text-[12.5px] font-semibold text-muted-foreground mr-1">Nivel:</span>
+            <span className="text-[12px] font-semibold text-muted-foreground mr-1">Nivel:</span>
             {LEVEL_FILTERS.map((l) => {
               const active = level === l
               const color = l === "todos" ? "var(--av-blue-500)" : LEVEL_META[l].color
@@ -299,7 +299,7 @@ export function NotamPractice() {
                   key={l}
                   onClick={() => changeLevel(l)}
                   aria-pressed={active}
-                  className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12.5px] font-semibold border transition-colors"
+                  className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] font-semibold border transition-colors"
                   style={{
                     color: active ? accentText(color) : "var(--muted-foreground)",
                     borderColor: active
@@ -327,7 +327,7 @@ export function NotamPractice() {
                   en {mode === "texto" ? "los ejercicios de texto" : "los NOTAM de Colombia"}
                 </span>
               </div>
-              <div className="text-[12.5px] text-muted-foreground tabular">{pct}%</div>
+              <div className="text-[12px] text-muted-foreground tabular">{pct}%</div>
             </div>
             <div
               className="mt-2 h-2 rounded-full overflow-hidden"
@@ -347,7 +347,7 @@ export function NotamPractice() {
 
           {list.length > 0 && (
             <div className="mt-5">
-              <div className="text-[12.5px] font-semibold text-muted-foreground mb-2">
+              <div className="text-[12px] font-semibold text-muted-foreground mb-2">
                 Salta al ejercicio que quieras
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -365,7 +365,7 @@ export function NotamPractice() {
                       title={rotulo}
                       aria-label={`Ir al ejercicio ${i + 1} de ${list.length}: ${rotulo}${done ? ", ya resuelto" : ""}`}
                       aria-current={active ? "true" : undefined}
-                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12.5px] font-semibold tabular border transition-colors"
+                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12px] font-semibold tabular border transition-colors"
                       style={{
                         color: active ? "white" : done ? accentText(color) : "var(--muted-foreground)",
                         background: active
@@ -401,12 +401,12 @@ export function NotamPractice() {
             <div className="text-[17px] font-semibold tracking-[-0.01em]">
               No hay ejercicios de nivel {levelLabel(level).toLowerCase()} en este modo
             </div>
-            <p className="mt-1.5 text-[14px] text-muted-foreground">
+            <p className="mt-1.5 text-[13px] text-muted-foreground">
               Cambia de nivel o limpia el filtro para ver todos los ejercicios disponibles.
             </p>
             <button
               onClick={() => changeLevel("todos")}
-              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+              className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               Ver todos los niveles
@@ -420,7 +420,7 @@ export function NotamPractice() {
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div
-                      className="text-[12.5px] font-semibold"
+                      className="text-[12px] font-semibold"
                       style={{ color: accentText("var(--av-blue-500)") }}
                     >
                       {mode === "texto" ? "Ejercicio de texto" : "NOTAM real de Colombia"} {safeIdx + 1}{" "}
@@ -429,7 +429,7 @@ export function NotamPractice() {
                     {/* En los ejercicios de texto el título es la decodificación (asunto, estado
                         y lugar), así que se guarda hasta que el usuario pide la respuesta modelo.
                         En los NOTAM reales el título es serie, número y aeródromo: no revela nada. */}
-                    <h2 className="mt-0.5 text-[22px] font-semibold tracking-[-0.01em] leading-tight">
+                    <h2 className="mt-0.5 text-[20px] font-semibold tracking-[-0.01em] leading-tight">
                       {item.exercise && !revealed
                         ? `Ejercicio ${safeIdx + 1} de ${list.length}`
                         : item.titulo}
@@ -437,7 +437,7 @@ export function NotamPractice() {
                   </div>
                   {isDone && (
                     <span
-                      className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[11.5px] font-semibold flex-shrink-0"
+                      className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[12px] font-semibold flex-shrink-0"
                       style={{
                         color: accentText("var(--av-green-400)"),
                         background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)",
@@ -475,7 +475,7 @@ export function NotamPractice() {
                 {/* El NOTAM */}
                 {item.exercise ? (
                   <div className="mt-5">
-                    <div className="text-[12.5px] font-semibold text-muted-foreground mb-2">
+                    <div className="text-[12px] font-semibold text-muted-foreground mb-2">
                       Texto del NOTAM
                     </div>
                     <div
@@ -485,7 +485,7 @@ export function NotamPractice() {
                         background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)",
                       }}
                     >
-                      <pre className="mono m-0 p-4 text-[12.5px] sm:text-[13.5px] leading-[1.7] whitespace-pre-wrap break-words text-foreground">
+                      <pre className="mono m-0 p-4 text-[12px] sm:text-[13px] leading-[1.7] whitespace-pre-wrap break-words text-foreground">
                         {item.exercise.notam}
                       </pre>
                     </div>
@@ -493,13 +493,13 @@ export function NotamPractice() {
                 ) : item.national ? (
                   <div className="mt-5">
                     <div className="flex items-center justify-between gap-3 mb-2">
-                      <div className="text-[12.5px] font-semibold text-muted-foreground">
+                      <div className="text-[12px] font-semibold text-muted-foreground">
                         Recorte del resumen oficial de la Aerocivil
                       </div>
                       <button
                         onClick={abrirZoom}
                         aria-label="Ampliar la imagen del NOTAM"
-                        className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-[12.5px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-[12px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
                       >
                         <Maximize2 className="h-3.5 w-3.5" /> Ampliar
                       </button>
@@ -516,7 +516,7 @@ export function NotamPractice() {
                       />
                     </div>
                     <div className="mt-3">
-                      <div className="text-[12.5px] font-semibold text-muted-foreground mb-1.5">
+                      <div className="text-[12px] font-semibold text-muted-foreground mb-1.5">
                         Transcripción
                       </div>
                       <p
@@ -538,12 +538,12 @@ export function NotamPractice() {
                   }}
                 >
                   <div
-                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em]"
+                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold"
                     style={{ color: accentText("var(--av-blue-500)") }}
                   >
                     <Target className="h-3.5 w-3.5" /> Tu tarea
                   </div>
-                  <p className="mt-1.5 mb-0 text-[14.5px] text-foreground/90 leading-relaxed">
+                  <p className="mt-1.5 mb-0 text-[15px] text-foreground/90 leading-relaxed">
                     {item.consigna}
                   </p>
                 </div>
@@ -566,7 +566,7 @@ export function NotamPractice() {
                   value={answer}
                   onChange={(e) => writeAnswer(e.target.value)}
                   placeholder="Qué instalación o servicio afecta, dónde, desde y hasta cuándo, y qué impacto tiene para el vuelo."
-                  className="w-full min-h-[180px] rounded-xl border border-border bg-background p-3.5 text-[14px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 resize-y focus:outline-none focus:border-foreground/30 transition-colors"
+                  className="w-full min-h-[180px] rounded-xl border border-border bg-background p-3.5 text-[13px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 resize-y focus:outline-none focus:border-foreground/30 transition-colors"
                 />
 
                 {!revealed ? (
@@ -578,7 +578,7 @@ export function NotamPractice() {
                     >
                       <Eye className="h-4 w-4" /> Comparar con la respuesta modelo
                     </button>
-                    <p className="mt-2 mb-0 text-[12.5px] text-muted-foreground leading-relaxed">
+                    <p className="mt-2 mb-0 text-[12px] text-muted-foreground leading-relaxed">
                       {answer.trim().length < 20
                         ? "Intenta escribir tu versión completa antes de comparar: es la parte que de verdad te entrena."
                         : "La respuesta modelo aparece solo cuando tú lo pides."}
@@ -588,7 +588,7 @@ export function NotamPractice() {
                   <div className="mt-5 anim-fade-up">
                     <div>
                       <div
-                        className="inline-flex items-center gap-1.5 text-[12px] font-semibold uppercase tracking-[0.08em]"
+                        className="inline-flex items-center gap-1.5 text-[12px] font-semibold"
                         style={{ color: accentText("var(--av-green-400)") }}
                       >
                         <CheckCircle2 className="h-3.5 w-3.5" /> Respuesta modelo
@@ -598,7 +598,7 @@ export function NotamPractice() {
                           {item.titulo}
                         </div>
                       )}
-                      <p className="mt-2 mb-0 text-[14px] text-foreground/90 leading-relaxed">
+                      <p className="mt-2 mb-0 text-[13px] text-foreground/90 leading-relaxed">
                         {item.modelo}
                       </p>
                     </div>
@@ -609,7 +609,7 @@ export function NotamPractice() {
                         <ListChecks className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
                         Puntos clave
                       </div>
-                      <p className="mt-1 mb-2.5 text-[12.5px] text-muted-foreground leading-relaxed">
+                      <p className="mt-1 mb-2.5 text-[12px] text-muted-foreground leading-relaxed">
                         Tilda los que sí mencionaste en tu respuesta. El conteo es orientativo, para
                         que veas qué se te escapó.
                       </p>
@@ -636,7 +636,7 @@ export function NotamPractice() {
                                   className="mt-0.5 h-4 w-4 flex-shrink-0"
                                   style={{ accentColor: "var(--av-green-400)" }}
                                 />
-                                <span className="text-[13.5px] leading-snug text-foreground/90">{p}</span>
+                                <span className="text-[13px] leading-snug text-foreground/90">{p}</span>
                               </label>
                             </li>
                           )
@@ -647,7 +647,7 @@ export function NotamPractice() {
                       {ticked.length > 0 ? (
                         <ScoreHint ticked={ticked.length} total={item.puntos.length} />
                       ) : (
-                        <p className="mt-3 mb-0 text-[12.5px] text-muted-foreground leading-relaxed">
+                        <p className="mt-3 mb-0 text-[12px] text-muted-foreground leading-relaxed">
                           Tilda los puntos que sí cubriste para ver cómo te fue.
                         </p>
                       )}
@@ -667,14 +667,14 @@ export function NotamPractice() {
                     )}
 
                     <div className="mt-5 pt-4 border-t border-border">
-                      <div className="flex items-start gap-2 text-[12.5px] text-muted-foreground leading-relaxed">
+                      <div className="flex items-start gap-2 text-[12px] text-muted-foreground leading-relaxed">
                         <BookMarked className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
                         <span>Fuente: {item.fuente}</span>
                       </div>
 
                       {isDone ? (
                         <div
-                          className="mt-3 inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold w-full justify-center"
+                          className="mt-3 inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[13px] font-semibold w-full justify-center"
                           style={{
                             color: accentText("var(--av-green-400)"),
                             background: "color-mix(in oklab, var(--av-green-400) 10%, transparent)",
@@ -687,7 +687,7 @@ export function NotamPractice() {
                         <button
                           onClick={() => void markDone(item.key)}
                           disabled={saving}
-                          className="mt-3 w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-[14.5px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
+                          className="mt-3 w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
                           style={{ background: "var(--av-green-400)" }}
                         >
                           {saving ? (
@@ -712,17 +712,17 @@ export function NotamPractice() {
               <button
                 onClick={() => goTo(Math.max(0, safeIdx - 1))}
                 disabled={safeIdx === 0}
-                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
+                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[13px] font-semibold border border-border text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:hover:bg-transparent"
               >
                 <ChevronLeft className="h-4 w-4" /> Anterior
               </button>
-              <div className="text-[13.5px] text-muted-foreground tabular">
+              <div className="text-[13px] text-muted-foreground tabular">
                 {safeIdx + 1} de {list.length}
               </div>
               <button
                 onClick={() => goTo(Math.min(list.length - 1, safeIdx + 1))}
                 disabled={safeIdx >= list.length - 1}
-                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[14px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
+                className="inline-flex items-center gap-1.5 h-11 px-4 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:hover:translate-y-0"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Siguiente <ChevronRight className="h-4 w-4" />
@@ -919,7 +919,7 @@ function ModeButton({
     <button
       onClick={onClick}
       aria-pressed={active}
-      className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg text-[13.5px] sm:text-[14px] font-semibold transition-colors text-center"
+      className="inline-flex items-center justify-center gap-2 h-11 px-3 rounded-lg text-[13px] sm:text-[13px] font-semibold transition-colors text-center"
       style={{
         background: active ? "var(--av-blue-500)" : "transparent",
         color: active ? "white" : "var(--muted-foreground)",

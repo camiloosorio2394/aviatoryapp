@@ -130,7 +130,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       end={item.end}
       onClick={onClose}
       title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[14px] font-semibold transition-colors hover:bg-white/5"
+      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors hover:bg-white/5"
       style={({ isActive }) =>
         isActive
           ? {
@@ -157,7 +157,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           {/* Conteo de contenido publicado (solo expandido) */}
           {item.count !== undefined && expanded && (
             <span
-              className="mono tabular-nums flex-shrink-0 text-[10px] font-semibold px-1.5 py-0.5 rounded"
+              className="mono tabular-nums flex-shrink-0 text-[12px] font-semibold px-1.5 py-0.5 rounded"
               style={{
                 color: "oklch(0.82 0.02 250)",
                 background: "oklch(1 0 0 / 8%)",
@@ -170,7 +170,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
           {item.soon && expanded && (
             <span
-              className="flex-shrink-0 text-[11px] px-1.5 py-0.5 rounded-md"
+              className="flex-shrink-0 text-[12px] px-1.5 py-0.5 rounded-md"
               style={{ color: "var(--rail-section-label)", background: "oklch(1 0 0 / 6%)" }}
             >
               Pronto
@@ -227,7 +227,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-lg" />
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
-            <div className="font-semibold text-lg tracking-[-0.03em] text-white whitespace-nowrap">
+            <div className="font-semibold text-[17px] tracking-[-0.03em] text-white whitespace-nowrap">
               Aviatory
             </div>
           )}
@@ -265,7 +265,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
               <>
                 {expanded ? (
                   <div
-                    className="px-2.5 pt-4 pb-1 text-[12.5px] whitespace-nowrap transition-opacity duration-200"
+                    className="px-2.5 pt-4 pb-1 text-[12px] whitespace-nowrap transition-opacity duration-200"
                     style={{ color: "var(--rail-section-label)" }}
                   >
                     {section.label}
@@ -289,7 +289,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => setSoonOpen((v) => !v)}
-            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12.5px] transition-colors hover:bg-white/5"
+            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12px] transition-colors hover:bg-white/5"
             style={{ color: "var(--rail-section-label)" }}
             aria-expanded={soonOpen}
             title={expanded ? undefined : "Próximamente"}
@@ -306,7 +306,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
               Próximamente
             </span>
             <span
-              className="mono tabular-nums flex-shrink-0 text-[10px] transition-opacity duration-200"
+              className="mono tabular-nums flex-shrink-0 text-[12px] transition-opacity duration-200"
               style={{ opacity: expanded ? 1 : 0 }}
             >
               {soonItems.length}
@@ -331,17 +331,17 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         >
           {expanded ? (
             <>
-              <div className="text-[13.5px] font-semibold" style={{ color: "var(--rail-text-active)" }}>
+              <div className="text-[13px] font-semibold" style={{ color: "var(--rail-text-active)" }}>
                 Prueba gratis
               </div>
               <div
-                className="mt-0.5 text-[12.5px] leading-snug"
+                className="mt-0.5 text-[12px] leading-snug"
                 style={{ color: "var(--rail-text)" }}
               >
                 Pasa a Pro y desbloquea todo Aviatory.
               </div>
               <div
-                className="mt-3 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-[12.5px] font-medium text-white"
+                className="mt-3 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-[12px] font-medium text-white"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 Ver planes <ArrowRight className="h-3 w-3" />

@@ -43,10 +43,10 @@ export function InterviewSim() {
                 />
                 Módulo entrevistas · Solo Intro Speaking disponible
               </div>
-              <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+              <h1 className="mt-4 mb-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
                 Simulador de Entrevistas, practica antes de que cuente
               </h1>
-              <p className="text-[18px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
+              <p className="text-[17px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
                 Lo separamos de Ingreso a Aerolínea porque tiene su propia evolución técnica:
                 grabación de audio y video, transcripción y feedback IA de comunicación. Van a ser{" "}
                 <strong className="text-foreground">3 categorías</strong>: HR Interview, Technical
@@ -55,7 +55,7 @@ export function InterviewSim() {
               <div className="mt-5">
                 <Link
                   to="/app/icao"
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
                   Mientras tanto, practica speaking en inglés ICAO{" "}
@@ -103,13 +103,13 @@ export function InterviewSim() {
               <div className="mt-1.5 text-[17px] font-semibold tracking-[-0.01em]">
                 Intro Speaking · 15 preguntas que toda aerolínea hace al inicio
               </div>
-              <p className="mt-0.5 text-[14px] text-muted-foreground leading-relaxed">
+              <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">
                 Cada pregunta con su intención, topics esperados y follow-ups. Practica en
                 voz alta antes de pasar al técnico.
               </p>
             </div>
             <div
-              className="flex-shrink-0 sm:mt-2 inline-flex items-center gap-1 text-[13.5px] font-semibold"
+              className="flex-shrink-0 sm:mt-2 inline-flex items-center gap-1 text-[13px] font-semibold"
               style={{ color: "var(--av-blue-500)" }}
             >
               <ListChecks className="h-3.5 w-3.5" /> Abrir <ArrowRight className="h-3 w-3" />
@@ -122,7 +122,7 @@ export function InterviewSim() {
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Categorías · 3
           </div>
-          <h2 className="mt-1 text-[22px] font-semibold tracking-[-0.02em]">
+          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
             Cómo vas a entrenar cada tipo
           </h2>
         </div>
@@ -175,10 +175,10 @@ export function InterviewSim() {
             Evaluación automática
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-2">
-            <h2 className="text-[22px] font-semibold tracking-[-0.02em]">
+            <h2 className="text-[20px] font-semibold tracking-[-0.02em]">
               Lo que el feedback IA va a medir
             </h2>
-            <span className="chip text-[10px]">Pronto</span>
+            <span className="chip text-[12px]">Pronto</span>
           </div>
         </div>
 
@@ -197,10 +197,10 @@ export function InterviewSim() {
             >
               <Sparkles className="h-3 w-3" /> Cómo empezar
             </div>
-            <h3 className="mt-1.5 text-lg font-semibold">
+            <h3 className="mt-1.5 text-[17px] font-semibold">
               ¿Ya estás en proceso con alguna aerolínea?
             </h3>
-            <p className="mt-1 text-sm text-muted-foreground max-w-[680px]">
+            <p className="mt-1 text-[15px] text-muted-foreground max-w-[680px]">
               Pásale a Wingman el detalle del proceso (qué aerolínea, qué etapa) y te ayuda con
               preguntas de práctica hasta que el módulo completo esté listo. En la comunidad
               también vas a encontrar pilotos en proceso.
@@ -209,7 +209,7 @@ export function InterviewSim() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/aerolinea"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold text-white border-0 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-all hover:-translate-y-0.5"
               style={{
                 background: "var(--av-blue-500)",
               }}
@@ -218,7 +218,7 @@ export function InterviewSim() {
             </Link>
             <Link
               to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               Comunidad <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -256,14 +256,14 @@ function CategoryCard({ icon: Icon, color, type, description, bullets }: { icon:
         <div className="flex-1 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <div className="text-[17px] font-semibold tracking-[-0.02em]">{type}</div>
-            <span className="chip text-[10px]">Pronto</span>
+            <span className="chip text-[12px]">Pronto</span>
           </div>
-          <div className="text-[14px] text-muted-foreground">{description}</div>
+          <div className="text-[13px] text-muted-foreground">{description}</div>
         </div>
       </div>
       <ul className="space-y-1.5 pl-1 pt-1">
         {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[14px] text-muted-foreground">
+          <li key={b} className="flex items-start gap-2 text-[13px] text-muted-foreground">
             <span
               aria-hidden="true"
               className="flex-shrink-0 mt-[7px] h-1.5 w-1.5 rounded-full"
@@ -295,7 +295,7 @@ function MetricCard({ icon: Icon, color, title, detail }: { icon: React.Componen
       </div>
       <div className="flex-1 min-w-0">
         <div className="text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
-        <p className="mt-0.5 text-[13.5px] text-muted-foreground leading-snug">{detail}</p>
+        <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{detail}</p>
       </div>
     </div>
   )

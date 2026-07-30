@@ -181,13 +181,13 @@ export function NotamLesson() {
           actions={
             <Link
               to="/app/aerolinea/notam"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[14px] font-semibold surface text-foreground transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13px] font-semibold surface text-foreground transition-transform hover:-translate-y-0.5"
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Volver a NOTAM
             </Link>
           }
         >
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12.5px] font-semibold text-muted-foreground">
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] font-semibold text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
               <Clock className="h-3 w-3" /> {TOTAL_MINUTES} min de lectura
             </span>
@@ -206,7 +206,7 @@ export function NotamLesson() {
             className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl surface p-3"
             aria-label="Índice de la lección"
           >
-            <div className="px-2.5 pt-1 pb-2 text-[11.5px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="px-2.5 pt-1 pb-2 text-[12px] font-semibold text-muted-foreground">
               Contenido
             </div>
             <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
@@ -218,7 +218,7 @@ export function NotamLesson() {
               ref={mobileTocRef}
               className="lg:hidden mb-4 rounded-2xl surface overflow-hidden"
             >
-              <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-4 py-3 flex items-center justify-between gap-3 text-[14px] font-semibold text-foreground">
+              <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-4 py-3 flex items-center justify-between gap-3 text-[13px] font-semibold text-foreground">
                 <span className="inline-flex items-center gap-2">
                   <ListOrdered className="h-4 w-4" /> Contenido de la lección
                 </span>
@@ -248,7 +248,7 @@ export function NotamLesson() {
                     style={{ width: `${progress}%`, background: "var(--av-blue-500)" }}
                   />
                 </div>
-                <span className="shrink-0 text-[11.5px] font-semibold text-muted-foreground tabular">
+                <span className="shrink-0 text-[12px] font-semibold text-muted-foreground tabular">
                   Sección {activeN} de {TOTAL}
                 </span>
               </div>
@@ -260,7 +260,7 @@ export function NotamLesson() {
               className="doc-sheet rounded-2xl px-5 sm:px-10 py-8 sm:py-11"
             >
               <header className="pb-7 border-b doc-rule">
-                <div className="text-[11px] font-semibold uppercase tracking-[0.16em] doc-muted">
+                <div className="text-[12px] font-semibold doc-muted">
                   Documento de estudio · NOTAM
                 </div>
                 <p className="mt-3 mb-0 text-[15px] leading-[1.75] max-w-[64ch]">
@@ -268,7 +268,7 @@ export function NotamLesson() {
                   mensuales de NOTAM vigentes de la Aeronáutica Civil de Colombia. Léelo de corrido:
                   cada sección continúa la anterior y el índice te devuelve a cualquier punto.
                 </p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12.5px] font-semibold doc-muted">
+                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] font-semibold doc-muted">
                   <span className="inline-flex items-center gap-1.5">
                     <Clock className="h-3.5 w-3.5" /> {TOTAL_MINUTES} minutos
                   </span>
@@ -290,17 +290,17 @@ export function NotamLesson() {
                   >
                     <header className="flex items-start gap-3 sm:gap-5">
                       <span
-                        className="mono shrink-0 text-[30px] sm:text-[40px] font-semibold leading-none tabular"
+                        className="mono shrink-0 text-[32px] sm:text-[32px] font-semibold leading-none tabular"
                         style={{ color: "color-mix(in oklab, var(--doc-fg) 17%, var(--doc-bg))" }}
                         aria-hidden
                       >
                         {String(screen.n).padStart(2, "0")}
                       </span>
                       <div className="min-w-0">
-                        <h2 className="m-0 text-[19px] sm:text-[23px] font-semibold tracking-[-0.02em] leading-[1.2]">
+                        <h2 className="m-0 text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] leading-[1.2]">
                           {screen.title}
                         </h2>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] doc-muted">
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] doc-muted">
                           <span>{screen.kicker}</span>
                           <span
                             className="inline-flex items-center gap-1 font-semibold"
@@ -368,7 +368,7 @@ function TocList({ activeN, readSections, onSelect }: TocListProps) {
                 }
               >
                 <span
-                  className="shrink-0 w-4 mt-px text-[11.5px] font-semibold tabular"
+                  className="shrink-0 w-4 mt-px text-[12px] font-semibold tabular"
                   style={isActive ? { color: "var(--av-blue-500)" } : undefined}
                 >
                   {s.n}
@@ -458,7 +458,7 @@ const CALLOUT_TONE: Record<
 function Block({ block }: { block: LessonBlock }) {
   switch (block.kind) {
     case "p":
-      return <p className="m-0 text-[15.5px]">{renderInline(block.text)}</p>
+      return <p className="m-0 text-[15px]">{renderInline(block.text)}</p>
 
     case "quote":
       return (
@@ -466,14 +466,14 @@ function Block({ block }: { block: LessonBlock }) {
           className="m-0 pl-4 sm:pl-5 py-1 border-l-2"
           style={{ borderColor: docAccent("var(--av-blue-500)", 35) }}
         >
-          <p className="m-0 text-[15.5px] italic">{renderInline(block.text)}</p>
-          {block.source && <div className="mt-2 text-[12.5px] doc-muted">{block.source}</div>}
+          <p className="m-0 text-[15px] italic">{renderInline(block.text)}</p>
+          {block.source && <div className="mt-2 text-[12px] doc-muted">{block.source}</div>}
         </blockquote>
       )
 
     case "list": {
       const items = block.items.map((item, i) => (
-        <li key={i} className="pl-1 text-[15.5px] leading-[1.7]">
+        <li key={i} className="pl-1 text-[15px] leading-[1.7]">
           {renderInline(item)}
         </li>
       ))
@@ -494,7 +494,7 @@ function Block({ block }: { block: LessonBlock }) {
                 {block.head.map((h, i) => (
                   <th
                     key={i}
-                    className="px-3.5 py-2.5 border-b doc-rule doc-muted text-[11.5px] font-semibold uppercase tracking-[0.07em]"
+                    className="px-3.5 py-2.5 border-b doc-rule doc-muted text-[12px] font-semibold"
                   >
                     {h}
                   </th>
@@ -505,7 +505,7 @@ function Block({ block }: { block: LessonBlock }) {
               {block.rows.map((row, ri) => (
                 <tr key={ri} className="border-b doc-rule last:border-b-0">
                   {row.map((cell, ci) => (
-                    <td key={ci} className="px-3.5 py-3 align-top text-[14px] leading-[1.6]">
+                    <td key={ci} className="px-3.5 py-3 align-top text-[13px] leading-[1.6]">
                       {renderInline(cell)}
                     </td>
                   ))}
@@ -546,10 +546,10 @@ function Block({ block }: { block: LessonBlock }) {
             aria-hidden
           />
           <div className="min-w-0">
-            <div className="text-[13.5px] font-semibold" style={{ color: docAccent(tone.color, 55) }}>
+            <div className="text-[13px] font-semibold" style={{ color: docAccent(tone.color, 55) }}>
               {block.title ?? tone.fallbackTitle}
             </div>
-            <p className="m-0 mt-1 text-[14.5px]">{renderInline(block.text)}</p>
+            <p className="m-0 mt-1 text-[15px]">{renderInline(block.text)}</p>
           </div>
         </div>
       )
@@ -564,12 +564,12 @@ function Block({ block }: { block: LessonBlock }) {
               className="grid gap-x-4 gap-y-1 py-2.5 border-b doc-rule last:border-b-0 sm:grid-cols-[minmax(110px,180px)_minmax(0,1fr)]"
             >
               <dt
-                className="mono text-[13.5px] font-semibold"
+                className="mono text-[13px] font-semibold"
                 style={{ color: docAccent("var(--av-blue-500)", 60) }}
               >
                 {item.k}
               </dt>
-              <dd className="m-0 text-[14.5px] leading-[1.65]">{renderInline(item.v)}</dd>
+              <dd className="m-0 text-[15px] leading-[1.65]">{renderInline(item.v)}</dd>
             </div>
           ))}
         </dl>
@@ -583,14 +583,14 @@ function SourcesBlock() {
   return (
     <section className="pt-8 border-t doc-rule">
       <div
-        className="inline-flex items-center gap-1.5 text-[12.5px] font-semibold uppercase tracking-[0.12em]"
+        className="inline-flex items-center gap-1.5 text-[12px] font-semibold"
         style={{ color: docAccent("var(--av-blue-500)", 55) }}
       >
         <Library className="h-3.5 w-3.5" /> Fuentes
       </div>
       <ol className="mt-3 mb-0 pl-5 list-decimal flex flex-col gap-1.5">
         {LESSON_SOURCES.map((s, i) => (
-          <li key={i} className="text-[13.5px] leading-[1.65] doc-muted">
+          <li key={i} className="text-[13px] leading-[1.65] doc-muted">
             {s}
           </li>
         ))}
@@ -607,10 +607,10 @@ function SourcesBlock() {
 function NextSteps({ readCount, id }: { readCount: number; id?: string }) {
   return (
     <section id={id} className="scroll-mt-24 mt-8 pt-7 border-t doc-rule">
-      <h2 className="m-0 text-[17px] sm:text-[19px] font-semibold tracking-[-0.02em]">
+      <h2 className="m-0 text-[17px] sm:text-[20px] font-semibold tracking-[-0.02em]">
         Ya sabes leer un NOTAM de principio a fin
       </h2>
-      <p className="mt-1.5 mb-0 text-[14px] doc-muted leading-[1.7]">
+      <p className="mt-1.5 mb-0 text-[13px] doc-muted leading-[1.7]">
         Lo que sigue es practicar con material real y medirte en la evaluación. Llevas {readCount} de{" "}
         {TOTAL} secciones leídas.
       </p>

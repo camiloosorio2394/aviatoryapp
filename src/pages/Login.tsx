@@ -208,12 +208,12 @@ export function Login() {
         <div className="relative space-y-8">
           <div>
             <Plane className="h-7 w-7 mb-6 text-blue-200" />
-            <h2 className="text-4xl font-semibold tracking-tight leading-tight text-balance">
+            <h2 className="text-[32px] font-semibold tracking-tight leading-tight text-balance">
               {isSignup
                 ? "Empieza hoy. Llega a la cabina antes."
                 : "Bienvenido de vuelta a tu próximo vuelo."}
             </h2>
-            <p className="mt-4 text-blue-100/90 text-lg leading-relaxed">
+            <p className="mt-4 text-blue-100/90 text-[17px] leading-relaxed">
               {isSignup
                 ? "Súmate a la plataforma para pilotos LATAM que llegan a aerolínea."
                 : "Tu progreso, tu plan, tu comunidad te esperan."}
@@ -226,13 +226,13 @@ export function Login() {
                 <span className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
                   <Check className="h-3 w-3" />
                 </span>
-                <span className="text-sm">{b}</span>
+                <span className="text-[15px]">{b}</span>
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="relative text-xs text-blue-200/70">
+        <div className="relative text-[12px] text-blue-200/70">
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               <div className="h-7 w-7 rounded-full bg-gradient-to-br from-blue-300 to-blue-500 border-2 border-blue-700" />
@@ -252,7 +252,7 @@ export function Login() {
           </Link>
           <Link
             to="/"
-            className="ml-auto inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="ml-auto inline-flex items-center gap-1.5 text-[15px] text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="h-4 w-4" />
             Volver al inicio
@@ -261,7 +261,7 @@ export function Login() {
 
         <div className="flex-1 flex items-center justify-center px-6 pb-12">
           <div className="w-full max-w-md">
-            <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
+            <h1 className="text-[32px] sm:text-[32px] font-semibold tracking-tight text-balance">
               {isSignup ? "Crea tu cuenta" : "Inicia sesión"}
             </h1>
             <p className="mt-2 text-muted-foreground">
@@ -271,11 +271,11 @@ export function Login() {
             </p>
 
             {isSignup && referralCode && (
-              <div className="mt-4 rounded-xl border border-blue-500/30 bg-blue-50/60 dark:bg-blue-950/30 p-3 text-sm">
+              <div className="mt-4 rounded-xl border border-blue-500/30 bg-blue-50/60 dark:bg-blue-950/30 p-3 text-[15px]">
                 <div className="font-semibold flex items-center gap-1.5">
                   🎁 Te invitó un piloto
                 </div>
-                <p className="text-muted-foreground mt-0.5 text-xs">
+                <p className="text-muted-foreground mt-0.5 text-[12px]">
                   Código <span className="tabular font-mono font-semibold text-foreground">{referralCode}</span> aplicado · recibes 14 días de prueba en lugar de 7
                 </p>
               </div>
@@ -286,7 +286,7 @@ export function Login() {
                 type="button"
                 variant="outline"
                 size="lg"
-                className="w-full h-12 rounded-full text-sm font-medium border-2 hover:border-blue-500/40 transition-all hover:-translate-y-0.5"
+                className="w-full h-12 rounded-full text-[15px] font-medium border-2 hover:border-blue-500/40 transition-all hover:-translate-y-0.5"
                 onClick={handleGoogle}
               >
                 <GoogleIcon className="h-5 w-5" />
@@ -296,13 +296,13 @@ export function Login() {
 
             <div className="my-6 flex items-center gap-3">
               <div className="h-px flex-1 bg-border" />
-              <span className="text-xs text-muted-foreground">o con tu email</span>
+              <span className="text-[12px] text-muted-foreground">o con tu email</span>
               <div className="h-px flex-1 bg-border" />
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-sm">Email</Label>
+                <Label htmlFor="email" className="text-[15px]">Email</Label>
                 <Input
                   id="email"
                   type="email"
@@ -318,8 +318,8 @@ export function Login() {
               {isSignup && (
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="username" className="text-sm">Usuario</Label>
-                    <span className="text-xs text-muted-foreground">único en la comunidad</span>
+                    <Label htmlFor="username" className="text-[15px]">Usuario</Label>
+                    <span className="text-[12px] text-muted-foreground">único en la comunidad</span>
                   </div>
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
@@ -352,11 +352,11 @@ export function Login() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password" className="text-sm">Contraseña</Label>
+                  <Label htmlFor="password" className="text-[15px]">Contraseña</Label>
                   {!isSignup && (
                     <button
                       type="button"
-                      className="text-xs text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                      className="text-[12px] text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                       onClick={() => toast.info("Pronto disponible. Por ahora escribinos a hola@aviatory.app")}
                     >
                       ¿Olvidaste tu contraseña?
@@ -391,7 +391,7 @@ export function Login() {
 
               {isSignup && (
                 <div className="space-y-2">
-                  <Label htmlFor="confirm" className="text-sm">Confirma tu contraseña</Label>
+                  <Label htmlFor="confirm" className="text-[15px]">Confirma tu contraseña</Label>
                   <div className="relative">
                     <Input
                       id="confirm"
@@ -418,13 +418,13 @@ export function Login() {
                     )}
                   </div>
                   {confirm.length > 0 && !passwordChecks.match && (
-                    <p className="text-xs text-red-600 dark:text-red-400">Las contraseñas no coinciden</p>
+                    <p className="text-[12px] text-red-600 dark:text-red-400">Las contraseñas no coinciden</p>
                   )}
                 </div>
               )}
 
               {error && (
-                <div className="rounded-xl border border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-900/50 px-4 py-3 text-sm text-red-700 dark:text-red-300">
+                <div className="rounded-xl border border-red-200 bg-red-50 dark:bg-red-950/30 dark:border-red-900/50 px-4 py-3 text-[15px] text-red-700 dark:text-red-300">
                   {error}
                 </div>
               )}
@@ -433,7 +433,7 @@ export function Login() {
                 type="submit"
                 size="lg"
                 disabled={submitting || !canSubmit}
-                className="btn-apple shine-on-hover w-full h-12 rounded-full text-base border-0 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="btn-apple shine-on-hover w-full h-12 rounded-full text-[17px] border-0 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {submitting ? (
                   <>
@@ -449,7 +449,7 @@ export function Login() {
               </Button>
 
               {isSignup && (
-                <p className="text-xs text-muted-foreground text-center leading-relaxed">
+                <p className="text-[12px] text-muted-foreground text-center leading-relaxed">
                   Al crear tu cuenta aceptas los{" "}
                   <Link to="/terminos" className="underline hover:text-foreground">Términos</Link> y la{" "}
                   <Link to="/privacidad" className="underline hover:text-foreground">Política de privacidad</Link>.
@@ -457,7 +457,7 @@ export function Login() {
               )}
             </form>
 
-            <p className="mt-8 text-sm text-center text-muted-foreground">
+            <p className="mt-8 text-[15px] text-center text-muted-foreground">
               {isSignup ? (
                 <>
                   ¿Ya tienes cuenta?{" "}
@@ -483,7 +483,7 @@ export function Login() {
 
 function PasswordRules({ length, digit }: { length: boolean; digit: boolean }) {
   return (
-    <ul className="space-y-1 mt-1 text-xs">
+    <ul className="space-y-1 mt-1 text-[12px]">
       <Rule met={length} text="Al menos 8 caracteres" />
       <Rule met={digit} text="Incluye un número" />
     </ul>
@@ -520,15 +520,15 @@ function UsernameIndicator({ status }: { status: UsernameStatus }) {
 function UsernameHint({ status }: { status: UsernameStatus }) {
   switch (status.state) {
     case "invalid":
-      return <p className="text-xs text-muted-foreground">{status.reason}</p>
+      return <p className="text-[12px] text-muted-foreground">{status.reason}</p>
     case "checking":
-      return <p className="text-xs text-muted-foreground">Verificando disponibilidad…</p>
+      return <p className="text-[12px] text-muted-foreground">Verificando disponibilidad…</p>
     case "available":
-      return <p className="text-xs text-green-600 dark:text-green-400">Disponible ✓</p>
+      return <p className="text-[12px] text-green-600 dark:text-green-400">Disponible ✓</p>
     case "taken":
-      return <p className="text-xs text-red-600 dark:text-red-400">Ese usuario ya está tomado</p>
+      return <p className="text-[12px] text-red-600 dark:text-red-400">Ese usuario ya está tomado</p>
     default:
-      return <p className="text-xs text-muted-foreground">3–30 caracteres, minúsculas, números o _</p>
+      return <p className="text-[12px] text-muted-foreground">3–30 caracteres, minúsculas, números o _</p>
   }
 }
 

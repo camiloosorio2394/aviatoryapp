@@ -172,7 +172,7 @@ export function VaultQuizPlayer() {
       <AppLayout>
         <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-muted-foreground">
           <Loader2 className="h-7 w-7 animate-spin" />
-          <p className="text-sm">Preparando tu quiz…</p>
+          <p className="text-[15px]">Preparando tu quiz…</p>
         </div>
       </AppLayout>
     )
@@ -198,7 +198,7 @@ export function VaultQuizPlayer() {
                 >
                   <Trophy className="h-3 w-3" /> Resultado · {subjectMeta.name}
                 </div>
-                <h1 className="mt-4 mb-1.5 text-3xl sm:text-4xl font-semibold tracking-[-0.03em] leading-[1.05]">
+                <h1 className="mt-4 mb-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">
                   {passed ? "¡Aprobaste!" : "Casi llegas"}
                 </h1>
                 <p className="text-[17px] text-muted-foreground max-w-[520px] mt-2">
@@ -249,7 +249,7 @@ export function VaultQuizPlayer() {
                               <X className="h-3 w-3" strokeWidth={3} />
                             )}
                           </span>
-                          <span className="text-[13.5px] leading-snug text-foreground/85 line-clamp-2">
+                          <span className="text-[13px] leading-snug text-foreground/85 line-clamp-2">
                             {h.question}
                           </span>
                         </li>
@@ -268,7 +268,7 @@ export function VaultQuizPlayer() {
                 type="button"
                 onClick={() => setReviewOpen((v) => !v)}
                 aria-expanded={reviewOpen}
-                className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold border cursor-pointer transition-colors"
+                className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold border cursor-pointer transition-colors"
                 style={{
                   borderColor: tileBorder("red", 32),
                   background: tileTint("red", 8),
@@ -289,15 +289,15 @@ export function VaultQuizPlayer() {
                       className="rounded-2xl border p-5"
                       style={{ borderColor: tileBorder("red", 26), background: tileTint("red", 5) }}
                     >
-                      <div className="text-[12.5px] font-semibold text-muted-foreground">
+                      <div className="text-[12px] font-semibold text-muted-foreground">
                         Pregunta {h.position} · {subjectLabelOf(h)}
                       </div>
-                      <p className="mt-1 text-[15.5px] font-semibold leading-snug">{h.question}</p>
+                      <p className="mt-1 text-[15px] font-semibold leading-snug">{h.question}</p>
                       <div className="mt-2.5 chip chip-green">
                         Respuesta correcta: {h.correctAnswer.toUpperCase()}
                       </div>
                       {h.explanation && (
-                        <p className="mt-2.5 text-[14px] leading-relaxed text-foreground/85">
+                        <p className="mt-2.5 text-[13px] leading-relaxed text-foreground/85">
                           {h.explanation}
                         </p>
                       )}
@@ -312,14 +312,14 @@ export function VaultQuizPlayer() {
             <button
               type="button"
               onClick={handleRestart}
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
               <RefreshCw className="h-4 w-4" /> Otra ronda
             </button>
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a {MODULE_LABEL[module] ?? "materias"}
             </Link>
@@ -351,7 +351,7 @@ export function VaultQuizPlayer() {
         <div className="flex items-center justify-between gap-3 mb-5">
           <Link
             to="/app/pca"
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
+            className="inline-flex items-center gap-1.5 text-[12px] text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> {subjectMeta.name}
           </Link>
@@ -425,7 +425,7 @@ export function VaultQuizPlayer() {
                     }}
                   >
                     <div
-                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center tabular-nums text-[13.5px] font-semibold"
+                      className="flex-shrink-0 w-7 h-7 rounded-md flex items-center justify-center tabular-nums text-[13px] font-semibold"
                       style={{
                         background: isSelected || isCorrectAnswer ? "var(--av-blue-500)" : "var(--muted)",
                         color: isSelected || isCorrectAnswer ? "white" : "var(--foreground)",
@@ -433,7 +433,7 @@ export function VaultQuizPlayer() {
                     >
                       {key.toUpperCase()}
                     </div>
-                    <div className="flex-1 text-[15.5px] leading-relaxed text-foreground/90 pt-0.5">{text}</div>
+                    <div className="flex-1 text-[15px] leading-relaxed text-foreground/90 pt-0.5">{text}</div>
                     {result && isRight && (
                       <Check
                         className="flex-shrink-0 h-5 w-5"
@@ -475,7 +475,7 @@ export function VaultQuizPlayer() {
                       </>
                     )}
                   </div>
-                  <p className="text-[14.5px] text-foreground/85 leading-relaxed mt-2">{result.explanation}</p>
+                  <p className="text-[15px] text-foreground/85 leading-relaxed mt-2">{result.explanation}</p>
                 </div>
 
                 {result.pedagogical_note && (
@@ -494,7 +494,7 @@ export function VaultQuizPlayer() {
                       <div className="text-[13px] font-semibold mb-1" style={{ color: TILE_COLOR.amber }}>
                         Nota para el examen
                       </div>
-                      <p className="text-[14px] text-foreground/85 leading-relaxed">
+                      <p className="text-[13px] text-foreground/85 leading-relaxed">
                         {result.pedagogical_note}
                       </p>
                     </div>
@@ -520,7 +520,7 @@ export function VaultQuizPlayer() {
                 type="button"
                 onClick={handleSubmit}
                 disabled={!selected || submitting}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
@@ -530,7 +530,7 @@ export function VaultQuizPlayer() {
               <button
                 type="button"
                 onClick={handleNext}
-                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 h-12 sm:h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 {position >= session.questionCount ? "Ver resultado" : "Siguiente"}
@@ -597,13 +597,13 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
             <Icon className="h-6 w-6" strokeWidth={1.8} />
           </div>
           <h1 className="mt-4 text-[20px] font-semibold tracking-[-0.02em]">{title}</h1>
-          <p className="mt-2 text-[14.5px] text-muted-foreground leading-relaxed">{line}</p>
+          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">{line}</p>
           <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center sm:justify-center gap-2">
             {onRetry && (
               <button
                 type="button"
                 onClick={onRetry}
-                className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 cursor-pointer transition-transform hover:-translate-y-0.5"
                 style={{ background: "var(--av-blue-500)" }}
               >
                 <RefreshCw className="h-4 w-4" /> Reintentar
@@ -611,7 +611,7 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
             )}
             <Link
               to="/app/pca"
-              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 h-11 px-5 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
             >
               <ArrowLeft className="h-4 w-4" /> Volver a materias
             </Link>
