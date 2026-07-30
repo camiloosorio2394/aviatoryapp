@@ -26,7 +26,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile } from "@/components/ui/kpi-tile"
-import { tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
+import { tileBorder, tileTint } from "@/lib/tileColors"
 
 type PilotStage =
   | "student_ppl"
@@ -133,9 +133,7 @@ interface NextStep {
   href: string
   cta: string
   minutes: number
-  icon: typeof BookOpen
-  tone: TileColorKey
-}
+  icon: typeof BookOpen}
 
 /**
  * Acción del día. La dueña única es la card "Quiz del día" que va justo debajo
@@ -166,7 +164,6 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Abrir Wingman",
     minutes: 8,
     icon: Brain,
-    tone: "violet",
   }
   const baseIcao: NextStep = {
     title: "Inglés ICAO",
@@ -175,7 +172,6 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Practicar ICAO",
     minutes: 15,
     icon: Languages,
-    tone: "green",
   }
   const baseAirline: NextStep = {
     title: "Revisa tu match",
@@ -184,7 +180,6 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Ver aerolíneas",
     minutes: 5,
     icon: Plane,
-    tone: "blue",
   }
   const baseCommunity: NextStep = {
     title: "Saluda a tu cohorte",
@@ -193,7 +188,6 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     cta: "Ir a comunidad",
     minutes: 3,
     icon: Users,
-    tone: "amber",
   }
 
   if (!stage) return [baseWingman, baseIcao, baseCommunity]
@@ -455,7 +449,7 @@ export function Dashboard() {
               icon={Target}
               eyebrow="Tu plan de hoy"
               title="3 acciones cortas, además del quiz"
-              hint="Cada paso suma. No tienes que hacer las 3 hoy."
+              hint="No hace falta completarlas hoy."
             />
             <div className="stagger grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
               {todayPlan.map((step) => (
@@ -626,14 +620,20 @@ function CockpitHero({
   )
 }
 
+/**
+ * Los iconos van en un cuadro neutro. Antes cada card traía su propio tinte
+ * pastel (azul, verde, violeta) sin que el color dijera nada: tres colores
+ * distintos para tres acciones igual de importantes es decoración, no
+ * información. El único acento vivo es el borde al pasar el cursor.
+ */
 function TodayCard({ step }: { step: NextStep }) {
   const Ic = step.icon
   return (
     <Link
       to={step.href}
-      className="relative overflow-hidden rounded-lg border border-border bg-card p-[18px] cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-md block"
+      className="relative overflow-hidden rounded-lg border border-border bg-card p-[18px] cursor-pointer transition-colors block"
       onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = tileBorder(step.tone, 45)
+        e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.borderColor = "var(--border)"
@@ -641,16 +641,10 @@ function TodayCard({ step }: { step: NextStep }) {
     >
       <div className="relative">
         <div className="flex items-center justify-between">
-          <div
-            className="w-[38px] h-[38px] rounded-lg flex items-center justify-center text-foreground"
-            style={{
-              background: tileTint(step.tone),
-              border: `1px solid ${tileBorder(step.tone)}`,
-            }}
-          >
-            <Ic className="h-[18px] w-[18px]" />
+          <div className="w-9 h-9 rounded-md flex items-center justify-center border border-border bg-muted text-muted-foreground">
+            <Ic className="h-[17px] w-[17px]" />
           </div>
-          <span className="tabular-nums text-[12px] text-muted-foreground">
+          <span className="mono tabular-nums text-[11.5px] text-muted-foreground">
             ~{step.minutes} min
           </span>
         </div>
@@ -719,15 +713,9 @@ function WingmanInsight({
   })()
 
   return (
-    <div
-      className="relative overflow-hidden rounded-lg border p-5"
-      style={{
-        background: "color-mix(in oklab, var(--av-violet-400) 5%, var(--card))",
-        borderColor: "color-mix(in oklab, var(--av-violet-400) 22%, var(--border))",
-      }}
-    >
+    <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
       <div className="relative">
-        <div className="chip chip-violet">
+        <div className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
           <Radar className="h-3 w-3" /> Insight de Wingman
         </div>
         <h3 className="mt-2.5 text-lg font-bold tracking-[-0.02em] text-foreground">{insight.title}</h3>
@@ -749,14 +737,12 @@ function WingmanInsight({
  */
 function EmptyState({
   icon: Ic,
-  tone,
   title,
   line,
   cta,
   href,
 }: {
   icon: typeof BookOpen
-  tone: TileColorKey
   title: string
   line: string
   cta: string
@@ -764,10 +750,7 @@ function EmptyState({
 }) {
   return (
     <div className="py-5 flex flex-col items-center text-center">
-      <div
-        className="flex items-center justify-center h-12 w-12 rounded-lg text-foreground"
-        style={{ background: tileTint(tone), border: `1px solid ${tileBorder(tone)}` }}
-      >
+      <div className="flex items-center justify-center h-11 w-11 rounded-md border border-border bg-muted text-muted-foreground">
         <Ic className="h-5 w-5" />
       </div>
       <div className="mt-3 text-sm font-bold text-foreground tracking-[-0.015em]">{title}</div>
@@ -803,12 +786,11 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   if (current === 0) {
     return (
       <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
-        <span className="chip chip-amber">
+        <span className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
         <EmptyState
           icon={Flame}
-          tone="amber"
           title="Enciende tu racha"
           line="Una sola pregunta hoy cuenta como día activo y arranca la cuenta."
           cta="Responder una pregunta"
@@ -824,7 +806,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   return (
     <div className="relative overflow-hidden rounded-lg border border-border bg-card p-5">
       <div className="relative">
-        <span className="chip chip-amber">
+        <span className="mono inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
         <div className="mt-4 flex items-baseline gap-2">
@@ -852,8 +834,11 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
               border: `1px solid ${tileBorder("amber", 26)}`,
             }}
           >
-            <span className="chip chip-amber">
-              <AlertTriangle className="h-3 w-3" /> Tu racha está en riesgo
+            <span
+              className="inline-flex items-center gap-1.5 text-[12.5px] font-bold"
+              style={{ color: "var(--av-warn-fg)" }}
+            >
+              <AlertTriangle className="h-3.5 w-3.5" /> Tu racha está en riesgo
             </span>
             <p className="mt-2 text-[12.5px] text-muted-foreground">
               Si no estudias hoy se reinicia. Con una pregunta la salvas.
@@ -1007,7 +992,6 @@ function AchievementsCard({
       ) : unlocked.length === 0 ? (
         <EmptyState
           icon={Trophy}
-          tone="amber"
           title="Tu primer logro está a un quiz de distancia"
           line="Completa el quiz de hoy y desbloqueas el primero de la colección."
           cta="Empezar quiz de hoy"
@@ -1077,7 +1061,6 @@ function CohortCard({
       ) : peers.length === 0 ? (
         <EmptyState
           icon={Users}
-          tone="blue"
           title="Todavía no hay pilotos en tu etapa"
           line="Preséntate en la comunidad: el primero en llegar arma la cohorte."
           cta="Ir a comunidad"
