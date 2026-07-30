@@ -15,6 +15,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { TILE_COLOR, tileTint, type TileColorKey } from "@/lib/tileColors"
+import { HoldingIcon } from "@/components/icons/aero"
 
 /**
  * Módulo Preparación para aerolínea.
@@ -205,16 +206,16 @@ function TemaAbierto({ tema }: { tema: Tema }) {
   )
 }
 
+/**
+ * Tema sin contenido todavía. Lleva el circuito de espera de las cartas, que
+ * es exactamente lo que significa: está en el aire, esperando autorización.
+ */
 function TemaPronto({ tema }: { tema: Tema }) {
-  const Icon = tema.icon
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-2">
-        <span
-          className="flex h-9 w-9 items-center justify-center rounded-lg"
-          style={{ background: tileTint(tema.color, 10), opacity: 0.6 }}
-        >
-          <Icon className="h-4 w-4" style={{ color: TILE_COLOR[tema.color] }} />
+        <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-border bg-muted text-muted-foreground">
+          <HoldingIcon className="h-4 w-4" />
         </span>
         <span className="chip text-[10px]">Pronto</span>
       </div>

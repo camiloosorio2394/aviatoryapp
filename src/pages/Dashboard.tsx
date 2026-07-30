@@ -1,12 +1,8 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, type ComponentType } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import {
-  BookOpen,
-  Brain,
   Flame,
   Gauge,
-  Languages,
-  Plane,
   Radar,
   Timer,
   AlertTriangle,
@@ -15,9 +11,14 @@ import {
   Users,
   Lightbulb,
   Sun,
-  Target,
   Activity,
 } from "lucide-react"
+import {
+  AerodromeIcon,
+  NdbIcon,
+  VorIcon,
+  WaypointIcon,
+} from "@/components/icons/aero"
 import { toast } from "sonner"
 import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
 import { supabase } from "@/integrations/supabase/client"
@@ -127,13 +128,15 @@ function computeAirlineProgress(stage: PilotStage, icao: number | null, attempts
   return Math.round(0.6 * stageBase + 0.25 * icaoPct + 0.15 * practicePct)
 }
 
+type IconComponent = ComponentType<{ size?: number; className?: string }>
+
 interface NextStep {
   title: string
   description: string
   href: string
   cta: string
   minutes: number
-  icon: typeof BookOpen
+  icon: IconComponent
 }
 
 /**
@@ -164,7 +167,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     href: "/app/pca",
     cta: "Abrir Wingman",
     minutes: 8,
-    icon: Brain,
+    icon: NdbIcon,
   }
   const baseIcao: NextStep = {
     title: "Inglés ICAO",
@@ -172,7 +175,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     href: "/app/icao",
     cta: "Practicar ICAO",
     minutes: 15,
-    icon: Languages,
+    icon: VorIcon,
   }
   const baseAirline: NextStep = {
     title: "Revisa tu match",
@@ -180,7 +183,7 @@ function buildTodayPlan(stage: PilotStage | null): NextStep[] {
     href: "/app/aerolineas",
     cta: "Ver aerolíneas",
     minutes: 5,
-    icon: Plane,
+    icon: AerodromeIcon,
   }
   const baseCommunity: NextStep = {
     title: "Saluda a tu cohorte",
@@ -447,7 +450,7 @@ export function Dashboard() {
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4 mb-7">
           <section>
             <SectionTitle
-              icon={Target}
+              icon={WaypointIcon}
               eyebrow="Tu plan de hoy"
               title="3 acciones cortas, además del quiz"
               hint="No hace falta completarlas hoy."
@@ -735,7 +738,7 @@ function EmptyState({
   cta,
   href,
 }: {
-  icon: typeof BookOpen
+  icon: IconComponent
   title: string
   line: string
   cta: string
