@@ -230,7 +230,7 @@ function difficultyChip(avg: number | null): Chip | undefined {
 function StatBox({ label, value, chip }: { label: string; value: string; chip?: Chip }) {
   const isEmpty = value === "—"
   return (
-    <div className="card-apple rounded-2xl border border-border bg-card p-4 sm:p-5">
+    <div className="card-apple rounded-2xl surface p-4 sm:p-5">
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
         {label}
       </div>
@@ -251,7 +251,7 @@ function StatBox({ label, value, chip }: { label: string; value: string; chip?: 
 function TopicRow({ topic, rank }: { topic: Topic; rank: number }) {
   const isTop = rank === 1
   return (
-    <li className="rounded-xl border border-border bg-card p-4">
+    <li className="rounded-xl surface p-4">
       <div className="flex items-center gap-3">
         <div className="tabular flex-shrink-0 inline-flex items-center justify-center h-8 w-8 rounded-full border border-border bg-muted text-muted-foreground font-bold text-xs">
           {rank}
@@ -296,7 +296,7 @@ function RecentReportRow({ report }: { report: RecentReport }) {
   })
 
   return (
-    <li className="rounded-xl border border-border bg-card p-4 sm:p-5">
+    <li className="rounded-xl surface p-4 sm:p-5">
       <div className="flex items-start justify-between gap-3 mb-2 flex-wrap">
         <div className="flex items-center gap-2 text-xs text-muted-foreground flex-wrap">
           <span className="tabular">{date}</span>

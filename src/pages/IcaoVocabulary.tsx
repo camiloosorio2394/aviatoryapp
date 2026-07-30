@@ -289,7 +289,7 @@ export function IcaoVocabulary() {
             <span className="text-sm">Cargando el glosario…</span>
           </div>
         ) : filtered.length === 0 ? (
-          <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+          <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
             <div
               className="w-11 h-11 rounded-xl flex items-center justify-center"
               style={{
@@ -346,7 +346,7 @@ export function IcaoVocabulary() {
           <div className="mt-6 flex justify-center">
             <button
               onClick={() => setLimit((l) => l + PAGE_SIZE)}
-              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[14px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver más términos
               <span className="tabular-nums text-muted-foreground">faltan {remaining}</span>
@@ -372,7 +372,7 @@ function TermCard({ entry, query }: { entry: VocabEntry; query: string }) {
     // Sin hover lift: una ficha de glosario no lleva a ningún lado, así que no
     // finge ser clickeable.
     <div
-      className="rounded-2xl border border-border bg-card p-4 flex flex-col gap-1.5"
+      className="rounded-2xl surface p-4 flex flex-col gap-1.5"
       style={{ borderColor: "color-mix(in oklab, var(--border) 70%, transparent)" }}
     >
       <div className="flex items-baseline justify-between gap-3">

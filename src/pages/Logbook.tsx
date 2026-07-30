@@ -229,7 +229,7 @@ export function Logbook() {
         ) : flights.length === 0 ? (
           <EmptyState onAdd={() => setFormOpen(true)} />
         ) : (
-          <div className="rounded-2xl border border-border bg-card overflow-hidden">
+          <div className="rounded-2xl surface overflow-hidden">
             <div className="overflow-x-auto">
               <div className="lg:min-w-[720px]">
                 {/* Header (solo desde lg: en móvil cada vuelo es una tarjeta) */}

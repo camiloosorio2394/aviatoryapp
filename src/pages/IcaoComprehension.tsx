@@ -51,7 +51,7 @@ export function IcaoComprehension() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div
             className="inline-flex items-center gap-2 h-9 w-9 rounded-xl items-center justify-center"
             style={{
@@ -324,7 +324,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
         {/* For 2C (no speaker): Show answer button */}
         {!cur.speaker && !revealed && (
           <div className="mt-5 flex justify-center">
-            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors">
+            <button onClick={() => setRevealed(true)} className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[13.5px] font-semibold surface hover:bg-muted transition-colors">
               <Eye className="h-4 w-4" /> Ver la respuesta modelo
             </button>
           </div>

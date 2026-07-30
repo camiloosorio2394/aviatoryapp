@@ -349,7 +349,7 @@ export function Profile() {
 
           {/* Skills radar + Settings */}
           <div className="flex flex-col gap-5">
-            <div className="rounded-2xl border border-border bg-card p-6">
+            <div className="rounded-2xl surface p-6">
               <SectionTitle icon={Radar} eyebrow="Tu mapa de habilidades" title="Mastery por dimensión" />
               <div className="grid items-center gap-7 mt-4 grid-cols-1 justify-items-center sm:grid-cols-[auto_1fr] sm:justify-items-stretch">
                 <SkillsRadar skills={skills} />
@@ -381,7 +381,7 @@ export function Profile() {
             <StrengthsSummary strengths={strengths} gaps={gaps} />
 
             {/* Form */}
-            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl surface p-6 space-y-5">
               <SectionTitle icon={UserIcon} eyebrow="Identidad" title="Datos públicos y privados" />
               <div className="space-y-4">
                 <Field label="Tu foto">
@@ -453,7 +453,7 @@ export function Profile() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-6 space-y-5">
+            <div className="rounded-2xl surface p-6 space-y-5">
               <SectionTitle icon={Settings} eyebrow="Tu carrera" title="Estado de piloto" />
               <div className="space-y-4">
                 <Field label="Etapa actual">
@@ -563,7 +563,7 @@ function PilotIdCard({
   const stageLabel = stage ? STAGES.find((s) => s.value === stage)?.label ?? "—" : "—"
   const fmt = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 overflow-hidden h-fit">
+    <div className="rounded-2xl surface p-6 overflow-hidden h-fit">
       <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
         Aviatory · Pilot ID
       </div>
@@ -673,7 +673,7 @@ function SkillsRadar({ skills }: { skills: { label: string; value: number }[] })
 
 function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill[] }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6">
+    <div className="rounded-2xl surface p-6">
       <SectionTitle icon={TrendingUp} eyebrow="Resumen" title="Fortalezas y debilidades" />
       <div className="grid gap-6 sm:grid-cols-2 mt-1">
         <div>
@@ -762,7 +762,7 @@ function IcaoStatusField({ level, takenAt, source }: { level: number | null; tak
   const isEstimate = source === "estimate"
   return (
     <>
-      <div className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 h-11">
+      <div className="flex items-center justify-between gap-3 rounded-xl surface px-4 h-11">
         <span className="inline-flex items-baseline gap-2">
           <span className="text-[15px] font-bold text-foreground tabular-nums">Nivel {level}</span>
           <span className="text-[13px] text-muted-foreground">

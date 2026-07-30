@@ -133,7 +133,7 @@ export function InterviewSpeakingIntro() {
               <span className="text-sm">Cargando preguntas…</span>
             </div>
           ) : questions.length === 0 ? (
-            <div className="rounded-2xl border border-border bg-card p-8 text-center flex flex-col items-center">
+            <div className="rounded-2xl surface p-8 text-center flex flex-col items-center">
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center"
                 style={{
@@ -162,7 +162,7 @@ export function InterviewSpeakingIntro() {
                 </Link>
                 <Link
                   to="/app/icao"
-                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+                  className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl text-[14.5px] font-semibold surface hover:bg-muted transition-colors"
                 >
                   Ver el módulo ICAO
                 </Link>

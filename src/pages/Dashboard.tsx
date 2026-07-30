@@ -356,7 +356,7 @@ export function Dashboard() {
 
   return (
     <AppLayout streak={streakDays}>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto">
         {/* Cockpit hero */}
         <CockpitHero
           firstName={firstName}
@@ -385,7 +385,7 @@ export function Dashboard() {
         {!icaoMeasured && (
           <Link
             to="/app/test-inicial"
-            className="mt-5 flex items-center justify-between gap-4 rounded-lg border p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+            className="surface-lift mt-5 flex items-center justify-between gap-4 rounded-xl border p-5"
             style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 32%, transparent)", background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)" }}
           >
             <div className="flex items-center gap-4">
@@ -454,7 +454,7 @@ export function Dashboard() {
               title="3 acciones cortas, además del quiz"
               hint="No hace falta completarlas hoy."
             />
-            <div className="rounded-xl border border-border bg-card overflow-hidden mt-3">
+            <div className="rounded-xl surface overflow-hidden mt-3">
               {todayPlan.map((step, i) => (
                 <TodayRow key={step.title} step={step} last={i === todayPlan.length - 1} />
               ))}
@@ -710,7 +710,7 @@ function WingmanInsight({
   })()
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-xl surface p-5">
       <div className="relative">
         <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Radar className="h-3 w-3" /> Insight de Wingman
@@ -782,7 +782,7 @@ function StreakBars({ current }: { current: number }) {
 function StreakCard({ current, longest, atRisk }: { current: number; longest: number; atRisk: boolean }) {
   if (current === 0) {
     return (
-      <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
+      <div className="relative overflow-hidden rounded-xl surface p-5">
         <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
         </span>
@@ -801,7 +801,7 @@ function StreakCard({ current, longest, atRisk }: { current: number; longest: nu
   }
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-card p-5">
+    <div className="relative overflow-hidden rounded-xl surface p-5">
       <div className="relative">
         <span className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
           <Flame className="h-3 w-3" /> Tu racha
@@ -862,7 +862,7 @@ function ActivityHeatmap({ data, loading }: { data: ActivityDay[]; loading: bool
   }
 
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-xl surface p-5">
       <div className="flex justify-between items-start gap-4 mb-4">
         <div>
           <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
@@ -959,7 +959,7 @@ function AchievementsCard({
     platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
   }
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-xl surface p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
@@ -1037,7 +1037,7 @@ function CohortCard({
   loading: boolean
 }) {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="rounded-xl surface p-5">
       <SectionTitle
         icon={Users}
         eyebrow="Tu cohorte"
@@ -1090,7 +1090,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
   return (
     <Link
       to={DAILY_ACTION.href}
-      className="anim-fade-up relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-lg p-5 text-white transition-colors"
+      className="surface-lift anim-fade-up relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl p-5 text-white"
       style={{ background: "var(--av-navy-900)", border: "1px solid var(--av-navy-700)" }}
     >
       <div className="flex items-center gap-3.5">
@@ -1123,7 +1123,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
 function DashboardSkeleton() {
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-24 max-w-[1480px] mx-auto animate-pulse">
         {/* Hero */}
         <div className="h-[232px] bg-muted rounded-lg" />
 

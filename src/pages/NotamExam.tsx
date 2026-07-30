@@ -235,7 +235,7 @@ export function NotamExam() {
         </div>
 
         {/* Pregunta */}
-        <div className="rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <div className="rounded-2xl surface p-5 sm:p-6">
           <div className="flex items-center justify-between gap-3 flex-wrap">
             <span
               className="inline-flex items-center gap-1.5 text-[12px] font-bold px-2.5 py-1 rounded-full"
@@ -931,7 +931,7 @@ function Result({
           <button
             type="button"
             onClick={onBackToIntro}
-            className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold border border-border bg-card hover:bg-muted transition-colors"
+            className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
           >
             <History className="h-4 w-4" /> Ver mi historial
           </button>

@@ -30,7 +30,7 @@ export function Library() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
             <div>
               <div
@@ -106,7 +106,7 @@ export function Library() {
         </div>
 
         {/* === CTA === */}
-        <section className="mt-10 rounded-2xl border border-border bg-card p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <section className="mt-10 rounded-2xl surface p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
           <div>
             <div
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
@@ -228,7 +228,7 @@ const CATEGORIES: CategoryProps[] = [
  */
 function CategoryTile({ icon: Icon, color, name, description, bullets }: CategoryProps) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 flex flex-col gap-3.5">
+    <div className="rounded-2xl surface p-6 flex flex-col gap-3.5">
       <div className="flex items-start gap-3.5">
         <div
           className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"

@@ -266,7 +266,7 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
 
 function NoChannelsYet() {
   return (
-    <div className="rounded-2xl border border-border bg-card p-8 text-center">
+    <div className="rounded-2xl surface p-8 text-center">
       <div
         className="inline-flex items-center justify-center h-12 w-12 rounded-2xl mb-3"
         style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
@@ -289,7 +289,7 @@ function ChannelCard({ channel, activity }: { channel: Channel; activity: Channe
   return (
     <Link
       to={`/app/comunidad/${channel.slug}`}
-      className="group block rounded-2xl border border-border bg-card p-4 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-4 transition-all hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
         e.currentTarget.style.boxShadow = "0 4px 16px color-mix(in oklab, var(--av-blue-500) 18%, transparent)"

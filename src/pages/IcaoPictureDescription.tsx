@@ -66,7 +66,7 @@ export function IcaoPictureDescription() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="flex items-center gap-3">
             <div
               className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center text-white"
@@ -99,7 +99,7 @@ export function IcaoPictureDescription() {
             return (
               <div
                 key={s.label}
-                className="rounded-2xl border border-border bg-card p-3"
+                className="rounded-2xl surface p-3"
               >
                 <div className="flex items-center gap-2">
                   <span
@@ -244,7 +244,7 @@ function PictureCard({ letter, src, alt }: { letter: string; src: string; alt: s
 function Hint({ icon: Icon, color, text }: { icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>; color: string; text: string }) {
   return (
     <div
-      className="flex items-start gap-2 rounded-lg border border-border bg-card p-2.5 text-[13.5px] text-foreground/90"
+      className="flex items-start gap-2 rounded-lg surface p-2.5 text-[13.5px] text-foreground/90"
     >
       <Icon className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color }} />
       <span>{text}</span>
@@ -257,7 +257,7 @@ function NavBtn({ disabled, onClick, dir }: { disabled: boolean; onClick: () => 
     <button
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex items-center justify-center h-9 w-9 rounded-xl border border-border bg-card hover:bg-muted transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
+      className="inline-flex items-center justify-center h-9 w-9 rounded-xl surface hover:bg-muted transition-colors disabled:opacity-35 disabled:cursor-not-allowed"
       aria-label={dir === "prev" ? "Par anterior" : "Par siguiente"}
     >
       {dir === "prev" ? <ChevronLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}

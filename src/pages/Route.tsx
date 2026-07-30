@@ -231,7 +231,7 @@ export function Route() {
           <div className="grid gap-4 sm:grid-cols-2 max-w-[840px]">
             <Link
               to="/app/pca"
-              className="rounded-2xl border border-border bg-card p-5 card-apple block"
+              className="rounded-2xl surface p-5 card-apple block"
             >
               <span
                 className="flex h-10 w-10 items-center justify-center rounded-xl"
@@ -246,7 +246,7 @@ export function Route() {
             </Link>
             <Link
               to="/app/logbook"
-              className="rounded-2xl border border-border bg-card p-5 card-apple block"
+              className="rounded-2xl surface p-5 card-apple block"
             >
               <span
                 className="flex h-10 w-10 items-center justify-center rounded-xl"
@@ -277,7 +277,7 @@ export function Route() {
         />
 
         {/* Stage track */}
-        <div className="relative rounded-2xl border border-border bg-card p-8 mb-7 overflow-x-auto">
+        <div className="relative rounded-2xl surface p-8 mb-7 overflow-x-auto">
           <div className="relative min-w-[640px]">
             {/* Track */}
             <div className="relative py-2 pb-8">
@@ -331,7 +331,7 @@ export function Route() {
         </div>
 
         {/* Progress strip */}
-        <div className="rounded-2xl border border-border bg-card p-6 mb-6">
+        <div className="rounded-2xl surface p-6 mb-6">
           <div className="flex justify-between items-baseline mb-3">
             <div>
               <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
@@ -371,7 +371,7 @@ export function Route() {
                 eyebrow={cat}
                 title={`${catComplete} / ${catItems.length} completos`}
               />
-              <div className="rounded-2xl border border-border bg-card overflow-hidden">
+              <div className="rounded-2xl surface overflow-hidden">
                 {catItems.map((item, i) => {
                   const checked = completedIds.has(item.id)
                   const toggling = togglingId === item.id

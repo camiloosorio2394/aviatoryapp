@@ -26,7 +26,7 @@ export function InterviewSim() {
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section className="anim-fade-up relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
             <div>
               <div
@@ -189,7 +189,7 @@ export function InterviewSim() {
           <MetricCard icon={Mic} color="amber" title="Muletillas" detail="Conteo y patrón de filler words" />
         </div>
 
-        <section className="mt-10 rounded-2xl border border-border bg-card p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <section className="mt-10 rounded-2xl surface p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
           <div>
             <div
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
@@ -218,7 +218,7 @@ export function InterviewSim() {
             </Link>
             <Link
               to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               Comunidad <ArrowRight className="h-3.5 w-3.5" />
             </Link>

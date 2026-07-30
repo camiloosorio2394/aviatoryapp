@@ -68,7 +68,7 @@ export function IcaoInterview() {
         </Link>
 
         {/* Header */}
-        <section className="relative overflow-hidden rounded-2xl border border-border bg-card p-7 sm:p-8">
+        <section className="relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div
             className="inline-flex items-center gap-2 w-9 h-9 rounded-xl mb-4 flex items-center justify-center"
             style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}

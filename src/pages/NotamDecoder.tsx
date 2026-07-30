@@ -313,7 +313,7 @@ export function NotamDecoder() {
           actions={
             <Link
               to="/app/aerolinea/notam/practica"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold border border-border bg-card hover:bg-muted transition-colors"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-sm font-semibold surface hover:bg-muted transition-colors"
             >
               Ir a practicar <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -323,7 +323,7 @@ export function NotamDecoder() {
         {/* ═══ 1. DECODIFICADOR EN VIVO ═══ */}
         <section
           ref={decoderRef}
-          className="scroll-mt-6 rounded-2xl border border-border bg-card p-5 sm:p-7 anim-fade-up"
+          className="scroll-mt-6 rounded-2xl surface p-5 sm:p-7 anim-fade-up"
         >
           <SectionTitle
             icon={ScanLine}
@@ -475,7 +475,7 @@ export function NotamDecoder() {
         </section>
 
         {/* ═══ 2. CONVERSOR DE FECHA Y HORA ═══ */}
-        <section className="mt-7 rounded-2xl border border-border bg-card p-5 sm:p-6">
+        <section className="mt-7 rounded-2xl surface p-5 sm:p-6">
           <SectionTitle
             icon={Clock}
             eyebrow="Conversor de fecha y hora"
@@ -533,7 +533,7 @@ export function NotamDecoder() {
                       { g: "02", l: "hora" },
                       { g: "30", l: "minutos" },
                     ].map((b) => (
-                      <span key={b.l} className="rounded-lg border border-border bg-card px-2.5 py-1.5">
+                      <span key={b.l} className="rounded-lg surface px-2.5 py-1.5">
                         <span className="font-bold text-foreground">{b.g}</span>{" "}
                         <span className="text-[11px] text-muted-foreground">{b.l}</span>
                       </span>
@@ -593,7 +593,7 @@ export function NotamDecoder() {
             hint="Toca cualquier fila para llevar ese código al decodificador de arriba."
           />
 
-          <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+          <div className="rounded-2xl surface p-4 sm:p-5">
             {/* Pestanias */}
             <div role="tablist" aria-label="Tablas de códigos" className="flex flex-wrap gap-2">
               <TabButton
@@ -752,7 +752,7 @@ export function NotamDecoder() {
           </div>
 
           {/* Reglas especiales */}
-          <div className="mt-4 rounded-2xl border border-border bg-card p-5">
+          <div className="mt-4 rounded-2xl surface p-5">
             <div className="text-[17px] font-bold tracking-[-0.01em]">
               Reglas especiales que conviene tener a mano
             </div>
@@ -802,7 +802,7 @@ export function NotamDecoder() {
               </span>
             }
           />
-          <div className="rounded-2xl border border-border bg-card p-4 sm:p-5">
+          <div className="rounded-2xl surface p-4 sm:p-5">
             <div className="relative">
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input

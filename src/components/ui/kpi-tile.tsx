@@ -27,7 +27,7 @@ export function KpiTile({ eyebrow, value, suffix, note, tone, ring, format }: Pr
   const warn = tone === "warn"
 
   return (
-    <div className="rounded-xl border border-border bg-card px-5 py-4 flex flex-col gap-1">
+    <div className="rounded-xl surface px-5 py-4 flex flex-col gap-1">
       <div className="text-[13px] text-muted-foreground">{eyebrow}</div>
 
       <div className="flex items-end justify-between gap-2">
