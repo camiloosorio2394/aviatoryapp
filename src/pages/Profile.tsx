@@ -58,12 +58,12 @@ interface Skill {
 
 /** Próximo paso accionable por dimensión (a qué módulo ir para mejorarla). */
 const DIM_ADVICE: Record<string, { cta: string; href: string }> = {
-  horas: { cta: "Registrá tus vuelos en el Logbook", href: "/app/logbook" },
+  horas: { cta: "Registra tus vuelos en el Logbook", href: "/app/logbook" },
   pic: { cta: "Sumá horas como PIC en el Logbook", href: "/app/logbook" },
   icao: { cta: "Hacé el simulacro TEA", href: "/app/icao/simulacro" },
-  licencias: { cta: "Cargá tus licencias en Vencimientos", href: "/app/vencimientos" },
-  xc: { cta: "Registrá vuelos cross-country", href: "/app/logbook" },
-  recurrencia: { cta: "Revisá tus vencimientos", href: "/app/vencimientos" },
+  licencias: { cta: "Carga tus licencias en Vencimientos", href: "/app/vencimientos" },
+  xc: { cta: "Registra vuelos cross-country", href: "/app/logbook" },
+  recurrencia: { cta: "Revisa tus vencimientos", href: "/app/vencimientos" },
 }
 
 function icaoLevelLabel(n: number): string {
@@ -671,7 +671,7 @@ function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill
           </div>
           {strengths.length === 0 ? (
             <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Todavía no hay datos suficientes para destacar fortalezas. Empezá por los próximos
+              Todavía no hay datos suficientes para destacar fortalezas. Empieza por los próximos
               pasos →
             </p>
           ) : (

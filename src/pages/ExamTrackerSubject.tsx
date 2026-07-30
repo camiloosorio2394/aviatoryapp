@@ -294,7 +294,7 @@ function EmptyTopics() {
     <div className="rounded-2xl border border-dashed border-border/60 p-8 text-center">
       <TrendingUp className="h-10 w-10 text-muted-foreground/40 mx-auto mb-3" />
       <p className="text-sm text-muted-foreground">
-        Cuando haya reportes con temas tagueados, vas a ver acá los que más caen.
+        Cuando haya reportes con temas tagueados, vas a ver aquí los que más caen.
       </p>
     </div>
   )

@@ -139,7 +139,7 @@ export function IcaoInterview() {
             <span className="text-[13.5px] text-muted-foreground">
               Completá tu perfil (etapa, horas, aerolínea objetivo) para ver{" "}
               <strong className="text-foreground">ejemplos armados con tus datos</strong> en las
-              preguntas sobre vos.
+              preguntas sobre ti.
             </span>
           </Link>
         )}

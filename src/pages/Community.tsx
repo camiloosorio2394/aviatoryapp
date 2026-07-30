@@ -52,7 +52,7 @@ export function Community() {
         <PageHeader
           eyebrow={`COMUNIDAD · ${totalChannels} CANALES`}
           title="Comunidad Aviatory"
-          subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo. Entrá a un canal para escribir."
+          subtitle="Pilotos LATAM organizados por etapa, materia y aerolínea. Ningún piloto llega a la cabina solo. Entra a un canal para escribir."
         />
 
         {loading ? (
@@ -111,7 +111,7 @@ export function Community() {
             <h3 className="text-sm font-bold text-foreground">Normas de la comunidad</h3>
             <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
               Tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido pirata.
-              Si necesitas moderación, escribinos a <span className="font-semibold">hola@aviatory.app</span>.
+              Si necesitas moderación, escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
             </p>
           </div>
         </div>

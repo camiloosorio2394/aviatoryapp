@@ -157,7 +157,7 @@ export function Logbook() {
         <PageHeader
           eyebrow={`LOGBOOK · ${minutesToHours(stats.total)}h TOTALES`}
           title="Bitácora de vuelo"
-          subtitle="Cada vuelo cuenta hacia tu próxima aerolínea. Registrá apenas aterrices."
+          subtitle="Cada vuelo cuenta hacia tu próxima aerolínea. Registra apenas aterrices."
           actions={
             <>
               <button
@@ -472,7 +472,7 @@ function EmptyState({ onAdd }: { onAdd: () => void }) {
       <ol className="mt-5 list-none p-0 space-y-2.5 text-left max-w-[360px] mx-auto">
         {[
           "Tomá tu logbook actual o pantalla del último vuelo",
-          "Cargá fecha, ruta, matrícula y tiempo total",
+          "Carga fecha, ruta, matrícula y tiempo total",
           "El resto se calcula y se suma a tus stats",
         ].map((s, i) => (
           <li key={i} className="flex items-center gap-2.5 text-sm text-muted-foreground">

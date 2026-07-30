@@ -200,7 +200,7 @@ export function Expiries() {
                 {critical} ítem{critical !== 1 ? "s necesitan" : " necesita"} acción esta semana
               </div>
               <div className="text-xs text-muted-foreground mt-0.5">
-                Si no renovás antes del vencimiento perdés legalidad para volar PIC.
+                Si no renuevas antes del vencimiento pierdes legalidad para volar PIC.
               </div>
             </div>
           </div>

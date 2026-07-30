@@ -91,7 +91,7 @@ export async function buildInitialTest(): Promise<BuiltTest> {
       kind: "audio",
       area: "icao",
       areaLabel: "Inglés ICAO",
-      prompt: "Escuchá el audio. ¿Quién está hablando?",
+      prompt: "Escucha el audio. ¿Quién está hablando?",
       options: [
         { letter: "A", text: "Pilot" },
         { letter: "B", text: "Controller" },

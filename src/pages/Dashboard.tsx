@@ -114,6 +114,19 @@ const STAGE_PROGRESS: Record<PilotStage, number> = {
   airline_candidate: 92,
 }
 
+/**
+ * Avance real a aerolínea: la etapa pesa 60%, el inglés ICAO 25% (la meta
+ * es nivel 4, el mínimo legal) y la práctica reciente 15% (techo: 20
+ * quizzes). Antes el número era solo la etapa y un candidato con ICAO 2
+ * veía 92%, contradiciendo al propio insight de Wingman.
+ */
+function computeAirlineProgress(stage: PilotStage, icao: number | null, attempts: number): number {
+  const stageBase = STAGE_PROGRESS[stage]
+  const icaoPct = (Math.min(icao ?? 0, 4) / 4) * 100
+  const practicePct = (Math.min(attempts, 20) / 20) * 100
+  return Math.round(0.6 * stageBase + 0.25 * icaoPct + 0.15 * practicePct)
+}
+
 interface NextStep {
   title: string
   description: string
@@ -283,7 +296,7 @@ export function Dashboard() {
   const stage = pilot?.stage ?? null
   const stageLabel = stage ? STAGE_LABEL[stage] : "—"
   const identity = stage ? STAGE_IDENTITY[stage] : "piloto"
-  const progress = stage ? STAGE_PROGRESS[stage] : 0
+  const progress = stage ? computeAirlineProgress(stage, pilot?.icao_english_level ?? null, recentAttempts) : 0
   const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
@@ -323,7 +336,7 @@ export function Dashboard() {
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <div>
-                <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empezá por acá</div>
+                <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Empieza por aquí</div>
                 <div className="mt-0.5 text-[17px] font-extrabold tracking-[-0.01em]">Hacé tu test inicial</div>
                 <div className="text-[13.5px] text-muted-foreground">Inglés ICAO + 2 por materia · ~15 min · descubrí tu Nivel Inicial.</div>
               </div>
@@ -417,7 +430,7 @@ function CockpitHero({
                 <span className="text-muted-foreground/40">·</span>
                 <span className="inline-flex items-center gap-1.5">
                   <Flame className="h-3.5 w-3.5" style={{ color: "var(--av-amber-400)" }} />
-                  {streakDays} días de racha
+                  {streakDays} {streakDays === 1 ? "día" : "días"} de racha
                 </span>
               </>
             )}
@@ -528,7 +541,7 @@ function WingmanInsight({
     if (recentAttempts === 0) {
       return {
         title: "Empieza con Meteorología",
-        body: "Es la materia más densa y la que más cae en el examen Aerocivil. Si la dominás primero, el resto fluye.",
+        body: "Es la materia más densa y la que más cae en el examen Aerocivil. Si la dominas primero, el resto fluye.",
         cta: "Comenzar Meteo",
         href: "/app/pca/quiz/meteorologia",
       }
@@ -899,7 +912,7 @@ function DailyQuizCard({ count, firstSubject }: { count: number; firstSubject: s
             {count} preguntas{firstSubject ? ` · empezá con ${firstSubject}` : ""}
           </div>
           <div className="text-xs opacity-85 mt-0.5">
-            Curadas para vos. Se renueva mañana, no las dejes pasar.
+            Curadas para ti. Se renueva mañana, no las dejes pasar.
           </div>
         </div>
       </div>

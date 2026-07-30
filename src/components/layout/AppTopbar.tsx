@@ -183,7 +183,7 @@ export function AppTopbar({
               color: "var(--av-blue-500)",
             }}
           >
-            ⌘K
+            {navigator.platform.toUpperCase().includes("MAC") ? "⌘K" : "Ctrl K"}
           </kbd>
         </button>
       </div>
@@ -194,7 +194,7 @@ export function AppTopbar({
         {streak !== undefined && streak > 0 && (
           <div className="chip chip-amber mono tabular-nums h-[30px] px-3 text-xs hidden sm:inline-flex">
             <Flame className="h-3.5 w-3.5" />
-            {streak} días
+            {streak} {streak === 1 ? "día" : "días"}
           </div>
         )}
 
