@@ -15,6 +15,8 @@ import {
 } from "lucide-react"
 import {
   AerodromeIcon,
+  HoldingIcon,
+  LocalizerIcon,
   NdbIcon,
   VorIcon,
   WaypointIcon,
@@ -27,6 +29,14 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile } from "@/components/ui/kpi-tile"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import {
+  EXAM_PASS_SCORE as NOTAM_PASS_SCORE,
+  TOTALS as NOTAM_TOTALS,
+  accentText,
+  readLocalProgress as readNotamLocal,
+} from "@/lib/notam"
+import { fetchNotamProgress } from "@/lib/notamProgress"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 
 type PilotStage =
@@ -87,6 +97,27 @@ interface Peer {
   username: string
   current_streak: number
 }
+
+/** Fila de get_subject_mastery: avance real contra el banco PCA, por materia. */
+interface SubjectMastery {
+  subject_id: number
+  subject_name: string
+  subject_slug: string
+  total_questions: number
+  total_attempted: number
+  attempts_count: number
+  avg_score: number
+  mastery_level: string
+}
+
+/** Resumen NOTAM para la card de curso. Mismo cálculo que el hub del módulo. */
+interface NotamResumen {
+  lesson: number
+  practice: number
+  best: number | null
+}
+
+const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALS.exercises + NOTAM_TOTALS.national
 
 const STAGE_LABEL: Record<PilotStage, string> = {
   student_ppl: "Estudiante PPL",
@@ -226,6 +257,8 @@ export function Dashboard() {
   const [heatmap, setHeatmap] = useState<ActivityDay[]>([])
   const [peers, setPeers] = useState<Peer[]>([])
   const [daily, setDaily] = useState<DailyQuizQuestion[]>([])
+  const [mastery, setMastery] = useState<SubjectMastery[]>([])
+  const [notam, setNotam] = useState<NotamResumen | null>(null)
 
   useEffect(() => {
     if (!user) return
@@ -271,12 +304,17 @@ export function Dashboard() {
 
     async function loadDeferred() {
       try {
-        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes] = await Promise.all([
+        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes, masteryRes, notamProg, notamBestRes] = await Promise.all([
           supabase.from("achievements").select("*").order("order_index"),
-          supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }).limit(4),
+          // Sin limit: la card de logros muestra la colección completa y
+          // necesita saber cuáles están desbloqueados, no solo los últimos 4.
+          supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }),
           supabase.rpc("get_activity_heatmap"),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
           supabase.rpc("get_daily_quiz"),
+          supabase.rpc("get_subject_mastery"),
+          fetchNotamProgress(user!.id),
+          supabase.from("user_notam_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1),
         ])
 
         supabase.rpc("check_my_expiries").then(() => undefined)
@@ -295,6 +333,18 @@ export function Dashboard() {
         setHeatmap((heatmapRes.data ?? []) as ActivityDay[])
         setPeers((peersRes.data ?? []) as Peer[])
         setDaily((dailyRes.data ?? []) as DailyQuizQuestion[])
+        setMastery((masteryRes.data ?? []) as SubjectMastery[])
+
+        // NOTAM: remoto unido al respaldo local, igual que el hub del módulo.
+        // Todo en cero significa curso sin empezar, y la card lo dice con un
+        // guion en vez de un 0%.
+        const local = readNotamLocal()
+        const lesson = new Set([...(notamProg?.lessonScreens ?? []), ...local.lessonScreens]).size
+        const practice = new Set([...(notamProg?.practiceDone ?? []), ...local.exercisesDone]).size
+        const remoteBest = (notamBestRes.data as { score: number | null }[] | null)?.[0]?.score ?? null
+        const scores = [remoteBest, local.bestExamScore].filter((v): v is number => typeof v === "number")
+        const best = scores.length > 0 ? Math.max(...scores) : null
+        setNotam(lesson === 0 && practice === 0 && best === null ? null : { lesson, practice, best })
       } catch {
         // Estas cards muestran su propio estado vacío si algo falla: no
         // interrumpimos el dashboard con un toast por el heatmap.
@@ -309,10 +359,22 @@ export function Dashboard() {
     }
   }, [user])
 
-  const nextAchievement = useMemo(() => {
-    const unlockedCodes = new Set(achievements.map((a) => a.code))
-    return allAchievements.find((a) => !unlockedCodes.has(a.code))
-  }, [achievements, allAchievements])
+  /** Agregado PCA: cobertura real del banco y la materia más floja con datos. */
+  const pca = useMemo(() => {
+    const totalQ = mastery.reduce((a, m) => a + m.total_questions, 0)
+    const attempted = mastery.reduce((a, m) => a + m.total_attempted, 0)
+    if (totalQ === 0 || attempted === 0) return null
+    const started = mastery.filter((m) => m.total_attempted > 0)
+    const weakest = started
+      .filter((m) => m.attempts_count > 0)
+      .sort((a, b) => a.avg_score - b.avg_score)[0]
+    return {
+      pct: Math.min(100, Math.round((attempted / totalQ) * 100)),
+      started: started.length,
+      totalSubjects: mastery.length,
+      weakest: weakest ?? null,
+    }
+  }, [mastery])
 
   if (loading) return <DashboardSkeleton />
 
@@ -385,6 +447,95 @@ export function Dashboard() {
             <ArrowRight className="hidden sm:block h-5 w-5 flex-shrink-0 text-muted-foreground" />
           </Link>
         )}
+
+        {/* Tus cursos. Es la respuesta a "cuánto me falta para terminar", que es
+            la pregunta con la que un estudiante entra, así que va antes que los
+            indicadores. Cada número sale de práctica registrada: donde no hay
+            datos la card dice "Sin empezar", nunca un cero decorativo. */}
+        <section className="mt-6">
+          <SectionTitle
+            icon={HoldingIcon}
+            eyebrow="Tus cursos"
+            title="Continúa donde quedaste"
+            hint="El avance sale de tu práctica registrada, no se estima."
+          />
+          {deferredLoading ? (
+            <div className="grid gap-4 md:grid-cols-3 mt-3">
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3 mt-3">
+              <CourseCard
+                icon={WaypointIcon}
+                color="blue"
+                eyebrow="Examen PCA"
+                title="Banco por materia"
+                href="/app/pca"
+                pct={pca?.pct ?? null}
+                done={false}
+                status={
+                  pca
+                    ? `${pca.started} de ${pca.totalSubjects} materias iniciadas`
+                    : "Ninguna materia iniciada"
+                }
+                hint={
+                  pca?.weakest
+                    ? `Refuerza ${pca.weakest.subject_name}: ${Math.round(pca.weakest.avg_score)}% de acierto`
+                    : "El banco completo, materia por materia, con explicación."
+                }
+                cta={pca ? "Continuar" : "Empezar el curso"}
+              />
+              <CourseCard
+                icon={VorIcon}
+                color="cyan"
+                eyebrow="Inglés ICAO"
+                title="Camino al nivel 4"
+                href="/app/icao"
+                pct={icaoMeasured ? Math.min(100, Math.round(((icaoLevel ?? 0) / 4) * 100)) : null}
+                done={icaoMeasured && (icaoLevel ?? 0) >= 4}
+                status={
+                  icaoMeasured
+                    ? (icaoLevel ?? 0) >= 4
+                      ? `Nivel ${icaoLevel} · cumples el mínimo legal`
+                      : `Nivel ${icaoLevel} de 4 requerido`
+                    : "Sin nivel medido"
+                }
+                hint={
+                  icaoMeasured
+                    ? (icaoLevel ?? 0) >= 4
+                      ? "Mantenlo vivo: el nivel expira y las aerolíneas lo revisan."
+                      : "Vocabulario, audio real y simulacro completo del TEA."
+                    : "Mide tu nivel con el simulacro TEA y sabrás qué te falta."
+                }
+                cta={icaoMeasured ? "Continuar" : "Medir mi nivel"}
+              />
+              <CourseCard
+                icon={LocalizerIcon}
+                color="violet"
+                eyebrow="Prep aerolínea"
+                title="NOTAM"
+                href="/app/aerolinea/notam"
+                pct={notam ? notamPct(notam) : null}
+                done={notam !== null && notam.best !== null && notam.best >= NOTAM_PASS_SCORE}
+                status={
+                  notam
+                    ? `Lección ${Math.min(notam.lesson, NOTAM_TOTALS.lessonScreens)} de ${NOTAM_TOTALS.lessonScreens} · práctica ${Math.min(notam.practice, NOTAM_PRACTICE_TOTAL)} de ${NOTAM_PRACTICE_TOTAL}`
+                    : "Sin empezar"
+                }
+                hint={
+                  notam?.best != null
+                    ? notam.best >= NOTAM_PASS_SCORE
+                      ? `Evaluación aprobada con ${notam.best} de 100.`
+                      : `Mejor puntaje en la evaluación: ${notam.best} de 100.`
+                    : "Lección, decodificador y práctica con NOTAM reales de la Aerocivil."
+                }
+                cta={notam ? "Continuar" : "Empezar NOTAM"}
+              />
+            </div>
+          )}
+        </section>
 
         {/* Instrument cluster: sin curvas inventadas, solo el número que la app
             sostiene. Donde todavía no hay nada medido va un guion y no un cero:
@@ -466,14 +617,119 @@ export function Dashboard() {
         <div className="grid lg:grid-cols-[2fr_1fr] gap-4">
           <AchievementsCard
             unlocked={achievements}
-            next={nextAchievement ?? null}
-            total={allAchievements.length}
+            all={allAchievements}
             loading={deferredLoading}
           />
           <CohortCard peers={peers} stageLabel={stageLabel} loading={deferredLoading} />
         </div>
       </div>
     </AppLayout>
+  )
+}
+
+/**
+ * Avance del curso NOTAM, con la misma fórmula del hub del módulo: lección,
+ * práctica y evaluación pesan igual, y la evaluación aporta el mejor puntaje
+ * (o el 100 si ya está aprobada). Si se toca allá, hay que tocarla aquí.
+ */
+function notamPct(n: NotamResumen): number {
+  const lessonPct = (Math.min(n.lesson, NOTAM_TOTALS.lessonScreens) / NOTAM_TOTALS.lessonScreens) * 100
+  const practicePct = (Math.min(n.practice, NOTAM_PRACTICE_TOTAL) / NOTAM_PRACTICE_TOTAL) * 100
+  const examPct = n.best !== null && n.best >= NOTAM_PASS_SCORE ? 100 : (n.best ?? 0)
+  return Math.round((lessonPct + practicePct + examPct) / 3)
+}
+
+/**
+ * Card de curso: cuánto llevas, qué sigue y una sola salida.
+ *
+ * La barra solo existe cuando hay avance real. Sin práctica registrada va un
+ * guion y "Sin empezar": una barra en cero el primer día se lee como fracaso,
+ * y un 0% sería un dato que la app no puede sostener.
+ */
+function CourseCard({
+  icon: Ic,
+  color,
+  eyebrow,
+  title,
+  href,
+  pct,
+  done,
+  status,
+  hint,
+  cta,
+}: {
+  icon: IconComponent
+  color: TileColorKey
+  eyebrow: string
+  title: string
+  href: string
+  pct: number | null
+  done: boolean
+  status: string
+  hint: string
+  cta: string
+}) {
+  return (
+    <Link to={href} className="surface-lift group flex flex-col rounded-xl surface p-5">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          {/* Los iconos aero solo aceptan className: el color viaja por
+              currentColor desde el contenedor. */}
+          <div
+            className="flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0"
+            style={{
+              background: tileTint(color),
+              border: `1px solid ${tileBorder(color, 20)}`,
+              color: accentText(TILE_COLOR[color], 75),
+            }}
+          >
+            <Ic className="h-5 w-5" />
+          </div>
+          <div className="min-w-0">
+            <div className="text-[12px] text-muted-foreground">{eyebrow}</div>
+            <div className="text-[17px] font-semibold text-foreground tracking-[-0.021em] truncate">
+              {title}
+            </div>
+          </div>
+        </div>
+        {done && <span className="chip chip-green flex-shrink-0">Completo</span>}
+      </div>
+
+      <div className="mt-4">
+        {pct === null ? (
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-[13px] text-muted-foreground">{status}</span>
+            <span className="text-[24px] font-semibold tracking-[-0.03em] text-muted-foreground/50">
+              —
+            </span>
+          </div>
+        ) : (
+          <>
+            <div className="flex items-baseline justify-between gap-3 mb-2">
+              <span className="text-[13px] text-muted-foreground">{status}</span>
+              <span className="tabular-nums text-[24px] font-semibold tracking-[-0.03em] text-foreground">
+                {pct}%
+              </span>
+            </div>
+            <div className="h-1.5 rounded-full overflow-hidden bg-muted">
+              <div
+                className="h-full rounded-full transition-[width] duration-700"
+                style={{ width: `${pct}%`, background: TILE_COLOR[color] }}
+              />
+            </div>
+          </>
+        )}
+      </div>
+
+      <p className="mt-3 text-[13px] text-muted-foreground leading-snug flex-1">{hint}</p>
+
+      <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
+        <span className="text-[13px] font-semibold" style={{ color: accentText(TILE_COLOR[color]) }}>
+          {cta}
+        </span>
+        <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
+      </div>
+    </Link>
   )
 }
 
@@ -855,29 +1111,51 @@ function ActivityHeatmap({
   )
 }
 
+/**
+ * Logros como colección visible, no como fichas sueltas.
+ *
+ * El diseño anterior eran emojis flotando sobre cuatro gradientes, sin nombre a
+ * la vista y con el "próximo" en gris lavado. Se veían ocho medallas y nada
+ * más: ni cuántas hay, ni cuáles faltan, ni por qué querría uno la siguiente.
+ * Ahora se ve la colección entera, lo desbloqueado en el color de su nivel y lo
+ * pendiente en silueta con borde punteado, cada uno con su nombre. Ver los
+ * huecos es lo que empuja a llenarlos; esconderlos no motivaba nada.
+ */
 function AchievementsCard({
   unlocked,
-  next,
-  total,
+  all,
   loading,
 }: {
   unlocked: Achievement[]
-  next: Achievement | null
-  total: number
+  all: Achievement[]
   loading: boolean
 }) {
-  const TIER_GRAD: Record<Achievement["tier"], string> = {
-    bronze: "linear-gradient(135deg, oklch(0.75 0.12 60), oklch(0.55 0.15 40))",
-    silver: "linear-gradient(135deg, oklch(0.85 0.01 250), oklch(0.55 0.02 250))",
-    gold: "linear-gradient(135deg, oklch(0.85 0.14 85), oklch(0.65 0.16 65))",
-    platinum: "linear-gradient(135deg, var(--av-cyan-300), var(--av-violet-400))",
+  /** Color de nivel desde tokens. Los gradientes a mano eran cuatro superficies
+   *  que no existían en ninguna otra parte de la app. */
+  const TIER_COLOR: Record<Achievement["tier"], string> = {
+    bronze: "color-mix(in oklab, var(--av-amber-400) 45%, var(--av-red-400))",
+    silver: "var(--muted-foreground)",
+    gold: "var(--av-amber-400)",
+    platinum: "var(--av-cyan-400)",
   }
+  const TIER_LABEL: Record<Achievement["tier"], string> = {
+    bronze: "Bronce",
+    silver: "Plata",
+    gold: "Oro",
+    platinum: "Platino",
+  }
+
+  const unlockedCodes = new Set(unlocked.map((a) => a.code))
+  const next = all.find((a) => !unlockedCodes.has(a.code)) ?? null
+  const shown = all.slice(0, 12)
+  const pct = all.length > 0 ? Math.round((unlockedCodes.size / all.length) * 100) : 0
+
   return (
     <div className="rounded-xl surface p-5">
       <SectionTitle
         icon={Trophy}
         eyebrow="Logros"
-        title={loading ? "Cargando tus logros" : `${unlocked.length} / ${total} desbloqueados`}
+        title={loading ? "Cargando tu colección" : `${unlockedCodes.size} de ${all.length} desbloqueados`}
         right={
           <Link
             to="/app/perfil"
@@ -888,53 +1166,87 @@ function AchievementsCard({
           </Link>
         }
       />
+
       {loading ? (
-        <div className="h-[132px] rounded-xl bg-muted animate-pulse" />
-      ) : unlocked.length === 0 ? (
+        <div className="h-[180px] rounded-xl bg-muted animate-pulse" />
+      ) : all.length === 0 ? (
         <EmptyState
           icon={Trophy}
-          title="Tu primer logro está a un quiz de distancia"
-          line="Completa el quiz de hoy y desbloqueas el primero de la colección."
+          title="La colección se está preparando"
+          line="Vuelve más tarde: aquí van a aparecer los logros."
           cta="Empezar quiz de hoy"
           href={DAILY_ACTION.href}
         />
       ) : (
-        <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
-          {unlocked.slice(0, 8).map((a) => (
-            <div key={a.code} className="aspect-square relative group" title={`${a.name}: ${a.description}`}>
-              <div
-                className="w-full h-full rounded-xl flex items-center justify-center text-[20px] transition-transform hover:scale-110"
-                style={{
-                  background: TIER_GRAD[a.tier],
-                  boxShadow:
-                    "0 4px 12px -4px rgb(0 0 0 / 20%), inset 0 1px 0 rgb(255 255 255 / 25%)",
-                }}
-              >
-                {a.icon}
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-
-      {next && (
         <>
-          <div className="div-dotted my-4" />
-          <div className="flex items-center gap-3">
+          {/* Cuánto llevas de la colección, en una barra real */}
+          <div className="h-1.5 rounded-full overflow-hidden bg-muted mb-6">
             <div
-              className="w-11 h-11 rounded-xl flex items-center justify-center text-[17px] opacity-40"
-              style={{ background: TIER_GRAD[next.tier], filter: "grayscale(0.5)" }}
-            >
-              {next.icon}
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="mono text-[12px] text-muted-foreground tracking-[0.12em] uppercase font-semibold">
-                Próximo
-              </div>
-              <div className="text-[15px] font-semibold text-foreground truncate">{next.name}</div>
-              <div className="text-[12px] text-muted-foreground truncate">{next.description}</div>
-            </div>
+              className="h-full rounded-full transition-[width] duration-700"
+              style={{ width: `${pct}%`, background: "var(--av-amber-400)" }}
+            />
           </div>
+
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-x-3 gap-y-4">
+            {shown.map((a) => {
+              const isUnlocked = unlockedCodes.has(a.code)
+              return (
+                <div
+                  key={a.code}
+                  className="flex flex-col items-center text-center gap-2 min-w-0"
+                  title={`${a.name}: ${a.description}${isUnlocked ? "" : " (pendiente)"}`}
+                >
+                  <div
+                    className="flex items-center justify-center w-12 h-12 rounded-full text-[20px] leading-none"
+                    style={
+                      isUnlocked
+                        ? {
+                            background: `color-mix(in oklab, ${TIER_COLOR[a.tier]} 16%, transparent)`,
+                            border: `1.5px solid color-mix(in oklab, ${TIER_COLOR[a.tier]} 55%, transparent)`,
+                          }
+                        : { background: "var(--muted)", border: "1.5px dashed var(--border)" }
+                    }
+                  >
+                    <span
+                      aria-hidden
+                      style={isUnlocked ? undefined : { filter: "grayscale(1)", opacity: 0.35 }}
+                    >
+                      {a.icon}
+                    </span>
+                  </div>
+                  <div
+                    className={`w-full text-[12px] leading-tight line-clamp-2 ${
+                      isUnlocked ? "font-semibold text-foreground" : "text-muted-foreground"
+                    }`}
+                  >
+                    {a.name}
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {next && (
+            <>
+              <div className="div-dotted my-4" />
+              <div className="flex items-start gap-3">
+                <span
+                  className="chip flex-shrink-0 mt-1"
+                  style={{
+                    color: accentText(TIER_COLOR[next.tier]),
+                    background: `color-mix(in oklab, ${TIER_COLOR[next.tier]} 12%, transparent)`,
+                    borderColor: `color-mix(in oklab, ${TIER_COLOR[next.tier]} 32%, transparent)`,
+                  }}
+                >
+                  {TIER_LABEL[next.tier]}
+                </span>
+                <p className="m-0 text-[13px] text-muted-foreground leading-snug">
+                  <span className="font-semibold text-foreground">Siguiente: {next.name}.</span>{" "}
+                  {next.description}
+                </p>
+              </div>
+            </>
+          )}
         </>
       )}
     </div>
@@ -1040,6 +1352,13 @@ function DashboardSkeleton() {
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto animate-pulse">
         {/* Hero */}
         <div className="h-[232px] bg-muted rounded-lg" />
+
+        {/* Tus cursos */}
+        <div className="grid gap-4 md:grid-cols-3 mt-6">
+          <div className="h-[184px] bg-muted rounded-lg" />
+          <div className="h-[184px] bg-muted rounded-lg" />
+          <div className="h-[184px] bg-muted rounded-lg" />
+        </div>
 
         {/* Instrument cluster */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6 mb-6">
