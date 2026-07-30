@@ -5,7 +5,6 @@ import {
   BookOpen,
   Radio,
   Briefcase,
-  FileSearch,
   Cpu,
   Radar,
   Clock,
@@ -62,7 +61,6 @@ const navSections: NavSection[] = [
     label: "Carrera",
     items: [
       { to: "/app/aerolinea", label: "Prep aerolínea", icon: Briefcase },
-      { to: "/app/aerolinea/notam", label: "NOTAM", icon: FileSearch },
       { to: "/app/exam-tracker", label: "Exam Tracker", icon: Radar },
       { to: "/app/aerolineas", label: "Match aerolíneas", icon: Plane },
     ],

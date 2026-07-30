@@ -419,43 +419,6 @@ export function Notam() {
           </div>
         </section>
 
-        {/* Anticipo: como se lee un NOTAM en 6 pasos */}
-        <section className="mt-10 rounded-2xl border border-border bg-card p-6">
-          <SectionTitle
-            icon={ListOrdered}
-            eyebrow="Anticipo de la lección"
-            title="Cómo se lee un NOTAM en 6 pasos"
-            hint="Este es el mapa que sigues siempre, en este orden."
-          />
-          <ol className="grid gap-2.5 sm:grid-cols-2">
-            {PASOS.map((paso, i) => (
-              <li key={paso.titulo} className="flex items-start gap-3">
-                <span
-                  className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-bold"
-                  style={{
-                    background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)",
-                    color: "var(--av-blue-500)",
-                  }}
-                >
-                  {i + 1}
-                </span>
-                <div className="min-w-0">
-                  <div className="text-[14.5px] font-semibold tracking-[-0.01em]">{paso.titulo}</div>
-                  <div className="text-[13px] text-muted-foreground leading-relaxed">
-                    {paso.detalle}
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <Link
-            to="/app/aerolinea/notam/aprende"
-            className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-            style={{ color: "var(--av-blue-500)" }}
-          >
-            Ver la lección completa <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </section>
       </div>
     </AppLayout>
   )
@@ -591,38 +554,3 @@ function ProgresoSkeleton() {
     </div>
   )
 }
-
-// ─── Los 6 pasos de lectura (anticipo de la leccion) ─────────────────────────
-
-const PASOS: { titulo: string; detalle: string }[] = [
-  {
-    titulo: "Encabezado y casilla A",
-    detalle:
-      "Serie, número y año, si es nuevo, si reemplaza o si cancela otro, y en A el indicador OACI del aeródromo o de la FIR afectada.",
-  },
-  {
-    titulo: "Código Q de 5 letras",
-    detalle:
-      "Q fija, dos letras de asunto (qué cosa) y dos de estado (qué le pasa). Es lo primero que miras para saber si te afecta.",
-  },
-  {
-    titulo: "Tránsito, propósito y alcance",
-    detalle:
-      "Si aplica a IFR, VFR o a los dos, para qué se publica y si el alcance es del aeródromo, en ruta o de avisos a la navegación.",
-  },
-  {
-    titulo: "Casillas B, C y D en UTC",
-    detalle:
-      "B es el inicio, C el fin (o PERM) y D el horario dentro de ese periodo. Siempre en UTC: para Colombia le restas 5 horas.",
-  },
-  {
-    titulo: "Casilla E",
-    detalle:
-      "El texto en sí, con abreviaturas OACI (RWY, CLSD, U/S, WIP). Es la parte que de verdad te dice qué hacer.",
-  },
-  {
-    titulo: "Casillas F y G",
-    detalle:
-      "Límites verticales inferior y superior. Aparecen cuando el aviso afecta un volumen de espacio aéreo, por ejemplo obstáculos o vuelos de UAS.",
-  },
-]
