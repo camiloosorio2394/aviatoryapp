@@ -1,0 +1,12 @@
+Coloca aqui el banco de preguntas oficial de Aerocivil con este nombre exacto:
+
+  banco-preguntas-aerocivil.pdf
+
+La ruta publica queda en /docs/banco-preguntas-aerocivil.pdf y es la que
+enlaza el modulo Examen PCA.
+
+Si cambias el nombre del archivo hay que actualizar OFFICIAL_BANK_PDF en
+src/pages/Pca.tsx, o el enlace queda roto.
+
+Los PDF no entran en el precache del service worker a proposito: pesan
+demasiado para guardarlos offline en todos los dispositivos.
