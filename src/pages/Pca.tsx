@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom"
 import {
   ArrowRight,
-  BookOpen,
   FileText,
   PlayCircle,
   Radar,
@@ -14,31 +13,22 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { StatTile } from "@/components/pca/StatTile"
 import { ModuleCard } from "@/components/pca/ModuleCard"
+import { ExamCountdown } from "@/components/pca/ExamCountdown"
+import { SubjectTable } from "@/components/pca/SubjectTable"
 import { useVaultSubjects } from "@/hooks/useVaultQuiz"
 import { usePcaStats } from "@/hooks/usePcaStats"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
 
-/** Bajo este número de preguntas la materia se marca como banco corto. */
-const SMALL_BANK = 20
-
 /**
  * Módulo Examen PCA.
  *
- * Panel, no documento. La versión anterior abría con dos bloques de texto
- * explicando la política del banco: información correcta en el sitio
- * equivocado, porque quien entra ya decidió estudiar y lo que necesita es
- * saber dónde continuar.
- *
- * El orden responde a las cuatro preguntas de entrada: qué hago (hero con una
- * acción), cuánto llevo (indicadores), dónde continúo (tarjetas de módulo) y
- * qué debo saber (avisos, en dos líneas).
- *
- * Los indicadores solo aparecen cuando hay actividad que medir. Seis celdas en
- * blanco el primer día convierten el panel en una lista de lo que no has
- * hecho; en su lugar va la franja de arranque.
+ * El orden responde a las cuatro preguntas de entrada: cuándo es el examen y
+ * qué hago (hero), cuánto llevo (indicadores), dónde continúo (tarjetas) y qué
+ * materia toca (tabla). Los avisos bajan al pie: informan una vez y después
+ * son ruido permanente si ocupan banda propia arriba.
  */
 export function Pca() {
-  const { stats, loading: statsLoading } = usePcaStats()
+  const { stats, loading: statsLoading, setExamDate } = usePcaStats()
   const { subjects, loading: subjectsLoading, error, reload } = useVaultSubjects("pca")
 
   const bankTotal = stats?.bank_total ?? 0
@@ -47,14 +37,24 @@ export function Pca() {
   const coverage =
     stats && stats.bank_total > 0 ? Math.round((stats.answered / stats.bank_total) * 100) : 0
 
+  const resume = stats?.resume_slug
+    ? stats.by_subject.find((s) => s.slug === stats.resume_slug)
+    : undefined
+  const resumePct =
+    resume && resume.total > 0 ? Math.round((resume.answered / resume.total) * 100) : 0
+
+  const rows = [...subjects]
+    .map((s) => ({
+      slug: s.subject_slug,
+      count: s.question_count,
+      answered: stats?.by_subject.find((x) => x.slug === s.subject_slug)?.answered ?? 0,
+    }))
+    .sort((a, b) => b.count - a.count)
+
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        {/* ── Hero ──
-            Foto solo aquí, como en el Dashboard y en ICAO. La regla del
-            proyecto es que cada módulo abre con su fotografía y el cuerpo
-            queda plano: si la foto se repite en las tarjetas deja de ser
-            identidad y pasa a ser decoración. */}
+        {/* ── Hero ── */}
         <section className="relative overflow-hidden rounded-xl mb-6">
           <img
             src={pcaFlightdeck}
@@ -72,18 +72,30 @@ export function Pca() {
           />
 
           <div className="relative p-6 sm:p-8">
-            <div className="flex items-center gap-2 text-[13px] text-white/70">
-              <ShieldCheck className="h-4 w-4" />
-              Banco oficial Aerocivil
-            </div>
-            <h1 className="mt-1.5 text-[32px] font-semibold tracking-[-0.03em] leading-[1.1] text-white">
-              Examen PCA
-            </h1>
-            <p className="mt-2 text-[15px] text-white/75 max-w-[52ch] leading-relaxed">
-              Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
-            </p>
+            <div className="flex flex-wrap items-start justify-between gap-6">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 text-[13px] text-white/70">
+                  <ShieldCheck className="h-4 w-4" />
+                  Banco oficial Aerocivil
+                </div>
+                <h1 className="mt-1.5 text-[32px] font-semibold tracking-[-0.03em] leading-[1.1] text-white">
+                  Examen PCA
+                </h1>
+                <p className="mt-2 text-[15px] text-white/75 max-w-[52ch] leading-relaxed">
+                  Entrena con las preguntas del examen oficial de Piloto Comercial de Avión.
+                </p>
+              </div>
 
-            <div className="mt-5 flex flex-wrap gap-3">
+              {!statsLoading && (
+                <ExamCountdown
+                  days={stats?.days_to_exam ?? null}
+                  onSave={(d) => setExamDate(d)}
+                />
+              )}
+            </div>
+
+            {/* Única entrada al simulacro en toda la pantalla. */}
+            <div className="mt-6">
               <Link
                 to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
                 className={appButtonClass({ size: "lg" })}
@@ -91,16 +103,6 @@ export function Pca() {
               >
                 Comenzar simulacro <ArrowRight className="h-4 w-4" />
               </Link>
-              {hasActivity && (
-                /* Variante propia para sobre foto: la secundaria del sistema usa
-                   la superficie de tarjeta y sobre el velo oscuro desaparece. */
-                <Link
-                  to="#materias"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-lg border border-white/25 bg-white/10 text-white text-[15px] font-medium backdrop-blur-sm transition-colors hover:bg-white/20"
-                >
-                  Continuar por materia
-                </Link>
-              )}
             </div>
           </div>
         </section>
@@ -152,29 +154,33 @@ export function Pca() {
           </section>
         )}
 
-        {/* ── Avisos, en dos líneas ── */}
-        <section className="grid gap-3 sm:grid-cols-2 mb-8">
-          {/* Sin enlace propio: la tarjeta de Banco oficial lleva al mismo
-              sitio y dos accesos idénticos a un palmo compiten entre sí. */}
-          <Alert
-            icon={ShieldCheck}
-            tone="success"
-            title="Preguntas verificadas contra Aerocivil"
-            line="Cada pregunta corresponde al documento oficial, y puedes comprobarlo."
-          />
-          <Alert
-            icon={TriangleAlert}
-            tone="warn"
-            title="El banco oficial tiene errores"
-            line="Te damos la respuesta técnica correcta y cuál marcar para aprobar."
-          />
-        </section>
-
-        {/* ── Módulos ── */}
-        <div id="materias" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-8">
-          {/* El documento oficial va primero y como tarjeta propia: es la
-              fuente de todo lo demás y el argumento de confianza del módulo.
-              Relegarlo a un enlace dentro de un aviso lo escondía. */}
+        {/* ── Accesos ── */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+          {/* Retomar donde se dejó, con la materia real. Sin historial la
+              tarjeta no promete continuidad: propone por dónde empezar. */}
+          {resume ? (
+            <ModuleCard
+              icon={PlayCircle}
+              title="Continuar donde quedaste"
+              description={getSubjectMeta(resume.slug).name}
+              to={`/app/pca/quiz/${resume.slug}?module=pca&count=${Math.min(10, resume.total)}`}
+              cta="Retomar"
+              progress={resumePct}
+              meta={`${resume.answered} de ${resume.total}`}
+            />
+          ) : (
+            <ModuleCard
+              icon={PlayCircle}
+              title="Empieza por la materia más grande"
+              description={rows[0] ? getSubjectMeta(rows[0].slug).name : "Elige una materia abajo"}
+              to={
+                rows[0]
+                  ? `/app/pca/quiz/${rows[0].slug}?module=pca&count=${Math.min(10, rows[0].count)}`
+                  : "#materias"
+              }
+              cta="Empezar"
+            />
+          )}
           <ModuleCard
             icon={FileText}
             title="Banco oficial"
@@ -182,22 +188,6 @@ export function Pca() {
             to="/app/banco-oficial"
             cta="Abrir documento"
             badge="Oficial"
-          />
-          <ModuleCard
-            icon={BookOpen}
-            title="Banco por materia"
-            description="Practica la materia que más te cuesta, en bloques cortos."
-            to="#lista-materias"
-            cta="Elegir materia"
-            progress={hasActivity ? coverage : undefined}
-            meta={stats ? `${stats.answered} de ${stats.bank_total}` : undefined}
-          />
-          <ModuleCard
-            icon={PlayCircle}
-            title="Simulacro"
-            description="Preguntas mezcladas de todas las materias, como el examen real."
-            to={`/app/pca/quiz/examen?module=pca&count=${examCount}`}
-            cta="Comenzar"
           />
           <ModuleCard
             icon={Radar}
@@ -209,23 +199,19 @@ export function Pca() {
           />
         </div>
 
-        {/* ── Lista de materias ── */}
-        <section id="lista-materias">
+        {/* ── Materias ── */}
+        <section id="materias" className="mb-8">
           <div className="flex items-baseline justify-between gap-3 mb-4">
             <h2 className="text-[20px] font-semibold tracking-[-0.02em]">Materias</h2>
             {!subjectsLoading && !error && (
               <span className="tabular-nums text-[13px] text-muted-foreground">
-                {subjects.length} abiertas
+                {rows.length} abiertas · {bankTotal} preguntas
               </span>
             )}
           </div>
 
           {subjectsLoading ? (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="h-[92px] rounded-xl surface animate-pulse" />
-              ))}
-            </div>
+            <div className="h-[320px] rounded-xl surface animate-pulse" />
           ) : error ? (
             <div className="surface rounded-xl p-6 text-center">
               <p className="text-[15px] font-semibold">No pudimos cargar las materias</p>
@@ -240,7 +226,7 @@ export function Pca() {
                 <RefreshCw className="h-4 w-4" /> Reintentar
               </button>
             </div>
-          ) : subjects.length === 0 ? (
+          ) : rows.length === 0 ? (
             <div className="surface rounded-xl p-6 text-center">
               <p className="text-[15px] font-semibold">Todavía no hay materias abiertas</p>
               <Link
@@ -251,21 +237,26 @@ export function Pca() {
               </Link>
             </div>
           ) : (
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {[...subjects]
-                .sort((a, b) => b.question_count - a.question_count)
-                .map((s) => (
-                  <SubjectRow
-                    key={s.subject_slug}
-                    slug={s.subject_slug}
-                    count={s.question_count}
-                    answered={
-                      stats?.by_subject.find((x) => x.slug === s.subject_slug)?.answered ?? 0
-                    }
-                  />
-                ))}
-            </div>
+            <SubjectTable rows={rows} />
           )}
+        </section>
+
+        {/* ── Avisos, al pie ──
+            Informan una vez. Arriba ocupaban una banda permanente para algo que
+            deja de aportar en la segunda visita. */}
+        <section className="grid gap-3 sm:grid-cols-2">
+          <Alert
+            icon={ShieldCheck}
+            tone="success"
+            title="Preguntas verificadas contra Aerocivil"
+            line="Cada pregunta corresponde al documento oficial, y puedes comprobarlo."
+          />
+          <Alert
+            icon={TriangleAlert}
+            tone="warn"
+            title="El banco oficial tiene errores"
+            line="Te damos la respuesta técnica correcta y cuál marcar para aprobar."
+          />
         </section>
       </div>
     </AppLayout>
@@ -277,15 +268,11 @@ function Alert({
   tone,
   title,
   line,
-  to,
-  cta,
 }: {
   icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
   tone: "success" | "warn"
   title: string
   line: string
-  to?: string
-  cta?: string
 }) {
   const color = tone === "warn" ? "var(--av-warn-fg)" : "var(--av-success-fg)"
   const tint = tone === "warn" ? "var(--av-amber-400)" : "var(--av-green-400)"
@@ -299,62 +286,12 @@ function Alert({
       }}
     >
       <Icon className="h-5 w-5 flex-shrink-0 mt-0.5" style={{ color }} />
-      <div className="min-w-0 flex-1">
+      <div className="min-w-0">
         <div className="text-[15px] font-semibold" style={{ color }}>
           {title}
         </div>
         <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{line}</p>
-        {to && cta && (
-          <Link
-            to={to}
-            className="mt-2 inline-flex items-center gap-1 text-[13px] font-semibold text-foreground"
-          >
-            {cta} <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        )}
       </div>
     </div>
-  )
-}
-
-/** Fila de materia. Compacta a propósito: son hasta 14 y no compiten entre sí. */
-function SubjectRow({ slug, count, answered }: { slug: string; count: number; answered: number }) {
-  const meta = getSubjectMeta(slug)
-  const Icon = meta.icon
-  const quizCount = Math.min(10, count)
-  const short = count < SMALL_BANK
-  const pct = count > 0 ? Math.round((answered / count) * 100) : 0
-
-  return (
-    <Link
-      to={`/app/pca/quiz/${slug}?module=pca&count=${quizCount}`}
-      className="surface surface-lift rounded-xl p-4 flex items-center gap-3"
-    >
-      <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-border bg-muted text-muted-foreground flex-shrink-0">
-        {Icon ? <Icon className="h-4 w-4" /> : <BookOpen className="h-4 w-4" />}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[15px] font-semibold tracking-[-0.01em] truncate">{meta.name}</div>
-        <div className="mt-0.5 flex items-center gap-2">
-          <span className="tabular-nums text-[13px] text-muted-foreground">
-            {count} preguntas
-          </span>
-          {short && (
-            <span className="text-[13px]" style={{ color: "var(--av-warn-fg)" }}>
-              banco corto
-            </span>
-          )}
-        </div>
-        {pct > 0 && (
-          <div className="mt-2 h-1 rounded-full overflow-hidden bg-muted">
-            <div
-              className="h-full rounded-full"
-              style={{ width: `${pct}%`, background: "var(--av-blue-500)" }}
-            />
-          </div>
-        )}
-      </div>
-      <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-    </Link>
   )
 }
