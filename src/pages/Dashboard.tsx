@@ -142,6 +142,20 @@ interface NextStep {
  */
 const DAILY_ACTION = { href: "/app/pca", cta: "Empezar quiz de hoy", minutes: 12 }
 
+/** El test inicial manda mientras no haya nivel medido: sin él, el resto del
+ *  tablero no tiene con qué calibrar. */
+const FIRST_ACTION = { href: "/app/test-inicial", cta: "Hacer test inicial", minutes: 15 }
+
+/**
+ * Una sola acción primaria por estado. Antes el hero mandaba siempre al quiz
+ * mientras la card de abajo ofrecía el test inicial y Wingman proponía una
+ * tercera materia: tres destinos distintos compitiendo por ser "lo primero".
+ * Ahora el hero y la card destacada apuntan siempre al mismo lugar.
+ */
+function resolvePrimaryAction(icaoMeasured: boolean) {
+  return icaoMeasured ? DAILY_ACTION : FIRST_ACTION
+}
+
 function buildTodayPlan(stage: PilotStage | null): NextStep[] {
   const baseWingman: NextStep = {
     title: "Pregúntale a Wingman",
@@ -323,7 +337,10 @@ export function Dashboard() {
   const icaoLevel = pilot?.icao_english_level ?? null
   /** Sin nivel medido no inventamos un 0: el tile muestra un guion. */
   const icaoMeasured = icaoLevel !== null && icaoLevel > 0
-  const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : 0
+  /** null = todavía no hay etapa, así que no hay avance que mostrar. Un 0% con
+   *  la barra vacía se leía como fracaso el primer día. */
+  const progress = stage ? computeAirlineProgress(stage, icaoLevel, recentAttempts) : null
+  const primaryAction = resolvePrimaryAction(icaoMeasured)
   const firstName = profile?.full_name?.split(" ")[0] ?? profile?.username ?? user?.email?.split("@")[0] ?? "piloto"
   const trialLeft = subscription?.status === "trialing" ? trialDaysLeft(subscription.current_period_end) : null
   const todayPlan = buildTodayPlan(stage)
@@ -347,18 +364,21 @@ export function Dashboard() {
           streakDays={streakDays}
           progress={progress}
           trialLeft={trialLeft}
+          primaryAction={primaryAction}
         />
 
-        {/* Acción del día: dueña única del quiz, justo debajo del hero.
-            Sin skeleton propio: si hoy no hay quiz curado la card no existe y un
-            placeholder dejaría un hueco que después se cierra de golpe. */}
-        {daily.length > 0 && (
+        {/* Una sola card destacada bajo el hero, la de la acción primaria.
+            Antes podían salir las dos a la vez y el usuario nuevo tenía que
+            elegir entre el test inicial y el quiz del día sin saber cuál va
+            primero. Sin skeleton propio: si hoy no hay quiz curado la card no
+            existe y un placeholder dejaría un hueco que se cierra de golpe. */}
+        {icaoMeasured && daily.length > 0 && (
           <div className="mt-5">
             <DailyQuizCard count={daily.length} firstSubject={daily[0]?.subject_name ?? null} />
           </div>
         )}
 
-        {/* Test inicial: solo si todavía no tiene nivel ni estimación */}
+        {/* Test inicial: la acción primaria mientras no haya nivel medido */}
         {!icaoMeasured && (
           <Link
             to="/app/test-inicial"
@@ -379,11 +399,25 @@ export function Dashboard() {
           </Link>
         )}
 
-        {/* Instrument cluster: sin curvas inventadas, solo el número que la app sostiene */}
+        {/* Instrument cluster: sin curvas inventadas, solo el número que la app
+            sostiene. Donde todavía no hay nada medido va un guion y no un cero:
+            cuatro ceros en fila el primer día se leen como un tablero roto. */}
         <div className="stagger grid grid-cols-2 lg:grid-cols-4 gap-3.5 mt-7 mb-7">
-          <KpiTile eyebrow="Horas totales" value={pilot?.total_hours ?? 0} suffix="h" />
-          <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" />
-          <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} />
+          {pilot?.total_hours ? (
+            <KpiTile eyebrow="Horas totales" value={pilot.total_hours} suffix="h" />
+          ) : (
+            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} suffix="Sin cargar" />
+          )}
+          {streakDays > 0 ? (
+            <KpiTile eyebrow="Racha actual" value={streakDays} suffix="d" />
+          ) : (
+            <KpiTile eyebrow="Racha actual" value={0} format={() => "—"} suffix="Sin racha" />
+          )}
+          {recentAttempts > 0 ? (
+            <KpiTile eyebrow="Quizzes hechos" value={recentAttempts} />
+          ) : (
+            <KpiTile eyebrow="Quizzes hechos" value={0} format={() => "—"} suffix="Ninguno" />
+          )}
           {icaoMeasured ? (
             <KpiTile eyebrow="ICAO English" value={icaoLevel ?? 0} />
           ) : (
@@ -406,7 +440,12 @@ export function Dashboard() {
               ))}
             </div>
           </section>
-          <WingmanInsight stage={stage} recentAttempts={recentAttempts} icao={icaoLevel} />
+          <WingmanInsight
+            stage={stage}
+            recentAttempts={recentAttempts}
+            icao={icaoLevel}
+            icaoMeasured={icaoMeasured}
+          />
         </div>
 
         {/* Streak + Heatmap */}
@@ -438,14 +477,16 @@ function CockpitHero({
   streakDays,
   progress,
   trialLeft,
+  primaryAction,
 }: {
   firstName: string
   stageLabel: string
   totalHours: number
   targetAirline: string | null
   streakDays: number
-  progress: number
+  progress: number | null
   trialLeft: number | null
+  primaryAction: { href: string; cta: string; minutes: number }
 }) {
   /** Chip claro para usar sobre la foto: los .chip-* semánticos tienen texto
    *  oscuro en modo claro y ahí quedarían ilegibles. */
@@ -492,22 +533,45 @@ function CockpitHero({
               )}
             </p>
 
-            {/* Progress to airline */}
+            {/* Avance a aerolínea. Sin etapa no hay nada que medir: va la
+                invitación a generarlo, nunca un 0% con la barra en cero. */}
             <div className="mt-6 max-w-[560px]">
-              <div className="flex justify-between items-baseline gap-3 mb-2">
-                <span className="text-[13px] font-semibold text-white/70">
-                  Tu avance a aerolínea
-                </span>
-                <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
-                  <CountUp to={progress} />%
-                </span>
-              </div>
-              <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
-                <div
-                  className="h-full rounded-full bg-white transition-[width] duration-1000"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+              {progress === null ? (
+                <>
+                  <div className="flex justify-between items-baseline gap-3 mb-2">
+                    <span className="text-[13px] font-semibold text-white/70">
+                      Tu avance a aerolínea
+                    </span>
+                    <span className="text-2xl font-extrabold tracking-[-0.03em] text-white/40">
+                      —
+                    </span>
+                  </div>
+                  <Link
+                    to="/onboarding"
+                    className="inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-white underline underline-offset-4 decoration-white/40 hover:decoration-white transition-colors"
+                  >
+                    Dinos en qué etapa vas y lo calculamos
+                    <ArrowRight className="h-3.5 w-3.5" />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <div className="flex justify-between items-baseline gap-3 mb-2">
+                    <span className="text-[13px] font-semibold text-white/70">
+                      Tu avance a aerolínea
+                    </span>
+                    <span className="text-gradient-gold tabular-nums text-2xl font-extrabold tracking-[-0.03em]">
+                      <CountUp to={progress} />%
+                    </span>
+                  </div>
+                  <div className="relative h-2.5 rounded-full overflow-hidden bg-white/20">
+                    <div
+                      className="h-full rounded-full bg-white transition-[width] duration-1000"
+                      style={{ width: `${progress}%` }}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
@@ -519,13 +583,13 @@ function CockpitHero({
               </span>
             )}
             <Link
-              to={DAILY_ACTION.href}
+              to={primaryAction.href}
               className="inline-flex items-center gap-1.5 h-11 px-5 rounded-xl font-semibold text-[15px] text-white transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
-              {DAILY_ACTION.cta} <ArrowRight className="h-4 w-4" />
+              {primaryAction.cta} <ArrowRight className="h-4 w-4" />
             </Link>
-            <div className="text-[12px] text-white/70">~{DAILY_ACTION.minutes} min</div>
+            <div className="text-[12px] text-white/70">~{primaryAction.minutes} min</div>
           </div>
         </div>
       </div>
@@ -575,12 +639,24 @@ function WingmanInsight({
   stage,
   recentAttempts,
   icao,
+  icaoMeasured,
 }: {
   stage: PilotStage | null
   recentAttempts: number
   icao: number | null
+  icaoMeasured: boolean
 }) {
   const insight = (() => {
+    /** Sin nivel medido Wingman no tiene con qué personalizar, así que refuerza
+     *  la acción primaria en vez de abrir un tercer destino. */
+    if (!icaoMeasured) {
+      return {
+        title: "Empieza por el test inicial",
+        body: "Son unos 15 minutos. Con tu nivel medido puedo decirte qué materia atacar primero y qué tan lejos estás de aerolínea.",
+        cta: FIRST_ACTION.cta,
+        href: FIRST_ACTION.href,
+      }
+    }
     if (recentAttempts === 0) {
       return {
         title: "Empieza con Meteorología",
