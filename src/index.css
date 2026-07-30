@@ -558,6 +558,9 @@
   --rail-border: oklch(0.28 0.04 250 / 0.6);
   --rail-text: oklch(0.7 0.025 250);
   --rail-text-active: oklch(0.98 0 0);
+  /* Encabezado de grupo del menú. Va por debajo de --rail-text a propósito:
+     ordena sin competir con los items, que son lo que se clickea. */
+  --rail-section-label: oklch(0.6 0.022 250);
 
   /* Mono font */
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
