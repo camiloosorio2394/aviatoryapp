@@ -3,16 +3,30 @@ import { ArrowRight, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LogoIsotype } from "@/components/Logo"
 import { Reveal } from "@/components/Reveal"
+import ctaPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
 
 export function FinalCTA() {
   return (
     <section className="py-20 sm:py-28 bg-background">
       <div className="max-w-5xl mx-auto px-6 lg:px-8">
         <Reveal>
-          <div
-            className="relative overflow-hidden rounded-3xl px-8 py-16 sm:px-16 sm:py-20 text-center"
-            style={{ background: "linear-gradient(135deg, var(--av-blue-500) 0%, color-mix(in oklab, var(--av-blue-500) 70%, #0b1020) 100%)" }}
-          >
+          <div className="relative overflow-hidden rounded-3xl px-8 py-16 sm:px-16 sm:py-20 text-center">
+            {/* Cabina al amanecer de fondo + velo azul oscuro para legibilidad */}
+            <img
+              src={ctaPhoto}
+              alt=""
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: "50% 30%" }}
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgb(11 16 32 / 84%) 0%, color-mix(in oklab, var(--av-blue-500) 40%, rgb(11 16 32 / 82%)) 100%)",
+              }}
+            />
             <div className="relative">
               <LogoIsotype variant="color" className="h-14 w-14 mx-auto rounded-2xl" />
 
@@ -20,7 +34,7 @@ export function FinalCTA() {
                 Tu próximo vuelo empieza con un clic
               </h2>
               <p className="mt-4 text-[16px] sm:text-lg text-blue-100 max-w-xl mx-auto text-balance leading-relaxed">
-                Sumate a los pilotos que dejaron de estudiar en círculos y empezaron a avanzar con
+                Súmate a los pilotos que dejaron de estudiar en círculos y empezaron a avanzar con
                 rumbo claro.
               </p>
 
@@ -52,7 +66,7 @@ export function FinalCTA() {
                 <span className="text-blue-200/40">·</span>
                 <span>7 días gratis</span>
                 <span className="text-blue-200/40">·</span>
-                <span>Cancelás cuando quieras</span>
+                <span>Cancelas cuando quieras</span>
               </p>
             </div>
           </div>

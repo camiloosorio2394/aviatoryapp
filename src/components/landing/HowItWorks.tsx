@@ -3,23 +3,23 @@ import { Reveal } from "@/components/Reveal"
 const steps = [
   {
     n: "1",
-    title: "Cargás tu perfil de piloto",
+    title: "Cargas tu perfil de piloto",
     body: "Etapa, horas, licencias, nivel de inglés y aerolínea objetivo. 6 preguntas, 90 segundos.",
   },
   {
     n: "2",
-    title: "Recibís tu ruta de aprendizaje",
+    title: "Recibes tu ruta de aprendizaje",
     body: "Aviatory te muestra exactamente qué estudiar esta semana para llegar a tu meta.",
   },
   {
     n: "3",
-    title: "Estudiás, practicás, avanzás",
-    body: "Cursos, quizzes Aerocivil, inglés ICAO y simulacros. Tu tutor IA te explica todo lo que fallás.",
+    title: "Estudias, practicas, avanzas",
+    body: "Cursos, quizzes Aerocivil, inglés ICAO y simulacros. Tu tutor IA te explica todo lo que fallas.",
   },
   {
     n: "4",
     title: "Ves tu progreso real",
-    body: "“Tu progreso a aerolínea: 47%”. Sabés cuánto te falta y qué hacer hoy.",
+    body: "“Tu progreso a aerolínea: 47%”. Sabes cuánto te falta y qué hacer hoy.",
   },
 ]
 

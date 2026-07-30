@@ -168,6 +168,22 @@
     animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
 
+  /* Marquee horizontal en loop (SocialProof). El contenido va duplicado
+     y -50% cierra el ciclo sin salto. */
+  @keyframes marquee-x {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .animate-marquee {
+    animation: marquee-x 30s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .animate-marquee { animation: none; }
+  }
+
   /* Apple-style CTA button — primary (gradient + shine + scale) */
   .btn-apple {
     position: relative;

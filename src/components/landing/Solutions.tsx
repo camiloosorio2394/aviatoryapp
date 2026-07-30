@@ -32,7 +32,7 @@ const COURSES: {
   },
   {
     title: "Examen PCA Aerocivil",
-    blurb: "Banco de preguntas estilo examen con explicaciones. Practicá por materia o simulacro con tiempo real.",
+    blurb: "Banco de preguntas estilo examen con explicaciones. Practica por materia o simulacro con tiempo real.",
     icon: BookOpen,
     color: "#4338CA",
     meta: "Por materia · Simulacro oficial",
@@ -40,7 +40,7 @@ const COURSES: {
   },
   {
     title: "Psicotécnicas",
-    blurb: "Preparate para las evaluaciones psicológicas con tests y práctica guiada.",
+    blurb: "Prepárate para las evaluaciones psicológicas con tests y práctica guiada.",
     icon: Brain,
     color: "#B45309",
     meta: "Tests + práctica",
@@ -48,7 +48,7 @@ const COURSES: {
   },
   {
     title: "Simulador de entrevistas",
-    blurb: "HR, técnica y video-entrevista. Grabate, practicá y llegá listo el día que cuenta.",
+    blurb: "HR, técnica y video-entrevista. Grábate, practica y llega listo el día que cuenta.",
     icon: Video,
     color: "#0E7490",
     meta: "HR · Técnica · Video",
@@ -56,7 +56,7 @@ const COURSES: {
   },
   {
     title: "Ingreso a aerolínea",
-    blurb: "Requisitos por aerolínea: Avianca, LATAM, Copa, Wingo, JetSmart. Sabés qué te falta para postular.",
+    blurb: "Requisitos por aerolínea: Avianca, LATAM, Copa, Wingo, JetSmart. Sabes qué te falta para postular.",
     icon: Plane,
     color: "#7C3AED",
     meta: "Requisitos por aerolínea",
@@ -64,7 +64,7 @@ const COURSES: {
   },
   {
     title: "Wingman: tu tutor IA",
-    blurb: "Te explica cada pregunta que fallás, en español, con la teoría y un tip para recordarla. 24/7.",
+    blurb: "Te explica cada pregunta que fallas, en español, con la teoría y un tip para recordarla. 24/7.",
     icon: Sparkles,
     color: "#0891B2",
     meta: "Asistente · siempre disponible",
@@ -90,7 +90,7 @@ export function Solutions() {
           <Reveal delay={140}>
             <p className="mt-3 text-[16px] text-muted-foreground leading-relaxed">
               Cada parte de tu camino a la aerolínea es un curso con su propia ruta, práctica y
-              seguimiento. Avanzás a tu ritmo y ves tu progreso en cada uno.
+              seguimiento. Avanzas a tu ritmo y ves tu progreso en cada uno.
             </p>
           </Reveal>
         </div>
