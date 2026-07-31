@@ -52,9 +52,13 @@ const TEMAS: Tema[] = [
   {
     slug: "meteorologia",
     nombre: "Meteorología operacional",
-    resumen: "METAR, TAF y la meteorología que de verdad te preguntan en la entrevista técnica.",
+    // El resumen promete solo lo publicado: METAR. Cuando el curso TAF exista,
+    // se restaura la promesa completa (decisión anotada en src/data/metar/FUENTES.md).
+    resumen: "METAR: la lectura del cielo que te preguntan en la entrevista técnica. TAF llega después.",
     icon: CloudSun,
     color: "cyan",
+    to: "/app/aerolinea/meteorologia",
+    disponible: "Lección y decodificador",
   },
   {
     slug: "performance",

@@ -35,6 +35,9 @@ import { IcaoMockExam } from "@/pages/IcaoMockExam"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
 import { Notam } from "@/pages/Notam"
+import { Metar } from "@/pages/Metar"
+import { MetarLesson } from "@/pages/MetarLesson"
+import { MetarDecoder } from "@/pages/MetarDecoder"
 import { NotamLesson } from "@/pages/NotamLesson"
 import { NotamDecoder } from "@/pages/NotamDecoder"
 import { NotamPractice } from "@/pages/NotamPractice"
@@ -258,6 +261,31 @@ function App() {
           element={
             <RequireAuth>
               <NotamExam />
+            </RequireAuth>
+          }
+        />
+        {/* Tema Meteorología operacional (METAR) del módulo Ingreso a Aerolínea */}
+        <Route
+          path="/app/aerolinea/meteorologia"
+          element={
+            <RequireAuth>
+              <Metar />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/meteorologia/aprende"
+          element={
+            <RequireAuth>
+              <MetarLesson />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/meteorologia/decodificador"
+          element={
+            <RequireAuth>
+              <MetarDecoder />
             </RequireAuth>
           }
         />
