@@ -1,9 +1,28 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { Hash, ArrowRight, Check, MessageSquare, Users, TriangleAlert, RotateCw } from "lucide-react"
+import type { ComponentType } from "react"
+import {
+  ArrowRight,
+  Briefcase,
+  Check,
+  CloudSun,
+  Gavel,
+  Globe2,
+  Hash,
+  HelpCircle,
+  MessageSquare,
+  MessagesSquare,
+  RotateCw,
+  TriangleAlert,
+  Trophy,
+  Users,
+} from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
+import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { accentText } from "@/lib/notam"
+import { AerodromeIcon, HoldingIcon, LocalizerIcon, WaypointIcon } from "@/components/icons/aero"
 import heroPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 
 interface Channel {
@@ -28,20 +47,77 @@ interface ChannelActivity {
 }
 
 /**
- * Muestra de mensajes que traemos para calcular señal de actividad por canal.
- * Con el volumen actual entra completa; si algún día se supera, el conteo se
- * muestra igual porque siempre es "al menos esto", nunca un número inventado.
+ * Muestra de mensajes para calcular señal de actividad por canal. Con el
+ * volumen actual entra completa; si algún día se supera, el conteo sigue
+ * siendo "al menos esto", nunca un número inventado.
  */
 const MESSAGE_SAMPLE = 2000
 
-const GROUP_LABELS: Record<Channel["type"], { title: string; description: string }> = {
-  general: { title: "General", description: "Conversación abierta, logros, dudas y oportunidades" },
-  stage: { title: "Por etapa", description: "Encuentra pilotos en tu mismo momento de carrera" },
-  subject: { title: "Por materia", description: "Dudas técnicas con foco en una materia" },
-  airline: { title: "Por aerolínea", description: "Preparación específica para postular a una aerolínea" },
+type IconComponent = ComponentType<{ className?: string }>
+
+/**
+ * Icono propio por canal, en lugar del emoji que viene en la base: el emoji lo
+ * dibuja el sistema operativo y rompía el lenguaje visual (misma razón por la
+ * que los logros pasaron a insignias). Los símbolos de carta van donde
+ * significan algo: el circuito de espera para hour building, el aeródromo como
+ * destino para los candidatos.
+ */
+const CHANNEL_ICON: Record<string, IconComponent> = {
+  general: MessagesSquare,
+  logros: Trophy,
+  preguntas: HelpCircle,
+  empleos: Briefcase,
+  "etapa-ppl": WaypointIcon,
+  "etapa-cpl": LocalizerIcon,
+  "etapa-horas": HoldingIcon,
+  "etapa-candidatos": AerodromeIcon,
+  "mat-meteorologia": CloudSun,
+  "mat-reglamento": Gavel,
+  "mat-icao-english": Globe2,
+}
+
+const GROUP_META: Record<
+  Channel["type"],
+  { title: string; description: string; color: TileColorKey; icon: IconComponent }
+> = {
+  general: {
+    title: "General",
+    description: "Conversación abierta, logros, dudas y oportunidades",
+    color: "blue",
+    icon: MessagesSquare,
+  },
+  stage: {
+    title: "Por etapa",
+    description: "Pilotos en tu mismo momento de carrera",
+    color: "cyan",
+    icon: WaypointIcon,
+  },
+  subject: {
+    title: "Por materia",
+    description: "Dudas técnicas con foco",
+    color: "violet",
+    icon: Gavel,
+  },
+  airline: {
+    title: "Por aerolínea",
+    description: "Preparación para postular",
+    color: "amber",
+    icon: AerodromeIcon,
+  },
 }
 
 const GROUP_ORDER: Channel["type"][] = ["general", "stage", "subject", "airline"]
+
+/** Canal de etapa que corresponde a cada etapa del piloto. */
+const STAGE_TO_CHANNEL: Record<string, string> = {
+  student_ppl: "etapa-ppl",
+  ppl: "etapa-ppl",
+  cpl_in_progress: "etapa-cpl",
+  cpl_ready: "etapa-cpl",
+  hour_building: "etapa-horas",
+  instructor: "etapa-horas",
+  airline_candidate: "etapa-candidatos",
+}
 
 const AIRLINE_TILE_KEYS: TileColorKey[] = ["blue", "cyan", "violet", "amber", "green", "red"]
 
@@ -52,7 +128,7 @@ function airlineTileKey(slug: string): TileColorKey {
   return AIRLINE_TILE_KEYS[sum % AIRLINE_TILE_KEYS.length]
 }
 
-/** Iniciales de la aerolínea para el tile (reemplaza los emojis de bandera). */
+/** Iniciales de la aerolínea para el tile. */
 function airlineInitials(name: string): string {
   const words = name
     .trim()
@@ -78,8 +154,11 @@ function relativeTime(iso: string): string {
 }
 
 export function Community() {
+  const { user } = useSession()
   const [channels, setChannels] = useState<Channel[]>([])
   const [activity, setActivity] = useState<Record<number, ChannelActivity>>({})
+  const [pilotStage, setPilotStage] = useState<string | null>(null)
+  const [targetAirline, setTargetAirline] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
   const [reloadKey, setReloadKey] = useState(0)
@@ -90,13 +169,16 @@ export function Community() {
     async function load() {
       setLoading(true)
       setFailed(false)
-      const [channelsRes, messagesRes] = await Promise.all([
+      const [channelsRes, messagesRes, pilotRes] = await Promise.all([
         supabase.from("community_channels").select("*").order("order_index"),
         supabase
           .from("community_messages")
           .select("channel_id, created_at")
           .order("created_at", { ascending: false })
           .limit(MESSAGE_SAMPLE),
+        user
+          ? supabase.from("pilot_state").select("stage, target_airline").eq("user_id", user.id).maybeSingle()
+          : Promise.resolve({ data: null, error: null }),
       ])
       if (cancelled) return
 
@@ -109,6 +191,10 @@ export function Community() {
       }
 
       setChannels((channelsRes.data ?? []) as Channel[])
+
+      const pilot = pilotRes.data as { stage: string | null; target_airline: string | null } | null
+      setPilotStage(pilot?.stage ?? null)
+      setTargetAirline(pilot?.target_airline ?? null)
 
       const map: Record<number, ChannelActivity> = {}
       if (!messagesRes.error) {
@@ -132,7 +218,7 @@ export function Community() {
     return () => {
       cancelled = true
     }
-  }, [reloadKey])
+  }, [reloadKey, user])
 
   const totalChannels = channels.length
 
@@ -149,7 +235,30 @@ export function Community() {
     return best
   }, [channels, activity])
 
-  /** Cada grupo ordenado por actividad real: primero lo que se movió último. */
+  /**
+   * Tus canales: el de tu etapa (mapeo directo desde pilot_state) y el de tu
+   * aerolínea objetivo si existe un canal cuyo nombre coincida. Nada de
+   * sugerencias inventadas: si no hay correspondencia, la fila no aparece.
+   */
+  const misCanales = useMemo(() => {
+    const out: { channel: Channel; motivo: string }[] = []
+    if (pilotStage) {
+      const slug = STAGE_TO_CHANNEL[pilotStage]
+      const c = channels.find((ch) => ch.slug === slug)
+      if (c) out.push({ channel: c, motivo: "Tu etapa" })
+    }
+    if (targetAirline) {
+      const objetivo = targetAirline.trim().toLowerCase()
+      const c = channels.find(
+        (ch) =>
+          ch.type === "airline" &&
+          (ch.name.toLowerCase().includes(objetivo) || objetivo.includes(ch.name.toLowerCase()))
+      )
+      if (c) out.push({ channel: c, motivo: "Tu aerolínea objetivo" })
+    }
+    return out
+  }, [channels, pilotStage, targetAirline])
+
   const groups = useMemo(
     () =>
       GROUP_ORDER.map((type) => ({
@@ -165,21 +274,19 @@ export function Community() {
               const diff = Date.parse(actB.lastAt) - Date.parse(actA.lastAt)
               if (diff !== 0) return diff
             }
-            const msgs = (actB?.messages ?? 0) - (actA?.messages ?? 0)
-            if (msgs !== 0) return msgs
             return a.order_index - b.order_index
           }),
       })).filter((g) => g.list.length > 0),
     [channels, activity]
   )
 
+  const comunidadVacia = totalChannels > 0 && Object.keys(activity).length === 0
+
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        {/* Hero de módulo, como el de ICAO y el dashboard: la comunidad era la
-            única sección grande sin identidad propia. Las cifras son reales:
-            canales publicados y mensajes de la muestra reciente. */}
-        <section className="relative overflow-hidden rounded-xl mb-7">
+        {/* Hero de módulo */}
+        <section className="relative overflow-hidden rounded-xl mb-6">
           <img src={heroPhoto} alt="" aria-hidden className="absolute inset-0 h-full w-full object-cover" />
           <div
             aria-hidden
@@ -197,7 +304,7 @@ export function Community() {
               Ningún piloto llega a la cabina solo
             </h1>
             <p className="mt-2 mb-0 text-[15px] text-white/75 max-w-[560px] leading-relaxed">
-              Pilotos LATAM organizados por etapa, materia y aerolínea. Entra a un canal para escribir.
+              Pilotos LATAM organizados por etapa, materia y aerolínea.
             </p>
             {ultimoActivo && (
               <Link
@@ -209,71 +316,223 @@ export function Community() {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             )}
+            {comunidadVacia && (
+              <p className="mt-5 mb-0 inline-flex items-center gap-2 text-[13px] font-semibold text-white/80">
+                <MessageSquare className="h-3.5 w-3.5" style={{ color: "var(--av-amber-400)" }} />
+                Los canales están recién abiertos: el primer mensaje pone tu nombre en la historia.
+              </p>
+            )}
           </div>
         </section>
 
         {loading ? (
-          <div className="space-y-6 animate-pulse">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <div key={i} className="space-y-3">
-                <div className="h-6 w-40 bg-muted rounded" />
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                  <div className="h-24 bg-muted rounded-xl" />
-                  <div className="h-24 bg-muted rounded-xl" />
-                  <div className="h-24 bg-muted rounded-xl" />
-                </div>
-              </div>
-            ))}
+          <div className="space-y-4 animate-pulse">
+            <div className="h-[92px] bg-muted rounded-xl" />
+            <div className="grid lg:grid-cols-2 gap-4">
+              <div className="h-[300px] bg-muted rounded-xl" />
+              <div className="h-[300px] bg-muted rounded-xl" />
+              <div className="h-[240px] bg-muted rounded-xl" />
+              <div className="h-[240px] bg-muted rounded-xl" />
+            </div>
           </div>
         ) : failed ? (
           <LoadFailed onRetry={() => setReloadKey((k) => k + 1)} />
         ) : totalChannels === 0 ? (
           <NoChannelsYet />
         ) : (
-          <div className="space-y-9">
-            {groups.map(({ type, list }) => {
-              const meta = GROUP_LABELS[type]
-              return (
-                <section key={type}>
-                  <div className="mb-3.5">
-                    <div
-                      className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                      style={{ color: "var(--av-blue-500)" }}
-                    >
-                      <Hash className="h-[11px] w-[11px]" />
-                      {list.length === 1 ? "1 canal" : `${list.length} canales`}
-                    </div>
-                    <h2 className="mt-0.5 text-[17px] font-semibold text-foreground tracking-[-0.02em]">
-                      {meta.title}
-                    </h2>
-                    <p className="text-[12px] text-muted-foreground mt-0.5">{meta.description}</p>
-                  </div>
-                  <div className="stagger grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {list.map((c) => (
-                      <ChannelCard key={c.id} channel={c} activity={activity[c.id]} />
-                    ))}
-                  </div>
-                </section>
-              )
-            })}
-          </div>
+          <>
+            {/* Tus canales: la página abre con tus salas, no con un directorio */}
+            {misCanales.length > 0 && (
+              <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                {misCanales.map(({ channel, motivo }) => (
+                  <MyChannelCard
+                    key={channel.id}
+                    channel={channel}
+                    motivo={motivo}
+                    activity={activity[channel.id]}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* Directorio: un panel por grupo, canales como filas */}
+            <div className="grid lg:grid-cols-2 gap-4 items-start">
+              {groups.map(({ type, list }) => (
+                <GroupPanel key={type} type={type} list={list} activity={activity} />
+              ))}
+            </div>
+          </>
         )}
 
-        <div className="mt-8 rounded-xl surface p-5 flex gap-3 items-start">
-          <Check
-            className="h-5 w-5 flex-shrink-0 mt-0.5"
-            style={{ color: "var(--av-blue-500)" }}
-          />
-          <div>
-            <h3 className="text-[15px] font-semibold text-foreground">Normas de la comunidad</h3>
-            <p className="mt-1 text-[15px] text-muted-foreground leading-relaxed">
-              Tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido pirata.
-              Si necesitas moderación, escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
-            </p>
-          </div>
-        </div>
+        <p className="mt-8 mb-0 flex items-start gap-2.5 text-[13px] text-muted-foreground leading-relaxed">
+          <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-blue-500)" }} />
+          <span>
+            <span className="font-semibold text-foreground">Normas: </span>
+            tono respetuoso y profesional. No compartas preguntas literales de exámenes ni contenido
+            pirata. Moderación: <span className="font-semibold">hola@aviatory.app</span>.
+          </span>
+        </p>
       </div>
     </AppLayout>
+  )
+}
+
+/** Card destacada de "tus canales": tinte del grupo y el motivo visible. */
+function MyChannelCard({
+  channel,
+  motivo,
+  activity,
+}: {
+  channel: Channel
+  motivo: string
+  activity: ChannelActivity | undefined
+}) {
+  const meta = GROUP_META[channel.type]
+  const Ic = CHANNEL_ICON[channel.slug] ?? meta.icon
+  return (
+    <Link
+      to={`/app/comunidad/${channel.slug}`}
+      className="surface-lift group flex items-center gap-4 rounded-xl border p-4"
+      style={{
+        borderColor: tileBorder(meta.color, 34),
+        background: tileTint(meta.color, 6),
+      }}
+    >
+      <div
+        className="flex items-center justify-center h-11 w-11 rounded-lg flex-shrink-0"
+        style={{
+          background: tileTint(meta.color, 16),
+          border: `1px solid ${tileBorder(meta.color, 26)}`,
+          color: accentText(TILE_COLOR[meta.color], 75),
+        }}
+      >
+        <Ic className="h-5 w-5" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="text-[12px] font-semibold" style={{ color: accentText(TILE_COLOR[meta.color]) }}>
+          {motivo}
+        </div>
+        <div className="flex items-center gap-1.5 mt-0.5">
+          <Hash className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
+          <span className="text-[15px] font-semibold text-foreground truncate">{channel.name}</span>
+        </div>
+        <div className="text-[13px] text-muted-foreground mt-0.5 truncate">
+          {activity
+            ? `${activity.messages === 1 ? "1 mensaje" : `${activity.messages} mensajes`} · ${relativeTime(activity.lastAt)}`
+            : "Preséntate: tu cohorte se arma aquí"}
+        </div>
+      </div>
+      <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0 transition-transform group-hover:translate-x-0.5" />
+    </Link>
+  )
+}
+
+/** Panel de grupo: encabezado con identidad y los canales como filas. */
+function GroupPanel({
+  type,
+  list,
+  activity,
+}: {
+  type: Channel["type"]
+  list: Channel[]
+  activity: Record<number, ChannelActivity>
+}) {
+  const meta = GROUP_META[type]
+  const GroupIcon = meta.icon
+  return (
+    <section className="rounded-xl surface overflow-hidden">
+      <header className="px-4 py-3.5 border-b border-border flex items-center gap-3">
+        <div
+          className="flex items-center justify-center h-9 w-9 rounded-lg flex-shrink-0"
+          style={{
+            background: tileTint(meta.color, 14),
+            border: `1px solid ${tileBorder(meta.color, 22)}`,
+            color: accentText(TILE_COLOR[meta.color], 75),
+          }}
+        >
+          <GroupIcon className="h-[18px] w-[18px]" />
+        </div>
+        <div className="min-w-0">
+          <h2 className="m-0 text-[15px] font-semibold text-foreground tracking-[-0.015em]">
+            {meta.title}
+          </h2>
+          <p className="m-0 text-[12px] text-muted-foreground truncate">{meta.description}</p>
+        </div>
+        <span className="ml-auto tabular-nums text-[12px] font-semibold text-muted-foreground">
+          {list.length}
+        </span>
+      </header>
+
+      {list.map((c, i) => (
+        <ChannelRow key={c.id} channel={c} activity={activity[c.id]} last={i === list.length - 1} />
+      ))}
+    </section>
+  )
+}
+
+/** Fila de canal: icono, nombre y descripción, actividad a la derecha. */
+function ChannelRow({
+  channel,
+  activity,
+  last,
+}: {
+  channel: Channel
+  activity: ChannelActivity | undefined
+  last: boolean
+}) {
+  const meta = GROUP_META[channel.type]
+  const isAirline = channel.type === "airline"
+  const tileKey = isAirline ? airlineTileKey(channel.slug) : meta.color
+  const Ic = CHANNEL_ICON[channel.slug] ?? meta.icon
+
+  return (
+    <Link
+      to={`/app/comunidad/${channel.slug}`}
+      className={`flex items-center gap-3.5 px-4 py-3 transition-colors hover:bg-muted/60 ${
+        last ? "" : "border-b border-border"
+      }`}
+    >
+      {isAirline ? (
+        <span
+          className="flex items-center justify-center h-9 w-9 rounded-lg text-[13px] font-semibold tracking-[0.02em] flex-shrink-0"
+          style={{
+            background: tileTint(tileKey),
+            border: `1px solid ${tileBorder(tileKey)}`,
+            color: accentText(TILE_COLOR[tileKey], 75),
+          }}
+          aria-hidden
+        >
+          {airlineInitials(channel.name)}
+        </span>
+      ) : (
+        <Ic className="h-[20px] w-[20px] text-muted-foreground flex-shrink-0" />
+      )}
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-1.5">
+          <Hash className="h-3 w-3 text-muted-foreground flex-shrink-0" />
+          <span className="text-[15px] font-semibold text-foreground truncate">{channel.name}</span>
+        </div>
+        {channel.description && (
+          <div className="text-[13px] text-muted-foreground truncate mt-0.5">{channel.description}</div>
+        )}
+      </div>
+      <div className="text-right flex-shrink-0 hidden sm:block">
+        {activity ? (
+          <>
+            <div className="tabular-nums text-[13px] font-semibold text-foreground">
+              {activity.messages === 1 ? "1 mensaje" : `${activity.messages} mensajes`}
+            </div>
+            <div className="text-[12px] text-muted-foreground">{relativeTime(activity.lastAt)}</div>
+          </>
+        ) : channel.member_count > 0 ? (
+          <div className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
+            <Users className="h-3 w-3" />
+            {channel.member_count}
+          </div>
+        ) : null}
+      </div>
+      <ArrowRight className="h-4 w-4 text-muted-foreground flex-shrink-0" />
+    </Link>
   )
 }
 
@@ -285,20 +544,20 @@ function LoadFailed({ onRetry }: { onRetry: () => void }) {
     >
       <div
         className="flex items-center justify-center h-11 w-11 rounded-xl flex-shrink-0"
-        style={{ background: tileTint("amber"), color: TILE_COLOR.amber }}
+        style={{ background: tileTint("amber"), color: accentText(TILE_COLOR.amber, 75) }}
       >
         <TriangleAlert className="h-5 w-5" />
       </div>
       <div className="flex-1">
         <h3 className="text-[17px] font-semibold text-foreground">No pudimos cargar los canales</h3>
         <p className="mt-1 text-[15px] text-muted-foreground leading-relaxed max-w-[560px]">
-          Puede ser tu conexión o una caída momentánea. Vuelve a intentar en un segundo. Si sigue igual,
-          escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
+          Puede ser tu conexión o una caída momentánea. Vuelve a intentar en un segundo. Si sigue
+          igual, escríbenos a <span className="font-semibold">hola@aviatory.app</span>.
         </p>
         <button
           type="button"
           onClick={onRetry}
-          className="mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-lg border border-border bg-background text-[13px] font-semibold text-foreground hover:bg-muted transition-colors"
+          className="mt-3 inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full border border-border bg-background text-[13px] font-semibold text-foreground hover:bg-muted transition-colors"
         >
           <RotateCw className="h-3.5 w-3.5" /> Reintentar
         </button>
@@ -312,95 +571,15 @@ function NoChannelsYet() {
     <div className="rounded-xl surface p-8 text-center">
       <div
         className="inline-flex items-center justify-center h-12 w-12 rounded-xl mb-3"
-        style={{ background: tileTint("blue"), color: TILE_COLOR.blue }}
+        style={{ background: tileTint("blue"), color: accentText(TILE_COLOR.blue, 75) }}
       >
         <Hash className="h-6 w-6" />
       </div>
       <h3 className="text-[17px] font-semibold text-foreground">Los canales abren pronto</h3>
       <p className="mt-1 text-[15px] text-muted-foreground max-w-sm mx-auto leading-relaxed">
-        Estamos armando los espacios por etapa, materia y aerolínea. Cuando abran, los vas a ver aquí y vas
-        a poder escribir de inmediato.
+        Estamos armando los espacios por etapa, materia y aerolínea. Cuando abran, los vas a ver aquí
+        y vas a poder escribir de inmediato.
       </p>
     </div>
-  )
-}
-
-function ChannelCard({ channel, activity }: { channel: Channel; activity: ChannelActivity | undefined }) {
-  const isAirline = channel.type === "airline"
-  const tileKey = airlineTileKey(channel.slug)
-
-  return (
-    <Link
-      to={`/app/comunidad/${channel.slug}`}
-      className="surface-lift group block rounded-xl surface p-4"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
-        e.currentTarget.style.boxShadow = "0 4px 16px color-mix(in oklab, var(--av-blue-500) 18%, transparent)"
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.borderColor = "var(--border)"
-        e.currentTarget.style.boxShadow = "none"
-      }}
-    >
-      <div className="flex items-start gap-3">
-        {isAirline ? (
-          <div
-            className="flex-shrink-0 flex items-center justify-center h-9 w-9 rounded-lg text-[13px] font-semibold tracking-[0.02em]"
-            style={{
-              background: tileTint(tileKey),
-              border: `1px solid ${tileBorder(tileKey)}`,
-              color: TILE_COLOR[tileKey],
-            }}
-            aria-hidden
-          >
-            {airlineInitials(channel.name)}
-          </div>
-        ) : (
-          <div className="flex-shrink-0 text-[24px] leading-9" aria-hidden>
-            {channel.emoji ?? "#"}
-          </div>
-        )}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5">
-            <Hash className="h-3.5 w-3.5 text-muted-foreground flex-shrink-0" />
-            <h3 className="font-semibold text-[15px] truncate text-foreground">{channel.name}</h3>
-          </div>
-          {channel.description && (
-            <p className="mt-1 text-[12px] text-muted-foreground leading-relaxed line-clamp-2">
-              {channel.description}
-            </p>
-          )}
-
-          <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1.5">
-            {activity ? (
-              <>
-                <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
-                  <MessageSquare className="h-3 w-3" />
-                  {activity.messages === 1 ? "1 mensaje" : `${activity.messages} mensajes`}
-                </span>
-                <span className="text-[12px] text-muted-foreground">
-                  {relativeTime(activity.lastAt)}
-                </span>
-              </>
-            ) : (
-              <span className="chip chip-cyan">Sé el primero</span>
-            )}
-            {channel.member_count > 0 && (
-              <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-muted-foreground">
-                <Users className="h-3 w-3" />
-                {channel.member_count}
-              </span>
-            )}
-          </div>
-
-          <div
-            className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold"
-            style={{ color: "var(--av-blue-500)" }}
-          >
-            {activity ? "Entrar al canal" : "Abrir la conversación"} <ArrowRight className="h-3 w-3" />
-          </div>
-        </div>
-      </div>
-    </Link>
   )
 }
