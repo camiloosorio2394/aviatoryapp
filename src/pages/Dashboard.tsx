@@ -10,6 +10,7 @@ import {
   Trophy,
   Users,
   Lightbulb,
+  Share2,
   Sun,
   Activity,
 } from "lucide-react"
@@ -37,6 +38,7 @@ import {
   readLocalProgress as readNotamLocal,
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
+import { shareStreak } from "@/lib/shareStreak"
 import { badgeForCode } from "@/lib/achievementBadges"
 import { appButtonClass } from "@/lib/buttonStyles"
 
@@ -662,6 +664,8 @@ export function Dashboard() {
             loading={deferredLoading}
             streakAtRisk={streakAtRisk}
             longestStreak={longestStreak}
+            streakDays={streakDays}
+            username={profile?.username ?? null}
           />
         </div>
 
@@ -1170,12 +1174,29 @@ function ActivityHeatmap({
   loading,
   streakAtRisk,
   longestStreak,
+  streakDays,
+  username,
 }: {
   data: ActivityDay[]
   loading: boolean
   streakAtRisk: boolean
   longestStreak: number
+  streakDays: number
+  username: string | null
 }) {
+  const [sharing, setSharing] = useState(false)
+
+  async function compartir() {
+    setSharing(true)
+    try {
+      const via = await shareStreak(streakDays, username)
+      if (via === "download") toast.success("Imagen descargada: súbela a tu historia o compártela donde quieras")
+    } catch {
+      toast.error("No pudimos generar la imagen")
+    } finally {
+      setSharing(false)
+    }
+  }
   const weeks: ActivityDay[][] = []
   for (let i = 0; i < data.length; i += 7) weeks.push(data.slice(i, i + 7))
   const total = data.reduce((a, d) => a + d.activities_count, 0)
@@ -1198,11 +1219,26 @@ function ActivityHeatmap({
             {total > 0 ? "Últimas 12 semanas" : "Esta semana"}
           </div>
         </div>
-        <div className="text-right">
-          <div className="tabular-nums text-[24px] font-semibold text-foreground tracking-[-0.03em] leading-none">
-            {total > 0 ? <CountUp to={total} /> : "—"}
+        <div className="flex items-start gap-4">
+          {/* Compartir la racha: la imagen sale con la marca y los galones del
+              hito. Solo aparece con racha viva: compartir un cero no motiva. */}
+          {streakDays > 0 && (
+            <button
+              type="button"
+              onClick={() => void compartir()}
+              disabled={sharing}
+              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold border border-border bg-background text-foreground hover:bg-muted transition-colors disabled:opacity-60"
+            >
+              <Share2 className="h-3.5 w-3.5" />
+              {sharing ? "Generando" : "Compartir racha"}
+            </button>
+          )}
+          <div className="text-right">
+            <div className="tabular-nums text-[24px] font-semibold text-foreground tracking-[-0.03em] leading-none">
+              {total > 0 ? <CountUp to={total} /> : "—"}
+            </div>
+            <div className="text-[13px] text-muted-foreground mt-1">actividades</div>
           </div>
-          <div className="text-[13px] text-muted-foreground mt-1">actividades</div>
         </div>
       </div>
 
