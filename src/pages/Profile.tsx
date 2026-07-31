@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { toast } from "sonner"
 import { AtSign, Camera, Check, FileText, Loader2, Save, Trash2, X, Radar, Settings, User as UserIcon, TrendingUp, ArrowRight, Headphones } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
+import { docAccent, docTint } from "@/lib/docSheet"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
@@ -109,20 +110,25 @@ export function Profile() {
   const [currency, setCurrency] = useState<{ valid: number; total: number }>({ valid: 0, total: 0 })
   const [certs, setCerts] = useState<CertRow[]>([])
   const [achCount, setAchCount] = useState<{ unlocked: number; total: number }>({ unlocked: 0, total: 0 })
+  const [studyStats, setStudyStats] = useState<{ pcaBest: number | null; quizzes: number; longestStreak: number }>({ pcaBest: null, quizzes: 0, longestStreak: 0 })
+  const [lastFlight, setLastFlight] = useState<string | null>(null)
 
   useEffect(() => {
     if (!user) return
     let cancelled = false
     async function load() {
       try {
-        const [profileRes, pilotRes, flightsRes, licRes, mockRes, achMineRes, achAllRes] = await Promise.all([
+        const [profileRes, pilotRes, flightsRes, licRes, mockRes, achMineRes, achAllRes, pcaBestRes, quizCountRes, streakRes] = await Promise.all([
           supabase.from("profiles").select("full_name, country, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
-          supabase.from("flights").select("total_minutes, pic_minutes, cross_country_minutes").eq("user_id", user!.id),
+          supabase.from("flights").select("total_minutes, pic_minutes, cross_country_minutes, night_minutes, instrument_real_minutes, instrument_sim_minutes, flight_date").eq("user_id", user!.id).order("flight_date", { ascending: false }),
           supabase.from("licenses_held").select("id, license_type, custom_name, issued_date, expires_date").eq("user_id", user!.id).order("expires_date", { ascending: true, nullsFirst: false }),
           supabase.from("user_icao_mock_results").select("final_level, taken_at").eq("user_id", user!.id).order("taken_at", { ascending: false }).limit(1).maybeSingle(),
           supabase.from("user_achievements").select("achievement_id", { count: "exact", head: true }).eq("user_id", user!.id),
           supabase.from("achievements").select("id", { count: "exact", head: true }),
+          supabase.from("user_pca_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1).maybeSingle(),
+          supabase.from("quiz_attempts").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
+          supabase.from("streaks").select("longest_streak").eq("user_id", user!.id).maybeSingle(),
         ])
         if (cancelled) return
         if (profileRes.data) {
@@ -143,13 +149,21 @@ export function Profile() {
           setLicenses(pilot.licenses ?? [])
         }
 
-        // Agregado del logbook (fuente real de horas)
-        const flights = (flightsRes.data ?? []) as { total_minutes: number; pic_minutes: number; cross_country_minutes: number }[]
+        // Agregado del logbook (fuente real de horas). Viene ordenado por fecha
+        // descendente, así que el primero es el vuelo más reciente.
+        const flights = (flightsRes.data ?? []) as { total_minutes: number; pic_minutes: number; cross_country_minutes: number; flight_date: string | null }[]
         setFlightAgg({
           totalMin: flights.reduce((a, f) => a + (f.total_minutes ?? 0), 0),
           picMin: flights.reduce((a, f) => a + (f.pic_minutes ?? 0), 0),
           xcMin: flights.reduce((a, f) => a + (f.cross_country_minutes ?? 0), 0),
           count: flights.length,
+        })
+        setLastFlight(flights[0]?.flight_date ?? null)
+
+        setStudyStats({
+          pcaBest: (pcaBestRes.data as { score: number | null } | null)?.score ?? null,
+          quizzes: quizCountRes.count ?? 0,
+          longestStreak: (streakRes.data as { longest_streak: number | null } | null)?.longest_streak ?? 0,
         })
 
         // Certificados completos: alimentan la hoja de vida y la recurrencia
@@ -562,6 +576,7 @@ export function Profile() {
             hint="Se arma sola con tus datos reales. Solo tú la ves por ahora."
           />
           <PilotCv
+            photoUrl={photoUrl}
             fullName={fullName}
             username={username}
             country={country}
@@ -578,6 +593,10 @@ export function Profile() {
             certs={certs}
             achUnlocked={achCount.unlocked}
             achTotal={achCount.total}
+            lastFlight={lastFlight}
+            pcaBest={studyStats.pcaBest}
+            quizzes={studyStats.quizzes}
+            longestStreak={studyStats.longestStreak}
           />
         </section>
       </div>
@@ -887,12 +906,33 @@ function cvDate(iso: string | null): string {
   return new Date(iso + "T00:00:00").toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
 }
 
+/** Chip de fuente del dato: lo que midió Aviatory contra lo que declaró el piloto. */
+function FuenteChip({ verificado }: { verificado: boolean }) {
+  return (
+    <span
+      className="mono text-[10px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
+      style={
+        verificado
+          ? { color: "var(--av-success-fg)", background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)" }
+          : { color: "var(--doc-muted, #6a6e76)", background: "color-mix(in oklab, var(--doc-fg) 6%, transparent)" }
+      }
+    >
+      {verificado ? "Verificado por Aviatory" : "Declarado"}
+    </span>
+  )
+}
+
 /**
- * La hoja de vida en papel: reutiliza la hoja de lectura del módulo NOTAM
- * (.doc-sheet), que ya resuelve el papel claro legible en los dos temas. Un
- * documento de carrera se lee como documento, no como otra card más.
+ * La hoja de vida en papel, pensada para el ojo de un reclutador.
+ *
+ * La regla que la ordena: separar lo que Aviatory midió (simulacros, práctica,
+ * constancia, bitácora) de lo que el piloto declaró (horas, licencias). Esa
+ * distinción es la que ninguna hoja de vida en PDF puede ofrecer, y es el
+ * argumento para que más adelante las aerolíneas contraten por aquí.
+ * Reutiliza la hoja de lectura del módulo NOTAM (.doc-sheet).
  */
 function PilotCv({
+  photoUrl,
   fullName,
   username,
   country,
@@ -909,7 +949,12 @@ function PilotCv({
   certs,
   achUnlocked,
   achTotal,
+  lastFlight,
+  pcaBest,
+  quizzes,
+  longestStreak,
 }: {
+  photoUrl: string | null
   fullName: string
   username: string
   country: string
@@ -932,25 +977,89 @@ function PilotCv({
   }[]
   achUnlocked: number
   achTotal: number
+  lastFlight: string | null
+  pcaBest: number | null
+  quizzes: number
+  longestStreak: number
 }) {
   const nombre = fullName.trim() || username.trim() || "Piloto Aviatory"
+  const icaoVerificado = icaoSource === "mock" && icaoLevel !== null
+  const diasUltimoVuelo = lastFlight !== null ? -cvDaysUntil(lastFlight) : null
+
+  /**
+   * Completitud de la hoja: cuenta solo campos que un reclutador espera ver.
+   * Cada uno es un dato real presente o ausente, no una estimación.
+   */
+  const checklist: { label: string; ok: boolean }[] = [
+    { label: "foto", ok: Boolean(photoUrl) },
+    { label: "nombre", ok: fullName.trim().length > 0 },
+    { label: "país", ok: country.trim().length > 0 },
+    { label: "etapa", ok: Boolean(stage) },
+    { label: "horas declaradas", ok: Number(totalHours) > 0 },
+    { label: "licencias", ok: licenses.length > 0 },
+    { label: "certificados con vigencia", ok: certs.some((c) => c.expires_date) },
+    { label: "inglés ICAO por simulacro", ok: icaoVerificado },
+    { label: "bitácora con vuelos", ok: flightCount > 0 },
+    { label: "aerolínea objetivo", ok: targetAirline.trim().length > 0 },
+  ]
+  const completos = checklist.filter((c) => c.ok).length
+  const completitud = Math.round((completos / checklist.length) * 100)
+  const faltantes = checklist.filter((c) => !c.ok).map((c) => c.label)
 
   return (
     <article className="doc-sheet rounded-xl px-5 sm:px-8 py-6 sm:py-8">
+      {/* Completitud: lo primero que ve el piloto es qué le falta para que un
+          reclutador vea una hoja completa. Solo campos reales. */}
+      <div className="pb-5 border-b doc-rule">
+        <div className="flex items-baseline justify-between gap-3">
+          <div className="text-[12px] font-semibold uppercase tracking-[0.14em] doc-muted">
+            Hoja lista para reclutador
+          </div>
+          <span className="tabular-nums text-[20px] font-semibold">{completitud}%</span>
+        </div>
+        <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "color-mix(in oklab, var(--doc-fg) 10%, var(--doc-bg))" }}>
+          <div
+            className="h-full rounded-full transition-[width] duration-700"
+            style={{ width: `${completitud}%`, background: docAccent("var(--av-blue-500)", 70) }}
+          />
+        </div>
+        {faltantes.length > 0 && (
+          <p className="mt-2 mb-0 text-[13px] doc-muted">
+            Te falta: {faltantes.join(", ")}.
+          </p>
+        )}
+      </div>
+
       {/* Encabezado del documento */}
-      <header className="pb-5 border-b doc-rule">
-        <div className="flex flex-wrap items-start justify-between gap-3">
-          <div className="min-w-0">
-            <div className="text-[12px] font-semibold uppercase tracking-[0.14em] doc-muted">
-              Hoja de vida de piloto
-            </div>
-            <h2 className="mt-1 mb-0 text-[24px] font-semibold tracking-[-0.02em] leading-tight">
-              {nombre}
-            </h2>
-            <div className="mt-1 text-[13px] doc-muted">
-              {username ? `@${username}` : ""}
-              {username && country ? " · " : ""}
-              {country}
+      <header className="py-5 border-b doc-rule">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex items-center gap-4 min-w-0">
+            {photoUrl ? (
+              <img
+                src={photoUrl}
+                alt=""
+                className="h-16 w-16 rounded-full object-cover border doc-rule flex-shrink-0"
+              />
+            ) : (
+              <div
+                className="h-16 w-16 rounded-full flex items-center justify-center text-[22px] font-semibold flex-shrink-0"
+                style={{ background: docTint("var(--av-blue-500)", 12), color: docAccent("var(--av-blue-500)", 60) }}
+              >
+                {(nombre[0] ?? "P").toUpperCase()}
+              </div>
+            )}
+            <div className="min-w-0">
+              <div className="text-[12px] font-semibold uppercase tracking-[0.14em] doc-muted">
+                Hoja de vida de piloto
+              </div>
+              <h2 className="mt-0.5 mb-0 text-[24px] font-semibold tracking-[-0.02em] leading-tight">
+                {nombre}
+              </h2>
+              <div className="mt-0.5 text-[13px] doc-muted">
+                {username ? `@${username}` : ""}
+                {username && country ? " · " : ""}
+                {country}
+              </div>
             </div>
           </div>
           {stage && stageLabel && (
@@ -963,58 +1072,127 @@ function PilotCv({
         </div>
       </header>
 
-      {/* Cifras de carrera */}
-      <div className="py-5 border-b doc-rule grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div>
-          <div className="text-[12px] doc-muted">Horas totales</div>
-          <div className="tabular-nums text-[20px] font-semibold">{totalHours || "—"}</div>
+      {/* Verificado por Aviatory: lo que la app midió, con fecha. Es la parte
+          que una aerolínea no puede conseguir en un PDF. */}
+      <div className="py-5 border-b doc-rule">
+        <div className="flex items-center gap-2.5 mb-3">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            Desempeño medido
+          </span>
+          <FuenteChip verificado />
         </div>
-        <div>
-          <div className="text-[12px] doc-muted">Horas PIC</div>
-          <div className="tabular-nums text-[20px] font-semibold">{hoursPic || "—"}</div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <div className="text-[12px] doc-muted">Inglés ICAO (simulacro TEA)</div>
+            <div className="tabular-nums text-[20px] font-semibold">
+              {icaoVerificado ? icaoLevel : "—"}
+            </div>
+            <div className="text-[12px] doc-muted">
+              {icaoVerificado && icaoTakenAt
+                ? cvDate(icaoTakenAt.slice(0, 10))
+                : icaoVerificado
+                  ? "medido"
+                  : "sin simulacro"}
+            </div>
+          </div>
+          <div>
+            <div className="text-[12px] doc-muted">Mejor examen PCA</div>
+            <div className="tabular-nums text-[20px] font-semibold">{pcaBest ?? "—"}</div>
+            <div className="text-[12px] doc-muted">{pcaBest !== null ? "sobre 100" : "sin intentos"}</div>
+          </div>
+          <div>
+            <div className="text-[12px] doc-muted">Quizzes resueltos</div>
+            <div className="tabular-nums text-[20px] font-semibold">{quizzes > 0 ? quizzes : "—"}</div>
+            <div className="text-[12px] doc-muted">{quizzes > 0 ? "en el banco por materia" : "ninguno aún"}</div>
+          </div>
+          <div>
+            <div className="text-[12px] doc-muted">Mejor racha de estudio</div>
+            <div className="tabular-nums text-[20px] font-semibold">
+              {longestStreak > 0 ? `${longestStreak} d` : "—"}
+            </div>
+            <div className="text-[12px] doc-muted">
+              {achTotal > 0 ? `${achUnlocked} de ${achTotal} logros` : "constancia"}
+            </div>
+          </div>
         </div>
-        <div>
-          <div className="text-[12px] doc-muted">Vuelos en bitácora</div>
-          <div className="tabular-nums text-[20px] font-semibold">{flightCount > 0 ? flightCount : "—"}</div>
+      </div>
+
+      {/* Bitácora: la recencia es lo primero que mira un reclutador */}
+      <div className="py-5 border-b doc-rule">
+        <div className="flex items-center gap-2.5 mb-3">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            Bitácora en Aviatory
+          </span>
+          <FuenteChip verificado />
         </div>
-        <div>
-          <div className="text-[12px] doc-muted">Inglés ICAO</div>
-          <div className="tabular-nums text-[20px] font-semibold">
-            {icaoLevel ?? "—"}
-            {icaoLevel !== null && (
-              <span className="ml-1.5 text-[12px] font-normal doc-muted">
-                {icaoSource === "mock"
-                  ? `simulacro TEA${icaoTakenAt ? ` · ${cvDate(icaoTakenAt.slice(0, 10))}` : ""}`
-                  : "estimado"}
-              </span>
+        {flightCount === 0 ? (
+          <p className="m-0 text-[13px] doc-muted">
+            Sin vuelos registrados. La bitácora se llena en Logbook y aquí aparece la recencia.
+          </p>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div>
+              <div className="text-[12px] doc-muted">Vuelos</div>
+              <div className="tabular-nums text-[20px] font-semibold">{flightCount}</div>
+            </div>
+            <div>
+              <div className="text-[12px] doc-muted">Último vuelo</div>
+              <div className="tabular-nums text-[20px] font-semibold">
+                {diasUltimoVuelo === null ? "—" : diasUltimoVuelo === 0 ? "Hoy" : `Hace ${diasUltimoVuelo} d`}
+              </div>
+            </div>
+            <div>
+              <div className="text-[12px] doc-muted">Fecha</div>
+              <div className="text-[15px] font-semibold">{cvDate(lastFlight)}</div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Declarado por el piloto */}
+      <div className="py-5 border-b doc-rule">
+        <div className="flex items-center gap-2.5 mb-3">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            Experiencia declarada
+          </span>
+          <FuenteChip verificado={false} />
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div>
+            <div className="text-[12px] doc-muted">Horas totales</div>
+            <div className="tabular-nums text-[20px] font-semibold">{totalHours || "—"}</div>
+          </div>
+          <div>
+            <div className="text-[12px] doc-muted">Horas PIC</div>
+            <div className="tabular-nums text-[20px] font-semibold">{hoursPic || "—"}</div>
+          </div>
+          <div className="col-span-2">
+            <div className="text-[12px] doc-muted">Licencias</div>
+            {licenses.length > 0 ? (
+              <div className="mt-1 flex flex-wrap gap-2">
+                {licenses.map((l) => (
+                  <span key={l} className="mono text-[13px] font-semibold px-2.5 py-1 rounded-md border doc-rule doc-soft">
+                    {l}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <div className="text-[15px] font-semibold doc-muted">—</div>
             )}
           </div>
         </div>
       </div>
 
-      {/* Licencias declaradas */}
-      {licenses.length > 0 && (
-        <div className="py-5 border-b doc-rule">
-          <div className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted mb-2">
-            Licencias
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {licenses.map((l) => (
-              <span key={l} className="mono text-[13px] font-semibold px-2.5 py-1 rounded-md border doc-rule doc-soft">
-                {l}
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
       {/* Certificados y vigencias, desde Vencimientos */}
       <div className="py-5 border-b doc-rule">
-        <div className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted mb-2">
-          Certificados y vigencias
+        <div className="flex items-center gap-2.5 mb-2">
+          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            Certificados y vigencias
+          </span>
+          <FuenteChip verificado={false} />
         </div>
         {certs.length === 0 ? (
-          <p className="m-0 text-[14px] doc-muted">
+          <p className="m-0 text-[13px] doc-muted">
             Aún no registras certificados. Se agregan en la sección Vencimientos y aparecen aquí solos.
           </p>
         ) : (
@@ -1042,7 +1220,7 @@ function PilotCv({
                           : { label: "Vigente", color: "var(--av-success-fg)" }
                   return (
                     <tr key={c.id} className="border-b doc-rule last:border-b-0">
-                      <td className="py-2.5 pr-4 text-[14px] font-semibold">
+                      <td className="py-2.5 pr-4 text-[13px] font-semibold">
                         {c.custom_name ?? c.license_type}
                       </td>
                       <td className="py-2.5 pr-4 tabular-nums text-[13px] doc-muted">{cvDate(c.issued_date)}</td>
@@ -1060,25 +1238,19 @@ function PilotCv({
         <Link
           to="/app/vencimientos"
           className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-          style={{ color: "color-mix(in oklab, var(--av-blue-500) 60%, var(--doc-fg))" }}
+          style={{ color: docAccent("var(--av-blue-500)", 60) }}
         >
           Gestionar certificados en Vencimientos <ArrowRight className="h-3.5 w-3.5" />
         </Link>
       </div>
 
-      {/* Pie: logros y privacidad */}
+      {/* Pie */}
       <footer className="pt-4 flex flex-wrap items-center justify-between gap-3">
         <div className="text-[13px] doc-muted">
-          {achTotal > 0 ? (
-            <span className="tabular-nums">
-              {achUnlocked} de {achTotal} logros de estudio desbloqueados
-            </span>
-          ) : (
-            "Logros de estudio: pronto"
-          )}
+          Lo marcado como verificado lo midió Aviatory con fecha; lo declarado lo escribiste tú.
         </div>
         <div className="text-[12px] doc-muted">
-          Visible solo para ti. Compartirla en comunidad: pronto.
+          Visible solo para ti. Compartirla con la comunidad y con aerolíneas: pronto.
         </div>
       </footer>
     </article>
