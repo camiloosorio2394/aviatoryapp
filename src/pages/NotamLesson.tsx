@@ -15,6 +15,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
+import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
 import { LEVEL_META, accentText, readLocalProgress, writeLocalProgress } from "@/lib/notam"
 import {
@@ -46,6 +47,11 @@ export function NotamLesson() {
     setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
     if (readLocalProgress().lessonScreens.includes(n)) return
     void markNotamProgress({ lessonScreen: n })
+    // Leer también es estudiar. Sin esto, el piloto pasaba 47 minutos en este
+    // documento y el Dashboard le decía que no había estudiado.
+    void registrarEstudioDiario("notam-leccion", {
+      minutes: LESSON_SCREENS.find((s) => s.n === n)?.minutes ?? 0,
+    })
   }, [])
 
   // Hidrata lo leído desde la base de datos.

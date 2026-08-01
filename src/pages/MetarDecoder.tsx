@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ScanSearch, Search, ShieldAlert } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -17,6 +17,7 @@ import {
   TREND_CODES,
   parseMetar,
 } from "@/lib/metar"
+import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * Decodificador METAR (ruta /app/aerolinea/meteorologia/decodificador).
@@ -83,6 +84,15 @@ export function MetarDecoder() {
   const [query, setQuery] = useState("")
 
   const tokens = useMemo(() => (input.trim() ? parseMetar(input) : []), [input])
+
+  // Cuenta como día estudiado en cuanto el piloto decodifica algo distinto del
+  // ejemplo precargado. Abrir la pantalla no es estudiar, y marcarlo como tal
+  // sería justo la clase de cifra inflada que este producto no se permite.
+  useEffect(() => {
+    if (tokens.length > 0 && input.trim() !== METAR_EXAMPLES[0].metar) {
+      void registrarEstudioDiario("metar-decodificador")
+    }
+  }, [tokens.length, input])
 
   const entries = useMemo(() => {
     const base = tabEntries(tab)

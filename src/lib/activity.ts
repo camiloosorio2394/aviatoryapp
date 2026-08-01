@@ -46,6 +46,42 @@ export async function registrarActividadDeEstudio(datos: {
   }
 }
 
+const LS_REGISTRADAS = "aviatory.actividad.superficies"
+
+/** Fecha de hoy en Colombia, que es la zona con la que la base cierra el día. */
+function hoyEnColombia(): string {
+  return new Date().toLocaleDateString("en-CA", { timeZone: "America/Bogota" })
+}
+
+/**
+ * Marca el día como estudiado desde una superficie concreta (una lección, un
+ * decodificador, una práctica), como mucho UNA VEZ AL DÍA por superficie.
+ *
+ * Sin este tope, leer la lección de NOTAM dispararía trece pares de RPC en un
+ * rato y dejaría el heatmap con trece "actividades" de un día, contra una sola
+ * de quien presentó la evaluación entera: la intensidad del heatmap dejaría de
+ * significar nada. Con el tope, cada superficie aporta lo mismo, que es lo
+ * único que se quiere decir: estudiaste aquí hoy.
+ *
+ * Responder un quiz o una evaluación sigue yendo por
+ * `registrarActividadDeEstudio`, que sí acumula preguntas y aciertos.
+ */
+export async function registrarEstudioDiario(
+  superficie: string,
+  datos: { minutes?: number } = {}
+): Promise<void> {
+  const hoy = hoyEnColombia()
+  try {
+    const marcas = JSON.parse(localStorage.getItem(LS_REGISTRADAS) ?? "{}") as Record<string, string>
+    if (marcas[superficie] === hoy) return
+    localStorage.setItem(LS_REGISTRADAS, JSON.stringify({ ...marcas, [superficie]: hoy }))
+  } catch {
+    /* localStorage bloqueado: se registra igual, solo se pierde el tope */
+  }
+
+  await registrarActividadDeEstudio({ questions: 0, correct: 0, minutes: datos.minutes ?? 0 })
+}
+
 const WEEKS = 12
 
 /**

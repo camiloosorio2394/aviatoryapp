@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { appButtonClass } from "@/lib/buttonStyles"
+import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
 import { LEVEL_META, accentText } from "@/lib/notam"
 import { readMetarProgress, writeMetarProgress } from "@/lib/metar"
@@ -43,6 +44,9 @@ export function MetarLesson() {
     setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
     if (readMetarProgress().lessonScreens.includes(n)) return
     void markMetarProgress({ lessonScreen: n })
+    void registrarEstudioDiario("metar-leccion", {
+      minutes: METAR_LESSON.find((s) => s.n === n)?.minutes ?? 0,
+    })
   }, [])
 
   // Hidrata lo leído desde la base y sube lo que se leyó sin sesión. Sin esto,

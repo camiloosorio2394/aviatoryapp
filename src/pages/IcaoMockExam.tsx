@@ -29,6 +29,7 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { useRecorder } from "@/hooks/useRecorder"
+import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
 import {
   buildExam,
@@ -89,6 +90,7 @@ export function IcaoMockExam() {
     setIdx(0)
     setElapsed(0)
     setRecordings({})
+    void registrarEstudioDiario("icao-simulacro")
     if (wantRecord) {
       const ok = await rec.enable()
       if (!ok) setWantRecord(false)

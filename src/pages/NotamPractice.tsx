@@ -40,6 +40,7 @@ import {
   type NotamLevel,
 } from "@/lib/notam"
 import { fetchNotamProgress, markNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
+import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * Practica NOTAM (ruta /app/aerolinea/notam/practica).
@@ -202,6 +203,8 @@ export function NotamPractice() {
     setDoneKeys((prev) => (prev.includes(key) ? prev : [...prev, key]))
     try {
       await markNotamProgress({ practiceId: key })
+      // Resolver ejercicios cuenta como día estudiado, igual que la evaluación.
+      void registrarEstudioDiario("notam-practica")
     } finally {
       setSaving(false)
     }

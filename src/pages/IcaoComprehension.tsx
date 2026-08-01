@@ -18,6 +18,7 @@ import {
   MessageSquare,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { registrarEstudioDiario } from "@/lib/activity"
 import {
   SHORT_AUDIO_SETS,
   SHORT_AUDIO_TOTAL,
@@ -228,6 +229,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
     if (revealed) return
     setPicked(s)
     setRevealed(true)
+    void registrarEstudioDiario("icao-comprension")
     if (s === cur.speaker) setScore((v) => v + 1)
   }
   function next() {

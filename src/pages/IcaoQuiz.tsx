@@ -13,6 +13,7 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { supabase } from "@/integrations/supabase/client"
+import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
 
 /**
@@ -135,6 +136,7 @@ export function IcaoQuiz() {
     if (revealed || !current) return
     setSelected(letter)
     setRevealed(true)
+    void registrarEstudioDiario("icao-quiz")
     const correct = letter === current.correct_answer
     if (correct) setScore((s) => s + 1)
     setHistory((h) => [...h, { qId: current.id, correct }])
