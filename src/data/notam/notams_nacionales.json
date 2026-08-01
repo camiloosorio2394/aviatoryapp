@@ -1,7 +1,7 @@
 {
   "meta": {
     "proposito": "Modo práctica con NOTAMs COLOMBIANOS REALES: la app muestra la imagen del NOTAM tal como aparece en el resumen oficial y el usuario lo describe. La IA evalúa con la respuesta modelo y los puntos clave.",
-    "fuente": "Resumen mensual de NOTAM vigentes — Aeronáutica Civil de Colombia, Dirección de Informática (DRT), corte 29 JUL 2026. Archivos: Alfa2.pdf, Charlie1.pdf, Charlie2.pdf (carpeta 1. NOTAMS NACIONALES COLOMBIA).",
+    "fuente": "Resumen mensual de NOTAM vigentes: Aeronáutica Civil de Colombia, Dirección de Informática (DRT), corte 29 JUL 2026. Archivos: Alfa2.pdf (serie A, en inglés), Charlie1.pdf y Charlie2.pdf (series C y D, en español). El campo `corte` de cada ficha dice de qué lote salió el recorte.",
     "aviso_obligatorio_en_pantalla": "NOTAM real de Colombia usado como material de estudio. Su vigencia ya expiró o expirará: NUNCA usar esta información para operaciones. Consulta siempre el briefing AIS vigente.",
     "formato_resumen": "Cada fila del resumen trae: serie y número (ej. C 2222/26), aeródromo o FIR, fechas B)/C) en formato AAMMDDHHMM UTC (y horario diario si aplica, equivalente a la casilla D), texto E), y RPLC NOTAM cuando reemplaza a otro. Las columnas Desde/Hasta de los NOTAM de espacio aéreo corresponden a los límites F) y G).",
     "carpeta_imagenes": "assets/notams_nacionales/",
@@ -16,8 +16,15 @@
       "nivel": "intermedio",
       "transcripcion": "2605281100 / 2608252359 , AD LTD, AVBL ACFT HASTA CAT B",
       "decodificacion": "El aeródromo Puerto Bolívar (SKPB) está limitado: disponible solo para aeronaves hasta categoría B, del 28 may 2026 11:00 UTC al 25 ago 2026 23:59 UTC. AD = aeródromo, LTD/LT = limitado a (Doc 8400, 4ª/5ª letras LT), AVBL = disponible, ACFT = aeronave, CAT = categoría. Operacional: aeronaves de categoría C o superior (por velocidad de aproximación) no pueden operar allí mientras rija el NOTAM.",
-      "puntos_clave": ["aeródromo SKPB limitado", "solo aeronaves hasta CAT B", "vigencia 28 may – 25 ago 2026 UTC", "CAT = categoría de aeronave por velocidad de aproximación", "excluye CAT C en adelante"],
-      "fuente_imagen": "Charlie1.pdf, pág. 15"
+      "puntos_clave": [
+        "aeródromo SKPB limitado",
+        "solo aeronaves hasta CAT B",
+        "vigencia 28 may – 25 ago 2026 UTC",
+        "CAT = categoría de aeronave por velocidad de aproximación",
+        "excluye CAT C en adelante"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 15",
+      "corte": "2026-07-29"
     },
     {
       "id": "N2",
@@ -27,8 +34,15 @@
       "nivel": "avanzado",
       "transcripcion": "2606031100 / 2608302359 , DIST DECLARADAS RWY 10/28 MODIFICADAS: RWY 10: TORA(M)1700 TODA(M)1800 ASDA(M)1550 LDA(M)1700. RWY 28: TORA(M)1700 TODA(M)1700 ASDA(M)1550 LDA(M)1700.",
       "decodificacion": "Distancias declaradas de la pista 10/28 de Jorge Isaacs – La Mina (SKLM) modificadas del 3 jun al 30 ago 2026: para RWY 10, TORA (recorrido de despegue disponible) 1 700 m, TODA (distancia de despegue disponible) 1 800 m, ASDA (distancia disponible de aceleración-parada) 1 550 m, LDA (distancia de aterrizaje disponible) 1 700 m; para RWY 28, TORA 1 700, TODA 1 700, ASDA 1 550, LDA 1 700 (Doc 8400: TORA/TODA/ASDA/LDA, sección 1; código de asunto MD = distancias declaradas). Operacional: recalcular performance de despegue y aterrizaje con estos valores; la ASDA reducida (1 550 m) penaliza el despegue con falla de motor (distancia aceleración-parada).",
-      "puntos_clave": ["distancias declaradas modificadas", "SKLM RWY 10/28", "TORA/TODA/ASDA/LDA con valores correctos", "impacto en cálculo de performance", "ASDA menor que TORA = atención en despegue"],
-      "fuente_imagen": "Charlie1.pdf, pág. 17"
+      "puntos_clave": [
+        "distancias declaradas modificadas",
+        "SKLM RWY 10/28",
+        "TORA/TODA/ASDA/LDA con valores correctos",
+        "impacto en cálculo de performance",
+        "ASDA menor que TORA = atención en despegue"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 17",
+      "corte": "2026-07-29"
     },
     {
       "id": "N3",
@@ -38,8 +52,15 @@
       "nivel": "basico",
       "transcripcion": "2605171823 / 2608142359 EST , PAPI RWY 19 U/S RPLC NOTAM C 0756/26",
       "decodificacion": "El PAPI de la pista 19 de José María Córdova (SKRG) está inutilizable (U/S) desde el 17 may 2026 18:23 UTC hasta el 14 ago 2026 23:59 UTC ESTIMADO (EST: fin estimado, sigue vigente hasta reemplazo o cancelación). RPLC NOTAM C 0756/26: este NOTAM reemplaza al C 0756/26. Operacional: sin guía visual de pendiente en RWY 19; precaución en aproximación visual, especialmente nocturna.",
-      "puntos_clave": ["PAPI RWY 19", "SKRG", "U/S = inutilizable", "EST = fin estimado", "RPLC = reemplaza al NOTAM C 0756/26"],
-      "fuente_imagen": "Charlie1.pdf, pág. 13"
+      "puntos_clave": [
+        "PAPI RWY 19",
+        "SKRG",
+        "U/S = inutilizable",
+        "EST = fin estimado",
+        "RPLC = reemplaza al NOTAM C 0756/26"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 13",
+      "corte": "2026-07-29"
     },
     {
       "id": "N4",
@@ -49,9 +70,18 @@
       "nivel": "intermedio",
       "transcripcion": "2607160500 / 2607311000 0500-1000 , RWY 14R/32L CLSD",
       "decodificacion": "La pista 14R/32L de El Dorado (SKBO) está cerrada (CLSD) del 16 al 31 de julio de 2026, PERO solo en el horario diario 05:00–10:00 UTC (00:00–05:00 hora Colombia): el bloque '0500-1000' es el horario de actividad (equivalente a la casilla D del formato NOTAM). Fuera de esa franja la pista opera normalmente. Operacional: llegadas/salidas nocturnas-madrugada en El Dorado con una sola pista disponible: prever demoras.",
-      "puntos_clave": ["RWY 14R/32L de SKBO", "cerrada SOLO de 0500 a 1000 UTC cada día", "horario diario = casilla D", "conversión a hora local (00:00–05:00)", "fuera del horario opera normal"],
-      "errores_tipicos": ["Decir que la pista está cerrada de forma continua los 15 días"],
-      "fuente_imagen": "Charlie1.pdf, pág. 7"
+      "puntos_clave": [
+        "RWY 14R/32L de SKBO",
+        "cerrada SOLO de 0500 a 1000 UTC cada día",
+        "horario diario = casilla D",
+        "conversión a hora local (00:00–05:00)",
+        "fuera del horario opera normal"
+      ],
+      "errores_tipicos": [
+        "Decir que la pista está cerrada de forma continua los 15 días"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 7",
+      "corte": "2026-07-29"
     },
     {
       "id": "N5",
@@ -61,8 +91,15 @@
       "nivel": "avanzado",
       "transcripcion": "2605050225 / 2608012359 , OBST INSTL, EXER CTN. TIPO/COORD/ELEV/HGT(M): SILO 5125.08N0774024.76W 2962,62M 25M · SILO 5125.15N0774024.38W 2962,62M 25M · SILO 5124.70N0774024.30W 2962,62M 25M · SILO 5124.64N0774024.68W 2962,62M 25M",
       "decodificacion": "Obstáculos instalados (OBST INSTL: OB = obstáculo, CE/instalado — Doc 8400) cerca de Ipiales–San Luis (SKIP): cuatro silos de 25 m de altura en las coordenadas listadas, elevación 2 962,62 m, del 5 may al 1 ago 2026. EXER CTN = ejercer precaución. Nota de lectura: las coordenadas del resumen usan el formato GGMM.SS; la elevación está en metros. Operacional: verificar franqueamiento de obstáculos en salidas/llegadas y maniobras visuales por ese sector.",
-      "puntos_clave": ["obstáculos nuevos instalados", "4 silos de 25 m", "SKIP (Ipiales)", "coordenadas y elevación", "precaución en salidas/aproximaciones visuales"],
-      "fuente_imagen": "Charlie1.pdf, pág. 11"
+      "puntos_clave": [
+        "obstáculos nuevos instalados",
+        "4 silos de 25 m",
+        "SKIP (Ipiales)",
+        "coordenadas y elevación",
+        "precaución en salidas/aproximaciones visuales"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 11",
+      "corte": "2026-07-29"
     },
     {
       "id": "N6",
@@ -72,8 +109,15 @@
       "nivel": "basico",
       "transcripcion": "2606071235 / 2609042359 EST , RWY 08/26 PRESENCIA DE UAS, EXER CTN RPLC NOTAM C 1045/26",
       "decodificacion": "Presencia de UAS (sistemas de aeronaves no tripuladas / drones) en el sector de la pista 08/26 de Matecaña (SKPE), del 7 jun al 4 sep 2026 (fin estimado). EXER CTN = ejercer precaución. Reemplaza al C 1045/26. Operacional: riesgo de colisión con drones en aproximación, despegue y circuito; atención visual y reporte inmediato al ATC de cualquier avistamiento.",
-      "puntos_clave": ["UAS/drones", "pista 08/26 de SKPE", "precaución (EXER CTN)", "EST en la vigencia", "reportar avistamientos al ATC"],
-      "fuente_imagen": "Charlie1.pdf, pág. 20"
+      "puntos_clave": [
+        "UAS/drones",
+        "pista 08/26 de SKPE",
+        "precaución (EXER CTN)",
+        "EST en la vigencia",
+        "reportar avistamientos al ATC"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 20",
+      "corte": "2026-07-29"
     },
     {
       "id": "N7",
@@ -83,8 +127,15 @@
       "nivel": "basico",
       "transcripcion": "2606171250 / PERM , RWY 05/23 PRESENCIA DE PERSONAS Y SEMOVIENTES, EXER CTN. REF. AIP SKNQ AD 2.23. RPLC NOTAM C 2298/26",
       "decodificacion": "Presencia de personas y semovientes (animales) en la pista 05/23 de Nuquí (SKNQ), con carácter PERMANENTE desde el 17 jun 2026 (PERM: la condición pasará a figurar en el AIP; la referencia REF. AIP SKNQ AD 2.23 ya lo señala). Peligro típico de aeródromos no cercados: riesgo de impacto en despegue/aterrizaje. Operacional: inspección visual de pista antes de operar, sobrevuelo de reconocimiento si es necesario.",
-      "puntos_clave": ["personas y animales en pista", "SKNQ", "PERM = permanente, pasa al AIP", "referencia AIP AD 2.23", "inspección/reconocimiento antes de operar"],
-      "fuente_imagen": "Charlie1.pdf, pág. 24"
+      "puntos_clave": [
+        "personas y animales en pista",
+        "SKNQ",
+        "PERM = permanente, pasa al AIP",
+        "referencia AIP AD 2.23",
+        "inspección/reconocimiento antes de operar"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 24",
+      "corte": "2026-07-29"
     },
     {
       "id": "N8",
@@ -94,8 +145,15 @@
       "nivel": "basico",
       "transcripcion": "2606021523 / 2608302359 EST , ABN U/S RPLC NOTAM C 2096/26",
       "decodificacion": "El faro de aeródromo (ABN, Doc 8400: LB = faro de aeródromo) de Almirante Padilla, Riohacha (SKRH) está inutilizable del 2 jun al 30 ago 2026 (fin estimado). El faro ayuda a identificar el aeródromo de noche o con visibilidad reducida. Operacional: en vuelo nocturno VFR hacia SKRH, no contar con el faro para ubicar el campo; planificar con otras referencias.",
-      "puntos_clave": ["ABN = faro de aeródromo", "SKRH Riohacha", "U/S", "afecta identificación nocturna del aeródromo", "EST"],
-      "fuente_imagen": "Charlie1.pdf, pág. 17"
+      "puntos_clave": [
+        "ABN = faro de aeródromo",
+        "SKRH Riohacha",
+        "U/S",
+        "afecta identificación nocturna del aeródromo",
+        "EST"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 17",
+      "corte": "2026-07-29"
     },
     {
       "id": "N9",
@@ -105,8 +163,15 @@
       "nivel": "intermedio",
       "transcripcion": "2607021543 / PERM , ATIS TAME INFORMACION FREQ 127.875MHZ INSTL. REF. AIP SKTM AD 2.18",
       "decodificacion": "Se instaló (INSTL — Doc 8400: CS = instalado) el servicio ATIS 'Tame Información' en la frecuencia 127.875 MHz en Gabriel Vargas Santos (SKTM), permanente desde el 2 jul 2026. No todo NOTAM es una falla: este notifica un servicio NUEVO (SA = ATIS en el código NOTAM). Operacional: sintonizar 127.875 antes de llegar/salir de SKTM para la información automática del aeródromo.",
-      "puntos_clave": ["ATIS nuevo instalado", "frecuencia 127.875 MHz", "SKTM", "PERM + referencia AIP", "los NOTAM también informan servicios que entran en operación"],
-      "fuente_imagen": "Charlie1.pdf, pág. 35"
+      "puntos_clave": [
+        "ATIS nuevo instalado",
+        "frecuencia 127.875 MHz",
+        "SKTM",
+        "PERM + referencia AIP",
+        "los NOTAM también informan servicios que entran en operación"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 35",
+      "corte": "2026-07-29"
     },
     {
       "id": "N10",
@@ -116,8 +181,15 @@
       "nivel": "avanzado",
       "transcripcion": "2606051500 / 2608052200 1500-2200 , RESTRICCION DE ESPACIO AEREO ACT NXT COORD: 055322N0745104W 055321N0745137W 055622N0745044W 055613N0744954W · GND TIL 6500FT AM(SL)",
       "decodificacion": "Restricción de espacio aéreo activa (ACT) en la FIR Bogotá, dentro del polígono definido por las cuatro coordenadas (NXT COORD = siguientes coordenadas), desde tierra (GND) hasta 6 500 ft AMSL (columnas Desde/Hasta del resumen = casillas F y G), del 5 jun al 5 ago 2026, todos los días de 15:00 a 22:00 UTC (horario = casilla D). Operacional: no penetrar el polígono en la franja horaria por debajo de 6 500 ft; verificar la ruta VFR contra las coordenadas.",
-      "puntos_clave": ["restricción de espacio aéreo activa", "FIR Bogotá", "polígono de 4 coordenadas", "GND a 6 500 ft AMSL (F y G)", "horario diario 1500–2200 UTC"],
-      "fuente_imagen": "Charlie1.pdf, pág. 17"
+      "puntos_clave": [
+        "restricción de espacio aéreo activa",
+        "FIR Bogotá",
+        "polígono de 4 coordenadas",
+        "GND a 6 500 ft AMSL (F y G)",
+        "horario diario 1500–2200 UTC"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 17",
+      "corte": "2026-07-29"
     },
     {
       "id": "N11",
@@ -127,8 +199,15 @@
       "nivel": "avanzado",
       "transcripcion": "2606260000 / 2609222359 , UAS SE REALIZARA NXT COORD: 095129.93N0732410.25W - 094732.94N0732145.54W - 093935.01N0733333.41W - 094425.84N0733606.21W · GND TIL 1200FT AM(SL)",
       "decodificacion": "Operaciones de UAS (drones) se realizarán en la FIR Barranquilla dentro del polígono indicado, desde tierra hasta 1 200 ft AMSL, del 26 jun al 22 sep 2026. 'SE REALIZARA' corresponde a la fraseología LW = se realizará (will take place, Doc 8400). Operacional: en La Guajira/Cesar esta clase de NOTAM define volúmenes activos de drones; los vuelos a baja altura (helicópteros, avionetas, trabajos aéreos) deben evitar el polígono o coordinar.",
-      "puntos_clave": ["actividad UAS programada", "FIR Barranquilla", "polígono de coordenadas", "GND a 1 200 ft AMSL", "LW = se realizará"],
-      "fuente_imagen": "Charlie1.pdf, pág. 27"
+      "puntos_clave": [
+        "actividad UAS programada",
+        "FIR Barranquilla",
+        "polígono de coordenadas",
+        "GND a 1 200 ft AMSL",
+        "LW = se realizará"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 27",
+      "corte": "2026-07-29"
     },
     {
       "id": "N12",
@@ -138,8 +217,15 @@
       "nivel": "avanzado",
       "transcripcion": "2504062143 / PERM , IAC ILS Z CAT 1 RWY 20 Y IAC LOC RWY 20, SE MODIFICA: HDG APP FINAL A 201 DEG. VAR MAG A 7 DEG W / 2024. REF AIP SKAR AD 2.24. RPLC NOTAM C 3312/24",
       "decodificacion": "Las cartas de aproximación por instrumentos (IAC) ILS Z CAT I y LOC de la pista 20 de El Edén (SKAR) quedan modificadas de forma permanente desde abr 2025: rumbo de aproximación final pasa a 201°, con variación magnética 7°W (modelo 2024). Códigos Doc 8400 asociados: PI = procedimiento de aproximación por instrumentos; CH = cambiado. Operacional: verificar que la carta que llevas a cabina esté actualizada (la referencia es el AIP SKAR AD 2.24); un rumbo final desactualizado en el FMS/carta es una amenaza en aproximación.",
-      "puntos_clave": ["IAC ILS Z y LOC RWY 20 de SKAR modificadas", "rumbo final 201°", "variación magnética 7°W", "PERM + referencia AIP", "verificar cartas actualizadas antes de volar"],
-      "fuente_imagen": "Charlie1.pdf, pág. 3"
+      "puntos_clave": [
+        "IAC ILS Z y LOC RWY 20 de SKAR modificadas",
+        "rumbo final 201°",
+        "variación magnética 7°W",
+        "PERM + referencia AIP",
+        "verificar cartas actualizadas antes de volar"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 3",
+      "corte": "2026-07-29"
     },
     {
       "id": "N13",
@@ -149,8 +235,15 @@
       "nivel": "intermedio",
       "transcripcion": "2607081755 / 2610052300 1100-2300 , AD CLSD RPLC NOTAM D 0303/26",
       "decodificacion": "El aeródromo Baracoa de Magangué (SKMG) está cerrado (AD CLSD: FA = aeródromo, LC = cerrado) del 8 jul al 5 oct 2026, en horario diario 11:00–23:00 UTC (06:00–18:00 hora Colombia) — es decir, cerrado durante el día y disponible fuera de esa franja. Serie D del sistema colombiano. Reemplaza al D 0303/26. Operacional: SKMG no sirve como destino ni alterno en horario diurno mientras rija.",
-      "puntos_clave": ["aeródromo SKMG cerrado", "horario diario 1100–2300 UTC", "conversión a hora local", "no disponible como alterno en esa franja", "RPLC"],
-      "fuente_imagen": "Charlie1.pdf, pág. 8"
+      "puntos_clave": [
+        "aeródromo SKMG cerrado",
+        "horario diario 1100–2300 UTC",
+        "conversión a hora local",
+        "no disponible como alterno en esa franja",
+        "RPLC"
+      ],
+      "fuente_imagen": "Charlie1.pdf, pág. 8",
+      "corte": "2026-07-29"
     },
     {
       "id": "N14",
@@ -160,8 +253,229 @@
       "nivel": "basico",
       "transcripcion": "AVGAS 100/130 NO AVBL",
       "decodificacion": "No hay disponibilidad de gasolina de aviación AVGAS 100/130 en Alfredo Vásquez Cobo, Leticia (SKLT). Código Doc 8400 asociado: FU = disponibilidad de combustible; AU = no está disponible. Operacional: crítico en un aeródromo aislado como Leticia — las aeronaves de pistón no pueden reabastecer allí; planificar combustible para el regreso o ruta alterna desde la salida.",
-      "puntos_clave": ["AVGAS 100/130 no disponible", "SKLT Leticia", "afecta solo aeronaves de pistón (JET A1 no mencionado)", "planificación de combustible crítica en aeródromo aislado"],
-      "fuente_imagen": "Charlie2.pdf, pág. 35"
+      "puntos_clave": [
+        "AVGAS 100/130 no disponible",
+        "SKLT Leticia",
+        "afecta solo aeronaves de pistón (JET A1 no mencionado)",
+        "planificación de combustible crítica en aeródromo aislado"
+      ],
+      "fuente_imagen": "Charlie2.pdf, pág. 35",
+      "corte": "2026-07-29"
+    },
+    {
+      "id": "N15",
+      "imagen": "assets/notams_nacionales/notam_A1465_SKEC_VOR_CJN_US.webp",
+      "serie_numero": "A 1465/26",
+      "aerodromo": "FIR/UIR BARRANQUILLA (SKEC)",
+      "nivel": "intermedio",
+      "corte": "2026-07-29",
+      "transcripcion": "2605221257 / 2608192359 EST , VOR CJN 113.40 MHZ U/S RPLC N A/0609/26",
+      "decodificacion": "El VOR de identificación CJN, en 113.40 MHz, está inutilizable (U/S) desde el 22 may 2026 12:57 UTC hasta el 19 ago 2026 23:59 UTC estimado. Va por FIR y no por aeródromo: afecta a toda la región de información de vuelo de Barranquilla, no a un aeropuerto concreto. Reemplaza al A 0609/26. Operacional: radioayuda en ruta fuera de servicio, replantea la navegación por ese tramo y confirma qué te queda disponible antes de contar con ella para una aproximación o una espera.",
+      "puntos_clave": [
+        "VOR CJN 113.40 MHz",
+        "U/S = inutilizable",
+        "Aplica por FIR (SKEC), no por aeródromo",
+        "EST = fin estimado",
+        "RPLC = reemplaza al NOTAM A 0609/26"
+      ],
+      "errores_tipicos": [
+        "Buscar un aeródromo afectado: este NOTAM es de ruta y el indicador es el de la FIR",
+        "Dar por vencido el aviso el 19 de agosto: el EST solo estima, sigue vigente hasta que lo reemplacen"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 10"
+    },
+    {
+      "id": "N16",
+      "imagen": "assets/notams_nacionales/notam_A1670_SKBO_ILS_GP_US.webp",
+      "serie_numero": "A 1670/26",
+      "aerodromo": "BOGOTÁ, D.C./BOGOTA - EL DORADO LUIS CARLOS (SKBO)",
+      "nivel": "intermedio",
+      "corte": "2026-07-29",
+      "transcripcion": "2606101137 / 2609072359 EST , ILS/GP IEDR RWY 14L 332.30 MHZ U/S RPLC N A/1582/26",
+      "decodificacion": "La senda de planeo (GP, glide path) del ILS identificado IEDR de la pista 14L de El Dorado, en 332.30 MHz, está inutilizable desde el 10 jun 2026 11:37 UTC hasta el 7 sep 2026 23:59 UTC estimado. Reemplaza al A 1582/26. Operacional: lo que cae es el componente vertical del ILS, no el ILS entero. Con el localizador sirviendo, la 14L queda para aproximación de no precisión (LOC), con mínimos más altos: revisa la carta antes de planear con ella.",
+      "puntos_clave": [
+        "ILS/GP = senda de planeo del ILS",
+        "IEDR = identificación de la instalación",
+        "RWY 14L de SKBO",
+        "U/S = inutilizable",
+        "EST = fin estimado"
+      ],
+      "errores_tipicos": [
+        "Leerlo como que el ILS completo está fuera de servicio: solo cae la senda de planeo",
+        "No revisar los mínimos: sin GP la aproximación deja de ser de precisión"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 4"
+    },
+    {
+      "id": "N17",
+      "imagen": "assets/notams_nacionales/notam_A2072_SKEJ_TRIGGER_AIP_SUP.webp",
+      "serie_numero": "A 2072/26",
+      "aerodromo": "BARRANCABERMEJA/BARRANCABERMEJA-YARIGUIES (SKEJ)",
+      "nivel": "avanzado",
+      "corte": "2026-07-29",
+      "transcripcion": "2607201556 2608022359 , TRIGGER NOTAM - AIP SUP 35/26 WEF 20 JUL 2026 VSS, OCS REF. AIP SKEJ AD 2.24 2.25",
+      "decodificacion": "NOTAM iniciador (trigger) del suplemento AIP 35/26, con efecto a partir del (WEF) 20 jul 2026, sobre la superficie de ascenso en el despegue (OCS) y la superficie de protección visual (VSS) de Yariguíes. Vigente del 20 jul al 2 ago 2026. Un trigger NOTAM no trae la información: avisa de que salió una publicación AIP y te manda a leerla. Le corresponde el estado TT del código de cinco letras. Operacional: el aviso no te dice qué cambió, así que hay que abrir el AIP SUP 35/26 y las secciones AD 2.24 y 2.25 del AIP de SKEJ.",
+      "puntos_clave": [
+        "TRIGGER NOTAM = anuncia una publicación AIP, no la reemplaza",
+        "AIP SUP 35/26 es el documento al que remite",
+        "WEF = con efecto a partir de",
+        "Estado TT en el código de cinco letras",
+        "Vigencia corta: solo acompaña a la publicación"
+      ],
+      "errores_tipicos": [
+        "Buscar en el NOTAM el detalle del cambio: no está, está en el suplemento",
+        "Descartarlo por corto: el suplemento sigue vigente aunque el trigger expire"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 2"
+    },
+    {
+      "id": "N18",
+      "imagen": "assets/notams_nacionales/notam_A1608_SKAR_RWY_WIP_HORARIO.webp",
+      "serie_numero": "A 1608/26",
+      "aerodromo": "ARMENIA/EL EDEN (SKAR)",
+      "nivel": "basico",
+      "corte": "2026-07-29",
+      "transcripcion": "2606050430 2609021000 0430-1000 , RWY 02/20 WIP, EXER CTN",
+      "decodificacion": "Obras en progreso (WIP) en la pista 02/20 de El Edén, del 5 jun al 2 sep 2026, pero solo entre las 04:30 y las 10:00 UTC de cada día (23:30 a 05:00 hora Colombia). EXER CTN es ejercer precaución. Operacional: la pista no está cerrada, hay trabajos en ella dentro de esa franja. Fuera del horario opera normal.",
+      "puntos_clave": [
+        "WIP = obras en progreso",
+        "EXER CTN = ejercer precaución",
+        "0430-1000 es el horario diario, equivale a la casilla D",
+        "No es un cierre: es precaución"
+      ],
+      "errores_tipicos": [
+        "Leerlo como pista cerrada: WIP no es CLSD",
+        "Ignorar la franja horaria y suponer que aplica todo el día"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 2"
+    },
+    {
+      "id": "N19",
+      "imagen": "assets/notams_nacionales/notam_A2038_SKBG_RWY_CLSD_FRANJAS.webp",
+      "serie_numero": "A 2038/26",
+      "aerodromo": "BUCARAMANGA/BUCARAMANGA - PALONEGRO (SKBG)",
+      "nivel": "avanzado",
+      "corte": "2026-07-29",
+      "transcripcion": "2608230000 2610251500 AUG 23 0000-0430 1030-1500, RWY 17/35 CLSD",
+      "decodificacion": "La pista 17/35 de Palonegro está cerrada (CLSD) entre el 23 ago y el 25 oct 2026, con DOS franjas horarias diarias: de 00:00 a 04:30 y de 10:30 a 15:00 UTC. Operacional: Palonegro tiene una sola pista, así que dentro de esas franjas el aeródromo no recibe. Es el caso donde peor sale leer solo las fechas de inicio y fin.",
+      "puntos_clave": [
+        "CLSD = cerrada",
+        "Dos franjas horarias en la misma casilla D",
+        "Todas las horas son UTC",
+        "SKBG opera con una sola pista"
+      ],
+      "errores_tipicos": [
+        "Leer una sola franja y pasar por alto la segunda",
+        "Suponer cierre continuo entre agosto y octubre",
+        "Pasar las franjas a hora local sin restar cinco horas"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 7"
+    },
+    {
+      "id": "N20",
+      "imagen": "assets/notams_nacionales/notam_A1955_SKBQ_MET_FREQ_RETIRADA.webp",
+      "serie_numero": "A 1955/26",
+      "aerodromo": "BARRANQUILLA/BARRANQUILLA-E. CORTISSOZ (SKBQ)",
+      "nivel": "intermedio",
+      "corte": "2026-07-29",
+      "transcripcion": "2607091306 PERM , BARRANQUILLA MET FREQ 125.00MHZ COMPLETELY WITHDRAWN REF. SKBQ AD 2.18 RPLC N A/1694/26",
+      "decodificacion": "La frecuencia meteorológica de Barranquilla, 125.00 MHz, queda retirada por completo desde el 9 jul 2026 13:06 UTC, y de forma PERMANENTE. Reemplaza al A 1694/26 y remite a la sección AD 2.18 del AIP. Operacional: PERM significa que la condición no termina y que en algún momento pasará al AIP. Si tienes esa frecuencia anotada en la ficha del aeropuerto, bórrala.",
+      "puntos_clave": [
+        "PERM = permanente, no tiene fecha de fin",
+        "COMPLETELY WITHDRAWN = retirada del todo",
+        "Un NOTAM PERM acaba incorporándose al AIP",
+        "RPLC = reemplaza al NOTAM A 1694/26"
+      ],
+      "errores_tipicos": [
+        "Buscar la casilla C: en un NOTAM PERM no hay fecha de fin",
+        "Seguir usando la frecuencia porque aparece en una carta vieja"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 3"
+    },
+    {
+      "id": "N21",
+      "imagen": "assets/notams_nacionales/notam_A1762_SKBQ_THR_POTHOLE.webp",
+      "serie_numero": "A 1762/26",
+      "aerodromo": "BARRANQUILLA/BARRANQUILLA-E. CORTISSOZ (SKBQ)",
+      "nivel": "basico",
+      "corte": "2026-07-29",
+      "transcripcion": "2606221547 / 2609192359 EST , THR 05 POTHOLE, EXER CTN RPLC N A/1713/26",
+      "decodificacion": "Hay un bache (pothole) en el umbral (THR) de la pista 05 de Ernesto Cortissoz, del 22 jun al 19 sep 2026 estimado. EXER CTN es ejercer precaución. Reemplaza al A 1713/26. Operacional: el umbral sigue utilizable, pero con daño en el pavimento. Es información de estado de superficie, del tipo que se evalúa junto al riesgo de FOD y de daño al tren.",
+      "puntos_clave": [
+        "THR = umbral",
+        "POTHOLE = bache en el pavimento",
+        "EXER CTN = ejercer precaución",
+        "EST = fin estimado"
+      ],
+      "errores_tipicos": [
+        "Leerlo como cierre del umbral: no lo cierra, avisa de su estado",
+        "Confundir THR con la pista entera"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 3"
+    },
+    {
+      "id": "N22",
+      "imagen": "assets/notams_nacionales/notam_A1587_SKBO_OBST_CRANE.webp",
+      "serie_numero": "A 1587/26",
+      "aerodromo": "BOGOTÁ, D.C./BOGOTA - EL DORADO LUIS CARLOS (SKBO)",
+      "nivel": "avanzado",
+      "corte": "2026-07-29",
+      "transcripcion": "2606030150 2608311100 , OBST ERECTED, EXER CTN TYPE: CRANE COORD: 044041.718N0741016.698W ELEV: 8.334FT HGT: 54M",
+      "decodificacion": "Obstáculo erigido (OBST ERECTED) cerca de El Dorado, del 3 jun al 31 ago 2026: una grúa (CRANE) en 04°40'41.718\"N 074°10'16.698\"W, con elevación 8.334 ft y altura 54 m. EXER CTN es ejercer precaución. Operacional: es de los pocos NOTAM que te dan tipo, posición, elevación y altura del obstáculo, que es exactamente lo que necesitas para saber si te afecta en aproximación o en el ascenso inicial.",
+      "puntos_clave": [
+        "OBST ERECTED = obstáculo montado (código de asunto OB, estado CE)",
+        "TYPE: CRANE, una grúa",
+        "COORD, ELEV y HGT: posición, elevación y altura",
+        "HGT es altura sobre el terreno, no altitud"
+      ],
+      "errores_tipicos": [
+        "Confundir ELEV (elevación del terreno) con HGT (altura del obstáculo)",
+        "Pasar por alto que es temporal: la grúa se retira y sale el NOTAM que lo cancela"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 4"
+    },
+    {
+      "id": "N23",
+      "imagen": "assets/notams_nacionales/notam_A2013_SKED_UAS_RADIO.webp",
+      "serie_numero": "A 2013/26",
+      "aerodromo": "FIR/UIR BOGOTA (SKED)",
+      "nivel": "intermedio",
+      "corte": "2026-07-29",
+      "transcripcion": "2607291300 2607301800 1300-1800 , UAS WILL TAKE PLACE RADIUS 0.3NM CENTRE 035135.57N0731846.93W",
+      "decodificacion": "Habrá actividad de aeronaves no tripuladas (UAS) en un círculo de 0.3 NM de radio centrado en 03°51'35.57\"N 073°18'46.93\"W, el 29 y 30 jul 2026, entre las 13:00 y las 18:00 UTC de cada día. Va por la FIR Bogotá. Operacional: es un área muy pequeña, pero el aviso solo dice dónde y cuándo; los límites verticales, cuando los hay, van en las casillas F) y G).",
+      "puntos_clave": [
+        "UAS = aeronave no tripulada (dron)",
+        "RADIUS 0.3NM CENTRE: área circular con centro y radio",
+        "1300-1800 es el horario diario",
+        "Se emite por FIR, no por aeródromo"
+      ],
+      "errores_tipicos": [
+        "Ignorarlo por el radio pequeño: si tu ruta pasa por ahí en esa franja, aplica",
+        "Buscar los límites verticales en el texto en vez de en F) y G)"
+      ],
+      "fuente_imagen": "Alfa2.pdf, pág. 17"
+    },
+    {
+      "id": "N24",
+      "imagen": "assets/notams_nacionales/notam_C3084_SKED_CTA_CALI_LTD.webp",
+      "serie_numero": "C 3084/26",
+      "aerodromo": "FIR/UIR BOGOTA (SKED)",
+      "nivel": "avanzado",
+      "corte": "2026-07-29",
+      "transcripcion": "2607291212 / 2610262359 EST , CTA CALI LTD, SER VIGILANCIA RADAR SIN COBERTURA 30NM CENTRO VOR TCO FM GND TIL 10000FT AMSL, SE APLICARA SEPARACION CONVENCIONAL RPLC N C/1748/26",
+      "decodificacion": "El área de control (CTA) de Cali queda limitada del 29 jul al 26 oct 2026 estimado: el servicio de vigilancia radar no tiene cobertura en 30 NM alrededor del VOR TCO, desde el terreno (GND) hasta 10 000 ft AMSL, y en ese volumen se aplicará separación convencional. Reemplaza al C 1748/26. Operacional: sin radar, la separación pasa a ser por procedimiento, así que hay que contar con más demora y con reportes de posición.",
+      "puntos_clave": [
+        "CTA LTD = área de control limitada",
+        "FM GND TIL 10000FT AMSL: son los límites verticales, equivalen a F) y G)",
+        "Separación convencional = por procedimiento, sin radar",
+        "EST = fin estimado",
+        "RPLC = reemplaza al NOTAM C 1748/26"
+      ],
+      "errores_tipicos": [
+        "Leerlo como un cierre de espacio aéreo: limita el servicio, no lo cierra",
+        "Pasar por alto los límites verticales: por encima de 10 000 ft AMSL no aplica"
+      ],
+      "fuente_imagen": "Charlie2.pdf, pág. 32"
     }
   ]
 }
