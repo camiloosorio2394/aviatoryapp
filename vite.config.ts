@@ -58,6 +58,14 @@ export default defineConfig({
         // deploy nuevo (404 = imagen rota). Precacheadas viajan con su
         // version de la app.
         globPatterns: ['**/*.{js,css,html,svg,png,jpg,woff2}'],
+        // Los recortes de NOTAM son la excepcion: son material de estudio de
+        // una seccion concreta, crecen con cada lote nuevo y la mayoria de los
+        // usuarios no los abre. Precachearlos encarece la instalacion para
+        // todos, incluidos los que nunca entran al modulo. Van bajo demanda y
+        // se quedan en cache la primera vez que se ven (runtimeCaching, abajo).
+        // Estos archivos NO llevan hash en el nombre, asi que tampoco sufren el
+        // problema de 404 entre deploys que obliga a precachear los .jpg.
+        globIgnores: ['notams/**'],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [
@@ -76,6 +84,18 @@ export default defineConfig({
                 maxEntries: 60,
                 maxAgeSeconds: 60 * 60 * 24,  // 1 day
               },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Recortes de NOTAM: fuera del precache, pero se guardan la primera
+            // vez que se abren. Quien estudia la seccion los tiene offline en la
+            // segunda visita; quien no entra nunca no los descarga jamas.
+            urlPattern: /\/notams\/.*\.(webp|png)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'notam-images',
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 180 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

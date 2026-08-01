@@ -10,7 +10,7 @@
   "notams": [
     {
       "id": "N1",
-      "imagen": "assets/notams_nacionales/notam_C2129_SKPB_AD_LTD.png",
+      "imagen": "assets/notams_nacionales/notam_C2129_SKPB_AD_LTD.webp",
       "serie_numero": "C 2129/26",
       "aerodromo": "URIBIA/PUERTO BOLIVAR - PORTETE (SKPB)",
       "nivel": "intermedio",
@@ -21,7 +21,7 @@
     },
     {
       "id": "N2",
-      "imagen": "assets/notams_nacionales/notam_C2222_SKLM_DIST_DECLARADAS.png",
+      "imagen": "assets/notams_nacionales/notam_C2222_SKLM_DIST_DECLARADAS.webp",
       "serie_numero": "C 2222/26",
       "aerodromo": "MAICAO/JORGE ISAACS (ANTES LA MINA) (SKLM)",
       "nivel": "avanzado",
@@ -32,7 +32,7 @@
     },
     {
       "id": "N3",
-      "imagen": "assets/notams_nacionales/notam_C1962_SKRG_PAPI_US.png",
+      "imagen": "assets/notams_nacionales/notam_C1962_SKRG_PAPI_US.webp",
       "serie_numero": "C 1962/26",
       "aerodromo": "RIONEGRO/RIONEGRO - JOSE M. CORDOVA (SKRG)",
       "nivel": "basico",
@@ -43,7 +43,7 @@
     },
     {
       "id": "N4",
-      "imagen": "assets/notams_nacionales/notam_D0499_SKBO_RWY_CLSD_HORARIO.png",
+      "imagen": "assets/notams_nacionales/notam_D0499_SKBO_RWY_CLSD_HORARIO.webp",
       "serie_numero": "D 0499/26",
       "aerodromo": "BOGOTÁ, D.C./BOGOTA - EL DORADO LUIS CARLOS (SKBO)",
       "nivel": "intermedio",
@@ -55,7 +55,7 @@
     },
     {
       "id": "N5",
-      "imagen": "assets/notams_nacionales/notam_C1791_SKIP_OBST_SILOS.png",
+      "imagen": "assets/notams_nacionales/notam_C1791_SKIP_OBST_SILOS.webp",
       "serie_numero": "C 1791/26",
       "aerodromo": "ALDANA/IPIALES - SAN LUIS (SKIP)",
       "nivel": "avanzado",
@@ -66,7 +66,7 @@
     },
     {
       "id": "N6",
-      "imagen": "assets/notams_nacionales/notam_C2320_SKPE_UAS_RWY.png",
+      "imagen": "assets/notams_nacionales/notam_C2320_SKPE_UAS_RWY.webp",
       "serie_numero": "C 2320/26",
       "aerodromo": "PEREIRA/PEREIRA - MATECAÑA (SKPE)",
       "nivel": "basico",
@@ -77,7 +77,7 @@
     },
     {
       "id": "N7",
-      "imagen": "assets/notams_nacionales/notam_C2445_SKNQ_SEMOVIENTES.png",
+      "imagen": "assets/notams_nacionales/notam_C2445_SKNQ_SEMOVIENTES.webp",
       "serie_numero": "C 2445/26",
       "aerodromo": "NUQUÍ/NUQUI - REYES MURILLO (SKNQ)",
       "nivel": "basico",
@@ -88,7 +88,7 @@
     },
     {
       "id": "N8",
-      "imagen": "assets/notams_nacionales/notam_C2216_SKRH_ABN_US.png",
+      "imagen": "assets/notams_nacionales/notam_C2216_SKRH_ABN_US.webp",
       "serie_numero": "C 2216/26",
       "aerodromo": "RIOHACHA/ALMIRANTE PADILLA (SKRH)",
       "nivel": "basico",
@@ -99,7 +99,7 @@
     },
     {
       "id": "N9",
-      "imagen": "assets/notams_nacionales/notam_C2681_SKTM_ATIS_INSTL.png",
+      "imagen": "assets/notams_nacionales/notam_C2681_SKTM_ATIS_INSTL.webp",
       "serie_numero": "C 2681/26",
       "aerodromo": "TAME/GABRIEL VARGAS SANTOS (SKTM)",
       "nivel": "intermedio",
@@ -110,7 +110,7 @@
     },
     {
       "id": "N10",
-      "imagen": "assets/notams_nacionales/notam_C2203_FIRBOG_RESTRICCION.png",
+      "imagen": "assets/notams_nacionales/notam_C2203_FIRBOG_RESTRICCION.webp",
       "serie_numero": "C 2203/26",
       "aerodromo": "FIR/UIR BOGOTÁ",
       "nivel": "avanzado",
@@ -121,7 +121,7 @@
     },
     {
       "id": "N11",
-      "imagen": "assets/notams_nacionales/notam_C2517_FIRBAQ_UAS_COORD.png",
+      "imagen": "assets/notams_nacionales/notam_C2517_FIRBAQ_UAS_COORD.webp",
       "serie_numero": "C 2517/26",
       "aerodromo": "FIR/UIR BARRANQUILLA",
       "nivel": "avanzado",
@@ -132,7 +132,7 @@
     },
     {
       "id": "N12",
-      "imagen": "assets/notams_nacionales/notam_C1297_SKAR_ILS_MODIFICADO.png",
+      "imagen": "assets/notams_nacionales/notam_C1297_SKAR_ILS_MODIFICADO.webp",
       "serie_numero": "C 1297/25",
       "aerodromo": "ARMENIA/EL EDEN (SKAR)",
       "nivel": "avanzado",
@@ -143,7 +143,7 @@
     },
     {
       "id": "N13",
-      "imagen": "assets/notams_nacionales/notam_D0535_SKMG_AD_CLSD.png",
+      "imagen": "assets/notams_nacionales/notam_D0535_SKMG_AD_CLSD.webp",
       "serie_numero": "D 0535/26",
       "aerodromo": "MAGANGUÉ/MAGANGUE - BARACOA (SKMG)",
       "nivel": "intermedio",
@@ -154,7 +154,7 @@
     },
     {
       "id": "N14",
-      "imagen": "assets/notams_nacionales/notam_C2836_SKLT_AVGAS_NO_AVBL.png",
+      "imagen": "assets/notams_nacionales/notam_C2836_SKLT_AVGAS_NO_AVBL.webp",
       "serie_numero": "C 2836/26",
       "aerodromo": "LETICIA/LETICIA-ALFREDO VASQUEZ COBO (SKLT)",
       "nivel": "basico",
