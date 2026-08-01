@@ -771,7 +771,7 @@ export function NotamPractice() {
 
             <div
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-[1200px] max-h-[80vh] overflow-auto rounded-2xl p-3 sm:p-4"
+              className="w-full max-w-[1280px] max-h-[80vh] overflow-auto rounded-2xl p-3 sm:p-4"
               style={{ background: "rgb(255 255 255)", touchAction: "pan-x pan-y pinch-zoom" }}
             >
               <NotamImage

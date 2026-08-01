@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle2, Star } from "lucide-react"
  * curso, meta corta, título, descripción y CTA.
  *
  * Nació en el catálogo de la landing (`components/landing/Solutions.tsx`) y vive
- * acá porque la usan tres sitios: la landing, el hub de NOTAM y el de METAR, y
+ * aquí porque la usan tres sitios: la landing, el hub de NOTAM y el de METAR, y
  * los temas de Ingreso a aerolínea que vengan. Si el patrón se toca, se toca en
  * un solo archivo.
  *

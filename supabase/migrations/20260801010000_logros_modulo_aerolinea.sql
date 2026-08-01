@@ -91,14 +91,27 @@ declare
 begin
   if p_user_id is null then return 0; end if;
 
-  -- Preguntas respondidas y "hizo al menos un quiz": ahora desde vault_sessions,
-  -- que es donde escribe VaultQuizPlayer. question_ids es el array de preguntas
-  -- servidas en la sesión, así que su longitud es el total de esa sesión.
-  select coalesce(sum(coalesce(array_length(question_ids, 1), 0)), 0)::int,
-         count(*) > 0
+  -- Preguntas respondidas y "hizo al menos un quiz".
+  --
+  -- Se SUMAN las dos fuentes a propósito. vault_sessions es donde escribe el
+  -- quiz actual, pero en quiz_attempts quedaron intentos terminados de usuarios
+  -- reales, de antes de la migración al vault. Leer solo la nueva le restaría
+  -- preguntas a quien ya las había respondido, y podría dejar `first_100` fuera
+  -- de alcance para alguien que ya lo tenía casi. Nadie pierde lo que hizo.
+  --
+  -- En vault_sessions, question_ids es el array de preguntas servidas en la
+  -- sesión, así que su longitud es el total de esa sesión.
+  select coalesce(sum(preguntas), 0)::int, count(*) > 0
     into v_total_questions, v_quiz_done
-    from public.vault_sessions
-    where user_id = p_user_id and completed_at is not null;
+    from (
+      select coalesce(array_length(question_ids, 1), 0) as preguntas
+        from public.vault_sessions
+        where user_id = p_user_id and completed_at is not null
+      union all
+      select coalesce(total_questions, 0) as preguntas
+        from public.quiz_attempts
+        where user_id = p_user_id and finished_at is not null
+    ) as intentos;
 
   select coalesce(current_streak, 0)
     into v_streak
@@ -120,6 +133,10 @@ begin
   -- subject_master: las 5 últimas sesiones completadas son de la misma materia
   -- y todas con 80 o más sobre 100. El puntaje se calcula, porque vault_sessions
   -- guarda aciertos y preguntas, no la nota.
+  --
+  -- Este SÍ va solo contra vault_sessions: la materia de la tabla vieja es un
+  -- subject_id numérico y la nueva es un subject_slug de texto, así que mezclar
+  -- las dos daría rachas falsas al comparar materias que no son la misma.
   with last5 as (
     select subject_slug,
            case
@@ -197,6 +214,10 @@ begin
 end;
 $$;
 
+-- Trampa conocida de Postgres: `create or replace function` devuelve EXECUTE a
+-- PUBLIC, así que hay que revocarlo otra vez. Sin esto, la función queda
+-- ejecutable por anon después de cada recreación.
+revoke all on function public.check_and_unlock_achievements(uuid) from public, anon;
 grant execute on function public.check_and_unlock_achievements(uuid) to authenticated;
 
 -- ─── Disparadores del módulo ────────────────────────────────────────────────

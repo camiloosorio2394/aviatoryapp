@@ -201,7 +201,7 @@ export interface NotamResumen {
 /**
  * Resume el avance del tema NOTAM.
  *
- * Vive acá y no dentro del hub porque lo consumen dos pantallas: el hub de
+ * Vive aquí y no dentro del hub porque lo consumen dos pantallas: el hub de
  * NOTAM y la lista de temas de Ingreso a aerolínea. Con la cuenta duplicada,
  * la misma persona veía dos porcentajes distintos según por dónde entrara.
  */

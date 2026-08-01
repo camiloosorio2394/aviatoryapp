@@ -8,6 +8,7 @@ import {
   Award,
   BookOpen,
   CheckCircle2,
+  ClipboardCheck,
   ChevronDown,
   ChevronUp,
   Clock,
@@ -18,7 +19,6 @@ import {
   PenLine,
   RotateCcw,
   Shuffle,
-  Sparkles,
   Target,
   Timer,
   XCircle,
@@ -475,7 +475,7 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
           className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >
-          <Sparkles className="h-4.5 w-4.5" /> Empezar la evaluación
+          <ClipboardCheck className="h-4.5 w-4.5" /> Empezar la evaluación
         </button>
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px]">

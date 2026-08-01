@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ScanSearch, Search, ShieldAlert } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -17,7 +17,6 @@ import {
   TREND_CODES,
   parseMetar,
 } from "@/lib/metar"
-import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * Decodificador METAR (ruta /app/aerolinea/meteorologia/decodificador).
@@ -85,14 +84,10 @@ export function MetarDecoder() {
 
   const tokens = useMemo(() => (input.trim() ? parseMetar(input) : []), [input])
 
-  // Cuenta como día estudiado en cuanto el piloto decodifica algo distinto del
-  // ejemplo precargado. Abrir la pantalla no es estudiar, y marcarlo como tal
-  // sería justo la clase de cifra inflada que este producto no se permite.
-  useEffect(() => {
-    if (tokens.length > 0 && input.trim() !== METAR_EXAMPLES[0].metar) {
-      void registrarEstudioDiario("metar-decodificador")
-    }
-  }, [tokens.length, input])
+  // El decodificador NO marca día estudiado, a propósito: consultar una
+  // herramienta no es estudiar, y la pantalla se declara como "consulta libre,
+  // sin límite". La racha vale porque cuesta; si se mantuviera viva pegando un
+  // informe en un buscador, dejaría de significar algo.
 
   const entries = useMemo(() => {
     const base = tabEntries(tab)

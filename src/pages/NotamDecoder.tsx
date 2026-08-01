@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react"
+import { useMemo, useRef, useState } from "react"
 import type { ComponentType, CSSProperties, ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
@@ -38,7 +38,6 @@ import {
   type StatusCode,
   type SubjectCode,
 } from "@/lib/notam"
-import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * Decodificador NOTAM (ruta /app/aerolinea/notam/decodificador).
@@ -203,12 +202,10 @@ export function NotamDecoder() {
   const decoded = useMemo(() => decodeQ(input), [input])
   const parts = useMemo(() => splitCode(input), [input])
 
-  // Decodificar un código también es estudiar. El registro tiene tope diario
-  // por superficie, así que decodificar veinte códigos seguidos no infla el
-  // heatmap: cuenta como un día de estudio en el decodificador.
-  useEffect(() => {
-    if (decoded.valid) void registrarEstudioDiario("notam-decodificador")
-  }, [decoded.valid])
+  // El decodificador NO marca día estudiado, a propósito: consultar una
+  // herramienta no es estudiar, y la pantalla se declara como "consulta libre,
+  // sin límite". Si la racha se mantuviera viva por abrir un buscador dejaría
+  // de significar algo, y la racha vale justamente porque cuesta.
 
   const subject: SubjectCode | null =
     parts.subjectKey.length === 2 ? SUBJECT_CODES[parts.subjectKey] ?? null : null

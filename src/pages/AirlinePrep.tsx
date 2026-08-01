@@ -6,9 +6,9 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
-  FileSearch,
   Plane,
 } from "lucide-react"
+import { AerodromeIcon } from "@/components/icons/aero"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
@@ -166,7 +166,11 @@ export function AirlinePrep() {
         pct: notam.overall,
         card: {
           to: "/app/aerolinea/notam",
-          icon: FileSearch,
+          // Símbolo de aeródromo de carta: un NOTAM avisa de lo que cambia en
+          // un aeródromo o su espacio aéreo, así que el símbolo informa. Donde
+          // no informaría (el simulacro, el match) se quedan los genéricos: la
+          // regla es que el símbolo diga algo, no que decore.
+          icon: AerodromeIcon,
           color: "var(--av-blue-500)",
           // Las cifras salen de los datos cargados, no de un texto a mano: si
           // el banco crece, la promesa de la tarjeta crece con él.
