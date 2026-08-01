@@ -456,6 +456,16 @@ export const LESSON_SCREENS: LessonScreen[] = [
       },
       {
         kind: "p",
+        text: "**El caso `TT` en la práctica.** Un NOTAM iniciador no trae la información: avisa de que salió una publicación AIP y te manda a leerla.",
+      },
+      {
+        kind: "notam",
+        id: "N17",
+        caption:
+          "`TRIGGER NOTAM - AIP SUP 35/26` con `WEF 20 JUL 2026`: anuncia el suplemento 35 del AIP, con efecto desde el 20 de julio. Fíjate en la vigencia corta, del 20 de julio al 2 de agosto: el trigger acompaña a la publicación y se retira, pero el suplemento sigue vigente. Si te quedas con este aviso y no abres el AIP SUP, no te enteraste de nada.",
+      },
+      {
+        kind: "p",
         text: "**Los que más vas a ver** (tablas del Doc 8400, sección 7). Esta es la tabla que el Decodificador trae completa, recortada a lo que aparece en casi todo briefing:",
       },
       {
@@ -640,6 +650,16 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       { kind: "code", text: "F) GND        G) 2000FT AMSL\nF) SFC        G) UNL\nF) FL100      G) FL180" },
+      {
+        kind: "p",
+        text: "**En el resumen colombiano los límites viajan dentro del texto.** Este aviso de la FIR Bogotá los trae escritos de corrido:",
+      },
+      {
+        kind: "notam",
+        id: "N24",
+        caption:
+          "`FM GND TIL 10000FT AMSL` es exactamente F) y G): desde el terreno hasta 10 000 ft sobre el nivel del mar. Por encima de esa altura el aviso no te aplica. Y ojo con lo que dice: el área de control de Cali no se cierra, se queda **sin cobertura radar** en 30 NM alrededor del VOR TCO, así que la separación pasa a ser convencional.",
+      },
       {
         kind: "callout",
         tone: "tip",
