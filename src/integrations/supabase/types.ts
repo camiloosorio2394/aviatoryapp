@@ -2003,6 +2003,7 @@ export type Database = {
         Row: {
           country: string | null
           created_at: string
+          cv_public: boolean
           full_name: string | null
           id: string
           photo_url: string | null
@@ -2013,6 +2014,7 @@ export type Database = {
         Insert: {
           country?: string | null
           created_at?: string
+          cv_public?: boolean
           full_name?: string | null
           id: string
           photo_url?: string | null
@@ -2023,6 +2025,7 @@ export type Database = {
         Update: {
           country?: string | null
           created_at?: string
+          cv_public?: boolean
           full_name?: string | null
           id?: string
           photo_url?: string | null
@@ -2792,6 +2795,27 @@ export type Database = {
           },
         ]
       }
+      user_metar_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_notam_exam_attempts: {
         Row: {
           answers: Json | null
@@ -3173,6 +3197,7 @@ export type Database = {
           username: string
         }[]
       }
+      get_pilot_cv: { Args: { p_username: string }; Returns: Json }
       get_profile_avatars: {
         Args: { p_user_ids: string[] }
         Returns: {
@@ -3216,6 +3241,21 @@ export type Database = {
       }
       increment_streak: { Args: never; Returns: undefined }
       mark_all_notifications_read: { Args: never; Returns: number }
+      metar_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_metar_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
       notam_mark_progress: {
         Args: { p_lesson_screen?: number; p_practice_id?: string }
         Returns: {
@@ -3231,6 +3271,7 @@ export type Database = {
           isSetofReturn: false
         }
       }
+      pca_stats: { Args: never; Returns: Json }
       recalc_pilot_hours: { Args: { p_user_id: string }; Returns: undefined }
       record_daily_activity: {
         Args: { p_correct?: number; p_minutes?: number; p_questions?: number }

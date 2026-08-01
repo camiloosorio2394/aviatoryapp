@@ -2,10 +2,9 @@
 -- Progreso del tema METAR (Meteorología operacional, modulo Ingreso a
 -- Aerolinea). Espejo exacto del esquema de NOTAM.
 --
--- PENDIENTE DE APLICAR: escrita por la sesion de Nico del 30 jul 2026, que no
--- tiene credenciales de CLI. Aplicar con `npx supabase db push --linked`,
--- regenerar types y avisar: la leccion METAR pasa entonces de progreso local a
--- local + base, con el mismo puente que usa NOTAM (hidratacion y backfill).
+-- APLICADA en produccion el 31 jul 2026 desde la sesion de Camilo (MCP).
+-- La leccion METAR puede pasar ya de progreso local a local + base, con el
+-- mismo puente que usa NOTAM (hidratacion y backfill).
 -- ============================================================================
 
 create table if not exists public.user_metar_progress (

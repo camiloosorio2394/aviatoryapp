@@ -1,10 +1,7 @@
 -- ============================================================================
 -- Hoja de vida publica (opt-in).
 --
--- PENDIENTE DE APLICAR: esta migracion la escribio la sesion de Nico del
--- 30 jul 2026 y NO se ha corrido contra produccion (esa sesion no tiene
--- credenciales de CLI). Aplicar con `npx supabase db push --linked` y despues
--- regenerar types. La UI del toggle en Perfil se activa cuando esto exista.
+-- APLICADA en produccion el 31 jul 2026 desde la sesion de Camilo (MCP).
 --
 -- Diseno: el piloto decide si su hoja de vida se puede ver desde comunidad.
 -- Por defecto NO. La lectura ajena pasa solo por la RPC, que devuelve un
