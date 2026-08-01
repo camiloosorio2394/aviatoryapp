@@ -1,12 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import type { ComponentType } from "react"
-import { ArrowLeft, ArrowRight, BookOpen, CheckCircle2, ClipboardCheck, ScanSearch, Target } from "lucide-react"
+import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
-import { accentText } from "@/lib/notam"
+import { CourseCard } from "@/components/ui/course-card"
+import type { CourseCardProps } from "@/components/ui/course-card"
 import { readMetarProgress } from "@/lib/metar"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
+import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
+import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
+import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
 
 /**
  * Hub del tema Meteorología operacional (módulo Ingreso a aerolínea).
@@ -16,68 +20,65 @@ import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
  * "Pronto" y el TAF tendrá su propia lección: el hub no promete nada que no
  * exista. El progreso de la lección es local por ahora (ver migración
  * 20260731020000_metar_progreso.sql, pendiente de aplicar).
+ *
+ * Las partes se presentan con la tarjeta de curso compartida, la misma del
+ * catálogo de la portada y del hub de NOTAM.
  */
-
-interface Parte {
-  to?: string
-  icon: ComponentType<{ className?: string }>
-  color: string
-  eyebrow: string
-  title: string
-  description: string
-  estado: string
-  hecho: boolean
-}
 
 export function Metar() {
   // El progreso local no cambia durante la visita al hub: leerlo una vez basta.
   const [lessonRead] = useState(() => readMetarProgress().lessonScreens.length)
 
-  const partes: Parte[] = [
+  const partes: CourseCardProps[] = [
     {
       to: "/app/aerolinea/meteorologia/aprende",
       icon: BookOpen,
       color: "var(--av-blue-500)",
-      eyebrow: `${METAR_LESSON_TOTAL} secciones`,
+      meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
       title: "Aprende",
-      description:
+      blurb:
         "Qué es un METAR y cómo leerlo grupo por grupo: viento, visibilidad, tiempo presente, nubes, QNH y tendencias.",
-      estado:
+      cta: "Abrir la lección",
+      photo: aprendePhoto,
+      status:
         lessonRead === 0
           ? "Sin empezar"
           : lessonRead >= METAR_LESSON_TOTAL
             ? "Lección completa"
             : `${lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
-      hecho: lessonRead >= METAR_LESSON_TOTAL,
+      done: lessonRead >= METAR_LESSON_TOTAL,
     },
     {
       to: "/app/aerolinea/meteorologia/decodificador",
       icon: ScanSearch,
       color: "var(--av-cyan-400)",
-      eyebrow: "Con la leyenda completa del curso",
+      meta: "Con la leyenda completa del curso",
       title: "Decodificador",
-      description:
+      blurb:
         "Pega cualquier METAR y te lo desarma grupo por grupo. Trae las tablas de fenómenos, descriptores, nubes y tendencias con buscador.",
-      estado: "Consulta libre, sin límite",
-      hecho: false,
+      cta: "Abrir el decodificador",
+      photo: decodificadorPhoto,
+      status: "Consulta libre, sin límite",
     },
+    // Las dos que faltan no llevan pie de estado: el chip "Pronto" y el CTA ya
+    // lo dicen, y una tercera repetición solo hace ruido.
     {
       icon: Target,
       color: "var(--av-violet-400)",
-      eyebrow: "En construcción",
+      meta: "Con informes reales y respuesta modelo",
       title: "Práctica",
-      description: "Interpretarás informes reales con respuesta modelo, como en la práctica de NOTAM.",
-      estado: "Pronto",
-      hecho: false,
+      blurb: "Interpretarás informes reales con respuesta modelo, como en la práctica de NOTAM.",
+      photo: practicaPhoto,
+      soon: true,
     },
     {
       icon: ClipboardCheck,
       color: "var(--av-amber-400)",
-      eyebrow: "En construcción",
+      meta: "Con explicación por pregunta",
       title: "Evaluación",
-      description: "Opción múltiple con explicación por pregunta, al estilo de la evaluación de NOTAM.",
-      estado: "Pronto",
-      hecho: false,
+      blurb: "Opción múltiple con explicación por pregunta, al estilo de la evaluación de NOTAM.",
+      photo: evaluacionPhoto,
+      soon: true,
     },
   ]
 
@@ -98,60 +99,10 @@ export function Metar() {
           }
         />
 
-        <div className="grid gap-4 sm:grid-cols-2">
-          {partes.map((p) => {
-            const Ic = p.icon
-            const inner = (
-              <>
-                <div className="flex items-start justify-between gap-3">
-                  <div
-                    className="flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0"
-                    style={{
-                      background: `color-mix(in oklab, ${p.color} 14%, transparent)`,
-                      border: `1px solid color-mix(in oklab, ${p.color} 24%, transparent)`,
-                      color: accentText(p.color, 75),
-                    }}
-                  >
-                    <Ic className="h-5 w-5" />
-                  </div>
-                  {p.hecho && (
-                    <span className="chip chip-green">
-                      <CheckCircle2 className="h-3 w-3" /> Completo
-                    </span>
-                  )}
-                  {!p.to && <span className="chip">Pronto</span>}
-                </div>
-                <div className="mt-3 text-[12px] text-muted-foreground">{p.eyebrow}</div>
-                <h2 className="mt-0.5 text-[17px] font-semibold text-foreground tracking-[-0.021em]">
-                  {p.title}
-                </h2>
-                <p className="mt-1 text-[13px] text-muted-foreground leading-snug flex-1">
-                  {p.description}
-                </p>
-                <div className="mt-4 pt-3.5 border-t border-border flex items-center justify-between">
-                  <span
-                    className="text-[13px] font-semibold"
-                    style={{ color: p.to ? accentText(p.color) : "var(--muted-foreground)" }}
-                  >
-                    {p.estado}
-                  </span>
-                  {p.to && (
-                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-                  )}
-                </div>
-              </>
-            )
-
-            return p.to ? (
-              <Link key={p.title} to={p.to} className="surface-lift group flex flex-col rounded-xl surface p-5">
-                {inner}
-              </Link>
-            ) : (
-              <div key={p.title} className="flex flex-col rounded-xl surface p-5 opacity-80">
-                {inner}
-              </div>
-            )
-          })}
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {partes.map((p) => (
+            <CourseCard key={p.title} {...p} />
+          ))}
         </div>
       </div>
     </AppLayout>
