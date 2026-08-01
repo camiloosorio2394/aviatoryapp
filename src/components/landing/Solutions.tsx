@@ -1,5 +1,6 @@
-import { Brain, Globe2, Plane, BookOpen, Video, Sparkles, Star, ArrowRight } from "lucide-react"
+import { Brain, Globe2, Plane, BookOpen, Video, Sparkles } from "lucide-react"
 import { Reveal } from "@/components/Reveal"
+import { CourseCard } from "@/components/ui/course-card"
 import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 import pcaPhoto from "@/assets/photos/pca-flightdeck.jpg"
 import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
@@ -8,9 +9,12 @@ import aerolineaPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 import wingmanPhoto from "@/assets/photos/wingman-cockpit-dusk.jpg"
 
 /**
- * Catálogo de cursos — los módulos de Aviatory presentados como cursos
+ * Catálogo de cursos: los módulos de Aviatory presentados como cursos
  * (miniatura fotográfica + meta + descripción + CTA), estilo plataforma de cursos.
- * Fotos: Unsplash License (uso comercial sin atribución) — créditos en docs.
+ *
+ * La tarjeta vive en `components/ui/course-card.tsx` porque el mismo patrón lo
+ * usan los hubs de cada tema de Ingreso a aerolínea (NOTAM, METAR).
+ * Fotos: Unsplash License (uso comercial sin atribución), créditos en docs.
  */
 const COURSES: {
   title: string
@@ -101,95 +105,11 @@ export function Solutions() {
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {COURSES.map((c, i) => (
             <Reveal key={c.title} as="div" delay={i * 70}>
-              <CourseCard {...c} />
+              <CourseCard {...c} metaCaps />
             </Reveal>
           ))}
         </div>
       </div>
     </section>
-  )
-}
-
-function CourseCard({
-  title,
-  blurb,
-  icon: Icon,
-  color,
-  meta,
-  photo,
-  highlight,
-  soon,
-}: {
-  title: string
-  blurb: string
-  icon: React.ComponentType<{ className?: string }>
-  color: string
-  meta: string
-  photo: string
-  highlight?: boolean
-  soon?: boolean
-}) {
-  return (
-    <div
-      className="group h-full rounded-2xl border bg-card overflow-hidden transition-all hover:-translate-y-1"
-      style={{
-        borderColor: highlight ? `color-mix(in oklab, ${color} 45%, transparent)` : "var(--border)",
-        boxShadow: "0 1px 2px rgb(0 0 0 / 4%)",
-      }}
-    >
-      {/* thumbnail fotográfico con tinte del color del curso */}
-      <div className="relative h-36 overflow-hidden">
-        <img
-          src={photo}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(to top, color-mix(in oklab, ${color} 45%, rgb(11 16 32 / 88%)) 0%, rgb(11 16 32 / 12%) 55%, transparent 100%)`,
-          }}
-        />
-        <span
-          className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg backdrop-blur-sm"
-          style={{ background: "rgb(11 16 32 / 45%)" }}
-        >
-          <Icon className="h-4.5 w-4.5 text-white" />
-        </span>
-        {highlight && (
-          <span
-            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow-sm"
-            style={{ background: "linear-gradient(135deg, oklch(0.8 0.14 85), oklch(0.63 0.15 65))" }}
-          >
-            <Star className="h-3 w-3 fill-current" /> Popular
-          </span>
-        )}
-        {soon && (
-          <span
-            className="absolute top-3 right-3 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm"
-            style={{ background: "rgb(11 16 32 / 55%)" }}
-          >
-            Pronto
-          </span>
-        )}
-      </div>
-
-      <div className="p-5">
-        <div className="mono text-[11px] uppercase tracking-[0.1em] text-muted-foreground">{meta}</div>
-        <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">{title}</h3>
-        <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">{blurb}</p>
-        <div className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold" style={{ color: soon ? "var(--muted-foreground)" : color }}>
-          {soon ? (
-            "En construcción · Muy pronto"
-          ) : (
-            <>
-              Ver curso <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-            </>
-          )}
-        </div>
-      </div>
-    </div>
   )
 }
