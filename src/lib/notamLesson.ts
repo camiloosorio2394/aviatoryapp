@@ -24,6 +24,16 @@
 
 import type { NotamLevel } from "@/lib/notam"
 
+/** Una pieza del desglose visual: el trozo de código y qué significa. */
+export interface BreakdownPart {
+  /** El trozo tal cual aparece en el mensaje: `SKBO`, `18008KT`, `QRALW`. */
+  token: string
+  /** Qué es, en dos o tres palabras: "estación", "viento", "código NOTAM". */
+  label: string
+  /** La lectura completa, si hace falta: "del sur (180°) a 8 nudos". */
+  detail?: string
+}
+
 export type LessonBlock =
   | { kind: "p"; text: string }
   | { kind: "quote"; text: string; source?: string }
@@ -32,6 +42,29 @@ export type LessonBlock =
   | { kind: "code"; text: string }
   | { kind: "callout"; tone: "info" | "warn" | "tip"; title?: string; text: string }
   | { kind: "kv"; items: { k: string; v: string }[] }
+  /**
+   * Desglose visual de un código: la línea entera arriba, cada trozo con su
+   * color, y la leyenda numerada debajo. Un METAR o un NOTAM explicado en
+   * párrafo no se entiende; desarmado, sí.
+   */
+  | { kind: "breakdown"; caption?: string; parts: BreakdownPart[] }
+  /**
+   * Imagen que enseña algo: un NOTAM real, una carta, un tipo de nube. Nunca
+   * decoración entre párrafos. `src` es una ruta servible (`/notams/...`).
+   */
+  | { kind: "figure"; src: string; alt: string; caption?: string; source?: string }
+  /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
+  | {
+      kind: "example"
+      title: string
+      /** El mensaje a interpretar, tal cual. */
+      code: string
+      steps: string[]
+      /** La lectura en una frase, que es a lo que hay que llegar. */
+      answer: string
+    }
+  /** Resumen al cierre de una sección: lo que hay que llevarse. */
+  | { kind: "summary"; title?: string; items: string[] }
 
 export interface LessonScreen {
   /** Número de sección, correlativo desde 1. Es el índice que se guarda como leído. */
@@ -156,10 +189,22 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "p",
+        text: "**Así se ve un reemplazo de verdad.** Este NOTAM sale del resumen mensual de la Aerocivil y trae `RPLC NOTAM C 0756/26` al final: es la forma colombiana de decir NOTAMR.",
+      },
+      {
+        kind: "figure",
+        src: "/notams/notam_C1962_SKRG_PAPI_US.png",
+        alt: "NOTAM C 1962/26 de Rionegro, José María Córdova (SKRG): 2605171823 / 2608142359 EST, PAPI RWY 19 U/S, RPLC NOTAM C 0756/26.",
+        caption:
+          "El PAPI de la pista 19 de Rionegro está inutilizable. La última línea dice que este mensaje reemplaza al `C 0756/26`: ese ya no vale, aunque siga en tus notas.",
+        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
+      },
+      {
         kind: "callout",
         tone: "warn",
-        title: "El error que se cuela en el briefing",
-        text: "Leer un NOTAM viejo que ya fue reemplazado. Si ves un NOTAMR, busca el número que reemplaza y descarta ese: la información válida es la del mensaje nuevo, no la unión de los dos.",
+        title: "Error común: leer el NOTAM que ya fue reemplazado",
+        text: "Si ves un NOTAMR o un `RPLC`, busca el número que reemplaza y descártalo. La información válida es la del mensaje nuevo, no la unión de los dos.",
       },
       {
         kind: "callout",
@@ -182,14 +227,23 @@ export const LESSON_SCREENS: LessonScreen[] = [
         kind: "p",
         text: "**El encabezado** (guía de interpretación, pág. 2; curso, pág. 21): cada NOTAM se identifica con **serie + número/año + tipo**.",
       },
-      { kind: "code", text: "A0682/06 NOTAMN" },
       {
-        kind: "kv",
-        items: [
-          { k: "A", v: "**Serie**: una letra que agrupa NOTAM por tipo de información y por alcance." },
-          { k: "0682", v: "**Número** correlativo dentro de la serie." },
-          { k: "06", v: "**Año** de publicación. El número se reinicia cada año, por eso siempre va con el año." },
-          { k: "NOTAMN", v: "**Tipo**: nuevo, reemplaza o cancela." },
+        kind: "breakdown",
+        caption:
+          "Cuatro datos en once caracteres. Con el encabezado ya sabes de qué serie es, si es nuevo o reemplaza a otro, y cómo citarlo.",
+        parts: [
+          {
+            token: "A",
+            label: "serie",
+            detail: "Una letra que agrupa los NOTAM por tipo de información y por alcance.",
+          },
+          { token: "0682", label: "número", detail: "Correlativo dentro de la serie." },
+          {
+            token: "/06",
+            label: "año",
+            detail: "El número se reinicia cada año, por eso siempre va con el año.",
+          },
+          { token: "NOTAMN", label: "tipo", detail: "Nuevo, reemplaza o cancela." },
         ],
       },
       {
@@ -221,10 +275,43 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "p",
+        text: "**Un NOTAM entero, con todo puesto.** Este es el ejemplo de la guía de interpretación (pág. 14), desarmado casilla por casilla:",
+      },
+      {
+        kind: "breakdown",
+        caption:
+          "Léelo así siempre: encabezado, línea Q, dónde, desde cuándo, hasta cuándo y qué pasa. El resto de este documento desarma cada una de esas piezas.",
+        parts: [
+          { token: "A0682/06 NOTAMN", label: "encabezado", detail: "Serie A, número 0682 de 2006, nuevo." },
+          {
+            token: "Q)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005",
+            label: "línea Q",
+            detail: "Los calificativos: FIR, código de cinco letras, tránsito, objetivo, alcance, límites y área.",
+          },
+          { token: "A)SCEL", label: "dónde", detail: "Santiago, Arturo Merino Benítez." },
+          { token: "B)0606091958", label: "desde", detail: "9 de junio de 2006 a las 19:58 UTC." },
+          { token: "C)0606242359", label: "hasta", detail: "24 de junio de 2006 a las 23:59 UTC." },
+          {
+            token: "E)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
+            label: "qué pasa",
+            detail: "Calle de rodaje TANGO cerrada entre KILO y ZULU por estacionamiento de aeronaves.",
+          },
+        ],
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "Lo que sigue",
         text: "Las tres secciones siguientes desarman esas casillas: primero la línea Q entera, después el código de cinco letras que va dentro de ella, y después los ítems A) a G) uno por uno.",
+      },
+      {
+        kind: "summary",
+        items: [
+          "El encabezado es **serie + número/año + tipo**, y se cita completo: `C2222/26`, nunca `2222`.",
+          "Después del encabezado van las casillas, siempre en el orden `Q) A) B) C) D) E) F) G)`.",
+          "`Q)`, `A)`, `B)`, `C)` y `E)` van casi siempre. `D)` solo si la condición no es continua, y `F) G)` solo si hay espacio aéreo de por medio.",
+        ],
       },
     ],
   },
@@ -237,19 +324,48 @@ export const LESSON_SCREENS: LessonScreen[] = [
     minutes: 4,
     level: "intermedio",
     blocks: [
-      { kind: "p", text: "Ejemplo del curso (pág. 22):" },
-      { kind: "code", text: "Q)SEFG/QRALW/IV/NBO/AW/000/001/0202S07956W001" },
+      { kind: "p", text: "Ejemplo del curso (pág. 22), desarmado pieza por pieza:" },
       {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**FIR** (`SEFG`): región de información de vuelo donde aplica.",
-          "**Código NOTAM** (`QRALW`): cinco letras, se explica en la sección siguiente.",
-          "**Tránsito** (curso, pág. 24): `I` = IFR, `V` = VFR, `IV` = ambos, `K` = checklist.",
-          "**Objetivo** (curso, pág. 24): `N` = atención inmediata de la tripulación, `B` = entra al boletín previo al vuelo (PIB), `O` = concierne a operaciones de vuelo, `M` = misceláneo, no va a briefing y queda disponible a solicitud, `K` = checklist.",
-          "**Alcance** (curso, pág. 25): `A` = aeródromo, `E` = en ruta, `W` = advertencia de navegación. Se combinan, por ejemplo `AE` o `AW`.",
-          "**Límites** (curso, pág. 25): inferior y superior en niveles de vuelo. `000/999` son los valores por defecto, es decir toda altura.",
-          "**Coordenadas y radio**: centro del área afectada y radio en NM. En `0202S07956W001` el radio es de 1 NM.",
+        kind: "breakdown",
+        caption:
+          "Siete piezas separadas por barras y siempre en este orden. Si una falta, las demás conservan su posición.",
+        parts: [
+          {
+            token: "SEFG",
+            label: "FIR",
+            detail: "Región de información de vuelo donde aplica.",
+          },
+          {
+            token: "QRALW",
+            label: "código NOTAM",
+            detail: "Cinco letras: qué cosa y qué le pasa. Es la sección siguiente.",
+          },
+          {
+            token: "IV",
+            label: "tránsito",
+            detail: "`I` es IFR, `V` es VFR, `IV` son ambos, `K` es checklist (curso, pág. 24).",
+          },
+          {
+            token: "NBO",
+            label: "objetivo",
+            detail:
+              "`N` atención inmediata de la tripulación, `B` entra al boletín previo al vuelo (PIB), `O` concierne a operaciones de vuelo, `M` misceláneo (no va a briefing), `K` checklist.",
+          },
+          {
+            token: "AW",
+            label: "alcance",
+            detail: "`A` aeródromo, `E` en ruta, `W` advertencia de navegación. Se combinan: `AE`, `AW`.",
+          },
+          {
+            token: "000/001",
+            label: "límites",
+            detail: "Inferior y superior en niveles de vuelo. `000/999` es el valor por defecto: toda altura.",
+          },
+          {
+            token: "0202S07956W001",
+            label: "área",
+            detail: "Centro del área afectada y radio en millas náuticas. Aquí, 1 NM.",
+          },
         ],
       },
       {
@@ -283,6 +399,24 @@ export const LESSON_SCREENS: LessonScreen[] = [
         kind: "p",
         text: "Reglas (Doc 8400, §3, pág. 7-1): son cinco letras y siempre empieza por **Q**. La **2ª y 3ª letras indican el asunto**, la **4ª y 5ª el estado**.",
       },
+      {
+        kind: "breakdown",
+        caption:
+          "Con esas dos parejas armas la frase: sujeto (`MR`, la pista) y qué le pasa (`LC`, cerrada). Todos los códigos se leen igual.",
+        parts: [
+          { token: "Q", label: "fija", detail: "Todo código NOTAM empieza por Q." },
+          {
+            token: "MR",
+            label: "asunto",
+            detail: "2ª y 3ª letras: `M` es área de movimiento y `MR` es la pista.",
+          },
+          {
+            token: "LC",
+            label: "estado",
+            detail: "4ª y 5ª letras: `L` son limitaciones y `LC` es cerrado.",
+          },
+        ],
+      },
       { kind: "p", text: "**Asuntos** (2ª y 3ª letras), agrupados por sección:" },
       {
         kind: "kv",
@@ -308,24 +442,40 @@ export const LESSON_SCREENS: LessonScreen[] = [
           "Cancelan un NOTAM: `AK` (operación normal reanudada), `AL` (opera con limitaciones ya publicadas), `AO` (operacional), `CC` (completado) y `XX`.",
         ],
       },
-      { kind: "p", text: "**Ejemplos rápidos** (tablas del Doc 8400, sección 7):" },
       {
-        kind: "kv",
-        items: [
-          { k: "QMRLC", v: "pista cerrada" },
-          { k: "QMXLC", v: "calle de rodaje cerrada" },
-          { k: "QNVAS", v: "VOR fuera de servicio" },
-          { k: "QLPAS", v: "PAPI inoperativo" },
-          { k: "QPDAW", v: "SID retirada definitivamente" },
-          { k: "QWMLW", v: "ejercicios de tiro se realizarán" },
-          { k: "QOBCE", v: "obstáculo montado" },
+        kind: "p",
+        text: "**Los que más vas a ver** (tablas del Doc 8400, sección 7). Esta es la tabla que el Decodificador trae completa, recortada a lo que aparece en casi todo briefing:",
+      },
+      {
+        kind: "table",
+        head: ["Código", "Asunto", "Estado", "Qué significa"],
+        rows: [
+          ["`QMRLC`", "`MR` pista", "`LC` cerrada", "Pista cerrada"],
+          ["`QMRLT`", "`MR` pista", "`LT` limitada", "Pista sujeta a limitaciones"],
+          ["`QMXLC`", "`MX` calle de rodaje", "`LC` cerrada", "Calle de rodaje cerrada"],
+          ["`QLPAS`", "`LP` PAPI", "`AS` inutilizable", "PAPI inoperativo"],
+          ["`QNVAS`", "`NV` VOR", "`AS` inutilizable", "VOR fuera de servicio"],
+          ["`QICAS`", "`IC` ILS", "`AS` inutilizable", "ILS fuera de servicio"],
+          ["`QOBCE`", "`OB` obstáculo", "`CE` erigido", "Obstáculo nuevo montado"],
+          ["`QRRCA`", "`RR` zona restringida", "`CA` activada", "Zona restringida activada"],
+          ["`QWMLW`", "`WM` ejercicios de tiro", "`LW` se realizarán", "Habrá ejercicios de tiro"],
+          ["`QPDAW`", "`PD` SID", "`AW` retirada", "SID retirada definitivamente"],
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Cerrado no siempre es cerrado",
+        title: "Error común: cerrado no siempre es cerrado",
         text: "`LC` es cerrado del todo, pero `LI` es cerrado solo para IFR, `LV` solo para VFR y `LN` solo de noche. Las cuatro se parecen a simple vista y cambian por completo si puedes operar o no.",
+      },
+      {
+        kind: "summary",
+        items: [
+          "Cinco letras: `Q` fija, dos de **asunto** y dos de **estado**.",
+          "Léelo como una frase: sujeto y qué le pasa. `QNVAS` es \"el VOR está inutilizable\".",
+          "Si el asunto o el estado no está en las tablas se usa `XX` y el texto va en lenguaje claro en la casilla E).",
+          "El código Q y la casilla E) tienen que decir lo mismo. Si no coinciden, sospecha del mensaje.",
+        ],
       },
       {
         kind: "callout",
@@ -402,6 +552,24 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       { kind: "code", text: "D) 0500-1000\nD) MON-FRI 1200-1400\nD) DLY SR-SS" },
+      {
+        kind: "p",
+        text: "**Ese es exactamente el caso de El Dorado.** Mira dónde está el horario diario en un NOTAM real:",
+      },
+      {
+        kind: "figure",
+        src: "/notams/notam_D0499_SKBO_RWY_CLSD_HORARIO.png",
+        alt: "NOTAM D 0499/26 de Bogotá, El Dorado (SKBO): 2607160500 / 2607311000 0500-1000, RWY 14R/32L CLSD.",
+        caption:
+          "Las dos primeras fechas son B) y C): del 16 al 31 de julio. El `0500-1000` que va detrás es la casilla D): la pista 14R/32L solo está cerrada entre las 05:00 y las 10:00 UTC, o sea de medianoche a 5 de la mañana en Colombia. El resto del día opera normal.",
+        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "Error común: leer solo B) y C)",
+        text: "Sin la casilla D), ese NOTAM parece decir que El Dorado tiene una pista menos durante quince días seguidos. Con ella, son cinco horas de madrugada. Es la diferencia entre replanear el vuelo y no tocarlo.",
+      },
 
       { kind: "p", text: "**E) Qué pasa exactamente**" },
       {
@@ -428,8 +596,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "callout",
         tone: "tip",
-        title: "El orden de lectura no es el orden del papel",
+        title: "Tip operacional: el orden de lectura no es el orden del papel",
         text: "En el aire lo natural es leer A) para saber si te toca, después B), C) y D) para saber si te toca hoy, y solo entonces E). El código Q lo confirmas al final, para verificar que lo que entendiste es lo que el mensaje dice.",
+      },
+      {
+        kind: "summary",
+        items: [
+          "**A)** dónde: indicador OACI de aeródromo o de FIR, y pueden ir varios.",
+          "**B)** y **C)** cuándo: diez dígitos `AAMMDDHHMM` en UTC. `PERM`, `EST` y `UFN` cambian cómo termina.",
+          "**D)** a qué horas dentro de ese período. Si está, el NOTAM no aplica todo el día.",
+          "**E)** qué pasa, en lenguaje claro. Tiene que ser coherente con el código Q.",
+          "**F)** y **G)** entre qué niveles, solo cuando hay espacio aéreo de por medio.",
+        ],
       },
     ],
   },
@@ -586,22 +764,28 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
-        kind: "p",
-        text: "**Ejemplo internacional decodificado** (guía de interpretación, pág. 14):",
+        kind: "example",
+        title: "Ejemplo resuelto: NOTAM internacional completo",
+        code: "A0682/06 NOTAMN\nQ)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005\nA)SCEL B)0606091958 C)0606242359\nE)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
+        steps: [
+          "**Encabezado:** serie A, número 0682 de 2006, tipo `NOTAMN`, o sea nuevo. No reemplaza nada.",
+          "**Código Q:** `QMXLC`. `MX` es calle de rodaje y `LC` es cerrada.",
+          "**Tránsito y alcance:** `IV` afecta a IFR y VFR, objetivo `M` (misceláneo), alcance `A` (aeródromo). Si vuelas a Santiago te aplica.",
+          "**Límites y área:** `000/999` son los niveles por defecto y el área es un círculo de 5 NM centrado en 33°23'S 70°47'W.",
+          "**A)** `SCEL`, Arturo Merino Benítez. **B)** y **C)**: del 9 de junio a las 19:58 UTC al 24 de junio a las 23:59 UTC de 2006. No hay casilla D), así que es continuo.",
+          "**E)** `TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT`: calle de rodaje TANGO cerrada entre KILO y ZULU por estacionamiento de aeronaves.",
+        ],
+        answer:
+          "En Santiago, la calle de rodaje TANGO está cerrada entre KILO y ZULU, sin interrupción, del 9 al 24 de junio. Toca planear rodajes alternos en superficie: el cierre no afecta la pista.",
       },
       {
-        kind: "code",
-        text: "A0682/06 NOTAMN\nQ)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005\nA)SCEL B)0606091958 C)0606242359\nE)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
-      },
-      {
-        kind: "p",
-        text: "Serie A, número 0682 de 2006, NOTAM nuevo. FIR Santiago. `QMXLC` = calle de rodaje (`MX`) cerrada (`LC`). Afecta a IFR y VFR, objetivo `M` (misceláneo), alcance `A` (aeródromo), `000/999` son los niveles por defecto y el área es un círculo de 5 NM centrado en 33°23'S 70°47'W. En Arturo Merino Benítez (`SCEL`), del 9 de junio a las 19:58 UTC al 24 de junio a las 23:59 UTC de 2006: calle de rodaje TANGO cerrada entre KILO y ZULU por estacionamiento de aeronaves.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Traducción operacional",
-        text: "Toca planear rodajes alternos en superficie. El cierre no afecta la pista.",
+        kind: "summary",
+        items: [
+          "Encabezado y `A)` primero: qué NOTAM es y si te toca.",
+          "Código Q después: qué cosa y qué le pasa, en cinco letras.",
+          "Fechas y horario: siempre UTC, y Colombia va cinco horas atrás.",
+          "`E)` al final, expandiendo las abreviaturas hasta poder decirlo en voz alta en español.",
+        ],
       },
     ],
   },
@@ -629,20 +813,58 @@ export const LESSON_SCREENS: LessonScreen[] = [
         title: "Todas las horas son UTC",
         text: "El resumen no usa hora local en ninguna columna. Colombia va en UTC menos 5, así que resta cinco horas para saber a qué hora local aplica.",
       },
-      { kind: "p", text: "**Cómo se lee cada fila del resumen:**" },
+      { kind: "p", text: "**Cómo se lee cada fila del resumen.** Esta es real, de Maicao:" },
       {
-        kind: "code",
-        text: "C 2222/26   MAICAO/JORGE ISAACS (ANTES LA MINA) (SKLM)\n            2606031100 / 2608302359 ,\n            DIST DECLARADAS RWY 10/28 MODIFICADAS: ...",
+        kind: "figure",
+        src: "/notams/notam_C2222_SKLM_DIST_DECLARADAS.png",
+        alt: "NOTAM C 2222/26 de Maicao, Jorge Isaacs (SKLM): 2606031100 / 2608302359, DIST DECLARADAS RWY 10/28 MODIFICADAS, con los valores de TORA, TODA, ASDA y LDA de cada cabecera.",
+        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
+      },
+      {
+        kind: "breakdown",
+        caption:
+          "El resumen no usa las letras de casilla, pero la fila trae la misma información y en el mismo orden. Aprendida la equivalencia, lees el resumen igual que un NOTAM estándar.",
+        parts: [
+          { token: "C 2222/26", label: "encabezado", detail: "Serie C, NOTAM 2222 del año 2026." },
+          {
+            token: "MAICAO/JORGE ISAACS (SKLM)",
+            label: "equivale a A)",
+            detail: "Nombre del aeródromo o FIR con su indicador OACI.",
+          },
+          { token: "2606031100", label: "equivale a B)", detail: "3 de junio de 2026 a las 11:00 UTC." },
+          {
+            token: "2608302359",
+            label: "equivale a C)",
+            detail: "30 de agosto de 2026 a las 23:59 UTC. Aquí puede aparecer `EST` o `PERM`.",
+          },
+          {
+            token: "DIST DECLARADAS RWY 10/28 MODIFICADAS",
+            label: "equivale a E)",
+            detail: "El texto en lenguaje claro, con las abreviaturas OACI de siempre.",
+          },
+        ],
       },
       {
         kind: "list",
         items: [
-          "`C 2222/26` es la serie C, NOTAM 2222 del año 2026.",
-          "Luego va el nombre del aeródromo o FIR con su indicador OACI, que equivale a la casilla A).",
-          "Las dos fechas son las casillas B) y C). Si aparece un bloque tipo `1100-2300`, es el **horario diario**, es decir la casilla D). `EST` y `PERM` funcionan igual que en el formato estándar.",
-          "El texto final es la casilla E). En los NOTAM de espacio aéreo, las columnas Desde y Hasta equivalen a F) y G).",
+          "Si entre las fechas y el texto aparece un bloque tipo `0500-1000`, es el **horario diario**, es decir la casilla D).",
+          "En los NOTAM de espacio aéreo, las columnas Desde y Hasta equivalen a F) y G).",
           "`RPLC NOTAM C 0756/26` significa que reemplaza al NOTAM indicado, es decir que se comporta como un NOTAMR.",
         ],
+      },
+      {
+        kind: "example",
+        title: "Ejemplo resuelto: el NOTAM de Maicao, entero",
+        code: "C 2222/26  MAICAO/JORGE ISAACS (SKLM)\n2606031100 / 2608302359\nDIST DECLARADAS RWY 10/28 MODIFICADAS:\nRWY 10: TORA(M)1700 TODA(M)1800 ASDA(M)1550 LDA(M)1700\nRWY 28: TORA(M)1700 TODA(M)1700 ASDA(M)1550 LDA(M)1700",
+        steps: [
+          "Serie C, número 2222 de 2026, en Jorge Isaacs de Maicao (`SKLM`).",
+          "Vigente del 3 de junio a las 11:00 UTC (06:00 en Colombia) al 30 de agosto a las 23:59 UTC. Sin horario diario: aplica de corrido.",
+          "`DIST DECLARADAS` son las **distancias declaradas** de la pista, la sección de abreviaturas te las dejó listas: `TORA` recorrido de despegue, `TODA` distancia de despegue, `ASDA` aceleración-parada y `LDA` aterrizaje. La `(M)` es que van en metros.",
+          "Para la 10: despegas con 1700 m, tienes 1800 m contando la zona libre de obstáculos, 1550 m para acelerar y parar, y 1700 m para aterrizar.",
+          "Para la 28 cambia una sola cifra: la `TODA` baja a 1700 m.",
+        ],
+        answer:
+          "Maicao operó con distancias declaradas reducidas todo ese período. La cifra que manda es la `ASDA` de 1550 m: es la que penaliza el despegue con falla de motor, y es más corta que cualquiera de las otras tres. Con este NOTAM en la mano, la performance de despegue se recalcula.",
       },
       {
         kind: "callout",
@@ -775,8 +997,20 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "callout",
         tone: "warn",
-        title: "El error que más cuesta",
+        title: "Error común: el que más cuesta",
         text: "Leer las fechas en hora local. Un NOTAM que termina a las `2359` UTC termina a las 18:59 en Bogotá, no a medianoche.",
+      },
+      {
+        kind: "summary",
+        title: "Lo que te llevas de todo el documento",
+        items: [
+          "Un NOTAM es **encabezado + casillas**, y las casillas siempre van en el mismo orden.",
+          "El código Q de cinco letras se lee como una frase: `Q` + asunto + estado.",
+          "Todo lo que sea hora es UTC. Colombia va cinco horas atrás, sin excepciones.",
+          "`EST` no es vencido, `PERM` no termina, y un `RPLC` deja sin efecto al NOTAM anterior.",
+          "La casilla D) y el bloque `HHMM-HHMM` del resumen colombiano son lo mismo: el horario diario.",
+          "Si el código Q y la casilla E) no dicen lo mismo, confirma antes de usar el NOTAM.",
+        ],
       },
     ],
   },

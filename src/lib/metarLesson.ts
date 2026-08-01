@@ -55,21 +55,31 @@ export const METAR_LESSON: LessonScreen[] = [
         text: "El informe siempre trae los mismos grupos en el mismo orden. Esta es la plantilla de la OMM, simplificada a lo que ves a diario:",
       },
       {
-        kind: "code",
-        text: "METAR  SKBO  261300Z  09006KT  9999  SCT023 BKN080  14/09  Q1027  NOSIG",
-      },
-      {
-        kind: "kv",
-        items: [
-          { k: "METAR", v: "Tipo de informe: rutina. SPECI si es especial." },
-          { k: "SKBO", v: "Estación: el indicador OACI del aeródromo (el mismo de la casilla A del NOTAM)." },
-          { k: "261300Z", v: "Día 26 a las 13:00 **UTC**. La Z es zulu: en Colombia resta 5 horas." },
-          { k: "09006KT", v: "Viento: del este (090°) a 6 nudos." },
-          { k: "9999", v: "Visibilidad: 10 km o más." },
-          { k: "SCT023 BKN080", v: "Nubes: dispersas a 2300 ft, fragmentadas a 8000 ft." },
-          { k: "14/09", v: "Temperatura 14 °C, punto de rocío 9 °C." },
-          { k: "Q1027", v: "QNH 1027 hectopascales." },
-          { k: "NOSIG", v: "Tendencia: sin cambio significativo previsto." },
+        kind: "breakdown",
+        caption:
+          "Nueve grupos separados por espacios. Cada uno responde una pregunta, y siempre en el mismo orden: qué informe, dónde, cuándo, cómo sopla, cuánto ves, qué tapa, qué números y qué viene.",
+        parts: [
+          { token: "METAR", label: "tipo", detail: "Informe de rutina. `SPECI` si es especial." },
+          {
+            token: "SKBO",
+            label: "estación",
+            detail: "Indicador OACI del aeródromo, el mismo de la casilla A) del NOTAM.",
+          },
+          {
+            token: "261300Z",
+            label: "fecha y hora",
+            detail: "Día 26 a las 13:00 **UTC**. La `Z` es zulu: en Colombia resta 5 horas, son las 08:00.",
+          },
+          { token: "09006KT", label: "viento", detail: "Del este (090°) a 6 nudos." },
+          { token: "9999", label: "visibilidad", detail: "10 km o más, el mejor valor de la clave." },
+          {
+            token: "SCT023 BKN080",
+            label: "nubes",
+            detail: "Dispersas a 2300 ft y fragmentadas a 8000 ft. El techo es la BKN: 8000 ft.",
+          },
+          { token: "14/09", label: "temp / rocío", detail: "14 °C de temperatura y 9 °C de punto de rocío." },
+          { token: "Q1027", label: "QNH", detail: "1027 hectopascales al altímetro." },
+          { token: "NOSIG", label: "tendencia", detail: "Sin cambio significativo previsto." },
         ],
       },
       {
@@ -77,6 +87,39 @@ export const METAR_LESSON: LessonScreen[] = [
         tone: "info",
         title: "El orden es tu mapa",
         text: "Si un grupo falta, el resto conserva su posición. Con el orden en la cabeza puedes leer cualquier METAR del mundo aunque tenga grupos que nunca hayas visto: sabes qué debería ir ahí.",
+      },
+      {
+        kind: "p",
+        text: "**Uno más, y feo.** El de arriba era un día tranquilo en Bogotá. Este es el que te van a poner en la entrevista:",
+      },
+      {
+        kind: "breakdown",
+        caption:
+          "Mismo orden, mismas posiciones. Lo único que cambia es que ahora casi todos los grupos traen malas noticias.",
+        parts: [
+          { token: "SPECI", label: "tipo", detail: "Informe especial: alguien decidió que no podía esperar." },
+          { token: "SKRG", label: "estación", detail: "Rionegro, José María Córdova." },
+          { token: "151740Z", label: "fecha y hora", detail: "Día 15 a las 17:40 UTC, 12:40 en Colombia." },
+          {
+            token: "27015G28KT",
+            label: "viento",
+            detail: "Del oeste a 15 nudos con ráfagas de 28. El pico es el problema, no el promedio.",
+          },
+          { token: "3000", label: "visibilidad", detail: "3 km. Muy lejos de los 9999 del ejemplo anterior." },
+          { token: "+TSRA", label: "tiempo presente", detail: "Tormenta eléctrica (`TS`) con lluvia (`RA`) fuerte (`+`)." },
+          {
+            token: "BKN012CB",
+            label: "nubes",
+            detail: "Fragmentadas a 1200 ft, y el `CB` dice que son cumulonimbos: convección sobre el aeródromo.",
+          },
+          { token: "18/17", label: "temp / rocío", detail: "Un grado de diferencia: aire saturado." },
+          { token: "Q1013", label: "QNH", detail: "1013 hectopascales." },
+          {
+            token: "TEMPO 1820 4000 SHRA",
+            label: "tendencia",
+            detail: "Entre las 18:00 y las 20:00 UTC, ratos con 4 km y chubascos de lluvia.",
+          },
+        ],
       },
     ],
   },
@@ -196,6 +239,34 @@ export const METAR_LESSON: LessonScreen[] = [
         title: "FG o BR: la frontera es 1000 metros",
         text: "Niebla (FG) cuando la visibilidad cae por debajo de 1000 m; neblina (BR) por encima. El umbral viene de la clave OACI: la leyenda del curso solo da los nombres, así que valídalo con tu instructor.",
       },
+      {
+        kind: "p",
+        text: "**Los grupos armados que más vas a ver.** Esta tabla es la misma que trae el Decodificador, recortada a las combinaciones de todos los días:",
+      },
+      {
+        kind: "table",
+        head: ["Grupo", "Piezas", "Qué es", "Qué implica"],
+        rows: [
+          ["`-RA`", "`-` + `RA`", "Lluvia ligera", "Pista mojada, poco más"],
+          ["`+TSRA`", "`+` + `TS` + `RA`", "Tormenta con lluvia fuerte", "Convección encima: cizalladura, granizo, turbulencia"],
+          ["`SHRA`", "`SH` + `RA`", "Chubascos de lluvia", "Visibilidad que sube y baja de golpe"],
+          ["`VCTS`", "`VC` + `TS`", "Tormenta en la vecindad", "No está sobre la estación, pero está cerca"],
+          ["`FZRA`", "`FZ` + `RA`", "Lluvia engelante", "Hielo en la célula: de los peores del catálogo"],
+          ["`MIFG`", "`MI` + `FG`", "Niebla baja", "Techo aparente falso desde la cabina"],
+          ["`BR`", "`BR`", "Neblina", "Visibilidad reducida, por encima de 1000 m"],
+          ["`RERA`", "`RE` + `RA`", "Lluvia reciente", "Ocurrió desde la observación anterior"],
+          ["`VA`", "`VA`", "Ceniza volcánica", "La misma del ASHTAM. No se atraviesa"],
+        ],
+      },
+      {
+        kind: "summary",
+        items: [
+          "El grupo se arma siempre igual: **calificador + descriptor + fenómeno**.",
+          "El calificador es intensidad (`-`, sin signo, `+`) o posición (`VC`, `RE`).",
+          "`TS` y `FZ` son las dos piezas que cambian una decisión de vuelo por sí solas.",
+          "Si no reconoces una combinación, sepárala en piezas: casi siempre se entiende sola.",
+        ],
+      },
     ],
   },
 
@@ -238,6 +309,40 @@ export const METAR_LESSON: LessonScreen[] = [
         tone: "info",
         title: "La condición completa",
         text: "La clave OACI exige además que no haya nubes por debajo de 5000 ft ni CB/TCU a ninguna altura. Ese detalle no está en la bibliografía del curso: valídalo con tu instructor antes de la entrevista.",
+      },
+      {
+        kind: "breakdown",
+        caption:
+          "Tres letras de cobertura, tres dígitos de altura y, si aplica, el tipo de nube pegado al final. Nunca se separan.",
+        parts: [
+          { token: "BKN", label: "cobertura", detail: "Fragmentadas: de 5/8 a 7/8 del cielo. Cuenta como techo." },
+          {
+            token: "015",
+            label: "altura de la base",
+            detail: "En centenares de pies sobre el aeródromo: 1500 ft. No son 15 000.",
+          },
+          {
+            token: "CB",
+            label: "tipo de nube",
+            detail: "Cumulonimbo. `TCU` es torrecúmulo. Solo se anotan estos dos, y solo porque cambian la decisión.",
+          },
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "Error común: leer la altura como pies directos",
+        text: "`FEW010` no son 10 000 ft, son 1000. Es el error que más se repite y el que más rápido descarta a un candidato en la entrevista técnica.",
+      },
+      {
+        kind: "summary",
+        items: [
+          "Cobertura en octavos: `SKC` 0/8, `FEW` 1 a 2, `SCT` 3 a 4, `BKN` 5 a 7, `OVC` 8/8.",
+          "La altura va en **centenares de pies** sobre el aeródromo.",
+          "El **techo** es la base de la primera capa `BKN` u `OVC`.",
+          "`CB` y `TCU` pegados a la capa son convección: cambian la decisión aunque el techo sea alto.",
+          "`VV002` significa cielo oscurecido sin base definida, con 200 ft de visibilidad vertical.",
+        ],
       },
     ],
   },
@@ -331,6 +436,22 @@ export const METAR_LESSON: LessonScreen[] = [
           "**Números de máquina:** temperatura y rocío (niebla, rendimiento) y QNH al altímetro. Cierra con la tendencia.",
         ],
       },
+      {
+        kind: "example",
+        title: "Ejemplo resuelto: la rutina aplicada de principio a fin",
+        code: "METAR SKCL 041200Z 05008KT 020V090 8000 -RA SCT018 BKN025TCU OVC090 24/22 Q1011 BECMG 1416 9999 NSW",
+        steps: [
+          "**Dónde y cuándo:** Cali, Alfonso Bonilla Aragón. Día 4 a las 12:00 UTC, o sea las 07:00 hora Colombia. Informe fresco.",
+          "**Viento:** del noreste (050°) a 8 nudos, oscilando entre 020° y 090°. Flojo, pero variable: la componente cruzada cambia con la pista en uso.",
+          "**Cuánto ves:** 8000 m. No es `9999`, así que algo hay: lo confirma el grupo siguiente.",
+          "**Qué cae:** `-RA`, lluvia ligera. Es lo que baja la visibilidad a 8 km.",
+          "**Qué tapa:** dispersas a 1800 ft, **fragmentadas a 2500 ft con `TCU`** y cubierto a 9000 ft. El techo son 2500 ft y hay torrecúmulos: convección en desarrollo.",
+          "**Números de máquina:** 24 °C con rocío de 22. Dos grados de diferencia, aire muy húmedo y menos denso: la performance de despegue se resiente.",
+          "**Tendencia:** `BECMG 1416 9999 NSW`, entre las 14:00 y las 16:00 UTC mejora a 10 km o más y termina el tiempo significativo.",
+        ],
+        answer:
+          "Cali amaneció con lluvia ligera, 8 km de visibilidad y techo de 2500 ft con torrecúmulos, y mejora prevista para media mañana. El dato que manda no es el techo: es el `TCU`. Con convección en desarrollo y aire saturado, lo que hay que mirar es si esos torrecúmulos maduran a cumulonimbos antes de tu hora estimada.",
+      },
       { kind: "p", text: "**Errores comunes**, los que caen en entrevista:" },
       {
         kind: "list",
@@ -344,9 +465,21 @@ export const METAR_LESSON: LessonScreen[] = [
         ],
       },
       {
+        kind: "summary",
+        title: "Lo que te llevas de toda la lección",
+        items: [
+          "Todo METAR trae los mismos grupos en el mismo orden. Si uno falta, los demás no se mueven.",
+          "La hora es UTC y Colombia va cinco horas atrás, igual que en el NOTAM.",
+          "El viento es **desde donde sopla**, en grados verdaderos, y lo que decide es la ráfaga.",
+          "La altura de las nubes va en centenares de pies, y el techo es la primera `BKN` u `OVC`.",
+          "`CB`, `TCU`, `WS` y `FZ` son las cuatro señales que cambian un briefing por sí solas.",
+          "Temperatura y rocío juntos anuncian niebla, y separados te hablan de rendimiento.",
+        ],
+      },
+      {
         kind: "callout",
         tone: "tip",
-        title: "Sigue con el Decodificador",
+        title: "Tip operacional: sigue con el Decodificador",
         text: "Pega cualquier METAR en el Decodificador de esta sección y compáralo con tu lectura mental. Cuando los decodifiques más rápido que la herramienta, estás listo para la entrevista.",
       },
     ],

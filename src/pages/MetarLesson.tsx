@@ -5,6 +5,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
+import { appButtonClass } from "@/lib/buttonStyles"
 import { LEVEL_META, accentText } from "@/lib/notam"
 import { readMetarProgress, writeMetarProgress } from "@/lib/metar"
 import { METAR_LESSON, METAR_LESSON_TOTAL, METAR_SOURCES } from "@/lib/metarLesson"
@@ -110,7 +111,7 @@ export function MetarLesson() {
           actions={
             <Link
               to="/app/aerolinea/meteorologia"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-semibold border border-border bg-card text-foreground transition-colors hover:bg-muted"
+              className={appButtonClass({ variant: "secondary" })}
             >
               <ArrowLeft className="h-3.5 w-3.5" /> Volver a Meteorología
             </Link>
@@ -132,10 +133,10 @@ export function MetarLesson() {
         <div className="lg:grid lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-8 lg:items-start">
           {/* Índice lateral */}
           <aside
-            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-xl border border-border bg-card p-3"
+            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl surface p-3"
             aria-label="Índice de la lección"
           >
-            <div className="px-2.5 pt-1 pb-2 text-[12px] font-bold uppercase tracking-[0.14em] text-muted-foreground">
+            <div className="px-2.5 pt-1 pb-2 text-[12px] font-semibold text-muted-foreground">
               Contenido
             </div>
             <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
@@ -145,7 +146,7 @@ export function MetarLesson() {
             {/* Índice desplegable en móvil */}
             <details
               ref={mobileTocRef}
-              className="lg:hidden mb-4 rounded-xl border border-border bg-card overflow-hidden"
+              className="lg:hidden mb-4 rounded-2xl surface overflow-hidden"
             >
               <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden px-4 py-3 flex items-center justify-between gap-3 text-[15px] font-semibold text-foreground">
                 <span className="inline-flex items-center gap-2">
@@ -184,9 +185,9 @@ export function MetarLesson() {
             </div>
 
             {/* La hoja */}
-            <article ref={sheetRef} className="doc-sheet rounded-xl px-5 sm:px-10 py-8 sm:py-11">
+            <article ref={sheetRef} className="doc-sheet rounded-2xl px-5 sm:px-10 py-8 sm:py-11">
               <header className="pb-7 border-b doc-rule">
-                <div className="text-[12px] font-bold uppercase tracking-[0.16em] doc-muted">
+                <div className="text-[12px] font-semibold doc-muted">
                   Documento de estudio · METAR
                 </div>
                 <p className="mt-3 mb-0 text-[15px] leading-[1.75] max-w-[64ch]">
@@ -215,14 +216,14 @@ export function MetarLesson() {
                   >
                     <header className="flex items-start gap-3 sm:gap-5">
                       <span
-                        className="mono shrink-0 text-[30px] sm:text-[40px] font-extrabold leading-none tabular"
+                        className="mono shrink-0 text-[32px] font-semibold leading-none tabular"
                         style={{ color: "color-mix(in oklab, var(--doc-fg) 17%, var(--doc-bg))" }}
                         aria-hidden
                       >
                         {String(screen.n).padStart(2, "0")}
                       </span>
                       <div className="min-w-0">
-                        <h2 className="m-0 text-[19px] sm:text-[23px] font-extrabold tracking-[-0.02em] leading-[1.2]">
+                        <h2 className="m-0 text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] leading-[1.2]">
                           {screen.title}
                         </h2>
                         <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] doc-muted">
@@ -252,7 +253,7 @@ export function MetarLesson() {
               {/* Fuentes */}
               <section className="pt-8 border-t doc-rule">
                 <div
-                  className="inline-flex items-center gap-1.5 text-[13px] font-bold uppercase tracking-[0.12em]"
+                  className="inline-flex items-center gap-1.5 text-[12px] font-semibold"
                   style={{ color: docAccent("var(--av-blue-500)", 55) }}
                 >
                   <Library className="h-3.5 w-3.5" /> Fuentes
@@ -268,7 +269,7 @@ export function MetarLesson() {
 
               {/* Cierre hacia el decodificador */}
               <section id="cierre-metar" className="scroll-mt-24 mt-8 pt-7 border-t doc-rule">
-                <h2 className="m-0 text-[17px] sm:text-[19px] font-extrabold tracking-[-0.02em]">
+                <h2 className="m-0 text-[17px] sm:text-[20px] font-semibold tracking-[-0.02em]">
                   Ya sabes leer un METAR de principio a fin
                 </h2>
                 <p className="mt-1.5 mb-0 text-[13px] doc-muted leading-[1.7]">
@@ -286,7 +287,7 @@ export function MetarLesson() {
                     <ScanSearch className="h-5 w-5" />
                   </span>
                   <span className="min-w-0 flex-1">
-                    <span className="block text-[15px] font-bold tracking-[-0.01em]">
+                    <span className="block text-[15px] font-semibold tracking-[-0.01em]">
                       Abrir el Decodificador METAR
                     </span>
                     <span className="block mt-0.5 text-[13px] leading-[1.6] doc-muted">
@@ -330,7 +331,7 @@ function TocList({
                 }}
                 aria-current={isActive ? "location" : undefined}
                 className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  isActive ? "font-bold text-foreground" : "text-muted-foreground hover:text-foreground"
+                  isActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"
                 }`}
                 style={
                   isActive
@@ -339,7 +340,7 @@ function TocList({
                 }
               >
                 <span
-                  className="shrink-0 w-4 mt-px text-[12px] font-bold tabular"
+                  className="shrink-0 w-4 mt-px text-[12px] font-semibold tabular"
                   style={isActive ? { color: "var(--av-blue-500)" } : undefined}
                 >
                   {s.n}

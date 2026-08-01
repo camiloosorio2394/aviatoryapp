@@ -8,9 +8,27 @@
  */
 
 import type { ReactNode } from "react"
-import { AlertTriangle, Info, Lightbulb } from "lucide-react"
-import type { LessonBlock } from "@/lib/notamLesson"
+import { AlertTriangle, CheckCircle2, Info, Lightbulb, PenLine } from "lucide-react"
+import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
 import { docAccent, docTint } from "@/lib/docSheet"
+
+/**
+ * Colores del desglose. Cada trozo del código toma uno y su entrada en la
+ * leyenda toma el mismo: es lo que reemplaza a las líneas del diagrama ASCII,
+ * que en móvil se rompen.
+ */
+const BREAKDOWN_COLORS = [
+  "var(--av-blue-500)",
+  "var(--av-violet-400)",
+  "var(--av-cyan-400)",
+  "var(--av-amber-400)",
+  "var(--av-green-400)",
+  "var(--av-red-400)",
+]
+
+function breakdownColor(i: number): string {
+  return BREAKDOWN_COLORS[i % BREAKDOWN_COLORS.length]
+}
 
 /**
  * Convierte marcado ligero a nodos de React sin dangerouslySetInnerHTML.
@@ -23,7 +41,7 @@ function renderInline(text: string): ReactNode[] {
     if (part === "") return
     if (part.length > 4 && part.startsWith("**") && part.endsWith("**")) {
       out.push(
-        <strong key={i} className="font-bold" style={{ color: "var(--doc-fg)" }}>
+        <strong key={i} className="font-semibold" style={{ color: "var(--doc-fg)" }}>
           {part.slice(2, -2)}
         </strong>,
       )
@@ -94,7 +112,7 @@ export function DocBlock({ block }: { block: LessonBlock }) {
                 {block.head.map((h, i) => (
                   <th
                     key={i}
-                    className="px-3.5 py-2.5 border-b doc-rule doc-muted text-[12px] font-bold uppercase tracking-[0.07em]"
+                    className="px-3.5 py-2.5 border-b doc-rule doc-muted text-[12px] font-semibold"
                   >
                     {h}
                   </th>
@@ -146,7 +164,7 @@ export function DocBlock({ block }: { block: LessonBlock }) {
             aria-hidden
           />
           <div className="min-w-0">
-            <div className="text-[13px] font-bold" style={{ color: docAccent(tone.color, 55) }}>
+            <div className="text-[13px] font-semibold" style={{ color: docAccent(tone.color, 55) }}>
               {block.title ?? tone.fallbackTitle}
             </div>
             <p className="m-0 mt-1 text-[15px]">{renderInline(block.text)}</p>
@@ -164,7 +182,7 @@ export function DocBlock({ block }: { block: LessonBlock }) {
               className="grid gap-x-4 gap-y-1 py-2.5 border-b doc-rule last:border-b-0 sm:grid-cols-[minmax(110px,180px)_minmax(0,1fr)]"
             >
               <dt
-                className="mono text-[13px] font-bold"
+                className="mono text-[13px] font-semibold"
                 style={{ color: docAccent("var(--av-blue-500)", 60) }}
               >
                 {item.k}
@@ -174,5 +192,166 @@ export function DocBlock({ block }: { block: LessonBlock }) {
           ))}
         </dl>
       )
+
+    case "breakdown":
+      return <Breakdown caption={block.caption} parts={block.parts} />
+
+    case "figure":
+      return (
+        <figure className="m-0">
+          {/* Los recortes del resumen de la Aerocivil son tiras muy anchas: por
+              debajo de 720 px el texto del NOTAM deja de leerse, así que la
+              imagen no se encoge más y la caja scrollea. Mismo criterio que en
+              el modo práctica. Fondo blanco porque el recorte lo es. */}
+          <div
+            className="overflow-x-auto rounded-lg border doc-rule"
+            style={{ background: "rgb(255 255 255)" }}
+          >
+            <img
+              src={block.src}
+              alt={block.alt}
+              loading="lazy"
+              className="block w-full min-w-[720px] h-auto"
+            />
+          </div>
+          {(block.caption || block.source) && (
+            <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">
+              {block.caption && <span>{renderInline(block.caption)}</span>}
+              {block.source && (
+                <span className="block mt-1 text-[12px]">{block.source}</span>
+              )}
+            </figcaption>
+          )}
+        </figure>
+      )
+
+    case "example":
+      return (
+        <div
+          className="rounded-lg border p-4 sm:p-5"
+          style={{
+            borderColor: docAccent("var(--av-violet-400)", 28),
+            background: docTint("var(--av-violet-400)", 6),
+          }}
+        >
+          <div
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+            style={{ color: docAccent("var(--av-violet-400)", 60) }}
+          >
+            <PenLine className="h-3.5 w-3.5" aria-hidden /> {block.title}
+          </div>
+          <pre className="doc-soft mt-3 mb-0 overflow-x-auto rounded-lg border doc-rule px-4 py-3">
+            <code
+              className="mono block text-[13px] leading-[1.65] whitespace-pre-wrap"
+              style={{ color: "var(--doc-fg)" }}
+            >
+              {block.code}
+            </code>
+          </pre>
+          <ol className="mt-3.5 mb-0 pl-5 list-decimal flex flex-col gap-1.5 marker:font-semibold">
+            {block.steps.map((s, i) => (
+              <li key={i} className="pl-1 text-[15px] leading-[1.65]">
+                {renderInline(s)}
+              </li>
+            ))}
+          </ol>
+          <p className="mt-3.5 mb-0 pt-3 border-t doc-rule text-[15px] leading-[1.7]">
+            <strong className="font-semibold" style={{ color: "var(--doc-fg)" }}>
+              Lectura:{" "}
+            </strong>
+            {renderInline(block.answer)}
+          </p>
+        </div>
+      )
+
+    case "summary":
+      return (
+        <div
+          className="rounded-lg border p-4"
+          style={{
+            borderColor: docAccent("var(--av-green-400)", 26),
+            background: docTint("var(--av-green-400)", 6),
+          }}
+        >
+          <div
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+            style={{ color: docAccent("var(--av-green-400)", 55) }}
+          >
+            <CheckCircle2 className="h-3.5 w-3.5" aria-hidden />
+            {block.title ?? "En resumen"}
+          </div>
+          <ul className="mt-2.5 mb-0 pl-5 list-disc flex flex-col gap-1.5">
+            {block.items.map((s, i) => (
+              <li key={i} className="pl-1 text-[15px] leading-[1.65]">
+                {renderInline(s)}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
   }
+}
+
+/**
+ * Desglose visual de un código.
+ *
+ * En papel esto se dibuja con líneas que bajan de cada trozo hasta su etiqueta.
+ * En pantalla ese diagrama se rompe en cuanto la línea no cabe, así que la
+ * conexión la hace el color: cada trozo del mensaje lleva el suyo y su entrada
+ * de la leyenda lleva el mismo, con el número al lado para leerlo en orden.
+ */
+function Breakdown({ caption, parts }: { caption?: string; parts: BreakdownPart[] }) {
+  return (
+    <figure className="doc-soft m-0 rounded-lg border doc-rule p-4 sm:p-5">
+      <div className="overflow-x-auto -mx-1 px-1">
+        <div className="mono flex flex-wrap items-start gap-x-3 gap-y-3 text-[13px] sm:text-[15px]">
+          {parts.map((p, i) => (
+            <span key={i} className="inline-flex flex-col gap-1">
+              <span className="font-semibold whitespace-pre" style={{ color: "var(--doc-fg)" }}>
+                {p.token}
+              </span>
+              <span
+                className="h-[3px] w-full rounded-full"
+                style={{ background: docAccent(breakdownColor(i), 62) }}
+                aria-hidden
+              />
+              <span
+                className="text-[11px] font-semibold tabular"
+                style={{ color: docAccent(breakdownColor(i), 62) }}
+                aria-hidden
+              >
+                {i + 1}
+              </span>
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <ol className="mt-4 mb-0 p-0 list-none grid gap-x-5 gap-y-2 sm:grid-cols-2">
+        {parts.map((p, i) => (
+          <li key={i} className="flex items-baseline gap-2 text-[13px] leading-[1.6]">
+            <span
+              className="mono shrink-0 text-[11px] font-semibold tabular"
+              style={{ color: docAccent(breakdownColor(i), 62) }}
+            >
+              {i + 1}
+            </span>
+            <span className="min-w-0">
+              <span className="mono font-semibold" style={{ color: "var(--doc-fg)" }}>
+                {p.token}
+              </span>{" "}
+              <span className="doc-muted">{p.label}</span>
+              {p.detail && <span className="block mt-0.5 doc-muted">{renderInline(p.detail)}</span>}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      {caption && (
+        <figcaption className="mt-4 pt-3 border-t doc-rule text-[13px] leading-[1.6] doc-muted">
+          {renderInline(caption)}
+        </figcaption>
+      )}
+    </figure>
+  )
 }

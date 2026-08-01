@@ -5,6 +5,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
+import { appButtonClass } from "@/lib/buttonStyles"
 import { readMetarProgress } from "@/lib/metar"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
@@ -92,9 +93,9 @@ export function Metar() {
           actions={
             <Link
               to="/app/aerolinea"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-semibold border border-border bg-card text-foreground transition-colors hover:bg-muted"
+              className={appButtonClass({ variant: "secondary" })}
             >
-              <ArrowLeft className="h-3.5 w-3.5" /> Volver a Prep aerolínea
+              <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
             </Link>
           }
         />
