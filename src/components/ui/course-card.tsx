@@ -35,6 +35,14 @@ export interface CourseCardProps {
   cta?: string
   /** Estado o progreso al pie, anclado abajo. Sin él no se dibuja el pie. */
   status?: string
+  /**
+   * Avance del curso, 0 a 100. Dibuja una barra fina sobre el estado.
+   *
+   * En 0 NO se dibuja: una barra vacía comunica "vas perdiendo", cuando lo que
+   * pasa es que todavía no empezaste. Ahí manda el texto del estado, que invita
+   * a entrar.
+   */
+  progress?: number
   /** Esqueleto del estado mientras carga el progreso. */
   statusLoading?: boolean
   /** Chip "Listo" sobre la foto. */
@@ -60,6 +68,7 @@ export function CourseCard({
   to,
   cta = "Ver curso",
   status,
+  progress,
   statusLoading,
   done,
   highlight,
@@ -152,7 +161,27 @@ export function CourseCard({
                   aria-hidden="true"
                 />
               ) : (
-                <span className="text-[12px] font-medium text-muted-foreground">{status}</span>
+                <>
+                  {progress !== undefined && progress > 0 && (
+                    <div
+                      className="mb-2 h-1.5 rounded-full bg-muted overflow-hidden"
+                      role="progressbar"
+                      aria-label={`Avance de ${title}`}
+                      aria-valuenow={progress}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      <div
+                        className="h-full rounded-full transition-[width]"
+                        style={{
+                          width: `${Math.min(100, Math.max(0, progress))}%`,
+                          background: color,
+                        }}
+                      />
+                    </div>
+                  )}
+                  <span className="text-[12px] font-medium text-muted-foreground">{status}</span>
+                </>
               )}
             </div>
           </div>

@@ -181,6 +181,58 @@ export const TOTALS = {
 export const EXAM_PASS_SCORE = EXAM_META.calificacion.aprobacion as number
 export const EXAM_POINTS_PER_QUESTION = EXAM_META.calificacion.puntaje_por_pregunta as number
 
+/** Denominador de la práctica: ejercicios de texto más NOTAM colombianos reales. */
+export const NOTAM_PRACTICE_TOTAL = TOTALS.exercises + TOTALS.national
+
+export interface NotamResumen {
+  lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
+  lessonPct: number
+  practicePct: number
+  examPct: number
+  /** Avance del tema completo, 0 a 100. */
+  overall: number
+  /** Todavía no tocó nada del tema. */
+  empty: boolean
+}
+
+/**
+ * Resume el avance del tema NOTAM.
+ *
+ * Vive acá y no dentro del hub porque lo consumen dos pantallas: el hub de
+ * NOTAM y la lista de temas de Ingreso a aerolínea. Con la cuenta duplicada,
+ * la misma persona veía dos porcentajes distintos según por dónde entrara.
+ */
+export function resumirNotam(progreso: {
+  lessonScreens: number[]
+  practiceDone: string[]
+  bestExamScore: number | null
+}): NotamResumen {
+  const lessonRead = Math.min(progreso.lessonScreens.length, TOTALS.lessonScreens)
+  const practiceDone = Math.min(progreso.practiceDone.length, NOTAM_PRACTICE_TOTAL)
+  const best = progreso.bestExamScore
+  const passed = best !== null && best >= EXAM_PASS_SCORE
+
+  const lessonPct = Math.round((lessonRead / TOTALS.lessonScreens) * 100)
+  const practicePct = Math.round((practiceDone / NOTAM_PRACTICE_TOTAL) * 100)
+  // La evaluacion aporta tu mejor puntaje; si ya aprobaste, aporta el 100 por ciento.
+  const examPct = passed ? 100 : (best ?? 0)
+
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
+}
+
 // ─── Avisos obligatorios en pantalla (reglas de producto del paquete) ────────
 
 export const DISCLAIMERS = {

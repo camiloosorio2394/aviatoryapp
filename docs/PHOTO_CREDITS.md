@@ -22,6 +22,8 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 | `metar-decodificador-manga.jpg` | Card METAR · Decodificador | https://unsplash.com/photos/gDULrt23rXM (Ben Soyka) |
 | `metar-practica-cabina-nubes.jpg` | Card METAR · Práctica | https://unsplash.com/photos/_4PsqBPe7RU (Walter Mmari) |
 | `metar-evaluacion-escritorio.jpg` | Card METAR · Evaluación | https://unsplash.com/photos/h6pUcouJ9BA (sara sanchez sabogal) |
+| `tema-notam-pista-luces.jpg` | Card del tema NOTAM en Ingreso a aerolínea | https://unsplash.com/photos/SgWHP0mZ6-w (Fabio Sasso) |
+| `tema-meteorologia-nubes-altura.jpg` | Card del tema Meteorología en Ingreso a aerolínea | https://unsplash.com/photos/10lbZPBl3Zw (Vilmantas Bekesius) |
 
 Reglas al agregar fotos nuevas:
 

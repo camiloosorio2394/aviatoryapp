@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -6,7 +6,10 @@ import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { readMetarProgress } from "@/lib/metar"
+import { useSession } from "@/hooks/useSession"
+import { METAR_LEGEND_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
+import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
+import { METAR_EXAMPLES } from "@/lib/metar"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
 import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
@@ -27,8 +30,35 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  */
 
 export function Metar() {
-  // El progreso local no cambia durante la visita al hub: leerlo una vez basta.
-  const [lessonRead] = useState(() => readMetarProgress().lessonScreens.length)
+  const { user, isLoading: sessionLoading } = useSession()
+  // Arranca con el respaldo local para no mostrar cero mientras carga, y se
+  // completa con lo que haya en la base (que es la verdad entre dispositivos).
+  const [lessonScreens, setLessonScreens] = useState<number[]>(
+    () => readMetarProgress().lessonScreens
+  )
+
+  useEffect(() => {
+    if (sessionLoading) return
+    const uid = user?.id
+    if (!uid) return
+    let cancelled = false
+
+    void (async () => {
+      const fetched = await fetchMetarProgress(uid)
+      if (cancelled || !fetched) return
+      const remote = await pushPendingMetarProgress(fetched)
+      if (cancelled) return
+      setLessonScreens(
+        Array.from(new Set([...readMetarProgress().lessonScreens, ...remote.lessonScreens]))
+      )
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id, sessionLoading])
+
+  const resumen = resumirMetar({ lessonScreens })
 
   const partes: CourseCardProps[] = [
     {
@@ -42,18 +72,19 @@ export function Metar() {
       cta: "Abrir la lección",
       photo: aprendePhoto,
       status:
-        lessonRead === 0
+        resumen.lessonRead === 0
           ? "Sin empezar"
-          : lessonRead >= METAR_LESSON_TOTAL
+          : resumen.lessonRead >= METAR_LESSON_TOTAL
             ? "Lección completa"
-            : `${lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
-      done: lessonRead >= METAR_LESSON_TOTAL,
+            : `${resumen.lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
+      progress: resumen.lessonPct,
+      done: resumen.lessonRead >= METAR_LESSON_TOTAL,
     },
     {
       to: "/app/aerolinea/meteorologia/decodificador",
       icon: ScanSearch,
       color: "var(--av-cyan-400)",
-      meta: "Con la leyenda completa del curso",
+      meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
       title: "Decodificador",
       blurb:
         "Pega cualquier METAR y te lo desarma grupo por grupo. Trae las tablas de fenómenos, descriptores, nubes y tendencias con buscador.",

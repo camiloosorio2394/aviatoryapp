@@ -29,8 +29,10 @@ import {
   CODE_META,
   DISCLAIMERS,
   EXAM_PASS_SCORE,
+  NOTAM_PRACTICE_TOTAL,
   TOTALS,
   readLocalProgress,
+  resumirNotam,
 } from "@/lib/notam"
 import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 
@@ -43,7 +45,6 @@ import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgres
  * y cae al respaldo local de la libreria si no hay sesion o la consulta falla.
  */
 
-const PRACTICE_TOTAL = TOTALS.exercises + TOTALS.national
 
 interface NotamProgress {
   lessonScreens: number[]
@@ -139,30 +140,9 @@ export function Notam() {
     }
   }, [user, sessionLoading])
 
-  const resumen = useMemo(() => {
-    const lessonRead = Math.min(progress.lessonScreens.length, TOTALS.lessonScreens)
-    const practiceDone = Math.min(progress.practiceDone.length, PRACTICE_TOTAL)
-    const best = progress.bestExamScore
-    const passed = best !== null && best >= EXAM_PASS_SCORE
-
-    const lessonPct = Math.round((lessonRead / TOTALS.lessonScreens) * 100)
-    const practicePct = Math.round((practiceDone / PRACTICE_TOTAL) * 100)
-    // La evaluacion aporta tu mejor puntaje; si ya aprobaste, aporta el 100 por ciento.
-    const examPct = passed ? 100 : (best ?? 0)
-    const overall = Math.round((lessonPct + practicePct + examPct) / 3)
-
-    return {
-      lessonRead,
-      practiceDone,
-      best,
-      passed,
-      lessonPct,
-      practicePct,
-      examPct,
-      overall,
-      empty: lessonRead === 0 && practiceDone === 0 && best === null,
-    }
-  }, [progress])
+  // La cuenta vive en lib/notam para que esta pantalla y la lista de temas de
+  // Ingreso a aerolínea no puedan mostrar dos porcentajes distintos.
+  const resumen = useMemo(() => resumirNotam(progress), [progress])
 
   // Las cuatro partes, presentadas como el catálogo de cursos de la portada:
   // eliges por dónde entrar, y ahí la foto orienta y distingue. Las tarjetas de
@@ -184,6 +164,7 @@ export function Notam() {
           : resumen.lessonRead >= TOTALS.lessonScreens
             ? "Lección completa"
             : `${resumen.lessonRead} de ${TOTALS.lessonScreens} secciones leídas`,
+      progress: resumen.lessonPct,
       done: resumen.lessonRead >= TOTALS.lessonScreens,
     },
     {
@@ -211,8 +192,9 @@ export function Notam() {
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
-          : `${resumen.practiceDone} de ${PRACTICE_TOTAL} resueltos`,
-      done: resumen.practiceDone >= PRACTICE_TOTAL,
+          : `${resumen.practiceDone} de ${NOTAM_PRACTICE_TOTAL} resueltos`,
+      progress: resumen.practicePct,
+      done: resumen.practiceDone >= NOTAM_PRACTICE_TOTAL,
     },
     {
       to: "/app/aerolinea/notam/evaluacion",
@@ -391,7 +373,7 @@ export function Notam() {
                   />
                   <MiniStat
                     label="Práctica"
-                    value={`${resumen.practiceDone} / ${PRACTICE_TOTAL}`}
+                    value={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
                     detail="ejercicios resueltos"
                     pct={resumen.practicePct}
                     color="var(--av-violet-400)"

@@ -15,6 +15,8 @@
  *   4. Evaluación     → pronto
  */
 
+import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+
 // ─── Tablas de códigos (leyenda del curso, normalizada) ──────────────────────
 
 /** Fenómenos meteorológicos (el "qué cae o qué oscurece"). */
@@ -416,11 +418,25 @@ export const METAR_EXAMPLES: { label: string; metar: string }[] = [
 export const METAR_DISCLAIMER =
   "Los ejemplos son material de práctica redactado para Aviatory con formato real: no son informes vigentes y jamás deben usarse para operar. Consulta siempre el METAR oficial del servicio meteorológico."
 
-// ─── Progreso local ──────────────────────────────────────────────────────────
-// Por ahora el progreso de METAR vive solo en este navegador: la tabla y la
-// RPC (espejo de las de NOTAM) están escritas en la migración
-// 20260731020000_metar_progreso.sql, pendiente de aplicar. Al aplicarla, este
-// módulo pasa al mismo esquema local + base que usa NOTAM.
+// ─── Volumen del contenido ───────────────────────────────────────────────────
+
+/**
+ * Cuántas claves trae la leyenda del decodificador, contadas de las tablas
+ * reales y no a mano: si mañana se agrega un fenómeno, la cifra que ve el
+ * usuario se mueve sola.
+ */
+export const METAR_LEGEND_TOTAL =
+  Object.keys(PHENOMENA).length +
+  Object.keys(DESCRIPTORS).length +
+  Object.keys(QUALIFIERS).length +
+  Object.keys(CLOUD_COVER).length +
+  Object.keys(CONVECTIVE).length +
+  Object.keys(TREND_CODES).length +
+  Object.keys(OTHERS).length
+
+// ─── Progreso ────────────────────────────────────────────────────────────────
+// El respaldo local es lo que hace que la lección funcione sin sesión. La
+// verdad entre dispositivos vive en user_metar_progress: ver lib/metarProgress.
 
 const LS_KEY = "aviatory.metar.progress"
 
@@ -445,4 +461,27 @@ export function writeMetarProgress(patch: Partial<MetarLocalProgress>): void {
   } catch {
     /* localStorage bloqueado (incógnito): el progreso queda en memoria */
   }
+}
+
+export interface MetarResumen {
+  lessonRead: number
+  lessonPct: number
+  /** Avance del tema completo, 0 a 100. */
+  overall: number
+  empty: boolean
+}
+
+/**
+ * Resume el avance del tema METAR.
+ *
+ * Hoy el tema es solo la lección y el decodificador, y el decodificador es una
+ * herramienta de consulta libre: no se completa. Así que el avance del tema ES
+ * el de la lección. Cuando existan la práctica y la evaluación, esta función
+ * pasa a promediar los tres, igual que `resumirNotam`, y las dos pantallas que
+ * la usan se enteran solas.
+ */
+export function resumirMetar(progreso: { lessonScreens: number[] }): MetarResumen {
+  const lessonRead = Math.min(progreso.lessonScreens.length, METAR_LESSON_TOTAL)
+  const lessonPct = Math.round((lessonRead / METAR_LESSON_TOTAL) * 100)
+  return { lessonRead, lessonPct, overall: lessonPct, empty: lessonRead === 0 }
 }

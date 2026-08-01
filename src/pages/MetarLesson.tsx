@@ -6,8 +6,14 @@ import { PageHeader } from "@/components/ui/page-header"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { appButtonClass } from "@/lib/buttonStyles"
+import { useSession } from "@/hooks/useSession"
 import { LEVEL_META, accentText } from "@/lib/notam"
 import { readMetarProgress, writeMetarProgress } from "@/lib/metar"
+import {
+  fetchMetarProgress,
+  markMetarProgress,
+  pushPendingMetarProgress,
+} from "@/lib/metarProgress"
 import { METAR_LESSON, METAR_LESSON_TOTAL, METAR_SOURCES } from "@/lib/metarLesson"
 
 const TOTAL = METAR_LESSON_TOTAL
@@ -18,25 +24,55 @@ const TOTAL_MINUTES = METAR_LESSON.reduce((acc, s) => acc + s.minutes, 0)
  * NOTAM (índice lateral, sección activa por scroll, progreso al pasar).
  * Ruta: /app/aerolinea/meteorologia/aprende
  *
- * El progreso vive solo en este navegador: la tabla espejo de la de NOTAM está
- * en la migración 20260731020000_metar_progreso.sql, pendiente de aplicar.
- * Cuando exista, esta pantalla pasa al mismo esquema local + base que NOTAM.
+ * El progreso sigue el mismo esquema que NOTAM: el respaldo local manda y la
+ * base es la verdad entre dispositivos. Antes vivía solo en este navegador
+ * porque la tabla no existía; ya existe, y sin esto la lista de temas de
+ * Ingreso a aerolínea no tendría avance real de METAR que mostrar.
  */
 export function MetarLesson() {
+  const { user, isLoading: sessionLoading } = useSession()
   const [activeN, setActiveN] = useState(1)
   const [readSections, setReadSections] = useState<number[]>(() => readMetarProgress().lessonScreens)
   const [progress, setProgress] = useState(0)
   const sheetRef = useRef<HTMLElement | null>(null)
   const mobileTocRef = useRef<HTMLDetailsElement | null>(null)
 
+  // El respaldo local manda y la base es un extra: si la RPC falla no se
+  // muestra nada, el progreso ya quedó guardado localmente.
   const markRead = useCallback((n: number) => {
-    setReadSections((prev) => {
-      if (prev.includes(n)) return prev
-      const next = [...prev, n].sort((a, b) => a - b)
-      writeMetarProgress({ lessonScreens: next })
-      return next
-    })
+    setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
+    if (readMetarProgress().lessonScreens.includes(n)) return
+    void markMetarProgress({ lessonScreen: n })
   }, [])
+
+  // Hidrata lo leído desde la base y sube lo que se leyó sin sesión. Sin esto,
+  // abrir la lección en otro dispositivo la mostraba entera sin leer.
+  useEffect(() => {
+    if (sessionLoading) return
+    const uid = user?.id
+    if (!uid) return
+    let cancelled = false
+
+    void (async () => {
+      const fetched = await fetchMetarProgress(uid)
+      if (cancelled || !fetched) return
+      const remote = await pushPendingMetarProgress(fetched)
+      if (cancelled) return
+      const merged = Array.from(
+        new Set([...readMetarProgress().lessonScreens, ...remote.lessonScreens]),
+      ).sort((a, b) => a - b)
+      // El local se iguala al servidor para que markRead no vuelva a mandar a la
+      // RPC secciones que ya están guardadas.
+      writeMetarProgress({ lessonScreens: merged })
+      setReadSections((prev) =>
+        prev.length === merged.length && merged.every((n) => prev.includes(n)) ? prev : merged,
+      )
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id, sessionLoading])
 
   // Sección activa + marcado de leídas, con la franja superior como banda de
   // observación: cuando una sección entra ahí, el lector ya llegó a ella.
