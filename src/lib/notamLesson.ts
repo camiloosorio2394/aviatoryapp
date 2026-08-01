@@ -49,10 +49,18 @@ export type LessonBlock =
    */
   | { kind: "breakdown"; caption?: string; parts: BreakdownPart[] }
   /**
-   * Imagen que enseña algo: un NOTAM real, una carta, un tipo de nube. Nunca
-   * decoración entre párrafos. `src` es una ruta servible (`/notams/...`).
+   * Un NOTAM colombiano real, dentro de la lección.
+   *
+   * Solo lleva el `id` de la ficha en `notams_nacionales.json`: de ahí salen la
+   * imagen, la transcripción (que es el `alt` de verdad, no uno decorativo), el
+   * código, el aeródromo y el aviso de vigencia obligatorio. Si la ficha cambia
+   * de nombre de archivo o de formato, la lección se entera sola.
+   *
+   * Ponlo solo donde la imagen enseñe lo que dice el párrafo de al lado.
+   * Colocarlas de adorno entre párrafos es el problema que esto viene a
+   * arreglar, no la solución.
    */
-  | { kind: "figure"; src: string; alt: string; caption?: string; source?: string }
+  | { kind: "notam"; id: string; caption?: string }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
       kind: "example"
@@ -193,12 +201,10 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "**Así se ve un reemplazo de verdad.** Este NOTAM sale del resumen mensual de la Aerocivil y trae `RPLC NOTAM C 0756/26` al final: es la forma colombiana de decir NOTAMR.",
       },
       {
-        kind: "figure",
-        src: "/notams/notam_C1962_SKRG_PAPI_US.png",
-        alt: "NOTAM C 1962/26 de Rionegro, José María Córdova (SKRG): 2605171823 / 2608142359 EST, PAPI RWY 19 U/S, RPLC NOTAM C 0756/26.",
+        kind: "notam",
+        id: "N3",
         caption:
           "El PAPI de la pista 19 de Rionegro está inutilizable. La última línea dice que este mensaje reemplaza al `C 0756/26`: ese ya no vale, aunque siga en tus notas.",
-        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
       },
       {
         kind: "callout",
@@ -381,6 +387,12 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "callout",
         tone: "info",
+        title: "En el resumen colombiano no vas a ver la línea Q",
+        text: "El resumen mensual de la Aerocivil publica los NOTAM en formato de tabla, sin la línea Q: trae el número, el aeródromo, las fechas y el texto. La línea Q la ves en el formato completo, que es el que llega por el briefing AIS y el que usan los ejemplos internacionales de este documento. No la busques en los avisos colombianos que aparecen más adelante: no está.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
         title: "Pendiente normativo",
         text: "Las tablas normativas completas de calificativos están en el Doc 8126, que todavía no cargamos. Lo que ves aquí viene del Doc 8400 y de la bibliografía de curso.",
       },
@@ -463,6 +475,26 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "p",
+        text: "**Así se ve `QFALC` en la vida real.** Magangué, en el resumen de la Aerocivil:",
+      },
+      {
+        kind: "notam",
+        id: "N13",
+        caption:
+          "`AD CLSD` es aeródromo cerrado: asunto `FA` (aeródromo) y estado `LC` (cerrado). El resumen no imprime el código de cinco letras, pero el texto de la casilla E) tiene que ser coherente con él, y aquí lo es. Ojo al `1100-2300`: el cierre es de once de la mañana a once de la noche UTC, no todo el día.",
+      },
+      {
+        kind: "p",
+        text: "Y este es un `QOBCE`, obstáculo montado, uno de los pocos NOTAM que te dan coordenadas y altura del obstáculo:",
+      },
+      {
+        kind: "notam",
+        id: "N5",
+        caption:
+          "Asunto `OB` (obstáculo) y estado `CE` (erigido). El aviso da el tipo, las coordenadas, la elevación y la altura de cada silo, que es justo lo que necesitas para saber si te afecta en aproximación.",
+      },
+      {
         kind: "callout",
         tone: "warn",
         title: "Error común: cerrado no siempre es cerrado",
@@ -535,9 +567,26 @@ export const LESSON_SCREENS: LessonScreen[] = [
       },
       { kind: "code", text: "B) 2606031100  C) 2608302359\nB) 2606031100  C) 2609150000 EST\nB) 2606031100  C) PERM" },
       {
+        kind: "p",
+        text: "**Los dos casos, en avisos reales.** Primero uno con **fechas firmes**: empieza y termina cuando dice, sin más.",
+      },
+      {
+        kind: "notam",
+        id: "N1",
+        caption:
+          "Del 28 de mayo al 25 de agosto, sin `EST` y sin horario diario. Puerto Bolívar opera limitado a aeronaves hasta categoría B durante todo ese período, de corrido.",
+      },
+      { kind: "p", text: "Y ahora uno con **`EST`**, que es donde se cuela el error:" },
+      {
+        kind: "notam",
+        id: "N8",
+        caption:
+          "El faro de aeródromo de Riohacha está inutilizable, con fin **estimado** el 30 de agosto. Esa fecha es un cálculo de quien publicó el aviso, no un compromiso: si llega el 31 y no salió un NOTAM que lo reemplace o lo cancele, el faro sigue fuera de servicio.",
+      },
+      {
         kind: "callout",
         tone: "warn",
-        title: "EST no es lo mismo que vencido",
+        title: "Error común: EST no es lo mismo que vencido",
         text: "Ver una fecha `EST` ya pasada no significa que el NOTAM caducó. Significa que quien lo publicó estimó mal cuándo terminaría. Sigue vigente hasta que salga el NOTAMR o el NOTAMC.",
       },
 
@@ -557,12 +606,10 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "**Ese es exactamente el caso de El Dorado.** Mira dónde está el horario diario en un NOTAM real:",
       },
       {
-        kind: "figure",
-        src: "/notams/notam_D0499_SKBO_RWY_CLSD_HORARIO.png",
-        alt: "NOTAM D 0499/26 de Bogotá, El Dorado (SKBO): 2607160500 / 2607311000 0500-1000, RWY 14R/32L CLSD.",
+        kind: "notam",
+        id: "N4",
         caption:
           "Las dos primeras fechas son B) y C): del 16 al 31 de julio. El `0500-1000` que va detrás es la casilla D): la pista 14R/32L solo está cerrada entre las 05:00 y las 10:00 UTC, o sea de medianoche a 5 de la mañana en Colombia. El resto del día opera normal.",
-        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
       },
       {
         kind: "callout",
@@ -814,12 +861,7 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "El resumen no usa hora local en ninguna columna. Colombia va en UTC menos 5, así que resta cinco horas para saber a qué hora local aplica.",
       },
       { kind: "p", text: "**Cómo se lee cada fila del resumen.** Esta es real, de Maicao:" },
-      {
-        kind: "figure",
-        src: "/notams/notam_C2222_SKLM_DIST_DECLARADAS.png",
-        alt: "NOTAM C 2222/26 de Maicao, Jorge Isaacs (SKLM): 2606031100 / 2608302359, DIST DECLARADAS RWY 10/28 MODIFICADAS, con los valores de TORA, TODA, ASDA y LDA de cada cabecera.",
-        source: "Aerocivil (DRT), resumen mensual de NOTAM vigentes, corte 29 JUL 2026.",
-      },
+      { kind: "notam", id: "N2" },
       {
         kind: "breakdown",
         caption:

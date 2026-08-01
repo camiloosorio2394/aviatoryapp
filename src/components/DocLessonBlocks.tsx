@@ -8,8 +8,9 @@
  */
 
 import type { ReactNode } from "react"
-import { AlertTriangle, CheckCircle2, Info, Lightbulb, PenLine } from "lucide-react"
+import { AlertTriangle, CheckCircle2, Info, Lightbulb, PenLine, ShieldAlert } from "lucide-react"
 import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
+import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
 
 /**
@@ -196,34 +197,9 @@ export function DocBlock({ block }: { block: LessonBlock }) {
     case "breakdown":
       return <Breakdown caption={block.caption} parts={block.parts} />
 
-    case "figure":
-      return (
-        <figure className="m-0">
-          {/* Los recortes del resumen de la Aerocivil son tiras muy anchas: por
-              debajo de 720 px el texto del NOTAM deja de leerse, así que la
-              imagen no se encoge más y la caja scrollea. Mismo criterio que en
-              el modo práctica. Fondo blanco porque el recorte lo es. */}
-          <div
-            className="overflow-x-auto rounded-lg border doc-rule"
-            style={{ background: "rgb(255 255 255)" }}
-          >
-            <img
-              src={block.src}
-              alt={block.alt}
-              loading="lazy"
-              className="block w-full min-w-[720px] h-auto"
-            />
-          </div>
-          {(block.caption || block.source) && (
-            <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">
-              {block.caption && <span>{renderInline(block.caption)}</span>}
-              {block.source && (
-                <span className="block mt-1 text-[12px]">{block.source}</span>
-              )}
-            </figcaption>
-          )}
-        </figure>
-      )
+    case "notam":
+      return <NotamFigure id={block.id} caption={block.caption} />
+
 
     case "example":
       return (
@@ -290,6 +266,56 @@ export function DocBlock({ block }: { block: LessonBlock }) {
         </div>
       )
   }
+}
+
+/**
+ * Un NOTAM colombiano real dentro de la hoja de estudio.
+ *
+ * Todo sale de la ficha de `notams_nacionales.json`, incluidos el `alt` (que es
+ * la transcripción completa del aviso, no un texto decorativo: un NOTAM en
+ * imagen es texto dentro de un píxel y sin esto un lector de pantalla no lo lee)
+ * y el aviso de vigencia, que es obligatorio en pantalla y va con cada imagen,
+ * igual que en el modo práctica.
+ */
+function NotamFigure({ id, caption }: { id: string; caption?: string }) {
+  const notam = NATIONAL_NOTAMS.find((n) => n.id === id)
+  // Una referencia rota no puede tumbar la lección entera: se omite la imagen
+  // y el texto de alrededor sigue explicando lo mismo.
+  if (!notam) return null
+
+  return (
+    <figure className="m-0">
+      {/* Los recortes del resumen de la Aerocivil son tiras muy anchas: por
+          debajo de 720 px el texto del aviso deja de leerse, así que la imagen
+          no se encoge más y la caja scrollea. Mismo criterio que en el modo
+          práctica. Fondo blanco porque el recorte lo es. */}
+      <div
+        className="overflow-x-auto rounded-lg border doc-rule"
+        style={{ background: "rgb(255 255 255)" }}
+      >
+        <img
+          src={notamImageUrl(notam.imagen)}
+          alt={notam.transcripcion}
+          loading="lazy"
+          className="block w-full min-w-[720px] h-auto"
+        />
+      </div>
+      <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">
+        <span className="mono font-semibold" style={{ color: "var(--doc-fg)" }}>
+          {notam.serie_numero}
+        </span>{" "}
+        · {notam.aerodromo}
+        {caption && <span className="block mt-1">{renderInline(caption)}</span>}
+        <span
+          className="mt-2 flex items-start gap-1.5 text-[12px] leading-[1.55]"
+          style={{ color: docAccent("var(--av-red-400)", 55) }}
+        >
+          <ShieldAlert className="shrink-0 mt-0.5 h-3.5 w-3.5" aria-hidden />
+          <span>{DISCLAIMERS.national}</span>
+        </span>
+      </figcaption>
+    </figure>
+  )
 }
 
 /**
