@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from "react"
-import type { ComponentType } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -13,12 +12,17 @@ import {
   Info,
   ListOrdered,
   Sparkles,
-  CheckCircle2,
   Gauge,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
+import { CourseCard } from "@/components/ui/course-card"
+import type { CourseCardProps } from "@/components/ui/course-card"
+import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
+import decodificadorPhoto from "@/assets/photos/notam-decodificador-tablero.jpg"
+import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
+import evaluacionPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -160,63 +164,73 @@ export function Notam() {
     }
   }, [progress])
 
-  const partes: ParteCard[] = [
+  // Las cuatro partes, presentadas como el catálogo de cursos de la portada:
+  // eliges por dónde entrar, y ahí la foto orienta y distingue. Las tarjetas de
+  // dato de esta misma página (el progreso de arriba) siguen sin foto.
+  const partes: CourseCardProps[] = [
     {
       to: "/app/aerolinea/notam/aprende",
       icon: BookOpen,
       color: "var(--av-blue-500)",
-      eyebrow: `${TOTALS.lessonScreens} secciones`,
+      meta: `${TOTALS.lessonScreens} secciones de lectura`,
       title: "Aprende",
-      description:
+      blurb:
         "La lección completa: para qué sirve un NOTAM, quién lo publica y cómo se lee casilla por casilla.",
-      estado:
+      cta: "Abrir la lección",
+      photo: aprendePhoto,
+      status:
         resumen.lessonRead === 0
           ? "Sin empezar"
           : resumen.lessonRead >= TOTALS.lessonScreens
             ? "Lección completa"
             : `${resumen.lessonRead} de ${TOTALS.lessonScreens} secciones leídas`,
-      hecho: resumen.lessonRead >= TOTALS.lessonScreens,
+      done: resumen.lessonRead >= TOTALS.lessonScreens,
     },
     {
       to: "/app/aerolinea/notam/decodificador",
       icon: ScanSearch,
       color: "var(--av-cyan-400)",
-      eyebrow: `${TOTALS.subjects} asuntos y ${TOTALS.statuses} estados`,
+      meta: `${TOTALS.subjects} asuntos y ${TOTALS.statuses} estados`,
       title: "Decodificador",
-      description:
+      blurb:
         "Escribe un código Q de 5 letras y te devuelve el asunto, el estado y la fraseología normalizada. Trae buscador.",
-      estado: "Consulta libre, sin límite",
-      hecho: false,
+      cta: "Abrir el decodificador",
+      photo: decodificadorPhoto,
+      status: "Consulta libre, sin límite",
     },
     {
       to: "/app/aerolinea/notam/practica",
       icon: Target,
       color: "var(--av-violet-400)",
-      eyebrow: `${TOTALS.exercises} ejercicios y ${TOTALS.national} NOTAM reales de Colombia`,
+      meta: `${TOTALS.exercises} ejercicios y ${TOTALS.national} NOTAM reales de Colombia`,
       title: "Práctica",
-      description:
+      blurb:
         "Interpretas NOTAM de texto y recortes reales publicados por la Aerocivil, con respuesta modelo y puntos clave.",
-      estado:
+      cta: "Empezar a practicar",
+      photo: practicaPhoto,
+      status:
         resumen.practiceDone === 0
           ? "Sin empezar"
           : `${resumen.practiceDone} de ${PRACTICE_TOTAL} resueltos`,
-      hecho: resumen.practiceDone >= PRACTICE_TOTAL,
+      done: resumen.practiceDone >= PRACTICE_TOTAL,
     },
     {
       to: "/app/aerolinea/notam/evaluacion",
       icon: GraduationCap,
       color: "var(--av-amber-400)",
-      eyebrow: `${TOTALS.examQuestions} preguntas, apruebas con ${EXAM_PASS_SCORE}`,
+      meta: `${TOTALS.examQuestions} preguntas, apruebas con ${EXAM_PASS_SCORE}`,
       title: "Evaluación",
-      description:
+      blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
-      estado:
+      cta: "Presentar la evaluación",
+      photo: evaluacionPhoto,
+      status:
         resumen.best === null
           ? "Sin intentos"
           : resumen.passed
             ? `Aprobada con ${resumen.best} de 100`
             : `Mejor puntaje: ${resumen.best} de 100`,
-      hecho: resumen.passed,
+      done: resumen.passed,
     },
   ]
 
@@ -409,9 +423,9 @@ export function Notam() {
             title="Por dónde vas a pasar"
             hint="El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera."
           />
-          <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {partes.map((p) => (
-              <ParteTile key={p.to} {...p} cargando={loading} />
+              <CourseCard key={p.to} {...p} statusLoading={loading} />
             ))}
           </div>
         </section>
@@ -422,78 +436,6 @@ export function Notam() {
 }
 
 // ─── Sub componentes ─────────────────────────────────────────────────────────
-
-interface ParteCard {
-  to: string
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>
-  color: string
-  eyebrow: string
-  title: string
-  description: string
-  estado: string
-  hecho: boolean
-}
-
-function ParteTile({
-  to,
-  icon: Icon,
-  color,
-  eyebrow,
-  title,
-  description,
-  estado,
-  hecho,
-  cargando,
-}: ParteCard & { cargando: boolean }) {
-  return (
-    <Link
-      to={to}
-      className="card-apple group rounded-2xl border bg-card p-5 flex flex-col gap-3"
-      style={{ borderColor: `color-mix(in oklab, ${color} 28%, transparent)` }}
-    >
-      <div className="flex items-start justify-between gap-2">
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: `color-mix(in oklab, ${color} 14%, transparent)`,
-            border: `1px solid color-mix(in oklab, ${color} 32%, transparent)`,
-            color,
-          }}
-        >
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </div>
-        {!cargando && hecho && (
-          <span
-            className="inline-flex items-center gap-1 text-[12px] font-semibold px-2 py-0.5 rounded-full"
-            style={{
-              color: "var(--av-green-400)",
-              background: "color-mix(in oklab, var(--av-green-400) 14%, transparent)",
-            }}
-          >
-            <CheckCircle2 className="h-3 w-3" /> Listo
-          </span>
-        )}
-      </div>
-
-      <div>
-        <div className="text-[12px] font-semibold" style={{ color }}>
-          {eyebrow}
-        </div>
-        <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">{title}</div>
-        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
-      </div>
-
-      <div className="mt-auto pt-2.5 border-t border-border/60 flex items-center justify-between gap-2">
-        {cargando ? (
-          <span className="h-4 w-32 rounded bg-muted animate-pulse" aria-hidden="true" />
-        ) : (
-          <span className="text-[12px] font-semibold text-muted-foreground">{estado}</span>
-        )}
-        <ArrowRight className="h-4 w-4 flex-shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
-      </div>
-    </Link>
-  )
-}
 
 function MiniStat({
   label,
