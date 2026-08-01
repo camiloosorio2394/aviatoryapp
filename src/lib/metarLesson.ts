@@ -37,7 +37,19 @@ export const METAR_LESSON: LessonScreen[] = [
         kind: "callout",
         tone: "tip",
         title: "Cómo aprovechar esta lección",
-        text: "Léela de corrido y después abre el Decodificador: pegas cualquier METAR y te lo desarma grupo por grupo. La práctica y la evaluación de esta sección llegan pronto.",
+        text: "Léela de corrido: cada sección usa lo de la anterior, y va con comprobaciones intercaladas para que uses lo que acabas de leer. Después abre el Decodificador: pegas cualquier METAR y te lo desarma grupo por grupo.",
+      },
+      {
+        kind: "check",
+        question: "Estás en la sala de despacho y sale un `SPECI` de tu destino. ¿Qué significa?",
+        options: [
+          "Que el informe de rutina se retrasó y este lo sustituye",
+          "Que algo cambió lo bastante como para no esperar a la siguiente observación",
+          "Que es un informe de aeródromo militar, con clave distinta",
+        ],
+        answer: 1,
+        explain:
+          "El `SPECI` es un informe **especial**, fuera de horario. Se emite justo porque la condición cambió fuerte antes de la observación siguiente. Si ves uno, mira qué grupo se movió: alguien decidió que no podía esperar.",
       },
     ],
   },
@@ -87,6 +99,14 @@ export const METAR_LESSON: LessonScreen[] = [
         tone: "info",
         title: "El orden es tu mapa",
         text: "Si un grupo falta, el resto conserva su posición. Con el orden en la cabeza puedes leer cualquier METAR del mundo aunque tenga grupos que nunca hayas visto: sabes qué debería ir ahí.",
+      },
+      {
+        kind: "check",
+        question: "En `METAR SKBO 261300Z 09006KT 9999 SCT023 BKN080 14/09 Q1027 NOSIG`, ¿a qué hora local de Colombia se tomó la observación?",
+        options: ["A las 13:00", "A las 08:00", "A las 18:00"],
+        answer: 1,
+        explain:
+          "`261300Z` es el día 26 a las 13:00 **UTC**. Colombia va en UTC menos 5, así que son las 08:00 locales. La `Z` de zulu es el aviso: en el METAR nunca hay hora local.",
       },
       {
         kind: "p",
@@ -152,6 +172,19 @@ export const METAR_LESSON: LessonScreen[] = [
         title: "La cizalladura es la que mata",
         text: "Un cambio súbito de dirección o velocidad del viento, asociado a microrráfagas descendentes o inversiones térmicas bajas, puede variar de golpe tu velocidad aerodinámica y empujarte hacia el suelo. Es especialmente peligrosa en despegue y aterrizaje: si el METAR trae WS, el briefing cambia.",
       },
+      {
+        kind: "check",
+        question:
+          "La pista en uso es la 09 y el METAR dice `27015G28KT`. ¿Qué tienes de frente y qué te preocupa?",
+        options: [
+          "Viento de cara de 15 nudos; las ráfagas ayudan a frenar",
+          "Viento de cola de 15 nudos con ráfagas de 28, que es el número que manda",
+          "Viento cruzado puro de 28 nudos por la derecha",
+        ],
+        answer: 1,
+        explain:
+          "El viento sopla **desde** 270°, y la 09 apunta a 090°: lo tienes justo por la cola. Y el número que limita no es el promedio sino la ráfaga, 28 nudos, que es contra la que se compara el límite de viento de cola del avión.",
+      },
     ],
   },
 
@@ -176,6 +209,19 @@ export const METAR_LESSON: LessonScreen[] = [
       {
         kind: "p",
         text: "El RVR se mide con las luces de alta intensidad de la pista o el contraste con otros objetos, y es el número que define si puedes iniciar una aproximación con niebla. Cuando la visibilidad general y el RVR difieren, el RVR manda para esa pista.",
+      },
+      {
+        kind: "check",
+        question:
+          "El METAR trae visibilidad `0800` y además `R28L/1200`. Vas a la 28 izquierda. ¿Con qué número decides?",
+        options: [
+          "Con los 800 m: es la visibilidad oficial del aeródromo",
+          "Con los 1200 m del RVR, que es el que manda para esa pista",
+          "Con el promedio de los dos",
+        ],
+        answer: 1,
+        explain:
+          "El RVR es el alcance visual medido **en esa pista**, y cuando difiere de la visibilidad general es el que manda para la aproximación. Por eso un aeródromo con niebla puede seguir operando: la visibilidad general está peor que lo que se ve desde la senda.",
       },
     ],
   },
@@ -267,6 +313,18 @@ export const METAR_LESSON: LessonScreen[] = [
           "Si no reconoces una combinación, sepárala en piezas: casi siempre se entiende sola.",
         ],
       },
+      {
+        kind: "check",
+        question: "¿Qué significa `VCTS` y por qué no es lo mismo que `TS`?",
+        options: [
+          "Tormenta muy fuerte: la V es de violenta",
+          "Tormenta en la vecindad del aeródromo, no sobre la estación",
+          "Tormenta con visibilidad reducida",
+        ],
+        answer: 1,
+        explain:
+          "`VC` es el calificador de posición: **in the vicinity**, en la vecindad. La tormenta está cerca pero no encima. Cambia la decisión: no es lo mismo despegar con una celda sobre el campo que con una a diez millas moviéndose hacia ti.",
+      },
     ],
   },
 
@@ -344,6 +402,18 @@ export const METAR_LESSON: LessonScreen[] = [
           "`VV002` significa cielo oscurecido sin base definida, con 200 ft de visibilidad vertical.",
         ],
       },
+      {
+        kind: "check",
+        question: "El METAR dice `FEW008 SCT015 BKN025CB OVC090`. ¿Cuál es el techo?",
+        options: [
+          "800 ft, la capa más baja",
+          "2500 ft, la primera capa BKN u OVC",
+          "9000 ft, la capa cubierta",
+        ],
+        answer: 1,
+        explain:
+          "El techo es la base de la primera capa que cubra **más de la mitad** del cielo, o sea la primera `BKN` u `OVC`: aquí `BKN025`, 2500 ft. Las `FEW` y `SCT` de abajo no cuentan para el techo. Y ojo al `CB` pegado: hay convección, que pesa más que el techo mismo.",
+      },
     ],
   },
 
@@ -375,6 +445,19 @@ export const METAR_LESSON: LessonScreen[] = [
           "QNH bajo y sin actualizar: el altímetro miente alto. De ahí el clásico: de alta a baja, cuidado abajo.",
           "El cambio de Q a A al volar hacia EE. UU. es un error de lectura clásico en entrevistas.",
         ],
+      },
+      {
+        kind: "check",
+        question:
+          "Amanece en Bogotá con `06/06` y viento en calma. ¿Qué esperas encontrar en la aproximación?",
+        options: [
+          "Nada especial: seis grados es una temperatura normal",
+          "Niebla, casi seguro: temperatura y rocío iguales significan aire saturado",
+          "Turbulencia térmica, porque el aire está frío y estable",
+        ],
+        answer: 1,
+        explain:
+          "Cuando la temperatura alcanza al punto de rocío el aire está saturado y el vapor condensa. Sin viento que mezcle la capa baja, eso es niebla de radiación. Es el aviso más barato que da un METAR y el que más se pasa por alto.",
       },
     ],
   },
@@ -409,6 +492,18 @@ export const METAR_LESSON: LessonScreen[] = [
           "**AUTO**: observación automatizada, sin observador humano. Algunas estaciones no discriminan el tipo de precipitación (reportan UP).",
           "**COR**: corrección a una observación ya publicada.",
         ],
+      },
+      {
+        kind: "check",
+        question: "¿Qué diferencia hay entre `BECMG 1216 3000 BR` y `TEMPO 1216 3000 BR`?",
+        options: [
+          "Ninguna: las dos anuncian 3 km con neblina entre las 12:00 y las 16:00 UTC",
+          "`BECMG` es un cambio que se instala y se queda; `TEMPO` son ratos que van y vienen",
+          "`BECMG` es más probable que `TEMPO`",
+        ],
+        answer: 1,
+        explain:
+          "`BECMG` describe una transición: en algún momento de esa ventana la condición cambia y a partir de ahí se mantiene. `TEMPO` son fluctuaciones temporales dentro de la ventana, y entre ellas se vuelve a lo anterior. Para planear un alterno no da lo mismo.",
       },
     ],
   },
@@ -463,6 +558,19 @@ export const METAR_LESSON: LessonScreen[] = [
           "Ignorar el CB pegado a la capa: `BKN015CB` no es solo un techo de 1500 ft, es convección encima del aeródromo.",
           "Olvidar que CAVOK también promete que no hay CB: si hay CAVOK, nadie vio convección.",
         ],
+      },
+      {
+        kind: "check",
+        question:
+          "Último: `METAR SKCL 041200Z VRB03KT 9999 FEW018 BKN030TCU 26/23 Q1010 NOSIG`. ¿Cuál es el dato que más pesa?",
+        options: [
+          "El `NOSIG`: no se espera cambio, así que el informe es tranquilizador",
+          "El `TCU` de la capa de 3000 ft: hay convección en desarrollo",
+          "El `VRB03KT`: viento variable, difícil de elegir pista",
+        ],
+        answer: 1,
+        explain:
+          "Todo lo demás está cómodo: 10 km de visibilidad, techo de 3000 ft, viento flojo. Pero `TCU` son torrecúmulos, el paso previo al cumulonimbo, y con 26/23 hay humedad de sobra para que maduren. El `NOSIG` cubre solo dos horas; la convección no pide permiso.",
       },
       {
         kind: "summary",

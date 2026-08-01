@@ -73,6 +73,25 @@ export type LessonBlock =
     }
   /** Resumen al cierre de una sección: lo que hay que llevarse. */
   | { kind: "summary"; title?: string; items: string[] }
+  /**
+   * Comprobación dentro de la lección.
+   *
+   * Leer trece secciones seguidas sin recuperar nada produce fluidez ilusoria:
+   * el piloto siente que entendió y no retiene. Esto corta la lectura y le pide
+   * usar lo que acaba de leer, que es lo que de verdad fija el conocimiento.
+   *
+   * Va PEGADA a lo que pregunta, no al final de la sección: si hay que subir a
+   * releer para responder, la pregunta llegó tarde.
+   */
+  | {
+      kind: "check"
+      question: string
+      options: string[]
+      /** Índice de la correcta dentro de `options`. */
+      answer: number
+      /** Por qué esa es la buena. Se muestra al responder, acierte o falle. */
+      explain: string
+    }
 
 export interface LessonScreen {
   /** Número de sección, correlativo desde 1. Es el índice que se guarda como leído. */
@@ -111,10 +130,23 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "**Por qué te lo preguntan en entrevistas y en el PCA:** leer NOTAM es parte del planeamiento de vuelo. Un piloto que no decodifica la línea Q depende de que otro le explique lo que va a encontrar en ruta o en destino.",
       },
       {
+        kind: "check",
+        question:
+          "Una pista se va a cerrar por obras dentro de tres días. ¿Por dónde te enteras?",
+        options: [
+          "Por NOTAM: es información temporal y urgente que aún no está en el AIP",
+          "Por el AIP: es la publicación oficial del Estado",
+          "Por la carta de aproximación, que se reedita cada 28 días",
+        ],
+        answer: 0,
+        explain:
+          "El NOTAM existe justo para lo que cambia antes de que el AIP pueda publicarlo. El AIP es la referencia permanente y va por ciclos; una obra que empieza en tres días no cabe ahí.",
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "Cómo aprovechar este documento",
-        text: "Está pensado para leerse de corrido, en orden: cada sección usa lo de la anterior. Al terminar tienes el modo práctica con NOTAM colombianos reales y una evaluación de 20 preguntas. El índice te devuelve a cualquier punto.",
+        text: "Está pensado para leerse de corrido, en orden: cada sección usa lo de la anterior. Va con comprobaciones intercaladas para que uses lo que acabas de leer, y al terminar tienes el modo práctica con NOTAM colombianos reales y una evaluación de 20 preguntas.",
       },
     ],
   },
@@ -139,6 +171,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "p",
         text: "Además de la serie ordinaria existen dos series especiales, **SNOWTAM** y **ASHTAM**, con formato propio. Las ves al final, cuando ya sepas leer un NOTAM completo.",
+      },
+      {
+        kind: "check",
+        question: "¿Dónde está normalizado el código NOTAM de cinco letras?",
+        options: [
+          "En el Anexo 15 de la OACI",
+          "En el Doc 8400, sección 7",
+          "En el resumen mensual que publica cada Estado",
+        ],
+        answer: 1,
+        explain:
+          "El Anexo 15 fija el contenido y el formato del NOTAM; el **Doc 8400, sección 7** es el que normaliza el código de cinco letras. Lo tienes completo en el Decodificador de esta sección.",
       },
       {
         kind: "callout",
@@ -205,6 +249,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
         id: "N3",
         caption:
           "El PAPI de la pista 19 de Rionegro está inutilizable. La última línea dice que este mensaje reemplaza al `C 0756/26`: ese ya no vale, aunque siga en tus notas.",
+      },
+      {
+        kind: "check",
+        question:
+          "En tu paquete de briefing aparecen `A0143/22 NOTAMR A2385/21` y también el `A2385/21`. ¿Qué haces?",
+        options: [
+          "Leo los dos y me quedo con la unión de la información",
+          "Descarto el `A2385/21`: el nuevo lo reemplaza y solo vale el nuevo",
+          "Descarto el `A0143/22`, porque el otro es anterior y por tanto el original",
+        ],
+        answer: 1,
+        explain:
+          "Un NOTAMR **sustituye**, no complementa. El número que va detrás del tipo es el que deja sin efecto, así que el `A2385/21` ya no cuenta aunque siga apareciendo en tus notas.",
       },
       {
         kind: "callout",
@@ -312,6 +369,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "Las tres secciones siguientes desarman esas casillas: primero la línea Q entera, después el código de cinco letras que va dentro de ella, y después los ítems A) a G) uno por uno.",
       },
       {
+        kind: "check",
+        question: "Ves un NOTAM que trae `Q)`, `A)`, `B)`, `C)` y `E)`, pero no `D)`. ¿Qué significa?",
+        options: [
+          "Que el mensaje está incompleto y hay que pedir la casilla que falta",
+          "Que la condición es continua entre B) y C): sin horario diario, no hay D)",
+          "Que la condición es permanente y por eso no lleva horario",
+        ],
+        answer: 1,
+        explain:
+          "`D)` solo aparece cuando la condición NO es continua. Que falte es la forma de decir que aplica de corrido entre la fecha de inicio y la de fin. Lo permanente se marca con `PERM` en la casilla C), que es otra cosa.",
+      },
+      {
         kind: "summary",
         items: [
           "El encabezado es **serie + número/año + tipo**, y se cita completo: `C2222/26`, nunca `2222`.",
@@ -377,6 +446,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "p",
         text: "El propio Doc 8400 decodifica estos calificativos en sus ejemplos (pág. 7-3): `IV/BO/AE` significa IFR y VFR, boletín previo al vuelo más significativo para IFR, y alcance de ayuda terminal y en ruta.",
+      },
+      {
+        kind: "check",
+        question:
+          "Vuelas IFR a un aeródromo. En el paquete hay un NOTAM con `.../V/BO/W/...` en otra FIR. ¿Te aplica?",
+        options: [
+          "Sí: todo NOTAM del paquete aplica hasta que se demuestre lo contrario",
+          "No, casi seguro: es de tránsito `V` (VFR) y alcance `W` (advertencia), y además en otra FIR",
+          "Solo si tu ruta pasa por esa FIR, sin importar el tránsito",
+        ],
+        answer: 1,
+        explain:
+          "El tránsito y el alcance son el primer filtro de un paquete grande. `V` es VFR y `W` es advertencia de navegación: volando IFR a un aeródromo, y en otra FIR, ese aviso no es tuyo. Míralo, pero decide rápido.",
       },
       {
         kind: "callout",
@@ -505,6 +587,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
           "Asunto `OB` (obstáculo) y estado `CE` (erigido). El aviso da el tipo, las coordenadas, la elevación y la altura de cada silo, que es justo lo que necesitas para saber si te afecta en aproximación.",
       },
       {
+        kind: "check",
+        question: "Vuelas IFR de noche y el NOTAM del destino trae `QMRLN`. ¿Puedes aterrizar?",
+        options: [
+          "No: `LN` es cerrada de noche, y es justo cuando llegas",
+          "Sí: `LN` es cerrada solo para vuelos nocturnos VFR",
+          "Sí: `LN` significa limitación de longitud, no cierre",
+        ],
+        answer: 0,
+        explain:
+          "`MR` es la pista y `LN` es cerrada de noche. Es el grupo de estados que más se confunde: `LC` es cerrada del todo, `LI` solo para IFR, `LV` solo para VFR y `LN` solo de noche. Se parecen a simple vista y deciden si operas o no.",
+      },
+      {
         kind: "callout",
         tone: "warn",
         title: "Error común: cerrado no siempre es cerrado",
@@ -622,6 +716,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
           "Las dos primeras fechas son B) y C): del 16 al 31 de julio. El `0500-1000` que va detrás es la casilla D): la pista 14R/32L solo está cerrada entre las 05:00 y las 10:00 UTC, o sea de medianoche a 5 de la mañana en Colombia. El resto del día opera normal.",
       },
       {
+        kind: "check",
+        question:
+          "Un NOTAM dice `B) 2607160500  C) 2607311000  0500-1000`. Llegas a El Dorado el 20 de julio a las 14:00 UTC. ¿Te afecta el cierre?",
+        options: [
+          "Sí: el 20 de julio está dentro del período B) a C)",
+          "No: el cierre es solo de 05:00 a 10:00 UTC, y llegas a las 14:00",
+          "No: el NOTAM ya expiró el 16 de julio",
+        ],
+        answer: 1,
+        explain:
+          "El bloque `0500-1000` es la casilla D), el horario diario. El período dice qué días y la casilla D) dice a qué horas dentro de esos días. A las 14:00 UTC la pista opera normal.",
+      },
+      {
         kind: "callout",
         tone: "warn",
         title: "Error común: leer solo B) y C)",
@@ -709,6 +816,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "check",
+        question: "¿Qué dice `RWY 27 RTZL NOT AVBL DUE TO PWR FAILURE`?",
+        options: [
+          "La pista 27 está cerrada por un corte de energía",
+          "Las luces de zona de toma de contacto de la 27 no están disponibles por corte de energía",
+          "El sistema de aproximación de la 27 quedó sin alimentación de respaldo",
+        ],
+        answer: 1,
+        explain:
+          "`RTZL` son las luces de zona de toma de contacto y `NOT AVBL` es no disponible. La pista sigue abierta: lo que falta es una ayuda visual, que cambia los mínimos nocturnos pero no cierra nada.",
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "Traduce siempre a una frase entera",
@@ -792,6 +911,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
         text: "Las cuatro aparecen juntas cuando un NOTAM modifica las **distancias declaradas** de una pista, que es exactamente lo que pasa en el NOTAM `C2222/26` de Maicao que vas a ver en el modo práctica.",
       },
       {
+        kind: "check",
+        question:
+          "Un NOTAM modifica las distancias declaradas y la `ASDA` queda más corta que las otras tres. ¿Qué operación penaliza?",
+        options: [
+          "El aterrizaje, porque la ASDA es la distancia de aterrizaje disponible",
+          "El despegue con falla de motor, porque la ASDA es la de aceleración y parada",
+          "El rodaje, porque la ASDA mide la calle de salida",
+        ],
+        answer: 1,
+        explain:
+          "`ASDA` es la distancia de aceleración-parada disponible: la que necesitas si abortas el despegue. La de aterrizaje es `LDA`. Cuando la ASDA baja, lo que cambia es tu V1 y tu peso máximo de despegue.",
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "El glosario completo está en el Decodificador",
@@ -844,6 +976,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
         answer:
           "En Santiago, la calle de rodaje TANGO está cerrada entre KILO y ZULU, sin interrupción, del 9 al 24 de junio. Toca planear rodajes alternos en superficie: el cierre no afecta la pista.",
+      },
+      {
+        kind: "check",
+        question:
+          "En `Q)LFFF/QNDAU/IV/BO/AE/...`, ¿qué instalación está afectada y qué le pasa?",
+        options: [
+          "El VOR, y está fuera de servicio",
+          "El DME, y no está disponible",
+          "La pista, y está limitada",
+        ],
+        answer: 1,
+        explain:
+          "Del código `QNDAU`: `ND` es DME y `AU` es no disponible. El VOR sería `NV`. Recuerda la regla: 2ª y 3ª letras el asunto, 4ª y 5ª el estado.",
       },
       {
         kind: "summary",
@@ -929,6 +1074,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
           "Maicao operó con distancias declaradas reducidas todo ese período. La cifra que manda es la `ASDA` de 1550 m: es la que penaliza el despegue con falla de motor, y es más corta que cualquiera de las otras tres. Con este NOTAM en la mano, la performance de despegue se recalcula.",
       },
       {
+        kind: "check",
+        question:
+          "En una fila del resumen colombiano lees `2606031100 / 2608302359 EST`. ¿Qué pasa el 31 de agosto?",
+        options: [
+          "El NOTAM caduca automáticamente y deja de aplicar",
+          "Sigue vigente: el fin era estimado y solo termina con un reemplazo o una cancelación",
+          "Se renueva solo por otros tres meses",
+        ],
+        answer: 1,
+        explain:
+          "`EST` marca que quien publicó el aviso **estimó** cuándo terminaría. Pasada esa fecha el NOTAM sigue vigente hasta que salga el que lo reemplaza o lo cancela. Darlo por vencido es de los errores que más cuestan en un briefing.",
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "Material colombiano auténtico",
@@ -1007,6 +1165,18 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "check",
+        question: "Un SNOWTAM de Bogotá reporta `D) 5/5/3`. ¿Qué te está diciendo?",
+        options: [
+          "Que la pista mide 5300 metros",
+          "El código de estado de pista por tercios: los dos primeros en 5 y el último en 3",
+          "Que hay 5 cm de contaminante en dos tercios y 3 cm en el otro",
+        ],
+        answer: 1,
+        explain:
+          "La casilla D) del SNOWTAM es el código de estado de pista **por tercios**, de 6 (seca) a 0 (la peor condición). El espesor del contaminante en milímetros va en la casilla F). Ese código es el que entra en tu cálculo de distancia de aterrizaje.",
+      },
+      {
         kind: "callout",
         tone: "warn",
         title: "Colombia es país volcánico",
@@ -1055,6 +1225,19 @@ export const LESSON_SCREENS: LessonScreen[] = [
           "Pasar por alto el horario diario (casilla D o el bloque `HHMM-HHMM` del resumen). \"Cerrado\" puede ser solo unas horas al día.",
           "No revisar `RPLC`: si un NOTAM reemplaza a otro, el anterior ya no vale.",
         ],
+      },
+      {
+        kind: "check",
+        question:
+          "Un NOTAM termina a las `2359` UTC del 30 de agosto. Tu vuelo sale de Bogotá el 30 a las 20:00 hora local. ¿Sigue vigente?",
+        options: [
+          "No: a las 20:00 ya pasó la medianoche del NOTAM",
+          "Sí: las 23:59 UTC son las 18:59 en Bogotá, así que a las 20:00 local ya terminó",
+          "Sí: a las 20:00 local son las 01:00 UTC del día siguiente, así que ya no aplica",
+        ],
+        answer: 1,
+        explain:
+          "Colombia va en UTC menos 5, así que las `2359` UTC del día 30 son las 18:59 locales de ese mismo día. A las 20:00 locales el NOTAM ya expiró. Leer las fechas en hora local, en cualquiera de los dos sentidos, es el error que más cuesta.",
       },
       {
         kind: "callout",

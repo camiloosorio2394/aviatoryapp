@@ -7,8 +7,16 @@
  * cambian todas las lecciones a la vez, que es la gracia.
  */
 
-import type { ReactNode } from "react"
-import { AlertTriangle, CheckCircle2, Info, Lightbulb, PenLine, ShieldAlert } from "lucide-react"
+import { useState, type ReactNode } from "react"
+import {
+  AlertTriangle,
+  CheckCircle2,
+  HelpCircle,
+  Info,
+  Lightbulb,
+  PenLine,
+  ShieldAlert,
+} from "lucide-react"
 import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
@@ -200,6 +208,16 @@ export function DocBlock({ block }: { block: LessonBlock }) {
     case "notam":
       return <NotamFigure id={block.id} caption={block.caption} />
 
+    case "check":
+      return (
+        <Check
+          question={block.question}
+          options={block.options}
+          answer={block.answer}
+          explain={block.explain}
+        />
+      )
+
 
     case "example":
       return (
@@ -266,6 +284,101 @@ export function DocBlock({ block }: { block: LessonBlock }) {
         </div>
       )
   }
+}
+
+/**
+ * Comprobación dentro de la lección.
+ *
+ * No guarda nada ni puntúa: no es una evaluación, es el momento de usar lo que
+ * acabas de leer. Por eso responde en el sitio, muestra la explicación acierte
+ * o falle, y deja volver a intentar. Lo que sí hace es cortar la lectura, que
+ * es justo lo que la lección corrida no hacía.
+ */
+function Check({
+  question,
+  options,
+  answer,
+  explain,
+}: {
+  question: string
+  options: string[]
+  answer: number
+  explain: string
+}) {
+  const [picked, setPicked] = useState<number | null>(null)
+  const acerto = picked === answer
+
+  return (
+    <div
+      className="rounded-lg border p-4 sm:p-5"
+      style={{
+        borderColor: docAccent("var(--av-blue-500)", 26),
+        background: docTint("var(--av-blue-500)", 5),
+      }}
+    >
+      <div
+        className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+        style={{ color: docAccent("var(--av-blue-500)", 60) }}
+      >
+        <HelpCircle className="h-3.5 w-3.5" aria-hidden /> Compruébalo
+      </div>
+      <p className="mt-2 mb-0 text-[15px] leading-[1.7]">{renderInline(question)}</p>
+
+      <ul className="mt-3.5 mb-0 p-0 list-none flex flex-col gap-2">
+        {options.map((op, i) => {
+          const elegida = picked === i
+          const esLaBuena = i === answer
+          // Al responder se marca la elegida y, si falló, también la correcta:
+          // dejar la buena sin señalar obliga a adivinar cuál era.
+          const revelada = picked !== null && (elegida || esLaBuena)
+          const tono = esLaBuena ? "var(--av-green-400)" : "var(--av-red-400)"
+          return (
+            <li key={i}>
+              <button
+                type="button"
+                onClick={() => setPicked(i)}
+                aria-pressed={elegida}
+                className="w-full text-left rounded-lg border px-3.5 py-2.5 text-[15px] leading-[1.55] transition-colors"
+                style={{
+                  borderColor: revelada ? docAccent(tono, 45) : "var(--doc-border)",
+                  background: revelada ? docTint(tono, 10) : "var(--doc-bg)",
+                  color: "var(--doc-fg)",
+                }}
+              >
+                <span className="flex items-start gap-2.5">
+                  <span
+                    className="mono shrink-0 text-[13px] font-semibold"
+                    style={{ color: revelada ? docAccent(tono, 60) : "var(--doc-muted)" }}
+                  >
+                    {String.fromCharCode(97 + i)}
+                  </span>
+                  <span className="min-w-0">{renderInline(op)}</span>
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
+
+      {picked !== null && (
+        <div
+          className="mt-3.5 pt-3 border-t doc-rule text-[15px] leading-[1.7]"
+          role="status"
+          aria-live="polite"
+        >
+          <span
+            className="font-semibold"
+            style={{
+              color: docAccent(acerto ? "var(--av-green-400)" : "var(--av-amber-400)", 60),
+            }}
+          >
+            {acerto ? "Correcto. " : "No es esa. "}
+          </span>
+          {renderInline(explain)}
+        </div>
+      )}
+    </div>
+  )
 }
 
 /**
