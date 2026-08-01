@@ -15,7 +15,7 @@ import {
   Layers,
   ScanLine,
   Search,
-  Sparkles,
+  Lightbulb,
   X,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -302,7 +302,7 @@ export function NotamDecoder() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -467,7 +467,7 @@ export function NotamDecoder() {
               )}
 
               {decoded.special !== null && decoded.note !== null && (
-                <Callout tone="var(--av-amber-400)" icon={Sparkles} title="Regla especial del Doc 8400">
+                <Callout tone="var(--av-amber-400)" icon={Lightbulb} title="Regla especial del Doc 8400">
                   {decoded.note}
                 </Callout>
               )}

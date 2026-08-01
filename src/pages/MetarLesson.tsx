@@ -139,7 +139,7 @@ export function MetarLesson() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1180px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={
             <>

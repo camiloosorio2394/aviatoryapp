@@ -103,7 +103,15 @@ export function MetarDecoder() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1180px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+        {/* Mismo control de volver que el decodificador de NOTAM. */}
+        <Link
+          to="/app/aerolinea/meteorologia"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Meteorología
+        </Link>
+
         <PageHeader
           eyebrow={
             <>
@@ -112,14 +120,6 @@ export function MetarDecoder() {
           }
           title="Decodificador METAR"
           subtitle="Pega cualquier informe y te lo desarma grupo por grupo, con la leyenda del curso al lado."
-          actions={
-            <Link
-              to="/app/aerolinea/meteorologia"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-full text-[13px] font-semibold border border-border bg-card text-foreground transition-colors hover:bg-muted"
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> Volver a Meteorología
-            </Link>
-          }
         />
 
         {/* Entrada */}

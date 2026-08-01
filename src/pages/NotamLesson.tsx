@@ -155,7 +155,7 @@ export function NotamLesson() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1180px] mx-auto">
+      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={
             <>

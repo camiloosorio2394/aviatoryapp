@@ -5,7 +5,6 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
-import { appButtonClass } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
 import { METAR_LEGEND_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
@@ -22,8 +21,8 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  *
  * v1: METAR con lección y decodificador. Práctica y evaluación van como
  * "Pronto" y el TAF tendrá su propia lección: el hub no promete nada que no
- * exista. El progreso de la lección es local por ahora (ver migración
- * 20260731020000_metar_progreso.sql, pendiente de aplicar).
+ * exista. El progreso vive en user_metar_progress con respaldo local, igual
+ * que el de NOTAM (ver lib/metarProgress).
  *
  * Las partes se presentan con la tarjeta de curso compartida, la misma del
  * catálogo de la portada y del hub de NOTAM.
@@ -116,19 +115,20 @@ export function Metar() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1180px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+        {/* Mismo control de volver que el hub de NOTAM: un enlace de texto sobre
+            el título, no un botón compitiendo con la acción de la página. */}
+        <Link
+          to="/app/aerolinea"
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
+        </Link>
+
         <PageHeader
           eyebrow="Ingreso a aerolínea · Meteorología operacional"
           title="METAR: el estado del cielo en una línea"
           subtitle="La lectura obligada del briefing junto al NOTAM. Hoy: lección completa y decodificador. El TAF tendrá su propia lección."
-          actions={
-            <Link
-              to="/app/aerolinea"
-              className={appButtonClass({ variant: "secondary" })}
-            >
-              <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
-            </Link>
-          }
         />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

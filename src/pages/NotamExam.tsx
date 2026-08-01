@@ -391,7 +391,7 @@ interface IntroProps {
 function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProps) {
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1100px] mx-auto">
+      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1280px] mx-auto">
         <Link
           to={HUB_PATH}
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"

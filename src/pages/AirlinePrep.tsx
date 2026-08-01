@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, Briefcase, CloudSun, FileSearch, Sparkles } from "lucide-react"
+import { ArrowRight, Briefcase, ClipboardList, CloudSun, FileSearch, Plane } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
@@ -20,6 +20,9 @@ import { fetchMetarProgress } from "@/lib/metarProgress"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
 import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jpg"
+// Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
+// módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
+import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 
 /**
  * Módulo Ingreso a aerolínea: la lista de TEMAS de estudio.
@@ -37,14 +40,20 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jp
  * pantalla es el de continuar.
  */
 
-/** Temas que todavía no tienen contenido, en el orden en que se van abriendo. */
+/**
+ * Temas que todavía no tienen contenido, en el orden en que se van abriendo.
+ *
+ * "Requisitos por aerolínea" salió de esta lista: no está pendiente, ya existe
+ * como /app/match ("Para cuál calificas"), que consulta aerolíneas, horas y
+ * perfil y calcula exactamente eso. Anunciarlo como futuro y enlazarlo cuarenta
+ * píxeles más abajo era la contradicción del hallazgo C5.
+ */
 const PROXIMOS: string[] = [
   "Performance y planificación",
   "Sistemas y motor a reacción",
   "Entrevista técnica",
   "Entrevista HR y CRM",
   "Psicotécnicos y assessment",
-  "Requisitos por aerolínea",
 ]
 
 interface TemaEstado {
@@ -53,6 +62,8 @@ interface TemaEstado {
   pct: number
   to: string
   nombre: string
+  /** Una herramienta no se estudia ni se completa: va al final y no se retoma. */
+  herramienta?: boolean
 }
 
 export function AirlinePrep() {
@@ -178,12 +189,32 @@ export function AirlinePrep() {
               : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
         },
       },
+      {
+        nombre: "Para cuál calificas",
+        to: "/app/match",
+        pct: 0,
+        herramienta: true,
+        card: {
+          to: "/app/match",
+          icon: ClipboardList,
+          color: "var(--av-green-400)",
+          meta: "Tus horas y tu perfil contra lo que pide cada aerolínea",
+          title: "Para cuál calificas",
+          blurb:
+            "Qué pide cada aerolínea de la región y qué te falta a ti para postular. Se calcula con tu Logbook y tu perfil, así que se actualiza solo.",
+          photo: matchPhoto,
+          cta: "Ver mi match",
+          status: "Herramienta, siempre disponible",
+        },
+      },
     ]
 
     // Primero lo que está a medias, después lo no empezado y de último lo
     // terminado: la pantalla ordena por lo que te falta hacer, no por el orden
-    // en que se publicaron los temas.
-    const grupo = (t: TemaEstado) => (t.pct >= 100 ? 2 : t.pct > 0 ? 0 : 1)
+    // en que se publicaron los temas. Las herramientas van al final: no se
+    // estudian ni se completan.
+    const grupo = (t: TemaEstado) =>
+      t.herramienta ? 3 : t.pct >= 100 ? 2 : t.pct > 0 ? 0 : 1
     return lista
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
@@ -191,9 +222,16 @@ export function AirlinePrep() {
   }, [notam, metar])
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
-  // primero si todavía no empezaste nada.
-  const enCurso = temas.find((t) => t.pct > 0 && t.pct < 100)
-  const continuar = enCurso ?? temas[0]
+  // primero si todavía no empezaste nada. Las herramientas no se retoman.
+  const cursables = temas.filter((t) => !t.herramienta)
+  const enCurso = cursables.find((t) => t.pct > 0 && t.pct < 100)
+  const continuar = enCurso ?? cursables[0]
+
+  // Para la línea de ruta: cuántos temas hay abiertos y por cuál vas. Si
+  // empezaste uno, vas por el primero, no por el segundo: el número es cuántos
+  // has tocado, con mínimo uno (el que estás a punto de empezar).
+  const disponibles = cursables.length
+  const temaActual = Math.min(Math.max(1, cursables.filter((t) => t.pct > 0).length), disponibles)
 
   return (
     <AppLayout>
@@ -218,7 +256,7 @@ export function AirlinePrep() {
                 className={appButtonClass({ size: "lg" })}
                 style={appButtonStyle()}
               >
-                <Sparkles className="h-4 w-4" />
+                <Plane className="h-4 w-4" />
                 {enCurso ? `Seguir con ${enCurso.nombre}` : `Empezar por ${continuar.nombre}`}
               </Link>
             )
@@ -232,12 +270,14 @@ export function AirlinePrep() {
           ))}
         </div>
 
-        {/* Los que siguen. Antes eran seis tarjetas apagadas que ocupaban media
-            pantalla para decir solamente que no existen. Una línea informa lo
-            mismo, y además nombra cuál es el próximo. */}
+        {/* Los que siguen, contados como ruta y no como huecos. Antes eran seis
+            tarjetas apagadas que ocupaban media pantalla para decir solamente
+            que no existen; un temario que avanza es lo que un piloto quiere
+            ver. Las cifras salen del propio arreglo: no se descuadran solas. */}
         <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-[820px]">
           <span className="font-medium text-foreground">
-            El próximo tema es {PROXIMOS[0]}.
+            Vas por el tema {temaActual} de {disponibles + PROXIMOS.length}. El próximo que abrimos
+            es {PROXIMOS[0]}.
           </span>{" "}
           Después vienen {PROXIMOS.slice(1, -1).join(", ")} y {PROXIMOS[PROXIMOS.length - 1]}. Los
           abrimos en ese orden, cada uno cuando su contenido está completo.
@@ -248,14 +288,14 @@ export function AirlinePrep() {
           <div className="text-[15px] font-semibold">Mientras tanto</div>
           <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">
             Tu Logbook y tus vencimientos alimentan el Pilot ID que vas a necesitar el día que
-            postules, y el match por aerolínea te dice qué requisito te falta para cada una.
+            postules. Cuanto más completo esté, más fino sale tu match por aerolínea.
           </p>
           <div className="mt-4 flex flex-wrap gap-2">
-            <Link to="/app/match" className={appButtonClass({ variant: "secondary" })}>
-              Ver mi match <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
             <Link to="/app/logbook" className={appButtonClass({ variant: "secondary" })}>
               Mi Logbook <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <Link to="/app/vencimientos" className={appButtonClass({ variant: "secondary" })}>
+              Mis vencimientos <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
         </section>

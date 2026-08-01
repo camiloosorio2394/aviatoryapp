@@ -11,7 +11,6 @@ import {
   FileText,
   Info,
   ListOrdered,
-  Sparkles,
   Gauge,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -218,7 +217,7 @@ export function Notam() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -241,7 +240,7 @@ export function Notam() {
                 className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                 style={{ background: "var(--av-blue-500)" }}
               >
-                <Sparkles className="h-4 w-4" /> Empezar la lección
+                <BookOpen className="h-4 w-4" /> Empezar la lección
               </Link>
               <Link
                 to="/app/aerolinea/notam/decodificador"
