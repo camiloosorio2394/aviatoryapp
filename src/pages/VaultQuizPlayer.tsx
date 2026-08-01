@@ -17,6 +17,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { ProtectedContent } from "@/components/ProtectedContent"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { useVaultQuiz, type AnswerResult, type VaultError } from "@/hooks/useVaultQuiz"
+import { registrarActividadDeEstudio } from "@/lib/activity"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
 import { TILE_COLOR, tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
 
@@ -140,6 +141,13 @@ export function VaultQuizPlayer() {
     if (!session) return
     if (position >= session.questionCount) {
       setCompleted(true)
+      // Quiz terminado = día estudiado: alimenta el heatmap y mantiene la
+      // racha. Sin esto, el tablero decía "racha en riesgo" el mismo día en
+      // que el piloto había hecho cinco quizzes.
+      void registrarActividadDeEstudio({
+        questions: session.questionCount,
+        correct: history.filter((h) => h.correct).length,
+      })
       return
     }
     setPosition(position + 1)

@@ -27,6 +27,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { supabase } from "@/integrations/supabase/client"
+import { registrarActividadDeEstudio } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
 import {
   accentText,
@@ -792,6 +793,8 @@ function Result({
         return
       }
       setSaveState("saved")
+      // La evaluación cuenta como día estudiado, igual que un quiz del banco.
+      void registrarActividadDeEstudio({ questions: total, correct: correctCount, minutes: Math.round(elapsed / 60) })
     })()
   }, [sessionLoading, userId, score, correctCount, total, passed, answers, elapsed, savedRef])
 

@@ -345,7 +345,8 @@ function LicenseRow({
   const meta = STATUS_META[s]
 
   const dateStr = license.expires_date
-    ? new Date(license.expires_date).toLocaleDateString("es-CO", {
+    ? // "AAAA-MM-DD" sin hora se parsea como UTC y en Colombia retrocede un día
+      new Date(license.expires_date + "T00:00:00").toLocaleDateString("es-CO", {
         day: "2-digit",
         month: "short",
         year: "numeric",

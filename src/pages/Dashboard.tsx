@@ -39,6 +39,7 @@ import {
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
 import { shareStreak } from "@/lib/shareStreak"
+import { fetchHeatmapSeries } from "@/lib/activity"
 import { badgeForCode } from "@/lib/achievementBadges"
 import { appButtonClass } from "@/lib/buttonStyles"
 
@@ -345,7 +346,9 @@ export function Dashboard() {
           // Sin limit: la card de logros muestra la colección completa y
           // necesita saber cuáles están desbloqueados, no solo los últimos 4.
           supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }),
-          supabase.rpc("get_activity_heatmap"),
+          // get_activity_heatmap está rota a nivel SQL (42804) y este catch se
+          // tragaba el error: la serie sale de la tabla daily_activity directo.
+          fetchHeatmapSeries(user!.id),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
           supabase.rpc("get_daily_quiz"),
           supabase.rpc("get_subject_mastery"),
@@ -368,7 +371,7 @@ export function Dashboard() {
         }
         setAchievements(unlocked)
 
-        setHeatmap((heatmapRes.data ?? []) as ActivityDay[])
+        setHeatmap(heatmapRes)
         setPeers((peersRes.data ?? []) as Peer[])
         setDaily((dailyRes.data ?? []) as DailyQuizQuestion[])
         setMastery((masteryRes.data ?? []) as SubjectMastery[])
@@ -470,9 +473,12 @@ export function Dashboard() {
 
   const streakDays = streak?.current_streak ?? 0
   const longestStreak = streak?.longest_streak ?? 0
+  // La fecha llega como "AAAA-MM-DD": sin hora, new Date() la parsea como
+  // medianoche UTC, que en Colombia es el día ANTERIOR a las 7 de la noche.
+  // Con eso, una racha hecha hoy salía "en riesgo" toda la tarde.
   const streakAtRisk =
     streakDays > 0 && streak?.last_activity_date
-      ? new Date(streak.last_activity_date).toDateString() !== new Date().toDateString()
+      ? new Date(streak.last_activity_date + "T00:00:00").toDateString() !== new Date().toDateString()
       : false
 
   return (
