@@ -127,7 +127,14 @@ export function Profile() {
           supabase.from("user_achievements").select("achievement_id", { count: "exact", head: true }).eq("user_id", user!.id),
           supabase.from("achievements").select("id", { count: "exact", head: true }),
           supabase.from("user_pca_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1).maybeSingle(),
-          supabase.from("quiz_attempts").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
+          // vault_sessions, no quiz_attempts: la tabla vieja quedó congelada al
+          // migrar al vault, así que este número no se movía nunca. Era real,
+          // pero de otra época: una mentira en pantalla de las difíciles de ver.
+          supabase
+            .from("vault_sessions")
+            .select("token", { count: "exact", head: true })
+            .eq("user_id", user!.id)
+            .not("completed_at", "is", null),
           supabase.from("streaks").select("longest_streak").eq("user_id", user!.id).maybeSingle(),
         ])
         if (cancelled) return

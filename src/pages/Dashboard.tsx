@@ -306,7 +306,14 @@ export function Dashboard() {
           supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
           supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
-          supabase.from("quiz_attempts").select("id", { count: "exact", head: true }).eq("user_id", user!.id),
+          // vault_sessions, no quiz_attempts: la tabla vieja quedó congelada al
+          // migrar al vault y ninguna línea de la app la escribe, así que el
+          // contador se quedaba clavado por más que el piloto estudiara.
+          supabase
+            .from("vault_sessions")
+            .select("token", { count: "exact", head: true })
+            .eq("user_id", user!.id)
+            .not("completed_at", "is", null),
         ])
 
         if (cancelled) return
