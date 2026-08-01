@@ -38,6 +38,8 @@ import { Notam } from "@/pages/Notam"
 import { Metar } from "@/pages/Metar"
 import { MetarLesson } from "@/pages/MetarLesson"
 import { MetarDecoder } from "@/pages/MetarDecoder"
+import { MetarPractice } from "@/pages/MetarPractice"
+import { MetarExam } from "@/pages/MetarExam"
 import { NotamLesson } from "@/pages/NotamLesson"
 import { NotamDecoder } from "@/pages/NotamDecoder"
 import { NotamPractice } from "@/pages/NotamPractice"
@@ -286,6 +288,22 @@ function App() {
           element={
             <RequireAuth>
               <MetarDecoder />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/meteorologia/practica"
+          element={
+            <RequireAuth>
+              <MetarPractice />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/meteorologia/evaluacion"
+          element={
+            <RequireAuth>
+              <MetarExam />
             </RequireAuth>
           }
         />

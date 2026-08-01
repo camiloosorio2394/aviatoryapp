@@ -1,0 +1,284 @@
+{
+  "meta": {
+    "proposito": "Evaluación de cierre del tema METAR: 20 preguntas de opción múltiple con explicación y referencia por pregunta. Misma mecánica y mismo puntaje de aprobación que la evaluación de NOTAM.",
+    "aviso_en_pantalla": "Preguntas de práctica redactadas para Aviatory. No son preguntas oficiales de la Aerocivil ni de la OACI, ni de ningún proceso de selección de aerolínea.",
+    "calificacion": {
+      "puntaje_por_pregunta": 5,
+      "aprobacion": 80,
+      "nota": "20 preguntas de 5 puntos cada una. Se aprueba con 80 sobre 100, es decir 16 aciertos."
+    },
+    "referencias": "OACI, Anexo 3 (Servicio meteorológico para la navegación aérea internacional) y OMM, Manual de claves No. 306, más la bibliografía de curso citada en la lección."
+  },
+  "preguntas": [
+    {
+      "id": 1,
+      "nivel": "basico",
+      "pregunta": "En `METAR SKBO 261300Z`, ¿qué representa el grupo `261300Z`?",
+      "opciones": [
+        "Día 26 a las 13:00 UTC",
+        "Día 26 a las 13:00 hora local",
+        "Las 26 horas con 13 minutos de zulu",
+        "El informe número 261300 de la estación"
+      ],
+      "correcta": 0,
+      "explicacion": "Son dos dígitos de día y cuatro de hora y minuto, siempre en UTC. La Z es de zulu. En Colombia hay que restar cinco horas: son las 08:00 locales.",
+      "referencia": "Lección METAR, sección 2"
+    },
+    {
+      "id": 2,
+      "nivel": "basico",
+      "pregunta": "¿Qué significa `9999` en el grupo de visibilidad?",
+      "opciones": [
+        "Visibilidad ilimitada, sin restricción alguna",
+        "Visibilidad de 10 km o más",
+        "9999 metros exactos",
+        "Que el sensor de visibilidad está fuera de servicio"
+      ],
+      "correcta": 1,
+      "explicacion": "`9999` es el mejor valor que admite la clave y significa 10 km o más. No es un valor exacto ni implica ausencia total de restricción.",
+      "referencia": "Lección METAR, sección 4"
+    },
+    {
+      "id": 3,
+      "nivel": "basico",
+      "pregunta": "En `27010KT`, ¿qué indican los tres primeros dígitos?",
+      "opciones": [
+        "La dirección hacia la que sopla el viento, en grados magnéticos",
+        "La dirección desde la que sopla el viento, en grados verdaderos",
+        "La velocidad del viento en kilómetros por hora",
+        "El rumbo de la pista en uso"
+      ],
+      "correcta": 1,
+      "explicacion": "El viento se reporta siempre **desde** donde sopla y en grados verdaderos, redondeado a decenas. El control de tránsito lo canta en magnéticos, que es otra cosa.",
+      "referencia": "Lección METAR, sección 3"
+    },
+    {
+      "id": 4,
+      "nivel": "basico",
+      "pregunta": "¿Qué altura tiene la base de las nubes en `FEW010`?",
+      "opciones": ["10 000 ft", "1000 ft", "100 ft", "10 ft"],
+      "correcta": 1,
+      "explicacion": "La altura va en centenares de pies sobre el aeródromo: 010 son 1000 ft. Leerlo como 10 000 ft es el error más repetido de todo el módulo.",
+      "referencia": "Lección METAR, sección 6"
+    },
+    {
+      "id": 5,
+      "nivel": "intermedio",
+      "pregunta": "En `FEW008 SCT015 BKN030 OVC080`, ¿cuál es el techo?",
+      "opciones": ["800 ft", "1500 ft", "3000 ft", "8000 ft"],
+      "correcta": 2,
+      "explicacion": "El techo es la base de la primera capa que cubra más de la mitad del cielo, o sea la primera `BKN` u `OVC`. Aquí es `BKN030`: 3000 ft. Las `FEW` y `SCT` de abajo no cuentan.",
+      "referencia": "Lección METAR, sección 6"
+    },
+    {
+      "id": 6,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué significa la `G` en `27010G25KT`?",
+      "opciones": [
+        "Que el viento es de gradiente, medido en altura",
+        "Ráfagas: viento de 10 nudos con picos de 25",
+        "Que el dato viene de una estación GPS",
+        "Viento en grados en vez de en nudos"
+      ],
+      "correcta": 1,
+      "explicacion": "`G` es de gust, ráfaga. El número que sigue es el pico, y es el que se compara contra los límites del avión: el promedio no es el problema.",
+      "referencia": "Lección METAR, sección 3"
+    },
+    {
+      "id": 7,
+      "nivel": "intermedio",
+      "pregunta": "¿Cómo se lee `+TSRA`?",
+      "opciones": [
+        "Tormenta de arena fuerte",
+        "Tormenta eléctrica con lluvia, de intensidad fuerte",
+        "Turbulencia severa con lluvia",
+        "Tormenta reciente con lluvia"
+      ],
+      "correcta": 1,
+      "explicacion": "Se arma en tres piezas: calificador `+` (fuerte), descriptor `TS` (tormenta eléctrica) y fenómeno `RA` (lluvia). Reciente sería `RE`.",
+      "referencia": "Lección METAR, sección 5"
+    },
+    {
+      "id": 8,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué diferencia hay entre `TS` y `VCTS`?",
+      "opciones": [
+        "`VCTS` es una tormenta más violenta",
+        "`VCTS` está en la vecindad del aeródromo, no sobre la estación",
+        "`VCTS` es una tormenta prevista, no observada",
+        "No hay diferencia, son sinónimos"
+      ],
+      "correcta": 1,
+      "explicacion": "`VC` es el calificador de posición, in the vicinity. La tormenta está cerca pero no encima del campo, y eso cambia la decisión operacional.",
+      "referencia": "Lección METAR, sección 5"
+    },
+    {
+      "id": 9,
+      "nivel": "basico",
+      "pregunta": "¿Cuál es la frontera entre niebla (`FG`) y neblina (`BR`)?",
+      "opciones": [
+        "500 metros de visibilidad",
+        "1000 metros de visibilidad",
+        "5000 metros de visibilidad",
+        "La temperatura del punto de rocío"
+      ],
+      "correcta": 1,
+      "explicacion": "Niebla cuando la visibilidad cae por debajo de 1000 m; neblina por encima. El umbral viene de la clave OACI.",
+      "referencia": "Lección METAR, sección 5"
+    },
+    {
+      "id": 10,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué significa `VV002`?",
+      "opciones": [
+        "Viento variable de 2 nudos",
+        "Visibilidad vertical de 200 ft, con el cielo oscurecido y sin base de nube definida",
+        "Visibilidad de 200 metros",
+        "Dos capas de nubes verticales"
+      ],
+      "correcta": 1,
+      "explicacion": "`VV` aparece cuando el cielo está oscurecido (niebla, humo) y no hay base de nube que medir. Los 002 van en centenares de pies: 200 ft.",
+      "referencia": "Lección METAR, sección 6"
+    },
+    {
+      "id": 11,
+      "nivel": "avanzado",
+      "pregunta": "Un METAR de Bogotá al amanecer trae `08/08` con viento en calma. ¿Qué esperas?",
+      "opciones": [
+        "Turbulencia térmica",
+        "Niebla de radiación, con visibilidad muy reducida",
+        "Vientos catabáticos del este",
+        "Nada especial: 8 °C es una temperatura normal"
+      ],
+      "correcta": 1,
+      "explicacion": "Temperatura igual al punto de rocío significa aire saturado. Sin viento que mezcle la capa baja, el vapor condensa a ras de suelo: niebla de radiación.",
+      "referencia": "Lección METAR, sección 7"
+    },
+    {
+      "id": 12,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué es `Q1013` y en qué se diferencia de `A2992`?",
+      "opciones": [
+        "Son lo mismo escrito de dos formas: hectopascales y milibares",
+        "`Q` es el QNH en hectopascales; `A` es el mismo reglaje en pulgadas de mercurio",
+        "`Q` es el QNH y `A` es el QFE",
+        "`A` indica una estación automática"
+      ],
+      "correcta": 1,
+      "explicacion": "Es el mismo reglaje de altímetro en dos unidades. Estados Unidos usa pulgadas de mercurio: 29.92 inHg equivalen a unos 1013 hPa. Meter 2992 en el altímetro creyendo que son hectopascales es un error clásico.",
+      "referencia": "Lección METAR, sección 7"
+    },
+    {
+      "id": 13,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué añade el `CB` en `BKN015CB`?",
+      "opciones": [
+        "Que la capa está formada por cirros bajos",
+        "Que son cumulonimbos: convección con turbulencia, granizo y posible cizalladura",
+        "Que la base es calculada, no medida",
+        "Que la capa está por debajo del nivel de congelación"
+      ],
+      "correcta": 1,
+      "explicacion": "`CB` y `TCU` son los dos únicos tipos de nube que el METAR anota aparte, y justamente porque cambian la decisión: no es solo un techo de 1500 ft, es convección sobre el aeródromo.",
+      "referencia": "Lección METAR, sección 6"
+    },
+    {
+      "id": 14,
+      "nivel": "avanzado",
+      "pregunta": "El informe trae visibilidad `0800` y `R25/1400`. Vas a la pista 25. ¿Con qué número decides?",
+      "opciones": [
+        "Con los 800 m, que es la visibilidad oficial",
+        "Con los 1400 m del RVR, que manda para esa pista",
+        "Con el promedio de los dos",
+        "Con el menor de los dos, siempre"
+      ],
+      "correcta": 1,
+      "explicacion": "El RVR es el alcance visual medido en esa pista concreta y es el que define si puedes iniciar la aproximación. Cuando difiere de la visibilidad general, manda el RVR.",
+      "referencia": "Lección METAR, sección 4"
+    },
+    {
+      "id": 15,
+      "nivel": "avanzado",
+      "pregunta": "¿Qué diferencia hay entre `BECMG 1214 3000 BR` y `TEMPO 1214 3000 BR`?",
+      "opciones": [
+        "Ninguna, son dos formas de escribir lo mismo",
+        "`BECMG` es un cambio que se instala y permanece; `TEMPO` son fluctuaciones que van y vienen",
+        "`BECMG` es menos probable que `TEMPO`",
+        "`TEMPO` solo se usa de noche"
+      ],
+      "correcta": 1,
+      "explicacion": "`BECMG` describe una transición: en algún momento de la ventana la condición cambia y se mantiene. `TEMPO` son ratos dentro de la ventana, y entre ellos se vuelve a lo anterior. Para elegir alterno no da lo mismo.",
+      "referencia": "Lección METAR, sección 8"
+    },
+    {
+      "id": 16,
+      "nivel": "intermedio",
+      "pregunta": "¿Qué garantiza `CAVOK` además de la visibilidad?",
+      "opciones": [
+        "Que no hay viento cruzado",
+        "Que no hay nubes por debajo de 5000 ft ni cumulonimbos o torrecúmulos a ninguna altura",
+        "Que el aeródromo está abierto",
+        "Que el informe es automático"
+      ],
+      "correcta": 1,
+      "explicacion": "`CAVOK` reemplaza a visibilidad, tiempo presente y nubes. Promete 10 km o más, nada significativo, nada por debajo de 5000 ft y, sobre todo, ningún CB ni TCU.",
+      "referencia": "Lección METAR, sección 6"
+    },
+    {
+      "id": 17,
+      "nivel": "avanzado",
+      "pregunta": "¿Qué significa `WS R28` y por qué importa?",
+      "opciones": [
+        "Viento del oeste sur en la pista 28",
+        "Cizalladura reportada en la pista 28: cambio súbito de viento que puede quitarte velocidad aerodinámica en final",
+        "Pista 28 mojada (wet surface)",
+        "Advertencia de viento superior a 28 nudos"
+      ],
+      "correcta": 1,
+      "explicacion": "`WS` es wind shear. Es el aviso más peligroso que puede traer un METAR porque actúa en despegue y aterrizaje, donde no hay altura para recuperar.",
+      "referencia": "Lección METAR, sección 3"
+    },
+    {
+      "id": 18,
+      "nivel": "avanzado",
+      "pregunta": "Un informe trae `AUTO` y `NCD`. ¿Qué NO puedes concluir?",
+      "opciones": [
+        "Que la observación es automatizada",
+        "Que el sensor no detectó nubes",
+        "Que el cielo está despejado y no hay nubes bajas",
+        "Que no hubo observador humano"
+      ],
+      "correcta": 2,
+      "explicacion": "`NCD` es no cloud detected: el sensor no vio nada, que no es lo mismo que que no haya nada. En un informe `AUTO`, la ausencia de dato no es ausencia de fenómeno.",
+      "referencia": "Lección METAR, sección 8"
+    },
+    {
+      "id": 19,
+      "nivel": "avanzado",
+      "pregunta": "¿Qué es `VA` y qué implica operacionalmente?",
+      "opciones": [
+        "Visibilidad alterna, medida desde el otro extremo de la pista",
+        "Ceniza volcánica: no se atraviesa, sin importar techo ni visibilidad",
+        "Viento de altura, reportado por la estación",
+        "Vapor de agua en suspensión, equivalente a la bruma"
+      ],
+      "correcta": 1,
+      "explicacion": "`VA` es volcanic ash, el mismo código del ASHTAM. La ceniza erosiona y funde dentro de la turbina. Hay que cruzar el METAR con el ASHTAM y los avisos del VAAC y replanear.",
+      "referencia": "Lección METAR, sección 5, y lección NOTAM, sección 12"
+    },
+    {
+      "id": 20,
+      "nivel": "intermedio",
+      "pregunta": "¿En qué se diferencia un `SPECI` de un `METAR`?",
+      "opciones": [
+        "El `SPECI` es de aeródromos militares",
+        "El `SPECI` es un informe especial fuera de horario, emitido porque algo cambió de forma significativa",
+        "El `SPECI` es un pronóstico y el `METAR` una observación",
+        "El `SPECI` solo trae viento y visibilidad"
+      ],
+      "correcta": 1,
+      "explicacion": "Ambos son observaciones. El `METAR` es de rutina, a intervalos regulares; el `SPECI` se emite fuera de esos intervalos porque la condición cambió lo bastante como para no poder esperar.",
+      "referencia": "Lección METAR, sección 1"
+    }
+  ]
+}

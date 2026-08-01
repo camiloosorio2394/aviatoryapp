@@ -15,7 +15,13 @@ import {
   resumirNotam,
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
-import { METAR_EXAMPLES, METAR_LEGEND_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
+import {
+  METAR_EXAM_QUESTIONS,
+  METAR_LEGEND_TOTAL,
+  METAR_PRACTICE_TOTAL,
+  readMetarProgress,
+  resumirMetar,
+} from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
@@ -134,7 +140,14 @@ export function AirlinePrep() {
   }, [user, sessionLoading])
 
   const notam = useMemo(() => resumirNotam(notamProgress), [notamProgress])
-  const metar = useMemo(() => resumirMetar({ lessonScreens: metarScreens }), [metarScreens])
+  const metar = useMemo(() => {
+    const local = readMetarProgress()
+    return resumirMetar({
+      lessonScreens: metarScreens,
+      practiceDone: local.practiceDone,
+      bestExamScore: local.bestExamScore,
+    })
+  }, [metarScreens])
 
   const temas: TemaEstado[] = useMemo(() => {
     const lista: TemaEstado[] = [
@@ -171,7 +184,7 @@ export function AirlinePrep() {
           to: "/app/aerolinea/meteorologia",
           icon: CloudSun,
           color: "var(--av-cyan-400)",
-          meta: `${METAR_LESSON_TOTAL} secciones · ${METAR_LEGEND_TOTAL} claves de la leyenda · ${METAR_EXAMPLES.length} informes de ejemplo`,
+          meta: `${METAR_LESSON_TOTAL} secciones · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
           title: "Meteorología operacional",
           // El resumen promete solo lo publicado: METAR. Cuando el curso TAF
           // exista, se restaura la promesa completa (decisión anotada en
@@ -185,8 +198,8 @@ export function AirlinePrep() {
           status: metar.empty
             ? "Arranca por la lección: 9 secciones cortas"
             : metar.overall >= 100
-              ? "Lección completa. La práctica llega pronto"
-              : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
+              ? "Tema completo"
+              : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones y ${metar.practiceDone} de ${METAR_PRACTICE_TOTAL} informes`,
         },
       },
       {

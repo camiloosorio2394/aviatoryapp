@@ -6,7 +6,14 @@ import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
-import { METAR_LEGEND_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
+import {
+  METAR_EXAM_PASS_SCORE,
+  METAR_EXAM_QUESTIONS,
+  METAR_LEGEND_TOTAL,
+  METAR_PRACTICE_TOTAL,
+  readMetarProgress,
+  resumirMetar,
+} from "@/lib/metar"
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
 import { METAR_EXAMPLES } from "@/lib/metar"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
@@ -19,10 +26,9 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  * Hub del tema Meteorología operacional (módulo Ingreso a aerolínea).
  * Ruta: /app/aerolinea/meteorologia
  *
- * v1: METAR con lección y decodificador. Práctica y evaluación van como
- * "Pronto" y el TAF tendrá su propia lección: el hub no promete nada que no
- * exista. El progreso vive en user_metar_progress con respaldo local, igual
- * que el de NOTAM (ver lib/metarProgress).
+ * El tema completo: lección, decodificador, práctica y evaluación. El TAF
+ * tendrá su propia lección. El progreso de lección vive en user_metar_progress
+ * con respaldo local; el de práctica y evaluación, de momento solo local.
  *
  * Las partes se presentan con la tarjeta de curso compartida, la misma del
  * catálogo de la portada y del hub de NOTAM.
@@ -57,7 +63,12 @@ export function Metar() {
     }
   }, [user?.id, sessionLoading])
 
-  const resumen = resumirMetar({ lessonScreens })
+  const local = readMetarProgress()
+  const resumen = resumirMetar({
+    lessonScreens,
+    practiceDone: local.practiceDone,
+    bestExamScore: local.bestExamScore,
+  })
 
   const partes: CourseCardProps[] = [
     {
@@ -91,25 +102,41 @@ export function Metar() {
       photo: decodificadorPhoto,
       status: "Consulta libre, sin límite",
     },
-    // Las dos que faltan no llevan pie de estado: el chip "Pronto" y el CTA ya
-    // lo dicen, y una tercera repetición solo hace ruido.
     {
+      to: "/app/aerolinea/meteorologia/practica",
       icon: Target,
       color: "var(--av-violet-400)",
-      meta: "Con informes reales y respuesta modelo",
+      meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
       title: "Práctica",
-      blurb: "Interpretarás informes reales con respuesta modelo, como en la práctica de NOTAM.",
+      blurb:
+        "Lees el informe, lo interpretas con tus palabras y solo después comparas con la respuesta modelo. Con los errores típicos de cada caso.",
+      cta: "Empezar a practicar",
       photo: practicaPhoto,
-      soon: true,
+      status:
+        resumen.practiceDone === 0
+          ? "Sin empezar"
+          : `${resumen.practiceDone} de ${METAR_PRACTICE_TOTAL} resueltos`,
+      progress: resumen.practicePct,
+      done: resumen.practiceDone >= METAR_PRACTICE_TOTAL,
     },
     {
+      to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
       color: "var(--av-amber-400)",
-      meta: "Con explicación por pregunta",
+      meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
       title: "Evaluación",
-      blurb: "Opción múltiple con explicación por pregunta, al estilo de la evaluación de NOTAM.",
+      blurb:
+        "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
+      cta: "Presentar la evaluación",
       photo: evaluacionPhoto,
-      soon: true,
+      status:
+        resumen.best === null
+          ? "Sin intentos"
+          : resumen.passed
+            ? `Aprobada con ${resumen.best} de 100`
+            : `Mejor puntaje: ${resumen.best} de 100`,
+      progress: resumen.examPct,
+      done: resumen.passed,
     },
   ]
 
@@ -128,7 +155,7 @@ export function Metar() {
         <PageHeader
           eyebrow="Ingreso a aerolínea · Meteorología operacional"
           title="METAR: el estado del cielo en una línea"
-          subtitle="La lectura obligada del briefing junto al NOTAM. Hoy: lección completa y decodificador. El TAF tendrá su propia lección."
+          subtitle="La lectura obligada del briefing junto al NOTAM. Lección, decodificador, práctica y evaluación. El TAF tendrá su propia lección."
         />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

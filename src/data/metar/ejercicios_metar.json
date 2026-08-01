@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "proposito": "Modo práctica del tema METAR: el piloto lee el informe, lo interpreta con sus palabras y solo después compara con la respuesta modelo. Misma mecánica que la práctica de NOTAM.",
+    "fuente": "Informes redactados para Aviatory con formato real de la clave OACI/OMM, sobre aeródromos colombianos. Verificados contra el Anexo 3 de la OACI y el Manual de claves No. 306 de la OMM.",
+    "aviso_obligatorio_en_pantalla": "Informes de práctica redactados para Aviatory con formato real: NO son observaciones vigentes y jamás deben usarse para operar. Consulta siempre el METAR oficial del servicio meteorológico.",
+    "criterios_rubrica_default": {
+      "identificacion": {
+        "peso": 20,
+        "descripcion": "Estación y hora, pasada a hora de Colombia"
+      },
+      "grupos": {
+        "peso": 40,
+        "descripcion": "Viento, visibilidad, tiempo presente, nubes, temperatura, rocío y QNH"
+      },
+      "impacto": {
+        "peso": 40,
+        "descripcion": "Qué decide ese informe: si despegas, con qué mínimos y qué vigilas"
+      }
+    }
+  },
+  "ejercicios": [
+    {
+      "id": 1,
+      "nivel": "basico",
+      "titulo": "Un día tranquilo en Rionegro",
+      "metar": "METAR SKRG 121200Z 09008KT 9999 FEW020 SCT100 18/12 Q1025 NOSIG",
+      "consigna": "Describe qué informa este METAR: dónde, cuándo en hora de Colombia, cómo está el cielo y si ves algo que condicione la operación.",
+      "respuesta_modelo": "Informe de rutina de José María Córdova (SKRG), día 12 a las 12:00 UTC, o sea las 07:00 de Colombia. Viento del este (090°) a 8 nudos, flojo. Visibilidad de 10 km o más. Escasas a 2000 ft y dispersas a 10 000 ft: ninguna capa llega a fragmentada, así que no hay techo. Temperatura 18 °C y rocío 12 °C, seis grados de separación, aire cómodo. QNH 1025. Sin cambio significativo previsto. Operacionalmente no condiciona nada: es un informe limpio.",
+      "puntos_clave": [
+        "SKRG, día 12 a las 12:00 UTC = 07:00 en Colombia",
+        "Viento flojo del este, 8 nudos",
+        "9999 = visibilidad de 10 km o más",
+        "FEW y SCT no hacen techo: hace falta BKN u OVC",
+        "18/12: seis grados de separación, sin riesgo de niebla",
+        "NOSIG = sin cambio significativo en dos horas"
+      ],
+      "errores_tipicos": [
+        "Decir que hay techo a 2000 ft: FEW no cuenta como techo",
+        "Leer 12:00 como hora local"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 2,
+      "nivel": "basico",
+      "titulo": "Amanecer en Bogotá",
+      "metar": "METAR SKBO 031100Z 00000KT 0500 FG VV002 07/07 Q1028 BECMG 1214 3000 BR",
+      "consigna": "Interpreta el informe y di si podrías hacer una aproximación visual a esa hora, y qué esperas para media mañana.",
+      "respuesta_modelo": "El Dorado (SKBO), día 3 a las 11:00 UTC, o sea las 06:00 de Colombia. Viento en calma. Visibilidad 500 m con niebla (FG). No hay base de nube definida: VV002 es visibilidad vertical de 200 ft, el cielo está oscurecido. Temperatura y rocío iguales, 7/7, aire saturado: es exactamente la receta de la niebla de radiación de madrugada, con calma que no mezcla la capa baja. QNH 1028. La tendencia BECMG 1214 dice que entre las 12:00 y las 14:00 UTC mejora a 3 km con neblina. Operacionalmente: con 500 m y visibilidad vertical de 200 ft no hay aproximación visual posible; esto es categoría de baja visibilidad y hay que mirar mínimos, equipamiento y alterno.",
+      "puntos_clave": [
+        "FG = niebla, visibilidad por debajo de 1000 m",
+        "VV002 = visibilidad vertical 200 ft, cielo oscurecido, no hay techo definido",
+        "07/07: temperatura igual al rocío, aire saturado",
+        "Calma + saturación al amanecer = niebla de radiación",
+        "BECMG 1214: mejora entre las 12:00 y las 14:00 UTC"
+      ],
+      "errores_tipicos": [
+        "Leer VV002 como un techo de 200 ft de nube",
+        "Confundir FG con BR: la frontera es 1000 m"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 3,
+      "nivel": "intermedio",
+      "titulo": "Tormenta sobre Cali",
+      "metar": "SPECI SKCL 151740Z 27018G32KT 240V310 2000 +TSRA BKN010CB OVC025 24/22 Q1009 TEMPO 1820 1000 +TSRA",
+      "consigna": "Es un SPECI. Explica por qué se emitió, qué grupo es el que decide, y qué harías si estuvieras en aproximación final.",
+      "respuesta_modelo": "Informe especial de Alfonso Bonilla Aragón (SKCL), día 15 a las 17:40 UTC, o sea las 12:40 de Colombia. Se emitió fuera de horario porque la condición cambió fuerte: hay tormenta. Viento del oeste a 18 nudos con ráfagas de 32 y dirección oscilando entre 240° y 310°, o sea 70 grados de variación. Visibilidad 2 km con tormenta eléctrica y lluvia fuerte (+TSRA). Fragmentadas a 1000 ft con cumulonimbos y cubierto a 2500 ft. Temperatura 24 y rocío 22. QNH 1009. La tendencia empeora: TEMPO 1820 con 1 km y tormenta fuerte. El grupo que decide es BKN010CB: hay convección madura sobre el aeródromo, con todo lo que trae, cizalladura, granizo y turbulencia severa. En aproximación final lo razonable es irse al alterno o esperar en espera: no se atraviesa una celda para aterrizar.",
+      "puntos_clave": [
+        "SPECI = informe especial fuera de horario",
+        "+TSRA = tormenta eléctrica con lluvia fuerte",
+        "CB pegado a la capa = convección madura sobre el campo",
+        "240V310: la dirección varía 70 grados, viento inestable",
+        "Ráfagas de 32 nudos: el pico es el que limita",
+        "TEMPO 1820 anuncia que va a peor, no a mejor"
+      ],
+      "errores_tipicos": [
+        "Quedarse con el techo de 1000 ft e ignorar el CB",
+        "Tomar los 18 nudos y no la ráfaga de 32"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 4,
+      "nivel": "intermedio",
+      "titulo": "Viento cruzado en Barranquilla",
+      "metar": "METAR SKBQ 221500Z 36022G30KT 9999 SCT025 31/24 Q1010 NOSIG",
+      "consigna": "La pista en uso es la 05. Calcula qué componente tienes y di qué te limita.",
+      "respuesta_modelo": "Ernesto Cortissoz (SKBQ), día 22 a las 15:00 UTC, o sea las 10:00 de Colombia. Viento del norte (360°) a 22 nudos con ráfagas de 30. Visibilidad de 10 km o más, dispersas a 2500 ft, sin techo. Temperatura 31 y rocío 24, aire caliente y húmedo. QNH 1010. Con la pista 05 (050°), el viento de 360° entra a 50 grados de la pista: hay componente de frente y una componente cruzada importante, del orden del 75 por ciento del viento total en ráfaga, o sea más de 20 nudos de cruzado. Lo que limita es la ráfaga de 30 nudos contra el límite de viento cruzado demostrado del avión. Y el aire caliente y húmedo resta rendimiento en el despegue: menos densidad, más distancia.",
+      "puntos_clave": [
+        "Viento del 360 con pista 05: 50 grados de diferencia",
+        "La componente cruzada se compara contra el límite del avión",
+        "La ráfaga de 30 es el número que limita, no los 22",
+        "31/24 en la costa: aire poco denso, penaliza el despegue",
+        "SCT no hace techo"
+      ],
+      "errores_tipicos": [
+        "Tratar el viento como de cara puro por venir del sector delantero",
+        "Usar el promedio en vez de la ráfaga para el límite"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 5,
+      "nivel": "intermedio",
+      "titulo": "Baja visibilidad con RVR",
+      "metar": "METAR SKBO 070900Z 18004KT 0600 R13R/0900U BR BKN003 09/09 Q1027 TEMPO 0911 0300 FG",
+      "consigna": "Hay dos números de visibilidad. Explica cuál manda y para qué, y qué anuncia la tendencia.",
+      "respuesta_modelo": "El Dorado (SKBO), día 7 a las 09:00 UTC, o sea las 04:00 de Colombia. Viento del sur a 4 nudos. Visibilidad general 600 m, pero el RVR de la pista 13 derecha es de 900 m y con tendencia a mejorar (U de up). Neblina (BR) y fragmentadas a 300 ft, que es el techo. Temperatura y rocío iguales a 9. QNH 1027. Manda el RVR para decidir la aproximación a esa pista concreta: son 900 m, no 600. La tendencia TEMPO 0911 avisa de que entre las 09:00 y las 11:00 puede caer a 300 m con niebla, así que la ventana buena puede cerrarse. Operacionalmente: techo de 300 ft y RVR de 900 exigen mirar los mínimos de la aproximación disponible, y tener el alterno claro porque la tendencia va a peor.",
+      "puntos_clave": [
+        "R13R/0900U: RVR de 900 m en la 13 derecha, mejorando",
+        "El RVR manda sobre la visibilidad general para esa pista",
+        "BR = neblina, por encima de 1000 m de visibilidad general no lo sería",
+        "BKN003 = techo de 300 ft",
+        "TEMPO 0911 anuncia caída a 300 m con niebla"
+      ],
+      "errores_tipicos": [
+        "Decidir con los 600 m en vez del RVR",
+        "Leer la U del RVR como unidad en vez de tendencia al alza"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 6,
+      "nivel": "basico",
+      "titulo": "CAVOK en Cartagena",
+      "metar": "METAR SKCG 191400Z 05012KT CAVOK 32/26 Q1011 NOSIG",
+      "consigna": "El informe es muy corto. Explica por qué, y qué te está garantizando exactamente.",
+      "respuesta_modelo": "Rafael Núñez (SKCG), día 19 a las 14:00 UTC, o sea las 09:00 de Colombia. Viento del noreste a 12 nudos. Es corto porque CAVOK reemplaza de golpe a tres grupos: visibilidad, tiempo presente y nubes. Lo que garantiza es visibilidad de 10 km o más, sin precipitación ni fenómeno significativo, y sin nubes por debajo de 5000 ft ni cumulonimbos ni torrecúmulos a ninguna altura. Temperatura 32 y rocío 26: caluroso y húmedo, con la penalización de rendimiento que eso implica. QNH 1011, sin cambio previsto. Operacionalmente es el mejor informe posible en cuanto a meteorología; lo único a vigilar es la performance por densidad.",
+      "puntos_clave": [
+        "CAVOK sustituye visibilidad, tiempo presente y nubes",
+        "Garantiza 10 km o más y nada de CB ni TCU",
+        "Nada por debajo de 5000 ft",
+        "32/26 en la costa: aire poco denso, ojo con el despegue"
+      ],
+      "errores_tipicos": [
+        "Leer CAVOK solo como cielo despejado y olvidar que también promete que no hay CB",
+        "Buscar el grupo de nubes que no está"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 7,
+      "nivel": "avanzado",
+      "titulo": "Cizalladura reportada",
+      "metar": "METAR SKRG 081930Z 20015G28KT 9999 VCTS FEW018 BKN035TCU 20/16 Q1021 WS R19 TEMPO 2022 4000 TSRA",
+      "consigna": "Hay dos avisos que cambian el briefing. Identifícalos y explica qué implica cada uno.",
+      "respuesta_modelo": "José María Córdova (SKRG), día 8 a las 19:30 UTC, o sea las 14:30 de Colombia. Viento del sur-suroeste a 15 nudos con ráfagas de 28. Visibilidad de 10 km o más. Los dos avisos son VCTS y WS R19. VCTS es tormenta en la vecindad del aeródromo, no encima: está cerca y puede llegar. WS R19 es cizalladura reportada en la pista 19, que es el aviso que de verdad cambia el briefing, porque un cambio súbito de viento en corta final puede quitarte velocidad aerodinámica justo donde no hay altura para recuperarla. Además BKN035TCU: techo de 3500 ft con torrecúmulos, o sea convección en desarrollo, coherente con la tormenta vecina. La tendencia TEMPO 2022 anuncia que la tormenta entra al campo. Operacionalmente: aproximación con técnica de cizalladura, velocidad adicional si el manual lo indica, y disposición a irse al alterno.",
+      "puntos_clave": [
+        "VCTS = tormenta en la vecindad, no sobre la estación",
+        "WS R19 = cizalladura reportada en la pista 19",
+        "TCU = torrecúmulos, el paso previo al CB",
+        "TEMPO 2022 TSRA: la tormenta entra al campo",
+        "La cizalladura es el aviso más peligroso del informe"
+      ],
+      "errores_tipicos": [
+        "Confundir VCTS con tormenta sobre el aeródromo",
+        "Pasar por alto el WS por venir al final del informe"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 8,
+      "nivel": "avanzado",
+      "titulo": "Estación automática en Leticia",
+      "metar": "METAR SKLT 260600Z AUTO 00000KT 1200 //// BR NCD 23/23 Q1011 RMK PP000",
+      "consigna": "El informe trae grupos poco frecuentes. Explica qué significan AUTO, //// y NCD, y qué precaución tomarías.",
+      "respuesta_modelo": "Alfredo Vásquez Cobo (SKLT), día 26 a las 06:00 UTC, o sea la 01:00 de Colombia. AUTO indica observación automatizada, sin observador humano. Viento en calma, visibilidad 1200 m con neblina. Los //// son el grupo de tiempo presente que la estación no pudo determinar: el sensor no discrimina el fenómeno. NCD es nubes no detectadas por el sensor, que no es lo mismo que cielo despejado: significa que el equipo no vio nada, no que no haya nada. Temperatura y rocío iguales a 23, aire saturado. RMK PP000 es un comentario de precipitación. La precaución es justamente esa: en un informe AUTO, la ausencia de dato no es ausencia de fenómeno. Con 23/23 y 1200 m de visibilidad, la niebla está a un paso, y NCD no garantiza que no haya nubes bajas.",
+      "puntos_clave": [
+        "AUTO = observación automatizada, sin observador",
+        "//// = el sensor no pudo determinar el tiempo presente",
+        "NCD = nubes no detectadas, distinto de cielo despejado",
+        "23/23: aire saturado, neblina a punto de ser niebla",
+        "En AUTO, ausencia de dato no es ausencia de fenómeno"
+      ],
+      "errores_tipicos": [
+        "Leer NCD como cielo despejado y dar por hecho que no hay nubes bajas",
+        "Ignorar el AUTO y tratar el informe como observación humana"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 9,
+      "nivel": "intermedio",
+      "titulo": "El QNH que no es hectopascales",
+      "metar": "METAR KMIA 141553Z 09014KT 10SM FEW025 SCT250 30/23 A2992 RMK AO2 SLP132",
+      "consigna": "Es un informe de Estados Unidos. Señala los tres grupos que se leen distinto y traduce el informe.",
+      "respuesta_modelo": "Miami (KMIA), día 14 a las 15:53 UTC. Los tres grupos que cambian son la visibilidad, el reglaje y los comentarios. La visibilidad va en millas terrestres: 10SM son unas 16 000 m, el equivalente al 9999. El reglaje va en pulgadas de mercurio: A2992 son 29.92 inHg, no 2992 hectopascales; en hectopascales serían unos 1013. Y el bloque RMK trae AO2, que indica estación automatizada con sensor de precipitación, y SLP132, la presión al nivel del mar. El resto se lee igual: viento del este a 14 nudos, escasas a 2500 ft y dispersas a 25 000 ft, sin techo, temperatura 30 y rocío 23. Operacionalmente el error que se cobra caro es meter 2992 en el altímetro creyendo que son hectopascales.",
+      "puntos_clave": [
+        "10SM = millas terrestres, no metros",
+        "A2992 = 29.92 pulgadas de mercurio, no hectopascales",
+        "El equivalente en hectopascales es aproximadamente 1013",
+        "RMK AO2 = estación automatizada con sensor de precipitación",
+        "El cambio de Q a A es un clásico de entrevista"
+      ],
+      "errores_tipicos": [
+        "Leer A2992 como 2992 hPa",
+        "Leer 10SM como 10 km: son unas 16 000 m"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI/FAA"
+    },
+    {
+      "id": 10,
+      "nivel": "avanzado",
+      "titulo": "Ceniza volcánica",
+      "metar": "METAR SKPS 111800Z 13006KT 3000 VA FEW030 SCT080 14/09 Q1024 RMK VA GALERAS",
+      "consigna": "Un grupo de dos letras cambia por completo la decisión. Identifícalo y explica qué haces.",
+      "respuesta_modelo": "Antonio Nariño (SKPS), en Pasto, día 11 a las 18:00 UTC, o sea las 13:00 de Colombia. Viento del sureste a 6 nudos. Visibilidad 3 km. El grupo que lo cambia todo es VA: ceniza volcánica, y el comentario RMK la atribuye al Galeras. Escasas a 3000 ft y dispersas a 8000 ft. Temperatura 14 y rocío 9. QNH 1024. La ceniza no se atraviesa: erosiona los álabes, funde dentro de la turbina y puede apagar los motores, además de cegar el parabrisas. La decisión no se negocia con el techo ni con la visibilidad. Hay que cruzar este informe con el ASHTAM y los avisos del centro VAAC para saber la extensión y la altura de la nube, y replanear la ruta o el destino.",
+      "puntos_clave": [
+        "VA = ceniza volcánica, el mismo código que usa el ASHTAM",
+        "RMK identifica el volcán: Galeras",
+        "La ceniza no se atraviesa, sin importar techo ni visibilidad",
+        "Hay que cruzarlo con el ASHTAM y los avisos VAAC",
+        "Colombia es país volcánico: no es un caso de examen"
+      ],
+      "errores_tipicos": [
+        "Leer los 3 km como el problema principal e ignorar el VA",
+        "Tratarlo como bruma o humo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    }
+  ]
+}

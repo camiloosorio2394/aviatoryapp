@@ -16,6 +16,9 @@
  */
 
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import ejerciciosRaw from "@/data/metar/ejercicios_metar.json"
+import examenRaw from "@/data/metar/evaluacion_metar.json"
+import type { NotamLevel } from "@/lib/notam"
 
 // ─── Tablas de códigos (leyenda del curso, normalizada) ──────────────────────
 
@@ -418,6 +421,46 @@ export const METAR_EXAMPLES: { label: string; metar: string }[] = [
 export const METAR_DISCLAIMER =
   "Los ejemplos son material de práctica redactado para Aviatory con formato real: no son informes vigentes y jamás deben usarse para operar. Consulta siempre el METAR oficial del servicio meteorológico."
 
+// ─── Práctica y evaluación ───────────────────────────────────────────────────
+
+export interface MetarExercise {
+  id: number
+  nivel: NotamLevel
+  titulo: string
+  /** El informe a interpretar, tal cual se leería en un briefing. */
+  metar: string
+  consigna: string
+  respuesta_modelo: string
+  puntos_clave: string[]
+  errores_tipicos?: string[]
+  fuente: string
+}
+
+export interface MetarExamQuestion {
+  id: number
+  nivel: NotamLevel
+  pregunta: string
+  opciones: string[]
+  /** Índice en el array original. Al barajar hay que remapearlo. */
+  correcta: number
+  explicacion: string
+  referencia: string
+}
+
+export const METAR_EXERCISES = ejerciciosRaw.ejercicios as MetarExercise[]
+export const METAR_EXERCISE_META = ejerciciosRaw.meta
+export const METAR_EXAM_QUESTIONS = examenRaw.preguntas as MetarExamQuestion[]
+export const METAR_EXAM_META = examenRaw.meta
+
+export const METAR_EXAM_PASS_SCORE = METAR_EXAM_META.calificacion.aprobacion as number
+export const METAR_EXAM_POINTS = METAR_EXAM_META.calificacion.puntaje_por_pregunta as number
+
+/** Avisos obligatorios en pantalla, igual que en NOTAM. */
+export const METAR_DISCLAIMERS = {
+  practice: METAR_EXERCISE_META.aviso_obligatorio_en_pantalla as string,
+  exam: METAR_EXAM_META.aviso_en_pantalla as string,
+} as const
+
 // ─── Volumen del contenido ───────────────────────────────────────────────────
 
 /**
@@ -442,16 +485,30 @@ const LS_KEY = "aviatory.metar.progress"
 
 export interface MetarLocalProgress {
   lessonScreens: number[]
+  /** Ids de ejercicios de práctica resueltos ("ex-3"). */
+  practiceDone: string[]
+  /** Mejor puntaje de la evaluación, sobre 100. */
+  bestExamScore: number | null
+}
+
+const EMPTY_METAR_PROGRESS: MetarLocalProgress = {
+  lessonScreens: [],
+  practiceDone: [],
+  bestExamScore: null,
 }
 
 export function readMetarProgress(): MetarLocalProgress {
   try {
     const raw = localStorage.getItem(LS_KEY)
-    if (!raw) return { lessonScreens: [] }
+    if (!raw) return EMPTY_METAR_PROGRESS
     const parsed = JSON.parse(raw) as Partial<MetarLocalProgress>
-    return { lessonScreens: Array.isArray(parsed.lessonScreens) ? parsed.lessonScreens : [] }
+    return {
+      lessonScreens: Array.isArray(parsed.lessonScreens) ? parsed.lessonScreens : [],
+      practiceDone: Array.isArray(parsed.practiceDone) ? parsed.practiceDone : [],
+      bestExamScore: typeof parsed.bestExamScore === "number" ? parsed.bestExamScore : null,
+    }
   } catch {
-    return { lessonScreens: [] }
+    return EMPTY_METAR_PROGRESS
   }
 }
 
@@ -465,23 +522,50 @@ export function writeMetarProgress(patch: Partial<MetarLocalProgress>): void {
 
 export interface MetarResumen {
   lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
   lessonPct: number
+  practicePct: number
+  examPct: number
   /** Avance del tema completo, 0 a 100. */
   overall: number
   empty: boolean
 }
 
+/** Denominador de la práctica del tema. */
+export const METAR_PRACTICE_TOTAL = METAR_EXERCISES.length
+
 /**
  * Resume el avance del tema METAR.
  *
- * Hoy el tema es solo la lección y el decodificador, y el decodificador es una
- * herramienta de consulta libre: no se completa. Así que el avance del tema ES
- * el de la lección. Cuando existan la práctica y la evaluación, esta función
- * pasa a promediar los tres, igual que `resumirNotam`, y las dos pantallas que
- * la usan se enteran solas.
+ * Promedia las tres partes que se completan (lección, práctica y evaluación),
+ * igual que `resumirNotam`. El decodificador no entra: es una herramienta de
+ * consulta libre y no se termina.
  */
-export function resumirMetar(progreso: { lessonScreens: number[] }): MetarResumen {
+export function resumirMetar(progreso: {
+  lessonScreens: number[]
+  practiceDone?: string[]
+  bestExamScore?: number | null
+}): MetarResumen {
   const lessonRead = Math.min(progreso.lessonScreens.length, METAR_LESSON_TOTAL)
+  const practiceDone = Math.min((progreso.practiceDone ?? []).length, METAR_PRACTICE_TOTAL)
+  const best = progreso.bestExamScore ?? null
+  const passed = best !== null && best >= METAR_EXAM_PASS_SCORE
+
   const lessonPct = Math.round((lessonRead / METAR_LESSON_TOTAL) * 100)
-  return { lessonRead, lessonPct, overall: lessonPct, empty: lessonRead === 0 }
+  const practicePct = Math.round((practiceDone / METAR_PRACTICE_TOTAL) * 100)
+  const examPct = passed ? 100 : (best ?? 0)
+
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
 }
