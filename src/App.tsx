@@ -34,6 +34,7 @@ import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
 import { IcaoMockExam } from "@/pages/IcaoMockExam"
 import { Pca } from "@/pages/Pca"
 import { AirlinePrep } from "@/pages/AirlinePrep"
+import { AirlineMockExam } from "@/pages/AirlineMockExam"
 import { Notam } from "@/pages/Notam"
 import { Metar } from "@/pages/Metar"
 import { MetarLesson } from "@/pages/MetarLesson"
@@ -304,6 +305,14 @@ function App() {
           element={
             <RequireAuth>
               <MetarExam />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/simulacro"
+          element={
+            <RequireAuth>
+              <AirlineMockExam />
             </RequireAuth>
           }
         />

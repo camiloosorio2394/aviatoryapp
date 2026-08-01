@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, Briefcase, ClipboardList, CloudSun, FileSearch, Plane } from "lucide-react"
+import {
+  ArrowRight,
+  Briefcase,
+  ClipboardCheck,
+  ClipboardList,
+  CloudSun,
+  FileSearch,
+  Plane,
+} from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
@@ -29,6 +37,7 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jp
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
+import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
 
 /**
  * Módulo Ingreso a aerolínea: la lista de TEMAS de estudio.
@@ -200,6 +209,26 @@ export function AirlinePrep() {
             : metar.overall >= 100
               ? "Tema completo"
               : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones y ${metar.practiceDone} de ${METAR_PRACTICE_TOTAL} informes`,
+        },
+      },
+      // El cierre del módulo, al estilo del simulacro TEA: la razón para volver
+      // cuando ya leíste todo. No se completa, así que va con las herramientas.
+      {
+        nombre: "Simulacro de entrevista técnica",
+        to: "/app/aerolinea/simulacro",
+        pct: 0,
+        herramienta: true,
+        card: {
+          to: "/app/aerolinea/simulacro",
+          icon: ClipboardCheck,
+          color: "var(--av-amber-400)",
+          meta: `${TOTALS.examQuestions + METAR_EXAM_QUESTIONS.length} preguntas en el banco, 25 por intento`,
+          title: "Simulacro de entrevista técnica",
+          blurb:
+            "Preguntas mezcladas de todos los temas abiertos, sin decirte de cuál es cada una. Como en la prueba de verdad.",
+          photo: simulacroPhoto,
+          cta: "Presentar el simulacro",
+          status: "Cada intento baraja de nuevo",
         },
       },
       {
