@@ -1,28 +1,28 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import type { ComponentType } from "react"
 import {
   ArrowRight,
-  Briefcase,
   Check,
-  CloudSun,
-  Gavel,
-  Globe2,
   Hash,
-  HelpCircle,
   MessageSquare,
-  MessagesSquare,
   RotateCw,
   TriangleAlert,
-  Trophy,
   Users,
 } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 import { accentText } from "@/lib/notam"
-import { AerodromeIcon, HoldingIcon, LocalizerIcon, WaypointIcon } from "@/components/icons/aero"
+import {
+  CHANNEL_ICON,
+  GROUP_META,
+  STAGE_TO_CHANNEL,
+  airlineInitials,
+  airlineTileKey,
+  relativeTime,
+  type ChannelType,
+} from "@/lib/communityChannels"
 import heroPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 
 interface Channel {
@@ -30,7 +30,7 @@ interface Channel {
   slug: string
   name: string
   description: string | null
-  type: "general" | "stage" | "subject" | "airline"
+  type: ChannelType
   emoji: string | null
   member_count: number
   order_index: number
@@ -53,105 +53,7 @@ interface ChannelActivity {
  */
 const MESSAGE_SAMPLE = 2000
 
-type IconComponent = ComponentType<{ className?: string }>
-
-/**
- * Icono propio por canal, en lugar del emoji que viene en la base: el emoji lo
- * dibuja el sistema operativo y rompía el lenguaje visual (misma razón por la
- * que los logros pasaron a insignias). Los símbolos de carta van donde
- * significan algo: el circuito de espera para hour building, el aeródromo como
- * destino para los candidatos.
- */
-const CHANNEL_ICON: Record<string, IconComponent> = {
-  general: MessagesSquare,
-  logros: Trophy,
-  preguntas: HelpCircle,
-  empleos: Briefcase,
-  "etapa-ppl": WaypointIcon,
-  "etapa-cpl": LocalizerIcon,
-  "etapa-horas": HoldingIcon,
-  "etapa-candidatos": AerodromeIcon,
-  "mat-meteorologia": CloudSun,
-  "mat-reglamento": Gavel,
-  "mat-icao-english": Globe2,
-}
-
-const GROUP_META: Record<
-  Channel["type"],
-  { title: string; description: string; color: TileColorKey; icon: IconComponent }
-> = {
-  general: {
-    title: "General",
-    description: "Conversación abierta, logros, dudas y oportunidades",
-    color: "blue",
-    icon: MessagesSquare,
-  },
-  stage: {
-    title: "Por etapa",
-    description: "Pilotos en tu mismo momento de carrera",
-    color: "cyan",
-    icon: WaypointIcon,
-  },
-  subject: {
-    title: "Por materia",
-    description: "Dudas técnicas con foco",
-    color: "violet",
-    icon: Gavel,
-  },
-  airline: {
-    title: "Por aerolínea",
-    description: "Preparación para postular",
-    color: "amber",
-    icon: AerodromeIcon,
-  },
-}
-
-const GROUP_ORDER: Channel["type"][] = ["general", "stage", "subject", "airline"]
-
-/** Canal de etapa que corresponde a cada etapa del piloto. */
-const STAGE_TO_CHANNEL: Record<string, string> = {
-  student_ppl: "etapa-ppl",
-  ppl: "etapa-ppl",
-  cpl_in_progress: "etapa-cpl",
-  cpl_ready: "etapa-cpl",
-  hour_building: "etapa-horas",
-  instructor: "etapa-horas",
-  airline_candidate: "etapa-candidatos",
-}
-
-const AIRLINE_TILE_KEYS: TileColorKey[] = ["blue", "cyan", "violet", "amber", "green", "red"]
-
-/** Color estable por canal (sin azar en render): depende solo del slug. */
-function airlineTileKey(slug: string): TileColorKey {
-  let sum = 0
-  for (let i = 0; i < slug.length; i += 1) sum += slug.charCodeAt(i)
-  return AIRLINE_TILE_KEYS[sum % AIRLINE_TILE_KEYS.length]
-}
-
-/** Iniciales de la aerolínea para el tile. */
-function airlineInitials(name: string): string {
-  const words = name
-    .trim()
-    .split(/\s+/)
-    .filter((w) => /^[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(w))
-  if (words.length === 0) return "AV"
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
-  return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
-}
-
-function relativeTime(iso: string): string {
-  const diff = Date.now() - new Date(iso).getTime()
-  const minutes = Math.floor(diff / 60_000)
-  if (minutes < 1) return "hace un momento"
-  if (minutes < 60) return `hace ${minutes} min`
-  const hours = Math.floor(minutes / 60)
-  if (hours < 24) return `hace ${hours} h`
-  const days = Math.floor(hours / 24)
-  if (days === 1) return "ayer"
-  if (days < 30) return `hace ${days} días`
-  const months = Math.floor(days / 30)
-  return months <= 1 ? "hace un mes" : `hace ${months} meses`
-}
+const GROUP_ORDER: ChannelType[] = ["general", "stage", "subject", "airline"]
 
 export function Community() {
   const { user } = useSession()
@@ -433,7 +335,7 @@ function GroupPanel({
   list,
   activity,
 }: {
-  type: Channel["type"]
+  type: ChannelType
   list: Channel[]
   activity: Record<number, ChannelActivity>
 }) {

@@ -3,7 +3,9 @@ import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, Hash, Send, Smile, Flame } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
-import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
+import { accentText } from "@/lib/notam"
+import { CHANNEL_ICON, GROUP_META, airlineInitials, airlineTileKey, type ChannelType } from "@/lib/communityChannels"
 import { useSession } from "@/hooks/useSession"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
@@ -14,7 +16,7 @@ interface Channel {
   slug: string
   name: string
   description: string | null
-  type: "general" | "stage" | "subject" | "airline"
+  type: ChannelType
   emoji: string | null
 }
 
@@ -46,26 +48,6 @@ interface Message {
 }
 
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
-
-const AIRLINE_TILE_KEYS: TileColorKey[] = ["blue", "cyan", "violet", "amber", "green", "red"]
-
-/** Mismo tile de iniciales que el índice de Comunidad: los canales de
- *  aerolínea traen emojis de bandera que se ven rotos en varios sistemas. */
-function airlineTileKey(slug: string): TileColorKey {
-  let sum = 0
-  for (let i = 0; i < slug.length; i += 1) sum += slug.charCodeAt(i)
-  return AIRLINE_TILE_KEYS[sum % AIRLINE_TILE_KEYS.length]
-}
-
-function airlineInitials(name: string): string {
-  const words = name
-    .trim()
-    .split(/\s+/)
-    .filter((w) => /^[A-Za-zÁÉÍÓÚÑáéíóúñ]/.test(w))
-  if (words.length === 0) return "AV"
-  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
-  return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
-}
 
 export function CommunityChannel() {
   const { slug } = useParams<{ slug: string }>()
@@ -374,20 +356,34 @@ export function CommunityChannel() {
             </Link>
             {channel.type === "airline" ? (
               <div
-                className="flex items-center justify-center h-9 w-9 rounded-xl text-[13px] font-semibold tracking-[0.02em] flex-shrink-0"
+                className="flex items-center justify-center h-9 w-9 rounded-lg text-[13px] font-semibold tracking-[0.02em] flex-shrink-0"
                 style={{
                   background: tileTint(airlineTileKey(channel.slug)),
                   border: `1px solid ${tileBorder(airlineTileKey(channel.slug))}`,
-                  color: TILE_COLOR[airlineTileKey(channel.slug)],
+                  color: accentText(TILE_COLOR[airlineTileKey(channel.slug)], 75),
                 }}
                 aria-hidden
               >
                 {airlineInitials(channel.name)}
               </div>
             ) : (
-              <span className="text-[24px]" aria-hidden>
-                {channel.emoji}
-              </span>
+              (() => {
+                const Ic = CHANNEL_ICON[channel.slug] ?? GROUP_META[channel.type].icon
+                const color = GROUP_META[channel.type].color
+                return (
+                  <div
+                    className="flex items-center justify-center h-9 w-9 rounded-lg flex-shrink-0"
+                    style={{
+                      background: tileTint(color, 14),
+                      border: `1px solid ${tileBorder(color, 22)}`,
+                      color: accentText(TILE_COLOR[color], 75),
+                    }}
+                    aria-hidden
+                  >
+                    <Ic className="h-[18px] w-[18px]" />
+                  </div>
+                )
+              })()
             )}
             <div className="min-w-0">
               <h1 className="text-[17px] sm:text-xl font-semibold tracking-tight flex items-center gap-1.5 min-w-0">
@@ -458,7 +454,7 @@ export function CommunityChannel() {
               rows={1}
               placeholder={`Mensaje a #${channel.name}`}
               disabled={sending}
-              className="flex-1 resize-none rounded-2xl border border-border/60 bg-card px-4 py-3 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
+              className="flex-1 resize-none rounded-xl border border-border bg-card px-4 py-3 text-[15px] text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50"
               maxLength={2000}
               aria-label={`Escribir mensaje en el canal ${channel.name}`}
             />
@@ -466,7 +462,8 @@ export function CommunityChannel() {
               type="submit"
               size="icon-lg"
               disabled={sending || !input.trim()}
-              className="btn-apple rounded-full h-11 w-11 border-0 disabled:opacity-40 flex-shrink-0"
+              className="rounded-full h-11 w-11 border-0 text-white disabled:opacity-40 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+              style={{ background: "var(--av-blue-500)" }}
             >
               <Send className="h-4 w-4" />
             </Button>
