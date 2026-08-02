@@ -13,6 +13,67 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import type { QuizQuestion } from "@/components/QuizEngine"
+import { EXAM_QUESTIONS } from "@/lib/notam"
+import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
+import { MP_HUB } from "@/lib/mercancias"
+import { PREGUNTAS } from "@/lib/mercanciasPractica"
+
+/**
+ * Los bancos de los temas abiertos. Añadir un tema es añadir una entrada.
+ *
+ * Vive aquí y no en la pantalla del simulacro porque el hub del módulo también
+ * necesita saber cuántas preguntas hay: cuando lo calculaba por su cuenta se
+ * desincronizó al entrar Mercancías Peligrosas, y anunciaba 40 preguntas
+ * cuando ya había 45.
+ */
+export const BANCOS: { tema: string; ruta: string; preguntas: QuizQuestion[] }[] = [
+  {
+    tema: "NOTAM",
+    ruta: "/app/aerolinea/notam",
+    preguntas: EXAM_QUESTIONS.map((q) => ({
+      id: `notam-${q.id}`,
+      pregunta: q.pregunta,
+      opciones: q.opciones,
+      correcta: q.correcta,
+      explicacion: q.explicacion,
+      referencia: q.referencia,
+      origen: "NOTAM",
+    })),
+  },
+  {
+    tema: "Meteorología",
+    ruta: "/app/aerolinea/meteorologia",
+    preguntas: METAR_EXAM_QUESTIONS.map((q) => ({
+      id: `metar-${q.id}`,
+      pregunta: q.pregunta,
+      opciones: q.opciones,
+      correcta: q.correcta,
+      explicacion: q.explicacion,
+      referencia: q.referencia,
+      origen: "Meteorología",
+    })),
+  },
+  {
+    tema: "Mercancías peligrosas",
+    ruta: MP_HUB,
+    preguntas: PREGUNTAS.map((q) => ({
+      id: `mp-${q.id}`,
+      pregunta: q.texto,
+      opciones: q.ops,
+      correcta: q.ok,
+      explicacion: q.explica,
+      referencia: `Sección ${q.ref} del módulo`,
+      origen: "Mercancías peligrosas",
+    })),
+  },
+]
+
+/** Todas las preguntas del sorteo, de todos los temas abiertos. */
+export const BANCO_COMPLETO: QuizQuestion[] = BANCOS.flatMap((b) => b.preguntas)
+
+/** Cuántas preguntas hay en el banco. Es lo que anuncian el hub y la pantalla. */
+export const BANCO_TOTAL = BANCO_COMPLETO.length
 
 /**
  * Mínimo de aprobación del simulacro, sobre 100.

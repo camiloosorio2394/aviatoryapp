@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
+  AlertTriangle,
   ArrowRight,
   Briefcase,
   ClipboardCheck,
@@ -35,9 +36,13 @@ import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import { LESSON_MINUTES } from "@/lib/notamLesson"
 import {
   AIRLINE_MOCK_PASS_SCORE,
+  BANCO_TOTAL,
   fetchMejorPuntajeSimulacro,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
+import { MP_HUB, MP_LECTURA_TOTAL, resumirMercancias } from "@/lib/mercancias"
+import { ROMBOS_TOTAL } from "@/lib/mercanciasClases"
+import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
 import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jpg"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
@@ -76,6 +81,9 @@ const PROXIMOS: string[] = [
   "Entrevista HR y CRM",
   "Psicotécnicos y assessment",
 ]
+
+/** Casos de la práctica de Mercancías Peligrosas, para el pie de su tarjeta. */
+const MP_CASOS = 4
 
 /**
  * Enumera en castellano: "A", "A y B", "A, B y C".
@@ -122,6 +130,7 @@ export function AirlinePrep() {
   const [mejorSimulacro, setMejorSimulacro] = useState<number | null>(
     () => readAirlineMockLocal().bestScore
   )
+  const [mercanciasProgreso, setMercanciasProgreso] = useState(() => readMercanciasLocal())
   const [hidratado, setHidratado] = useState(false)
 
   // Quien estudia sin cuenta ve su respaldo local de inmediato: no hay nada que
@@ -137,7 +146,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, examRes, metarExamRes, mockRes] = await Promise.all([
+      const [notamRes, metarRes, examRes, metarExamRes, mockRes, mpRes] = await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
         supabase
@@ -153,6 +162,7 @@ export function AirlinePrep() {
           .order("score", { ascending: false })
           .limit(1),
         fetchMejorPuntajeSimulacro(user.id),
+        fetchMercanciasProgress(user.id),
       ])
       if (cancelled) return
 
@@ -183,6 +193,7 @@ export function AirlinePrep() {
         })
       }
       setMejorSimulacro(mockRes)
+      if (mpRes) setMercanciasProgreso(mpRes)
       setHidratado(true)
     })()
 
@@ -197,6 +208,7 @@ export function AirlinePrep() {
   // localStorage, así que en otro dispositivo el porcentaje de METAR mentía:
   // la lección aparecía y los 10 informes y la evaluación salían en cero.
   const metar = useMemo(() => resumirMetar(metarProgress), [metarProgress])
+  const mercancias = useMemo(() => resumirMercancias(mercanciasProgreso), [mercanciasProgreso])
 
   const temas: TemaEstado[] = useMemo(() => {
     const lista: TemaEstado[] = [
@@ -255,6 +267,31 @@ export function AirlinePrep() {
               : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones y ${metar.practiceDone} de ${METAR_PRACTICE_TOTAL} informes`,
         },
       },
+      {
+        nombre: "Mercancías peligrosas",
+        to: MP_HUB,
+        pct: mercancias.overall,
+        card: {
+          to: MP_HUB,
+          icon: AlertTriangle,
+          color: "var(--av-red-400)",
+          meta: `${MP_LECTURA_TOTAL} secciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · ${MP_CASOS} casos · chequeo final`,
+          title: "Mercancías peligrosas",
+          blurb:
+            "Las nueve clases con sus etiquetas reales, qué responde el comandante, el NOTOC y las baterías de litio. Con lector propio.",
+          // La portada del propio módulo, la misma que ve en su hub. Vive en
+          // public y no en assets porque así queda fuera del precache.
+          photo: "/infografias/mercancias/portada.webp",
+          cta: mercancias.empty ? "Empezar el tema" : "Seguir con el tema",
+          progress: mercancias.overall,
+          done: mercancias.overall >= 100,
+          status: mercancias.empty
+            ? "Arranca por el briefing: 9 secciones"
+            : mercancias.overall >= 100
+              ? "Tema completo"
+              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} secciones y ${mercancias.practiceDone} de ${MP_CASOS} casos`,
+        },
+      },
       // El cierre del módulo, al estilo del simulacro TEA: la razón para volver
       // cuando ya leíste todo. No se completa, así que va con las herramientas.
       {
@@ -266,7 +303,9 @@ export function AirlinePrep() {
           to: "/app/aerolinea/simulacro",
           icon: ClipboardCheck,
           color: "var(--av-amber-400)",
-          meta: `${TOTALS.examQuestions + METAR_EXAM_QUESTIONS.length} preguntas en el banco, 25 por intento`,
+          // Del propio banco, no de una suma a mano: cuando entró Mercancías
+          // Peligrosas esta cifra se quedó anunciando 40 con 45 cargadas.
+          meta: `${BANCO_TOTAL} preguntas en el banco, 25 por intento`,
           title: "Simulacro de entrevista técnica",
           blurb:
             "Preguntas mezcladas de todos los temas abiertos, sin decirte de cuál es cada una. Como en la prueba de verdad.",
@@ -312,7 +351,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mejorSimulacro])
+  }, [notam, metar, mercancias, mejorSimulacro])
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ModuloShell } from "@/components/modulo/ModuloShell"
 import { Seccion00 } from "@/components/modulo/mercancias/Seccion00"
 import { Seccion01 } from "@/components/modulo/mercancias/Seccion01"
@@ -18,6 +18,16 @@ import {
   MP_TITULO,
   MP_VIGENCIA,
 } from "@/lib/mercancias"
+import { PREGUNTAS } from "@/lib/mercanciasPractica"
+import {
+  fetchMercanciasProgress,
+  guardarChequeoMercancias,
+  markMercanciasProgress,
+  pushPendingMercancias,
+  readMercanciasLocal,
+} from "@/lib/mercanciasProgress"
+import { registrarActividadDeEstudio, registrarEstudioDiario } from "@/lib/activity"
+import { useSession } from "@/hooks/useSession"
 
 /**
  * Lector del módulo Mercancías Peligrosas.
@@ -37,20 +47,89 @@ import {
  * qué sección sale cada pregunta.
  */
 export function MercanciasLector() {
+  const { user } = useSession()
   const [paso, setPaso] = useState(0)
+  // La 00 entra ya marcada: el lector abre en ella, así que abrirlo es verla.
+  const [leidas, setLeidas] = useState<number[]>(() =>
+    Array.from(new Set([...readMercanciasLocal().lessonScreens, 0]))
+  )
 
   // Práctica de clasificación (09)
   const [caso, setCaso] = useState(0)
   const [resp, setResp] = useState<Record<string, RespuestaCaso>>({})
-  const [hechos, setHechos] = useState<Record<string, boolean>>({})
+  const [hechos, setHechos] = useState<Record<string, boolean>>(() =>
+    Object.fromEntries(readMercanciasLocal().practiceDone.map((id) => [id, true]))
+  )
 
   // Chequeo final (10)
   const [quiz, setQuiz] = useState<Record<string, number>>({})
   const [calificado, setCalificado] = useState(false)
 
+  // Hidrata desde la base y sube lo que se avanzó sin sesión. Arranca con el
+  // respaldo local para no mostrar cero mientras carga.
+  useEffect(() => {
+    const uid = user?.id
+    if (!uid) return
+    let cancelado = false
+
+    void (async () => {
+      const traido = await fetchMercanciasProgress(uid)
+      if (cancelado || !traido) return
+      const remoto = await pushPendingMercancias(traido)
+      if (cancelado) return
+      setLeidas((prev) => Array.from(new Set([...prev, ...remoto.lessonScreens])))
+      setHechos((prev) => ({
+        ...prev,
+        ...Object.fromEntries(remoto.practiceDone.map((id) => [id, true])),
+      }))
+    })()
+
+    return () => {
+      cancelado = true
+    }
+  }, [user?.id])
+
+  // La 00 se persiste al abrir el lector, sin tocar el estado: ya entró marcada.
+  useEffect(() => {
+    void markMercanciasProgress({ lessonScreen: 0 })
+    void registrarEstudioDiario("mercancias-leccion")
+  }, [])
+
+  /**
+   * Ir a una sección, y darla por leída si es de lectura.
+   *
+   * En un lector la sección se abre para leerla: no hay un botón de "ya la leí"
+   * ni lo va a haber, así que abrirla ES el acto. Lo que no se infla es la
+   * actividad de estudio: `registrarEstudioDiario` tiene tope de una vez al día
+   * por superficie, así que leer nueve secciones cuenta como un día, no nueve.
+   */
+  function irA(i: number): void {
+    setPaso(i)
+    const seccion = MP_SECCIONES[i]
+    if (!seccion || seccion.grupo === "practica" || leidas.includes(i)) return
+    setLeidas((prev) => (prev.includes(i) ? prev : [...prev, i]))
+    void markMercanciasProgress({ lessonScreen: i })
+    void registrarEstudioDiario("mercancias-leccion")
+  }
+
   function irASeccion(n: string): void {
     const i = MP_SECCIONES.findIndex((s) => s.n === n)
-    if (i >= 0) setPaso(i)
+    if (i >= 0) irA(i)
+  }
+
+  function resolverCaso(id: string): void {
+    setHechos((p) => ({ ...p, [id]: true }))
+    void markMercanciasProgress({ practiceId: id })
+    void registrarEstudioDiario("mercancias-practica")
+  }
+
+  function calificarChequeo(): void {
+    setCalificado(true)
+    const aciertos = PREGUNTAS.filter((p) => quiz[p.id] === p.ok).length
+    const total = PREGUNTAS.length
+    const score = Math.round((aciertos / total) * 100)
+    void guardarChequeoMercancias({ score, correct: aciertos, total })
+    void registrarActividadDeEstudio({ questions: total, correct: aciertos })
   }
 
   return (
@@ -60,7 +139,8 @@ export function MercanciasLector() {
       vigencia={MP_VIGENCIA}
       secciones={MP_SECCIONES}
       actual={paso}
-      onIr={setPaso}
+      onIr={irA}
+      hechas={leidas}
       salirA={MP_HUB}
     >
       {paso === 9 ? (
@@ -70,14 +150,14 @@ export function MercanciasLector() {
           resp={resp}
           onResp={(id, r) => setResp((p) => ({ ...p, [id]: r }))}
           hechos={hechos}
-          onHecho={(id) => setHechos((p) => ({ ...p, [id]: true }))}
+          onHecho={resolverCaso}
         />
       ) : paso === 10 ? (
         <Seccion10
           quiz={quiz}
           onQuiz={(id, i) => setQuiz((p) => ({ ...p, [id]: i }))}
           calificado={calificado}
-          onCalificar={() => setCalificado(true)}
+          onCalificar={calificarChequeo}
           onReiniciar={() => {
             setQuiz({})
             setCalificado(false)

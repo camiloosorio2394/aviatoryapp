@@ -10,11 +10,12 @@ import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { registrarActividadDeEstudio } from "@/lib/activity"
 import {
   AIRLINE_MOCK_PASS_SCORE,
+  BANCOS,
+  BANCO_COMPLETO,
   guardarIntentoSimulacro,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { EXAM_QUESTIONS, accentText, shuffle } from "@/lib/notam"
-import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
+import { accentText, shuffle } from "@/lib/notam"
 
 /**
  * Simulacro de entrevista técnica (ruta /app/aerolinea/simulacro).
@@ -38,38 +39,6 @@ import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
 
 const PASS_SCORE = AIRLINE_MOCK_PASS_SCORE
 const TOTAL_PREGUNTAS = 25
-
-/** Bancos de los temas abiertos. Añadir un tema es añadir una línea aquí. */
-const BANCOS: { tema: string; ruta: string; preguntas: QuizQuestion[] }[] = [
-  {
-    tema: "NOTAM",
-    ruta: "/app/aerolinea/notam",
-    preguntas: EXAM_QUESTIONS.map((q) => ({
-      id: `notam-${q.id}`,
-      pregunta: q.pregunta,
-      opciones: q.opciones,
-      correcta: q.correcta,
-      explicacion: q.explicacion,
-      referencia: q.referencia,
-      origen: "NOTAM",
-    })),
-  },
-  {
-    tema: "Meteorología",
-    ruta: "/app/aerolinea/meteorologia",
-    preguntas: METAR_EXAM_QUESTIONS.map((q) => ({
-      id: `metar-${q.id}`,
-      pregunta: q.pregunta,
-      opciones: q.opciones,
-      correcta: q.correcta,
-      explicacion: q.explicacion,
-      referencia: q.referencia,
-      origen: "Meteorología",
-    })),
-  },
-]
-
-const BANCO_COMPLETO: QuizQuestion[] = BANCOS.flatMap((b) => b.preguntas)
 
 export function AirlineMockExam() {
   const [empezado, setEmpezado] = useState(false)

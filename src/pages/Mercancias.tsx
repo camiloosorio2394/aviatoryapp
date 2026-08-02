@@ -1,15 +1,19 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
+import { useSession } from "@/hooks/useSession"
 import {
   MP_LECTOR,
   MP_LECTURA_TOTAL,
   MP_SECCIONES,
   MP_TITULO,
   MP_VIGENCIA,
+  resumirMercancias,
 } from "@/lib/mercancias"
+import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 
 /**
  * Hub del tema Mercancías Peligrosas (módulo Ingreso a aerolínea).
@@ -24,8 +28,31 @@ import {
  * entras ahora.
  */
 export function Mercancias() {
+  const { user, isLoading: sessionLoading } = useSession()
   const estudio = MP_SECCIONES.filter((s) => s.grupo !== "practica")
   const pruebas = MP_SECCIONES.filter((s) => s.grupo === "practica")
+
+  // Arranca con el respaldo local para no mostrar cero mientras carga, y se
+  // completa con la base, que es la verdad entre dispositivos.
+  const [progreso, setProgreso] = useState(() => readMercanciasLocal())
+  const [hidratado, setHidratado] = useState(false)
+  const cargando = sessionLoading || (Boolean(user) && !hidratado)
+
+  useEffect(() => {
+    if (sessionLoading || !user) return
+    let cancelado = false
+    void (async () => {
+      const traido = await fetchMercanciasProgress(user.id)
+      if (cancelado) return
+      if (traido) setProgreso(traido)
+      setHidratado(true)
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [user, sessionLoading])
+
+  const resumen = resumirMercancias(progreso)
 
   return (
     <AppLayout>
@@ -52,8 +79,17 @@ export function Mercancias() {
             title="Abrir el módulo"
             blurb="Se lee de corrido, con su propio índice y sin salir del tema. Termina con una práctica de clasificación y un chequeo."
             photo="/infografias/mercancias/portada.webp"
-            cta="Entrar al módulo"
-            status={MP_VIGENCIA}
+            cta={resumen.empty ? "Entrar al módulo" : "Seguir donde ibas"}
+            statusLoading={cargando}
+            progress={resumen.overall}
+            done={resumen.overall >= 100}
+            status={
+              resumen.empty
+                ? `Sin empezar · ${MP_VIGENCIA}`
+                : resumen.overall >= 100
+                  ? "Módulo completo"
+                  : `Vas por el ${resumen.overall}%: ${resumen.lessonRead} de ${MP_LECTURA_TOTAL} secciones y ${resumen.practiceDone} de 4 casos`
+            }
           />
         </div>
 

@@ -56,3 +56,55 @@ export const MP_HUB = "/app/aerolinea/mercancias"
 
 /** Ruta del lector. */
 export const MP_LECTOR = "/app/aerolinea/mercancias/leccion"
+
+/** Casos de la práctica de clasificación. Denominador de esa parte. */
+export const MP_PRACTICA_TOTAL = 4
+
+/** Mínimo del chequeo final, sobre 100. Cuatro de cinco. */
+export const MP_PASS_SCORE = 80
+
+export interface MercanciasResumen {
+  lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
+  lessonPct: number
+  practicePct: number
+  examPct: number
+  /** Avance del módulo entero, 0 a 100. */
+  overall: number
+  empty: boolean
+}
+
+/**
+ * Resume el avance del módulo.
+ *
+ * Las tres partes pesan igual, como en NOTAM y METAR: leer todo sin practicar
+ * ni comprobar no es tener el tema hecho.
+ */
+export function resumirMercancias(p: {
+  lessonScreens: number[]
+  practiceDone: string[]
+  bestScore: number | null
+}): MercanciasResumen {
+  const lessonRead = Math.min(p.lessonScreens.length, MP_LECTURA_TOTAL)
+  const practiceDone = Math.min(p.practiceDone.length, MP_PRACTICA_TOTAL)
+  const best = p.bestScore
+  const passed = best !== null && best >= MP_PASS_SCORE
+
+  const lessonPct = Math.round((lessonRead / MP_LECTURA_TOTAL) * 100)
+  const practicePct = Math.round((practiceDone / MP_PRACTICA_TOTAL) * 100)
+  const examPct = passed ? 100 : (best ?? 0)
+
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
+}
