@@ -1,146 +1,193 @@
-# Tarea: módulo Mercancías Peligrosas, con lector propio
+# Tarea: módulo Mercancías Peligrosas
 
 Pégale esto completo a tu Claude Code, parado en la raíz del repo.
-Cami te pasa aparte el contenido: `Modulo_Mercancias_Peligrosas_Pilotos.docx`,
-16 secciones y 3.741 palabras.
 
-Esto no es "una lección más". Es el primer módulo con **lector propio**, y el
-diseño es el que manda. Si sale como las lecciones actuales, salió mal.
+Es el primer módulo con **lector propio**. El diseño ya existe, es bueno y es
+casi portable directo. Si sale como las lecciones actuales, salió mal.
 
 ---
 
-## 1 · Cómo tiene que verse
+## 1 · El diseño ya está hecho: impórtalo, no lo adivines
 
-Cami tiene el diseño hecho en Claude Design. Es un **lector de curso a pantalla
-completa, en oscuro, con acento ámbar**. Nada de la estética clara que tienen
-hoy las lecciones.
-
-### La estructura de pantalla
+Cami lo hizo en Claude Design. **Impórtalo tú con el MCP `claude_design`**, no
+trabajes de un pantallazo:
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│ ◇ MÓDULO 04            PROGRESO ▓▓▓░░░░░  01/09      RAC 175 · ANEXO   │
-│   Mercancías peligrosas                              18 OACI  [RES.]   │
-├──────────────┬─────────────────────────────────────────────────────────┤
-│ CONTENIDO    │  BRIEFING DEL MÓDULO                                    │
-│              │                                                          │
-│ 00 Briefing  │  Transporte sin                                          │
-│ 01 De dónde  │  riesgos de                                              │
-│ 02 Las nueve │  mercancías                                              │
-│ 03 Grupos    │  peligrosas                                              │
-│ 04 Marcas    │                                                          │
-│ 05 Info al   │  Cuerpo del texto, medida corta.                         │
-│ 06 Ocultas   │                                                          │
-│ 07 Práctica  │  ┌────────┐ ┌────────┐ ┌────────┐                        │
-│ 08 Chequeo   │  │  08    │ │  04    │ │  05    │                        │
-│              │  │ Leccio │ │ Casos  │ │ Pregun │                        │
-│              │  └────────┘ └────────┘ └────────┘                        │
-└──────────────┴─────────────────────────────────────────────────────────┘
+https://claude.ai/design/p/2c3494a5-8704-49d9-93d0-ce93cbf2946b?file=M%C3%B3dulo+Mercanc%C3%ADas+Peligrosas.dc.html
 ```
 
-**Barra superior**: rombo de la marca, número y nombre del módulo, barra de
-progreso con el contador `01 / 09`, y a la derecha **las fuentes, permanentes**:
-`RAC 175 · ANEXO 18 OACI` más un chip verde con la resolución vigente.
+El proyecto trae además `rac175.txt`, que es la fuente normativa, y el PDF del
+material. Léelos.
 
-**Índice lateral**: secciones numeradas `00` a `08`. La activa lleva panel más
-claro y su número en ámbar. Las demás, número apagado.
+### Lo que es el diseño, verificado
 
-**Contenido**: titular de display muy pesado, cuerpo en medida corta, y las
-piezas visuales debajo.
+No es una maqueta: es una **aplicación reactiva completa**, 65 KB de HTML con
+18 KB de lógica.
 
-### Los tokens
+```js
+state = { paso: 0, clase: '3', caso: 0, resp: {}, hechos: {}, quiz: {}, calificado: false }
+PASOS = ['Briefing del módulo', 'De dónde sale la norma', 'Las nueve clases',
+         'Grupos de embalaje', 'Marcas, etiquetas y documentos',
+         'Información al piloto al mando', 'Mercancías ocultas y estiba',
+         'Práctica de clasificación', 'Chequeo final']
+```
 
-Leídos del diseño. **Confírmalos contra el proyecto de Claude Design antes de
-fijarlos**, que estos salen de un pantallazo.
+Ese estado mapea a React casi uno a uno. `paso` es la sección actual, `clase` el
+rombo seleccionado, `caso` el ejercicio de práctica, `resp` y `quiz` las
+respuestas, `calificado` si ya se corrigió.
+
+**Y esto es lo importante**, medido sobre el HTML:
+
+| | |
+|---|---|
+| `position:absolute` | **0** |
+| `display:grid` | 21 |
+| `display:flex` | 39 |
+| `<button>` | 12 |
+| `<img>` / `<svg>` | 0 |
+| `@media` | **0** |
+
+O sea: **no es un lienzo fijo**, está construido con flex y grid. Se porta a
+React sin pelear. Nada que ver con `NotamQueEs.tsx`, que sí es un lienzo
+absoluto de 1687x1125 y por eso obliga a hacer zoom en celular. **No repitas ese
+patrón.**
+
+### Las dos cosas que le faltan al diseño y tienes que añadir
+
+**1. No tiene ni una media query.** Se apoya solo en `flex-wrap`. En celular hay
+que probarlo a 375 px y añadir los cortes que hagan falta: el índice lateral
+tiene que colapsar, la rejilla de clases bajar a una o dos columnas y la barra
+superior reordenarse. **Esto no es opcional: la mitad de los pilotos entran por
+celular.**
+
+**2. No tiene imágenes, y tiene que tenerlas.** Ver el punto 4.
+
+---
+
+## 2 · La paleta y las tipografías
+
+Sacadas del HTML del diseño, no de un pantallazo.
 
 ```css
---mod-bg:      #0A0B0D;   /* fondo del lector */
---mod-panel:   #121418;   /* tarjetas y paneles */
---mod-panel-2: #171A1F;   /* panel del índice activo */
---mod-line:    #232830;   /* bordes y reglas */
---mod-fg:      #FFFFFF;   /* titulares */
---mod-text:    #8B95A1;   /* cuerpo */
---mod-muted:   #5E6875;   /* etiquetas apagadas */
---mod-accent:  #F5A623;   /* ámbar: cifras, progreso, botón, activo */
---mod-ok:      #2ECC71;   /* chip de vigencia */
+--mod-ground:   #E6EAEE;  /* fondo de la pagina */
+--mod-card:     #FFFFFF;  /* la hoja del contenido */
+--mod-band:     #0B2340;  /* barra superior y bandas */
+--mod-title:    #12305F;  /* titulares navy */
+--mod-link:     #1C4E9C;  /* enlaces y acentos azules */
+--mod-blue:     #1B3AA0;  /* badges y numeros */
+--mod-blue-2:   #1858C8;
+--mod-accent:   #F2B233;  /* ambar */
+--mod-text:     #24303F;  /* cuerpo */
+--mod-ink:      #1A2433;  /* texto fuerte */
+--mod-muted:    #6B7686;  /* apagado */
+--mod-on-band:  #CBD8E8;  /* texto sobre navy */
+--mod-line:     #D9DDE3;  /* bordes */
+--mod-panel:    #F6F9FF;  /* panel azul muy claro */
+--mod-panel-2:  #E7EFF9;  /* tarjetas de cifra */
+--mod-panel-ok: #F2FAF3;  /* panel verde, para lo permitido */
+--mod-panel-no: #E9AFA7;  /* panel rojo, para lo prohibido */
+--mod-border-b: #A9BCEA;  /* borde azul claro */
 ```
 
-Van en `src/index.css` bajo una clase `.mod-shell`, con la misma lógica que
-`.doc-sheet`: **una superficie con sus propias reglas que no se invierte con el
-tema**. `.doc-sheet` es la hoja clara; `.mod-shell` es el lector oscuro. Dentro
-de `.mod-shell` se usan las variables `--mod-*` y nunca los tokens del tema.
+Van en `src/index.css` bajo `.mod-shell`, con la misma lógica que `.doc-sheet`:
+**una superficie con reglas propias que no se invierte con el tema**. Dentro de
+`.mod-shell` se usan las variables `--mod-*` y nunca los tokens del tema.
 
-### Las tres tipografías, ya cargadas
+**Tipografías.** El diseño usa Archivo, Roboto y Roboto Mono. La app ya carga
+**Archivo** (700/800), **Inter** y **JetBrains Mono**:
 
-- **Display**: `Archivo` 700/800, para los titulares. Ya está en `index.html`
-- **Cuerpo**: `Inter`
-- **Mono**: `JetBrains Mono` para etiquetas, cifras y códigos: `MÓDULO 04`,
-  `PROGRESO`, `01 / 09`, `UN 3480`, los números del índice, las cifras grandes
-  de las tarjetas
+- **Archivo** para titulares. Igual que el diseño
+- **Inter** en vez de Roboto. Son casi intercambiables y evita cargar otra
+  familia. Si al comparar se ve distinto, avisa antes de añadir Roboto
+- **JetBrains Mono** en vez de Roboto Mono, por lo mismo
 
-### Aquí sí van mayúsculas y monoespaciada
-
-Es una excepción deliberada y acotada al sistema. En el interior de la app está
-prohibido porque se leía como terminal. **Dentro de `.mod-shell` es el lenguaje
-del lector**: micro-etiquetas cortas en mayúscula con letterspacing
-(`BRIEFING DEL MÓDULO`, `CONTENIDO`, `PROGRESO`) y monoespaciada para lo que es
-dato.
-
-Lo que **no** cambia: los titulares van en sentence case. `Transporte sin
-riesgos de mercancías peligrosas`, no en mayúsculas.
+Escala de tamaños del diseño, por uso: **12, 14, 19, 16, 14.5, 13, 15, 13.5,
+24, 10, 17, 20, 11, 38, 44**. No coincide con la escala de la app y **está
+bien**: dentro de `.mod-shell` manda el diseño. Fuera, la escala de siempre.
 
 ---
 
-## 2 · Lo que se conserva del código actual
+## 3 · La estructura de pantalla
 
-El color cambia entero. **El comportamiento no.**
+**Barra superior** (`#0B2340`, sticky): rombo ámbar rotado 45 grados con un `!`,
+el nombre del módulo en Archivo 800 blanco, subtítulo con las fuentes
+(`RAC 175 – Anexo 18 OACI`), barra de progreso ámbar con el contador `01 / 09`,
+y a la derecha el chip de la resolución vigente.
 
-Abre `src/components/lesson/infografias/NotamLineaQ.tsx` y mira **cómo se
-comporta**, ignorando su paleta clara:
+**Índice lateral**: las 9 secciones numeradas `00` a `08`. La activa lleva fondo
+navy con su número en ámbar.
 
-- **Todo es código, cero imágenes.** Colores, fichas, badges, conectores: divs y
-  SVG. Nada de PNG de contenido
-- **Reflowea.** Tres columnas en escritorio, una en celular. El piloto nunca
-  hace zoom para leer
-- **Se toca.** Tocas un elemento y su ficha se resalta, y al revés
-- **El color es la llave.** Cada elemento tiene su color y ese mismo color
-  aparece en su ficha: es lo que ata una cosa con la otra
-- **Poco texto.** Etiquetas y frases cortas dentro de las fichas
+**Contenido**: hoja blanca sobre el gris de fondo, con el titular en navy, los
+paneles y las piezas.
 
-**Y mira lo que NO hay que hacer**: `NotamQueEs.tsx`. Es un lienzo fijo de
-1687x1125 con 24 PNG. Se ve bien en escritorio y en celular obliga a hacer zoom.
-No repitas ese patrón.
+**Banda de recuerda** al pie, navy con `RECUERDA` en ámbar.
 
 ---
 
-## 3 · Arquitectura: lector a pantalla completa
+## 4 · Las imágenes: ya están extraídas y listas
 
-El módulo **sale del layout de la app** mientras se estudia. Nada de `AppLayout`
-con su rail lateral: el lector ocupa la pantalla y tiene su propio cascarón.
+El diseño no trae ninguna y **el módulo las necesita**. Están en el repo:
 
-**Rutas:**
+```
+public/infografias/mercancias/
+  portada.webp     1400px, la foto de apertura
+  clase-1-1.webp   clase-1-4.webp
+  clase-2-1.webp   clase-2-2.webp   clase-2-3.webp
+  clase-3.webp
+  clase-4-1.webp   clase-4-2.webp   clase-4-3.webp
+  clase-5-1.webp   clase-5-2.webp
+  clase-6-1.webp   clase-6-2.webp
+  clase-7.webp     clase-8.webp     clase-9.webp
+```
+
+Son **los rombos oficiales de clase OACI**, sacados del .docx de Cami y pasados
+a WebP: 2,36 MB a 294 KB, un 88 por ciento menos. Los 16 rombos pesan entre 4 y
+10 KB cada uno.
+
+**Úsalos, no los dibujes en SVG.** Son símbolos normalizados y un piloto tiene
+que reconocer el real, no una aproximación.
+
+Van en la sección **02 · Las nueve clases**, que es la pieza central del módulo:
+rejilla de fichas, cada una con su rombo, el número y nombre de la clase, el
+riesgo principal en una frase, ejemplos concretos y las divisiones cuando las
+hay. El diseño ya tiene el selector de clase en el estado (`clase: '3'`), así
+que la ficha se abre al tocar el rombo.
+
+Ese color de clase es el sistema del módulo entero: el de la clase 2 reaparece
+cada vez que se hable de gases en cualquier otra sección.
+
+**Fuera del precache.** `vite.config.ts` ya excluye `infografias/**` con
+`globIgnores` y les da `CacheFirst`. No lo toques, ya está resuelto.
+
+---
+
+## 5 · Arquitectura
+
+El lector **sale del layout de la app** mientras se estudia. Nada de `AppLayout`
+con su rail: el lector ocupa la pantalla y tiene su propio cascarón.
 
 ```
 /app/aerolinea/mercancias              hub del tema (este SÍ va en AppLayout)
 /app/aerolinea/mercancias/leccion      el lector, a pantalla completa
-/app/aerolinea/mercancias/practica     práctica
-/app/aerolinea/mercancias/evaluacion   evaluación
 ```
 
-El hub se queda dentro de la app, como el de NOTAM: es donde se ve el avance y
-se entra. El **lector** es el que sale a pantalla completa, con su barra propia
-y un botón de salir que devuelve al hub.
+El hub se queda dentro de la app, como el de NOTAM: ahí se ve el avance y se
+entra. El lector sale a pantalla completa con su barra propia y un botón de
+salir que devuelve al hub.
 
-**Componentes nuevos, pensados para reutilizar en los módulos que vengan:**
+La práctica (sección 07) y el chequeo (08) **van dentro del lector**, no en
+rutas aparte: el diseño ya los tiene como pasos del mismo flujo.
+
+**Componentes, pensados para reutilizar en los módulos que vengan:**
 
 ```
-src/components/modulo/ModuloShell.tsx      cascarón: barra, indice, progreso
-src/components/modulo/ModuloTopbar.tsx     barra superior con fuentes y progreso
-src/components/modulo/ModuloIndice.tsx     indice lateral numerado
-src/components/modulo/piezas.tsx           tarjetas de cifra, callout, ficha
+src/components/modulo/ModuloShell.tsx     cascaron: barra, indice, progreso
+src/components/modulo/ModuloTopbar.tsx    barra superior
+src/components/modulo/ModuloIndice.tsx    indice lateral numerado
+src/components/modulo/piezas.tsx          tarjeta de cifra, callout, ficha, banda
 ```
 
-Cuando NOTAM y METAR migren a este formato, reutilizan lo mismo. **No lo montes
+Cuando NOTAM y METAR migren a este formato reutilizan lo mismo. **No lo montes
 específico de mercancías peligrosas.**
 
 **Base de datos** (escribe la migración, NO la apliques: Cami la aplica por MCP):
@@ -161,114 +208,47 @@ específico de mercancías peligrosas.**
   ```
 
 **Actividad**: `registrarEstudioDiario("mercancias-leccion")` al marcar una
-sección como leída, `("mercancias-practica")` al resolver un ejercicio, y
-`registrarActividadDeEstudio` al terminar la evaluación. Nunca al montar la
+sección como leída, `("mercancias-practica")` al resolver un caso, y
+`registrarActividadDeEstudio` al terminar el chequeo. Nunca al montar la
 página, solo al completar algo.
 
-**El hub padre**: añade su `CourseCard` en `AirlinePrep.tsx` con cifras reales y
-sácalo de `PROXIMOS` si está.
+**El hub padre**: añade su `CourseCard` en `AirlinePrep.tsx` con cifras reales.
 
-**El simulacro**: añade el banco de la evaluación a `BANCOS` en
+**El simulacro**: añade el banco del chequeo a `BANCOS` en
 `src/pages/AirlineMockExam.tsx`. Es una línea y el simulacro crece solo.
 
 ---
 
-## 4 · Qué forma toma cada sección
+## 6 · Las fuentes y la vigencia van en la barra
 
-El .docx trae 16 secciones. El diseño las agrupa en **9 pantallas, 00 a 08**.
-Esa reagrupación es correcta: mucha prosa del documento es pegamento que
-desaparece al pasar a visual.
+El diseño lo resuelve bien: `RAC 175 – Anexo 18 OACI` en el subtítulo y el chip
+de la resolución, **siempre visibles**.
 
-| # | Pantalla | Contenido del .docx | Forma |
-|---|---|---|---|
-| 00 | Briefing del módulo | Antes de empezar | Titular, tres tarjetas de cifra, y el bloque "por qué te lo van a preguntar" |
-| 01 | De dónde sale la norma | 3. Marco normativo | Tabla de 4 documentos: Anexo 18, Doc 9284, IATA DGR, RAC 175. Quién lo emite, para qué, cada cuánto se reedita |
-| 02 | **Las nueve clases** | 5. Las 9 clases | **La pieza central.** Ver punto 5 |
-| 03 | Grupos de embalaje | 6. Permitidas, restringidas, prohibidas | Tres columnas enfrentadas con color semántico |
-| 04 | Marcas, etiquetas y documentos | 10 y 11 | **Los dos desgloses interactivos.** Ver punto 6 |
-| 05 | Información al piloto al mando | 4 y 9 | Fichas numeradas de responsabilidades. Aquí va el 175.515 |
-| 06 | Mercancías ocultas y estiba | 7 y 8 | Equipaje de pasajeros y baterías de litio. Sí y no, muy visual |
-| 07 | Práctica de clasificación | 12 | 4 casos reales con retroalimentación |
-| 08 | Chequeo final | 13 a 16 | 5 preguntas de entrevista, más el resumen |
-
-**"Por qué te lo van a preguntar" es un bloque recurrente**, no una sección
-suelta. Va donde aplique, con su referencia normativa. Es lo que convierte el
-módulo en preparación de entrevista y no en un manual.
-
----
-
-## 5 · Las nueve clases
-
-Es lo más reconocible del tema y donde el módulo se gana su cara.
-
-Rejilla de 9 fichas. Cada una lleva:
-
-- **El rombo de la clase dibujado en SVG**, con su color y su símbolo
-  normalizados. Son formas geométricas simples: en SVG quedan nítidas a
-  cualquier tamaño y pesan nada. **Ni una sola imagen**
-- Número y nombre de la clase
-- Riesgo principal, en una frase
-- Ejemplos concretos
-- Las divisiones cuando las hay: `1.1` a `1.6`, `2.1` inflamable, `2.2` no
-  inflamable, `2.3` tóxico
-
-Sobre fondo oscuro los colores normalizados de las etiquetas (naranja de
-explosivos, rojo de inflamables, amarillo de comburentes) **destacan solos**.
-Es la ventaja de este diseño: el ámbar del lector convive con ellos sin pelear.
-
-Ese color de clase es el sistema del módulo entero: el color de la clase 2
-reaparece cada vez que se hable de gases en cualquier otra pantalla.
-
----
-
-## 6 · Los dos desgloses interactivos
-
-Son los momentos "línea Q" del módulo, y `NotamLineaQ.tsx` es el modelo de
-comportamiento:
-
-**El NOTOC por columnas.** El formato tiene columnas fijas: tocas una y se
-explica qué va ahí y por qué le importa al piloto.
-
-**La fila de la lista IATA DGR, con el ejemplo UN 3480.** Número UN, nombre
-propio de expedición, clase, grupo de embalaje, instrucción de embalaje,
-cantidad máxima. Cada campo se toca y se explica.
-
-El .docx ya trae el ejemplo trabajado de UN 3480 (baterías de ión litio).
-**Úsalo tal cual, no inventes otro.**
-
----
-
-## 7 · Las fuentes y la vigencia van en la barra, no en un pie
-
-El diseño lo resuelve bien: `RAC 175 · ANEXO 18 OACI` y el chip verde
-`RES. 00478/2016` están **siempre visibles** en la barra superior.
-
-Y el .docx abre con una advertencia que no es opcional:
+Y el .docx abre con una advertencia que no es opcional y va completa en la
+sección 00:
 
 - RAC 175: la fuente es la Edición Original de marzo 2016 (Resolución 00478) y
   ha tenido enmiendas posteriores
 - El Doc 9284 se reedita cada 2 años; la IATA DGR, cada año
 - Cada aerolínea define condiciones propias en su Manual de Operaciones
 
-Eso va completo en la pantalla 00, con tratamiento de aviso. **Un piloto no
-puede salir de aquí creyendo que un límite que leyó es el vigente.**
+**Un piloto no puede salir de aquí creyendo que un límite que leyó es el
+vigente.**
 
 ---
 
-## 8 · AVISO CRÍTICO: el bundle está al borde
+## 7 · AVISO CRÍTICO: el bundle está al borde
 
 `dist/assets/index-*.js` está hoy en **2.028 KB y el límite de Workbox son
 2.048**. Si lo pasas, el build **falla**, no avisa.
 
-Un módulo entero lo revienta. Dos cosas obligatorias, y la primera va antes de
-escribir nada del módulo:
+Un módulo entero lo revienta. Dos cosas, y la primera va **antes** de escribir
+nada del módulo:
 
 1. **Partir las rutas.** `src/App.tsx` importa las 40 páginas de golpe. Pásalas
    a `lazy` + `Suspense`. Es lo que de verdad arregla el problema
-2. **El lector y sus pantallas van con `lazy`.** El registro `INFOGRAFIAS` de
+2. **El lector va con `lazy`.** El registro `INFOGRAFIAS` de
    `src/components/DocLessonBlocks.tsx` ya usa ese patrón: síguelo
-
-Comprueba después de cada tanda:
 
 ```bash
 npm run build
@@ -277,42 +257,38 @@ node -e "const fs=require('fs');fs.readdirSync('dist/assets').filter(f=>f.endsWi
 
 ---
 
-## 9 · Por fases
+## 8 · Por fases, un PR por fase
 
-Un PR de 6.000 líneas no lo revisa nadie. Una por PR.
-
-- **Fase 0**: partir las rutas de `App.tsx` con `lazy`. Sin esto, lo demás no
+- **Fase 0**: partir las rutas de `App.tsx` con `lazy`. Sin esto lo demás no
   compila cuando crezca
-- **Fase 1**: el cascarón. `ModuloShell`, barra, índice y tokens `--mod-*` en
-  `index.css`, con la pantalla 00 de contenido. **Es la que hay que revisar con
-  Cami antes de seguir**: si el cascarón está bien, el resto es rellenarlo
-- **Fase 2**: las nueve clases y los dos desgloses interactivos
-- **Fase 3**: el resto de pantallas, práctica y evaluación
+- **Fase 1**: el cascarón. `ModuloShell`, barra, índice, tokens `--mod-*` y la
+  sección 00. **Párate aquí y enséñaselo a Cami**: si el cascarón está bien, el
+  resto es rellenarlo
+- **Fase 2**: las nueve clases con sus rombos, y las secciones 01 y 03 a 06
+- **Fase 3**: práctica (07) y chequeo (08), con su estado
 - **Fase 4**: migración, logros y actividad. Avisa a Cami para aplicarla
 
 ---
 
-## 10 · Convenciones
+## 9 · Convenciones
 
-Dentro de `.mod-shell` manda el diseño del lector. Fuera, el sistema de siempre.
+Dentro de `.mod-shell` manda el diseño. Fuera, el sistema de siempre.
 
-Lo que aplica en los dos sitios:
+Aplica en los dos sitios:
 
-- Espaciado **4 / 8 / 12 / 16 / 24 / 32 / 48**
 - Español neutro LATAM con **tuteo**. Prohibido el voseo
 - **Prohibido el guion largo en texto visible.** Excepción: el marcador de celda
   sin dato
 - Sin emojis en la UI, sin lenguaje de desarrollador al usuario
 - **Cero mentiras en pantalla.** Donde no hay dato va un guion. Si un ejemplo lo
   construiste para enseñar, el texto lo dice
-- Titulares en sentence case, también dentro del lector
 
-Lo que cambia dentro del lector: la paleta, las micro-etiquetas en mayúscula con
-letterspacing, y la monoespaciada para datos.
+Cambia dentro del lector: la paleta, la escala de tamaños, las micro-etiquetas
+en mayúscula con letterspacing y la monoespaciada para datos.
 
 ---
 
-## 11 · Antes de abrir el PR
+## 10 · Antes de abrir el PR
 
 ```bash
 npx tsc -p tsconfig.app.json --noEmit
@@ -328,22 +304,22 @@ grep -rnE "tenés|podés|practicá|acá\b" src/
 Específico de esto:
 
 ```bash
-# el modulo no puede llevar imagenes de contenido: todo en codigo
-grep -rn "\.png\|\.webp\|\.jpg" src/components/modulo/ src/lib/mercanciasLesson.ts
-
 # dentro del lector se usan los tokens --mod-*, no los del tema
 grep -rn "var(--background)\|var(--foreground)\|var(--card)" src/components/modulo/
 
-# la leccion no puede ser un muro de parrafos
-grep -c 'kind: "p"' src/lib/mercanciasLesson.ts
+# los rombos oficiales se usan, no se dibujan
+grep -c "infografias/mercancias" src/components/modulo/*.tsx src/lib/mercancias*.ts
+
+# nada de maquetacion absoluta: el diseño no la tiene y el port tampoco
+grep -c "position:absolute\|absolute inset" src/components/modulo/*.tsx
 ```
 
-Ese último es la prueba de fuego. La lección de NOTAM tiene **49 bloques de
-párrafo en 13 secciones** y por eso se lee como documento. **Aquí no deberían
-pasar de 15 en 9 pantallas.** Si te salen 40, escribiste un documento y hay que
-volver a empezar.
+**Y la prueba de fuego, que es en celular.** Abre el lector a 375 px de ancho.
+El diseño no trae media queries, así que si no las añadiste se ve roto. Índice
+colapsado, rejilla de clases en una columna, barra reordenada, y nada de scroll
+horizontal.
 
-Y verifica el deploy antes de dar nada por hecho:
+Verifica el deploy antes de dar nada por hecho:
 
 ```bash
 gh api repos/camiloosorio2394/aviatoryapp/deployments --jq '.[0] | "\(.sha[0:7]) \(.environment)"'
