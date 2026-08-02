@@ -11,6 +11,16 @@
 -- esas nueve. Por eso esto no es solo un insert.
 -- ============================================================================
 
+-- ─── La restricción de `type`, primero ──────────────────────────────────────
+-- Sin esto la migración FALLA ENTERA. La restricción original solo admitía los
+-- tipos del marcador de posición (manual, sop, quick_ref, performance_tool,
+-- w_and_b_calc, briefing_template, checklist, crm_case, tem_case,
+-- accident_study, article) y la pantalla real usa `pdf` para el documento
+-- alojado y `referencia` para la ficha sin archivo (Library.tsx:182).
+alter table public.library_items drop constraint if exists library_items_type_check;
+alter table public.library_items add constraint library_items_type_check
+  check (type in ('pdf', 'referencia'));
+
 -- ─── Fuera las categorías del marcador de posición ──────────────────────────
 -- Con salvaguarda: solo se borra la que no tenga NI UN item colgando. Si
 -- alguien subió algo mientras tanto, esa categoría se queda y se ve en pantalla.
@@ -39,9 +49,12 @@ on conflict (slug) do update set
   order_index = excluded.order_index;
 
 -- ─── Contador de aperturas ──────────────────────────────────────────────────
--- El brief la daba por existente, pero `bump_library_item_views` NO está en la
--- base: comprobado llamándola con todas las firmas plausibles y respondiendo
--- siempre "Could not find the function". Se crea aquí.
+-- OJO, hay DOS funciones con este nombre y son distintas:
+--   · `bump_library_item_views()` sin argumentos, que es de DISPARADOR y ya
+--     existía, colgando de trg_bump_library_views sobre user_library_views.
+--     No se toca aquí. Es la que hacía fallar la comprobación por firma.
+--   · `bump_library_item_views(bigint)`, la RPC que llama la Biblioteca. Esta
+--     sí faltaba y es la que se crea abajo.
 create or replace function public.bump_library_item_views(p_item_id bigint)
 returns void
 language sql
