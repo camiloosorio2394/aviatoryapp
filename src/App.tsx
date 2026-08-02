@@ -68,6 +68,8 @@ const NotamLesson = page(() => import("@/pages/NotamLesson"), "NotamLesson")
 const NotamDecoder = page(() => import("@/pages/NotamDecoder"), "NotamDecoder")
 const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice")
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
+const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
+const MercanciasLector = page(() => import("@/pages/MercanciasLector"), "MercanciasLector")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const Library = page(() => import("@/pages/Library"), "Library")
 const VaultQuizPlayer = page(() => import("@/pages/VaultQuizPlayer"), "VaultQuizPlayer")
@@ -343,6 +345,24 @@ function App() {
           element={
             <RequireAuth>
               <MetarExam />
+            </RequireAuth>
+          }
+        />
+        {/* Tema Mercancías Peligrosas. El hub vive dentro de la app; el lector
+            sale a pantalla completa con su propio cascarón. */}
+        <Route
+          path="/app/aerolinea/mercancias"
+          element={
+            <RequireAuth>
+              <Mercancias />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/mercancias/leccion"
+          element={
+            <RequireAuth>
+              <MercanciasLector />
             </RequireAuth>
           }
         />

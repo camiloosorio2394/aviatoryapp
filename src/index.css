@@ -749,6 +749,66 @@
 .doc-prose { max-width: 68ch; }
 .doc-prose p { line-height: 1.75; }
 
+/* === Lector de módulo (.mod-shell) ===================================== */
+/* La superficie de los módulos con lector propio, estrenada por Mercancías
+   Peligrosas. Misma lógica que .doc-sheet: una superficie con reglas propias
+   que NO se invierte con el tema, porque es material de estudio y se lee
+   seguido. Dentro de .mod-shell se usan las variables --mod-* y nunca los
+   tokens del tema; fuera, el sistema de siempre.
+
+   Los valores salen del diseño de Cami, no de un pantallazo. El verde y el
+   rojo son semánticos: permitido y prohibido. No usarlos para otra cosa. */
+.mod-shell {
+  --mod-ground:   #E6EAEE;  /* fondo de la página */
+  --mod-card:     #FFFFFF;  /* la hoja del contenido */
+  --mod-band:     #0B2340;  /* barra superior y bandas */
+  --mod-title:    #12305F;  /* titulares navy */
+  --mod-link:     #1C4E9C;  /* enlaces y acentos azules */
+  --mod-blue:     #1B3AA0;  /* badges y números */
+  --mod-blue-2:   #1858C8;
+  --mod-accent:   #F2B233;  /* ámbar */
+  --mod-text:     #24303F;  /* cuerpo */
+  --mod-ink:      #1A2433;  /* texto fuerte */
+  --mod-muted:    #6B7686;  /* apagado */
+  --mod-on-band:  #CBD8E8;  /* texto sobre navy */
+  --mod-line:     #D9DDE3;  /* bordes */
+  --mod-panel:    #F6F9FF;  /* panel azul muy claro */
+  --mod-panel-2:  #E7EFF9;  /* tarjetas de cifra */
+  --mod-border-b: #A9BCEA;  /* borde azul claro */
+
+  /* Semánticos: permitido y prohibido */
+  --mod-ok-bg:    #F2FAF3;
+  --mod-ok-line:  #A6D3B3;
+  --mod-ok-fg:    #1E7A3C;
+  --mod-no-bg:    #E9AFA7;
+  --mod-no-fg:    #B03024;
+
+  /* El diseño usa Archivo para titulares, y la app ya la carga (700/800).
+     Roboto y Roboto Mono se sustituyen por Inter y JetBrains Mono, que ya
+     están cargadas y son intercambiables a estos tamaños. */
+  --mod-display: "Archivo", var(--font-sans);
+
+  background: var(--mod-ground);
+  color: var(--mod-text);
+}
+.mod-shell .mod-display { font-family: var(--mod-display); }
+/* Utilidades, para no repetir var(--mod-*) en cada clase de Tailwind */
+.mod-shell .mod-muted { color: var(--mod-muted); }
+.mod-shell .mod-ink   { color: var(--mod-ink); }
+.mod-shell .mod-title { color: var(--mod-title); }
+.mod-shell .mod-rule  { border-color: var(--mod-line); }
+.mod-shell .mod-card  { background: var(--mod-card); }
+.mod-shell .mod-panel { background: var(--mod-panel); }
+/* Micro-etiqueta en mayúscula con letterspacing: el patrón del diseño para
+   rotular un bloque sin gastar un titular. */
+.mod-shell .mod-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mod-muted);
+}
+
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
