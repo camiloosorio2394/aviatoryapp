@@ -6,6 +6,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
+import { supabase } from "@/integrations/supabase/client"
 import {
   METAR_EXAM_PASS_SCORE,
   METAR_EXAM_QUESTIONS,
@@ -27,8 +28,9 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  * Ruta: /app/aerolinea/meteorologia
  *
  * El tema completo: lección, decodificador, práctica y evaluación. El TAF
- * tendrá su propia lección. El progreso de lección vive en user_metar_progress
- * con respaldo local; el de práctica y evaluación, de momento solo local.
+ * tendrá su propia lección. Las tres partes con progreso viven en la base con
+ * respaldo local: lección y práctica en user_metar_progress, la evaluación en
+ * user_metar_exam_attempts.
  *
  * Las partes se presentan con la tarjeta de curso compartida, la misma del
  * catálogo de la portada y del hub de NOTAM.
@@ -38,9 +40,17 @@ export function Metar() {
   const { user, isLoading: sessionLoading } = useSession()
   // Arranca con el respaldo local para no mostrar cero mientras carga, y se
   // completa con lo que haya en la base (que es la verdad entre dispositivos).
-  const [lessonScreens, setLessonScreens] = useState<number[]>(
-    () => readMetarProgress().lessonScreens
-  )
+  // Las tres partes se hidratan juntas. Antes solo la lección venía de la base
+  // y la práctica y la evaluación se leían del respaldo local, así que en otro
+  // dispositivo el tema decía "0 de 10 informes" sobre trabajo ya hecho.
+  const [progreso, setProgreso] = useState(() => {
+    const local = readMetarProgress()
+    return {
+      lessonScreens: local.lessonScreens,
+      practiceDone: local.practiceDone,
+      bestExamScore: local.bestExamScore,
+    }
+  })
 
   useEffect(() => {
     if (sessionLoading) return
@@ -49,13 +59,28 @@ export function Metar() {
     let cancelled = false
 
     void (async () => {
-      const fetched = await fetchMetarProgress(uid)
+      const [fetched, examRes] = await Promise.all([
+        fetchMetarProgress(uid),
+        supabase
+          .from("user_metar_exam_attempts")
+          .select("score")
+          .eq("user_id", uid)
+          .order("score", { ascending: false })
+          .limit(1),
+      ])
       if (cancelled || !fetched) return
       const remote = await pushPendingMetarProgress(fetched)
       if (cancelled) return
-      setLessonScreens(
-        Array.from(new Set([...readMetarProgress().lessonScreens, ...remote.lessonScreens]))
+      const local = readMetarProgress()
+      const best = (examRes.data ?? [])[0]?.score
+      const scores = [typeof best === "number" ? best : null, local.bestExamScore].filter(
+        (s): s is number => typeof s === "number"
       )
+      setProgreso({
+        lessonScreens: Array.from(new Set([...local.lessonScreens, ...remote.lessonScreens])),
+        practiceDone: Array.from(new Set([...local.practiceDone, ...remote.practiceDone])),
+        bestExamScore: scores.length > 0 ? Math.max(...scores) : null,
+      })
     })()
 
     return () => {
@@ -63,12 +88,7 @@ export function Metar() {
     }
   }, [user?.id, sessionLoading])
 
-  const local = readMetarProgress()
-  const resumen = resumirMetar({
-    lessonScreens,
-    practiceDone: local.practiceDone,
-    bestExamScore: local.bestExamScore,
-  })
+  const resumen = resumirMetar(progreso)
 
   const partes: CourseCardProps[] = [
     {

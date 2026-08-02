@@ -58,13 +58,14 @@ export async function markMetarProgress(mark: {
   const { lessonScreen = null, practiceId = null } = mark
 
   // El respaldo local primero: si la red falla, el progreso igual queda.
-  if (lessonScreen !== null) {
-    const local = readMetarProgress()
-    if (!local.lessonScreens.includes(lessonScreen)) {
-      writeMetarProgress({
-        lessonScreens: [...local.lessonScreens, lessonScreen].sort((a, b) => a - b),
-      })
-    }
+  const local = readMetarProgress()
+  if (lessonScreen !== null && !local.lessonScreens.includes(lessonScreen)) {
+    writeMetarProgress({
+      lessonScreens: [...local.lessonScreens, lessonScreen].sort((a, b) => a - b),
+    })
+  }
+  if (practiceId !== null && !local.practiceDone.includes(practiceId)) {
+    writeMetarProgress({ practiceDone: [...local.practiceDone, practiceId] })
   }
 
   try {
@@ -96,12 +97,20 @@ export async function pushPendingMetarProgress(
 ): Promise<MetarRemoteProgress> {
   const local = readMetarProgress()
   const pendingScreens = local.lessonScreens.filter((n) => !remote.lessonScreens.includes(n))
-  if (pendingScreens.length === 0) return remote
+  const pendingPractice = local.practiceDone.filter((id) => !remote.practiceDone.includes(id))
 
-  const tasks = pendingScreens.map(
-    (n) => async () =>
-      await supabase.rpc("metar_mark_progress", { p_lesson_screen: n, p_practice_id: null })
-  )
+  if (pendingScreens.length === 0 && pendingPractice.length === 0) return remote
+
+  const tasks: (() => Promise<unknown>)[] = [
+    ...pendingScreens.map(
+      (n) => async () =>
+        await supabase.rpc("metar_mark_progress", { p_lesson_screen: n, p_practice_id: null })
+    ),
+    ...pendingPractice.map(
+      (id) => async () =>
+        await supabase.rpc("metar_mark_progress", { p_lesson_screen: null, p_practice_id: id })
+    ),
+  ]
 
   try {
     await inBatches(tasks)
@@ -115,6 +124,6 @@ export async function pushPendingMetarProgress(
     lessonScreens: Array.from(new Set([...remote.lessonScreens, ...pendingScreens])).sort(
       (a, b) => a - b
     ),
-    practiceDone: remote.practiceDone,
+    practiceDone: Array.from(new Set([...remote.practiceDone, ...pendingPractice])),
   }
 }

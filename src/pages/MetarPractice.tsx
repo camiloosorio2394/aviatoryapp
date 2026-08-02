@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -17,12 +17,9 @@ import { SectionTitle } from "@/components/ui/section-title"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { LEVEL_META, accentText, type NotamLevel } from "@/lib/notam"
-import {
-  METAR_DISCLAIMERS,
-  METAR_EXERCISES,
-  readMetarProgress,
-  writeMetarProgress,
-} from "@/lib/metar"
+import { METAR_DISCLAIMERS, METAR_EXERCISES, readMetarProgress } from "@/lib/metar"
+import { fetchMetarProgress, markMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
+import { useSession } from "@/hooks/useSession"
 
 /**
  * Práctica del tema METAR (ruta /app/aerolinea/meteorologia/practica).
@@ -32,7 +29,9 @@ import {
  * modelo. Escribir primero es lo que entrena; leer la respuesta antes de
  * intentarlo solo produce la sensación de haberla sabido.
  *
- * El progreso vive en el respaldo local con el resto del tema.
+ * El progreso va por markMetarProgress: respaldo local Y base, como la práctica
+ * de NOTAM. Escribía solo en localStorage, así que en otro dispositivo los 10
+ * informes salían en cero y el porcentaje del tema en el hub mentía.
  */
 
 type LevelFilter = NotamLevel | "todos"
@@ -44,11 +43,33 @@ function levelLabel(l: LevelFilter): string {
 }
 
 export function MetarPractice() {
+  const { user } = useSession()
   const [level, setLevel] = useState<LevelFilter>("todos")
   const [idx, setIdx] = useState(0)
   const [answer, setAnswer] = useState("")
   const [revealed, setRevealed] = useState(false)
   const [doneKeys, setDoneKeys] = useState<string[]>(() => readMetarProgress().practiceDone)
+
+  // Arranca con el respaldo local y lo completa con la base: es lo que hace que
+  // los ejercicios resueltos en otro dispositivo aparezcan aquí. De paso sube lo
+  // que se resolvió sin sesión. Espejo de NotamPractice.
+  useEffect(() => {
+    const uid = user?.id
+    if (!uid) return
+    let cancelled = false
+
+    void (async () => {
+      const fetched = await fetchMetarProgress(uid)
+      if (cancelled || !fetched) return
+      const remote = await pushPendingMetarProgress(fetched)
+      if (cancelled || remote.practiceDone.length === 0) return
+      setDoneKeys((prev) => Array.from(new Set([...prev, ...remote.practiceDone])))
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id])
 
   const list = useMemo(
     () => (level === "todos" ? METAR_EXERCISES : METAR_EXERCISES.filter((e) => e.nivel === level)),
@@ -86,9 +107,8 @@ export function MetarPractice() {
 
   function marcarResuelto(): void {
     if (key === "" || doneKeys.includes(key)) return
-    const next = [...doneKeys, key]
-    setDoneKeys(next)
-    writeMetarProgress({ practiceDone: next })
+    setDoneKeys([...doneKeys, key])
+    void markMetarProgress({ practiceId: key })
     void registrarEstudioDiario("metar-practica")
   }
 

@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { QuizEngine } from "@/components/QuizEngine"
 import type { QuizQuestion, QuizResultado } from "@/components/QuizEngine"
 import { appButtonClass } from "@/lib/buttonStyles"
+import { supabase } from "@/integrations/supabase/client"
 import { registrarActividadDeEstudio } from "@/lib/activity"
 import { accentText } from "@/lib/notam"
 import {
@@ -22,11 +23,32 @@ import {
  * comprobaba si había aprendido, así que el tema no podía marcarse como
  * completo. Misma mecánica y mismo mínimo que la evaluación de NOTAM.
  *
- * El mejor puntaje se guarda en el respaldo local. La tabla espejo de
- * user_notam_exam_attempts está escrita en la migración
- * 20260801020000_metar_evaluacion.sql: cuando se aplique, el intento también
- * viajará entre dispositivos.
+ * El intento se guarda en los dos sitios: el respaldo local siempre (la
+ * evaluación funciona sin sesión y sin red) y user_metar_exam_attempts cuando
+ * hay sesión, que es lo que lo hace viajar entre dispositivos y lo que dispara
+ * la revisión del logro metar_master en la base.
  */
+/**
+ * Guarda el intento en la base. Sin sesión no hay dónde: lo local ya quedó y es
+ * el caso esperado de quien estudia sin cuenta.
+ */
+async function persistirIntento(r: QuizResultado): Promise<void> {
+  try {
+    const { data } = await supabase.auth.getUser()
+    const userId = data.user?.id
+    if (!userId) return
+    const { error } = await supabase.from("user_metar_exam_attempts").insert({
+      user_id: userId,
+      score: r.score,
+      correct: r.aciertos,
+      total: r.total,
+    })
+    if (error) console.warn("metar exam save", error.message)
+  } catch (err) {
+    console.warn("metar exam save", err)
+  }
+}
+
 export function MetarExam() {
   const preguntas: QuizQuestion[] = METAR_EXAM_QUESTIONS.map((q) => ({
     id: q.id,
@@ -38,10 +60,12 @@ export function MetarExam() {
   }))
 
   function guardar(r: QuizResultado): void {
+    // El respaldo local primero: se guarda siempre, aunque la red falle.
     const previo = readMetarProgress().bestExamScore
     if (previo === null || r.score > previo) {
       writeMetarProgress({ bestExamScore: r.score })
     }
+    void persistirIntento(r)
     // La evaluación cuenta como día estudiado, con sus preguntas y aciertos.
     void registrarActividadDeEstudio({ questions: r.total, correct: r.aciertos })
   }

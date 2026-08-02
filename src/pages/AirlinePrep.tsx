@@ -96,9 +96,14 @@ export function AirlinePrep() {
       bestExamScore: local.bestExamScore,
     }
   })
-  const [metarScreens, setMetarScreens] = useState<number[]>(
-    () => readMetarProgress().lessonScreens
-  )
+  const [metarProgress, setMetarProgress] = useState(() => {
+    const local = readMetarProgress()
+    return {
+      lessonScreens: local.lessonScreens,
+      practiceDone: local.practiceDone,
+      bestExamScore: local.bestExamScore,
+    }
+  })
   const [mejorSimulacro, setMejorSimulacro] = useState<number | null>(
     () => readAirlineMockLocal().bestScore
   )
@@ -117,11 +122,17 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, examRes, mockRes] = await Promise.all([
+      const [notamRes, metarRes, examRes, metarExamRes, mockRes] = await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
         supabase
           .from("user_notam_exam_attempts")
+          .select("score")
+          .eq("user_id", user.id)
+          .order("score", { ascending: false })
+          .limit(1),
+        supabase
+          .from("user_metar_exam_attempts")
           .select("score")
           .eq("user_id", user.id)
           .order("score", { ascending: false })
@@ -145,9 +156,16 @@ export function AirlinePrep() {
         })
       }
       if (metarRes) {
-        setMetarScreens(
-          Array.from(new Set([...metarRes.lessonScreens, ...readMetarProgress().lessonScreens]))
+        const best = (metarExamRes.data ?? [])[0]?.score
+        const local = readMetarProgress()
+        const scores = [typeof best === "number" ? best : null, local.bestExamScore].filter(
+          (s): s is number => typeof s === "number"
         )
+        setMetarProgress({
+          lessonScreens: Array.from(new Set([...metarRes.lessonScreens, ...local.lessonScreens])),
+          practiceDone: Array.from(new Set([...metarRes.practiceDone, ...local.practiceDone])),
+          bestExamScore: scores.length > 0 ? Math.max(...scores) : null,
+        })
       }
       setMejorSimulacro(mockRes)
       setHidratado(true)
@@ -159,14 +177,11 @@ export function AirlinePrep() {
   }, [user, sessionLoading])
 
   const notam = useMemo(() => resumirNotam(notamProgress), [notamProgress])
-  const metar = useMemo(() => {
-    const local = readMetarProgress()
-    return resumirMetar({
-      lessonScreens: metarScreens,
-      practiceDone: local.practiceDone,
-      bestExamScore: local.bestExamScore,
-    })
-  }, [metarScreens])
+  // Las tres partes salen de la misma fuente ya unida (base + respaldo local).
+  // Antes la lección venía de la base y la práctica y la evaluación solo de
+  // localStorage, así que en otro dispositivo el porcentaje de METAR mentía:
+  // la lección aparecía y los 10 informes y la evaluación salían en cero.
+  const metar = useMemo(() => resumirMetar(metarProgress), [metarProgress])
 
   const temas: TemaEstado[] = useMemo(() => {
     const lista: TemaEstado[] = [
