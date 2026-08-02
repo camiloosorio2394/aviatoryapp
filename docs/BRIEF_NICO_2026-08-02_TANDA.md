@@ -133,165 +133,123 @@ Lo que falta es que el hub lo lea y lo muestre.
 
 ---
 
-## 5 · La Biblioteca: portada por materias, buscador y filtros 🟡
+## 5 · La Biblioteca es un estante, no una tabla 🟡
 
-La Biblioteca funciona y **tiene 6 documentos**. Esto la reestructura como la
-quiere Cami y la prepara para crecer, **sin que se vea absurda con seis**.
+**Míralo antes de escribir nada.** La maqueta aprobada por Cami:
 
-### La estructura que pidió Cami
+https://claude.ai/code/artifact/196cfbeb-71f8-4923-b614-b53ac85017d3
 
-```
-┌──────────────────────────────────────────────────────┐
-│   Buscar documentos…                        [grande] │
-├──────────────────────────────────────────────────────┤
-│   Favoritos    Recientes    Descargados              │
-├──────────────────────────────────────────────────────┤
-│   ┌────────┐ ┌────────┐ ┌────────┐ ┌────────┐        │
-│   │ icono  │ │ icono  │ │ icono  │ │ icono  │        │
-│   │Meteoro-│ │Aerodi- │ │Navega- │ │Perfor- │        │
-│   │logía   │ │námica  │ │ción    │ │mance   │        │
-│   │ 4 docs │ │ 2 docs │ │ 3 docs │ │ 1 doc  │        │
-│   │ 1 línea│ │ 1 línea│ │ 1 línea│ │ 1 línea│        │
-│   └────────┘ └────────┘ └────────┘ └────────┘        │
-└──────────────────────────────────────────────────────┘
-```
+`src/pages/Library.tsx` se reemplaza entero por eso.
 
-Al entrar a una materia, sus documentos en tarjetas: tipo, fuente, edición,
-páginas y los botones de acción.
+### Qué es
 
-### Las decisiones, ya tomadas. No las reabras
-
-**La portada es por MATERIA. El módulo se queda por debajo, no desaparece.**
-
-Son dos preguntas distintas y las dos hacen falta: la materia dice *de qué
-trata* y es como navega un piloto que busca algo; el módulo dice *dónde encaja
-en el curso* y es lo que necesita el hub de cada módulo para enlazar su
-bibliografía.
-
-- **La materia va en `tags`**, que ya existe en `library_items` y está sin usar.
-  Es la portada y el filtro
-- **`category_id` se queda como está**, con los módulos. No lo toques: los hubs
-  de módulo enlazan por ahí y eso sigue funcionando
-- Un documento puede tener varias materias. El RAC 175 es Reglamentación **y**
-  Mercancías peligrosas
-
-Las 13 materias, con su icono de la librería (no emojis):
+Filas con rótulo, cada una con desplazamiento horizontal propio, y en cada fila
+las portadas de los documentos. Como un estante de librería, no como una rejilla
+y mucho menos como una tabla.
 
 ```
-meteorologia          Meteorología
-aerodinamica          Aerodinámica
-navegacion            Navegación
-performance           Performance
-peso-balance          Peso y balance
-mercancias            Mercancías peligrosas
-seguridad             Seguridad operacional
-factores-humanos      Factores humanos y CRM
-reglamentacion        Reglamentación aeronáutica
-comunicaciones        Comunicaciones
-cartas                Cartas aeronáuticas
-espacio-aereo         Espacio aéreo y ATS
-helicopteros          Helicópteros
+Esenciales                                Elegidos a mano
+  [portada] [portada] [portada] →
+
+Reglamentos de Colombia · RAC             15 documentos
+  [ ] [ ] [ ] [ ] [ ] [ ] →
+
+Reglamentos latinoamericanos · LAR        6 documentos
+  [ ] [ ] [ ] →
+
+Material de Aviatory
+  [ ] [ ] →
 ```
 
-### El problema de las 13 tarjetas con 6 documentos
+**La tarjeta:** portada, título, y una línea de meta (`Aerocivil · 96 p.`). Nada
+más. Al tocarla se abre el visor.
 
-**Léelo con cuidado, porque es el error que ya cometimos una vez.**
+**La portada manda.** Proporción `1055/1491`, que es A4 exacto y es lo que miden
+las de Cami. `object-fit: cover`, radio 6px, sombra, y una franja de lomo a la
+izquierda con degradado, que es lo que las hace parecer libros y no recuadros.
 
-Con 6 documentos, once de las trece tarjetas dirían "0 documentos". Trece
-tarjetas y once vacías. Eso es exactamente el hallazgo número uno de la
-auditoría de julio: *el interior estaba diseñado para un producto que todavía no
-existía*.
+Al pasar por encima, la portada sube 6px y la sombra crece. El desplazamiento
+lleva `scroll-snap-type: x proximity` para que las portadas queden alineadas al
+soltar.
 
-**Lo que hay que hacer**, y es el patrón que la app ya usa en `AirlinePrep.tsx`
-y que Cami aprobó:
+### Por qué por familia y no por materia
 
-- **Se muestran solo las materias que tienen documentos.** Con tarjeta, su
-  cifra real y su descripción
-- Debajo, **una sola línea de texto** con las que vienen: "Estamos cargando
-  Aerodinámica, Navegación, Performance y otras seis." No trece tarjetas
-  apagadas
-- Cuando una materia recibe su primer documento, aparece sola. Sin tocar código
+Un documento aeronáutico casi nunca trata de una sola materia: el RAC 91 toca
+meteorología, performance, comunicaciones y espacio aéreo a la vez. Pero
+**familia tiene una sola**, así que no hay documento en cuatro filas ni
+contadores inflados.
 
-**Nunca una tarjeta que diga "0 documentos".** Es la regla de cero mentiras
-aplicada al vacío: no se miente hacia arriba con cifras infladas ni hacia abajo
-con ceros deprimentes.
+Y sobre todo: **el número es el nombre.** Un piloto no busca "algo de
+operaciones", busca el RAC 91. Las portadas de Cami llevan el número enorme, así
+que una fila de RAC se recorre leyendo solo los números. Ordénalos por número
+dentro de cada fila.
 
-### Los tres accesos rápidos
+### La base ya está lista, no la toques
 
-**Recientes sale gratis.** La tabla `user_library_views` ya existe con
-`user_id`, `item_id`, `viewed_at` y `duration_seconds`, con RLS propia. Inserta
-al abrir un documento y léela ordenada por fecha. No hace falta migración.
+Aplicado en producción. `library_items` tiene ahora:
 
-**Favoritos** necesita tabla nueva (abajo).
-
-**Descargados** solo tiene sentido si hay descarga, y la descarga es por
-documento (ver más abajo). Si al final solo dos documentos son descargables,
-**ese acceso rápido no va en esta versión**: un filtro que devuelve siempre lo
-mismo no es un filtro.
-
-Y los tres siguen la misma regla que los demás controles: **aparecen cuando
-tienen algo que mostrar.** Un "Favoritos" vacío no se pinta.
-
-**La descarga es por documento, no global.** Cami pidió hace dos días que el PDF
-no se pudiera copiar, y el visor se construyó pintando a canvas **sin capa de
-texto** justamente para eso. Un botón de descargar lo anula.
-
-- Campo nuevo `descargable boolean not null default false`
-- Se pone en `true` solo donde la licencia lo permite: RAC 175 y LAR 175 son
-  reglamentos públicos
-- **Y no añadas `TextLayer` al visor** aunque dé búsqueda dentro del documento.
-  Esa capa es lo que haría el PDF copiable
-
-**Sin emojis.** Iconos de la librería, como el resto de la app.
-
-**El nivel (básico, intermedio, avanzado) queda fuera de esta versión.** Un RAC
-no es básico ni avanzado, es una norma. Clasificar reglamentos así se vuelve
-arbitrario y nadie lo mantiene. Si alguien lo echa de menos, se añade.
-
-### Lo que sí entra
-
-**Número de páginas**, columna nueva. Y **no lo escribe nadie a mano**: pdf.js
-ya lo sabe al abrir el documento, así que la primera vez que alguien lo abre se
-guarda. Es gratis y siempre correcto.
-
-**Favoritos**, con tabla propia:
-
-```sql
-create table if not exists public.user_library_favorites (
-  user_id  uuid not null references auth.users(id) on delete cascade,
-  item_id  bigint not null references public.library_items(id) on delete cascade,
-  added_at timestamptz not null default now(),
-  primary key (user_id, item_id)
-);
+```
+portada_url  ruta en public/biblioteca/portadas
+familia      rac | lar | oaci | iata | aviatory | otro   (con restriccion)
+destacado    boolean, entra en la fila "Esenciales"
+paginas      int
 ```
 
-Con RLS de select, insert y delete propios. Escribe la migración, **no la
-apliques**: Cami la aplica por MCP.
+Y los tres documentos ya vienen con su familia, su portada y sus páginas. Las
+**portadas ya están en el repo**, en `public/biblioteca/portadas/`, a WebP de
+900 px.
 
-**El buscador va grande y arriba**, como pidió Cami, y busca en título,
-descripción, fuente y `tags`. Con 6 documentos filtra en memoria y sobra: no
-montes búsqueda en la base todavía.
+Las tres fichas de OACI e IATA quedaron **despublicadas** (`is_published =
+false`): la Biblioteca solo habla de lo que está cargado. No las revivas.
 
-Lo que sí tiene que cumplir, que es el ejemplo que dio Cami: escribir **"METAR"**
-encuentra el documento **aunque esté guardado bajo Meteorología**. Por eso busca
-sobre `tags` y no solo sobre el título.
+### Las filas, y de dónde sale cada una
 
-### La regla que hace que no se vea absurda
-
-**Cada control aparece solo cuando hay suficiente que controlar.**
-
-| Documentos | Qué se muestra |
+| Fila | De dónde sale |
 |---|---|
-| menos de 12 | Materias con contenido y sus tarjetas. Sin filtros |
-| 12 o más | Aparece el buscador |
-| 25 o más | Aparecen los filtros de tipo |
+| **Esenciales** | `destacado = true`. Curada a mano por Cami |
+| **Reglamentos de Colombia · RAC** | `familia = 'rac'`, ordenados por número |
+| **Reglamentos latinoamericanos · LAR** | `familia = 'lar'` |
+| **OACI** | `familia = 'oaci'` |
+| **Material de Aviatory** | `familia = 'aviatory'` |
 
-Los umbrales van como constantes con nombre en un solo sitio, no como números
-sueltos repartidos por el componente.
+Dos filas más que **salen gratis con datos que ya existen**:
 
-Sí, Cami pidió el buscador arriba desde el principio. **Ponlo desde el
-principio si te cabe sin que se vea vacío**, pero los filtros de tipo con seis
-documentos no. Enseña la primera versión antes de añadir la barra entera.
+- **"Del módulo que estás estudiando"**, con `category_id`. Si el piloto está en
+  Mercancías, arriba le salen el RAC 175 y el LAR 175. Cero datos nuevos
+- **"Seguir leyendo"**, con `user_library_views`, que ya tiene `viewed_at` y RLS
+  propia. El documento que dejó a medias
+
+**Una fila sin documentos no se pinta.** Nunca un carril vacío ni un "0
+documentos".
+
+### El número de páginas se rellena solo
+
+No lo escribe nadie a mano. `pdf.js` ya sabe cuántas páginas tiene un documento
+al abrirlo, y el visor ya usa pdf.js. La primera vez que alguien abre un
+documento con `paginas` en null, se guarda. Gratis y siempre correcto.
+
+### Lo que NO lleva, y es deliberado
+
+Cami lo dijo con estas palabras: *"no vamos a poner edición vigente ni nada de
+eso, solo necesito nombrar cada documento"*.
+
+- **Sin estados de vigencia**, sin semáforos, sin "verificado hace X"
+- **Sin estanterías por materia.** Se probó y se descartó
+- **Sin nivel** básico, intermedio o avanzado
+- **Sin filtros.** Ni de tipo, ni de materia, ni de nada
+- **Sin emojis.** Iconos de la librería si hacen falta
+- **Sin botón de descargar.** El visor pinta a canvas sin capa de texto a
+  propósito, para que no se pueda copiar. Un botón de descargar lo anula
+- **El buscador tampoco entra todavía.** Con 3 documentos sobra. Se añade cuando
+  pasen de 25, buscando por número y nombre
+
+**No añadas nada de esto "por si acaso".** Cada cosa que se metió de más en la
+versión anterior hubo que quitarla.
+
+### Y el visor sigue igual
+
+Scroll continuo, canvas sin capa de texto, `ContentGuard` alrededor. No lo
+toques más allá de guardarle las páginas.
 
 ---
 
