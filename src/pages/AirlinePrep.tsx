@@ -76,6 +76,20 @@ const PROXIMOS: string[] = [
   "Psicotécnicos y assessment",
 ]
 
+/**
+ * Enumera en castellano: "A", "A y B", "A, B y C".
+ *
+ * La frase de la ruta se armaba con `PROXIMOS.slice(1, -1).join(", ")`, que
+ * asume tres pendientes o más. La lista se encoge por diseño cada vez que se
+ * abre un tema, así que era cuestión de tiempo: con dos pendientes salía un
+ * doble espacio ("vienen  y B") y con uno el mismo tema aparecía dos veces
+ * ("el próximo es A. Después vienen  y A").
+ */
+function enumerar(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? ""
+  return `${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}`
+}
+
 interface TemaEstado {
   card: CourseCardProps
   /** Avance del tema, 0 a 100. Decide el orden de la lista. */
@@ -352,14 +366,27 @@ export function AirlinePrep() {
             tarjetas apagadas que ocupaban media pantalla para decir solamente
             que no existen; un temario que avanza es lo que un piloto quiere
             ver. Las cifras salen del propio arreglo: no se descuadran solas. */}
-        <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-[820px]">
-          <span className="font-medium text-foreground">
-            Vas por el tema {temaActual} de {disponibles + PROXIMOS.length}. El próximo que abrimos
-            es {PROXIMOS[0]}.
-          </span>{" "}
-          Después vienen {PROXIMOS.slice(1, -1).join(", ")} y {PROXIMOS[PROXIMOS.length - 1]}. Los
-          abrimos en ese orden, cada uno cuando su contenido está completo.
-        </p>
+        {PROXIMOS.length > 0 && (
+          <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-[820px]">
+            <span className="font-medium text-foreground">
+              Vas por el tema {temaActual} de {disponibles + PROXIMOS.length}. El próximo que
+              abrimos es {PROXIMOS[0]}.
+            </span>{" "}
+            {PROXIMOS.length > 2 ? (
+              <>
+                Después vienen {enumerar(PROXIMOS.slice(1))}. Los abrimos en ese orden, cada uno
+                cuando su contenido está completo.
+              </>
+            ) : PROXIMOS.length === 2 ? (
+              <>
+                Después viene {PROXIMOS[1]}. Los abrimos en ese orden, cada uno cuando su contenido
+                está completo.
+              </>
+            ) : (
+              "Lo abrimos cuando su contenido esté completo, no antes."
+            )}
+          </p>
+        )}
 
         {/* Lo que sí puedes adelantar hoy */}
         <section className="mt-8 rounded-xl surface p-6">
