@@ -195,9 +195,15 @@ destacado    boolean, entra en la fila "Esenciales"
 paginas      int
 ```
 
-Y los tres documentos ya vienen con su familia, su portada y sus páginas. Las
+**Los cinco documentos ya vienen poblados**, con su familia, su portada y su
+PDF en el bucket: Banco de preguntas PCA, RAC 2, RAC 61, RAC 175 y LAR 175. Las
 **portadas ya están en el repo**, en `public/biblioteca/portadas/`, a WebP de
-900 px.
+900x1272 (A4) y 527 KB entre las cinco.
+
+**No cargues datos.** La pantalla lee `library_items` y ya está: los cinco de
+hoy y los que Cami añada después aparecen solos, sin tocar código. Si un
+documento no sale, es que le falta el PDF en el bucket o está sin publicar, no
+que haya que darlo de alta en la pantalla.
 
 Las tres fichas de OACI e IATA quedaron **despublicadas** (`is_published =
 false`): la Biblioteca solo habla de lo que está cargado. No las revivas.
