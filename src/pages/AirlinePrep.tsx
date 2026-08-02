@@ -31,7 +31,8 @@ import {
   resumirMetar,
 } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
-import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import { LESSON_MINUTES } from "@/lib/notamLesson"
 import {
   AIRLINE_MOCK_PASS_SCORE,
   fetchMejorPuntajeSimulacro,
@@ -213,7 +214,7 @@ export function AirlinePrep() {
           color: "var(--av-blue-500)",
           // Las cifras salen de los datos cargados, no de un texto a mano: si
           // el banco crece, la promesa de la tarjeta crece con él.
-          meta: `${TOTALS.lessonScreens} secciones · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.exercises} ejercicios · ${TOTALS.national} NOTAM reales · ${TOTALS.examQuestions} preguntas`,
+          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.exercises} ejercicios · ${TOTALS.national} NOTAM reales · ${TOTALS.examQuestions} preguntas`,
           title: "NOTAM",
           blurb:
             "Qué es un NOTAM, cómo se lee la línea Q y cómo decodificar cualquier aviso. Con material real de la Aerocivil.",
@@ -236,7 +237,7 @@ export function AirlinePrep() {
           to: "/app/aerolinea/meteorologia",
           icon: CloudSun,
           color: "var(--av-cyan-400)",
-          meta: `${METAR_LESSON_TOTAL} secciones · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
+          meta: `${METAR_LESSON_TOTAL} secciones (${METAR_LESSON_MINUTES} min) · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
           title: "Meteorología operacional",
           // El resumen promete solo lo publicado: METAR. Cuando el curso TAF
           // exista, se restaura la promesa completa (decisión anotada en

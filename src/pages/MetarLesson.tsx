@@ -15,10 +15,16 @@ import {
   markMetarProgress,
   pushPendingMetarProgress,
 } from "@/lib/metarProgress"
-import { METAR_LESSON, METAR_LESSON_TOTAL, METAR_SOURCES } from "@/lib/metarLesson"
+import {
+  METAR_LESSON,
+  METAR_LESSON_MINUTES,
+  METAR_LESSON_TOTAL,
+  METAR_SOURCES,
+} from "@/lib/metarLesson"
 
 const TOTAL = METAR_LESSON_TOTAL
-const TOTAL_MINUTES = METAR_LESSON.reduce((acc, s) => acc + s.minutes, 0)
+// El mismo número que anuncia la tarjeta del hub: una sola fuente.
+const TOTAL_MINUTES = METAR_LESSON_MINUTES
 
 /**
  * Lección METAR en formato documento: la misma hoja continua de la lección

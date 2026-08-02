@@ -12,6 +12,7 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PICTURE_PAIRS, PART3_TASK_STEPS, type PicturePair } from "@/lib/icaoPictures"
+import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * TEA — Part 3: Picture Description & Discussion (un solo módulo).
@@ -184,7 +185,12 @@ function PairView({ pair }: { pair: PicturePair }) {
       {/* Discussion */}
       <div className="mt-5">
         <button
-          onClick={() => setShowDiscussion((s) => !s)}
+          onClick={() => {
+            // Abrir las preguntas de conversación es el acto de estudio: es lo
+            // que se practica de esta parte del examen. Montar la página no.
+            if (!showDiscussion) void registrarEstudioDiario("icao-imagenes")
+            setShowDiscussion((s) => !s)
+          }}
           className="inline-flex items-center gap-2 h-10 px-4 rounded-xl text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
           style={{ background: "var(--av-blue-500)" }}
         >

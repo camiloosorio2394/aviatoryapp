@@ -596,6 +596,9 @@ export const METAR_LESSON: LessonScreen[] = [
 
 export const METAR_LESSON_TOTAL = METAR_LESSON.length
 
+/** Lectura estimada de la lección entera, en minutos. Ver LESSON_MINUTES. */
+export const METAR_LESSON_MINUTES = METAR_LESSON.reduce((t, s) => t + s.minutes, 0)
+
 export const METAR_SOURCES: string[] = [
   "Los puntos sin respaldo en estos manuales van marcados en el propio texto (detalle en src/data/metar/FUENTES.md del repositorio).",
   "Briefing para pilotos: METAR. Erick De Paz, Meteorólogo Clase III OMM (presentación de curso).",

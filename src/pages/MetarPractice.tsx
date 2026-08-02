@@ -280,7 +280,7 @@ export function MetarPractice() {
                 onChange={(e) => setAnswer(e.target.value)}
                 rows={7}
                 placeholder="Dónde y cuándo, cómo sopla, cuánto ves, qué tapa, qué números, y qué decide todo eso."
-                className="w-full rounded-lg border border-border bg-card px-3.5 py-3 text-[15px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-blue-500)]"
+                className="w-full rounded-lg border border-border bg-background px-3.5 py-3 text-[15px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-blue-500)]"
               />
 
               {!revealed ? (

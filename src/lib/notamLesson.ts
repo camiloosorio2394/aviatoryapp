@@ -317,6 +317,12 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "notam",
+        id: "N16",
+        caption:
+          "El encabezado y la regla de citar, en un aviso real de El Dorado: **serie A**, **número 1670**, **año /26**. Y al final, `RPLC N A/1582/26`: este reemplaza a otro, y para decir a cuál lo cita completo, con su serie y su año. Así es como se referencian entre ellos.",
+      },
+      {
         kind: "p",
         text: "**Después del encabezado vienen las casillas.** Todas van identificadas por una letra y siempre en este orden (Doc 8400, pág. 7-3; curso, págs. 21 a 31):",
       },
@@ -816,6 +822,12 @@ export const LESSON_SCREENS: LessonScreen[] = [
         ],
       },
       {
+        kind: "notam",
+        id: "N18",
+        caption:
+          "La misma fraseología, pero de la Aerocivil y sin una sola palabra de más: `RWY 02/20 WIP, EXER CTN`. Tres abreviaturas y ya está dicho todo: pista 02/20, obras en progreso, ejerza precaución. Esto es lo que de verdad te vas a encontrar en la casilla E).",
+      },
+      {
         kind: "check",
         question: "¿Qué dice `RWY 27 RTZL NOT AVBL DUE TO PWR FAILURE`?",
         options: [
@@ -922,6 +934,12 @@ export const LESSON_SCREENS: LessonScreen[] = [
         answer: 1,
         explain:
           "`ASDA` es la distancia de aceleración-parada disponible: la que necesitas si abortas el despegue. La de aterrizaje es `LDA`. Cuando la ASDA baja, lo que cambia es tu V1 y tu peso máximo de despegue.",
+      },
+      {
+        kind: "notam",
+        id: "N21",
+        caption:
+          "Con la lista de arriba ya lo lees entero: `THR` es umbral, `EXER CTN` es ejercer precaución y `EST` es estimado. Un bache en el umbral de la 05 de Barranquilla, y una fecha de fin que es un cálculo, no una promesa.",
       },
       {
         kind: "callout",
@@ -1263,6 +1281,15 @@ export const LESSON_SCREENS: LessonScreen[] = [
 
 /** Número de secciones del documento. Es el denominador del progreso de la lección. */
 export const LESSON_TOTAL = LESSON_SCREENS.length
+
+/**
+ * Lectura estimada de la lección entera, en minutos.
+ *
+ * Cada sección ya traía su estimación y no se mostraba en ninguna parte. El hub
+ * decía cuántas secciones tiene el tema pero no cuánto cuestan, que es lo que
+ * hace falta para saber si cabe en el rato que tienes.
+ */
+export const LESSON_MINUTES = LESSON_SCREENS.reduce((t, s) => t + s.minutes, 0)
 
 /** Fuentes citadas al pie del documento de la lección. */
 export const LESSON_SOURCES: string[] = [

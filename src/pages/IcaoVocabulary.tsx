@@ -13,6 +13,7 @@ import {
 import { AppLayout } from "@/components/layout/AppLayout"
 import { ContentGuard } from "@/components/ContentGuard"
 import { supabase } from "@/integrations/supabase/client"
+import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * Glosario consultable de vocabulario ICAO / Aviation English.
@@ -64,6 +65,18 @@ const PAGE_SIZE = 60
 function letterOf(term: string): string {
   const c = term.trim().charAt(0).toUpperCase()
   return c >= "A" && c <= "Z" ? c : "#"
+}
+
+/**
+ * El glosario cuenta como día estudiado.
+ *
+ * Se llama desde los actos deliberados (buscar un término, elegir categoría,
+ * pedir más resultados), nunca al montar la pantalla: abrir el glosario y
+ * cerrarlo no es estudiar. El tope de una vez al día por superficie lo pone
+ * `registrarEstudioDiario`, así que llamarlo desde tres sitios no infla nada.
+ */
+function marcarEstudio(): void {
+  void registrarEstudioDiario("icao-vocabulario")
 }
 
 export function IcaoVocabulary() {
@@ -221,7 +234,12 @@ export function IcaoVocabulary() {
               type="text"
               placeholder="Busca: unruly, ingest, ditch, windshear, o la traducción…"
               value={query}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => {
+                setQuery(e.target.value)
+                // Buscar un término es el acto de estudio del glosario. Tres
+                // letras para no contar un roce del teclado.
+                if (e.target.value.trim().length >= 3) marcarEstudio()
+              }}
               className="w-full h-12 pl-10 pr-10 rounded-2xl border bg-card text-[15px] focus:outline-none focus:ring-2 focus:ring-[var(--av-blue-500)]/30"
               style={{ borderColor: "color-mix(in oklab, var(--border) 80%, transparent)" }}
             />
@@ -247,7 +265,10 @@ export function IcaoVocabulary() {
               return (
                 <button
                   key={c.slug}
-                  onClick={() => setCategory(c.slug)}
+                  onClick={() => {
+                    setCategory(c.slug)
+                    marcarEstudio()
+                  }}
                   className="inline-flex items-center gap-1.5 px-3 h-8 rounded-full text-[12px] font-semibold whitespace-nowrap border transition-colors"
                   style={{
                     borderColor: active
@@ -345,7 +366,10 @@ export function IcaoVocabulary() {
         {!loading && remaining > 0 && (
           <div className="mt-6 flex justify-center">
             <button
-              onClick={() => setLimit((l) => l + PAGE_SIZE)}
+              onClick={() => {
+                setLimit((l) => l + PAGE_SIZE)
+                marcarEstudio()
+              }}
               className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[13px] font-semibold surface hover:bg-muted transition-colors"
             >
               Ver más términos

@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
 import { personalizedInterviewAnswer, type InterviewPilot } from "@/lib/personalizeInterview"
+import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
  * TEA — Part 1: Interview.
@@ -186,7 +187,13 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
             {q.question}
           </div>
           <button
-            onClick={() => setOpen((o) => !o)}
+            onClick={() => {
+              // Abrir la respuesta sugerida es el acto de estudio de esta
+              // pantalla: leerla es para lo que se viene. Cerrarla no cuenta,
+              // y montar la página tampoco.
+              if (!open) void registrarEstudioDiario("icao-entrevista")
+              setOpen((o) => !o)
+            }}
             className="mt-2 inline-flex items-center gap-1.5 text-[13px] font-semibold transition-colors"
             style={{ color: "var(--av-blue-500)" }}
           >

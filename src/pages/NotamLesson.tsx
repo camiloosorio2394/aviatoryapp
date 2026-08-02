@@ -23,10 +23,16 @@ import {
   markNotamProgress,
   pushPendingLocalProgress,
 } from "@/lib/notamProgress"
-import { LESSON_SCREENS, LESSON_SOURCES, LESSON_TOTAL } from "@/lib/notamLesson"
+import {
+  LESSON_MINUTES,
+  LESSON_SCREENS,
+  LESSON_SOURCES,
+  LESSON_TOTAL,
+} from "@/lib/notamLesson"
 
 const TOTAL = LESSON_TOTAL
-const TOTAL_MINUTES = LESSON_SCREENS.reduce((acc, s) => acc + s.minutes, 0)
+// El mismo número que anuncia la tarjeta del hub: una sola fuente.
+const TOTAL_MINUTES = LESSON_MINUTES
 
 /**
  * Lección NOTAM en formato documento: una sola hoja clara, lectura continua,
