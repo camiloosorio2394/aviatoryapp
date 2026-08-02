@@ -1,58 +1,95 @@
-import { useEffect } from "react"
+import { lazy, Suspense, useEffect } from "react"
+import type { ComponentType } from "react"
 import { Navigate, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
-import { GeneralSubjects } from "@/pages/GeneralSubjects"
-import { OfficialBank } from "@/pages/OfficialBank"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
 import { identifyUser, resetIdentity } from "@/lib/analytics"
-import { Landing } from "@/pages/Landing"
-import { Pricing } from "@/pages/Pricing"
-import { Contact } from "@/pages/Contact"
-import { Login } from "@/pages/Login"
-import { Onboarding } from "@/pages/Onboarding"
-import { Dashboard } from "@/pages/Dashboard"
-import { TestInicial } from "@/pages/TestInicial"
-import { Route as RoutePage } from "@/pages/Route"
-import { Airlines } from "@/pages/Airlines"
-import { Profile } from "@/pages/Profile"
-import { Community } from "@/pages/Community"
-import { CommunityChannel } from "@/pages/CommunityChannel"
-import { Logbook } from "@/pages/Logbook"
-import { Expiries } from "@/pages/Expiries"
-import { Referrals } from "@/pages/Referrals"
-import { ExamTracker } from "@/pages/ExamTracker"
-import { ExamTrackerSubject } from "@/pages/ExamTrackerSubject"
-import { Icao } from "@/pages/Icao"
-import { IcaoVocabulary } from "@/pages/IcaoVocabulary"
-import { IcaoQuiz } from "@/pages/IcaoQuiz"
-import { IcaoInterview } from "@/pages/IcaoInterview"
-import { IcaoComprehension } from "@/pages/IcaoComprehension"
-import { IcaoPictureDescription } from "@/pages/IcaoPictureDescription"
-import { IcaoMockExam } from "@/pages/IcaoMockExam"
-import { Pca } from "@/pages/Pca"
-import { AirlinePrep } from "@/pages/AirlinePrep"
-import { AirlineMockExam } from "@/pages/AirlineMockExam"
-import { Notam } from "@/pages/Notam"
-import { Metar } from "@/pages/Metar"
-import { MetarLesson } from "@/pages/MetarLesson"
-import { MetarDecoder } from "@/pages/MetarDecoder"
-import { MetarPractice } from "@/pages/MetarPractice"
-import { MetarExam } from "@/pages/MetarExam"
-import { NotamLesson } from "@/pages/NotamLesson"
-import { NotamDecoder } from "@/pages/NotamDecoder"
-import { NotamPractice } from "@/pages/NotamPractice"
-import { NotamExam } from "@/pages/NotamExam"
-import { PsychTests } from "@/pages/PsychTests"
-import { Library } from "@/pages/Library"
-import { VaultQuizPlayer } from "@/pages/VaultQuizPlayer"
-import { InterviewSim } from "@/pages/InterviewSim"
-import { InterviewSpeakingIntro } from "@/pages/InterviewSpeakingIntro"
-import { Terms } from "@/pages/Terms"
-import { Privacy } from "@/pages/Privacy"
-import { NotFound } from "@/pages/NotFound"
+
+/**
+ * Las páginas van con `lazy`, todas.
+ *
+ * Importadas de golpe, las cuarenta caben en un solo `index.js` que ya iba por
+ * 2.028 KB contra los 2.048 que Workbox precachea. Pasarse de ahí no avisa: el
+ * build falla. Un módulo nuevo entero lo reventaba, y quedaban 20 KB.
+ *
+ * Es la misma razón por la que las infografías de la lección ya se cargaban
+ * aparte (el registro INFOGRAFIAS de components/DocLessonBlocks.tsx), pero
+ * resuelta donde de verdad pesa: el piloto descarga la pantalla que abre, no
+ * las cuarenta.
+ *
+ * El `.then` es porque las páginas son exportaciones con nombre, no por defecto.
+ */
+function page<T, K extends keyof T>(cargar: () => Promise<T>, nombre: K) {
+  return lazy(() => cargar().then((m) => ({ default: m[nombre] as ComponentType })))
+}
+
+const Landing = page(() => import("@/pages/Landing"), "Landing")
+const Pricing = page(() => import("@/pages/Pricing"), "Pricing")
+const Contact = page(() => import("@/pages/Contact"), "Contact")
+const Login = page(() => import("@/pages/Login"), "Login")
+const Onboarding = page(() => import("@/pages/Onboarding"), "Onboarding")
+const Dashboard = page(() => import("@/pages/Dashboard"), "Dashboard")
+const TestInicial = page(() => import("@/pages/TestInicial"), "TestInicial")
+const GeneralSubjects = page(() => import("@/pages/GeneralSubjects"), "GeneralSubjects")
+const OfficialBank = page(() => import("@/pages/OfficialBank"), "OfficialBank")
+const RoutePage = page(() => import("@/pages/Route"), "Route")
+const Airlines = page(() => import("@/pages/Airlines"), "Airlines")
+const Profile = page(() => import("@/pages/Profile"), "Profile")
+const Community = page(() => import("@/pages/Community"), "Community")
+const CommunityChannel = page(() => import("@/pages/CommunityChannel"), "CommunityChannel")
+const Logbook = page(() => import("@/pages/Logbook"), "Logbook")
+const Expiries = page(() => import("@/pages/Expiries"), "Expiries")
+const Referrals = page(() => import("@/pages/Referrals"), "Referrals")
+const ExamTracker = page(() => import("@/pages/ExamTracker"), "ExamTracker")
+const ExamTrackerSubject = page(() => import("@/pages/ExamTrackerSubject"), "ExamTrackerSubject")
+const Icao = page(() => import("@/pages/Icao"), "Icao")
+const IcaoVocabulary = page(() => import("@/pages/IcaoVocabulary"), "IcaoVocabulary")
+const IcaoQuiz = page(() => import("@/pages/IcaoQuiz"), "IcaoQuiz")
+const IcaoInterview = page(() => import("@/pages/IcaoInterview"), "IcaoInterview")
+const IcaoComprehension = page(() => import("@/pages/IcaoComprehension"), "IcaoComprehension")
+const IcaoPictureDescription = page(
+  () => import("@/pages/IcaoPictureDescription"),
+  "IcaoPictureDescription"
+)
+const IcaoMockExam = page(() => import("@/pages/IcaoMockExam"), "IcaoMockExam")
+const Pca = page(() => import("@/pages/Pca"), "Pca")
+const AirlinePrep = page(() => import("@/pages/AirlinePrep"), "AirlinePrep")
+const AirlineMockExam = page(() => import("@/pages/AirlineMockExam"), "AirlineMockExam")
+const Notam = page(() => import("@/pages/Notam"), "Notam")
+const Metar = page(() => import("@/pages/Metar"), "Metar")
+const MetarLesson = page(() => import("@/pages/MetarLesson"), "MetarLesson")
+const MetarDecoder = page(() => import("@/pages/MetarDecoder"), "MetarDecoder")
+const MetarPractice = page(() => import("@/pages/MetarPractice"), "MetarPractice")
+const MetarExam = page(() => import("@/pages/MetarExam"), "MetarExam")
+const NotamLesson = page(() => import("@/pages/NotamLesson"), "NotamLesson")
+const NotamDecoder = page(() => import("@/pages/NotamDecoder"), "NotamDecoder")
+const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice")
+const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
+const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
+const Library = page(() => import("@/pages/Library"), "Library")
+const VaultQuizPlayer = page(() => import("@/pages/VaultQuizPlayer"), "VaultQuizPlayer")
+const InterviewSim = page(() => import("@/pages/InterviewSim"), "InterviewSim")
+const InterviewSpeakingIntro = page(
+  () => import("@/pages/InterviewSpeakingIntro"),
+  "InterviewSpeakingIntro"
+)
+const Terms = page(() => import("@/pages/Terms"), "Terms")
+const Privacy = page(() => import("@/pages/Privacy"), "Privacy")
+const NotFound = page(() => import("@/pages/NotFound"), "NotFound")
+
+/**
+ * Lo que se ve mientras llega el trozo de la página.
+ *
+ * Sin texto y con el fondo del tema: en una red normal el trozo llega en menos
+ * de lo que dura un parpadeo, y un cartel que aparece y desaparece se nota más
+ * que el propio salto.
+ */
+function PaginaCargando() {
+  return <div className="min-h-screen bg-background" aria-busy="true" />
+}
 
 /**
  * Redireccion legacy con parametro. Exam Tracker paso a vivir dentro del
@@ -78,7 +115,8 @@ function App() {
 
   return (
     <>
-      <Routes>
+      <Suspense fallback={<PaginaCargando />}>
+        <Routes>
         {/* Public */}
         <Route path="/" element={<Landing />} />
         <Route path="/pricing" element={<Pricing />} />
@@ -430,7 +468,8 @@ function App() {
         />
 
         <Route path="*" element={<NotFound />} />
-      </Routes>
+        </Routes>
+      </Suspense>
       <Toaster />
       <ReloadPrompt />
     </>
