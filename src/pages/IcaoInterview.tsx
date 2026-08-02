@@ -17,6 +17,8 @@ import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
 import { personalizedInterviewAnswer, type InterviewPilot } from "@/lib/personalizeInterview"
 import { registrarEstudioDiario } from "@/lib/activity"
+import { RespuestaHablada } from "@/components/icao/RespuestaHablada"
+import { cargarRespuestasHabladas, type RespuestaHabladaGuardada } from "@/lib/dictado"
 
 /**
  * TEA — Part 1: Interview.
@@ -29,6 +31,21 @@ export function IcaoInterview() {
   const [activeSet, setActiveSet] = useState(1)
   const [pilot, setPilot] = useState<InterviewPilot | null>(null)
   const set = TEA_PART1_SETS.find((s) => s.set === activeSet) ?? TEA_PART1_SETS[0]
+
+  // Lo que el piloto ya respondió hablando, por pregunta. Vive aquí y no dentro
+  // de cada tarjeta para que siga estando al cambiar de set y al volver.
+  const [habladas, setHabladas] = useState<Record<string, RespuestaHabladaGuardada>>({})
+
+  useEffect(() => {
+    let cancelado = false
+    void (async () => {
+      const r = await cargarRespuestasHabladas(user?.id ?? null)
+      if (!cancelado) setHabladas(r)
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [user?.id])
 
   useEffect(() => {
     if (!user) return
@@ -149,7 +166,21 @@ export function IcaoInterview() {
         {/* Questions */}
         <div className="mt-5 space-y-2.5">
           {set.questions.map((q) => (
-            <QuestionCard key={`${set.set}-${q.n}`} q={q} pilot={hasProfile ? pilot : null} />
+            <QuestionCard
+              key={`${set.set}-${q.n}`}
+              q={q}
+              pilot={hasProfile ? pilot : null}
+              questionId={`s${set.set}-q${q.n}`}
+              hablada={habladas[`s${set.set}-q${q.n}`] ?? null}
+              onHablada={(r) => setHabladas((p) => ({ ...p, [r.question_id]: r }))}
+              onBorrarHablada={(id) =>
+                setHabladas((p) => {
+                  const copia = { ...p }
+                  delete copia[id]
+                  return copia
+                })
+              }
+            />
           ))}
         </div>
 
@@ -161,7 +192,21 @@ export function IcaoInterview() {
   )
 }
 
-function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilot | null }) {
+function QuestionCard({
+  q,
+  pilot,
+  questionId,
+  hablada,
+  onHablada,
+  onBorrarHablada,
+}: {
+  q: InterviewQuestion
+  pilot: InterviewPilot | null
+  questionId: string
+  hablada: RespuestaHabladaGuardada | null
+  onHablada: (r: RespuestaHabladaGuardada) => void
+  onBorrarHablada: (id: string) => void
+}) {
   const [open, setOpen] = useState(false)
   const mine = pilot ? personalizedInterviewAnswer(q.question, pilot) : null
   return (
@@ -205,6 +250,19 @@ function QuestionCard({ q, pilot }: { q: InterviewQuestion; pilot: InterviewPilo
             />
           </button>
         </div>
+      </div>
+
+      {/* Responder hablando va ANTES de la respuesta modelo y siempre visible:
+          la gracia es contestar primero y comparar después, igual que en la
+          práctica del resto de la app. Al abrir la sugerida, la transcripción
+          queda justo encima y se leen las dos juntas. */}
+      <div className="px-4 pb-4">
+        <RespuestaHablada
+          questionId={questionId}
+          guardada={hablada}
+          onGuardar={onHablada}
+          onBorrar={() => onBorrarHablada(questionId)}
+        />
       </div>
 
       {open && (

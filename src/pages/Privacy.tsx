@@ -99,11 +99,46 @@ export function Privacy() {
                 pregunta se envía a la API de Anthropic. Anthropic no usa esos
                 datos para entrenar modelos en su API empresarial.
               </li>
+              <li>
+                <strong>Google o Apple</strong>, si usas el dictado para responder
+                hablando en el módulo de inglés ICAO. Ver el punto 4.1.
+              </li>
             </ul>
             <p>
               Nadie del equipo Aviatory accede manualmente a tu data salvo cuando
               tú nos escribes pidiendo ayuda específica. No leemos tus mensajes
               privados ni tus respuestas de quiz.
+            </p>
+          </Section>
+
+          <Section title="4.1. Responder hablando (dictado)">
+            <p>
+              En el módulo de inglés ICAO puedes responder hablando en vez de
+              escribir. Conviene que sepas exactamente qué pasa cuando lo usas.
+            </p>
+            <ul className="list-disc pl-6 space-y-1.5 text-muted-foreground">
+              <li>
+                El reconocimiento de voz lo hace <strong>tu navegador</strong>, no
+                Aviatory. Chrome y Edge envían el audio a servidores de{" "}
+                <strong>Google</strong>; Safari, a los de <strong>Apple</strong>.
+                Ese envío ocurre fuera de nuestro control y se rige por la
+                política de privacidad de esa empresa.
+              </li>
+              <li>
+                <strong>Aviatory no recibe el audio en ningún momento</strong>, y
+                no lo almacena. Lo único que llega y se guarda es el{" "}
+                <strong>texto</strong> que el navegador devuelve, junto con
+                cuántos segundos hablaste y cuántas palabras dijo.
+              </li>
+              <li>
+                Te pedimos permiso explícito antes de la primera vez, y no se
+                activa solo. Puedes retirarlo cuando quieras desde tu perfil, y
+                borrar cualquier respuesta guardada.
+              </li>
+            </ul>
+            <p>
+              Si prefieres no usarlo, el módulo funciona igual: puedes responder
+              en voz alta por tu cuenta y compararte con la respuesta modelo.
             </p>
           </Section>
 

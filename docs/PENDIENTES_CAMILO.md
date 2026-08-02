@@ -18,6 +18,7 @@ se escribieron para que las apliques tú por MCP.
 | `20260801040000_simulacro_aerolinea.sql` | `user_airline_mock_attempts` + logro `airline_mock_passed` (gold, mínimo 85) + disparador |
 | `20260802010000_modulo_mercancias.sql` | Todo el módulo Mercancías Peligrosas: progreso, RPC, intentos, umbrales y 4 logros |
 | `20260802020000_biblioteca_por_modulos.sql` | Las categorías de la Biblioteca, las fichas de mercancías, el banco oficial y la política de storage |
+| `20260802030000_icao_speaking.sql` | `user_icao_speaking`, las transcripciones del dictado del TEA. Solo texto, nunca audio |
 
 Cada una trae la tabla, el logro **con su condición dentro de
 `check_and_unlock_achievements`** y **su disparador**, en la misma migración. Es
@@ -87,6 +88,48 @@ find the function". La crea la migración nueva.
 **No había política de storage para leer el bucket.** Se añade una de solo
 `select` para `authenticated`. Sin ella, `createSignedUrl` funciona hoy porque
 la sesión actual tiene permiso por otra vía, pero conviene que sea explícita.
+
+---
+
+## 1quater · El dictado del TEA está sin medir, y hay que medirlo
+
+El módulo está construido y desplegado, pero **el experimento que justificaba
+hacerlo sigue sin correr**, y no lo puedo correr yo: hace falta una persona
+hablando inglés a un micrófono.
+
+La pregunta a responder es una sola: *¿el reconocedor del navegador entiende a
+un piloto colombiano hablando inglés lo bastante bien como para que le sirva?*
+
+**El protocolo, que toma unos diez minutos:**
+
+1. Abre `/app/icao/interview` en Chrome, en un equipo con micrófono.
+2. Acepta el permiso de dictado la primera vez.
+3. Responde hablando **seis** preguntas, de 30 a 60 segundos cada una, como en
+   el examen. Sin vocalizar de más: el punto es medir el habla normal.
+4. Después de cada una, apunta lo que ves en pantalla (segundos y palabras) y
+   copia la transcripción.
+
+**Lo que hay que anotar por respuesta**, que es lo que decide si esto sigue o se
+cambia por Whisper:
+
+| Dato | De dónde sale |
+|---|---|
+| Lo que dijiste de verdad | De tu cabeza, antes de mirar la pantalla |
+| La transcripción, **sin corregir** | De la pantalla |
+| Segundos y palabras | De la pantalla |
+| Confianza media | De la base, columna `confianza`, tras aplicar la migración |
+| Cuántas veces se cortó solo | El hook lo cuenta; hoy no se muestra, ver abajo |
+
+**Un detalle que dejé sin poner en pantalla a propósito**: el hook cuenta los
+reenganches (las veces que Chrome corta solo y hay que volver a arrancar), pero
+no se muestra al piloto, porque a él no le dice nada. Para la medición sí
+importa. Se lee en la consola o se saca a la vista con una línea, dime si lo
+quieres visible mientras dure el experimento.
+
+Y **iOS Safari**: el brief avisa de que puede cortarse al bloquear la pantalla.
+Sin dispositivo no lo pude verificar. El aviso de navegador no soportado está
+puesto y funciona; lo que no está comprobado es el comportamiento de Safari en
+iOS con la pantalla apagada.
 
 ---
 

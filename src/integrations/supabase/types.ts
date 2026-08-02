@@ -2596,6 +2596,45 @@ export type Database = {
           },
         ]
       }
+      user_icao_speaking: {
+        Row: {
+          confianza: number | null
+          created_at: string
+          id: string
+          motor: string
+          palabras: number
+          parte: number
+          question_id: string
+          segundos: number
+          transcript: string
+          user_id: string
+        }
+        Insert: {
+          confianza?: number | null
+          created_at?: string
+          id?: string
+          motor?: string
+          palabras?: number
+          parte?: number
+          question_id: string
+          segundos?: number
+          transcript: string
+          user_id: string
+        }
+        Update: {
+          confianza?: number | null
+          created_at?: string
+          id?: string
+          motor?: string
+          palabras?: number
+          parte?: number
+          question_id?: string
+          segundos?: number
+          transcript?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_icao_attempts: {
         Row: {
           ai_score: Json | null
