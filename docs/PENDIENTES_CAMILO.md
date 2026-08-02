@@ -7,18 +7,39 @@ confirmar. Cuando algo se cierra, se borra de aquí.
 
 ---
 
-## 1 · Migraciones escritas y sin aplicar
+## 1 · Estado real de las migraciones
 
-Van en orden. Las tres están en `supabase/migrations/` y **ninguna se aplicó**:
-se escribieron para que las apliques tú por MCP.
+Comprobado contra producción el 2 de agosto, consultando la base, no supuesto.
 
-| Archivo | Qué trae |
+| Archivo | Estado |
 |---|---|
-| `20260801030000_metar_master_condicion.sql` | La condición de `metar_master`, que existía en el catálogo y era imposible de desbloquear |
-| `20260801040000_simulacro_aerolinea.sql` | `user_airline_mock_attempts` + logro `airline_mock_passed` (gold, mínimo 85) + disparador |
-| `20260802010000_modulo_mercancias.sql` | Todo el módulo Mercancías Peligrosas: progreso, RPC, intentos, umbrales y 4 logros |
-| `20260802020000_biblioteca_por_modulos.sql` | Las categorías de la Biblioteca, las fichas de mercancías, el banco oficial y la política de storage |
-| `20260802030000_icao_speaking.sql` | `user_icao_speaking`, las transcripciones del dictado del TEA. Solo texto, nunca audio |
+| `20260801030000_metar_master_condicion.sql` | Aplicada |
+| `20260801040000_simulacro_aerolinea.sql` | Aplicada, completa |
+| `20260802010000_modulo_mercancias.sql` | **APLICADA A MEDIAS. Hay que repetirla** |
+| `20260802020000_biblioteca_por_modulos.sql` | **Sin aplicar** |
+| `20260802030000_icao_speaking.sql` | Aplicada |
+
+### La de mercancías está incompleta y es lo más urgente
+
+Las tablas existen y la RPC también, pero **los cuatro logros no están en
+`achievements` y los tres umbrales no están en `module_thresholds`**. O sea: el
+módulo guarda el progreso y sus logros no se pueden otorgar nunca. Es el defecto
+de `metar_master` otra vez, esta vez por aplicación parcial y no por el archivo.
+
+Hay que **volver a aplicarla entera**. Es segura de repetir: todo va con
+`if not exists`, `on conflict do update`, `drop policy if exists` y
+`create or replace function`.
+
+Para comprobar que quedó bien:
+
+```sql
+select code from public.achievements where code like 'mercancias%';   -- 4 filas
+select code, total from public.module_thresholds where code like 'mercancias%';  -- 3 filas
+```
+
+**Ojo con el orden**: las migraciones del 1 y el 2 de agosto recrean
+`check_and_unlock_achievements`, así que la última que se aplique es la que
+queda. La de mercancías después de la del simulacro, nunca al revés.
 
 Cada una trae la tabla, el logro **con su condición dentro de
 `check_and_unlock_achievements`** y **su disparador**, en la misma migración. Es
