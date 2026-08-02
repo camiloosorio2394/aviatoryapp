@@ -121,17 +121,19 @@ export function Seccion02() {
                     {tieneRombo ? (
                       <Rombo id={d.id} tam={30} />
                     ) : (
-                      // Sin etiqueta propia en el material: se dice, no se
-                      // inventa un rombo que no tenemos.
+                      // Sin etiqueta propia en el material: va un guion, que es
+                      // el marcador de dato que no tenemos. No se inventa un
+                      // rombo, y no se repite el número, que ya está al lado.
                       <span
-                        className="mono flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-md text-[11px] font-semibold"
+                        className="mono flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-md text-[13px]"
                         style={{
                           border: "1px dashed var(--mod-line)",
                           color: "var(--mod-muted)",
                         }}
+                        aria-label="Sin etiqueta en el material del módulo"
                         title="Sin etiqueta en el material del módulo"
                       >
-                        {d.id}
+                        {"—"}
                       </span>
                     )}
                     <span className="text-[13.5px] leading-snug" style={{ color: "var(--mod-text)" }}>

@@ -54,14 +54,17 @@ export const CLASES: ClaseMP[] = [
     nombre: "Explosivos",
     color: "#E87722",
     riesgo: "Reacción química que explota o proyecta fragmentos.",
-    ejemplos: ["Municiones", "Fuegos artificiales", "Detonadores", "Bengalas"],
+    // Estos cuatro ejemplos y el texto de la 1.1 salen del diseño de Cami, que
+    // el brief transcribe literal para esta clase. Las otras ocho vienen del
+    // .docx y están pendientes de contrastar contra el diseño.
+    ejemplos: ["Municiones", "Pirotecnia", "Detonadores", "Cordón detonante"],
     divisiones: [
-      { id: "1.1", txt: "Riesgo de explosión en masa" },
-      { id: "1.2", txt: "Riesgo de proyección, sin explosión en masa" },
-      { id: "1.3", txt: "Riesgo de incendio, con onda o proyección menor" },
-      { id: "1.4", txt: "Riesgo insignificante" },
-      { id: "1.5", txt: "Muy insensible, con riesgo de explosión en masa" },
-      { id: "1.6", txt: "Extremadamente insensible, sin riesgo de explosión en masa" },
+      { id: "1.1", txt: "Peligro de explosión en masa" },
+      { id: "1.2", txt: "Peligro de proyección, sin explosión en masa" },
+      { id: "1.3", txt: "Peligro de incendio, con onda o proyección menor" },
+      { id: "1.4", txt: "Peligro insignificante" },
+      { id: "1.5", txt: "Muy insensible, con peligro de explosión en masa" },
+      { id: "1.6", txt: "Extremadamente insensible, sin peligro de explosión en masa" },
     ],
     rombos: ["1-1", "1-4"],
     ge: false,
