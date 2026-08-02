@@ -8,6 +8,11 @@ import { QuizEngine } from "@/components/QuizEngine"
 import type { QuizQuestion, QuizResultado } from "@/components/QuizEngine"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { registrarActividadDeEstudio } from "@/lib/activity"
+import {
+  AIRLINE_MOCK_PASS_SCORE,
+  guardarIntentoSimulacro,
+  readAirlineMockLocal,
+} from "@/lib/airlineMock"
 import { EXAM_QUESTIONS, accentText, shuffle } from "@/lib/notam"
 import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
 
@@ -25,9 +30,13 @@ import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
  *
  * El mínimo es más alto que el de una evaluación de tema (85 contra 80): en una
  * prueba técnica de aerolínea no se aprueba raspando.
+ *
+ * Cada intento se guarda (respaldo local y user_airline_mock_attempts): sin eso
+ * el simulacro era la única pieza del módulo que olvidaba todo al salir de la
+ * pantalla, y la que da la razón para volver es justo esta.
  */
 
-const PASS_SCORE = 85
+const PASS_SCORE = AIRLINE_MOCK_PASS_SCORE
 const TOTAL_PREGUNTAS = 25
 
 /** Bancos de los temas abiertos. Añadir un tema es añadir una línea aquí. */
@@ -65,6 +74,9 @@ const BANCO_COMPLETO: QuizQuestion[] = BANCOS.flatMap((b) => b.preguntas)
 export function AirlineMockExam() {
   const [empezado, setEmpezado] = useState(false)
   const [semilla, setSemilla] = useState(0)
+  // El mejor puntaje previo se lee del respaldo local al montar: es lo que
+  // convierte la pantalla de arranque en un marcador que hay que superar.
+  const [mejorPrevio] = useState(() => readAirlineMockLocal().bestScore)
 
   // Se sortea del banco entero, no por cupos: así el simulacro representa el
   // peso real de cada tema en el material que hay cargado.
@@ -74,6 +86,7 @@ export function AirlineMockExam() {
   )
 
   function guardar(r: QuizResultado): void {
+    void guardarIntentoSimulacro({ score: r.score, correct: r.aciertos, total: r.total })
     void registrarActividadDeEstudio({ questions: r.total, correct: r.aciertos })
   }
 
@@ -112,9 +125,19 @@ export function AirlineMockExam() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <h2 className="text-[17px] font-semibold tracking-[-0.01em]">
-                    Antes de empezar
+                    {mejorPrevio === null ? "Antes de empezar" : "Tu marca a superar"}
                   </h2>
                   <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[640px]">
+                    {mejorPrevio !== null && (
+                      <>
+                        Tu mejor puntaje es{" "}
+                        <span className="tabular font-semibold text-foreground">
+                          {mejorPrevio}
+                        </span>{" "}
+                        sobre 100
+                        {mejorPrevio >= PASS_SCORE ? ", aprobado. " : `, y apruebas con ${PASS_SCORE}. `}
+                      </>
+                    )}
                     Las preguntas salen del banco de los temas que ya estudiaste y vienen
                     revueltas, sin decirte de cuál es cada una. Responde de corrido, como en la
                     prueba: al final tienes el resultado por tema y la revisión completa.
@@ -129,7 +152,8 @@ export function AirlineMockExam() {
                   className={appButtonClass({ size: "lg" }, "shrink-0")}
                   style={appButtonStyle()}
                 >
-                  <Play className="h-4 w-4" /> Empezar el simulacro
+                  <Play className="h-4 w-4" />{" "}
+                  {mejorPrevio === null ? "Empezar el simulacro" : "Volver a presentarlo"}
                 </button>
               </div>
             </section>

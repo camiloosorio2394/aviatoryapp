@@ -32,6 +32,11 @@ import {
 } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import {
+  AIRLINE_MOCK_PASS_SCORE,
+  fetchMejorPuntajeSimulacro,
+  readAirlineMockLocal,
+} from "@/lib/airlineMock"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
 import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jpg"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
@@ -94,6 +99,9 @@ export function AirlinePrep() {
   const [metarScreens, setMetarScreens] = useState<number[]>(
     () => readMetarProgress().lessonScreens
   )
+  const [mejorSimulacro, setMejorSimulacro] = useState<number | null>(
+    () => readAirlineMockLocal().bestScore
+  )
   const [hidratado, setHidratado] = useState(false)
 
   // Quien estudia sin cuenta ve su respaldo local de inmediato: no hay nada que
@@ -109,7 +117,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, examRes] = await Promise.all([
+      const [notamRes, metarRes, examRes, mockRes] = await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
         supabase
@@ -118,6 +126,7 @@ export function AirlinePrep() {
           .eq("user_id", user.id)
           .order("score", { ascending: false })
           .limit(1),
+        fetchMejorPuntajeSimulacro(user.id),
       ])
       if (cancelled) return
 
@@ -140,6 +149,7 @@ export function AirlinePrep() {
           Array.from(new Set([...metarRes.lessonScreens, ...readMetarProgress().lessonScreens]))
         )
       }
+      setMejorSimulacro(mockRes)
       setHidratado(true)
     })()
 
@@ -231,8 +241,15 @@ export function AirlinePrep() {
           blurb:
             "Preguntas mezcladas de todos los temas abiertos, sin decirte de cuál es cada una. Como en la prueba de verdad.",
           photo: simulacroPhoto,
-          cta: "Presentar el simulacro",
-          status: "Cada intento baraja de nuevo",
+          cta: mejorSimulacro === null ? "Presentar el simulacro" : "Volver a presentarlo",
+          // Antes decía "Cada intento baraja de nuevo": cierto, pero esquivaba
+          // que también olvidaba cada intento. Ahora el pie es el marcador.
+          status:
+            mejorSimulacro === null
+              ? "Sin presentar · cada intento baraja de nuevo"
+              : mejorSimulacro >= AIRLINE_MOCK_PASS_SCORE
+                ? `Tu mejor puntaje: ${mejorSimulacro} sobre 100 · aprobado`
+                : `Tu mejor puntaje: ${mejorSimulacro} sobre 100 · apruebas con ${AIRLINE_MOCK_PASS_SCORE}`,
         },
       },
       {
@@ -265,7 +282,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar])
+  }, [notam, metar, mejorSimulacro])
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.

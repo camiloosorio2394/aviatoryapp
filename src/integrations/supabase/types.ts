@@ -2457,6 +2457,33 @@ export type Database = {
           },
         ]
       }
+      user_airline_mock_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_airline_prep_attempts: {
         Row: {
           ai_feedback_jsonb: Json | null
@@ -2812,6 +2839,33 @@ export type Database = {
           lesson_screens?: number[]
           practice_done?: string[]
           updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_metar_exam_attempts: {
+        Row: {
+          correct: number
+          id: string
+          score: number
+          taken_at: string
+          total: number
+          user_id: string
+        }
+        Insert: {
+          correct?: number
+          id?: string
+          score: number
+          taken_at?: string
+          total?: number
+          user_id: string
+        }
+        Update: {
+          correct?: number
+          id?: string
+          score?: number
+          taken_at?: string
+          total?: number
           user_id?: string
         }
         Relationships: []
