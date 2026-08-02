@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen } from "lucide-react"
+import { ArrowLeft, BookMarked, BookOpen } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CourseCard } from "@/components/ui/course-card"
+import { appButtonClass } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
 import {
   MP_LECTOR,
@@ -122,6 +123,15 @@ export function Mercancias() {
             estudiar y no para aplicar límites en línea de vuelo: antes de usar una cifra,
             confirma la edición en vigor y el manual de tu explotador.
           </p>
+
+          {/* Quien está estudiando y quiere ver la norma no debería tener que
+              buscarla en otro menú. */}
+          <Link
+            to="/app/biblioteca#mercancias-peligrosas"
+            className={appButtonClass({ variant: "secondary" }, "mt-4")}
+          >
+            <BookMarked className="h-4 w-4" /> Ver la bibliografía del tema
+          </Link>
         </section>
       </div>
     </AppLayout>

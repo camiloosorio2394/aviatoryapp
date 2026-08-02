@@ -1,266 +1,245 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import {
-  BookOpen,
-  ListChecks,
-  FileText,
-  TrendingUp,
-  Scale,
-  Mic,
-  Lightbulb,
-  Users,
-  AlertTriangle,
-  Sparkles,
-  ArrowRight,
-  Check,
-  Clock,
-  Library as LibraryIcon,
-} from "lucide-react"
+import { ArrowRight, ExternalLink, FileText, Info, Library as LibraryIcon } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { PageHeader } from "@/components/ui/page-header"
+import { appButtonClass } from "@/lib/buttonStyles"
+import { IconoCategoria } from "@/components/biblioteca/IconoCategoria"
+import {
+  type CategoriaBiblioteca,
+  type ItemBiblioteca,
+  colorDeCategoria,
+  fechaEdicion,
+  fetchBiblioteca,
+  MODULO_DE_CATEGORIA,
+} from "@/lib/biblioteca"
 
 /**
- * Módulo Biblioteca Operacional.
- * 9 categorías: manuales, SOPs, quick refs, performance tools, W&B,
- * briefings, checklist philosophy, CRM/TEM cases, accident studies.
+ * Biblioteca: la bibliografía de cada módulo.
  *
- * No hay ni un documento cargado todavía: cada tarjeta va con chip "Pronto",
- * icono en reposo y sin hover, y la pantalla ofrece una salida real (banco PCA).
+ * Las categorías son los módulos, no categorías temáticas: el piloto que está
+ * estudiando NOTAM quiere la bibliografía de NOTAM, no una carpeta llamada
+ * "Manuales".
+ *
+ * En material normativo la versión es la mitad de la información, así que cada
+ * ficha muestra su edición junto al título y el enlace a la fuente oficial al
+ * lado del botón de abrir, no escondido en un pie.
  */
 export function Library() {
+  const [datos, setDatos] = useState<{
+    categorias: CategoriaBiblioteca[]
+    items: ItemBiblioteca[]
+  } | null>(null)
+  const [cargando, setCargando] = useState(true)
+  const [fallo, setFallo] = useState(false)
+
+  useEffect(() => {
+    let cancelado = false
+    void (async () => {
+      const r = await fetchBiblioteca()
+      if (cancelado) return
+      if (r) setDatos(r)
+      else setFallo(true)
+      setCargando(false)
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [])
+
+  const categorias = datos?.categorias ?? []
+  const items = datos?.items ?? []
+  const conDocumentos = categorias.filter((c) => items.some((i) => i.category_id === c.id))
+  const vacias = categorias.filter((c) => !items.some((i) => i.category_id === c.id))
+
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
-        <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
-          <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
-            <div>
-              <div
-                className="inline-flex items-center gap-1.5 text-[13px] font-semibold px-2.5 py-1 rounded-full"
-                style={{
-                  color: "var(--av-blue-500)",
-                  background: "color-mix(in oklab, var(--av-blue-500) 10%, transparent)",
-                  border: "1px solid color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full"
-                  style={{ background: "var(--av-amber-400)" }}
-                />
-                Módulo biblioteca · En construcción
-              </div>
-              <h1 className="mt-4 mb-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] text-foreground leading-[1.05]">
-                Biblioteca Operacional,{" "}
-                <span style={{ color: "var(--av-blue-500)" }}>
-                  útil incluso cuando no estás estudiando
-                </span>
-              </h1>
-              <p className="text-[17px] text-muted-foreground max-w-[680px] mt-3 leading-relaxed">
-                Estamos armando <strong className="text-foreground">9 categorías</strong> de contenido
-                operacional para consultar día a día: manuales, SOPs, QRH, performance tools,
-                W&amp;B, briefings, checklist philosophy, casos CRM/TEM y accident case studies. La
-                diferencia entre una app más y la app que abres todos los días.
-              </p>
-              <div className="mt-5">
-                <Link
-                  to="/app/pca"
-                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-                  style={{ background: "var(--av-blue-500)" }}
-                >
-                  Mientras tanto, estudia en el banco PCA{" "}
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </div>
-            <div className="hidden md:flex flex-col items-center gap-3 pr-2">
-              <div
-                className="flex items-center justify-center w-[120px] h-[120px] rounded-2xl"
-                style={{
-                  background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))",
-                }}
-              >
-                <LibraryIcon className="h-14 w-14 text-white" strokeWidth={1.5} />
-              </div>
-              <div className="text-[13px] font-semibold text-muted-foreground">Consulta diaria</div>
-            </div>
-          </div>
-        </section>
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+        <PageHeader
+          eyebrow={
+            <>
+              <LibraryIcon className="h-3.5 w-3.5" /> Biblioteca
+            </>
+          }
+          title="La bibliografía de cada módulo"
+          subtitle="Los reglamentos y documentos de referencia que respaldan lo que estudias, ordenados por el módulo del que salen."
+        />
 
-        {/* === 9 CATEGORÍAS === */}
-        <div className="mt-10 mb-5 flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-              Categorías · 9
-            </div>
-            <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
-              Todo lo que vas a poder consultar
-            </h2>
-          </div>
-          <div className="hidden md:flex items-center gap-1.5 text-[12px] text-muted-foreground">
-            <Clock className="h-3.5 w-3.5" />Carga gradual · prioridad Avianca/LATAM/Copa
-          </div>
-        </div>
+        <aside
+          className="mb-7 rounded-xl border-l-[3px] border-y border-r p-4 flex items-start gap-3"
+          style={{
+            borderColor: "color-mix(in oklab, var(--av-amber-400) 26%, transparent)",
+            borderLeftColor: "color-mix(in oklab, var(--av-amber-400) 55%, transparent)",
+            background: "color-mix(in oklab, var(--av-amber-400) 7%, transparent)",
+          }}
+        >
+          <Info
+            className="shrink-0 mt-0.5 h-4 w-4"
+            style={{ color: "var(--av-amber-400)" }}
+            aria-hidden
+          />
+          <p className="m-0 text-[13px] leading-relaxed text-foreground/85 max-w-[820px]">
+            Las normas se enmiendan. Cada documento muestra la edición exacta con la que está
+            cargado, que puede no ser la vigente. Antes de aplicar un límite o un listado, verifica
+            la edición en vigor en la fuente oficial, que va enlazada en cada ficha.
+          </p>
+        </aside>
 
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((c) => (
-            <CategoryTile key={c.slug} {...c} />
-          ))}
-        </div>
-
-        {/* === CTA === */}
-        <section className="mt-10 rounded-2xl surface p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-          <div>
-            <div
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-              style={{ color: "var(--av-blue-500)" }}
-            >
-              <Sparkles className="h-3 w-3" /> Aporta tu material
-            </div>
-            <h3 className="mt-1.5 text-[17px] font-semibold">
-              ¿Tienes manuales, SOPs o quick references que aportar?
-            </h3>
-            <p className="mt-1 text-[15px] text-muted-foreground max-w-[680px]">
-              Aporta material y se lo damos al resto de la comunidad (con tu crédito si quieres).
-              Solo material no propietario o de dominio público: el equipo revisa antes de publicar.
+        {cargando ? (
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="surface rounded-xl h-[188px] animate-pulse" aria-hidden />
+            ))}
+          </div>
+        ) : fallo ? (
+          <section className="surface rounded-xl p-8 text-center">
+            <h2 className="text-[17px] font-semibold">No pudimos cargar la biblioteca</h2>
+            <p className="mt-2 text-[15px] text-muted-foreground">
+              Vuelve a intentarlo en un momento.
             </p>
+          </section>
+        ) : conDocumentos.length === 0 ? (
+          <section className="surface rounded-xl p-8 text-center">
+            <h2 className="text-[17px] font-semibold">Todavía no hay documentos</h2>
+            <p className="mt-2 text-[15px] text-muted-foreground max-w-[520px] mx-auto leading-relaxed">
+              La bibliografía se va cargando a medida que se publica cada módulo. En cuanto haya
+              documentos, aparecen aquí.
+            </p>
+          </section>
+        ) : (
+          <div className="flex flex-col gap-9">
+            {conDocumentos.map((c) => (
+              <Categoria
+                key={c.id}
+                categoria={c}
+                items={items.filter((i) => i.category_id === c.id)}
+              />
+            ))}
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <Link
-              to="/app/comunidad"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-              style={{ background: "var(--av-blue-500)" }}
-            >
-              Comunidad #biblioteca <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          </div>
-        </section>
+        )}
+
+        {/* Estado vacío honesto: los módulos sin bibliografía se dicen, no se
+            esconden ni se rellenan con tarjetas fantasma. */}
+        {!cargando && !fallo && vacias.length > 0 && (
+          <section className="mt-9 rounded-xl surface p-5">
+            <div className="text-[13px] font-semibold">Sin bibliografía todavía</div>
+            <p className="mt-1.5 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">
+              {vacias.map((c) => c.name).join(", ")}. Se cargan a medida que cada módulo publica sus
+              fuentes.
+            </p>
+          </section>
+        )}
       </div>
     </AppLayout>
   )
 }
 
-// ────────────────────────────────────────────────────────────────────────────
-interface CategoryProps {
-  slug: string
-  name: string
-  description: string
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: TileColorKey
-  bullets: string[]
+function Categoria({
+  categoria,
+  items,
+}: {
+  categoria: CategoriaBiblioteca
+  items: ItemBiblioteca[]
+}) {
+  const color = colorDeCategoria(categoria.color)
+  const alModulo = MODULO_DE_CATEGORIA[categoria.slug]
+
+  return (
+    <section id={categoria.slug}>
+      <div className="mb-4 flex items-center gap-3">
+        <span
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+          style={{ background: `color-mix(in oklab, ${color} 14%, transparent)`, color }}
+        >
+          <IconoCategoria nombre={categoria.icon_name} className="h-4.5 w-4.5" />
+        </span>
+        <div className="min-w-0 flex-1">
+          <h2 className="text-[17px] font-semibold tracking-[-0.01em]">{categoria.name}</h2>
+          {categoria.description && (
+            <p className="text-[13px] text-muted-foreground">{categoria.description}</p>
+          )}
+        </div>
+        {alModulo && (
+          <Link
+            to={alModulo}
+            className="shrink-0 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors"
+          >
+            Ir al módulo
+          </Link>
+        )}
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        {items.map((i) => (
+          <Ficha key={i.id} item={i} color={color} />
+        ))}
+      </div>
+    </section>
+  )
 }
 
-const CATEGORIES: CategoryProps[] = [
-  {
-    slug: "manuales",
-    name: "Manuales",
-    icon: BookOpen,
-    color: "cyan",
-    description: "FCOM, AFM, manuales operacionales por aeronave.",
-    bullets: ["A320 family", "B737NG / MAX", "ATR 42/72", "Genéricos PPL/CPL"],
-  },
-  {
-    slug: "sops",
-    name: "SOPs",
-    icon: ListChecks,
-    color: "blue",
-    description: "Standard Operating Procedures por aerolínea.",
-    bullets: ["Avianca / LATAM / Copa SOPs", "Flow patterns", "Callouts esperados"],
-  },
-  {
-    slug: "quick_refs",
-    name: "Quick References",
-    icon: FileText,
-    color: "amber",
-    description: "QRH, emergency checklists, abnormal procedures.",
-    bullets: ["QRH por aeronave", "Emergency memory items", "Abnormal flowcharts"],
-  },
-  {
-    slug: "performance",
-    name: "Performance Tools",
-    icon: TrendingUp,
-    color: "green",
-    description: "Calculadoras de despegue, aterrizaje, ascenso.",
-    bullets: ["TOLD interactive", "Climb/cruise/descent", "Engine-out planning"],
-  },
-  {
-    slug: "w_and_b",
-    name: "Weight & Balance",
-    icon: Scale,
-    color: "violet",
-    description: "Tools de cálculo W&B por aeronave.",
-    bullets: ["Calculadora interactiva", "Templates por aeronave", "Validación CG envelope"],
-  },
-  {
-    slug: "briefings",
-    name: "Briefings",
-    icon: Mic,
-    color: "cyan",
-    description: "Templates de briefing pre-vuelo, takeoff, approach.",
-    bullets: ["Pre-flight briefing", "Takeoff briefing template", "Approach briefing guidelines"],
-  },
-  {
-    slug: "checklist_philosophy",
-    name: "Checklist Philosophy",
-    icon: Lightbulb,
-    color: "blue",
-    description: "Por qué se hacen los checks como se hacen: flow patterns.",
-    bullets: ["Origen de cada checklist", "Read & verify vs do & verify", "Common errors"],
-  },
-  {
-    slug: "crm_tem_cases",
-    name: "CRM / TEM Cases",
-    icon: Users,
-    color: "violet",
-    description: "Casos reales de CRM y TEM para discusión.",
-    bullets: ["Casos clásicos comentados", "Discussion prompts", "Lessons learned por caso"],
-  },
-  {
-    slug: "accident_studies",
-    name: "Accident Case Studies",
-    icon: AlertTriangle,
-    color: "red",
-    description: "NTSB, BEA, AAIB: qué aprender de cada accidente.",
-    bullets: ["Reports oficiales linkeados", "Resumen pedagógico", "TEM/CRM takeaways"],
-  },
-]
+function Ficha({ item, color }: { item: ItemBiblioteca; color: string }) {
+  const esPdf = item.type === "pdf"
+  const fecha = fechaEdicion(item.published_at)
 
-/**
- * Tarjeta de categoría. Sin contenido cargado no hay a dónde ir: se queda en
- * reposo (sin lift), con el icono desaturado y chip "Pronto".
- */
-function CategoryTile({ icon: Icon, color, name, description, bullets }: CategoryProps) {
   return (
-    <div className="rounded-2xl surface p-6 flex flex-col gap-3.5">
-      <div className="flex items-start gap-3.5">
-        <div
-          className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: tileTint(color),
-            border: `1px solid ${tileBorder(color, 32)}`,
-            color: TILE_COLOR[color],
-            opacity: 0.55,
-          }}
+    <article className="surface surface-lift rounded-xl p-5 flex flex-col">
+      <div className="flex items-center gap-2">
+        <span
+          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium"
+          style={
+            esPdf
+              ? { background: `color-mix(in oklab, ${color} 12%, transparent)`, color }
+              : { background: "var(--muted)", color: "var(--muted-foreground)" }
+          }
         >
-          <Icon className="h-5 w-5" strokeWidth={2} />
-        </div>
-        <div className="flex-1 pt-0.5">
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="text-[15px] font-semibold tracking-[-0.01em]">{name}</div>
-            <span className="chip text-[12px]">Pronto</span>
-          </div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
-        </div>
+          {esPdf ? <FileText className="h-3 w-3" /> : <Info className="h-3 w-3" />}
+          {esPdf ? "Documento" : "Referencia"}
+        </span>
+        {item.source && (
+          <span className="text-[12px] text-muted-foreground truncate">{item.source}</span>
+        )}
       </div>
-      <ul className="space-y-1.5 pl-1">
-        {bullets.map((b) => (
-          <li key={b} className="flex items-start gap-2 text-[13px] text-muted-foreground">
-            <Check
-              className="flex-shrink-0 mt-0.5 h-3.5 w-3.5"
-              style={{ color: TILE_COLOR[color], opacity: 0.55 }}
-              strokeWidth={3}
-            />
-            <span>{b}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
+
+      <h3 className="mt-2.5 text-[15px] font-semibold leading-snug">{item.title}</h3>
+
+      {/* La edición va SIEMPRE junto al título. Nunca solo el nombre del
+          documento: en material normativo la versión es media información. */}
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[12px] text-muted-foreground">
+        <span className="font-medium text-foreground/80">
+          {item.version ?? "Edición sin indicar"}
+        </span>
+        <span aria-hidden>·</span>
+        <span>{fecha ?? "Fecha sin indicar"}</span>
+      </div>
+
+      {item.description && (
+        <p className="mt-2.5 text-[13px] text-muted-foreground leading-relaxed">
+          {item.description}
+        </p>
+      )}
+
+      <div className="mt-auto pt-4 flex flex-wrap items-center gap-2">
+        {esPdf && (
+          <Link
+            to={`/app/biblioteca/${item.slug}`}
+            className={appButtonClass({ variant: "secondary", size: "md" })}
+          >
+            Abrir <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        )}
+        {/* El enlace oficial va AL LADO del botón de abrir, no en un pie. */}
+        {item.embed_url && (
+          <a
+            href={item.embed_url}
+            target="_blank"
+            rel="noreferrer noopener"
+            className={appButtonClass({ variant: esPdf ? "ghost" : "secondary", size: "md" })}
+          >
+            Fuente oficial <ExternalLink className="h-3.5 w-3.5" />
+          </a>
+        )}
+      </div>
+    </article>
   )
 }

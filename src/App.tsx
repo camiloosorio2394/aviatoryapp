@@ -34,7 +34,6 @@ const Onboarding = page(() => import("@/pages/Onboarding"), "Onboarding")
 const Dashboard = page(() => import("@/pages/Dashboard"), "Dashboard")
 const TestInicial = page(() => import("@/pages/TestInicial"), "TestInicial")
 const GeneralSubjects = page(() => import("@/pages/GeneralSubjects"), "GeneralSubjects")
-const OfficialBank = page(() => import("@/pages/OfficialBank"), "OfficialBank")
 const RoutePage = page(() => import("@/pages/Route"), "Route")
 const Airlines = page(() => import("@/pages/Airlines"), "Airlines")
 const Profile = page(() => import("@/pages/Profile"), "Profile")
@@ -72,6 +71,10 @@ const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
 const MercanciasLector = page(() => import("@/pages/MercanciasLector"), "MercanciasLector")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const Library = page(() => import("@/pages/Library"), "Library")
+const BibliotecaDocumento = page(
+  () => import("@/pages/BibliotecaDocumento"),
+  "BibliotecaDocumento"
+)
 const VaultQuizPlayer = page(() => import("@/pages/VaultQuizPlayer"), "VaultQuizPlayer")
 const InterviewSim = page(() => import("@/pages/InterviewSim"), "InterviewSim")
 const InterviewSpeakingIntro = page(
@@ -165,16 +168,14 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path="/app/banco-oficial"
-          element={
-            <RequireAuth>
-              <OfficialBank />
-            </RequireAuth>
-          }
-        />
         {/* Exam Tracker y Match pasaron a vivir dentro de su modulo. Las rutas
             viejas siguen funcionando para no romper enlaces ya compartidos. */}
+        {/* El banco oficial se mudo a la Biblioteca: es un documento de
+            referencia, no una herramienta del modulo. */}
+        <Route
+          path="/app/banco-oficial"
+          element={<Navigate to="/app/biblioteca/banco-preguntas-pca" replace />}
+        />
         <Route path="/app/exam-tracker" element={<Navigate to="/app/examenes" replace />} />
         <Route path="/app/exam-tracker/:slug" element={<LegacyExamTracker />} />
         <Route path="/app/aerolineas" element={<Navigate to="/app/match" replace />} />
@@ -387,6 +388,14 @@ function App() {
           element={
             <RequireAuth>
               <Library />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/biblioteca/:slug"
+          element={
+            <RequireAuth>
+              <BibliotecaDocumento />
             </RequireAuth>
           }
         />

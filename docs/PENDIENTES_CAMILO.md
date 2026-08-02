@@ -17,6 +17,7 @@ se escribieron para que las apliques tú por MCP.
 | `20260801030000_metar_master_condicion.sql` | La condición de `metar_master`, que existía en el catálogo y era imposible de desbloquear |
 | `20260801040000_simulacro_aerolinea.sql` | `user_airline_mock_attempts` + logro `airline_mock_passed` (gold, mínimo 85) + disparador |
 | `20260802010000_modulo_mercancias.sql` | Todo el módulo Mercancías Peligrosas: progreso, RPC, intentos, umbrales y 4 logros |
+| `20260802020000_biblioteca_por_modulos.sql` | Las categorías de la Biblioteca, las fichas de mercancías, el banco oficial y la política de storage |
 
 Cada una trae la tabla, el logro **con su condición dentro de
 `check_and_unlock_achievements`** y **su disparador**, en la misma migración. Es
@@ -38,6 +39,54 @@ npx supabase gen types typescript --project-id $REF > src/integrations/supabase/
 Mientras tanto los tipos están escritos a mano para las cuatro tablas nuevas.
 La regeneración debería dejarlos igual; si algo cambia, es que la migración y lo
 que escribí no coinciden y hay que mirarlo.
+
+---
+
+## 1bis · Los dos PDF de la Biblioteca los tienes que subir tú
+
+La Biblioteca ya está montada, pero **de sus dos documentos alojados solo uno
+está en el bucket**. Los PDF no entran al repositorio (serían megas en cada
+clone y en cada build), así que hay que subirlos al bucket
+`documentos-oficiales` **con el nombre exacto** que espera la migración:
+
+| Documento | Nombre de archivo que espera la fila |
+|---|---|
+| RAC 175 | `RAC 175 - Transporte sin Riesgo de Mercancias Peligrosas por via Aerea.pdf` |
+| LAR 175 | `LAR 175 MERCANCIAS PELIGROSAS.pdf` |
+
+Sin tilde y sin eñe en el nombre a propósito: el bucket ya sirve un archivo con
+espacios y funciona, pero los acentos en la ruta firmada dan más problemas de
+los que valen. **Si los subes con otro nombre, cámbialo también en el
+`file_url` de la migración**, o el visor dirá que el documento no está cargado.
+
+El tercero, el banco de preguntas del PCA, **ya está** en el bucket como
+`Banco de Preguntas Licencia PCA.pdf` y su fila apunta ahí. Verificado.
+
+Y una cosa que hay que confirmar contigo: **la edición del banco de preguntas**.
+No trae número ni fecha en la portada, así que su ficha dice "Edición sin
+numerar, confirmar la vigente con la Aerocivil". Si sabes de qué año es, se
+corrige y deja de ser una ficha a medias.
+
+---
+
+## 1ter · Tres cosas del brief de la Biblioteca que no eran como decía
+
+Ninguna bloqueó nada, pero conviene saberlas:
+
+**`library_categories` no estaba vacía.** Tenía las nueve categorías genéricas
+del marcador de posición (Manuales, SOPs, Quick References, Performance Tools,
+Weight & Balance, Briefings, Checklist Philosophy, CRM/TEM, Accident Case
+Studies), sembradas en la base y no solo en el frontend. La migración las borra,
+pero **con salvaguarda**: solo borra la que no tenga ni un documento colgando.
+Si subiste algo a alguna mientras tanto, esa se queda.
+
+**La RPC `bump_library_item_views` no existe.** El brief la daba por hecha. La
+probé con todas las firmas plausibles y Postgres responde siempre "Could not
+find the function". La crea la migración nueva.
+
+**No había política de storage para leer el bucket.** Se añade una de solo
+`select` para `authenticated`. Sin ella, `createSignedUrl` funciona hoy porque
+la sesión actual tiene permiso por otra vía, pero conviene que sea explícita.
 
 ---
 
@@ -181,6 +230,30 @@ puntos donde una revisión tuya vale la pena:
 Donde una cifra depende de la edición vigente, la sección lo dice. **No hay
 ningún límite presentado como aplicable en línea de vuelo**, que era la
 condición del punto 6 del brief.
+
+---
+
+## 6bis · Hasta dónde protege el visor de la Biblioteca
+
+Para que quede dicho sin adornos, porque es fácil venderlo de más.
+
+**Lo que sí hace.** El PDF se dibuja a canvas y **no se monta la capa de texto**
+de pdf.js, así que el contenido son píxeles: no hay nada que seleccionar ni
+copiar. Encima va `ContentGuard`, que bloquea el menú contextual, `Ctrl+C`,
+`Ctrl+S` y `Ctrl+P`, oculta el contenido al imprimir y estampa el correo del
+usuario en diagonal. Y la URL del archivo es firmada y caduca en una hora:
+comprobado con una firma corta, deja de servir al vencer, y sin firma el bucket
+responde error.
+
+**Lo que no hace, y no lo va a hacer.** Nada de eso impide una captura de
+pantalla; ningún navegador permite bloquearlas. Lo que de verdad desincentiva
+compartirla es que salga con el correo impreso encima. Y para dibujar el PDF el
+archivo tiene que llegar al dispositivo, así que alguien con la consola abierta
+puede sacarlo. **No es un DRM y no conviene presentarlo como tal.**
+
+Una consecuencia de no montar la capa de texto: **no hay buscador dentro del
+documento**. Es el precio de que no se pueda copiar, y es el intercambio que
+pediste.
 
 ---
 

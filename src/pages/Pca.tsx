@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import {
   ArrowRight,
-  FileText,
+  Library as LibraryIcon,
   PlayCircle,
   Radar,
   RefreshCw,
@@ -181,12 +181,15 @@ export function Pca() {
               cta="Empezar"
             />
           )}
+          {/* El banco oficial se mudó a la Biblioteca. La tarjeta lleva a la
+              CATEGORÍA del PCA y no al documento suelto: el día que haya más
+              material del examen, ya está el sitio donde ponerlo. */}
           <ModuleCard
-            icon={FileText}
-            title="Banco oficial"
-            description="El documento de Aerocivil completo, para consultar y verificar."
-            to="/app/banco-oficial"
-            cta="Abrir documento"
+            icon={LibraryIcon}
+            title="Bibliografía del PCA"
+            description="El banco oficial de la Aerocivil completo, para consultar y verificar."
+            to="/app/biblioteca#pca"
+            cta="Ver documentos"
             badge="Oficial"
           />
           <ModuleCard
@@ -250,6 +253,8 @@ export function Pca() {
             tone="success"
             title="Preguntas verificadas contra Aerocivil"
             line="Cada pregunta corresponde al documento oficial, y puedes comprobarlo."
+            to="/app/biblioteca/banco-preguntas-pca"
+            toLabel="Abrir el banco oficial"
           />
           <Alert
             icon={TriangleAlert}
@@ -268,11 +273,17 @@ function Alert({
   tone,
   title,
   line,
+  to,
+  toLabel,
 }: {
   icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
   tone: "success" | "warn"
   title: string
   line: string
+  /** Adónde va la promesa del aviso. Si dice que se puede comprobar, tiene que
+   *  llevar al documento con el que se comprueba. */
+  to?: string
+  toLabel?: string
 }) {
   const color = tone === "warn" ? "var(--av-warn-fg)" : "var(--av-success-fg)"
   const tint = tone === "warn" ? "var(--av-amber-400)" : "var(--av-green-400)"
@@ -291,6 +302,15 @@ function Alert({
           {title}
         </div>
         <p className="mt-0.5 text-[13px] text-muted-foreground leading-snug">{line}</p>
+        {to && (
+          <Link
+            to={to}
+            className="mt-1.5 inline-flex items-center gap-1 text-[13px] font-medium hover:underline"
+            style={{ color }}
+          >
+            {toLabel ?? "Ver"} <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        )}
       </div>
     </div>
   )

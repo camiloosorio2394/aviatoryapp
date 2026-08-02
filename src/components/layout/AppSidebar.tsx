@@ -14,7 +14,6 @@ import {
   Plane,
   Gift,
   GraduationCap,
-  FileText,
   User,
   Timer,
   ArrowRight,
@@ -79,7 +78,9 @@ const navSections: NavSection[] = [
   {
     label: "Herramientas",
     items: [
-      { to: "/app/banco-oficial", label: "Banco oficial", icon: FileText },
+      // La Biblioteca ocupa el sitio que tenía "Banco oficial": ese documento se
+      // mudó a ella, así que el menú queda igual de largo.
+      { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon },
       { to: "/app/examenes", label: "Qué cayó en el examen", icon: Radar },
       { to: "/app/match", label: "Para cuál calificas", icon: Plane },
       { to: "/app/logbook", label: "Logbook", icon: Clock },
@@ -104,7 +105,6 @@ const navSections: NavSection[] = [
 const soonItems: NavItem[] = [
   { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
   { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
-  { to: "/app/biblioteca", label: "Biblioteca", icon: LibraryIcon, soon: true },
 ]
 
 interface Props {
