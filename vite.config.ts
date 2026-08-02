@@ -65,7 +65,9 @@ export default defineConfig({
         // se quedan en cache la primera vez que se ven (runtimeCaching, abajo).
         // Estos archivos NO llevan hash en el nombre, asi que tampoco sufren el
         // problema de 404 entre deploys que obliga a precachear los .jpg.
-        globIgnores: ['notams/**'],
+        // Las infografias del curso son el mismo caso: 400 KB de ilustraciones
+        // de una seccion concreta. Van bajo demanda por el mismo motivo.
+        globIgnores: ['notams/**', 'infografias/**'],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [
@@ -96,6 +98,17 @@ export default defineConfig({
             options: {
               cacheName: 'notam-images',
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Ilustraciones de las infografias: mismo trato que los recortes.
+            // Quien abre la seccion las tiene offline en la segunda visita.
+            urlPattern: /\/infografias\/.*\.(webp|png)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'infografia-images',
+              expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 180 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },

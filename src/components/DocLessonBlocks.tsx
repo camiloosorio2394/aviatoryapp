@@ -20,6 +20,18 @@ import {
 import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
+import { NotamQueEs } from "@/components/lesson/infografias/NotamQueEs"
+
+/**
+ * Registro de infografías disponibles para el bloque `infografia`.
+ *
+ * Cada una es un lienzo fijo portado de su diseño. Se listan aquí para que la
+ * lección solo tenga que nombrarlas y el tipo del bloque las valide: un nombre
+ * mal escrito no compila.
+ */
+const INFOGRAFIAS: Record<string, () => React.JSX.Element> = {
+  "notam-que-es": NotamQueEs,
+}
 
 /**
  * Colores del desglose. Cada trozo del código toma uno y su entrada en la
@@ -207,6 +219,13 @@ export function DocBlock({ block }: { block: LessonBlock }) {
 
     case "notam":
       return <NotamFigure id={block.id} caption={block.caption} />
+
+    case "infografia": {
+      const Infografia = INFOGRAFIAS[block.nombre]
+      // Una referencia rota no puede tumbar la lección entera, igual que en
+      // NotamFigure: si el nombre no existe, la sección sigue leyéndose.
+      return Infografia ? <Infografia /> : null
+    }
 
     case "check":
       return (

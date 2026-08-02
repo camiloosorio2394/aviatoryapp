@@ -61,6 +61,17 @@ export type LessonBlock =
    * arreglar, no la solución.
    */
   | { kind: "notam"; id: string; caption?: string }
+  /**
+   * Infografía de lienzo fijo, diseñada aparte y portada a código.
+   *
+   * Va donde una imagen entera explica mejor que doce párrafos: la portada de
+   * un tema, un mapa de conceptos, una anatomía completa. No sustituye al
+   * texto de la sección, lo encabeza.
+   *
+   * `nombre` es la clave del registro de INFOGRAFIAS en DocLessonBlocks: el
+   * bloque no sabe maquetar, solo elige cuál mostrar.
+   */
+  | { kind: "infografia"; nombre: "notam-que-es" }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
       kind: "example"
@@ -115,6 +126,10 @@ export const LESSON_SCREENS: LessonScreen[] = [
     minutes: 2,
     level: "basico",
     blocks: [
+      // Va antes de la definición a propósito: primero se ve de qué se trata,
+      // después se lee la definición oficial. Al revés, la sección abría con
+      // una cita del Doc 8400 y un párrafo, y se leía como un documento.
+      { kind: "infografia", nombre: "notam-que-es" },
       { kind: "p", text: "**Definición oficial** (Doc 8400, pág. 3-3):" },
       {
         kind: "quote",
