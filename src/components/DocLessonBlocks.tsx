@@ -7,7 +7,7 @@
  * cambian todas las lecciones a la vez, que es la gracia.
  */
 
-import { useState, type ReactNode } from "react"
+import { lazy, Suspense, useState, type ReactNode } from "react"
 import {
   AlertTriangle,
   CheckCircle2,
@@ -20,17 +20,29 @@ import {
 import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
-import { NotamQueEs } from "@/components/lesson/infografias/NotamQueEs"
-
 /**
  * Registro de infografías disponibles para el bloque `infografia`.
  *
- * Cada una es un lienzo fijo portado de su diseño. Se listan aquí para que la
- * lección solo tenga que nombrarlas y el tipo del bloque las valide: un nombre
- * mal escrito no compila.
+ * Se listan aquí para que la lección solo tenga que nombrarlas y el tipo del
+ * bloque las valide: un nombre mal escrito no compila.
+ *
+ * Van con `lazy` a propósito. Cada infografía trae su maquetación completa y
+ * van a ser trece; metidas en el bundle principal lo empujaron por encima de
+ * los 2 MB y Workbox dejó de precachearlo, que es un fallo de build, no un
+ * aviso. Cargadas aparte, el piloto solo descarga la de la sección que abre.
  */
-const INFOGRAFIAS: Record<string, () => React.JSX.Element> = {
-  "notam-que-es": NotamQueEs,
+const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Element>> = {
+  "notam-que-es": lazy(() =>
+    import("@/components/lesson/infografias/NotamQueEs").then((m) => ({ default: m.NotamQueEs })),
+  ),
+  "notam-linea-q": lazy(() =>
+    import("@/components/lesson/infografias/NotamLineaQ").then((m) => ({ default: m.NotamLineaQ })),
+  ),
+}
+
+/** Hueco mientras llega el trozo de la infografía. Reserva alto para que no salte la página. */
+function InfografiaCargando() {
+  return <div className="my-6 h-[320px] animate-pulse rounded-xl" style={{ background: "var(--doc-soft)" }} />
 }
 
 /**
@@ -224,7 +236,12 @@ export function DocBlock({ block }: { block: LessonBlock }) {
       const Infografia = INFOGRAFIAS[block.nombre]
       // Una referencia rota no puede tumbar la lección entera, igual que en
       // NotamFigure: si el nombre no existe, la sección sigue leyéndose.
-      return Infografia ? <Infografia /> : null
+      if (!Infografia) return null
+      return (
+        <Suspense fallback={<InfografiaCargando />}>
+          <Infografia />
+        </Suspense>
+      )
     }
 
     case "check":

@@ -71,7 +71,7 @@ export type LessonBlock =
    * `nombre` es la clave del registro de INFOGRAFIAS en DocLessonBlocks: el
    * bloque no sabe maquetar, solo elige cuál mostrar.
    */
-  | { kind: "infografia"; nombre: "notam-que-es" }
+  | { kind: "infografia"; nombre: "notam-que-es" | "notam-linea-q" }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
       kind: "example"
@@ -417,57 +417,13 @@ export const LESSON_SCREENS: LessonScreen[] = [
     n: 5,
     title: "La línea Q, pieza por pieza",
     kicker: "Los siete componentes del calificativo",
-    minutes: 4,
+    minutes: 3,
     level: "intermedio",
     blocks: [
-      { kind: "p", text: "Ejemplo del curso (pág. 22), desarmado pieza por pieza:" },
-      {
-        kind: "breakdown",
-        caption:
-          "Siete piezas separadas por barras y siempre en este orden. Si una falta, las demás conservan su posición.",
-        parts: [
-          {
-            token: "SEFG",
-            label: "FIR",
-            detail: "Región de información de vuelo donde aplica.",
-          },
-          {
-            token: "QRALW",
-            label: "código NOTAM",
-            detail: "Cinco letras: qué cosa y qué le pasa. Es la sección siguiente.",
-          },
-          {
-            token: "IV",
-            label: "tránsito",
-            detail: "`I` es IFR, `V` es VFR, `IV` son ambos, `K` es checklist (curso, pág. 24).",
-          },
-          {
-            token: "NBO",
-            label: "objetivo",
-            detail:
-              "`N` atención inmediata de la tripulación, `B` entra al boletín previo al vuelo (PIB), `O` concierne a operaciones de vuelo, `M` misceláneo (no va a briefing), `K` checklist.",
-          },
-          {
-            token: "AW",
-            label: "alcance",
-            detail: "`A` aeródromo, `E` en ruta, `W` advertencia de navegación. Se combinan: `AE`, `AW`.",
-          },
-          {
-            token: "000/001",
-            label: "límites",
-            detail: "Inferior y superior en niveles de vuelo. `000/999` es el valor por defecto: toda altura.",
-          },
-          {
-            token: "0202S07956W001",
-            label: "área",
-            detail: "Centro del área afectada y radio en millas náuticas. Aquí, 1 NM.",
-          },
-        ],
-      },
-      {
-        kind: "p",
-        text: "El propio Doc 8400 decodifica estos calificativos en sus ejemplos (pág. 7-3): `IV/BO/AE` significa IFR y VFR, boletín previo al vuelo más significativo para IFR, y alcance de ayuda terminal y en ruta.",
-      },
+      // La sección ES el desglose. Antes eran dos párrafos de introducción, un
+      // bloque breakdown y un consejo suelto al final: 181 palabras de prosa
+      // para presentar algo que se explica solo si lo puedes tocar.
+      { kind: "infografia", nombre: "notam-linea-q" },
       {
         kind: "check",
         question:
@@ -480,12 +436,6 @@ export const LESSON_SCREENS: LessonScreen[] = [
         answer: 1,
         explain:
           "El tránsito y el alcance son el primer filtro de un paquete grande. `V` es VFR y `W` es advertencia de navegación: volando IFR a un aeródromo, y en otra FIR, ese aviso no es tuyo. Míralo, pero decide rápido.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Filtra con el tránsito y el alcance",
-        text: "Cuando revisas un paquete de 40 NOTAM, el tránsito y el alcance son tu primer filtro. Si vuelas IFR a un aeródromo, un NOTAM `V` de alcance `W` en otra FIR no te aplica. No lo saltes sin mirar, pero decide rápido.",
       },
       {
         kind: "callout",
