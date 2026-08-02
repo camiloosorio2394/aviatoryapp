@@ -100,7 +100,7 @@ export function CourseCard({
         </span>
         {highlight && (
           <span
-            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white shadow-sm"
+            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-semibold text-white shadow-sm"
             style={{ background: "linear-gradient(135deg, oklch(0.8 0.14 85), oklch(0.63 0.15 65))" }}
           >
             <Star className="h-3 w-3 fill-current" /> Popular
@@ -108,7 +108,7 @@ export function CourseCard({
         )}
         {done && (
           <span
-            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm"
+            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-semibold text-white backdrop-blur-sm"
             style={{ background: "color-mix(in oklab, var(--av-green-400) 55%, rgb(11 16 32 / 70%))" }}
           >
             <CheckCircle2 className="h-3 w-3" /> Listo
@@ -116,7 +116,7 @@ export function CourseCard({
         )}
         {soon && !done && (
           <span
-            className="absolute top-3 right-3 inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-bold text-white backdrop-blur-sm"
+            className="absolute top-3 right-3 inline-flex items-center rounded-full px-2.5 py-1 text-[12px] font-semibold text-white backdrop-blur-sm"
             style={{ background: "rgb(11 16 32 / 55%)" }}
           >
             Pronto
@@ -134,10 +134,10 @@ export function CourseCard({
         >
           {meta}
         </div>
-        <h3 className="mt-1.5 text-[17px] font-bold tracking-[-0.01em]">{title}</h3>
+        <h3 className="mt-1.5 text-[17px] font-semibold tracking-[-0.01em]">{title}</h3>
         <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">{blurb}</p>
         <div
-          className="mt-4 inline-flex items-center gap-1 text-[14px] font-semibold"
+          className="mt-4 inline-flex items-center gap-1 text-[15px] font-semibold"
           style={{ color: soon ? "var(--muted-foreground)" : color }}
         >
           {soon ? (
@@ -190,11 +190,16 @@ export function CourseCard({
     </>
   )
 
-  const className = "group h-full flex flex-col rounded-2xl border bg-card overflow-hidden transition-all hover:-translate-y-1"
-  const style = {
-    borderColor: highlight ? `color-mix(in oklab, ${color} 45%, transparent)` : "var(--border)",
-    boxShadow: "0 1px 2px rgb(0 0 0 / 4%)",
-  }
+  // `.surface` en vez de `border bg-card` + sombra inline: es la regla del
+  // sistema y de paso arregla el modo oscuro, donde la sombra inline dejaba la
+  // versión clara (4%) en lugar de la del tema (25%).
+  const className =
+    "group h-full flex flex-col rounded-2xl surface overflow-hidden transition-all hover:-translate-y-1"
+  // El borde teñido del curso destacado es lo único que se sale de la
+  // superficie, y solo cuando hay algo que destacar.
+  const style = highlight
+    ? { borderColor: `color-mix(in oklab, ${color} 45%, transparent)` }
+    : undefined
 
   return to ? (
     <Link to={to} className={className} style={style}>
