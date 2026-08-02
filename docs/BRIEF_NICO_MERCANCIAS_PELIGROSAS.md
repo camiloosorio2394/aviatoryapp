@@ -26,23 +26,46 @@ No es una maqueta: es una **aplicación reactiva completa**, 65 KB de HTML con
 
 ```js
 state = { paso: 0, clase: '3', caso: 0, resp: {}, hechos: {}, quiz: {}, calificado: false }
-PASOS = ['Briefing del módulo', 'De dónde sale la norma', 'Las nueve clases',
-         'Grupos de embalaje', 'Marcas, etiquetas y documentos',
-         'Información al piloto al mando', 'Mercancías ocultas y estiba',
-         'Práctica de clasificación', 'Chequeo final']
 ```
 
 Ese estado mapea a React casi uno a uno. `paso` es la sección actual, `clase` el
 rombo seleccionado, `caso` el ejercicio de práctica, `resp` y `quiz` las
 respuestas, `calificado` si ya se corrigió.
 
+**Las 11 secciones**, `PASOS` del script:
+
+```
+00 Briefing del módulo          06 Información al piloto al mando
+01 De dónde sale la norma       07 Mercancías ocultas y estiba
+02 Las nueve clases             08 Emergencias y notificación
+03 Prohibiciones y limitaciones 09 Práctica de clasificación
+04 Grupos de embalaje           10 Chequeo final
+05 Marcas, etiquetas y documentos
+```
+
+**Los datos ya vienen estructurados en el script.** No los reescribas, tradúcelos:
+
+```js
+CLASES  // 9 entradas, 5 KB
+{ n: '1', corto: 'Explosivos', nombre: 'Explosivos',
+  bg: '#E87722',        // color de la clase
+  fg: '#16202A',        // color del texto sobre ese fondo
+  ge: false,            // si aplica grupo de embalaje
+  desc: '...',
+  ejemplos: ['Municiones', 'Pirotecnia', 'Detonadores', 'Cordón detonante'],
+  divisiones: [{ id: '1.1', txt: 'Peligro de explosión en masa' }, ...] }
+
+CASOS      // 4 casos de práctica: texto, clase, ge, respuesta, explicacion, embalaje
+PREGUNTAS  // 5 del chequeo: texto, ref, ops, ok
+```
+
 **Y esto es lo importante**, medido sobre el HTML:
 
 | | |
 |---|---|
 | `position:absolute` | **0** |
-| `display:grid` | 21 |
-| `display:flex` | 39 |
+| `display:grid` | 34 |
+| `display:flex` | 61 |
 | `<button>` | 12 |
 | `<img>` / `<svg>` | 0 |
 | `@media` | **0** |
@@ -84,10 +107,22 @@ Sacadas del HTML del diseño, no de un pantallazo.
 --mod-line:     #D9DDE3;  /* bordes */
 --mod-panel:    #F6F9FF;  /* panel azul muy claro */
 --mod-panel-2:  #E7EFF9;  /* tarjetas de cifra */
---mod-panel-ok: #F2FAF3;  /* panel verde, para lo permitido */
---mod-panel-no: #E9AFA7;  /* panel rojo, para lo prohibido */
 --mod-border-b: #A9BCEA;  /* borde azul claro */
+
+/* Semanticos: entraron con la seccion 03, Prohibiciones y limitaciones */
+--mod-ok-bg:    #F2FAF3;  /* fondo verde, lo permitido */
+--mod-ok-line:  #A6D3B3;
+--mod-ok-fg:    #1E7A3C;
+--mod-no-bg:    #E9AFA7;  /* fondo rojo, lo prohibido */
+--mod-no-fg:    #B03024;
 ```
+
+El verde y el rojo son **semánticos, no decorativos**: permitido y prohibido.
+No los uses para otra cosa.
+
+El color de cada clase (`bg` de `CLASES`) es aparte y es el sistema del módulo:
+el naranja de la clase 1 reaparece cada vez que se hable de explosivos en
+cualquier sección.
 
 Van en `src/index.css` bajo `.mod-shell`, con la misma lógica que `.doc-sheet`:
 **una superficie con reglas propias que no se invierte con el tema**. Dentro de
@@ -147,14 +182,28 @@ a WebP: 2,36 MB a 294 KB, un 88 por ciento menos. Los 16 rombos pesan entre 4 y
 **Úsalos, no los dibujes en SVG.** Son símbolos normalizados y un piloto tiene
 que reconocer el real, no una aproximación.
 
-Van en la sección **02 · Las nueve clases**, que es la pieza central del módulo:
-rejilla de fichas, cada una con su rombo, el número y nombre de la clase, el
-riesgo principal en una frase, ejemplos concretos y las divisiones cuando las
-hay. El diseño ya tiene el selector de clase en el estado (`clase: '3'`), así
-que la ficha se abre al tocar el rombo.
+### Qué hay que cambiar exactamente
 
-Ese color de clase es el sistema del módulo entero: el de la clase 2 reaparece
-cada vez que se hable de gases en cualquier otra sección.
+El diseño **dibuja los rombos con CSS**: un cuadrado con el color de la clase
+(`bg: '#E87722'`) rotado 45 grados y el número encima. Funciona como maqueta,
+pero **no es la etiqueta real**: le faltan los símbolos normalizados, la llama
+de los inflamables, la calavera de los tóxicos, el trébol del radiactivo.
+
+**Sustituye ese cuadrado por el rombo oficial.** Un piloto tiene que reconocer
+la etiqueta que va a ver en una bodega, no un cuadro de color con un número.
+
+El color de `CLASES[].bg` **se queda**: sigue siendo el sistema del módulo para
+bordes, chips y acentos de esa clase en el resto de las secciones. Lo que cambia
+es solo el rombo.
+
+Van en la sección **02 · Las nueve clases**, que es la pieza central: rejilla de
+fichas, cada una con su rombo oficial, número y nombre, la descripción, los
+ejemplos y las divisiones. El estado ya trae el selector (`clase: '3'`), así que
+la ficha se abre al tocar el rombo.
+
+Ojo con las divisiones: hay **16 rombos para 9 clases** porque varias tienen
+división propia (1.1 y 1.4, 2.1 a 2.3, 4.1 a 4.3, 5.1 y 5.2, 6.1 y 6.2). El
+array `divisiones` de cada clase te dice cuáles mostrar.
 
 **Fuera del precache.** `vite.config.ts` ya excluye `infografias/**` con
 `globIgnores` y les da `CacheFirst`. No lo toques, ya está resuelto.
@@ -175,7 +224,7 @@ El hub se queda dentro de la app, como el de NOTAM: ahí se ve el avance y se
 entra. El lector sale a pantalla completa con su barra propia y un botón de
 salir que devuelve al hub.
 
-La práctica (sección 07) y el chequeo (08) **van dentro del lector**, no en
+La práctica (sección 09) y el chequeo (10) **van dentro del lector**, no en
 rutas aparte: el diseño ya los tiene como pasos del mismo flujo.
 
 **Componentes, pensados para reutilizar en los módulos que vengan:**
@@ -264,8 +313,9 @@ node -e "const fs=require('fs');fs.readdirSync('dist/assets').filter(f=>f.endsWi
 - **Fase 1**: el cascarón. `ModuloShell`, barra, índice, tokens `--mod-*` y la
   sección 00. **Párate aquí y enséñaselo a Cami**: si el cascarón está bien, el
   resto es rellenarlo
-- **Fase 2**: las nueve clases con sus rombos, y las secciones 01 y 03 a 06
-- **Fase 3**: práctica (07) y chequeo (08), con su estado
+- **Fase 2**: las nueve clases (02) con sus rombos oficiales, y las secciones
+  01 y 03 a 08
+- **Fase 3**: práctica (09) y chequeo (10), con su estado
 - **Fase 4**: migración, logros y actividad. Avisa a Cami para aplicarla
 
 ---
