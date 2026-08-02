@@ -16,23 +16,23 @@ para los módulos que vengan.
 |---|---|---|
 | **RAC 175** | Aerocivil de Colombia | **Se aloja.** Reglamento público colombiano |
 | **LAR 175** | SRVSOP | **Se aloja.** Publicación regional abierta |
-| **OACI Doc 9284** | OACI | **Se aloja.** Decisión de Cami, ver la nota de abajo |
 | OACI Anexo 18 | OACI | Ficha de referencia, sin PDF |
+| OACI Doc 9284 | OACI | Ficha de referencia, sin PDF |
 | IATA DGR | IATA | Ficha de referencia, sin PDF |
 
-La DGR queda fuera y no se discute: es un manual comercial con licencia anual, e
-IATA persigue activamente su redistribución. Aviatory es un producto de pago,
-así que no aplica ningún uso educativo cómodo.
+**Solo se alojan RAC 175 y LAR 175.** Los dos son reglamentos publicados
+abiertamente por su autoridad, así que servirlos desde la app no tiene ningún
+problema.
 
-**Nota sobre el Doc 9284.** Cami lo sube porque circula libremente en internet.
-Queda anotado que la OACI lo vende en su tienda y que encontrarlo gratis no es lo
-mismo que estar liberado. Es su decisión y su riesgo, no la discutas.
+Las tres publicaciones de la OACI y de IATA **no se suben**: son de pago, y que
+alguna circule libremente en internet no es lo mismo que estar liberada. Van
+como ficha de referencia, que para el piloto sirve igual o más (punto 4).
 
-Lo que sí es obligatorio, y por un motivo operativo más que legal: **el Doc 9284
-se reedita cada dos años.** Un PDF alojado se congela el día que se sube, y
-dentro de dos años un piloto puede estar leyendo un límite derogado dentro de la
-app. Ver el punto 4bis: la salvaguarda de edición no es opcional en ninguna
-ficha normativa.
+**No abras esta discusión de nuevo ni propongas subirlas.** Ya está decidido.
+
+Y aunque los dos que se alojan sean públicos, la salvaguarda de edición del
+punto 4bis **también les aplica**: el RAC 175 tiene enmiendas posteriores a su
+edición original y el LAR también se enmienda.
 
 ### La solución: dos tipos de ficha
 
@@ -121,15 +121,16 @@ división por módulos. No lo conserves.
               version: la enmienda que corresponda al PDF que se suba
               embed_url: la pagina de los LAR en el sitio del SRVSOP
 
-[pdf]         OACI, Doc 9284, Instrucciones Técnicas
-              source: OACI
-              version: la edición bienal del PDF que se suba, tal cual
-              embed_url: la ficha del documento en la tienda de la OACI
-
 [referencia]  OACI, Anexo 18
               source: OACI · authors: OACI
               description: la norma marco. Qué cubre y por qué el RAC 175 lo adopta
               embed_url: la ficha del Anexo en la tienda de la OACI
+
+[referencia]  OACI, Doc 9284, Instrucciones Técnicas
+              source: OACI · version: se reedita cada 2 años
+              description: el "cómo" detallado: clasificación, embalaje, marcado
+                           y el listado UN. Qué capítulos le importan al piloto
+              embed_url: la ficha del documento en la tienda de la OACI
 
 [referencia]  IATA DGR
               version: anual
