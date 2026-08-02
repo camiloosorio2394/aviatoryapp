@@ -10,21 +10,29 @@ para los módulos que vengan.
 
 ## 1 · Lo primero: el problema de derechos, y cómo se resuelve
 
-**Léelo antes de subir un solo PDF.** De las cuatro fuentes de mercancías
-peligrosas, solo una se puede alojar:
+**Léelo antes de subir un solo PDF.** Cami ya decidió qué se sube y qué no:
 
-| Fuente | Quién lo publica | ¿Se puede alojar? |
+| Fuente | Quién lo publica | Decisión |
 |---|---|---|
-| **RAC 175** | Aerocivil de Colombia | **Sí.** Reglamento público colombiano |
-| **AIP Colombia** | Aerocivil | **Sí.** Publicación oficial de consulta pública |
-| OACI Anexo 18 | OACI | **No.** Publicación de pago |
-| OACI Doc 9284, Instrucciones Técnicas | OACI | **No.** Publicación de pago |
-| IATA DGR | IATA | **No.** Manual comercial, licencia anual |
+| **RAC 175** | Aerocivil de Colombia | **Se aloja.** Reglamento público colombiano |
+| **LAR 175** | SRVSOP | **Se aloja.** Publicación regional abierta |
+| **OACI Doc 9284** | OACI | **Se aloja.** Decisión de Cami, ver la nota de abajo |
+| OACI Anexo 18 | OACI | Ficha de referencia, sin PDF |
+| IATA DGR | IATA | Ficha de referencia, sin PDF |
 
-Subir los tres últimos al bucket y servírselos a los usuarios es **redistribuir
-obra protegida**. No es un tecnicismo: IATA persigue activamente la
-redistribución de la DGR, y Aviatory es un producto de pago, así que no aplica
-ningún uso educativo cómodo.
+La DGR queda fuera y no se discute: es un manual comercial con licencia anual, e
+IATA persigue activamente su redistribución. Aviatory es un producto de pago,
+así que no aplica ningún uso educativo cómodo.
+
+**Nota sobre el Doc 9284.** Cami lo sube porque circula libremente en internet.
+Queda anotado que la OACI lo vende en su tienda y que encontrarlo gratis no es lo
+mismo que estar liberado. Es su decisión y su riesgo, no la discutas.
+
+Lo que sí es obligatorio, y por un motivo operativo más que legal: **el Doc 9284
+se reedita cada dos años.** Un PDF alojado se congela el día que se sube, y
+dentro de dos años un piloto puede estar leyendo un límite derogado dentro de la
+app. Ver el punto 4bis: la salvaguarda de edición no es opcional en ninguna
+ficha normativa.
 
 ### La solución: dos tipos de ficha
 
@@ -106,17 +114,22 @@ división por módulos. No lo conserves.
 [pdf]         RAC 175, Transporte sin riesgos de mercancías peligrosas por vía aérea
               source: Aerocivil de Colombia
               version: Edición Original, marzo 2016, Resolución 00478
-              description: tiene que decir que ha tenido enmiendas posteriores
-                           y que hay que verificar la edición vigente
+              embed_url: la pagina de los RAC en aerocivil.gov.co
+
+[pdf]         LAR 175, Transporte sin riesgos de mercancías peligrosas por vía aérea
+              source: SRVSOP
+              version: la enmienda que corresponda al PDF que se suba
+              embed_url: la pagina de los LAR en el sitio del SRVSOP
+
+[pdf]         OACI, Doc 9284, Instrucciones Técnicas
+              source: OACI
+              version: la edición bienal del PDF que se suba, tal cual
+              embed_url: la ficha del documento en la tienda de la OACI
 
 [referencia]  OACI, Anexo 18
               source: OACI · authors: OACI
               description: la norma marco. Qué cubre y por qué el RAC 175 lo adopta
               embed_url: la ficha del Anexo en la tienda de la OACI
-
-[referencia]  OACI, Doc 9284, Instrucciones Técnicas
-              version: se reedita cada 2 años
-              description: el "cómo" detallado. Qué capítulos le importan al piloto
 
 [referencia]  IATA DGR
               version: anual
@@ -126,6 +139,35 @@ división por módulos. No lo conserves.
 
 El texto de las descripciones **sale del .docx del módulo**, sección 3 "Marco
 normativo". No lo reescribas de memoria.
+
+---
+
+## 4bis · La salvaguarda de edición, obligatoria
+
+Ninguna ficha normativa se publica sin esto. Es la regla de "cero mentiras en
+pantalla" aplicada a documentos que caducan.
+
+**En la base**, `library_items` ya tiene los campos:
+
+- `version`: la edición exacta del archivo que se subió, textual. No
+  "actualizado", no "vigente": `Edición Original, marzo 2016, Resolución 00478`
+- `published_at`: la fecha de esa edición, no la de subida
+- `embed_url`: **el enlace a la fuente oficial**, en las fichas de PDF también
+
+**En pantalla**, cada documento normativo muestra:
+
+1. Su edición, siempre visible junto al título. Nunca solo el nombre del
+   documento
+2. Un aviso corto y permanente: que las normas se enmiendan y que hay que
+   verificar la edición vigente en la fuente oficial
+3. **El enlace a la fuente oficial junto al botón de abrir.** No escondido en un
+   pie: al lado, como una acción más
+
+Y en los que se reeditan por calendario, dilo en la propia ficha: **el Doc 9284
+cada 2 años, la IATA DGR cada año.**
+
+El módulo de mercancías peligrosas ya abre con esa advertencia. La Biblioteca no
+puede contradecirla sirviendo un PDF a secas.
 
 ---
 
