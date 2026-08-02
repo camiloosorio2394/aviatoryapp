@@ -53,9 +53,9 @@ prepara una entrevista, saber que **el Doc 9284 se reedita cada dos años y la
 DGR cada año, y que ante conflicto prevalece la norma**, vale más que tener 900
 páginas que no va a leer. Eso ya está en el módulo y aquí se refuerza.
 
-**Si Cami tiene licencia de la DGR**, sigue sin poder redistribuirla a los
-usuarios: la licencia es suya, no de ellos. Que lo consulte con él antes de
-subir nada que no sea RAC o AIP.
+**No subas al bucket nada que no sea RAC 175 o LAR 175** sin preguntarle a Cami
+primero. Tener una licencia de un manual no da derecho a redistribuirlo: la
+licencia es de quien la compra, no de los usuarios de la app.
 
 ---
 
@@ -172,43 +172,121 @@ puede contradecirla sirviendo un PDF a secas.
 
 ---
 
-## 5 · Servir un PDF privado: URL firmada
+## 5 · El visor: casi todo ya está hecho
 
-El bucket es privado, así que `getPublicUrl` no sirve. Hay que generar una URL
-firmada con caducidad corta desde el cliente ya autenticado:
+**No lo construyas de cero.** `src/pages/OfficialBank.tsx` ya tiene un visor
+propio sobre **pdf.js**, y `src/hooks/useOfficialBank.ts` ya resuelve la URL
+firmada contra el bucket privado. La tarea es **generalizarlos**, no reescribir.
 
-```ts
-const { data, error } = await supabase.storage
-  .from("documentos-oficiales")
-  .createSignedUrl(rutaDelArchivo, 60 * 30)   // 30 minutos
+**Lo que hay que sacar a componente reutilizable:**
+
+1. `useOfficialBank` pasa a recibir **la ruta del archivo** en vez de tenerla
+   fija. Algo como `usePdfFirmado(rutaEnBucket)`. Devuelve la URL firmada, el
+   estado de carga y el error. La lógica ya está escrita
+2. El visor pasa a `src/components/lector/VisorPdf.tsx`, y `OfficialBank.tsx`
+   lo consume igual que la Biblioteca
+
+**Guarda en `file_url` la ruta dentro del bucket**, no una URL completa: la
+firmada se genera al abrir y caduca.
+
+---
+
+## 6 · Scroll continuo, no página por página
+
+El visor de hoy muestra **una página a la vez**, con estado `page` y botones de
+avanzar. **Eso se cambia.** El PDF tiene que leerse de corrido hacia abajo, como
+un documento, que es como se consulta un reglamento.
+
+**Cómo hacerlo sin que se muera el navegador:** un RAC completo son cientos de
+páginas y renderizar todas a canvas de golpe revienta la memoria. El patrón es:
+
+1. Monta un contenedor con **una caja por página**, cada una con el alto real de
+   esa página según su `viewport`. Así la barra de scroll es correcta desde el
+   principio y no salta
+2. Con un `IntersectionObserver`, **renderiza solo las páginas cercanas a la
+   ventana** (la visible más dos por arriba y dos por abajo) y libera el canvas
+   de las que se alejan
+3. Conserva la posición de lectura, como ya hace hoy con `sessionStorage`. Pero
+   guarda el **número de página visible**, no el scroll en píxeles, que cambia
+   con el ancho de la ventana
+4. Un indicador flotante de `página X de Y` y un campo para saltar. Sin botones
+   de anterior y siguiente: el scroll es la navegación
+
+Y que funcione en celular: ancho completo, pellizcar para acercar, y sin scroll
+horizontal cuando está ajustado al ancho.
+
+---
+
+## 7 · Que no se pueda copiar
+
+Buena noticia: **el visor actual ya lo cumple sin proponérselo.** Renderiza a
+canvas y **no monta la capa de texto** de pdf.js, así que el contenido son
+píxeles y no hay texto que seleccionar ni copiar.
+
+**Mantenlo así. No añadas `TextLayer` ni `renderTextLayer`**, aunque los veas en
+los ejemplos de pdf.js y aunque den búsqueda dentro del documento. Esa capa es
+justo lo que haría el PDF copiable.
+
+Lo que falta: `OfficialBank.tsx` **no usa `ContentGuard`** hoy. Envuelve el
+visor en `<ContentGuard>` (`src/components/ContentGuard.tsx`), que bloquea el
+menú contextual, `Ctrl+S`, `Ctrl+P`, oculta el contenido al imprimir y estampa
+la marca de agua con el correo del usuario.
+
+**Sé honesto con Cami sobre el alcance**: con canvas y sin capa de texto el
+contenido no se puede seleccionar ni copiar, que es lo que pidió. Pero nada
+impide una captura de pantalla. La marca de agua con el correo es lo que de
+verdad desincentiva compartirla. No le vendas que es imposible de extraer.
+
+---
+
+## 8 · El banco oficial de la Aerocivil se muda aquí
+
+Hoy el banco de preguntas vive en `/app/banco-oficial` y se enlaza desde el
+módulo Examen PCA. **Sale de ahí y entra a la Biblioteca**, en la categoría
+`pca`. Es un documento de referencia, no una herramienta del módulo.
+
+**Los cuatro sitios que hay que tocar**, verificados:
+
+```
+src/App.tsx:129                        la ruta /app/banco-oficial
+src/components/layout/AppSidebar.tsx:82  entrada "Banco oficial" en Herramientas
+src/components/layout/AppTopbar.tsx:33   la miga de pan
+src/pages/Pca.tsx:188                    la ModuleCard del hub de PCA
 ```
 
-Eso resuelve dos cosas a la vez: el documento no queda expuesto en una URL
-pública, y el enlace caduca aunque alguien lo copie.
+**Qué hacer con cada uno:**
 
-**Guarda en `file_url` la ruta dentro del bucket**, no una URL completa. La URL
-firmada se genera al abrir.
+- **La ruta se conserva como redirección** a la ficha del documento en la
+  Biblioteca. Ya hay precedente en `App.tsx` con `/app/exam-tracker` y
+  `/app/aerolineas`: los enlaces viejos que alguien haya compartido siguen
+  funcionando
+- **En el sidebar, "Banco oficial" desaparece** de Herramientas y **"Biblioteca"
+  entra en su lugar**, saliendo del bloque `soonItems`. El menú queda igual de
+  largo
+- **En `Pca.tsx` se quita la ModuleCard "Banco oficial"**. El hub pasa de 3
+  tarjetas a 2 (continuar y "Qué cayó en el examen"), y en su sitio va una que
+  lleve a la **categoría PCA de la Biblioteca**, no al documento suelto: así el
+  día que haya más material del PCA ya está el sitio
+- **`OfficialBank.tsx` se borra** una vez que su visor esté extraído a
+  `VisorPdf` y la Biblioteca lo consuma. No dejes las dos pantallas conviviendo
+
+**Y la entrada en `library_items`**, categoría `pca`:
+
+```
+[pdf]  Banco de preguntas oficial, Aerocivil
+       source: Aeronáutica Civil de Colombia
+       file_url: la ruta que ya usa useOfficialBank en el bucket
+       description: el documento oficial completo, para consultar y verificar
+```
+
+Ojo: el módulo PCA presume de que sus preguntas se pueden **comprobar contra el
+documento oficial**, y ese es medio argumento de venta. Al mudarlo, que el aviso
+de `Pca.tsx` que dice "preguntas verificadas contra Aerocivil" siga llevando a
+donde ahora vive el documento. **No lo dejes apuntando a una ruta muerta.**
 
 ---
 
-## 6 · El visor y la protección
-
-El PDF se abre **dentro de la app**, no en una pestaña nueva. Un `<iframe>` con
-la URL firmada basta para empezar.
-
-Envuélvelo en `<ContentGuard>` (`src/components/ContentGuard.tsx`), que ya
-bloquea copiar, el menú contextual, `Ctrl+S`, `Ctrl+P` y oculta el contenido al
-imprimir, además de poner la marca de agua con el correo del usuario.
-
-**Sé honesto en lo que le prometes a Cami**: ninguna de esas medidas impide que
-alguien haga capturas o use el visor nativo del navegador. Lo que hacen es
-poner fricción y dejar el correo del usuario impreso en cualquier captura, que
-es lo que de verdad desincentiva compartir. Un PDF que llega al navegador es un
-PDF que se puede guardar; no le vendas lo contrario.
-
----
-
-## 7 · La pantalla
+## 9 · La pantalla
 
 Reemplaza `src/pages/Library.tsx` entero.
 
@@ -234,7 +312,7 @@ tener que buscarla en otro menú.
 
 ---
 
-## 8 · La migración
+## 10 · La migración
 
 Escríbela, **no la apliques**: Cami la aplica por MCP.
 
@@ -251,7 +329,7 @@ clone` y en el build.
 
 ---
 
-## 9 · Convenciones
+## 11 · Convenciones
 
 - Contenedor `max-w-[1280px]`, tipografía **12 / 13 / 15 / 17 / 20 / 24 / 32**,
   pesos **400 / 500 / 600**, radios 8px controles y 12px superficies
@@ -264,7 +342,7 @@ clone` y en el build.
 
 ---
 
-## 10 · Antes de abrir el PR
+## 12 · Antes de abrir el PR
 
 ```bash
 npx tsc -p tsconfig.app.json --noEmit
