@@ -17,13 +17,7 @@ import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
-import {
-  DISCLAIMERS,
-  LEVEL_META,
-  accentText,
-  readLocalProgress,
-  writeLocalProgress,
-} from "@/lib/notam"
+import { LEVEL_META, accentText, readLocalProgress, writeLocalProgress } from "@/lib/notam"
 import {
   fetchNotamProgress,
   markNotamProgress,
@@ -300,12 +294,13 @@ export function NotamLesson() {
             </article>
           </div>
 
-          {/* El riel: avance segmentado, secciones y la fuente como lista de
-              definición. Es la columna de 300px de la maqueta aprobada, con
-              nuestros tokens. En celular no existe: el índice va en el
-              desplegable de arriba y la fuente cierra la hoja. */}
+          {/* El riel: el avance y las secciones, nada más. La fuente NO va
+              aquí: ya vive en la tira de metadatos y en el cierre de la hoja,
+              y duplicarla hacía al riel más alto que la pantalla, con lo que
+              le salían barras de scroll propias. Sin tope de alto ni overflow:
+              el riel debe caber, no scrollear. */}
           <aside
-            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto pb-4"
+            className="hidden lg:block lg:sticky lg:top-20"
             aria-label="Avance e índice de la lección"
           >
             <section aria-label="Tu avance">
@@ -317,9 +312,11 @@ export function NotamLesson() {
                 <span className="mono text-[12px] text-muted-foreground">/ {TOTAL} secciones</span>
               </div>
               {/* Un segmento por sección, en su orden. Pinta exactamente las
-                  leídas, aunque no sean consecutivas: es un mapa, no una barra. */}
+                  leídas, aunque no sean consecutivas: es un mapa, no una barra.
+                  La separación de 1px lo mantiene continuo a la vista; con 3px
+                  parecía una línea punteada decorativa. */}
               <div
-                className="mt-3 grid gap-[3px]"
+                className="mt-3 grid gap-px"
                 style={{ gridTemplateColumns: `repeat(${TOTAL}, minmax(0, 1fr))` }}
                 role="img"
                 aria-label={`${readSections.length} de ${TOTAL} secciones leídas`}
@@ -327,7 +324,7 @@ export function NotamLesson() {
                 {LESSON_SCREENS.map((s) => (
                   <div
                     key={s.n}
-                    className="h-[5px]"
+                    className="h-1.5"
                     style={{
                       background: readSections.includes(s.n)
                         ? "var(--av-blue-500)"
@@ -340,36 +337,13 @@ export function NotamLesson() {
 
             <section className="mt-7" aria-label="Secciones">
               <Rotulo>Secciones</Rotulo>
-              <div className="mt-2 -mx-2.5">
-                <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
-              </div>
-            </section>
-
-            <section className="mt-7" aria-label="Fuente">
-              <Rotulo>Fuente</Rotulo>
-              <dl className="mt-2.5 mb-0 grid grid-cols-[64px_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-[13px]">
-                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
-                  Doc.
-                </dt>
-                <dd className="m-0 text-foreground">OACI Doc 8400 (PANS-ABC)</dd>
-                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
-                  Edición
-                </dt>
-                <dd className="m-0 text-foreground">6ª · 2004</dd>
-                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
-                  Base
-                </dt>
-                <dd className="m-0 text-foreground">Anexo 15 OACI</dd>
-                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
-                  Corte
-                </dt>
-                <dd className="m-0 text-foreground">Aerocivil, 29 JUL 2026</dd>
-              </dl>
-              <div
-                className="mt-3.5 pl-3 border-l-2 text-[12px] leading-relaxed text-muted-foreground"
-                style={{ borderColor: "color-mix(in oklab, var(--av-amber-400) 60%, transparent)" }}
-              >
-                {DISCLAIMERS.edition}
+              <div className="mt-1.5">
+                <TocList
+                  activeN={activeN}
+                  readSections={readSections}
+                  onSelect={goToSection}
+                  variant="riel"
+                />
               </div>
             </section>
           </aside>
@@ -385,17 +359,26 @@ interface TocListProps {
   activeN: number
   readSections: number[]
   onSelect: (anchor: string) => void
+  /**
+   * "riel": filas de una línea separadas por filete, sin fondo ni sangría.
+   * Es la lista del riel derecho, que debe caber entera en la pantalla: el
+   * título largo se trunca porque el número identifica y el título completo
+   * está una mirada a la izquierda. El desplegable móvil usa la variante por
+   * defecto, con fondo en la activa y títulos completos.
+   */
+  variant?: "riel"
 }
 
-function TocList({ activeN, readSections, onSelect }: TocListProps) {
+function TocList({ activeN, readSections, onSelect, variant }: TocListProps) {
+  const riel = variant === "riel"
   return (
     <nav>
-      <ol className="m-0 p-0 list-none flex flex-col gap-0.5">
+      <ol className={`m-0 p-0 list-none flex flex-col ${riel ? "" : "gap-0.5"}`}>
         {LESSON_SCREENS.map((s) => {
           const isActive = s.n === activeN
           const isRead = readSections.includes(s.n)
           return (
-            <li key={s.n}>
+            <li key={s.n} className={riel ? "border-t border-border first:border-t-0" : undefined}>
               <a
                 href={`#s-${s.n}`}
                 onClick={(e) => {
@@ -403,22 +386,34 @@ function TocList({ activeN, readSections, onSelect }: TocListProps) {
                   onSelect(`s-${s.n}`)
                 }}
                 aria-current={isActive ? "location" : undefined}
-                className={`flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
-                  isActive ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={
+                  riel
+                    ? `flex items-center gap-2.5 py-[7px] text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                        isActive ? "font-semibold" : "text-muted-foreground hover:text-foreground"
+                      }`
+                    : `flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                        isActive
+                          ? "font-semibold text-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`
+                }
                 style={
-                  isActive
-                    ? { background: "color-mix(in oklab, var(--av-blue-500) 11%, transparent)" }
-                    : undefined
+                  riel
+                    ? isActive
+                      ? { color: "var(--av-blue-500)" }
+                      : undefined
+                    : isActive
+                      ? { background: "color-mix(in oklab, var(--av-blue-500) 11%, transparent)" }
+                      : undefined
                 }
               >
                 <span
-                  className="shrink-0 w-4 mt-px text-[12px] font-semibold tabular"
+                  className={`shrink-0 w-4 text-[12px] font-semibold tabular ${riel ? "" : "mt-px"}`}
                   style={isActive ? { color: "var(--av-blue-500)" } : undefined}
                 >
                   {s.n}
                 </span>
-                <span className="min-w-0 flex-1">{s.title}</span>
+                <span className={`min-w-0 flex-1 ${riel ? "truncate" : ""}`}>{s.title}</span>
                 {isRead && (
                   <Check
                     className="shrink-0 mt-px h-3.5 w-3.5"
@@ -434,16 +429,20 @@ function TocList({ activeN, readSections, onSelect }: TocListProps) {
 
         {/* Los dos últimos pasos del temario no son lectura: son la práctica y la
             evaluación. Van en el índice para que el recorrido completo se vea. */}
-        <li className="mt-1 pt-1 border-t border-border">
+        <li className={riel ? "border-t border-border" : "mt-1 pt-1 border-t border-border"}>
           <a
             href="#cierre"
             onClick={(e) => {
               e.preventDefault()
               onSelect("cierre")
             }}
-            className="flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className={
+              riel
+                ? "flex items-center gap-2.5 py-[7px] text-[13px] leading-snug text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                : "flex items-start gap-2.5 rounded-lg px-2.5 py-2 text-[13px] leading-snug text-muted-foreground hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            }
           >
-            <ArrowRight className="shrink-0 mt-0.5 h-3.5 w-3.5" aria-hidden />
+            <ArrowRight className={`shrink-0 h-3.5 w-3.5 ${riel ? "" : "mt-0.5"}`} aria-hidden />
             <span className="min-w-0 flex-1">Práctica y evaluación</span>
           </a>
         </li>
