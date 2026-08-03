@@ -1681,13 +1681,17 @@ export type Database = {
           content_md: string | null
           created_at: string | null
           description: string | null
+          destacado: boolean
           embed_url: string | null
+          familia: string | null
           file_url: string | null
           id: number
           is_premium: boolean | null
           is_published: boolean | null
           language: string | null
           order_index: number | null
+          paginas: number | null
+          portada_url: string | null
           published_at: string | null
           slug: string
           source: string | null
@@ -1705,13 +1709,17 @@ export type Database = {
           content_md?: string | null
           created_at?: string | null
           description?: string | null
+          destacado?: boolean
           embed_url?: string | null
+          familia?: string | null
           file_url?: string | null
           id?: never
           is_premium?: boolean | null
           is_published?: boolean | null
           language?: string | null
           order_index?: number | null
+          paginas?: number | null
+          portada_url?: string | null
           published_at?: string | null
           slug: string
           source?: string | null
@@ -1729,13 +1737,17 @@ export type Database = {
           content_md?: string | null
           created_at?: string | null
           description?: string | null
+          destacado?: boolean
           embed_url?: string | null
+          familia?: string | null
           file_url?: string | null
           id?: never
           is_premium?: boolean | null
           is_published?: boolean | null
           language?: string | null
           order_index?: number | null
+          paginas?: number | null
+          portada_url?: string | null
           published_at?: string | null
           slug?: string
           source?: string | null
@@ -1789,6 +1801,24 @@ export type Database = {
           license_type?: Database["public"]["Enums"]["license_type"]
           notes?: string | null
           user_id?: string
+        }
+        Relationships: []
+      }
+      module_thresholds: {
+        Row: {
+          code: string
+          nota: string | null
+          total: number
+        }
+        Insert: {
+          code: string
+          nota?: string | null
+          total: number
+        }
+        Update: {
+          code?: string
+          nota?: string | null
+          total?: number
         }
         Relationships: []
       }
@@ -2596,45 +2626,6 @@ export type Database = {
           },
         ]
       }
-      user_icao_speaking: {
-        Row: {
-          confianza: number | null
-          created_at: string
-          id: string
-          motor: string
-          palabras: number
-          parte: number
-          question_id: string
-          segundos: number
-          transcript: string
-          user_id: string
-        }
-        Insert: {
-          confianza?: number | null
-          created_at?: string
-          id?: string
-          motor?: string
-          palabras?: number
-          parte?: number
-          question_id: string
-          segundos?: number
-          transcript: string
-          user_id: string
-        }
-        Update: {
-          confianza?: number | null
-          created_at?: string
-          id?: string
-          motor?: string
-          palabras?: number
-          parte?: number
-          question_id?: string
-          segundos?: number
-          transcript?: string
-          user_id?: string
-        }
-        Relationships: []
-      }
       user_icao_attempts: {
         Row: {
           ai_score: Json | null
@@ -2800,6 +2791,45 @@ export type Database = {
           },
         ]
       }
+      user_icao_speaking: {
+        Row: {
+          confianza: number | null
+          created_at: string
+          id: string
+          motor: string
+          palabras: number
+          parte: number
+          question_id: string
+          segundos: number
+          transcript: string
+          user_id: string
+        }
+        Insert: {
+          confianza?: number | null
+          created_at?: string
+          id?: string
+          motor?: string
+          palabras?: number
+          parte?: number
+          question_id: string
+          segundos?: number
+          transcript: string
+          user_id: string
+        }
+        Update: {
+          confianza?: number | null
+          created_at?: string
+          id?: string
+          motor?: string
+          palabras?: number
+          parte?: number
+          question_id?: string
+          segundos?: number
+          transcript?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_library_bookmarks: {
         Row: {
           bookmarked_at: string | null
@@ -2860,27 +2890,6 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
-      }
-      user_metar_progress: {
-        Row: {
-          lesson_screens: number[]
-          practice_done: string[]
-          updated_at: string
-          user_id: string
-        }
-        Insert: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id: string
-        }
-        Update: {
-          lesson_screens?: number[]
-          practice_done?: string[]
-          updated_at?: string
-          user_id?: string
-        }
-        Relationships: []
       }
       user_mercancias_exam_attempts: {
         Row: {
@@ -2953,6 +2962,27 @@ export type Database = {
           score?: number
           taken_at?: string
           total?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_metar_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
           user_id?: string
         }
         Relationships: []
@@ -3290,6 +3320,10 @@ export type Database = {
         Returns: number
       }
       ai_usage_this_month: { Args: never; Returns: number }
+      bump_library_item_views: {
+        Args: { p_item_id: number }
+        Returns: undefined
+      }
       check_and_unlock_achievements: {
         Args: { p_user_id: string }
         Returns: number

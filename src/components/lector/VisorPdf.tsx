@@ -60,9 +60,21 @@ interface VisorPdfProps {
   claveLectura: string
   /** Alto del visor. Por defecto ocupa lo que queda de ventana. */
   alto?: string
+  /**
+   * Cuántas páginas tiene el documento, en cuanto pdf.js lo sabe.
+   *
+   * Se avisa una sola vez por documento. La Biblioteca lo aprovecha para
+   * rellenar `library_items.paginas` sin que nadie lo escriba a mano.
+   */
+  onPaginas?: (paginas: number) => void
 }
 
-export function VisorPdf({ ruta, claveLectura, alto = "calc(100vh - 300px)" }: VisorPdfProps) {
+export function VisorPdf({
+  ruta,
+  claveLectura,
+  alto = "calc(100vh - 300px)",
+  onPaginas,
+}: VisorPdfProps) {
   const { url, loading: firmando, error, retry } = usePdfFirmado(ruta)
   const [doc, setDoc] = useState<pdfjs.PDFDocumentProxy | null>(null)
   const [medidas, setMedidas] = useState<Medida[]>([])
@@ -72,6 +84,9 @@ export function VisorPdf({ ruta, claveLectura, alto = "calc(100vh - 300px)" }: V
   const [visible, setVisible] = useState(1)
 
   const scroller = useRef<HTMLDivElement | null>(null)
+  // El aviso del número de páginas se manda una sola vez por documento: el
+  // efecto se vuelve a lanzar al refirmar la URL y no hay que repetirlo.
+  const avisadas = useRef(false)
   const cajas = useRef<Map<number, HTMLDivElement>>(new Map())
   const lienzos = useRef<Map<number, HTMLCanvasElement>>(new Map())
   const tareas = useRef<Map<number, pdfjs.RenderTask>>(new Map())
@@ -99,6 +114,10 @@ export function VisorPdf({ ruta, claveLectura, alto = "calc(100vh - 300px)" }: V
         if (cancelado) return
         setDoc(d)
         setMedidas(ms)
+        if (!avisadas.current) {
+          avisadas.current = true
+          onPaginas?.(d.numPages)
+        }
       })
       .catch(() => {
         if (!cancelado) setFallo(true)
@@ -108,7 +127,7 @@ export function VisorPdf({ ruta, claveLectura, alto = "calc(100vh - 300px)" }: V
       cancelado = true
       void tarea.destroy()
     }
-  }, [url])
+  }, [url, onPaginas])
 
   // ── Ajustar al ancho ──────────────────────────────────────────────────────
   const ajustarAlAncho = useCallback(() => {

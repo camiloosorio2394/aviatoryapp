@@ -117,8 +117,13 @@ export function AppLayout({ children, streak }: Props) {
         </>
       )}
 
+      {/* `min-w-0` no es decorativo: sin él, este elemento es un ítem flex con
+          `min-width: auto`, así que su ancho mínimo lo fija el contenido más
+          ancho de la página. Una tira que se desplaza en horizontal (el estante
+          de la Biblioteca) empujaba entonces la página entera a lo ancho, y en
+          celular aparecía scroll lateral en toda la app. */}
       <div
-        className={`flex-1 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${contentPaddingClass}`}
+        className={`flex-1 min-w-0 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${contentPaddingClass}`}
       >
         <AppTopbar
           onMenuClick={() => setMobileOpen(true)}

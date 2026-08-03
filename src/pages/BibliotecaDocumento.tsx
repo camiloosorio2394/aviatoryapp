@@ -1,11 +1,17 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, ExternalLink, FileText } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { VisorPdf } from "@/components/lector/VisorPdf"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { contarApertura, fechaEdicion, fetchItem, type ItemBiblioteca } from "@/lib/biblioteca"
+import {
+  contarApertura,
+  fechaEdicion,
+  fetchItem,
+  guardarPaginas,
+  type ItemBiblioteca,
+} from "@/lib/biblioteca"
 
 /**
  * Ficha de un documento de la Biblioteca, con su visor.
@@ -33,6 +39,16 @@ export function BibliotecaDocumento() {
       cancelado = true
     }
   }, [slug])
+
+  // El número de páginas no lo escribe nadie a mano: pdf.js ya lo sabe al abrir
+  // el documento. Solo se guarda la primera vez, cuando está en null.
+  const onPaginas = useCallback(
+    (paginas: number) => {
+      if (!item || item.paginas !== null) return
+      void guardarPaginas(item.id, paginas)
+    },
+    [item]
+  )
 
   if (cargando) {
     return (
@@ -128,7 +144,7 @@ export function BibliotecaDocumento() {
         </div>
 
         {item.file_url ? (
-          <VisorPdf ruta={item.file_url} claveLectura={item.slug} />
+          <VisorPdf ruta={item.file_url} claveLectura={item.slug} onPaginas={onPaginas} />
         ) : (
           <section className="surface rounded-xl p-8 text-center">
             <h2 className="text-[17px] font-semibold">Este documento no se aloja en Aviatory</h2>

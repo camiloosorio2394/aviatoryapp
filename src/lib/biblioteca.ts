@@ -52,6 +52,52 @@ export interface ItemBiblioteca {
   order_index: number | null
   /** La fecha de esa edición, no la de subida. */
   published_at: string | null
+  /** Ruta de la portada dentro de `public/biblioteca/portadas`. */
+  portada_url: string | null
+  /** A qué familia normativa pertenece. Cada documento tiene UNA sola. */
+  familia: string | null
+  /** Curado a mano por Cami: entra en la fila de Esenciales. */
+  destacado: boolean | null
+  /** Cuántas páginas tiene. La rellena el visor la primera vez que se abre. */
+  paginas: number | null
+}
+
+/**
+ * Las familias, en el orden en que se apilan los estantes.
+ *
+ * Por familia y no por materia porque un documento aeronáutico casi nunca trata
+ * de una sola materia (el RAC 91 toca meteorología, performance, comunicaciones
+ * y espacio aéreo a la vez) pero familia tiene una: así no hay un documento en
+ * cuatro filas ni contadores inflados.
+ */
+export const FAMILIAS: { clave: string; rotulo: string }[] = [
+  { clave: "rac", rotulo: "Reglamentos de Colombia · RAC" },
+  { clave: "lar", rotulo: "Reglamentos latinoamericanos · LAR" },
+  { clave: "oaci", rotulo: "OACI" },
+  { clave: "iata", rotulo: "IATA" },
+  { clave: "aviatory", rotulo: "Material de Aviatory" },
+  { clave: "otro", rotulo: "Otros documentos" },
+]
+
+/**
+ * El número del reglamento, para ordenar dentro de su fila.
+ *
+ * El número ES el nombre: un piloto no busca "algo de operaciones", busca el
+ * RAC 91. Una fila de RAC se recorre leyendo solo los números, así que tienen
+ * que ir en orden y no alfabéticamente ("RAC 175" antes que "RAC 2").
+ *
+ * Sale del slug (`rac-175`, `lar-175`) y no del título, que empieza igual en
+ * todos. Lo que no lleva número va al final.
+ */
+export function numeroDeDocumento(item: ItemBiblioteca): number {
+  const m = /(\d+)/.exec(item.slug)
+  return m ? Number(m[1]) : Number.MAX_SAFE_INTEGER
+}
+
+/** La línea de meta de la tarjeta: quién lo publica y cuánto mide. */
+export function metaDeDocumento(item: ItemBiblioteca): string {
+  const partes = [item.source, item.paginas ? `${item.paginas} p.` : null].filter(Boolean)
+  return partes.join(" · ")
 }
 
 /**
@@ -142,6 +188,52 @@ export async function contarApertura(id: number): Promise<void> {
     await supabase.rpc("bump_library_item_views", { p_item_id: id })
   } catch {
     /* que no se cuente una visita no es motivo para romper la pantalla */
+  }
+}
+
+/**
+ * Los documentos que el piloto dejó a medias, del más reciente al más viejo.
+ *
+ * Sale de `user_library_views`, que ya existe y ya tiene su RLS: no hace falta
+ * ningún dato nuevo. Devuelve ids, que la pantalla cruza con los documentos que
+ * ya cargó.
+ */
+export async function fetchSeguirLeyendo(userId: string, limite = 8): Promise<number[]> {
+  try {
+    const { data, error } = await supabase
+      .from("user_library_views")
+      .select("item_id, viewed_at")
+      .eq("user_id", userId)
+      .order("viewed_at", { ascending: false })
+      .limit(60)
+    if (error || !data) return []
+    // Un documento abierto cinco veces es un documento, no cinco.
+    const vistos: number[] = []
+    for (const fila of data) {
+      if (!vistos.includes(fila.item_id)) vistos.push(fila.item_id)
+      if (vistos.length >= limite) break
+    }
+    return vistos
+  } catch {
+    return []
+  }
+}
+
+/**
+ * Guarda cuántas páginas tiene un documento.
+ *
+ * Lo llama el visor la primera vez que abre uno con `paginas` en null: pdf.js ya
+ * midió el archivo, así que la cifra sale gratis y siempre correcta. La RPC solo
+ * escribe sobre null, así que llamarla de más no pisa nada.
+ *
+ * Si la migración `20260802050000` todavía no está aplicada, esto falla en
+ * silencio y el documento simplemente no muestra su número de páginas.
+ */
+export async function guardarPaginas(id: number, paginas: number): Promise<void> {
+  try {
+    await supabase.rpc("set_library_item_pages", { p_item_id: id, p_paginas: paginas })
+  } catch {
+    /* que no se guarde el número de páginas no es motivo para romper el visor */
   }
 }
 
