@@ -1,11 +1,10 @@
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   BookOpen,
   Mic,
   Headphones,
   Image as ImageIcon,
-  Radio,
   ArrowRight,
   Clock,
   Check,
@@ -17,6 +16,24 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { useSession } from "@/hooks/useSession"
+import {
+  ICAO_PROGRESS_VACIO,
+  fetchIcaoProgress,
+  resumirInterview,
+  resumirSimulacro,
+  resumirVocabulario,
+  type IcaoProgress,
+  type SeccionResumen,
+} from "@/lib/icaoProgress"
+import { TEA_PART1_SETS, TEA_PART1_TOTAL } from "@/lib/icaoInterview"
+import {
+  INTERACTIVE_ITEMS,
+  LONG_AUDIOS,
+  SHORT_AUDIO_TOTAL,
+} from "@/lib/icaoComprehension"
+import { PART3_TASK_STEPS, PICTURE_PAIRS } from "@/lib/icaoPictures"
 import heroPhoto from "@/assets/photos/icao-night-cockpit.jpg"
 
 /**
@@ -30,8 +47,124 @@ import heroPhoto from "@/assets/photos/icao-night-cockpit.jpg"
  * Jerarquía: hero → las 4 secciones (la navegación real) → simulacro → tip →
  * bloque de referencia colapsable (qué es el TEA, los 6 descriptores, niveles).
  * La teoría no compite con la navegación.
+ *
+ * La pantalla lee el avance real y ordena por él: primero lo que quedó a
+ * medias, después lo que no se ha tocado y de último lo terminado. El manual es
+ * el de `AirlinePrep.tsx`, que ya está probado.
+ *
+ * Dos secciones (comprensión y descripción de imágenes) todavía no guardan
+ * nada, así que no tienen avance que mostrar. No se les pinta un 0%: se les
+ * pinta lo que hay dentro, con las cifras del propio contenido.
  */
 export function Icao() {
+  const { user, isLoading: sessionLoading } = useSession()
+  const [progreso, setProgreso] = useState<IcaoProgress>(ICAO_PROGRESS_VACIO)
+  const [hidratado, setHidratado] = useState(false)
+
+  // Sin sesión no hay nada que esperar: las tarjetas enseñan su contenido.
+  const loading = sessionLoading || (Boolean(user) && !hidratado)
+
+  useEffect(() => {
+    if (sessionLoading || !user) return
+    let cancelado = false
+    void (async () => {
+      const p = await fetchIcaoProgress(user.id)
+      if (cancelado) return
+      setProgreso(p)
+      setHidratado(true)
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [user, sessionLoading])
+
+  const secciones: Seccion[] = useMemo(() => {
+    const vocabulario = resumirVocabulario(progreso)
+    const interview = resumirInterview(progreso)
+
+    const lista: Seccion[] = [
+      {
+        to: "/app/icao/vocabulario",
+        icon: BookOpen,
+        color: "cyan",
+        part: "Base",
+        title: "Vocabulario",
+        // Las cifras salen de la base: si el glosario crece, la promesa de la
+        // tarjeta crece con él en vez de quedarse en un "cerca de 350".
+        meta:
+          progreso.vocabularioTotal > 0
+            ? `${progreso.vocabularioTotal} términos · ${progreso.quizTotal} preguntas de quiz`
+            : "Glosario por categorías, con buscador y quiz",
+        description:
+          "Los términos de inglés aeronáutico con buscador, agrupados por categoría. Es la base de todo lo demás e incluye un quiz para ponerte a prueba.",
+        cta: "Abrir el glosario",
+        secondary: { to: "/app/icao/quiz", label: "Quiz", icon: ClipboardCheck },
+        resumen: vocabulario,
+      },
+      {
+        to: "/app/icao/interview",
+        icon: Mic,
+        color: "blue",
+        part: "TEA · Parte 1",
+        title: "Entrevista",
+        meta: `${TEA_PART1_TOTAL} preguntas · ${TEA_PART1_SETS.length} sets · respuestas modelo`,
+        description:
+          "La sección Interview: las preguntas que hace el examinador sobre tu rol y sobre aviación. Respondes hablando y te queda la transcripción al lado.",
+        cta: "Practicar la entrevista",
+        resumen: interview,
+      },
+      {
+        to: "/app/icao/comprension",
+        icon: Headphones,
+        color: "violet",
+        part: "TEA · Parte 2",
+        title: "Comprensión interactiva",
+        meta: `${SHORT_AUDIO_TOTAL} clips cortos · ${LONG_AUDIOS.length} largos · ${INTERACTIVE_ITEMS.length} interactivos`,
+        description:
+          "La sección Interactive Comprehension: escuchas situaciones no rutinarias y reaccionas. Bloques 2A cortos, 2B largos y 2C interactivos, con audios reales.",
+        cta: "Practicar comprensión",
+        resumen: {
+          pct: null,
+          estado: `${SHORT_AUDIO_TOTAL + LONG_AUDIOS.length + INTERACTIVE_ITEMS.length} audios reales para escuchar`,
+        },
+      },
+      {
+        to: "/app/icao/picture-description",
+        icon: ImageIcon,
+        color: "green",
+        part: "TEA · Parte 3",
+        title: "Descripción de imágenes",
+        meta: `${PICTURE_PAIRS.length} pares de imágenes · ${PART3_TASK_STEPS.length} pasos por par`,
+        description:
+          "Pares de imágenes reales: describes, comparas, identificas riesgos, especulas causas, das tu opinión y conversas sobre el tema.",
+        cta: "Practicar la Parte 3",
+        resumen: {
+          pct: null,
+          estado: `${PICTURE_PAIRS.length} pares para describir y comparar`,
+        },
+      },
+    ]
+
+    // Primero lo que está a medias, después lo que no se ha tocado y de último
+    // lo terminado. Sin avance conocido cuenta como no empezado: no se premia
+    // ni se castiga lo que no sabemos.
+    const grupo = (s: Seccion) => {
+      const p = s.resumen.pct
+      if (p === null || p === 0) return 1
+      return p >= 100 ? 2 : 0
+    }
+    return lista
+      .map((s, i) => ({ s, i }))
+      .sort((a, b) => grupo(a.s) - grupo(b.s) || (b.s.resumen.pct ?? 0) - (a.s.resumen.pct ?? 0) || a.i - b.i)
+      .map(({ s }) => s)
+  }, [progreso])
+
+  // El único botón principal: retomar donde ibas, o entrar a la primera si
+  // todavía no empezaste nada.
+  const enCurso = secciones.find((s) => s.resumen.pct !== null && s.resumen.pct > 0 && s.resumen.pct < 100)
+  const continuar = enCurso ?? secciones[0]
+  const simulacro = resumirSimulacro(progreso)
+
   return (
     <AppLayout>
       <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
@@ -65,8 +198,25 @@ export function Icao() {
               <strong className="font-semibold text-white">hablar y comprender</strong> inglés en
               contexto aeronáutico.
             </p>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold text-white">
-              <Radio className="h-3.5 w-3.5" /> TEA · 25 a 30 minutos
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              {loading ? (
+                <span
+                  className="block h-11 w-52 rounded-lg bg-white/15 animate-pulse"
+                  aria-hidden="true"
+                />
+              ) : (
+                <Link
+                  to={continuar.to}
+                  className={appButtonClass({ size: "lg" })}
+                  style={appButtonStyle()}
+                >
+                  <Mic className="h-4 w-4" />
+                  {enCurso ? `Seguir con ${continuar.title}` : `Empezar por ${continuar.title}`}
+                </Link>
+              )}
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold text-white">
+                <Clock className="h-3.5 w-3.5" /> TEA · 25 a 30 minutos
+              </span>
             </div>
           </div>
         </section>
@@ -82,8 +232,8 @@ export function Icao() {
         </div>
 
         <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
-          {SECTIONS.map((s) => (
-            <SectionCard key={s.title} {...s} />
+          {secciones.map((s) => (
+            <SectionCard key={s.title} {...s} statusLoading={loading} />
           ))}
         </div>
 
@@ -114,6 +264,14 @@ export function Icao() {
                 Las 3 partes seguidas, cronometradas y con audios reales. Grábate, responde en voz
                 alta y autoevalúate con los 6 descriptores al final.
               </p>
+              {/* De aquí sale tu nivel ICAO: no se auto-declara, se evalúa. */}
+              <div className="mt-2 text-[12px] font-medium text-muted-foreground">
+                {loading ? (
+                  <span className="block h-4 w-40 rounded bg-muted animate-pulse" aria-hidden="true" />
+                ) : (
+                  simulacro.estado
+                )}
+              </div>
             </div>
             <ArrowRight className="hidden sm:block h-5 w-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
           </div>
@@ -312,68 +470,39 @@ function FactRow({ label, detail }: { label: string; detail: string }) {
   )
 }
 
-interface SectionDef {
+interface Seccion {
   to: string
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
   color: TileColorKey
   part: string
   title: string
+  /** Cuánto contenido hay dentro, con cifras reales. */
+  meta: string
   description: string
-  status: "ready" | "soon"
   cta: string
   secondary?: { to: string; label: string; icon: React.ComponentType<{ className?: string }> }
+  resumen: SeccionResumen
 }
 
-const SECTIONS: SectionDef[] = [
-  {
-    to: "/app/icao/vocabulario",
-    icon: BookOpen,
-    color: "cyan",
-    part: "Base",
-    title: "Vocabulario",
-    description: "Cerca de 350 términos de inglés aeronáutico con buscador, agrupados por categoría. Es la base de todo lo demás e incluye un quiz para ponerte a prueba.",
-    status: "ready",
-    cta: "Abrir el glosario",
-    secondary: { to: "/app/icao/quiz", label: "Quiz", icon: ClipboardCheck },
-  },
-  {
-    to: "/app/icao/interview",
-    icon: Mic,
-    color: "blue",
-    part: "TEA · Parte 1",
-    title: "Entrevista",
-    description: "La sección Interview: las preguntas que hace el examinador sobre tu rol y sobre aviación. 4 sets con respuestas modelo para captar el registro esperado.",
-    status: "ready",
-    cta: "Practicar la entrevista",
-  },
-  {
-    to: "/app/icao/comprension",
-    icon: Headphones,
-    color: "violet",
-    part: "TEA · Parte 2",
-    title: "Comprensión interactiva",
-    description: "La sección Interactive Comprehension: escuchas situaciones no rutinarias y reaccionas. Bloques 2A cortos, 2B largos y 2C interactivos, con audios reales.",
-    status: "ready",
-    cta: "Practicar comprensión",
-  },
-  {
-    to: "/app/icao/picture-description",
-    icon: ImageIcon,
-    color: "green",
-    part: "TEA · Parte 3",
-    title: "Descripción de imágenes",
-    description: "13 pares de imágenes reales: describes, comparas, identificas riesgos, especulas causas, das tu opinión y conversas sobre el tema.",
-    status: "ready",
-    cta: "Practicar la Parte 3",
-  },
-]
-
-function SectionCard({ to, icon: Icon, color, part, title, description, status, cta, secondary }: SectionDef) {
+function SectionCard({
+  to,
+  icon: Icon,
+  color,
+  part,
+  title,
+  meta,
+  description,
+  cta,
+  secondary,
+  resumen,
+  statusLoading,
+}: Seccion & { statusLoading?: boolean }) {
   const c = TILE_COLOR[color]
+  const completa = resumen.pct !== null && resumen.pct >= 100
   return (
     <div
       className="card-apple relative rounded-2xl surface p-5 flex flex-col gap-3"
-      style={{ borderColor: tileBorder(color, status === "ready" ? 32 : 22) }}
+      style={{ borderColor: tileBorder(color, 32) }}
     >
       <div className="flex items-start justify-between">
         <div
@@ -386,11 +515,7 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
         >
           <Icon className="h-5 w-5" strokeWidth={2} />
         </div>
-        {status === "ready" ? (
-          <span className="chip chip-green">Listo</span>
-        ) : (
-          <span className="chip">Pronto</span>
-        )}
+        {completa && <span className="chip chip-green">Completa</span>}
       </div>
 
       <div>
@@ -398,7 +523,8 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
           {part}
         </div>
         <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.02em]">{title}</div>
-        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
+        <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
+        <p className="mt-1.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
 
       <div className="mt-auto pt-1 flex items-center gap-2">
@@ -420,6 +546,33 @@ function SectionCard({ to, icon: Icon, color, part, title, description, status, 
             >
               <secondary.icon className="h-3 w-3" /> {secondary.label}
             </Link>
+          </>
+        )}
+      </div>
+
+      {/* El pie: la barra solo se dibuja cuando hay avance. Una barra vacía dice
+          "vas perdiendo" cuando lo que pasa es que todavía no empezaste. */}
+      <div className="pt-3 border-t border-border/60">
+        {statusLoading ? (
+          <span className="block h-4 w-32 rounded bg-muted animate-pulse" aria-hidden="true" />
+        ) : (
+          <>
+            {resumen.pct !== null && resumen.pct > 0 && (
+              <div
+                className="mb-2 h-1.5 rounded-full bg-muted overflow-hidden"
+                role="progressbar"
+                aria-label={`Avance de ${title}`}
+                aria-valuenow={resumen.pct}
+                aria-valuemin={0}
+                aria-valuemax={100}
+              >
+                <div
+                  className="h-full rounded-full transition-[width]"
+                  style={{ width: `${resumen.pct}%`, background: c }}
+                />
+              </div>
+            )}
+            <span className="text-[12px] font-medium text-muted-foreground">{resumen.estado}</span>
           </>
         )}
       </div>
