@@ -271,7 +271,7 @@ export function NotamPractice() {
         />
 
         {/* === CONTROLES: modo, nivel, progreso y selector === */}
-        <section className="rounded-2xl surface p-5 sm:p-6">
+        <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
           <div
             className="grid gap-2 sm:grid-cols-2 p-1 rounded-xl"
             style={{ background: "color-mix(in oklab, var(--border) 35%, transparent)" }}
@@ -419,7 +419,7 @@ export function NotamPractice() {
           <>
             <div className="mt-6 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] items-start">
               {/* ── Columna del NOTAM ── */}
-              <section className="rounded-2xl surface p-5 sm:p-6">
+              <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div
@@ -553,7 +553,7 @@ export function NotamPractice() {
               </section>
 
               {/* ── Columna de la respuesta ── */}
-              <section className="rounded-2xl surface p-5 sm:p-6">
+              <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
                 <SectionTitle
                   icon={PencilLine}
                   eyebrow="Tu interpretación"

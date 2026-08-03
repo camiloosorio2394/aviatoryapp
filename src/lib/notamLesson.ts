@@ -60,7 +60,24 @@ export type LessonBlock =
    * Colocarlas de adorno entre párrafos es el problema que esto viene a
    * arreglar, no la solución.
    */
-  | { kind: "notam"; id: string; caption?: string }
+  | {
+      kind: "notam"
+      id: string
+      caption?: string
+      /**
+       * Las casillas del NOTAM, decodificadas una por una.
+       *
+       * Es lo que convierte el bloque en pieza que enseña en vez de imagen que
+       * decora: se ve el aviso auténtico y debajo, en la misma pieza, qué dice
+       * cada casilla. Sin esto el piloto ve un NOTAM real y tiene que buscar en
+       * el párrafo de al lado qué significaba, que es el fallo que arrastra la
+       * sección 7.
+       *
+       * `cas` es el rótulo de la casilla ("A)", "F/G)"), `contenido` el texto
+       * literal del aviso, y `significa` la lectura en español.
+       */
+      casillas?: { cas: string; contenido: string; significa: string }[]
+    }
   /**
    * Infografía de lienzo fijo, diseñada aparte y portada a código.
    *
@@ -648,6 +665,25 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "notam",
         id: "N1",
+        // Ejemplo de referencia de `casillas`. Los otros tres NOTAM de esta
+        // sección (N8, N4, N24) todavía no lo tienen: se ven, no se decodifican.
+        casillas: [
+          { cas: "A)", contenido: "SKPB", significa: "Uribia, Puerto Bolívar (Portete)" },
+          { cas: "B)", contenido: "2605281100", significa: "Inicio: 28 may 2026, 11:00 UTC" },
+          { cas: "C)", contenido: "2608252359", significa: "Fin: 25 ago 2026, 23:59 UTC" },
+          {
+            cas: "D)",
+            contenido: "no aparece",
+            significa:
+              "Que falte es la forma de decir que aplica **de corrido**, sin horario diario",
+          },
+          {
+            cas: "E)",
+            contenido: "AD LTD, AVBL ACFT HASTA CAT B",
+            significa:
+              "Aeródromo limitado: solo disponible para aeronaves hasta categoría B. De CAT C en adelante no pueden operar mientras rija",
+          },
+        ],
         caption:
           "Del 28 de mayo al 25 de agosto, sin `EST` y sin horario diario. Puerto Bolívar opera limitado a aeronaves hasta categoría B durante todo ese período, de corrido.",
       },

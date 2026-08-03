@@ -231,7 +231,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       return <Breakdown caption={block.caption} parts={block.parts} />
 
     case "notam":
-      return <NotamFigure id={block.id} caption={block.caption} />
+      return <NotamFigure id={block.id} caption={block.caption} casillas={block.casillas} />
 
     case "figura":
       return (
@@ -476,7 +476,15 @@ function Figura({
  * y el aviso de vigencia, que es obligatorio en pantalla y va con cada imagen,
  * igual que en el modo práctica.
  */
-function NotamFigure({ id, caption }: { id: string; caption?: string }) {
+function NotamFigure({
+  id,
+  caption,
+  casillas,
+}: {
+  id: string
+  caption?: string
+  casillas?: { cas: string; contenido: string; significa: string }[]
+}) {
   const notam = NATIONAL_NOTAMS.find((n) => n.id === id)
   // Una referencia rota no puede tumbar la lección entera: se omite la imagen
   // y el texto de alrededor sigue explicando lo mismo.
@@ -499,6 +507,9 @@ function NotamFigure({ id, caption }: { id: string; caption?: string }) {
           className="block w-full min-w-[720px] h-auto"
         />
       </div>
+
+      {casillas && casillas.length > 0 && <Casillas notam={notam} casillas={casillas} />}
+
       <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">
         <span className="mono font-semibold" style={{ color: "var(--doc-fg)" }}>
           {notam.serie_numero}
@@ -514,6 +525,80 @@ function NotamFigure({ id, caption }: { id: string; caption?: string }) {
         </span>
       </figcaption>
     </figure>
+  )
+}
+
+/**
+ * El NOTAM desarmado casilla por casilla, pegado a su recorte.
+ *
+ * Va debajo de la imagen y dentro de la misma pieza a propósito. Un NOTAM real
+ * puesto entre dos párrafos es decoración: el piloto lo ve, no lo entiende, y
+ * tiene que buscar en la prosa de al lado qué decía. Aquí lo auténtico y su
+ * lectura son lo mismo y no se pueden separar.
+ *
+ * De paso arregla la legibilidad en móvil. El recorte de la Aerocivil es una
+ * tira que a 390 px se encoge hasta no leerse; el bloque oscuro trae el mismo
+ * aviso en texto que sí reflowea, y la tabla lo traduce.
+ */
+function Casillas({
+  notam,
+  casillas,
+}: {
+  notam: { serie_numero: string; aerodromo: string; transcripcion: string }
+  casillas: { cas: string; contenido: string; significa: string }[]
+}) {
+  return (
+    <div className="mt-3 overflow-hidden rounded-lg border doc-rule">
+      {/* El aviso crudo. Oscuro fijo en los dos temas: es material de terminal,
+          y un NOTAM no cambia de color porque el piloto prefiera modo claro. */}
+      <div
+        className="mono px-4 py-3 text-[12.5px] leading-[1.7]"
+        style={{ background: "oklch(0.19 0.012 260)", color: "oklch(0.93 0.006 260)" }}
+      >
+        <div style={{ color: "oklch(0.72 0.01 260)" }}>
+          {notam.serie_numero} · {notam.aerodromo}
+        </div>
+        <div className="mt-1">{notam.transcripcion}</div>
+      </div>
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[420px] border-collapse text-left">
+          <thead className="doc-soft">
+            <tr>
+              {["Cas.", "Contenido", "Qué significa"].map((h) => (
+                <th
+                  key={h}
+                  className="mono px-3.5 py-2 border-b doc-rule doc-muted text-[10.5px] font-medium uppercase tracking-[0.1em]"
+                >
+                  {h}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {casillas.map((c, i) => (
+              <tr key={i} className="border-b doc-rule last:border-b-0">
+                <td
+                  className="mono px-3.5 py-2.5 align-top text-[12.5px] font-semibold whitespace-nowrap"
+                  style={{ color: "var(--doc-accent)" }}
+                >
+                  {c.cas}
+                </td>
+                <td
+                  className="mono px-3.5 py-2.5 align-top text-[12.5px] leading-[1.5]"
+                  style={{ color: "var(--doc-fg)" }}
+                >
+                  {c.contenido}
+                </td>
+                <td className="px-3.5 py-2.5 align-top text-[13px] leading-[1.55] doc-muted">
+                  {renderInline(c.significa)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
 

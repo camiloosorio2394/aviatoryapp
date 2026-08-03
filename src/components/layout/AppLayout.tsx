@@ -119,9 +119,12 @@ export function AppLayout({ children, streak }: Props) {
 
       {/* `min-w-0` no es decorativo: sin él, este elemento es un ítem flex con
           `min-width: auto`, así que su ancho mínimo lo fija el contenido más
-          ancho de la página. Una tira que se desplaza en horizontal (el estante
-          de la Biblioteca) empujaba entonces la página entera a lo ancho, y en
-          celular aparecía scroll lateral en toda la app. */}
+          ancho de la página. Cualquier bloque con un mínimo fijo empujaba
+          entonces la página entera a lo ancho en vez de desplazarse dentro de
+          su caja, y en celular aparecía scroll lateral en toda la app.
+          Lo encontramos por dos caminos: el estante de la Biblioteca, que es
+          una tira horizontal, y el recorte de NOTAM de la lección. Medido a
+          390 px: la lección ocupaba 784 de ancho sin esto, 390 con esto. */}
       <div
         className={`flex-1 min-w-0 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${contentPaddingClass}`}
       >
@@ -131,7 +134,7 @@ export function AppLayout({ children, streak }: Props) {
           onToggleSidebar={() => setSidebarHidden((v) => !v)}
           streak={streak}
         />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1 min-w-0">{children}</main>
       </div>
 
       <Wingman />
