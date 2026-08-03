@@ -144,13 +144,13 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       end={item.end}
       onClick={onClose}
       title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors hover:bg-white/5"
+      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors hover:bg-[var(--rail-hover)]"
       style={({ isActive }) =>
         isActive
           ? {
-              color: "#fff",
-              background: "color-mix(in oklab, var(--av-blue-500) 26%, transparent)",
-              boxShadow: "inset 2px 0 0 var(--av-blue-400)",
+              color: "var(--rail-active-text)",
+              background: "var(--rail-active-bg)",
+              boxShadow: "inset 2px 0 0 var(--rail-active-mark)",
             }
           : { color: "var(--rail-text)" }
       }
@@ -160,7 +160,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <item.icon
             size={18}
             className="flex-shrink-0 transition-colors"
-            style={{ color: isActive ? "var(--av-blue-400)" : "currentColor" }}
+            style={{ color: isActive ? "var(--rail-active-mark)" : "currentColor" }}
           />
           <span
             className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
@@ -173,8 +173,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             <span
               className="mono tabular-nums flex-shrink-0 text-[12px] font-semibold px-1.5 py-0.5 rounded"
               style={{
-                color: "oklch(0.82 0.02 250)",
-                background: "oklch(1 0 0 / 8%)",
+                color: "var(--rail-chip-text)",
+                background: "var(--rail-chip-bg)",
                 border: "1px solid var(--rail-border)",
               }}
             >
@@ -185,7 +185,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           {item.soon && expanded && (
             <span
               className="flex-shrink-0 text-[12px] px-1.5 py-0.5 rounded-md"
-              style={{ color: "var(--rail-section-label)", background: "oklch(1 0 0 / 6%)" }}
+              style={{ color: "var(--rail-section-label)", background: "var(--rail-hover)" }}
             >
               Pronto
             </span>
@@ -241,7 +241,10 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-full" />
           {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
-            <div className="font-semibold text-[17px] tracking-[-0.03em] text-white whitespace-nowrap">
+            <div
+              className="font-semibold text-[17px] tracking-[-0.03em] whitespace-nowrap"
+              style={{ color: "var(--rail-text-active)" }}
+            >
               Aviatory
             </div>
           )}
@@ -250,7 +253,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={onClose}
-            className="lg:hidden p-2 -mr-1 text-white/60 hover:text-white"
+            className="lg:hidden p-2 -mr-1 transition-colors"
+            style={{ color: "var(--rail-text)" }}
             aria-label="Cerrar menú"
           >
             <X className="h-4 w-4" />
@@ -261,7 +265,8 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => onPinChange(!pinned)}
-            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md text-white/55 hover:text-white hover:bg-white/10 transition-colors"
+            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md transition-colors hover:bg-[var(--rail-hover)]"
+            style={{ color: "var(--rail-text)" }}
             aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
             title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
           >
@@ -303,7 +308,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => setSoonOpen((v) => !v)}
-            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12px] transition-colors hover:bg-white/5"
+            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12px] transition-colors hover:bg-[var(--rail-hover)]"
             style={{ color: "var(--rail-section-label)" }}
             aria-expanded={soonOpen}
             title={expanded ? undefined : "Próximamente"}

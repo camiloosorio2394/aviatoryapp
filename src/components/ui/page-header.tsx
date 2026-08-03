@@ -14,7 +14,10 @@ interface Props {
  */
 export function PageHeader({ eyebrow, title, subtitle, actions, children }: Props) {
   return (
-    <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-4 mb-8">
+    /* mb-9 sm:mb-11 acompaña al py-9 sm:py-11 del contenedor de página: el
+       inicio respira más que el interior, y ese aire era una de las seis cosas
+       que hacían que entrar a la app se sintiera como cambiar de producto. */
+    <div className="flex flex-wrap items-start justify-between gap-x-8 gap-y-4 mb-9 sm:mb-11">
       <div className="min-w-0">
         {eyebrow && (
           <div className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground mb-1.5">

@@ -89,7 +89,7 @@ export function ExamTracker() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="EXAM TRACKER · INTELIGENCIA COLECTIVA"
           title="El Waze de los exámenes Aerocivil"

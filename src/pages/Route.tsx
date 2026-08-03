@@ -218,7 +218,7 @@ export function Route() {
   if (!checklist) {
     return (
       <AppLayout>
-        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
           <PageHeader
             eyebrow={
               <>
@@ -269,7 +269,7 @@ export function Route() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={`Mi ruta · ${STAGE_LABEL[stage]}`}
           title={checklist.name}

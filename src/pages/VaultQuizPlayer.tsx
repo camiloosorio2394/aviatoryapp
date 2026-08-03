@@ -192,7 +192,7 @@ export function VaultQuizPlayer() {
     const passed = scorePct >= 70
     return (
       <AppLayout>
-        <div className="px-5 sm:px-7 py-7 pb-20 max-w-[920px] mx-auto">
+        <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[920px] mx-auto">
           <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
             <div className="relative grid items-center gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-[1fr_auto]">
               <div>
@@ -354,7 +354,7 @@ export function VaultQuizPlayer() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-4 sm:pb-20 max-w-[920px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-4 sm:pb-20 max-w-[920px] mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between gap-3 mb-5">
           <Link

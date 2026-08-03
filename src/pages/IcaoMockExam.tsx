@@ -150,7 +150,7 @@ export function IcaoMockExam() {
 function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecord: boolean; setWantRecord: (v: boolean) => void; recSupported: boolean; onStart: () => void }) {
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[860px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[860px] mx-auto">
         <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4">
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
         </Link>
@@ -539,7 +539,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-24 max-w-[920px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-24 max-w-[920px] mx-auto">
         <div className="text-center">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-success-fg)" }}>Simulacro terminado</div>
           <h1 className="mt-2 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">¡Terminaste el examen!</h1>

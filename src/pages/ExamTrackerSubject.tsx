@@ -82,7 +82,7 @@ export function ExamTrackerSubject() {
   if (loading) {
     return (
       <AppLayout>
-        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+        <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto animate-pulse">
           <div className="h-9 w-56 bg-muted rounded-xl mb-7" />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
             {Array.from({ length: 3 }).map((_, i) => (
@@ -98,7 +98,7 @@ export function ExamTrackerSubject() {
   if (!intel) {
     return (
       <AppLayout>
-        <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+        <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
           <div className="rounded-3xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
             <h2 className="text-[17px] font-semibold text-foreground">No encontramos esta materia</h2>
             <p className="mt-2 text-[15px] text-muted-foreground">
@@ -119,7 +119,7 @@ export function ExamTrackerSubject() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={
             <>

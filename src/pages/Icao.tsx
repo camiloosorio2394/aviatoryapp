@@ -167,7 +167,7 @@ export function Icao() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1240px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1240px] mx-auto">
         {/* === HERO === */}
         <section className="relative overflow-hidden rounded-2xl">
           <img

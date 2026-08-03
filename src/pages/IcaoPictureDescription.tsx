@@ -58,7 +58,7 @@ export function IcaoPictureDescription() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1080px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1080px] mx-auto">
         <Link
           to="/app/icao"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"

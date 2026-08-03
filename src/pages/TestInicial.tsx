@@ -92,7 +92,7 @@ export function TestInicial() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <div className="flex items-center justify-between gap-3 mb-3">
           <Link
             to="/app"
@@ -250,7 +250,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <section className="relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
             <Sparkles className="h-6 w-6 text-white" />
@@ -358,7 +358,7 @@ function Result({
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-7 pb-20 max-w-[760px] mx-auto">
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · resultado</div>
         <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
 

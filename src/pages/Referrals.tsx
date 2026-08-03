@@ -65,7 +65,7 @@ export function Referrals() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="REFERIDOS · GANA MESES GRATIS"
           title="Comparte Aviatory, ganen los dos"

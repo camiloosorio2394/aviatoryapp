@@ -320,7 +320,7 @@ export function Profile() {
   if (loading) {
     return (
       <AppLayout>
-        <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto animate-pulse">
+        <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto animate-pulse">
           <div className="mb-6 space-y-2.5">
             <div className="h-3 w-24 bg-muted rounded" />
             <div className="h-8 w-72 max-w-full bg-muted rounded" />
@@ -369,7 +369,7 @@ export function Profile() {
 
   return (
     <AppLayout>
-      <div className="px-7 py-7 pb-20 max-w-[1480px] mx-auto">
+      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader eyebrow="Mi perfil" title="Tu identidad como piloto" subtitle="Tu mapa de habilidades sale de datos reales: Logbook, Vencimientos y tus simulacros TEA. Aviatory lo usa para calcular tu progreso y plan." />
 
         <div className="grid gap-5 grid-cols-1 lg:grid-cols-[360px_1fr]">
