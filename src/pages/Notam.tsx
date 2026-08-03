@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -8,12 +8,9 @@ import {
   Target,
   GraduationCap,
   Plane,
-  ListOrdered,
-  Gauge,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
-import { SectionTitle } from "@/components/ui/section-title"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
@@ -251,117 +248,109 @@ export function Notam() {
           }
         />
 
-        {/* Progreso general de la seccion */}
-        <section>
-          <SectionTitle
-            icon={Gauge}
-            eyebrow="Tu avance"
-            title="Progreso de la sección"
-            hint={
-              user
-                ? "Se guarda en tu cuenta a medida que avanzas."
-                : "Inicia sesión para guardar tu avance en la cuenta."
-            }
-            right={
-              !loading && !resumen.empty ? (
-                <div
-                  className="tabular text-[24px] font-semibold tracking-[-0.03em]"
-                  style={{ color: "var(--av-blue-500)" }}
-                >
-                  {resumen.overall}%
-                </div>
-              ) : undefined
-            }
-          />
+        {/* Ficha tecnica de la seccion: lo que trae, en datos y no en prosa.
+            Todos los numeros salen de TOTALS, ninguno esta escrito a mano. */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 py-2.5 border-y border-border mono text-[12px] text-muted-foreground">
+          <span>4 partes</span>
+          <Filete />
+          <span>{TOTALS.lessonScreens} secciones de lectura</span>
+          <Filete />
+          <span>{TOTALS.national} NOTAM reales de Colombia</span>
+          <Filete />
+          <span>OACI Doc 8400, 6ª ed.</span>
+          {!loading && !resumen.empty && (
+            <span className="ml-auto tabular" style={{ color: "var(--av-blue-500)" }}>
+              {resumen.overall}% completado
+            </span>
+          )}
+        </div>
 
-          <div className="rounded-2xl surface p-6 min-h-[196px]">
-            {loading ? (
-              <ProgresoSkeleton />
-            ) : resumen.empty ? (
-              <div className="flex flex-col sm:flex-row sm:items-center gap-5">
-                <div
-                  className="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{
-                    background: "color-mix(in oklab, var(--av-blue-500) 14%, transparent)",
-                    border: "1px solid color-mix(in oklab, var(--av-blue-500) 30%, transparent)",
-                    color: "var(--av-blue-500)",
-                  }}
-                >
-                  <BookOpen className="h-5 w-5" />
+        {/* Tu avance. Sin tarjeta: la estructura la dan los filetes. Apilar
+            superficies redondeadas era lo que hacia que la pantalla se leyera
+            como plantilla y no como instrumento. */}
+        <section className="py-8 border-b border-border">
+          <Rotulo>Tu avance</Rotulo>
+
+          {loading ? (
+            <ProgresoSkeleton />
+          ) : resumen.empty ? (
+            <div className="mt-3.5 flex flex-col sm:flex-row sm:items-start gap-6">
+              <div className="flex-1 min-w-0">
+                <div className="text-[20px] font-semibold tracking-[-0.02em]">
+                  Todavía no empiezas esta sección
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-[17px] font-semibold tracking-[-0.01em]">
-                    Todavía no empiezas esta sección
-                  </div>
-                  <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[620px]">
-                    Arranca por la lección: son {TOTALS.lessonScreens} secciones cortas y de ahí
-                    salen el código Q y las casillas que después usas en la práctica y en la
-                    evaluación. Cuando termines, el decodificador te queda como herramienta de
-                    consulta.
-                  </p>
-                </div>
-                <Link
-                  to="/app/aerolinea/notam/aprende"
-                  className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
-                  style={{ background: "var(--av-blue-500)" }}
-                >
-                  Empezar por la lección <ArrowRight className="h-4 w-4" />
-                </Link>
+                <p className="mt-1.5 text-[15px] text-muted-foreground leading-relaxed max-w-[60ch]">
+                  Arranca por la lección: son {TOTALS.lessonScreens} secciones cortas y de ahí
+                  salen el código Q y las casillas que después usas en la práctica y en la
+                  evaluación. Cuando termines, el decodificador te queda como herramienta de
+                  consulta.
+                </p>
               </div>
-            ) : (
-              <>
-                <div className="h-2.5 rounded-full bg-muted overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{
-                      width: `${resumen.overall}%`,
-                      background: "linear-gradient(90deg, var(--av-blue-400), var(--av-blue-500))",
-                    }}
-                  />
-                </div>
-                <div className="mt-5 grid gap-2.5 sm:grid-cols-3">
-                  <MiniStat
-                    label="Lección"
-                    value={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
-                    detail="secciones leídas"
-                    pct={resumen.lessonPct}
-                    color="var(--av-blue-500)"
-                  />
-                  <MiniStat
-                    label="Práctica"
-                    value={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
-                    detail="ejercicios resueltos"
-                    pct={resumen.practicePct}
-                    color="var(--av-violet-400)"
-                  />
-                  <MiniStat
-                    label="Evaluación"
-                    value={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
-                    detail={
-                      resumen.best === null
-                        ? `apruebas con ${EXAM_PASS_SCORE}`
-                        : resumen.passed
-                          ? "aprobada"
-                          : `te faltan ${EXAM_PASS_SCORE - resumen.best} puntos`
-                    }
-                    pct={resumen.examPct}
-                    color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
-                  />
-                </div>
-              </>
-            )}
-          </div>
+              <Link
+                to="/app/aerolinea/notam/aprende"
+                className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-lg text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
+                style={{ background: "var(--av-blue-500)" }}
+              >
+                Empezar por la lección <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+          ) : (
+            <>
+              <div className="mt-3 flex items-baseline gap-2.5">
+                <span className="tabular text-[32px] font-semibold tracking-[-0.03em] leading-none">
+                  {resumen.overall}%
+                </span>
+                <span className="mono text-[13px] text-muted-foreground">de la sección</span>
+              </div>
+              <div className="mt-5">
+                <Pista
+                  label="Lección"
+                  value={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
+                  detail="secciones leídas"
+                  pct={resumen.lessonPct}
+                  color="var(--av-blue-500)"
+                />
+                <Pista
+                  label="Práctica"
+                  value={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
+                  detail="ejercicios resueltos"
+                  pct={resumen.practicePct}
+                  color="var(--av-violet-400)"
+                />
+                <Pista
+                  label="Evaluación"
+                  value={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
+                  detail={
+                    resumen.best === null
+                      ? `apruebas con ${EXAM_PASS_SCORE}`
+                      : resumen.passed
+                        ? "aprobada"
+                        : `te faltan ${EXAM_PASS_SCORE - resumen.best} puntos`
+                  }
+                  pct={resumen.examPct}
+                  color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
+                />
+              </div>
+            </>
+          )}
+
+          <p className="mt-5 mono text-[11px] text-muted-foreground">
+            {user
+              ? "Se guarda en tu cuenta a medida que avanzas."
+              : "Inicia sesión para guardar tu avance en la cuenta."}
+          </p>
         </section>
 
         {/* Las 4 partes */}
-        <section className="mt-10">
-          <SectionTitle
-            icon={ListOrdered}
-            eyebrow="La sección · 4 partes"
-            title="Por dónde vas a pasar"
-            hint="El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera."
-          />
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <section className="pt-8">
+          <Rotulo>La sección · 4 partes</Rotulo>
+          <h2 className="mt-1.5 text-[24px] font-semibold tracking-[-0.021em] leading-tight">
+            Por dónde vas a pasar
+          </h2>
+          <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[60ch]">
+            El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera.
+          </p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {partes.map((p) => (
               <CourseCard key={p.to} {...p} statusLoading={loading} />
             ))}
@@ -375,7 +364,35 @@ export function Notam() {
 
 // ─── Sub componentes ─────────────────────────────────────────────────────────
 
-function MiniStat({
+/**
+ * Micro-rotulo en mono y mayuscula. Es el patron del rediseno para nombrar un
+ * bloque sin gastar un titular. Va contra la regla de sentence case del
+ * proyecto, que reserva esto al lector de modulo: es una decision explicita de
+ * Camilo del 3 de agosto, no un descuido.
+ */
+function Rotulo({ children }: { children: ReactNode }) {
+  return (
+    <div className="mono text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
+      {children}
+    </div>
+  )
+}
+
+/** Separador vertical de la ficha tecnica. */
+function Filete() {
+  return (
+    <span aria-hidden="true" style={{ color: "var(--border)" }}>
+      |
+    </span>
+  )
+}
+
+/**
+ * Una linea de avance. Barra recta de 3px y no capsula redondeada: la capsula
+ * con degradado lee como app de consumo, la linea recta como instrumento, que
+ * es de lo que va la app.
+ */
+function Pista({
   label,
   value,
   detail,
@@ -389,42 +406,39 @@ function MiniStat({
   color: string
 }) {
   return (
-    <div
-      className="rounded-xl border p-3.5"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-    >
-      <div className="text-[12px] font-semibold text-muted-foreground">
-        {label}
+    <div className="py-3.5 border-t border-border first:border-t-0 first:pt-0">
+      <div className="flex items-baseline justify-between gap-4">
+        <span className="text-[15px]">{label}</span>
+        <span className="tabular text-[15px] font-medium" style={{ color }}>
+          {value}
+        </span>
       </div>
-      <div className="mt-0.5 tabular text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
-        {value}
-      </div>
-      <div className="text-[12px] text-muted-foreground">{detail}</div>
-      <div className="mt-2 h-1.5 rounded-full bg-muted overflow-hidden">
+      <div className="mt-2 h-[3px] bg-muted overflow-hidden">
         <div
-          className="h-full rounded-full"
+          className="h-full transition-all"
           style={{ width: `${Math.max(0, Math.min(100, pct))}%`, background: color }}
         />
       </div>
+      <div className="mt-1.5 mono text-[11px] text-muted-foreground">{detail}</div>
     </div>
   )
 }
 
 function ProgresoSkeleton() {
   return (
+    /* El esqueleto calca la forma final: cifra, tres pistas y sus barras. Un
+       esqueleto que no coincide con lo que llega produce un salto al cargar. */
     <div aria-hidden="true">
-      <div className="h-2.5 rounded-full bg-muted animate-pulse" />
-      <div className="mt-5 grid gap-2.5 sm:grid-cols-3">
+      <div className="mt-3 h-8 w-28 bg-muted animate-pulse" />
+      <div className="mt-5">
         {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className="rounded-xl border p-3.5"
-            style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-          >
-            <div className="h-3 w-16 rounded bg-muted animate-pulse" />
-            <div className="mt-2 h-5 w-24 rounded bg-muted animate-pulse" />
-            <div className="mt-2 h-3 w-28 rounded bg-muted animate-pulse" />
-            <div className="mt-2.5 h-1.5 rounded-full bg-muted animate-pulse" />
+          <div key={i} className="py-3.5 border-t border-border first:border-t-0 first:pt-0">
+            <div className="flex items-baseline justify-between gap-4">
+              <div className="h-4 w-24 bg-muted animate-pulse" />
+              <div className="h-4 w-16 bg-muted animate-pulse" />
+            </div>
+            <div className="mt-2 h-[3px] bg-muted animate-pulse" />
+            <div className="mt-1.5 h-3 w-32 bg-muted animate-pulse" />
           </div>
         ))}
       </div>
