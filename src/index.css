@@ -839,6 +839,84 @@
   color: var(--mod-muted);
 }
 
+/* === Lector NOTAM (la lección Aprende) ======================================
+   Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
+   infografías: papel cálido y navy de carta aeronáutica, fija en los dos
+   temas. Es la paleta del handoff "Rediseño NOTAM profesional" (v3, 3 de
+   agosto), transcrita literal de su README.
+
+   El handoff titula con Barlow Condensed; la marca ya titula con Archivo y el
+   propio README manda respetar la familia de marca conservando la relación
+   display para titulares y mono para códigos. Los tokens semánticos de la app
+   (--foreground, --border...) se re-anclan aquí para que las piezas
+   compartidas (DocBlock, índice) hereden el papel sin saber dónde están, y
+   --av-blue-* se re-ancla al azul carta para que los acentos no mezclen dos
+   azules distintos. */
+.lector-notam {
+  --ln-paper: #FBFAF8;
+  --ln-sunk: #F2EFE9;
+  --ln-hair: #E0DCD4;
+  --ln-hair-strong: #D5D0C6;
+  --ln-rule: #C9C3B7;
+  --ln-ink: #16191D;
+  --ln-body: #3A424C;
+  --ln-muted: #4A5460;
+  --ln-soft: #5A6470;
+  --ln-faint: #6F6A5D;
+  --ln-navy: #14202E;
+  --ln-navy-hover: #1B2B3D;
+  --ln-navy-rule: #26374A;
+  --ln-navy-text: #B9C4D0;
+  --ln-navy-dim: #7E8FA3;
+  --ln-navy-label: #8FA1B6;
+  --ln-item: #9FB0C4;
+  --ln-primary: #123A6B;
+  --ln-primary-hover: #0B2545;
+  --ln-bright: #2F5F9E;
+  --ln-tint: #E4EBF4;
+  --ln-on-bright: #FFFFFF;
+  --ln-row-rule: #EFEBE4;
+  --ln-focus: #6E9BD6;
+  --ln-caution: #B45309;
+  --ln-caution-bg: #FBF3E4;
+  --ln-caution-ink: #78440A;
+  --ln-critical: #A81E1E;
+  --ln-critical-bg: #FBEDEC;
+  --ln-display: "Archivo", var(--font-sans);
+
+  /* Re-anclas para las piezas compartidas */
+  --background: var(--ln-paper);
+  --foreground: var(--ln-ink);
+  --muted-foreground: var(--ln-soft);
+  --border: var(--ln-hair);
+  --ring: var(--ln-focus);
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+
+  background: var(--ln-paper);
+  color: var(--ln-body);
+}
+.lector-notam .ln-display { font-family: var(--ln-display); }
+/* Epígrafe de bloque: mono 11, mayúscula, tracking abierto. Todo texto de
+   10-11 px va en 600 con tracking, que es la regla de mínimos del handoff. */
+.lector-notam .ln-epigrafe {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-faint);
+}
+/* Foco de teclado del handoff: anillo de 2px, hacia dentro en el sidebar navy
+   para que no lo recorte el borde del panel. */
+.lector-notam :where(a, button, [role="button"], summary):focus-visible {
+  outline: 2px solid var(--ln-focus);
+  outline-offset: 2px;
+}
+.lector-notam .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-offset: -2px;
+}
+
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
