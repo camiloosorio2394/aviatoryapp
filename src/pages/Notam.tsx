@@ -25,8 +25,6 @@ import evaluacionPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
-  CODE_META,
-  DISCLAIMERS,
   EXAM_PASS_SCORE,
   NOTAM_PRACTICE_TOTAL,
   TOTALS,
@@ -59,6 +57,27 @@ const EMPTY_PROGRESS: NotamProgress = {
   lessonScreens: [],
   practiceDone: [],
   bestExamScore: null,
+}
+
+/**
+ * El NOTAM de ejemplo del encabezado: un recorte real del resumen que publica
+ * la Aerocivil. Para cambiarlo por otro solo hay que dejar el .webp en
+ * /public/notams y editar estas cinco líneas; no hay más sitios que tocar.
+ */
+const EJEMPLO = {
+  imagen: "/notams/notam_C0964_SKRG_IAP_RNP.webp",
+  ancho: 988,
+  alto: 185,
+  serie: "C 0964/26",
+  aerodromo: "Rionegro, José María Córdova (SKRG)",
+  transcripcion:
+    "2603041910 PERM , IAP RNP RWY 01 SE MODIFICA, ADDN MNM LNAV/VNAV: LNAV/VNAV: OCA(H) 7500(533) VIS 1700 SISTEMAS BARO VNAV NO AUTOCOMPENSADOS APLICABLE BTN -5 DEG Y 30 DEG. REF. AIP AD 2 SKRG 2.24",
+  lee: "Dice que la aproximación RNP a la pista 01 de Rionegro se modificó: le agregaron mínimos LNAV/VNAV. Rige desde el 4 de marzo de 2026 y es permanente.",
+} as const
+
+/** Resalta las letras del nombre que forman la sigla: NOtice To AirMen. */
+function Sigla({ children }: { children: string }) {
+  return <span style={{ color: "var(--av-blue-500)" }}>{children}</span>
 }
 
 /** Une el progreso remoto con el respaldo local (el local puede ser previo al login). */
@@ -252,46 +271,78 @@ export function Notam() {
           }
         />
 
-        {/* Contexto y fuente del contenido */}
-        <section className="grid gap-4 lg:grid-cols-[1.5fr_1fr]">
-          <div className="rounded-2xl surface p-6">
-            <SectionTitle icon={Info} eyebrow="Antes de arrancar" title="Qué es un NOTAM" />
-            <p className="text-[15px] text-foreground/90 leading-relaxed">
-              Un NOTAM es un aviso que distribuye el servicio AIS con información temporal o urgente
-              que afecta la operación: cierre de pista, ILS o PAPI fuera de servicio, obras,
-              obstáculos nuevos, espacios aéreos restringidos o vuelos de UAS.
-            </p>
-            <p className="mt-2.5 text-[15px] text-foreground/90 leading-relaxed">
-              Se escribe con un código de 5 letras y casillas fijas (A hasta G), así que cualquier
-              piloto del mundo lo entiende sin traducirlo. Aquí aprendes a leerlo de corrido, en
-              español y con ejemplos de Colombia.
+        {/* Qué es un NOTAM: la sigla, la frase corta y la definición de la OACI */}
+        <section className="rounded-2xl surface p-6">
+          <SectionTitle icon={Info} eyebrow="Antes de arrancar" title="Qué es un NOTAM" />
+
+          {/* La sigla desplegada. El nombre explica la mitad de lo que es, así que
+              se muestra letra por letra en vez de contarse en un párrafo. */}
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-[32px] font-semibold tracking-[-0.03em] leading-none">NOTAM</span>
+            <span className="mono text-[15px] text-muted-foreground">
+              <Sigla>NO</Sigla>tice <Sigla>T</Sigla>o <Sigla>A</Sigla>ir<Sigla>M</Sigla>en
+            </span>
+          </div>
+          <p className="mt-2 text-[15px] text-muted-foreground">Aviso a los aviadores.</p>
+
+          <div className="mt-6">
+            <div className="text-[13px] text-muted-foreground">En una frase</div>
+            <p className="mt-1 text-[17px] text-foreground leading-relaxed max-w-[52ch]">
+              Un aviso corto y urgente sobre un cambio temporal en un aeródromo, una ayuda o el
+              espacio aéreo; algo que necesitas saber antes de despegar.
             </p>
           </div>
 
-          <div
-            className="rounded-2xl border p-6"
-            style={{
-              borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-              background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-            }}
+          <blockquote
+            className="mt-6 pl-4 border-l-2"
+            style={{ borderColor: "color-mix(in oklab, var(--av-blue-500) 45%, transparent)" }}
           >
-            <div className="flex items-center gap-2 mb-2.5">
-              <FileText className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-              <div className="text-[13px] font-semibold tracking-[-0.01em]">
-                De dónde sale el contenido
-              </div>
-            </div>
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
-              {CODE_META.fuente}
+            <p className="text-[15px] text-foreground/90 leading-relaxed max-w-[52ch]">
+              Aviso distribuido por telecomunicaciones sobre el establecimiento, condición o
+              modificación de una instalación, servicio, procedimiento o peligro, cuyo conocimiento
+              oportuno es esencial para las operaciones de vuelo.
             </p>
-            <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
-              Los ejemplos colombianos salen de los resúmenes de NOTAM vigentes que publica la
-              Aerocivil.
-            </p>
-            <p className="mt-3.5 pt-3 border-t border-border/60 text-[12px] text-muted-foreground leading-relaxed">
-              {DISCLAIMERS.edition}
-            </p>
+            <footer className="mt-2 text-[13px] text-muted-foreground">OACI, Anexo 15</footer>
+          </blockquote>
+        </section>
+
+        {/* Uno de verdad, antes de explicar nada: el recorte del resumen de la Aerocivil */}
+        <section className="mt-4 rounded-2xl surface p-6">
+          <SectionTitle
+            icon={FileText}
+            eyebrow="Así se ve uno de verdad"
+            title={`${EJEMPLO.serie}, ${EJEMPLO.aerodromo}`}
+          />
+          {/* Fondo blanco fijo y scroll propio: el recorte es texto negro sobre
+              blanco y mide 7 a 1, así que ni se invierte con el tema ni se
+              encoge hasta ser ilegible en un celular. */}
+          <div
+            className="rounded-xl border p-2.5 sm:p-3 overflow-x-auto"
+            style={{ background: "rgb(255 255 255)", borderColor: "var(--border)" }}
+          >
+            <img
+              src={EJEMPLO.imagen}
+              alt={EJEMPLO.transcripcion}
+              width={EJEMPLO.ancho}
+              height={EJEMPLO.alto}
+              className="block w-full h-auto"
+            />
           </div>
+
+          {/* El recorte es una tira de 5 a 1: en escritorio se lee, pero en un
+              celular se encoge hasta ser ilegible. El mismo NOTAM en texto sí
+              reflowea, así que va debajo y es lo que de verdad se lee en el
+              teléfono. No es repetir: es la única forma de que se lea en los dos. */}
+          <pre
+            className="mono mt-3 mb-0 p-3 rounded-lg border border-border text-[12px] leading-relaxed whitespace-pre-wrap break-words text-foreground"
+            style={{ background: "color-mix(in oklab, var(--border) 22%, transparent)" }}
+          >
+            {EJEMPLO.transcripcion}
+          </pre>
+
+          <p className="mt-3 text-[13px] text-muted-foreground leading-relaxed max-w-[72ch]">
+            {EJEMPLO.lee} Todavía no hace falta entenderlo entero: para eso es la lección.
+          </p>
         </section>
 
         {/* Progreso general de la seccion */}
