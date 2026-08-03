@@ -62,9 +62,13 @@ export function Hero() {
             </Button>
           </div>
 
-          {/* Aquí iba una fila de avatares y "+2.000 pilotos ya estudian aquí".
-              Ni los pilotos ni la cifra existían. Vuelve cuando haya un número
-              real que valga la pena enseñar. */}
+          {/* Aquí iba una fila de avatares inventados con una cuenta de pilotos
+              inflada. Ni los pilotos ni la cifra existían. Vuelve cuando haya un
+              número real que valga la pena enseñar.
+
+              La cifra no se repite aquí a propósito: el barrido de cifras
+              infladas de la landing es un grep, y un comentario que la cite lo
+              deja sonando para siempre. */}
 
           <div className="mt-7 flex items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 flex-wrap text-[13px] text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> 7 días gratis</span>
