@@ -62,25 +62,11 @@ export function Hero() {
             </Button>
           </div>
 
-          {/* prueba social */}
-          <div className="mt-7 flex items-center justify-center lg:justify-start gap-4 flex-wrap">
-            <div className="flex -space-x-2.5">
-              {["1E3A8A", "0E7490", "B45309", "4338CA", "047857"].map((c, i) => (
-                <div
-                  key={i}
-                  className="h-9 w-9 rounded-full border-2 border-background flex items-center justify-center text-[11px] font-bold text-white"
-                  style={{ background: `#${c}` }}
-                >
-                  {["JM", "AL", "VC", "Rd", "SP"][i]}
-                </div>
-              ))}
-            </div>
-            <div className="text-[13.5px] text-muted-foreground">
-              <strong className="text-foreground">+2.000 pilotos</strong> ya estudian aquí
-            </div>
-          </div>
+          {/* Aquí iba una fila de avatares y "+2.000 pilotos ya estudian aquí".
+              Ni los pilotos ni la cifra existían. Vuelve cuando haya un número
+              real que valga la pena enseñar. */}
 
-          <div className="mt-5 flex items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 flex-wrap text-[13px] text-muted-foreground">
+          <div className="mt-7 flex items-center justify-center lg:justify-start gap-x-4 gap-y-1.5 flex-wrap text-[13px] text-muted-foreground">
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> 7 días gratis</span>
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Sin tarjeta</span>
             <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-500" /> Cancelas cuando quieras</span>

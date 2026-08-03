@@ -7,7 +7,6 @@ import { Solutions } from "@/components/landing/Solutions"
 import { Stats } from "@/components/landing/Stats"
 import { HowItWorks } from "@/components/landing/HowItWorks"
 import { Comparison } from "@/components/landing/Comparison"
-import { Testimonials } from "@/components/landing/Testimonials"
 import { FounderStory } from "@/components/landing/FounderStory"
 import { PricingPreview } from "@/components/landing/PricingPreview"
 import { FAQ } from "@/components/landing/FAQ"
@@ -22,11 +21,15 @@ import { FinalCTA } from "@/components/landing/FinalCTA"
  *  5. Stats      → numbers that build trust
  *  6. HowItWorks → demystify the path
  *  7. Comparison → "vs estudiar solo / vs bank tradicional"
- *  8. Testimonials → social proof v2 (peers)
- *  9. FounderStory→ humanize, who's behind
- * 10. Pricing   → make the offer concrete
- * 11. FAQ      → handle objections
- * 12. FinalCTA  → close
+ *  8. FounderStory→ humanize, who's behind
+ *  9. Pricing   → make the offer concrete
+ * 10. FAQ      → handle objections
+ * 11. FinalCTA  → close
+ *
+ * Aquí iba una sección de testimonios con tres pilotos inventados. Aviatory
+ * tiene cuatro usuarios reales y el gremio en Colombia es chico: un solo
+ * comentario circula. Vuelve cuando haya pilotos de verdad que quieran dar el
+ * suyo, con nombre y apellido.
  */
 export function Landing() {
   return (
@@ -39,7 +42,6 @@ export function Landing() {
       <Stats />
       <HowItWorks />
       <Comparison />
-      <Testimonials />
       <FounderStory />
       <PricingPreview />
       <FAQ />
