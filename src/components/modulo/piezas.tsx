@@ -233,6 +233,55 @@ export function Banda({ children }: { children: ReactNode }) {
   )
 }
 
+/**
+ * Ilustración dentro de la hoja, con su pie.
+ *
+ * El ancho máximo es la medida de lectura, no el del contenedor: una imagen a
+ * todo lo ancho de la hoja corta el ritmo de lectura del texto que la rodea.
+ *
+ * `alt` es obligatorio en el tipo a propósito. Si la imagen enseña algo, hay
+ * que poder describirlo; si es decorativa, no debería estar en una lección.
+ *
+ * `ancho` y `alto` son los del archivo, en píxeles. Sin ellos el navegador no
+ * sabe cuánto sitio reservar y el texto salta cuando la imagen carga.
+ */
+export function Figura({
+  src,
+  alt,
+  ancho,
+  alto,
+  pie,
+}: {
+  src: string
+  alt: string
+  ancho: number
+  alto: number
+  pie?: string
+}) {
+  return (
+    <figure className="m-0 w-full max-w-[62ch] mx-auto">
+      <img
+        src={src}
+        alt={alt}
+        width={ancho}
+        height={alto}
+        loading="lazy"
+        decoding="async"
+        className="block w-full h-auto rounded-xl"
+        style={{ border: "1px solid var(--mod-line)", background: "var(--mod-panel)" }}
+      />
+      {pie && (
+        <figcaption
+          className="mt-2 text-[13px] leading-[1.6]"
+          style={{ color: "var(--mod-muted)" }}
+        >
+          {pie}
+        </figcaption>
+      )}
+    </figure>
+  )
+}
+
 /** Texto fuerte dentro de un párrafo. */
 export function F({ children }: { children: ReactNode }) {
   return (

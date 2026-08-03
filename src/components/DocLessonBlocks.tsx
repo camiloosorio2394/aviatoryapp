@@ -17,7 +17,8 @@ import {
   PenLine,
   ShieldAlert,
 } from "lucide-react"
-import type { BreakdownPart, LessonBlock } from "@/lib/notamLesson"
+import type { BreakdownPart } from "@/lib/notamLesson"
+import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
 /**
@@ -106,7 +107,7 @@ const CALLOUT_TONE: Record<
   tip: { color: "var(--av-green-400)", icon: Lightbulb, fallbackTitle: "Consejo" },
 }
 
-export function DocBlock({ block }: { block: LessonBlock }) {
+export function DocBlock({ block }: { block: DocBlockData }) {
   switch (block.kind) {
     case "p":
       return <p className="m-0 text-[15px]">{renderInline(block.text)}</p>
@@ -231,6 +232,17 @@ export function DocBlock({ block }: { block: LessonBlock }) {
 
     case "notam":
       return <NotamFigure id={block.id} caption={block.caption} />
+
+    case "figura":
+      return (
+        <Figura
+          src={block.src}
+          alt={block.alt}
+          ancho={block.ancho}
+          alto={block.alto}
+          pie={block.pie}
+        />
+      )
 
     case "infografia": {
       const Infografia = INFOGRAFIAS[block.nombre]
@@ -414,6 +426,44 @@ function Check({
         </div>
       )}
     </div>
+  )
+}
+
+/**
+ * Ilustración dentro de la hoja, con su pie.
+ *
+ * El ancho máximo es la medida de lectura de la hoja (las mismas 64 columnas
+ * que la entradilla), no el del contenedor: una imagen a todo lo ancho corta el
+ * ritmo del texto que la rodea. `NotamFigure` es la excepción justificada, y
+ * por eso es otra pieza: un recorte de la Aerocivil es texto dentro de un píxel
+ * y por debajo de 720 px deja de leerse.
+ */
+function Figura({
+  src,
+  alt,
+  ancho,
+  alto,
+  pie,
+}: {
+  src: string
+  alt: string
+  ancho: number
+  alto: number
+  pie?: string
+}) {
+  return (
+    <figure className="m-0 w-full max-w-[64ch] mx-auto">
+      <img
+        src={src}
+        alt={alt}
+        width={ancho}
+        height={alto}
+        loading="lazy"
+        decoding="async"
+        className="block w-full h-auto rounded-lg border doc-rule"
+      />
+      {pie && <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">{pie}</figcaption>}
+    </figure>
   )
 }
 

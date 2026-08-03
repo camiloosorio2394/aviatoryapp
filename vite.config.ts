@@ -67,7 +67,9 @@ export default defineConfig({
         // problema de 404 entre deploys que obliga a precachear los .jpg.
         // Las infografias del curso son el mismo caso: 400 KB de ilustraciones
         // de una seccion concreta. Van bajo demanda por el mismo motivo.
-        globIgnores: ['notams/**', 'infografias/**'],
+        // Las ilustraciones de los modulos (public/modulos/<modulo>/) son el
+        // mismo caso que las infografias: material de una seccion concreta.
+        globIgnores: ['notams/**', 'infografias/**', 'modulos/**'],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [
@@ -109,6 +111,16 @@ export default defineConfig({
             options: {
               cacheName: 'infografia-images',
               expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          {
+            // Ilustraciones de las lecciones de modulo: mismo trato.
+            urlPattern: /\/modulos\/.*\.(webp|png|jpg)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'modulo-images',
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 180 },
               cacheableResponse: { statuses: [0, 200] },
             },
           },
