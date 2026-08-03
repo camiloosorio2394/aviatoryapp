@@ -3,7 +3,120 @@
 Documento vivo. Lo que está aquí necesita algo de tu lado: aplicar, decidir o
 confirmar. Cuando algo se cierra, se borra de aquí.
 
-Última actualización: 2 de agosto de 2026.
+Última actualización: 2 de agosto de 2026 (tanda de la tarde).
+
+---
+
+## 0 · Lo que dejó la tanda del 2 de agosto por la tarde
+
+Cinco tareas, ninguna toca NOTAM. Esto es lo que necesita algo de tu lado.
+
+### 0.1 · Una migración nueva, sin aplicar
+
+`20260802050000_paginas_biblioteca.sql`. Crea
+`set_library_item_pages(bigint, integer)`, que es como la Biblioteca rellena
+sola `library_items.paginas`: pdf.js ya sabe cuántas páginas tiene un documento
+al abrirlo, así que la cifra sale gratis y siempre correcta. Va por RPC porque
+`library_items` es de solo lectura para los pilotos y tiene que seguir
+siéndolo; la función solo escribe cuando `paginas` está en null, solo sobre
+documentos publicados y solo con sesión.
+
+**Mientras no la apliques**, el visor la llama y falla en silencio: los
+documentos sin `paginas` (RAC 2 y RAC 61) siguen sin mostrar su número de
+páginas y no se rompe nada.
+
+Los tipos ya los regeneré contra producción, así que ahora traen `familia`,
+`destacado`, `paginas`, `portada_url` y `module_thresholds`. Tras aplicar la
+migración, repite el comando para que entre también la función nueva.
+
+### 0.2 · Los cinco documentos están marcados como destacados
+
+`destacado = true` en los cinco, así que la fila **Esenciales** de la Biblioteca
+repite el estante entero. La fila es tu palanca de curaduría y la dejé
+exactamente como dice el brief; decide tú cuáles son de verdad los esenciales y
+quítale la marca a los demás.
+
+### 0.3 · El aviso de vigencia salió del estante y sigue en cada documento
+
+El brief pedía la Biblioteca sin estados de vigencia. Quité de la portada del
+estante el recuadro ámbar que avisaba de que las ediciones caducan, **pero sigue
+íntegro en la ficha de cada documento**, justo encima del visor, que es donde el
+piloto está a punto de aplicar un límite. Si lo quieres también en el estante,
+se devuelve en una línea.
+
+### 0.4 · La pieza de imagen, y qué falta para que la uses en NOTAM
+
+Ya existe en los dos renderizadores, que era lo que te bloqueaba:
+
+```tsx
+<Figura src="/modulos/…" alt="…" ancho={1200} alto={800} pie="…" />     // lector de módulo
+{ kind: "figura", src: "/modulos/…", alt: "…", ancho: 1200, alto: 800 } // hoja de documento
+```
+
+`alt` es obligatorio en el tipo, y `ancho`/`alto` son los del archivo (sin ellos
+el texto salta cuando la imagen carga).
+
+**El único detalle**: el tipo `LessonBlock` vive en `src/lib/notamLesson.ts`,
+que es tuyo esta semana y no lo abrí. La variante nueva está en
+`src/lib/docBlocks.ts`, fuera. Para escribir figuras dentro de `notamLesson.ts`,
+teclea las pantallas como `DocScreen[]` en lugar de `LessonScreen[]`: es la
+misma pantalla con la lista de bloques ampliada, y es un solo cambio de tipo en
+un archivo que ya estás editando.
+
+Las imágenes van en `public/modulos/<modulo>/`, a WebP con
+`node scripts/optimizar-imagenes.mjs <origen> public/modulos/<modulo> 1400`, y
+quedan fuera del precache de la PWA. Está explicado en `public/modulos/LEEME.md`.
+
+### 0.5 · Dos secciones del módulo ICAO no guardan nada, y por eso no tienen avance
+
+El hub de Inglés ICAO ya lee el progreso real y ordena por él, como el de
+Ingreso a aerolínea. Pero solo tres de las cinco piezas tienen de dónde leer:
+
+| Sección | Fuente de avance |
+|---|---|
+| Vocabulario | `user_icao_quiz_attempts` |
+| Entrevista (Parte 1) | `user_icao_speaking` |
+| **Comprensión (Parte 2)** | **Ninguna. No persiste nada** |
+| **Descripción de imágenes (Parte 3)** | **Ninguna. No persiste nada** |
+| Simulacro TEA | `user_icao_mock_results` |
+
+A las dos sin fuente **no les puse un 0%**: un cero afirma que lo intentaste y
+no avanzaste, y lo cierto es que no sabemos. Sus tarjetas enseñan cuánto
+contenido hay dentro y ya. Si quieres que midan avance, hay que decidir primero
+qué cuenta como hecho en cada una (¿escuchar el audio?, ¿acertar el quiz de
+comprensión?, ¿describir el par entero?), y eso es decisión de contenido.
+
+### 0.6 · Los testimonios de la landing ya no están
+
+Borré `Testimonials.tsx` entero y la fila de "+2.000 pilotos" con avatares
+inventados del Hero. No los sustituí por nada: la sección vuelve cuando haya
+pilotos reales que quieran dar el suyo.
+
+**Queda uno que no toqué porque se sale del encargo**: en `Stats.tsx`, la
+tarjeta **"3x · Más rápido que estudiar solo con PDFs y videos sueltos"** es una
+cifra inventada presentada como dato, dentro de una rejilla de cifras. Por la
+misma regla de cero mentiras en pantalla, o se respalda o se quita. Dime y lo
+hago.
+
+### 0.7 · El lector en celular ya estaba bien
+
+Verificado a 390 px en las 11 secciones del lector de Mercancías: cero scroll
+horizontal, la rejilla de las nueve clases en 3 columnas con el rombo a 44 px,
+el índice convertido en tira de números, el contador `03 / 09` sin pisarse con
+la vigencia, y los botones de Anterior y Siguiente apilados y completos. No hizo
+falta cambiar nada: la pasada de celular ya había entrado con el propio lector.
+
+Lo que **no** pude probar es Android Chrome ni iOS Safari de verdad, solo un
+navegador a 390 px. Si tienes el teléfono a mano, vale una mirada.
+
+### 0.8 · Un arreglo de layout que afecta a toda la app
+
+`AppLayout` llevaba la columna de contenido como ítem flex sin `min-w-0`, así
+que su ancho mínimo lo fijaba el contenido más ancho de la página. La primera
+tira con desplazamiento horizontal (el estante de la Biblioteca) empujó la
+página entera a 809 px en un teléfono de 390. Está arreglado con una clase, pero
+conviene saberlo: cualquier carrusel que se añada a partir de ahora habría
+tenido el mismo problema.
 
 ---
 
@@ -18,6 +131,7 @@ Comprobado contra producción el 2 de agosto, consultando la base, no supuesto.
 | `20260802010000_modulo_mercancias.sql` | **APLICADA A MEDIAS. Hay que repetirla** |
 | `20260802020000_biblioteca_por_modulos.sql` | **Sin aplicar** |
 | `20260802030000_icao_speaking.sql` | Aplicada |
+| `20260802050000_paginas_biblioteca.sql` | **Sin aplicar.** Ver el punto 0.1 |
 
 ### La de mercancías está incompleta y es lo más urgente
 
