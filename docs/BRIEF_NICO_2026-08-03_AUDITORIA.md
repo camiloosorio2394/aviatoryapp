@@ -37,7 +37,11 @@ no devuelve CTAs de registro (los "Comenzar simulacro" de los módulos no son es
 El login dice "Banco de preguntas Aerocivil PPL/CPL" y la meta description de
 `index.html` también. Todo el producto dice PCA. Corrige los dos.
 
-### A3 · La lección NOTAM deja de declararse PDF (autorizado por Camilo)
+### A3 · YA HECHA, SÁLTALA. La lección se rediseñó entera el 3 de agosto
+La hizo Camilo con Claude en el rediseño de la lección (riel derecho, tira de
+metadatos, sin declaración de documento). No queda nada de esta tarea.
+
+### ~~A3 · La lección NOTAM deja de declararse PDF (autorizado por Camilo)~~
 `src/pages/NotamLesson.tsx`, solo estos textos, literal:
 - L172: `Documento de estudio en ${TOTAL} secciones, para leer de corrido como un PDF.`
   → `13 secciones cortas: el código, las casillas y práctica con avisos reales de la Aerocivil.`

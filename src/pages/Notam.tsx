@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import {
   ArrowLeft,
@@ -11,6 +11,7 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { Rotulo, Filete } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
@@ -363,29 +364,6 @@ export function Notam() {
 }
 
 // ─── Sub componentes ─────────────────────────────────────────────────────────
-
-/**
- * Micro-rotulo en mono y mayuscula. Es el patron del rediseno para nombrar un
- * bloque sin gastar un titular. Va contra la regla de sentence case del
- * proyecto, que reserva esto al lector de modulo: es una decision explicita de
- * Camilo del 3 de agosto, no un descuido.
- */
-function Rotulo({ children }: { children: ReactNode }) {
-  return (
-    <div className="mono text-[11px] font-medium uppercase tracking-[0.16em] text-muted-foreground">
-      {children}
-    </div>
-  )
-}
-
-/** Separador vertical de la ficha tecnica. */
-function Filete() {
-  return (
-    <span aria-hidden="true" style={{ color: "var(--border)" }}>
-      |
-    </span>
-  )
-}
 
 /**
  * Una linea de avance. Barra recta de 3px y no capsula redondeada: la capsula

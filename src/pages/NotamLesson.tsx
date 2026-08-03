@@ -6,18 +6,24 @@ import {
   BookOpen,
   Check,
   ClipboardCheck,
-  Clock,
   Library,
   ListOrdered,
   Target,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { Rotulo, Filete } from "@/components/ui/rotulo"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
-import { LEVEL_META, accentText, readLocalProgress, writeLocalProgress } from "@/lib/notam"
+import {
+  DISCLAIMERS,
+  LEVEL_META,
+  accentText,
+  readLocalProgress,
+  writeLocalProgress,
+} from "@/lib/notam"
 import {
   fetchNotamProgress,
   markNotamProgress,
@@ -169,7 +175,7 @@ export function NotamLesson() {
             </>
           }
           title="Qué es un NOTAM y cómo leerlo"
-          subtitle={`Documento de estudio en ${TOTAL} secciones, para leer de corrido como un PDF.`}
+          subtitle={`${TOTAL} secciones cortas: el código, las casillas y práctica con avisos reales de la Aerocivil.`}
           actions={
             <Link
               to="/app/aerolinea/notam"
@@ -178,32 +184,29 @@ export function NotamLesson() {
               <ArrowLeft className="h-3.5 w-3.5" /> Volver a NOTAM
             </Link>
           }
-        >
-          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-[12px] font-semibold text-muted-foreground">
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="h-3 w-3" /> {TOTAL_MINUTES} min de lectura
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <ListOrdered className="h-3 w-3" /> {TOTAL} secciones
-            </span>
-            <span className="tabular">
-              {readSections.length} de {TOTAL} leídas
-            </span>
-          </div>
-        </PageHeader>
+        />
 
-        <div className="lg:grid lg:grid-cols-[230px_minmax(0,1fr)] lg:gap-8 lg:items-start">
-          {/* Índice lateral: usa los tokens de la app, no es papel */}
-          <aside
-            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto rounded-2xl surface p-3"
-            aria-label="Índice de la lección"
-          >
-            <div className="px-2.5 pt-1 pb-2 text-[12px] font-semibold text-muted-foreground">
-              Contenido
-            </div>
-            <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
-          </aside>
+        {/* Ficha técnica de la lección: los datos en una tira, no en la prosa.
+            Es la misma pieza de la portada; la referencia del documento fuente
+            y el corte del material van aquí y en el riel, no en un párrafo. */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 py-2.5 border-y border-border mono text-[12px] text-muted-foreground -mt-4 mb-8">
+          <span>{TOTAL} secciones</span>
+          <Filete />
+          <span>{TOTAL_MINUTES} min</span>
+          <Filete />
+          <span>OACI Doc 8400, 6ª ed.</span>
+          <Filete />
+          <span>Corte Aerocivil: 29 JUL 2026</span>
+          <span className="ml-auto tabular" style={{ color: "var(--av-blue-500)" }}>
+            {readSections.length} de {TOTAL} leídas
+          </span>
+        </div>
 
+        {/* Contenido a la izquierda, riel a la derecha: la estructura de la
+            maqueta aprobada. El índice dejó de ser una tarjeta flotante a la
+            izquierda del papel: ahora es parte del instrumento, con el avance
+            segmentado y la fuente como lista de definición. */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
           <div className="min-w-0">
             {/* Índice desplegable en móvil */}
             <details
@@ -246,31 +249,14 @@ export function NotamLesson() {
               </div>
             </div>
 
-            {/* La hoja: papel claro, continuo, con todo el contenido en orden */}
+            {/* La hoja: papel claro y continuo. Perdió su portadilla: lo que
+                decía (fuente, edición, corte, minutos) ya vive en la tira de
+                metadatos y en el riel. Abrir la lección es caer en la sección
+                1, no en una carátula. */}
             <article
               ref={sheetRef}
-              className="doc-sheet rounded-2xl px-5 sm:px-10 py-8 sm:py-11"
+              className="doc-sheet rounded-2xl px-5 sm:px-10 py-2 sm:py-3"
             >
-              <header className="pb-7 border-b doc-rule">
-                <div className="text-[12px] font-semibold doc-muted">
-                  Documento de estudio · NOTAM
-                </div>
-                <p className="mt-3 mb-0 text-[15px] leading-[1.75] max-w-[64ch]">
-                  Basado en el Doc 8400 de la OACI (PANS-ABC, 6ª ed.), el Anexo 15 y los resúmenes
-                  mensuales de NOTAM vigentes de la Aeronáutica Civil de Colombia. Léelo de corrido:
-                  cada sección continúa la anterior y el índice te devuelve a cualquier punto.
-                </p>
-                <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-[12px] font-semibold doc-muted">
-                  <span className="inline-flex items-center gap-1.5">
-                    <Clock className="h-3.5 w-3.5" /> {TOTAL_MINUTES} minutos
-                  </span>
-                  <span className="inline-flex items-center gap-1.5">
-                    <ListOrdered className="h-3.5 w-3.5" /> {TOTAL} secciones
-                  </span>
-                  <span>Material de la Aerocivil con corte al 29 JUL 2026</span>
-                </div>
-              </header>
-
               {LESSON_SCREENS.map((screen) => {
                 const level = LEVEL_META[screen.level]
                 return (
@@ -280,31 +266,24 @@ export function NotamLesson() {
                     data-section={screen.n}
                     className="scroll-mt-24 py-8 sm:py-9 border-t doc-rule first-of-type:border-t-0"
                   >
-                    <header className="flex items-start gap-3 sm:gap-5">
-                      <span
-                        className="mono shrink-0 text-[32px] sm:text-[32px] font-semibold leading-none tabular"
-                        style={{ color: "color-mix(in oklab, var(--doc-fg) 17%, var(--doc-bg))" }}
-                        aria-hidden
-                      >
-                        {String(screen.n).padStart(2, "0")}
-                      </span>
-                      <div className="min-w-0">
-                        <h2 className="m-0 text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] leading-[1.2]">
-                          {screen.title}
-                        </h2>
-                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] doc-muted">
-                          <span>{screen.kicker}</span>
-                          <span
-                            className="inline-flex items-center gap-1 font-semibold"
-                            style={{ color: docAccent(level.color, 55) }}
-                          >
-                            {level.label}
-                          </span>
-                          <span className="inline-flex items-center gap-1">
-                            <Clock className="h-3 w-3" /> {screen.minutes} min
-                          </span>
-                        </div>
+                    {/* El rótulo de sección de la maqueta: número y resumen en
+                        mono arriba, el título manda por tamaño. El número
+                        gigante fantasma se va: decoraba, no informaba. */}
+                    <header>
+                      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 mono text-[11px] font-medium uppercase tracking-[0.14em] doc-muted">
+                        <span>
+                          <span style={{ color: "var(--doc-accent)" }}>
+                            {String(screen.n).padStart(2, "0")}
+                          </span>{" "}
+                          · {screen.kicker}
+                        </span>
+                        <span style={{ color: docAccent(level.color, 55) }}>
+                          {level.label} · {screen.minutes} min
+                        </span>
                       </div>
+                      <h2 className="mt-2 mb-0 text-[20px] sm:text-[24px] font-semibold tracking-[-0.02em] leading-[1.2]">
+                        {screen.title}
+                      </h2>
                     </header>
 
                     <div className="doc-prose mt-5 flex flex-col gap-4">
@@ -320,6 +299,80 @@ export function NotamLesson() {
               <NextSteps readCount={readSections.length} id="cierre" />
             </article>
           </div>
+
+          {/* El riel: avance segmentado, secciones y la fuente como lista de
+              definición. Es la columna de 300px de la maqueta aprobada, con
+              nuestros tokens. En celular no existe: el índice va en el
+              desplegable de arriba y la fuente cierra la hoja. */}
+          <aside
+            className="hidden lg:block lg:sticky lg:top-20 max-h-[calc(100vh-6.5rem)] overflow-y-auto pb-4"
+            aria-label="Avance e índice de la lección"
+          >
+            <section aria-label="Tu avance">
+              <Rotulo>Tu avance</Rotulo>
+              <div className="mt-2.5 flex items-baseline gap-2">
+                <span className="tabular text-[24px] font-semibold tracking-[-0.02em] leading-none">
+                  {readSections.length}
+                </span>
+                <span className="mono text-[12px] text-muted-foreground">/ {TOTAL} secciones</span>
+              </div>
+              {/* Un segmento por sección, en su orden. Pinta exactamente las
+                  leídas, aunque no sean consecutivas: es un mapa, no una barra. */}
+              <div
+                className="mt-3 grid gap-[3px]"
+                style={{ gridTemplateColumns: `repeat(${TOTAL}, minmax(0, 1fr))` }}
+                role="img"
+                aria-label={`${readSections.length} de ${TOTAL} secciones leídas`}
+              >
+                {LESSON_SCREENS.map((s) => (
+                  <div
+                    key={s.n}
+                    className="h-[5px]"
+                    style={{
+                      background: readSections.includes(s.n)
+                        ? "var(--av-blue-500)"
+                        : "color-mix(in oklab, var(--muted-foreground) 18%, transparent)",
+                    }}
+                  />
+                ))}
+              </div>
+            </section>
+
+            <section className="mt-7" aria-label="Secciones">
+              <Rotulo>Secciones</Rotulo>
+              <div className="mt-2 -mx-2.5">
+                <TocList activeN={activeN} readSections={readSections} onSelect={goToSection} />
+              </div>
+            </section>
+
+            <section className="mt-7" aria-label="Fuente">
+              <Rotulo>Fuente</Rotulo>
+              <dl className="mt-2.5 mb-0 grid grid-cols-[64px_minmax(0,1fr)] gap-x-3 gap-y-1.5 text-[13px]">
+                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
+                  Doc.
+                </dt>
+                <dd className="m-0 text-foreground">OACI Doc 8400 (PANS-ABC)</dd>
+                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
+                  Edición
+                </dt>
+                <dd className="m-0 text-foreground">6ª · 2004</dd>
+                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
+                  Base
+                </dt>
+                <dd className="m-0 text-foreground">Anexo 15 OACI</dd>
+                <dt className="mono text-[11px] uppercase tracking-[0.06em] text-muted-foreground mt-px">
+                  Corte
+                </dt>
+                <dd className="m-0 text-foreground">Aerocivil, 29 JUL 2026</dd>
+              </dl>
+              <div
+                className="mt-3.5 pl-3 border-l-2 text-[12px] leading-relaxed text-muted-foreground"
+                style={{ borderColor: "color-mix(in oklab, var(--av-amber-400) 60%, transparent)" }}
+              >
+                {DISCLAIMERS.edition}
+              </div>
+            </section>
+          </aside>
         </div>
       </div>
     </AppLayout>
