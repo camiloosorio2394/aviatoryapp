@@ -112,6 +112,111 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "p":
       return <p className="m-0 text-[15px]">{renderInline(block.text)}</p>
 
+    /* ── Catálogo del sistema de lecciones (handoff Lección 01) ─────────────
+       Estilos fijos: ninguna lección los redefine. La clase ln-display existe
+       solo dentro del lector NOTAM; fuera de él cae a la sans del documento. */
+
+    case "sub":
+      return (
+        <h2
+          className="ln-display m-0 mt-2 text-[24px] lg:text-[30px] font-semibold"
+          style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}
+        >
+          {block.text}
+        </h2>
+      )
+
+    case "definicion":
+      return (
+        <div
+          className="doc-soft border-l-[3px] px-6 py-5"
+          style={{ borderLeftColor: "var(--doc-accent)" }}
+        >
+          <p
+            className="m-0 text-[17px] lg:text-[18.5px] leading-[1.55]"
+            style={{ color: "var(--ln-ink-strong, var(--doc-fg))" }}
+          >
+            {renderInline(block.text)}
+          </p>
+        </div>
+      )
+
+    case "vinetas":
+      return (
+        <ul className="m-0 p-0 list-none flex flex-col gap-3">
+          {block.items.map((item, i) => (
+            <li key={i} className="grid grid-cols-[9px_1fr] gap-3.5 text-[15px] lg:text-[16.5px] leading-[1.6]">
+              <span
+                aria-hidden
+                className="mt-[9px] h-[7px] w-[7px]"
+                style={{ background: "var(--doc-accent)" }}
+              />
+              <span>{renderInline(item)}</span>
+            </li>
+          ))}
+        </ul>
+      )
+
+    case "rejilla":
+      return (
+        <div>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {block.items.map((it, i) => (
+              <div key={i} className="flex flex-col gap-2.5">
+                {/* Hueco de icono 52×52, visible a propósito: recuerda qué
+                    icono falta. Sirven los de la infografía original. */}
+                <span
+                  className="mono flex h-[52px] w-[52px] items-center justify-center rounded-[6px] border doc-soft doc-rule text-[10px] font-semibold tracking-[0.08em]"
+                  style={{ color: "var(--ln-placeholder, var(--doc-muted))" }}
+                  aria-hidden
+                >
+                  ICO
+                </span>
+                <div className="ln-display text-[20px] lg:text-[22px] font-semibold" style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}>
+                  {it.titulo}
+                </div>
+                <p className="m-0 text-[14.5px] leading-[1.55] doc-muted">{it.desc}</p>
+              </div>
+            ))}
+          </div>
+          {block.nota && <p className="mono m-0 mt-4 text-[11px] doc-muted">{block.nota}</p>}
+        </div>
+      )
+
+    case "glosario":
+      return (
+        <div>
+          {block.titulo && (
+            <h2
+              className="ln-display m-0 mb-3 text-[24px] lg:text-[30px] font-semibold"
+              style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}
+            >
+              {block.titulo}
+            </h2>
+          )}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3" style={{ columnGap: 44 }}>
+            {block.items.map((it, i) => (
+              <div
+                key={i}
+                className="grid grid-cols-[70px_1fr] items-baseline border-t doc-rule"
+                style={{ paddingTop: 11, paddingBottom: 11 }}
+              >
+                <span className="mono text-[13px] font-semibold" style={{ color: "var(--doc-accent)" }}>
+                  {it.k}
+                </span>
+                <span className="text-[15px] leading-[1.5]">{it.v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )
+
+    /* El interactivo y el hueco de imagen los renderiza el reproductor de la
+       lección, que conoce sus componentes; aquí no pintan nada. */
+    case "interactivo":
+    case "hueco":
+      return null
+
     case "quote":
       return (
         <blockquote

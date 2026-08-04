@@ -42,10 +42,13 @@ export function NotamLesson() {
   const leccion = LESSON_SCREENS[l - 1]
   const siguiente = l < TOTAL ? LESSON_SCREENS[l] : null
 
-  // Los pasos de la lección: bloques repartidos para caber en pantalla. La
-  // lección 1 lleva un paso extra al final: su interactivo, el decodificador.
-  const pasos = useMemo(() => partirEnPasos(leccion.blocks), [leccion])
-  const totalPasos = pasos.length + (l === 1 ? 1 : 0)
+  // Los pasos de la lección: los cortes de la propia lección si los declara
+  // (la 01 trae los del handoff), o el reparto por peso estimado si no.
+  const pasos = useMemo(
+    () => (leccion.cortes ? partirPorCortes(leccion.blocks, leccion.cortes) : partirEnPasos(leccion.blocks)),
+    [leccion],
+  )
+  const totalPasos = pasos.length
   const paso = clamp(Number(searchParams.get("paso")) || 1, 1, totalPasos)
 
   const irALeccion = useCallback(
@@ -141,7 +144,13 @@ export function NotamLesson() {
   }, [user?.id, sessionLoading])
 
   const nivel = LEVEL_META[leccion.level]
-  const esPasoDecoder = l === 1 && paso === totalPasos
+  const bloquesDelPaso = pasos[paso - 1] ?? []
+  // Los huecos de columna 2 se emparejan a la derecha del texto en escritorio,
+  // como la figura del diagrama junto a "Quién los emite" en el handoff. En
+  // móvil van en el flujo, después de su texto.
+  const derecha = bloquesDelPaso.filter(
+    (b): b is Extract<LessonBlock, { kind: "hueco" }> => b.kind === "hueco" && b.col === 2,
+  )
 
   return (
     <div className="lector-notam h-dvh flex overflow-hidden">
@@ -254,40 +263,62 @@ export function NotamLesson() {
 
             {/* El paso: solo el cuerpo se funde al avanzar */}
             <div key={`${l}-${paso}`} className="ln-paso mt-8">
-              {esPasoDecoder ? (
-                <div className="flex flex-col gap-9">
-                  <Decodificador />
-                  <HuecoImagen
-                    rotulo="IMAGEN 02 · 560×420"
-                    descripcion="Diagrama de la pista 13L/31R con el tramo cerrado en ámbar. Trazo simple, sin fotografía."
-                    alto={240}
-                    anchoMax={560}
-                    pie="FIG. 2 · El tramo cerrado de la casilla E, sobre el diagrama."
-                  />
-                </div>
-              ) : (
-                <div
-                  className="grid grid-cols-1 lg:grid-cols-[minmax(0,700px)_1fr] gap-x-11"
-                  style={{ rowGap: 38 }}
-                >
-                  {paso === 1 && (
-                    <div className="lg:col-span-2">
-                      <HuecoImagen
-                        rotulo="PORTADA · 1360×500"
-                        descripcion="Foto horizontal funcional para esta lección: torre, plataforma o pista. Sin textos encima."
-                        alto={250}
-                      />
-                    </div>
-                  )}
-                  {pasos[paso - 1]?.map((block, i) => (
-                    <div key={i} className={esAncho(block) ? "lg:col-span-2 min-w-0" : "min-w-0"}>
+              <div
+                className="grid grid-cols-1 lg:grid-cols-[minmax(0,700px)_1fr] gap-x-11"
+                style={{ rowGap: 38 }}
+              >
+                {paso === 1 && (
+                  <div className="lg:col-span-2">
+                    <HuecoImagen
+                      rotulo="PORTADA · 1360×500"
+                      descripcion="Foto horizontal funcional para esta lección: torre, plataforma o pista. Sin textos encima."
+                      alto={250}
+                    />
+                  </div>
+                )}
+                {bloquesDelPaso.map((block, i) => {
+                  if (block.kind === "interactivo") {
+                    return (
+                      <div key={i} className="lg:col-span-2 min-w-0">
+                        <Decodificador />
+                      </div>
+                    )
+                  }
+                  if (block.kind === "hueco") {
+                    // Columna 2: en escritorio lo pinta el carril derecho; aquí
+                    // solo su versión móvil, en el flujo. Sin col: ancho normal.
+                    return (
+                      <div key={i} className={block.col === 2 ? "lg:hidden min-w-0" : "lg:col-span-2 min-w-0"}>
+                        <HuecoImagen {...block} />
+                      </div>
+                    )
+                  }
+                  return (
+                    <div key={i} className={esAncho(block) ? "lg:col-span-2 min-w-0" : "min-w-0 lg:col-start-1"}>
                       <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
                         <DocBlock block={block} />
                       </div>
                     </div>
-                  ))}
-                </div>
-              )}
+                  )
+                })}
+                {/* El carril derecho de escritorio: el diagrama junto al texto,
+                    ocupando el hueco con contenido en vez de dejarlo vacío. El
+                    span cuenta las filas reales del cuerpo: sobrepasarlas crea
+                    filas fantasma que cobran su row-gap y estiran el paso. */}
+                {derecha.length > 0 && (
+                  <div
+                    className="hidden lg:flex min-w-0 flex-col gap-6"
+                    style={{
+                      gridColumn: 2,
+                      gridRow: `${paso === 1 ? 2 : 1} / span ${Math.max(1, bloquesDelPaso.filter((b) => !(b.kind === "hueco" && b.col === 2)).length)}`,
+                    }}
+                  >
+                    {derecha.map((b, i) => (
+                      <HuecoImagen key={i} {...b} />
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -371,7 +402,23 @@ function clamp(n: number, min: number, max: number): number {
 
 /** Bloques que rompen la medida de lectura y ocupan todo el ancho. */
 function esAncho(block: LessonBlock): boolean {
-  return ["table", "code", "breakdown", "notam", "infografia"].includes(block.kind)
+  return ["table", "code", "breakdown", "notam", "infografia", "rejilla", "glosario"].includes(
+    block.kind,
+  )
+}
+
+/** Parte los bloques en pasos por los cortes declarados (índices 1-based). */
+function partirPorCortes(blocks: LessonBlock[], cortes: number[]): LessonBlock[][] {
+  const pasos: LessonBlock[][] = []
+  let desde = 0
+  for (const corte of cortes) {
+    if (corte > desde && corte <= blocks.length) {
+      pasos.push(blocks.slice(desde, corte))
+      desde = corte
+    }
+  }
+  if (desde < blocks.length) pasos.push(blocks.slice(desde))
+  return pasos.length > 0 ? pasos : [blocks]
 }
 
 /**

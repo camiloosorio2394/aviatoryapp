@@ -38,6 +38,36 @@ export type LessonBlock =
   | { kind: "p"; text: string }
   | { kind: "quote"; text: string; source?: string }
   | { kind: "list"; items: string[]; ordered?: boolean }
+  /* ── Catálogo del sistema de lecciones (handoff Lección 01) ──────────────
+     Bloques con estilo fijo para componer lecciones sin maquetarlas a mano.
+     Ninguna lección inventa estilos nuevos: si falta un bloque, se agrega al
+     catálogo y lo ganan todas. */
+  /** H2 de bloque dentro de la lección (30px display). */
+  | { kind: "sub"; text: string }
+  /** Concepto clave destacado: papel hundido con barra azul, 18.5px. */
+  | { kind: "definicion"; text: string }
+  /** Viñetas con cuadrado de 7px. Máximo 5 ítems, dice el handoff. */
+  | { kind: "vinetas"; items: string[] }
+  /** Rejilla de entradas con hueco de icono 52×52 + título + descripción. */
+  | { kind: "rejilla"; items: { titulo: string; desc: string }[]; nota?: string }
+  /** Abreviaturas de la lección: filas con filete, en columnas. */
+  | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
+  /** El elemento interactivo de la lección; lo renderiza el reproductor. */
+  | { kind: "interactivo"; nombre: "notam-decodificador" }
+  /**
+   * Hueco de imagen rotulado, VISIBLE a propósito: la app está en
+   * construcción y el hueco recuerda qué imagen falta y de qué medida.
+   * `col: 2` lo manda a la columna derecha, emparejado con el texto.
+   */
+  | {
+      kind: "hueco"
+      rotulo: string
+      descripcion: string
+      alto: number
+      anchoMax?: number
+      pie?: string
+      col?: 2
+    }
   | { kind: "table"; head: string[]; rows: string[][] }
   | { kind: "code"; text: string }
   | { kind: "callout"; tone: "info" | "warn" | "tip"; title?: string; text: string }
@@ -132,6 +162,12 @@ export interface LessonScreen {
   minutes: number
   blocks: LessonBlock[]
   level: NotamLevel
+  /**
+   * Dónde cortar los pasos del reproductor: índices 1-based DESPUÉS de los
+   * cuales se parte. [4, 7] = pasos de bloques 1-4, 5-7 y 8 en adelante.
+   * Sin este campo, el reproductor reparte por peso estimado.
+   */
+  cortes?: number[]
 }
 
 export const LESSON_SCREENS: LessonScreen[] = [
@@ -142,12 +178,102 @@ export const LESSON_SCREENS: LessonScreen[] = [
     kicker: "Definición y por qué importa",
     minutes: 2,
     level: "basico",
+    // La composición del handoff Lección 01 (standalone aprobado el 3 de
+    // agosto): la infografía-imagen se descompone en bloques que reflowean.
+    // Los primeros pasos son el diseño; el último conserva la definición
+    // oficial del Doc 8400, los dos párrafos de contexto y la comprobación,
+    // que son contenido de la app y el standalone no traía. La rejilla y el
+    // decodificador van en pasos propios: juntos no caben en una pantalla de
+    // portátil, y la regla del handoff es partir antes que scrollear.
+    cortes: [1, 4, 6, 7, 12, 16],
     blocks: [
-      // Va antes de la definición a propósito: primero se ve de qué se trata,
-      // después se lee la definición oficial. Al revés, la sección abría con
-      // una cita del Doc 8400 y un párrafo, y se leía como un documento.
-      { kind: "infografia", nombre: "notam-que-es" },
-      { kind: "p", text: "**Definición oficial** (Doc 8400, pág. 3-3):" },
+      // ── Paso 1: qué es y para qué sirve ──────────────────────────────────
+      {
+        kind: "definicion",
+        text: "Un **NOTAM** (Notice to Airmen) es un aviso que informa de condiciones que pueden afectar la seguridad, la eficiencia o la regularidad de las operaciones aéreas.",
+      },
+      { kind: "sub", text: "Para qué sirve" },
+      {
+        kind: "p",
+        text: "Un NOTAM existe para que tomes decisiones con información al día. Su trabajo es avisar de lo que cambió respecto a lo publicado, para que puedas anticiparlo antes de despachar:",
+      },
+      {
+        kind: "vinetas",
+        items: [
+          "Informar de cambios, restricciones o condiciones fuera de lo normal.",
+          "Prevenir riesgos para las aeronaves y el personal.",
+          "Permitir una decisión segura y oportuna.",
+          "Complementar las cartas aeronáuticas y las publicaciones.",
+        ],
+      },
+      // ── Paso 2: de qué avisan, y uno de verdad ───────────────────────────
+      { kind: "sub", text: "De qué te avisan" },
+      {
+        kind: "rejilla",
+        items: [
+          {
+            titulo: "Pistas y calles de rodaje",
+            desc: "Cierres, limitaciones, condiciones de superficie o cambios temporales.",
+          },
+          {
+            titulo: "Ayudas a la navegación",
+            desc: "Fuera de servicio, con limitaciones o con cambios en la cobertura.",
+          },
+          {
+            titulo: "Obstáculos y construcciones",
+            desc: "Obstáculos nuevos, grúas, antenas o trabajos cerca de áreas de vuelo.",
+          },
+          {
+            titulo: "Espacio aéreo restringido",
+            desc: "Áreas peligrosas, militares o restringidas de uso temporal.",
+          },
+          {
+            titulo: "Condiciones especiales",
+            desc: "Eventos, actividades o situaciones que pueden afectar las operaciones.",
+          },
+          {
+            titulo: "Otra información importante",
+            desc: "Cambios en servicios, procedimientos o instalaciones del aeropuerto.",
+          },
+        ],
+        nota: "Seis huecos de icono de 52×52. Sirven los mismos iconos azules de la infografía.",
+      },
+      { kind: "interactivo", nombre: "notam-decodificador" },
+      // ── Paso 3: quién los emite ──────────────────────────────────────────
+      { kind: "sub", text: "Quién los emite" },
+      {
+        kind: "p",
+        text: "La autoridad aeronáutica de cada país, a través de su servicio de Información Aeronáutica (AIS). En Colombia los publica la Aerocivil, y son los que verás en los resúmenes de NOTAM de esta app.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "Recuerda",
+        text: "Revísalos antes de cada vuelo y otra vez justo antes de la salida: la información puede cambiar en cualquier momento.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "IMAGEN 02 · 560×420",
+        descripcion: "Diagrama de la pista 13L/31R con el tramo cerrado en ámbar. Trazo simple, sin fotografía.",
+        alto: 240,
+        anchoMax: 560,
+        pie: "El cierre de la casilla E, sobre el trazado del aeródromo.",
+        col: 2,
+      },
+      {
+        kind: "glosario",
+        titulo: "Abreviaturas de esta lección",
+        items: [
+          { k: "RWY", v: "Pista" },
+          { k: "TWY", v: "Calle de rodaje" },
+          { k: "CLSD", v: "Cerrado" },
+          { k: "U/S", v: "Fuera de servicio" },
+          { k: "WIP", v: "Trabajos en curso" },
+          { k: "AGL", v: "Sobre el nivel del terreno" },
+        ],
+      },
+      // ── Paso 4: la definición oficial, conservada de la versión anterior ─
+      { kind: "sub", text: "La definición oficial" },
       {
         kind: "quote",
         text: "Aviso distribuido por medios de telecomunicaciones que contiene información relativa al establecimiento, condición o modificación de cualquier instalación aeronáutica, servicio, procedimiento o peligro, cuyo conocimiento oportuno es esencial para el personal encargado de las operaciones de vuelo.",
@@ -177,8 +303,8 @@ export const LESSON_SCREENS: LessonScreen[] = [
       {
         kind: "callout",
         tone: "tip",
-        title: "Cómo aprovechar este documento",
-        text: "Está pensado para leerse de corrido, en orden: cada sección usa lo de la anterior. Va con comprobaciones intercaladas para que uses lo que acabas de leer, y al terminar tienes el modo práctica con NOTAM colombianos reales y una evaluación de 20 preguntas.",
+        title: "Cómo aprovechar la lección",
+        text: "Va en orden: cada lección usa lo de la anterior, y avanzas con el botón de abajo o con las flechas del teclado. Trae comprobaciones intercaladas para que uses lo que acabas de leer, y al terminar tienes la práctica con NOTAM colombianos reales y una evaluación de 20 preguntas.",
       },
     ],
   },
