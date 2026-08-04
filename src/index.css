@@ -869,7 +869,13 @@
   --ln-navy-text: #B9C4D0;
   --ln-navy-dim: #7E8FA3;
   --ln-navy-label: #8FA1B6;
-  --ln-item: #9FB0C4;
+  --ln-item: #DCE4EC;
+  --ln-item-hover: #FFFFFF;
+  --ln-footer: #C6D1DD;
+  --ln-pill: #1B4A87;
+  --ln-pill-hover: rgba(255, 255, 255, 0.05);
+  --ln-ink-strong: #22282F;
+  --ln-placeholder: #8A8578;
   --ln-primary: #123A6B;
   --ln-primary-hover: #0B2545;
   --ln-bright: #2F5F9E;
@@ -915,6 +921,33 @@
 }
 .lector-notam .ln-side :where(a, button, [role="button"]):focus-visible {
   outline-offset: -2px;
+}
+
+/* La pastilla deslizante del sidebar: UN indicador que viaja entre lecciones,
+   no trece filas recoloreándose. Anima transform Y ALTURA, porque una fila de
+   dos líneas mide 54px y una de una línea 36. El movimiento debe leerse como
+   precisión, no como juguete: nada de rebote ni sombras. */
+.lector-notam .ln-pastilla {
+  transition:
+    transform 300ms cubic-bezier(0.22, 0.8, 0.24, 1),
+    height 300ms cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+/* Hover de fila: velo débil a propósito, para no competir con la selección */
+.lector-notam .ln-fila { transition: background-color 140ms ease-out; }
+.lector-notam .ln-fila:hover { background: var(--ln-pill-hover); }
+.lector-notam .ln-fila .ln-fila-titulo { transition: color 140ms ease-out; }
+.lector-notam .ln-fila:hover .ln-fila-titulo { color: var(--ln-item-hover); }
+
+/* Fundido entre pasos: 180ms con 8px de desplazamiento, nunca carrusel */
+@keyframes ln-paso-entra {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lector-notam .ln-pastilla { transition: none; }
+  .lector-notam .ln-paso { animation: none; }
 }
 
 /* === Typography helpers === */
