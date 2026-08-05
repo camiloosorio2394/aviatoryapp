@@ -162,12 +162,6 @@ export interface LessonScreen {
   minutes: number
   blocks: LessonBlock[]
   level: NotamLevel
-  /**
-   * Dónde cortar los pasos del reproductor: índices 1-based DESPUÉS de los
-   * cuales se parte. [4, 7] = pasos de bloques 1-4, 5-7 y 8 en adelante.
-   * Sin este campo, el reproductor reparte por peso estimado.
-   */
-  cortes?: number[]
 }
 
 export const LESSON_SCREENS: LessonScreen[] = [
@@ -178,14 +172,11 @@ export const LESSON_SCREENS: LessonScreen[] = [
     kicker: "Definición y por qué importa",
     minutes: 2,
     level: "basico",
-    // La composición del handoff Lección 01 (standalone aprobado el 3 de
-    // agosto): la infografía-imagen se descompone en bloques que reflowean.
-    // Los primeros pasos son el diseño; el último conserva la definición
-    // oficial del Doc 8400, los dos párrafos de contexto y la comprobación,
-    // que son contenido de la app y el standalone no traía. La rejilla y el
-    // decodificador van en pasos propios: juntos no caben en una pantalla de
-    // portátil, y la regla del handoff es partir antes que scrollear.
-    cortes: [1, 4, 6, 7, 12, 16],
+    // La composición del standalone aprobado el 3 de agosto: la
+    // infografía-imagen descompuesta en bloques que reflowean, en UNA sola
+    // página que se lee scrolleando, como el standalone. El cierre conserva
+    // la definición oficial del Doc 8400, los dos párrafos de contexto y la
+    // comprobación, que son contenido de la app y el standalone no traía.
     blocks: [
       // ── Paso 1: qué es y para qué sirve ──────────────────────────────────
       {

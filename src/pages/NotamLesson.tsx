@@ -16,19 +16,17 @@ import { LESSON_SCREENS, LESSON_TOTAL, type LessonBlock } from "@/lib/notamLesso
 const TOTAL = LESSON_TOTAL
 
 /**
- * Lección NOTAM como reproductor paginado, sin scroll de página.
- *
- * Implementa el handoff "Lección 01" (continuación del de la sección, mismos
- * tokens .lector-notam): una lección por vista, dividida en pasos que caben en
- * pantalla, con avance por el botón inferior, pastilla deslizante en el
- * sidebar y retícula de eje izquierdo único. El paso vive en la URL para que
- * recargar no pierda el sitio.
+ * Lección NOTAM: cada lección es UNA página que se lee scrolleando, como el
+ * standalone aprobado. El sidebar navy queda fijo con las 13 lecciones y la
+ * pastilla; el contenido scrollea; el pie con "Siguiente" y "Continuar" cierra
+ * la página y pasa a la lección que viene. Sin pasos ni puntos: la paginación
+ * es entre lecciones, no dentro de una.
  *
  * Los huecos de imagen van VISIBLES y rotulados a pedido de Camilo: la app
  * está en construcción, solo entran él y Nico, y el hueco es el recordatorio
  * de qué imagen falta y de qué medida.
  *
- * Ruta: /app/aerolinea/notam/aprende?l=1&paso=1
+ * Ruta: /app/aerolinea/notam/aprende?l=1
  */
 export function NotamLesson() {
   const { user, isLoading: sessionLoading } = useSession()
@@ -42,15 +40,6 @@ export function NotamLesson() {
   const leccion = LESSON_SCREENS[l - 1]
   const siguiente = l < TOTAL ? LESSON_SCREENS[l] : null
 
-  // Los pasos de la lección: los cortes de la propia lección si los declara
-  // (la 01 trae los del handoff), o el reparto por peso estimado si no.
-  const pasos = useMemo(
-    () => (leccion.cortes ? partirPorCortes(leccion.blocks, leccion.cortes) : partirEnPasos(leccion.blocks)),
-    [leccion],
-  )
-  const totalPasos = pasos.length
-  const paso = clamp(Number(searchParams.get("paso")) || 1, 1, totalPasos)
-
   const irALeccion = useCallback(
     (n: number) => {
       setSearchParams({ l: String(n) })
@@ -59,13 +48,8 @@ export function NotamLesson() {
     [setSearchParams],
   )
 
-  const irAPaso = useCallback(
-    (p: number) => setSearchParams({ l: String(l), paso: String(p) }, { replace: true }),
-    [setSearchParams, l],
-  )
-
-  // Marca una lección como completada. Se dispara al TERMINAR su último paso,
-  // no al abrirla: es la regla del handoff y es más honesta que el scroll.
+  // Marca una lección como completada. Se dispara con el Continuar del final,
+  // no al abrirla: llegar al pie es haberla recorrido.
   const markRead = useCallback((n: number) => {
     setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
     if (readLocalProgress().lessonScreens.includes(n)) return
@@ -81,41 +65,10 @@ export function NotamLesson() {
     else navigate("/app/aerolinea/notam/practica")
   }, [markRead, l, siguiente, irALeccion, navigate])
 
-  const avanzar = useCallback(() => {
-    if (paso < totalPasos) irAPaso(paso + 1)
-    else completarYSeguir()
-  }, [paso, totalPasos, irAPaso, completarYSeguir])
-
-  const retroceder = useCallback(() => {
-    if (paso > 1) irAPaso(paso - 1)
-    else if (l > 1) irALeccion(l - 1)
-  }, [paso, l, irAPaso, irALeccion])
-
-  // Teclado: flechas y espacio avanzan, como pide el handoff. El espacio solo
-  // cuando el foco no está en un control, para no robarle el clic a un botón.
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return
-      // El target puede no ser un elemento (document en eventos sintéticos)
-      const t = e.target instanceof HTMLElement ? e.target : null
-      if (t?.closest("input, textarea, select, [contenteditable]")) return
-      if (e.key === "ArrowRight") avanzar()
-      else if (e.key === "ArrowLeft") retroceder()
-      else if (e.key === " " && !t?.closest("button, a, [role='button']")) {
-        e.preventDefault()
-        avanzar()
-      }
-    }
-    document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
-  }, [avanzar, retroceder])
-
-  // Al cambiar de lección o de paso, el área de contenido vuelve arriba. El
-  // scroll interno existe solo como salida de emergencia cuando un paso no
-  // cabe (ventana baja, texto ampliado): el documento entero nunca scrollea.
+  // Al cambiar de lección, el área de contenido vuelve arriba.
   useEffect(() => {
     contentRef.current?.scrollTo(0, 0)
-  }, [l, paso])
+  }, [l])
 
   // Hidrata lo completado desde la base, y sube lo local pendiente.
   useEffect(() => {
@@ -144,13 +97,6 @@ export function NotamLesson() {
   }, [user?.id, sessionLoading])
 
   const nivel = LEVEL_META[leccion.level]
-  const bloquesDelPaso = pasos[paso - 1] ?? []
-  // Los huecos de columna 2 se emparejan a la derecha del texto en escritorio,
-  // como la figura del diagrama junto a "Quién los emite" en el handoff. En
-  // móvil van en el flujo, después de su texto.
-  const derecha = bloquesDelPaso.filter(
-    (b): b is Extract<LessonBlock, { kind: "hueco" }> => b.kind === "hueco" && b.col === 2,
-  )
 
   return (
     <div className="lector-notam h-dvh flex overflow-hidden">
@@ -261,22 +207,20 @@ export function NotamLesson() {
               </div>
             </header>
 
-            {/* El paso: solo el cuerpo se funde al avanzar */}
-            <div key={`${l}-${paso}`} className="ln-paso mt-8">
+            {/* La lección entera, de corrido: se lee scrolleando */}
+            <div key={l} className="ln-paso mt-8">
               <div
                 className="grid grid-cols-1 lg:grid-cols-[minmax(0,700px)_1fr] gap-x-11"
                 style={{ rowGap: 38 }}
               >
-                {paso === 1 && (
-                  <div className="lg:col-span-2">
-                    <HuecoImagen
-                      rotulo="PORTADA · 1360×500"
-                      descripcion="Foto horizontal funcional para esta lección: torre, plataforma o pista. Sin textos encima."
-                      alto={250}
-                    />
-                  </div>
-                )}
-                {bloquesDelPaso.map((block, i) => {
+                <div className="lg:col-span-2">
+                  <HuecoImagen
+                    rotulo="PORTADA · 1360×500"
+                    descripcion="Foto horizontal funcional para esta lección: torre, plataforma o pista. Sin textos encima."
+                    alto={250}
+                  />
+                </div>
+                {leccion.blocks.map((block, i) => {
                   if (block.kind === "interactivo") {
                     return (
                       <div key={i} className="lg:col-span-2 min-w-0">
@@ -284,11 +228,26 @@ export function NotamLesson() {
                       </div>
                     )
                   }
-                  if (block.kind === "hueco") {
-                    // Columna 2: en escritorio lo pinta el carril derecho; aquí
-                    // solo su versión móvil, en el flujo. Sin col: ancho normal.
+                  if (block.kind === "hueco" && block.col === 2) {
+                    // La figura de columna 2 se pinta dos veces: en escritorio
+                    // a la derecha del texto que la precede (la retícula la
+                    // coloca en la fila donde quedó el cursor), y en móvil en
+                    // el flujo, porque la retícula de una columna no tiene
+                    // dónde ponerla al lado.
                     return (
-                      <div key={i} className={block.col === 2 ? "lg:hidden min-w-0" : "lg:col-span-2 min-w-0"}>
+                      <div key={i} className="min-w-0 contents">
+                        <div className="hidden lg:block min-w-0" style={{ gridColumn: 2 }}>
+                          <HuecoImagen {...block} />
+                        </div>
+                        <div className="lg:hidden min-w-0">
+                          <HuecoImagen {...block} />
+                        </div>
+                      </div>
+                    )
+                  }
+                  if (block.kind === "hueco") {
+                    return (
+                      <div key={i} className="lg:col-span-2 min-w-0">
                         <HuecoImagen {...block} />
                       </div>
                     )
@@ -301,100 +260,60 @@ export function NotamLesson() {
                     </div>
                   )
                 })}
-                {/* El carril derecho de escritorio: el diagrama junto al texto,
-                    ocupando el hueco con contenido en vez de dejarlo vacío. El
-                    span cuenta las filas reales del cuerpo: sobrepasarlas crea
-                    filas fantasma que cobran su row-gap y estiran el paso. */}
-                {derecha.length > 0 && (
-                  <div
-                    className="hidden lg:flex min-w-0 flex-col gap-6"
-                    style={{
-                      gridColumn: 2,
-                      gridRow: `${paso === 1 ? 2 : 1} / span ${Math.max(1, bloquesDelPaso.filter((b) => !(b.kind === "hueco" && b.col === 2)).length)}`,
-                    }}
-                  >
-                    {derecha.map((b, i) => (
-                      <HuecoImagen key={i} {...b} />
-                    ))}
-                  </div>
-                )}
               </div>
+
+              {/* Pie de la lección, al final del contenido como en el
+                  standalone: Siguiente a la izquierda, Continuar a la derecha */}
+              <footer
+                className="mt-11 flex items-center justify-between gap-4 border-t pt-6"
+                style={{ borderColor: "var(--ln-hair)" }}
+              >
+                <button
+                  type="button"
+                  onClick={completarYSeguir}
+                  className="hidden sm:block min-w-0 text-left"
+                >
+                  <span className="block text-[13px]" style={{ color: "var(--ln-soft)" }}>
+                    Siguiente
+                  </span>
+                  <span
+                    className="block truncate text-[15px] lg:text-[17.5px] font-semibold"
+                    style={{ color: "var(--ln-primary)" }}
+                  >
+                    {siguiente
+                      ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
+                      : "Práctica y evaluación →"}
+                  </span>
+                </button>
+
+                <div className="flex items-center gap-4 lg:gap-5 ml-auto">
+                  {readSections.includes(l) && (
+                    <span
+                      className="hidden lg:inline-flex items-center gap-1.5 text-[14px]"
+                      style={{ color: "var(--ln-primary)" }}
+                    >
+                      <Check className="h-3.5 w-3.5" strokeWidth={3} /> Lección completada
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={completarYSeguir}
+                    className="flex h-[46px] items-center justify-center rounded-[6px] px-6 lg:px-8 text-[15px] font-semibold text-white transition-colors duration-150 hover:brightness-110"
+                    style={{ background: "var(--ln-primary)" }}
+                  >
+                    Continuar
+                  </button>
+                </div>
+              </footer>
             </div>
           </div>
         </div>
-
-        {/* Pie de navegación: fijo abajo, siempre visible, el único primario */}
-        <footer
-          className="flex shrink-0 items-center justify-between gap-4 lg:gap-6 border-t px-4 lg:px-10 py-3.5"
-          style={{ borderColor: "var(--ln-hair)", background: "var(--ln-paper)" }}
-        >
-          <button
-            type="button"
-            onClick={() => (paso === totalPasos ? completarYSeguir() : siguiente ? irALeccion(siguiente.n) : navigate("/app/aerolinea/notam/practica"))}
-            className="hidden sm:block min-w-0 text-left"
-          >
-            <span className="block text-[13px]" style={{ color: "var(--ln-soft)" }}>
-              Siguiente
-            </span>
-            <span
-              className="block truncate text-[15px] lg:text-[17.5px] font-semibold"
-              style={{ color: "var(--ln-primary)" }}
-            >
-              {siguiente
-                ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
-                : "Práctica y evaluación →"}
-            </span>
-          </button>
-
-          <div className="flex items-center gap-4 lg:gap-5 ml-auto">
-            {totalPasos > 1 && (
-              <div className="flex items-center gap-[5px]" aria-label={`Paso ${paso} de ${totalPasos}`}>
-                {Array.from({ length: totalPasos }, (_, i) => (
-                  <span
-                    key={i}
-                    className="h-[5px] w-[5px] rounded-full"
-                    style={{ background: i + 1 === paso ? "var(--ln-primary)" : "var(--ln-hair-strong)" }}
-                    aria-hidden
-                  />
-                ))}
-              </div>
-            )}
-            {readSections.includes(l) && (
-              <span className="hidden lg:inline-flex items-center gap-1.5 text-[14px]" style={{ color: "var(--ln-primary)" }}>
-                <Check className="h-3.5 w-3.5" strokeWidth={3} /> Lección completada
-              </span>
-            )}
-            {paso > 1 && (
-              <button
-                type="button"
-                onClick={retroceder}
-                aria-label="Paso anterior"
-                className="flex h-[46px] w-[46px] items-center justify-center rounded-[6px] border"
-                style={{ borderColor: "var(--ln-hair-strong)", color: "var(--ln-muted)" }}
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={avanzar}
-              className="flex h-[46px] items-center justify-center rounded-[6px] px-6 lg:px-8 text-[15px] font-semibold text-white transition-colors duration-150 hover:brightness-110"
-              style={{ background: "var(--ln-primary)" }}
-            >
-              {paso < totalPasos
-                ? "Continuar"
-                : siguiente
-                  ? `Lección ${String(siguiente.n).padStart(2, "0")} →`
-                  : "Práctica y evaluación"}
-            </button>
-          </div>
-        </footer>
       </div>
     </div>
   )
 }
 
-// ─── Utilidades de paginación ────────────────────────────────────────────────
+// ─── Utilidades ──────────────────────────────────────────────────────────────
 
 function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, Math.round(n)))
@@ -405,61 +324,6 @@ function esAncho(block: LessonBlock): boolean {
   return ["table", "code", "breakdown", "notam", "infografia", "rejilla", "glosario"].includes(
     block.kind,
   )
-}
-
-/** Parte los bloques en pasos por los cortes declarados (índices 1-based). */
-function partirPorCortes(blocks: LessonBlock[], cortes: number[]): LessonBlock[][] {
-  const pasos: LessonBlock[][] = []
-  let desde = 0
-  for (const corte of cortes) {
-    if (corte > desde && corte <= blocks.length) {
-      pasos.push(blocks.slice(desde, corte))
-      desde = corte
-    }
-  }
-  if (desde < blocks.length) pasos.push(blocks.slice(desde))
-  return pasos.length > 0 ? pasos : [blocks]
-}
-
-/**
- * Peso aproximado de cada bloque en pantalla. No mide píxeles: reparte para
- * que un paso normal quepa en un portátil, y el scroll interno del área queda
- * como salida de emergencia para ventanas bajas, que es lo que permite el
- * handoff. El contenido no se toca: solo se decide dónde cortar.
- */
-const PESO: Record<string, number> = {
-  p: 1,
-  quote: 1.2,
-  list: 1.6,
-  check: 1.6,
-  callout: 1.4,
-  kv: 1.8,
-  code: 1.8,
-  table: 2.4,
-  example: 2.6,
-  breakdown: 2.6,
-  notam: 3,
-  figura: 2.5,
-  infografia: 4.5,
-  summary: 1.8,
-}
-
-function partirEnPasos(blocks: LessonBlock[]): LessonBlock[][] {
-  const pasos: LessonBlock[][] = []
-  let actual: LessonBlock[] = []
-  let peso = 0
-  for (const b of blocks) {
-    const w = PESO[b.kind] ?? 1.5
-    if (actual.length > 0 && peso + w > 7.5) {
-      pasos.push(actual)
-      actual = []
-      peso = 0
-    }
-    actual.push(b)
-    peso += w
-  }
-  if (actual.length > 0) pasos.push(actual)
-  return pasos
 }
 
 // ─── Sidebar con pastilla deslizante ─────────────────────────────────────────
