@@ -455,29 +455,51 @@ export function DocBlock({ block }: { block: DocBlockData }) {
 
     case "componente": {
       const color = block.color ?? ACENTO
+      // Primero el nombre y después el token: se lee "FIR, SEFG", que es como
+      // un piloto lo diría. Y grande, porque es el título de la pieza: lo que
+      // cuelga debajo va más pequeño.
       return (
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b doc-rule pb-3">
+        <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b doc-rule pb-3.5">
           <span
-            className="mono grid h-7 w-7 flex-none place-items-center rounded-full text-[13px] font-semibold text-white"
+            className="mono grid h-8 w-8 flex-none place-items-center self-center rounded-full text-[14px] font-semibold text-white"
             style={{ background: color }}
           >
             {block.n}
           </span>
-          <span className="mono text-[20px] font-semibold" style={{ color }}>
-            {block.token}
-          </span>
           <span
-            className="ln-display text-[20px] font-semibold lg:text-[24px]"
+            className="ln-display text-[26px] font-semibold lg:text-[30px]"
             style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}
           >
             {block.nombre}
           </span>
+          <span className="mono text-[22px] font-semibold lg:text-[24px]" style={{ color }}>
+            {block.token}
+          </span>
           {block.detalle && (
-            <span className="text-[14px] doc-muted">{block.detalle}</span>
+            <span className="text-[14.5px] doc-muted">{block.detalle}</span>
           )}
         </div>
       )
     }
+
+    case "apartado":
+      return (
+        <section>
+          <h3
+            className="ln-display m-0 text-[18px] font-semibold lg:text-[20px]"
+            style={{ lineHeight: 1.2, color: "var(--doc-fg)" }}
+          >
+            {block.titulo}
+          </h3>
+          <div className="mt-2.5 flex flex-col gap-3">
+            {block.parrafos.map((t, i) => (
+              <p key={i} className="m-0 text-[15px] leading-[1.7]">
+                {renderInline(t)}
+              </p>
+            ))}
+          </div>
+        </section>
+      )
 
     case "encabezados":
       return <Encabezados items={block.items} pista={block.pista} />

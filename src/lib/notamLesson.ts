@@ -174,6 +174,16 @@ export type LessonBlock =
       color?: string
     }
   /**
+   * Una pregunta y los párrafos que la contestan, como UN bloque.
+   *
+   * Es el escalón por debajo del `sub`, para dentro de una pieza: la pregunta
+   * va más pequeña que el título de sección y sus párrafos van pegados a ella
+   * y entre sí, porque son una sola idea. Sueltos, con el aire que separa los
+   * bloques de la lección, tres frases sobre lo mismo se leían como tres
+   * asuntos distintos.
+   */
+  | { kind: "apartado"; titulo: string; parrafos: string[] }
+  /**
    * Encabezados de NOTAM que se abren para enseñar de qué está hecho cada uno.
    *
    * Cerrados son tres líneas de código, como las ve el piloto en el briefing.
@@ -1084,25 +1094,20 @@ export const LESSON_SCREENS: DocScreen[] = [
         detalle: "Flight Information Region",
         color: LINEA_Q_COLOR.fir,
       },
-      { kind: "sub", text: "¿Qué es una FIR?" },
       {
-        kind: "p",
-        text: "Una **FIR** (Flight Information Region) es una región definida de espacio aéreo dentro de la cual se proporcionan servicios de información de vuelo y servicio de alerta.",
+        kind: "apartado",
+        titulo: "¿Qué es una FIR?",
+        parrafos: [
+          "Una **FIR** (Flight Information Region) es una región definida de espacio aéreo dentro de la cual se proporcionan servicios de información de vuelo y servicio de alerta.",
+          "Una FIR no es un aeropuerto ni una pista. Es una región de espacio aéreo que puede abarcar grandes extensiones y contener diferentes aeródromos, rutas y sectores.",
+          "En la línea Q del NOTAM, el primer componente identifica la FIR asociada con la información.",
+          "En el caso del NOTAM del ejemplo, `SEFG` corresponde a la FIR de Guayaquil.",
+        ],
       },
-      {
-        kind: "p",
-        text: "Una FIR no es un aeropuerto ni una pista. Es una región de espacio aéreo que puede abarcar grandes extensiones y contener diferentes aeródromos, rutas y sectores.",
-      },
-      {
-        kind: "p",
-        text: "En la línea Q del NOTAM, el primer componente identifica la FIR asociada con la información.",
-      },
-      { kind: "sub", text: "¿Qué significa SEFG?" },
-      { kind: "kv", items: [{ k: "SEFG", v: "FIR Guayaquil" }] },
       {
         kind: "figura",
         src: "/modulos/notam/fir-frecuentes.webp",
-        alt: "Tabla de FIR frecuentes al consultar NOTAM en Colombia y la región SAM, con código, nombre, país y ubicación aproximada: SKED Bogotá, SEFG Guayaquil, SPIM Lima, MPZL Panamá, SVZM Maiquetía, SBAZ Amazónica, SCEZ Santiago, SUEO Montevideo, SLLF La Paz, SACF Córdoba, SGAS Asunción, SCIZ Antofagasta y SUMU Curitiba. Incluye la advertencia de que los indicadores deben consultarse en la información aeronáutica vigente de cada Estado, y el consejo de que reconocer la FIR ubica la región pero no determina por sí solo si el aviso afecta al vuelo.",
+        alt: "Tabla de FIR frecuentes al consultar NOTAM en Colombia y la región SAM, con código, nombre y país: SKED Bogotá, SKEC Barranquilla, SEFG Guayaquil, MPZL Panamá, SPIM Lima-Callao, SVZM Maiquetía, SBAZ Amazónica, SBCW Curitiba, SCEZ Santiago, SCFZ Antofagasta, SLLF La Paz, SGFA Asunción, SUEO Montevideo y SACF Córdoba. Un recuadro advierte no confundir el indicador de la FIR con el de un aeródromo: SGFA es la FIR Asunción y SGAS el aeródromo; SUEO es la FIR Montevideo y SUMU el aeródromo de Carrasco. Y el consejo de piloto: el código FIR ubica la región del aviso, pero no determina por sí solo si afecta al vuelo.",
         ancho: 1312,
         alto: 1199,
       },
