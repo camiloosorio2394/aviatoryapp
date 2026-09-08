@@ -266,42 +266,6 @@ export const LESSON_SCREENS: DocScreen[] = [
         ],
       },
       { kind: "interactivo", nombre: "notam-decodificador" },
-      // ── Paso 3: quién publica la información ─────────────────────────────
-      { kind: "sub", text: "¿Quién publica esta información?" },
-      {
-        kind: "p",
-        text: "Los NOTAM se publican a través del Servicio de Información Aeronáutica (AIS) de cada Estado. Este servicio recibe, procesa y distribuye información que puede afectar la operación de las aeronaves.",
-      },
-      {
-        kind: "figura",
-        src: "/modulos/notam/estado-ais-piloto.webp",
-        alt: "Cadena de la información aeronáutica: el Estado, en Colombia la Aerocivil, establece y regula el sistema; el AIS recibe, procesa y distribuye la información; el NOTAM es el aviso con la información temporal; y el piloto la consulta, la interpreta y la usa al planificar y volar.",
-        ancho: 1400,
-        alto: 467,
-        pie: "Del Estado al piloto: cada eslabón recibe la información del anterior y la deja lista para el siguiente.",
-      },
-      {
-        kind: "p",
-        text: "En Colombia, encontrarás los NOTAM publicados a través de los servicios de información aeronáutica de la Aeronáutica Civil.",
-      },
-      {
-        kind: "p",
-        text: "Esto también explica por qué, cuando vuelas a otro país, debes consultar la fuente de información aeronáutica correspondiente a ese Estado.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Nota",
-        text: "Existen diferentes aplicaciones y servicios de suscripción que permiten consultar y organizar los NOTAM de aeropuertos de salida, destino, ruta y alternos. Algunas de las más utilizadas son ForeFlight, Garmin Pilot, Jeppesen FliteDeck y RocketRoute. Estas herramientas facilitan la planificación, pero la consulta debe realizarse con información aeronáutica vigente y de fuentes autorizadas.",
-      },
-      {
-        kind: "figura",
-        src: "/modulos/notam/skbo-pista-cerrada.webp",
-        alt: "Plano del aeropuerto El Dorado, SKBO. La pista 13L/31R aparece marcada en ámbar como tramo cerrado y la pista 13R/31L en oscuro como operativa, con las calles de rodaje, las plataformas y la terminal alrededor.",
-        ancho: 1400,
-        alto: 1050,
-        pie: "El cierre de la casilla E, sobre el trazado del aeródromo: 13L/31R cerrada, 13R/31L operativa.",
-      },
       {
         kind: "glosario",
         titulo: "Abreviaturas de esta lección",
@@ -325,6 +289,15 @@ export const LESSON_SCREENS: DocScreen[] = [
       },
       { kind: "p", text: "Por ejemplo, si encuentras:" },
       { kind: "code", text: "E) RWY 13L/31R CLSD DUE WIP" },
+      {
+        kind: "figura",
+        src: "/modulos/notam/skbo-pista-cerrada.webp",
+        alt: "Plano del aeropuerto El Dorado, SKBO. La pista 13L/31R aparece marcada en ámbar como tramo cerrado y la pista 13R/31L en oscuro como operativa, con las calles de rodaje, las plataformas y la terminal alrededor.",
+        ancho: 1400,
+        alto: 1050,
+        anchoMax: 420,
+        pie: "El cierre de la casilla E, sobre el trazado del aeródromo: 13L/31R cerrada, 13R/31L operativa.",
+      },
       {
         kind: "p",
         text: "No basta con decir “la pista está cerrada”. Como piloto debes identificar:",

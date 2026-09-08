@@ -369,6 +369,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           ancho={block.ancho}
           alto={block.alto}
           pie={block.pie}
+          anchoMax={block.anchoMax}
         />
       )
 
@@ -572,15 +573,17 @@ function Figura({
   ancho,
   alto,
   pie,
+  anchoMax,
 }: {
   src: string
   alt: string
   ancho: number
   alto: number
   pie?: string
+  anchoMax?: number
 }) {
   return (
-    <figure className="m-0 w-full">
+    <figure className="m-0 w-full" style={anchoMax ? { maxWidth: anchoMax } : undefined}>
       <img
         src={src}
         alt={alt}

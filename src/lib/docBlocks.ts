@@ -27,6 +27,12 @@ export interface FiguraBlock {
   alto: number
   /** Pie opcional, debajo de la imagen. */
   pie?: string
+  /**
+   * Ancho máximo en píxeles. Sin él la figura ocupa la columna entera, que
+   * es lo que quiere un plano o un diagrama. Con él se acota y se centra,
+   * para lo que ilustra un detalle y no debe dominar la página.
+   */
+  anchoMax?: number
 }
 
 /** Todo lo que sabe pintar `DocBlock`. */
