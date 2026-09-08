@@ -26,6 +26,9 @@ import type { NotamLevel } from "@/lib/notam"
 import type { DocScreen } from "@/lib/docBlocks"
 
 
+/** Los iconos que puede llevar una ficha del bloque `tarjetas`. */
+export type TarjetaIcono = "documento" | "movil" | "avion"
+
 /** Una pieza del desglose visual: el trozo de código y qué significa. */
 export interface BreakdownPart {
   /** El trozo tal cual aparece en el mensaje: `SKBO`, `18008KT`, `QRALW`. */
@@ -71,6 +74,39 @@ export type LessonBlock =
   | { kind: "titulo"; text: string }
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
+  /**
+   * Cadena de eslabones que se recorre en orden: Estado, AIS, NOTAM, piloto.
+   *
+   * Al elegir uno se ilumina solo ese y su explicación aparece debajo. Los
+   * demás siguen a la vista a propósito: lo que enseña la pieza es la relación
+   * entre eslabones, y ocultarlos la rompería.
+   */
+  | {
+      kind: "flujo"
+      pista?: string
+      pasos: { clave: string; etiqueta: string; sub?: string; texto: string }[]
+    }
+  /**
+   * Vías o alternativas en fichas que se abren al elegirlas.
+   *
+   * La ficha cerrada dice de qué va en una línea; abierta, lo desarrolla. Sirve
+   * para una lista de opciones que el alumno compara antes de leerlas a fondo.
+   */
+  | {
+      kind: "tarjetas"
+      pista?: string
+      items: { icono: TarjetaIcono; titulo: string; resumen: string; detalle: string }[]
+    }
+  /**
+   * Referencias normativas en fichas: el código delante y el documento al
+   * abrirlas. Existe para que la norma respalde sin ocupar media pantalla.
+   */
+  | {
+      kind: "referencias"
+      rotulo?: string
+      pista?: string
+      items: { codigo: string; nombre: string; detalle: string }[]
+    }
   /** El elemento interactivo de la lección; lo renderiza el reproductor. */
   | { kind: "interactivo"; nombre: "notam-decodificador" }
   /**
@@ -88,7 +124,17 @@ export type LessonBlock =
     }
   | { kind: "table"; head: string[]; rows: string[][] }
   | { kind: "code"; text: string }
-  | { kind: "callout"; tone: "info" | "warn" | "tip"; title?: string; text: string }
+  /**
+   * Caja de aviso. `sellos` destaca dos o tres palabras que hay que retener
+   * como condición, no como frase: van en fichas debajo del texto.
+   */
+  | {
+      kind: "callout"
+      tone: "info" | "warn" | "tip" | "verificar"
+      title?: string
+      text: string
+      sellos?: string[]
+    }
   | { kind: "kv"; items: { k: string; v: string }[] }
   /**
    * Desglose visual de un código: la línea entera arriba, cada trozo con su
@@ -341,41 +387,143 @@ export const LESSON_SCREENS: DocScreen[] = [
   // ── 2 ──────────────────────────────────────────────────────────────────────
   {
     n: 2,
-    title: "De dónde sale y dónde vive",
+    title: "¿Quién publica los NOTAM y dónde los consulto?",
     kicker: "Normas y fuentes oficiales",
-    minutes: 2,
+    minutes: 3,
     level: "basico",
+    // La norma dejó de ser el contenido principal y bajó al pie, en fichas:
+    // el alumno no tiene que leer cuatro referencias para entender algo tan
+    // básico como quién publica un NOTAM. El respaldo sigue ahí, a un clic.
     blocks: [
       {
-        kind: "list",
-        items: [
-          "El contenido y el formato de los NOTAM los fija el **Anexo 15 de la OACI** (§5.2.1, §5.3.2 y Apéndice 6). Su transmisión por el servicio fijo aeronáutico (AFS) la fija el **Anexo 10, Vol. II** (Doc 8400, pág. 7-1, §2).",
-          "Los criterios de selección y las tablas de calificativos están en el **Doc 8126**, Manual para los servicios de información aeronáutica (Doc 8400, pág. 7-3, nota).",
-          "El **código NOTAM** de cinco letras está normalizado en el **Doc 8400, sección 7**. Lo tienes completo en el Decodificador de esta sección.",
-          "En Colombia, la **Aeronáutica Civil** publica los NOTAM vigentes. Su Dirección de Informática (DRT) emite el **resumen mensual de NOTAM vigentes** por series, que trabajas más adelante en este documento.",
+        kind: "p",
+        text: "Antes de revisar un NOTAM, hay algo que debes tener claro: ¿de dónde sale esa información y dónde puedes consultarla?",
+      },
+      {
+        kind: "p",
+        text: "Cuando preparas un vuelo, no buscas los NOTAM directamente en una carta ni esperas a encontrarlos en el AIP. La información se publica a través del **Servicio de Información Aeronáutica (AIS)** del Estado correspondiente.",
+      },
+      {
+        kind: "p",
+        text: "En Colombia, la información aeronáutica oficial es publicada por la **Aerocivil** a través de sus servicios de información aeronáutica.",
+      },
+      {
+        kind: "flujo",
+        pista: "Selecciona cada elemento para conocer su función.",
+        pasos: [
+          {
+            clave: "estado",
+            etiqueta: "Estado",
+            sub: "Autoridad aeronáutica",
+            texto: "La autoridad aeronáutica del Estado, en Colombia la Aerocivil, establece, regula y supervisa el sistema de información aeronáutica.",
+          },
+          {
+            clave: "ais",
+            etiqueta: "AIS",
+            sub: "Servicio de Información Aeronáutica",
+            texto: "Recibe la información que llega de distintas fuentes, la procesa y la distribuye en el formato que corresponde.",
+          },
+          {
+            clave: "notam",
+            etiqueta: "NOTAM",
+            sub: "El aviso",
+            texto: "El aviso que lleva la información temporal sobre el establecimiento, la condición o la modificación de instalaciones, servicios, procedimientos o peligros aeronáuticos.",
+          },
+          {
+            clave: "piloto",
+            etiqueta: "Piloto",
+            sub: "Quien la usa",
+            texto: "Consulta, interpreta y utiliza la información en la planificación y en la ejecución del vuelo.",
+          },
         ],
       },
       {
         kind: "p",
-        text: "Además de la serie ordinaria existen dos series especiales, **SNOWTAM** y **ASHTAM**, con formato propio. Las ves al final, cuando ya sepas leer un NOTAM completo.",
+        text: "El AIS recibe, procesa y distribuye información aeronáutica que puede ser necesaria para la planificación y operación de los vuelos.",
+      },
+      { kind: "sub", text: "¿Dónde los consulta un piloto?" },
+      {
+        kind: "tarjetas",
+        pista: "Selecciona una vía para ver en qué consiste.",
+        items: [
+          {
+            icono: "documento",
+            titulo: "Fuente oficial",
+            resumen: "Consulta directamente la información publicada por el Estado.",
+            detalle: "Consulta de los servicios oficiales de información aeronáutica del Estado.",
+          },
+          {
+            icono: "movil",
+            titulo: "Aplicaciones de planificación",
+            resumen: "Integran los NOTAM dentro de las herramientas de briefing y planificación.",
+            detalle: "Herramientas como ForeFlight, Garmin Pilot, RocketRoute u otras plataformas integran NOTAM dentro del briefing de vuelo.",
+          },
+          {
+            icono: "avion",
+            titulo: "Briefing operacional",
+            resumen: "En operaciones comerciales pueden formar parte del proceso de despacho y planificación.",
+            detalle: "En operaciones comerciales, los NOTAM también pueden formar parte de los sistemas y procesos de despacho o planificación de vuelo.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "Estás preparando un vuelo y necesitas revisar los NOTAM de tu aeropuerto de salida, destino, ruta y alternos.",
       },
       {
         kind: "check",
-        question: "¿Dónde está normalizado el código NOTAM de cinco letras?",
+        question: "¿Qué opción representa mejor una forma adecuada de obtener esta información?",
         options: [
-          "En el Anexo 15 de la OACI",
-          "En el Doc 8400, sección 7",
-          "En el resumen mensual que publica cada Estado",
+          "Consultar únicamente una carta aeronáutica",
+          "Utilizar una herramienta de planificación o briefing que integre NOTAM y verificar que la información provenga de una fuente autorizada",
+          "Esperar a recibir la información durante el vuelo",
         ],
         answer: 1,
         explain:
-          "El Anexo 15 fija el contenido y el formato del NOTAM; el **Doc 8400, sección 7** es el que normaliza el código de cinco letras. Lo tienes completo en el Decodificador de esta sección.",
+          "Las aplicaciones y sistemas de planificación pueden facilitar la consulta y organización de los NOTAM, pero debes asegurarte de trabajar con información vigente, completa y procedente de una fuente autorizada.",
       },
       {
         kind: "callout",
-        tone: "info",
-        title: "Jerarquía de las fuentes",
-        text: "El Doc 8400 y el Anexo 15 son la norma. Las guías de curso que citamos son material didáctico y se marcan como tal. El Doc 8400 que usamos es la 6ª edición (2004): existen ediciones posteriores, así que confirma siempre contra la edición vigente.",
+        tone: "verificar",
+        title: "La aplicación que utilices no cambia la responsabilidad operacional",
+        text: "Las herramientas facilitan la búsqueda y organización de la información, pero el piloto debe asegurarse de utilizar información vigente, completa y procedente de una fuente autorizada.",
+        sellos: ["Vigente", "Completa", "Fuente autorizada"],
+      },
+      { kind: "sub", text: "Base normativa" },
+      {
+        kind: "p",
+        text: "Los NOTAM y su distribución están establecidos dentro del sistema de información aeronáutica internacional de la OACI, principalmente mediante:",
+      },
+      {
+        kind: "referencias",
+        rotulo: "Consulta la referencia",
+        pista: "Selecciona una referencia para conocer qué documento respalda esta información.",
+        items: [
+          {
+            codigo: "Anexo 15",
+            nombre: "Servicios de información aeronáutica",
+            detalle: "Fija el contenido y el formato de los NOTAM, y cómo se publican (§5.2.1, §5.3.2 y Apéndice 6).",
+          },
+          {
+            codigo: "Anexo 10 · Vol. II",
+            nombre: "Procedimientos de comunicaciones",
+            detalle: "Fija su transmisión por el servicio fijo aeronáutico, el AFS (Doc 8400, pág. 7-1, §2).",
+          },
+          {
+            codigo: "Doc 8126",
+            nombre: "Manual para los servicios de información aeronáutica",
+            detalle: "Trae los criterios de selección y las tablas de calificativos (Doc 8400, pág. 7-3, nota).",
+          },
+          {
+            codigo: "Doc 8400",
+            nombre: "PANS-ABC",
+            detalle: "Normaliza el código NOTAM de cinco letras, en su sección 7. Lo tienes completo en el Decodificador de esta sección.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "El Doc 8400 que citamos es la 6ª edición (2004): existen ediciones posteriores, así que confirma siempre contra la edición vigente.",
       },
     ],
   },

@@ -7,17 +7,23 @@
  * cambian todas las lecciones a la vez, que es la gracia.
  */
 
-import { lazy, Suspense, useState, type ReactNode } from "react"
+import { Fragment, lazy, Suspense, useState, type ReactNode } from "react"
 import {
   AlertTriangle,
   CheckCircle2,
+  ChevronDown,
+  ChevronRight,
+  FileText,
   HelpCircle,
   Info,
   Lightbulb,
   PenLine,
+  Plane,
   ShieldAlert,
+  ShieldCheck,
+  Smartphone,
 } from "lucide-react"
-import type { BreakdownPart } from "@/lib/notamLesson"
+import type { BreakdownPart, TarjetaIcono } from "@/lib/notamLesson"
 import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
@@ -99,13 +105,21 @@ function renderInline(text: string): ReactNode[] {
 }
 
 const CALLOUT_TONE: Record<
-  "info" | "warn" | "tip",
+  "info" | "warn" | "tip" | "verificar",
   { color: string; icon: typeof Info; fallbackTitle: string }
 > = {
   info: { color: "var(--av-blue-500)", icon: Info, fallbackTitle: "Nota de fuente" },
   warn: { color: "var(--av-amber-400)", icon: AlertTriangle, fallbackTitle: "Ojo con esto" },
   tip: { color: "var(--av-green-400)", icon: Lightbulb, fallbackTitle: "Consejo" },
+  verificar: {
+    color: "var(--av-amber-400)",
+    icon: ShieldCheck,
+    fallbackTitle: "Antes de usarlo, verifica",
+  },
 }
+
+/** El acento de las piezas que se pulsan. Dentro del lector cae al navy. */
+const ACENTO = "var(--av-blue-500)"
 
 export function DocBlock({ block }: { block: DocBlockData }) {
   switch (block.kind) {
@@ -330,6 +344,23 @@ export function DocBlock({ block }: { block: DocBlockData }) {
               {block.title ?? tone.fallbackTitle}
             </div>
             <p className="m-0 mt-1 text-[15px]">{renderInline(block.text)}</p>
+            {block.sellos && block.sellos.length > 0 && (
+              <div className="mt-3 flex flex-wrap gap-2">
+                {block.sellos.map((sello, i) => (
+                  <span
+                    key={i}
+                    className="mono rounded-md border px-2.5 py-1 text-[11.5px] font-semibold uppercase tracking-[0.08em]"
+                    style={{
+                      borderColor: docAccent(tone.color, 40),
+                      color: docAccent(tone.color, 75),
+                      background: docTint(tone.color, 14),
+                    }}
+                  >
+                    {sello}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )
@@ -384,6 +415,15 @@ export function DocBlock({ block }: { block: DocBlockData }) {
         </Suspense>
       )
     }
+
+    case "flujo":
+      return <Flujo pasos={block.pasos} pista={block.pista} />
+
+    case "tarjetas":
+      return <Tarjetas items={block.items} pista={block.pista} />
+
+    case "referencias":
+      return <Referencias rotulo={block.rotulo} pista={block.pista} items={block.items} />
 
     case "check":
       return (
@@ -471,6 +511,232 @@ export function DocBlock({ block }: { block: DocBlockData }) {
  * o falle, y deja volver a intentar. Lo que sí hace es cortar la lectura, que
  * es justo lo que la lección corrida no hacía.
  */
+// ─── Piezas que se pulsan ────────────────────────────────────────────────────
+
+/**
+ * Panel de lectura de las piezas seleccionables.
+ *
+ * Reserva su alto y muestra la pista mientras no hay nada elegido: sin eso la
+ * página salta cada vez que el alumno cambia de selección, que es justo lo que
+ * hace que una pieza interactiva se sienta barata.
+ */
+function PanelLectura({ pista, children }: { pista?: string; children?: ReactNode }) {
+  return (
+    <div className="mt-3 flex min-h-[78px] items-center rounded-lg border doc-rule doc-soft px-4 py-3.5">
+      {/* `||` y no `??`: quien llama pasa `false` cuando no hay seleccion,
+          y `??` solo cae al respaldo con null o undefined. */}
+      {children || <p className="m-0 text-[13.5px] leading-[1.55] doc-muted">{pista}</p>}
+    </div>
+  )
+}
+
+/** La flecha entre eslabones: a la derecha en escritorio, hacia abajo en móvil. */
+function FlechaFlujo() {
+  return (
+    <span
+      aria-hidden
+      className="flex shrink-0 items-center justify-center self-center"
+      style={{ color: docAccent(ACENTO, 40) }}
+    >
+      <ChevronRight className="hidden lg:block h-4 w-4" />
+      <ChevronDown className="lg:hidden h-4 w-4" />
+    </span>
+  )
+}
+
+interface FlujoPaso {
+  clave: string
+  etiqueta: string
+  sub?: string
+  texto: string
+}
+
+/**
+ * La cadena de la información, recorrible eslabón por eslabón.
+ *
+ * Se ilumina solo el elegido y los demás se quedan a la vista: la pieza enseña
+ * la relación entre ellos, y atenuar el resto la rompería.
+ */
+function Flujo({ pasos, pista }: { pasos: FlujoPaso[]; pista?: string }) {
+  const [activo, setActivo] = useState<string | null>(null)
+  const elegido = pasos.find((p) => p.clave === activo)
+
+  return (
+    <section aria-label="Cadena de la información aeronáutica">
+      <div className="flex flex-col lg:flex-row lg:items-stretch gap-2">
+        {pasos.map((paso, i) => {
+          const on = paso.clave === activo
+          return (
+            <Fragment key={paso.clave}>
+              {i > 0 && <FlechaFlujo />}
+              <button
+                type="button"
+                onClick={() => setActivo(on ? null : paso.clave)}
+                aria-pressed={on}
+                className="flex-1 min-w-0 rounded-lg border px-3 py-3 text-center transition-colors"
+                style={{
+                  borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-border)",
+                  background: on ? docTint(ACENTO, 12) : "var(--doc-bg)",
+                }}
+              >
+                <span
+                  className="block text-[15px] font-semibold tracking-[-0.01em]"
+                  style={{ color: on ? docAccent(ACENTO, 75) : "var(--doc-fg)" }}
+                >
+                  {paso.etiqueta}
+                </span>
+                {paso.sub && (
+                  <span className="mt-0.5 block text-[12px] leading-[1.35] doc-muted">
+                    {paso.sub}
+                  </span>
+                )}
+              </button>
+            </Fragment>
+          )
+        })}
+      </div>
+      <PanelLectura pista={pista}>
+        {elegido && (
+          <p className="m-0 text-[15px] leading-[1.6]">
+            <strong className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+              {elegido.etiqueta}.
+            </strong>{" "}
+            {elegido.texto}
+          </p>
+        )}
+      </PanelLectura>
+    </section>
+  )
+}
+
+const TARJETA_ICONO: Record<TarjetaIcono, typeof Info> = {
+  documento: FileText,
+  movil: Smartphone,
+  avion: Plane,
+}
+
+interface TarjetaItem {
+  icono: TarjetaIcono
+  titulo: string
+  resumen: string
+  detalle: string
+}
+
+/** Vías en fichas: cerradas dicen de qué van, abiertas lo desarrollan. */
+function Tarjetas({ items, pista }: { items: TarjetaItem[]; pista?: string }) {
+  const [abierta, setAbierta] = useState<number | null>(null)
+
+  return (
+    <section>
+      <div className="grid gap-3 sm:grid-cols-3">
+        {items.map((it, i) => {
+          const on = abierta === i
+          const Icono = TARJETA_ICONO[it.icono]
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setAbierta(on ? null : i)}
+              aria-pressed={on}
+              className="h-full rounded-lg border p-4 text-left transition-colors"
+              style={{
+                borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-border)",
+                background: on ? docTint(ACENTO, 10) : "var(--doc-bg)",
+              }}
+            >
+              <Icono
+                className="h-5 w-5"
+                style={{ color: docAccent(ACENTO, on ? 75 : 55) }}
+                aria-hidden
+              />
+              <span
+                className="mt-2.5 block text-[15px] font-semibold tracking-[-0.01em]"
+                style={{ color: "var(--doc-fg)" }}
+              >
+                {it.titulo}
+              </span>
+              <span className="mt-1 block text-[13.5px] leading-[1.5] doc-muted">{it.resumen}</span>
+            </button>
+          )
+        })}
+      </div>
+      <PanelLectura pista={pista}>
+        {abierta !== null && (
+          <p className="m-0 text-[15px] leading-[1.6]">
+            <strong className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+              {items[abierta].titulo}.
+            </strong>{" "}
+            {items[abierta].detalle}
+          </p>
+        )}
+      </PanelLectura>
+    </section>
+  )
+}
+
+interface ReferenciaItem {
+  codigo: string
+  nombre: string
+  detalle: string
+}
+
+/** La norma que respalda, en fichas: presente sin ocupar media pantalla. */
+function Referencias({
+  rotulo,
+  pista,
+  items,
+}: {
+  rotulo?: string
+  pista?: string
+  items: ReferenciaItem[]
+}) {
+  const [activa, setActiva] = useState<number | null>(null)
+
+  return (
+    <section>
+      {rotulo && (
+        <div
+          className="mono mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
+          style={{ color: docAccent(ACENTO, 60) }}
+        >
+          {rotulo}
+        </div>
+      )}
+      <div className="flex flex-wrap gap-2">
+        {items.map((it, i) => {
+          const on = activa === i
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActiva(on ? null : i)}
+              aria-pressed={on}
+              className="mono rounded-md border px-3 py-2 text-[12.5px] font-semibold transition-colors"
+              style={{
+                borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-border)",
+                background: on ? docTint(ACENTO, 12) : "var(--doc-bg)",
+                color: on ? docAccent(ACENTO, 75) : "var(--doc-fg)",
+              }}
+            >
+              {it.codigo}
+            </button>
+          )
+        })}
+      </div>
+      <PanelLectura pista={pista}>
+        {activa !== null && (
+          <p className="m-0 text-[15px] leading-[1.6]">
+            <strong className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+              {items[activa].nombre}.
+            </strong>{" "}
+            {items[activa].detalle}
+          </p>
+        )}
+      </PanelLectura>
+    </section>
+  )
+}
+
 function Check({
   question,
   options,
