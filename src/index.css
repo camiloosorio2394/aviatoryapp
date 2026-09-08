@@ -959,7 +959,8 @@
 /* Lo que va en retícula de varias columnas NO se justifica: en una columna de
    230px la justificación abre huecos entre palabras y parte casi cada línea.
    Justificar solo sirve cuando la línea es larga. */
-.lector-notam .doc-prose .grid :where(p, li, dd) {
+.lector-notam .doc-prose .grid :where(p, li, dd),
+.lector-notam .doc-prose .not-prose :where(p, li, dd) {
   text-align: left;
   hyphens: manual;
 }
