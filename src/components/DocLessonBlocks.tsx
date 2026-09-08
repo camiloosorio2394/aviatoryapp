@@ -453,6 +453,43 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "cadena":
       return <Cadena items={block.items} />
 
+    case "codigos": {
+      const color = block.color ?? ACENTO
+      return (
+        <section className="overflow-hidden rounded-lg border doc-rule">
+          <div
+            className="border-b doc-rule px-4 py-2.5 sm:px-5"
+            style={{ background: docTint(color, 8) }}
+          >
+            <div className="ln-display text-[15.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
+              {block.titulo}
+            </div>
+            {block.sub && <div className="mt-0.5 text-[12.5px] doc-muted">{block.sub}</div>}
+          </div>
+          <ul
+            className="m-0 grid list-none gap-x-6 px-4 py-2 sm:grid-cols-2 sm:px-5"
+            style={{ background: "var(--doc-bg)" }}
+          >
+            {block.items.map((it, i) => (
+              <li
+                key={i}
+                className="flex items-baseline gap-3 border-b py-1.5 text-[13.5px] last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0"
+                style={{ borderColor: "var(--doc-border)" }}
+              >
+                <code
+                  className="mono w-[30px] flex-none rounded px-1.5 py-0.5 text-center text-[12.5px] font-semibold"
+                  style={{ color, background: docTint(color, 12) }}
+                >
+                  {it.k}
+                </code>
+                <span style={{ color: "var(--doc-fg)" }}>{it.v}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
     case "componente": {
       const color = block.color ?? ACENTO
       // Primero el nombre y después el token: se lee "FIR, SEFG", que es como
@@ -485,13 +522,15 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "apartado":
       return (
         <section>
-          <h3
-            className="ln-display m-0 text-[18px] font-semibold lg:text-[20px]"
-            style={{ lineHeight: 1.2, color: "var(--doc-fg)" }}
-          >
-            {block.titulo}
-          </h3>
-          <div className="mt-2.5 flex flex-col gap-3">
+          {block.titulo && (
+            <h3
+              className="ln-display m-0 text-[18px] font-semibold lg:text-[20px]"
+              style={{ lineHeight: 1.2, color: "var(--doc-fg)" }}
+            >
+              {block.titulo}
+            </h3>
+          )}
+          <div className={block.titulo ? "mt-2.5 flex flex-col gap-3" : "flex flex-col gap-3"}>
             {block.parrafos.map((t, i) => (
               <p key={i} className="m-0 text-[15px] leading-[1.7]">
                 {renderInline(t)}

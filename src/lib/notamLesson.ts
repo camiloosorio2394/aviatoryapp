@@ -182,7 +182,21 @@ export type LessonBlock =
    * bloques de la lección, tres frases sobre lo mismo se leían como tres
    * asuntos distintos.
    */
-  | { kind: "apartado"; titulo: string; parrafos: string[] }
+  | { kind: "apartado"; titulo?: string; parrafos: string[] }
+  /**
+   * Una tabla compacta de códigos: el código en monoespaciada y su significado
+   * al lado, a dos columnas. Es para que el alumno vea CÓMO SON los códigos y
+   * reconozca los frecuentes, no para memorizarlos: por eso caben dieciséis en
+   * ocho filas y no en una tabla de página entera. `sub` dice qué letras del
+   * código son estas.
+   */
+  | {
+      kind: "codigos"
+      titulo: string
+      sub?: string
+      items: { k: string; v: string }[]
+      color?: string
+    }
   /**
    * Encabezados de NOTAM que se abren para enseñar de qué está hecho cada uno.
    *
@@ -1116,6 +1130,103 @@ export const LESSON_SCREENS: DocScreen[] = [
         tone: "tip",
         title: "Para el piloto",
         text: "Reconocer el código FIR permite identificar rápidamente la región de espacio aéreo asociada al NOTAM. Sin embargo, este dato por sí solo no determina si el NOTAM afecta tu vuelo; debes continuar con la interpretación del resto de la línea Q y del NOTAM.",
+      },
+      // ── ② QRALW ──────────────────────────────────────────────────────────
+      // Los códigos de las tablas salen de src/data/notam/notam_codes.json,
+      // que es el Doc 8400. La imagen de referencia que mandó Camilo traía
+      // varios que no existen (AE como aeródromo, CL como cerrado, IN, OP,
+      // TX...), así que no se copió: se eligieron los frecuentes de la tabla
+      // oficial y se verificó cada ejemplo completo.
+      {
+        kind: "componente",
+        n: 2,
+        token: "QRALW",
+        nombre: "Código NOTAM",
+        detalle: "Q + asunto + condición",
+        color: LINEA_Q_COLOR.codigo,
+      },
+      {
+        kind: "apartado",
+        parrafos: [
+          "El segundo componente de la línea Q es el **código NOTAM**. Está formado por cinco letras y permite identificar de manera estandarizada el asunto que se está notificando y la condición o estado de ese asunto. La primera letra siempre es `Q`; la segunda y tercera identifican el asunto, y la cuarta y quinta indican la condición o estado. Esta estructura está establecida por OACI en el Doc 8400, PANS-ABC.",
+          "Por ejemplo, en nuestro caso tenemos `QRALW`. Las letras `RA` corresponden al asunto que se está notificando y `LW` identifica la condición asociada. De esta manera, el código permite obtener una primera lectura del contenido del NOTAM sin tener que interpretar todavía todo su texto.",
+          "Lo importante en esta etapa no es memorizar todos los códigos. Lo que debes aprender es a reconocer cómo está construido el código: **Q + asunto + condición**. Más adelante veremos los códigos más utilizados y aprenderemos a desglosarlos uno por uno.",
+        ],
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Dónde encuentro los códigos?",
+        parrafos: [
+          "Los códigos NOTAM están estandarizados por OACI y sus combinaciones se encuentran principalmente en el **Doc 8400, PANS-ABC** (ICAO Abbreviations and Codes). Además, los Criterios de Selección de NOTAM del **Doc 8126**, Aeronautical Information Services Manual, presentan los códigos de uso más frecuente y su relación con los calificativos de Tránsito, Propósito y Alcance.",
+          "**Importante:** no necesitas memorizar todos los códigos. A continuación encontrarás una tabla de los códigos más utilizados, con su significado y su desglose, para que puedas consultarlos y aprender a interpretarlos progresivamente.",
+        ],
+      },
+      {
+        kind: "codigos",
+        titulo: "Códigos de asunto",
+        sub: "Segunda y tercera letra: de qué trata el aviso",
+        color: LINEA_Q_COLOR.codigo,
+        items: [
+          { k: "FA", v: "Aeródromo" },
+          { k: "MR", v: "Pista" },
+          { k: "MX", v: "Calle de rodaje" },
+          { k: "MN", v: "Plataforma" },
+          { k: "MK", v: "Zona de estacionamiento" },
+          { k: "MD", v: "Distancias declaradas" },
+          { k: "LP", v: "PAPI" },
+          { k: "IC", v: "ILS" },
+          { k: "NV", v: "VOR" },
+          { k: "NB", v: "NDB" },
+          { k: "NM", v: "VOR/DME" },
+          { k: "PI", v: "Procedimiento de aproximación por instrumentos" },
+          { k: "RA", v: "Reserva de espacio aéreo" },
+          { k: "RD", v: "Zona peligrosa" },
+          { k: "RR", v: "Zona restringida" },
+          { k: "OB", v: "Obstáculos" },
+        ],
+      },
+      {
+        kind: "codigos",
+        titulo: "Códigos de condición",
+        sub: "Cuarta y quinta letra: en qué estado está",
+        color: LINEA_Q_COLOR.codigo,
+        items: [
+          { k: "AS", v: "No utilizable (U/S)" },
+          { k: "AU", v: "No está disponible" },
+          { k: "AH", v: "Cambian las horas de servicio" },
+          { k: "AK", v: "Reanudada la operación normal" },
+          { k: "AP", v: "Disponible con permiso previo (PPR)" },
+          { k: "LC", v: "Cerrado" },
+          { k: "LT", v: "Limitado a" },
+          { k: "LP", v: "Prohibido a" },
+          { k: "LW", v: "Se realizará" },
+          { k: "LV", v: "Cerrado para operaciones VFR" },
+          { k: "HW", v: "Prosiguen los trabajos (WIP)" },
+          { k: "HX", v: "Concentración de aves" },
+          { k: "CA", v: "En actividad" },
+          { k: "CN", v: "Cancelado" },
+          { k: "CH", v: "Cambiado" },
+          { k: "CM", v: "Desplazado" },
+        ],
+      },
+      { kind: "sub", text: "Así se combinan el asunto y la condición" },
+      {
+        kind: "table",
+        head: ["Código", "Desglose", "Significado"],
+        rows: [
+          ["`QMRLC`", "Q · MR · LC", "Pista cerrada"],
+          ["`QRALW`", "Q · RA · LW", "Reserva de espacio aéreo que se realizará"],
+          ["`QLPAS`", "Q · LP · AS", "PAPI no utilizable"],
+          ["`QNVAS`", "Q · NV · AS", "VOR no utilizable"],
+          ["`QMXLC`", "Q · MX · LC", "Calle de rodaje cerrada"],
+          ["`QRDCA`", "Q · RD · CA", "Zona peligrosa en actividad"],
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "tip",
+        title: "Para el piloto",
+        text: "El código NOTAM te da una idea inicial de qué trata la información, pero siempre debes leer el resto de la línea Q y el texto completo del NOTAM para entender su alcance, ubicación y período de validez.",
       },
       {
         kind: "check",
