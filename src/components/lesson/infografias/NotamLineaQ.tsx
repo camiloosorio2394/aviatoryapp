@@ -15,17 +15,12 @@ import { useState } from "react"
  *
  * La interacción es la que una imagen no puede dar: tocas un campo de la línea
  * y su ficha se resalta, y al revés. El color de cada campo no decora, es la
- * llave que ata el token de arriba con su explicación de abajo.
+ * llave que ata el token de arriba con su explicación de abajo. Y ahí termina:
+ * la pieza presenta las siete partes con la pregunta que responde cada una, y
+ * la decodificación parte por parte viene después en la lección, de corrido,
+ * sin tener que seleccionar nada.
  *
- * La lectura operacional NO va dentro de la ficha sino en el panel de abajo, y
- * por dos razones: la ficha se queda corta y comparable con las otras seis, y
- * el panel tiene alto reservado, así que la retícula no salta al recorrerla.
- * La cadena que enseña la sección es siempre la misma: código, qué significa,
- * qué opciones tiene, cómo se lee de verdad y qué hace el piloto con eso.
- *
- * El ejemplo es el del curso (pág. 22), no uno inventado. Los significados de
- * `RA`, `LW`, `MR` y `LC` salen de la tabla del Doc 8400 que vive en
- * src/data/notam/notam_codes.json.
+ * El ejemplo es el del curso (pág. 22), no uno inventado.
  */
 
 /**
@@ -34,7 +29,7 @@ import { useState } from "react"
  * esta app el rojo queda reservado para lo que restringe o alerta, y aquí
  * ninguno de los siete campos lo hace por sí mismo. El color es la llave que
  * ata cada token de la línea con su ficha, así que se repite sin excepción en
- * el token, en el filete, en el número y en el panel.
+ * el token, en el filete y en el número.
  */
 const COLOR = {
   fir: "#1E3A5F",
@@ -51,18 +46,12 @@ interface Campo {
   token: string
   /** El nombre del componente: FIR, Tránsito, Alcance. */
   nombre: string
-  /** La pregunta que responde, en tres o cuatro palabras. */
-  significa: string
-  /** Qué es, en una línea. Va en la ficha. */
+  /** La pregunta que responde. Las siete al mismo nivel, todas con signos. */
+  pregunta: string
+  /** Qué es, en una o dos líneas. */
   resumen: string
   /** Valores que puede tomar, cuando son un conjunto cerrado y corto. */
   opciones?: [string, string][]
-  /** Cómo se lee de verdad. Va en el panel. */
-  practica: string
-  /** Qué hace el piloto con eso. Va en el panel. */
-  piloto: string
-  /** Pieza visual propia del campo, dentro del panel. */
-  extra?: "anatomia" | "limites" | "area"
   color: string
 }
 
@@ -71,33 +60,24 @@ const CAMPOS: Campo[] = [
     n: 1,
     token: "SEFG",
     nombre: "FIR",
-    significa: "Dónde aplica",
-    resumen: "Indicador OACI de la región de información de vuelo a la que pertenece el aviso.",
-    practica:
-      "Las dos primeras letras son el Estado y las dos siguientes identifican la región. En `SEFG`, `SE` es Ecuador.",
-    piloto:
-      "Identifica la FIR asociada al NOTAM y verifica si corresponde al espacio aéreo relacionado con tu operación.",
+    pregunta: "¿Dónde aplica?",
+    resumen:
+      "Indicador OACI de la región de información de vuelo a la que pertenece el aviso. En este caso indica la FIR que afecta.",
     color: COLOR.fir,
   },
   {
     n: 2,
     token: "QRALW",
     nombre: "Código NOTAM",
-    significa: "Qué cosa y qué le pasa",
-    resumen:
-      "Cinco letras. La `Q` es fija, las dos siguientes dicen de qué se trata y las dos últimas en qué estado está.",
-    extra: "anatomia",
-    practica:
-      "El significado no se memoriza entero: se arma. Con el asunto y la condición ya sabes de qué habla el aviso antes de leer la casilla E).",
-    piloto:
-      "Aprende a partir el código en tres. Es lo que te deja leer uno que no habías visto nunca, en vez de buscarlo en una tabla.",
+    pregunta: "¿Qué información describe?",
+    resumen: "El código identifica el asunto de la información y la condición que presenta.",
     color: COLOR.codigo,
   },
   {
     n: 3,
     token: "IV",
     nombre: "Tránsito",
-    significa: "A qué tipo de vuelo afecta",
+    pregunta: "¿A qué tránsito aplica?",
     resumen: "El tipo de tránsito al que va dirigido el aviso.",
     opciones: [
       ["I", "IFR"],
@@ -105,17 +85,13 @@ const CAMPOS: Campo[] = [
       ["IV", "IFR y VFR"],
       ["K", "lista de verificación"],
     ],
-    practica:
-      "`IV` quiere decir que el aviso va dirigido a los dos, IFR y VFR. Si dijera solo `V`, sería para tránsito visual.",
-    piloto:
-      "Pregúntate si el NOTAM está dirigido a tu tipo de operación. Es el primer corte cuando revisas un paquete grande.",
     color: COLOR.transito,
   },
   {
     n: 4,
     token: "NBO",
     nombre: "Objetivo",
-    significa: "Qué hacer con el aviso",
+    pregunta: "¿Cuál es su propósito?",
     resumen: "Para qué se distribuye y en qué producto debe aparecer.",
     opciones: [
       ["N", "atención inmediata de la tripulación"],
@@ -124,17 +100,13 @@ const CAMPOS: Campo[] = [
       ["M", "misceláneo, no va a briefing"],
       ["K", "lista de verificación"],
     ],
-    practica:
-      "Las letras se combinan. `NBO` es la combinación más frecuente: atención inmediata, entra al PIB y concierne a las operaciones.",
-    piloto:
-      "Te dice el peso que le dio quien lo emitió. Una `N` es una señal de que quiere que lo veas antes de volar.",
     color: COLOR.objetivo,
   },
   {
     n: 5,
     token: "AW",
     nombre: "Alcance",
-    significa: "Sobre qué recae",
+    pregunta: "¿Sobre qué aplica?",
     resumen: "El ámbito sobre el que aplica la información.",
     opciones: [
       ["A", "aeródromo"],
@@ -142,45 +114,24 @@ const CAMPOS: Campo[] = [
       ["W", "advertencia de navegación"],
       ["K", "lista de verificación"],
     ],
-    practica:
-      "Se combinan entre sí: `AE` es aeródromo y ruta, `AW` es aeródromo y advertencia de navegación.",
-    piloto:
-      "Identifica sobre qué elemento recae el aviso antes de leer el texto. Uno de ruta no se lee igual que uno de aeródromo.",
     color: COLOR.alcance,
   },
   {
     n: 6,
     token: "000/001",
     nombre: "Límites",
-    significa: "Entre qué alturas",
+    pregunta: "¿Qué límites verticales establece?",
     resumen: "Límite inferior y superior del área afectada, en niveles de vuelo de tres cifras.",
-    extra: "limites",
-    practica:
-      "`000` es la superficie y `999` el máximo. `000/999` es el valor por defecto y quiere decir toda altura. Aquí el aviso va desde la superficie hasta el nivel 001.",
-    piloto:
-      "Comprueba si tu perfil de vuelo cruza esa franja. Un aviso entre `000` y `001` no afecta a quien pasa por encima en ruta.",
     color: COLOR.limites,
   },
   {
     n: 7,
     token: "0202S07956W001",
     nombre: "Área",
-    significa: "Centro y radio",
+    pregunta: "¿Qué área define?",
     resumen: "El punto que ancla el aviso y hasta dónde llega alrededor.",
-    extra: "area",
-    practica:
-      "Latitud y longitud en grados y minutos, y el radio en millas náuticas. Aquí, 1 NM alrededor del punto.",
-    piloto:
-      "Sitúa el punto respecto a tu ruta. Un radio de 1 NM afecta a muy poco; uno de 999 cubre prácticamente la FIR.",
     color: COLOR.area,
   },
-]
-
-/** Las tres piezas de un código NOTAM, con un segundo ejemplo para comparar. */
-const ANATOMIA = [
-  { pieza: "Q", rotulo: "Código NOTAM", texto: "Siempre la misma. Marca que lo que sigue es un código NOTAM." },
-  { pieza: "RA", rotulo: "Asunto", texto: "Reserva de espacio aéreo. De qué trata el aviso." },
-  { pieza: "LW", rotulo: "Condición", texto: "Se realizará. En qué estado está eso que dice el asunto." },
 ]
 
 /** Pinta `código` entre acentos graves como monoespaciada, igual que el resto de la lección. */
@@ -207,7 +158,6 @@ function conCodigo(t: string) {
 
 export function NotamLineaQ() {
   const [activo, setActivo] = useState<number | null>(null)
-  const campo = CAMPOS.find((c) => c.n === activo) ?? null
 
   return (
     <div className="not-prose my-6">
@@ -227,7 +177,7 @@ export function NotamLineaQ() {
         </div>
         <p className="mt-1.5 max-w-[62ch] text-[13px] leading-relaxed" style={{ color: "rgb(255 255 255 / 68%)" }}>
           Cada componente responde una pregunta diferente sobre el NOTAM. Van separadas por barras y,
-          si una falta, las demás conservan su posición. Toca cualquier pieza para verla por dentro.
+          si una falta, las demás conservan su posición. Toca una pieza para señalar su ficha.
         </p>
       </div>
 
@@ -280,10 +230,11 @@ export function NotamLineaQ() {
         </div>
       </div>
 
-      {/* Las siete fichas: qué es y qué opciones tiene. La lectura operacional
-          va en el panel de abajo, para que las siete midan parecido. */}
+      {/* Las siete fichas: la pregunta que responde cada pieza, qué es y qué
+          opciones tiene. Cierran la infografía; la decodificación parte por
+          parte va después, en la lección. */}
       <div
-        className="grid gap-3 border-x p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-3"
+        className="grid gap-3 rounded-b-xl border-x border-b p-4 sm:grid-cols-2 sm:p-5 xl:grid-cols-3"
         style={{ borderColor: "var(--doc-rule, rgb(0 0 0 / 10%))" }}
       >
         {CAMPOS.map((c) => {
@@ -296,8 +247,8 @@ export function NotamLineaQ() {
               onClick={() => setActivo(on ? null : c.n)}
               aria-pressed={on}
               // Flex en columna y anclado arriba: el navegador centra en vertical
-              // el contenido de un boton estirado por la reticula, tambien con
-              // display block, y las fichas cortas quedaban con el titulo a
+              // el contenido de un botón estirado por la retícula, también con
+              // display block, y las fichas cortas quedaban con el título a
               // media altura mientras las largas empezaban arriba.
               className="flex w-full flex-col items-stretch justify-start rounded-lg p-3.5 text-left transition-transform"
               style={{
@@ -326,7 +277,7 @@ export function NotamLineaQ() {
                 {c.nombre}
               </div>
               <div className="ln-display mt-0.5 text-[15.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
-                {c.significa}
+                {c.pregunta}
               </div>
               <p className="mt-1.5 text-[13px] leading-relaxed" style={{ color: "var(--doc-muted)" }}>
                 {conCodigo(c.resumen)}
@@ -353,218 +304,6 @@ export function NotamLineaQ() {
           )
         })}
       </div>
-
-      {/* El panel: cómo se lee de verdad y qué hace el piloto con eso. Tiene
-          alto reservado a propósito, así la retícula no salta al recorrerla. */}
-      <div
-        className="rounded-b-xl border-x border-b px-4 py-4 sm:px-5 sm:py-5"
-        style={{
-          borderColor: "var(--doc-rule, rgb(0 0 0 / 10%))",
-          borderTop: campo ? `3px solid ${campo.color}` : "1px solid var(--doc-rule, rgb(0 0 0 / 10%))",
-          background: campo
-            ? `color-mix(in oklab, ${campo.color} 5%, transparent)`
-            : "var(--doc-soft, #F7F8FA)",
-          minHeight: 168,
-        }}
-      >
-        {!campo ? (
-          <p className="m-0 text-[13.5px] leading-relaxed" style={{ color: "var(--doc-muted)" }}>
-            Selecciona una pieza de la línea Q, arriba o en su ficha, para ver cómo se lee en la
-            operación real y qué debes tener en cuenta.
-          </p>
-        ) : (
-          <div>
-            <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <span className="mono text-[16px] font-semibold" style={{ color: campo.color }}>
-                {campo.token}
-              </span>
-              <span
-                className="mono text-[12px] font-semibold uppercase"
-                style={{ letterSpacing: ".09em", color: "var(--doc-muted)" }}
-              >
-                {campo.nombre}
-              </span>
-            </div>
-
-            {campo.extra === "anatomia" && <Anatomia color={campo.color} />}
-            {campo.extra === "limites" && <Limites color={campo.color} />}
-            {campo.extra === "area" && <Area color={campo.color} />}
-
-            <div className="mt-4 grid gap-4 sm:grid-cols-2">
-              <div>
-                <div
-                  className="mono text-[11px] font-semibold uppercase"
-                  style={{ letterSpacing: ".1em", color: campo.color }}
-                >
-                  En la práctica
-                </div>
-                <p className="mt-1.5 text-[14px] leading-relaxed" style={{ color: "var(--doc-fg)" }}>
-                  {conCodigo(campo.practica)}
-                </p>
-              </div>
-              <div>
-                <div
-                  className="mono text-[11px] font-semibold uppercase"
-                  style={{ letterSpacing: ".1em", color: campo.color }}
-                >
-                  Qué debes tener en cuenta
-                </div>
-                <p className="mt-1.5 text-[14px] leading-relaxed" style={{ color: "var(--doc-fg)" }}>
-                  {conCodigo(campo.piloto)}
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* El filtro operacional, que además es la transición a la sección
-          siguiente: antes de decodificar nada, mira a quién afecta. */}
-      <div
-        className="mt-3 rounded-xl p-4 sm:p-5"
-        style={{
-          background: "color-mix(in oklab, var(--av-amber-400) 8%, transparent)",
-          border: "1px solid color-mix(in oklab, var(--av-amber-400) 26%, transparent)",
-        }}
-      >
-        <div className="ln-display text-[16px] font-semibold" style={{ color: "var(--doc-fg)" }}>
-          El tránsito y el alcance son tu primer filtro
-        </div>
-        <div className="mt-3 grid gap-2.5 sm:grid-cols-2">
-          {[
-            { token: "IV", pregunta: "¿A qué tipo de tránsito afecta?", color: COLOR.transito },
-            { token: "AW", pregunta: "¿Sobre qué recae?", color: COLOR.alcance },
-          ].map((f) => (
-            <div
-              key={f.token}
-              className="flex items-center gap-3 rounded-lg px-3.5 py-2.5"
-              style={{ background: "#fff", border: `1px solid color-mix(in oklab, ${f.color} 28%, transparent)` }}
-            >
-              <code
-                className="mono flex-none rounded px-2 py-1 text-[13px] font-semibold"
-                style={{ color: f.color, background: `color-mix(in oklab, ${f.color} 12%, transparent)` }}
-              >
-                {f.token}
-              </code>
-              <span className="text-[13.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
-                {f.pregunta}
-              </span>
-            </div>
-          ))}
-        </div>
-        <p className="mt-3 max-w-[62ch] text-[13.5px] leading-relaxed" style={{ color: "var(--doc-muted)" }}>
-          Antes de continuar, identifica quién puede verse afectado y sobre qué elemento aplica la
-          información.
-        </p>
-      </div>
-    </div>
-  )
-}
-
-/** `Q | RA | LW`: de dónde sale el significado de un código NOTAM. */
-function Anatomia({ color }: { color: string }) {
-  return (
-    <div className="mt-3.5">
-      {/* Retícula de tres y sin barras separadoras: al envolver, la barra
-          quedaba colgando al principio de la segunda línea. */}
-      <div className="grid gap-2 sm:grid-cols-3">
-        {ANATOMIA.map((a) => (
-          <div key={a.pieza}>
-            <div
-              className="h-full rounded-lg px-3 py-2.5"
-              style={{ background: "#fff", border: `1px solid color-mix(in oklab, ${color} 30%, transparent)` }}
-            >
-              <div className="mono text-[15px] font-semibold" style={{ color }}>
-                {a.pieza}
-              </div>
-              <div
-                className="mono mt-1 text-[10.5px] font-semibold uppercase"
-                style={{ letterSpacing: ".09em", color: "var(--doc-muted)" }}
-              >
-                {a.rotulo}
-              </div>
-              <p className="mt-1 text-[12.5px] leading-relaxed" style={{ color: "var(--doc-muted)" }}>
-                {a.texto}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-      <p className="mt-2.5 text-[13.5px] leading-relaxed" style={{ color: "var(--doc-fg)" }}>
-        {conCodigo(
-          "Resultado: `QRALW` es una reserva de espacio aéreo que se realizará. Con el mismo método, `QMRLC` es `MR` pista más `LC` cerrado, es decir, pista cerrada.",
-        )}
-      </p>
-    </div>
-  )
-}
-
-/** El sándwich vertical: qué franja de altura delimita el aviso. */
-function Limites({ color }: { color: string }) {
-  const fila = (valor: string, rotulo: string) => (
-    <div className="flex items-baseline gap-3">
-      <code
-        className="mono flex-none rounded px-2 py-0.5 text-[13px] font-semibold"
-        style={{ color, background: `color-mix(in oklab, ${color} 12%, transparent)` }}
-      >
-        {valor}
-      </code>
-      <span className="text-[12.5px]" style={{ color: "var(--doc-muted)" }}>
-        {rotulo}
-      </span>
-    </div>
-  )
-
-  return (
-    <div
-      className="mt-3.5 max-w-[380px] rounded-lg px-4 py-3.5"
-      style={{ background: "#fff", border: `1px solid color-mix(in oklab, ${color} 28%, transparent)` }}
-    >
-      {fila("001", "límite superior")}
-      <div className="my-2 flex items-center gap-3">
-        <span className="flex-none" style={{ width: 46, height: 26, background: `color-mix(in oklab, ${color} 14%, transparent)`, borderTop: `2px solid ${color}`, borderBottom: `2px solid ${color}` }} />
-        <span className="text-[12.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
-          área afectada
-        </span>
-      </div>
-      {fila("000", "límite inferior, la superficie")}
-    </div>
-  )
-}
-
-/** Latitud, longitud y radio, con el círculo que dibujan. */
-function Area({ color }: { color: string }) {
-  return (
-    <div className="mt-3.5 flex flex-wrap items-center gap-4">
-      <div className="flex flex-wrap gap-2">
-        {[
-          ["0202S", "latitud"],
-          ["07956W", "longitud"],
-          ["001", "radio, en NM"],
-        ].map(([v, r]) => (
-          <div
-            key={v}
-            className="rounded-lg px-3 py-2"
-            style={{ background: "#fff", border: `1px solid color-mix(in oklab, ${color} 30%, transparent)` }}
-          >
-            <div className="mono text-[14px] font-semibold" style={{ color }}>
-              {v}
-            </div>
-            <div
-              className="mono mt-0.5 text-[10.5px] font-semibold uppercase"
-              style={{ letterSpacing: ".09em", color: "var(--doc-muted)" }}
-            >
-              {r}
-            </div>
-          </div>
-        ))}
-      </div>
-      <svg width="92" height="92" viewBox="0 0 92 92" aria-hidden className="flex-none">
-        <circle cx="46" cy="46" r="34" fill={`color-mix(in oklab, ${color} 10%, transparent)`} stroke={color} strokeWidth="1.5" strokeDasharray="4 3" />
-        <line x1="46" y1="46" x2="80" y2="46" stroke={color} strokeWidth="1.5" />
-        <circle cx="46" cy="46" r="4" fill={color} />
-        <text x="60" y="40" fontSize="10" fill={color} fontWeight="600">1 NM</text>
-      </svg>
     </div>
   )
 }
