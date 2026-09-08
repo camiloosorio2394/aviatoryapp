@@ -1020,7 +1020,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 5,
     title: "La línea Q, pieza por pieza",
     kicker: "Los siete componentes del calificativo",
-    minutes: 3,
+    minutes: 4,
     level: "intermedio",
     blocks: [
       // La sección ES el desglose. Antes eran dos párrafos de introducción, un
