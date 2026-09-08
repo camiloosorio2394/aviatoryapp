@@ -576,7 +576,10 @@ interface Casilla {
   clave: string
   codigo: string
   rotulo: string
-  explicacion: string
+  /** La lectura de la casilla, en negrita: es lo que hay que retener. */
+  titulo: string
+  /** Lo que hace falta saber además del titular. Opcional a propósito. */
+  detalle?: string
 }
 
 /**
@@ -591,41 +594,60 @@ const NOTAM_DEMO: { cabecera: string; casillas: Casilla[]; aviso: string } = {
       clave: "Q",
       codigo: "Q) SKED/QMRLC/IV/NBO/A/000/999/0442N07409W005",
       rotulo: "Q) calificador: QMRLC, pista cerrada",
-      explicacion: "Calificador: FIR, clave QMRLC = pista cerrada, tráfico IFR/VFR, alcance aeródromo.",
+      titulo: "Información codificada",
+      detalle:
+        "Esta línea resume el tipo de información del NOTAM. En este caso, QMRLC indica que se trata del cierre de una pista y especifica el tipo de tráfico y el área a la que aplica. En las siguientes secciones desglosaremos la línea Q letra por letra para entender qué información contiene.",
     },
     {
       clave: "A",
       codigo: "A) SKBO",
       rotulo: "A) aeródromo: SKBO",
-      explicacion: "Aeródromo afectado: SKBO, El Dorado.",
+      titulo: "Aeródromo afectado: SKBO, Bogotá/El Dorado.",
     },
     {
       clave: "B",
       codigo: "B) 2608010600",
       rotulo: "B) inicio de vigencia",
-      explicacion: "Inicio de vigencia: 01 AGO 2026, 06:00 UTC.",
+      titulo: "Inicio de vigencia: 01 AGO 2026, 06:00 UTC.",
+      detalle: "Es el momento a partir del cual la información del NOTAM entra en vigor.",
     },
     {
       clave: "C",
       codigo: "C) 2608012359",
       rotulo: "C) fin de vigencia",
-      explicacion: "Fin de vigencia: mismo día, 23:59 UTC.",
+      titulo: "Fin de vigencia: 01 AGO 2026, 23:59 UTC.",
+      detalle: "Hasta esta fecha y hora está prevista la condición indicada en el NOTAM.",
     },
     {
       clave: "E",
       codigo: "E) RWY 13L/31R CLSD DUE WIP",
       rotulo: "E) texto llano de la condición",
-      explicacion: "Texto llano: pista 13L/31R cerrada por trabajos en curso (WIP).",
+      titulo: "Información: RWY 13L/31R CLSD DUE WIP",
+      detalle:
+        "La pista 13L/31R está cerrada debido a trabajos en curso (WIP, Work In Progress).",
     },
     {
       clave: "F",
       codigo: "F) SFC  G) UNL",
       rotulo: "F/G) límites verticales",
-      explicacion: "Límites verticales: desde superficie hasta ilimitado.",
+      titulo: "Límites verticales: desde la superficie (SFC) hasta ilimitado (UNL).",
+      detalle: "Indica el límite vertical de la información publicada.",
     },
   ],
   aviso:
-    "Un cierre de pista es NOTAM de precaución operativa: obliga a recalcular performance y alternos antes de despachar.",
+    "Las horas de los NOTAM se expresan en UTC. Antes de utilizar la información, verifica siempre que el período de vigencia coincida con tu operación.",
+}
+
+/** La lectura de una casilla: el titular en negrita y el detalle debajo. */
+function LecturaCasilla({ casilla, tono }: { casilla: Casilla; tono?: string }) {
+  return (
+    <>
+      <span className="font-semibold" style={tono ? { color: tono } : undefined}>
+        {casilla.titulo}
+      </span>
+      {casilla.detalle && <span> {casilla.detalle}</span>}
+    </>
+  )
 }
 
 const LINEAS_CODIGO: string[][] = [["Q"], ["A", "B", "C"], ["E"], ["F"]]
@@ -650,13 +672,17 @@ function Decodificador() {
       </div>
 
       {/* Escritorio: dos paneles con resaltado cruzado bidireccional */}
+      {/* El aviso arriba y las lecturas debajo, no en dos columnas: en una
+          columna de 720px el panel de la derecha queda tan angosto que la
+          lectura de la casilla Q ocupa once lineas y deja la mitad del bloque
+          en negro vacio. El resaltado cruzado se conserva. */}
       <div
-        className="mt-4 hidden lg:grid grid-cols-[1.05fr_1fr] overflow-hidden rounded-[8px] border"
+        className="mt-4 hidden lg:flex lg:flex-col overflow-hidden rounded-[8px] border"
         style={{ borderColor: "var(--ln-hair-strong)" }}
         onMouseLeave={() => setActiva(null)}
       >
         <div
-          className="mono flex flex-col justify-center px-[26px] py-6 text-[13.5px]"
+          className="mono flex flex-col px-[26px] py-6 text-[13.5px]"
           style={{ background: "var(--ln-navy)", lineHeight: 2.1 }}
         >
           <div style={{ color: "var(--ln-navy-dim)" }}>{NOTAM_DEMO.cabecera}</div>
@@ -692,7 +718,7 @@ function Decodificador() {
           ))}
         </div>
 
-        <div style={{ background: "var(--ln-paper)", borderLeft: "1px solid var(--ln-hair-strong)" }}>
+        <div style={{ background: "var(--ln-paper)", borderTop: "1px solid var(--ln-hair-strong)" }}>
           {NOTAM_DEMO.casillas.map((c, i) => {
             const on = activa === c.clave
             return (
@@ -711,7 +737,7 @@ function Decodificador() {
                   {c.clave === "F" ? "F/G)" : `${c.clave})`}
                 </span>
                 <span className="text-[14px] leading-[1.5]" style={{ color: "var(--ln-body)" }}>
-                  {c.explicacion}
+                  <LecturaCasilla casilla={c} tono="var(--ln-ink)" />
                 </span>
               </div>
             )
@@ -754,7 +780,7 @@ function Decodificador() {
                 className="mt-1 text-[14px] leading-[1.5]"
                 style={{ color: precaucion ? "var(--ln-caution-ink)" : "var(--ln-body)" }}
               >
-                {c.explicacion}
+                <LecturaCasilla casilla={c} />
               </div>
             </div>
           )

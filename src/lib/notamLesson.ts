@@ -23,6 +23,8 @@
  */
 
 import type { NotamLevel } from "@/lib/notam"
+import type { DocScreen } from "@/lib/docBlocks"
+
 
 /** Una pieza del desglose visual: el trozo de código y qué significa. */
 export interface BreakdownPart {
@@ -48,8 +50,25 @@ export type LessonBlock =
   | { kind: "definicion"; text: string }
   /** Viñetas con cuadrado de 7px. Máximo 5 ítems, dice el handoff. */
   | { kind: "vinetas"; items: string[] }
-  /** Rejilla de entradas con hueco de icono 52×52 + título + descripción. */
-  | { kind: "rejilla"; items: { titulo: string; desc: string }[]; nota?: string }
+  /**
+   * Rejilla de entradas: icono + título + descripción.
+   *
+   * `icono` es la URL que devuelve el import del PNG. Sin él queda el hueco
+   * rotulado, que es el recordatorio de que falta la ilustración.
+   */
+  | {
+      kind: "rejilla"
+      items: { titulo: string; desc: string; icono?: string }[]
+      nota?: string
+    }
+  /**
+   * Título de sección grande, por encima del `sub`.
+   *
+   * Existe para el corte de tema dentro de una lección larga: el `sub` marca
+   * apartados y este marca partes. Dos escalones bastan; un tercero ya no se
+   * distingue al leer.
+   */
+  | { kind: "titulo"; text: string }
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
   /** El elemento interactivo de la lección; lo renderiza el reproductor. */
@@ -163,7 +182,7 @@ export interface LessonScreen {
   level: NotamLevel
 }
 
-export const LESSON_SCREENS: LessonScreen[] = [
+export const LESSON_SCREENS: DocScreen[] = [
   // ── 1 ──────────────────────────────────────────────────────────────────────
   {
     n: 1,
@@ -217,50 +236,71 @@ export const LESSON_SCREENS: LessonScreen[] = [
           {
             titulo: "Pistas y calles de rodaje",
             desc: "Cierres, limitaciones, condiciones de superficie o cambios temporales.",
+            icono: "/modulos/notam/avisan-01-pistas.webp",
           },
           {
             titulo: "Ayudas a la navegación",
             desc: "Fuera de servicio, con limitaciones o con cambios en la cobertura.",
+            icono: "/modulos/notam/avisan-02-ayudas.webp",
           },
           {
             titulo: "Obstáculos y construcciones",
             desc: "Obstáculos nuevos, grúas, antenas o trabajos cerca de áreas de vuelo.",
+            icono: "/modulos/notam/avisan-03-obstaculos.webp",
           },
           {
             titulo: "Espacio aéreo restringido",
             desc: "Áreas peligrosas, militares o restringidas de uso temporal.",
+            icono: "/modulos/notam/avisan-04-espacio.webp",
           },
           {
             titulo: "Condiciones especiales",
             desc: "Eventos, actividades o situaciones que pueden afectar las operaciones.",
+            icono: "/modulos/notam/avisan-05-condiciones.webp",
           },
           {
             titulo: "Otra información importante",
             desc: "Cambios en servicios, procedimientos o instalaciones del aeropuerto.",
+            icono: "/modulos/notam/avisan-06-otra.webp",
           },
         ],
-        nota: "Seis huecos de icono de 52×52. Sirven los mismos iconos azules de la infografía.",
       },
       { kind: "interactivo", nombre: "notam-decodificador" },
-      // ── Paso 3: quién los emite ──────────────────────────────────────────
-      { kind: "sub", text: "Quién los emite" },
+      // ── Paso 3: quién publica la información ─────────────────────────────
+      { kind: "sub", text: "¿Quién publica esta información?" },
       {
         kind: "p",
-        text: "La autoridad aeronáutica de cada país, a través de su servicio de Información Aeronáutica (AIS). En Colombia los publica la Aerocivil, y son los que verás en los resúmenes de NOTAM de esta app.",
+        text: "Los NOTAM se publican a través del Servicio de Información Aeronáutica (AIS) de cada Estado. Este servicio recibe, procesa y distribuye información que puede afectar la operación de las aeronaves.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/estado-ais-piloto.webp",
+        alt: "Cadena de la información aeronáutica: el Estado, en Colombia la Aerocivil, establece y regula el sistema; el AIS recibe, procesa y distribuye la información; el NOTAM es el aviso con la información temporal; y el piloto la consulta, la interpreta y la usa al planificar y volar.",
+        ancho: 1400,
+        alto: 467,
+        pie: "Del Estado al piloto: cada eslabón recibe la información del anterior y la deja lista para el siguiente.",
+      },
+      {
+        kind: "p",
+        text: "En Colombia, encontrarás los NOTAM publicados a través de los servicios de información aeronáutica de la Aeronáutica Civil.",
+      },
+      {
+        kind: "p",
+        text: "Esto también explica por qué, cuando vuelas a otro país, debes consultar la fuente de información aeronáutica correspondiente a ese Estado.",
       },
       {
         kind: "callout",
-        tone: "warn",
-        title: "Recuerda",
-        text: "Revísalos antes de cada vuelo y otra vez justo antes de la salida: la información puede cambiar en cualquier momento.",
+        tone: "info",
+        title: "Nota",
+        text: "Existen diferentes aplicaciones y servicios de suscripción que permiten consultar y organizar los NOTAM de aeropuertos de salida, destino, ruta y alternos. Algunas de las más utilizadas son ForeFlight, Garmin Pilot, Jeppesen FliteDeck y RocketRoute. Estas herramientas facilitan la planificación, pero la consulta debe realizarse con información aeronáutica vigente y de fuentes autorizadas.",
       },
       {
-        kind: "hueco",
-        rotulo: "IMAGEN 02 · 560×420",
-        descripcion: "Diagrama de la pista 13L/31R con el tramo cerrado en ámbar. Trazo simple, sin fotografía.",
-        alto: 240,
-        anchoMax: 560,
-        pie: "El cierre de la casilla E, sobre el trazado del aeródromo.",
+        kind: "figura",
+        src: "/modulos/notam/skbo-pista-cerrada.webp",
+        alt: "Plano del aeropuerto El Dorado, SKBO. La pista 13L/31R aparece marcada en ámbar como tramo cerrado y la pista 13R/31L en oscuro como operativa, con las calles de rodaje, las plataformas y la terminal alrededor.",
+        ancho: 1400,
+        alto: 1050,
+        pie: "El cierre de la casilla E, sobre el trazado del aeródromo: 13L/31R cerrada, 13R/31L operativa.",
       },
       {
         kind: "glosario",
@@ -274,29 +314,44 @@ export const LESSON_SCREENS: LessonScreen[] = [
           { k: "AGL", v: "Sobre el nivel del terreno" },
         ],
       },
-      // ── Paso 4: la definición oficial, conservada de la versión anterior ─
-      { kind: "sub", text: "La definición oficial" },
+      // ── Paso 4: por qué esto pesa en el ingreso a una aerolínea ──────────
       {
-        kind: "quote",
-        text: "Aviso distribuido por medios de telecomunicaciones que contiene información relativa al establecimiento, condición o modificación de cualquier instalación aeronáutica, servicio, procedimiento o peligro, cuyo conocimiento oportuno es esencial para el personal encargado de las operaciones de vuelo.",
-        source: "OACI, Doc 8400 (PANS-ABC), 6ª ed., pág. 3-3",
+        kind: "titulo",
+        text: "¿Por qué debes saber leer un NOTAM para ingresar a una aerolínea?",
       },
       {
         kind: "p",
-        text: "**En la práctica:** pistas cerradas, radioayudas fuera de servicio, obras en el área de movimiento, drones (UAS), fauna en pista, obstáculos nuevos, cambios de horario o de procedimientos. Si algo cambia y afecta tu vuelo antes de que lo publique el AIP, se difunde por NOTAM.",
+        text: "En una entrevista o evaluación de ingreso a una aerolínea pueden pedirte que interpretes un NOTAM. No buscan únicamente que conozcas las abreviaturas; quieren comprobar que puedes identificar qué está pasando, cuándo aplica y cómo puede afectar una operación.",
+      },
+      { kind: "p", text: "Por ejemplo, si encuentras:" },
+      { kind: "code", text: "E) RWY 13L/31R CLSD DUE WIP" },
+      {
+        kind: "p",
+        text: "No basta con decir “la pista está cerrada”. Como piloto debes identificar:",
+      },
+      {
+        kind: "vinetas",
+        items: [
+          "**Qué está afectado:** RWY 13L/31R.",
+          "**Qué sucede:** está cerrada.",
+          "**Por qué:** trabajos en curso.",
+          "**Cuándo aplica:** revisar B) y C).",
+          "**A qué espacio vertical aplica:** revisar F) y G).",
+          "**Qué impacto tiene en tu vuelo:** determinar qué pista queda disponible y qué cambios, si alguno, debes considerar en tu planificación.",
+        ],
       },
       {
         kind: "p",
-        text: "**Por qué te lo preguntan en entrevistas y en el PCA:** leer NOTAM es parte del planeamiento de vuelo. Un piloto que no decodifica la línea Q depende de que otro le explique lo que va a encontrar en ruta o en destino.",
+        text: "En una entrevista no te evalúan por memorizar un NOTAM. Te evalúan por saber interpretarlo y tomar la información que necesitas para operar.",
       },
       {
         kind: "check",
         question:
           "Una pista se va a cerrar por obras dentro de tres días. ¿Por dónde te enteras?",
         options: [
-          "Por NOTAM: es información temporal y urgente que aún no está en el AIP",
-          "Por el AIP: es la publicación oficial del Estado",
-          "Por la carta de aproximación, que se reedita cada 28 días",
+          "Por NOTAM: informa cambios o condiciones temporales que deben conocerse para la operación",
+          "Por el AIP: es la publicación permanente de información aeronáutica del Estado",
+          "Por la carta de aproximación, que se actualiza mediante ciclos de publicación",
         ],
         answer: 0,
         explain:
@@ -306,7 +361,7 @@ export const LESSON_SCREENS: LessonScreen[] = [
         kind: "callout",
         tone: "tip",
         title: "Cómo aprovechar la lección",
-        text: "Va en orden: cada lección usa lo de la anterior, y avanzas con el botón de abajo o con las flechas del teclado. Trae comprobaciones intercaladas para que uses lo que acabas de leer, y al terminar tienes la práctica con NOTAM colombianos reales y una evaluación de 20 preguntas.",
+        text: "Avanza en orden: cada sección prepara la siguiente. Encontrarás comprobaciones durante la lección para aplicar lo que acabas de aprender. Al final tendrás una práctica con NOTAM colombianos reales y una evaluación de 20 preguntas.",
       },
     ],
   },

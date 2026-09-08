@@ -956,6 +956,14 @@
   hyphens: none;
 }
 
+/* Lo que va en retícula de varias columnas NO se justifica: en una columna de
+   230px la justificación abre huecos entre palabras y parte casi cada línea.
+   Justificar solo sirve cuando la línea es larga. */
+.lector-notam .doc-prose .grid :where(p, li, dd) {
+  text-align: left;
+  hyphens: manual;
+}
+
 /* La pastilla deslizante del sidebar: UN indicador que viaja entre lecciones,
    no trece filas recoloreándose. Anima transform Y ALTURA, porque una fila de
    dos líneas mide 54px y una de una línea 36. El movimiento debe leerse como

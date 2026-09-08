@@ -116,6 +116,16 @@ export function DocBlock({ block }: { block: DocBlockData }) {
        Estilos fijos: ninguna lección los redefine. La clase ln-display existe
        solo dentro del lector NOTAM; fuera de él cae a la sans del documento. */
 
+    case "titulo":
+      return (
+        <h2
+          className="ln-display m-0 mt-3 text-[28px] lg:text-[36px] font-semibold"
+          style={{ lineHeight: 1.12, letterSpacing: "-0.012em", color: "var(--doc-fg)" }}
+        >
+          {block.text}
+        </h2>
+      )
+
     case "sub":
       return (
         <h2
@@ -163,15 +173,28 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {block.items.map((it, i) => (
               <div key={i} className="flex flex-col gap-2.5">
-                {/* Hueco de icono 52×52, visible a propósito: recuerda qué
-                    icono falta. Sirven los de la infografía original. */}
-                <span
-                  className="mono flex h-[52px] w-[52px] items-center justify-center rounded-[6px] border doc-soft doc-rule text-[10px] font-semibold tracking-[0.08em]"
-                  style={{ color: "var(--ln-placeholder, var(--doc-muted))" }}
-                  aria-hidden
-                >
-                  ICO
-                </span>
+                {/* El icono de la entrada. Cuando falta queda el hueco
+                    rotulado, que recuerda cuál hay que dibujar. */}
+                {it.icono ? (
+                  <img
+                    src={it.icono}
+                    alt=""
+                    aria-hidden
+                    width={64}
+                    height={64}
+                    loading="lazy"
+                    decoding="async"
+                    className="block h-[64px] w-[64px] object-contain"
+                  />
+                ) : (
+                  <span
+                    className="mono flex h-[52px] w-[52px] items-center justify-center rounded-[6px] border doc-soft doc-rule text-[10px] font-semibold tracking-[0.08em]"
+                    style={{ color: "var(--ln-placeholder, var(--doc-muted))" }}
+                    aria-hidden
+                  >
+                    ICO
+                  </span>
+                )}
                 <div className="ln-display text-[20px] lg:text-[22px] font-semibold" style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}>
                   {it.titulo}
                 </div>
@@ -557,7 +580,7 @@ function Figura({
   pie?: string
 }) {
   return (
-    <figure className="m-0 w-full max-w-[64ch] mx-auto">
+    <figure className="m-0 w-full">
       <img
         src={src}
         alt={alt}
