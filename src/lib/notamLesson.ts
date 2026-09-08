@@ -1112,6 +1112,12 @@ export const LESSON_SCREENS: DocScreen[] = [
         alto: 1199,
       },
       {
+        kind: "callout",
+        tone: "tip",
+        title: "Para el piloto",
+        text: "Reconocer el código FIR permite identificar rápidamente la región de espacio aéreo asociada al NOTAM. Sin embargo, este dato por sí solo no determina si el NOTAM afecta tu vuelo; debes continuar con la interpretación del resto de la línea Q y del NOTAM.",
+      },
+      {
         kind: "check",
         question:
           "Vuelas IFR a un aeródromo. En el paquete hay un NOTAM con `.../V/BO/W/...` en otra FIR. ¿Te aplica?",
