@@ -502,12 +502,12 @@ export const LESSON_SCREENS: DocScreen[] = [
           {
             codigo: "Anexo 15",
             nombre: "Servicios de información aeronáutica",
-            detalle: "Fija el contenido y el formato de los NOTAM, y cómo se publican (§5.2.1, §5.3.2 y Apéndice 6).",
+            detalle: "Fija el contenido y el formato de los NOTAM, y cómo se publican (numerales 5.2.1 y 5.3.2, y Apéndice 6).",
           },
           {
             codigo: "Anexo 10 · Vol. II",
             nombre: "Procedimientos de comunicaciones",
-            detalle: "Fija su transmisión por el servicio fijo aeronáutico, el AFS (Doc 8400, pág. 7-1, §2).",
+            detalle: "Fija su transmisión por el servicio fijo aeronáutico, el AFS (Doc 8400, pág. 7-1, numeral 2).",
           },
           {
             codigo: "Doc 8126",
@@ -520,10 +520,6 @@ export const LESSON_SCREENS: DocScreen[] = [
             detalle: "Normaliza el código NOTAM de cinco letras, en su sección 7. Lo tienes completo en el Decodificador de esta sección.",
           },
         ],
-      },
-      {
-        kind: "p",
-        text: "El Doc 8400 que citamos es la 6ª edición (2004): existen ediciones posteriores, así que confirma siempre contra la edición vigente.",
       },
     ],
   },
