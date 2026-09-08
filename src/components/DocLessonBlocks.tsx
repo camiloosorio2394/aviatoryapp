@@ -453,6 +453,32 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "cadena":
       return <Cadena items={block.items} />
 
+    case "componente": {
+      const color = block.color ?? ACENTO
+      return (
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b doc-rule pb-3">
+          <span
+            className="mono grid h-7 w-7 flex-none place-items-center rounded-full text-[13px] font-semibold text-white"
+            style={{ background: color }}
+          >
+            {block.n}
+          </span>
+          <span className="mono text-[20px] font-semibold" style={{ color }}>
+            {block.token}
+          </span>
+          <span
+            className="ln-display text-[20px] font-semibold lg:text-[24px]"
+            style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}
+          >
+            {block.nombre}
+          </span>
+          {block.detalle && (
+            <span className="text-[14px] doc-muted">{block.detalle}</span>
+          )}
+        </div>
+      )
+    }
+
     case "encabezados":
       return <Encabezados items={block.items} pista={block.pista} />
 
