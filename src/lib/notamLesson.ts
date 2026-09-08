@@ -24,6 +24,7 @@
 
 import type { NotamLevel } from "@/lib/notam"
 import type { DocScreen } from "@/lib/docBlocks"
+import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 
 
 /** Los iconos que puede llevar una ficha del bloque `tarjetas`. */
@@ -147,6 +148,15 @@ export type LessonBlock =
     }
   /** Puente visual entre dos ejemplos: el país cambia, el método no. */
   | { kind: "transicion"; de: string; a: string; nota?: string }
+  /**
+   * El mapa completo de una línea antes de entrar pieza por pieza: los
+   * tokens en fila, cada uno con una sola palabra debajo, y flechas entre
+   * ellos. Va en su propio carril horizontal, como la línea Q de la
+   * infografía, para que siempre se lea de una vez y en móvil se desplace en
+   * vez de partirse. `color` repite el de la pieza en la infografía: es lo que
+   * hace que el alumno reconozca el mismo token en los dos sitios.
+   */
+  | { kind: "cadena"; items: { token: string; rotulo: string; color?: string }[] }
   /**
    * Encabezados de NOTAM que se abren para enseñar de qué está hecho cada uno.
    *
@@ -1027,6 +1037,28 @@ export const LESSON_SCREENS: DocScreen[] = [
       // bloque breakdown y un consejo suelto al final: 181 palabras de prosa
       // para presentar algo que se explica solo si lo puedes tocar.
       { kind: "infografia", nombre: "notam-linea-q" },
+      // ── El mapa completo, antes de entrar pieza por pieza ───────────────
+      { kind: "sub", text: "Primero vemos el mapa completo" },
+      {
+        kind: "p",
+        text: "La línea Q no se interpreta de una sola vez. Está formada por siete componentes y cada uno responde una pregunta diferente sobre el NOTAM.",
+      },
+      {
+        kind: "cadena",
+        items: [
+          { token: "SEFG", rotulo: "FIR", color: LINEA_Q_COLOR.fir },
+          { token: "QRALW", rotulo: "Código", color: LINEA_Q_COLOR.codigo },
+          { token: "IV", rotulo: "Tránsito", color: LINEA_Q_COLOR.transito },
+          { token: "NBO", rotulo: "Propósito", color: LINEA_Q_COLOR.objetivo },
+          { token: "AW", rotulo: "Alcance", color: LINEA_Q_COLOR.alcance },
+          { token: "000/001", rotulo: "Alturas", color: LINEA_Q_COLOR.limites },
+          { token: "0202S07956W001", rotulo: "Área", color: LINEA_Q_COLOR.area },
+        ],
+      },
+      {
+        kind: "p",
+        text: "Ahora vamos a tomar cada componente por separado y entender qué información aporta y cómo la utiliza un piloto.",
+      },
       {
         kind: "check",
         question:

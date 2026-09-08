@@ -450,6 +450,9 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "transicion":
       return <Transicion de={block.de} a={block.a} nota={block.nota} />
 
+    case "cadena":
+      return <Cadena items={block.items} />
+
     case "encabezados":
       return <Encabezados items={block.items} pista={block.pista} />
 
@@ -1194,6 +1197,64 @@ function Transicion({ de, a, nota }: { de: string; a: string; nota?: string }) {
         <p className="m-0 mt-4 text-center text-[15px] leading-[1.6]">{renderInline(nota)}</p>
       )}
     </section>
+  )
+}
+
+interface CadenaItem {
+  token: string
+  rotulo: string
+  color?: string
+}
+
+/**
+ * El mapa completo de una línea: tokens en fila con una palabra debajo.
+ *
+ * Va en su propio carril horizontal, igual que la línea Q de la infografía,
+ * para que siempre se lea de una sola vez; en móvil se desplaza en vez de
+ * partirse en dos filas con una flecha colgando. Cada token lleva el color de
+ * su pieza, que es lo que hace que el alumno lo reconozca como el mismo.
+ */
+function Cadena({ items }: { items: CadenaItem[] }) {
+  return (
+    <div className="overflow-x-auto rounded-lg border doc-rule doc-soft px-4 py-5 sm:px-5">
+      {/* Medidas apretadas a proposito: siete tokens con sus flechas tienen
+          que caber enteros en los 716 px de la columna, que es el sentido de
+          un mapa completo. En movil el carril se desplaza. */}
+      <div className="flex min-w-max items-start justify-center gap-1.5">
+        {items.map((it, i) => {
+          const color = it.color ?? ACENTO
+          return (
+            <div key={i} className="flex items-start gap-1.5">
+              {i > 0 && (
+                <ChevronRight
+                  className="mt-2 h-3.5 w-3.5 shrink-0"
+                  style={{ color: docAccent(ACENTO, 35) }}
+                  aria-hidden
+                />
+              )}
+              <div className="flex flex-col items-center gap-1.5">
+                <span
+                  className="mono rounded-md px-2 py-1 text-[13px] font-semibold"
+                  style={{
+                    color,
+                    background: "var(--doc-bg)",
+                    border: `1.5px solid ${color}`,
+                  }}
+                >
+                  {it.token}
+                </span>
+                <span
+                  className="mono text-[10.5px] font-semibold uppercase tracking-[0.08em]"
+                  style={{ color: docAccent(color, 70) }}
+                >
+                  {it.rotulo}
+                </span>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { LINEA_Q_COLOR as COLOR } from "@/lib/lineaQ"
 
 /**
  * Sección 5 de la lección de NOTAM: la línea Q, pieza por pieza.
@@ -23,23 +24,10 @@ import { useState } from "react"
  * El ejemplo es el del curso (pág. 22), no uno inventado.
  */
 
-/**
- * La paleta: navy, azul aeronáutico, violeta sobrio, ámbar, cyan, verde
- * azulado y pizarra. Ningún color al máximo de saturación y ningún rojo: en
- * esta app el rojo queda reservado para lo que restringe o alerta, y aquí
- * ninguno de los siete campos lo hace por sí mismo. El color es la llave que
- * ata cada token de la línea con su ficha, así que se repite sin excepción en
- * el token, en el filete y en el número.
- */
-const COLOR = {
-  fir: "#1E3A5F",
-  codigo: "#2E6FB7",
-  transito: "#6B5AA6",
-  objetivo: "#A8762A",
-  alcance: "#227D93",
-  limites: "#3D7A63",
-  area: "#5A6B80",
-} as const
+// La paleta vive en src/lib/lineaQ.ts, compartida con el mapa que la lección
+// pinta después de esta pieza. El color es la llave que ata cada token de la
+// línea con su ficha, así que se repite sin excepción en el token, en el
+// filete y en el número.
 
 interface Campo {
   n: number
