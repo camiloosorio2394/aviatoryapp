@@ -194,6 +194,8 @@ export type LessonBlock =
       kind: "codigos"
       titulo: string
       sub?: string
+      /** De dónde salen los códigos. Va en pequeño, a la derecha del título. */
+      fuente?: string
       items: { k: string; v: string }[]
       color?: string
     }
@@ -1165,6 +1167,7 @@ export const LESSON_SCREENS: DocScreen[] = [
         kind: "codigos",
         titulo: "Códigos de asunto",
         sub: "Segunda y tercera letra: de qué trata el aviso",
+        fuente: "OACI, Doc 8400 (PANS-ABC), sección 7",
         color: LINEA_Q_COLOR.codigo,
         items: [
           { k: "FA", v: "Aeródromo" },
@@ -1189,6 +1192,7 @@ export const LESSON_SCREENS: DocScreen[] = [
         kind: "codigos",
         titulo: "Códigos de condición",
         sub: "Cuarta y quinta letra: en qué estado está",
+        fuente: "OACI, Doc 8400 (PANS-ABC), sección 7",
         color: LINEA_Q_COLOR.codigo,
         items: [
           { k: "AS", v: "No utilizable (U/S)" },
@@ -1216,7 +1220,7 @@ export const LESSON_SCREENS: DocScreen[] = [
         rows: [
           ["`QMRLC`", "Q · MR · LC", "Pista cerrada"],
           ["`QRALW`", "Q · RA · LW", "Reserva de espacio aéreo que se realizará"],
-          ["`QLPAS`", "Q · LP · AS", "PAPI no utilizable"],
+          ["`QLPAS`", "Q · LP · AS", "Luces PAPI no utilizables"],
           ["`QNVAS`", "Q · NV · AS", "VOR no utilizable"],
           ["`QMXLC`", "Q · MX · LC", "Calle de rodaje cerrada"],
           ["`QRDCA`", "Q · RD · CA", "Zona peligrosa en actividad"],
@@ -1226,7 +1230,7 @@ export const LESSON_SCREENS: DocScreen[] = [
         kind: "callout",
         tone: "tip",
         title: "Para el piloto",
-        text: "El código NOTAM te da una idea inicial de qué trata la información, pero siempre debes leer el resto de la línea Q y el texto completo del NOTAM para entender su alcance, ubicación y período de validez.",
+        text: "El código NOTAM te da una idea inicial de qué trata la información, pero siempre debes leer el resto de la línea Q y el texto completo del NOTAM para entender su alcance, ubicación y período de validez. No necesitas saberte todos los códigos de memoria: lo que sí necesitas es saber dónde buscarlos y cómo se construyen. Con la regla **Q + asunto + condición** puedes descifrar cualquiera que encuentres.",
       },
       {
         kind: "check",

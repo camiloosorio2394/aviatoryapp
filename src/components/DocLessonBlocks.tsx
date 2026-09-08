@@ -458,13 +458,22 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       return (
         <section className="overflow-hidden rounded-lg border doc-rule">
           <div
-            className="border-b doc-rule px-4 py-2.5 sm:px-5"
+            className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1 border-b doc-rule px-4 py-2.5 sm:px-5"
             style={{ background: docTint(color, 8) }}
           >
-            <div className="ln-display text-[15.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
-              {block.titulo}
+            <div>
+              <div className="ln-display text-[15.5px] font-semibold" style={{ color: "var(--doc-fg)" }}>
+                {block.titulo}
+              </div>
+              {block.sub && <div className="mt-0.5 text-[12.5px] doc-muted">{block.sub}</div>}
             </div>
-            {block.sub && <div className="mt-0.5 text-[12.5px] doc-muted">{block.sub}</div>}
+            {block.fuente && (
+              <div
+                className="mono pt-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em] doc-muted"
+              >
+                Fuente: {block.fuente}
+              </div>
+            )}
           </div>
           <ul
             className="m-0 grid list-none gap-x-6 px-4 py-2 sm:grid-cols-2 sm:px-5"
