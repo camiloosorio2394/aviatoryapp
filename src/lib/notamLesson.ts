@@ -29,6 +29,16 @@ import type { DocScreen } from "@/lib/docBlocks"
 /** Los iconos que puede llevar una ficha del bloque `tarjetas`. */
 export type TarjetaIcono = "documento" | "movil" | "avion"
 
+/** Los iconos de los pasos de lectura de un NOTAM, uno por función. */
+export type PasoIcono =
+  | "documento"
+  | "codigo"
+  | "ubicacion"
+  | "reloj"
+  | "calendario"
+  | "alerta"
+  | "vertical"
+
 /** Una pieza del desglose visual: el trozo de código y qué significa. */
 export interface BreakdownPart {
   /** El trozo tal cual aparece en el mensaje: `SKBO`, `18008KT`, `QRALW`. */
@@ -74,6 +84,69 @@ export type LessonBlock =
   | { kind: "titulo"; text: string }
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
+  /**
+   * El NOTAM entero, presentado como se lee.
+   *
+   * Cada línea puede llevar un marcador al margen con la pregunta que responde
+   * (¿dónde?, ¿desde cuándo?, ¿qué está pasando?), que es lo que convierte un
+   * bloque de código en algo que se recorre. Una línea con `detalle` se puede
+   * pulsar y abre su lectura debajo; sin `detalle` es solo texto.
+   *
+   * `fuerte` marca la casilla que carga el peso operacional, normalmente la E):
+   * es donde el piloto averigua qué está pasando y merece más presencia.
+   */
+  | {
+      kind: "notamPanel"
+      rotulo?: string
+      etiqueta?: string
+      pie?: string
+      lineas: {
+        texto: string
+        marca?: string
+        detalle?: { titulo: string; texto: string }
+        fuerte?: boolean
+      }[]
+    }
+  /**
+   * Los pasos de lectura de un NOTAM, numerados.
+   *
+   * Cada paso enseña primero el código real y debajo qué dice. `interpretacion`
+   * lo esconde tras un botón donde conviene que el alumno lo intente antes de
+   * leer la respuesta. `completo` saca al paso de la retícula de dos columnas
+   * cuando su código no cabe en media anchura.
+   */
+  | {
+      kind: "pasos"
+      columnas?: 2
+      items: {
+        rotulo: string
+        codigo?: string
+        texto: string
+        icono?: PasoIcono
+        etiqueta?: string
+        completo?: boolean
+        fuerte?: boolean
+        interpretacion?: { texto: string; enOtrasPalabras?: string }
+      }[]
+    }
+  /**
+   * Una cadena de pasos para recordar, sin nada que pulsar.
+   *
+   * Es una regla mental, no un ejercicio: el alumno la mira y se la lleva. Por
+   * eso no es interactiva. En vertical van las preguntas que se hace al leer;
+   * en horizontal, el recorrido completo resumido en una línea.
+   */
+  | {
+      kind: "secuencia"
+      titulo?: string
+      intro?: string
+      items: string[]
+      numerada?: boolean
+      orientacion?: "vertical" | "horizontal"
+      nota?: string
+    }
+  /** Puente visual entre dos ejemplos: el país cambia, el método no. */
+  | { kind: "transicion"; de: string; a: string; nota?: string }
   /**
    * Encabezados de NOTAM que se abren para enseñar de qué está hecho cada uno.
    *
@@ -692,118 +765,258 @@ export const LESSON_SCREENS: DocScreen[] = [
   // ── 4 ──────────────────────────────────────────────────────────────────────
   {
     n: 4,
-    title: "Estructura: serie, número, año y casillas",
+    title: "Cómo se lee un NOTAM completo",
     kicker: "El esqueleto del mensaje",
-    minutes: 3,
+    minutes: 6,
     level: "basico",
+    // La lección no explica la línea Q letra por letra a propósito: aquí solo
+    // hay que saber qué función cumple cada casilla. Desarmar la Q antes de
+    // eso obliga a sostener dos niveles de detalle a la vez y no se fija
+    // ninguno. La Q entera es la lección siguiente.
     blocks: [
       {
         kind: "p",
-        text: "**El encabezado** (guía de interpretación, pág. 2; curso, pág. 21): cada NOTAM se identifica con **serie + número/año + tipo**.",
+        text: "Antes de interpretar el contenido de un NOTAM, primero debes saber cómo identificarlo. Su encabezado te permite reconocer la serie, el número, el año de emisión y si se trata de un NOTAM nuevo, un reemplazo o una cancelación.",
       },
       {
-        kind: "breakdown",
-        caption:
-          "Cuatro datos en once caracteres. Con el encabezado ya sabes de qué serie es, si es nuevo o reemplaza a otro, y cómo citarlo.",
-        parts: [
+        kind: "figura",
+        src: "/modulos/notam/notam-real-skbo.webp",
+        alt: "Visor de NOTAM con el aviso C5836/16 de SKBO. Arriba, aeródromo SKBO, número C5836/16, clase International y estado Active, con las fechas de emisión, inicio y fin en UTC. Debajo, en la pestaña ICAO, el mensaje completo en formato OACI: C5836/16 NOTAMR C3212/16, la línea Q, A) SKBO, B) 1608110000, C) 1611162359 EST, D) H24 y la casilla E) con la limitación de las posiciones de parqueo E18 a E25.",
+        ancho: 1400,
+        alto: 439,
+      },
+      {
+        kind: "p",
+        text: "Este NOTAM corresponde al aeropuerto El Dorado (**SKBO**) y está presentado en formato OACI. Vamos a desglosarlo paso a paso.",
+      },
+      {
+        kind: "notamPanel",
+        rotulo: "NOTAM real · Bogotá / El Dorado (SKBO)",
+        etiqueta: "Limitación de posiciones de parqueo",
+        lineas: [
+          { texto: "C5836/16 NOTAMR C3212/16", marca: "Identificación" },
+          { texto: "Q) SKED/QMPLT/IV/M/A/000/999/0442N07408W010", marca: "Información codificada" },
+          { texto: "A) SKBO", marca: "¿Dónde?" },
+          { texto: "B) 1608110000", marca: "¿Desde cuándo?" },
+          { texto: "C) 1611162359 EST", marca: "¿Hasta cuándo?" },
+          { texto: "D) H24", marca: "¿Cuándo aplica?" },
           {
-            token: "A",
-            label: "serie",
-            detail: "Una letra que agrupa los NOTAM por tipo de información y por alcance.",
+            texto: "E) PSN PRKG ACFT E18, E19, E20, E21, E22, E23, E24, E25 LTD,\nACFT SALIENDO DEBEN HACERLO REMOLCADAS VIA TWY M1 HASTA EJE\nINGRESO PSN PRKG E17, ACFT DEBEN INICIAR MOTORES UNICAMENTE\nFM PSN PRKG E17",
+            marca: "¿Qué está pasando?",
+            fuerte: true,
           },
-          { token: "0682", label: "número", detail: "Correlativo dentro de la serie." },
-          {
-            token: "/06",
-            label: "año",
-            detail: "El número se reinicia cada año, por eso siempre va con el año.",
-          },
-          { token: "NOTAMN", label: "tipo", detail: "Nuevo, reemplaza o cancela." },
         ],
       },
       {
-        kind: "list",
+        kind: "pasos",
         items: [
-          "Cada Estado define qué publica en cada serie. Colombia usa, entre otras, la serie **A** para información internacional y las series **C** y **D** para información nacional, que son las que ves en el resumen mensual de la Aerocivil.",
-          "Cuando cites un NOTAM, cítalo completo: `C2222/26`, no `2222`. Sin el año, el número se repite.",
+          {
+            rotulo: "Identificación del NOTAM",
+            codigo: "C5836/16 NOTAMR C3212/16",
+            icono: "documento",
+            texto: "**C5836/16** identifica el NOTAM: serie C, número 5836 y año 2016. **NOTAMR** indica que reemplaza a un NOTAM anterior. **C3212/16** identifica el NOTAM que está reemplazando.",
+          },
+          {
+            rotulo: "Q) Información codificada",
+            codigo: "Q) SKED/QMPLT/IV/M/A/000/999/0442N07408W010",
+            icono: "codigo",
+            texto: "Esta línea contiene información codificada que permite identificar rápidamente el tipo de condición, el tráfico al que aplica, el área afectada y otros datos utilizados para distribuir y procesar el NOTAM.",
+            etiqueta: "La desglosamos letra por letra en la lección siguiente",
+          },
+          {
+            rotulo: "A), B) y C) ¿Dónde y cuándo?",
+            codigo: "A) SKBO\nB) 1608110000\nC) 1611162359 EST",
+            icono: "ubicacion",
+            texto: "**A)** indica el aeródromo afectado: SKBO, Bogotá/El Dorado. **B)** indica el inicio de la vigencia. **C)** indica el final previsto de la vigencia.",
+          },
+          {
+            rotulo: "D) ¿Cuándo aplica?",
+            codigo: "D) H24",
+            icono: "calendario",
+            texto: "La condición aplica durante todo el día, es decir, H24.",
+          },
+          {
+            rotulo: "E) ¿Qué está pasando?",
+            codigo: "E) PSN PRKG ACFT E18, E19, E20, E21, E22, E23, E24, E25 LTD,\nACFT SALIENDO DEBEN HACERLO REMOLCADAS VIA TWY M1 HASTA EJE\nINGRESO PSN PRKG E17, ACFT DEBEN INICIAR MOTORES UNICAMENTE\nFM PSN PRKG E17",
+            icono: "alerta",
+            fuerte: true,
+            texto: "Esta es la parte más importante del NOTAM: aquí se explica qué está pasando y qué condición debe tener en cuenta el piloto.",
+            interpretacion: {
+              texto: "Las posiciones de parqueo E18 a E25 tienen una limitación. Las aeronaves que salgan de esas posiciones deben ser remolcadas por la calle de rodaje M1 hasta el eje de la posición E17. Además, las aeronaves deben iniciar motores únicamente desde la posición E17.",
+              enOtrasPalabras: "Si tu aeronave está estacionada en E18 a E25, no puedes iniciar motores allí para salir. Debes ser remolcado hasta E17 y allí iniciar motores.",
+            },
+          },
+          {
+            rotulo: "F) y G) ¿Hasta dónde aplica?",
+            icono: "vertical",
+            texto: "En este NOTAM no aparecen las casillas **F)** y **G)**. Son los límites verticales, y solo se usan cuando hay espacio aéreo de por medio: restricciones, áreas peligrosas o avisos de altura.",
+          },
         ],
       },
       {
-        kind: "notam",
-        id: "N16",
-        caption:
-          "El encabezado y la regla de citar, en un aviso real de El Dorado: **serie A**, **número 1670**, **año /26**. Y al final, `RPLC N A/1582/26`: este reemplaza a otro, y para decir a cuál lo cita completo, con su serie y su año. Así es como se referencian entre ellos.",
+        kind: "secuencia",
+        titulo: "Piensa como piloto",
+        intro: "No basta con traducir las abreviaturas. Al leer la casilla E), debes poder responder:",
+        items: ["¿Qué está pasando?", "¿A qué operación afecta?", "¿Qué debo hacer diferente?"],
       },
+      { kind: "sub", text: "¿Qué acabamos de descubrir?" },
       {
         kind: "p",
-        text: "**Después del encabezado vienen las casillas.** Todas van identificadas por una letra y siempre en este orden (Doc 8400, pág. 7-3; curso, págs. 21 a 31):",
+        text: "Un NOTAM no es un bloque de información que tienes que memorizar. Está organizado en diferentes partes, y cada una responde una pregunta:",
       },
       {
-        kind: "table",
-        head: ["Casilla", "Contenido", "Obligatoria"],
-        rows: [
-          [
-            "**Q)**",
-            "Calificativos: FIR, código NOTAM, tránsito, propósito, alcance, límites, coordenadas y radio",
-            "Sí, salvo en NOTAMC",
-          ],
-          ["**A)**", "Indicador OACI del aeródromo o FIR afectado", "Sí"],
-          ["**B)**", "Inicio de validez, 10 dígitos en UTC", "Sí"],
-          ["**C)**", "Fin de validez", "Sí, excepto en NOTAMC"],
-          ["**D)**", "Horario de actividad dentro del período B) a C)", "Solo si la condición no es continua"],
-          ["**E)**", "Texto en lenguaje claro con abreviaturas OACI", "Sí"],
-          ["**F) G)**", "Límite vertical inferior y superior", "Solo en restricciones y avisos de espacio aéreo"],
+        kind: "secuencia",
+        numerada: true,
+        items: [
+          "¿Cuál NOTAM es?",
+          "¿Qué información contiene?",
+          "¿Dónde aplica?",
+          "¿Cuándo aplica?",
+          "¿Qué está pasando?",
+        ],
+        nota: "En las siguientes lecciones vamos a aprender a interpretar cada una de estas partes.",
+      },
+      { kind: "sub", text: "¿Y cómo se ve un NOTAM fuera de Colombia?" },
+      {
+        kind: "p",
+        text: "Hasta ahora hemos trabajado con un NOTAM de Colombia. Ahora vamos a llevar lo aprendido a un aeropuerto internacional. La lógica de interpretación sigue siendo la misma: identificar qué está pasando, dónde ocurre y cuándo aplica.",
+      },
+      {
+        kind: "transicion",
+        de: "Colombia · SKBO",
+        a: "Chile · SCEL",
+        nota: "Para verlo en la práctica, vamos a analizar un NOTAM real de Santiago de Chile.",
+      },
+      {
+        kind: "notamPanel",
+        rotulo: "NOTAM real · Santiago de Chile (SCEL)",
+        etiqueta: "Cierre temporal de pista",
+        pie: "Ahora vamos a leerlo como piloto. Pulsa D) o E) para ver qué dicen.",
+        lineas: [
+          { texto: "A2526/26 NOTAMN", marca: "Identificación" },
+          { texto: "Q) SCEZ/QMRLC/IV/NBO/A/000/999/3324S07048W005", marca: "Información codificada" },
+          { texto: "A) SCEL", marca: "¿Dónde?" },
+          { texto: "B) 2609071600", marca: "¿Desde cuándo?" },
+          { texto: "C) 2609122200", marca: "¿Hasta cuándo?" },
+          {
+            texto: "D) 07 BTN 1600-1700\n   08-09 BTN 2000-2200\n   12 BTN 1500-2200",
+            marca: "¿Cuándo aplica?",
+            detalle: {
+              titulo: "¿Cuándo aplica?",
+              texto: "La casilla D) especifica los días y horarios concretos en los que aplica el cierre.",
+            },
+          },
+          {
+            texto: "E) RWY 17L/35R CLSD",
+            marca: "¿Qué está pasando?",
+            fuerte: true,
+            detalle: {
+              titulo: "¿Qué está pasando?",
+              texto: "La pista 17L/35R de Santiago está cerrada durante los períodos indicados en D).",
+            },
+          },
+        ],
+      },
+      { kind: "sub", text: "¿Qué información contiene?" },
+      {
+        kind: "pasos",
+        columnas: 2,
+        items: [
+          {
+            rotulo: "Identificación",
+            codigo: "A2526/26 NOTAMN",
+            icono: "documento",
+            texto: "Identifica el NOTAM: serie A, número 2526, año 2026 y tipo NOTAMN, es decir, un NOTAM nuevo.",
+          },
+          {
+            rotulo: "Q) Información codificada",
+            codigo: "Q) SCEZ/QMRLC/IV/NBO/A/000/999/3324S07048W005",
+            icono: "codigo",
+            completo: true,
+            texto: "La línea Q) contiene información codificada sobre el NOTAM: FIR, código de la condición, tipo de tránsito, objetivo, alcance, límites verticales y ubicación.",
+            etiqueta: "Lo desglosaremos letra por letra más adelante",
+          },
+          {
+            rotulo: "A) ¿Dónde?",
+            codigo: "A) SCEL",
+            icono: "ubicacion",
+            texto: "Indica el aeródromo al que aplica el NOTAM: SCEL, Santiago de Chile, Arturo Merino Benítez.",
+          },
+          {
+            rotulo: "B) ¿Desde cuándo?",
+            codigo: "B) 2609071600",
+            icono: "reloj",
+            texto: "Indica el inicio de la vigencia: 7 de septiembre de 2026 a las 16:00 UTC.",
+            etiqueta: "B = inicio de vigencia",
+          },
+          {
+            rotulo: "C) ¿Hasta cuándo?",
+            codigo: "C) 2609122200",
+            icono: "reloj",
+            texto: "Indica el final previsto de la vigencia: 12 de septiembre de 2026 a las 22:00 UTC.",
+            etiqueta: "C = fin previsto de vigencia",
+          },
+          {
+            rotulo: "D) ¿En qué horarios?",
+            codigo: "D) 07 BTN 1600-1700\n   08-09 BTN 2000-2200\n   12 BTN 1500-2200",
+            icono: "calendario",
+            completo: true,
+            texto: "La condición no aplica continuamente durante todo el período indicado entre B) y C). La casilla D) especifica los días y horarios concretos en los que aplica el cierre.",
+            etiqueta: "Esta información es clave para saber si el NOTAM afecta tu vuelo",
+          },
+          {
+            rotulo: "E) ¿Qué está pasando?",
+            codigo: "E) RWY 17L/35R CLSD",
+            icono: "alerta",
+            completo: true,
+            fuerte: true,
+            texto: "Esta es la información operacional principal del NOTAM. La pista 17L/35R de Santiago está cerrada durante los períodos indicados en D).",
+          },
         ],
       },
       {
-        kind: "p",
-        text: "**Un NOTAM entero, con todo puesto.** Este es el ejemplo de la guía de interpretación (pág. 14), desarmado casilla por casilla:",
-      },
-      {
-        kind: "breakdown",
-        caption:
-          "Léelo así siempre: encabezado, línea Q, dónde, desde cuándo, hasta cuándo y qué pasa. El resto de este documento desarma cada una de esas piezas.",
-        parts: [
-          { token: "A0682/06 NOTAMN", label: "encabezado", detail: "Serie A, número 0682 de 2006, nuevo." },
-          {
-            token: "Q)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005",
-            label: "línea Q",
-            detail: "Los calificativos: FIR, código de cinco letras, tránsito, objetivo, alcance, límites y área.",
-          },
-          { token: "A)SCEL", label: "dónde", detail: "Santiago, Arturo Merino Benítez." },
-          { token: "B)0606091958", label: "desde", detail: "9 de junio de 2006 a las 19:58 UTC." },
-          { token: "C)0606242359", label: "hasta", detail: "24 de junio de 2006 a las 23:59 UTC." },
-          {
-            token: "E)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
-            label: "qué pasa",
-            detail: "Calle de rodaje TANGO cerrada entre KILO y ZULU por estacionamiento de aeronaves.",
-          },
+        kind: "kv",
+        items: [
+          { k: "RWY 17L/35R", v: "pista 17L/35R" },
+          { k: "CLSD", v: "closed, cerrada" },
         ],
       },
       {
         kind: "callout",
-        tone: "tip",
-        title: "Lo que sigue",
-        text: "Las tres secciones siguientes desarman esas casillas: primero la línea Q entera, después el código de cinco letras que va dentro de ella, y después los ítems A) a G) uno por uno.",
+        tone: "verificar",
+        title: "¿Qué debe hacer el piloto con esta información?",
+        text: "Verificar si el cierre coincide con el horario de su operación y evaluar cómo afecta la pista prevista, los procedimientos y la planificación del vuelo.",
+      },
+      {
+        kind: "p",
+        text: "Vuelo hacia **SCEL**, Santiago de Chile. Mi llegada está prevista el 8 de septiembre entre 20:00 y 22:00 UTC.",
       },
       {
         kind: "check",
-        question: "Ves un NOTAM que trae `Q)`, `A)`, `B)`, `C)` y `E)`, pero no `D)`. ¿Qué significa?",
+        titulo: "Léelo como piloto",
+        question: "Según el NOTAM, ¿qué condición debo tener en cuenta?",
         options: [
-          "Que el mensaje está incompleto y hay que pedir la casilla que falta",
-          "Que la condición es continua entre B) y C): sin horario diario, no hay D)",
-          "Que la condición es permanente y por eso no lleva horario",
+          "La pista 17L/35R está cerrada durante todo el período entre B) y C)",
+          "La pista 17L/35R está cerrada durante el período de mi operación, porque el horario está incluido en D)",
+          "El NOTAM no afecta mi operación porque fue emitido por Chile",
         ],
         answer: 1,
         explain:
-          "`D)` solo aparece cuando la condición NO es continua. Que falte es la forma de decir que aplica de corrido entre la fecha de inicio y la de fin. Lo permanente se marca con `PERM` en la casilla C), que es otra cosa.",
+          "El NOTAM indica que la pista 17L/35R estará cerrada durante los períodos especificados en D). Como el horario de tu operación coincide con uno de esos períodos, debes considerar esta condición dentro de tu planificación.",
       },
       {
-        kind: "summary",
+        kind: "secuencia",
+        titulo: "Misma lógica, otro país",
+        intro: "El aeropuerto cambió, pero la forma de analizar el NOTAM sigue siendo la misma:",
+        orientacion: "horizontal",
         items: [
-          "El encabezado es **serie + número/año + tipo**, y se cita completo: `C2222/26`, nunca `2222`.",
-          "Después del encabezado van las casillas, siempre en el orden `Q) A) B) C) D) E) F) G)`.",
-          "`Q)`, `A)`, `B)`, `C)` y `E)` van casi siempre. `D)` solo si la condición no es continua, y `F) G)` solo si hay espacio aéreo de por medio.",
+          "¿Dónde?",
+          "¿Cuándo?",
+          "¿En qué horario?",
+          "¿Qué está pasando?",
+          "¿Cómo afecta mi operación?",
         ],
+        nota: "En las siguientes lecciones vamos a profundizar en cada una de estas partes para que puedas interpretar un NOTAM completo sin depender de la traducción literal de sus códigos.",
       },
     ],
   },

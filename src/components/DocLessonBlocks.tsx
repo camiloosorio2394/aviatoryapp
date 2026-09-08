@@ -10,20 +10,26 @@
 import { Fragment, lazy, Suspense, useState, type ReactNode } from "react"
 import {
   AlertTriangle,
+  ArrowUpDown,
+  CalendarDays,
   CheckCircle2,
   ChevronDown,
   ChevronRight,
+  Clock,
   FileText,
   HelpCircle,
   Info,
+  KeyRound,
   Lightbulb,
+  MapPin,
   PenLine,
   Plane,
   ShieldAlert,
   ShieldCheck,
   Smartphone,
 } from "lucide-react"
-import type { BreakdownPart, TarjetaIcono } from "@/lib/notamLesson"
+import { useInView } from "@/hooks/useInView"
+import type { BreakdownPart, PasoIcono, TarjetaIcono } from "@/lib/notamLesson"
 import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
@@ -416,6 +422,34 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       )
     }
 
+    case "notamPanel":
+      return (
+        <NotamPanel
+          rotulo={block.rotulo}
+          etiqueta={block.etiqueta}
+          pie={block.pie}
+          lineas={block.lineas}
+        />
+      )
+
+    case "pasos":
+      return <Pasos items={block.items} columnas={block.columnas} />
+
+    case "secuencia":
+      return (
+        <Secuencia
+          titulo={block.titulo}
+          intro={block.intro}
+          items={block.items}
+          numerada={block.numerada}
+          orientacion={block.orientacion}
+          nota={block.nota}
+        />
+      )
+
+    case "transicion":
+      return <Transicion de={block.de} a={block.a} nota={block.nota} />
+
     case "encabezados":
       return <Encabezados items={block.items} pista={block.pista} />
 
@@ -737,6 +771,428 @@ function Referencias({
           </p>
         )}
       </PanelLectura>
+    </section>
+  )
+}
+
+interface LineaNotam {
+  texto: string
+  marca?: string
+  detalle?: { titulo: string; texto: string }
+  fuerte?: boolean
+}
+
+/**
+ * El NOTAM entero, con la pregunta que responde cada línea al margen.
+ *
+ * El marcador es lo que convierte un bloque de código en algo que se recorre:
+ * el alumno ve "¿dónde?" junto a la A) y deja de tener que recordar el orden
+ * de las casillas. Solo las líneas con `detalle` se pulsan; el resto es texto,
+ * porque hacer todo pulsable convierte la lectura en un juego de clics.
+ */
+function NotamPanel({
+  rotulo,
+  etiqueta,
+  pie,
+  lineas,
+}: {
+  rotulo?: string
+  etiqueta?: string
+  pie?: string
+  lineas: LineaNotam[]
+}) {
+  const [abierta, setAbierta] = useState<number | null>(null)
+
+  return (
+    <section className="overflow-hidden rounded-lg border doc-rule">
+      {(rotulo || etiqueta) && (
+        <div
+          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b doc-rule px-4 py-3 sm:px-5"
+          style={{ background: docTint(ACENTO, 8) }}
+        >
+          {rotulo && (
+            <span
+              className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
+              style={{ color: docAccent(ACENTO, 70) }}
+            >
+              {rotulo}
+            </span>
+          )}
+          {etiqueta && (
+            <span
+              className="rounded-md border px-2.5 py-1 text-[12px] font-semibold"
+              style={{
+                borderColor: docAccent(ACENTO, 35),
+                color: docAccent(ACENTO, 70),
+                background: "var(--doc-bg)",
+              }}
+            >
+              {etiqueta}
+            </span>
+          )}
+        </div>
+      )}
+
+      <div className="flex flex-col" style={{ background: "var(--doc-bg)" }}>
+        {lineas.map((linea, i) => {
+          const on = abierta === i
+          const pulsable = Boolean(linea.detalle)
+          const cuerpo = (
+            <span className="grid gap-x-5 gap-y-1 sm:grid-cols-[minmax(0,140px)_minmax(0,1fr)]">
+              <span
+                className="mono text-[11px] font-semibold uppercase tracking-[0.09em] sm:pt-[3px]"
+                style={{ color: docAccent(ACENTO, linea.fuerte ? 75 : 50) }}
+              >
+                {linea.marca}
+              </span>
+              <span
+                className="mono block whitespace-pre-wrap break-words text-[13px] sm:text-[14px]"
+                style={{
+                  lineHeight: 1.75,
+                  color: "var(--doc-fg)",
+                  fontWeight: linea.fuerte ? 600 : 400,
+                }}
+              >
+                {linea.texto}
+              </span>
+            </span>
+          )
+          return (
+            <div key={i}>
+              {pulsable ? (
+                <button
+                  type="button"
+                  onClick={() => setAbierta(on ? null : i)}
+                  aria-pressed={on}
+                  className="w-full border-l-[3px] px-4 py-3.5 text-left transition-colors sm:px-5"
+                  style={{
+                    borderLeftColor: on
+                      ? docAccent(ACENTO, 70)
+                      : linea.fuerte
+                        ? docAccent(ACENTO, 45)
+                        : "transparent",
+                    background: on ? docTint(ACENTO, 9) : "transparent",
+                  }}
+                >
+                  {cuerpo}
+                </button>
+              ) : (
+                <div
+                  className="border-l-[3px] px-4 py-3.5 sm:px-5"
+                  style={{
+                    borderLeftColor: linea.fuerte ? docAccent(ACENTO, 45) : "transparent",
+                    background: linea.fuerte ? docTint(ACENTO, 5) : "transparent",
+                  }}
+                >
+                  {cuerpo}
+                </div>
+              )}
+              {on && linea.detalle && (
+                <div
+                  className="border-t doc-rule px-4 py-3.5 sm:px-5"
+                  style={{ background: "var(--doc-soft)" }}
+                >
+                  <p className="m-0 text-[15px] leading-[1.6]">
+                    <strong className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+                      {linea.detalle.titulo}
+                    </strong>{" "}
+                    {renderInline(linea.detalle.texto)}
+                  </p>
+                </div>
+              )}
+            </div>
+          )
+        })}
+      </div>
+
+      {pie && (
+        <div className="border-t doc-rule px-4 py-3 text-[13px] doc-muted sm:px-5" style={{ background: "var(--doc-soft)" }}>
+          {pie}
+        </div>
+      )}
+    </section>
+  )
+}
+
+const PASO_ICONO: Record<PasoIcono, typeof Info> = {
+  documento: FileText,
+  codigo: KeyRound,
+  ubicacion: MapPin,
+  reloj: Clock,
+  calendario: CalendarDays,
+  alerta: AlertTriangle,
+  vertical: ArrowUpDown,
+}
+
+interface PasoItem {
+  rotulo: string
+  codigo?: string
+  texto: string
+  icono?: PasoIcono
+  etiqueta?: string
+  completo?: boolean
+  fuerte?: boolean
+  interpretacion?: { texto: string; enOtrasPalabras?: string }
+}
+
+/** Un paso de lectura: el código real arriba y qué dice debajo. */
+function Paso({ paso, n }: { paso: PasoItem; n: number }) {
+  const [abierto, setAbierto] = useState(false)
+  const Icono = paso.icono ? PASO_ICONO[paso.icono] : null
+
+  return (
+    <div
+      className="h-full rounded-lg border p-4 sm:p-5"
+      style={{
+        borderColor: paso.fuerte ? docAccent(ACENTO, 40) : "var(--doc-border)",
+        background: paso.fuerte ? docTint(ACENTO, 6) : "var(--doc-bg)",
+      }}
+    >
+      <div className="flex items-center gap-2.5">
+        <span
+          className="mono text-[12px] font-semibold tabular"
+          style={{ color: docAccent(ACENTO, 60) }}
+        >
+          {String(n).padStart(2, "0")}
+        </span>
+        {Icono && (
+          <Icono className="h-4 w-4 shrink-0" style={{ color: docAccent(ACENTO, 55) }} aria-hidden />
+        )}
+        <span
+          className="text-[14.5px] font-semibold tracking-[-0.01em]"
+          style={{ color: "var(--doc-fg)" }}
+        >
+          {paso.rotulo}
+        </span>
+      </div>
+
+      {paso.codigo && (
+        <pre className="doc-soft mt-3 mb-0 overflow-x-auto rounded-md border doc-rule px-3.5 py-2.5">
+          <code
+            className="mono block whitespace-pre-wrap break-words text-[13px] leading-[1.7]"
+            style={{ color: "var(--doc-fg)", fontWeight: paso.fuerte ? 600 : 400 }}
+          >
+            {paso.codigo}
+          </code>
+        </pre>
+      )}
+
+      <p className="m-0 mt-3 text-[14.5px] leading-[1.6]">{renderInline(paso.texto)}</p>
+
+      {paso.etiqueta && (
+        <span
+          className="mt-3 inline-block rounded-md border px-2.5 py-1 text-[12px]"
+          style={{
+            borderColor: docAccent(ACENTO, 28),
+            color: docAccent(ACENTO, 65),
+            background: docTint(ACENTO, 7),
+          }}
+        >
+          {paso.etiqueta}
+        </span>
+      )}
+
+      {paso.interpretacion && (
+        <div className="mt-3.5">
+          {!abierto ? (
+            <button
+              type="button"
+              onClick={() => setAbierto(true)}
+              className="mono rounded-md border px-3 py-2 text-[11.5px] font-semibold uppercase tracking-[0.09em] transition-colors"
+              style={{
+                borderColor: docAccent(ACENTO, 40),
+                color: docAccent(ACENTO, 70),
+                background: "var(--doc-bg)",
+              }}
+            >
+              Ver interpretación
+            </button>
+          ) : (
+            <div className="rounded-md border doc-rule doc-soft px-4 py-3.5">
+              <p className="m-0 text-[14.5px] leading-[1.6]">
+                {renderInline(paso.interpretacion.texto)}
+              </p>
+              {paso.interpretacion.enOtrasPalabras && (
+                <p
+                  className="m-0 mt-3 border-l-[3px] pl-3.5 text-[14.5px] leading-[1.6]"
+                  style={{ borderLeftColor: docAccent(ACENTO, 60) }}
+                >
+                  <strong className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+                    En otras palabras:
+                  </strong>{" "}
+                  {renderInline(paso.interpretacion.enOtrasPalabras)}
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function Pasos({ items, columnas }: { items: PasoItem[]; columnas?: 2 }) {
+  return (
+    <div className={columnas === 2 ? "grid gap-3 sm:grid-cols-2" : "flex flex-col gap-3"}>
+      {items.map((paso, i) => (
+        <div key={i} className={columnas === 2 && paso.completo ? "sm:col-span-2" : undefined}>
+          <Paso paso={paso} n={i + 1} />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+/**
+ * Una regla mental, no un ejercicio: se mira y se recuerda.
+ *
+ * Por eso no se pulsa nada. En vertical van las preguntas que uno se hace al
+ * leer; en horizontal, el recorrido entero resumido en una línea.
+ */
+function Secuencia({
+  titulo,
+  intro,
+  items,
+  numerada,
+  orientacion = "vertical",
+  nota,
+}: {
+  titulo?: string
+  intro?: string
+  items: string[]
+  numerada?: boolean
+  orientacion?: "vertical" | "horizontal"
+  nota?: string
+}) {
+  const conCaja = Boolean(titulo)
+  const horizontal = orientacion === "horizontal"
+
+  const cadena = horizontal ? (
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+      {/* La flecha viaja pegada a su ficha: suelta, al saltar de linea deja
+          un signo colgando al final de la anterior. */}
+      {items.map((it, i) => (
+        <span key={i} className="inline-flex items-center gap-2">
+          {i > 0 && (
+            <ChevronRight
+              className="h-3.5 w-3.5 shrink-0"
+              style={{ color: docAccent(ACENTO, 40) }}
+              aria-hidden
+            />
+          )}
+          <span
+            className="rounded-md border px-3 py-1.5 text-[13.5px] font-semibold"
+            style={{
+              borderColor: docAccent(ACENTO, 28),
+              color: docAccent(ACENTO, 72),
+              background: "var(--doc-bg)",
+            }}
+          >
+            {it}
+          </span>
+        </span>
+      ))}
+    </div>
+  ) : (
+    <div className="flex flex-col items-stretch gap-1.5">
+      {items.map((it, i) => (
+        <Fragment key={i}>
+          {i > 0 && (
+            <ChevronDown
+              className="h-4 w-4 self-center"
+              style={{ color: docAccent(ACENTO, 40) }}
+              aria-hidden
+            />
+          )}
+          <div
+            className="flex items-center gap-3 rounded-md border px-4 py-3"
+            style={{ borderColor: docAccent(ACENTO, 26), background: "var(--doc-bg)" }}
+          >
+            {numerada && (
+              <span
+                className="mono text-[12px] font-semibold tabular"
+                style={{ color: docAccent(ACENTO, 58) }}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
+            )}
+            <span className="text-[15px] font-semibold" style={{ color: "var(--doc-fg)" }}>
+              {it}
+            </span>
+          </div>
+        </Fragment>
+      ))}
+    </div>
+  )
+
+  const contenido = (
+    <>
+      {titulo && (
+        <div
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+          style={{ color: docAccent(ACENTO, 65) }}
+        >
+          <Plane className="h-3.5 w-3.5" aria-hidden /> {titulo}
+        </div>
+      )}
+      {intro && (
+        <p className={titulo ? "m-0 mt-2 text-[15px] leading-[1.6]" : "m-0 text-[15px] leading-[1.6]"}>
+          {renderInline(intro)}
+        </p>
+      )}
+      <div className={titulo || intro ? "mt-4" : ""}>{cadena}</div>
+      {nota && <p className="m-0 mt-4 text-[14px] leading-[1.6] doc-muted">{renderInline(nota)}</p>}
+    </>
+  )
+
+  if (!conCaja) return <section>{contenido}</section>
+  return (
+    <section
+      className="rounded-lg border p-4 sm:p-5"
+      style={{ borderColor: docAccent(ACENTO, 26), background: docTint(ACENTO, 5) }}
+    >
+      {contenido}
+    </section>
+  )
+}
+
+/**
+ * Puente entre dos ejemplos. Entra al llegar a pantalla, una vez y suave: la
+ * animación está para decir "seguimos, ahora en otro país", no para lucirse.
+ * `useInView` ya respeta a quien pide menos movimiento.
+ */
+function Transicion({ de, a, nota }: { de: string; a: string; nota?: string }) {
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.4 })
+
+  const ficha = (texto: string, entra: boolean) => (
+    <span
+      className="rounded-md border px-4 py-2.5 text-[15px] font-semibold transition-all duration-500"
+      style={{
+        borderColor: docAccent(ACENTO, 32),
+        color: docAccent(ACENTO, 75),
+        background: "var(--doc-bg)",
+        opacity: entra ? 1 : 0,
+        transform: entra ? "none" : "translateX(-8px)",
+      }}
+    >
+      {texto}
+    </span>
+  )
+
+  return (
+    <section ref={ref}>
+      <div className="flex flex-wrap items-center justify-center gap-3">
+        {ficha(de, true)}
+        <ChevronRight
+          className="h-5 w-5 transition-opacity duration-500"
+          style={{ color: docAccent(ACENTO, 45), opacity: inView ? 1 : 0 }}
+          aria-hidden
+        />
+        {ficha(a, inView)}
+      </div>
+      {nota && (
+        <p className="m-0 mt-4 text-center text-[15px] leading-[1.6]">{renderInline(nota)}</p>
+      )}
     </section>
   )
 }
