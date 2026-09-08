@@ -182,12 +182,6 @@ export const LESSON_SCREENS: LessonScreen[] = [
         kind: "definicion",
         text: "**NOTAM** significa Notice to Airmen. Es un aviso aeronáutico que contiene información temporal o cambios importantes relacionados con la operación de vuelo, que deben ser conocidos por pilotos y demás personal aeronáutico antes de realizar una operación.",
       },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Sobre el nombre",
-        text: "Vas a encontrar material que lo traduce como Notice to Air Missions. Ese nombre lo usó solo la FAA de Estados Unidos, entre 2021 y febrero de 2025, y luego volvió a Notice to Airmen. La OACI y la Aerocivil nunca lo cambiaron: para el PCA y para volar en Colombia, NOTAM es Notice to Airmen.",
-      },
       { kind: "p", text: "Un NOTAM puede informar, por ejemplo, sobre:" },
       {
         kind: "vinetas",
@@ -205,16 +199,15 @@ export const LESSON_SCREENS: LessonScreen[] = [
       { kind: "sub", text: "Para qué sirve" },
       {
         kind: "p",
-        text: "Un NOTAM existe para que tomes decisiones con información al día. Su trabajo es avisar de lo que cambió respecto a lo publicado, para que puedas anticiparlo antes de despachar:",
+        text: "Tienes programado un vuelo Miami a Bogotá en un Airbus A320 de Avianca. Al momento de hacer la planificación revisas la información disponible para tu vuelo y encuentras un NOTAM que indica que una de las pistas del aeropuerto El Dorado estará cerrada temporalmente por trabajos de mantenimiento durante el horario en el que tienes previsto llegar.",
       },
       {
-        kind: "vinetas",
-        items: [
-          "Informar de cambios, restricciones o condiciones fuera de lo normal.",
-          "Prevenir riesgos para las aeronaves y el personal.",
-          "Permitir una decisión segura y oportuna.",
-          "Complementar las cartas aeronáuticas y las publicaciones.",
-        ],
+        kind: "p",
+        text: "Ese NOTAM cambia algo que necesitas tener en cuenta para tu operación. Ahora debes revisar cómo afecta la llegada a Bogotá, qué pista estará disponible, si cambia el procedimiento previsto o si necesitas hacer algún ajuste a tu planificación.",
+      },
+      {
+        kind: "p",
+        text: "**Ese es el propósito de un NOTAM: darte a conocer con anticipación una condición que puede afectar tu vuelo, para que puedas tomar una decisión antes de encontrarte con ella durante la operación.**",
       },
       // ── Paso 2: de qué avisan, y uno de verdad ───────────────────────────
       { kind: "sub", text: "De qué te avisan" },

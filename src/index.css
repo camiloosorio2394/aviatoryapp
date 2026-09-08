@@ -941,6 +941,21 @@
   }
 }
 
+/* Texto justificado, como un documento impreso. Va con partición de palabras
+   porque sin ella el castellano abre ríos de espacio en una columna de 68
+   caracteres. Se excluye lo que no es prosa: el monoespaciado de los NOTAM y
+   los códigos, donde justificar rompería el alineado que da sentido al bloque. */
+.lector-notam .doc-prose :where(p, li, dd):not(.mono) {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+.lector-notam .doc-prose :is(pre, code, .mono),
+.lector-notam .doc-prose :is(pre, code, .mono) :where(p, li, dd) {
+  text-align: left;
+  hyphens: none;
+}
+
 /* La pastilla deslizante del sidebar: UN indicador que viaja entre lecciones,
    no trece filas recoloreándose. Anima transform Y ALTURA, porque una fila de
    dos líneas mide 54px y una de una línea 36. El movimiento debe leerse como
