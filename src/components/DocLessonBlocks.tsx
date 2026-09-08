@@ -416,6 +416,9 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       )
     }
 
+    case "encabezados":
+      return <Encabezados items={block.items} pista={block.pista} />
+
     case "flujo":
       return <Flujo pasos={block.pasos} pista={block.pista} />
 
@@ -428,6 +431,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "check":
       return (
         <Check
+          titulo={block.titulo}
           question={block.question}
           options={block.options}
           answer={block.answer}
@@ -737,12 +741,79 @@ function Referencias({
   )
 }
 
+interface EncabezadoItem {
+  partes: { token: string; label: string }[]
+}
+
+/**
+ * Encabezados de NOTAM que se abren para enseñar sus piezas.
+ *
+ * Cerrados son las líneas tal cual las ve el piloto. Al abrir uno, cada pieza
+ * recibe su filete de color y su rótulo debajo, con la misma gramática visual
+ * del bloque `breakdown`, para que el alumno no tenga que aprender dos formas
+ * de leer lo mismo.
+ */
+function Encabezados({ items, pista }: { items: EncabezadoItem[]; pista?: string }) {
+  const [abierto, setAbierto] = useState<number | null>(null)
+
+  return (
+    <section>
+      {pista && <p className="m-0 mb-3 text-[13px] doc-muted">{pista}</p>}
+      <div className="flex flex-col gap-2">
+        {items.map((it, i) => {
+          const on = abierto === i
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setAbierto(on ? null : i)}
+              aria-pressed={on}
+              className="w-full rounded-lg border px-4 py-3.5 text-left transition-colors"
+              style={{
+                borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-border)",
+                background: on ? docTint(ACENTO, 8) : "var(--doc-soft)",
+              }}
+            >
+              <span className="mono flex flex-wrap items-start gap-x-5 gap-y-2.5 text-[14px] sm:text-[15px]">
+                {it.partes.map((p, j) => (
+                  <span key={j} className="inline-flex flex-col gap-1">
+                    <span className="font-semibold whitespace-pre" style={{ color: "var(--doc-fg)" }}>
+                      {p.token}
+                    </span>
+                    {on && (
+                      <>
+                        <span
+                          className="h-[3px] w-full rounded-full"
+                          style={{ background: docAccent(breakdownColor(j), 62) }}
+                          aria-hidden
+                        />
+                        <span
+                          className="max-w-[16ch] text-[11px] font-semibold leading-[1.35]"
+                          style={{ color: docAccent(breakdownColor(j), 62) }}
+                        >
+                          {p.label}
+                        </span>
+                      </>
+                    )}
+                  </span>
+                ))}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
 function Check({
+  titulo,
   question,
   options,
   answer,
   explain,
 }: {
+  titulo?: string
   question: string
   options: string[]
   answer: number
@@ -763,7 +834,7 @@ function Check({
         className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
         style={{ color: docAccent("var(--av-blue-500)", 60) }}
       >
-        <HelpCircle className="h-3.5 w-3.5" aria-hidden /> Compruébalo
+        <HelpCircle className="h-3.5 w-3.5" aria-hidden /> {titulo ?? "Compruébalo"}
       </div>
       <p className="mt-2 mb-0 text-[15px] leading-[1.7]">{renderInline(question)}</p>
 

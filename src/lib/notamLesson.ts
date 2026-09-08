@@ -75,6 +75,19 @@ export type LessonBlock =
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
   /**
+   * Encabezados de NOTAM que se abren para enseñar de qué está hecho cada uno.
+   *
+   * Cerrados son tres líneas de código, como las ve el piloto en el briefing.
+   * Al abrir uno, cada pieza recibe su rótulo debajo. Es el momento en que el
+   * alumno descubre que el número que sigue al tipo no es del NOTAM que lee,
+   * sino del que deja sin efecto, que es el error que cuesta caro.
+   */
+  | {
+      kind: "encabezados"
+      pista?: string
+      items: { partes: { token: string; label: string }[] }[]
+    }
+  /**
    * Cadena de eslabones que se recorre en orden: Estado, AIS, NOTAM, piloto.
    *
    * Al elegir uno se ilumina solo ese y su explicación aparece debajo. Los
@@ -207,6 +220,8 @@ export type LessonBlock =
    */
   | {
       kind: "check"
+      /** Rótulo de la caja. Por defecto, "Compruébalo". */
+      titulo?: string
       question: string
       options: string[]
       /** Índice de la correcta dentro de `options`. */
@@ -527,72 +542,105 @@ export const LESSON_SCREENS: DocScreen[] = [
   // ── 3 ──────────────────────────────────────────────────────────────────────
   {
     n: 3,
-    title: "Los tres tipos: NOTAMN, NOTAMR y NOTAMC",
+    title: "¿Qué significa NOTAMN, NOTAMR y NOTAMC?",
     kicker: "Nuevo, reemplaza y cancela",
-    minutes: 3,
+    minutes: 4,
     level: "basico",
+    // La casilla B) en NOTAMR y NOTAMC se explica en la lección de la
+    // estructura, no aquí: en esta el objetivo es uno solo, distinguir nuevo,
+    // reemplaza y cancela. Meter la casilla antes de haber visto el esqueleto
+    // completo obliga a explicar dos cosas a la vez y no se fija ninguna.
     blocks: [
       {
         kind: "p",
-        text: "Todo NOTAM es de uno de tres tipos, y el tipo cambia lo que tienes que hacer con él. Es lo primero que miras después del número.",
+        text: "Cuando estás haciendo la planificación de un vuelo, puedes encontrar varios NOTAM relacionados con la misma pista, procedimiento o instalación. No todos significan lo mismo: algunos publican una información nueva, otros actualizan una anterior y otros la cancelan.",
+      },
+      {
+        kind: "p",
+        text: "Por eso, antes de interpretar el contenido, fíjate en el tipo que aparece después del número del NOTAM.",
       },
       {
         kind: "table",
-        head: ["Tipo", "Qué es", "Qué implica para ti"],
+        head: ["Tipo", "¿Qué significa?", "¿Qué haces como piloto?"],
         rows: [
           [
             "**NOTAMN**",
-            "Nuevo (new). Información que no estaba publicada.",
-            "Léelo completo: no reemplaza nada.",
+            "Publica una nueva información o condición.",
+            "Lees el NOTAM y determinas si afecta tu operación.",
           ],
           [
             "**NOTAMR**",
-            "Reemplaza (replacing) a un NOTAM vigente e indica cuál.",
-            "El NOTAM anterior deja de valer. Lee solo el nuevo.",
+            "Reemplaza un NOTAM anterior e indica cuál.",
+            "Ignoras la información anterior y revisas la nueva.",
           ],
           [
             "**NOTAMC**",
-            "Cancela (cancellation) un NOTAM vigente.",
-            "La condición terminó. No lleva casilla C).",
+            "Cancela un NOTAM anterior e indica cuál.",
+            "El NOTAM cancelado deja de estar vigente.",
           ],
         ],
       },
-      { kind: "p", text: "**Cómo se ven en el encabezado:**" },
+      { kind: "sub", text: "Así los vas a encontrar" },
       {
-        kind: "code",
-        text: "A0682/06 NOTAMN\nA0143/22 NOTAMR A2385/21\nC0912/26 NOTAMC C0756/26",
+        kind: "encabezados",
+        pista: "Selecciona un encabezado para ver qué dice cada pieza.",
+        items: [
+          {
+            partes: [
+              { token: "A0682/26", label: "serie, número y año" },
+              { token: "NOTAMN", label: "tipo: nuevo" },
+            ],
+          },
+          {
+            partes: [
+              { token: "A0143/26", label: "serie, número y año" },
+              { token: "NOTAMR", label: "tipo: reemplaza" },
+              { token: "A2385/26", label: "al que reemplaza" },
+            ],
+          },
+          {
+            partes: [
+              { token: "C0912/26", label: "serie, número y año" },
+              { token: "NOTAMC", label: "tipo: cancela" },
+              { token: "C0756/26", label: "el que cancela" },
+            ],
+          },
+        ],
       },
       {
         kind: "list",
         items: [
-          "En el **NOTAMR**, el número que va después del tipo es el NOTAM al que reemplaza. En el ejemplo, `A0143/22` deja sin efecto a `A2385/21`.",
-          "En el **NOTAMC**, el número que va después es el NOTAM que cancela.",
-          "En NOTAMR y NOTAMC, la casilla **B)** ya no es el inicio de la condición: es la fecha y hora en que se creó el mensaje (curso, pág. 27).",
-          "En el resumen mensual de la Aerocivil el reemplazo aparece escrito como `RPLC NOTAM C 0756/26`, que se comporta igual que un NOTAMR.",
+          "En un **NOTAMR**, el número que aparece después de NOTAMR identifica el NOTAM que está siendo reemplazado. En el ejemplo, `A0143/26` reemplaza a `A2385/26`.",
+          "En un **NOTAMC**, el número que aparece después de NOTAMC identifica el NOTAM que está siendo cancelado.",
         ],
+      },
+      { kind: "sub", text: "Ahora míralo en un NOTAM colombiano real" },
+      { kind: "notam", id: "N3" },
+      { kind: "sub", text: "Ahora analicemos el NOTAM" },
+      {
+        kind: "p",
+        text: "El encabezado nos indica que estamos frente al NOTAM **C 1962/26**, correspondiente al aeropuerto José María Córdova (**SKRG**).",
+      },
+      { kind: "p", text: "El texto indica:" },
+      { kind: "code", text: "PAPI RWY 19 U/S" },
+      {
+        kind: "p",
+        text: "Esto significa que el PAPI de la pista 19 está fuera de servicio. Esta información es relevante para cualquier piloto que esté planificando una operación hacia ese aeropuerto, porque una ayuda visual asociada a la aproximación prevista no estará disponible.",
+      },
+      { kind: "p", text: "Pero hay una segunda información que debes identificar:" },
+      { kind: "code", text: "RPLC NOTAM C 0756/26" },
+      {
+        kind: "p",
+        text: "**RPLC** significa replace, reemplazar. En este caso, el NOTAM **C 1962/26** está reemplazando al **C 0756/26**.",
+      },
+      { kind: "sub", text: "Un detalle que encontrarás en Colombia" },
+      {
+        kind: "p",
+        text: "En algunos productos de información aeronáutica de Colombia puedes encontrar la indicación `RPLC NOTAM C` seguida del número de un NOTAM.",
       },
       {
         kind: "p",
-        text: "**Así se ve un reemplazo de verdad.** Este NOTAM sale del resumen mensual de la Aerocivil y trae `RPLC NOTAM C 0756/26` al final: es la forma colombiana de decir NOTAMR.",
-      },
-      {
-        kind: "notam",
-        id: "N3",
-        caption:
-          "El PAPI de la pista 19 de Rionegro está inutilizable. La última línea dice que este mensaje reemplaza al `C 0756/26`: ese ya no vale, aunque siga en tus notas.",
-      },
-      {
-        kind: "check",
-        question:
-          "En tu paquete de briefing aparecen `A0143/22 NOTAMR A2385/21` y también el `A2385/21`. ¿Qué haces?",
-        options: [
-          "Leo los dos y me quedo con la unión de la información",
-          "Descarto el `A2385/21`: el nuevo lo reemplaza y solo vale el nuevo",
-          "Descarto el `A0143/22`, porque el otro es anterior y por tanto el original",
-        ],
-        answer: 1,
-        explain:
-          "Un NOTAMR **sustituye**, no complementa. El número que va detrás del tipo es el que deja sin efecto, así que el `A2385/21` ya no cuenta aunque siga apareciendo en tus notas.",
+        text: "RPLC indica que el NOTAM que estás leyendo reemplaza al NOTAM identificado al final de la línea.",
       },
       {
         kind: "callout",
@@ -601,10 +649,42 @@ export const LESSON_SCREENS: DocScreen[] = [
         text: "Si ves un NOTAMR o un `RPLC`, busca el número que reemplaza y descártalo. La información válida es la del mensaje nuevo, no la unión de los dos.",
       },
       {
-        kind: "callout",
-        tone: "info",
-        title: "Sobre el tipo NOTAME",
-        text: "La guía de interpretación de curso menciona además un tipo NOTAME (event) para eventos. Ese tipo no figura en el esquema OACI estándar N/R/C, así que trátalo como particularidad de esa fuente y confírmalo contra el Anexo 15.",
+        kind: "p",
+        text: "Estás planificando una llegada a **SKRG** y encuentras el siguiente NOTAM:",
+      },
+      { kind: "code", text: "PAPI RWY 19 U/S" },
+      {
+        kind: "check",
+        titulo: "Piensa como piloto",
+        question: "¿Qué deberías hacer?",
+        options: [
+          "Continuar la planificación sin tenerlo en cuenta porque las luces PAPI no afectan la navegación",
+          "Tener en cuenta que las luces PAPI de la pista 19 están fuera de servicio y revisar cómo afecta la aproximación prevista",
+          "Cancelar automáticamente el vuelo porque las luces PAPI están fuera de servicio",
+        ],
+        answer: 1,
+        explain:
+          "El NOTAM informa que las luces PAPI de la pista 19 están fuera de servicio. Como piloto, debes considerar esta condición dentro de la planificación y verificar su efecto sobre la aproximación prevista. Que una ayuda visual esté fuera de servicio no significa automáticamente que la operación no pueda realizarse: debes evaluar las condiciones y procedimientos aplicables.",
+      },
+      {
+        kind: "p",
+        text: "Estás preparando un vuelo hacia **SKRG** (Rionegro). Durante la consulta encuentras primero:",
+      },
+      { kind: "code", text: "C 0756/26 NOTAMN\nPAPI RWY 19 U/S" },
+      { kind: "p", text: "Posteriormente aparece:" },
+      { kind: "code", text: "C 1962/26\nPAPI RWY 19 U/S\nRPLC NOTAM C 0756/26" },
+      {
+        kind: "check",
+        question: "¿Cuál de las siguientes afirmaciones es correcta?",
+        options: [
+          "Debes considerar ambos NOTAM porque cada uno corresponde a una condición diferente",
+          "El `C 1962/26` reemplaza al `C 0756/26`, por lo que debes utilizar la información del NOTAM más reciente",
+          "El `C 0756/26` sigue siendo el vigente porque fue publicado originalmente como NOTAMN",
+          "El `C 1962/26` cancela la condición porque contiene RPLC",
+        ],
+        answer: 1,
+        explain:
+          "El primer NOTAM fue publicado como NOTAMN, es decir, comunicó inicialmente la condición. Posteriormente, el `C 1962/26` reemplazó al `C 0756/26` mediante la indicación `RPLC NOTAM C 0756/26`. Por lo tanto, al encontrar ambos durante la consulta, debes identificar cuál es el NOTAM vigente y trabajar con la información del `C 1962/26`. Además, el contenido operacional sigue siendo el mismo: las luces PAPI de la pista 19 están fuera de servicio.",
       },
     ],
   },
