@@ -296,7 +296,6 @@ export const LESSON_SCREENS: DocScreen[] = [
         ancho: 1400,
         alto: 1050,
         anchoMax: 420,
-        pie: "El cierre de la casilla E, sobre el trazado del aeródromo: 13L/31R cerrada, 13R/31L operativa.",
       },
       {
         kind: "p",

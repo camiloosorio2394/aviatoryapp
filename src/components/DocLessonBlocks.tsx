@@ -583,7 +583,10 @@ function Figura({
   anchoMax?: number
 }) {
   return (
-    <figure className="m-0 w-full" style={anchoMax ? { maxWidth: anchoMax } : undefined}>
+    <figure
+      className={anchoMax ? "m-0 w-full mx-auto" : "m-0 w-full"}
+      style={anchoMax ? { maxWidth: anchoMax } : undefined}
+    >
       <img
         src={src}
         alt={alt}
