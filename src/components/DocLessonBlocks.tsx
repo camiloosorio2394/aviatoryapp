@@ -1425,16 +1425,36 @@ function NotamFigure({
           la columna de la lección deja 716 px de caja de contenido: a 720 la
           caja scrolleaba también en escritorio, que es donde sí cabe. Mismo
           criterio que en el modo práctica. Fondo blanco porque el recorte lo es. */}
-      <div
-        className="overflow-x-auto rounded-lg border doc-rule"
-        style={{ background: "rgb(255 255 255)" }}
-      >
-        <img
-          src={notamImageUrl(notam.imagen)}
-          alt={notam.transcripcion}
-          loading="lazy"
-          className="block w-full min-w-[700px] h-auto"
-        />
+      {/* El aviso de vigencia va DENTRO de la caja del recorte, como el sello
+          de un documento, y no suelto debajo en rojo. Pegado a la imagen se lee
+          como lo que es, una condición de uso de ese recorte; suelto parecía un
+          error de la página. En ámbar y no en rojo: es una precaución, no un
+          fallo. */}
+      <div className="overflow-hidden rounded-lg border doc-rule">
+        <div className="overflow-x-auto" style={{ background: "rgb(255 255 255)" }}>
+          <img
+            src={notamImageUrl(notam.imagen)}
+            alt={notam.transcripcion}
+            loading="lazy"
+            className="block w-full min-w-[700px] h-auto"
+          />
+        </div>
+        <div
+          className="flex items-start gap-2 border-t doc-rule px-3.5 py-2.5"
+          style={{ background: docTint("var(--av-amber-400)", 10) }}
+        >
+          <ShieldAlert
+            className="mt-[2px] h-3.5 w-3.5 shrink-0"
+            style={{ color: docAccent("var(--av-amber-400)", 70) }}
+            aria-hidden
+          />
+          <span
+            className="text-[12px] leading-[1.55]"
+            style={{ color: docAccent("var(--av-amber-400)", 78) }}
+          >
+            {DISCLAIMERS.national}
+          </span>
+        </div>
       </div>
 
       {casillas && casillas.length > 0 && <Casillas notam={notam} casillas={casillas} />}
@@ -1445,13 +1465,6 @@ function NotamFigure({
         </span>{" "}
         · {notam.aerodromo}
         {caption && <span className="block mt-1">{renderInline(caption)}</span>}
-        <span
-          className="mt-2 flex items-start gap-1.5 text-[12px] leading-[1.55]"
-          style={{ color: docAccent("var(--av-red-400)", 55) }}
-        >
-          <ShieldAlert className="shrink-0 mt-0.5 h-3.5 w-3.5" aria-hidden />
-          <span>{DISCLAIMERS.national}</span>
-        </span>
       </figcaption>
     </figure>
   )

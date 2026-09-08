@@ -716,12 +716,6 @@ export const LESSON_SCREENS: DocScreen[] = [
         text: "RPLC indica que el NOTAM que estás leyendo reemplaza al NOTAM identificado al final de la línea.",
       },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "Error común: leer el NOTAM que ya fue reemplazado",
-        text: "Si ves un NOTAMR o un `RPLC`, busca el número que reemplaza y descártalo. La información válida es la del mensaje nuevo, no la unión de los dos.",
-      },
-      {
         kind: "p",
         text: "Estás planificando una llegada a **SKRG** y encuentras el siguiente NOTAM:",
       },
@@ -926,6 +920,7 @@ export const LESSON_SCREENS: DocScreen[] = [
             rotulo: "Identificación",
             codigo: "A2526/26 NOTAMN",
             icono: "documento",
+            completo: true,
             texto: "Identifica el NOTAM: serie A, número 2526, año 2026 y tipo NOTAMN, es decir, un NOTAM nuevo.",
           },
           {
@@ -960,7 +955,6 @@ export const LESSON_SCREENS: DocScreen[] = [
             rotulo: "D) ¿En qué horarios?",
             codigo: "D) 07 BTN 1600-1700\n   08-09 BTN 2000-2200\n   12 BTN 1500-2200",
             icono: "calendario",
-            completo: true,
             texto: "La condición no aplica continuamente durante todo el período indicado entre B) y C). La casilla D) especifica los días y horarios concretos en los que aplica el cierre.",
             etiqueta: "Esta información es clave para saber si el NOTAM afecta tu vuelo",
           },
