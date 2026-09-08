@@ -923,6 +923,24 @@
   outline-offset: -2px;
 }
 
+/* Cada bloque lleva la clase .doc-sheet solo por sus variables de color; el
+   borde y la sombra de "hoja" son para cuando la hoja es UNA. Aquí serían
+   dieciocho tarjetitas apiladas, una por párrafo, así que se quitan. */
+.lector-notam .doc-sheet { border: 0; box-shadow: none; }
+
+/* Una sola columna de 720px, y la portada y el texto parejos: el tope de 68ch
+   del documento dejaría los párrafos más angostos que la foto. Aquí se suelta,
+   y el párrafo sube a 16.5px para que la línea más larga siga cómoda. */
+.lector-notam .doc-prose { max-width: none; }
+@media (min-width: 1024px) {
+  .lector-notam .doc-prose > p,
+  .lector-notam .doc-prose > :is(ul, ol) > li,
+  .lector-notam .doc-prose > blockquote > p,
+  .lector-notam .doc-prose > dl dd {
+    font-size: 16.5px;
+  }
+}
+
 /* La pastilla deslizante del sidebar: UN indicador que viaja entre lecciones,
    no trece filas recoloreándose. Anima transform Y ALTURA, porque una fila de
    dos líneas mide 54px y una de una línea 36. El movimiento debe leerse como

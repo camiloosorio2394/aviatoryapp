@@ -541,7 +541,7 @@ function Check({
  * que la entradilla), no el del contenedor: una imagen a todo lo ancho corta el
  * ritmo del texto que la rodea. `NotamFigure` es la excepción justificada, y
  * por eso es otra pieza: un recorte de la Aerocivil es texto dentro de un píxel
- * y por debajo de 720 px deja de leerse.
+ * y por debajo de 700 px deja de leerse.
  */
 function Figura({
   src,
@@ -598,9 +598,11 @@ function NotamFigure({
   return (
     <figure className="m-0">
       {/* Los recortes del resumen de la Aerocivil son tiras muy anchas: por
-          debajo de 720 px el texto del aviso deja de leerse, así que la imagen
-          no se encoge más y la caja scrollea. Mismo criterio que en el modo
-          práctica. Fondo blanco porque el recorte lo es. */}
+          debajo de 700 px el texto del aviso deja de leerse, así que la imagen
+          no se encoge más y la caja scrollea. El mínimo es 700 y no 720 porque
+          la columna de la lección deja 716 px de caja de contenido: a 720 la
+          caja scrolleaba también en escritorio, que es donde sí cabe. Mismo
+          criterio que en el modo práctica. Fondo blanco porque el recorte lo es. */}
       <div
         className="overflow-x-auto rounded-lg border doc-rule"
         style={{ background: "rgb(255 255 255)" }}
@@ -609,7 +611,7 @@ function NotamFigure({
           src={notamImageUrl(notam.imagen)}
           alt={notam.transcripcion}
           loading="lazy"
-          className="block w-full min-w-[720px] h-auto"
+          className="block w-full min-w-[700px] h-auto"
         />
       </div>
 

@@ -11,7 +11,7 @@ import {
   markNotamProgress,
   pushPendingLocalProgress,
 } from "@/lib/notamProgress"
-import { LESSON_SCREENS, LESSON_TOTAL, type LessonBlock } from "@/lib/notamLesson"
+import { LESSON_SCREENS, LESSON_TOTAL } from "@/lib/notamLesson"
 
 const TOTAL = LESSON_TOTAL
 
@@ -21,6 +21,10 @@ const TOTAL = LESSON_TOTAL
  * pastilla; el contenido scrollea; el pie con "Siguiente" y "Continuar" cierra
  * la página y pasa a la lección que viene. Sin pasos ni puntos: la paginación
  * es entre lecciones, no dentro de una.
+ *
+ * Todo va en UNA columna de 720px, centrada como la página de un PDF: la
+ * portada, los títulos y el texto comparten el mismo ancho y el mismo borde
+ * izquierdo. La portada se resuelve por nombre de archivo (ver Portada).
  *
  * Los huecos de imagen van VISIBLES y rotulados a pedido de Camilo: la app
  * está en construcción, solo entran él y Nico, y el hueco es el recordatorio
@@ -166,7 +170,7 @@ export function NotamLesson() {
 
         {/* Área de contenido: la única región que puede desplazarse */}
         <div ref={contentRef} className="flex-1 overflow-y-auto">
-          <div className="px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
+          <div className="mx-auto w-full max-w-[800px] px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
             {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
             <header>
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
@@ -182,7 +186,7 @@ export function NotamLesson() {
                 </span>
               </div>
               <h1
-                className="ln-display mt-2 mb-0 font-bold text-[34px] lg:text-[54px]"
+                className="ln-display mt-2 mb-0 font-bold text-[34px] lg:text-[44px]"
                 style={{ lineHeight: 1.0, letterSpacing: "-0.012em", color: "var(--ln-ink)" }}
               >
                 {leccion.title}
@@ -209,51 +213,25 @@ export function NotamLesson() {
 
             {/* La lección entera, de corrido: se lee scrolleando */}
             <div key={l} className="ln-paso mt-8">
-              <div
-                className="grid grid-cols-1 lg:grid-cols-[minmax(0,700px)_1fr] gap-x-11"
-                style={{ rowGap: 38 }}
-              >
-                <div className="lg:col-span-2">
-                  <HuecoImagen
-                    rotulo="PORTADA · 1360×500"
-                    descripcion="Foto horizontal funcional para esta lección: torre, plataforma o pista. Sin textos encima."
-                    alto={250}
-                  />
-                </div>
+              <div className="flex flex-col" style={{ rowGap: 38 }}>
+                <Portada n={l} titulo={leccion.title} />
                 {leccion.blocks.map((block, i) => {
                   if (block.kind === "interactivo") {
                     return (
-                      <div key={i} className="lg:col-span-2 min-w-0">
+                      <div key={i} className="min-w-0">
                         <Decodificador />
-                      </div>
-                    )
-                  }
-                  if (block.kind === "hueco" && block.col === 2) {
-                    // La figura de columna 2 se pinta dos veces: en escritorio
-                    // a la derecha del texto que la precede (la retícula la
-                    // coloca en la fila donde quedó el cursor), y en móvil en
-                    // el flujo, porque la retícula de una columna no tiene
-                    // dónde ponerla al lado.
-                    return (
-                      <div key={i} className="min-w-0 contents">
-                        <div className="hidden lg:block min-w-0" style={{ gridColumn: 2 }}>
-                          <HuecoImagen {...block} />
-                        </div>
-                        <div className="lg:hidden min-w-0">
-                          <HuecoImagen {...block} />
-                        </div>
                       </div>
                     )
                   }
                   if (block.kind === "hueco") {
                     return (
-                      <div key={i} className="lg:col-span-2 min-w-0">
+                      <div key={i} className="min-w-0">
                         <HuecoImagen {...block} />
                       </div>
                     )
                   }
                   return (
-                    <div key={i} className={esAncho(block) ? "lg:col-span-2 min-w-0" : "min-w-0 lg:col-start-1"}>
+                    <div key={i} className="min-w-0">
                       <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
                         <DocBlock block={block} />
                       </div>
@@ -319,12 +297,6 @@ function clamp(n: number, min: number, max: number): number {
   return Math.max(min, Math.min(max, Math.round(n)))
 }
 
-/** Bloques que rompen la medida de lectura y ocupan todo el ancho. */
-function esAncho(block: LessonBlock): boolean {
-  return ["table", "code", "breakdown", "notam", "infografia", "rejilla", "glosario"].includes(
-    block.kind,
-  )
-}
 
 // ─── Sidebar con pastilla deslizante ─────────────────────────────────────────
 
@@ -504,18 +476,31 @@ function HuecoImagen({
   alto,
   anchoMax,
   pie,
+  ratio,
 }: {
   rotulo: string
   descripcion: string
   alto: number
   anchoMax?: number
   pie?: string
+  /** Proporción, si el hueco reemplaza a una imagen que la lleva: así mide lo
+   *  mismo que la foto en cualquier ancho, y no 270px fijos en el móvil. */
+  ratio?: string
 }) {
   return (
-    <figure className="m-0" style={anchoMax ? { maxWidth: anchoMax } : undefined}>
+    <figure
+      className={anchoMax ? "m-0 mx-auto w-full" : "m-0 w-full"}
+      style={anchoMax ? { maxWidth: anchoMax } : undefined}
+    >
       <div
         className="flex flex-col items-center justify-center gap-1.5 border px-6 text-center"
-        style={{ height: alto, background: "var(--ln-sunk)", borderColor: "var(--ln-hair)" }}
+        style={{
+          height: ratio ? undefined : alto,
+          aspectRatio: ratio,
+          minHeight: ratio ? 150 : undefined,
+          background: "var(--ln-sunk)",
+          borderColor: "var(--ln-hair)",
+        }}
       >
         <span
           className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
@@ -532,6 +517,55 @@ function HuecoImagen({
           {pie}
         </figcaption>
       )}
+    </figure>
+  )
+}
+
+// ─── Portada de la lección ───────────────────────────────────────────────────
+
+/**
+ * Las portadas se resuelven por nombre de archivo: basta guardar
+ * public/modulos/notam/leccion-NN.webp (NN = número de lección, dos cifras)
+ * para que aparezca, sin tocar código. Mientras el archivo no exista queda el
+ * hueco rotulado con esa ruta.
+ *
+ * Van en public/modulos y no en assets porque son material de UNA sección:
+ * bajo assets entrarían al precache y las trece portadas se las descargaría
+ * cada piloto al instalar, entre o no al módulo (ver public/modulos/LEEME.md y
+ * el globIgnores de vite.config.ts). Aquí viajan bajo demanda y se quedan en
+ * caché la primera vez que se ven.
+ *
+ * Proporción fija 8:3 (720x270 en la columna): una foto de otra medida se
+ * recorta por el centro, así todas las lecciones abren con la misma franja.
+ * El estado `falta` se reinicia solo al cambiar de lección, porque el bloque
+ * que la contiene lleva key={l} y se remonta entero.
+ */
+const PORTADA_RATIO = "8 / 3"
+
+function Portada({ n, titulo }: { n: number; titulo: string }) {
+  const [falta, setFalta] = useState(false)
+  const archivo = `leccion-${String(n).padStart(2, "0")}.webp`
+
+  if (falta) {
+    return (
+      <HuecoImagen
+        rotulo="PORTADA · 1440×540"
+        descripcion={`Foto horizontal (8:3) para esta lección: torre, plataforma o pista, sin textos encima. Pásala a WebP con scripts/optimizar-imagenes.mjs, guárdala como public/modulos/notam/${archivo} y aparece sola.`}
+        alto={270}
+        ratio={PORTADA_RATIO}
+      />
+    )
+  }
+  return (
+    <figure className="m-0 w-full">
+      <img
+        src={`/modulos/notam/${archivo}`}
+        alt={`Portada de la lección ${String(n).padStart(2, "0")}: ${titulo}`}
+        className="block w-full"
+        style={{ aspectRatio: PORTADA_RATIO, objectFit: "cover", background: "var(--ln-sunk)" }}
+        onError={() => setFalta(true)}
+        decoding="async"
+      />
     </figure>
   )
 }

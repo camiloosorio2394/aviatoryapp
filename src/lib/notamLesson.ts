@@ -57,7 +57,7 @@ export type LessonBlock =
   /**
    * Hueco de imagen rotulado, VISIBLE a propósito: la app está en
    * construcción y el hueco recuerda qué imagen falta y de qué medida.
-   * `col: 2` lo manda a la columna derecha, emparejado con el texto.
+   * Va en el flujo, al ancho de la columna; `anchoMax` lo acota y centra.
    */
   | {
       kind: "hueco"
@@ -66,7 +66,6 @@ export type LessonBlock =
       alto: number
       anchoMax?: number
       pie?: string
-      col?: 2
     }
   | { kind: "table"; head: string[]; rows: string[][] }
   | { kind: "code"; text: string }
@@ -181,7 +180,27 @@ export const LESSON_SCREENS: LessonScreen[] = [
       // ── Paso 1: qué es y para qué sirve ──────────────────────────────────
       {
         kind: "definicion",
-        text: "Un **NOTAM** (Notice to Airmen) es un aviso que informa de condiciones que pueden afectar la seguridad, la eficiencia o la regularidad de las operaciones aéreas.",
+        text: "**NOTAM** significa Notice to Airmen. Es un aviso aeronáutico que contiene información temporal o cambios importantes relacionados con la operación de vuelo, que deben ser conocidos por pilotos y demás personal aeronáutico antes de realizar una operación.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Sobre el nombre",
+        text: "Vas a encontrar material que lo traduce como Notice to Air Missions. Ese nombre lo usó solo la FAA de Estados Unidos, entre 2021 y febrero de 2025, y luego volvió a Notice to Airmen. La OACI y la Aerocivil nunca lo cambiaron: para el PCA y para volar en Colombia, NOTAM es Notice to Airmen.",
+      },
+      { kind: "p", text: "Un NOTAM puede informar, por ejemplo, sobre:" },
+      {
+        kind: "vinetas",
+        items: [
+          "Cierre o restricción de una pista.",
+          "Cambio temporal de una aproximación o procedimiento.",
+          "Ayudas a la navegación fuera de servicio.",
+          "Obstáculos temporales.",
+          "Cambios en horarios o servicios de un aeródromo.",
+          "Actividades militares o áreas temporalmente restringidas.",
+          "Fallas o limitaciones de sistemas de navegación, comunicaciones o iluminación.",
+          "Trabajos de construcción en un aeródromo.",
+        ],
       },
       { kind: "sub", text: "Para qué sirve" },
       {
@@ -249,7 +268,6 @@ export const LESSON_SCREENS: LessonScreen[] = [
         alto: 240,
         anchoMax: 560,
         pie: "El cierre de la casilla E, sobre el trazado del aeródromo.",
-        col: 2,
       },
       {
         kind: "glosario",
