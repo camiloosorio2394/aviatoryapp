@@ -769,7 +769,7 @@ const ZOOM_WIDTH: Record<ZoomLevel, string> = {
 }
 
 interface NotamImageProps {
-  national: NationalNotam
+  national: RealNotam
   variant: "card" | "zoom"
   zoomLevel?: ZoomLevel
   onZoom?: () => void
