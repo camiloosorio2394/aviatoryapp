@@ -45,6 +45,17 @@ const vuelto = (apice: "abajo" | "izquierda" | "derecha", ...elementos: Elemento
   elementos: [{ tipo: "triangulo", apice }, ...elementos],
 })
 
+/** Casilla de rombo con los brazos que la distinguen. */
+const r = (...elementos: Elemento[]): Celda => ({
+  marco: true,
+  elementos: [{ tipo: "rombo" }, ...elementos],
+})
+
+const N: Elemento = { tipo: "radio", hacia: "arriba" }
+const S: Elemento = { tipo: "radio", hacia: "abajo" }
+const E: Elemento = { tipo: "radio", hacia: "derecha" }
+const O: Elemento = { tipo: "radio", hacia: "izquierda" }
+
 const HUECO = { incognita: true } as const
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -68,6 +79,32 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       t(MASTIL, IZQ),
       t(DER),
       vuelto("abajo", { tipo: "mastil", apice: "abajo" }, IZQ, DER),
+    ],
+  },
+
+  /**
+   * El rombo no se mueve; lo que se mueve son sus cuatro brazos, que se van
+   * añadiendo de uno en uno hasta tenerlos los cuatro y después se quitan
+   * igual. El conteo de brazos por casilla dibuja la ida y la vuelta:
+   * 1 · 2 · 3 · 4 · 3 · 2 · 1 · 2 · y la que falta lleva tres.
+   *
+   * El solucionador no cubre esta regla —no es un giro ni una combinación de
+   * las dos primeras casillas—, así que aquí no hay comprobación automática y
+   * la respuesta es la de la clave del cuadernillo: la D.
+   */
+  "AB-A1-02": {
+    tipo: "matriz-3x3",
+    celdas: [
+      r(N), r(N, E), r(N, E, S),
+      r(N, E, S, O), r(E, S, O), r(S, O),
+      r(S), r(S, O), HUECO,
+    ],
+    opciones: [
+      r(N, S),
+      r(N, E, S, O),
+      { marco: true, elementos: [{ tipo: "diagonales" }] },
+      r(N, S, O),
+      r(N, S, { tipo: "cuerda", hacia: "derecha" }),
     ],
   },
 }

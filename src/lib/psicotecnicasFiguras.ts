@@ -59,6 +59,27 @@ export type Elemento =
   | { tipo: "mastil"; apice: Apice }
   /** Trazo corto que muere en una esquina, entrando en diagonal suave. */
   | { tipo: "trazo-esquina"; esquina: Esquina }
+  /** Rombo inscrito: sus cuatro vértices, en los medios de los lados. */
+  | { tipo: "rombo" }
+  /**
+   * Brazo desde el centro hasta el medio de un lado.
+   *
+   * Va suelto y no como «cruz» o «eje» porque en los cuadernillos los cuatro
+   * brazos aparecen y desaparecen uno a uno: son cuatro atributos, y tratarlos
+   * como uno solo perdería justo lo que cambia entre casilla y casilla.
+   */
+  | { tipo: "radio"; hacia: Sentido }
+  /** Las dos diagonales del rectángulo, de esquina a esquina. */
+  | { tipo: "diagonales" }
+  /**
+   * Cuerda del rombo, paralela a uno de sus ejes.
+   *
+   * Se declara por el lado hacia el que se desplaza —«una cuerda hacia el
+   * este»— y no por una coordenada: cae siempre a mitad de camino entre el
+   * centro y ese vértice, con los extremos sobre los lados del rombo. Es un
+   * atributo, y por eso se puede comparar entre casillas.
+   */
+  | { tipo: "cuerda"; hacia: Sentido }
 
 /** El contenido de una casilla: su marco, su rejilla y lo que lleva dentro. */
 export interface Celda {
@@ -309,6 +330,65 @@ function dibujarCelda(
         break
       }
 
+      case "rombo": {
+        const puntos = [
+          [x + ancho / 2, y],
+          [x + ancho, y + alto / 2],
+          [x + ancho / 2, y + alto],
+          [x, y + alto / 2],
+        ]
+          .map(([px, py]) => `${px.toFixed(1)},${py.toFixed(1)}`)
+          .join(" ")
+        partes.push(
+          `<polygon points="${puntos}" fill="none" stroke="currentColor"` +
+            ` stroke-width="${TRAZO}" stroke-linejoin="miter"/>`
+        )
+        break
+      }
+
+      case "radio": {
+        const cx = x + ancho / 2
+        const cy = y + alto / 2
+        const destino = {
+          arriba: [cx, y],
+          abajo: [cx, y + alto],
+          izquierda: [x, cy],
+          derecha: [x + ancho, cy],
+        }[el.hacia]
+        partes.push(
+          `<line x1="${cx}" y1="${cy}" x2="${destino[0]}" y2="${destino[1]}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "cuerda": {
+        const cx = x + ancho / 2
+        const cy = y + alto / 2
+        // A mitad de camino hacia el vértice, el rombo mide la mitad de alto.
+        const horizontal = el.hacia === "izquierda" || el.hacia === "derecha"
+        const signo = el.hacia === "izquierda" || el.hacia === "arriba" ? -1 : 1
+        const [x1, y1, x2, y2] = horizontal
+          ? [cx + (signo * ancho) / 4, cy - alto / 4, cx + (signo * ancho) / 4, cy + alto / 4]
+          : [cx - ancho / 4, cy + (signo * alto) / 4, cx + ancho / 4, cy + (signo * alto) / 4]
+        partes.push(
+          `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}"` +
+            ` x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "diagonales": {
+        partes.push(
+          `<line x1="${x}" y1="${y}" x2="${x + ancho}" y2="${y + alto}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`,
+          `<line x1="${x + ancho}" y1="${y}" x2="${x}" y2="${y + alto}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
       case "trazo-esquina": {
         // Muere en la esquina y entra en diagonal suave hacia el interior.
         const [ex, ey] = puntoEsquina(el.esquina, x, y, ancho, alto)
@@ -505,6 +585,14 @@ export function describirCelda(celda: Celda): string {
           return "segmento vertical desde el vértice"
         case "trazo-esquina":
           return `trazo corto en ${NOMBRE_ESQUINA[el.esquina]}`
+        case "rombo":
+          return "rombo inscrito"
+        case "radio":
+          return `brazo desde el centro hacia ${el.hacia}`
+        case "diagonales":
+          return "las dos diagonales del rectángulo"
+        case "cuerda":
+          return `cuerda del rombo hacia ${el.hacia}`
       }
     })
     .join("; ")

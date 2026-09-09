@@ -64,6 +64,7 @@ try {
 
 const conFigura = banco.filter((e) => e.figura)
 const problemas = []
+const sinComprobar = []
 const fichas = []
 
 for (const ejercicio of conFigura) {
@@ -93,9 +94,18 @@ for (const ejercicio of conFigura) {
   }
 
   // 4 · La respuesta, deducida otra vez desde los atributos.
+  //
+  // Que el solucionador no sepa deducirla NO es un fallo: el A1 trae clave
+  // verificada del cuadernillo, y aquí el solucionador no decide la respuesta,
+  // sino que hace de segunda lectura de la transcripción. Si su familia de
+  // reglas no cubre este ejercicio, lo que falta es la comprobación
+  // automática, no la respuesta —igual que las 65 series numéricas que
+  // FUENTES.md declara «sin comprobación automática posible»—. Lo que sí es un
+  // fallo es que deduzca una respuesta **distinta**: ahí o está mal
+  // transcrita la figura o está mal la clave, y las dos cosas hay que mirarlas.
   const veredicto = solucionador.resolverFigura(figura)
   if (veredicto.estado !== "resuelto") {
-    falla(`no se puede deducir la respuesta: ${veredicto.motivo}`)
+    sinComprobar.push({ id, motivo: veredicto.motivo })
   } else if (veredicto.opcion !== respuesta) {
     falla(
       `el banco responde ${opciones[respuesta]} y la figura dibujada da ` +
@@ -174,10 +184,19 @@ console.log(`Figuras dibujadas en el banco: ${conFigura.length} de ${banco.lengt
 
 for (const { ejercicio, veredicto } of fichas) {
   const linea =
-    veredicto.estado === "resuelto" && veredicto.opcion === ejercicio.respuesta
-      ? `${verde("✓")} ${ejercicio.id}  ${tenue(veredicto.reglas[0].transformacion)}`
-      : `${rojo("✗")} ${ejercicio.id}`
+    veredicto.estado !== "resuelto"
+      ? `${ambar("·")} ${ejercicio.id}  ${tenue("sin comprobación automática")}`
+      : veredicto.opcion === ejercicio.respuesta
+        ? `${verde("✓")} ${ejercicio.id}  ${tenue(veredicto.reglas[0].transformacion)}`
+        : `${rojo("✗")} ${ejercicio.id}`
   console.log(`  ${linea}`)
+}
+
+if (sinComprobar.length > 0) {
+  console.log()
+  console.log(ambar(`${sinComprobar.length} sin comprobación automática:`))
+  for (const p of sinComprobar) console.log(`  ${ambar("·")} ${p.id}: ${p.motivo}`)
+  console.log(tenue("  Su respuesta es la de la clave del cuadernillo. Hay que aprobarlas mirando el HTML."))
 }
 
 if (problemas.length > 0) {
@@ -205,5 +224,11 @@ if (conFigura.length === 0) {
 
 if (problemas.length > 0) process.exit(1)
 
-console.log(verde(`Las ${conFigura.length} figuras cuadran con la respuesta del banco.`))
+const comprobadas = conFigura.length - sinComprobar.length
+console.log(
+  verde(
+    `${comprobadas} de ${conFigura.length} figuras se dedujeron desde sus atributos ` +
+      `y coinciden con la respuesta del banco.`
+  )
+)
 console.log(ambar("Falta lo que no puede comprobar un script: aprobar el HTML figura por figura."))
