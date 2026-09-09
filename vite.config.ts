@@ -91,37 +91,56 @@ export default defineConfig({
               cacheableResponse: { statuses: [0, 200] },
             },
           },
+          // Las tres reglas de imagenes bajo demanda comparten dos reglas de
+          // oro, aprendidas a golpes:
+          //
+          // 1) Solo se guarda lo que ES una imagen. Una peticion a un archivo
+          //    que todavia no existe no devuelve 404: el rewrite del SPA la
+          //    contesta con index.html y un 200. Con statuses [0,200] eso se
+          //    guardaba como si fuera la imagen, y CacheFirst no vuelve a
+          //    preguntar NUNCA: la portada quedaba rota para siempre en ese
+          //    dispositivo, aunque despues subieramos el archivo bueno. Filtrar
+          //    por Content-Type corta eso de raiz. (El rewrite tambien se
+          //    arreglo en vercel.json, pero esto protege aunque vuelva.)
+          //
+          // 2) El nombre del cache lleva version. Al subirla, los caches
+          //    envenenados de antes quedan huerfanos y se dejan de consultar,
+          //    que es la unica forma de recuperar a quien ya los tiene.
+          //
+          // Solo .webp a proposito: es lo que produce scripts/optimizar-imagenes.mjs
+          // y lo que manda public/modulos/LEEME.md. Un .png suelto no se cachea,
+          // que es un fallo inofensivo comparado con guardar HTML.
           {
             // Recortes de NOTAM: fuera del precache, pero se guardan la primera
             // vez que se abren. Quien estudia la seccion los tiene offline en la
             // segunda visita; quien no entra nunca no los descarga jamas.
-            urlPattern: /\/notams\/.*\.(webp|png)$/,
+            urlPattern: /\/notams\/.*\.webp$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'notam-images',
+              cacheName: 'notam-images-v2',
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 180 },
-              cacheableResponse: { statuses: [0, 200] },
+              cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'image/webp' } },
             },
           },
           {
             // Ilustraciones de las infografias: mismo trato que los recortes.
             // Quien abre la seccion las tiene offline en la segunda visita.
-            urlPattern: /\/infografias\/.*\.(webp|png)$/,
+            urlPattern: /\/infografias\/.*\.webp$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'infografia-images',
+              cacheName: 'infografia-images-v2',
               expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 180 },
-              cacheableResponse: { statuses: [0, 200] },
+              cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'image/webp' } },
             },
           },
           {
             // Ilustraciones de las lecciones de modulo: mismo trato.
-            urlPattern: /\/modulos\/.*\.(webp|png|jpg)$/,
+            urlPattern: /\/modulos\/.*\.webp$/,
             handler: 'CacheFirst',
             options: {
-              cacheName: 'modulo-images',
+              cacheName: 'modulo-images-v2',
               expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 180 },
-              cacheableResponse: { statuses: [0, 200] },
+              cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'image/webp' } },
             },
           },
           {
