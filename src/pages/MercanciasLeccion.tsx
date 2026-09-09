@@ -1,5 +1,5 @@
 import { LectorLeccion, type LectorModulo } from "@/components/lesson/LectorLeccion"
-import { MP_APRENDE, MP_HUB, MP_TITULO } from "@/lib/mercancias"
+import { MP_APRENDE, MP_HUB, MP_PRACTICA, MP_TITULO } from "@/lib/mercancias"
 import { MP_LECCIONES, MP_NIVELES } from "@/lib/mercanciasLeccion"
 import {
   fetchMercanciasProgress,
@@ -21,14 +21,13 @@ const MODULO: LectorModulo = {
   nombre: MP_TITULO,
   rotulo: "Mercancías · Módulo",
   hub: MP_HUB,
+  practica: MP_PRACTICA,
   portadas: "/modulos/mercancias",
   actividad: "mercancias-leccion",
   lecciones: MP_LECCIONES,
   niveles: MP_NIVELES,
-  // Mientras la práctica y la evaluación no existan como páginas, el final
-  // de la última lección devuelve al hub.
-  alFinal: MP_HUB,
-  textoFinal: "Volver al módulo →",
+  alFinal: MP_PRACTICA,
+  textoFinal: "Práctica →",
   leerLocal: () => readMercanciasLocal().lessonScreens,
   escribirLocal: (ns) => {
     writeMercanciasLocal({ lessonScreens: ns })

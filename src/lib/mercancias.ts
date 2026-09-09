@@ -8,7 +8,7 @@
  */
 
 import { MP_LECCION_TOTAL } from "@/lib/mercanciasLeccion"
-import { CASOS } from "@/lib/mercanciasPractica"
+import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
 
 /** Nombre del módulo, tal como aparece en el hub y en la miga del lector. */
 export const MP_TITULO = "Mercancías peligrosas"
@@ -37,8 +37,8 @@ export const MP_LECTOR = `${MP_HUB}/leccion`
 /** Cuántas lecciones tiene el módulo. Denominador del progreso de lectura. */
 export const MP_LECTURA_TOTAL = MP_LECCION_TOTAL
 
-/** Ejercicios de la práctica. Denominador de esa parte. */
-export const MP_PRACTICA_TOTAL = CASOS.length
+/** Ejercicios de la práctica (etiquetas, casos, escenarios y entrevista). Denominador de esa parte. */
+export const MP_PRACTICA_TOTAL = PRACTICA_TOTAL
 
 /** Mínimo de la evaluación, sobre 100. */
 export const MP_PASS_SCORE = 80

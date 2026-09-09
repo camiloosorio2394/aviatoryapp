@@ -11,6 +11,7 @@ import {
   MP_EXAM_PER_ATTEMPT,
   MP_LECTURA_TOTAL,
   MP_PASS_SCORE,
+  MP_PRACTICA,
   MP_PRACTICA_TOTAL,
   MP_TITULO,
   MP_VIGENCIA,
@@ -92,15 +93,21 @@ export function Mercancias() {
       done: resumen.lessonRead >= MP_LECTURA_TOTAL,
     },
     {
+      to: MP_PRACTICA,
       icon: Target,
       color: "var(--av-dg-700)",
-      meta: "Etiquetas, clasificación, escenarios y entrevista",
+      meta: `${MP_PRACTICA_TOTAL} ejercicios: etiquetas, clasificación, escenarios y entrevista`,
       title: "2. Práctica",
       blurb:
         "Reconoces etiquetas, clasificas envíos, resuelves escenarios operacionales y ensayas las preguntas de una entrevista técnica.",
+      cta: "Empezar a practicar",
       photoHueco: "MP-POR-02 · Portada 3:2 · 1200×800 · Un ULD con etiquetas de riesgo",
-      soon: true,
-      status: `Próximamente · ${MP_PRACTICA_TOTAL} ejercicios ya en el módulo`,
+      status:
+        resumen.practiceDone === 0
+          ? "Sin empezar"
+          : `${resumen.practiceDone} de ${MP_PRACTICA_TOTAL} resueltos`,
+      progress: resumen.practicePct,
+      done: resumen.practiceDone >= MP_PRACTICA_TOTAL,
     },
     {
       icon: GraduationCap,
