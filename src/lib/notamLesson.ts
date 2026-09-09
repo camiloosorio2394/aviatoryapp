@@ -1191,7 +1191,7 @@ export const LESSON_SCREENS: DocScreen[] = [
         parrafos: [
           "El segundo componente de la línea Q es el **código NOTAM**. Está formado por cinco letras y permite identificar de manera estandarizada el asunto que se está notificando y la condición o estado de ese asunto. La primera letra siempre es `Q`; la segunda y tercera identifican el asunto, y la cuarta y quinta indican la condición o estado. Esta estructura está establecida por OACI en el Doc 8400, PANS-ABC.",
           "Por ejemplo, en nuestro caso tenemos `QRALW`. Las letras `RA` corresponden al asunto que se está notificando y `LW` identifica la condición asociada. De esta manera, el código permite obtener una primera lectura del contenido del NOTAM sin tener que interpretar todavía todo su texto.",
-          "Lo importante en esta etapa no es memorizar todos los códigos. Lo que debes aprender es a reconocer cómo está construido el código: **Q + asunto + condición**. Más adelante veremos los códigos más utilizados y aprenderemos a desglosarlos uno por uno.",
+          "Lo importante en esta etapa no es memorizar todos los códigos. Lo que debes aprender es a reconocer cómo está construido el código: **Q + asunto + condición**. A continuación veremos los códigos más utilizados y aprenderemos a desglosarlos uno por uno.",
         ],
       },
       {
@@ -1597,147 +1597,6 @@ export const LESSON_SCREENS: DocScreen[] = [
   // ── 6 ──────────────────────────────────────────────────────────────────────
   {
     n: 6,
-    title: "El código NOTAM de cinco letras",
-    kicker: "Asunto y estado en cinco letras",
-    minutes: 4,
-    level: "intermedio",
-    blocks: [
-      {
-        kind: "p",
-        text: "Reglas (Doc 8400, §3, pág. 7-1): son cinco letras y siempre empieza por **Q**. La **2ª y 3ª letras indican el asunto**, la **4ª y 5ª el estado**.",
-      },
-      {
-        kind: "breakdown",
-        caption:
-          "Con esas dos parejas armas la frase: sujeto (`MR`, la pista) y qué le pasa (`LC`, cerrada). Todos los códigos se leen igual.",
-        parts: [
-          { token: "Q", label: "fija", detail: "Todo código NOTAM empieza por Q." },
-          {
-            token: "MR",
-            label: "asunto",
-            detail: "2ª y 3ª letras: `M` es área de movimiento y `MR` es la pista.",
-          },
-          {
-            token: "LC",
-            label: "estado",
-            detail: "4ª y 5ª letras: `L` son limitaciones y `LC` es cerrado.",
-          },
-        ],
-      },
-      { kind: "p", text: "**Asuntos** (2ª y 3ª letras), agrupados por sección:" },
-      {
-        kind: "kv",
-        items: [
-          { k: "AGA", v: "`L` iluminación · `M` área de movimiento · `F` instalaciones y servicios" },
-          { k: "COM", v: "`C` comunicaciones y radar · `I` ILS/MLS · `N` navegación · `G` GNSS" },
-          { k: "RAC", v: "`A` espacio aéreo · `S` servicios ATS y VOLMET · `P` procedimientos" },
-          { k: "Avisos para la navegación", v: "`R` restricciones · `W` avisos (warnings)" },
-          { k: "Otras informaciones", v: "`O`" },
-        ],
-      },
-      {
-        kind: "p",
-        text: "**Estados** (4ª y 5ª letras): `A` disponibilidad, `C` cambios, `H` condiciones de peligro, `L` limitaciones, `XX` otros.",
-      },
-      { kind: "p", text: "**Casos especiales** (§3.3 a §3.8):" },
-      {
-        kind: "list",
-        items: [
-          "Asunto o condición que no figura en las tablas: se usa `XX` y el texto va en lenguaje claro.",
-          "`QKKKK` es la checklist de NOTAM válidos.",
-          "`TT` en 4ª y 5ª letras marca un NOTAM iniciador de enmienda o suplemento AIP AIRAC.",
-          "Cancelan un NOTAM: `AK` (operación normal reanudada), `AL` (opera con limitaciones ya publicadas), `AO` (operacional), `CC` (completado) y `XX`.",
-        ],
-      },
-      {
-        kind: "p",
-        text: "**El caso `TT` en la práctica.** Un NOTAM iniciador no trae la información: avisa de que salió una publicación AIP y te manda a leerla.",
-      },
-      {
-        kind: "notam",
-        id: "N17",
-        caption:
-          "`TRIGGER NOTAM - AIP SUP 35/26` con `WEF 20 JUL 2026`: anuncia el suplemento 35 del AIP, con efecto desde el 20 de julio. Fíjate en la vigencia corta, del 20 de julio al 2 de agosto: el trigger acompaña a la publicación y se retira, pero el suplemento sigue vigente. Si te quedas con este aviso y no abres el AIP SUP, no te enteraste de nada.",
-      },
-      {
-        kind: "p",
-        text: "**Los que más vas a ver** (tablas del Doc 8400, sección 7). Esta es la tabla que el Decodificador trae completa, recortada a lo que aparece en casi todo briefing:",
-      },
-      {
-        kind: "table",
-        head: ["Código", "Asunto", "Estado", "Qué significa"],
-        rows: [
-          ["`QMRLC`", "`MR` pista", "`LC` cerrada", "Pista cerrada"],
-          ["`QMRLT`", "`MR` pista", "`LT` limitada", "Pista sujeta a limitaciones"],
-          ["`QMXLC`", "`MX` calle de rodaje", "`LC` cerrada", "Calle de rodaje cerrada"],
-          ["`QLPAS`", "`LP` PAPI", "`AS` inutilizable", "PAPI inoperativo"],
-          ["`QNVAS`", "`NV` VOR", "`AS` inutilizable", "VOR fuera de servicio"],
-          ["`QICAS`", "`IC` ILS", "`AS` inutilizable", "ILS fuera de servicio"],
-          ["`QOBCE`", "`OB` obstáculo", "`CE` erigido", "Obstáculo nuevo montado"],
-          ["`QRRCA`", "`RR` zona restringida", "`CA` activada", "Zona restringida activada"],
-          ["`QWMLW`", "`WM` ejercicios de tiro", "`LW` se realizarán", "Habrá ejercicios de tiro"],
-          ["`QPDAW`", "`PD` SID", "`AW` retirada", "SID retirada definitivamente"],
-        ],
-      },
-      {
-        kind: "p",
-        text: "**Así se ve `QFALC` en la vida real.** Magangué, en el resumen de la Aerocivil:",
-      },
-      {
-        kind: "notam",
-        id: "N13",
-        caption:
-          "`AD CLSD` es aeródromo cerrado: asunto `FA` (aeródromo) y estado `LC` (cerrado). El resumen no imprime el código de cinco letras, pero el texto de la casilla E) tiene que ser coherente con él, y aquí lo es. Ojo al `1100-2300`: el cierre es de once de la mañana a once de la noche UTC, no todo el día.",
-      },
-      {
-        kind: "p",
-        text: "Y este es un `QOBCE`, obstáculo montado, uno de los pocos NOTAM que te dan coordenadas y altura del obstáculo:",
-      },
-      {
-        kind: "notam",
-        id: "N5",
-        caption:
-          "Asunto `OB` (obstáculo) y estado `CE` (erigido). El aviso da el tipo, las coordenadas, la elevación y la altura de cada silo, que es justo lo que necesitas para saber si te afecta en aproximación.",
-      },
-      {
-        kind: "check",
-        question: "Vuelas IFR de noche y el NOTAM del destino trae `QMRLN`. ¿Puedes aterrizar?",
-        options: [
-          "No: `LN` es cerrada de noche, y es justo cuando llegas",
-          "Sí: `LN` es cerrada solo para vuelos nocturnos VFR",
-          "Sí: `LN` significa limitación de longitud, no cierre",
-        ],
-        answer: 0,
-        explain:
-          "`MR` es la pista y `LN` es cerrada de noche. Es el grupo de estados que más se confunde: `LC` es cerrada del todo, `LI` solo para IFR, `LV` solo para VFR y `LN` solo de noche. Se parecen a simple vista y deciden si operas o no.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Error común: cerrado no siempre es cerrado",
-        text: "`LC` es cerrado del todo, pero `LI` es cerrado solo para IFR, `LV` solo para VFR y `LN` solo de noche. Las cuatro se parecen a simple vista y cambian por completo si puedes operar o no.",
-      },
-      {
-        kind: "summary",
-        items: [
-          "Cinco letras: `Q` fija, dos de **asunto** y dos de **estado**.",
-          "Léelo como una frase: sujeto y qué le pasa. `QNVAS` es \"el VOR está inutilizable\".",
-          "Si el asunto o el estado no está en las tablas se usa `XX` y el texto va en lenguaje claro en la casilla E).",
-          "El código Q y la casilla E) tienen que decir lo mismo. Si no coinciden, sospecha del mensaje.",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Abre el Decodificador",
-        text: "Las tablas completas (168 códigos de asunto y 78 de estado, con su fraseología) están en el Decodificador de esta sección. Ahí escribes un código como `QMRLC` y ves qué significa, o buscas por palabra.",
-      },
-    ],
-  },
-
-  // ── 7 ──────────────────────────────────────────────────────────────────────
-  {
-    n: 7,
     title: "Los ítems A) a G), uno por uno",
     kicker: "Dónde, cuándo, qué y entre qué niveles",
     minutes: 6,
@@ -1918,9 +1777,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 8 ──────────────────────────────────────────────────────────────────────
+  // ── 7 ──────────────────────────────────────────────────────────────────────
   {
-    n: 8,
+    n: 7,
     title: "La casilla E) y la fraseología abreviada",
     kicker: "Leer el texto en lenguaje claro",
     minutes: 3,
@@ -1974,9 +1833,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 9 ──────────────────────────────────────────────────────────────────────
+  // ── 8 ──────────────────────────────────────────────────────────────────────
   {
-    n: 9,
+    n: 8,
     title: "Abreviaturas OACI que vas a ver siempre",
     kicker: "El mínimo para leer la casilla E)",
     minutes: 4,
@@ -2076,9 +1935,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 10 ─────────────────────────────────────────────────────────────────────
+  // ── 9 ─────────────────────────────────────────────────────────────────────
   {
-    n: 10,
+    n: 9,
     title: "Decodificación completa, paso a paso",
     kicker: "Dos NOTAM decodificados enteros",
     minutes: 4,
@@ -2146,9 +2005,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 11 ─────────────────────────────────────────────────────────────────────
+  // ── 10 ─────────────────────────────────────────────────────────────────────
   {
-    n: 11,
+    n: 10,
     title: "NOTAM en Colombia: el resumen mensual de la Aerocivil",
     kicker: "Leer el resumen mensual DRT",
     minutes: 4,
@@ -2239,9 +2098,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 12 ─────────────────────────────────────────────────────────────────────
+  // ── 11 ─────────────────────────────────────────────────────────────────────
   {
-    n: 12,
+    n: 11,
     title: "SNOWTAM y ASHTAM",
     kicker: "Las dos series con formato propio",
     minutes: 5,
@@ -2335,9 +2194,9 @@ export const LESSON_SCREENS: DocScreen[] = [
     ],
   },
 
-  // ── 13 ─────────────────────────────────────────────────────────────────────
+  // ── 12 ─────────────────────────────────────────────────────────────────────
   {
-    n: 13,
+    n: 12,
     title: "Método de lectura en 6 pasos",
     kicker: "Rutina de lectura y errores comunes",
     minutes: 3,

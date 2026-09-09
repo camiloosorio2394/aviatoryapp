@@ -16,6 +16,18 @@ import { LESSON_SCREENS, LESSON_TOTAL } from "@/lib/notamLesson"
 const TOTAL = LESSON_TOTAL
 
 /**
+ * Descarta los números de lección que ya no existen.
+ *
+ * El progreso se guarda por número, así que al retirar una lección del temario
+ * los números altos que alguien tuviera marcados quedan fuera de rango y el
+ * contador enseñaría cosas como "13 / 12". Filtrar al leer es más barato que
+ * migrar lo guardado, y se corrige solo la próxima vez que el piloto avance.
+ */
+function soloExistentes(ns: number[]): number[] {
+  return ns.filter((n) => n >= 1 && n <= TOTAL)
+}
+
+/**
  * Lección NOTAM: cada lección es UNA página que se lee scrolleando, como el
  * standalone aprobado. El sidebar navy queda fijo con las 13 lecciones y la
  * pastilla; el contenido scrollea; el pie con "Siguiente" y "Continuar" cierra
@@ -36,7 +48,9 @@ export function NotamLesson() {
   const { user, isLoading: sessionLoading } = useSession()
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
-  const [readSections, setReadSections] = useState<number[]>(() => readLocalProgress().lessonScreens)
+  const [readSections, setReadSections] = useState<number[]>(() =>
+    soloExistentes(readLocalProgress().lessonScreens),
+  )
   const [drawer, setDrawer] = useState(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
@@ -86,8 +100,8 @@ export function NotamLesson() {
       if (cancelled || !fetched) return
       const remote = await pushPendingLocalProgress(fetched)
       if (cancelled) return
-      const merged = Array.from(
-        new Set([...readLocalProgress().lessonScreens, ...remote.lessonScreens]),
+      const merged = soloExistentes(
+        Array.from(new Set([...readLocalProgress().lessonScreens, ...remote.lessonScreens])),
       ).sort((a, b) => a - b)
       writeLocalProgress({ lessonScreens: merged })
       setReadSections((prev) =>
