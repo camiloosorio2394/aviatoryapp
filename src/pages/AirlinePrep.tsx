@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import {
   AlertTriangle,
   ArrowRight,
+  Brain,
   Briefcase,
   ClipboardCheck,
   ClipboardList,
@@ -41,6 +42,9 @@ import {
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
 import { MP_HUB, MP_LECTURA_TOTAL, resumirMercancias } from "@/lib/mercancias"
+import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
+import { BANCO_TOTAL as PSICO_BANCO_TOTAL, TOTALES as PSICO_TOTALES } from "@/data/psicotecnicas"
+import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
 import { ROMBOS_TOTAL } from "@/lib/mercanciasClases"
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
@@ -49,6 +53,7 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jp
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
+import psicotecnicasPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
 
 /**
  * Módulo Ingreso a aerolínea: la lista de TEMAS de estudio.
@@ -79,7 +84,6 @@ const PROXIMOS: string[] = [
   "Sistemas y motor a reacción",
   "Entrevista técnica",
   "Entrevista HR y CRM",
-  "Psicotécnicos y assessment",
 ]
 
 /** Casos de la práctica de Mercancías Peligrosas, para el pie de su tarjeta. */
@@ -131,6 +135,9 @@ export function AirlinePrep() {
     () => readAirlineMockLocal().bestScore
   )
   const [mercanciasProgreso, setMercanciasProgreso] = useState(() => readMercanciasLocal())
+  const [mejorPsico, setMejorPsico] = useState<number | null>(
+    () => leerPsicoLocal().mejorSimulacro
+  )
   const [hidratado, setHidratado] = useState(false)
 
   // Quien estudia sin cuenta ve su respaldo local de inmediato: no hay nada que
@@ -146,7 +153,8 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, examRes, metarExamRes, mockRes, mpRes] = await Promise.all([
+      const [notamRes, metarRes, examRes, metarExamRes, mockRes, mpRes, psicoRes] =
+        await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
         supabase
@@ -163,6 +171,7 @@ export function AirlinePrep() {
           .limit(1),
         fetchMejorPuntajeSimulacro(user.id),
         fetchMercanciasProgress(user.id),
+        mejorSimulacroRemoto(user.id),
       ])
       if (cancelled) return
 
@@ -194,6 +203,11 @@ export function AirlinePrep() {
       }
       setMejorSimulacro(mockRes)
       if (mpRes) setMercanciasProgreso(mpRes)
+      // Se queda con el mayor entre la base y el respaldo local: si el mejor
+      // intento se hizo sin sesión en este mismo equipo, no se pierde.
+      if (psicoRes !== null) {
+        setMejorPsico((local) => Math.max(local ?? 0, psicoRes))
+      }
       setHidratado(true)
     })()
 
@@ -292,6 +306,30 @@ export function AirlinePrep() {
               : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} secciones y ${mercancias.practiceDone} de ${MP_CASOS} casos`,
         },
       },
+      // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
+      // de avance es el mejor resultado del simulacro, que es lo único que
+      // mide de verdad si ya estás listo para el proceso.
+      {
+        nombre: "Pruebas psicotécnicas",
+        to: PSICO_HUB,
+        pct: mejorPsico ?? 0,
+        card: {
+          to: PSICO_HUB,
+          icon: Brain,
+          color: "var(--av-violet-400)",
+          meta: `${PSICO_BANCO_TOTAL} ejercicios · ${PSICO_TOTALES.abstracto} abstracto, ${PSICO_TOTALES.espacial} espacial, ${PSICO_TOTALES.numerico} numérico · simulacro de ${SIMULACRO_TOTAL}`,
+          title: "Pruebas psicotécnicas",
+          blurb:
+            "Razonamiento abstracto, espacial y numérico contra el reloj. Tres modos y tres niveles: el tiempo se acorta a medida que subes.",
+          photo: psicotecnicasPhoto,
+          cta: mejorPsico === null ? "Empezar el tema" : "Seguir entrenando",
+          progress: mejorPsico ?? 0,
+          status:
+            mejorPsico === null
+              ? "Arranca por la lección del cubo, o entra directo a entrenar"
+              : `Tu mejor simulacro: ${mejorPsico} sobre 100`,
+        },
+      },
       // El cierre del módulo, al estilo del simulacro TEA: la razón para volver
       // cuando ya leíste todo. No se completa, así que va con las herramientas.
       {
@@ -351,7 +389,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, mejorSimulacro])
+  }, [notam, metar, mercancias, mejorSimulacro, mejorPsico])
 
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.

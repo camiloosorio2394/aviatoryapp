@@ -450,3 +450,66 @@ tocado nada a la espera de que elijas.
 simulacro, hay material de sobra para una cola de repaso con lo que fallaste.
 Hoy nada te devuelve un error. Es decisión de plataforma y toca también el banco
 PCA, así que no se empezó.
+
+---
+
+## 8 · Pruebas psicotécnicas (8 de septiembre de 2026)
+
+Entró el tema **Pruebas Psicotécnicas** en Ingreso a aerolínea
+(`/app/aerolinea/psicotecnicas`): 245 ejercicios cronometrados de razonamiento
+abstracto, espacial y numérico, tres modos, tres niveles y un simulacro de 30.
+Con eso, la pregunta de la sección 7 queda medio respondida sola: psicotécnicos
+es un **tema del módulo**, no un módulo aparte. `/app/psicotecnicas` sigue
+existiendo como panorama amplio de assessment y ahora enlaza al tema real.
+
+Quedan tres decisiones que no son técnicas y por eso no se tomaron.
+
+### 8.1 · Derechos sobre el material — la que más urge
+
+Los siete documentos que entregó Nico son cuadernillos de terceros, y cuatro
+llevan marca de agua o logotipo del autor: Hospital Farallón y DaVinci Centro de
+Estudios, AulaContable y Grupo Pinillos, Centro de Nivelación MARPID, y U. P.
+Aula Magna. Las figuras se recortaron tal cual porque redibujarlas cambiaría el
+ejercicio, así que **esas marcas se ven dentro de la app**.
+
+Publicarlas en un producto de pago es una decisión de negocio. Las opciones, de
+menor a mayor esfuerzo: pedir permiso a los autores, sustituir el material por
+ejercicios propios, o dejar el módulo en acceso restringido hasta resolverlo. El
+detalle documento por documento está en `src/data/psicotecnicas/FUENTES.md`.
+
+### 8.2 · Faltan ~120 ejercicios por cargar, y no tienen clave
+
+Dos documentos quedaron extraídos pero sin cargar, porque **ninguno trae hoja de
+respuestas**:
+
+- `455247140` (A2): 61 figuras, ya recortadas y versionadas en
+  `public/psicotecnicas/abstracto/AB-A2-*.webp`.
+- `354684364` (A3, `.docx`): 9 páginas escaneadas, unos 60 ejercicios de
+  rotación, todavía dentro del archivo.
+
+Resolver cada uno a ojo y cargarlo sin verificar sería peor que no tenerlos: un
+banco de entrenamiento con respuestas equivocadas enseña al revés. Hace falta
+una pasada de resolución y verificación. Ojo con A2: mezcla ejercicios
+espaciales pese a llamarse «abstracto», así que la categoría se decide ejercicio
+por ejercicio.
+
+Del tercer documento de espacial que mencionaba el encargo no llegó ninguno.
+
+### 8.3 · Dos ejercicios del original están mal, y uno se puede rescatar
+
+Del documento `256486461` quedaron fuera dos de los cuarenta:
+
+- **Ejercicio 11.** La respuesta correcta es 3!·2! = 12 y la alternativa D dice
+  «12000». Es una errata evidente. Si la das por buena, se carga con la D
+  corregida a 12 y recuperamos el ejercicio.
+- **Ejercicio 37.** Ninguna lectura del enunciado produce una de sus cuatro
+  alternativas. Está mal en la fuente, no en la extracción; este no se rescata.
+
+### 8.4 · Detalle que conviene saber
+
+Las 173 series numéricas del documento `336461140` son de **completar el
+número**: el original no ofrece alternativas. Como el módulo funciona con opción
+múltiple cronometrada, `scripts/psicotecnicas/generar-series.mjs` genera tres
+distractores por ítem a partir de los errores típicos. La respuesta y el
+desglose son los del documento; las alternativas no. Si prefieres que esas vayan
+con campo de texto en vez de opción múltiple, es un cambio acotado al reproductor.

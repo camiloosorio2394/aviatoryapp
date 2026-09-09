@@ -72,6 +72,10 @@ const navSections: NavSection[] = [
       { to: "/app/pca", label: "Examen PCA", icon: BookOpen },
       { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
       { to: "/app/aerolinea", label: "Ingreso a aerolínea", icon: Briefcase },
+      // Sale del bloque "Pronto": el panorama de assessment ya no es un
+      // marcador de posición, lleva al tema de razonamiento que abrió con 249
+      // ejercicios dentro de Ingreso a aerolínea.
+      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu },
       { to: "/app/materias", label: "Materias generales", icon: GraduationCap, soon: true },
     ],
   },
@@ -104,7 +108,6 @@ const navSections: NavSection[] = [
  */
 const soonItems: NavItem[] = [
   { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
-  { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu, soon: true },
 ]
 
 interface Props {

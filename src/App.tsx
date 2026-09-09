@@ -70,6 +70,11 @@ const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
 const MercanciasLector = page(() => import("@/pages/MercanciasLector"), "MercanciasLector")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
+const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
+const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
+const PsicoEvaluacion = page(() => import("@/pages/PsicoSesion"), "PsicoEvaluacion")
+const PsicoSimulacro = page(() => import("@/pages/PsicoSimulacro"), "PsicoSimulacro")
+const PsicoAprende = page(() => import("@/pages/PsicoAprende"), "PsicoAprende")
 const Library = page(() => import("@/pages/Library"), "Library")
 const BibliotecaDocumento = page(
   () => import("@/pages/BibliotecaDocumento"),
@@ -375,6 +380,51 @@ function App() {
             </RequireAuth>
           }
         />
+        {/* Tema Pruebas Psicotécnicas. El hub, los dos modos con filtro y el
+            simulacro; la lección va aparte porque no lleva reloj. */}
+        <Route
+          path="/app/aerolinea/psicotecnicas"
+          element={
+            <RequireAuth>
+              <PsicoHub />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/psicotecnicas/aprende"
+          element={
+            <RequireAuth>
+              <PsicoAprende />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/psicotecnicas/practica"
+          element={
+            <RequireAuth>
+              <PsicoPractica />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/psicotecnicas/evaluacion"
+          element={
+            <RequireAuth>
+              <PsicoEvaluacion />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/psicotecnicas/simulacro"
+          element={
+            <RequireAuth>
+              <PsicoSimulacro />
+            </RequireAuth>
+          }
+        />
+        {/* El panorama amplio de assessment (9 categorías, COMPASS/CUT-E/
+            PILAPT) sigue donde estaba: es otra cosa que el tema de razonamiento
+            que acaba de abrirse, y ahora enlaza a él. */}
         <Route
           path="/app/psicotecnicas"
           element={
