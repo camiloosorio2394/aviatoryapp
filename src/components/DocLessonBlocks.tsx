@@ -387,13 +387,18 @@ export function DocBlock({ block }: { block: DocBlockData }) {
               key={i}
               className="grid gap-x-4 gap-y-1 py-2.5 border-b doc-rule last:border-b-0 sm:grid-cols-[minmax(110px,180px)_minmax(0,1fr)]"
             >
+              {/* Cada fila puede llevar su color. Lo usa el resumen de la
+                  línea Q, donde cada token va del color de su pieza y el
+                  alumno reconoce de un vistazo cuál es cuál. */}
               <dt
                 className="mono text-[13px] font-semibold"
-                style={{ color: docAccent("var(--av-blue-500)", 60) }}
+                style={{ color: docAccent(item.color ?? "var(--av-blue-500)", 68) }}
               >
                 {item.k}
               </dt>
-              <dd className="m-0 text-[15px] leading-[1.65]">{renderInline(item.v)}</dd>
+              <dd className="m-0 text-[15px] leading-[1.65]" style={variablesDeChip(item.color)}>
+                {renderInline(item.v)}
+              </dd>
             </div>
           ))}
         </dl>

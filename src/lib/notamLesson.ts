@@ -277,7 +277,8 @@ export type LessonBlock =
       text: string
       sellos?: string[]
     }
-  | { kind: "kv"; items: { k: string; v: string }[] }
+  /** `color` tiñe la clave de esa fila y los códigos de su valor. */
+  | { kind: "kv"; items: { k: string; v: string; color?: string }[] }
   /**
    * Desglose visual de un código: la línea entera arriba, cada trozo con su
    * color, y la leyenda numerada debajo. Un METAR o un NOTAM explicado en
@@ -1344,6 +1345,69 @@ export const LESSON_SCREENS: DocScreen[] = [
         color: LINEA_Q_COLOR.limites,
         parrafos: [
           "Por lo tanto, `000/001` indica que el NOTAM aplica desde la superficie hasta 100 ft.",
+        ],
+      },
+      // ── ⑦ 0202S07956W001 ─────────────────────────────────────────────────
+      // El desglose visual hace de "se lee así": parte el token en tres y da
+      // la lectura de cada trozo, así que el texto no repite la conversión.
+      {
+        kind: "componente",
+        n: 7,
+        token: "0202S07956W001",
+        nombre: "Coordenadas y radio",
+        color: LINEA_Q_COLOR.area,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Dónde está ubicada exactamente la información?",
+        color: LINEA_Q_COLOR.area,
+        parrafos: [
+          "El último componente de la línea Q nos permite ubicar geográficamente el área a la que se refiere el NOTAM. Está formado por las coordenadas del punto central y un radio en millas náuticas.",
+          "En nuestro ejemplo tenemos `0202S07956W001`, que se lee así:",
+        ],
+      },
+      {
+        kind: "breakdown",
+        caption:
+          "Las coordenadas indican el punto de referencia geográfico y el último grupo de tres cifras indica el radio en millas náuticas alrededor de ese punto.",
+        parts: [
+          { token: "0202S", label: "latitud", detail: "02°02′ Sur." },
+          { token: "07956W", label: "longitud", detail: "079°56′ Oeste." },
+          { token: "001", label: "radio", detail: "1 milla náutica alrededor de ese punto." },
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "tip",
+        title: "Para el piloto",
+        text: "Estas coordenadas te permiten ubicar en el mapa el lugar al que se refiere el NOTAM, mientras que el último grupo indica el radio alrededor de ese punto.",
+      },
+      // ── ⑧ La línea Q entera, ya con las siete piezas vistas ──────────────
+      { kind: "titulo", text: "Ahora leamos la línea Q completa" },
+      {
+        kind: "apartado",
+        parrafos: [
+          "Hasta ahora hemos analizado cada componente por separado. Ahora vamos a unirlos para entender cómo se lee una línea Q completa. Tomemos nuevamente nuestro ejemplo:",
+        ],
+      },
+      { kind: "code", text: "Q) SEFG/QRALW/IV/NBO/AW/000/001/0202S07956W001" },
+      { kind: "apartado", parrafos: ["Ahora podemos interpretarlo de izquierda a derecha:"] },
+      {
+        kind: "kv",
+        items: [
+          { k: "SEFG", v: "FIR Guayaquil.", color: LINEA_Q_COLOR.fir },
+          { k: "QRALW", v: "Reserva de espacio aéreo que tendrá lugar.", color: LINEA_Q_COLOR.codigo },
+          { k: "IV", v: "IFR y VFR.", color: LINEA_Q_COLOR.transito },
+          { k: "NBO", v: "Atención inmediata, PIB y operaciones de vuelo.", color: LINEA_Q_COLOR.objetivo },
+          { k: "AW", v: "Aeródromo y advertencia.", color: LINEA_Q_COLOR.alcance },
+          { k: "000/001", v: "Desde la superficie hasta 100 ft.", color: LINEA_Q_COLOR.limites },
+          { k: "0202S07956W001", v: "Ubicación y radio de 1 NM.", color: LINEA_Q_COLOR.area },
+        ],
+      },
+      {
+        kind: "apartado",
+        parrafos: [
+          "Como puedes ver, cada componente aporta una pieza diferente de información. Al leerlos juntos, la línea Q permite establecer dónde aplica el NOTAM, qué información contiene, a qué tránsito está asociada, cuál es su propósito, sobre qué tipo de área trata, entre qué límites verticales aplica y dónde se encuentra exactamente.",
         ],
       },
       {
