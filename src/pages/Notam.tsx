@@ -5,9 +5,9 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
-import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
-import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
-import evaluacionPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
+import aprendePhoto from "@/assets/photos/notam-paleta-aprende.webp"
+import practicaPhoto from "@/assets/photos/notam-paleta-practica.webp"
+import evaluacionPhoto from "@/assets/photos/notam-paleta-evaluacion.webp"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -142,6 +142,7 @@ export function Notam() {
         "La lección completa: para qué sirve un NOTAM, quién lo publica y cómo se lee casilla por casilla.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
+      photoAspect: "3/2",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -161,6 +162,7 @@ export function Notam() {
         "Interpretas NOTAM reales, nacionales e internacionales, en imagen y en texto, y comparas con la respuesta modelo.",
       cta: "Empezar a practicar",
       photo: practicaPhoto,
+      photoAspect: "3/2",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -178,6 +180,7 @@ export function Notam() {
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
       cta: "Presentar la evaluación",
       photo: evaluacionPhoto,
+      photoAspect: "3/2",
       status:
         resumen.best === null
           ? "Sin intentos"

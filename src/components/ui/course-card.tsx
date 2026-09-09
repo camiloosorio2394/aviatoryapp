@@ -29,6 +29,9 @@ export interface CourseCardProps {
   /** Meta corta: cuántas secciones, de qué va, cuánto dura. */
   meta: string
   photo: string
+  /** "3/2" muestra la portada entera (para portadas con rótulo pintado); por
+      defecto es una franja de 144 px recortada. */
+  photoAspect?: "3/2"
   /** Destino. Sin `to` la tarjeta no navega (catálogo de la landing, partes "Pronto"). */
   to?: string
   /** Texto del CTA. Por defecto "Ver curso". */
@@ -74,11 +77,12 @@ export function CourseCard({
   highlight,
   soon,
   metaCaps,
+  photoAspect,
 }: CourseCardProps) {
   const inner = (
     <>
       {/* Miniatura fotográfica con tinte del color del curso */}
-      <div className="relative h-36 overflow-hidden">
+      <div className={`relative overflow-hidden ${photoAspect === "3/2" ? "aspect-[3/2]" : "h-36"}`}>
         <img
           src={photo}
           alt=""
