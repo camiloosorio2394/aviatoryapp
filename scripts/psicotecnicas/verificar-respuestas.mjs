@@ -63,8 +63,23 @@ const { SERIES } = await import(
 
 // ── La fuente, otra vez, para leer el rastro de operaciones ─────────────────
 const PDF = path.join(origen, "336461140-Psicotecnicos-razonamiento-numerico.pdf")
-const texto = execFileSync("pdftotext", ["-layout", PDF, "-"], { encoding: "utf8" })
+// -enc UTF-8 no es opcional: sin él, algunas compilaciones de poppler sacan
+// el texto en la página de códigos local, «NUMÉRICO» llega roto y el corte no
+// se encuentra. El fallo era mudo y el informe salía en limpio.
+const texto = execFileSync("pdftotext", ["-layout", "-enc", "UTF-8", PDF, "-"], {
+  encoding: "utf8",
+})
 const corte = texto.indexOf("SOLUCIONES RAZONAMIENTO NUMÉRICO")
+if (corte < 0) {
+  console.error(
+    "No encuentro la sección de soluciones en " +
+      PDF +
+      ".\nSin ella no hay nada contra qué contrastar, y un informe de cero\n" +
+      "discrepancias sobre cero comprobaciones no dice nada. Revisa que el PDF\n" +
+      "sea el de origen y que pdftotext esté emitiendo UTF-8.",
+  )
+  process.exit(1)
+}
 const ruido = /^(SOLUCIONES|PSICOTÉCNICOS|RAZONAMIENTO NUMÉRICO|U\. P\. AULA MAGNA)/
 
 function leerItems(bloque) {
