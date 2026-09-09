@@ -8,6 +8,7 @@ import { appButtonClass } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
 import {
   MP_APRENDE,
+  MP_EVALUACION,
   MP_EXAM_PER_ATTEMPT,
   MP_LECTURA_TOTAL,
   MP_PASS_SCORE,
@@ -110,15 +111,22 @@ export function Mercancias() {
       done: resumen.practiceDone >= MP_PRACTICA_TOTAL,
     },
     {
+      to: MP_EVALUACION,
       icon: GraduationCap,
       color: "var(--av-dg-700)",
       meta: `${MP_EXAM_PER_ATTEMPT} preguntas aleatorias, apruebas con ${MP_PASS_SCORE}`,
       title: "3. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Se abre al terminar la lección; al final ves la explicación y el artículo de cada una.",
+      cta: "Presentar la evaluación",
       photoHueco: "MP-POR-03 · Portada 3:2 · 1200×800 · Cabina con el NOTOC en la mano",
-      soon: true,
-      status: "Próximamente",
+      status:
+        resumen.best === null
+          ? "Sin intentos"
+          : resumen.passed
+            ? `Aprobada con ${resumen.best} de 100`
+            : `Mejor puntaje: ${resumen.best} de 100`,
+      done: resumen.passed,
     },
   ]
 

@@ -69,6 +69,7 @@ const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
 const MercanciasLeccion = page(() => import("@/pages/MercanciasLeccion"), "MercanciasLeccion")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
+const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
 const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
@@ -370,6 +371,14 @@ function App() {
           element={
             <RequireAuth>
               <MercanciasPractice />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/mercancias/evaluacion"
+          element={
+            <RequireAuth>
+              <MercanciasExam />
             </RequireAuth>
           }
         />

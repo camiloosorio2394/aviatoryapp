@@ -1,5 +1,5 @@
 import { LectorLeccion, type LectorModulo } from "@/components/lesson/LectorLeccion"
-import { MP_APRENDE, MP_HUB, MP_PRACTICA, MP_TITULO } from "@/lib/mercancias"
+import { MP_APRENDE, MP_EVALUACION, MP_HUB, MP_PRACTICA, MP_TITULO } from "@/lib/mercancias"
 import { MP_LECCIONES, MP_NIVELES } from "@/lib/mercanciasLeccion"
 import {
   fetchMercanciasProgress,
@@ -22,6 +22,7 @@ const MODULO: LectorModulo = {
   rotulo: "Mercancías · Módulo",
   hub: MP_HUB,
   practica: MP_PRACTICA,
+  evaluacion: MP_EVALUACION,
   portadas: "/modulos/mercancias",
   actividad: "mercancias-leccion",
   lecciones: MP_LECCIONES,

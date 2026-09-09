@@ -285,11 +285,11 @@ export function AirlinePrep() {
         card: {
           to: MP_HUB,
           icon: AlertTriangle,
-          color: "var(--av-red-400)",
+          color: "var(--av-dg-700)",
           meta: `${MP_LECTURA_TOTAL} lecciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · práctica y evaluación`,
           title: "Mercancías peligrosas",
           blurb:
-            "Las nueve clases con sus etiquetas reales, qué responde el comandante, el NOTOC y las baterías de litio. Con lector propio.",
+            "Dieciocho lecciones en cinco niveles, con el artículo del RAC 175 en cada afirmación: las nueve clases, el NOTOC, las baterías de litio y qué hacer en vuelo. Práctica y evaluación propias.",
           // La portada del propio módulo, la misma que ve en su hub. Vive en
           // public y no en assets porque así queda fuera del precache.
           photo: "/infografias/mercancias/portada.webp",
