@@ -40,6 +40,21 @@ export type Sentido = "arriba" | "abajo" | "izquierda" | "derecha"
 /** Hacia dónde mira el vértice de un triángulo inscrito. */
 export type Apice = "arriba" | "abajo" | "izquierda" | "derecha"
 
+/**
+ * Rellenos del cuadernillo.
+ *
+ * Son atributos, no colores: lo que el ejercicio hace variar es «rayado» o
+ * «punteado», no un tono. Por eso se dibujan con tramas de `currentColor` y
+ * siguen al tema como el resto del trazo.
+ */
+export type Relleno =
+  | "blanco"
+  | "negro"
+  | "rayado-diagonal"
+  | "rayado-vertical"
+  | "punteado"
+  | "cuadricula"
+
 export type Esquina =
   | "inferior-izquierda"
   | "inferior-derecha"
@@ -80,6 +95,33 @@ export type Elemento =
    * atributo, y por eso se puede comparar entre casillas.
    */
   | { tipo: "cuerda"; hacia: Sentido }
+  /**
+   * Cuadrado con una circunferencia en el medio de uno de sus lados y, cuando
+   * los lleva, dos marcadores en las esquinas del lado opuesto.
+   *
+   * Va como un elemento y no como cuatro sueltos porque en el cuadernillo se
+   * mueve como uno solo: el rabo sale de la circunferencia y los marcadores
+   * cuelgan siempre del lado contrario. Sus dos atributos —hacia dónde mira y
+   * qué marcadores lleva— son justo los que la matriz hace variar.
+   */
+  /**
+   * La pieza con punta: una barra rematada por un triángulo.
+   *
+   * La barra va siempre perpendicular a la punta, como en las alternativas del
+   * cuadernillo. El original dibuja algunas casillas con la barra en el eje de
+   * la punta, pero eso es cómo lo maquetaron: el atributo que el ejercicio
+   * hace variar es hacia dónde apunta, y así todas se comparan igual.
+   */
+  | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  | {
+      tipo: "cuadro-marcado"
+      mira: Sentido
+      /** Qué se posa en el medio de ese lado. */
+      nudo: "circunferencia" | "cuadrado-negro"
+      /** El trazo que sale del nudo hacia fuera. Distingue alternativas. */
+      rabo: boolean
+      marcadores: "cuadrado" | "cuadrado-hueco" | "circulo" | "ninguno"
+    }
 
 /** El contenido de una casilla: su marco, su rejilla y lo que lleva dentro. */
 export interface Celda {
@@ -139,6 +181,37 @@ const REJILLA = 68 // lado de la rejilla de dos por dos, centrada en la casilla
 const OPCION = 78 // lado de la figura de una alternativa
 const MARCA_ALTO = 18 // alto del isotipo, según el encargo
 const MARCA_MARGEN = 8
+
+// ────────────────────────────────────────────────────────────────────────────
+// Tramas
+//
+// Van con identificador fijo a propósito. Dos SVG en la misma página declaran
+// la misma trama con el mismo nombre, y el navegador resuelve `url(#…)` con la
+// primera que encuentra: como todas son idénticas, el dibujo sale bien y no
+// hay que inventar identificadores únicos por figura.
+
+const TRAMAS: Record<string, string> = {
+  "rayado-diagonal":
+    `<pattern id="psico-rayado-diagonal" width="8" height="8" patternUnits="userSpaceOnUse"` +
+    ` patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8"` +
+    ` stroke="currentColor" stroke-width="2"/></pattern>`,
+  "rayado-vertical":
+    `<pattern id="psico-rayado-vertical" width="6" height="6" patternUnits="userSpaceOnUse">` +
+    `<line x1="0" y1="0" x2="0" y2="6" stroke="currentColor" stroke-width="2"/></pattern>`,
+  punteado:
+    `<pattern id="psico-punteado" width="9" height="9" patternUnits="userSpaceOnUse">` +
+    `<circle cx="2.5" cy="2.5" r="1.6" fill="currentColor"/></pattern>`,
+  cuadricula:
+    `<pattern id="psico-cuadricula" width="9" height="9" patternUnits="userSpaceOnUse">` +
+    `<path d="M0 0 H9 M0 0 V9" stroke="currentColor" stroke-width="1.4" fill="none"/></pattern>`,
+}
+
+/** Cómo se pinta un relleno dentro de un `fill`. */
+function pintura(relleno: Relleno): string {
+  if (relleno === "blanco") return "var(--card, #fff)"
+  if (relleno === "negro") return "currentColor"
+  return `url(#psico-${relleno})`
+}
 
 // ────────────────────────────────────────────────────────────────────────────
 // La marca
@@ -379,6 +452,140 @@ function dibujarCelda(
         break
       }
 
+      case "pieza-punta": {
+        const largo = Math.min(ancho, alto) * 0.62 // el lado largo de la barra
+        const grueso = Math.min(ancho, alto) * 0.3
+        const punta = Math.min(ancho, alto) * 0.22
+        const cx = x + ancho / 2
+        const cy = y + alto / 2
+        const vertical = el.mira === "izquierda" || el.mira === "derecha"
+        // La barra va perpendicular a la punta.
+        const bw = vertical ? grueso : largo
+        const bh = vertical ? largo : grueso
+        const bx = cx - bw / 2
+        const by = cy - bh / 2
+        const relleno = pintura(el.relleno)
+
+        // El triángulo cuelga del lado al que mira, con la base pegada a la
+        // barra y algo más estrecha que ella: así se lee como una punta y no
+        // como un tejado.
+        const base = (vertical ? bh : bw) * 0.72
+        const [ax, ay] =
+          el.mira === "arriba"
+            ? [cx, by - punta]
+            : el.mira === "abajo"
+              ? [cx, by + bh + punta]
+              : el.mira === "izquierda"
+                ? [bx - punta, cy]
+                : [bx + bw + punta, cy]
+        const [e1, e2] = vertical
+          ? [
+              [el.mira === "izquierda" ? bx : bx + bw, cy - base / 2],
+              [el.mira === "izquierda" ? bx : bx + bw, cy + base / 2],
+            ]
+          : [
+              [cx - base / 2, el.mira === "arriba" ? by : by + bh],
+              [cx + base / 2, el.mira === "arriba" ? by : by + bh],
+            ]
+
+        partes.push(
+          `<rect x="${bx.toFixed(1)}" y="${by.toFixed(1)}" width="${bw.toFixed(1)}"` +
+            ` height="${bh.toFixed(1)}" fill="${relleno}" stroke="currentColor"` +
+            ` stroke-width="${TRAZO}"/>`,
+          `<polygon points="${ax.toFixed(1)},${ay.toFixed(1)} ${e1[0].toFixed(1)},${e1[1].toFixed(1)}` +
+            ` ${e2[0].toFixed(1)},${e2[1].toFixed(1)}" fill="${relleno}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}" stroke-linejoin="miter"/>`
+        )
+        break
+      }
+
+      case "cuadro-marcado": {
+        const lado = Math.min(ancho, alto) * 0.55
+        const ix = x + (ancho - lado) / 2
+        const iy = y + (alto - lado) / 2
+        // El medio de cada lado del cuadrado, y hacia dónde sale de él.
+        const medios: Record<Sentido, [number, number]> = {
+          arriba: [ix + lado / 2, iy],
+          abajo: [ix + lado / 2, iy + lado],
+          izquierda: [ix, iy + lado / 2],
+          derecha: [ix + lado, iy + lado / 2],
+        }
+        const fuera: Record<Sentido, [number, number]> = {
+          arriba: [0, -1],
+          abajo: [0, 1],
+          izquierda: [-1, 0],
+          derecha: [1, 0],
+        }
+        // Las dos esquinas del lado opuesto, que es de donde cuelgan siempre.
+        const opuesto: Record<Sentido, Sentido> = {
+          arriba: "abajo",
+          abajo: "arriba",
+          izquierda: "derecha",
+          derecha: "izquierda",
+        }
+        const esquinasDe: Record<Sentido, [number, number][]> = {
+          arriba: [[ix, iy], [ix + lado, iy]],
+          abajo: [[ix, iy + lado], [ix + lado, iy + lado]],
+          izquierda: [[ix, iy], [ix, iy + lado]],
+          derecha: [[ix + lado, iy], [ix + lado, iy + lado]],
+        }
+
+        partes.push(
+          `<rect x="${ix.toFixed(1)}" y="${iy.toFixed(1)}" width="${lado.toFixed(1)}"` +
+            ` height="${lado.toFixed(1)}" fill="none" stroke="currentColor"` +
+            ` stroke-width="${TRAZO}"/>`
+        )
+
+        const [mx, my] = medios[el.mira]
+        const [dx, dy] = fuera[el.mira]
+        const radio = 6.5
+
+        if (el.rabo) {
+          // Muere en el borde de la casilla, como en el original: el rabo dice
+          // hacia dónde mira la figura, y para eso tiene que llegar al marco.
+          const borde: Record<Sentido, [number, number]> = {
+            arriba: [mx, y],
+            abajo: [mx, y + alto],
+            izquierda: [x, my],
+            derecha: [x + ancho, my],
+          }
+          partes.push(
+            `<line x1="${(mx + dx * radio).toFixed(1)}" y1="${(my + dy * radio).toFixed(1)}"` +
+              ` x2="${borde[el.mira][0].toFixed(1)}" y2="${borde[el.mira][1].toFixed(1)}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        }
+
+        if (el.marcadores !== "ninguno") {
+          const salida = Math.min(ancho, alto) * 0.13
+          for (const [ex, ey] of esquinasDe[opuesto[el.mira]]) {
+            const px = ex - dx * salida
+            const py = ey - dy * salida
+            partes.push(
+              `<line x1="${ex.toFixed(1)}" y1="${ey.toFixed(1)}"` +
+                ` x2="${px.toFixed(1)}" y2="${py.toFixed(1)}"` +
+                ` stroke="currentColor" stroke-width="${TRAZO}"/>`,
+              el.marcadores === "circulo"
+                ? `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="5.5" fill="currentColor"/>`
+                : `<rect x="${(px - 5.5).toFixed(1)}" y="${(py - 5.5).toFixed(1)}" width="11"` +
+                  ` height="11" stroke="currentColor" stroke-width="${TRAZO}"` +
+                  ` fill="${el.marcadores === "cuadrado" ? "currentColor" : "var(--card, #fff)"}"/>`
+            )
+          }
+        }
+
+        // El nudo va el último: se dibuja encima del cuadrado y del rabo, que
+        // es como se ve en el original.
+        partes.push(
+          el.nudo === "circunferencia"
+            ? `<circle cx="${mx.toFixed(1)}" cy="${my.toFixed(1)}" r="${radio}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+            : `<rect x="${(mx - radio).toFixed(1)}" y="${(my - radio).toFixed(1)}"` +
+              ` width="${radio * 2}" height="${radio * 2}" fill="currentColor"/>`
+        )
+        break
+      }
+
       case "diagonales": {
         partes.push(
           `<line x1="${x}" y1="${y}" x2="${x + ancho}" y2="${y + alto}"` +
@@ -413,10 +620,14 @@ function dibujarCelda(
 
 /** Envoltura común: el lienzo, la marca y el trazo que hereda del tema. */
 function lienzo(ancho: number, alto: number, contenido: string, conMarca: boolean): string {
+  const usadas = Object.entries(TRAMAS)
+    .filter(([nombre]) => contenido.includes(`url(#psico-${nombre})`))
+    .map(([, def]) => def)
   return [
     `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${ancho} ${alto}"`,
     ` width="${ancho}" height="${alto}" role="img" focusable="false"`,
     ` style="max-width:100%;height:auto;color:inherit">`,
+    usadas.length > 0 ? `<defs>${usadas.join("")}</defs>` : "",
     contenido,
     conMarca ? marca(ancho) : "",
     `</svg>`,
@@ -593,6 +804,16 @@ export function describirCelda(celda: Celda): string {
           return "las dos diagonales del rectángulo"
         case "cuerda":
           return `cuerda del rombo hacia ${el.hacia}`
+        case "pieza-punta":
+          return `pieza con la punta hacia ${el.mira}, con relleno ${el.relleno}`
+        case "cuadro-marcado":
+          return (
+            `cuadrado con ${el.nudo === "circunferencia" ? "una circunferencia" : "un cuadrado negro"}` +
+            ` mirando ${el.mira}${el.rabo ? ", con rabo" : ", sin rabo"}` +
+            (el.marcadores === "ninguno"
+              ? " y sin marcadores"
+              : ` y dos marcadores de tipo ${el.marcadores} en el lado opuesto`)
+          )
       }
     })
     .join("; ")

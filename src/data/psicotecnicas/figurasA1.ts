@@ -19,7 +19,7 @@
  * es mirar la fuente, no dibujar.
  */
 
-import type { Celda, Elemento, FiguraMatriz } from "@/lib/psicotecnicasFiguras"
+import type { Celda, Elemento, FiguraMatriz, Relleno, Sentido } from "@/lib/psicotecnicasFiguras"
 
 // ────────────────────────────────────────────────────────────────────────────
 // Atajos de lectura
@@ -55,6 +55,37 @@ const N: Elemento = { tipo: "radio", hacia: "arriba" }
 const S: Elemento = { tipo: "radio", hacia: "abajo" }
 const E: Elemento = { tipo: "radio", hacia: "derecha" }
 const O: Elemento = { tipo: "radio", hacia: "izquierda" }
+
+/**
+ * Casilla del cuadro con nudo y marcadores.
+ *
+ * `mira` y `marcadores` son los dos atributos que la matriz hace variar; el
+ * rabo y el nudo casi siempre son los de siempre, pero se declaran porque hay
+ * alternativas que se distinguen **solo** por ellos: la C y la E del ejercicio
+ * 3 son la misma casilla salvo el rabo.
+ */
+const cm = (
+  mira: Sentido,
+  marcadores: "cuadrado" | "cuadrado-hueco" | "circulo" | "ninguno",
+  extras: { rabo?: boolean; nudo?: "circunferencia" | "cuadrado-negro" } = {}
+): Celda => ({
+  marco: true,
+  elementos: [
+    {
+      tipo: "cuadro-marcado",
+      mira,
+      nudo: extras.nudo ?? "circunferencia",
+      rabo: extras.rabo ?? marcadores !== "ninguno",
+      marcadores,
+    },
+  ],
+})
+
+/** Casilla con la pieza de punta: hacia dónde mira y con qué relleno. */
+const pp = (mira: Sentido, relleno: Relleno): Celda => ({
+  marco: true,
+  elementos: [{ tipo: "pieza-punta", mira, relleno }],
+})
 
 const HUECO = { incognita: true } as const
 
@@ -105,6 +136,59 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       { marco: true, elementos: [{ tipo: "diagonales" }] },
       r(N, S, O),
       r(N, S, { tipo: "cuerda", hacia: "derecha" }),
+    ],
+  },
+
+  /**
+   * Dos atributos que corren a la vez sobre el mismo cuadro: hacia dónde mira
+   * la circunferencia —constante en cada fila: arriba, derecha, abajo— y qué
+   * marcadores cuelgan del lado opuesto, que se reparten como un sudoku: los
+   * tres valores (cuadrado, círculo, ninguno) aparecen una vez por fila y una
+   * por columna. La casilla que falta mira abajo y le tocan los círculos.
+   *
+   * Ojo con las alternativas: la C es la misma casilla que la E sin el rabo, y
+   * la D cambia la circunferencia por un cuadrado negro. Por eso el rabo y el
+   * nudo se declaran, aunque en la matriz no varíen.
+   */
+  "AB-A1-03": {
+    tipo: "matriz-3x3",
+    celdas: [
+      cm("arriba", "cuadrado"), cm("arriba", "circulo"), cm("arriba", "ninguno"),
+      cm("derecha", "circulo"), cm("derecha", "ninguno"), cm("derecha", "cuadrado"),
+      cm("abajo", "ninguno"), cm("abajo", "cuadrado"), HUECO,
+    ],
+    opciones: [
+      cm("abajo", "cuadrado-hueco"),
+      cm("arriba", "circulo"),
+      cm("abajo", "circulo", { rabo: false }),
+      cm("arriba", "circulo", { nudo: "cuadrado-negro" }),
+      cm("abajo", "circulo"),
+    ],
+  },
+
+  /**
+   * Dos atributos que van pegados el uno al otro: hacia dónde apunta la pieza
+   * y con qué está rellena. Arriba va siempre con rayado, abajo con punteado y
+   * derecha con blanco, y cada fila es la anterior corrida un puesto. A la
+   * casilla que falta le toca abajo, y con abajo viene el punteado.
+   *
+   * El cuadernillo dibuja algunas casillas con la barra en el eje de la punta
+   * y otras perpendicular; aquí van todas perpendiculares, como las cinco
+   * alternativas, que es contra lo que el candidato compara.
+   */
+  "AB-A1-04": {
+    tipo: "matriz-3x3",
+    celdas: [
+      pp("arriba", "rayado-diagonal"), pp("abajo", "punteado"), pp("derecha", "blanco"),
+      pp("abajo", "punteado"), pp("derecha", "blanco"), pp("arriba", "rayado-diagonal"),
+      pp("derecha", "blanco"), pp("arriba", "rayado-diagonal"), HUECO,
+    ],
+    opciones: [
+      pp("abajo", "punteado"),
+      pp("derecha", "punteado"),
+      pp("abajo", "rayado-diagonal"),
+      pp("abajo", "blanco"),
+      pp("arriba", "punteado"),
     ],
   },
 }

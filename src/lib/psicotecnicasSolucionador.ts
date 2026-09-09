@@ -388,6 +388,181 @@ function reglasDeCombinacion(celdas: Casilla[], hueco: number, candidatas: Map<s
   }
 }
 
+// ────────────────────────────────────────────────────────────────────────────
+// Reglas por atributo
+//
+// La familia más común del A1, y la que las explicaciones del banco llaman
+// «como en un sudoku»: la matriz no mueve la figura entera, mueve **cada
+// atributo por su cuenta**. Uno se queda constante en cada fila, otro reparte
+// sus tres valores sin repetirlos, y la casilla que falta es la combinación
+// que todavía no ha salido.
+//
+// Por eso aquí no se compara la casilla completa: se descompone en atributos,
+// se le busca regla a cada uno, y solo si **todos** la tienen se propone una
+// casilla. Si un atributo se queda sin regla, la matriz no se resuelve por
+// aquí: es preferible no pronunciarse a inventar la mitad.
+
+const FILAS = [0, 1, 2].map((f) => [f * 3, f * 3 + 1, f * 3 + 2])
+const COLUMNAS = [0, 1, 2].map((c) => [c, c + 3, c + 6])
+
+/** El reparto de valores de una línea, ordenado, para poder comparar líneas. */
+function reparto(valores: string[]): string {
+  return [...valores].sort().join("|")
+}
+
+interface ReglaAtributo {
+  valor: string
+  nombre: string
+  apoyos: number
+}
+
+/**
+ * Busca la regla de un atributo sobre la retícula de tres por tres.
+ *
+ * Dos reglas, y las dos tienen que cuadrar en filas **y** en columnas cuando
+ * les toca. Si las dos se sostienen y predicen valores distintos, se devuelve
+ * nada: el atributo es ambiguo y con eso la matriz entera lo es.
+ */
+function reglaDeAtributo(valores: (string | null)[], hueco: number): ReglaAtributo | null {
+  const candidatas: ReglaAtributo[] = []
+
+  // 1 · Constante a lo largo de cada fila (o de cada columna).
+  for (const [nombre, lineas] of [
+    ["constante en cada fila", FILAS],
+    ["constante en cada columna", COLUMNAS],
+  ] as const) {
+    const linea = lineas.find((l) => l.includes(hueco))!
+    const otras = lineas.filter((l) => l !== linea)
+    const uniforme = (l: number[]) => {
+      const vs = l.map((i) => valores[i]).filter((v): v is string => v !== null)
+      return vs.length > 0 && vs.every((v) => v === vs[0])
+    }
+    if (!otras.every(uniforme) || !uniforme(linea)) continue
+    const valor = linea.map((i) => valores[i]).find((v): v is string => v !== null)!
+    candidatas.push({ valor, nombre, apoyos: otras.length })
+  }
+
+  // 2 · Mismo reparto de valores en todas las filas y en todas las columnas.
+  //     Cubre el sudoku de tres valores distintos y también los reparto como
+  //     «dos sí y uno no», que es como se comportan los atributos de sí o no.
+  const completa = (l: number[]) => l.every((i) => valores[i] !== null)
+  const filasEnteras = FILAS.filter(completa)
+  const columnasEnteras = COLUMNAS.filter(completa)
+
+  if (filasEnteras.length >= 2 && columnasEnteras.length >= 2) {
+    const repartos = [...filasEnteras, ...columnasEnteras].map((l) =>
+      reparto(l.map((i) => valores[i] as string))
+    )
+    if (repartos.every((r) => r === repartos[0])) {
+      const esperado = repartos[0].split("|")
+      /** Lo que le falta a la línea del hueco para tener el reparto completo. */
+      const loQueFalta = (linea: number[]): string | null => {
+        const restantes = [...esperado]
+        for (const i of linea) {
+          const v = valores[i]
+          if (v === null) continue
+          const donde = restantes.indexOf(v)
+          if (donde < 0) return null
+          restantes.splice(donde, 1)
+        }
+        return restantes.length === 1 ? restantes[0] : null
+      }
+      const porFila = loQueFalta(FILAS.find((l) => l.includes(hueco))!)
+      const porColumna = loQueFalta(COLUMNAS.find((l) => l.includes(hueco))!)
+      if (porFila !== null && porFila === porColumna) {
+        candidatas.push({
+          valor: porFila,
+          nombre: "mismo reparto en cada fila y en cada columna",
+          apoyos: filasEnteras.length + columnasEnteras.length,
+        })
+      }
+    }
+  }
+
+  if (candidatas.length === 0) return null
+  // Si dos reglas se sostienen y no coinciden, el atributo no decide nada.
+  if (candidatas.some((c) => c.valor !== candidatas[0].valor)) return null
+  return candidatas.sort((a, b) => b.apoyos - a.apoyos)[0]
+}
+
+/** Las claves de un elemento, sin el discriminante. */
+function clavesDe(el: Elemento): string[] {
+  return Object.keys(el).filter((k) => k !== "tipo").sort()
+}
+
+function reglasPorAtributo(
+  celdas: Casilla[],
+  hueco: number,
+  candidatas: Map<string, Candidata>
+) {
+  if (celdas.length !== 9) return
+
+  const conocidas = celdas.map((c) => (esIncognita(c) ? null : c))
+  const tipos = new Set<string>()
+  for (const c of conocidas) if (c) for (const el of c.elementos) tipos.add(el.tipo)
+
+  // Esta familia describe figuras compuestas —un elemento con varios
+  // atributos—, no montones de piezas sueltas del mismo tipo. Con dos
+  // elementos del mismo tipo en una casilla no hay «el valor del atributo».
+  for (const c of conocidas) {
+    if (!c) continue
+    for (const tipo of tipos) {
+      if (c.elementos.filter((el) => el.tipo === tipo).length > 1) return
+    }
+  }
+
+  const elementos: Elemento[] = []
+  const nombres: string[] = []
+  let apoyos = 0
+
+  for (const tipo of [...tipos].sort()) {
+    const deCada = conocidas.map((c) => c?.elementos.find((el) => el.tipo === tipo) ?? null)
+
+    // ¿Está o no está? También es un atributo.
+    const presencia = reglaDeAtributo(
+      conocidas.map((c, i) => (c === null ? null : deCada[i] ? "sí" : "no")),
+      hueco
+    )
+    if (!presencia) return
+    apoyos += presencia.apoyos
+    if (presencia.valor === "no") {
+      nombres.push(`${tipo}: no está (${presencia.nombre})`)
+      continue
+    }
+
+    const muestra = deCada.find((el): el is Elemento => el !== null)
+    if (!muestra) return
+
+    const armado: Record<string, unknown> = { tipo }
+    for (const clave of clavesDe(muestra)) {
+      const crudos = new Map<string, unknown>()
+      const valores = deCada.map((el, i) => {
+        if (conocidas[i] === null) return null
+        if (!el) return "—"
+        const bruto = (el as unknown as Record<string, unknown>)[clave]
+        const texto = JSON.stringify(bruto) ?? "—"
+        crudos.set(texto, bruto)
+        return texto
+      })
+      const regla = reglaDeAtributo(valores, hueco)
+      if (!regla || !crudos.has(regla.valor)) return
+      armado[clave] = crudos.get(regla.valor)
+      nombres.push(`${clave}: ${regla.nombre}`)
+      apoyos += regla.apoyos
+    }
+    elementos.push(armado as unknown as Elemento)
+  }
+
+  if (elementos.length === 0) return
+
+  const molde = conocidas.find((c): c is Celda => c !== null)!
+  proponer(
+    candidatas,
+    { ...molde, elementos },
+    { salto: 0, transformacion: `atributo a atributo — ${nombres.join("; ")}`, apoyos }
+  )
+}
+
 /**
  * Deduce qué alternativa completa la figura.
  *
@@ -405,6 +580,7 @@ export function resolverFigura(figura: Figura): Diagnostico {
   if (figura.tipo === "serie-lineal") {
     reglasDeRecorrido(figura.celdas, hueco, candidatas)
   } else {
+    reglasPorAtributo(figura.celdas, hueco, candidatas)
     reglasDeCombinacion(figura.celdas, hueco, candidatas)
 
     // La matriz también se recorre: por su fila y por su columna.
