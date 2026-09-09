@@ -375,7 +375,7 @@ function SidebarNav({ clase, lActiva, readSections, onPick }: SidebarNavProps) {
           className="mono text-[10px] font-semibold uppercase tracking-[0.16em]"
           style={{ color: "var(--ln-navy-label)" }}
         >
-          NOTAM · Lección
+          NOTAM · Módulo
         </span>
         <span className="mono text-[10px] tabular" style={{ color: "var(--ln-navy-dim)" }}>
           {readSections.length} / {TOTAL}
@@ -412,17 +412,25 @@ function SidebarNav({ clase, lActiva, readSections, onPick }: SidebarNavProps) {
                 if (e.key === "ArrowUp") filas.current[i - 1]?.focus()
               }}
               aria-current={s.n === lActiva ? "page" : undefined}
-              className="ln-fila grid w-full grid-cols-[24px_1fr_14px] items-center gap-2.5 rounded-[7px] px-5 text-left"
-              style={{ paddingTop: 9, paddingBottom: 9 }}
+              className="ln-fila grid w-full grid-cols-[24px_1fr_14px] items-start gap-2.5 rounded-[7px] px-5 text-left"
+              style={{ paddingTop: 9, paddingBottom: 9, minHeight: 54 }}
             >
-              <span className="mono text-[11px] tabular" style={{ color: "var(--ln-navy-dim)" }}>
+              <span
+                className="mono mt-[3px] text-[11px] tabular"
+                style={{ color: "var(--ln-navy-dim)" }}
+              >
                 {String(s.n).padStart(2, "0")}
               </span>
               <span className="ln-fila-titulo text-[14px] leading-[1.3]" style={{ color: "var(--ln-item)" }}>
                 {s.title}
               </span>
               {readSections.includes(s.n) && (
-                <Check className="h-[11px] w-[11px]" strokeWidth={3} style={{ color: "var(--ln-navy-dim)" }} aria-label="Completada" />
+                <Check
+                  className="mt-[4px] h-[11px] w-[11px]"
+                  strokeWidth={3}
+                  style={{ color: "var(--ln-navy-dim)" }}
+                  aria-label="Completada"
+                />
               )}
             </button>
           ))}

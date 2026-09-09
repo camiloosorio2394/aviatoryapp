@@ -8,6 +8,7 @@
  */
 
 import { Fragment, lazy, Suspense, useState, type CSSProperties, type ReactNode } from "react"
+import { Link } from "react-router-dom"
 import {
   AlertTriangle,
   ArrowUpDown,
@@ -29,7 +30,7 @@ import {
   Smartphone,
 } from "lucide-react"
 import { useInView } from "@/hooks/useInView"
-import type { BreakdownPart, PasoIcono, TarjetaIcono } from "@/lib/notamLesson"
+import type { BreakdownPart, CampoNotam, LabNotam, PasoIcono, TarjetaIcono } from "@/lib/notamLesson"
 import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
@@ -427,6 +428,26 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           ))}
         </dl>
       )
+
+    case "cta":
+      return (
+        <section>
+          {block.texto && (
+            <p className="m-0 mb-4 text-[15px] leading-[1.7]">{renderInline(block.texto)}</p>
+          )}
+          <Link
+            to={block.destino}
+            className="inline-flex min-h-[46px] items-center gap-2 rounded-md px-5 text-[15px] font-semibold text-white transition-[filter] hover:brightness-110"
+            style={{ background: docAccent(ACENTO, 68) }}
+          >
+            {block.rotulo}
+            <ChevronRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </section>
+      )
+
+    case "laboratorio":
+      return <Laboratorio intro={block.intro} items={block.items} />
 
     case "abreviaturas":
       return (
@@ -1619,6 +1640,237 @@ function EtapaRuta({
         </div>
       </div>
     </div>
+  )
+}
+
+/** Las nueve casillas, en el orden en que se leen. El rótulo es el del botón. */
+const CAMPOS_LAB: { campo: CampoNotam; rotulo: string }[] = [
+  { campo: "encabezado", rotulo: "Encabezado" },
+  { campo: "Q", rotulo: "Q)" },
+  { campo: "A", rotulo: "A)" },
+  { campo: "B", rotulo: "B)" },
+  { campo: "C", rotulo: "C)" },
+  { campo: "D", rotulo: "D)" },
+  { campo: "E", rotulo: "E)" },
+  { campo: "F", rotulo: "F)" },
+  { campo: "G", rotulo: "G)" },
+]
+
+const AYUDA_LAB: Record<LabNotam["ayuda"], { rotulo: string; abierta: boolean }> = {
+  completa: { rotulo: "Con ayuda", abierta: true },
+  moderada: { rotulo: "Ayuda parcial", abierta: false },
+  poca: { rotulo: "Poca ayuda", abierta: false },
+  desafio: { rotulo: "Desafío", abierta: false },
+}
+
+/**
+ * El laboratorio de NOTAM reales.
+ *
+ * Un NOTAM en pantalla cada vez, elegido en una tira de pestañas, y sus
+ * casillas se abren pulsando. Al abrir una, esa línea se enciende y el resto
+ * baja de intensidad: la atención va donde el alumno la pidió, sin que el
+ * resto desaparezca, porque el contexto es parte de la lectura.
+ *
+ * Las casillas que el NOTAM no trae se pueden pulsar igual y lo dicen. Es
+ * deliberado: darse cuenta de que un NOTAM NO tiene D) es media lección.
+ */
+function Laboratorio({ intro, items }: { intro?: string; items: LabNotam[] }) {
+  const [activo, setActivo] = useState(0)
+  const [campo, setCampo] = useState<CampoNotam | null>(null)
+  const [revelada, setRevelada] = useState(false)
+
+  const ficha = items[activo]
+  if (!ficha) return null
+
+  const ayuda = AYUDA_LAB[ficha.ayuda]
+  const abierta = ayuda.abierta || revelada
+  const explicacion = ficha.campos.find((x) => x.campo === campo) ?? null
+  const presentes = new Set(ficha.campos.map((x) => x.campo))
+
+  function elegir(i: number) {
+    setActivo(i)
+    setCampo(null)
+    setRevelada(false)
+  }
+
+  return (
+    <section>
+      {intro && <p className="m-0 mb-4 text-[15px] leading-[1.7]">{renderInline(intro)}</p>}
+
+      {/* La tira de pestañas. En móvil se desplaza en horizontal en vez de
+          partirse en cuatro filas, que rompería la idea de una sola fila. */}
+      <div className="-mx-1 overflow-x-auto px-1 pb-1">
+        <div className="flex min-w-max gap-1.5" role="tablist" aria-label="NOTAM del laboratorio">
+          {items.map((it, i) => {
+            const on = i === activo
+            return (
+              <button
+                key={it.n}
+                type="button"
+                role="tab"
+                aria-selected={on}
+                onClick={() => elegir(i)}
+                className="mono shrink-0 rounded-md border px-3 py-2 text-left text-[11.5px] leading-tight transition-colors"
+                style={{
+                  borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-rule, rgba(0,0,0,.12))",
+                  background: on ? docTint(ACENTO, 12) : "var(--doc-bg)",
+                  color: on ? docAccent(ACENTO, 82) : "var(--doc-muted-fg)",
+                  fontWeight: on ? 600 : 500,
+                }}
+              >
+                <span className="block">{it.n}</span>
+                <span className="block text-[10.5px] opacity-80">{it.codigo}</span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* La ficha */}
+      <div key={ficha.n} className="ln-paso mt-4 overflow-hidden rounded-lg border doc-rule">
+        <div
+          className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b doc-rule px-4 py-3 sm:px-5"
+          style={{ background: docTint(ACENTO, 8) }}
+        >
+          <span
+            className="mono text-[11px] font-semibold uppercase tracking-[0.1em]"
+            style={{ color: docAccent(ACENTO, 72) }}
+          >
+            NOTAM {ficha.n} · {ficha.aeropuerto} · FIR {ficha.fir}
+          </span>
+          <span
+            className="mono shrink-0 whitespace-nowrap rounded-md border px-2 py-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em]"
+            style={{
+              borderColor: docAccent(ACENTO, 30),
+              color: docAccent(ACENTO, 66),
+              background: "var(--doc-bg)",
+            }}
+          >
+            {ayuda.rotulo}
+          </span>
+        </div>
+
+        {/* El NOTAM literal */}
+        <div className="overflow-x-auto px-4 py-4 sm:px-5" style={{ background: "var(--doc-bg)" }}>
+          <pre className="m-0">
+            <code className="mono block text-[12.5px] leading-[1.85] sm:text-[13.5px]">
+              {ficha.lineas.map((l, i) => {
+                const on = campo === l.campo
+                const hay = campo !== null
+                return (
+                  <span
+                    key={i}
+                    className="block rounded-[3px] px-1.5 transition-all"
+                    style={{
+                      background: on ? docTint(ACENTO, 16) : "transparent",
+                      color: on ? docAccent(ACENTO, 88) : "var(--doc-fg)",
+                      fontWeight: on ? 600 : 400,
+                      opacity: hay && !on ? 0.38 : 1,
+                    }}
+                  >
+                    {l.texto}
+                  </span>
+                )
+              })}
+            </code>
+          </pre>
+        </div>
+
+        {/* Los botones de casilla */}
+        <div className="border-t doc-rule px-4 py-3.5 sm:px-5">
+          <div
+            className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+            style={{ color: "var(--doc-muted-fg)" }}
+          >
+            Selecciona una parte para analizar
+          </div>
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {CAMPOS_LAB.map(({ campo: k, rotulo }) => {
+              const on = campo === k
+              const existe = presentes.has(k)
+              return (
+                <button
+                  key={k}
+                  type="button"
+                  aria-pressed={on}
+                  onClick={() => setCampo(on ? null : k)}
+                  className="mono rounded-md border px-2.5 py-1.5 text-[12px] font-semibold transition-colors"
+                  style={{
+                    borderColor: on ? docAccent(ACENTO, 55) : "var(--doc-rule, rgba(0,0,0,.12))",
+                    background: on ? docAccent(ACENTO, 60) : "var(--doc-bg)",
+                    color: on
+                      ? "#fff"
+                      : existe
+                        ? docAccent(ACENTO, 72)
+                        : "var(--doc-muted-fg)",
+                    opacity: existe ? 1 : 0.55,
+                  }}
+                >
+                  {rotulo}
+                </button>
+              )
+            })}
+          </div>
+
+          {campo !== null && (
+            <div key={campo} className="ln-paso mt-3.5 rounded-md border doc-rule doc-soft px-4 py-3.5">
+              {explicacion ? (
+                <>
+                  <div
+                    className="ln-display text-[15.5px] font-semibold"
+                    style={{ color: docAccent(ACENTO, 78) }}
+                  >
+                    {explicacion.titulo}
+                  </div>
+                  <p className="m-0 mt-1.5 text-[14.5px] leading-[1.65]">
+                    {renderInline(explicacion.texto)}
+                  </p>
+                </>
+              ) : (
+                <p className="m-0 text-[14.5px] leading-[1.65] doc-muted">
+                  Este NOTAM no contiene este ítem.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* La interpretación */}
+        <div className="border-t doc-rule px-4 py-4 sm:px-5" style={{ background: "var(--doc-soft)" }}>
+          {abierta ? (
+            <div className="ln-paso">
+              <div
+                className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+                style={{ color: "var(--doc-muted-fg)" }}
+              >
+                Qué significa
+              </div>
+              <p className="m-0 mt-1.5 text-[15px] leading-[1.65]" style={{ color: "var(--doc-fg)" }}>
+                {renderInline(ficha.interpretacion)}
+              </p>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setRevelada(true)}
+              className="rounded-md border px-4 py-2 text-[14px] font-semibold transition-colors"
+              style={{
+                borderColor: docAccent(ACENTO, 35),
+                color: docAccent(ACENTO, 75),
+                background: "var(--doc-bg)",
+              }}
+            >
+              Ver la interpretación
+            </button>
+          )}
+          <div className="mt-3 border-t doc-rule pt-2.5 text-[12px] leading-[1.55] doc-muted">
+            <span className="mono">{ficha.concepto}</span>
+            <span className="mx-1.5">·</span>
+            {ficha.fuente}
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 

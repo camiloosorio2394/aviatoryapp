@@ -52,6 +52,34 @@ export type PasoIcono =
   | "alerta"
   | "vertical"
 
+/** Cada casilla que el laboratorio deja abrir, en el orden en que se leen. */
+export type CampoNotam = "encabezado" | "Q" | "A" | "B" | "C" | "D" | "E" | "F" | "G"
+
+/** Un NOTAM del laboratorio, con su texto literal y la lectura de cada casilla. */
+export interface LabNotam {
+  /** Dos cifras, para el rótulo: "01". */
+  n: string
+  /** Indicador y ciudad: "SKBQ · Barranquilla · Colombia". */
+  aeropuerto: string
+  /** Indicador OACI solo, para la pestaña. */
+  codigo: string
+  fir: string
+  /** De dónde se consultó y cuándo. Va al pie, siempre visible. */
+  fuente: string
+  /** Qué enseña esta ficha, en una línea. */
+  concepto: string
+  /**
+   * Cuánto se da hecho. `completa` enseña la interpretación de entrada;
+   * a partir de `moderada` hay que pedirla; `desafio` no la da.
+   */
+  ayuda: "completa" | "moderada" | "poca" | "desafio"
+  /** El NOTAM literal, línea a línea, con la casilla a la que pertenece. */
+  lineas: { campo: CampoNotam; texto: string }[]
+  /** La lectura de cada casilla presente. Las ausentes no se inventan. */
+  campos: { campo: CampoNotam; titulo: string; texto: string }[]
+  interpretacion: string
+}
+
 /** Una pieza del desglose visual: el trozo de código y qué significa. */
 export interface BreakdownPart {
   /** El trozo tal cual aparece en el mensaje: `SKBO`, `18008KT`, `QRALW`. */
@@ -127,6 +155,25 @@ export type LessonBlock =
    * El cierre de la lección: el lema, los tres pasos y un ejemplo con el
    * código a un lado y la lectura al otro.
    */
+  /**
+   * El laboratorio: diez NOTAM reales, uno en pantalla cada vez, y cada
+   * casilla se abre a golpe de botón.
+   *
+   * No van en cascada a propósito. Diez NOTAM apilados se leen como un muro y
+   * el alumno los salta; de uno en uno se leen como un briefing, que es como
+   * llegan de verdad. El texto de cada uno va literal: la interpretación se
+   * redacta, el NOTAM no se toca.
+   *
+   * `ayuda` gradúa cuánto se da hecho, de la primera ficha a la última.
+   */
+  | { kind: "laboratorio"; intro?: string; items: LabNotam[] }
+  /**
+   * La salida de la lección hacia otra parte de la aplicación.
+   *
+   * Existe solo para el cierre: la lección termina y el camino sigue en la
+   * práctica. Un enlace suelto en un párrafo no se ve; esto sí.
+   */
+  | { kind: "cta"; texto?: string; destino: string; rotulo: string }
   | {
       kind: "reglaLectura"
       lema: string
@@ -649,7 +696,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 2,
     title: "¿Quién publica los NOTAM y dónde los consulto?",
     kicker: "Normas y fuentes oficiales",
-    minutes: 3,
+    minutes: 2,
     level: "basico",
     // La norma dejó de ser el contenido principal y bajó al pie, en fichas:
     // el alumno no tiene que leer cuatro referencias para entender algo tan
@@ -789,7 +836,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 3,
     title: "¿Qué significa NOTAMN, NOTAMR y NOTAMC?",
     kicker: "Nuevo, reemplaza y cancela",
-    minutes: 4,
+    minutes: 3,
     level: "basico",
     // La casilla B) en NOTAMR y NOTAMC se explica en la lección de la
     // estructura, no aquí: en esta el objetivo es uno solo, distinguir nuevo,
@@ -933,7 +980,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 4,
     title: "Cómo se lee un NOTAM completo",
     kicker: "El esqueleto del mensaje",
-    minutes: 6,
+    minutes: 3,
     level: "basico",
     // La lección no explica la línea Q letra por letra a propósito: aquí solo
     // hay que saber qué función cumple cada casilla. Desarmar la Q antes de
@@ -1192,7 +1239,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 5,
     title: "La línea Q, pieza por pieza",
     kicker: "Los siete componentes del calificativo",
-    minutes: 4,
+    minutes: 8,
     level: "intermedio",
     blocks: [
       // La sección ES el desglose. Antes eran dos párrafos de introducción, un
@@ -1682,7 +1729,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 6,
     title: "Los ítems A) a G), uno por uno",
     kicker: "Dónde, cuándo, qué y entre qué niveles",
-    minutes: 8,
+    minutes: 10,
     level: "intermedio",
     // Todas las casillas comparten el azul aeronáutico menos la E), que va en
     // ámbar: es la única que dice lo que está pasando de verdad, y el color la
@@ -2274,7 +2321,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 7,
     title: "La casilla E) y la fraseología abreviada",
     kicker: "Leer el texto en lenguaje claro",
-    minutes: 3,
+    minutes: 5,
     level: "intermedio",
     // La casilla E) es la única del NOTAM escrita para leerse, no para
     // filtrarse. Por eso aquí no se vuelve a explicar la estructura: se enseña
@@ -2369,6 +2416,22 @@ export const LESSON_SCREENS: DocScreen[] = [
           { a: "REF", v: "Referencia" },
           { a: "AD", v: "Aeródromo" },
           { a: "UAS", v: "Aeronave no tripulada" },
+          { a: "APN", v: "Plataforma (forma corta)" },
+          { a: "PRKG", v: "Estacionamiento" },
+          { a: "OBST", v: "Obstáculo" },
+          { a: "AVBL", v: "Disponible" },
+          { a: "ACT", v: "Activo" },
+          { a: "MAINT", v: "Mantenimiento" },
+          { a: "INSTL", v: "Instalado" },
+          { a: "DLY", v: "Diariamente" },
+          { a: "UFN", v: "Hasta nuevo aviso" },
+          { a: "WEF", v: "Con efecto a partir de" },
+          { a: "SR", v: "Salida del sol" },
+          { a: "SS", v: "Puesta del sol" },
+          { a: "TORA", v: "Recorrido de despegue disponible" },
+          { a: "TODA", v: "Distancia de despegue disponible" },
+          { a: "ASDA", v: "Distancia de aceleración-parada disponible" },
+          { a: "LDA", v: "Distancia de aterrizaje disponible" },
         ],
         nota: "Esta tabla es una herramienta de consulta. No necesitas memorizar todas las abreviaturas: tienes que aprender a reconocerlas e interpretar su significado dentro del contexto del NOTAM.",
       },
@@ -2553,429 +2616,556 @@ export const LESSON_SCREENS: DocScreen[] = [
   // ── 8 ──────────────────────────────────────────────────────────────────────
   {
     n: 8,
-    title: "Abreviaturas OACI que vas a ver siempre",
-    kicker: "El mínimo para leer la casilla E)",
-    minutes: 4,
+    title: "De la lectura a la interpretación",
+    kicker: "Laboratorio de NOTAM reales",
+    minutes: 6,
     level: "intermedio",
+    // Diez NOTAM auténticos, de diez aeropuertos y diez FIR distintas. El texto
+    // de cada uno va literal: lo que se redacta es la lectura, nunca el aviso.
+    // La ayuda baja de la primera ficha a la última, para que el alumno pase de
+    // "me enseñan cómo" a "puedo yo".
     blocks: [
       {
-        kind: "p",
-        text: "Estas son las abreviaturas que aparecen una y otra vez en la casilla E). Con estas lees la mayoría de los NOTAM de aeródromo. Están verificadas en el Doc 8400, sección 1.",
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Ya conoces la estructura de un NOTAM. Ahora vamos a trabajar con NOTAM reales y a analizarlos parte por parte.",
+          "Selecciona un NOTAM y después elige cada uno de sus componentes para descubrir qué información contiene.",
+        ],
+      },
+      {
+        kind: "secuencia",
+        orientacion: "horizontal",
+        items: ["Estructura", "Lectura", "Interpretación"],
+      },
+      {
+        kind: "hueco",
+        rotulo: "ILUSTRACIÓN · 1200×420",
+        descripcion:
+          "El paso de estructura a lectura y de lectura a interpretación, con el lenguaje visual de Aviatory. Pásala a WebP con scripts/optimizar-imagenes.mjs, guárdala como public/modulos/notam/leccion-08-interpretacion.webp y cámbiala por un bloque figura.",
+        alto: 210,
+        anchoMax: 640,
       },
 
-      { kind: "p", text: "**Lugares e instalaciones**" },
       {
-        kind: "kv",
+        kind: "laboratorio",
+        intro:
+          "Diez NOTAM reales, de diez aeropuertos y diez FIR distintas. El texto de cada uno está tal como se publicó. Empieza por el 01, que viene con toda la ayuda, y llega al 10, que es el desafío.",
         items: [
-          { k: "AD", v: "aeródromo" },
-          { k: "RWY", v: "pista" },
-          { k: "TWY", v: "calle de rodaje" },
-          { k: "APN", v: "plataforma" },
-          { k: "THR", v: "umbral" },
-          { k: "APCH", v: "aproximación" },
-          { k: "PRKG", v: "estacionamiento" },
-          { k: "OBST", v: "obstáculo" },
+          {
+            n: "01",
+            aeropuerto: "SKBQ · Barranquilla · Colombia",
+            codigo: "SKBQ",
+            fir: "SKEC",
+            fuente: "Publicado por la Aerocivil de Colombia",
+            concepto: "NOTAMR sobre una ayuda visual fuera de servicio",
+            ayuda: "completa",
+            lineas: [
+              { campo: "encabezado", texto: "A2611/26 NOTAMR A1636/26" },
+              { campo: "Q", texto: "Q) SKEC/QLAAS/IV/NBO/A/000/999/1053N07447W005" },
+              { campo: "A", texto: "A) SKBQ" },
+              { campo: "B", texto: "B) 2609031452" },
+              { campo: "C", texto: "C) 2612012359EST" },
+              { campo: "E", texto: "E) ALSF CAT I RWY 05 U/S" },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie A, número 2611 del año 2026",
+                texto:
+                  "Es un **NOTAMR**: reemplaza al `A1636/26`, que era el aviso anterior sobre lo mismo. Desde que sale este, el otro deja de valer.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Barranquilla, luces de aproximación no utilizables",
+                texto:
+                  "`SKEC` es la FIR. En `QLAAS`, `LA` es sistema de iluminación de aproximación y `AS` es no utilizable: el código ya dice lo que luego repite la casilla E).",
+              },
+              {
+                campo: "A",
+                titulo: "Dónde aplica",
+                texto: "`SKBQ`, el aeropuerto Ernesto Cortissoz de Barranquilla.",
+              },
+              {
+                campo: "B",
+                titulo: "Desde cuándo",
+                texto: "3 de septiembre de 2026 a las 14:52 UTC, que en Colombia son las 09:52.",
+              },
+              {
+                campo: "C",
+                titulo: "Hasta cuándo, y es estimado",
+                texto:
+                  "1 de diciembre de 2026 a las 23:59. El `EST` avisa de que esa fecha es una estimación: el NOTAM sigue vigente hasta que lo reemplacen o lo cancelen, no se cae solo ese día.",
+              },
+              {
+                campo: "E",
+                titulo: "Qué está ocurriendo",
+                texto:
+                  "`ALSF CAT I` es el sistema de luces de aproximación de categoría I, `RWY 05` la pista y `U/S` fuera de servicio. Es una ayuda visual la que falla: la pista sigue abierta.",
+              },
+            ],
+            interpretacion:
+              "El sistema de luces de aproximación ALSF CAT I de la pista 05 está fuera de servicio.",
+          },
+          {
+            n: "02",
+            aeropuerto: "SCEL · Santiago · Chile",
+            codigo: "SCEL",
+            fir: "SCEZ",
+            fuente: "DGAC Chile / IFIS",
+            concepto: "Cierre de pista con horarios en la casilla D)",
+            ayuda: "completa",
+            lineas: [
+              { campo: "encabezado", texto: "A2526/26 NOTAMN" },
+              { campo: "Q", texto: "Q)SCEZ/QMRLC/IV/NBO/A/000/999/3324S07048W005" },
+              { campo: "A", texto: "A)SCEL" },
+              { campo: "B", texto: "B)2609071600" },
+              { campo: "C", texto: "C)2609122200" },
+              { campo: "D", texto: "D)07 BTN 1600-1700" },
+              { campo: "D", texto: "   08-09 BTN 2000-2200" },
+              { campo: "D", texto: "   12 BTN 1500-2200" },
+              { campo: "E", texto: "E)RWY 17L/35R CLSD" },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie A, número 2526 del año 2026",
+                texto: "Es un **NOTAMN**: información nueva, no reemplaza a ninguno anterior.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Santiago, pista cerrada",
+                texto:
+                  "`SCEZ` es la FIR. En `QMRLC`, `MR` es pista y `LC` es cerrado. Sería `MX` si hablara de una calle de rodaje.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`SCEL`, Santiago / Arturo Merino Benítez." },
+              {
+                campo: "B",
+                titulo: "Desde cuándo",
+                texto: "7 de septiembre de 2026 a las 16:00 UTC.",
+              },
+              {
+                campo: "C",
+                titulo: "Hasta cuándo",
+                texto: "12 de septiembre de 2026 a las 22:00 UTC.",
+              },
+              {
+                campo: "D",
+                titulo: "En qué horas de esos días, que es lo que decide",
+                texto:
+                  "B) y C) fijan el **periodo entero**, del 7 al 12. D) dice cuándo está de verdad cerrada dentro de ese periodo: el día 7 entre 16:00 y 17:00, los días 8 y 9 entre 20:00 y 22:00, y el día 12 entre 15:00 y 22:00. **Fuera de esas franjas la pista está abierta.** Leer solo B) y C) aquí te haría cancelar un vuelo que sí podía salir.",
+              },
+              {
+                campo: "E",
+                titulo: "Qué está ocurriendo",
+                texto: "La pista 17L/35R está cerrada.",
+              },
+            ],
+            interpretacion:
+              "La pista 17L/35R está cerrada durante los períodos horarios indicados en la casilla D).",
+          },
+          {
+            n: "03",
+            aeropuerto: "SCJO · Osorno · Chile",
+            codigo: "SCJO",
+            fir: "SCTZ",
+            fuente: "DGAC Chile / IFIS",
+            concepto: "Una radioayuda caída deja sin usar cinco procedimientos",
+            ayuda: "completa",
+            lineas: [
+              { campo: "encabezado", texto: "C3877/26 NOTAMN" },
+              { campo: "Q", texto: "Q)SCTZ/QPIAU/I/NBO/A/000/999/4037S07303W005" },
+              { campo: "A", texto: "A)SCJO" },
+              { campo: "B", texto: "B)2609091700" },
+              { campo: "C", texto: "C)2609091900" },
+              {
+                campo: "E",
+                texto:
+                  "E)IAC 1 VOR Z RWY 15 IAC 2 VOR Y RWY15 IAC 3 VOR Z RWY 33\n   IAC 4 VOR Y RWY 33 IAC 5 VOR X RWY 15 NO AVBL DEBIDO A\n   VOR/DME OSO U/S INSTRUCCIONES: PUERTO MONTT RADAR 119,5MHZ",
+              },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie C, número 3877 del año 2026",
+                texto: "Un **NOTAMN**, información nueva.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Puerto Montt, procedimiento de aproximación no disponible",
+                texto:
+                  "En `QPIAU`, `PI` es procedimiento de aproximación por instrumentos y `AU` es no está disponible. El tránsito es `I`, **solo IFR**: a un vuelo visual esto no le aplica.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`SCJO`, Osorno / Cañal Bajo." },
+              { campo: "B", titulo: "Desde cuándo", texto: "9 de septiembre de 2026 a las 17:00 UTC." },
+              {
+                campo: "C",
+                titulo: "Hasta cuándo",
+                texto: "9 de septiembre de 2026 a las 19:00 UTC. Son solo dos horas.",
+              },
+              {
+                campo: "E",
+                titulo: "Causa y consecuencia, en el mismo mensaje",
+                texto:
+                  "Lo que falla es **una sola cosa**: el `VOR/DME OSO`, que está `U/S`. La consecuencia son **cinco** procedimientos: las cartas de aproximación IAC 1 a IAC 5 quedan `NO AVBL`, porque todas se apoyan en esa radioayuda. Y el aviso cierra con la instrucción: contactar a Puerto Montt Radar en 119,5 MHz.",
+              },
+            ],
+            interpretacion:
+              "Las aproximaciones instrumentales indicadas no están disponibles porque el VOR/DME OSO está fuera de servicio. Se instruye contactar a Puerto Montt Radar en 119,5 MHz.",
+          },
+          {
+            n: "04",
+            aeropuerto: "SCDA · Iquique · Chile",
+            codigo: "SCDA",
+            fir: "SCFZ",
+            fuente: "DGAC Chile / IFIS",
+            concepto: "Una condición y además una instrucción operacional",
+            ayuda: "moderada",
+            lineas: [
+              { campo: "encabezado", texto: "A2536/26 NOTAMN" },
+              { campo: "Q", texto: "Q)SCFZ/QFULT/IV/NBO/A/000/999/2032S07011W005" },
+              { campo: "A", texto: "A)SCDA" },
+              { campo: "B", texto: "B)2609071515" },
+              { campo: "C", texto: "C)2612052359" },
+              {
+                campo: "E",
+                texto:
+                  "E)AVGAS 100LL AVBL LTD DUE TO STORAGE CAPACITY. USERS MUST\n   COOR 6 HR IN ADVANCE WITH COPEC AVIATION AT IQUIQUE AP\n   REGARDING DISPENSING AVBL AND QUANTITY BY TEL +56 57 2415585,\n   CELL +56 950217699 OR EMAIL IQQ(A)COPECAVIATION.COM",
+              },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie A, número 2536 del año 2026",
+                texto: "Un **NOTAMN**.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Antofagasta, combustible limitado",
+                texto:
+                  "En `QFULT`, `FU` es disponibilidad de combustible y `LT` es limitado a. El código no cierra nada: limita un servicio.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`SCDA`, Iquique / Diego Aracena." },
+              { campo: "B", titulo: "Desde cuándo", texto: "7 de septiembre de 2026 a las 15:15 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "5 de diciembre de 2026 a las 23:59 UTC." },
+              {
+                campo: "E",
+                titulo: "Dos cosas, no una",
+                texto:
+                  "Primero la **condición**: el AVGAS 100LL está disponible de forma limitada por capacidad de almacenamiento. Y después la **instrucción**: hay que coordinar con seis horas de antelación con el proveedor, con teléfono y correo en el propio aviso. Resumirlo como «combustible limitado» te deja sin la mitad del mensaje, que es la que tienes que ejecutar.",
+              },
+            ],
+            interpretacion:
+              "El AVGAS 100LL está disponible de forma limitada debido a la capacidad de almacenamiento. Los usuarios deben coordinar con seis horas de anticipación la disponibilidad y la cantidad de combustible.",
+          },
+          {
+            n: "05",
+            aeropuerto: "SABE · Buenos Aires · Argentina",
+            codigo: "SABE",
+            fir: "SAEF",
+            fuente: "Publicado por el AIS de Argentina",
+            concepto: "Cierre de pista con una programación de días sueltos",
+            ayuda: "moderada",
+            lineas: [
+              { campo: "encabezado", texto: "A3235/26 NOTAMN" },
+              { campo: "Q", texto: "Q)SAEF/QMRLC/IV/NBO/A/000/999/3433S05824W005" },
+              { campo: "A", texto: "A)SABE" },
+              { campo: "B", texto: "B)2609010400" },
+              { campo: "C", texto: "C)2609290700" },
+              {
+                campo: "D",
+                texto: "D)1, 3, 5, 8, 10, 12, 15, 17, 19, 22, 24, 26 AND 29 0400-0700",
+              },
+              { campo: "E", texto: "E)RWY 13/31 CLSD WIP MAINT" },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie A, número 3235 del año 2026",
+                texto: "Un **NOTAMN**.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Ezeiza, pista cerrada",
+                texto: "`QMRLC`: `MR` pista, `LC` cerrado. El mismo código del NOTAM 02.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`SABE`, Buenos Aires / Aeroparque Jorge Newbery." },
+              { campo: "B", titulo: "Desde cuándo", texto: "1 de septiembre de 2026 a las 04:00 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "29 de septiembre de 2026 a las 07:00 UTC." },
+              {
+                campo: "D",
+                titulo: "Trece días sueltos, siempre a la misma hora",
+                texto:
+                  "Aquí D) no lista franjas distintas: lista **qué días** del mes aplica, y en todos ellos la franja es la misma, de 04:00 a 07:00 UTC. Los días que no están en esa lista, la pista está abierta las 24 horas.",
+              },
+              {
+                campo: "E",
+                titulo: "Qué está ocurriendo",
+                texto:
+                  "La pista 13/31 está cerrada por `WIP MAINT`, trabajos de mantenimiento en curso.",
+              },
+            ],
+            interpretacion:
+              "La pista 13/31 estará cerrada por trabajos de mantenimiento durante los días y horarios especificados en la casilla D).",
+          },
+          {
+            n: "06",
+            aeropuerto: "EHAM · Ámsterdam Schiphol · Países Bajos",
+            codigo: "EHAM",
+            fir: "EHAA",
+            fuente: "Publicado por el AIS de los Países Bajos",
+            concepto: "Un NOTAM que cambia los mínimos de un procedimiento",
+            ayuda: "moderada",
+            lineas: [
+              { campo: "encabezado", texto: "A2101/26 NOTAMN" },
+              { campo: "Q", texto: "Q) EHAA/QPOCH/I/NBO/A/000/999/5218N00446E005" },
+              { campo: "A", texto: "A) EHAM" },
+              { campo: "B", texto: "B) 2609081245" },
+              { campo: "C", texto: "C) 2609132200EST" },
+              {
+                campo: "E",
+                texto:
+                  "E) CHANGE OF CIRCLING MINIMA OCA(OCH) DUE TO CRANE.\n   CAT A INCREASED TO 634(644).",
+              },
+            ],
+            campos: [
+              { campo: "encabezado", titulo: "Serie A, número 2101 del año 2026", texto: "Un **NOTAMN**." },
+              {
+                campo: "Q",
+                titulo: "FIR Ámsterdam, altitud de franqueamiento cambiada",
+                texto:
+                  "En `QPOCH`, `PO` es altitud de franqueamiento de obstáculos y `CH` es cambiado. El código lo dice antes que el texto: aquí no se cierra nada, se **cambia un valor**.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`EHAM`, Ámsterdam / Schiphol." },
+              { campo: "B", titulo: "Desde cuándo", texto: "8 de septiembre de 2026 a las 12:45 UTC." },
+              {
+                campo: "C",
+                titulo: "Hasta cuándo, estimado",
+                texto: "13 de septiembre de 2026 a las 22:00, con `EST`: la fecha es una estimación.",
+              },
+              {
+                campo: "E",
+                titulo: "Qué cambia y por qué",
+                texto:
+                  "Cambian los mínimos de la aproximación en circuito por una **grúa**. Para la categoría A el valor sube a 634 (644). Lo que tienes que llevarte de aquí no es el número: es que un NOTAM puede **modificar la información de un procedimiento** sin cerrar ni una pista ni una ayuda.",
+              },
+            ],
+            interpretacion:
+              "Se modifican los mínimos para aproximación en circuito debido a una grúa. Para categoría A, la OCA(OCH) aumenta a 634 (644).",
+          },
+          {
+            n: "07",
+            aeropuerto: "EGLL · Londres Heathrow · Reino Unido",
+            codigo: "EGLL",
+            fir: "EGTT",
+            fuente: "Publicado por el AIS del Reino Unido",
+            concepto: "Radioayuda que puede fluctuar en un sector concreto",
+            ayuda: "poca",
+            lineas: [
+              { campo: "encabezado", texto: "A2710/26 NOTAMN" },
+              { campo: "Q", texto: "Q) EGTT/QNVXX/IV/BO/AE/000/999/5129N00028W025" },
+              { campo: "A", texto: "A) EGLL" },
+              { campo: "B", texto: "B) 2608032130" },
+              { campo: "C", texto: "C) 2609280530" },
+              {
+                campo: "E",
+                texto:
+                  "E) VOR/DME LON/LONDON 113.60 CH83X THERE MAY BE OBSERVATIONS\n   OF DVOR BEARING FLUCTUATIONS WI THE 125-170 DEG. MAG.\n   SECTOR RADIALS FM LONDON VOR/DME STATION, DUE TO MOBILE\n   CRANE ACTIVITY IN VICINITY",
+              },
+            ],
+            campos: [
+              { campo: "encabezado", titulo: "Serie A, número 2710 del año 2026", texto: "Un **NOTAMN**." },
+              {
+                campo: "Q",
+                titulo: "FIR Londres, VOR en lenguaje claro",
+                texto:
+                  "En `QNVXX`, `NV` es VOR y `XX` significa que la condición **no está en la lista de códigos**: por eso todo el detalle va escrito en la casilla E). El alcance es `AE`, aeródromo y en ruta, y el radio del área son 25 NM.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`EGLL`, Londres / Heathrow." },
+              { campo: "B", titulo: "Desde cuándo", texto: "3 de agosto de 2026 a las 21:30 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "28 de septiembre de 2026 a las 05:30 UTC." },
+              {
+                campo: "E",
+                titulo: "No está caído: puede fallar",
+                texto:
+                  "El VOR/DME de Londres **sigue operativo**. Lo que avisa el NOTAM es que puede haber fluctuaciones de marcación dentro de un sector concreto, entre los radiales magnéticos 125 y 170, por una grúa móvil cerca. Un aviso de posible degradación no es lo mismo que un `U/S`.",
+              },
+            ],
+            interpretacion:
+              "El VOR/DME LON puede presentar fluctuaciones de marcación en el sector magnético de 125° a 170° debido a la actividad de una grúa móvil en las proximidades.",
+          },
+          {
+            n: "08",
+            aeropuerto: "RJTT · Tokio Haneda · Japón",
+            codigo: "RJTT",
+            fir: "RJJJ",
+            fuente: "Publicado por el AIS de Japón",
+            concepto: "Obstáculo: luz apagada, posición y elevación",
+            ayuda: "poca",
+            lineas: [
+              { campo: "encabezado", texto: "J1540/26 NOTAMN" },
+              { campo: "Q", texto: "Q)RJJJ/QOLAS/IV/M/A/000/003/3533N13947E005" },
+              { campo: "A", texto: "A)RJTT" },
+              { campo: "B", texto: "B)2607130954" },
+              { campo: "C", texto: "C)2610120940" },
+              { campo: "E", texto: "E)OBST LGT U/S" },
+              { campo: "E", texto: "   TYPE: BLDG" },
+              { campo: "E", texto: "   PSN: 353312.7N1394656.8E" },
+              { campo: "E", texto: "   ELEV: 262FT AMSL" },
+              { campo: "E", texto: "   (OTA-KU IN TOKYO)" },
+            ],
+            campos: [
+              { campo: "encabezado", titulo: "Serie J, número 1540 del año 2026", texto: "Un **NOTAMN**." },
+              {
+                campo: "Q",
+                titulo: "FIR Fukuoka, luces de obstáculo no utilizables",
+                texto:
+                  "En `QOLAS`, `OL` son luces de obstáculo y `AS` es no utilizable. Los límites verticales son `000/003`, de la superficie a 300 ft, que encierra la altura del edificio.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`RJTT`, Tokio / Haneda." },
+              { campo: "B", titulo: "Desde cuándo", texto: "13 de julio de 2026 a las 09:54 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "12 de octubre de 2026 a las 09:40 UTC." },
+              {
+                campo: "E",
+                titulo: "Qué, dónde y a qué altura",
+                texto:
+                  "Las tres cosas van juntas y hacen falta las tres. `OBST LGT U/S`: la luz del obstáculo está apagada. `TYPE: BLDG`: es un edificio. `PSN`: sus coordenadas exactas. `ELEV: 262FT AMSL`: su cima está a 262 ft sobre el nivel medio del mar. Sin la posición y la elevación, saber que hay una luz apagada no sirve para nada.",
+              },
+            ],
+            interpretacion:
+              "La iluminación del obstáculo correspondiente al edificio en la posición indicada está fuera de servicio.",
+          },
+          {
+            n: "09",
+            aeropuerto: "CYYZ · Toronto Pearson · Canadá",
+            codigo: "CYYZ",
+            fir: "CZYZ",
+            fuente: "Publicado por NAV CANADA",
+            concepto: "Ni abierta ni cerrada: una condición de uso",
+            ayuda: "poca",
+            lineas: [
+              { campo: "encabezado", texto: "D3711/26 NOTAMR D3682/26" },
+              { campo: "Q", texto: "Q) CZYZ/QMXLL/IV/M/A/000/999/4341N07938W005" },
+              { campo: "A", texto: "A) CYYZ" },
+              { campo: "B", texto: "B) 2609031248" },
+              { campo: "C", texto: "C) 2612011700" },
+              {
+                campo: "E",
+                texto: "E) ACFT WITH WINGSPAN UP TO 262FT AUTH ON TWY J BTN TWY P\n   AND RWY 15L",
+              },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie D, número 3711 del año 2026",
+                texto: "Es un **NOTAMR**: reemplaza al `D3682/26`.",
+              },
+              {
+                campo: "Q",
+                titulo: "FIR Toronto, calle de rodaje con dimensiones de uso",
+                texto:
+                  "En `QMXLL`, `MX` es calle o calles de rodaje y `LL` significa **puede usarse con las dimensiones que se indican**. Ni cerrada ni abierta sin más: usable bajo condición.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`CYYZ`, Toronto / Pearson." },
+              { campo: "B", titulo: "Desde cuándo", texto: "3 de septiembre de 2026 a las 12:48 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "1 de diciembre de 2026 a las 17:00 UTC." },
+              {
+                campo: "E",
+                titulo: "Una condición, no un cierre",
+                texto:
+                  "Se autorizan aeronaves con envergadura de hasta 262 ft en la calle de rodaje J, en el tramo entre la calle P y la pista 15L. Esto **no dice** que la J esté abierta ni cerrada: dice **quién puede usarla y en qué tramo**. Si tu envergadura supera esa cifra, ese tramo no es para ti.",
+              },
+            ],
+            interpretacion:
+              "Se autorizan aeronaves con una envergadura de hasta 262 ft para utilizar la calle de rodaje J entre la calle de rodaje P y la pista 15L.",
+          },
+          {
+            n: "10",
+            aeropuerto: "KJFK · Nueva York JFK · Estados Unidos",
+            codigo: "KJFK",
+            fir: "KZNY",
+            fuente: "Publicado por la FAA de Estados Unidos",
+            concepto: "Desafío: léelo entero antes de mirar la respuesta",
+            ayuda: "desafio",
+            lineas: [
+              { campo: "encabezado", texto: "A1420/26 NOTAMN" },
+              { campo: "Q", texto: "Q) ZNY/QMRLC/IV/NBO/A/000/999/4038N07346W005" },
+              { campo: "A", texto: "A) KJFK" },
+              { campo: "B", texto: "B) 2609030600" },
+              { campo: "C", texto: "C) 2609051400" },
+              { campo: "E", texto: "E) RWY 04L/22R CLSD DUE TO WIP RESURFACING." },
+            ],
+            campos: [
+              {
+                campo: "encabezado",
+                titulo: "Serie A, número 1420 del año 2026",
+                texto: "Un **NOTAMN**.",
+              },
+              {
+                campo: "Q",
+                titulo: "Pista cerrada",
+                texto:
+                  "`QMRLC`: `MR` pista, `LC` cerrado. Fíjate en el primer campo: aquí viene como `ZNY` y no con las cuatro letras de una FIR, que serían `KZNY`. Así se publicó.",
+              },
+              { campo: "A", titulo: "Dónde aplica", texto: "`KJFK`, Nueva York / John F. Kennedy." },
+              { campo: "B", titulo: "Desde cuándo", texto: "3 de septiembre de 2026 a las 06:00 UTC." },
+              { campo: "C", titulo: "Hasta cuándo", texto: "5 de septiembre de 2026 a las 14:00 UTC." },
+              {
+                campo: "E",
+                titulo: "Qué está ocurriendo",
+                texto: "La pista 04L/22R está cerrada por `WIP RESURFACING`, obras de repavimentación.",
+              },
+            ],
+            interpretacion:
+              "La pista 04L/22R está cerrada debido a trabajos de repavimentación.",
+          },
         ],
       },
 
-      { kind: "p", text: "**Estado y condición**" },
+      // ── Cierre ────────────────────────────────────────────────────────────
+      { kind: "titulo", text: "De los códigos a la operación" },
       {
-        kind: "kv",
-        items: [
-          { k: "AVBL", v: "disponible" },
-          { k: "U/S", v: "inutilizable" },
-          { k: "CLSD", v: "cerrado" },
-          { k: "ACT", v: "activo" },
-          { k: "WIP", v: "obras en progreso" },
-          { k: "MAINT", v: "mantenimiento" },
-          { k: "INSTL", v: "instalado" },
-          { k: "CTN", v: "precaución" },
-        ],
-      },
-
-      { kind: "p", text: "**Tiempo**" },
-      {
-        kind: "kv",
-        items: [
-          { k: "FM", v: "desde" },
-          { k: "TIL", v: "hasta" },
-          { k: "BTN", v: "entre" },
-          { k: "DLY", v: "diariamente" },
-          { k: "PERM", v: "permanente" },
-          { k: "EST", v: "estimado" },
-          { k: "UFN", v: "hasta nuevo aviso" },
-          { k: "WEF", v: "con efecto a partir de" },
-          { k: "SR", v: "salida del sol" },
-          { k: "SS", v: "puesta del sol" },
-        ],
-      },
-
-      { kind: "p", text: "**Distancias declaradas de pista**" },
-      {
-        kind: "kv",
-        items: [
-          { k: "TORA", v: "recorrido de despegue disponible" },
-          { k: "TODA", v: "distancia de despegue disponible" },
-          { k: "ASDA", v: "distancia de aceleración-parada disponible" },
-          { k: "LDA", v: "distancia de aterrizaje disponible" },
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Ya puedes tomar un NOTAM real, identificar sus componentes y reconstruir su significado en lenguaje claro.",
+          "Pero interpretar no es solamente saber qué dice el NOTAM.",
         ],
       },
       {
-        kind: "p",
-        text: "Las cuatro aparecen juntas cuando un NOTAM modifica las **distancias declaradas** de una pista, que es exactamente lo que pasa en el NOTAM `C2222/26` de Maicao que vas a ver en el modo práctica.",
-      },
-      {
-        kind: "check",
-        question:
-          "Un NOTAM modifica las distancias declaradas y la `ASDA` queda más corta que las otras tres. ¿Qué operación penaliza?",
-        options: [
-          "El aterrizaje, porque la ASDA es la distancia de aterrizaje disponible",
-          "El despegue con falla de motor, porque la ASDA es la de aceleración y parada",
-          "El rodaje, porque la ASDA mide la calle de salida",
-        ],
-        answer: 1,
-        explain:
-          "`ASDA` es la distancia de aceleración-parada disponible: la que necesitas si abortas el despegue. La de aterrizaje es `LDA`. Cuando la ASDA baja, lo que cambia es tu V1 y tu peso máximo de despegue.",
-      },
-      {
-        kind: "notam",
-        id: "N21",
-        caption:
-          "Con la lista de arriba ya lo lees entero: `THR` es umbral, `EXER CTN` es ejercer precaución y `EST` es estimado. Un bache en el umbral de la 05 de Barranquilla, y una fecha de fin que es un cálculo, no una promesa.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "El glosario completo está en el Decodificador",
-        text: "Aquí tienes el subconjunto que más se repite. El glosario completo, más las 168 tablas de asunto y las 78 de estado, están en el Decodificador de esta sección. Tenlo abierto mientras practicas.",
+        kind: "definicion",
+        text: "También hay que determinar qué significa para tu vuelo.",
       },
     ],
   },
 
-  // ── 9 ─────────────────────────────────────────────────────────────────────
+  // ── 9 ──────────────────────────────────────────────────────────────────────
   {
     n: 9,
-    title: "Decodificación completa, paso a paso",
-    kicker: "Dos NOTAM decodificados enteros",
-    minutes: 4,
+    title: "Cierre del módulo",
+    kicker: "Ya sabes leer un NOTAM",
+    minutes: 2,
     level: "intermedio",
     blocks: [
       {
-        kind: "p",
-        text: "**Ejemplo oficial** (Doc 8400, pág. 7-3, decodificado casilla por casilla en el propio documento):",
-      },
-      {
-        kind: "code",
-        text: "Q) LFFF/QNDAU/IV/BO/AE/...\nA) LFPO  B) 9203312359  C) 9204010600\nE) DME NOT AVBL",
-      },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "`LFFF` es el FIR de París.",
-          "`QNDAU`: `ND` es DME y `AU` es no disponible.",
-          "`IV` afecta a IFR y a VFR.",
-          "`BO` va al boletín previo al vuelo y es significativo para IFR.",
-          "`AE` es alcance de ayuda terminal y en ruta.",
-          "`A) LFPO` es París/Orly.",
-          "`B)` 31 mar 1992 a las 23:59 UTC y `C)` 1 abr 1992 a las 06:00 UTC.",
-          "`E)` DME no disponible.",
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Un NOTAM puede parecer complicado al principio, pero cuando entiendes su estructura la lectura cambia por completo.",
+          "Ya sabes identificar dónde aplica, cuándo está vigente, qué está ocurriendo y cómo interpretar la fraseología que usa.",
+          "El siguiente paso es practicar. La interpretación de NOTAM se mejora leyendo casos distintos y aprendiendo a reconocer rápido la información que puede importar en una operación.",
         ],
       },
       {
-        kind: "example",
-        title: "Ejemplo resuelto: NOTAM internacional completo",
-        code: "A0682/06 NOTAMN\nQ)SCEZ/QMXLC/IV/M/A/000/999/3323S07047W005\nA)SCEL B)0606091958 C)0606242359\nE)TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT",
-        steps: [
-          "**Encabezado:** serie A, número 0682 de 2006, tipo `NOTAMN`, o sea nuevo. No reemplaza nada.",
-          "**Código Q:** `QMXLC`. `MX` es calle de rodaje y `LC` es cerrada.",
-          "**Tránsito y alcance:** `IV` afecta a IFR y VFR, objetivo `M` (misceláneo), alcance `A` (aeródromo). Si vuelas a Santiago te aplica.",
-          "**Límites y área:** `000/999` son los niveles por defecto y el área es un círculo de 5 NM centrado en 33°23'S 70°47'W.",
-          "**A)** `SCEL`, Arturo Merino Benítez. **B)** y **C)**: del 9 de junio a las 19:58 UTC al 24 de junio a las 23:59 UTC de 2006. No hay casilla D), así que es continuo.",
-          "**E)** `TWY TANGO CLSD BTN TWY KILO AND ZULU PRKG ACFT`: calle de rodaje TANGO cerrada entre KILO y ZULU por estacionamiento de aeronaves.",
-        ],
-        answer:
-          "En Santiago, la calle de rodaje TANGO está cerrada entre KILO y ZULU, sin interrupción, del 9 al 24 de junio. Toca planear rodajes alternos en superficie: el cierre no afecta la pista.",
+        kind: "cta",
+        texto:
+          "**Practica con NOTAM reales.** En Aviatory tienes un módulo de práctica con NOTAM nacionales e internacionales. Ahí puedes seguir entrenando con distintos aeropuertos, situaciones y formatos.",
+        destino: "/app/aerolinea/notam/practica",
+        rotulo: "Ir a práctica de NOTAM",
       },
       {
-        kind: "check",
-        question:
-          "En `Q)LFFF/QNDAU/IV/BO/AE/...`, ¿qué instalación está afectada y qué le pasa?",
-        options: [
-          "El VOR, y está fuera de servicio",
-          "El DME, y no está disponible",
-          "La pista, y está limitada",
-        ],
-        answer: 1,
-        explain:
-          "Del código `QNDAU`: `ND` es DME y `AU` es no disponible. El VOR sería `NV`. Recuerda la regla: 2ª y 3ª letras el asunto, 4ª y 5ª el estado.",
-      },
-      {
-        kind: "summary",
-        items: [
-          "Encabezado y `A)` primero: qué NOTAM es y si te toca.",
-          "Código Q después: qué cosa y qué le pasa, en cinco letras.",
-          "Fechas y horario: siempre UTC, y Colombia va cinco horas atrás.",
-          "`E)` al final, expandiendo las abreviaturas hasta poder decirlo en voz alta en español.",
-        ],
-      },
-    ],
-  },
-
-  // ── 10 ─────────────────────────────────────────────────────────────────────
-  {
-    n: 10,
-    title: "NOTAM en Colombia: el resumen mensual de la Aerocivil",
-    kicker: "Leer el resumen mensual DRT",
-    minutes: 4,
-    level: "avanzado",
-    blocks: [
-      {
-        kind: "p",
-        text: "La Dirección de Informática (DRT) de la Aerocivil publica el **resumen mensual de NOTAM vigentes** por series. Los archivos reales que usa esta app son las series **Alfa** y **Charlie/Delta**, con corte al 29 de julio de 2026. El encabezado del resumen Charlie/Delta lo dice:",
-      },
-      {
-        kind: "quote",
-        text: "Los siguientes NOTAM serie CHARLIE/DELTA continúan vigentes (...) Los no incluidos han sido cancelados, reemplazados, han expirado o fueron publicados en el Manual AIP/COLOMBIA.",
-        source: "Aerocivil, DRT: resumen mensual de NOTAM vigentes, corte 29 JUL 2026",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Todas las horas son UTC",
-        text: "El resumen no usa hora local en ninguna columna. Colombia va en UTC menos 5, así que resta cinco horas para saber a qué hora local aplica.",
-      },
-      { kind: "p", text: "**Cómo se lee cada fila del resumen.** Esta es real, de Maicao:" },
-      { kind: "notam", id: "N2" },
-      {
-        kind: "breakdown",
-        caption:
-          "El resumen no usa las letras de casilla, pero la fila trae la misma información y en el mismo orden. Aprendida la equivalencia, lees el resumen igual que un NOTAM estándar.",
-        parts: [
-          { token: "C 2222/26", label: "encabezado", detail: "Serie C, NOTAM 2222 del año 2026." },
-          {
-            token: "MAICAO/JORGE ISAACS (SKLM)",
-            label: "equivale a A)",
-            detail: "Nombre del aeródromo o FIR con su indicador OACI.",
-          },
-          { token: "2606031100", label: "equivale a B)", detail: "3 de junio de 2026 a las 11:00 UTC." },
-          {
-            token: "2608302359",
-            label: "equivale a C)",
-            detail: "30 de agosto de 2026 a las 23:59 UTC. Aquí puede aparecer `EST` o `PERM`.",
-          },
-          {
-            token: "DIST DECLARADAS RWY 10/28 MODIFICADAS",
-            label: "equivale a E)",
-            detail: "El texto en lenguaje claro, con las abreviaturas OACI de siempre.",
-          },
-        ],
-      },
-      {
-        kind: "list",
-        items: [
-          "Si entre las fechas y el texto aparece un bloque tipo `0500-1000`, es el **horario diario**, es decir la casilla D).",
-          "En los NOTAM de espacio aéreo, las columnas Desde y Hasta equivalen a F) y G).",
-          "`RPLC NOTAM C 0756/26` significa que reemplaza al NOTAM indicado, es decir que se comporta como un NOTAMR.",
-        ],
-      },
-      {
-        kind: "example",
-        title: "Ejemplo resuelto: el NOTAM de Maicao, entero",
-        code: "C 2222/26  MAICAO/JORGE ISAACS (SKLM)\n2606031100 / 2608302359\nDIST DECLARADAS RWY 10/28 MODIFICADAS:\nRWY 10: TORA(M)1700 TODA(M)1800 ASDA(M)1550 LDA(M)1700\nRWY 28: TORA(M)1700 TODA(M)1700 ASDA(M)1550 LDA(M)1700",
-        steps: [
-          "Serie C, número 2222 de 2026, en Jorge Isaacs de Maicao (`SKLM`).",
-          "Vigente del 3 de junio a las 11:00 UTC (06:00 en Colombia) al 30 de agosto a las 23:59 UTC. Sin horario diario: aplica de corrido.",
-          "`DIST DECLARADAS` son las **distancias declaradas** de la pista, la sección de abreviaturas te las dejó listas: `TORA` recorrido de despegue, `TODA` distancia de despegue, `ASDA` aceleración-parada y `LDA` aterrizaje. La `(M)` es que van en metros.",
-          "Para la 10: despegas con 1700 m, tienes 1800 m contando la zona libre de obstáculos, 1550 m para acelerar y parar, y 1700 m para aterrizar.",
-          "Para la 28 cambia una sola cifra: la `TODA` baja a 1700 m.",
-        ],
-        answer:
-          "Maicao operó con distancias declaradas reducidas todo ese período. La cifra que manda es la `ASDA` de 1550 m: es la que penaliza el despegue con falla de motor, y es más corta que cualquiera de las otras tres. Con este NOTAM en la mano, la performance de despegue se recalcula.",
-      },
-      {
-        kind: "check",
-        question:
-          "En una fila del resumen colombiano lees `2606031100 / 2608302359 EST`. ¿Qué pasa el 31 de agosto?",
-        options: [
-          "El NOTAM caduca automáticamente y deja de aplicar",
-          "Sigue vigente: el fin era estimado y solo termina con un reemplazo o una cancelación",
-          "Se renueva solo por otros tres meses",
-        ],
-        answer: 1,
-        explain:
-          "`EST` marca que quien publicó el aviso **estimó** cuándo terminaría. Pasada esa fecha el NOTAM sigue vigente hasta que salga el que lo reemplaza o lo cancela. Darlo por vencido es de los errores que más cuestan en un briefing.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Material colombiano auténtico",
-        text: "En el modo práctica de esta sección ves imágenes reales de este resumen (SKPB, SKLM, SKBO, SKRG, FIR Bogotá y más) para entrenar con NOTAM nacionales. Son material de estudio con vigencia ya expirada.",
-      },
-    ],
-  },
-
-  // ── 11 ─────────────────────────────────────────────────────────────────────
-  {
-    n: 11,
-    title: "SNOWTAM y ASHTAM",
-    kicker: "Las dos series con formato propio",
-    minutes: 5,
-    level: "avanzado",
-    blocks: [
-      {
-        kind: "p",
-        text: "Hay dos situaciones que la OACI sacó del formato normal porque necesitan datos muy específicos y muy rápido: la **contaminación de la pista** y la **ceniza volcánica**. Cada una tiene su propia serie, con su propio formato, definido en el **Anexo 15**.",
-      },
-
-      { kind: "p", text: "**SNOWTAM: contaminación del área de movimiento**" },
-      {
-        kind: "list",
-        items: [
-          "Informa condiciones peligrosas por **nieve, nieve fundente, hielo, escarcha o agua estancada** en pistas, calles de rodaje y plataformas (Doc 8400, pág. 1-24).",
-          "Se identifica con un **número de serie propio** y lleva el indicador del aeródromo.",
-          "Reporta la pista **dividida en tres tercios**, cada uno con su **código de estado de pista** de 0 a 6: `6` es pista seca y `0` es la peor condición. También el tipo de contaminante, su espesor en milímetros y qué porcentaje de la pista cubre.",
-          "Su **validez máxima es de 8 horas**. Un SNOWTAM nuevo reemplaza automáticamente al anterior del mismo aeródromo.",
-          "Trae además una sección de información para la conciencia situacional: calles de rodaje y plataformas afectadas, bancos de nieve, luces tapadas y observaciones en lenguaje claro.",
-        ],
-      },
-      { kind: "p", text: "**Ejemplo de formato**, aeródromo SKBO, pista 13R:" },
-      {
-        kind: "kv",
-        items: [
-          { k: "A) SKBO", v: "Indicador OACI del aeródromo." },
-          { k: "B) 07301245", v: "Fecha y hora de la observación, `DDHHMM` en UTC." },
-          { k: "C) 13R", v: "Pista que se reporta." },
-          { k: "D) 5/5/3", v: "Código de estado de pista por tercio: los dos primeros tercios en 5, el último en 3." },
-          { k: "E) 100/100/100", v: "Porcentaje de cada tercio cubierto por el contaminante." },
-          { k: "F) NR/NR/3", v: "Espesor del contaminante en milímetros. `NR` es no reportado." },
-          { k: "G) DRY/DRY/WET", v: "Descripción de la condición de cada tercio." },
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Por qué te importa si vuelas en Colombia",
-        text: "Nieve casi nunca, pero agua estancada sí. El mismo formato reporta pista mojada y encharcada, y el código de estado de pista es el dato que usas para calcular la distancia de aterrizaje en condiciones no secas.",
-      },
-
-      { kind: "p", text: "**ASHTAM: actividad volcánica y ceniza**" },
-      {
-        kind: "list",
-        items: [
-          "Informa **actividad volcánica, erupciones y nubes de ceniza** que afectan a la navegación aérea. Se emite por **FIR**, no por aeródromo.",
-          "Su dato central es el **código de color del nivel de alerta**: **verde** (volcán en estado normal), **amarillo** (actividad por encima de lo normal), **naranja** (erupción probable o en curso sin columna significativa) y **rojo** (erupción con columna de ceniza en la atmósfera).",
-          "Incluye el nombre y el número del volcán, su posición, la altura y la dirección de movimiento de la nube, y las rutas y niveles de vuelo afectados o cerrados.",
-          "Su **validez máxima es de 24 horas**, y se emite uno nuevo en cuanto cambia el nivel de alerta.",
-          "Va acompañado de los avisos de ceniza volcánica que emiten los centros VAAC.",
-        ],
-      },
-      { kind: "p", text: "**Ejemplo de formato**, FIR Bogotá:" },
-      {
-        kind: "kv",
-        items: [
-          { k: "A) SKED", v: "FIR afectada. El ASHTAM se emite por FIR, no por aeródromo." },
-          { k: "B) 2607301400", v: "Fecha y hora del mensaje, en UTC." },
-          { k: "C) NEVADO DEL RUIZ", v: "Nombre y número del volcán." },
-          { k: "D) 0453N07522W", v: "Posición del volcán." },
-          { k: "E) NARANJA", v: "Código de color del nivel de alerta, y cuál era el anterior." },
-          { k: "F) CENIZA HASTA FL200", v: "Altura de la nube de ceniza." },
-          { k: "G) AL OESTE", v: "Dirección de movimiento de la nube." },
-          { k: "H) UW7 AFECTADA", v: "Rutas, niveles de vuelo y espacio aéreo afectados o cerrados." },
-        ],
-      },
-      {
-        kind: "check",
-        question: "Un SNOWTAM de Bogotá reporta `D) 5/5/3`. ¿Qué te está diciendo?",
-        options: [
-          "Que la pista mide 5300 metros",
-          "El código de estado de pista por tercios: los dos primeros en 5 y el último en 3",
-          "Que hay 5 cm de contaminante en dos tercios y 3 cm en el otro",
-        ],
-        answer: 1,
-        explain:
-          "La casilla D) del SNOWTAM es el código de estado de pista **por tercios**, de 6 (seca) a 0 (la peor condición). El espesor del contaminante en milímetros va en la casilla F). Ese código es el que entra en tu cálculo de distancia de aterrizaje.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Colombia es país volcánico",
-        text: "El Nevado del Ruiz, el Galeras y el Puracé tienen actividad recurrente. El ASHTAM y los avisos de ceniza no son teoría de examen: son parte del briefing real de vuelos por el centro y el suroccidente del país.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Sobre los formatos de esta sección",
-        text: "Los dos bloques de arriba ilustran qué campos trae cada mensaje y en qué orden. El detalle exacto de cada casilla y su edición vigente están en el Anexo 15 y sus apéndices: confírmalos ahí antes de usarlos operacionalmente.",
-      },
-    ],
-  },
-
-  // ── 12 ─────────────────────────────────────────────────────────────────────
-  {
-    n: 12,
-    title: "Método de lectura en 6 pasos",
-    kicker: "Rutina de lectura y errores comunes",
-    minutes: 3,
-    level: "avanzado",
-    blocks: [
-      {
-        kind: "p",
-        text: "Lee cada NOTAM siempre en el mismo orden. Esta rutina es la que aplicas en el modo práctica y en la evaluación.",
-      },
-      {
-        kind: "list",
-        ordered: true,
-        items: [
-          "**Encabezado y A):** qué NOTAM es (serie, número y tipo) y dónde aplica.",
-          "**Código Q:** la 2ª y 3ª letras dicen qué cosa, la 4ª y 5ª qué le pasa.",
-          "**Tránsito y alcance:** si te aplica (`I`/`V`, `A`/`E`/`W`).",
-          "**B), C) y D):** cuándo. Siempre en UTC, y Colombia va en UTC menos 5. Ojo con `PERM`, `EST` y los horarios diarios.",
-          "**E):** léelo expandiendo las abreviaturas. Debe ser coherente con el código Q.",
-          "**F) y G)** si hay espacio aéreo involucrado: entre qué niveles aplica.",
-        ],
-      },
-      { kind: "p", text: "**Errores comunes**, los mismos que evalúa la sección de práctica:" },
-      {
-        kind: "list",
-        items: [
-          "Confundir `LC` (cerrado) con `LI`, `LN` o `LV` (cerrado solo para IFR, solo de noche o solo para VFR).",
-          "Leer B), C) y D) en hora local: son UTC.",
-          "Ignorar `EST`: el fin es estimado, y el NOTAM sigue vigente hasta que lo reemplacen o lo cancelen.",
-          "Pasar por alto el horario diario (casilla D o el bloque `HHMM-HHMM` del resumen). \"Cerrado\" puede ser solo unas horas al día.",
-          "No revisar `RPLC`: si un NOTAM reemplaza a otro, el anterior ya no vale.",
-        ],
-      },
-      {
-        kind: "check",
-        question:
-          "Un NOTAM termina a las `2359` UTC del 30 de agosto. Tu vuelo sale de Bogotá el 30 a las 20:00 hora local. ¿Sigue vigente?",
-        options: [
-          "No: a las 20:00 ya pasó la medianoche del NOTAM",
-          "Sí: las 23:59 UTC son las 18:59 en Bogotá, así que a las 20:00 local ya terminó",
-          "Sí: a las 20:00 local son las 01:00 UTC del día siguiente, así que ya no aplica",
-        ],
-        answer: 1,
-        explain:
-          "Colombia va en UTC menos 5, así que las `2359` UTC del día 30 son las 18:59 locales de ese mismo día. A las 20:00 locales el NOTAM ya expiró. Leer las fechas en hora local, en cualquiera de los dos sentidos, es el error que más cuesta.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Error común: el que más cuesta",
-        text: "Leer las fechas en hora local. Un NOTAM que termina a las `2359` UTC termina a las 18:59 en Bogotá, no a medianoche.",
-      },
-      {
-        kind: "summary",
-        title: "Lo que te llevas de todo el documento",
-        items: [
-          "Un NOTAM es **encabezado + casillas**, y las casillas siempre van en el mismo orden.",
-          "El código Q de cinco letras se lee como una frase: `Q` + asunto + estado.",
-          "Todo lo que sea hora es UTC. Colombia va cinco horas atrás, sin excepciones.",
-          "`EST` no es vencido, `PERM` no termina, y un `RPLC` deja sin efecto al NOTAM anterior.",
-          "La casilla D) y el bloque `HHMM-HHMM` del resumen colombiano son lo mismo: el horario diario.",
-          "Si el código Q y la casilla E) no dicen lo mismo, confirma antes de usar el NOTAM.",
-        ],
+        kind: "definicion",
+        text: "La próxima vez que encuentres un NOTAM, no pienses «¿qué significa todo esto?». Piensa: «¿qué está pasando y qué significa para mi vuelo?».",
       },
     ],
   },
