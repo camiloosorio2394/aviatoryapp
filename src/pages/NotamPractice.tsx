@@ -582,7 +582,7 @@ export function NotamPractice() {
                           {item.titulo}
                         </div>
                       )}
-                      <p className="mt-2 mb-0 text-[13px] text-foreground/90 leading-relaxed">
+                      <p className="mt-2 mb-0 whitespace-pre-line text-[13px] text-foreground/90 leading-relaxed">
                         {item.modelo}
                       </p>
                     </div>
@@ -857,7 +857,7 @@ function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamIma
         onLoad={() => setState("lista")}
         onError={() => setState("falló")}
         className={`block h-auto max-w-none ${isCard ? "rounded-[6px]" : "rounded-lg"}`}
-        style={isCard ? undefined : { width: ZOOM_WIDTH[zoomLevel] }}
+        style={isCard ? { width: 1240 } : { width: ZOOM_WIDTH[zoomLevel] }}
       />
       {state === "cargando" && (
         <div
