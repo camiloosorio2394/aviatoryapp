@@ -629,3 +629,61 @@ apoyos como mínimo; con los sólidos sombreados no puede ni empezar.
   por filas», da la C, y la C es lo que dice la clave del cuadernillo.
 
 Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.
+
+### 9.5 · Dónde quedó cada matriz del A1
+
+Ocho de las veinte están dibujadas y en la aplicación; el resto sigue con su
+recorte, ahora sin el logotipo de Facebook donde se pudo quitar.
+
+| Matrices | Estado |
+|---|---|
+| 01, 03, 04, 05, 06, 07, 09 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
+| 02 | Dibujada. Su regla —los brazos del rombo se añaden y se quitan de uno en uno— no está en la familia del solucionador, así que **no tiene comprobación automática**: hay que aprobarla mirando el HTML de revisión |
+| 08, 10, 11 | **Paradas a propósito.** Juegan con bandas dentro de sectores, con extensiones y con posiciones que no se leen con seguridad en el recorte. Transcribirlas a ojo es justo lo que cambia un ejercicio sin que nadie se entere |
+| 12 a 20 | Sin empezar |
+
+Las tres paradas no son un problema de tiempo: es que hace falta el cuadernillo
+original —`554759531`, que Nico tiene en Descargas— a mejor resolución que el
+recorte, o que alguien las lea al lado del papel. Con eso se dibujan en una
+tarde.
+
+### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
+
+`scripts/psicotecnicas/quitar-marca.mjs`. El logotipo del cuadernillo A1 no está
+dentro de la figura: cae en el hueco entre la matriz y las alternativas, así que
+se puede recortar sin tocar el ejercicio. El script lo localiza por ser lo único
+azul de la lámina, comprueba que entre la franja y el dibujo hay papel por
+arriba y por abajo, y cose las dos mitades.
+
+Quince quedaron limpias. En cinco —01, 02, 11, 14 y 18— la franja roza el dibujo
+y el script se niega: **preferimos un recorte con marca a un recorte con el
+ejercicio mordido**. De esas cinco, la 01 y la 02 ya están dibujadas, así que en
+producción solo quedan tres láminas con el logotipo: la 11, la 14 y la 18.
+
+Los originales no se tocaron. La lámina limpia se escribe al lado con el sufijo
+`-limpio` y el banco apunta a ella por `src/data/psicotecnicas/laminasLimpias.ts`,
+que genera el propio script.
+
+Esto **no** sustituye al encargo de dibujar las figuras: las letras de las
+opciones siguen cortadas en el recorte, y esa parte solo la arregla el dibujo.
+
+### 9.7 · La portada, y la foto que le falta
+
+`/app/aerolinea/psicotecnicas` está rehecha con el patrón de NOTAM: hero con la
+foto a sangre bajo el velo navy, franja de avance de una sola caja con las tres
+familias, y las cuatro partes en `CourseCard`. El vocabulario de movimiento no
+se duplicó: se amplió el alcance de las reglas `.ln-*` que ya existían para el
+lector de NOTAM, así que las dos pantallas se mueven igual y el bloque de
+`prefers-reduced-motion` cubre las dos.
+
+Dos cosas para ti:
+
+1. **La foto del hero es prestada.** Usa `psicotecnicas-mano-panel.jpg`, que ya
+   estaba en el repositorio y sale también en la landing. Funciona, pero no
+   tiene el tratamiento navy de `notam-hero.webp`. Si quieres una propia, el
+   corte es horizontal, sin texto encima.
+2. **La franja enseña el último acierto por familia, no ejercicios resueltos.**
+   El encargo pedía resueltos sobre el total, y ese dato hoy no existe: mientras
+   la migración del punto 8.6 siga sin aplicar, los intentos solo viven en
+   `localStorage` y no hay recuento por ejercicio. Antes enseñar lo que hay que
+   inventar una cifra. En cuanto se aplique la migración, se cambia en un sitio.

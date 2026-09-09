@@ -847,6 +847,14 @@
   font-family: "Archivo", var(--font-sans);
 }
 
+/* === Portada del tema Pruebas psicotécnicas ================================
+   Misma casa que la portada de NOTAM: si las dos titulan igual, se leen como
+   la misma pantalla con otro contenido. Igual que allá, con alcance a la
+   pantalla y sin tocar la familia global. */
+.psico-hub .ph-display {
+  font-family: "Archivo", var(--font-sans);
+}
+
 /* === Lector NOTAM (la lección Aprende) ======================================
    Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
    infografías: papel cálido y navy de carta aeronáutica, fija en los dos
@@ -995,18 +1003,22 @@
 }
 .lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
 
-/* Aparición suave. Lo que entra a mitad de scroll sube diez píxeles en vez
+/* Aparición suave. La comparte la portada de psicotécnicas: el mismo
+   vocabulario en las dos pantallas es lo que las hace la misma aplicación.
+ Lo que entra a mitad de scroll sube diez píxeles en vez
    de plantarse de golpe: en una lección larga, un bloque que aparece sin
    más se lee como un salto de maquetación. La clase la enciende el
    componente cuando el bloque entra en pantalla, y una sola vez. */
-.lector-notam .ln-aparece {
+.lector-notam .ln-aparece,
+.psico-hub .ln-aparece {
   opacity: 0;
   transform: translateY(10px);
   transition:
     opacity 520ms ease-out,
     transform 520ms cubic-bezier(0.22, 0.8, 0.24, 1);
 }
-.lector-notam .ln-aparece.ln-visible {
+.lector-notam .ln-aparece.ln-visible,
+.psico-hub .ln-aparece.ln-visible {
   opacity: 1;
   transform: none;
 }
@@ -1014,12 +1026,14 @@
 /* El carril de etapas del vuelo. La línea se traza hasta la parada de esta
    etapa y el avión llega a posarse en ella, un poco después, para que se lea
    como una llegada y no como dos cosas moviéndose a la vez. */
-.lector-notam .ln-carril {
+.lector-notam .ln-carril,
+.psico-hub .ln-carril {
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 900ms cubic-bezier(0.22, 0.8, 0.24, 1) 120ms;
 }
-.lector-notam .ln-visible .ln-carril {
+.lector-notam .ln-visible .ln-carril,
+.psico-hub .ln-visible .ln-carril {
   transform: scaleX(1);
 }
 .lector-notam .ln-avion {
@@ -1038,12 +1052,14 @@
   /* Sin movimiento, todo esto llega ya puesto: el bloque, el carril entero y
      el avión en su parada. */
   .lector-notam .ln-aparece,
+  .psico-hub .ln-aparece,
   .lector-notam .ln-avion {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .lector-notam .ln-carril {
+  .lector-notam .ln-carril,
+  .psico-hub .ln-carril {
     transform: scaleX(1);
     transition: none;
   }
