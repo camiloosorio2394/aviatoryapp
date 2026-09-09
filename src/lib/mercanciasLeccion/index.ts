@@ -21,7 +21,7 @@ import { NIVEL_1 } from "./nivel1"
 import { NIVEL_2 } from "./nivel2"
 import { NIVEL_3 } from "./nivel3"
 import { NIVEL_4 } from "./nivel4"
-import { PENDIENTES } from "./pendientes"
+import { NIVEL_5 } from "./nivel5"
 
 export const MP_NIVELES: LectorNivel[] = [
   { titulo: "Nivel 1 · Introducción", desde: 1 },
@@ -31,7 +31,7 @@ export const MP_NIVELES: LectorNivel[] = [
   { titulo: "Nivel 5 · Casos reales y repaso", desde: 17 },
 ]
 
-export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4, ...PENDIENTES]
+export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4, ...NIVEL_5]
 
 // La numeración es la que se guarda como progreso: si un archivo se
 // desordena, mejor caerse al arrancar que marcar leída la lección equivocada.
