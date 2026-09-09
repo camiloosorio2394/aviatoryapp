@@ -96,6 +96,45 @@ export type LessonBlock =
    */
   | { kind: "titulo"; text: string; sub?: string; n?: string }
   /**
+   * Tabla de consulta de abreviaturas, en dos parejas por fila.
+   *
+   * No es material que se memorice: se mira. Por eso va en cuatro columnas y
+   * no en fichas, que multiplicarían por cuarenta y seis el número de bordes
+   * en pantalla para decir lo mismo. La abreviatura pesa y el significado
+   * acompaña, que es el orden en que se consulta.
+   */
+  | {
+      kind: "abreviaturas"
+      titulo?: string
+      intro?: string
+      items: { a: string; v: string }[]
+      nota?: string
+    }
+  /**
+   * Un mensaje de la casilla E) y lo que dice, uno debajo del otro.
+   *
+   * `marcar` son las abreviaturas que se resaltan dentro del código: al entrar
+   * en pantalla se encienden primero ellas y después aparece el significado,
+   * que es el orden en que un piloto lo resuelve.
+   */
+  | {
+      kind: "traduccion"
+      codigo: string
+      significado: string
+      marcar?: string[]
+    }
+  /**
+   * El cierre de la lección: el lema, los tres pasos y un ejemplo con el
+   * código a un lado y la lectura al otro.
+   */
+  | {
+      kind: "reglaLectura"
+      lema: string
+      pasos: string[]
+      codigo: string
+      significado: string
+    }
+  /**
    * En qué punto del vuelo estamos: salida, ruta o destino.
    *
    * Es el hilo de la parte de planificación. Cinco NOTAM seguidos se
@@ -2237,51 +2276,276 @@ export const LESSON_SCREENS: DocScreen[] = [
     kicker: "Leer el texto en lenguaje claro",
     minutes: 3,
     level: "intermedio",
+    // La casilla E) es la única del NOTAM escrita para leerse, no para
+    // filtrarse. Por eso aquí no se vuelve a explicar la estructura: se enseña
+    // a reconocer las siglas y a construir la frase. El protagonista visual es
+    // el mensaje, no la teoría.
     blocks: [
+      // ── 01 · Identifica la casilla E) ────────────────────────────────────
       {
-        kind: "p",
-        text: "La casilla E) usa **abreviaturas OACI** y la **fraseología abreviada uniforme** del código, ampliada con pista, frecuencia, coordenadas o cifras (Doc 8400, §4 a §6, pág. 7-2). La ampliación del **asunto** va **antes** del significado. La del **estado**, **después**.",
-      },
-      { kind: "p", text: "**Ejemplos oficiales de casilla E)** (Doc 8400, pág. 7-2):" },
-      {
-        kind: "table",
-        head: ["Situación", "Casilla E)"],
-        rows: [
-          [
-            "Luces de zona de toma de contacto de la RWY 27 no disponibles por corte de energía",
-            "`RWY 27 RTZL NOT AVBL POR INTERRUPCIÓN DE PWR`",
-          ],
-          ["Luces de borde de la TWY B disimuladas por nieve", "`TWY B EDGE LGT OBSCURED BY SN`"],
-          ["Bancos de nieve de 15 ft en la franja de la RWY 09/27", "`RWY 09/27 STRIP SN BANKS HGT 15 FT`"],
-          [
-            "MSA de 90° a 180° hacia el VOR DOM cambiada a 3 600 ft MSL",
-            "`90 A 180 DEG INBD VOR DOM MSA CHANGED 3600 FT MSL`",
-          ],
+        kind: "notamPanel",
+        rotulo: "NOTAM real · Rionegro / José María Córdova (SKRG)",
+        etiqueta: "Torre limitada y visibilidad reducida",
+        lineas: [
+          { texto: "A1956/26 NOTAMR A1635/26", marca: "Identificación" },
+          { texto: "Q) SKED/QSTLT/IV/NBO/A/000/999/0610N07525W010", marca: "Línea Q" },
+          { texto: "A) SKRG", marca: "Dónde" },
+          { texto: "B) 2607091316", marca: "Desde cuándo" },
+          { texto: "C) PERM", marca: "Hasta cuándo" },
+          {
+            texto: "E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01\n   DUE TO TREES, EXER CTN REF. SKRG AD 2.23",
+            marca: "E) · La condición notificada",
+            fuerte: true,
+          },
         ],
       },
       {
-        kind: "notam",
-        id: "N18",
-        caption:
-          "La misma fraseología, pero de la Aerocivil y sin una sola palabra de más: `RWY 02/20 WIP, EXER CTN`. Tres abreviaturas y ya está dicho todo: pista 02/20, obras en progreso, ejerza precaución. Esto es lo que de verdad te vas a encontrar en la casilla E).",
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "La casilla E) contiene la descripción de la condición, cambio, restricción o situación operacional que está siendo notificada.",
+          "Su contenido usa abreviaturas y fraseología aeronáutica estandarizada, para transmitir la información de forma breve y precisa.",
+          "Por eso el objetivo no es traducir palabra por palabra, sino **reconocer las abreviaturas y comprender el mensaje completo**.",
+        ],
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01\n   DUE TO TREES, EXER CTN REF. SKRG AD 2.23",
+        marcar: ["TWR", "LTD", "VIS", "BTN", "TWY", "THR", "DUE TO", "EXER", "CTN", "REF", "AD"],
+        significado:
+          "El servicio de torre está limitado y la visibilidad está reducida entre la calle de rodaje A y el umbral de la pista 01 debido a árboles. Se debe ejercer precaución y consultar la referencia SKRG AD 2.23.",
+      },
+
+      // ── 02 · Las abreviaturas ────────────────────────────────────────────
+      {
+        kind: "abreviaturas",
+        titulo: "Abreviaturas frecuentes en NOTAM",
+        intro:
+          "Los NOTAM usan abreviaturas y expresiones estandarizadas que permiten transmitir información operacional de forma rápida y precisa. Estas son algunas de las más frecuentes.",
+        items: [
+          { a: "RWY", v: "Pista" },
+          { a: "TWY", v: "Calle de rodaje" },
+          { a: "CLSD", v: "Cerrado" },
+          { a: "U/S", v: "Fuera de servicio" },
+          { a: "LTD", v: "Limitado" },
+          { a: "WIP", v: "Trabajos en curso" },
+          { a: "BTN", v: "Entre" },
+          { a: "THR", v: "Umbral" },
+          { a: "VIS", v: "Visibilidad" },
+          { a: "DUE TO", v: "Debido a" },
+          { a: "CTN", v: "Precaución" },
+          { a: "OPR", v: "Opera" },
+          { a: "ACFT", v: "Aeronave" },
+          { a: "PSN", v: "Posición" },
+          { a: "APRON", v: "Plataforma" },
+          { a: "STAND", v: "Puesto de estacionamiento" },
+          { a: "APCH", v: "Aproximación" },
+          { a: "DEP", v: "Salida" },
+          { a: "ARR", v: "Llegada" },
+          { a: "ILS", v: "Sistema de aterrizaje por instrumentos" },
+          { a: "LOC", v: "Localizador" },
+          { a: "VOR", v: "Radiofaro omnidireccional VHF" },
+          { a: "DME", v: "Equipo radiotelemétrico" },
+          { a: "NDB", v: "Radiofaro no direccional" },
+          { a: "PAPI", v: "Indicador visual de pendiente de aproximación" },
+          { a: "ALSF", v: "Sistema de luces de aproximación" },
+          { a: "FREQ", v: "Frecuencia" },
+          { a: "COM", v: "Comunicaciones" },
+          { a: "SFC", v: "Superficie" },
+          { a: "GND", v: "Tierra" },
+          { a: "ALT", v: "Altitud" },
+          { a: "FL", v: "Nivel de vuelo" },
+          { a: "ABV", v: "Por encima de" },
+          { a: "BLW", v: "Por debajo de" },
+          { a: "MNM", v: "Mínimo" },
+          { a: "MAX", v: "Máximo" },
+          { a: "FM", v: "Desde" },
+          { a: "TIL", v: "Hasta" },
+          { a: "H24", v: "Las veinticuatro horas" },
+          { a: "HRS", v: "Horas" },
+          { a: "EST", v: "Estimado" },
+          { a: "PERM", v: "Permanente" },
+          { a: "EXER", v: "Ejercer" },
+          { a: "REF", v: "Referencia" },
+          { a: "AD", v: "Aeródromo" },
+          { a: "UAS", v: "Aeronave no tripulada" },
+        ],
+        nota: "Esta tabla es una herramienta de consulta. No necesitas memorizar todas las abreviaturas: tienes que aprender a reconocerlas e interpretar su significado dentro del contexto del NOTAM.",
+      },
+
+      // ── 03 · Del NOTAM al lenguaje claro ─────────────────────────────────
+      { kind: "titulo", n: "03", text: "Del NOTAM al lenguaje claro" },
+      {
+        kind: "traduccion",
+        codigo: "E) RWY 13L/31R CLSD DUE WIP",
+        marcar: ["RWY", "CLSD", "DUE", "WIP"],
+        significado: "La pista 13L/31R está cerrada debido a trabajos en curso.",
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) ALSF CAT I RWY 05 U/S",
+        marcar: ["ALSF", "RWY", "U/S"],
+        significado:
+          "El sistema de luces de aproximación ALSF CAT I de la pista 05 está fuera de servicio.",
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) TWY I OPR UNICAMENTE AVIACION MIL",
+        marcar: ["TWY", "OPR"],
+        significado: "La calle de rodaje I opera únicamente para aviación militar.",
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) TWY AC CLSD",
+        marcar: ["TWY", "CLSD"],
+        significado: "La calle de rodaje AC está cerrada.",
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01 DUE TO TREES",
+        marcar: ["TWR", "LTD", "VIS", "BTN", "TWY", "THR", "DUE TO"],
+        significado:
+          "El servicio de torre está limitado y la visibilidad está reducida entre la calle de rodaje A y el umbral de la pista 01 debido a árboles.",
+      },
+      {
+        kind: "traduccion",
+        codigo: "E) PAPI RWY 19 U/S",
+        marcar: ["PAPI", "RWY", "U/S"],
+        significado: "Las luces PAPI de la pista 19 están fuera de servicio.",
+      },
+
+      // ── 04 · Ahora interprétalo tú ───────────────────────────────────────
+      { kind: "titulo", n: "04", text: "Ahora interprétalo tú" },
+      {
+        kind: "p",
+        text: "Ocho mensajes de casilla E), de menos a más. Léelos como los vas a leer en un briefing: primero las siglas, después la frase.",
       },
       {
         kind: "check",
-        question: "¿Qué dice `RWY 27 RTZL NOT AVBL DUE TO PWR FAILURE`?",
+        codigo: "E) TWY AC CLSD",
+        question: "¿Qué significa este NOTAM?",
         options: [
-          "La pista 27 está cerrada por un corte de energía",
-          "Las luces de zona de toma de contacto de la 27 no están disponibles por corte de energía",
-          "El sistema de aproximación de la 27 quedó sin alimentación de respaldo",
+          "La pista AC está cerrada al tránsito.",
+          "La calle de rodaje AC está cerrada.",
+          "La plataforma AC está cerrada hoy.",
         ],
         answer: 1,
         explain:
-          "`RTZL` son las luces de zona de toma de contacto y `NOT AVBL` es no disponible. La pista sigue abierta: lo que falta es una ayuda visual, que cambia los mínimos nocturnos pero no cierra nada.",
+          "`TWY` es taxiway, calle de rodaje, y `CLSD` es cerrado. La pista sería `RWY` y la plataforma, `APRON`.",
       },
       {
-        kind: "callout",
-        tone: "tip",
-        title: "Traduce siempre a una frase entera",
-        text: "No leas E) como una sopa de siglas. Conviértela en una oración con sujeto, qué le pasa y desde cuándo. Si no puedes decirla en voz alta en español, todavía no la entendiste.",
+        kind: "check",
+        codigo: "E) RWY 05 CLSD DUE WIP",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "La pista 05 está cerrada por trabajos en curso.",
+          "La pista 05 quedó fuera de servicio por una falla.",
+          "La calle de rodaje 05 está cerrada por obras.",
+        ],
+        answer: 0,
+        explain:
+          "`WIP` es work in progress, trabajos en curso, y `DUE` introduce la causa. Fuera de servicio sería `U/S`, que se usa para equipos y ayudas, no para una pista cerrada por obra.",
+      },
+      {
+        kind: "check",
+        codigo: "E) PAPI RWY 19 U/S",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "El PAPI de la pista 19 está fuera de servicio.",
+          "La pista 19 está cerrada por una falla del PAPI.",
+          "El ILS de la pista 19 está fuera de servicio.",
+        ],
+        answer: 0,
+        explain:
+          "`PAPI` es el indicador visual de pendiente de aproximación y `U/S` es unserviceable. Lo que falla es una ayuda visual: la pista sigue abierta.",
+      },
+      {
+        kind: "check",
+        codigo: "E) TWR LTD",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "La torre está cerrada durante ese periodo.",
+          "El servicio de torre está limitado.",
+          "La torre opera en frecuencia reducida.",
+        ],
+        answer: 1,
+        explain:
+          "`LTD` es limited, limitado. No dice cerrada, que sería `CLSD`, ni en qué consiste la limitación: para eso hay que mirar el resto del NOTAM.",
+      },
+      {
+        kind: "check",
+        codigo: "E) ILS RWY 13 U/S FM 0600 TIL 1200",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "El ILS de la pista 13 opera solamente entre las 06:00 y las 12:00.",
+          "El ILS de la pista 13 está fuera de servicio de 06:00 a 12:00.",
+          "La pista 13 está cerrada entre las 06:00 y las 12:00.",
+        ],
+        answer: 1,
+        explain:
+          "`FM` es from, desde, y `TIL` es until, hasta. La franja es la de la avería, no la del servicio: `U/S` dice que en esas horas el ILS no está.",
+      },
+      {
+        kind: "check",
+        codigo: "E) TWY B WIP, ACFT EXER CTN",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "La calle de rodaje B está cerrada y las aeronaves tienen que evitarla.",
+          "Hay trabajos en la calle de rodaje B; ejerza precaución.",
+          "La calle de rodaje B opera con restricción por tránsito de aeronaves.",
+        ],
+        answer: 1,
+        explain:
+          "`WIP` son trabajos en curso y `EXER CTN` es ejercer precaución. La calle sigue abierta: si estuviera cerrada diría `CLSD`.",
+      },
+      {
+        kind: "check",
+        codigo: "E) VOR U/S, APCH RWY 27 LTD",
+        question: "¿Qué significa este NOTAM?",
+        options: [
+          "El VOR opera con limitaciones y la aproximación a la 27 está cerrada del todo.",
+          "El VOR está fuera de servicio y la aproximación a la 27 queda limitada.",
+          "El VOR y la aproximación a la pista 27 están fuera de servicio.",
+        ],
+        answer: 1,
+        explain:
+          "Cada condición va pegada a su elemento: `U/S` es del VOR y `LTD` es de la aproximación. Cruzar los dos estados es el error más común al leer una casilla E) con varias condiciones.",
+      },
+      {
+        kind: "check",
+        codigo: "E) TWR LTD H24, VIS REDUCED BTN TWY A AND THR 01 DUE TO TREES, EXER CTN",
+        question: "¿Entre qué dos puntos está reducida la visibilidad?",
+        options: [
+          "Entre la torre de control y el umbral de la pista 01.",
+          "Entre la calle de rodaje A y el umbral de la 01.",
+          "Entre la calle de rodaje A y la plataforma principal.",
+        ],
+        answer: 1,
+        explain:
+          "`BTN` es between y `AND` cierra el par: el tramo va de `TWY A` al `THR 01`, el umbral de la pista 01. El `H24` es de la limitación de torre, no de la visibilidad.",
+      },
+
+      // ── 05 · La regla de lectura ─────────────────────────────────────────
+      {
+        kind: "reglaLectura",
+        lema: "No traduzcas. Interpreta.",
+        pasos: [
+          "Reconoce las abreviaturas.",
+          "Relaciona cada una con el elemento o la condición que describe.",
+          "Construye el significado completo del mensaje.",
+        ],
+        codigo: "E) RWY 13L/31R CLSD DUE WIP",
+        significado: "La pista 13L/31R está cerrada debido a trabajos en curso.",
+      },
+
+      // ── 06 · Cierre ──────────────────────────────────────────────────────
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Ya puedes reconocer la fraseología abreviada de la casilla E) y convertir un mensaje condensado en una lectura clara.",
+          "El siguiente paso es interpretar NOTAM completos y relacionar toda la información, ubicación, vigencia, horarios, condición y alcance, con una operación de vuelo.",
+        ],
       },
     ],
   },

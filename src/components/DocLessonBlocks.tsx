@@ -428,6 +428,35 @@ export function DocBlock({ block }: { block: DocBlockData }) {
         </dl>
       )
 
+    case "abreviaturas":
+      return (
+        <Abreviaturas
+          titulo={block.titulo}
+          intro={block.intro}
+          items={block.items}
+          nota={block.nota}
+        />
+      )
+
+    case "traduccion":
+      return (
+        <Traduccion
+          codigo={block.codigo}
+          significado={block.significado}
+          marcar={block.marcar}
+        />
+      )
+
+    case "reglaLectura":
+      return (
+        <ReglaLectura
+          lema={block.lema}
+          pasos={block.pasos}
+          codigo={block.codigo}
+          significado={block.significado}
+        />
+      )
+
     case "etapaRuta":
       return <EtapaRuta etapa={block.etapa} de={block.de} a={block.a} />
 
@@ -1590,6 +1619,215 @@ function EtapaRuta({
         </div>
       </div>
     </div>
+  )
+}
+
+/**
+ * Tabla de consulta de abreviaturas: dos parejas por fila.
+ *
+ * Cuatro columnas de verdad y no dos listas al lado: con cuarenta y seis
+ * entradas, dos columnas obligan a bajar el doble para encontrar una. La
+ * abreviatura va en monoespaciada y con peso; el significado, en el gris del
+ * cuerpo. Ese contraste es lo que permite barrer la columna con el ojo sin
+ * leer nada más.
+ */
+function Abreviaturas({
+  titulo,
+  intro,
+  items,
+  nota,
+}: {
+  titulo?: string
+  intro?: string
+  items: { a: string; v: string }[]
+  nota?: string
+}) {
+  // Se reparten por filas, no por columnas: leídas de izquierda a derecha
+  // siguen el orden en que se escribieron.
+  const filas: { a: string; v: string }[][] = []
+  for (let i = 0; i < items.length; i += 2) filas.push(items.slice(i, i + 2))
+
+  return (
+    <section>
+      {titulo && (
+        <h3
+          className="ln-display m-0 text-[18px] font-semibold lg:text-[20px]"
+          style={{ lineHeight: 1.2, color: "var(--doc-fg)" }}
+        >
+          {titulo}
+        </h3>
+      )}
+      {intro && <p className="m-0 mt-2.5 text-[15px] leading-[1.7]">{renderInline(intro)}</p>}
+
+      <div className="mt-4 overflow-x-auto rounded-lg border doc-rule">
+        <table className="w-full min-w-[440px] border-collapse text-left">
+          <tbody>
+            {filas.map((fila, i) => (
+              <tr key={i} className="border-b doc-rule last:border-b-0">
+                {[0, 1].map((j) => {
+                  const par = fila[j]
+                  return (
+                    <Fragment key={j}>
+                      <td
+                        className={`mono w-px whitespace-nowrap py-2 pl-4 pr-3 align-top text-[13px] font-semibold${
+                          j === 1 ? " border-l doc-rule" : ""
+                        }`}
+                        style={{ color: docAccent(ACENTO, 78) }}
+                      >
+                        {par?.a ?? ""}
+                      </td>
+                      <td className="py-2 pr-4 align-top text-[14px] leading-snug doc-muted">
+                        {par?.v ?? ""}
+                      </td>
+                    </Fragment>
+                  )
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {nota && (
+        <div className="mt-2.5 text-[13px] leading-[1.6] doc-muted">{renderInline(nota)}</div>
+      )}
+    </section>
+  )
+}
+
+/**
+ * Un mensaje de casilla E) y su lectura.
+ *
+ * Al entrar en pantalla se encienden las abreviaturas y después aparece el
+ * significado. Es el orden en que se resuelve de verdad: primero reconoces las
+ * siglas, luego construyes la frase. Con el movimiento reducido llega todo
+ * puesto y no se pierde nada.
+ */
+function Traduccion({
+  codigo,
+  significado,
+  marcar,
+}: {
+  codigo: string
+  significado: string
+  marcar?: string[]
+}) {
+  const { ref, inView } = useInView<HTMLElement>({ threshold: 0.5 })
+
+  // Se parte el código por los tokens a resaltar, respetando su orden en el
+  // texto. Sin tokens, va entero y no se resalta nada.
+  const trozos: { t: string; on: boolean }[] = []
+  if (marcar?.length) {
+    let resto = codigo
+    let guarda = 0
+    while (resto && guarda++ < 200) {
+      const encontrado = marcar
+        .map((m) => ({ m, i: resto.indexOf(m) }))
+        .filter((x) => x.i >= 0)
+        .sort((a, b) => a.i - b.i)[0]
+      if (!encontrado) break
+      if (encontrado.i > 0) trozos.push({ t: resto.slice(0, encontrado.i), on: false })
+      trozos.push({ t: encontrado.m, on: true })
+      resto = resto.slice(encontrado.i + encontrado.m.length)
+    }
+    if (resto) trozos.push({ t: resto, on: false })
+  } else {
+    trozos.push({ t: codigo, on: false })
+  }
+
+  return (
+    <section ref={ref} className={`ln-aparece${inView ? " ln-visible" : ""}`}>
+      <pre className="doc-soft m-0 overflow-x-auto rounded-lg border doc-rule px-4 py-4 sm:px-5">
+        <code
+          className="mono block whitespace-pre-wrap text-[14px] font-medium leading-[1.7] sm:text-[15.5px]"
+          style={{ color: "var(--doc-fg)" }}
+        >
+          {trozos.map((t, i) =>
+            t.on ? (
+              <span
+                key={i}
+                className="ln-sigla rounded-[3px] px-[3px] font-semibold"
+                style={{ background: docTint(ACENTO, 16), color: docAccent(ACENTO, 82) }}
+              >
+                {t.t}
+              </span>
+            ) : (
+              <Fragment key={i}>{t.t}</Fragment>
+            ),
+          )}
+        </code>
+      </pre>
+
+      <div className="mt-3 flex items-start gap-3">
+        <ChevronDown
+          className="ln-flecha mt-[3px] h-4 w-4 shrink-0"
+          style={{ color: docAccent(ACENTO, 45) }}
+          aria-hidden
+        />
+        <p className="m-0 text-[15px] leading-[1.65]" style={{ color: "var(--doc-fg)" }}>
+          {renderInline(significado)}
+        </p>
+      </div>
+    </section>
+  )
+}
+
+/**
+ * El cierre: el lema, los tres pasos y el ejemplo con el código a un lado y la
+ * lectura al otro. En una columna estrecha se apila, porque enfrentar dos
+ * bloques de 30 caracteres no enfrenta nada.
+ */
+function ReglaLectura({
+  lema,
+  pasos,
+  codigo,
+  significado,
+}: {
+  lema: string
+  pasos: string[]
+  codigo: string
+  significado: string
+}) {
+  return (
+    <section className="rounded-lg border doc-rule doc-soft px-5 py-6 sm:px-7">
+      <div
+        className="ln-display text-center text-[22px] font-semibold sm:text-[26px]"
+        style={{ letterSpacing: "-0.015em", color: docAccent(ACENTO, 80) }}
+      >
+        {lema}
+      </div>
+
+      <ol className="mx-auto mt-5 flex max-w-[54ch] list-none flex-col gap-2.5 p-0">
+        {pasos.map((p, i) => (
+          <li key={i} className="flex items-start gap-3 text-[15px] leading-[1.6]">
+            <span
+              className="mono mt-[2px] grid h-[19px] w-[19px] shrink-0 place-items-center rounded-full text-[11px] font-semibold text-white"
+              style={{ background: docAccent(ACENTO, 62) }}
+            >
+              {i + 1}
+            </span>
+            <span>{renderInline(p)}</span>
+          </li>
+        ))}
+      </ol>
+
+      <div className="mt-6 grid items-center gap-3 border-t doc-rule pt-5 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-4">
+        <code
+          className="mono block whitespace-pre-wrap rounded-md border doc-rule px-3 py-2.5 text-[13px] leading-[1.6]"
+          style={{ background: "var(--doc-bg)", color: "var(--doc-fg)" }}
+        >
+          {codigo}
+        </code>
+        <ChevronRight
+          className="hidden h-4 w-4 shrink-0 justify-self-center sm:block"
+          style={{ color: docAccent(ACENTO, 45) }}
+          aria-hidden
+        />
+        <p className="m-0 text-[15px] leading-[1.6]" style={{ color: "var(--doc-fg)" }}>
+          {renderInline(significado)}
+        </p>
+      </div>
+    </section>
   )
 }
 
