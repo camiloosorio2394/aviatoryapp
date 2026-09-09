@@ -121,7 +121,7 @@ export default defineConfig({
             // vez que se abren. Quien estudia la seccion los tiene offline en la
             // segunda visita; quien no entra nunca no los descarga jamas.
             urlPattern: /\/notams\/.*\.webp$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'notam-images-v2',
               expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 180 },
@@ -132,7 +132,7 @@ export default defineConfig({
             // Ilustraciones de las infografias: mismo trato que los recortes.
             // Quien abre la seccion las tiene offline en la segunda visita.
             urlPattern: /\/infografias\/.*\.webp$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'infografia-images-v2',
               expiration: { maxEntries: 120, maxAgeSeconds: 60 * 60 * 24 * 180 },
@@ -142,7 +142,7 @@ export default defineConfig({
           {
             // Ilustraciones de las lecciones de modulo: mismo trato.
             urlPattern: /\/modulos\/.*\.webp$/,
-            handler: 'CacheFirst',
+            handler: 'StaleWhileRevalidate',
             options: {
               cacheName: 'modulo-images-v2',
               expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 180 },
