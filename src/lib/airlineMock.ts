@@ -37,7 +37,7 @@ export const BANCOS: { tema: string; ruta: string; preguntas: QuizQuestion[] }[]
       opciones: q.opciones,
       correcta: q.correcta,
       explicacion: q.explicacion,
-      referencia: q.referencia,
+      referencia: q.referencia ?? "Módulo NOTAM de Aviatory",
       origen: "NOTAM",
     })),
   },

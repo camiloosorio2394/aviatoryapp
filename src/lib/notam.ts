@@ -92,7 +92,8 @@ export interface ExamQuestion {
   /** Índice en el array original. Al barajar hay que remapearlo. */
   correcta: number
   explicacion: string
-  referencia: string
+  /** Página del Doc 8400, si la pregunta viene de ahí. El banco del módulo no la trae. */
+  referencia?: string
 }
 
 /** Criterio de la rúbrica de evaluación de respuestas abiertas. */
@@ -180,6 +181,18 @@ export const TOTALS = {
 /** Puntaje mínimo de aprobación de la evaluación (sobre 100). */
 export const EXAM_PASS_SCORE = EXAM_META.calificacion.aprobacion as number
 export const EXAM_POINTS_PER_QUESTION = EXAM_META.calificacion.puntaje_por_pregunta as number
+
+/**
+ * Cuántas preguntas entran en UN intento.
+ *
+ * El banco tiene 100 y el examen toma 25 al azar, así que hay dos números
+ * distintos que no se pueden confundir: TOTALS.examQuestions es el banco
+ * completo y este es lo que la persona responde de verdad.
+ */
+export const EXAM_PER_ATTEMPT = Math.min(
+  (EXAM_META.por_intento as number | undefined) ?? EXAM_QUESTIONS.length,
+  EXAM_QUESTIONS.length,
+)
 
 /** Denominador de la práctica: ejercicios de texto más NOTAM colombianos reales. */
 export const NOTAM_PRACTICE_TOTAL = TOTALS.exercises + TOTALS.national

@@ -8,7 +8,6 @@ import {
   Award,
   BookOpen,
   CheckCircle2,
-  ClipboardCheck,
   ChevronDown,
   ChevronUp,
   Clock,
@@ -16,12 +15,9 @@ import {
   History,
   ListChecks,
   Loader2,
+  Lock,
   PenLine,
   RotateCcw,
-  Shuffle,
-  Target,
-  Timer,
-  XCircle,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
@@ -34,18 +30,32 @@ import {
   buildExam,
   DISCLAIMERS,
   EXAM_PASS_SCORE,
+  EXAM_PER_ATTEMPT,
   EXAM_POINTS_PER_QUESTION,
   LEVEL_META,
+  TOTALS,
   readLocalProgress,
   writeLocalProgress,
   type NotamLevel,
   type ShuffledQuestion,
 } from "@/lib/notam"
+import { fetchNotamProgress } from "@/lib/notamProgress"
 
 /**
  * Evaluación de la sección NOTAM.
- * 20 preguntas de opción múltiple, 5 puntos cada una, aprueba con 80.
- * Tres fases en una sola página: intro, examen y resultado.
+ *
+ * Reglas de Camilo, y son las que mandan sobre cualquier detalle de esta pantalla:
+ *
+ *   1. No hay pantalla de bienvenida. Se entra y se está presentando.
+ *   2. Solo se abre con TODAS las secciones de lectura terminadas.
+ *   3. Cada intento son 25 preguntas al azar de un banco de 100, con las
+ *      opciones también barajadas.
+ *   4. Durante el intento NO se dice nada: ni si acertó, ni la explicación, ni
+ *      la referencia. Solo queda marcada la opción elegida.
+ *   5. Al terminar las 25 se muestra el porcentaje y, debajo, todas las
+ *      respuestas con su explicación.
+ *
+ * Dos fases en una sola página: examen y resultado.
  */
 
 // ─── Rutas hermanas de la sección ────────────────────────────────────────────
@@ -56,7 +66,7 @@ const PRACTICE_PATH = "/app/aerolinea/notam/practica"
 const LEVEL_ORDER: NotamLevel[] = ["basico", "intermedio", "avanzado"]
 const OPTION_LETTERS = ["A", "B", "C", "D", "E", "F"]
 
-type Phase = "intro" | "running" | "done"
+type Phase = "running" | "done"
 type SaveState = "idle" | "saving" | "saved" | "error" | "anon"
 
 /** Fila del historial de intentos. */
@@ -106,15 +116,35 @@ function mix(token: string, pct: number): string {
 
 // ─── Página ──────────────────────────────────────────────────────────────────
 
+/** Descarta secciones que ya no existen: el módulo se recortó y queda progreso viejo. */
+function soloExistentes(ns: number[]): number[] {
+  return ns.filter((n) => n >= 1 && n <= TOTALS.lessonScreens)
+}
+
 export function NotamExam() {
   const { user, isLoading: sessionLoading } = useSession()
-  const [phase, setPhase] = useState<Phase>("intro")
-  // El set se construye una sola vez por intento: buildExam() baraja preguntas y opciones.
-  const [questions, setQuestions] = useState<ShuffledQuestion[]>(() => buildExam())
+  const [phase, setPhase] = useState<Phase>("running")
+  // El set se arma una sola vez por intento: buildExam saca 25 del banco de 100
+  // y baraja también las opciones de cada una.
+  const [questions, setQuestions] = useState<ShuffledQuestion[]>(() =>
+    buildExam(EXAM_PER_ATTEMPT),
+  )
   const [idx, setIdx] = useState(0)
   const [picks, setPicks] = useState<Record<number, number | undefined>>({})
   const [elapsed, setElapsed] = useState(0)
-  const [historyKey, setHistoryKey] = useState(0)
+
+  // La llave de entrada. El respaldo local abre de inmediato; si no alcanza, se
+  // le pregunta a la base antes de bloquear, porque la lectura pudo hacerse en
+  // otro dispositivo y sería injusto cerrarle la puerta a quien ya la terminó.
+  const [leidas, setLeidas] = useState<number[]>(() =>
+    soloExistentes(readLocalProgress().lessonScreens),
+  )
+  const [hidratado, setHidratado] = useState(false)
+  const completa = leidas.length >= TOTALS.lessonScreens
+  // Sin sesión no hay nada que consultar: lo local es toda la verdad disponible.
+  const esperando = !completa && (sessionLoading || (!!user?.id && !hidratado))
+  const bloqueado = !completa && !esperando
+
   // El guard del guardado vive acá, no dentro de Result.
   //
   // Result se monta y se desmonta con la fase, así que un ref suyo se reinicia
@@ -124,10 +154,32 @@ export function NotamExam() {
   const savedAttemptRef = useRef(false)
 
   useEffect(() => {
-    if (phase !== "running") return
+    if (completa || sessionLoading) return
+    const uid = user?.id
+    if (!uid) return
+    let cancelled = false
+    void (async () => {
+      const fetched = await fetchNotamProgress(uid)
+      if (cancelled) return
+      if (fetched) {
+        const merged = soloExistentes(
+          Array.from(new Set([...readLocalProgress().lessonScreens, ...fetched.lessonScreens])),
+        ).sort((a, b) => a - b)
+        writeLocalProgress({ lessonScreens: merged })
+        setLeidas(merged)
+      }
+      setHidratado(true)
+    })()
+    return () => {
+      cancelled = true
+    }
+  }, [user?.id, sessionLoading, completa])
+
+  useEffect(() => {
+    if (!completa || phase !== "running") return
     const t = window.setInterval(() => setElapsed((e) => e + 1), 1000)
     return () => window.clearInterval(t)
-  }, [phase])
+  }, [phase, completa])
 
   const total = questions.length
   const correctCount = useMemo(
@@ -139,20 +191,17 @@ export function NotamExam() {
 
   const start = useCallback(() => {
     savedAttemptRef.current = false
-    setQuestions(buildExam())
+    setQuestions(buildExam(EXAM_PER_ATTEMPT))
     setPicks({})
     setIdx(0)
     setElapsed(0)
     setPhase("running")
-  }, [])
-
-  const backToIntro = useCallback(() => {
-    setPhase("intro")
-    setHistoryKey((k) => k + 1)
+    window.scrollTo({ top: 0, behavior: "smooth" })
   }, [])
 
   function choose(optionIndex: number) {
-    if (picks[idx] !== undefined) return
+    // Se puede cambiar de opción mientras no se avance. Sin retroalimentación,
+    // repensar la respuesta es parte de contestar, no una manera de hacer trampa.
     setPicks((p) => ({ ...p, [idx]: optionIndex }))
   }
 
@@ -160,23 +209,16 @@ export function NotamExam() {
     if (picks[idx] === undefined) return
     if (idx >= total - 1) {
       setPhase("done")
+      window.scrollTo({ top: 0, behavior: "smooth" })
       return
     }
     setIdx((i) => i + 1)
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
 
-  if (phase === "intro") {
-    return (
-      <Intro
-        onStart={start}
-        userId={user?.id ?? null}
-        sessionLoading={sessionLoading}
-        refreshKey={historyKey}
-        total={total}
-      />
-    )
-  }
+  if (esperando) return <Cargando />
+
+  if (bloqueado) return <Bloqueado leidas={leidas} />
 
   if (phase === "done") {
     return (
@@ -191,7 +233,6 @@ export function NotamExam() {
         sessionLoading={sessionLoading}
         savedRef={savedAttemptRef}
         onRetry={start}
-        onBackToIntro={backToIntro}
       />
     )
   }
@@ -257,60 +298,26 @@ export function NotamExam() {
             {q.pregunta}
           </h2>
 
+          {/* Sin corrección en pantalla: la opción elegida solo se ve elegida. */}
           <div className="mt-5 grid gap-2.5">
             {q.shuffledOptions.map((opt, oi) => (
               <OptionButton
                 key={`${q.id}-${oi}`}
                 letter={OPTION_LETTERS[oi] ?? String(oi + 1)}
                 text={opt}
-                answered={answered}
                 isPicked={picked === oi}
-                isCorrect={oi === q.correctIndex}
                 onClick={() => choose(oi)}
               />
             ))}
           </div>
-
-          {answered && (
-            <div className="mt-5 anim-fade-up">
-              <div
-                className="rounded-xl border p-4"
-                style={{
-                  borderColor: mix(picked === q.correctIndex ? "var(--av-green-400)" : "var(--av-red-400)", 30),
-                  background: mix(picked === q.correctIndex ? "var(--av-green-400)" : "var(--av-red-400)", 7),
-                }}
-              >
-                <div
-                  className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                  style={{
-                    color: accentText(
-                      picked === q.correctIndex ? "var(--av-green-400)" : "var(--av-red-400)",
-                    ),
-                  }}
-                >
-                  {picked === q.correctIndex ? (
-                    <>
-                      <CheckCircle2 className="h-4 w-4" /> Correcto
-                    </>
-                  ) : (
-                    <>
-                      <XCircle className="h-4 w-4" /> Incorrecto
-                    </>
-                  )}
-                </div>
-                <p className="mt-2 text-[15px] text-foreground/90 leading-relaxed">{q.explicacion}</p>
-                <div className="mt-2.5 text-[12px] text-muted-foreground">
-                  Referencia: <span className="mono">{q.referencia}</span>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
 
         {/* Navegación */}
         <div className="mt-6 flex items-center justify-between gap-3 flex-wrap">
           <div className="text-[13px] text-muted-foreground">
-            {answered ? "Ya puedes avanzar." : "Elige una respuesta para continuar."}
+            {answered
+              ? "Puedes cambiar tu respuesta antes de avanzar."
+              : "Elige una respuesta para continuar."}
           </div>
           <button
             type="button"
@@ -319,9 +326,15 @@ export function NotamExam() {
             className="inline-flex items-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             style={{ background: "var(--av-blue-500)" }}
           >
-            {idx >= total - 1 ? "Ver mi resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+            {idx >= total - 1 ? "Terminar y ver mi resultado" : "Siguiente"}{" "}
+            <ArrowRight className="h-4 w-4" />
           </button>
         </div>
+
+        <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed">
+          Las respuestas correctas y las explicaciones aparecen al final, cuando termines las{" "}
+          {total} preguntas.
+        </p>
       </div>
     </AppLayout>
   )
@@ -332,66 +345,84 @@ export function NotamExam() {
 interface OptionButtonProps {
   letter: string
   text: string
-  answered: boolean
   isPicked: boolean
-  isCorrect: boolean
   onClick: () => void
 }
 
-function OptionButton({ letter, text, answered, isPicked, isCorrect, onClick }: OptionButtonProps) {
-  let tone: string | null = null
-  if (answered) {
-    if (isCorrect) tone = "var(--av-green-400)"
-    else if (isPicked) tone = "var(--av-red-400)"
-  }
-
-  const borderColor = tone ? mix(tone, 45) : isPicked ? mix("var(--av-blue-500)", 45) : mix("var(--border)", 70)
-  const background = tone ? mix(tone, 8) : "transparent"
+/**
+ * Botón de opción SIN corrección.
+ *
+ * Antes se pintaba de verde o rojo apenas se contestaba. Ya no: durante el
+ * intento la única señal es azul de "esta elegí". Si alguna vez vuelve a
+ * aparecer un color de acierto acá, la regla 4 de arriba está rota.
+ */
+function OptionButton({ letter, text, isPicked, onClick }: OptionButtonProps) {
+  const borderColor = isPicked ? mix("var(--av-blue-500)", 55) : mix("var(--border)", 70)
 
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={answered}
+      aria-pressed={isPicked}
       aria-label={`Opción ${letter}: ${text}`}
-      className={`w-full text-left rounded-xl border p-3.5 sm:p-4 flex items-start gap-3 min-h-[56px] transition-colors ${
-        answered ? "cursor-default" : "hover:bg-muted/40"
-      } ${answered && !tone ? "opacity-60" : ""}`}
-      style={{ borderColor, background }}
+      className="w-full text-left rounded-xl border p-3.5 sm:p-4 flex items-start gap-3 min-h-[56px] transition-colors hover:bg-muted/40"
+      style={{ borderColor, background: isPicked ? mix("var(--av-blue-500)", 8) : "transparent" }}
     >
       <span
         className="flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[13px] font-semibold"
         style={{
-          background: tone ? mix(tone, 16) : mix("var(--border)", 45),
-          color: tone ? accentText(tone) : "var(--muted-foreground)",
+          background: isPicked ? mix("var(--av-blue-500)", 18) : mix("var(--border)", 45),
+          color: isPicked ? accentText("var(--av-blue-500)") : "var(--muted-foreground)",
         }}
       >
         {letter}
       </span>
       <span className="flex-1 text-[15px] text-foreground/90 leading-relaxed">{text}</span>
-      {tone && (
-        <span className="flex-shrink-0 mt-0.5" style={{ color: tone }}>
-          {isCorrect ? <CheckCircle2 className="h-4.5 w-4.5" /> : <XCircle className="h-4.5 w-4.5" />}
+      {isPicked && (
+        <span className="flex-shrink-0 mt-0.5" style={{ color: "var(--av-blue-500)" }}>
+          <CheckCircle2 className="h-4.5 w-4.5" />
         </span>
       )}
     </button>
   )
 }
 
-// ─── INTRO ───────────────────────────────────────────────────────────────────
+// ─── Puerta cerrada ──────────────────────────────────────────────────────────
 
-interface IntroProps {
-  onStart: () => void
-  userId: string | null
-  sessionLoading: boolean
-  refreshKey: number
-  total: number
-}
-
-function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProps) {
+/** Mientras se confirma con la base si la lectura ya está terminada. */
+function Cargando() {
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1280px] mx-auto">
+      <div
+        className="px-5 sm:px-7 py-20 max-w-[900px] mx-auto flex flex-col items-center gap-3 text-muted-foreground"
+        role="status"
+        aria-label="Abriendo la evaluación"
+      >
+        <Loader2 className="h-5 w-5 animate-spin" />
+        <span className="text-[13px]">Abriendo la evaluación...</span>
+      </div>
+    </AppLayout>
+  )
+}
+
+/**
+ * La evaluación cerrada, con la cuenta de lo que falta.
+ *
+ * No es un castigo: las preguntas salen de las secciones de lectura, y presentarla
+ * sin haberlas leído solo produce un puntaje bajo que no le enseña nada a nadie.
+ */
+function Bloqueado({ leidas }: { leidas: number[] }) {
+  const hechas = leidas.length
+  const faltan = TOTALS.lessonScreens - hechas
+  const pct = Math.round((hechas / TOTALS.lessonScreens) * 100)
+  // La primera sección sin leer, para que el botón caiga justo ahí.
+  let siguiente = 1
+  while (siguiente <= TOTALS.lessonScreens && leidas.includes(siguiente)) siguiente++
+  if (siguiente > TOTALS.lessonScreens) siguiente = TOTALS.lessonScreens
+
+  return (
+    <AppLayout>
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <Link
           to={HUB_PATH}
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -405,53 +436,83 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
               <Award className="h-3.5 w-3.5" /> NOTAM · Evaluación
             </>
           }
-          title="Evaluación de la sección NOTAM"
-          subtitle={`${total} preguntas de opción múltiple sobre decodificación de NOTAM, casillas del formato OACI y códigos Q. Apruebas con ${EXAM_PASS_SCORE} sobre 100.`}
+          title="La evaluación se abre cuando termines la lectura"
+          subtitle={`Son ${EXAM_PER_ATTEMPT} preguntas al azar sobre las ${TOTALS.lessonScreens} secciones del módulo. Para presentarla necesitas haberlas leído todas.`}
         />
 
-        {/* Reglas */}
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          <RuleCard
-            icon={ListChecks}
-            color="var(--av-blue-500)"
-            title={`${total} preguntas`}
-            detail={`${EXAM_POINTS_PER_QUESTION} puntos cada una, ${total * EXAM_POINTS_PER_QUESTION} en total.`}
-          />
-          <RuleCard
-            icon={Target}
-            color="var(--av-green-400)"
-            title={`Apruebas con ${EXAM_PASS_SCORE}`}
-            detail={`Necesitas ${Math.ceil((EXAM_PASS_SCORE / 100) * total)} respuestas correctas de ${total}.`}
-          />
-          <RuleCard
-            icon={Timer}
-            color="var(--av-violet-400)"
-            title="Sin límite de tiempo"
-            detail="No hay reloj en contra, pero se cronometra para que veas cuánto tardas."
-          />
-          <RuleCard
-            icon={Shuffle}
-            color="var(--av-cyan-400)"
-            title="Todo se baraja"
-            detail="Las preguntas y las opciones cambian de orden en cada intento."
-          />
-          <RuleCard
-            icon={BookOpen}
-            color="var(--av-amber-400)"
-            title="La explicación llega después"
-            detail="Ves si acertaste y la referencia del Doc 8400 solo cuando ya respondiste la pregunta."
-          />
-          <RuleCard
-            icon={PenLine}
-            color="var(--av-blue-400)"
-            title="No puedes saltar"
-            detail="Cada pregunta se responde para avanzar, y la respuesta queda bloqueada."
-          />
+        <div
+          className="rounded-2xl border p-5 sm:p-6"
+          style={{
+            borderColor: mix("var(--av-amber-400)", 28),
+            background: mix("var(--av-amber-400)", 5),
+          }}
+        >
+          <div className="flex items-start gap-3">
+            <div
+              className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{
+                background: mix("var(--av-amber-400)", 14),
+                border: `1px solid ${mix("var(--av-amber-400)", 30)}`,
+                color: "var(--av-amber-400)",
+              }}
+            >
+              <Lock className="h-5 w-5" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[15px] font-semibold tracking-[-0.01em]">
+                {faltan === 1
+                  ? "Te falta una sección por leer"
+                  : `Te faltan ${faltan} secciones por leer`}
+              </div>
+              <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+                Llevas {hechas} de {TOTALS.lessonScreens}. Termínalas y la evaluación se abre sola:
+                no hay que pedir nada ni esperar nada.
+              </p>
+            </div>
+            <div
+              className="tabular flex-shrink-0 text-[20px] font-semibold tracking-[-0.02em]"
+              style={{ color: "var(--av-amber-400)" }}
+            >
+              {pct}%
+            </div>
+          </div>
+
+          <div
+            className="mt-4 h-1.5 rounded-full overflow-hidden"
+            style={{ background: mix("var(--border)", 55) }}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={TOTALS.lessonScreens}
+            aria-valuenow={hechas}
+            aria-label={`${hechas} de ${TOTALS.lessonScreens} secciones leídas`}
+          >
+            <div
+              className="h-full rounded-full transition-all"
+              style={{ width: `${pct}%`, background: "var(--av-amber-400)" }}
+            />
+          </div>
         </div>
 
-        {/* Aviso obligatorio */}
+        <Link
+          to={`${LESSON_PATH}?l=${siguiente}`}
+          className="mt-6 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+          style={{ background: "var(--av-blue-500)" }}
+        >
+          <BookOpen className="h-4.5 w-4.5" />
+          {hechas === 0 ? "Empezar la lectura" : `Continuar en la sección ${siguiente}`}
+        </Link>
+
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px]">
+          <Link
+            to={PRACTICE_PATH}
+            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <PenLine className="h-3.5 w-3.5" /> Mientras tanto, ve a la práctica
+          </Link>
+        </div>
+
         <div
-          className="mt-5 rounded-2xl border p-4 flex items-start gap-3"
+          className="mt-8 rounded-2xl border p-4 flex items-start gap-3"
           style={{
             borderColor: mix("var(--av-amber-400)", 25),
             background: mix("var(--av-amber-400)", 6),
@@ -463,60 +524,8 @@ function Intro({ onStart, userId, sessionLoading, refreshKey, total }: IntroProp
           />
           <div className="text-[13px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
         </div>
-
-        {/* Historial */}
-        <div className="mt-10">
-          <AttemptHistory userId={userId} sessionLoading={sessionLoading} refreshKey={refreshKey} total={total} />
-        </div>
-
-        <button
-          type="button"
-          onClick={onStart}
-          className="mt-8 w-full inline-flex items-center justify-center gap-2 h-14 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-          style={{ background: "var(--av-blue-500)" }}
-        >
-          <ClipboardCheck className="h-4.5 w-4.5" /> Empezar la evaluación
-        </button>
-
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px]">
-          <Link
-            to={LESSON_PATH}
-            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <BookOpen className="h-3.5 w-3.5" /> Repasar la lección
-          </Link>
-          <span className="text-border">·</span>
-          <Link
-            to={PRACTICE_PATH}
-            className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <PenLine className="h-3.5 w-3.5" /> Ir a la práctica
-          </Link>
-        </div>
       </div>
     </AppLayout>
-  )
-}
-
-interface RuleCardProps {
-  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
-  color: string
-  title: string
-  detail: string
-}
-
-function RuleCard({ icon: Icon, color, title, detail }: RuleCardProps) {
-  return (
-    <div className="rounded-2xl border bg-card p-5" style={{ borderColor: mix(color, 26) }}>
-      <div
-        className="w-9 h-9 rounded-xl flex items-center justify-center"
-        style={{ background: mix(color, 14), border: `1px solid ${mix(color, 30)}`, color }}
-      >
-        <Icon className="h-4.5 w-4.5" />
-      </div>
-      <div className="mt-3 text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
-      <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{detail}</p>
-    </div>
   )
 }
 
@@ -717,7 +726,6 @@ interface ResultProps {
   /** Guard del guardado, sostenido por NotamExam para sobrevivir a los remontes. */
   savedRef: RefObject<boolean>
   onRetry: () => void
-  onBackToIntro: () => void
 }
 
 function Result({
@@ -731,7 +739,6 @@ function Result({
   sessionLoading,
   savedRef,
   onRetry,
-  onBackToIntro,
 }: ResultProps) {
   const [saveState, setSaveState] = useState<SaveState>("idle")
   const total = questions.length
@@ -807,15 +814,18 @@ function Result({
           style={{ borderColor: mix(color, 38), background: mix(color, 7) }}
         >
           <div className="text-[12px] text-muted-foreground">
-            Tu puntaje
+            Tu resultado
           </div>
           <div
-            className="mt-1 tabular text-[32px] sm:text-[32px] font-semibold tracking-[-0.04em] leading-none"
+            className="mt-1 tabular text-[44px] sm:text-[52px] font-semibold tracking-[-0.04em] leading-none"
             style={{ color }}
           >
             {score}
+            <span className="text-[24px] sm:text-[28px] align-top">%</span>
           </div>
-          <div className="mt-1 text-[13px] text-muted-foreground">sobre 100</div>
+          <div className="mt-1 tabular text-[13px] text-muted-foreground">
+            {correctCount} de {total} correctas · apruebas con {EXAM_PASS_SCORE}%
+          </div>
 
           <div className="mt-4 text-[20px] sm:text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
             {passed ? "Aprobado" : `No aprobado, necesitas ${EXAM_PASS_SCORE}`}
@@ -891,8 +901,8 @@ function Result({
           <SectionTitle
             icon={ListChecks}
             eyebrow="Aquí se aprende de verdad"
-            title={`Repaso de las ${total} preguntas`}
-            hint="Las falladas quedan abiertas. Lee la explicación y la referencia del Doc 8400."
+            title={`Tus ${total} respuestas`}
+            hint="Durante el examen no te dijimos nada. Acá está todo: qué contestaste, cuál era la correcta y por qué. Las falladas quedan abiertas."
           />
           <div className="space-y-2">
             {questions.map((q, i) => (
@@ -904,6 +914,16 @@ function Result({
               />
             ))}
           </div>
+        </div>
+
+        {/* Historial */}
+        <div className="mt-10">
+          <AttemptHistory
+            userId={userId}
+            sessionLoading={sessionLoading}
+            refreshKey={saveState === "saved" ? 1 : 0}
+            total={total}
+          />
         </div>
 
         {/* Aviso obligatorio */}
@@ -931,13 +951,12 @@ function Result({
           >
             <RotateCcw className="h-4 w-4" /> Volver a intentar
           </button>
-          <button
-            type="button"
-            onClick={onBackToIntro}
+          <Link
+            to={HUB_PATH}
             className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
           >
-            <History className="h-4 w-4" /> Ver mi historial
-          </button>
+            <ArrowLeft className="h-4 w-4" /> Volver a la sección
+          </Link>
         </div>
 
         {!passed && (
@@ -947,7 +966,7 @@ function Result({
               icon={BookOpen}
               color="var(--av-blue-500)"
               title="Repasa la lección"
-              detail="Las 9 pantallas: formato OACI, casillas y códigos Q explicados paso a paso."
+              detail={`Las ${TOTALS.lessonScreens} secciones: formato OACI, casillas y códigos Q explicados paso a paso.`}
             />
             <NextStepLink
               to={PRACTICE_PATH}
@@ -1098,9 +1117,11 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
               {question.explicacion}
             </p>
-            <div className="mt-2 text-[12px] text-muted-foreground">
-              Referencia: <span className="mono">{question.referencia}</span>
-            </div>
+            {question.referencia && (
+              <div className="mt-2 text-[12px] text-muted-foreground">
+                Referencia: <span className="mono">{question.referencia}</span>
+              </div>
+            )}
           </div>
         </div>
       )}
