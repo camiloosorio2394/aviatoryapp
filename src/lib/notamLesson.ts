@@ -1936,7 +1936,13 @@ export const LESSON_SCREENS: DocScreen[] = [
         ],
       },
       { kind: "sub", text: "Vuelo Barranquilla → Nueva York" },
-      { kind: "transicion", de: "Barranquilla · SKBQ", a: "Nueva York · KJFK" },
+      {
+        kind: "figura",
+        src: "/modulos/notam/planificacion-skbq-kjfk.webp",
+        alt: "Ejemplo de planificación del vuelo SKBQ Barranquilla a KJFK Nueva York. Un mapa traza la ruta atlántica entre los dos aeropuertos. Debajo, tres tarjetas encadenadas: NOTAM de salida, aeropuerto de origen, SKBQ Barranquilla, revisa NOTAM del aeropuerto de salida y sus instalaciones; NOTAM en ruta, espacio aéreo y FIR, revisa NOTAM en la ruta prevista, FIR y áreas adyacentes; y NOTAM de destino, aeropuerto de llegada, KJFK Nueva York, revisa NOTAM del aeropuerto de destino y sus instalaciones.",
+        ancho: 1400,
+        alto: 525,
+      },
       {
         kind: "apartado",
         color: ITEM_COLOR,
