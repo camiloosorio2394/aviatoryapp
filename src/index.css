@@ -1338,3 +1338,119 @@
     animation: none;
   }
 }
+/* === Práctica NOTAM (NotamPractice) =======================================
+   La sección se veía como una página documental cualquiera: todo el texto del
+   mismo tamaño, todo del mismo gris, y la captura del NOTAM encogida hasta que
+   dejaba de leerse. Estas clases le ponen el lenguaje de Aviatory: Archivo en
+   los titulares, la mono técnica en el aviso, navy y azul Aviatory, y el resto
+   en grises neutros. Nada decorativo. */
+.notam-practica .np-display {
+  font-family: "Archivo", var(--font-sans);
+  letter-spacing: -0.02em;
+}
+
+/* El identificador del NOTAM es un código, no un título: va en la mono. */
+.notam-practica .np-display.mono-id {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+}
+
+/* Micro-rótulo de bloque. Nombra sin gastar un titular. */
+.notam-practica .np-rotulo {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted-foreground);
+}
+
+/* Pastillas pequeñas y sobrias: aeródromo, país, estado. */
+.notam-practica .np-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--av-navy-900) 16%, transparent);
+  background: color-mix(in oklab, var(--av-navy-900) 4%, transparent);
+  font-size: 12px;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--av-navy-900) 72%, var(--foreground));
+  white-space: nowrap;
+}
+
+.dark .notam-practica .np-badge {
+  border-color: oklch(1 0 0 / 14%);
+  background: oklch(1 0 0 / 6%);
+  color: oklch(0.86 0.01 250);
+}
+
+.notam-practica .np-badge-on {
+  border-color: color-mix(in oklab, var(--av-blue-500) 40%, transparent);
+  background: color-mix(in oklab, var(--av-blue-500) 10%, transparent);
+  color: color-mix(in oklab, var(--av-blue-500) 62%, var(--foreground));
+}
+
+/* Bloque técnico: el texto del NOTAM y la transcripción. Fondo apenas
+   contrastado y aire; no es un bloque de código, es un documento. */
+.notam-practica .np-tecnico {
+  border-radius: 12px;
+  border: 1px solid color-mix(in oklab, var(--av-navy-900) 12%, transparent);
+  background: color-mix(in oklab, var(--av-navy-900) 3.5%, transparent);
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+
+.dark .notam-practica .np-tecnico {
+  border-color: oklch(1 0 0 / 12%);
+  background: oklch(1 0 0 / 4%);
+}
+
+/* Botón secundario de la sección: Ampliar. */
+.notam-practica .np-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 34px;
+  padding: 0 12px;
+  border-radius: 9px;
+  border: 1px solid color-mix(in oklab, var(--av-navy-900) 18%, transparent);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 600;
+  color: color-mix(in oklab, var(--av-navy-900) 72%, var(--foreground));
+  transition: background-color 140ms ease, border-color 140ms ease;
+}
+
+.notam-practica .np-boton:hover {
+  border-color: color-mix(in oklab, var(--av-blue-500) 45%, transparent);
+  background: color-mix(in oklab, var(--av-blue-500) 8%, transparent);
+  color: color-mix(in oklab, var(--av-blue-500) 62%, var(--foreground));
+}
+
+.dark .notam-practica .np-boton {
+  border-color: oklch(1 0 0 / 16%);
+  color: oklch(0.86 0.01 250);
+}
+
+/* El aviso de vigencia. Va al pie, pequeño y en gris, con el icono en
+   vinotinto: es una condición de uso del material, no el titular. Antes era una
+   caja roja arriba del todo y se comía la pantalla. */
+.notam-practica .np-aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 28px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+.notam-practica .np-aviso svg {
+  margin-top: 2px;
+  color: var(--av-wine-500);
+}

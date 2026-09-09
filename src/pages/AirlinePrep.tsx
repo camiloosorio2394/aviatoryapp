@@ -239,7 +239,7 @@ export function AirlinePrep() {
           color: "var(--av-blue-500)",
           // Las cifras salen de los datos cargados, no de un texto a mano: si
           // el banco crece, la promesa de la tarjeta crece con él.
-          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.exercises} ejercicios · ${TOTALS.national} NOTAM reales · banco de ${TOTALS.examQuestions} preguntas`,
+          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.reales} NOTAM reales · ${TOTALS.exercises} ejercicios · banco de ${TOTALS.examQuestions} preguntas`,
           title: "NOTAM",
           blurb:
             "Qué es un NOTAM, cómo se lee la línea Q y cómo decodificar cualquier aviso. Con material real de la Aerocivil.",

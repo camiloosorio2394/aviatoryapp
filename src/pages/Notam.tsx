@@ -156,7 +156,7 @@ export function Notam() {
       to: "/app/aerolinea/notam/practica",
       icon: Target,
       color: "var(--av-violet-400)",
-      meta: `${TOTALS.exercises} ejercicios y ${TOTALS.national} NOTAM reales de Colombia`,
+      meta: `${TOTALS.reales} NOTAM reales y ${TOTALS.exercises} ejercicios escritos`,
       title: "Práctica",
       blurb:
         "Interpretas NOTAM de texto y recortes reales publicados por la Aerocivil, con respuesta modelo y puntos clave.",

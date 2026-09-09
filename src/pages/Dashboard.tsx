@@ -127,7 +127,7 @@ interface NotamResumen {
   best: number | null
 }
 
-const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALS.exercises + NOTAM_TOTALS.national
+const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALS.reales + NOTAM_TOTALS.exercises
 
 /** Documento del piloto con fecha de vencimiento (licencia, médico, habilitación). */
 interface LicenseRow {

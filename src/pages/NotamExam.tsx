@@ -941,7 +941,7 @@ function Result({
             <NextStepLink
               to={PRACTICE_PATH}
               title="Vuelve a la práctica"
-              detail="Ejercicios de interpretación y NOTAM colombianos reales para entrenar la lectura."
+              detail="NOTAM reales de Colombia y del mundo, y ejercicios escritos para entrenar la lectura."
             />
           </div>
         )}

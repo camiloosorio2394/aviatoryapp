@@ -1,0 +1,647 @@
+{
+  "meta": {
+    "titulo": "NOTAM reales — nacionales e internacionales",
+    "proposito": "Modo práctica, columna izquierda. Se muestra la CAPTURA REAL del NOTAM tal como la devuelve el buscador oficial, sin recortar ni recomprimir: la imagen es la prueba de que el aviso existió. El usuario lo interpreta con sus palabras y solo después compara con la interpretación de referencia.",
+    "fuente": "Consultas de Camilo Osorio en el buscador de NOTAM de la FAA (NOTAM Search), 9 de septiembre de 2026. Los archivos PNG son las capturas originales, copiadas byte a byte a public/notams/practica/.",
+    "aviso_obligatorio_en_pantalla": "NOTAM real usado como material de estudio. Su vigencia ya expiró o expirará: NUNCA uses esta información para operar. Consulta siempre el briefing AIS vigente.",
+    "carpeta_imagenes": "practica/",
+    "nota_codigos": "Los códigos Q de estas 31 fichas se verificaron uno a uno contra las tablas del Doc 8400 (PANS-ABC, 6ª ed., 2004) cargadas en notam_codes.json. Tres combinaciones NO existen en esa edición y se señalan en su ficha: TT (NOTAM disparador, fichas R14 y R16), WU (operación de aeronave no tripulada, ficha R30) y XX como 2ª/3ª letras (asunto no codificado, ficha R20). No es un error de la ficha: son códigos posteriores a 2004 o usos en lenguaje claro, y verlo es parte del ejercicio.",
+    "instrucciones_evaluador_ia": "Mismas reglas y rúbrica ponderada que ejercicios_interpretacion.json (meta.criterios_rubrica_default e instrucciones_evaluador_ia)."
+  },
+  "notams": [
+    {
+      "id": "R01",
+      "imagen": "practica/skbo-a1743-obst-arboles.png",
+      "identificacion": "A1743/26 NOTAMN",
+      "aerodromo": "SKBO — El Dorado, Bogotá",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Obstáculos",
+      "nivel": "avanzado",
+      "transcripcion": "A1743/26 NOTAMN Q) SKED/QOBCH/IV/M/AE/000/999/0442N07409W005 A) SKBO PART 1 OF 2 B) 2606191915 C) PERM E) OBST CHANGE, EXER CTN — listado de árboles BO9013 a BO9093 con coordenadas, altitud en metros y pies, y altura sobre el DER entre 10,5 m y 26,5 m. END PART 1 OF 2. A1743/26 NOTAMN ... PART 2 OF 2 B) 2606191915 C) PERM E) REF AD 2.24 END PART 2 OF 2",
+      "decodificacion": "Cambio permanente en los obstáculos de El Dorado (SKBO), dentro de la FIR Bogotá (SKED), con efecto desde el 19 de junio de 2026 a las 19:15 UTC. QOBCH: OB = obstáculos, CH = cambiado. IV = afecta a tránsito IFR y VFR; M = misceláneo; AE = la información sirve tanto en área terminal como en ruta. El NOTAM viene partido en dos porque la lista no cabe en un solo mensaje: la parte 1 trae doce árboles identificados (BO9013 a BO9093) con su coordenada, su altitud (entre 8382 y 8435 ft) y su altura sobre el extremo de salida de pista, entre 10,5 y 26,5 metros; la parte 2 remite al AD 2.24 del AIP. Operacionalmente: obstáculos nuevos o modificados en la zona de ascenso obliga a revisar el gradiente de la salida y los cálculos de performance de despegue con el dato actualizado, no con el que traía la carta.",
+      "puntos_clave": [
+        "obstáculos (OB) cambiados (CH) en SKBO",
+        "permanente desde el 19 jun 2026 19:15 UTC",
+        "doce árboles con altura de 10,5 a 26,5 m sobre el DER",
+        "NOTAM partido en PART 1 OF 2 y PART 2 OF 2",
+        "remite al AIP AD 2.24",
+        "afecta gradiente de ascenso y performance de despegue"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R02",
+      "imagen": "practica/skbo-a3801-pbn-star.png",
+      "identificacion": "A3801/25 NOTAMN",
+      "aerodromo": "SKBO — El Dorado, Bogotá",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Llegada normalizada (STAR)",
+      "nivel": "avanzado",
+      "transcripcion": "(A3801/25 NOTAMN Q) SKED/QPACH/I/NBO/A/000/999/0442N07409W005 A) SKBO B) 2601220000 C) PERM E) PBN STAR SKBO RNAV 1 NAV SPECIFICATION MODIFIED - GNSS OR DME/DME/IRU-INS REQUIRED - FOR DME/DME/IRU-INS, ATS SURVEILLANCE SERVICE REQUIRED. - DME/DME WITHOUT IRU/INS NOT AUTHORIZED. REF. AIP SKBO GEN 3.2, AD 2.24)",
+      "decodificacion": "Modificación permanente de la especificación de navegación de las STAR PBN RNAV 1 de El Dorado, con efecto desde el 22 de enero de 2026 a las 00:00 UTC. QPACH: PA = llegada normalizada por instrumentos, CH = cambiado. I = solo afecta a tránsito IFR; NBO = va en boletín previo al vuelo y es operacionalmente significativo; A = alcance de aeródromo. El contenido: para volar esas llegadas hay que tener GNSS, o bien DME/DME/IRU-INS; si se usa DME/DME/IRU-INS hace falta además servicio de vigilancia ATS; y DME/DME sin IRU/INS queda expresamente no autorizado. Operacionalmente: es un requisito de equipamiento, no una restricción de horario. Antes de despachar hay que confirmar que la aeronave cumple la especificación, porque si no, esas STAR no son volables y toca pedir vectores o una llegada convencional.",
+      "puntos_clave": [
+        "STAR PBN RNAV 1 de SKBO: especificación de navegación modificada",
+        "permanente desde el 22 ene 2026",
+        "exige GNSS o DME/DME/IRU-INS",
+        "con DME/DME/IRU-INS se exige además vigilancia ATS",
+        "DME/DME sin IRU/INS no autorizado",
+        "solo IFR (I en la línea Q)"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R03",
+      "imagen": "practica/skbo-a2494-corte-pasto.png",
+      "identificacion": "A2494/26 NOTAMN",
+      "aerodromo": "SKBO — El Dorado, Bogotá",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Aeródromo",
+      "nivel": "basico",
+      "transcripcion": "A2494/26 NOTAMN Q) SKED/QFAHG/IV/M/A/000/999/0442N07409W005 A) SKBO B) 2609020000 C) 2611302359 E) AD GRASS CUTTING, EXER CTN",
+      "decodificacion": "Corte de césped en el aeródromo El Dorado, del 2 de septiembre de 2026 a las 00:00 UTC al 30 de noviembre de 2026 a las 23:59 UTC. QFAHG: FA = aeródromo, HG = se está cortando el césped. IV = IFR y VFR; M = misceláneo; A = alcance de aeródromo. EXER CTN = extremar precauciones. Operacionalmente: hay personal y maquinaria trabajando en las zonas de césped del aeródromo durante casi tres meses. No cierra nada, pero es un aviso de precaución: puede haber vehículos cerca de las franjas y aumenta la probabilidad de aves atraídas por el corte.",
+      "puntos_clave": [
+        "corte de césped en SKBO",
+        "del 2 sep al 30 nov 2026 UTC",
+        "EXER CTN = extremar precauciones",
+        "no cierra pista ni calle de rodaje",
+        "riesgo asociado de fauna y vehículos en las franjas"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R04",
+      "imagen": "practica/skbo-a2675-twy-p-clsd.png",
+      "identificacion": "A2675/26 NOTAMN",
+      "aerodromo": "SKBO — El Dorado, Bogotá",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Calle de rodaje",
+      "nivel": "basico",
+      "transcripcion": "A2675/26 NOTAMN Q) SKED/QMXLC/IV/BO/A/000/999/0442N07409W005 A) SKBO B) 2609091300 C) 2610042359 E) TWY P BTN ACFT PRKG PSN 80 AND ACFT PRKG PSN 81 CLSD",
+      "decodificacion": "La calle de rodaje P está cerrada en el tramo comprendido entre las posiciones de estacionamiento 80 y 81, del 9 de septiembre de 2026 a las 13:00 UTC al 4 de octubre de 2026 a las 23:59 UTC. QMXLC: MX = calle o calles de rodaje, LC = cerrado. IV = IFR y VFR; BO = va en boletín previo al vuelo y es operacionalmente significativo; A = aeródromo. BTN = entre, ACFT PRKG PSN = posición de estacionamiento de aeronave, CLSD = cerrado. Operacionalmente: el cierre es parcial, solo ese tramo. Hay que contar con un rodaje alterno para entrar o salir de esas posiciones y con tiempo extra en el bloque.",
+      "puntos_clave": [
+        "TWY P cerrada (LC) en SKBO",
+        "solo el tramo entre las posiciones 80 y 81",
+        "del 9 sep 13:00 al 4 oct 23:59 UTC 2026",
+        "BTN = entre; PRKG PSN = posición de estacionamiento",
+        "obliga a rodaje alterno hacia esas posiciones"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R05",
+      "imagen": "practica/skrg-a0712-iap-rnp-rwy01.png",
+      "identificacion": "A0712/26 NOTAMN",
+      "aerodromo": "SKRG — José María Córdova, Rionegro (Antioquia)",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Procedimiento de aproximación por instrumentos",
+      "nivel": "avanzado",
+      "transcripcion": "(A0712/26 NOTAMN Q) SKED/QPICH/I/NBO/A/000/999/0610N07525W005 A) SKRG B) 2603041910 C) PERM E) IAP RNP RWY 01 MODIFIED, ADDN MNM LNAV/VNAV: LNAV/VNAV: OCA(H) 7500(533) VIS 1700 BARO VNAV SYSTEMS NOT SELF - COMPENSATED APPLY BTN -5 DEG AND 30 DEG. REF. AIP AD 2 SKRG 2.24)",
+      "decodificacion": "Modificación permanente del procedimiento de aproximación RNP a la pista 01 del aeropuerto José María Córdova, ubicado en Rionegro (Antioquia), desde el 4 de marzo de 2026 a las 19:10 UTC. QPICH: PI = procedimiento de aproximación por instrumentos, CH = cambiado. I = solo IFR; NBO = boletín previo al vuelo y significativo; A = aeródromo. Se añaden mínimos LNAV/VNAV: altitud/altura de franqueamiento de obstáculos OCA(H) 7500 ft (533 ft sobre el umbral) y visibilidad 1700 m. La advertencia final es la importante: los sistemas BARO-VNAV que no compensan automáticamente la temperatura solo pueden usarse entre −5 °C y 30 °C. Operacionalmente: fuera de ese rango de temperatura, la senda barométrica se desvía y hay que usar otros mínimos; conviene revisarlo contra la temperatura prevista en el destino.",
+      "puntos_clave": [
+        "IAP RNP RWY 01 de SKRG modificada, permanente",
+        "SKRG es José María Córdova, ubicado en Rionegro (Antioquia)",
+        "mínimos LNAV/VNAV añadidos: OCA(H) 7500 (533), VIS 1700",
+        "BARO-VNAV sin autocompensación: solo entre −5 °C y 30 °C",
+        "solo afecta a IFR",
+        "remite al AIP AD 2 SKRG 2.24"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R06",
+      "imagen": "practica/skrg-a2139-apn-wip.png",
+      "identificacion": "A2139/26 NOTAMR A1232/26",
+      "aerodromo": "SKRG — José María Córdova, Rionegro (Antioquia)",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Plataforma",
+      "nivel": "intermedio",
+      "transcripcion": "A2139/26 NOTAMR A1232/26 Q) SKED/QMNHW/IV/BO/A/000/999/0610N07525W005 A) SKRG B) 2607271809 C) 2610232359 E) COMMERCIAL APN AND CARGO APN WIP, EXER CTN",
+      "decodificacion": "Trabajos en curso en la plataforma comercial y en la plataforma de carga del aeropuerto José María Córdova, en Rionegro, del 27 de julio de 2026 a las 18:09 UTC al 23 de octubre de 2026 a las 23:59 UTC. QMNHW: MN = plataforma, HW = prosiguen los trabajos. Es un NOTAMR: reemplaza al A1232/26, que deja de tener efecto en el momento en que este entra. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; A = aeródromo. WIP = trabajos en progreso, EXER CTN = extremar precauciones. Operacionalmente: rodaje y estacionamiento con precaución en ambas plataformas durante casi tres meses, con posible reducción de posiciones disponibles y presencia de maquinaria.",
+      "puntos_clave": [
+        "plataforma comercial y de carga con trabajos en curso",
+        "NOTAMR: reemplaza al A1232/26",
+        "del 27 jul 18:09 al 23 oct 23:59 UTC 2026",
+        "WIP = work in progress; EXER CTN = extremar precauciones",
+        "posible reducción de posiciones de estacionamiento"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R07",
+      "imagen": "practica/sked-a2471-app-villavicencio.png",
+      "identificacion": "A2471/26 NOTAMR A1982/26",
+      "aerodromo": "SKED — Bogotá ACC/UIR-FIR",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Instalación aeroterrestre (comunicaciones)",
+      "nivel": "intermedio",
+      "transcripcion": "A2471/26 NOTAMR A1982/26 Q) SKED/QCACS/IV/BO/AE/000/999/0410N07336W999 A) SKED B) 2608191658 C) PERM E) APP VILLAVICENCIO 119.700 MHZ ALTN INSTL REF. AIP ENR 2.1 AD 2.18, AD 2.24",
+      "decodificacion": "Se instala de forma permanente una frecuencia alterna de 119.700 MHz para el control de aproximación de Villavicencio, dentro de la FIR/UIR Bogotá, con efecto desde el 19 de agosto de 2026 a las 16:58 UTC. QCACS: CA = instalaciones aeroterrestres, CS = instalado. Reemplaza al A1982/26. IV = IFR y VFR; BO = boletín previo al vuelo y significativo; AE = sirve en terminal y en ruta; el radio 999 indica alcance de FIR completo. ALTN = alterna, INSTL = instalada. Operacionalmente: es una frecuencia adicional, no un cambio de la principal. Conviene anotarla como respaldo y actualizar las cartas, porque el AIP se actualizará en ENR 2.1, AD 2.18 y AD 2.24.",
+      "puntos_clave": [
+        "frecuencia alterna 119.700 MHz para APP Villavicencio",
+        "CS = instalado, permanente",
+        "NOTAMR: reemplaza al A1982/26",
+        "alcance de FIR (radio 999 en la línea Q)",
+        "es una frecuencia de respaldo, no sustituye a la principal"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R08",
+      "imagen": "practica/sked-a2667-gnss.png",
+      "identificacion": "A2667/26 NOTAMN",
+      "aerodromo": "SKED — Bogotá ACC/UIR-FIR",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Operaciones GNSS de zona",
+      "nivel": "avanzado",
+      "transcripcion": "A2667/26 NOTAMN Q) SKED/QGWXX/I/BO/E/000/999/0756N07230W005 A) SKED B) 2609080222 C) 2612042359 E) OPS GNSS POSS LOSS SGL EXP FM GND TIL 15000FT AMSL NXT INDICATION: 30NM ABT VOR CUC. ATZ AD SKOC. ATZ AD SKTB. CENTER 083511N0730527W RADIUS 05NM SECT EL TARRA.",
+      "decodificacion": "Posible pérdida de señal GNSS en varias zonas de la FIR Bogotá, del 8 de septiembre de 2026 a las 02:22 UTC al 4 de diciembre de 2026 a las 23:59 UTC. QGWXX: GW = operaciones GNSS de la zona en general, XX = el asunto se describe en lenguaje claro en la casilla E. I = afecta a IFR; BO = boletín previo al vuelo y significativo; E = alcance en ruta. El aviso cubre desde el suelo (GND) hasta 15000 ft AMSL en: 30 NM alrededor del VOR CUC (Cúcuta), la zona de tránsito de aeródromo de SKOC (Ocaña), la de SKTB (Tibú) y un círculo de 5 NM centrado en 083511N 0730527W, sector El Tarra. Operacionalmente: en esas zonas no se puede confiar en la posición GNSS. Hay que llevar navegación convencional disponible, esperar pérdida de RAIM y no planificar aproximaciones RNP allí durante ese periodo.",
+      "puntos_clave": [
+        "posible pérdida de señal GNSS en la FIR Bogotá",
+        "GW = operaciones GNSS de zona; XX = descrito en lenguaje claro",
+        "del 8 sep al 4 dic 2026 UTC",
+        "desde el suelo hasta 15000 ft AMSL",
+        "zonas: 30 NM del VOR CUC, ATZ de SKOC y SKTB, y 5 NM en El Tarra",
+        "obliga a llevar alternativa convencional y a no confiar en RNP allí"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R09",
+      "imagen": "practica/sked-a2523-pje.png",
+      "identificacion": "A2523/26 NOTAMN",
+      "aerodromo": "SKED — Bogotá ACC/UIR-FIR",
+      "pais": "Colombia",
+      "fir": "SKED — FIR Bogotá",
+      "asunto": "Lanzamiento de paracaidistas",
+      "nivel": "intermedio",
+      "transcripcion": "A2523/26 NOTAMN Q) SKED/QWPLW/IV/M/W/000/065/0536N07135W005 A) SKED B) 2609011400 C) 2609302300 D) 1400-2300 E) PJE WILL TAKE PLACE NXT COORD: 064516N0731041W-064344N0730734W-064133N0730837W-064311N0731142W F) GND G) 6500FT AMSL",
+      "decodificacion": "Ejercicio de lanzamiento de paracaidistas dentro de la FIR Bogotá, del 1 al 30 de septiembre de 2026, todos los días entre las 14:00 y las 23:00 UTC. QWPLW: WP = ejercicio de lanzamiento de paracaídas, LW = se realizará. IV = IFR y VFR; M = misceláneo; W = aviso de navegación. La casilla D marca el horario diario; la zona queda definida por los cuatro vértices de la casilla E; F) y G) dan los límites verticales: desde el suelo hasta 6500 ft AMSL, coherente con el 000/065 de la línea Q. Operacionalmente: hay paracaidistas en caída dentro de ese polígono en esa franja horaria. Evitar la zona por debajo de 6500 ft o coordinar con ATC antes de atravesarla.",
+      "puntos_clave": [
+        "lanzamiento de paracaidistas (PJE) en la FIR Bogotá",
+        "del 1 al 30 sep 2026, diario de 14:00 a 23:00 UTC (casilla D)",
+        "zona definida por cuatro coordenadas en la casilla E",
+        "F) GND y G) 6500 ft AMSL; coincide con 000/065 de la línea Q",
+        "hay que evitar o coordinar el paso por la zona"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R10",
+      "imagen": "practica/klax-6-1386-rnav-rwy24l.png",
+      "identificacion": "6/1386 (KLAX-A4352/26)",
+      "aerodromo": "KLAX — Los Angeles Intl",
+      "pais": "Estados Unidos",
+      "fir": "KZLA — FIR Los Ángeles",
+      "asunto": "Procedimiento de aproximación por instrumentos",
+      "nivel": "avanzado",
+      "transcripcion": "Q) KZLA/QPIXX/I/NBO/A/000/999/3356N11824W005 A) KLAX B) 2607201520 C) 2703011519EST E) LAX LOS ANGELES INTL, LOS ANGELES, CA. RNAV (GPS) Y RWY 24L, AMDT 5C... LPV DA 456/HAT 333, RVR 4000 ALL CATS. LNAV MDA 680/HAT 557 ALL CATS. TEMP CRANES STARTING 3038FT SW OF RWY 24L, UP TO 295 AGL/414 MSL (2026-AWP-969-NRA). TEMP CRANES FROM 165 MSL TO 257 MSL, 954FT E OF RWY 24L (2025-AWP-4383 THRU 4386-NRA).",
+      "decodificacion": "Cambio en el procedimiento RNAV (GPS) Y a la pista 24L de Los Ángeles, enmienda 5C, del 20 de julio de 2026 a las 15:20 UTC al 1 de marzo de 2027 a las 15:19 UTC, con la C marcada EST (estimada, no es una hora firme). QPIXX: PI = procedimiento de aproximación por instrumentos, XX = descrito en lenguaje claro. I = solo IFR; NBO = boletín previo al vuelo y significativo; A = aeródromo. Los mínimos publicados quedan: LPV con altura de decisión 456 ft (333 ft sobre el umbral) y RVR 4000 para todas las categorías; LNAV con MDA 680 ft (557 ft sobre el umbral). La causa está al final: grúas temporales a 3038 ft al suroeste de la 24L, de hasta 295 ft AGL / 414 ft MSL, y otras a 954 ft al este de la 24L, entre 165 y 257 ft MSL. Operacionalmente: los mínimos publicados en la carta pueden no ser los vigentes. Hay que aplicar los del NOTAM y recordar que la fecha de fin es estimada, así que puede cancelarse antes con un NOTAMC.",
+      "puntos_clave": [
+        "RNAV (GPS) Y RWY 24L de KLAX, enmienda 5C",
+        "LPV DA 456/HAT 333, RVR 4000; LNAV MDA 680/HAT 557",
+        "causa: grúas temporales al suroeste y al este de la 24L",
+        "C) 2703011519EST: la fecha de fin es ESTIMADA",
+        "los mínimos del NOTAM mandan sobre los de la carta",
+        "solo afecta a IFR"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R11",
+      "imagen": "practica/klax-06-273-twy-b-clsd.png",
+      "identificacion": "06/273 (KLAX-A3580/26) NOTAMN",
+      "aerodromo": "KLAX — Los Angeles Intl",
+      "pais": "Estados Unidos",
+      "fir": "KZLA — FIR Los Ángeles",
+      "asunto": "Calle de rodaje",
+      "nivel": "intermedio",
+      "transcripcion": "06/273 NOTAMN Q) KZLA/QMXLC/IV/M/A/000/999/3356N11824W005 A) KLAX B) 2607011300 C) 2611210759 E) TWY B BTN TWY C7 AND TWY C10 CLSD TWY C10 RSTRCTN... (la captura corta el texto de la casilla E en este punto)",
+      "decodificacion": "La calle de rodaje B está cerrada entre las calles C7 y C10 en Los Ángeles, del 1 de julio de 2026 a las 13:00 UTC al 21 de noviembre de 2026 a las 07:59 UTC. QMXLC: MX = calle o calles de rodaje, LC = cerrado. IV = IFR y VFR; M = misceláneo; A = aeródromo. Hay que decir algo más sobre esta ficha: la captura corta la casilla E justo cuando empieza a hablar de una restricción en la TWY C10. Eso también es aprendizaje real — un NOTAM leído a medias es un NOTAM no leído, y ante un texto truncado la respuesta correcta es volver a la fuente y pedir el mensaje completo, no adivinar el resto.",
+      "puntos_clave": [
+        "TWY B cerrada entre C7 y C10 en KLAX",
+        "del 1 jul 13:00 al 21 nov 07:59 UTC 2026",
+        "la casilla E queda truncada en la captura: hay una restricción en TWY C10 sin leer",
+        "ante un NOTAM truncado, hay que consultar la fuente completa"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026 (texto de E truncado en el original)"
+    },
+    {
+      "id": "R12",
+      "imagen": "practica/klax-09-151-ils-rwy24l-us.png",
+      "identificacion": "09/151 (KLAX-A5023/26) NOTAMN",
+      "aerodromo": "KLAX — Los Angeles Intl",
+      "pais": "Estados Unidos",
+      "fir": "KZLA — FIR Los Ángeles",
+      "asunto": "Sistema de aterrizaje por instrumentos (ILS)",
+      "nivel": "basico",
+      "transcripcion": "09/151 NOTAMN Q) KZLA/QICAS/IV/NBO/A/000/999/3356N11824W025 A) KLAX B) 2609110730 C) 2609111330 E) ILS RWY 24L U/S",
+      "decodificacion": "El ILS de la pista 24L de Los Ángeles queda fuera de servicio el 11 de septiembre de 2026, de 07:30 a 13:30 UTC. QICAS: IC = sistema de aterrizaje por instrumentos, AS = no utilizable. IV = IFR y VFR; NBO = boletín previo al vuelo y operacionalmente significativo; A = aeródromo; el radio de 025 indica 25 NM de alcance. U/S = unserviceable, fuera de servicio. Operacionalmente: durante esas seis horas no hay aproximación ILS a la 24L. Si el vuelo llega en esa ventana hay que contar con otro procedimiento (RNAV, o la pista contraria) y revisar si los mínimos alternativos siguen sirviendo con el tiempo previsto.",
+      "puntos_clave": [
+        "ILS de la RWY 24L fuera de servicio",
+        "IC = ILS, AS = no utilizable (U/S)",
+        "el 11 sep 2026 de 07:30 a 13:30 UTC, seis horas",
+        "hay que prever otro procedimiento de aproximación",
+        "afecta a IFR y VFR"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R13",
+      "imagen": "practica/klax-09-154-twy-e6-sign-lgt.png",
+      "identificacion": "09/154 NOTAMN",
+      "aerodromo": "KLAX — Los Angeles Intl",
+      "pais": "Estados Unidos",
+      "fir": "KZLA — FIR Los Ángeles",
+      "asunto": "Balizaje y señalización",
+      "nivel": "intermedio",
+      "transcripcion": "09/154 NOTAMN Q) KZLA/QMMXX/V/M/A/000/999/3356N11824W005 A) KLAX B) 2609090528 C) 2609101330 E) TWY E6 HLDG PSN SIGN SOUTH SIDE FOR APCH END RWY 24L LGT U/S",
+      "decodificacion": "El letrero de posición de espera de la calle de rodaje E6, en el lado sur, correspondiente al umbral de aproximación de la pista 24L de Los Ángeles, tiene la iluminación fuera de servicio, del 9 de septiembre de 2026 a las 05:28 UTC al 10 de septiembre a las 13:30 UTC. QMMXX: MM = balizaje diurno y señalización, XX = descrito en lenguaje claro. V = afecta a tránsito VFR; M = misceláneo; A = aeródromo. HLDG PSN SIGN = letrero de posición de espera, LGT U/S = luz fuera de servicio. Operacionalmente: el letrero sigue estando, pero de noche o con poca visibilidad no se ve iluminado. Es justo el cartel que marca dónde parar antes de entrar a la pista, así que aumenta el riesgo de incursión: hay que rodar por ahí con precaución extra y confiar en la carta de aeródromo, no en la señalización.",
+      "puntos_clave": [
+        "letrero de posición de espera de TWY E6 sin iluminación",
+        "lado sur, umbral de aproximación de la RWY 24L",
+        "del 9 sep 05:28 al 10 sep 13:30 UTC 2026",
+        "MM = balizaje/señalización; U/S = fuera de servicio",
+        "riesgo de incursión en pista: rodar con precaución de noche"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R14",
+      "imagen": "practica/lfpg-a5513-trigger-motores.png",
+      "identificacion": "A5513/26 NOTAMN",
+      "aerodromo": "LFPG — París Charles de Gaulle",
+      "pais": "Francia",
+      "fir": "LFFF — FIR París",
+      "asunto": "Aeródromo · NOTAM disparador",
+      "nivel": "avanzado",
+      "transcripcion": "A5513/26 NOTAMN Q) LFFF/QFATT/I /BO /A/000/999/4901N00233E005 A) LFPG B) 2610010000 C) 2703182359 E) TRIGGER NOTAM - AIRAC AIP SUP 187/26. RESTRICTION ON THE USE OF N-1 OR N-2 ENGINES DURING TKOF AND LDG. THIS AIP SUP IS AVBL AT WWW.SIA.AVIATION-CIVILE.GOUV.FR",
+      "decodificacion": "NOTAM disparador (trigger) de París Charles de Gaulle, válido del 1 de octubre de 2026 a las 00:00 UTC al 18 de marzo de 2027 a las 23:59 UTC. Su función no es informar, sino AVISAR de que existe un suplemento AIRAC del AIP —el SUP 187/26— y que ahí está el contenido real: una restricción al uso de motores en configuración N-1 o N-2 durante despegue y aterrizaje. El texto remite al sitio del SIA francés. QFATT: FA = aeródromo; TT es la combinación reservada al NOTAM disparador. Advertencia honesta: TT NO figura en la tabla de 4ª/5ª letras del Doc 8400 6ª edición (2004) que carga esta app; es un uso posterior. Operacionalmente: un trigger nunca se lee solo. Si aparece en el briefing, hay que abrir el AIP SUP que menciona, porque el detalle operativo vive allí y no en el NOTAM.",
+      "puntos_clave": [
+        "es un NOTAM disparador (trigger), no informa por sí mismo",
+        "anuncia el AIRAC AIP SUP 187/26",
+        "contenido real: restricción de uso de motores N-1 o N-2 en despegue y aterrizaje",
+        "del 1 oct 2026 al 18 mar 2027 UTC",
+        "TT no está en la tabla del Doc 8400 de 2004: es un código posterior",
+        "obliga a consultar el AIP SUP"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R15",
+      "imagen": "practica/lfpg-a3740-gld-secuenciacion.png",
+      "identificacion": "A3740/26 NOTAMR A3660/26",
+      "aerodromo": "LFPG — París Charles de Gaulle",
+      "pais": "Francia",
+      "fir": "LFFF — FIR París",
+      "asunto": "Comunicaciones por enlace de datos",
+      "nivel": "avanzado",
+      "transcripcion": "A3740/26 NOTAMR A3660/26 Q) LFFF/QCDXX/I /NBO /A/000/999/4901N00233E005 A) LFPG B) 2606081245 C) PERM E) IMPLEMENTATION OF A NEW DEPARTURE SEQUENCING SYSTEM (GLD): THE DEPARTURE SEQUENCING ALGORITHM AND TSAT CALCULATION ARE MODIFIED. RULES RELATED TO TOBT/EOBT MANAGEMENT AND SEQUENCE EXIT CONDITIONS (SEQOUT) ARE UPDATED. PLEASE REFER TO: WWW.CDMPARIS.NET WEBSITE FOR FURTHER INFORMATION",
+      "decodificacion": "Puesta en servicio permanente de un nuevo sistema de secuenciación de salidas (GLD) en París Charles de Gaulle, con efecto desde el 8 de junio de 2026 a las 12:45 UTC. Reemplaza al A3660/26. QCDXX: CD = comunicaciones por enlace de datos entre controlador y piloto, XX = descrito en lenguaje claro. I = solo IFR; NBO = boletín previo al vuelo y significativo; A = aeródromo. Se modifican el algoritmo de secuenciación y el cálculo del TSAT (hora prevista de puesta en marcha aprobada), y se actualizan las reglas de gestión del TOBT/EOBT y las condiciones de salida de secuencia (SEQOUT). Operacionalmente: afecta a la gestión de la salida en plataforma. La hora que da el sistema puede no coincidir con la costumbre anterior, y el incumplimiento del TOBT puede sacar el vuelo de la secuencia. El detalle está en el sitio CDM de París.",
+      "puntos_clave": [
+        "nuevo sistema de secuenciación de salidas (GLD) en LFPG",
+        "cambian el algoritmo de secuencia y el cálculo del TSAT",
+        "se actualizan las reglas de TOBT/EOBT y de SEQOUT",
+        "permanente desde el 8 jun 2026; reemplaza al A3660/26",
+        "el detalle vive fuera del NOTAM, en www.cdmparis.net"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R16",
+      "imagen": "practica/lfpg-a4458-trigger-stands-j.png",
+      "identificacion": "A4458/26 NOTAMN",
+      "aerodromo": "LFPG — París Charles de Gaulle",
+      "pais": "Francia",
+      "fir": "LFFF — FIR París",
+      "asunto": "Puestos de estacionamiento · NOTAM disparador",
+      "nivel": "avanzado",
+      "transcripcion": "A4458/26 NOTAMN Q) LFFF/QMPTT/IV/BO /A/000/999/4901N00233E005 A) LFPG B) 2608180000 C) 2610012359 E) TRIGGER NOTAM - AIRAC AIP SUP 152/26. MODIFICATION OF ACFT STANDS ON J AREA. ACTIVATION OF PHASES CONFIRMED BY NOTAM. THIS AIP SUP IS AVBL AT WWW.SIA.AVIATION-CIVILE.GOUV.FR",
+      "decodificacion": "Segundo NOTAM disparador de París, del 18 de agosto de 2026 a las 00:00 UTC al 1 de octubre de 2026 a las 23:59 UTC. Anuncia el AIRAC AIP SUP 152/26, que describe la modificación de los puestos de estacionamiento de la zona J. QMPTT: MP = puestos de estacionamiento de aeronave; TT = NOTAM disparador, combinación que tampoco figura en la tabla del Doc 8400 de 2004. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; A = aeródromo. Hay un detalle que conviene no pasar por alto: 'ACTIVATION OF PHASES CONFIRMED BY NOTAM' significa que la obra va por fases y que cada fase se activará con su propio NOTAM. Operacionalmente: no basta con leer este ni con leer el AIP SUP una vez; hay que revisar el briefing en cada vuelo para saber qué fase está activa ese día.",
+      "puntos_clave": [
+        "NOTAM disparador del AIRAC AIP SUP 152/26",
+        "modificación de puestos de estacionamiento en la zona J de LFPG",
+        "las fases de la obra se activan con NOTAM propio",
+        "del 18 ago al 1 oct 2026 UTC",
+        "MP = puestos de estacionamiento; TT = disparador (código posterior a 2004)"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R17",
+      "imagen": "practica/lfpg-a5444-twy-t-cuatrimotor.png",
+      "identificacion": "A5444/26 NOTAMN",
+      "aerodromo": "LFPG — París Charles de Gaulle",
+      "pais": "Francia",
+      "fir": "LFFF — FIR París",
+      "asunto": "Calle de rodaje",
+      "nivel": "intermedio",
+      "transcripcion": "A5444/26 NOTAMN Q) LFFF/QMXLT/IV/M /A/000/999/4901N00233E005 A) LFPG B) 2608250300 C) 2609221200 E) TWY T PROHIBITED TO FOUR-ENGINE ACFT BTN TWY RT4 AND RT8.",
+      "decodificacion": "La calle de rodaje T de París Charles de Gaulle queda prohibida a aeronaves cuatrimotor en el tramo entre las calles RT4 y RT8, del 25 de agosto de 2026 a las 03:00 UTC al 22 de septiembre de 2026 a las 12:00 UTC. QMXLT: MX = calle o calles de rodaje, LT = limitado a. IV = IFR y VFR; M = misceláneo; A = aeródromo. Fíjate en el matiz: no es un cierre (LC), es una limitación (LT). La calle sigue abierta para todos los demás. Operacionalmente: si la aeronave es cuatrimotor, ese tramo no se puede usar y hay que planear otro rodaje; si no lo es, el NOTAM no cambia nada. Es el ejemplo típico de por qué 'cerrado' y 'limitado a' no son lo mismo.",
+      "puntos_clave": [
+        "TWY T prohibida a aeronaves de cuatro motores",
+        "solo en el tramo entre RT4 y RT8",
+        "LT = limitado a, no LC = cerrado",
+        "del 25 ago 03:00 al 22 sep 12:00 UTC 2026",
+        "solo afecta a un tipo de aeronave; para el resto no cambia nada"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R18",
+      "imagen": "practica/sbgr-j0827-obst-grua.png",
+      "identificacion": "J0827/26 NOTAMR J0600/26",
+      "aerodromo": "SBGR — Guarulhos, São Paulo",
+      "pais": "Brasil",
+      "fir": "SBBS — FIR Brasilia",
+      "asunto": "Obstáculos",
+      "nivel": "intermedio",
+      "transcripcion": "J0827/26 NOTAMR J0600/26 Q) SBBS/QOBCE/IV/M/AE/000/999/2326S04628W005 A) SBGR B) 2609082247 C) 2612070300 E) OBST ERECTED (CRANE) LGTD COORD 232515.01S0462706.69W HGT 45M (148FT) ALT OTP 787.68M (2584FT) RADIUS 19.09M",
+      "decodificacion": "Se ha erigido un obstáculo —una grúa— cerca del aeropuerto de Guarulhos, del 8 de septiembre de 2026 a las 22:47 UTC al 7 de diciembre de 2026 a las 03:00 UTC. Reemplaza al J0600/26. QOBCE: OB = obstáculos, CE = montado. IV = IFR y VFR; M = misceláneo; AE = sirve en terminal y en ruta. Los datos: está balizada (LGTD, es decir, lleva luces), en la coordenada 232515.01S 0462706.69W, con 45 m (148 ft) de altura, cota superior 787,68 m (2584 ft) y un radio de 19,09 m. Operacionalmente: es un obstáculo nuevo y iluminado. Lo relevante es su posición respecto a las trayectorias de salida y aproximación y si su cota entra en las superficies de franqueamiento; conviene contrastarlo con la carta antes de aceptar una salida por ese lado.",
+      "puntos_clave": [
+        "obstáculo erigido (CE = montado): una grúa",
+        "LGTD = balizada, lleva luces de obstáculo",
+        "45 m / 148 ft de altura; cota 787,68 m / 2584 ft; radio 19,09 m",
+        "NOTAMR: reemplaza al J0600/26",
+        "del 8 sep 2026 al 7 dic 2026 UTC",
+        "hay que contrastar la cota con las superficies de franqueamiento"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R19",
+      "imagen": "practica/sbgr-j0590-rwy10l28r-clsd.png",
+      "identificacion": "J0590/26 NOTAMN",
+      "aerodromo": "SBGR — Guarulhos, São Paulo",
+      "pais": "Brasil",
+      "fir": "SBBS — FIR Brasilia",
+      "asunto": "Pista",
+      "nivel": "intermedio",
+      "transcripcion": "J0590/26 NOTAMN Q) SBBS/QMRLC/IV/NBO/A/000/999/2326S04628W005 A) SBGR B) 2607130500 C) 2610060759 D) JUL 13 14 0500-0759 1300-1430, JUL 20-OCT 06 MON TUE 0500-0759 E) RWY 10L/28R CLSD DUE TO MAINT SER",
+      "decodificacion": "La pista 10L/28R de Guarulhos está cerrada por mantenimiento. La ventana total va del 13 de julio de 2026 a las 05:00 UTC al 6 de octubre de 2026 a las 07:59 UTC, pero el cierre real lo manda la casilla D: los días 13 y 14 de julio de 05:00 a 07:59 y de 13:00 a 14:30, y del 20 de julio al 6 de octubre solo lunes y martes de 05:00 a 07:59 UTC. QMRLC: MR = pista, LC = cerrado. IV = IFR y VFR; NBO = boletín previo al vuelo y significativo; A = aeródromo. Operacionalmente: esta es la trampa clásica. Leer solo B) y C) haría pensar que la pista está cerrada tres meses seguidos, y no es así: son ventanas cortas de madrugada. Hay que cruzar la casilla D con la hora estimada de llegada.",
+      "puntos_clave": [
+        "RWY 10L/28R cerrada por mantenimiento",
+        "B)/C) dan la ventana total; la casilla D da el horario real",
+        "13 y 14 jul 0500-0759 y 1300-1430; del 20 jul al 6 oct solo lunes y martes 0500-0759",
+        "MR = pista, LC = cerrado",
+        "leer solo B) y C) lleva a una conclusión falsa"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R20",
+      "imagen": "practica/sbbr-j0814-paramotor.png",
+      "identificacion": "J0814/26 NOTAMR J0812/26",
+      "aerodromo": "SBBR — Presidente Juscelino Kubitschek, Brasilia",
+      "pais": "Brasil",
+      "fir": "SBBS — FIR Brasilia",
+      "asunto": "Zona de peligro temporal",
+      "nivel": "avanzado",
+      "transcripcion": "J0814/26 NOTAMR J0812/26 Q) SBBS/QXXCA/IV/BO/W/000/045/1603S04804W010 A) SBBR B) 2609070912 C) 2612052133 D) SEP 07-DEC 05 SR-SS E) TEMPORARY DANGER AREA (PARAMOTOR EXER) SUBJ AUTH/COOR BRASILIA APP WI COORD 155652S0475947W - ... - 155652S0475947W ACT F) GND G) 4500FT AMSL",
+      "decodificacion": "Zona de peligro temporal activada por ejercicios de paramotor cerca de Brasilia, del 7 de septiembre al 5 de diciembre de 2026, diariamente entre el orto y el ocaso (SR-SS, sunrise to sunset). QXXCA: CA = en actividad; XX como 2ª y 3ª letras significa que el asunto no está codificado y se describe en lenguaje claro en la casilla E —lo esperable habría sido QRDCA para zona de peligro, y ver la diferencia es parte del ejercicio—. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; W = aviso de navegación. La zona la definen los vértices de la casilla E y va del suelo a 4500 ft AMSL (coherente con 000/045). SUBJ AUTH/COOR BRASILIA APP: está sujeta a autorización y coordinación con la aproximación de Brasilia. Operacionalmente: se puede atravesar, pero coordinando; y el horario no es fijo en reloj, se mueve con la salida y la puesta del sol.",
+      "puntos_clave": [
+        "zona de peligro temporal por ejercicio de paramotor",
+        "activa del 7 sep al 5 dic 2026, de orto a ocaso (SR-SS)",
+        "sujeta a autorización y coordinación con Brasilia APP",
+        "F) GND, G) 4500 ft AMSL",
+        "el código usa XX como asunto: no está codificado, se describe en E",
+        "SR-SS no es una hora fija: cambia con la fecha"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R21",
+      "imagen": "practica/sbbr-j0605-globo-libre.png",
+      "identificacion": "J0605/26 NOTAMN",
+      "aerodromo": "SBBR — Presidente Juscelino Kubitschek, Brasilia",
+      "pais": "Brasil",
+      "fir": "SBBS — FIR Brasilia",
+      "asunto": "Ascenso de globo libre",
+      "nivel": "intermedio",
+      "transcripcion": "J0605/26 NOTAMN Q) SBBS/QWLLW/IV/M/W/000/050/1542S04744W008 A) SBBR B) 2608020933 C) 2610302114 D) DAILY SR-1100 1930-SS E) ASCENT OF FREE BALLOON (BALLONING) SUBJ AUTH/COOR BRASILIA APP WILL TAKE PLACE WI COORD 154521.45S0474648.69W - ... - 154521.45S0474648.69W DNG F) GND G) 5000FT AMSL",
+      "decodificacion": "Ascenso de globos libres en las cercanías de Brasilia, del 2 de agosto de 2026 a las 09:33 UTC al 30 de octubre de 2026 a las 21:14 UTC, con dos franjas diarias: desde el orto hasta las 11:00 y desde las 19:30 hasta el ocaso. QWLLW: WL = ascenso de globo libre, LW = se realizará. IV = IFR y VFR; M = misceláneo; W = aviso de navegación. La zona la definen los muchos vértices de la casilla E, marcada DNG (peligrosa), y va del suelo a 5000 ft AMSL. Está sujeta a autorización y coordinación con Brasilia APP. Operacionalmente: un globo libre no se puede maniobrar para evitar a nadie; el que evita es el avión. En esas franjas hay que planificar por fuera o coordinar, y recordar que las dos ventanas están amarradas a la salida y la puesta del sol, no al reloj.",
+      "puntos_clave": [
+        "ascenso de globos libres cerca de Brasilia",
+        "WL = ascenso de globo libre; LW = se realizará",
+        "dos franjas diarias: SR-1100 y 1930-SS",
+        "del 2 ago al 30 oct 2026 UTC",
+        "F) GND, G) 5000 ft AMSL",
+        "sujeto a autorización y coordinación con Brasilia APP"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R22",
+      "imagen": "practica/sbbr-j0741-rwy11r29l-clsd.png",
+      "identificacion": "J0741/26 NOTAMR J0726/26",
+      "aerodromo": "SBBR — Presidente Juscelino Kubitschek, Brasilia",
+      "pais": "Brasil",
+      "fir": "SBBS — FIR Brasilia",
+      "asunto": "Pista",
+      "nivel": "intermedio",
+      "transcripcion": "J0741/26 NOTAMR J0726/26 Q) SBBS/QMRLC/IV/NBO/A/000/999/1552S04755W005 A) SBBR B) 2608241600 C) 2610092000 D) AUG 24-28 SEP 07-11 21-25 OCT 05-09 1600-2000 E) RWY 11R/29L CLSD DUE TO MAINT SER",
+      "decodificacion": "La pista 11R/29L de Brasilia está cerrada por mantenimiento en bloques de días concretos: del 24 al 28 de agosto, del 7 al 11 y del 21 al 25 de septiembre, y del 5 al 9 de octubre de 2026, siempre de 16:00 a 20:00 UTC. La ventana total de B) a C) va del 24 de agosto a las 16:00 al 9 de octubre a las 20:00. QMRLC: MR = pista, LC = cerrado. Reemplaza al J0726/26. Operacionalmente: mismo caso que Guarulhos —el cierre no es continuo—, pero aquí la casilla D lista semanas sueltas en vez de días de la semana. Si el vuelo cae dentro de una de esas ventanas de cuatro horas, esa pista no está disponible y hay que contar con la otra.",
+      "puntos_clave": [
+        "RWY 11R/29L de SBBR cerrada por mantenimiento",
+        "casilla D: bloques de días en ago, sep y oct, siempre 1600-2000 UTC",
+        "NOTAMR: reemplaza al J0726/26",
+        "el cierre NO es continuo entre B) y C)",
+        "MR = pista, LC = cerrado"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R23",
+      "imagen": "practica/lecb-b6833-arcc-palma.png",
+      "identificacion": "B6833/24 NOTAMN",
+      "aerodromo": "LECB — Barcelona ACC/FIC",
+      "pais": "España",
+      "fir": "LECB — FIR Barcelona",
+      "asunto": "Centro de coordinación de salvamento",
+      "nivel": "avanzado",
+      "transcripcion": "B6833/24 NOTAMN Q) LECB/QORLT/IV/M /E /000/999/3858N00108E244 A) LECB B) 2409261131 C) 2411200730 EST E) ARCC PALMA SERVICE COORDINATOR AVBL ONLY AS FOLLOWS: V (SUMMER HR): MON-FRI (NOT HOL) HR 0500-1300 I (WINTER HR): MON-FRI (NOT HOL) HR 0600-1400 DURING THE REST OF THE TIME THE SERVICE COORDINATOR WILL BE ASSUMED BY THE RCC MADRID SERVICE COORDINATOR.",
+      "decodificacion": "El coordinador de servicio del centro de coordinación de salvamento de Palma (ARCC Palma) queda limitado a un horario: en horario de verano, de lunes a viernes no festivos de 05:00 a 13:00 UTC; en invierno, de 06:00 a 14:00 UTC. Fuera de esas horas asume el coordinador del RCC Madrid. Vigencia del 26 de septiembre de 2024 a las 11:31 UTC hasta el 20 de noviembre de 2024 a las 07:30, marcada EST (estimada). QORLT: OR = centro de coordinación de salvamento, LT = limitado a. IV = IFR y VFR; M = misceláneo; E = alcance en ruta. Operacionalmente: el servicio de búsqueda y salvamento no desaparece, cambia de responsable fuera del horario. Es información de planificación, sobre todo para vuelos sobre agua en el Mediterráneo.",
+      "puntos_clave": [
+        "ARCC Palma con coordinador disponible solo en horario limitado",
+        "verano L-V no festivos 0500-1300 UTC; invierno 0600-1400 UTC",
+        "fuera de ese horario asume el RCC Madrid",
+        "OR = centro de coordinación de salvamento; LT = limitado a",
+        "C) marcada EST: fecha de fin estimada",
+        "el servicio no se pierde, cambia de responsable"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R24",
+      "imagen": "practica/lecb-d0301-pje-totana.png",
+      "identificacion": "D0301/26 NOTAMN",
+      "aerodromo": "LECB — Barcelona ACC/FIC",
+      "pais": "España",
+      "fir": "LECB — FIR Barcelona",
+      "asunto": "Zona restringida temporalmente",
+      "nivel": "intermedio",
+      "transcripcion": "D0301/26 NOTAMN Q) LECB/QRTCA/IV/BO /W /000/043/3745N00127W001 A) LECB B) 2610010600 C) 2612311400 D) MON-FRI 0600-1400 E) TEMPORARY RESTRICTED AREA FOR PJE ACTIVATED WI 01NM RADIUS OF 374514N 0012651W MURCIA/TOTANA RMK: THE ACTIVATION/DEACTIVATION OF THIS AREA WILL BE CARRIED OUT IN REAL TIME BY TACTICAL COORDINATION WITH ECAO (OPERATIVE AIR TRAFFIC SQUADRON) BARCELONA F) SFC G) 04300FT AMSL",
+      "decodificacion": "Zona restringida temporal activada para lanzamiento de paracaidistas en Murcia/Totana, del 1 de octubre al 31 de diciembre de 2026, de lunes a viernes de 06:00 a 14:00 UTC. QRTCA: RT = zona restringida temporalmente, CA = en actividad. IV = IFR y VFR; BO = boletín previo al vuelo y significativo; W = aviso de navegación. La zona es un círculo de 1 NM de radio centrado en 374514N 0012651W, desde la superficie (SFC) hasta 4300 ft AMSL. La observación (RMK) importa: la activación y desactivación se hacen en tiempo real por coordinación táctica con el ECAO de Barcelona. Operacionalmente: que el NOTAM esté vigente no significa que la zona esté activa en ese momento; hay que preguntar en frecuencia. Zona pequeña pero con paracaidistas dentro.",
+      "puntos_clave": [
+        "zona restringida temporal por lanzamiento de paracaidistas",
+        "RT = zona restringida temporalmente; CA = en actividad",
+        "círculo de 1 NM en Murcia/Totana, de SFC a 4300 ft AMSL",
+        "L-V 0600-1400 UTC, del 1 oct al 31 dic 2026",
+        "activación real por coordinación táctica con ECAO Barcelona",
+        "vigente no es lo mismo que activa: hay que confirmar en frecuencia"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R25",
+      "imagen": "practica/lecb-d4928-sar-pollensa.png",
+      "identificacion": "D4928/26 NOTAMR D1335/26",
+      "aerodromo": "LECB — Barcelona ACC/FIC",
+      "pais": "España",
+      "fir": "LECB — FIR Barcelona",
+      "asunto": "Ejercicios",
+      "nivel": "avanzado",
+      "transcripcion": "D4928/26 NOTAMR D1335/26 Q) LECB/QWELW/IV/BO /W /000/035/3955N00317E011 A) LECB B) 2609071118 C) 2611202200 D) SEP 16-18 0600-2200, OCT 06-09 13-16 0600-2200, NOV 03-07 17-20 0600-2200 E) SAR EXERCISES WITH LIFE RAFT CHAINS AND FLARES LAUNCHING WI 395400N 0030400E, 400600N 0031600E, 395600N 0032900E, 395100N 0030600E, 395400N 0030400E MALLORCA/POLLENSA RMK: THE ACTIVATION/DEACTIVATION OF THIS AREA WILL BE CARRIED OUT IN REAL TIME BY TACTICAL COORDINATION WITH ECAO (OPERATIVE AIR TRAFFIC SQUADRON) BARCELONA. F) SFC G) 03500FT AMSL",
+      "decodificacion": "Ejercicios de búsqueda y salvamento con cadenas de balsas salvavidas y lanzamiento de bengalas en la zona de Mallorca/Pollensa, en bloques de días concretos entre el 16 de septiembre y el 20 de noviembre de 2026, siempre de 06:00 a 22:00 UTC. QWELW: WE = ejercicios, LW = se realizará. Reemplaza al D1335/26. IV = IFR y VFR; BO = boletín previo al vuelo y significativo; W = aviso de navegación. La zona la definen cinco vértices y va de la superficie a 3500 ft AMSL. Como en Totana, la activación real se coordina en tiempo real con el ECAO de Barcelona. Operacionalmente: lo peligroso aquí no es la actividad en sí, son las bengalas: material pirotécnico ascendiendo dentro de una zona de baja altura. Hay que respetar el bloque o coordinar.",
+      "puntos_clave": [
+        "ejercicios SAR con balsas y lanzamiento de bengalas",
+        "WE = ejercicios; LW = se realizará",
+        "bloques de días entre el 16 sep y el 20 nov 2026, 0600-2200 UTC",
+        "zona de cinco vértices en Mallorca/Pollensa, de SFC a 3500 ft AMSL",
+        "NOTAMR: reemplaza al D1335/26",
+        "activación real coordinada con ECAO Barcelona"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R26",
+      "imagen": "practica/lecb-d5009-festival-salou.png",
+      "identificacion": "D5009/26 NOTAMN",
+      "aerodromo": "LECB — Barcelona ACC/FIC",
+      "pais": "España",
+      "fir": "LECB — FIR Barcelona",
+      "asunto": "Zona restringida temporalmente",
+      "nivel": "intermedio",
+      "transcripcion": "D5009/26 NOTAMN Q) LECB/QRTCA/IV/BO /W /000/040/4104N00108E001 A) LECB B) 2609180900 C) 2609201330 D) 18 0900-1300, 19 0900-1300 1600-2030, 20 0830-1330 E) TEMPO RESTRICTED AREA ACTIVATED FOR AERIAL FESTIVAL WI COORD: 410418N 0010843E - 410339N 0010843E - 410339N 0010708E - 410417N 0010709E - 410418N 0010843E SALOU, TARRAGONA F) SFC G) 04000FT AMSL",
+      "decodificacion": "Zona restringida temporal activada por un festival aéreo en Salou (Tarragona), del 18 al 20 de septiembre de 2026, con horario distinto cada día: el 18 de 09:00 a 13:00; el 19 de 09:00 a 13:00 y de 16:00 a 20:30; el 20 de 08:30 a 13:30 UTC. QRTCA: RT = zona restringida temporalmente, CA = en actividad. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; W = aviso de navegación. La zona es un cuadrilátero pequeño definido por cuatro vértices, de la superficie a 4000 ft AMSL. Operacionalmente: exhibición aérea con aeronaves maniobrando dentro de un bloque reducido. La zona hay que evitarla; y conviene fijarse en que el horario cambia día a día, no es el mismo bloque repetido.",
+      "puntos_clave": [
+        "zona restringida temporal por festival aéreo en Salou (Tarragona)",
+        "18, 19 y 20 sep 2026 con horario DISTINTO cada día",
+        "de SFC a 4000 ft AMSL",
+        "RT = zona restringida temporalmente; CA = en actividad",
+        "hay aeronaves en exhibición dentro del bloque: se evita, no se atraviesa"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R27",
+      "imagen": "practica/lecb-d4191-uav-girona.png",
+      "identificacion": "D4191/26 NOTAMN",
+      "aerodromo": "LECB — Barcelona ACC/FIC",
+      "pais": "España",
+      "fir": "LECB — FIR Barcelona",
+      "asunto": "Zona restringida temporalmente",
+      "nivel": "avanzado",
+      "transcripcion": "D4191/26 NOTAMN Q) LECB/QRTCA/IV/BO /W /000/006/4223N00259E004 A) LECB B) 2609010800 C) 2609102000 D) 01-04 06-10 0800-1400 1600-2000 E) TEMPORARY SEGREGATED AREA FOR UNMANNED AIRCRAFT VEHICLE FLYING ACTIVATED WI 422638N 0025643E, 422634N 0030045E, 422020N 0030045E, 422018N 0025643E, 422638N 0025643E (LATERAL LIMITS COINCIDENTAL WITH LED67) GIRONA/SAN CLEMENTE DE SASEBAS F) SFC G) 00600FT AMSL",
+      "decodificacion": "Zona temporalmente segregada para vuelo de aeronaves no tripuladas en Girona/San Clemente de Sasebas, los días 1 al 4 y 6 al 10 de septiembre de 2026, de 08:00 a 14:00 y de 16:00 a 20:00 UTC. QRTCA: RT = zona restringida temporalmente, CA = en actividad. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; W = aviso de navegación. La zona es un rectángulo definido por cuatro vértices y va de la superficie a 600 ft AMSL. El detalle que hay que leer con cuidado: sus límites laterales coinciden con la zona restringida permanente LED67, y el día 5 de septiembre NO está incluido. Operacionalmente: bloque muy bajo, típico de operación con drones; no afecta a un vuelo en crucero, sí a operaciones a baja altura en la zona.",
+      "puntos_clave": [
+        "zona temporalmente segregada para vuelo de drones (UAV)",
+        "días 1-4 y 6-10 sep 2026: el día 5 NO está incluido",
+        "dos franjas diarias: 0800-1400 y 1600-2000 UTC",
+        "de SFC a 600 ft AMSL: bloque muy bajo",
+        "límites laterales coincidentes con la zona restringida LED67"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R28",
+      "imagen": "practica/edmm-b0643-ucrania-rerouting.png",
+      "identificacion": "B0643/26 NOTAMR B0337/26",
+      "aerodromo": "EDMM — München ACC/FIC",
+      "pais": "Alemania",
+      "fir": "EDGG / EDMM / EDWW",
+      "asunto": "Región de información de vuelo",
+      "nivel": "avanzado",
+      "transcripcion": "B0643/26 NOTAMR B0337/26 Q) EDXX/QAFXX/IV/NBO/E /000/999/5325N01046E262 A) EDGG EDMM EDWW B) 2608041405 C) 2611032359EST E) MILITARY INVASION OF UKRAINE BY RUSSIAN FEDERATION. REROUTINGS, EXTENDED ROUTE PORTIONS BELOW FL245 AND DELAY MAY BE EXPECTED WITHIN LOWER AND UPPER GERMAN AIRSPACE DUE TO AIRSPACE RESTRICTIONS FOR THE EXECUTION OF MILITARY MISSIONS. IT IS RECOMMENDED TO CONSIDER THE USE OF EXTRA-FUEL.",
+      "decodificacion": "Aviso para todo el espacio aéreo alemán —las tres FIR, EDGG (Langen), EDMM (München) y EDWW (Bremen)— del 4 de agosto de 2026 a las 14:05 UTC al 3 de noviembre de 2026, con fecha de fin estimada. QAFXX: AF = región de información de vuelo, XX = descrito en lenguaje claro. IV = IFR y VFR; NBO = boletín previo al vuelo y significativo; E = alcance en ruta. El contenido: por las restricciones de espacio aéreo asociadas a misiones militares, cabe esperar reencaminamientos, tramos de ruta alargados por debajo del FL245 y demoras en el espacio aéreo inferior y superior alemán; se recomienda considerar combustible extra. Fíjate en la casilla A: lleva TRES indicadores, porque el aviso cubre las tres FIR a la vez. Operacionalmente: es un NOTAM de planificación. Afecta al cálculo de combustible y a la hora estimada, no a una instalación concreta.",
+      "puntos_clave": [
+        "afecta a las tres FIR alemanas: EDGG, EDMM y EDWW en la casilla A",
+        "AF = región de información de vuelo; XX = lenguaje claro",
+        "reencaminamientos, tramos alargados bajo FL245 y demoras",
+        "recomienda considerar combustible extra",
+        "C) marcada EST: fecha de fin estimada",
+        "es un NOTAM de planificación, no de una instalación"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R29",
+      "imagen": "practica/edmm-b0673-zonas-conflicto.png",
+      "identificacion": "B0673/26 NOTAMR B0341/26",
+      "aerodromo": "EDMM — München ACC/FIC",
+      "pais": "Alemania",
+      "fir": "EDGG / EDMM / EDWW",
+      "asunto": "Región de información de vuelo",
+      "nivel": "intermedio",
+      "transcripcion": "B0673/26 NOTAMR B0341/26 Q) EDXX/QAFXX/I /NBO/E /000/999/5123N01019E262 A) EDGG EDMM EDWW B) 2608150348 C) 2611152359EST E) FOR FLIGHTS OVER OR NEAR CONFLICT ZONES OUTSIDE GERMANY REFER TO THE GERMAN AERONAUTICAL INFORMATION CIRCULAR (AIC).",
+      "decodificacion": "Aviso de las tres FIR alemanas, del 15 de agosto de 2026 a las 03:48 UTC al 15 de noviembre de 2026 (fecha estimada), que remite a la circular de información aeronáutica alemana (AIC) para vuelos sobre o cerca de zonas de conflicto fuera de Alemania. QAFXX: AF = región de información de vuelo, XX = lenguaje claro. I = solo IFR; NBO = boletín previo al vuelo y significativo; E = alcance en ruta. Reemplaza al B0341/26. Operacionalmente: el NOTAM no lleva la información, lleva el puntero. Igual que un NOTAM disparador, obliga a salir del briefing y abrir otro documento —aquí la AIC— antes de planificar una ruta que roce una zona de conflicto.",
+      "puntos_clave": [
+        "remite a la AIC alemana para vuelos sobre o cerca de zonas de conflicto",
+        "cubre EDGG, EDMM y EDWW",
+        "AF = región de información de vuelo; XX = lenguaje claro",
+        "solo IFR (I en la línea Q)",
+        "el NOTAM no trae la información: trae el puntero a otro documento",
+        "C) marcada EST"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R30",
+      "imagen": "practica/edmm-m2578-uas-kaufbeuren.png",
+      "identificacion": "M2578/26 NOTAMN",
+      "aerodromo": "EDMM — München ACC/FIC",
+      "pais": "Alemania",
+      "fir": "EDMM — FIR München",
+      "asunto": "Operación de aeronave no tripulada",
+      "nivel": "avanzado",
+      "transcripcion": "M2578/26 NOTAMN Q) EDMM/QWULW/IV/BO /W /000/030/4752N01037E001 A) EDMM B) 2609010800 C) 2612011800 D) MON-THU 0800-1800, FRI 0800-1300 E) UAS OPERATION 0.55NM RADIUS CENTERED ON 475133N0103707E KAUFBEUREN (12.8NM ENE KEMPTEN DVOR/DME KPT) F) GND G) 394FT AGL",
+      "decodificacion": "Operación de aeronave no tripulada (UAS) en un círculo de 0,55 NM de radio centrado en 475133N 0103707E, en Kaufbeuren, a 12,8 NM al este-noreste del DVOR/DME de Kempten (KPT). Del 1 de septiembre al 1 de diciembre de 2026, de lunes a jueves de 08:00 a 18:00 y los viernes de 08:00 a 13:00 UTC. QWULW: WU corresponde a operación de aeronave no tripulada y LW = se realizará. Advertencia honesta: WU NO figura en la tabla de 2ª/3ª letras del Doc 8400 6ª edición (2004) que carga esta app; es un código añadido después, cuando los drones entraron en el sistema. IV = IFR y VFR; BO = boletín previo al vuelo, significativo; W = aviso de navegación. Los límites: del suelo a 394 ft AGL —fíjate que G) va en AGL, sobre el terreno, no AMSL—. Operacionalmente: zona diminuta y muy baja, relevante para operaciones locales a baja altura, no para el crucero.",
+      "puntos_clave": [
+        "operación de dron (UAS) en Kaufbeuren, radio de 0,55 NM",
+        "referenciada a 12,8 NM ENE del DVOR/DME Kempten (KPT)",
+        "L-J 0800-1800, viernes 0800-1300 UTC, del 1 sep al 1 dic 2026",
+        "F) GND, G) 394 ft AGL — sobre el terreno, no AMSL",
+        "WU no está en la tabla del Doc 8400 de 2004: es un código posterior"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    },
+    {
+      "id": "R31",
+      "imagen": "practica/edmm-f2315-obst-lgt-rositz.png",
+      "identificacion": "F2315/26 NOTAMN",
+      "aerodromo": "EDMM — München ACC/FIC",
+      "pais": "Alemania",
+      "fir": "EDMM — FIR München",
+      "asunto": "Luces de obstáculo",
+      "nivel": "basico",
+      "transcripcion": "F2315/26 NOTAMN Q) EDMM/QOLAS/IV/M /E /000/011/5102N01223E001 A) EDMM B) 2607291146 C) 2610282359 E) OBST LGT WINDPARK ROSITZ 510136N 0122328 OUT OF SERVICE. AIP ENR 5.4 THUERINGEN NR. 37 REFERS.",
+      "decodificacion": "Las luces de obstáculo del parque eólico de Rositz, en 510136N 0122328, están fuera de servicio del 29 de julio de 2026 a las 11:46 UTC al 28 de octubre de 2026 a las 23:59 UTC. QOLAS: OL = luces de obstáculos, AS = no utilizable. IV = IFR y VFR; M = misceláneo; E = alcance en ruta. El límite superior de la línea Q, 011, sitúa el obstáculo por debajo de 1100 ft. Remite al AIP ENR 5.4, Turingia, número 37. Operacionalmente: el obstáculo sigue ahí; lo que falta es la luz que lo hace visible de noche. El riesgo es para vuelo nocturno a baja altura en esa zona: aerogeneradores sin balizar durante tres meses.",
+      "puntos_clave": [
+        "luces de obstáculo del parque eólico Rositz fuera de servicio",
+        "OL = luces de obstáculos; AS = no utilizable",
+        "del 29 jul al 28 oct 2026 UTC",
+        "el obstáculo sigue existiendo: lo que falla es el balizaje",
+        "riesgo concentrado en vuelo nocturno a baja altura",
+        "remite al AIP ENR 5.4 Turingia nr. 37"
+      ],
+      "fuente_imagen": "FAA NOTAM Search — captura del 9 sep 2026"
+    }
+  ]
+}
