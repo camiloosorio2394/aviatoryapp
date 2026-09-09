@@ -1275,6 +1275,41 @@ export const LESSON_SCREENS: DocScreen[] = [
           "También puedes encontrar la letra `M`, que corresponde a información miscelánea. En este caso, la información no está destinada a ser incluida en el PIB, pero permanece disponible cuando el usuario la solicita.",
         ],
       },
+      // ── ⑤ AW ─────────────────────────────────────────────────────────────
+      // Los tres códigos NO se listan en texto: la imagen ya los explica uno
+      // por uno con la misma redacción, y ponerlos en los dos sitios se leía
+      // como un error. El texto presenta y la imagen enseña.
+      {
+        kind: "componente",
+        n: 5,
+        token: "AW",
+        nombre: "Alcance",
+        color: LINEA_Q_COLOR.alcance,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Sobre qué lugar o situación trata el NOTAM?",
+        color: LINEA_Q_COLOR.alcance,
+        parrafos: [
+          "El quinto componente de la línea Q indica a qué tipo de lugar o situación se refiere la información del NOTAM. En otras palabras, nos ayuda a saber si estamos hablando de algo relacionado con un aeródromo, una situación en ruta o una advertencia para la navegación.",
+          "Los códigos principales son:",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/linea-q-alcance.webp",
+        alt: "Tres fichas con los códigos de alcance de la línea Q. A, aeródromo: la información está relacionada con un aeródromo o con elementos asociados a él, como pistas, calles de rodaje, plataformas, ayudas o instalaciones. E, en ruta: la información está relacionada con la operación fuera del aeródromo, durante la ruta. W, advertencia: la información corresponde a una advertencia para la navegación, por ejemplo una actividad o condición que puede representar un peligro para las aeronaves.",
+        ancho: 1400,
+        alto: 933,
+        anchoMax: 620,
+      },
+      {
+        kind: "apartado",
+        color: LINEA_Q_COLOR.alcance,
+        parrafos: [
+          "En nuestro ejemplo aparece `AW`. Esto nos indica que la información tiene relación con un aeródromo y, al mismo tiempo, corresponde a una advertencia para la navegación.",
+        ],
+      },
       {
         kind: "check",
         question:
