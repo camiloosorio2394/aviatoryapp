@@ -649,7 +649,7 @@ tarde.
 
 ### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
 
-`scripts/psicotecnicas/quitar-marca.mjs`. El logotipo del cuadernillo A1 no está
+`scripts/psicotecnicas/quitar-marca.mjs` (ya sustituido por `recortar-laminas.mjs`, ver §12). El logotipo del cuadernillo A1 no está
 dentro de la figura: cae en el hueco entre la matriz y las alternativas, así que
 se puede recortar sin tocar el ejercicio. El script lo localiza por ser lo único
 azul de la lámina, comprueba que entre la franja y el dibujo hay papel por
@@ -853,3 +853,31 @@ Dos caminos, y los dos son tuyos:
 
 El segundo camino evita el `db pull` entero y con él todo el riesgo de pisar la
 función. Es el que yo elegiría.
+
+## 12 · Las veinte láminas del A1, rehechas desde el PDF
+
+Nico vio en la app que la opción C salía tachada. No estaba tachada: **el
+recorte partía la fila de letras por la mitad**. De la C solo sobrevivía el arco
+de abajo de su recuadro —que en pantalla se lee como un tachón— y la D y la E
+quedaban mordidas. Las veinte compartían el mismo encuadre de 1123 × 821, así
+que era el recorte y no el original.
+
+Ahora salen del PDF, con `scripts/psicotecnicas/recortar-laminas.mjs`. Lo que se
+gana de una vez:
+
+- Las cinco letras enteras, que era el defecto que se veía.
+- **El logotipo de Facebook desaparece de las veinte**, incluidas la 11, la 14 y
+  la 18, que eran las tres que el recorte anterior no podía limpiar sin morder
+  el dibujo. Ya no queda ninguna marca ajena en el módulo abstracto.
+- Fuera también la banda amarilla de la escuela, su logotipo, el correo, las
+  flechas de navegación y la paginación del cuadernillo. Lo que queda es el
+  ejercicio.
+- Más resolución: 974 px de ancho contra los 1123 de una captura, pero rendidos
+  a 200 puntos por pulgada desde el vector, así que el trazo es limpio.
+
+`quitar-marca.mjs` queda borrado: hacía peor lo mismo, partiendo de una captura
+en vez del original.
+
+Sigue en pie dibujar las doce que faltan. Esto no lo sustituye: arregla lo que se
+veía mal hoy, y quita la marca ajena, pero un recorte sigue siendo material de
+otro.
