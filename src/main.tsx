@@ -5,11 +5,15 @@ import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.tsx'
 import { initAnalytics } from './lib/analytics'
+import { limpiarCachesJubilados } from './lib/limpiezaCaches'
 import { watchSystemTheme } from './lib/theme'
 
 initAnalytics()
 // Día/noche automático: si la preferencia es "system", sigue al SO en vivo.
 watchSystemTheme()
+// Saca la basura de cachés que ya no usa el service worker. Sin await: no
+// tiene que retrasar el primer pintado, y si falla no pasa nada.
+void limpiarCachesJubilados()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
