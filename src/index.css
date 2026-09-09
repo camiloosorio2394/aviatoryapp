@@ -868,6 +868,40 @@
   color: var(--av-amber-400);
 }
 
+/* === Sesión de psicotécnicas ===============================================
+   La pantalla del ejercicio cronometrado. Aquí el movimiento tiene que pedir
+   permiso: cada milisegundo de animación entre ejercicios es tiempo que el
+   alumno pierde y que en la prueba real no va a perder. Solo hay dos cosas.
+
+   Una, el aro del reloj. Es la única animación continua que admite la
+   pantalla, y tiene función: se ve el tiempo que queda sin leer la cifra. El
+   descuento va a un segundo exacto y lineal, así que el aro se vacía a la
+   misma velocidad que corre el reloj y no da un tirón en cada tic. No
+   parpadea: en los últimos diez segundos cambia de color y nada más, porque un
+   parpadeo en mitad de un ejercicio es justo lo que rompe la concentración que
+   la prueba mide. */
+.psico-juego .pj-aro {
+  transition:
+    stroke-dashoffset 1s linear,
+    stroke 260ms ease-out;
+}
+
+/* Y dos, la corrección en entrenamiento: la opción elegida se tiñe y la
+   correcta se marca. Solo ahí. En evaluación y simulación no se anima nada,
+   porque no hay corrección al momento y cualquier movimiento sería una pista. */
+.psico-juego .pj-opcion {
+  transition:
+    background-color 160ms ease-out,
+    border-color 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .psico-juego .pj-aro,
+  .psico-juego .pj-opcion {
+    transition: none;
+  }
+}
+
 /* === Lector NOTAM (la lección Aprende) ======================================
    Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
    infografías: papel cálido y navy de carta aeronáutica, fija en los dos
@@ -1023,7 +1057,8 @@
    más se lee como un salto de maquetación. La clase la enciende el
    componente cuando el bloque entra en pantalla, y una sola vez. */
 .lector-notam .ln-aparece,
-.psico-hub .ln-aparece {
+.psico-hub .ln-aparece,
+.psico-juego .ln-aparece {
   opacity: 0;
   transform: translateY(10px);
   transition:
@@ -1031,7 +1066,8 @@
     transform 520ms cubic-bezier(0.22, 0.8, 0.24, 1);
 }
 .lector-notam .ln-aparece.ln-visible,
-.psico-hub .ln-aparece.ln-visible {
+.psico-hub .ln-aparece.ln-visible,
+.psico-juego .ln-aparece.ln-visible {
   opacity: 1;
   transform: none;
 }
@@ -1066,6 +1102,7 @@
      el avión en su parada. */
   .lector-notam .ln-aparece,
   .psico-hub .ln-aparece,
+  .psico-juego .ln-aparece,
   .lector-notam .ln-avion {
     opacity: 1;
     transform: none;

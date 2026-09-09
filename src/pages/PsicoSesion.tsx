@@ -72,6 +72,9 @@ export function PsicoSesion({ modo }: Props) {
   const [cantidad, setCantidad] = useState<number>(10)
   const [tanda, setTanda] = useState<ReturnType<typeof armarTanda> | null>(null)
   const [resultado, setResultado] = useState<ResultadoPsico | null>(null)
+  // Se guardan también las respuestas: son las que dejan repasar los
+  // fallados en el informe, con su figura y su explicación.
+  const [respuestas, setRespuestas] = useState<RespuestaPsico[] | null>(null)
 
   /** Cuántos hay realmente con el filtro puesto: la pantalla no promete de más. */
   const disponibles = useMemo(
@@ -81,12 +84,14 @@ export function PsicoSesion({ modo }: Props) {
 
   const empezar = useCallback(() => {
     setResultado(null)
+    setRespuestas(null)
     setTanda(armarTanda(BANCO, { categoria, nivel }, Math.min(cantidad, disponibles)))
   }, [categoria, nivel, cantidad, disponibles])
 
   const terminar = useCallback(
     (respuestas: RespuestaPsico[]) => {
       const r = calcularResultado(respuestas)
+      setRespuestas(respuestas)
       setResultado(r)
       setTanda(null)
       void guardarSesion({ modo, nivel, categoria, resultado: r })
@@ -114,7 +119,12 @@ export function PsicoSesion({ modo }: Props) {
     return (
       <AppLayout>
         <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">
-          <PsicoResultado resultado={resultado} onRepetir={empezar} />
+          <PsicoResultado
+            resultado={resultado}
+            ejercicios={tanda ?? undefined}
+            respuestas={respuestas ?? undefined}
+            onRepetir={empezar}
+          />
         </div>
       </AppLayout>
     )

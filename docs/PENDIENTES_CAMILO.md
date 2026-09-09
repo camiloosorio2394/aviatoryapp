@@ -700,3 +700,42 @@ trato que ya tenía `.chip-amber`.
 hexadecimales** (`src/pages/Notam.tsx`, el sub componente `Celda`). No lo toqué
 porque el encargo era la portada de psicotécnicas y NOTAM es tuyo, pero es
 copiar la clase y borrar el `style`.
+
+### 9.9 · El punto 3 del brief, el del movimiento
+
+Hecho, salvo una cosa que hoy no se puede construir.
+
+**El reloj es un aro** alrededor del contador, y se vacía a la vez que corre el
+descuento —un segundo exacto, lineal—, así que no da un tirón en cada tic. En
+los últimos diez segundos pasa a ámbar y a cero se queda vacío en rojo. **No
+parpadea**: un parpadeo en mitad de un ejercicio rompe justo la concentración
+que la prueba mide.
+
+**La figura entra una sola vez**, al abrir la sesión, con la aparición de
+`.ln-aparece`. Entre un ejercicio y el siguiente **no se anima nada**, que es lo
+que pide el punto 3.4: cada milisegundo ahí es tiempo que el alumno pierde y que
+en la prueba real no va a perder.
+
+**Acierto y fallo solo en entrenamiento.** Ya era así por estructura —la
+corrección depende de `corrigeAlMomento`—, y ahora además la transición de 160 ms
+vive en `.psico-juego .pj-opcion`, con alcance, y no en estilos en línea.
+
+**Las cifras del informe suben desde cero** una vez, en 600 ms, y solo el
+resultado global, la precisión y la velocidad. Con el movimiento reducido
+activado llegan puestas, sin recorrido.
+
+De la interactividad del punto 3.3 entran dos de las tres:
+
+- **Repasar lo que falló.** El informe trae ahora los fallados y los que se
+  quedaron sin responder, plegados, con su figura y su explicación. Era el que
+  el propio brief señalaba como el importante —«es donde se aprende»—, porque
+  hasta ahora la explicación pasaba y no se recuperaba.
+- **Dejarlo para el final.** Dentro de una sesión cronometrada se puede aplazar
+  un ejercicio: se va al fondo de la cola y vuelve con el reloj de nuevo a cero.
+  Solo una vez por ejercicio. El tiempo que se registra es el de la vuelta en
+  que se responde, no la suma de las dos, que es lo que pasa en una prueba real.
+
+**El comparador de los espaciales no.** Alternar entre el cubo y cada desarrollo
+exige que la figura sea una descripción, y los dieciocho ejercicios espaciales
+siguen siendo recortes: sobre un pixel no hay nada que alternar. Sale gratis en
+cuanto se dibujen, y no antes.
