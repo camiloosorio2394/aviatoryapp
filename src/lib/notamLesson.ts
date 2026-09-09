@@ -1310,6 +1310,42 @@ export const LESSON_SCREENS: DocScreen[] = [
           "En nuestro ejemplo aparece `AW`. Esto nos indica que la información tiene relación con un aeródromo y, al mismo tiempo, corresponde a una advertencia para la navegación.",
         ],
       },
+      // ── ⑥ 000/001 ────────────────────────────────────────────────────────
+      // Mismo criterio que en la pieza ⑤: la equivalencia 000 = SFC y
+      // 001 = 100 ft la enseña la imagen, con su tabla de referencias, así que
+      // el texto no la repite. Presenta, muestra y concluye.
+      {
+        kind: "componente",
+        n: 6,
+        token: "000/001",
+        nombre: "Límites verticales",
+        color: LINEA_Q_COLOR.limites,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Entre qué alturas aplica el NOTAM?",
+        color: LINEA_Q_COLOR.limites,
+        parrafos: [
+          "Los dos grupos de tres cifras indican entre qué alturas se encuentra el área a la que aplica el NOTAM.",
+          "El primer grupo corresponde al **límite inferior** y el segundo al **límite superior**.",
+          "En nuestro ejemplo:",
+        ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/linea-q-limites.webp",
+        alt: "Diagrama de los límites verticales de un NOTAM. Una franja roja sobre una pista se extiende desde SFC, marcado como 000, hasta 100 ft, marcado como 001, y se rotula como el área a la que aplica el NOTAM. Al lado, una tabla de referencias: 000 es SFC o superficie, 001 son 100 pies, 010 son 1.000 pies y 100 son 10.000 pies.",
+        ancho: 1226,
+        alto: 1283,
+        anchoMax: 520,
+      },
+      {
+        kind: "apartado",
+        color: LINEA_Q_COLOR.limites,
+        parrafos: [
+          "Por lo tanto, `000/001` indica que el NOTAM aplica desde la superficie hasta 100 ft.",
+        ],
+      },
       {
         kind: "check",
         question:
