@@ -256,6 +256,8 @@ export type LessonBlock =
       items: string[]
       numerada?: boolean
       orientacion?: "vertical" | "horizontal"
+      /** Centra la cadena horizontal. Para cuando encabeza algo centrado. */
+      centrada?: boolean
       nota?: string
     }
   /** Puente visual entre dos ejemplos: el país cambia, el método no. */
@@ -2636,15 +2638,15 @@ export const LESSON_SCREENS: DocScreen[] = [
       {
         kind: "secuencia",
         orientacion: "horizontal",
+        centrada: true,
         items: ["Estructura", "Lectura", "Interpretación"],
       },
       {
-        kind: "hueco",
-        rotulo: "ILUSTRACIÓN · 1200×420",
-        descripcion:
-          "El paso de estructura a lectura y de lectura a interpretación, con el lenguaje visual de Aviatory. Pásala a WebP con scripts/optimizar-imagenes.mjs, guárdala como public/modulos/notam/leccion-08-interpretacion.webp y cámbiala por un bloque figura.",
-        alto: 210,
-        anchoMax: 640,
+        kind: "figura",
+        src: "/modulos/notam/leccion-08-interpretacion.webp",
+        alt: "Los tres pasos de la sección, sobre el NOTAM de Barranquilla. Estructura: la ficha completa con sus casillas Q) a G) marcadas una a una, para conocer cada componente. Lectura: una lupa aumenta el mensaje y aísla la casilla A) SKBQ, para analizar la información. Interpretación: cuatro respuestas, dónde aplica, SKBQ; cuándo aplica, del 3 de septiembre de 2026 al 1 de diciembre de 2026 estimado; qué está ocurriendo, ALSF CAT I RWY 05 U/S; y qué significa para la operación, aproximación con capacidad limitada.",
+        ancho: 1400,
+        alto: 490,
       },
 
       {

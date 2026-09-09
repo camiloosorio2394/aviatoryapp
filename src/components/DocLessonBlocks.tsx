@@ -536,6 +536,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "secuencia":
       return (
         <Secuencia
+          centrada={block.centrada}
           titulo={block.titulo}
           intro={block.intro}
           items={block.items}
@@ -1402,6 +1403,7 @@ function Secuencia({
   items,
   numerada,
   orientacion = "vertical",
+  centrada,
   nota,
 }: {
   titulo?: string
@@ -1409,13 +1411,18 @@ function Secuencia({
   items: string[]
   numerada?: boolean
   orientacion?: "vertical" | "horizontal"
+  centrada?: boolean
   nota?: string
 }) {
   const conCaja = Boolean(titulo)
   const horizontal = orientacion === "horizontal"
 
   const cadena = horizontal ? (
-    <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+    <div
+      className={`flex flex-wrap items-center gap-x-2 gap-y-2${
+        centrada ? " justify-center" : ""
+      }`}
+    >
       {/* La flecha viaja pegada a su ficha: suelta, al saltar de linea deja
           un signo colgando al final de la anterior. */}
       {items.map((it, i) => (
