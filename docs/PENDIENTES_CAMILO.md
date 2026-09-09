@@ -739,3 +739,62 @@ De la interactividad del punto 3.3 entran dos de las tres:
 exige que la figura sea una descripción, y los dieciocho ejercicios espaciales
 siguen siendo recortes: sobre un pixel no hay nada que alternar. Sale gratis en
 cuanto se dibujen, y no antes.
+
+## 10 · Verificación de las respuestas (9 de septiembre de 2026)
+
+Camilo preguntó si las respuestas son las que son, porque en NOTAM salió un 70 %
+con información errónea. Se revisaron las 238 contra los cuadernillos, sin
+fiarse de lo que decía `FUENTES.md`. **Apareció un fallo, y era de los que no se
+ven mirando la respuesta: la pregunta estaba mal.**
+
+### 10.1 · Once ejercicios preguntaban otra cosa
+
+El documento de series numéricas tiene diez bloques y **no todos piden lo
+mismo**: seis dicen «completa la serie», dos dicen «señala el número erróneo» y
+uno pide «los dos números que siguen». El generador los cargaba todos como
+«Complete la serie».
+
+Resultado: once ejercicios con la pregunta cambiada. El más claro, el 7.1: serie
+«2, 4, 6, 7, 8, 10, 12», y el banco respondía **7**. Como continuación no tiene
+sentido —el 7 ya está en la serie—; es la respuesta a «cuál sobra».
+
+Encima, el cuadernillo **mezcla los dos tipos dentro del mismo bloque**: bajo el
+encabezado de «número erróneo» hay series limpias cuya solución impresa es la
+continuación. Así que el tipo se decide ahora **por ítem y con evidencia**: si la
+respuesta impresa es uno de los términos de la serie, es el intruso; si no
+aparece, es la continuación. Los once entran como «Señala el número que sobra»,
+con las alternativas sacadas de la propia serie.
+
+### 10.2 · Cómo queda comprobado el banco
+
+| Origen | Cuántos | Contra qué |
+|---|---|---|
+| A1 abstracto | 20 | La lámina SOLUCIONES de su PDF. Coinciden los 20 |
+| E1 espacial | 14 | La clave del final de su PDF. Coinciden los 14 |
+| E2 espacial | 4 | La opción resaltada en las páginas 10–13. Coinciden las 4 |
+| N1 numérico | 38 | Recalculadas desde el enunciado. Cuadran las 38 |
+| N2 series | 162 | Resueltas de cero, sin mirar la respuesta: **129 coinciden, 0 discrepan** |
+
+**205 de 238 comprobadas por una vía independiente de quien las cargó.** Las 33
+restantes son 2 series ambiguas en el propio original y 31 con reglas fuera de
+la familia del solucionador; se miraron a mano por muestreo y salieron bien,
+pero eso no es estar comprobadas y por eso se cuentan aparte.
+
+### 10.3 · Dos verificadores nuevos, y una regla
+
+- `verificar-claves.mjs` lee la clave impresa de los dos PDF que la traen y la
+  compara con el banco.
+- `verificar-series.mjs` resuelve las 162 series **sin mirar la respuesta**,
+  buscando la regla entre una familia cerrada; y a las de «número que sobra» las
+  comprueba al revés, quitando cada término y viendo cuál deja una serie limpia.
+
+Los dos siguen la regla de la casa: **cero comprobaciones no es un aprobado**.
+Si falta el PDF, o no aparece su clave, salen con error en vez de dar por bueno
+lo que no miraron.
+
+### 10.4 · Lo que sigue sin poder comprobarse solo
+
+Las dos series ambiguas son `NU-N2-08-04` (quitando el 58 o el 43 la serie queda
+limpia) y `NU-N2-08-13` (quitando el 1, el 13 o el 15). No están mal: están mal
+planteadas **en el original**. Se quedan con la respuesta del cuadernillo, pero
+si quieres afinar el banco son las dos primeras candidatas a salir.
