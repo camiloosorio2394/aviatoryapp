@@ -94,7 +94,21 @@ export type LessonBlock =
    * apartados y este marca partes. Dos escalones bastan; un tercero ya no se
    * distingue al leer.
    */
-  | { kind: "titulo"; text: string; sub?: string }
+  | { kind: "titulo"; text: string; sub?: string; n?: string }
+  /**
+   * En qué punto del vuelo estamos: salida, ruta o destino.
+   *
+   * Es el hilo de la parte de planificación. Cinco NOTAM seguidos se
+   * confunden entre sí, y este carril dice a cuál de las tres etapas
+   * pertenece el que viene ahora. El avión llega a la parada al entrar en
+   * pantalla, que es lo que convierte una lista en un vuelo.
+   */
+  | {
+      kind: "etapaRuta"
+      etapa: "salida" | "ruta" | "destino" | "aproximacion"
+      de: string
+      a: string
+    }
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
   /**
@@ -1938,16 +1952,16 @@ export const LESSON_SCREENS: DocScreen[] = [
       { kind: "sub", text: "Vuelo Barranquilla → Nueva York" },
       {
         kind: "figura",
-        src: "/modulos/notam/planificacion-skbq-kjfk.webp",
-        alt: "Ejemplo de planificación del vuelo SKBQ Barranquilla a KJFK Nueva York. Un mapa traza la ruta atlántica entre los dos aeropuertos. Debajo, tres tarjetas encadenadas: NOTAM de salida, aeropuerto de origen, SKBQ Barranquilla, revisa NOTAM del aeropuerto de salida y sus instalaciones; NOTAM en ruta, espacio aéreo y FIR, revisa NOTAM en la ruta prevista, FIR y áreas adyacentes; y NOTAM de destino, aeropuerto de llegada, KJFK Nueva York, revisa NOTAM del aeropuerto de destino y sus instalaciones.",
+        src: "/modulos/notam/planificacion-skbq-klga.webp",
+        alt: "Ejemplo de planificación del vuelo SKBQ Barranquilla, Colombia, a KLGA Nueva York–LaGuardia, Estados Unidos. Un mapa satelital traza la ruta real a través del Caribe y el océano Atlántico, con las coordenadas de los dos aeropuertos. A la izquierda, cuatro etapas encadenadas: salida en SKBQ, en ruta sobre el Atlántico, destino KLGA y aproximación a KLGA. El objetivo indicado es revisar los NOTAM relevantes para el aeropuerto de salida, la ruta y el aeropuerto de destino como parte de la planificación del vuelo.",
         ancho: 1400,
-        alto: 525,
+        alto: 700,
       },
       {
         kind: "apartado",
         color: ITEM_COLOR,
         parrafos: [
-          "Tienes programado un vuelo desde Barranquilla (`SKBQ`) hacia Nueva York (`KJFK`).",
+          "Tienes programado un vuelo desde Barranquilla (`SKBQ`) hacia Nueva York–LaGuardia (`KLGA`).",
           "Antes de iniciar la planificación operacional revisas, entre otra información, los NOTAM vigentes para los aeropuertos involucrados y para la ruta prevista.",
           "Encuentras varios NOTAM.",
           "La pregunta no es simplemente “¿qué dicen?”, sino:",
@@ -1956,6 +1970,201 @@ export const LESSON_SCREENS: DocScreen[] = [
       {
         kind: "definicion",
         text: "¿Cuáles son relevantes para mi vuelo y qué información operacional debo tener en cuenta?",
+      },
+
+      // ── 01 · Salida ──────────────────────────────────────────────────────
+      { kind: "etapaRuta", etapa: "salida", de: "SKBQ", a: "KLGA" },
+      {
+        kind: "titulo",
+        n: "01",
+        text: "NOTAM del aeropuerto de salida",
+        sub: "SKBQ · Barranquilla",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/notam-skbq-alsf.webp",
+        alt: "Visor de NOTAM del aeropuerto Ernesto Cortissoz. Facility SKBQ, NOTAM A2611/26, clase International, estado Active. Emitido el 03/09/2026 a las 1454 UTC, con inicio el 03/09/2026 a las 1452 y fin el 01/12/2026 a las 2359EST. En la pestaña ICAO, el mensaje completo: A2611/26 NOTAMR A1636/26, Q) SKEC/QLAAS/IV/NBO/A/000/999/1053N07447W005, A) SKBQ, B) 2609031452 C) 2612012359EST, E) ALSF CAT I RWY 05 U/S.",
+        ancho: 1400,
+        alto: 352,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Cómo lo lee un piloto?",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Este NOTAM corresponde a `SKBQ`, Barranquilla. Se trata de un **NOTAMR**, es decir, reemplaza un NOTAM anterior.",
+          "En B) aparece `2609031452`, correspondiente al 3 de septiembre de 2026 a las 14:52 UTC. En C) aparece `2612012359EST`, por lo que la finalización está estimada para el 1 de diciembre de 2026 a las 23:59 UTC.",
+          "La información operacional está en E):",
+        ],
+      },
+      { kind: "code", grande: true, text: "ALSF CAT I RWY 05 U/S" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Esto indica que el sistema **ALSF CAT I** de la pista 05 está **fuera de servicio**.",
+          "Como nuestro vuelo parte de `SKBQ`, esta información debe ser considerada durante la planificación de la salida. El piloto debe revisar cómo esta condición se relaciona con la pista prevista, los procedimientos aplicables y las demás condiciones de la operación.",
+        ],
+      },
+      {
+        kind: "secuencia",
+        orientacion: "horizontal",
+        items: ["SKBQ", "salida", "revisar efecto operacional"],
+      },
+
+      // ── 02 · Otro NOTAM de la salida ─────────────────────────────────────
+      {
+        kind: "titulo",
+        n: "02",
+        text: "Otro NOTAM en el aeropuerto de salida",
+        sub: "Una segunda información puede cambiar la operación en tierra",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/notam-skbq-twy-i.webp",
+        alt: "Visor de NOTAM del aeropuerto Ernesto Cortissoz. Facility SKBQ, NOTAM C2117/09, clase International, estado Active. Emitido el 31/05/2009 a las 0024 UTC, con inicio el 31/05/2009 a las 0022 y fin PERM. En la pestaña ICAO, el mensaje completo: C2117/09 NOTAMN, Q) SKEC/QMXXX///A/000/999/, A) SKBQ B) 0905310022 C) PERM, D) H24, E) TWY I OPR UNICAMENTE AVIACION MIL.",
+        ancho: 1400,
+        alto: 365,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Cómo lo lee un piloto?",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Este NOTAM también corresponde a `SKBQ` y tiene carácter **permanente**, ya que C) indica `PERM`.",
+          "El ítem D) indica `H24`, por lo que la condición aplica **durante todo el día**.",
+          "En E) encontramos:",
+        ],
+      },
+      { kind: "code", grande: true, text: "TWY I OPR UNICAMENTE AVIACION MIL" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "La calle de rodaje I opera únicamente para aviación militar.",
+          "Para una operación de aviación civil, esta información debe tenerse en cuenta al planificar el movimiento en tierra en `SKBQ`. La disponibilidad de una calle de rodaje **no se determina solamente mirando la carta**: también debemos considerar las restricciones temporales o permanentes publicadas mediante NOTAM.",
+        ],
+      },
+
+      // ── 03 · En ruta ─────────────────────────────────────────────────────
+      { kind: "etapaRuta", etapa: "ruta", de: "SKBQ", a: "KLGA" },
+      {
+        kind: "titulo",
+        n: "03",
+        text: "NOTAM en ruta",
+        sub: "No todo NOTAM que aparece durante la planificación afecta necesariamente al vuelo",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/notam-skec-uas.webp",
+        alt: "Visor de NOTAM de Barranquilla ACC UIR FIR. Facility SKEC, NOTAM A1779/26, clase International, estado Active. Emitido el 23/06/2026 a las 1433 UTC, con inicio el 26/06/2026 a las 0000 y fin el 22/09/2026 a las 2359. En la pestaña ICAO, el mensaje completo: A1779/26 NOTAMN, Q) SKEC/QWULW/IV/BO/W/000/120/0951N07324W005, A) SKEC, B) 2606260000 C) 2609222359, E) UAS WILL TAKE PLACE NXT COORD, seguido de cuatro pares de coordenadas que delimitan el área, F) GND G) 1200FT AMSL.",
+        ancho: 1400,
+        alto: 397,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Cómo lo lee un piloto?",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Ahora salimos del aeropuerto de origen y revisamos la información asociada a la ruta.",
+          "Este NOTAM informa sobre una actividad **UAS** dentro de un área definida mediante coordenadas y con límites verticales determinados.",
+          "En este caso, la información no se interpreta simplemente porque el NOTAM pertenezca a la FIR que estamos atravesando. Debemos comparar **el área publicada, el horario de la actividad y los límites verticales** con nuestra ruta y el nivel previsto.",
+          "Si nuestra trayectoria no entra en el área afectada durante el período de actividad, el NOTAM puede no tener un efecto directo sobre nuestro vuelo. Si existe coincidencia, debemos analizar la condición y las medidas operacionales aplicables.",
+        ],
+      },
+      {
+        kind: "definicion",
+        text: "Estar dentro de una FIR no significa que todos sus NOTAM afecten automáticamente tu vuelo.",
+      },
+
+      // ── 04 · Destino ─────────────────────────────────────────────────────
+      { kind: "etapaRuta", etapa: "destino", de: "SKBQ", a: "KLGA" },
+      {
+        kind: "titulo",
+        n: "04",
+        text: "NOTAM del aeropuerto de destino",
+        sub: "KLGA · Nueva York–LaGuardia",
+      },
+      { kind: "p", text: "Ahora llegamos al destino." },
+      {
+        kind: "figura",
+        src: "/modulos/notam/notam-klga-twy-ac.webp",
+        alt: "Visor de NOTAM del aeropuerto de LaGuardia. Facility LGA, NOTAM 08/446 con referencia KLGA-A6262/26, clase Aerodrome, estado Active. Emitido el 23/08/2026 a las 0855 UTC, con inicio el 23/08/2026 a las 0855 y fin el 31/12/2026 a las 1200. En la pestaña ICAO, el mensaje completo: 08/446 NOTAMR, Q) KZNY/QMXLC/IV/M/A/000/999/4046N07352W005, A) KLGA, B) 2608230855, C) 2612311200, E) TWY AC CLSD.",
+        ancho: 1400,
+        alto: 460,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Cómo lo lee un piloto?",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Este NOTAM corresponde a `KLGA`, LaGuardia.",
+          "B) indica `2608230855`, mientras que C) indica `2612311200`. Por lo tanto, la condición está publicada desde el 23 de agosto de 2026 y tiene como finalización el 31 de diciembre de 2026 a las 12:00 UTC.",
+          "En E) encontramos:",
+        ],
+      },
+      { kind: "code", grande: true, text: "TWY AC CLSD" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "La calle de rodaje AC está cerrada.",
+          "Como `KLGA` es nuestro aeropuerto de destino, esta información es **directamente relevante** para la planificación de la llegada y del movimiento en tierra después del aterrizaje.",
+          "El piloto deberá considerar la disponibilidad de las calles de rodaje y consultar la información operacional vigente del aeródromo durante la planificación.",
+        ],
+      },
+
+      // ── 05 · Aproximación ────────────────────────────────────────────────
+      { kind: "etapaRuta", etapa: "aproximacion", de: "SKBQ", a: "KLGA" },
+      {
+        kind: "titulo",
+        n: "05",
+        text: "NOTAM de la aproximación",
+        sub: "KLGA · Procedimiento de llegada",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/notam/notam-klga-ils-13.webp",
+        alt: "Visor de NOTAM del aeropuerto de LaGuardia. Facility LGA, NOTAM 6/2418 con referencia KLGA-A1909/26, clase Procedure, estado Active. Emitido el 23/03/2026 a las 1332 UTC, con inicio el 23/03/2026 a las 1332 y fin el 23/03/2028 a las 1331EST. En la pestaña ICAO: Q) KZNY/QPIXX/I/NBO/A/000/999/4046N07352W005, A) KLGA, B) 2603231332, C) 2803231331EST, E) LGA LAGUARDIA, NEW YORK, NY. ILS OR LOC RWY 13, AMDT 2C, con los mínimos modificados del procedimiento: S-LOC 13 MDA 880/HAT 868 para todas las categorías, visibilidad CAT C/D 2, circling MDA 880/HAA 859 CAT A/B, VDP en I-GDI 2.86 DME, distancia del VDP al umbral 2.46 NM, mínimos del fix COROR no aplicables, y para ALS inoperativo aumentar la visibilidad de S-LOC 13 CATS C/D a 2 1/2 SM.",
+        ancho: 1400,
+        alto: 435,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Cómo lo lee un piloto?",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Este NOTAM también corresponde a LaGuardia (`KLGA`), pero ahora la información está relacionada con un **procedimiento de aproximación por instrumentos**.",
+          "El texto de E) hace referencia al procedimiento `ILS OR LOC RWY 13` y contiene información modificada sobre los mínimos y otros elementos del procedimiento.",
+          "Si nuestra llegada está prevista para utilizar la pista 13, esta información debe ser revisada antes de la operación. El piloto debe consultar el procedimiento vigente y **verificar los mínimos aplicables** antes de utilizarlo.",
+        ],
+      },
+      {
+        kind: "definicion",
+        text: "No todos los NOTAM afectan una pista físicamente. Algunos modifican o informan condiciones relacionadas con procedimientos, ayudas a la navegación o información necesaria para ejecutar una operación.",
+      },
+
+      // ── 06 · Todo junto ──────────────────────────────────────────────────
+      { kind: "titulo", n: "06", text: "Ahora junta toda la información" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Hemos revisado NOTAM del aeropuerto de salida, información asociada a la ruta y NOTAM del aeropuerto de destino.",
+          "Ahora podemos hacer lo que realmente interesa durante una planificación: **relacionar la información publicada con nuestro vuelo**.",
+        ],
+      },
+      { kind: "sub", text: "SKBQ → KLGA" },
+      {
+        kind: "table",
+        head: ["Etapa", "Información encontrada", "¿Qué debemos analizar?"],
+        rows: [
+          ["Salida", "`ALSF CAT I RWY 05 U/S`", "Efecto sobre la operación en SKBQ"],
+          ["Salida", "TWY I limitada a aviación militar", "Movimiento en tierra"],
+          ["Ruta", "Actividad UAS", "Área, horario, ruta y nivel"],
+          ["Destino", "`TWY AC CLSD`", "Rodaje y operación en KLGA"],
+          ["Aproximación", "`ILS/LOC RWY 13`", "Procedimiento y mínimos aplicables"],
+        ],
       },
     ],
   },

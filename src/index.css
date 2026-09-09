@@ -987,6 +987,60 @@
 }
 .lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
 
+/* Aparición suave. Lo que entra a mitad de scroll sube diez píxeles en vez
+   de plantarse de golpe: en una lección larga, un bloque que aparece sin
+   más se lee como un salto de maquetación. La clase la enciende el
+   componente cuando el bloque entra en pantalla, y una sola vez. */
+.lector-notam .ln-aparece {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 520ms ease-out,
+    transform 520ms cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+.lector-notam .ln-aparece.ln-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* El carril de etapas del vuelo. La línea se traza hasta la parada de esta
+   etapa y el avión llega a posarse en ella, un poco después, para que se lea
+   como una llegada y no como dos cosas moviéndose a la vez. */
+.lector-notam .ln-carril {
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 900ms cubic-bezier(0.22, 0.8, 0.24, 1) 120ms;
+}
+.lector-notam .ln-visible .ln-carril {
+  transform: scaleX(1);
+}
+.lector-notam .ln-avion {
+  opacity: 0;
+  transform: translateX(-26px);
+  transition:
+    opacity 520ms ease-out 240ms,
+    transform 860ms cubic-bezier(0.22, 0.8, 0.24, 1) 240ms;
+}
+.lector-notam .ln-visible .ln-avion {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Sin movimiento, todo esto llega ya puesto: el bloque, el carril entero y
+     el avión en su parada. */
+  .lector-notam .ln-aparece,
+  .lector-notam .ln-avion {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .lector-notam .ln-carril {
+    transform: scaleX(1);
+    transition: none;
+  }
+}
+
 /* El rotulador del NOTAM real. Al llegar el panel a la vista, una banda
    recorre el mensaje línea a línea, de izquierda a derecha, con el retardo
    escalonado que pone el componente. Sobre las líneas de apoyo pasa y se va;

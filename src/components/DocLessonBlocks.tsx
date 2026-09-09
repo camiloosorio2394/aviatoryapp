@@ -152,6 +152,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
         // <div>, no en <p>: la prosa del lector se justifica, y una línea
         // suelta justificada abre huecos entre palabras.
         <div className="mt-3 border-b doc-rule pb-4">
+          {block.n && <div className="ln-epigrafe mb-2">{block.n}</div>}
           <h2
             className="ln-display m-0 text-[28px] font-semibold lg:text-[34px]"
             style={{ lineHeight: 1.12, letterSpacing: "-0.012em", color: "var(--doc-fg)" }}
@@ -426,6 +427,9 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           ))}
         </dl>
       )
+
+    case "etapaRuta":
+      return <EtapaRuta etapa={block.etapa} de={block.de} a={block.a} />
 
     case "breakdown":
       return block.columnas ? (
@@ -1490,6 +1494,105 @@ function Transicion({ de, a, nota }: { de: string; a: string; nota?: string }) {
   )
 }
 
+/**
+ * El carril de etapas del vuelo: salida, ruta y destino.
+ *
+ * Las tres paradas caen en el centro de tres columnas iguales, y el carril,
+ * el avion y los puntos se posicionan en esos mismos tercios. Asi el rotulo
+ * de los extremos no se sale de la caja, que es lo que pasaria centrando
+ * cada rotulo sobre un punto en el 0 y en el 100 por ciento.
+ */
+function EtapaRuta({
+  etapa,
+  de,
+  a,
+}: {
+  etapa: "salida" | "ruta" | "destino" | "aproximacion"
+  de: string
+  a: string
+}) {
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.45 })
+
+  const paradas = [
+    { clave: "salida", rotulo: "Salida", codigo: de },
+    { clave: "ruta", rotulo: "En ruta", codigo: "FIR" },
+    { clave: "destino", rotulo: "Destino", codigo: a },
+    { clave: "aproximacion", rotulo: "Aproximación", codigo: a },
+  ]
+  const indice = paradas.findIndex((p) => p.clave === etapa)
+  // El centro de cada columna, en tantos por ciento del ancho del carril.
+  const centro = (i: number) => ((i * 2 + 1) / (paradas.length * 2)) * 100
+  const pct = centro(indice)
+
+  return (
+    <div
+      ref={ref}
+      className={`ln-aparece rounded-lg border doc-rule doc-soft px-4 pb-4 pt-7 sm:px-6${inView ? " ln-visible" : ""}`}
+      aria-label={`Etapa del vuelo: ${paradas[indice].rotulo}`}
+    >
+      <div className="relative mx-auto max-w-[520px]">
+        {/* El carril, sus paradas y el avion posado en la de esta etapa */}
+        <div className="relative h-px w-full" style={{ background: docAccent(ACENTO, 16) }}>
+          <div
+            className="absolute bottom-[7px] -translate-x-1/2"
+            style={{ left: `${pct}%` }}
+          >
+            <Plane
+              className="ln-avion h-[17px] w-[17px]"
+              style={{ color: docAccent(ACENTO, 74) }}
+              aria-hidden
+            />
+          </div>
+          <div
+            className="ln-carril absolute inset-y-0 left-0"
+            style={{ width: `${pct}%`, background: docAccent(ACENTO, 52) }}
+            aria-hidden
+          />
+          {paradas.map((p, i) => {
+            const hecha = i <= indice
+            return (
+              <span
+                key={p.clave}
+                className="absolute top-1/2 h-[9px] w-[9px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px]"
+                style={{
+                  left: `${centro(i)}%`,
+                  borderColor: hecha ? docAccent(ACENTO, 62) : docAccent(ACENTO, 24),
+                  background: i === indice ? docAccent(ACENTO, 62) : "var(--doc-bg)",
+                }}
+                aria-hidden
+              />
+            )
+          })}
+        </div>
+
+        {/* Los rotulos, uno por columna. Mismo orden que la infografia:
+            la etapa arriba y el indicador debajo. */}
+        <div
+          className="mt-3 grid"
+          style={{ gridTemplateColumns: `repeat(${paradas.length}, minmax(0, 1fr))` }}
+        >
+          {paradas.map((p, i) => (
+            <div key={p.clave} className="min-w-0 px-1 text-center">
+              <div
+                className="text-[10px] font-semibold uppercase leading-tight tracking-[0.1em] sm:text-[10.5px]"
+                style={{ color: i === indice ? docAccent(ACENTO, 74) : "var(--doc-muted-fg)" }}
+              >
+                {p.rotulo}
+              </div>
+              <div
+                className="mono mt-1 text-[12px] font-semibold"
+                style={{ color: i === indice ? docAccent(ACENTO, 60) : "var(--doc-muted-fg)" }}
+              >
+                {p.codigo}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 interface CadenaItem {
   token: string
   rotulo: string
@@ -1993,9 +2096,14 @@ function Figura({
   pie?: string
   anchoMax?: number
 }) {
+  // Una imagen que aparece de golpe a mitad de scroll da un salto. Entra
+  // subiendo diez pixeles, una sola vez, y con reduced-motion no se mueve.
+  const { ref, inView } = useInView<HTMLElement>({ threshold: 0.12 })
+
   return (
     <figure
-      className={anchoMax ? "m-0 w-full mx-auto" : "m-0 w-full"}
+      ref={ref}
+      className={`ln-aparece ${anchoMax ? "m-0 w-full mx-auto" : "m-0 w-full"}${inView ? " ln-visible" : ""}`}
       style={anchoMax ? { maxWidth: anchoMax } : undefined}
     >
       <img
