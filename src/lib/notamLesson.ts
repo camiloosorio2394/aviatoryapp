@@ -1232,6 +1232,29 @@ export const LESSON_SCREENS: DocScreen[] = [
         title: "Para el piloto",
         text: "El código NOTAM te da una idea inicial de qué trata la información, pero siempre debes leer el resto de la línea Q y el texto completo del NOTAM para entender su alcance, ubicación y período de validez. No necesitas saberte todos los códigos de memoria: lo que sí necesitas es saber dónde buscarlos y cómo se construyen. Con la regla **Q + asunto + condición** puedes descifrar cualquiera que encuentres.",
       },
+      // ── ③ IV ─────────────────────────────────────────────────────────────
+      {
+        kind: "componente",
+        n: 3,
+        token: "IV",
+        nombre: "Tránsito",
+        color: LINEA_Q_COLOR.transito,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿A qué tipo de tránsito está asociada la información?",
+        parrafos: [
+          "El tercer componente de la línea Q indica a qué tipo de tránsito aéreo está asociada la información del NOTAM. Este campo permite identificar si el aviso está relacionado con operaciones IFR, VFR o con ambos tipos de tránsito.",
+          "`I` corresponde a IFR, `V` corresponde a VFR y `IV` corresponde tanto a IFR como VFR.",
+          "En nuestro ejemplo, el tercer componente es `IV`, por lo que la información del NOTAM está asociada tanto a operaciones IFR como VFR.",
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "tip",
+        title: "Para el piloto",
+        text: "Este código no determina por sí solo si el NOTAM afecta tu vuelo. Solo indica el tipo de tránsito al que está asociada la información. Para determinar su impacto operacional debes continuar con la interpretación de los demás componentes de la línea Q y del texto completo del NOTAM.",
+      },
       {
         kind: "check",
         question:
