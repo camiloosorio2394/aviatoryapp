@@ -26,6 +26,18 @@ import type { NotamLevel } from "@/lib/notam"
 import type { DocScreen } from "@/lib/docBlocks"
 import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 
+/**
+ * El color de las casillas A) a G).
+ *
+ * Todas comparten el azul aeronáutico menos la E), en ámbar: es la única que
+ * dice lo que está pasando de verdad, y el color la separa del resto de una
+ * ojeada. Reusar aquí los siete colores de la línea Q habría hecho creer que
+ * la casilla A) y el campo FIR son lo mismo, que es justo lo que la lección
+ * quiere que no se confunda.
+ */
+const ITEM_COLOR = LINEA_Q_COLOR.codigo
+const ITEM_E_COLOR = LINEA_Q_COLOR.objetivo
+
 
 /** Los iconos que puede llevar una ficha del bloque `tarjetas`. */
 export type TarjetaIcono = "documento" | "movil" | "avion"
@@ -167,8 +179,9 @@ export type LessonBlock =
    */
   | {
       kind: "componente"
-      n: number
-      token: string
+      /** Número de pieza de la línea Q, o letra de casilla: 1, 2… o "A", "B"… */
+      n: number | string
+      token?: string
       nombre: string
       detalle?: string
       color?: string
@@ -1599,180 +1612,292 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 6,
     title: "Los ítems A) a G), uno por uno",
     kicker: "Dónde, cuándo, qué y entre qué niveles",
-    minutes: 6,
+    minutes: 8,
     level: "intermedio",
+    // Todas las casillas comparten el azul aeronáutico menos la E), que va en
+    // ámbar: es la única que dice lo que está pasando de verdad, y el color la
+    // separa del resto de una ojeada. Reusar aquí los siete colores de la
+    // línea Q habría hecho creer que la casilla A) y el campo FIR son lo
+    // mismo, que es justo lo que la lección quiere que no se confunda.
     blocks: [
       {
-        kind: "p",
-        text: "La línea Q te dice de qué va el NOTAM. Los ítems te dicen **dónde**, **cuándo**, **qué** exactamente y **entre qué niveles**. Cada uno tiene sus trampas.",
-      },
-
-      { kind: "p", text: "**A) Dónde aplica**" },
-      {
-        kind: "list",
-        items: [
-          "Lleva el **indicador de lugar OACI de cuatro letras**: `SKBO` para Bogotá/El Dorado, `SKRG` para Rionegro, `SKCL` para Cali.",
-          "Si el NOTAM es de ruta o de espacio aéreo, aquí va el **indicador de la FIR**: `SKED` es la FIR Bogotá.",
-          "Puede haber **más de un indicador** cuando la condición afecta a varios aeródromos.",
-          "Si el aeródromo no tiene indicador OACI asignado, se usa el genérico de la nación y el nombre va en la casilla E).",
+        kind: "apartado",
+        parrafos: [
+          "Ya aprendiste a leer la línea Q. Ahora vamos a mirar qué información aparece después de ella.",
+          "Para hacerlo, utilizaremos un NOTAM real y lo iremos descomponiendo paso a paso. Los ítems A) a G) permiten identificar **dónde aplica** la información, **cuándo** está asociada, **en qué horarios** se presenta, **qué está ocurriendo** y, cuando corresponde, **entre qué niveles** se encuentra la condición notificada.",
+          "No todas las casillas aparecen necesariamente en todos los NOTAM. En el ejemplo que vamos a analizar aparecen **A)**, **B)**, **C)** y **E)**. Más adelante veremos para qué se utilizan **D)**, **F)** y **G)**.",
         ],
       },
-      { kind: "code", text: "A) SKBO\nA) SKED\nA) SKBO SKRG SKCL" },
-
-      { kind: "p", text: "**B) Desde cuándo**" },
       {
-        kind: "list",
-        items: [
-          "Grupo de **10 dígitos: AAMMDDHHMM**, siempre en **UTC**. `2606031100` es el 3 de junio de 2026 a las 11:00 UTC, o sea las 06:00 en Colombia.",
-          "El inicio del día se escribe `0000`.",
-          "`WIE` (with immediate effect) significa que entra en vigor de inmediato.",
-          "**En NOTAMR y NOTAMC**, B) no es el inicio de la condición: es la fecha y hora en que se creó el mensaje (curso, pág. 27).",
-        ],
-      },
-
-      { kind: "p", text: "**C) Hasta cuándo**" },
-      {
-        kind: "list",
-        items: [
-          "Mismo formato de 10 dígitos en UTC. El fin del día se escribe `2359`.",
-          "`PERM` significa **permanente**: la condición no termina, y en algún momento pasará al AIP.",
-          "`EST` marca que el fin es **estimado**. Un NOTAM con `EST` sigue vigente aunque pase esa fecha, hasta que lo reemplacen o lo cancelen.",
-          "`UFN` (until further notice) es hasta nuevo aviso.",
-          "**El NOTAMC no lleva casilla C)** (curso, pág. 28): cancela, no tiene fin de validez propio.",
-        ],
-      },
-      { kind: "code", text: "B) 2606031100  C) 2608302359\nB) 2606031100  C) 2609150000 EST\nB) 2606031100  C) PERM" },
-      {
-        kind: "p",
-        text: "**Los dos casos, en avisos reales.** Primero uno con **fechas firmes**: empieza y termina cuando dice, sin más.",
-      },
-      {
-        kind: "notam",
-        id: "N1",
-        // Ejemplo de referencia de `casillas`. Los otros tres NOTAM de esta
-        // sección (N8, N4, N24) todavía no lo tienen: se ven, no se decodifican.
-        casillas: [
-          { cas: "A)", contenido: "SKPB", significa: "Uribia, Puerto Bolívar (Portete)" },
-          { cas: "B)", contenido: "2605281100", significa: "Inicio: 28 may 2026, 11:00 UTC" },
-          { cas: "C)", contenido: "2608252359", significa: "Fin: 25 ago 2026, 23:59 UTC" },
+        kind: "notamPanel",
+        rotulo: "NOTAM de ejemplo · Rionegro / José María Córdova (SKRG)",
+        etiqueta: "Torre limitada y visibilidad reducida",
+        lineas: [
+          { texto: "A1956/26 NOTAMR A1635/26", marca: "Identificación" },
+          { texto: "Q) SKED/QSTLT/IV/NBO/A/000/999/0610N07525W010", marca: "Línea Q" },
+          { texto: "A) SKRG", marca: "¿Dónde aplica?" },
+          { texto: "B) 2607091316", marca: "¿Desde cuándo?" },
+          { texto: "C) PERM", marca: "¿Hasta cuándo?" },
           {
-            cas: "D)",
-            contenido: "no aparece",
-            significa:
-              "Que falte es la forma de decir que aplica **de corrido**, sin horario diario",
-          },
-          {
-            cas: "E)",
-            contenido: "AD LTD, AVBL ACFT HASTA CAT B",
-            significa:
-              "Aeródromo limitado: solo disponible para aeronaves hasta categoría B. De CAT C en adelante no pueden operar mientras rija",
+            texto: "E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01\n   DUE TO TREES, EXER CTN REF. SKRG AD 2.23",
+            marca: "¿Qué está ocurriendo?",
+            fuerte: true,
           },
         ],
-        caption:
-          "Del 28 de mayo al 25 de agosto, sin `EST` y sin horario diario. Puerto Bolívar opera limitado a aeronaves hasta categoría B durante todo ese período, de corrido.",
       },
-      { kind: "p", text: "Y ahora uno con **`EST`**, que es donde se cuela el error:" },
       {
-        kind: "notam",
-        id: "N8",
-        caption:
-          "El faro de aeródromo de Riohacha está inutilizable, con fin **estimado** el 30 de agosto. Esa fecha es un cálculo de quien publicó el aviso, no un compromiso: si llega el 31 y no salió un NOTAM que lo reemplace o lo cancele, el faro sigue fuera de servicio.",
+        kind: "p",
+        text: "Antes de analizar cada casilla, observa que la línea Q ya la conocemos. Ahora nuestro objetivo es entender la información que aparece después de ella.",
+      },
+
+      // ── A) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "A", nombre: "Dónde aplica", color: ITEM_COLOR },
+      { kind: "code", text: "A) SKRG" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem A) indica **el lugar** al que se refiere el NOTAM. En este caso aparece `SKRG`, el indicador de lugar OACI que designa al aeropuerto José María Córdova, ubicado en Rionegro, Antioquia.",
+          "El contenido de A) depende del tipo de NOTAM. Puede identificar un aeródromo, una instalación, una ubicación determinada o, según el caso, utilizar un indicador relacionado con una región de información de vuelo. Por ejemplo:",
+        ],
+      },
+      {
+        kind: "kv",
+        items: [
+          {
+            k: "A) SKBO",
+            v: "Indica el aeropuerto El Dorado, ubicado en Bogotá.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "A) SKRG",
+            v: "Indica el aeropuerto José María Córdova, ubicado en Rionegro, Antioquia.",
+            color: ITEM_COLOR,
+          },
+        ],
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "En determinados NOTAM pueden aparecer varios indicadores cuando la información aplica a **más de un lugar**.",
+          "Por lo tanto, la primera pregunta que debemos responder al encontrar A) es sencilla:",
+        ],
+      },
+      { kind: "definicion", text: "¿Dónde aplica la información que estoy leyendo?" },
+
+      // ── B) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "B", nombre: "Desde cuándo", color: ITEM_COLOR },
+      { kind: "code", text: "B) 2607091316" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem B) contiene una **fecha y hora expresadas en UTC**. La información se presenta mediante un grupo de diez cifras, `AAMMDDHHMM`:",
+        ],
+      },
+      {
+        kind: "breakdown",
+        caption: "Es decir, el 09 de julio de 2026 a las 13:16 UTC.",
+        parts: [
+          { token: "26", label: "año", detail: "2026." },
+          { token: "07", label: "mes", detail: "Julio." },
+          { token: "09", label: "día", detail: "Día 9." },
+          { token: "13", label: "hora", detail: "13 UTC." },
+          { token: "16", label: "minutos", detail: "16 minutos." },
+        ],
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "La interpretación de B) depende del tipo de NOTAM. Cuando se trata de un **NOTAMN**, B) corresponde a la fecha y hora a partir de la cual **entra en vigor** la información publicada.",
+          "Sin embargo, nuestro ejemplo es un **NOTAMR**, porque aparece:",
+        ],
+      },
+      { kind: "code", text: "A1956/26 NOTAMR A1635/26" },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "La B) de un NOTAMR no es lo que parece",
+        text: "En un NOTAMR, B) corresponde a la **fecha y hora de origen del nuevo NOTAM**. Es decir, indica cuándo fue originado el NOTAM de reemplazo. Esto es importante porque no debemos interpretar automáticamente B) como el momento en que comienza la condición descrita en E).",
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "También pueden aparecer indicaciones especiales relacionadas con el inicio de la información. Por ejemplo, `WIE`, **With Immediate Effect**, significa con efecto inmediato.",
+        ],
+      },
+
+      // ── C) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "C", nombre: "Hasta cuándo", color: ITEM_COLOR },
+      { kind: "code", text: "C) PERM" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem C) indica **hasta cuándo permanece vigente** la información. En nuestro ejemplo aparece `PERM`, que significa **permanente**.",
+          "Esto indica que la información tiene carácter permanente y que, cuando corresponda, deberá incorporarse a la información aeronáutica permanente.",
+          "Cuando una condición es **temporal**, C) puede contener una fecha y hora de finalización. Estas son las formas que vas a encontrar:",
+        ],
+      },
+      {
+        kind: "kv",
+        items: [
+          {
+            k: "C) 2607312359",
+            v: "El 31 de julio de 2026 a las 23:59 UTC como momento de finalización.",
+            color: ITEM_COLOR,
+          },
+          { k: "C) PERM", v: "Permanente.", color: ITEM_COLOR },
+          {
+            k: "EST",
+            v: "**Estimated**. La fecha o hora de finalización indicada es estimada. La condición puede requerir posteriormente un NOTAM de reemplazo o cancelación para actualizar su estado.",
+            color: ITEM_COLOR,
+          },
+        ],
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "La relación entre B) y C) permite establecer el período temporal asociado a la información, teniendo siempre en cuenta el tipo de NOTAM y las indicaciones adicionales que puedan aparecer.",
+        ],
+      },
+
+      // ── D) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "D", nombre: "En qué horarios", color: ITEM_COLOR },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem D) se utiliza cuando la condición descrita en el NOTAM **no permanece activa de manera continua** durante todo el período indicado entre B) y C). En D) se especifican los días y horarios durante los cuales se presenta la condición. Por ejemplo:",
+        ],
+      },
+      { kind: "code", text: "D) 07-09 BTN 1200-1600" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Indica que la condición se presenta durante los días indicados, entre 12:00 y 16:00 UTC.",
+          "También pueden aparecer diferentes períodos dentro de un mismo NOTAM:",
+        ],
+      },
+      { kind: "code", text: "D) 07 BTN 1200-1600\n   08-09 BTN 1400-1800" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: ["En este caso, los horarios de aplicación cambian según el día."],
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Lo que no está publicado, no se supone",
+        text: "Nuestro NOTAM no contiene un ítem D). Esto significa que **no debemos agregar horarios que no estén publicados**. La información disponible debe interpretarse exactamente como aparece en el NOTAM.",
+      },
+
+      // ── E) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "E", nombre: "Qué está ocurriendo", color: ITEM_E_COLOR },
+      {
+        kind: "apartado",
+        color: ITEM_E_COLOR,
+        parrafos: ["Ahora llegamos al contenido operacional del NOTAM:"],
+      },
+      {
+        kind: "code",
+        grande: true,
+        text: "E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01\n   DUE TO TREES, EXER CTN REF. SKRG AD 2.23",
+      },
+      {
+        kind: "apartado",
+        color: ITEM_E_COLOR,
+        parrafos: [
+          "El ítem E) contiene **el texto que describe la condición**, cambio, restricción, actividad o situación que se está notificando.",
+          "Vamos a interpretarlo por partes:",
+        ],
+      },
+      {
+        kind: "kv",
+        items: [
+          { k: "TWR LTD", v: "El servicio de torre está limitado.", color: ITEM_E_COLOR },
+          {
+            k: "VIS REDUCED BTN TWY A AND THR 01",
+            v: "La visibilidad está reducida entre la calle de rodaje A y el umbral de la pista 01.",
+            color: ITEM_E_COLOR,
+          },
+          { k: "DUE TO TREES", v: "Esta condición se debe a árboles.", color: ITEM_E_COLOR },
+          { k: "EXER CTN", v: "Es una indicación para ejercer precaución.", color: ITEM_E_COLOR },
+          {
+            k: "REF. SKRG AD 2.23",
+            v: "Hace referencia a la información correspondiente del AIP, específicamente a SKRG AD 2.23.",
+            color: ITEM_E_COLOR,
+          },
+        ],
+      },
+      {
+        kind: "apartado",
+        color: ITEM_E_COLOR,
+        parrafos: ["Al unir toda la información, podemos entender el mensaje de manera natural:"],
+      },
+      {
+        kind: "definicion",
+        text: "El servicio de torre está limitado y la visibilidad está reducida entre la calle de rodaje A y el umbral de la pista 01 debido a árboles. Se debe ejercer precaución y consultar la referencia SKRG AD 2.23.",
+      },
+      {
+        kind: "apartado",
+        color: ITEM_E_COLOR,
+        parrafos: [
+          "Aquí es donde el NOTAM deja de ser únicamente una serie de códigos y comienza a convertirse en **información operacional** que debemos comprender.",
+        ],
+      },
+
+      // ── F) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "F", nombre: "Desde qué nivel", color: ITEM_COLOR },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem F) indica el **límite vertical inferior** de la actividad, restricción o condición cuando este dato es aplicable. Puede expresarse mediante diferentes referencias. Por ejemplo:",
+        ],
+      },
+      { kind: "code", text: "F) SFC" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Significa que el límite inferior se encuentra en **la superficie**. El valor indicado en F) debe interpretarse junto con G), cuando ambos están presentes, para establecer el rango vertical de la información.",
+        ],
+      },
+
+      // ── G) ───────────────────────────────────────────────────────────────
+      { kind: "componente", n: "G", nombre: "Hasta qué nivel", color: ITEM_COLOR },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "El ítem G) indica el **límite vertical superior** de la actividad, restricción o condición cuando este dato es aplicable. Por ejemplo:",
+        ],
+      },
+      { kind: "code", text: "G) 1000 FT" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Indica que el límite superior es 1.000 ft. Cuando F) y G) aparecen juntos, permiten establecer entre qué límites verticales se encuentra la condición descrita. Por ejemplo:",
+        ],
+      },
+      { kind: "code", text: "F) SFC\nG) 1000 FT" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: ["Indica que la condición se extiende **desde la superficie hasta 1.000 ft**."],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Error común: EST no es lo mismo que vencido",
-        text: "Ver una fecha `EST` ya pasada no significa que el NOTAM caducó. Significa que quien lo publicó estimó mal cuándo terminaría. Sigue vigente hasta que salga el NOTAMR o el NOTAMC.",
-      },
-
-      { kind: "p", text: "**D) A qué horas, dentro de ese período**" },
-      {
-        kind: "list",
-        items: [
-          "Solo aparece cuando la condición **no es continua** entre B) y C).",
-          "Ejemplo típico: la pista está cerrada del 3 de junio al 30 de agosto, pero solo entre las 05:00 y las 10:00 de cada día (curso, pág. 29).",
-          "Puede traer días de la semana, meses o referencias al sol: `SR` es salida del sol y `SS` es puesta del sol.",
-          "Si el texto de D) es muy largo, el Anexo 15 recomienda publicar varios NOTAM consecutivos en vez de uno solo.",
-        ],
-      },
-      { kind: "code", text: "D) 0500-1000\nD) MON-FRI 1200-1400\nD) DLY SR-SS" },
-      {
-        kind: "p",
-        text: "**Ese es exactamente el caso de El Dorado.** Mira dónde está el horario diario en un NOTAM real:",
-      },
-      {
-        kind: "notam",
-        id: "N4",
-        caption:
-          "Las dos primeras fechas son B) y C): del 16 al 31 de julio. El `0500-1000` que va detrás es la casilla D): la pista 14R/32L solo está cerrada entre las 05:00 y las 10:00 UTC, o sea de medianoche a 5 de la mañana en Colombia. El resto del día opera normal.",
-      },
-      {
-        kind: "check",
-        question:
-          "Un NOTAM dice `B) 2607160500  C) 2607311000  0500-1000`. Llegas a El Dorado el 20 de julio a las 14:00 UTC. ¿Te afecta el cierre?",
-        options: [
-          "Sí: el 20 de julio está dentro del período B) a C)",
-          "No: el cierre es solo de 05:00 a 10:00 UTC, y llegas a las 14:00",
-          "No: el NOTAM ya expiró el 16 de julio",
-        ],
-        answer: 1,
-        explain:
-          "El bloque `0500-1000` es la casilla D), el horario diario. El período dice qué días y la casilla D) dice a qué horas dentro de esos días. A las 14:00 UTC la pista opera normal.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Error común: leer solo B) y C)",
-        text: "Sin la casilla D), ese NOTAM parece decir que El Dorado tiene una pista menos durante quince días seguidos. Con ella, son cinco horas de madrugada. Es la diferencia entre replanear el vuelo y no tocarlo.",
-      },
-
-      { kind: "p", text: "**E) Qué pasa exactamente**" },
-      {
-        kind: "list",
-        items: [
-          "Texto en **lenguaje claro con abreviaturas OACI**. Es la casilla que de verdad te dice qué está pasando.",
-          "Debe ser **coherente con el código Q**: si el código dice `QMRLC` (pista cerrada), E) tiene que hablar de una pista cerrada. Si no coinciden, sospecha del NOTAM y confirma.",
-          "Tiene su propia sección más adelante en este documento, con las abreviaturas.",
-        ],
-      },
-
-      { kind: "p", text: "**F) y G) Entre qué niveles**" },
-      {
-        kind: "list",
-        items: [
-          "Solo aparecen en **restricciones y avisos de espacio aéreo**: zonas de tiro, actividad de drones, globos, fuegos artificiales, ejercicios militares.",
-          "**F)** es el límite **inferior** y **G)** el **superior**.",
-          "`GND` es el nivel del terreno y `SFC` la superficie. `UNL` es ilimitado (curso, pág. 31).",
-          "También se escriben como altitud (`3000FT AMSL`) o como nivel de vuelo (`FL180`).",
-          "Deben **coincidir con los límites de la línea Q**: si Q) dice `000/060` y F)/G) dicen otra cosa, hay un error en el mensaje.",
-        ],
-      },
-      { kind: "code", text: "F) GND        G) 2000FT AMSL\nF) SFC        G) UNL\nF) FL100      G) FL180" },
-      {
-        kind: "p",
-        text: "**En el resumen colombiano los límites viajan dentro del texto.** Este aviso de la FIR Bogotá los trae escritos de corrido:",
-      },
-      {
-        kind: "notam",
-        id: "N24",
-        caption:
-          "`FM GND TIL 10000FT AMSL` es exactamente F) y G): desde el terreno hasta 10 000 ft sobre el nivel del mar. Por encima de esa altura el aviso no te aplica. Y ojo con lo que dice: el área de control de Cali no se cierra, se queda **sin cobertura radar** en 30 NM alrededor del VOR TCO, así que la separación pasa a ser convencional.",
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Tip operacional: el orden de lectura no es el orden del papel",
-        text: "En el aire lo natural es leer A) para saber si te toca, después B), C) y D) para saber si te toca hoy, y solo entonces E). El código Q lo confirmas al final, para verificar que lo que entendiste es lo que el mensaje dice.",
-      },
-      {
-        kind: "summary",
-        items: [
-          "**A)** dónde: indicador OACI de aeródromo o de FIR, y pueden ir varios.",
-          "**B)** y **C)** cuándo: diez dígitos `AAMMDDHHMM` en UTC. `PERM`, `EST` y `UFN` cambian cómo termina.",
-          "**D)** a qué horas dentro de ese período. Si está, el NOTAM no aplica todo el día.",
-          "**E)** qué pasa, en lenguaje claro. Tiene que ser coherente con el código Q.",
-          "**F)** y **G)** entre qué niveles, solo cuando hay espacio aéreo de por medio.",
-        ],
+        title: "No confundas F) y G) con los límites de la línea Q",
+        text: "En la línea Q, esos valores forman parte de la clasificación codificada del NOTAM. Los ítems F) y G), cuando aparecen, proporcionan los límites verticales de la actividad o condición descrita.",
       },
     ],
   },
