@@ -536,15 +536,17 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           >
             {block.n}
           </span>
-          <span
-            className="ln-display text-[26px] font-semibold lg:text-[30px]"
+          <h2
+            className="ln-display m-0 text-[26px] font-semibold lg:text-[30px]"
             style={{ lineHeight: 1.1, color: "var(--doc-fg)" }}
           >
             {block.nombre}
-          </span>
-          <span className="mono text-[22px] font-semibold lg:text-[24px]" style={{ color }}>
-            {block.token}
-          </span>
+          </h2>
+          {block.token && (
+            <span className="mono text-[22px] font-semibold lg:text-[24px]" style={{ color }}>
+              {block.token}
+            </span>
+          )}
           {block.detalle && (
             <span className="text-[14.5px] doc-muted">{block.detalle}</span>
           )}
@@ -2045,7 +2047,7 @@ function Breakdown({ caption, parts }: { caption?: string; parts: BreakdownPart[
   return (
     <figure className="doc-soft m-0 rounded-lg border doc-rule p-4 sm:p-5">
       <div className="overflow-x-auto -mx-1 px-1">
-        <div className="mono flex flex-wrap items-start gap-x-4 gap-y-4">
+        <div className="mono flex flex-wrap items-start justify-center gap-x-4 gap-y-4">
           {parts.map((p, i) => (
             <span key={i} className="inline-flex flex-col items-start gap-1.5">
               <span
