@@ -182,7 +182,11 @@ export type LessonBlock =
    * bloques de la lección, tres frases sobre lo mismo se leían como tres
    * asuntos distintos.
    */
-  | { kind: "apartado"; titulo?: string; parrafos: string[] }
+  /**
+   * `color` tiñe las pastillas de código del apartado. Se usa dentro de una
+   * pieza de la línea Q para que sus códigos lleven el color del token.
+   */
+  | { kind: "apartado"; titulo?: string; parrafos: string[]; color?: string }
   /**
    * Una tabla compacta de códigos: el código en monoespaciada y su significado
    * al lado, a dos columnas. Es para que el alumno vea CÓMO SON los códigos y
@@ -1113,6 +1117,7 @@ export const LESSON_SCREENS: DocScreen[] = [
       {
         kind: "apartado",
         titulo: "¿Qué es una FIR?",
+        color: LINEA_Q_COLOR.fir,
         parrafos: [
           "Una **FIR** (Flight Information Region) es una región definida de espacio aéreo dentro de la cual se proporcionan servicios de información de vuelo y servicio de alerta.",
           "Una FIR no es un aeropuerto ni una pista. Es una región de espacio aéreo que puede abarcar grandes extensiones y contener diferentes aeródromos, rutas y sectores.",
@@ -1149,6 +1154,7 @@ export const LESSON_SCREENS: DocScreen[] = [
       },
       {
         kind: "apartado",
+        color: LINEA_Q_COLOR.codigo,
         parrafos: [
           "El segundo componente de la línea Q es el **código NOTAM**. Está formado por cinco letras y permite identificar de manera estandarizada el asunto que se está notificando y la condición o estado de ese asunto. La primera letra siempre es `Q`; la segunda y tercera identifican el asunto, y la cuarta y quinta indican la condición o estado. Esta estructura está establecida por OACI en el Doc 8400, PANS-ABC.",
           "Por ejemplo, en nuestro caso tenemos `QRALW`. Las letras `RA` corresponden al asunto que se está notificando y `LW` identifica la condición asociada. De esta manera, el código permite obtener una primera lectura del contenido del NOTAM sin tener que interpretar todavía todo su texto.",
@@ -1158,6 +1164,7 @@ export const LESSON_SCREENS: DocScreen[] = [
       {
         kind: "apartado",
         titulo: "¿Dónde encuentro los códigos?",
+        color: LINEA_Q_COLOR.codigo,
         parrafos: [
           "Los códigos NOTAM están estandarizados por OACI y sus combinaciones se encuentran principalmente en el **Doc 8400, PANS-ABC** (ICAO Abbreviations and Codes). Además, los Criterios de Selección de NOTAM del **Doc 8126**, Aeronautical Information Services Manual, presentan los códigos de uso más frecuente y su relación con los calificativos de Tránsito, Propósito y Alcance.",
           "**Importante:** no necesitas memorizar todos los códigos. A continuación encontrarás una tabla de los códigos más utilizados, con su significado y su desglose, para que puedas consultarlos y aprender a interpretarlos progresivamente.",
@@ -1243,17 +1250,30 @@ export const LESSON_SCREENS: DocScreen[] = [
       {
         kind: "apartado",
         titulo: "¿A qué tipo de tránsito está asociada la información?",
+        color: LINEA_Q_COLOR.transito,
         parrafos: [
           "El tercer componente de la línea Q indica a qué tipo de tránsito aéreo está asociada la información del NOTAM. Este campo permite identificar si el aviso está relacionado con operaciones IFR, VFR o con ambos tipos de tránsito.",
           "`I` corresponde a IFR, `V` corresponde a VFR y `IV` corresponde tanto a IFR como VFR.",
           "En nuestro ejemplo, el tercer componente es `IV`, por lo que la información del NOTAM está asociada tanto a operaciones IFR como VFR.",
         ],
       },
+      // ── ④ NBO ────────────────────────────────────────────────────────────
       {
-        kind: "callout",
-        tone: "tip",
-        title: "Para el piloto",
-        text: "Este código no determina por sí solo si el NOTAM afecta tu vuelo. Solo indica el tipo de tránsito al que está asociada la información. Para determinar su impacto operacional debes continuar con la interpretación de los demás componentes de la línea Q y del texto completo del NOTAM.",
+        kind: "componente",
+        n: 4,
+        token: "NBO",
+        nombre: "Propósito",
+        color: LINEA_Q_COLOR.objetivo,
+      },
+      {
+        kind: "apartado",
+        titulo: "¿Para qué se publica o cómo se utiliza la información?",
+        color: LINEA_Q_COLOR.objetivo,
+        parrafos: [
+          "El cuarto componente de la línea Q indica el propósito del NOTAM, es decir, cómo está destinada a utilizarse o distribuirse la información dentro del proceso de información aeronáutica.",
+          "Por ejemplo, cuando encuentras `NBO`, cada letra aporta información sobre el propósito del NOTAM. La `N` indica que la información requiere atención inmediata, la `B` indica que está destinada a ser incluida en el PIB (Pre-flight Information Bulletin) y la `O` indica que está relacionada con las operaciones de vuelo.",
+          "También puedes encontrar la letra `M`, que corresponde a información miscelánea. En este caso, la información no está destinada a ser incluida en el PIB, pero permanece disponible cuando el usuario la solicita.",
+        ],
       },
       {
         kind: "check",

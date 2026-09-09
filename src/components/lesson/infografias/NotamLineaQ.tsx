@@ -78,7 +78,7 @@ const CAMPOS: Campo[] = [
   {
     n: 4,
     token: "NBO",
-    nombre: "Objetivo",
+    nombre: "Propósito",
     pregunta: "¿Cuál es su propósito?",
     resumen: "Para qué se distribuye y en qué producto debe aparecer.",
     opciones: [

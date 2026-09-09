@@ -7,7 +7,7 @@
  * cambian todas las lecciones a la vez, que es la gracia.
  */
 
-import { Fragment, lazy, Suspense, useState, type ReactNode } from "react"
+import { Fragment, lazy, Suspense, useState, type CSSProperties, type ReactNode } from "react"
 import {
   AlertTriangle,
   ArrowUpDown,
@@ -95,10 +95,17 @@ function renderInline(text: string): ReactNode[] {
     }
     if (part.length > 2 && part.startsWith("`") && part.endsWith("`")) {
       out.push(
+        // Las tres variables las pone quien envuelve el texto: dentro de una
+        // pieza de la línea Q, el código va del color de esa pieza, el mismo
+        // del token de arriba. Sin nadie que las ponga, el azul de siempre.
         <code
           key={i}
-          className="mono text-[0.88em] px-1.5 py-[0.12em] rounded-md border doc-rule break-words"
-          style={{ background: docTint("var(--av-blue-500)", 9), color: "var(--doc-fg)" }}
+          className="mono text-[0.9em] font-semibold px-[7px] py-[0.15em] rounded-md border break-words"
+          style={{
+            background: `var(--doc-chip-bg, ${docTint("var(--av-blue-500)", 10)})`,
+            color: `var(--doc-chip-fg, ${docAccent("var(--av-blue-500)", 72)})`,
+            borderColor: `var(--doc-chip-bd, ${docAccent("var(--av-blue-500)", 26)})`,
+          }}
         >
           {part.slice(1, -1)}
         </code>,
@@ -530,7 +537,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
 
     case "apartado":
       return (
-        <section>
+        <section style={variablesDeChip(block.color)}>
           {block.titulo && (
             <h3
               className="ln-display m-0 text-[18px] font-semibold lg:text-[20px]"
@@ -648,6 +655,26 @@ export function DocBlock({ block }: { block: DocBlockData }) {
  * o falle, y deja volver a intentar. Lo que sí hace es cortar la lectura, que
  * es justo lo que la lección corrida no hacía.
  */
+/**
+ * Tiñe las pastillas de código de un trozo de lección con el color de su pieza.
+ *
+ * Existe para que `I`, `V` y `IV` dentro del texto de Tránsito se vean del
+ * mismo violeta que el token `IV` de la línea Q de arriba, y `N`, `B` y `O`
+ * del mismo ámbar que `NBO`. El color deja de ser decoración y pasa a ser lo
+ * que ata la explicación con la pieza.
+ *
+ * El texto va mezclado con `--doc-fg` (docAccent) y no el color puro: el ámbar
+ * puro sobre papel se queda corto de contraste para un texto de 13 px.
+ */
+function variablesDeChip(color?: string): CSSProperties | undefined {
+  if (!color) return undefined
+  return {
+    "--doc-chip-bg": docTint(color, 12),
+    "--doc-chip-fg": docAccent(color, 78),
+    "--doc-chip-bd": docAccent(color, 30),
+  } as CSSProperties
+}
+
 // ─── Piezas que se pulsan ────────────────────────────────────────────────────
 
 /**
