@@ -406,14 +406,14 @@ function Celda({
         {cargando ? (
           <span className="h-4 w-14 animate-pulse rounded bg-muted" />
         ) : aviso ? (
-          // El sello no puede partirse en dos líneas: sin esto, "Sin intentos"
-          // rompe la altura de la celda y descuadra la franja entera.
-          <span
-            className="shrink-0 whitespace-nowrap rounded-[5px] border px-[9px] py-[3px] text-[13px] font-medium"
-            style={{ color: "#8A5A00", background: "#FDF3E0", borderColor: "#F3DFB8" }}
-          >
-            {valor}
-          </span>
+          // El sello del sistema, no tres hexadecimales a mano: aquellos eran
+          // los del handoff, calibrados para fondo claro, y en tema oscuro
+          // dejaban un bloque crema sobre la tarjeta casi negra. `.chip-amber`
+          // ya trae su variante para oscuro.
+          //
+          // Y no puede partirse en dos líneas: sin `whitespace-nowrap`, "Sin
+          // intentos" rompe la altura de la celda y descuadra la franja entera.
+          <span className="chip chip-amber shrink-0 whitespace-nowrap">{valor}</span>
         ) : (
           <span className="tabular text-[14px]" style={{ color }}>
             {valor}
