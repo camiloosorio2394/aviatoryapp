@@ -27,11 +27,6 @@ function pendiente(n: number, title: string, kicker: string, minutes: number): D
 }
 
 export const PENDIENTES: DocScreen[] = [
-  // Nivel 2 · Identificación
-  pendiente(5, "Las nueve clases", "El sistema de clasificación", 9),
-  pendiente(6, "Etiquetas: de riesgo y de manipulación", "Qué es y cómo se trata", 8),
-  pendiente(7, "Grupos de embalaje y cantidades", "Cuánto cuidado exige", 6),
-  pendiente(8, "Baterías de litio", "El artículo más frecuente", 7),
   // Nivel 3 · Transporte aéreo
   pendiente(9, "Los cuatro niveles de permiso", "¿Puede volar?", 6),
   pendiente(10, "Los límites que solo están en Colombia", "Lo que un curso genérico no dice", 7),

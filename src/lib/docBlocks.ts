@@ -144,6 +144,20 @@ export interface FichasBlock {
   items: { titulo: string; ref?: string; puntos: string[]; nota?: string }[]
 }
 
+/**
+ * Selector interactivo de las nueve clases (Mercancías peligrosas). Trae sus
+ * propios datos; el bloque solo lo nombra.
+ */
+export interface ClasesMPBlock {
+  kind: "clasesMP"
+}
+
+/** Fichas de las etiquetas del Apéndice 1 del RAC 175, por familia. */
+export interface EtiquetasMPBlock {
+  kind: "etiquetasMP"
+  grupo: "riesgo" | "manipulacion" | "todas"
+}
+
 /** Todo lo que sabe pintar `DocBlock`. */
 export type DocBlockData =
   | LessonBlock
@@ -154,6 +168,8 @@ export type DocBlockData =
   | EscenarioBlock
   | PonAPruebaBlock
   | FichasBlock
+  | ClasesMPBlock
+  | EtiquetasMPBlock
 
 /** Una pantalla de lección que además puede llevar figuras. */
 export interface DocScreen extends Omit<LessonScreen, "blocks"> {

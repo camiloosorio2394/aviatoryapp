@@ -64,6 +64,17 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   ),
 }
 
+/**
+ * Bloques propios de Mercancías peligrosas, cargados aparte por la misma razón
+ * que las infografías: traen sus datos y solo los usa ese módulo.
+ */
+const ClasesMP = lazy(() =>
+  import("@/components/lesson/BloquesMercancias").then((m) => ({ default: m.ClasesMP })),
+)
+const EtiquetasMP = lazy(() =>
+  import("@/components/lesson/BloquesMercancias").then((m) => ({ default: m.EtiquetasMP })),
+)
+
 /** Hueco mientras llega el trozo de la infografía. Reserva alto para que no salte la página. */
 function InfografiaCargando() {
   return <div className="my-6 h-[320px] animate-pulse rounded-xl" style={{ background: "var(--doc-soft)" }} />
@@ -478,6 +489,18 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       return <PonAPrueba block={block} />
     case "fichas":
       return <Fichas block={block} />
+    case "clasesMP":
+      return (
+        <Suspense fallback={<InfografiaCargando />}>
+          <ClasesMP />
+        </Suspense>
+      )
+    case "etiquetasMP":
+      return (
+        <Suspense fallback={<InfografiaCargando />}>
+          <EtiquetasMP grupo={block.grupo} />
+        </Suspense>
+      )
 
     case "figura":
       return (
