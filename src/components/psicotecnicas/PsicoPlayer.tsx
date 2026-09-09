@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { CheckCircle2, ChevronRight, Clock, XCircle } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
 import {
   type EjercicioPsico,
   type ModoPsico,
@@ -150,16 +151,24 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
           {ejercicio.enunciado}
         </h2>
 
-        {ejercicio.imagen && (
-          <div className="mt-4 rounded-xl border border-border bg-white p-3 overflow-x-auto">
-            <img
-              src={ejercicio.imagen}
-              alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
-              className="mx-auto max-w-full h-auto"
-              // El ejercicio es la imagen: si tarda, la pantalla no sirve.
-              loading="eager"
-            />
-          </div>
+        {/* Los ejercicios dibujados mandan sobre el recorte: son los que no
+            llevan marcas ajenas encima y se leen sin ampliar. El recorte sigue
+            en el repositorio como prueba de qué decia la fuente, pero ya no se
+            enseña. */}
+        {ejercicio.figura ? (
+          <FiguraEnunciado figura={ejercicio.figura} />
+        ) : (
+          ejercicio.imagen && (
+            <div className="mt-4 rounded-xl border border-border bg-white p-3 overflow-x-auto">
+              <img
+                src={ejercicio.imagen}
+                alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+                className="mx-auto max-w-full h-auto"
+                // El ejercicio es la imagen: si tarda, la pantalla no sirve.
+                loading="eager"
+              />
+            </div>
+          )
         )}
 
         {/* Cuando la figura ya trae dibujadas sus alternativas, los botones son
@@ -167,9 +176,11 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
             cursor de lo que el piloto está mirando. */}
         <div
           className={
-            ejercicio.opcionesEnImagen
-              ? "mt-5 flex flex-wrap gap-2"
-              : "mt-5 grid gap-2 sm:grid-cols-2"
+            ejercicio.figura
+              ? "mt-5 flex flex-wrap gap-3"
+              : ejercicio.opcionesEnImagen
+                ? "mt-5 flex flex-wrap gap-2"
+                : "mt-5 grid gap-2 sm:grid-cols-2"
           }
         >
           {ejercicio.opciones.map((opcion, i) => {
@@ -185,13 +196,17 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
                 onClick={() => responder(i)}
                 disabled={bloqueado}
                 aria-label={
-                  ejercicio.opcionesEnImagen ? `Opción ${opcion}` : undefined
+                  ejercicio.figura || ejercicio.opcionesEnImagen
+                    ? `Opción ${opcion}`
+                    : undefined
                 }
                 className={[
                   "rounded-xl border text-left transition-colors",
-                  ejercicio.opcionesEnImagen
-                    ? "h-12 w-14 flex items-center justify-center text-[17px] font-semibold"
-                    : "px-4 py-3 text-[15px]",
+                  ejercicio.figura
+                    ? "flex flex-col items-center gap-1 p-2"
+                    : ejercicio.opcionesEnImagen
+                      ? "h-12 w-14 flex items-center justify-center text-[17px] font-semibold"
+                      : "px-4 py-3 text-[15px]",
                   bloqueado ? "cursor-default" : "hover:bg-muted",
                 ].join(" ")}
                 style={{
@@ -207,12 +222,23 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
                       : undefined,
                 }}
               >
-                {!ejercicio.opcionesEnImagen && (
-                  <span className="font-semibold mr-2 text-muted-foreground">
-                    {String.fromCharCode(65 + i)}.
-                  </span>
+                {ejercicio.figura ? (
+                  <>
+                    <FiguraOpcion figura={ejercicio.figura} indice={i} />
+                    <span className="text-[13px] font-semibold text-muted-foreground">
+                      {opcion}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    {!ejercicio.opcionesEnImagen && (
+                      <span className="font-semibold mr-2 text-muted-foreground">
+                        {String.fromCharCode(65 + i)}.
+                      </span>
+                    )}
+                    {opcion}
+                  </>
                 )}
-                {opcion}
               </button>
             )
           })}

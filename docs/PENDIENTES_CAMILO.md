@@ -554,3 +554,78 @@ puramente aditiva: crea su tabla, su umbral, su logro y su propio disparador, y
 **no** recrea `check_and_unlock_achievements`. Se hizo así justamente por el
 desfase: replicar esa función desde la versión que guarda el repositorio habría
 revertido en silencio cualquier logro añadido en esas migraciones sueltas.
+
+## 9 · Figuras dibujadas: el orden del encargo hay que cambiarlo (9 de septiembre de 2026)
+
+Sobre `docs/BRIEF_NICO_2026-09-09_PSICOTECNICAS.md`. El motor de figuras ya
+está y funciona, pero el orden de ataque del punto 1.4 parte de una premisa que
+no se sostiene, y conviene decidirlo antes de seguir dibujando.
+
+### 9.1 · `AB-A2` no es «el más simple»: es el más variado de los tres
+
+El brief lo describe como «una rejilla de dos por dos con una flecha arriba o
+abajo en un cuadrante» y por eso lo pone primero. Revisadas las 61 una a una,
+esa descripción vale para **una**: la `AB-A2-02`. El resto se reparte así:
+
+| Qué son | Cuántas | ¿Se pueden describir por atributos? |
+|---|---|---|
+| Sólidos isométricos sombreados (vistas, proyecciones, desarrollos) | ~17 | **No.** Habría que escribir un motor 3D, no un vocabulario de figuras |
+| Giros de polígonos irregulares y de escenas ilustradas (un `5`, una habitación con muebles, cuadriláteros arbitrarios) | ~5 | **No.** Son contornos sueltos: exactamente el `path` a mano que el brief prohíbe |
+| Matrices y series con tramas, sombreados y texturas | ~4 | A medias, y cada una con su propio vocabulario |
+| Series y matrices de primitivas geométricas | ~34 | Sí, pero casi una gramática distinta por ejercicio |
+| Rejilla de flechas, la del brief | 1 | Sí |
+
+El problema de fondo no es el trabajo: es que dibujar «por atributos» solo
+compra algo cuando varios ejercicios comparten la misma gramática. En `AB-A2`
+no la comparten, así que serían unas cuarenta gramáticas para cuarenta
+ejercicios, y para diecisiete no hay gramática posible.
+
+### 9.2 · `AB-A1` sí, y además es el que está haciendo daño hoy
+
+Las veinte del `A1` comparten formato —matriz de tres por tres, un puñado de
+primitivas— y **son las que están en producción con el logotipo de Facebook
+impreso en mitad de la pregunta y las letras C y D cortadas**. Encima traen
+clave de respuestas verificada, así que cada figura dibujada se puede contrastar
+contra ella.
+
+Por eso empecé por el `A1` y no por el `A2`, que es la única desviación del
+brief. Si prefieres el orden original, dilo y se cambia: nada de lo hecho se
+pierde, porque el `A1` es el punto 2 de tu propia lista.
+
+### 9.3 · Lo que propongo para `AB-A2`
+
+Que no se dibuje entero. Tres caminos, y creo que el tercero es el bueno:
+
+1. **Dibujar solo lo que tenga gramática compartida** (la rejilla de flechas y
+   las series de primitivas que se repitan), y dejar el resto fuera del banco.
+2. **Encargar los sólidos isométricos como ilustración propia**, uno a uno. Son
+   ~17 y no los resuelve ningún vocabulario.
+3. **Dejar `AB-A2` donde está —sin cargar— y escribir ejercicios propios de
+   razonamiento espacial.** Sale más barato que transcribir 61 ajenos, no tiene
+   el problema de derechos del punto 8.1, y las respuestas nacen verificadas
+   porque las genera el mismo código que dibuja la figura.
+
+Recuerda que `A2` tampoco trae hoja de respuestas (punto 8.2), así que cargarlo
+obliga además a deducir 61 respuestas. El solucionador nuevo
+(`src/lib/psicotecnicasSolucionador.ts`) sabe hacerlo cuando la regla es de la
+familia conocida, pero solo se pronuncia si la regla explica la figura con dos
+apoyos como mínimo; con los sólidos sombreados no puede ni empezar.
+
+### 9.4 · Lo que sí quedó hecho, y cómo se comprueba
+
+- `src/lib/psicotecnicasFiguras.ts` — el vocabulario y el dibujo. El trazo es
+  `currentColor`, así que la figura sigue al tema y desaparece el `bg-white`
+  que metía un bloque claro en tema oscuro. El isotipo lo pone **una sola
+  función**, y el lienzo crece para dejarle sitio en vez de mover el dibujo.
+- `src/lib/psicotecnicasSolucionador.ts` — deduce la respuesta desde los
+  atributos. Familia cerrada de reglas, mínimo dos apoyos, y si dos reglas
+  señalan alternativas distintas el ejercicio sale como ambiguo en vez de
+  publicarse.
+- `scripts/psicotecnicas/verificar-figuras.mjs` — compara la respuesta deducida
+  con la del banco, exige que el recorte original siga en `public/`, y escribe
+  `revision-figuras.html` con el dibujo al lado del recorte. **Sale con error si
+  no comprobó ninguna figura**, que es la lección del verificador de respuestas.
+- `AB-A1-01` convertida y verificada: la regla es «unión de las dos primeras,
+  por filas», da la C, y la C es lo que dice la clave del cuadernillo.
+
+Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.

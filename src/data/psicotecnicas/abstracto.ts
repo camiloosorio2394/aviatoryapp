@@ -1,4 +1,5 @@
 import type { EjercicioPsico } from "@/lib/psicotecnicas"
+import { FIGURAS_A1 } from "./figurasA1"
 
 /**
  * Razonamiento abstracto — 20 ejercicios de series de figuras.
@@ -28,6 +29,9 @@ function serie(
   explicacion: string
 ): EjercicioPsico {
   const id = `AB-A1-${String(n).padStart(2, "0")}`
+  // Los que ya están dibujados llevan su figura y sus alternativas sueltas;
+  // los que todavía no, siguen con el recorte y sus opciones dentro del pixel.
+  const figura = FIGURAS_A1[id]
   return {
     id,
     categoria: "abstracto",
@@ -37,7 +41,7 @@ function serie(
     imagen: `/psicotecnicas/abstracto/${id}.webp`,
     imagenAlt,
     opciones: OPCIONES,
-    opcionesEnImagen: true,
+    ...(figura ? { figura } : { opcionesEnImagen: true }),
     respuesta,
     explicacion,
     tiempo: nivel === "basico" ? 45 : nivel === "intermedio" ? 60 : 75,
