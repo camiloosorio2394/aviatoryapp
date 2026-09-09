@@ -543,7 +543,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 1,
     title: "¿Qué es un NOTAM?",
     kicker: "Definición y por qué importa",
-    minutes: 2,
+    minutes: 3,
     level: "basico",
     // La composición del standalone aprobado el 3 de agosto: la
     // infografía-imagen descompuesta en bloques que reflowean, en UNA sola
@@ -838,7 +838,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 3,
     title: "¿Qué significa NOTAMN, NOTAMR y NOTAMC?",
     kicker: "Nuevo, reemplaza y cancela",
-    minutes: 3,
+    minutes: 4,
     level: "basico",
     // La casilla B) en NOTAMR y NOTAMC se explica en la lección de la
     // estructura, no aquí: en esta el objetivo es uno solo, distinguir nuevo,
@@ -982,7 +982,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 4,
     title: "Cómo se lee un NOTAM completo",
     kicker: "El esqueleto del mensaje",
-    minutes: 3,
+    minutes: 4,
     level: "basico",
     // La lección no explica la línea Q letra por letra a propósito: aquí solo
     // hay que saber qué función cumple cada casilla. Desarmar la Q antes de
@@ -1241,7 +1241,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 5,
     title: "La línea Q, pieza por pieza",
     kicker: "Los siete componentes del calificativo",
-    minutes: 8,
+    minutes: 10,
     level: "intermedio",
     blocks: [
       // La sección ES el desglose. Antes eran dos párrafos de introducción, un
@@ -2323,7 +2323,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 7,
     title: "La casilla E) y la fraseología abreviada",
     kicker: "Leer el texto en lenguaje claro",
-    minutes: 5,
+    minutes: 10,
     level: "intermedio",
     // La casilla E) es la única del NOTAM escrita para leerse, no para
     // filtrarse. Por eso aquí no se vuelve a explicar la estructura: se enseña
@@ -2620,7 +2620,7 @@ export const LESSON_SCREENS: DocScreen[] = [
     n: 8,
     title: "De la lectura a la interpretación",
     kicker: "Laboratorio de NOTAM reales",
-    minutes: 6,
+    minutes: 13,
     level: "intermedio",
     // Diez NOTAM auténticos, de diez aeropuertos y diez FIR distintas. El texto
     // de cada uno va literal: lo que se redacta es la lectura, nunca el aviso.
