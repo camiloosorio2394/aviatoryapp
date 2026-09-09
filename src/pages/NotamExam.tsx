@@ -11,13 +11,13 @@ import {
   ChevronDown,
   ChevronUp,
   Clock,
-  Gauge,
   History,
   Loader2,
   Lock,
   PenLine,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
+import { LogoIsotype } from "@/components/Logo"
 import { PageHeader } from "@/components/ui/page-header"
 import { Rotulo } from "@/components/ui/rotulo"
 import { SectionTitle } from "@/components/ui/section-title"
@@ -31,7 +31,6 @@ import {
   EXAM_PASS_SCORE,
   EXAM_PER_ATTEMPT,
   EXAM_POINTS_PER_QUESTION,
-  LEVEL_META,
   TOTALS,
   readLocalProgress,
   writeLocalProgress,
@@ -247,7 +246,6 @@ export function NotamExam() {
   const q = questions[idx]
   const picked = picks[idx]
   const answered = picked !== undefined
-  const level = LEVEL_META[q.nivel]
 
   return (
     <AppLayout>
@@ -283,25 +281,19 @@ export function NotamExam() {
           </div>
         </div>
 
-        {/* Pregunta */}
+        {/* Pregunta.
+            Sin etiqueta de dificultad: el nivel sigue en el banco y en la base,
+            pero no se le anuncia a nadie que la pregunta que tiene enfrente es
+            "avanzada". Decisión de Camilo: eso condiciona la respuesta y no
+            aporta nada mientras se está presentando. */}
         <div className="rounded-2xl surface p-5 sm:p-6">
-          <div className="flex items-center justify-between gap-3 flex-wrap">
-            <span
-              className="inline-flex items-center gap-1.5 text-[12px] font-semibold px-2.5 py-1 rounded-full"
-              style={{
-                color: accentText(level.color),
-                background: mix(level.color, 12),
-                border: `1px solid ${mix(level.color, 30)}`,
-              }}
-            >
-              <Gauge className="h-3 w-3" /> {level.label}
-            </span>
+          <div className="flex items-center justify-end">
             <span className="tabular text-[12px] text-muted-foreground">
               {EXAM_POINTS_PER_QUESTION} puntos
             </span>
           </div>
 
-          <h2 className="mt-3.5 text-[20px] sm:text-[20px] font-semibold leading-snug tracking-[-0.01em]">
+          <h2 className="mt-2 text-[20px] sm:text-[20px] font-semibold leading-snug tracking-[-0.01em]">
             {q.pregunta}
           </h2>
 
@@ -901,7 +893,7 @@ function Result({
             Durante la evaluación no se mostró ninguna corrección. Acá está cada pregunta con tu
             respuesta, la correcta y su explicación. Las falladas quedan abiertas.
           </p>
-          <div className="mt-6">
+          <div className="mt-6 space-y-3">
             {questions.map((q, i) => (
               <ReviewItem key={q.id} n={i + 1} question={q} pickedIndex={picks[i]} />
             ))}
@@ -963,25 +955,9 @@ function Result({
 
 // ─── Piezas de la retroalimentación ──────────────────────────────────────────
 
-/**
- * Hueco del icono oficial de Aviatory.
- *
- * Va marcado y visible a propósito, igual que los huecos de imagen de las
- * lecciones: la app está en construcción, entra Camilo y entra Nico, y el hueco
- * es el recordatorio de qué icono falta y de qué medida. Se reemplaza por el
- * SVG definitivo cuando esté; nada más lo consume.
- */
+/** El isotipo de la marca, el mismo que usan el rail y la barra superior. */
 function IconoAviatory() {
-  return (
-    <div
-      className="mono flex h-11 w-11 items-center justify-center rounded-[9px] border border-dashed text-[8px] font-medium uppercase leading-[1.15] tracking-[0.06em] text-muted-foreground/70"
-      style={{ borderColor: mix("var(--border)", 100) }}
-      title="Espacio reservado para el icono oficial de Aviatory"
-      aria-hidden="true"
-    >
-      Icono
-    </div>
-  )
+  return <LogoIsotype variant="color" className="h-11 w-11 rounded-full" aria-hidden="true" />
 }
 
 /** Filete: la separación de esta pantalla es una línea de un pixel y aire. */
@@ -1013,34 +989,49 @@ function Dato({ rotulo, valor, color }: { rotulo: string; valor: string; color?:
 }
 
 /**
- * Una respuesta, con su glifo y su filete de color al costado.
+ * Una respuesta: filete de color, glifo en su pastilla y el texto con cuerpo.
  *
- * El indicador es una línea de 2 px, no una tarjeta de color: el color marca,
- * no envuelve. Vinotinto para la del usuario cuando falló, azul para la
- * correcta. Nunca los dos en la misma línea.
+ * El color marca, no envuelve. El filete es de 3 px y el fondo apenas se
+ * insinúa (5%): suficiente para que la respuesta pese como contenido y no se
+ * lea como una línea suelta, lejos de pintar media pantalla de rojo.
+ * Vinotinto para la del usuario cuando falló, azul para la correcta. Nunca los
+ * dos en el mismo renglón.
  */
 function Respuesta({ glifo, color, children }: { glifo: string; color: string; children: ReactNode }) {
   return (
-    <div className="mt-2.5 flex items-start gap-3 border-l-2 pl-3.5" style={{ borderColor: color }}>
+    <div
+      className="mt-3 flex items-start gap-3.5 rounded-r-[10px] border-l-[3px] py-3.5 pl-4 pr-4"
+      style={{ borderColor: color, background: mix(color, 5) }}
+    >
       <span
         aria-hidden="true"
-        className="mt-[2px] text-[13px] font-semibold leading-[1.5]"
-        style={{ color }}
+        className="mt-[3px] flex h-[19px] w-[19px] flex-shrink-0 items-center justify-center rounded-full text-[11px] font-bold leading-none"
+        style={{ background: mix(color, 15), color }}
       >
         {glifo}
       </span>
-      <span className="text-[15px] leading-relaxed text-foreground">{children}</span>
+      <span className="text-[16px] font-medium leading-[1.6] text-foreground">{children}</span>
     </div>
   )
 }
 
-/** Bloque neutro: la explicación no lleva color, lleva fondo suave. */
+/**
+ * La explicación.
+ *
+ * Es lo último que se lee y lo que más se lee, así que es lo que más aire
+ * recibe: interlineado de 1.75, medida de 64 caracteres y padding ancho. El
+ * fondo casi no se nota y el filete azul, finito, es lo único que le pone
+ * identidad; el bloque sigue siendo neutro.
+ */
 function Explicacion({ texto, referencia }: { texto: string; referencia?: string }) {
   return (
-    <div className="mt-2.5 rounded-[8px] bg-muted/40 px-4 py-3.5">
-      <p className="text-[14px] leading-relaxed text-foreground/85">{texto}</p>
+    <div
+      className="mt-3 rounded-r-[10px] border-l-2 bg-muted/40 py-5 pl-5 pr-5"
+      style={{ borderColor: mix("var(--av-blue-500)", 38) }}
+    >
+      <p className="max-w-[64ch] text-[15px] leading-[1.75] text-foreground/90">{texto}</p>
       {referencia && (
-        <p className="mono mt-2 text-[11px] text-muted-foreground">{referencia}</p>
+        <p className="mono mt-3 text-[11px] text-muted-foreground">{referencia}</p>
       )}
     </div>
   )
@@ -1110,15 +1101,24 @@ interface ReviewItemProps {
 }
 
 /**
+ * Una pregunta del repaso, como ficha cerrada.
+ *
  * El orden de lectura es el de la especificación y no se negocia:
  * pregunta → tu respuesta → respuesta correcta → explicación.
+ *
+ * La jerarquía la hace el cuerpo del texto, no las líneas. El enunciado pesa
+ * 20 px semibold, las respuestas 16 px medium y los rótulos se quedan en el
+ * mono de 11 px: encabezan, no compiten. Hay UN solo filete, el que cierra el
+ * enunciado; de ahí para abajo separa el aire, y cada respuesta se ancla en su
+ * propio filete de color. Antes había cuatro líneas por pregunta y la ficha se
+ * leía como un formulario.
  *
  * La que acertó se resume: no tiene sentido enfrentarle "tu respuesta" contra
  * "la correcta" cuando son la misma. Queda pregunta, respuesta y explicación.
  *
- * Cerrada, la fila muestra el enunciado para poder barrer la lista. Abierta, el
- * enunciado pasa al bloque PREGUNTA y desaparece de la fila: si no, se lee dos
- * veces seguidas.
+ * Cerrada, la ficha muestra el enunciado para poder barrer la lista. Abierta,
+ * el enunciado pasa al bloque PREGUNTA y desaparece de la cabecera: si no, se
+ * lee dos veces seguidas.
  */
 function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
   const ok = pickedIndex === question.correctIndex
@@ -1128,14 +1128,20 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
   const elegida = pickedIndex !== undefined ? question.shuffledOptions[pickedIndex] : null
 
   return (
-    <div className="border-t" style={{ borderColor: mix("var(--border)", 75) }}>
+    <div
+      className="overflow-hidden rounded-[14px] border bg-card"
+      style={{ borderColor: mix("var(--border)", open ? 95 : 75) }}
+    >
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="flex w-full items-start gap-3.5 py-4 text-left"
+        className="flex w-full items-start gap-4 px-5 py-4 text-left sm:px-6"
       >
-        <span className="tabular mt-[2px] w-[22px] flex-shrink-0 text-[12px] font-medium text-muted-foreground">
+        <span
+          className="tabular mt-[1px] flex-shrink-0 text-[13px] font-semibold"
+          style={{ color: textoMarca }}
+        >
           {String(n).padStart(2, "0")}
         </span>
         <span className="min-w-0 flex-1">
@@ -1146,7 +1152,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             <span aria-hidden="true">{ok ? "✓" : "✕"}</span> {ok ? "Correcta" : "Incorrecta"}
           </span>
           {!open && (
-            <span className="mt-1.5 block text-[14px] leading-snug text-foreground/80">
+            <span className="mt-2 block text-[15px] font-medium leading-snug text-foreground/85">
               {question.pregunta}
             </span>
           )}
@@ -1157,16 +1163,21 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
       </button>
 
       {open && (
-        <div className="pb-7 pl-[36px] pr-1">
-          <div className="rev-aparece">
+        <div className="px-5 pb-7 sm:px-6">
+          <div className="rev-aparece pt-1.5">
             <Rotulo>Pregunta</Rotulo>
-            <p className="mt-2 text-[15px] leading-relaxed text-foreground">{question.pregunta}</p>
+            <p
+              className="mt-2.5 max-w-[62ch] text-[19px] font-semibold leading-[1.45] text-foreground sm:text-[20px]"
+              style={{ letterSpacing: "-0.012em" }}
+            >
+              {question.pregunta}
+            </p>
           </div>
 
-          <Filete className="my-5" />
+          <Filete className="mt-6" />
 
           {ok ? (
-            <div className="rev-aparece rev-aparece-2">
+            <div className="rev-aparece rev-aparece-2 mt-6">
               <Rotulo>Respuesta</Rotulo>
               <Respuesta glifo="✓" color={marca}>
                 {elegida ?? question.shuffledOptions[question.correctIndex]}
@@ -1174,16 +1185,14 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             </div>
           ) : (
             <>
-              <div className="rev-aparece rev-aparece-2">
+              <div className="rev-aparece rev-aparece-2 mt-6">
                 <Rotulo>Tu respuesta</Rotulo>
                 <Respuesta glifo="✕" color="var(--av-wine-500)">
                   {elegida ?? "Sin responder"}
                 </Respuesta>
               </div>
 
-              <Filete className="my-5" />
-
-              <div className="rev-aparece rev-aparece-3">
+              <div className="rev-aparece rev-aparece-3 mt-6">
                 <Rotulo>Respuesta correcta</Rotulo>
                 <Respuesta glifo="✓" color="var(--av-blue-500)">
                   {question.shuffledOptions[question.correctIndex]}
@@ -1192,9 +1201,7 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
             </>
           )}
 
-          <Filete className="my-5" />
-
-          <div className={`rev-aparece ${ok ? "rev-aparece-3" : "rev-aparece-4"}`}>
+          <div className={`rev-aparece mt-6 ${ok ? "rev-aparece-3" : "rev-aparece-4"}`}>
             <Rotulo>Explicación</Rotulo>
             <Explicacion texto={question.explicacion} referencia={question.referencia} />
           </div>
