@@ -51,11 +51,14 @@ const servidor = await createServer({
   logLevel: "silent",
 })
 
-let banco, dibujo, solucionador
+let banco, dibujo, solucionador, aprobadas
 try {
   ;({ BANCO: banco } = await servidor.ssrLoadModule("/src/data/psicotecnicas/index.ts"))
   dibujo = await servidor.ssrLoadModule("/src/lib/psicotecnicasFiguras.ts")
   solucionador = await servidor.ssrLoadModule("/src/lib/psicotecnicasSolucionador.ts")
+  ;({ FIGURAS_APROBADAS: aprobadas } = await servidor.ssrLoadModule(
+    "/src/data/psicotecnicas/figurasAprobadas.ts"
+  ))
 } finally {
   // El servidor se cierra pase lo que pase: si no, el proceso queda colgado y
   // en CI eso se lee como un cuelgue y no como un fallo.
@@ -104,8 +107,21 @@ for (const ejercicio of conFigura) {
   // fallo es que deduzca una respuesta **distinta**: ahí o está mal
   // transcrita la figura o está mal la clave, y las dos cosas hay que mirarlas.
   const veredicto = solucionador.resolverFigura(figura)
+  const firma = aprobadas[id]
   if (veredicto.estado !== "resuelto") {
-    sinComprobar.push({ id, motivo: veredicto.motivo })
+    // Aquí está la tercera fuente. Si el solucionador no puede deducirla, la
+    // figura necesita que alguien la haya mirado **y lo haya firmado**. Sin esa
+    // firma no se avisa y se sigue: se para. Avisar y seguir de largo es
+    // exactamente como se cuelan los errores que nadie vuelve a mirar.
+    if (!firma) {
+      falla(
+        `el solucionador no la deduce (${veredicto.motivo}) y no está aprobada a ojo. ` +
+          `Míralas en el HTML de revisión y, si está bien, fírmala en ` +
+          `src/data/psicotecnicas/figurasAprobadas.ts`
+      )
+    } else {
+      sinComprobar.push({ id, motivo: veredicto.motivo, firma })
+    }
   } else if (veredicto.opcion !== respuesta) {
     falla(
       `el banco responde ${opciones[respuesta]} y la figura dibujada da ` +
@@ -194,9 +210,16 @@ for (const { ejercicio, veredicto } of fichas) {
 
 if (sinComprobar.length > 0) {
   console.log()
-  console.log(ambar(`${sinComprobar.length} sin comprobación automática:`))
-  for (const p of sinComprobar) console.log(`  ${ambar("·")} ${p.id}: ${p.motivo}`)
-  console.log(tenue("  Su respuesta es la de la clave del cuadernillo. Hay que aprobarlas mirando el HTML."))
+  console.log(ambar(`${sinComprobar.length} sin deducción automática, aprobadas a ojo:`))
+  for (const p of sinComprobar) {
+    console.log(`  ${ambar("·")} ${p.id}: ${p.motivo}`)
+    console.log(tenue(`     firmada por ${p.firma.quien} el ${p.firma.fecha}, contra ${p.firma.contra}`))
+    if (p.firma.faltaRefrendo) {
+      console.log(
+        ambar("     ↳ falta que la refrende una persona: quien dibujó no es fuente independiente de sí mismo")
+      )
+    }
+  }
 }
 
 if (problemas.length > 0) {

@@ -798,3 +798,58 @@ Las dos series ambiguas son `NU-N2-08-04` (quitando el 58 o el 43 la serie queda
 limpia) y `NU-N2-08-13` (quitando el 1, el 13 o el 15). No están mal: están mal
 planteadas **en el original**. Se quedan con la respuesta del cuadernillo, pero
 si quieres afinar el banco son las dos primeras candidatas a salir.
+
+## 11 · La migración de psicotécnicas está bloqueada, y no por falta de ganas
+
+Del encargo de cierre, punto 1. **No se pudo aplicar**, y son dos frenos
+independientes: arreglar uno no destraba nada mientras siga el otro.
+
+### 11.1 · El CLI exige mentir en el historial
+
+`supabase db pull` se niega a correr mientras el historial del repositorio y el
+de la base no coincidan, y lo que propone para arreglarlo es exactamente esto:
+
+```
+supabase migration repair --status reverted 20260730050401
+… (veintiuna en total)
+```
+
+Marcar como **revertidas** veintiuna migraciones que están **aplicadas** es lo
+que el propio encargo prohíbe, y con razón: deja escrito en la base algo que no
+es cierto. No lo hice.
+
+Hay una lectura más benévola —`repair` solo toca la tabla de control, no el
+esquema, y el `db pull` posterior recogería el estado real en un archivo— pero
+esa lectura hay que confirmarla antes, no después, y quien decide sobre esa base
+eres tú.
+
+### 11.2 · Y aunque se destrabara, falta Docker
+
+`supabase db pull` y `supabase db dump` levantan un contenedor para volcar y
+comparar el esquema. **En esta máquina no hay Docker**: ni Docker Desktop, ni
+`colima`, ni `podman`. Así que ni siquiera se puede hacer la parte inofensiva
+—traer el esquema vivo a un archivo para leerlo— que es justo el paso que el
+encargo marca como el que no se puede saltar.
+
+Sin ese volcado no hay forma de mirar `check_and_unlock_achievements` en su
+versión viva y compararla línea a línea con la del repositorio. Y sin esa
+comparación, aplicar es apostar.
+
+### 11.3 · Lo que sí quedó claro
+
+La migración pendiente es solo una: `20260908010000_modulo_psicotecnicas.sql`.
+El CLI confirma que la base tiene **veintiuna** migraciones aplicadas a mano sin
+archivo, no doce como decía la nota anterior, y que del repositorio faltan por
+aplicar también `20260801030000`, `20260801040000` y `20260803150000`.
+
+Dos caminos, y los dos son tuyos:
+
+1. **Desde tu máquina**, si tienes Docker: `db pull`, leer el diff entero
+   —sobre todo esa función— y `db push`.
+2. **Desde el editor SQL de la consola**, aplicando a mano el contenido de
+   `20260908010000_modulo_psicotecnicas.sql`, que es puramente aditivo y no
+   recrea la función de logros. Después, `migration repair --status applied
+   20260908010000` para que el historial lo refleje.
+
+El segundo camino evita el `db pull` entero y con él todo el riesgo de pisar la
+función. Es el que yo elegiría.
