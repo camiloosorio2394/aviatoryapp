@@ -130,6 +130,21 @@ export type Elemento =
    * el cuadernillo. Lo que sí se declara es el relleno del círculo de abajo,
    * porque hay alternativas que solo se distinguen en eso.
    */
+  /**
+   * La silueta del ejercicio 7: un contorno grande, un símbolo apoyado en su
+   * base y un pie justo debajo.
+   *
+   * Las tres partes se mueven a la vez y por eso van juntas. El relleno del
+   * símbolo se declara porque una alternativa cambia la barra negra por una
+   * hueca y no se distingue en nada más.
+   */
+  | {
+      tipo: "silueta-con-simbolo"
+      contorno: "triangulo" | "rectangulo" | "casa"
+      simbolo: "barra" | "triangulito" | "cruz"
+      simboloRelleno: Relleno
+      pie: "trazo" | "patas" | "circulito"
+    }
   | {
       tipo: "mastil-figura"
       semicirculo: "izquierda" | "derecha"
@@ -479,6 +494,72 @@ function dibujarCelda(
             ` x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"` +
             ` stroke="currentColor" stroke-width="${TRAZO}"/>`
         )
+        break
+      }
+
+      case "silueta-con-simbolo": {
+        const m = Math.min(ancho, alto) * 0.08 // aire hasta el marco
+        const [i, d, s2, f] = [x + m, x + ancho - m, y + m, y + alto - m]
+        const cx = x + ancho / 2
+
+        const contorno =
+          el.contorno === "triangulo"
+            ? `${cx},${s2} ${i},${f} ${d},${f}`
+            : el.contorno === "rectangulo"
+              ? `${i},${s2} ${d},${s2} ${d},${f} ${i},${f}`
+              : // La casa: dos aguas sobre un cuerpo recto.
+                `${cx},${s2} ${d},${s2 + (f - s2) * 0.34} ${d},${f} ${i},${f}` +
+                ` ${i},${s2 + (f - s2) * 0.34}`
+        partes.push(
+          `<polygon points="${contorno}" fill="none" stroke="currentColor"` +
+            ` stroke-width="${TRAZO}" stroke-linejoin="miter"/>`
+        )
+
+        // El símbolo se apoya en la base del contorno.
+        const relleno = pintura(el.simboloRelleno)
+        const alto2 = alto * 0.16
+        if (el.simbolo === "barra") {
+          const w = ancho * (el.contorno === "triangulo" ? 0.42 : 0.26)
+          partes.push(
+            `<rect x="${(cx - w / 2).toFixed(1)}" y="${(f - alto2).toFixed(1)}"` +
+              ` width="${w.toFixed(1)}" height="${alto2.toFixed(1)}" fill="${relleno}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        } else if (el.simbolo === "triangulito") {
+          const w = ancho * 0.12
+          partes.push(
+            `<polygon points="${cx},${(f - alto2 * 1.4).toFixed(1)}` +
+              ` ${(cx - w).toFixed(1)},${f.toFixed(1)} ${(cx + w).toFixed(1)},${f.toFixed(1)}"` +
+              ` fill="${relleno}" stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        } else {
+          const brazo = ancho * 0.09
+          partes.push(
+            `<path d="M${cx},${(f - alto2 * 1.7).toFixed(1)} V${f.toFixed(1)}` +
+              ` M${(cx - brazo).toFixed(1)},${(f - alto2 * 1.1).toFixed(1)} h${(brazo * 2).toFixed(1)}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}" fill="none"/>`
+          )
+        }
+
+        // Y el pie, colgando por debajo de la base.
+        const p = alto * 0.09
+        if (el.pie === "trazo") {
+          partes.push(
+            `<line x1="${cx}" y1="${f.toFixed(1)}" x2="${cx}" y2="${(f + p).toFixed(1)}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        } else if (el.pie === "patas") {
+          partes.push(
+            `<polygon points="${cx},${f.toFixed(1)} ${(cx - p).toFixed(1)},${(f + p).toFixed(1)}` +
+              ` ${(cx + p).toFixed(1)},${(f + p).toFixed(1)}" fill="none"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        } else {
+          partes.push(
+            `<circle cx="${cx}" cy="${(f + p * 0.55).toFixed(1)}" r="${(p * 0.62).toFixed(1)}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+        }
         break
       }
 
@@ -903,6 +984,8 @@ export function describirCelda(celda: Celda): string {
           return "las dos diagonales del rectángulo"
         case "cuerda":
           return `cuerda del rombo hacia ${el.hacia}`
+        case "silueta-con-simbolo":
+          return `contorno de ${el.contorno} con ${el.simbolo} ${el.simboloRelleno} y pie de ${el.pie}`
         case "mastil-figura":
           return (
             `mástil con un semicírculo ${el.relleno} a la ${el.semicirculo} arriba, ` +

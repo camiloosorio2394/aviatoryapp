@@ -111,6 +111,17 @@ const mg = (
   elementos: [{ tipo: "mastil-figura", semicirculo, relleno, circulo, circuloRelleno }],
 })
 
+/** Casilla de silueta: contorno, símbolo apoyado en la base y pie. */
+const sil = (
+  contorno: "triangulo" | "rectangulo" | "casa",
+  simbolo: "barra" | "triangulito" | "cruz",
+  pie: "trazo" | "patas" | "circulito",
+  simboloRelleno: Relleno = "negro"
+): Celda => ({
+  marco: true,
+  elementos: [{ tipo: "silueta-con-simbolo", contorno, simbolo, simboloRelleno, pie }],
+})
+
 const HUECO = { incognita: true } as const
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -272,6 +283,37 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       mg("izquierda", "negro", "derecha"),
       mg("izquierda", "blanco", "derecha", "negro"),
       mg("derecha", "negro", "izquierda", "negro"),
+    ],
+  },
+
+  /**
+   * Tres elementos que no se repiten dentro de una fila: el contorno grande
+   * —triángulo, rectángulo o casa—, el símbolo apoyado en la base —barra
+   * negra, triangulito o cruz— y el pie que cuelga debajo. El pie va siempre
+   * con el contorno: el triángulo lleva trazo, el rectángulo patas y la casa
+   * circulito. A la casilla que falta le toca el triángulo con el triangulito.
+   *
+   * La C cambia la barra negra por una hueca, y en nada más se distingue.
+   */
+  "AB-A1-07": {
+    tipo: "matriz-3x3",
+    celdas: [
+      sil("triangulo", "barra", "trazo"),
+      sil("rectangulo", "triangulito", "patas"),
+      sil("casa", "cruz", "circulito"),
+      sil("casa", "triangulito", "circulito"),
+      sil("triangulo", "cruz", "trazo"),
+      sil("rectangulo", "barra", "patas"),
+      sil("rectangulo", "cruz", "patas"),
+      sil("casa", "barra", "circulito"),
+      HUECO,
+    ],
+    opciones: [
+      sil("triangulo", "triangulito", "trazo"),
+      sil("casa", "triangulito", "trazo"),
+      sil("triangulo", "barra", "patas", "blanco"),
+      sil("rectangulo", "triangulito", "trazo"),
+      sil("triangulo", "triangulito", "patas"),
     ],
   },
 }
