@@ -417,22 +417,30 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
   },
 ]
 
-/** Las dos láminas de teoría del cubo que trae la fuente 667045629. */
+/**
+ * Las dos láminas de teoría de la lección.
+ *
+ * Están dibujadas para Aviatory, no recortadas de la fuente. La 667045629
+ * enseña lo mismo, pero con la marca de agua de su autor encima y con la
+ * numeración de caras de su propio ejemplo; aquí el desarrollo va con las tres
+ * parejas opuestas en su color, que es lo que hace la regla evidente de un
+ * vistazo. Se generan con scripts/psicotecnicas/generar-visuales.mjs.
+ */
 export const TEORIA_CUBO = [
   {
-    id: "TE-E2-02",
-    titulo: "El cubo, de plegado a desplegado",
-    imagen: "/psicotecnicas/espacial/ES-E2-teoria-02.webp",
+    id: "TE-CUBO-01",
+    titulo: "Del cubo al desarrollo",
+    imagen: "/modulos/psicotecnicas/cubo-desarrollo.webp",
     imagenAlt:
-      "Cuatro estados de un cubo: plegado, empezando a desplegarse, casi desplegado y desplegado en cruz.",
-    pie: "Ver la transición completa es lo que permite después hacerla de cabeza, en los dos sentidos.",
+      "Cuatro pasos: el cubo plegado, la cara de arriba levantándose, una cara lateral abatida, y el desarrollo en cruz.",
+    pie: "Ver la transición completa es lo que permite después hacerla de cabeza, en los dos sentidos. Casi todo el razonamiento espacial de un proceso de selección es esta operación, con prisa.",
   },
   {
-    id: "TE-E2-03",
+    id: "TE-CUBO-02",
     titulo: "Qué caras no pueden ir juntas",
-    imagen: "/psicotecnicas/espacial/ES-E2-teoria-03.webp",
     imagenAlt:
-      "Un desarrollo de cubo con las caras numeradas y las rotaciones de 90 grados señaladas.",
-    pie: "La regla que resuelve la mitad de estos ejercicios: en el plegado, las caras opuestas nunca quedan juntas. 1 y 3 no van juntas, 2 y 4 no van juntas, 5 y 6 no van juntas.",
+      "Desarrollo en cruz con las caras 1 a 6; las parejas opuestas 1-6, 2-4 y 3-5 van cada una de un color, y ninguna pareja aparece en casillas contiguas.",
+    imagen: "/modulos/psicotecnicas/cubo-caras-opuestas.webp",
+    pie: "La regla que resuelve la mitad de estos ejercicios: al plegar, las caras opuestas nunca quedan juntas. En esta cruz se oponen 1 con 6, 2 con 4 y 3 con 5, y por eso ninguna pareja del mismo color está pegada. Si una alternativa muestra dos caras de la misma pareja a la vez, se descarta sin plegar nada.",
   },
 ]

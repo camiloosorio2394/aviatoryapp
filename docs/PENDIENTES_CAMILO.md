@@ -513,3 +513,44 @@ múltiple cronometrada, `scripts/psicotecnicas/generar-series.mjs` genera tres
 distractores por ítem a partir de los errores típicos. La respuesta y el
 desglose son los del documento; las alternativas no. Si prefieres que esas vayan
 con campo de texto en vez de opción múltiple, es un cambio acotado al reproductor.
+
+### 8.5 · Las visuales del tema
+
+Todo lo que no es un ejercicio está dibujado para Aviatory, no recortado de las
+fuentes: la portada del tema, las tres ilustraciones de familia del hub y las
+dos láminas de la lección del cubo. Salen de
+`scripts/psicotecnicas/generar-visuales.mjs`, que las genera como SVG y las
+rasteriza a WebP; pesan 160 KB entre las seis y quedan fuera del precache.
+
+Siguen el lenguaje de NOTAM y Mercancías —fondo navy, vector plano, trazo
+blanco, un acento por pieza— con los tokens de marca de `src/index.css`
+convertidos a sRGB, no aproximados a ojo. Si el diseño cambia, se tocan los
+colores en el script y se regenera; no hay que rehacer nada a mano.
+
+Las dos láminas de teoría del cubo sustituyen a las de la fuente 667035629, que
+enseñaban lo mismo con la marca de agua de su autor encima. Son dos imágenes de
+terceros menos en el producto.
+
+### 8.6 · La migración quedó sin aplicar
+
+`supabase db push` se detiene porque el historial del repositorio y el de la base
+están desincronizados: la base tiene doce migraciones aplicadas a mano que no
+existen como archivo (de `20260730050401` a `20260803191653`), y el CLI se niega
+a avanzar mientras eso siga así.
+
+Lo que sí se hizo, con autorización de Nico: marcar como aplicadas las cinco
+migraciones locales del 2 de agosto que la base ya tenía de hecho —mercancías,
+biblioteca por módulos, ICAO speaking, simulacro de aerolínea y páginas de
+biblioteca—, porque esas funciones están vivas en la app. Eso no tocó ni esquema
+ni datos.
+
+Falta que alguien con acceso a la base decida cómo cerrar el desfase: lo normal
+sería `supabase db pull` para traer a archivos lo que se aplicó a mano, y después
+`db push`. Mientras tanto el módulo funciona, pero los intentos solo quedan en
+`localStorage` y el logro `psico_simulacro` no se desbloquea.
+
+La migración, `20260908010000_modulo_psicotecnicas.sql`, se reescribió para ser
+puramente aditiva: crea su tabla, su umbral, su logro y su propio disparador, y
+**no** recrea `check_and_unlock_achievements`. Se hizo así justamente por el
+desfase: replicar esa función desde la versión que guarda el repositorio habría
+revertido en silencio cualquier logro añadido en esas migraciones sueltas.

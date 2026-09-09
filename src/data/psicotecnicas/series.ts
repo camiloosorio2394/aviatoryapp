@@ -1,7 +1,7 @@
 import type { EjercicioPsico } from "@/lib/psicotecnicas"
 
 /**
- * Series numéricas — 173 ejercicios.
+ * Series numéricas — 162 ejercicios.
  *
  * ARCHIVO GENERADO. No se edita a mano: sale de
  * `node scripts/psicotecnicas/generar-series.mjs <carpeta-con-los-pdf>`.
@@ -222,13 +222,13 @@ export const SERIES: EjercicioPsico[] = [
     "nivel": "intermedio",
     "enunciado": "Complete la serie: 1, 2, 4, 8, 16, 32, …",
     "opciones": [
-      "-20",
+      "96",
       "48",
-      "6",
-      "58"
+      "64",
+      "0"
     ],
     "respuesta": 2,
-    "explicacion": "El término que sigue es 6. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2).",
+    "explicacion": "El término que sigue es 64. El documento lo desglosa así: 1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2).",
     "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 1.14",
     "categoria": "numerico"
@@ -540,23 +540,6 @@ export const SERIES: EjercicioPsico[] = [
     "categoria": "numerico"
   },
   {
-    "id": "NU-N2-02-13",
-    "subcategoria": "Sucesiones aritméticas",
-    "nivel": "basico",
-    "enunciado": "Complete la serie: 10, 13, 16, 19, 21, 24, 27, 30, …",
-    "opciones": [
-      "36",
-      "34",
-      "33",
-      "27"
-    ],
-    "respuesta": 2,
-    "explicacion": "El término que sigue es 33. El documento lo desglosa así: 10 (+3) 13 (+3) 16 (+3) 19 (+3) 21 (+3) 24 (+3) 27 (+3) 30 (+3).",
-    "tiempo": 45,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 2.13",
-    "categoria": "numerico"
-  },
-  {
     "id": "NU-N2-02-14",
     "subcategoria": "Sucesiones multiplicativas",
     "nivel": "intermedio",
@@ -676,23 +659,6 @@ export const SERIES: EjercicioPsico[] = [
     "categoria": "numerico"
   },
   {
-    "id": "NU-N2-03-01",
-    "subcategoria": "Sucesiones aritméticas",
-    "nivel": "basico",
-    "enunciado": "Complete la serie: 33, 35, 37, 39, 41, 43, 45, 49, …",
-    "opciones": [
-      "52",
-      "51",
-      "53",
-      "47"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 51. El documento lo desglosa así: 33 (+2) 35 (+2) 37 (+2) 39 (+2) 41 (+2) 43 (+2) 45 (+2) 49 (+2).",
-    "tiempo": 45,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.1",
-    "categoria": "numerico"
-  },
-  {
     "id": "NU-N2-03-02",
     "subcategoria": "Sucesiones alternantes",
     "nivel": "intermedio",
@@ -741,23 +707,6 @@ export const SERIES: EjercicioPsico[] = [
     "explicacion": "El término que sigue es 44. El documento lo desglosa así: 20 (+3) 23 (+3) 26 (+3) 29 (+3) 32 (+3) 35 (+3) 38 (+3) 41 (+3).",
     "tiempo": 45,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.4",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-03-05",
-    "subcategoria": "Sucesiones aritméticas",
-    "nivel": "basico",
-    "enunciado": "Complete la serie: 14, 18, 22, 26, 30, 34, 38, 40, …",
-    "opciones": [
-      "42",
-      "44",
-      "36",
-      "48"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 44. El documento lo desglosa así: 14 (+4) 18 (+4) 22 (+4) 26 (+4) 30 (+4) 34 (+4) 38 (+4) 40 (+4).",
-    "tiempo": 45,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.5",
     "categoria": "numerico"
   },
   {
@@ -965,57 +914,6 @@ export const SERIES: EjercicioPsico[] = [
     "categoria": "numerico"
   },
   {
-    "id": "NU-N2-03-18",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "intermedio",
-    "enunciado": "Complete la serie: 38, 34, 37, 33, 36, 40, 43, 39, …",
-    "opciones": [
-      "35",
-      "41",
-      "43",
-      "37"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 41. El documento lo desglosa así: 38 (-4) 34 (+3) 37 (-4) 33 (+3) 36 (-4) 40 (+3) 43 (-4) 39 (+3).",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.18",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-03-19",
-    "subcategoria": "Sucesiones de progresión variable",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 46, 43, 42, 41, 38, 36, 35, 32, …",
-    "opciones": [
-      "29",
-      "34",
-      "28",
-      "30"
-    ],
-    "respuesta": 3,
-    "explicacion": "El término que sigue es 30. El documento lo desglosa así: 46 (-3) 43 (-2) 42 (-1) 41 (-3) 38 (-2) 36 (-1) 35 (-3) 32 (-2).",
-    "tiempo": 75,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.19",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-03-20",
-    "subcategoria": "Sucesiones multiplicativas",
-    "nivel": "intermedio",
-    "enunciado": "Complete la serie: 5, 10, 12, 24, 26, 56, 58, 116, …",
-    "opciones": [
-      "114",
-      "120",
-      "118",
-      "174"
-    ],
-    "respuesta": 2,
-    "explicacion": "El término que sigue es 118. El documento lo desglosa así: 5 (x2) 10 (+2) 12 (x2) 24 (+2) 26 (x2) 56 (+2) 58 (x2) 116 (+2).",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 3.20",
-    "categoria": "numerico"
-  },
-  {
     "id": "NU-N2-04-01",
     "subcategoria": "Sucesiones aritméticas",
     "nivel": "basico",
@@ -1081,23 +979,6 @@ export const SERIES: EjercicioPsico[] = [
     "explicacion": "El término que sigue es 12. El documento lo desglosa así: 3 (x2) 6 (x2) 12 // 3 (x3) 9 (x3) 27 // 3 (x4).",
     "tiempo": 75,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.4",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-04-05",
-    "subcategoria": "Sucesiones multiplicativas",
-    "nivel": "intermedio",
-    "enunciado": "Complete la serie: 2, 4, 6, 12, 14, 28, 26, …",
-    "opciones": [
-      "0",
-      "52",
-      "24",
-      "78"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 52. El documento lo desglosa así: 2 (x2) 4 (+2) 6 (x2) 12 (+2) 14 (x2) 28 (+2) 26 (x2).",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 4.5",
     "categoria": "numerico"
   },
   {
@@ -1455,23 +1336,6 @@ export const SERIES: EjercicioPsico[] = [
     "explicacion": "El término que sigue es 2. El documento lo desglosa así: 2 (+) 2 (=) 4 (+) 2 (=) 6 (+) 2 (=) 8.",
     "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.6",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-05-07",
-    "subcategoria": "Sucesiones multiplicativas",
-    "nivel": "intermedio",
-    "enunciado": "Complete la serie: 32, 33, 66, 67, 134, 133, …",
-    "opciones": [
-      "132",
-      "0",
-      "399",
-      "266"
-    ],
-    "respuesta": 3,
-    "explicacion": "El término que sigue es 266. El documento lo desglosa así: 32 (+1) 33 (x2) 66 (+1) 67 (x2) 134 (+1) 133.",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 5.7",
     "categoria": "numerico"
   },
   {
@@ -2410,23 +2274,6 @@ export const SERIES: EjercicioPsico[] = [
     "categoria": "numerico"
   },
   {
-    "id": "NU-N2-08-08",
-    "subcategoria": "Sucesiones de progresión variable",
-    "nivel": "intermedio",
-    "enunciado": "Complete la serie: 1, 2, 4, 7, 11, 16, 22, 30, …",
-    "opciones": [
-      "23",
-      "37",
-      "44",
-      "38"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 37. El documento lo desglosa así: 1 (+1) 2 (+2) 4 (+3) 7 (+4) 11 (+5) 16 (+6) 22 (+7) 29 (+8).",
-    "tiempo": 60,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.8",
-    "categoria": "numerico"
-  },
-  {
     "id": "NU-N2-08-09",
     "subcategoria": "Sucesiones de progresión variable",
     "nivel": "intermedio",
@@ -2458,23 +2305,6 @@ export const SERIES: EjercicioPsico[] = [
     "explicacion": "El término que sigue es 22. El documento lo desglosa así: 10 (+1) 11 (+1) 12 (+3) 15 (+1) 16 (+1) 17 (+3) 20 (+1) 21 (+1).",
     "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.11",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-08-12",
-    "subcategoria": "Sucesiones de progresión variable",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 3, 6, 10, 12, 24, 28, …",
-    "opciones": [
-      "25",
-      "31",
-      "34",
-      "32"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 31. El documento lo desglosa así: 3 (+3) 6 (+4) 10 (+2) 12 (+2) 24 (+4) 28 (+3).",
-    "tiempo": 75,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.12",
     "categoria": "numerico"
   },
   {
@@ -2917,23 +2747,6 @@ export const SERIES: EjercicioPsico[] = [
     "explicacion": "El término que sigue es 107. El documento lo desglosa así: 3 (x2) 6 (+1) 7 (x2) 14 (+3) 17 (x6) 102 (+5).",
     "tiempo": 75,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.13",
-    "categoria": "numerico"
-  },
-  {
-    "id": "NU-N2-10-14",
-    "subcategoria": "Sucesiones de progresión variable",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 37, 35, 38, 36, 34, 40, 38, 36, …",
-    "opciones": [
-      "48",
-      "42",
-      "34",
-      "30"
-    ],
-    "respuesta": 1,
-    "explicacion": "El término que sigue es 42. El documento lo desglosa así: 37 (-2) 35 (+3) 38 (-2) 36 (-2) 34 (+6) 40 (-2) 38 (-2) 36 (+9).",
-    "tiempo": 75,
-    "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 10.14",
     "categoria": "numerico"
   },
   {

@@ -29,6 +29,26 @@ const ICONO: Record<CategoriaPsico, React.ComponentType<{ className?: string }>>
   numerico: Sigma,
 }
 
+/**
+ * La ilustración de cada familia, dibujada para el módulo.
+ *
+ * Van en public y no en assets para quedar fuera del precache de la PWA: son
+ * material de una sección concreta, igual que las infografías de NOTAM y de
+ * Mercancías. Se generan con scripts/psicotecnicas/generar-visuales.mjs.
+ */
+const ILUSTRACION: Record<CategoriaPsico, string> = {
+  abstracto: "/infografias/psicotecnicas/familia-abstracto.webp",
+  espacial: "/infografias/psicotecnicas/familia-espacial.webp",
+  numerico: "/infografias/psicotecnicas/familia-numerico.webp",
+}
+
+const ALT: Record<CategoriaPsico, string> = {
+  abstracto:
+    "Matriz de tres por tres con figuras que ganan un lado y giran en cada casilla; la última está vacía.",
+  espacial: "El desarrollo en cruz de un cubo y, al lado, el cubo ya plegado.",
+  numerico: "La serie 3, 6, 12, 24 con el salto ×2 marcado, y el término siguiente en blanco.",
+}
+
 const COLOR: Record<CategoriaPsico, string> = {
   abstracto: "var(--av-violet-400)",
   espacial: "var(--av-cyan-400)",
@@ -123,7 +143,22 @@ export function PsicoHub() {
             const Icono = ICONO[c]
             const subs = subcategoriasDe(c)
             return (
-              <div key={c} className="rounded-2xl border border-border bg-card p-5 flex flex-col">
+              <div
+                key={c}
+                className="rounded-2xl border border-border bg-card overflow-hidden flex flex-col"
+              >
+                {/* La ilustración dice de qué va la familia antes de que se lea
+                    una palabra: una matriz con un hueco, un cubo y su
+                    desarrollo, una serie que se duplica. */}
+                <img
+                  src={ILUSTRACION[c]}
+                  alt={ALT[c]}
+                  width={480}
+                  height={480}
+                  className="w-full h-[150px] object-cover object-center"
+                  loading="lazy"
+                />
+                <div className="p-5 flex flex-col flex-1">
                 <div className="flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
@@ -170,6 +205,7 @@ export function PsicoHub() {
                     Entrenar {CATEGORIAS[c].corto.toLowerCase()}{" "}
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
+                </div>
                 </div>
               </div>
             )

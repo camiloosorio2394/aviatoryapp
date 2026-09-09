@@ -53,7 +53,6 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jp
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
-import psicotecnicasPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
 
 /**
  * Módulo Ingreso a aerolínea: la lista de TEMAS de estudio.
@@ -321,7 +320,9 @@ export function AirlinePrep() {
           title: "Pruebas psicotécnicas",
           blurb:
             "Razonamiento abstracto, espacial y numérico contra el reloj. Tres modos y tres niveles: el tiempo se acorta a medida que subes.",
-          photo: psicotecnicasPhoto,
+          // La portada del propio tema, dibujada para él. Vive en public y no en
+          // assets porque así queda fuera del precache, como la de Mercancías.
+          photo: "/infografias/psicotecnicas/portada.webp",
           cta: mejorPsico === null ? "Empezar el tema" : "Seguir entrenando",
           progress: mejorPsico ?? 0,
           status:

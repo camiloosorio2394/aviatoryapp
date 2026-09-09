@@ -17,6 +17,45 @@ cosas —auditar una respuesta y decidir qué se publica—.
 Del tercer documento de espacial que menciona el encargo no llegó ninguno; el
 material espacial sale de E1 y E2.
 
+## Estado de verificación de las respuestas
+
+Ninguna respuesta del banco se da por buena por haberla leído bien. Esto es lo
+que respalda cada una, y con qué se comprueba:
+
+| Origen | Ejercicios | Cómo está verificada |
+|---|---|---|
+| A1 abstracto | 20 | Contrastados uno a uno contra la lámina SOLUCIONES del documento: los 20 coinciden |
+| E1 espacial | 14 | Contrastados contra la clave impresa al final del PDF: los 14 coinciden |
+| E2 espacial | 4 | Transcritas del resaltado de la fuente; la 7 (27 − 6 = 21) y la 10 (dos dados suman 42 puntos) además se comprobaron por cuenta propia |
+| N1 numérico | 38 | `verificar-numerico.mjs` recalcula las 38 desde el enunciado y las compara: cuadran |
+| N2 series | 162 | `verificar-respuestas.mjs`: 97 verificadas aritméticamente contra las operaciones que declara la fuente, 65 sin comprobación automática posible, 0 discrepancias |
+
+Los tres verificadores se corren así, y conviene hacerlo antes de publicar:
+
+```
+node scripts/psicotecnicas/verificar-banco.mjs
+node scripts/psicotecnicas/verificar-numerico.mjs
+node scripts/psicotecnicas/verificar-respuestas.mjs ~/Downloads
+```
+
+Las 65 series «sin comprobación automática» no son dudosas: son las agrupadas y
+las entrelazadas, donde el documento declara menos operaciones que saltos y no
+hay forma de alinearlas. Su respuesta es la que trae la fuente.
+
+### Lo que la verificación encontró
+
+**Once series salieron del banco** porque la serie impresa contradice las
+operaciones que el propio documento declara para ella: 2.13, 3.1, 3.5, 3.18,
+3.19, 3.20, 4.5, 5.7, 8.8, 8.12 y 10.14. Ejemplo: en «10, 13, 16, 19, 21, 24,
+27, 30» la fuente declara «+3» en todos los saltos, y de 19 a 21 hay +2. No se
+puede saber si sobra el término o la regla, y entrenar con eso enseña al revés.
+
+**Una respuesta se corrigió.** En «1, 2, 4, 8, 16, 32» la fuente declara seis
+veces «x2» e imprime como respuesta 6: es un 64 al que se le cayó el 4. Solo se
+corrige cuando la operación es la misma en toda la serie, porque ahí la regla no
+admite discusión. Con operaciones mezcladas, una discrepancia entre la regla y
+la respuesta impresa saca al ejercicio del banco en vez de corregirlo.
+
 ## Lo que quedó fuera, y por qué
 
 **N1, ejercicio 11** (formas de sentarse tres hombres y dos mujeres alternados).

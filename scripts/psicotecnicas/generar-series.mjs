@@ -188,6 +188,86 @@ function distractores(terminos, respuesta) {
   return elegidos
 }
 
+/** Aplica una operación declarada («+3», «x2», «:2») a un número. */
+function aplicar(valor, op) {
+  const m = op.replace(/\s+/g, "").match(/^([+\-x×:/])(\d+(?:[.,]\d+)?)$/)
+  if (!m) return null
+  const n = Number(m[2].replace(",", "."))
+  switch (m[1]) {
+    case "+": return valor + n
+    case "-": return valor - n
+    case "x": case "×": return valor * n
+    case ":": case "/": return n === 0 ? null : valor / n
+    default: return null
+  }
+}
+
+/**
+ * Contrasta la serie impresa con las operaciones que declara la solución.
+ *
+ * El documento tiene erratas, y hay que separarlas en dos clases porque no se
+ * arreglan igual:
+ *
+ * — La cadena de operaciones reproduce la serie entera pero la respuesta
+ *   impresa no cuadra. Entonces la errata está en la respuesta y la regla
+ *   manda: en «1 (x2) 2 (x2) 4 (x2) 8 (x2) 16 (x2) 32 (x2)» el documento
+ *   imprime 6 y la respuesta es 64. Se corrige y se deja anotado.
+ * — La serie impresa contradice su propia regla a mitad de camino (un «21»
+ *   donde tocaba 22). Ahí no hay forma de saber si sobra el término o la regla,
+ *   y el ejercicio no se puede cargar: entrenar con él enseña al revés.
+ *
+ * Cuando no hay suficientes operaciones con cantidad para juzgar —series
+ * entrelazadas, agrupadas con «//», o con «(=)» y «(+)» sueltos— se devuelve
+ * "sin_juicio" y se respeta la respuesta del documento.
+ */
+function contrastar(terminos, pasos, solucion, respuestaImpresa) {
+  // Sin una operación por cada salto no se puede alinear nada. Pasa en las
+  // series agrupadas —el documento las separa con «//» o con espacios— y en las
+  // entrelazadas, donde solo se declaran los saltos de una de las dos. Ahí no
+  // se juzga: la respuesta del documento es lo único que hay.
+  const agrupada = solucion.includes("//")
+  // Los «(+)» y «(=)» sueltos son flechas entre términos, no operaciones: con
+  // ellos los paréntesis dejan de alinear con los saltos.
+  const conFlechas = pasos.some((o) => /^[+\-=]$/.test(o.replace(/\s+/g, "")))
+  if (agrupada || conFlechas || pasos.length < terminos.length - 1) {
+    return { veredicto: "sin_juicio" }
+  }
+
+  const comprobables = []
+  for (let i = 0; i < terminos.length - 1 && i < pasos.length; i++) {
+    const esperado = aplicar(terminos[i], pasos[i])
+    if (esperado !== null) comprobables.push([esperado, terminos[i + 1]])
+  }
+  if (comprobables.length < 3) return { veredicto: "sin_juicio" }
+  if (comprobables.some(([a, b]) => Math.abs(a - b) > 1e-9)) {
+    return { veredicto: "serie_inconsistente" }
+  }
+
+  // Solo se corrige la respuesta si el documento declara también la operación
+  // del último salto, el que lleva del último término mostrado a la solución.
+  // Cuando no la declara —el caso de las alternantes, que traen un salto menos
+  // que términos— predecirla exigiría adivinar cuál toca, y adivinar es
+  // exactamente lo que no puede hacer un banco de entrenamiento.
+  if (pasos.length < terminos.length) return { veredicto: "cadena_verificada" }
+  const predicha = aplicar(terminos.at(-1), pasos[terminos.length - 1])
+  if (predicha === null) return { veredicto: "cadena_verificada" }
+  if (Math.abs(predicha - respuestaImpresa) > 1e-9) {
+    // La regla y la respuesta impresa no coinciden. Solo se corrige cuando la
+    // serie tiene UNA sola operación repetida de principio a fin: ahí la regla
+    // es incuestionable y lo impreso es una errata evidente («1 2 4 8 16 32»
+    // con seis «x2» y respuesta 6, que es un 64 al que se le cayó el 4).
+    //
+    // Con operaciones mezcladas, que la regla y la respuesta discrepen
+    // significa que el documento se contradice, y no hay forma de saber cuál de
+    // las dos está mal. Ese ejercicio no entra.
+    if (new Set(pasos).size === 1) {
+      return { veredicto: "respuesta_corregida", respuesta: predicha }
+    }
+    return { veredicto: "serie_inconsistente" }
+  }
+  return { veredicto: "verificada" }
+}
+
 /** Baraja estable: el mismo ítem siempre coloca su respuesta en el mismo sitio. */
 function mezclar(opciones, semilla) {
   const copia = [...opciones]
@@ -202,6 +282,10 @@ function mezclar(opciones, semilla) {
 
 const ejercicios = []
 let descartados = 0
+let verificados = 0
+/** Ítems corregidos y descartados, para dejarlos por escrito al terminar. */
+const corregidos = []
+const inconsistentes = []
 
 for (const [nEj, items] of [...enunciados].sort((a, b) => a[0] - b[0])) {
   const sols = soluciones.get(nEj)
@@ -209,11 +293,24 @@ for (const [nEj, items] of [...enunciados].sort((a, b) => a[0] - b[0])) {
   for (const [nItem, enunciado] of [...items].sort((a, b) => a[0] - b[0])) {
     const solucion = sols.get(nItem)
     if (!solucion) { descartados++; continue }
-    const respuesta = respuestaDe(solucion)
+    const impresa = respuestaDe(solucion)
     const terminos = terminosDe(enunciado)
-    if (respuesta === null || terminos.length < 4) { descartados++; continue }
+    if (impresa === null || terminos.length < 4) { descartados++; continue }
 
     const pasos = pasosDe(solucion)
+
+    // El contraste decide si el ítem entra, entra corregido, o no entra.
+    const juicio = contrastar(terminos, pasos, solucion, impresa)
+    if (juicio.veredicto === "serie_inconsistente") {
+      inconsistentes.push(`${nEj}.${nItem}: ${terminos.join(", ")} — la serie impresa contradice sus propias operaciones`)
+      continue
+    }
+    const respuesta = juicio.veredicto === "respuesta_corregida" ? juicio.respuesta : impresa
+    if (juicio.veredicto === "respuesta_corregida") {
+      corregidos.push(`${nEj}.${nItem}: ${terminos.join(", ")} — el documento imprime ${impresa}, la regla da ${respuesta}`)
+    }
+    if (juicio.veredicto === "verificada" || juicio.veredicto === "cadena_verificada") verificados++
+
     const { sub, nivel } = clasificar(pasos)
     const opciones = mezclar([respuesta, ...distractores(terminos, respuesta)], nEj * 100 + nItem)
     if (opciones.length < 4) { descartados++; continue }
@@ -259,4 +356,15 @@ const cuerpo = JSON.stringify(
 )
 
 fs.writeFileSync(salida, `${cabecera}${cuerpo}\n`, "utf8")
-console.log(`Listo: ${ejercicios.length} series en ${path.relative(raiz, salida)} (${descartados} descartadas)`)
+console.log(`Listo: ${ejercicios.length} series en ${path.relative(raiz, salida)}`)
+console.log(`  ✓ verificadas contra sus propias operaciones: ${verificados}`)
+console.log(`  · sin operaciones suficientes para juzgar: ${ejercicios.length - verificados - corregidos.length}`)
+if (corregidos.length > 0) {
+  console.log(`  ! respuesta corregida (errata de la fuente): ${corregidos.length}`)
+  for (const c of corregidos) console.log(`      ${c}`)
+}
+if (inconsistentes.length > 0) {
+  console.log(`  ✗ fuera por serie inconsistente: ${inconsistentes.length}`)
+  for (const c of inconsistentes) console.log(`      ${c}`)
+}
+if (descartados > 0) console.log(`  · fuera por no poder leerse: ${descartados}`)
