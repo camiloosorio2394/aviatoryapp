@@ -148,7 +148,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "titulo":
       return (
         <h2
-          className="ln-display m-0 mt-3 text-[28px] lg:text-[36px] font-semibold"
+          className="ln-display m-0 mt-3 border-b doc-rule pb-4 text-[28px] font-semibold lg:text-[34px]"
           style={{ lineHeight: 1.12, letterSpacing: "-0.012em", color: "var(--doc-fg)" }}
         >
           {block.text}
