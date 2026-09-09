@@ -22,7 +22,7 @@ import {
   X,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
+import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -108,6 +108,12 @@ const IMAGE_ITEMS: PracticeItem[] = REAL_NOTAMS.map((n) => ({
 }))
 
 const PAISES = ["todos", ...Array.from(new Set(REAL_NOTAMS.map((n) => n.pais)))]
+
+/** Países distintos entre los dos bancos, para la cifra de la cabecera. */
+const TOTAL_PAISES = new Set([
+  ...REAL_NOTAMS.map((n) => n.pais),
+  ...EXERCISES.map((e) => e.pais).filter(Boolean),
+]).size
 
 /** Intento en curso. Va atado a la clave del ejercicio: al cambiar de ejercicio se descarta. */
 interface Attempt {
@@ -248,15 +254,41 @@ export function NotamPractice() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
         </Link>
 
-        <PageHeader
-          eyebrow={
-            <>
+        {/* Cabecera. Va centrada y sobre la foto de cabina, con un velo navy
+            encima: la sección es la más larga del módulo y necesitaba una
+            entrada que se sostenga sola, no un titular pegado al borde. La foto
+            es la misma que ya identifica a la práctica en el inicio de NOTAM,
+            así que el usuario llega y reconoce dónde está. */}
+        <header className="np-hero relative mb-8 overflow-hidden rounded-[18px]">
+          <img src={practicaPhoto} alt="" aria-hidden="true" className="np-hero-foto" />
+          <div className="np-hero-velo" />
+          <div className="relative px-6 py-11 text-center sm:px-10 sm:py-14">
+            <div className="np-hero-rotulo">
               <Target className="h-3.5 w-3.5" /> NOTAM · Práctica
-            </>
-          }
-          title="Practica interpretando NOTAM"
-          subtitle={`${TOTALS.reales} NOTAM reales, nacionales e internacionales, y ${TOTALS.exercises} ejercicios de texto. Lee el NOTAM, explícalo con tus palabras y después compara con la respuesta modelo.`}
-        />
+            </div>
+            <h1 className="np-display mx-auto mt-4 max-w-[880px] text-[30px] font-semibold leading-[1.1] text-white sm:text-[40px]">
+              Practica interpretando NOTAMs reales
+            </h1>
+            <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
+              Practica con NOTAMs reales y familiarízate con las abreviaturas y la fraseología que
+              encontrarás durante la operación. Mejora tu lectura e interpretación para responder
+              con mayor seguridad en una entrevista de aerolínea.
+            </p>
+            <div className="np-hero-cifras">
+              <span>
+                <strong className="tabular">{TOTALS.reales}</strong> NOTAM en imagen
+              </span>
+              <span aria-hidden="true" className="np-hero-punto" />
+              <span>
+                <strong className="tabular">{TOTALS.exercises}</strong> NOTAM en texto
+              </span>
+              <span aria-hidden="true" className="np-hero-punto" />
+              <span>
+                <strong className="tabular">{TOTAL_PAISES}</strong> países
+              </span>
+            </div>
+          </div>
+        </header>
 
         {/* === CONTROLES: modo, nivel, progreso y selector === */}
         <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
@@ -270,13 +302,13 @@ export function NotamPractice() {
               active={mode === "imagen"}
               onClick={() => changeMode("imagen")}
               icon={<ImageIcon className="h-4 w-4" />}
-              label={`NOTAM reales (${TOTALS.reales})`}
+              label={`NOTAM en imagen (${TOTALS.reales})`}
             />
             <ModeButton
               active={mode === "texto"}
               onClick={() => changeMode("texto")}
               icon={<FileText className="h-4 w-4" />}
-              label={`Ejercicios de texto (${TOTALS.exercises})`}
+              label={`NOTAM en texto (${TOTALS.exercises})`}
             />
           </div>
 
@@ -322,7 +354,7 @@ export function NotamPractice() {
                 <span className="tabular">{modeItems.length}</span> resueltos
                 <span className="text-muted-foreground font-normal">
                   {" "}
-                  en {mode === "texto" ? "los ejercicios de texto" : "los NOTAM reales"}
+                  en {mode === "texto" ? "los NOTAM en texto" : "los NOTAM en imagen"}
                 </span>
               </div>
               <div className="text-[12px] text-muted-foreground tabular">{pct}%</div>
@@ -345,10 +377,8 @@ export function NotamPractice() {
 
           {list.length > 0 && (
             <div className="mt-5">
-              <div className="text-[12px] font-semibold text-muted-foreground mb-2">
-                Salta al ejercicio que quieras
-              </div>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="np-rotulo mb-2">Salta al que quieras</div>
+              <div className="flex flex-wrap gap-1">
                 {list.map((it, i) => {
                   const active = i === safeIdx
                   const done = doneKeys.includes(it.key)
@@ -363,7 +393,7 @@ export function NotamPractice() {
                       title={rotulo}
                       aria-label={`Ir al ejercicio ${i + 1} de ${list.length}: ${rotulo}${done ? ", ya resuelto" : ""}`}
                       aria-current={active ? "true" : undefined}
-                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12px] font-semibold tabular border transition-colors"
+                      className="np-salto relative inline-flex items-center justify-center rounded-[6px] border tabular transition-colors"
                       style={{
                         color: active ? "white" : done ? accentText(color) : "var(--muted-foreground)",
                         background: active
@@ -379,14 +409,11 @@ export function NotamPractice() {
                       }}
                     >
                       {i + 1}
-                      {done && !active && (
-                        <Check className="absolute -top-1 -right-1 h-3 w-3" strokeWidth={3.5} />
-                      )}
                     </button>
                   )
                 })}
               </div>
-              <div className="mt-2 text-[12px] text-muted-foreground">
+              <div className="mt-2 text-[11px] text-muted-foreground">
                 En verde los que ya marcaste como resueltos.
               </div>
             </div>
@@ -420,7 +447,7 @@ export function NotamPractice() {
                     Antes los tres pesaban lo mismo y no se sabía qué era qué. */}
                 <header>
                   <div className="np-rotulo">
-                    {mode === "texto" ? "Ejercicio de texto" : "NOTAM real"} · {safeIdx + 1} de{" "}
+                    {mode === "texto" ? "NOTAM en texto" : "NOTAM en imagen"} · {safeIdx + 1} de{" "}
                     {list.length}
                   </div>
                   {/* En los ejercicios de texto el título dice de qué trata el
@@ -501,7 +528,7 @@ export function NotamPractice() {
                     ruido. Y el aviso de vigencia va al pie, pequeño: es una
                     condición de uso del material, no el titular de la pantalla. */}
                 <p className="np-aviso">
-                  <ShieldAlert className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />
+                  <ShieldAlert className="h-3 w-3 shrink-0" aria-hidden="true" />
                   <span>{item.national ? DISCLAIMERS.reales : DISCLAIMERS.practice}</span>
                 </p>
               </section>

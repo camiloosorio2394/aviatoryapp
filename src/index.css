@@ -1454,3 +1454,74 @@
   margin-top: 2px;
   color: var(--av-wine-500);
 }
+/* --- Cabecera de la práctica --------------------------------------------- */
+.notam-practica .np-hero {
+  background: var(--av-navy-950);
+}
+
+.notam-practica .np-hero-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+}
+
+/* El velo. Sin él, el texto blanco sobre la cabina no se lee; con él, la foto
+   se queda de fondo y el titular manda, que es de lo que se trata. */
+.notam-practica .np-hero-velo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, oklch(0.14 0.025 250 / 78%) 0%, oklch(0.14 0.025 250 / 92%) 100%);
+}
+
+.notam-practica .np-hero-rotulo {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid oklch(1 0 0 / 22%);
+  background: oklch(1 0 0 / 8%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: oklch(1 0 0 / 82%);
+}
+
+.notam-practica .np-hero-cifras {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px 16px;
+  margin-top: 26px;
+  font-size: 13px;
+  color: oklch(1 0 0 / 70%);
+}
+
+.notam-practica .np-hero-cifras strong {
+  font-weight: 600;
+  color: oklch(1 0 0 / 95%);
+}
+
+.notam-practica .np-hero-punto {
+  width: 3px;
+  height: 3px;
+  border-radius: 999px;
+  background: oklch(1 0 0 / 35%);
+}
+
+/* Los números para saltar. Pierden peso a propósito: son una herramienta de
+   navegación, no el contenido, y a 31 o 100 casillas ocupaban media pantalla. */
+.notam-practica .np-salto {
+  height: 26px;
+  min-width: 26px;
+  padding: 0 5px;
+  font-size: 11px;
+  font-weight: 500;
+}
