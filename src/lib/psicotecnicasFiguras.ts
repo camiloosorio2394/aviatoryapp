@@ -113,6 +113,36 @@ export type Elemento =
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  /**
+   * El rectángulo partido en dos y una de las mitades rellena.
+   *
+   * `lado` dice cuál de las dos se rellena: con el corte vertical, izquierda o
+   * derecha; con el horizontal, arriba o abajo; con el diagonal —que va de
+   * abajo-izquierda a arriba-derecha—, arriba es el triángulo de arriba a la
+   * izquierda. Cuando el relleno es blanco el lado no se ve, pero se declara
+   * igual: es lo que distingue dos alternativas que solo cambian de mitad.
+   */
+  /**
+   * El mástil del ejercicio 6: una vertical con un semicírculo arriba, un
+   * círculo abajo a un lado y un gancho abierto al otro.
+   *
+   * El gancho no se declara: va siempre al lado contrario del círculo, como en
+   * el cuadernillo. Lo que sí se declara es el relleno del círculo de abajo,
+   * porque hay alternativas que solo se distinguen en eso.
+   */
+  | {
+      tipo: "mastil-figura"
+      semicirculo: "izquierda" | "derecha"
+      relleno: Relleno
+      circulo: "izquierda" | "derecha"
+      circuloRelleno: Relleno
+    }
+  | {
+      tipo: "mitad-rellena"
+      corte: "vertical" | "horizontal" | "diagonal"
+      lado: Sentido
+      relleno: Relleno
+    }
   | {
       tipo: "cuadro-marcado"
       mira: Sentido
@@ -448,6 +478,75 @@ function dibujarCelda(
           `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}"` +
             ` x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"` +
             ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "mastil-figura": {
+        const cx = x + ancho / 2
+        const r = Math.min(ancho, alto) * 0.17
+        const yArriba = y + alto * 0.2
+        const yAbajo = y + alto * 0.72
+        const aLaDerecha = (lado: string) => (lado === "derecha" ? 1 : -1)
+
+        partes.push(
+          `<line x1="${cx}" y1="${y}" x2="${cx}" y2="${y + alto}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+
+        // El semicírculo: media circunferencia pegada al mástil por su lado.
+        const barrido = el.semicirculo === "derecha" ? 1 : 0
+        partes.push(
+          `<path d="M${cx},${(yArriba - r).toFixed(1)} A${r.toFixed(1)},${r.toFixed(1)}` +
+            ` 0 0 ${barrido} ${cx},${(yArriba + r).toFixed(1)} Z"` +
+            ` fill="${pintura(el.relleno)}" stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+
+        // El círculo, tangente al mástil por dentro de su lado.
+        const cxCirculo = cx + aLaDerecha(el.circulo) * r
+        partes.push(
+          `<circle cx="${cxCirculo.toFixed(1)}" cy="${yAbajo.toFixed(1)}" r="${r.toFixed(1)}"` +
+            ` fill="${pintura(el.circuloRelleno)}" stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+
+        // El gancho, al otro lado: media vuelta abierta hacia arriba.
+        const haciaElGancho = -aLaDerecha(el.circulo)
+        partes.push(
+          `<path d="M${cx},${yAbajo.toFixed(1)} A${r.toFixed(1)},${r.toFixed(1)} 0 0` +
+            ` ${haciaElGancho > 0 ? 0 : 1} ${(cx + haciaElGancho * 2 * r).toFixed(1)},${yAbajo.toFixed(1)}"` +
+            ` fill="none" stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "mitad-rellena": {
+        const relleno = pintura(el.relleno)
+        const [d, f] = [x + ancho, y + alto] // derecha, fondo
+        const zona =
+          el.corte === "vertical"
+            ? el.lado === "izquierda"
+              ? `${x},${y} ${x + ancho / 2},${y} ${x + ancho / 2},${f} ${x},${f}`
+              : `${x + ancho / 2},${y} ${d},${y} ${d},${f} ${x + ancho / 2},${f}`
+            : el.corte === "horizontal"
+              ? el.lado === "arriba"
+                ? `${x},${y} ${d},${y} ${d},${y + alto / 2} ${x},${y + alto / 2}`
+                : `${x},${y + alto / 2} ${d},${y + alto / 2} ${d},${f} ${x},${f}`
+              : el.lado === "arriba"
+                ? `${x},${y} ${d},${y} ${x},${f}`
+                : `${d},${y} ${d},${f} ${x},${f}`
+
+        // El corte se dibuja siempre, aunque la mitad quede en blanco: es la
+        // línea que parte la casilla, no el borde del relleno.
+        const linea =
+          el.corte === "vertical"
+            ? `M${x + ancho / 2},${y} V${f}`
+            : el.corte === "horizontal"
+              ? `M${x},${y + alto / 2} H${d}`
+              : `M${x},${f} L${d},${y}`
+
+        partes.push(
+          `<polygon points="${zona}" fill="${relleno}" stroke="none"/>`,
+          `<path d="${linea}" stroke="currentColor" stroke-width="${TRAZO}" fill="none"/>`
         )
         break
       }
@@ -804,6 +903,13 @@ export function describirCelda(celda: Celda): string {
           return "las dos diagonales del rectángulo"
         case "cuerda":
           return `cuerda del rombo hacia ${el.hacia}`
+        case "mastil-figura":
+          return (
+            `mástil con un semicírculo ${el.relleno} a la ${el.semicirculo} arriba, ` +
+            `un círculo ${el.circuloRelleno} a la ${el.circulo} abajo y el gancho al otro lado`
+          )
+        case "mitad-rellena":
+          return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
         case "pieza-punta":
           return `pieza con la punta hacia ${el.mira}, con relleno ${el.relleno}`
         case "cuadro-marcado":

@@ -87,6 +87,30 @@ const pp = (mira: Sentido, relleno: Relleno): Celda => ({
   elementos: [{ tipo: "pieza-punta", mira, relleno }],
 })
 
+/**
+ * Casilla partida con una mitad rellena.
+ *
+ * El lado se puede omitir: por defecto es el canónico de cada corte —la
+ * izquierda, la de arriba— que es el que usa toda la matriz. Las alternativas
+ * sí lo dicen, porque varias se distinguen solo en eso.
+ */
+const mr = (
+  corte: "vertical" | "horizontal" | "diagonal",
+  relleno: Relleno,
+  lado: Sentido = corte === "vertical" ? "izquierda" : "arriba"
+): Celda => ({ marco: true, elementos: [{ tipo: "mitad-rellena", corte, lado, relleno }] })
+
+/** Casilla del mástil con semicírculo, círculo y gancho. */
+const mg = (
+  semicirculo: "izquierda" | "derecha",
+  relleno: Relleno,
+  circulo: "izquierda" | "derecha",
+  circuloRelleno: Relleno = "blanco"
+): Celda => ({
+  marco: true,
+  elementos: [{ tipo: "mastil-figura", semicirculo, relleno, circulo, circuloRelleno }],
+})
+
 const HUECO = { incognita: true } as const
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -189,6 +213,65 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       pp("abajo", "rayado-diagonal"),
       pp("abajo", "blanco"),
       pp("arriba", "punteado"),
+    ],
+  },
+
+  /**
+   * Las nueve casillas agotan las combinaciones de dos atributos: por dónde se
+   * parte el rectángulo —vertical, horizontal o diagonal— y con qué se rellena
+   * la mitad —negro, rayado o blanco—. Cada fila y cada columna traen los tres
+   * cortes y los tres rellenos sin repetir, así que la que falta es el corte
+   * horizontal en negro.
+   *
+   * Las alternativas juegan con la mitad que se rellena: la A es la B con el
+   * negro abajo, y la C lo pone a la derecha.
+   */
+  "AB-A1-05": {
+    tipo: "matriz-3x3",
+    celdas: [
+      mr("vertical", "negro"), mr("horizontal", "rayado-vertical"), mr("diagonal", "blanco"),
+      mr("horizontal", "blanco"), mr("diagonal", "negro"), mr("vertical", "rayado-vertical"),
+      mr("diagonal", "rayado-vertical"), mr("vertical", "blanco"), HUECO,
+    ],
+    opciones: [
+      mr("horizontal", "negro", "abajo"),
+      mr("horizontal", "negro"),
+      mr("vertical", "negro", "derecha"),
+      mr("horizontal", "rayado-vertical"),
+      mr("horizontal", "rayado-vertical", "abajo"),
+    ],
+  },
+
+  /**
+   * Tres atributos que corren en paralelo sobre el mismo mástil: el relleno
+   * del semicírculo de arriba —negro, blanco, rayado—, de qué lado del mástil
+   * cuelga ese semicírculo, y de qué lado queda el círculo de abajo (el gancho
+   * va siempre enfrente). Los tres se reparten igual en cada fila y en cada
+   * columna, y a la casilla que falta le toca el negro, a la izquierda, con el
+   * círculo a la derecha.
+   *
+   * La D y la E llevan el círculo de abajo relleno de negro, que en la matriz
+   * nunca pasa: por eso el relleno del círculo también se declara.
+   */
+  "AB-A1-06": {
+    tipo: "matriz-3x3",
+    celdas: [
+      mg("derecha", "negro", "izquierda"),
+      mg("izquierda", "blanco", "derecha"),
+      mg("izquierda", "rayado-diagonal", "izquierda"),
+      mg("izquierda", "rayado-diagonal", "derecha"),
+      mg("izquierda", "negro", "izquierda"),
+      mg("derecha", "blanco", "izquierda"),
+      mg("izquierda", "blanco", "izquierda"),
+      mg("derecha", "rayado-diagonal", "izquierda"),
+      HUECO,
+    ],
+    opciones: [
+      mg("izquierda", "rayado-diagonal", "derecha"),
+      mg("derecha", "negro", "izquierda"),
+      mg("izquierda", "negro", "derecha"),
+      mg("izquierda", "blanco", "derecha", "negro"),
+      mg("derecha", "negro", "izquierda", "negro"),
     ],
   },
 }
