@@ -881,3 +881,47 @@ en vez del original.
 Sigue en pie dibujar las doce que faltan. Esto no lo sustituye: arregla lo que se
 veía mal hoy, y quita la marca ajena, pero un recorte sigue siendo material de
 otro.
+
+## 13 · El damero de las láminas espaciales
+
+Nico vio un ejercicio espacial que en la app parecía una imagen rota: la figura
+diminuta en una esquina y el resto una cuadrícula gris. No era transparencia:
+las láminas del cuadernillo E2 salieron de diapositivas con fondo transparente,
+y al exportarlas **la cuadrícula que los editores dibujan para decir «aquí no
+hay nada» quedó pintada dentro del pixel**. Doce láminas lo tenían.
+
+`scripts/psicotecnicas/limpiar-espacial.mjs` lo apaga y reencuadra. El umbral no
+es a ojo: el damero vive exactamente en 240 y 255, y el dibujo de estas láminas
+no pasa de 224, así que se separan sin tocar el sombreado de mesas ni cubos.
+Los cuatro ejercicios pasaron de 1181×855 con la figura al 20 % a un encuadre
+ajustado.
+
+### 13.1 · Y una que sí estaba mordida
+
+`ES-E2-10` —el de los dos dados sobre la mesa— **tenía cortada la cara de arriba
+del dado superior**, y ese ejercicio pide contar los puntos que NO se ven. Con
+la cara cortada, la pregunta no se puede responder mirando.
+
+Esa no se arregla reencuadrando, porque lo que falta ya no está en el archivo.
+Se rehizo desde la página 13 del PDF, donde el dado sale entero. Comprobado que
+la respuesta sigue cuadrando: dos dados son 42 puntos, se ven 1+5+3 arriba y 5+3
+abajo —17—, quedan **25**, que es la A y es lo que dice la fuente.
+
+### 13.2 · Lo que NO se pudo automatizar, y por qué queda anotado
+
+Intenté sacar las cuatro del PDF con detección automática de la figura dentro de
+la diapositiva. **No es fiable y lo dejé fuera**: en dos de los cuatro intentos
+el recorte se llevó por delante la lista de alternativas, y en esas diapositivas
+la respuesta correcta va resaltada en amarillo. Un recorte automático que falla
+así no muestra una imagen fea: **le enseña la respuesta al alumno**.
+
+La 10 se recortó a mano con coordenadas comprobadas una a una. Si hay que rehacer
+otra desde el PDF, que sea igual: a mano y mirándola.
+
+### 13.3 · Los ocho ejemplos siguen mordidos en origen
+
+`ES-E2-ejemplo-04` a `-09`, `-14` y `-15` tienen el dibujo pegado al borde del
+lienzo, o sea que el recorte original ya los cortó. El damero sí se les quitó,
+pero lo que falta del dibujo no vuelve sin ir al PDF. Salen en la lección
+Aprende, no en un ejercicio con respuesta, así que el daño es menor — pero está
+sin arreglar y conviene saberlo.

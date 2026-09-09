@@ -273,7 +273,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     nivel: "intermedio",
     enunciado:
       "En la siguiente figura, calcule la menor cantidad de cubitos que faltan para construir un cubo sólido.",
-    imagen: "/psicotecnicas/espacial/ES-E2-07.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-07-limpio.webp",
     imagenAlt: "Un montaje de seis cubitos formando una figura en ele sobre dos niveles.",
     opciones: ["12", "17", "19", "20", "21"],
     respuesta: 4,
@@ -288,7 +288,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Cubos",
     nivel: "intermedio",
     enunciado: "¿Cuántos cubos se pueden contar en la siguiente figura?",
-    imagen: "/psicotecnicas/espacial/ES-E2-08.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-08-limpio.webp",
     imagenAlt: "Un montaje escalonado de cubos en varios niveles, visto en perspectiva.",
     opciones: ["15", "16", "17", "18", "19"],
     respuesta: 2,
@@ -303,7 +303,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Cubos",
     nivel: "intermedio",
     enunciado: "¿Cuántos cubos se emplearon en la siguiente construcción?",
-    imagen: "/psicotecnicas/espacial/ES-E2-09.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-09-limpio.webp",
     imagenAlt: "Una construcción de cubos con huecos, algunos en sombra, vista en perspectiva.",
     opciones: ["17", "18", "16", "13", "14"],
     respuesta: 4,
@@ -318,7 +318,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     subcategoria: "Dados",
     nivel: "avanzado",
     enunciado: "De acuerdo al gráfico, ¿cuál es la cantidad de puntos no visibles?",
-    imagen: "/psicotecnicas/espacial/ES-E2-10.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-10-limpio.webp",
     imagenAlt: "Dos dados apilados uno sobre otro, encima de una mesa.",
     opciones: ["25", "26", "24", "22", "20"],
     respuesta: 0,
@@ -339,7 +339,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-04",
     categoria: "espacial",
     titulo: "Despliegue de un cubo con números",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-04.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-04-limpio.webp",
     imagenAlt: "Desarrollo de un cubo con los números 1, 2, 3, 4 y 6, y cuatro cubos plegados.",
     respuesta:
       "La A. Al plegar, la cara del 1 y la del 3 quedan opuestas, así que ningún cubo puede mostrar las dos a la vez.",
@@ -349,7 +349,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-05",
     categoria: "espacial",
     titulo: "Despliegue de un dado por puntos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-05.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-05-limpio.webp",
     imagenAlt: "Desarrollo de un dado marcado con puntos y cuatro dados plegados.",
     respuesta:
       "La C. En un dado las caras opuestas suman siete, y esa regla descarta sola tres de las cuatro alternativas.",
@@ -359,7 +359,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-06",
     categoria: "espacial",
     titulo: "Despliegue con flechas y símbolos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-06.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-06-limpio.webp",
     imagenAlt: "Desarrollo con un cuadrado, un triángulo y dos flechas, y cuatro cubos plegados.",
     respuesta:
       "La D. Con las flechas no basta con que la cara sea la correcta: tiene que apuntar hacia donde queda al cerrar el cubo.",
@@ -369,7 +369,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-07",
     categoria: "espacial",
     titulo: "Despliegue con cuatro símbolos",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-07.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-07-limpio.webp",
     imagenAlt: "Desarrollo con triángulo, círculo, estrella y cuadrado, y cuatro cubos plegados.",
     respuesta:
       "La C. Se comprueba con un par de caras contiguas: las que en el desarrollo comparten arista tienen que seguir compartiéndola en el cubo.",
@@ -379,7 +379,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-08",
     categoria: "espacial",
     titulo: "Del cubo al desarrollo",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-08.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-08-limpio.webp",
     imagenAlt: "Un cubo con las caras divididas en triángulos negros y cinco desarrollos posibles.",
     respuesta:
       "La A. Aquí el camino es el inverso: se parte del cubo y se busca el desarrollo, vigilando la orientación de cada triángulo.",
@@ -389,7 +389,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-09",
     categoria: "espacial",
     titulo: "Qué sólido forma el desarrollo",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-09.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-09-limpio.webp",
     imagenAlt: "Un desarrollo con puntos, cruz, línea y asterisco, y cinco sólidos posibles.",
     respuesta:
       "La B. Con cinco alternativas conviene descartar por pares de caras opuestas antes de intentar plegar entero.",
@@ -399,7 +399,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-14",
     categoria: "espacial",
     titulo: "Rotación de 90 grados",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-14.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-14-limpio.webp",
     imagenAlt: "Dos siluetas de perro en un recuadro y cuatro rotaciones posibles.",
     respuesta:
       "La B. Girar no es reflejar: dos de las opciones son la figura espejada, que nunca se obtiene rotando en el plano.",
@@ -409,7 +409,7 @@ export const EJEMPLOS_ESPACIAL: EjemploPsico[] = [
     id: "EJ-E2-15",
     categoria: "espacial",
     titulo: "Despliegue de una caja",
-    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-15.webp",
+    imagen: "/psicotecnicas/espacial/ES-E2-ejemplo-15-limpio.webp",
     imagenAlt: "Desarrollo de una caja con caras trapezoidales y cuatro cajas formadas.",
     respuesta:
       "La C. Cuando las caras no son cuadradas hay que mirar también las proporciones: la caja resultante conserva el ancho de cada trapecio.",
