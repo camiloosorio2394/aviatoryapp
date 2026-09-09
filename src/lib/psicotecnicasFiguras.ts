@@ -138,6 +138,19 @@ export type Elemento =
    * símbolo se declara porque una alternativa cambia la barra negra por una
    * hueca y no se distingue en nada más.
    */
+  /**
+   * El aspa del ejercicio 9: las dos diagonales, un círculo negro que sube y
+   * baja sobre el cruce, y una banda negra en un borde.
+   *
+   * En la matriz el círculo y la banda van atados —cuando uno sube, la otra
+   * cae al borde de abajo—, pero las alternativas los separan, así que se
+   * declaran aparte.
+   */
+  | {
+      tipo: "aspa-circulo"
+      circulo: "arriba" | "centro" | "abajo"
+      banda: "arriba" | "abajo" | "ninguna"
+    }
   | {
       tipo: "silueta-con-simbolo"
       contorno: "triangulo" | "rectangulo" | "casa"
@@ -493,6 +506,36 @@ function dibujarCelda(
           `<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}"` +
             ` x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"` +
             ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "aspa-circulo": {
+        const cx = x + ancho / 2
+        const cy = y + alto / 2
+        const r = Math.min(ancho, alto) * 0.21
+
+        partes.push(
+          `<line x1="${x}" y1="${y}" x2="${x + ancho}" y2="${y + alto}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`,
+          `<line x1="${x + ancho}" y1="${y}" x2="${x}" y2="${y + alto}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+
+        if (el.banda !== "ninguna") {
+          const h = alto * 0.13
+          partes.push(
+            `<rect x="${x}" y="${(el.banda === "arriba" ? y : y + alto - h).toFixed(1)}"` +
+              ` width="${ancho}" height="${h.toFixed(1)}" fill="currentColor"/>`
+          )
+        }
+
+        // El círculo se apoya en el cruce: centrado, o tangente por arriba o
+        // por abajo. Va el último porque en el original tapa las diagonales.
+        const desplazamiento = el.circulo === "centro" ? 0 : el.circulo === "arriba" ? -r : r
+        partes.push(
+          `<circle cx="${cx}" cy="${(cy + desplazamiento).toFixed(1)}"` +
+            ` r="${r.toFixed(1)}" fill="currentColor"/>`
         )
         break
       }
@@ -984,6 +1027,11 @@ export function describirCelda(celda: Celda): string {
           return "las dos diagonales del rectángulo"
         case "cuerda":
           return `cuerda del rombo hacia ${el.hacia}`
+        case "aspa-circulo":
+          return (
+            `aspa con el círculo negro ${el.circulo === "centro" ? "en el cruce" : el.circulo}` +
+            (el.banda === "ninguna" ? " y sin banda" : ` y una banda negra ${el.banda}`)
+          )
         case "silueta-con-simbolo":
           return `contorno de ${el.contorno} con ${el.simbolo} ${el.simboloRelleno} y pie de ${el.pie}`
         case "mastil-figura":

@@ -1,5 +1,6 @@
 import type { EjercicioPsico } from "@/lib/psicotecnicas"
 import { FIGURAS_A1 } from "./figurasA1"
+import { LAMINAS_LIMPIAS } from "./laminasLimpias"
 
 /**
  * Razonamiento abstracto — 20 ejercicios de series de figuras.
@@ -32,13 +33,17 @@ function serie(
   // Los que ya están dibujados llevan su figura y sus alternativas sueltas;
   // los que todavía no, siguen con el recorte y sus opciones dentro del pixel.
   const figura = FIGURAS_A1[id]
+  // Mientras una lámina no esté dibujada se enseña su recorte, y del recorte
+  // se enseña la versión sin el logotipo de Facebook cuando se pudo quitar sin
+  // morder el ejercicio. El original se queda en el repositorio como prueba.
+  const lamina = LAMINAS_LIMPIAS.has(id) ? `${id}-limpio` : id
   return {
     id,
     categoria: "abstracto",
     subcategoria,
     nivel,
     enunciado: ENUNCIADO,
-    imagen: `/psicotecnicas/abstracto/${id}.webp`,
+    imagen: `/psicotecnicas/abstracto/${lamina}.webp`,
     imagenAlt,
     opciones: OPCIONES,
     ...(figura ? { figura } : { opcionesEnImagen: true }),

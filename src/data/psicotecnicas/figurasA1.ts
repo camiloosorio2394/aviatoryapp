@@ -122,6 +122,12 @@ const sil = (
   elementos: [{ tipo: "silueta-con-simbolo", contorno, simbolo, simboloRelleno, pie }],
 })
 
+/** Casilla del aspa con círculo y banda. */
+const ac = (
+  circulo: "arriba" | "centro" | "abajo",
+  banda: "arriba" | "abajo" | "ninguna"
+): Celda => ({ marco: true, elementos: [{ tipo: "aspa-circulo", circulo, banda }] })
+
 const HUECO = { incognita: true } as const
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -314,6 +320,31 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       sil("triangulo", "barra", "patas", "blanco"),
       sil("rectangulo", "triangulito", "trazo"),
       sil("triangulo", "triangulito", "patas"),
+    ],
+  },
+
+  /**
+   * El círculo sube y baja sobre el cruce del aspa, y la banda negra cae
+   * siempre al borde contrario: cuando el círculo sube, la banda va abajo.
+   * Con el círculo en el cruce no hay banda. Cada fila y cada columna traen las
+   * tres posiciones, y a la que falta le toca arriba, con la banda abajo.
+   *
+   * Las alternativas separan lo que en la matriz va atado: la A y la B ponen el
+   * círculo fuera del cruce sin banda, y la D lo baja dejando la banda abajo.
+   */
+  "AB-A1-09": {
+    tipo: "matriz-3x3",
+    celdas: [
+      ac("centro", "ninguna"), ac("arriba", "abajo"), ac("abajo", "arriba"),
+      ac("arriba", "abajo"), ac("abajo", "arriba"), ac("centro", "ninguna"),
+      ac("abajo", "arriba"), ac("centro", "ninguna"), HUECO,
+    ],
+    opciones: [
+      ac("arriba", "ninguna"),
+      ac("abajo", "ninguna"),
+      ac("centro", "abajo"),
+      ac("abajo", "abajo"),
+      ac("arriba", "abajo"),
     ],
   },
 }
