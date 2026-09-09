@@ -1,19 +1,19 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen, ScanSearch, Target, GraduationCap } from "lucide-react"
+import { ArrowLeft, BookOpen, Target, GraduationCap } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
 import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
-import decodificadorPhoto from "@/assets/photos/notam-decodificador-tablero.jpg"
 import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
 import evaluacionPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
   EXAM_PASS_SCORE,
+  EXAM_PER_ATTEMPT,
   NOTAM_PRACTICE_TOTAL,
   TOTALS,
   readLocalProgress,
@@ -25,7 +25,7 @@ import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgres
  * Hub de la seccion NOTAM (modulo Ingreso a Aerolinea).
  * Ruta: /app/aerolinea/notam
  *
- * Cuatro partes: Aprende, Decodificador, Practica y Evaluacion.
+ * Tres partes: Aprende, Practica y Evaluacion.
  * El progreso se lee de Supabase (user_notam_progress + user_notam_exam_attempts)
  * y cae al respaldo local de la libreria si no hay sesion o la consulta falla.
  */
@@ -129,7 +129,7 @@ export function Notam() {
   // Ingreso a aerolínea no puedan mostrar dos porcentajes distintos.
   const resumen = useMemo(() => resumirNotam(progress), [progress])
 
-  // Las cuatro partes, presentadas como el catálogo de cursos de la portada:
+  // Las tres partes, presentadas como el catálogo de cursos de la portada:
   // eliges por dónde entrar, y ahí la foto orienta y distingue. Las tarjetas de
   // dato de esta misma página (el progreso de arriba) siguen sin foto.
   const partes: CourseCardProps[] = [
@@ -153,18 +153,6 @@ export function Notam() {
       done: resumen.lessonRead >= TOTALS.lessonScreens,
     },
     {
-      to: "/app/aerolinea/notam/decodificador",
-      icon: ScanSearch,
-      color: "var(--av-cyan-400)",
-      meta: `${TOTALS.subjects} asuntos y ${TOTALS.statuses} estados`,
-      title: "Decodificador",
-      blurb:
-        "Escribe un código Q de 5 letras y te devuelve el asunto, el estado y la fraseología normalizada. Trae buscador.",
-      cta: "Abrir el decodificador",
-      photo: decodificadorPhoto,
-      status: "Consulta libre, sin límite",
-    },
-    {
       to: "/app/aerolinea/notam/practica",
       icon: Target,
       color: "var(--av-violet-400)",
@@ -185,7 +173,7 @@ export function Notam() {
       to: "/app/aerolinea/notam/evaluacion",
       icon: GraduationCap,
       color: "var(--av-amber-400)",
-      meta: `${TOTALS.examQuestions} preguntas, apruebas con ${EXAM_PASS_SCORE}`,
+      meta: `${EXAM_PER_ATTEMPT} preguntas al azar, apruebas con ${EXAM_PASS_SCORE}`,
       title: "Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
@@ -263,10 +251,10 @@ export function Notam() {
                   <BookOpen className="h-4 w-4" /> Empezar la lección
                 </Link>
                 <Link
-                  to="/app/aerolinea/notam/decodificador"
+                  to="/app/aerolinea/notam/practica"
                   className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
                 >
-                  <ScanSearch className="h-4 w-4" /> Decodificar un código
+                  <Target className="h-4 w-4" /> Ir a la práctica
                 </Link>
               </div>
             </div>
@@ -351,9 +339,9 @@ export function Notam() {
           />
         </div>
 
-        {/* Las 4 partes */}
+        {/* Las 3 partes */}
         <section className="pt-14">
-          <Rotulo>La sección · 4 partes</Rotulo>
+          <Rotulo>La sección · 3 partes</Rotulo>
           <h2 className="mt-1.5 text-[24px] font-semibold tracking-[-0.021em] leading-tight">
             Por dónde vas a pasar
           </h2>

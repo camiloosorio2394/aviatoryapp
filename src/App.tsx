@@ -64,7 +64,6 @@ const MetarDecoder = page(() => import("@/pages/MetarDecoder"), "MetarDecoder")
 const MetarPractice = page(() => import("@/pages/MetarPractice"), "MetarPractice")
 const MetarExam = page(() => import("@/pages/MetarExam"), "MetarExam")
 const NotamLesson = page(() => import("@/pages/NotamLesson"), "NotamLesson")
-const NotamDecoder = page(() => import("@/pages/NotamDecoder"), "NotamDecoder")
 const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice")
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
@@ -289,14 +288,7 @@ function App() {
             </RequireAuth>
           }
         />
-        <Route
-          path="/app/aerolinea/notam/decodificador"
-          element={
-            <RequireAuth>
-              <NotamDecoder />
-            </RequireAuth>
-          }
-        />
+        
         <Route
           path="/app/aerolinea/notam/practica"
           element={

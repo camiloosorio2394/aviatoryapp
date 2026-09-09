@@ -63,7 +63,7 @@ const COURSES: {
   },
   {
     title: "Ingreso a aerolínea",
-    blurb: "Empieza por NOTAM: lección, decodificador del Doc 8400 y práctica con avisos reales de la Aerocivil. Requisitos por aerolínea, muy pronto.",
+    blurb: "Empieza por NOTAM: lección y práctica con avisos reales de la Aerocivil. Requisitos por aerolínea, muy pronto.",
     icon: Plane,
     color: "#7C3AED",
     meta: "NOTAM disponible",

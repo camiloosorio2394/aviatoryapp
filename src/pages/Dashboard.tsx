@@ -631,7 +631,7 @@ export function Dashboard() {
                     ? notam.best >= NOTAM_PASS_SCORE
                       ? `Evaluación aprobada con ${notam.best} de 100.`
                       : `Mejor puntaje en la evaluación: ${notam.best} de 100.`
-                    : "Lección, decodificador y práctica con NOTAM reales de la Aerocivil."
+                    : "Lección y práctica con NOTAM reales de la Aerocivil."
                 }
                 cta={notam ? "Continuar" : "Empezar NOTAM"}
               />
