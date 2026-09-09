@@ -839,6 +839,14 @@
   color: var(--mod-muted);
 }
 
+/* === Inicio de la sección NOTAM =============================================
+   El handoff titula con Archivo, que la app ya carga. Se declara aquí, con
+   alcance a la pantalla, en vez de tocar la familia global: fuera de este hub
+   los titulares siguen siendo los de siempre. */
+.notam-hub .nh-display {
+  font-family: "Archivo", var(--font-sans);
+}
+
 /* === Lector NOTAM (la lección Aprende) ======================================
    Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
    infografías: papel cálido y navy de carta aeronáutica, fija en los dos

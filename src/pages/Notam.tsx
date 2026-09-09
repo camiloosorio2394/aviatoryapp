@@ -1,19 +1,11 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  ScanSearch,
-  Target,
-  GraduationCap,
-  Plane,
-} from "lucide-react"
+import { ArrowLeft, BookOpen, ScanSearch, Target, GraduationCap } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
-import { Rotulo, Filete } from "@/components/ui/rotulo"
+import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
+import heroPhoto from "@/assets/photos/notam-hero.webp"
 import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
 import decodificadorPhoto from "@/assets/photos/notam-decodificador-tablero.jpg"
 import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
@@ -211,7 +203,7 @@ export function Notam() {
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1280px] mx-auto">
+      <div className="notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -219,131 +211,148 @@ export function Notam() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
 
-        <PageHeader
-          eyebrow={
-            <>
-              <Plane className="h-3.5 w-3.5" /> Ingreso a aerolínea · sección
-            </>
-          }
-          title="NOTAM"
-          subtitle="Los NOTAM avisan de pistas cerradas, ayudas fuera de servicio y peligros temporales: los necesitas para planear cada vuelo y te los preguntan en las entrevistas y pruebas técnicas de las aerolíneas."
-          actions={
-            /* Un solo boton primario. Dos botones del mismo peso obligan a
-               elegir sin decir cual importa; el decodificador es herramienta de
-               consulta, no la entrada a la seccion, asi que baja a enlace. */
-            <div className="flex items-center gap-5">
-              <Link
-                to="/app/aerolinea/notam/decodificador"
-                className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <ScanSearch className="h-3.5 w-3.5" /> Decodificar un código
-              </Link>
-              <Link
-                to="/app/aerolinea/notam/aprende"
-                className="inline-flex items-center gap-2 h-11 px-5 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
-                style={{ background: "var(--av-blue-500)" }}
-              >
-                <BookOpen className="h-4 w-4" /> Empezar la lección
-              </Link>
-            </div>
-          }
-        />
+        {/* Hero de sección. La foto va a sangre bajo un velo navy: el título
+            tiene que leerse sobre cualquier zona de la imagen, y por eso el
+            velo es un degradado y no una opacidad plana. El panel de avance
+            vive dentro del hero porque "qué es esto" y "cómo voy" son la misma
+            pregunta al llegar. */}
+        <section className="relative overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+          <img
+            src={heroPhoto}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(105deg, rgba(8,20,36,.90) 0%, rgba(8,20,36,.76) 40%, rgba(8,20,36,.50) 70%, rgba(8,20,36,.30) 100%)",
+            }}
+            aria-hidden
+          />
 
-        {/* Ficha tecnica de la seccion: lo que trae, en datos y no en prosa.
-            Todos los numeros salen de TOTALS, ninguno esta escrito a mano. */}
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 py-2.5 border-y border-border mono text-[12px] text-muted-foreground">
-          <span>4 partes</span>
-          <Filete />
-          <span>{TOTALS.lessonScreens} secciones de lectura</span>
-          <Filete />
-          <span>{TOTALS.national} NOTAM reales de Colombia</span>
-          <Filete />
-          <span>OACI Doc 8400, 6ª ed.</span>
-          {!loading && !resumen.empty && (
-            <span className="ml-auto tabular" style={{ color: "var(--av-blue-500)" }}>
-              {resumen.overall}% completado
-            </span>
-          )}
-        </div>
-
-        {/* Tu avance. Sin tarjeta: la estructura la dan los filetes. Apilar
-            superficies redondeadas era lo que hacia que la pantalla se leyera
-            como plantilla y no como instrumento. */}
-        <section className="py-8 border-b border-border">
-          <Rotulo>Tu avance</Rotulo>
-
-          {loading ? (
-            <ProgresoSkeleton />
-          ) : resumen.empty ? (
-            <div className="mt-3.5 flex flex-col sm:flex-row sm:items-start gap-6">
-              <div className="flex-1 min-w-0">
-                <div className="text-[20px] font-semibold tracking-[-0.02em]">
-                  Todavía no empiezas esta sección
-                </div>
-                <p className="mt-1.5 text-[15px] text-muted-foreground leading-relaxed max-w-[60ch]">
-                  Arranca por la lección: son {TOTALS.lessonScreens} secciones cortas y de ahí
-                  salen el código Q y las casillas que después usas en la práctica y en la
-                  evaluación. Cuando termines, el decodificador te queda como herramienta de
-                  consulta.
-                </p>
-              </div>
-              <Link
-                to="/app/aerolinea/notam/aprende"
-                className="inline-flex items-center justify-center gap-2 h-11 px-5 rounded-lg text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
-                style={{ background: "var(--av-blue-500)" }}
-              >
-                Empezar por la lección <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          ) : (
-            <>
-              <div className="mt-3 flex items-baseline gap-2.5">
-                <span className="tabular text-[32px] font-semibold tracking-[-0.03em] leading-none">
-                  {resumen.overall}%
+          <div className="relative grid gap-8 px-7 pb-10 pt-9 sm:px-12 sm:pb-12 sm:pt-11 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-10">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                  Sección 01
                 </span>
-                <span className="mono text-[13px] text-muted-foreground">de la sección</span>
+                <span className="h-3 w-px bg-white/20" aria-hidden />
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                  Ingreso a aerolínea
+                </span>
               </div>
-              <div className="mt-5">
-                <Pista
-                  label="Lección"
-                  value={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
-                  detail="secciones leídas"
-                  pct={resumen.lessonPct}
-                  color="var(--av-blue-500)"
-                />
-                <Pista
-                  label="Práctica"
-                  value={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
-                  detail="ejercicios resueltos"
-                  pct={resumen.practicePct}
-                  color="var(--av-violet-400)"
-                />
-                <Pista
-                  label="Evaluación"
-                  value={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
-                  detail={
-                    resumen.best === null
-                      ? `apruebas con ${EXAM_PASS_SCORE}`
-                      : resumen.passed
-                        ? "aprobada"
-                        : `te faltan ${EXAM_PASS_SCORE - resumen.best} puntos`
-                  }
-                  pct={resumen.examPct}
-                  color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
-                />
-              </div>
-            </>
-          )}
 
-          <p className="mt-5 mono text-[11px] text-muted-foreground">
-            {user
-              ? "Se guarda en tu cuenta a medida que avanzas."
-              : "Inicia sesión para guardar tu avance en la cuenta."}
-          </p>
+              <h1 className="nh-display mt-4 text-[42px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[52px] lg:text-[64px]">
+                NOTAM
+              </h1>
+
+              <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.6] text-white/80">
+                Los NOTAM avisan de pistas cerradas, ayudas fuera de servicio y peligros
+                temporales: los necesitas para planear cada vuelo y te los preguntan en las
+                entrevistas y pruebas técnicas de las aerolíneas.
+              </p>
+
+              <div className="mt-7 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/app/aerolinea/notam/aprende"
+                  className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-colors"
+                  style={{ background: "var(--av-blue-500)" }}
+                >
+                  <BookOpen className="h-4 w-4" /> Empezar la lección
+                </Link>
+                <Link
+                  to="/app/aerolinea/notam/decodificador"
+                  className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
+                >
+                  <ScanSearch className="h-4 w-4" /> Decodificar un código
+                </Link>
+              </div>
+            </div>
+
+            {/* Panel de avance. Cristal sobre la foto, no tarjeta blanca: una
+                superficie clara aquí partiría el hero en dos pantallas. */}
+            <div className="self-start rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] px-5 py-[18px] backdrop-blur-[6px] lg:min-w-[230px]">
+              <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                Tu avance
+              </div>
+              {loading ? (
+                <>
+                  <div className="mt-3 h-9 w-24 animate-pulse rounded bg-white/15" />
+                  <div className="mt-4 h-1 animate-pulse rounded-sm bg-white/15" />
+                </>
+              ) : (
+                <>
+                  <div className="mt-2 flex items-baseline gap-2">
+                    <span className="nh-display tabular text-[40px] font-bold leading-none text-white">
+                      {resumen.overall}%
+                    </span>
+                    <span className="text-[13px] text-white/60">de la sección</span>
+                  </div>
+                  <div
+                    className="mt-4 h-1 overflow-hidden rounded-sm bg-white/15"
+                    role="progressbar"
+                    aria-valuenow={resumen.overall}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    aria-label="Avance de la sección NOTAM"
+                  >
+                    <div
+                      className="h-full rounded-sm transition-all"
+                      style={{ width: `${resumen.overall}%`, background: "#4E9BF5" }}
+                    />
+                  </div>
+                </>
+              )}
+              <p className="mt-3 text-[12px] leading-[1.5] text-white/55">
+                {user
+                  ? "Se guarda en tu cuenta a medida que avanzas."
+                  : "Inicia sesión para guardar tu avance en la cuenta."}
+              </p>
+            </div>
+          </div>
         </section>
 
+        {/* Franja de avance. El separador entre celdas es el hueco de un píxel
+            de la retícula sobre el color del borde: una sola caja con tres
+            celdas, y no tres tarjetas sueltas. */}
+        <div className="mt-6 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
+          <Celda
+            titulo="Lección"
+            valor={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
+            pie="secciones leídas"
+            pct={resumen.lessonPct}
+            color="var(--av-blue-500)"
+            cargando={loading}
+          />
+          <Celda
+            titulo="Práctica"
+            valor={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
+            pie="ejercicios resueltos"
+            pct={resumen.practicePct}
+            color="var(--av-blue-500)"
+            cargando={loading}
+          />
+          <Celda
+            titulo="Evaluación"
+            valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
+            aviso={resumen.best === null}
+            pie={
+              resumen.best === null
+                ? `apruebas con ${EXAM_PASS_SCORE}`
+                : resumen.passed
+                  ? "aprobada"
+                  : `te faltan ${EXAM_PASS_SCORE - resumen.best} puntos`
+            }
+            pct={resumen.examPct}
+            color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
+            cargando={loading}
+          />
+        </div>
+
         {/* Las 4 partes */}
-        <section className="pt-8">
+        <section className="pt-14">
           <Rotulo>La sección · 4 partes</Rotulo>
           <h2 className="mt-1.5 text-[24px] font-semibold tracking-[-0.021em] leading-tight">
             Por dónde vas a pasar
@@ -366,60 +375,65 @@ export function Notam() {
 // ─── Sub componentes ─────────────────────────────────────────────────────────
 
 /**
- * Una linea de avance. Barra recta de 3px y no capsula redondeada: la capsula
- * con degradado lee como app de consumo, la linea recta como instrumento, que
- * es de lo que va la app.
+ * Una celda de la franja de avance: bloque, cifra, barra y pie.
+ *
+ * La barra es recta y de cinco píxeles, no cápsula con degradado: la cápsula
+ * lee como app de consumo y esta pantalla tiene que leerse como instrumento.
+ * Cuando todavía no hay nada que medir, la cifra se sustituye por un sello
+ * ámbar, que dice "pendiente" sin fingir un cero.
  */
-function Pista({
-  label,
-  value,
-  detail,
+function Celda({
+  titulo,
+  valor,
+  pie,
   pct,
   color,
+  aviso,
+  cargando,
 }: {
-  label: string
-  value: string
-  detail: string
+  titulo: string
+  valor: string
+  pie: string
   pct: number
   color: string
+  aviso?: boolean
+  cargando?: boolean
 }) {
   return (
-    <div className="py-3.5 border-t border-border first:border-t-0 first:pt-0">
-      <div className="flex items-baseline justify-between gap-4">
-        <span className="text-[15px]">{label}</span>
-        <span className="tabular text-[15px] font-medium" style={{ color }}>
-          {value}
-        </span>
+    <div className="bg-card px-6 py-[22px]">
+      <div className="flex items-center justify-between gap-3">
+        <span className="nh-display text-[16px] font-semibold">{titulo}</span>
+        {cargando ? (
+          <span className="h-4 w-14 animate-pulse rounded bg-muted" />
+        ) : aviso ? (
+          // El sello no puede partirse en dos líneas: sin esto, "Sin intentos"
+          // rompe la altura de la celda y descuadra la franja entera.
+          <span
+            className="shrink-0 whitespace-nowrap rounded-[5px] border px-[9px] py-[3px] text-[13px] font-medium"
+            style={{ color: "#8A5A00", background: "#FDF3E0", borderColor: "#F3DFB8" }}
+          >
+            {valor}
+          </span>
+        ) : (
+          <span className="tabular text-[14px]" style={{ color }}>
+            {valor}
+          </span>
+        )}
       </div>
-      <div className="mt-2 h-[3px] bg-muted overflow-hidden">
+      <div
+        className="mt-3 h-[5px] overflow-hidden rounded-[3px] bg-muted"
+        role="progressbar"
+        aria-valuenow={cargando ? undefined : pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Avance de ${titulo}`}
+      >
         <div
-          className="h-full transition-all"
-          style={{ width: `${Math.max(0, Math.min(100, pct))}%`, background: color }}
+          className="h-full rounded-[3px] transition-all"
+          style={{ width: `${pct}%`, background: color }}
         />
       </div>
-      <div className="mt-1.5 mono text-[11px] text-muted-foreground">{detail}</div>
-    </div>
-  )
-}
-
-function ProgresoSkeleton() {
-  return (
-    /* El esqueleto calca la forma final: cifra, tres pistas y sus barras. Un
-       esqueleto que no coincide con lo que llega produce un salto al cargar. */
-    <div aria-hidden="true">
-      <div className="mt-3 h-8 w-28 bg-muted animate-pulse" />
-      <div className="mt-5">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className="py-3.5 border-t border-border first:border-t-0 first:pt-0">
-            <div className="flex items-baseline justify-between gap-4">
-              <div className="h-4 w-24 bg-muted animate-pulse" />
-              <div className="h-4 w-16 bg-muted animate-pulse" />
-            </div>
-            <div className="mt-2 h-[3px] bg-muted animate-pulse" />
-            <div className="mt-1.5 h-3 w-32 bg-muted animate-pulse" />
-          </div>
-        ))}
-      </div>
+      <div className="mt-2.5 text-[11px] tracking-[0.04em] text-muted-foreground">{pie}</div>
     </div>
   )
 }
