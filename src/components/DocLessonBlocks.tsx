@@ -33,6 +33,7 @@ import type { BreakdownPart, PasoIcono, TarjetaIcono } from "@/lib/notamLesson"
 import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
+import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 /**
  * Registro de infografías disponibles para el bloque `infografia`.
  *
@@ -64,12 +65,13 @@ function InfografiaCargando() {
  * que en móvil se rompen.
  */
 const BREAKDOWN_COLORS = [
-  "var(--av-blue-500)",
-  "var(--av-violet-400)",
-  "var(--av-cyan-400)",
-  "var(--av-amber-400)",
-  "var(--av-green-400)",
-  "var(--av-red-400)",
+  LINEA_Q_COLOR.fir,
+  LINEA_Q_COLOR.codigo,
+  LINEA_Q_COLOR.transito,
+  LINEA_Q_COLOR.objetivo,
+  LINEA_Q_COLOR.alcance,
+  LINEA_Q_COLOR.limites,
+  LINEA_Q_COLOR.area,
 ]
 
 function breakdownColor(i: number): string {
@@ -325,9 +327,19 @@ export function DocBlock({ block }: { block: DocBlockData }) {
 
     case "code":
       return (
-        <pre className="doc-soft m-0 overflow-x-auto rounded-lg border doc-rule px-4 py-3.5">
+        <pre
+          className={
+            block.grande
+              ? "doc-soft m-0 overflow-x-auto rounded-lg border doc-rule px-4 py-5 sm:px-6"
+              : "doc-soft m-0 overflow-x-auto rounded-lg border doc-rule px-4 py-3.5"
+          }
+        >
           <code
-            className="mono block text-[13px] leading-[1.65] whitespace-pre-wrap"
+            className={
+              block.grande
+                ? "mono block whitespace-pre-wrap text-[15px] font-semibold leading-[1.7] sm:text-[18px]"
+                : "mono block whitespace-pre-wrap text-[13px] leading-[1.65]"
+            }
             style={{ color: "var(--doc-fg)" }}
           >
             {block.text}
@@ -573,10 +585,31 @@ export function DocBlock({ block }: { block: DocBlockData }) {
     case "referencias":
       return <Referencias rotulo={block.rotulo} pista={block.pista} items={block.items} />
 
+    case "emparejar":
+      return (
+        <Emparejar
+          titulo={block.titulo}
+          enunciado={block.enunciado}
+          pares={block.pares}
+          orden={block.orden}
+        />
+      )
+
+    case "desplegables":
+      return (
+        <Desplegables
+          titulo={block.titulo}
+          enunciado={block.enunciado}
+          codigo={block.codigo}
+          filas={block.filas}
+        />
+      )
+
     case "check":
       return (
         <Check
           titulo={block.titulo}
+          codigo={block.codigo}
           question={block.question}
           options={block.options}
           answer={block.answer}
@@ -1451,14 +1484,271 @@ function Encabezados({ items, pista }: { items: EncabezadoItem[]; pista?: string
   )
 }
 
+/** Caja de ejercicio: el mismo marco azul que la comprobación de siempre. */
+function CajaEjercicio({
+  titulo,
+  enunciado,
+  children,
+  pie,
+}: {
+  titulo?: string
+  enunciado: string
+  children: ReactNode
+  pie?: ReactNode
+}) {
+  return (
+    <div
+      className="rounded-lg border p-4 sm:p-5"
+      style={{
+        borderColor: docAccent("var(--av-blue-500)", 26),
+        background: docTint("var(--av-blue-500)", 5),
+      }}
+    >
+      <div
+        className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
+        style={{ color: docAccent("var(--av-blue-500)", 60) }}
+      >
+        <PenLine className="h-3.5 w-3.5" aria-hidden /> {titulo ?? "Practica"}
+      </div>
+      <p className="mt-2 mb-0 text-[15px] leading-[1.7]">{renderInline(enunciado)}</p>
+      <div className="mt-4">{children}</div>
+      {pie}
+    </div>
+  )
+}
+
+interface Par {
+  k: string
+  v: string
+  color?: string
+}
+
+/**
+ * Emparejar tocando: primero el código, después su función.
+ *
+ * Sin arrastrar. En un celular el arrastre pelea con el desplazamiento de la
+ * página y el ejercicio se convierte en una lucha con el dedo; tocando se
+ * responde igual de bien con una mano y en cualquier pantalla.
+ */
+function Emparejar({
+  titulo,
+  enunciado,
+  pares,
+  orden,
+}: {
+  titulo?: string
+  enunciado: string
+  pares: Par[]
+  orden: number[]
+}) {
+  const [elegido, setElegido] = useState<number | null>(null)
+  const [resueltos, setResueltos] = useState<number[]>([])
+  const [fallo, setFallo] = useState<number | null>(null)
+
+  const completo = resueltos.length === pares.length
+
+  function tocarFuncion(i: number) {
+    if (elegido === null || resueltos.includes(i)) return
+    if (elegido === i) {
+      setResueltos((prev) => [...prev, i])
+      setElegido(null)
+      setFallo(null)
+    } else {
+      setFallo(i)
+      setElegido(null)
+      window.setTimeout(() => setFallo(null), 700)
+    }
+  }
+
+  const estilo = (i: number, activo: boolean) => {
+    const color = pares[i].color ?? "var(--av-blue-500)"
+    if (resueltos.includes(i))
+      return { borderColor: docAccent(color, 55), background: docTint(color, 12) }
+    if (fallo === i)
+      return {
+        borderColor: docAccent("var(--av-red-400)", 50),
+        background: docTint("var(--av-red-400)", 10),
+      }
+    if (activo)
+      return { borderColor: docAccent(color, 55), background: docTint(color, 10) }
+    return { borderColor: "var(--doc-border)", background: "var(--doc-bg)" }
+  }
+
+  return (
+    <CajaEjercicio
+      titulo={titulo}
+      enunciado={enunciado}
+      pie={
+        completo ? (
+          <p
+            className="m-0 mt-4 flex items-center gap-1.5 text-[14px] font-semibold"
+            style={{ color: docAccent("var(--av-green-400)", 62) }}
+          >
+            <CheckCircle2 className="h-4 w-4" aria-hidden /> Los siete, emparejados.
+          </p>
+        ) : (
+          <p className="m-0 mt-4 text-[13px] doc-muted">
+            Toca un código y después su función. Van {resueltos.length} de {pares.length}.
+          </p>
+        )
+      }
+    >
+      <div className="grid gap-2.5 sm:grid-cols-2">
+        <div className="flex flex-col gap-2">
+          {pares.map((p, i) => {
+            const hecho = resueltos.includes(i)
+            return (
+              <button
+                key={i}
+                type="button"
+                disabled={hecho}
+                onClick={() => setElegido(elegido === i ? null : i)}
+                aria-pressed={elegido === i}
+                className="mono rounded-md border px-3 py-2.5 text-left text-[13px] font-semibold transition-colors"
+                style={{
+                  ...estilo(i, elegido === i),
+                  color: hecho || elegido === i ? docAccent(p.color ?? "var(--av-blue-500)", 78) : "var(--doc-fg)",
+                }}
+              >
+                {p.k}
+              </button>
+            )
+          })}
+        </div>
+        <div className="flex flex-col gap-2">
+          {orden.map((i) => {
+            const hecho = resueltos.includes(i)
+            return (
+              <button
+                key={i}
+                type="button"
+                disabled={hecho}
+                onClick={() => tocarFuncion(i)}
+                className="rounded-md border px-3 py-2.5 text-left text-[14px] transition-colors"
+                style={{
+                  ...estilo(i, false),
+                  color: hecho ? docAccent(pares[i].color ?? "var(--av-blue-500)", 78) : "var(--doc-fg)",
+                  fontWeight: hecho ? 600 : 400,
+                }}
+              >
+                {pares[i].v}
+              </button>
+            )
+          })}
+        </div>
+      </div>
+    </CajaEjercicio>
+  )
+}
+
+interface FilaDesplegable {
+  token: string
+  opciones: string[]
+  correcta: number
+  color?: string
+}
+
+/** Una fila por componente y un desplegable con las opciones. */
+function Desplegables({
+  titulo,
+  enunciado,
+  codigo,
+  filas,
+}: {
+  titulo?: string
+  enunciado: string
+  codigo?: string
+  filas: FilaDesplegable[]
+}) {
+  const [respuestas, setRespuestas] = useState<Record<number, number>>({})
+  const aciertos = filas.filter((f, i) => respuestas[i] === f.correcta).length
+
+  return (
+    <CajaEjercicio
+      titulo={titulo}
+      enunciado={enunciado}
+      pie={
+        aciertos === filas.length ? (
+          <p
+            className="m-0 mt-4 flex items-center gap-1.5 text-[14px] font-semibold"
+            style={{ color: docAccent("var(--av-green-400)", 62) }}
+          >
+            <CheckCircle2 className="h-4 w-4" aria-hidden /> Línea Q interpretada de principio a fin.
+          </p>
+        ) : (
+          <p className="m-0 mt-4 text-[13px] doc-muted">
+            Van {aciertos} de {filas.length}.
+          </p>
+        )
+      }
+    >
+      {codigo && (
+        <pre className="doc-soft mb-4 mt-0 overflow-x-auto rounded-md border doc-rule px-3.5 py-2.5">
+          <code
+            className="mono block whitespace-pre-wrap break-words text-[13px] font-semibold leading-[1.7]"
+            style={{ color: "var(--doc-fg)" }}
+          >
+            {codigo}
+          </code>
+        </pre>
+      )}
+      <div className="flex flex-col gap-2.5">
+        {filas.map((f, i) => {
+          const elegida = respuestas[i]
+          const respondida = elegida !== undefined
+          const bien = elegida === f.correcta
+          const color = f.color ?? "var(--av-blue-500)"
+          const tono = respondida ? (bien ? "var(--av-green-400)" : "var(--av-red-400)") : color
+          return (
+            <div key={i} className="grid gap-2 sm:grid-cols-[minmax(0,150px)_minmax(0,1fr)] sm:items-center">
+              <code
+                className="mono justify-self-start rounded-md border px-2.5 py-1 text-[13px] font-semibold"
+                style={{
+                  color: docAccent(color, 78),
+                  background: docTint(color, 12),
+                  borderColor: docAccent(color, 30),
+                }}
+              >
+                {f.token}
+              </code>
+              <select
+                value={elegida ?? ""}
+                onChange={(e) => setRespuestas((prev) => ({ ...prev, [i]: Number(e.target.value) }))}
+                aria-label={`Interpretación de ${f.token}`}
+                className="w-full rounded-md border px-3 py-2 text-[14px]"
+                style={{
+                  borderColor: respondida ? docAccent(tono, 50) : "var(--doc-border)",
+                  background: respondida ? docTint(tono, 9) : "var(--doc-bg)",
+                  color: "var(--doc-fg)",
+                }}
+              >
+                <option value="" disabled>
+                  Elige la interpretación…
+                </option>
+                {f.opciones.map((op, j) => (
+                  <option key={j} value={j}>
+                    {op}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )
+        })}
+      </div>
+    </CajaEjercicio>
+  )
+}
+
 function Check({
   titulo,
+  codigo,
   question,
   options,
   answer,
   explain,
 }: {
   titulo?: string
+  codigo?: string
   question: string
   options: string[]
   answer: number
@@ -1481,7 +1771,17 @@ function Check({
       >
         <HelpCircle className="h-3.5 w-3.5" aria-hidden /> {titulo ?? "Compruébalo"}
       </div>
-      <p className="mt-2 mb-0 text-[15px] leading-[1.7]">{renderInline(question)}</p>
+      {codigo && (
+        <pre className="doc-soft mt-3 mb-0 overflow-x-auto rounded-md border doc-rule px-3.5 py-2.5">
+          <code
+            className="mono block whitespace-pre-wrap break-words text-[13px] leading-[1.7] font-semibold"
+            style={{ color: "var(--doc-fg)" }}
+          >
+            {codigo}
+          </code>
+        </pre>
+      )}
+      <p className="mt-3 mb-0 text-[15px] leading-[1.7]">{renderInline(question)}</p>
 
       <ul className="mt-3.5 mb-0 p-0 list-none flex flex-col gap-2">
         {options.map((op, i) => {
@@ -1745,20 +2045,23 @@ function Breakdown({ caption, parts }: { caption?: string; parts: BreakdownPart[
   return (
     <figure className="doc-soft m-0 rounded-lg border doc-rule p-4 sm:p-5">
       <div className="overflow-x-auto -mx-1 px-1">
-        <div className="mono flex flex-wrap items-start gap-x-3 gap-y-3 text-[13px] sm:text-[15px]">
+        <div className="mono flex flex-wrap items-start gap-x-4 gap-y-4">
           {parts.map((p, i) => (
-            <span key={i} className="inline-flex flex-col gap-1">
-              <span className="font-semibold whitespace-pre" style={{ color: "var(--doc-fg)" }}>
+            <span key={i} className="inline-flex flex-col items-start gap-1.5">
+              <span
+                className="whitespace-pre text-[16px] font-semibold sm:text-[19px]"
+                style={{ color: "var(--doc-fg)" }}
+              >
                 {p.token}
               </span>
               <span
-                className="h-[3px] w-full rounded-full"
+                className="h-[4px] w-full rounded-full"
                 style={{ background: docAccent(breakdownColor(i), 62) }}
                 aria-hidden
               />
               <span
-                className="text-[11px] font-semibold tabular"
-                style={{ color: docAccent(breakdownColor(i), 62) }}
+                className="grid h-[20px] w-[20px] place-items-center rounded-full text-[11px] font-semibold text-white"
+                style={{ background: docAccent(breakdownColor(i), 68) }}
                 aria-hidden
               >
                 {i + 1}
@@ -1768,28 +2071,33 @@ function Breakdown({ caption, parts }: { caption?: string; parts: BreakdownPart[
         </div>
       </div>
 
-      <ol className="mt-4 mb-0 p-0 list-none grid gap-x-5 gap-y-2 sm:grid-cols-2">
+      <ol className="mt-5 mb-0 grid list-none gap-x-6 gap-y-3.5 p-0 sm:grid-cols-2">
         {parts.map((p, i) => (
-          <li key={i} className="flex items-baseline gap-2 text-[13px] leading-[1.6]">
+          <li key={i} className="flex items-start gap-2.5">
             <span
-              className="mono shrink-0 text-[11px] font-semibold tabular"
-              style={{ color: docAccent(breakdownColor(i), 62) }}
+              className="mono mt-[3px] grid h-[20px] w-[20px] shrink-0 place-items-center rounded-full text-[11px] font-semibold text-white"
+              style={{ background: docAccent(breakdownColor(i), 68) }}
             >
               {i + 1}
             </span>
-            <span className="min-w-0">
-              <span className="mono font-semibold" style={{ color: "var(--doc-fg)" }}>
+            <span className="min-w-0 text-[14.5px] leading-[1.6]">
+              <span
+                className="mono text-[14px] font-semibold"
+                style={{ color: docAccent(breakdownColor(i), 78) }}
+              >
                 {p.token}
               </span>{" "}
-              <span className="doc-muted">{p.label}</span>
-              {p.detail && <span className="block mt-0.5 doc-muted">{renderInline(p.detail)}</span>}
+              <span style={{ color: "var(--doc-fg)" }}>{p.label}</span>
+              {p.detail && (
+                <span className="mt-0.5 block doc-muted">{renderInline(p.detail)}</span>
+              )}
             </span>
           </li>
         ))}
       </ol>
 
       {caption && (
-        <figcaption className="mt-4 pt-3 border-t doc-rule text-[13px] leading-[1.6] doc-muted">
+        <figcaption className="mt-5 border-t doc-rule pt-3.5 text-[14px] leading-[1.65] doc-muted">
           {renderInline(caption)}
         </figcaption>
       )}

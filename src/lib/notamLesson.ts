@@ -265,7 +265,8 @@ export type LessonBlock =
       pie?: string
     }
   | { kind: "table"; head: string[]; rows: string[][] }
-  | { kind: "code"; text: string }
+  /** `grande` para el código que es protagonista, no una cita al paso. */
+  | { kind: "code"; text: string; grande?: boolean }
   /**
    * Caja de aviso. `sellos` destaca dos o tres palabras que hay que retener
    * como condición, no como frase: van en fichas debajo del texto.
@@ -352,12 +353,43 @@ export type LessonBlock =
       kind: "check"
       /** Rótulo de la caja. Por defecto, "Compruébalo". */
       titulo?: string
+      /** Código que se enseña dentro de la caja, encima de la pregunta. */
+      codigo?: string
       question: string
       options: string[]
       /** Índice de la correcta dentro de `options`. */
       answer: number
       /** Por qué esa es la buena. Se muestra al responder, acierte o falle. */
       explain: string
+    }
+  /**
+   * Emparejar cada código con su función, tocando.
+   *
+   * NO se arrastra: en un celular el arrastre pelea con el desplazamiento de
+   * la página y el ejercicio se vuelve una lucha con el dedo. Se toca el
+   * código, se toca su función y quedan unidos. Misma exigencia, sin pelea.
+   */
+  | {
+      kind: "emparejar"
+      titulo?: string
+      enunciado: string
+      /** El orden de `pares` es el de la columna izquierda. */
+      pares: { k: string; v: string; color?: string }[]
+      /** La columna derecha, desordenada a mano para que no case por posición. */
+      orden: number[]
+    }
+  /**
+   * Una fila por componente y un desplegable con las opciones.
+   *
+   * Desplegables y no escritura libre: en móvil se responde con el pulgar, y
+   * nadie falla por redactar bien la idea con otras palabras.
+   */
+  | {
+      kind: "desplegables"
+      titulo?: string
+      enunciado: string
+      codigo?: string
+      filas: { token: string; opciones: string[]; correcta: number; color?: string }[]
     }
 
 export interface LessonScreen {
@@ -1224,14 +1256,18 @@ export const LESSON_SCREENS: DocScreen[] = [
       { kind: "sub", text: "Así se combinan el asunto y la condición" },
       {
         kind: "table",
-        head: ["Código", "Desglose", "Significado"],
+        head: ["Código", "Asunto", "Estado", "Qué significa"],
         rows: [
-          ["`QMRLC`", "Q · MR · LC", "Pista cerrada"],
-          ["`QRALW`", "Q · RA · LW", "Reserva de espacio aéreo que se realizará"],
-          ["`QLPAS`", "Q · LP · AS", "Luces PAPI no utilizables"],
-          ["`QNVAS`", "Q · NV · AS", "VOR no utilizable"],
-          ["`QMXLC`", "Q · MX · LC", "Calle de rodaje cerrada"],
-          ["`QRDCA`", "Q · RD · CA", "Zona peligrosa en actividad"],
+          ["`QMRLC`", "`MR` pista", "`LC` cerrada", "Pista cerrada"],
+          ["`QMRLT`", "`MR` pista", "`LT` limitada", "Pista sujeta a limitaciones"],
+          ["`QMXLC`", "`MX` calle de rodaje", "`LC` cerrada", "Calle de rodaje cerrada"],
+          ["`QRALW`", "`RA` reserva de espacio aéreo", "`LW` se realizará", "Reserva de espacio aéreo programada"],
+          ["`QLPAS`", "`LP` PAPI", "`AS` inutilizable", "Luces PAPI no utilizables"],
+          ["`QNVAS`", "`NV` VOR", "`AS` inutilizable", "VOR fuera de servicio"],
+          ["`QICAS`", "`IC` ILS", "`AS` inutilizable", "ILS fuera de servicio"],
+          ["`QOBCE`", "`OB` obstáculo", "`CE` montado", "Obstáculo nuevo montado"],
+          ["`QRRCA`", "`RR` zona restringida", "`CA` en actividad", "Zona restringida activada"],
+          ["`QWMLW`", "`WM` ejercicios de tiro", "`LW` se realizarán", "Habrá ejercicios de tiro"],
         ],
       },
       {
@@ -1390,7 +1426,7 @@ export const LESSON_SCREENS: DocScreen[] = [
           "Hasta ahora hemos analizado cada componente por separado. Ahora vamos a unirlos para entender cómo se lee una línea Q completa. Tomemos nuevamente nuestro ejemplo:",
         ],
       },
-      { kind: "code", text: "Q) SEFG/QRALW/IV/NBO/AW/000/001/0202S07956W001" },
+      { kind: "code", text: "Q) SEFG/QRALW/IV/NBO/AW/000/001/0202S07956W001", grande: true },
       { kind: "apartado", parrafos: ["Ahora podemos interpretarlo de izquierda a derecha:"] },
       {
         kind: "kv",
@@ -1410,30 +1446,150 @@ export const LESSON_SCREENS: DocScreen[] = [
           "Como puedes ver, cada componente aporta una pieza diferente de información. Al leerlos juntos, la línea Q permite establecer dónde aplica el NOTAM, qué información contiene, a qué tránsito está asociada, cuál es su propósito, sobre qué tipo de área trata, entre qué límites verticales aplica y dónde se encuentra exactamente.",
         ],
       },
+      // ── ⑨ Los cuatro ejercicios ──────────────────────────────────────────
+      // Van de menos a más: reconocer una pieza por su sitio, atar cada pieza
+      // con su función, interpretar las siete de un ejemplo conocido y, al
+      // final, leer una línea nueva entera. Los distractores del último son
+      // errores de verdad (confundir la FIR con un aeródromo, leer la I como
+      // VFR, invertir los límites), no rellenos absurdos.
+      { kind: "titulo", text: "Ahora te toca a ti" },
+      {
+        kind: "apartado",
+        parrafos: [
+          "Ya conoces los siete componentes de la línea Q. Ahora es momento de ponerlos juntos.",
+          "A continuación encontrarás diferentes líneas Q. Intenta identificar qué información contiene cada componente antes de consultar la interpretación.",
+        ],
+      },
       {
         kind: "check",
-        question:
-          "Vuelas IFR a un aeródromo. En el paquete hay un NOTAM con `.../V/BO/W/...` en otra FIR. ¿Te aplica?",
+        titulo: "Ejercicio 1 · Completa la línea Q",
+        codigo: "Q) SEFG/______/IV/NBO/AW/000/001/0202S07956W001",
+        question: "¿Qué componente falta?",
+        options: ["`QMRLC`", "`QRALW`", "`QXXXX`", "`QOBCE`"],
+        answer: 1,
+        explain:
+          "El hueco está en el segundo lugar, el del código NOTAM, y el resto de la línea dice de qué va: alcance `AW`, de aeródromo y advertencia, y límites desde la superficie. `QRALW` es reserva de espacio aéreo que se realizará, y encaja. `QMRLC` sería una pista cerrada, que no es una advertencia de navegación; `QXXXX` se usa cuando ni el asunto ni la condición están en las tablas; y `QOBCE` no corresponde a este aviso.",
+      },
+      {
+        kind: "emparejar",
+        titulo: "Ejercicio 2 · Une cada componente con su función",
+        enunciado: "Toca un código y después la función que le corresponde.",
+        pares: [
+          { k: "SEFG", v: "FIR", color: LINEA_Q_COLOR.fir },
+          { k: "IV", v: "Tránsito", color: LINEA_Q_COLOR.transito },
+          { k: "NBO", v: "Propósito", color: LINEA_Q_COLOR.objetivo },
+          { k: "AW", v: "Alcance", color: LINEA_Q_COLOR.alcance },
+          { k: "000/001", v: "Límites verticales", color: LINEA_Q_COLOR.limites },
+          { k: "0202S07956W001", v: "Coordenadas y radio", color: LINEA_Q_COLOR.area },
+        ],
+        // La derecha va desordenada a mano: si cayera en el mismo orden que la
+        // izquierda, se resolvería emparejando por altura sin leer nada.
+        orden: [3, 0, 5, 1, 4, 2],
+      },
+      {
+        kind: "desplegables",
+        titulo: "Ejercicio 3 · Ahora sí, interpretación",
+        enunciado: "Elige qué dice cada componente de esta línea Q.",
+        codigo: "Q) SEFG/QRALW/IV/NBO/AW/000/001/0202S07956W001",
+        filas: [
+          {
+            token: "SEFG",
+            color: LINEA_Q_COLOR.fir,
+            opciones: [
+              "Aeródromo de Guayaquil",
+              "FIR Guayaquil",
+              "Aeródromo de Bogotá",
+              "FIR Santiago",
+            ],
+            correcta: 1,
+          },
+          {
+            token: "QRALW",
+            color: LINEA_Q_COLOR.codigo,
+            opciones: [
+              "Pista cerrada",
+              "Reserva de espacio aéreo que se realizará",
+              "Ayuda a la navegación fuera de servicio",
+              "Zona peligrosa cancelada",
+            ],
+            correcta: 1,
+          },
+          {
+            token: "IV",
+            color: LINEA_Q_COLOR.transito,
+            opciones: ["Solo IFR", "Solo VFR", "IFR y VFR", "Lista de verificación"],
+            correcta: 2,
+          },
+          {
+            token: "NBO",
+            color: LINEA_Q_COLOR.objetivo,
+            opciones: [
+              "Misceláneo, no va a briefing",
+              "Atención inmediata, PIB y operaciones de vuelo",
+              "Solo para el boletín previo al vuelo",
+              "Lista de verificación",
+            ],
+            correcta: 1,
+          },
+          {
+            token: "AW",
+            color: LINEA_Q_COLOR.alcance,
+            opciones: [
+              "Aeródromo y en ruta",
+              "En ruta y advertencia de navegación",
+              "Aeródromo y advertencia de navegación",
+              "Solo aeródromo",
+            ],
+            correcta: 2,
+          },
+          {
+            token: "000/001",
+            color: LINEA_Q_COLOR.limites,
+            opciones: [
+              "Desde la superficie hasta 100 ft",
+              "Desde 100 ft hasta la superficie",
+              "Desde la superficie hasta 1.000 ft",
+              "Toda altura",
+            ],
+            correcta: 0,
+          },
+          {
+            token: "0202S07956W001",
+            color: LINEA_Q_COLOR.area,
+            opciones: [
+              "02°02′ Sur, 079°56′ Oeste, radio de 1 NM",
+              "02°02′ Norte, 079°56′ Este, radio de 1 NM",
+              "02°02′ Sur, 079°56′ Oeste, radio de 100 NM",
+              "020°2′ Sur, 079°56′ Oeste, radio de 1 km",
+            ],
+            correcta: 0,
+          },
+        ],
+      },
+      {
+        kind: "check",
+        titulo: "Ejercicio 4 · Lee la línea Q completa",
+        codigo: "Q) SCEZ/QMRLC/I/NBO/A/000/999/3324S07048W005",
+        question: "Selecciona la interpretación correcta de esta línea Q.",
         options: [
-          "Sí: todo NOTAM del paquete aplica hasta que se demuestre lo contrario",
-          "No, casi seguro: es de tránsito `V` (VFR) y alcance `W` (advertencia), y además en otra FIR",
-          "Solo si tu ruta pasa por esa FIR, sin importar el tránsito",
+          "En el aeródromo `SCEZ`, una pista cerrada para tránsito VFR, con alcance en ruta, desde la superficie hasta el nivel máximo, en un radio de 5 NM.",
+          "En la FIR Santiago, una pista cerrada para tránsito IFR, con alcance de aeródromo, desde la superficie hasta el nivel máximo, en un radio de 5 NM alrededor de 33°24′ Sur, 070°48′ Oeste.",
+          "En la FIR Santiago, una calle de rodaje cerrada para tránsito IFR y VFR, con alcance de aeródromo, desde el nivel máximo hasta la superficie, en un radio de 5 NM.",
         ],
         answer: 1,
         explain:
-          "El tránsito y el alcance son el primer filtro de un paquete grande. `V` es VFR y `W` es advertencia de navegación: volando IFR a un aeródromo, y en otra FIR, ese aviso no es tuyo. Míralo, pero decide rápido.",
+          "Pieza por pieza: `SCEZ` es la **FIR** de Santiago, no un aeródromo; `QMRLC` es `MR` pista más `LC` cerrado, es decir pista cerrada, no calle de rodaje, que sería `MX`; la `I` sola es **solo IFR**; `NBO` es atención inmediata, PIB y operaciones; la `A` sola es **aeródromo**, no en ruta; `000/999` va de la superficie al nivel máximo, en ese orden, primero el inferior; y `3324S07048W005` sitúa el punto en 33°24′ Sur, 070°48′ Oeste con radio de 5 NM.",
       },
+      // ── ⑩ El cierre: la linea Q resuelta, y lo que viene después ──────────
+      { kind: "titulo", text: "Del código a la operación" },
       {
-        kind: "callout",
-        tone: "info",
-        title: "En el resumen colombiano no vas a ver la línea Q",
-        text: "El resumen mensual de la Aerocivil publica los NOTAM en formato de tabla, sin la línea Q: trae el número, el aeródromo, las fechas y el texto. La línea Q la ves en el formato completo, que es el que llega por el briefing AIS y el que usan los ejemplos internacionales de este documento. No la busques en los avisos colombianos que aparecen más adelante: no está.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Pendiente normativo",
-        text: "Las tablas normativas completas de calificativos están en el Doc 8126, que todavía no cargamos. Lo que ves aquí viene del Doc 8400 y de la bibliografía de curso.",
+        kind: "apartado",
+        parrafos: [
+          "Ya aprendiste a identificar los siete componentes de la línea Q y a interpretar la información que contiene cada uno.",
+          "Pero en una operación real, leer la línea Q es solo el comienzo. La línea Q funciona como un resumen codificado que permite identificar rápidamente el contexto del NOTAM. Para saber realmente qué está ocurriendo, todavía debemos revisar el resto de la información.",
+          "Ahora vamos a llevar lo aprendido a NOTAM completos. Veremos cómo relacionar la línea Q con el aeródromo, las fechas y horarios de vigencia y, sobre todo, con el contenido operacional descrito en el NOTAM.",
+          "El objetivo es pasar de “sé qué significa el código” a “entiendo qué está pasando y cómo puede afectar mi operación”.",
+        ],
       },
     ],
   },
