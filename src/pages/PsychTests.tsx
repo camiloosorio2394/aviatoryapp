@@ -15,6 +15,8 @@ import {
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { PSICO_HUB } from "@/lib/psicotecnicas"
+import { BANCO_TOTAL as PSICO_BANCO_TOTAL } from "@/data/psicotecnicas"
 
 /**
  * Módulo Psicotécnicos y Assessment — separado completamente de entrevistas.
@@ -22,9 +24,11 @@ import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileC
  * espacial, coordinación, cognitivos, dinámicas grupales, personality tests.
  * Plus simulaciones tipo COMPASS / CUT-E / PILAPT.
  *
- * Hoy no hay ni una batería cargada, así que la pantalla no puede fingir que sí:
- * cada tarjeta va con chip "Pronto", icono en reposo y sin hover. La única acción
- * real de la pantalla es el banco PCA, que sí existe.
+ * Desde septiembre de 2026 tres de las nueve ya no están vacías: razonamiento
+ * lógico, spatial awareness y cognitivos generales los cubre el tema Pruebas
+ * Psicotécnicas de Ingreso a aerolínea, y sus tarjetas enlazan ahí. Las seis
+ * restantes siguen con chip "Pronto", icono en reposo y sin hover: la pantalla
+ * no puede fingir una batería que no existe.
  */
 export function PsychTests() {
   return (
@@ -61,14 +65,20 @@ export function PsychTests() {
                 (<strong className="text-foreground">COMPASS, CUT-E, PILAPT</strong>).
                 Diferencial real: te entrenamos en formatos específicos, no en tests genéricos.
               </p>
-              <div className="mt-5">
+              <div className="mt-5 flex flex-wrap gap-2">
                 <Link
-                  to="/app/pca"
+                  to={PSICO_HUB}
                   className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
-                  Mientras tanto, entrena razonamiento en el banco PCA{" "}
+                  Entrenar razonamiento: {PSICO_BANCO_TOTAL} ejercicios ya abiertos{" "}
                   <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <Link
+                  to="/app/pca"
+                  className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
+                >
+                  Banco PCA <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </div>
@@ -95,7 +105,8 @@ export function PsychTests() {
             Las 9 baterías que vas a entrenar
           </h2>
           <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[680px]">
-            Ninguna está abierta todavía. Esta es la hoja de ruta del módulo, en orden de prioridad.
+            Tres ya están abiertas y viven en el tema Pruebas Psicotécnicas de Ingreso a
+            aerolínea. Las otras seis son la hoja de ruta, en orden de prioridad.
           </p>
         </div>
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -183,38 +194,42 @@ interface CategoryProps {
   description: string
   icon: React.ComponentType<{ className?: string }>
   color: TileColorKey
+  /** Destino, cuando la batería ya existe. Sin él la tarjeta va en reposo. */
+  to?: string
 }
 
 const CATEGORIES: CategoryProps[] = [
   { slug: "atencion_dividida", name: "Atención dividida", family: "Attention", description: "Atender ATC + instrumentos + nav simultáneamente.", icon: Eye, color: "cyan" },
   { slug: "memoria_operacional", name: "Memoria operacional", family: "Memory", description: "Working memory para clearances y secuencias.", icon: Brain, color: "violet" },
   { slug: "multitasking", name: "Multitasking", family: "Attention", description: "Cambio rápido de tarea sin perder calidad.", icon: Layers, color: "blue" },
-  { slug: "razonamiento_logico", name: "Razonamiento lógico", family: "Reasoning", description: "Inferencia y resolución de problemas bajo tiempo.", icon: Sigma, color: "amber" },
-  { slug: "spatial_awareness", name: "Spatial awareness", family: "Spatial", description: "Orientación 3D, compass test, mental rotation.", icon: Compass, color: "cyan" },
+  { slug: "razonamiento_logico", name: "Razonamiento lógico", family: "Reasoning", description: "Inferencia y resolución de problemas bajo tiempo.", icon: Sigma, color: "amber", to: PSICO_HUB },
+  { slug: "spatial_awareness", name: "Spatial awareness", family: "Spatial", description: "Orientación 3D, compass test, mental rotation.", icon: Compass, color: "cyan", to: PSICO_HUB },
   { slug: "coordinacion", name: "Coordinación psicomotriz", family: "Coordination", description: "Hand-eye, reaction time bajo presión.", icon: Activity, color: "green" },
-  { slug: "cognitivos_generales", name: "Cognitivos generales", family: "Cognitive", description: "IQ, verbal, numeric, abstract reasoning.", icon: Cpu, color: "blue" },
+  { slug: "cognitivos_generales", name: "Cognitivos generales", family: "Cognitive", description: "IQ, verbal, numeric, abstract reasoning.", icon: Cpu, color: "blue", to: PSICO_HUB },
   { slug: "dinamicas_grupales", name: "Dinámicas grupales", family: "Dynamics", description: "Group assessment, role-plays, panel discussions.", icon: Users, color: "violet" },
   { slug: "personality", name: "Personality tests", family: "Personality", description: "Big5, DISC, Hogan: fit cultural para aerolínea.", icon: UserCheck, color: "red" },
 ]
 
 // ────────────────────────────────────────────────────────────────────────────
 /**
- * Tarjeta de categoría. Ninguna batería está cargada, así que la tarjeta se
- * queda en reposo (sin lift, sin cursor de mano) y lo declara con chip "Pronto".
+ * Tarjeta de categoría.
+ *
+ * Con `to` la batería existe: la tarjeta navega, el icono va a plena opacidad y
+ * el chip dice "Abierta". Sin `to` se queda en reposo —sin lift, sin cursor de
+ * mano— y lo declara con chip "Pronto", que es la única forma honesta de
+ * dibujar algo que todavía no se puede abrir.
  */
-function CategoryCard({ name, family, description, icon: Icon, color }: CategoryProps) {
-  return (
-    <div
-      className="rounded-2xl border bg-card p-5 flex items-start gap-3.5"
-      style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-    >
+function CategoryCard({ name, family, description, icon: Icon, color, to }: CategoryProps) {
+  const abierta = Boolean(to)
+  const contenido = (
+    <>
       <div
         className="flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
         style={{
           background: tileTint(color),
           border: `1px solid ${tileBorder(color, 32)}`,
           color: TILE_COLOR[color],
-          opacity: 0.55,
+          opacity: abierta ? 1 : 0.55,
         }}
       >
         <Icon className="h-5 w-5" />
@@ -223,10 +238,38 @@ function CategoryCard({ name, family, description, icon: Icon, color }: Category
         <div className="flex flex-wrap items-center gap-2">
           <div className="text-[15px] font-semibold tracking-[-0.01em]">{name}</div>
           <div className="text-[12px] font-semibold text-muted-foreground">{family}</div>
-          <span className="chip text-[12px]">Pronto</span>
+          <span
+            className="chip text-[12px]"
+            style={
+              abierta
+                ? {
+                    color: "var(--av-green-400)",
+                    borderColor: "color-mix(in oklab, var(--av-green-400) 34%, transparent)",
+                  }
+                : undefined
+            }
+          >
+            {abierta ? "Abierta" : "Pronto"}
+          </span>
         </div>
         <p className="mt-0.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
       </div>
+    </>
+  )
+
+  const clases = "rounded-2xl border bg-card p-5 flex items-start gap-3.5"
+  const borde = { borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }
+
+  if (to) {
+    return (
+      <Link to={to} className={`${clases} transition-colors hover:bg-muted`} style={borde}>
+        {contenido}
+      </Link>
+    )
+  }
+  return (
+    <div className={clases} style={borde}>
+      {contenido}
     </div>
   )
 }
