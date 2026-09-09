@@ -417,7 +417,16 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       )
 
     case "breakdown":
-      return <Breakdown caption={block.caption} parts={block.parts} />
+      return block.columnas ? (
+        <BreakdownColumnas
+          parts={block.parts}
+          caption={block.caption}
+          resultado={block.resultado}
+          color={block.color}
+        />
+      ) : (
+        <Breakdown caption={block.caption} parts={block.parts} />
+      )
 
     case "notam":
       return <NotamFigure id={block.id} caption={block.caption} casillas={block.casillas} />
@@ -968,9 +977,15 @@ function NotamPanel({
   lineas: LineaNotam[]
 }) {
   const [abierta, setAbierta] = useState<number | null>(null)
+  // Al llegar a la vista, el rotulador recorre el mensaje. Se dispara una sola
+  // vez: repetirlo cada vez que el panel vuelve a asomar seria un parpadeo.
+  const { ref: raiz, inView } = useInView<HTMLElement>({ threshold: 0.3 })
 
   return (
-    <section className="overflow-hidden rounded-lg border doc-rule">
+    <section
+      ref={raiz}
+      className={`overflow-hidden rounded-lg border doc-rule${inView ? " ln-resalta" : ""}`}
+    >
       {(rotulo || etiqueta) && (
         <div
           className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b doc-rule px-4 py-3 sm:px-5"
@@ -1003,8 +1018,22 @@ function NotamPanel({
         {lineas.map((linea, i) => {
           const on = abierta === i
           const pulsable = Boolean(linea.detalle)
+          // La banda del rotulador. Sobre las lineas de apoyo pasa y se va;
+          // sobre la que dice que esta ocurriendo se queda. Asi el ojo aprende
+          // donde mirar sin que haga falta escribirlo. Al abrir una linea se
+          // apaga, para que se vea el fondo de seleccion y no el del rotulador.
+          const banda = (
+            <span
+              aria-hidden
+              className={`ln-resaltador pointer-events-none absolute inset-0${linea.fuerte ? " ln-resaltador-queda" : ""}`}
+              style={{
+                background: on ? "transparent" : docTint(ACENTO, linea.fuerte ? 12 : 7),
+                animationDelay: `${160 + i * 150}ms`,
+              }}
+            />
+          )
           const cuerpo = (
-            <span className="grid gap-x-5 gap-y-1 sm:grid-cols-[minmax(0,140px)_minmax(0,1fr)]">
+            <span className="relative z-[1] grid gap-x-5 gap-y-1 sm:grid-cols-[minmax(0,140px)_minmax(0,1fr)]">
               <span
                 className="mono text-[11px] font-semibold uppercase tracking-[0.09em] sm:pt-[3px]"
                 style={{ color: docAccent(ACENTO, linea.fuerte ? 75 : 50) }}
@@ -1030,7 +1059,7 @@ function NotamPanel({
                   type="button"
                   onClick={() => setAbierta(on ? null : i)}
                   aria-pressed={on}
-                  className="w-full border-l-[3px] px-4 py-3.5 text-left transition-colors sm:px-5"
+                  className="relative w-full border-l-[3px] px-4 py-3.5 text-left transition-colors sm:px-5"
                   style={{
                     borderLeftColor: on
                       ? docAccent(ACENTO, 70)
@@ -1040,16 +1069,17 @@ function NotamPanel({
                     background: on ? docTint(ACENTO, 9) : "transparent",
                   }}
                 >
+                  {banda}
                   {cuerpo}
                 </button>
               ) : (
                 <div
-                  className="border-l-[3px] px-4 py-3.5 sm:px-5"
+                  className="relative border-l-[3px] px-4 py-3.5 sm:px-5"
                   style={{
                     borderLeftColor: linea.fuerte ? docAccent(ACENTO, 45) : "transparent",
-                    background: linea.fuerte ? docTint(ACENTO, 5) : "transparent",
                   }}
                 >
+                  {banda}
                   {cuerpo}
                 </div>
               )}
@@ -1077,6 +1107,92 @@ function NotamPanel({
         </div>
       )}
     </section>
+  )
+}
+
+/**
+ * El desglose en columnas: la tira de trozos y, bajo cada uno, que es y que
+ * vale. Las cifras mandan, y de cada una baja un filete de un pixel hasta su
+ * significado; nada de circulos numerados ni una tarjeta por cifra, que
+ * convierten un grupo de fecha en un ejercicio de primaria.
+ *
+ * Solo sirve con trozos cortos y del mismo tipo. Con tokens largos hay que
+ * seguir usando el listado de `Breakdown`.
+ */
+function BreakdownColumnas({
+  parts,
+  caption,
+  resultado,
+  color = ACENTO,
+}: {
+  parts: BreakdownPart[]
+  caption?: string
+  resultado?: string
+  color?: string
+}) {
+  return (
+    <figure className="doc-soft m-0 rounded-lg border doc-rule p-5 sm:p-6">
+      <div className="-mx-1 overflow-x-auto px-1">
+        <div
+          className="grid min-w-[360px] items-start"
+          style={{ gridTemplateColumns: `repeat(${parts.length}, minmax(0, 1fr))` }}
+        >
+          {parts.map((p, i) => (
+            <div
+              key={i}
+              className={`flex flex-col items-center px-1 text-center sm:px-3${i ? " border-l doc-rule" : ""}`}
+            >
+              <span
+                className="mono text-[26px] font-semibold leading-none sm:text-[34px]"
+                style={{ color: "var(--doc-fg)" }}
+              >
+                {p.token}
+              </span>
+              {/* La conexion con su significado: un filete de un pixel, nada mas */}
+              <span
+                className="my-2.5 block h-[15px] w-px"
+                style={{ background: docAccent(color, 40) }}
+                aria-hidden
+              />
+              <span
+                className="text-[9.5px] font-semibold uppercase leading-tight tracking-[0.11em] sm:text-[10.5px]"
+                style={{ color: docAccent(color, 72) }}
+              >
+                {p.label}
+              </span>
+              {p.detail && (
+                <span className="mt-1.5 text-[12.5px] leading-snug doc-muted sm:text-[13.5px]">
+                  {p.detail}
+                </span>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {(resultado || caption) && (
+        <figcaption className="mt-5 border-t doc-rule pt-4 text-center">
+          {resultado && (
+            /* En bloque no se puede: dentro del lector, .mono alinea a la
+               izquierda con mas peso que el text-center del pie. En linea lo
+               centra el padre, y el resultado cae bajo la tira de cifras. */
+            <span
+              className="mono block text-[15px] font-semibold sm:text-[18px]"
+              style={{
+                color: docAccent(color, 76),
+                letterSpacing: "0.03em",
+                textAlign: "center",
+              }}
+            >
+              {resultado}
+            </span>
+          )}
+          {caption && (
+            <div className="mt-1.5 text-[13.5px] doc-muted">{renderInline(caption)}</div>
+          )}
+        </figcaption>
+      )}
+    </figure>
   )
 }
 

@@ -987,9 +987,43 @@
 }
 .lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
 
+/* El rotulador del NOTAM real. Al llegar el panel a la vista, una banda
+   recorre el mensaje línea a línea, de izquierda a derecha, con el retardo
+   escalonado que pone el componente. Sobre las líneas de apoyo pasa y se va;
+   sobre la que dice qué está ocurriendo se queda. Así el ojo aprende dónde
+   mirar sin que haga falta escribirlo.
+
+   Se anima transform y opacity, que es lo único que el compositor resuelve
+   sin volver a pintar: una banda por línea son seis animaciones a la vez. */
+@keyframes ln-resaltador-pasa {
+  0% { transform: scaleX(0); opacity: 1; }
+  40% { transform: scaleX(1); opacity: 1; }
+  72% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes ln-resaltador-queda {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+.lector-notam .ln-resaltador {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.lector-notam .ln-resalta .ln-resaltador {
+  animation: ln-resaltador-pasa 1100ms cubic-bezier(0.22, 0.8, 0.24, 1) both;
+}
+.lector-notam .ln-resalta .ln-resaltador-queda {
+  animation-name: ln-resaltador-queda;
+  animation-duration: 620ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .lector-notam .ln-pastilla { transition: none; }
   .lector-notam .ln-paso { animation: none; }
+  /* Sin movimiento no hay rotulador: las líneas de apoyo se quedan limpias y
+     la que importa aparece ya resaltada, que es el resultado del recorrido. */
+  .lector-notam .ln-resalta .ln-resaltador { animation: none; opacity: 0; }
+  .lector-notam .ln-resalta .ln-resaltador-queda { transform: scaleX(1); opacity: 1; }
 }
 
 /* === Typography helpers === */

@@ -298,7 +298,24 @@ export type LessonBlock =
    * color, y la leyenda numerada debajo. Un METAR o un NOTAM explicado en
    * párrafo no se entiende; desarmado, sí.
    */
-  | { kind: "breakdown"; caption?: string; parts: BreakdownPart[] }
+  /**
+   * Un codigo desmontado en sus trozos.
+   *
+   * Por defecto va en listado: cada trozo con su nombre y su lectura debajo,
+   * que es lo unico que aguanta tokens largos y explicaciones de dos
+   * renglones. Con `columnas`, la composicion horizontal: sirve cuando los
+   * trozos son cortos y del mismo tipo, como un grupo de fecha y hora, y
+   * entonces se lee de un vistazo en vez de en cinco explicaciones sueltas.
+   */
+  | {
+      kind: "breakdown"
+      caption?: string
+      parts: BreakdownPart[]
+      columnas?: boolean
+      /** El resultado, destacado bajo el desglose: "09 JUL 2026 · 13:16 UTC". */
+      resultado?: string
+      color?: string
+    }
   /**
    * Un NOTAM colombiano real, dentro de la lección.
    *
@@ -1698,13 +1715,16 @@ export const LESSON_SCREENS: DocScreen[] = [
       },
       {
         kind: "breakdown",
-        caption: "Es decir, el 09 de julio de 2026 a las 13:16 UTC.",
+        columnas: true,
+        color: ITEM_COLOR,
+        resultado: "09 JUL 2026 · 13:16 UTC",
+        caption: "La fecha y hora están expresadas en UTC.",
         parts: [
-          { token: "26", label: "año", detail: "2026." },
-          { token: "07", label: "mes", detail: "Julio." },
-          { token: "09", label: "día", detail: "Día 9." },
-          { token: "13", label: "hora", detail: "13 UTC." },
-          { token: "16", label: "minutos", detail: "16 minutos." },
+          { token: "26", label: "año", detail: "2026" },
+          { token: "07", label: "mes", detail: "Julio" },
+          { token: "09", label: "día", detail: "09" },
+          { token: "13", label: "hora", detail: "13 UTC" },
+          { token: "16", label: "minutos", detail: "16" },
         ],
       },
       {
