@@ -2,7 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "_comentario": "El SPA se sirve para cualquier ruta MENOS las carpetas de material. Ahi un archivo que no existe tiene que dar 404: si el rewrite lo contesta con index.html y un 200, el service worker se lo guarda como si fuera la imagen y la deja rota para siempre en ese dispositivo. Vercel sirve los archivos estaticos antes que los rewrites, asi que esto solo cambia lo que pasa cuando el archivo NO existe.",
       "source": "/((?!modulos/|notams/|infografias/|assets/).*)",
       "destination": "/index.html"
     }

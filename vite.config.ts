@@ -100,8 +100,14 @@ export default defineConfig({
           //    guardaba como si fuera la imagen, y CacheFirst no vuelve a
           //    preguntar NUNCA: la portada quedaba rota para siempre en ese
           //    dispositivo, aunque despues subieramos el archivo bueno. Filtrar
-          //    por Content-Type corta eso de raiz. (El rewrite tambien se
-          //    arreglo en vercel.json, pero esto protege aunque vuelva.)
+          //    por Content-Type corta eso de raiz.
+          //
+          //    El rewrite tambien se arreglo: el "source" de vercel.json excluye
+          //    modulos/, notams/, infografias/ y assets/, asi que ahi un archivo
+          //    que falta vuelve a dar 404. Ese archivo NO admite comentarios: el
+          //    esquema de Vercel rechaza cualquier propiedad de mas y tumba el
+          //    despliegue entero, asi que el porque vive aqui. Este filtro
+          //    protege igual aunque alguien deshaga aquel cambio.
           //
           // 2) El nombre del cache lleva version. Al subirla, los caches
           //    envenenados de antes quedan huerfanos y se dejan de consultar,
