@@ -147,12 +147,23 @@ export function DocBlock({ block }: { block: DocBlockData }) {
 
     case "titulo":
       return (
-        <h2
-          className="ln-display m-0 mt-3 border-b doc-rule pb-4 text-[28px] font-semibold lg:text-[34px]"
-          style={{ lineHeight: 1.12, letterSpacing: "-0.012em", color: "var(--doc-fg)" }}
-        >
-          {block.text}
-        </h2>
+        // El filete pasa al envoltorio: con línea de apoyo tiene que quedar
+        // por debajo de las dos, que son una sola cabecera. Y la línea va en
+        // <div>, no en <p>: la prosa del lector se justifica, y una línea
+        // suelta justificada abre huecos entre palabras.
+        <div className="mt-3 border-b doc-rule pb-4">
+          <h2
+            className="ln-display m-0 text-[28px] font-semibold lg:text-[34px]"
+            style={{ lineHeight: 1.12, letterSpacing: "-0.012em", color: "var(--doc-fg)" }}
+          >
+            {block.text}
+          </h2>
+          {block.sub && (
+            <div className="mt-2 text-[15px] leading-[1.55] doc-muted">
+              {renderInline(block.sub)}
+            </div>
+          )}
+        </div>
       )
 
     case "sub":

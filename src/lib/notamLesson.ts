@@ -94,7 +94,7 @@ export type LessonBlock =
    * apartados y este marca partes. Dos escalones bastan; un tercero ya no se
    * distingue al leer.
    */
-  | { kind: "titulo"; text: string }
+  | { kind: "titulo"; text: string; sub?: string }
   /** Abreviaturas de la lección: filas con filete, en columnas. */
   | { kind: "glosario"; titulo?: string; items: { k: string; v: string }[] }
   /**
@@ -1918,6 +1918,38 @@ export const LESSON_SCREENS: DocScreen[] = [
         tone: "warn",
         title: "No confundas F) y G) con los límites de la línea Q",
         text: "En la línea Q, esos valores forman parte de la clasificación codificada del NOTAM. Los ítems F) y G), cuando aparecen, proporcionan los límites verticales de la actividad o condición descrita.",
+      },
+
+      // ── Transición: de las casillas sueltas a la planificación ───────────
+      {
+        kind: "titulo",
+        text: "Ahora léelo como piloto",
+        sub: "De los campos del NOTAM a la planificación de un vuelo",
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Hasta ahora hemos aprendido qué información contiene cada uno de los ítems A) a G). Ya sabemos identificar el lugar, las fechas, los horarios, la condición publicada y, cuando corresponde, los límites verticales.",
+          "Pero durante una planificación de vuelo, un piloto **no analiza cada NOTAM de forma aislada**. Primero identifica cuáles corresponden a su operación y después interpreta la información para determinar si existe alguna condición que deba tener en cuenta.",
+          "Veámoslo con un vuelo completo.",
+        ],
+      },
+      { kind: "sub", text: "Vuelo Barranquilla → Nueva York" },
+      { kind: "transicion", de: "Barranquilla · SKBQ", a: "Nueva York · KJFK" },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Tienes programado un vuelo desde Barranquilla (`SKBQ`) hacia Nueva York (`KJFK`).",
+          "Antes de iniciar la planificación operacional revisas, entre otra información, los NOTAM vigentes para los aeropuertos involucrados y para la ruta prevista.",
+          "Encuentras varios NOTAM.",
+          "La pregunta no es simplemente “¿qué dicen?”, sino:",
+        ],
+      },
+      {
+        kind: "definicion",
+        text: "¿Cuáles son relevantes para mi vuelo y qué información operacional debo tener en cuenta?",
       },
     ],
   },
