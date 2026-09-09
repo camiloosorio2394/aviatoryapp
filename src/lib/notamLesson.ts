@@ -2003,6 +2003,8 @@ export const LESSON_SCREENS: DocScreen[] = [
         color: ITEM_COLOR,
         parrafos: [
           "Esto indica que el sistema **ALSF CAT I** de la pista 05 está **fuera de servicio**.",
+          "Leído de corrido, el aviso dice esto: en Barranquilla, desde el 3 de septiembre de 2026 a las 14:52 UTC y con finalización estimada el 1 de diciembre de 2026 a las 23:59 UTC, **el sistema de luces de aproximación ALSF categoría I de la pista 05 no está utilizable**. Y reemplaza al `A1636/26`, que era el aviso anterior sobre lo mismo.",
+          "La línea Q ya lo anticipaba. En `QLAAS`, `LA` es sistema de iluminación de aproximación y `AS` es no utilizable: el código y el texto de E) dicen lo mismo.",
           "Como nuestro vuelo parte de `SKBQ`, esta información debe ser considerada durante la planificación de la salida. El piloto debe revisar cómo esta condición se relaciona con la pista prevista, los procedimientos aplicables y las demás condiciones de la operación.",
         ],
       },
@@ -2042,6 +2044,8 @@ export const LESSON_SCREENS: DocScreen[] = [
         color: ITEM_COLOR,
         parrafos: [
           "La calle de rodaje I opera únicamente para aviación militar.",
+          "Leído de corrido: en Barranquilla, de forma permanente desde el 31 de mayo de 2009 a las 00:22 UTC y **las veinticuatro horas del día**, la calle de rodaje I está reservada a la aviación militar. Para nosotros, que somos aviación civil, esa calle no es utilizable en ningún momento.",
+          "En la línea Q aparece `QMXXX`. `MX` es calle o calles de rodaje, y `XX` significa que la condición no figura en la lista de códigos; por eso el detalle va escrito en lenguaje claro en E).",
           "Para una operación de aviación civil, esta información debe tenerse en cuenta al planificar el movimiento en tierra en `SKBQ`. La disponibilidad de una calle de rodaje **no se determina solamente mirando la carta**: también debemos considerar las restricciones temporales o permanentes publicadas mediante NOTAM.",
         ],
       },
@@ -2068,6 +2072,8 @@ export const LESSON_SCREENS: DocScreen[] = [
         parrafos: [
           "Ahora salimos del aeropuerto de origen y revisamos la información asociada a la ruta.",
           "Este NOTAM informa sobre una actividad **UAS** dentro de un área definida mediante coordenadas y con límites verticales determinados.",
+          "Leído de corrido: en la FIR Barranquilla, entre el 26 de junio de 2026 a las 00:00 UTC y el 22 de septiembre de 2026 a las 23:59 UTC, **se realizará actividad de aeronaves no tripuladas** dentro del área que delimitan las cuatro coordenadas publicadas en E), desde la superficie, `GND` en F), hasta **1.200 ft sobre el nivel medio del mar**, `1200FT AMSL` en G).",
+          "Con eso ya tengo lo que necesito para decidir. La actividad dura casi tres meses y no pasa de 1.200 ft, así que lo único que debo comparar es si mi ruta cruza ese área y a qué nivel la cruzo.",
           "En este caso, la información no se interpreta simplemente porque el NOTAM pertenezca a la FIR que estamos atravesando. Debemos comparar **el área publicada, el horario de la actividad y los límites verticales** con nuestra ruta y el nivel previsto.",
           "Si nuestra trayectoria no entra en el área afectada durante el período de actividad, el NOTAM puede no tener un efecto directo sobre nuestro vuelo. Si existe coincidencia, debemos analizar la condición y las medidas operacionales aplicables.",
         ],
@@ -2109,6 +2115,8 @@ export const LESSON_SCREENS: DocScreen[] = [
         color: ITEM_COLOR,
         parrafos: [
           "La calle de rodaje AC está cerrada.",
+          "Leído de corrido: en LaGuardia, desde el 23 de agosto de 2026 a las 08:55 UTC hasta el 31 de diciembre de 2026 a las 12:00 UTC, **la calle de rodaje AC está cerrada**. Es un **NOTAMR**, así que sustituye al aviso anterior sobre esa misma calle.",
+          "La línea Q vuelve a decir lo mismo que E): en `QMXLC`, `MX` es calle o calles de rodaje y `LC` es cerrado.",
           "Como `KLGA` es nuestro aeropuerto de destino, esta información es **directamente relevante** para la planificación de la llegada y del movimiento en tierra después del aterrizaje.",
           "El piloto deberá considerar la disponibilidad de las calles de rodaje y consultar la información operacional vigente del aeródromo durante la planificación.",
         ],
@@ -2134,8 +2142,61 @@ export const LESSON_SCREENS: DocScreen[] = [
         titulo: "¿Cómo lo lee un piloto?",
         color: ITEM_COLOR,
         parrafos: [
-          "Este NOTAM también corresponde a LaGuardia (`KLGA`), pero ahora la información está relacionada con un **procedimiento de aproximación por instrumentos**.",
-          "El texto de E) hace referencia al procedimiento `ILS OR LOC RWY 13` y contiene información modificada sobre los mínimos y otros elementos del procedimiento.",
+          "En este NOTAM identifico que corresponde a LaGuardia (`KLGA`), pero ahora la información no está en una pista ni en una calle de rodaje: está relacionada con un **procedimiento de aproximación por instrumentos**.",
+          "En la línea Q aparece `QPIXX`. `PI` es procedimiento de aproximación por instrumentos y `XX` significa que la condición va en lenguaje claro, que es justo lo que ocupa el resto del aviso.",
+          "El procedimiento afectado es `ILS OR LOC RWY 13`, en su enmienda `2C`. Todo lo que viene debajo son los valores que quedan vigentes, y hay que leerlos uno por uno:",
+        ],
+      },
+      {
+        kind: "kv",
+        items: [
+          {
+            k: "S-LOC 13 MDA 880 / HAT 868 ALL CATS",
+            v: "Aproximación directa solo con LOC: altitud mínima de descenso 880 ft, que son 868 ft sobre la zona de toma de contacto, para todas las categorías de aeronave.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "VISIBILITY CAT C/D 2",
+            v: "Con esos mínimos, las categorías C y D necesitan 2 millas terrestres de visibilidad.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "CIRCLING MDA 880 / HAA 859 CAT A/B",
+            v: "En circuito: altitud mínima de descenso 880 ft, que son 859 ft sobre la elevación del aeródromo, para las categorías A y B.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "VDP AT I-GDI 2.86 DME",
+            v: "El punto de descenso visual queda a 2,86 DME del I-GDI, y de ahí al umbral hay 2,46 millas náuticas.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "COROR FIX MINIMUMS NA",
+            v: "Los mínimos publicados a partir del fijo COROR no están disponibles.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "DISREGARD NOTE",
+            v: "Queda sin efecto la nota que obligaba a subir la visibilidad de las categorías C y D a 2½ millas cuando el sistema de luces de aproximación está fuera de servicio.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "ALTERNATE MINS",
+            v: "Mínimos para usar LaGuardia como aeródromo de alternativa por LOC: 900-2 en categorías A y B, 1100-3 en categoría C y 1300-3 en categoría D.",
+            color: ITEM_COLOR,
+          },
+          {
+            k: "PERM BLDG 611FT MSL",
+            v: "Se informa de un edificio permanente a 611 ft sobre el nivel medio del mar.",
+            color: ITEM_COLOR,
+          },
+        ],
+      },
+      {
+        kind: "apartado",
+        color: ITEM_COLOR,
+        parrafos: [
+          "Leído de corrido: desde el 23 de marzo de 2026 a las 13:32 UTC, y con finalización estimada dos años después, **la aproximación ILS o LOC a la pista 13 de LaGuardia cambia de mínimos**. La directa por LOC queda en 880 ft de altitud mínima de descenso para todas las categorías, con 2 millas de visibilidad en categorías C y D, y el circuito queda en 880 ft para categorías A y B. Además dejan de aplicarse los mínimos del fijo COROR y el aumento de visibilidad por luces de aproximación fuera de servicio.",
           "Si nuestra llegada está prevista para utilizar la pista 13, esta información debe ser revisada antes de la operación. El piloto debe consultar el procedimiento vigente y **verificar los mínimos aplicables** antes de utilizarlo.",
         ],
       },
