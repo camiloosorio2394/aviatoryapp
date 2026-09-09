@@ -47,3 +47,6 @@ private-batches/*
 !private-batches/_template.json.example
 !private-batches/README.md
 .claude/
+
+# El HTML de revisión de figuras se regenera con el verificador.
+revision-figuras.html

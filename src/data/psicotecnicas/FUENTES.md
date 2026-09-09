@@ -24,23 +24,62 @@ que respalda cada una, y con qué se comprueba:
 
 | Origen | Ejercicios | Cómo está verificada |
 |---|---|---|
-| A1 abstracto | 20 | Contrastados uno a uno contra la lámina SOLUCIONES del documento: los 20 coinciden |
-| E1 espacial | 14 | Contrastados contra la clave impresa al final del PDF: los 14 coinciden |
-| E2 espacial | 4 | Transcritas del resaltado de la fuente; la 7 (27 − 6 = 21) y la 10 (dos dados suman 42 puntos) además se comprobaron por cuenta propia |
-| N1 numérico | 38 | `verificar-numerico.mjs` recalcula las 38 desde el enunciado y las compara: cuadran |
-| N2 series | 162 | `verificar-respuestas.mjs`: 97 verificadas aritméticamente contra las operaciones que declara la fuente, 65 sin comprobación automática posible, 0 discrepancias |
+| A1 abstracto | 20 | `verificar-claves.mjs` lee la lámina SOLUCIONES del propio PDF y compara: los 20 coinciden |
+| E1 espacial | 14 | `verificar-claves.mjs` lee la clave del final del PDF y compara: los 14 coinciden |
+| E2 espacial | 4 | Revisadas mirando las páginas 10 a 13, que resaltan la opción correcta: las 4 coinciden. La 7 (27 − 6 = 21) y la 10 (dos dados suman 42 puntos, se ven 17) además cuadran por cuenta propia |
+| N1 numérico | 38 | `verificar-numerico.mjs` recalcula las 38 desde el enunciado —con la aritmética escrita y ejecutada, no leída— y las compara: cuadran |
+| N2 series | 162 | `verificar-series.mjs` las resuelve **de cero, sin mirar la respuesta**: 129 coinciden, 0 discrepan, 2 salen ambiguas y 31 usan reglas fuera de su familia |
 
-Los tres verificadores se corren así, y conviene hacerlo antes de publicar:
+En total, **205 de las 238 respuestas del banco están comprobadas por una vía
+independiente de quien las cargó**. Las 33 que faltan no están sin revisar: son
+2 series ambiguas en el propio original y 31 cuya regla no cubre el
+solucionador —tríos, ciclos sobre las diferencias, cosas así—. Se revisaron a
+mano por muestreo y salieron bien, pero eso no es lo mismo que estar
+comprobadas, y por eso se cuentan aparte.
+
+Los verificadores se corren así, y conviene hacerlo antes de publicar:
 
 ```
 node scripts/psicotecnicas/verificar-banco.mjs
+node scripts/psicotecnicas/verificar-claves.mjs ~/Downloads
 node scripts/psicotecnicas/verificar-numerico.mjs
+node scripts/psicotecnicas/verificar-series.mjs
 node scripts/psicotecnicas/verificar-respuestas.mjs ~/Downloads
+node scripts/psicotecnicas/verificar-figuras.mjs
 ```
+
+Todos comparten una regla: **cero comprobaciones no es un aprobado**. Si no
+encuentran el PDF, o su clave, o no llegan a comprobar nada, salen con error en
+vez de dar por bueno lo que no miraron.
 
 Las 65 series «sin comprobación automática» no son dudosas: son las agrupadas y
 las entrelazadas, donde el documento declara menos operaciones que saltos y no
 hay forma de alinearlas. Su respuesta es la que trae la fuente.
+
+### El fallo gordo: once ejercicios preguntaban otra cosa
+
+El documento N2 tiene diez bloques, y **no todos piden lo mismo**. Seis dicen
+«completa la serie», dos dicen «señala el número erróneo que hay en cada serie»
+y uno pide «los dos números que siguen». El generador los cargaba todos como
+«Complete la serie», así que once ejercicios acabaron con un enunciado que no
+era el suyo y una respuesta que, leída como continuación, no tiene sentido.
+
+El ejemplo más claro es el 7.1: la serie es «2, 4, 6, 7, 8, 10, 12» y el banco
+respondía **7**. Como continuación es absurdo —el 7 ya está en la serie—; como
+respuesta a «cuál sobra», es exactamente el número que rompe el +2.
+
+Y hay un agravante: el cuadernillo **mezcla los dos tipos dentro del mismo
+bloque**. Bajo el encabezado «señala el número erróneo» hay series limpias
+(«18, 21, 24, 27, 30») cuya solución impresa es la continuación, no un intruso.
+Por eso el tipo no se puede decidir por bloque: `generar-series.mjs` lo decide
+**por ítem y con evidencia** —si la respuesta impresa es uno de los términos de
+la serie, es el intruso; si no aparece en ella, es la continuación—.
+
+Los once quedaron como ejercicios de «Señala el número que sobra», con las
+alternativas sacadas de la propia serie (un número que no aparece en ella se
+descarta de un vistazo y regala el ejercicio) y comprobados al revés:
+`verificar-series.mjs` prueba a quitar cada término y comprueba que solo uno
+deja una serie con una única regla.
 
 ### Lo que la verificación encontró
 

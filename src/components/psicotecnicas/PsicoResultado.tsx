@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowRight, RotateCcw } from "lucide-react"
+import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
 import {
   CATEGORIAS,
   NOTA_TIEMPOS,
   PSICO_HUB,
+  type EjercicioPsico,
+  type RespuestaPsico,
   type ResultadoPsico,
   nivelAlcanzado,
 } from "@/lib/psicotecnicas"
@@ -13,7 +17,55 @@ interface Props {
   resultado: ResultadoPsico
   /** El simulacro añade el puntaje global, la velocidad y la precisión. */
   conPuntajeGlobal?: boolean
+  /**
+   * La tanda y lo que se respondió, para poder repasar los fallados.
+   *
+   * Van juntos y son opcionales: sin ellos el informe sigue siendo el mismo,
+   * solo que sin la revisión.
+   */
+  ejercicios?: EjercicioPsico[]
+  respuestas?: RespuestaPsico[]
   onRepetir: () => void
+}
+
+/**
+ * Una cifra que sube desde cero, una sola vez y en seiscientos milisegundos.
+ *
+ * Es la única animación del informe y llega cuando la prueba ya terminó, así
+ * que no le quita tiempo a nadie: sirve para que el ojo se pose en el número
+ * en vez de encontrárselo puesto. Con el movimiento reducido activado devuelve
+ * el valor final de entrada, sin recorrido.
+ */
+function useContador(valor: number, activo = true): number {
+  const [visible, setVisible] = useState(() => (activo ? 0 : valor))
+
+  useEffect(() => {
+    if (!activo) {
+      setVisible(valor)
+      return
+    }
+    const quieto =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    if (quieto) {
+      setVisible(valor)
+      return
+    }
+
+    const DURACION = 600
+    const desde = Date.now()
+    // Con intervalo y no con requestAnimationFrame: el recorrido es corto, el
+    // paso es de un cuadro y así la cifra avanza igual en cualquier contexto.
+    const t = window.setInterval(() => {
+      const parte = Math.min(1, (Date.now() - desde) / DURACION)
+      // Frena al final en vez de cortarse en seco.
+      setVisible(Math.round(valor * (1 - Math.pow(1 - parte, 3))))
+      if (parte >= 1) window.clearInterval(t)
+    }, 16)
+    return () => window.clearInterval(t)
+  }, [valor, activo])
+
+  return visible
 }
 
 /** Dato suelto del informe: cifra grande arriba, etiqueta debajo. */
@@ -76,8 +128,34 @@ function BarraCategoria({
  * disparando— y por eso la velocidad es un puntaje aparte y no una penalización
  * escondida dentro del acierto.
  */
-export function PsicoResultado({ resultado, conPuntajeGlobal, onRepetir }: Props) {
+export function PsicoResultado({
+  resultado,
+  conPuntajeGlobal,
+  ejercicios,
+  respuestas,
+  onRepetir,
+}: Props) {
   const r = resultado
+  const cifraGrande = useContador(conPuntajeGlobal ? r.global : r.porcentaje)
+  const precision = useContador(r.precision, conPuntajeGlobal)
+  const velocidad = useContador(r.velocidad, conPuntajeGlobal)
+
+  /**
+   * Lo que hay que repasar: lo fallado y lo que se quedó sin responder.
+   *
+   * Es donde de verdad se aprende, y hasta ahora la explicación pasaba y no se
+   * recuperaba. Los aciertos no entran: repasar lo que ya salió bien es tiempo
+   * que no enseña nada.
+   */
+  const repaso =
+    ejercicios && respuestas
+      ? respuestas
+          .filter((a) => !a.correcta)
+          .map((a) => ({ respuesta: a, ejercicio: ejercicios.find((e) => e.id === a.id) }))
+          .filter((x): x is { respuesta: RespuestaPsico; ejercicio: EjercicioPsico } =>
+            Boolean(x.ejercicio)
+          )
+      : []
 
   return (
     <div className="max-w-[900px] mx-auto">
@@ -87,7 +165,7 @@ export function PsicoResultado({ resultado, conPuntajeGlobal, onRepetir }: Props
         </div>
         <div className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
           <div className="text-[44px] font-semibold tabular-nums leading-none tracking-[-0.03em]">
-            {conPuntajeGlobal ? r.global : r.porcentaje}%
+            {cifraGrande}%
           </div>
           <div className="text-[17px] font-medium text-muted-foreground">
             {conPuntajeGlobal ? "resultado global" : nivelAlcanzado(r.porcentaje)}
@@ -117,8 +195,8 @@ export function PsicoResultado({ resultado, conPuntajeGlobal, onRepetir }: Props
 
         {conPuntajeGlobal && (
           <div className="mt-3 grid gap-3 grid-cols-2">
-            <Dato valor={`${r.precision}%`} etiqueta="Precisión" />
-            <Dato valor={`${r.velocidad}%`} etiqueta="Velocidad" />
+            <Dato valor={`${precision}%`} etiqueta="Precisión" />
+            <Dato valor={`${velocidad}%`} etiqueta="Velocidad" />
           </div>
         )}
 
@@ -171,6 +249,23 @@ export function PsicoResultado({ resultado, conPuntajeGlobal, onRepetir }: Props
         </div>
       )}
 
+      {repaso.length > 0 && (
+        <section className="mt-4 rounded-2xl surface p-6 sm:p-8">
+          <div className="text-[17px] font-semibold">
+            Repasa lo que falló · {repaso.length}
+          </div>
+          <p className="mt-1 text-[15px] text-muted-foreground max-w-[62ch]">
+            Aquí están los que no salieron, con su figura y su explicación. Es la parte de la
+            sesión donde se aprende: en la prueba la explicación pasa y no vuelve.
+          </p>
+          <div className="mt-5 space-y-3">
+            {repaso.map(({ respuesta, ejercicio }) => (
+              <FichaRepaso key={ejercicio.id} ejercicio={ejercicio} respuesta={respuesta} />
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="mt-4 flex flex-wrap gap-2">
         <button
           type="button"
@@ -188,6 +283,121 @@ export function PsicoResultado({ resultado, conPuntajeGlobal, onRepetir }: Props
       <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed max-w-[70ch]">
         {NOTA_TIEMPOS}
       </p>
+    </div>
+  )
+}
+
+/**
+ * Un ejercicio fallado, plegado.
+ *
+ * Plegado por defecto y no abierto: con treinta ejercicios, un informe que se
+ * despliega entero no se lee. Se abre el que interesa, se mira la figura al
+ * lado de la explicación, y se cierra.
+ */
+function FichaRepaso({
+  ejercicio,
+  respuesta,
+}: {
+  ejercicio: EjercicioPsico
+  respuesta: RespuestaPsico
+}) {
+  const [abierta, setAbierta] = useState(false)
+  const suya = respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida]
+
+  return (
+    <div className="rounded-xl border border-border overflow-hidden">
+      <button
+        type="button"
+        onClick={() => setAbierta((v) => !v)}
+        aria-expanded={abierta}
+        className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-muted transition-colors"
+      >
+        <span className="text-[13px] font-semibold text-muted-foreground tabular-nums shrink-0">
+          {ejercicio.id}
+        </span>
+        <span className="min-w-0 flex-1 text-[15px]">
+          {suya === null ? (
+            <span className="text-muted-foreground">Se quedó sin responder</span>
+          ) : (
+            <>
+              Respondiste <strong className="font-semibold">{suya}</strong>; era{" "}
+              <strong className="font-semibold" style={{ color: "var(--av-green-400)" }}>
+                {ejercicio.opciones[ejercicio.respuesta]}
+              </strong>
+            </>
+          )}
+        </span>
+        <ChevronDown
+          className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${abierta ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      {abierta && (
+        <div className="border-t border-border px-4 py-4">
+          <div className="text-[15px] font-medium">{ejercicio.enunciado}</div>
+
+          {ejercicio.figura ? (
+            <>
+              <FiguraEnunciado figura={ejercicio.figura} />
+              <div className="mt-3 flex flex-wrap gap-3">
+                {ejercicio.opciones.map((opcion, i) => {
+                  const buena = i === ejercicio.respuesta
+                  const suyaEsta = i === respuesta.elegida
+                  return (
+                    <span
+                      key={opcion + i}
+                      className="flex flex-col items-center gap-1 rounded-xl border p-2 text-foreground"
+                      style={{
+                        borderColor: buena
+                          ? "var(--av-green-400)"
+                          : suyaEsta
+                            ? "var(--av-red-400)"
+                            : "var(--border)",
+                        background: buena
+                          ? "color-mix(in oklab, var(--av-green-400) 12%, transparent)"
+                          : suyaEsta
+                            ? "color-mix(in oklab, var(--av-red-400) 12%, transparent)"
+                            : undefined,
+                      }}
+                    >
+                      <FiguraOpcion figura={ejercicio.figura!} indice={i} />
+                      <span className="text-[13px] font-semibold text-muted-foreground">
+                        {opcion}
+                      </span>
+                    </span>
+                  )
+                })}
+              </div>
+            </>
+          ) : (
+            ejercicio.imagen && (
+              // El recorte es papel escaneado y va sobre blanco también en tema
+              // oscuro: sobre una superficie oscura, un escaneo de papel se lee
+              // como un fallo de carga. Los ejercicios ya dibujados no tienen
+              // este problema y siguen al tema.
+              <div className="mt-3 overflow-x-auto rounded-xl border border-border bg-white p-3">
+                <img
+                  src={ejercicio.imagen}
+                  alt={ejercicio.imagenAlt ?? ejercicio.enunciado}
+                  className="mx-auto h-auto max-w-full"
+                  loading="lazy"
+                />
+              </div>
+            )
+          )}
+
+          <p className="mt-4 text-[15px] leading-relaxed text-foreground/90">
+            {ejercicio.explicacion}
+          </p>
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
+            <span>{ejercicio.subcategoria}</span>
+            <span>·</span>
+            <span>
+              {respuesta.segundos} s de {respuesta.limite} s
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

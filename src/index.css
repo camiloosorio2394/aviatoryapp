@@ -847,6 +847,61 @@
   font-family: "Archivo", var(--font-sans);
 }
 
+/* === Portada del tema Pruebas psicotécnicas ================================
+   Misma casa que la portada de NOTAM: si las dos titulan igual, se leen como
+   la misma pantalla con otro contenido. Igual que allá, con alcance a la
+   pantalla y sin tocar la familia global. */
+.psico-hub .ph-display {
+  font-family: "Archivo", var(--font-sans);
+}
+
+/* El sello de «Sin intentos» de la franja. Dice pendiente sin fingir un cero,
+   y va con el ámbar de marca en translúcido —no con un crema fijo— para que en
+   tema oscuro no quede un bloque claro fuera de sitio. Es el mismo trato que
+   ya tiene .chip-amber, con la geometría de la franja. */
+.psico-hub .ph-sello {
+  background: color-mix(in oklab, var(--av-amber-400) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent);
+  color: oklch(0.5 0.16 60);
+}
+.dark .psico-hub .ph-sello {
+  color: var(--av-amber-400);
+}
+
+/* === Sesión de psicotécnicas ===============================================
+   La pantalla del ejercicio cronometrado. Aquí el movimiento tiene que pedir
+   permiso: cada milisegundo de animación entre ejercicios es tiempo que el
+   alumno pierde y que en la prueba real no va a perder. Solo hay dos cosas.
+
+   Una, el aro del reloj. Es la única animación continua que admite la
+   pantalla, y tiene función: se ve el tiempo que queda sin leer la cifra. El
+   descuento va a un segundo exacto y lineal, así que el aro se vacía a la
+   misma velocidad que corre el reloj y no da un tirón en cada tic. No
+   parpadea: en los últimos diez segundos cambia de color y nada más, porque un
+   parpadeo en mitad de un ejercicio es justo lo que rompe la concentración que
+   la prueba mide. */
+.psico-juego .pj-aro {
+  transition:
+    stroke-dashoffset 1s linear,
+    stroke 260ms ease-out;
+}
+
+/* Y dos, la corrección en entrenamiento: la opción elegida se tiñe y la
+   correcta se marca. Solo ahí. En evaluación y simulación no se anima nada,
+   porque no hay corrección al momento y cualquier movimiento sería una pista. */
+.psico-juego .pj-opcion {
+  transition:
+    background-color 160ms ease-out,
+    border-color 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .psico-juego .pj-aro,
+  .psico-juego .pj-opcion {
+    transition: none;
+  }
+}
+
 /* === Lector NOTAM (la lección Aprende) ======================================
    Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
    infografías: papel cálido y navy de carta aeronáutica, fija en los dos
@@ -995,18 +1050,24 @@
 }
 .lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
 
-/* Aparición suave. Lo que entra a mitad de scroll sube diez píxeles en vez
+/* Aparición suave. La comparte la portada de psicotécnicas: el mismo
+   vocabulario en las dos pantallas es lo que las hace la misma aplicación.
+ Lo que entra a mitad de scroll sube diez píxeles en vez
    de plantarse de golpe: en una lección larga, un bloque que aparece sin
    más se lee como un salto de maquetación. La clase la enciende el
    componente cuando el bloque entra en pantalla, y una sola vez. */
-.lector-notam .ln-aparece {
+.lector-notam .ln-aparece,
+.psico-hub .ln-aparece,
+.psico-juego .ln-aparece {
   opacity: 0;
   transform: translateY(10px);
   transition:
     opacity 520ms ease-out,
     transform 520ms cubic-bezier(0.22, 0.8, 0.24, 1);
 }
-.lector-notam .ln-aparece.ln-visible {
+.lector-notam .ln-aparece.ln-visible,
+.psico-hub .ln-aparece.ln-visible,
+.psico-juego .ln-aparece.ln-visible {
   opacity: 1;
   transform: none;
 }
@@ -1014,12 +1075,14 @@
 /* El carril de etapas del vuelo. La línea se traza hasta la parada de esta
    etapa y el avión llega a posarse en ella, un poco después, para que se lea
    como una llegada y no como dos cosas moviéndose a la vez. */
-.lector-notam .ln-carril {
+.lector-notam .ln-carril,
+.psico-hub .ln-carril {
   transform: scaleX(0);
   transform-origin: left center;
   transition: transform 900ms cubic-bezier(0.22, 0.8, 0.24, 1) 120ms;
 }
-.lector-notam .ln-visible .ln-carril {
+.lector-notam .ln-visible .ln-carril,
+.psico-hub .ln-visible .ln-carril {
   transform: scaleX(1);
 }
 .lector-notam .ln-avion {
@@ -1038,12 +1101,15 @@
   /* Sin movimiento, todo esto llega ya puesto: el bloque, el carril entero y
      el avión en su parada. */
   .lector-notam .ln-aparece,
+  .psico-hub .ln-aparece,
+  .psico-juego .ln-aparece,
   .lector-notam .ln-avion {
     opacity: 1;
     transform: none;
     transition: none;
   }
-  .lector-notam .ln-carril {
+  .lector-notam .ln-carril,
+  .psico-hub .ln-carril {
     transform: scaleX(1);
     transition: none;
   }

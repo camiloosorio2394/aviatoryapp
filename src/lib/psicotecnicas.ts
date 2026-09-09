@@ -12,6 +12,8 @@
  * exactamente la razón de que estén separados del banco.
  */
 
+import type { Figura } from "./psicotecnicasFiguras"
+
 export type CategoriaPsico = "abstracto" | "espacial" | "numerico"
 export type NivelPsico = "basico" | "intermedio" | "avanzado"
 export type ModoPsico = "entrenamiento" | "evaluacion" | "simulacion"
@@ -29,6 +31,15 @@ export interface EjercicioPsico {
   imagen?: string
   /** Descripción de la figura para lectores de pantalla. */
   imagenAlt?: string
+  /**
+   * La figura descrita por atributos, para dibujarla nosotros.
+   *
+   * Cuando está, manda sobre `imagen`: el ejercicio se dibuja y cada
+   * alternativa pasa a su propio botón. `imagen` se conserva mientras tanto
+   * como prueba de qué decía el recorte original, que es contra lo que se
+   * revisa el dibujo en `scripts/psicotecnicas/verificar-figuras.mjs`.
+   */
+  figura?: Figura
   /**
    * Etiquetas de las opciones. Cuando la figura ya trae las suyas dibujadas
    * (el caso de casi todo el material espacial y abstracto) van solo las

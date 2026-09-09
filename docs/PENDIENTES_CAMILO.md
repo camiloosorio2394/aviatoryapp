@@ -554,3 +554,247 @@ puramente aditiva: crea su tabla, su umbral, su logro y su propio disparador, y
 **no** recrea `check_and_unlock_achievements`. Se hizo así justamente por el
 desfase: replicar esa función desde la versión que guarda el repositorio habría
 revertido en silencio cualquier logro añadido en esas migraciones sueltas.
+
+## 9 · Figuras dibujadas: el orden del encargo hay que cambiarlo (9 de septiembre de 2026)
+
+Sobre `docs/BRIEF_NICO_2026-09-09_PSICOTECNICAS.md`. El motor de figuras ya
+está y funciona, pero el orden de ataque del punto 1.4 parte de una premisa que
+no se sostiene, y conviene decidirlo antes de seguir dibujando.
+
+### 9.1 · `AB-A2` no es «el más simple»: es el más variado de los tres
+
+El brief lo describe como «una rejilla de dos por dos con una flecha arriba o
+abajo en un cuadrante» y por eso lo pone primero. Revisadas las 61 una a una,
+esa descripción vale para **una**: la `AB-A2-02`. El resto se reparte así:
+
+| Qué son | Cuántas | ¿Se pueden describir por atributos? |
+|---|---|---|
+| Sólidos isométricos sombreados (vistas, proyecciones, desarrollos) | ~17 | **No.** Habría que escribir un motor 3D, no un vocabulario de figuras |
+| Giros de polígonos irregulares y de escenas ilustradas (un `5`, una habitación con muebles, cuadriláteros arbitrarios) | ~5 | **No.** Son contornos sueltos: exactamente el `path` a mano que el brief prohíbe |
+| Matrices y series con tramas, sombreados y texturas | ~4 | A medias, y cada una con su propio vocabulario |
+| Series y matrices de primitivas geométricas | ~34 | Sí, pero casi una gramática distinta por ejercicio |
+| Rejilla de flechas, la del brief | 1 | Sí |
+
+El problema de fondo no es el trabajo: es que dibujar «por atributos» solo
+compra algo cuando varios ejercicios comparten la misma gramática. En `AB-A2`
+no la comparten, así que serían unas cuarenta gramáticas para cuarenta
+ejercicios, y para diecisiete no hay gramática posible.
+
+### 9.2 · `AB-A1` sí, y además es el que está haciendo daño hoy
+
+Las veinte del `A1` comparten formato —matriz de tres por tres, un puñado de
+primitivas— y **son las que están en producción con el logotipo de Facebook
+impreso en mitad de la pregunta y las letras C y D cortadas**. Encima traen
+clave de respuestas verificada, así que cada figura dibujada se puede contrastar
+contra ella.
+
+Por eso empecé por el `A1` y no por el `A2`, que es la única desviación del
+brief. Si prefieres el orden original, dilo y se cambia: nada de lo hecho se
+pierde, porque el `A1` es el punto 2 de tu propia lista.
+
+### 9.3 · Lo que propongo para `AB-A2`
+
+Que no se dibuje entero. Tres caminos, y creo que el tercero es el bueno:
+
+1. **Dibujar solo lo que tenga gramática compartida** (la rejilla de flechas y
+   las series de primitivas que se repitan), y dejar el resto fuera del banco.
+2. **Encargar los sólidos isométricos como ilustración propia**, uno a uno. Son
+   ~17 y no los resuelve ningún vocabulario.
+3. **Dejar `AB-A2` donde está —sin cargar— y escribir ejercicios propios de
+   razonamiento espacial.** Sale más barato que transcribir 61 ajenos, no tiene
+   el problema de derechos del punto 8.1, y las respuestas nacen verificadas
+   porque las genera el mismo código que dibuja la figura.
+
+Recuerda que `A2` tampoco trae hoja de respuestas (punto 8.2), así que cargarlo
+obliga además a deducir 61 respuestas. El solucionador nuevo
+(`src/lib/psicotecnicasSolucionador.ts`) sabe hacerlo cuando la regla es de la
+familia conocida, pero solo se pronuncia si la regla explica la figura con dos
+apoyos como mínimo; con los sólidos sombreados no puede ni empezar.
+
+### 9.4 · Lo que sí quedó hecho, y cómo se comprueba
+
+- `src/lib/psicotecnicasFiguras.ts` — el vocabulario y el dibujo. El trazo es
+  `currentColor`, así que la figura sigue al tema y desaparece el `bg-white`
+  que metía un bloque claro en tema oscuro. El isotipo lo pone **una sola
+  función**, y el lienzo crece para dejarle sitio en vez de mover el dibujo.
+- `src/lib/psicotecnicasSolucionador.ts` — deduce la respuesta desde los
+  atributos. Familia cerrada de reglas, mínimo dos apoyos, y si dos reglas
+  señalan alternativas distintas el ejercicio sale como ambiguo en vez de
+  publicarse.
+- `scripts/psicotecnicas/verificar-figuras.mjs` — compara la respuesta deducida
+  con la del banco, exige que el recorte original siga en `public/`, y escribe
+  `revision-figuras.html` con el dibujo al lado del recorte. **Sale con error si
+  no comprobó ninguna figura**, que es la lección del verificador de respuestas.
+- `AB-A1-01` convertida y verificada: la regla es «unión de las dos primeras,
+  por filas», da la C, y la C es lo que dice la clave del cuadernillo.
+
+Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.
+
+### 9.5 · Dónde quedó cada matriz del A1
+
+Ocho de las veinte están dibujadas y en la aplicación; el resto sigue con su
+recorte, ahora sin el logotipo de Facebook donde se pudo quitar.
+
+| Matrices | Estado |
+|---|---|
+| 01, 03, 04, 05, 06, 07, 09 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
+| 02 | Dibujada. Su regla —los brazos del rombo se añaden y se quitan de uno en uno— no está en la familia del solucionador, así que **no tiene comprobación automática**: hay que aprobarla mirando el HTML de revisión |
+| 08, 10, 11 | **Paradas a propósito.** Juegan con bandas dentro de sectores, con extensiones y con posiciones que no se leen con seguridad en el recorte. Transcribirlas a ojo es justo lo que cambia un ejercicio sin que nadie se entere |
+| 12 a 20 | Sin empezar |
+
+Las tres paradas no son un problema de tiempo: es que hace falta el cuadernillo
+original —`554759531`, que Nico tiene en Descargas— a mejor resolución que el
+recorte, o que alguien las lea al lado del papel. Con eso se dibujan en una
+tarde.
+
+### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
+
+`scripts/psicotecnicas/quitar-marca.mjs`. El logotipo del cuadernillo A1 no está
+dentro de la figura: cae en el hueco entre la matriz y las alternativas, así que
+se puede recortar sin tocar el ejercicio. El script lo localiza por ser lo único
+azul de la lámina, comprueba que entre la franja y el dibujo hay papel por
+arriba y por abajo, y cose las dos mitades.
+
+Quince quedaron limpias. En cinco —01, 02, 11, 14 y 18— la franja roza el dibujo
+y el script se niega: **preferimos un recorte con marca a un recorte con el
+ejercicio mordido**. De esas cinco, la 01 y la 02 ya están dibujadas, así que en
+producción solo quedan tres láminas con el logotipo: la 11, la 14 y la 18.
+
+Los originales no se tocaron. La lámina limpia se escribe al lado con el sufijo
+`-limpio` y el banco apunta a ella por `src/data/psicotecnicas/laminasLimpias.ts`,
+que genera el propio script.
+
+Esto **no** sustituye al encargo de dibujar las figuras: las letras de las
+opciones siguen cortadas en el recorte, y esa parte solo la arregla el dibujo.
+
+### 9.7 · La portada, y la foto que le falta
+
+`/app/aerolinea/psicotecnicas` está rehecha con el patrón de NOTAM: hero con la
+foto a sangre bajo el velo navy, franja de avance de una sola caja con las tres
+familias, y las cuatro partes en `CourseCard`. El vocabulario de movimiento no
+se duplicó: se amplió el alcance de las reglas `.ln-*` que ya existían para el
+lector de NOTAM, así que las dos pantallas se mueven igual y el bloque de
+`prefers-reduced-motion` cubre las dos.
+
+Dos cosas para ti:
+
+1. **La foto del hero es prestada.** Usa `psicotecnicas-mano-panel.jpg`, que ya
+   estaba en el repositorio y sale también en la landing. Funciona, pero no
+   tiene el tratamiento navy de `notam-hero.webp`. Si quieres una propia, el
+   corte es horizontal, sin texto encima.
+2. **La franja enseña el último acierto por familia, no ejercicios resueltos.**
+   El encargo pedía resueltos sobre el total, y ese dato hoy no existe: mientras
+   la migración del punto 8.6 siga sin aplicar, los intentos solo viven en
+   `localStorage` y no hay recuento por ejercicio. Antes enseñar lo que hay que
+   inventar una cifra. En cuanto se aplique la migración, se cambia en un sitio.
+
+### 9.8 · Un detalle que NOTAM también tiene
+
+El sello «Sin intentos» de la franja iba con tres hexadecimales fijos —crema,
+ocre y arena—, así que en tema oscuro quedaba un bloque claro en medio de la
+franja. En psicotécnicas ya está arreglado: es `.psico-hub .ph-sello`, con el
+ámbar de marca en translúcido y el texto que cambia de tono en oscuro, el mismo
+trato que ya tenía `.chip-amber`.
+
+**La celda de Evaluación de la portada de NOTAM lleva los mismos tres
+hexadecimales** (`src/pages/Notam.tsx`, el sub componente `Celda`). No lo toqué
+porque el encargo era la portada de psicotécnicas y NOTAM es tuyo, pero es
+copiar la clase y borrar el `style`.
+
+### 9.9 · El punto 3 del brief, el del movimiento
+
+Hecho, salvo una cosa que hoy no se puede construir.
+
+**El reloj es un aro** alrededor del contador, y se vacía a la vez que corre el
+descuento —un segundo exacto, lineal—, así que no da un tirón en cada tic. En
+los últimos diez segundos pasa a ámbar y a cero se queda vacío en rojo. **No
+parpadea**: un parpadeo en mitad de un ejercicio rompe justo la concentración
+que la prueba mide.
+
+**La figura entra una sola vez**, al abrir la sesión, con la aparición de
+`.ln-aparece`. Entre un ejercicio y el siguiente **no se anima nada**, que es lo
+que pide el punto 3.4: cada milisegundo ahí es tiempo que el alumno pierde y que
+en la prueba real no va a perder.
+
+**Acierto y fallo solo en entrenamiento.** Ya era así por estructura —la
+corrección depende de `corrigeAlMomento`—, y ahora además la transición de 160 ms
+vive en `.psico-juego .pj-opcion`, con alcance, y no en estilos en línea.
+
+**Las cifras del informe suben desde cero** una vez, en 600 ms, y solo el
+resultado global, la precisión y la velocidad. Con el movimiento reducido
+activado llegan puestas, sin recorrido.
+
+De la interactividad del punto 3.3 entran dos de las tres:
+
+- **Repasar lo que falló.** El informe trae ahora los fallados y los que se
+  quedaron sin responder, plegados, con su figura y su explicación. Era el que
+  el propio brief señalaba como el importante —«es donde se aprende»—, porque
+  hasta ahora la explicación pasaba y no se recuperaba.
+- **Dejarlo para el final.** Dentro de una sesión cronometrada se puede aplazar
+  un ejercicio: se va al fondo de la cola y vuelve con el reloj de nuevo a cero.
+  Solo una vez por ejercicio. El tiempo que se registra es el de la vuelta en
+  que se responde, no la suma de las dos, que es lo que pasa en una prueba real.
+
+**El comparador de los espaciales no.** Alternar entre el cubo y cada desarrollo
+exige que la figura sea una descripción, y los dieciocho ejercicios espaciales
+siguen siendo recortes: sobre un pixel no hay nada que alternar. Sale gratis en
+cuanto se dibujen, y no antes.
+
+## 10 · Verificación de las respuestas (9 de septiembre de 2026)
+
+Camilo preguntó si las respuestas son las que son, porque en NOTAM salió un 70 %
+con información errónea. Se revisaron las 238 contra los cuadernillos, sin
+fiarse de lo que decía `FUENTES.md`. **Apareció un fallo, y era de los que no se
+ven mirando la respuesta: la pregunta estaba mal.**
+
+### 10.1 · Once ejercicios preguntaban otra cosa
+
+El documento de series numéricas tiene diez bloques y **no todos piden lo
+mismo**: seis dicen «completa la serie», dos dicen «señala el número erróneo» y
+uno pide «los dos números que siguen». El generador los cargaba todos como
+«Complete la serie».
+
+Resultado: once ejercicios con la pregunta cambiada. El más claro, el 7.1: serie
+«2, 4, 6, 7, 8, 10, 12», y el banco respondía **7**. Como continuación no tiene
+sentido —el 7 ya está en la serie—; es la respuesta a «cuál sobra».
+
+Encima, el cuadernillo **mezcla los dos tipos dentro del mismo bloque**: bajo el
+encabezado de «número erróneo» hay series limpias cuya solución impresa es la
+continuación. Así que el tipo se decide ahora **por ítem y con evidencia**: si la
+respuesta impresa es uno de los términos de la serie, es el intruso; si no
+aparece, es la continuación. Los once entran como «Señala el número que sobra»,
+con las alternativas sacadas de la propia serie.
+
+### 10.2 · Cómo queda comprobado el banco
+
+| Origen | Cuántos | Contra qué |
+|---|---|---|
+| A1 abstracto | 20 | La lámina SOLUCIONES de su PDF. Coinciden los 20 |
+| E1 espacial | 14 | La clave del final de su PDF. Coinciden los 14 |
+| E2 espacial | 4 | La opción resaltada en las páginas 10–13. Coinciden las 4 |
+| N1 numérico | 38 | Recalculadas desde el enunciado. Cuadran las 38 |
+| N2 series | 162 | Resueltas de cero, sin mirar la respuesta: **129 coinciden, 0 discrepan** |
+
+**205 de 238 comprobadas por una vía independiente de quien las cargó.** Las 33
+restantes son 2 series ambiguas en el propio original y 31 con reglas fuera de
+la familia del solucionador; se miraron a mano por muestreo y salieron bien,
+pero eso no es estar comprobadas y por eso se cuentan aparte.
+
+### 10.3 · Dos verificadores nuevos, y una regla
+
+- `verificar-claves.mjs` lee la clave impresa de los dos PDF que la traen y la
+  compara con el banco.
+- `verificar-series.mjs` resuelve las 162 series **sin mirar la respuesta**,
+  buscando la regla entre una familia cerrada; y a las de «número que sobra» las
+  comprueba al revés, quitando cada término y viendo cuál deja una serie limpia.
+
+Los dos siguen la regla de la casa: **cero comprobaciones no es un aprobado**.
+Si falta el PDF, o no aparece su clave, salen con error en vez de dar por bueno
+lo que no miraron.
+
+### 10.4 · Lo que sigue sin poder comprobarse solo
+
+Las dos series ambiguas son `NU-N2-08-04` (quitando el 58 o el 43 la serie queda
+limpia) y `NU-N2-08-13` (quitando el 1, el 13 o el 15). No están mal: están mal
+planteadas **en el original**. Se quedan con la respuesta del cuadernillo, pero
+si quieres afinar el banco son las dos primeras candidatas a salir.

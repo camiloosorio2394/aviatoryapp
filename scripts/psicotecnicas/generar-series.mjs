@@ -66,14 +66,45 @@ function leerItems(bloque) {
   return items
 }
 
-/** Separa un texto en bloques «Ejercicio N». */
+/**
+ * Separa un texto en bloques «Ejercicio N», con su instrucción.
+ *
+ * La instrucción importa y mucho: **los diez bloques no piden lo mismo**. Seis
+ * piden completar la serie, dos piden señalar el número que sobra y uno pide
+ * los dos números que siguen. Cargarlos todos como «completa la serie» es
+ * cambiar la pregunta, y con ella la respuesta.
+ */
 function leerBloques(texto) {
   const bloques = new Map()
   const partes = texto.split(/^\s*Ejercicio\s+(\d+)\s*$/m)
   for (let i = 1; i < partes.length; i += 2) {
-    bloques.set(Number(partes[i]), leerItems(partes[i + 1] ?? ""))
+    const cuerpo = partes[i + 1] ?? ""
+    // La instrucción es lo que va antes del primer ítem numerado.
+    const hastaPrimerItem = cuerpo.split(/^\s*1\.\s/m)[0] ?? ""
+    bloques.set(Number(partes[i]), {
+      items: leerItems(cuerpo),
+      instruccion: hastaPrimerItem.replace(/\s+/g, " ").trim(),
+    })
   }
   return bloques
+}
+
+/**
+ * Qué pide un bloque, leído de su propia instrucción.
+ *
+ * Varios bloques dicen «sigue las mismas instrucciones que en el ejercicio
+ * anterior», y el último no trae instrucción ninguna, así que el tipo se
+ * hereda del bloque de antes. Lo que NO se hace es suponer «completar» por
+ * defecto: suponerlo fue justo lo que metió 27 ejercicios con la pregunta
+ * cambiada.
+ */
+function tipoDeBloque(instruccion, anterior) {
+  if (/err[oó]ne[oa]/i.test(instruccion)) return "intruso"
+  if (/dos n[uú]meros que siguen/i.test(instruccion)) return "completar"
+  if (/complet[ae]/i.test(instruccion)) return "completar"
+  if (/mismas (instrucciones|indicaciones)/i.test(instruccion)) return anterior
+  // Sin instrucción propia: hereda. Si no hay de quién heredar, no se inventa.
+  return anterior
 }
 
 const enunciados = leerBloques(texto.slice(0, corte))
@@ -188,6 +219,35 @@ function distractores(terminos, respuesta) {
   return elegidos
 }
 
+/**
+ * Tres distractores para un ítem de «número que sobra».
+ *
+ * Aquí no valen los distractores de completar: la respuesta es un término que
+ * está **dentro** de la serie, así que las otras tres alternativas tienen que
+ * salir también de la serie. Un número que no aparece se descarta de un
+ * vistazo y regala el ejercicio.
+ */
+function distractoresIntruso(terminos, respuesta) {
+  const otros = terminos.filter((t) => t !== respuesta)
+  const vistos = new Set([respuesta])
+  const elegidos = []
+  // Se toman repartidos a lo largo de la serie, no los tres primeros: si
+  // siempre salieran del principio, el intruso se delataría por posición.
+  const paso = Math.max(1, Math.floor(otros.length / 4))
+  for (let i = 0; i < otros.length && elegidos.length < 3; i += paso) {
+    if (vistos.has(otros[i])) continue
+    vistos.add(otros[i])
+    elegidos.push(otros[i])
+  }
+  for (const t of otros) {
+    if (elegidos.length >= 3) break
+    if (vistos.has(t)) continue
+    vistos.add(t)
+    elegidos.push(t)
+  }
+  return elegidos
+}
+
 /** Aplica una operación declarada («+3», «x2», «:2») a un número. */
 function aplicar(valor, op) {
   const m = op.replace(/\s+/g, "").match(/^([+\-x×:/])(\d+(?:[.,]\d+)?)$/)
@@ -287,8 +347,20 @@ let verificados = 0
 const corregidos = []
 const inconsistentes = []
 
-for (const [nEj, items] of [...enunciados].sort((a, b) => a[0] - b[0])) {
-  const sols = soluciones.get(nEj)
+/** El tipo de cada bloque, resuelto en orden para poder heredarlo. */
+const TIPOS = new Map()
+let tipoPrevio = null
+for (const [nEj, bloque] of [...enunciados].sort((a, b) => a[0] - b[0])) {
+  const tipo = tipoDeBloque(bloque.instruccion, tipoPrevio)
+  if (!tipo) throw new Error(`El ejercicio ${nEj} no dice qué pide y no hay bloque anterior del que heredarlo`)
+  TIPOS.set(nEj, tipo)
+  tipoPrevio = tipo
+}
+
+for (const [nEj, bloque] of [...enunciados].sort((a, b) => a[0] - b[0])) {
+  const items = bloque.items
+  const tipo = TIPOS.get(nEj)
+  const sols = soluciones.get(nEj)?.items
   if (!sols) continue
   for (const [nItem, enunciado] of [...items].sort((a, b) => a[0] - b[0])) {
     const solucion = sols.get(nItem)
@@ -298,6 +370,39 @@ for (const [nEj, items] of [...enunciados].sort((a, b) => a[0] - b[0])) {
     if (impresa === null || terminos.length < 4) { descartados++; continue }
 
     const pasos = pasosDe(solucion)
+
+    // Los de «número que sobra» no pasan por el contraste: ese compara la
+    // respuesta contra la cadena de operaciones, y aquí la respuesta no es el
+    // final de la cadena sino el término que la rompe. Su comprobación es otra
+    // —quitarlo tiene que dejar una serie limpia— y la hace
+    // `verificar-series.mjs`, que resuelve sin mirar la respuesta.
+    // El cuadernillo mezcla los dos tipos dentro del mismo bloque: bajo el
+    // encabezado «señala el número erróneo» hay series limpias cuya solución es
+    // la continuación, no un intruso. Así que el tipo se decide por ítem y con
+    // evidencia: si la respuesta impresa es uno de los términos, es el intruso;
+    // si no está en la serie, es la continuación y se trata como tal.
+    if (tipo === "intruso" && terminos.includes(impresa)) {
+      const opcionesIntruso = mezclar(
+        [impresa, ...distractoresIntruso(terminos, impresa)],
+        nEj * 100 + nItem
+      )
+      if (opcionesIntruso.length < 4) { descartados++; continue }
+      ejercicios.push({
+        id: `NU-N2-${String(nEj).padStart(2, "0")}-${String(nItem).padStart(2, "0")}`,
+        subcategoria: "Número que rompe la serie",
+        nivel: "intermedio",
+        enunciado: `Señala el número que sobra en la serie: ${terminos.join(", ")}`,
+        opciones: opcionesIntruso.map(String),
+        respuesta: opcionesIntruso.indexOf(impresa),
+        explicacion:
+          `El número que sobra es ${impresa}: quitándolo, el resto de la serie sigue una sola regla. ` +
+          `Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.`,
+        tiempo: 60,
+        fuente: `Psicotécnicos — Razonamiento numérico (336461140), ejercicio ${nEj}.${nItem}`,
+      })
+      verificados++
+      continue
+    }
 
     // El contraste decide si el ítem entra, entra corregido, o no entra.
     const juicio = contrastar(terminos, pasos, solucion, impresa)

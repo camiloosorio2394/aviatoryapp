@@ -1901,35 +1901,35 @@ export const SERIES: EjercicioPsico[] = [
   },
   {
     "id": "NU-N2-07-01",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 2, 4, 6, 7, 8, 10, 12, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 2, 4, 6, 7, 8, 10, 12",
     "opciones": [
-      "14",
+      "2",
       "7",
-      "17",
-      "2"
+      "6",
+      "4"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 7. El documento lo desglosa así: 2 4 6 7 8 10 12.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 7: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.1",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-07-02",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 24, 23, 22, 21, 20, 20, 19, 18, 17, 16, 15, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 24, 23, 22, 21, 20, 20, 19, 18, 17, 16, 15",
     "opciones": [
-      "25",
+      "22",
       "20",
-      "14",
-      "10"
+      "24",
+      "19"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 20. El documento lo desglosa así: 24 23 22 21 20 20 19 18 17 16 15.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 20: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.2",
     "categoria": "numerico"
   },
@@ -1986,35 +1986,35 @@ export const SERIES: EjercicioPsico[] = [
   },
   {
     "id": "NU-N2-07-06",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 1, 2, 6, 18, 54, 162, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 1, 2, 6, 18, 54, 162",
     "opciones": [
-      "270",
-      "-160",
+      "2",
+      "6",
       "1",
-      "323"
+      "18"
     ],
     "respuesta": 2,
-    "explicacion": "El término que sigue es 1. El documento lo desglosa así: 1 2 6 18 54 162.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 1: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.6",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-07-07",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 1, 2, 4, 9, 3, 7, 4, 9, 10, 5, 4, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 1, 2, 4, 9, 3, 7, 4, 9, 10, 5, 4",
     "opciones": [
-      "14",
-      "-1",
-      "3",
+      "4",
+      "7",
+      "1",
       "9"
     ],
     "respuesta": 3,
-    "explicacion": "El término que sigue es 9. El documento lo desglosa así: 1 2 4 9 3 7 4 9 10 5 4.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 9: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.7",
     "categoria": "numerico"
   },
@@ -2037,18 +2037,18 @@ export const SERIES: EjercicioPsico[] = [
   },
   {
     "id": "NU-N2-07-09",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 1, 2, 3, 6, 4, 5, 6, 6, 7, 8, 9, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 1, 2, 3, 6, 4, 5, 6, 6, 7, 8, 9",
     "opciones": [
-      "10",
+      "1",
       "6",
-      "12",
+      "5",
       "3"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 6. El documento lo desglosa así: 1 2 3 6 4 5 6 6 7 8 9.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 6: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 7.9",
     "categoria": "numerico"
   },
@@ -2156,68 +2156,68 @@ export const SERIES: EjercicioPsico[] = [
   },
   {
     "id": "NU-N2-08-01",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 13, 15, 17, 19, 22, 21, 23, 25, 27, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 13, 15, 17, 19, 22, 21, 23, 25, 27",
     "opciones": [
-      "29",
-      "32",
+      "13",
+      "21",
       "22",
       "17"
     ],
     "respuesta": 2,
-    "explicacion": "El término que sigue es 22. El documento lo desglosa así: 13 15 17 19 22 21 23 25 27.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 22: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.1",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-08-02",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 23, 21, 19, 17, 16, 15, 13, 11, 9, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 23, 21, 19, 17, 16, 15, 13, 11, 9",
     "opciones": [
-      "23",
+      "19",
       "16",
-      "7",
-      "2"
+      "23",
+      "15"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 16. El documento lo desglosa así: 23 21 19 17 16 15 13 11 9.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 16: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.2",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-08-03",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 2, 4, 8, 9, 16, 32, 64, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 2, 4, 8, 9, 16, 32, 64",
     "opciones": [
-      "-46",
-      "119",
-      "96",
+      "4",
+      "8",
+      "2",
       "9"
     ],
     "respuesta": 3,
-    "explicacion": "El término que sigue es 9. El documento lo desglosa así: 2 4 8 9 16 32 64.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 9: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.3",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-08-04",
-    "subcategoria": "Sucesiones de progresión variable",
+    "subcategoria": "Número que rompe la serie",
     "nivel": "intermedio",
-    "enunciado": "Complete la serie: 58, 53, 49, 46, 44, 43, …",
+    "enunciado": "Señala el número que sobra en la serie: 58, 53, 49, 46, 44, 43",
     "opciones": [
-      "44",
+      "53",
       "43",
-      "45",
-      "42"
+      "49",
+      "58"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 43. El documento lo desglosa así: 58 (-5) 53 (-4) 49 (-3) 46 (-2) 44 (-1) 43 (-0).",
+    "explicacion": "El número que sobra es 43: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
     "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.4",
     "categoria": "numerico"
@@ -2309,35 +2309,35 @@ export const SERIES: EjercicioPsico[] = [
   },
   {
     "id": "NU-N2-08-13",
-    "subcategoria": "Sucesiones aritméticas",
-    "nivel": "basico",
-    "enunciado": "Complete la serie: 1, 5, 9, 13, 15, 17, 21, 25, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 1, 5, 9, 13, 15, 17, 21, 25",
     "opciones": [
-      "29",
+      "1",
       "15",
-      "35",
+      "9",
       "5"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 15. El documento lo desglosa así: 1 (+4) 5 (+4) 9 (+4) 13 15 17 (+4) 21 (+4) 25.",
-    "tiempo": 45,
+    "explicacion": "El número que sobra es 15: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.13",
     "categoria": "numerico"
   },
   {
     "id": "NU-N2-08-14",
-    "subcategoria": "Sucesiones alternantes",
-    "nivel": "avanzado",
-    "enunciado": "Complete la serie: 3, 3, 5, 5, 7, 7, 8, 9, 9, …",
+    "subcategoria": "Número que rompe la serie",
+    "nivel": "intermedio",
+    "enunciado": "Señala el número que sobra en la serie: 3, 3, 5, 5, 7, 7, 8, 9, 9",
     "opciones": [
-      "7",
+      "5",
       "8",
-      "9",
-      "10"
+      "3",
+      "7"
     ],
     "respuesta": 1,
-    "explicacion": "El término que sigue es 8. El documento lo desglosa así: 3 3 5 5 7 7 8 9 9.",
-    "tiempo": 75,
+    "explicacion": "El número que sobra es 8: quitándolo, el resto de la serie sigue una sola regla. Conviene mirar los saltos de dos en dos y buscar el que no encaja, en vez de leer la serie entera de corrido.",
+    "tiempo": 60,
     "fuente": "Psicotécnicos — Razonamiento numérico (336461140), ejercicio 8.14",
     "categoria": "numerico"
   },

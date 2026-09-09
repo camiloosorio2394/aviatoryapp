@@ -40,6 +40,9 @@ export function PsicoSimulacro() {
   const { user } = useSession()
   const [tanda, setTanda] = useState<EjercicioPsico[] | null>(null)
   const [resultado, setResultado] = useState<ResultadoPsico | null>(null)
+  // Se guardan también las respuestas: son las que dejan repasar los
+  // fallados en el informe, con su figura y su explicación.
+  const [respuestas, setRespuestas] = useState<RespuestaPsico[] | null>(null)
   const [mejor, setMejor] = useState<number | null>(() => leerPsicoLocal().mejorSimulacro)
 
   // Con sesión, la base manda: el respaldo local solo sabe de este dispositivo.
@@ -58,11 +61,13 @@ export function PsicoSimulacro() {
 
   const empezar = useCallback(() => {
     setResultado(null)
+    setRespuestas(null)
     setTanda(armarSimulacro(BANCO))
   }, [])
 
   const terminar = useCallback((respuestas: RespuestaPsico[]) => {
     const r = calcularResultado(respuestas)
+    setRespuestas(respuestas)
     setResultado(r)
     setTanda(null)
     setMejor((previo) => Math.max(previo ?? 0, r.global))
@@ -111,7 +116,12 @@ export function PsicoSimulacro() {
                 : `Simulacro no aprobado: ${resultado.global} sobre 100, y se aprueba con ${APRUEBA_CON}.`}
             </div>
           </div>
-          <PsicoResultado resultado={resultado} conPuntajeGlobal onRepetir={empezar} />
+          <PsicoResultado
+            resultado={resultado} conPuntajeGlobal
+            ejercicios={tanda ?? undefined}
+            respuestas={respuestas ?? undefined}
+            onRepetir={empezar}
+          />
         </div>
       </AppLayout>
     )
