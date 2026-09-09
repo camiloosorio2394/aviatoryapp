@@ -27,13 +27,8 @@ function pendiente(n: number, title: string, kicker: string, minutes: number): D
 }
 
 export const PENDIENTES: DocScreen[] = [
-  // Nivel 3 · Transporte aéreo
-  pendiente(9, "Los cuatro niveles de permiso", "¿Puede volar?", 6),
-  pendiente(10, "Los límites que solo están en Colombia", "Lo que un curso genérico no dice", 7),
-  pendiente(11, "Pasajeros y tripulantes", "Lo que sube a cabina", 8),
-  pendiente(12, "Mercancías peligrosas ocultas", "Lo que nadie declaró", 6),
   // Nivel 4 · Situaciones del piloto
-  pendiente(13, "De la aceptación a la bodega", "UPS 6 y la estiba", 8),
+  pendiente(13, "De la aceptación a la bodega", "South African 295 y la estiba", 8),
   pendiente(14, "El NOTOC", "La información al piloto al mando", 8),
   pendiente(15, "Emergencia en vuelo", "Asiana 991 y el procedimiento", 8),
   pendiente(16, "Notificar: qué, a quién y por qué", "Sucesos y SMS", 6),
