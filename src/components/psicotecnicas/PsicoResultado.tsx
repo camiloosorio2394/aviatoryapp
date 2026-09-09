@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ReportarProblema } from "@/components/ReportarProblema"
 import {
   CATEGORIAS,
   NOTA_TIEMPOS,
@@ -396,6 +397,21 @@ function FichaRepaso({
               {respuesta.segundos} s de {respuesta.limite} s
             </span>
           </div>
+
+          {/* También aquí, y no solo en el reproductor: en evaluación y en
+              simulación no hay corrección al momento, así que este repaso es la
+              única ocasión en que el piloto vuelve a ver la figura con calma. Y
+              es cuando de verdad sabe si lo que falló fue él o la pregunta. */}
+          <ReportarProblema
+            modulo="psicotecnicas"
+            ejercicioId={ejercicio.id}
+            extra={{
+              desde: "repaso",
+              eligio: respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida],
+              correcta: ejercicio.opciones[ejercicio.respuesta],
+              dibujada: Boolean(ejercicio.figura),
+            }}
+          />
         </div>
       )}
     </div>

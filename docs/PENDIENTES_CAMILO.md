@@ -925,3 +925,56 @@ lienzo, o sea que el recorte original ya los cortó. El damero sí se les quitó
 pero lo que falta del dibujo no vuelve sin ir al PDF. Salen en la lección
 Aprende, no en un ejercicio con respuesta, así que el daño es menor — pero está
 sin arreglar y conviene saberlo.
+
+## 14 · Reportar un fallo desde la app
+
+Los tres últimos fallos del módulo —la fila de letras cortada, el damero de
+fondo, el dado sin su cara de arriba— **los encontró Nico mirando la pantalla,
+no ninguno de los seis verificadores**. Y no fue mala suerte: los verificadores
+comprueban que la respuesta sea la correcta y que el archivo exista, y ninguno
+puede mirar si la imagen se ve bien. Ese hueco no se tapa con más verificadores.
+
+Quien sí mira todas las pantallas, todos los días, es el piloto.
+
+Debajo de cada ejercicio hay ahora un «¿Algo mal en esta pregunta?»: cuatro
+motivos de un toque —imagen, respuesta, enunciado, otra cosa— y un campo libre
+opcional. El reporte se guarda con el **identificador de la ficha**, y ahí está
+todo el valor: «una imagen se ve mal» no se puede arreglar; «ES-E2-10, la figura
+está cortada» lleva directo al archivo, a la ficha y a la página del cuadernillo.
+
+Sale en dos sitios: en el reproductor cuando ya se reveló la respuesta —durante
+la tanda cronometrada no, que ahí cualquier cosa roba tiempo— y en el repaso del
+informe, que es la única ocasión en que un piloto de evaluación o de simulacro
+vuelve a ver la figura con calma.
+
+### 14.1 · Por qué no es un correo
+
+Porque hoy no hay a dónde mandarlo: no hay dominio, `hola@aviatory.app` no tiene
+MX, y el remitente de fábrica de Supabase está limitado a unos pocos envíos por
+hora. Un aviso por correo se perdería en silencio, que es peor que no tenerlo.
+
+Va a una tabla, `content_reports`, que puedes consultar desde la consola desde el
+primer día. Cuando haya correo, añadir el aviso encima es una línea.
+
+### 14.2 · Lo que necesita de ti
+
+**La migración `20260909010000_reportes_de_contenido.sql`.** Hasta que se aplique,
+el botón sale pero el envío falla, y lo dice: no finge un «gracias» sobre un
+reporte que no llegó a ninguna parte.
+
+Es aditiva como la de psicotécnicas —su tabla, sus dos índices, sus dos
+políticas— y no toca `check_and_unlock_achievements`. Las dos se pueden aplicar
+en la misma sesión de consola.
+
+Para leerlos:
+
+```sql
+select created_at, modulo, ejercicio_id, motivo, detalle, contexto
+from public.content_reports
+where estado = 'nuevo'
+order by created_at desc;
+```
+
+Y para cerrarlos: `update public.content_reports set estado = 'arreglado' where id = '…';`
+No hay política de update para los pilotos a propósito: marcar un reporte como
+atendido es de quien lo atiende, no de quien lo mandó.
