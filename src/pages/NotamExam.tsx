@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import type { RefObject } from "react"
+import type { ReactNode, RefObject } from "react"
 import { Link } from "react-router-dom"
 import {
   AlertTriangle,
@@ -13,14 +13,13 @@ import {
   Clock,
   Gauge,
   History,
-  ListChecks,
   Loader2,
   Lock,
   PenLine,
-  RotateCcw,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { Rotulo } from "@/components/ui/rotulo"
 import { SectionTitle } from "@/components/ui/section-title"
 import { supabase } from "@/integrations/supabase/client"
 import { registrarActividadDeEstudio } from "@/lib/activity"
@@ -36,7 +35,6 @@ import {
   TOTALS,
   readLocalProgress,
   writeLocalProgress,
-  type NotamLevel,
   type ShuffledQuestion,
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
@@ -63,7 +61,6 @@ const HUB_PATH = "/app/aerolinea/notam"
 const LESSON_PATH = "/app/aerolinea/notam/aprende"
 const PRACTICE_PATH = "/app/aerolinea/notam/practica"
 
-const LEVEL_ORDER: NotamLevel[] = ["basico", "intermedio", "avanzado"]
 const OPTION_LETTERS = ["A", "B", "C", "D", "E", "F"]
 
 type Phase = "running" | "done"
@@ -104,10 +101,20 @@ function fmtDate(iso: string): string {
   return `${day} · ${time}`
 }
 
+/**
+ * El color de un puntaje en la retroalimentación.
+ *
+ * Dos, y no más: azul Aviatory si aprobó, vinotinto si no. Se fue el verde de
+ * acierto y el ámbar de "casi". El color no está para poner la nota, está para
+ * que la pantalla se lea como una evaluación profesional.
+ */
 function scoreColor(score: number): string {
-  if (score >= EXAM_PASS_SCORE) return "var(--av-green-400)"
-  if (score >= 60) return "var(--av-amber-400)"
-  return "var(--av-red-400)"
+  return score >= EXAM_PASS_SCORE ? "var(--av-blue-500)" : "var(--av-wine-500)"
+}
+
+/** Texto legible del vinotinto y del azul sobre superficie clara y oscura. */
+function scoreTextColor(score: number): string {
+  return score >= EXAM_PASS_SCORE ? accentText("var(--av-blue-500)") : "var(--av-wine-fg)"
 }
 
 function mix(token: string, pct: number): string {
@@ -681,8 +688,8 @@ function AttemptHistory({ userId, sessionLoading, refreshKey, total }: AttemptHi
               <span
                 className="flex-shrink-0 text-[12px] font-semibold px-2 py-0.5 rounded-full"
                 style={{
-                  color: accentText(r.passed ? "var(--av-green-400)" : "var(--av-red-400)"),
-                  background: mix(r.passed ? "var(--av-green-400)" : "var(--av-red-400)", 12),
+                  color: scoreTextColor(r.score),
+                  background: mix(scoreColor(r.score), 12),
                 }}
               >
                 {r.passed ? "Aprobado" : "No aprobado"}
@@ -713,6 +720,22 @@ function Stat({ label, value, color }: { label: string; value: string; color: st
 }
 
 // ─── RESULTADO ───────────────────────────────────────────────────────────────
+//
+// La pantalla de retroalimentación. Especificación de Camilo del 9 de
+// septiembre de 2026, y conviene tenerla escrita porque es fácil deshacerla
+// sin querer:
+//
+//   · Se lee en este orden y en ninguno otro: pregunta, tu respuesta,
+//     respuesta correcta, explicación.
+//   · Dos colores y ya. Vinotinto = respuesta incorrecta. Azul Aviatory =
+//     respuesta correcta. Nada de verde, nada de ámbar, nada de rojo de alerta,
+//     y nunca dos colores dentro de la misma pregunta.
+//   · Ni una palabra del nivel de dificultad. Sigue en la base, no en pantalla.
+//   · Sin eslóganes. Ni "aquí se aprende de verdad" ni parientes.
+//   · Nada de cuatro tarjetas por pregunta: un bloque, filetes finos y aire.
+//   · Iconografía al mínimo. Los glifos ✓ y ✕ son texto, no iconos.
+//
+// Objetivo: que se sienta evaluación profesional de aviación, no quiz escolar.
 
 interface ResultProps {
   questions: ShuffledQuestion[]
@@ -743,6 +766,7 @@ function Result({
   const [saveState, setSaveState] = useState<SaveState>("idle")
   const total = questions.length
   const color = scoreColor(score)
+  const colorTexto = scoreTextColor(score)
 
   const answers: AnswerRecord[] = useMemo(
     () =>
@@ -757,17 +781,6 @@ function Result({
       }),
     [questions, picks],
   )
-
-  const byLevel = useMemo(() => {
-    return LEVEL_ORDER.map((lvl) => {
-      const items = questions.filter((q) => q.nivel === lvl)
-      const ok = items.reduce((acc, q) => {
-        const i = questions.indexOf(q)
-        return picks[i] === q.correctIndex ? acc + 1 : acc
-      }, 0)
-      return { level: lvl, ok, total: items.length }
-    }).filter((r) => r.total > 0)
-  }, [questions, picks])
 
   // El progreso local es el respaldo: se guarda siempre, aunque la red falle.
   useEffect(() => {
@@ -807,117 +820,98 @@ function Result({
 
   return (
     <AppLayout>
-      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[900px] mx-auto">
-        {/* Puntaje */}
-        <div
-          className="rounded-2xl border p-6 sm:p-8 text-center anim-fade-up"
-          style={{ borderColor: mix(color, 38), background: mix(color, 7) }}
-        >
-          <div className="text-[12px] text-muted-foreground">
-            Tu resultado
-          </div>
-          <div
-            className="mt-1 tabular text-[44px] sm:text-[52px] font-semibold tracking-[-0.04em] leading-none"
-            style={{ color }}
+      <div className="mx-auto max-w-[820px] px-5 py-9 pb-24 sm:px-7 sm:py-11">
+        {/* ── Encabezado ──────────────────────────────────────────────────── */}
+        <header className="rev-aparece">
+          <IconoAviatory />
+          <h1
+            className="mt-5 text-[26px] font-semibold uppercase leading-none sm:text-[30px]"
+            style={{ letterSpacing: "0.015em" }}
           >
-            {score}
-            <span className="text-[24px] sm:text-[28px] align-top">%</span>
-          </div>
-          <div className="mt-1 tabular text-[13px] text-muted-foreground">
-            {correctCount} de {total} correctas · apruebas con {EXAM_PASS_SCORE}%
+            Tus resultados
+          </h1>
+          <p className="mt-2.5 text-[14px] text-muted-foreground">Revisión de tu evaluación</p>
+        </header>
+
+        {/* ── Puntaje ─────────────────────────────────────────────────────── */}
+        <section className="rev-aparece rev-aparece-2 mt-8">
+          <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
+            <div>
+              <Rotulo>Puntaje</Rotulo>
+              <div
+                className="tabular mt-2 text-[56px] font-semibold leading-none sm:text-[64px]"
+                style={{ color, letterSpacing: "-0.035em" }}
+              >
+                {score}
+                <span className="align-top text-[26px] sm:text-[30px]">%</span>
+              </div>
+            </div>
+            <dl className="flex flex-wrap items-end gap-x-9 gap-y-4">
+              <Dato rotulo="Correctas" valor={`${correctCount} de ${total}`} />
+              <Dato rotulo="Tiempo" valor={fmtTime(elapsed)} />
+              <Dato rotulo="Mínimo" valor={`${EXAM_PASS_SCORE}%`} />
+              <Dato
+                rotulo="Resultado"
+                valor={passed ? "Aprobado" : "No aprobado"}
+                color={colorTexto}
+              />
+            </dl>
           </div>
 
-          <div className="mt-4 text-[20px] sm:text-[20px] font-semibold tracking-[-0.02em]" style={{ color }}>
-            {passed ? "Aprobado" : `No aprobado, necesitas ${EXAM_PASS_SCORE}`}
-          </div>
-          <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed max-w-[560px] mx-auto">
-            {passed
-              ? "Dominas la lectura de NOTAM: sigue repasando los códigos que fallaste para no perder el filo."
-              : "Te falta poco. Repasa la lección y vuelve a la práctica antes de intentarlo de nuevo."}
-          </p>
-
-          <div className="mt-5 grid grid-cols-3 gap-2.5 max-w-[460px] mx-auto">
-            <Stat label="Correctas" value={`${correctCount}/${total}`} color={color} />
-            <Stat label="Tiempo" value={fmtTime(elapsed)} color="var(--av-blue-500)" />
-            <Stat
-              label="Mínimo"
-              value={String(EXAM_PASS_SCORE)}
-              color="var(--muted-foreground)"
+          {/* La barra lleva la marca del mínimo: se ve de una si quedó por
+              debajo del umbral y por cuánto, sin ponerle adjetivos. */}
+          <div
+            className="relative mt-6 h-[3px] w-full overflow-hidden rounded-full"
+            style={{ background: mix("var(--border)", 60) }}
+            role="progressbar"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={score}
+            aria-label={`Puntaje ${score} sobre 100`}
+          >
+            <div
+              className="h-full rounded-full transition-all"
+              style={{ width: `${Math.max(score, 1)}%`, background: color }}
             />
+          </div>
+          <div className="relative mt-1 h-[11px]">
+            <span
+              className="absolute top-0 block h-[5px] w-px"
+              style={{ left: `${EXAM_PASS_SCORE}%`, background: mix("var(--foreground)", 35) }}
+              aria-hidden="true"
+            />
+            <span
+              className="tabular absolute top-[6px] -translate-x-1/2 text-[10px] text-muted-foreground"
+              style={{ left: `${EXAM_PASS_SCORE}%` }}
+              aria-hidden="true"
+            >
+              {EXAM_PASS_SCORE}
+            </span>
           </div>
 
           <SaveNote state={saveState} />
-        </div>
+        </section>
 
-        {/* Desglose por nivel */}
-        <div className="mt-10">
-          <SectionTitle
-            icon={Gauge}
-            eyebrow="Dónde estás fuerte y dónde no"
-            title="Desglose por nivel"
-            hint="Si un nivel te queda bajo, ese es el material que te toca repasar primero."
-          />
-          <div className="grid gap-3 sm:grid-cols-3">
-            {byLevel.map((r) => {
-              const meta = LEVEL_META[r.level]
-              const pct = r.total > 0 ? (r.ok / r.total) * 100 : 0
-              return (
-                <div
-                  key={r.level}
-                  className="rounded-2xl border bg-card p-5"
-                  style={{ borderColor: mix(meta.color, 26) }}
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <span
-                      className="text-[13px] font-semibold tracking-[-0.01em]"
-                      style={{ color: accentText(meta.color) }}
-                    >
-                      {meta.label}
-                    </span>
-                    <span className="tabular text-[15px] font-semibold tracking-[-0.02em]">
-                      {r.ok}/{r.total}
-                    </span>
-                  </div>
-                  <div
-                    className="mt-3 h-1.5 rounded-full overflow-hidden"
-                    style={{ background: mix("var(--border)", 55) }}
-                  >
-                    <div
-                      className="h-full rounded-full"
-                      style={{ width: `${pct}%`, background: meta.color }}
-                    />
-                  </div>
-                  <div className="mt-2 tabular text-[12px] text-muted-foreground">
-                    {Math.round(pct)}% de acierto
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        </div>
+        <Filete className="mt-10" />
 
-        {/* Repaso */}
-        <div className="mt-10">
-          <SectionTitle
-            icon={ListChecks}
-            eyebrow="Aquí se aprende de verdad"
-            title={`Tus ${total} respuestas`}
-            hint="Durante el examen no te dijimos nada. Acá está todo: qué contestaste, cuál era la correcta y por qué. Las falladas quedan abiertas."
-          />
-          <div className="space-y-2">
+        {/* ── Revisión pregunta por pregunta ──────────────────────────────── */}
+        <section className="mt-8">
+          <Rotulo>Revisión pregunta por pregunta</Rotulo>
+          <p className="mt-2.5 max-w-[600px] text-[14px] leading-relaxed text-muted-foreground">
+            Durante la evaluación no se mostró ninguna corrección. Acá está cada pregunta con tu
+            respuesta, la correcta y su explicación. Las falladas quedan abiertas.
+          </p>
+          <div className="mt-6">
             {questions.map((q, i) => (
-              <ReviewItem
-                key={q.id}
-                n={i + 1}
-                question={q}
-                pickedIndex={picks[i]}
-              />
+              <ReviewItem key={q.id} n={i + 1} question={q} pickedIndex={picks[i]} />
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* Historial */}
-        <div className="mt-10">
+        <Filete className="mt-10" />
+
+        {/* ── Intentos anteriores ─────────────────────────────────────────── */}
+        <div className="mt-8">
           <AttemptHistory
             userId={userId}
             sessionLoading={sessionLoading}
@@ -926,83 +920,172 @@ function Result({
           />
         </div>
 
-        {/* Aviso obligatorio */}
-        <div
-          className="mt-8 rounded-2xl border p-4 flex items-start gap-3"
-          style={{
-            borderColor: mix("var(--av-amber-400)", 25),
-            background: mix("var(--av-amber-400)", 6),
-          }}
-        >
-          <AlertTriangle
-            className="flex-shrink-0 mt-0.5 h-4.5 w-4.5"
-            style={{ color: "var(--av-amber-400)" }}
-          />
-          <div className="text-[13px] text-foreground/85 leading-relaxed">{DISCLAIMERS.exam}</div>
-        </div>
-
-        {/* Acciones */}
-        <div className="mt-8 flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2.5">
+        {/* ── Acciones ────────────────────────────────────────────────────── */}
+        <div className="mt-10 flex flex-col gap-2.5 sm:flex-row">
           <button
             type="button"
             onClick={onRetry}
-            className="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
+            className="inline-flex h-12 items-center justify-center rounded-[10px] border-0 px-7 text-[15px] font-semibold text-white transition-colors"
             style={{ background: "var(--av-blue-500)" }}
           >
-            <RotateCcw className="h-4 w-4" /> Volver a intentar
+            Presentar otro intento
           </button>
           <Link
             to={HUB_PATH}
-            className="inline-flex items-center justify-center gap-1.5 h-12 px-6 rounded-xl text-[15px] font-semibold surface hover:bg-muted transition-colors"
+            className="inline-flex h-12 items-center justify-center rounded-[10px] border px-7 text-[15px] font-semibold transition-colors hover:bg-muted/50"
+            style={{ borderColor: mix("var(--border)", 85) }}
           >
-            <ArrowLeft className="h-4 w-4" /> Volver a la sección
+            Volver a la sección
           </Link>
         </div>
 
         {!passed && (
-          <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <div className="mt-6 grid gap-2.5 sm:grid-cols-2">
             <NextStepLink
               to={LESSON_PATH}
-              icon={BookOpen}
-              color="var(--av-blue-500)"
               title="Repasa la lección"
               detail={`Las ${TOTALS.lessonScreens} secciones: formato OACI, casillas y códigos Q explicados paso a paso.`}
             />
             <NextStepLink
               to={PRACTICE_PATH}
-              icon={PenLine}
-              color="var(--av-violet-400)"
               title="Vuelve a la práctica"
               detail="Ejercicios de interpretación y NOTAM colombianos reales para entrenar la lectura."
             />
           </div>
         )}
+
+        {/* ── Nota de referencia ──────────────────────────────────────────── */}
+        <NotaDeReferencia />
       </div>
     </AppLayout>
+  )
+}
+
+// ─── Piezas de la retroalimentación ──────────────────────────────────────────
+
+/**
+ * Hueco del icono oficial de Aviatory.
+ *
+ * Va marcado y visible a propósito, igual que los huecos de imagen de las
+ * lecciones: la app está en construcción, entra Camilo y entra Nico, y el hueco
+ * es el recordatorio de qué icono falta y de qué medida. Se reemplaza por el
+ * SVG definitivo cuando esté; nada más lo consume.
+ */
+function IconoAviatory() {
+  return (
+    <div
+      className="mono flex h-11 w-11 items-center justify-center rounded-[9px] border border-dashed text-[8px] font-medium uppercase leading-[1.15] tracking-[0.06em] text-muted-foreground/70"
+      style={{ borderColor: mix("var(--border)", 100) }}
+      title="Espacio reservado para el icono oficial de Aviatory"
+      aria-hidden="true"
+    >
+      Icono
+    </div>
+  )
+}
+
+/** Filete: la separación de esta pantalla es una línea de un pixel y aire. */
+function Filete({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`h-px ${className}`}
+      style={{ background: mix("var(--border)", 75) }}
+      aria-hidden="true"
+    />
+  )
+}
+
+/** Un dato de la cabecera de puntaje: rótulo arriba, cifra abajo. */
+function Dato({ rotulo, valor, color }: { rotulo: string; valor: string; color?: string }) {
+  return (
+    <div>
+      <dt>
+        <Rotulo>{rotulo}</Rotulo>
+      </dt>
+      <dd
+        className="tabular mt-1.5 text-[17px] font-semibold"
+        style={{ color: color ?? "var(--foreground)", letterSpacing: "-0.01em" }}
+      >
+        {valor}
+      </dd>
+    </div>
+  )
+}
+
+/**
+ * Una respuesta, con su glifo y su filete de color al costado.
+ *
+ * El indicador es una línea de 2 px, no una tarjeta de color: el color marca,
+ * no envuelve. Vinotinto para la del usuario cuando falló, azul para la
+ * correcta. Nunca los dos en la misma línea.
+ */
+function Respuesta({ glifo, color, children }: { glifo: string; color: string; children: ReactNode }) {
+  return (
+    <div className="mt-2.5 flex items-start gap-3 border-l-2 pl-3.5" style={{ borderColor: color }}>
+      <span
+        aria-hidden="true"
+        className="mt-[2px] text-[13px] font-semibold leading-[1.5]"
+        style={{ color }}
+      >
+        {glifo}
+      </span>
+      <span className="text-[15px] leading-relaxed text-foreground">{children}</span>
+    </div>
+  )
+}
+
+/** Bloque neutro: la explicación no lleva color, lleva fondo suave. */
+function Explicacion({ texto, referencia }: { texto: string; referencia?: string }) {
+  return (
+    <div className="mt-2.5 rounded-[8px] bg-muted/40 px-4 py-3.5">
+      <p className="text-[14px] leading-relaxed text-foreground/85">{texto}</p>
+      {referencia && (
+        <p className="mono mt-2 text-[11px] text-muted-foreground">{referencia}</p>
+      )}
+    </div>
+  )
+}
+
+/**
+ * La nota del banco.
+ *
+ * Antes era una caja ámbar con triángulo de advertencia y pesaba como un aviso
+ * legal. Es información de procedencia, no una alerta: gris, chica y al pie.
+ */
+function NotaDeReferencia() {
+  return (
+    <div className="mt-12 flex items-start gap-3">
+      <span
+        aria-hidden="true"
+        className="mono mt-[1px] flex h-[19px] w-[19px] flex-shrink-0 items-center justify-center rounded-[4px] border text-[10px] font-medium"
+        style={{ borderColor: mix("var(--border)", 90), color: "var(--muted-foreground)" }}
+      >
+        i
+      </span>
+      <div className="min-w-0">
+        <Rotulo>Nota de referencia</Rotulo>
+        <p className="mt-1.5 max-w-[640px] text-[12px] leading-relaxed text-muted-foreground">
+          {DISCLAIMERS.exam}
+        </p>
+      </div>
+    </div>
   )
 }
 
 function SaveNote({ state }: { state: SaveState }) {
   if (state === "saving") {
     return (
-      <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground">
+      <div className="mt-6 inline-flex items-center gap-2 text-[12px] text-muted-foreground">
         <Loader2 className="h-3.5 w-3.5 animate-spin" /> Guardando tu intento...
       </div>
     )
   }
   if (state === "saved") {
-    return (
-      <div
-        className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-        style={{ color: accentText("var(--av-green-400)") }}
-      >
-        <CheckCircle2 className="h-4 w-4" /> Guardado en tu historial
-      </div>
-    )
+    return <div className="mt-6 text-[12px] text-muted-foreground">Guardado en tu historial.</div>
   }
   if (state === "error") {
     return (
-      <div className="mt-5 text-[13px] text-muted-foreground">
+      <div className="mt-6 max-w-[600px] text-[12px] leading-relaxed text-muted-foreground">
         No pudimos guardar este intento en tu historial. Tu resultado de arriba es válido, solo no
         quedó registrado en la nube.
       </div>
@@ -1010,7 +1093,7 @@ function SaveNote({ state }: { state: SaveState }) {
   }
   if (state === "anon") {
     return (
-      <div className="mt-5 text-[13px] text-muted-foreground">
+      <div className="mt-6 text-[12px] text-muted-foreground">
         Inicia sesión para guardar tus intentos y seguir tu progreso.
       </div>
     )
@@ -1018,110 +1101,102 @@ function SaveNote({ state }: { state: SaveState }) {
   return null
 }
 
+// ─── Una pregunta del repaso ─────────────────────────────────────────────────
+
 interface ReviewItemProps {
   n: number
   question: ShuffledQuestion
   pickedIndex: number | undefined
 }
 
+/**
+ * El orden de lectura es el de la especificación y no se negocia:
+ * pregunta → tu respuesta → respuesta correcta → explicación.
+ *
+ * La que acertó se resume: no tiene sentido enfrentarle "tu respuesta" contra
+ * "la correcta" cuando son la misma. Queda pregunta, respuesta y explicación.
+ *
+ * Cerrada, la fila muestra el enunciado para poder barrer la lista. Abierta, el
+ * enunciado pasa al bloque PREGUNTA y desaparece de la fila: si no, se lee dos
+ * veces seguidas.
+ */
 function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
   const ok = pickedIndex === question.correctIndex
   const [open, setOpen] = useState(!ok)
-  const tone = ok ? "var(--av-green-400)" : "var(--av-red-400)"
-  const meta = LEVEL_META[question.nivel]
+  const marca = ok ? "var(--av-blue-500)" : "var(--av-wine-500)"
+  const textoMarca = ok ? accentText("var(--av-blue-500)") : "var(--av-wine-fg)"
+  const elegida = pickedIndex !== undefined ? question.shuffledOptions[pickedIndex] : null
 
   return (
-    <div
-      className="rounded-2xl border bg-card overflow-hidden"
-      style={{ borderColor: mix(tone, open ? 34 : 22) }}
-    >
+    <div className="border-t" style={{ borderColor: mix("var(--border)", 75) }}>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
-        className="w-full flex items-start gap-3 p-3.5 text-left"
+        className="flex w-full items-start gap-3.5 py-4 text-left"
       >
-        <span
-          className="tabular flex-shrink-0 w-7 h-7 rounded-lg flex items-center justify-center text-[12px] font-semibold"
-          style={{ background: mix(tone, 14), color: tone }}
-        >
-          {n}
+        <span className="tabular mt-[2px] w-[22px] flex-shrink-0 text-[12px] font-medium text-muted-foreground">
+          {String(n).padStart(2, "0")}
         </span>
-        <span className="flex-1 min-w-0">
-          <span className="block text-[13px] font-semibold leading-snug">{question.pregunta}</span>
-          <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1">
-            <span className="text-[12px] font-semibold" style={{ color: accentText(tone) }}>
-              {ok ? "Correcta" : "Fallada"}
-            </span>
-            <span className="text-border">·</span>
-            <span className="text-[12px] font-semibold" style={{ color: accentText(meta.color) }}>
-              {meta.label}
-            </span>
+        <span className="min-w-0 flex-1">
+          <span
+            className="mono block text-[11px] font-medium uppercase tracking-[0.16em]"
+            style={{ color: textoMarca }}
+          >
+            <span aria-hidden="true">{ok ? "✓" : "✕"}</span> {ok ? "Correcta" : "Incorrecta"}
           </span>
+          {!open && (
+            <span className="mt-1.5 block text-[14px] leading-snug text-foreground/80">
+              {question.pregunta}
+            </span>
+          )}
         </span>
-        <span className="flex-shrink-0 mt-0.5 text-muted-foreground">
+        <span className="mt-[2px] flex-shrink-0 text-muted-foreground">
           {open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
         </span>
       </button>
 
       {open && (
-        <div className="px-3.5 pb-3.5 space-y-2.5">
-          <div
-            className="rounded-xl border p-3"
-            style={{ borderColor: mix(tone, 26), background: mix(tone, 6) }}
-          >
-            <div
-              className="text-[12px] font-semibold"
-              style={{ color: accentText(tone) }}
-            >
-              Tu respuesta
-            </div>
-            <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
-              {pickedIndex !== undefined ? question.shuffledOptions[pickedIndex] : "Sin responder"}
-            </p>
+        <div className="pb-7 pl-[36px] pr-1">
+          <div className="rev-aparece">
+            <Rotulo>Pregunta</Rotulo>
+            <p className="mt-2 text-[15px] leading-relaxed text-foreground">{question.pregunta}</p>
           </div>
 
-          {!ok && (
-            <div
-              className="rounded-xl border p-3"
-              style={{
-                borderColor: mix("var(--av-green-400)", 26),
-                background: mix("var(--av-green-400)", 6),
-              }}
-            >
-              <div
-                className="text-[12px] font-semibold"
-                style={{ color: accentText("var(--av-green-400)") }}
-              >
-                Respuesta correcta
-              </div>
-              <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
-                {question.shuffledOptions[question.correctIndex]}
-              </p>
+          <Filete className="my-5" />
+
+          {ok ? (
+            <div className="rev-aparece rev-aparece-2">
+              <Rotulo>Respuesta</Rotulo>
+              <Respuesta glifo="✓" color={marca}>
+                {elegida ?? question.shuffledOptions[question.correctIndex]}
+              </Respuesta>
             </div>
+          ) : (
+            <>
+              <div className="rev-aparece rev-aparece-2">
+                <Rotulo>Tu respuesta</Rotulo>
+                <Respuesta glifo="✕" color="var(--av-wine-500)">
+                  {elegida ?? "Sin responder"}
+                </Respuesta>
+              </div>
+
+              <Filete className="my-5" />
+
+              <div className="rev-aparece rev-aparece-3">
+                <Rotulo>Respuesta correcta</Rotulo>
+                <Respuesta glifo="✓" color="var(--av-blue-500)">
+                  {question.shuffledOptions[question.correctIndex]}
+                </Respuesta>
+              </div>
+            </>
           )}
 
-          <div
-            className="rounded-xl border p-3"
-            style={{
-              borderColor: mix("var(--av-blue-500)", 22),
-              background: mix("var(--av-blue-500)", 6),
-            }}
-          >
-            <div
-              className="text-[12px] font-semibold"
-              style={{ color: accentText("var(--av-blue-500)") }}
-            >
-              Por qué
-            </div>
-            <p className="mt-1 text-[13px] text-foreground/90 leading-relaxed">
-              {question.explicacion}
-            </p>
-            {question.referencia && (
-              <div className="mt-2 text-[12px] text-muted-foreground">
-                Referencia: <span className="mono">{question.referencia}</span>
-              </div>
-            )}
+          <Filete className="my-5" />
+
+          <div className={`rev-aparece ${ok ? "rev-aparece-3" : "rev-aparece-4"}`}>
+            <Rotulo>Explicación</Rotulo>
+            <Explicacion texto={question.explicacion} referencia={question.referencia} />
           </div>
         </div>
       )}
@@ -1129,32 +1204,18 @@ function ReviewItem({ n, question, pickedIndex }: ReviewItemProps) {
   )
 }
 
-interface NextStepLinkProps {
-  to: string
-  icon: React.ComponentType<{ className?: string; style?: React.CSSProperties }>
-  color: string
-  title: string
-  detail: string
-}
-
-function NextStepLink({ to, icon: Icon, color, title, detail }: NextStepLinkProps) {
+/** Salida a la lección o a la práctica: un filete azul y dos líneas de texto. */
+function NextStepLink({ to, title, detail }: { to: string; title: string; detail: string }) {
   return (
     <Link
       to={to}
-      className="group rounded-2xl border bg-card p-5 flex items-start gap-3.5 transition-all hover:-translate-y-0.5"
-      style={{ borderColor: mix(color, 28) }}
+      className="rounded-[10px] border-l-2 bg-muted/25 py-4 pl-4 pr-4 transition-colors hover:bg-muted/50"
+      style={{ borderColor: "var(--av-blue-500)" }}
     >
-      <div
-        className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center"
-        style={{ background: mix(color, 14), border: `1px solid ${mix(color, 30)}`, color }}
-      >
-        <Icon className="h-5 w-5" />
+      <div className="text-[15px] font-semibold" style={{ letterSpacing: "-0.01em" }}>
+        {title}
       </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-[15px] font-semibold tracking-[-0.01em]">{title}</div>
-        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{detail}</p>
-      </div>
-      <ArrowRight className="hidden sm:block flex-shrink-0 mt-1 h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+      <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">{detail}</p>
     </Link>
   )
 }

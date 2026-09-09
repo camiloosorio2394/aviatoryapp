@@ -2,7 +2,7 @@
   "meta": {
     "titulo": "Evaluación — Sección NOTAM",
     "descripcion": "Banco de 100 preguntas de opción múltiple del módulo NOTAM de Aviatory. Cada intento toma 25 al azar y baraja también las opciones.",
-    "aviso_en_pantalla": "Preguntas de práctica elaboradas a partir del Doc 8400 de la OACI y del material del módulo. No son preguntas oficiales de la Aeronáutica Civil ni de la OACI.",
+    "aviso_en_pantalla": "Banco de preguntas elaborado con fines formativos a partir de referencias aeronáuticas aplicables y del contenido desarrollado para Aviatory. Las preguntas son de elaboración propia y no constituyen material oficial de la OACI ni de la Aeronáutica Civil.",
     "fuente": "Banco de 100 preguntas del módulo NOTAM. Cada intento toma 25 al azar y baraja también las opciones.",
     "total": 100,
     "por_intento": 25,
