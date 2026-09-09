@@ -1526,3 +1526,45 @@
   font-size: 11px;
   font-weight: 500;
 }
+
+/* === Mercancías peligrosas: amarillo aviación ==============================
+   El acento del módulo. Es un amarillo sobrio, de instrumento, no el ámbar de
+   alerta (--av-amber-400) ni un amarillo de señal: el módulo entero se pinta
+   con él (barras, pastilla del índice, botón principal, badges) y el ámbar de
+   alerta sigue significando alerta en toda la app.
+
+   Cuatro escalones: 500 es el acento sobre navy y en barras; 600 el hover y
+   los bordes activos; 700 el que lleva texto blanco encima o va como texto
+   sobre claro (contraste AA); fg el texto sobre fondos claros.
+
+   Decisión de Camilo, 9 de septiembre de 2026. */
+:root {
+  --av-dg-500: oklch(0.78 0.135 86);
+  --av-dg-600: oklch(0.66 0.125 82);
+  --av-dg-700: oklch(0.50 0.10 78);
+  --av-dg-fg: oklch(0.44 0.09 76);
+}
+.dark {
+  --av-dg-500: oklch(0.80 0.12 88);
+  --av-dg-600: oklch(0.72 0.12 86);
+  --av-dg-700: oklch(0.58 0.11 82);
+  --av-dg-fg: oklch(0.82 0.10 88);
+}
+
+/* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
+   tinta y el navy del índice son los mismos, y solo lo que era azul carta
+   pasa a amarillo. Los --av-blue-* re-anclados heredan el cambio, así que los
+   bloques compartidos (check, definición, fichas) salen amarillos sin saberlo. */
+.lector-notam.lector-mp {
+  --ln-primary: #7A5C12;
+  --ln-primary-hover: #5F4709;
+  --ln-bright: #B08A2E;
+  --ln-tint: #F7F0DC;
+  --ln-pill: #6B5418;
+  --ln-focus: #C9A13F;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-mp .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}

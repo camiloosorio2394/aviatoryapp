@@ -14,7 +14,7 @@ import { supabase } from "@/integrations/supabase/client"
 const LS_KEY = "aviatory.mercancias.progress"
 
 export interface MercanciasProgreso {
-  /** Números de sección leída, 0 a 8. */
+  /** Números de lección leída, 1 a MP_LECTURA_TOTAL. */
   lessonScreens: number[]
   /** Ids de casos de práctica resueltos: "c1", "c2"… */
   practiceDone: string[]
@@ -39,7 +39,7 @@ export function readMercanciasLocal(): MercanciasProgreso {
   }
 }
 
-function writeMercanciasLocal(patch: Partial<MercanciasProgreso>): void {
+export function writeMercanciasLocal(patch: Partial<MercanciasProgreso>): void {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify({ ...readMercanciasLocal(), ...patch }))
   } catch {

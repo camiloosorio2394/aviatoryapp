@@ -67,7 +67,7 @@ const NotamLesson = page(() => import("@/pages/NotamLesson"), "NotamLesson")
 const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice")
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
-const MercanciasLector = page(() => import("@/pages/MercanciasLector"), "MercanciasLector")
+const MercanciasLeccion = page(() => import("@/pages/MercanciasLeccion"), "MercanciasLeccion")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
 const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
@@ -346,8 +346,8 @@ function App() {
             </RequireAuth>
           }
         />
-        {/* Tema Mercancías Peligrosas. El hub vive dentro de la app; el lector
-            sale a pantalla completa con su propio cascarón. */}
+        {/* Tema Mercancías peligrosas. El hub vive dentro de la app; la lección
+            usa el lector genérico de NOTAM, a pantalla completa. */}
         <Route
           path="/app/aerolinea/mercancias"
           element={
@@ -357,12 +357,17 @@ function App() {
           }
         />
         <Route
-          path="/app/aerolinea/mercancias/leccion"
+          path="/app/aerolinea/mercancias/aprende"
           element={
             <RequireAuth>
-              <MercanciasLector />
+              <MercanciasLeccion />
             </RequireAuth>
           }
+        />
+        {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
+        <Route
+          path="/app/aerolinea/mercancias/leccion"
+          element={<Navigate to="/app/aerolinea/mercancias/aprende" replace />}
         />
         <Route
           path="/app/aerolinea/simulacro"

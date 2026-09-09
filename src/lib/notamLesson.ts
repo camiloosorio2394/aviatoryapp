@@ -534,7 +534,8 @@ export interface LessonScreen {
   /** Lectura estimada en minutos */
   minutes: number
   blocks: LessonBlock[]
-  level: NotamLevel
+  /** Nivel de dificultad. NOTAM lo enseña en la cabecera; los módulos sin niveles lo omiten. */
+  level?: NotamLevel
 }
 
 export const LESSON_SCREENS: DocScreen[] = [

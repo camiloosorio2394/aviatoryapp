@@ -41,7 +41,7 @@ import {
   fetchMejorPuntajeSimulacro,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { MP_HUB, MP_LECTURA_TOTAL, resumirMercancias } from "@/lib/mercancias"
+import { MP_HUB, MP_LECTURA_TOTAL, MP_PRACTICA_TOTAL, resumirMercancias } from "@/lib/mercancias"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { BANCO_TOTAL as PSICO_BANCO_TOTAL, TOTALES as PSICO_TOTALES } from "@/data/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -85,8 +85,6 @@ const PROXIMOS: string[] = [
   "Entrevista HR y CRM",
 ]
 
-/** Casos de la práctica de Mercancías Peligrosas, para el pie de su tarjeta. */
-const MP_CASOS = 4
 
 /**
  * Enumera en castellano: "A", "A y B", "A, B y C".
@@ -288,7 +286,7 @@ export function AirlinePrep() {
           to: MP_HUB,
           icon: AlertTriangle,
           color: "var(--av-red-400)",
-          meta: `${MP_LECTURA_TOTAL} secciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · ${MP_CASOS} casos · chequeo final`,
+          meta: `${MP_LECTURA_TOTAL} lecciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · práctica y evaluación`,
           title: "Mercancías peligrosas",
           blurb:
             "Las nueve clases con sus etiquetas reales, qué responde el comandante, el NOTOC y las baterías de litio. Con lector propio.",
@@ -302,7 +300,7 @@ export function AirlinePrep() {
             ? "Arranca por el briefing: 9 secciones"
             : mercancias.overall >= 100
               ? "Tema completo"
-              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} secciones y ${mercancias.practiceDone} de ${MP_CASOS} casos`,
+              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} lecciones y ${mercancias.practiceDone} de ${MP_PRACTICA_TOTAL} ejercicios`,
         },
       },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace

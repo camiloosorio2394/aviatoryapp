@@ -252,7 +252,9 @@ export function MetarLesson() {
               </header>
 
               {METAR_LESSON.map((screen) => {
-                const level = LEVEL_META[screen.level]
+                // Las secciones METAR llevan nivel siempre; el tipo lo hace opcional
+                // desde que el lector se comparte con módulos sin niveles.
+                const level = LEVEL_META[screen.level ?? "basico"]
                 return (
                   <section
                     key={screen.n}

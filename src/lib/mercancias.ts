@@ -1,67 +1,50 @@
 /**
- * Módulo Mercancías Peligrosas: los datos.
+ * Módulo Mercancías peligrosas: los datos que comparten el hub, la lección, la
+ * práctica y la evaluación.
  *
- * El contenido sale del material de Cami (guía práctica para pilotos, con
- * RAC 175, Anexo 18 y Doc 9284 de OACI y la IATA DGR como fuentes) y de la
- * estructura del diseño del módulo.
- *
- * Aquí solo vive lo que es dato: las secciones, las fuentes y la vigencia. El
- * contenido de cada sección va en las piezas del lector, porque lleva marcado
- * y enlaces y no se deja escribir como texto plano sin perder la mitad.
+ * Aquí solo vive lo que es dato: rutas, totales, umbrales y el resumen de
+ * avance. El contenido de la lección está en mercanciasLeccion/, la práctica
+ * en mercanciasPractica.ts y el banco de la evaluación en su propio archivo.
  */
 
-import type { ModuloSeccion } from "@/components/modulo/tipos"
+import { MP_LECCION_TOTAL } from "@/lib/mercanciasLeccion"
+import { CASOS } from "@/lib/mercanciasPractica"
 
-/** Nombre del módulo, tal como aparece en la barra del lector y en el hub. */
-export const MP_TITULO = "Mercancías Peligrosas"
+/** Nombre del módulo, tal como aparece en el hub y en la miga del lector. */
+export const MP_TITULO = "Mercancías peligrosas"
 
-/** Las fuentes normativas, en la línea de la barra. Siempre visibles. */
-export const MP_FUENTES = "RAC 175 · Anexo 18 y Doc 9284 OACI · IATA DGR"
+/** Las fuentes normativas, en una línea. */
+export const MP_FUENTES = "RAC 175 · LAR 175 · Anexo 18 y Doc 9284 OACI · RAC 2 · RAC 61"
 
 /**
  * Edición de la que sale el material.
  *
- * Va en la barra y no en una nota al pie a propósito: el RAC 175 consultado es
- * la Edición Original y ha tenido enmiendas, así que el piloto tiene que ver de
+ * Va a la vista y no en una nota al pie a propósito: el RAC 175 consultado es
+ * la Edición original y ha tenido enmiendas, así que el piloto tiene que ver de
  * qué edición está leyendo mientras lee, no al final.
  */
-export const MP_VIGENCIA = "RAC 175 · Ed. original 2016"
+export const MP_VIGENCIA = "RAC 175 · Edición original, marzo 2016 (Res. 00478)"
 
-/**
- * Los pasos del lector.
- *
- * Las nueve primeras se leen; la práctica y el chequeo se resuelven, y por eso
- * van marcadas como otro grupo: el contador de la barra cuenta solo lo que se
- * lee ("03 / 09") y el índice las separa.
- */
-export const MP_SECCIONES: ModuloSeccion[] = [
-  { n: "00", titulo: "Briefing del módulo" },
-  { n: "01", titulo: "De dónde sale la norma" },
-  { n: "02", titulo: "Las nueve clases" },
-  { n: "03", titulo: "Prohibiciones y limitaciones" },
-  { n: "04", titulo: "Grupos de embalaje" },
-  { n: "05", titulo: "Marcas, etiquetas y documentos" },
-  { n: "06", titulo: "Información al piloto al mando" },
-  { n: "07", titulo: "Mercancías ocultas y estiba" },
-  { n: "08", titulo: "Emergencias y notificación" },
-  { n: "09", titulo: "Práctica de clasificación", grupo: "practica" },
-  { n: "10", titulo: "Chequeo final", grupo: "practica" },
-]
-
-/** Cuántas secciones de lectura tiene el módulo. Denominador del progreso. */
-export const MP_LECTURA_TOTAL = MP_SECCIONES.filter((s) => s.grupo !== "practica").length
-
-/** Ruta del hub del tema. El lector vuelve aquí al salir. */
+/** Ruta del hub del tema. */
 export const MP_HUB = "/app/aerolinea/mercancias"
+/** La lección, con el lector genérico. */
+export const MP_APRENDE = `${MP_HUB}/aprende`
+export const MP_PRACTICA = `${MP_HUB}/practica`
+export const MP_EVALUACION = `${MP_HUB}/evaluacion`
+/** Ruta vieja del lector propio. Redirige a la lección; se conserva por los enlaces guardados. */
+export const MP_LECTOR = `${MP_HUB}/leccion`
 
-/** Ruta del lector. */
-export const MP_LECTOR = "/app/aerolinea/mercancias/leccion"
+/** Cuántas lecciones tiene el módulo. Denominador del progreso de lectura. */
+export const MP_LECTURA_TOTAL = MP_LECCION_TOTAL
 
-/** Casos de la práctica de clasificación. Denominador de esa parte. */
-export const MP_PRACTICA_TOTAL = 4
+/** Ejercicios de la práctica. Denominador de esa parte. */
+export const MP_PRACTICA_TOTAL = CASOS.length
 
-/** Mínimo del chequeo final, sobre 100. Cuatro de cinco. */
+/** Mínimo de la evaluación, sobre 100. */
 export const MP_PASS_SCORE = 80
+
+/** Preguntas por intento de la evaluación. */
+export const MP_EXAM_PER_ATTEMPT = 25
 
 export interface MercanciasResumen {
   lessonRead: number
@@ -80,14 +63,15 @@ export interface MercanciasResumen {
  * Resume el avance del módulo.
  *
  * Las tres partes pesan igual, como en NOTAM y METAR: leer todo sin practicar
- * ni comprobar no es tener el tema hecho.
+ * ni evaluarse no es tener el tema hecho.
  */
 export function resumirMercancias(p: {
   lessonScreens: number[]
   practiceDone: string[]
   bestScore: number | null
 }): MercanciasResumen {
-  const lessonRead = Math.min(p.lessonScreens.length, MP_LECTURA_TOTAL)
+  const leidas = p.lessonScreens.filter((n) => n >= 1 && n <= MP_LECTURA_TOTAL)
+  const lessonRead = Math.min(leidas.length, MP_LECTURA_TOTAL)
   const practiceDone = Math.min(p.practiceDone.length, MP_PRACTICA_TOTAL)
   const best = p.bestScore
   const passed = best !== null && best >= MP_PASS_SCORE
