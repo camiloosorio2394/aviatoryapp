@@ -687,3 +687,16 @@ Dos cosas para ti:
    la migración del punto 8.6 siga sin aplicar, los intentos solo viven en
    `localStorage` y no hay recuento por ejercicio. Antes enseñar lo que hay que
    inventar una cifra. En cuanto se aplique la migración, se cambia en un sitio.
+
+### 9.8 · Un detalle que NOTAM también tiene
+
+El sello «Sin intentos» de la franja iba con tres hexadecimales fijos —crema,
+ocre y arena—, así que en tema oscuro quedaba un bloque claro en medio de la
+franja. En psicotécnicas ya está arreglado: es `.psico-hub .ph-sello`, con el
+ámbar de marca en translúcido y el texto que cambia de tono en oscuro, el mismo
+trato que ya tenía `.chip-amber`.
+
+**La celda de Evaluación de la portada de NOTAM lleva los mismos tres
+hexadecimales** (`src/pages/Notam.tsx`, el sub componente `Celda`). No lo toqué
+porque el encargo era la portada de psicotécnicas y NOTAM es tuyo, pero es
+copiar la clase y borrar el `style`.

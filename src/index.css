@@ -855,6 +855,19 @@
   font-family: "Archivo", var(--font-sans);
 }
 
+/* El sello de «Sin intentos» de la franja. Dice pendiente sin fingir un cero,
+   y va con el ámbar de marca en translúcido —no con un crema fijo— para que en
+   tema oscuro no quede un bloque claro fuera de sitio. Es el mismo trato que
+   ya tiene .chip-amber, con la geometría de la franja. */
+.psico-hub .ph-sello {
+  background: color-mix(in oklab, var(--av-amber-400) 14%, transparent);
+  border: 1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent);
+  color: oklch(0.5 0.16 60);
+}
+.dark .psico-hub .ph-sello {
+  color: var(--av-amber-400);
+}
+
 /* === Lector NOTAM (la lección Aprende) ======================================
    Cuarta superficie con reglas propias, como .doc-sheet, .mod-shell y las
    infografías: papel cálido y navy de carta aeronáutica, fija en los dos

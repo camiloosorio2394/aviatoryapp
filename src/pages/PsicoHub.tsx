@@ -376,10 +376,7 @@ function FranjaFamilias({
               ) : acierto === undefined ? (
                 // El sello no puede partirse en dos líneas: sin esto, "Sin
                 // intentos" rompe la altura de la celda y descuadra la franja.
-                <span
-                  className="shrink-0 whitespace-nowrap rounded-[5px] border px-[9px] py-[3px] text-[13px] font-medium"
-                  style={{ color: "#8A5A00", background: "#FDF3E0", borderColor: "#F3DFB8" }}
-                >
+                <span className="ph-sello shrink-0 whitespace-nowrap rounded-[5px] px-[9px] py-[3px] text-[13px] font-medium">
                   Sin intentos
                 </span>
               ) : (
