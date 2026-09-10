@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, Brain, GraduationCap, Target, Timer } from "lucide-react"
+import { ArrowLeft, ArrowRight, Brain, GraduationCap, Target, Timer } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
@@ -19,7 +19,7 @@ import {
   type CategoriaPsico,
 } from "@/lib/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
-import { BANCO_TOTAL, TOTALES } from "@/data/psicotecnicas"
+import { BANCO_TOTAL } from "@/data/psicotecnicas"
 
 /**
  * Portada del tema Pruebas psicotécnicas (módulo Ingreso a aerolínea).
@@ -404,9 +404,20 @@ function FranjaFamilias({
                 }}
               />
             </div>
-            <div className="mt-2.5 text-[11px] tracking-[0.04em] text-muted-foreground">
-              {TOTALES[familia]} ejercicios cargados
-            </div>
+            {/* La celda no se queda en el dato: lleva a arreglarlo. Un «Sin
+                intentos» sin salida es un reproche; con el enlace al lado es
+                una invitación, y de paso ahorra volver arriba a buscar el
+                botón. Lo que había aquí antes —cuántos ejercicios hay
+                cargados— es inventario nuestro, no algo que le sirva a quien
+                entrena. */}
+            <Link
+              to={`/app/aerolinea/psicotecnicas/practica?categoria=${familia}`}
+              className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium transition-colors hover:underline"
+              style={{ color: COLOR_FAMILIA[familia] }}
+            >
+              {acierto === undefined ? "Empezar" : "Seguir entrenando"}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
           </div>
         )
       })}

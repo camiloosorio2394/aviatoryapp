@@ -51,6 +51,94 @@ const r = (...elementos: Elemento[]): Celda => ({
   elementos: [{ tipo: "rombo" }, ...elementos],
 })
 
+/**
+ * Un grupo de símbolos iguales, con cuántos son.
+ *
+ * La orientación solo la llevan las líneas, que en el ejercicio 12 son el
+ * mismo símbolo girado: vertical, en diagonal y horizontal.
+ */
+const sim = (
+  simbolo: "asterisco" | "i" | "linea",
+  cantidad: number,
+  orientacion: "vertical" | "diagonal" | "horizontal" | "ninguna" = "ninguna"
+): Elemento => ({ tipo: "grupo-simbolos", simbolo, orientacion, cantidad })
+
+/**
+ * Casilla del cuadro con lomo, lóbulos y letra.
+ *
+ * El lóbulo de abajo va al final y con valor por defecto porque en las ocho
+ * casillas de la matriz es blanco: solo la alternativa C lo cambia, y que
+ * haya que escribirlo para cambiarlo es justo lo que se quiere.
+ */
+const cl = (
+  letra: "A" | "C" | "D" | "ninguna",
+  lomo: Relleno,
+  barra: boolean,
+  lobulo: Relleno = "blanco"
+): Celda => ({ marco: true, elementos: [{ tipo: "cuadro-lobulos", letra, lomo, lobulo, barra }] })
+
+/** Casilla del 17: el casco entero, que es lo único que hay en la casilla. */
+const ks = (
+  puntaIzquierda: "blanca" | "arriba" | "abajo" | "negra",
+  puntaDerecha: "blanca" | "arriba" | "abajo" | "negra",
+  cuerpo: Relleno,
+  particion: "ninguna" | "cuatro-cuadros" | "cuatro-columnas",
+  remate: "torre" | "triangulo" | "plancha",
+  remateRelleno: Relleno,
+  sombra: "ninguna" | "media-diagonal" | "monte" = "ninguna"
+): Celda => ({
+  marco: true,
+  elementos: [
+    { tipo: "casco", puntaIzquierda, puntaDerecha, cuerpo, particion, remate, remateRelleno, sombra },
+  ],
+})
+
+const dc = (cuadrante: 0 | 1 | 2 | 3): Elemento => ({ tipo: "diagonal-cuadrante", cuadrante })
+const tn = (cuadrante: 0 | 1 | 2 | 3, relleno: Relleno): Elemento => ({
+  tipo: "cuadrante-tenido",
+  cuadrante,
+  relleno,
+})
+const mc = (lado: "izquierda" | "derecha", forma: "circulo" | "cuadrado"): Elemento => ({
+  tipo: "marca-colgada",
+  lado,
+  forma,
+})
+
+/**
+ * Casilla del 20: la cruz, las dos diagonales de abajo y lo que le toque.
+ *
+ * Los cuadrantes en blanco **no se declaran**. Aquí eso no es una omisión sino
+ * la condición para que la matriz se pueda resolver: se resuelve sumando dos
+ * casillas, y un «blanco» declarado sumado a un «negro» declarado dejaría los
+ * dos encima del mismo cuadrante. La ausencia tiene que ser ausencia.
+ */
+const cz = (...elementos: Elemento[]): Celda => ({
+  rejilla: "2x2",
+  elementos: [dc(2), dc(3), ...elementos],
+})
+
+const SUBE: Elemento = { tipo: "diagonal", sentido: "subiendo" }
+const BAJA: Elemento = { tipo: "diagonal", sentido: "bajando" }
+const TENDIDA: Elemento = { tipo: "diagonal", sentido: "tendida" }
+
+const pt = (cuantos: number, lado: "arriba" | "abajo" | "ninguno" = "ninguno"): Elemento => ({
+  tipo: "puntos",
+  cuantos,
+  lado,
+})
+
+const rm = (
+  forma: "escuadra" | "corchete" | "ninguno",
+  lado: "arriba" | "abajo" | "centro" | "ninguno" = "ninguno"
+): Elemento => ({ tipo: "remate", forma, lado })
+
+/** Casilla del 19: la diagonal que sube, y encima lo que la matriz reparte. */
+const dp = (...elementos: Elemento[]): Celda => ({ marco: true, elementos: [SUBE, ...elementos] })
+
+/** Casilla hecha solo de grupos de símbolos. */
+const g = (...grupos: Elemento[]): Celda => ({ marco: true, elementos: grupos })
+
 const N: Elemento = { tipo: "radio", hacia: "arriba" }
 const S: Elemento = { tipo: "radio", hacia: "abajo" }
 const E: Elemento = { tipo: "radio", hacia: "derecha" }
@@ -345,6 +433,259 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * Cuatro reglas encima del mismo casco, y tres de ellas van por filas.
+   *
+   * Las **puntas** son constantes en cada fila: arriba a la izquierda en la
+   * primera, abajo a la derecha en la segunda, las dos en la tercera. Media
+   * punta, no la punta entera. Esto se midió sobre la lámina —densidad de
+   * tinta en las cuatro medias puntas— porque a ojo se lee «la punta izquierda
+   * es negra», que es otra cosa y deja el ejercicio sin regla.
+   *
+   *     IZQarr  IZQabj  DERarr  DERabj
+   *     0.72    0.15    0.15    0.14    ← filas 1
+   *     0.15    0.16    0.13    0.75    ← fila 2
+   *     0.73    0.15    0.14    0.76    ← fila 3
+   *
+   * El **relleno del remate** también es constante por filas: blanco, punteado,
+   * negro. La **forma del remate** —torre, triángulo, plancha— es un sudoku
+   * completo, por filas y por columnas, y al hueco le toca la torre. Y el
+   * **cuerpo** reparte un rayado y dos blancos en cada fila y en cada columna,
+   * así que le toca rayado.
+   *
+   * Las rayas que parten el cuerpo van a su aire —cero, una, tres, sin orden— y
+   * quedan libres. No estorban: ninguna alternativa se distingue por ellas.
+   *
+   * La C es la única con las dos medias puntas, la torre negra y el cuerpo
+   * rayado. La A pone las puntas **enteras** negras, la D las deja en blanco, y
+   * la B y la E meten un triángulo negro dentro del cuerpo, que no hace ninguna
+   * de las ocho.
+   */
+  "AB-A1-17": {
+    tipo: "matriz-3x3",
+    celdas: [
+      ks("arriba", "blanca", "rayado-punteado", "ninguna", "torre", "blanco"),
+      ks("arriba", "blanca", "blanco", "cuatro-cuadros", "triangulo", "blanco"),
+      ks("arriba", "blanca", "blanco", "cuatro-columnas", "plancha", "blanco"),
+      ks("blanca", "abajo", "blanco", "cuatro-columnas", "plancha", "rayado-punteado"),
+      ks("blanca", "abajo", "rayado-punteado", "ninguna", "torre", "rayado-punteado"),
+      ks("blanca", "abajo", "blanco", "ninguna", "triangulo", "rayado-punteado"),
+      ks("arriba", "abajo", "blanco", "cuatro-cuadros", "triangulo", "negro"),
+      ks("arriba", "abajo", "blanco", "cuatro-columnas", "plancha", "negro"),
+      HUECO,
+    ],
+    opciones: [
+      ks("negra", "negra", "blanco", "ninguna", "torre", "blanco"),
+      ks("blanca", "negra", "rayado-punteado", "ninguna", "torre", "blanco", "media-diagonal"),
+      ks("arriba", "abajo", "rayado-punteado", "ninguna", "torre", "negro"),
+      ks("blanca", "blanca", "rayado-punteado", "ninguna", "triangulo", "blanco"),
+      ks("blanca", "blanca", "blanco", "ninguna", "torre", "blanco", "monte"),
+    ],
+  },
+
+  /**
+   * La tercera casilla de cada fila es la suma de las dos anteriores.
+   *
+   * La primera pone algo a la izquierda, la segunda pone algo a la derecha y la
+   * tercera trae las dos cosas a la vez: círculo con negro en la fila de
+   * arriba, cuadrado con rayado en la de en medio. En la de abajo la primera
+   * ya trae las dos —círculo con negro a la izquierda, cuadrado con rayado a la
+   * derecha— y la segunda repite todo menos el rayado, así que la suma es la
+   * primera entera. Eso es la A.
+   *
+   * Conviene decir lo que **no** es: la marca de arriba no manda sobre el
+   * relleno de abajo. La octava casilla lleva su cuadrado a la derecha y el
+   * cuadrante de abajo a la derecha en blanco, y es justo esa casilla la que
+   * hace que la suma dé algo distinto de ella misma.
+   *
+   * La B y la E se salen de la estructura: la B se queda sin las marcas de
+   * arriba y tiñe un cuadrante de la mitad de arriba, y la E trae diagonal en
+   * los cuatro. La C y la D sí son casillas legales, pero cruzan las parejas:
+   * la C pone el rayado a la izquierda con dos círculos y la D cambia de sitio
+   * el círculo y el cuadrado.
+   */
+  "AB-A1-20": {
+    tipo: "matriz-3x3",
+    celdas: [
+      cz(tn(2, "negro"), mc("izquierda", "circulo")),
+      cz(tn(3, "negro"), mc("derecha", "circulo")),
+      cz(tn(2, "negro"), tn(3, "negro"), mc("izquierda", "circulo"), mc("derecha", "circulo")),
+      cz(tn(2, "rayado-vertical"), mc("izquierda", "cuadrado")),
+      cz(tn(3, "rayado-vertical"), mc("derecha", "cuadrado")),
+      cz(
+        tn(2, "rayado-vertical"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "cuadrado"),
+        mc("derecha", "cuadrado")
+      ),
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "cuadrado")
+      ),
+      cz(tn(2, "negro"), mc("izquierda", "circulo"), mc("derecha", "cuadrado")),
+      HUECO,
+    ],
+    opciones: [
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "cuadrado")
+      ),
+      { rejilla: "2x2", elementos: [dc(1), dc(2), tn(1, "rayado-vertical"), tn(2, "negro")] },
+      cz(
+        tn(2, "rayado-vertical"),
+        tn(3, "negro"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "circulo")
+      ),
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "cuadrado"),
+        mc("derecha", "circulo")
+      ),
+      {
+        rejilla: "2x2",
+        elementos: [
+          dc(0), dc(1), dc(2), dc(3),
+          tn(0, "rayado-vertical"),
+          tn(3, "negro"),
+          mc("izquierda", "cuadrado"),
+          mc("derecha", "cuadrado"),
+        ],
+      },
+    ],
+  },
+
+  /**
+   * Cada fila trae el cero, el dos y el cuatro.
+   *
+   * Los puntos van así, contados sobre la lámina buscando manchas macizas —a
+   * ojo el cuatro y el cinco se confunden—:
+   *
+   *     0        2 arriba   4 arriba
+   *     4 abajo  2 abajo    0
+   *     2 arriba 4 arriba   ·
+   *
+   * En la fila del hueco ya están el dos y el cuatro, así que le toca el cero.
+   * Y con el cero viene la escuadra: el remate no es independiente de la
+   * cuenta —cero trae escuadra, dos trae corchete, cuatro no trae nada—, y esa
+   * segunda lectura da lo mismo por su cuenta.
+   *
+   * Las columnas no dicen nada: la del medio trae dos, dos y cuatro. Esta es la
+   * primera figura que se sostiene sobre un solo eje, y el verificador lo
+   * dice con todas las letras («mismo reparto en cada fila, no en las
+   * columnas») para que se vea sobre qué se apoya.
+   *
+   * De qué lado caen los puntos y de qué lado el remate no siguen regla y
+   * quedan libres. No hace falta: de las cinco alternativas, cuatro se caen
+   * por la estructura —la A y la C traen las dos diagonales, la B una recta
+   * tendida de más, la D dos escuadras en vez de una— y solo la E es la
+   * diagonal sola con una escuadra y sin puntos.
+   */
+  "AB-A1-19": {
+    tipo: "matriz-3x3",
+    celdas: [
+      dp(pt(0), rm("escuadra", "abajo")),
+      dp(pt(2, "arriba"), rm("corchete", "abajo")),
+      dp(pt(4, "arriba"), rm("ninguno")),
+      dp(pt(4, "abajo"), rm("ninguno")),
+      dp(pt(2, "abajo"), rm("corchete", "arriba")),
+      dp(pt(0), rm("escuadra", "arriba")),
+      dp(pt(2, "arriba"), rm("corchete", "abajo")),
+      dp(pt(4, "arriba"), rm("ninguno")),
+      HUECO,
+    ],
+    opciones: [
+      dp(BAJA, pt(7, "ninguno"), rm("ninguno")),
+      dp(TENDIDA, pt(0), rm("escuadra", "abajo")),
+      dp(BAJA, pt(0), rm("escuadra", "centro")),
+      dp(pt(0), rm("escuadra", "arriba"), rm("escuadra", "abajo")),
+      dp(pt(0), rm("escuadra", "abajo")),
+    ],
+  },
+
+  /**
+   * Tres sudokus, y el tercero está fuera del recuadro.
+   *
+   * La letra —A, C, D— aparece una vez en cada fila y en cada columna, y la
+   * trama del lomo —blanca, rayada, negra— hace lo mismo. Las dos señalan a la
+   * misma casilla: letra A y lomo rayado.
+   *
+   * El tercero es el que se pasa por alto: de cada recuadro cuelga un tallo, y
+   * a veces lleva una barra cruzada al final. Están así —no, sí, sí / sí, no,
+   * sí / sí, sí, ?—, que es el mismo reparto de dos síes y un no en cada fila
+   * y en cada columna, de modo que al hueco le toca **sin** barra. No se ve a
+   * ojo: se contó buscando tramos de tinta en el aire entre filas.
+   *
+   * Y hace falta, porque las cinco alternativas se distinguen exactamente en
+   * estos cuatro atributos y en nada más: la B se queda sin letra, la C rellena
+   * también el lóbulo de abajo, la D es la única que trae la barra y la E
+   * cambia el rayado por escamas. La A cumple las tres reglas.
+   */
+  "AB-A1-11": {
+    tipo: "matriz-3x3",
+    celdas: [
+      cl("A", "blanco", false), cl("D", "rayado-diagonal", true), cl("C", "negro", true),
+      cl("C", "rayado-diagonal", true), cl("A", "negro", false), cl("D", "blanco", true),
+      cl("D", "negro", true), cl("C", "blanco", true), HUECO,
+    ],
+    opciones: [
+      cl("A", "rayado-diagonal", false),
+      cl("ninguna", "rayado-diagonal", false),
+      cl("A", "rayado-diagonal", false, "rayado-diagonal"),
+      cl("A", "rayado-diagonal", true),
+      cl("A", "escamas", false),
+    ],
+  },
+
+  /**
+   * Dos sudokus encima del mismo tablero.
+   *
+   * El símbolo —asterisco, viga, línea— aparece una vez en cada fila y en cada
+   * columna. La cantidad hace exactamente lo mismo con el tres, el cuatro y el
+   * cinco:
+   *
+   *     3 4 5        En la fila del hueco ya están el cuatro y el cinco, y en
+   *     5 3 4        su columna el cinco y el cuatro. Solo cabe el tres, y solo
+   *     4 5 ·        cabe la línea. La E es tres líneas.
+   *
+   * La cuenta de la segunda casilla se midió sobre la lámina y son cuatro, no
+   * cinco: con cinco el cuadro de cantidades no cerraría, y ese cuadre es la
+   * comprobación de que está bien leída.
+   *
+   * Lo que el solucionador **no** deduce es hacia dónde va la línea que falta.
+   * Las tres líneas de la matriz giran cuarenta y cinco grados cada vez
+   * —vertical, diagonal, horizontal—, pero eso no es una regla de fila ni de
+   * columna, y declararle al programa el alfabeto de orientaciones sería
+   * darle la respuesta escrita. Se leyó de la lámina y va firmado aparte, en
+   * `figurasAprobadas.ts`, diciendo qué parte es de máquina y qué parte de
+   * ojo. Da igual para acertar: de las cinco alternativas, la E es la única
+   * que trae líneas y son tres.
+   *
+   * Las otras cuatro rompen justo el sudoku de los símbolos: la B, la C y la D
+   * mezclan dos tipos en la misma casilla, cosa que no hace ninguna de las
+   * ocho; la A acierta el símbolo y falla la cuenta.
+   */
+  "AB-A1-12": {
+    tipo: "matriz-3x3",
+    celdas: [
+      g(sim("asterisco", 3)), g(sim("linea", 4, "vertical")), g(sim("i", 5)),
+      g(sim("linea", 5, "diagonal")), g(sim("i", 3)), g(sim("asterisco", 4)),
+      g(sim("i", 4)), g(sim("asterisco", 5)), HUECO,
+    ],
+    opciones: [
+      g(sim("linea", 5, "horizontal")),
+      g(sim("linea", 2, "vertical"), sim("asterisco", 1), sim("i", 1)),
+      g(sim("linea", 1, "diagonal"), sim("i", 2)),
+      g(sim("linea", 1, "diagonal"), sim("asterisco", 3)),
+      g(sim("linea", 3, "horizontal")),
     ],
   },
 }

@@ -145,16 +145,16 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "Matrices",
     "avanzado",
     0,
-    "Matriz con una letra (A, C o D) y una forma semicircular con relleno rayado, negro o blanco.",
-    `Dos atributos claramente separables: la letra y el relleno de la media luna. En cada fila y en cada columna aparecen las tres letras y los tres rellenos sin repetirse, como en un sudoku. La casilla vacía pide la A. ${METODO}`
+    "Matriz de cuadros con una letra (A, C o D), un lomo redondeado con relleno blanco, rayado o negro, y un tallo que a veces lleva barra.",
+    `Tres atributos, y el tercero está fuera del recuadro. La letra y el relleno del lomo van como un sudoku: las tres letras y los tres rellenos en cada fila y en cada columna, sin repetirse. Eso ya pide la A con el lomo rayado. Falta mirar el tallo que cuelga de cada cuadro: la barra del final aparece dos veces por fila y dos por columna, así que a la casilla vacía le toca sin barra, y ahí se cae la D. ${METODO}`
   ),
   serie(
     12,
     "Patrones",
     "avanzado",
     4,
-    "Matriz con grupos de asteriscos, líneas verticales, formas en I y rayado diagonal, en distintas cantidades.",
-    `Lo que cambia es el tipo de símbolo y cuántos hay. Conviene contar antes de mirar la forma: la cantidad sigue su propia progresión, independiente del símbolo. La E cierra las dos. ${METODO}`
+    "Matriz con grupos de asteriscos, vigas y líneas —verticales, en diagonal y horizontales— en cantidades de tres, cuatro y cinco.",
+    `Dos sudokus encima del mismo tablero. El símbolo —asterisco, viga, línea— sale una vez en cada fila y en cada columna; la cantidad hace lo mismo con el tres, el cuatro y el cinco. Conviene contar antes de mirar la forma. En la fila del hueco ya están el cuatro y el cinco, y en su columna el cinco y el cuatro: solo cabe el tres, y el símbolo que falta es la línea. La E es tres líneas. ${METODO}`
   ),
   serie(
     13,
@@ -193,8 +193,8 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "Transformaciones",
     "avanzado",
     2,
-    "Matriz con una figura alargada rematada en puntas, con rellenos y elementos interiores que cambian.",
-    `La silueta apenas varía: lo que cambia es lo que lleva dentro y hacia dónde apunta el remate. Hay que separar el contenido interior de la orientación de la punta y seguirlos aparte. La C es la que encaja en las dos. ${METODO}`
+    "Matriz de cascos alargados con una punta a cada lado, un remate encima —torre, triángulo o plancha— y el cuerpo rayado o en blanco.",
+    `Lo primero es mirar bien las puntas: no se tiñe la punta entera, se tiñe media. En la primera fila, la de arriba a la izquierda; en la segunda, la de abajo a la derecha; en la tercera, las dos. El relleno del remate también va por filas: blanco, rayado y negro. Y la forma del remate es un sudoku —torre, triángulo y plancha una vez por fila y por columna—, igual que el cuerpo. Al hueco le tocan las dos medias puntas, la torre negra y el cuerpo rayado, que es la C. Las rayas que parten el cuerpo no cuentan: ninguna alternativa las lleva. ${METODO}`
   ),
   serie(
     18,

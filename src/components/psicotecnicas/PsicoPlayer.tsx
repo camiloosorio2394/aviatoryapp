@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { Bookmark, CheckCircle2, ChevronRight, XCircle } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
+import { ReportarProblema } from "@/components/ReportarProblema"
 import {
   type EjercicioPsico,
   type ModoPsico,
@@ -384,6 +385,21 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
               {indice + 1 === orden.length ? "Ver resultado" : "Siguiente"}
               <ChevronRight className="h-4 w-4" />
             </button>
+
+            {/* El reporte va aquí y no en mitad del ejercicio: mientras el
+                reloj corre, cualquier cosa que no sea el ejercicio roba tiempo.
+                Con la respuesta ya revelada, el piloto acaba de mirar la figura
+                con calma y es justo cuando sabe si algo no cuadraba. */}
+            <ReportarProblema
+              modulo="psicotecnicas"
+              ejercicioId={ejercicio.id}
+              extra={{
+                modo,
+                eligio: elegida === null ? null : ejercicio.opciones[elegida],
+                correcta: ejercicio.opciones[ejercicio.respuesta],
+                dibujada: Boolean(ejercicio.figura),
+              }}
+            />
           </div>
         )}
       </div>

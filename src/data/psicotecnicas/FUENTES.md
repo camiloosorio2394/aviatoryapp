@@ -116,6 +116,51 @@ entrenamiento, que es lo que son. Sus preguntas 7 a 10 sí entran como ejercicio
 porque ahí las alternativas van en una lista de texto aparte de la figura, y la
 figura se recorta limpia.
 
+## El cuadernillo A1 marca su propia respuesta, lámina por lámina
+
+Hallazgo del 9 de septiembre, y no lo estábamos usando. El PDF `554759531` no
+solo trae la lámina SOLUCIONES al final: cada problema ocupa **cinco o seis
+diapositivas**, una por alternativa, y en cada una la letra elegida aparece
+recuadrada —**azul cuando es la correcta, roja cuando no**—. Es el material de
+un curso pensado para proyectarse y hacer clic.
+
+Eso es una **cuarta fuente independiente** de la respuesta, y de las buenas:
+está pegada al problema, no en una hoja aparte donde un desliz de numeración
+descoloca veinte respuestas de golpe. Contrastar la lámina SOLUCIONES contra
+esos recuadros comprobaría de una vez que la hoja de soluciones no está corrida.
+
+Dónde vive cada problema, para no volver a buscarlo: **la diapositiva de un
+problema es la que lleva en su flecha de avance el número del problema
+siguiente**. El número grande de la esquina es el del problema actual, y el de
+la flecha es el del que viene, así que buscar «11/20» encuentra también las
+diapositivas del 10. Medido: el problema 11 está en las páginas 66 a 70, el 14
+en las 84 a 88 y el 18 en las 108 a 112.
+
+## Las tres que estaban paradas: qué se ve en el PDF
+
+Las láminas 08, 10 y 11 se dejaron sin dibujar porque en el recorte `.webp` no
+se leían sus extensiones. Abiertas en el PDF de origen a 240 puntos por pulgada,
+**las tres se leen**. Lo que se ve, para que no haya que redescubrirlo:
+
+- **La 11** es un rectángulo partido en dos. A la izquierda un lóbulo relleno
+  —blanco, rayado o negro—; a la derecha dos lóbulos apilados y una letra (A, C
+  o D) arriba. La letra y el relleno se reparten como un sudoku, y a la casilla
+  que falta le tocan la A y el rayado. Las cinco alternativas comparten letra y
+  relleno: se distinguen por si el lóbulo de abajo a la derecha va relleno, por
+  la trama —diagonal contra escamas— y por un travesaño al pie del eje.
+- **La 14** es una circunferencia con sus dos diámetros y un radio más en
+  diagonal, un número y una cuña negra en el centro que gira. Los números van
+  1·3·5 / 2·4·6 / 3·6·**9** y las cinco alternativas llevan todas el 9, así que
+  lo que decide es la posición angular de la cuña.
+- **La 18** es una retícula de dos por dos con las diagonales de cada cuadrante,
+  una letra constante por fila (A, B, C), un triángulo negro que ocupa uno de
+  los ocho medios cuadrantes y un punto negro que aparece y desaparece.
+
+Ninguna de las tres está transcrita todavía. **Se leen, pero leerlas no es
+haberlas comprobado**: cada una necesita su primitiva nueva y sus catorce
+casillas contrastadas una a una, y hacerlo con prisa es justo lo que la regla de
+las tres fuentes existe para impedir.
+
 ## Lo que falta por cargar
 
 **A2 (61 figuras) y A3 (9 escaneos).** Las figuras de A2 ya están extraídas y

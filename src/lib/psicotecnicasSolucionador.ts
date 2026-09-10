@@ -187,8 +187,14 @@ const COMBINACIONES: Combinacion[] = [
  * Dos celdas son la misma figura aunque sus elementos estén escritos en otro
  * orden: el orden de la lista es cómo se transcribió, no lo que se ve.
  */
-export function firma(celda: Celda): string {
-  return celda.elementos.map(claveElemento).sort().join("|")
+export function firma(celda: Celda, libres?: Set<string>): string {
+  if (!libres?.size) return celda.elementos.map(claveElemento).sort().join("|")
+  const sinLibres = (el: Elemento) => {
+    const copia = { ...(el as unknown as Record<string, unknown>) }
+    for (const clave of libres) if (clave.startsWith(`${el.tipo}.`)) delete copia[clave.slice(el.tipo.length + 1)]
+    return JSON.stringify(copia, Object.keys(copia).sort())
+  }
+  return celda.elementos.map(sinLibres).sort().join("|")
 }
 
 export function mismaCelda(a: Celda, b: Celda): boolean {
@@ -221,14 +227,30 @@ const SALTOS = [1, 2, 3]
 interface Candidata {
   celda: Celda
   reglas: Regla[]
+  /**
+   * Atributos que ninguna regla de la familia explica, como `grupo-simbolos
+   * .orientacion` en el ejercicio 12 de A1.
+   *
+   * La predicción se emite sin ellos y valen cualquier cosa al enfrentarla a
+   * las alternativas. No es un agujero: si más de una alternativa encaja con
+   * lo que sí se dedujo, `dictaminar` lo llama ambiguo y el ejercicio no sale.
+   * Lo único que cambia es que un atributo que la matriz no hace variar por
+   * filas ni por columnas deje de tumbar la deducción entera.
+   */
+  libres: Set<string>
 }
 
 /** Añade una predicción a la lista, juntándola con las que ya coinciden. */
-function proponer(candidatas: Map<string, Candidata>, celda: Celda, regla: Regla) {
-  const clave = firma(celda)
+function proponer(
+  candidatas: Map<string, Candidata>,
+  celda: Celda,
+  regla: Regla,
+  libres: Set<string> = new Set()
+) {
+  const clave = firma(celda, libres)
   const previa = candidatas.get(clave)
   if (previa) previa.reglas.push(regla)
-  else candidatas.set(clave, { celda, reglas: [regla] })
+  else candidatas.set(clave, { celda, reglas: [regla], libres })
 }
 
 /**
@@ -240,6 +262,46 @@ function proponer(candidatas: Map<string, Candidata>, celda: Celda, regla: Regla
  * la figura apunten a **alternativas distintas**: ahí el original es ambiguo y
  * no hay respuesta que defender.
  */
+/**
+ * Atributos que valen lo mismo en las cinco alternativas.
+ *
+ * Un atributo así no distingue una alternativa de otra, y por tanto no puede
+ * decidir nada. Exigir que la predicción lo acierte solo puede inventar un
+ * desacuerdo: nunca puede resolver uno.
+ *
+ * Pasa de verdad. En la matriz 17 las casillas parten el cuerpo en dos, en
+ * cuatro o en nada, y esa partición hasta cae en un cuadro por columnas. Pero
+ * **las cinco alternativas traen el cuerpo entero**, así que el cuadernillo no
+ * está preguntando eso, y el ejercicio no tiene forma de responderlo. Sin esto,
+ * el solucionador predecía una casilla partida y no encajaba con ninguna.
+ *
+ * No afloja nada: dos alternativas que se distinguen lo hacen por algún
+ * atributo que **sí** varía entre ellas, y ese sigue teniendo que coincidir.
+ */
+function atributosSinVariacion(opciones: Celda[]): Set<string> {
+  const vistos = new Map<string, { valores: Set<string>; veces: number }>()
+  for (const o of opciones) {
+    for (const el of o.elementos) {
+      for (const [clave, valor] of Object.entries(el)) {
+        if (clave === "tipo") continue
+        const nombre = `${el.tipo}.${clave}`
+        const entrada = vistos.get(nombre) ?? { valores: new Set<string>(), veces: 0 }
+        entrada.valores.add(JSON.stringify(valor))
+        entrada.veces++
+        vistos.set(nombre, entrada)
+      }
+    }
+  }
+  const quietos = new Set<string>()
+  // `veces` tiene que ser una por alternativa: si un atributo aparece dos veces
+  // en una casilla y ninguna en otra, no es que no varíe, es que la estructura
+  // cambia, y eso sí distingue.
+  for (const [nombre, { valores, veces }] of vistos) {
+    if (valores.size === 1 && veces === opciones.length) quietos.add(nombre)
+  }
+  return quietos
+}
+
 function dictaminar(candidatas: Candidata[], opciones: Celda[]): Diagnostico {
   if (candidatas.length === 0) {
     return {
@@ -250,9 +312,14 @@ function dictaminar(candidatas: Candidata[], opciones: Celda[]): Diagnostico {
     }
   }
 
+  const quietos = atributosSinVariacion(opciones)
   const senaladas = new Map<number, Regla[]>()
   for (const c of candidatas) {
-    const encajan = opciones.map((o, i) => (mismaCelda(o, c.celda) ? i : -1)).filter((i) => i >= 0)
+    const libres = new Set([...c.libres, ...quietos])
+    const suya = firma(c.celda, libres)
+    const encajan = opciones
+      .map((o, i) => (firma(o, libres) === suya ? i : -1))
+      .filter((i) => i >= 0)
     if (encajan.length > 1) {
       return {
         estado: "ambiguo",
@@ -423,7 +490,17 @@ interface ReglaAtributo {
  * les toca. Si las dos se sostienen y predicen valores distintos, se devuelve
  * nada: el atributo es ambiguo y con eso la matriz entera lo es.
  */
-function reglaDeAtributo(valores: (string | null)[], hueco: number): ReglaAtributo | null {
+/**
+ * Lo que se sabe de un atributo.
+ *
+ * `null` es «ninguna regla de la familia lo explica»: el atributo queda libre y
+ * la predicción sale sin él. `"contradictorio"` es otra cosa muy distinta —dos
+ * reglas se sostienen y señalan valores distintos—, y eso no se deja pasar: un
+ * atributo que dice dos cosas a la vez saca al ejercicio del banco.
+ */
+type Veredicto = ReglaAtributo | null | "contradictorio"
+
+function reglaDeAtributo(valores: (string | null)[], hueco: number): Veredicto {
   const candidatas: ReglaAtributo[] = []
 
   // 1 · Constante a lo largo de cada fila (o de cada columna).
@@ -479,9 +556,44 @@ function reglaDeAtributo(valores: (string | null)[], hueco: number): ReglaAtribu
     }
   }
 
+  // 3 · Mismo reparto en cada fila, aunque las columnas no lo cumplan (o al
+  //     revés). Es más floja que la 2 y por eso pide más para valer: que el
+  //     reparto sean tres valores **distintos**. Un reparto de dos valores
+  //     —«dos sí y un no»— repetido en tres filas se da por casualidad
+  //     demasiado a menudo; tres valores distintos en las tres filas, no.
+  //
+  //     Existe porque el cuadernillo la usa: en la matriz 19 los puntos van 0,
+  //     2 y 4 en cada fila y las columnas no dicen nada. Vale dos apoyos, los
+  //     justos, para que en el verificador se vea que la figura se sostiene
+  //     sobre un solo eje.
+  for (const [nombre, lineas] of [
+    ["mismo reparto en cada fila, no en las columnas", FILAS],
+    ["mismo reparto en cada columna, no en las filas", COLUMNAS],
+  ] as const) {
+    const enteras = lineas.filter(completa)
+    if (enteras.length < 2) continue
+    const repartos = enteras.map((l) => reparto(l.map((i) => valores[i] as string)))
+    if (!repartos.every((r) => r === repartos[0])) continue
+    const esperado = repartos[0].split("|")
+    if (new Set(esperado).size !== 3) continue
+    const restantes = [...esperado]
+    let cabe = true
+    for (const i of lineas.find((l) => l.includes(hueco))!) {
+      const v = valores[i]
+      if (v === null) continue
+      const donde = restantes.indexOf(v)
+      if (donde < 0) cabe = false
+      else restantes.splice(donde, 1)
+    }
+    if (cabe && restantes.length === 1) {
+      candidatas.push({ valor: restantes[0], nombre, apoyos: 2 })
+    }
+  }
+
   if (candidatas.length === 0) return null
-  // Si dos reglas se sostienen y no coinciden, el atributo no decide nada.
-  if (candidatas.some((c) => c.valor !== candidatas[0].valor)) return null
+  // Si dos reglas se sostienen y no coinciden, el atributo dice dos cosas a la
+  // vez. Eso no es no saber: es que la transcripción o la figura están mal.
+  if (candidatas.some((c) => c.valor !== candidatas[0].valor)) return "contradictorio"
   return candidatas.sort((a, b) => b.apoyos - a.apoyos)[0]
 }
 
@@ -513,6 +625,7 @@ function reglasPorAtributo(
 
   const elementos: Elemento[] = []
   const nombres: string[] = []
+  const libres = new Set<string>()
   let apoyos = 0
 
   for (const tipo of [...tipos].sort()) {
@@ -523,7 +636,7 @@ function reglasPorAtributo(
       conocidas.map((c, i) => (c === null ? null : deCada[i] ? "sí" : "no")),
       hueco
     )
-    if (!presencia) return
+    if (!presencia || presencia === "contradictorio") return
     apoyos += presencia.apoyos
     if (presencia.valor === "no") {
       nombres.push(`${tipo}: no está (${presencia.nombre})`)
@@ -534,6 +647,7 @@ function reglasPorAtributo(
     if (!muestra) return
 
     const armado: Record<string, unknown> = { tipo }
+    let deducidos = 0
     for (const clave of clavesDe(muestra)) {
       const crudos = new Map<string, unknown>()
       const valores = deCada.map((el, i) => {
@@ -545,11 +659,24 @@ function reglasPorAtributo(
         return texto
       })
       const regla = reglaDeAtributo(valores, hueco)
-      if (!regla || !crudos.has(regla.valor)) return
+      if (regla === "contradictorio") return
+      if (!regla || !crudos.has(regla.valor)) {
+        // Ninguna regla de la familia explica este atributo. Antes eso tumbaba
+        // la figura entera; ahora se apunta como libre y la predicción sale sin
+        // él. Lo que decide sigue siendo lo deducido: si con eso encaja más de
+        // una alternativa, `dictaminar` lo llama ambiguo.
+        libres.add(`${tipo}.${clave}`)
+        nombres.push(`${clave}: sin regla, se deja libre`)
+        continue
+      }
       armado[clave] = crudos.get(regla.valor)
       nombres.push(`${clave}: ${regla.nombre}`)
       apoyos += regla.apoyos
+      deducidos++
     }
+    // Un elemento del que no se dedujo ni un atributo no es una predicción, es
+    // un hueco con nombre. Con eso no se firma nada.
+    if (clavesDe(muestra).length > 0 && deducidos === 0) return
     elementos.push(armado as unknown as Elemento)
   }
 
@@ -559,7 +686,8 @@ function reglasPorAtributo(
   proponer(
     candidatas,
     { ...molde, elementos },
-    { salto: 0, transformacion: `atributo a atributo — ${nombres.join("; ")}`, apoyos }
+    { salto: 0, transformacion: `atributo a atributo — ${nombres.join("; ")}`, apoyos },
+    libres
   )
 }
 

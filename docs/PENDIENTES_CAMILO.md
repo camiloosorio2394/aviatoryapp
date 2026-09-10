@@ -692,24 +692,95 @@ Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.
 
 ### 9.5 · Dónde quedó cada matriz del A1
 
-Ocho de las veinte están dibujadas y en la aplicación; el resto sigue con su
+Trece de las veinte están dibujadas y en la aplicación; el resto sigue con su
 recorte, ahora sin el logotipo de Facebook donde se pudo quitar.
 
 | Matrices | Estado |
 |---|---|
-| 01, 03, 04, 05, 06, 07, 09 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
+| 01, 03, 04, 05, 06, 07, 09, 11, 12, 17, 19, 20 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
 | 02 | Dibujada. Su regla —los brazos del rombo se añaden y se quitan de uno en uno— no está en la familia del solucionador, así que **no tiene comprobación automática**: hay que aprobarla mirando el HTML de revisión |
-| 08, 10, 11 | **Paradas a propósito.** Juegan con bandas dentro de sectores, con extensiones y con posiciones que no se leen con seguridad en el recorte. Transcribirlas a ojo es justo lo que cambia un ejercicio sin que nadie se entere |
-| 12 a 20 | Sin empezar |
+| 08, 10, 13, 14, 15, 16, 18 | **Paradas, y cada una por su motivo.** Abajo, una por una |
 
-Las tres paradas no son un problema de tiempo: es que hace falta el cuadernillo
-original —`554759531`, que Nico tiene en Descargas— a mejor resolución que el
-recorte, o que alguien las lea al lado del papel. Con eso se dibujan en una
-tarde.
+### 9.5.1 · Volver al PDF original ya no es un remedio
+
+El brief pedía que, si una figura no se lee en el recorte, se vuelva al
+cuadernillo original. Se volvió, y ahí se acaba el camino: cada diapositiva del
+`554759531` es **un JPEG de 720 × 720 píxeles** incrustado en la página. Se
+comprobó en las nueve láminas que faltaban:
+
+```
+pdfimages -list -f 77 -l 77 554759531-Razonamiento-Abstracto-Series-de-Figuras.pdf
+  77   0  image   720  720  rgb  3  8  jpeg   no   615  0   96  96
+```
+
+Los recortes que tenemos son de 974 × 1013, o sea que **ya son más grandes que
+el original**: se rindió la página a 200 ppp y eso amplió el JPEG, sin añadir un
+solo detalle. Rendirla a 400 ppp tampoco sirve, y se probó.
+
+En esos 720 píxeles, cada alternativa de la tira de abajo ocupa unos 120 × 80.
+Eso es lo que hay. Lo que no se distinga ahí no se distingue, y el único remedio
+que queda es leerlo del cuadernillo en papel.
+
+### 9.5.2 · Qué bloquea cada una de las ocho
+
+| Matriz | Qué la para |
+|---|---|
+| **08** | Rectángulo con las dos diagonales. Lo que varía son cuerdas horizontales que cortan el triángulo de arriba a **alturas distintas**, y una barra vertical en el centro. La altura de la cuerda es una medida continua: dos casillas que se parecen pueden ser la misma o no, y no hay forma de decidirlo a esta resolución |
+| **10** | Triángulos dentro de triángulos. La geometría cambia entera de casilla a casilla y no hay un vocabulario corto que la describa sin dibujar `path` a mano, que es justo lo que no se puede hacer aquí: un `path` no se compara, ni se resuelve, ni se verifica |
+| **13** | Un arco en «C» con tres símbolos —triángulo, círculo, cuadrado— repartidos entre cuatro sitios. La **C y la D son la misma alternativa** salvo dónde cae el círculo respecto del vértice del arco: medido sobre los píxeles, el centro está al 21 % del ancho de la caja en la C y al 13 % en la D. Y no hay regla por filas ni por columnas que sostenga ninguna de las dos: el círculo va derecha, arriba, izquierda en la primera fila, y las tres veces izquierda en la segunda |
+| **14** | La cuña negra dentro del círculo sectorizado. Su ángulo **es** la regla, y es pequeña; no se puede fijar con seguridad |
+| **15** | Una cruz con trazos oblicuos. El banco dice que son «la misma figura girada», pero el número de trazos crece —uno, uno, uno / dos, dos, uno / tres, tres, ?—, así que o el enunciado está mal o los trazos no se leen bien. Sea lo que sea, hay que mirarlo con el papel delante antes de dibujar nada |
+| **16** | Distinguir rayado «/» de rayado «\» por cuadrante. La medición automática dio cuadrantes rayados donde a ojo están en blanco, así que la medición está mal, no el ojo |
+| **18** | La para el propio cuadernillo. Está abajo, en 9.5.3, porque el motivo es aprovechable |
+
+### 9.5.3 · La 18 se queda fuera, y no por falta de lectura
+
+Esta conviene contarla entera, porque está a un dato de cerrarse y ese dato lo
+tiene el cuadernillo en papel.
+
+Cada casilla son cuatro cuadrantes en aspa. Todo lo que decide está medido y
+cuadra:
+
+- **La mitad teñida** es constante en cada fila: en la primera, la mitad de
+  abajo a la derecha del cuadrante de arriba a la izquierda; en la segunda, la
+  de abajo a la izquierda del de arriba a la derecha; en la tercera, la de
+  arriba a la izquierda del de abajo a la derecha.
+- **La letra** también: A, B y C, una por fila, siempre en el mismo sitio de su
+  cuadrante.
+- **El punto** aparece una vez por fila y una por columna. Al hueco no le toca.
+- **La barrita negra** también aparece una vez por fila y una por columna. Al
+  hueco **sí** le toca.
+
+Con eso la respuesta es la D, que es lo que dice la clave. El problema es que la
+**B es idéntica a la D** salvo en una cosa: en la B cada cuadrante lleva una
+sola diagonal en vez de las dos. Y la matriz no permite decidir eso, porque se
+contradice a sí misma: las tres casillas de la primera fila pierden una
+diagonal en su cuadrante teñido, la cuarta y la quinta la conservan, y la sexta
+—que es de la misma fila que esas dos y tiene el mismo relleno— la pierde.
+
+No es que el recorte la haya borrado. El gris mínimo a lo largo de esa línea es
+de 24 a 64 en la cuarta y la quinta casilla, y de 235 a 255 en la sexta: en la
+sexta no hay tinta.
+
+Así que hay dos posibilidades, y las dos se resuelven mirando el papel:
+
+1. El cuadernillo tiene un desliz en la sexta casilla. Si es eso, la diagonal
+   está en el original, la regla pasa a ser «todos los cuadrantes con sus dos
+   diagonales salvo en la primera fila», y la figura se cierra sola.
+2. El cuadernillo dibuja las diagonales a ojo. Entonces la B y la D no se
+   distinguen por nada que la matriz enseñe, y el ejercicio se queda fuera.
+
+**Lo que hace falta:** que alguien mire en el cuadernillo impreso la casilla de
+en medio de la derecha del problema 18 y diga si el cuadrante de arriba a la
+derecha tiene una diagonal o dos. Con esa frase se dibuja en veinte minutos.
+
+Las tres primeras filas del brief —11, 14 y 18— quedan así: la **11 está
+hecha**, la 14 sigue fuera por el ángulo de la cuña, y la 18 espera esa
+comprobación.
 
 ### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
 
-`scripts/psicotecnicas/quitar-marca.mjs`. El logotipo del cuadernillo A1 no está
+`scripts/psicotecnicas/quitar-marca.mjs` (ya sustituido por `recortar-laminas.mjs`, ver §12). El logotipo del cuadernillo A1 no está
 dentro de la figura: cae en el hueco entre la matriz y las alternativas, así que
 se puede recortar sin tocar el ejercicio. El script lo localiza por ser lo único
 azul de la lámina, comprueba que entre la franja y el dibujo hay papel por
@@ -858,3 +929,263 @@ Las dos series ambiguas son `NU-N2-08-04` (quitando el 58 o el 43 la serie queda
 limpia) y `NU-N2-08-13` (quitando el 1, el 13 o el 15). No están mal: están mal
 planteadas **en el original**. Se quedan con la respuesta del cuadernillo, pero
 si quieres afinar el banco son las dos primeras candidatas a salir.
+
+## 11 · La migración de psicotécnicas está bloqueada, y no por falta de ganas
+
+Del encargo de cierre, punto 1. **No se pudo aplicar**, y son dos frenos
+independientes: arreglar uno no destraba nada mientras siga el otro.
+
+### 11.1 · El CLI exige mentir en el historial
+
+`supabase db pull` se niega a correr mientras el historial del repositorio y el
+de la base no coincidan, y lo que propone para arreglarlo es exactamente esto:
+
+```
+supabase migration repair --status reverted 20260730050401
+… (veintiuna en total)
+```
+
+Marcar como **revertidas** veintiuna migraciones que están **aplicadas** es lo
+que el propio encargo prohíbe, y con razón: deja escrito en la base algo que no
+es cierto. No lo hice.
+
+Hay una lectura más benévola —`repair` solo toca la tabla de control, no el
+esquema, y el `db pull` posterior recogería el estado real en un archivo— pero
+esa lectura hay que confirmarla antes, no después, y quien decide sobre esa base
+eres tú.
+
+### 11.2 · Y aunque se destrabara, falta Docker
+
+`supabase db pull` y `supabase db dump` levantan un contenedor para volcar y
+comparar el esquema. **En esta máquina no hay Docker**: ni Docker Desktop, ni
+`colima`, ni `podman`. Así que ni siquiera se puede hacer la parte inofensiva
+—traer el esquema vivo a un archivo para leerlo— que es justo el paso que el
+encargo marca como el que no se puede saltar.
+
+Sin ese volcado no hay forma de mirar `check_and_unlock_achievements` en su
+versión viva y compararla línea a línea con la del repositorio. Y sin esa
+comparación, aplicar es apostar.
+
+### 11.3 · Lo que sí quedó claro
+
+La migración pendiente es solo una: `20260908010000_modulo_psicotecnicas.sql`.
+El CLI confirma que la base tiene **veintiuna** migraciones aplicadas a mano sin
+archivo, no doce como decía la nota anterior, y que del repositorio faltan por
+aplicar también `20260801030000`, `20260801040000` y `20260803150000`.
+
+Dos caminos, y los dos son tuyos:
+
+1. **Desde tu máquina**, si tienes Docker: `db pull`, leer el diff entero
+   —sobre todo esa función— y `db push`.
+2. **Desde el editor SQL de la consola**, aplicando a mano el contenido de
+   `20260908010000_modulo_psicotecnicas.sql`, que es puramente aditivo y no
+   recrea la función de logros. Después, `migration repair --status applied
+   20260908010000` para que el historial lo refleje.
+
+El segundo camino evita el `db pull` entero y con él todo el riesgo de pisar la
+función. Es el que yo elegiría.
+
+## 12 · Las veinte láminas del A1, rehechas desde el PDF
+
+Nico vio en la app que la opción C salía tachada. No estaba tachada: **el
+recorte partía la fila de letras por la mitad**. De la C solo sobrevivía el arco
+de abajo de su recuadro —que en pantalla se lee como un tachón— y la D y la E
+quedaban mordidas. Las veinte compartían el mismo encuadre de 1123 × 821, así
+que era el recorte y no el original.
+
+Ahora salen del PDF, con `scripts/psicotecnicas/recortar-laminas.mjs`. Lo que se
+gana de una vez:
+
+- Las cinco letras enteras, que era el defecto que se veía.
+- **El logotipo de Facebook desaparece de las veinte**, incluidas la 11, la 14 y
+  la 18, que eran las tres que el recorte anterior no podía limpiar sin morder
+  el dibujo. Ya no queda ninguna marca ajena en el módulo abstracto.
+- Fuera también la banda amarilla de la escuela, su logotipo, el correo, las
+  flechas de navegación y la paginación del cuadernillo. Lo que queda es el
+  ejercicio.
+- Más resolución: 974 px de ancho contra los 1123 de una captura, pero rendidos
+  a 200 puntos por pulgada desde el vector, así que el trazo es limpio.
+
+`quitar-marca.mjs` queda borrado: hacía peor lo mismo, partiendo de una captura
+en vez del original.
+
+Sigue en pie dibujar las doce que faltan. Esto no lo sustituye: arregla lo que se
+veía mal hoy, y quita la marca ajena, pero un recorte sigue siendo material de
+otro.
+
+## 13 · El damero de las láminas espaciales
+
+Nico vio un ejercicio espacial que en la app parecía una imagen rota: la figura
+diminuta en una esquina y el resto una cuadrícula gris. No era transparencia:
+las láminas del cuadernillo E2 salieron de diapositivas con fondo transparente,
+y al exportarlas **la cuadrícula que los editores dibujan para decir «aquí no
+hay nada» quedó pintada dentro del pixel**. Doce láminas lo tenían.
+
+`scripts/psicotecnicas/limpiar-espacial.mjs` lo apaga y reencuadra. El umbral no
+es a ojo: el damero vive exactamente en 240 y 255, y el dibujo de estas láminas
+no pasa de 224, así que se separan sin tocar el sombreado de mesas ni cubos.
+Los cuatro ejercicios pasaron de 1181×855 con la figura al 20 % a un encuadre
+ajustado.
+
+### 13.1 · Y una que sí estaba mordida
+
+`ES-E2-10` —el de los dos dados sobre la mesa— **tenía cortada la cara de arriba
+del dado superior**, y ese ejercicio pide contar los puntos que NO se ven. Con
+la cara cortada, la pregunta no se puede responder mirando.
+
+Esa no se arregla reencuadrando, porque lo que falta ya no está en el archivo.
+Se rehizo desde la página 13 del PDF, donde el dado sale entero. Comprobado que
+la respuesta sigue cuadrando: dos dados son 42 puntos, se ven 1+5+3 arriba y 5+3
+abajo —17—, quedan **25**, que es la A y es lo que dice la fuente.
+
+### 13.2 · Lo que NO se pudo automatizar, y por qué queda anotado
+
+Intenté sacar las cuatro del PDF con detección automática de la figura dentro de
+la diapositiva. **No es fiable y lo dejé fuera**: en dos de los cuatro intentos
+el recorte se llevó por delante la lista de alternativas, y en esas diapositivas
+la respuesta correcta va resaltada en amarillo. Un recorte automático que falla
+así no muestra una imagen fea: **le enseña la respuesta al alumno**.
+
+La 10 se recortó a mano con coordenadas comprobadas una a una. Si hay que rehacer
+otra desde el PDF, que sea igual: a mano y mirándola.
+
+### 13.3 · Los ocho ejemplos siguen mordidos en origen
+
+`ES-E2-ejemplo-04` a `-09`, `-14` y `-15` tienen el dibujo pegado al borde del
+lienzo, o sea que el recorte original ya los cortó. El damero sí se les quitó,
+pero lo que falta del dibujo no vuelve sin ir al PDF. Salen en la lección
+Aprende, no en un ejercicio con respuesta, así que el daño es menor — pero está
+sin arreglar y conviene saberlo.
+
+## 14 · Reportar un fallo desde la app
+
+Los tres últimos fallos del módulo —la fila de letras cortada, el damero de
+fondo, el dado sin su cara de arriba— **los encontró Nico mirando la pantalla,
+no ninguno de los seis verificadores**. Y no fue mala suerte: los verificadores
+comprueban que la respuesta sea la correcta y que el archivo exista, y ninguno
+puede mirar si la imagen se ve bien. Ese hueco no se tapa con más verificadores.
+
+Quien sí mira todas las pantallas, todos los días, es el piloto.
+
+Debajo de cada ejercicio hay ahora un «¿Algo mal en esta pregunta?»: cuatro
+motivos de un toque —imagen, respuesta, enunciado, otra cosa— y un campo libre
+opcional. El reporte se guarda con el **identificador de la ficha**, y ahí está
+todo el valor: «una imagen se ve mal» no se puede arreglar; «ES-E2-10, la figura
+está cortada» lleva directo al archivo, a la ficha y a la página del cuadernillo.
+
+Sale en dos sitios: en el reproductor cuando ya se reveló la respuesta —durante
+la tanda cronometrada no, que ahí cualquier cosa roba tiempo— y en el repaso del
+informe, que es la única ocasión en que un piloto de evaluación o de simulacro
+vuelve a ver la figura con calma.
+
+### 14.1 · Por qué no es un correo
+
+Porque hoy no hay a dónde mandarlo: no hay dominio, `hola@aviatory.app` no tiene
+MX, y el remitente de fábrica de Supabase está limitado a unos pocos envíos por
+hora. Un aviso por correo se perdería en silencio, que es peor que no tenerlo.
+
+Va a una tabla, `content_reports`, que puedes consultar desde la consola desde el
+primer día. Cuando haya correo, añadir el aviso encima es una línea.
+
+### 14.2 · Lo que necesita de ti
+
+**La migración `20260909010000_reportes_de_contenido.sql`.** Hasta que se aplique,
+el botón sale pero el envío falla, y lo dice: no finge un «gracias» sobre un
+reporte que no llegó a ninguna parte.
+
+Es aditiva como la de psicotécnicas —su tabla, sus dos índices, sus dos
+políticas— y no toca `check_and_unlock_achievements`. Las dos se pueden aplicar
+en la misma sesión de consola.
+
+Para leerlos:
+
+```sql
+select created_at, modulo, ejercicio_id, motivo, detalle, contexto
+from public.content_reports
+where estado = 'nuevo'
+order by created_at desc;
+```
+
+Y para cerrarlos: `update public.content_reports set estado = 'arreglado' where id = '…';`
+No hay política de update para los pilotos a propósito: marcar un reporte como
+atendido es de quien lo atiende, no de quien lo mandó.
+
+---
+
+## 15 · Cuatro matrices más del A1 (10 de septiembre de 2026)
+
+Están dibujadas la **11, la 12, la 19 y la 20**. Con las ocho de antes, doce de
+veinte. Las cuatro las deduce el solucionador por su cuenta y las cuatro
+coinciden con la clave impresa del cuadernillo.
+
+| | Regla | Responde |
+|---|---|---|
+| **11** | La letra y la trama del lomo van en sudoku, y hay un tercero fuera del recuadro: de cada casilla cuelga un tallo y la barra del final aparece dos veces por fila y dos por columna | A |
+| **12** | Dos sudokus a la vez: el símbolo —asterisco, viga, línea— y la cantidad —tres, cuatro, cinco— | E |
+| **19** | Los puntos van 0, 2 y 4 en cada fila. Las columnas no dicen nada | E |
+| **20** | La tercera casilla de cada fila es la **suma** de las dos anteriores | A |
+
+### 15.1 · Dos cosas se contaron con el ordenador, no con el ojo
+
+En la **12**, la segunda casilla tiene cuatro líneas verticales, no cinco. A ojo
+se cuentan mal. Se contaron buscando tramos oscuros en una fila de píxeles, y el
+resultado se comprueba solo: con cinco, el cuadro de cantidades no cierra.
+
+En la **19**, los puntos se contaron detectando manchas macizas —discos negros
+de tamaño y densidad conocidos—, no mirando. Cuatro y cinco puntos se confunden.
+
+Esto es lo que hay que hacer con lo que se cuenta. El ojo sirve para decir «hay
+un asterisco», no para decir «hay cinco».
+
+### 15.2 · El solucionador aprendió dos cosas, y desaprendió una
+
+**Un atributo sin regla ya no tumba la figura.** En la 12, la orientación de la
+línea que falta no es regla de fila ni de columna: las tres líneas giran
+cuarenta y cinco grados cada vez, y declararle al programa qué orientaciones
+existen sería escribirle la respuesta. Ahora ese atributo se marca como libre,
+la predicción sale sin él y se exige que encaje **una sola** alternativa. Si
+encajaran dos, sigue saliendo ambiguo.
+
+**Una regla nueva, más floja y por eso más exigente.** La 19 se sostiene solo
+por filas —la columna del medio trae dos, dos y cuatro—, así que hizo falta
+«mismo reparto en cada fila, no en las columnas». Para valer pide que el reparto
+sean **tres valores distintos**: un reparto de dos, del tipo «dos sí y un no»,
+repetido en tres filas sale por casualidad demasiado a menudo. Vale dos apoyos,
+los justos, y el verificador la nombra entera para que se vea sobre qué se
+apoya cada figura.
+
+**Y lo que se desapretó de más:** al dejar libres los atributos sin regla se
+estaban dejando libres también los que tenían dos reglas **contradiciéndose**.
+No es lo mismo. No saber es no saber; decir dos cosas a la vez significa que la
+transcripción o la figura están mal, y eso vuelve a sacar al ejercicio del
+banco. Ya están separados los dos casos.
+
+### 15.3 · Cómo comprobarlo
+
+```bash
+node scripts/psicotecnicas/verificar-figuras.mjs
+node scripts/psicotecnicas/revisar-modulo.mjs
+```
+
+El primero falla si una figura dibujada no está ni deducida ni firmada. El
+segundo escribe `revision-modulo.html` con los 238 ejercicios para mirarlos de
+golpe. Hoy: **12 dibujadas, 11 deducidas automáticamente**, y la 02 sigue
+esperando que una persona la refrende.
+
+### 15.4 · Y una más: la 17
+
+Entró después de las cuatro de arriba, y merece una línea porque casi se queda
+fuera por una lectura mía equivocada. Las puntas del casco no son «negra o
+blanca»: se tiñe **media** punta, la de arriba o la de abajo, y eso es la regla.
+Leídas como enteras, el ejercicio se queda sin nada que seguir. Se midió la
+densidad de tinta en las cuatro medias puntas de cada casilla —0.72 contra
+0.15— y ahí no hay discusión.
+
+El solucionador, además, se plantó con razón: el cuerpo viene partido en cuatro
+cuadros, en cuatro columnas o entero, y esa partición hasta cae en un cuadro por
+columnas, así que predecía una casilla partida que no encaja con ninguna
+alternativa. Pero **las cinco alternativas traen el cuerpo entero**: el
+cuadernillo no está preguntando eso. Ahora se ignoran los atributos que valen lo
+mismo en las cinco, que es un veto que solo podía inventar desacuerdos.
+
+Con la 17 van **trece de veinte**.

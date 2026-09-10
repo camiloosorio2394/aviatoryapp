@@ -54,6 +54,8 @@ export type Relleno =
   | "rayado-vertical"
   | "punteado"
   | "cuadricula"
+  | "escamas"
+  | "rayado-punteado"
 
 export type Esquina =
   | "inferior-izquierda"
@@ -113,6 +115,126 @@ export type Elemento =
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  /**
+   * El casco del ejercicio 17: un cuerpo rectangular con una punta a cada lado,
+   * un remate encima y, en dos alternativas, una sombra negra por dentro.
+   *
+   * Las puntas no son «negra o blanca»: se tiñe **media** punta, la de arriba o
+   * la de abajo, y eso es la regla de la matriz. Leerlas como enteras es
+   * quedarse sin ejercicio, y fue la primera lectura que se hizo.
+   *
+   * `particion` es cómo viene partido el cuerpo: entero, en cuatro cuadros —una
+   * raya vertical y otra horizontal— o en cuatro columnas. Se transcribe porque
+   * está, no porque decida: **las cinco alternativas traen el cuerpo entero**,
+   * así que el cuadernillo no pregunta por esto y el ejercicio no tendría forma
+   * de responderlo.
+   *
+   * `sombra` es «ninguna» en las ocho casillas: solo la usan la B y la E, que
+   * meten un triángulo negro dentro del cuerpo. Se declara igual, porque que
+   * sea constante es justo lo que descarta esas dos.
+   */
+  | {
+      tipo: "casco"
+      puntaIzquierda: "blanca" | "arriba" | "abajo" | "negra"
+      puntaDerecha: "blanca" | "arriba" | "abajo" | "negra"
+      cuerpo: Relleno
+      particion: "ninguna" | "cuatro-cuadros" | "cuatro-columnas"
+      remate: "torre" | "triangulo" | "plancha"
+      remateRelleno: Relleno
+      sombra: "ninguna" | "media-diagonal" | "monte"
+    }
+  /** Una recta de lado a lado de la casilla. */
+  | { tipo: "diagonal"; sentido: "subiendo" | "bajando" | "tendida" }
+  /**
+   * La diagonal de un cuadrante, de su esquina de abajo a la izquierda a la de
+   * arriba a la derecha.
+   *
+   * Va suelta y no dentro de `cuadrante-tenido` porque en el ejercicio 20 hay
+   * cuadrantes con diagonal y sin teñir, y sobre todo porque la matriz se
+   * resuelve sumando casillas: si la diagonal viniera pegada al relleno, la
+   * suma de una casilla teñida y una que no lo está dejaría dos diagonales
+   * encima de la misma.
+   */
+  | { tipo: "diagonal-cuadrante"; cuadrante: Cuadrante }
+  /** El triángulo de arriba a la izquierda de un cuadrante, teñido. */
+  | { tipo: "cuadrante-tenido"; cuadrante: Cuadrante; relleno: Relleno }
+  /**
+   * El círculo o el cuadrado que cuelga de la línea de arriba, con su tramo de
+   * línea hacia el centro.
+   *
+   * El tramo va con la marca y no aparte: en el cuadernillo la línea llega
+   * hasta pasado el medio cuando hay una sola marca y cruza la casilla entera
+   * cuando hay dos, que es exactamente lo que sale al juntar los dos tramos.
+   */
+  | { tipo: "marca-colgada"; lado: "izquierda" | "derecha"; forma: "circulo" | "cuadrado" }
+  /**
+   * Los discos negros del ejercicio 19, y de qué lado de la diagonal caen.
+   *
+   * `cuantos: 0` se declara igual que cualquier otra cantidad, en vez de
+   * quitar el elemento: en esa matriz el cero es uno de los tres valores que
+   * se reparten —cero, dos y cuatro—, y si al no haber puntos desapareciera el
+   * elemento, desaparecería con él el atributo y la regla dejaría de poder
+   * comprobarse. `lado: "ninguno"` es «por toda la casilla», que es lo que
+   * hace la alternativa A al no tener un solo lado.
+   *
+   * Dónde cae cada disco no se declara: lo que la matriz hace variar es
+   * cuántos son y de qué lado, y fijar coordenadas sería inventar precisión.
+   */
+  | { tipo: "puntos"; cuantos: number; lado: "arriba" | "abajo" | "ninguno" }
+  /**
+   * La figurita que acompaña a los puntos: una escuadra —un cuadrito con su
+   * diagonal— o un corchete en ángulo.
+   *
+   * Como con los puntos, la ausencia es un valor y no una falta: en la matriz
+   * 19 cada fila reparte escuadra, corchete y nada.
+   */
+  | {
+      tipo: "remate"
+      forma: "escuadra" | "corchete" | "ninguno"
+      lado: "arriba" | "abajo" | "centro" | "ninguno"
+    }
+  /**
+   * La casilla del ejercicio 11: un lomo redondeado a la izquierda, dos
+   * lóbulos a la derecha con una letra metida en el de arriba, y un tallo que
+   * cuelga por debajo del recuadro rematado a veces con una barra.
+   *
+   * Va como un elemento y no como cinco sueltos porque las cinco piezas son
+   * siempre las mismas y en el mismo sitio: lo que la matriz hace variar son
+   * los cuatro atributos que van aquí. El lóbulo de arriba no está entre
+   * ellos porque en las ocho casillas y en las cinco alternativas es blanco
+   * —es donde vive la letra—, y un atributo que nunca cambia no es un
+   * atributo.
+   *
+   * El tallo lo llevan todas; lo que aparece y desaparece es la barra del
+   * final, y por eso se declara sola.
+   */
+  | {
+      tipo: "cuadro-lobulos"
+      letra: "A" | "C" | "D" | "ninguna"
+      /** La trama del lomo de la izquierda. */
+      lomo: Relleno
+      /** La del lóbulo de abajo a la derecha. */
+      lobulo: Relleno
+      barra: boolean
+    }
+  /**
+   * Un grupo de símbolos iguales, y cuántos hay.
+   *
+   * En esta familia lo que varía no es dónde está cada símbolo sino **cuál es y
+   * cuántos son**, así que la posición no se declara: se reparten solos en una
+   * retícula. Declarar coordenadas aquí sería fijar algo que el ejercicio no
+   * pregunta, y de paso volver la figura incomparable entre casillas.
+   *
+   * Las líneas llevan orientación porque en esta familia las tres —vertical,
+   * diagonal y horizontal— son el mismo símbolo girado, y esa rotación es parte
+   * de la regla.
+   */
+  | {
+      tipo: "grupo-simbolos"
+      simbolo: "asterisco" | "i" | "linea"
+      orientacion: "vertical" | "diagonal" | "horizontal" | "ninguna"
+      cantidad: number
+    }
   /**
    * El rectángulo partido en dos y una de las mitades rellena.
    *
@@ -262,6 +384,20 @@ const TRAMAS: Record<string, string> = {
   cuadricula:
     `<pattern id="psico-cuadricula" width="9" height="9" patternUnits="userSpaceOnUse">` +
     `<path d="M0 0 H9 M0 0 V9" stroke="currentColor" stroke-width="1.4" fill="none"/></pattern>`,
+  // Bandas en diagonal con un punto en cada una: el relleno del cuerpo en el
+  // ejercicio 17. Se parece al rayado a secas y no lo es, y en esa matriz la
+  // diferencia entre un cuerpo rayado y uno en blanco es media respuesta.
+  "rayado-punteado":
+    `<pattern id="psico-rayado-punteado" width="11" height="11" patternUnits="userSpaceOnUse"` +
+    ` patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="11"` +
+    ` stroke="currentColor" stroke-width="2"/>` +
+    `<circle cx="5.5" cy="5.5" r="1.5" fill="currentColor"/></pattern>`,
+  // Las escamas solo las usa la alternativa E del ejercicio 11, y ahí son todo
+  // el truco: es la única que acierta la letra y falla la trama.
+  escamas:
+    `<pattern id="psico-escamas" width="12" height="7" patternUnits="userSpaceOnUse">` +
+    `<path d="M0 7 A6 6 0 0 1 12 7 M-6 0 A6 6 0 0 1 6 0 M6 0 A6 6 0 0 1 18 0"` +
+    ` fill="none" stroke="currentColor" stroke-width="1.3"/></pattern>`,
 }
 
 /** Cómo se pinta un relleno dentro de un `fill`. */
@@ -417,6 +553,23 @@ function dibujarCelda(
       `<line x1="${x}" y1="${my}" x2="${x + ancho}" y2="${my}"` +
         ` stroke="currentColor" stroke-width="${TRAZO}"/>`
     )
+  }
+
+  // Cuando una casilla trae varios grupos de símbolos distintos —la alternativa
+  // B del ejercicio 12 mete un asterisco y una viga en la misma caja— cada
+  // grupo se queda con su franja, para que no se dibujen uno encima de otro.
+  // Las líneas no cuentan: atraviesan la casilla entera, que es lo que son.
+  const enFranjas = celda.elementos.filter(
+    (el) => el.tipo === "grupo-simbolos" && el.simbolo !== "linea"
+  )
+  const franjaDe = (el: Elemento) => {
+    const i = enFranjas.indexOf(el)
+    if (i < 0 || enFranjas.length < 2) return { x, ancho }
+    // Con margen: sin él los símbolos de la franja se pegan a la línea que
+    // separa las dos mitades y parece que la tocan.
+    const paso = ancho / enFranjas.length
+    const margen = ancho * 0.08
+    return { x: x + i * paso + margen, ancho: paso - margen * 2 }
   }
 
   for (const el of celda.elementos) {
@@ -675,6 +828,328 @@ function dibujarCelda(
         break
       }
 
+      case "casco": {
+        const F = (u: number) => x + ancho * u
+        const G = (v: number) => y + alto * v
+        const xi = F(0.03), xd = F(0.97), b0 = F(0.17), b1 = F(0.83)
+        const arr = G(0.385), abj = G(0.74), med = G(0.5625)
+        const borde = ` stroke="currentColor" stroke-width="${TRAZO}"`
+        const P = (...ps: number[][]) => ps.map(([a, c]) => `${a.toFixed(1)},${c.toFixed(1)}`).join(" ")
+
+        // Cuerpo y sus rayas.
+        partes.push(
+          `<rect x="${b0.toFixed(1)}" y="${arr.toFixed(1)}" width="${(b1 - b0).toFixed(1)}"` +
+            ` height="${(abj - arr).toFixed(1)}" fill="${pintura(el.cuerpo)}"${borde}/>`
+        )
+        const rayas = el.particion === "cuatro-columnas" ? 3 : el.particion === "cuatro-cuadros" ? 1 : 0
+        for (let k = 1; k <= rayas; k++) {
+          const px = (b0 + ((b1 - b0) * k) / (rayas + 1)).toFixed(1)
+          partes.push(`<line x1="${px}" y1="${arr}" x2="${px}" y2="${abj}"${borde}/>`)
+        }
+        if (el.particion === "cuatro-cuadros") {
+          const py = ((arr + abj) / 2).toFixed(1)
+          partes.push(`<line x1="${b0.toFixed(1)}" y1="${py}" x2="${b1.toFixed(1)}" y2="${py}"${borde}/>`)
+        }
+
+        // Las dos puntas, cada una en dos mitades para poder teñir solo una.
+        const punta = (
+          base: number,
+          vertice: number,
+          cual: "blanca" | "arriba" | "abajo" | "negra"
+        ) => {
+          const relleno = (mitad: "arriba" | "abajo") =>
+            cual === "negra" || cual === mitad ? "currentColor" : "var(--card, #fff)"
+          partes.push(
+            `<polygon points="${P([base, arr], [base, med], [vertice, med])}"` +
+              ` fill="${relleno("arriba")}"${borde}/>`,
+            `<polygon points="${P([base, med], [base, abj], [vertice, med])}"` +
+              ` fill="${relleno("abajo")}"${borde}/>`
+          )
+        }
+        punta(b0, xi, el.puntaIzquierda)
+        punta(b1, xd, el.puntaDerecha)
+
+        // El remate, encima del cuerpo.
+        if (el.remate === "torre") {
+          partes.push(
+            `<rect x="${F(0.455).toFixed(1)}" y="${G(0.135).toFixed(1)}"` +
+              ` width="${(ancho * 0.09).toFixed(1)}" height="${(arr - G(0.135)).toFixed(1)}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        } else if (el.remate === "triangulo") {
+          partes.push(
+            `<polygon points="${P([F(0.5), G(0.07)], [F(0.58), arr], [F(0.42), arr])}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        } else {
+          partes.push(
+            `<rect x="${F(0.25).toFixed(1)}" y="${G(0.265).toFixed(1)}"` +
+              ` width="${(ancho * 0.5).toFixed(1)}" height="${(arr - G(0.265)).toFixed(1)}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        }
+
+        // La sombra va la última: en la alternativa E la punta del monte se ve
+        // por dentro del remate, como en el cuadernillo.
+        if (el.sombra === "media-diagonal") {
+          partes.push(
+            `<polygon points="${P([b0, abj], [b1, abj], [b1, arr])}" fill="currentColor"/>`
+          )
+        } else if (el.sombra === "monte") {
+          partes.push(
+            `<polygon points="${P([b0, abj], [F(0.5), G(0.16)], [b1, abj])}" fill="currentColor"/>`
+          )
+        }
+        break
+      }
+
+      case "diagonal-cuadrante":
+      case "cuadrante-tenido": {
+        const qa = ancho / 2
+        const qb = alto / 2
+        const qx = x + (el.cuadrante % 2) * qa
+        const qy = y + Math.floor(el.cuadrante / 2) * qb
+        if (el.tipo === "diagonal-cuadrante") {
+          partes.push(
+            `<line x1="${qx}" y1="${qy + qb}" x2="${qx + qa}" y2="${qy}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+          break
+        }
+        // Medio trazo hacia dentro por arriba y por la izquierda: el relleno
+        // muere contra el marco y contra la cruz, y si se pintara justo encima
+        // se las comería.
+        const d = TRAZO / 2
+        partes.push(
+          `<polygon points="${qx + d},${qy + d} ${qx + qa},${qy + d} ${qx + d},${qy + qb}"` +
+            ` fill="${pintura(el.relleno)}" stroke="none"/>`
+        )
+        break
+      }
+
+      case "marca-colgada": {
+        const cy = y + alto * 0.25
+        const r = ancho * 0.055
+        const cx = x + ancho * (el.lado === "izquierda" ? 0.28 : 0.72)
+        const [x1, x2] =
+          el.lado === "izquierda"
+            ? [cx + r, x + ancho * 0.56]
+            : [x + ancho * 0.44, cx - r]
+        partes.push(
+          `<line x1="${x1.toFixed(1)}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${cy}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`,
+          el.forma === "circulo"
+            ? `<circle cx="${cx.toFixed(1)}" cy="${cy}" r="${r.toFixed(1)}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+            : `<rect x="${(cx - r).toFixed(1)}" y="${(cy - r).toFixed(1)}"` +
+              ` width="${(r * 2).toFixed(1)}" height="${(r * 2).toFixed(1)}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "diagonal": {
+        const [x1, y1, x2, y2] =
+          el.sentido === "subiendo"
+            ? [x, y + alto, x + ancho, y]
+            : el.sentido === "bajando"
+              ? [x, y, x + ancho, y + alto]
+              : [x, y + alto, x + ancho, y + alto / 2]
+        partes.push(
+          `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "puntos": {
+        // Sitios fijos dentro del triángulo de arriba a la izquierda. Para el
+        // de abajo se giran media vuelta, que es lo que hace el cuadernillo.
+        const EN_TRIANGULO = [
+          [0.16, 0.16], [0.52, 0.14], [0.3, 0.4], [0.14, 0.58], [0.44, 0.3],
+          [0.16, 0.36], [0.34, 0.16],
+        ]
+        const POR_TODA = [
+          [0.3, 0.14], [0.14, 0.34], [0.62, 0.3], [0.42, 0.46], [0.24, 0.7],
+          [0.5, 0.76], [0.74, 0.72],
+        ]
+        const r = ancho * 0.037
+        for (let k = 0; k < Math.min(el.cuantos, 7); k++) {
+          const [u, v] =
+            el.lado === "ninguno" ? POR_TODA[k] : EN_TRIANGULO[k]
+          const [uu, vv] = el.lado === "abajo" ? [1 - u, 1 - v] : [u, v]
+          partes.push(
+            `<circle cx="${(x + ancho * uu).toFixed(1)}" cy="${(y + alto * vv).toFixed(1)}"` +
+              ` r="${r.toFixed(1)}" fill="currentColor"/>`
+          )
+        }
+        break
+      }
+
+      case "remate": {
+        if (el.forma === "ninguno") break
+        const P = (u: number, v: number) =>
+          `${(x + ancho * u).toFixed(1)},${(y + alto * v).toFixed(1)}`
+        const trazo = ` fill="none" stroke="currentColor" stroke-width="${TRAZO}"`
+        if (el.forma === "escuadra") {
+          // Un cuadrito con su diagonal, que va al revés que la grande.
+          const [u0, v0, u1, v1] =
+            el.lado === "arriba"
+              ? [0.22, 0.0, 0.4, 0.58]
+              : el.lado === "centro"
+                ? [0.42, 0.28, 0.6, 0.72]
+                : [0.6, 0.42, 0.78, 1.0]
+          partes.push(
+            `<path d="M${P(u0, v0)} L${P(u1, v0)} L${P(u1, v1)} L${P(u0, v1)} Z` +
+              ` M${P(u0, v0)} L${P(u1, v1)}"${trazo}/>`
+          )
+        } else {
+          // El corchete: la esquina, el brazo a la derecha y la pata.
+          const [u, v, uBrazo, vPata] =
+            el.lado === "arriba" ? [0.28, 0.06, 0.5, 0.5] : [0.58, 0.42, 0.8, 1.0]
+          partes.push(`<path d="M${P(uBrazo, v)} L${P(u, v)} L${P(u, vPata)}"${trazo}/>`)
+        }
+        break
+      }
+
+      case "cuadro-lobulos": {
+        const mx = x + ancho / 2
+        const borde = ` stroke="currentColor" stroke-width="${TRAZO}"`
+        // El lomo y los lóbulos mueren en los bordes del recuadro, así que se
+        // meten medio trazo hacia dentro: si se dibujaran justo encima, su
+        // relleno se comería la raya del marco y el recuadro saldría roto por
+        // los cuatro sitios donde lo tocan.
+        const izq = x + TRAZO / 2
+        const der = x + ancho - TRAZO / 2
+        const arr = y + TRAZO / 2
+        const abj = y + alto - TRAZO / 2
+        const medio = y + alto / 2
+        const r = (abj - arr) / 2 // el redondeo del lomo: media casilla de alto
+        const rl = (abj - arr) / 4 // el de cada lóbulo, que son dos en la misma altura
+
+        // El lomo: recto desde la raya del medio y redondeado al llegar al
+        // borde izquierdo, que es donde muere.
+        partes.push(
+          `<path d="M${mx},${arr} H${(izq + r).toFixed(1)} A${r.toFixed(1)},${r.toFixed(1)} 0 0 0` +
+            ` ${(izq + r).toFixed(1)},${abj} H${mx} Z" fill="${pintura(el.lomo)}"${borde}/>`
+        )
+
+        // Los dos lóbulos de la derecha, uno encima del otro. El de arriba
+        // siempre blanco: es el que lleva la letra.
+        const lobulo = (arriba: boolean, relleno: Relleno) => {
+          const y0 = arriba ? arr : medio
+          const y1 = arriba ? medio : abj
+          return (
+            `<path d="M${mx},${y0} H${(der - rl).toFixed(1)} A${rl.toFixed(1)},${rl.toFixed(1)} 0 0 1` +
+            ` ${(der - rl).toFixed(1)},${y1} H${mx} Z" fill="${pintura(relleno)}"${borde}/>`
+          )
+        }
+        partes.push(lobulo(true, "blanco"), lobulo(false, el.lobulo))
+
+        // La raya del medio, encima de los rellenos para que no se la coman.
+        partes.push(`<line x1="${mx}" y1="${arr}" x2="${mx}" y2="${abj}"${borde}/>`)
+
+        if (el.letra !== "ninguna") {
+          partes.push(
+            `<text x="${((mx + der - rl) / 2).toFixed(1)}" y="${(y + alto * 0.27).toFixed(1)}"` +
+              ` font-family="Georgia, 'Times New Roman', serif" font-size="${(alto * 0.34).toFixed(1)}"` +
+              ` text-anchor="middle" dominant-baseline="central" fill="currentColor">${el.letra}</text>`
+          )
+        }
+
+        // El tallo cuelga por debajo del recuadro: el lienzo le reserva sitio
+        // en `colaDe`, y sin esa reserva saldría cortado.
+        const finTallo = y + alto + COLA * 0.62
+        partes.push(`<line x1="${mx}" y1="${y + alto}" x2="${mx}" y2="${finTallo}"${borde}/>`)
+        if (el.barra) {
+          const media = ancho * 0.085
+          partes.push(
+            `<line x1="${mx - media}" y1="${finTallo}" x2="${mx + media}" y2="${finTallo}"${borde}/>`
+          )
+        }
+        break
+      }
+
+      case "grupo-simbolos": {
+        if (el.simbolo === "linea") {
+          // Las líneas cruzan la casilla de lado a lado y se reparten a
+          // intervalos iguales: con `n` líneas quedan `n + 1` franjas.
+          for (let k = 1; k <= el.cantidad; k++) {
+            const t = k / (el.cantidad + 1)
+            if (el.orientacion === "vertical") {
+              const px = (x + ancho * t).toFixed(1)
+              partes.push(
+                `<line x1="${px}" y1="${y}" x2="${px}" y2="${y + alto}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            } else if (el.orientacion === "horizontal") {
+              const py = (y + alto * t).toFixed(1)
+              partes.push(
+                `<line x1="${x}" y1="${py}" x2="${x + ancho}" y2="${py}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            } else {
+              // Diagonales «/»: todas cumplen x + y = c. Los extremos se
+              // calculan recortados contra los cuatro lados en vez de dibujar
+              // la recta entera y taparla, que deja el trazo asomando en los
+              // navegadores que no recortan igual.
+              const c = x + y + (ancho + alto) * t
+              const ax = Math.max(x, c - (y + alto))
+              const bx = Math.min(x + ancho, c - y)
+              partes.push(
+                `<line x1="${ax.toFixed(1)}" y1="${(c - ax).toFixed(1)}"` +
+                  ` x2="${bx.toFixed(1)}" y2="${(c - bx).toFixed(1)}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            }
+          }
+          break
+        }
+
+        // Asteriscos y vigas se reparten en una retícula centrada en su franja,
+        // hasta tres por fila.
+        const franja = franjaDe(el)
+        // Lo más cuadrado que quepa: tres van en fila, cuatro en dos por dos,
+        // cinco en tres y dos. Es como los reparte el cuadernillo.
+        const porFila = Math.ceil(Math.sqrt(el.cantidad))
+        const filas = Math.ceil(el.cantidad / porFila)
+        const paso = Math.min(franja.ancho / (porFila + 1), alto / (filas + 1))
+        const r = paso * 0.32
+        let puestos = 0
+        for (let f = 0; f < filas; f++) {
+          const enEsta = Math.min(porFila, el.cantidad - puestos)
+          for (let k = 0; k < enEsta; k++) {
+            const cx = franja.x + franja.ancho / 2 + (k - (enEsta - 1) / 2) * paso
+            const cy = y + alto / 2 + (f - (filas - 1) / 2) * paso
+            if (el.simbolo === "asterisco") {
+              // Tres trazos cruzados de punta redonda: es lo que el ojo lee
+              // como asterisco sin dibujar seis pétalos.
+              for (const grados of [0, 60, 120]) {
+                partes.push(
+                  `<line x1="${(cx - r).toFixed(1)}" y1="${cy.toFixed(1)}"` +
+                    ` x2="${(cx + r).toFixed(1)}" y2="${cy.toFixed(1)}"` +
+                    ` transform="rotate(${grados} ${cx.toFixed(1)} ${cy.toFixed(1)})"` +
+                    ` stroke="currentColor" stroke-width="${(r * 0.44).toFixed(1)}"` +
+                    ` stroke-linecap="round"/>`
+                )
+              }
+            } else {
+              // La viga: el palo, su remate arriba y las dos patas abiertas.
+              partes.push(
+                `<path d="M${(cx - r * 0.85).toFixed(1)},${(cy - r).toFixed(1)} h${(r * 1.7).toFixed(1)}` +
+                  ` M${cx.toFixed(1)},${(cy - r).toFixed(1)} V${(cy + r * 0.5).toFixed(1)}` +
+                  ` M${(cx - r * 0.9).toFixed(1)},${(cy + r).toFixed(1)} L${cx.toFixed(1)},${(cy + r * 0.5).toFixed(1)}` +
+                  ` L${(cx + r * 0.9).toFixed(1)},${(cy + r).toFixed(1)}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}" fill="none"` +
+                  ` stroke-linecap="round" stroke-linejoin="round"/>`
+              )
+            }
+            puestos++
+          }
+        }
+        break
+      }
+
       case "pieza-punta": {
         const largo = Math.min(ancho, alto) * 0.62 // el lado largo de la barra
         const grueso = Math.min(ancho, alto) * 0.3
@@ -915,6 +1390,22 @@ const MATRIZ_ALTO = 96
 const MATRIZ_HUECO = 18
 
 /**
+ * Lo que hay que dejar por debajo de la casilla cuando algo cuelga de ella.
+ *
+ * Solo lo pide el ejercicio 11, y solo se añade a las figuras que lo usan: si
+ * se sumara siempre, las noventa y ocho restantes cambiarían de proporción sin
+ * ganar nada.
+ */
+const COLA = 15
+
+const colaDe = (figura: Figura): number =>
+  [...figura.celdas, ...figura.opciones].some(
+    (c) => !esIncognita(c) && c.elementos.some((el) => el.tipo === "cuadro-lobulos")
+  )
+    ? COLA
+    : 0
+
+/**
  * La matriz de tres por tres, con sus casillas sueltas.
  *
  * A diferencia de la serie, aquí cada casilla lleva su propio recuadro y entre
@@ -925,7 +1416,7 @@ function svgMatriz(figura: FiguraMatriz): string {
   const paso = { x: MATRIZ_ANCHO + MATRIZ_HUECO, y: MATRIZ_ALTO + MATRIZ_HUECO }
   const ancho = MATRIZ_ANCHO * 3 + MATRIZ_HUECO * 2 + TRAZO
   const desplazamientoY = MARCA_RESERVA
-  const alto = MATRIZ_ALTO * 3 + MATRIZ_HUECO * 2 + TRAZO + desplazamientoY
+  const alto = MATRIZ_ALTO * 3 + MATRIZ_HUECO * 2 + TRAZO + desplazamientoY + colaDe(figura)
 
   const partes: string[] = [`<g transform="translate(${TRAZO / 2} ${desplazamientoY + TRAZO / 2})">`]
 
@@ -967,7 +1458,7 @@ export function svgOpcion(figura: Figura, indice: number): string {
   const celda = figura.opciones[indice]
   if (figura.tipo === "matriz-3x3") {
     const ancho = MATRIZ_ANCHO + TRAZO
-    const alto = MATRIZ_ALTO + TRAZO
+    const alto = MATRIZ_ALTO + TRAZO + colaDe(figura)
     return lienzo(
       ancho,
       alto,
@@ -1041,6 +1532,38 @@ export function describirCelda(celda: Celda): string {
           )
         case "mitad-rellena":
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
+        case "casco":
+          return (
+            `un casco con el cuerpo ${el.cuerpo}` +
+            (el.particion === "ninguna" ? "" : ` partido en ${el.particion}`) +
+            `, la punta izquierda ${el.puntaIzquierda} y la derecha ${el.puntaDerecha}` +
+            `, rematado por un ${el.remate} ${el.remateRelleno}` +
+            (el.sombra === "ninguna" ? "" : ` y una sombra en ${el.sombra}`)
+          )
+        case "diagonal":
+          return `una diagonal ${el.sentido}`
+        case "diagonal-cuadrante":
+          return `una diagonal en el cuadrante de ${NOMBRE_CUADRANTE[el.cuadrante]}`
+        case "cuadrante-tenido":
+          return `el cuadrante de ${NOMBRE_CUADRANTE[el.cuadrante]} teñido de ${el.relleno}`
+        case "marca-colgada":
+          return `un ${el.forma} colgado a la ${el.lado}`
+        case "puntos":
+          return el.cuantos === 0
+            ? "sin puntos"
+            : `${el.cuantos} puntos ${el.lado === "ninguno" ? "por toda la casilla" : el.lado}`
+        case "remate":
+          return el.forma === "ninguno" ? "sin remate" : `una ${el.forma} ${el.lado}`
+        case "cuadro-lobulos":
+          return (
+            `cuadro con el lomo ${el.lomo} a la izquierda, ` +
+            (el.letra === "ninguna" ? "sin letra" : `la letra ${el.letra}`) +
+            ` y el lóbulo de abajo ${el.lobulo}${el.barra ? ", con barra debajo" : ""}`
+          )
+        case "grupo-simbolos":
+          return el.simbolo === "linea"
+            ? `${el.cantidad} líneas ${el.orientacion}es`
+            : `${el.cantidad} ${el.simbolo === "asterisco" ? "asteriscos" : "vigas"}`
         case "pieza-punta":
           return `pieza con la punta hacia ${el.mira}, con relleno ${el.relleno}`
         case "cuadro-marcado":

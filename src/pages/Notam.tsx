@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen, Target, GraduationCap } from "lucide-react"
+import { ArrowLeft, ArrowRight, BookOpen, Target, GraduationCap } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
@@ -310,6 +310,7 @@ export function Notam() {
         <div className="mt-6 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
           <Celda
             titulo="Lección"
+            to="/app/aerolinea/notam/aprende"
             valor={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
             pie="secciones leídas"
             pct={resumen.lessonPct}
@@ -318,6 +319,7 @@ export function Notam() {
           />
           <Celda
             titulo="Práctica"
+            to="/app/aerolinea/notam/practica"
             valor={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
             pie="ejercicios resueltos"
             pct={resumen.practicePct}
@@ -326,6 +328,7 @@ export function Notam() {
           />
           <Celda
             titulo="Evaluación"
+            to="/app/aerolinea/notam/evaluacion"
             valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
             aviso={resumen.best === null}
             pie={
@@ -373,6 +376,7 @@ function Celda({
   color,
   aviso,
   cargando,
+  to,
 }: {
   titulo: string
   valor: string
@@ -381,6 +385,8 @@ function Celda({
   color: string
   aviso?: boolean
   cargando?: boolean
+  /** A dónde lleva la celda. Sin esto se queda en dato, que era el problema. */
+  to?: string
 }) {
   return (
     <div className="bg-card px-6 py-[22px]">
@@ -417,6 +423,18 @@ function Celda({
         />
       </div>
       <div className="mt-2.5 text-[11px] tracking-[0.04em] text-muted-foreground">{pie}</div>
+      {/* La celda no se queda en el dato: lleva a arreglarlo. Un «Sin intentos»
+          sin salida es un reproche; con el enlace al lado es una invitación. */}
+      {to && (
+        <Link
+          to={to}
+          className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium transition-colors hover:underline"
+          style={{ color }}
+        >
+          {pct > 0 ? "Seguir" : "Empezar"}
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
+      )}
     </div>
   )
 }
