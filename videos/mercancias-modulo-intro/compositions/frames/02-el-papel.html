@@ -1,0 +1,292 @@
+<template>
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       FRAME 02 — «El papel que pasa por tus manos» · 1920×1080 · 8.227s
+
+       PANEL GEOMETRY — FROZEN CONTRACT. Frame 07 calca este panel píxel a
+       píxel; estos son los valores exactos, cópialos tal cual:
+
+         .f02ep-panel   (code-surface, warm navy)
+           left            280px
+           top             160px
+           width           1360px
+           height          696px
+           padding         48px 52px
+           box-sizing      border-box
+           background      #151618            (frame.md colors.navy)
+           border          1px solid rgba(251, 250, 248, 0.14)   (cream@14%)
+           border-radius   8px
+
+         .f02ep-code    (el NOTOC — JetBrains Mono 400)
+           font-family     'JetBrains Mono'
+           font-size       32px               (1.67cqw — token frame.md «code»)
+           line-height     54px               (1.6875 — interlineado generoso)
+           font-weight     400
+           letter-spacing  0                  (rejilla mono intacta)
+           color           #FBFAF8            (frame.md colors.cream) — UNIFORME
+           font-variant-ligatures / 'liga' 0 / 'calt' 0
+
+         .f02ep-ln      white-space: pre · height: 54px
+
+       Caja de texto derivada (para alinear cualquier marcador en el Frame 07):
+           origen x  = 280 + 1 (borde) + 52 (padding) = 333px
+           origen y  = 160 + 1 (borde) + 48 (padding) = 209px
+           avance de carácter = 32 × 0.6 = 19.2px
+           ancho usado  = 65 chars × 19.2 = 1248px   (disponible 1254px)
+           alto usado   = 11 líneas × 54  = 594px    (disponible 598px)
+           columna N (0-based) → x = 333 + N × 19.2
+           línea  R (0-based) → top = 209 + R × 54
+
+         .f02ep-label   left 280px · top 88px · width 1360px · height 32px
+                        JetBrains Mono 26px/32px · tracking 0.16em · uppercase
+                        color rgba(22, 25, 29, 0.62)
+         .f02ep-rule    left 280px · top 132px · width 1360px · height 1px
+                        background #7A5C12  (mostaza — el ÚNICO acento del frame)
+
+       Keep-out de captions: nada por debajo de y = 900px.
+       Extremo inferior del panel = 856px; con el drift del 2% = 862px. OK.
+
+       EL NOTOC: once líneas, extraídas byte a byte del paquete. Íntegro, sin
+       recortar, sin resumir, con los identificadores anonimizados intactos
+       (AV0000 / 00MMM / HK-XXXX son material de enseñanza, no huecos).
+       Ninguna palabra resaltada: todo pesa lo mismo — ese es el punto.
+       ═══════════════════════════════════════════════════════════════════ -->
+
+  <style>
+    /* ── JetBrains Mono 400 (latin + latin-ext) — la voz de índice/código de frame.md ── */
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTNFOVgaY.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Raíz del frame — estilada por #root, NUNCA por una clase en el elemento
+         que lleva data-composition-id (se scopea a descendiente y no matchea). ── */
+    #root {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: 'JetBrains Mono', ui-monospace, 'DejaVu Sans Mono', 'Liberation Mono', Menlo, Consolas, monospace;
+      font-variant-ligatures: none;
+      font-feature-settings: 'liga' 0, 'calt' 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Fondo a sangre: papel crema. Capa .clip propia, pista más baja. ── */
+    .f02ep-ground {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      background: #FBFAF8;
+    }
+
+    /* ── Escenario recortado: aloja el drift del 2% sin desbordar el frame ── */
+    .f02ep-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #FBFAF8;
+    }
+
+    /* ── El único envoltorio de mundo. El acercamiento del 2% vive AQUÍ. ── */
+    .f02ep-world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    /* ── Rótulo mono sobre el panel (tinta sobre papel) ── */
+    .f02ep-label {
+      position: absolute;
+      left: 280px;
+      top: 88px;
+      width: 1360px;
+      height: 32px;
+      font-size: 26px;
+      line-height: 32px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+
+    /* ── section-rule: el único momento de acento mostaza del frame ── */
+    .f02ep-rule {
+      position: absolute;
+      left: 280px;
+      top: 132px;
+      width: 1360px;
+      height: 1px;
+      background: #7A5C12;
+      transform-origin: 0% 50%;
+    }
+
+    /* ── code-surface: panel navy, elevación por hairline. GEOMETRÍA CONGELADA. ── */
+    .f02ep-panel {
+      position: absolute;
+      left: 280px;
+      top: 160px;
+      width: 1360px;
+      height: 696px;
+      padding: 48px 52px;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    /* ── El NOTOC. Crema uniforme: ni una palabra pesa más que otra. ── */
+    .f02ep-code {
+      font-size: 32px;
+      line-height: 54px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #FBFAF8;
+    }
+
+    .f02ep-ln {
+      white-space: pre;
+      height: 54px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="02-el-papel" data-start="0" data-duration="8.227" data-width="1920" data-height="1080">
+
+    <div id="frame-02-el-papel-ground" class="clip f02ep-ground" data-start="0" data-duration="8.227" data-track-index="0"></div>
+
+    <div id="frame-02-el-papel-stage" class="clip f02ep-stage" data-start="0" data-duration="8.227" data-track-index="1">
+      <div class="f02ep-world">
+
+        <div class="f02ep-label">NOTOC · NOTIFICATION TO CAPTAIN</div>
+        <div class="f02ep-rule"></div>
+
+        <div class="f02ep-panel">
+          <div class="f02ep-code">
+      <div class="f02ep-ln">NOTIFICATION TO CAPTAIN          FLT AV0000 / 00MMM / HK-XXXX</div>
+      <div class="f02ep-ln">STA: SKBO   DEST: SBGR   CPT: ______________________</div>
+      <div class="f02ep-ln"></div>
+      <div class="f02ep-ln">POS  UN     PROPER SHIPPING NAME        CL  GE  PKG  ULD</div>
+      <div class="f02ep-ln">---  -----  --------------------------  --  --  ---  ------------</div>
+      <div class="f02ep-ln">1FL  1263   PAINT                       3   II   2   AKE 12345 AV</div>
+      <div class="f02ep-ln">1FL  1830   SULPHURIC ACID              8   II   1   AKE 12345 AV</div>
+      <div class="f02ep-ln">5AR  3480   LITHIUM ION BATTERIES       9   --   4   PMC 67890 AV</div>
+      <div class="f02ep-ln">                                             CAO</div>
+      <div class="f02ep-ln"></div>
+      <div class="f02ep-ln">DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var ROOT = document.querySelector('[data-composition-id="02-el-papel"]');
+      if (!ROOT) return;
+
+      var world = ROOT.querySelector('.f02ep-world');
+      var panel = ROOT.querySelector('.f02ep-panel');
+      var label = ROOT.querySelector('.f02ep-label');
+      var rule = ROOT.querySelector('.f02ep-rule');
+      var lines = ROOT.querySelectorAll('.f02ep-ln');
+
+      /* ────────────────────────────────────────────────────────────────
+         Blueprint zoom-out-workspace-reveal — ADAPTADO por el paquete.
+         Aquí NO hay revelado de cámara: el encuadre es centrado y fijo
+         desde el frame 0 («framing centrado, sin movimiento»), porque la
+         geometría del panel es contrato para el Frame 07 y no puede
+         depender de una pose de cámara. Lo que sobrevive del blueprint es
+         su gramática de UNA sola cámara: un envoltorio .world, una única
+         escala, y bloqueo total después. El paquete declara la Scene 3
+         como quietud con un acercamiento imperceptible del 2%; eso es el
+         total del movimiento de cámara del plano.
+
+         VO (audio_meta.json, frame 2, 7.027s de voz sobre 8.227s de plano):
+           w0  «Esto»   0.179 | w4  «avión.» 1.279-1.719
+           w5  «Y»      2.299 | w7  «papel»  2.559
+           w10 «dice»   3.259 | w14 «manos»  4.639
+           w19 «puerta.» 6.239-6.699
+         ──────────────────────────────────────────────────────────────── */
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* Scene 1 (0.0–1.2s) — el panel navy entra con un fundido corto sobre el
+         papel crema, con su hairline crema@14%. Sin desplazamiento, sin escala:
+         la sensación es «me acaban de pasar un papel», no una llegada. Arranca
+         en 0.06 y está completo en 0.61 — el sujeto es visible mucho antes de
+         los 0.5s exigidos. Corre bajo «Esto sube a tu avión». */
+      tl.fromTo(panel,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.55, ease: 'power2.out' },
+        0.06);
+
+      /* Scene 2 (1.2–3.0s) — el NOTOC aparece COMPLETO dentro del panel. Cascada
+         de opacidad de arriba abajo muy corta (0.34s por línea, stagger 0.032 →
+         0.66s de punta a punta), disparada en «avión.» (w4 @1.279): el documento
+         se entrega entero, no se escribe. Las once líneas comparten duración,
+         color y peso — ninguna se destaca. */
+      tl.fromTo(lines,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.34, ease: 'power1.out', stagger: 0.032 },
+        1.279);
+
+      /* Scene 2 (cola) — la cabecera del documento se presenta sobre «Y … papel»:
+         el rótulo mono en «Y» (w5 @2.299) y la única regla mostaza dibujándose
+         en «papel» (w7 @2.559). Ambas aterrizan justo en 3.0s, el borde de la
+         quietud declarada. Es el único acento de color del frame. */
+      tl.fromTo(label,
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+        2.299);
+
+      tl.fromTo(rule,
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.44, ease: 'power2.out' },
+        2.559);
+
+      /* Scene 3 (3.0–7.8s) — QUIETUD DECLARADA. El paquete la marca como beat de
+         reposo: el espectador tiene 4.8s para intentar leer el NOTOC y no
+         conseguirlo. Todo el movimiento es un acercamiento del 2% sobre el mundo,
+         lineal para que no se perciba como un gesto. Nada más entra, nada sale.
+         Corre por debajo de «pasa por tus manos antes de cerrar la puerta».
+         Termina en 7.8s: los 0.427s finales son inmovilidad absoluta. */
+      tl.fromTo(world,
+        { scale: 1 },
+        { scale: 1.02, duration: 4.8, ease: 'none' },
+        3.0);
+
+      /* Sostener el plano aterrizado hasta el final — sin movimiento de salida
+         (el frame no es el último; la transición raíz es la salida). */
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 8.226);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['02-el-papel'] = tl;
+    })();
+  </script>
+</template>

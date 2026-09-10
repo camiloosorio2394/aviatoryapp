@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
-import { EspacioReservado } from "@/components/modulo/EspacioReservado"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -192,31 +192,20 @@ export function Mercancias() {
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {/* El video de este módulo todavía no existe. El hueco NO se
-                    quita ni se cambia por texto: guarda la caja exacta de la
-                    tarjeta de NOTAM (radio 12, miniatura 92x52), así que el día
-                    que haya video se pone <VideoIntro> aquí y no se mueve nada
-                    de sitio alrededor. */}
-                <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
-                  <EspacioReservado
-                    etiqueta="Video 16:9"
-                    className="h-[52px] w-[92px] shrink-0 rounded-[8px]"
-                  />
-                  <div className="min-w-0">
-                    <div
-                      className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: "var(--av-dg-500)" }}
-                    >
-                      Empieza por aquí
-                    </div>
-                    <div className="mt-1 text-[15px] font-semibold leading-[1.35] text-white/70">
-                      Introducción al módulo
-                    </div>
-                    <div className="mt-1 text-[12px] text-white/45">
-                      [VIDEO · 16:9 · ESPACIO RESERVADO]
-                    </div>
-                  </div>
-                </div>
+                {/* La miniatura y el cartel son el mismo fotograma mientras el
+                    módulo no tenga foto de hero. Cuando la haya, la miniatura
+                    pasa a ser esa foto, como en NOTAM. */}
+                <VideoIntro
+                  src="/modulos/mercancias/intro.mp4"
+                  miniatura="/modulos/mercancias/intro-poster.webp"
+                  portada="/modulos/mercancias/intro-poster.webp"
+                  duracion="59 s"
+                  titulo="Introducción al módulo de Mercancías peligrosas"
+                  continuarA={MP_APRENDE}
+                  continuarTexto="Empezar la lección"
+                  claveVisto="av:visto:intro:mercancias"
+                  acento="var(--av-dg-700)"
+                />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
@@ -268,7 +257,7 @@ export function Mercancias() {
                       aria-label="Avance del módulo Mercancías peligrosas"
                     >
                       <div
-                        className="h-full rounded-sm transition-all"
+                        className="h-full rounded-sm transition-[width]"
                         style={{ width: `${resumen.overall}%`, background: "var(--av-dg-500)" }}
                       />
                     </div>
@@ -383,7 +372,7 @@ function FilaAvance({
         aria-label={`Avance de ${titulo}`}
       >
         <div
-          className="h-full rounded-sm transition-all"
+          className="h-full rounded-sm transition-[width]"
           style={{ width: `${pct}%`, background: color }}
         />
       </div>
