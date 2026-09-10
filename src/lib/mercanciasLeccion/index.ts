@@ -6,8 +6,11 @@
  * lección cierra con «Pon a prueba lo que aprendiste». La práctica y la
  * evaluación son páginas aparte, como en NOTAM.
  *
- * Fuentes: RAC 175 (Edición original, marzo 2016, Res. 00478), LAR 175
- * (Enmiendas 3 y 4), RAC 2, RAC 61 y el Adendo 5 (2011-2012) del Doc 9284.
+ * Fuentes, de lo mundial a lo nacional: Anexo 18 y Doc 9284 de la OACI (del
+ * ciclo 2011-2012 se consultó el Adendo 5), LAR 175 del SRVSOP (Primera
+ * edición, Enmienda 4, diciembre 2017) y, como ejemplo de adopción nacional,
+ * el RAC 175 de Colombia (Edición original, marzo 2016) con el RAC 2 y el
+ * RAC 61.
  * Los accidentes salen de los informes oficiales que cada caso cita.
  *
  * Las lecciones se escriben por nivel en su propio archivo; este solo las
@@ -44,10 +47,10 @@ export const MP_LECCION_TOTAL = MP_LECCIONES.length
 export const MP_MINUTOS = MP_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 
 export const MP_FUENTES_LISTA: string[] = [
-  "RAC 175, Transporte sin riesgos de mercancías peligrosas por vía aérea. UAEAC, Edición original, marzo de 2016. Adoptado por Resolución 00478 del 29 de febrero de 2016 (Diario Oficial 49.830 del 31 de marzo de 2016); deroga el RAC 10.",
-  "LAR 175, Transporte sin riesgo de mercancías peligrosas por vía aérea. SRVSOP, Enmiendas 3 y 4.",
   "Anexo 18 al Convenio sobre Aviación Civil Internacional, Transporte sin riesgos de mercancías peligrosas por vía aérea. OACI.",
-  "Doc 9284-AN/905, Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea. OACI. Del ciclo 2011-2012 se consultó el Adendo núm. 5 (discrepancias de Estados y explotadores).",
-  "RAC 2, Personal aeronáutico, y RAC 61, Licencias para pilotos y sus habilitaciones. UAEAC.",
+  "Doc 9284-AN/905, Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea. OACI. Del ciclo 2011-2012 se consultó el Adendo núm. 5 (discrepancias notificadas por Estados y explotadores).",
+  "LAR 175, Transporte sin riesgo de mercancías peligrosas por vía aérea. SRVSOP, Primera edición, Enmienda 4, diciembre de 2017. Es la norma que el módulo cita: los Estados miembros del Sistema Regional la adoptan en su propio reglamento.",
+  "RAC 175, Transporte sin riesgos de mercancías peligrosas por vía aérea. UAEAC (Colombia), Edición original, marzo de 2016. Adoptado por Resolución 00478 del 29 de febrero de 2016 (Diario Oficial 49.830 del 31 de marzo de 2016); deroga el RAC 10. Se usa como ejemplo de adopción nacional.",
+  "RAC 2, Personal aeronáutico, y RAC 61, Licencias para pilotos y sus habilitaciones. UAEAC (Colombia).",
   "NTSB/AAR-97/06 (ValuJet 592); GCAA de los Emiratos Árabes Unidos, informe final 2013 (UPS 6); ARAIB de Corea, informe final (Asiana 991); Departamento de Aviación Civil de Sudáfrica, informe de investigación (South African 295).",
 ]

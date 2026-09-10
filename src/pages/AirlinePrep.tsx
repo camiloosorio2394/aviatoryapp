@@ -289,7 +289,7 @@ export function AirlinePrep() {
           meta: `${MP_LECTURA_TOTAL} lecciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · práctica y evaluación`,
           title: "Mercancías peligrosas",
           blurb:
-            "Dieciocho lecciones en cinco niveles, con el artículo del RAC 175 en cada afirmación: las nueve clases, el NOTOC, las baterías de litio y qué hacer en vuelo. Práctica y evaluación propias.",
+            "Dieciocho lecciones en cinco niveles, con su artículo en cada afirmación y la cita en tres niveles, de la OACI al reglamento de tu país: las nueve clases, el NOTOC, las baterías de litio y qué hacer en vuelo. Práctica y evaluación propias.",
           // La portada del propio módulo, la misma que ve en su hub. Vive en
           // public y no en assets porque así queda fuera del precache.
           photo: "/infografias/mercancias/portada.webp",

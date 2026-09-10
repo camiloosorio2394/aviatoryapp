@@ -14,16 +14,16 @@ import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
 export const MP_TITULO = "Mercancías peligrosas"
 
 /** Las fuentes normativas, en una línea. */
-export const MP_FUENTES = "RAC 175 · LAR 175 · Anexo 18 y Doc 9284 OACI · RAC 2 · RAC 61"
+export const MP_FUENTES = "Anexo 18 y Doc 9284 OACI · LAR 175 SRVSOP · RAC 175 y RAC 61 (Colombia)"
 
 /**
  * Edición de la que sale el material.
  *
- * Va a la vista y no en una nota al pie a propósito: el RAC 175 consultado es
+ * Va a la vista y no en una nota al pie a propósito: el LAR 175 consultado es
  * la Edición original y ha tenido enmiendas, así que el piloto tiene que ver de
  * qué edición está leyendo mientras lee, no al final.
  */
-export const MP_VIGENCIA = "RAC 175 · Edición original, marzo 2016 (Res. 00478)"
+export const MP_VIGENCIA = "LAR 175 · Primera edición, Enmienda 4 (diciembre 2017)"
 
 /** Ruta del hub del tema. */
 export const MP_HUB = "/app/aerolinea/mercancias"

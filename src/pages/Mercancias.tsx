@@ -81,7 +81,7 @@ export function Mercancias() {
       meta: `${MP_LECTURA_TOTAL} lecciones en ${MP_NIVELES.length} niveles · ${MP_MINUTOS} min`,
       title: "1. Aprende",
       blurb:
-        "De la definición al NOTOC: las nueve clases, quién responde por qué, lo que puede volar y lo que no, y qué hacer si algo pasa en vuelo. Con el artículo del RAC 175 en cada afirmación.",
+        "De la definición al NOTOC: las nueve clases, quién responde por qué, lo que puede volar y lo que no, y qué hacer si algo pasa en vuelo. Cada afirmación con su artículo, del Anexo 18 al reglamento de tu país.",
       cta: resumen.lessonRead === 0 ? "Abrir la lección" : "Seguir donde ibas",
       photoHueco: "MP-POR-01 · Portada 3:2 · 1200×800 · Un bulto etiquetado en rampa",
       status:
@@ -286,7 +286,7 @@ export function Mercancias() {
             límites en línea de vuelo se confirman en la edición en vigor. */}
         <section className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between rounded-xl surface px-6 py-5">
           <p className="m-0 max-w-[640px] text-[13px] leading-relaxed text-muted-foreground">
-            El material sale del RAC 175 en su edición original, del LAR 175, del Anexo 18 y del
+            El material sale del Anexo 18 y del Doc 9284 de la OACI, del LAR 175 del SRVSOP, del RAC 175 de Colombia y del
             Doc 9284 de la OACI. Todos se enmiendan: sirve para estudiar, no para aplicar límites
             en línea de vuelo. Antes de usar una cifra, confirma la edición en vigor y el manual
             de tu explotador.

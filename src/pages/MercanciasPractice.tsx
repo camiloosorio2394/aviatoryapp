@@ -70,7 +70,7 @@ const ACENTO = "var(--av-dg-700)"
 const HERO = "/infografias/mercancias/portada.webp"
 
 const AVISO =
-  "Ejercicios construidos con fines formativos a partir del RAC 175 y de las Instrucciones Técnicas. Los escenarios no son documentos reales ni sustituyen el manual de operaciones del explotador; las cifras de las Instrucciones se verifican en la edición vigente."
+  "Ejercicios construidos con fines formativos a partir del LAR 175, del Anexo 18 y de las Instrucciones Técnicas, con el RAC 175 de Colombia como ejemplo de adopción nacional. Los escenarios no son documentos reales ni sustituyen el manual de operaciones del explotador; las cifras de las Instrucciones y los artículos de tu reglamento nacional se verifican en la edición vigente."
 
 const MODOS: { key: Mode; label: string; icon: ReactNode; total: number }[] = [
   { key: "etiquetas", label: "Etiquetas", icon: <Tags className="h-4 w-4" />, total: PRACTICA_TOTALES.etiquetas },
@@ -166,7 +166,7 @@ export function MercanciasPractice() {
             <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
               Reconoce etiquetas, clasifica envíos, resuelve escenarios operacionales con tus
               palabras y ensaya las preguntas de una entrevista técnica. Cada respuesta trae su
-              artículo del RAC 175.
+              artículo de la norma.
             </p>
             <div className="np-hero-cifras">
               {MODOS.map((m, i) => (
@@ -875,7 +875,7 @@ function MarcarResuelto({
     <div className="mt-5 pt-4 border-t border-border">
       <div className="flex items-start gap-2 text-[12px] text-muted-foreground leading-relaxed">
         <BookMarked className="h-3.5 w-3.5 mt-0.5 flex-shrink-0" />
-        <span>Fuente: RAC 175, Edición original, marzo 2016, y las lecciones del módulo.</span>
+        <span>Fuente: LAR 175 (Enmienda 4), Instrucciones Técnicas y las lecciones del módulo.</span>
       </div>
       {isDone ? (
         <div

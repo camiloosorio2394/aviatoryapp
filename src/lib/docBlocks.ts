@@ -166,7 +166,7 @@ export interface ClasesMPBlock {
   kind: "clasesMP"
 }
 
-/** Fichas de las etiquetas del Apéndice 1 del RAC 175, por familia. */
+/** Fichas de las etiquetas de las Instrucciones Técnicas, por familia. */
 export interface EtiquetasMPBlock {
   kind: "etiquetasMP"
   grupo: "riesgo" | "manipulacion" | "todas"

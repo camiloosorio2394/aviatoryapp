@@ -1,5 +1,8 @@
 /**
- * Las etiquetas del Apéndice 1 del RAC 175: de riesgo y de manipulación.
+ * Las etiquetas de la Parte 5 de las Instrucciones Técnicas: de riesgo y de
+ * manipulación. Son las mismas en todo el mundo, y por eso se reconocen sin
+ * leer el idioma. El texto de la especificación de cada una (símbolo, fondo,
+ * franjas) se toma de su transcripción en el Apéndice 1 del RAC 175.
  *
  * La especificación de cada una es la que consta en el texto del Apéndice
  * (símbolo, fondo, franjas, dimensiones). Donde el Apéndice presenta la
