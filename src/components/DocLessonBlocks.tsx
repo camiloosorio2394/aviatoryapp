@@ -34,6 +34,21 @@ import type { BreakdownPart, CampoNotam, LabNotam, PasoIcono, TarjetaIcono } fro
 import type { DocBlockData } from "@/lib/docBlocks"
 import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
 import { docAccent, docTint } from "@/lib/docSheet"
+import { renderInline } from "@/components/lesson/inline"
+import {
+  CasoReal,
+  EnLaOperacion,
+  Escenario,
+  Fichas,
+  Norma,
+  PonAPrueba,
+} from "@/components/lesson/BloquesModulo"
+import {
+  DetalleTecnico,
+  Entrevista,
+  PiensaComoPiloto,
+  Reconoce,
+} from "@/components/lesson/BloquesPiloto"
 import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 /**
  * Registro de infografías disponibles para el bloque `infografia`.
@@ -54,6 +69,17 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
     import("@/components/lesson/infografias/NotamLineaQ").then((m) => ({ default: m.NotamLineaQ })),
   ),
 }
+
+/**
+ * Bloques propios de Mercancías peligrosas, cargados aparte por la misma razón
+ * que las infografías: traen sus datos y solo los usa ese módulo.
+ */
+const ClasesMP = lazy(() =>
+  import("@/components/lesson/BloquesMercancias").then((m) => ({ default: m.ClasesMP })),
+)
+const EtiquetasMP = lazy(() =>
+  import("@/components/lesson/BloquesMercancias").then((m) => ({ default: m.EtiquetasMP })),
+)
 
 /** Hueco mientras llega el trozo de la infografía. Reserva alto para que no salte la página. */
 function InfografiaCargando() {
@@ -77,47 +103,6 @@ const BREAKDOWN_COLORS = [
 
 function breakdownColor(i: number): string {
   return BREAKDOWN_COLORS[i % BREAKDOWN_COLORS.length]
-}
-
-/**
- * Convierte marcado ligero a nodos de React sin dangerouslySetInnerHTML.
- * Soporta **negrita** y `codigo`, con los colores de las variables --doc-*.
- */
-function renderInline(text: string): ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
-  const out: ReactNode[] = []
-  parts.forEach((part, i) => {
-    if (part === "") return
-    if (part.length > 4 && part.startsWith("**") && part.endsWith("**")) {
-      out.push(
-        <strong key={i} className="font-semibold" style={{ color: "var(--doc-fg)" }}>
-          {part.slice(2, -2)}
-        </strong>,
-      )
-      return
-    }
-    if (part.length > 2 && part.startsWith("`") && part.endsWith("`")) {
-      out.push(
-        // Las tres variables las pone quien envuelve el texto: dentro de una
-        // pieza de la línea Q, el código va del color de esa pieza, el mismo
-        // del token de arriba. Sin nadie que las ponga, el azul de siempre.
-        <code
-          key={i}
-          className="mono text-[0.9em] font-semibold px-[7px] py-[0.15em] rounded-md border break-words"
-          style={{
-            background: `var(--doc-chip-bg, ${docTint("var(--av-blue-500)", 10)})`,
-            color: `var(--doc-chip-fg, ${docAccent("var(--av-blue-500)", 72)})`,
-            borderColor: `var(--doc-chip-bd, ${docAccent("var(--av-blue-500)", 26)})`,
-          }}
-        >
-          {part.slice(1, -1)}
-        </code>,
-      )
-      return
-    }
-    out.push(<span key={i}>{part}</span>)
-  })
-  return out
 }
 
 const CALLOUT_TONE: Record<
@@ -348,11 +333,14 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           }
         >
           <code
-            className={
+            className={[
+              "mono block",
+              // Un NOTAM se ajusta al ancho; un NOTOC no, o pierde las columnas.
+              block.tabular ? "whitespace-pre" : "whitespace-pre-wrap",
               block.grande
-                ? "mono block whitespace-pre-wrap text-[15px] font-semibold leading-[1.7] sm:text-[18px]"
-                : "mono block whitespace-pre-wrap text-[13px] leading-[1.65]"
-            }
+                ? "text-[15px] font-semibold leading-[1.7] sm:text-[18px]"
+                : "text-[13px] leading-[1.65]",
+            ].join(" ")}
             style={{ color: "var(--doc-fg)" }}
           >
             {block.text}
@@ -495,6 +483,53 @@ export function DocBlock({ block }: { block: DocBlockData }) {
 
     case "notam":
       return <NotamFigure id={block.id} caption={block.caption} casillas={block.casillas} />
+
+    /* Bloques de curso: norma, caso real, en la operación, escenario, pon a
+       prueba y fichas. Viven en BloquesModulo porque no saben de NOTAM. */
+    case "norma":
+      return <Norma block={block} />
+    case "casoReal":
+      return <CasoReal block={block} />
+    case "enLaOperacion":
+      return <EnLaOperacion block={block} />
+    case "escenario":
+      return <Escenario block={block} />
+    case "ponAPrueba":
+      return <PonAPrueba block={block} />
+    case "fichas":
+      return <Fichas block={block} />
+    case "reconoce":
+      return <Reconoce block={block} />
+
+    case "piensaComoPiloto":
+      return <PiensaComoPiloto block={block} />
+
+    case "entrevista":
+      return <Entrevista block={block} />
+
+    /* Los hijos se pintan aquí, con el mismo DocBlock: así dentro del detalle
+       cabe cualquier bloque del catálogo sin reescribirlo. */
+    case "detalleTecnico":
+      return (
+        <DetalleTecnico etiqueta={block.etiqueta} cita={block.cita}>
+          {block.bloques.map((b, i) => (
+            <DocBlock key={i} block={b} />
+          ))}
+        </DetalleTecnico>
+      )
+
+    case "clasesMP":
+      return (
+        <Suspense fallback={<InfografiaCargando />}>
+          <ClasesMP />
+        </Suspense>
+      )
+    case "etiquetasMP":
+      return (
+        <Suspense fallback={<InfografiaCargando />}>
+          <EtiquetasMP grupo={block.grupo} />
+        </Suspense>
+      )
 
     case "figura":
       return (

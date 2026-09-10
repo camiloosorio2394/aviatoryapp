@@ -22,22 +22,19 @@ import {
   X,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
+import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
 import {
   DISCLAIMERS,
   EXERCISES,
-  LEVEL_META,
-  NATIONAL_NOTAMS,
-  ORIGIN_META,
+  REAL_NOTAMS,
   TOTALS,
   accentText,
-  notamImageUrl,
   readLocalProgress,
-  type NationalNotam,
+  realNotamImageUrl,
   type NotamExercise,
-  type NotamLevel,
+  type RealNotam,
 } from "@/lib/notam"
 import { fetchNotamProgress, markNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 import { registrarEstudioDiario } from "@/lib/activity"
@@ -47,18 +44,27 @@ import { registrarEstudioDiario } from "@/lib/activity"
  *
  * Dos modos sobre la misma mecanica: el usuario interpreta el NOTAM con sus
  * palabras y solo despues puede comparar con la respuesta modelo.
- *   texto  -> 16 ejercicios de EXERCISES
- *   imagen -> 14 NOTAM colombianos reales de NATIONAL_NOTAMS
+ *   NOTAM reales      -> REAL_NOTAMS, la captura del buscador oficial tal cual
+ *   Ejercicios de texto -> EXERCISES, el NOTAM en texto
+ *
+ * Se elige con la pestaña de arriba: una cosa o la otra, nunca las dos a la vez.
+ * A la izquierda va el NOTAM y a la derecha "Explícalo con tus palabras", que es
+ * el formato que funciona y no se toca.
+ *
+ * Ni el nivel ni el tipo se muestran ni se filtran: aquí no se escoge
+ * dificultad, se hacen los ejercicios. Lo único que filtra es el país, y solo en
+ * los NOTAM reales.
  */
 
 type Mode = "texto" | "imagen"
-type LevelFilter = NotamLevel | "todos"
 
 interface PracticeItem {
-  /** Clave de progreso: "ex-<id>" o "nat-<id>" */
+  /** Clave de progreso: "txt-<id>" o "real-<id>". Prefijos nuevos porque los
+      bancos se rehicieron y un "ex-7" viejo ya no señala al mismo ejercicio. */
   key: string
   mode: Mode
-  nivel: NotamLevel
+  /** Solo en los NOTAM reales; es lo único por lo que se puede filtrar. */
+  pais: string | null
   titulo: string
   consigna: string
   modelo: string
@@ -66,18 +72,19 @@ interface PracticeItem {
   errores: string[]
   fuente: string
   exercise: NotamExercise | null
-  national: NationalNotam | null
+  national: RealNotam | null
 }
 
-const IMAGE_CONSIGNA =
-  "Describe con tus palabras qué informa este NOTAM y cuál es su impacto operacional: qué instalación o servicio afecta, dónde, desde y hasta cuándo, y qué no podrías hacer mientras esté vigente."
+/** La consigna es la misma para todos y no adelanta nada del contenido. */
+const CONSIGNA =
+  "Decodifica este NOTAM y explícalo con tus palabras: qué informa, a qué aeropuerto o FIR corresponde, desde y hasta cuándo, y qué implica para la operación."
 
 const TEXT_ITEMS: PracticeItem[] = EXERCISES.map((e) => ({
-  key: `ex-${e.id}`,
+  key: `txt-${e.id}`,
   mode: "texto",
-  nivel: e.nivel,
+  pais: null,
   titulo: e.titulo,
-  consigna: e.consigna,
+  consigna: CONSIGNA,
   modelo: e.respuesta_modelo,
   puntos: e.puntos_clave,
   errores: e.errores_tipicos ?? [],
@@ -86,25 +93,27 @@ const TEXT_ITEMS: PracticeItem[] = EXERCISES.map((e) => ({
   national: null,
 }))
 
-const IMAGE_ITEMS: PracticeItem[] = NATIONAL_NOTAMS.map((n) => ({
-  key: `nat-${n.id}`,
+const IMAGE_ITEMS: PracticeItem[] = REAL_NOTAMS.map((n) => ({
+  key: `real-${n.id}`,
   mode: "imagen",
-  nivel: n.nivel,
-  titulo: `${n.serie_numero} · ${n.aerodromo}`,
-  consigna: IMAGE_CONSIGNA,
+  pais: n.pais,
+  titulo: n.identificacion,
+  consigna: CONSIGNA,
   modelo: n.decodificacion,
   puntos: n.puntos_clave,
-  errores: n.errores_tipicos ?? [],
+  errores: [],
   fuente: n.fuente_imagen,
   exercise: null,
   national: n,
 }))
 
-const LEVEL_FILTERS: LevelFilter[] = ["todos", "basico", "intermedio", "avanzado"]
+const PAISES = ["todos", ...Array.from(new Set(REAL_NOTAMS.map((n) => n.pais)))]
 
-function levelLabel(l: LevelFilter): string {
-  return l === "todos" ? "Todos los niveles" : LEVEL_META[l].label
-}
+/** Países distintos entre los dos bancos, para la cifra de la cabecera. */
+const TOTAL_PAISES = new Set([
+  ...REAL_NOTAMS.map((n) => n.pais),
+  ...EXERCISES.map((e) => e.pais).filter(Boolean),
+]).size
 
 /** Intento en curso. Va atado a la clave del ejercicio: al cambiar de ejercicio se descarta. */
 interface Attempt {
@@ -119,8 +128,8 @@ const EMPTY_ATTEMPT: Attempt = { key: "", answer: "", revealed: false, ticked: [
 export function NotamPractice() {
   const { user } = useSession()
 
-  const [mode, setMode] = useState<Mode>("texto")
-  const [level, setLevel] = useState<LevelFilter>("todos")
+  const [mode, setMode] = useState<Mode>("imagen")
+  const [pais, setPais] = useState<string>("todos")
   const [idx, setIdx] = useState(0)
   const [attempt, setAttempt] = useState<Attempt>(EMPTY_ATTEMPT)
   const [doneKeys, setDoneKeys] = useState<string[]>(() => readLocalProgress().exercisesDone)
@@ -132,25 +141,18 @@ export function NotamPractice() {
 
   const modeItems = mode === "texto" ? TEXT_ITEMS : IMAGE_ITEMS
 
+  // El país solo filtra los NOTAM reales; los ejercicios de texto van enteros.
   const list = useMemo(
-    () => (level === "todos" ? modeItems : modeItems.filter((i) => i.nivel === level)),
-    [modeItems, level]
+    () =>
+      mode === "imagen" && pais !== "todos"
+        ? modeItems.filter((i) => i.pais === pais)
+        : modeItems,
+    [modeItems, mode, pais]
   )
 
   const safeIdx = list.length > 0 ? Math.min(idx, list.length - 1) : 0
   const item: PracticeItem | null = list.length > 0 ? list[safeIdx] : null
   const itemKey = item?.key ?? ""
-
-  const levelCounts = useMemo(() => {
-    const counts: Record<LevelFilter, number> = {
-      todos: modeItems.length,
-      basico: 0,
-      intermedio: 0,
-      avanzado: 0,
-    }
-    for (const it of modeItems) counts[it.nivel] += 1
-    return counts
-  }, [modeItems])
 
   const doneInMode = modeItems.filter((it) => doneKeys.includes(it.key)).length
   const isDone = itemKey !== "" && doneKeys.includes(itemKey)
@@ -216,8 +218,8 @@ export function NotamPractice() {
     setZoom(false)
   }
 
-  function changeLevel(l: LevelFilter): void {
-    setLevel(l)
+  function changePais(p: string): void {
+    setPais(p)
     setIdx(0)
     setZoom(false)
   }
@@ -244,7 +246,7 @@ export function NotamPractice() {
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1280px] mx-auto">
+      <div className="notam-practica px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1560px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -252,23 +254,41 @@ export function NotamPractice() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a la sección NOTAM
         </Link>
 
-        <PageHeader
-          eyebrow={
-            <>
+        {/* Cabecera. Va centrada y sobre la foto de cabina, con un velo navy
+            encima: la sección es la más larga del módulo y necesitaba una
+            entrada que se sostenga sola, no un titular pegado al borde. La foto
+            es la misma que ya identifica a la práctica en el inicio de NOTAM,
+            así que el usuario llega y reconoce dónde está. */}
+        <header className="np-hero relative mb-8 overflow-hidden rounded-[18px]">
+          <img src={practicaPhoto} alt="" aria-hidden="true" className="np-hero-foto" />
+          <div className="np-hero-velo" />
+          <div className="relative px-6 py-11 text-center sm:px-10 sm:py-14">
+            <div className="np-hero-rotulo">
               <Target className="h-3.5 w-3.5" /> NOTAM · Práctica
-            </>
-          }
-          title="Practica interpretando NOTAM"
-          subtitle={`${TOTALS.exercises} ejercicios de texto y ${TOTALS.national} NOTAM reales de Colombia. Lee el NOTAM, explícalo con tus palabras y después compara con la respuesta modelo.`}
-          actions={
-            <Link
-              to="/app/aerolinea/notam/decodificador"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13px] font-semibold border border-border text-foreground hover:bg-muted transition-colors"
-            >
-              <BookMarked className="h-4 w-4" /> Abrir el decodificador
-            </Link>
-          }
-        />
+            </div>
+            <h1 className="np-display mx-auto mt-4 max-w-[880px] text-[30px] font-semibold leading-[1.1] text-white sm:text-[40px]">
+              Practica interpretando NOTAMs reales
+            </h1>
+            <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
+              Practica con NOTAMs reales y familiarízate con las abreviaturas y la fraseología que
+              encontrarás durante la operación. Mejora tu lectura e interpretación para responder
+              con mayor seguridad en una entrevista de aerolínea.
+            </p>
+            <div className="np-hero-cifras">
+              <span>
+                <strong className="tabular">{TOTALS.reales}</strong> NOTAM en imagen
+              </span>
+              <span aria-hidden="true" className="np-hero-punto" />
+              <span>
+                <strong className="tabular">{TOTALS.exercises}</strong> NOTAM en texto
+              </span>
+              <span aria-hidden="true" className="np-hero-punto" />
+              <span>
+                <strong className="tabular">{TOTAL_PAISES}</strong> países
+              </span>
+            </div>
+          </div>
+        </header>
 
         {/* === CONTROLES: modo, nivel, progreso y selector === */}
         <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
@@ -279,46 +299,53 @@ export function NotamPractice() {
             aria-label="Modo de práctica"
           >
             <ModeButton
-              active={mode === "texto"}
-              onClick={() => changeMode("texto")}
-              icon={<FileText className="h-4 w-4" />}
-              label={`Ejercicios de texto (${TOTALS.exercises})`}
-            />
-            <ModeButton
               active={mode === "imagen"}
               onClick={() => changeMode("imagen")}
               icon={<ImageIcon className="h-4 w-4" />}
-              label={`NOTAM reales de Colombia (${TOTALS.national})`}
+              label={`NOTAM en imagen (${TOTALS.reales})`}
+            />
+            <ModeButton
+              active={mode === "texto"}
+              onClick={() => changeMode("texto")}
+              icon={<FileText className="h-4 w-4" />}
+              label={`NOTAM en texto (${TOTALS.exercises})`}
             />
           </div>
 
-          <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="text-[12px] font-semibold text-muted-foreground mr-1">Nivel:</span>
-            {LEVEL_FILTERS.map((l) => {
-              const active = level === l
-              const color = l === "todos" ? "var(--av-blue-500)" : LEVEL_META[l].color
-              return (
-                <button
-                  key={l}
-                  onClick={() => changeLevel(l)}
-                  aria-pressed={active}
-                  className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] font-semibold border transition-colors"
-                  style={{
-                    color: active ? accentText(color) : "var(--muted-foreground)",
-                    borderColor: active
-                      ? `color-mix(in oklab, ${color} 45%, transparent)`
-                      : "var(--border)",
-                    background: active
-                      ? `color-mix(in oklab, ${color} 12%, transparent)`
-                      : "transparent",
-                  }}
-                >
-                  {levelLabel(l)}
-                  <span className="tabular opacity-70">{levelCounts[l]}</span>
-                </button>
-              )
-            })}
-          </div>
+          {/* Solo país, y solo en los NOTAM reales. En los ejercicios de texto
+              no hay nada que filtrar: se hacen del 1 al final. */}
+          {mode === "imagen" && (
+            <div className="mt-5 flex flex-wrap items-center gap-2">
+              <span className="text-[12px] font-semibold text-muted-foreground mr-1">País:</span>
+              {PAISES.map((p) => {
+                const active = pais === p
+                const n =
+                  p === "todos"
+                    ? IMAGE_ITEMS.length
+                    : IMAGE_ITEMS.filter((i) => i.pais === p).length
+                return (
+                  <button
+                    key={p}
+                    onClick={() => changePais(p)}
+                    aria-pressed={active}
+                    className="inline-flex items-center gap-1.5 h-8 px-3 rounded-full text-[12px] font-semibold border transition-colors"
+                    style={{
+                      color: active ? accentText("var(--av-blue-500)") : "var(--muted-foreground)",
+                      borderColor: active
+                        ? "color-mix(in oklab, var(--av-blue-500) 45%, transparent)"
+                        : "var(--border)",
+                      background: active
+                        ? "color-mix(in oklab, var(--av-blue-500) 12%, transparent)"
+                        : "transparent",
+                    }}
+                  >
+                    {p === "todos" ? "Todos" : p}
+                    <span className="tabular opacity-70">{n}</span>
+                  </button>
+                )
+              })}
+            </div>
+          )}
 
           <div className="mt-5">
             <div className="flex items-end justify-between gap-3">
@@ -327,7 +354,7 @@ export function NotamPractice() {
                 <span className="tabular">{modeItems.length}</span> resueltos
                 <span className="text-muted-foreground font-normal">
                   {" "}
-                  en {mode === "texto" ? "los ejercicios de texto" : "los NOTAM de Colombia"}
+                  en {mode === "texto" ? "los NOTAM en texto" : "los NOTAM en imagen"}
                 </span>
               </div>
               <div className="text-[12px] text-muted-foreground tabular">{pct}%</div>
@@ -350,10 +377,8 @@ export function NotamPractice() {
 
           {list.length > 0 && (
             <div className="mt-5">
-              <div className="text-[12px] font-semibold text-muted-foreground mb-2">
-                Salta al ejercicio que quieras
-              </div>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="np-rotulo mb-2">Salta al que quieras</div>
+              <div className="flex flex-wrap gap-1">
                 {list.map((it, i) => {
                   const active = i === safeIdx
                   const done = doneKeys.includes(it.key)
@@ -368,7 +393,7 @@ export function NotamPractice() {
                       title={rotulo}
                       aria-label={`Ir al ejercicio ${i + 1} de ${list.length}: ${rotulo}${done ? ", ya resuelto" : ""}`}
                       aria-current={active ? "true" : undefined}
-                      className="relative inline-flex items-center justify-center h-9 w-9 rounded-lg text-[12px] font-semibold tabular border transition-colors"
+                      className="np-salto relative inline-flex items-center justify-center rounded-[6px] border tabular transition-colors"
                       style={{
                         color: active ? "white" : done ? accentText(color) : "var(--muted-foreground)",
                         background: active
@@ -384,14 +409,11 @@ export function NotamPractice() {
                       }}
                     >
                       {i + 1}
-                      {done && !active && (
-                        <Check className="absolute -top-1 -right-1 h-3 w-3" strokeWidth={3.5} />
-                      )}
                     </button>
                   )
                 })}
               </div>
-              <div className="mt-2 text-[12px] text-muted-foreground">
+              <div className="mt-2 text-[11px] text-muted-foreground">
                 En verde los que ya marcaste como resueltos.
               </div>
             </div>
@@ -402,113 +424,85 @@ export function NotamPractice() {
         {!item ? (
           <div className="mt-6 rounded-2xl surface p-7 text-center">
             <div className="text-[17px] font-semibold tracking-[-0.01em]">
-              No hay ejercicios de nivel {levelLabel(level).toLowerCase()} en este modo
+              No hay NOTAM de ese país
             </div>
             <p className="mt-1.5 text-[13px] text-muted-foreground">
-              Cambia de nivel o limpia el filtro para ver todos los ejercicios disponibles.
+              Quita el filtro para ver todos los NOTAM reales disponibles.
             </p>
             <button
-              onClick={() => changeLevel("todos")}
+              onClick={() => changePais("todos")}
               className="mt-4 inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[13px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
               style={{ background: "var(--av-blue-500)" }}
             >
-              Ver todos los niveles
+              Ver todos los países
             </button>
           </div>
         ) : (
           <>
-            <div className="mt-6 grid gap-5 lg:grid-cols-[1.15fr_0.85fr] items-start">
+            <div className="mt-6 grid gap-5 xl:gap-6 lg:grid-cols-[minmax(0,1.85fr)_minmax(0,1fr)] items-start">
               {/* ── Columna del NOTAM ── */}
               <section className="min-w-0 rounded-2xl surface p-5 sm:p-6">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div
-                      className="text-[12px] font-semibold"
-                      style={{ color: accentText("var(--av-blue-500)") }}
-                    >
-                      {mode === "texto" ? "Ejercicio de texto" : "NOTAM real de Colombia"} {safeIdx + 1}{" "}
-                      de {list.length}
-                    </div>
-                    {/* En los ejercicios de texto el título es la decodificación (asunto, estado
-                        y lugar), así que se guarda hasta que el usuario pide la respuesta modelo.
-                        En los NOTAM reales el título es serie, número y aeródromo: no revela nada. */}
-                    <h2 className="mt-0.5 text-[20px] font-semibold tracking-[-0.01em] leading-tight">
-                      {item.exercise && !revealed
-                        ? `Ejercicio ${safeIdx + 1} de ${list.length}`
-                        : item.titulo}
-                    </h2>
+                {/* Cabecera. El identificador manda por tamaño y va en la mono
+                    técnica; el aeródromo y el estado bajan a pastillas pequeñas.
+                    Antes los tres pesaban lo mismo y no se sabía qué era qué. */}
+                <header>
+                  <div className="np-rotulo">
+                    {mode === "texto" ? "NOTAM en texto" : "NOTAM en imagen"} · {safeIdx + 1} de{" "}
+                    {list.length}
                   </div>
-                  {isDone && (
-                    <span
-                      className="inline-flex items-center gap-1.5 h-7 px-2.5 rounded-full text-[12px] font-semibold flex-shrink-0"
-                      style={{
-                        color: accentText("var(--av-green-400)"),
-                        background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)",
-                        border: "1px solid color-mix(in oklab, var(--av-green-400) 32%, transparent)",
-                      }}
-                    >
-                      <CheckCircle2 className="h-3.5 w-3.5" /> Resuelto
-                    </span>
-                  )}
-                </div>
+                  {/* En los ejercicios de texto el título dice de qué trata el
+                      NOTAM, o sea media respuesta: se guarda hasta que el usuario
+                      pide la respuesta modelo. En los NOTAM reales el título es
+                      solo la identificación del aviso y no revela nada. */}
+                  <h2
+                    className={`np-display mt-1.5 text-[26px] sm:text-[30px] font-semibold leading-none ${
+                      item.national ? "mono-id" : ""
+                    }`}
+                  >
+                    {item.exercise && !revealed
+                      ? `Ejercicio ${safeIdx + 1} de ${list.length}`
+                      : item.titulo}
+                  </h2>
 
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  <LevelChip nivel={item.nivel} />
-                  {item.exercise && <OriginChip exercise={item.exercise} />}
-                  {item.national && (
-                    <>
-                      <span className="chip chip-cyan mono">{item.national.serie_numero}</span>
-                      <span className="chip">{item.national.aerodromo}</span>
-                    </>
-                  )}
-                </div>
-
-                {/* Avisos obligatorios */}
-                {item.exercise && !ORIGIN_META[item.exercise.origen].real && (
-                  <Callout tone="amber" icon={<AlertTriangle className="h-4 w-4" />} className="mt-4">
-                    {DISCLAIMERS.practice}
-                  </Callout>
-                )}
-                {item.national && (
-                  <Callout tone="red" icon={<ShieldAlert className="h-4 w-4" />} className="mt-4">
-                    {DISCLAIMERS.national}
-                  </Callout>
-                )}
+                  <div className="mt-3 flex flex-wrap items-center gap-2">
+                    {item.national && (
+                      <>
+                        <span className="np-badge">{item.national.aerodromo}</span>
+                        <span className="np-badge">{item.national.pais}</span>
+                      </>
+                    )}
+                    {isDone && (
+                      <span className="np-badge np-badge-on">
+                        <CheckCircle2 className="h-3.5 w-3.5" /> Resuelto
+                      </span>
+                    )}
+                  </div>
+                </header>
 
                 {/* El NOTAM */}
                 {item.exercise ? (
-                  <div className="mt-5">
-                    <div className="text-[12px] font-semibold text-muted-foreground mb-2">
-                      Texto del NOTAM
-                    </div>
-                    <div
-                      className="rounded-xl border overflow-x-auto"
-                      style={{
-                        borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-                        background: "color-mix(in oklab, var(--av-blue-500) 6%, transparent)",
-                      }}
-                    >
-                      <pre className="mono m-0 p-4 text-[12px] sm:text-[13px] leading-[1.7] whitespace-pre-wrap break-words text-foreground">
+                  <div className="mt-6">
+                    <div className="np-rotulo mb-2.5">Texto del NOTAM</div>
+                    <div className="np-tecnico">
+                      <pre className="mono m-0 whitespace-pre-wrap break-words text-[13px] sm:text-[14px] leading-[1.75] text-foreground">
                         {item.exercise.notam}
                       </pre>
                     </div>
                   </div>
                 ) : item.national ? (
                   <div className="mt-5">
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <div className="text-[12px] font-semibold text-muted-foreground">
-                        Recorte del resumen oficial de la Aerocivil
-                      </div>
+                    <div className="flex items-center justify-between gap-3 mb-2.5">
+                      <div className="np-rotulo">Captura del buscador oficial</div>
                       <button
                         onClick={abrirZoom}
                         aria-label="Ampliar la imagen del NOTAM"
-                        className="inline-flex items-center gap-1.5 h-8 px-2.5 rounded-lg text-[12px] font-semibold border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+                        className="np-boton"
                       >
                         <Maximize2 className="h-3.5 w-3.5" /> Ampliar
                       </button>
                     </div>
                     {/* min-w-0 corta la herencia del ancho del hijo: sin esto, el
-                        min-w-[560px] de la imagen empuja la grilla y el scroll
+                        ancho nativo de la imagen empuja la grilla y el scroll
                         horizontal se lo lleva la página entera, no el recuadro. */}
                     <div className="min-w-0">
                       <NotamImage
@@ -518,38 +512,25 @@ export function NotamPractice() {
                         onZoom={abrirZoom}
                       />
                     </div>
-                    <div className="mt-3">
-                      <div className="text-[12px] font-semibold text-muted-foreground mb-1.5">
-                        Transcripción
+                    <div className="mt-6">
+                      <div className="np-rotulo mb-2.5">Transcripción</div>
+                      <div className="np-tecnico">
+                        <p className="mono m-0 break-words text-[13px] sm:text-[14px] leading-[1.75] text-foreground/90">
+                          {item.national.transcripcion}
+                        </p>
                       </div>
-                      <p
-                        className="mono m-0 text-[12px] leading-relaxed text-foreground/85 rounded-lg p-3 border border-border break-words"
-                        style={{ background: "color-mix(in oklab, var(--border) 22%, transparent)" }}
-                      >
-                        {item.national.transcripcion}
-                      </p>
                     </div>
                   </div>
                 ) : null}
 
-                {/* Consigna */}
-                <div
-                  className="mt-5 rounded-xl border p-4"
-                  style={{
-                    borderColor: "color-mix(in oklab, var(--av-blue-500) 28%, transparent)",
-                    background: "color-mix(in oklab, var(--av-blue-500) 7%, transparent)",
-                  }}
-                >
-                  <div
-                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold"
-                    style={{ color: accentText("var(--av-blue-500)") }}
-                  >
-                    <Target className="h-3.5 w-3.5" /> Tu tarea
-                  </div>
-                  <p className="mt-1.5 mb-0 text-[15px] text-foreground/90 leading-relaxed">
-                    {item.consigna}
-                  </p>
-                </div>
+                {/* La consigna NO se repite aquí: vive en la columna de la
+                    derecha, junto al recuadro donde se escribe. Repetirla era
+                    ruido. Y el aviso de vigencia va al pie, pequeño: es una
+                    condición de uso del material, no el titular de la pantalla. */}
+                <p className="np-aviso">
+                  <ShieldAlert className="h-3 w-3 shrink-0" aria-hidden="true" />
+                  <span>{item.national ? DISCLAIMERS.reales : DISCLAIMERS.practice}</span>
+                </p>
               </section>
 
               {/* ── Columna de la respuesta ── */}
@@ -601,7 +582,7 @@ export function NotamPractice() {
                           {item.titulo}
                         </div>
                       )}
-                      <p className="mt-2 mb-0 text-[13px] text-foreground/90 leading-relaxed">
+                      <p className="mt-2 mb-0 whitespace-pre-line text-[13px] text-foreground/90 leading-relaxed">
                         {item.modelo}
                       </p>
                     </div>
@@ -739,7 +720,7 @@ export function NotamPractice() {
           <div
             role="dialog"
             aria-modal="true"
-            aria-label={`Imagen ampliada del NOTAM ${item.national.serie_numero}`}
+            aria-label={`Imagen ampliada del NOTAM ${item.national.identificacion}`}
             onClick={() => setZoom(false)}
             className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-3 p-3 sm:p-4"
             style={{ background: "rgb(11 16 32 / 82%)" }}
@@ -815,7 +796,7 @@ const ZOOM_WIDTH: Record<ZoomLevel, string> = {
 }
 
 interface NotamImageProps {
-  national: NationalNotam
+  national: RealNotam
   variant: "card" | "zoom"
   zoomLevel?: ZoomLevel
   onZoom?: () => void
@@ -848,7 +829,7 @@ function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamIma
             <ImageOff className="h-4 w-4" />
           </span>
           <p className="m-0 text-[13px] leading-relaxed text-foreground/85">
-            No se pudo mostrar el recorte del resumen. Trabaja con el texto del NOTAM: dice
+            No se pudo mostrar la captura. Trabaja con la transcripción del NOTAM: dice
             exactamente lo mismo.
           </p>
         </div>
@@ -863,9 +844,9 @@ function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamIma
   }
 
   const media = (
-    <div className={`relative ${isCard ? "w-full min-w-[560px]" : "inline-block"}`}>
+    <div className={`relative ${isCard ? "inline-block" : "inline-block"}`}>
       <img
-        src={notamImageUrl(national.imagen)}
+        src={realNotamImageUrl(national.imagen)}
         alt={national.transcripcion}
         loading={isCard ? "lazy" : "eager"}
         // Una imagen que ya está en caché puede terminar de cargar antes de que
@@ -875,15 +856,12 @@ function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamIma
         }}
         onLoad={() => setState("lista")}
         onError={() => setState("falló")}
-        className={`block h-auto ${isCard ? "w-full rounded-md" : "max-w-none rounded-lg"}`}
-        style={{
-          aspectRatio: "1875 / 260",
-          ...(isCard ? {} : { width: ZOOM_WIDTH[zoomLevel] }),
-        }}
+        className={`block h-auto max-w-none ${isCard ? "rounded-[6px]" : "rounded-lg"}`}
+        style={isCard ? { width: 1240 } : { width: ZOOM_WIDTH[zoomLevel] }}
       />
       {state === "cargando" && (
         <div
-          className={`absolute inset-0 animate-pulse ${isCard ? "rounded-md" : "rounded-lg"}`}
+          className={`absolute inset-0 animate-pulse ${isCard ? "rounded-[6px]" : "rounded-lg"}`}
           style={{ background: "color-mix(in oklab, var(--muted-foreground) 16%, transparent)" }}
           aria-hidden
         />
@@ -896,9 +874,13 @@ function NotamImage({ national, variant, zoomLevel = "ancho", onZoom }: NotamIma
   return (
     <button
       onClick={onZoom}
-      aria-label={`Ampliar la imagen del NOTAM ${national.serie_numero}`}
-      className="block w-full rounded-xl border p-2.5 sm:p-3 overflow-x-auto text-left"
-      style={{ background: "rgb(255 255 255)", borderColor: "var(--border)" }}
+      aria-label={`Ampliar la imagen del NOTAM ${national.identificacion}`}
+      className="block w-full overflow-x-auto rounded-[12px] border p-3 text-left sm:p-3.5"
+      style={{
+        background: "rgb(255 255 255)",
+        borderColor: "color-mix(in oklab, var(--av-navy-900) 20%, transparent)",
+        boxShadow: "0 8px 24px -16px oklch(0.14 0.025 250 / 45%)",
+      }}
     >
       {media}
     </button>
@@ -931,34 +913,6 @@ function ModeButton({
       {icon}
       <span className="truncate">{label}</span>
     </button>
-  )
-}
-
-function LevelChip({ nivel }: { nivel: NotamLevel }) {
-  const meta = LEVEL_META[nivel]
-  return (
-    <span
-      className="chip"
-      style={{
-        color: accentText(meta.color),
-        background: `color-mix(in oklab, ${meta.color} 13%, transparent)`,
-        borderColor: `color-mix(in oklab, ${meta.color} 32%, transparent)`,
-      }}
-    >
-      {meta.label}
-    </span>
-  )
-}
-
-function OriginChip({ exercise }: { exercise: NotamExercise }) {
-  const meta = ORIGIN_META[exercise.origen]
-  if (!meta.real) return <span className="chip chip-amber">{meta.label}</span>
-  const label =
-    exercise.origen === "oficial_doc8400" ? "Ejemplo oficial del Doc 8400" : "NOTAM real histórico"
-  return (
-    <span className="chip chip-green">
-      <Check className="h-3 w-3" strokeWidth={3} /> {label}
-    </span>
   )
 }
 

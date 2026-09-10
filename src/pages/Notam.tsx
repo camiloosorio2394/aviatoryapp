@@ -2,13 +2,12 @@ import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight, BookOpen, Target, GraduationCap } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
-import aprendePhoto from "@/assets/photos/notam-aprende-planeacion.jpg"
-import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
-import evaluacionPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
+import aprendePhoto from "@/assets/photos/notam-paleta-aprende.webp"
+import practicaPhoto from "@/assets/photos/notam-paleta-practica.webp"
+import evaluacionPhoto from "@/assets/photos/notam-paleta-evaluacion.webp"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -138,11 +137,12 @@ export function Notam() {
       icon: BookOpen,
       color: "var(--av-blue-500)",
       meta: `${TOTALS.lessonScreens} secciones de lectura`,
-      title: "Aprende",
+      title: "1. Aprende",
       blurb:
         "La lección completa: para qué sirve un NOTAM, quién lo publica y cómo se lee casilla por casilla.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
+      photoAspect: "3/2",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -156,12 +156,13 @@ export function Notam() {
       to: "/app/aerolinea/notam/practica",
       icon: Target,
       color: "var(--av-violet-400)",
-      meta: `${TOTALS.exercises} ejercicios y ${TOTALS.national} NOTAM reales de Colombia`,
-      title: "Práctica",
+      meta: `${TOTALS.reales} NOTAM en imagen y ${TOTALS.exercises} en texto`,
+      title: "2. Práctica",
       blurb:
-        "Interpretas NOTAM de texto y recortes reales publicados por la Aerocivil, con respuesta modelo y puntos clave.",
+        "Interpretas NOTAM reales, nacionales e internacionales, en imagen y en texto, y comparas con la respuesta modelo.",
       cta: "Empezar a practicar",
       photo: practicaPhoto,
+      photoAspect: "3/2",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -173,12 +174,13 @@ export function Notam() {
       to: "/app/aerolinea/notam/evaluacion",
       icon: GraduationCap,
       color: "var(--av-amber-400)",
-      meta: `${EXAM_PER_ATTEMPT} preguntas al azar, apruebas con ${EXAM_PASS_SCORE}`,
-      title: "Evaluación",
+      meta: `${EXAM_PER_ATTEMPT} preguntas aleatorias, apruebas con ${EXAM_PASS_SCORE}`,
+      title: "3. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
       cta: "Presentar la evaluación",
       photo: evaluacionPhoto,
+      photoAspect: "3/2",
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -344,14 +346,7 @@ export function Notam() {
 
         {/* Las 3 partes */}
         <section className="pt-14">
-          <Rotulo>La sección · 3 partes</Rotulo>
-          <h2 className="mt-1.5 text-[24px] font-semibold tracking-[-0.021em] leading-tight">
-            Por dónde vas a pasar
-          </h2>
-          <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[60ch]">
-            El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera.
-          </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {partes.map((p) => (
               <CourseCard key={p.to} {...p} statusLoading={loading} />
             ))}

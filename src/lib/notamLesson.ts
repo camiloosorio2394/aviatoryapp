@@ -378,10 +378,12 @@ export type LessonBlock =
       alto: number
       anchoMax?: number
       pie?: string
+      /** Proporción del hueco, "16 / 9" por defecto. Un "1 / 1" para una etiqueta. */
+      ratio?: string
     }
   | { kind: "table"; head: string[]; rows: string[][] }
   /** `grande` para el código que es protagonista, no una cita al paso. */
-  | { kind: "code"; text: string; grande?: boolean }
+  | { kind: "code"; text: string; grande?: boolean; tabular?: boolean }
   /**
    * Caja de aviso. `sellos` destaca dos o tres palabras que hay que retener
    * como condición, no como frase: van en fichas debajo del texto.
@@ -534,7 +536,8 @@ export interface LessonScreen {
   /** Lectura estimada en minutos */
   minutes: number
   blocks: LessonBlock[]
-  level: NotamLevel
+  /** Nivel de dificultad. NOTAM lo enseña en la cabecera; los módulos sin niveles lo omiten. */
+  level?: NotamLevel
 }
 
 export const LESSON_SCREENS: DocScreen[] = [

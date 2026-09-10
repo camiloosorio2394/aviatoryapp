@@ -129,6 +129,18 @@ export default defineConfig({
             },
           },
           {
+            // Capturas del modo practica. Van en PNG porque son la prueba de
+            // que el NOTAM existio y no se recomprimen; por eso necesitan su
+            // propia regla, la de arriba solo mira .webp.
+            urlPattern: /\/notams\/practica\/.*\.png$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'notam-practica-v1',
+              expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'image/png' } },
+            },
+          },
+          {
             // Ilustraciones de las infografias: mismo trato que los recortes.
             // Quien abre la seccion las tiene offline en la segunda visita.
             urlPattern: /\/infografias\/.*\.webp$/,

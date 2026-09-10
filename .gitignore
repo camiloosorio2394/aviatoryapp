@@ -51,3 +51,9 @@ private-batches/*
 # El HTML de revisión de figuras se regenera con el verificador.
 revision-figuras.html
 revision-modulo.html
+
+# Skills de agente instaladas con `npx skills add`: el contenido se vuelve a
+# clonar desde skills-lock.json, que si se versiona. Fuera del repo van 300 KB
+# de instrucciones de terceros que no son codigo de la app.
+.agents/
+.codex/

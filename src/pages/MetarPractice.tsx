@@ -145,9 +145,9 @@ export function MetarPractice() {
                 style={
                   level === l
                     ? {
-                        borderColor: "color-mix(in oklab, var(--av-blue-500) 40%, transparent)",
-                        background: "color-mix(in oklab, var(--av-blue-500) 11%, transparent)",
-                        color: accentText("var(--av-blue-500)"),
+                        borderColor: "color-mix(in oklab, var(--av-mt-600) 40%, transparent)",
+                        background: "color-mix(in oklab, var(--av-mt-600) 11%, transparent)",
+                        color: accentText("var(--av-mt-600)"),
                       }
                     : { borderColor: "var(--border)" }
                 }
@@ -170,7 +170,7 @@ export function MetarPractice() {
           <div className="mt-1.5 h-1.5 rounded-full bg-muted overflow-hidden">
             <div
               className="h-full rounded-full transition-[width]"
-              style={{ width: `${pct}%`, background: "var(--av-blue-500)" }}
+              style={{ width: `${pct}%`, background: "var(--av-mt-600)" }}
             />
           </div>
 
@@ -188,8 +188,8 @@ export function MetarPractice() {
                   style={
                     activo
                       ? {
-                          borderColor: "var(--av-blue-500)",
-                          background: "var(--av-blue-500)",
+                          borderColor: "var(--av-mt-600)",
+                          background: "var(--av-mt-600)",
                           color: "white",
                         }
                       : hecho
@@ -215,7 +215,7 @@ export function MetarPractice() {
           <div className="grid gap-4 lg:grid-cols-2 lg:items-start">
             {/* El informe */}
             <section className="rounded-xl surface p-5 sm:p-6">
-              <div className="text-[12px] font-medium" style={{ color: accentText("var(--av-blue-500)") }}>
+              <div className="text-[12px] font-medium" style={{ color: accentText("var(--av-mt-600)") }}>
                 Ejercicio {safeIdx + 1} de {list.length}
               </div>
               <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">{item.titulo}</h2>
@@ -255,11 +255,11 @@ export function MetarPractice() {
 
               <div
                 className="mt-4 rounded-lg p-4"
-                style={{ background: "color-mix(in oklab, var(--av-blue-500) 7%, transparent)" }}
+                style={{ background: "color-mix(in oklab, var(--av-mt-600) 7%, transparent)" }}
               >
                 <div
                   className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                  style={{ color: accentText("var(--av-blue-500)") }}
+                  style={{ color: accentText("var(--av-mt-600)") }}
                 >
                   <Target className="h-3.5 w-3.5" /> Tu tarea
                 </div>
@@ -280,7 +280,7 @@ export function MetarPractice() {
                 onChange={(e) => setAnswer(e.target.value)}
                 rows={7}
                 placeholder="Dónde y cuándo, cómo sopla, cuánto ves, qué tapa, qué números, y qué decide todo eso."
-                className="w-full rounded-lg border border-border bg-background px-3.5 py-3 text-[15px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-blue-500)]"
+                className="w-full rounded-lg border border-border bg-background px-3.5 py-3 text-[15px] leading-relaxed outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-mt-600)]"
               />
 
               {!revealed ? (

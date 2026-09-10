@@ -41,7 +41,7 @@ import {
   fetchMejorPuntajeSimulacro,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { MP_HUB, MP_LECTURA_TOTAL, resumirMercancias } from "@/lib/mercancias"
+import { MP_HUB, MP_LECTURA_TOTAL, MP_PRACTICA_TOTAL, resumirMercancias } from "@/lib/mercancias"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { BANCO_TOTAL as PSICO_BANCO_TOTAL, TOTALES as PSICO_TOTALES } from "@/data/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -85,8 +85,6 @@ const PROXIMOS: string[] = [
   "Entrevista HR y CRM",
 ]
 
-/** Casos de la práctica de Mercancías Peligrosas, para el pie de su tarjeta. */
-const MP_CASOS = 4
 
 /**
  * Enumera en castellano: "A", "A y B", "A, B y C".
@@ -239,7 +237,7 @@ export function AirlinePrep() {
           color: "var(--av-blue-500)",
           // Las cifras salen de los datos cargados, no de un texto a mano: si
           // el banco crece, la promesa de la tarjeta crece con él.
-          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.exercises} ejercicios · ${TOTALS.national} NOTAM reales · banco de ${TOTALS.examQuestions} preguntas`,
+          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.reales} NOTAM reales · ${TOTALS.exercises} ejercicios · banco de ${TOTALS.examQuestions} preguntas`,
           title: "NOTAM",
           blurb:
             "Qué es un NOTAM, cómo se lee la línea Q y cómo decodificar cualquier aviso. Con material real de la Aerocivil.",
@@ -261,14 +259,13 @@ export function AirlinePrep() {
         card: {
           to: "/app/aerolinea/meteorologia",
           icon: CloudSun,
-          color: "var(--av-cyan-400)",
+          color: "var(--av-mt-700)",
           meta: `${METAR_LESSON_TOTAL} secciones (${METAR_LESSON_MINUTES} min) · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
           title: "Meteorología operacional",
-          // El resumen promete solo lo publicado: METAR. Cuando el curso TAF
-          // exista, se restaura la promesa completa (decisión anotada en
-          // src/data/metar/FUENTES.md).
+          // El curso TAF ya existe (lecciones 10 a 13), así que la promesa
+          // vuelve a ser la completa.
           blurb:
-            "METAR: la lectura del cielo que te preguntan en la entrevista técnica. TAF llega después.",
+            "METAR y TAF: leer lo que hay, anticipar lo que viene y decidir con qué alterno sales. Es la pareja que te preguntan en la entrevista técnica.",
           photo: meteorologiaPhoto,
           cta: metar.empty ? "Empezar el tema" : "Seguir con el tema",
           progress: metar.overall,
@@ -287,11 +284,11 @@ export function AirlinePrep() {
         card: {
           to: MP_HUB,
           icon: AlertTriangle,
-          color: "var(--av-red-400)",
-          meta: `${MP_LECTURA_TOTAL} secciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · ${MP_CASOS} casos · chequeo final`,
+          color: "var(--av-dg-700)",
+          meta: `${MP_LECTURA_TOTAL} lecciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · práctica y evaluación`,
           title: "Mercancías peligrosas",
           blurb:
-            "Las nueve clases con sus etiquetas reales, qué responde el comandante, el NOTOC y las baterías de litio. Con lector propio.",
+            "Dieciocho lecciones en cinco niveles, con su artículo en cada afirmación y la cita en tres niveles, de la OACI al reglamento de tu país: las nueve clases, el NOTOC, las baterías de litio y qué hacer en vuelo. Práctica y evaluación propias.",
           // La portada del propio módulo, la misma que ve en su hub. Vive en
           // public y no en assets porque así queda fuera del precache.
           photo: "/infografias/mercancias/portada.webp",
@@ -302,7 +299,7 @@ export function AirlinePrep() {
             ? "Arranca por el briefing: 9 secciones"
             : mercancias.overall >= 100
               ? "Tema completo"
-              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} secciones y ${mercancias.practiceDone} de ${MP_CASOS} casos`,
+              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} lecciones y ${mercancias.practiceDone} de ${MP_PRACTICA_TOTAL} ejercicios`,
         },
       },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace

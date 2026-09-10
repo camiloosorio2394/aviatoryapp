@@ -28,7 +28,13 @@ export interface CourseCardProps {
   color: string
   /** Meta corta: cuántas secciones, de qué va, cuánto dura. */
   meta: string
-  photo: string
+  /** Portada. Sin ella se pinta el hueco rotulado con `photoHueco`. */
+  photo?: string
+  /** Rótulo del hueco cuando todavía no hay portada: id, medida y qué imagen va. */
+  photoHueco?: string
+  /** "3/2" muestra la portada entera (para portadas con rótulo pintado); por
+      defecto es una franja de 144 px recortada. */
+  photoAspect?: "3/2"
   /** Destino. Sin `to` la tarjeta no navega (catálogo de la landing, partes "Pronto"). */
   to?: string
   /** Texto del CTA. Por defecto "Ver curso". */
@@ -65,6 +71,7 @@ export function CourseCard({
   color,
   meta,
   photo,
+  photoHueco,
   to,
   cta = "Ver curso",
   status,
@@ -74,17 +81,32 @@ export function CourseCard({
   highlight,
   soon,
   metaCaps,
+  photoAspect,
 }: CourseCardProps) {
   const inner = (
     <>
       {/* Miniatura fotográfica con tinte del color del curso */}
-      <div className="relative h-36 overflow-hidden">
-        <img
-          src={photo}
-          alt=""
-          loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className={`relative overflow-hidden ${photoAspect === "3/2" ? "aspect-[3/2]" : "h-36"}`}>
+        {photo ? (
+          <img
+            src={photo}
+            alt=""
+            loading="lazy"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+        ) : (
+          // Hueco de portada, visible a propósito mientras no llega la imagen:
+          // dice qué archivo falta y de qué medida, como en las lecciones.
+          <div
+            className="absolute inset-0 flex items-center justify-center px-5 text-center"
+            style={{ background: "var(--muted)" }}
+            aria-hidden
+          >
+            <span className="mono text-[10.5px] font-semibold uppercase leading-[1.6] tracking-[0.1em] text-muted-foreground">
+              {photoHueco ?? "Portada pendiente"}
+            </span>
+          </div>
+        )}
         <div
           aria-hidden
           className="absolute inset-0"

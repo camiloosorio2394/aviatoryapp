@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
 import { identifyUser, resetIdentity } from "@/lib/analytics"
@@ -30,6 +31,8 @@ const Landing = page(() => import("@/pages/Landing"), "Landing")
 const Pricing = page(() => import("@/pages/Pricing"), "Pricing")
 const Contact = page(() => import("@/pages/Contact"), "Contact")
 const Login = page(() => import("@/pages/Login"), "Login")
+const Recuperar = page(() => import("@/pages/Recuperar"), "Recuperar")
+const NuevaClave = page(() => import("@/pages/NuevaClave"), "NuevaClave")
 const Onboarding = page(() => import("@/pages/Onboarding"), "Onboarding")
 const Dashboard = page(() => import("@/pages/Dashboard"), "Dashboard")
 const TestInicial = page(() => import("@/pages/TestInicial"), "TestInicial")
@@ -67,7 +70,9 @@ const NotamLesson = page(() => import("@/pages/NotamLesson"), "NotamLesson")
 const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice")
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
-const MercanciasLector = page(() => import("@/pages/MercanciasLector"), "MercanciasLector")
+const MercanciasLeccion = page(() => import("@/pages/MercanciasLeccion"), "MercanciasLeccion")
+const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
+const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
 const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
@@ -124,7 +129,12 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<PaginaCargando />}>
+      {/* El boundary va por dentro del router y no en `main.tsx`, para que su
+          pantalla de fallo herede el tema y los tokens, y para que el enlace de
+          volver funcione. Envuelve al `Suspense`: así también atrapa el error
+          de una página que no llega a cargar. */}
+      <ErrorBoundary>
+        <Suspense fallback={<PaginaCargando />}>
         <Routes>
         {/* Public */}
         <Route path="/" element={<Landing />} />
@@ -133,6 +143,11 @@ function App() {
         <Route path="/terminos" element={<Terms />} />
         <Route path="/privacidad" element={<Privacy />} />
         <Route path="/login" element={<Login />} />
+        {/* Recuperar la contraseña va por fuera de RequireAuth a propósito:
+            Supabase entrega el enlace del correo como una sesión ya iniciada, y
+            atar la pantalla a esa carrera no aporta nada. */}
+        <Route path="/recuperar" element={<Recuperar />} />
+        <Route path="/nueva-clave" element={<NuevaClave />} />
 
         {/* Auth-required onboarding */}
         <Route
@@ -346,8 +361,8 @@ function App() {
             </RequireAuth>
           }
         />
-        {/* Tema Mercancías Peligrosas. El hub vive dentro de la app; el lector
-            sale a pantalla completa con su propio cascarón. */}
+        {/* Tema Mercancías peligrosas. El hub vive dentro de la app; la lección
+            usa el lector genérico de NOTAM, a pantalla completa. */}
         <Route
           path="/app/aerolinea/mercancias"
           element={
@@ -357,12 +372,33 @@ function App() {
           }
         />
         <Route
-          path="/app/aerolinea/mercancias/leccion"
+          path="/app/aerolinea/mercancias/aprende"
           element={
             <RequireAuth>
-              <MercanciasLector />
+              <MercanciasLeccion />
             </RequireAuth>
           }
+        />
+        <Route
+          path="/app/aerolinea/mercancias/practica"
+          element={
+            <RequireAuth>
+              <MercanciasPractice />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/app/aerolinea/mercancias/evaluacion"
+          element={
+            <RequireAuth>
+              <MercanciasExam />
+            </RequireAuth>
+          }
+        />
+        {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
+        <Route
+          path="/app/aerolinea/mercancias/leccion"
+          element={<Navigate to="/app/aerolinea/mercancias/aprende" replace />}
         />
         <Route
           path="/app/aerolinea/simulacro"
@@ -540,7 +576,8 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
         </Routes>
-      </Suspense>
+        </Suspense>
+      </ErrorBoundary>
       <Toaster />
       <ReloadPrompt />
     </>

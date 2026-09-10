@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
+import { PasswordRules } from "@/components/auth/PasswordRules"
 import { Seo } from "@/components/Seo"
 import { track, Events } from "@/lib/analytics"
 
@@ -36,6 +37,26 @@ const benefits = [
 ]
 
 const USERNAME_REGEX = /^[a-z0-9_]{3,30}$/
+
+/**
+ * A dónde se va el piloto después de entrar.
+ *
+ * `RequireAuth` guarda en el estado de la ruta de dónde venía, para devolverlo
+ * ahí una vez dentro. Ese valor lo pone la propia aplicación, pero el estado de
+ * una entrada del historial no está fuera del alcance de nadie, y aquí termina
+ * en un `navigate()`. Una ruta como `//otra-web.com` la resuelve el navegador
+ * como una dirección de otro dominio: sería mandar al piloto fuera justo
+ * después de que escribió su contraseña.
+ *
+ * Así que solo se acepta un camino dentro de la aplicación: una barra sola al
+ * principio, y ni `//` ni `/\` detrás. Cualquier otra cosa va al panel.
+ */
+function destinoSeguro(destino: string | undefined): string {
+  if (!destino) return "/app"
+  if (!destino.startsWith("/")) return "/app"
+  if (destino.startsWith("//") || destino.startsWith("/\\")) return "/app"
+  return destino
+}
 
 type UsernameStatus =
   | { state: "idle" }
@@ -63,7 +84,7 @@ export function Login() {
   const location = useLocation()
   const { session, isLoading } = useSession()
 
-  const from = (location.state as LocationStateFrom | null)?.from?.pathname ?? "/app"
+  const from = destinoSeguro((location.state as LocationStateFrom | null)?.from?.pathname)
   const isSignup = mode === "signup"
 
   useEffect(() => {
@@ -354,13 +375,12 @@ export function Login() {
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password" className="text-[15px]">Contraseña</Label>
                   {!isSignup && (
-                    <button
-                      type="button"
+                    <Link
+                      to="/recuperar"
                       className="text-[12px] text-muted-foreground hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                      onClick={() => toast.info("Pronto disponible. Por ahora escribinos a hola@aviatory.app")}
                     >
                       ¿Olvidaste tu contraseña?
-                    </button>
+                    </Link>
                   )}
                 </div>
                 <div className="relative">
@@ -478,28 +498,6 @@ export function Login() {
         </div>
       </section>
     </main>
-  )
-}
-
-function PasswordRules({ length, digit }: { length: boolean; digit: boolean }) {
-  return (
-    <ul className="space-y-1 mt-1 text-[12px]">
-      <Rule met={length} text="Al menos 8 caracteres" />
-      <Rule met={digit} text="Incluye un número" />
-    </ul>
-  )
-}
-
-function Rule({ met, text }: { met: boolean; text: string }) {
-  return (
-    <li
-      className={`flex items-center gap-1.5 transition-colors ${
-        met ? "text-green-600 dark:text-green-400" : "text-muted-foreground"
-      }`}
-    >
-      {met ? <Check className="h-3 w-3" /> : <span className="h-3 w-3 inline-flex items-center justify-center"><span className="h-1.5 w-1.5 rounded-full bg-muted-foreground/40" /></span>}
-      {text}
-    </li>
   )
 }
 

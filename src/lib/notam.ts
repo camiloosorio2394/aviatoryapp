@@ -8,7 +8,7 @@
  * Estructura de la sección:
  *   1. Aprende      → LESSON_SCREENS (notamLesson.ts)
  *   2. Decodificador → SUBJECT_CODES + STATUS_CODES + decodeQ()
- *   3. Practica     → EXERCISES (texto) + NATIONAL_NOTAMS (imágenes reales)
+ *   3. Practica     → REAL_NOTAMS (capturas reales) + EXERCISES (texto)
  *   4. Evaluación   → EXAM_QUESTIONS
  */
 
@@ -16,6 +16,7 @@ import codesRaw from "@/data/notam/notam_codes.json"
 import exercisesRaw from "@/data/notam/ejercicios_interpretacion.json"
 import examRaw from "@/data/notam/evaluacion_notam.json"
 import nationalRaw from "@/data/notam/notams_nacionales.json"
+import realesRaw from "@/data/notam/notams_reales.json"
 import { LESSON_TOTAL } from "@/lib/notamLesson"
 
 // ─── Tipos ───────────────────────────────────────────────────────────────────
@@ -51,15 +52,33 @@ export interface OfficialExample {
 }
 
 export type ExerciseOrigin =
+  /** Sale de uno de los 31 NOTAM reales de notams_reales.json */
+  | "real_notam"
   | "oficial_doc8400"
-  | "practica_no_oficial"
   | "bibliografia_real_historico"
+
+/** Qué se le pide interpretar al usuario en ese ejercicio. */
+export type ExerciseKind =
+  | "significado"
+  | "elemento"
+  | "vigencia"
+  | "casilla"
+  | "restriccion"
+  | "piloto"
+  | "lectura"
 
 export interface NotamExercise {
   id: number
   origen: ExerciseOrigin
+  tipo: ExerciseKind
+  /** Etiqueta corta del tipo, ya traducida en el JSON */
+  tipo_label: string
   nivel: NotamLevel
   titulo: string
+  /** Id de la ficha de notams_reales.json de la que sale, si sale de una */
+  notam_ref: string | null
+  lugar: string | null
+  pais: string | null
   /** Texto crudo del NOTAM (respeta los saltos de línea al renderizar) */
   notam: string
   consigna: string
@@ -67,6 +86,30 @@ export interface NotamExercise {
   puntos_clave: string[]
   errores_tipicos?: string[]
   fuente: string
+}
+
+/**
+ * Un NOTAM real con su captura.
+ *
+ * La imagen NO se convierte ni se recorta: es el PNG que devolvió el buscador
+ * oficial, copiado tal cual. Esa captura es la prueba de que el aviso existió, y
+ * recomprimirla le quitaría exactamente eso.
+ */
+export interface RealNotam {
+  id: string
+  /** Ruta relativa dentro de public/notams/; usar realNotamImageUrl() */
+  imagen: string
+  identificacion: string
+  aerodromo: string
+  pais: string
+  fir: string
+  asunto: string
+  nivel: NotamLevel
+  /** Transcripción del texto OACI: alt-text, búsqueda y evaluación sin OCR */
+  transcripcion: string
+  decodificacion: string
+  puntos_clave: string[]
+  fuente_imagen: string
 }
 
 export interface NationalNotam {
@@ -167,11 +210,17 @@ export const EXAM_META = deepPlain(examRaw.meta)
 export const NATIONAL_NOTAMS = deepPlain(nationalRaw.notams as NationalNotam[])
 export const NATIONAL_META = deepPlain(nationalRaw.meta)
 
+/** Los 31 NOTAM reales del modo práctica, con su captura. */
+export const REAL_NOTAMS = deepPlain(realesRaw.notams as RealNotam[])
+export const REAL_META = deepPlain(realesRaw.meta)
+
 export const TOTALS = {
   subjects: Object.keys(SUBJECT_CODES).length,
   statuses: Object.keys(STATUS_CODES).length,
   exercises: EXERCISES.length,
   national: NATIONAL_NOTAMS.length,
+  /** NOTAM reales del modo práctica: los de la columna izquierda. */
+  reales: REAL_NOTAMS.length,
   examQuestions: EXAM_QUESTIONS.length,
   // Derivado, no fijo: si se agrega o se reordena una sección de la lección, el
   // denominador del progreso del hub tiene que moverse con ella.
@@ -194,8 +243,8 @@ export const EXAM_PER_ATTEMPT = Math.min(
   EXAM_QUESTIONS.length,
 )
 
-/** Denominador de la práctica: ejercicios de texto más NOTAM colombianos reales. */
-export const NOTAM_PRACTICE_TOTAL = TOTALS.exercises + TOTALS.national
+/** Denominador de la práctica: NOTAM reales más ejercicios de texto. */
+export const NOTAM_PRACTICE_TOTAL = TOTALS.reales + TOTALS.exercises
 
 export interface NotamResumen {
   lessonRead: number
@@ -249,10 +298,12 @@ export function resumirNotam(progreso: {
 // ─── Avisos obligatorios en pantalla (reglas de producto del paquete) ────────
 
 export const DISCLAIMERS = {
-  /** Ejercicios de práctica redactados para Aviatory: no son NOTAM reales. */
+  /** Los ejercicios de texto salen todos de NOTAM reales; ya no hay ninguno inventado. */
   practice: EXERCISE_META.aviso_obligatorio_en_pantalla as string,
-  /** NOTAM colombianos reales usados como material de estudio (vigencia expirada). */
+  /** NOTAM colombianos reales embebidos en la lección (vigencia expirada). */
   national: NATIONAL_META.aviso_obligatorio_en_pantalla as string,
+  /** Las 31 capturas reales del modo práctica. */
+  reales: REAL_META.aviso_obligatorio_en_pantalla as string,
   /** Preguntas de práctica, no oficiales de Aerocivil ni OACI. */
   exam: EXAM_META.aviso_en_pantalla as string,
   /** El Doc 8400 cargado es la 6ª ed. (2004); existen ediciones posteriores. */
@@ -275,6 +326,16 @@ export const RUBRIC: RubricCriterion[] = Object.entries(
 /** URL servible de la imagen de un NOTAM nacional (los PNG viven en /public/notams). */
 export function notamImageUrl(rel: string): string {
   return `/notams/${rel.split("/").pop()}`
+}
+
+/**
+ * URL de la captura de un NOTAM real.
+ *
+ * Aquí sí se respeta la subcarpeta: las capturas viven en
+ * public/notams/practica/ y la ficha guarda "practica/<archivo>.png".
+ */
+export function realNotamImageUrl(rel: string): string {
+  return `/notams/${rel.replace(/^\/+/, "")}`
 }
 
 export interface DecodedQ {
@@ -409,8 +470,8 @@ export const LEVEL_META: Record<NotamLevel, { label: string; color: string }> = 
 
 /** Etiqueta de procedencia de cada ejercicio, para mostrar la fuente sin ambigüedad. */
 export const ORIGIN_META: Record<ExerciseOrigin, { label: string; real: boolean }> = {
+  real_notam: { label: "NOTAM real", real: true },
   oficial_doc8400: { label: "Ejemplo oficial · Doc 8400", real: true },
-  practica_no_oficial: { label: "Práctica · no es un NOTAM real", real: false },
   bibliografia_real_historico: { label: "NOTAM real histórico", real: true },
 }
 

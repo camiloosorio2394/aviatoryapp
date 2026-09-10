@@ -27,7 +27,7 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  * Hub del tema Meteorología operacional (módulo Ingreso a aerolínea).
  * Ruta: /app/aerolinea/meteorologia
  *
- * El tema completo: lección, decodificador, práctica y evaluación. El TAF
+ * El tema completo: lección, decodificador, práctica y evaluación. La
  * tendrá su propia lección. Las tres partes con progreso viven en la base con
  * respaldo local: lección y práctica en user_metar_progress, la evaluación en
  * user_metar_exam_attempts.
@@ -94,11 +94,11 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/aprende",
       icon: BookOpen,
-      color: "var(--av-blue-500)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
       title: "Aprende",
       blurb:
-        "Qué es un METAR y cómo leerlo grupo por grupo: viento, visibilidad, tiempo presente, nubes, QNH y tendencias.",
+        "El METAR grupo por grupo (viento, visibilidad, tiempo presente, nubes, QNH y tendencias) y el TAF completo: grupos de cambio, lectura de un pronóstico y cómo decide tu alterno.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
       status:
@@ -113,7 +113,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/decodificador",
       icon: ScanSearch,
-      color: "var(--av-cyan-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
       title: "Decodificador",
       blurb:
@@ -125,7 +125,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/practica",
       icon: Target,
-      color: "var(--av-violet-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
       title: "Práctica",
       blurb:
@@ -142,7 +142,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
-      color: "var(--av-amber-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
       title: "Evaluación",
       blurb:
@@ -174,8 +174,8 @@ export function Metar() {
 
         <PageHeader
           eyebrow="Ingreso a aerolínea · Meteorología operacional"
-          title="METAR: el estado del cielo en una línea"
-          subtitle="La lectura obligada del briefing junto al NOTAM. Lección, decodificador, práctica y evaluación. El TAF tendrá su propia lección."
+          title="METAR y TAF: leer el cielo y anticiparlo"
+          subtitle="La lectura obligada del briefing junto al NOTAM. El METAR dice lo que hay; el TAF, lo que se espera y con qué alterno sales. Lección, decodificador, práctica y evaluación."
         />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
