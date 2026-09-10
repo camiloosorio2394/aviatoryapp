@@ -280,7 +280,7 @@ export function QuizEngine({
                 onClick={() => responder(i)}
                 disabled={respondida}
                 aria-pressed={i === elegida}
-                className="w-full text-left rounded-lg border px-4 py-3 text-[15px] leading-snug transition-colors disabled:cursor-default"
+                className="w-full text-left rounded-lg border px-4 py-3 text-[15px] leading-snug transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.99] disabled:active:scale-100 disabled:cursor-default"
                 style={{
                   borderColor: revelada
                     ? `color-mix(in oklab, ${tono} 45%, transparent)`

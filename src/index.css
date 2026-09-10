@@ -192,7 +192,7 @@
     }
   }
   .animate-fade-in-up {
-    animation: fade-in-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: fade-in-up 0.6s var(--ease-av) both;
   }
 
   /* Marquee horizontal en loop (SocialProof). El contenido va duplicado
@@ -220,9 +220,9 @@
       0 1px 0 0 rgb(255 255 255 / 15%) inset,
       0 1px 2px 0 rgb(0 0 0 / 10%),
       0 8px 24px -6px rgb(37 99 235 / 35%);
-    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1),
-      filter 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 200ms var(--ease-av),
+      box-shadow 200ms var(--ease-av),
+      filter 200ms var(--ease-av);
   }
   .btn-apple:hover {
     transform: translateY(-1px) scale(1.015);
@@ -246,8 +246,8 @@
       0 1px 0 0 rgb(255 255 255 / 60%) inset,
       0 1px 2px 0 rgb(0 0 0 / 8%),
       0 8px 24px -6px rgb(0 0 0 / 15%);
-    transition: transform 200ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 200ms var(--ease-av),
+      box-shadow 200ms var(--ease-av);
   }
   .btn-apple-light:hover {
     transform: translateY(-1px) scale(1.015);
@@ -268,7 +268,7 @@
     backdrop-filter: blur(12px);
     color: oklch(0.205 0 0);
     border: 1px solid rgb(0 0 0 / 8%);
-    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 200ms var(--ease-av);
   }
   .btn-apple-ghost:hover {
     background-color: rgb(0 0 0 / 5%);
@@ -289,9 +289,9 @@
 
   /* Card hover with subtle Apple-style lift */
   .card-apple {
-    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 300ms var(--ease-av),
+      box-shadow 300ms var(--ease-av),
+      border-color 300ms var(--ease-av);
   }
   .card-apple:hover {
     transform: translateY(-4px);
@@ -372,7 +372,7 @@
    * 3D TILT — subtle perspective hover
    * ======================================== */
   .tilt-3d {
-    transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 500ms var(--ease-av);
     transform-style: preserve-3d;
     perspective: 1000px;
   }
@@ -443,7 +443,7 @@
   .letter-reveal > span {
     display: inline-block;
     opacity: 0;
-    animation: letter-fade 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: letter-fade 600ms var(--ease-av) both;
   }
 
   /* ========================================
@@ -539,7 +539,9 @@
       transparent 70%
     );
     transform: translateX(-100%);
-    transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+    /* 700ms era más de cuatro veces el acuse del propio botón (100ms): el
+       barrido seguía viajando cuando el formulario ya se había enviado. */
+    transition: transform 450ms var(--ease-av);
     pointer-events: none;
   }
   .shine-on-hover:hover::after {
@@ -624,6 +626,12 @@
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
 
   /* Motion */
+  /* La curva de la casa: un ease-out fuerte. Arranca rápido, que es lo que
+     hace que la interfaz parezca que ya respondió. Estaba tecleada a mano
+     en veintitantos sitios. */
+  --ease-av: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Con rebote. No es la de la casa: Aviatory no rebota. Se queda porque
+     alguna pieza suelta la usa, pero no es la que hay que copiar. */
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Shadows */
@@ -705,8 +713,8 @@
   /* Levantar al pasar por encima. Solo para superficies que son enlace o botón. */
   .surface-lift {
     transition:
-      transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1);
+      transform 300ms var(--ease-av),
+      box-shadow 300ms var(--ease-av);
   }
   .surface-lift:hover {
     transform: translateY(-2px);
@@ -728,9 +736,9 @@
     border-radius: 1rem;
   }
   .card-hover {
-    transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1),
-      border-color 300ms cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 300ms var(--ease-av),
+      box-shadow 300ms var(--ease-av),
+      border-color 300ms var(--ease-av);
   }
   .card-hover:hover {
     transform: translateY(-4px);
@@ -1177,10 +1185,10 @@
 @keyframes av-scale-in { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
 @keyframes av-pulse-ring { 0% { transform: scale(0.7); opacity: 0.7; } 100% { transform: scale(1.8); opacity: 0; } }
 
-.anim-fade-up { animation: av-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.anim-fade-up { animation: av-fade-up 700ms var(--ease-av) both; }
 .anim-scale-in { animation: av-scale-in 500ms var(--ease-spring) both; }
 
-.stagger > * { opacity: 0; animation: av-fade-up 700ms cubic-bezier(0.16, 1, 0.3, 1) both; }
+.stagger > * { opacity: 0; animation: av-fade-up 700ms var(--ease-av) both; }
 .stagger > *:nth-child(1) { animation-delay: 30ms; }
 .stagger > *:nth-child(2) { animation-delay: 90ms; }
 .stagger > *:nth-child(3) { animation-delay: 150ms; }
@@ -1195,7 +1203,7 @@
 /* === KPI Ring === */
 .ring-bg { stroke: oklch(0.78 0.02 250 / 18%); fill: none; }
 .dark .ring-bg { stroke: oklch(0.5 0.02 250 / 25%); }
-.ring-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 1100ms cubic-bezier(0.16, 1, 0.3, 1); }
+.ring-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 1100ms var(--ease-av); }
 
 /* === Sparkline === */
 .spark-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
@@ -1266,7 +1274,7 @@
   position: absolute; inset: 0;
   background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 35%) 50%, transparent 70%);
   transform: translateX(-120%);
-  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 700ms var(--ease-av);
   pointer-events: none;
 }
 .av-shine:hover::after { transform: translateX(120%); }
@@ -1632,4 +1640,58 @@
   .av-shine:hover::after {
     transform: translateX(-120%);
   }
+}
+
+/* ============================================================
+ * El movimiento que quedaba sin cubrir
+ *
+ * Había seis bloques de reduced-motion, todos de una pieza concreta, y fuera
+ * quedaba lo más usado de todo: las entradas `.anim-fade-up` y `.stagger`, y
+ * las utilidades de tw-animate-css que traen los componentes de shadcn, que no
+ * llevan guard de fábrica (comprobado en su propio CSS: cero apariciones de
+ * prefers-reduced-motion).
+ *
+ * Menos movimiento no es ninguno: la opacidad se queda, porque explica que algo
+ * llegó. Lo que se va es el desplazamiento, la escala y los retardos en
+ * cascada, que en una rejilla de diez hacían esperar 1,27 s al último.
+ * ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .anim-fade-up,
+  .anim-scale-in,
+  .stagger > * {
+    animation-name: av-solo-aparece;
+    animation-duration: 200ms;
+    animation-delay: 0ms !important;
+  }
+
+  /* tw-animate-css: se conserva el fundido, se anulan deslizamiento y zoom. */
+  .animate-in {
+    --tw-enter-translate-x: 0 !important;
+    --tw-enter-translate-y: 0 !important;
+    --tw-enter-scale: 1 !important;
+    --tw-enter-rotate: 0 !important;
+    animation-duration: 200ms !important;
+  }
+  .animate-out {
+    --tw-exit-translate-x: 0 !important;
+    --tw-exit-translate-y: 0 !important;
+    --tw-exit-scale: 1 !important;
+    --tw-exit-rotate: 0 !important;
+    animation-duration: 200ms !important;
+  }
+
+  /* El único bucle con desplazamiento vertical de las utilidades de Tailwind. */
+  .animate-bounce {
+    animation: none;
+  }
+
+  /* El anillo de KPI llega puesto. */
+  .ring-fill {
+    transition: none;
+  }
+}
+
+@keyframes av-solo-aparece {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

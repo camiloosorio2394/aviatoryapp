@@ -47,7 +47,7 @@ export function NotificationsBell() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+        className="relative p-2 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
         aria-label="Notificaciones"
         aria-expanded={open}
       >

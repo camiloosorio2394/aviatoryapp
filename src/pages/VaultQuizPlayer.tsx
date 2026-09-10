@@ -426,7 +426,7 @@ export function VaultQuizPlayer() {
                     type="button"
                     disabled={!!result || submitting}
                     onClick={() => setSelected(key)}
-                    className="w-full text-left rounded-2xl border p-4 flex items-start gap-3 transition-all hover:-translate-y-0.5 disabled:hover:translate-y-0 disabled:cursor-default"
+                    className="w-full text-left rounded-2xl border p-4 flex items-start gap-3 transition-[color,background-color,border-color,transform,box-shadow] duration-150 ease-out hover:-translate-y-0.5 active:scale-[0.99] disabled:hover:translate-y-0 disabled:active:scale-100 disabled:cursor-default"
                     style={{
                       borderColor: "var(--border)",
                       ...stateStyle,

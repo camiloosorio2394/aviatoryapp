@@ -148,7 +148,7 @@ export function AppTopbar({
           <button
             type="button"
             onClick={onToggleSidebar}
-            className="hidden lg:inline-flex items-center justify-center w-8 h-8 -ml-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            className="hidden lg:inline-flex items-center justify-center w-8 h-8 -ml-1 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
             aria-label={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
             title={sidebarHidden ? "Mostrar barra lateral" : "Ocultar barra lateral"}
           >
@@ -200,7 +200,7 @@ export function AppTopbar({
           <button
             type="button"
             onClick={onCmdK}
-            className="search-cmdk w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+            className="search-cmdk w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
             aria-label="Buscar en Aviatory"
             title="Buscar en Aviatory"
           >
@@ -212,7 +212,7 @@ export function AppTopbar({
         <button
           type="button"
           onClick={toggleTheme}
-          className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
+          className="w-8 h-8 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
           aria-label="Cambiar tema claro/oscuro"
           title={themePref === "system" ? "Tema: automático" : dark ? "Tema: oscuro" : "Tema: claro"}
         >
@@ -229,7 +229,7 @@ export function AppTopbar({
               e.stopPropagation()
               setOpen((v) => !v)
             }}
-            className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-muted transition-colors"
+            className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
             aria-haspopup="menu"
             aria-expanded={open}
           >
@@ -291,7 +291,7 @@ export function AppTopbar({
               <Link
                 to="/app/perfil"
                 onClick={() => setOpen(false)}
-                className="flex items-center gap-2 px-4 py-2.5 text-[15px] hover:bg-muted transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 text-[15px] hover:bg-muted transition-[color,background-color,transform] duration-150 ease-out active:scale-[0.97]"
               >
                 <User className="h-4 w-4" /> Mi perfil
               </Link>

@@ -34,7 +34,7 @@ export function Wingman() {
         type="button"
         onClick={() => (open ? close() : openWith({ kind: "general" }))}
         aria-label={open ? "Cerrar Wingman" : "Abrir Wingman"}
-        className={`fixed ${elevado ? "bottom-24" : "bottom-6"} right-6 z-40 w-[60px] h-[60px] rounded-full border-0 cursor-pointer text-white flex items-center justify-center transition-transform duration-200 hover:scale-105`}
+        className={`fixed ${elevado ? "bottom-24" : "bottom-6"} right-6 z-40 w-[60px] h-[60px] rounded-full border-0 cursor-pointer text-white flex items-center justify-center transition-transform duration-200 hover:scale-105 active:scale-[0.97]`}
         style={{
           background:
             "linear-gradient(135deg, var(--av-cyan-300) 0%, var(--av-blue-500) 60%, var(--av-navy-900) 100%)",
