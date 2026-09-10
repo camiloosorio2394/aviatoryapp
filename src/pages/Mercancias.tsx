@@ -4,6 +4,7 @@ import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
 import { EspacioReservado } from "@/components/modulo/EspacioReservado"
+import { FilaAvance } from "@/components/modulo/FilaAvance"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -326,67 +327,5 @@ export function Mercancias() {
 
       </div>
     </AppLayout>
-  )
-}
-
-// ─── Sub componentes ─────────────────────────────────────────────────────────
-
-/**
- * Una parte del módulo dentro del hero: nombre, cifra y barra.
- *
- * Misma pieza que en el hub de NOTAM. El color se lo dan desde fuera porque
- * cada parte lleva el suyo: si todas fueran mostaza no se distinguiría el
- * total de una de sus partes, que era el problema que ya arreglamos allí.
- *
- * La fila entera es el enlace, no un «Seguir» aparte: a este tamaño un enlace
- * de texto sería un blanco diminuto en móvil.
- */
-function FilaAvance({
-  titulo,
-  valor,
-  pct,
-  color,
-  aviso,
-  cargando,
-  to,
-}: {
-  titulo: string
-  valor: string
-  pct: number
-  color: string
-  /** Todavía no hay nada que medir: la cifra se dice en ámbar. */
-  aviso?: boolean
-  cargando?: boolean
-  to: string
-}) {
-  return (
-    <Link to={to} className="block rounded-[9px] px-2.5 py-1.5 transition-colors hover:bg-white/[0.07]">
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[12px] font-medium text-white/85">{titulo}</span>
-        {cargando ? (
-          <span className="h-3 w-12 animate-pulse rounded bg-white/15" />
-        ) : (
-          <span
-            className="tabular text-[11px]"
-            style={{ color: aviso ? "var(--av-amber-400)" : "rgba(255,255,255,0.62)" }}
-          >
-            {valor}
-          </span>
-        )}
-      </div>
-      <div
-        className="mt-1.5 h-[3px] overflow-hidden rounded-sm bg-white/15"
-        role="progressbar"
-        aria-valuenow={cargando ? undefined : pct}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={`Avance de ${titulo}`}
-      >
-        <div
-          className="h-full rounded-sm transition-all"
-          style={{ width: `${pct}%`, background: color }}
-        />
-      </div>
-    </Link>
   )
 }

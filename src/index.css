@@ -1461,22 +1461,27 @@
   --av-dg-fg: oklch(0.82 0.10 88);
 }
 
-/* Meteorología: verde de bosque, no el verde de «correcto».
-   El --av-green-400 de la app significa acierto y es brillante a propósito;
-   como identidad de módulo haría que todo pareciera validado. Este baja la
-   luminosidad y el croma hasta el terreno del navy del índice: sigue siendo
-   verde, pero se comporta como un color de documento. */
+/* Meteorología: turquesa petróleo.
+   Era verde de bosque, y el verde de esta app ya tiene dueño: --av-green-400
+   significa «correcto». Aunque el del módulo fuera más oscuro, seguía siendo
+   la misma familia, y un módulo entero teñido del color del acierto se lee
+   como si todo estuviera validado.
+
+   Petróleo quiere decir azulado, oscuro y apagado: el matiz se va del 166
+   (verde) al 205 (cian azulado) y el croma baja. Nada de turquesa de piscina,
+   que a esta luminosidad ni siquiera cabe en sRGB sin gritar. Los hex del
+   lector, más abajo, salen de estos mismos oklch y no de otro ojo. */
 :root {
-  --av-mt-500: oklch(0.63 0.085 166);
-  --av-mt-600: oklch(0.52 0.08 166);
-  --av-mt-700: oklch(0.41 0.068 167);
-  --av-mt-fg: oklch(0.37 0.06 167);
+  --av-mt-500: oklch(0.62 0.075 205);
+  --av-mt-600: oklch(0.50 0.072 205);
+  --av-mt-700: oklch(0.38 0.060 206);
+  --av-mt-fg: oklch(0.35 0.055 206);
 }
 .dark {
-  --av-mt-500: oklch(0.72 0.085 168);
-  --av-mt-600: oklch(0.63 0.08 167);
-  --av-mt-700: oklch(0.52 0.07 167);
-  --av-mt-fg: oklch(0.78 0.07 168);
+  --av-mt-500: oklch(0.71 0.072 205);
+  --av-mt-600: oklch(0.61 0.070 205);
+  --av-mt-700: oklch(0.50 0.062 206);
+  --av-mt-fg: oklch(0.77 0.060 205);
 }
 
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
@@ -1497,15 +1502,17 @@
   --doc-accent: var(--ln-primary);
 }
 
-/* Y el de Meteorología, igual, en verde. Mismo papel, misma tinta, mismo
-   navy: cambia lo que era azul carta. */
+/* Y el de Meteorología, igual, en turquesa petróleo. Mismo papel, misma
+   tinta, mismo navy: cambia lo que era azul carta. Cada hex es el mismo oklch
+   de los tokens --av-mt-* de arriba, convertido: si un día se mueve el matiz,
+   se mueven los dos juntos. */
 .lector-notam.lector-mt {
-  --ln-primary: #1D4B3C;
-  --ln-primary-hover: #143728;
-  --ln-bright: #2F7A62;
-  --ln-tint: #E6F0EB;
-  --ln-pill: #163D2F;
-  --ln-focus: #3E9A7C;
+  --ln-primary: #0D4B52;
+  --ln-primary-hover: #00353C;
+  --ln-bright: #327E86;
+  --ln-tint: #E5F3F5;
+  --ln-pill: #044046;
+  --ln-focus: #49939C;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }
