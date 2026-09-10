@@ -24,9 +24,16 @@ const SIZE: Record<ButtonSize, string> = {
   lg: "h-11 px-5 text-[15px] gap-2",
 }
 
+/**
+ * `active:scale-[0.97]` no es adorno: un botón que no se hunde al pulsarlo no
+ * confirma que la interfaz oyó. 150ms y 0.97 están dentro de lo que se nota sin
+ * llamar la atención. `btn-apple` de la landing ya lo hacía; esto lo trae al
+ * interior, que es donde el piloto pasa el rato.
+ */
 const BASE =
   "inline-flex items-center justify-center rounded-lg border font-medium whitespace-nowrap " +
-  "transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-blue-500)] " +
+  "transition-[color,background-color,border-color,transform] duration-150 ease-out " +
+  "active:scale-[0.97] outline-none focus-visible:ring-2 focus-visible:ring-[var(--av-blue-500)] " +
   "focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] " +
   "disabled:pointer-events-none disabled:opacity-50"
 

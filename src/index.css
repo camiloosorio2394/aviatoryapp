@@ -1602,3 +1602,34 @@
 .lector-notam.lector-mt .doc-sheet {
   --doc-accent: var(--ln-primary);
 }
+
+/* ============================================================
+ * Táctil: el hover no existe, pero el navegador lo simula
+ *
+ * En un teléfono, tocar dispara `:hover` y el estado se queda puesto hasta que
+ * tocas otra cosa: la tarjeta levantada, el botón elevado, el barrido de luz a
+ * medio pasar. Tailwind v4 ya gatea sus utilidades `hover:` detrás de
+ * `@media (hover: hover)`, así que las 100 del proyecto están cubiertas. Estas
+ * reglas son nuestras y no las cubre nadie.
+ *
+ * Solo se anula el movimiento. Las sombras y los colores de hover se quedan:
+ * no molestan al tacto y dan un asomo de respuesta al tocar.
+ * ============================================================ */
+@media (hover: none) {
+  .btn-apple:hover,
+  .btn-apple-light:hover,
+  .btn-apple-ghost:hover,
+  .card-apple:hover,
+  .card-hover:hover,
+  .surface-lift:hover,
+  .tilt-3d:hover {
+    transform: none;
+  }
+  /* El barrido se queda donde reposa, fuera del encuadre por la izquierda. */
+  .shine-on-hover:hover::after {
+    transform: translateX(-100%);
+  }
+  .av-shine:hover::after {
+    transform: translateX(-120%);
+  }
+}
