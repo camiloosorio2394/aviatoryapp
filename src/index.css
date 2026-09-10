@@ -181,19 +181,6 @@
 }
 
 @layer utilities {
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-    }
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  .animate-fade-in-up {
-    animation: fade-in-up 0.6s var(--ease-av) both;
-  }
 
   /* Marquee horizontal en loop (SocialProof). El contenido va duplicado
      y -50% cierra el ciclo sin salto. */
@@ -287,7 +274,10 @@
     background-color: rgb(255 255 255 / 10%);
   }
 
-  /* Card hover with subtle Apple-style lift */
+  /* El gesto «la tarjeta se levanta al pasar» existe en dos versiones y solo
+     en dos: `.card-apple` para la landing, 4px, porque ahí el gesto es parte
+     del argumento; y `.surface-lift` para el interior, 2px, sobrio. Las dos
+     con la curva de la casa. Cualquier tercera versión a mano es un error. */
   .card-apple {
     transition: transform 300ms var(--ease-av),
       box-shadow 300ms var(--ease-av),
@@ -369,16 +359,8 @@
   }
 
   /* ========================================
-   * 3D TILT — subtle perspective hover
+   * 3D TILT — retirado: no lo usaba nadie
    * ======================================== */
-  .tilt-3d {
-    transition: transform 500ms var(--ease-av);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
-  .tilt-3d:hover {
-    transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) translate3d(0, -6px, 0);
-  }
 
   /* ========================================
    * GRADIENT TEXT — chromatic accents
@@ -413,60 +395,10 @@
   }
 
   /* ========================================
-   * SPRING / OVERSHOOT — bouncy reveal
-   * ======================================== */
-  @keyframes spring-up {
-    0% {
-      opacity: 0;
-      transform: translate3d(0, 32px, 0) scale(0.96);
-    }
-    60% {
-      opacity: 1;
-      transform: translate3d(0, -4px, 0) scale(1.01);
-    }
-    100% {
-      opacity: 1;
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-  }
-  .animate-spring-up {
-    animation: spring-up 800ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
-  }
 
   /* ========================================
-   * LETTER REVEAL — char-by-char fade
-   * ======================================== */
-  @keyframes letter-fade {
-    from { opacity: 0; transform: translate3d(0, 8px, 0); }
-    to   { opacity: 1; transform: translate3d(0, 0, 0); }
-  }
-  .letter-reveal > span {
-    display: inline-block;
-    opacity: 0;
-    animation: letter-fade 600ms var(--ease-av) both;
-  }
 
   /* ========================================
-   * GLOW ON HOVER — radial cursor follow vibes
-   * ======================================== */
-  .glow-on-hover {
-    position: relative;
-    isolation: isolate;
-  }
-  .glow-on-hover::before {
-    content: "";
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background: linear-gradient(135deg, oklch(0.7 0.22 260) 0%, oklch(0.55 0.22 240) 100%);
-    opacity: 0;
-    transition: opacity 400ms ease;
-    z-index: -1;
-    filter: blur(16px);
-  }
-  .glow-on-hover:hover::before {
-    opacity: 0.5;
-  }
 
   /* Section backgrounds — high contrast variants */
   .section-dark {
@@ -663,11 +595,11 @@
   --av-danger-fg: var(--av-red-400);
 }
 
-/* === Alias de compatibilidad: .card / .card-hover ===
-   Varias pantallas venían usando estas dos clases, que nunca existieron en
-   ningún CSS (quedaban sin fondo ni borde). Se definen aquí, en @layer
-   components, para que cualquier uso que quede en el repo se vea correcto y
-   las utilidades de Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
+/* === Alias de compatibilidad: .card ===
+   Varias pantallas venían usando esta clase, que nunca existió en ningún CSS
+   (quedaba sin fondo ni borde). Se define aquí, en @layer components, para
+   que cualquier uso que quede en el repo se vea correcto y las utilidades de
+   Tailwind (bg-*, rounded-*, border-*) sigan ganando. */
 @layer components {
   /* Trazo unico para toda la iconografia. Lucide sale con stroke-width 2 y
      los simbolos de carta de components/icons/aero se dibujaron a 1.5: en la
@@ -735,15 +667,7 @@
     border: 1px solid var(--border);
     border-radius: 1rem;
   }
-  .card-hover {
-    transition: transform 300ms var(--ease-av),
-      box-shadow 300ms var(--ease-av),
-      border-color 300ms var(--ease-av);
-  }
-  .card-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 24px 48px -16px rgb(0 0 0 / 12%);
-  }
+
 }
 
 /* === Hoja de lectura (documento) ===
@@ -1182,11 +1106,8 @@
 
 /* === Animations === */
 @keyframes av-fade-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-@keyframes av-scale-in { from { opacity: 0; transform: scale(0.94); } to { opacity: 1; transform: scale(1); } }
-@keyframes av-pulse-ring { 0% { transform: scale(0.7); opacity: 0.7; } 100% { transform: scale(1.8); opacity: 0; } }
 
 .anim-fade-up { animation: av-fade-up 700ms var(--ease-av) both; }
-.anim-scale-in { animation: av-scale-in 500ms var(--ease-spring) both; }
 
 .stagger > * { opacity: 0; animation: av-fade-up 700ms var(--ease-av) both; }
 .stagger > *:nth-child(1) { animation-delay: 30ms; }
@@ -1267,26 +1188,7 @@
   height: 1px;
 }
 
-/* === Shine sweep (already similar to shine-on-hover, kept for new components) === */
-.av-shine { position: relative; overflow: hidden; isolation: isolate; }
-.av-shine::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 35%) 50%, transparent 70%);
-  transform: translateX(-120%);
-  transition: transform 700ms var(--ease-av);
-  pointer-events: none;
-}
-.av-shine:hover::after { transform: translateX(120%); }
 
-/* === Radar pulse (for Wingman button + step markers) === */
-.radar-pulse {
-  position: absolute; inset: -2px; border-radius: inherit;
-  border: 2px solid var(--av-cyan-400);
-  animation: av-pulse-ring 2.4s ease-out infinite;
-  pointer-events: none;
-}
-.radar-pulse-delay { animation-delay: 1.2s; }
 
 /* === Command palette search (botón de lupa en el AppTopbar) === */
 .search-cmdk { cursor: pointer; }
@@ -1628,17 +1530,12 @@
   .btn-apple-light:hover,
   .btn-apple-ghost:hover,
   .card-apple:hover,
-  .card-hover:hover,
-  .surface-lift:hover,
-  .tilt-3d:hover {
+  .surface-lift:hover {
     transform: none;
   }
   /* El barrido se queda donde reposa, fuera del encuadre por la izquierda. */
   .shine-on-hover:hover::after {
     transform: translateX(-100%);
-  }
-  .av-shine:hover::after {
-    transform: translateX(-120%);
   }
 }
 
@@ -1657,7 +1554,6 @@
  * ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   .anim-fade-up,
-  .anim-scale-in,
   .stagger > * {
     animation-name: av-solo-aparece;
     animation-duration: 200ms;

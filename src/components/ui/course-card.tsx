@@ -216,7 +216,7 @@ export function CourseCard({
   // sistema y de paso arregla el modo oscuro, donde la sombra inline dejaba la
   // versión clara (4%) en lugar de la del tema (25%).
   const className =
-    "group h-full flex flex-col rounded-2xl surface overflow-hidden transition-all hover:-translate-y-1"
+    "group h-full flex flex-col rounded-2xl surface surface-lift overflow-hidden"
   // El borde teñido del curso destacado es lo único que se sale de la
   // superficie, y solo cuando hay algo que destacar.
   const style = highlight
