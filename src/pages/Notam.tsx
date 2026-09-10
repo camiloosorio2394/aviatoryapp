@@ -222,7 +222,7 @@ export function Notam() {
             aria-hidden
           />
 
-          <div className="relative grid gap-8 px-7 pb-10 pt-9 sm:px-12 sm:pb-12 sm:pt-11 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-10">
+          <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
@@ -234,11 +234,11 @@ export function Notam() {
                 </span>
               </div>
 
-              <h1 className="nh-display mt-4 text-[42px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[52px] lg:text-[64px]">
+              <h1 className="nh-display mt-4 text-[38px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[46px] lg:text-[54px]">
                 NOTAM
               </h1>
 
-              <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.6] text-white/80">
+              <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
                 Los NOTAM avisan de pistas cerradas, ayudas fuera de servicio y peligros
                 temporales: los necesitas para planear cada vuelo y te los preguntan en las
                 entrevistas y pruebas técnicas de las aerolíneas.
@@ -247,7 +247,7 @@ export function Notam() {
               {/* Columna `w-fit`: el mas ancho de los dos fija el ancho y el otro
                   lo iguala, asi que la tarjeta y los botones acaban en la misma
                   vertical sin ninguna medida escrita a mano. */}
-              <div className="mt-7 flex w-fit max-w-full flex-col gap-4">
+              <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
                 {!loading && (
                   <VideoIntro
                     src="/modulos/notam/intro.mp4"
@@ -286,23 +286,23 @@ export function Notam() {
                 superficie clara aquí partiría el hero en dos pantallas.
                 `overflow-hidden` es lo que deja que la línea llegue de borde a
                 borde sin desbordar el radio de las esquinas. */}
-            <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:min-w-[230px]">
-              <div className="px-4 pb-3.5 pt-4">
+            <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:mt-[33px] lg:min-w-[210px]">
+              <div className="px-3.5 pb-3 pt-3.5">
                 <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
                   Tu avance
                 </div>
                 {loading ? (
                   <>
-                    <div className="mt-2.5 h-7 w-20 animate-pulse rounded bg-white/15" />
+                    <div className="mt-2.5 h-6 w-16 animate-pulse rounded bg-white/15" />
                     <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
                   </>
                 ) : (
                   <>
                     <div className="mt-1.5 flex items-baseline gap-2">
-                      <span className="nh-display tabular text-[28px] font-bold leading-none text-white">
+                      <span className="nh-display tabular text-[23px] font-bold leading-none text-white">
                         {resumen.overall}%
                       </span>
-                      <span className="text-[12px] text-white/60">de la sección</span>
+                      <span className="text-[11px] text-white/60">de la sección</span>
                     </div>
                     <div
                       className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
@@ -322,11 +322,14 @@ export function Notam() {
                     </div>
                   </>
                 )}
-                <p className="mt-2.5 text-[11px] leading-[1.5] text-white/55">
-                  {user
-                    ? "Se guarda en tu cuenta a medida que avanzas."
-                    : "Inicia sesión para guardar tu avance en la cuenta."}
-                </p>
+                {/* Solo sin sesión. Al que ya entró, repetirle en cada visita
+                    que su avance se guarda es ruido; sin sesión, en cambio, es
+                    la razón para registrarse. */}
+                {!user && (
+                  <p className="mt-2 text-[10.5px] leading-[1.5] text-white/55">
+                    Inicia sesión para guardar tu avance en la cuenta.
+                  </p>
+                )}
               </div>
 
               <div className="border-t border-white/10 p-1">
@@ -361,7 +364,7 @@ export function Notam() {
         </section>
 
         {/* Las 3 partes */}
-        <section className="pt-14">
+        <section className="pt-10">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {partes.map((p) => (
               <CourseCard key={p.to} {...p} statusLoading={loading} />
@@ -407,12 +410,12 @@ function FilaAvance({
   return (
     <Link to={to} className="block rounded-[9px] px-2.5 py-1.5 transition-colors hover:bg-white/[0.07]">
       <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[12.5px] font-medium text-white/85">{titulo}</span>
+        <span className="text-[12px] font-medium text-white/85">{titulo}</span>
         {cargando ? (
           <span className="h-3 w-12 animate-pulse rounded bg-white/15" />
         ) : (
           <span
-            className="tabular text-[11.5px]"
+            className="tabular text-[11px]"
             style={{ color: aviso ? "var(--av-amber-400)" : "rgba(255,255,255,0.62)" }}
           >
             {valor}

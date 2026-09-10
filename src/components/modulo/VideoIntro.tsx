@@ -137,9 +137,9 @@ export function VideoIntro({
         ref={disparadorRef}
         type="button"
         onClick={abrir}
-        className="group flex w-full items-center gap-4 rounded-[12px] border border-white/20 bg-white/[0.07] p-2.5 pr-5 text-left backdrop-blur-[6px] transition-colors hover:border-white/45 hover:bg-white/[0.12]"
+        className="group flex w-full items-center gap-3.5 rounded-[12px] border border-white/20 bg-white/[0.07] p-2 pr-4 text-left backdrop-blur-[6px] transition-colors hover:border-white/45 hover:bg-white/[0.12]"
       >
-        <span className="relative block h-[60px] w-[104px] shrink-0 overflow-hidden rounded-[8px]">
+        <span className="relative block h-[52px] w-[92px] shrink-0 overflow-hidden rounded-[8px]">
           <img
             src={miniatura}
             alt=""
