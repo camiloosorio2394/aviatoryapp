@@ -34,7 +34,19 @@ export interface CourseCardProps {
   photoHueco?: string
   /** "3/2" muestra la portada entera (para portadas con rótulo pintado); por
       defecto es una franja de 144 px recortada. */
-  photoAspect?: "3/2"
+  /**
+   * Proporción de la portada, que es lo que manda en el alto de la tarjeta.
+   * "3/2" es la de siempre. "5/2" es para rejillas de tres donde la tarjeta
+   * quedaba demasiado alta: recorta la portada por abajo, nunca por arriba,
+   * porque el rótulo del arte vive en la franja superior.
+   */
+  photoAspect?: "3/2" | "5/2"
+  /**
+   * "compacta" aprieta relleno, cuerpos y márgenes para rejillas de tres donde
+   * la tarjeta normal queda demasiado alta. No cambia la estructura ni el
+   * orden de los bloques. Por defecto, "normal".
+   */
+  densidad?: "normal" | "compacta"
   /** Destino. Sin `to` la tarjeta no navega (catálogo de la landing, partes "Pronto"). */
   to?: string
   /** Texto del CTA. Por defecto "Ver curso". */
@@ -82,17 +94,30 @@ export function CourseCard({
   soon,
   metaCaps,
   photoAspect,
+  densidad = "normal",
 }: CourseCardProps) {
   const inner = (
     <>
       {/* Miniatura fotográfica con tinte del color del curso */}
-      <div className={`relative overflow-hidden ${photoAspect === "3/2" ? "aspect-[3/2]" : "h-36"}`}>
+      <div
+        className={`relative overflow-hidden ${
+          photoAspect === "3/2"
+            ? "aspect-[3/2]"
+            : photoAspect === "5/2"
+              ? "aspect-[5/2]"
+              : densidad === "compacta"
+                ? "h-28"
+                : "h-36"
+        }`}
+      >
         {photo ? (
           <img
             src={photo}
             alt=""
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            className={`absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+              photoAspect === "5/2" ? "object-top" : ""
+            }`}
           />
         ) : (
           // Hueco de portada, visible a propósito mientras no llega la imagen:
@@ -146,7 +171,7 @@ export function CourseCard({
         )}
       </div>
 
-      <div className="p-5 flex-1 flex flex-col">
+      <div className={`${densidad === "compacta" ? "p-4" : "p-5"} flex-1 flex flex-col`}>
         <div
           className={
             metaCaps
@@ -156,10 +181,24 @@ export function CourseCard({
         >
           {meta}
         </div>
-        <h3 className="mt-1.5 text-[17px] font-semibold tracking-[-0.01em]">{title}</h3>
-        <p className="mt-1.5 text-[13.5px] text-muted-foreground leading-relaxed">{blurb}</p>
+        <h3
+          className={`mt-1.5 font-semibold tracking-[-0.01em] ${
+            densidad === "compacta" ? "text-[16px]" : "text-[17px]"
+          }`}
+        >
+          {title}
+        </h3>
+        <p
+          className={`mt-1.5 text-muted-foreground leading-relaxed ${
+            densidad === "compacta" ? "text-[13px]" : "text-[13.5px]"
+          }`}
+        >
+          {blurb}
+        </p>
         <div
-          className="mt-4 inline-flex items-center gap-1 text-[15px] font-semibold"
+          className={`inline-flex items-center gap-1 font-semibold ${
+            densidad === "compacta" ? "mt-3 text-[14px]" : "mt-4 text-[15px]"
+          }`}
           style={{ color: soon ? "var(--muted-foreground)" : color }}
         >
           {soon ? (
@@ -175,8 +214,8 @@ export function CourseCard({
         {/* El pie va anclado abajo para que los estados queden alineados entre
             tarjetas aunque las descripciones midan distinto. */}
         {status !== undefined && (
-          <div className="mt-auto pt-3.5">
-            <div className="pt-3 border-t border-border/60">
+          <div className={`mt-auto ${densidad === "compacta" ? "pt-2.5" : "pt-3.5"}`}>
+            <div className={`border-t border-border/60 ${densidad === "compacta" ? "pt-2.5" : "pt-3"}`}>
               {statusLoading ? (
                 <span
                   className="block h-4 w-32 rounded bg-muted animate-pulse"

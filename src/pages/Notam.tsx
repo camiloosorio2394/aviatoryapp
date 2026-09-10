@@ -135,6 +135,7 @@ export function Notam() {
   const partes: CourseCardProps[] = [
     {
       to: "/app/aerolinea/notam/aprende",
+      densidad: "compacta" as const,
       icon: BookOpen,
       color: "var(--av-blue-500)",
       meta: `${TOTALS.lessonScreens} secciones de formación`,
@@ -155,6 +156,7 @@ export function Notam() {
     },
     {
       to: "/app/aerolinea/notam/practica",
+      densidad: "compacta" as const,
       icon: Target,
       color: "var(--av-violet-400)",
       meta: "NOTAMs reales · Imagen y texto",
@@ -173,6 +175,7 @@ export function Notam() {
     },
     {
       to: "/app/aerolinea/notam/evaluacion",
+      densidad: "compacta" as const,
       icon: GraduationCap,
       color: "var(--av-amber-400)",
       meta: `${EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${EXAM_PASS_SCORE}%`,
@@ -226,7 +229,7 @@ export function Notam() {
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
-                  Sección 01
+                  Módulo 1
                 </span>
                 <span className="h-3 w-px bg-white/20" aria-hidden />
                 <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
