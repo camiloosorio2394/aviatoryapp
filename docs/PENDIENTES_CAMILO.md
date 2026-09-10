@@ -3,7 +3,67 @@
 Documento vivo. Lo que está aquí necesita algo de tu lado: aplicar, decidir o
 confirmar. Cuando algo se cierra, se borra de aquí.
 
-Última actualización: 2 de agosto de 2026 (tanda de la tarde).
+Última actualización: 9 de septiembre de 2026 (recuperación de contraseña).
+
+---
+
+## URGENTE · Autorizar la URL de recuperación de contraseña
+
+Va lo primero porque **hasta que lo hagas, el flujo nuevo no funciona en
+producción**, y hoy quien olvida la contraseña se queda fuera de su cuenta sin
+salida: el botón «¿Olvidaste tu contraseña?» solo mandaba a escribir a
+`hola@aviatory.app`, que es una dirección que no existe —el dominio no tiene
+MX—.
+
+Ya está construido el flujo entero: `/recuperar` pide el correo,
+`resetPasswordForEmail` manda el enlace, y `/nueva-clave` lo recibe y fija la
+contraseña. Falta lo que solo se puede hacer desde tu consola.
+
+### 1 · Las URL de redirección
+
+En **Supabase → Authentication → URL Configuration → Redirect URLs**, añade:
+
+```
+https://aviatoryapp-mu.vercel.app/nueva-clave
+```
+
+Y si quieres que el flujo también se pueda probar fuera de producción:
+
+```
+http://localhost:5173/nueva-clave
+https://*-aviatoryapp.vercel.app/nueva-clave
+```
+
+Supabase solo redirige a direcciones de esa lista. Si la de producción no está,
+el enlace del correo lleva al **Site URL** y el piloto aterriza en la portada sin
+entender por qué, con el token gastado.
+
+El código no fija ninguna de esas URL a mano: arma el `redirectTo` con el origen
+desde donde se pidió (`${window.location.origin}/nueva-clave`), así que funciona
+igual en producción, en una preview y en local sin tocar nada. Lo único que hay
+que mantener es la lista de arriba.
+
+### 2 · El correo saliente, que es el que de verdad bloquea
+
+El remitente que trae Supabase de fábrica **está limitado a unos pocos correos
+por hora y es para desarrollo**, no para producción. Con eso, el día que tres
+pilotos olviden la contraseña seguidos, al tercero no le llega nada y no hay
+mensaje de error que se lo explique: para la aplicación, el envío salió bien.
+
+Para abrirlo al público hace falta un SMTP propio en **Authentication → Emails →
+SMTP Settings** (Resend, Postmark, SendGrid, el que prefieras). Y eso depende de
+algo que no es tuyo ni mío: **no hay dominio**. `aviatory.app` y
+`aviatoryapp.com` no resuelven, así que tampoco hay desde dónde firmar el correo.
+Es la misma pieza que bloquea `hola@` y `partners@`.
+
+Mientras no haya SMTP propio, el flujo funciona pero con cuentagotas. Conviene
+saberlo antes de anunciarlo.
+
+### 3 · Mira el texto del correo
+
+En **Authentication → Email Templates → Reset Password**. El de fábrica viene en
+inglés y firmado por Supabase; los pilotos son de habla hispana. El enlace tiene
+que seguir apuntando a `{{ .ConfirmationURL }}`.
 
 ---
 

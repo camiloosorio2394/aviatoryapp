@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { ErrorBoundary } from "@/components/ErrorBoundary"
 import { useSession } from "@/hooks/useSession"
 import { usePageViewTracking } from "@/hooks/usePageViewTracking"
 import { identifyUser, resetIdentity } from "@/lib/analytics"
@@ -30,6 +31,8 @@ const Landing = page(() => import("@/pages/Landing"), "Landing")
 const Pricing = page(() => import("@/pages/Pricing"), "Pricing")
 const Contact = page(() => import("@/pages/Contact"), "Contact")
 const Login = page(() => import("@/pages/Login"), "Login")
+const Recuperar = page(() => import("@/pages/Recuperar"), "Recuperar")
+const NuevaClave = page(() => import("@/pages/NuevaClave"), "NuevaClave")
 const Onboarding = page(() => import("@/pages/Onboarding"), "Onboarding")
 const Dashboard = page(() => import("@/pages/Dashboard"), "Dashboard")
 const TestInicial = page(() => import("@/pages/TestInicial"), "TestInicial")
@@ -126,7 +129,12 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<PaginaCargando />}>
+      {/* El boundary va por dentro del router y no en `main.tsx`, para que su
+          pantalla de fallo herede el tema y los tokens, y para que el enlace de
+          volver funcione. Envuelve al `Suspense`: así también atrapa el error
+          de una página que no llega a cargar. */}
+      <ErrorBoundary>
+        <Suspense fallback={<PaginaCargando />}>
         <Routes>
         {/* Public */}
         <Route path="/" element={<Landing />} />
@@ -135,6 +143,11 @@ function App() {
         <Route path="/terminos" element={<Terms />} />
         <Route path="/privacidad" element={<Privacy />} />
         <Route path="/login" element={<Login />} />
+        {/* Recuperar la contraseña va por fuera de RequireAuth a propósito:
+            Supabase entrega el enlace del correo como una sesión ya iniciada, y
+            atar la pantalla a esa carrera no aporta nada. */}
+        <Route path="/recuperar" element={<Recuperar />} />
+        <Route path="/nueva-clave" element={<NuevaClave />} />
 
         {/* Auth-required onboarding */}
         <Route
@@ -563,7 +576,8 @@ function App() {
 
         <Route path="*" element={<NotFound />} />
         </Routes>
-      </Suspense>
+        </Suspense>
+      </ErrorBoundary>
       <Toaster />
       <ReloadPrompt />
     </>
