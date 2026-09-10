@@ -43,6 +43,12 @@ import {
   Norma,
   PonAPrueba,
 } from "@/components/lesson/BloquesModulo"
+import {
+  DetalleTecnico,
+  Entrevista,
+  PiensaComoPiloto,
+  Reconoce,
+} from "@/components/lesson/BloquesPiloto"
 import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 /**
  * Registro de infografías disponibles para el bloque `infografia`.
@@ -489,6 +495,26 @@ export function DocBlock({ block }: { block: DocBlockData }) {
       return <PonAPrueba block={block} />
     case "fichas":
       return <Fichas block={block} />
+    case "reconoce":
+      return <Reconoce block={block} />
+
+    case "piensaComoPiloto":
+      return <PiensaComoPiloto block={block} />
+
+    case "entrevista":
+      return <Entrevista block={block} />
+
+    /* Los hijos se pintan aquí, con el mismo DocBlock: así dentro del detalle
+       cabe cualquier bloque del catálogo sin reescribirlo. */
+    case "detalleTecnico":
+      return (
+        <DetalleTecnico etiqueta={block.etiqueta} cita={block.cita}>
+          {block.bloques.map((b, i) => (
+            <DocBlock key={i} block={b} />
+          ))}
+        </DetalleTecnico>
+      )
+
     case "clasesMP":
       return (
         <Suspense fallback={<InfografiaCargando />}>

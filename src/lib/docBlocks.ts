@@ -168,6 +168,79 @@ export interface ClasesMPBlock {
   kind: "clasesMP"
 }
 
+/**
+ * Una imagen real con puntos numerados: el alumno señala y descubre.
+ *
+ * Es el bloque que cambia «leer» por «reconocer», y por eso el texto de cada
+ * punto no se ve hasta que se pulsa. `x` e `y` van en porcentaje sobre la
+ * imagen, medidos desde su esquina superior izquierda.
+ */
+export interface ReconoceBlock {
+  kind: "reconoce"
+  titulo?: string
+  intro?: string
+  imagen: { src: string; alt: string; ancho: number; alto: number }
+  puntos: {
+    /** Posición del punto, en % del ancho y del alto de la imagen. */
+    x: number
+    y: number
+    /** Qué es, en dos o tres palabras: rotula el botón. */
+    que: string
+    /** Qué significa. */
+    significa: string
+    /** Y esto por qué le importa a un piloto. */
+    piloto: string
+  }[]
+}
+
+/**
+ * Una situación de operación con la respuesta guardada detrás de un botón.
+ *
+ * El valor está en los segundos en que el alumno piensa qué haría, así que las
+ * claves no se muestran de entrada.
+ */
+export interface PiensaComoPilotoBlock {
+  kind: "piensaComoPiloto"
+  /** "En plataforma", "Antes del vuelo", "En crucero". */
+  momento?: string
+  situacion: string
+  pregunta: string
+  claves: string[]
+  cierre?: string
+}
+
+/**
+ * Preguntas de entrevista en tres niveles, sin opciones: en una entrevista
+ * nadie te da cuatro alternativas. Debajo de la respuesta van los conceptos
+ * que el evaluador espera oír.
+ */
+export interface EntrevistaBlock {
+  kind: "entrevista"
+  titulo?: string
+  intro?: string
+  preguntas: {
+    nivel: "concepto" | "interpretacion" | "situacion"
+    q: string
+    respuesta: string
+    /** Lo que había que mencionar sí o sí. */
+    claves?: string[]
+    ref?: string
+  }[]
+}
+
+/**
+ * La capa de consulta: la norma completa, plegada. Nada se borra por extenso;
+ * deja de competir con la enseñanza por la misma pantalla.
+ */
+export interface DetalleTecnicoBlock {
+  kind: "detalleTecnico"
+  /** Rótulo del botón. Por defecto, "Ver detalle técnico". */
+  etiqueta?: string
+  /** Cita corta a la derecha del botón: "LAR 175.430". */
+  cita?: string
+  bloques: DocBlockData[]
+}
+
 /** Fichas de las etiquetas de las Instrucciones Técnicas, por familia. */
 export interface EtiquetasMPBlock {
   kind: "etiquetasMP"
@@ -186,6 +259,10 @@ export type DocBlockData =
   | FichasBlock
   | ClasesMPBlock
   | EtiquetasMPBlock
+  | ReconoceBlock
+  | PiensaComoPilotoBlock
+  | EntrevistaBlock
+  | DetalleTecnicoBlock
 
 /** Una pantalla de lección que además puede llevar figuras. */
 export interface DocScreen extends Omit<LessonScreen, "blocks"> {

@@ -169,6 +169,37 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
+        kind: "entrevista",
+        intro:
+          "Esta lección da para tres preguntas, y las tres caen. Intenta responder en voz alta antes de abrir.",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué son las mercancías peligrosas?",
+            respuesta:
+              "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. Son dos mitades: el riesgo y estar en la lista o ser clasificable.",
+            claves: ["Riesgo", "Lista o clasificable", "Instrucciones Técnicas"],
+            ref: "LAR 175.001 (a)",
+          },
+          {
+            nivel: "interpretacion",
+            q: "Si el expedidor no declara algo como mercancía peligrosa, ¿deja de serlo?",
+            respuesta:
+              "No. Lo que clasifica es lo que la sustancia es y lo que puede hacer, no lo que dice el papel. Si va sin declarar sigue siendo mercancía peligrosa, y además pasa a ser una mercancía peligrosa oculta, que es un suceso notificable.",
+            claves: ["No cambia la naturaleza", "Mercancía peligrosa oculta", "Es notificable"],
+            ref: "LAR 175.001 (a) y 175.625",
+          },
+          {
+            nivel: "situacion",
+            q: "Te preguntan qué te dice a ti, como piloto, el accidente de ValuJet 592. ¿Qué respondes?",
+            respuesta:
+              "Que la cadena tiene varios eslabones y que el último es la firma del comandante. Los generadores iban mal clasificados, mal embalados y declarados como material de la compañía marcado «vacío». Ninguno de esos errores era mío, pero el avión era mío. Por eso la información que firmo antes de salir no es un trámite: es el único punto donde la cadena todavía se puede parar.",
+            claves: ["Cadena de eslabones", "La firma es un control, no un trámite", "COMAT no exime"],
+            ref: "NTSB/AAR-97/06",
+          },
+        ],
+      },
+      {
         kind: "summary",
         items: [
           "Mercancía peligrosa = riesgo + estar en la lista o ser clasificable (LAR 175.001 (a)).",
@@ -278,6 +309,40 @@ export const NIVEL_1: DocScreen[] = [
           },
         ],
       },
+      {
+        kind: "piensaComoPiloto",
+        momento: "En crucero, FL350",
+        situacion:
+          "Llevas en bodega un envío que en tierra nadie miró dos veces: aerosoles de cantidad limitada, bien embalados y declarados. A nivel de crucero la presión de cabina equivale a unos 8.000 pies y la bodega va a esa misma presión. Estás a cincuenta minutos del aeródromo alterno más cercano.",
+        pregunta: "¿Qué ha cambiado respecto a esa misma caja en el almacén?",
+        claves: [
+          "La presión de fuera bajó: cada recipiente cerrado en tierra ahora empuja hacia afuera. Un cierre mediocre gotea aquí, no allá.",
+          "Nadie va a bajar a mirar. Lo que pase en esa bodega lo vas a saber por un detector de humo o por un olor en cabina.",
+          "Los cincuenta minutos son el dato. En tierra un derrame se atiende en cinco; aquí el tiempo de respuesta lo pones tú con lo que ya está a bordo.",
+        ],
+        cierre:
+          "Por eso el reglamento exige que el embalaje aguante cambios de temperatura, humedad, presión y vibración: no describe un almacén, describe tu vuelo.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Por qué una mercancía peligrosa es más peligrosa en un avión que en un camión?",
+            respuesta:
+              "Por cuatro cosas que actúan a la vez y no paran en todo el vuelo: la presión ambiente baja, la temperatura cambia, la vibración es sostenida y no hay a quién llamar. En tierra un derrame lo atienden los bomberos en minutos; en crucero lo resuelve la tripulación con lo que ya está a bordo.",
+            claves: ["Presión", "Temperatura", "Vibración", "Aislamiento y tiempo"],
+          },
+          {
+            nivel: "situacion",
+            q: "¿Qué hay a bordo para responder a un suceso con mercancías peligrosas?",
+            respuesta:
+              "Poco, y por eso hay que conocerlo: el equipo de respuesta de emergencia que exige el reglamento (bolsas grandes de polietileno, ligaduras y guantes largos de goma), los extintores de mano y el procedimiento del explotador. Con eso se contiene hasta aterrizar. No hay bomberos, ni ducha de emergencia, ni forma de aislar un bulto.",
+            claves: ["Equipo de respuesta de emergencia", "Extintor de mano", "Procedimiento del explotador"],
+            ref: "LAR 175.620 (d)",
+          },
+        ],
+      },
     ],
   },
 
@@ -290,181 +355,171 @@ export const NIVEL_1: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Las preguntas de entrevista sobre mercancías peligrosas casi siempre empiezan por una definición. No porque haya que recitarla: porque con el término mal entendido, la respuesta que sigue sale mal. Estas doce son las del LAR 175.001 (a), tal cual. El reglamento de tu país las repite casi palabra por palabra, aunque las numere: el LAR las ordena alfabéticamente y no las numera.",
+        text: "No te vamos a pedir que recites doce definiciones. Te vamos a enseñar **dónde oye cada palabra un piloto**, porque ese es el gancho que hace que se queden. Si sabes que «sobre-embalaje» es lo que ves en la paleta y «bulto» lo que cuenta el NOTOC, la definición sale sola.",
       },
+      { kind: "sub", text: "Lo que vas a leer en el papel que firmas" },
       {
         kind: "fichas",
         columnas: 3,
         items: [
           {
             titulo: "Bulto",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "El producto final de la operación de empacado: el embalaje en sí y su contenido, preparado para el transporte.",
-            ],
+            puntos: ["Una caja lista para volar: el embalaje y lo que lleva dentro.", "Es la unidad que cuenta el NOTOC. Cuando ves «3 bultos», son tres de estos."],
           },
           {
-            titulo: "Embalaje",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
-            ],
+            titulo: "Sobre-embalaje",
+            puntos: ["Varios bultos de un mismo expedidor agrupados en uno para manipularlos juntos.", "Por fuera parece un bulto. Por dentro son varios, y cada uno con su etiqueta."],
           },
           {
-            titulo: "Sobre-embalaje externo",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Embalaje de un expedidor único que contiene uno o más bultos y forma una unidad para manipular y estibar.",
-            ],
+            titulo: "ULD",
+            puntos: ["El contenedor o la paleta con red donde va la carga.", "En el NOTOC te dice **dónde** está el bulto. Es lo que buscarías si tuvieras que decirle a alguien en qué parte de la bodega está."],
           },
           {
-            titulo: "Dispositivo de carga unitarizada (ULD)",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Contenedor de carga, contenedor de aeronave, paleta con red o paleta con red sobre un iglú.",
-              "No incluye los sobre-embalajes.",
-            ],
+            titulo: "Número ONU",
+            puntos: ["Cuatro dígitos que identifican la sustancia. UN 1263 es pintura, UN 3480 son baterías de litio sueltas.", "Es lo primero que lees, y lo primero que va a buscar quien atienda una emergencia."],
+          },
+          {
+            titulo: "Denominación del artículo expedido",
+            puntos: ["El nombre oficial de transporte, no el comercial.", "Una lata de «Aviatory Gloss» va como pintura. Si el NOTOC trae un nombre de marca, algo se saltó un paso."],
           },
           {
             titulo: "Envío",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Uno o más bultos que un explotador acepta de un expedidor de una sola vez, en un mismo sitio, para un mismo consignatario y dirección.",
-            ],
-          },
-          {
-            titulo: "Expedidor",
-            ref: "LAR 175.001 (a)",
-            puntos: ["Toda persona que, en su nombre o en nombre de una organización, envía la mercancía."],
-          },
-          {
-            titulo: "Número de la ONU",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Cuatro dígitos asignados por el Comité de expertos de las Naciones Unidas para reconocer una sustancia o un grupo de ellas.",
-            ],
-          },
-          {
-            titulo: "COMAT y COMAT peligroso",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "COMAT: propiedad del explotador que viaja en su propio provecho, que no es requisito de operación ni de aeronavegabilidad para ese vuelo y no se vende ni se usa en él.",
-              "COMAT peligroso: COMAT clasificado como mercancía peligrosa.",
-            ],
-          },
-          {
-            titulo: "Declaración del expedidor",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Documento firmado por persona idónea: las mercancías están descritas por su nombre apropiado, clasificadas, empacadas, marcadas, etiquetadas y en condiciones de volar conforme a las Instrucciones.",
-            ],
-          },
-          {
-            titulo: "Incompatible",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Mercancías que, de mezclarse, podrían generar peligrosamente calor o gases, o producir una sustancia corrosiva.",
-            ],
-          },
-          {
-            titulo: "Mercancía peligrosa oculta",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Carga declarada con descripción general que debió declararse como peligrosa; o mercancía prohibida o en exceso en el equipaje, en la persona del pasajero o tripulante, o en el correo.",
-            ],
-          },
-          {
-            titulo: "Piloto al mando",
-            ref: "LAR 175.001 (a)",
-            puntos: ["El comandante: responsable de la operación y seguridad de la aeronave durante el tiempo de vuelo."],
+            puntos: ["Uno o más bultos que el explotador acepta de un expedidor de una vez y para un mismo destinatario.", "Un envío puede ser un bulto o veinte. Cuenta como una sola aceptación."],
           },
         ],
       },
       {
-        kind: "enLaOperacion",
-        momento: "El gancho de esta lección",
-        texto:
-          "En ValuJet los generadores de oxígeno viajaron como material de la compañía: COMAT. Un repuesto de la aerolínea que va en tu avión no deja de ser mercancía peligrosa por ser de la casa. Si está clasificado como tal, es COMAT peligroso y sigue todas las reglas (el LAR 175.020 (b) nombra el COMAT peligroso entre las mercancías que la autoridad puede autorizar por aprobación específica a un explotador que no tiene autorización general).",
+        kind: "detalleTecnico",
+        etiqueta: "Ver definiciones literales del reglamento",
+        cita: "LAR 175.001 (a)",
+        bloques: [
+          {
+            kind: "kv",
+            items: [
+              { k: "Bulto", v: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte." },
+              { k: "Embalaje", v: "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención." },
+              { k: "Sobre-embalaje", v: "Embalaje utilizado por un expedidor único que contenga uno o más bultos y constituya una unidad para facilitar su manipulación y estiba. No incluye los dispositivos de carga unitarizada." },
+              { k: "Dispositivo de carga unitarizada", v: "Toda variedad de contenedor de carga, contenedor de aeronave, paleta de aeronave con red o paleta de aeronave con red sobre un iglú. No se incluyen los sobre-embalajes." },
+              { k: "Envío", v: "Uno o más bultos de mercancías peligrosas que un explotador acepta de un expedidor de una sola vez y en un mismo sitio, recibidos en un lote y despachados a un mismo consignatario y dirección." },
+              { k: "Número de la ONU", v: "Número de cuatro dígitos asignado por el Comité de expertos en transporte de mercaderías peligrosas de las Naciones Unidas, que sirve para reconocer las diversas sustancias o determinado grupo de ellas." },
+            ],
+          },
+        ],
+      },
+      { kind: "sub", text: "Lo que vas a oír en una conversación" },
+      {
+        kind: "fichas",
+        columnas: 3,
+        items: [
+          {
+            titulo: "Expedidor",
+            puntos: ["Quien envía la mercancía y responde de clasificarla, embalarla, marcarla y declararla.", "Es el primer eslabón. Cuando algo llega mal, casi siempre empezó aquí."],
+          },
+          {
+            titulo: "COMAT",
+            puntos: ["Material de la propia compañía que viaja en su avión: un repuesto, una rueda, una batería de un equipo.", "Si está clasificado como mercancía peligrosa es **COMAT peligroso** y cumple todas las reglas. Ser de la casa no exime de nada, y en ValuJet eso costó 110 vidas."],
+          },
+          {
+            titulo: "Incompatible",
+            puntos: ["Dos mercancías que, si se mezclan, generan calor, gases o algo corrosivo.", "Es la razón de que existan tablas de segregación y de que no todo pueda ir junto en la misma bodega."],
+          },
+          {
+            titulo: "Mercancía peligrosa oculta",
+            puntos: ["Carga declarada con una descripción general que debía declararse como peligrosa, o lo prohibido que aparece en un equipaje.", "Descubrir una **ya es un suceso notificable**, aunque no pase nada más. Lección 12."],
+          },
+          {
+            titulo: "Declaración del expedidor",
+            puntos: ["El documento donde el expedidor certifica qué es, cómo va embalado y que cumple las Instrucciones.", "Tú no la firmas ni la revisas: viaja con la carga. Lo que llega a ti es el resumen, que es el NOTOC."],
+          },
+          {
+            titulo: "Piloto al mando",
+            puntos: ["El piloto designado para estar al mando y encargarse de la realización segura del vuelo.", "En este módulo esa palabra aparece cada vez que la norma le asigna algo a alguien que eres tú."],
+          },
+        ],
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Preparando el vuelo",
+        situacion:
+          "En la información que te entregan lees: «UN 1263 PAINT, clase 3, GE II, 2 bultos, ULD AKE 12345 AV». Un compañero te dice que son «unas latas de pintura, nada del otro mundo».",
+        pregunta: "¿Qué acabas de leer de verdad, palabra por palabra?",
+        claves: [
+          "**UN 1263** identifica la sustancia. Es lo primero que daría por radio si tuviera que describir el problema.",
+          "**PAINT** es la denominación del artículo expedido, el nombre oficial. No es la marca comercial.",
+          "**Clase 3** es líquido inflamable, y **GE II** que dentro de su clase presenta peligro intermedio.",
+          "**2 bultos** son dos cajas, no dos litros. Y el **ULD** me dice en qué contenedor están, que es lo que necesitaría para localizarlas.",
+        ],
+        cierre:
+          "Tu compañero no se equivoca en que es pintura. Se equivoca en «nada del otro mundo»: acaba de resumir cinco datos que en una emergencia son lo único que tienes.",
       },
       { kind: "sub", text: "Tres permisos que se confunden" },
+      {
+        kind: "p",
+        text: "Estas tres se preguntan mucho porque suenan parecido y significan cosas distintas. La diferencia está en **quién la da y cuándo existe**.",
+      },
       {
         kind: "fichas",
         columnas: 3,
         items: [
           {
             titulo: "Aprobación",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "La otorga la autoridad de aviación civil (AAC) de tu país.",
-              "Permite transportar mercancías prohibidas en aeronaves de pasajeros o de carga cuando las Instrucciones Técnicas dicen que pueden ir con aprobación.",
-              "La pide quien va a expedir, ante la autoridad del Estado que corresponda según el caso.",
-              "Si las Instrucciones no prevén aprobación para ese caso, se pide dispensa.",
-            ],
+            puntos: ["La da la autoridad **cuando las Instrucciones dicen que ese caso puede ir con aprobación**.", "Existe porque la norma ya la previó."],
           },
           {
             titulo: "Dispensa",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "Toda autorización que no sea una aprobación, otorgada por la autoridad nacional que corresponda, que exime de lo previsto en las Instrucciones Técnicas.",
-              "Procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplir todo sería contrario al interés público (LAR 175.020 (e)).",
-              "Nunca para mercancías prohibidas en todas las circunstancias.",
-            ],
+            puntos: ["La da la autoridad **cuando las Instrucciones NO prevén nada** para ese caso.", "Por extrema urgencia, porque otro modo de transporte no sirva o por interés público, siempre con seguridad equivalente."],
           },
           {
             titulo: "Excepción",
-            ref: "LAR 175.001 (a)",
-            puntos: [
-              "No es un permiso: es una disposición de la norma que excluye a un artículo de las condiciones que normalmente le aplicarían.",
-              "Ejemplo: lo que la aeronave lleva por exigencia de aeronavegabilidad o de operación (175.145 (a)).",
-              "No requiere trámite ante la autoridad.",
-            ],
+            puntos: ["**No se pide a nadie**: ya está escrita en la norma.", "Ejemplo: lo que la aeronave lleva por exigencia de aeronavegabilidad o de operación."],
           },
         ],
       },
       {
         kind: "definicion",
-        text: "La aprobación y la dispensa se piden. La excepción ya está escrita en la norma.",
+        text: "La regla para no equivocarse: si la norma lo previó, es aprobación. Si no lo previó y hay que salirse, es dispensa. Si no hay que pedir nada, es excepción.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
+        kind: "detalleTecnico",
+        etiqueta: "Ver el texto de los tres permisos",
+        cita: "LAR 175.001 (a) y 175.020",
+        bloques: [
           {
-            q: "Vas a llevar en tu vuelo una caja de repuestos de la propia aerolínea que contiene un acumulador. ¿Cómo se llama eso en el reglamento?",
-            ref: "LAR 175.001 (a)",
-            opciones: [
-              {
-                t: "COMAT peligroso.",
-                ok: true,
-                fb: "Es propiedad del explotador transportada en su propio provecho, no exigida por la operación ni la aeronavegabilidad de ese vuelo, y está clasificada como mercancía peligrosa.",
-              },
-              {
-                t: "Carga exceptuada del operador.",
-                fb: "La excepción del 175.145 (a) cubre lo que hay que llevar a bordo por requisitos de aeronavegabilidad o de operación. Un repuesto que viaja para el negocio del explotador, no para ese vuelo, es COMAT. Y el 175.145 (b) dice que los repuestos de esos objetos se transportan conforme a las Instrucciones.",
-              },
-              {
-                t: "Equipaje de la tripulación.",
-                fb: "El equipaje de tripulación se rige por el Capítulo H (175.705 y 175.715) y solo admite lo que las Instrucciones Técnicas permiten a pasajeros y tripulantes.",
-              },
+            kind: "kv",
+            items: [
+              { k: "Aprobación", v: "Autorización otorgada por la autoridad nacional que corresponda para transportar las mercancías peligrosas prohibidas en aeronaves de pasajeros o de carga, cuando en las Instrucciones Técnicas se establece que dichas mercancías pueden transportarse con una aprobación; o bien para otros fines especificados en las Instrucciones Técnicas. Nota: si no hay una referencia específica en las Instrucciones Técnicas para permitir el otorgamiento de una aprobación, se puede pedir una dispensa." },
+              { k: "Dispensa", v: "Toda autorización, que no sea una aprobación, otorgada por la autoridad nacional que corresponda, que exime de lo previsto en las Instrucciones Técnicas. Procede en casos de extrema urgencia, cuando otras modalidades de transporte no sean apropiadas o cuando el cumplimiento de todas las condiciones exigidas sea contrario al interés público, siempre que se logre un nivel general de seguridad equivalente (LAR 175.020 (e))." },
+              { k: "Excepción", v: "Toda disposición del presente Reglamento por la que se excluye determinado artículo, considerado mercancía peligrosa, de las condiciones normalmente aplicables a tal artículo." },
             ],
           },
+        ],
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
           {
-            q: "Un explotador necesita transportar algo que las Instrucciones Técnicas no prevén ni con aprobación. ¿Qué pide?",
-            ref: "LAR 175.001 (a) y 175.020",
-            opciones: [
-              {
-                t: "Una excepción.",
-                fb: "La excepción no se pide: ya está escrita en la norma (175.001 (a) (20)). Si el caso no está previsto, no hay excepción que invocar.",
-              },
-              {
-                t: "Una dispensa.",
-                ok: true,
-                fb: "La nota del 175.001 (a) (4) es literal: si no hay referencia específica en las Instrucciones Técnicas para otorgar una aprobación, se puede pedir una dispensa. La otorga la Secretaría de Seguridad Aérea y nunca para lo prohibido en todas las circunstancias (175.020 (g)).",
-              },
-              {
-                t: "Una aprobación.",
-                fb: "La aprobación solo existe cuando las Instrucciones Técnicas dicen que ese caso puede transportarse con aprobación. Si no lo dicen, el camino es la dispensa.",
-              },
-            ],
+            nivel: "concepto",
+            q: "¿Qué diferencia hay entre un bulto, un sobre-embalaje y un ULD?",
+            respuesta:
+              "El bulto es la unidad: el embalaje y su contenido. El sobre-embalaje son varios bultos de un mismo expedidor agrupados para manipularlos juntos. El ULD es el contenedor o la paleta con red de la aeronave, y no cuenta como sobre-embalaje. En el NOTOC el bulto me dice cuánto hay y el ULD dónde está.",
+            claves: ["Bulto = unidad", "Sobre-embalaje = varios bultos, un expedidor", "ULD = contenedor o paleta"],
+            ref: "LAR 175.001 (a)",
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Cuándo se pide una dispensa y cuándo una aprobación?",
+            respuesta:
+              "La aprobación existe cuando las Instrucciones Técnicas ya previeron que ese caso puede ir con aprobación. La dispensa es la salida cuando no lo previeron: procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público, y siempre con un nivel de seguridad equivalente. Las dos las da la autoridad, no el explotador: él las pide.",
+            claves: ["La norma lo previó = aprobación", "No lo previó = dispensa", "La da la autoridad"],
+            ref: "LAR 175.020 (d) y (e)",
+          },
+          {
+            nivel: "situacion",
+            q: "En el NOTOC ves un repuesto de la propia aerolínea. ¿Cambia algo por ser material de la compañía?",
+            respuesta:
+              "No cambia nada. Es COMAT, y si está clasificado como mercancía peligrosa es COMAT peligroso: cumple las mismas reglas de clasificación, embalaje, marcado y documentación que cualquier envío de un tercero. De hecho es la trampa clásica, y es exactamente lo que falló en ValuJet 592.",
+            claves: ["COMAT peligroso", "No exime de nada", "ValuJet 592"],
+            ref: "LAR 175.001 (a) y 175.020 (b)",
           },
         ],
       },
@@ -475,12 +530,12 @@ export const NIVEL_1: DocScreen[] = [
   {
     n: 4,
     title: "Quién responde por qué",
-    kicker: "La cadena de responsabilidad",
+    kicker: "La cadena y tu lugar en ella",
     minutes: 7,
     blocks: [
       {
         kind: "p",
-        text: "Cuando un bulto llega a tu avión ya pasó por varias manos. Cada una tiene obligaciones escritas, y ninguna borra las de la anterior. Esta es la cadena, con el artículo de cada eslabón.",
+        text: "Cuando un bulto llega a tu avión ya pasó por varias manos. **No necesitas saber hacer el trabajo de ninguna de ellas.** Necesitas saber otra cosa: qué te llega a ti de cada una, y qué pasa contigo si alguna falló.",
       },
       {
         kind: "figura",
@@ -490,74 +545,115 @@ export const NIVEL_1: DocScreen[] = [
         alto: 775,
         pie: "Los artículos del cuadro son los del RAC 175 de Colombia, que es donde la cadena está numerada eslabón por eslabón. En el LAR 175 los mismos deberes están en 175.215 (expedidor), 175.220 (explotador), 175.225 (terminal de carga) y 175.515 (información al comandante).",
       },
+      { kind: "sub", text: "Qué te llega a ti de cada eslabón" },
       {
-        kind: "fichas",
-        columnas: 3,
+        kind: "p",
+        text: "Léelo así y la cadena deja de ser un organigrama. Cada uno produce algo, y ese algo termina llegando a la cabina convertido en una línea de papel o en una caja en tu bodega.",
+      },
+      {
+        kind: "kv",
         items: [
           {
-            titulo: "Expedidor",
-            ref: "LAR 175.215 y 175.410",
-            puntos: [
-              "Identifica exactamente las mercancías peligrosas que ofrece.",
-              "Es el responsable de la identificación y la clasificación.",
-              "Las entrega clasificadas, documentadas, certificadas, descritas, embaladas, marcadas y etiquetadas.",
-              "Posee y usa las Instrucciones Técnicas o un manual equivalente.",
-              "Conserva los archivos por mínimo 18 meses.",
-            ],
+            k: "Expedidor",
+            v: "Clasifica, embala, marca, etiqueta y declara. **Lo que te llega a ti:** que el UN y la clase del NOTOC signifiquen de verdad lo que hay en la caja. Si mintió, tú vuelas con otra cosa.",
           },
           {
-            titulo: "Explotador",
-            ref: "LAR 175.220",
-            puntos: [
-              "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs (175.020 (a)).",
-              "Su manual de operaciones dice si acepta o rechaza carga con mercancías peligrosas.",
-              "Si no las acepta, tiene procedimientos para que no entren sin declarar.",
-              "Programa de instrucción aprobado por la AAC.",
-              "Responde por que sus agentes acreditados cumplan sus procedimientos.",
-            ],
+            k: "Agente de carga",
+            v: "Verifica la documentación y coordina la transferencia. **Lo que te llega a ti:** casi siempre nada visible. Es un filtro silencioso: cuando funciona, no te enteras.",
           },
           {
-            titulo: "Operador de terminal de carga",
-            ref: "LAR 175.225",
-            puntos: [
-              "Área especial de almacenamiento con acceso libre para los vehículos de salvamento y extinción.",
-              "Cuadros de etiquetas y tabla de segregación visibles y actualizados.",
-              "Procedimientos ante sucesos, con los teléfonos de la AAC y demás autoridades vinculadas a la vigilancia sanitaria, radiactiva y química.",
-              "Conserva los documentos tres meses.",
-            ],
+            k: "Terminal de carga",
+            v: "Almacena en área especial, con cuadros de etiquetas y tabla de segregación a la vista. **Lo que te llega a ti:** que dos incompatibles no hayan pasado la noche juntos antes de subir.",
           },
           {
-            titulo: "Operador de aeródromo",
-            ref: "LAR 175.005 (a) (6)",
-            nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional. En Colombia, el RAC 175.227 y 175.228.",
-            puntos: [
-              "Programa de manejo de mercancías peligrosas del aeródromo.",
-              "Capacita a su personal según la tabla de intensidad de su reglamento.",
-              "Manual de manejo aprobado por la AAC.",
-              "Con las aerolíneas y la seguridad aeroportuaria: informa a los pasajeros y previene las mercancías ocultas.",
-              "Organiza la atención de accidentes e incidentes en el aeródromo.",
-            ],
+            k: "Explotador (aceptación)",
+            v: "Solo acepta si tiene la autorización en sus OpSpecs, e inspecciona el bulto con lista de verificación. **Lo que te llega a ti:** el filtro que decide si ese envío llega a existir en tu vuelo.",
           },
           {
-            titulo: "La AAC (tu autoridad)",
-            ref: "LAR 175.020 y 175.025",
-            nota: "En Colombia, la UAEAC (Aerocivil), por el RAC 175.035 y 175.230.",
-            puntos: [
-              "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el reglamento nacional.",
-              "Actualiza la norma con las enmiendas de la OACI.",
-              "Vigila e inspecciona a explotadores, expedidores y aeródromos.",
-              "Verifica los programas de instrucción y otorga aprobaciones y dispensas.",
-              "Emite recomendaciones para que los eventos no se repitan.",
-            ],
+            k: "Carga y estiba",
+            v: "Coloca, segrega y asegura según las Instrucciones. **Lo que te llega a ti:** la posición real de la mercancía, que es la casilla del NOTOC que miras si hay humo.",
           },
           {
-            titulo: "Tripulación de vuelo",
-            ref: "LAR 175.515, 175.620 y Capítulo D",
-            puntos: [
-              "El piloto al mando firma la información escrita antes de que las mercancías se transporten.",
-              "Tiene esa información a su alcance durante todo el vuelo.",
-              "Conoce las medidas de emergencia con mercancías peligrosas.",
-              "Recibe instrucción como mínimo cada 24 meses (175.310 (a)).",
+            k: "Tú, piloto al mando",
+            v: "Recibes la información por escrito, la firmas antes de que se transporte y la tienes al alcance durante el vuelo. **Eres el último control de una cadena que no viste.**",
+          },
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Ver las obligaciones completas de cada actor",
+        cita: "LAR 175.215 a 175.225",
+        bloques: [
+          {
+            kind: "fichas",
+            columnas: 2,
+            items: [
+              {
+                titulo: "Expedidor",
+                ref: "LAR 175.215 y 175.410",
+                puntos: [
+                  "Identifica exactamente las mercancías peligrosas que ofrece.",
+                  "Es el responsable de la identificación y la clasificación.",
+                  "Las entrega clasificadas, documentadas, certificadas, descritas, embaladas, marcadas y etiquetadas.",
+                  "Posee y usa las Instrucciones Técnicas o un manual equivalente.",
+                  "Asegura que el transporte terrestre desde o hacia el aeropuerto también cumpla.",
+                ],
+              },
+              {
+                titulo: "Explotador",
+                ref: "LAR 175.220",
+                puntos: [
+                  "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs (LAR 175.020 (a)).",
+                  "Su manual de operaciones dice si acepta o rechaza carga con mercancías peligrosas.",
+                  "Si no las acepta, tiene procedimientos para que no entren sin declarar.",
+                  "Programa de instrucción aprobado por la AAC.",
+                  "Responde por que sus agentes acreditados cumplan sus procedimientos.",
+                  "Incluye el transporte de mercancías peligrosas en el alcance de su SMS (LAR 175.220 (k)).",
+                ],
+              },
+              {
+                titulo: "Operador de terminal de carga",
+                ref: "LAR 175.225",
+                puntos: [
+                  "Área especial de almacenamiento con acceso libre para los vehículos de salvamento y extinción.",
+                  "Cuadros de etiquetas y tabla de segregación visibles y actualizados.",
+                  "Procedimientos ante sucesos, con los teléfonos de la AAC y demás autoridades vinculadas a la vigilancia sanitaria, radiactiva y química.",
+                  "Conserva los documentos tres meses.",
+                ],
+              },
+              {
+                titulo: "Operador de aeródromo",
+                ref: "LAR 175.005 (a) (6)",
+                nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional. En Colombia, el RAC 175.227 y 175.228.",
+                puntos: [
+                  "Programa de manejo de mercancías peligrosas del aeródromo.",
+                  "Capacita a su personal según la tabla de intensidad de su reglamento.",
+                  "Con las aerolíneas y la seguridad aeroportuaria: informa a los pasajeros y previene las mercancías ocultas.",
+                  "Organiza la atención de accidentes e incidentes en el aeródromo.",
+                ],
+              },
+              {
+                titulo: "La AAC (tu autoridad)",
+                ref: "LAR 175.020 y 175.025",
+                nota: "En Colombia, la UAEAC (Aerocivil), por el RAC 175.035 y 175.230.",
+                puntos: [
+                  "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el reglamento nacional.",
+                  "Actualiza la norma con las enmiendas de la OACI.",
+                  "Vigila e inspecciona a explotadores, expedidores y aeródromos.",
+                  "Verifica los programas de instrucción y otorga aprobaciones y dispensas.",
+                ],
+              },
+              {
+                titulo: "Tripulación de vuelo",
+                ref: "LAR 175.515, 175.620 y Capítulo D",
+                puntos: [
+                  "Recibe por escrito la información de mercancías peligrosas antes de la salida.",
+                  "El piloto al mando la firma antes de que se transporten.",
+                  "La tiene al alcance durante todo el vuelo.",
+                  "Conoce las medidas de emergencia con mercancías peligrosas.",
+                  "Recibe instrucción como mínimo cada 24 meses (LAR 175.310 (a)).",
+                ],
+              },
             ],
           },
         ],
@@ -571,66 +667,103 @@ export const NIVEL_1: DocScreen[] = [
           "Si alguien realiza alguna función prevista en este Reglamento en nombre de quien entrega mercancías peligrosas para transportar por vía aérea, en nombre del explotador o en nombre del operador de terminal de carga, tendrá que realizarla necesariamente de conformidad con las condiciones previstas en este Reglamento y en las Instrucciones Técnicas.",
       },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "La responsabilidad no se diluye en la cadena",
-        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las responsabilidades penales, conforme a la legislación nacional (LAR 175.205 (b)). Con qué norma se sanciona y con qué cuantía lo decide cada país: en Colombia, el RAC 13, por remisión del RAC 175.636. Alcanza también al explotador cuyo envío llega a otro Estado sin cumplir las Instrucciones y ese Estado lo notifica.",
+        kind: "p",
+        text: "Traducido: subcontratar no diluye la responsabilidad. El explotador responde de que sus agentes acreditados cumplan sus procedimientos, aunque no sean empleados suyos.",
       },
       {
-        kind: "enLaOperacion",
-        momento: "Tu firma",
-        texto:
-          "La información escrita sobre las mercancías peligrosas embarcadas la firma el piloto al mando **antes** de que se transporten (175.515 (a) (1)). No es un recibido: es la constancia de que sabes qué llevas, dónde va y qué hacer si algo pasa. Lo que hay detrás de esa hoja lo ves en el nivel 4.",
+        kind: "piensaComoPiloto",
+        momento: "Cinco minutos antes de firmar",
+        situacion:
+          "Te entregan la información de mercancías peligrosas del vuelo. Trae dos bultos de clase 8 en un ULD de bodega delantera. Está completa, legible y firmada por el despachador. Tú no viste el bulto, no viste la declaración del expedidor y no estuviste en la aceptación.",
+        pregunta: "Entonces, ¿qué estás firmando exactamente?",
+        claves: [
+          "No estás certificando que la clasificación sea correcta: eso lo certificó el expedidor y lo verificó la aceptación.",
+          "Estás dejando constancia de que **recibiste la información** y de que la conoces: qué hay, cuánto y dónde está.",
+          "Y estás asumiendo que si esa información no está o está mal, el vuelo no sale así. Es el punto donde la cadena todavía se puede parar.",
+          "Si algo no cuadra (un grupo de embalaje en un UN de litio, una posición que no existe en ese avión), preguntar es parte del trabajo, no una molestia.",
+        ],
+        cierre:
+          "La firma no te convierte en experto en embalaje. Te convierte en el último que pudo decir «esto no sale así».",
       },
       {
         kind: "ponAPrueba",
         preguntas: [
           {
-            q: "Un bulto llega a la aeronave mal clasificado. ¿De quién es la responsabilidad de la clasificación?",
+            q: "¿Quién es responsable de la identificación y clasificación de una mercancía peligrosa?",
             ref: "LAR 175.410, 175.415 y 175.510",
             opciones: [
               {
-                t: "Del expedidor.",
+                t: "El expedidor.",
                 ok: true,
-                fb: "El 175.416 es explícito: el expedidor es responsable de la identificación y clasificación. Eso no exime al explotador de inspeccionar el bulto y la documentación antes de aceptarlo (175.514).",
+                fb: "Es su obligación, y es el primer eslabón. Eso no exime al explotador de inspeccionar el bulto y la documentación antes de aceptar.",
               },
               {
-                t: "Del explotador, porque es quien lo sube al avión.",
-                fb: "El explotador responde por aceptar, cargar, estibar, segregar e informar; la clasificación es del expedidor. Pero si acepta un envío que no cumple, incumple el 175.220 (b).",
+                t: "El explotador, al aceptarlas con la lista de verificación.",
+                fb: "El explotador verifica y puede rechazar, pero quien clasifica y responde de que la clasificación sea correcta es el expedidor.",
               },
               {
-                t: "Del operador de terminal de carga.",
-                fb: "La terminal responde por almacenamiento, segregación en tierra, información y conservación de documentos (175.225), no por clasificar.",
+                t: "El piloto al mando, al firmar la información escrita.",
+                fb: "El piloto recibe y firma la información. No clasifica ni verifica embalajes: ni es su función ni tendría cómo hacerlo desde la cabina.",
               },
             ],
           },
           {
-            q: "¿Qué necesita un explotador para poder aceptar carga con mercancías peligrosas?",
-            ref: "LAR 175.020 (a) y 175.220 (a)",
+            q: "Un agente acreditado del explotador incumple un procedimiento de aceptación. ¿De quién es el problema?",
+            ref: "LAR 175.205 (c) y 175.220",
             opciones: [
               {
-                t: "Que el expedidor firme la declaración.",
-                fb: "La declaración del expedidor es necesaria para cada envío, pero no habilita al explotador. Sin autorización en las OpSpecs no puede aceptar mercancías peligrosas aunque el envío esté perfecto.",
+                t: "Solo del agente: es una empresa independiente.",
+                fb: "Quien realiza una función en nombre del explotador tiene que hacerla conforme al reglamento, y el explotador responde de que sus agentes acreditados cumplan sus procedimientos.",
               },
               {
-                t: "Una autorización de la AAC en sus OpSpecs o documento equivalente.",
+                t: "Del agente y del explotador: actuar en nombre de otro no diluye la obligación.",
                 ok: true,
-                fb: "El 175.020 (a) exige la autorización en las OpSpecs, y el 175.220 (a) repite que solo así puede aceptar y transportar. Sin ella, la única puerta es la autorización especial del 175.020 (c) para mercancías de riesgo menor.",
+                fb: "El LAR 175.205 (c) lo dice sin rodeos, y el explotador además responde de sus agentes acreditados. Subcontratar reparte el trabajo, no la responsabilidad.",
               },
               {
-                t: "Tener el Doc 9284 a bordo.",
-                fb: "Poseer y usar las Instrucciones Técnicas es una obligación del explotador (175.220 (k)), pero es una condición para aceptar bien, no la autorización para aceptar.",
+                t: "Del piloto al mando, que firmó la información del vuelo.",
+                fb: "La firma acredita que recibiste la información, no que la aceptación en tierra se hizo bien.",
               },
             ],
           },
         ],
       },
       {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Cuáles son las responsabilidades del piloto al mando en materia de mercancías peligrosas?",
+            respuesta:
+              "Recibir por escrito y lo antes posible antes de la salida la información de las mercancías peligrosas a bordo, firmarla antes de que se transporten, tenerla al alcance durante todo el vuelo y conocer los procedimientos de emergencia. Y, si se presenta una situación en vuelo, informar a la dependencia de tránsito aéreo para que se avise en tierra.",
+            claves: ["Recibir por escrito antes de la salida", "Firmar", "Tenerla al alcance en vuelo", "Informar a ATC"],
+            ref: "LAR 175.515 y 175.620",
+          },
+          {
+            nivel: "interpretacion",
+            q: "Si el expedidor declara mal un envío, ¿qué responsabilidad tiene el comandante?",
+            respuesta:
+              "La clasificación no es suya y no puede verificarla desde la cabina: eso corresponde al expedidor y a la aceptación. Lo que sí le corresponde es no volar sin la información escrita, conocerla, y actuar si algo en ella no cuadra. La responsabilidad del comandante está en el eslabón de información, no en el de clasificación.",
+            claves: ["El expedidor clasifica", "El comandante recibe y conoce la información", "Actuar si algo no cuadra"],
+            ref: "LAR 175.215 y 175.515",
+          },
+          {
+            nivel: "situacion",
+            q: "Vas a salir y no te han entregado la información de mercancías peligrosas, aunque sabes que llevas carga declarada. ¿Qué haces?",
+            respuesta:
+              "No salgo así. La norma exige que el explotador se la proporcione al piloto al mando por escrito y lo antes posible antes de la salida, y que la firme antes de que las mercancías se transporten. Sin ese documento no tengo qué hay, cuánto ni dónde, que es justo lo que necesitaría si algo pasa en vuelo. Lo pido y, si no aparece, se resuelve antes de mover el avión.",
+            claves: ["Por escrito antes de la salida", "Firmada por el piloto al mando", "Sin ella no hay qué, cuánto ni dónde"],
+            ref: "LAR 175.515 (a)",
+          },
+        ],
+      },
+      {
         kind: "summary",
         items: [
-          "Expedidor: identifica y clasifica (175.416). Explotador: solo acepta con OpSpecs y responde por sus agentes (175.220). Terminal: almacena, segrega e informa (175.225).",
-          "Quien actúa en nombre de otro responde igual (LAR 175.205 (c)); la sanción la fija la legislación de cada país.",
-          "El piloto al mando firma la información escrita antes de que las mercancías se transporten (175.515 (a) (1)).",
+          "Cada eslabón produce algo que termina llegando a la cabina: el UN que lees, el bulto que va en tu bodega y la posición que consultarías con humo.",
+          "El expedidor clasifica y declara; el explotador acepta o rechaza; tú recibes, firmas y conoces.",
+          "Quien actúa en nombre de otro responde igual (LAR 175.205 (c)): subcontratar no diluye la obligación.",
+          "Tu firma no certifica el embalaje. Certifica que la información llegó, y es el último punto donde el vuelo se puede parar.",
         ],
       },
     ],
