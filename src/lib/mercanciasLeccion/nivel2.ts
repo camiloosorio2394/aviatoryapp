@@ -126,9 +126,51 @@ export const NIVEL_2: DocScreen[] = [
         ],
       },
       {
+        kind: "piensaComoPiloto",
+        momento: "En plataforma, mientras haces la vuelta al avión",
+        situacion:
+          "Ves una paleta esperando a subir. Encima, un bulto con un **rombo rojo y una llama negra**, con un 3 en la esquina de abajo. Nadie te ha dicho nada todavía y el NOTOC aún no te ha llegado.",
+        pregunta: "¿Qué sabes ya, solo con eso, y qué te falta por saber?",
+        claves: [
+          "**Ya sé:** rojo con llama es inflamable, y el 3 lo sitúa en líquidos inflamables. Arde, y arde con facilidad.",
+          "**Ya sé:** eso va a aparecer en mi información escrita. Si luego no aparece, tengo un problema que resolver antes de salir.",
+          "**Me falta:** cuánto hay, en qué bulto y **dónde va estibado**. Un litro y doscientos litros arden igual, pero se responden distinto.",
+          "**Me falta:** si lleva riesgo secundario. Un segundo rombo cambiaría la respuesta ante una fuga.",
+        ],
+        cierre:
+          "El rombo te da la mitad de la respuesta en dos segundos y desde diez metros. La otra mitad está en el papel que vas a firmar.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Cuántas clases de mercancías peligrosas hay y cómo se asigna una sustancia a su clase?",
+            respuesta:
+              "Nueve. Cada mercancía se incluye en una sola clase: la del peligro que representa o, si tiene varios, la del más importante. Los riesgos restantes no desaparecen, se reflejan en el etiquetado como riesgos secundarios.",
+            claves: ["Nueve clases", "Una sola clase por mercancía", "El resto va como riesgo secundario"],
+            ref: "Instrucciones Técnicas, Parte 2",
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué diferencia hay entre clase y división?",
+            respuesta:
+              "La clase es el grupo grande, del 1 al 9. La división es la subdivisión dentro de algunas clases, como 2.1, 4.3 o 6.2. La división importa porque cambia la respuesta: un gas inflamable (2.1) no se trata igual que un gas tóxico (2.3), y una sustancia que reacciona con el agua (4.3) no se apaga como se apagaría un sólido inflamable normal.",
+            claves: ["Clase = grupo del 1 al 9", "División = subdivisión", "Cambia la respuesta de emergencia"],
+          },
+          {
+            nivel: "situacion",
+            q: "Dos bultos de tu vuelo llevan rombos amarillos. ¿Significa que son lo mismo?",
+            respuesta:
+              "No. El amarillo lo comparten la división 5.1, comburentes, y la clase 7, material radiactivo. El color es la primera señal pero no identifica: lo que identifica es el símbolo y el número de la esquina inferior. Es la razón por la que nunca se decide nada mirando solo el color.",
+            claves: ["El color se repite entre clases", "Identifican el símbolo y el número", "5.1 y 7 comparten amarillo"],
+          },
+        ],
+      },
+      {
         kind: "summary",
         items: [
-          "Nueve clases, una por mercancía: la del peligro más importante (175.1010 (a)). El resto es riesgo secundario.",
+          "Nueve clases, una por mercancía: la del peligro más importante. El resto es riesgo secundario.",
           "Clase (1 a 9) y división (2.1, 4.3, 6.2) no son lo mismo. La división cambia la respuesta ante una emergencia.",
           "El color del rombo es la primera señal: rojo arde, verde no arde, amarillo alimenta el fuego, calavera es tóxico, franjas negras es clase 9.",
           "Las baterías de litio y el hielo seco son clase 9.",
@@ -141,140 +183,203 @@ export const NIVEL_2: DocScreen[] = [
   {
     n: 6,
     title: "Etiquetas: de riesgo y de manipulación",
-    kicker: "Qué es y cómo se trata",
-    minutes: 8,
+    kicker: "Leer un bulto sin preguntarle a nadie",
+    minutes: 9,
     blocks: [
       {
         kind: "p",
-        text: "Un bulto no habla. Lo que dice, lo dice con lo que lleva pegado: las marcas, que son texto, y las etiquetas, que son los rombos y las señales de manipulación. Aprender a leerlas es lo que te permite mirar un bulto en rampa y saber qué es antes de que nadie te lo explique.",
+        text: "Un bulto no habla. Dice lo que dice con lo que lleva pegado. Y aquí no vamos a listarte veinticinco etiquetas para que las memorices: vamos a ponerte delante un bulto real y a que lo leas tú.",
       },
       {
-        kind: "figura",
-        src: "/modulos/mercancias/img-04-bulto-marcado.webp",
-        alt: "Caja de cartón en una cinta transportadora con flechas de orientación, la marca de especificación 4GV/X17.3/S/18, la declaración del expedidor y tres rombos: corrosivo clase 8, tóxico clase 6 y contaminante del medio ambiente.",
-        ancho: 727,
-        alto: 463,
-        pie: "Léelo por partes: arriba las flechas de orientación, a la izquierda la declaración, abajo la marca de especificación del embalaje (4GV/X17.3/S/18) y a la derecha los rombos. Corrosivo de la clase 8, tóxico de la clase 6 y contaminante del medio ambiente. Todo eso lo puso el expedidor antes de que la caja saliera de su bodega.",
-      },
-      { kind: "sub", text: "Las marcas: lo que va escrito" },
-      {
-        kind: "norma",
-        oaci: "Instrucciones Técnicas, Parte 3",
-        ref: "LAR 175.430 (a)",
-        rac: "RAC 175.430 (a)",
-        texto:
-          "A menos que en las Instrucciones Técnicas se indique de otro modo, todo bulto de mercancías peligrosas irá marcado con la denominación del artículo expedido que contenga y con el número de la ONU, así como con toda otra marca que puedan especificar aquellas Instrucciones.",
-      },
-      {
-        kind: "kv",
-        items: [
+        kind: "reconoce",
+        titulo: "Un bulto real, en la cinta",
+        intro:
+          "Esta caja está bien preparada. Todo lo que ves lo puso el expedidor antes de que saliera de su bodega. Pulsa cada número y averigua qué es y por qué te importa a ti.",
+        imagen: {
+          src: "/modulos/mercancias/img-04-bulto-marcado.webp",
+          alt: "Caja de cartón en una cinta transportadora con flechas de orientación, una etiqueta de expedición, la marca de especificación del embalaje y tres rombos de riesgo.",
+          ancho: 727,
+          alto: 463,
+        },
+        puntos: [
           {
-            k: "UN 1263",
-            v: "El número de la ONU: cuatro dígitos que identifican la sustancia o un grupo de ellas (LAR 175.001 (a)). Es lo primero que se busca en la lista.",
+            x: 20,
+            y: 34,
+            que: "Flechas de orientación",
+            significa:
+              "Etiqueta de manipulación «posición del bulto». Dos flechas que indican hacia dónde va «arriba». Van en dos caras opuestas del bulto.",
+            piloto:
+              "Te dice que dentro hay líquido y que el cierre solo sella en esa posición. Si alguien lo estiba de lado o boca abajo, el contenido busca la tapa. Es la etiqueta más fácil de ignorar y la que más derrames evita.",
           },
           {
-            k: "PAINT",
-            v: "La denominación del artículo expedido: el nombre oficial de transporte, no el comercial. Una lata de «Aviatory Gloss» va marcada como pintura.",
+            x: 37,
+            y: 30,
+            que: "Etiqueta de expedición",
+            significa:
+              "Los datos del envío: expedidor, destinatario, número de guía. Es lo que permite rastrear el bulto y llegar a la declaración del expedidor.",
+            piloto:
+              "Tú no la usas en vuelo. Pero es el hilo que conecta esa caja con el papel que tú firmaste: si en el NOTOC hay un UN y nadie encuentra a qué bulto corresponde, se tira de aquí.",
           },
           {
-            k: "Idioma",
-            v: "En vuelo doméstico manda el idioma que exija tu Estado. En transporte internacional, además de los idiomas del Estado de origen, deberá utilizarse el inglés (LAR 175.430 (c)).",
+            x: 22,
+            y: 75,
+            que: "Marca de especificación",
+            significa:
+              "«4GV/X17.3/S/18» con el símbolo de la ONU. Certifica que ese embalaje superó los ensayos de las Instrucciones Técnicas: caída, apilamiento, presión.",
+            piloto:
+              "Es la prueba de que la caja está diseñada para aguantar tu vuelo, no un camión. Marcar un embalaje como homologado sin serlo es una infracción, y es exactamente el tipo de fallo que no se ve hasta que hay humo.",
           },
           {
-            k: "Especificación",
-            v: "La marca de especificación solo la lleva el embalaje que de verdad cumple la especificación de las Instrucciones (LAR 175.430 (b)). Un embalaje marcado como homologado sin serlo es una infracción.",
+            x: 48,
+            y: 44,
+            que: "Contaminante del medio ambiente",
+            significa:
+              "El pez y el árbol muertos. Indica que la sustancia daña el medio ambiente acuático. Acompaña al riesgo principal, no lo sustituye.",
+            piloto:
+              "Cambia lo que se hace **después**: un derrame de esto no se barre y ya está. Si ocurre en tu avión, el aeródromo de destino tiene que saberlo para tratar el residuo.",
+          },
+          {
+            x: 40,
+            y: 60,
+            que: "Corrosivo, clase 8",
+            significa:
+              "Rombo mitad blanco arriba, mitad negro abajo, con dos chorros que corroen una mano y una placa. Es el riesgo principal de este bulto.",
+            piloto:
+              "Ataca metal y piel. En una fuga te importa dónde está estibado (¿cerca de mandos, de cables?) y que nadie lo manipule sin los guantes largos de goma del equipo de emergencia.",
+          },
+          {
+            x: 49,
+            y: 70,
+            que: "Tóxico, clase 6",
+            significa:
+              "Calavera y tibias cruzadas sobre fondo blanco. Aquí va como **riesgo secundario**: por eso la esquina inferior lleva el 6 pero el bulto es principalmente de clase 8.",
+            piloto:
+              "Una sola caja puede llevar dos rombos. Uno manda y el otro avisa. Si solo lees el primero, te pierdes la mitad del problema: esto además es tóxico.",
           },
         ],
       },
-      { kind: "sub", text: "Dos familias de etiquetas" },
       {
-        kind: "norma",
-        oaci: "Instrucciones Técnicas, Parte 5",
-        ref: "LAR 175.435 (a)",
-        rac: "RAC 175.436",
-        texto:
-          "(a) Etiquetas de riesgo: se requieren para la mayoría de las mercancías peligrosas de todas clases. (b) Etiquetas de manipulación: son requeridas para algunas mercancías peligrosas.",
+        kind: "callout",
+        tone: "tip",
+        title: "La regla que resume el ejercicio",
+        text: "Un rombo con número en la esquina inferior es **riesgo**. Un rectángulo o un dibujo sin número es **manipulación**. Los dos importan, pero solo uno te dice qué hay dentro.",
       },
-      {
-        kind: "definicion",
-        text: "La etiqueta de riesgo dice **qué es**. La etiqueta de manipulación dice **cómo se trata**. Un bulto puede llevar las dos: el rombo de clase 9 dice que es una batería de litio; la etiqueta de «exclusivamente en aeronaves de carga» dice que en tu vuelo de pasajeros no sube.",
-      },
-      { kind: "sub", text: "Etiquetas de riesgo" },
-      {
-        kind: "p",
-        text: "Las especificaciones son las del Apéndice 1 del RAC 175: símbolo, fondo, franjas. Donde el Apéndice solo trae la figura, la ficha lo dice. Las que no tienen rombo en el módulo muestran su hueco, con el identificador y la medida para producirlas.",
-      },
+      { kind: "sub", text: "Dos familias, dos preguntas distintas" },
       {
         kind: "figura",
         src: "/modulos/mercancias/img-05-panel-etiquetas.webp",
-        alt: "Panel con las etiquetas de riesgo de las nueve clases: explosivos, gases inflamables y no inflamables, líquidos inflamables, sólidos inflamables, comburentes, peróxidos orgánicos, tóxicos, infecciosos, radiactivo, corrosivos y riesgos varios.",
+        alt: "Panel con las etiquetas de riesgo de las nueve clases: explosivos, gases, líquidos inflamables, sólidos inflamables, comburentes, tóxicos, infecciosos, radiactivo, corrosivos y riesgos varios.",
         ancho: 608,
         alto: 331,
-        pie: "Todas juntas, como las verías en el cuadro que la terminal de carga tiene a la vista por obligación (LAR 175.225 (b)). Fíjate en que el color se repite entre clases: lo que identifica no es el color, es el símbolo con el número de la esquina.",
+        pie: "Todas las de riesgo juntas, como las verías en el cuadro que la terminal de carga tiene a la vista por obligación. Fíjate en que el color se repite entre clases: lo que identifica no es el color, es el símbolo con el número de la esquina.",
       },
-      { kind: "etiquetasMP", grupo: "riesgo" },
-      { kind: "sub", text: "Etiquetas de manipulación" },
-      { kind: "etiquetasMP", grupo: "manipulacion" },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "Reglas de fijación que se preguntan",
-        text: "Las etiquetas se fijan o imprimen con seguridad, de forma que sean fácilmente visibles y legibles; no se doblan ni se fijan ocupando dos lados del bulto; si el bulto es irregular se acepta colocarlas en un talón o dispositivo rígido (175.438 (b) a (d)). Si el explotador descubre que se extraviaron, se desprendieron o son ilegibles, debe reemplazarlas conforme al documento de transporte (175.438 (e)).",
+        kind: "definicion",
+        text: "**De riesgo** responden a «¿qué es?». **De manipulación** responden a «¿cómo se trata?». Un bulto puede llevar varias de las dos, y llevarlas todas es lo normal, no lo raro.",
+      },
+      { kind: "sub", text: "Tres etiquetas a fondo" },
+      {
+        kind: "p",
+        text: "De las veinticinco, estas tres son las que más te van a cambiar el día. Las otras están completas en el detalle del final.",
+      },
+      {
+        kind: "fichas",
+        columnas: 1,
+        items: [
+          {
+            titulo: "① Líquido inflamable · clase 3",
+            ref: "Instrucciones Técnicas, Parte 5",
+            puntos: [
+              "**Qué ves:** rombo rojo con una llama negra o blanca y un 3 en la esquina inferior.",
+              "**Qué significa:** líquido que arde. El criterio son 60,5 °C en vaso cerrado o 65,6 °C en vaso abierto.",
+              "**Qué te importa:** es la clase que más vas a ver, y la que más restricciones de flota arrastra. Pinturas, thinner, perfumes, adhesivos, combustible de muestra.",
+              "**Ejemplo:** UN 1263 PAINT. Suena inofensivo hasta que recuerdas que es un líquido inflamable en una bodega presurizada.",
+            ],
+          },
+          {
+            titulo: "② Exclusivamente en aeronaves de carga · CAO",
+            ref: "MP-ETQ-20 · Figura 1.23",
+            puntos: [
+              "**Qué ves:** un rectángulo naranja con texto negro y la silueta de un avión de carga. No es un rombo: es de manipulación.",
+              "**Qué significa:** esa cantidad de esa mercancía **no puede ir en una aeronave que lleve pasajeros**. Punto.",
+              "**Qué te importa:** es la única etiqueta que puede sacar un bulto de tu vuelo. Si operas pasajeros y ese bulto aparece en tu bodega, no es un problema de estiba: no sube.",
+              "**Ojo:** estibarlo lejos de la cabina no lo arregla. La prohibición es por tipo de aeronave, no por posición.",
+            ],
+            nota: "La norma no la matiza: no se estiban en aeronave ocupada por pasajeros los bultos que lleven esta etiqueta (LAR 175.520 (c)).",
+          },
+          {
+            titulo: "③ Posición del bulto · flechas de orientación",
+            ref: "MP-ETQ-22 · Figura 1.24",
+            puntos: [
+              "**Qué ves:** dos flechas negras o rojas apuntando arriba, sobre fondo contrastado, en dos caras opuestas.",
+              "**Qué significa:** ese bulto tiene un arriba y un abajo. Casi siempre es porque contiene líquido y el cierre solo sella en esa posición.",
+              "**Qué te importa:** un bulto tumbado con líquido dentro es un derrame esperando. Es el fallo más frecuente y el más barato de evitar.",
+              "**Ejemplo:** una batería de plomo-ácido de una unidad de tierra, tumbada en la paleta. El electrolito es corrosivo y busca la tapa.",
+            ],
+          },
+        ],
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-ETQ-20 · Etiqueta CAO · 400×400 · PNG con fondo transparente",
+        descripcion:
+          "La etiqueta «Cargo Aircraft Only»: rectángulo naranja, texto negro, silueta de avión de carga. 120 × 110 mm en la realidad. Es la única etiqueta que puede sacar un bulto de un vuelo de pasajeros, así que merece verse grande.",
+        alto: 220,
+        ratio: "1 / 1",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "En plataforma, vuelo de pasajeros",
+        situacion:
+          "Bajas a hacer la inspección exterior y ves, en el carro que espera junto a la bodega delantera, un bulto con un rectángulo naranja y la silueta de un avión. Tu vuelo lleva 148 pasajeros.",
+        pregunta: "¿Qué acabas de ver y qué haces?",
+        claves: [
+          "Es una etiqueta **CAO**, «exclusivamente en aeronaves de carga». Es de manipulación, no de riesgo: no me dice qué hay dentro, me dice dónde no puede ir.",
+          "En un vuelo con pasajeros ese bulto **no sube**. No es cuestión de estibarlo lejos ni de avisar a la tripulación.",
+          "Lo hablo con el despachador o el agente de rampa antes de que se cargue, no después. Una vez a bordo, resolverlo cuesta una descarga.",
+          "Y me pregunto por qué llegó hasta ahí: si el filtro de aceptación lo dejó pasar, puede que no sea el único.",
+        ],
+        cierre:
+          "Reconocer esa etiqueta en dos segundos desde diez metros es, literalmente, lo que separa un vuelo normal de un incumplimiento notificable.",
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Ver las 25 etiquetas con su especificación completa",
+        cita: "Instrucciones Técnicas, Parte 5 · RAC 175, Apéndice 1",
+        bloques: [
+          {
+            kind: "p",
+            text: "Las de riesgo, por clase. Cada ficha trae el símbolo, el fondo y las franjas tal como los describe el Apéndice. Donde el Apéndice solo trae la figura sin describir los colores, la ficha lo dice.",
+          },
+          { kind: "etiquetasMP", grupo: "riesgo" },
+          {
+            kind: "p",
+            text: "Y las de manipulación, que no llevan número de clase porque no describen un riesgo sino un cuidado.",
+          },
+          { kind: "etiquetasMP", grupo: "manipulacion" },
+        ],
       },
       {
         kind: "norma",
         ref: "LAR 175.435 (b)",
         rac: "RAC 175.435 (b)",
+        titulo: "Si no hay certeza de cuál es, no vuela",
         texto:
           "El explotador que cuente con la autorización para transportar mercancías peligrosas deberá poseer etiquetas adecuadas para su reposición, en los casos de desprendimiento o deterioro de la etiqueta; sin embargo, si no se tiene la certeza de cuál etiqueta corresponde, no se transportará la mercancía.",
       },
       {
+        kind: "p",
+        text: "Léelo despacio, porque es una de las pocas veces que la norma dice «no se transporta» sin condiciones. Una etiqueta que se cayó se repone. Una etiqueta que **nadie sabe cuál era** deja el bulto en tierra.",
+      },
+      {
         kind: "enLaOperacion",
-        momento: "En la rampa",
+        momento: "Cuando algo no cuadra",
         texto:
-          "Un bulto con la etiqueta despegada no es un problema del expedidor: es del explotador que lo va a subir. La regla tiene dos mitades: se repone con la etiqueta que diga el documento de transporte, y si no hay certeza, no vuela. Tú no pegas etiquetas, pero sí puedes negarte a firmar por un bulto que nadie sabe qué es.",
+          "Ves un bulto con una etiqueta despegada a medias y nadie te sabe decir cuál era. No es un detalle administrativo: es el caso exacto que la norma resuelve dejándolo en tierra. Preguntar no te hace quisquilloso, te hace el último filtro que funcionó.",
       },
       {
         kind: "ponAPrueba",
         preguntas: [
-          {
-            q: "Un bulto llega con la etiqueta de riesgo despegada. ¿Qué corresponde hacer?",
-            ref: "LAR 175.435 (b)",
-            opciones: [
-              {
-                t: "Reemplazarla con la etiqueta apropiada según el documento de transporte; si no hay certeza de cuál es, no se transporta.",
-                ok: true,
-                fb: "El explotador autorizado debe tener etiquetas de reposición y el 175.438 (e) le exige reemplazarlas conforme al documento de transporte. La segunda mitad de la regla es la que se olvida: sin certeza, no vuela.",
-              },
-              {
-                t: "Aceptarlo, porque la etiqueta es informativa y el documento ya identifica la mercancía.",
-                fb: "La etiqueta es parte del acondicionamiento exigido: nadie puede aceptar mercancías peligrosas que no vayan debidamente marcadas y etiquetadas (175.220 (b)).",
-              },
-              {
-                t: "Rechazarlo siempre y devolverlo al expedidor.",
-                fb: "No siempre. La norma permite reponer la etiqueta cuando hay certeza de cuál corresponde; el rechazo procede cuando no la hay.",
-              },
-            ],
-          },
-          {
-            q: "¿Cuál es la diferencia entre una etiqueta de riesgo y una de manipulación?",
-            ref: "LAR 175.435 (a)",
-            opciones: [
-              {
-                t: "La de riesgo es obligatoria y la de manipulación es opcional.",
-                fb: "Las dos son obligatorias cuando aplican. La diferencia no es la obligación: es lo que comunican. La de riesgo se requiere para la mayoría de las mercancías; la de manipulación, para algunas.",
-              },
-              {
-                t: "La de riesgo dice qué es la mercancía; la de manipulación, cómo debe tratarse el bulto.",
-                ok: true,
-                fb: "Esa es la lectura del 175.436. El rombo de clase 3 dice «líquido inflamable»; las flechas de posición dicen «este lado arriba»; la de solo carga dice «no en pasajeros».",
-              },
-              {
-                t: "La de riesgo la pone el expedidor y la de manipulación el explotador.",
-                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado (LAR 175.215 (a)). El explotador solo repone las que se desprenden o deterioran, y si no tiene certeza de cuál corresponde, no transporta la mercancía (LAR 175.435 (b)).",
-              },
-            ],
-          },
           {
             q: "En tu vuelo de pasajeros aparece un bulto con la etiqueta «Exclusivamente en aeronaves de carga». ¿Qué haces?",
             ref: "LAR 175.520 (c)",
@@ -284,25 +389,92 @@ export const NIVEL_2: DocScreen[] = [
                 fb: "La posición no lo arregla. Los bultos con esa etiqueta no se estiban en una aeronave ocupada por pasajeros, y punto.",
               },
               {
-                t: "Lo acepto si el expedidor lo autoriza por escrito.",
-                fb: "El expedidor no puede autorizar lo que la norma prohíbe. La etiqueta existe justamente porque esa mercancía, en esa cantidad o embalaje, solo puede ir en carguero.",
+                t: "No sube: esa etiqueta prohíbe el transporte en aeronave con pasajeros.",
+                ok: true,
+                fb: "Es la única etiqueta que decide en qué tipo de avión puede ir un bulto. Y decide antes de que se cargue, no después.",
               },
               {
-                t: "No sale: ese bulto no puede ir en una aeronave con pasajeros.",
+                t: "Lo acepto avisando a la tripulación de cabina.",
+                fb: "Avisar es siempre buena idea, pero no convierte en admisible lo que la norma prohíbe.",
+              },
+            ],
+          },
+          {
+            q: "Un bulto llega con la etiqueta de riesgo despegada y nadie sabe cuál era. ¿Qué dice la norma?",
+            ref: "LAR 175.435 (b)",
+            opciones: [
+              {
+                t: "Va sin etiqueta y se anota la novedad.",
+                fb: "No hay margen para eso: el mismo artículo que obliga a tener etiquetas de reposición cierra diciendo que sin certeza no se transporta.",
+              },
+              {
+                t: "Se pega la de la clase más probable según el aspecto.",
+                fb: "Adivinar es peor que no etiquetar: quien lea esa etiqueta después va a actuar según ella.",
+              },
+              {
+                t: "No se transporta hasta saber cuál corresponde.",
                 ok: true,
-                fb: "La etiqueta de manipulación «Exclusivamente en aeronaves de carga» (Apéndice 1, Figura 1.23) es la orden de no estibarlo en un avión con pasajeros. Comprobarlo antes de firmar es parte de tu trabajo.",
+                fb: "El explotador tiene que poseer etiquetas para reponer las que se desprenden o deterioran, pero si no hay certeza de cuál es, la mercancía no viaja.",
+              },
+            ],
+          },
+          {
+            q: "¿Quién pone las etiquetas de riesgo y quién las de manipulación?",
+            ref: "LAR 175.215 (a) y 175.435 (b)",
+            opciones: [
+              {
+                t: "Las dos las pone el expedidor.",
+                ok: true,
+                fb: "Entrega el bulto clasificado, documentado, embalado, marcado y etiquetado. El explotador solo repone las que se desprenden o deterioran.",
+              },
+              {
+                t: "La de riesgo el expedidor y la de manipulación el explotador.",
+                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado. El explotador solo repone las que se pierden o dañan, y si no tiene certeza de cuál corresponde, no transporta la mercancía.",
+              },
+              {
+                t: "El operador de terminal de carga, al almacenarlas.",
+                fb: "La terminal almacena y segrega; no etiqueta. Tiene los cuadros de etiquetas a la vista justamente para reconocer las que ya vienen puestas.",
               },
             ],
           },
         ],
       },
       {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué diferencia hay entre una etiqueta de riesgo y una de manipulación?",
+            respuesta:
+              "La de riesgo dice qué hay dentro: es un rombo con un símbolo y el número de la clase en la esquina inferior. La de manipulación dice cómo hay que tratar el bulto y no lleva número de clase: las flechas de orientación, «exclusivamente en aeronaves de carga», material magnetizado, líquidos criogénicos. Un mismo bulto suele llevar de las dos.",
+            claves: ["Riesgo = qué es, rombo con número", "Manipulación = cómo se trata, sin número de clase", "Conviven en el mismo bulto"],
+            ref: "LAR 175.435",
+          },
+          {
+            nivel: "interpretacion",
+            q: "Ves un bulto con dos rombos. ¿Qué te dice eso?",
+            respuesta:
+              "Que la sustancia tiene un riesgo principal y al menos uno secundario. El principal es el que determina la clase con la que viaja y el que manda en la documentación; el secundario avisa de algo que también hay que tener en cuenta, por ejemplo que además de corrosiva es tóxica. Si solo leo el primero me pierdo la mitad del problema.",
+            claves: ["Riesgo principal y secundario", "El principal determina la clase", "Los dos condicionan la respuesta"],
+          },
+          {
+            nivel: "situacion",
+            q: "Durante la operación observas un bulto con una etiqueta que indica «Cargo Aircraft Only». ¿Qué significa y por qué es importante para ti como piloto?",
+            respuesta:
+              "Significa que esa mercancía, en esa cantidad, solo está admitida en aeronave de carga: no puede transportarse en una aeronave que lleve pasajeros. Es importante porque es la única etiqueta que decide si un bulto puede o no estar en mi vuelo, y porque la prohibición no se arregla con la estiba. Si opero pasajeros y ese bulto aparece, lo paro antes de que se cargue y lo hablo con el despachador.",
+            claves: ["Solo aeronave de carga", "No se resuelve con la posición", "Se para antes de cargar"],
+            ref: "LAR 175.520 (c)",
+          },
+        ],
+      },
+      {
         kind: "summary",
         items: [
+          "Rombo con número en la esquina = riesgo. Rectángulo o dibujo sin número = manipulación.",
           "Marcas: denominación del artículo y número ONU en cada bulto (LAR 175.430 (a)); en vuelo internacional, además en inglés.",
-          "Etiqueta de riesgo = qué es; etiqueta de manipulación = cómo se trata (175.436).",
-          "Etiqueta despegada: se repone según el documento de transporte; sin certeza, no vuela (175.435 (b) y 175.438 (e)).",
-          "«Exclusivamente en aeronaves de carga» significa exactamente eso.",
+          "Dos rombos significan riesgo principal y secundario. Los dos cuentan.",
+          "CAO saca el bulto de un vuelo de pasajeros, y la posición no lo arregla (LAR 175.520 (c)).",
+          "Etiqueta que nadie sabe cuál era: la mercancía no vuela (LAR 175.435 (b)).",
         ],
       },
     ],
@@ -313,79 +485,106 @@ export const NIVEL_2: DocScreen[] = [
     n: 7,
     title: "Grupos de embalaje y cantidades",
     kicker: "Cuánto cuidado exige",
-    minutes: 6,
+    minutes: 7,
     blocks: [
       {
         kind: "p",
-        text: "La clase dice qué peligro tiene una sustancia. El grupo de embalaje dice cuánto, dentro de su clase. Y las cantidades exceptuadas y limitadas dicen cuándo ese peligro es tan pequeño que la norma afloja. Tres escalas, tres preguntas distintas.",
+        text: "Esta lección va de tres escalas que se confunden todo el rato. La clase dice **qué** peligro hay. El grupo de embalaje dice **cuánto**, dentro de esa clase. Y las cantidades exceptuadas y limitadas dicen **cuándo** el peligro es tan pequeño que la norma afloja.",
       },
       {
-        kind: "norma",
-        oaci: "Instrucciones Técnicas, Parte 2",
-        ref: "LAR 175.415",
-        rac: "RAC 175.426 (a)",
-        texto:
-          "Para los fines de embalaje las sustancias que no sean de las clases 1, 2 y 7, divisiones 5.2 y 6.2 y otras sustancias de reacción espontánea de la división 4.1, se asignan a los tres grupos de embalaje de acuerdo con el grado de peligro que representan: grupo de embalaje I, sustancias que presentan gran peligro; grupo de embalaje II, sustancias que presentan peligro intermedio; grupo de embalaje III, sustancias que presentan escaso peligro.",
+        kind: "callout",
+        tone: "tip",
+        title: "Seamos honestos con lo que te toca a ti",
+        text: "Tú no asignas grupos de embalaje ni decides si algo va en cantidad limitada: eso lo hace el expedidor y lo verifica la aceptación. Lo que sí haces es **leer un NOTOC y detectar cuando algo no cuadra**. Esta lección va de eso, y de las dos preguntas que caen en entrevista.",
+      },
+      { kind: "sub", text: "Lo que ves escrito y qué significa" },
+      {
+        kind: "p",
+        text: "En la información que te entregan, junto al número ONU y la clase, puede aparecer un número romano. Es el grupo de embalaje.",
       },
       {
         kind: "kv",
         items: [
           { k: "I", v: "Gran peligro. El embalaje más exigente y los límites de cantidad por bulto más bajos." },
-          { k: "II", v: "Peligro intermedio." },
+          { k: "II", v: "Peligro intermedio. Es el que más vas a ver." },
           { k: "III", v: "Escaso peligro. Embalaje menos exigente y límites más holgados." },
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Van en números romanos, y no es un capricho",
-        text: "Se escriben `I`, `II` y `III`. En el NOTOC y en la declaración del expedidor aparecen así, y confundir el I con un uno o el II con un once es un error que cambia el embalaje exigido y la cantidad admitida.",
-      },
-      { kind: "sub", text: "No todas las clases lo llevan" },
-      {
-        kind: "p",
-        text: "Hay clases donde el grupo de embalaje no aplica porque el riesgo no se gradúa así: los explosivos se ordenan por división, los gases por su comportamiento y el material radiactivo por su nivel de radiación. El 175.426 (a) excluye las clases 1, 2 y 7, las divisiones 5.2 y 6.2 y las sustancias de reacción espontánea de la 4.1.",
+        title: "Van en romanos, y no es un capricho",
+        text: "Se escriben `I`, `II` y `III`. Confundir el I con un uno o el II con un once cambia el embalaje exigido y la cantidad admitida. Si en un documento ves «GE 2» en arábigos, alguien lo transcribió a mano y puede haber transcrito más cosas.",
       },
       {
-        kind: "fichas",
-        columnas: 2,
-        items: [
+        kind: "piensaComoPiloto",
+        momento: "Repasando el NOTOC",
+        situacion:
+          "Lees tres líneas: «UN 1263 PAINT, clase 3, **GE II**», «UN 1830 SULPHURIC ACID, clase 8, **GE II**» y «UN 3480 LITHIUM ION BATTERIES, clase 9, **GE II**».",
+        pregunta: "Una de las tres no puede estar bien. ¿Cuál y por qué?",
+        claves: [
+          "La tercera. Las **baterías de litio son clase 9 y no llevan grupo de embalaje**: lo que gobierna su transporte es la instrucción de embalaje y el estado de carga, no un grado de peligro.",
+          "No es una errata inocente. Si quien preparó ese documento se inventó un GE, ¿qué más rellenó de memoria?",
+          "Lo que haces con eso: preguntar antes de firmar. No para corregir la clasificación, que no es tuya, sino porque una incoherencia en el papel suele venir acompañada.",
+          "Las otras dos están bien: pintura clase 3 y ácido sulfúrico clase 8 sí llevan grupo de embalaje, y el II es el más frecuente.",
+        ],
+        cierre:
+          "Este es exactamente el nivel al que un piloto usa el grupo de embalaje: no para decidir nada, sino para detectar que el papel no cuadra.",
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Ver qué clases llevan grupo de embalaje y cuáles no",
+        cita: "Instrucciones Técnicas, Parte 2",
+        bloques: [
           {
-            titulo: "Sí llevan grupo de embalaje",
-            ref: "Instrucciones Técnicas, Parte 2",
-            puntos: [
-              "Clase 3, líquidos inflamables.",
-              "Clase 4, salvo las sustancias de reacción espontánea de la 4.1.",
-              "División 5.1, comburentes.",
-              "División 6.1, tóxicas.",
-              "Clase 8, corrosivas.",
-              "Clase 9, según la sustancia.",
+            kind: "p",
+            text: "El grupo de embalaje solo aplica donde el riesgo se gradúa así. Hay clases que se ordenan de otra manera: los explosivos por división, los gases por su comportamiento y el material radiactivo por su nivel de radiación.",
+          },
+          {
+            kind: "fichas",
+            columnas: 2,
+            items: [
+              {
+                titulo: "Sí llevan grupo de embalaje",
+                ref: "Instrucciones Técnicas, Parte 2",
+                puntos: [
+                  "Clase 3, líquidos inflamables.",
+                  "Clase 4, salvo las sustancias de reacción espontánea de la 4.1.",
+                  "División 5.1, comburentes.",
+                  "División 6.1, tóxicas.",
+                  "Clase 8, corrosivas.",
+                  "Clase 9, según la sustancia.",
+                ],
+              },
+              {
+                titulo: "No llevan",
+                ref: "Instrucciones Técnicas, Parte 2",
+                puntos: [
+                  "Clase 1, explosivos: se ordenan por división.",
+                  "Clase 2, gases.",
+                  "Clase 7, material radiactivo: se categoriza por radiación.",
+                  "División 5.2, peróxidos orgánicos.",
+                  "División 6.2, infecciosas.",
+                  "Sustancias de reacción espontánea de la 4.1.",
+                  "**Baterías de litio**, aunque sean clase 9.",
+                ],
+              },
             ],
           },
           {
-            titulo: "No llevan",
-            ref: "Instrucciones Técnicas, Parte 2",
-            puntos: [
-              "Clase 1, explosivos: se ordenan por división.",
-              "Clase 2, gases.",
-              "Clase 7, material radiactivo: se categoriza por radiación.",
-              "División 5.2, peróxidos orgánicos.",
-              "División 6.2, infecciosas.",
-              "Sustancias de reacción espontánea de la 4.1.",
-            ],
+            kind: "norma",
+            oaci: "Instrucciones Técnicas, Parte 2",
+            ref: "LAR 175.415",
+            rac: "RAC 175.426 (a)",
+            texto:
+              "Para los fines de embalaje las sustancias que no sean de las clases 1, 2 y 7, divisiones 5.2 y 6.2 y otras sustancias de reacción espontánea de la división 4.1, se asignan a los tres grupos de embalaje de acuerdo con el grado de peligro que representan: grupo de embalaje I, sustancias que presentan gran peligro; grupo de embalaje II, sustancias que presentan peligro intermedio; grupo de embalaje III, sustancias que presentan escaso peligro.",
           },
         ],
       },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "El caso que más se pregunta",
-        text: "Las **baterías de litio** son clase 9 y **no llevan grupo de embalaje**. Lo que gobierna su transporte es la instrucción de embalaje de las Instrucciones Técnicas y el estado de carga. Si en un NOTOC ves un grupo de embalaje junto a un UN de litio, algo no cuadra.",
-      },
-      { kind: "sub", text: "Cantidades exceptuadas y cantidades limitadas" },
+      { kind: "sub", text: "Exceptuadas y limitadas: por qué te importa la diferencia" },
       {
         kind: "p",
-        text: "Cuando la cantidad es pequeña, el peligro también, y la norma lo reconoce con dos regímenes. No son lo mismo y se confunden siempre.",
+        text: "Las dos suenan a «esto es poca cosa», y las dos significan cosas distintas. La diferencia que te afecta es **cuál de las dos te llega a ti por escrito**.",
       },
       {
         kind: "fichas",
@@ -395,93 +594,87 @@ export const NIVEL_2: DocScreen[] = [
             titulo: "Cantidades exceptuadas",
             ref: "LAR 175.130",
             puntos: [
-              "Cantidades pequeñas definidas en la Parte 3, Capítulo 5 de las Instrucciones Técnicas.",
-              "Si la lista trae «E0» en la columna 9, ese artículo **no** puede ir en cantidades exceptuadas (175.130 (b)).",
-              "Solo mercancías permitidas en aeronaves de pasajeros, y solo de ciertas clases y divisiones (175.130 (c)).",
-              "Cada bulto lleva una etiqueta de al menos 100 × 100 mm (175.130 (d)).",
-              "No van en equipaje ni en correo (175.136).",
+              "Cantidades muy pequeñas, definidas en la Parte 3, Capítulo 5 de las Instrucciones.",
+              "Quedan fuera de casi todo el régimen: no generan la documentación de mercancías peligrosas.",
+              "**Qué significa para ti:** normalmente **no aparecen en la información que firmas**. Van a bordo y tú no lo sabes.",
+              "Y no pueden ir en equipaje ni en correo.",
             ],
           },
           {
             titulo: "Cantidades limitadas",
             ref: "LAR 175.135",
             puntos: [
-              "Presentan un peligro menor y viajan en embalajes de buena calidad, probados a apilamiento y caída, con la marca de la Figura 3-1 de las Instrucciones.",
-              "Se identifican por la instrucción de embalaje «Y» en la columna 10 de la lista (175.135 (c)).",
-              "Quedan exceptuadas de algunas disposiciones, según la Parte 3, Capítulo 4 de las Instrucciones.",
+              "Peligro menor, en embalajes de buena calidad probados a apilamiento y caída, con la marca de la Figura 3-1.",
+              "Se identifican por la instrucción de embalaje «Y» en la lista.",
+              "**Qué significa para ti:** siguen siendo mercancías peligrosas declaradas. Están en el régimen, con marca propia.",
+              "Un envío en cantidad limitada es un envío que ves.",
             ],
           },
-        ],
-      },
-      {
-        kind: "table",
-        head: ["Admitidas en cantidades exceptuadas (175.130 (c))", "Condición"],
-        rows: [
-          ["División 2.2", "Sin riesgos secundarios"],
-          ["Clase 3", "Todas"],
-          ["Clase 4", "Grupos de embalaje II y III"],
-          ["División 5.1", "Grupos de embalaje II y III"],
-          ["División 5.2", "Todas"],
-          ["División 6.1", "Todas"],
-          ["Clase 8", "Grupos de embalaje II y III"],
-          ["Clase 9", "Solo sustancias; no hielo seco ni organismos modificados; ningún artículo"],
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Trampa frecuente",
-        text: "Las mercancías peligrosas en cantidades exceptuadas no están permitidas ni como equipaje de mano o facturado, ni como correo (175.136 (a)). «Exceptuada» no quiere decir «puede ir en la maleta».",
+        title: "La consecuencia que sí es tuya",
+        text: "«Exceptuado» **no quiere decir inofensivo**: quiere decir que la norma lo dejó fuera de algunas obligaciones porque la cantidad es mínima. Si en vuelo aparece un olor o un humo que no corresponde a nada de tu NOTOC, recuerda que el NOTOC no lo lista todo. Es una de las razones por las que un incendio en bodega se trata como incendio de origen desconocido hasta que se demuestre lo contrario.",
       },
       {
-        kind: "enLaOperacion",
-        momento: "Al leer el NOTOC",
-        texto:
-          "Junto a cada UN puede venir un grupo de embalaje en romanos. Compruébalo dos veces: que sea coherente con la clase (un gas no debería traer grupo) y que coincida entre la declaración del expedidor y la información que firmas. Un «I» donde debía ir «II» cambia el embalaje exigido y los límites de cantidad.",
+        kind: "detalleTecnico",
+        etiqueta: "Ver qué se admite en cantidades exceptuadas",
+        cita: "LAR 175.130 · RAC 175.130 (c)",
+        bloques: [
+          {
+            kind: "p",
+            text: "Esta tabla es del expedidor y de quien acepta. Está aquí para consulta, y porque en una entrevista técnica puede caer la pregunta de si una clase concreta admite cantidades exceptuadas.",
+          },
+          {
+            kind: "table",
+            head: ["Admitidas en cantidades exceptuadas", "Condición"],
+            rows: [
+              ["División 2.2", "Sin riesgos secundarios"],
+              ["Clase 3", "Todas"],
+              ["Clase 4", "Grupos de embalaje II y III"],
+              ["División 5.1", "Grupos de embalaje II y III"],
+              ["División 5.2", "Todas"],
+              ["División 6.1", "Todas"],
+              ["Clase 8", "Grupos de embalaje II y III"],
+              ["Clase 9", "Solo sustancias; no hielo seco ni organismos modificados; ningún artículo"],
+            ],
+          },
+          {
+            kind: "vinetas",
+            items: [
+              "Si la lista de mercancías peligrosas trae «E0» en la columna 9 para un artículo, ese artículo **no** puede ir en cantidades exceptuadas (LAR 175.130 (b)).",
+              "Cada bulto en cantidad exceptuada lleva una etiqueta de al menos 100 × 100 mm.",
+              "Las mercancías con instrucción de embalaje «Y» en la columna 10 son las que pueden ir en cantidades limitadas (LAR 175.135 (c)).",
+            ],
+          },
+        ],
       },
       {
         kind: "ponAPrueba",
         preguntas: [
           {
-            q: "La columna 9 de la lista de mercancías peligrosas trae «E0» para un artículo. ¿Qué significa?",
-            ref: "LAR 175.130 (b)",
-            opciones: [
-              {
-                t: "Que ese artículo no puede transportarse en cantidades exceptuadas.",
-                ok: true,
-                fb: "Salvo disposición contraria en las Instrucciones Técnicas, las mercancías con la sigla E0 en la columna 9 no pueden ir bajo el régimen de cantidades exceptuadas.",
-              },
-              {
-                t: "Que está exento de todas las disposiciones del reglamento.",
-                fb: "Al revés. E0 es la marca de que el régimen de cantidades exceptuadas no aplica para ese artículo.",
-              },
-              {
-                t: "Que solo puede ir en aeronave de carga.",
-                fb: "Esa restricción se lee en las columnas de la lista referidas a aeronaves de pasajeros y de carga, y se materializa en la etiqueta «Exclusivamente en aeronaves de carga».",
-              },
-            ],
-          },
-          {
-            q: "En un NOTOC aparece un cilindro de gas de la división 2.2 con «grupo de embalaje II». ¿Qué piensas?",
+            q: "En el NOTOC aparece «UN 3480, clase 9, grupo de embalaje II». ¿Qué haces?",
             ref: "Instrucciones Técnicas, Parte 2",
             opciones: [
               {
-                t: "Es normal: todas las mercancías llevan grupo de embalaje.",
-                fb: "No todas. El 175.426 (a) excluye las clases 1, 2 y 7, las divisiones 5.2 y 6.2 y las sustancias de reacción espontánea de la 4.1.",
+                t: "Nada: la clase 9 lleva grupo de embalaje según la sustancia.",
+                fb: "Algunas sustancias de la clase 9 sí lo llevan, pero las baterías de litio no. Su transporte lo gobierna la instrucción de embalaje y el estado de carga.",
               },
               {
-                t: "Algo no cuadra: los gases no llevan grupo de embalaje.",
+                t: "Lo pregunto antes de firmar: las baterías de litio no llevan grupo de embalaje.",
                 ok: true,
-                fb: "La clase 2 no se gradúa por grupo de embalaje. Un grupo junto a un gas es un dato que no debería estar ahí, y merece una pregunta antes de firmar.",
+                fb: "Es el chequeo de coherencia. No corriges la clasificación, que no es tuya, pero un dato inventado en el papel rara vez viene solo.",
               },
               {
-                t: "Que es un gas de peligro intermedio.",
-                fb: "Los gases no se gradúan así: se dividen por comportamiento (inflamable, no inflamable, tóxico), no por grupo de embalaje.",
+                t: "Rechazo el envío por documentación incorrecta.",
+                fb: "Rechazar no es tu decisión ni tu papel. Preguntar sí, y es lo que hace que alguien con la competencia para corregirlo lo mire.",
               },
             ],
           },
           {
-            q: "Un pasajero quiere llevar en su maleta un frasco de reactivo marcado como «cantidad exceptuada». ¿Puede?",
+            q: "Un pasajero quiere llevar en su maleta un frasco marcado como «cantidad exceptuada». ¿Puede?",
             ref: "RAC 175.136 (a) · añadido nacional",
             opciones: [
               {
@@ -494,19 +687,48 @@ export const NIVEL_2: DocScreen[] = [
                 fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija la Tabla 8-1 de las Instrucciones, a la que remite el LAR 175.715 (lección 11), no el régimen de cantidades exceptuadas.",
               },
               {
-                t: "Solo si lo declara en el mostrador.",
-                fb: "Declararlo no lo habilita. Lo que un pasajero puede llevar está en la Parte 8 de las Instrucciones Técnicas; las cantidades exceptuadas son un régimen de carga.",
+                t: "Solo si el explotador lo autoriza en su manual.",
+                fb: "El manual del explotador puede ser más restrictivo, nunca más permisivo que la norma.",
               },
             ],
           },
         ],
       },
       {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es el grupo de embalaje y qué indica?",
+            respuesta:
+              "Es el grado de peligro que una sustancia presenta dentro de su clase, a efectos de embalaje. Son tres: el I para las de gran peligro, el II para peligro intermedio y el III para escaso peligro. Cuanto más alto el peligro, más exigente el embalaje y más bajos los límites de cantidad por bulto. No aplica a todas las clases: los explosivos, los gases y el radiactivo se ordenan de otra manera.",
+            claves: ["Grado de peligro dentro de la clase", "I, II y III", "No aplica a clases 1, 2 y 7"],
+            ref: "Instrucciones Técnicas, Parte 2",
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué diferencia hay entre cantidad exceptuada y cantidad limitada?",
+            respuesta:
+              "La exceptuada es una cantidad muy pequeña que queda fuera de casi todo el régimen y normalmente ni siquiera genera la documentación de mercancías peligrosas. La limitada sigue dentro del régimen: es un peligro menor en embalajes probados a apilamiento y caída, con su marca propia, y se identifica por la instrucción de embalaje «Y». Para un piloto la diferencia práctica es que la limitada la ve en el papel y la exceptuada, normalmente, no.",
+            claves: ["Exceptuada = fuera de casi todo el régimen", "Limitada = dentro, con marca propia", "La limitada aparece en la documentación"],
+            ref: "LAR 175.130 y 175.135",
+          },
+          {
+            nivel: "situacion",
+            q: "¿Las baterías de litio llevan grupo de embalaje?",
+            respuesta:
+              "No. Son clase 9, pero su transporte no lo gobierna un grupo de embalaje sino la instrucción de embalaje de las Instrucciones Técnicas, que fija cuántas van por bulto, con qué estado de carga y en qué tipo de aeronave. Si veo un grupo de embalaje junto a un UN 3480 o 3481, ese documento tiene un error y lo pregunto antes de firmarlo.",
+            claves: ["Clase 9 sin grupo de embalaje", "Manda la instrucción de embalaje", "Es un chequeo de coherencia del NOTOC"],
+          },
+        ],
+      },
+      {
         kind: "summary",
         items: [
-          "Grupo de embalaje: I gran peligro, II intermedio, III escaso (175.426 (a)). En romanos.",
-          "No llevan grupo: clases 1, 2 y 7, divisiones 5.2 y 6.2, reacción espontánea de la 4.1. Las baterías de litio tampoco.",
-          "Cantidades exceptuadas (E0 = no), limitadas (instrucción «Y»). Las exceptuadas no van en equipaje ni correo (175.136).",
+          "Clase = qué peligro. Grupo de embalaje = cuánto, dentro de la clase. Cantidades = cuándo la norma afloja.",
+          "I gran peligro, II intermedio, III escaso. Van en romanos.",
+          "Las baterías de litio no llevan grupo de embalaje: verlo en un NOTOC es motivo para preguntar.",
+          "Exceptuada casi nunca llega a tu papel; limitada sí. «Exceptuado» no significa inofensivo.",
         ],
       },
     ],
@@ -730,6 +952,49 @@ export const NIVEL_2: DocScreen[] = [
                 fb: "La clase 9 no dice cómo se apaga nada: junta riesgos distintos. Con el litio se enfría con agua; con otras mercancías de la misma clase la respuesta puede ser otra.",
               },
             ],
+          },
+        ],
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "En crucero, aviso de la tripulación de cabina",
+        situacion:
+          "Te llaman por el interfono: un pasajero de la fila 22 dice que su teléfono «se está calentando muchísimo» y sale un olor raro. Cuando la sobrecargo llega, el aparato está hinchado y empieza a echar humo.",
+        pregunta: "¿Qué tiene que ver esto con lo que acabas de estudiar, y qué es lo primero que importa?",
+        claves: [
+          "Es una **fuga térmica**: la celda se calienta, sus materiales se descomponen y el calor pasa a la celda de al lado. Se alimenta sola.",
+          "Lo primero es **enfriar**, con agua o cualquier líquido no alcohólico, y en cantidad. No es para apagar la llama: es para impedir que la siguiente celda entre en reacción.",
+          "**No se cubre ni se mete en un compartimento cerrado.** Tapar el calor es exactamente lo contrario de lo que hace falta, y aislarlo en un armario te quita el control.",
+          "El halón apaga la llama pero **no enfría**. Sirve, y no basta: detrás tiene que ir el agua.",
+          "Y sí, esto es un suceso con mercancías peligrosas aunque el aparato fuera de un pasajero: se notifica.",
+        ],
+        cierre:
+          "Esta es la razón por la que las baterías de litio tienen lección propia. No es la carga declarada la que más veces arde en un avión de pasajeros: es la que va en el bolsillo de la fila 22.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es una fuga térmica y por qué es distinta de un incendio normal?",
+            respuesta:
+              "Es la reacción de una celda de litio dañada, sobrecargada o en cortocircuito: se calienta, sus materiales se descomponen y generan más calor y gases inflamables, y ese calor alcanza a la celda vecina. Se alimenta sola. Es distinta porque el oxígeno lo aporta la propia celda, así que quitarle el aire no la para: hay que quitarle el calor.",
+            claves: ["Reacción que se autoalimenta", "Se propaga celda a celda", "El oxígeno lo pone la propia celda", "Se enfría, no se sofoca"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué se echa agua a un dispositivo con la batería en fuga térmica si es un equipo eléctrico?",
+            respuesta:
+              "Porque el objetivo no es apagar la llama sino enfriar el conjunto para que las celdas que aún no han reaccionado no lo hagan. El agua no neutraliza el litio, y ese es un error frecuente: lo que hace es bajar la temperatura. El riesgo eléctrico de un dispositivo portátil es despreciable comparado con la propagación.",
+            claves: ["Enfriar, no apagar", "Evitar la propagación a las celdas vecinas", "El agua no neutraliza el litio"],
+          },
+          {
+            nivel: "situacion",
+            q: "Un pasajero pide guardar en el compartimento superior un power bank que le ha empezado a calentar. ¿Qué haces?",
+            respuesta:
+              "No va al compartimento. Un dispositivo que ya está calentando necesita quedar a la vista y accesible, no encerrado donde nadie vea el humo hasta que sea grande. Se vigila, se tiene agua a mano y se aplica el procedimiento del explotador. Además, los repuestos de baterías y los power banks solo pueden ir en cabina, nunca en equipaje facturado, precisamente para poder intervenir.",
+            claves: ["Nunca encerrarlo", "A la vista y accesible", "Agua a mano", "Los repuestos solo van en cabina"],
+            ref: "Instrucciones Técnicas, Tabla 8-1",
           },
         ],
       },

@@ -378,6 +378,8 @@ export type LessonBlock =
       alto: number
       anchoMax?: number
       pie?: string
+      /** Proporción del hueco, "16 / 9" por defecto. Un "1 / 1" para una etiqueta. */
+      ratio?: string
     }
   | { kind: "table"; head: string[]; rows: string[][] }
   /** `grande` para el código que es protagonista, no una cita al paso. */

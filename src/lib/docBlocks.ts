@@ -156,7 +156,7 @@ export interface PonAPruebaBlock {
 export interface FichasBlock {
   kind: "fichas"
   titulo?: string
-  columnas?: 2 | 3
+  columnas?: 1 | 2 | 3
   items: { titulo: string; ref?: string; puntos: string[]; nota?: string }[]
 }
 
