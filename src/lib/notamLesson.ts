@@ -383,7 +383,7 @@ export type LessonBlock =
     }
   | { kind: "table"; head: string[]; rows: string[][] }
   /** `grande` para el código que es protagonista, no una cita al paso. */
-  | { kind: "code"; text: string; grande?: boolean }
+  | { kind: "code"; text: string; grande?: boolean; tabular?: boolean }
   /**
    * Caja de aviso. `sellos` destaca dos o tres palabras que hay que retener
    * como condición, no como frase: van en fichas debajo del texto.

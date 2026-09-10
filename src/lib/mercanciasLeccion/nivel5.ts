@@ -79,6 +79,21 @@ export const NIVEL_5: DocScreen[] = [
           },
         ],
       },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Mirando los cuatro juntos",
+        situacion:
+          "South African 295, ValuJet 592, UPS 6 y Asiana 991. Cuatro aviones distintos, cuatro décadas, cuatro mercancías distintas. En los cuatro el fuego empezó en la carga y en ninguno la tripulación pudo llegar hasta él.",
+        pregunta: "Si tuvieras que quedarte con una sola lección de los cuatro, ¿cuál?",
+        claves: [
+          "Que el fuego en bodega **no se apaga: se gestiona hasta el suelo**. Todo lo que decide el resultado se decidió antes de que empezara.",
+          "Que lo que falló primero fue siempre **la información**: una clasificación, una declaración, una descripción. El fuego vino después.",
+          "Que el tiempo hasta un aeródromo utilizable es la variable que más pesa, y esa la fijas tú al planificar.",
+          "Y que en tres de los cuatro había alguien que podía haber preguntado algo y no lo preguntó.",
+        ],
+        cierre:
+          "Por eso este módulo insiste tanto en un papel. No porque el papel apague nada, sino porque es el último sitio donde la cadena se puede parar.",
+      },
       { kind: "sub", text: "El patrón" },
       {
         kind: "p",
@@ -164,6 +179,36 @@ export const NIVEL_5: DocScreen[] = [
                 fb: "Los generadores funcionaron como estaban diseñados: produjeron oxígeno y calor. El problema fue transportarlos sin tapas, sin declarar y sin embalar.",
               },
             ],
+          },
+        ],
+      },
+      {
+        kind: "entrevista",
+        titulo: "Lo que te pueden preguntar sobre casos",
+        intro:
+          "En una entrevista te pueden pedir que cuentes un accidente. No quieren la cronología: quieren ver si sabes extraer la lección.",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "Cuéntame un accidente relacionado con mercancías peligrosas.",
+            respuesta:
+              "ValuJet 592, 1996. Transportaba generadores químicos de oxígeno retirados de dos MD-80, sin las tapas de seguridad, declarados como material de la compañía y marcados como vacíos. No estaban vacíos. Se activaron en la bodega delantera y el incendio hizo que el avión cayera en los Everglades. Murieron las 110 personas a bordo.",
+            claves: ["Generadores de oxígeno sin tapa", "Declarados como COMAT y marcados vacíos", "110 fallecidos"],
+            ref: "NTSB/AAR-97/06",
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Y qué aprendió la industria de ese accidente?",
+            respuesta:
+              "Que ser material de la propia compañía no exime de nada: si está clasificado como mercancía peligrosa es COMAT peligroso y cumple todas las reglas. Que una marca escrita a mano no clasifica nada. Y que el último control de la cadena era la firma del comandante sobre un documento que decía otra cosa. De ahí viene la insistencia actual en la información escrita al piloto al mando y en la instrucción periódica de todo el personal, acepte o no la empresa mercancías peligrosas.",
+            claves: ["COMAT peligroso no exime", "La declaración no la hace la marca", "Información escrita al comandante"],
+          },
+          {
+            nivel: "situacion",
+            q: "¿Qué tienen en común los grandes accidentes con mercancías peligrosas?",
+            respuesta:
+              "Que el fallo empezó en la información, no en el fuego. Una clasificación que no se hizo, una declaración que no se comprobó o una descripción genérica que nadie cuestionó. Y que una vez el fuego está en la bodega, la tripulación no puede llegar hasta él: lo único que queda es el tiempo hasta un aeródromo utilizable y lo que ya estaba a bordo. Por eso todo el esfuerzo normativo está antes de la salida.",
+            claves: ["El fallo empieza en la información", "El fuego en bodega no se alcanza", "Todo se juega antes de salir"],
           },
         ],
       },
@@ -297,6 +342,70 @@ export const NIVEL_5: DocScreen[] = [
           },
         ],
       },
+      {
+        kind: "hueco",
+        rotulo: "MP-POR-04 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
+        descripcion:
+          "Una sala de entrevista o una mesa de selección de aerolínea, sobria, con un piloto de uniforme respondiendo. Sin caras reconocibles ni marcas de aerolínea. Es la imagen que le pone escenario al simulador: recuerda que esto se responde hablando, no marcando una opción.",
+        alto: 300,
+      },
+      { kind: "sub", text: "Simulador: respóndelas en voz alta" },
+      {
+        kind: "p",
+        text: "Antes del repaso, seis preguntas como te las van a hacer: sin opciones y esperando que hables treinta segundos. Léelas, respóndelas **en voz alta** y solo después abre la respuesta esperada. Si te saltas la parte de hablar, esto no sirve de nada.",
+      },
+      {
+        kind: "entrevista",
+        titulo: "Simulador de entrevista · Mercancías peligrosas",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "En treinta segundos: ¿qué son las mercancías peligrosas y por qué existe una norma específica para el transporte aéreo?",
+            respuesta:
+              "Son objetos o sustancias que pueden constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente, y que están en la lista de las Instrucciones Técnicas o son clasificables conforme a ellas. Existe una norma específica para el aire porque el avión cambia el riesgo: la presión ambiente baja, la temperatura varía, la vibración es sostenida y no hay a quién llamar. Lo que en tierra se resuelve en minutos, en crucero lo resuelve la tripulación con lo que ya está a bordo.",
+            claves: ["Riesgo + lista o clasificable", "Presión, temperatura, vibración", "Aislamiento y tiempo"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Cuál es tu responsabilidad como comandante y dónde empieza y termina?",
+            respuesta:
+              "Empieza cuando recibo la información escrita de las mercancías peligrosas del vuelo, que el explotador debe darme lo antes posible antes de la salida. La firmo antes de que se transporten, la mantengo al alcance durante todo el vuelo y conozco los procedimientos de emergencia. No me corresponde clasificar ni verificar embalajes: eso es del expedidor y de la aceptación. Lo que sí me corresponde es no salir sin esa información y actuar si algo en ella no cuadra.",
+            claves: ["Recibir, firmar, tener al alcance", "No clasifico ni verifico embalajes", "Actuar si algo no cuadra"],
+            ref: "LAR 175.515",
+          },
+          {
+            nivel: "situacion",
+            q: "Estás preparando el vuelo y en el NOTOC ves «UN 3480, clase 9, GE II, CAO». Tu vuelo lleva pasajeros. ¿Qué ves ahí?",
+            respuesta:
+              "Dos cosas, y una es grave. La primera: las baterías de litio no llevan grupo de embalaje, así que ese «GE II» es un error de documentación. La segunda, y la que para el vuelo: la marca CAO significa exclusivamente en aeronave de carga, y este vuelo lleva pasajeros. Ese bulto no puede ir, y no se arregla cambiándolo de posición. Lo hablo con el despachador antes de que se cargue.",
+            claves: ["El litio no lleva grupo de embalaje", "CAO prohíbe en vuelo de pasajeros", "No se resuelve con la estiba"],
+            ref: "LAR 175.520 (c)",
+          },
+          {
+            nivel: "situacion",
+            q: "En crucero, un pasajero reporta que su teléfono echa humo. ¿Qué haces y por qué?",
+            respuesta:
+              "Es una fuga térmica de una batería de litio. Lo primero es enfriar con agua o cualquier líquido no alcohólico y en cantidad, no para apagar la llama sino para impedir que las celdas vecinas entren en reacción. No se cubre ni se encierra en un compartimento: el aparato tiene que quedar a la vista y accesible. El halón apaga la llama pero no enfría, así que detrás tiene que ir el agua. Y se notifica, aunque el dispositivo fuera de un pasajero.",
+            claves: ["Fuga térmica", "Enfriar, no sofocar", "Nunca encerrarlo", "Se notifica"],
+          },
+          {
+            nivel: "situacion",
+            q: "Salta la alarma de humo en la bodega donde llevas mercancías declaradas. ¿En qué orden actúas?",
+            respuesta:
+              "Volar, identificar, comunicar. Primero el procedimiento del fabricante para humo o incendio en bodega, y el desvío si corresponde. Después la información escrita, que me dice qué hay, cuánto y en qué posición, y la información de respuesta de emergencia, que me dice cómo se comporta esa mercancía. Y después informo a la dependencia de tránsito aéreo, para que el aeródromo prepare los medios sabiendo qué va a encontrarse. Invertir ese orden consume el único recurso que no se recupera.",
+            claves: ["Volar primero", "Identificar con el NOTOC", "Informar al ATS", "Doc 9481"],
+            ref: "LAR 175.620",
+          },
+          {
+            nivel: "situacion",
+            q: "En tierra descubren una mercancía no declarada en la carga de tu vuelo y la retiran. No llegó a subir. ¿Hay algo que hacer?",
+            respuesta:
+              "Sí: se notifica. El descubrimiento de una mercancía peligrosa oculta ya es un suceso con mercancías peligrosas aunque no haya daño ni llegue a bordo. Y es el nivel que más aporta, porque señala un fallo de la cadena que todavía no ha costado nada. El transporte de mercancías peligrosas está dentro del alcance del SMS del explotador precisamente para eso: para corregir antes, no para castigar después.",
+            claves: ["Es un suceso aunque no haya daño", "Se notifica", "Entra en el SMS"],
+            ref: "LAR 175.625 y 175.220 (k)",
+          },
+        ],
+      },
       { kind: "sub", text: "Veinte respuestas que debes tener listas" },
       {
         kind: "p",
@@ -305,24 +414,24 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "1 · Definición", v: "Objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. `175.001 (a) (31)`" },
+          { k: "1 · Definición", v: "Objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. `LAR 175.001 (a)`" },
           { k: "2 · Marco", v: "Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país. En Colombia, el RAC 175, adoptado por la Resolución 00478 de 2016. `LAR 175.005 (b)`" },
           { k: "3 · Alcance", v: "Cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional: vuelos internos e internacionales por igual, matrícula y operador nacionales o extranjeros. `LAR 175.005 (b)`" },
-          { k: "4 · Nueve clases", v: "Una sola clase por mercancía, según el peligro o el más importante de los peligros que represente. `175.1010 (a)`" },
-          { k: "5 · Grupos de embalaje", v: "I gran peligro, II intermedio, III escaso. No aplican a las clases 1, 2 y 7, ni a 5.2 y 6.2. `175.426`" },
-          { k: "6 · Dos tipos de etiqueta", v: "De riesgo, para la mayoría de las mercancías de todas las clases; de manipulación, para algunas. `175.436`" },
-          { k: "7 · Etiqueta ilegible", v: "Se repone conforme al documento de transporte; sin certeza de cuál corresponde, no se transporta. `175.435 (b) y 175.438 (e)`" },
-          { k: "8 · Cuatro niveles", v: "Prohibido siempre; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones. `175.110 a 175.114 y 175.020`" },
-          { k: "9 · Aviación civil privada", v: "Prohibido todo tipo de mercancías peligrosas. `175.115 (a)`" },
+          { k: "4 · Nueve clases", v: "Una sola clase por mercancía, según el peligro o el más importante de los peligros que represente. `Instrucciones Técnicas, Parte 2`" },
+          { k: "5 · Grupos de embalaje", v: "I gran peligro, II intermedio, III escaso. No aplican a las clases 1, 2 y 7, ni a 5.2 y 6.2. `Instrucciones Técnicas, Parte 2`" },
+          { k: "6 · Dos tipos de etiqueta", v: "De riesgo, para la mayoría de las mercancías de todas las clases; de manipulación, para algunas. `LAR 175.435`" },
+          { k: "7 · Etiqueta ilegible", v: "Se repone conforme al documento de transporte; sin certeza de cuál corresponde, no se transporta. `LAR 175.435 (b)`" },
+          { k: "8 · Cuatro niveles", v: "Prohibido siempre; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones. `LAR 175.110 y 175.020`" },
+          { k: "9 · Aviación civil privada", v: "Prohibido todo tipo de mercancías peligrosas. `RAC 175.115 (a)`" },
           { k: "10 · Monomotores", v: "Es un añadido nacional, no del Anexo: en Colombia, clase 3 combustibles prohibida salvo lo del 175.715 y las demás clases con aprobación de la autoridad. Mira qué añade el tuyo. `RAC 175.115 (b) y (c)`" },
-          { k: "11 · Pasajeros y tripulantes", v: "Prohibido en equipaje facturado, de mano o consigo, salvo lo de la Tabla 8-1 de las Instrucciones y cumpliendo todos sus requisitos. `175.151 y 175.715`" },
-          { k: "12 · Cantidades exceptuadas", v: "No van como equipaje ni como correo. E0 en la columna 9 significa que no admiten ese régimen. `175.130 (b) y 175.136`" },
-          { k: "13 · Aceptación", v: "No se acepta sin documento de transporte diligenciado y sin haber inspeccionado el bulto. Con lista de verificación. `175.510 y 175.514`" },
-          { k: "14 · Estiba", v: "Nunca en cabina ocupada por pasajeros ni en el puesto de pilotaje. Los CAO no van en aeronave de pasajeros y en carguero deben ser accesibles en vuelo. `Cap. F, (b) a (e)`" },
-          { k: "15 · Segregación", v: "Los incompatibles no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Tabla 7-1 y, para explosivos, Tabla 7-2. `175.525 y 175.530`" },
+          { k: "11 · Pasajeros y tripulantes", v: "Prohibido en equipaje facturado, de mano o consigo, salvo lo de la Tabla 8-1 de las Instrucciones y cumpliendo todos sus requisitos. `LAR 175.115 (b) y 175.715`" },
+          { k: "12 · Cantidades exceptuadas", v: "No van como equipaje ni como correo. E0 en la columna 9 significa que no admiten ese régimen. `LAR 175.130 (b) y RAC 175.136`" },
+          { k: "13 · Aceptación", v: "No se acepta sin documento de transporte diligenciado y sin haber inspeccionado el bulto. Con lista de verificación. `LAR 175.510`" },
+          { k: "14 · Estiba", v: "Nunca en cabina ocupada por pasajeros ni en el puesto de pilotaje. Los CAO no van en aeronave de pasajeros y en carguero deben ser accesibles en vuelo. `LAR 175.520 (b) a (e)`" },
+          { k: "15 · Segregación", v: "Los incompatibles no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Tabla 7-1 y, para explosivos, Tabla 7-2. `LAR 175.525 y 175.530`" },
           { k: "16 · Radiactivo", v: "Separado de personas, animales vivos y películas no reveladas. Aeronave contaminada, fuera de servicio de inmediato. Y encima del permiso aeronáutico, el del organismo nuclear del país: Servicio Geológico en Colombia, CNEN en Brasil. `LAR 175.535`" },
-          { k: "17 · Información al piloto al mando", v: "Por escrito, lo antes posible antes de la salida, firmada antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional. `175.515`" },
-          { k: "18 · Emergencia en vuelo", v: "Información de respuesta disponible de inmediato (Doc 9481), tripulación al corriente, equipo a bordo, e informar al ATS tan pronto la situación lo permita. `175.620`" },
+          { k: "17 · Información al piloto al mando", v: "Por escrito, lo antes posible antes de la salida, firmada antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional. `LAR 175.515`" },
+          { k: "18 · Emergencia en vuelo", v: "Información de respuesta disponible de inmediato (Doc 9481), tripulación al corriente, equipo a bordo, e informar al ATS tan pronto la situación lo permita. `LAR 175.620`" },
           { k: "19 · Equipo mínimo de respuesta", v: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma. `175.620 (d) (1)`" },
           { k: "20 · Instrucción de la tripulación de vuelo", v: "Como mínimo cada 24 meses; en el RAC 2, curso dentro de los entrenamientos periódicos con frecuencia no mayor a dos años; intensidad según la Tabla C.1 (verificar). `175.310 (a), Tabla C.1 y RAC 2, 2.2.1.1.6 (e)`" },
         ],

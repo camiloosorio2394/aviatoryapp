@@ -357,6 +357,13 @@ export const NIVEL_1: DocScreen[] = [
         kind: "p",
         text: "No te vamos a pedir que recites doce definiciones. Te vamos a enseñar **dónde oye cada palabra un piloto**, porque ese es el gancho que hace que se queden. Si sabes que «sobre-embalaje» es lo que ves en la paleta y «bulto» lo que cuenta el NOTOC, la definición sale sola.",
       },
+      {
+        kind: "hueco",
+        rotulo: "MP-ILU-03 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
+        descripcion:
+          "Un bulto, un sobre-embalaje y un ULD dibujados a la misma escala y en fila, con el número de bultos escrito en cada uno: 1 bulto, un sobre-embalaje con 3 bultos dentro, y un ULD con varios sobre-embalajes. Es la imagen que resuelve la confusión de golpe: son tres tamaños de la misma idea.",
+        alto: 280,
+      },
       { kind: "sub", text: "Lo que vas a leer en el papel que firmas" },
       {
         kind: "fichas",

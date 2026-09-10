@@ -497,6 +497,13 @@ export const NIVEL_2: DocScreen[] = [
         title: "Seamos honestos con lo que te toca a ti",
         text: "Tú no asignas grupos de embalaje ni decides si algo va en cantidad limitada: eso lo hace el expedidor y lo verifica la aceptación. Lo que sí haces es **leer un NOTOC y detectar cuando algo no cuadra**. Esta lección va de eso, y de las dos preguntas que caen en entrevista.",
       },
+      {
+        kind: "hueco",
+        rotulo: "MP-DIA-04 · Diagrama · 16:9 · 1600×900 · SVG",
+        descripcion:
+          "Tres escalas en paralelo, como tres reglas verticales. La primera, la clase (1 a 9): qué peligro. La segunda, el grupo de embalaje (I, II, III): cuánto peligro dentro de esa clase. La tercera, el régimen de cantidad (plena, limitada, exceptuada): cuándo la norma afloja. Una flecha que cruza las tres mostrando que son preguntas distintas, no niveles de lo mismo.",
+        alto: 300,
+      },
       { kind: "sub", text: "Lo que ves escrito y qué significa" },
       {
         kind: "p",

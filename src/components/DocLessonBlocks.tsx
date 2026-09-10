@@ -333,11 +333,14 @@ export function DocBlock({ block }: { block: DocBlockData }) {
           }
         >
           <code
-            className={
+            className={[
+              "mono block",
+              // Un NOTAM se ajusta al ancho; un NOTOC no, o pierde las columnas.
+              block.tabular ? "whitespace-pre" : "whitespace-pre-wrap",
               block.grande
-                ? "mono block whitespace-pre-wrap text-[15px] font-semibold leading-[1.7] sm:text-[18px]"
-                : "mono block whitespace-pre-wrap text-[13px] leading-[1.65]"
-            }
+                ? "text-[15px] font-semibold leading-[1.7] sm:text-[18px]"
+                : "text-[13px] leading-[1.65]",
+            ].join(" ")}
             style={{ color: "var(--doc-fg)" }}
           >
             {block.text}
