@@ -15,6 +15,7 @@ import type { DocScreen } from "@/lib/docBlocks"
 import { PARTE_ATMOSFERA } from "@/lib/meteorologiaLeccion/atmosfera"
 import { PARTE_AGUA } from "@/lib/meteorologiaLeccion/agua"
 import { PARTE_FRENTES } from "@/lib/meteorologiaLeccion/frentes"
+import { PARTE_SERVICIOS } from "@/lib/meteorologiaLeccion/servicios"
 
 /**
  * Las lecciones del código: METAR y TAF, grupo por grupo.
@@ -1379,7 +1380,12 @@ const CODIGO: DocScreen[] = [
  * mano en las trece pantallas: así añadir teoría delante no obliga a tocar el
  * contenido, que es lo que se acaba desincronizando.
  */
-const TEORIA: DocScreen[] = [...PARTE_ATMOSFERA, ...PARTE_AGUA, ...PARTE_FRENTES]
+const TEORIA: DocScreen[] = [
+  ...PARTE_ATMOSFERA,
+  ...PARTE_AGUA,
+  ...PARTE_FRENTES,
+  ...PARTE_SERVICIOS,
+]
 
 export const METAR_LESSON: DocScreen[] = [
   ...TEORIA,
@@ -1400,6 +1406,10 @@ export const METAR_NIVELES = [
   {
     titulo: "Masas de aire, frentes y tormentas",
     desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + 1,
+  },
+  {
+    titulo: "De dónde sale la información",
+    desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + PARTE_FRENTES.length + 1,
   },
   { titulo: "Básico · La línea y sus partes", desde: TEORIA.length + 1 },
   { titulo: "Intermedio · Fenómenos y cielo", desde: TEORIA.length + 5 },
