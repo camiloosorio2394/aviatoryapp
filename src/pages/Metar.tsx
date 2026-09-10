@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
+import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
@@ -52,8 +52,16 @@ export function Metar() {
     }
   })
 
+  // El panel de avance necesita saber cuándo el dato es el bueno: sin esto
+  // enseñaría el respaldo local como si fuera definitivo. Se deriva en vez de
+  // guardarse, que llamar setState en el cuerpo del efecto encadena renders.
+  const [hidratado, setHidratado] = useState(false)
+  const cargando = sessionLoading || (!!user?.id && !hidratado)
+
   useEffect(() => {
     if (sessionLoading) return
+    // Sin sesión no hay nada que esperar: el respaldo local ya es todo lo
+    // que va a haber, y `cargando` se apaga solo.
     const uid = user?.id
     if (!uid) return
     let cancelled = false
@@ -81,6 +89,7 @@ export function Metar() {
         practiceDone: Array.from(new Set([...local.practiceDone, ...remote.practiceDone])),
         bestExamScore: scores.length > 0 ? Math.max(...scores) : null,
       })
+      setHidratado(true)
     })()
 
     return () => {
@@ -96,11 +105,13 @@ export function Metar() {
       icon: BookOpen,
       color: "var(--av-mt-700)",
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
-      title: "Aprende",
+      title: "1. Aprende",
       blurb:
         "El METAR grupo por grupo (viento, visibilidad, tiempo presente, nubes, QNH y tendencias) y el TAF completo: grupos de cambio, lectura de un pronóstico y cómo decide tu alterno.",
-      cta: "Abrir la lección",
+      cta: "Iniciar formación",
       photo: aprendePhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -115,11 +126,13 @@ export function Metar() {
       icon: ScanSearch,
       color: "var(--av-mt-700)",
       meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
-      title: "Decodificador",
+      title: "2. Decodificador",
       blurb:
         "Pega cualquier METAR y te lo desarma grupo por grupo. Trae las tablas de fenómenos, descriptores, nubes y tendencias con buscador.",
       cta: "Abrir el decodificador",
       photo: decodificadorPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status: "Consulta libre, sin límite",
     },
     {
@@ -127,11 +140,13 @@ export function Metar() {
       icon: Target,
       color: "var(--av-mt-700)",
       meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
-      title: "Práctica",
+      title: "3. Práctica",
       blurb:
         "Lees el informe, lo interpretas con tus palabras y solo después comparas con la respuesta modelo. Con los errores típicos de cada caso.",
-      cta: "Empezar a practicar",
+      cta: "Iniciar práctica",
       photo: practicaPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -144,11 +159,13 @@ export function Metar() {
       icon: ClipboardCheck,
       color: "var(--av-mt-700)",
       meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
-      title: "Evaluación",
+      title: "4. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
-      cta: "Presentar la evaluación",
+      cta: "Iniciar evaluación",
       photo: evaluacionPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -172,18 +189,239 @@ export function Metar() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
 
-        <PageHeader
-          eyebrow="Ingreso a aerolínea · Meteorología operacional"
-          title="METAR y TAF: leer el cielo y anticiparlo"
-          subtitle="La lectura obligada del briefing junto al NOTAM. El METAR dice lo que hay; el TAF, lo que se espera y con qué alterno sales. Lección, decodificador, práctica y evaluación."
-        />
+        {/* Hero de sección. Sin foto todavía: el hueco conserva la caja, el
+            velo y la forma, y el rótulo de la esquina dice la medida que hace
+            falta. Cuando llegue la imagen se pone el <img> aquí y no se mueve
+            nada alrededor. */}
+        <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(105deg, rgba(8,20,36,.97) 0%, rgba(8,20,36,.94) 42%, rgba(8,20,36,.86) 72%, rgba(8,20,36,.78) 100%)",
+            }}
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
+            aria-hidden
+          />
+          <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
+            [Imagen de fondo · 2432×860 · espacio reservado]
+          </span>
 
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          {partes.map((p) => (
-            <CourseCard key={p.title} {...p} />
-          ))}
-        </div>
+          <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
+            <div className="min-w-0">
+              <div className="flex flex-wrap items-center gap-3">
+                <span
+                  className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]"
+                  style={{ color: "var(--av-mt-500)" }}
+                >
+                  Módulo 3
+                </span>
+                <span className="h-3 w-px bg-white/20" aria-hidden />
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                  Ingreso a aerolínea
+                </span>
+              </div>
+
+              <h1 className="nh-display mt-4 text-[38px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[46px] lg:text-[54px]">
+                Meteorología
+              </h1>
+
+              <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
+                La lectura obligada del briefing junto al NOTAM. El METAR dice lo que hay y el
+                TAF lo que se espera, pero antes está el cielo: qué nube tienes delante, qué
+                frente se te viene encima y qué decisión implica cada uno.
+              </p>
+
+              <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
+                {/* El video de este módulo todavía no existe. El hueco NO se
+                    quita: guarda la caja exacta de la tarjeta de NOTAM, así que
+                    el día que haya video se pone <VideoIntro> aquí. */}
+                <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
+                  <EspacioReservado
+                    etiqueta="Video 16:9"
+                    className="h-[52px] w-[92px] shrink-0 rounded-[8px]"
+                  />
+                  <div className="min-w-0">
+                    <div
+                      className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em]"
+                      style={{ color: "var(--av-mt-500)" }}
+                    >
+                      Empieza por aquí
+                    </div>
+                    <div className="mt-1 text-[15px] font-semibold leading-[1.35] text-white/70">
+                      Introducción al módulo
+                    </div>
+                    <div className="mt-1 text-[12px] text-white/45">
+                      [VIDEO · 16:9 · ESPACIO RESERVADO]
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    to="/app/aerolinea/meteorologia/aprende"
+                    className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-[filter] hover:brightness-110"
+                    style={{ background: "var(--av-mt-700)" }}
+                  >
+                    <BookOpen className="h-4 w-4" /> Empezar la lección
+                  </Link>
+                  <Link
+                    to="/app/aerolinea/meteorologia/practica"
+                    className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
+                  >
+                    <Target className="h-4 w-4" /> Ir a la práctica
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Avance del módulo: la cifra global y, bajo una línea fina, de qué
+                se compone. Los 33px de margen son el alto del rótulo más el
+                margen del título, o sea lo que la columna izquierda tiene por
+                encima del h1 y esta no. */}
+            <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:mt-[33px] lg:min-w-[210px]">
+              <div className="px-3.5 pb-3 pt-3.5">
+                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                  Tu avance
+                </div>
+                {cargando ? (
+                  <>
+                    <div className="mt-2.5 h-6 w-16 animate-pulse rounded bg-white/15" />
+                    <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
+                  </>
+                ) : (
+                  <>
+                    <div className="mt-1.5 flex items-baseline gap-2">
+                      <span className="nh-display tabular text-[23px] font-bold leading-none text-white">
+                        {resumen.overall}%
+                      </span>
+                      <span className="text-[11px] text-white/60">del módulo</span>
+                    </div>
+                    <div
+                      className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
+                      role="progressbar"
+                      aria-valuenow={resumen.overall}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label="Avance del módulo Meteorología"
+                    >
+                      <div
+                        className="h-full rounded-sm transition-all"
+                        style={{ width: `${resumen.overall}%`, background: "var(--av-mt-500)" }}
+                      />
+                    </div>
+                  </>
+                )}
+                {!sessionLoading && !user && (
+                  <p className="mt-2 text-[10.5px] leading-[1.5] text-white/55">
+                    Inicia sesión para guardar tu avance en la cuenta.
+                  </p>
+                )}
+              </div>
+
+              {/* Tres filas y no cuatro: el Decodificador es consulta libre y
+                  `resumirMetar` no lo mide, así que no habría nada que pintar. */}
+              <div className="border-t border-white/10 p-1">
+                <FilaAvance
+                  titulo="Lección"
+                  to="/app/aerolinea/meteorologia/aprende"
+                  valor={`${resumen.lessonRead} / ${METAR_LESSON_TOTAL}`}
+                  pct={resumen.lessonPct}
+                  color="#4E9BF5"
+                  cargando={cargando}
+                />
+                <FilaAvance
+                  titulo="Práctica"
+                  to="/app/aerolinea/meteorologia/practica"
+                  valor={`${resumen.practiceDone} / ${METAR_PRACTICE_TOTAL}`}
+                  pct={resumen.practicePct}
+                  color="var(--av-cyan-400)"
+                  cargando={cargando}
+                />
+                <FilaAvance
+                  titulo="Evaluación"
+                  to="/app/aerolinea/meteorologia/evaluacion"
+                  valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
+                  aviso={resumen.best === null}
+                  pct={resumen.examPct}
+                  color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
+                  cargando={cargando}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pt-10">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+            {partes.map((p) => (
+              <CourseCard key={p.title} {...p} statusLoading={cargando} />
+            ))}
+          </div>
+        </section>
       </div>
     </AppLayout>
+  )
+}
+
+// ─── Sub componentes ─────────────────────────────────────────────────────────
+
+/**
+ * Una parte del módulo dentro del hero: nombre, cifra y barra.
+ *
+ * Misma pieza que en los hubs de NOTAM y Mercancías. El color se lo dan desde
+ * fuera porque cada parte lleva el suyo: si todas fueran del acento del módulo
+ * no se distinguiría el total de una de sus partes.
+ */
+function FilaAvance({
+  titulo,
+  valor,
+  pct,
+  color,
+  aviso,
+  cargando,
+  to,
+}: {
+  titulo: string
+  valor: string
+  pct: number
+  color: string
+  /** Todavía no hay nada que medir: la cifra se dice en ámbar. */
+  aviso?: boolean
+  cargando?: boolean
+  to: string
+}) {
+  return (
+    <Link to={to} className="block rounded-[9px] px-2.5 py-1.5 transition-colors hover:bg-white/[0.07]">
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-[12px] font-medium text-white/85">{titulo}</span>
+        {cargando ? (
+          <span className="h-3 w-12 animate-pulse rounded bg-white/15" />
+        ) : (
+          <span
+            className="tabular text-[11px]"
+            style={{ color: aviso ? "var(--av-amber-400)" : "rgba(255,255,255,0.62)" }}
+          >
+            {valor}
+          </span>
+        )}
+      </div>
+      <div
+        className="mt-1.5 h-[3px] overflow-hidden rounded-sm bg-white/15"
+        role="progressbar"
+        aria-valuenow={cargando ? undefined : pct}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`Avance de ${titulo}`}
+      >
+        <div
+          className="h-full rounded-sm transition-all"
+          style={{ width: `${pct}%`, background: color }}
+        />
+      </div>
+    </Link>
   )
 }

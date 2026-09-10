@@ -6,9 +6,6 @@ import { CourseCard } from "@/components/ui/course-card"
 import { VideoIntro } from "@/components/modulo/VideoIntro"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
-import aprendePhoto from "@/assets/photos/notam-paleta-aprende.webp"
-import practicaPhoto from "@/assets/photos/notam-paleta-practica.webp"
-import evaluacionPhoto from "@/assets/photos/notam-paleta-evaluacion.webp"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -143,8 +140,8 @@ export function Notam() {
       blurb:
         "Conoce la estructura del NOTAM, identifica sus componentes y aprende a interpretar la información aeronáutica.",
       cta: "Iniciar formación",
-      photo: aprendePhoto,
-      photoAspect: "3/2",
+      photoHueco: "NT-POR-01 · Portada 5:2 · 1200×480 · Mesa de estudio con cartas y un NOTAM impreso",
+      photoAspect: "5/2",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -164,8 +161,8 @@ export function Notam() {
       blurb:
         "Trabaja con NOTAMs reales y fortalece tu capacidad para reconocer abreviaturas, interpretar mensajes y comprender su significado operacional.",
       cta: "Iniciar práctica",
-      photo: practicaPhoto,
-      photoAspect: "3/2",
+      photoHueco: "NT-POR-02 · Portada 5:2 · 1200×480 · Tableta con NOTAM reales en preparación de vuelo",
+      photoAspect: "5/2",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -182,8 +179,8 @@ export function Notam() {
       title: "3. Evaluación",
       blurb: `Comprueba tu dominio de la lectura e interpretación de NOTAMs mediante una evaluación de ${EXAM_PER_ATTEMPT} preguntas aleatorias.`,
       cta: "Iniciar evaluación",
-      photo: evaluacionPhoto,
-      photoAspect: "3/2",
+      photoHueco: "NT-POR-03 · Portada 5:2 · 1200×480 · Hoja de respuestas y cronómetro sobre la mesa",
+      photoAspect: "5/2",
       status:
         resumen.best === null
           ? "Sin intentos"

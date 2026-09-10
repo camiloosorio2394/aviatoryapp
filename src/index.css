@@ -1467,16 +1467,16 @@
    luminosidad y el croma hasta el terreno del navy del índice: sigue siendo
    verde, pero se comporta como un color de documento. */
 :root {
-  --av-mt-500: oklch(0.63 0.085 166);
-  --av-mt-600: oklch(0.52 0.08 166);
-  --av-mt-700: oklch(0.41 0.068 167);
-  --av-mt-fg: oklch(0.37 0.06 167);
+  --av-mt-500: oklch(0.63 0.075 205);
+  --av-mt-600: oklch(0.52 0.072 205);
+  --av-mt-700: oklch(0.41 0.062 206);
+  --av-mt-fg: oklch(0.37 0.055 206);
 }
 .dark {
-  --av-mt-500: oklch(0.72 0.085 168);
-  --av-mt-600: oklch(0.63 0.08 167);
-  --av-mt-700: oklch(0.52 0.07 167);
-  --av-mt-fg: oklch(0.78 0.07 168);
+  --av-mt-500: oklch(0.72 0.075 205);
+  --av-mt-600: oklch(0.63 0.072 205);
+  --av-mt-700: oklch(0.52 0.065 206);
+  --av-mt-fg: oklch(0.78 0.062 205);
 }
 
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
@@ -1500,12 +1500,12 @@
 /* Y el de Meteorología, igual, en verde. Mismo papel, misma tinta, mismo
    navy: cambia lo que era azul carta. */
 .lector-notam.lector-mt {
-  --ln-primary: #1D4B3C;
-  --ln-primary-hover: #143728;
-  --ln-bright: #2F7A62;
-  --ln-tint: #E6F0EB;
-  --ln-pill: #163D2F;
-  --ln-focus: #3E9A7C;
+  --ln-primary: #1A4A52;
+  --ln-primary-hover: #123A41;
+  --ln-bright: #2E7C89;
+  --ln-tint: #E4EFF1;
+  --ln-pill: #153E45;
+  --ln-focus: #3D97A6;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }
