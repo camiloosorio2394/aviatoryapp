@@ -63,6 +63,20 @@ const sim = (
   orientacion: "vertical" | "diagonal" | "horizontal" | "ninguna" = "ninguna"
 ): Elemento => ({ tipo: "grupo-simbolos", simbolo, orientacion, cantidad })
 
+/**
+ * Casilla del cuadro con lomo, lóbulos y letra.
+ *
+ * El lóbulo de abajo va al final y con valor por defecto porque en las ocho
+ * casillas de la matriz es blanco: solo la alternativa C lo cambia, y que
+ * haya que escribirlo para cambiarlo es justo lo que se quiere.
+ */
+const cl = (
+  letra: "A" | "C" | "D" | "ninguna",
+  lomo: Relleno,
+  barra: boolean,
+  lobulo: Relleno = "blanco"
+): Celda => ({ marco: true, elementos: [{ tipo: "cuadro-lobulos", letra, lomo, lobulo, barra }] })
+
 /** Casilla hecha solo de grupos de símbolos. */
 const g = (...grupos: Elemento[]): Celda => ({ marco: true, elementos: grupos })
 
@@ -360,6 +374,40 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * Tres sudokus, y el tercero está fuera del recuadro.
+   *
+   * La letra —A, C, D— aparece una vez en cada fila y en cada columna, y la
+   * trama del lomo —blanca, rayada, negra— hace lo mismo. Las dos señalan a la
+   * misma casilla: letra A y lomo rayado.
+   *
+   * El tercero es el que se pasa por alto: de cada recuadro cuelga un tallo, y
+   * a veces lleva una barra cruzada al final. Están así —no, sí, sí / sí, no,
+   * sí / sí, sí, ?—, que es el mismo reparto de dos síes y un no en cada fila
+   * y en cada columna, de modo que al hueco le toca **sin** barra. No se ve a
+   * ojo: se contó buscando tramos de tinta en el aire entre filas.
+   *
+   * Y hace falta, porque las cinco alternativas se distinguen exactamente en
+   * estos cuatro atributos y en nada más: la B se queda sin letra, la C rellena
+   * también el lóbulo de abajo, la D es la única que trae la barra y la E
+   * cambia el rayado por escamas. La A cumple las tres reglas.
+   */
+  "AB-A1-11": {
+    tipo: "matriz-3x3",
+    celdas: [
+      cl("A", "blanco", false), cl("D", "rayado-diagonal", true), cl("C", "negro", true),
+      cl("C", "rayado-diagonal", true), cl("A", "negro", false), cl("D", "blanco", true),
+      cl("D", "negro", true), cl("C", "blanco", true), HUECO,
+    ],
+    opciones: [
+      cl("A", "rayado-diagonal", false),
+      cl("ninguna", "rayado-diagonal", false),
+      cl("A", "rayado-diagonal", false, "rayado-diagonal"),
+      cl("A", "rayado-diagonal", true),
+      cl("A", "escamas", false),
     ],
   },
 

@@ -145,16 +145,16 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "Matrices",
     "avanzado",
     0,
-    "Matriz con una letra (A, C o D) y una forma semicircular con relleno rayado, negro o blanco.",
-    `Dos atributos claramente separables: la letra y el relleno de la media luna. En cada fila y en cada columna aparecen las tres letras y los tres rellenos sin repetirse, como en un sudoku. La casilla vacía pide la A. ${METODO}`
+    "Matriz de cuadros con una letra (A, C o D), un lomo redondeado con relleno blanco, rayado o negro, y un tallo que a veces lleva barra.",
+    `Tres atributos, y el tercero está fuera del recuadro. La letra y el relleno del lomo van como un sudoku: las tres letras y los tres rellenos en cada fila y en cada columna, sin repetirse. Eso ya pide la A con el lomo rayado. Falta mirar el tallo que cuelga de cada cuadro: la barra del final aparece dos veces por fila y dos por columna, así que a la casilla vacía le toca sin barra, y ahí se cae la D. ${METODO}`
   ),
   serie(
     12,
     "Patrones",
     "avanzado",
     4,
-    "Matriz con grupos de asteriscos, líneas verticales, formas en I y rayado diagonal, en distintas cantidades.",
-    `Lo que cambia es el tipo de símbolo y cuántos hay. Conviene contar antes de mirar la forma: la cantidad sigue su propia progresión, independiente del símbolo. La E cierra las dos. ${METODO}`
+    "Matriz con grupos de asteriscos, vigas y líneas —verticales, en diagonal y horizontales— en cantidades de tres, cuatro y cinco.",
+    `Dos sudokus encima del mismo tablero. El símbolo —asterisco, viga, línea— sale una vez en cada fila y en cada columna; la cantidad hace lo mismo con el tres, el cuatro y el cinco. Conviene contar antes de mirar la forma. En la fila del hueco ya están el cuatro y el cinco, y en su columna el cinco y el cuatro: solo cabe el tres, y el símbolo que falta es la línea. La E es tres líneas. ${METODO}`
   ),
   serie(
     13,

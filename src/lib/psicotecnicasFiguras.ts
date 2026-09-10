@@ -54,6 +54,7 @@ export type Relleno =
   | "rayado-vertical"
   | "punteado"
   | "cuadricula"
+  | "escamas"
 
 export type Esquina =
   | "inferior-izquierda"
@@ -113,6 +114,30 @@ export type Elemento =
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  /**
+   * La casilla del ejercicio 11: un lomo redondeado a la izquierda, dos
+   * lóbulos a la derecha con una letra metida en el de arriba, y un tallo que
+   * cuelga por debajo del recuadro rematado a veces con una barra.
+   *
+   * Va como un elemento y no como cinco sueltos porque las cinco piezas son
+   * siempre las mismas y en el mismo sitio: lo que la matriz hace variar son
+   * los cuatro atributos que van aquí. El lóbulo de arriba no está entre
+   * ellos porque en las ocho casillas y en las cinco alternativas es blanco
+   * —es donde vive la letra—, y un atributo que nunca cambia no es un
+   * atributo.
+   *
+   * El tallo lo llevan todas; lo que aparece y desaparece es la barra del
+   * final, y por eso se declara sola.
+   */
+  | {
+      tipo: "cuadro-lobulos"
+      letra: "A" | "C" | "D" | "ninguna"
+      /** La trama del lomo de la izquierda. */
+      lomo: Relleno
+      /** La del lóbulo de abajo a la derecha. */
+      lobulo: Relleno
+      barra: boolean
+    }
   /**
    * Un grupo de símbolos iguales, y cuántos hay.
    *
@@ -280,6 +305,12 @@ const TRAMAS: Record<string, string> = {
   cuadricula:
     `<pattern id="psico-cuadricula" width="9" height="9" patternUnits="userSpaceOnUse">` +
     `<path d="M0 0 H9 M0 0 V9" stroke="currentColor" stroke-width="1.4" fill="none"/></pattern>`,
+  // Las escamas solo las usa la alternativa E del ejercicio 11, y ahí son todo
+  // el truco: es la única que acierta la letra y falla la trama.
+  escamas:
+    `<pattern id="psico-escamas" width="12" height="7" patternUnits="userSpaceOnUse">` +
+    `<path d="M0 7 A6 6 0 0 1 12 7 M-6 0 A6 6 0 0 1 6 0 M6 0 A6 6 0 0 1 18 0"` +
+    ` fill="none" stroke="currentColor" stroke-width="1.3"/></pattern>`,
 }
 
 /** Cómo se pinta un relleno dentro de un `fill`. */
@@ -710,6 +741,64 @@ function dibujarCelda(
         break
       }
 
+      case "cuadro-lobulos": {
+        const mx = x + ancho / 2
+        const borde = ` stroke="currentColor" stroke-width="${TRAZO}"`
+        // El lomo y los lóbulos mueren en los bordes del recuadro, así que se
+        // meten medio trazo hacia dentro: si se dibujaran justo encima, su
+        // relleno se comería la raya del marco y el recuadro saldría roto por
+        // los cuatro sitios donde lo tocan.
+        const izq = x + TRAZO / 2
+        const der = x + ancho - TRAZO / 2
+        const arr = y + TRAZO / 2
+        const abj = y + alto - TRAZO / 2
+        const medio = y + alto / 2
+        const r = (abj - arr) / 2 // el redondeo del lomo: media casilla de alto
+        const rl = (abj - arr) / 4 // el de cada lóbulo, que son dos en la misma altura
+
+        // El lomo: recto desde la raya del medio y redondeado al llegar al
+        // borde izquierdo, que es donde muere.
+        partes.push(
+          `<path d="M${mx},${arr} H${(izq + r).toFixed(1)} A${r.toFixed(1)},${r.toFixed(1)} 0 0 0` +
+            ` ${(izq + r).toFixed(1)},${abj} H${mx} Z" fill="${pintura(el.lomo)}"${borde}/>`
+        )
+
+        // Los dos lóbulos de la derecha, uno encima del otro. El de arriba
+        // siempre blanco: es el que lleva la letra.
+        const lobulo = (arriba: boolean, relleno: Relleno) => {
+          const y0 = arriba ? arr : medio
+          const y1 = arriba ? medio : abj
+          return (
+            `<path d="M${mx},${y0} H${(der - rl).toFixed(1)} A${rl.toFixed(1)},${rl.toFixed(1)} 0 0 1` +
+            ` ${(der - rl).toFixed(1)},${y1} H${mx} Z" fill="${pintura(relleno)}"${borde}/>`
+          )
+        }
+        partes.push(lobulo(true, "blanco"), lobulo(false, el.lobulo))
+
+        // La raya del medio, encima de los rellenos para que no se la coman.
+        partes.push(`<line x1="${mx}" y1="${arr}" x2="${mx}" y2="${abj}"${borde}/>`)
+
+        if (el.letra !== "ninguna") {
+          partes.push(
+            `<text x="${((mx + der - rl) / 2).toFixed(1)}" y="${(y + alto * 0.27).toFixed(1)}"` +
+              ` font-family="Georgia, 'Times New Roman', serif" font-size="${(alto * 0.34).toFixed(1)}"` +
+              ` text-anchor="middle" dominant-baseline="central" fill="currentColor">${el.letra}</text>`
+          )
+        }
+
+        // El tallo cuelga por debajo del recuadro: el lienzo le reserva sitio
+        // en `colaDe`, y sin esa reserva saldría cortado.
+        const finTallo = y + alto + COLA * 0.62
+        partes.push(`<line x1="${mx}" y1="${y + alto}" x2="${mx}" y2="${finTallo}"${borde}/>`)
+        if (el.barra) {
+          const media = ancho * 0.085
+          partes.push(
+            `<line x1="${mx - media}" y1="${finTallo}" x2="${mx + media}" y2="${finTallo}"${borde}/>`
+          )
+        }
+        break
+      }
+
       case "grupo-simbolos": {
         if (el.simbolo === "linea") {
           // Las líneas cruzan la casilla de lado a lado y se reparten a
@@ -1030,6 +1119,22 @@ const MATRIZ_ALTO = 96
 const MATRIZ_HUECO = 18
 
 /**
+ * Lo que hay que dejar por debajo de la casilla cuando algo cuelga de ella.
+ *
+ * Solo lo pide el ejercicio 11, y solo se añade a las figuras que lo usan: si
+ * se sumara siempre, las noventa y ocho restantes cambiarían de proporción sin
+ * ganar nada.
+ */
+const COLA = 15
+
+const colaDe = (figura: Figura): number =>
+  [...figura.celdas, ...figura.opciones].some(
+    (c) => !esIncognita(c) && c.elementos.some((el) => el.tipo === "cuadro-lobulos")
+  )
+    ? COLA
+    : 0
+
+/**
  * La matriz de tres por tres, con sus casillas sueltas.
  *
  * A diferencia de la serie, aquí cada casilla lleva su propio recuadro y entre
@@ -1040,7 +1145,7 @@ function svgMatriz(figura: FiguraMatriz): string {
   const paso = { x: MATRIZ_ANCHO + MATRIZ_HUECO, y: MATRIZ_ALTO + MATRIZ_HUECO }
   const ancho = MATRIZ_ANCHO * 3 + MATRIZ_HUECO * 2 + TRAZO
   const desplazamientoY = MARCA_RESERVA
-  const alto = MATRIZ_ALTO * 3 + MATRIZ_HUECO * 2 + TRAZO + desplazamientoY
+  const alto = MATRIZ_ALTO * 3 + MATRIZ_HUECO * 2 + TRAZO + desplazamientoY + colaDe(figura)
 
   const partes: string[] = [`<g transform="translate(${TRAZO / 2} ${desplazamientoY + TRAZO / 2})">`]
 
@@ -1082,7 +1187,7 @@ export function svgOpcion(figura: Figura, indice: number): string {
   const celda = figura.opciones[indice]
   if (figura.tipo === "matriz-3x3") {
     const ancho = MATRIZ_ANCHO + TRAZO
-    const alto = MATRIZ_ALTO + TRAZO
+    const alto = MATRIZ_ALTO + TRAZO + colaDe(figura)
     return lienzo(
       ancho,
       alto,
@@ -1156,6 +1261,12 @@ export function describirCelda(celda: Celda): string {
           )
         case "mitad-rellena":
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
+        case "cuadro-lobulos":
+          return (
+            `cuadro con el lomo ${el.lomo} a la izquierda, ` +
+            (el.letra === "ninguna" ? "sin letra" : `la letra ${el.letra}`) +
+            ` y el lóbulo de abajo ${el.lobulo}${el.barra ? ", con barra debajo" : ""}`
+          )
         case "grupo-simbolos":
           return el.simbolo === "linea"
             ? `${el.cantidad} líneas ${el.orientacion}es`
