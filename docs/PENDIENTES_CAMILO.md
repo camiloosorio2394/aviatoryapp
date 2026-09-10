@@ -632,20 +632,50 @@ Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.
 
 ### 9.5 · Dónde quedó cada matriz del A1
 
-Ocho de las veinte están dibujadas y en la aplicación; el resto sigue con su
+Doce de las veinte están dibujadas y en la aplicación; el resto sigue con su
 recorte, ahora sin el logotipo de Facebook donde se pudo quitar.
 
 | Matrices | Estado |
 |---|---|
-| 01, 03, 04, 05, 06, 07, 09 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
+| 01, 03, 04, 05, 06, 07, 09, 11, 12, 19, 20 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
 | 02 | Dibujada. Su regla —los brazos del rombo se añaden y se quitan de uno en uno— no está en la familia del solucionador, así que **no tiene comprobación automática**: hay que aprobarla mirando el HTML de revisión |
-| 08, 10, 11 | **Paradas a propósito.** Juegan con bandas dentro de sectores, con extensiones y con posiciones que no se leen con seguridad en el recorte. Transcribirlas a ojo es justo lo que cambia un ejercicio sin que nadie se entere |
-| 12 a 20 | Sin empezar |
+| 08, 10, 13, 14, 15, 16, 17, 18 | **Paradas, y cada una por su motivo.** Abajo, una por una |
 
-Las tres paradas no son un problema de tiempo: es que hace falta el cuadernillo
-original —`554759531`, que Nico tiene en Descargas— a mejor resolución que el
-recorte, o que alguien las lea al lado del papel. Con eso se dibujan en una
-tarde.
+### 9.5.1 · Volver al PDF original ya no es un remedio
+
+El brief pedía que, si una figura no se lee en el recorte, se vuelva al
+cuadernillo original. Se volvió, y ahí se acaba el camino: cada diapositiva del
+`554759531` es **un JPEG de 720 × 720 píxeles** incrustado en la página. Se
+comprobó en las nueve láminas que faltaban:
+
+```
+pdfimages -list -f 77 -l 77 554759531-Razonamiento-Abstracto-Series-de-Figuras.pdf
+  77   0  image   720  720  rgb  3  8  jpeg   no   615  0   96  96
+```
+
+Los recortes que tenemos son de 974 × 1013, o sea que **ya son más grandes que
+el original**: se rindió la página a 200 ppp y eso amplió el JPEG, sin añadir un
+solo detalle. Rendirla a 400 ppp tampoco sirve, y se probó.
+
+En esos 720 píxeles, cada alternativa de la tira de abajo ocupa unos 120 × 80.
+Eso es lo que hay. Lo que no se distinga ahí no se distingue, y el único remedio
+que queda es leerlo del cuadernillo en papel.
+
+### 9.5.2 · Qué bloquea cada una de las ocho
+
+| Matriz | Qué la para |
+|---|---|
+| **08** | Rectángulo con las dos diagonales. Lo que varía son cuerdas horizontales que cortan el triángulo de arriba a **alturas distintas**, y una barra vertical en el centro. La altura de la cuerda es una medida continua: dos casillas que se parecen pueden ser la misma o no, y no hay forma de decidirlo a esta resolución |
+| **10** | Triángulos dentro de triángulos. La geometría cambia entera de casilla a casilla y no hay un vocabulario corto que la describa sin dibujar `path` a mano, que es justo lo que no se puede hacer aquí: un `path` no se compara, ni se resuelve, ni se verifica |
+| **13** | Un arco en «C» con tres símbolos —triángulo, círculo, cuadrado— repartidos entre cuatro sitios. La **C y la D son la misma alternativa** salvo dónde cae el círculo respecto del vértice del arco: medido sobre los píxeles, el centro está al 21 % del ancho de la caja en la C y al 13 % en la D. Y no hay regla por filas ni por columnas que sostenga ninguna de las dos: el círculo va derecha, arriba, izquierda en la primera fila, y las tres veces izquierda en la segunda |
+| **14** | La cuña negra dentro del círculo sectorizado. Su ángulo **es** la regla, y es pequeña; no se puede fijar con seguridad |
+| **15** | Una cruz con trazos oblicuos. El banco dice que son «la misma figura girada», pero el número de trazos crece —uno, uno, uno / dos, dos, uno / tres, tres, ?—, así que o el enunciado está mal o los trazos no se leen bien. Sea lo que sea, hay que mirarlo con el papel delante antes de dibujar nada |
+| **16** | Distinguir rayado «/» de rayado «\» por cuadrante. La medición automática dio cuadrantes rayados donde a ojo están en blanco, así que la medición está mal, no el ojo |
+| **17** | Casi entra. La punta, el remate y el relleno del cuerpo tienen regla limpia, y la respuesta sale la C, que es la clave. Lo que la para es que las puntas **no son «negra o blanca» sino «negra por arriba» o «negra por abajo»** —la primera lectura fue la equivocada— y el eje de la figura se mueve de casilla en casilla, así que la medición automática de las cuatro medias puntas no se sostiene |
+| **18** | Cada casilla son cuatro cajas con sus dos diagonales: dieciséis triángulos, más una letra, un triángulo negro, un punto y una barra. Transcribir dieciséis triángulos por casilla en trece casillas, desde alternativas de 120 × 80 píxeles, es exactamente donde se inventa un ejercicio sin que nadie se entere |
+
+Las tres primeras filas del brief —11, 14 y 18— quedan así: la **11 está
+hecha**, la 14 y la 18 siguen fuera y arriba está dicho por qué.
 
 ### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
 
@@ -978,3 +1008,65 @@ order by created_at desc;
 Y para cerrarlos: `update public.content_reports set estado = 'arreglado' where id = '…';`
 No hay política de update para los pilotos a propósito: marcar un reporte como
 atendido es de quien lo atiende, no de quien lo mandó.
+
+---
+
+## 15 · Cuatro matrices más del A1 (10 de septiembre de 2026)
+
+Están dibujadas la **11, la 12, la 19 y la 20**. Con las ocho de antes, doce de
+veinte. Las cuatro las deduce el solucionador por su cuenta y las cuatro
+coinciden con la clave impresa del cuadernillo.
+
+| | Regla | Responde |
+|---|---|---|
+| **11** | La letra y la trama del lomo van en sudoku, y hay un tercero fuera del recuadro: de cada casilla cuelga un tallo y la barra del final aparece dos veces por fila y dos por columna | A |
+| **12** | Dos sudokus a la vez: el símbolo —asterisco, viga, línea— y la cantidad —tres, cuatro, cinco— | E |
+| **19** | Los puntos van 0, 2 y 4 en cada fila. Las columnas no dicen nada | E |
+| **20** | La tercera casilla de cada fila es la **suma** de las dos anteriores | A |
+
+### 15.1 · Dos cosas se contaron con el ordenador, no con el ojo
+
+En la **12**, la segunda casilla tiene cuatro líneas verticales, no cinco. A ojo
+se cuentan mal. Se contaron buscando tramos oscuros en una fila de píxeles, y el
+resultado se comprueba solo: con cinco, el cuadro de cantidades no cierra.
+
+En la **19**, los puntos se contaron detectando manchas macizas —discos negros
+de tamaño y densidad conocidos—, no mirando. Cuatro y cinco puntos se confunden.
+
+Esto es lo que hay que hacer con lo que se cuenta. El ojo sirve para decir «hay
+un asterisco», no para decir «hay cinco».
+
+### 15.2 · El solucionador aprendió dos cosas, y desaprendió una
+
+**Un atributo sin regla ya no tumba la figura.** En la 12, la orientación de la
+línea que falta no es regla de fila ni de columna: las tres líneas giran
+cuarenta y cinco grados cada vez, y declararle al programa qué orientaciones
+existen sería escribirle la respuesta. Ahora ese atributo se marca como libre,
+la predicción sale sin él y se exige que encaje **una sola** alternativa. Si
+encajaran dos, sigue saliendo ambiguo.
+
+**Una regla nueva, más floja y por eso más exigente.** La 19 se sostiene solo
+por filas —la columna del medio trae dos, dos y cuatro—, así que hizo falta
+«mismo reparto en cada fila, no en las columnas». Para valer pide que el reparto
+sean **tres valores distintos**: un reparto de dos, del tipo «dos sí y un no»,
+repetido en tres filas sale por casualidad demasiado a menudo. Vale dos apoyos,
+los justos, y el verificador la nombra entera para que se vea sobre qué se
+apoya cada figura.
+
+**Y lo que se desapretó de más:** al dejar libres los atributos sin regla se
+estaban dejando libres también los que tenían dos reglas **contradiciéndose**.
+No es lo mismo. No saber es no saber; decir dos cosas a la vez significa que la
+transcripción o la figura están mal, y eso vuelve a sacar al ejercicio del
+banco. Ya están separados los dos casos.
+
+### 15.3 · Cómo comprobarlo
+
+```bash
+node scripts/psicotecnicas/verificar-figuras.mjs
+node scripts/psicotecnicas/revisar-modulo.mjs
+```
+
+El primero falla si una figura dibujada no está ni deducida ni firmada. El
+segundo escribe `revision-modulo.html` con los 238 ejercicios para mirarlos de
+golpe. Hoy: **12 dibujadas, 11 deducidas automáticamente**, y la 02 sigue
+esperando que una persona la refrende.
