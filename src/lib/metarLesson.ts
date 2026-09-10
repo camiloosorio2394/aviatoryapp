@@ -594,6 +594,18 @@ export const METAR_LESSON: LessonScreen[] = [
   },
 ]
 
+/**
+ * Los tres niveles con los que el índice agrupa las lecciones.
+ *
+ * Coinciden con el `level` que cada lección ya declaraba; aquí solo se les
+ * pone nombre para que el lector los rotule, como hace NOTAM.
+ */
+export const METAR_NIVELES = [
+  { titulo: "Básico · La línea y sus partes", desde: 1 },
+  { titulo: "Intermedio · Fenómenos y cielo", desde: 5 },
+  { titulo: "Avanzado · Tendencia y método", desde: 8 },
+]
+
 export const METAR_LESSON_TOTAL = METAR_LESSON.length
 
 /** Lectura estimada de la lección entera, en minutos. Ver LESSON_MINUTES. */

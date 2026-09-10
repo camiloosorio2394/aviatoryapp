@@ -94,7 +94,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/aprende",
       icon: BookOpen,
-      color: "var(--av-blue-500)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
       title: "Aprende",
       blurb:
@@ -113,7 +113,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/decodificador",
       icon: ScanSearch,
-      color: "var(--av-cyan-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
       title: "Decodificador",
       blurb:
@@ -125,7 +125,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/practica",
       icon: Target,
-      color: "var(--av-violet-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
       title: "Práctica",
       blurb:
@@ -142,7 +142,7 @@ export function Metar() {
     {
       to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
-      color: "var(--av-amber-400)",
+      color: "var(--av-mt-700)",
       meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
       title: "Evaluación",
       blurb:

@@ -62,9 +62,9 @@ function tabEntries(tab: TabKey): [string, string][] {
 
 /** Color por grupo del informe decodificado, con los tokens del sistema. */
 const GRUPO_COLOR: Record<string, string> = {
-  "Tipo de informe": "var(--av-blue-500)",
-  "Estación": "var(--av-blue-500)",
-  "Día y hora": "var(--av-blue-500)",
+  "Tipo de informe": "var(--av-mt-600)",
+  "Estación": "var(--av-mt-600)",
+  "Día y hora": "var(--av-mt-600)",
   "Viento": "var(--av-cyan-400)",
   "Visibilidad": "var(--av-green-400)",
   "Alcance visual en pista": "var(--av-green-400)",
@@ -73,7 +73,7 @@ const GRUPO_COLOR: Record<string, string> = {
   "Nubes": "var(--av-violet-400)",
   "Temperatura y rocío": "var(--av-red-400)",
   "QNH": "var(--av-red-400)",
-  "Tendencia": "var(--av-blue-500)",
+  "Tendencia": "var(--av-mt-600)",
   "Cizalladura": "var(--av-amber-400)",
 }
 
@@ -212,7 +212,7 @@ export function MetarDecoder() {
                 className="h-9 px-3.5 rounded-full text-[13px] font-semibold transition-colors"
                 style={
                   tab === t.key
-                    ? { background: "var(--av-blue-500)", color: "white" }
+                    ? { background: "var(--av-mt-600)", color: "white" }
                     : { color: "var(--muted-foreground)" }
                 }
               >
@@ -234,7 +234,7 @@ export function MetarDecoder() {
           <div className="mt-4 grid sm:grid-cols-2 gap-x-6">
             {entries.map(([k, v]) => (
               <div key={k} className="flex items-baseline gap-3 py-2 border-b border-border last:border-b-0 sm:[&:nth-last-child(2)]:border-b-0">
-                <span className="mono shrink-0 w-14 text-[13px] font-bold" style={{ color: accentText("var(--av-blue-500)") }}>
+                <span className="mono shrink-0 w-14 text-[13px] font-bold" style={{ color: accentText("var(--av-mt-600)") }}>
                   {k}
                 </span>
                 <span className="text-[14px] text-foreground/90 leading-snug">{v}</span>

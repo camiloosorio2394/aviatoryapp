@@ -259,7 +259,7 @@ export function AirlinePrep() {
         card: {
           to: "/app/aerolinea/meteorologia",
           icon: CloudSun,
-          color: "var(--av-cyan-400)",
+          color: "var(--av-mt-700)",
           meta: `${METAR_LESSON_TOTAL} secciones (${METAR_LESSON_MINUTES} min) · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
           title: "Meteorología operacional",
           // El resumen promete solo lo publicado: METAR. Cuando el curso TAF
