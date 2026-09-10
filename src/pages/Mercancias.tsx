@@ -74,7 +74,7 @@ export function Mercancias() {
     {
       to: MP_APRENDE,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: BookOpen,
       color: "var(--av-dg-700)",
       meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_NIVELES.length} niveles · ${MP_MINUTOS} min`,
@@ -82,7 +82,7 @@ export function Mercancias() {
       blurb:
         "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Cada afirmación con su artículo.",
       cta: "Iniciar formación",
-      photoHueco: "MP-POR-01 · Portada 3:2 · 1200×800 · Un bulto etiquetado en rampa",
+      photoHueco: "MP-POR-01 · Portada 5:2 · 1200×480 · Un bulto etiquetado en rampa",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -95,7 +95,7 @@ export function Mercancias() {
     {
       to: MP_PRACTICA,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: Target,
       color: "var(--av-dg-700)",
       meta: `${MP_PRACTICA_TOTAL} ejercicios · Etiquetas, envíos y escenarios`,
@@ -103,7 +103,7 @@ export function Mercancias() {
       blurb:
         "Reconoces etiquetas, clasificas envíos y resuelves escenarios de entrevista técnica.",
       cta: "Iniciar práctica",
-      photoHueco: "MP-POR-02 · Portada 3:2 · 1200×800 · Un ULD con etiquetas de riesgo",
+      photoHueco: "MP-POR-02 · Portada 5:2 · 1200×480 · Un ULD con etiquetas de riesgo",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -114,7 +114,7 @@ export function Mercancias() {
     {
       to: MP_EVALUACION,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: GraduationCap,
       color: "var(--av-dg-700)",
       meta: `${MP_EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${MP_PASS_SCORE}%`,
@@ -122,7 +122,7 @@ export function Mercancias() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación y el artículo de cada pregunta.",
       cta: "Iniciar evaluación",
-      photoHueco: "MP-POR-03 · Portada 3:2 · 1200×800 · Cabina con el NOTOC en la mano",
+      photoHueco: "MP-POR-03 · Portada 5:2 · 1200×480 · Cabina con el NOTOC en la mano",
       status:
         resumen.best === null
           ? "Sin intentos"
