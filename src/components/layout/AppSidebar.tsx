@@ -5,7 +5,6 @@ import {
   BookOpen,
   Radio,
   Briefcase,
-  Cpu,
   Radar,
   Clock,
   Calendar,
@@ -72,10 +71,12 @@ const navSections: NavSection[] = [
       { to: "/app/pca", label: "Examen PCA", icon: BookOpen },
       { to: "/app/icao", label: "Inglés ICAO", icon: Radio },
       { to: "/app/aerolinea", label: "Ingreso a aerolínea", icon: Briefcase },
-      // Sale del bloque "Pronto": el panorama de assessment ya no es un
-      // marcador de posición, lleva al tema de razonamiento que abrió con 249
-      // ejercicios dentro de Ingreso a aerolínea.
-      { to: "/app/psicotecnicas", label: "Psicotécnicas", icon: Cpu },
+      // Psicotécnicas no está aquí a propósito: es un tema **dentro** de
+      // Ingreso a aerolínea, igual que NOTAM, meteorología y mercancías, y
+      // ninguno de esos tiene entrada propia. Tenerla la vendía como un quinto
+      // curso, y encima la entrada llevaba al panorama de assessment —nueve
+      // categorías, seis todavía vacías— en vez de al tema con los ejercicios.
+      // El panorama sigue existiendo, ahora colgando del propio tema.
       { to: "/app/materias", label: "Materias generales", icon: GraduationCap, soon: true },
     ],
   },

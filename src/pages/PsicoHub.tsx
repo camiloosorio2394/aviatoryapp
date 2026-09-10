@@ -328,7 +328,17 @@ export function PsicoHub() {
           herramienta de preparación y no representa la prueba oficial de ninguna aerolínea. Las
           pruebas de selección varían bastante entre aerolíneas y proveedores de evaluación, así
           que el objetivo aquí es desarrollar la capacidad cognitiva y acostumbrarte a trabajar
-          contra el reloj.
+          contra el reloj.{" "}
+          {/* El panorama de las nueve categorías cuelga de aquí y ya no del
+              menú: es el contexto de la frase anterior —qué más te pueden
+              poner—, no un módulo aparte. */}
+          <Link
+            to="/app/psicotecnicas"
+            className="font-medium underline underline-offset-2 transition-colors hover:text-foreground"
+          >
+            Qué otras pruebas usan las aerolíneas
+          </Link>
+          .
         </div>
 
         <p className="mt-6 max-w-[76ch] text-[13px] leading-relaxed text-muted-foreground">
