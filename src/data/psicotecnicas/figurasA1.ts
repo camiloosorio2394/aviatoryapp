@@ -77,6 +77,24 @@ const cl = (
   lobulo: Relleno = "blanco"
 ): Celda => ({ marco: true, elementos: [{ tipo: "cuadro-lobulos", letra, lomo, lobulo, barra }] })
 
+const SUBE: Elemento = { tipo: "diagonal", sentido: "subiendo" }
+const BAJA: Elemento = { tipo: "diagonal", sentido: "bajando" }
+const TENDIDA: Elemento = { tipo: "diagonal", sentido: "tendida" }
+
+const pt = (cuantos: number, lado: "arriba" | "abajo" | "ninguno" = "ninguno"): Elemento => ({
+  tipo: "puntos",
+  cuantos,
+  lado,
+})
+
+const rm = (
+  forma: "escuadra" | "corchete" | "ninguno",
+  lado: "arriba" | "abajo" | "centro" | "ninguno" = "ninguno"
+): Elemento => ({ tipo: "remate", forma, lado })
+
+/** Casilla del 19: la diagonal que sube, y encima lo que la matriz reparte. */
+const dp = (...elementos: Elemento[]): Celda => ({ marco: true, elementos: [SUBE, ...elementos] })
+
 /** Casilla hecha solo de grupos de símbolos. */
 const g = (...grupos: Elemento[]): Celda => ({ marco: true, elementos: grupos })
 
@@ -374,6 +392,54 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * Cada fila trae el cero, el dos y el cuatro.
+   *
+   * Los puntos van así, contados sobre la lámina buscando manchas macizas —a
+   * ojo el cuatro y el cinco se confunden—:
+   *
+   *     0        2 arriba   4 arriba
+   *     4 abajo  2 abajo    0
+   *     2 arriba 4 arriba   ·
+   *
+   * En la fila del hueco ya están el dos y el cuatro, así que le toca el cero.
+   * Y con el cero viene la escuadra: el remate no es independiente de la
+   * cuenta —cero trae escuadra, dos trae corchete, cuatro no trae nada—, y esa
+   * segunda lectura da lo mismo por su cuenta.
+   *
+   * Las columnas no dicen nada: la del medio trae dos, dos y cuatro. Esta es la
+   * primera figura que se sostiene sobre un solo eje, y el verificador lo
+   * dice con todas las letras («mismo reparto en cada fila, no en las
+   * columnas») para que se vea sobre qué se apoya.
+   *
+   * De qué lado caen los puntos y de qué lado el remate no siguen regla y
+   * quedan libres. No hace falta: de las cinco alternativas, cuatro se caen
+   * por la estructura —la A y la C traen las dos diagonales, la B una recta
+   * tendida de más, la D dos escuadras en vez de una— y solo la E es la
+   * diagonal sola con una escuadra y sin puntos.
+   */
+  "AB-A1-19": {
+    tipo: "matriz-3x3",
+    celdas: [
+      dp(pt(0), rm("escuadra", "abajo")),
+      dp(pt(2, "arriba"), rm("corchete", "abajo")),
+      dp(pt(4, "arriba"), rm("ninguno")),
+      dp(pt(4, "abajo"), rm("ninguno")),
+      dp(pt(2, "abajo"), rm("corchete", "arriba")),
+      dp(pt(0), rm("escuadra", "arriba")),
+      dp(pt(2, "arriba"), rm("corchete", "abajo")),
+      dp(pt(4, "arriba"), rm("ninguno")),
+      HUECO,
+    ],
+    opciones: [
+      dp(BAJA, pt(7, "ninguno"), rm("ninguno")),
+      dp(TENDIDA, pt(0), rm("escuadra", "abajo")),
+      dp(BAJA, pt(0), rm("escuadra", "centro")),
+      dp(pt(0), rm("escuadra", "arriba"), rm("escuadra", "abajo")),
+      dp(pt(0), rm("escuadra", "abajo")),
     ],
   },
 

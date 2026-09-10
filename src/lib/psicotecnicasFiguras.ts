@@ -114,6 +114,34 @@ export type Elemento =
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  /** Una recta de lado a lado de la casilla. */
+  | { tipo: "diagonal"; sentido: "subiendo" | "bajando" | "tendida" }
+  /**
+   * Los discos negros del ejercicio 19, y de qué lado de la diagonal caen.
+   *
+   * `cuantos: 0` se declara igual que cualquier otra cantidad, en vez de
+   * quitar el elemento: en esa matriz el cero es uno de los tres valores que
+   * se reparten —cero, dos y cuatro—, y si al no haber puntos desapareciera el
+   * elemento, desaparecería con él el atributo y la regla dejaría de poder
+   * comprobarse. `lado: "ninguno"` es «por toda la casilla», que es lo que
+   * hace la alternativa A al no tener un solo lado.
+   *
+   * Dónde cae cada disco no se declara: lo que la matriz hace variar es
+   * cuántos son y de qué lado, y fijar coordenadas sería inventar precisión.
+   */
+  | { tipo: "puntos"; cuantos: number; lado: "arriba" | "abajo" | "ninguno" }
+  /**
+   * La figurita que acompaña a los puntos: una escuadra —un cuadrito con su
+   * diagonal— o un corchete en ángulo.
+   *
+   * Como con los puntos, la ausencia es un valor y no una falta: en la matriz
+   * 19 cada fila reparte escuadra, corchete y nada.
+   */
+  | {
+      tipo: "remate"
+      forma: "escuadra" | "corchete" | "ninguno"
+      lado: "arriba" | "abajo" | "centro" | "ninguno"
+    }
   /**
    * La casilla del ejercicio 11: un lomo redondeado a la izquierda, dos
    * lóbulos a la derecha con una letra metida en el de arriba, y un tallo que
@@ -741,6 +769,70 @@ function dibujarCelda(
         break
       }
 
+      case "diagonal": {
+        const [x1, y1, x2, y2] =
+          el.sentido === "subiendo"
+            ? [x, y + alto, x + ancho, y]
+            : el.sentido === "bajando"
+              ? [x, y, x + ancho, y + alto]
+              : [x, y + alto, x + ancho, y + alto / 2]
+        partes.push(
+          `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
+      case "puntos": {
+        // Sitios fijos dentro del triángulo de arriba a la izquierda. Para el
+        // de abajo se giran media vuelta, que es lo que hace el cuadernillo.
+        const EN_TRIANGULO = [
+          [0.16, 0.16], [0.52, 0.14], [0.3, 0.4], [0.14, 0.58], [0.44, 0.3],
+          [0.16, 0.36], [0.34, 0.16],
+        ]
+        const POR_TODA = [
+          [0.3, 0.14], [0.14, 0.34], [0.62, 0.3], [0.42, 0.46], [0.24, 0.7],
+          [0.5, 0.76], [0.74, 0.72],
+        ]
+        const r = ancho * 0.037
+        for (let k = 0; k < Math.min(el.cuantos, 7); k++) {
+          const [u, v] =
+            el.lado === "ninguno" ? POR_TODA[k] : EN_TRIANGULO[k]
+          const [uu, vv] = el.lado === "abajo" ? [1 - u, 1 - v] : [u, v]
+          partes.push(
+            `<circle cx="${(x + ancho * uu).toFixed(1)}" cy="${(y + alto * vv).toFixed(1)}"` +
+              ` r="${r.toFixed(1)}" fill="currentColor"/>`
+          )
+        }
+        break
+      }
+
+      case "remate": {
+        if (el.forma === "ninguno") break
+        const P = (u: number, v: number) =>
+          `${(x + ancho * u).toFixed(1)},${(y + alto * v).toFixed(1)}`
+        const trazo = ` fill="none" stroke="currentColor" stroke-width="${TRAZO}"`
+        if (el.forma === "escuadra") {
+          // Un cuadrito con su diagonal, que va al revés que la grande.
+          const [u0, v0, u1, v1] =
+            el.lado === "arriba"
+              ? [0.22, 0.0, 0.4, 0.58]
+              : el.lado === "centro"
+                ? [0.42, 0.28, 0.6, 0.72]
+                : [0.6, 0.42, 0.78, 1.0]
+          partes.push(
+            `<path d="M${P(u0, v0)} L${P(u1, v0)} L${P(u1, v1)} L${P(u0, v1)} Z` +
+              ` M${P(u0, v0)} L${P(u1, v1)}"${trazo}/>`
+          )
+        } else {
+          // El corchete: la esquina, el brazo a la derecha y la pata.
+          const [u, v, uBrazo, vPata] =
+            el.lado === "arriba" ? [0.28, 0.06, 0.5, 0.5] : [0.58, 0.42, 0.8, 1.0]
+          partes.push(`<path d="M${P(uBrazo, v)} L${P(u, v)} L${P(u, vPata)}"${trazo}/>`)
+        }
+        break
+      }
+
       case "cuadro-lobulos": {
         const mx = x + ancho / 2
         const borde = ` stroke="currentColor" stroke-width="${TRAZO}"`
@@ -1261,6 +1353,14 @@ export function describirCelda(celda: Celda): string {
           )
         case "mitad-rellena":
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
+        case "diagonal":
+          return `una diagonal ${el.sentido}`
+        case "puntos":
+          return el.cuantos === 0
+            ? "sin puntos"
+            : `${el.cuantos} puntos ${el.lado === "ninguno" ? "por toda la casilla" : el.lado}`
+        case "remate":
+          return el.forma === "ninguno" ? "sin remate" : `una ${el.forma} ${el.lado}`
         case "cuadro-lobulos":
           return (
             `cuadro con el lomo ${el.lomo} a la izquierda, ` +

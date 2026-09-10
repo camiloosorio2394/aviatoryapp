@@ -448,7 +448,17 @@ interface ReglaAtributo {
  * les toca. Si las dos se sostienen y predicen valores distintos, se devuelve
  * nada: el atributo es ambiguo y con eso la matriz entera lo es.
  */
-function reglaDeAtributo(valores: (string | null)[], hueco: number): ReglaAtributo | null {
+/**
+ * Lo que se sabe de un atributo.
+ *
+ * `null` es «ninguna regla de la familia lo explica»: el atributo queda libre y
+ * la predicción sale sin él. `"contradictorio"` es otra cosa muy distinta —dos
+ * reglas se sostienen y señalan valores distintos—, y eso no se deja pasar: un
+ * atributo que dice dos cosas a la vez saca al ejercicio del banco.
+ */
+type Veredicto = ReglaAtributo | null | "contradictorio"
+
+function reglaDeAtributo(valores: (string | null)[], hueco: number): Veredicto {
   const candidatas: ReglaAtributo[] = []
 
   // 1 · Constante a lo largo de cada fila (o de cada columna).
@@ -504,9 +514,44 @@ function reglaDeAtributo(valores: (string | null)[], hueco: number): ReglaAtribu
     }
   }
 
+  // 3 · Mismo reparto en cada fila, aunque las columnas no lo cumplan (o al
+  //     revés). Es más floja que la 2 y por eso pide más para valer: que el
+  //     reparto sean tres valores **distintos**. Un reparto de dos valores
+  //     —«dos sí y un no»— repetido en tres filas se da por casualidad
+  //     demasiado a menudo; tres valores distintos en las tres filas, no.
+  //
+  //     Existe porque el cuadernillo la usa: en la matriz 19 los puntos van 0,
+  //     2 y 4 en cada fila y las columnas no dicen nada. Vale dos apoyos, los
+  //     justos, para que en el verificador se vea que la figura se sostiene
+  //     sobre un solo eje.
+  for (const [nombre, lineas] of [
+    ["mismo reparto en cada fila, no en las columnas", FILAS],
+    ["mismo reparto en cada columna, no en las filas", COLUMNAS],
+  ] as const) {
+    const enteras = lineas.filter(completa)
+    if (enteras.length < 2) continue
+    const repartos = enteras.map((l) => reparto(l.map((i) => valores[i] as string)))
+    if (!repartos.every((r) => r === repartos[0])) continue
+    const esperado = repartos[0].split("|")
+    if (new Set(esperado).size !== 3) continue
+    const restantes = [...esperado]
+    let cabe = true
+    for (const i of lineas.find((l) => l.includes(hueco))!) {
+      const v = valores[i]
+      if (v === null) continue
+      const donde = restantes.indexOf(v)
+      if (donde < 0) cabe = false
+      else restantes.splice(donde, 1)
+    }
+    if (cabe && restantes.length === 1) {
+      candidatas.push({ valor: restantes[0], nombre, apoyos: 2 })
+    }
+  }
+
   if (candidatas.length === 0) return null
-  // Si dos reglas se sostienen y no coinciden, el atributo no decide nada.
-  if (candidatas.some((c) => c.valor !== candidatas[0].valor)) return null
+  // Si dos reglas se sostienen y no coinciden, el atributo dice dos cosas a la
+  // vez. Eso no es no saber: es que la transcripción o la figura están mal.
+  if (candidatas.some((c) => c.valor !== candidatas[0].valor)) return "contradictorio"
   return candidatas.sort((a, b) => b.apoyos - a.apoyos)[0]
 }
 
@@ -549,7 +594,7 @@ function reglasPorAtributo(
       conocidas.map((c, i) => (c === null ? null : deCada[i] ? "sí" : "no")),
       hueco
     )
-    if (!presencia) return
+    if (!presencia || presencia === "contradictorio") return
     apoyos += presencia.apoyos
     if (presencia.valor === "no") {
       nombres.push(`${tipo}: no está (${presencia.nombre})`)
@@ -572,6 +617,7 @@ function reglasPorAtributo(
         return texto
       })
       const regla = reglaDeAtributo(valores, hueco)
+      if (regla === "contradictorio") return
       if (!regla || !crudos.has(regla.valor)) {
         // Ninguna regla de la familia explica este atributo. Antes eso tumbaba
         // la figura entera; ahora se apunta como libre y la predicción sale sin
