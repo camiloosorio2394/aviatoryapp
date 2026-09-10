@@ -1,6 +1,6 @@
 /**
  * Nivel 3 · Transporte aéreo: qué puede volar y qué no, los límites que solo
- * están en Colombia, lo que llevan pasajeros y tripulantes, y las mercancías
+ * añade cada país, lo que llevan pasajeros y tripulantes, y las mercancías
  * peligrosas ocultas.
  *
  * Artículos contrastados con el RAC 175 (Edición original, marzo 2016). Las
@@ -25,7 +25,9 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.110 (a)",
+        oaci: "Instrucciones Técnicas, Tabla 3-1",
+        ref: "LAR 175.110 (a)",
+        rac: "RAC 175.110 (a)",
         titulo: "El criterio de fondo",
         texto:
           "En ningún caso deberán transportarse por aeronaves los artículos o sustancias que, cuando se presentan para el transporte, son susceptibles de explotar, reaccionar peligrosamente, producir llamas o desarrollar de manera peligrosa calor o emisiones de gases o vapores tóxicos, corrosivos o inflamables en las condiciones que se observan habitualmente durante el transporte.",
@@ -40,7 +42,7 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "1 · Prohibido en todos los casos",
-            ref: "175.114 y 175.110 (b)",
+            ref: "LAR 175.110 (b) y (b) (1)",
             puntos: [
               "Lo que las Instrucciones Técnicas nombran, por su nombre o por descripción genérica, como prohibido cualesquiera que sean las circunstancias.",
               "No se transporta en ninguna aeronave. Ni con dispensa.",
@@ -49,24 +51,24 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             titulo: "2 · Prohibido salvo dispensa",
-            ref: "175.112 y 175.110 (c)",
+            ref: "LAR 175.110 (c) y (c) (1)",
             puntos: [
               "Lo que figura como prohibido en circunstancias normales, y los animales vivos infectados.",
-              "Solo vuela con dispensa de la UAEAC (o del Estado de procedencia), o con aprobación cuando las Instrucciones lo prevén.",
+              "Solo vuela con dispensa de la AAC, o con aprobación otorgada por los Estados involucrados cuando las Instrucciones lo prevén.",
               "En la lista aparece con «Prohibido» en las columnas de pasajeros o de carga.",
             ],
           },
           {
             titulo: "3 · Permitido con aprobación",
-            ref: "175.020 (f)",
+            ref: "LAR 175.020 (d)",
             puntos: [
-              "Cuando las Instrucciones Técnicas lo prevén expresamente, la UAEAC puede otorgar aprobación si se logra un nivel de seguridad equivalente.",
+              "Cuando las Instrucciones Técnicas lo prevén expresamente, la AAC puede otorgar aprobación si se logra un nivel de seguridad equivalente.",
               "Casos típicos: extrema urgencia, cuando otras modalidades de transporte no son apropiadas, o cuando cumplir todas las condiciones sería contrario al interés público.",
             ],
           },
           {
             titulo: "4 · Permitido cumpliendo las Instrucciones",
-            ref: "175.011 (a)",
+            ref: "LAR 175.115 (a)",
             puntos: [
               "El caso normal: únicamente se transportan mercancías peligrosas cumpliendo las especificaciones y procedimientos del RAC 175 y de las Instrucciones Técnicas.",
               "Es lo que hace el 99 % de los envíos que ves en un NOTOC.",
@@ -103,7 +105,7 @@ export const NIVEL_3: DocScreen[] = [
         preguntas: [
           {
             q: "¿En qué se diferencia una dispensa de una aprobación?",
-            ref: "RAC 175.001 (a) (4) y (13); 175.020",
+            ref: "LAR 175.001 (a) y 175.020",
             opciones: [
               {
                 t: "La aprobación existe cuando las Instrucciones Técnicas la prevén para ese caso; la dispensa exime de lo previsto en las Instrucciones cuando no hay referencia específica.",
@@ -112,17 +114,17 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "Son sinónimos; la diferencia es solo el nombre según el Estado.",
-                fb: "El reglamento las define por separado y con efectos distintos, incluso en cuanto a qué Estado debe ser Colombia: para aprobaciones, Estado de origen y/o del explotador; para dispensas, también tránsito, sobrevuelo o destino (175.020 (h)).",
+                fb: "El reglamento las define por separado y con efectos distintos. La aprobación existe cuando las Instrucciones la prevén para ese caso; la dispensa es la salida cuando no la prevén, y procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público (LAR 175.020 (d) y (e)).",
               },
               {
                 t: "La dispensa la da el explotador y la aprobación la autoridad.",
-                fb: "Ambas las otorga la UAEAC; la dispensa, a través de la Secretaría de Seguridad Aérea (175.001 (a) (13)). El explotador las pide (175.225, obligaciones del explotador de servicios aéreos), no las da.",
+                fb: "Ambas las otorga la autoridad de aviación civil, no el explotador: él las pide. Y si ninguno de los criterios encaja, el Estado de sobrevuelo todavía puede otorgar la dispensa si se convence de que hay un nivel equivalente de seguridad (LAR 175.020 (f)).",
               },
             ],
           },
           {
             q: "Un artículo no aparece en la lista de mercancías peligrosas, pero en las condiciones normales de transporte produce llamas. ¿Puede volar?",
-            ref: "RAC 175.110 (a) y (b) (1)",
+            ref: "LAR 175.110 (a) y (b) (1)",
             opciones: [
               {
                 t: "Sí, porque no está en la lista.",
@@ -141,7 +143,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "Un laboratorio quiere enviar animales vivos infectados. ¿Qué nivel aplica?",
-            ref: "RAC 175.112 (a) (2)",
+            ref: "LAR 175.110 (c) (2)",
             opciones: [
               {
                 t: "Permitido cumpliendo las Instrucciones, como cualquier sustancia infecciosa.",
@@ -150,7 +152,7 @@ export const NIVEL_3: DocScreen[] = [
               {
                 t: "Prohibido salvo dispensa.",
                 ok: true,
-                fb: "El 175.112 (a) los nombra expresamente junto a los artículos prohibidos en circunstancias normales: solo con dispensa de la UAEAC o del Estado de procedencia, o con aprobación si las Instrucciones lo prevén.",
+                fb: "El LAR 175.110 (c) (2) los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la AAC.",
               },
               {
                 t: "Prohibido en todos los casos.",
@@ -174,17 +176,81 @@ export const NIVEL_3: DocScreen[] = [
   // ── 10 ──────────────────────────────────────────────────────────────────
   {
     n: 10,
-    title: "Los límites que solo están en Colombia",
-    kicker: "Lo que un curso genérico no dice",
-    minutes: 7,
+    title: "Lo que cada país añade",
+    kicker: "Discrepancias notificadas",
+    minutes: 8,
     blocks: [
       {
         kind: "p",
-        text: "Un curso genérico te enseña el Anexo 18. Una entrevista en Colombia te pregunta esto: las limitaciones que el RAC 175 añade por su cuenta, por razones de seguridad y por la geografía y la flota del país. Ninguna viene del Anexo.",
+        text: "Un curso genérico te enseña el Anexo 18 y las Instrucciones Técnicas. Y con eso no basta, porque encima de esa base cada Estado y cada explotador añaden lo suyo: por seguridad, por geografía, por la flota que vuela allí. Esas diferencias tienen nombre, se notifican a la OACI y se publican. Saber que existen y dónde buscarlas es lo que separa a quien estudió el reglamento de quien sabe operarlo.",
       },
       {
         kind: "norma",
-        ref: "RAC 175.115 (a) y (b)",
+        oaci: "Instrucciones Técnicas, Adjunto 3, Tabla A-1",
+        ref: "LAR 175.115 (c), (d) y (e)",
+        rac: "RAC 175.115 (d) y (e)",
+        titulo: "Las diferencias hay que buscarlas antes, no descubrirlas después",
+        texto:
+          "(c) El explotador deberá cumplir con los reglamentos específicos de los Estados en los que opere o sobrevuele, teniendo en cuenta las diferencias de estos: (1) las discrepancias de cada Estado que difieran de las previstas en las Instrucciones Técnicas vigentes son las notificadas a la OACI y publicadas en las Instrucciones Técnicas. (d) El expedidor observará las diferencias de cada Estado involucrado en el transporte de la mercancía a ser expedida antes de entregar las mercancías peligrosas a un explotador. (e) El expedidor observará las diferencias notificadas por el explotador al cual pretende entregar mercancías peligrosas para su transporte.",
+      },
+      {
+        kind: "p",
+        text: "Fíjate en quién responde por qué. El **explotador** mira los Estados de la ruta: origen, tránsito, sobrevuelo y destino. El **expedidor** mira los mismos Estados y además las diferencias del explotador al que le entrega. Tú, como tripulante, heredas el resultado: si alguien no las miró, el bulto ya está a bordo.",
+      },
+      { kind: "sub", text: "Cuatro Estados de la región, cuatro añadidos" },
+      {
+        kind: "fichas",
+        columnas: 2,
+        items: [
+          {
+            titulo: "Brasil · idioma",
+            ref: "BR 6",
+            puntos: [
+              "Todo el transporte interior en territorio brasileño: portugués en las marcas y en los documentos.",
+              "Internacional con origen en Brasil: además, inglés.",
+            ],
+          },
+          {
+            titulo: "Brasil · radiactivo y plazos",
+            ref: "BR 4 y BR 8",
+            puntos: [
+              "El radiactivo desde o dentro de Brasil requiere aprobación de la Comisión nacional de energía nuclear (CNEN).",
+              "Las solicitudes a la ANAC: mínimo 15 días antes del vuelo para aprobaciones, 60 para dispensas.",
+            ],
+          },
+          {
+            titulo: "Colombia · flota",
+            ref: "RAC 175.115 (a) y (b)",
+            puntos: [
+              "Prohibido todo tipo de mercancías peligrosas en aeronaves de aviación civil privada.",
+              "Prohibida la clase 3 combustibles en monomotores, salvo lo que el 175.715 permite a pasajeros y tripulantes.",
+            ],
+          },
+          {
+            titulo: "Colombia · radiactivo",
+            ref: "RAC 175.536 (a)",
+            puntos: [
+              "El expedidor presenta al explotador la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica.",
+              "Mismo patrón que Brasil con la CNEN: el permiso aeronáutico no reemplaza al nuclear.",
+            ],
+          },
+        ],
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-DIA-02 · Mapa · 4:3 · 1200×900 · SVG",
+        descripcion:
+          "Mapa de Suramérica en el estilo de Aviatory con cuatro chinchetas: Brasil (BR 6 idioma), Colombia (monomotores), Chile (LAN LA-05) y Argentina (AR-09 teléfono 24 h). Una ruta punteada cruzando tres de ellos para que se vea que un solo vuelo acumula discrepancias.",
+        alto: 340,
+      },
+      { kind: "sub", text: "Colombia, el ejemplo trabajado" },
+      {
+        kind: "p",
+        text: "Vamos a fondo con un país, porque el ejercicio es el mismo en cualquiera: abre tu reglamento nacional, busca qué añade sobre la base de las Instrucciones y apúntalo. Estas son las de Colombia, que además son preguntas frecuentes de entrevista allí.",
+      },
+      {
+        kind: "norma",
+        ref: "RAC 175.115 (a) y (b) · añadido nacional",
         texto:
           "(a) Por razones de seguridad se prohíbe el transporte de todo tipo de mercancías peligrosas por vía aérea, en aeronaves clasificadas dentro de la Aviación Civil Privada. (b) Salvo lo señalado en el numeral 175.715, por razones de seguridad se prohíbe el transporte de mercancías peligrosas pertenecientes a la Clase 3 combustibles, por vía aérea, en aeronaves monomotores y las clasificadas dentro de la Aviación Civil Privada.",
       },
@@ -194,39 +260,39 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Aviación civil privada",
-            ref: "175.115 (a)",
+            ref: "RAC 175.115 (a)",
             puntos: ["Prohibido el transporte de todo tipo de mercancías peligrosas."],
           },
           {
             titulo: "Monomotores · clase 3",
-            ref: "175.115 (b)",
+            ref: "RAC 175.115 (b)",
             puntos: [
               "Prohibida la clase 3 combustibles, salvo lo que el 175.715 permite llevar a pasajeros y tripulantes.",
             ],
           },
           {
             titulo: "Monomotores · otras clases",
-            ref: "175.115 (c)",
+            ref: "RAC 175.115 (c)",
             puntos: [
-              "Con aprobación de la UAEAC, previa verificación de las condiciones de seguridad del explotador.",
-              "La UAEAC determina los aeródromos donde no se aprueba esa operación.",
+              "Con aprobación de la autoridad, previa verificación de las condiciones de seguridad del explotador.",
+              "La autoridad determina los aeródromos donde no se aprueba esa operación.",
             ],
           },
           {
             titulo: "Ala rotatoria",
-            ref: "175.140 (a)",
+            ref: "LAR 175.140",
             puntos: [
-              "La UAEAC puede aprobar operar sin cumplir todos los requisitos habituales, según la Parte 7, Capítulo 7 de las Instrucciones.",
+              "La AAC puede aprobar operar sin cumplir todos los requisitos habituales, según la Parte 7, Capítulo 7 de las Instrucciones. Es regional: está igual en el LAR 175.140.",
             ],
           },
           {
             titulo: "Carga externa en helicóptero",
-            ref: "175.142 (a)",
-            puntos: ["Cumple el manual de operaciones del helicóptero, el RAC 175 y las Instrucciones."],
+            ref: "RAC 175.142 (a)",
+            puntos: ["Cumple el manual de operaciones del helicóptero, el reglamento nacional y las Instrucciones."],
           },
           {
             titulo: "Correo aéreo",
-            ref: "175.125",
+            ref: "LAR 175.125 y RAC 175.125",
             puntos: [
               "No son admisibles, excepto: muestras de pacientes; sustancias infecciosas y el hielo seco que las refrigera, con declaración del expedidor; y material radiactivo con actividad de hasta una décima parte de la Tabla 2-15 de las Instrucciones.",
               "El explotador necesita autorización en sus OpSpecs para llevar mercancías peligrosas por correo (175.125 (e)).",
@@ -234,7 +300,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             titulo: "Material radiactivo",
-            ref: "175.120 y 175.536",
+            ref: "LAR 175.120 · RAC 175.536",
             puntos: [
               "Sujeto al Capítulo 6, Parte 1 de las Instrucciones y al Reglamento del OIEA.",
               "El expedidor presenta al explotador la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica.",
@@ -242,17 +308,17 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             titulo: "Seguro",
-            ref: "175.025 (g)",
+            ref: "RAC 175.025 (g)",
             puntos: [
-              "El explotador acredita ante la UAEAC que sus seguros de responsabilidad cubren los daños que provengan del transporte de mercancías peligrosas.",
+              "El explotador acredita ante la autoridad que sus seguros de responsabilidad cubren los daños que provengan del transporte de mercancías peligrosas.",
             ],
           },
         ],
       },
-      { kind: "sub", text: "Discrepancias: la misma carga, otras reglas según la ruta" },
+      { kind: "sub", text: "Y el explotador también pone las suyas" },
       {
         kind: "p",
-        text: "Las Instrucciones Técnicas publican las diferencias que cada Estado y cada explotador notifican a la OACI. El expedidor debe observar las de cada Estado involucrado antes de entregar la mercancía, y también las del explotador al que se la entrega (175.115 (d) y (e)). Si un explotador colombiano adopta condiciones más restrictivas, las identifica en su manual y la UAEAC las notifica a la OACI (175.220 (h)).",
+        text: "No solo los Estados: las aerolíneas notifican las suyas y se publican en la misma tabla. Casi siempre son más restrictivas que la norma, porque nacen de algo que le pasó a esa compañía. Si tu explotador adopta condiciones propias, las identifica en su manual de operaciones y la autoridad las notifica a la OACI. Lee estas tres de la región y fíjate en la última.",
       },
       {
         kind: "kv",
@@ -262,12 +328,16 @@ export const NIVEL_3: DocScreen[] = [
             v: "«Para todo el transporte del interior en territorio brasileño, debe utilizarse el idioma portugués en todas las marcas y en todos los documentos de transporte de mercancías peligrosas. Para el transporte internacional con origen en territorio brasileño, debe utilizarse el inglés en las marcas y en los documentos, además de los idiomas exigidos por los Estados de tránsito y destino.»",
           },
           {
-            k: "HR 3 · Croacia",
-            v: "«Las mercancías peligrosas para las que se requiere aprobación según las Disposiciones especiales A1 o A2 de las presentes Instrucciones o las dispensas o aprobaciones de otro Estado, pueden transportarse en aeronaves de pasajeros o de carga en territorio croata únicamente con la aprobación de la Agencia de aviación civil de Croacia (CCAA). Las solicitudes de aprobación deben presentarse a CCAA como mínimo 10 días antes del vuelo previsto.»",
+            k: "AR-09 · Aerolíneas Argentinas",
+            v: "«El expedidor debe proporcionar un número telefónico de emergencia de 24 horas para llamar a una persona o agencia que sepa sobre los peligros, características y medidas que han de adoptarse en caso de accidente o incidente a raíz de cada una de las mercancías peligrosas que se transportan.» El número va en la declaración del expedidor, precedido de «Contacto de emergencia» o «Número de 24 horas».",
           },
           {
             k: "BR 3 · Brasil",
             v: "«Los explotadores de servicios aéreos que transportan mercancías peligrosas deben presentar un informe mensual de todas las mercancías peligrosas transportadas desde o dentro del Brasil para el décimo día laborable del mes siguiente a más tardar.»",
+          },
+          {
+            k: "LA-05 · LAN Airlines",
+            v: "«Los generadores de oxígeno químicos se aceptarán únicamente para el transporte cuando en el embalaje o la documentación adjunta se confirme que el generador de oxígeno no tiene una fecha de expiración vencida o que ha sido utilizado.» Vuelve a leer la lección 1: esta discrepancia es ValuJet convertido en regla de una aerolínea de la región.",
           },
         ],
       },
@@ -275,28 +345,28 @@ export const NIVEL_3: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "De dónde salen estos extractos",
-        text: "Son textuales del Adendo núm. 5 (31 de mayo de 2012) a las Instrucciones Técnicas, edición 2011-2012, Adjunto 3, Tabla A-1, Discrepancias notificadas por los Estados. Las discrepancias cambian con cada edición: lo que no cambia es que existen y que hay que buscarlas en la edición vigente.",
+        text: "Son textuales del Adendo núm. 5 (31 de mayo de 2012) a las Instrucciones Técnicas, edición 2011-2012, Adjunto 3, Tabla A-1: discrepancias notificadas por los Estados y por los explotadores. Se citan como muestra de qué forma tienen, no como la lista vigente: cambian con cada edición. Lo que no cambia es que existen y que hay que buscarlas en la edición en vigor y en el manual de tu explotador.",
       },
       {
         kind: "enLaOperacion",
         momento: "En el despacho de un vuelo internacional",
         texto:
-          "La misma carga, el mismo avión y la misma clase pueden tener requisitos distintos según el Estado de origen, de tránsito o de destino. Por eso el manual de operaciones y la ruta importan tanto como la clase. Si vuelas a Brasil con mercancías peligrosas y las marcas están solo en español, el problema no es de Colombia: es de la discrepancia BR 6.",
+          "La misma carga, el mismo avión y la misma clase pueden tener requisitos distintos según el Estado de origen, de tránsito o de destino. Por eso el manual de operaciones y la ruta importan tanto como la clase. Si sales hacia Brasil con mercancías peligrosas y las marcas van solo en español, el problema no está en tu país: está en la discrepancia BR 6, y quien la tenía que mirar era el expedidor antes de entregar el bulto.",
       },
       {
         kind: "ponAPrueba",
         preguntas: [
           {
             q: "Vas a operar un monomotor con carga que incluye un artículo de la clase 8. ¿Qué necesitas?",
-            ref: "RAC 175.115 (b) y (c)",
+            ref: "RAC 175.115 (b) y (c) · Colombia",
             opciones: [
               {
-                t: "Aprobación de la UAEAC, previa verificación de las condiciones de seguridad del explotador; y la UAEAC determina en qué aeródromos no se aprueba esa operación.",
+                t: "Aprobación de la autoridad, previa verificación de las condiciones de seguridad del explotador, que además determina en qué aeródromos no se aprueba esa operación.",
                 ok: true,
                 fb: "La prohibición absoluta en monomotores es para la clase 3 combustibles y para toda la aviación civil privada. Las demás clases en monomotor requieren aprobación con verificación previa.",
               },
               {
-                t: "Nada especial: la clase 8 no está restringida en Colombia.",
+                t: "Nada especial: la clase 8 no está restringida en monomotores.",
                 fb: "El 175.115 (c) exige aprobación para mercancías distintas de la clase 3 en monomotores. Es una limitación propia del RAC, no del Anexo 18.",
               },
               {
@@ -306,8 +376,8 @@ export const NIVEL_3: DocScreen[] = [
             ],
           },
           {
-            q: "¿Qué mercancías peligrosas admite el correo aéreo en Colombia?",
-            ref: "RAC 175.125 (f)",
+            q: "¿Qué mercancías peligrosas admite el correo aéreo, según el reglamento colombiano?",
+            ref: "RAC 175.125 (f) · Colombia",
             opciones: [
               {
                 t: "Ninguna: el correo no admite mercancías peligrosas.",
@@ -320,17 +390,17 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "Las mismas que en carga, si el operador postal las acepta.",
-                fb: "El correo tiene su propia lista, mucho más corta. El operador postal necesita además aprobación específica de la UAEAC antes de aceptar cualquiera (175.125 (d)).",
+                fb: "El correo tiene su propia lista, mucho más corta. Y el operador postal designado necesita que la autoridad examine y apruebe sus procedimientos antes de aceptar mercancías peligrosas en el correo (LAR 175.125 (b)).",
               },
             ],
           },
           {
-            q: "Un expedidor entrega material radiactivo con toda la documentación de las Instrucciones Técnicas. ¿Le falta algo en Colombia?",
-            ref: "RAC 175.536 (a)",
+            q: "Un expedidor entrega material radiactivo con toda la documentación de las Instrucciones Técnicas. En Colombia, ¿le falta algo?",
+            ref: "RAC 175.536 (a) · Colombia",
             opciones: [
               {
                 t: "No: con la declaración del expedidor basta.",
-                fb: "En Colombia falta un papel más: la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica, que el expedidor presenta al explotador (175.536 (a)).",
+                fb: "Falta un papel más: la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica, que el expedidor presenta al explotador. En Brasil el equivalente es la aprobación de la CNEN (discrepancia BR 8): el patrón se repite, cambia el organismo.",
               },
               {
                 t: "Sí: la autorización del Servicio Geológico Colombiano.",
@@ -338,8 +408,8 @@ export const NIVEL_3: DocScreen[] = [
                 fb: "Es una licencia de manejo o una autorización de importación o reexportación, según el caso. Y el explotador no acepta una declaración tachada o enmendada salvo que la enmienda esté anulada con la misma firma (175.536 (c)).",
               },
               {
-                t: "Sí: una dispensa de la UAEAC.",
-                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA (175.120) y, en Colombia, traer la autorización del Servicio Geológico Colombiano.",
+                t: "Sí: una dispensa de la autoridad aeronáutica.",
+                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA (LAR 175.120) y, además, el permiso del organismo nuclear del país que corresponda.",
               },
             ],
           },
@@ -348,9 +418,9 @@ export const NIVEL_3: DocScreen[] = [
       {
         kind: "summary",
         items: [
-          "Aviación civil privada: nada. Monomotores: nada de clase 3 combustibles; el resto con aprobación de la UAEAC (175.115).",
+          "Las diferencias de cada Estado y de cada explotador se notifican a la OACI y se publican en las Instrucciones (LAR 175.115 (c) a (e)).",
           "Correo: solo muestras de pacientes, infecciosas con hielo seco y declaración, y radiactivo de muy baja actividad (175.125 (f)).",
-          "Radiactivo en Colombia: autorización del Servicio Geológico Colombiano (175.536).",
+          "Colombia como ejemplo: nada en aviación civil privada, nada de clase 3 en monomotores, y el radiactivo con autorización del Servicio Geológico Colombiano.",
           "Discrepancias: la ruta cambia las reglas. Se leen en la edición vigente de las Instrucciones.",
         ],
       },
@@ -370,7 +440,9 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.151 (a) y 175.715 (a)",
+        oaci: "Instrucciones Técnicas, Tabla 8-1",
+        ref: "LAR 175.115 (b) y 175.715",
+        rac: "RAC 175.151 (a) y 175.715 (a)",
         texto:
           "Salvo en aquellas situaciones contempladas en las Instrucciones Técnicas, las mercancías peligrosas no deben ser transportadas por los pasajeros o las tripulaciones como o dentro del equipaje facturado, como o dentro del equipaje de mano, o consigo mismo. Está prohibido el transporte de mercancías peligrosas como equipaje facturado, equipaje de mano o en la persona, por pasajeros o tripulantes, con excepción de aquellas mercancías descritas en la Tabla 8-1 de las Instrucciones Técnicas, siempre que se cumplan todos los requisitos establecidos por dicha tabla.",
       },
@@ -449,7 +521,8 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.705 (h)",
+        ref: "LAR 175.620 (c)",
+        rac: "RAC 175.705 (h)",
         texto:
           "Todo explotador facilitará en su manual de operaciones información apropiada que permita a la tripulación de vuelo cumplir sus responsabilidades en lo relativo al transporte de mercancías peligrosas, y facilitará asimismo instrucciones acerca de las medidas que haya que adoptar en el caso de que surjan situaciones de emergencia que involucren mercancías peligrosas.",
       },
@@ -464,7 +537,7 @@ export const NIVEL_3: DocScreen[] = [
         preguntas: [
           {
             q: "Un tripulante lleva en su maleta un artículo de la clase 2. ¿Qué aplica?",
-            ref: "RAC 175.151 y 175.715",
+            ref: "LAR 175.115 (b) y 175.715",
             opciones: [
               {
                 t: "La misma regla que a un pasajero: prohibido salvo que esté en la Tabla 8-1 y cumpla todos sus requisitos.",
@@ -483,7 +556,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "¿En qué momento debe recibir el pasajero la información sobre lo que no puede llevar?",
-            ref: "RAC 175.705 (a) a (g)",
+            ref: "LAR 175.710",
             opciones: [
               {
                 t: "En el mostrador, cuando factura.",
@@ -496,13 +569,13 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "Solo en el sitio web del explotador.",
-                fb: "El sitio web es parte de la obligación (175.705 (c)), pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
+                fb: "El sitio web es parte de la obligación (LAR 175.710 (a)), pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
               },
             ],
           },
           {
             q: "En la recepción del equipaje, ¿basta con preguntarle al pasajero si lleva algo peligroso?",
-            ref: "RAC 175.705 (f)",
+            ref: "LAR 175.710",
             opciones: [
               {
                 t: "Sí: la confirmación del pasajero libera al explotador.",
@@ -545,7 +618,8 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.001 (a) (32)",
+        ref: "LAR 175.001 (a)",
+        rac: "RAC 175.001 (a) (32)",
         titulo: "Mercancía peligrosa oculta",
         texto:
           "Carga declarada con descripción general que debería haber sido declarada como mercancía peligrosa, o mercancías peligrosas prohibidas o en cantidades mayores al límite permitido presente en el equipaje o junto al cuerpo del pasajero o tripulante, o presente en ítem de correo.",
@@ -560,7 +634,7 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Descripciones que deben hacerte dudar",
-            ref: "175.1010 (a) (9), 175.610 (a) (1)",
+            ref: "LAR 175.610 (a) (1)",
             puntos: [
               "«Repuestos de aeronave», «material de la compañía»: pueden traer generadores de oxígeno, extintores, baterías, aerosoles.",
               "«Motor», «vehículo», «equipo accionado con acumulador»: el RAC los nombra como objetos de la clase 9.",
@@ -571,7 +645,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             titulo: "Otras indicaciones",
-            ref: "175.610 (a) (2)",
+            ref: "LAR 175.610 (a) (2)",
             puntos: [
               "Una etiqueta de riesgo o de manipulación en una caja que no viene declarada como mercancía peligrosa.",
               "Un número UN o una marca de embalaje homologado en el cartón.",
@@ -583,7 +657,8 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.610 (c)",
+        ref: "LAR 175.610 (c)",
+        rac: "RAC 175.610 (c)",
         texto:
           "Para evitar que los pasajeros introduzcan en la aeronave, dentro de su equipaje, o lleven en su persona, mercancías peligrosas ocultas que éstos tienen prohibido transportar, el personal encargado de la recepción y las organizaciones o empresas que aceptan equipaje excedente como carga deberían pedir al pasajero, o a la persona que actúa en nombre del pasajero, confirmación de que no llevan o despachan mercancías peligrosas que no estén permitidas, y obtener además confirmación del contenido de cualquier artículo que sospechen pueda contener mercancías peligrosas cuyo transporte no esté permitido.",
       },
@@ -593,7 +668,7 @@ export const NIVEL_3: DocScreen[] = [
         preguntas: [
           {
             q: "Una caja de carga declarada como «motor de combustión interna».",
-            ref: "RAC 175.1010 (a) (9)",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
             opciones: [
               {
                 t: "Sí.",
@@ -608,7 +683,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "Un envío de «equipo de salvamento de inflado automático».",
-            ref: "RAC 175.1010 (a) (9)",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
             opciones: [
               {
                 t: "Sí.",
@@ -623,7 +698,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "Unas «muestras de laboratorio» sin más descripción, en una caja fría.",
-            ref: "RAC 175.125 (f) y 175.1010 (a) (6) y (9)",
+            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175.125 (f)",
             opciones: [
               {
                 t: "Sí.",
@@ -638,7 +713,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "Un envío declarado como «material magnetizado» con su etiqueta de manipulación.",
-            ref: "RAC 175.1010 (a) (9) y Apéndice 1, Figura 1.22",
+            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175, Apéndice 1, Figura 1.22",
             opciones: [
               {
                 t: "Sí, es mercancía peligrosa, pero no está oculta: viene declarada.",
@@ -653,7 +728,7 @@ export const NIVEL_3: DocScreen[] = [
           },
           {
             q: "Una caja de «documentos impresos y papelería».",
-            ref: "RAC 175.610 (c) y 175.705 (f)",
+            ref: "LAR 175.610 (c) y 175.710",
             opciones: [
               {
                 t: "Sí, siempre hay que sospechar.",
@@ -675,21 +750,21 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "«Si el explotador no transporta mercancías peligrosas, este tema no le aplica»",
-            ref: "175.220 (f) y 175.305 (b)",
+            ref: "LAR 175.220 y 175.305 (b)",
             puntos: [
               "Al contrario: debe tener en su manual los procedimientos para evitar que entren sin declarar, y capacitar igual a su personal.",
             ],
           },
           {
             titulo: "«Basta con preguntarle al pasajero si lleva algo peligroso»",
-            ref: "175.610 (c) y 175.705 (f)",
+            ref: "LAR 175.610 (c) y 175.710",
             puntos: [
               "Además hay que obtener confirmación del contenido de cualquier artículo que se sospeche pueda contener mercancías peligrosas no permitidas.",
             ],
           },
           {
             titulo: "«Encontrar una oculta se resuelve bajándola del vuelo»",
-            ref: "175.625 y 175.001 (a) (41)",
+            ref: "LAR 175.625 y 175.001 (a)",
             puntos: [
               "También hay que notificarla: descubrir una mercancía peligrosa oculta es un suceso con mercancías peligrosas. Lo ves en la lección 16.",
             ],

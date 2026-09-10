@@ -24,7 +24,9 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.1010 (a)",
+        oaci: "Instrucciones Técnicas, Tabla 8-1",
+        ref: "LAR 175.715",
+        rac: "RAC 175.1010 (a)",
         texto:
           "Las sustancias (incluyendo mezclas y soluciones) y los objetos que se someten a lo establecido en las Instrucciones Técnicas se incluyen en una de las nueve clases siguientes según el peligro o el más importante de los peligros que representen.",
       },
@@ -66,7 +68,7 @@ export const NIVEL_2: DocScreen[] = [
         preguntas: [
           {
             q: "Una sustancia presenta a la vez riesgo de inflamabilidad y de corrosión. ¿En qué clase se incluye?",
-            ref: "RAC 175.1010 (a)",
+            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
             opciones: [
               {
                 t: "En una sola clase: la del peligro más importante que representa.",
@@ -85,7 +87,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             q: "Una caja de muestras médicas viaja con hielo seco para mantenerlas frías. ¿De qué clase es el hielo seco?",
-            ref: "RAC 175.1010 (a) (9)",
+            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
             opciones: [
               {
                 t: "De ninguna: es solo agua congelada.",
@@ -98,13 +100,13 @@ export const NIVEL_2: DocScreen[] = [
               {
                 t: "Clase 9, mercancías peligrosas varias.",
                 ok: true,
-                fb: "El dióxido de carbono sólido figura como ejemplo de sustancia de la clase 9 en el 175.1010 (a) (9). Es el caso típico de artículo que parece inocuo y no lo es.",
+                fb: "El dióxido de carbono sólido (hielo seco) figura entre los artículos de la clase 9 que la Tabla 8-1 de las Instrucciones admite con condiciones. Es el caso típico de artículo que parece inocuo y no lo es.",
               },
             ],
           },
           {
             q: "Un compañero dice «esa carga es clase 2.1». ¿Qué corrección le harías?",
-            ref: "Tabla E.2 del RAC 175",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
             opciones: [
               {
                 t: "Ninguna: 2.1 es una clase.",
@@ -149,7 +151,9 @@ export const NIVEL_2: DocScreen[] = [
       { kind: "sub", text: "Las marcas: lo que va escrito" },
       {
         kind: "norma",
-        ref: "RAC 175.430 (a)",
+        oaci: "Instrucciones Técnicas, Parte 3",
+        ref: "LAR 175.430 (a)",
+        rac: "RAC 175.430 (a)",
         texto:
           "A menos que en las Instrucciones Técnicas se indique de otro modo, todo bulto de mercancías peligrosas irá marcado con la denominación del artículo expedido que contenga y con el número de la ONU, así como con toda otra marca que puedan especificar aquellas Instrucciones.",
       },
@@ -158,7 +162,7 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             k: "UN 1263",
-            v: "El número de la ONU: cuatro dígitos que identifican la sustancia o un grupo de ellas (175.001 (a) (35)). Es lo primero que se busca en la lista.",
+            v: "El número de la ONU: cuatro dígitos que identifican la sustancia o un grupo de ellas (LAR 175.001 (a)). Es lo primero que se busca en la lista.",
           },
           {
             k: "PAINT",
@@ -166,18 +170,20 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             k: "Idioma",
-            v: "Cuando Colombia es origen y destino, las marcas van en español. En transporte internacional, además de los idiomas del Estado de origen, en inglés (175.430 (c) a (e)).",
+            v: "En vuelo doméstico manda el idioma que exija tu Estado. En transporte internacional, además de los idiomas del Estado de origen, deberá utilizarse el inglés (LAR 175.430 (c)).",
           },
           {
             k: "Especificación",
-            v: "La marca de especificación solo la lleva el embalaje que de verdad cumple la especificación de las Instrucciones (175.430 (b)). Un embalaje marcado como homologado sin serlo es una infracción.",
+            v: "La marca de especificación solo la lleva el embalaje que de verdad cumple la especificación de las Instrucciones (LAR 175.430 (b)). Un embalaje marcado como homologado sin serlo es una infracción.",
           },
         ],
       },
       { kind: "sub", text: "Dos familias de etiquetas" },
       {
         kind: "norma",
-        ref: "RAC 175.436",
+        oaci: "Instrucciones Técnicas, Parte 5",
+        ref: "LAR 175.435 (a)",
+        rac: "RAC 175.436",
         texto:
           "(a) Etiquetas de riesgo: se requieren para la mayoría de las mercancías peligrosas de todas clases. (b) Etiquetas de manipulación: son requeridas para algunas mercancías peligrosas.",
       },
@@ -201,7 +207,8 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.435 (b)",
+        ref: "LAR 175.435 (b)",
+        rac: "RAC 175.435 (b)",
         texto:
           "El explotador que cuente con la autorización para transportar mercancías peligrosas deberá poseer etiquetas adecuadas para su reposición, en los casos de desprendimiento o deterioro de la etiqueta; sin embargo, si no se tiene la certeza de cuál etiqueta corresponde, no se transportará la mercancía.",
       },
@@ -216,7 +223,7 @@ export const NIVEL_2: DocScreen[] = [
         preguntas: [
           {
             q: "Un bulto llega con la etiqueta de riesgo despegada. ¿Qué corresponde hacer?",
-            ref: "RAC 175.435 (b) y 175.438 (e)",
+            ref: "LAR 175.435 (b)",
             opciones: [
               {
                 t: "Reemplazarla con la etiqueta apropiada según el documento de transporte; si no hay certeza de cuál es, no se transporta.",
@@ -235,7 +242,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             q: "¿Cuál es la diferencia entre una etiqueta de riesgo y una de manipulación?",
-            ref: "RAC 175.436",
+            ref: "LAR 175.435 (a)",
             opciones: [
               {
                 t: "La de riesgo es obligatoria y la de manipulación es opcional.",
@@ -248,13 +255,13 @@ export const NIVEL_2: DocScreen[] = [
               },
               {
                 t: "La de riesgo la pone el expedidor y la de manipulación el explotador.",
-                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado (175.215 (a)). El explotador solo repone las que se pierden o dañan (175.438 (e)).",
+                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado (LAR 175.215 (a)). El explotador solo repone las que se desprenden o deterioran, y si no tiene certeza de cuál corresponde, no transporta la mercancía (LAR 175.435 (b)).",
               },
             ],
           },
           {
             q: "En tu vuelo de pasajeros aparece un bulto con la etiqueta «Exclusivamente en aeronaves de carga». ¿Qué haces?",
-            ref: "RAC 175, Capítulo F, Carga y estiba",
+            ref: "LAR 175.520 (c)",
             opciones: [
               {
                 t: "Lo acepto si va estibado lejos de la cabina.",
@@ -276,7 +283,7 @@ export const NIVEL_2: DocScreen[] = [
       {
         kind: "summary",
         items: [
-          "Marcas: denominación del artículo y número ONU en cada bulto (175.430 (a)); en Colombia, en español; en vuelo internacional, además en inglés.",
+          "Marcas: denominación del artículo y número ONU en cada bulto (LAR 175.430 (a)); en vuelo internacional, además en inglés.",
           "Etiqueta de riesgo = qué es; etiqueta de manipulación = cómo se trata (175.436).",
           "Etiqueta despegada: se repone según el documento de transporte; sin certeza, no vuela (175.435 (b) y 175.438 (e)).",
           "«Exclusivamente en aeronaves de carga» significa exactamente eso.",
@@ -298,7 +305,9 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.426 (a)",
+        oaci: "Instrucciones Técnicas, Parte 2",
+        ref: "LAR 175.415",
+        rac: "RAC 175.426 (a)",
         texto:
           "Para los fines de embalaje las sustancias que no sean de las clases 1, 2 y 7, divisiones 5.2 y 6.2 y otras sustancias de reacción espontánea de la división 4.1, se asignan a los tres grupos de embalaje de acuerdo con el grado de peligro que representan: grupo de embalaje I, sustancias que presentan gran peligro; grupo de embalaje II, sustancias que presentan peligro intermedio; grupo de embalaje III, sustancias que presentan escaso peligro.",
       },
@@ -327,7 +336,7 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Sí llevan grupo de embalaje",
-            ref: "175.426 (a)",
+            ref: "Instrucciones Técnicas, Parte 2",
             puntos: [
               "Clase 3, líquidos inflamables.",
               "Clase 4, salvo las sustancias de reacción espontánea de la 4.1.",
@@ -339,7 +348,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             titulo: "No llevan",
-            ref: "175.426 (a)",
+            ref: "Instrucciones Técnicas, Parte 2",
             puntos: [
               "Clase 1, explosivos: se ordenan por división.",
               "Clase 2, gases.",
@@ -368,7 +377,7 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Cantidades exceptuadas",
-            ref: "175.130",
+            ref: "LAR 175.130",
             puntos: [
               "Cantidades pequeñas definidas en la Parte 3, Capítulo 5 de las Instrucciones Técnicas.",
               "Si la lista trae «E0» en la columna 9, ese artículo **no** puede ir en cantidades exceptuadas (175.130 (b)).",
@@ -379,7 +388,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             titulo: "Cantidades limitadas",
-            ref: "175.135",
+            ref: "LAR 175.135",
             puntos: [
               "Presentan un peligro menor y viajan en embalajes de buena calidad, probados a apilamiento y caída, con la marca de la Figura 3-1 de las Instrucciones.",
               "Se identifican por la instrucción de embalaje «Y» en la columna 10 de la lista (175.135 (c)).",
@@ -419,7 +428,7 @@ export const NIVEL_2: DocScreen[] = [
         preguntas: [
           {
             q: "La columna 9 de la lista de mercancías peligrosas trae «E0» para un artículo. ¿Qué significa?",
-            ref: "RAC 175.130 (b)",
+            ref: "LAR 175.130 (b)",
             opciones: [
               {
                 t: "Que ese artículo no puede transportarse en cantidades exceptuadas.",
@@ -438,7 +447,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             q: "En un NOTOC aparece un cilindro de gas de la división 2.2 con «grupo de embalaje II». ¿Qué piensas?",
-            ref: "RAC 175.426 (a)",
+            ref: "Instrucciones Técnicas, Parte 2",
             opciones: [
               {
                 t: "Es normal: todas las mercancías llevan grupo de embalaje.",
@@ -457,16 +466,16 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             q: "Un pasajero quiere llevar en su maleta un frasco de reactivo marcado como «cantidad exceptuada». ¿Puede?",
-            ref: "RAC 175.136 (a)",
+            ref: "RAC 175.136 (a) · añadido nacional",
             opciones: [
               {
                 t: "Sí, porque está exceptuado.",
-                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. El 175.136 (a) es explícito: ni como equipaje de mano o facturado, ni como correo.",
+                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. El RAC 175.136 (a) de Colombia es explícito: ni como equipaje de mano o facturado, ni como correo. El LAR 175 no trae esa sección, así que revisa cómo lo resuelve tu reglamento; lo que sí manda en todo caso es la Tabla 8-1.",
               },
               {
                 t: "No: las cantidades exceptuadas no van en equipaje ni en correo.",
                 ok: true,
-                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija el Capítulo H y las Instrucciones Técnicas (lección 11), no el régimen de cantidades exceptuadas.",
+                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija la Tabla 8-1 de las Instrucciones, a la que remite el LAR 175.715 (lección 11), no el régimen de cantidades exceptuadas.",
               },
               {
                 t: "Solo si lo declara en el mostrador.",
@@ -564,14 +573,15 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.020 (c)",
-        titulo: "La Sección II, en la norma colombiana",
+        ref: "LAR 175.020 (b)",
+        rac: "RAC 175.020 (c)",
+        titulo: "La Sección II, nombrada en la norma",
         texto:
-          "La UAEAC podrá emitir una autorización especial a un explotador no autorizado a transportar mercancías peligrosas, para el transporte de algunas mercancías peligrosas consideradas de riesgo menor (sustancias biológicas, Categoría B, baterías de litio embaladas según la Sección II de las instrucciones de embalaje, COMAT peligroso, mercancías peligrosas permitidas por correo).",
+          "En caso que lo considere pertinente, la AAC podrá emitir una aprobación específica a un explotador no autorizado a transportar mercancías peligrosas, para el transporte de algunas mercancías peligrosas consideradas de riesgo menor (sustancias biológicas, Categoría B, baterías de litio embaladas según la Sección II de las instrucciones de embalaje, COMAT peligroso, mercancías peligrosas permitidas por correo).",
       },
       {
         kind: "p",
-        text: "Ese «Sección II» es la clave para leer un envío de baterías. Las instrucciones de embalaje del litio tienen secciones: las baterías pequeñas, bien embaladas, van por la Sección II con menos exigencias; las grandes o en cantidad van por la Sección I con toda la norma. El RAC las considera de riesgo menor justamente por eso.",
+        text: "Ese «Sección II» es la clave para leer un envío de baterías. Las instrucciones de embalaje del litio tienen secciones: las baterías pequeñas, bien embaladas, van por la Sección II con menos exigencias; las grandes o en cantidad van por la Sección I con toda la norma. La norma regional las considera de riesgo menor justamente por eso, y tu reglamento nacional repite la lista casi palabra por palabra.",
       },
       {
         kind: "callout",
@@ -617,13 +627,14 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.610 (b)",
+        ref: "LAR 175.610 (b)",
+        rac: "RAC 175.610 (b)",
         texto:
           "El explotador o el agente de despacho del explotador deberá asegurar el suministro de información sobre transporte de mercancías peligrosas instalando de manera destacada y en lugares visibles el número suficiente de letreros informativos en los puntos de aceptación de la carga, para así alertar a los expedidores y agentes respecto de las mercancías peligrosas que pueda haber en sus envíos de carga. Estos avisos deben incluir ejemplos visuales de las mercancías peligrosas, comprendidas las baterías.",
       },
       {
         kind: "p",
-        text: "Ese «comprendidas las baterías» está en la norma colombiana. Dice bastante sobre cuál es la mercancía peligrosa que más se cuela sin declarar.",
+        text: "Ese «comprendidas las baterías» está en la norma regional y en la de cada país, con las mismas palabras. Dice bastante sobre cuál es la mercancía peligrosa que más se cuela sin declarar.",
       },
       { kind: "sub", text: "Cuando una batería falla en cabina" },
       {
@@ -669,7 +680,7 @@ export const NIVEL_2: DocScreen[] = [
           },
           {
             q: "¿En qué clase están las baterías de litio y qué grupo de embalaje llevan?",
-            ref: "RAC 175.1010 (a) (9) y 175.426 (a)",
+            ref: "Instrucciones Técnicas, Tabla 8-1 y Parte 2",
             opciones: [
               {
                 t: "Clase 3, grupo de embalaje II.",

@@ -11,7 +11,7 @@
  */
 
 import { useState } from "react"
-import { BookMarked, ChevronDown, ClipboardList, HelpCircle, Plane, Quote } from "lucide-react"
+import { BookMarked, ChevronDown, ClipboardList, Globe2, HelpCircle, MapPin, Plane, Quote } from "lucide-react"
 import type {
   CasoRealBlock,
   EnLaOperacionBlock,
@@ -43,6 +43,48 @@ const NATURALEZA: Record<NaturalezaNorma, string> = {
  * Es la pieza que respalda: el texto va tal cual, sin adjetivos, y el artículo
  * a la vista para que el piloto pueda ir a comprobarlo.
  */
+/**
+ * Una pastilla de cita, rotulada con el organismo del que viene.
+ *
+ * Van de lo mundial a lo nacional para que se lea la cadena: la OACI fija el
+ * estándar, el SRVSOP lo convierte en LAR y cada Estado publica su reglamento.
+ * La nacional va tenue a propósito: es un ejemplo, no la norma del alumno.
+ */
+function Cita({
+  icono: Icono,
+  origen,
+  texto,
+  fuerte,
+  tenue,
+}: {
+  icono: typeof BookMarked
+  origen: string
+  texto: string
+  fuerte?: boolean
+  tenue?: boolean
+}) {
+  return (
+    <span
+      className="mono inline-flex items-center gap-1.5 rounded-[4px] px-2 py-[3px] text-[11px] tracking-[0.06em]"
+      style={
+        tenue
+          ? {
+              border: `1px solid ${docTint(ACENTO, 30)}`,
+              color: "var(--doc-muted, #6B7280)",
+            }
+          : {
+              background: docTint(ACENTO, fuerte ? 16 : 9),
+              color: docAccent(ACENTO, fuerte ? 80 : 66),
+            }
+      }
+    >
+      <Icono className="h-3 w-3 shrink-0" aria-hidden />
+      <span className="font-semibold uppercase tracking-[0.1em] opacity-70">{origen}</span>
+      <span className="font-semibold">{texto}</span>
+    </span>
+  )
+}
+
 export function Norma({ block }: { block: NormaBlock }) {
   const nat = block.naturaleza ?? "requisito"
   return (
@@ -50,13 +92,10 @@ export function Norma({ block }: { block: NormaBlock }) {
       className="doc-soft border-l-[3px] px-5 py-4 sm:px-6 sm:py-5"
       style={{ borderLeftColor: "var(--doc-accent)" }}
     >
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
-        <span
-          className="mono inline-flex items-center gap-1.5 rounded-[4px] px-2 py-[3px] text-[11px] font-semibold tracking-[0.06em]"
-          style={{ background: docTint(ACENTO, 14), color: docAccent(ACENTO, 80) }}
-        >
-          <BookMarked className="h-3 w-3" aria-hidden /> {block.ref}
-        </span>
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
+        {block.oaci && <Cita icono={Globe2} origen="OACI" texto={block.oaci} />}
+        <Cita icono={BookMarked} origen="SRVSOP" texto={block.ref} fuerte />
+        {block.rac && <Cita icono={MapPin} origen="Colombia" texto={block.rac} tenue />}
         <span className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
           {NATURALEZA[nat]}
         </span>

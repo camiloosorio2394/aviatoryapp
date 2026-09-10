@@ -98,13 +98,15 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175, Capítulo F, Carga y estiba, (b) y (c)",
+        ref: "LAR 175.520 (b) y (c)",
+        rac: "RAC 175, Cap. F",
         texto:
           "Salvo en los casos permitidos en este Reglamento y en las Instrucciones Técnicas, no se estibarán mercancías peligrosas en la cabina de ninguna aeronave ocupada por pasajeros ni tampoco en el puesto de pilotaje. No se estibarán en una aeronave ocupada por pasajeros los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga».",
       },
       {
         kind: "norma",
-        ref: "RAC 175, Capítulo F, Carga y estiba, (d)",
+        ref: "LAR 175.520 (d)",
+        rac: "RAC 175, Cap. F",
         texto:
           "A reserva de lo previsto en las Instrucciones Técnicas, los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga» se cargarán de modo tal que algún miembro de la tripulación o persona autorizada pueda verlos, manipularlos y, cuando su tamaño y peso lo permitan, separarlos en vuelo de las otras mercancías estibadas a bordo.",
       },
@@ -128,7 +130,9 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.525 (a)",
+        oaci: "Instrucciones Técnicas, Tabla 7-1",
+        ref: "LAR 175.525 (a)",
+        rac: "RAC 175.525 (a)",
         texto:
           "El explotador de aeronave se cerciorará que los bultos que contengan mercancías peligrosas capaces de reaccionar peligrosamente entre sí, no se estiben en una aeronave unos juntos a otros de tal manera que puedan entrar en contacto en caso de que se produzcan pérdidas.",
       },
@@ -159,7 +163,7 @@ export const NIVEL_4: DocScreen[] = [
         preguntas: [
           {
             q: "Durante la descarga se detecta una avería en un bulto con mercancías peligrosas. ¿Qué exige el reglamento además de retirarlo?",
-            ref: "RAC 175, Cap. F, (h); 175.615 (b) y (c)",
+            ref: "LAR 175.520 y 175.615",
             opciones: [
               {
                 t: "Inspeccionar la zona en que iba estibado para averiguar si hay daños o contaminación, y eliminar sin demora toda contaminación peligrosa.",
@@ -178,7 +182,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "En un carguero, ¿dónde va un bulto con la etiqueta «Exclusivamente en aeronaves de carga»?",
-            ref: "RAC 175, Cap. F, (d) y (e)",
+            ref: "LAR 175.520 (d) y (e)",
             opciones: [
               {
                 t: "En cualquier posición: en carguero no hay restricción.",
@@ -197,7 +201,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "Un agente quiere aceptar un envío de mercancías peligrosas «porque el expedidor es de confianza», sin documento de transporte. ¿Puede?",
-            ref: "RAC 175.514 (a) (1) y (2)",
+            ref: "LAR 175.510 (a) y (b)",
             opciones: [
               {
                 t: "Sí, si inspecciona bien el bulto.",
@@ -241,7 +245,9 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.515 (a)",
+        oaci: "Instrucciones Técnicas, Parte 7",
+        ref: "LAR 175.515 (a)",
+        rac: "RAC 175.515 (a)",
         texto:
           "Salvo en los casos en que las Instrucciones Técnicas indiquen lo contrario, el explotador de toda aeronave en la cual haya que transportar mercancías peligrosas, deberá proporcionar al piloto al mando, lo antes posible antes de la salida de la aeronave y por escrito, la información prevista en las Instrucciones Técnicas.",
       },
@@ -354,17 +360,17 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "«Firmo el NOTOC en crucero, cuando hay tiempo»",
-            ref: "175.515 (a) (1)",
+            ref: "LAR 175.515 (a) (1)",
             puntos: ["La información se firma antes de que las mercancías sean transportadas. Firmar después no cumple el artículo."],
           },
           {
             titulo: "«El NOTOC se queda con el despachador»",
-            ref: "175.515 (a) (2) y (3)",
+            ref: "LAR 175.515 (a) (2) y (3)",
             puntos: ["Debe estar al alcance del piloto al mando durante el vuelo, y además a disposición del aeródromo de última salida y del de próxima llegada."],
           },
           {
             titulo: "«Si el vuelo es internacional, basta con el idioma del Estado de origen»",
-            ref: "175.515 (c)",
+            ref: "LAR 175.515 (c)",
             puntos: ["En transporte internacional debe utilizarse además el inglés, tanto en la información al piloto al mando como en las marcas y los documentos."],
           },
         ],
@@ -380,7 +386,7 @@ export const NIVEL_4: DocScreen[] = [
         preguntas: [
           {
             q: "Se descubre que un vuelo transportó mercancías peligrosas sin que se hubiera proporcionado la información al piloto al mando. ¿Qué obligación nace?",
-            ref: "RAC 175.625 (d)",
+            ref: "LAR 175.625 (d)",
             opciones: [
               {
                 t: "Notificar el suceso a las autoridades del Estado del explotador y del Estado de origen.",
@@ -399,7 +405,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "¿Cuándo debe firmar el piloto al mando la información sobre mercancías peligrosas?",
-            ref: "RAC 175.515 (a) (1)",
+            ref: "LAR 175.515 (a) (1)",
             opciones: [
               {
                 t: "Antes de que las mercancías sean transportadas.",
@@ -418,10 +424,10 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "Vuelas Bogotá a Madrid con mercancías peligrosas. ¿En qué idioma va la información al piloto al mando?",
-            ref: "RAC 175.515 (c)",
+            ref: "LAR 175.515 (c)",
             opciones: [
               {
-                t: "En español, porque el Estado de origen es Colombia.",
+                t: "Solo en el idioma que exija el Estado de origen.",
                 fb: "El español va, pero no basta: en transporte internacional, además de los idiomas exigidos por el Estado de origen, debe utilizarse el inglés.",
               },
               {
@@ -484,7 +490,8 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.620 (b)",
+        ref: "LAR 175.620 (b)",
+        rac: "RAC 175.620 (b)",
         texto:
           "El explotador debe asegurar que para envíos con respecto a los cuales las Instrucciones Técnicas requieren un documento de transporte de mercancías peligrosas, se disponga en todo momento y de inmediato de la información apropiada para utilizar en la respuesta de emergencia en caso de accidentes e incidentes relacionados con mercancías peligrosas transportadas por vía aérea. (1) Esta información debe estar a disposición del piloto al mando y puede obtenerse del Documento OACI 9481, Orientación sobre respuesta de emergencia para afrontar incidentes aéreos relacionados con mercancías peligrosas. (2) Los tripulantes de la aeronave deberán estar al corriente de las medidas que haya que tomar en caso de emergencia.",
       },
@@ -594,7 +601,7 @@ export const NIVEL_4: DocScreen[] = [
         preguntas: [
           {
             q: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
-            ref: "RAC 175.620 (d) (1)",
+            ref: "LAR 175.620 (d) (1)",
             opciones: [
               {
                 t: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
@@ -613,7 +620,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
-            ref: "Orden de las decisiones · 175.620 (e)",
+            ref: "Orden de las decisiones · LAR 175.620 (e)",
             opciones: [
               {
                 t: "Informar al ATC qué mercancía llevas.",
@@ -632,7 +639,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "En la emergencia, ¿a quién informa el piloto al mando de que lleva mercancías peligrosas, y para qué?",
-            ref: "RAC 175.620 (e)",
+            ref: "LAR 175.620 (e)",
             opciones: [
               {
                 t: "Al expedidor, para que confirme el contenido.",
@@ -688,8 +695,8 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "callout",
         tone: "info",
-        title: "En Colombia, a la UAEAC",
-        text: "En sucesos a bordo de aeronaves colombianas o explotadas por explotadores colombianos, o en o sobre territorio colombiano, se notifica a la UAEAC como autoridad del Estado del explotador o del Estado donde ocurrió el suceso (nota del 175.625 (a)). Los plazos y el formato son los que fija esa autoridad.",
+        title: "¿A quién se notifica?",
+        text: "A las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso (LAR 175.625 (a)). En un vuelo internacional pueden ser dos autoridades distintas, y las dos esperan el aviso. Los plazos y el formulario los fija cada una: búscalos en el manual de tu explotador antes de necesitarlos, no el día del suceso.",
       },
       { kind: "sub", text: "Los tres niveles de suceso" },
       {
@@ -698,7 +705,7 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Accidente imputable",
-            ref: "175.001 (a) (1)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Suceso atribuible al transporte aéreo de mercancías peligrosas o relacionado con él.",
               "Ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente.",
@@ -706,7 +713,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             titulo: "Incidente imputable",
-            ref: "175.001 (a) (25)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Ocurrencia atribuible al transporte y relacionada con él que no constituye accidente. No tiene que producirse a bordo.",
               "Ocasiona lesiones, daños, incendio, ruptura, derramamiento, fugas, radiación o cualquier manifestación de que se vulneró un embalaje.",
@@ -715,7 +722,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             titulo: "Incumplimiento imputable",
-            ref: "175.001 (a) (27)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Ocurrencia atribuible al transporte de mercancías peligrosas que no tiene como resultado un incidente ni un accidente.",
               "El nivel más bajo de la escala, y el que más datos aporta al sistema.",
@@ -729,7 +736,8 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.028 (b)",
+        ref: "LAR 175.220 (k)",
+        rac: "RAC 175.028 (b)",
         texto:
           "Las Organizaciones Aeronáuticas deben integrar los programas de manejo de mercancías peligrosas a sus propios sistemas de gestión, SMS, con el fin de mantener en esta área los niveles aceptables de seguridad que prevengan la ocurrencia de accidentes e incidentes.",
       },
@@ -737,13 +745,13 @@ export const NIVEL_4: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "Por qué esto es SMS y no papeleo",
-        text: "El manejo de mercancías peligrosas se cumple con los principios de la gestión de la seguridad operacional del RAC 22 (175.028 (a)). La UAEAC además recopila datos sobre eventos que no constituyen accidente ni incidente, para implementar procesos predictivos y proactivos (175.632 (a)). Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
+        text: "El transporte de mercancías peligrosas entra en el alcance del SMS del explotador (LAR 175.220 (k)): no es un trámite aparte, es parte del sistema con el que la empresa gestiona su seguridad. Y las autoridades recopilan además los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva. Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
       },
       {
         kind: "callout",
         tone: "warn",
         title: "Consecuencia del incumplimiento",
-        text: "La violación a las normas de mercancías peligrosas es infracción sancionable según el RAC 13, Régimen Sancionatorio (175.636 (a)). Aplica también cuando otro Estado contratante notifica a Colombia una infracción de un explotador colombiano, o cuando un envío llega a otro Estado sin cumplir las Instrucciones y ese Estado lo notifica (175.636 (b)).",
+        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las penales, conforme a la legislación de cada país (LAR 175.205 (b)). Qué norma sanciona y con cuánto cambia según el Estado: en Colombia es el RAC 13, Régimen Sancionatorio, por remisión del RAC 175.636. Y alcanza también al caso en que otro Estado notifica la infracción de un explotador extranjero, o el envío llega sin cumplir las Instrucciones.",
       },
       {
         kind: "enLaOperacion",
@@ -756,7 +764,7 @@ export const NIVEL_4: DocScreen[] = [
         preguntas: [
           {
             q: "Un pasajero es sorprendido en el filtro con un artículo de la clase 2 no permitido. ¿Quién notifica y a quién?",
-            ref: "RAC 175.625 (c) y (f)",
+            ref: "LAR 175.625 (c) y (f)",
             opciones: [
               {
                 t: "El explotador notifica a las autoridades del Estado en el cual ocurrió; y las entidades distintas del explotador que descubren el hallazgo deberían cumplir los mismos requisitos.",
@@ -775,7 +783,7 @@ export const NIVEL_4: DocScreen[] = [
           },
           {
             q: "Un bulto de mercancías peligrosas voló sin la segregación que exigía la Tabla 7-1. Nadie resultó afectado y nada se derramó. ¿Qué es?",
-            ref: "RAC 175.001 (a) (27) y 175.625 (d)",
+            ref: "LAR 175.001 (a) y 175.625 (d)",
             opciones: [
               {
                 t: "Nada: sin daño no hay suceso.",
@@ -793,8 +801,8 @@ export const NIVEL_4: DocScreen[] = [
             ],
           },
           {
-            q: "La UAEAC recopila datos sobre eventos con mercancías peligrosas que no constituyen accidente ni incidente. ¿Para qué?",
-            ref: "RAC 175.632 (a) y 175.028 (c)",
+            q: "La autoridad recopila datos sobre eventos con mercancías peligrosas que no constituyen accidente ni incidente. ¿Para qué?",
+            ref: "LAR 175.220 (k) · RAC 175.632 (a)",
             opciones: [
               {
                 t: "Para alimentar los sistemas de recopilación y procesamiento de datos e implementar procesos predictivos y proactivos.",

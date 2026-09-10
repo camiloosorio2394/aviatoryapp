@@ -58,8 +58,22 @@ export type NaturalezaNorma =
 /** Cita de la norma, literal o casi, con su referencia y su naturaleza. */
 export interface NormaBlock {
   kind: "norma"
-  /** "RAC 175.515 (a)", "Anexo 18, 9.1". */
+  /**
+   * La cita que manda: el LAR 175 del SRVSOP, que es la norma regional.
+   * "LAR 175.715 (a)".
+   */
   ref: string
+  /**
+   * De dónde sale la regla en la OACI: "Anexo 18" o la Parte o Tabla de las
+   * Instrucciones Técnicas que la norma regional nombra ("Tabla 8-1").
+   * Solo se escribe cuando el LAR o el RAC la señalan: no se deduce.
+   */
+  oaci?: string
+  /**
+   * Una adopción nacional, para que se vea que cada Estado publica la suya.
+   * En el módulo se usa Colombia: "RAC 175.1010 (a)".
+   */
+  rac?: string
   texto: string
   /** Por defecto, requisito. */
   naturaleza?: NaturalezaNorma

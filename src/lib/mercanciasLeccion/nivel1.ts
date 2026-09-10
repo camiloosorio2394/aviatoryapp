@@ -2,9 +2,12 @@
  * Nivel 1 · Introducción: por qué existe la norma, por qué el avión cambia el
  * riesgo, el vocabulario y quién responde por qué.
  *
- * Cada artículo citado se contrastó con el texto del RAC 175 (Edición original,
- * marzo 2016, Res. 00478 del 29 de febrero de 2016). El caso real sale del
- * informe de la NTSB y se cita como tal.
+ * La cita manda de lo mundial a lo nacional: Anexo 18 y Doc 9284 de la OACI,
+ * LAR 175 del SRVSOP (Primera edición, Enmienda 4, diciembre 2017) y, como
+ * ejemplo de adopción nacional, el RAC 175 de Colombia (Edición original,
+ * marzo 2016). Cada equivalencia se contrastó contra los dos textos: el
+ * literal no siempre lleva la misma letra en una norma y en la otra. El caso
+ * real sale del informe de la NTSB y se cita como tal.
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
@@ -33,7 +36,7 @@ export const NIVEL_1: DocScreen[] = [
         consecuencia:
           "La NTSB atribuyó el accidente a un incendio en la bodega iniciado por la activación de uno o más generadores. Señaló tres fallas: el taller que no identificó ni embaló bien los generadores, la aerolínea que no vigiló a su contratista y la autoridad, que no exigía detección ni extinción de incendios en las bodegas de clase D.",
         leccion:
-          "La cadena falló en tres eslabones y los tres tienen nombre en el RAC 175: el expedidor que no identifica ni embala (175.215 y 175.416), el explotador que no vigila ni capacita (175.220 y Capítulo D) y una regla de diseño que la autoridad no había cerrado. El comandante firmó un manifiesto que decía otra cosa. Este módulo trata de por qué esa firma tuya importa.",
+          "La cadena falló en tres eslabones y los tres tienen nombre en la norma: el expedidor que no identifica ni embala (LAR 175.215 y 175.410), el explotador que no vigila ni capacita (LAR 175.220 y Capítulo D) y una regla de diseño que la autoridad no había cerrado. El comandante firmó un manifiesto que decía otra cosa. Este módulo trata de por qué esa firma tuya importa.",
         cita: {
           texto:
             "…the failure of SabreTech to properly prepare, package, and identify unexpended chemical oxygen generators before presenting them to ValuJet for carriage…",
@@ -53,14 +56,16 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.001 (a) (31)",
+        oaci: "Anexo 18",
+        ref: "LAR 175.001 (a)",
+        rac: "RAC 175.001 (a) (31)",
         titulo: "Mercancías peligrosas",
         texto:
           "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de mercancías peligrosas de las Instrucciones Técnicas o esté clasificado conforme a dichas Instrucciones.",
       },
       {
         kind: "p",
-        text: "Fíjate en las dos mitades: **riesgo** y **estar en la lista o ser clasificable**. Un artículo no es mercancía peligrosa porque lo parezca. Lo es porque encaja en los criterios de clasificación de las Instrucciones Técnicas. La lista es la Tabla 3-1 de las Instrucciones (175.001 (a) (30)); lo que no está en la lista se clasifica con los mismos criterios.",
+        text: "Fíjate en las dos mitades: **riesgo** y **estar en la lista o ser clasificable**. Un artículo no es mercancía peligrosa porque lo parezca. Lo es porque encaja en los criterios de clasificación de las Instrucciones Técnicas. La lista es la Tabla 3-1 de las Instrucciones; lo que no está en la lista se clasifica con los mismos criterios (Parte 2 de las Instrucciones, según el LAR 175.415).",
       },
       {
         kind: "definicion",
@@ -77,28 +82,28 @@ export const NIVEL_1: DocScreen[] = [
             etiqueta: "Anexo 18",
             sub: "Convenio de Chicago",
             texto:
-              "La norma internacional: transporte sin riesgos de mercancías peligrosas por vía aérea. Colombia es Estado miembro de la OACI y se obliga a cumplir los Anexos técnicos (Preámbulo del RAC 175).",
+              "La norma internacional: transporte sin riesgos de mercancías peligrosas por vía aérea. Todo Estado miembro de la OACI se obliga a cumplir los Anexos técnicos del Convenio de Chicago. De aquí sale todo lo demás.",
           },
           {
             clave: "doc9284",
             etiqueta: "Doc 9284",
             sub: "Instrucciones Técnicas",
             texto:
-              "El detalle operativo: la lista de mercancías, el embalaje, las marcas y etiquetas, la segregación y la información al piloto al mando. Se reedita cada dos años. El RAC 175 la llama «Instrucciones Técnicas» y remite a su última versión publicada (175.001 (a) (28)).",
+              "El detalle operativo: la lista de mercancías, el embalaje, las marcas y etiquetas, la segregación y la información al piloto al mando. Se reedita cada dos años. Las normas de la región la llaman «Instrucciones Técnicas» y remiten a su última versión publicada (LAR 175.001 (a)).",
           },
           {
             clave: "lar175",
             etiqueta: "LAR 175",
-            sub: "Reglamento latinoamericano",
+            sub: "SRVSOP · la región",
             texto:
-              "El reglamento armonizado del SRVSOP, que Colombia toma como base. El RAC 175 nació armonizado con las enmiendas 1 y 2 del LAR 175.",
+              "El reglamento armonizado que el Sistema Regional de Cooperación para la Vigilancia de la Seguridad Operacional elaboró con fundamento en el Anexo 18 y propuso a sus Estados miembros. Es la norma que este módulo cita: su articulado, 175.001 a 175.715, es el que reconocerás en el reglamento de tu país.",
           },
           {
-            clave: "rac175",
-            etiqueta: "RAC 175",
-            sub: "Colombia · Aerocivil",
+            clave: "nacional",
+            etiqueta: "Tu reglamento",
+            sub: "Cada Estado publica el suyo",
             texto:
-              "Adoptado por la Resolución 00478 del 29 de febrero de 2016, publicada el 31 de marzo de 2016. Deroga el RAC 10. Es la norma que te aplica a ti, y aplica a vuelos internos e internacionales por igual (175.016).",
+              "Cada autoridad de aviación civil adopta el LAR 175 en su propia norma y le pone su nombre y su numeración. En Colombia es el RAC 175, adoptado por la Resolución 00478 de 2016. Esa es la que te aplica a ti, y aplica a vuelos internos e internacionales por igual: busca la tuya y ten a mano su número de artículo.",
           },
         ],
       },
@@ -106,14 +111,14 @@ export const NIVEL_1: DocScreen[] = [
         kind: "hueco",
         rotulo: "MP-ILU-01 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
         descripcion:
-          "Las cuatro capas anidadas, Anexo 18 → Doc 9284 → LAR 175 → RAC 175, como anillos concéntricos en el estilo isométrico de Aviatory. Sin texto pequeño: solo los cuatro nombres.",
+          "Las cuatro capas anidadas, Anexo 18 → Doc 9284 → LAR 175 → reglamento nacional, como anillos concéntricos en el estilo isométrico de Aviatory. El anillo exterior con varias siglas de la región (RAC, RAP, RDAC, RAB, DAN) para que se vea que la última capa cambia según el país. Sin texto pequeño.",
         alto: 300,
       },
       {
         kind: "callout",
         tone: "info",
-        title: "El RAC fija el qué; las Instrucciones, el cómo",
-        text: "El RAC 175 remite a las Instrucciones Técnicas casi en cada artículo. Cuando te pregunten dónde está la lista, cuánto puede llevar un pasajero o cómo se separa un bulto de otro, la respuesta detallada está en el Doc 9284, y el RAC 175 es el que te obliga a aplicarlo (175.005 (c) y 175.040).",
+        title: "El reglamento fija el qué; las Instrucciones, el cómo",
+        text: "El LAR 175, y con él el reglamento de tu país, remite a las Instrucciones Técnicas casi en cada artículo. Cuando te pregunten dónde está la lista, cuánto puede llevar un pasajero o cómo se separa un bulto de otro, la respuesta detallada está en el Doc 9284; el reglamento es el que te obliga a aplicarlo (LAR 175.005 (b)).",
       },
       {
         kind: "enLaOperacion",
@@ -125,27 +130,27 @@ export const NIVEL_1: DocScreen[] = [
         kind: "ponAPrueba",
         preguntas: [
           {
-            q: "Un explotador colombiano vuela solo rutas nacionales. ¿Le aplica el Doc 9284 de la OACI?",
-            ref: "RAC 175.005 (c) y 175.016",
+            q: "Un explotador vuela solo rutas nacionales dentro de su país. ¿Le aplica el Doc 9284 de la OACI?",
+            ref: "LAR 175.005 (b)",
             opciones: [
               {
-                t: "Sí. El RAC 175 adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
+                t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
                 ok: true,
-                fb: "El 175.016 dice que el Anexo 18 y las Instrucciones Técnicas aplican por igual a matrícula colombiana o extranjera, operador nacional o extranjero, vuelo interno o internacional, siempre que Colombia sea origen, sobrevuelo, escala, tránsito, trasbordo o destino.",
+                fb: "El LAR 175.005 (b) lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El RAC 175.016 de Colombia lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
               },
               {
                 t: "No. Las Instrucciones Técnicas solo rigen el transporte internacional.",
-                fb: "Es la trampa clásica. El 175.005 (c) exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en Colombia, sin distinguir el tipo de vuelo.",
+                fb: "Es la trampa clásica. El LAR 175.005 (b) exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
               },
               {
                 t: "Solo si transporta carga; si es de pasajeros, no.",
-                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: el 175.305 (b) le exige capacitar a su personal justamente para que no entren sin declarar.",
+                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: el LAR 175.305 (b) le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
               },
             ],
           },
           {
             q: "Una caja marcada «vacía» contiene generadores de oxígeno sin gastar. ¿Es mercancía peligrosa?",
-            ref: "RAC 175.001 (a) (31)",
+            ref: "LAR 175.001 (a)",
             opciones: [
               {
                 t: "No, porque el manifiesto dice que está vacía.",
@@ -154,11 +159,11 @@ export const NIVEL_1: DocScreen[] = [
               {
                 t: "Sí: lo que la clasifica es lo que contiene y lo que puede hacer, no lo que dice la caja.",
                 ok: true,
-                fb: "La definición del 175.001 (a) (31) tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
+                fb: "La definición del LAR 175.001 (a) tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
               },
               {
                 t: "Solo si el expedidor la declara como tal.",
-                fb: "La declaración es una obligación del expedidor (175.215), no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta (175.001 (a) (32)).",
+                fb: "La declaración es una obligación del expedidor (LAR 175.215 (a)), no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta (LAR 175.001 (a)).",
               },
             ],
           },
@@ -167,9 +172,9 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "summary",
         items: [
-          "Mercancía peligrosa = riesgo + estar en la lista o ser clasificable (175.001 (a) (31)).",
-          "La cadena: Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 → RAC 175, adoptado por la Resolución 00478 de 2016.",
-          "El RAC 175 aplica a vuelos internos e internacionales por igual (175.016).",
+          "Mercancía peligrosa = riesgo + estar en la lista o ser clasificable (LAR 175.001 (a)).",
+          "La cadena: Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país.",
+          "El reglamento aplica a vuelos internos e internacionales por igual (LAR 175.005 (b)).",
           "ValuJet 592: tres fallas, tres artículos. La firma del comandante era el último control y firmó lo que decía la caja.",
         ],
       },
@@ -189,7 +194,9 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.420 (b)",
+        oaci: "Instrucciones Técnicas, Partes 4 y 6",
+        ref: "LAR 175.420 (c)",
+        rac: "RAC 175.420 (b)",
         texto:
           "Los embalajes utilizados para el transporte de mercancías peligrosas por vía aérea serán de buena calidad y estarán construidos y cerrados de modo seguro, para evitar pérdidas que podrían originarse en las condiciones normales de transporte, debido a cambios de temperatura, humedad o presión, o a la vibración.",
       },
@@ -245,7 +252,7 @@ export const NIVEL_1: DocScreen[] = [
         preguntas: [
           {
             q: "¿Por qué el reglamento exige que los embalajes resistan cambios de presión, y no solo golpes?",
-            ref: "RAC 175.420 (b) y (e)",
+            ref: "LAR 175.420 (c) y (f)",
             opciones: [
               {
                 t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
@@ -276,7 +283,7 @@ export const NIVEL_1: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Las preguntas de entrevista sobre mercancías peligrosas casi siempre empiezan por una definición. No porque haya que recitarla: porque con el término mal entendido, la respuesta que sigue sale mal. Estas doce son las del RAC 175.001, tal cual.",
+        text: "Las preguntas de entrevista sobre mercancías peligrosas casi siempre empiezan por una definición. No porque haya que recitarla: porque con el término mal entendido, la respuesta que sigue sale mal. Estas doce son las del LAR 175.001 (a), tal cual. El reglamento de tu país las repite casi palabra por palabra, aunque las numere: el LAR las ordena alfabéticamente y no las numera.",
       },
       {
         kind: "fichas",
@@ -284,28 +291,28 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Bulto",
-            ref: "175.001 (a) (7)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "El producto final de la operación de empacado: el embalaje en sí y su contenido, preparado para el transporte.",
             ],
           },
           {
             titulo: "Embalaje",
-            ref: "175.001 (a) (15)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
             ],
           },
           {
             titulo: "Sobre-embalaje externo",
-            ref: "175.001 (a) (40)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Embalaje de un expedidor único que contiene uno o más bultos y forma una unidad para manipular y estibar.",
             ],
           },
           {
             titulo: "Dispositivo de carga unitarizada (ULD)",
-            ref: "175.001 (a) (14)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Contenedor de carga, contenedor de aeronave, paleta con red o paleta con red sobre un iglú.",
               "No incluye los sobre-embalajes.",
@@ -313,26 +320,26 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             titulo: "Envío",
-            ref: "175.001 (a) (16)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Uno o más bultos que un explotador acepta de un expedidor de una sola vez, en un mismo sitio, para un mismo consignatario y dirección.",
             ],
           },
           {
             titulo: "Expedidor",
-            ref: "175.001 (a) (21)",
+            ref: "LAR 175.001 (a)",
             puntos: ["Toda persona que, en su nombre o en nombre de una organización, envía la mercancía."],
           },
           {
             titulo: "Número de la ONU",
-            ref: "175.001 (a) (35)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Cuatro dígitos asignados por el Comité de expertos de las Naciones Unidas para reconocer una sustancia o un grupo de ellas.",
             ],
           },
           {
             titulo: "COMAT y COMAT peligroso",
-            ref: "175.001 (a) (10) y (11)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "COMAT: propiedad del explotador que viaja en su propio provecho, que no es requisito de operación ni de aeronavegabilidad para ese vuelo y no se vende ni se usa en él.",
               "COMAT peligroso: COMAT clasificado como mercancía peligrosa.",
@@ -340,28 +347,28 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             titulo: "Declaración del expedidor",
-            ref: "175.001 (a) (12)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Documento firmado por persona idónea: las mercancías están descritas por su nombre apropiado, clasificadas, empacadas, marcadas, etiquetadas y en condiciones de volar conforme a las Instrucciones.",
             ],
           },
           {
             titulo: "Incompatible",
-            ref: "175.001 (a) (26)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Mercancías que, de mezclarse, podrían generar peligrosamente calor o gases, o producir una sustancia corrosiva.",
             ],
           },
           {
             titulo: "Mercancía peligrosa oculta",
-            ref: "175.001 (a) (32)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "Carga declarada con descripción general que debió declararse como peligrosa; o mercancía prohibida o en exceso en el equipaje, en la persona del pasajero o tripulante, o en el correo.",
             ],
           },
           {
             titulo: "Piloto al mando",
-            ref: "175.001 (a) (36)",
+            ref: "LAR 175.001 (a)",
             puntos: ["El comandante: responsable de la operación y seguridad de la aeronave durante el tiempo de vuelo."],
           },
         ],
@@ -370,7 +377,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "enLaOperacion",
         momento: "El gancho de esta lección",
         texto:
-          "En ValuJet los generadores de oxígeno viajaron como material de la compañía: COMAT. Un repuesto de la aerolínea que va en tu avión no deja de ser mercancía peligrosa por ser de la casa. Si está clasificado como tal, es COMAT peligroso y sigue todas las reglas (175.020 (c) lo nombra entre las mercancías que la UAEAC puede autorizar a un explotador sin autorización general).",
+          "En ValuJet los generadores de oxígeno viajaron como material de la compañía: COMAT. Un repuesto de la aerolínea que va en tu avión no deja de ser mercancía peligrosa por ser de la casa. Si está clasificado como tal, es COMAT peligroso y sigue todas las reglas (el LAR 175.020 (b) nombra el COMAT peligroso entre las mercancías que la autoridad puede autorizar por aprobación específica a un explotador que no tiene autorización general).",
       },
       { kind: "sub", text: "Tres permisos que se confunden" },
       {
@@ -379,26 +386,26 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Aprobación",
-            ref: "175.001 (a) (4)",
+            ref: "LAR 175.001 (a)",
             puntos: [
-              "La otorga la UAEAC.",
+              "La otorga la autoridad de aviación civil (AAC) de tu país.",
               "Permite transportar mercancías prohibidas en aeronaves de pasajeros o de carga cuando las Instrucciones Técnicas dicen que pueden ir con aprobación.",
-              "Colombia debe ser Estado de origen y/o del explotador (175.020 (h) (1)).",
+              "La pide quien va a expedir, ante la autoridad del Estado que corresponda según el caso.",
               "Si las Instrucciones no prevén aprobación para ese caso, se pide dispensa.",
             ],
           },
           {
             titulo: "Dispensa",
-            ref: "175.001 (a) (13)",
+            ref: "LAR 175.001 (a)",
             puntos: [
-              "Toda autorización que no sea una aprobación, otorgada por la Secretaría de Seguridad Aérea de la UAEAC, que exime de lo previsto en las Instrucciones Técnicas.",
-              "Procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplir todo sería contrario al interés público (175.020 (g)).",
+              "Toda autorización que no sea una aprobación, otorgada por la autoridad nacional que corresponda, que exime de lo previsto en las Instrucciones Técnicas.",
+              "Procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplir todo sería contrario al interés público (LAR 175.020 (e)).",
               "Nunca para mercancías prohibidas en todas las circunstancias.",
             ],
           },
           {
             titulo: "Excepción",
-            ref: "175.001 (a) (20)",
+            ref: "LAR 175.001 (a)",
             puntos: [
               "No es un permiso: es una disposición de la norma que excluye a un artículo de las condiciones que normalmente le aplicarían.",
               "Ejemplo: lo que la aeronave lleva por exigencia de aeronavegabilidad o de operación (175.145 (a)).",
@@ -416,7 +423,7 @@ export const NIVEL_1: DocScreen[] = [
         preguntas: [
           {
             q: "Vas a llevar en tu vuelo una caja de repuestos de la propia aerolínea que contiene un acumulador. ¿Cómo se llama eso en el reglamento?",
-            ref: "RAC 175.001 (a) (10) y (11)",
+            ref: "LAR 175.001 (a)",
             opciones: [
               {
                 t: "COMAT peligroso.",
@@ -435,7 +442,7 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "Un explotador necesita transportar algo que las Instrucciones Técnicas no prevén ni con aprobación. ¿Qué pide?",
-            ref: "RAC 175.001 (a) (4), nota, y (13)",
+            ref: "LAR 175.001 (a) y 175.020",
             opciones: [
               {
                 t: "Una excepción.",
@@ -472,7 +479,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "hueco",
         rotulo: "MP-FLJ-01 · Flujograma · 21:9 · 2000×860 · SVG",
         descripcion:
-          "Cadena horizontal: Expedidor → Agente de carga → Terminal de carga → Explotador (aceptación) → Estiba → Comandante → Destino. Un nodo por actor con su artículo del RAC 175 y una marca donde la responsabilidad cambia de manos.",
+          "Cadena horizontal: Expedidor → Agente de carga → Terminal de carga → Explotador (aceptación) → Estiba → Comandante → Destino. Un nodo por actor con su artículo del LAR 175 y una marca donde la responsabilidad cambia de manos.",
         alto: 260,
       },
       {
@@ -481,7 +488,7 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Expedidor",
-            ref: "175.215 y 175.416",
+            ref: "LAR 175.215 y 175.410",
             puntos: [
               "Identifica exactamente las mercancías peligrosas que ofrece.",
               "Es el responsable de la identificación y la clasificación.",
@@ -492,50 +499,52 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             titulo: "Explotador",
-            ref: "175.220",
+            ref: "LAR 175.220",
             puntos: [
               "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs (175.020 (a)).",
               "Su manual de operaciones dice si acepta o rechaza carga con mercancías peligrosas.",
               "Si no las acepta, tiene procedimientos para que no entren sin declarar.",
-              "Programa de instrucción aprobado por la UAEAC.",
+              "Programa de instrucción aprobado por la AAC.",
               "Responde por que sus agentes acreditados cumplan sus procedimientos.",
             ],
           },
           {
             titulo: "Operador de terminal de carga",
-            ref: "175.225",
+            ref: "LAR 175.225",
             puntos: [
               "Área especial de almacenamiento con acceso libre para los vehículos de salvamento y extinción.",
               "Cuadros de etiquetas y tabla de segregación visibles y actualizados.",
-              "Procedimientos ante sucesos, con los teléfonos de la UAEAC y demás autoridades.",
+              "Procedimientos ante sucesos, con los teléfonos de la AAC y demás autoridades vinculadas a la vigilancia sanitaria, radiactiva y química.",
               "Conserva los documentos tres meses.",
             ],
           },
           {
-            titulo: "Explotador de aeródromo",
-            ref: "175.227 y 175.228",
+            titulo: "Operador de aeródromo",
+            ref: "LAR 175.005 (a) (6)",
+            nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional. En Colombia, el RAC 175.227 y 175.228.",
             puntos: [
               "Programa de manejo de mercancías peligrosas del aeródromo.",
-              "Capacita a su personal y verifica que se cumpla la Tabla C.1.",
-              "Manual de manejo aprobado por la UAEAC.",
+              "Capacita a su personal según la tabla de intensidad de su reglamento.",
+              "Manual de manejo aprobado por la AAC.",
               "Con las aerolíneas y la seguridad aeroportuaria: informa a los pasajeros y previene las mercancías ocultas.",
               "Organiza la atención de accidentes e incidentes en el aeródromo.",
             ],
           },
           {
-            titulo: "UAEAC (Aerocivil)",
-            ref: "175.035 y 175.230",
+            titulo: "La AAC (tu autoridad)",
+            ref: "LAR 175.020 y 175.025",
+            nota: "En Colombia, la UAEAC (Aerocivil), por el RAC 175.035 y 175.230.",
             puntos: [
-              "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el RAC 175.",
+              "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el reglamento nacional.",
               "Actualiza la norma con las enmiendas de la OACI.",
               "Vigila e inspecciona a explotadores, expedidores y aeródromos.",
-              "Verifica los programas de instrucción y gestiona las dispensas.",
+              "Verifica los programas de instrucción y otorga aprobaciones y dispensas.",
               "Emite recomendaciones para que los eventos no se repitan.",
             ],
           },
           {
             titulo: "Tripulación de vuelo",
-            ref: "175.515, 175.620 y Capítulo D",
+            ref: "LAR 175.515, 175.620 y Capítulo D",
             puntos: [
               "El piloto al mando firma la información escrita antes de que las mercancías se transporten.",
               "Tiene esa información a su alcance durante todo el vuelo.",
@@ -547,7 +556,8 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "RAC 175.205 (c)",
+        ref: "LAR 175.205 (c)",
+        rac: "RAC 175.205 (c)",
         titulo: "Quien actúa en nombre de otro responde igual",
         texto:
           "Si alguien realiza alguna función prevista en este Reglamento en nombre de quien entrega mercancías peligrosas para transportar por vía aérea, en nombre del explotador o en nombre del operador de terminal de carga, tendrá que realizarla necesariamente de conformidad con las condiciones previstas en este Reglamento y en las Instrucciones Técnicas.",
@@ -556,7 +566,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "warn",
         title: "La responsabilidad no se diluye en la cadena",
-        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las responsabilidades penales (175.205 (b)), y se sanciona según el RAC 13 (175.636). Eso incluye al explotador colombiano cuyo envío llega a otro Estado sin cumplir las Instrucciones y ese Estado lo notifica (175.636 (b)).",
+        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las responsabilidades penales, conforme a la legislación nacional (LAR 175.205 (b)). Con qué norma se sanciona y con qué cuantía lo decide cada país: en Colombia, el RAC 13, por remisión del RAC 175.636. Alcanza también al explotador cuyo envío llega a otro Estado sin cumplir las Instrucciones y ese Estado lo notifica.",
       },
       {
         kind: "enLaOperacion",
@@ -569,7 +579,7 @@ export const NIVEL_1: DocScreen[] = [
         preguntas: [
           {
             q: "Un bulto llega a la aeronave mal clasificado. ¿De quién es la responsabilidad de la clasificación?",
-            ref: "RAC 175.416 y 175.514",
+            ref: "LAR 175.410, 175.415 y 175.510",
             opciones: [
               {
                 t: "Del expedidor.",
@@ -588,14 +598,14 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "¿Qué necesita un explotador para poder aceptar carga con mercancías peligrosas?",
-            ref: "RAC 175.020 (a) y 175.220 (a)",
+            ref: "LAR 175.020 (a) y 175.220 (a)",
             opciones: [
               {
                 t: "Que el expedidor firme la declaración.",
                 fb: "La declaración del expedidor es necesaria para cada envío, pero no habilita al explotador. Sin autorización en las OpSpecs no puede aceptar mercancías peligrosas aunque el envío esté perfecto.",
               },
               {
-                t: "Una autorización de la UAEAC en sus OpSpecs o documento equivalente.",
+                t: "Una autorización de la AAC en sus OpSpecs o documento equivalente.",
                 ok: true,
                 fb: "El 175.020 (a) exige la autorización en las OpSpecs, y el 175.220 (a) repite que solo así puede aceptar y transportar. Sin ella, la única puerta es la autorización especial del 175.020 (c) para mercancías de riesgo menor.",
               },
@@ -611,7 +621,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "summary",
         items: [
           "Expedidor: identifica y clasifica (175.416). Explotador: solo acepta con OpSpecs y responde por sus agentes (175.220). Terminal: almacena, segrega e informa (175.225).",
-          "Quien actúa en nombre de otro responde igual (175.205 (c)); el incumplimiento va al RAC 13 (175.636).",
+          "Quien actúa en nombre de otro responde igual (LAR 175.205 (c)); la sanción la fija la legislación de cada país.",
           "El piloto al mando firma la información escrita antes de que las mercancías se transporten (175.515 (a) (1)).",
         ],
       },
