@@ -77,6 +77,31 @@ const cl = (
   lobulo: Relleno = "blanco"
 ): Celda => ({ marco: true, elementos: [{ tipo: "cuadro-lobulos", letra, lomo, lobulo, barra }] })
 
+const dc = (cuadrante: 0 | 1 | 2 | 3): Elemento => ({ tipo: "diagonal-cuadrante", cuadrante })
+const tn = (cuadrante: 0 | 1 | 2 | 3, relleno: Relleno): Elemento => ({
+  tipo: "cuadrante-tenido",
+  cuadrante,
+  relleno,
+})
+const mc = (lado: "izquierda" | "derecha", forma: "circulo" | "cuadrado"): Elemento => ({
+  tipo: "marca-colgada",
+  lado,
+  forma,
+})
+
+/**
+ * Casilla del 20: la cruz, las dos diagonales de abajo y lo que le toque.
+ *
+ * Los cuadrantes en blanco **no se declaran**. Aquí eso no es una omisión sino
+ * la condición para que la matriz se pueda resolver: se resuelve sumando dos
+ * casillas, y un «blanco» declarado sumado a un «negro» declarado dejaría los
+ * dos encima del mismo cuadrante. La ausencia tiene que ser ausencia.
+ */
+const cz = (...elementos: Elemento[]): Celda => ({
+  rejilla: "2x2",
+  elementos: [dc(2), dc(3), ...elementos],
+})
+
 const SUBE: Elemento = { tipo: "diagonal", sentido: "subiendo" }
 const BAJA: Elemento = { tipo: "diagonal", sentido: "bajando" }
 const TENDIDA: Elemento = { tipo: "diagonal", sentido: "tendida" }
@@ -392,6 +417,83 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * La tercera casilla de cada fila es la suma de las dos anteriores.
+   *
+   * La primera pone algo a la izquierda, la segunda pone algo a la derecha y la
+   * tercera trae las dos cosas a la vez: círculo con negro en la fila de
+   * arriba, cuadrado con rayado en la de en medio. En la de abajo la primera
+   * ya trae las dos —círculo con negro a la izquierda, cuadrado con rayado a la
+   * derecha— y la segunda repite todo menos el rayado, así que la suma es la
+   * primera entera. Eso es la A.
+   *
+   * Conviene decir lo que **no** es: la marca de arriba no manda sobre el
+   * relleno de abajo. La octava casilla lleva su cuadrado a la derecha y el
+   * cuadrante de abajo a la derecha en blanco, y es justo esa casilla la que
+   * hace que la suma dé algo distinto de ella misma.
+   *
+   * La B y la E se salen de la estructura: la B se queda sin las marcas de
+   * arriba y tiñe un cuadrante de la mitad de arriba, y la E trae diagonal en
+   * los cuatro. La C y la D sí son casillas legales, pero cruzan las parejas:
+   * la C pone el rayado a la izquierda con dos círculos y la D cambia de sitio
+   * el círculo y el cuadrado.
+   */
+  "AB-A1-20": {
+    tipo: "matriz-3x3",
+    celdas: [
+      cz(tn(2, "negro"), mc("izquierda", "circulo")),
+      cz(tn(3, "negro"), mc("derecha", "circulo")),
+      cz(tn(2, "negro"), tn(3, "negro"), mc("izquierda", "circulo"), mc("derecha", "circulo")),
+      cz(tn(2, "rayado-vertical"), mc("izquierda", "cuadrado")),
+      cz(tn(3, "rayado-vertical"), mc("derecha", "cuadrado")),
+      cz(
+        tn(2, "rayado-vertical"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "cuadrado"),
+        mc("derecha", "cuadrado")
+      ),
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "cuadrado")
+      ),
+      cz(tn(2, "negro"), mc("izquierda", "circulo"), mc("derecha", "cuadrado")),
+      HUECO,
+    ],
+    opciones: [
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "cuadrado")
+      ),
+      { rejilla: "2x2", elementos: [dc(1), dc(2), tn(1, "rayado-vertical"), tn(2, "negro")] },
+      cz(
+        tn(2, "rayado-vertical"),
+        tn(3, "negro"),
+        mc("izquierda", "circulo"),
+        mc("derecha", "circulo")
+      ),
+      cz(
+        tn(2, "negro"),
+        tn(3, "rayado-vertical"),
+        mc("izquierda", "cuadrado"),
+        mc("derecha", "circulo")
+      ),
+      {
+        rejilla: "2x2",
+        elementos: [
+          dc(0), dc(1), dc(2), dc(3),
+          tn(0, "rayado-vertical"),
+          tn(3, "negro"),
+          mc("izquierda", "cuadrado"),
+          mc("derecha", "cuadrado"),
+        ],
+      },
     ],
   },
 

@@ -117,6 +117,28 @@ export type Elemento =
   /** Una recta de lado a lado de la casilla. */
   | { tipo: "diagonal"; sentido: "subiendo" | "bajando" | "tendida" }
   /**
+   * La diagonal de un cuadrante, de su esquina de abajo a la izquierda a la de
+   * arriba a la derecha.
+   *
+   * Va suelta y no dentro de `cuadrante-tenido` porque en el ejercicio 20 hay
+   * cuadrantes con diagonal y sin teñir, y sobre todo porque la matriz se
+   * resuelve sumando casillas: si la diagonal viniera pegada al relleno, la
+   * suma de una casilla teñida y una que no lo está dejaría dos diagonales
+   * encima de la misma.
+   */
+  | { tipo: "diagonal-cuadrante"; cuadrante: Cuadrante }
+  /** El triángulo de arriba a la izquierda de un cuadrante, teñido. */
+  | { tipo: "cuadrante-tenido"; cuadrante: Cuadrante; relleno: Relleno }
+  /**
+   * El círculo o el cuadrado que cuelga de la línea de arriba, con su tramo de
+   * línea hacia el centro.
+   *
+   * El tramo va con la marca y no aparte: en el cuadernillo la línea llega
+   * hasta pasado el medio cuando hay una sola marca y cruza la casilla entera
+   * cuando hay dos, que es exactamente lo que sale al juntar los dos tramos.
+   */
+  | { tipo: "marca-colgada"; lado: "izquierda" | "derecha"; forma: "circulo" | "cuadrado" }
+  /**
    * Los discos negros del ejercicio 19, y de qué lado de la diagonal caen.
    *
    * `cuantos: 0` se declara igual que cualquier otra cantidad, en vez de
@@ -769,6 +791,51 @@ function dibujarCelda(
         break
       }
 
+      case "diagonal-cuadrante":
+      case "cuadrante-tenido": {
+        const qa = ancho / 2
+        const qb = alto / 2
+        const qx = x + (el.cuadrante % 2) * qa
+        const qy = y + Math.floor(el.cuadrante / 2) * qb
+        if (el.tipo === "diagonal-cuadrante") {
+          partes.push(
+            `<line x1="${qx}" y1="${qy + qb}" x2="${qx + qa}" y2="${qy}"` +
+              ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+          )
+          break
+        }
+        // Medio trazo hacia dentro por arriba y por la izquierda: el relleno
+        // muere contra el marco y contra la cruz, y si se pintara justo encima
+        // se las comería.
+        const d = TRAZO / 2
+        partes.push(
+          `<polygon points="${qx + d},${qy + d} ${qx + qa},${qy + d} ${qx + d},${qy + qb}"` +
+            ` fill="${pintura(el.relleno)}" stroke="none"/>`
+        )
+        break
+      }
+
+      case "marca-colgada": {
+        const cy = y + alto * 0.25
+        const r = ancho * 0.055
+        const cx = x + ancho * (el.lado === "izquierda" ? 0.28 : 0.72)
+        const [x1, x2] =
+          el.lado === "izquierda"
+            ? [cx + r, x + ancho * 0.56]
+            : [x + ancho * 0.44, cx - r]
+        partes.push(
+          `<line x1="${x1.toFixed(1)}" y1="${cy}" x2="${x2.toFixed(1)}" y2="${cy}"` +
+            ` stroke="currentColor" stroke-width="${TRAZO}"/>`,
+          el.forma === "circulo"
+            ? `<circle cx="${cx.toFixed(1)}" cy="${cy}" r="${r.toFixed(1)}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+            : `<rect x="${(cx - r).toFixed(1)}" y="${(cy - r).toFixed(1)}"` +
+              ` width="${(r * 2).toFixed(1)}" height="${(r * 2).toFixed(1)}"` +
+              ` fill="var(--card, #fff)" stroke="currentColor" stroke-width="${TRAZO}"/>`
+        )
+        break
+      }
+
       case "diagonal": {
         const [x1, y1, x2, y2] =
           el.sentido === "subiendo"
@@ -1355,6 +1422,12 @@ export function describirCelda(celda: Celda): string {
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
         case "diagonal":
           return `una diagonal ${el.sentido}`
+        case "diagonal-cuadrante":
+          return `una diagonal en el cuadrante de ${NOMBRE_CUADRANTE[el.cuadrante]}`
+        case "cuadrante-tenido":
+          return `el cuadrante de ${NOMBRE_CUADRANTE[el.cuadrante]} teñido de ${el.relleno}`
+        case "marca-colgada":
+          return `un ${el.forma} colgado a la ${el.lado}`
         case "puntos":
           return el.cuantos === 0
             ? "sin puntos"
