@@ -1,0 +1,13 @@
+Bienvenido al módulo de NOTAM de Aviatory.
+
+Esto que ves aquí decide si tu vuelo sale, por dónde entra y qué te vas a
+encontrar al aterrizar. Y está escrito en un código que nadie te enseñó a leer.
+
+Aquí vas a aprender qué es un NOTAM y quién lo publica. Vas a distinguir un
+NOTAMN de un NOTAMR y de un NOTAMC. Vas a leer la línea Q pieza por pieza, y los
+ítems A) a G), uno por uno. Y vas a descifrar la casilla E) con toda su
+fraseología abreviada.
+
+Al terminar, esto lo lees de corrido.
+
+Nueve lecciones, práctica y evaluación. Empecemos.

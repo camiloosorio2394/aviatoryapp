@@ -1,0 +1,210 @@
+<template>
+  <style>
+    /* ── Fonts (local staged WOFF2 first, pinned Google WOFF2 as the offline-safe fallback) ── */
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/Archivo_400.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/Archivo_400_ext.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_500.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_500_ext.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Frame root — styled by #root, never by a class on the composition element ── */
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      font-kerning: normal;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layer 1 — the full-bleed navy ground (its own clip, never a background on #root) */
+    .f08-empecemos-bg {
+      position: absolute;
+      inset: 0;
+      background: #14202E;
+    }
+
+    /* Layer 2 — the centred lockup stage */
+    .f08-empecemos-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      /* lifts the optical centre to ~0.44 x height, clear of the caption band */
+      padding-bottom: 8cqw;
+    }
+
+    /* the mark — the word, in Archivo. No graphic logotype. */
+    .f08-empecemos-mark {
+      font-family: 'Archivo', system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 9.9cqw;
+      line-height: 0.98;
+      letter-spacing: 0.035em;
+      /* trailing tracking on the last glyph, folded back so the word stays optically centred */
+      margin-right: -0.035em;
+      color: #FBFAF8;
+      white-space: nowrap;
+      will-change: filter, opacity, transform;
+    }
+
+    /* Layer 3 — the promise line + its accent hairline */
+    .f08-empecemos-promise-wrap {
+      width: fit-content;
+      margin-top: 2.9cqw;
+    }
+
+    .f08-empecemos-promise {
+      display: block;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-weight: 500;
+      font-size: 1.66cqw;
+      line-height: 1.2;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: rgba(251, 250, 248, 0.78);
+      /* fold the trailing letter-space back so the hairline measures the ink, not the tracking */
+      margin-right: -0.26em;
+    }
+
+    .f08-empecemos-pw {
+      display: inline-block;
+    }
+
+    /* the hairline sits on a navy track so the accent's screen blend always has the
+       ground beneath it, whatever stacking context the runtime puts the clip in */
+    .f08-empecemos-rule-track {
+      position: relative;
+      height: 1px;
+      width: 100%;
+      margin-top: 1.35cqw;
+      background: #14202E;
+    }
+
+    .f08-empecemos-rule {
+      position: absolute;
+      inset: 0;
+      height: 1px;
+      background: #123A6B;
+      mix-blend-mode: screen;
+      transform-origin: left center;
+    }
+
+    /* the only exit in the video — the final fall to soft black */
+    .f08-empecemos-blackout {
+      position: absolute;
+      inset: 0;
+      background: #080B10;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div data-hf-id="hf-rl6c" id="root" data-composition-id="08-empecemos" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-4mqc" class="clip f08-empecemos-bg" data-start="0" data-duration="4.702" data-track-index="0"></div>
+
+    <div data-hf-id="hf-smp6" class="clip f08-empecemos-stage" data-start="0" data-duration="4.702" data-track-index="1">
+      <div data-hf-id="hf-lzqb" class="f08-empecemos-mark" id="f08-empecemos-mark">AVIATORY</div>
+
+      <div data-hf-id="hf-2txk" class="f08-empecemos-promise-wrap">
+        <span data-hf-id="hf-d0d4" class="f08-empecemos-promise"><span data-hf-id="hf-omi0" class="f08-empecemos-pw">9 LECCIONES</span> <span data-hf-id="hf-ynnk" class="f08-empecemos-pw">· PRÁCTICA</span> <span data-hf-id="hf-luwk" class="f08-empecemos-pw">· EVALUACIÓN</span></span>
+        <div data-hf-id="hf-d2dc" class="f08-empecemos-rule-track">
+          <div data-hf-id="hf-9opu" class="f08-empecemos-rule" id="f08-empecemos-rule"></div>
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-9g51" class="clip f08-empecemos-blackout" id="f08-empecemos-blackout" data-start="0" data-duration="4.702" data-track-index="2"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" id="f08-empecemos-gsap"></script>
+  <script>
+    (function build() {
+      if (!window.gsap) {
+        var loader = document.getElementById('f08-empecemos-gsap');
+        if (loader) { loader.addEventListener('load', build); }
+        return;
+      }
+      var ROOT = document.querySelector('[data-composition-id="08-empecemos"]') || document;
+      var $ = function (sel) { return ROOT.querySelector(sel); };
+      var $$ = function (sel) { return Array.prototype.slice.call(ROOT.querySelectorAll(sel)); };
+
+      var mark = $('.f08-empecemos-mark');
+      var words = $$('.f08-empecemos-pw');
+      var rule = $('.f08-empecemos-rule');
+      var blackout = $('.f08-empecemos-blackout');
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      /* ── Scene 1 (0.0–1.2s) — cut to navy; AVIATORY resolves out of defocus and settles.
+            One gesture: a rack-focus landing, not a parts build. Hero readable well before 0.5s. ── */
+      tl.fromTo(mark,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.52, ease: 'power1.out' }, 0);
+      tl.fromTo(mark,
+        { filter: 'blur(38px)' },
+        { filter: 'blur(0px)', duration: 1.18, ease: 'power3.out' }, 0);
+      tl.fromTo(mark,
+        { scale: 1.045 },
+        { scale: 1, duration: 1.32, ease: 'power3.out' }, 0);
+
+      /* ── Scene 2 (1.2–2.8s) — the promise line arrives group by group, cued to the voice:
+            "…lecciones" 1.18 · "práctica" 1.80 · "evaluación" 2.54. Quiet fade register, no overshoot. ── */
+      var cues = [1.18, 1.80, 2.54];
+      for (var i = 0; i < words.length; i++) {
+        tl.fromTo(words[i],
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.46, ease: 'power2.out' },
+          cues[i] !== undefined ? cues[i] : 2.54);
+      }
+
+      /* ── Scene 3 (2.8–4.702s) — the accent hairline draws left→right beneath the line,
+            holds through "Empecemos.", and the frame falls to soft black. The one exit in the video. ── */
+      tl.fromTo(rule,
+        { scaleX: 0, transformOrigin: 'left center' },
+        { scaleX: 1, transformOrigin: 'left center', duration: 0.62, ease: 'power2.inOut' }, 3.06);
+
+      tl.fromTo(blackout,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.52, ease: 'power2.inOut' }, 4.18);
+
+      window.__timelines['08-empecemos'] = tl;
+    })();
+  </script>
+</template>

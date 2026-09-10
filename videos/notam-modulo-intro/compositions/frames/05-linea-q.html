@@ -1,0 +1,374 @@
+<template>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=block");
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── full-bleed ground: its own clip layer, never the root ───────────── */
+    #lq05-bg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #151618;
+    }
+
+    #lq05-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* ── the virtual camera: one transformed world wrapper ───────────────── */
+    #lq05-world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 960px 540px;
+    }
+
+    /* ── the Q line (foreground subject) ─────────────────────────────────── */
+    #lq05-line {
+      position: absolute;
+      left: 0;
+      top: 400px;
+      width: 1920px;
+      height: 88px;
+    }
+
+    .lq05-ch {
+      position: absolute;
+      top: 0;
+      height: 88px;
+      line-height: 88px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 64px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-align: center;
+      white-space: pre;
+      color: #FBFAF8;
+    }
+
+    .lq05-sep {
+      color: rgba(251, 250, 248, 0.30);
+      font-weight: 400;
+    }
+
+    /* selection band that travels with the read head */
+    #lq05-mark {
+      position: absolute;
+      left: 99.84px;
+      top: 392px;
+      width: 163.84px;
+      height: 104px;
+      border-radius: 6px;
+      background-color: rgba(93, 184, 166, 0.13);
+    }
+
+    #lq05-rule {
+      position: absolute;
+      left: 99.84px;
+      top: 524px;
+      width: 1720.32px;
+      height: 1px;
+      background-color: rgba(251, 250, 248, 0.14);
+      transform-origin: 0 50%;
+    }
+
+    /* ── field names (supporting) ────────────────────────────────────────── */
+    .lq05-label {
+      position: absolute;
+      top: 336px;
+      width: 640px;
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: rgba(251, 250, 248, 0.74);
+      white-space: pre;
+    }
+
+    /* ── the A) – G) item column ─────────────────────────────────────────── */
+    .lq05-item {
+      position: absolute;
+      left: 300px;
+      width: 1320px;
+      height: 56px;
+    }
+
+    .lq05-letter {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 50px;
+      line-height: 50px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 46px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: #5DB8A6;
+      white-space: pre;
+    }
+
+    .lq05-item-rule {
+      position: absolute;
+      left: 150px;
+      top: 50px;
+      width: 1170px;
+      height: 1px;
+      background-color: rgba(251, 250, 248, 0.14);
+      transform-origin: 0 50%;
+    }
+
+    /* ── progress chrome — the single coral moment ───────────────────────── */
+    #lq05-progress {
+      position: absolute;
+      right: 80px;
+      top: 810px;
+      height: 48px;
+      line-height: 48px;
+      padding: 0 24px;
+      border-radius: 9999px;
+      background-color: #123A6B;
+      color: #FBFAF8;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      white-space: pre;
+    }
+  </style>
+
+  <div data-hf-id="hf-m6ol" id="root" data-composition-id="05-linea-q" data-duration="10.761" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-u435" id="lq05-bg" class="clip" data-start="0" data-duration="10.761" data-track-index="0"></div>
+
+    <div data-hf-id="hf-uz0t" id="lq05-scene" class="clip" data-start="0" data-duration="10.761" data-track-index="1">
+      <div data-hf-id="hf-ohpy" id="lq05-world" data-layout-allow-overflow>
+        <!-- field names, one per station -->
+        <div data-hf-id="hf-qpok" class="lq05-label" id="lq05-l1" style="left: -138.24px">FIR</div>
+        <div data-hf-id="hf-5s5d" class="lq05-label" id="lq05-l2" style="left: 87.04px">código</div>
+        <div data-hf-id="hf-fyy3" class="lq05-label" id="lq05-l3" style="left: 271.36px">tráfico</div>
+        <div data-hf-id="hf-j3jk" class="lq05-label" id="lq05-l4" style="left: 414.72px">propósito</div>
+        <div data-hf-id="hf-4052" class="lq05-label" id="lq05-l5" style="left: 537.6px">alcance</div>
+        <div data-hf-id="hf-dit3" class="lq05-label" id="lq05-l6" style="left: 660.48px">inferior</div>
+        <div data-hf-id="hf-u9nw" class="lq05-label" id="lq05-l7" style="left: 824.32px">superior</div>
+        <div data-hf-id="hf-w5lx" class="lq05-label" id="lq05-l8" style="left: 1213.44px">coordenadas y radio</div>
+
+        <div data-hf-id="hf-h4d1" id="lq05-mark"></div>
+
+        <!-- SCEZ/QMRLC/IV/NBO/A/000/999/3324S07048W005 -->
+        <div data-hf-id="hf-fkno" id="lq05-line">
+          <span data-hf-id="hf-8kuw" class="lq05-ch" id="lq05-f1" style="left: 99.84px; width: 163.84px">SCEZ</span>
+          <span data-hf-id="hf-pt37" class="lq05-ch lq05-sep" style="left: 263.68px; width: 40.96px">/</span>
+          <span data-hf-id="hf-4v3e" class="lq05-ch" id="lq05-f2" style="left: 304.64px; width: 204.8px">QMRLC</span>
+          <span data-hf-id="hf-yu56" class="lq05-ch lq05-sep" style="left: 509.44px; width: 40.96px">/</span>
+          <span data-hf-id="hf-34f0" class="lq05-ch" id="lq05-f3" style="left: 550.4px; width: 81.92px">IV</span>
+          <span data-hf-id="hf-8dx6" class="lq05-ch lq05-sep" style="left: 632.32px; width: 40.96px">/</span>
+          <span data-hf-id="hf-lsdk" class="lq05-ch" id="lq05-f4" style="left: 673.28px; width: 122.88px">NBO</span>
+          <span data-hf-id="hf-5gsr" class="lq05-ch lq05-sep" style="left: 796.16px; width: 40.96px">/</span>
+          <span data-hf-id="hf-lbta" class="lq05-ch" id="lq05-f5" style="left: 837.12px; width: 40.96px">A</span>
+          <span data-hf-id="hf-6hz3" class="lq05-ch lq05-sep" style="left: 878.08px; width: 40.96px">/</span>
+          <span data-hf-id="hf-eq3c" class="lq05-ch" id="lq05-f6" style="left: 919.04px; width: 122.88px">000</span>
+          <span data-hf-id="hf-qa39" class="lq05-ch lq05-sep" style="left: 1041.92px; width: 40.96px">/</span>
+          <span data-hf-id="hf-o2gk" class="lq05-ch" id="lq05-f7" style="left: 1082.88px; width: 122.88px">999</span>
+          <span data-hf-id="hf-g8b9" class="lq05-ch lq05-sep" style="left: 1205.76px; width: 40.96px">/</span>
+          <span data-hf-id="hf-1jzb" class="lq05-ch" id="lq05-f8" style="left: 1246.72px; width: 573.44px">3324S07048W005</span>
+        </div>
+
+        <div data-hf-id="hf-tomw" id="lq05-rule"></div>
+
+        <!-- ítems A) a G) -->
+        <div data-hf-id="hf-lfe1" class="lq05-item" style="top: 660px">
+          <span data-hf-id="hf-zm3w" class="lq05-letter">A)</span><span data-hf-id="hf-n2lu" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-ql4s" class="lq05-item" style="top: 716px">
+          <span data-hf-id="hf-sb0n" class="lq05-letter">B)</span><span data-hf-id="hf-z8vq" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-fhwt" class="lq05-item" style="top: 772px">
+          <span data-hf-id="hf-6l3e" class="lq05-letter">C)</span><span data-hf-id="hf-zn6r" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-sn6q" class="lq05-item" style="top: 828px">
+          <span data-hf-id="hf-g1s5" class="lq05-letter">D)</span><span data-hf-id="hf-01hs" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-6bgl" class="lq05-item" style="top: 884px">
+          <span data-hf-id="hf-51rs" class="lq05-letter">E)</span><span data-hf-id="hf-x9cl" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-8484" class="lq05-item" style="top: 940px">
+          <span data-hf-id="hf-eigj" class="lq05-letter">F)</span><span data-hf-id="hf-xnnm" class="lq05-item-rule"></span>
+        </div>
+        <div data-hf-id="hf-j3vx" class="lq05-item" style="top: 996px">
+          <span data-hf-id="hf-zaye" class="lq05-letter">G)</span><span data-hf-id="hf-y1yn" class="lq05-item-rule"></span>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-icm3" id="lq05-progress">3/4</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="05-linea-q"]');
+      var el = function (s) { return root.querySelector(s); };
+      var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+
+      var world = el("#lq05-world");
+      var mark = el("#lq05-mark");
+
+      // Camera stops (pre-solved from the world coordinates above).
+      // screen = 960 + (worldX - 960) * scale + x   ·   transform-origin 960/540
+      var CAM_S1 = { x: 0, y: 0, scale: 1 };
+      var PAN_Y = 211.2;          // Q line centred on screen at scale 2.2
+      var PAN_S = 2.2;
+      var STOP = [1012.35, 1012.35, 811.0, 495.6, 225.3, -45.1, -405.5, -1012.35];
+
+      // ── voice map (assets/voice/05.wav · 9.561s, then 1.2s de quietud) ───
+      // "Vas a leer la línea cu,"  0.239–2.059   → the line lands, camera dives in
+      // "pieza por pieza."         2.659–3.859   → the eight-field walk
+      //  (silence 3.859–4.779)                   → the last two fields breathe
+      // "Y los ítems,"             4.779–5.679   → pan down onto the column
+      // "de la A a la G,"          6.119–7.599   → A) … G) enumerate
+      // "uno por uno."             8.539–9.299   → pull back, both in frame
+      //  9.44–10.761                             → absolute stillness
+
+      // Arrival beat per field — 0.44s apart (was 0.346), so every field now
+      // holds ~0.18s dead still after the pan lands before the next one starts.
+      var BEAT = [1.26, 1.70, 2.14, 2.58, 3.02, 3.46, 3.90, 4.34];
+      var PAN_DUR = 0.26;         // travel time between two adjacent fields
+      var WALK_END = 4.80;        // the camera leaves the Q line here, on "Y"
+
+      // Travelling read head: [x offset from the line start, width in px]
+      var MARK = [
+        [0, 163.84],
+        [204.8, 204.8],
+        [450.56, 81.92],
+        [573.44, 122.88],
+        [737.28, 40.96],
+        [819.2, 122.88],
+        [983.04, 122.88],
+        [1146.88, 573.44]
+      ];
+
+      var ACCENT = "#5DB8A6";
+      var PAPER = "#FBFAF8";
+
+      var tl = gsap.timeline({ paused: true });
+
+      gsap.set(world, CAM_S1);
+
+      // ── Scene 1 (0.0–1.26) · the real Q line lands full width on navy ────
+      tl.fromTo(
+        all(".lq05-ch"),
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.44, ease: "power2.out", stagger: 0.03 },
+        0.02
+      );
+      tl.fromTo(
+        el("#lq05-rule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, ease: "power2.out" },
+        0.45
+      );
+
+      // ── Scene 2 (1.26–4.80) · the camera walks the eight fields ──────────
+      // dive into station 1, arriving exactly on BEAT[0]
+      tl.to(
+        world,
+        { x: STOP[1], y: PAN_Y, scale: PAN_S, duration: 0.46, ease: "power2.inOut" },
+        BEAT[0] - 0.46
+      );
+      // STOP[0] === STOP[1]: fields 1 and 2 share the opening stop, so the
+      // walk proper starts at station 3 (index 2).
+      for (var k = 2; k < 8; k++) {
+        tl.to(
+          world,
+          { x: STOP[k], y: PAN_Y, scale: PAN_S, duration: PAN_DUR, ease: "power2.inOut" },
+          BEAT[k] - PAN_DUR
+        );
+      }
+
+      tl.fromTo(mark, { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "power1.out" }, BEAT[0] - 0.2);
+      for (var m = 1; m < 8; m++) {
+        tl.to(
+          mark,
+          { x: MARK[m][0], width: MARK[m][1], duration: PAN_DUR, ease: "power2.inOut" },
+          BEAT[m] - PAN_DUR
+        );
+      }
+      tl.to(mark, { opacity: 0, duration: 0.18, ease: "power1.in" }, WALK_END - 0.04);
+
+      for (var f = 0; f < 8; f++) {
+        var field = el("#lq05-f" + (f + 1));
+        var label = el("#lq05-l" + (f + 1));
+        // each field now stays lit ~0.40s instead of 0.30s
+        var out = f === 7 ? WALK_END + 0.02 : BEAT[f] + 0.26;
+
+        tl.to(field, { color: ACCENT, duration: 0.16, ease: "power1.out" }, BEAT[f] - 0.14);
+        tl.to(field, { color: PAPER, duration: 0.20, ease: "power1.inOut" }, out);
+
+        tl.fromTo(
+          label,
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" },
+          BEAT[f] - 0.16
+        );
+        tl.to(label, { opacity: 0, duration: 0.18, ease: "power1.in" }, out);
+      }
+
+      // ── Scene 3 (4.80–8.20) · pan down, the A)–G) column enumerates ──────
+      tl.to(
+        world,
+        { x: 0, y: -480, scale: 1.25, duration: 0.62, ease: "power2.inOut" },
+        WALK_END
+      );
+      // one row every 0.38s, spanning "Y los ítems, de la A a la G"
+      tl.fromTo(
+        all(".lq05-item"),
+        { opacity: 0, y: 26 },
+        { opacity: 1, y: 0, duration: 0.44, ease: "power2.out", stagger: 0.38 },
+        5.36
+      );
+      tl.fromTo(
+        all(".lq05-item-rule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.5, ease: "power2.out", stagger: 0.38 },
+        5.42
+      );
+
+      // ── Scene 4 (8.50–9.44) · pull back so line + items share the frame ──
+      tl.to(
+        world,
+        { x: 0, y: -270, scale: 1.0, duration: 0.86, ease: "power2.inOut" },
+        8.50
+      );
+      tl.fromTo(
+        el("#lq05-progress"),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
+        9.02
+      );
+
+      // hold the landed frame — 1.32s of absolute stillness to the end
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 10.76);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["05-linea-q"] = tl;
+    })();
+  </script>
+</template>

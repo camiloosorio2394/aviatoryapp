@@ -1,0 +1,344 @@
+<template>
+  <style>
+    /* ── Fonts (local staged WOFF2 first, pinned Google WOFF2 as the offline-safe fallback) ── */
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/Archivo_400.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/Archivo_400_ext.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* JetBrains Mono 400 — the code voice, identical to Frame 2 */
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_400-latin.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_400-latinext.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTNFOVgaY.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* JetBrains Mono 500 — the mono-label / annotation chrome */
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_500.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url('assets/fonts/JetBrainsMono_500_ext.woff2') format('woff2'),
+           url('https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2') format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Frame root — styled by #root, never by a class on the composition element ── */
+    #root {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: 'JetBrains Mono', ui-monospace, 'DejaVu Sans Mono', 'Liberation Mono', Menlo, Consolas, monospace;
+      font-variant-ligatures: none;
+      font-feature-settings: 'liga' 0, 'calt' 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Full-bleed ground: warm cream paper. Own clip layer, lowest track. ── */
+    .f07nte-ground {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      background: #FBFAF8;
+    }
+
+    /* ── Stage: the whole scene. NO camera — identity transform for the full shot,
+         so the Frame 2 encuadre lands pixel-identical and never moves again. ── */
+    .f07nte-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #FBFAF8;
+    }
+
+    /* ── Mono chrome label above the code surface (ink on cream) — Frame 2 geometry ── */
+    .f07nte-label {
+      position: absolute;
+      left: 365px;
+      top: 92px;
+      width: 1190px;
+      height: 32px;
+      font-size: 26px;
+      line-height: 32px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+
+    /* ── section-rule — Frame 2 geometry, drawn on and held ── */
+    .f07nte-rule {
+      position: absolute;
+      left: 365px;
+      top: 136px;
+      width: 1190px;
+      height: 1px;
+      background: #123A6B;
+    }
+
+    /* ── code-surface — CALCO EXACTO DEL FRAME 2. Do not touch these numbers. ── */
+    .f07nte-panel {
+      position: absolute;
+      left: 365px;
+      top: 160px;
+      width: 1190px;
+      height: 672px;
+      padding: 48px 44px;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .f07nte-code {
+      font-size: 40px;
+      line-height: 64px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #FBFAF8;
+    }
+
+    .f07nte-ln {
+      white-space: pre;
+      height: 64px;
+    }
+
+    /* field letters read as chrome, not as content */
+    .f07nte-fld {
+      opacity: 0.62;
+    }
+
+    /* the created-at footer sits on the last row of the panel, pure chrome */
+    .f07nte-foot {
+      opacity: 0.34;
+    }
+
+    /* the E) payload fragment — takes the accent wash on the payoff beat */
+    .f07nte-hot {
+      background-color: rgba(46, 111, 184, 0);
+      padding: 6px 5px;
+      margin: 0 -5px;
+      border-radius: 5px;
+    }
+
+    /* ── Annotations: quiet mono chrome in the 365px right margin ──
+         left 1587 → 1840 (inside the 80px safe edge). One per NOTAM line. */
+    .f07nte-ann {
+      position: absolute;
+      left: 1587px;
+      width: 253px;
+      height: 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-size: 23px;
+      line-height: 28px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.66);
+      opacity: 0;
+    }
+
+    /* leader hairline from the panel edge (x=1555) out to the annotation */
+    .f07nte-lead {
+      position: absolute;
+      left: 1555px;
+      width: 24px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.24);
+      transform-origin: 0% 50%;
+      opacity: 0;
+    }
+
+    /* ── The payoff: the ONE voltage moment. Straddles the panel edge on the E)
+         row — #2E6FB8 is the carta blue lifted in luminance so it survives the
+         #151618 surface (the #123A6B original reads 1.45:1 there). ── */
+    .f07nte-payoff {
+      position: absolute;
+      right: 80px;
+      top: 721px;
+      height: 82px;
+      box-sizing: border-box;
+      padding: 0 34px;
+      display: flex;
+      align-items: center;
+      background: #2E6FB8;
+      border-radius: 8px;
+      font-family: 'Archivo', Georgia, serif;
+      font-size: 50px;
+      line-height: 1;
+      font-weight: 400;
+      letter-spacing: -0.012em;
+      color: #FBFAF8;
+      white-space: nowrap;
+      transform-origin: 100% 50%;
+      opacity: 0;
+    }
+
+    /* the code fragment kept in its own voice inside the human sentence */
+    .f07nte-payoff .f07nte-rwy {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.9em;
+      letter-spacing: 0;
+    }
+  </style>
+
+  <div data-hf-id="hf-77dy" id="root" data-composition-id="07-notam-entendido" data-start="0" data-duration="3.422" data-width="1920" data-height="1080">
+
+    <div data-hf-id="hf-uief" class="clip f07nte-ground" data-start="0" data-duration="3.422" data-track-index="0"></div>
+
+    <div data-hf-id="hf-zsuv" class="clip f07nte-stage" data-start="0" data-duration="3.422" data-track-index="1">
+
+      <div data-hf-id="hf-is3p" class="f07nte-label">NOTAM A2526/26 · SCEL</div>
+      <div data-hf-id="hf-sd5j" class="f07nte-rule"></div>
+
+      <!-- The block enters ENTERO A PLENA TINTA on frame 0. No dim, no camera, no drift. -->
+      <div data-hf-id="hf-4e29" class="f07nte-panel">
+        <div data-hf-id="hf-lyti" class="f07nte-code"><div data-hf-id="hf-3muj" class="f07nte-ln">A2526/26 NOTAMN</div><div data-hf-id="hf-cgnm" class="f07nte-ln"><span data-hf-id="hf-kzc6" class="f07nte-fld">Q)</span> SCEZ/QMRLC/IV/NBO/A/000/999/3324S07048W005</div><div data-hf-id="hf-5d3k" class="f07nte-ln"><span data-hf-id="hf-87jq" class="f07nte-fld">A)</span> SCEL</div><div data-hf-id="hf-ltlu" class="f07nte-ln"><span data-hf-id="hf-kwed" class="f07nte-fld">B)</span> 2609071600</div><div data-hf-id="hf-bdyn" class="f07nte-ln"><span data-hf-id="hf-dyd4" class="f07nte-fld">C)</span> 2609122200</div><div data-hf-id="hf-txrs" class="f07nte-ln"><span data-hf-id="hf-x5mv" class="f07nte-fld">D)</span> 07 BTN 1600-1700</div><div data-hf-id="hf-g05g" class="f07nte-ln">   08-09 BTN 2000-2200</div><div data-hf-id="hf-ljf5" class="f07nte-ln">   12 BTN 1500-2200</div><div data-hf-id="hf-e40b" class="f07nte-ln"><span data-hf-id="hf-fhoq" class="f07nte-fld">E)</span> <span data-hf-id="hf-f4dq" class="f07nte-hot">RWY 17L/35R CLSD</span></div></div>
+      </div>
+
+      <!-- Leaders + annotations, one per NOTAM line. Rows are the authored mono
+           grid: first line top = 160 + 1px border + 48 padding = 209, box 64px. -->
+      <div data-hf-id="hf-0prz" class="f07nte-lead" data-ann="0" style="top: 241px;"></div>
+      <div data-hf-id="hf-p8ix" class="f07nte-lead" data-ann="1" style="top: 305px;"></div>
+      <div data-hf-id="hf-namw" class="f07nte-lead" data-ann="2" style="top: 369px;"></div>
+      <div data-hf-id="hf-0tvr" class="f07nte-lead" data-ann="3" style="top: 433px;"></div>
+      <div data-hf-id="hf-4bva" class="f07nte-lead" data-ann="4" style="top: 497px;"></div>
+      <div data-hf-id="hf-y5pd" class="f07nte-lead" data-ann="5" style="top: 561px;"></div>
+
+      <div data-hf-id="hf-758d" class="f07nte-ann" data-ann="0" style="top: 209px;">identificación</div>
+      <div data-hf-id="hf-wcvu" class="f07nte-ann" data-ann="1" style="top: 273px;">información<br data-hf-id="hf-x5px">codificada</div>
+      <div data-hf-id="hf-9m6u" class="f07nte-ann" data-ann="2" style="top: 337px;">dónde</div>
+      <div data-hf-id="hf-t41e" class="f07nte-ann" data-ann="3" style="top: 401px;">desde cuándo</div>
+      <div data-hf-id="hf-ahwz" class="f07nte-ann" data-ann="4" style="top: 465px;">hasta cuándo</div>
+      <div data-hf-id="hf-kuxq" class="f07nte-ann" data-ann="5" style="top: 529px;">cuándo aplica</div>
+
+      <div data-hf-id="hf-m7eb" class="f07nte-payoff">la&#160;pista&#160;<span data-hf-id="hf-4s7x" class="f07nte-rwy">17L/35R</span>&#160;está&#160;cerrada</div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var ROOT = document.querySelector('[data-composition-id="07-notam-entendido"]');
+      if (!ROOT) return;
+
+      var anns = ROOT.querySelectorAll('.f07nte-ann');
+      var leads = ROOT.querySelectorAll('.f07nte-lead');
+      var payoff = ROOT.querySelector('.f07nte-payoff');
+      var hot = ROOT.querySelector('.f07nte-hot');
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* ────────────────────────────────────────────────────────────────
+         NO CAMERA. The Frame 2 encuadre is authored at 1x in absolute
+         coordinates (panel 365/160/1190x672) and nothing in this scene
+         carries a transform on the panel, the stage or a world wrapper.
+         The block is on screen, whole and at full ink, at frame 0 — the
+         crossfade from Frame 6 is the only arrival it gets. Recognition
+         has to be instant, so nothing about it may move.
+         ──────────────────────────────────────────────────────────────── */
+
+      /* Scene 2 (0.6–2.3s) — grid-card-assemble cascade, adapted: the items
+         that assemble are ANNOTATIONS landing on a block already on screen.
+         Short-path slide from the right directly into its own slot, staggered
+         top-to-bottom, ~0.24s apart. No scatter, no overshoot (code-editorial
+         motion register: cross-dissolve + short slide, never bounce). */
+      var T0 = 0.58;
+      var GAP = 0.24;
+
+      for (var i = 0; i < anns.length; i++) {
+        var at = T0 + i * GAP;
+
+        /* the leader hairline draws out of the panel edge a beat early */
+        tl.fromTo(leads[i], { opacity: 0, scaleX: 0 }, {
+          opacity: 1,
+          scaleX: 1,
+          duration: 0.26,
+          ease: 'power2.out'
+        }, at - 0.06);
+
+        tl.fromTo(anns[i], { opacity: 0, x: 44 }, {
+          opacity: 1,
+          x: 0,
+          duration: 0.44,
+          ease: 'power3.out'
+        }, at);
+      }
+      /* last annotation lands at 0.58 + 5*0.24 + 0.44 = 2.22s */
+
+      /* Scene 3 (2.3–3.42s) — EL PAGO. The E) annotation breaks the margin
+         grid: it is the only long one, it is the only one in Archivo, it is
+         the only accent, and it lands ON the panel instead of beside it.
+         Medio golpe de escala = 0.93 → 1 from the right edge, power3.out. */
+      tl.fromTo(payoff, { opacity: 0, x: 52, scale: 0.93 }, {
+        opacity: 1,
+        x: 0,
+        scale: 1,
+        duration: 0.5,
+        ease: 'power3.out'
+      }, 2.42);
+
+      /* the E) fragment takes the accent wash so the eye ties the code to the
+         sentence — the same highlight mechanic Frame 2 used, now in the accent */
+      tl.fromTo(hot, { backgroundColor: 'rgba(46,111,184,0)' }, {
+        backgroundColor: 'rgba(46,111,184,0.26)',
+        duration: 0.42,
+        ease: 'power2.out'
+      }, 2.46);
+
+      /* 2.92 → 3.422s: quietud total. Nothing tweens, nothing exits
+         (Frame 8 follows; the root transition owns the exit). */
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['07-notam-entendido'] = tl;
+    })();
+  </script>
+</template>

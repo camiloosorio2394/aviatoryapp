@@ -1,0 +1,285 @@
+<template>
+  <style>
+    /* ── Type: JetBrains Mono 400 (latin) — the index/code voice of frame.md ── */
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTNFOVgaY.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Frame root — styled by #root, never by a class on the composition element ── */
+    #root {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: 'JetBrains Mono', ui-monospace, 'DejaVu Sans Mono', 'Liberation Mono', Menlo, Consolas, monospace;
+      font-variant-ligatures: none;
+      font-feature-settings: 'liga' 0, 'calt' 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Full-bleed ground: warm cream paper. Own clip layer, lowest track. ── */
+    .f02cil-ground {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      background: #FBFAF8;
+    }
+
+    /* ── Camera stage: overflow-clipped scene, carries the macro-focus resolve ── */
+    .f02cil-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #FBFAF8;
+      --dof: 0px;
+      filter: blur(var(--dof));
+      will-change: filter;
+    }
+
+    /* ── The one world wrapper. Camera = transform on this element only. ── */
+    .f02cil-world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    /* ── Mono chrome label above the code surface (ink on cream) ── */
+    .f02cil-label {
+      position: absolute;
+      left: 365px;
+      top: 92px;
+      width: 1190px;
+      height: 32px;
+      font-size: 26px;
+      line-height: 32px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      opacity: 0;
+      white-space: pre;
+    }
+
+    /* ── section-rule: the single coral moment of the frame, draws on ── */
+    .f02cil-rule {
+      position: absolute;
+      left: 365px;
+      top: 136px;
+      width: 1190px;
+      height: 1px;
+      background: #123A6B;
+      transform-origin: 0% 50%;
+    }
+
+    /* ── code-surface: warm navy panel, hairline elevation, 62% of the frame ── */
+    .f02cil-panel {
+      position: absolute;
+      left: 365px;
+      top: 160px;
+      width: 1190px;
+      height: 672px;
+      padding: 48px 44px;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .f02cil-code {
+      font-size: 40px;
+      line-height: 64px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #FBFAF8;
+    }
+
+    .f02cil-ln {
+      white-space: pre;
+      height: 64px;
+    }
+
+    /* field letters read as chrome, not as content */
+    .f02cil-fld {
+      opacity: 0.62;
+    }
+
+    /* the three fragments the student cannot read — they keep full ink */
+    .f02cil-ink {
+      color: #FBFAF8;
+      background-color: rgba(251, 250, 248, 0);
+      padding: 6px 5px;
+      margin: 0 -5px;
+      border-radius: 5px;
+    }
+  </style>
+
+  <div data-hf-id="hf-9i11" id="root" data-composition-id="02-codigo-ilegible" data-start="0" data-duration="12.981" data-width="1920" data-height="1080">
+
+    <div data-hf-id="hf-oxl6" class="clip f02cil-ground" data-start="0" data-duration="12.981" data-track-index="0"></div>
+
+    <div data-hf-id="hf-9bga" class="clip f02cil-stage" data-start="0" data-duration="12.981" data-track-index="1">
+      <div data-hf-id="hf-qbnj" class="f02cil-world">
+
+        <div data-hf-id="hf-vcdb" class="f02cil-label">NOTAM A0512/25 · SCEL</div>
+        <div data-hf-id="hf-9xk3" class="f02cil-rule"></div>
+
+        <div data-hf-id="hf-30md" class="f02cil-panel">
+          <div data-hf-id="hf-4eki" class="f02cil-code"><div data-hf-id="hf-1khr" class="f02cil-ln">A2526/26 NOTAMN</div><div data-hf-id="hf-yo39" class="f02cil-ln"><span data-hf-id="hf-hiay" class="f02cil-fld">Q)</span> SCEZ/<span data-hf-id="hf-s14v" class="f02cil-ink">QMRLC</span>/IV/NBO/A/000/999/3324S07048W005</div><div data-hf-id="hf-qg04" class="f02cil-ln"><span data-hf-id="hf-0sii" class="f02cil-fld">A)</span> SCEL</div><div data-hf-id="hf-9mfi" class="f02cil-ln"><span data-hf-id="hf-nw8p" class="f02cil-fld">B)</span> 2609071600</div><div data-hf-id="hf-s3nf" class="f02cil-ln"><span data-hf-id="hf-8oqk" class="f02cil-fld">C)</span> 2609122200</div><div data-hf-id="hf-eu1c" class="f02cil-ln"><span data-hf-id="hf-nl37" class="f02cil-fld">D)</span> 07 <span data-hf-id="hf-i5gy" class="f02cil-ink">BTN</span> 1600-1700</div><div data-hf-id="hf-qj28" class="f02cil-ln">   08-09 BTN 2000-2200</div><div data-hf-id="hf-t6lx" class="f02cil-ln">   12 BTN 1500-2200</div><div data-hf-id="hf-lhn2" class="f02cil-ln"><span data-hf-id="hf-mzye" class="f02cil-fld">E)</span> RWY 17L/35R <span data-hf-id="hf-yepq" class="f02cil-ink">CLSD</span></div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var ROOT = document.querySelector('[data-composition-id="02-codigo-ilegible"]');
+      if (!ROOT) return;
+
+      var world = ROOT.querySelector('.f02cil-world');
+      var stage = ROOT.querySelector('.f02cil-stage');
+      var label = ROOT.querySelector('.f02cil-label');
+      var rule = ROOT.querySelector('.f02cil-rule');
+      var code = ROOT.querySelector('.f02cil-code');
+      var inks = ROOT.querySelectorAll('.f02cil-ink');
+
+      /* ────────────────────────────────────────────────────────────────
+         VIRTUAL CAMERA (viewport-change, single-wrapper form)
+         The whole world is authored at its final 1x layout; the camera is
+         the ONLY thing that moves, and it only ever moves OUTWARD. One
+         composite transform on one .world wrapper => T = -offset * S, with
+         the offset measured from the world centre (transform-origin 50% 50%).
+
+         Focal detail = the centre of `QMRLC` on the Q line, derived from the
+         authored mono grid: text box left 365 + 1px border + 44 = 410px, char advance
+         40px * 0.6 = 24px, `QMRLC` starts at column 8 (centre col 10.5)
+         -> x = 410 + 10.5*24 = 662. First line top 160 + 1 + 48 = 209px,
+         line box 64px, Q line is row 1 -> y = 209 + 64 + 32 = 305.
+         ──────────────────────────────────────────────────────────────── */
+      var WORLD_CX = 960, WORLD_CY = 540;
+      var DETAIL_X = 662, DETAIL_Y = 305;
+
+      var S0 = 10;                                  /* macro open: 8 chars across the frame */
+      var S1 = 9.15;                                /* end of the pre-reveal ride (~9% travel) */
+
+      var FOX0 = DETAIL_X - WORLD_CX;               /* -298 */
+      var FOY0 = DETAIL_Y - WORLD_CY;               /* -235 */
+      var FOX1 = FOX0 + 30;                         /* the camera rides right along the Q line */
+      var FOY1 = FOY0 + 6;
+
+      /* T = -offset * S, solved once per camera pose. The poses are real GSAP
+         transform values, not an onUpdate writer: a frame renderer seeks with
+         callbacks suppressed, so a callback-driven camera would never move. */
+      var OPEN = { x: -FOX0 * S0, y: -FOY0 * S0, scale: S0 };
+      var RIDE = { x: -FOX1 * S1, y: -FOY1 * S1, scale: S1 };
+
+      /* smoothstep — Scene 1 is a slow ride along the line, never a dead hold */
+      function driftEase(p) { return p * p * (3 - 2 * p); }
+
+      /* Scene 2's single outward move. The eased value is remapped so that the
+         SCALE recedes exponentially (constant perceived zoom rate) under a
+         power3.out profile — expo-class deceleration into a full stop. One
+         ease, shared by scale + translate, so the detail drifts from frame
+         centre to its home slot as the wide takes over. The cubic profile keeps
+         the opening rate of the verified 9.33s cut and spends the extra runway
+         of the 12.981s cut on a longer, softer landing. */
+      function pullEase(p) {
+        var q = 1 - p;
+        var g = 1 - q * q * q;
+        return (S1 - Math.pow(S1, 1 - g)) / (S1 - 1);
+      }
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* Scene 1 (0.0-1.919s) — macro on QMRLC, the camera already easing outward.
+         Ends on the word «sale,» (voice w5 @1.919) — audio_meta.json, frame 2. */
+      tl.fromTo(world,
+        { x: OPEN.x, y: OPEN.y, scale: OPEN.scale },
+        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale, duration: 1.919, ease: driftEase },
+        0);
+
+      /* Scene 2 (1.919-6.899s) — THE move: one decelerating zoom-out to the wide.
+         It starts under «...vuelo sale» (w5 1.919) so the camera is still running
+         while the voice says «decide si tu vuelo sale», uncovers the Q line whole
+         (~scale 1.6 @3.9s) and then the full block, and eases to a dead stop on
+         the last word of the sentence, «aterrizar.» (w16 end @6.899). The frame is
+         LOCKED from 6.899s on; no camera tween exists after it. */
+      tl.fromTo(world,
+        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale },
+        { x: 0, y: 0, scale: 1, duration: 4.98, ease: pullEase, immediateRender: false },
+        1.919);
+
+      /* Scene 1 — blur-to-sharp macro resolve, chorded to the early pull */
+      tl.fromTo(stage, { '--dof': '11px' }, {
+        '--dof': '0px',
+        duration: 2.6,
+        ease: 'power2.out'
+      }, 0);
+
+      /* Scene 3 (6.899-9.84s) — the frame is locked; the document presents itself.
+         Chrome label + the one coral rule draw on over «Y está escrito en un
+         código» (w17 @7.639, w19 @8.099). Camera untouched. */
+      tl.fromTo(label, { opacity: 0, y: 12 }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.62,
+        ease: 'power2.out'
+      }, 7.639);
+
+      tl.fromTo(rule, { scaleX: 0 }, {
+        scaleX: 1,
+        duration: 0.78,
+        ease: 'power2.out'
+      }, 8.099);
+
+      /* Scene 4 (9.84-11.09s) — on «nadie te enseñó a leer» (w24 @9.84 ... w28
+         end @11.539) the block falls to half ink. The three fragments carry their
+         own colour, so they do not inherit the dim: QMRLC, BTN, CLSD stay at full
+         ink. The last tween lands at 11.09s — the voice runs out at 11.781s and
+         the closing 1.2s (11.781-12.981) are absolute stillness. */
+      tl.fromTo(code, { color: 'rgba(251,250,248,1)' }, {
+        color: 'rgba(251,250,248,0.44)',
+        duration: 1.25,
+        ease: 'power2.inOut'
+      }, 9.84);
+
+      tl.fromTo(inks, { backgroundColor: 'rgba(251,250,248,0)' }, {
+        backgroundColor: 'rgba(251,250,248,0.12)',
+        duration: 1.0,
+        ease: 'power2.out'
+      }, 9.9);
+
+      /* hold the landed frame out to the full scene length — no exit move */
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 12.98);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['02-codigo-ilegible'] = tl;
+    })();
+  </script>
+</template>

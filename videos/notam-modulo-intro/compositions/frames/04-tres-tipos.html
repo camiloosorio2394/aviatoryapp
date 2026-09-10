@@ -1,0 +1,382 @@
+<template>
+  <style>
+    /* ── Fonts (declared inside the template — the runtime clones only this) ── */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 500;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ── Frame root: styled by #root, never by a class ── */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "Archivo", system-ui, sans-serif;
+      color: #16191d;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* contract selector — the shared clip box */
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── background: warm paper, full-bleed, its own full-duration clip layer ── */
+    .f04-paper {
+      background-color: #fbfaf8;
+    }
+
+    /* ── camera (macro push-in runs underneath the whole shot) ── */
+    .f04-camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+    }
+
+    .f04-frame {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── kicker-spike ── */
+    .f04-kicker {
+      position: absolute;
+      top: 4.2cqw;
+      left: 4.2cqw;
+      display: flex;
+      align-items: center;
+      gap: 0.62cqw;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.46cqw;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.66);
+    }
+
+    .f04-spike {
+      width: 1.35cqw;
+      height: 1.35cqw;
+      display: block;
+      flex: none;
+    }
+
+    /* ── hairline rules (section-rule) ── */
+    .f04-rule-top,
+    .f04-rule-bottom {
+      position: absolute;
+      left: 4.2cqw;
+      width: 91.6cqw;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: left center;
+    }
+
+    .f04-rule-top {
+      top: 7.7cqw;
+    }
+
+    .f04-rule-bottom {
+      top: 40.7cqw;
+    }
+
+    /* ── triptych ── */
+    .f04-triptych {
+      position: absolute;
+      top: 14.1cqw;
+      left: 4.2cqw;
+      width: 91.6cqw;
+      height: 23.3cqw;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 1fr;
+      gap: 2.3cqw;
+    }
+
+    .f04-slot {
+      position: relative;
+      height: 100%;
+    }
+
+    /* empty slot marker — the tríptico framing, visible before its ficha lands */
+    .f04-empty {
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(22, 25, 29, 0.1);
+      border-radius: 10px;
+    }
+
+    /* ── ficha (card-hairline on the half-step tile) ── */
+    .f04-ficha {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background-color: #dde6f0;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(22, 25, 29, 0.08), 0 4px 16px rgba(22, 25, 29, 0.04);
+    }
+
+    .f04-ficha-inner {
+      position: absolute;
+      inset: 0;
+      padding: 2.3cqw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* arrival edge — lifts on landing, settles back to the resting hairline */
+    .f04-edge {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(22, 25, 29, 0.22);
+      border-radius: 12px;
+      pointer-events: none;
+    }
+
+    .f04-sigla {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 5.42cqw;
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: 0;
+      color: #16191d;
+      white-space: nowrap;
+    }
+
+    /* the letter that distinguishes the sigla — the frame's one voltage moment */
+    .f04-mark {
+      color: #123a6b;
+    }
+
+    .f04-rule-mini {
+      width: 3.6cqw;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.2);
+      transform-origin: left center;
+      margin: 2.3cqw 0;
+    }
+
+    .f04-verbo {
+      font-family: "Archivo", system-ui, sans-serif;
+      font-size: 3.96cqw;
+      font-weight: 400;
+      line-height: 1.06;
+      letter-spacing: -0.018em;
+      color: #16191d;
+      white-space: nowrap;
+    }
+
+    /* ── progress mark ── */
+    .f04-progress {
+      position: absolute;
+      top: 42cqw;
+      right: 4.2cqw;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.35cqw;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+
+    .f04-progress-now {
+      color: rgba(22, 25, 29, 0.72);
+    }
+
+    .f04-progress-sep {
+      color: rgba(22, 25, 29, 0.52);
+    }
+  </style>
+
+  <div data-hf-id="hf-7f62" id="root" data-composition-id="04-tres-tipos" data-width="1920" data-height="1080">
+    <!-- background: full-bleed warm paper on its own full-duration clip layer -->
+    <div data-hf-id="hf-6ngp" id="f04-paper" class="clip f04-paper" data-start="0" data-duration="7.704" data-track-index="0"></div>
+
+    <div data-hf-id="hf-mgsv" id="f04-stage" class="clip" data-start="0" data-duration="7.704" data-track-index="1">
+      <div data-hf-id="hf-hz0m" class="f04-camera">
+        <div data-hf-id="hf-kvvi" class="f04-frame">
+          <div data-hf-id="hf-q2eg" class="f04-kicker">
+            <svg data-hf-id="hf-mxb4" class="f04-spike" viewBox="0 0 24 24" aria-hidden="true">
+              <g data-hf-id="hf-fvqo" stroke="#123A6B" stroke-width="2.6" stroke-linecap="round">
+                <line data-hf-id="hf-tk55" x1="12" y1="3.2" x2="12" y2="20.8" />
+                <line data-hf-id="hf-pmta" x1="4.4" y1="7.6" x2="19.6" y2="16.4" />
+                <line data-hf-id="hf-mb14" x1="4.4" y1="16.4" x2="19.6" y2="7.6" />
+              </g>
+            </svg>
+            <span data-hf-id="hf-xq9c">Tipos de NOTAM</span>
+          </div>
+
+          <div data-hf-id="hf-0n2b" class="f04-rule-top"></div>
+
+          <div data-hf-id="hf-bnmi" class="f04-triptych">
+            <div data-hf-id="hf-kh0n" class="f04-slot">
+              <div data-hf-id="hf-1b5y" class="f04-empty"></div>
+              <div data-hf-id="hf-v1f2" class="f04-ficha">
+                <div data-hf-id="hf-wrzh" class="f04-ficha-inner">
+                  <div data-hf-id="hf-oyaa" class="f04-sigla">NOTAM<span data-hf-id="hf-bkc9" class="f04-mark">N</span></div>
+                  <div data-hf-id="hf-w4cr" class="f04-rule-mini"></div>
+                  <div data-hf-id="hf-iymu" class="f04-verbo">nuevo</div>
+                </div>
+                <div data-hf-id="hf-9o1c" class="f04-edge"></div>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-x2vb" class="f04-slot">
+              <div data-hf-id="hf-n7be" class="f04-empty"></div>
+              <div data-hf-id="hf-8ik2" class="f04-ficha">
+                <div data-hf-id="hf-wbj5" class="f04-ficha-inner">
+                  <div data-hf-id="hf-gbme" class="f04-sigla">NOTAM<span data-hf-id="hf-0frh" class="f04-mark">R</span></div>
+                  <div data-hf-id="hf-dw8b" class="f04-rule-mini"></div>
+                  <div data-hf-id="hf-kpqa" class="f04-verbo">reemplaza</div>
+                </div>
+                <div data-hf-id="hf-6uvc" class="f04-edge"></div>
+              </div>
+            </div>
+
+            <div data-hf-id="hf-woka" class="f04-slot">
+              <div data-hf-id="hf-nlmf" class="f04-empty"></div>
+              <div data-hf-id="hf-8wv3" class="f04-ficha">
+                <div data-hf-id="hf-xig8" class="f04-ficha-inner">
+                  <div data-hf-id="hf-gpxf" class="f04-sigla">NOTAM<span data-hf-id="hf-76yy" class="f04-mark">C</span></div>
+                  <div data-hf-id="hf-dhxa" class="f04-rule-mini"></div>
+                  <div data-hf-id="hf-1lnw" class="f04-verbo">cancela</div>
+                </div>
+                <div data-hf-id="hf-5ny9" class="f04-edge"></div>
+              </div>
+            </div>
+          </div>
+
+          <div data-hf-id="hf-vttb" class="f04-rule-bottom"></div>
+
+          <div data-hf-id="hf-u3ha" class="f04-progress">
+            <span data-hf-id="hf-xiea" class="f04-progress-now">2</span><span data-hf-id="hf-gfmb" class="f04-progress-sep">/4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var scope = document.querySelector('[data-composition-id="04-tres-tipos"]');
+      if (!scope) return;
+
+      var q = function (sel) {
+        return scope.querySelector(sel);
+      };
+      var qa = function (sel) {
+        return Array.prototype.slice.call(scope.querySelectorAll(sel));
+      };
+
+      /* Tiempos reales de audio_meta.json → voices[] con frame: 4
+         voz = 6.504s ("Vas a diferenciar un NOTAM ene, de un NOTAM erre, y de un NOTAM ce.")
+         + 1.2s de remanso en quietud absoluta = 7.704s */
+      var DUR = 7.704;
+      var VOZ = 6.504;
+
+      /* el arranque de cada sigla dicha: w4 · w8 · w13 */
+      var SIGLA = [1.799, 3.619, 5.48];
+      /* la ficha arranca un pelo antes para aterrizar sobre la sílaba */
+      var LEAD = 0.18;
+
+      var fichas = qa(".f04-ficha");
+      var edges = qa(".f04-edge");
+      var empties = qa(".f04-empty");
+      var minis = qa(".f04-rule-mini");
+      var verbos = qa(".f04-verbo");
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* macro camera: un push lentísimo que decelera hasta pararse con la voz */
+      tl.fromTo(q(".f04-camera"), { scale: 1 }, { scale: 1.014, duration: VOZ, ease: "power1.out" }, 0);
+
+      /* Escena 1 (0.0–1.6s) — «Vas a diferenciar un…»: papel, hairline superior
+         y el framing tríptico con sus tres casillas todavía vacías */
+      tl.fromTo(q(".f04-rule-top"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.out" }, 0.02);
+      tl.fromTo(q(".f04-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" }, 0.1);
+      tl.fromTo(empties, { opacity: 0 }, { opacity: 1, duration: 0.5, stagger: 0.16, ease: "power1.out" }, 0.34);
+
+      /* Escenas 1–3 — una ficha por sigla pronunciada: NOTAMN (1.80s) · NOTAMR (3.62s) · NOTAMC (5.48s)
+         (grid-card-assemble: cada ficha entra desde abajo, recorrido corto, directo a su casilla) */
+      for (var i = 0; i < SIGLA.length; i++) {
+        var s = SIGLA[i] - LEAD;
+        tl.fromTo(
+          fichas[i],
+          { y: 58, opacity: 0, scale: 0.986 },
+          { y: 0, opacity: 1, scale: 1, duration: 0.58, ease: "power3.out" },
+          s
+        );
+        tl.fromTo(edges[i], { opacity: 0.85 }, { opacity: 0, duration: 0.72, ease: "power2.out" }, s + 0.14);
+        tl.fromTo(minis[i], { scaleX: 0 }, { scaleX: 1, duration: 0.44, ease: "power2.out" }, s + 0.22);
+        tl.fromTo(
+          verbos[i],
+          { clipPath: "inset(0% 100% 0% 0%)" },
+          { clipPath: "inset(0% 0% 0% 0%)", duration: 0.52, ease: "power2.out" },
+          s + 0.3
+        );
+      }
+
+      /* Escena 4 — las tres asentadas, pesos iguales; la estructura cierra
+         antes de que acabe la voz (6.504s) */
+      tl.fromTo(q(".f04-rule-bottom"), { scaleX: 0 }, { scaleX: 1, duration: 0.56, ease: "power2.out" }, 5.88);
+      tl.fromTo(q(".f04-progress"), { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.44, ease: "power2.out" }, 6.02);
+
+      /* Remanso — 6.504s → 7.704s: nada se mueve, ni la cámara. Sostiene el timeline hasta DUR. */
+      tl.fromTo(
+        q(".f04-camera"),
+        { scale: 1.014 },
+        { scale: 1.014, duration: DUR - VOZ, ease: "none" },
+        VOZ
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-tres-tipos"] = tl;
+    })();
+  </script>
+</template>

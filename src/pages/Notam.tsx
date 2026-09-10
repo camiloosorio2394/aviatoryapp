@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowRight, BookOpen, Target, GraduationCap } from "lucide-react"
+import { ArrowLeft, BookOpen, Target, GraduationCap } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
 import aprendePhoto from "@/assets/photos/notam-paleta-aprende.webp"
@@ -136,11 +137,11 @@ export function Notam() {
       to: "/app/aerolinea/notam/aprende",
       icon: BookOpen,
       color: "var(--av-blue-500)",
-      meta: `${TOTALS.lessonScreens} secciones de lectura`,
+      meta: `${TOTALS.lessonScreens} secciones de formación`,
       title: "1. Aprende",
       blurb:
-        "La lección completa: para qué sirve un NOTAM, quién lo publica y cómo se lee casilla por casilla.",
-      cta: "Abrir la lección",
+        "Conoce la estructura del NOTAM, identifica sus componentes y aprende a interpretar la información aeronáutica.",
+      cta: "Iniciar formación",
       photo: aprendePhoto,
       photoAspect: "3/2",
       status:
@@ -156,11 +157,11 @@ export function Notam() {
       to: "/app/aerolinea/notam/practica",
       icon: Target,
       color: "var(--av-violet-400)",
-      meta: `${TOTALS.reales} NOTAM en imagen y ${TOTALS.exercises} en texto`,
+      meta: "NOTAMs reales · Imagen y texto",
       title: "2. Práctica",
       blurb:
-        "Interpretas NOTAM reales, nacionales e internacionales, en imagen y en texto, y comparas con la respuesta modelo.",
-      cta: "Empezar a practicar",
+        "Trabaja con NOTAMs reales y fortalece tu capacidad para reconocer abreviaturas, interpretar mensajes y comprender su significado operacional.",
+      cta: "Iniciar práctica",
       photo: practicaPhoto,
       photoAspect: "3/2",
       status:
@@ -174,11 +175,10 @@ export function Notam() {
       to: "/app/aerolinea/notam/evaluacion",
       icon: GraduationCap,
       color: "var(--av-amber-400)",
-      meta: `${EXAM_PER_ATTEMPT} preguntas aleatorias, apruebas con ${EXAM_PASS_SCORE}`,
+      meta: `${EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${EXAM_PASS_SCORE}%`,
       title: "3. Evaluación",
-      blurb:
-        "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
-      cta: "Presentar la evaluación",
+      blurb: `Comprueba tu dominio de la lectura e interpretación de NOTAMs mediante una evaluación de ${EXAM_PER_ATTEMPT} preguntas aleatorias.`,
+      cta: "Iniciar evaluación",
       photo: evaluacionPhoto,
       photoAspect: "3/2",
       status:
@@ -222,7 +222,7 @@ export function Notam() {
             aria-hidden
           />
 
-          <div className="relative grid gap-8 px-7 pb-10 pt-9 sm:px-12 sm:pb-12 sm:pt-11 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-10">
+          <div className="relative grid gap-8 px-7 pb-10 pt-9 sm:px-12 sm:pb-12 sm:pt-11 lg:grid-cols-[minmax(0,1fr)_minmax(0,300px)] lg:gap-10">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
@@ -244,105 +244,121 @@ export function Notam() {
                 entrevistas y pruebas técnicas de las aerolíneas.
               </p>
 
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
-                  to="/app/aerolinea/notam/aprende"
-                  className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-colors"
-                  style={{ background: "var(--av-blue-500)" }}
-                >
-                  <BookOpen className="h-4 w-4" /> Empezar la lección
-                </Link>
-                <Link
-                  to="/app/aerolinea/notam/practica"
-                  className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
-                >
-                  <Target className="h-4 w-4" /> Ir a la práctica
-                </Link>
+              {/* Columna `w-fit`: el mas ancho de los dos fija el ancho y el otro
+                  lo iguala, asi que la tarjeta y los botones acaban en la misma
+                  vertical sin ninguna medida escrita a mano. */}
+              <div className="mt-7 flex w-fit max-w-full flex-col gap-4">
+                {!loading && (
+                  <VideoIntro
+                    src="/modulos/notam/intro.mp4"
+                    miniatura={heroPhoto}
+                    portada="/modulos/notam/intro-poster.webp"
+                    duracion="59 s"
+                    titulo="Introducción al módulo de NOTAM"
+                    continuarA="/app/aerolinea/notam/aprende"
+                    continuarTexto="Empezar la lección"
+                    claveVisto="av:visto:intro:notam"
+                  />
+                )}
+
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link
+                    to="/app/aerolinea/notam/aprende"
+                    className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-colors"
+                    style={{ background: "var(--av-blue-500)" }}
+                  >
+                    <BookOpen className="h-4 w-4" /> Empezar la lección
+                  </Link>
+                  <Link
+                    to="/app/aerolinea/notam/practica"
+                    className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
+                  >
+                    <Target className="h-4 w-4" /> Ir a la práctica
+                  </Link>
+                </div>
               </div>
+
             </div>
 
-            {/* Panel de avance. Cristal sobre la foto, no tarjeta blanca: una
-                superficie clara aquí partiría el hero en dos pantallas. */}
-            <div className="self-start rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] px-5 py-[18px] backdrop-blur-[6px] lg:min-w-[230px]">
-              <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
-                Tu avance
-              </div>
-              {loading ? (
-                <>
-                  <div className="mt-3 h-9 w-24 animate-pulse rounded bg-white/15" />
-                  <div className="mt-4 h-1 animate-pulse rounded-sm bg-white/15" />
-                </>
-              ) : (
-                <>
-                  <div className="mt-2 flex items-baseline gap-2">
-                    <span className="nh-display tabular text-[40px] font-bold leading-none text-white">
-                      {resumen.overall}%
-                    </span>
-                    <span className="text-[13px] text-white/60">de la sección</span>
-                  </div>
-                  <div
-                    className="mt-4 h-1 overflow-hidden rounded-sm bg-white/15"
-                    role="progressbar"
-                    aria-valuenow={resumen.overall}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label="Avance de la sección NOTAM"
-                  >
+            {/* Avance de la sección: la cifra global y, bajo una línea fina, de
+                qué se compone. Una sola caja de cristal sobre la foto: en dos
+                cajas separadas se troceaba algo que se lee de un tirón, y una
+                superficie clara aquí partiría el hero en dos pantallas.
+                `overflow-hidden` es lo que deja que la línea llegue de borde a
+                borde sin desbordar el radio de las esquinas. */}
+            <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:min-w-[230px]">
+              <div className="px-4 pb-3.5 pt-4">
+                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                  Tu avance
+                </div>
+                {loading ? (
+                  <>
+                    <div className="mt-2.5 h-7 w-20 animate-pulse rounded bg-white/15" />
+                    <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
+                  </>
+                ) : (
+                  <>
+                    <div className="mt-1.5 flex items-baseline gap-2">
+                      <span className="nh-display tabular text-[28px] font-bold leading-none text-white">
+                        {resumen.overall}%
+                      </span>
+                      <span className="text-[12px] text-white/60">de la sección</span>
+                    </div>
                     <div
-                      className="h-full rounded-sm transition-all"
-                      style={{ width: `${resumen.overall}%`, background: "#4E9BF5" }}
-                    />
-                  </div>
-                </>
-              )}
-              <p className="mt-3 text-[12px] leading-[1.5] text-white/55">
-                {user
-                  ? "Se guarda en tu cuenta a medida que avanzas."
-                  : "Inicia sesión para guardar tu avance en la cuenta."}
-              </p>
+                      className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
+                      role="progressbar"
+                      aria-valuenow={resumen.overall}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label="Avance de la sección NOTAM"
+                    >
+                      <div
+                        className="h-full rounded-sm transition-all"
+                        style={{
+                          width: `${resumen.overall}%`,
+                          background: "var(--av-green-400)",
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+                <p className="mt-2.5 text-[11px] leading-[1.5] text-white/55">
+                  {user
+                    ? "Se guarda en tu cuenta a medida que avanzas."
+                    : "Inicia sesión para guardar tu avance en la cuenta."}
+                </p>
+              </div>
+
+              <div className="border-t border-white/10 p-1">
+                <FilaAvance
+                  titulo="Lección"
+                  to="/app/aerolinea/notam/aprende"
+                  valor={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
+                  pct={resumen.lessonPct}
+                  color="#4E9BF5"
+                  cargando={loading}
+                />
+                <FilaAvance
+                  titulo="Práctica"
+                  to="/app/aerolinea/notam/practica"
+                  valor={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
+                  pct={resumen.practicePct}
+                  color="var(--av-cyan-400)"
+                  cargando={loading}
+                />
+                <FilaAvance
+                  titulo="Evaluación"
+                  to="/app/aerolinea/notam/evaluacion"
+                  valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
+                  aviso={resumen.best === null}
+                  pct={resumen.examPct}
+                  color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
+                  cargando={loading}
+                />
+              </div>
             </div>
           </div>
         </section>
-
-        {/* Franja de avance. El separador entre celdas es el hueco de un píxel
-            de la retícula sobre el color del borde: una sola caja con tres
-            celdas, y no tres tarjetas sueltas. */}
-        <div className="mt-6 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]">
-          <Celda
-            titulo="Lección"
-            to="/app/aerolinea/notam/aprende"
-            valor={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
-            pie="secciones leídas"
-            pct={resumen.lessonPct}
-            color="var(--av-blue-500)"
-            cargando={loading}
-          />
-          <Celda
-            titulo="Práctica"
-            to="/app/aerolinea/notam/practica"
-            valor={`${resumen.practiceDone} / ${NOTAM_PRACTICE_TOTAL}`}
-            pie="ejercicios resueltos"
-            pct={resumen.practicePct}
-            color="var(--av-blue-500)"
-            cargando={loading}
-          />
-          <Celda
-            titulo="Evaluación"
-            to="/app/aerolinea/notam/evaluacion"
-            valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
-            aviso={resumen.best === null}
-            pie={
-              resumen.best === null
-                ? `apruebas con ${EXAM_PASS_SCORE}`
-                : resumen.passed
-                  ? "aprobada"
-                  : `te faltan ${EXAM_PASS_SCORE - resumen.best} puntos`
-            }
-            pct={resumen.examPct}
-            color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
-            cargando={loading}
-          />
-        </div>
 
         {/* Las 3 partes */}
         <section className="pt-14">
@@ -361,17 +377,18 @@ export function Notam() {
 // ─── Sub componentes ─────────────────────────────────────────────────────────
 
 /**
- * Una celda de la franja de avance: bloque, cifra, barra y pie.
+ * Una parte de la sección dentro del hero: nombre, cifra y barra.
  *
- * La barra es recta y de cinco píxeles, no cápsula con degradado: la cápsula
- * lee como app de consumo y esta pantalla tiene que leerse como instrumento.
- * Cuando todavía no hay nada que medir, la cifra se sustituye por un sello
- * ámbar, que dice "pendiente" sin fingir un cero.
+ * Va sobre el panel de cristal, y ahí el azul del módulo (#123A6B) no se ve:
+ * usa el mismo #4E9BF5 que la barra de «Tu avance», calibrado para este
+ * fondo. El ámbar y el verde sí valen tal cual, que son claros de origen.
+ *
+ * La fila entera es el enlace, no un «Seguir» aparte: a este tamaño un
+ * enlace de texto sería un blanco diminuto en móvil.
  */
-function Celda({
+function FilaAvance({
   titulo,
   valor,
-  pie,
   pct,
   color,
   aviso,
@@ -380,37 +397,30 @@ function Celda({
 }: {
   titulo: string
   valor: string
-  pie: string
   pct: number
   color: string
+  /** Todavía no hay nada que medir: la cifra se dice en ámbar. */
   aviso?: boolean
   cargando?: boolean
-  /** A dónde lleva la celda. Sin esto se queda en dato, que era el problema. */
-  to?: string
+  to: string
 }) {
   return (
-    <div className="bg-card px-6 py-[22px]">
-      <div className="flex items-center justify-between gap-3">
-        <span className="nh-display text-[16px] font-semibold">{titulo}</span>
+    <Link to={to} className="block rounded-[9px] px-2.5 py-1.5 transition-colors hover:bg-white/[0.07]">
+      <div className="flex items-baseline justify-between gap-3">
+        <span className="text-[12.5px] font-medium text-white/85">{titulo}</span>
         {cargando ? (
-          <span className="h-4 w-14 animate-pulse rounded bg-muted" />
-        ) : aviso ? (
-          // El sello del sistema, no tres hexadecimales a mano: aquellos eran
-          // los del handoff, calibrados para fondo claro, y en tema oscuro
-          // dejaban un bloque crema sobre la tarjeta casi negra. `.chip-amber`
-          // ya trae su variante para oscuro.
-          //
-          // Y no puede partirse en dos líneas: sin `whitespace-nowrap`, "Sin
-          // intentos" rompe la altura de la celda y descuadra la franja entera.
-          <span className="chip chip-amber shrink-0 whitespace-nowrap">{valor}</span>
+          <span className="h-3 w-12 animate-pulse rounded bg-white/15" />
         ) : (
-          <span className="tabular text-[14px]" style={{ color }}>
+          <span
+            className="tabular text-[11.5px]"
+            style={{ color: aviso ? "var(--av-amber-400)" : "rgba(255,255,255,0.62)" }}
+          >
             {valor}
           </span>
         )}
       </div>
       <div
-        className="mt-3 h-[5px] overflow-hidden rounded-[3px] bg-muted"
+        className="mt-1.5 h-[3px] overflow-hidden rounded-sm bg-white/15"
         role="progressbar"
         aria-valuenow={cargando ? undefined : pct}
         aria-valuemin={0}
@@ -418,23 +428,10 @@ function Celda({
         aria-label={`Avance de ${titulo}`}
       >
         <div
-          className="h-full rounded-[3px] transition-all"
+          className="h-full rounded-sm transition-all"
           style={{ width: `${pct}%`, background: color }}
         />
       </div>
-      <div className="mt-2.5 text-[11px] tracking-[0.04em] text-muted-foreground">{pie}</div>
-      {/* La celda no se queda en el dato: lleva a arreglarlo. Un «Sin intentos»
-          sin salida es un reproche; con el enlace al lado es una invitación. */}
-      {to && (
-        <Link
-          to={to}
-          className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium transition-colors hover:underline"
-          style={{ color }}
-        >
-          {pct > 0 ? "Seguir" : "Empezar"}
-          <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      )}
-    </div>
+    </Link>
   )
 }

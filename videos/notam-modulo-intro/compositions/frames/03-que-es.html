@@ -1,0 +1,273 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* — brand faces (code-editorial preset: Archivo display/body + JetBrains Mono index) — */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400 700;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+    }
+
+    /* frame root — styled by #root, never by a class on the composition element */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "Archivo", sans-serif;
+      color: #16191D;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── background: the warm paper, full-bleed, on its own full-duration clip ── */
+    .f03-que-es-paper {
+      position: absolute;
+      inset: 0;
+      background: #FBFAF8;
+    }
+    .f03-que-es-topline {
+      position: absolute;
+      left: 140px;
+      top: 110px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+      transform-origin: 0% 50%;
+    }
+
+    /* ── stage ── */
+    .f03-que-es-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* the lockup: NOTAM  |  aviso a los aviadores */
+    .f03-que-es-lockup {
+      position: absolute;
+      left: 140px;
+      top: 270px;
+      width: 1640px;
+      height: 210px;
+    }
+    .f03-que-es-word {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 240px;
+      line-height: 1;
+      letter-spacing: -0.022em;
+      color: #16191D;
+      white-space: nowrap;
+    }
+    .f03-que-es-ltr {
+      display: inline-block;
+    }
+    /* the one drawn-on accent: the hairline that separates term from meaning */
+    .f03-que-es-divider {
+      position: absolute;
+      left: 926px;
+      top: 10px;
+      width: 1px;
+      height: 186px;
+      background: #123A6B;
+      transform-origin: 50% 0%;
+    }
+    .f03-que-es-gloss {
+      position: absolute;
+      left: 1000px;
+      top: 0;
+      width: 640px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-style: italic;
+      font-size: 92px;
+      line-height: 1.12;
+      letter-spacing: -0.012em;
+      color: #16191D;
+    }
+    .f03-que-es-gline {
+      white-space: nowrap;
+    }
+    .f03-que-es-gw {
+      display: inline-block;
+    }
+
+    /* the second idea: who publishes it */
+    .f03-que-es-rule {
+      position: absolute;
+      left: 140px;
+      top: 572px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+      transform-origin: 0% 50%;
+    }
+    .f03-que-es-label {
+      position: absolute;
+      left: 140px;
+      top: 606px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.45);
+    }
+    .f03-que-es-row {
+      position: absolute;
+      left: 140px;
+      top: 664px;
+      width: 1640px;
+      display: flex;
+      gap: 28px;
+    }
+    .f03-que-es-chip {
+      flex: 1;
+      background: #FBFAF8;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(22, 25, 29, 0.08), 0 4px 16px rgba(22, 25, 29, 0.04);
+      padding: 20px 28px;
+    }
+    .f03-que-es-sigla {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 34px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: #16191D;
+    }
+    .f03-que-es-desc {
+      margin-top: 10px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 26px;
+      line-height: 1.35;
+      color: rgba(22, 25, 29, 0.58);
+      white-space: nowrap;
+    }
+
+    /* series progress mark — identical geometry across frames 03/04/05/06 */
+    .f03-que-es-progress {
+      position: absolute;
+      right: 140px;
+      top: 820px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 28px;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      color: #123A6B;
+    }
+  </style>
+
+  <div data-hf-id="hf-hl1h" id="root" data-composition-id="03-que-es" data-width="1920" data-height="1080">
+    <!-- full-bleed ground: its own clip layer, full duration, lowest track -->
+    <div data-hf-id="hf-1mqz" class="clip f03-que-es-paper" data-start="0" data-duration="4.624" data-track-index="0">
+      <div data-hf-id="hf-3u7a" class="f03-que-es-topline"></div>
+    </div>
+
+    <div data-hf-id="hf-nhvu" class="clip f03-que-es-stage" data-start="0" data-duration="4.624" data-track-index="1">
+      <div data-hf-id="hf-5mk9" class="f03-que-es-lockup">
+        <div data-hf-id="hf-32z7" class="f03-que-es-word"><span data-hf-id="hf-u298" class="f03-que-es-ltr">N</span><span data-hf-id="hf-tny7" class="f03-que-es-ltr">O</span><span data-hf-id="hf-jqai" class="f03-que-es-ltr">T</span><span data-hf-id="hf-ra41" class="f03-que-es-ltr">A</span><span data-hf-id="hf-svc5" class="f03-que-es-ltr">M</span></div>
+        <div data-hf-id="hf-wqr2" class="f03-que-es-divider"></div>
+        <div data-hf-id="hf-g2xr" class="f03-que-es-gloss">
+          <div data-hf-id="hf-tmkw" class="f03-que-es-gline"><span data-hf-id="hf-kvja" class="f03-que-es-gw">aviso</span> <span data-hf-id="hf-0imh" class="f03-que-es-gw">a</span> <span data-hf-id="hf-3bdg" class="f03-que-es-gw">los</span></div>
+          <div data-hf-id="hf-u1d4" class="f03-que-es-gline"><span data-hf-id="hf-fqf8" class="f03-que-es-gw">aviadores</span></div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-8n5p" class="f03-que-es-rule"></div>
+      <div data-hf-id="hf-djpw" class="f03-que-es-label">Quién lo publica</div>
+
+      <div data-hf-id="hf-tpz9" class="f03-que-es-row">
+        <div data-hf-id="hf-n5qh" class="f03-que-es-chip">
+          <div data-hf-id="hf-ik7i" class="f03-que-es-sigla">AAC</div>
+          <div data-hf-id="hf-jixp" class="f03-que-es-desc">autoridad de aviación civil</div>
+        </div>
+        <div data-hf-id="hf-wtrx" class="f03-que-es-chip">
+          <div data-hf-id="hf-iesm" class="f03-que-es-sigla">AIS</div>
+          <div data-hf-id="hf-o15h" class="f03-que-es-desc">información aeronáutica</div>
+        </div>
+        <div data-hf-id="hf-y0p0" class="f03-que-es-chip">
+          <div data-hf-id="hf-p4by" class="f03-que-es-sigla">NOF</div>
+          <div data-hf-id="hf-y101" class="f03-que-es-desc">oficina NOTAM internacional</div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-076e" class="f03-que-es-progress">1/4</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="03-que-es"]');
+      var one = function (sel) { return root.querySelector(sel); };
+      var all = function (sel) { return root.querySelectorAll(sel); };
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* ── Scene 1 (0.0–1.2s) — paper, then NOTAM alone at frame center ── */
+      tl.fromTo(one(".f03-que-es-topline"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.06);
+
+      /* the word is parked at frame center (x 394) until Scene 2 slides it home */
+      tl.fromTo(one(".f03-que-es-word"),
+        { x: 394 },
+        { x: 0, duration: 0.62, ease: "power3.inOut" }, 1.18);
+
+      tl.fromTo(all(".f03-que-es-ltr"),
+        { opacity: 0, yPercent: 16, filter: "blur(12px)" },
+        { opacity: 1, yPercent: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.05, ease: "power3.out" }, 0.06);
+
+      /* ── Scene 2 (1.2–2.8s) — the accent hairline draws down, the meaning
+            arrives word by word on the voice: "qué es un NOTAM" ── */
+      tl.fromTo(one(".f03-que-es-divider"),
+        { scaleY: 0 },
+        { scaleY: 1, duration: 0.45, ease: "power2.out" }, 1.42);
+
+      tl.fromTo(all(".f03-que-es-gw"),
+        { opacity: 0, y: 24, filter: "blur(8px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, stagger: 0.13, ease: "power3.out" }, 1.55);
+
+      /* ── Scene 3 (2.8–4.62s) — the second idea builds under a section rule,
+            then the series mark lands and everything settles ── */
+      tl.fromTo(one(".f03-que-es-rule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.55, ease: "power2.out" }, 2.72);
+
+      tl.fromTo(one(".f03-que-es-label"),
+        { opacity: 0, x: -18 },
+        { opacity: 1, x: 0, duration: 0.45, ease: "power2.out" }, 2.86);
+
+      tl.fromTo(all(".f03-que-es-chip"),
+        { opacity: 0, y: 28 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.16, ease: "power3.out" }, 3.02);
+
+      tl.fromTo(one(".f03-que-es-progress"),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 3.95);
+
+      /* hold the full scene length */
+      tl.to({}, { duration: 0.01 }, 4.614);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-que-es"] = tl;
+    })();
+  </script>
+</template>

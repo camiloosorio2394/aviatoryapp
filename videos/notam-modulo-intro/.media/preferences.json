@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "embed",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:33.823Z"
+    },
+    "aspect": {
+      "value": "1920x1080",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:33.975Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:34.135Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:34.311Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:34.490Z"
+    },
+    "voice": {
+      "value": "001248bb63f847888d37b766ee8b3a47",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:34.663Z"
+    },
+    "style_preset.faceless-explainer": {
+      "value": "code-editorial",
+      "confirmed_in": [
+        "notam-modulo-intro"
+      ],
+      "updated_at": "2026-09-10T18:00:34.837Z"
+    }
+  },
+  "sightings": {}
+}

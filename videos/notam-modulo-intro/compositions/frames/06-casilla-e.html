@@ -1,0 +1,396 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ---- fonts (frame.md ramp: Archivo display/body + JetBrains Mono index/code) ---- */
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 500;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ---- frame root: NO background here (the ground is a clip layer) ---- */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* the paper — full-bleed ground, own clip layer, full duration */
+    #e6-paper {
+      background-color: #FBFAF8;
+    }
+
+    #e6-stage {
+      color: #16191D;
+    }
+
+    /* ---- masthead chrome ---- */
+    #e6-kicker {
+      position: absolute;
+      left: 80px;
+      top: 84px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #16191D;
+    }
+
+    #e6-spike {
+      width: 24px;
+      height: 24px;
+      flex: none;
+    }
+
+    #e6-index {
+      position: absolute;
+      right: 80px;
+      top: 84px;
+      height: 36px;
+      line-height: 36px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.58);
+    }
+
+    #e6-rule-top,
+    #e6-rule-bottom {
+      position: absolute;
+      left: 80px;
+      width: 1760px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+    }
+
+    #e6-rule-top {
+      top: 152px;
+      transform-origin: left center;
+    }
+
+    #e6-rule-bottom {
+      top: 806px;
+      transform-origin: right center;
+    }
+
+    /* ---- the original code, small + attenuated (scene 3 reminder) ---- */
+    #e6-origin {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 358px;
+      height: 48px;
+      line-height: 48px;
+      text-align: center;
+      white-space: nowrap;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 34px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.40);
+      opacity: 0;
+    }
+
+    /* ---- the casilla line: fixed slots so a substitution never moves the line ---- */
+    #e6-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 402px;
+      text-align: center;
+      white-space: nowrap;
+      font-size: 0;
+      line-height: 0;
+    }
+
+    /* zero-width strut: pins the shared baseline at 402 + 150 = 552px, font-metric independent */
+    #e6-strut {
+      display: inline-block;
+      width: 0;
+      height: 150px;
+      vertical-align: baseline;
+    }
+
+    .e6-slot {
+      display: inline-block;
+      vertical-align: baseline;
+      text-align: center;
+      font-size: 0;
+    }
+
+    .e6-gap {
+      margin-right: 34px;
+    }
+
+    .e6-word {
+      display: inline-block;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 88px;
+      font-weight: 400;
+      line-height: 120px;
+      letter-spacing: 0.005em;
+      color: #16191D;
+    }
+
+    /* Both states live inside the slot; exactly one is displayed. The swap flips
+       display at a single frame — a hard CUT, never a fade — and because the shown
+       state stays in flow, every slot keeps handing the line one shared baseline. */
+    .e6-code {
+      display: inline;
+    }
+
+    /* the natural-language voice: the token that got translated changes face, in place */
+    .e6-nat {
+      display: none;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      font-weight: 400;
+      letter-spacing: -0.018em;
+    }
+
+    /* the substitution tick — a hard selection-box flash behind the swapped field */
+    .e6-flash {
+      position: absolute;
+      top: 468px;
+      height: 112px;
+      border-radius: 6px;
+      background-color: #DDE6F0;
+      opacity: 0;
+    }
+
+    #e6-flash-rwy {
+      left: 555px;
+      width: 212px;
+    }
+
+    #e6-flash-clsd {
+      left: 1195px;
+      width: 316px;
+    }
+
+    /* field markers under the two substitutable slots */
+    .e6-mark {
+      position: absolute;
+      top: 600px;
+      height: 2px;
+      background-color: rgba(22, 25, 29, 0.22);
+      transform-origin: left center;
+    }
+
+    #e6-mark-rwy {
+      left: 563px;
+      width: 196px;
+    }
+
+    #e6-mark-clsd {
+      left: 1203px;
+      width: 300px;
+    }
+
+    /* the one voltage moment: the resolved reading gets the coral underline */
+    #e6-underline {
+      position: absolute;
+      left: 563px;
+      width: 940px;
+      top: 632px;
+      height: 3px;
+      background-color: #123A6B;
+      transform-origin: left center;
+    }
+
+    /* ---- progress mark 4/4 (bottom right, above the caption band) ---- */
+    #e6-progress {
+      position: absolute;
+      right: 80px;
+      top: 826px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .e6-tick {
+      width: 26px;
+      height: 3px;
+      border-radius: 2px;
+      background-color: rgba(22, 25, 29, 0.30);
+    }
+
+    .e6-tick.is-on {
+      background-color: rgba(22, 25, 29, 0.78);
+    }
+
+    #e6-progress-label {
+      margin-left: 14px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: rgba(22, 25, 29, 0.50);
+    }
+  </style>
+
+  <div data-hf-id="hf-ztyh" id="root" data-composition-id="06-casilla-e" data-start="0" data-duration="7.003" data-width="1920" data-height="1080">
+    <!-- background: papel — full-bleed, own clip layer, full duration -->
+    <div data-hf-id="hf-60pe" class="clip" id="e6-paper" data-start="0" data-duration="5.724" data-track-index="0"></div>
+
+    <div data-hf-id="hf-qsi3" class="clip" id="e6-stage" data-start="0" data-duration="5.724" data-track-index="1">
+      <div data-hf-id="hf-jfo2" id="e6-kicker">
+        <svg data-hf-id="hf-i5bm" id="e6-spike" viewBox="0 0 24 24" aria-hidden="true">
+          <g data-hf-id="hf-fvqo" stroke="#123A6B" stroke-width="2.6" stroke-linecap="round">
+            <line data-hf-id="hf-ro96" x1="12" y1="3" x2="12" y2="21" />
+            <line data-hf-id="hf-repo" x1="4.2" y1="7.5" x2="19.8" y2="16.5" />
+            <line data-hf-id="hf-dld0" x1="4.2" y1="16.5" x2="19.8" y2="7.5" />
+          </g>
+        </svg>
+        <span data-hf-id="hf-ek6q">Casilla E)</span>
+      </div>
+
+      <div data-hf-id="hf-140a" id="e6-index">NOTAM · Español</div>
+
+      <div data-hf-id="hf-dhgl" id="e6-rule-top"></div>
+      <div data-hf-id="hf-eyst" id="e6-rule-bottom"></div>
+
+      <!-- supporting: the original code, attenuated, as the reminder of where it came from -->
+      <div data-hf-id="hf-vosu" id="e6-origin">E) RWY 17L/35R CLSD</div>
+
+      <!-- substitution ticks sit behind the line -->
+      <div data-hf-id="hf-n73v" class="e6-flash" id="e6-flash-rwy"></div>
+      <div data-hf-id="hf-w917" class="e6-flash" id="e6-flash-clsd"></div>
+
+      <!-- focal: the casilla E) line, translating token by token -->
+      <div data-hf-id="hf-1jy7" id="e6-line"><span data-hf-id="hf-bk5q" id="e6-strut"></span><span data-hf-id="hf-sab9" class="e6-slot e6-gap" id="e6-slot-e" style="width: 112px"><span data-hf-id="hf-4h3m" class="e6-word" id="e6-w-e">E)</span></span><span data-hf-id="hf-gdac" class="e6-slot e6-gap" id="e6-slot-rwy" style="width: 196px"><span data-hf-id="hf-n3vj" class="e6-word" id="e6-w-rwy"><span data-hf-id="hf-bx2u" class="e6-code" id="e6-code-rwy">RWY</span><span data-hf-id="hf-a5d9" class="e6-nat" id="e6-nat-rwy">pista</span></span></span><span data-hf-id="hf-9ogs" class="e6-slot e6-gap" id="e6-slot-mid" style="width: 376px"><span data-hf-id="hf-exew" class="e6-word" id="e6-w-mid">17L/35R</span></span><span data-hf-id="hf-x4gx" class="e6-slot" id="e6-slot-clsd" style="width: 300px"><span data-hf-id="hf-0ntb" class="e6-word" id="e6-w-clsd"><span data-hf-id="hf-zll6" class="e6-code" id="e6-code-clsd">CLSD</span><span data-hf-id="hf-q8fk" class="e6-nat" id="e6-nat-clsd">cerrada</span></span></span></div>
+
+      <div data-hf-id="hf-bez9" class="e6-mark" id="e6-mark-rwy"></div>
+      <div data-hf-id="hf-e695" class="e6-mark" id="e6-mark-clsd"></div>
+      <div data-hf-id="hf-n763" id="e6-underline"></div>
+
+      <div data-hf-id="hf-4ptc" id="e6-progress">
+        <span data-hf-id="hf-fvze" class="e6-tick"></span><span data-hf-id="hf-jcku" class="e6-tick"></span><span data-hf-id="hf-jqvv" class="e6-tick"></span><span data-hf-id="hf-9j84" class="e6-tick is-on"></span>
+        <span data-hf-id="hf-0kg3" id="e6-progress-label">4/4</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var DUR = 5.224;
+
+      /* the two substitution cues (scene 2 window: 1.2 - 3.4s) */
+      var SWAP_RWY = 1.52;
+      var SWAP_CLSD = 2.66;
+      var TICK = 0.12; /* selection-box flash length */
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      /* ---------- scene 1 (0.0-1.2s): papel + the casilla line lands ---------- */
+      tl.fromTo("#e6-rule-top", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0);
+      tl.fromTo("#e6-rule-bottom", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.06);
+      tl.fromTo("#e6-kicker", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.02);
+      tl.fromTo("#e6-index", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.12);
+      tl.fromTo("#e6-progress", { opacity: 0 }, { opacity: 1, duration: 0.4, ease: "power1.out" }, 0.2);
+
+      /* per-token flash-in, left to right — the hero reads by t = 0.47s */
+      tl.fromTo(
+        ["#e6-slot-e", "#e6-slot-rwy", "#e6-slot-mid", "#e6-slot-clsd"],
+        { opacity: 0 },
+        { opacity: 1, duration: 0.13, ease: "none", stagger: 0.1 },
+        0.04
+      );
+
+      /* the two fields that can translate get their marker drawn left to right */
+      tl.fromTo("#e6-mark-rwy", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.66);
+      tl.fromTo("#e6-mark-clsd", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.8);
+
+      /* ---------- scene 2 (1.2-3.4s): substitution in place, token by token, by HARD CUT.
+                    Every state change is a zero-duration set (never a callback, never a
+                    fade), so a frame-by-frame seek lands on the exact state. The slots are
+                    fixed width, so the line never moves — the change itself is the movement.
+                    RWY -> pista, CLSD -> cerrada; 17L/35R never changes. ---------- */
+      tl.set("#e6-flash-rwy", { opacity: 1 }, SWAP_RWY);
+      tl.set("#e6-code-rwy", { display: "none" }, SWAP_RWY);
+      tl.set("#e6-nat-rwy", { display: "inline" }, SWAP_RWY);
+      tl.set("#e6-flash-rwy", { opacity: 0 }, SWAP_RWY + TICK);
+
+      tl.set("#e6-flash-clsd", { opacity: 1 }, SWAP_CLSD);
+      tl.set("#e6-code-clsd", { display: "none" }, SWAP_CLSD);
+      tl.set("#e6-nat-clsd", { display: "inline" }, SWAP_CLSD);
+      tl.set("#e6-flash-clsd", { opacity: 0 }, SWAP_CLSD + TICK);
+
+      /* ---------- scene 3 (3.4-5.224s): the reading settles, the source stays visible ---------- */
+      /* the casilla marker steps back to chrome so the line reads: pista 17L/35R cerrada.
+         Tweened as colour, not opacity — nothing leaves the frame here. */
+      tl.to("#e6-w-e", { color: "rgba(22, 25, 29, 0.24)", duration: 0.36, ease: "power2.out" }, 3.42);
+      tl.to(
+        ".e6-mark",
+        { backgroundColor: "rgba(22, 25, 29, 0.08)", duration: 0.4, ease: "power2.out" },
+        3.45
+      );
+
+      /* the one coral moment: the resolved reading is underlined left to right */
+      tl.fromTo("#e6-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.58, ease: "power2.out" }, 3.55);
+
+      /* and above it, small and attenuated, where it came from */
+      tl.fromTo("#e6-origin", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.25);
+
+      /* quietud — the shot holds. This no-op pins the timeline to the full scene length. */
+      tl.set("#e6-origin", { opacity: 1 }, DUR);
+
+      window.__timelines["06-casilla-e"] = tl;
+    })();
+  </script>
+</template>

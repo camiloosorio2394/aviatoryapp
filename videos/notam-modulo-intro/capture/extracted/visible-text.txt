@@ -1,0 +1,39 @@
+MÓDULO NOTAM · AVIATORY
+Tema del bloque «Ingreso a aerolínea». Nueve lecciones, práctica y evaluación.
+
+QUÉ ES UN NOTAM
+Aviso a los aviadores. Un mensaje que informa del establecimiento, condición o
+cambio de cualquier instalación, servicio, procedimiento o peligro aeronáutico,
+cuyo conocimiento oportuno es esencial para el personal encargado de las
+operaciones de vuelo. Decide si un vuelo sale, por dónde entra y qué se va a
+encontrar la tripulación al aterrizar.
+
+LAS NUEVE LECCIONES DEL MÓDULO
+01 ¿Qué es un NOTAM?
+02 ¿Quién publica los NOTAM y dónde los consulto?
+03 ¿Qué significa NOTAMN, NOTAMR y NOTAMC?
+04 Cómo se lee un NOTAM completo
+05 La línea Q, pieza por pieza
+06 Los ítems A) a G), uno por uno
+07 La casilla E) y la fraseología abreviada
+08 De la lectura a la interpretación
+09 Cierre del módulo
+
+LOS TIPOS
+NOTAMN: nuevo, información que no existía antes.
+NOTAMR: reemplaza a un NOTAM anterior, que deja de tener vigencia.
+NOTAMC: cancela un NOTAM anterior antes de su fecha de fin.
+
+LA ESTRUCTURA
+La línea Q resume el aviso en ocho campos separados por barras: FIR, código
+NOTAM, tráfico, propósito, alcance, límites inferior y superior, y coordenadas
+con radio. Los ítems A) a G) dan aeródromo, vigencia, horario y, en la casilla
+E), el texto del aviso en fraseología abreviada de la OACI.
+
+POR QUÉ CUESTA LEERLO
+Porque está escrito en un código que nadie enseña de forma ordenada:
+abreviaturas, campos posicionales y una línea Q que parece ruido hasta que se
+sabe qué mira cada posición. El módulo enseña exactamente eso.
+
+LA PROMESA
+Al terminar el módulo, un NOTAM que al principio era ilegible se lee de corrido.
