@@ -925,6 +925,429 @@ export const METAR_LESSON: DocScreen[] = [
       },
     ],
   },
+  // ── 10 ─────────────────────────────────────────────────────────────────────
+  {
+    n: 10,
+    title: "Qué es un TAF",
+    kicker: "El pronóstico, no la observación",
+    minutes: 4,
+    level: "avanzado",
+    blocks: [
+      {
+        kind: "p",
+        text: "El METAR te dice lo que **hay**. El TAF te dice lo que se **espera**. Esa es toda la diferencia, y de ella salen las dos preguntas que un piloto responde con cada uno: el METAR contesta «¿puedo aterrizar ahora?» y el TAF, «¿voy a poder aterrizar cuando llegue, y qué llevo de alterno?».",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MT-ILU-03 · Ilustración · 21:9 · 2000×860 · SVG",
+        descripcion:
+          "Una línea de tiempo horizontal. A la izquierda, un punto marcado METAR con la etiqueta «lo que hay, ahora». A la derecha, una banda que cubre todo el resto rotulada TAF con «lo que se espera, durante este periodo», y dentro de ella la hora estimada de llegada del vuelo marcada con un avión. Es la imagen que explica por qué se leen los dos y no uno.",
+        alto: 260,
+      },
+      { kind: "sub", text: "Cómo empieza un TAF" },
+      {
+        kind: "code",
+        tabular: true,
+        text: `TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020 ...
+    │    │      │        │
+    │    │      │        └─ validez: del día 12 a las 12Z al día 13 a las 18Z
+    │    │      └────────── emitido el día 12 a las 11:00 Zulú
+    │    └───────────────── estación
+    └────────────────────── tipo de informe`,
+      },
+      {
+        kind: "list",
+        items: [
+          "**`TAF AMD`**: enmendado. El pronóstico anterior dejó de servir y este lo sustituye. Si ves un AMD, lo que tenías en el briefing ya no vale.",
+          "**`TAF COR`**: corregido, por un error en el anterior.",
+          "**`CNL`**: cancelado. No hay pronóstico para ese periodo.",
+          "**`NIL`**: no disponible. No es lo mismo que buen tiempo: es que no hay dato.",
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Dos cifras que cambian según dónde vueles",
+        text: "El **periodo de validez** no es universal: los aeródromos internacionales suelen emitir TAF de 24 o 30 horas y otros de 9, y el intervalo de emisión también varía. Lo mismo pasa con el **área que cubre** el pronóstico, que es el entorno del aeródromo y no la región. Confirma los dos valores en la publicación de información aeronáutica del Estado y en el manual de tu explotador antes de citarlos en una entrevista.",
+      },
+      {
+        kind: "p",
+        text: "Lo que sí es igual en todas partes: después de la cabecera, el TAF usa **los mismos grupos que ya sabes leer** del METAR. Viento, visibilidad, tiempo presente y nubes se codifican igual. Si sabes leer un METAR, ya sabes leer la mitad de un TAF.",
+      },
+      {
+        kind: "check",
+        question:
+          "En el briefing tienes un TAF del destino emitido hace tres horas y llega un `TAF AMD`. ¿Qué haces con el primero?",
+        options: [
+          "Los comparo y me quedo con el que sea más favorable",
+          "El AMD sustituye al anterior: el viejo deja de valer",
+          "El AMD solo aplica si cambia el periodo de validez",
+        ],
+        answer: 1,
+        explain:
+          "Un TAF enmendado reemplaza al anterior para el resto de su validez. No se promedian ni se elige: el briefing que hiciste con el viejo hay que rehacerlo con el nuevo.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es un TAF?",
+            respuesta:
+              "Es el pronóstico meteorológico de aeródromo: describe las condiciones que se esperan en el entorno de un aeródromo durante un periodo de validez definido. Trae los mismos grupos que el METAR (viento, visibilidad, tiempo presente y nubes) más los grupos de cambio que dicen cuándo y cómo se espera que evolucione.",
+            claves: ["Pronóstico, no observación", "Periodo de validez", "Mismos grupos que el METAR más los de cambio"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Para qué usas el TAF y para qué el METAR?",
+            respuesta:
+              "El TAF para planificar: decidir si el destino va a estar utilizable a mi hora de llegada, si necesito alterno y cuál. El METAR para decidir en el momento: si puedo iniciar la aproximación ahora. En ruta pido METAR actualizado, pero la decisión de con cuánto combustible y con qué alterno salí la tomé con el TAF.",
+            claves: ["TAF para planificar y elegir alterno", "METAR para decidir ahora", "El METAR es el hecho"],
+          },
+          {
+            nivel: "situacion",
+            q: "El TAF de tu destino viene como `NIL`. ¿Qué significa para tu planificación?",
+            respuesta:
+              "Que no hay pronóstico disponible para ese aeródromo, y eso no es lo mismo que buen tiempo: es ausencia de información. Sin TAF no puedo justificar que el destino vaya a estar utilizable a mi llegada, así que la planificación se apoya en lo que sí tengo (METAR reciente, tendencia, pronósticos de área) y, según el manual del explotador y la norma nacional, normalmente obliga a llevar alterno.",
+            claves: ["NIL es ausencia de dato, no buen tiempo", "No se puede justificar el destino", "Consultar manual del explotador"],
+          },
+        ],
+      },
+      {
+        kind: "summary",
+        items: [
+          "METAR observa; TAF pronostica. Los dos se leen juntos y, cuando no coinciden, el METAR es el hecho.",
+          "Cabecera: tipo, estación, hora de emisión y periodo de validez.",
+          "AMD sustituye, COR corrige, CNL cancela y NIL es que no hay dato.",
+          "Los grupos de viento, visibilidad, tiempo y nubes se leen igual que en el METAR.",
+        ],
+      },
+    ],
+  },
+
+  // ── 11 ─────────────────────────────────────────────────────────────────────
+  {
+    n: 11,
+    title: "Los grupos de cambio",
+    kicker: "FM, BECMG, TEMPO y PROB",
+    minutes: 5,
+    level: "avanzado",
+    blocks: [
+      {
+        kind: "p",
+        text: "Un TAF no describe un estado: describe una **evolución**. Los grupos de cambio son los que dicen cuándo cambia, cuánto dura y con qué seguridad. Confundirlos es el error que más caro sale en la planificación, porque cada uno significa algo distinto para tu alterno.",
+      },
+      {
+        kind: "fichas",
+        columnas: 2,
+        items: [
+          {
+            titulo: "FM · desde",
+            puntos: [
+              "**`FM121500`**: a partir del día 12 a las 15:00Z.",
+              "Cambio **rápido y permanente**: lo que sigue **sustituye por completo** a lo anterior.",
+              "Todo lo que no se repite después del FM deja de aplicar. Es una línea nueva, no un matiz.",
+            ],
+          },
+          {
+            titulo: "BECMG · llegando a ser",
+            puntos: [
+              "**`BECMG 1214/1216`**: el cambio se establece en algún momento de esa ventana.",
+              "Cambio **gradual y permanente**. Al final de la ventana, las condiciones nuevas están.",
+              "Solo cambia lo que nombra: lo demás sigue como estaba.",
+            ],
+          },
+          {
+            titulo: "TEMPO · temporal",
+            puntos: [
+              "**`TEMPO 1218/1222`**: fluctuaciones dentro de esa ventana.",
+              "Cada episodio dura **menos de una hora** y en total **menos de la mitad** del periodo.",
+              "Va y vuelve. Es lo que puede pillarte justo al llegar aunque el resto del tiempo esté bien.",
+            ],
+          },
+          {
+            titulo: "PROB30 / PROB40 · probabilidad",
+            puntos: [
+              "Probabilidad del 30 % o del 40 % de que ocurra lo que sigue.",
+              "**No existe PROB50 ni más**: por encima de eso el pronosticador usa BECMG o TEMPO.",
+              "Puede combinarse: **`PROB40 TEMPO`** es un 40 % de probabilidad de fluctuaciones temporales.",
+            ],
+          },
+        ],
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "La confusión que más cuesta",
+        text: "**FM borra; BECMG matiza.** Después de un FM, todo lo anterior deja de valer y hay que leer la línea completa. Después de un BECMG, solo cambia lo que ese grupo nombra. Si lees un BECMG como si fuera un FM, te inventas condiciones que el pronóstico no dijo.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MT-DIA-03 · Diagrama · 21:9 · 2000×860 · SVG",
+        descripcion:
+          "Cuatro carriles horizontales sobre la misma línea de tiempo, uno por grupo. FM: un corte vertical limpio y todo lo de la derecha en color nuevo. BECMG: una transición en degradado dentro de su ventana. TEMPO: bloques cortos intermitentes. PROB40: los mismos bloques pero al 40 % de opacidad. La imagen tiene que dejar ver de un vistazo que FM es un corte y TEMPO un parpadeo.",
+        alto: 260,
+      },
+      {
+        kind: "check",
+        question:
+          "Un TAF dice `... 25010KT 9999 SCT030 BECMG 1215/1217 3000 BR`. A las 1218Z, ¿qué viento esperas?",
+        options: [
+          "No se sabe: el BECMG anuló las condiciones anteriores",
+          "25010KT, porque el BECMG solo cambió visibilidad y tiempo presente",
+          "Calma, porque no se menciona",
+        ],
+        answer: 1,
+        explain:
+          "El BECMG **solo modifica lo que nombra**. Aquí nombra visibilidad (3000) y tiempo presente (BR), así que el viento y las nubes siguen siendo los del bloque anterior. Si hubiera sido un FM, habría que leer la línea entera de nuevo.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Planificando, llegada estimada 1930Z",
+        situacion:
+          "El TAF del destino trae: **`... 1912/1922 18012KT 9999 BKN025 TEMPO 1918/1922 3000 TSRA BKN012CB`**.",
+        pregunta: "¿Con qué condiciones planificas la llegada?",
+        claves: [
+          "Las condiciones **predominantes** a mi hora son buenas: viento moderado, 10 km de visibilidad y techo a 2.500 pies.",
+          "Pero el **TEMPO cubre 1918/1922** y yo llego a las 1930: estoy dentro de la ventana. Tengo que planificar **para el TEMPO, no para lo predominante**.",
+          "El TEMPO trae tormenta con lluvia y techo a 1.200 pies con CB. Eso es lo que puedo encontrarme.",
+          "Consecuencia real: combustible para esperar, alterno que no esté afectado por el mismo sistema, y expectativa de posible espera o desvío.",
+        ],
+        cierre:
+          "Un TEMPO que solapa tu hora de llegada no es un matiz del pronóstico: es el pronóstico, para ti.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué diferencia hay entre FM, BECMG y TEMPO?",
+            respuesta:
+              "FM marca un cambio rápido y permanente a partir de una hora concreta, y lo que sigue sustituye por completo a lo anterior. BECMG es un cambio gradual y permanente que se establece dentro de la ventana indicada, y solo modifica los elementos que nombra. TEMPO son fluctuaciones temporales dentro de su ventana, cada una de menos de una hora y sin sumar más de la mitad del periodo.",
+            claves: ["FM sustituye por completo", "BECMG gradual y solo lo que nombra", "TEMPO va y vuelve"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué no existe un PROB50?",
+            respuesta:
+              "Porque a partir de esa probabilidad el pronosticador ya no está expresando una posibilidad sino una expectativa, y para eso tiene BECMG o TEMPO. PROB30 y PROB40 sirven para avisar de algo que puede pasar sin comprometerse a que pase; por encima del 40 %, la herramienta correcta es el grupo de cambio.",
+            claves: ["Solo PROB30 y PROB40", "Por encima se usa BECMG o TEMPO", "PROB expresa posibilidad, no expectativa"],
+          },
+          {
+            nivel: "situacion",
+            q: "Tu llegada cae dentro de un `PROB40 TEMPO 0600/0800 0400 FG`. ¿Cómo lo tratas?",
+            respuesta:
+              "Como una posibilidad real que hay que cubrir. Es un 40 % de probabilidad de fluctuaciones temporales con 400 metros de visibilidad y niebla, y 400 metros está por debajo de casi cualquier mínimo. No planifico contando con que no ocurra: llevo alterno con condiciones holgadas y combustible para esperar, porque si ocurre no voy a tener margen para improvisar.",
+            claves: ["40 % es una posibilidad que se cubre", "400 m está bajo mínimos", "Alterno holgado y combustible"],
+          },
+        ],
+      },
+      {
+        kind: "summary",
+        items: [
+          "FM borra y sustituye; BECMG matiza solo lo que nombra; TEMPO va y vuelve.",
+          "TEMPO: cada episodio menos de una hora, en total menos de la mitad del periodo.",
+          "PROB30 y PROB40, nada más. Por encima, el pronosticador usa BECMG o TEMPO.",
+          "Un TEMPO que solapa tu hora de llegada es tu pronóstico, no un matiz.",
+        ],
+      },
+    ],
+  },
+
+  // ── 12 ─────────────────────────────────────────────────────────────────────
+  {
+    n: 12,
+    title: "Leer un TAF completo",
+    kicker: "De la cabecera a la decisión",
+    minutes: 5,
+    level: "avanzado",
+    blocks: [
+      {
+        kind: "p",
+        text: "Ya tienes las piezas. Ahora el ejercicio completo, que es el que te van a pedir en una entrevista técnica: te ponen un TAF delante y esperan que hables.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Escenario de práctica",
+        text: "El TAF que sigue está construido para este curso. Es un pronóstico realista y bien formado, pero **no es un informe real** de ningún aeródromo.",
+      },
+      {
+        kind: "code",
+        tabular: true,
+        text: `TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025
+     BECMG 1520/1522 15012G22KT 6000 -RA BKN015
+     TEMPO 1522/1602 3000 TSRA BKN010CB
+     FM160300 09006KT 1200 BR OVC006
+     PROB30 1604/1608 0500 FG
+     BECMG 1612/1614 9999 NSW SCT030`,
+      },
+      {
+        kind: "kv",
+        items: [
+          { k: "Cabecera", v: "Emitido el día 15 a las 17:00Z, válido desde el 15 a las 18Z hasta el 16 a las 24Z. Treinta horas de validez." },
+          { k: "Predominante inicial", v: "Viento del 200° a 8 nudos, visibilidad 10 km o más, nubes dispersas a 2.500 pies. Buen tiempo." },
+          { k: "BECMG 1520/1522", v: "Entre las 20Z y las 22Z se establece: viento del 150° a 12 con ráfagas de 22, visibilidad 6 km con lluvia ligera y techo a 1.500 pies. Empeora, y se queda." },
+          { k: "TEMPO 1522/1602", v: "Desde las 22Z hasta las 02Z puede caer a 3 km con tormenta y techo a 1.000 pies con cumulonimbos. Va y vuelve." },
+          { k: "FM160300", v: "A partir de las 03Z, línea nueva: viento flojo del este, 1.200 metros con bruma y cielo cubierto a 600 pies. Esto **sustituye** todo lo anterior." },
+          { k: "PROB30 1604/1608", v: "Entre las 04Z y las 08Z, un 30 % de probabilidad de 500 metros con niebla. El peor momento del periodo." },
+          { k: "BECMG 1612/1614", v: "Entre las 12Z y las 14Z mejora: 10 km, NSW (ningún fenómeno significativo) y dispersas a 3.000 pies." },
+        ],
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Tres llegadas distintas al mismo aeródromo",
+        situacion:
+          "El mismo TAF de arriba. Tres vuelos: el **A** llega a las 1900Z, el **B** a las 2330Z y el **C** a las 0600Z.",
+        pregunta: "¿Cuál de los tres tiene el problema serio?",
+        claves: [
+          "**A, 1900Z:** cae en el bloque inicial. 10 km y dispersas a 2.500. Sin novedad, y el BECMG todavía no empezó.",
+          "**B, 2330Z:** está dentro del TEMPO 1522/1602. Puede encontrarse tormenta, 3 km y techo de 1.000 pies con CB. Necesita combustible para esperar, pero es manejable.",
+          "**C, 0600Z:** el peor. Después del FM160300 lo predominante ya es 1.200 m con techo de 600 pies, **y encima** cae dentro del PROB30 de 500 metros con niebla.",
+          "Para C la pregunta no es si aguanta el mínimo: es **qué alterno lleva y si ese alterno está fuera del mismo sistema**, porque la niebla de madrugada no suele ser local.",
+        ],
+        cierre:
+          "El mismo TAF, tres respuestas distintas. Por eso el pronóstico no se lee entero de corrido: se lee buscando tu ventana.",
+      },
+      {
+        kind: "check",
+        question:
+          "Después del `FM160300 09006KT 1200 BR OVC006`, ¿qué pasa con el techo de 1.000 pies que traía el TEMPO anterior?",
+        options: [
+          "Sigue vigente hasta que otro grupo lo cambie",
+          "Deja de aplicar: el FM sustituye por completo lo anterior",
+          "Se promedia con el nuevo OVC006",
+        ],
+        answer: 1,
+        explain:
+          "Un FM abre una línea nueva. Todo lo anterior, predominante y temporal, deja de aplicar, y a partir de esa hora las condiciones son exactamente las que el FM enumera hasta que otro grupo las modifique.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "situacion",
+            q: "Te ponen un TAF delante y te dicen: interprétalo. ¿Cómo lo estructuras?",
+            respuesta:
+              "Primero la cabecera: quién lo emite, cuándo y hasta cuándo vale. Después el bloque predominante. Luego recorro los grupos de cambio en orden, diciendo de cada uno si sustituye o si matiza y qué ventana cubre. Y termino por lo que de verdad importa: sitúo mi hora estimada de llegada dentro de esa línea de tiempo y digo qué condiciones me tocan a mí, no las mejores ni las peores del periodo.",
+            claves: ["Cabecera y validez", "Predominante", "Grupos de cambio en orden", "Situar la hora de llegada"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué significa NSW y dónde aparece?",
+            respuesta:
+              "No significant weather: ningún fenómeno significativo. Aparece en los grupos de cambio para decir que el fenómeno que había antes deja de esperarse. Es la forma que tiene el TAF de cancelar un tiempo presente sin tener que enumerar todo lo que ya no habrá.",
+            claves: ["Ningún fenómeno significativo", "Cancela el tiempo presente anterior", "Solo en grupos de cambio"],
+          },
+        ],
+      },
+      {
+        kind: "summary",
+        items: [
+          "Se lee en orden: cabecera, predominante, grupos de cambio, y por último tu ventana de llegada.",
+          "FM abre línea nueva; BECMG cambia solo lo que nombra; TEMPO y PROB son posibilidades acotadas.",
+          "NSW cancela el fenómeno anterior.",
+          "El mismo TAF da respuestas distintas según a qué hora llegues.",
+        ],
+      },
+    ],
+  },
+
+  // ── 13 ─────────────────────────────────────────────────────────────────────
+  {
+    n: 13,
+    title: "El TAF y tu alterno",
+    kicker: "Del pronóstico a la decisión",
+    minutes: 4,
+    level: "avanzado",
+    blocks: [
+      {
+        kind: "p",
+        text: "Aquí es donde el TAF deja de ser lectura y se convierte en combustible. Todo lo anterior servía para llegar a esta pregunta: **¿necesito alterno, cuál, y con cuánto combustible salgo?**",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Los números los pone tu operación, no este curso",
+        text: "Los mínimos que obligan a llevar alterno, los que hacen que un aeródromo sea utilizable como tal y los márgenes que hay que aplicar sobre el pronóstico **los fija la norma de tu Estado y el manual de operaciones de tu explotador**, y no son iguales en todas partes. Este módulo enseña a leer el pronóstico y a razonar la decisión; **las cifras concretas se buscan en tu manual**, y es exactamente lo que un evaluador espera oír.",
+      },
+      { kind: "sub", text: "El razonamiento, que sí es universal" },
+      {
+        kind: "vinetas",
+        items: [
+          "**Sitúa tu hora estimada de llegada** en la línea de tiempo del TAF, con un margen razonable antes y después. No planificas para el periodo entero: planificas para tu ventana.",
+          "**Toma lo peor que el pronóstico admite en esa ventana**, incluidos TEMPO y PROB que la solapen. Si el pronóstico dice que puede ocurrir, para planificar ocurre.",
+          "**Compara con los mínimos** de la aproximación disponible y con lo que exija tu manual para prescindir de alterno.",
+          "**Elige un alterno que no comparta el problema.** Un alterno a 40 millas del destino con la misma niebla de radiación no es un alterno: es el mismo aeródromo con otro nombre.",
+          "**Traduce a combustible.** Espera, desvío y reserva. La decisión termina en un número de kilos, no en una impresión.",
+        ],
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Despacho, vuelo nocturno",
+        situacion:
+          "Tu destino trae en la ventana de llegada: **`0800 FG BKN003`**, con **`BECMG`** a mejor una hora después de tu ETA. El alterno que te propone el despacho está a 35 millas y su TAF trae **`PROB40 TEMPO 0300/0700 0600 FG`**.",
+        pregunta: "¿Aceptas ese alterno?",
+        claves: [
+          "El destino está por debajo de casi cualquier mínimo: 800 metros con techo de 300 pies. Voy a necesitar el alterno de verdad, no de trámite.",
+          "El alterno trae **la misma niebla**, en la misma franja horaria, y está a 35 millas. La niebla de radiación nocturna es un fenómeno de área: si se forma en uno, es probable que se forme en el otro.",
+          "Un 40 % de probabilidad de 600 metros en mi ventana **no es un alterno holgado**. Es un segundo destino con el mismo problema.",
+          "Lo que planteo: un alterno más lejos pero fuera del sistema, aunque cueste combustible. Y el BECMG a mejor una hora después de mi ETA abre la otra opción, que es llevar combustible para esperar en vez de desviar.",
+        ],
+        cierre:
+          "La pregunta del evaluador no es si sabes calcular. Es si te das cuenta de que dos aeródromos a 35 millas con la misma niebla son un solo aeródromo.",
+      },
+      {
+        kind: "check",
+        question:
+          "El TAF del destino da condiciones buenas salvo un `TEMPO` bajo mínimos que solapa tu ETA. ¿Cómo lo tratas para decidir el alterno?",
+        options: [
+          "Como poco probable: lo predominante es lo que manda",
+          "Como condición esperable en mi ventana: planifico con ella",
+          "Depende de si el TEMPO trae PROB o no",
+        ],
+        answer: 1,
+        explain:
+          "Un TEMPO no es una posibilidad remota: es una fluctuación que el pronosticador espera dentro de esa ventana. Si solapa tu llegada, planificas con ella. Lo predominante describe la mayor parte del periodo, no necesariamente tu minuto.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Para qué sirve el TAF en la planificación de un vuelo?",
+            respuesta:
+              "Para tres decisiones: si el destino va a estar utilizable a mi hora de llegada, si necesito alterno y cuál, y cuánto combustible llevo. El TAF es el documento con el que se justifica esa planificación, y por eso lo primero que se hace con él es situar la hora estimada de llegada dentro de su línea de tiempo.",
+            claves: ["Destino utilizable a la ETA", "Necesidad y elección de alterno", "Combustible"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué hace que un alterno sea un buen alterno?",
+            respuesta:
+              "Que su pronóstico esté holgadamente por encima de los mínimos en mi ventana, que tenga la aproximación y los servicios que voy a necesitar, y sobre todo que **no comparta el fenómeno del destino**. Un alterno cercano con el mismo frente o la misma niebla de área no añade seguridad, solo distancia. A veces el alterno correcto es el que está más lejos.",
+            claves: ["Holgadamente sobre mínimos", "Aproximación y servicios disponibles", "Fuera del sistema meteorológico del destino"],
+          },
+          {
+            nivel: "situacion",
+            q: "Vas en ruta y el destino se deteriora por debajo de lo pronosticado. ¿Qué haces?",
+            respuesta:
+              "Lo primero, actualizar la información: METAR más reciente y TAF enmendado si lo hay. Después comparar el combustible que me queda con lo que cuesta esperar y con lo que cuesta desviar, y decidir con margen, no en el último momento. Y decidirlo antes de llegar al punto en que el alterno deje de ser alcanzable con reservas: esa es la decisión que no se puede tomar tarde.",
+            claves: ["Actualizar METAR y TAF AMD", "Comparar esperar contra desviar", "Decidir antes de perder el alterno"],
+          },
+        ],
+      },
+      {
+        kind: "summary",
+        items: [
+          "Sitúa tu ETA en la línea de tiempo y planifica para lo peor que el pronóstico admite en esa ventana.",
+          "TEMPO y PROB que solapen tu llegada cuentan como condición esperable.",
+          "Un alterno que comparte el fenómeno del destino no es un alterno.",
+          "Los mínimos y los márgenes los fija tu norma nacional y tu manual de operaciones: búscalos ahí.",
+        ],
+      },
+    ],
+  },
+
 ]
 
 /**
@@ -937,6 +1360,7 @@ export const METAR_NIVELES = [
   { titulo: "Básico · La línea y sus partes", desde: 1 },
   { titulo: "Intermedio · Fenómenos y cielo", desde: 5 },
   { titulo: "Avanzado · Tendencia y método", desde: 8 },
+  { titulo: "TAF · El pronóstico", desde: 10 },
 ]
 
 export const METAR_LESSON_TOTAL = METAR_LESSON.length

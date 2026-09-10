@@ -27,7 +27,7 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
  * Hub del tema Meteorología operacional (módulo Ingreso a aerolínea).
  * Ruta: /app/aerolinea/meteorologia
  *
- * El tema completo: lección, decodificador, práctica y evaluación. El TAF
+ * El tema completo: lección, decodificador, práctica y evaluación. La
  * tendrá su propia lección. Las tres partes con progreso viven en la base con
  * respaldo local: lección y práctica en user_metar_progress, la evaluación en
  * user_metar_exam_attempts.
@@ -98,7 +98,7 @@ export function Metar() {
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
       title: "Aprende",
       blurb:
-        "Qué es un METAR y cómo leerlo grupo por grupo: viento, visibilidad, tiempo presente, nubes, QNH y tendencias.",
+        "El METAR grupo por grupo (viento, visibilidad, tiempo presente, nubes, QNH y tendencias) y el TAF completo: grupos de cambio, lectura de un pronóstico y cómo decide tu alterno.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
       status:
@@ -174,8 +174,8 @@ export function Metar() {
 
         <PageHeader
           eyebrow="Ingreso a aerolínea · Meteorología operacional"
-          title="METAR: el estado del cielo en una línea"
-          subtitle="La lectura obligada del briefing junto al NOTAM. Lección, decodificador, práctica y evaluación. El TAF tendrá su propia lección."
+          title="METAR y TAF: leer el cielo y anticiparlo"
+          subtitle="La lectura obligada del briefing junto al NOTAM. El METAR dice lo que hay; el TAF, lo que se espera y con qué alterno sales. Lección, decodificador, práctica y evaluación."
         />
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">

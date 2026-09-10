@@ -262,11 +262,10 @@ export function AirlinePrep() {
           color: "var(--av-mt-700)",
           meta: `${METAR_LESSON_TOTAL} secciones (${METAR_LESSON_MINUTES} min) · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
           title: "Meteorología operacional",
-          // El resumen promete solo lo publicado: METAR. Cuando el curso TAF
-          // exista, se restaura la promesa completa (decisión anotada en
-          // src/data/metar/FUENTES.md).
+          // El curso TAF ya existe (lecciones 10 a 13), así que la promesa
+          // vuelve a ser la completa.
           blurb:
-            "METAR: la lectura del cielo que te preguntan en la entrevista técnica. TAF llega después.",
+            "METAR y TAF: leer lo que hay, anticipar lo que viene y decidir con qué alterno sales. Es la pareja que te preguntan en la entrevista técnica.",
           photo: meteorologiaPhoto,
           cta: metar.empty ? "Empezar el tema" : "Seguir con el tema",
           progress: metar.overall,
