@@ -187,8 +187,14 @@ const COMBINACIONES: Combinacion[] = [
  * Dos celdas son la misma figura aunque sus elementos estén escritos en otro
  * orden: el orden de la lista es cómo se transcribió, no lo que se ve.
  */
-export function firma(celda: Celda): string {
-  return celda.elementos.map(claveElemento).sort().join("|")
+export function firma(celda: Celda, libres?: Set<string>): string {
+  if (!libres?.size) return celda.elementos.map(claveElemento).sort().join("|")
+  const sinLibres = (el: Elemento) => {
+    const copia = { ...(el as unknown as Record<string, unknown>) }
+    for (const clave of libres) if (clave.startsWith(`${el.tipo}.`)) delete copia[clave.slice(el.tipo.length + 1)]
+    return JSON.stringify(copia, Object.keys(copia).sort())
+  }
+  return celda.elementos.map(sinLibres).sort().join("|")
 }
 
 export function mismaCelda(a: Celda, b: Celda): boolean {
@@ -221,14 +227,30 @@ const SALTOS = [1, 2, 3]
 interface Candidata {
   celda: Celda
   reglas: Regla[]
+  /**
+   * Atributos que ninguna regla de la familia explica, como `grupo-simbolos
+   * .orientacion` en el ejercicio 12 de A1.
+   *
+   * La predicción se emite sin ellos y valen cualquier cosa al enfrentarla a
+   * las alternativas. No es un agujero: si más de una alternativa encaja con
+   * lo que sí se dedujo, `dictaminar` lo llama ambiguo y el ejercicio no sale.
+   * Lo único que cambia es que un atributo que la matriz no hace variar por
+   * filas ni por columnas deje de tumbar la deducción entera.
+   */
+  libres: Set<string>
 }
 
 /** Añade una predicción a la lista, juntándola con las que ya coinciden. */
-function proponer(candidatas: Map<string, Candidata>, celda: Celda, regla: Regla) {
-  const clave = firma(celda)
+function proponer(
+  candidatas: Map<string, Candidata>,
+  celda: Celda,
+  regla: Regla,
+  libres: Set<string> = new Set()
+) {
+  const clave = firma(celda, libres)
   const previa = candidatas.get(clave)
   if (previa) previa.reglas.push(regla)
-  else candidatas.set(clave, { celda, reglas: [regla] })
+  else candidatas.set(clave, { celda, reglas: [regla], libres })
 }
 
 /**
@@ -252,7 +274,10 @@ function dictaminar(candidatas: Candidata[], opciones: Celda[]): Diagnostico {
 
   const senaladas = new Map<number, Regla[]>()
   for (const c of candidatas) {
-    const encajan = opciones.map((o, i) => (mismaCelda(o, c.celda) ? i : -1)).filter((i) => i >= 0)
+    const suya = firma(c.celda, c.libres)
+    const encajan = opciones
+      .map((o, i) => (firma(o, c.libres) === suya ? i : -1))
+      .filter((i) => i >= 0)
     if (encajan.length > 1) {
       return {
         estado: "ambiguo",
@@ -513,6 +538,7 @@ function reglasPorAtributo(
 
   const elementos: Elemento[] = []
   const nombres: string[] = []
+  const libres = new Set<string>()
   let apoyos = 0
 
   for (const tipo of [...tipos].sort()) {
@@ -534,6 +560,7 @@ function reglasPorAtributo(
     if (!muestra) return
 
     const armado: Record<string, unknown> = { tipo }
+    let deducidos = 0
     for (const clave of clavesDe(muestra)) {
       const crudos = new Map<string, unknown>()
       const valores = deCada.map((el, i) => {
@@ -545,11 +572,23 @@ function reglasPorAtributo(
         return texto
       })
       const regla = reglaDeAtributo(valores, hueco)
-      if (!regla || !crudos.has(regla.valor)) return
+      if (!regla || !crudos.has(regla.valor)) {
+        // Ninguna regla de la familia explica este atributo. Antes eso tumbaba
+        // la figura entera; ahora se apunta como libre y la predicción sale sin
+        // él. Lo que decide sigue siendo lo deducido: si con eso encaja más de
+        // una alternativa, `dictaminar` lo llama ambiguo.
+        libres.add(`${tipo}.${clave}`)
+        nombres.push(`${clave}: sin regla, se deja libre`)
+        continue
+      }
       armado[clave] = crudos.get(regla.valor)
       nombres.push(`${clave}: ${regla.nombre}`)
       apoyos += regla.apoyos
+      deducidos++
     }
+    // Un elemento del que no se dedujo ni un atributo no es una predicción, es
+    // un hueco con nombre. Con eso no se firma nada.
+    if (clavesDe(muestra).length > 0 && deducidos === 0) return
     elementos.push(armado as unknown as Elemento)
   }
 
@@ -559,7 +598,8 @@ function reglasPorAtributo(
   proponer(
     candidatas,
     { ...molde, elementos },
-    { salto: 0, transformacion: `atributo a atributo — ${nombres.join("; ")}`, apoyos }
+    { salto: 0, transformacion: `atributo a atributo — ${nombres.join("; ")}`, apoyos },
+    libres
   )
 }
 

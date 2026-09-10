@@ -114,6 +114,24 @@ export type Elemento =
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
   /**
+   * Un grupo de símbolos iguales, y cuántos hay.
+   *
+   * En esta familia lo que varía no es dónde está cada símbolo sino **cuál es y
+   * cuántos son**, así que la posición no se declara: se reparten solos en una
+   * retícula. Declarar coordenadas aquí sería fijar algo que el ejercicio no
+   * pregunta, y de paso volver la figura incomparable entre casillas.
+   *
+   * Las líneas llevan orientación porque en esta familia las tres —vertical,
+   * diagonal y horizontal— son el mismo símbolo girado, y esa rotación es parte
+   * de la regla.
+   */
+  | {
+      tipo: "grupo-simbolos"
+      simbolo: "asterisco" | "i" | "linea"
+      orientacion: "vertical" | "diagonal" | "horizontal" | "ninguna"
+      cantidad: number
+    }
+  /**
    * El rectángulo partido en dos y una de las mitades rellena.
    *
    * `lado` dice cuál de las dos se rellena: con el corte vertical, izquierda o
@@ -419,6 +437,23 @@ function dibujarCelda(
     )
   }
 
+  // Cuando una casilla trae varios grupos de símbolos distintos —la alternativa
+  // B del ejercicio 12 mete un asterisco y una viga en la misma caja— cada
+  // grupo se queda con su franja, para que no se dibujen uno encima de otro.
+  // Las líneas no cuentan: atraviesan la casilla entera, que es lo que son.
+  const enFranjas = celda.elementos.filter(
+    (el) => el.tipo === "grupo-simbolos" && el.simbolo !== "linea"
+  )
+  const franjaDe = (el: Elemento) => {
+    const i = enFranjas.indexOf(el)
+    if (i < 0 || enFranjas.length < 2) return { x, ancho }
+    // Con margen: sin él los símbolos de la franja se pegan a la línea que
+    // separa las dos mitades y parece que la tocan.
+    const paso = ancho / enFranjas.length
+    const margen = ancho * 0.08
+    return { x: x + i * paso + margen, ancho: paso - margen * 2 }
+  }
+
   for (const el of celda.elementos) {
     switch (el.tipo) {
       case "flecha": {
@@ -672,6 +707,86 @@ function dibujarCelda(
           `<polygon points="${zona}" fill="${relleno}" stroke="none"/>`,
           `<path d="${linea}" stroke="currentColor" stroke-width="${TRAZO}" fill="none"/>`
         )
+        break
+      }
+
+      case "grupo-simbolos": {
+        if (el.simbolo === "linea") {
+          // Las líneas cruzan la casilla de lado a lado y se reparten a
+          // intervalos iguales: con `n` líneas quedan `n + 1` franjas.
+          for (let k = 1; k <= el.cantidad; k++) {
+            const t = k / (el.cantidad + 1)
+            if (el.orientacion === "vertical") {
+              const px = (x + ancho * t).toFixed(1)
+              partes.push(
+                `<line x1="${px}" y1="${y}" x2="${px}" y2="${y + alto}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            } else if (el.orientacion === "horizontal") {
+              const py = (y + alto * t).toFixed(1)
+              partes.push(
+                `<line x1="${x}" y1="${py}" x2="${x + ancho}" y2="${py}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            } else {
+              // Diagonales «/»: todas cumplen x + y = c. Los extremos se
+              // calculan recortados contra los cuatro lados en vez de dibujar
+              // la recta entera y taparla, que deja el trazo asomando en los
+              // navegadores que no recortan igual.
+              const c = x + y + (ancho + alto) * t
+              const ax = Math.max(x, c - (y + alto))
+              const bx = Math.min(x + ancho, c - y)
+              partes.push(
+                `<line x1="${ax.toFixed(1)}" y1="${(c - ax).toFixed(1)}"` +
+                  ` x2="${bx.toFixed(1)}" y2="${(c - bx).toFixed(1)}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}"/>`
+              )
+            }
+          }
+          break
+        }
+
+        // Asteriscos y vigas se reparten en una retícula centrada en su franja,
+        // hasta tres por fila.
+        const franja = franjaDe(el)
+        // Lo más cuadrado que quepa: tres van en fila, cuatro en dos por dos,
+        // cinco en tres y dos. Es como los reparte el cuadernillo.
+        const porFila = Math.ceil(Math.sqrt(el.cantidad))
+        const filas = Math.ceil(el.cantidad / porFila)
+        const paso = Math.min(franja.ancho / (porFila + 1), alto / (filas + 1))
+        const r = paso * 0.32
+        let puestos = 0
+        for (let f = 0; f < filas; f++) {
+          const enEsta = Math.min(porFila, el.cantidad - puestos)
+          for (let k = 0; k < enEsta; k++) {
+            const cx = franja.x + franja.ancho / 2 + (k - (enEsta - 1) / 2) * paso
+            const cy = y + alto / 2 + (f - (filas - 1) / 2) * paso
+            if (el.simbolo === "asterisco") {
+              // Tres trazos cruzados de punta redonda: es lo que el ojo lee
+              // como asterisco sin dibujar seis pétalos.
+              for (const grados of [0, 60, 120]) {
+                partes.push(
+                  `<line x1="${(cx - r).toFixed(1)}" y1="${cy.toFixed(1)}"` +
+                    ` x2="${(cx + r).toFixed(1)}" y2="${cy.toFixed(1)}"` +
+                    ` transform="rotate(${grados} ${cx.toFixed(1)} ${cy.toFixed(1)})"` +
+                    ` stroke="currentColor" stroke-width="${(r * 0.44).toFixed(1)}"` +
+                    ` stroke-linecap="round"/>`
+                )
+              }
+            } else {
+              // La viga: el palo, su remate arriba y las dos patas abiertas.
+              partes.push(
+                `<path d="M${(cx - r * 0.85).toFixed(1)},${(cy - r).toFixed(1)} h${(r * 1.7).toFixed(1)}` +
+                  ` M${cx.toFixed(1)},${(cy - r).toFixed(1)} V${(cy + r * 0.5).toFixed(1)}` +
+                  ` M${(cx - r * 0.9).toFixed(1)},${(cy + r).toFixed(1)} L${cx.toFixed(1)},${(cy + r * 0.5).toFixed(1)}` +
+                  ` L${(cx + r * 0.9).toFixed(1)},${(cy + r).toFixed(1)}"` +
+                  ` stroke="currentColor" stroke-width="${TRAZO}" fill="none"` +
+                  ` stroke-linecap="round" stroke-linejoin="round"/>`
+              )
+            }
+            puestos++
+          }
+        }
         break
       }
 
@@ -1041,6 +1156,10 @@ export function describirCelda(celda: Celda): string {
           )
         case "mitad-rellena":
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
+        case "grupo-simbolos":
+          return el.simbolo === "linea"
+            ? `${el.cantidad} líneas ${el.orientacion}es`
+            : `${el.cantidad} ${el.simbolo === "asterisco" ? "asteriscos" : "vigas"}`
         case "pieza-punta":
           return `pieza con la punta hacia ${el.mira}, con relleno ${el.relleno}`
         case "cuadro-marcado":

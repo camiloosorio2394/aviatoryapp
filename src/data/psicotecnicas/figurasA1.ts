@@ -51,6 +51,21 @@ const r = (...elementos: Elemento[]): Celda => ({
   elementos: [{ tipo: "rombo" }, ...elementos],
 })
 
+/**
+ * Un grupo de símbolos iguales, con cuántos son.
+ *
+ * La orientación solo la llevan las líneas, que en el ejercicio 12 son el
+ * mismo símbolo girado: vertical, en diagonal y horizontal.
+ */
+const sim = (
+  simbolo: "asterisco" | "i" | "linea",
+  cantidad: number,
+  orientacion: "vertical" | "diagonal" | "horizontal" | "ninguna" = "ninguna"
+): Elemento => ({ tipo: "grupo-simbolos", simbolo, orientacion, cantidad })
+
+/** Casilla hecha solo de grupos de símbolos. */
+const g = (...grupos: Elemento[]): Celda => ({ marco: true, elementos: grupos })
+
 const N: Elemento = { tipo: "radio", hacia: "arriba" }
 const S: Elemento = { tipo: "radio", hacia: "abajo" }
 const E: Elemento = { tipo: "radio", hacia: "derecha" }
@@ -345,6 +360,50 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * Dos sudokus encima del mismo tablero.
+   *
+   * El símbolo —asterisco, viga, línea— aparece una vez en cada fila y en cada
+   * columna. La cantidad hace exactamente lo mismo con el tres, el cuatro y el
+   * cinco:
+   *
+   *     3 4 5        En la fila del hueco ya están el cuatro y el cinco, y en
+   *     5 3 4        su columna el cinco y el cuatro. Solo cabe el tres, y solo
+   *     4 5 ·        cabe la línea. La E es tres líneas.
+   *
+   * La cuenta de la segunda casilla se midió sobre la lámina y son cuatro, no
+   * cinco: con cinco el cuadro de cantidades no cerraría, y ese cuadre es la
+   * comprobación de que está bien leída.
+   *
+   * Lo que el solucionador **no** deduce es hacia dónde va la línea que falta.
+   * Las tres líneas de la matriz giran cuarenta y cinco grados cada vez
+   * —vertical, diagonal, horizontal—, pero eso no es una regla de fila ni de
+   * columna, y declararle al programa el alfabeto de orientaciones sería
+   * darle la respuesta escrita. Se leyó de la lámina y va firmado aparte, en
+   * `figurasAprobadas.ts`, diciendo qué parte es de máquina y qué parte de
+   * ojo. Da igual para acertar: de las cinco alternativas, la E es la única
+   * que trae líneas y son tres.
+   *
+   * Las otras cuatro rompen justo el sudoku de los símbolos: la B, la C y la D
+   * mezclan dos tipos en la misma casilla, cosa que no hace ninguna de las
+   * ocho; la A acierta el símbolo y falla la cuenta.
+   */
+  "AB-A1-12": {
+    tipo: "matriz-3x3",
+    celdas: [
+      g(sim("asterisco", 3)), g(sim("linea", 4, "vertical")), g(sim("i", 5)),
+      g(sim("linea", 5, "diagonal")), g(sim("i", 3)), g(sim("asterisco", 4)),
+      g(sim("i", 4)), g(sim("asterisco", 5)), HUECO,
+    ],
+    opciones: [
+      g(sim("linea", 5, "horizontal")),
+      g(sim("linea", 2, "vertical"), sim("asterisco", 1), sim("i", 1)),
+      g(sim("linea", 1, "diagonal"), sim("i", 2)),
+      g(sim("linea", 1, "diagonal"), sim("asterisco", 3)),
+      g(sim("linea", 3, "horizontal")),
     ],
   },
 }
