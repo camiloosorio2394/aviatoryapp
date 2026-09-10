@@ -41,11 +41,16 @@ export function usePdfFirmado(ruta: string | null, bucket: string = DOCS_BUCKET)
    */
   const firmarRef = useRef<() => Promise<void>>(async () => {})
 
-  const firmar = useCallback(async () => {
-    // Sin ruta no hay nada que firmar. El estado de ese caso lo resuelve el
-    // return de abajo, no un setState aquí: hacerlo dentro del efecto encadena
-    // renders y es lo que marca la regla de React.
-    if (!ruta) return
+  /**
+   * Firma y devuelve el estado resultante, sin tocar el estado de React.
+   *
+   * Separada de `firmar` para que el efecto pueda llamarla y fijar el estado
+   * dentro del callback de la promesa: un setState en el cuerpo del efecto
+   * encadena renders y es lo que marca la regla de React.
+   */
+  const firmarUrl = useCallback(async (): Promise<Estado | null> => {
+    // Sin ruta no hay nada que firmar. Ese caso lo resuelve el return del final.
+    if (!ruta) return null
 
     const { data, error } = await supabase.storage.from(bucket).createSignedUrl(ruta, TTL_SEGUNDOS)
 
@@ -57,29 +62,43 @@ export function usePdfFirmado(ruta: string | null, bucket: string = DOCS_BUCKET)
           : msg.includes("permission") || msg.includes("denied") || msg.includes("unauthorized")
             ? "denied"
             : "unknown"
-      setEstado({ url: null, loading: false, error: tipo })
-      return
+      return { url: null, loading: false, error: tipo }
     }
 
-    setEstado({ url: data.signedUrl, loading: false, error: null })
-
-    if (timer.current) window.clearTimeout(timer.current)
-    timer.current = window.setTimeout(
-      () => void firmarRef.current(),
-      TTL_SEGUNDOS * 1000 - MARGEN_MS
-    )
+    return { url: data.signedUrl, loading: false, error: null }
   }, [ruta, bucket])
+
+  /** Fija el estado y, si hay URL, agenda la renovación antes de que caduque. */
+  const aplicar = useCallback((nuevo: Estado | null) => {
+    if (!nuevo) return
+    setEstado(nuevo)
+    if (timer.current) window.clearTimeout(timer.current)
+    if (nuevo.url) {
+      timer.current = window.setTimeout(
+        () => void firmarRef.current(),
+        TTL_SEGUNDOS * 1000 - MARGEN_MS
+      )
+    }
+  }, [])
+
+  const firmar = useCallback(async () => {
+    aplicar(await firmarUrl())
+  }, [firmarUrl, aplicar])
 
   useEffect(() => {
     firmarRef.current = firmar
   }, [firmar])
 
   useEffect(() => {
-    void firmar()
+    let vivo = true
+    void firmarUrl().then((nuevo) => {
+      if (vivo) aplicar(nuevo)
+    })
     return () => {
+      vivo = false
       if (timer.current) window.clearTimeout(timer.current)
     }
-  }, [firmar])
+  }, [firmarUrl, aplicar])
 
   // Una ficha de referencia no tiene archivo: se reporta como "no está" sin
   // haber consultado nada.

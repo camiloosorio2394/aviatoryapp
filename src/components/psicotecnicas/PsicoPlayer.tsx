@@ -93,7 +93,22 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
   )
 
   const respuestas = useRef<RespuestaPsico[]>([])
-  const inicio = useRef<number>(Date.now())
+  const inicio = useRef<number>(0)
+  const restanteRef = useRef(restante)
+
+  /** Mueve el reloj: el estado para pintar y el ref para que lo lea el propio
+   *  intervalo sin volver a montarse. */
+  const ponerRestante = useCallback((s: number) => {
+    restanteRef.current = s
+    setRestante(s)
+  }, [])
+
+  // El cronómetro del primer ejercicio arranca al montar. Antes se leía con
+  // `useRef(Date.now())`, que evalúa el reloj en cada render aunque solo cuente
+  // el primero, y leer el reloj durante el render es impuro.
+  useEffect(() => {
+    inicio.current = Date.now()
+  }, [])
   const ejercicio = ejercicios[orden[indice]]
   const limite = ejercicio ? tiempoDe(ejercicio, modo, nivel) : 0
   const corrigeAlMomento = modo === "entrenamiento"
@@ -123,10 +138,10 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
       setIndice(siguiente)
       setElegida(null)
       setRevelado(false)
-      setRestante(tiempoDe(ejercicios[orden[siguiente]], modo, nivel))
+      ponerRestante(tiempoDe(ejercicios[orden[siguiente]], modo, nivel))
       inicio.current = Date.now()
     },
-    [ejercicio, ejercicios, indice, limite, modo, nivel, onTerminar, orden]
+    [ejercicio, ejercicios, indice, limite, modo, nivel, onTerminar, orden, ponerRestante]
   )
 
   /**
@@ -144,27 +159,29 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
     setOrden([...resto, posicion])
     setAplazados((previos) => new Set(previos).add(posicion))
     setElegida(null)
-    setRestante(tiempoDe(ejercicios[resto[indice] ?? posicion], modo, nivel))
+    ponerRestante(tiempoDe(ejercicios[resto[indice] ?? posicion], modo, nivel))
     inicio.current = Date.now()
-  }, [ejercicio, ejercicios, indice, modo, nivel, orden, revelado])
+  }, [ejercicio, ejercicios, indice, modo, nivel, orden, revelado, ponerRestante])
 
-  // El reloj solo descuenta. Quien decide qué pasa al llegar a cero es el
-  // efecto de abajo: avanzar desde dentro del actualizador de estado dispara
-  // una actualización de otro componente en mitad del render de este.
-  useEffect(() => {
-    if (!ejercicio || revelado) return
-    const t = window.setInterval(() => {
-      setRestante((s) => (s <= 1 ? 0 : s - 1))
-    }, 1000)
-    return () => window.clearInterval(t)
-  }, [ejercicio, revelado])
-
+  // El reloj descuenta y además decide qué pasa al llegar a cero, desde el
+  // propio temporizador. Antes el cero lo miraba un efecto sobre `restante`, y
+  // eso son dos cosas malas: un setState en el cuerpo de un efecto y una vuelta
+  // de render de más entre el cero y el avance. Lo que NO se puede hacer, y por
+  // eso no se hace, es avanzar desde dentro del actualizador de estado: eso
+  // dispara una actualización de otro componente en mitad del render de este.
+  //
   // En entrenamiento el cero no expulsa: se queda ahí y solo avisa. En los
   // otros dos modos cierra el ejercicio como no respondido.
   useEffect(() => {
-    if (restante !== 0 || corrigeAlMomento || revelado) return
-    avanzar(null)
-  }, [restante, corrigeAlMomento, revelado, avanzar])
+    if (!ejercicio || revelado) return
+    const t = window.setInterval(() => {
+      const s = restanteRef.current
+      const siguiente = s <= 1 ? 0 : s - 1
+      ponerRestante(siguiente)
+      if (siguiente === 0 && !corrigeAlMomento) avanzar(null)
+    }, 1000)
+    return () => window.clearInterval(t)
+  }, [ejercicio, revelado, corrigeAlMomento, avanzar, ponerRestante])
 
   if (!ejercicio) return null
 

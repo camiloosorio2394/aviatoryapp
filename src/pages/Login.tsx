@@ -70,7 +70,14 @@ export function Login() {
   const initialMode: Mode = searchParams.get("mode") === "signup" ? "signup" : "signin"
   const referralCode = searchParams.get("ref")?.toUpperCase() ?? null
 
-  const [mode, setMode] = useState<Mode>(initialMode)
+  /**
+   * El modo sale de la URL, y una elección manual lo pisa hasta que la URL
+   * cambie. Antes eran dos cosas: un estado y un efecto que lo sincronizaba,
+   * o sea un setState en el cuerpo del efecto en cada visita.
+   */
+  const [elegido, setElegido] = useState<{ url: Mode; modo: Mode } | null>(null)
+  const mode = elegido?.url === initialMode ? elegido.modo : initialMode
+  const setMode = (m: Mode) => setElegido({ url: initialMode, modo: m })
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -78,7 +85,18 @@ export function Login() {
   const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>({ state: "idle" })
+  /**
+   * Lo único que se guarda del usuario es la respuesta del servidor, con el
+   * nombre al que contesta. Todo lo demás (vacío, formato inválido, «estoy
+   * preguntando») se deduce durante el render de lo que hay escrito.
+   *
+   * Guardar el nombre junto a la respuesta arregla además una carrera: al
+   * teclear rápido, una respuesta vieja podía marcar como libre un nombre que
+   * ya no era el que estaba escrito.
+   */
+  const [respuesta, setRespuesta] = useState<{ nombre: string; libre: boolean | null } | null>(
+    null
+  )
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -91,40 +109,34 @@ export function Login() {
     if (!isLoading && session) navigate(from, { replace: true })
   }, [session, isLoading, navigate, from])
 
-  useEffect(() => {
-    const m = searchParams.get("mode") === "signup" ? "signup" : "signin"
-    setMode(m)
-  }, [searchParams])
+  /** Si hace falta preguntarle al servidor por este nombre. */
+  const hayQuePreguntar = isSignup && username.length > 0 && USERNAME_REGEX.test(username)
 
-  // Username availability check (debounced)
+  const usernameStatus: UsernameStatus = !isSignup || !username
+    ? { state: "idle" }
+    : !USERNAME_REGEX.test(username)
+      ? { state: "invalid", reason: "3–30 caracteres, minúsculas, números o _" }
+      : respuesta?.nombre !== username
+        ? { state: "checking" }
+        : respuesta.libre === null
+          ? { state: "idle" }
+          : { state: respuesta.libre ? "available" : "taken" }
+
+  // Username availability check (debounced). El estado se fija dentro del
+  // callback del temporizador, que es un sistema externo, y no en el cuerpo del
+  // efecto.
   const checkTimer = useRef<number | undefined>(undefined)
   useEffect(() => {
-    if (!isSignup) return
-    if (!username) {
-      setUsernameStatus({ state: "idle" })
-      return
-    }
-    if (!USERNAME_REGEX.test(username)) {
-      setUsernameStatus({
-        state: "invalid",
-        reason: "3–30 caracteres, minúsculas, números o _",
-      })
-      return
-    }
-    setUsernameStatus({ state: "checking" })
+    if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
       const { data, error } = await supabase.rpc("check_username_available", {
         p_username: username,
       })
-      if (error) {
-        setUsernameStatus({ state: "idle" })
-        return
-      }
-      setUsernameStatus({ state: data ? "available" : "taken" })
+      setRespuesta({ nombre: username, libre: error ? null : !!data })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
-  }, [username, isSignup])
+  }, [username, hayQuePreguntar])
 
   const passwordChecks = useMemo(
     () => ({
@@ -160,7 +172,7 @@ export function Login() {
         )
         if (checkErr) throw checkErr
         if (!stillAvailable) {
-          setUsernameStatus({ state: "taken" })
+          setRespuesta({ nombre: username, libre: false })
           throw new Error("Ese usuario ya fue tomado mientras escribías. Prueba otro.")
         }
 

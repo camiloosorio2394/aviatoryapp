@@ -49,6 +49,10 @@ interface Message {
 
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
 
+/** Una sola lista vacía para todo el archivo: creando una nueva en cada render,
+ *  cualquier dependencia que la mire se creería que cambió. */
+const SIN_REACCIONES: Reaction[] = []
+
 export function CommunityChannel() {
   const { slug } = useParams<{ slug: string }>()
   const { user } = useSession()
@@ -56,7 +60,11 @@ export function CommunityChannel() {
   const [messages, setMessages] = useState<Message[]>([])
   const [profiles, setProfiles] = useState<Record<string, ProfileLite>>({})
   const [streaks, setStreaks] = useState<Record<string, number>>({})
-  const [reactions, setReactions] = useState<Reaction[]>([])
+  // Sin mensajes no hay reacciones, y eso no es un estado que se fije: es una
+  // consecuencia. Se deriva, y así el efecto de abajo no tiene que vaciarlo
+  // desde su cuerpo.
+  const [reacciones, setReacciones] = useState<Reaction[]>([])
+  const reactions = messages.length === 0 ? SIN_REACCIONES : reacciones
   const [input, setInput] = useState("")
   const [sending, setSending] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -90,21 +98,27 @@ export function CommunityChannel() {
   }, [slug])
 
   // ---- Initial fetch + Realtime subscription
-  const fetchMessages = useCallback(async () => {
-    if (!channel) return
+  /** Trae y devuelve. Null cuando no hay canal o la consulta falla: en los dos
+   *  casos lo que hay en pantalla se queda como está. */
+  const traerMensajes = useCallback(async () => {
+    if (!channel) return null
     const { data, error } = await supabase
       .from("community_messages")
       .select("*")
       .eq("channel_id", channel.id)
       .order("created_at", { ascending: true })
       .limit(200)
-    if (error) return
-    setMessages((data ?? []) as Message[])
+    return error ? null : ((data ?? []) as Message[])
   }, [channel])
 
   useEffect(() => {
     if (!channel) return
-    fetchMessages()
+    let vivo = true
+    // El estado se fija dentro del callback de la promesa y no en el cuerpo del
+    // efecto, que es lo que pide react-hooks/set-state-in-effect.
+    void traerMensajes().then((lista) => {
+      if (vivo && lista) setMessages(lista)
+    })
 
     // Realtime: nuevos mensajes en este canal
     const rt = supabase
@@ -147,7 +161,7 @@ export function CommunityChannel() {
         },
         (payload) => {
           const r = payload.new as Reaction
-          setReactions((prev) =>
+          setReacciones((prev) =>
             prev.some(
               (x) =>
                 x.message_id === r.message_id &&
@@ -168,7 +182,7 @@ export function CommunityChannel() {
         },
         (payload) => {
           const o = payload.old as Reaction
-          setReactions((prev) =>
+          setReacciones((prev) =>
             prev.filter(
               (r) =>
                 !(
@@ -183,9 +197,10 @@ export function CommunityChannel() {
       .subscribe()
 
     return () => {
+      vivo = false
       supabase.removeChannel(rt)
     }
-  }, [channel, fetchMessages])
+  }, [channel, traerMensajes])
 
   // ---- Fetch profile + streak data for users in messages
   useEffect(() => {
@@ -223,18 +238,19 @@ export function CommunityChannel() {
 
   // ---- Fetch reactions for messages
   useEffect(() => {
-    if (messages.length === 0) {
-      setReactions([])
-      return
-    }
+    if (messages.length === 0) return
     const ids = messages.map((m) => m.id)
-    supabase
+    let vivo = true
+    void supabase
       .from("community_reactions")
       .select("*")
       .in("message_id", ids)
       .then(({ data }) => {
-        setReactions((data ?? []) as Reaction[])
+        if (vivo) setReacciones((data ?? []) as Reaction[])
       })
+    return () => {
+      vivo = false
+    }
   }, [messages])
 
   // ---- Auto-scroll to bottom on new messages
@@ -283,7 +299,7 @@ export function CommunityChannel() {
       (r) => r.message_id === messageId && r.user_id === user.id && r.emoji === emoji
     )
     if (existing) {
-      setReactions((prev) =>
+      setReacciones((prev) =>
         prev.filter(
           (r) =>
             !(r.message_id === messageId && r.user_id === user.id && r.emoji === emoji)
@@ -297,12 +313,12 @@ export function CommunityChannel() {
         .eq("emoji", emoji)
     } else {
       const optimistic: Reaction = { message_id: messageId, user_id: user.id, emoji }
-      setReactions((prev) => [...prev, optimistic])
+      setReacciones((prev) => [...prev, optimistic])
       const { error } = await supabase
         .from("community_reactions")
         .insert({ message_id: messageId, user_id: user.id, emoji })
       if (error) {
-        setReactions((prev) =>
+        setReacciones((prev) =>
           prev.filter(
             (r) =>
               !(r.message_id === messageId && r.user_id === user.id && r.emoji === emoji)

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { prefiereQuieto } from "@/lib/motion"
+import { usePrefiereQuieto } from "@/hooks/usePrefiereQuieto"
 
 interface Props {
   to: number
@@ -33,17 +33,17 @@ export function CountUp({
   className,
   start = true,
 }: Props) {
-  const [val, setVal] = useState(0)
+  const [animado, setAnimado] = useState(0)
+  const quieto = usePrefiereQuieto()
+
+  // Quien pidió menos movimiento recibe la cifra y ya. El dato es el número, no
+  // el camino hasta él: contarlo no lo explica, solo lo hace esperar. Se deriva
+  // en vez de fijarse desde el efecto, que era un setState síncrono en cada
+  // montaje para todo el que la tenga puesta.
+  const val = quieto ? to : animado
 
   useEffect(() => {
-    if (!start) return
-
-    // Quien pidió menos movimiento recibe la cifra y ya. El dato es el número,
-    // no el camino hasta él: contarlo no lo explica, solo lo hace esperar.
-    if (prefiereQuieto()) {
-      setVal(to)
-      return
-    }
+    if (!start || quieto) return
 
     let raf: number
     let inicio: number | null = null
@@ -51,12 +51,12 @@ export function CountUp({
     const step = (ts: number) => {
       if (inicio === null) inicio = ts
       const t = Math.min(1, (ts - inicio) / duration)
-      setVal(to * ease(t))
+      setAnimado(to * ease(t))
       if (t < 1) raf = requestAnimationFrame(step)
     }
     raf = requestAnimationFrame(step)
     return () => cancelAnimationFrame(raf)
-  }, [to, duration, start])
+  }, [to, duration, start, quieto])
 
   return (
     <span className={className}>

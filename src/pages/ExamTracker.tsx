@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent, useCallback } from "react"
 import { Link } from "react-router-dom"
 import {
   Users,
@@ -66,16 +66,29 @@ export function ExamTracker() {
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
 
-  async function load() {
-    const { data, error } = await supabase.rpc("get_all_subjects_intel")
-    if (error) toast.error(error.message)
-    else setIntel((data ?? []) as SubjectIntel[])
-    setLoading(false)
-  }
+  const traer = useCallback(async () => supabase.rpc("get_all_subjects_intel"), [])
 
-  useEffect(() => {
-    load()
+  const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
+    if (r.error) toast.error(r.error.message)
+    else setIntel((r.data ?? []) as SubjectIntel[])
+    setLoading(false)
   }, [])
+
+  const load = useCallback(async () => {
+    aplicar(await traer())
+  }, [traer, aplicar])
+
+  // El estado se fija dentro del callback de la promesa y no en el cuerpo del
+  // efecto. De paso gana la guarda de cancelación, que no tenía.
+  useEffect(() => {
+    let vivo = true
+    void traer().then((r) => {
+      if (vivo) aplicar(r)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traer, aplicar])
 
   const totalReports = intel.reduce((acc, i) => acc + i.total_reports, 0)
   const totalSubjects = intel.length
