@@ -159,68 +159,6 @@ export const NIVEL_4: DocScreen[] = [
           "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación (Cap. F, (h)). Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado (175.615 (b)). Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Durante la descarga se detecta una avería en un bulto con mercancías peligrosas. ¿Qué exige el reglamento además de retirarlo?",
-            ref: "LAR 175.520 y 175.615",
-            opciones: [
-              {
-                t: "Inspeccionar la zona en que iba estibado para averiguar si hay daños o contaminación, y eliminar sin demora toda contaminación peligrosa.",
-                ok: true,
-                fb: "La avería no se cierra retirando el bulto: hay que revisar la zona de estiba y descontaminar. El explotador comprueba además que el resto del envío está en condiciones y que no quedó contaminado ningún otro bulto.",
-              },
-              {
-                t: "Solo anotarlo en la bitácora y continuar.",
-                fb: "El 175.615 impone acciones materiales: descargar, verificar el resto del envío, comprobar la contaminación de otros bultos y eliminar sin demora la contaminación peligrosa.",
-              },
-              {
-                t: "Esperar instrucciones del expedidor.",
-                fb: "La obligación de actuar es del explotador; el expedidor responde por la preparación del envío, no por la respuesta en plataforma.",
-              },
-            ],
-          },
-          {
-            q: "En un carguero, ¿dónde va un bulto con la etiqueta «Exclusivamente en aeronaves de carga»?",
-            ref: "LAR 175.520 (d) y (e)",
-            opciones: [
-              {
-                t: "En cualquier posición: en carguero no hay restricción.",
-                fb: "Sí la hay. Se cargan de modo que un tripulante o persona autorizada pueda verlos, manipularlos y, si su tamaño y peso lo permiten, separarlos en vuelo de las otras mercancías.",
-              },
-              {
-                t: "Donde un tripulante pueda verlo, manipularlo y separarlo en vuelo.",
-                ok: true,
-                fb: "Es la lección del Helderberg: un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada. La accesibilidad es la condición para que existan los CAO.",
-              },
-              {
-                t: "Lo más lejos posible de la cabina de mando.",
-                fb: "La distancia no es el criterio; el acceso sí. Un bulto CAO al fondo de la bodega inferior, inaccesible en vuelo, incumple el (d) y el (e).",
-              },
-            ],
-          },
-          {
-            q: "Un agente quiere aceptar un envío de mercancías peligrosas «porque el expedidor es de confianza», sin documento de transporte. ¿Puede?",
-            ref: "LAR 175.510 (a) y (b)",
-            opciones: [
-              {
-                t: "Sí, si inspecciona bien el bulto.",
-                fb: "La inspección es la segunda condición, no un sustituto de la primera. Sin documento de transporte debidamente diligenciado no se acepta, salvo que las Instrucciones digan que no se requiere.",
-              },
-              {
-                t: "No: sin documento de transporte diligenciado y sin inspeccionar el bulto no se acepta.",
-                ok: true,
-                fb: "Las dos condiciones del 175.514 son acumulativas. Y el personal usa una lista de verificación para no saltarse ninguna (175.510 (d)).",
-              },
-              {
-                t: "Sí, si el comandante lo autoriza.",
-                fb: "El comandante no puede autorizar lo que la norma prohíbe al explotador. Un envío sin documento no debería llegar nunca a tu firma.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         preguntas: [
           {
@@ -246,15 +184,6 @@ export const NIVEL_4: DocScreen[] = [
             claves: ["No se acepta un bulto dañado", "La inspección es previa", "Si ya está a bordo, es un suceso"],
             ref: "LAR 175.510 (b)",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Seis pasos antes de tu firma: documento, inspección, lista de verificación, inspección antes de estibar, estiba y sujeción, segregación.",
-          "Nada en cabina ni en el puesto de pilotaje; ningún CAO en avión con pasajeros; en carguero, accesibles y separables en vuelo (Cap. F).",
-          "Segregación: incompatibles no van juntos (175.525); radiactivo lejos de personas, animales y películas; 4.1 y 5.2 lejos del sol y el calor.",
-          "Helderberg: lo que no se puede alcanzar no se puede combatir.",
         ],
       },
     ],
@@ -409,68 +338,6 @@ export const NIVEL_4: DocScreen[] = [
         texto:
           "El NOTOC dice UN 1263, clase 3, grupo II, dos bultos en la bodega trasera. La declaración del expedidor dice grupo III. No firmas: preguntas. Si la discrepancia no se resuelve, el envío no sale. Y si alguien descubre después del vuelo que se transportaron mercancías sin información al piloto al mando, eso es un suceso que se notifica (175.625 (d)).",
       },
-      {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Se descubre que un vuelo transportó mercancías peligrosas sin que se hubiera proporcionado la información al piloto al mando. ¿Qué obligación nace?",
-            ref: "LAR 175.625 (d)",
-            opciones: [
-              {
-                t: "Notificar el suceso a las autoridades del Estado del explotador y del Estado de origen.",
-                ok: true,
-                fb: "El 175.625 (d) obliga a notificar todo suceso en el que se descubra que se transportaron mercancías peligrosas mal cargadas, segregadas, separadas o afianzadas, o respecto de las cuales no se proporcionó información al piloto al mando.",
-              },
-              {
-                t: "Ninguna, si el vuelo terminó sin novedad.",
-                fb: "La obligación de notificar no depende de que haya habido consecuencias: es el hallazgo lo que la activa.",
-              },
-              {
-                t: "Solo registrarlo internamente en el SMS del explotador.",
-                fb: "Se integra al SMS (175.028) y además se notifica a las autoridades que correspondan.",
-              },
-            ],
-          },
-          {
-            q: "¿Cuándo debe firmar el piloto al mando la información sobre mercancías peligrosas?",
-            ref: "LAR 175.515 (a) (1)",
-            opciones: [
-              {
-                t: "Antes de que las mercancías sean transportadas.",
-                ok: true,
-                fb: "Es literal. Además la información debe estar a su alcance durante el vuelo y el explotador conserva copia en tierra.",
-              },
-              {
-                t: "Al cierre de puertas.",
-                fb: "No es el criterio de la norma. La información se proporciona lo antes posible antes de la salida y se firma antes del transporte.",
-              },
-              {
-                t: "Al llegar al destino, junto con el resto de la documentación.",
-                fb: "Sería demasiado tarde para cumplir su función: saber qué llevas y dónde antes de despegar.",
-              },
-            ],
-          },
-          {
-            q: "Vuelas Bogotá a Madrid con mercancías peligrosas. ¿En qué idioma va la información al piloto al mando?",
-            ref: "LAR 175.515 (c)",
-            opciones: [
-              {
-                t: "Solo en el idioma que exija el Estado de origen.",
-                fb: "El español va, pero no basta: en transporte internacional, además de los idiomas exigidos por el Estado de origen, debe utilizarse el inglés.",
-              },
-              {
-                t: "En español y además en inglés.",
-                ok: true,
-                fb: "Es la regla del 175.515 (c), y la misma de las marcas (175.430 (c)): en transporte internacional, inglés además de los idiomas del Estado de origen.",
-              },
-              {
-                t: "Solo en inglés, como toda la documentación internacional.",
-                fb: "El inglés se añade a los idiomas exigidos por el Estado de origen, no los reemplaza.",
-              },
-            ],
-          },
-        ],
-      },
       { kind: "sub", text: "Léelo tú antes de que te lo expliquen" },
       {
         kind: "callout",
@@ -535,14 +402,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
             claves: ["Preguntar antes de firmar", "El dato se usa en emergencia", "Puede ser de otro vuelo"],
             ref: "LAR 175.515 (a)",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Por escrito, lo antes posible antes de la salida, firmado por el comandante antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional (175.515).",
-          "Antes de firmar: documentos, clase y aeronave, coherencia de datos, posición y segregación.",
-          "Si no cuadra, no se firma. Si se descubre después, se notifica (175.625 (d)).",
         ],
       },
     ],
@@ -691,68 +550,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         concepto: "El orden de las decisiones (volar, identificar, contener, declarar, desviar, informar) y las cuatro cosas que el 175.620 exige que existan antes de que algo pase.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
-            ref: "LAR 175.620 (d) (1)",
-            opciones: [
-              {
-                t: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
-                ok: true,
-                fb: "Es literal, y es dato de examen. El reglamento fija ese contenido como mínimo y exige instrucción a los tripulantes sobre su uso.",
-              },
-              {
-                t: "Extintor de halón, máscara antihumo y guantes ignífugos.",
-                fb: "Ese es equipamiento contra incendios exigido por otras partes de la reglamentación. El equipo de respuesta de mercancías peligrosas del 175.620 (d) (1) es de contención.",
-              },
-              {
-                t: "El Doc 9481 impreso y el NOTOC.",
-                fb: "Esos son información, no equipo. El 175.620 distingue la información de respuesta (b) del equipo material (d).",
-              },
-            ],
-          },
-          {
-            q: "Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
-            ref: "Orden de las decisiones · LAR 175.620 (e)",
-            opciones: [
-              {
-                t: "Informar al ATC qué mercancía llevas.",
-                fb: "Viene enseguida, pero después. El propio reglamento dice «tan pronto la situación lo permita»: primero se controla la aeronave.",
-              },
-              {
-                t: "Volar la aeronave y gestionar el humo.",
-                ok: true,
-                fb: "Primero se vuela: control de la aeronave, oxígeno y máscaras, gestión del humo. Identificar con el NOTOC y avisar al ATS vienen inmediatamente después.",
-              },
-              {
-                t: "Consultar el NOTOC para identificar la sustancia.",
-                fb: "Es el segundo paso. Identificar sin haber asegurado el control de la aeronave es empezar por el final.",
-              },
-            ],
-          },
-          {
-            q: "En la emergencia, ¿a quién informa el piloto al mando de que lleva mercancías peligrosas, y para qué?",
-            ref: "LAR 175.620 (e)",
-            opciones: [
-              {
-                t: "Al expedidor, para que confirme el contenido.",
-                fb: "El expedidor no está en la cadena de respuesta en vuelo. La información ya está a bordo, en el NOTOC.",
-              },
-              {
-                t: "A la dependencia ATS, para que esta informe a la administración aeroportuaria.",
-                ok: true,
-                fb: "Es la cadena del 175.620 (e): comandante → ATS → administración aeroportuaria. Así los bomberos saben qué van a encontrar antes de que el avión toque pista.",
-              },
-              {
-                t: "Directamente a los bomberos del aeródromo de destino.",
-                fb: "El comandante no tiene ese canal. Habla con el ATS, y el ATS con el aeródromo. Después del aterrizaje, es el explotador quien entrega la información a los servicios de emergencia (175.620 (f)).",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "piensaComoPiloto",
         momento: "FL330, 40 minutos de destino",
         situacion:
@@ -794,14 +591,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
             claves: ["Se reporta aunque no haya consecuencias", "Incidente imputable", "Alimenta el SMS"],
             ref: "LAR 175.001 (a) y 175.625",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Antes: información de emergencia disponible de inmediato (Doc 9481), tripulación al corriente, equipo a bordo (bolsas, ligaduras, guantes largos de goma). 175.620 (b) y (d).",
-          "Durante: volar, identificar, contener, declarar, desviar, informar. Al ATS tan pronto la situación lo permita (175.620 (e)).",
-          "Después: el explotador entrega la información a los servicios de emergencia (175.620 (f) y (g)) y se notifica el suceso.",
         ],
       },
     ],
@@ -898,8 +687,216 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
           "Se notifica todo suceso o accidente con mercancías peligrosas, y también el hallazgo de mercancías no declaradas o mal declaradas, aunque no haya pasado nada. Si en el turnaround aparece una batería suelta en una maleta facturada, si un bulto llegó mojado, si el NOTOC no traía un envío que sí iba: los tres se reportan por el canal de tu explotador. Primero se vuela; después, lo que pasó se cuenta.",
       },
       {
-        kind: "ponAPrueba",
+        kind: "hueco",
+        rotulo: "MP-DIA-03 · Diagrama · 16:9 · 1600×900 · SVG",
+        descripcion:
+          "Los cuatro niveles de suceso como una escalera ascendente: incumplimiento (sin daño), incidente (daño, fuga, lesión), accidente (lesiones graves o mortales, daños de consideración) y, cruzando los tres, el descubrimiento de una mercancía oculta. La flecha del valor para el SMS apunta al revés que la de la gravedad: el escalón más bajo es el que más enseña.",
+        alto: 300,
+      },
+      {
+        kind: "entrevista",
         preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué diferencia hay entre accidente, incidente e incumplimiento imputable a mercancías peligrosas?",
+            respuesta:
+              "El accidente ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente. El incidente no llega a accidente pero produce lesiones, daños, incendio, ruptura, derrame, fuga o cualquier manifestación de que se ha vulnerado la integridad de un embalaje, y no tiene que ocurrir necesariamente a bordo. El incumplimiento es la ocurrencia atribuible al transporte que no llega a ninguno de los dos.",
+            claves: ["Accidente: lesiones graves o mortales, daños de consideración", "Incidente: daño, fuga, integridad vulnerada", "Incumplimiento: sin ninguna de las dos"],
+            ref: "LAR 175.001 (a)",
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué se notifica algo que no causó ningún daño?",
+            respuesta:
+              "Porque es el dato más barato del sistema. Un incumplimiento es un fallo de la cadena que todavía no ha costado nada, y sirve para corregir antes de que cueste. Por eso el transporte de mercancías peligrosas está dentro del alcance del SMS del explotador y por eso las autoridades recopilan también lo que no llega a incidente: para trabajar de forma predictiva y proactiva en vez de reactiva.",
+            claves: ["Fallo que aún no ha costado nada", "Entra en el SMS", "Predictivo y proactivo, no reactivo"],
+            ref: "LAR 175.220 (k)",
+          },
+          {
+            nivel: "situacion",
+            q: "En destino, al descargar, aparece un bulto con una fuga que en vuelo nadie detectó. ¿Qué es y qué se hace?",
+            respuesta:
+              "Es un incidente imputable a mercancías peligrosas: hay una manifestación de que se ha vulnerado la integridad de un embalaje, aunque nadie se diera cuenta durante el vuelo y no haya lesionados. Se notifica a las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió. Y, operacionalmente, hay que ver qué había cerca de ese bulto, porque una fuga junto a algo incompatible es otro problema distinto.",
+            claves: ["Es un incidente, no un incumplimiento", "Se notifica a las dos autoridades", "Revisar qué había cerca"],
+            ref: "LAR 175.625",
+          },
+        ],
+      },
+      {
+        kind: "ponAPrueba",
+        titulo: "Control del nivel 4",
+        preguntas: [
+          {
+            q: "Durante la descarga se detecta una avería en un bulto con mercancías peligrosas. ¿Qué exige el reglamento además de retirarlo?",
+            ref: "LAR 175.520 y 175.615",
+            opciones: [
+              {
+                t: "Inspeccionar la zona en que iba estibado para averiguar si hay daños o contaminación, y eliminar sin demora toda contaminación peligrosa.",
+                ok: true,
+                fb: "La avería no se cierra retirando el bulto: hay que revisar la zona de estiba y descontaminar. El explotador comprueba además que el resto del envío está en condiciones y que no quedó contaminado ningún otro bulto.",
+              },
+              {
+                t: "Solo anotarlo en la bitácora y continuar.",
+                fb: "El 175.615 impone acciones materiales: descargar, verificar el resto del envío, comprobar la contaminación de otros bultos y eliminar sin demora la contaminación peligrosa.",
+              },
+              {
+                t: "Esperar instrucciones del expedidor.",
+                fb: "La obligación de actuar es del explotador; el expedidor responde por la preparación del envío, no por la respuesta en plataforma.",
+              },
+            ],
+          },
+          {
+            q: "En un carguero, ¿dónde va un bulto con la etiqueta «Exclusivamente en aeronaves de carga»?",
+            ref: "LAR 175.520 (d) y (e)",
+            opciones: [
+              {
+                t: "En cualquier posición: en carguero no hay restricción.",
+                fb: "Sí la hay. Se cargan de modo que un tripulante o persona autorizada pueda verlos, manipularlos y, si su tamaño y peso lo permiten, separarlos en vuelo de las otras mercancías.",
+              },
+              {
+                t: "Donde un tripulante pueda verlo, manipularlo y separarlo en vuelo.",
+                ok: true,
+                fb: "Es la lección del Helderberg: un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada. La accesibilidad es la condición para que existan los CAO.",
+              },
+              {
+                t: "Lo más lejos posible de la cabina de mando.",
+                fb: "La distancia no es el criterio; el acceso sí. Un bulto CAO al fondo de la bodega inferior, inaccesible en vuelo, incumple el (d) y el (e).",
+              },
+            ],
+          },
+          {
+            q: "Un agente quiere aceptar un envío de mercancías peligrosas «porque el expedidor es de confianza», sin documento de transporte. ¿Puede?",
+            ref: "LAR 175.510 (a) y (b)",
+            opciones: [
+              {
+                t: "Sí, si inspecciona bien el bulto.",
+                fb: "La inspección es la segunda condición, no un sustituto de la primera. Sin documento de transporte debidamente diligenciado no se acepta, salvo que las Instrucciones digan que no se requiere.",
+              },
+              {
+                t: "No: sin documento de transporte diligenciado y sin inspeccionar el bulto no se acepta.",
+                ok: true,
+                fb: "Las dos condiciones del 175.514 son acumulativas. Y el personal usa una lista de verificación para no saltarse ninguna (175.510 (d)).",
+              },
+              {
+                t: "Sí, si el comandante lo autoriza.",
+                fb: "El comandante no puede autorizar lo que la norma prohíbe al explotador. Un envío sin documento no debería llegar nunca a tu firma.",
+              },
+            ],
+          },
+          {
+            q: "Se descubre que un vuelo transportó mercancías peligrosas sin que se hubiera proporcionado la información al piloto al mando. ¿Qué obligación nace?",
+            ref: "LAR 175.625 (d)",
+            opciones: [
+              {
+                t: "Notificar el suceso a las autoridades del Estado del explotador y del Estado de origen.",
+                ok: true,
+                fb: "El 175.625 (d) obliga a notificar todo suceso en el que se descubra que se transportaron mercancías peligrosas mal cargadas, segregadas, separadas o afianzadas, o respecto de las cuales no se proporcionó información al piloto al mando.",
+              },
+              {
+                t: "Ninguna, si el vuelo terminó sin novedad.",
+                fb: "La obligación de notificar no depende de que haya habido consecuencias: es el hallazgo lo que la activa.",
+              },
+              {
+                t: "Solo registrarlo internamente en el SMS del explotador.",
+                fb: "Se integra al SMS (175.028) y además se notifica a las autoridades que correspondan.",
+              },
+            ],
+          },
+          {
+            q: "¿Cuándo debe firmar el piloto al mando la información sobre mercancías peligrosas?",
+            ref: "LAR 175.515 (a) (1)",
+            opciones: [
+              {
+                t: "Antes de que las mercancías sean transportadas.",
+                ok: true,
+                fb: "Es literal. Además la información debe estar a su alcance durante el vuelo y el explotador conserva copia en tierra.",
+              },
+              {
+                t: "Al cierre de puertas.",
+                fb: "No es el criterio de la norma. La información se proporciona lo antes posible antes de la salida y se firma antes del transporte.",
+              },
+              {
+                t: "Al llegar al destino, junto con el resto de la documentación.",
+                fb: "Sería demasiado tarde para cumplir su función: saber qué llevas y dónde antes de despegar.",
+              },
+            ],
+          },
+          {
+            q: "Vuelas Bogotá a Madrid con mercancías peligrosas. ¿En qué idioma va la información al piloto al mando?",
+            ref: "LAR 175.515 (c)",
+            opciones: [
+              {
+                t: "Solo en el idioma que exija el Estado de origen.",
+                fb: "El español va, pero no basta: en transporte internacional, además de los idiomas exigidos por el Estado de origen, debe utilizarse el inglés.",
+              },
+              {
+                t: "En español y además en inglés.",
+                ok: true,
+                fb: "Es la regla del 175.515 (c), y la misma de las marcas (175.430 (c)): en transporte internacional, inglés además de los idiomas del Estado de origen.",
+              },
+              {
+                t: "Solo en inglés, como toda la documentación internacional.",
+                fb: "El inglés se añade a los idiomas exigidos por el Estado de origen, no los reemplaza.",
+              },
+            ],
+          },
+          {
+            q: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
+            ref: "LAR 175.620 (d) (1)",
+            opciones: [
+              {
+                t: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
+                ok: true,
+                fb: "Es literal, y es dato de examen. El reglamento fija ese contenido como mínimo y exige instrucción a los tripulantes sobre su uso.",
+              },
+              {
+                t: "Extintor de halón, máscara antihumo y guantes ignífugos.",
+                fb: "Ese es equipamiento contra incendios exigido por otras partes de la reglamentación. El equipo de respuesta de mercancías peligrosas del 175.620 (d) (1) es de contención.",
+              },
+              {
+                t: "El Doc 9481 impreso y el NOTOC.",
+                fb: "Esos son información, no equipo. El 175.620 distingue la información de respuesta (b) del equipo material (d).",
+              },
+            ],
+          },
+          {
+            q: "Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
+            ref: "Orden de las decisiones · LAR 175.620 (e)",
+            opciones: [
+              {
+                t: "Informar al ATC qué mercancía llevas.",
+                fb: "Viene enseguida, pero después. El propio reglamento dice «tan pronto la situación lo permita»: primero se controla la aeronave.",
+              },
+              {
+                t: "Volar la aeronave y gestionar el humo.",
+                ok: true,
+                fb: "Primero se vuela: control de la aeronave, oxígeno y máscaras, gestión del humo. Identificar con el NOTOC y avisar al ATS vienen inmediatamente después.",
+              },
+              {
+                t: "Consultar el NOTOC para identificar la sustancia.",
+                fb: "Es el segundo paso. Identificar sin haber asegurado el control de la aeronave es empezar por el final.",
+              },
+            ],
+          },
+          {
+            q: "En la emergencia, ¿a quién informa el piloto al mando de que lleva mercancías peligrosas, y para qué?",
+            ref: "LAR 175.620 (e)",
+            opciones: [
+              {
+                t: "Al expedidor, para que confirme el contenido.",
+                fb: "El expedidor no está en la cadena de respuesta en vuelo. La información ya está a bordo, en el NOTOC.",
+              },
+              {
+                t: "A la dependencia ATS, para que esta informe a la administración aeroportuaria.",
+                ok: true,
+                fb: "Es la cadena del 175.620 (e): comandante → ATS → administración aeroportuaria. Así los bomberos saben qué van a encontrar antes de que el avión toque pista.",
+              },
+              {
+                t: "Directamente a los bomberos del aeródromo de destino.",
+                fb: "El comandante no tiene ese canal. Habla con el ATS, y el ATS con el aeródromo. Después del aterrizaje, es el explotador quien entrega la información a los servicios de emergencia (175.620 (f)).",
+              },
+            ],
+          },
           {
             q: "Un pasajero es sorprendido en el filtro con un artículo de la clase 2 no permitido. ¿Quién notifica y a quién?",
             ref: "LAR 175.625 (c) y (f)",
@@ -956,51 +953,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
                 fb: "La cooperación y el intercambio de información existen (175.626), pero el objeto de esta recopilación es el proceso predictivo y proactivo.",
               },
             ],
-          },
-        ],
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-DIA-03 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Los cuatro niveles de suceso como una escalera ascendente: incumplimiento (sin daño), incidente (daño, fuga, lesión), accidente (lesiones graves o mortales, daños de consideración) y, cruzando los tres, el descubrimiento de una mercancía oculta. La flecha del valor para el SMS apunta al revés que la de la gravedad: el escalón más bajo es el que más enseña.",
-        alto: 300,
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué diferencia hay entre accidente, incidente e incumplimiento imputable a mercancías peligrosas?",
-            respuesta:
-              "El accidente ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente. El incidente no llega a accidente pero produce lesiones, daños, incendio, ruptura, derrame, fuga o cualquier manifestación de que se ha vulnerado la integridad de un embalaje, y no tiene que ocurrir necesariamente a bordo. El incumplimiento es la ocurrencia atribuible al transporte que no llega a ninguno de los dos.",
-            claves: ["Accidente: lesiones graves o mortales, daños de consideración", "Incidente: daño, fuga, integridad vulnerada", "Incumplimiento: sin ninguna de las dos"],
-            ref: "LAR 175.001 (a)",
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué se notifica algo que no causó ningún daño?",
-            respuesta:
-              "Porque es el dato más barato del sistema. Un incumplimiento es un fallo de la cadena que todavía no ha costado nada, y sirve para corregir antes de que cueste. Por eso el transporte de mercancías peligrosas está dentro del alcance del SMS del explotador y por eso las autoridades recopilan también lo que no llega a incidente: para trabajar de forma predictiva y proactiva en vez de reactiva.",
-            claves: ["Fallo que aún no ha costado nada", "Entra en el SMS", "Predictivo y proactivo, no reactivo"],
-            ref: "LAR 175.220 (k)",
-          },
-          {
-            nivel: "situacion",
-            q: "En destino, al descargar, aparece un bulto con una fuga que en vuelo nadie detectó. ¿Qué es y qué se hace?",
-            respuesta:
-              "Es un incidente imputable a mercancías peligrosas: hay una manifestación de que se ha vulnerado la integridad de un embalaje, aunque nadie se diera cuenta durante el vuelo y no haya lesionados. Se notifica a las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió. Y, operacionalmente, hay que ver qué había cerca de ese bulto, porque una fuga junto a algo incompatible es otro problema distinto.",
-            claves: ["Es un incidente, no un incumplimiento", "Se notifica a las dos autoridades", "Revisar qué había cerca"],
-            ref: "LAR 175.625",
-          },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Se notifica el accidente o incidente, la mercancía no declarada o mal declarada, la no permitida en equipaje o persona, y lo transportado mal cargado o sin información al piloto al mando (175.625).",
-          "Tres niveles: accidente, incidente, incumplimiento. Más el hallazgo de una oculta, forman el «suceso» (175.001 (a) (41)).",
-          "Es SMS (175.028) y alimenta procesos predictivos (175.632). El incumplimiento se sanciona por el RAC 13 (175.636).",
+          }
         ],
       },
     ],

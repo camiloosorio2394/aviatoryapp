@@ -64,68 +64,6 @@ export const NIVEL_2: DocScreen[] = [
           "En la información al piloto al mando la clase aparece como una cifra: «3», «4.3», «9». Esa cifra te dice qué hace la mercancía si algo sale mal. Con una 4.3 en la bodega, el agua no es la respuesta; con una 5.1, lo que hay que alejar es cualquier cosa que arda. La clase es la primera lectura de emergencia, antes de abrir cualquier guía.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Una sustancia presenta a la vez riesgo de inflamabilidad y de corrosión. ¿En qué clase se incluye?",
-            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
-            opciones: [
-              {
-                t: "En una sola clase: la del peligro más importante que representa.",
-                ok: true,
-                fb: "El texto es literal: «se incluyen en una de las nueve clases siguientes según el peligro o el más importante de los peligros que representen». El riesgo restante se trata como secundario y se refleja en el etiquetado.",
-              },
-              {
-                t: "En las dos clases, con dos números ONU distintos.",
-                fb: "El número ONU identifica la sustancia, no el riesgo, y la clasificación principal es única. Los riesgos adicionales se manejan como secundarios.",
-              },
-              {
-                t: "Se prohíbe por incompatible.",
-                fb: "«Incompatible» describe mercancías que al mezclarse generarían calor, gases o una sustancia corrosiva (175.001 (a) (26)). Es un criterio de segregación entre bultos, no de clasificación de una sustancia.",
-              },
-            ],
-          },
-          {
-            q: "Una caja de muestras médicas viaja con hielo seco para mantenerlas frías. ¿De qué clase es el hielo seco?",
-            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
-            opciones: [
-              {
-                t: "De ninguna: es solo agua congelada.",
-                fb: "El hielo seco no es agua: es dióxido de carbono sólido. Sublima y desplaza el oxígeno en un espacio cerrado, y por eso el RAC lo cita expresamente como ejemplo de sustancia de la clase 9.",
-              },
-              {
-                t: "Clase 2, porque se convierte en gas.",
-                fb: "La clase 2 son gases a presión: comprimidos, licuados, disueltos, refrigerados o en aerosol. El hielo seco es un sólido que sublima, y su riesgo (desplazar el oxígeno) es el que el RAC ubica en la clase 9.",
-              },
-              {
-                t: "Clase 9, mercancías peligrosas varias.",
-                ok: true,
-                fb: "El dióxido de carbono sólido (hielo seco) figura entre los artículos de la clase 9 que la Tabla 8-1 de las Instrucciones admite con condiciones. Es el caso típico de artículo que parece inocuo y no lo es.",
-              },
-            ],
-          },
-          {
-            q: "Un compañero dice «esa carga es clase 2.1». ¿Qué corrección le harías?",
-            ref: "Instrucciones Técnicas, Tabla 8-1",
-            opciones: [
-              {
-                t: "Ninguna: 2.1 es una clase.",
-                fb: "No lo es. Las clases van del 1 al 9. El «2.1» es una división de la clase 2: gases inflamables.",
-              },
-              {
-                t: "Que es la división 2.1, de la clase 2 (gases inflamables).",
-                ok: true,
-                fb: "La clase es el 2; la división, el 2.1. La diferencia importa porque las reglas de embalaje, segregación y emergencia cambian con la división, no solo con la clase.",
-              },
-              {
-                t: "Que se dice «grupo 2.1».",
-                fb: "El grupo es otra cosa: el grupo de embalaje va en romanos (I, II, III) y gradúa el peligro dentro de la clase. Y los gases ni siquiera lo llevan.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "piensaComoPiloto",
         momento: "En plataforma, mientras haces la vuelta al avión",
         situacion:
@@ -165,15 +103,6 @@ export const NIVEL_2: DocScreen[] = [
               "No. El amarillo lo comparten la división 5.1, comburentes, y la clase 7, material radiactivo. El color es la primera señal pero no identifica: lo que identifica es el símbolo y el número de la esquina inferior. Es la razón por la que nunca se decide nada mirando solo el color.",
             claves: ["El color se repite entre clases", "Identifican el símbolo y el número", "5.1 y 7 comparten amarillo"],
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Nueve clases, una por mercancía: la del peligro más importante. El resto es riesgo secundario.",
-          "Clase (1 a 9) y división (2.1, 4.3, 6.2) no son lo mismo. La división cambia la respuesta ante una emergencia.",
-          "El color del rombo es la primera señal: rojo arde, verde no arde, amarillo alimenta el fuego, calavera es tóxico, franjas negras es clase 9.",
-          "Las baterías de litio y el hielo seco son clase 9.",
         ],
       },
     ],
@@ -378,68 +307,6 @@ export const NIVEL_2: DocScreen[] = [
           "Ves un bulto con una etiqueta despegada a medias y nadie te sabe decir cuál era. No es un detalle administrativo: es el caso exacto que la norma resuelve dejándolo en tierra. Preguntar no te hace quisquilloso, te hace el último filtro que funcionó.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "En tu vuelo de pasajeros aparece un bulto con la etiqueta «Exclusivamente en aeronaves de carga». ¿Qué haces?",
-            ref: "LAR 175.520 (c)",
-            opciones: [
-              {
-                t: "Lo acepto si va estibado lejos de la cabina.",
-                fb: "La posición no lo arregla. Los bultos con esa etiqueta no se estiban en una aeronave ocupada por pasajeros, y punto.",
-              },
-              {
-                t: "No sube: esa etiqueta prohíbe el transporte en aeronave con pasajeros.",
-                ok: true,
-                fb: "Es la única etiqueta que decide en qué tipo de avión puede ir un bulto. Y decide antes de que se cargue, no después.",
-              },
-              {
-                t: "Lo acepto avisando a la tripulación de cabina.",
-                fb: "Avisar es siempre buena idea, pero no convierte en admisible lo que la norma prohíbe.",
-              },
-            ],
-          },
-          {
-            q: "Un bulto llega con la etiqueta de riesgo despegada y nadie sabe cuál era. ¿Qué dice la norma?",
-            ref: "LAR 175.435 (b)",
-            opciones: [
-              {
-                t: "Va sin etiqueta y se anota la novedad.",
-                fb: "No hay margen para eso: el mismo artículo que obliga a tener etiquetas de reposición cierra diciendo que sin certeza no se transporta.",
-              },
-              {
-                t: "Se pega la de la clase más probable según el aspecto.",
-                fb: "Adivinar es peor que no etiquetar: quien lea esa etiqueta después va a actuar según ella.",
-              },
-              {
-                t: "No se transporta hasta saber cuál corresponde.",
-                ok: true,
-                fb: "El explotador tiene que poseer etiquetas para reponer las que se desprenden o deterioran, pero si no hay certeza de cuál es, la mercancía no viaja.",
-              },
-            ],
-          },
-          {
-            q: "¿Quién pone las etiquetas de riesgo y quién las de manipulación?",
-            ref: "LAR 175.215 (a) y 175.435 (b)",
-            opciones: [
-              {
-                t: "Las dos las pone el expedidor.",
-                ok: true,
-                fb: "Entrega el bulto clasificado, documentado, embalado, marcado y etiquetado. El explotador solo repone las que se desprenden o deterioran.",
-              },
-              {
-                t: "La de riesgo el expedidor y la de manipulación el explotador.",
-                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado. El explotador solo repone las que se pierden o dañan, y si no tiene certeza de cuál corresponde, no transporta la mercancía.",
-              },
-              {
-                t: "El operador de terminal de carga, al almacenarlas.",
-                fb: "La terminal almacena y segrega; no etiqueta. Tiene los cuadros de etiquetas a la vista justamente para reconocer las que ya vienen puestas.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         preguntas: [
           {
@@ -465,16 +332,6 @@ export const NIVEL_2: DocScreen[] = [
             claves: ["Solo aeronave de carga", "No se resuelve con la posición", "Se para antes de cargar"],
             ref: "LAR 175.520 (c)",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Rombo con número en la esquina = riesgo. Rectángulo o dibujo sin número = manipulación.",
-          "Marcas: denominación del artículo y número ONU en cada bulto (LAR 175.430 (a)); en vuelo internacional, además en inglés.",
-          "Dos rombos significan riesgo principal y secundario. Los dos cuentan.",
-          "CAO saca el bulto de un vuelo de pasajeros, y la posición no lo arregla (LAR 175.520 (c)).",
-          "Etiqueta que nadie sabe cuál era: la mercancía no vuela (LAR 175.435 (b)).",
         ],
       },
     ],
@@ -659,49 +516,6 @@ export const NIVEL_2: DocScreen[] = [
         ],
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "En el NOTOC aparece «UN 3480, clase 9, grupo de embalaje II». ¿Qué haces?",
-            ref: "Instrucciones Técnicas, Parte 2",
-            opciones: [
-              {
-                t: "Nada: la clase 9 lleva grupo de embalaje según la sustancia.",
-                fb: "Algunas sustancias de la clase 9 sí lo llevan, pero las baterías de litio no. Su transporte lo gobierna la instrucción de embalaje y el estado de carga.",
-              },
-              {
-                t: "Lo pregunto antes de firmar: las baterías de litio no llevan grupo de embalaje.",
-                ok: true,
-                fb: "Es el chequeo de coherencia. No corriges la clasificación, que no es tuya, pero un dato inventado en el papel rara vez viene solo.",
-              },
-              {
-                t: "Rechazo el envío por documentación incorrecta.",
-                fb: "Rechazar no es tu decisión ni tu papel. Preguntar sí, y es lo que hace que alguien con la competencia para corregirlo lo mire.",
-              },
-            ],
-          },
-          {
-            q: "Un pasajero quiere llevar en su maleta un frasco marcado como «cantidad exceptuada». ¿Puede?",
-            ref: "RAC 175.136 (a) · añadido nacional",
-            opciones: [
-              {
-                t: "Sí, porque está exceptuado.",
-                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. El RAC 175.136 (a) de Colombia es explícito: ni como equipaje de mano o facturado, ni como correo. El LAR 175 no trae esa sección, así que revisa cómo lo resuelve tu reglamento; lo que sí manda en todo caso es la Tabla 8-1.",
-              },
-              {
-                t: "No: las cantidades exceptuadas no van en equipaje ni en correo.",
-                ok: true,
-                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija la Tabla 8-1 de las Instrucciones, a la que remite el LAR 175.715 (lección 11), no el régimen de cantidades exceptuadas.",
-              },
-              {
-                t: "Solo si el explotador lo autoriza en su manual.",
-                fb: "El manual del explotador puede ser más restrictivo, nunca más permisivo que la norma.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         preguntas: [
           {
@@ -727,15 +541,6 @@ export const NIVEL_2: DocScreen[] = [
               "No. Son clase 9, pero su transporte no lo gobierna un grupo de embalaje sino la instrucción de embalaje de las Instrucciones Técnicas, que fija cuántas van por bulto, con qué estado de carga y en qué tipo de aeronave. Si veo un grupo de embalaje junto a un UN 3480 o 3481, ese documento tiene un error y lo pregunto antes de firmarlo.",
             claves: ["Clase 9 sin grupo de embalaje", "Manda la instrucción de embalaje", "Es un chequeo de coherencia del NOTOC"],
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Clase = qué peligro. Grupo de embalaje = cuánto, dentro de la clase. Cantidades = cuándo la norma afloja.",
-          "I gran peligro, II intermedio, III escaso. Van en romanos.",
-          "Las baterías de litio no llevan grupo de embalaje: verlo en un NOTOC es motivo para preguntar.",
-          "Exceptuada casi nunca llega a tu papel; limitada sí. «Exceptuado» no significa inofensivo.",
         ],
       },
     ],
@@ -901,8 +706,204 @@ export const NIVEL_2: DocScreen[] = [
         text: "La FAA mantiene un registro público de incidentes con baterías de litio en aeronaves y aeropuertos de Estados Unidos, actualizado cada mes, con el tipo de dispositivo y dónde ocurrió. No hace falta memorizar cifras: basta saber que existe y que la mayoría de los eventos son power banks, teléfonos y vapeadores en cabina, no carga.",
       },
       {
-        kind: "ponAPrueba",
+        kind: "piensaComoPiloto",
+        momento: "En crucero, aviso de la tripulación de cabina",
+        situacion:
+          "Te llaman por el interfono: un pasajero de la fila 22 dice que su teléfono «se está calentando muchísimo» y sale un olor raro. Cuando la sobrecargo llega, el aparato está hinchado y empieza a echar humo.",
+        pregunta: "¿Qué tiene que ver esto con lo que acabas de estudiar, y qué es lo primero que importa?",
+        claves: [
+          "Es una **fuga térmica**: la celda se calienta, sus materiales se descomponen y el calor pasa a la celda de al lado. Se alimenta sola.",
+          "Lo primero es **enfriar**, con agua o cualquier líquido no alcohólico, y en cantidad. No es para apagar la llama: es para impedir que la siguiente celda entre en reacción.",
+          "**No se cubre ni se mete en un compartimento cerrado.** Tapar el calor es exactamente lo contrario de lo que hace falta, y aislarlo en un armario te quita el control.",
+          "El halón apaga la llama pero **no enfría**. Sirve, y no basta: detrás tiene que ir el agua.",
+          "Y sí, esto es un suceso con mercancías peligrosas aunque el aparato fuera de un pasajero: se notifica.",
+        ],
+        cierre:
+          "Esta es la razón por la que las baterías de litio tienen lección propia. No es la carga declarada la que más veces arde en un avión de pasajeros: es la que va en el bolsillo de la fila 22.",
+      },
+      {
+        kind: "entrevista",
         preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es una fuga térmica y por qué es distinta de un incendio normal?",
+            respuesta:
+              "Es la reacción de una celda de litio dañada, sobrecargada o en cortocircuito: se calienta, sus materiales se descomponen y generan más calor y gases inflamables, y ese calor alcanza a la celda vecina. Se alimenta sola. Es distinta porque el oxígeno lo aporta la propia celda, así que quitarle el aire no la para: hay que quitarle el calor.",
+            claves: ["Reacción que se autoalimenta", "Se propaga celda a celda", "El oxígeno lo pone la propia celda", "Se enfría, no se sofoca"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué se echa agua a un dispositivo con la batería en fuga térmica si es un equipo eléctrico?",
+            respuesta:
+              "Porque el objetivo no es apagar la llama sino enfriar el conjunto para que las celdas que aún no han reaccionado no lo hagan. El agua no neutraliza el litio, y ese es un error frecuente: lo que hace es bajar la temperatura. El riesgo eléctrico de un dispositivo portátil es despreciable comparado con la propagación.",
+            claves: ["Enfriar, no apagar", "Evitar la propagación a las celdas vecinas", "El agua no neutraliza el litio"],
+          },
+          {
+            nivel: "situacion",
+            q: "Un pasajero pide guardar en el compartimento superior un power bank que le ha empezado a calentar. ¿Qué haces?",
+            respuesta:
+              "No va al compartimento. Un dispositivo que ya está calentando necesita quedar a la vista y accesible, no encerrado donde nadie vea el humo hasta que sea grande. Se vigila, se tiene agua a mano y se aplica el procedimiento del explotador. Además, los repuestos de baterías y los power banks solo pueden ir en cabina, nunca en equipaje facturado, precisamente para poder intervenir.",
+            claves: ["Nunca encerrarlo", "A la vista y accesible", "Agua a mano", "Los repuestos solo van en cabina"],
+            ref: "Instrucciones Técnicas, Tabla 8-1",
+          },
+        ],
+      },
+      {
+        kind: "ponAPrueba",
+        titulo: "Control del nivel 2",
+        preguntas: [
+          {
+            q: "Una sustancia presenta a la vez riesgo de inflamabilidad y de corrosión. ¿En qué clase se incluye?",
+            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
+            opciones: [
+              {
+                t: "En una sola clase: la del peligro más importante que representa.",
+                ok: true,
+                fb: "El texto es literal: «se incluyen en una de las nueve clases siguientes según el peligro o el más importante de los peligros que representen». El riesgo restante se trata como secundario y se refleja en el etiquetado.",
+              },
+              {
+                t: "En las dos clases, con dos números ONU distintos.",
+                fb: "El número ONU identifica la sustancia, no el riesgo, y la clasificación principal es única. Los riesgos adicionales se manejan como secundarios.",
+              },
+              {
+                t: "Se prohíbe por incompatible.",
+                fb: "«Incompatible» describe mercancías que al mezclarse generarían calor, gases o una sustancia corrosiva (175.001 (a) (26)). Es un criterio de segregación entre bultos, no de clasificación de una sustancia.",
+              },
+            ],
+          },
+          {
+            q: "Una caja de muestras médicas viaja con hielo seco para mantenerlas frías. ¿De qué clase es el hielo seco?",
+            ref: "Instrucciones Técnicas, Tabla 8-1 (LAR 175.715)",
+            opciones: [
+              {
+                t: "De ninguna: es solo agua congelada.",
+                fb: "El hielo seco no es agua: es dióxido de carbono sólido. Sublima y desplaza el oxígeno en un espacio cerrado, y por eso el RAC lo cita expresamente como ejemplo de sustancia de la clase 9.",
+              },
+              {
+                t: "Clase 2, porque se convierte en gas.",
+                fb: "La clase 2 son gases a presión: comprimidos, licuados, disueltos, refrigerados o en aerosol. El hielo seco es un sólido que sublima, y su riesgo (desplazar el oxígeno) es el que el RAC ubica en la clase 9.",
+              },
+              {
+                t: "Clase 9, mercancías peligrosas varias.",
+                ok: true,
+                fb: "El dióxido de carbono sólido (hielo seco) figura entre los artículos de la clase 9 que la Tabla 8-1 de las Instrucciones admite con condiciones. Es el caso típico de artículo que parece inocuo y no lo es.",
+              },
+            ],
+          },
+          {
+            q: "Un compañero dice «esa carga es clase 2.1». ¿Qué corrección le harías?",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
+            opciones: [
+              {
+                t: "Ninguna: 2.1 es una clase.",
+                fb: "No lo es. Las clases van del 1 al 9. El «2.1» es una división de la clase 2: gases inflamables.",
+              },
+              {
+                t: "Que es la división 2.1, de la clase 2 (gases inflamables).",
+                ok: true,
+                fb: "La clase es el 2; la división, el 2.1. La diferencia importa porque las reglas de embalaje, segregación y emergencia cambian con la división, no solo con la clase.",
+              },
+              {
+                t: "Que se dice «grupo 2.1».",
+                fb: "El grupo es otra cosa: el grupo de embalaje va en romanos (I, II, III) y gradúa el peligro dentro de la clase. Y los gases ni siquiera lo llevan.",
+              },
+            ],
+          },
+          {
+            q: "En tu vuelo de pasajeros aparece un bulto con la etiqueta «Exclusivamente en aeronaves de carga». ¿Qué haces?",
+            ref: "LAR 175.520 (c)",
+            opciones: [
+              {
+                t: "Lo acepto si va estibado lejos de la cabina.",
+                fb: "La posición no lo arregla. Los bultos con esa etiqueta no se estiban en una aeronave ocupada por pasajeros, y punto.",
+              },
+              {
+                t: "No sube: esa etiqueta prohíbe el transporte en aeronave con pasajeros.",
+                ok: true,
+                fb: "Es la única etiqueta que decide en qué tipo de avión puede ir un bulto. Y decide antes de que se cargue, no después.",
+              },
+              {
+                t: "Lo acepto avisando a la tripulación de cabina.",
+                fb: "Avisar es siempre buena idea, pero no convierte en admisible lo que la norma prohíbe.",
+              },
+            ],
+          },
+          {
+            q: "Un bulto llega con la etiqueta de riesgo despegada y nadie sabe cuál era. ¿Qué dice la norma?",
+            ref: "LAR 175.435 (b)",
+            opciones: [
+              {
+                t: "Va sin etiqueta y se anota la novedad.",
+                fb: "No hay margen para eso: el mismo artículo que obliga a tener etiquetas de reposición cierra diciendo que sin certeza no se transporta.",
+              },
+              {
+                t: "Se pega la de la clase más probable según el aspecto.",
+                fb: "Adivinar es peor que no etiquetar: quien lea esa etiqueta después va a actuar según ella.",
+              },
+              {
+                t: "No se transporta hasta saber cuál corresponde.",
+                ok: true,
+                fb: "El explotador tiene que poseer etiquetas para reponer las que se desprenden o deterioran, pero si no hay certeza de cuál es, la mercancía no viaja.",
+              },
+            ],
+          },
+          {
+            q: "¿Quién pone las etiquetas de riesgo y quién las de manipulación?",
+            ref: "LAR 175.215 (a) y 175.435 (b)",
+            opciones: [
+              {
+                t: "Las dos las pone el expedidor.",
+                ok: true,
+                fb: "Entrega el bulto clasificado, documentado, embalado, marcado y etiquetado. El explotador solo repone las que se desprenden o deterioran.",
+              },
+              {
+                t: "La de riesgo el expedidor y la de manipulación el explotador.",
+                fb: "Las dos las pone el expedidor, que entrega el bulto marcado y etiquetado. El explotador solo repone las que se pierden o dañan, y si no tiene certeza de cuál corresponde, no transporta la mercancía.",
+              },
+              {
+                t: "El operador de terminal de carga, al almacenarlas.",
+                fb: "La terminal almacena y segrega; no etiqueta. Tiene los cuadros de etiquetas a la vista justamente para reconocer las que ya vienen puestas.",
+              },
+            ],
+          },
+          {
+            q: "En el NOTOC aparece «UN 3480, clase 9, grupo de embalaje II». ¿Qué haces?",
+            ref: "Instrucciones Técnicas, Parte 2",
+            opciones: [
+              {
+                t: "Nada: la clase 9 lleva grupo de embalaje según la sustancia.",
+                fb: "Algunas sustancias de la clase 9 sí lo llevan, pero las baterías de litio no. Su transporte lo gobierna la instrucción de embalaje y el estado de carga.",
+              },
+              {
+                t: "Lo pregunto antes de firmar: las baterías de litio no llevan grupo de embalaje.",
+                ok: true,
+                fb: "Es el chequeo de coherencia. No corriges la clasificación, que no es tuya, pero un dato inventado en el papel rara vez viene solo.",
+              },
+              {
+                t: "Rechazo el envío por documentación incorrecta.",
+                fb: "Rechazar no es tu decisión ni tu papel. Preguntar sí, y es lo que hace que alguien con la competencia para corregirlo lo mire.",
+              },
+            ],
+          },
+          {
+            q: "Un pasajero quiere llevar en su maleta un frasco marcado como «cantidad exceptuada». ¿Puede?",
+            ref: "RAC 175.136 (a) · añadido nacional",
+            opciones: [
+              {
+                t: "Sí, porque está exceptuado.",
+                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. El RAC 175.136 (a) de Colombia es explícito: ni como equipaje de mano o facturado, ni como correo. El LAR 175 no trae esa sección, así que revisa cómo lo resuelve tu reglamento; lo que sí manda en todo caso es la Tabla 8-1.",
+              },
+              {
+                t: "No: las cantidades exceptuadas no van en equipaje ni en correo.",
+                ok: true,
+                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija la Tabla 8-1 de las Instrucciones, a la que remite el LAR 175.715 (lección 11), no el régimen de cantidades exceptuadas.",
+              },
+              {
+                t: "Solo si el explotador lo autoriza en su manual.",
+                fb: "El manual del explotador puede ser más restrictivo, nunca más permisivo que la norma.",
+              },
+            ],
+          },
           {
             q: "Un pasajero quiere llevar un power bank en su maleta facturada. ¿Puede?",
             ref: "Doc 9284, Parte 8 (Tabla 8-1) · IATA DGR 2.3",
@@ -959,59 +960,7 @@ export const NIVEL_2: DocScreen[] = [
                 fb: "La clase 9 no dice cómo se apaga nada: junta riesgos distintos. Con el litio se enfría con agua; con otras mercancías de la misma clase la respuesta puede ser otra.",
               },
             ],
-          },
-        ],
-      },
-      {
-        kind: "piensaComoPiloto",
-        momento: "En crucero, aviso de la tripulación de cabina",
-        situacion:
-          "Te llaman por el interfono: un pasajero de la fila 22 dice que su teléfono «se está calentando muchísimo» y sale un olor raro. Cuando la sobrecargo llega, el aparato está hinchado y empieza a echar humo.",
-        pregunta: "¿Qué tiene que ver esto con lo que acabas de estudiar, y qué es lo primero que importa?",
-        claves: [
-          "Es una **fuga térmica**: la celda se calienta, sus materiales se descomponen y el calor pasa a la celda de al lado. Se alimenta sola.",
-          "Lo primero es **enfriar**, con agua o cualquier líquido no alcohólico, y en cantidad. No es para apagar la llama: es para impedir que la siguiente celda entre en reacción.",
-          "**No se cubre ni se mete en un compartimento cerrado.** Tapar el calor es exactamente lo contrario de lo que hace falta, y aislarlo en un armario te quita el control.",
-          "El halón apaga la llama pero **no enfría**. Sirve, y no basta: detrás tiene que ir el agua.",
-          "Y sí, esto es un suceso con mercancías peligrosas aunque el aparato fuera de un pasajero: se notifica.",
-        ],
-        cierre:
-          "Esta es la razón por la que las baterías de litio tienen lección propia. No es la carga declarada la que más veces arde en un avión de pasajeros: es la que va en el bolsillo de la fila 22.",
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es una fuga térmica y por qué es distinta de un incendio normal?",
-            respuesta:
-              "Es la reacción de una celda de litio dañada, sobrecargada o en cortocircuito: se calienta, sus materiales se descomponen y generan más calor y gases inflamables, y ese calor alcanza a la celda vecina. Se alimenta sola. Es distinta porque el oxígeno lo aporta la propia celda, así que quitarle el aire no la para: hay que quitarle el calor.",
-            claves: ["Reacción que se autoalimenta", "Se propaga celda a celda", "El oxígeno lo pone la propia celda", "Se enfría, no se sofoca"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué se echa agua a un dispositivo con la batería en fuga térmica si es un equipo eléctrico?",
-            respuesta:
-              "Porque el objetivo no es apagar la llama sino enfriar el conjunto para que las celdas que aún no han reaccionado no lo hagan. El agua no neutraliza el litio, y ese es un error frecuente: lo que hace es bajar la temperatura. El riesgo eléctrico de un dispositivo portátil es despreciable comparado con la propagación.",
-            claves: ["Enfriar, no apagar", "Evitar la propagación a las celdas vecinas", "El agua no neutraliza el litio"],
-          },
-          {
-            nivel: "situacion",
-            q: "Un pasajero pide guardar en el compartimento superior un power bank que le ha empezado a calentar. ¿Qué haces?",
-            respuesta:
-              "No va al compartimento. Un dispositivo que ya está calentando necesita quedar a la vista y accesible, no encerrado donde nadie vea el humo hasta que sea grande. Se vigila, se tiene agua a mano y se aplica el procedimiento del explotador. Además, los repuestos de baterías y los power banks solo pueden ir en cabina, nunca en equipaje facturado, precisamente para poder intervenir.",
-            claves: ["Nunca encerrarlo", "A la vista y accesible", "Agua a mano", "Los repuestos solo van en cabina"],
-            ref: "Instrucciones Técnicas, Tabla 8-1",
-          },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Clase 9, sin grupo de embalaje. Lo que manda es la instrucción de embalaje y el estado de carga.",
-          "Fuga térmica: reacción que se alimenta sola y se propaga por calor. Se enfría; no se cubre.",
-          "Repuestos y power banks solo en cabina. Las cifras (100/160 Wh) se verifican en la edición vigente de las Instrucciones.",
-          "UPS 6: cuando el humo llena la cabina, solo queda lo que ya estaba a bordo y lo que ya sabías.",
+          }
         ],
       },
     ],

@@ -101,68 +101,6 @@ export const NIVEL_3: DocScreen[] = [
           "Con el NOTOC en la mano, cada línea cae en uno de los cuatro niveles. Lo permitido cumpliendo las Instrucciones no necesita nada más que su documentación. Lo permitido con aprobación tiene que traerla, y tú tienes que saber que existe. Lo prohibido salvo dispensa, lo mismo con la dispensa. Y lo prohibido en todos los casos no debería estar en ese papel: si está, alguien se equivocó antes que tú.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "¿En qué se diferencia una dispensa de una aprobación?",
-            ref: "LAR 175.001 (a) y 175.020",
-            opciones: [
-              {
-                t: "La aprobación existe cuando las Instrucciones Técnicas la prevén para ese caso; la dispensa exime de lo previsto en las Instrucciones cuando no hay referencia específica.",
-                ok: true,
-                fb: "La nota del 175.001 (a) (4) lo dice literalmente: si no hay una referencia específica en las Instrucciones Técnicas para otorgar una aprobación, se puede pedir una dispensa. Y la dispensa nunca procede para lo prohibido en todas las circunstancias (175.020 (g)).",
-              },
-              {
-                t: "Son sinónimos; la diferencia es solo el nombre según el Estado.",
-                fb: "El reglamento las define por separado y con efectos distintos. La aprobación existe cuando las Instrucciones la prevén para ese caso; la dispensa es la salida cuando no la prevén, y procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público (LAR 175.020 (d) y (e)).",
-              },
-              {
-                t: "La dispensa la da el explotador y la aprobación la autoridad.",
-                fb: "Ambas las otorga la autoridad de aviación civil, no el explotador: él las pide. Y si ninguno de los criterios encaja, el Estado de sobrevuelo todavía puede otorgar la dispensa si se convence de que hay un nivel equivalente de seguridad (LAR 175.020 (f)).",
-              },
-            ],
-          },
-          {
-            q: "Un artículo no aparece en la lista de mercancías peligrosas, pero en las condiciones normales de transporte produce llamas. ¿Puede volar?",
-            ref: "LAR 175.110 (a) y (b) (1)",
-            opciones: [
-              {
-                t: "Sí, porque no está en la lista.",
-                fb: "La lista no es exhaustiva (175.110 (b) (1)). El criterio material del 175.110 (a) prohíbe todo lo que en las condiciones habituales del transporte pueda explotar, reaccionar, producir llamas o calor o emitir vapores peligrosos.",
-              },
-              {
-                t: "No: lo prohíbe el criterio material del 175.110 (a), esté o no en la lista.",
-                ok: true,
-                fb: "Es el artículo que va antes que la lista. Si algo se comporta así, no vuela, y punto.",
-              },
-              {
-                t: "Solo con dispensa.",
-                fb: "La dispensa sirve para lo prohibido en circunstancias normales, no para lo que por su comportamiento no puede transportarse en ningún caso (175.020 (g)).",
-              },
-            ],
-          },
-          {
-            q: "Un laboratorio quiere enviar animales vivos infectados. ¿Qué nivel aplica?",
-            ref: "LAR 175.110 (c) (2)",
-            opciones: [
-              {
-                t: "Permitido cumpliendo las Instrucciones, como cualquier sustancia infecciosa.",
-                fb: "Las sustancias infecciosas embaladas sí van por el régimen normal. Los animales vivos infectados están nombrados aparte, y no en ese nivel.",
-              },
-              {
-                t: "Prohibido salvo dispensa.",
-                ok: true,
-                fb: "El LAR 175.110 (c) (2) los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la AAC.",
-              },
-              {
-                t: "Prohibido en todos los casos.",
-                fb: "No están en el nivel absoluto: la norma deja abierta la dispensa. Lo prohibido en todos los casos es lo que las Instrucciones nombran así cualesquiera que sean las circunstancias (175.114).",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "piensaComoPiloto",
         momento: "Te llaman del centro de operaciones",
         situacion:
@@ -204,15 +142,6 @@ export const NIVEL_3: DocScreen[] = [
             claves: ["Aparece en la información escrita", "La dispensa impone condiciones", "Nivel de seguridad equivalente"],
             ref: "LAR 175.020 (e)",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Criterio material: lo que explota, reacciona, arde o emite vapores peligrosos en condiciones normales de transporte no vuela, esté o no en la lista (175.110 (a)).",
-          "Prohibido en todos los casos, prohibido salvo dispensa, permitido con aprobación y permitido cumpliendo las Instrucciones: cuatro niveles, no dos.",
-          "Cuatro niveles: prohibido en todos los casos (175.114), prohibido salvo dispensa (175.112), permitido con aprobación (175.020 (f)), permitido cumpliendo las Instrucciones (175.011).",
-          "«Exclusivamente en aeronaves de carga» nunca sube a un vuelo con pasajeros.",
         ],
       },
     ],
@@ -428,68 +357,6 @@ export const NIVEL_3: DocScreen[] = [
           "La misma carga, el mismo avión y la misma clase pueden tener requisitos distintos según el Estado de origen, de tránsito o de destino. Por eso el manual de operaciones y la ruta importan tanto como la clase. Si sales hacia Brasil con mercancías peligrosas y las marcas van solo en español, el problema no está en tu país: está en la discrepancia BR 6, y quien la tenía que mirar era el expedidor antes de entregar el bulto.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Vas a operar un monomotor con carga que incluye un artículo de la clase 8. ¿Qué necesitas?",
-            ref: "RAC 175.115 (b) y (c) · Colombia",
-            opciones: [
-              {
-                t: "Aprobación de la autoridad, previa verificación de las condiciones de seguridad del explotador, que además determina en qué aeródromos no se aprueba esa operación.",
-                ok: true,
-                fb: "La prohibición absoluta en monomotores es para la clase 3 combustibles y para toda la aviación civil privada. Las demás clases en monomotor requieren aprobación con verificación previa.",
-              },
-              {
-                t: "Nada especial: la clase 8 no está restringida en monomotores.",
-                fb: "El 175.115 (c) exige aprobación para mercancías distintas de la clase 3 en monomotores. Es una limitación propia del RAC, no del Anexo 18.",
-              },
-              {
-                t: "Está prohibido en todos los casos.",
-                fb: "Lo prohibido en monomotor por razones de seguridad es la clase 3 combustibles, salvo lo señalado en 175.715.",
-              },
-            ],
-          },
-          {
-            q: "¿Qué mercancías peligrosas admite el correo aéreo, según el reglamento colombiano?",
-            ref: "RAC 175.125 (f) · Colombia",
-            opciones: [
-              {
-                t: "Ninguna: el correo no admite mercancías peligrosas.",
-                fb: "La regla general es esa (175.125 (a)), pero el (f) trae tres excepciones: muestras de pacientes, sustancias infecciosas con su hielo seco y declaración del expedidor, y material radiactivo de muy baja actividad.",
-              },
-              {
-                t: "Muestras de pacientes; sustancias infecciosas con el hielo seco que las refrigera y declaración del expedidor; y material radiactivo con actividad de hasta una décima parte de la Tabla 2-15.",
-                ok: true,
-                fb: "Son las tres del 175.125 (f), a reserva de lo que dispongan las autoridades postales y la Unión Postal Universal. Y el explotador necesita la autorización en sus OpSpecs (175.125 (e)).",
-              },
-              {
-                t: "Las mismas que en carga, si el operador postal las acepta.",
-                fb: "El correo tiene su propia lista, mucho más corta. Y el operador postal designado necesita que la autoridad examine y apruebe sus procedimientos antes de aceptar mercancías peligrosas en el correo (LAR 175.125 (b)).",
-              },
-            ],
-          },
-          {
-            q: "Un expedidor entrega material radiactivo con toda la documentación de las Instrucciones Técnicas. En Colombia, ¿le falta algo?",
-            ref: "RAC 175.536 (a) · Colombia",
-            opciones: [
-              {
-                t: "No: con la declaración del expedidor basta.",
-                fb: "Falta un papel más: la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica, que el expedidor presenta al explotador. En Brasil el equivalente es la aprobación de la CNEN (discrepancia BR 8): el patrón se repite, cambia el organismo.",
-              },
-              {
-                t: "Sí: la autorización del Servicio Geológico Colombiano.",
-                ok: true,
-                fb: "Es una licencia de manejo o una autorización de importación o reexportación, según el caso. Y el explotador no acepta una declaración tachada o enmendada salvo que la enmienda esté anulada con la misma firma (175.536 (c)).",
-              },
-              {
-                t: "Sí: una dispensa de la autoridad aeronáutica.",
-                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA (LAR 175.120) y, además, el permiso del organismo nuclear del país que corresponda.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         preguntas: [
           {
@@ -515,15 +382,6 @@ export const NIVEL_3: DocScreen[] = [
             claves: ["El explotador cumple las de los Estados de la ruta", "El expedidor las mira antes de entregar", "Idioma, plazos, permisos de otros organismos"],
             ref: "LAR 175.115 (c) y (d)",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Las diferencias de cada Estado y de cada explotador se notifican a la OACI y se publican en las Instrucciones (LAR 175.115 (c) a (e)).",
-          "Correo: solo muestras de pacientes, infecciosas con hielo seco y declaración, y radiactivo de muy baja actividad (175.125 (f)).",
-          "Colombia como ejemplo: nada en aviación civil privada, nada de clase 3 en monomotores, y el radiactivo con autorización del Servicio Geológico Colombiano.",
-          "Discrepancias: la ruta cambia las reglas. Se leen en la edición vigente de las Instrucciones.",
         ],
       },
     ],
@@ -635,68 +493,6 @@ export const NIVEL_3: DocScreen[] = [
           "El pasajero que discute en la puerta porque su maleta de mano baja a bodega con un power bank dentro: la respuesta no es una opinión tuya ni de la auxiliar. Es la Tabla 8-1 y el procedimiento del explotador. El power bank sale de la maleta y sube a cabina; el portátil que se queda dentro va apagado. Si el pasajero no lo acepta, la maleta no baja.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Un tripulante lleva en su maleta un artículo de la clase 2. ¿Qué aplica?",
-            ref: "LAR 175.115 (b) y 175.715",
-            opciones: [
-              {
-                t: "La misma regla que a un pasajero: prohibido salvo que esté en la Tabla 8-1 y cumpla todos sus requisitos.",
-                ok: true,
-                fb: "El 175.151 nombra expresamente a «los pasajeros o las tripulaciones», y el 175.715 fija la única excepción. Si se descubre, el explotador debe notificarlo (175.625).",
-              },
-              {
-                t: "Los tripulantes están exceptuados por ser personal de la operación.",
-                fb: "La excepción del 175.145 es para objetos y sustancias exigidos por aeronavegabilidad y reglamentos de operación, no para el equipaje personal del tripulante.",
-              },
-              {
-                t: "Depende de si el vuelo es nacional o internacional.",
-                fb: "La regla no distingue tipo de vuelo. Lo que sí cambia según la ruta son las discrepancias notificadas por los Estados (lección 10).",
-              },
-            ],
-          },
-          {
-            q: "¿En qué momento debe recibir el pasajero la información sobre lo que no puede llevar?",
-            ref: "LAR 175.710",
-            opciones: [
-              {
-                t: "En el mostrador, cuando factura.",
-                fb: "El mostrador es uno de seis momentos, y no el primero. La información empieza en el punto de compra del billete y sigue en los avisos del aeropuerto, el despacho a distancia, el autoservicio y el equipaje excedente.",
-              },
-              {
-                t: "En el punto de compra, en avisos del aeropuerto, en el despacho a distancia, en el autoservicio, en la recepción del equipaje y en el equipaje excedente como carga.",
-                ok: true,
-                fb: "Seis momentos, y en la compra por internet, el despacho a distancia y el autoservicio el trámite no se puede completar sin que el pasajero confirme que entendió.",
-              },
-              {
-                t: "Solo en el sitio web del explotador.",
-                fb: "El sitio web es parte de la obligación (LAR 175.710 (a)), pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
-              },
-            ],
-          },
-          {
-            q: "En la recepción del equipaje, ¿basta con preguntarle al pasajero si lleva algo peligroso?",
-            ref: "LAR 175.710",
-            opciones: [
-              {
-                t: "Sí: la confirmación del pasajero libera al explotador.",
-                fb: "La confirmación es obligatoria, pero el mismo inciso exige además obtener confirmación acerca del contenido de cualquier artículo que se sospeche pueda contener mercancías peligrosas no permitidas.",
-              },
-              {
-                t: "No: además hay que pedir confirmación del contenido de cualquier artículo sospechoso.",
-                ok: true,
-                fb: "Dos preguntas, no una: «¿lleva mercancías peligrosas no permitidas?» y «¿qué contiene esto?» ante cualquier artículo que haga dudar. La Nota 1 del 175.705 recuerda que muchos artículos que parecen inocuos las contienen.",
-              },
-              {
-                t: "No hay que preguntar nada: para eso está el control de seguridad.",
-                fb: "La requisa previene que entren; la confirmación en el despacho es una obligación distinta y expresa del 175.705 (f).",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "piensaComoPiloto",
         momento: "En el mostrador, de uniforme",
         situacion:
@@ -737,14 +533,6 @@ export const NIVEL_3: DocScreen[] = [
             claves: ["La tripulación no tiene fuero", "Misma Tabla 8-1", "Formación no es privilegio"],
             ref: "LAR 175.115 (b) y 175.715",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Prohibición general para pasajeros y tripulantes; la única excepción es la Tabla 8-1 (175.151 y 175.715). La tripulación no tiene fuero.",
-          "Repuestos y power banks solo en cabina; vapeadores sin cargar; alcohol de 24 a 70 % hasta 5 L; munición solo facturada y con aprobación. Cifras: verificar en la edición vigente.",
-          "Seis momentos de información al pasajero (175.705), tres con confirmación obligatoria.",
         ],
       },
     ],
@@ -806,87 +594,6 @@ export const NIVEL_3: DocScreen[] = [
         rac: "RAC 175.610 (c)",
         texto:
           "Para evitar que los pasajeros introduzcan en la aeronave, dentro de su equipaje, o lleven en su persona, mercancías peligrosas ocultas que éstos tienen prohibido transportar, el personal encargado de la recepción y las organizaciones o empresas que aceptan equipaje excedente como carga deberían pedir al pasajero, o a la persona que actúa en nombre del pasajero, confirmación de que no llevan o despachan mercancías peligrosas que no estén permitidas, y obtener además confirmación del contenido de cualquier artículo que sospechen pueda contener mercancías peligrosas cuyo transporte no esté permitido.",
-      },
-      {
-        kind: "ponAPrueba",
-        titulo: "¿Puede esconder una mercancía peligrosa?",
-        preguntas: [
-          {
-            q: "Una caja de carga declarada como «motor de combustión interna».",
-            ref: "Instrucciones Técnicas, Tabla 8-1",
-            opciones: [
-              {
-                t: "Sí.",
-                ok: true,
-                fb: "El RAC lo cita como ejemplo de objeto de la clase 9. Puede traer combustible residual, batería y aceite.",
-              },
-              {
-                t: "No.",
-                fb: "El RAC lo nombra expresamente entre los objetos de la clase 9. «Motor» es una descripción general clásica.",
-              },
-            ],
-          },
-          {
-            q: "Un envío de «equipo de salvamento de inflado automático».",
-            ref: "Instrucciones Técnicas, Tabla 8-1",
-            opciones: [
-              {
-                t: "Sí.",
-                ok: true,
-                fb: "Ejemplo expreso de objeto de la clase 9: lleva un cartucho de gas comprimido y a veces pirotecnia.",
-              },
-              {
-                t: "No.",
-                fb: "Un chaleco o una balsa de inflado automático traen gas comprimido. El RAC los nombra como clase 9.",
-              },
-            ],
-          },
-          {
-            q: "Unas «muestras de laboratorio» sin más descripción, en una caja fría.",
-            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175.125 (f)",
-            opciones: [
-              {
-                t: "Sí.",
-                ok: true,
-                fb: "Pueden ser sustancias infecciosas (6.2) o tóxicas (6.1), y la caja fría casi seguro trae hielo seco, que es clase 9. Es la descripción vaga por excelencia.",
-              },
-              {
-                t: "No.",
-                fb: "«Muestras» es una descripción general típica: puede esconder 6.1, 6.2 y el hielo seco (clase 9) que las refrigera.",
-              },
-            ],
-          },
-          {
-            q: "Un envío declarado como «material magnetizado» con su etiqueta de manipulación.",
-            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175, Apéndice 1, Figura 1.22",
-            opciones: [
-              {
-                t: "Sí, es mercancía peligrosa, pero no está oculta: viene declarada.",
-                ok: true,
-                fb: "Es clase 9 cuando al embalarlo tiene un campo de 0,159 A/m o más a 2,1 m del bulto, y tiene etiqueta propia. Como viene declarada y etiquetada, es lo contrario de una oculta.",
-              },
-              {
-                t: "No es mercancía peligrosa.",
-                fb: "Sí lo es: el RAC la nombra en la clase 9 y le da etiqueta de manipulación. Lo que no es, es oculta: viene declarada.",
-              },
-            ],
-          },
-          {
-            q: "Una caja de «documentos impresos y papelería».",
-            ref: "LAR 175.610 (c) y 175.710",
-            opciones: [
-              {
-                t: "Sí, siempre hay que sospechar.",
-                fb: "El control funciona al revés: se pide confirmación del contenido de lo que haga dudar, no se presume peligro donde no lo hay. Lo sospechoso es la descripción vaga, no el producto obvio.",
-              },
-              {
-                t: "No, por sí misma.",
-                ok: true,
-                fb: "Papel es papel. El personal debe pedir confirmación del contenido de cualquier artículo que sospeche, y una caja de documentos no lo es. Sospechar de todo es tan inútil como no sospechar de nada.",
-              },
-            ],
-          },
-        ],
       },
       { kind: "sub", text: "Tres cosas que se oyen y no son verdad" },
       {
@@ -974,12 +681,255 @@ export const NIVEL_3: DocScreen[] = [
         ],
       },
       {
-        kind: "summary",
-        items: [
-          "Oculta = declarada con descripción general que debió declararse como peligrosa, o prohibida o en exceso en equipaje, persona o correo (175.001 (a) (32)).",
-          "El personal tiene a mano las descripciones generales, las otras indicaciones y lo que el pasajero sí puede llevar (175.610 (a)).",
-          "Ante un artículo sospechoso se pide confirmación del contenido, no solo «¿lleva algo peligroso?» (175.610 (c)).",
-          "Descubrir una oculta es un suceso: se notifica.",
+        kind: "ponAPrueba",
+        titulo: "Control del nivel 3",
+        preguntas: [
+          {
+            q: "¿En qué se diferencia una dispensa de una aprobación?",
+            ref: "LAR 175.001 (a) y 175.020",
+            opciones: [
+              {
+                t: "La aprobación existe cuando las Instrucciones Técnicas la prevén para ese caso; la dispensa exime de lo previsto en las Instrucciones cuando no hay referencia específica.",
+                ok: true,
+                fb: "La nota del 175.001 (a) (4) lo dice literalmente: si no hay una referencia específica en las Instrucciones Técnicas para otorgar una aprobación, se puede pedir una dispensa. Y la dispensa nunca procede para lo prohibido en todas las circunstancias (175.020 (g)).",
+              },
+              {
+                t: "Son sinónimos; la diferencia es solo el nombre según el Estado.",
+                fb: "El reglamento las define por separado y con efectos distintos. La aprobación existe cuando las Instrucciones la prevén para ese caso; la dispensa es la salida cuando no la prevén, y procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público (LAR 175.020 (d) y (e)).",
+              },
+              {
+                t: "La dispensa la da el explotador y la aprobación la autoridad.",
+                fb: "Ambas las otorga la autoridad de aviación civil, no el explotador: él las pide. Y si ninguno de los criterios encaja, el Estado de sobrevuelo todavía puede otorgar la dispensa si se convence de que hay un nivel equivalente de seguridad (LAR 175.020 (f)).",
+              },
+            ],
+          },
+          {
+            q: "Un artículo no aparece en la lista de mercancías peligrosas, pero en las condiciones normales de transporte produce llamas. ¿Puede volar?",
+            ref: "LAR 175.110 (a) y (b) (1)",
+            opciones: [
+              {
+                t: "Sí, porque no está en la lista.",
+                fb: "La lista no es exhaustiva (175.110 (b) (1)). El criterio material del 175.110 (a) prohíbe todo lo que en las condiciones habituales del transporte pueda explotar, reaccionar, producir llamas o calor o emitir vapores peligrosos.",
+              },
+              {
+                t: "No: lo prohíbe el criterio material del 175.110 (a), esté o no en la lista.",
+                ok: true,
+                fb: "Es el artículo que va antes que la lista. Si algo se comporta así, no vuela, y punto.",
+              },
+              {
+                t: "Solo con dispensa.",
+                fb: "La dispensa sirve para lo prohibido en circunstancias normales, no para lo que por su comportamiento no puede transportarse en ningún caso (175.020 (g)).",
+              },
+            ],
+          },
+          {
+            q: "Un laboratorio quiere enviar animales vivos infectados. ¿Qué nivel aplica?",
+            ref: "LAR 175.110 (c) (2)",
+            opciones: [
+              {
+                t: "Permitido cumpliendo las Instrucciones, como cualquier sustancia infecciosa.",
+                fb: "Las sustancias infecciosas embaladas sí van por el régimen normal. Los animales vivos infectados están nombrados aparte, y no en ese nivel.",
+              },
+              {
+                t: "Prohibido salvo dispensa.",
+                ok: true,
+                fb: "El LAR 175.110 (c) (2) los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la AAC.",
+              },
+              {
+                t: "Prohibido en todos los casos.",
+                fb: "No están en el nivel absoluto: la norma deja abierta la dispensa. Lo prohibido en todos los casos es lo que las Instrucciones nombran así cualesquiera que sean las circunstancias (175.114).",
+              },
+            ],
+          },
+          {
+            q: "Vas a operar un monomotor con carga que incluye un artículo de la clase 8. ¿Qué necesitas?",
+            ref: "RAC 175.115 (b) y (c) · Colombia",
+            opciones: [
+              {
+                t: "Aprobación de la autoridad, previa verificación de las condiciones de seguridad del explotador, que además determina en qué aeródromos no se aprueba esa operación.",
+                ok: true,
+                fb: "La prohibición absoluta en monomotores es para la clase 3 combustibles y para toda la aviación civil privada. Las demás clases en monomotor requieren aprobación con verificación previa.",
+              },
+              {
+                t: "Nada especial: la clase 8 no está restringida en monomotores.",
+                fb: "El 175.115 (c) exige aprobación para mercancías distintas de la clase 3 en monomotores. Es una limitación propia del RAC, no del Anexo 18.",
+              },
+              {
+                t: "Está prohibido en todos los casos.",
+                fb: "Lo prohibido en monomotor por razones de seguridad es la clase 3 combustibles, salvo lo señalado en 175.715.",
+              },
+            ],
+          },
+          {
+            q: "¿Qué mercancías peligrosas admite el correo aéreo, según el reglamento colombiano?",
+            ref: "RAC 175.125 (f) · Colombia",
+            opciones: [
+              {
+                t: "Ninguna: el correo no admite mercancías peligrosas.",
+                fb: "La regla general es esa (175.125 (a)), pero el (f) trae tres excepciones: muestras de pacientes, sustancias infecciosas con su hielo seco y declaración del expedidor, y material radiactivo de muy baja actividad.",
+              },
+              {
+                t: "Muestras de pacientes; sustancias infecciosas con el hielo seco que las refrigera y declaración del expedidor; y material radiactivo con actividad de hasta una décima parte de la Tabla 2-15.",
+                ok: true,
+                fb: "Son las tres del 175.125 (f), a reserva de lo que dispongan las autoridades postales y la Unión Postal Universal. Y el explotador necesita la autorización en sus OpSpecs (175.125 (e)).",
+              },
+              {
+                t: "Las mismas que en carga, si el operador postal las acepta.",
+                fb: "El correo tiene su propia lista, mucho más corta. Y el operador postal designado necesita que la autoridad examine y apruebe sus procedimientos antes de aceptar mercancías peligrosas en el correo (LAR 175.125 (b)).",
+              },
+            ],
+          },
+          {
+            q: "Un expedidor entrega material radiactivo con toda la documentación de las Instrucciones Técnicas. En Colombia, ¿le falta algo?",
+            ref: "RAC 175.536 (a) · Colombia",
+            opciones: [
+              {
+                t: "No: con la declaración del expedidor basta.",
+                fb: "Falta un papel más: la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica, que el expedidor presenta al explotador. En Brasil el equivalente es la aprobación de la CNEN (discrepancia BR 8): el patrón se repite, cambia el organismo.",
+              },
+              {
+                t: "Sí: la autorización del Servicio Geológico Colombiano.",
+                ok: true,
+                fb: "Es una licencia de manejo o una autorización de importación o reexportación, según el caso. Y el explotador no acepta una declaración tachada o enmendada salvo que la enmienda esté anulada con la misma firma (175.536 (c)).",
+              },
+              {
+                t: "Sí: una dispensa de la autoridad aeronáutica.",
+                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA (LAR 175.120) y, además, el permiso del organismo nuclear del país que corresponda.",
+              },
+            ],
+          },
+          {
+            q: "Un tripulante lleva en su maleta un artículo de la clase 2. ¿Qué aplica?",
+            ref: "LAR 175.115 (b) y 175.715",
+            opciones: [
+              {
+                t: "La misma regla que a un pasajero: prohibido salvo que esté en la Tabla 8-1 y cumpla todos sus requisitos.",
+                ok: true,
+                fb: "El 175.151 nombra expresamente a «los pasajeros o las tripulaciones», y el 175.715 fija la única excepción. Si se descubre, el explotador debe notificarlo (175.625).",
+              },
+              {
+                t: "Los tripulantes están exceptuados por ser personal de la operación.",
+                fb: "La excepción del 175.145 es para objetos y sustancias exigidos por aeronavegabilidad y reglamentos de operación, no para el equipaje personal del tripulante.",
+              },
+              {
+                t: "Depende de si el vuelo es nacional o internacional.",
+                fb: "La regla no distingue tipo de vuelo. Lo que sí cambia según la ruta son las discrepancias notificadas por los Estados (lección 10).",
+              },
+            ],
+          },
+          {
+            q: "¿En qué momento debe recibir el pasajero la información sobre lo que no puede llevar?",
+            ref: "LAR 175.710",
+            opciones: [
+              {
+                t: "En el mostrador, cuando factura.",
+                fb: "El mostrador es uno de seis momentos, y no el primero. La información empieza en el punto de compra del billete y sigue en los avisos del aeropuerto, el despacho a distancia, el autoservicio y el equipaje excedente.",
+              },
+              {
+                t: "En el punto de compra, en avisos del aeropuerto, en el despacho a distancia, en el autoservicio, en la recepción del equipaje y en el equipaje excedente como carga.",
+                ok: true,
+                fb: "Seis momentos, y en la compra por internet, el despacho a distancia y el autoservicio el trámite no se puede completar sin que el pasajero confirme que entendió.",
+              },
+              {
+                t: "Solo en el sitio web del explotador.",
+                fb: "El sitio web es parte de la obligación (LAR 175.710 (a)), pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
+              },
+            ],
+          },
+          {
+            q: "En la recepción del equipaje, ¿basta con preguntarle al pasajero si lleva algo peligroso?",
+            ref: "LAR 175.710",
+            opciones: [
+              {
+                t: "Sí: la confirmación del pasajero libera al explotador.",
+                fb: "La confirmación es obligatoria, pero el mismo inciso exige además obtener confirmación acerca del contenido de cualquier artículo que se sospeche pueda contener mercancías peligrosas no permitidas.",
+              },
+              {
+                t: "No: además hay que pedir confirmación del contenido de cualquier artículo sospechoso.",
+                ok: true,
+                fb: "Dos preguntas, no una: «¿lleva mercancías peligrosas no permitidas?» y «¿qué contiene esto?» ante cualquier artículo que haga dudar. La Nota 1 del 175.705 recuerda que muchos artículos que parecen inocuos las contienen.",
+              },
+              {
+                t: "No hay que preguntar nada: para eso está el control de seguridad.",
+                fb: "La requisa previene que entren; la confirmación en el despacho es una obligación distinta y expresa del 175.705 (f).",
+              },
+            ],
+          },
+          {
+            q: "Una caja de carga declarada como «motor de combustión interna».",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
+            opciones: [
+              {
+                t: "Sí.",
+                ok: true,
+                fb: "El RAC lo cita como ejemplo de objeto de la clase 9. Puede traer combustible residual, batería y aceite.",
+              },
+              {
+                t: "No.",
+                fb: "El RAC lo nombra expresamente entre los objetos de la clase 9. «Motor» es una descripción general clásica.",
+              },
+            ],
+          },
+          {
+            q: "Un envío de «equipo de salvamento de inflado automático».",
+            ref: "Instrucciones Técnicas, Tabla 8-1",
+            opciones: [
+              {
+                t: "Sí.",
+                ok: true,
+                fb: "Ejemplo expreso de objeto de la clase 9: lleva un cartucho de gas comprimido y a veces pirotecnia.",
+              },
+              {
+                t: "No.",
+                fb: "Un chaleco o una balsa de inflado automático traen gas comprimido. El RAC los nombra como clase 9.",
+              },
+            ],
+          },
+          {
+            q: "Unas «muestras de laboratorio» sin más descripción, en una caja fría.",
+            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175.125 (f)",
+            opciones: [
+              {
+                t: "Sí.",
+                ok: true,
+                fb: "Pueden ser sustancias infecciosas (6.2) o tóxicas (6.1), y la caja fría casi seguro trae hielo seco, que es clase 9. Es la descripción vaga por excelencia.",
+              },
+              {
+                t: "No.",
+                fb: "«Muestras» es una descripción general típica: puede esconder 6.1, 6.2 y el hielo seco (clase 9) que las refrigera.",
+              },
+            ],
+          },
+          {
+            q: "Un envío declarado como «material magnetizado» con su etiqueta de manipulación.",
+            ref: "Instrucciones Técnicas, Tabla 8-1 · RAC 175, Apéndice 1, Figura 1.22",
+            opciones: [
+              {
+                t: "Sí, es mercancía peligrosa, pero no está oculta: viene declarada.",
+                ok: true,
+                fb: "Es clase 9 cuando al embalarlo tiene un campo de 0,159 A/m o más a 2,1 m del bulto, y tiene etiqueta propia. Como viene declarada y etiquetada, es lo contrario de una oculta.",
+              },
+              {
+                t: "No es mercancía peligrosa.",
+                fb: "Sí lo es: el RAC la nombra en la clase 9 y le da etiqueta de manipulación. Lo que no es, es oculta: viene declarada.",
+              },
+            ],
+          },
+          {
+            q: "Una caja de «documentos impresos y papelería».",
+            ref: "LAR 175.610 (c) y 175.710",
+            opciones: [
+              {
+                t: "Sí, siempre hay que sospechar.",
+                fb: "El control funciona al revés: se pide confirmación del contenido de lo que haga dudar, no se presume peligro donde no lo hay. Lo sospechoso es la descripción vaga, no el producto obvio.",
+              },
+              {
+                t: "No, por sí misma.",
+                ok: true,
+                fb: "Papel es papel. El personal debe pedir confirmación del contenido de cualquier artículo que sospeche, y una caja de documentos no lo es. Sospechar de todo es tan inútil como no sospechar de nada.",
+              },
+            ],
+          }
         ],
       },
     ],
