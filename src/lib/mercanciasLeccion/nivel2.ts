@@ -148,6 +148,14 @@ export const NIVEL_2: DocScreen[] = [
         kind: "p",
         text: "Un bulto no habla. Lo que dice, lo dice con lo que lleva pegado: las marcas, que son texto, y las etiquetas, que son los rombos y las señales de manipulación. Aprender a leerlas es lo que te permite mirar un bulto en rampa y saber qué es antes de que nadie te lo explique.",
       },
+      {
+        kind: "figura",
+        src: "/modulos/mercancias/img-04-bulto-marcado.webp",
+        alt: "Caja de cartón en una cinta transportadora con flechas de orientación, la marca de especificación 4GV/X17.3/S/18, la declaración del expedidor y tres rombos: corrosivo clase 8, tóxico clase 6 y contaminante del medio ambiente.",
+        ancho: 727,
+        alto: 463,
+        pie: "Léelo por partes: arriba las flechas de orientación, a la izquierda la declaración, abajo la marca de especificación del embalaje (4GV/X17.3/S/18) y a la derecha los rombos. Corrosivo de la clase 8, tóxico de la clase 6 y contaminante del medio ambiente. Todo eso lo puso el expedidor antes de que la caja saliera de su bodega.",
+      },
       { kind: "sub", text: "Las marcas: lo que va escrito" },
       {
         kind: "norma",
@@ -195,6 +203,14 @@ export const NIVEL_2: DocScreen[] = [
       {
         kind: "p",
         text: "Las especificaciones son las del Apéndice 1 del RAC 175: símbolo, fondo, franjas. Donde el Apéndice solo trae la figura, la ficha lo dice. Las que no tienen rombo en el módulo muestran su hueco, con el identificador y la medida para producirlas.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/mercancias/img-05-panel-etiquetas.webp",
+        alt: "Panel con las etiquetas de riesgo de las nueve clases: explosivos, gases inflamables y no inflamables, líquidos inflamables, sólidos inflamables, comburentes, peróxidos orgánicos, tóxicos, infecciosos, radiactivo, corrosivos y riesgos varios.",
+        ancho: 608,
+        alto: 331,
+        pie: "Todas juntas, como las verías en el cuadro que la terminal de carga tiene a la vista por obligación (LAR 175.225 (b)). Fíjate en que el color se repite entre clases: lo que identifica no es el color, es el símbolo con el número de la esquina.",
       },
       { kind: "etiquetasMP", grupo: "riesgo" },
       { kind: "sub", text: "Etiquetas de manipulación" },
@@ -523,11 +539,9 @@ export const NIVEL_2: DocScreen[] = [
         leccion:
           "Cuando el humo llena la cabina, lo único que queda es lo que ya estaba a bordo y lo que la tripulación ya sabía. Por eso el 175.515 exige que la información de las mercancías esté al alcance del comandante durante el vuelo y el 175.620 que la información de emergencia esté disponible de inmediato. Una batería de litio en fuga térmica no es un incendio más: produce su propio calor, se reaviva y llena de humo un espacio del que no se puede salir.",
         fuente: "GCAA (Emiratos Árabes Unidos), informe final del accidente del N571UP, julio de 2013.",
-        hueco: {
-          id: "MP-IMG-03",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion:
-            "Foto de referencia del 747 de UPS o de una paleta de carga con baterías de litio marcada. Con crédito.",
+        imagen: {
+          src: "/modulos/mercancias/img-03-ups-six.webp",
+          alt: "Imagen de referencia del accidente del Boeing 747 de carga de UPS, cuyo incendio se originó en una carga de baterías de litio.",
         },
       },
       { kind: "sub", text: "Qué es la fuga térmica" },
@@ -536,11 +550,12 @@ export const NIVEL_2: DocScreen[] = [
         text: "Una celda de litio dañada, sobrecargada o en cortocircuito se calienta. El calor descompone los materiales de dentro, que producen más calor y gases inflamables, y el calor pasa a la celda de al lado. Es una reacción que se alimenta sola: produce fuego que se reaviva y no se apaga quitándole el oxígeno, porque el oxígeno lo pone la propia celda.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-ILU-02 · Ilustración · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Diagrama de la fuga térmica en tres pasos: una celda se calienta, sus materiales se descomponen y sueltan gas, el calor pasa a la celda vecina. Flechas de calor, sin texto pequeño.",
-        alto: 280,
+        kind: "figura",
+        src: "/modulos/mercancias/ilu-02-fuga-termica.webp",
+        alt: "La fuga térmica paso a paso: una celda de litio se calienta, sus materiales se descomponen y liberan gas, y el calor alcanza a la celda vecina.",
+        ancho: 1400,
+        alto: 788,
+        pie: "La reacción se alimenta sola: cada celda que entra calienta a la siguiente.",
       },
       {
         kind: "fichas",

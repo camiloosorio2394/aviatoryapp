@@ -43,11 +43,9 @@ export const NIVEL_1: DocScreen[] = [
           de: "NTSB, causa probable, informe AAR-97/06",
         },
         fuente: "NTSB, Aircraft Accident Report NTSB/AAR-97/06 (1997).",
-        hueco: {
-          id: "MP-IMG-01",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion:
-            "Un generador químico de oxígeno de aviación, con su tapa de seguridad a la vista, o una foto del DC-9 de ValuJet con crédito. Mejor el objeto que el accidente: es la imagen que abre el módulo.",
+        imagen: {
+          src: "/modulos/mercancias/img-01-generador-oxigeno.webp",
+          alt: "Generador químico de oxígeno de aviación, el tipo de dispositivo que viajaba sin tapa de seguridad en la bodega del vuelo 592.",
         },
       },
       {
@@ -108,11 +106,12 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MP-ILU-01 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
-        descripcion:
-          "Las cuatro capas anidadas, Anexo 18 → Doc 9284 → LAR 175 → reglamento nacional, como anillos concéntricos en el estilo isométrico de Aviatory. El anillo exterior con varias siglas de la región (RAC, RAP, RDAC, RAB, DAN) para que se vea que la última capa cambia según el país. Sin texto pequeño.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/mercancias/ilu-01-cuatro-documentos.webp",
+        alt: "Cuatro anillos concéntricos: Anexo 18 del Convenio de Chicago, Doc 9284 con las Instrucciones Técnicas, LAR 175 latinoamericano y, en la base, el reglamento nacional.",
+        ancho: 1400,
+        alto: 788,
+        pie: "Las cuatro capas, de fuera hacia dentro. La cuarta cambia según el país: aquí aparece el RAC 175 de Colombia. Ojo, que el LAR 175 no es de IATA sino del SRVSOP, el Sistema Regional de Cooperación para la Vigilancia de la Seguridad Operacional.",
       },
       {
         kind: "callout",
@@ -224,7 +223,15 @@ export const NIVEL_1: DocScreen[] = [
             desc: "En tierra un derrame se atiende en minutos. En crucero el aeródromo más cercano puede estar a más de una hora. Lo que pase lo resuelve la tripulación con lo que ya está a bordo.",
           },
         ],
-        nota: "MP-ICO-01 a MP-ICO-04 · Iconos de línea · 96×96 · SVG monocromo: manómetro, termómetro, ondas de vibración, reloj con avión.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/mercancias/ico-cuatro-enemigos.webp",
+        alt: "Cuatro iconos: un manómetro sobre nubes, un termómetro entre un copo de nieve y un sol, una caja en una cinta transportadora con ondas de vibración, y un reloj con un avión en pista.",
+        ancho: 1200,
+        alto: 800,
+        anchoMax: 620,
+        pie: "Presión, temperatura, vibración y tiempo. Los cuatro actúan a la vez durante todo el vuelo.",
       },
       { kind: "sub", text: "Lo que no hay a bordo" },
       {
@@ -476,11 +483,12 @@ export const NIVEL_1: DocScreen[] = [
         text: "Cuando un bulto llega a tu avión ya pasó por varias manos. Cada una tiene obligaciones escritas, y ninguna borra las de la anterior. Esta es la cadena, con el artículo de cada eslabón.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-FLJ-01 · Flujograma · 21:9 · 2000×860 · SVG",
-        descripcion:
-          "Cadena horizontal: Expedidor → Agente de carga → Terminal de carga → Explotador (aceptación) → Estiba → Comandante → Destino. Un nodo por actor con su artículo del LAR 175 y una marca donde la responsabilidad cambia de manos.",
-        alto: 260,
+        kind: "figura",
+        src: "/modulos/mercancias/flj-01-cadena-responsabilidad.webp",
+        alt: "Cadena de siete eslabones: expedidor, agente de carga, operador de terminal de carga, explotador en la aceptación, carga y aseguramiento, comandante y destino, cada uno con sus obligaciones.",
+        ancho: 1800,
+        alto: 775,
+        pie: "Los artículos del cuadro son los del RAC 175 de Colombia, que es donde la cadena está numerada eslabón por eslabón. En el LAR 175 los mismos deberes están en 175.215 (expedidor), 175.220 (explotador), 175.225 (terminal de carga) y 175.515 (información al comandante).",
       },
       {
         kind: "fichas",

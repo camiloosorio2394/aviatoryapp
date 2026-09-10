@@ -107,6 +107,8 @@ export interface CasoRealBlock {
   cita?: { texto: string; de: string }
   fuente: string
   hueco?: { id: string; medida: string; descripcion: string }
+  /** La foto, cuando ya existe. Sustituye al hueco. */
+  imagen?: { src: string; alt: string }
 }
 
 /** La aplicación concreta de un concepto en el trabajo diario del piloto. */

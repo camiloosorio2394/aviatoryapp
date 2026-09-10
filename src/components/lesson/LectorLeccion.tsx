@@ -39,6 +39,13 @@ export interface LectorModulo {
   evaluacion?: string
   /** Carpeta pública de las portadas: "/modulos/notam". */
   portadas: string
+  /**
+   * Proporción de la portada. Por defecto 8:3, que es la franja con la que
+   * abre NOTAM. Un módulo cuyas portadas sean piezas diseñadas (con título y
+   * pie dentro de la imagen) pide la suya, porque el recorte por el centro se
+   * comería justamente eso.
+   */
+  portadaRatio?: string
   /** Clave de la actividad diaria que se registra al completar una lección. */
   actividad: Parameters<typeof registrarEstudioDiario>[0]
   lecciones: DocScreen[]
@@ -280,7 +287,12 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
             {/* La lección entera, de corrido: se lee scrolleando */}
             <div key={l} className="ln-paso mt-8">
               <div className="flex flex-col" style={{ rowGap: 38 }}>
-                <Portada dir={modulo.portadas} n={l} titulo={leccion.title} />
+                <Portada
+                  dir={modulo.portadas}
+                  n={l}
+                  titulo={leccion.title}
+                  ratio={modulo.portadaRatio}
+                />
                 {leccion.blocks.map((block, i) => {
                   if (block.kind === "interactivo") {
                     return (
@@ -571,24 +583,34 @@ function formatZulu(d: Date): string {
  * el globIgnores de vite.config.ts). Aquí viajan bajo demanda y se quedan en
  * caché la primera vez que se ven.
  *
- * Proporción fija 8:3 (720x270 en la columna): una foto de otra medida se
- * recorta por el centro, así todas las lecciones abren con la misma franja.
+ * La proporción la fija el módulo (8:3 por defecto): una imagen de otra
+ * medida se recorta por el centro, así todas las lecciones abren igual.
  * El estado `falta` se reinicia solo al cambiar de lección, porque el bloque
  * que la contiene lleva key={l} y se remonta entero.
  */
 const PORTADA_RATIO = "8 / 3"
 
-function Portada({ dir, n, titulo }: { dir: string; n: number; titulo: string }) {
+function Portada({
+  dir,
+  n,
+  titulo,
+  ratio = PORTADA_RATIO,
+}: {
+  dir: string
+  n: number
+  titulo: string
+  ratio?: string
+}) {
   const [falta, setFalta] = useState(false)
   const archivo = `leccion-${String(n).padStart(2, "0")}.webp`
 
   if (falta) {
     return (
       <HuecoImagen
-        rotulo="PORTADA · 1440×540"
-        descripcion={`Foto horizontal (8:3) para esta lección, sin textos encima. Pásala a WebP con scripts/optimizar-imagenes.mjs, guárdala como public${dir}/${archivo} y aparece sola.`}
+        rotulo={`PORTADA · ${ratio.replace(" / ", ":")}`}
+        descripcion={`Imagen horizontal (${ratio.replace(" / ", ":")}) para esta lección. Pásala a WebP con scripts/optimizar-imagenes.mjs, guárdala como public${dir}/${archivo} y aparece sola.`}
         alto={270}
-        ratio={PORTADA_RATIO}
+        ratio={ratio}
       />
     )
   }
@@ -598,7 +620,7 @@ function Portada({ dir, n, titulo }: { dir: string; n: number; titulo: string })
         src={`${dir}/${archivo}`}
         alt={`Portada de la lección ${String(n).padStart(2, "0")}: ${titulo}`}
         className="block w-full"
-        style={{ aspectRatio: PORTADA_RATIO, objectFit: "cover", background: "var(--ln-sunk)" }}
+        style={{ aspectRatio: ratio, objectFit: "cover", background: "var(--ln-sunk)" }}
         onError={() => setFalta(true)}
         decoding="async"
       />

@@ -24,6 +24,9 @@ const MODULO: LectorModulo = {
   practica: MP_PRACTICA,
   evaluacion: MP_EVALUACION,
   portadas: "/modulos/mercancias",
+  // Las portadas traen el título dentro y la línea de iconos al pie: a 8:3 se
+  // perderían las dos cosas.
+  portadaRatio: "16 / 9",
   actividad: "mercancias-leccion",
   lecciones: MP_LECCIONES,
   niveles: MP_NIVELES,

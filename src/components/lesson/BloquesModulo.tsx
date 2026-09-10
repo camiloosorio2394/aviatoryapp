@@ -155,15 +155,28 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
         </div>
       </div>
 
-      {block.hueco && (
+      {block.imagen ? (
         <div className="border-b" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
-          <HuecoImagen
-            rotulo={`${block.hueco.id} · ${block.hueco.medida}`}
-            descripcion={block.hueco.descripcion}
-            alto={300}
-            ratio="16 / 9"
+          <img
+            src={block.imagen.src}
+            alt={block.imagen.alt}
+            className="block w-full"
+            style={{ aspectRatio: "16 / 9", objectFit: "cover", background: "var(--ln-sunk)" }}
+            loading="lazy"
+            decoding="async"
           />
         </div>
+      ) : (
+        block.hueco && (
+          <div className="border-b" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
+            <HuecoImagen
+              rotulo={`${block.hueco.id} · ${block.hueco.medida}`}
+              descripcion={block.hueco.descripcion}
+              alto={300}
+              ratio="16 / 9"
+            />
+          </div>
+        )
       )}
 
       <div className="px-5 py-5 sm:px-6" style={{ background: "var(--doc-bg)" }}>
