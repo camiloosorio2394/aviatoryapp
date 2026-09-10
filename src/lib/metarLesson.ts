@@ -13,6 +13,7 @@
 import type { LessonBlock } from "@/lib/notamLesson"
 import type { DocScreen } from "@/lib/docBlocks"
 import { PARTE_ATMOSFERA } from "@/lib/meteorologiaLeccion/atmosfera"
+import { PARTE_AGUA } from "@/lib/meteorologiaLeccion/agua"
 
 /**
  * Las lecciones del código: METAR y TAF, grupo por grupo.
@@ -1377,7 +1378,7 @@ const CODIGO: DocScreen[] = [
  * mano en las trece pantallas: así añadir teoría delante no obliga a tocar el
  * contenido, que es lo que se acaba desincronizando.
  */
-const TEORIA: DocScreen[] = [...PARTE_ATMOSFERA]
+const TEORIA: DocScreen[] = [...PARTE_ATMOSFERA, ...PARTE_AGUA]
 
 export const METAR_LESSON: DocScreen[] = [
   ...TEORIA,
@@ -1394,6 +1395,7 @@ METAR_LESSON.forEach((s, i) => {
 
 export const METAR_NIVELES = [
   { titulo: "La atmósfera y el aire en movimiento", desde: 1 },
+  { titulo: "Agua, estabilidad y nubes", desde: PARTE_ATMOSFERA.length + 1 },
   { titulo: "Básico · La línea y sus partes", desde: TEORIA.length + 1 },
   { titulo: "Intermedio · Fenómenos y cielo", desde: TEORIA.length + 5 },
   { titulo: "Avanzado · Tendencia y método", desde: TEORIA.length + 8 },
