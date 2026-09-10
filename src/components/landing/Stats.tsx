@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react"
 import { Reveal } from "@/components/Reveal"
+import { CountUp } from "@/components/ui/count-up"
 import { useInView } from "@/hooks/useInView"
 
 interface Stat {
@@ -66,10 +66,20 @@ export function Stats() {
 }
 
 function StatCard({ stat }: { stat: Stat }) {
+  // El contador arranca cuando la cifra está a la vista, no al montar: si no,
+  // la cuenta se gasta arriba del todo y quien baja encuentra el número quieto.
+  const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.4 })
+
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5">
-      <div className="text-5xl sm:text-6xl font-extrabold tracking-[-0.04em] tabular" style={{ color: "var(--av-blue-500)" }}>
-        <CountUp value={stat.value} prefix={stat.prefix} suffix={stat.suffix} />
+    <div className="rounded-2xl border border-border bg-card transition-[transform,box-shadow,border-color] duration-300 ease-out p-6 hover:-translate-y-0.5">
+      <div ref={ref} className="text-5xl sm:text-6xl font-extrabold tracking-[-0.04em] tabular" style={{ color: "var(--av-blue-500)" }}>
+        <CountUp
+          to={stat.value}
+          start={inView}
+          prefix={stat.prefix}
+          suffix={stat.suffix}
+          format={(v) => Math.round(v).toLocaleString("es-CO")}
+        />
       </div>
       <div className="mt-3 text-[15px] font-bold tracking-[-0.01em]">{stat.label}</div>
       <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{stat.sub}</p>
@@ -77,47 +87,3 @@ function StatCard({ stat }: { stat: Stat }) {
   )
 }
 
-function CountUp({
-  value,
-  prefix = "",
-  suffix = "",
-}: {
-  value: number
-  prefix?: string
-  suffix?: string
-}) {
-  const { ref, inView } = useInView<HTMLSpanElement>({ threshold: 0.4 })
-  const [display, setDisplay] = useState(0)
-  const startRef = useRef<number | null>(null)
-  const durationMs = 1600
-
-  useEffect(() => {
-    if (!inView) return
-    let raf = 0
-    // Spring-like easing: overshoot ligero + settle
-    function spring(t: number) {
-      // ease-out-elastic-ish; suave en el approach final
-      if (t === 0 || t === 1) return t
-      const p = 0.4
-      return Math.pow(2, -10 * t) * Math.sin(((t - p / 4) * (2 * Math.PI)) / p) + 1
-    }
-    function tick(t: number) {
-      if (startRef.current === null) startRef.current = t
-      const elapsed = t - startRef.current
-      const progress = Math.min(elapsed / durationMs, 1)
-      const eased = Math.min(spring(progress), 1)
-      setDisplay(Math.round(eased * value))
-      if (progress < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [inView, value])
-
-  return (
-    <span ref={ref} className="tabular">
-      {prefix}
-      {display.toLocaleString("es-CO")}
-      {suffix}
-    </span>
-  )
-}

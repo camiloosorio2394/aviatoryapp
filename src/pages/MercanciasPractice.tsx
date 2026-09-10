@@ -610,7 +610,7 @@ function Clasifica({
             <Eye className="h-4 w-4" /> Comprobar
           </button>
         ) : (
-          <div className="anim-fade-up">
+          <div className="rev-aparece">
             <div
               className="rounded-xl border p-3.5 text-[14px] leading-relaxed"
               style={{
@@ -722,7 +722,7 @@ function Escenario({
             </p>
           </div>
         ) : (
-          <div className="mt-5 anim-fade-up">
+          <div className="mt-5 rev-aparece">
             <div className="inline-flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: accentText("var(--av-green-400)") }}>
               <CheckCircle2 className="h-3.5 w-3.5" /> Respuesta modelo
             </div>
@@ -799,7 +799,7 @@ function Entrevista({
             <Eye className="h-4 w-4" /> Ver la respuesta modelo
           </button>
         ) : (
-          <div className="anim-fade-up">
+          <div className="rev-aparece">
             <p className="m-0 text-[13.5px] text-foreground/90 leading-relaxed">{pregunta.respuesta}</p>
             <div className="mt-4 rounded-xl border p-3.5" style={{ borderColor: `color-mix(in oklab, ${ACENTO} 30%, transparent)`, background: `color-mix(in oklab, ${ACENTO} 6%, transparent)` }}>
               <div className="np-rotulo">Qué evalúan</div>

@@ -290,7 +290,7 @@ export function VaultQuizPlayer() {
               </button>
 
               {reviewOpen && (
-                <div className="mt-4 space-y-3 anim-fade-up">
+                <div className="mt-4 space-y-3 rev-aparece">
                   {wrongList.map((h) => (
                     <div
                       key={h.position}
@@ -463,7 +463,7 @@ export function VaultQuizPlayer() {
 
             {/* Feedback */}
             {result && (
-              <div className="mt-6 space-y-3 anim-fade-up">
+              <div className="mt-6 space-y-3 rev-aparece">
                 <div
                   className="rounded-2xl border p-4"
                   style={{

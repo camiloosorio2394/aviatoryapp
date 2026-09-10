@@ -569,7 +569,7 @@ export function NotamPractice() {
                     </p>
                   </div>
                 ) : (
-                  <div className="mt-5 anim-fade-up">
+                  <div className="mt-5 rev-aparece">
                     <div>
                       <div
                         className="inline-flex items-center gap-1.5 text-[12px] font-semibold"

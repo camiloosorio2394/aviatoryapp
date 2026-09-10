@@ -31,10 +31,16 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+      /* `transition-all` metía en la transición el `backdrop-filter`, que aquí
+         vale 40px y vuelve a muestrear el fondo en cada fotograma, y el ancho
+         del borde, que es propiedad de layout, en un elemento fijo y en cada
+         scroll. Se nombran las propiedades: el velo y la sombra se funden, el
+         desenfoque entra de golpe (nadie mira el borde superior mientras
+         desplaza) y 500ms bajan a 200, que es el techo para algo así. */
+      className={`fixed top-0 inset-x-0 z-50 transition-[background-color,border-color,box-shadow] duration-200 ease-out ${
         scrolled
           ? "bg-background/75 backdrop-blur-2xl border-b border-border/40 shadow-sm"
-          : "bg-transparent"
+          : "bg-transparent border-b border-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 h-24 flex items-center justify-between">

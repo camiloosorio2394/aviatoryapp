@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Link } from "react-router-dom"
+import { traerAlaVista } from "@/lib/motion"
 import {
   Search,
   BookOpen,
@@ -164,7 +165,7 @@ export function IcaoVocabulary() {
     // El scroll y el reset van en el callback del timer: así el tramo nuevo ya
     // está pintado cuando buscamos el ancla, y no hay setState en el efecto.
     const t = setTimeout(() => {
-      document.getElementById(`letter-${target}`)?.scrollIntoView({ behavior: "smooth", block: "start" })
+      traerAlaVista(document.getElementById(`letter-${target}`))
       setPendingAnchor(null)
     }, 0)
     return () => clearTimeout(t)

@@ -23,6 +23,7 @@ import { Rotulo } from "@/components/ui/rotulo"
 import { SectionTitle } from "@/components/ui/section-title"
 import { registrarActividadDeEstudio } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
+import { subirArriba } from "@/lib/motion"
 import { accentText } from "@/lib/notam"
 
 /**
@@ -209,7 +210,7 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
     setIdx(0)
     setElapsed(0)
     setPhase("running")
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    subirArriba()
   }, [config])
 
   function choose(optionIndex: number) {
@@ -221,11 +222,11 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
     if (picks[idx] === undefined) return
     if (idx >= total - 1) {
       setPhase("done")
-      window.scrollTo({ top: 0, behavior: "smooth" })
+      subirArriba()
       return
     }
     setIdx((i) => i + 1)
-    window.scrollTo({ top: 0, behavior: "smooth" })
+    subirArriba()
   }
 
   if (esperando) return <Cargando />

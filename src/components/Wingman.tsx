@@ -42,12 +42,10 @@ export function Wingman() {
             "0 16px 40px -8px oklch(0.55 0.22 264 / 60%), inset 0 1px 0 rgb(255 255 255 / 25%), 0 0 0 1px oklch(0.78 0.16 215 / 40%)",
         }}
       >
-        {!open && (
-          <>
-            <span className="radar-pulse" />
-            <span className="radar-pulse radar-pulse-delay" />
-          </>
-        )}
+        {/* Aquí latían dos anillos de radar, infinitos, en todas las pantallas
+            con sesión. No informaban de nada: ni estado, ni cambio, ni
+            respuesta a nada que hiciera el piloto. Solo tiraban del ojo en la
+            esquina de la pantalla donde está intentando leer. */}
         {open ? (
           <X size={22} />
         ) : (

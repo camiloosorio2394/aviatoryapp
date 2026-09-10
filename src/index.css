@@ -389,7 +389,7 @@
     background-clip: text;
     color: transparent;
     background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
+    animation: gradient-shift 8s linear infinite;
   }
   .text-gradient-gold {
     background: linear-gradient(135deg, oklch(0.88 0.12 85) 0%, oklch(0.75 0.16 78) 35%, oklch(0.6 0.15 72) 65%, oklch(0.78 0.14 80) 100%);
@@ -397,7 +397,7 @@
     background-clip: text;
     color: transparent;
     background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
+    animation: gradient-shift 8s linear infinite;
   }
   .text-gradient-silver {
     background: linear-gradient(135deg, oklch(0.95 0.005 250) 0%, oklch(0.62 0.015 250) 30%, oklch(0.9 0.008 250) 55%, oklch(0.58 0.015 250) 80%, oklch(0.85 0.008 250) 100%);
@@ -405,7 +405,7 @@
     background-clip: text;
     color: transparent;
     background-size: 200% 200%;
-    animation: gradient-shift 8s ease infinite;
+    animation: gradient-shift 8s linear infinite;
   }
   @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }
