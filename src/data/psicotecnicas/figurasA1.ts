@@ -77,6 +77,22 @@ const cl = (
   lobulo: Relleno = "blanco"
 ): Celda => ({ marco: true, elementos: [{ tipo: "cuadro-lobulos", letra, lomo, lobulo, barra }] })
 
+/** Casilla del 17: el casco entero, que es lo único que hay en la casilla. */
+const ks = (
+  puntaIzquierda: "blanca" | "arriba" | "abajo" | "negra",
+  puntaDerecha: "blanca" | "arriba" | "abajo" | "negra",
+  cuerpo: Relleno,
+  particion: "ninguna" | "cuatro-cuadros" | "cuatro-columnas",
+  remate: "torre" | "triangulo" | "plancha",
+  remateRelleno: Relleno,
+  sombra: "ninguna" | "media-diagonal" | "monte" = "ninguna"
+): Celda => ({
+  marco: true,
+  elementos: [
+    { tipo: "casco", puntaIzquierda, puntaDerecha, cuerpo, particion, remate, remateRelleno, sombra },
+  ],
+})
+
 const dc = (cuadrante: 0 | 1 | 2 | 3): Elemento => ({ tipo: "diagonal-cuadrante", cuadrante })
 const tn = (cuadrante: 0 | 1 | 2 | 3, relleno: Relleno): Elemento => ({
   tipo: "cuadrante-tenido",
@@ -417,6 +433,56 @@ export const FIGURAS_A1: Record<string, FiguraMatriz> = {
       ac("centro", "abajo"),
       ac("abajo", "abajo"),
       ac("arriba", "abajo"),
+    ],
+  },
+
+  /**
+   * Cuatro reglas encima del mismo casco, y tres de ellas van por filas.
+   *
+   * Las **puntas** son constantes en cada fila: arriba a la izquierda en la
+   * primera, abajo a la derecha en la segunda, las dos en la tercera. Media
+   * punta, no la punta entera. Esto se midió sobre la lámina —densidad de
+   * tinta en las cuatro medias puntas— porque a ojo se lee «la punta izquierda
+   * es negra», que es otra cosa y deja el ejercicio sin regla.
+   *
+   *     IZQarr  IZQabj  DERarr  DERabj
+   *     0.72    0.15    0.15    0.14    ← filas 1
+   *     0.15    0.16    0.13    0.75    ← fila 2
+   *     0.73    0.15    0.14    0.76    ← fila 3
+   *
+   * El **relleno del remate** también es constante por filas: blanco, punteado,
+   * negro. La **forma del remate** —torre, triángulo, plancha— es un sudoku
+   * completo, por filas y por columnas, y al hueco le toca la torre. Y el
+   * **cuerpo** reparte un rayado y dos blancos en cada fila y en cada columna,
+   * así que le toca rayado.
+   *
+   * Las rayas que parten el cuerpo van a su aire —cero, una, tres, sin orden— y
+   * quedan libres. No estorban: ninguna alternativa se distingue por ellas.
+   *
+   * La C es la única con las dos medias puntas, la torre negra y el cuerpo
+   * rayado. La A pone las puntas **enteras** negras, la D las deja en blanco, y
+   * la B y la E meten un triángulo negro dentro del cuerpo, que no hace ninguna
+   * de las ocho.
+   */
+  "AB-A1-17": {
+    tipo: "matriz-3x3",
+    celdas: [
+      ks("arriba", "blanca", "rayado-punteado", "ninguna", "torre", "blanco"),
+      ks("arriba", "blanca", "blanco", "cuatro-cuadros", "triangulo", "blanco"),
+      ks("arriba", "blanca", "blanco", "cuatro-columnas", "plancha", "blanco"),
+      ks("blanca", "abajo", "blanco", "cuatro-columnas", "plancha", "rayado-punteado"),
+      ks("blanca", "abajo", "rayado-punteado", "ninguna", "torre", "rayado-punteado"),
+      ks("blanca", "abajo", "blanco", "ninguna", "triangulo", "rayado-punteado"),
+      ks("arriba", "abajo", "blanco", "cuatro-cuadros", "triangulo", "negro"),
+      ks("arriba", "abajo", "blanco", "cuatro-columnas", "plancha", "negro"),
+      HUECO,
+    ],
+    opciones: [
+      ks("negra", "negra", "blanco", "ninguna", "torre", "blanco"),
+      ks("blanca", "negra", "rayado-punteado", "ninguna", "torre", "blanco", "media-diagonal"),
+      ks("arriba", "abajo", "rayado-punteado", "ninguna", "torre", "negro"),
+      ks("blanca", "blanca", "rayado-punteado", "ninguna", "triangulo", "blanco"),
+      ks("blanca", "blanca", "blanco", "ninguna", "torre", "blanco", "monte"),
     ],
   },
 

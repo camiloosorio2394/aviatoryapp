@@ -262,6 +262,46 @@ function proponer(
  * la figura apunten a **alternativas distintas**: ahí el original es ambiguo y
  * no hay respuesta que defender.
  */
+/**
+ * Atributos que valen lo mismo en las cinco alternativas.
+ *
+ * Un atributo así no distingue una alternativa de otra, y por tanto no puede
+ * decidir nada. Exigir que la predicción lo acierte solo puede inventar un
+ * desacuerdo: nunca puede resolver uno.
+ *
+ * Pasa de verdad. En la matriz 17 las casillas parten el cuerpo en dos, en
+ * cuatro o en nada, y esa partición hasta cae en un cuadro por columnas. Pero
+ * **las cinco alternativas traen el cuerpo entero**, así que el cuadernillo no
+ * está preguntando eso, y el ejercicio no tiene forma de responderlo. Sin esto,
+ * el solucionador predecía una casilla partida y no encajaba con ninguna.
+ *
+ * No afloja nada: dos alternativas que se distinguen lo hacen por algún
+ * atributo que **sí** varía entre ellas, y ese sigue teniendo que coincidir.
+ */
+function atributosSinVariacion(opciones: Celda[]): Set<string> {
+  const vistos = new Map<string, { valores: Set<string>; veces: number }>()
+  for (const o of opciones) {
+    for (const el of o.elementos) {
+      for (const [clave, valor] of Object.entries(el)) {
+        if (clave === "tipo") continue
+        const nombre = `${el.tipo}.${clave}`
+        const entrada = vistos.get(nombre) ?? { valores: new Set<string>(), veces: 0 }
+        entrada.valores.add(JSON.stringify(valor))
+        entrada.veces++
+        vistos.set(nombre, entrada)
+      }
+    }
+  }
+  const quietos = new Set<string>()
+  // `veces` tiene que ser una por alternativa: si un atributo aparece dos veces
+  // en una casilla y ninguna en otra, no es que no varíe, es que la estructura
+  // cambia, y eso sí distingue.
+  for (const [nombre, { valores, veces }] of vistos) {
+    if (valores.size === 1 && veces === opciones.length) quietos.add(nombre)
+  }
+  return quietos
+}
+
 function dictaminar(candidatas: Candidata[], opciones: Celda[]): Diagnostico {
   if (candidatas.length === 0) {
     return {
@@ -272,11 +312,13 @@ function dictaminar(candidatas: Candidata[], opciones: Celda[]): Diagnostico {
     }
   }
 
+  const quietos = atributosSinVariacion(opciones)
   const senaladas = new Map<number, Regla[]>()
   for (const c of candidatas) {
-    const suya = firma(c.celda, c.libres)
+    const libres = new Set([...c.libres, ...quietos])
+    const suya = firma(c.celda, libres)
     const encajan = opciones
-      .map((o, i) => (firma(o, c.libres) === suya ? i : -1))
+      .map((o, i) => (firma(o, libres) === suya ? i : -1))
       .filter((i) => i >= 0)
     if (encajan.length > 1) {
       return {

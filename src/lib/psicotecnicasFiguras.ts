@@ -55,6 +55,7 @@ export type Relleno =
   | "punteado"
   | "cuadricula"
   | "escamas"
+  | "rayado-punteado"
 
 export type Esquina =
   | "inferior-izquierda"
@@ -114,6 +115,34 @@ export type Elemento =
    * hace variar es hacia dónde apunta, y así todas se comparan igual.
    */
   | { tipo: "pieza-punta"; mira: Sentido; relleno: Relleno }
+  /**
+   * El casco del ejercicio 17: un cuerpo rectangular con una punta a cada lado,
+   * un remate encima y, en dos alternativas, una sombra negra por dentro.
+   *
+   * Las puntas no son «negra o blanca»: se tiñe **media** punta, la de arriba o
+   * la de abajo, y eso es la regla de la matriz. Leerlas como enteras es
+   * quedarse sin ejercicio, y fue la primera lectura que se hizo.
+   *
+   * `particion` es cómo viene partido el cuerpo: entero, en cuatro cuadros —una
+   * raya vertical y otra horizontal— o en cuatro columnas. Se transcribe porque
+   * está, no porque decida: **las cinco alternativas traen el cuerpo entero**,
+   * así que el cuadernillo no pregunta por esto y el ejercicio no tendría forma
+   * de responderlo.
+   *
+   * `sombra` es «ninguna» en las ocho casillas: solo la usan la B y la E, que
+   * meten un triángulo negro dentro del cuerpo. Se declara igual, porque que
+   * sea constante es justo lo que descarta esas dos.
+   */
+  | {
+      tipo: "casco"
+      puntaIzquierda: "blanca" | "arriba" | "abajo" | "negra"
+      puntaDerecha: "blanca" | "arriba" | "abajo" | "negra"
+      cuerpo: Relleno
+      particion: "ninguna" | "cuatro-cuadros" | "cuatro-columnas"
+      remate: "torre" | "triangulo" | "plancha"
+      remateRelleno: Relleno
+      sombra: "ninguna" | "media-diagonal" | "monte"
+    }
   /** Una recta de lado a lado de la casilla. */
   | { tipo: "diagonal"; sentido: "subiendo" | "bajando" | "tendida" }
   /**
@@ -355,6 +384,14 @@ const TRAMAS: Record<string, string> = {
   cuadricula:
     `<pattern id="psico-cuadricula" width="9" height="9" patternUnits="userSpaceOnUse">` +
     `<path d="M0 0 H9 M0 0 V9" stroke="currentColor" stroke-width="1.4" fill="none"/></pattern>`,
+  // Bandas en diagonal con un punto en cada una: el relleno del cuerpo en el
+  // ejercicio 17. Se parece al rayado a secas y no lo es, y en esa matriz la
+  // diferencia entre un cuerpo rayado y uno en blanco es media respuesta.
+  "rayado-punteado":
+    `<pattern id="psico-rayado-punteado" width="11" height="11" patternUnits="userSpaceOnUse"` +
+    ` patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="11"` +
+    ` stroke="currentColor" stroke-width="2"/>` +
+    `<circle cx="5.5" cy="5.5" r="1.5" fill="currentColor"/></pattern>`,
   // Las escamas solo las usa la alternativa E del ejercicio 11, y ahí son todo
   // el truco: es la única que acierta la letra y falla la trama.
   escamas:
@@ -788,6 +825,81 @@ function dibujarCelda(
           `<polygon points="${zona}" fill="${relleno}" stroke="none"/>`,
           `<path d="${linea}" stroke="currentColor" stroke-width="${TRAZO}" fill="none"/>`
         )
+        break
+      }
+
+      case "casco": {
+        const F = (u: number) => x + ancho * u
+        const G = (v: number) => y + alto * v
+        const xi = F(0.03), xd = F(0.97), b0 = F(0.17), b1 = F(0.83)
+        const arr = G(0.385), abj = G(0.74), med = G(0.5625)
+        const borde = ` stroke="currentColor" stroke-width="${TRAZO}"`
+        const P = (...ps: number[][]) => ps.map(([a, c]) => `${a.toFixed(1)},${c.toFixed(1)}`).join(" ")
+
+        // Cuerpo y sus rayas.
+        partes.push(
+          `<rect x="${b0.toFixed(1)}" y="${arr.toFixed(1)}" width="${(b1 - b0).toFixed(1)}"` +
+            ` height="${(abj - arr).toFixed(1)}" fill="${pintura(el.cuerpo)}"${borde}/>`
+        )
+        const rayas = el.particion === "cuatro-columnas" ? 3 : el.particion === "cuatro-cuadros" ? 1 : 0
+        for (let k = 1; k <= rayas; k++) {
+          const px = (b0 + ((b1 - b0) * k) / (rayas + 1)).toFixed(1)
+          partes.push(`<line x1="${px}" y1="${arr}" x2="${px}" y2="${abj}"${borde}/>`)
+        }
+        if (el.particion === "cuatro-cuadros") {
+          const py = ((arr + abj) / 2).toFixed(1)
+          partes.push(`<line x1="${b0.toFixed(1)}" y1="${py}" x2="${b1.toFixed(1)}" y2="${py}"${borde}/>`)
+        }
+
+        // Las dos puntas, cada una en dos mitades para poder teñir solo una.
+        const punta = (
+          base: number,
+          vertice: number,
+          cual: "blanca" | "arriba" | "abajo" | "negra"
+        ) => {
+          const relleno = (mitad: "arriba" | "abajo") =>
+            cual === "negra" || cual === mitad ? "currentColor" : "var(--card, #fff)"
+          partes.push(
+            `<polygon points="${P([base, arr], [base, med], [vertice, med])}"` +
+              ` fill="${relleno("arriba")}"${borde}/>`,
+            `<polygon points="${P([base, med], [base, abj], [vertice, med])}"` +
+              ` fill="${relleno("abajo")}"${borde}/>`
+          )
+        }
+        punta(b0, xi, el.puntaIzquierda)
+        punta(b1, xd, el.puntaDerecha)
+
+        // El remate, encima del cuerpo.
+        if (el.remate === "torre") {
+          partes.push(
+            `<rect x="${F(0.455).toFixed(1)}" y="${G(0.135).toFixed(1)}"` +
+              ` width="${(ancho * 0.09).toFixed(1)}" height="${(arr - G(0.135)).toFixed(1)}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        } else if (el.remate === "triangulo") {
+          partes.push(
+            `<polygon points="${P([F(0.5), G(0.07)], [F(0.58), arr], [F(0.42), arr])}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        } else {
+          partes.push(
+            `<rect x="${F(0.25).toFixed(1)}" y="${G(0.265).toFixed(1)}"` +
+              ` width="${(ancho * 0.5).toFixed(1)}" height="${(arr - G(0.265)).toFixed(1)}"` +
+              ` fill="${pintura(el.remateRelleno)}"${borde}/>`
+          )
+        }
+
+        // La sombra va la última: en la alternativa E la punta del monte se ve
+        // por dentro del remate, como en el cuadernillo.
+        if (el.sombra === "media-diagonal") {
+          partes.push(
+            `<polygon points="${P([b0, abj], [b1, abj], [b1, arr])}" fill="currentColor"/>`
+          )
+        } else if (el.sombra === "monte") {
+          partes.push(
+            `<polygon points="${P([b0, abj], [F(0.5), G(0.16)], [b1, abj])}" fill="currentColor"/>`
+          )
+        }
         break
       }
 
@@ -1420,6 +1532,14 @@ export function describirCelda(celda: Celda): string {
           )
         case "mitad-rellena":
           return `rectángulo partido en ${el.corte}, con la mitad de ${el.lado} en ${el.relleno}`
+        case "casco":
+          return (
+            `un casco con el cuerpo ${el.cuerpo}` +
+            (el.particion === "ninguna" ? "" : ` partido en ${el.particion}`) +
+            `, la punta izquierda ${el.puntaIzquierda} y la derecha ${el.puntaDerecha}` +
+            `, rematado por un ${el.remate} ${el.remateRelleno}` +
+            (el.sombra === "ninguna" ? "" : ` y una sombra en ${el.sombra}`)
+          )
         case "diagonal":
           return `una diagonal ${el.sentido}`
         case "diagonal-cuadrante":

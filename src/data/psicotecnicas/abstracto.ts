@@ -193,8 +193,8 @@ export const ABSTRACTO: EjercicioPsico[] = [
     "Transformaciones",
     "avanzado",
     2,
-    "Matriz con una figura alargada rematada en puntas, con rellenos y elementos interiores que cambian.",
-    `La silueta apenas varía: lo que cambia es lo que lleva dentro y hacia dónde apunta el remate. Hay que separar el contenido interior de la orientación de la punta y seguirlos aparte. La C es la que encaja en las dos. ${METODO}`
+    "Matriz de cascos alargados con una punta a cada lado, un remate encima —torre, triángulo o plancha— y el cuerpo rayado o en blanco.",
+    `Lo primero es mirar bien las puntas: no se tiñe la punta entera, se tiñe media. En la primera fila, la de arriba a la izquierda; en la segunda, la de abajo a la derecha; en la tercera, las dos. El relleno del remate también va por filas: blanco, rayado y negro. Y la forma del remate es un sudoku —torre, triángulo y plancha una vez por fila y por columna—, igual que el cuerpo. Al hueco le tocan las dos medias puntas, la torre negra y el cuerpo rayado, que es la C. Las rayas que parten el cuerpo no cuentan: ninguna alternativa las lleva. ${METODO}`
   ),
   serie(
     18,
