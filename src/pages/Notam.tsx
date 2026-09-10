@@ -248,18 +248,18 @@ export function Notam() {
                   lo iguala, asi que la tarjeta y los botones acaban en la misma
                   vertical sin ninguna medida escrita a mano. */}
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {!loading && (
-                  <VideoIntro
-                    src="/modulos/notam/intro.mp4"
-                    miniatura={heroPhoto}
-                    portada="/modulos/notam/intro-poster.webp"
-                    duracion="59 s"
-                    titulo="Introducción al módulo de NOTAM"
-                    continuarA="/app/aerolinea/notam/aprende"
-                    continuarTexto="Empezar la lección"
-                    claveVisto="av:visto:intro:notam"
-                  />
-                )}
+                {/* Sin esperar al avance: la tarjeta es la misma para todos,
+                    y retrasarla solo hacía que los botones dieran un salto. */}
+                <VideoIntro
+                  src="/modulos/notam/intro.mp4"
+                  miniatura={heroPhoto}
+                  portada="/modulos/notam/intro-poster.webp"
+                  duracion="59 s"
+                  titulo="Introducción al módulo de NOTAM"
+                  continuarA="/app/aerolinea/notam/aprende"
+                  continuarTexto="Empezar la lección"
+                  claveVisto="av:visto:intro:notam"
+                />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
@@ -324,8 +324,12 @@ export function Notam() {
                 )}
                 {/* Solo sin sesión. Al que ya entró, repetirle en cada visita
                     que su avance se guarda es ruido; sin sesión, en cambio, es
-                    la razón para registrarse. */}
-                {!user && (
+                    la razón para registrarse.
+
+                    Espera a `sessionLoading`: mientras se resuelve, `user` está
+                    indefinido, y sin esa guarda a quien sí tiene sesión le
+                    parpadeaba un aviso diciéndole que no la tiene. */}
+                {!sessionLoading && !user && (
                   <p className="mt-2 text-[10.5px] leading-[1.5] text-white/55">
                     Inicia sesión para guardar tu avance en la cuenta.
                   </p>
