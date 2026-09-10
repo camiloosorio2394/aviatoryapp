@@ -10,9 +10,10 @@
  * lean idénticas: misma hoja, mismos bloques, mismo registro.
  */
 
-import type { LessonBlock, LessonScreen } from "@/lib/notamLesson"
+import type { LessonBlock } from "@/lib/notamLesson"
+import type { DocScreen } from "@/lib/docBlocks"
 
-export const METAR_LESSON: LessonScreen[] = [
+export const METAR_LESSON: DocScreen[] = [
   // ── 1 ──────────────────────────────────────────────────────────────────────
   {
     n: 1,
@@ -50,6 +51,19 @@ export const METAR_LESSON: LessonScreen[] = [
         answer: 1,
         explain:
           "El `SPECI` es un informe **especial**, fuera de horario. Se emite justo porque la condición cambió fuerte antes de la observación siguiente. Si ves uno, mira qué grupo se movió: alguien decidió que no podía esperar.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MT-POR-01 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
+        descripcion:
+          "Cabina en preparación de vuelo con el informe meteorológico a la vista, o una estación meteorológica automática de aeródromo con la pista al fondo. Es la portada conceptual del módulo: de dónde sale el dato y dónde se usa.",
+        alto: 300,
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Antes de cada vuelo",
+        texto:
+          "El METAR no es un trámite del briefing: es el único dato que te dice qué hay de verdad ahora mismo en ese aeródromo. Todo lo demás que miras (el TAF, las cartas, el pronóstico de ruta) es previsión. Cuando el pronóstico y la observación no coinciden, el que manda es el METAR.",
       },
     ],
   },
@@ -141,6 +155,32 @@ export const METAR_LESSON: LessonScreen[] = [
           },
         ],
       },
+      {
+        kind: "hueco",
+        rotulo: "MT-ILU-02 · Ilustración · 21:9 · 2000×860 · SVG",
+        descripcion:
+          "Un METAR real escrito grande en monoespaciada, con cada grupo señalado por una llave o una línea guía hacia su nombre: estación, día y hora Zulú, viento, visibilidad, RVR, tiempo presente, nubes, temperatura y rocío, QNH, tendencia. Es el mapa de la lección y debería poder mirarse una sola vez y volver a él siempre.",
+        alto: 260,
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿En qué orden van los grupos de un METAR?",
+            respuesta:
+              "Siempre el mismo: identificador de la estación, día y hora en Zulú, viento, visibilidad, alcance visual en pista si lo hay, tiempo presente, nubes o CAVOK, temperatura y punto de rocío, QNH, y al final la información suplementaria y la tendencia. Ese orden fijo es lo que permite leerlo rápido: no busco un dato, voy a su posición.",
+            claves: ["Orden fijo", "Estación, hora Z, viento, visibilidad, RVR, tiempo, nubes, T/Td, QNH, tendencia"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "Un grupo no aparece en el informe. ¿Qué significa?",
+            respuesta:
+              "Que no procede. La clave omite lo que no hay: si no se reporta tiempo presente es que no hay fenómeno significativo, y si no hay RVR es que la visibilidad no lo exige. La ausencia es información, no un olvido. Lo que sí obliga a preguntar es un informe que llegue truncado o con grupos ilegibles.",
+            claves: ["La ausencia significa que no procede", "La clave omite lo que no hay", "Distinto de un informe truncado"],
+          },
+        ],
+      },
     ],
   },
 
@@ -185,6 +225,54 @@ export const METAR_LESSON: LessonScreen[] = [
         explain:
           "El viento sopla **desde** 270°, y la 09 apunta a 090°: lo tienes justo por la cola. Y el número que limita no es el promedio sino la ráfaga, 28 nudos, que es contra la que se compara el límite de viento de cola del avión.",
       },
+      {
+        kind: "hueco",
+        rotulo: "MT-DIA-02 · Diagrama · 4:3 · 1200×900 · SVG",
+        descripcion:
+          "Una pista vista desde arriba con su rumbo marcado y una rosa de vientos superpuesta, mostrando cómo se descompone un viento de 270° a 15 nudos en componente de cara y componente cruzada sobre la pista 09 y sobre la 27. Con las dos flechas y los dos números. Es lo que convierte «27015KT» en una decisión.",
+        alto: 340,
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Aproximándote al aeródromo de destino",
+        situacion:
+          "El METAR trae **`31018G30KT 280V350`**. Las pistas disponibles son la 04 y la 22, y el límite de viento cruzado de tu avión con pista seca es de 33 nudos.",
+        pregunta: "¿Qué tienes y con qué número comparas?",
+        claves: [
+          "El viento sopla **desde 310°**. Contra la 04 (040°) hay 90° de diferencia menos un poco: es prácticamente **cruzado puro por la izquierda**.",
+          "**El número que manda es la ráfaga, 30 nudos**, no los 18 de promedio. Es contra la ráfaga contra lo que se compara el límite.",
+          "30 contra un límite de 33 **no deja margen**, y el 280V350 dice que la dirección oscila 70°: puede irse a más cruzado en cualquier momento.",
+          "Y ese límite de 33 es **con pista seca**. Si está mojada o contaminada, el límite del manual baja.",
+        ],
+        cierre:
+          "«Está dentro de límites» y «tengo margen» no son lo mismo. La variación de dirección es la parte del informe que convierte lo primero en lo segundo, o al revés.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Cómo se lee el grupo de viento de un METAR?",
+            respuesta:
+              "Los tres primeros dígitos son la dirección verdadera desde la que sopla, redondeada a decenas de grado, y los siguientes la velocidad en nudos. Si hay ráfagas aparece una G con el valor máximo. Si la dirección varía 60 grados o más se añade el rango con una V en medio. Y 00000KT es calma, mientras que VRB es dirección variable, típico de vientos muy flojos.",
+            claves: ["Dirección verdadera, desde donde sopla", "G de ráfaga", "V para el rango de variación", "VRB y calma"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué la dirección del METAR es verdadera y no magnética?",
+            respuesta:
+              "Porque el METAR es un informe meteorológico y se codifica en referencia verdadera, igual que el resto de la información meteorológica. En cambio la torre da el viento en magnético, que es la misma referencia de los rumbos de pista. Es una diferencia que hay que tener presente al comparar el viento del informe con el de la pista, sobre todo donde la declinación magnética es grande.",
+            claves: ["METAR en verdadero", "Torre en magnético", "Los rumbos de pista son magnéticos"],
+          },
+          {
+            nivel: "situacion",
+            q: "El METAR trae `WS ALL RWY`. ¿Qué significa y qué cambia?",
+            respuesta:
+              "Que hay cizalladura reportada en todas las pistas: cambios súbitos de dirección o velocidad del viento, típicamente asociados a microrráfagas descendentes o a inversiones térmicas bajas. Cambia el briefing entero: velocidades de aproximación, configuración, criterios de aproximación frustrada y la disposición a irse al alterno. Es de los pocos grupos del METAR que por sí solos justifican no intentarlo.",
+            claves: ["Cizalladura en todas las pistas", "Microrráfagas o inversión baja", "Cambia el briefing completo"],
+          },
+        ],
+      },
     ],
   },
 
@@ -222,6 +310,39 @@ export const METAR_LESSON: LessonScreen[] = [
         answer: 1,
         explain:
           "El RVR es el alcance visual medido **en esa pista**, y cuando difiere de la visibilidad general es el que manda para la aproximación. Por eso un aeródromo con niebla puede seguir operando: la visibilidad general está peor que lo que se ve desde la senda.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MT-IMG-02 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
+        descripcion:
+          "Cabecera de pista con niebla, donde se vean las luces de aproximación perdiéndose a media distancia. Es la imagen que hace tangible el RVR: se ve exactamente hasta dónde llega la vista y dónde deja de llegar. Mejor desde el punto de vista del piloto que desde el lateral.",
+        alto: 300,
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es el RVR y en qué se diferencia de la visibilidad del METAR?",
+            respuesta:
+              "El RVR es el alcance visual en pista: la distancia a la que se ven las luces de alta intensidad o el contraste de los objetos desde la senda de aproximación de una pista concreta. La visibilidad del METAR es la visibilidad horizontal general del aeródromo. Se diferencian en que el RVR es de esa pista y de ese momento, y por eso es el número con el que se decide una aproximación de baja visibilidad.",
+            claves: ["Alcance visual en una pista concreta", "La visibilidad es general del aeródromo", "El RVR manda para la aproximación"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Por qué un aeródromo con visibilidad de 600 metros puede seguir operando?",
+            respuesta:
+              "Porque la visibilidad general y el RVR miden cosas distintas. La niebla puede estar cerrando el campo mientras las luces de alta intensidad de la pista siguen siendo visibles desde mucho más lejos. Si el RVR de esa pista está por encima del mínimo de la aproximación, se puede operar aunque la visibilidad general esté por debajo.",
+            claves: ["Miden cosas distintas", "Las luces de alta intensidad se ven más lejos", "Decide el RVR de esa pista"],
+          },
+          {
+            nivel: "situacion",
+            q: "El RVR viene como `R28L/1200U`. ¿Qué te dice la U?",
+            respuesta:
+              "Que la tendencia es de mejora, up. La D sería empeorando, down, y la N sin cambio. Es un dato pequeño y muy útil: con 1200 metros y tendencia a mejorar puedo plantearme esperar; con los mismos 1200 y una D, lo que toca es contar con que al llegar habrá menos y tener el alterno listo.",
+            claves: ["U mejora, D empeora, N sin cambio", "Cambia la decisión de esperar o desviar"],
+          },
+        ],
       },
     ],
   },
@@ -325,6 +446,54 @@ export const METAR_LESSON: LessonScreen[] = [
         explain:
           "`VC` es el calificador de posición: **in the vicinity**, en la vecindad. La tormenta está cerca pero no encima. Cambia la decisión: no es lo mismo despegar con una celda sobre el campo que con una a diez millas moviéndose hacia ti.",
       },
+      {
+        kind: "hueco",
+        rotulo: "MT-DIA-01 · Diagrama · 16:9 · 1600×900 · SVG",
+        descripcion:
+          "La estructura de un grupo de tiempo presente desmontada en tres piezas, con `+TSRA` de ejemplo: el calificador de intensidad (− ligero, sin signo moderado, + fuerte, VC en las proximidades), el descriptor (TS tormenta, SH chubascos, FZ engelante, BC bancos, MI baja, DR arrastre, BL ventisca, SG, PR) y el fenómeno (RA lluvia, SN nieve, FG niebla, BR bruma, HZ calima, GR granizo…). Tres columnas y una flecha que las une para que se lea como una frase.",
+        alto: 300,
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "En ruta, pidiendo el METAR de destino",
+        situacion:
+          "Te llega **`VCTS`** en el METAR de tu destino. El resto del informe está limpio: visibilidad 9999, BKN025, viento flojo.",
+        pregunta: "¿Es un problema o no?",
+        claves: [
+          "**VC es «en las proximidades»**: entre 8 y 16 km del aeródromo. La tormenta no está encima, pero está al lado.",
+          "Una tormenta cercana significa **cizalladura y ráfagas posibles en el aeródromo** aunque el viento actual esté flojo. El frente de racha llega antes que la lluvia.",
+          "El resto del informe limpio describe **ahora**, y una tormenta se mueve. Lo que necesito es la tendencia y el TAF, no la foto.",
+          "Lo que hago: preparo la posibilidad de espera o desvío y reviso el combustible antes de que el asunto se decida solo.",
+        ],
+        cierre:
+          "VCTS es de los grupos que más se subestiman porque el informe alrededor parece tranquilo. La tormenta que te afecta no siempre es la que está sobre la pista.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Cómo se estructura un grupo de tiempo presente?",
+            respuesta:
+              "En tres piezas y siempre en el mismo orden: el calificador de intensidad, el descriptor y el fenómeno. El menos es ligero, sin signo es moderado, el más es fuerte y VC significa en las proximidades. El descriptor matiza, como TS de tormenta, SH de chubascos o FZ de engelante. Y el fenómeno es lo que cae o lo que reduce la visibilidad. Así, +TSRA es tormenta con lluvia fuerte.",
+            claves: ["Calificador, descriptor, fenómeno", "− ligero, + fuerte, VC en proximidades", "Se lee como una frase"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué diferencia hay entre FG y BR, y por qué importa?",
+            respuesta:
+              "La frontera son los 1.000 metros. Por debajo es FG, niebla; de 1.000 metros en adelante es BR, bruma. Importa porque ese umbral es justo el terreno donde se deciden las aproximaciones de baja visibilidad: un informe que pasa de BR a FG está diciendo que la visibilidad cruzó el número que cambia mis mínimos.",
+            claves: ["1.000 m es la frontera", "FG debajo, BR encima", "Marca el umbral de baja visibilidad"],
+          },
+          {
+            nivel: "situacion",
+            q: "Ves `FZRA` en el METAR. ¿Qué significa y qué haces?",
+            respuesta:
+              "Lluvia engelante: agua líquida que se congela al impactar. Es de las condiciones más peligrosas que puede traer un informe, porque el hielo se forma rápido, se acumula en superficies que no siempre protege el sistema antihielo y degrada la sustentación. En tierra significa deshielo obligado y revisar el estado de la pista; en vuelo, salir de esa capa cuanto antes, normalmente cambiando de nivel.",
+            claves: ["Lluvia engelante", "Hielo de formación rápida", "Deshielo en tierra, salir de la capa en vuelo"],
+          },
+        ],
+      },
     ],
   },
 
@@ -414,6 +583,61 @@ export const METAR_LESSON: LessonScreen[] = [
         explain:
           "El techo es la base de la primera capa que cubra **más de la mitad** del cielo, o sea la primera `BKN` u `OVC`: aquí `BKN025`, 2500 ft. Las `FEW` y `SCT` de abajo no cuentan para el techo. Y ojo al `CB` pegado: hay convección, que pesa más que el techo mismo.",
       },
+      {
+        kind: "hueco",
+        rotulo: "MT-ILU-01 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
+        descripcion:
+          "Corte vertical del cielo con las nubes ordenadas por altura y nombradas: estratos y cúmulos abajo, altocúmulos y altostratos en el medio, cirros arriba, y un cumulonimbo atravesándolo todo desde la base hasta el yunque. Con la escala de pies a la izquierda. Es la imagen que convierte FEW, SCT, BKN y OVC en algo que se reconoce mirando por la ventanilla.",
+        alto: 320,
+      },
+      {
+        kind: "hueco",
+        rotulo: "MT-IMG-01 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
+        descripcion:
+          "Un cumulonimbo maduro con yunque bien definido, fotografiado desde el aire a distancia segura. Es la nube que más decisiones cambia y el módulo la nombra sin enseñarla nunca. Si consigues una desde cabina, mejor: la escala se entiende sola.",
+        alto: 300,
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "En aproximación, mínimos de 600 pies",
+        situacion:
+          "El METAR trae **`SCT007 BKN015 OVC030`**. Vas a una aproximación cuyos mínimos están en 600 pies sobre el aeródromo.",
+        pregunta: "¿Cuál de las tres capas decide, y por qué?",
+        claves: [
+          "**El techo es BKN015**, 1.500 pies: la primera capa de 5 octavos o más. SCT007 no es techo aunque esté más bajo, porque con 3 o 4 octavos todavía se ve el suelo entre nubes.",
+          "1.500 pies está por encima de mis 600: **la aproximación es viable** según ese informe.",
+          "Pero **SCT007 no se ignora**: a 700 pies voy a entrar y salir de nubes justo en el tramo final, con la referencia visual apareciendo y desapareciendo.",
+          "Y las alturas del METAR son **sobre el aeródromo**, no sobre el mar. Sumar la elevación es el error clásico y suele costar una aproximación frustrada.",
+        ],
+        cierre:
+          "Techo y capa más baja no son lo mismo. El techo decide si se puede; la capa más baja decide cómo va a sentirse.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué significan FEW, SCT, BKN y OVC y qué es el techo?",
+            respuesta:
+              "Son la cobertura del cielo en octavos: FEW de 1 a 2, SCT de 3 a 4, BKN de 5 a 7 y OVC los 8. El techo es la altura de la capa más baja de BKN u OVC, es decir la primera que cubre cinco octavos o más, y se expresa en centenas de pies sobre la elevación del aeródromo.",
+            claves: ["Octavos de cielo", "Techo = primera BKN u OVC", "Centenas de pies sobre el aeródromo"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué es CAVOK y qué tiene que cumplirse para que aparezca?",
+            respuesta:
+              "Es la abreviatura de ceiling and visibility OK, y sustituye a los grupos de visibilidad, tiempo presente y nubes. Para que aparezca tienen que darse tres cosas a la vez: visibilidad de 10 km o más, ningún fenómeno significativo, y ninguna nube por debajo de 5.000 pies o de la altitud mínima de sector, la que sea mayor, ni cumulonimbos ni cúmulos en torre a ninguna altura.",
+            claves: ["Visibilidad 10 km o más", "Sin fenómenos significativos", "Sin nubes bajo 5.000 pies ni CB ni TCU"],
+          },
+          {
+            nivel: "situacion",
+            q: "En el METAR ves `BKN018CB`. ¿Qué cambia respecto a un `BKN018` normal?",
+            respuesta:
+              "Cambia todo menos la altura. Las dos letras finales dicen que esa capa son cumulonimbos, y el CB trae turbulencia severa, cizalladura, granizo, engelamiento y rayos. El techo sigue estando a 1.800 pies, pero ya no es un techo cualquiera: es una nube de la que hay que separarse, no bajo la que se pasa.",
+            claves: ["CB = cumulonimbo", "Turbulencia, cizalladura, granizo, engelamiento", "Se evita, no se atraviesa"],
+          },
+        ],
+      },
     ],
   },
 
@@ -458,6 +682,47 @@ export const METAR_LESSON: LessonScreen[] = [
         answer: 1,
         explain:
           "Cuando la temperatura alcanza al punto de rocío el aire está saturado y el vapor condensa. Sin viento que mezcle la capa baja, eso es niebla de radiación. Es el aviso más barato que da un METAR y el que más se pasa por alto.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Aeródromo de salida, primera hora de la mañana",
+        situacion:
+          "El METAR trae **`04/04`** y **`Q1024`**, viento en calma y visibilidad 8000. El cielo está despejado y el sol acaba de salir.",
+        pregunta: "¿Qué te dice ese 04/04 sobre la próxima hora?",
+        claves: [
+          "**Spread cero:** temperatura y punto de rocío iguales significa aire saturado. Eso es niebla formándose o a punto de formarse.",
+          "Con **viento en calma** no hay mezcla que la disipe, y la niebla de radiación se asienta y se queda.",
+          "La visibilidad de 8000 es la de **ahora**. Con spread cero puede irse a 200 m en veinte minutos.",
+          "Lo que hago: mirar el TAF, mirar el alterno, y no dar por buena la visibilidad actual para una salida dentro de una hora.",
+        ],
+        cierre:
+          "El spread es el número que más futuro contiene de todo el METAR, y es el que más se pasa por alto porque no parece un fenómeno: son dos cifras separadas por una barra.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es el punto de rocío y por qué aparece en el METAR?",
+            respuesta:
+              "Es la temperatura a la que el aire tendría que enfriarse para saturarse y condensar. Aparece porque la diferencia con la temperatura, el spread, es el mejor indicador de si se va a formar niebla o nubes bajas: cuanto más pequeño el spread, más cerca está el aire de la saturación.",
+            claves: ["Temperatura de saturación", "El spread indica proximidad a la niebla", "Se lee junto a la temperatura"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué es el QNH y qué pasa si vuelas con uno desactualizado?",
+            respuesta:
+              "Es la presión al nivel del mar que, puesta en el altímetro, hace que este marque la elevación del aeródromo al tocar tierra. Si vuelo con un QNH más alto que el real, el altímetro me indica más altura de la que tengo: estoy más bajo de lo que creo. Volar de alta a baja presión sin actualizar es la situación clásica de terreno más cerca de lo que marca el instrumento.",
+            claves: ["Presión reducida al nivel del mar", "De alta a baja, más bajo de lo que marca", "Se actualiza en descenso"],
+          },
+          {
+            nivel: "situacion",
+            q: "Ves `M02/M03` en el METAR y llueve. ¿Qué te preocupa?",
+            respuesta:
+              "La M es de menos: temperatura de dos bajo cero y rocío de tres bajo cero. Lluvia con temperaturas negativas en superficie es engelamiento: lluvia engelante en el avión y posible hielo en pista. Me preocupan las condiciones de deshielo antes de salir, el estado de la pista y el frenado, y la posibilidad de acumulación en ascenso.",
+            claves: ["M = temperatura negativa", "Lluvia bajo cero = engelamiento", "Deshielo, estado de pista, ascenso"],
+          },
+        ],
       },
     ],
   },
@@ -504,6 +769,32 @@ export const METAR_LESSON: LessonScreen[] = [
         answer: 1,
         explain:
           "`BECMG` describe una transición: en algún momento de esa ventana la condición cambia y a partir de ahí se mantiene. `TEMPO` son fluctuaciones temporales dentro de la ventana, y entre ellas se vuelve a lo anterior. Para planear un alterno no da lo mismo.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es el grupo de tendencia de un METAR y cuánto cubre?",
+            respuesta:
+              "Es el pronóstico corto que va al final del METAR y cubre las dos horas siguientes a la observación. Puede decir NOSIG, que no se esperan cambios significativos, o traer BECMG para un cambio que va a establecerse, o TEMPO para uno temporal que dura menos de una hora cada vez y menos de la mitad del periodo.",
+            claves: ["Dos horas", "NOSIG, BECMG, TEMPO", "Va dentro del propio METAR"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Qué diferencia hay entre BECMG y TEMPO?",
+            respuesta:
+              "BECMG es un cambio que llega y se queda: a partir de ese momento las condiciones son las nuevas. TEMPO es un cambio que va y viene: aparece por ratos, cada uno de menos de una hora, sin sumar más de la mitad del periodo. Para planificar, un TEMPO de visibilidad baja significa que puede pillarme justo cuando llegue, aunque el resto del tiempo esté bien.",
+            claves: ["BECMG se establece", "TEMPO va y viene", "El TEMPO puede coincidir con mi llegada"],
+          },
+          {
+            nivel: "situacion",
+            q: "El METAR de tu destino trae `NOSIG` pero llevas dos horas de vuelo por delante. ¿Te sirve?",
+            respuesta:
+              "Solo en parte. NOSIG cubre las dos horas siguientes a la observación, no a mi llegada, y esa observación puede tener ya media hora cuando la leo. Si mi llegada cae fuera de esa ventana, el que manda es el TAF, y en ruta pediré el METAR actualizado. NOSIG tranquiliza, no exime de mirar el pronóstico.",
+            claves: ["Cubre 2 h desde la observación, no desde ahora", "Fuera de la ventana manda el TAF", "Pedir METAR actualizado en ruta"],
+          },
+        ],
       },
     ],
   },
@@ -589,6 +880,48 @@ export const METAR_LESSON: LessonScreen[] = [
         tone: "tip",
         title: "Tip operacional: sigue con el Decodificador",
         text: "Pega cualquier METAR en el Decodificador de esta sección y compáralo con tu lectura mental. Cuando los decodifiques más rápido que la herramienta, estás listo para la entrevista.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Briefing, 40 minutos antes de salida",
+        situacion:
+          "Tu destino trae: **`SKBO 121200Z 09018G32KT 050V130 3000 TSRA BKN008CB OVC020 18/17 Q1012 TEMPO 1500 +TSRA`**. La pista en uso es la 13L.",
+        pregunta: "Aplica los cinco pasos. ¿Qué decides?",
+        claves: [
+          "**Viento:** de 090° a 18 nudos con ráfagas de 32, variando entre 050 y 130. Contra la 13L eso es cruzado por la izquierda, y el número que limita es la ráfaga: 32.",
+          "**Visibilidad y tiempo:** 3000 m con tormenta y lluvia. El TEMPO lo baja a 1500 con lluvia fuerte: eso es lo que puedo encontrarme al llegar, no lo que hay ahora.",
+          "**Nubes:** BKN008**CB**. Techo a 800 pies y cumulonimbos. El CB no es decoración: es la firma de la cizalladura y del granizo.",
+          "**Temperatura y rocío:** 18/17. Un grado de spread con tormenta encima: el aire está saturado.",
+          "**La decisión:** esto no es un destino, es un destino con alterno sólido y combustible para esperar. Y si la ráfaga cruzada supera el límite del avión, no es una cuestión de pericia.",
+        ],
+        cierre:
+          "Fíjate en que ninguno de los cinco pasos decidió solo. Lo que decide es el conjunto: techo bajo, viento cruzado racheado y una tendencia que empeora.",
+      },
+      {
+        kind: "entrevista",
+        preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Qué es un METAR y cada cuánto se emite?",
+            respuesta:
+              "Es el informe meteorológico rutinario de aeródromo: una observación de las condiciones reales en ese aeródromo, en un momento concreto, codificada siempre en el mismo orden. Se emite normalmente cada hora o cada media hora según el aeródromo, y cuando las condiciones cambian de forma significativa se emite un SPECI, que es el mismo formato pero especial.",
+            claves: ["Observación, no pronóstico", "Rutinario, cada hora o media hora", "SPECI cuando cambia"],
+          },
+          {
+            nivel: "interpretacion",
+            q: "¿Cuál es la diferencia entre METAR y TAF?",
+            respuesta:
+              "El METAR dice lo que **hay** ahora en ese aeródromo: es una observación. El TAF dice lo que se **espera** en un periodo de validez: es un pronóstico. Para decidir si salgo miro el TAF del destino y del alterno; para decidir si aterrizo miro el METAR más reciente. Los dos se leen juntos, y cuando no coinciden, el METAR es el hecho.",
+            claves: ["METAR observa, TAF pronostica", "El TAF tiene periodo de validez", "El METAR es el hecho"],
+          },
+          {
+            nivel: "situacion",
+            q: "Te dan un METAR y te dicen: interprétalo en voz alta. ¿Por dónde empiezas?",
+            respuesta:
+              "Por el orden, que siempre es el mismo: estación y hora Zulú, viento, visibilidad y RVR, tiempo presente, nubes, temperatura y punto de rocío, QNH, y al final la tendencia y los comentarios. No lo leo salteado buscando lo que me suena: lo leo en orden, porque así no se me olvida un grupo. Y termino con la frase que importa: qué significa esto para mi operación.",
+            claves: ["El orden es siempre el mismo", "Estación, viento, visibilidad, tiempo, nubes, T/Td, QNH, tendencia", "Cerrar con la implicación operacional"],
+          },
+        ],
       },
     ],
   },
