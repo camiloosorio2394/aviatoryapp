@@ -1055,16 +1055,17 @@ atendido es de quien lo atiende, no de quien lo mandó.
 
 ---
 
-## 15 · Cuatro matrices más del A1 (10 de septiembre de 2026)
+## 15 · Cinco matrices más del A1 (10 de septiembre de 2026)
 
-Están dibujadas la **11, la 12, la 19 y la 20**. Con las ocho de antes, doce de
-veinte. Las cuatro las deduce el solucionador por su cuenta y las cuatro
+Están dibujadas la **11, la 12, la 17, la 19 y la 20**. Con las ocho de antes,
+trece de veinte. Las cinco las deduce el solucionador por su cuenta y las cinco
 coinciden con la clave impresa del cuadernillo.
 
 | | Regla | Responde |
 |---|---|---|
 | **11** | La letra y la trama del lomo van en sudoku, y hay un tercero fuera del recuadro: de cada casilla cuelga un tallo y la barra del final aparece dos veces por fila y dos por columna | A |
 | **12** | Dos sudokus a la vez: el símbolo —asterisco, viga, línea— y la cantidad —tres, cuatro, cinco— | E |
+| **17** | Las medias puntas y el relleno del remate van constantes por filas; la forma del remate y el cuerpo, en sudoku | C |
 | **19** | Los puntos van 0, 2 y 4 en cada fila. Las columnas no dicen nada | E |
 | **20** | La tercera casilla de cada fila es la **suma** de las dos anteriores | A |
 
@@ -1115,10 +1116,9 @@ segundo escribe `revision-modulo.html` con los 238 ejercicios para mirarlos de
 golpe. Hoy: **12 dibujadas, 11 deducidas automáticamente**, y la 02 sigue
 esperando que una persona la refrende.
 
-### 15.4 · Y una más: la 17
+### 15.4 · La 17, que casi se queda fuera por una lectura equivocada
 
-Entró después de las cuatro de arriba, y merece una línea porque casi se queda
-fuera por una lectura mía equivocada. Las puntas del casco no son «negra o
+Las puntas del casco no son «negra o
 blanca»: se tiñe **media** punta, la de arriba o la de abajo, y eso es la regla.
 Leídas como enteras, el ejercicio se queda sin nada que seguir. Se midió la
 densidad de tinta en las cuatro medias puntas de cada casilla —0.72 contra
@@ -1131,4 +1131,6 @@ alternativa. Pero **las cinco alternativas traen el cuerpo entero**: el
 cuadernillo no está preguntando eso. Ahora se ignoran los atributos que valen lo
 mismo en las cinco, que es un veto que solo podía inventar desacuerdos.
 
-Con la 17 van **trece de veinte**.
+Con la 17 van **trece de veinte**. Las siete que faltan están en 9.5.2, cada una
+con lo que la bloquea; la 18 está a una frase de cerrarse y esa frase la tiene el
+cuadernillo en papel (9.5.3).
