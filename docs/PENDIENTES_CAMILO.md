@@ -906,6 +906,35 @@ limpia) y `NU-N2-08-13` (quitando el 1, el 13 o el 15). No están mal: están ma
 planteadas **en el original**. Se quedan con la respuesta del cuadernillo, pero
 si quieres afinar el banco son las dos primeras candidatas a salir.
 
+## 11 · El historial de migraciones sigue desincronizado
+
+Las tres migraciones de psicotécnicas ya están aplicadas, así que lo que
+bloqueaba el módulo se cerró. Lo que **no** se cerró es la causa de fondo, y
+conviene que no se pierda de vista.
+
+La base tiene veintiuna migraciones aplicadas a mano que no existen como
+archivo, y por eso `supabase db push` se niega a avanzar: para desbloquearlo
+el CLI pide marcar como *revertidas* migraciones que están aplicadas, que es
+escribir en la base algo que no es cierto. Sigue siendo tu decisión, y sigue
+necesitando Docker, que en esta máquina no hay.
+
+**Y de hoy hay un detalle nuevo.** Las tres se aplicaron por MCP, no por CLI,
+así que la base las registró con la marca de tiempo del momento y no con la
+del nombre del archivo:
+
+| Archivo del repositorio | Versión en la base |
+|---|---|
+| `20260908010000_modulo_psicotecnicas.sql` | `20260910183600` |
+| `20260909010000_reportes_de_contenido.sql` | `20260910183616` |
+| `20260910190000_psico_orden_logro.sql` | `20260910184045` |
+
+Para el CLI, entonces, esos tres archivos siguen sin aplicar. Si algún día se
+corre `db push` desde una máquina con Docker, va a intentar aplicarlos otra
+vez. **No hace daño**: las tres son idempotentes de punta a punta (`create
+table if not exists`, `on conflict do update`, `drop policy if exists`), y el
+orden por versión deja el logro de psicotécnicas en el 22 igual. Pero hay que
+saberlo antes, no descubrirlo a mitad del push.
+
 ## 12 · Las veinte láminas del A1, rehechas desde el PDF
 
 Nico vio en la app que la opción C salía tachada. No estaba tachada: **el
