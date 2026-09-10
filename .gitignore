@@ -55,3 +55,4 @@ revision-figuras.html
 # clonar desde skills-lock.json, que si se versiona. Fuera del repo van 300 KB
 # de instrucciones de terceros que no son codigo de la app.
 .agents/
+.codex/
