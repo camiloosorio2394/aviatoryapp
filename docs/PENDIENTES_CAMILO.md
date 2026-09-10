@@ -632,14 +632,14 @@ Ninguna respuesta del banco se tocó, y ningún `.webp` se borró.
 
 ### 9.5 · Dónde quedó cada matriz del A1
 
-Doce de las veinte están dibujadas y en la aplicación; el resto sigue con su
+Trece de las veinte están dibujadas y en la aplicación; el resto sigue con su
 recorte, ahora sin el logotipo de Facebook donde se pudo quitar.
 
 | Matrices | Estado |
 |---|---|
-| 01, 03, 04, 05, 06, 07, 09, 11, 12, 19, 20 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
+| 01, 03, 04, 05, 06, 07, 09, 11, 12, 17, 19, 20 | Dibujadas. El solucionador deduce la respuesta desde los atributos y coincide con la clave del cuadernillo |
 | 02 | Dibujada. Su regla —los brazos del rombo se añaden y se quitan de uno en uno— no está en la familia del solucionador, así que **no tiene comprobación automática**: hay que aprobarla mirando el HTML de revisión |
-| 08, 10, 13, 14, 15, 16, 17, 18 | **Paradas, y cada una por su motivo.** Abajo, una por una |
+| 08, 10, 13, 14, 15, 16, 18 | **Paradas, y cada una por su motivo.** Abajo, una por una |
 
 ### 9.5.1 · Volver al PDF original ya no es un remedio
 
@@ -671,11 +671,52 @@ que queda es leerlo del cuadernillo en papel.
 | **14** | La cuña negra dentro del círculo sectorizado. Su ángulo **es** la regla, y es pequeña; no se puede fijar con seguridad |
 | **15** | Una cruz con trazos oblicuos. El banco dice que son «la misma figura girada», pero el número de trazos crece —uno, uno, uno / dos, dos, uno / tres, tres, ?—, así que o el enunciado está mal o los trazos no se leen bien. Sea lo que sea, hay que mirarlo con el papel delante antes de dibujar nada |
 | **16** | Distinguir rayado «/» de rayado «\» por cuadrante. La medición automática dio cuadrantes rayados donde a ojo están en blanco, así que la medición está mal, no el ojo |
-| **17** | Casi entra. La punta, el remate y el relleno del cuerpo tienen regla limpia, y la respuesta sale la C, que es la clave. Lo que la para es que las puntas **no son «negra o blanca» sino «negra por arriba» o «negra por abajo»** —la primera lectura fue la equivocada— y el eje de la figura se mueve de casilla en casilla, así que la medición automática de las cuatro medias puntas no se sostiene |
-| **18** | Cada casilla son cuatro cajas con sus dos diagonales: dieciséis triángulos, más una letra, un triángulo negro, un punto y una barra. Transcribir dieciséis triángulos por casilla en trece casillas, desde alternativas de 120 × 80 píxeles, es exactamente donde se inventa un ejercicio sin que nadie se entere |
+| **18** | La para el propio cuadernillo. Está abajo, en 9.5.3, porque el motivo es aprovechable |
+
+### 9.5.3 · La 18 se queda fuera, y no por falta de lectura
+
+Esta conviene contarla entera, porque está a un dato de cerrarse y ese dato lo
+tiene el cuadernillo en papel.
+
+Cada casilla son cuatro cuadrantes en aspa. Todo lo que decide está medido y
+cuadra:
+
+- **La mitad teñida** es constante en cada fila: en la primera, la mitad de
+  abajo a la derecha del cuadrante de arriba a la izquierda; en la segunda, la
+  de abajo a la izquierda del de arriba a la derecha; en la tercera, la de
+  arriba a la izquierda del de abajo a la derecha.
+- **La letra** también: A, B y C, una por fila, siempre en el mismo sitio de su
+  cuadrante.
+- **El punto** aparece una vez por fila y una por columna. Al hueco no le toca.
+- **La barrita negra** también aparece una vez por fila y una por columna. Al
+  hueco **sí** le toca.
+
+Con eso la respuesta es la D, que es lo que dice la clave. El problema es que la
+**B es idéntica a la D** salvo en una cosa: en la B cada cuadrante lleva una
+sola diagonal en vez de las dos. Y la matriz no permite decidir eso, porque se
+contradice a sí misma: las tres casillas de la primera fila pierden una
+diagonal en su cuadrante teñido, la cuarta y la quinta la conservan, y la sexta
+—que es de la misma fila que esas dos y tiene el mismo relleno— la pierde.
+
+No es que el recorte la haya borrado. El gris mínimo a lo largo de esa línea es
+de 24 a 64 en la cuarta y la quinta casilla, y de 235 a 255 en la sexta: en la
+sexta no hay tinta.
+
+Así que hay dos posibilidades, y las dos se resuelven mirando el papel:
+
+1. El cuadernillo tiene un desliz en la sexta casilla. Si es eso, la diagonal
+   está en el original, la regla pasa a ser «todos los cuadrantes con sus dos
+   diagonales salvo en la primera fila», y la figura se cierra sola.
+2. El cuadernillo dibuja las diagonales a ojo. Entonces la B y la D no se
+   distinguen por nada que la matriz enseñe, y el ejercicio se queda fuera.
+
+**Lo que hace falta:** que alguien mire en el cuadernillo impreso la casilla de
+en medio de la derecha del problema 18 y diga si el cuadrante de arriba a la
+derecha tiene una diagonal o dos. Con esa frase se dibuja en veinte minutos.
 
 Las tres primeras filas del brief —11, 14 y 18— quedan así: la **11 está
-hecha**, la 14 y la 18 siguen fuera y arriba está dicho por qué.
+hecha**, la 14 sigue fuera por el ángulo de la cuña, y la 18 espera esa
+comprobación.
 
 ### 9.6 · El logotipo de Facebook ya no se ve en quince de las veinte
 
@@ -1070,3 +1111,21 @@ El primero falla si una figura dibujada no está ni deducida ni firmada. El
 segundo escribe `revision-modulo.html` con los 238 ejercicios para mirarlos de
 golpe. Hoy: **12 dibujadas, 11 deducidas automáticamente**, y la 02 sigue
 esperando que una persona la refrende.
+
+### 15.4 · Y una más: la 17
+
+Entró después de las cuatro de arriba, y merece una línea porque casi se queda
+fuera por una lectura mía equivocada. Las puntas del casco no son «negra o
+blanca»: se tiñe **media** punta, la de arriba o la de abajo, y eso es la regla.
+Leídas como enteras, el ejercicio se queda sin nada que seguir. Se midió la
+densidad de tinta en las cuatro medias puntas de cada casilla —0.72 contra
+0.15— y ahí no hay discusión.
+
+El solucionador, además, se plantó con razón: el cuerpo viene partido en cuatro
+cuadros, en cuatro columnas o entero, y esa partición hasta cae en un cuadro por
+columnas, así que predecía una casilla partida que no encaja con ninguna
+alternativa. Pero **las cinco alternativas traen el cuerpo entero**: el
+cuadernillo no está preguntando eso. Ahora se ignoran los atributos que valen lo
+mismo en las cinco, que es un veto que solo podía inventar desacuerdos.
+
+Con la 17 van **trece de veinte**.
