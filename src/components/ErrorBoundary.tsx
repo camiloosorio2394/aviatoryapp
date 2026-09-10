@@ -51,13 +51,10 @@ export class ErrorBoundary extends Component<Props, State> {
     return (
       <main className="min-h-screen bg-background flex items-center justify-center px-6 py-16">
         <div className="w-full max-w-md">
-          <p
-            className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-            style={{ color: "var(--av-blue-500)" }}
-          >
+          <p className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
             Algo se rompió
           </p>
-          <h1 className="mt-2 text-[28px] font-semibold leading-tight tracking-tight text-balance">
+          <h1 className="mt-2 text-[32px] font-semibold leading-tight tracking-tight text-balance">
             Esta pantalla no se pudo abrir
           </h1>
           <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
@@ -65,18 +62,17 @@ export class ErrorBoundary extends Component<Props, State> {
             guardado, no se perdió nada.
           </p>
 
-          <div className="mt-7 flex flex-wrap gap-3">
+          <div className="mt-8 flex flex-wrap gap-3">
             <button
               type="button"
               onClick={() => window.location.reload()}
-              className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white transition-colors"
-              style={{ background: "var(--av-blue-500)" }}
+              className="btn-apple inline-flex h-12 items-center gap-2 rounded-full border-0 px-6 text-[17px] font-semibold"
             >
               Recargar la página
             </button>
             <a
               href="/app"
-              className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] border border-border px-5 text-[15px] font-medium transition-colors hover:bg-muted"
+              className="inline-flex h-12 items-center gap-2 rounded-full border border-border px-6 text-[17px] font-medium transition-colors hover:bg-muted"
             >
               Ir al panel
             </a>
@@ -84,7 +80,7 @@ export class ErrorBoundary extends Component<Props, State> {
 
           {/* El detalle técnico, plegado: no se le pone delante a quien solo
               quiere seguir, pero está a un clic para quien va a reportarlo. */}
-          <details className="mt-8 rounded-xl border border-border bg-card p-4">
+          <details className="surface mt-8 rounded-xl p-4">
             <summary className="cursor-pointer text-[13px] font-medium text-muted-foreground">
               Detalle técnico
             </summary>
