@@ -19,4 +19,24 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    // El banco de psicotécnicas (con sus respuestas) lo sirve el servidor. Si la
+    // app lo importara, volvería entero al bundle.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/data/psicotecnicas/**', 'src/**/*.test.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              regex: '^@/data/psicotecnicas(/(?!aprende$).*)?$',
+              message:
+                'Los ejercicios de psicotécnicas llegan del servidor (services/psicotecnicas.ts). Desde la app solo se importa @/data/psicotecnicas/aprende.',
+            },
+          ],
+        },
+      ],
+    },
+  },
 ])

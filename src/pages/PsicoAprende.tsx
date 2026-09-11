@@ -4,7 +4,7 @@ import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
-import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas"
+import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
 
 /**
  * La lección del módulo: teoría del cubo y ejercicios ya resueltos.

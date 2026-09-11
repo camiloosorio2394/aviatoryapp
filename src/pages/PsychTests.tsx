@@ -16,7 +16,7 @@ import {
 import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
-import { BANCO_TOTAL as PSICO_BANCO_TOTAL } from "@/data/psicotecnicas"
+import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 
 /**
  * Módulo Psicotécnicos y Assessment — separado completamente de entrevistas.
@@ -71,7 +71,7 @@ export function PsychTests() {
                   className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5"
                   style={{ background: "var(--av-blue-500)" }}
                 >
-                  Entrenar razonamiento: {PSICO_BANCO_TOTAL} ejercicios ya abiertos{" "}
+                  Entrenar razonamiento: {PSICO_TOTAL} ejercicios ya abiertos{" "}
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
                 <Link

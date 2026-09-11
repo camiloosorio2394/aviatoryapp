@@ -1,9 +1,9 @@
 /**
- * Progreso de psicotécnicas: respaldo local y base de datos.
+ * Progreso de psicotécnicas: respaldo local y lectura de la base.
  *
- * Misma regla que el resto de los módulos: el respaldo local se escribe siempre
- * —así la sección funciona sin sesión y sin red— y la base es la verdad entre
- * dispositivos. Si la consulta falla no se borra nada de lo local.
+ * Las tandas las califica y las guarda el servidor (psico_terminar). Aquí queda
+ * el respaldo local que el hub lee sin red, y la lectura del mejor simulacro
+ * guardado, que es la verdad entre dispositivos.
  *
  * Lo que se guarda de una sesión es el marcador, no el detalle de respuestas.
  * Cada tanda se sortea distinta, así que un arreglo de respuestas no sería
@@ -11,12 +11,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
-import type {
-  CategoriaPsico,
-  ModoPsico,
-  NivelPsico,
-  ResultadoPsico,
-} from "@/lib/psicotecnicas"
+import type { CategoriaPsico, ModoPsico, ResultadoPsico } from "@/lib/psicotecnicas"
 
 const CLAVE = "av_psico_v1"
 
@@ -56,51 +51,24 @@ function escribirPsicoLocal(datos: PsicoLocal): void {
   }
 }
 
-interface Sesion {
-  modo: ModoPsico
-  nivel: NivelPsico | "todos"
-  categoria: CategoriaPsico | "todas"
-  resultado: ResultadoPsico
-}
-
 /**
- * Cierra una sesión: actualiza el respaldo local y, si hay sesión iniciada,
- * inserta el intento. Nunca lanza: terminar una prueba no puede fallar porque
- * la red se cayó.
+ * Anota en el respaldo local una tanda que el servidor ya calificó y guardó.
+ *
+ * El intento en la base lo escribe psico_terminar; esto solo deja el mejor
+ * simulacro y el último porcentaje por familia para que el hub responda sin
+ * red. Nunca lanza.
  */
-export async function guardarSesion({ modo, nivel, categoria, resultado }: Sesion): Promise<void> {
+export function anotarSesionLocal(modo: ModoPsico, resultado: ResultadoPsico): void {
   const local = leerPsicoLocal()
-  const esSimulacro = modo === "simulacion"
-
   escribirPsicoLocal({
-    mejorSimulacro: esSimulacro
-      ? Math.max(local.mejorSimulacro ?? 0, resultado.global)
-      : local.mejorSimulacro,
+    mejorSimulacro:
+      modo === "simulacion" ? Math.max(local.mejorSimulacro ?? 0, resultado.global) : local.mejorSimulacro,
     sesiones: local.sesiones + 1,
     ultimoPorCategoria: {
       ...local.ultimoPorCategoria,
       ...Object.fromEntries(resultado.porCategoria.map((c) => [c.categoria, c.porcentaje])),
     },
   })
-
-  try {
-    const { data } = await supabase.auth.getUser()
-    const userId = data.user?.id
-    if (!userId) return
-    await supabase.from("user_psico_attempts").insert({
-      user_id: userId,
-      modo,
-      categoria,
-      nivel,
-      total: resultado.total,
-      correctas: resultado.correctas,
-      score: resultado.porcentaje,
-      velocidad: resultado.velocidad,
-      global: resultado.global,
-    })
-  } catch {
-    /* queda el respaldo local */
-  }
 }
 
 /** Mejor resultado global del simulacro guardado en la base. */

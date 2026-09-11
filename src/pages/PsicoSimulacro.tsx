@@ -1,12 +1,14 @@
-import { useCallback, useEffect, useState } from "react"
+import { useEffect, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, Play, Timer } from "lucide-react"
+import { ArrowLeft, Play, RotateCcw, Timer } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { PsicoCargando, PsicoError } from "@/components/psicotecnicas/EstadosPsico"
 import { PsicoPlayer } from "@/components/psicotecnicas/PsicoPlayer"
 import { PsicoResultado } from "@/components/psicotecnicas/PsicoResultado"
-import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
+import { itemsDeRepaso, useSesionPsico } from "@/hooks/useSesionPsico"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import {
   CATEGORIAS,
   NOTA_TIEMPOS,
@@ -14,17 +16,19 @@ import {
   SIMULACRO,
   SIMULACRO_TOTAL,
   TIEMPOS,
-  type EjercicioPsico,
-  type RespuestaPsico,
-  type ResultadoPsico,
-  armarSimulacro,
-  calcularResultado,
 } from "@/lib/psicotecnicas"
-import { BANCO } from "@/data/psicotecnicas"
-import { guardarSesion, leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
+import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
+import type { ParametrosPsico } from "@/services/psicotecnicas"
 
-/** Umbral de aprobación del simulacro. Espejo de module_thresholds. */
+/** Umbral de aprobación que se anuncia antes de empezar. El informe usa el del servidor (module_thresholds). */
 const APRUEBA_CON = 80
+
+const SIMULACRO_PARAMETROS: ParametrosPsico = {
+  modo: "simulacion",
+  categoria: "todas",
+  nivel: "todos",
+  cantidad: SIMULACRO_TOTAL,
+}
 
 /**
  * Simulacro psicotécnico: 30 ejercicios, diez de cada familia, mezclados.
@@ -33,16 +37,13 @@ const APRUEBA_CON = 80
  * familia por aparte. Va en modo simulación: sin respuestas ni explicaciones
  * durante la prueba, cronómetro por ejercicio y el informe solo al final.
  *
- * Cada intento sortea ejercicios distintos, así que repetirlo no es repasar las
- * mismas treinta preguntas.
+ * Cada intento lo sortea el servidor, así que repetirlo no es repasar las mismas
+ * treinta preguntas, y la nota que queda guardada es la que él calcula.
  */
 export function PsicoSimulacro() {
   const { user } = useSession()
-  const [tanda, setTanda] = useState<EjercicioPsico[] | null>(null)
-  const [resultado, setResultado] = useState<ResultadoPsico | null>(null)
-  // Se guardan también las respuestas: son las que dejan repasar los
-  // fallados en el informe, con su figura y su explicación.
-  const [respuestas, setRespuestas] = useState<RespuestaPsico[] | null>(null)
+  const psico = useSesionPsico()
+  const { estado, errorAccion } = psico
   const [mejor, setMejor] = useState<number | null>(() => leerPsicoLocal().mejorSimulacro)
 
   // Con sesión, la base manda: el respaldo local solo sabe de este dispositivo.
@@ -59,71 +60,110 @@ export function PsicoSimulacro() {
     }
   }, [user])
 
-  const empezar = useCallback(() => {
-    setResultado(null)
-    setRespuestas(null)
-    setTanda(armarSimulacro(BANCO))
-  }, [])
+  function empezar() {
+    void psico.empezar(SIMULACRO_PARAMETROS)
+  }
 
-  const terminar = useCallback((respuestas: RespuestaPsico[]) => {
-    const r = calcularResultado(respuestas)
-    setRespuestas(respuestas)
-    setResultado(r)
-    setTanda(null)
-    setMejor((previo) => Math.max(previo ?? 0, r.global))
-    void guardarSesion({
-      modo: "simulacion",
-      nivel: "todos",
-      categoria: "todas",
-      resultado: r,
-    })
-  }, [])
-
-  if (tanda) {
+  if (estado.fase === "iniciando") {
     return (
-      <AppLayout>
-        <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">
-          <PsicoPlayer
-            ejercicios={tanda}
-            modo="simulacion"
-            nivel="todos"
-            onTerminar={terminar}
-          />
-        </div>
-      </AppLayout>
+      <Marco>
+        <PsicoCargando texto="Preparando tu simulacro..." />
+      </Marco>
     )
   }
 
-  if (resultado) {
+  if (estado.fase === "error") {
     return (
-      <AppLayout>
-        <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">
-          <div className="max-w-[900px] mx-auto mb-4">
-            <div
-              className="rounded-xl p-4 text-[15px] font-medium"
-              style={{
-                background:
-                  resultado.global >= APRUEBA_CON
-                    ? "color-mix(in oklab, var(--av-green-400) 10%, transparent)"
-                    : "color-mix(in oklab, var(--av-amber-400) 10%, transparent)",
-                border: `1px solid color-mix(in oklab, ${
-                  resultado.global >= APRUEBA_CON ? "var(--av-green-400)" : "var(--av-amber-400)"
-                } 28%, transparent)`,
-              }}
-            >
-              {resultado.global >= APRUEBA_CON
-                ? `Simulacro aprobado con ${resultado.global} sobre 100.`
-                : `Simulacro no aprobado: ${resultado.global} sobre 100, y se aprueba con ${APRUEBA_CON}.`}
-            </div>
-          </div>
-          <PsicoResultado
-            resultado={resultado} conPuntajeGlobal
-            ejercicios={tanda ?? undefined}
-            respuestas={respuestas ?? undefined}
-            onRepetir={empezar}
+      <Marco>
+        <PsicoError
+          titulo="No pudimos preparar el simulacro"
+          mensaje={estado.error.message}
+          acciones={
+            <>
+              <button type="button" onClick={empezar} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
+                <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+              </button>
+              <Link to={PSICO_HUB} className={appButtonClass({ variant: "secondary", size: "lg" })}>
+                Volver al módulo
+              </Link>
+            </>
+          }
+        />
+      </Marco>
+    )
+  }
+
+  if (estado.fase === "en_curso") {
+    return (
+      <Marco>
+        <PsicoPlayer
+          key={estado.sesion.id}
+          sesion={estado.sesion}
+          onCorregir={psico.corregir}
+          onRegistrar={psico.registrar}
+          onAplazar={psico.aplazar}
+          onTerminar={() => void psico.terminar()}
+          errorAccion={errorAccion}
+        />
+      </Marco>
+    )
+  }
+
+  if (estado.fase === "terminando") {
+    return (
+      <Marco>
+        {errorAccion ? (
+          <PsicoError
+            titulo="No pudimos cerrar el simulacro"
+            mensaje={errorAccion.message}
+            acciones={
+              <>
+                <button type="button" onClick={() => void psico.terminar()} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
+                  <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+                </button>
+                <button type="button" onClick={psico.volverAConfigurar} className={appButtonClass({ variant: "secondary", size: "lg" })}>
+                  Volver al inicio del simulacro
+                </button>
+              </>
+            }
           />
+        ) : (
+          <PsicoCargando texto="Calculando tu resultado..." />
+        )}
+      </Marco>
+    )
+  }
+
+  if (estado.fase === "terminada") {
+    const { resultado, servidor } = estado
+    const umbral = servidor.aprobacion ?? APRUEBA_CON
+    const aprobado = resultado.global >= umbral
+    return (
+      <Marco>
+        <div className="max-w-[900px] mx-auto mb-4">
+          <div
+            className="rounded-xl p-4 text-[15px] font-medium"
+            style={{
+              background: aprobado
+                ? "color-mix(in oklab, var(--av-green-400) 10%, transparent)"
+                : "color-mix(in oklab, var(--av-amber-400) 10%, transparent)",
+              border: `1px solid color-mix(in oklab, ${
+                aprobado ? "var(--av-green-400)" : "var(--av-amber-400)"
+              } 28%, transparent)`,
+            }}
+          >
+            {aprobado
+              ? `Simulacro aprobado con ${resultado.global} sobre 100.`
+              : `Simulacro no aprobado: ${resultado.global} sobre 100, y se aprueba con ${umbral}.`}
+          </div>
         </div>
-      </AppLayout>
+        <PsicoResultado
+          resultado={resultado}
+          conPuntajeGlobal
+          repaso={itemsDeRepaso(estado.sesion, servidor)}
+          onRepetir={empezar}
+        />
+      </Marco>
     )
   }
 
@@ -200,6 +240,14 @@ export function PsicoSimulacro() {
 
         <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed">{NOTA_TIEMPOS}</p>
       </div>
+    </AppLayout>
+  )
+}
+
+function Marco({ children }: { children: ReactNode }) {
+  return (
+    <AppLayout>
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">{children}</div>
     </AppLayout>
   )
 }

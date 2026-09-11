@@ -31,3 +31,5 @@ jobs:
         run: npm test
       - name: Build
         run: npx vite build
+      - name: Bancos fuera del build
+        run: node scripts/bancos/verificar-dist.mjs

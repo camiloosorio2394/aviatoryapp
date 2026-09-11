@@ -36,7 +36,7 @@ import {
 import { MP_HUB, MP_LECTURA_TOTAL, MP_PRACTICA_TOTAL, resumirMercancias } from "@/lib/mercancias"
 import { MP_MINUTOS } from "@/lib/mercanciasLeccion"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
-import { BANCO_TOTAL as PSICO_BANCO_TOTAL } from "@/data/psicotecnicas"
+import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
@@ -320,7 +320,7 @@ export function AirlinePrep() {
           // .chip-violet; la variable se define en el contenedor de la página.
           color: "var(--psico-acento)",
           titulo: "Pruebas psicotécnicas",
-          meta: `${PSICO_BANCO_TOTAL} ejercicios cronometrados`,
+          meta: `${PSICO_TOTAL} ejercicios cronometrados`,
           descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
           // La portada del propio tema, dibujada para él. Vive en public y no en
           // assets porque así queda fuera del precache, como la de Mercancías.

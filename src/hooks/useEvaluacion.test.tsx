@@ -15,7 +15,7 @@ vi.mock("@/services/evaluaciones", async (original) => ({
 }))
 
 const { useEvaluacion } = await import("@/hooks/useEvaluacion")
-const { ErrorEvaluacion } = await import("@/services/evaluaciones")
+const { ErrorEvaluacion } = await import("@/services/rpc")
 
 ;(globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true
 
