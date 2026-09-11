@@ -101,6 +101,10 @@ Así nadie ve las respuestas abriendo DevTools ni se inventa un puntaje.
   scripts/catalogo` y luego `node scripts/catalogo/sembrar.mjs` (SQL para Supabase).
 - Al terminar un intento, el servidor entrega la correcta y la explicación **solo de lo
   respondido**; la revisión tiene que funcionar sin ellas en las preguntas sin responder.
+- **Logros**: cada tabla que los mueve tiene un disparador `private.trigger_logros('<grupo>')`
+  que evalúa solo los logros de su grupo (`private.desbloquear_logros`). Lección y práctica
+  cuentan contra `modulos_contenido`, y la meta es el catálogo completo. Un logro nuevo va en
+  su grupo, en esa función, por migración, y con su caso en `supabase/tests/logros.sql`.
 
 **Psicotécnicas** van igual (entrenamiento, evaluación y simulacro): el servidor sortea la
 tanda, lleva el reloj y calcula precisión, velocidad y global (`psico_iniciar`,

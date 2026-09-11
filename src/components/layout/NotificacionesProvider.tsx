@@ -15,10 +15,11 @@ import { NotificacionesContext, type Notification, type Notificaciones } from "@
  *   sin conexión no se pierde, y si Realtime no conecta la lista igual llega.
  * - Un aviso nuevo entra a la lista; si es de un logro, sale su toast.
  *
- * Los logros los desbloquea la base, con disparadores en cada tabla que los
- * mueve, y cada logro nuevo inserta su aviso. La app pide una evaluación al
- * abrir la sesión, antes de suscribirse, para los que dependen de un umbral de
- * module_thresholds que cambió sin que el piloto escribiera nada.
+ * Los logros los desbloquea la base: cada tabla que los mueve tiene un
+ * disparador que evalúa su grupo de logros, y cada logro nuevo inserta su aviso.
+ * La app pide una evaluación completa al abrir la sesión, antes de suscribirse,
+ * para los que cambiaron sin que el piloto escribiera nada (un umbral de
+ * aprobación, o el catálogo de un módulo que creció).
  */
 
 const LIMITE = 30
