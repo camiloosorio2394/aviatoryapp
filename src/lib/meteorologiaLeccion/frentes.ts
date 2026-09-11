@@ -75,7 +75,7 @@ export const PARTE_FRENTES: DocScreen[] = [
             titulo: "Cálido",
             ref: "el aire cálido avanza y sustituye al frío",
             puntos: [
-              "Se mueve despacio: de 15 a 40 km/h.",
+              "Se mueve despacio: de 15 a 40 km/h (10 a 25 mph).",
               "La pendiente del frente se desliza por encima del aire frío y lo va empujando fuera.",
               "Trae aire cálido, a menudo con humedad muy alta.",
               "Avisa con antelación y puede tardar días en pasar por una región.",
@@ -85,7 +85,7 @@ export const PARTE_FRENTES: DocScreen[] = [
             titulo: "Frío",
             ref: "el aire frío avanza y sustituye al cálido",
             puntos: [
-              "Se mueve rápido: de 40 a 60 km/h, y se han registrado extremos de hasta 100 km/h.",
+              "Se mueve más rápido: de 30 a 55 km/h (20 a 35 mph), y se han registrado extremos de hasta 100 km/h.",
               "Es denso, se queda pegado al suelo y se mete por debajo del aire cálido, forzándolo a ascender.",
               "El ascenso rápido baja la temperatura de golpe y crea nubes.",
               "Llega con poca o ninguna advertencia y cambia el tiempo entero en unas horas.",
@@ -286,7 +286,7 @@ export const PARTE_FRENTES: DocScreen[] = [
         kind: "table",
         head: ["", "Frente cálido", "Frente frío"],
         rows: [
-          ["Velocidad", "15 a 40 km/h", "40 a 60 km/h, extremos hasta 100"],
+          ["Velocidad", "15 a 40 km/h", "30 a 55 km/h, extremos hasta 100"],
           ["Pendiente frontal", "Tendida: se desliza por encima", "Pronunciada: se mete por debajo"],
           ["Aviso", "Avisa con antelación, tarda días", "Poca o ninguna advertencia"],
           ["Dónde está el tiempo", "Por delante del frente", "A lo largo del límite frontal"],
@@ -418,8 +418,8 @@ export const PARTE_FRENTES: DocScreen[] = [
       {
         kind: "callout",
         tone: "tip",
-        title: "Por qué el yunque es información",
-        text: "El yunque aparece cuando la cima deja de crecer. Verlo te dice en qué punto del ciclo está esa célula, y quince minutos separan la etapa cúmulo de la más violenta. Es de las pocas lecturas de estado que se hacen a ojo desde la cabina.",
+        title: "Lo que el yunque dice, y lo que no",
+        text: "El capítulo dibuja el yunque en la disipación, cuando la cima deja de crecer y se extiende. Mucha bibliografía de meteorología lo muestra ya en la madurez, en cuanto la corriente ascendente llega arriba. Para la cabina la lectura es la misma con cualquiera de las dos: **un yunque no significa que la tormenta se esté apagando**. Dice que la ascendente llegó hasta arriba, y la célula se sigue rodeando igual: como verás más abajo, el granizo puede caer varios kilómetros fuera de la nube.",
       },
       {
         kind: "hueco",
@@ -533,7 +533,7 @@ export const PARTE_FRENTES: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué hace falta para que se forme una tormenta y cuáles son sus etapas?",
             respuesta:
-              "Hacen falta vapor de agua suficiente, un gradiente térmico inestable y una acción de elevación inicial. Las etapas son cúmulo, en la que empieza el ascenso y la nube crece; madurez, que llega a los quince minutos aproximadamente y es el periodo más violento, con ascendentes y descendentes conviviendo y precipitación cayendo; y disipación, cuando la cima se abre en yunque y las descendentes se generalizan.",
+              "Hacen falta vapor de agua suficiente, un gradiente térmico inestable y una acción de elevación inicial. Las etapas son cúmulo, en la que empieza el ascenso y la nube crece; madurez, que llega a los quince minutos aproximadamente y es el periodo más violento, con ascendentes y descendentes conviviendo y precipitación cayendo; y disipación, cuando las descendentes se generalizan y reemplazan a las ascendentes. Un yunque a la vista no quiere decir que la tormenta esté en disipación: se rodea igual.",
             claves: ["Vapor, inestabilidad y elevación inicial", "Cúmulo, madurez, disipación", "La madura es la violenta"],
           },
           {

@@ -294,11 +294,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
       {
         kind: "fichas",
         columnas: 3,
-        titulo: "Los tres, de menor a mayor",
+        titulo: "Los tres del capítulo, que son los de Estados Unidos",
         items: [
           {
             titulo: "AIRMET (WA)",
-            ref: "para aeronaves ligeras y de capacidad operativa limitada",
+            ref: "en EE. UU., para aeronaves ligeras y de capacidad operativa limitada",
             puntos: [
               "Engelamiento moderado.",
               "Turbulencia moderada.",
@@ -309,7 +309,7 @@ export const PARTE_SERVICIOS: DocScreen[] = [
           },
           {
             titulo: "SIGMET (WS)",
-            ref: "para TODAS las aeronaves, tiempo no convectivo",
+            ref: "para TODAS las aeronaves; en EE. UU., solo tiempo no convectivo",
             puntos: [
               "Engelamiento severo no asociado a tormentas.",
               "Turbulencia severa o extrema, o turbulencia en aire claro, no asociadas a tormentas.",
@@ -320,7 +320,7 @@ export const PARTE_SERVICIOS: DocScreen[] = [
           },
           {
             titulo: "SIGMET convectivo (WST)",
-            ref: "para todas las aeronaves, y esto es convección",
+            ref: "solo existe en EE. UU.: allí la convección va aparte",
             puntos: [
               "Tormentas fuertes con viento en superficie de más de 50 kt.",
               "Granizo en superficie de ¾ de pulgada de diámetro o más.",
@@ -331,10 +331,36 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         ],
       },
       {
+        kind: "fichas",
+        columnas: 2,
+        titulo: "Y como los define la OACI (Anexo 3), que es lo que usa la región",
+        items: [
+          {
+            titulo: "SIGMET",
+            ref: "para todas las aeronaves en ruta",
+            puntos: [
+              "Tormentas, dentro del mismo SIGMET: oscurecidas (OBSC), incrustadas (EMBD), frecuentes (FRQ) o en línea (SQL), con GR si traen granizo.",
+              "Turbulencia severa, engelamiento severo (también por lluvia engelante) y onda de montaña severa.",
+              "Tempestad fuerte de polvo o de arena, y nube radiactiva.",
+              "La ceniza volcánica y los ciclones tropicales tienen su propio SIGMET.",
+            ],
+            nota: "Válido hasta 4 horas; los de ceniza volcánica y ciclón tropical, hasta 6. No existe un SIGMET convectivo aparte.",
+          },
+          {
+            titulo: "AIRMET",
+            ref: "para los vuelos a baja altura",
+            puntos: [
+              "Por debajo de FL100, o de FL150 en zonas montañosas.",
+              "Fenómenos que afectan a esos vuelos y no estaban ya en su pronóstico: engelamiento o turbulencia moderados, tormentas aisladas u ocasionales, montañas oscurecidas, techos bajos o visibilidad reducida en zonas amplias.",
+            ],
+          },
+        ],
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "La distinción que hay que tener clara",
-        text: "El AIRMET avisa de lo que es peligroso para un avión ligero o de capacidad limitada. El SIGMET avisa de lo que es peligroso para todas las aeronaves, incluida la tuya. Si en la entrevista te preguntan la diferencia y contestas solo «uno es más fuerte que el otro», no has contestado.",
+        text: "En la OACI, que es lo que usa la región, la diferencia es de altura y de alcance: el SIGMET avisa de lo peligroso para todas las aeronaves en ruta, y el AIRMET, de lo que afecta a los vuelos a baja altura. La definición «para aviones ligeros» es la de Estados Unidos. Si en la entrevista te preguntan la diferencia y contestas solo «uno es más fuerte que el otro», no has contestado.",
       },
       {
         kind: "sub",
@@ -406,22 +432,22 @@ export const PARTE_SERVICIOS: DocScreen[] = [
             nivel: "concepto",
             q: "Diferencie AIRMET y SIGMET.",
             respuesta:
-              "El AIRMET se emite por fenómenos potencialmente peligrosos para aeronaves ligeras y de capacidad operativa limitada: engelamiento moderado, turbulencia moderada, viento sostenido en superficie de 30 kt o más, grandes zonas con techo bajo 1.000 ft y/o visibilidad menor de tres millas, y oscurecimiento de montaña extenso. El SIGMET se emite por tiempo significativo para la seguridad de todas las aeronaves y cubre engelamiento severo, turbulencia severa o extrema y turbulencia en aire claro no asociadas a tormentas, tormentas de polvo o arena que bajen la visibilidad de tres millas, y ceniza volcánica.",
-            claves: ["AIRMET: aeronaves ligeras o limitadas", "SIGMET: todas las aeronaves", "La lista de fenómenos de cada uno"],
+              "Según la OACI, en el Anexo 3, el SIGMET avisa de fenómenos en ruta peligrosos para todas las aeronaves: tormentas oscurecidas, incrustadas, frecuentes o en línea, con o sin granizo; turbulencia severa; engelamiento severo; onda de montaña severa; tempestades fuertes de polvo o de arena; y nube radiactiva. La ceniza volcánica y los ciclones tropicales tienen su propio SIGMET. El AIRMET es para los vuelos a baja altura, por debajo de FL100 o de FL150 en zonas montañosas, con los fenómenos que no estaban ya en su pronóstico. En Estados Unidos, que es el sistema del capítulo, el AIRMET se define para aeronaves ligeras y el SIGMET convectivo va aparte.",
+            claves: ["SIGMET: todas las aeronaves, tormentas incluidas", "AIRMET: vuelos por debajo de FL100", "En EE. UU. el convectivo va aparte"],
           },
           {
             nivel: "interpretacion",
-            q: "¿Qué es un SIGMET convectivo y por qué existe aparte?",
+            q: "¿Existe el SIGMET convectivo en la región?",
             respuesta:
-              "Es una advertencia en vuelo por condiciones convectivas peligrosas. Se emite por tormentas fuertes con viento en superficie de más de 50 kt, granizo en superficie de tres cuartos de pulgada o más, o tornados, y también por tormentas mezcladas, líneas de tormentas o tormentas con precipitación fuerte o mayor. Existe aparte porque el SIGMET normal cubre expresamente el tiempo NO convectivo.",
-            claves: ["Convección", "50 kt, 3/4 de pulgada, tornados", "El SIGMET normal es no convectivo"],
+              "Como producto aparte, no. El SIGMET convectivo es del sistema de Estados Unidos, donde el SIGMET normal cubre solo lo no convectivo. Con la OACI las tormentas van dentro del SIGMET normal, codificadas como OBSC, EMBD, FRQ o SQL TS, y con GR si hay granizo. Leer un aviso de la región buscando un «convectivo» aparte es perderse las tormentas.",
+            claves: ["El convectivo aparte es de EE. UU.", "OACI: las tormentas van dentro del SIGMET", "OBSC, EMBD, FRQ o SQL TS"],
           },
           {
             nivel: "situacion",
             q: "¿Cuánto tiempo es válido un SIGMET?",
             respuesta:
-              "Cuatro horas. Si se refiere a huracanes, seis. Los SIGMET convectivos del ejemplo del capítulo son válidos dos horas.",
-            claves: ["4 horas", "6 si es huracán"],
+              "Hasta cuatro horas. Los de ceniza volcánica y los de ciclón tropical, hasta seis. Los SIGMET convectivos de Estados Unidos, como el del ejemplo del capítulo, valen dos horas.",
+            claves: ["Hasta 4 horas", "6 si es ceniza volcánica o ciclón tropical"],
           },
         ],
       },
@@ -644,7 +670,7 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "Lo que la carta te dice del viento que vas a encontrar arriba",
-        text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo: el viento a 2.000 ft AGL está de 20° a 40° a la izquierda del de superficie y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. Sin información de vientos en altura, esa estimación te saca del apuro.",
+        text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo, que está escrita para el hemisferio norte: el viento a 2.000 ft AGL está de 20° a 40° **a la derecha** del de superficie, es decir, girado en el sentido de las agujas del reloj, y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. **En el hemisferio sur el giro es al revés: a la izquierda.** Con viento de superficie del 180, a 2.000 ft esperas del 200 al 220 en el norte y del 140 al 160 en el sur. Sin información de vientos en altura, esa estimación te saca del apuro.",
       },
       {
         kind: "hueco",
@@ -678,8 +704,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
             nivel: "situacion",
             q: "No tiene información de vientos en altura. ¿Cómo estima el viento a 2.000 ft AGL?",
             respuesta:
-              "A partir del viento de superficie: a 2.000 ft AGL suele estar de 20° a 40° a la izquierda del de superficie y con más velocidad, porque arriba la fricción ya no lo frena ni reduce el efecto de Coriolis. El cambio de dirección es mayor sobre terreno rugoso y menor sobre superficies planas como agua abierta.",
-            claves: ["20° a 40° a la izquierda", "Más velocidad", "Menos fricción", "Más giro en terreno rugoso"],
+              "A partir del viento de superficie: a 2.000 ft AGL suele estar de 20° a 40° a la derecha del de superficie en el hemisferio norte, y a la izquierda en el hemisferio sur, y con más velocidad, porque arriba la fricción ya no lo frena ni reduce el efecto de Coriolis. El cambio de dirección es mayor sobre terreno rugoso y menor sobre superficies planas como agua abierta.",
+            claves: ["20° a 40°: a la derecha en el norte, a la izquierda en el sur", "Más velocidad", "Menos fricción", "Más giro en terreno rugoso"],
           },
         ],
       },
