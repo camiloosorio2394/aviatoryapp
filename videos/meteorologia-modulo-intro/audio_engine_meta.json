@@ -1,0 +1,779 @@
+{
+  "tts_provider": "heygen",
+  "voice_id": "001248bb63f847888d37b766ee8b3a47",
+  "bgm": {
+    "path": "assets/bgm/track.mp3",
+    "volume": 0.12,
+    "query": "documental sobrio, cuerdas graves contenidas, tensión baja que resuelve en calma",
+    "mode": "retrieve",
+    "duration_s": 15
+  },
+  "bgm_pending": false,
+  "bgm_provider": "heygen",
+  "bgm_pid": null,
+  "bgm_log": null,
+  "bgm_mode": "retrieve",
+  "bgm_target_duration_s": null,
+  "bgm_seed_duration_s": null,
+  "bgm_loop_count": null,
+  "voices": [
+    {
+      "id": "01",
+      "path": "assets/voice/01.wav",
+      "duration_s": 3.579,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Bienvenido",
+          "start": 0.199,
+          "end": 0.74
+        },
+        {
+          "id": "w1",
+          "text": "al",
+          "start": 0.779,
+          "end": 0.899
+        },
+        {
+          "id": "w2",
+          "text": "módulo",
+          "start": 0.939,
+          "end": 1.319
+        },
+        {
+          "id": "w3",
+          "text": "de",
+          "start": 1.36,
+          "end": 1.399
+        },
+        {
+          "id": "w4",
+          "text": "Meteorología",
+          "start": 1.48,
+          "end": 2.339
+        },
+        {
+          "id": "w5",
+          "text": "de",
+          "start": 2.379,
+          "end": 2.46
+        },
+        {
+          "id": "w6",
+          "text": "Aviatory.",
+          "start": 2.559,
+          "end": 3.22
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "path": "assets/voice/02.wav",
+      "duration_s": 8.594,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Este",
+          "start": 0.199,
+          "end": 0.539
+        },
+        {
+          "id": "w1",
+          "text": "pronóstico",
+          "start": 0.579,
+          "end": 1.639
+        },
+        {
+          "id": "w2",
+          "text": "ya",
+          "start": 1.759,
+          "end": 1.939
+        },
+        {
+          "id": "w3",
+          "text": "dice",
+          "start": 2,
+          "end": 2.359
+        },
+        {
+          "id": "w4",
+          "text": "lo",
+          "start": 2.399,
+          "end": 2.46
+        },
+        {
+          "id": "w5",
+          "text": "que",
+          "start": 2.559,
+          "end": 2.599
+        },
+        {
+          "id": "w6",
+          "text": "te",
+          "start": 2.7,
+          "end": 2.799
+        },
+        {
+          "id": "w7",
+          "text": "espera",
+          "start": 2.939,
+          "end": 3.319
+        },
+        {
+          "id": "w8",
+          "text": "al",
+          "start": 3.399,
+          "end": 3.5
+        },
+        {
+          "id": "w9",
+          "text": "aterrizar.",
+          "start": 3.539,
+          "end": 4.759
+        },
+        {
+          "id": "w10",
+          "text": "Y",
+          "start": 4.859,
+          "end": 4.879
+        },
+        {
+          "id": "w11",
+          "text": "descifrarlo",
+          "start": 4.94,
+          "end": 5.799
+        },
+        {
+          "id": "w12",
+          "text": "no",
+          "start": 5.839,
+          "end": 6.019
+        },
+        {
+          "id": "w13",
+          "text": "sirve",
+          "start": 6.079,
+          "end": 6.479
+        },
+        {
+          "id": "w14",
+          "text": "si",
+          "start": 6.519,
+          "end": 6.579
+        },
+        {
+          "id": "w15",
+          "text": "no",
+          "start": 6.679,
+          "end": 6.839
+        },
+        {
+          "id": "w16",
+          "text": "sabes",
+          "start": 6.899,
+          "end": 7.319
+        },
+        {
+          "id": "w17",
+          "text": "qué",
+          "start": 7.379,
+          "end": 7.44
+        },
+        {
+          "id": "w18",
+          "text": "lo",
+          "start": 7.519,
+          "end": 7.559
+        },
+        {
+          "id": "w19",
+          "text": "produce.",
+          "start": 7.659,
+          "end": 8.26
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "path": "assets/voice/03.wav",
+      "duration_s": 5.669,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Aquí",
+          "start": 0.179,
+          "end": 0.419
+        },
+        {
+          "id": "w1",
+          "text": "vas",
+          "start": 0.459,
+          "end": 0.639
+        },
+        {
+          "id": "w2",
+          "text": "a",
+          "start": 0.68,
+          "end": 0.699
+        },
+        {
+          "id": "w3",
+          "text": "entender",
+          "start": 0.759,
+          "end": 1.199
+        },
+        {
+          "id": "w4",
+          "text": "por",
+          "start": 1.299,
+          "end": 1.419
+        },
+        {
+          "id": "w5",
+          "text": "qué",
+          "start": 1.519,
+          "end": 1.599
+        },
+        {
+          "id": "w6",
+          "text": "se",
+          "start": 1.679,
+          "end": 1.759
+        },
+        {
+          "id": "w7",
+          "text": "mueve",
+          "start": 1.839,
+          "end": 2.079
+        },
+        {
+          "id": "w8",
+          "text": "el",
+          "start": 2.119,
+          "end": 2.22
+        },
+        {
+          "id": "w9",
+          "text": "aire,",
+          "start": 2.299,
+          "end": 2.619
+        },
+        {
+          "id": "w10",
+          "text": "y",
+          "start": 3.139,
+          "end": 3.179
+        },
+        {
+          "id": "w11",
+          "text": "qué",
+          "start": 3.279,
+          "end": 3.379
+        },
+        {
+          "id": "w12",
+          "text": "le",
+          "start": 3.419,
+          "end": 3.519
+        },
+        {
+          "id": "w13",
+          "text": "hace",
+          "start": 3.599,
+          "end": 3.819
+        },
+        {
+          "id": "w14",
+          "text": "la",
+          "start": 3.879,
+          "end": 3.919
+        },
+        {
+          "id": "w15",
+          "text": "presión",
+          "start": 4.019,
+          "end": 4.44
+        },
+        {
+          "id": "w16",
+          "text": "al",
+          "start": 4.5,
+          "end": 4.579
+        },
+        {
+          "id": "w17",
+          "text": "altímetro.",
+          "start": 4.619,
+          "end": 5.339
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "path": "assets/voice/04.wav",
+      "duration_s": 5.616,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Vas",
+          "start": 0.259,
+          "end": 0.479
+        },
+        {
+          "id": "w1",
+          "text": "a",
+          "start": 0.5,
+          "end": 0.579
+        },
+        {
+          "id": "w2",
+          "text": "leer",
+          "start": 0.62,
+          "end": 0.959
+        },
+        {
+          "id": "w3",
+          "text": "el",
+          "start": 0.979,
+          "end": 1.1
+        },
+        {
+          "id": "w4",
+          "text": "agua",
+          "start": 1.179,
+          "end": 1.459
+        },
+        {
+          "id": "w5",
+          "text": "que",
+          "start": 1.519,
+          "end": 1.579
+        },
+        {
+          "id": "w6",
+          "text": "lleva",
+          "start": 1.679,
+          "end": 1.959
+        },
+        {
+          "id": "w7",
+          "text": "dentro:",
+          "start": 2,
+          "end": 2.46
+        },
+        {
+          "id": "w8",
+          "text": "rocío,",
+          "start": 2.919,
+          "end": 3.5
+        },
+        {
+          "id": "w9",
+          "text": "nubes",
+          "start": 3.959,
+          "end": 4.619
+        },
+        {
+          "id": "w10",
+          "text": "y",
+          "start": 4.659,
+          "end": 4.699
+        },
+        {
+          "id": "w11",
+          "text": "niebla.",
+          "start": 4.819,
+          "end": 5.319
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "path": "assets/voice/05.wav",
+      "duration_s": 7.941,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Vas",
+          "start": 0.239,
+          "end": 0.439
+        },
+        {
+          "id": "w1",
+          "text": "a",
+          "start": 0.5,
+          "end": 0.539
+        },
+        {
+          "id": "w2",
+          "text": "cruzar",
+          "start": 0.639,
+          "end": 1.079
+        },
+        {
+          "id": "w3",
+          "text": "un",
+          "start": 1.139,
+          "end": 1.24
+        },
+        {
+          "id": "w4",
+          "text": "frente",
+          "start": 1.36,
+          "end": 1.759
+        },
+        {
+          "id": "w5",
+          "text": "sabiendo",
+          "start": 1.86,
+          "end": 2.399
+        },
+        {
+          "id": "w6",
+          "text": "qué",
+          "start": 2.599,
+          "end": 2.799
+        },
+        {
+          "id": "w7",
+          "text": "hay",
+          "start": 2.879,
+          "end": 3.079
+        },
+        {
+          "id": "w8",
+          "text": "al",
+          "start": 3.159,
+          "end": 3.279
+        },
+        {
+          "id": "w9",
+          "text": "otro",
+          "start": 3.319,
+          "end": 3.559
+        },
+        {
+          "id": "w10",
+          "text": "lado.",
+          "start": 3.639,
+          "end": 4.039
+        },
+        {
+          "id": "w11",
+          "text": "Y",
+          "start": 4.92,
+          "end": 5
+        },
+        {
+          "id": "w12",
+          "text": "a",
+          "start": 5.079,
+          "end": 5.179
+        },
+        {
+          "id": "w13",
+          "text": "leer",
+          "start": 5.199,
+          "end": 5.799
+        },
+        {
+          "id": "w14",
+          "text": "una",
+          "start": 5.9,
+          "end": 6.099
+        },
+        {
+          "id": "w15",
+          "text": "tormenta",
+          "start": 6.219,
+          "end": 6.799
+        },
+        {
+          "id": "w16",
+          "text": "por",
+          "start": 6.94,
+          "end": 7.079
+        },
+        {
+          "id": "w17",
+          "text": "dentro.",
+          "start": 7.179,
+          "end": 7.699
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "path": "assets/voice/06.wav",
+      "duration_s": 6.087,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Y",
+          "start": 0.219,
+          "end": 0.319
+        },
+        {
+          "id": "w1",
+          "text": "vas",
+          "start": 0.34,
+          "end": 0.56
+        },
+        {
+          "id": "w2",
+          "text": "a",
+          "start": 0.599,
+          "end": 0.639
+        },
+        {
+          "id": "w3",
+          "text": "descifrar",
+          "start": 0.719,
+          "end": 1.199
+        },
+        {
+          "id": "w4",
+          "text": "el",
+          "start": 1.24,
+          "end": 1.319
+        },
+        {
+          "id": "w5",
+          "text": "código:",
+          "start": 1.419,
+          "end": 1.879
+        },
+        {
+          "id": "w6",
+          "text": "METAR,",
+          "start": 2.619,
+          "end": 3.099
+        },
+        {
+          "id": "w7",
+          "text": "taf",
+          "start": 3.799,
+          "end": 4.239
+        },
+        {
+          "id": "w8",
+          "text": "y",
+          "start": 4.699,
+          "end": 4.719
+        },
+        {
+          "id": "w9",
+          "text": "avisos",
+          "start": 4.819,
+          "end": 5.279
+        },
+        {
+          "id": "w10",
+          "text": "en",
+          "start": 5.319,
+          "end": 5.4
+        },
+        {
+          "id": "w11",
+          "text": "vuelo.",
+          "start": 5.48,
+          "end": 5.859
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "path": "assets/voice/07.wav",
+      "duration_s": 5.433,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Al",
+          "start": 0.199,
+          "end": 0.319
+        },
+        {
+          "id": "w1",
+          "text": "terminar,",
+          "start": 0.419,
+          "end": 1.019
+        },
+        {
+          "id": "w2",
+          "text": "no",
+          "start": 1.539,
+          "end": 1.659
+        },
+        {
+          "id": "w3",
+          "text": "lees",
+          "start": 1.759,
+          "end": 2.079
+        },
+        {
+          "id": "w4",
+          "text": "el",
+          "start": 2.119,
+          "end": 2.24
+        },
+        {
+          "id": "w5",
+          "text": "pronóstico",
+          "start": 2.259,
+          "end": 2.859
+        },
+        {
+          "id": "w6",
+          "text": "entero:",
+          "start": 2.919,
+          "end": 3.379
+        },
+        {
+          "id": "w7",
+          "text": "buscas",
+          "start": 3.959,
+          "end": 4.4
+        },
+        {
+          "id": "w8",
+          "text": "tu",
+          "start": 4.48,
+          "end": 4.539
+        },
+        {
+          "id": "w9",
+          "text": "ventana.",
+          "start": 4.619,
+          "end": 5.179
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "path": "assets/voice/08.wav",
+      "duration_s": 5.198,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Treinta",
+          "start": 0.179,
+          "end": 0.56
+        },
+        {
+          "id": "w1",
+          "text": "lecciones,",
+          "start": 0.639,
+          "end": 1.379
+        },
+        {
+          "id": "w2",
+          "text": "práctica",
+          "start": 1.799,
+          "end": 2.579
+        },
+        {
+          "id": "w3",
+          "text": "y",
+          "start": 2.619,
+          "end": 2.72
+        },
+        {
+          "id": "w4",
+          "text": "evaluación.",
+          "start": 2.799,
+          "end": 3.579
+        },
+        {
+          "id": "w5",
+          "text": "Empecemos.",
+          "start": 4.119,
+          "end": 4.839
+        }
+      ]
+    }
+  ],
+  "sfx": [
+    {
+      "id": "01",
+      "name": "impacto-suave",
+      "file": "assets/sfx/impacto-suave.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 2.758,
+      "volume": 0.35
+    },
+    {
+      "id": "02",
+      "name": "zumbido-grave-descendente",
+      "file": "assets/sfx/zumbido-grave-descendente.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 5.901,
+      "volume": 0.35
+    },
+    {
+      "id": "03",
+      "name": "tic-seco",
+      "file": "assets/sfx/tic-seco.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 7.778,
+      "volume": 0.35
+    },
+    {
+      "id": "04",
+      "name": "tic-escalonado",
+      "file": "assets/sfx/tic-escalonado.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 1.334,
+      "volume": 0.35
+    },
+    {
+      "id": "05",
+      "name": "whoosh-corto",
+      "file": "assets/sfx/whoosh-corto.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 1.056,
+      "volume": 0.35
+    },
+    {
+      "id": "06",
+      "name": "tic-por-sustitución",
+      "file": "assets/sfx/tic-por-sustituci-n.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 7.778,
+      "volume": 0.35
+    },
+    {
+      "id": "07",
+      "name": "cascada-tics-suaves",
+      "file": "assets/sfx/cascada-tics-suaves.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 3.855,
+      "volume": 0.35
+    },
+    {
+      "id": "07",
+      "name": "impacto-final",
+      "file": "assets/sfx/impacto-final.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 3.454,
+      "volume": 0.35
+    },
+    {
+      "id": "08",
+      "name": "impacto-grave-cierre",
+      "file": "assets/sfx/impacto-grave-cierre.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 5.28,
+      "volume": 0.35
+    }
+  ],
+  "total_duration_s": 48.117
+}

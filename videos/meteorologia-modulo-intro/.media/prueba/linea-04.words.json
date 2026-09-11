@@ -1,0 +1,74 @@
+[
+  {
+    "id": "w0",
+    "text": "Vas",
+    "start": 0.259,
+    "end": 0.479
+  },
+  {
+    "id": "w1",
+    "text": "a",
+    "start": 0.5,
+    "end": 0.579
+  },
+  {
+    "id": "w2",
+    "text": "leer",
+    "start": 0.62,
+    "end": 0.959
+  },
+  {
+    "id": "w3",
+    "text": "el",
+    "start": 0.979,
+    "end": 1.1
+  },
+  {
+    "id": "w4",
+    "text": "agua",
+    "start": 1.179,
+    "end": 1.459
+  },
+  {
+    "id": "w5",
+    "text": "que",
+    "start": 1.519,
+    "end": 1.579
+  },
+  {
+    "id": "w6",
+    "text": "lleva",
+    "start": 1.679,
+    "end": 1.959
+  },
+  {
+    "id": "w7",
+    "text": "dentro:",
+    "start": 2,
+    "end": 2.46
+  },
+  {
+    "id": "w8",
+    "text": "rocío,",
+    "start": 2.919,
+    "end": 3.5
+  },
+  {
+    "id": "w9",
+    "text": "nubes",
+    "start": 3.959,
+    "end": 4.619
+  },
+  {
+    "id": "w10",
+    "text": "y",
+    "start": 4.659,
+    "end": 4.699
+  },
+  {
+    "id": "w11",
+    "text": "niebla.",
+    "start": 4.819,
+    "end": 5.319
+  }
+]

@@ -45,12 +45,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         text: "Al moverse de su región de origen, la masa se modifica. Y ahí está la regla útil: si pasa sobre una superficie MÁS CALIENTE, se calienta desde abajo, se hace inestable y da cúmulos, chaparrones y turbulencia, con buena visibilidad en superficie. Si pasa sobre una superficie MÁS FRÍA, se hace estable y da estratos bajos y niebla, con mala visibilidad, porque el humo y el polvo no pueden ascender y se quedan atrapados abajo.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T10-01 · Mapa · 4:3 · 1400×1050 · SVG",
-        descripcion:
-          "Mapa de América Latina con las regiones de origen de masas de aire rotuladas y coloreadas: polar marítima y polar continental al sur, tropical marítima sobre el Caribe y el Pacífico, tropical continental sobre las zonas áridas. Flechas indicando por dónde entran habitualmente a la región. Sustituye a la figura 11-24 del PHAK, que es de América del Norte y no le sirve a un piloto de la región.",
-        alto: 420,
-        ratio: "4 / 3",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t10-01-origen-de-las-masas.webp",
+        alt: "Esquema por latitud y origen con las cuatro masas de aire de la región, marítima y continental por tropical y polar, y por dónde entra cada una.",
+        ancho: 1400,
+        alto: 1050,
         anchoMax: 560,
         pie: "De dónde viene el aire que te va a tocar.",
       },
@@ -111,11 +110,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T10-02 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Los cuatro símbolos frontales de carta (triángulos para el frío, semicírculos para el cálido, alternados para el estacionario, combinados para el ocluido) grandes y rotulados, y debajo de cada uno un corte vertical de dos o tres líneas mostrando cómo se monta una masa sobre la otra. Es la pieza de traducción entre lo que se ve en la carta y lo que ocurre en el aire. Sustituye a la figura 11-25 del PHAK.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t10-02-simbolos-frontales.webp",
+        alt: "Los cuatro símbolos frontales de carta, frío, cálido, estacionario y ocluido, y debajo de cada uno el corte vertical de cómo se monta una masa sobre la otra.",
+        ancho: 1600,
+        alto: 900,
         pie: "El símbolo de la carta y lo que significa en vertical.",
       },
       {
@@ -316,12 +315,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T11-01 · Diagrama · 3:1 · 1800×600 · SVG",
-        descripcion:
-          "Dos cortes verticales apilados del mismo tramo (Junín a Formosa), uno con frente cálido y otro con frío, con la nubosidad asociada dibujada a escala y la trayectoria del vuelo cruzándolos. Sobre cada corte, las cuatro paradas rotuladas con su techo y visibilidad. La pendiente tendida del cálido y la empinada del frío tienen que verse comparadas. Sustituye a las figuras 11-26 y 11-27 del PHAK.",
-        alto: 300,
-        ratio: "3 / 1",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t11-01-junin-formosa.webp",
+        alt: "Dos cortes verticales apilados del tramo de Junín a Formosa, uno contra frente cálido y otro contra frío, con las cuatro paradas rotuladas con su techo y su visibilidad.",
+        ancho: 1800,
+        alto: 600,
         pie: "El mismo tramo, dos frentes, dos nubosidades.",
       },
       {
@@ -422,12 +420,11 @@ export const PARTE_FRENTES: DocScreen[] = [
         text: "El capítulo dibuja el yunque en la disipación, cuando la cima deja de crecer y se extiende. Mucha bibliografía de meteorología lo muestra ya en la madurez, en cuanto la corriente ascendente llega arriba. Para la cabina la lectura es la misma con cualquiera de las dos: **un yunque no significa que la tormenta se esté apagando**. Dice que la ascendente llegó hasta arriba, y la célula se sigue rodeando igual: como verás más abajo, el granizo puede caer varios kilómetros fuera de la nube.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T12-01 · Diagrama · 3:1 · 1800×600 · SVG",
-        descripcion:
-          "Las tres etapas de una tormenta en fila, con la sección de la nube en cada una y las flechas de corriente dentro: solo ascendentes en la etapa cúmulo, ascendentes y descendentes conviviendo en la madura con la precipitación cayendo, y descendentes generalizadas con el yunque abierto en la de disipación. Rotular «15 minutos» sobre la flecha que va de la primera a la segunda. Sustituye a la figura 11-23 del PHAK.",
-        alto: 300,
-        ratio: "3 / 1",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t12-01-tres-etapas-tormenta.webp",
+        alt: "Las tres etapas de una tormenta en fila, con las corrientes dentro de cada una: solo ascendentes en la etapa cúmulo, las dos a la vez en la madura, y descendentes con el yunque abierto en la de disipación.",
+        ancho: 1800,
+        alto: 600,
         pie: "El ciclo entero, y dónde está el punto violento.",
       },
       {

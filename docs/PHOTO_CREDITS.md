@@ -23,7 +23,30 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 | `metar-practica-cabina-nubes.jpg` | Card METAR · Práctica | https://unsplash.com/photos/_4PsqBPe7RU (Walter Mmari) |
 | `metar-evaluacion-escritorio.jpg` | Card METAR · Evaluación | https://unsplash.com/photos/h6pUcouJ9BA (sara sanchez sabogal) |
 | `tema-notam-pista-luces.jpg` | Card del tema NOTAM en Ingreso a aerolínea | https://unsplash.com/photos/SgWHP0mZ6-w (Fabio Sasso) |
+| `meteorologia-hero.webp` | Hero del módulo Meteorología (foto + capa de rótulos) | https://unsplash.com/photos/er7TM4GPqWg (Nikola Ancevski) |
 | `tema-meteorologia-nubes-altura.jpg` | Card del tema Meteorología en Ingreso a aerolínea | https://unsplash.com/photos/10lbZPBl3Zw (Vilmantas Bekesius) |
+
+## Imágenes de módulo (`public/modulos/`)
+
+Estas NO van en `src/assets/photos/` ni se importan como módulo: son material
+de una sección concreta y tienen que quedar fuera del precache (ver
+`public/modulos/LEEME.md` y el `globIgnores` de `vite.config.ts`). Se
+referencian por ruta pública. La licencia es la misma y se registra igual.
+
+| Archivo | Uso | Fuente |
+|---|---|---|
+| `mt-t08-02-cumulonimbus-yunque.webp` | Lección 08 · bloque «reconoce»: cumulonimbus maduro | https://unsplash.com/photos/aDLdo_VpYfA (swiftsight) |
+| `mt-t08-03-estratos-base-uniforme.webp` | Lección 08 · bloque «reconoce»: capa de estratos | https://unsplash.com/photos/y5deIvLooMM (Beckan McCarthy) |
+| `mt-t08-04-cumulos-en-torre.webp` | Lección 08 · bloque «reconoce»: cúmulos en torre | https://unsplash.com/photos/sBaRguXeVGU (Richard) |
+| `mt-por-01-preparacion-vuelo.webp` | Lección 13 · de dónde sale el dato y dónde se usa | https://unsplash.com/photos/o4ExeQbdhyg (Kajetan Sumila) |
+| `mt-img-01-cumulonimbo-desde-el-aire.webp` | Lección 18 · el cumulonimbo desde crucero | https://unsplash.com/photos/igFGgdjlBF4 (Nimbus Vulpis) |
+| `mt-img-02-pista-baja-visibilidad.webp` | Lección 16 · el RVR hecho imagen | https://unsplash.com/photos/WpKZL_8CtRU (Amsterdam City Archives) |
+
+Las seis se comprobaron una a una contra la regla de Unsplash+: en la ficha de
+resultado, una foto de pago enlaza a `/plus` y **no** ofrece enlace de descarga.
+Las seis tienen enlace de descarga directo, así que son Unsplash License.
+El endpoint `napi/photos/<id>` que cita la regla de abajo hoy responde
+`307 Authorization required`, así que esa comprobación ya no sirve sin clave.
 
 Reglas al agregar fotos nuevas:
 

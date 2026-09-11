@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
-import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
 import { supabase } from "@/integrations/supabase/client"
 import {
   METAR_EXAM_PASS_SCORE,
-  METAR_EXAM_TOTAL,
+  METAR_EXAM_PER_ATTEMPT,
   METAR_LEGEND_TOTAL,
   METAR_PRACTICE_TOTAL,
   readMetarProgress,
@@ -17,6 +17,7 @@ import {
 } from "@/lib/metar"
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
 import { METAR_EXAMPLES, METAR_LECCION } from "@/lib/metar"
+import heroPhoto from "@/assets/photos/meteorologia-hero.webp"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
 import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
 import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
@@ -159,7 +160,7 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
       color: "var(--av-mt-700)",
-      meta: `${METAR_EXAM_TOTAL} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
+      meta: `${METAR_EXAM_PER_ATTEMPT} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
       title: "4. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
@@ -190,26 +191,26 @@ export function Metar() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
 
-        {/* Hero de sección. Sin foto todavía: el hueco conserva la caja, el
-            velo y la forma, y el rótulo de la esquina dice la medida que hace
-            falta. Cuando llegue la imagen se pone el <img> aquí y no se mueve
-            nada alrededor. */}
+        {/* Hero de sección. La foto va a sangre bajo un velo navy, igual que
+            en NOTAM: el título tiene que leerse sobre cualquier zona, y por eso
+            el velo es un degradado y no una opacidad plana. La imagen lleva su
+            capa de rótulos hacia la derecha, así que el degradado pesa a la
+            izquierda y la deja respirar. */}
         <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+          <img
+            src={heroPhoto}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden
+          />
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(105deg, rgba(8,20,36,.97) 0%, rgba(8,20,36,.94) 42%, rgba(8,20,36,.86) 72%, rgba(8,20,36,.78) 100%)",
+                "linear-gradient(105deg, rgba(8,20,36,.90) 0%, rgba(8,20,36,.76) 40%, rgba(8,20,36,.50) 70%, rgba(8,20,36,.30) 100%)",
             }}
             aria-hidden
           />
-          <div
-            className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
-            aria-hidden
-          />
-          <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-            [Imagen de fondo · 2432×860 · espacio reservado]
-          </span>
 
           <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
             <div className="min-w-0">
@@ -238,29 +239,17 @@ export function Metar() {
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {/* El video de este módulo todavía no existe. El hueco NO se
-                    quita: guarda la caja exacta de la tarjeta de NOTAM, así que
-                    el día que haya video se pone <VideoIntro> aquí. */}
-                <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
-                  <EspacioReservado
-                    etiqueta="Video 16:9"
-                    className="h-[52px] w-[92px] shrink-0 rounded-[8px]"
-                  />
-                  <div className="min-w-0">
-                    <div
-                      className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: "var(--av-mt-500)" }}
-                    >
-                      Empieza por aquí
-                    </div>
-                    <div className="mt-1 text-[15px] font-semibold leading-[1.35] text-white/70">
-                      Introducción al módulo
-                    </div>
-                    <div className="mt-1 text-[12px] text-white/45">
-                      [VIDEO · 16:9 · ESPACIO RESERVADO]
-                    </div>
-                  </div>
-                </div>
+                <VideoIntro
+                  src="/modulos/meteorologia/intro.mp4"
+                  miniatura="/modulos/meteorologia/intro-poster.webp"
+                  portada="/modulos/meteorologia/intro-poster.webp"
+                  duracion="58 s"
+                  titulo="Introducción al módulo de Meteorología"
+                  continuarA="/app/aerolinea/meteorologia/aprende"
+                  continuarTexto="Empezar la lección"
+                  claveVisto="av:visto:intro:meteorologia"
+                  acento="var(--av-mt-700)"
+                />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link

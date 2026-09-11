@@ -447,8 +447,15 @@ export const METAR_EXERCISES = ejerciciosRaw.ejercicios as MetarExercise[]
 export const claveEjercicioMetar = (id: number) => `ex-${id}`
 export const METAR_EXERCISE_META = ejerciciosRaw.meta
 export const METAR_EXAM_META = examenRaw.meta
-/** Preguntas de la evaluación. El banco vive en el servidor (contenido/bancos/metar_evaluacion.json). */
+/** Tamaño del banco, que vive en el servidor (contenido/bancos/metar_evaluacion.json). */
 export const METAR_EXAM_TOTAL = METAR_EXAM_META.total as number
+
+/**
+ * Cuántas preguntas ve el alumno EN UN INTENTO, que es lo que hay que decirle
+ * en pantalla. El servidor saca esa muestra al azar del banco entero, así que
+ * no coincide con METAR_EXAM_TOTAL. Es el gemelo de EXAM_PER_ATTEMPT de NOTAM.
+ */
+export const METAR_EXAM_PER_ATTEMPT = METAR_EXAM_META.por_intento as number
 
 export const METAR_EXAM_PASS_SCORE = METAR_EXAM_META.calificacion.aprobacion as number
 export const METAR_EXAM_POINTS = METAR_EXAM_META.calificacion.puntaje_por_pregunta as number

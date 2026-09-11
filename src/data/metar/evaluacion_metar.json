@@ -1,15 +1,16 @@
 {
   "meta": {
-    "proposito": "Evaluación de cierre del tema METAR: 20 preguntas de opción múltiple con explicación y referencia por pregunta. Misma mecánica y mismo puntaje de aprobación que la evaluación de NOTAM.",
+    "proposito": "Evaluación de cierre del módulo de Meteorología. Banco de 104 preguntas de opción múltiple que cubre los seis niveles; cada intento toma 25 al azar y baraja también las opciones. Misma mecánica y mismo puntaje de aprobación que la evaluación de NOTAM.",
     "aviso_en_pantalla": "Preguntas de práctica redactadas para Aviatory. No son preguntas oficiales de la Aerocivil ni de la OACI, ni de ningún proceso de selección de aerolínea.",
     "calificacion": {
-      "puntaje_por_pregunta": 5,
+      "puntaje_por_pregunta": 4,
+      "total": 100,
       "aprobacion": 80,
-      "nota": "20 preguntas de 5 puntos cada una. Se aprueba con 80 sobre 100, es decir 16 aciertos."
+      "nota": "25 preguntas de 4 puntos cada una. Se aprueba con 80 sobre 100, es decir 20 aciertos."
     },
     "referencias": "OACI, Anexo 3 (Servicio meteorológico para la navegación aérea internacional) y OMM, Manual de claves No. 306, más la bibliografía de curso citada en la lección.",
-    "total": 20,
-    "por_intento": 20,
+    "total": 104,
+    "por_intento": 25,
     "banco": "Las preguntas están en contenido/bancos/ y se cargan en la base con scripts/bancos/sembrar.mjs."
   }
 }

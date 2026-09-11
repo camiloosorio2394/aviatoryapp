@@ -24,7 +24,7 @@
       container-type: size;
       --mt-ink: #16191d;
       --mt-cream: #fbfaf8;
-      --mt-accent: #0d4b52;
+      --mt-accent: #1a4a52;
     }
 
     .mt06-ground {
@@ -54,7 +54,10 @@
       white-space: pre;
     }
 
-    /* el código original, pequeño y atenuado: de dónde salió la línea */
+    /* el código original, pequeño y atenuado: de dónde salió la línea.
+       El alfa es 0.50 y no 0.38: a 0.38 el texto asentado daba 2,38:1 contra
+       el papel, por debajo del 3:1 que pide WCAG para texto grande. A 0.50
+       da 3,34:1 y sigue leyéndose como un recordatorio, no como la línea. */
     .mt06-origen {
       position: absolute;
       left: 0;
@@ -66,7 +69,7 @@
       font-size: 26px;
       line-height: 32px;
       letter-spacing: 0.04em;
-      color: rgba(22, 25, 29, 0.38);
+      color: rgba(22, 25, 29, 0.5);
       white-space: pre;
       opacity: 0;
     }
@@ -148,10 +151,10 @@
     }
   </style>
 
-  <div id="root" data-composition-id="06-codigo" data-start="0" data-duration="6.867" data-width="1920" data-height="1080">
-    <div id="mt06-suelo-papel" class="clip mt06-ground" data-start="0" data-duration="6.867" data-track-index="0"></div>
+  <div id="root" data-composition-id="06-codigo" data-start="0" data-duration="7.787" data-width="1920" data-height="1080">
+    <div id="mt06-suelo-papel" class="clip mt06-ground" data-start="0" data-duration="7.787" data-track-index="0"></div>
 
-    <div id="mt06-escena" class="clip" data-start="0" data-duration="6.867" data-track-index="1" style="position:absolute; inset:0;">
+    <div id="mt06-escena" class="clip" data-start="0" data-duration="7.787" data-track-index="1" style="position:absolute; inset:0;">
       <div class="mt06-hair"></div>
       <div class="mt06-kicker">Parte 4 · Los servicios y el código</div>
 
@@ -173,24 +176,25 @@
         return ROOT.querySelector(s);
       };
 
-      var D = 6.367;
+      var D = 7.287;
       var tl = gsap.timeline({ paused: true });
 
-      /* Cues estimados sobre la ventana de voz de 5.167s. Re-cuear con
-         audio_engine_meta.json cuando exista la locución. */
+      /* Cues re-escalados a la ventana de voz real de 6.087s
+         (audio_engine_meta.json). Se escaló la POSICIÓN de cada cue, no la
+         duración de cada movimiento. */
 
       /* ── Escena 1 (0.0–1.2s) ──────────────────────────────────────────────
          Papel. La línea entra en mono, centrada, ~72% del ancho. */
       tl.fromTo(q(".mt06-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt06-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.08);
-      tl.fromTo(q(".mt06-linea"), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.66, ease: "power3.out" }, 0.2);
+      tl.fromTo(q(".mt06-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.094);
+      tl.fromTo(q(".mt06-linea"), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.66, ease: "power3.out" }, 0.236);
 
       /* ── Escena 2 (1.2–3.6s) ──────────────────────────────────────────────
          Sustitución en el sitio, token por token y POR CORTE DURO. Nada de
          fundido: la duración de 0.001s es un corte que además sigue siendo
          seek-safe en los dos sentidos, que es lo que un fotograma buscado
          necesita. El cambio en sí es el movimiento; la línea no se desplaza. */
-      var CUE = [1.3, 1.75, 2.2, 2.65, 3.1];
+      var CUE = [1.531, 2.062, 2.592, 3.122, 3.652];
       [1, 2, 3, 4, 5].forEach(function (n, i) {
         var tok = q('[data-tok="' + n + '"]');
         tl.fromTo(tok.querySelector(".mt06-code"), { opacity: 1 }, { opacity: 0, duration: 0.001, ease: "none" }, CUE[i]);
@@ -201,9 +205,9 @@
          Queda leyéndose en Archivo. Encima, pequeño y atenuado, el código
          original como recordatorio de dónde salió, y la única línea de acento
          se dibuja desde el centro. Después, quietud. */
-      tl.fromTo(q(".mt06-origen"), { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.58, ease: "power2.out" }, 3.62);
-      tl.fromTo(q(".mt06-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 3.9);
-      tl.to(q(".mt06-progress"), { opacity: 1, duration: 0.48, ease: "power2.out" }, 4.4);
+      tl.fromTo(q(".mt06-origen"), { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.58, ease: "power2.out" }, 4.265);
+      tl.fromTo(q(".mt06-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 4.594);
+      tl.to(q(".mt06-progress"), { opacity: 1, duration: 0.48, ease: "power2.out" }, 5.183);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};

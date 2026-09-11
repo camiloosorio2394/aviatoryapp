@@ -24,8 +24,8 @@
       container-type: size;
       --mt-ink: #16191d;
       --mt-cream: #fbfaf8;
-      --mt-tile: #e5f3f5;
-      --mt-accent: #0d4b52;
+      --mt-tile: #e4eff1;
+      --mt-accent: #1a4a52;
     }
 
     .mt04-ground {
@@ -133,10 +133,10 @@
     }
   </style>
 
-  <div id="root" data-composition-id="04-agua" data-start="0" data-duration="6.117" data-width="1920" data-height="1080">
-    <div id="mt04-suelo-papel" class="clip mt04-ground" data-start="0" data-duration="6.117" data-track-index="0"></div>
+  <div id="root" data-composition-id="04-agua" data-start="0" data-duration="6.816" data-width="1920" data-height="1080">
+    <div id="mt04-suelo-papel" class="clip mt04-ground" data-start="0" data-duration="6.816" data-track-index="0"></div>
 
-    <div id="mt04-escena" class="clip" data-start="0" data-duration="6.117" data-track-index="1" style="position:absolute; inset:0;">
+    <div id="mt04-escena" class="clip" data-start="0" data-duration="6.816" data-track-index="1" style="position:absolute; inset:0;">
       <div class="mt04-hair"></div>
       <div class="mt04-kicker">Parte 2 · El agua en el aire</div>
 
@@ -174,7 +174,7 @@
         return ROOT.querySelector(s);
       };
 
-      var D = 6.117;
+      var D = 6.816;
       var tl = gsap.timeline({ paused: true });
 
       /* Cues estimados sobre la ventana de voz de 4.833s. La voz nombra tres
@@ -184,10 +184,10 @@
          Re-cuear con audio_engine_meta.json cuando exista la locución. */
 
       tl.fromTo(q(".mt04-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt04-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.08);
+      tl.fromTo(q(".mt04-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.093);
 
       /* Escenas 1 a 4 — una ficha por cue, entrando desde abajo. Un gesto. */
-      var CUE = [0.32, 1.0, 1.9, 2.8];
+      var CUE = [0.372, 1.162, 2.208, 3.254];
       ["1", "2", "3", "4"].forEach(function (n, i) {
         var card = q(".mt04-c" + n);
         tl.fromTo(card, { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.56, ease: "power3.out" }, CUE[i]);
@@ -195,7 +195,7 @@
       });
 
       /* Escena 5 (3.7–4.9s) — las cuatro asentadas, pesos iguales. Quietud. */
-      tl.fromTo(q(".mt04-progress"), { opacity: 0 }, { opacity: 1, duration: 0.48, ease: "power2.out" }, 3.7);
+      tl.fromTo(q(".mt04-progress"), { opacity: 0 }, { opacity: 1, duration: 0.48, ease: "power2.out" }, 4.299);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};

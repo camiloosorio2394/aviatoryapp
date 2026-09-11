@@ -77,7 +77,7 @@ larga, así que baja de la rampa `display-cover` a una que quepa sin romper la m
 
 Scene 1 (0.0–1.0s): navy `#14202E` a sangre con una retícula hairline apenas visible (background, 3 capas de profundidad). El rótulo mono `INGRESO A AEROLÍNEA · MÓDULO 3` entra en el tercio superior con revelado por palabra. Framing centrado.
 Scene 2 (1.0–2.4s): **METEOROLOGÍA** entra desde abajo en Archivo sobre papel, resolviéndose desde desenfoque, ~72% del ancho. Escalonado por letra, curva larga.
-Scene 3 (2.4–3.8s): una hairline en acento `#49939C` se dibuja bajo la palabra de izquierda a derecha y queda. Todo se detiene: lectura sostenida, sin deriva de cámara.
+Scene 3 (2.4–3.8s): una hairline en acento `#3D97A6` se dibuja bajo la palabra de izquierda a derecha y queda. Todo se detiene: lectura sostenida, sin deriva de cámara.
 
 ## Frame 2 — El pronóstico que ya lo dice todo
 
@@ -235,7 +235,7 @@ Scene 3 (2.8–4.3s): una hairline en acento se dibuja bajo la línea, se sostie
 **Tono.** Documental, no promocional. El video imita el mismo documento que el alumno va a
 leer dentro del lector: papel `#FBFAF8`, tinta `#16191D`, superficie de código navy
 `#14202E`, y el turquesa petróleo del módulo reservado como voltaje escaso, nunca como
-relleno. Sobre papel el acento es `#0D4B52`; sobre navy, `#49939C`, que es el mismo matiz
+relleno. Sobre papel el acento es `#1A4A52`; sobre navy, `#3D97A6`, que es el mismo matiz
 a más luminosidad porque el otro no se ve ahí. Titulares en Archivo; todo el código en
 monoespaciada.
 

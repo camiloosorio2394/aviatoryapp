@@ -23,8 +23,8 @@
       overflow: hidden;
       container-type: size;
       font-family: "JetBrains Mono", monospace;
-      --mt-accent: #49939c;
-      --mt-accent-paper: #0d4b52;
+      --mt-accent: #3d97a6;
+      --mt-accent-paper: #1a4a52;
     }
 
     .mt07-ground {
@@ -168,10 +168,10 @@
     }
   </style>
 
-  <div id="root" data-composition-id="07-tu-ventana" data-start="0" data-duration="6.683" data-width="1920" data-height="1080">
-    <div id="mt07-suelo-papel" class="clip mt07-ground" data-start="0" data-duration="6.683" data-track-index="0"></div>
+  <div id="root" data-composition-id="07-tu-ventana" data-start="0" data-duration="7.033" data-width="1920" data-height="1080">
+    <div id="mt07-suelo-papel" class="clip mt07-ground" data-start="0" data-duration="7.033" data-track-index="0"></div>
 
-    <div id="mt07-escena" class="clip" data-start="0" data-duration="6.683" data-track-index="1" style="position:absolute; inset:0;">
+    <div id="mt07-escena" class="clip" data-start="0" data-duration="7.033" data-track-index="1" style="position:absolute; inset:0;">
       <div class="mt07-label mt07-label-top">TAF SKXX · PRONÓSTICO DE AERÓDROMO</div>
       <div class="mt07-label mt07-label-arrival">Tu llegada · 0600Z</div>
       <div class="mt07-rule"></div>
@@ -201,11 +201,12 @@
         return Array.prototype.slice.call(ROOT.querySelectorAll(s));
       };
 
-      var D = 6.683;
+      var D = 7.033;
       var tl = gsap.timeline({ paused: true });
 
-      /* Cues estimados sobre la ventana de voz de 5.083s. Re-cuear con
-         audio_engine_meta.json cuando exista la locución. */
+      /* Cues re-escalados a la ventana de voz real de 5.433s
+         (audio_engine_meta.json). Se escaló la POSICIÓN de cada cue, no la
+         duración de cada movimiento. */
 
       /* ── Escena 1 (0.0–0.7s) ──────────────────────────────────────────────
          El fundido cruzado desde el frame 6 lo hace la transición de raíz. Aquí
@@ -231,17 +232,17 @@
          48px de padding + 4 cajas de 64 = 304px dentro del envoltorio.
          A la vez, la línea FM gana su marca de «ya vigente» y las otras cuatro
          caen a media tinta. Es un solo gesto, no dos acentos. */
-      tl.to(q(".mt07-band"), { y: 304, duration: 1.05, ease: "power3.out" }, 2.0);
-      tl.to(qa(".mt07-dim"), { color: "rgba(251,250,248,0.4)", duration: 0.9, ease: "power2.inOut" }, 2.25);
-      tl.to(q(".mt07-marca"), { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.75);
+      tl.to(q(".mt07-band"), { y: 304, duration: 1.05, ease: "power3.out" }, 2.138);
+      tl.to(qa(".mt07-dim"), { color: "rgba(251,250,248,0.4)", duration: 0.9, ease: "power2.inOut" }, 2.405);
+      tl.to(q(".mt07-marca"), { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.939);
 
       /* ── Escena 4 (3.2–5.1s) ──────────────────────────────────────────────
          Bajo el bloque entra en una línea lo que eso significa, y todo se
          detiene de golpe. Es el pago del video: de 5.1s al final del plano
          (6.683s) no hay un solo tween. Es la quietud más larga del montaje y
          cae justo después de la única frase que importa. */
-      tl.fromTo(q(".mt07-sentido-1"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.15);
-      tl.fromTo(q(".mt07-sentido-2"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.45);
+      tl.fromTo(q(".mt07-sentido-1"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.367);
+      tl.fromTo(q(".mt07-sentido-2"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.688);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};

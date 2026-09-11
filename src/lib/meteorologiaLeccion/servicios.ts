@@ -104,11 +104,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Muchas líneas aéreas tienen aeronaves equipadas con instrumentos que transmiten observaciones meteorológicas en vuelo por DataLink al despachador, que las difunde a las autoridades de pronóstico. Es decir: si vuelas para una compañía así, tu avión ya está reportando. Eso no sustituye tu PIREP de turbulencia o de engelamiento, que es un juicio y no una medición.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-S13-01 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Las cuatro fuentes de observación en un solo corte: la estación de superficie en un aeródromo, el globo de radiosonda subiendo con su escala de altura, el haz de radar barriendo una zona de precipitación y el satélite arriba. Sobre cada una, en una línea, qué mide y qué NO mide. En la del radar, destacado: «no ve nubes, ni techos, ni visibilidad».",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-s13-01-cuatro-fuentes.webp",
+        alt: "Las cuatro fuentes de observación en un corte: estación de superficie, radiosonda, radar y satélite, cada una con qué mide y qué no ve.",
+        ancho: 1600,
+        alto: 900,
         pie: "Cada fuente ve una cosa distinta, y ninguna lo ve todo.",
       },
       {
@@ -194,12 +194,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "En el formulario, los elementos 1 a 5 son información requerida, más al menos un fenómeno meteorológico encontrado. O sea: dónde, cuándo, a qué nivel, con qué avión, y qué te pasó. Lo demás suma. Un PIREP no se deja de mandar por no acordarse del formato completo.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-S14-01 · Tabla ilustrada · 3:4 · 1200×1600 · SVG",
-        descripcion:
-          "El formulario de PIREP con sus campos numerados en columna, y al lado de cada uno el trozo correspondiente del ejemplo real resaltado, para que se lea de arriba abajo como se rellena. Los cinco primeros campos marcados como obligatorios con un distintivo claro. Sustituye a la figura 12-8 del PHAK.",
-        alto: 460,
-        ratio: "3 / 4",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-s14-01-formulario-pirep.webp",
+        alt: "El formulario de PIREP con sus campos numerados en columna y, al lado de cada uno, el trozo correspondiente de un informe real. Los cinco primeros van marcados como obligatorios.",
+        ancho: 1200,
+        alto: 1600,
         anchoMax: 420,
         pie: "El formulario y un informe real, uno al lado del otro.",
       },
@@ -673,12 +672,11 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo, que está escrita para el hemisferio norte: el viento a 2.000 ft AGL está de 20° a 40° **a la derecha** del de superficie, es decir, girado en el sentido de las agujas del reloj, y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. **En el hemisferio sur el giro es al revés: a la izquierda.** Con viento de superficie del 180, a 2.000 ft esperas del 200 al 220 en el norte y del 140 al 160 en el sur. Sin información de vientos en altura, esa estimación te saca del apuro.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-S17-01 · Diagrama anotado · 4:3 · 1600×1200 · SVG",
-        descripcion:
-          "Un modelo de estación grande, dibujado con todos sus campos, y llamadas numeradas alrededor explicando cada uno: forma del modelo, cobertura del cielo, símbolos de nubes arriba y abajo, flecha de viento con púas y banderín, presión en tres dígitos y tendencia. Al lado, una miniatura de carta de superficie con isobaras juntas y separadas rotuladas «viento fuerte» y «viento suave». Sustituye a la figura 12-13 del PHAK.",
-        alto: 440,
-        ratio: "4 / 3",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-s17-01-modelo-de-estacion.webp",
+        alt: "Un modelo de estación dibujado grande con llamadas numeradas a cada campo, y debajo dos grupos de isobaras, separadas y juntas, rotulados con el viento que implican.",
+        ancho: 1600,
+        alto: 1200,
         anchoMax: 620,
         pie: "Todo lo que dice un solo punto de la carta.",
       },

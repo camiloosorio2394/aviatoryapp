@@ -14,9 +14,9 @@ principle: atoms are sacred · composition is free · numbers come from the scri
 colors:
   ink: "#16191D"
   cream: "#FBFAF8"
-  tile: "#E5F3F5"
+  tile: "#E4EFF1"
   tile-strong: "#14202E"
-  coral: "#0D4B52"
+  coral: "#1A4A52"
   navy: "#151618"
   navy-soft: "#1B1D1F"
   navy-elev: "#202225"
@@ -107,22 +107,22 @@ app cada módulo tiene el suyo:
 
 | | NOTAM | Meteorología |
 |---|---|---|
-| `coral` (el acento, una vez por frame) | `#123A6B` azul carta | **`#0D4B52` turquesa petróleo** |
-| `tile` (la superficie de medio paso) | `#DDE6F0` | **`#E5F3F5`** |
-| acento sobre navy | `#2E6FB8` | **`#49939C`** |
+| `coral` (el acento, una vez por frame) | `#123A6B` azul carta | **`#1A4A52` turquesa petróleo** |
+| `tile` (la superficie de medio paso) | `#DDE6F0` | **`#E4EFF1`** |
+| acento sobre navy | `#2E6FB8` | **`#3D97A6`** |
 
 Los tres salen de la app, no de una paleta nueva, y son el mismo matiz 205 a tres
 luminosidades. Comprobado convirtiendo los tokens oklch de `src/index.css` a sRGB:
 
 | token de la app | oklch | hex | uso en el video |
 |---|---|---|---|
-| `--av-mt-700` | `oklch(0.38 0.060 206)` | `#0D4B52` | el acento sobre papel (`--ln-primary`) |
-| `--av-mt-500` | `oklch(0.62 0.075 205)` | `#49939C` | el acento sobre navy (`--ln-focus`) |
-| `--ln-tint` | | `#E5F3F5` | la superficie `tile` de medio paso |
+| `--av-mt-700` | `oklch(0.38 0.060 206)` | `#1A4A52` | el acento sobre papel (`--ln-primary`) |
+| `--av-mt-500` | `oklch(0.62 0.075 205)` | `#3D97A6` | el acento sobre navy (`--ln-focus`) |
+| `--ln-tint` | | `#E4EFF1` | la superficie `tile` de medio paso |
 
-El acento del frontmatter es el de **papel**: ahí el `#0D4B52` da 9,4:1 contra el papel
+El acento del frontmatter es el de **papel**: ahí el `#1A4A52` da 9,4:1 contra el papel
 `#FBFAF8`. Sobre el navy `#14202E` ese mismo hex se hunde a 1,7:1 y no se ve, así que en
-los planos de navy va el `#49939C`, que es el mismo matiz subido de luminosidad y da
+los planos de navy va el `#3D97A6`, que es el mismo matiz subido de luminosidad y da
 4,7:1. No es un color nuevo y no rompe la regla: sigue siendo **un solo momento de acento
 por frame**.
 

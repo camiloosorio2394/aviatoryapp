@@ -35,10 +35,10 @@
       /* átomos de frame.md */
       --mt-navy: #14202e;
       --mt-cream: #fbfaf8;
-      /* el acento del módulo (#0D4B52, --av-mt-700) no se ve sobre navy: 1,7:1.
-         Sobre navy va el mismo matiz a más luminosidad (#49939C, --av-mt-500),
+      /* el acento del módulo (#1A4A52, --av-mt-700) no se ve sobre navy: 1,7:1.
+         Sobre navy va el mismo matiz a más luminosidad (#3D97A6, --av-mt-500),
          que da 4,7:1. UN solo momento de acento. */
-      --mt-accent: #49939c;
+      --mt-accent: #3d97a6;
     }
 
     /* ── background: campo navy + retícula hairline, 3 capas de profundidad ──── */
@@ -145,15 +145,15 @@
     }
   </style>
 
-  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.783" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.279" data-width="1920" data-height="1080">
     <!-- fondo a sangre: capa propia con class="clip", duración completa -->
-    <div id="mt01-fondo-navy" class="clip mt01-bg" data-start="0" data-duration="5.783" data-track-index="0">
+    <div id="mt01-fondo-navy" class="clip mt01-bg" data-start="0" data-duration="5.279" data-track-index="0">
       <div class="mt01-depth mt01-pool"></div>
       <div class="mt01-depth mt01-grid-coarse"></div>
       <div class="mt01-depth mt01-grid-fine"></div>
     </div>
 
-    <div id="mt01-escena" class="clip mt01-stage" data-start="0" data-duration="5.783" data-track-index="1">
+    <div id="mt01-escena" class="clip mt01-stage" data-start="0" data-duration="5.279" data-track-index="1">
       <div class="mt01-kicker">
         <span class="mt01-tick"></span>
         <span class="mt01-kw">INGRESO</span>
@@ -185,7 +185,7 @@
         return Array.prototype.slice.call(root.querySelectorAll(s));
       };
 
-      var D = 5.283;
+      var D = 4.779;
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
@@ -194,10 +194,10 @@
       // de profundidad se asientan: pozo de luz, retícula gruesa, retícula fina.
       tl.fromTo(q(".mt01-pool"), { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0);
       tl.fromTo(q(".mt01-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.06);
+      tl.fromTo(q(".mt01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.053);
 
       // rótulo mono — revelado por palabra en el tercio superior
-      tl.fromTo(q(".mt01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.12);
+      tl.fromTo(q(".mt01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.105);
       tl.fromTo(
         qa(".mt01-kw"),
         { opacity: 0, y: 16 },
@@ -228,7 +228,7 @@
       // La hairline de acento se dibuja bajo la palabra de izquierda a derecha y
       // queda. Después, quietud: lectura sostenida, sin deriva de cámara y sin
       // salida (la transición de raíz es la salida).
-      tl.fromTo(q(".mt01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 2.4);
+      tl.fromTo(q(".mt01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 2.104);
 
       // ancla de duración completa
       tl.to({}, { duration: D }, 0);

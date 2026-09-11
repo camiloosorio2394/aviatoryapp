@@ -24,7 +24,7 @@
       container-type: size;
       --mt-navy: #14202e;
       --mt-cream: #fbfaf8;
-      --mt-accent: #49939c;
+      --mt-accent: #3d97a6;
     }
 
     .mt08-bg {
@@ -113,14 +113,14 @@
     }
   </style>
 
-  <div id="root" data-composition-id="08-empecemos" data-start="0" data-duration="5.533" data-width="1920" data-height="1080">
-    <div id="mt08-fondo-navy" class="clip mt08-bg" data-start="0" data-duration="5.533" data-track-index="0">
+  <div id="root" data-composition-id="08-empecemos" data-start="0" data-duration="6.398" data-width="1920" data-height="1080">
+    <div id="mt08-fondo-navy" class="clip mt08-bg" data-start="0" data-duration="6.398" data-track-index="0">
       <div class="mt08-depth mt08-pool"></div>
       <div class="mt08-depth mt08-grid-coarse"></div>
       <div class="mt08-depth mt08-grid-fine"></div>
     </div>
 
-    <div id="mt08-escena" class="clip mt08-stage" data-start="0" data-duration="5.533" data-track-index="1">
+    <div id="mt08-escena" class="clip mt08-stage" data-start="0" data-duration="6.398" data-track-index="1">
       <div class="mt08-marca">AVIATORY</div>
       <div class="mt08-promesa">
         <span class="mt08-pw">30</span>
@@ -133,7 +133,7 @@
       <div class="mt08-rule"></div>
     </div>
 
-    <div id="mt08-salida-a-negro" class="clip mt08-salida" data-start="0" data-duration="5.533" data-track-index="2"></div>
+    <div id="mt08-salida-a-negro" class="clip mt08-salida" data-start="0" data-duration="6.398" data-track-index="2"></div>
   </div>
 
   <script>
@@ -148,11 +148,12 @@
         return Array.prototype.slice.call(ROOT.querySelectorAll(s));
       };
 
-      var D = 5.533;
+      var D = 6.398;
       var tl = gsap.timeline({ paused: true });
 
-      /* Cues estimados sobre la ventana de voz de 4.333s. Re-cuear con
-         audio_engine_meta.json cuando exista la locución. */
+      /* Cues re-escalados a la ventana de voz real de 5.198s
+         (audio_engine_meta.json). Se escaló la POSICIÓN de cada cue, no la
+         duración de cada movimiento. */
 
       /* ── Escena 1 (0.0–1.2s) ──────────────────────────────────────────────
          Corte a navy. AVIATORY se resuelve desde el desenfoque y se asienta en
@@ -160,7 +161,7 @@
          va con el tono documental del resto. */
       tl.fromTo(q(".mt08-pool"), { opacity: 0.4 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
       tl.fromTo(q(".mt08-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt08-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.85, ease: "power2.out" }, 0.06);
+      tl.fromTo(q(".mt08-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.85, ease: "power2.out" }, 0.072);
       tl.fromTo(
         q(".mt08-marca"),
         { opacity: 0, scale: 0.965, "--dof": "20px" },
@@ -182,8 +183,8 @@
          La hairline de acento se dibuja bajo la línea desde el centro, se
          sostiene, y el cuadro cae a negro suave sobre «Empecemos». Es el único
          plano del video con salida propia. */
-      tl.fromTo(q(".mt08-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.inOut" }, 2.8);
-      tl.to(q(".mt08-salida"), { opacity: 1, duration: 1.0, ease: "power2.in" }, 4.35);
+      tl.fromTo(q(".mt08-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.inOut" }, 3.359);
+      tl.to(q(".mt08-salida"), { opacity: 1, duration: 1.0, ease: "power2.in" }, 5.218);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};
