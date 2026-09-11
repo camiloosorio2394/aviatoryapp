@@ -1,6 +1,6 @@
 {
   "meta": {
-    "proposito": "Modo práctica del tema METAR: el piloto lee el informe, lo interpreta con sus palabras y solo después compara con la respuesta modelo. Misma mecánica que la práctica de NOTAM.",
+    "proposito": "Modo práctica del módulo de Meteorología: el piloto lee el informe, lo interpreta con sus palabras y solo después compara con la respuesta modelo. Cubre los seis niveles, así que el informe puede ser un METAR, un TAF, un SIGMET o un AIRMET, un PIREP, un pronóstico de vientos en altura, un pronóstico de área o un modelo de estación. Misma mecánica que la práctica de NOTAM.",
     "fuente": "Informes redactados para Aviatory con formato real de la clave OACI/OMM, sobre aeródromos colombianos. Verificados contra el Anexo 3 de la OACI y el Manual de claves No. 306 de la OMM.",
     "aviso_obligatorio_en_pantalla": "Informes de práctica redactados para Aviatory con formato real: NO son observaciones vigentes y jamás deben usarse para operar. Consulta siempre el METAR oficial del servicio meteorológico.",
     "criterios_rubrica_default": {
@@ -217,6 +217,1205 @@
       "errores_tipicos": [
         "Leer los 3 km como el problema principal e ignorar el VA",
         "Tratarlo como bruma o humo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 11,
+      "nivel": "intermedio",
+      "titulo": "Niebla de radiación en La Nubia",
+      "metar": "METAR SKMZ 260630Z 00000KT 0300 FG VV001 11/11 Q1023 BECMG 0810 3000 BR",
+      "consigna": "Di qué tipo de niebla es por lo que ves en el propio informe, y cuándo esperas poder entrar.",
+      "respuesta_modelo": "La Nubia (SKMZ), en Manizales, día 26 a las 06:30 UTC, o sea la 01:30 de Colombia. Viento en calma, visibilidad 300 m con niebla, y visibilidad vertical de 100 ft porque no se distingue ninguna capa. Temperatura y rocío iguales a 11, saturación total. QNH 1023. Es niebla de radiación: calma total, saturación y hora de madrugada son su firma. Se forma cuando el suelo se enfría de noche y enfría el aire pegado a él. La buena noticia es que esa niebla se quema con el sol o se levanta si entra viento, y el BECMG 0810 lo confirma: entre las 08:00 y las 10:00 UTC, que son las 03:00 a 05:00 locales, mejora a 3 km con neblina. Aun así 3 km y el amanecer todavía lejos obligan a mirar los mínimos y a llevar alterno.",
+      "puntos_clave": [
+        "Calma, saturación y madrugada: niebla de radiación",
+        "VV001 es visibilidad vertical, no una capa de nubes",
+        "T y Td iguales: aire saturado",
+        "BECMG 0810 anuncia mejora a 3000 m con BR",
+        "La de radiación sí se quema con el sol"
+      ],
+      "errores_tipicos": [
+        "Leer VV001 como nubes a 100 ft",
+        "Confundirla con niebla de advección, que no se quema con el sol"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 12,
+      "nivel": "avanzado",
+      "titulo": "Niebla que no se va a quemar",
+      "metar": "METAR SKSM 141300Z 02012KT 0800 FG SCT002 BKN006 26/26 Q1011 NOSIG",
+      "consigna": "Son las ocho de la mañana y hay niebla con viento. Explica por qué esto no es lo mismo que la niebla de madrugada, y qué implica para la espera.",
+      "respuesta_modelo": "Simón Bolívar (SKSM), en Santa Marta, día 14 a las 13:00 UTC, o sea las 08:00 de Colombia. Viento del noreste a 12 nudos, visibilidad 800 m con niebla, dispersas a 200 ft y fragmentadas a 600 ft, que es el techo. Temperatura y rocío iguales a 26. QNH 1011. Con 12 nudos de viento y a plena mañana esto no es niebla de radiación: es de advección, aire cálido y húmedo del mar moviéndose sobre una superficie más fría. Se forma y se mantiene precisamente con viento de hasta unos 15 nudos, y no se quema con el sol: puede durar horas o días hasta que cambie el viento. El NOSIG dice que en las próximas dos horas no se espera cambio significativo. Operacionalmente, esperar no es plan: o hay mínimos para entrar ahora o se va al alterno, y el alterno tiene que estar fuera de esa masa de aire.",
+      "puntos_clave": [
+        "Viento de 12 kt con niebla: advección, no radiación",
+        "La de advección NO se quema con el sol",
+        "Hasta unos 15 kt se forma e intensifica; por encima se eleva a estratos",
+        "NOSIG: sin cambio significativo en dos horas",
+        "El alterno no puede compartir la misma masa de aire"
+      ],
+      "errores_tipicos": [
+        "Suponer que con el sol mejorará",
+        "Elegir un alterno costero cercano con el mismo aire"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 13,
+      "nivel": "intermedio",
+      "titulo": "Separación que se cierra",
+      "metar": "METAR SKPE 232330Z 09003KT 9999 FEW025 19/17 Q1019 NOSIG",
+      "consigna": "El informe parece bueno. Di qué número te haría vigilarlo y por qué.",
+      "respuesta_modelo": "Matecaña (SKPE), en Pereira, día 23 a las 23:30 UTC, o sea las 18:30 de Colombia. Viento del este a 3 nudos, visibilidad de 10 km o más, escasas a 2500 ft. QNH 1019. A primera vista es buen tiempo: no hay techo y la visibilidad es ilimitada. Lo que hay que vigilar es la separación entre temperatura y punto de rocío: 19 y 17, solo dos grados. Con el atardecer encima y viento casi en calma, basta que la temperatura baje dos grados para llegar a saturación, y ahí aparecen niebla o estratos bajos. Es exactamente la receta de la niebla de radiación. Si mi llegada es de noche, este informe me dice que el bueno de ahora puede no ser el de dentro de tres horas: conviene mirar el TAF y llevar alterno.",
+      "puntos_clave": [
+        "T 19 / Td 17: dos grados de separación",
+        "Poca separación al atardecer con calma anticipa niebla",
+        "FEW no hace techo; el informe actual es VFR",
+        "La amenaza no está en el informe, está en la tendencia"
+      ],
+      "errores_tipicos": [
+        "Quedarse con el 9999 y no mirar la separación",
+        "Creer que NOSIG cubre toda la noche: son dos horas"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 14,
+      "nivel": "avanzado",
+      "titulo": "Engelamiento que no se ve en el informe",
+      "metar": "METAR SKBO 080200Z 36006KT 8000 -RA OVC015 02/02 Q1024 NOSIG",
+      "consigna": "Nada en este informe dice «hielo». Explica por qué es un informe de engelamiento.",
+      "respuesta_modelo": "El Dorado (SKBO), día 8 a las 02:00 UTC, o sea las 21:00 del día 7 en Colombia. Viento del norte a 6 nudos, visibilidad 8 km con lluvia débil, cubierto a 1500 ft. Temperatura 2 y rocío 2, QNH 1024. No hay ningún código de hielo, y sin embargo están los tres ingredientes: agua líquida presente, que es la lluvia; nube cubierta con base baja, que es dónde está esa agua; y temperatura de 2 grados en superficie, que a 1500 ft por encima ya está por debajo de cero. Eso es agua superenfriada en la capa, y es engelamiento en ascenso o en aproximación. El riesgo no se lee en un grupo, se deduce de temperatura más humedad más nube. La decisión es mirar el nivel de congelación, planear el ascenso para atravesar la capa rápido y no quedarse en ella.",
+      "puntos_clave": [
+        "No hay código de hielo: se deduce",
+        "Lluvia + nube baja + 2 °C en superficie = agua superenfriada arriba",
+        "OVC015 es techo de 1500 ft",
+        "El riesgo está en la capa, no en la pista",
+        "Atravesar la capa rápido, no permanecer en ella"
+      ],
+      "errores_tipicos": [
+        "Buscar un grupo tipo FZRA y concluir que no hay riesgo",
+        "Ignorar que la temperatura cae con la altura"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 15,
+      "nivel": "avanzado",
+      "titulo": "Lluvia engelante en la pista",
+      "metar": "METAR SKBG 121100Z 07008KT 3000 FZRA BKN008 OVC020 01/00 Q1022 TEMPO 1214 1500 FZRA",
+      "consigna": "Identifica el grupo más peligroso y di qué haces con la aeronave antes y después.",
+      "respuesta_modelo": "Palonegro (SKBG), en Bucaramanga, día 12 a las 11:00 UTC, o sea las 06:00 de Colombia. Viento del este a 8 nudos, visibilidad 3 km. El grupo que manda es FZRA: lluvia engelante, es decir, gotas líquidas que se congelan al tocar la superficie. Fragmentadas a 800 ft, que es el techo, y cubierto a 2000 ft. Temperatura 1 y rocío 0, QNH 1022. El TEMPO 1214 dice que entre las 11:00 y las 14:00 puede bajar a 1500 m con la misma lluvia engelante. Esto es de lo peor que hay: el hielo se acumula rápido y liso sobre el ala, y también sobre la pista. Antes de volar, la aeronave tiene que quedar completamente limpia, y si no hay deshielo adecuado no se sale. Después de despegar, el problema sigue en la capa. La decisión razonable es no operar hasta que el FZRA se vaya.",
+      "puntos_clave": [
+        "FZRA: FZ es engelante y RA lluvia",
+        "Temperatura de 1 con rocío 0: la gota se congela al impactar",
+        "BKN008 es el techo, 800 ft",
+        "TEMPO 1214 dice que empeora, no que mejora",
+        "Sin deshielo adecuado, no se despega"
+      ],
+      "errores_tipicos": [
+        "Leer FZ como niebla (eso es FG)",
+        "Pensar que basta con esperar a que suba un grado"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 16,
+      "nivel": "intermedio",
+      "titulo": "Inversión sobre la sabana",
+      "metar": "METAR SKBO 121130Z 00000KT 2500 HZ FU NSC 08/07 Q1026 NOSIG",
+      "consigna": "No hay nubes y sin embargo la visibilidad es mala. Explica la causa y cuándo esperas que mejore.",
+      "respuesta_modelo": "El Dorado (SKBO), día 12 a las 11:30 UTC, o sea las 06:30 de Colombia. Viento en calma, visibilidad 2500 m con calima (HZ) y humo (FU). NSC quiere decir que no hay nubes significativas: no hay techo. Temperatura 8 y rocío 7, QNH 1026. La causa es una inversión de superficie: en madrugada el suelo se enfría, el aire pegado a él queda más frío que el de arriba, y esa capa estable actúa como tapa. El humo, el polvo y las partículas no pueden ascender y se acumulan debajo, y eso es lo que restringe la visibilidad. No hay nubes porque no hay ascenso. Mejora cuando el sol caliente el suelo y rompa la inversión, típicamente avanzada la mañana. Mientras tanto, VFR marginal por visibilidad aunque el cielo esté limpio.",
+      "puntos_clave": [
+        "HZ calima y FU humo, no niebla",
+        "NSC: sin nubes significativas, no hay techo",
+        "Inversión de superficie: la tapa atrapa las partículas",
+        "Sin ascenso no hay nubes, pero sí mala visibilidad",
+        "Rompe con el calentamiento de la mañana"
+      ],
+      "errores_tipicos": [
+        "Leer NSC como cielo despejado y concluir VFR sin mirar la visibilidad",
+        "Confundir HZ con BR: la neblina es de agua, la calima de partículas"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 17,
+      "nivel": "avanzado",
+      "titulo": "El frente frío que ya pasó",
+      "metar": "METAR SKCC 181500Z 28018G28KT 9999 FEW025 SCT100 21/09 Q1018 NOSIG",
+      "consigna": "Compáralo con lo que había hace dos horas: 12008KT 4000 TSRA BKN010CB 25/23. Di qué pasó.",
+      "respuesta_modelo": "Camilo Daza (SKCC), en Cúcuta, día 18 a las 15:00 UTC, o sea las 10:00 de Colombia. Ahora: viento del oeste a 18 con ráfagas de 28, visibilidad de 10 km o más, escasas a 2500 ft y dispersas a 10 000 ft. Temperatura 21 y rocío 9, QNH 1018. Hace dos horas había viento del sureste flojo, 4 km con tormenta y lluvia, y fragmentadas a 1000 ft con cumulonimbos, con 25 y 23. Lo que pasó es un frente frío. Las tres firmas están: el viento roló bruscamente del sureste al oeste y arreció con ráfagas, la temperatura cayó cuatro grados, y sobre todo la separación entre temperatura y rocío se abrió de dos grados a doce, que es aire mucho más seco. La tormenta y el techo bajo se fueron con el frente. Es la mejora rápida típica del frente frío, al contrario del cálido, que tarda días.",
+      "puntos_clave": [
+        "Roleo brusco del viento: firma del paso frontal",
+        "Caída de temperatura y apertura de la separación T/Td",
+        "Aire seco detrás: visibilidad ilimitada",
+        "Las ráfagas de 28 kt siguen siendo operativas",
+        "El frente frío mejora rápido; el cálido, lentamente"
+      ],
+      "errores_tipicos": [
+        "Leer solo el 9999 y dar por buena la situación sin mirar las ráfagas",
+        "Atribuir la mejora al paso del tiempo y no al frente"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 18,
+      "nivel": "intermedio",
+      "titulo": "Frente cálido acercándose",
+      "metar": "METAR SKVV 091200Z 08006KT 6000 -DZ OVC009 22/21 Q1010 BECMG 1416 3000 RA BKN005",
+      "consigna": "Di qué tipo de frente anuncia este informe y qué esperas en las próximas horas.",
+      "respuesta_modelo": "Vanguardia (SKVV), en Villavicencio, día 9 a las 12:00 UTC, o sea las 07:00 de Colombia. Viento del este a 6 nudos, visibilidad 6 km con llovizna, cubierto a 900 ft. Temperatura 22 y rocío 21, un grado de separación. QNH 1010, que es bajo. El cuadro es de frente cálido: llovizna, nubosidad estratiforme cubierta y baja, aire casi saturado y presión baja. El frente cálido tiene pendiente tendida, así que el deterioro llega despacio y con horas de aviso, pero también se queda. El BECMG 1416 lo confirma: entre las 14:00 y las 16:00 empeora a 3 km con lluvia y techo de 500 ft. La decisión es que la ventana buena es ahora y se va a cerrar; si mi llegada cae después, necesito alterno fuera del sistema, y con un frente cálido eso suele significar lejos.",
+      "puntos_clave": [
+        "Llovizna (DZ) y estratiforme cubierta: firma de frente cálido",
+        "Separación de un grado: aire casi saturado",
+        "QNH bajo, coherente con sistema frontal",
+        "BECMG 1416 anuncia empeoramiento permanente",
+        "El frente cálido tarda días en pasar"
+      ],
+      "errores_tipicos": [
+        "Confundir DZ con RA: la llovizna es de gota fina y nube estratiforme",
+        "Suponer que un BECMG puede mejorar tanto como empeorar sin leerlo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 19,
+      "nivel": "avanzado",
+      "titulo": "Tormenta en desarrollo sobre Villavicencio",
+      "metar": "METAR SKVV 191900Z 16005KT 9999 FEW018TCU SCT025 30/23 Q1009 TEMPO 2022 3000 TSRA BKN012CB",
+      "consigna": "Ahora mismo el informe es bueno. Explica qué te dice el grupo con TCU y qué haces con tu llegada a las 21Z.",
+      "respuesta_modelo": "Vanguardia (SKVV), día 19 a las 19:00 UTC, o sea las 14:00 de Colombia. Viento del sureste a 5 nudos, visibilidad de 10 km o más. Escasas a 1800 ft, pero con TCU: cúmulos en torre, es decir, células ya creciendo. Dispersas a 2500 ft, temperatura 30 y rocío 23, QNH 1009 y bajando respecto de lo normal. Ese TCU es el aviso: calor, humedad alta y desarrollo vertical activo por la tarde en el piedemonte llanero. El TEMPO 2022 lo confirma: entre las 20:00 y las 22:00 puede caer a 3 km con tormenta y fragmentadas a 1200 ft con cumulonimbos. Mi llegada a las 21Z cae justo dentro. No planifico contando con que no pase: llevo alterno con condiciones holgadas y combustible para esperar, porque una célula así puede cerrar el campo media hora y luego abrir.",
+      "puntos_clave": [
+        "TCU = cumulus congestus, célula en crecimiento",
+        "30/23 con tarde llanera: combustible de tormenta",
+        "TEMPO 2022 cubre mi hora de llegada",
+        "Un TEMPO no se ignora aunque el informe actual sea bueno",
+        "La célula cierra y abre: hace falta combustible para esperar"
+      ],
+      "errores_tipicos": [
+        "Leer FEW018 y concluir buen tiempo sin ver el TCU",
+        "Tratar el TEMPO como poco probable"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 20,
+      "nivel": "avanzado",
+      "titulo": "El yunque no significa que se acabó",
+      "metar": "METAR SKNV 202030Z 22014G26KT 4000 TSRA BKN010CB OVC060 24/22 Q1008 TEMPO 2123 1500 +TSRA GR",
+      "consigna": "Un compañero dice que ya se ve el yunque, así que la tormenta está en disipación y se puede entrar. Corrígelo con el informe.",
+      "respuesta_modelo": "Benito Salas (SKNV), en Neiva, día 20 a las 20:30 UTC, o sea las 15:30 de Colombia. Viento del suroeste a 14 con ráfagas de 26, visibilidad 4 km con tormenta y lluvia, fragmentadas a 1000 ft con cumulonimbos y cubierto a 6000 ft. Temperatura 24 y rocío 22, QNH 1008. El TEMPO 2123 avisa de que puede caer a 1500 m con tormenta fuerte y granizo. Que se vea el yunque no dice que la célula esté acabando: el yunque aparece cuando la corriente ascendente llega a la tropopausa y se extiende, y eso es la etapa de madurez, que es precisamente la más violenta, con ascendentes y descendentes conviviendo. Además el granizo cae varios kilómetros fuera de la nube y el frente de ráfaga va por delante de la lluvia. Se rodea a por lo menos 20 millas náuticas, se vea yunque o no.",
+      "puntos_clave": [
+        "El yunque marca madurez, no disipación",
+        "La madurez es la etapa violenta: las dos corrientes a la vez",
+        "GR en el TEMPO: granizo",
+        "El granizo cae fuera de la nube",
+        "Rodear a 20 NM como mínimo"
+      ],
+      "errores_tipicos": [
+        "Leer el yunque como señal de que se está apagando",
+        "Medir la distancia de evitación por el eco de radar y no por el fenómeno"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 21,
+      "nivel": "intermedio",
+      "titulo": "Aire de montaña a mediodía",
+      "metar": "METAR SKAR 191700Z 27012KT 9999 FEW035 SCT070 28/13 Q1016 NOSIG",
+      "consigna": "El informe es bueno. Di qué esperas encontrar en vuelo y por qué, aunque no aparezca en ningún grupo.",
+      "respuesta_modelo": "El Edén (SKAR), en Armenia, día 19 a las 17:00 UTC, o sea las 12:00 de Colombia. Viento del oeste a 12 nudos, visibilidad de 10 km o más, escasas a 3500 ft y dispersas a 7000 ft. Temperatura 28 y rocío 13, quince grados de separación: aire seco. QNH 1016. Nada en los grupos habla de turbulencia, y aun así hay que esperarla. Son las doce del mediodía en terreno quebrado y con viento de 12 nudos cruzando las cordilleras: eso da corrientes de convección por calentamiento desparejo, y turbulencia mecánica a sotavento de las laderas. Volando bajo, el aire va con baches, y el lado de sotavento puede dar descendentes que empujan hacia la ladera. La decisión es volar con margen de altura sobre el terreno, evitar el sotavento cercano y no confiar en que un informe limpio signifique aire liso.",
+      "puntos_clave": [
+        "Turbulencia de convección no aparece en el METAR",
+        "Mediodía, terreno quebrado y 12 kt: receta de baches",
+        "Sotavento: descendentes que empujan contra la ladera",
+        "Quince grados de separación: aire seco, nubes altas",
+        "Un informe limpio no promete aire liso"
+      ],
+      "errores_tipicos": [
+        "Concluir vuelo cómodo porque hay 9999 y pocas nubes",
+        "Volar el sotavento cercano buscando abrigo del viento"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 22,
+      "nivel": "basico",
+      "titulo": "Brisa de mar en San Andrés",
+      "metar": "METAR SKSP 181800Z 09014KT 9999 FEW020 SCT120 31/25 Q1011 NOSIG",
+      "consigna": "Explica de dónde sale ese viento a esa hora y qué significa para la pista.",
+      "respuesta_modelo": "Sesquicentenario (SKSP), en San Andrés, día 18 a las 18:00 UTC, o sea las 13:00 de Colombia. Viento del este a 14 nudos, visibilidad de 10 km o más, escasas a 2000 ft y dispersas a 12 000 ft. Temperatura 31 y rocío 25, QNH 1011. A primera hora de la tarde en una isla, ese viento constante del mar es brisa marina: la tierra se calienta más rápido que el agua, el aire sobre ella sube y el aire más fresco del mar entra a reemplazarlo. Es un fenómeno local, diario y previsible, que aparece a media mañana y arrecia por la tarde. Para la pista significa un viento estable y conocido, que conviene tener en cuenta al elegir cabecera y para calcular componente cruzada. También significa que hacia el final de la tarde puede aflojar y rolar al apagarse el calentamiento.",
+      "puntos_clave": [
+        "Brisa marina: la tierra calienta más rápido que el agua",
+        "Aparece a media mañana y arrecia por la tarde",
+        "Es local y diaria, no un sistema",
+        "14 kt pide calcular componente cruzada",
+        "Afloja y rola al caer la tarde"
+      ],
+      "errores_tipicos": [
+        "Tratarla como viento sinóptico y esperar que se mantenga toda la noche",
+        "No calcular la componente cruzada por ser viento «de siempre»"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 23,
+      "nivel": "avanzado",
+      "titulo": "Altitud de densidad en Bogotá",
+      "metar": "METAR SKBO 151900Z 09008KT 9999 FEW030 22/06 Q1012 NOSIG",
+      "consigna": "El Dorado está a 8360 ft. Di qué le hace este informe a tu performance de despegue.",
+      "respuesta_modelo": "El Dorado (SKBO), día 15 a las 19:00 UTC, o sea las 14:00 de Colombia. Viento del este a 8 nudos, visibilidad de 10 km o más, escasas a 3000 ft. Temperatura 22 y rocío 6, QNH 1012. El informe no tiene ninguna amenaza de tiempo, y sin embargo condiciona el despegue. La elevación ya son 8360 ft, y con QNH 1012, un poco por debajo del estándar 1013, la altitud de presión queda algo por encima de la elevación. Encima, 22 grados es bastante más caliente que el estándar a esa altura. Las dos cosas juntas dan una altitud de densidad alta: aire fino. Eso alarga la carrera de despegue, baja el régimen de ascenso, alarga la distancia para franquear obstáculos y también alarga el aterrizaje. Hay que ir a la tabla de performance con la altitud de densidad real, no confiar en la sensación, y considerar despegar en las horas más frescas.",
+      "puntos_clave": [
+        "Elevación 8360 ft más QNH 1012 más 22 °C",
+        "Altitud de densidad: presión por la altura, densidad por el calor",
+        "Se alarga carrera, ascenso, franqueamiento y aterrizaje",
+        "El motor y la hélice también rinden menos",
+        "La decisión sale de la tabla, no de la sensación"
+      ],
+      "errores_tipicos": [
+        "Suponer que un informe sin fenómenos no condiciona nada",
+        "Confundir altitud de presión con altitud de densidad"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 24,
+      "nivel": "intermedio",
+      "titulo": "Base de nube calculada",
+      "metar": "METAR SKMR 161600Z 05006KT 9999 SCT033 32/20 Q1010 NOSIG",
+      "consigna": "Comprueba con la cuenta si la base informada cuadra con la temperatura y el rocío.",
+      "respuesta_modelo": "Los Garzones (SKMR), en Montería, día 16 a las 16:00 UTC, o sea las 11:00 de Colombia. Viento del noreste a 6 nudos, visibilidad de 10 km o más, dispersas a 3300 ft. Temperatura 32 y rocío 20, QNH 1010. La separación es de doce grados. Dividida entre la tasa de convergencia de 2,45 grados por cada mil pies da 4,9, es decir unos 4900 ft AGL de base esperada. El informe dice 3300 ft, que es más bajo. Eso no invalida nada: la cuenta estima la base de las nubes de convección que nacen del calentamiento del suelo, y lo que hay a 3300 ft puede venir de otro mecanismo, de ascenso orográfico o de una capa transportada. Lo útil es el orden de magnitud y el sentido: con doce grados de separación, si empiezan a formarse cúmulos por calentamiento, van a estar alrededor de 4900 ft, no pegados al suelo.",
+      "puntos_clave": [
+        "Separación 12 °C entre 2,45 = 4,9, o sea 4900 ft AGL",
+        "La cuenta estima la base de la convección de superficie",
+        "SCT033 son 3300 ft, de otra procedencia",
+        "La cuenta da orden de magnitud, no un valor exacto",
+        "Sirve para anticipar, no para sustituir al informe"
+      ],
+      "errores_tipicos": [
+        "Concluir que el informe está mal porque no cuadra con la cuenta",
+        "Dividir entre 2 o entre 3 en vez de 2,45"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 25,
+      "nivel": "basico",
+      "titulo": "Escarcha al amanecer",
+      "metar": "METAR SKMZ 111100Z 00000KT 9999 NSC 03/03 Q1021 NOSIG",
+      "consigna": "Informe impecable. Di qué esperas encontrar al llegar al avión y qué haces.",
+      "respuesta_modelo": "La Nubia (SKMZ), en Manizales, día 11 a las 11:00 UTC, o sea las 06:00 de Colombia. Viento en calma, visibilidad de 10 km o más, sin nubes significativas. Temperatura 3 y rocío 3, QNH 1021. Meteorológicamente es un informe perfecto para volar. Lo que anticipa es otra cosa: noche despejada, calma y saturación a tres grados significan que las superficies del avión, que irradian calor al cielo despejado, han podido bajar por debajo de cero aunque el aire esté a tres. Eso es escarcha en el extradós. Y la escarcha no se negocia: interrumpe el flujo sobre el ala, reduce drásticamente la sustentación y aumenta la resistencia. No se despega hasta que la aeronave esté completamente limpia. Ni se va con el rodaje, ni se derrite con el sol durante la carrera.",
+      "puntos_clave": [
+        "Cielo despejado, calma y T=Td bajos: receta de escarcha",
+        "La superficie puede estar bajo cero con el aire a 3 °C",
+        "La escarcha rompe el flujo sobre el ala",
+        "Completamente limpia antes de iniciar vuelo",
+        "No se va con el rodaje"
+      ],
+      "errores_tipicos": [
+        "Dar por bueno el vuelo porque el informe no tiene fenómenos",
+        "Aceptar una capa fina «que parece un velo»"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 26,
+      "nivel": "intermedio",
+      "titulo": "Tormenta en las cercanías",
+      "metar": "METAR SKCG 222100Z 33010KT 9999 VCTS FEW020 SCT030CB 30/26 Q1010 NOSIG",
+      "consigna": "Distingue lo que dice este informe de lo que diría con TS a secas, y di qué haces.",
+      "respuesta_modelo": "Rafael Núñez (SKCG), en Cartagena, día 22 a las 21:00 UTC, o sea las 16:00 de Colombia. Viento del noroeste a 10 nudos, visibilidad de 10 km o más. VCTS quiere decir tormenta en las cercanías: entre 8 y 16 km de la estación, no sobre ella. Escasas a 2000 ft y dispersas a 3000 ft con cumulonimbos. Temperatura 30 y rocío 26, QNH 1010. Con TS a secas la tormenta estaría sobre el aeródromo y la operación estaría comprometida ya. Con VCTS el campo está operativo, pero la célula está al lado y las tormentas se mueven. Lo que hay que hacer es mirar de dónde viene, contar con que el frente de ráfaga puede llegar antes que la lluvia, esperar cambios bruscos de viento en la aproximación, y tener claro el alterno. Es un informe de «todavía sí, pero mira el reloj».",
+      "puntos_clave": [
+        "VC: en las cercanías, entre 8 y 16 km",
+        "TS a secas sería sobre el aeródromo",
+        "SCT030CB confirma cumulonimbos ya formados",
+        "El frente de ráfaga llega antes que la lluvia",
+        "Campo operativo, pero con ventana que se puede cerrar"
+      ],
+      "errores_tipicos": [
+        "Leer VCTS como si no hubiera tormenta",
+        "Confiar en el 9999 e ignorar el CB"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 27,
+      "nivel": "avanzado",
+      "titulo": "Estable, y aun así problemático",
+      "metar": "METAR SKUC 060800Z 07004KT 1200 BR OVC004 20/20 Q1013 BECMG 1012 4000 SCT008",
+      "consigna": "Di si la atmósfera está estable o inestable, cómo lo sabes, y por qué eso no significa que sea fácil.",
+      "respuesta_modelo": "Santiago Pérez (SKUC), en Arauca, día 6 a las 08:00 UTC, o sea las 03:00 de Colombia. Viento del este a 4 nudos, visibilidad 1200 m con neblina, cubierto a 400 ft. Temperatura y rocío iguales a 20, QNH 1013. La atmósfera está estable, y se sabe por la forma de la nubosidad: una capa cubierta, uniforme y baja, sin desarrollo vertical, más neblina y viento flojo. En una atmósfera inestable habría cúmulos, chubascos y turbulencia. Pero estable no es sinónimo de fácil. Lo estable trae precisamente lo que hay aquí: techo bajo, visibilidad restringida y todo atrapado cerca del suelo. No habrá baches ni tormenta, y aun así 400 ft de techo con 1200 m puede estar por debajo de mínimos. El BECMG 1012 mejora a 4 km y dispersas a 800 ft, pero eso es entre las 10:00 y las 12:00.",
+      "puntos_clave": [
+        "Capa cubierta uniforme sin desarrollo vertical: aire estable",
+        "Estable trae techo bajo y mala visibilidad",
+        "Inestable traería cúmulos, chubascos y turbulencia",
+        "OVC004 son 400 ft de techo",
+        "BECMG 1012 mejora, pero más tarde"
+      ],
+      "errores_tipicos": [
+        "Asociar «estable» con «buen tiempo»",
+        "Leer BR como niebla: con 1200 m es neblina"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 28,
+      "nivel": "intermedio",
+      "titulo": "Techo que no es el que parece",
+      "metar": "METAR SKPE 141400Z 10005KT 9999 FEW008 SCT015 BKN025 OVC090 20/17 Q1018 NOSIG",
+      "consigna": "Hay cuatro capas. Di cuál es el techo y justifica por qué las otras tres no lo son.",
+      "respuesta_modelo": "Matecaña (SKPE), en Pereira, día 14 a las 14:00 UTC, o sea las 09:00 de Colombia. Viento del este a 5 nudos, visibilidad de 10 km o más. Cuatro capas: escasas a 800 ft, dispersas a 1500 ft, fragmentadas a 2500 ft y cubierto a 9000 ft. Temperatura 20 y rocío 17, QNH 1018. El techo son 2500 ft, la BKN025. El techo es la altura de la base de la primera capa informada como fragmentada o cubierta, contando desde abajo. Las dos primeras no lo son: FEW son una o dos octavas y SCT de tres a cuatro, y ninguna llega al umbral. La OVC090 sí es cubierta, pero está por encima de la BKN025, así que no es la primera. Operacionalmente el número que hay que comparar con los mínimos es 2500 ft, no 800 ni 9000.",
+      "puntos_clave": [
+        "Techo: primera BKN u OVC contando desde abajo",
+        "FEW (1-2 octavos) y SCT (3-4) no hacen techo",
+        "BKN son 5-7 octavos; OVC, 8",
+        "Aquí el techo es BKN025, 2500 ft",
+        "La OVC090 está por encima: no es la primera"
+      ],
+      "errores_tipicos": [
+        "Tomar la capa más baja (FEW008) como techo",
+        "Tomar la capa cubierta (OVC090) por ser la de mayor cobertura"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 29,
+      "nivel": "basico",
+      "titulo": "El informe que corrige al anterior",
+      "metar": "SPECI SKRG 121245Z 09025G40KT 1500 +TSRA BKN008CB OVC020 19/18 Q1018",
+      "consigna": "Di qué tiene de distinto este encabezado y por qué se emitió.",
+      "respuesta_modelo": "José María Córdova (SKRG), en Rionegro, día 12 a las 12:45 UTC, o sea las 07:45 de Colombia. El encabezado no es METAR sino SPECI: un informe especial, emitido fuera de la hora de rutina porque las condiciones cambiaron de forma significativa. Viendo el contenido se entiende por qué: viento del este a 25 nudos con ráfagas de 40, visibilidad 1500 m con tormenta y lluvia fuerte, fragmentadas a 800 ft con cumulonimbos y cubierto a 2000 ft. Temperatura 19 y rocío 18, QNH 1018. El METAR sale a hora fija, normalmente cada media hora o cada hora; el SPECI sale cuando algo cruza un umbral que importa para la operación. Ver un SPECI ya es en sí una señal: alguien decidió que no se podía esperar al siguiente informe de rutina.",
+      "puntos_clave": [
+        "SPECI: informe especial fuera de hora de rutina",
+        "Se emite cuando algo cruza un umbral operativo",
+        "+TSRA: tormenta con lluvia fuerte",
+        "Ráfagas de 40 kt con techo de 800 ft",
+        "Ver un SPECI ya es información"
+      ],
+      "errores_tipicos": [
+        "Leerlo como un METAR normal y no notar el cambio de encabezado",
+        "Suponer que SPECI significa que el informe es menos fiable"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 30,
+      "nivel": "avanzado",
+      "titulo": "Dos aeródromos, la misma masa de aire",
+      "metar": "METAR SKBO 231100Z 00000KT 0500 FG VV002 09/09 Q1024 NOSIG",
+      "consigna": "Tu alterno previsto es SKMD, a 20 minutos. Di si sirve y qué comprobarías antes de decidir.",
+      "respuesta_modelo": "El Dorado (SKBO), día 23 a las 11:00 UTC, o sea las 06:00 de Colombia. Viento en calma, visibilidad 500 m con niebla, visibilidad vertical 200 ft. Temperatura y rocío iguales a 9, QNH 1024. Es niebla de radiación de madrugada sobre la sabana. La pregunta del alterno no se contesta por distancia sino por fenómeno: Olaya Herrera está en el valle de Medellín, en otra cuenca y a otra altura, así que a priori no comparte la masa de aire, pero eso hay que comprobarlo, no suponerlo. Lo que miraría antes de decidir: el METAR actual de SKMD, su TAF en mi ventana de llegada, y si la niebla de radiación es un fenómeno de área esa madrugada o solo de la sabana. Un alterno cercano dentro del mismo fenómeno no añade seguridad, solo distancia; el alterno correcto a veces es el que está más lejos, y en Colombia eso puede significar bajar a tierra caliente.",
+      "puntos_clave": [
+        "El alterno se elige por fenómeno, no por distancia",
+        "Niebla de radiación es local: depende de la cuenca",
+        "Hay que mirar METAR y TAF del alterno, no suponer",
+        "Un alterno con el mismo fenómeno no añade seguridad",
+        "A veces el correcto es el más lejano"
+      ],
+      "errores_tipicos": [
+        "Elegir alterno por cercanía y tiempo de vuelo",
+        "Suponer que dos aeródromos distintos tienen tiempo distinto"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 31,
+      "nivel": "basico",
+      "titulo": "Leer la cabecera de un TAF",
+      "metar": "TAF SKBO 121100Z 1212/1318 09008KT 9999 SCT020",
+      "consigna": "Solo cabecera y grupo predominante. Di cuándo se emitió, cuándo vale y qué promete si nada cambia.",
+      "respuesta_modelo": "Pronóstico de aeródromo para El Dorado (SKBO). Se emitió el día 12 a las 11:00 UTC. Vale desde el día 12 a las 12:00 UTC hasta el día 13 a las 18:00 UTC: treinta horas de validez. El grupo predominante dice viento del este a 8 nudos, visibilidad de 10 km o más y nubes dispersas a 2000 ft. Eso es lo que se espera durante todo el periodo mientras no aparezca un grupo de cambio que diga otra cosa. En hora de Colombia, la validez va del día 12 a las 07:00 al día 13 a la 01:00. Dispersas no hacen techo, así que no hay techo pronosticado. Este TAF, tal cual, describe buen tiempo estable.",
+      "puntos_clave": [
+        "121100Z: emitido el 12 a las 11:00 UTC",
+        "1212/1318: válido del 12 a las 12Z al 13 a las 18Z",
+        "El grupo predominante rige mientras nada lo cambie",
+        "SCT no hace techo",
+        "Treinta horas de validez"
+      ],
+      "errores_tipicos": [
+        "Confundir la hora de emisión con el inicio de validez",
+        "Leer 1318 como las 13:18"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 32,
+      "nivel": "intermedio",
+      "titulo": "FM corta el pronóstico",
+      "metar": "TAF SKCL 090500Z 0906/1006 32006KT 9999 SCT025 FM091800 20014G24KT 6000 -TSRA BKN012CB",
+      "consigna": "Explica qué hace el FM con todo lo que había antes y qué condiciones rigen a las 20Z.",
+      "respuesta_modelo": "Alfonso Bonilla Aragón (SKCL), en Cali. Emitido el 9 a las 05:00 UTC, válido del 9 a las 06Z al 10 a las 06Z. Hasta las 18Z: viento del noroeste a 6, visibilidad de 10 km o más, dispersas a 2500 ft. A partir de las 18:00 UTC el FM abre línea nueva: viento del suroeste a 14 con ráfagas de 24, visibilidad 6 km con tormenta y lluvia débil, fragmentadas a 1200 ft con cumulonimbos. FM sustituye por completo lo anterior, no lo matiza: desde las 18Z el pronóstico es ese y ya. A las 20Z, que es después del corte, rigen esas condiciones: techo de 1200 ft, 6 km, tormenta y ráfagas de 24. En hora de Colombia el corte cae a la 1 de la tarde.",
+      "puntos_clave": [
+        "FM es un corte: sustituye todo lo anterior",
+        "FM091800: desde el día 9 a las 18:00 UTC",
+        "A las 20Z rige lo de después del corte",
+        "BKN012CB: techo de 1200 ft con cumulonimbos",
+        "Ráfagas de 24 kt además de la tormenta"
+      ],
+      "errores_tipicos": [
+        "Creer que el FM solo cambia lo que nombra",
+        "Seguir aplicando el grupo predominante después del FM"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 33,
+      "nivel": "intermedio",
+      "titulo": "BECMG solo cambia lo que nombra",
+      "metar": "TAF SKRG 141700Z 1418/1518 27005KT 9999 SCT030 BECMG 1422/1500 3000 BR",
+      "consigna": "Di qué condiciones rigen a las 02Z y cuáles no cambiaron.",
+      "respuesta_modelo": "José María Córdova (SKRG). Emitido el 14 a las 17:00 UTC, válido del 14 a las 18Z al 15 a las 18Z. Predominante: viento del oeste a 5, visibilidad de 10 km o más, dispersas a 3000 ft. El BECMG 1422/1500 dice que entre las 22:00 del 14 y las 00:00 del 15 se establece, de forma gradual y permanente, una visibilidad de 3 km con neblina. A las 02Z, que es después de esa ventana, rige: visibilidad 3 km con neblina, y todo lo demás sigue igual que en el predominante, porque BECMG solo modifica los elementos que nombra. Es decir, sigue el viento del oeste a 5 y siguen las dispersas a 3000 ft. Esa es la diferencia con FM: aquí no se borra nada, se corrige una parte.",
+      "puntos_clave": [
+        "BECMG cambia solo lo que nombra",
+        "Viento y nubes siguen siendo los del predominante",
+        "La ventana 1422/1500 es cuando se establece el cambio",
+        "Después de la ventana, el cambio es permanente",
+        "Con FM se habría sustituido todo"
+      ],
+      "errores_tipicos": [
+        "Suponer que el BECMG anula el viento y las nubes anteriores",
+        "Aplicar el cambio solo dentro de la ventana y no después"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 34,
+      "nivel": "avanzado",
+      "titulo": "TEMPO no es un bloque",
+      "metar": "TAF SKBQ 201100Z 2012/2112 04012KT 9999 FEW020 TEMPO 2018/2100 4000 TSRA BKN010CB",
+      "consigna": "Tu llegada es a las 20Z. Di qué condiciones tienes que planificar y por qué el TEMPO no se lee como un bloque continuo.",
+      "respuesta_modelo": "Ernesto Cortissoz (SKBQ), en Barranquilla. Emitido el 20 a las 11:00 UTC, válido del 20 a las 12Z al 21 a las 12Z. Predominante: viento del noreste a 12, de 10 km o más, escasas a 2000 ft. El TEMPO 2018/2100 anuncia fluctuaciones entre las 18:00 y las 00:00: 4 km con tormenta y fragmentadas a 1000 ft con cumulonimbos. Mi llegada a las 20Z cae dentro de esa ventana. TEMPO no significa que esas condiciones duren las seis horas: son fluctuaciones, cada una de menos de una hora, y sin sumar más de la mitad del periodo. O sea, aparece y se va. Pero para planificar no puedo apostar a que me toque el hueco bueno: tengo que llevar alterno y combustible para esperar, porque si me toca la célula el campo se cierra un rato.",
+      "puntos_clave": [
+        "TEMPO: fluctuaciones, no un bloque continuo",
+        "Cada una menos de una hora y sin sumar más de la mitad",
+        "Mi llegada cae dentro de la ventana",
+        "No se planifica esperando el hueco bueno",
+        "Alterno y combustible para esperar"
+      ],
+      "errores_tipicos": [
+        "Leer TEMPO como si las condiciones fueran continuas seis horas",
+        "Descartarlo por ser «temporal»"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 35,
+      "nivel": "avanzado",
+      "titulo": "PROB40 sobre la hora de llegada",
+      "metar": "TAF SKBO 150500Z 1506/1606 09006KT 9999 SCT020 PROB40 TEMPO 1510/1513 0400 FG VV002",
+      "consigna": "Llegas a las 11Z. Un compañero dice que un 40 % no cambia la planificación. Contéstale con números.",
+      "respuesta_modelo": "El Dorado (SKBO). Emitido el 15 a las 05:00 UTC, válido del 15 a las 06Z al 16 a las 06Z. Predominante bueno: viento del este a 6, de 10 km o más, dispersas a 2000 ft. El PROB40 TEMPO 1510/1513 dice que entre las 10:00 y las 13:00 hay un 40 % de probabilidad de fluctuaciones con 400 m de visibilidad y visibilidad vertical de 200 ft por niebla. Mi llegada a las 11Z cae de lleno. Cuatrocientos metros y 200 ft de visibilidad vertical están por debajo de casi cualquier mínimo: no es una molestia, es no poder entrar. Un 40 % de que eso ocurra no es despreciable, es dos de cada cinco veces. Y no existe PROB50 precisamente porque a partir de ahí el pronosticador usaría BECMG o TEMPO: PROB40 es lo más alto que hay. Se lleva alterno holgado y combustible para esperar.",
+      "puntos_clave": [
+        "PROB40 es la probabilidad más alta que existe en la clave",
+        "0400 con VV002: por debajo de casi cualquier mínimo",
+        "Dos de cada cinco veces no es despreciable",
+        "No hay PROB50: por encima se usa BECMG o TEMPO",
+        "Alterno holgado y combustible de espera"
+      ],
+      "errores_tipicos": [
+        "Tratar el 40 % como «probablemente no»",
+        "Confundir VV con una capa de nubes"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 36,
+      "nivel": "avanzado",
+      "titulo": "Un TAF completo, de la cabecera a la decisión",
+      "metar": "TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025 BECMG 1520/1522 15012G22KT 6000 -RA BKN015 TEMPO 1522/1602 3000 TSRA BKN010CB FM160300 09006KT 1200 BR OVC006 PROB30 1604/1608 0500 FG BECMG 1612/1614 9999 NSW SCT030",
+      "consigna": "Recórrelo entero en orden y termina diciendo qué te toca a ti si aterrizas a las 05Z del día 16.",
+      "respuesta_modelo": "Emitido el 15 a las 17:00 UTC, válido del 15 a las 18Z al 16 a las 24Z: treinta horas. Predominante: viento del 200 a 8, de 10 km o más, dispersas a 2500 ft; buen tiempo. BECMG 1520/1522: entre las 20Z y 22Z se establece viento del 150 a 12 con ráfagas de 22, 6 km con lluvia débil y techo a 1500 ft. TEMPO 1522/1602: entre las 22Z y las 02Z puede caer a 3 km con tormenta y techo a 1000 ft con cumulonimbos. FM160300: a partir de las 03Z, línea nueva, viento flojo del este, 1200 m con bruma y cubierto a 600 ft. PROB30 1604/1608: entre las 04Z y las 08Z, un 30 % de 500 m con niebla. BECMG 1612/1614: entre las 12Z y 14Z mejora a 10 km, sin fenómenos significativos y dispersas a 3000 ft. Si aterrizo a las 05Z del 16 me toca lo del FM: 1200 m con bruma y techo de 600 ft, y encima dentro del PROB30 que puede bajar a 500 m con niebla. Eso es lo peor del periodo y exige alterno.",
+      "puntos_clave": [
+        "Cabecera, predominante, cambios en orden, y mi hora",
+        "FM160300 sustituye todo desde las 03Z",
+        "Las 05Z caen en el FM y dentro del PROB30",
+        "NSW cancela el fenómeno anterior",
+        "No se lee entero: se busca la ventana propia"
+      ],
+      "errores_tipicos": [
+        "Quedarse con el predominante porque es lo primero",
+        "Planificar con el mejor momento del periodo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 37,
+      "nivel": "intermedio",
+      "titulo": "NSW cancela el fenómeno",
+      "metar": "TAF SKPE 081100Z 0812/0912 18008KT 4000 RA BKN010 BECMG 0816/0818 9999 NSW SCT025",
+      "consigna": "Di qué significa NSW y qué pasa con la lluvia después de las 18Z.",
+      "respuesta_modelo": "Matecaña (SKPE). Emitido el 8 a las 11:00 UTC, válido del 8 a las 12Z al 9 a las 12Z. Predominante: viento del sur a 8, visibilidad 4 km con lluvia, fragmentadas a 1000 ft, que es techo. El BECMG 0816/0818 dice que entre las 16Z y las 18Z se establece visibilidad de 10 km o más, NSW y dispersas a 2500 ft. NSW es no significant weather: ningún fenómeno significativo. Es la forma que tiene el TAF de decir que el fenómeno que había antes, la lluvia, deja de esperarse, sin tener que enumerar todo lo que ya no habrá. Después de las 18Z, entonces: sin lluvia, 10 km o más y dispersas a 2500 ft, o sea sin techo. La mejora es permanente porque es un BECMG, no un TEMPO.",
+      "puntos_clave": [
+        "NSW: ningún fenómeno significativo",
+        "Cancela el fenómeno anterior sin enumerar",
+        "Aparece en los grupos de cambio, no en el predominante",
+        "BECMG: la mejora se queda",
+        "SCT025 no hace techo"
+      ],
+      "errores_tipicos": [
+        "Leer NSW como si fuera un fenómeno",
+        "Suponer que la lluvia sigue porque el predominante la traía"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 38,
+      "nivel": "avanzado",
+      "titulo": "El TAF que viene NIL",
+      "metar": "TAF SKGP 091100Z NIL",
+      "consigna": "Tu destino no tiene pronóstico. Di qué significa y cómo afecta a la planificación.",
+      "respuesta_modelo": "Guapi (SKGP). El TAF viene NIL: no hay pronóstico disponible para ese aeródromo en esa emisión. Lo primero que hay que tener claro es que NIL no es buen tiempo: es ausencia de información, que no es lo mismo. Sin TAF no puedo justificar que el destino vaya a estar utilizable a mi hora de llegada, que es precisamente para lo que sirve el TAF. La planificación se apoya entonces en lo que sí tengo: el METAR más reciente y su tendencia, el pronóstico de área de la región, los avisos vigentes, y cualquier PIREP. Y según el manual del explotador y la norma nacional, un destino sin TAF normalmente obliga a llevar alterno, con sus mínimos y su combustible. La decisión no es «probablemente esté bien», es «no puedo demostrar que lo esté».",
+      "puntos_clave": [
+        "NIL: no hay pronóstico, no es buen tiempo",
+        "Sin TAF no se justifica la utilizabilidad del destino",
+        "Se recurre a METAR, tendencia, pronóstico de área y avisos",
+        "Normalmente obliga a alterno",
+        "Ausencia de información no es información favorable"
+      ],
+      "errores_tipicos": [
+        "Interpretar NIL como que no hay nada reseñable",
+        "Salir sin alterno porque el METAR actual es bueno"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 39,
+      "nivel": "intermedio",
+      "titulo": "Dos TAF para una decisión",
+      "metar": "DESTINO  TAF SKCL 141100Z 1412/1512 00000KT 0800 FG VV003 BECMG 1416/1418 5000 BR SCT012\nALTERNO  TAF SKPE 141100Z 1412/1512 09006KT 9999 SCT025",
+      "consigna": "Llegas al destino a las 15Z. Di si sales, con qué alterno y por qué ese alterno sirve.",
+      "respuesta_modelo": "El destino, Alfonso Bonilla Aragón (SKCL), pronostica calma, 800 m con niebla y visibilidad vertical de 300 ft hasta el BECMG 1416/1418, que mejora a 5 km con neblina y dispersas a 1200 ft entre las 16Z y las 18Z. Mi llegada a las 15Z cae ANTES de esa mejora: me toca la niebla, 800 m y 300 ft de visibilidad vertical. Eso está por debajo de mínimos en casi cualquier aproximación. El alterno, Matecaña (SKPE), pronostica viento del este a 6, 10 km o más y dispersas a 2500 ft durante todo el periodo. Sirve por tres razones: está holgadamente sobre mínimos en mi ventana, no comparte el fenómeno (la niebla de SKCL es de valle y madrugada, y SKPE está en otra cuenca), y su pronóstico es estable, sin grupos de cambio que lo estropeen. Salgo, pero con ese alterno y con combustible para llegar hasta él.",
+      "puntos_clave": [
+        "Mi hora cae antes del BECMG, no después",
+        "VV003 con 800 m: por debajo de mínimos",
+        "El alterno está holgado y estable todo el periodo",
+        "No comparte el fenómeno del destino",
+        "Combustible para alcanzarlo con reservas"
+      ],
+      "errores_tipicos": [
+        "Leer el BECMG y suponer que ya aplica a mi hora",
+        "Elegir alterno sin comprobar que no comparte el fenómeno"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 40,
+      "nivel": "avanzado",
+      "titulo": "El alterno que no sirve",
+      "metar": "DESTINO  TAF SKBO 230500Z 2306/2406 00000KT 0400 FG VV002 BECMG 2314/2316 8000 SCT020\nALTERNO  TAF SKGY 230500Z 2306/2406 00000KT 0600 FG VV002 BECMG 2314/2316 9999 SCT025",
+      "consigna": "Los dos pronósticos mejoran a la misma hora. Di por qué ese alterno no vale.",
+      "respuesta_modelo": "El destino, El Dorado (SKBO), pronostica calma con 400 m de niebla y visibilidad vertical de 200 ft hasta que el BECMG 2314/2316 lo mejora a 8 km y dispersas a 2000 ft. El alterno propuesto, Guaymaral (SKGY), pronostica calma con 600 m de niebla y visibilidad vertical de 200 ft, y mejora en la MISMA ventana, entre las 14Z y las 16Z. Ese alterno no vale, y la razón no es que su pronóstico sea malo: es que comparte exactamente el fenómeno del destino. Los dos están en la sabana de Bogotá, los dos tienen niebla de radiación de la misma madrugada, y los dos se despejan cuando el sol rompe la inversión. Si el destino está cerrado a mi llegada, el alterno también lo estará. Un alterno con el mismo fenómeno no añade seguridad, solo distancia. Aquí el alterno correcto está fuera de la sabana, probablemente en tierra caliente.",
+      "puntos_clave": [
+        "Mismo fenómeno, misma cuenca, misma hora de mejora",
+        "Si cierra el destino, cierra el alterno",
+        "La cercanía no es un criterio de validez",
+        "Niebla de radiación es de área y de madrugada",
+        "El alterno correcto puede estar lejos"
+      ],
+      "errores_tipicos": [
+        "Validar el alterno porque su visibilidad es un poco mejor",
+        "Elegir por distancia de desvío"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 41,
+      "nivel": "intermedio",
+      "titulo": "El TAF enmendado",
+      "metar": "TAF AMD SKCG 181430Z 1815/1918 06010KT 4000 TSRA BKN012CB TEMPO 1815/1818 2000 +TSRA",
+      "consigna": "Di qué añade el AMD al encabezado y qué haces con el TAF que ya tenías.",
+      "respuesta_modelo": "Rafael Núñez (SKCG). El encabezado es TAF AMD: pronóstico enmendado. Se emitió el 18 a las 14:30 UTC y vale del 18 a las 15Z al 19 a las 18Z. Predominante: viento del noreste a 10, 4 km con tormenta y lluvia, fragmentadas a 1200 ft con cumulonimbos. El TEMPO 1815/1818 avisa de que entre las 15Z y las 18Z puede caer a 2 km con tormenta fuerte. El AMD significa que el pronóstico anterior dejó de ser válido porque la situación cambió respecto de lo previsto, y que este lo sustituye. Con el TAF que ya tenía no se hace nada: se descarta. Toda la planificación que dependía de él (alterno, combustible, ventana de llegada) hay que rehacerla con este. Un TAF enmendado es en sí mismo una señal de que el pronosticador se vio obligado a corregir.",
+      "puntos_clave": [
+        "AMD: pronóstico enmendado, sustituye al anterior",
+        "El TAF previo se descarta, no se combina",
+        "Hay que rehacer alterno y combustible",
+        "Un AMD es señal de que la situación cambió",
+        "Emisión 1430Z con validez desde 15Z"
+      ],
+      "errores_tipicos": [
+        "Conservar el TAF antiguo «por si acaso» y mezclar los dos",
+        "Ignorar el AMD porque ya se había despachado el vuelo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 42,
+      "nivel": "basico",
+      "titulo": "Viento variable en el pronóstico",
+      "metar": "TAF SKSM 121700Z 1218/1318 VRB03KT 9999 FEW020 BECMG 1310/1312 07012KT",
+      "consigna": "Di qué significa VRB03KT y por qué el BECMG cambia la operación.",
+      "respuesta_modelo": "Simón Bolívar (SKSM). Emitido el 12 a las 17:00 UTC, válido del 12 a las 18Z al 13 a las 18Z. VRB03KT significa viento variable a 3 nudos: la dirección no es determinable porque el viento es demasiado flojo para tener una constante. Visibilidad de 10 km o más y escasas a 2000 ft. El BECMG 1310/1312 dice que entre las 10Z y las 12Z del día 13 se establece viento del este a 12 nudos. Eso cambia la operación por dos motivos: primero, con VRB03 la elección de cabecera es prácticamente libre y la componente cruzada es despreciable; con 12 nudos del este ya hay que mirar el rumbo de pista y calcular componente. Segundo, un viento que pasa de variable flojo a constante de 12 suele indicar que se ha establecido un patrón, en la costa típicamente la brisa.",
+      "puntos_clave": [
+        "VRB: dirección no determinable, viento flojo",
+        "Con VRB03 la componente cruzada es despreciable",
+        "BECMG establece 07012KT de forma permanente",
+        "12 kt obliga a calcular componente por cabecera",
+        "De variable a constante: se estableció un patrón"
+      ],
+      "errores_tipicos": [
+        "Leer VRB como una dirección concreta",
+        "No recalcular la cabecera tras el cambio"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 43,
+      "nivel": "avanzado",
+      "titulo": "Cizalladura pronosticada",
+      "metar": "TAF SKBQ 070500Z 0706/0806 09018G30KT 9999 SCT025 WS020/09045KT TEMPO 0712/0718 5000 SHRA",
+      "consigna": "Identifica el grupo WS, léelo entero y di qué implica para el despegue.",
+      "respuesta_modelo": "Ernesto Cortissoz (SKBQ). Emitido el 7 a las 05:00 UTC, válido del 7 a las 06Z al 8 a las 06Z. Viento del este a 18 con ráfagas de 30, de 10 km o más, dispersas a 2500 ft. El grupo WS020/09045KT es cizalladura pronosticada: a 2000 ft de altura el viento es del 090 a 45 nudos. Comparando con el de superficie, que es del este a 18 con ráfagas de 30, hay un salto de casi 30 nudos en 2000 ft. Eso es cizalladura vertical, y en el ascenso o en la aproximación se traduce en cambios bruscos de velocidad indicada. El TEMPO 0712/0718 añade chubascos entre las 12Z y las 18Z. Para el despegue: velocidades de referencia con margen, esperar pérdida o ganancia súbita de velocidad al atravesar la capa, y no rotar justo en el límite.",
+      "puntos_clave": [
+        "WS020: cizalladura a 2000 ft de altura",
+        "09045KT es el viento a esa altura, no en superficie",
+        "Salto de casi 30 kt entre superficie y 2000 ft",
+        "Se traduce en cambios bruscos de velocidad indicada",
+        "SHRA: chubascos de lluvia"
+      ],
+      "errores_tipicos": [
+        "Leer WS020 como 20 ft o como una capa de nubes",
+        "Ignorarlo porque el viento en superficie ya se conoce"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 44,
+      "nivel": "intermedio",
+      "titulo": "Cuándo empieza a contar el TAF",
+      "metar": "TAF SKMD 100900Z 1012/1112 27004KT 9999 FEW030 TEMPO 1012/1015 4000 -RA",
+      "consigna": "Son las 10:30Z. Di qué te dice este TAF ahora mismo y por qué.",
+      "respuesta_modelo": "Olaya Herrera (SKMD), en Medellín. Se emitió el 10 a las 09:00 UTC y vale desde el 10 a las 12:00 UTC hasta el 11 a las 12:00 UTC. Son las 10:30Z: estoy entre la emisión y el inicio de validez, así que este TAF todavía no está describiendo nada. Para saber qué hay ahora mismo hace falta el METAR, no el TAF. Lo que sí puedo hacer es planificar: desde las 12Z se espera viento del oeste a 4, de 10 km o más y escasas a 3000 ft, con un TEMPO entre las 12Z y las 15Z que puede bajar a 4 km con lluvia débil. Esa distinción es justamente para qué sirve cada documento: el METAR dice lo que hay ahora y decide si inicio la aproximación; el TAF dice lo que se espera y decide con qué alterno y con cuánto combustible salgo.",
+      "puntos_clave": [
+        "Emisión 0900Z, validez desde 1200Z: hay un hueco",
+        "A las 10:30Z el TAF aún no rige",
+        "Para el ahora, METAR; para planificar, TAF",
+        "TEMPO 1012/1015 cubre las tres primeras horas de validez",
+        "Cada documento contesta una pregunta distinta"
+      ],
+      "errores_tipicos": [
+        "Usar el grupo predominante como si describiera el momento actual",
+        "Confundir hora de emisión con inicio de validez"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 45,
+      "nivel": "avanzado",
+      "titulo": "Dos cambios que se solapan",
+      "metar": "TAF SKVV 171100Z 1712/1812 09006KT 9999 SCT020 BECMG 1716/1718 5000 BR BKN012 TEMPO 1717/1722 2000 BR BKN006",
+      "consigna": "Di qué tienes a las 19Z, cuando el BECMG ya se estableció y el TEMPO sigue abierto.",
+      "respuesta_modelo": "Vanguardia (SKVV). Emitido el 17 a las 11:00 UTC, válido del 17 a las 12Z al 18 a las 12Z. Predominante: viento del este a 6, de 10 km o más, dispersas a 2000 ft. El BECMG 1716/1718 establece entre las 16Z y las 18Z una visibilidad de 5 km con neblina y fragmentadas a 1200 ft. El TEMPO 1717/1722 dice que entre las 17Z y las 22Z puede caer, de forma intermitente, a 2 km con neblina y fragmentadas a 600 ft. A las 19Z tengo las dos cosas a la vez: la base es lo que dejó el BECMG, o sea 5 km y techo de 1200 ft, y encima puede aparecer, por ratos, el TEMPO con 2 km y 600 ft. La forma correcta de planificar es contar con que en cualquier momento entre las 17Z y las 22Z me puede tocar lo del TEMPO, porque es lo peor que se puede dar, y ver si con eso todavía entro.",
+      "puntos_clave": [
+        "El BECMG deja la línea base tras su ventana",
+        "El TEMPO se superpone a esa base, no a la anterior",
+        "A las 19Z: base 5000 m y BKN012, con episodios de 2000 m y BKN006",
+        "Se planifica contra lo peor que puede tocar",
+        "Las ventanas de BECMG y TEMPO pueden solaparse"
+      ],
+      "errores_tipicos": [
+        "Aplicar el TEMPO sobre el predominante en vez de sobre el BECMG",
+        "Elegir la condición más favorable de las dos"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 46,
+      "nivel": "basico",
+      "titulo": "CAVOK en un pronóstico",
+      "metar": "TAF SKRH 191100Z 1912/2012 06010KT CAVOK",
+      "consigna": "Di exactamente qué garantiza CAVOK y qué no dice.",
+      "respuesta_modelo": "Almirante Padilla (SKRH), en Riohacha. Emitido el 19 a las 11:00 UTC, válido del 19 a las 12Z al 20 a las 12Z. Viento del noreste a 10 nudos y CAVOK. CAVOK garantiza tres cosas a la vez: visibilidad de 10 km o más; ninguna nube por debajo de 5000 ft o por debajo de la altitud mínima de sector, la que sea mayor, y ningún cumulonimbo ni cúmulo en torre a ninguna altura; y ningún fenómeno meteorológico significativo. Lo que no dice es que no haya nubes en absoluto: puede haber capas altas perfectamente. Tampoco dice nada del viento, que va aparte, ni de la temperatura o el QNH, que en un TAF ni siquiera aparecen. Es un atajo que ahorra escribir tres grupos, y solo se puede usar cuando se cumplen las tres condiciones.",
+      "puntos_clave": [
+        "Visibilidad de 10 km o más",
+        "Sin nubes bajo 5000 ft o la MSA, la que sea mayor",
+        "Sin CB ni TCU a ninguna altura",
+        "Sin fenómenos significativos",
+        "No significa cielo despejado"
+      ],
+      "errores_tipicos": [
+        "Leer CAVOK como «sin ninguna nube»",
+        "Suponer que también cubre el viento"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 47,
+      "nivel": "intermedio",
+      "titulo": "Pronóstico que empeora en escalones",
+      "metar": "TAF SKCC 061100Z 0612/0712 12006KT 9999 SCT025 BECMG 0615/0617 6000 -RA BKN015 BECMG 0620/0622 3000 RA BKN008 TEMPO 0700/0706 1500 RA BKN004",
+      "consigna": "Traza la evolución completa y di a partir de qué hora ya no entrarías con 1000 ft de mínimo.",
+      "respuesta_modelo": "Camilo Daza (SKCC). Válido del 6 a las 12Z al 7 a las 12Z. Empieza bien: viento del sureste a 6, de 10 km o más, dispersas a 2500 ft, sin techo. Primer escalón, BECMG 0615/0617: entre las 15Z y las 17Z baja a 6 km con lluvia débil y techo de 1500 ft. Segundo escalón, BECMG 0620/0622: entre las 20Z y las 22Z baja a 3 km con lluvia y techo de 800 ft. Y el TEMPO 0700/0706 añade que entre las 00Z y las 06Z del día 7 puede caer a 1500 m con techo de 400 ft. Con un mínimo de 1000 ft de techo: hasta las 17Z no hay problema porque no hay techo; entre las 17Z y las 22Z el techo es 1500 ft y todavía entro; a partir de las 22Z el techo queda en 800 ft y ya estoy por debajo del mínimo. Es un deterioro gradual y permanente, típico de frente cálido.",
+      "puntos_clave": [
+        "Dos BECMG encadenados: cada uno deja una base nueva",
+        "A partir de las 22Z el techo cae a 800 ft",
+        "Con mínimo de 1000 ft, las 22Z es la frontera",
+        "El TEMPO empeora aún más entre las 00Z y las 06Z",
+        "Deterioro gradual: firma de frente cálido"
+      ],
+      "errores_tipicos": [
+        "Aplicar el segundo BECMG desde el principio",
+        "Tomar la frontera en el TEMPO y no en el BECMG"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 48,
+      "nivel": "avanzado",
+      "titulo": "La decisión en ruta",
+      "metar": "TAF SKBO 160500Z 1606/1706 09006KT 9999 SCT020\nSPECI SKBO 161140Z 00000KT 0600 FG VV002 09/09 Q1024",
+      "consigna": "Saliste con ese TAF y en ruta recibes ese SPECI. Estás a 40 minutos del destino. Ordena lo que haces.",
+      "respuesta_modelo": "El TAF con el que salí pronosticaba viento del este a 6, de 10 km o más y dispersas a 2000 ft durante todo el periodo: buen tiempo, sin motivo para esperar problemas. El SPECI de las 11:40Z dice otra cosa: calma, 600 m de niebla y visibilidad vertical de 200 ft. El destino se deterioró por debajo de lo pronosticado. El orden es: primero, actualizar información, o sea pedir el METAR más reciente y ver si hay TAF enmendado. Segundo, comparar lo que cuesta esperar con lo que cuesta desviar, en combustible y en tiempo, teniendo en cuenta que es niebla de radiación y que puede levantar con el sol o no. Tercero, decidir antes de llegar al punto en que el alterno deje de ser alcanzable con reservas. Esa última es la clave: la decisión de desviar no se puede tomar tarde, y cuarenta minutos es poco margen para dudar.",
+      "puntos_clave": [
+        "El TAF puede quedarse corto: el SPECI manda ahora",
+        "Primero actualizar: METAR reciente y TAF AMD",
+        "Comparar coste de esperar contra coste de desviar",
+        "Decidir antes de que el alterno deje de ser alcanzable",
+        "Esa decisión no admite tomarse tarde"
+      ],
+      "errores_tipicos": [
+        "Continuar hasta el destino a ver qué pasa",
+        "Desviar de inmediato sin actualizar información"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 49,
+      "nivel": "intermedio",
+      "titulo": "Probabilidad sin TEMPO",
+      "metar": "TAF SKPS 131100Z 1312/1412 18006KT 8000 FEW030 PROB30 1318/1324 3000 TSRA",
+      "consigna": "Este PROB30 no lleva TEMPO detrás. Di qué cambia respecto de un PROB30 TEMPO.",
+      "respuesta_modelo": "Antonio Nariño (SKPS), en Pasto. Válido del 13 a las 12Z al 14 a las 12Z. Predominante: viento del sur a 6, 8 km de visibilidad, escasas a 3000 ft. El PROB30 1318/1324 dice que entre las 18Z y las 00Z hay un 30 % de probabilidad de 3 km con tormenta y lluvia. La diferencia con un PROB30 TEMPO es el carácter de lo que puede ocurrir: con TEMPO detrás serían fluctuaciones cortas e intermitentes dentro de la ventana; sin TEMPO, la probabilidad se aplica a que esas condiciones se den en ese periodo de forma más sostenida. En la práctica, para planificar, los dos se tratan igual de serios: un 30 % de tormenta sobre mi hora de llegada es motivo para llevar alterno y combustible. Lo que cambia es cómo espero que se comporte si ocurre: intermitente o mantenido.",
+      "puntos_clave": [
+        "PROB30: 30 % de probabilidad en esa ventana",
+        "Con TEMPO detrás serían fluctuaciones cortas",
+        "Sin TEMPO, condiciones más sostenidas si ocurren",
+        "Para planificar, los dos igual de serios",
+        "La diferencia es el carácter, no la gravedad"
+      ],
+      "errores_tipicos": [
+        "Tratar el PROB sin TEMPO como si fuera menos probable",
+        "Ignorar la ventana horaria del grupo"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 50,
+      "nivel": "basico",
+      "titulo": "Qué NO trae un TAF",
+      "metar": "TAF SKBO 201100Z 2012/2112 09008KT 9999 SCT020 BKN080",
+      "consigna": "Compáralo con un METAR del mismo aeródromo y di qué grupos faltan aquí y por qué.",
+      "respuesta_modelo": "El Dorado (SKBO). Válido del 20 a las 12Z al 21 a las 12Z. Trae viento del este a 8, visibilidad de 10 km o más, dispersas a 2000 ft y fragmentadas a 8000 ft, que es el techo pronosticado. Comparado con un METAR faltan tres cosas: la temperatura, el punto de rocío y el QNH. No están por error: el TAF pronostica condiciones meteorológicas operativas (viento, visibilidad, tiempo presente y nubes) más los grupos de cambio, mientras que la temperatura, el rocío y la presión son observaciones del momento, que es lo que informa el METAR. Eso tiene una consecuencia práctica: el ajuste de altímetro y la separación entre temperatura y rocío, que son datos que uso para decidir, solo los tengo del METAR. El TAF me dice si podré entrar; el METAR, con qué números entro.",
+      "puntos_clave": [
+        "El TAF no trae temperatura, rocío ni QNH",
+        "Trae viento, visibilidad, tiempo presente, nubes y cambios",
+        "Esos tres son observación, no pronóstico",
+        "El QNH para el altímetro sale del METAR",
+        "BKN080 es el techo pronosticado"
+      ],
+      "errores_tipicos": [
+        "Buscar el QNH en el TAF",
+        "Suponer que el TAF sustituye al METAR"
+      ],
+      "fuente": "Práctica Aviatory, formato de la clave OACI"
+    },
+    {
+      "id": 51,
+      "nivel": "intermedio",
+      "titulo": "Un SIGMET de la región",
+      "metar": "SKED SIGMET 3 VALID 181200/181600 SKBO-\nSKED BOGOTA FIR EMBD TS FCST WI N0500 W07600 - N0430 W07400 - N0330 W07500 - N0400 W07700 - N0500 W07600 TOP FL420 MOV NE 15KT NC",
+      "consigna": "Léelo entero y di qué tipo de tormenta anuncia y por qué esa palabra cambia tu plan.",
+      "respuesta_modelo": "SIGMET número 3 de la FIR Bogotá, válido del día 18 a las 12:00 UTC a las 16:00 UTC, emitido por SKBO. Anuncia EMBD TS pronosticadas dentro del polígono descrito por esas cuatro coordenadas, con topes en FL420, moviéndose al noreste a 15 nudos y sin cambio de intensidad (NC). EMBD significa incrustadas: cumulonimbos ocultos dentro de otras formaciones nubosas, que no se ven ni desde tierra ni en vuelo. Esa palabra lo cambia todo, porque la evitación visual deja de servir: no puedo confiar en mirar por la ventana y rodear lo que veo. Hay que apoyarse en el radar meteorológico de a bordo y en la información en vuelo, y con topes en FL420 pasar por encima no es opción para la mayoría de la flota. La decisión razonable es rodear el polígono, no cruzarlo.",
+      "puntos_clave": [
+        "EMBD: tormentas incrustadas, no visibles",
+        "TOP FL420: no se pasa por encima",
+        "MOV NE 15KT: el polígono se desplaza",
+        "NC: sin cambio de intensidad",
+        "Válido cuatro horas, del 1200Z al 1600Z"
+      ],
+      "errores_tipicos": [
+        "Leer TS y no ver el EMBD",
+        "Buscar un «SIGMET convectivo» aparte: en OACI va aquí dentro"
+      ],
+      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+    },
+    {
+      "id": 52,
+      "nivel": "avanzado",
+      "titulo": "SIGMET de ceniza volcánica",
+      "metar": "SKED SIGMET 1 VALID 090600/091200 SKBO-\nSKED BOGOTA FIR VA ERUPTION MT NEVADO DEL RUIZ PSN N0453 W07519 VA CLD OBS AT 0600Z FL200/350 WI 30NM OF N0453 W07519 MOV W 20KT FCST 1200Z VA CLD APRX 60NM W OF VOLCANO",
+      "consigna": "Di cuánto vale este aviso, en qué se diferencia de un SIGMET normal y qué haces con la ruta.",
+      "respuesta_modelo": "SIGMET número 1 de la FIR Bogotá, válido del día 9 a las 06:00 a las 12:00 UTC. Es un SIGMET de ceniza volcánica: erupción del Nevado del Ruiz, en la posición dada, con nube de ceniza observada a las 06:00Z entre FL200 y FL350, dentro de 30 millas náuticas del volcán, moviéndose al oeste a 20 nudos, y pronosticada a las 12:00Z a unas 60 millas al oeste. Se diferencia en dos cosas: la ceniza volcánica tiene su propio SIGMET, igual que los ciclones tropicales, y su validez es de seis horas en lugar de las cuatro del SIGMET ordinario. Con la ruta no se negocia: la ceniza erosiona los álabes, funde dentro de la turbina y puede apagar los motores. Hay que replanear fuera del área pronosticada, contando con que se mueve, y cruzarlo con el ASHTAM y los avisos del VAAC.",
+      "puntos_clave": [
+        "La ceniza volcánica tiene SIGMET propio",
+        "Validez de seis horas, no cuatro",
+        "FL200/350 es la capa afectada",
+        "Se mueve: la posición pronosticada importa más que la observada",
+        "Se cruza con ASHTAM y avisos VAAC"
+      ],
+      "errores_tipicos": [
+        "Aplicar la validez de cuatro horas del SIGMET normal",
+        "Planear con la posición observada y no con la pronosticada"
+      ],
+      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+    },
+    {
+      "id": 53,
+      "nivel": "intermedio",
+      "titulo": "AIRMET, y a quién le habla",
+      "metar": "SKED AIRMET 2 VALID 141400/141800 SKBO-\nSKED BOGOTA FIR MOD TURB FCST WI N0600 W07500 - N0520 W07300 - N0450 W07500 - N0540 W07700 - N0600 W07500 SFC/FL100 STNR NC",
+      "consigna": "Di a quién le habla este aviso y por qué no es un SIGMET.",
+      "respuesta_modelo": "AIRMET número 2 de la FIR Bogotá, válido del 14 a las 14:00 a las 18:00 UTC. Pronostica turbulencia moderada dentro del polígono, desde la superficie hasta FL100, estacionaria y sin cambio de intensidad. Le habla a los vuelos a baja altura: el AIRMET cubre por debajo de FL100, o de FL150 en zonas montañosas, y recoge los fenómenos que no estaban ya en el pronóstico de área. No es un SIGMET porque la turbulencia es moderada, no severa: el SIGMET se reserva para lo que es peligroso para todas las aeronaves, o sea turbulencia severa, engelamiento severo, onda de montaña severa, tormentas, tempestades de polvo o arena y nube radiactiva. Para una aeronave ligera volando a 8000 ft dentro de ese polígono, este AIRMET es tan relevante como lo sería un SIGMET.",
+      "puntos_clave": [
+        "AIRMET: por debajo de FL100, o FL150 en montaña",
+        "MOD TURB: turbulencia moderada, no severa",
+        "El SIGMET es para lo severo y para todas las aeronaves",
+        "SFC/FL100 es la capa afectada",
+        "STNR: estacionario, no se desplaza"
+      ],
+      "errores_tipicos": [
+        "Ignorar el AIRMET por no ser SIGMET",
+        "Suponer que cubre también los niveles altos"
+      ],
+      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+    },
+    {
+      "id": 54,
+      "nivel": "avanzado",
+      "titulo": "El convectivo que no existe aquí",
+      "metar": "CONVECTIVE SIGMET 21C\nVALID UNTIL 2055Z\nKS OK TX\nFROM 20SSW GLD-30WNW CDS\nDVLPG LINE TS 1955Z. TS MOV FROM 26030KT. HAIL TO 2 IN POSS.",
+      "consigna": "Este aviso es de otro sistema. Di de cuál, qué dice, y qué buscarías en su lugar volando en Colombia.",
+      "respuesta_modelo": "Es un SIGMET convectivo número 21C, del sistema de Estados Unidos, válido hasta las 20:55Z, sobre Kansas, Oklahoma y Texas, en la línea de 20 millas al sursuroeste de Goodland a 30 al oestenoroeste de Childress. Anuncia una línea de tormentas en desarrollo a las 19:55Z, moviéndose desde el 260 a 30 nudos, con granizo posible de hasta 2 pulgadas. La clave es que el SIGMET convectivo es un producto del sistema estadounidense, donde el SIGMET ordinario cubre solo lo no convectivo. En Colombia, con OACI, ese producto no existe como aviso aparte: las tormentas van dentro del SIGMET normal, codificadas como OBSC, EMBD, FRQ o SQL TS, y con GR si hay granizo. Buscar aquí un «convectivo» separado es perderse las tormentas, que están donde siempre.",
+      "puntos_clave": [
+        "SIGMET convectivo: producto de Estados Unidos",
+        "Allí el SIGMET normal cubre solo lo NO convectivo",
+        "En OACI las tormentas van dentro del SIGMET ordinario",
+        "Se codifican OBSC, EMBD, FRQ o SQL TS, y GR si hay granizo",
+        "Los convectivos de EE. UU. valen dos horas"
+      ],
+      "errores_tipicos": [
+        "Buscar un producto equivalente en la región y concluir que no hay avisos",
+        "Suponer que la validez de dos horas aplica al SIGMET OACI"
+      ],
+      "fuente": "Práctica Aviatory, ejemplo del sistema de Estados Unidos citado en el capítulo"
+    },
+    {
+      "id": 55,
+      "nivel": "basico",
+      "titulo": "Leer un PIREP",
+      "metar": "UA /OV SKBO 180015 /TM 1430 /FL085 /TP C208 /SK BKN035-TOP055 /TA 08 /TB LGT /IC NEG /RM SMOOTH ABV 060",
+      "consigna": "Traduce el informe campo por campo y di qué te aporta que no tengas de otra fuente.",
+      "respuesta_modelo": "Informe de piloto rutinario (UA). Sobre el radial 180 de El Dorado a 15 millas (/OV), a las 14:30 UTC (/TM), volando a 8500 ft (/FL085), en un Cessna 208 (/TP). Cielo: fragmentadas con base en 3500 ft y topes en 5500 ft (/SK). Temperatura del aire 8 grados (/TA). Turbulencia ligera (/TB). Engelamiento negativo (/IC). Y en observaciones: aire liso por encima de 6000 ft (/RM). Lo que aporta y no da ninguna otra fuente es la realidad del aire en ese momento: los topes de la capa, que ningún radar ni satélite mide, y la confirmación de que no hay engelamiento. Junto con la radiosonda es una de las dos únicas formas de observar el tiempo en altura, y es la única en tiempo real. El /RM me dice directamente a qué nivel pedir para volar cómodo.",
+      "puntos_clave": [
+        "UA rutinario; UUA sería urgente",
+        "/OV lugar, /TM hora zulú, /FL nivel, /TP aeronave",
+        "/SK BKN035-TOP055: base 3500, topes 5500",
+        "/IC NEG: sin engelamiento observado",
+        "Topes de nube: dato que solo da el PIREP"
+      ],
+      "errores_tipicos": [
+        "Leer /FL085 como 850 ft",
+        "Confundir la base con los topes en el grupo /SK"
+      ],
+      "fuente": "Práctica Aviatory, formato de PIREP del capítulo"
+    },
+    {
+      "id": 56,
+      "nivel": "avanzado",
+      "titulo": "El PIREP urgente",
+      "metar": "UUA /OV SKCL 270025 /TM 1755 /FL120 /TP B738 /TB SEV /IC MOD RIME /RM LLWS ON APCH RWY 20",
+      "consigna": "Di qué tiene de distinto respecto de un PIREP rutinario y qué haces con esta información.",
+      "respuesta_modelo": "Informe de piloto URGENTE (UUA), no rutinario. Sobre el radial 270 de Alfonso Bonilla Aragón a 25 millas, a las 17:55 UTC, a FL120, en un Boeing 737-800. Turbulencia severa (/TB SEV), engelamiento moderado tipo escarcha (/IC MOD RIME), y en observaciones cizalladura de bajo nivel en aproximación a la pista 20. La diferencia con un UA es el primer campo: UUA se reserva para condiciones que comprometen la seguridad, y por eso se distribuye con prioridad. Con esto en la mano: la turbulencia severa y el engelamiento moderado a FL120 me obligan a replantear el nivel de crucero o la ruta, y la cizalladura en aproximación a la 20 me obliga a preparar la aproximación con velocidades de referencia con margen, o a pedir otra cabecera. Además, si yo encuentro algo parecido, mi obligación es reportarlo.",
+      "puntos_clave": [
+        "UUA: urgente, para condiciones que comprometen la seguridad",
+        "TB SEV e IC MOD RIME en el mismo nivel",
+        "LLWS en aproximación a una cabecera concreta",
+        "Se distribuye con prioridad sobre el rutinario",
+        "Encontrar algo así obliga a reportarlo"
+      ],
+      "errores_tipicos": [
+        "No distinguir UUA de UA",
+        "Quedarse con la turbulencia e ignorar la cizalladura del /RM"
+      ],
+      "fuente": "Práctica Aviatory, formato de PIREP del capítulo"
+    },
+    {
+      "id": 57,
+      "nivel": "intermedio",
+      "titulo": "Cuándo mandar un PIREP sin que lo pidan",
+      "metar": "METAR SKMD 121500Z 27006KT 4000 BR BKN008 16/15 Q1021 NOSIG\n[en vuelo, a 6500 ft, encuentras topes de la capa en 4200 ft y aire liso por encima]",
+      "consigna": "Di si este es un caso de mandar PIREP y redáctalo con los campos obligatorios.",
+      "respuesta_modelo": "El METAR de Olaya Herrera da 4 km con neblina y fragmentadas a 800 ft, o sea techo bajo. Los controladores solicitan PIREP cuando el techo está por debajo de 5000 ft o la visibilidad es de cinco millas o menos: aquí se cumplen las dos cosas, así que lo van a pedir. Pero además yo tengo un dato que nadie más tiene: los topes de la capa a 4200 ft y aire liso por encima, que es exactamente lo que otro piloto necesita para decidir a qué nivel subir. Redactado con los cinco campos obligatorios más lo observado: UA /OV SKMD /TM 1500 /FL065 /TP (mi tipo) /SK BKN008-TOP042 /RM SMOOTH ABV 045. Y sin que lo pidan hay que mandarlo siempre que se encuentren condiciones inesperadas: ese informe entra en la red y sirve para avisar a los demás.",
+      "puntos_clave": [
+        "Techo bajo 5000 ft o visibilidad de 5 millas o menos: lo piden",
+        "Los cinco obligatorios: UA/UUA, /OV, /TM, /FL, /TP",
+        "Los topes son el dato que no tiene nadie más",
+        "Condiciones inesperadas: se manda sin que lo pidan",
+        "El informe entra en la red y avisa a otros"
+      ],
+      "errores_tipicos": [
+        "Esperar a que lo pidan",
+        "Omitir /FL o /TP, que son obligatorios"
+      ],
+      "fuente": "Práctica Aviatory, formato de PIREP del capítulo"
+    },
+    {
+      "id": 58,
+      "nivel": "avanzado",
+      "titulo": "Lo que el radar no te dice",
+      "metar": "RAREP SKBO 1535Z\nAREA 4TRW+ /NC 30/50 180/60 C2025 MT380 AT 220/45\n[la pantalla de radar no muestra eco sobre tu ruta prevista]",
+      "consigna": "Tu ruta pasa por una zona sin eco. Di qué puedes y qué no puedes concluir.",
+      "respuesta_modelo": "El informe de radar de Bogotá a las 15:35Z describe un área con cuatro décimos de cobertura de chubascos con tormenta de intensidad fuerte, sin cambio, en las coordenadas dadas, con células moviéndose desde el 200 a 25 nudos y topes máximos en 38 000 ft en la posición 220 grados a 45 millas. Sobre mi ruta prevista no hay eco. Lo que puedo concluir es exactamente una cosa: que ahí no hay precipitación lo bastante grande para ser detectada. Lo que NO puedo concluir es que el cielo esté despejado, ni que haya condiciones VFR, ni que no haya nubes. El radar detecta precipitación, no nubes: no ve bases ni topes de nubes, ni techos, ni visibilidad. Una pantalla limpia significa que no hay lluvia, no que no haya tiempo. Para techo y visibilidad tengo que ir al METAR y al TAF, y para topes de nube, al PIREP.",
+      "puntos_clave": [
+        "El radar detecta precipitación, nada más",
+        "No ve nubes, techos ni visibilidad",
+        "Eco limpio no es cielo limpio ni VFR",
+        "MT380: topes máximos en 38 000 ft",
+        "Para techos, METAR; para topes de nube, PIREP"
+      ],
+      "errores_tipicos": [
+        "Concluir VFR porque no hay eco",
+        "Leer el movimiento de las células como dirección hacia la que van sin invertirla"
+      ],
+      "fuente": "Práctica Aviatory, formato de informe de radar del capítulo"
+    },
+    {
+      "id": 59,
+      "nivel": "intermedio",
+      "titulo": "Vientos y temperaturas en altura",
+      "metar": "FD SKBO\nFT      3000    6000    9000    12000   18000   24000\nSKBO            1815+12 2022+06 2334-02 2648-15 2972-28",
+      "consigna": "Explica por qué no hay dato a 3000 ft y di qué viento y qué temperatura esperas a FL150.",
+      "respuesta_modelo": "Pronóstico de vientos y temperaturas en altura para El Dorado. No hay dato a 3000 ft porque El Dorado está a 8360 ft de elevación: no se pronostica viento para un nivel que esté dentro de 1500 ft de la elevación de la estación, y menos aún para uno que quede por debajo. Los niveles hasta 12 000 ft son alturas verdaderas; por encima de 18 000 ft son altitudes de presión. La dirección va referida al norte verdadero, la velocidad en nudos y la temperatura en grados Celsius. Para FL150 no hay dato directo: hay que interpolar entre 12 000 (2334-02) y 18 000 (2648-15). Interpolando a mitad de camino: dirección alrededor del 240, velocidad alrededor de 40 nudos, y temperatura alrededor de menos 8 o 9 grados. El nivel real de crucero casi nunca coincide con uno pronosticado, así que interpolar es la norma, no la excepción.",
+      "puntos_clave": [
+        "No se pronostica viento dentro de 1500 ft de la elevación",
+        "Hasta 12 000 ft, alturas verdaderas; sobre 18 000, altitudes de presión",
+        "Dirección al norte verdadero y velocidad en nudos",
+        "FL150 se interpola entre 12 000 y 18 000",
+        "La temperatura no se pronostica dentro de 2500 ft del nivel"
+      ],
+      "errores_tipicos": [
+        "Usar el nivel inferior sin interpolar",
+        "Leer 2334 como 23 nudos del 340"
+      ],
+      "fuente": "Práctica Aviatory, formato de pronóstico de vientos en altura del capítulo"
+    },
+    {
+      "id": 60,
+      "nivel": "avanzado",
+      "titulo": "Viento en altura y decisión de nivel",
+      "metar": "FD RUTA SKBO-SKCG\nFT      9000    12000   18000   24000   30000\nRUTA    0510+08 0715+02 0925-12 1140-25 1355-40",
+      "consigna": "Vuelas de Bogotá a Cartagena, o sea hacia el norte. Di qué nivel te conviene y qué más miras antes de decidir.",
+      "respuesta_modelo": "El pronóstico da, para la ruta, vientos del 050 a 10 nudos a 9000 ft, del 070 a 15 a 12 000, del 090 a 25 a 18 000, del 110 a 40 a 24 000 y del 130 a 55 a 30 000, con temperaturas que van de más 8 a menos 40. Volando de Bogotá a Cartagena voy hacia el norte, aproximadamente rumbo 350. Con viento del este rolando al sureste y arreciando con la altura, en los niveles altos el viento me entra por el costado derecho y cada vez más fuerte: a 30 000 ft son 55 nudos del 130, que con rumbo 350 es casi viento de cola en componente, pero también la mayor deriva. Lo que conviene mirar, aparte de la componente: la temperatura, porque menos 40 condiciona el nivel de congelación y el rendimiento; el consumo a cada nivel; y si hay SIGMET o AIRMET en la capa. El viento no decide solo: decide junto con el tiempo y con el combustible.",
+      "puntos_clave": [
+        "Rumbo aproximado 350 hacia el norte",
+        "El viento rola y arrecia con la altura",
+        "Componente de cola frente a deriva",
+        "La temperatura condiciona nivel de congelación y rendimiento",
+        "Hay que cruzarlo con SIGMET y AIRMET"
+      ],
+      "errores_tipicos": [
+        "Elegir el nivel solo por la velocidad del viento",
+        "Confundir la dirección de donde viene con hacia donde sopla"
+      ],
+      "fuente": "Práctica Aviatory, formato de pronóstico de vientos en altura del capítulo"
+    },
+    {
+      "id": 61,
+      "nivel": "intermedio",
+      "titulo": "Pronóstico de área",
+      "metar": "FA SKBO 121000Z\nSYNOPSIS...LOW PRES TROF 10Z CNTRL COL FCST MOV EWD INTO ORINOQUIA BY 04Z.\nWRMFNT 10Z SRN COL FCST LIFT NWD INTO CNTRL COL.\nSIG CLDS AND WX...SCT-BKN020 TOPS 100. OCNL SHRA. AFT 16Z ISOL TSRA.",
+      "consigna": "Di qué cubre este documento que no cubre un TAF y qué te llevas de él para la ruta.",
+      "respuesta_modelo": "Pronóstico de área para la región de Bogotá, emitido el 12 a las 10:00Z. La sinopsis dice que hay una vaguada de baja presión sobre el centro de Colombia a las 10Z que se pronostica moviéndose al este hacia la Orinoquía para las 04Z, y un frente cálido en el sur del país que se pronostica ascendiendo hacia el noroeste. En nubes y tiempo significativo: dispersas a fragmentadas con base a 2000 ft y topes en 10 000, chubascos ocasionales, y después de las 16Z tormentas aisladas. Lo que cubre y el TAF no es la región entera, que es justo lo que necesito para la parte de la ruta que no tiene aeropuerto cerca. El TAF habla de un aeródromo; esto habla del aire por el que voy a pasar. Me llevo tres cosas: los topes en 10 000 para elegir nivel, las tormentas aisladas desde las 16Z, y hacia dónde se mueve el sistema.",
+      "puntos_clave": [
+        "El pronóstico de área cubre una región, no un aeródromo",
+        "Sinopsis: posición y movimiento de sistemas y frentes",
+        "TOPS 100: topes en 10 000 ft, útil para elegir nivel",
+        "AFT 16Z ISOL TSRA: tormentas aisladas desde esa hora",
+        "Es para la ruta, no para el destino"
+      ],
+      "errores_tipicos": [
+        "Usarlo como si fuera el pronóstico del aeródromo de destino",
+        "Ignorar la sinopsis y quedarse solo con las nubes"
+      ],
+      "fuente": "Práctica Aviatory, formato de pronóstico de área del capítulo"
+    },
+    {
+      "id": 62,
+      "nivel": "avanzado",
+      "titulo": "El modelo de estación",
+      "metar": "[Modelo de estación en carta de superficie]\nCírculo relleno hasta la mitad. Flecha de viento hacia el noreste con dos púas largas y un banderín.\nArriba a la izquierda: 18   ·   Abajo a la izquierda: 16\nArriba a la derecha: 992   ·   Debajo: -14",
+      "consigna": "Lee el modelo campo por campo y di qué tiempo esperas en ese punto.",
+      "respuesta_modelo": "El círculo relleno hasta la mitad indica cuatro octavos de cobertura, es decir cielo dispersos. La flecha apunta hacia el noreste, y la flecha apunta hacia donde va el viento desde donde viene: el viento viene del suroeste. Las púas dan la velocidad: un banderín vale 50 nudos y cada púa larga 10, así que son 70 nudos, que es viento muy fuerte. Arriba a la izquierda, la temperatura: 18 grados. Abajo a la izquierda, el punto de rocío: 16 grados, solo dos de separación, aire casi saturado. Arriba a la derecha, la presión: 992 son tres dígitos con un decimal implícito, y se antepone 9 o 10 según cuál dé el valor más cercano a 1000, aquí 999,2 hPa. El menos 14 es la tendencia: la presión ha caído 1,4 hPa en tres horas. Presión baja y cayendo, viento de 70 nudos y aire casi saturado: sistema de baja presión acercándose, con mal tiempo.",
+      "puntos_clave": [
+        "Relleno del círculo: octavos de cobertura",
+        "Banderín 50 kt, púa larga 10 kt: aquí 70 kt",
+        "T arriba izquierda, Td abajo izquierda",
+        "992 se lee 999,2 hPa: se antepone 9 o 10",
+        "La tendencia negativa dice que la presión cae"
+      ],
+      "errores_tipicos": [
+        "Leer 992 como 992 hPa directamente",
+        "Tomar la dirección de la flecha como de dónde viene el viento"
+      ],
+      "fuente": "Práctica Aviatory, formato de modelo de estación del capítulo"
+    },
+    {
+      "id": 63,
+      "nivel": "intermedio",
+      "titulo": "Isobaras en una carta de superficie",
+      "metar": "[Carta de superficie]\nZona A: isobaras separadas unos 300 km entre sí, valores 1012, 1014, 1016.\nZona B: isobaras separadas unos 60 km entre sí, valores 1004, 1008, 1012, 1016.\nTu ruta cruza de A a B.",
+      "consigna": "Di qué esperas en cada zona y qué preparas antes de entrar en B.",
+      "respuesta_modelo": "En la zona A las isobaras están muy separadas: el gradiente de presión es pequeño y por tanto los vientos son suaves. Es la zona cómoda de la ruta. En la zona B las isobaras están muy juntas, y además cada línea salta 4 hPa en vez de 2: el gradiente es fuerte y eso significa vientos fuertes. Al cruzar de A a B espero un aumento notable de la velocidad del viento, y probablemente también turbulencia asociada, sobre todo si hay relieve debajo. Lo que preparo antes de entrar: recalcular la deriva y el tiempo de tramo, revisar el combustible con el viento real y no con el de la planificación inicial, avisar a cabina de pasajeros si procede, y mirar si hay SIGMET o AIRMET de turbulencia en esa zona. La separación entre isobaras es la lectura más rápida y más útil de una carta de superficie.",
+      "puntos_clave": [
+        "Isobaras separadas: gradiente pequeño, viento suave",
+        "Isobaras juntas: gradiente fuerte, viento fuerte",
+        "El salto entre isobaras también importa",
+        "Al cruzar, recalcular deriva, tiempo y combustible",
+        "Cruzarlo con avisos de turbulencia"
+      ],
+      "errores_tipicos": [
+        "Mirar solo los valores y no la separación",
+        "Suponer que viento fuerte en altura no afecta al plan"
+      ],
+      "fuente": "Práctica Aviatory, formato de carta de superficie del capítulo"
+    },
+    {
+      "id": 64,
+      "nivel": "basico",
+      "titulo": "Las cuatro fuentes, y qué ve cada una",
+      "metar": "[Briefing]\n1. METAR SKBO 141200Z 09006KT 9999 SCT025 18/10 Q1018 NOSIG\n2. Radar: sin eco en la ruta\n3. Satélite: cobertura nubosa extensa al sur\n4. PIREP: UA /OV SKBO 180020 /TM 1150 /FL095 /SK OVC070-TOP110 /TB MOD",
+      "consigna": "Di qué aporta cada una de las cuatro y cuál te da el dato que las otras no tienen.",
+      "respuesta_modelo": "El METAR describe El Dorado a las 12:00Z: viento del este a 6, de 10 km o más, dispersas a 2500 ft, 18 y 10, QNH 1018. Es el punto exacto, y no dice nada de diez millas más allá. El radar no muestra eco en la ruta: eso significa que no hay precipitación detectable, y nada más; no ve nubes, ni techos, ni visibilidad. El satélite muestra cobertura nubosa extensa al sur: da la imagen de conjunto, dónde están los sistemas, pero no el detalle de mi campo. El PIREP es el que aporta lo que ninguna otra fuente tiene: a las 11:50Z, a 9500 ft, cubierto con base en 7000 y topes en 11 000, con turbulencia moderada. Los topes de la capa y la turbulencia real no los mide el radar, ni el satélite, ni la estación. Ninguna fuente lo ve todo: cada una cubre el punto ciego de la otra.",
+      "puntos_clave": [
+        "Estación: el punto exacto, poco radio",
+        "Radar: precipitación, no nubes ni techos",
+        "Satélite: imagen de conjunto, no el detalle",
+        "PIREP: topes y turbulencia reales, en tiempo real",
+        "Ninguna sirve sola"
+      ],
+      "errores_tipicos": [
+        "Concluir VFR porque el radar está limpio",
+        "Suponer que el satélite da techos"
+      ],
+      "fuente": "Práctica Aviatory, formato de briefing del capítulo"
+    },
+    {
+      "id": 65,
+      "nivel": "avanzado",
+      "titulo": "Todo el briefing, una decisión",
+      "metar": "TAF SKCL 190500Z 1906/2006 00000KT 0500 FG VV002 BECMG 1913/1915 6000 BR SCT015\nSIGMET: SKED SIGMET 2 VALID 190600/191000 SKBO- EMBD TS FCST WI ... TOP FL400 MOV NE 20KT\nPIREP: UA /OV SKCL 090030 /TM 0540 /FL100 /SK OVC020-TOP090 /IC MOD RIME\nFD: 12000 2135-02   18000 2450-14",
+      "consigna": "Llegada prevista a SKCL a las 12Z. Di si sales, y justifica con los cuatro documentos.",
+      "respuesta_modelo": "Cuatro documentos y una hora: las 12Z. El TAF de Cali pronostica calma con 500 m de niebla y visibilidad vertical de 200 ft hasta el BECMG 1913/1915, que mejora a 6 km y dispersas a 1500 ft entre las 13Z y las 15Z. Mi llegada a las 12Z cae ANTES de esa mejora: me toca la niebla, que está por debajo de mínimos. El SIGMET añade tormentas incrustadas con topes en FL400 moviéndose al noreste a 20 nudos, válido hasta las 10Z, así que puede haberse renovado. El PIREP de las 05:40Z reporta engelamiento moderado tipo escarcha con base en 2000 y topes en 9000 ft: eso condiciona el nivel de ascenso y descenso. Y los vientos en altura dan del 210 a 35 a 12 000 y del 240 a 50 a 18 000. Conclusión: con el destino por debajo de mínimos a mi hora, no salgo para llegar a las 12Z. O retraso la salida para llegar después del BECMG, o salgo con un alterno holgado fuera del fenómeno y combustible para esperar.",
+      "puntos_clave": [
+        "Mi hora cae antes del BECMG: me toca la niebla",
+        "El SIGMET obliga a rodear, no a pasar por encima",
+        "El PIREP fija la capa de engelamiento: 2000 a 9000 ft",
+        "Los vientos en altura entran en el combustible",
+        "La decisión sale del cruce de los cuatro"
+      ],
+      "errores_tipicos": [
+        "Decidir solo con el TAF",
+        "Leer el BECMG como si ya aplicara a las 12Z"
+      ],
+      "fuente": "Práctica Aviatory, formato de briefing del capítulo"
+    },
+    {
+      "id": 66,
+      "nivel": "intermedio",
+      "titulo": "La radiosonda y su límite",
+      "metar": "[Sondeo de SKBO, 12Z]\nSUP  8360 ft  18 °C  Td 10 °C\n10 000 ft  15 °C  Td 09 °C\n14 000 ft  06 °C  Td 04 °C\n18 000 ft  -02 °C  Td -06 °C\n24 000 ft  -14 °C  Td -20 °C",
+      "consigna": "Di qué te da este documento que no da ninguna observación de superficie, y cuál es su límite.",
+      "respuesta_modelo": "Es un sondeo de radiosonda: el perfil vertical completo de temperatura y punto de rocío sobre El Dorado a las 12Z. Lo que da y ninguna observación de superficie puede dar es precisamente eso, la vertical: cómo cambian temperatura y humedad con la altura. De aquí puedo sacar el nivel de congelación, que está entre 14 000 y 18 000 ft porque ahí la temperatura cruza el cero, y puedo ver dónde temperatura y rocío se acercan, que es donde hay capas húmedas y por tanto nubes. Su límite es la frecuencia: se lanza dos veces al día, y ya. A las cinco de la tarde ese sondeo tiene cinco horas y la atmósfera se ha movido. Junto con el PIREP es una de las dos únicas formas de observar el tiempo en altura, y cada una tapa el agujero de la otra: la radiosonda es completa pero vieja, el PIREP es puntual pero de ahora.",
+      "puntos_clave": [
+        "Da el perfil vertical completo",
+        "El nivel de congelación sale de donde cruza el cero",
+        "Separación T/Td pequeña: capa húmeda",
+        "Su límite es la frecuencia: dos veces al día",
+        "Con el PIREP, las dos únicas observaciones en altura"
+      ],
+      "errores_tipicos": [
+        "Usar un sondeo de hace horas como si fuera actual",
+        "Buscar en él techos o visibilidad, que son de superficie"
+      ],
+      "fuente": "Práctica Aviatory, formato de sondeo del capítulo"
+    },
+    {
+      "id": 67,
+      "nivel": "avanzado",
+      "titulo": "Un SIGMET que te cruza la ruta",
+      "metar": "SKED SIGMET 5 VALID 221000/221400 SKBO-\nSKED BOGOTA FIR SEV TURB FCST WI N0700 W07400 - N0620 W07200 - N0530 W07400 - N0620 W07600 - N0700 W07400 FL180/FL300 MOV SE 25KT INTSF",
+      "consigna": "Tu ruta cruza ese polígono a FL240. Di qué opciones tienes y cuál descartas.",
+      "respuesta_modelo": "SIGMET 5 de la FIR Bogotá, válido del 22 a las 10:00 a las 14:00Z. Turbulencia severa pronosticada dentro del polígono, entre FL180 y FL300, moviéndose al sureste a 25 nudos e intensificándose (INTSF). Mi ruta lo cruza a FL240, que está de lleno dentro de la capa afectada. Opciones: primera, cambiar de nivel por debajo de FL180 o por encima de FL300, si la aeronave y el combustible lo permiten y si no hay otro problema en esos niveles. Segunda, desviar lateralmente para rodear el polígono, contando con que se mueve al sureste a 25 nudos, o sea que hay que rodear por donde va a estar, no por donde está. Tercera, retrasar la salida hasta que el aviso expire o el polígono se haya desplazado. Lo que descarto es cruzarlo a FL240: turbulencia severa es, por definición, peligrosa para todas las aeronaves, y el INTSF dice que va a peor.",
+      "puntos_clave": [
+        "FL180/FL300 es la capa afectada; FL240 está dentro",
+        "MOV SE 25KT: hay que rodear por donde va a estar",
+        "INTSF: intensificándose, no mejorando",
+        "SEV TURB es peligrosa para todas las aeronaves",
+        "Cruzarlo al nivel previsto no es una opción"
+      ],
+      "errores_tipicos": [
+        "Rodear por la posición actual del polígono",
+        "Suponer que un avión grande puede con turbulencia severa"
+      ],
+      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+    },
+    {
+      "id": 68,
+      "nivel": "basico",
+      "titulo": "Cuánto vale cada aviso",
+      "metar": "SIGMET 3 VALID 181200/181600\nSIGMET VA 1 VALID 090600/091200\nAIRMET 2 VALID 141400/141800\nCONVECTIVE SIGMET 21C VALID UNTIL 2055Z",
+      "consigna": "Di cuánto vale cada uno y de qué sistema es cada cual.",
+      "respuesta_modelo": "El primero es un SIGMET ordinario OACI: válido del 18 a las 12:00 a las 16:00Z, cuatro horas, que es la validez normal. El segundo es un SIGMET de ceniza volcánica: del 9 a las 06:00 a las 12:00Z, seis horas, porque la ceniza volcánica y los ciclones tropicales tienen validez ampliada y además SIGMET propio. El tercero es un AIRMET: del 14 a las 14:00 a las 18:00Z, cuatro horas también, pero dirigido a vuelos por debajo de FL100, o FL150 en zonas montañosas. El cuarto es un SIGMET convectivo, que no es OACI sino del sistema de Estados Unidos, y vale dos horas, hasta las 20:55Z. Resumiendo: cuatro horas el SIGMET y el AIRMET, seis el de ceniza y el de ciclón, dos el convectivo estadounidense. Confundir esas validez es planificar con un aviso caducado.",
+      "puntos_clave": [
+        "SIGMET ordinario: cuatro horas",
+        "Ceniza volcánica y ciclón tropical: seis horas",
+        "AIRMET: cuatro horas, para vuelos bajos",
+        "Convectivo de EE. UU.: dos horas",
+        "Un aviso caducado no es información vigente"
+      ],
+      "errores_tipicos": [
+        "Aplicar la misma validez a todos",
+        "Suponer que el convectivo existe en la región"
+      ],
+      "fuente": "Práctica Aviatory, formato del Anexo 3 de la OACI"
+    },
+    {
+      "id": 69,
+      "nivel": "intermedio",
+      "titulo": "La carta primero, el METAR después",
+      "metar": "[Planificación SKBO-SKBQ]\nCarta de superficie 12Z: frente frío sobre el centro del país, moviéndose al noreste a 20 kt.\nMETAR SKBQ 121200Z 06008KT 9999 FEW020 31/24 Q1010 NOSIG\nTAF SKBQ 121100Z 1212/1312 06008KT 9999 FEW020 BECMG 1218/1220 22015G28KT 5000 TSRA BKN012CB",
+      "consigna": "El METAR del destino es bueno. Explica por qué la carta cambia la planificación de todos modos.",
+      "respuesta_modelo": "El METAR de Ernesto Cortissoz a las 12Z es bueno: viento del noreste a 8, de 10 km o más, escasas a 2000 ft, 31 y 24, QNH 1010, sin cambio significativo en dos horas. Si me quedara ahí, saldría tranquilo. La carta de superficie dice otra cosa: hay un frente frío sobre el centro del país moviéndose al noreste a 20 nudos, o sea hacia Barranquilla. Y el TAF lo confirma con un BECMG 1218/1220 que entre las 18Z y las 20Z establece viento del suroeste a 15 con ráfagas de 28, 5 km con tormenta y techo de 1200 ft: eso es exactamente el paso del frente. Por eso las cartas se miran al principio de la planificación y no al final: dan la imagen global, dónde están los sistemas y hacia dónde van. Un METAR bueno no te dice que dentro de seis horas te va a cruzar un frente. Al revés no funciona.",
+      "puntos_clave": [
+        "El METAR describe el ahora, no el sistema que viene",
+        "La carta da posición y movimiento de los frentes",
+        "El BECMG del TAF es el paso del frente",
+        "Las cartas se miran al principio, no al final",
+        "NOSIG cubre dos horas, no seis"
+      ],
+      "errores_tipicos": [
+        "Despachar con el METAR del destino y nada más",
+        "Leer NOSIG como garantía para toda la tarde"
+      ],
+      "fuente": "Práctica Aviatory, formato de briefing del capítulo"
+    },
+    {
+      "id": 70,
+      "nivel": "avanzado",
+      "titulo": "Estimar el viento sin pronóstico",
+      "metar": "METAR SKVP 150900Z 09010KT 9999 FEW025 26/20 Q1012 NOSIG\n[no hay pronóstico de vientos en altura disponible para la zona]",
+      "consigna": "Necesitas el viento a 2000 ft AGL para el circuito y no tienes FD. Estímalo y di de dónde sale la regla.",
+      "respuesta_modelo": "Alfonso López (SKVP), en Valledupar, día 15 a las 09:00Z, o sea las 04:00 de Colombia. El viento de superficie es del 090 a 10 nudos. Sin pronóstico de vientos en altura, se estima a partir del de superficie: a 2000 ft AGL el viento suele estar de 20 a 40 grados a la derecha del de superficie en el hemisferio norte, y con más velocidad. Colombia está en el hemisferio norte, así que espero algo del orden del 110 al 130, y más fuerte, quizá 15 a 20 nudos. La razón es la fricción: en los primeros 2000 ft el rozamiento con el terreno frena el aire, y al frenarlo reduce la fuerza de Coriolis, así que el viento de superficie queda girado a la izquierda respecto del de arriba. Al subir desaparece ese freno y el viento vuelve a su dirección y velocidad libres. El giro es mayor sobre terreno rugoso y menor sobre superficies planas.",
+      "puntos_clave": [
+        "De 20° a 40° a la derecha en el hemisferio norte",
+        "A la izquierda en el hemisferio sur",
+        "Y con más velocidad al desaparecer la fricción",
+        "La causa es la fricción, que reduce Coriolis",
+        "Mayor giro sobre terreno rugoso"
+      ],
+      "errores_tipicos": [
+        "Aplicar el giro a la izquierda estando en el norte",
+        "Suponer la misma velocidad que en superficie"
       ],
       "fuente": "Práctica Aviatory, formato de la clave OACI"
     }
