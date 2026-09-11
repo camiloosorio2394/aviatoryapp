@@ -2,13 +2,17 @@
  * Módulo Mercancías peligrosas: los datos que comparten el hub, la lección, la
  * práctica y la evaluación.
  *
- * Aquí solo vive lo que es dato: rutas, totales, umbrales y el resumen de
- * avance. El contenido de la lección está en mercanciasLeccion/, la práctica
- * en mercanciasPractica.ts y el banco de la evaluación en su propio archivo.
+ * Aquí solo vive lo que es dato: rutas, niveles, totales, umbrales y el resumen
+ * de avance. El contenido de la lección está en mercanciasLeccion/, la práctica
+ * en mercanciasPractica.ts y el banco de la evaluación en el servidor.
+ *
+ * Los totales van fijos y no importados: la lección pesa unos 380 KB y la
+ * práctica 45 KB, y el hub, Ingreso a aerolínea, la Biblioteca y la evaluación
+ * solo necesitan los números. leccionesConteo.test.ts los compara con el
+ * contenido.
  */
 
-import { MP_LECCION_TOTAL } from "@/lib/mercanciasLeccion"
-import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
+import type { LectorNivel } from "@/components/lesson/LectorLeccion"
 
 /** Nombre del módulo, tal como aparece en el hub y en la miga del lector. */
 export const MP_TITULO = "Mercancías peligrosas"
@@ -34,11 +38,23 @@ export const MP_EVALUACION = `${MP_HUB}/evaluacion`
 /** Ruta vieja del lector propio. Redirige a la lección; se conserva por los enlaces guardados. */
 export const MP_LECTOR = `${MP_HUB}/leccion`
 
-/** Cuántas lecciones tiene el módulo. Denominador del progreso de lectura. */
-export const MP_LECTURA_TOTAL = MP_LECCION_TOTAL
+/** Los cinco niveles de la lección, con el número de su primera lección. */
+export const MP_NIVELES: LectorNivel[] = [
+  { titulo: "Nivel 1 · Introducción", desde: 1 },
+  { titulo: "Nivel 2 · Identificación", desde: 5 },
+  { titulo: "Nivel 3 · Transporte aéreo", desde: 9 },
+  { titulo: "Nivel 4 · Situaciones del piloto", desde: 13 },
+  { titulo: "Nivel 5 · Casos reales y repaso", desde: 17 },
+]
 
-/** Ejercicios de la práctica (etiquetas, casos, escenarios y entrevista). Denominador de esa parte. */
-export const MP_PRACTICA_TOTAL = PRACTICA_TOTAL
+/** Cuántas lecciones tiene el módulo (MP_LECCION_TOTAL). Denominador del progreso de lectura. */
+export const MP_LECTURA_TOTAL = 18
+
+/** Lectura estimada de todas las lecciones, en minutos (MP_MINUTOS). */
+export const MP_LECTURA_MINUTOS = 134
+
+/** Ejercicios de la práctica: etiquetas, casos, escenarios y entrevista (PRACTICA_TOTAL). Denominador de esa parte. */
+export const MP_PRACTICA_TOTAL = 49
 
 /** Mínimo de la evaluación, sobre 100. */
 export const MP_PASS_SCORE = 80

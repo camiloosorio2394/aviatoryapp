@@ -1,6 +1,13 @@
 import { LectorLeccion, type LectorModulo } from "@/components/lesson/LectorLeccion"
-import { MP_APRENDE, MP_EVALUACION, MP_HUB, MP_PRACTICA, MP_TITULO } from "@/lib/mercancias"
-import { MP_ENTREVISTAS, MP_LECCIONES, MP_NIVELES } from "@/lib/mercanciasLeccion"
+import {
+  MP_APRENDE,
+  MP_EVALUACION,
+  MP_HUB,
+  MP_PRACTICA,
+  MP_TITULO,
+  MP_NIVELES,
+} from "@/lib/mercancias"
+import { MP_ENTREVISTAS, MP_LECCIONES } from "@/lib/mercanciasLeccion"
 import {
   fetchMercanciasProgress,
   markMercanciasProgress,

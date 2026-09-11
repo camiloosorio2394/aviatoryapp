@@ -15,10 +15,16 @@
  *   4. Evaluación     → pronto
  */
 
-import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import ejerciciosRaw from "@/data/metar/ejercicios_metar.json"
 import examenRaw from "@/data/metar/evaluacion_metar.json"
 import type { NotamLevel } from "@/lib/notamComun"
+
+/**
+ * Conteos de la lección, fijos: la lección pesa unos 90 KB y el hub, Ingreso a
+ * aerolínea y la Biblioteca solo necesitan el número. leccionesConteo.test.ts
+ * los compara con metarLesson.ts.
+ */
+export const METAR_LECCION = { secciones: 30, minutos: 191 } as const
 
 // ─── Tablas de códigos (leyenda del curso, normalizada) ──────────────────────
 
@@ -568,12 +574,12 @@ export function resumirMetar(progreso: {
   practiceDone?: string[]
   bestExamScore?: number | null
 }): MetarResumen {
-  const lessonRead = Math.min(progreso.lessonScreens.length, METAR_LESSON_TOTAL)
+  const lessonRead = Math.min(progreso.lessonScreens.length, METAR_LECCION.secciones)
   const practiceDone = Math.min((progreso.practiceDone ?? []).length, METAR_PRACTICE_TOTAL)
   const best = progreso.bestExamScore ?? null
   const passed = best !== null && best >= METAR_EXAM_PASS_SCORE
 
-  const lessonPct = Math.round((lessonRead / METAR_LESSON_TOTAL) * 100)
+  const lessonPct = Math.round((lessonRead / METAR_LECCION.secciones) * 100)
   const practicePct = Math.round((practiceDone / METAR_PRACTICE_TOTAL) * 100)
   const examPct = passed ? 100 : (best ?? 0)
 
