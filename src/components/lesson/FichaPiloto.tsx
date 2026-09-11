@@ -109,6 +109,7 @@ export function Ficha({
   momento,
   rotulo,
   visual,
+  pie,
   children,
 }: {
   nombre: string
@@ -116,6 +117,11 @@ export function Ficha({
   /** «Escenario de práctica», por ejemplo. Opcional a propósito: no todas lo son. */
   rotulo?: string
   visual?: ReactNode
+  /**
+   * Lo que va debajo, a todo el ancho de la ficha: la respuesta desplegada.
+   * Dentro de la columna izquierda estiraba la foto hasta el doble de su alto.
+   */
+  pie?: ReactNode
   children: ReactNode
 }) {
   return (
@@ -131,8 +137,12 @@ export function Ficha({
         boxShadow: "0 1px 2px rgb(22 25 29 / 5%), 0 10px 28px -18px rgb(22 25 29 / 22%)",
       }}
     >
-      <div className={visual ? "grid md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)]" : undefined}>
-        <div className="min-w-0">
+      <div
+        className={`grid [grid-template-areas:'texto'_'pie'_'visual'] ${
+          visual ? "md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:[grid-template-areas:'texto_visual'_'pie_pie']" : ""
+        }`}
+      >
+        <div className="min-w-0 [grid-area:texto]">
           <div
             className="inline-flex max-w-[calc(100%-12px)] items-center gap-2.5 py-2.5 pl-5 pr-10 text-white sm:pl-7"
             style={{ background: PRIMARIO, clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)" }}
@@ -162,8 +172,14 @@ export function Ficha({
         </div>
 
         {visual && (
-          <div className="h-full border-t md:border-l md:border-t-0" style={{ borderColor: FILETE }}>
+          <div className="h-full border-t [grid-area:visual] md:border-l md:border-t-0" style={{ borderColor: FILETE }}>
             {visual}
+          </div>
+        )}
+
+        {pie && (
+          <div className="border-t px-5 pb-6 pt-5 [grid-area:pie] sm:px-7 sm:pb-7" style={{ borderColor: FILETE }}>
+            {pie}
           </div>
         )}
       </div>

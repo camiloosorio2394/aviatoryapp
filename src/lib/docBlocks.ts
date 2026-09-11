@@ -239,7 +239,15 @@ export interface PiensaComoPilotoBlock {
   momento?: string
   situacion: string
   pregunta: string
-  claves: string[]
+  /**
+   * La primera frase de la respuesta, antes de las claves. Cuando está, abre
+   * ella la respuesta y sobra el rótulo «Lo que te interesa a ti».
+   */
+  respuesta?: string
+  /** Cada clave, suelta o con su título («Presión», «Tiempo de respuesta»). */
+  claves: (string | { titulo: string; texto: string })[]
+  /** «Lo que te interesa como piloto»: la idea que hay que llevarse, después de las claves. */
+  interesa?: string
   cierre?: string
   /** El rótulo de la esquina, «Escenario de práctica» por ejemplo. Solo si lo es. */
   rotulo?: string

@@ -243,21 +243,33 @@ export const NIVEL_1: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "En crucero, FL350",
         situacion:
-          "Llevas en bodega un envío que en tierra nadie miró dos veces: aerosoles de cantidad limitada, bien embalados y declarados. A nivel de crucero la presión de cabina equivale a unos 8.000 pies y la bodega va a esa misma presión. Estás a cincuenta minutos del aeródromo alterno más cercano.",
-        pregunta: "¿Qué ha cambiado respecto a esa misma caja en el almacén?",
+          "Llevas en la bodega un envío de aerosoles que fue aceptado y embalado correctamente. En tierra parecía una carga normal, pero ahora estás a FL350: la aeronave está presurizada, existe vibración y estás lejos de la ayuda que tendrías en tierra.",
+        pregunta: "¿Qué cambió?",
+        respuesta: "La mercancía sigue siendo la misma. Lo que cambió es el entorno en el que está durante el vuelo.",
         claves: [
-          "La presión de fuera bajó: cada recipiente cerrado en tierra ahora empuja hacia afuera. Un cierre mediocre gotea aquí, no allá.",
-          "Nadie va a bajar a mirar. Lo que pase en esa bodega lo vas a saber por un detector de humo o por un olor en cabina.",
-          "Los cincuenta minutos son el dato. En tierra un derrame se atiende en cinco; aquí el tiempo de respuesta lo pones tú con lo que ya está a bordo.",
+          {
+            titulo: "Presión",
+            texto: "La presión exterior es menor que en tierra. Si un recipiente no soporta adecuadamente esa diferencia, puede aumentar el riesgo de fuga.",
+          },
+          {
+            titulo: "Temperatura y vibración",
+            texto: "Durante el vuelo cambian las condiciones de temperatura y el bulto está sometido continuamente a vibraciones y movimientos.",
+          },
+          {
+            titulo: "Tiempo de respuesta",
+            texto: "Si aparece una fuga, humo o cualquier otra anomalía, la tripulación no puede simplemente abrir la bodega y retirar el bulto. Debe aplicar los procedimientos establecidos y gestionar la situación con los medios disponibles a bordo.",
+          },
         ],
+        interesa:
+          "No necesitas imaginar que la mercancía «se vuelve peligrosa» al subir el avión. El riesgo cambia porque las condiciones de transporte cambian.",
         cierre:
-          "Por eso el reglamento exige que el embalaje aguante cambios de temperatura, humedad, presión y vibración: no describe un almacén, describe tu vuelo.",
+          "La misma mercancía que en tierra parecía inofensiva ahora está dentro de una aeronave, bajo otras condiciones y lejos de ayuda externa. Por eso el transporte aéreo exige requisitos específicos de embalaje y control.",
         rotulo: "Escenario de práctica",
         hueco: {
           id: "MP-IMG-07",
           medida: "Fotografía · 4:3 · 1200×900",
           descripcion:
-            "Un avión de pasajeros en crucero sobre las nubes y, en detalle, una caja de aerosoles bien embalada y marcada como cantidad limitada. Tiene que verse pequeña y en regla: el escenario va de un envío que en tierra nadie miró dos veces.",
+            "Un avión de pasajeros en crucero sobre las nubes y, en detalle, una caja de aerosoles bien embalada. Tiene que verse en regla: el escenario va de un envío aceptado y embalado correctamente que en tierra parecía una carga normal.",
         },
       },
       {

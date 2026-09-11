@@ -174,8 +174,74 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
   const visual =
     block.imagen || block.hueco ? <VisualFicha imagen={block.imagen} hueco={block.hueco} ves={block.ves} /> : null
 
+  // La respuesta va al pie de la ficha, a todo el ancho. Solo existe cuando
+  // se ha pedido: antes, el cuerpo termina en el botón.
+  const respuesta = visto ? (
+    <div id={`${base}-resp`} className="rev-aparece-2">
+      {/* Con `respuesta`, la respuesta la abre una frase entera y las claves
+          llevan título. Sin ella, la ficha se pinta como siempre: las demás
+          fichas de los tres módulos no cambian. */}
+      {block.respuesta ? (
+        <p
+          className="m-0 text-[17px] font-semibold leading-[1.5]"
+          style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}
+        >
+          {renderInline(block.respuesta)}
+        </p>
+      ) : (
+        <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
+          Lo que te interesa a ti
+        </div>
+      )}
+
+      <ul className={`m-0 flex list-none flex-col p-0 ${block.respuesta ? "mt-4 gap-3.5" : "mt-2.5 gap-2"}`}>
+        {block.claves.map((c, i) =>
+          typeof c === "string" ? (
+            <li key={i} className="flex items-start gap-2.5 text-[15px] leading-[1.6]">
+              <span
+                className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full"
+                style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+                aria-hidden
+              />
+              <span>{renderInline(c)}</span>
+            </li>
+          ) : (
+            <li key={i} className="border-l-2 pl-3.5" style={{ borderColor: "var(--ln-primary, var(--av-blue-500))" }}>
+              <div className="text-[15px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+                {c.titulo}
+              </div>
+              <p className="m-0 mt-0.5 text-[15px] leading-[1.6]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
+                {renderInline(c.texto)}
+              </p>
+            </li>
+          ),
+        )}
+      </ul>
+
+      {block.interesa && (
+        <div className="mt-5 rounded-[12px] px-4 py-3.5" style={{ background: docTint(ACENTO, 9) }}>
+          <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+            Lo que te interesa como piloto
+          </div>
+          <p className="m-0 mt-1 text-[15px] leading-[1.6]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
+            {renderInline(block.interesa)}
+          </p>
+        </div>
+      )}
+
+      {block.cierre && (
+        <p
+          className={`m-0 mt-4 text-[15px] leading-[1.65] ${block.respuesta ? "" : "doc-muted"}`}
+          style={block.respuesta ? { color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" } : undefined}
+        >
+          {renderInline(block.cierre)}
+        </p>
+      )}
+    </div>
+  ) : null
+
   return (
-    <Ficha nombre="Piensa como piloto" momento={block.momento} rotulo={block.rotulo} visual={visual}>
+    <Ficha nombre="Piensa como piloto" momento={block.momento} rotulo={block.rotulo} visual={visual} pie={respuesta}>
       <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>
         <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
           {renderInline(block.situacion)}
@@ -211,28 +277,7 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
             Piénsalo y luego mira
             <ArrowRight className="h-4 w-4" aria-hidden />
           </button>
-        ) : (
-          <div id={`${base}-resp`} className="rev-aparece-2 mt-5">
-            <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
-              Lo que te interesa a ti
-            </div>
-            <ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0">
-              {block.claves.map((c, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-[15px] leading-[1.6]">
-                  <span
-                    className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full"
-                    style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
-                    aria-hidden
-                  />
-                  <span>{renderInline(c)}</span>
-                </li>
-              ))}
-            </ul>
-            {block.cierre && (
-              <p className="m-0 mt-3.5 text-[15px] leading-[1.65] doc-muted">{renderInline(block.cierre)}</p>
-            )}
-          </div>
-        )}
+        ) : null}
       </div>
     </Ficha>
   )
