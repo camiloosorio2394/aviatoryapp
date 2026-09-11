@@ -16,19 +16,19 @@ import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
 import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_TOTALES, NOTAM_PRACTICE_TOTAL } from "@/lib/notamComun"
 import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
-import {
-  type PilotState,
-  type Profile,
-  type Streak,
-  type Subscription,
-  type Achievement,
-  type ActivityDay,
-  type DailyQuizQuestion,
-  type Peer,
-  type SubjectMastery,
-  type NotamResumen,
-  type LicenseRow,
-  type PcaReadiness,
+import type {
+  PilotState,
+  Profile,
+  Streak,
+  Subscription,
+  Achievement,
+  ActivityDay,
+  DailyQuizQuestion,
+  Peer,
+  SubjectMastery,
+  NotamResumen,
+  LicenseRow,
+  PcaReadiness,
 } from "@/components/dashboard/tipos"
 import {
   daysUntil,

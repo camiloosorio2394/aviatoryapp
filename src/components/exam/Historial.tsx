@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { History } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import { accentText } from "@/lib/tileColors"
-import { type FilaHistorial, type ExamenConfig } from "@/components/exam/tipos"
+import type { FilaHistorial, ExamenConfig } from "@/components/exam/tipos"
 import { fmtTime, fmtDate, mix } from "@/components/exam/formato"
 
 // ─── Historial de intentos ───────────────────────────────────────────────────

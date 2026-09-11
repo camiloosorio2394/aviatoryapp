@@ -3,7 +3,7 @@ import { ArrowRight, Trophy } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import { accentText } from "@/lib/tileColors"
 import { badgeForCode } from "@/lib/achievementBadges"
-import { type Achievement } from "@/components/dashboard/tipos"
+import type { Achievement } from "@/components/dashboard/tipos"
 import { DAILY_ACTION } from "@/components/dashboard/plan"
 import { EmptyState } from "@/components/dashboard/EmptyState"
 

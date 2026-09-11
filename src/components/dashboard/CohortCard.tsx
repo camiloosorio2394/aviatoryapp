@@ -1,6 +1,6 @@
 import { Flame, Users } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
-import { type Peer } from "@/components/dashboard/tipos"
+import type { Peer } from "@/components/dashboard/tipos"
 import { EmptyState } from "@/components/dashboard/EmptyState"
 
 export function CohortCard({

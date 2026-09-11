@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { type IconComponent } from "@/components/dashboard/plan"
+import type { IconComponent } from "@/components/dashboard/plan"
 
 /**
  * Patrón único de estado vacío: tile con icono, título, una línea y una salida.

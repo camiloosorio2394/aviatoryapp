@@ -7,7 +7,7 @@ import {
   type TileColorKey,
   accentText,
 } from "@/lib/tileColors"
-import { type IconComponent } from "@/components/dashboard/plan"
+import type { IconComponent } from "@/components/dashboard/plan"
 
 /**
  * Card de curso: cuánto llevas, qué sigue y una sola salida.

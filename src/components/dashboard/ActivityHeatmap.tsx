@@ -10,7 +10,7 @@ import { toast } from "sonner"
 import { CountUp } from "@/components/ui/count-up"
 import { shareStreak } from "@/lib/shareStreak"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { type ActivityDay } from "@/components/dashboard/tipos"
+import type { ActivityDay } from "@/components/dashboard/tipos"
 import { DAILY_ACTION } from "@/components/dashboard/plan"
 
 /**

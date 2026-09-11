@@ -7,7 +7,7 @@ import {
 } from "lucide-react"
 import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
 import { CountUp } from "@/components/ui/count-up"
-import { type DailyQuizQuestion } from "@/components/dashboard/tipos"
+import type { DailyQuizQuestion } from "@/components/dashboard/tipos"
 import { daysUntil, DAILY_ACTION, greetingTime } from "@/components/dashboard/plan"
 
 export function CockpitHero({
