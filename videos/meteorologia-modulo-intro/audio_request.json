@@ -3,14 +3,69 @@
   "lang": "es",
   "speed": 0.92,
   "lines": [
-    { "id": "01", "sfx": ["impacto-suave"] },
-    { "id": "02", "sfx": ["zumbido-grave-descendente"] },
-    { "id": "03", "sfx": ["tic-seco"] },
-    { "id": "04", "sfx": ["tic-escalonado"] },
-    { "id": "05", "sfx": ["whoosh-corto"] },
-    { "id": "06", "sfx": ["tic-por-sustitución"] },
-    { "id": "07", "sfx": ["cascada-tics-suaves", "impacto-final"] },
-    { "id": "08", "sfx": ["impacto-grave-cierre"] }
+    {
+      "id": "01",
+      "sfx": [
+        "impacto-suave"
+      ],
+      "text": "Bienvenido al módulo de Meteorología de Aviatory."
+    },
+    {
+      "id": "02",
+      "sfx": [
+        "zumbido-grave-descendente"
+      ],
+      "text": "Este pronóstico ya dice lo que te vas a encontrar al aterrizar. Y descifrarlo no sirve si no sabes qué lo produce."
+    },
+    {
+      "id": "03",
+      "sfx": [
+        "tic-seco"
+      ],
+      "text": "Aquí vas a entender por qué se mueve el aire, y qué le hace la presión al altímetro."
+    },
+    {
+      "id": "04",
+      "sfx": [
+        "tic-escalonado"
+      ],
+      "text": "Vas a leer el agua que lleva dentro: rocío, nubes y niebla."
+    },
+    {
+      "id": "05",
+      "sfx": [
+        "whoosh-corto"
+      ],
+      "text": "Vas a cruzar un frente sabiendo qué hay al otro lado. Y a leer una tormenta por dentro."
+    },
+    {
+      "id": "06",
+      "sfx": [
+        "tic-por-sustitución"
+      ],
+      "text": "Y vas a descifrar el código: METAR, taf y los avisos en vuelo."
+    },
+    {
+      "id": "07",
+      "sfx": [
+        "cascada-tics-suaves",
+        "impacto-final"
+      ],
+      "text": "Al terminar, no lees el pronóstico entero: buscas tu ventana."
+    },
+    {
+      "id": "08",
+      "sfx": [
+        "impacto-grave-cierre"
+      ],
+      "text": "Treinta lecciones, práctica y evaluación. Empecemos."
+    }
   ],
-  "bgm": { "mode": "none" }
+  "bgm": {
+    "mode": "retrieve",
+    "query": "documental sobrio, cuerdas graves contenidas, tensión baja que resuelve en calma",
+    "blob": "Al terminar el módulo, un pronóstico no se lee entero: se busca tu ventana",
+    "arc": "Bienvenida → El pronóstico ilegible → Lo que vas a aprender (4 promesas) → El mismo pronóstico, situado en el tiempo → Empecemos"
+  },
+  "voice": "001248bb63f847888d37b766ee8b3a47"
 }
