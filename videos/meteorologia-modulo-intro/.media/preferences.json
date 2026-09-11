@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": { "value": "embed", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "aspect": { "value": "1920x1080", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "language": { "value": "es", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "flow": { "value": "automation", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "storyboard": { "value": "yes", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "voice": { "value": "001248bb63f847888d37b766ee8b3a47", "confirmed_in": ["meteorologia-modulo-intro"] },
+    "style_preset.faceless-explainer": { "value": "code-editorial", "confirmed_in": ["meteorologia-modulo-intro"] }
+  },
+  "sightings": {}
+}

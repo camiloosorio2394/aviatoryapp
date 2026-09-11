@@ -1,0 +1,251 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", monospace;
+      --mt-accent: #49939c;
+      --mt-accent-paper: #0d4b52;
+    }
+
+    .mt07-ground {
+      position: absolute;
+      inset: 0;
+      background: #fbfaf8;
+    }
+
+    /* ──────────────────────────────────────────────────────────────────────────
+       EL ENCUADRE DEL FRAME 2, CALCADO. Si estas seis medidas se mueven, el
+       video pierde su único argumento: el espectador tiene que reconocer el
+       mismo bloque. Panel 365/204/1190x480, texto mono 38px con caja de 64px,
+       rótulo superior en 136, línea de acento en 180, rótulo inferior en 708.
+       ────────────────────────────────────────────────────────────────────────── */
+    .mt07-label {
+      position: absolute;
+      width: 1190px;
+      height: 32px;
+      font-size: 26px;
+      line-height: 32px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+    .mt07-label-top {
+      left: 365px;
+      top: 136px;
+    }
+    .mt07-label-bottom {
+      left: 365px;
+      top: 708px;
+    }
+    /* la pregunta del plano: a qué hora llega este vuelo */
+    .mt07-label-arrival {
+      left: 365px;
+      top: 136px;
+      text-align: right;
+      color: rgba(22, 25, 29, 0.78);
+      opacity: 0;
+    }
+
+    .mt07-rule {
+      position: absolute;
+      left: 365px;
+      top: 180px;
+      width: 1190px;
+      height: 1px;
+      background: var(--mt-accent-paper);
+    }
+
+    .mt07-panel {
+      position: absolute;
+      left: 365px;
+      top: 204px;
+      width: 1190px;
+      height: 480px;
+      padding: 48px 44px;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    /* la banda va en su propio envoltorio recortado al interior del panel, para
+       que pueda entrar desde arriba sin asomar por fuera */
+    .mt07-bandwrap {
+      position: absolute;
+      left: 366px;
+      top: 205px;
+      width: 1188px;
+      height: 478px;
+      overflow: hidden;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    .mt07-band {
+      position: absolute;
+      left: 11px;
+      top: 0;
+      width: 1166px;
+      height: 64px;
+      background: rgba(73, 147, 156, 0.22);
+      border-left: 1px solid var(--mt-accent);
+      border-radius: 4px;
+      will-change: transform;
+    }
+
+    .mt07-code {
+      position: absolute;
+      left: 410px;
+      top: 253px;
+      font-size: 38px;
+      line-height: 64px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #fbfaf8;
+    }
+    .mt07-ln {
+      white-space: pre;
+      height: 64px;
+    }
+    /* las cuatro líneas que no afectan a esta llegada caen a media tinta */
+    .mt07-dim {
+      color: #fbfaf8;
+    }
+    /* la marca de «ya vigente» a la izquierda de la línea FM. Tres píxeles y
+       no uno: sobre el navy una hairline no se ve, y esta marca tiene que
+       leerse a la primera. */
+    .mt07-marca {
+      position: absolute;
+      left: 386px;
+      top: 445px;
+      width: 3px;
+      height: 64px;
+      background: var(--mt-accent);
+      transform-origin: 50% 0%;
+    }
+
+    /* lo que significan las dos filas marcadas, una línea cada una */
+    .mt07-sentido {
+      position: absolute;
+      left: 365px;
+      width: 1415px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 48px;
+      letter-spacing: -0.008em;
+      color: #16191d;
+      white-space: nowrap;
+      opacity: 0;
+    }
+    .mt07-sentido-1 {
+      top: 762px;
+      color: rgba(22, 25, 29, 0.72);
+    }
+    .mt07-sentido-2 {
+      top: 810px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="07-tu-ventana" data-start="0" data-duration="6.683" data-width="1920" data-height="1080">
+    <div id="mt07-suelo-papel" class="clip mt07-ground" data-start="0" data-duration="6.683" data-track-index="0"></div>
+
+    <div id="mt07-escena" class="clip" data-start="0" data-duration="6.683" data-track-index="1" style="position:absolute; inset:0;">
+      <div class="mt07-label mt07-label-top">TAF SKXX · PRONÓSTICO DE AERÓDROMO</div>
+      <div class="mt07-label mt07-label-arrival">Tu llegada · 0600Z</div>
+      <div class="mt07-rule"></div>
+
+      <div class="mt07-panel"></div>
+      <div class="mt07-bandwrap"><div class="mt07-band"></div></div>
+
+      <div class="mt07-code"><div class="mt07-ln mt07-dim">TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025</div><div class="mt07-ln mt07-dim">     BECMG 1520/1522 15012G22KT 6000 -RA BKN015</div><div class="mt07-ln mt07-dim">     TEMPO 1522/1602 3000 TSRA BKN010CB</div><div class="mt07-ln">     FM160300 09006KT 1200 BR OVC006</div><div class="mt07-ln">     PROB30 1604/1608 0500 FG</div><div class="mt07-ln mt07-dim">     BECMG 1612/1614 9999 NSW SCT030</div></div>
+
+      <div class="mt07-marca"></div>
+
+      <div class="mt07-label mt07-label-bottom">Escenario de práctica · Lección 29</div>
+      <div class="mt07-sentido mt07-sentido-1">Ya vigente: cubierto a 600 ft.</div>
+      <div class="mt07-sentido mt07-sentido-2">Y un 30 % de probabilidad de 500 m con niebla.</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "07-tu-ventana";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(ROOT.querySelectorAll(s));
+      };
+
+      var D = 6.683;
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 5.083s. Re-cuear con
+         audio_engine_meta.json cuando exista la locución. */
+
+      /* ── Escena 1 (0.0–0.7s) ──────────────────────────────────────────────
+         El fundido cruzado desde el frame 6 lo hace la transición de raíz. Aquí
+         no se mueve nada: aparece el encuadre exacto del frame 2, esta vez
+         entero a plena tinta. El reconocimiento tiene que ser inmediato, y por
+         eso este plano empieza quieto. */
+      tl.set(q(".mt07-band"), { y: -64 });
+      tl.set(q(".mt07-marca"), { scaleY: 0 });
+
+      /* ── Escena 2 (0.7–2.0s) ──────────────────────────────────────────────
+         Entra por la derecha la etiqueta de la hora de llegada. El bloque no se
+         mueve ni un píxel. */
+      tl.fromTo(
+        q(".mt07-label-arrival"),
+        { opacity: 0, x: 46 },
+        { opacity: 1, x: 0, duration: 0.62, ease: "power3.out" },
+        0.8,
+      );
+
+      /* ── Escena 3 (2.0–3.2s) ──────────────────────────────────────────────
+         La banda de acento baja por el bloque y se detiene sobre la línea
+         PROB30, que es la ventana en la que cae esa llegada. Fila 4 del bloque:
+         48px de padding + 4 cajas de 64 = 304px dentro del envoltorio.
+         A la vez, la línea FM gana su marca de «ya vigente» y las otras cuatro
+         caen a media tinta. Es un solo gesto, no dos acentos. */
+      tl.to(q(".mt07-band"), { y: 304, duration: 1.05, ease: "power3.out" }, 2.0);
+      tl.to(qa(".mt07-dim"), { color: "rgba(251,250,248,0.4)", duration: 0.9, ease: "power2.inOut" }, 2.25);
+      tl.to(q(".mt07-marca"), { scaleY: 1, duration: 0.5, ease: "power2.out" }, 2.75);
+
+      /* ── Escena 4 (3.2–5.1s) ──────────────────────────────────────────────
+         Bajo el bloque entra en una línea lo que eso significa, y todo se
+         detiene de golpe. Es el pago del video: de 5.1s al final del plano
+         (6.683s) no hay un solo tween. Es la quietud más larga del montaje y
+         cae justo después de la única frase que importa. */
+      tl.fromTo(q(".mt07-sentido-1"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.15);
+      tl.fromTo(q(".mt07-sentido-2"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.45);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

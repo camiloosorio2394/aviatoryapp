@@ -3,7 +3,8 @@
 Documento vivo. Lo que está aquí necesita algo de tu lado: aplicar, decidir o
 confirmar. Cuando algo se cierra, se borra de aquí.
 
-Última actualización: 10 de septiembre de 2026 (las dos migraciones, aplicadas).
+Última actualización: 10 de septiembre de 2026 (Meteorología: 30 lecciones, una
+migración que toca datos de usuarios, y el video de apertura). Ver §16.
 
 ---
 
@@ -1134,3 +1135,99 @@ mismo en las cinco, que es un veto que solo podía inventar desacuerdos.
 Con la 17 van **trece de veinte**. Las siete que faltan están en 9.5.2, cada una
 con lo que la bloquea; la 18 está a una frase de cerrarse y esa frase la tiene el
 cuadernillo en papel (9.5.3).
+
+---
+
+## 16 · Meteorología: el módulo pasa de 13 a 30 lecciones (10 de septiembre de 2026)
+
+Las tres PR están mergeadas y **la migración está aplicada**, el 11 de septiembre de 2026.
+Queda lo de 16.3 y 16.4.
+
+### 16.1 · La migración, aplicada
+
+`20260911010000_meteorologia_teoria_del_clima.sql` se aplicó justo después de mergear
+#119, para que el código nuevo no llegara a producción leyendo el progreso con la
+numeración vieja. Comprobado después contra la base:
+
+- `module_thresholds.metar_lesson` en **30**, y el logro renombrado a «Meteorología leída».
+- **2 progresos desplazados** (los de Camilo y Nico, que eran los únicos) y **0** sin mover.
+- Las 3 filas de `user_metar_progress` siguen ahí: no se borró ninguna.
+
+### 16.2 · Por qué la teoría va delante del código
+
+El módulo era solo código: nueve lecciones de METAR y cuatro de TAF. Ahora son treinta,
+191 minutos, y las diecisiete nuevas van **antes**, adaptadas de los capítulos 11 y 12
+del Pilot Handbook of Aeronautical Knowledge.
+
+El orden es deliberado y es al revés del que había: se puede decodificar `BKN015CB` sin
+saber qué es un cumulonimbus, pero no se puede **decidir** con él. Las cifras (la ISA,
+los gradientes, las altitudes de las capas, las velocidades de los frentes) salen del
+capítulo y se citan como suyas. Lo que no está en el capítulo no se inventa: va como
+escenario de práctica rotulado, o con un aviso de verificar.
+
+Las cuatro partes: la atmósfera y el aire en movimiento (1 a 5), el agua en el aire
+(6 a 9), masas de aire, frentes y tormentas (10 a 12), y los servicios y el código
+(13 a 30).
+
+### 16.3 · Veinte huecos de imagen, cada uno con su encargo escrito
+
+Ninguna ilustración del PHAK se puede usar, así que en su sitio va un bloque `hueco`
+que **ya dice qué tiene que llevar la figura**: rótulo, formato, proporción, píxeles y
+una descripción de lo que se ve. El módulo se lee entero sin ellas; con ellas se lee
+mejor.
+
+```
+MT-T01-01 · Diagrama · 4:5 · 900×1125       la tropopausa y dónde vuela un jet
+MT-T02-01 · Diagrama comparativo · 16:9     presión y altímetro
+MT-T03-01 · Diagrama · 16:9                 por qué se mueve el aire
+MT-T04-01 · Ilustración · 16:9              brisa de mar y de tierra
+MT-T04-02 · Ilustración · 16:9              barlovento y sotavento
+MT-T05-01 · Diagrama · 16:9                 la microrráfaga, paso a paso
+MT-T06-01 · Diagrama · 16:9                 aire estable contra aire inestable
+MT-T07-01 · Diagrama · 4:3                  punto de rocío y altura de la base
+MT-T08-01 · Diagrama · 3:2                  las nubes por altura
+MT-T08-02/03/04 · Fotografía · 16:9         tres nubes para el bloque «reconoce»
+MT-T09-01 · Ilustración · 16:9              los tipos de niebla
+MT-T10-01 · Mapa · 4:3                      masas de aire
+MT-T10-02 · Diagrama · 16:9                 los cuatro tipos de frente
+MT-T11-01 · Diagrama · 3:1                  cruzar un frente, en tres tiempos
+MT-T12-01 · Diagrama · 3:1                  la tormenta y sus tres etapas
+MT-S13-01 · Diagrama · 16:9                 de dónde sale el dato
+MT-S14-01 · Tabla ilustrada · 3:4           PIREP y RAREP
+MT-S17-01 · Diagrama anotado · 4:3          las cartas del tiempo
+```
+
+Las tres fotografías (`MT-T08-02/03/04`) son las únicas que no se pueden dibujar: hacen
+falta fotos reales de nubes, y el hueco dice de qué tipo tiene que ser cada una.
+
+### 16.4 · El video de apertura, y lo único que le falta
+
+`videos/meteorologia-modulo-intro/`. Es el gemelo del de NOTAM: mismo preset, mismos
+ocho planos, misma voz, y lo único que cambia es el acento, que pasa del azul carta al
+turquesa petróleo del módulo. La imagen está terminada y verificada (0 errores y 0
+avisos en `npm run check`, 54 de 54 de contraste en WCAG AA).
+
+Le falta el audio, y **no es algo tuyo**: la voz que manda el brief necesita sesión de
+HeyGen y la máquina donde se trabaja no la tiene. Está explicado en
+`videos/meteorologia-modulo-intro/PENDIENTE-AUDIO.md`.
+
+Dos cosas que sí conviene que sepas:
+
+- **El pronóstico que sale en pantalla no es real, y el video lo dice.** No hay ningún
+  METAR ni TAF real en el módulo: todos están redactados para el curso y el indicativo
+  `SKXX` es deliberadamente falso. El video usa el TAF de la lección 29, completo y sin
+  alterar, y lo rotula en pantalla como `ESCENARIO DE PRÁCTICA · LECCIÓN 29` en los dos
+  planos donde aparece.
+- **El video tiene el turquesa de antes.** Se calculó con los tokens de #119
+  (`#0D4B52`, `#49939C`, `#E5F3F5`), pero al mergear mandaron los de `main`, que son
+  los que documenta CLAUDE.md: `--ln-primary #1A4A52`, `--ln-focus #3D97A6`,
+  `--ln-tint #E4EFF1`. La diferencia es pequeña, pero al generar el audio conviene
+  regenerar también la imagen con estos tres, o el video no casará con la portada.
+- **El hueco del hero ya está reservado** en `src/pages/Metar.tsx`. Cuando exista el
+  MP4 va a `public/modulos/meteorologia/intro.mp4` y el póster al lado; hasta entonces
+  hay un `EspacioReservado` en su sitio, no un video roto.
+
+### 16.5 · Lo que decides tú
+
+**Las veinte figuras**: si las encargas, si las dibujo yo en SVG, o si el módulo sale con
+los huecos rotulados. Las tres fotografías de nubes hay que conseguirlas aparte.

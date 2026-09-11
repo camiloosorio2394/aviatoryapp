@@ -1,0 +1,13 @@
+Bienvenido al módulo de Meteorología de Aviatory.
+
+Este pronóstico ya dice lo que te vas a encontrar al aterrizar. Y descifrarlo no
+sirve si no sabes qué lo produce.
+
+Aquí vas a entender por qué se mueve el aire y qué le hace la presión al
+altímetro. Vas a leer el agua que lleva dentro: rocío, nubes y niebla. Vas a
+cruzar un frente sabiendo qué hay al otro lado, y a leer una tormenta por dentro.
+Y vas a descifrar el código: METAR, TAF y los avisos en vuelo.
+
+Al terminar, no lees el pronóstico entero: buscas tu ventana.
+
+Treinta lecciones, práctica y evaluación. Empecemos.

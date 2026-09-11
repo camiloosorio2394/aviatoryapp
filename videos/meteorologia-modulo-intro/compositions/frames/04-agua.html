@@ -1,0 +1,205 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      --mt-ink: #16191d;
+      --mt-cream: #fbfaf8;
+      --mt-tile: #e5f3f5;
+      --mt-accent: #0d4b52;
+    }
+
+    .mt04-ground {
+      position: absolute;
+      inset: 0;
+      background: var(--mt-cream);
+    }
+    .mt04-hair {
+      position: absolute;
+      left: 140px;
+      top: 80px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+    }
+    .mt04-kicker {
+      position: absolute;
+      left: 140px;
+      top: 110px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 32px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+
+    /* ── la fila de cuatro fichas (foreground subject) ───────────────────────
+       1640px útiles, tres huecos de 40 -> 380px por ficha. card-hairline de
+       frame.md: relleno de medio paso, 1px de hairline, 12px de radio y UNA
+       sombra cálida suave. Nada de sombra pesada. */
+    .mt04-card {
+      position: absolute;
+      top: 320px;
+      width: 380px;
+      height: 276px;
+      padding: 36px;
+      box-sizing: border-box;
+      background: var(--mt-tile);
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 12px;
+      box-shadow:
+        0 1px 3px rgba(22, 25, 29, 0.08),
+        0 4px 16px rgba(22, 25, 29, 0.04);
+    }
+    .mt04-c1 {
+      left: 140px;
+    }
+    .mt04-c2 {
+      left: 560px;
+    }
+    .mt04-c3 {
+      left: 980px;
+    }
+    .mt04-c4 {
+      left: 1400px;
+    }
+
+    .mt04-tag {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 30px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.7);
+      white-space: nowrap;
+    }
+    /* el rótulo de NIEBLA va en acento: es la única de la fila que decide si el
+       vuelo entra o no. EL momento de voltaje del frame, y va en el rótulo
+       entero y no solo en la inicial porque una sola letra a 24px no se lee
+       como acento: se lee como una errata. */
+    .mt04-lead {
+      color: var(--mt-accent);
+    }
+    .mt04-rule {
+      margin-top: 22px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+      transform-origin: 0% 50%;
+    }
+    .mt04-line {
+      margin-top: 26px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 2.0cqw;
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      color: var(--mt-ink);
+    }
+
+    .mt04-progress {
+      position: absolute;
+      right: 140px;
+      top: 790px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0.16em;
+      color: var(--mt-accent);
+      white-space: pre;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-agua" data-start="0" data-duration="6.117" data-width="1920" data-height="1080">
+    <div id="mt04-suelo-papel" class="clip mt04-ground" data-start="0" data-duration="6.117" data-track-index="0"></div>
+
+    <div id="mt04-escena" class="clip" data-start="0" data-duration="6.117" data-track-index="1" style="position:absolute; inset:0;">
+      <div class="mt04-hair"></div>
+      <div class="mt04-kicker">Parte 2 · El agua en el aire</div>
+
+      <div class="mt04-card mt04-c1">
+        <div class="mt04-tag">Estabilidad</div>
+        <div class="mt04-rule"></div>
+        <div class="mt04-line">cuándo el aire sube solo</div>
+      </div>
+      <div class="mt04-card mt04-c2">
+        <div class="mt04-tag">Punto de rocío</div>
+        <div class="mt04-rule"></div>
+        <div class="mt04-line">a qué altura está la base</div>
+      </div>
+      <div class="mt04-card mt04-c3">
+        <div class="mt04-tag">Nubes</div>
+        <div class="mt04-rule"></div>
+        <div class="mt04-line">lo que tienes delante</div>
+      </div>
+      <div class="mt04-card mt04-c4">
+        <div class="mt04-tag mt04-lead">Niebla</div>
+        <div class="mt04-rule"></div>
+        <div class="mt04-line">los tres números que deciden si entras</div>
+      </div>
+
+      <div class="mt04-progress">2/4</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "04-agua";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+
+      var D = 6.117;
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 4.833s. La voz nombra tres
+         («rocío, nubes y niebla») y en pantalla hay cuatro: la estabilidad abre
+         la fila antes de que la voz llegue a la enumeración, porque es la que
+         gobierna a las otras tres. Mismo reparto que en el video de NOTAM.
+         Re-cuear con audio_engine_meta.json cuando exista la locución. */
+
+      tl.fromTo(q(".mt04-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt04-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.08);
+
+      /* Escenas 1 a 4 — una ficha por cue, entrando desde abajo. Un gesto. */
+      var CUE = [0.32, 1.0, 1.9, 2.8];
+      ["1", "2", "3", "4"].forEach(function (n, i) {
+        var card = q(".mt04-c" + n);
+        tl.fromTo(card, { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: 0.56, ease: "power3.out" }, CUE[i]);
+        tl.fromTo(card.querySelector(".mt04-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.42, ease: "power2.out" }, CUE[i] + 0.2);
+      });
+
+      /* Escena 5 (3.7–4.9s) — las cuatro asentadas, pesos iguales. Quietud. */
+      tl.fromTo(q(".mt04-progress"), { opacity: 0 }, { opacity: 1, duration: 0.48, ease: "power2.out" }, 3.7);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

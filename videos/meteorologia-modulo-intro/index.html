@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" integrity="sha384-sG0Hv1tP1lZCk9KQmrIbY/XNwi+OY84GQqhMscbnsoBFqAz8KNCil1kvfL3Hbbk2" crossorigin="anonymous"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #000;
+      }
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #FBFAF8;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      ────────────────────────────────────────────────────────────────────────
+      ESTADO: solo video. Todavía no hay pistas de audio ni de subtítulos.
+
+      Las duraciones de abajo son las ESTIMADAS del STORYBOARD (guion medido a
+      12,0 caracteres por segundo más el silencio de cola de cada plano). El paso
+      de audio del pipeline está bloqueado porque la voz obligatoria del brief
+      (William Shanks, HeyGen) necesita sesión, y `hyperframes auth status`
+      responde «Not signed in to HeyGen». Cuando haya sesión, el pipeline:
+
+        1. genera assets/voice/01..08.wav con la voz a velocidad 0.92,
+        2. escribe audio_engine_meta.json con los tiempos de palabra,
+        3. re-temporiza estos ocho planos con las duraciones reales,
+        4. genera compositions/captions.html y la añade como capa,
+        5. añade las pistas de locución, música y efectos.
+
+      Hasta entonces este índice sirve para previsualizar y validar el montaje
+      visual, que es lo que `npm run check` y `npm run dev` necesitan.
+      ────────────────────────────────────────────────────────────────────────
+    -->
+    <div id="root" data-composition-id="main" data-start="0" data-duration="57.333" data-width="1920" data-height="1080">
+      <div id="el-01-apertura" class="scene" data-layout-allow-overlap data-composition-id="01-apertura" data-composition-src="compositions/frames/01-apertura.html" data-start="0" data-duration="5.783" data-track-index="0"></div>
+
+      <div id="el-02-pronostico-ilegible" class="scene" data-layout-allow-overlap data-composition-id="02-pronostico-ilegible" data-composition-src="compositions/frames/02-pronostico-ilegible.html" data-start="5.283" data-duration="10.7" data-track-index="1"></div>
+
+      <div id="el-03-atmosfera" class="scene" data-composition-id="03-atmosfera" data-composition-src="compositions/frames/03-atmosfera.html" data-start="15.983" data-duration="8.2" data-track-index="0"></div>
+
+      <div id="el-04-agua" class="scene" data-composition-id="04-agua" data-composition-src="compositions/frames/04-agua.html" data-start="24.183" data-duration="6.117" data-track-index="1"></div>
+
+      <div id="el-05-frentes" class="scene" data-composition-id="05-frentes" data-composition-src="compositions/frames/05-frentes.html" data-start="30.3" data-duration="8.45" data-track-index="0"></div>
+
+      <div id="el-06-codigo" class="scene" data-layout-allow-overlap data-composition-id="06-codigo" data-composition-src="compositions/frames/06-codigo.html" data-start="38.75" data-duration="6.867" data-track-index="1"></div>
+
+      <div id="el-07-tu-ventana" class="scene" data-layout-allow-overlap data-composition-id="07-tu-ventana" data-composition-src="compositions/frames/07-tu-ventana.html" data-start="45.117" data-duration="6.683" data-track-index="0"></div>
+
+      <div id="el-08-empecemos" class="scene" data-composition-id="08-empecemos" data-composition-src="compositions/frames/08-empecemos.html" data-start="51.8" data-duration="5.533" data-track-index="1"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = gsap.timeline({ paused: true });
+      // ── fundidos cruzados entre planos ───────────────────────────────────
+      // Los únicos dos del video son los que entran y salen del pronóstico. El
+      // resto son cortes secos. El plano que sale dura 0.5s más que su hueco:
+      // ese solapamiento ES el fundido.
+      (function () { var tl = window.__timelines["main"];
+        tl.to("#el-01-apertura", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 5.283);
+        tl.fromTo("#el-02-pronostico-ilegible", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 5.283);
+        tl.to("#el-06-codigo", { opacity: 0, duration: 0.5, ease: "power2.inOut" }, 45.117);
+        tl.fromTo("#el-07-tu-ventana", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.inOut" }, 45.117);
+        tl.to({}, { duration: 57.333 }, 0); // ancla de duración completa: main.duration() == total de la composición
+      })();
+    </script>
+  </body>
+</html>

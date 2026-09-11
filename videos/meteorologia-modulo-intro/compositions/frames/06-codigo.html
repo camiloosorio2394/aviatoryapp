@@ -1,0 +1,213 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      --mt-ink: #16191d;
+      --mt-cream: #fbfaf8;
+      --mt-accent: #0d4b52;
+    }
+
+    .mt06-ground {
+      position: absolute;
+      inset: 0;
+      background: var(--mt-cream);
+    }
+    .mt06-hair {
+      position: absolute;
+      left: 140px;
+      top: 80px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+    }
+    .mt06-kicker {
+      position: absolute;
+      left: 140px;
+      top: 110px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 32px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+
+    /* el código original, pequeño y atenuado: de dónde salió la línea */
+    .mt06-origen {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 356px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 32px;
+      letter-spacing: 0.04em;
+      color: rgba(22, 25, 29, 0.38);
+      white-space: pre;
+      opacity: 0;
+    }
+
+    /* ── la línea que se sustituye (foreground subject) ──────────────────────
+       Cada token es una celda de grid con las DOS versiones apiladas en la
+       misma celda: así la celda mide lo que la más ancha de las dos y la línea
+       no se desplaza ni un píxel al sustituir. Es el precio de la regla «la
+       línea no se mueve»: en la fase de código algunos tokens quedan con aire
+       a los lados, y ese aire es el hueco donde va a caer la traducción.      */
+    .mt06-linea {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 430px;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .mt06-tok {
+      display: inline-grid;
+      vertical-align: baseline;
+    }
+    .mt06-lay {
+      grid-area: 1 / 1;
+      justify-self: center;
+      white-space: pre;
+    }
+    .mt06-code {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 52px;
+      line-height: 72px;
+      letter-spacing: 0;
+      color: var(--mt-ink);
+    }
+    .mt06-tr {
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 44px;
+      line-height: 72px;
+      letter-spacing: -0.005em;
+      color: var(--mt-ink);
+      opacity: 0;
+    }
+    /* el separador entre tokens: un espacio mono, para que la línea conserve
+       la respiración de un renglón de código */
+    .mt06-sep {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 52px;
+      line-height: 72px;
+      color: transparent;
+      white-space: pre;
+    }
+
+    /* EL momento de acento del frame */
+    .mt06-rule {
+      position: absolute;
+      left: 760px;
+      top: 540px;
+      width: 400px;
+      height: 1px;
+      background: var(--mt-accent);
+      transform-origin: 50% 50%;
+    }
+
+    .mt06-progress {
+      position: absolute;
+      right: 140px;
+      top: 790px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0.16em;
+      color: var(--mt-accent);
+      white-space: pre;
+      opacity: 0;
+    }
+  </style>
+
+  <div id="root" data-composition-id="06-codigo" data-start="0" data-duration="6.867" data-width="1920" data-height="1080">
+    <div id="mt06-suelo-papel" class="clip mt06-ground" data-start="0" data-duration="6.867" data-track-index="0"></div>
+
+    <div id="mt06-escena" class="clip" data-start="0" data-duration="6.867" data-track-index="1" style="position:absolute; inset:0;">
+      <div class="mt06-hair"></div>
+      <div class="mt06-kicker">Parte 4 · Los servicios y el código</div>
+
+      <div class="mt06-origen">FM160300 09006KT 1200 BR OVC006</div>
+
+      <div class="mt06-linea"><span class="mt06-tok" data-tok="1"><span class="mt06-lay mt06-code">FM160300</span><span class="mt06-lay mt06-tr">desde las 03Z</span></span><span class="mt06-sep"> </span><span class="mt06-tok" data-tok="2"><span class="mt06-lay mt06-code">09006KT</span><span class="mt06-lay mt06-tr">este, 6 nudos</span></span><span class="mt06-sep"> </span><span class="mt06-tok" data-tok="3"><span class="mt06-lay mt06-code">1200</span><span class="mt06-lay mt06-tr">1.200 m</span></span><span class="mt06-sep"> </span><span class="mt06-tok" data-tok="4"><span class="mt06-lay mt06-code">BR</span><span class="mt06-lay mt06-tr">bruma</span></span><span class="mt06-sep"> </span><span class="mt06-tok" data-tok="5"><span class="mt06-lay mt06-code">OVC006</span><span class="mt06-lay mt06-tr">cubierto a 600 ft</span></span></div>
+
+      <div class="mt06-rule"></div>
+      <div class="mt06-progress">4/4</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "06-codigo";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+
+      var D = 6.367;
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 5.167s. Re-cuear con
+         audio_engine_meta.json cuando exista la locución. */
+
+      /* ── Escena 1 (0.0–1.2s) ──────────────────────────────────────────────
+         Papel. La línea entra en mono, centrada, ~72% del ancho. */
+      tl.fromTo(q(".mt06-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt06-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.08);
+      tl.fromTo(q(".mt06-linea"), { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.66, ease: "power3.out" }, 0.2);
+
+      /* ── Escena 2 (1.2–3.6s) ──────────────────────────────────────────────
+         Sustitución en el sitio, token por token y POR CORTE DURO. Nada de
+         fundido: la duración de 0.001s es un corte que además sigue siendo
+         seek-safe en los dos sentidos, que es lo que un fotograma buscado
+         necesita. El cambio en sí es el movimiento; la línea no se desplaza. */
+      var CUE = [1.3, 1.75, 2.2, 2.65, 3.1];
+      [1, 2, 3, 4, 5].forEach(function (n, i) {
+        var tok = q('[data-tok="' + n + '"]');
+        tl.fromTo(tok.querySelector(".mt06-code"), { opacity: 1 }, { opacity: 0, duration: 0.001, ease: "none" }, CUE[i]);
+        tl.fromTo(tok.querySelector(".mt06-tr"), { opacity: 0 }, { opacity: 1, duration: 0.001, ease: "none" }, CUE[i]);
+      });
+
+      /* ── Escena 3 (3.6–5.2s) ──────────────────────────────────────────────
+         Queda leyéndose en Archivo. Encima, pequeño y atenuado, el código
+         original como recordatorio de dónde salió, y la única línea de acento
+         se dibuja desde el centro. Después, quietud. */
+      tl.fromTo(q(".mt06-origen"), { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.58, ease: "power2.out" }, 3.62);
+      tl.fromTo(q(".mt06-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power2.inOut" }, 3.9);
+      tl.to(q(".mt06-progress"), { opacity: 1, duration: 0.48, ease: "power2.out" }, 4.4);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>
