@@ -12,7 +12,12 @@ import {
   X,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import {
+  comprobarUsuarioLibre,
+  entrarConClave,
+  entrarConGoogle,
+  registrarPiloto,
+} from "@/services/sesion"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -130,10 +135,8 @@ export function Login() {
     if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
-      const { data, error } = await supabase.rpc("check_username_available", {
-        p_username: username,
-      })
-      setRespuesta({ nombre: username, libre: error ? null : !!data })
+      const { libre } = await comprobarUsuarioLibre(username)
+      setRespuesta({ nombre: username, libre })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
   }, [username, hayQuePreguntar])
@@ -166,37 +169,23 @@ export function Login() {
       if (isSignup) {
         track(Events.SIGNUP_STARTED, { method: "email" })
         // Double-check username right before signup (race-safe)
-        const { data: stillAvailable, error: checkErr } = await supabase.rpc(
-          "check_username_available",
-          { p_username: username }
-        )
+        const { libre, error: checkErr } = await comprobarUsuarioLibre(username)
         if (checkErr) throw checkErr
-        if (!stillAvailable) {
+        if (!libre) {
           setRespuesta({ nombre: username, libre: false })
           throw new Error("Ese usuario ya fue tomado mientras escribías. Prueba otro.")
         }
 
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              username,
-              ...(referralCode ? { referral_code: referralCode } : {}),
-            },
-          },
-        })
-        if (error) throw error
+        const { haySesion } = await registrarPiloto({ email, password, username, referralCode })
         track(Events.SIGNUP_COMPLETED, { method: "email" })
-        if (data.session) {
+        if (haySesion) {
           navigate("/onboarding", { replace: true })
         } else {
           toast.success("Te enviamos un email de confirmación. Revisa tu bandeja.")
           setMode("signin")
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw error
+        await entrarConClave(email, password)
         track(Events.LOGIN_COMPLETED, { method: "email" })
       }
     } catch (err) {
@@ -210,10 +199,7 @@ export function Login() {
   async function handleGoogle() {
     setError(null)
     track(isSignup ? Events.SIGNUP_STARTED : Events.LOGIN_COMPLETED, { method: "google" })
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/app` },
-    })
+    const { error } = await entrarConGoogle(`${window.location.origin}/app`)
     if (error) setError(error.message)
   }
 
