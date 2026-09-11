@@ -148,43 +148,54 @@ export function useVaultQuiz() {
  * No expone contenido — solo metadata para la pantalla de selección.
  */
 export function useVaultSubjects(module: string = "pca") {
-  const [subjects, setSubjects] = useState<ListedSubject[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  /**
+   * Lo que hay en mano, con la etiqueta de a qué corresponde.
+   *
+   * El estado de carga no se guarda: se deduce de si lo que se tiene es de este
+   * módulo y de este intento. Antes lo ponía `load` nada más entrar, que es un
+   * setState en el cuerpo del efecto, y además obligaba a acordarse de bajarlo
+   * en cada rama.
+   */
+  const [enMano, setEnMano] = useState<{
+    modulo: string
+    intento: number
+    subjects: ListedSubject[]
+    error: string | null
+  } | null>(null)
+  const [intento, setIntento] = useState(0)
 
-  const load = useCallback(
-    async (guard?: { cancelled: boolean }) => {
-      // El propio load marca el estado de carga: si solo lo hiciera `reload`,
-      // al cambiar de módulo el hook devolvería loading=false con los datos del
-      // módulo anterior todavía en pantalla.
-      setLoading(true)
-      setError(null)
-      const { data, error: rpcError } = await supabase.rpc("vault_list_subjects", {
-        p_module: module,
-      })
-      if (guard?.cancelled) return
-      if (rpcError) {
-        setError(rpcError.message)
-        setSubjects([])
-      } else {
-        setSubjects((data ?? []) as ListedSubject[])
-      }
-      setLoading(false)
-    },
-    [module],
-  )
+  const alDia = enMano?.modulo === module && enMano.intento === intento
+  const subjects = alDia ? enMano.subjects : []
+  const loading = !alDia
+  const error = alDia ? enMano.error : null
+
+  const traer = useCallback(async () => {
+    const { data, error: rpcError } = await supabase.rpc("vault_list_subjects", {
+      p_module: module,
+    })
+    return {
+      modulo: module,
+      intento,
+      subjects: rpcError ? [] : ((data ?? []) as ListedSubject[]),
+      error: rpcError ? rpcError.message : null,
+    }
+  }, [module, intento])
 
   useEffect(() => {
-    const guard = { cancelled: false }
-    void load(guard)
+    let vivo = true
+    void traer().then((r) => {
+      if (vivo) setEnMano(r)
+    })
     return () => {
-      guard.cancelled = true
+      vivo = false
     }
-  }, [load])
+  }, [traer])
 
+  // Volver a pedir es subir el número de intento: lo que hay en mano deja de
+  // estar al día y el efecto se encarga.
   const reload = useCallback(() => {
-    void load()
-  }, [load])
+    setIntento((n) => n + 1)
+  }, [])
 
   return { subjects, loading, error, reload }
 }

@@ -26,7 +26,7 @@ export function useRecorder() {
 
   const disable = useCallback(() => {
     try {
-      recRef.current?.state !== "inactive" && recRef.current?.stop()
+      if (recRef.current?.state !== "inactive") recRef.current?.stop()
     } catch { /* noop */ }
     streamRef.current?.getTracks().forEach((t) => t.stop())
     streamRef.current = null

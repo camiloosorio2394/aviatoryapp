@@ -31,15 +31,28 @@ export function usePcaStats() {
   const [stats, setStats] = useState<PcaStats | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const load = useCallback(async () => {
+  /** Trae y devuelve. No toca estado, así que la puede llamar cualquiera. */
+  const traer = useCallback(async () => {
     const { data, error } = await supabase.rpc("pca_stats")
-    setStats(error ? null : (data as unknown as PcaStats))
-    setLoading(false)
+    return error ? null : (data as unknown as PcaStats)
   }, [])
 
+  const load = useCallback(async () => {
+    setStats(await traer())
+    setLoading(false)
+  }, [traer])
+
   useEffect(() => {
-    void load()
-  }, [load])
+    let vivo = true
+    void traer().then((s) => {
+      if (!vivo) return
+      setStats(s)
+      setLoading(false)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traer])
 
   /** Guarda la fecha del examen. Se hace aquí y no en el perfil porque es donde
    *  el piloto la tiene en la cabeza: al entrar a estudiar. */

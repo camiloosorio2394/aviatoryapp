@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { usePrefiereQuieto } from "@/hooks/usePrefiereQuieto"
 
 interface Options {
   threshold?: number
@@ -12,28 +13,27 @@ export function useInView<T extends HTMLElement = HTMLDivElement>({
   triggerOnce = true,
 }: Options = {}) {
   const ref = useRef<T | null>(null)
-  const [inView, setInView] = useState(false)
+  const [visto, setVisto] = useState(false)
+  const quieto = usePrefiereQuieto()
+
+  // Quien pidió menos movimiento lo ve todo desde el principio, sin esperar a
+  // entrar en pantalla. Eso no es un estado que se fije: es una preferencia de
+  // la que se deriva. Fijarlo desde el efecto era un setState síncrono en el
+  // cuerpo del efecto, en cada montaje y para todo el que la tenga puesta.
+  const inView = quieto || visto
 
   useEffect(() => {
+    if (quieto) return
     const node = ref.current
     if (!node) return
-
-    // Respect users who prefer no motion
-    if (typeof window !== "undefined") {
-      const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
-      if (mq.matches) {
-        setInView(true)
-        return
-      }
-    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setInView(true)
+          setVisto(true)
           if (triggerOnce) observer.disconnect()
         } else if (!triggerOnce) {
-          setInView(false)
+          setVisto(false)
         }
       },
       { threshold, rootMargin }
@@ -41,7 +41,7 @@ export function useInView<T extends HTMLElement = HTMLDivElement>({
 
     observer.observe(node)
     return () => observer.disconnect()
-  }, [threshold, rootMargin, triggerOnce])
+  }, [threshold, rootMargin, triggerOnce, quieto])
 
   return { ref, inView }
 }

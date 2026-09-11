@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type FormEvent } from "react"
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react"
 import { Plane, Plus, Trash2, X, Loader2, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
@@ -52,24 +52,39 @@ export function Logbook() {
   const [formOpen, setFormOpen] = useState(false)
   const [filter, setFilter] = useState<FilterTab>("all")
 
-  async function loadFlights() {
-    if (!user) return
-    const { data, error } = await supabase
+  const traer = useCallback(async () => {
+    if (!user) return null
+    return supabase
       .from("flights")
       .select("*")
       .eq("user_id", user.id)
       .order("flight_date", { ascending: false })
       .order("id", { ascending: false })
       .limit(500)
-    if (error) toast.error(error.message)
-    else setFlights((data ?? []) as Flight[])
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    loadFlights()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
+
+  const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
+    if (!r) return
+    if (r.error) toast.error(r.error.message)
+    else setFlights((r.data ?? []) as Flight[])
+    setLoading(false)
+  }, [])
+
+  const loadFlights = useCallback(async () => {
+    aplicar(await traer())
+  }, [traer, aplicar])
+
+  // El estado se fija dentro del callback de la promesa, no en el cuerpo del
+  // efecto, y de paso gana la guarda de cancelación que no tenía.
+  useEffect(() => {
+    let vivo = true
+    void traer().then((r) => {
+      if (vivo) aplicar(r)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traer, aplicar])
 
   async function deleteFlight(id: number) {
     if (!confirm("¿Eliminar este vuelo del logbook?")) return

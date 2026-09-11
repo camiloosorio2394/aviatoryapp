@@ -96,7 +96,11 @@ export function Profile() {
   const [country, setCountry] = useState("")
   const [username, setUsername] = useState("")
   const [originalUsername, setOriginalUsername] = useState("")
-  const [usernameStatus, setUsernameStatus] = useState<UsernameStatus>({ state: "idle" })
+  /** Igual que en Login: del servidor solo se guarda su respuesta y a qué
+   *  nombre contesta. Lo demás se deduce de lo que hay escrito. */
+  const [respuesta, setRespuesta] = useState<{ nombre: string; libre: boolean | null } | null>(
+    null
+  )
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const [stage, setStage] = useState<Stage | "">("")
@@ -146,7 +150,6 @@ export function Profile() {
           setCountry(p.country ?? "")
           setUsername(p.username ?? "")
           setOriginalUsername(p.username ?? "")
-          setUsernameStatus(p.username ? { state: "unchanged" } : { state: "idle" })
           setPhotoUrl(p.photo_url ?? null)
         }
         const pilot = pilotRes.data as { stage?: Stage; total_hours?: number; hours_pic?: number; icao_english_level?: number; target_airline?: string; licenses?: string[] } | null
@@ -204,28 +207,35 @@ export function Profile() {
     }
   }, [user])
 
+  /** Si hace falta preguntarle al servidor por este nombre. */
+  const hayQuePreguntar =
+    username !== originalUsername && username.length > 0 && USERNAME_REGEX.test(username)
+
+  const usernameStatus: UsernameStatus =
+    username === originalUsername
+      ? { state: "unchanged" }
+      : !username
+        ? { state: "idle" }
+        : !USERNAME_REGEX.test(username)
+          ? { state: "invalid", reason: "3–30 caracteres, minúsculas, números o _" }
+          : respuesta?.nombre !== username
+            ? { state: "checking" }
+            : respuesta.libre === null
+              ? { state: "idle" }
+              : { state: respuesta.libre ? "available" : "taken" }
+
+  // El estado se fija dentro del callback del temporizador, no en el cuerpo del
+  // efecto.
   const checkTimer = useRef<number | undefined>(undefined)
   useEffect(() => {
-    if (username === originalUsername) {
-      setUsernameStatus({ state: "unchanged" })
-      return
-    }
-    if (!username) {
-      setUsernameStatus({ state: "idle" })
-      return
-    }
-    if (!USERNAME_REGEX.test(username)) {
-      setUsernameStatus({ state: "invalid", reason: "3–30 caracteres, minúsculas, números o _" })
-      return
-    }
-    setUsernameStatus({ state: "checking" })
+    if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
       const { data } = await supabase.rpc("check_username_available", { p_username: username })
-      setUsernameStatus({ state: data ? "available" : "taken" })
+      setRespuesta({ nombre: username, libre: !!data })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
-  }, [username, originalUsername])
+  }, [username, hayQuePreguntar])
 
   const usernameOK = usernameStatus.state === "unchanged" || usernameStatus.state === "available"
 
@@ -304,7 +314,6 @@ export function Profile() {
       if (pRes.error) throw pRes.error
       if (sRes.error) throw sRes.error
       setOriginalUsername(username)
-      setUsernameStatus({ state: "unchanged" })
       toast.success("Perfil actualizado")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")

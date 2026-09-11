@@ -7,6 +7,10 @@ import { Check } from "lucide-react"
  * contraseña —al crear la cuenta y al recuperarla— y las dos tienen que pedir
  * lo mismo. Con una copia en cada pantalla, el día que se endurezca la regla en
  * una, la otra seguiría aceptando la contraseña vieja sin que nadie lo note.
+ *
+ * La regla en sí vive en `src/lib/clave.ts`. Aquí solo se pinta: un archivo que
+ * exporta un componente y además funciones sueltas no se recarga en caliente
+ * sin perder el estado de la pantalla.
  */
 export function PasswordRules({ length, digit }: { length: boolean; digit: boolean }) {
   return (
@@ -15,16 +19,6 @@ export function PasswordRules({ length, digit }: { length: boolean; digit: boole
       <Rule met={digit} text="Incluye un número" />
     </ul>
   )
-}
-
-/** Si una contraseña cumple lo que se le pide. La comprobación, en un sitio. */
-export function comprobarClave(clave: string) {
-  return { length: clave.length >= 8, digit: /\d/.test(clave) }
-}
-
-export function claveValida(clave: string) {
-  const { length, digit } = comprobarClave(clave)
-  return length && digit
 }
 
 function Rule({ met, text }: { met: boolean; text: string }) {
