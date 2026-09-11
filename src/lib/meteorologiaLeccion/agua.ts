@@ -81,7 +81,7 @@ export const PARTE_AGUA: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Gradiente medio del aire ascendente", v: "2 °C (3,5 °F) por cada 1.000 ft" },
+          { k: "Gradiente medio de la atmósfera (el de la ISA)", v: "2 °C (3,5 °F) por cada 1.000 ft" },
           { k: "Gradiente adiabático seco (aire no saturado)", v: "3 °C (5,4 °F) por cada 1.000 ft" },
           { k: "Gradiente adiabático húmedo", v: "de 1,1 °C a 2,8 °C por cada 1.000 ft" },
         ],
@@ -89,6 +89,18 @@ export const PARTE_AGUA: DocScreen[] = [
       {
         kind: "p",
         text: "Fíjate en la consecuencia, que es lo que importa: **el aire húmedo se enfría más despacio**, así que tiene que subir más antes de igualar la temperatura del aire que lo rodea. Por eso el aire húmedo es generalmente menos estable que el seco. Y como el vapor de agua es más liviano que el aire, la humedad además baja la densidad y lo ayuda a ascender.",
+      },
+      {
+        kind: "p",
+        text: "Con esos números se decide si el aire de un día es estable: **se compara lo que se enfría la atmósfera de ese día con lo que se enfría la burbuja que sube**. La burbuja se enfría a su ritmo adiabático; el aire que la rodea, al ritmo que tenga ese día. Mientras la burbuja quede más caliente que su entorno, sigue subiendo.",
+      },
+      {
+        kind: "kv",
+        items: [
+          { k: "La atmósfera se enfría más de 3 °C por cada 1.000 ft", v: "absolutamente inestable: la burbuja sube siempre, seca o saturada" },
+          { k: "Se enfría menos que el gradiente húmedo", v: "absolutamente estable: la burbuja se frena siempre" },
+          { k: "Entre los dos", v: "condicionalmente inestable: estable mientras el aire siga seco, inestable en cuanto se satura" },
+        ],
       },
       {
         kind: "sub",
@@ -361,7 +373,7 @@ export const PARTE_AGUA: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Vas en un México a París. A dos horas de la costa ves delante una formación que crece vertical y que arriba se abre en yunque. Antes de llamar a nadie ya sabes tres cosas: que ahí dentro hay corrientes que superan los 3.000 ft por minuto, que ese yunque significa que la célula está madura, y que no la vas a sobrevolar. Esta lección es la que te da esas tres cosas de un vistazo.",
+        text: "Vas en un México a París. A dos horas de la costa ves delante una formación que crece vertical y que arriba se abre en yunque. Antes de llamar a nadie ya sabes tres cosas: que ahí dentro hay corrientes que superan los 3.000 ft por minuto, que ese yunque significa que la corriente ascendente ya llegó hasta arriba y se extendió, y que no la vas a sobrevolar. Esta lección es la que te da esas tres cosas de un vistazo.",
       },
       {
         kind: "definicion",
@@ -438,7 +450,7 @@ export const PARTE_AGUA: DocScreen[] = [
         kind: "hueco",
         rotulo: "MT-T08-02 · Fotografía para bloque «reconoce» · 16:9 · 1600×900 · WebP",
         descripcion:
-          "Cumulonimbus maduro visto desde el aire, con el yunque bien definido. Puntos numerados que llevará: (1) el yunque, que dice que la corriente ascendente ya llegó arriba y la célula está madura; (2) la base oscura y baja, donde vive la cizalladura; (3) la cortina de precipitación bajo la base, que marca la corriente descendente; (4) los cúmulos en torre del flanco, que dicen por dónde va a crecer.",
+          "Cumulonimbus maduro visto desde el aire, con el yunque bien definido. Puntos numerados que llevará: (1) el yunque, que dice que la corriente ascendente ya llegó arriba y se extendió, y que no significa que la tormenta se esté acabando; (2) la base oscura y baja, donde vive la cizalladura; (3) la cortina de precipitación bajo la base, que marca la corriente descendente; (4) los cúmulos en torre del flanco, que dicen por dónde va a crecer.",
         alto: 340,
         pie: "La nube más peligrosa que hay, y hay que saber verla de lejos.",
       },
@@ -618,13 +630,13 @@ export const PARTE_AGUA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El **techo** es la altura de la base de la capa de nubes más baja que se informa como rota o cubierta, o la visibilidad vertical hacia arriba. La **visibilidad** es hasta dónde ves en horizontal. Son dos límites distintos y los mínimos de una aproximación te exigen los dos.",
+        text: "El **techo** es la altura de la base de la capa de nubes más baja que se informa como rota o cubierta, o la visibilidad vertical hacia arriba. La **visibilidad** es hasta dónde ves en horizontal. Son dos límites distintos, y **no pesan igual en todas las aproximaciones**. En una aproximación 3D, como un ILS, los mínimos se dan en DA/H y en visibilidad o RVR: el techo no es uno de ellos. En una 2D se dan en MDA/H y en visibilidad o RVR, y las condiciones de nubes solo cuando hace falta (OACI, Anexo 6). Donde el techo vuelve a contar es al planear alternos, según la norma de tu operación.",
       },
       {
         kind: "callout",
         tone: "verificar",
         title: "Los mínimos son de la carta, no del curso",
-        text: "Qué techo y qué visibilidad necesitas para una aproximación concreta está en la carta de aproximación de ese aeropuerto y en el manual de operaciones de tu explotador, con los ajustes que le correspondan a tu operación. Ningún curso general puede darte ese número. Lo que sí es general es lo de arriba: son dos límites y hacen falta los dos.",
+        text: "Qué techo y qué visibilidad necesitas para una aproximación concreta está en la carta de aproximación de ese aeropuerto y en el manual de operaciones de tu explotador, con los ajustes que le correspondan a tu operación. Ningún curso general puede darte ese número. Lo que sí es general es lo de arriba: techo y visibilidad son dos límites distintos, y en una aproximación de precisión el que decide es la visibilidad o el RVR, no el techo.",
       },
       {
         kind: "sub",
