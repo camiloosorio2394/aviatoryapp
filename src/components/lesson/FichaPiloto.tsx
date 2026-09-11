@@ -55,33 +55,36 @@ function Pildora({ children }: { children: ReactNode }) {
  */
 export function VisualFicha({ imagen, hueco, ves }: { imagen?: FotoFicha; hueco?: HuecoFoto; ves?: string[] }) {
   if (imagen) {
+    // La foto entera, a su proporción y a todo el ancho de la ficha (ver
+    // `fotoArriba` en Ficha). Nada de recortes: las fotos traen rótulos en
+    // los bordes. El aviso «Ampliar» se aparta de «Lo que estás viendo» si lo hay.
     return (
-      <div className="relative h-full min-h-[240px] md:min-h-[300px]">
-        {/* El aviso «Ampliar» va arriba a la izquierda: abajo está «Lo que estás
-            viendo» y arriba a la derecha, la píldora de la ficha. */}
-        <ImagenAmpliable
-          src={imagen.src}
-          alt={imagen.alt}
-          className="absolute inset-0 h-full w-full"
-          imgClassName="h-full w-full object-cover"
-          esquina="arriba-izquierda"
-        />
-        {ves && ves.length > 0 && (
-          <div
-            className="absolute bottom-4 left-4 right-4 rounded-[12px] px-4 py-3.5 text-white sm:left-auto sm:max-w-[250px]"
-            style={{ background: "rgb(14 18 22 / 76%)", backdropFilter: "blur(10px)" }}
-          >
-            <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">Lo que estás viendo</div>
-            <ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0">
-              {ves.map((v, i) => (
-                <li key={i} className="flex items-start gap-2.5 text-[13px] leading-[1.45]">
-                  <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" aria-hidden />
-                  <span>{v}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      <div style={{ background: "var(--ln-sunk, var(--doc-soft))" }}>
+        <div className="relative w-full">
+          <ImagenAmpliable
+            src={imagen.src}
+            alt={imagen.alt}
+            className="w-full"
+            imgClassName="block h-auto w-full"
+            esquina={ves && ves.length > 0 ? "arriba-izquierda" : "abajo-derecha"}
+          />
+          {ves && ves.length > 0 && (
+            <div
+              className="absolute bottom-4 left-4 right-4 rounded-[12px] px-4 py-3.5 text-white sm:left-auto sm:max-w-[250px]"
+              style={{ background: "rgb(14 18 22 / 76%)", backdropFilter: "blur(10px)" }}
+            >
+              <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">Lo que estás viendo</div>
+              <ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0">
+                {ves.map((v, i) => (
+                  <li key={i} className="flex items-start gap-2.5 text-[13px] leading-[1.45]">
+                    <span className="mt-[6px] h-1.5 w-1.5 shrink-0 rounded-full bg-white/70" aria-hidden />
+                    <span>{v}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       </div>
     )
   }
@@ -101,7 +104,11 @@ export function VisualFicha({ imagen, hueco, ves }: { imagen?: FotoFicha; hueco?
 }
 
 /**
- * El armazón: pestaña, cuerpo y, si hay foto, la columna de la derecha.
+ * El armazón: pestaña, cuerpo y, si hay imagen, dónde va.
+ *
+ * Con foto real, la foto va arriba, entera y a todo el ancho, y el texto
+ * debajo: al lado se recortaba para llenar la altura del texto. Con el hueco
+ * rotulado (todavía sin foto) va a la derecha, que es solo un recordatorio.
  *
  * Sin foto la ficha va a una columna y sigue viéndose terminada: la mayoría de
  * las fichas de los tres módulos no tienen imagen, y no pueden quedar peor que
@@ -112,6 +119,7 @@ export function Ficha({
   momento,
   rotulo,
   visual,
+  fotoArriba = false,
   pie,
   children,
 }: {
@@ -120,6 +128,8 @@ export function Ficha({
   /** «Escenario de práctica», por ejemplo. Opcional a propósito: no todas lo son. */
   rotulo?: string
   visual?: ReactNode
+  /** La imagen es una foto real: va arriba a todo el ancho y no al lado. */
+  fotoArriba?: boolean
   /**
    * Lo que va debajo, a todo el ancho de la ficha: la respuesta desplegada.
    * Dentro de la columna izquierda estiraba la foto hasta el doble de su alto.
@@ -127,6 +137,43 @@ export function Ficha({
   pie?: ReactNode
   children: ReactNode
 }) {
+  const pestana = (
+    <div
+      className="inline-flex max-w-[calc(100%-12px)] items-center gap-2.5 py-2.5 pl-5 pr-10 text-white sm:pl-7"
+      style={{ background: PRIMARIO, clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)" }}
+    >
+      <AvionRelleno className="h-[17px] w-[17px] shrink-0" />
+      <span className="mono text-[12px] font-semibold uppercase leading-[1.35] tracking-[0.14em]">
+        {nombre}
+        {momento && (
+          <>
+            <span className="mx-2 opacity-60" aria-hidden>
+              ·
+            </span>
+            <span className="opacity-90">{momento}</span>
+          </>
+        )}
+      </span>
+    </div>
+  )
+
+  const cuerpo = (
+    <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-7">
+      {rotulo && (
+        <div className="mb-3 sm:hidden">
+          <Pildora>{rotulo}</Pildora>
+        </div>
+      )}
+      {children}
+    </div>
+  )
+
+  const pieFicha = pie ? (
+    <div className="border-t px-5 pb-6 pt-5 [grid-area:pie] sm:px-7 sm:pb-7" style={{ borderColor: FILETE }}>
+      {pie}
+    </div>
+  ) : null
+
   return (
     <section
       aria-label={nombre}
@@ -140,52 +187,35 @@ export function Ficha({
         boxShadow: "0 1px 2px rgb(22 25 29 / 5%), 0 10px 28px -18px rgb(22 25 29 / 22%)",
       }}
     >
-      <div
-        className={`grid [grid-template-areas:'texto'_'pie'_'visual'] ${
-          visual ? "md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:[grid-template-areas:'texto_visual'_'pie_pie']" : ""
-        }`}
-      >
-        <div className="min-w-0 [grid-area:texto]">
-          <div
-            className="inline-flex max-w-[calc(100%-12px)] items-center gap-2.5 py-2.5 pl-5 pr-10 text-white sm:pl-7"
-            style={{ background: PRIMARIO, clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)" }}
-          >
-            <AvionRelleno className="h-[17px] w-[17px] shrink-0" />
-            <span className="mono text-[12px] font-semibold uppercase leading-[1.35] tracking-[0.14em]">
-              {nombre}
-              {momento && (
-                <>
-                  <span className="mx-2 opacity-60" aria-hidden>
-                    ·
-                  </span>
-                  <span className="opacity-90">{momento}</span>
-                </>
-              )}
-            </span>
-          </div>
-
-          <div className="px-5 pb-6 pt-5 sm:px-7 sm:pb-7">
-            {rotulo && (
-              <div className="mb-3 sm:hidden">
-                <Pildora>{rotulo}</Pildora>
-              </div>
-            )}
-            {children}
-          </div>
-        </div>
-
-        {visual && (
-          <div className="h-full border-t [grid-area:visual] md:border-l md:border-t-0" style={{ borderColor: FILETE }}>
+      {fotoArriba && visual ? (
+        <div>
+          {pestana}
+          <div className="mt-3 border-y" style={{ borderColor: FILETE }}>
             {visual}
           </div>
-        )}
-
-        {pie && (
-          <div className="border-t px-5 pb-6 pt-5 [grid-area:pie] sm:px-7 sm:pb-7" style={{ borderColor: FILETE }}>
-            {pie}
+          {cuerpo}
+          {pieFicha}
+        </div>
+      ) : (
+        <div
+          className={`grid [grid-template-areas:'texto'_'pie'_'visual'] ${
+            visual ? "md:grid-cols-[minmax(0,1.08fr)_minmax(0,1fr)] md:[grid-template-areas:'texto_visual'_'pie_pie']" : ""
+          }`}
+        >
+          <div className="min-w-0 [grid-area:texto]">
+            {pestana}
+            {cuerpo}
           </div>
-        )}
-      </div>
+
+          {visual && (
+            <div className="h-full border-t [grid-area:visual] md:border-l md:border-t-0" style={{ borderColor: FILETE }}>
+              {visual}
+            </div>
+          )}
+
+          {pieFicha}
+        </div>
+      )}
 
       {rotulo && (
         <div className="absolute right-4 top-3 hidden sm:block">

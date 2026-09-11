@@ -241,7 +241,7 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
   ) : null
 
   return (
-    <Ficha nombre="Piensa como piloto" momento={block.momento} rotulo={block.rotulo} visual={visual} pie={respuesta}>
+    <Ficha nombre="Piensa como piloto" momento={block.momento} rotulo={block.rotulo} visual={visual} fotoArriba={!!block.imagen} pie={respuesta}>
       <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>
         <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
           {renderInline(block.situacion)}

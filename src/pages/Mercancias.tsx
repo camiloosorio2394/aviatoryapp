@@ -81,7 +81,7 @@ export function Mercancias() {
       meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_NIVELES.length} niveles · ${MP_MINUTOS} min`,
       title: "1. Aprende",
       blurb:
-        "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Cada afirmación con su artículo.",
+        "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Y al cierre de cada nivel, la entrevista de aerolínea.",
       cta: "Iniciar formación",
       photoHueco: "MP-POR-01 · Portada 5:2 · 1200×480 · Un bulto etiquetado en rampa",
       status:

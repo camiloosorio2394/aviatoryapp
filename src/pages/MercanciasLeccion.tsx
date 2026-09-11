@@ -1,6 +1,6 @@
 import { LectorLeccion, type LectorModulo } from "@/components/lesson/LectorLeccion"
 import { MP_APRENDE, MP_EVALUACION, MP_HUB, MP_PRACTICA, MP_TITULO } from "@/lib/mercancias"
-import { MP_LECCIONES, MP_NIVELES } from "@/lib/mercanciasLeccion"
+import { MP_ENTREVISTAS, MP_LECCIONES, MP_NIVELES } from "@/lib/mercanciasLeccion"
 import {
   fetchMercanciasProgress,
   markMercanciasProgress,
@@ -12,9 +12,9 @@ import {
 /**
  * Lección de Mercancías peligrosas, con el mismo lector que NOTAM y el tema
  * amarillo del módulo (`lector-mp`). Dieciocho lecciones en cinco niveles; el
- * índice los rotula.
+ * índice los rotula, y cada nivel cierra con su entrevista de aerolínea.
  *
- * Ruta: /app/aerolinea/mercancias/aprende?l=1
+ * Ruta: /app/aerolinea/mercancias/aprende?l=1 (lección) o ?e=1 (entrevista)
  */
 const MODULO: LectorModulo = {
   tema: "lector-notam lector-mp",
@@ -30,6 +30,7 @@ const MODULO: LectorModulo = {
   actividad: "mercancias-leccion",
   lecciones: MP_LECCIONES,
   niveles: MP_NIVELES,
+  entrevistas: MP_ENTREVISTAS,
   alFinal: MP_PRACTICA,
   textoFinal: "Práctica →",
   leerLocal: () => readMercanciasLocal().lessonScreens,

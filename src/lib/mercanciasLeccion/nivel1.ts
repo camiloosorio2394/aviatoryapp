@@ -120,34 +120,6 @@ export const NIVEL_1: DocScreen[] = [
         texto:
           "Sube un bulto a tu avión con una etiqueta que no reconoces. La pregunta no es «¿parece peligroso?». Es «¿está clasificado, documentado y aceptado conforme a las Instrucciones?». Si nadie te lo puede decir, ese bulto no ha pasado por la cadena que este módulo describe.",
       },
-      {
-        kind: "entrevista",
-        intro:
-          "Esta lección da para tres preguntas, y las tres caen. Intenta responder en voz alta antes de abrir.",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué son las mercancías peligrosas?",
-            respuesta:
-              "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. Son dos mitades: el riesgo y estar en la lista o ser clasificable.",
-            claves: ["Riesgo", "Lista o clasificable", "Instrucciones Técnicas"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "Si el expedidor no declara algo como mercancía peligrosa, ¿deja de serlo?",
-            respuesta:
-              "No. Lo que clasifica es lo que la sustancia es y lo que puede hacer, no lo que dice el papel. Si va sin declarar sigue siendo mercancía peligrosa, y además pasa a ser una mercancía peligrosa oculta, que es un suceso notificable.",
-            claves: ["No cambia la naturaleza", "Mercancía peligrosa oculta", "Es notificable"],
-          },
-          {
-            nivel: "situacion",
-            q: "Te preguntan qué te dice a ti, como piloto, el accidente de ValuJet 592. ¿Qué respondes?",
-            respuesta:
-              "Que la cadena tiene varios eslabones y que el último es la firma del comandante. Los generadores iban mal clasificados, mal embalados y declarados como material de la compañía marcado «vacío». Ninguno de esos errores era mío, pero el avión era mío. Por eso la información que firmo antes de salir no es un trámite: es el único punto donde la cadena todavía se puede parar.",
-            claves: ["Cadena de eslabones", "La firma es un control, no un trámite", "COMAT no exime"],
-          },
-        ],
-      },
     ],
   },
 
@@ -256,25 +228,6 @@ export const NIVEL_1: DocScreen[] = [
           src: "/modulos/mercancias/img-07-crucero-fl350.webp",
           alt: "Avión en crucero a FL350 sobre las nubes y una caja de aerosoles UN 1950 con etiqueta de clase 2. Recuadros: aeronave presurizada, vibración, lejos de ayuda y embalaje correcto.",
         },
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Por qué una mercancía peligrosa es más peligrosa en un avión que en un camión?",
-            respuesta:
-              "Por cuatro cosas que actúan a la vez y no paran en todo el vuelo: la presión ambiente baja, la temperatura cambia, la vibración es sostenida y no hay a quién llamar. En tierra un derrame lo atienden los bomberos en minutos; en crucero lo resuelve la tripulación con lo que ya está a bordo.",
-            claves: ["Presión", "Temperatura", "Vibración", "Aislamiento y tiempo"],
-          },
-          {
-            nivel: "situacion",
-            q: "¿Qué hay a bordo para responder a un suceso con mercancías peligrosas?",
-            respuesta:
-              "Poco, y por eso hay que conocerlo: el equipo de respuesta de emergencia que exige el reglamento (bolsas grandes de polietileno, ligaduras y guantes largos de goma), los extintores de mano y el procedimiento del explotador. Con eso se contiene hasta aterrizar. No hay bomberos, ni ducha de emergencia, ni forma de aislar un bulto.",
-            claves: ["Equipo de respuesta de emergencia", "Extintor de mano", "Procedimiento del explotador"],
-          },
-        ],
       },
     ],
   },
@@ -524,32 +477,6 @@ export const NIVEL_1: DocScreen[] = [
         kind: "definicion",
         text: "La regla para no equivocarse: si la norma lo previó, es aprobación. Si no lo previó y hay que salirse, es dispensa. Si no hay que pedir nada, es excepción.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué diferencia hay entre un bulto, un sobre-embalaje y un ULD?",
-            respuesta:
-              "El bulto es la unidad: el embalaje y su contenido. El sobre-embalaje son varios bultos de un mismo expedidor agrupados para manipularlos juntos. El ULD es el contenedor o la paleta con red de la aeronave, y no cuenta como sobre-embalaje. En el NOTOC el bulto me dice cuánto hay y el ULD dónde está.",
-            claves: ["Bulto = unidad", "Sobre-embalaje = varios bultos, un expedidor", "ULD = contenedor o paleta"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Cuándo se pide una dispensa y cuándo una aprobación?",
-            respuesta:
-              "La aprobación existe cuando las Instrucciones Técnicas ya previeron que ese caso puede ir con aprobación. La dispensa es la salida cuando no lo previeron: procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público, y siempre con un nivel de seguridad equivalente. Las dos las da la autoridad, no el explotador: él las pide.",
-            claves: ["La norma lo previó = aprobación", "No lo previó = dispensa", "La da la autoridad"],
-          },
-          {
-            nivel: "situacion",
-            q: "En el NOTOC ves un repuesto de la propia aerolínea. ¿Cambia algo por ser material de la compañía?",
-            respuesta:
-              "No cambia nada. Es COMAT, y si está clasificado como mercancía peligrosa es COMAT peligroso: cumple las mismas reglas de clasificación, embalaje, marcado y documentación que cualquier envío de un tercero. De hecho es la trampa clásica, y es exactamente lo que falló en ValuJet 592.",
-            claves: ["COMAT peligroso", "No exime de nada", "ValuJet 592"],
-          },
-        ],
-      },
     ],
   },
 
@@ -702,32 +629,6 @@ export const NIVEL_1: DocScreen[] = [
         ],
         cierre:
           "La firma no te convierte en experto en embalaje. Te convierte en el último que pudo decir «esto no sale así».",
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Cuáles son las responsabilidades del piloto al mando en materia de mercancías peligrosas?",
-            respuesta:
-              "Recibir por escrito y lo antes posible antes de la salida la información de las mercancías peligrosas a bordo, firmarla antes de que se transporten, tenerla al alcance durante todo el vuelo y conocer los procedimientos de emergencia. Y, si se presenta una situación en vuelo, informar a la dependencia de tránsito aéreo para que se avise en tierra.",
-            claves: ["Recibir por escrito antes de la salida", "Firmar", "Tenerla al alcance en vuelo", "Informar a ATC"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "Si el expedidor declara mal un envío, ¿qué responsabilidad tiene el comandante?",
-            respuesta:
-              "La clasificación no es suya y no puede verificarla desde la cabina: eso corresponde al expedidor y a la aceptación. Lo que sí le corresponde es no volar sin la información escrita, conocerla, y actuar si algo en ella no cuadra. La responsabilidad del comandante está en el eslabón de información, no en el de clasificación.",
-            claves: ["El expedidor clasifica", "El comandante recibe y conoce la información", "Actuar si algo no cuadra"],
-          },
-          {
-            nivel: "situacion",
-            q: "Vas a salir y no te han entregado la información de mercancías peligrosas, aunque sabes que llevas carga declarada. ¿Qué haces?",
-            respuesta:
-              "No salgo así. La norma exige que el explotador se la proporcione al piloto al mando por escrito y lo antes posible antes de la salida, y que la firme antes de que las mercancías se transporten. Sin ese documento no tengo qué hay, cuánto ni dónde, que es justo lo que necesitaría si algo pasa en vuelo. Lo pido y, si no aparece, se resuelve antes de mover el avión.",
-            claves: ["Por escrito antes de la salida", "Firmada por el piloto al mando", "Sin ella no hay qué, cuánto ni dónde"],
-          },
-        ],
       },
       {
         kind: "ponAPrueba",

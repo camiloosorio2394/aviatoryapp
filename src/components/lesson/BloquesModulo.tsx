@@ -253,7 +253,7 @@ export function EnLaOperacion({ block }: { block: EnLaOperacionBlock }) {
     block.imagen || block.hueco ? <VisualFicha imagen={block.imagen} hueco={block.hueco} ves={block.ves} /> : null
 
   return (
-    <Ficha nombre="En la operación" momento={block.momento} rotulo={block.rotulo} visual={visual}>
+    <Ficha nombre="En la operación" momento={block.momento} rotulo={block.rotulo} visual={visual} fotoArriba={!!block.imagen}>
       {/* La negrita va del acento del módulo: son las palabras que hay que
           llevarse, y en la maqueta se leían antes que el resto. */}
       <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>

@@ -75,32 +75,6 @@ export const NIVEL_2: DocScreen[] = [
         cierre:
           "El rombo te da la mitad de la respuesta en dos segundos y desde diez metros. La otra mitad está en el papel que vas a firmar.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Cuántas clases de mercancías peligrosas hay y cómo se asigna una sustancia a su clase?",
-            respuesta:
-              "Nueve. Cada mercancía se incluye en una sola clase: la del peligro que representa o, si tiene varios, la del más importante. Los riesgos restantes no desaparecen, se reflejan en el etiquetado como riesgos secundarios.",
-            claves: ["Nueve clases", "Una sola clase por mercancía", "El resto va como riesgo secundario"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Qué diferencia hay entre clase y división?",
-            respuesta:
-              "La clase es el grupo grande, del 1 al 9. La división es la subdivisión dentro de algunas clases, como 2.1, 4.3 o 6.2. La división importa porque cambia la respuesta: un gas inflamable (2.1) no se trata igual que un gas tóxico (2.3), y una sustancia que reacciona con el agua (4.3) no se apaga como se apagaría un sólido inflamable normal.",
-            claves: ["Clase = grupo del 1 al 9", "División = subdivisión", "Cambia la respuesta de emergencia"],
-          },
-          {
-            nivel: "situacion",
-            q: "Dos bultos de tu vuelo llevan rombos amarillos. ¿Significa que son lo mismo?",
-            respuesta:
-              "No. El amarillo lo comparten la división 5.1, comburentes, y la clase 7, material radiactivo. El color es la primera señal pero no identifica: lo que identifica es el símbolo y el número de la esquina inferior. Es la razón por la que nunca se decide nada mirando solo el color.",
-            claves: ["El color se repite entre clases", "Identifican el símbolo y el número", "5.1 y 7 comparten amarillo"],
-          },
-        ],
-      },
     ],
   },
 
@@ -296,32 +270,6 @@ export const NIVEL_2: DocScreen[] = [
         texto:
           "Ves un bulto con una etiqueta despegada a medias y nadie te sabe decir cuál era. No es un detalle administrativo: es el caso exacto que la norma resuelve dejándolo en tierra. Preguntar no te hace quisquilloso, te hace el último filtro que funcionó.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué diferencia hay entre una etiqueta de riesgo y una de manipulación?",
-            respuesta:
-              "La de riesgo dice qué hay dentro: es un rombo con un símbolo y el número de la clase en la esquina inferior. La de manipulación dice cómo hay que tratar el bulto y no lleva número de clase: las flechas de orientación, «exclusivamente en aeronaves de carga», material magnetizado, líquidos criogénicos. Un mismo bulto suele llevar de las dos.",
-            claves: ["Riesgo = qué es, rombo con número", "Manipulación = cómo se trata, sin número de clase", "Conviven en el mismo bulto"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "Ves un bulto con dos rombos. ¿Qué te dice eso?",
-            respuesta:
-              "Que la sustancia tiene un riesgo principal y al menos uno secundario. El principal es el que determina la clase con la que viaja y el que manda en la documentación; el secundario avisa de algo que también hay que tener en cuenta, por ejemplo que además de corrosiva es tóxica. Si solo leo el primero me pierdo la mitad del problema.",
-            claves: ["Riesgo principal y secundario", "El principal determina la clase", "Los dos condicionan la respuesta"],
-          },
-          {
-            nivel: "situacion",
-            q: "Durante la operación observas un bulto con una etiqueta que indica «Cargo Aircraft Only». ¿Qué significa y por qué es importante para ti como piloto?",
-            respuesta:
-              "Significa que esa mercancía, en esa cantidad, solo está admitida en aeronave de carga: no puede transportarse en una aeronave que lleve pasajeros. Es importante porque es la única etiqueta que decide si un bulto puede o no estar en mi vuelo, y porque la prohibición no se arregla con la estiba. Si opero pasajeros y ese bulto aparece, lo paro antes de que se cargue y lo hablo con el despachador.",
-            claves: ["Solo aeronave de carga", "No se resuelve con la posición", "Se para antes de cargar"],
-          },
-        ],
-      },
     ],
   },
 
@@ -491,32 +439,6 @@ export const NIVEL_2: DocScreen[] = [
               "Cada bulto en cantidad exceptuada lleva una etiqueta de al menos 100 × 100 mm.",
               "Las mercancías que en la lista traen la instrucción de embalaje «Y» son las que pueden ir en cantidades limitadas.",
             ],
-          },
-        ],
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es el grupo de embalaje y qué indica?",
-            respuesta:
-              "Es el grado de peligro que una sustancia presenta dentro de su clase, a efectos de embalaje. Son tres: el I para las de gran peligro, el II para peligro intermedio y el III para escaso peligro. Cuanto más alto el peligro, más exigente el embalaje y más bajos los límites de cantidad por bulto. No aplica a todas las clases: los explosivos, los gases y el radiactivo se ordenan de otra manera.",
-            claves: ["Grado de peligro dentro de la clase", "I, II y III", "No aplica a clases 1, 2 y 7"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Qué diferencia hay entre cantidad exceptuada y cantidad limitada?",
-            respuesta:
-              "La exceptuada es una cantidad muy pequeña que queda fuera de casi todo el régimen y normalmente ni siquiera genera la documentación de mercancías peligrosas. La limitada sigue dentro del régimen: es un peligro menor en embalajes probados a apilamiento y caída, con su marca propia, y se identifica por la instrucción de embalaje «Y». Para un piloto la diferencia práctica es que la limitada la ve en el papel y la exceptuada, normalmente, no.",
-            claves: ["Exceptuada = fuera de casi todo el régimen", "Limitada = dentro, con marca propia", "La limitada aparece en la documentación"],
-          },
-          {
-            nivel: "situacion",
-            q: "¿Las baterías de litio llevan grupo de embalaje?",
-            respuesta:
-              "No. Son clase 9, pero su transporte no lo gobierna un grupo de embalaje sino la instrucción de embalaje de las Instrucciones Técnicas, que fija cuántas van por bulto, con qué estado de carga y en qué tipo de aeronave. Si veo un grupo de embalaje junto a un UN 3480 o 3481, ese documento tiene un error y lo pregunto antes de firmarlo.",
-            claves: ["Clase 9 sin grupo de embalaje", "Manda la instrucción de embalaje", "Es un chequeo de coherencia del NOTOC"],
           },
         ],
       },
@@ -690,32 +612,6 @@ export const NIVEL_2: DocScreen[] = [
         ],
         cierre:
           "Esta es la razón por la que las baterías de litio tienen lección propia. No es la carga declarada la que más veces arde en un avión de pasajeros: es la que va en el bolsillo de la fila 22.",
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es una fuga térmica y por qué es distinta de un incendio normal?",
-            respuesta:
-              "Es la reacción de una celda de litio dañada, sobrecargada o en cortocircuito: se calienta, sus materiales se descomponen y generan más calor y gases inflamables, y ese calor alcanza a la celda vecina. Se alimenta sola. Es distinta porque el oxígeno lo aporta la propia celda, así que quitarle el aire no la para: hay que quitarle el calor.",
-            claves: ["Reacción que se autoalimenta", "Se propaga celda a celda", "El oxígeno lo pone la propia celda", "Se enfría, no se sofoca"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué se echa agua a un dispositivo con la batería en fuga térmica si es un equipo eléctrico?",
-            respuesta:
-              "Porque el objetivo no es apagar la llama sino enfriar el conjunto para que las celdas que aún no han reaccionado no lo hagan. El agua no neutraliza el litio, y ese es un error frecuente: lo que hace es bajar la temperatura. El riesgo eléctrico de un dispositivo portátil es despreciable comparado con la propagación.",
-            claves: ["Enfriar, no apagar", "Evitar la propagación a las celdas vecinas", "El agua no neutraliza el litio"],
-          },
-          {
-            nivel: "situacion",
-            q: "Un pasajero pide guardar en el compartimento superior un power bank que le ha empezado a calentar. ¿Qué haces?",
-            respuesta:
-              "No va al compartimento. Un dispositivo que ya está calentando necesita quedar a la vista y accesible, no encerrado donde nadie vea el humo hasta que sea grande. Se vigila, se tiene agua a mano y se aplica el procedimiento del explotador. Además, los repuestos de baterías y los power banks solo pueden ir en cabina, nunca en equipaje facturado, precisamente para poder intervenir.",
-            claves: ["Nunca encerrarlo", "A la vista y accesible", "Agua a mano", "Los repuestos solo van en cabina"],
-          },
-        ],
       },
       {
         kind: "ponAPrueba",

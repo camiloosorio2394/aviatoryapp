@@ -143,32 +143,6 @@ export const NIVEL_4: DocScreen[] = [
         texto:
           "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación. Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado. Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es la segregación y por qué existe?",
-            respuesta:
-              "Es mantener separadas las mercancías que son incompatibles entre sí, es decir, las que al mezclarse podrían generar calor peligrosamente, gases o una sustancia corrosiva. Se aplica a la estiba: hay una tabla en las Instrucciones Técnicas que dice qué clases no pueden ir juntas y a qué distancia. Existe porque una fuga de dos bultos que por separado son manejables puede dar una reacción que no lo es.",
-            claves: ["Mercancías incompatibles", "Tabla de segregación de las Instrucciones", "Se aplica en la estiba"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "Tú no estibas la carga. ¿Por qué te enseñan segregación?",
-            respuesta:
-              "Por dos razones. Una, porque la posición de cada mercancía aparece en la información que firmo, y si dos incompatibles figuran en la misma posición eso es una pregunta que tengo que hacer. Y dos, porque si hay una fuga en vuelo, saber qué había cerca de qué cambia lo que espero encontrar y lo que comunico en tierra.",
-            claves: ["La posición está en el NOTOC", "Detectar incompatibles en la misma posición", "Cambia la respuesta en emergencia"],
-          },
-          {
-            nivel: "situacion",
-            q: "Un bulto llega dañado a la aceptación. ¿Qué debería pasar?",
-            respuesta:
-              "No se acepta. La inspección previa a la aceptación busca exactamente eso: que el bulto, el sobre-embalaje o el contenedor no tengan fugas ni daños. Y si el daño se descubre después, cuando ya está a bordo, deja de ser un problema de aceptación y pasa a ser un suceso: se aplica el procedimiento de emergencia y se notifica.",
-            claves: ["No se acepta un bulto dañado", "La inspección es previa", "Si ya está a bordo, es un suceso"],
-          },
-        ],
-      },
     ],
   },
 
@@ -346,32 +320,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         cierre:
           "No hace falta ser experto en embalaje para leer eso. Hace falta saber qué columna es cuál y qué combinaciones no cuadran.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es el NOTOC y qué exige la norma sobre él?",
-            respuesta:
-              "Es la información escrita al piloto al mando sobre las mercancías peligrosas que van a bordo. La norma exige que el explotador se la proporcione por escrito y lo antes posible antes de la salida, que el piloto al mando la firme antes de que las mercancías se transporten, que esté a su alcance durante todo el vuelo, que esté a disposición del aeródromo de última salida y del de próxima llegada, que quede una copia en tierra y que en transporte internacional se use el inglés además de los idiomas del Estado de origen.",
-            claves: ["Por escrito antes de la salida", "Firmado antes del transporte", "Al alcance en vuelo", "Copia en tierra", "Inglés en internacional"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué tiene que estar al alcance del piloto durante el vuelo y no basta con haberlo leído?",
-            respuesta:
-              "Porque el momento en que hace falta es una emergencia, y en una emergencia nadie recuerda un número ONU ni una posición de bodega. Si hay humo o un olor, lo que quiero es poder decir por radio qué llevo, cuánto y dónde, y eso solo funciona si el papel está en la cabina y no en la oficina de despacho.",
-            claves: ["Se usa en emergencia", "Qué, cuánto y dónde", "Se comunica a tierra"],
-          },
-          {
-            nivel: "situacion",
-            q: "En el NOTOC aparece una posición de bodega que en ese avión no existe. ¿Qué haces?",
-            respuesta:
-              "Lo pregunto antes de firmar. Puede ser una errata de transcripción o puede ser que el documento corresponda a otro vuelo o a otra matrícula. En cualquiera de los dos casos, el dato que usaría en una emergencia sería falso, y ese es justo el dato que no puede estar mal. Firmar un documento que sé que no cuadra es peor que no tenerlo.",
-            claves: ["Preguntar antes de firmar", "El dato se usa en emergencia", "Puede ser de otro vuelo"],
-          },
-        ],
-      },
     ],
   },
 
@@ -524,32 +472,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         cierre:
           "El orden importa: volar, luego identificar, luego comunicar. Invertirlo es el error clásico, y consume el único recurso que no se recupera, que es el tiempo.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué equipo de respuesta de emergencia para mercancías peligrosas debe haber a bordo?",
-            respuesta:
-              "Como mínimo, bolsas grandes de polietileno, ligaduras para cerrarlas y guantes largos de goma. Es un equipo modesto a propósito: sirve para contener y aislar un derrame o un objeto caliente, no para apagar un incendio. Eso, con los extintores de mano y el procedimiento del explotador, es lo que hay hasta aterrizar.",
-            claves: ["Bolsas de polietileno", "Ligaduras", "Guantes largos de goma"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿A quién informa el piloto al mando de una emergencia con mercancías peligrosas y por qué a esa dependencia?",
-            respuesta:
-              "A la dependencia de servicios de tránsito aéreo. No porque el controlador vaya a resolver nada, sino porque es la vía más rápida para que el aeródromo de destino movilice a los bomberos y los servicios que hagan falta, y para que sepan qué van a encontrarse. La información que doy es la del NOTOC: qué mercancía, cuánta y dónde va.",
-            claves: ["A la dependencia ATS", "Para que tierra prepare los medios", "Qué, cuánto y dónde"],
-          },
-          {
-            nivel: "situacion",
-            q: "Terminas el vuelo sin novedad, pero en el descenso notaste un olor químico que luego no se repitió. ¿Haces algo?",
-            respuesta:
-              "Sí, lo reporto. Puede no ser nada, pero también puede ser una fuga incipiente en un bulto, y eso es un incidente imputable a mercancías peligrosas: la norma incluye expresamente las fugas y cualquier manifestación de que se ha vulnerado la integridad de un embalaje. Además, si no pasó nada, sigue siendo el dato más útil que puede recibir el sistema de seguridad operacional: un fallo que todavía no ha costado nada.",
-            claves: ["Se reporta aunque no haya consecuencias", "Incidente imputable", "Alimenta el SMS"],
-          },
-        ],
-      },
     ],
   },
 
@@ -644,32 +566,6 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         descripcion:
           "Los cuatro niveles de suceso como una escalera ascendente: incumplimiento (sin daño), incidente (daño, fuga, lesión), accidente (lesiones graves o mortales, daños de consideración) y, cruzando los tres, el descubrimiento de una mercancía oculta. La flecha del valor para el SMS apunta al revés que la de la gravedad: el escalón más bajo es el que más enseña.",
         alto: 300,
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué diferencia hay entre accidente, incidente e incumplimiento imputable a mercancías peligrosas?",
-            respuesta:
-              "El accidente ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente. El incidente no llega a accidente pero produce lesiones, daños, incendio, ruptura, derrame, fuga o cualquier manifestación de que se ha vulnerado la integridad de un embalaje, y no tiene que ocurrir necesariamente a bordo. El incumplimiento es la ocurrencia atribuible al transporte que no llega a ninguno de los dos.",
-            claves: ["Accidente: lesiones graves o mortales, daños de consideración", "Incidente: daño, fuga, integridad vulnerada", "Incumplimiento: sin ninguna de las dos"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué se notifica algo que no causó ningún daño?",
-            respuesta:
-              "Porque es el dato más barato del sistema. Un incumplimiento es un fallo de la cadena que todavía no ha costado nada, y sirve para corregir antes de que cueste. Por eso el transporte de mercancías peligrosas está dentro del alcance del SMS del explotador y por eso las autoridades recopilan también lo que no llega a incidente: para trabajar de forma predictiva y proactiva en vez de reactiva.",
-            claves: ["Fallo que aún no ha costado nada", "Entra en el SMS", "Predictivo y proactivo, no reactivo"],
-          },
-          {
-            nivel: "situacion",
-            q: "En destino, al descargar, aparece un bulto con una fuga que en vuelo nadie detectó. ¿Qué es y qué se hace?",
-            respuesta:
-              "Es un incidente imputable a mercancías peligrosas: hay una manifestación de que se ha vulnerado la integridad de un embalaje, aunque nadie se diera cuenta durante el vuelo y no haya lesionados. Se notifica a las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió. Y, operacionalmente, hay que ver qué había cerca de ese bulto, porque una fuga junto a algo incompatible es otro problema distinto.",
-            claves: ["Es un incidente, no un incumplimiento", "Se notifica a las dos autoridades", "Revisar qué había cerca"],
-          },
-        ],
       },
       {
         kind: "ponAPrueba",

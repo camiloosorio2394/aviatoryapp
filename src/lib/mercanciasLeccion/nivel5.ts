@@ -135,35 +135,6 @@ export const NIVEL_5: DocScreen[] = [
         concepto:
           "COMAT y COMAT peligroso, mercancía peligrosa oculta, la aceptación y la información al piloto al mando, y la notificación. Es ValuJet contado desde tu asiento.",
       },
-      {
-        kind: "entrevista",
-        titulo: "Lo que te pueden preguntar sobre casos",
-        intro:
-          "En una entrevista te pueden pedir que cuentes un accidente. No quieren la cronología: quieren ver si sabes extraer la lección.",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "Cuéntame un accidente relacionado con mercancías peligrosas.",
-            respuesta:
-              "ValuJet 592, 1996. Transportaba generadores químicos de oxígeno retirados de dos MD-80, sin las tapas de seguridad, declarados como material de la compañía y marcados como vacíos. No estaban vacíos. Se activaron en la bodega delantera y el incendio hizo que el avión cayera en los Everglades. Murieron las 110 personas a bordo.",
-            claves: ["Generadores de oxígeno sin tapa", "Declarados como COMAT y marcados vacíos", "110 fallecidos"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Y qué aprendió la industria de ese accidente?",
-            respuesta:
-              "Que ser material de la propia compañía no exime de nada: si está clasificado como mercancía peligrosa es COMAT peligroso y cumple todas las reglas. Que una marca escrita a mano no clasifica nada. Y que el último control de la cadena era la firma del comandante sobre un documento que decía otra cosa. De ahí viene la insistencia actual en la información escrita al piloto al mando y en la instrucción periódica de todo el personal, acepte o no la empresa mercancías peligrosas.",
-            claves: ["COMAT peligroso no exime", "La declaración no la hace la marca", "Información escrita al comandante"],
-          },
-          {
-            nivel: "situacion",
-            q: "¿Qué tienen en común los grandes accidentes con mercancías peligrosas?",
-            respuesta:
-              "Que el fallo empezó en la información, no en el fuego. Una clasificación que no se hizo, una declaración que no se comprobó o una descripción genérica que nadie cuestionó. Y que una vez el fuego está en la bodega, la tripulación no puede llegar hasta él: lo único que queda es el tiempo hasta un aeródromo utilizable y lo que ya estaba a bordo. Por eso todo el esfuerzo normativo está antes de la salida.",
-            claves: ["El fallo empieza en la información", "El fuego en bodega no se alcanza", "Todo se juega antes de salir"],
-          },
-        ],
-      },
     ],
   },
 
@@ -284,54 +255,6 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "p",
         text: "Antes del repaso, seis preguntas como te las van a hacer: sin opciones y esperando que hables treinta segundos. Léelas, respóndelas **en voz alta** y solo después abre la respuesta esperada. Si te saltas la parte de hablar, esto no sirve de nada.",
-      },
-      {
-        kind: "entrevista",
-        titulo: "Simulador de entrevista · Mercancías peligrosas",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "En treinta segundos: ¿qué son las mercancías peligrosas y por qué existe una norma específica para el transporte aéreo?",
-            respuesta:
-              "Son objetos o sustancias que pueden constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente, y que están en la lista de las Instrucciones Técnicas o son clasificables conforme a ellas. Existe una norma específica para el aire porque el avión cambia el riesgo: la presión ambiente baja, la temperatura varía, la vibración es sostenida y no hay a quién llamar. Lo que en tierra se resuelve en minutos, en crucero lo resuelve la tripulación con lo que ya está a bordo.",
-            claves: ["Riesgo + lista o clasificable", "Presión, temperatura, vibración", "Aislamiento y tiempo"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Cuál es tu responsabilidad como comandante y dónde empieza y termina?",
-            respuesta:
-              "Empieza cuando recibo la información escrita de las mercancías peligrosas del vuelo, que el explotador debe darme lo antes posible antes de la salida. La firmo antes de que se transporten, la mantengo al alcance durante todo el vuelo y conozco los procedimientos de emergencia. No me corresponde clasificar ni verificar embalajes: eso es del expedidor y de la aceptación. Lo que sí me corresponde es no salir sin esa información y actuar si algo en ella no cuadra.",
-            claves: ["Recibir, firmar, tener al alcance", "No clasifico ni verifico embalajes", "Actuar si algo no cuadra"],
-          },
-          {
-            nivel: "situacion",
-            q: "Estás preparando el vuelo y en el NOTOC ves «UN 3480, clase 9, GE II, CAO». Tu vuelo lleva pasajeros. ¿Qué ves ahí?",
-            respuesta:
-              "Dos cosas, y una es grave. La primera: las baterías de litio no llevan grupo de embalaje, así que ese «GE II» es un error de documentación. La segunda, y la que para el vuelo: la marca CAO significa exclusivamente en aeronave de carga, y este vuelo lleva pasajeros. Ese bulto no puede ir, y no se arregla cambiándolo de posición. Lo hablo con el despachador antes de que se cargue.",
-            claves: ["El litio no lleva grupo de embalaje", "CAO prohíbe en vuelo de pasajeros", "No se resuelve con la estiba"],
-          },
-          {
-            nivel: "situacion",
-            q: "En crucero, un pasajero reporta que su teléfono echa humo. ¿Qué haces y por qué?",
-            respuesta:
-              "Es una fuga térmica de una batería de litio. Lo primero es enfriar con agua o cualquier líquido no alcohólico y en cantidad, no para apagar la llama sino para impedir que las celdas vecinas entren en reacción. No se cubre ni se encierra en un compartimento: el aparato tiene que quedar a la vista y accesible. El halón apaga la llama pero no enfría, así que detrás tiene que ir el agua. Y se notifica, aunque el dispositivo fuera de un pasajero.",
-            claves: ["Fuga térmica", "Enfriar, no sofocar", "Nunca encerrarlo", "Se notifica"],
-          },
-          {
-            nivel: "situacion",
-            q: "Salta la alarma de humo en la bodega donde llevas mercancías declaradas. ¿En qué orden actúas?",
-            respuesta:
-              "Volar, identificar, comunicar. Primero el procedimiento del fabricante para humo o incendio en bodega, y el desvío si corresponde. Después la información escrita, que me dice qué hay, cuánto y en qué posición, y la información de respuesta de emergencia, que me dice cómo se comporta esa mercancía. Y después informo a la dependencia de tránsito aéreo, para que el aeródromo prepare los medios sabiendo qué va a encontrarse. Invertir ese orden consume el único recurso que no se recupera.",
-            claves: ["Volar primero", "Identificar con el NOTOC", "Informar al ATS", "Guía de respuesta de emergencia"],
-          },
-          {
-            nivel: "situacion",
-            q: "En tierra descubren una mercancía no declarada en la carga de tu vuelo y la retiran. No llegó a subir. ¿Hay algo que hacer?",
-            respuesta:
-              "Sí: se notifica. El descubrimiento de una mercancía peligrosa oculta ya es un suceso con mercancías peligrosas aunque no haya daño ni llegue a bordo. Y es el nivel que más aporta, porque señala un fallo de la cadena que todavía no ha costado nada. El transporte de mercancías peligrosas está dentro del alcance del SMS del explotador precisamente para eso: para corregir antes, no para castigar después.",
-            claves: ["Es un suceso aunque no haya daño", "Se notifica", "Entra en el SMS"],
-          },
-        ],
       },
       { kind: "sub", text: "Veinte respuestas que debes tener listas" },
       {

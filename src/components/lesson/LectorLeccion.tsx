@@ -1,8 +1,9 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react"
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react"
 import { Link, useNavigate, useSearchParams } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Check, ListOrdered, X } from "lucide-react"
+import { ArrowLeft, ArrowRight, Check, ListOrdered, MessageSquareQuote, X } from "lucide-react"
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
+import { PantallaEntrevista, type LectorEntrevista } from "@/components/lesson/EntrevistaNivel"
 import { docAccent } from "@/lib/docSheet"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
@@ -50,6 +51,13 @@ export interface LectorModulo {
   actividad: Parameters<typeof registrarEstudioDiario>[0]
   lecciones: DocScreen[]
   niveles?: LectorNivel[]
+  /**
+   * La entrevista de aerolínea que cierra cada nivel: una pantalla propia
+   * después de la última lección del nivel (?e=1). No es una lección: no se
+   * numera ni cuenta para el progreso, así las lecciones siguen siendo las que
+   * la base y los logros esperan.
+   */
+  entrevistas?: LectorEntrevista[]
   /** Adónde va el «Continuar» de la última lección. */
   alFinal: string
   /** El texto del pie en la última lección: "Práctica y evaluación →". */
@@ -104,9 +112,27 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
   const [drawer, setDrawer] = useState(false)
   const contentRef = useRef<HTMLDivElement | null>(null)
 
-  const l = clamp(Number(searchParams.get("l")) || 1, 1, TOTAL)
+  // Las entrevistas hechas viven solo en este navegador: son ensayo, no progreso.
+  const claveEntrevistas = `aviatory.${modulo.actividad}.entrevistas`
+  const [entrevistasHechas, setEntrevistasHechas] = useState<number[]>(() => {
+    try {
+      const v: unknown = JSON.parse(localStorage.getItem(claveEntrevistas) ?? "[]")
+      return Array.isArray(v) ? v.filter((x): x is number => typeof x === "number") : []
+    } catch {
+      return []
+    }
+  })
+
+  // ?e=N abre la entrevista del nivel N. Si el módulo no la tiene, se ignora
+  // y manda ?l como siempre.
+  const entrevista = modulo.entrevistas?.find((x) => x.nivel === Number(searchParams.get("e"))) ?? null
+  const l = clamp(Number(searchParams.get("l")) || (entrevista ? entrevista.tras : 1), 1, TOTAL)
   const leccion = modulo.lecciones[l - 1]
-  const siguiente = l < TOTAL ? modulo.lecciones[l] : null
+  // Lo que viene después de esta pantalla: tras la última lección de un nivel
+  // va su entrevista; tras la entrevista, la primera lección del nivel que sigue.
+  const entrevistaTras = entrevista ? null : (modulo.entrevistas?.find((x) => x.tras === l) ?? null)
+  const nSiguiente = entrevista ? entrevista.tras + 1 : l + 1
+  const siguiente = entrevistaTras ? null : nSiguiente <= TOTAL ? modulo.lecciones[nSiguiente - 1] : null
 
   const irALeccion = useCallback(
     (n: number) => {
@@ -114,6 +140,30 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
       setDrawer(false)
     },
     [setSearchParams],
+  )
+
+  const irAEntrevista = useCallback(
+    (nivel: number) => {
+      setSearchParams({ e: String(nivel) })
+      setDrawer(false)
+    },
+    [setSearchParams],
+  )
+
+  const marcarEntrevista = useCallback(
+    (nivel: number) => {
+      setEntrevistasHechas((prev) => {
+        if (prev.includes(nivel)) return prev
+        const next = [...prev, nivel].sort((a, b) => a - b)
+        try {
+          localStorage.setItem(claveEntrevistas, JSON.stringify(next))
+        } catch {
+          // Sin almacenamiento: la marca dura lo que dure la página.
+        }
+        return next
+      })
+    },
+    [claveEntrevistas],
   )
 
   // Marca una lección como completada. Se dispara con el Continuar del final,
@@ -131,15 +181,17 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
   )
 
   const completarYSeguir = useCallback(() => {
-    markRead(l)
-    if (siguiente) irALeccion(siguiente.n)
+    if (entrevista) marcarEntrevista(entrevista.nivel)
+    else markRead(l)
+    if (entrevistaTras) irAEntrevista(entrevistaTras.nivel)
+    else if (siguiente) irALeccion(siguiente.n)
     else navigate(modulo.alFinal)
-  }, [markRead, l, siguiente, irALeccion, navigate, modulo.alFinal])
+  }, [entrevista, marcarEntrevista, markRead, l, entrevistaTras, irAEntrevista, siguiente, irALeccion, navigate, modulo.alFinal])
 
-  // Al cambiar de lección, el área de contenido vuelve arriba.
+  // Al cambiar de pantalla, el área de contenido vuelve arriba.
   useEffect(() => {
     contentRef.current?.scrollTo(0, 0)
-  }, [l])
+  }, [l, entrevista])
 
   // Hidrata lo completado desde la base, y sube lo local pendiente.
   useEffect(() => {
@@ -173,8 +225,11 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
         clase="hidden lg:flex"
         modulo={modulo}
         lActiva={l}
+        eActiva={entrevista?.nivel ?? null}
         readSections={readSections}
+        entrevistasHechas={entrevistasHechas}
         onPick={irALeccion}
+        onPickEntrevista={irAEntrevista}
       />
 
       {/* Cajón móvil: el mismo sidebar, deslizado sobre el contenido */}
@@ -191,8 +246,11 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
               clase="flex"
               modulo={modulo}
               lActiva={l}
+              eActiva={entrevista?.nivel ?? null}
               readSections={readSections}
+              entrevistasHechas={entrevistasHechas}
               onPick={irALeccion}
+              onPickEntrevista={irAEntrevista}
             />
             <button
               type="button"
@@ -233,7 +291,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
               </Link>
               <span style={{ color: "var(--ln-hair-strong)" }}>/</span>
               <span className="font-semibold truncate" style={{ color: "var(--ln-ink)" }}>
-                Lección {String(l).padStart(2, "0")}
+                {entrevista ? `Entrevista · Nivel ${entrevista.nivel}` : `Lección ${String(l).padStart(2, "0")}`}
               </span>
             </nav>
           </div>
@@ -246,23 +304,31 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
             {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
             <header>
               <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                <span className="ln-epigrafe">
-                  <span style={{ color: "var(--ln-primary)" }}>{String(l).padStart(2, "0")}</span> ·{" "}
-                  {leccion.kicker}
-                </span>
+                {entrevista ? (
+                  <span className="ln-epigrafe">
+                    <span style={{ color: "var(--ln-primary)" }}>Entrevista</span> · Nivel {entrevista.nivel} ·{" "}
+                    {entrevista.titulo}
+                  </span>
+                ) : (
+                  <span className="ln-epigrafe">
+                    <span style={{ color: "var(--ln-primary)" }}>{String(l).padStart(2, "0")}</span> ·{" "}
+                    {leccion.kicker}
+                  </span>
+                )}
                 <span
                   className="ln-epigrafe whitespace-nowrap"
-                  style={nivel ? { color: docAccent(nivel.color, 55) } : undefined}
+                  style={nivel && !entrevista ? { color: docAccent(nivel.color, 55) } : undefined}
                 >
-                  {nivel ? `${nivel.label} · ` : ""}
-                  {leccion.minutes} min
+                  {entrevista
+                    ? `${entrevista.preguntas.length} preguntas · ${entrevista.minutes} min`
+                    : `${nivel ? `${nivel.label} · ` : ""}${leccion.minutes} min`}
                 </span>
               </div>
               <h1
                 className="ln-display mt-2 mb-0 font-bold text-[34px] lg:text-[44px]"
                 style={{ lineHeight: 1.0, letterSpacing: "-0.012em", color: "var(--ln-ink)" }}
               >
-                {leccion.title}
+                {entrevista ? "Lo que te pueden preguntar en una aerolínea" : leccion.title}
               </h1>
               <div
                 className="mt-4 grid gap-[3px] max-w-[420px]"
@@ -285,7 +351,15 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
             </header>
 
             {/* La lección entera, de corrido: se lee scrolleando */}
-            <div key={l} className="ln-paso mt-8">
+            <div key={entrevista ? `e${entrevista.nivel}` : l} className="ln-paso mt-8">
+              {entrevista ? (
+                <PantallaEntrevista
+                  dir={modulo.portadas}
+                  ratio={modulo.portadaRatio ?? PORTADA_RATIO}
+                  entrevista={entrevista}
+                  clave={`aviatory.${modulo.actividad}`}
+                />
+              ) : (
               <div className="flex flex-col" style={{ rowGap: 38 }}>
                 <Portada
                   dir={modulo.portadas}
@@ -317,6 +391,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                   )
                 })}
               </div>
+              )}
 
               {/* Pie de la lección, al final del contenido como en el
                   standalone: Siguiente a la izquierda, Continuar a la derecha */}
@@ -336,19 +411,21 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                     className="block truncate text-[15px] lg:text-[17.5px] font-semibold"
                     style={{ color: "var(--ln-primary)" }}
                   >
-                    {siguiente
-                      ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
-                      : modulo.textoFinal}
+                    {entrevistaTras
+                      ? `Entrevista · Nivel ${entrevistaTras.nivel} →`
+                      : siguiente
+                        ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
+                        : modulo.textoFinal}
                   </span>
                 </button>
 
                 <div className="flex items-center gap-4 lg:gap-5 ml-auto">
-                  {readSections.includes(l) && (
+                  {(entrevista ? entrevistasHechas.includes(entrevista.nivel) : readSections.includes(l)) && (
                     <span
                       className="hidden lg:inline-flex items-center gap-1.5 text-[14px]"
                       style={{ color: "var(--ln-primary)" }}
                     >
-                      <Check className="h-3.5 w-3.5" strokeWidth={3} /> Lección completada
+                      <Check className="h-3.5 w-3.5" strokeWidth={3} /> {entrevista ? "Entrevista ensayada" : "Lección completada"}
                     </span>
                   )}
                   <button
@@ -381,9 +458,18 @@ interface SidebarNavProps {
   clase: string
   modulo: LectorModulo
   lActiva: number
+  /** Nivel de la entrevista abierta, o null si lo abierto es una lección. */
+  eActiva: number | null
   readSections: number[]
+  entrevistasHechas: number[]
   onPick: (n: number) => void
+  onPickEntrevista: (nivel: number) => void
 }
+
+/** Una fila del índice: una lección, o la entrevista que cierra un nivel. */
+type FilaIndice =
+  | { clave: string; tipo: "leccion"; n: number; titulo: string }
+  | { clave: string; tipo: "entrevista"; n: number; nivel: number; preguntas: number }
 
 /**
  * La lista de lecciones con UN indicador que viaja: la pastilla. Todas las
@@ -395,16 +481,30 @@ interface SidebarNavProps {
  * Si el módulo trae niveles, cada uno pone su rótulo encima de su primera
  * lección. Son texto, no filas: no se pulsan y la pastilla los ignora.
  */
-function SidebarNav({ clase, modulo, lActiva, readSections, onPick }: SidebarNavProps) {
+function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistasHechas, onPick, onPickEntrevista }: SidebarNavProps) {
   const TOTAL = modulo.lecciones.length
   const filas = useRef<(HTMLButtonElement | null)[]>([])
   const [pill, setPill] = useState({ y: 0, h: 36 })
   const [anim, setAnim] = useState(false)
 
+  // Las filas en el orden en que se ven: cada lección y, tras la última de un
+  // nivel, su entrevista. La pastilla y las flechas del teclado van por índice
+  // de fila, no por número de lección, porque la entrevista no tiene número.
+  const indice = useMemo<FilaIndice[]>(() => {
+    const out: FilaIndice[] = []
+    for (const s of modulo.lecciones) {
+      out.push({ clave: `l${s.n}`, tipo: "leccion", n: s.n, titulo: s.title })
+      const e = modulo.entrevistas?.find((x) => x.tras === s.n)
+      if (e) out.push({ clave: `e${e.nivel}`, tipo: "entrevista", n: s.n, nivel: e.nivel, preguntas: e.preguntas.length })
+    }
+    return out
+  }, [modulo.lecciones, modulo.entrevistas])
+  const iActiva = indice.findIndex((f) => f.clave === (eActiva !== null ? `e${eActiva}` : `l${lActiva}`))
+
   const medir = useCallback(() => {
-    const fila = filas.current[lActiva - 1]
+    const fila = filas.current[iActiva]
     if (fila) setPill({ y: fila.offsetTop, h: fila.offsetHeight })
-  }, [lActiva])
+  }, [iActiva])
 
   useLayoutEffect(() => {
     medir()
@@ -474,10 +574,12 @@ function SidebarNav({ clase, modulo, lActiva, readSections, onPick }: SidebarNav
           aria-hidden
         />
         <nav className="relative">
-          {modulo.lecciones.map((s, i) => {
-            const nivel = nivelDe(s.n)
+          {indice.map((f, i) => {
+            const nivel = f.tipo === "leccion" ? nivelDe(f.n) : undefined
+            const activa = i === iActiva
+            const hecha = f.tipo === "leccion" ? readSections.includes(f.n) : entrevistasHechas.includes(f.nivel)
             return (
-              <div key={s.n}>
+              <div key={f.clave}>
                 {nivel && (
                   <div
                     className={`mono px-5 text-[9.5px] font-semibold uppercase tracking-[0.16em] ${i === 0 ? "pb-1.5" : "pt-4 pb-1.5"}`}
@@ -492,30 +594,49 @@ function SidebarNav({ clase, modulo, lActiva, readSections, onPick }: SidebarNav
                     filas.current[i] = el
                   }}
                   type="button"
-                  onClick={() => onPick(s.n)}
+                  onClick={() => (f.tipo === "leccion" ? onPick(f.n) : onPickEntrevista(f.nivel))}
                   onKeyDown={(e) => {
                     if (e.key === "ArrowDown") filas.current[i + 1]?.focus()
                     if (e.key === "ArrowUp") filas.current[i - 1]?.focus()
                   }}
-                  aria-current={s.n === lActiva ? "page" : undefined}
+                  aria-current={activa ? "page" : undefined}
                   className="ln-fila grid w-full grid-cols-[24px_1fr_14px] items-start gap-2.5 rounded-[7px] px-5 text-left"
                   style={{ paddingTop: 9, paddingBottom: 9, minHeight: 54 }}
                 >
-                  <span
-                    className="mono mt-[3px] text-[11px] tabular"
-                    style={{ color: "var(--ln-navy-dim)" }}
-                  >
-                    {String(s.n).padStart(2, "0")}
-                  </span>
-                  <span className="ln-fila-titulo text-[14px] leading-[1.3]" style={{ color: "var(--ln-item)" }}>
-                    {s.title}
-                  </span>
-                  {readSections.includes(s.n) && (
+                  {f.tipo === "leccion" ? (
+                    <>
+                      <span className="mono mt-[3px] text-[11px] tabular" style={{ color: "var(--ln-navy-dim)" }}>
+                        {String(f.n).padStart(2, "0")}
+                      </span>
+                      <span className="ln-fila-titulo text-[14px] leading-[1.3]" style={{ color: "var(--ln-item)" }}>
+                        {f.titulo}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      {/* La entrevista no lleva número: lleva el icono, y debajo
+                          del título dice lo que es. Así se distingue de una
+                          lección sin romper la columna. */}
+                      <MessageSquareQuote className="mt-[3px] h-[13px] w-[13px]" style={{ color: "var(--ln-bright)" }} aria-hidden />
+                      <span className="min-w-0">
+                        <span className="ln-fila-titulo block text-[14px] leading-[1.3]" style={{ color: "var(--ln-item)" }}>
+                          Lo que te pueden preguntar
+                        </span>
+                        <span
+                          className="mono mt-[3px] block text-[9.5px] font-semibold uppercase tracking-[0.14em]"
+                          style={{ color: "var(--ln-navy-dim)" }}
+                        >
+                          Entrevista · {f.preguntas} preguntas
+                        </span>
+                      </span>
+                    </>
+                  )}
+                  {hecha && (
                     <Check
                       className="mt-[4px] h-[11px] w-[11px]"
                       strokeWidth={3}
                       style={{ color: "var(--ln-navy-dim)" }}
-                      aria-label="Completada"
+                      aria-label={f.tipo === "leccion" ? "Completada" : "Ensayada"}
                     />
                   )}
                 </button>

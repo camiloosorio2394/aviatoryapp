@@ -36,6 +36,9 @@ export const MP_NIVELES: LectorNivel[] = [
 
 export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4, ...NIVEL_5]
 
+// La entrevista de aerolínea que cierra cada nivel, aparte de las lecciones.
+export { MP_ENTREVISTAS } from "./entrevistas"
+
 // La numeración es la que se guarda como progreso: si un archivo se
 // desordena, mejor caerse al arrancar que marcar leída la lección equivocada.
 MP_LECCIONES.forEach((s, i) => {

@@ -108,32 +108,6 @@ export const NIVEL_3: DocScreen[] = [
         cierre:
           "«Permiso especial» no es una categoría. Aprobación, dispensa y excepción son tres cosas distintas, y la diferencia decide si ese envío existe o no.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué mercancías peligrosas están prohibidas en el transporte aéreo?",
-            respuesta:
-              "Hay dos niveles de prohibición. Primero, un criterio material: lo que al presentarse para el transporte pueda explotar, reaccionar peligrosamente, producir llamas o desprender calor o gases tóxicos, corrosivos o inflamables en las condiciones normales de transporte no vuela, esté o no en la lista. Y segundo, lo que las Instrucciones nombran expresamente como prohibido, sea en todas las circunstancias o solo en circunstancias normales, en cuyo caso cabe dispensa.",
-            claves: ["Criterio material aunque no esté en la lista", "Prohibido en todas las circunstancias", "Prohibido en circunstancias normales, salvo dispensa"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "La lista no es exhaustiva. ¿Qué implica eso?",
-            respuesta:
-              "Que no estar en la lista no es un salvoconducto. La norma lo dice expresamente: ciertas mercancías que corresponden a las descripciones de prohibición se incluyeron con la palabra «Prohibido», pero la lista no es exhaustiva. Si un artículo cumple el criterio material, está prohibido aunque nadie lo haya escrito.",
-            claves: ["La lista no es exhaustiva", "El criterio material manda", "No estar listado no autoriza"],
-          },
-          {
-            nivel: "situacion",
-            q: "Un envío requiere dispensa y el explotador la ha obtenido. ¿Qué esperas ver tú como comandante?",
-            respuesta:
-              "Espero que la mercancía aparezca en mi información escrita como cualquier otra, y espero que las condiciones bajo las que se otorgó la dispensa estén reflejadas en los procedimientos del vuelo. Una dispensa no hace desaparecer el riesgo: lo autoriza bajo condiciones que buscan un nivel de seguridad equivalente. Si esas condiciones me afectan, tengo que conocerlas antes de salir.",
-            claves: ["Aparece en la información escrita", "La dispensa impone condiciones", "Nivel de seguridad equivalente"],
-          },
-        ],
-      },
     ],
   },
 
@@ -328,32 +302,6 @@ export const NIVEL_3: DocScreen[] = [
         texto:
           "La misma carga, el mismo avión y la misma clase pueden tener requisitos distintos según el Estado de origen, de tránsito o de destino. Por eso el manual de operaciones y la ruta importan tanto como la clase. Si sales hacia Brasil con mercancías peligrosas y las marcas van solo en español, el problema no está en tu país: está en la discrepancia BR 6, y quien la tenía que mirar era el expedidor antes de entregar el bulto.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué son las discrepancias notificadas y dónde se publican?",
-            respuesta:
-              "Son las diferencias que un Estado o un explotador aplica respecto de las Instrucciones Técnicas. Se notifican a la OACI y se publican en las propias Instrucciones. El explotador debe cumplir las de los Estados en los que opere o sobrevuele, y el expedidor las de todos los Estados involucrados y las del explotador al que entrega la carga.",
-            claves: ["Diferencias de Estados y de explotadores", "Se notifican a la OACI", "Se publican en las Instrucciones"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué una aerolínea tendría reglas más restrictivas que la norma?",
-            respuesta:
-              "Casi siempre porque le pasó algo. Las discrepancias de explotador nacen de la experiencia propia: LAN, por ejemplo, solo acepta generadores de oxígeno químicos si consta que no están vencidos ni usados, que es exactamente la lección de ValuJet convertida en regla de empresa. Un explotador puede ser más restrictivo que la norma; nunca menos.",
-            claves: ["Nacen de la experiencia propia", "Más restrictivas, nunca más permisivas", "Se identifican en el manual de operaciones"],
-          },
-          {
-            nivel: "situacion",
-            q: "Vuelas a un país cuyo reglamento no conoces y llevas mercancías peligrosas. ¿De qué te tienes que preocupar?",
-            respuesta:
-              "De que alguien haya mirado las discrepancias de ese Estado antes de que la carga saliera. No es mi trabajo revisarlas bulto a bulto, pero sí saber que existen y que afectan cosas concretas: el idioma de las marcas, los plazos para pedir aprobaciones, los permisos de organismos que no son la autoridad aeronáutica. Si salgo hacia Brasil y las marcas van solo en español, el problema es la discrepancia BR 6 y quien tenía que mirarla era el expedidor.",
-            claves: ["El explotador cumple las de los Estados de la ruta", "El expedidor las mira antes de entregar", "Idioma, plazos, permisos de otros organismos"],
-          },
-        ],
-      },
     ],
   },
 
@@ -472,32 +420,6 @@ export const NIVEL_3: DocScreen[] = [
         cierre:
           "La tripulación no tiene fuero. Es de las preguntas de entrevista más frecuentes, y es de las que se contestan mal por costumbre.",
       },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué puede llevar un pasajero en materia de mercancías peligrosas?",
-            respuesta:
-              "La regla general es la prohibición: ni en equipaje facturado, ni de mano, ni en la persona. La única excepción es lo que las Instrucciones Técnicas permiten expresamente, y siempre con todas las condiciones que imponen: cantidades, si va en cabina o facturado, y si hace falta aprobación del explotador.",
-            claves: ["Prohibición general", "Única excepción: lo que permiten las Instrucciones", "Con todas sus condiciones"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué los power banks solo pueden ir en cabina?",
-            respuesta:
-              "Porque una batería de litio en fuga térmica hay que enfriarla, y para enfriarla hay que llegar a ella. En cabina alguien lo ve, lo huele y actúa en segundos. En bodega, hasta que salta un detector puede haber pasado mucho tiempo y la reacción se ha propagado a las celdas vecinas.",
-            claves: ["Fuga térmica", "En cabina se detecta y se interviene", "En bodega no se puede alcanzar"],
-          },
-          {
-            nivel: "situacion",
-            q: "Un tripulante te dice que él sí puede llevar cosas que un pasajero no, porque va trabajando. ¿Qué le respondes?",
-            respuesta:
-              "Que se equivoca. La norma prohíbe el transporte de mercancías peligrosas a bordo tanto a pasajeros como a miembros de la tripulación, en equipaje facturado, de mano o en la persona, y la excepción es la misma para los dos. Lo que la tripulación sí tiene es formación para saberlo, que es justamente por lo que se le exige más, no menos.",
-            claves: ["La tripulación no tiene fuero", "Misma excepción que el pasajero", "Formación no es privilegio"],
-          },
-        ],
-      },
     ],
   },
 
@@ -604,32 +526,6 @@ export const NIVEL_3: DocScreen[] = [
         ],
         cierre:
           "Las mercancías ocultas no se detectan por su aspecto: se detectan por la descripción genérica y por la respuesta que no cuadra.",
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Qué es una mercancía peligrosa oculta?",
-            respuesta:
-              "Carga declarada con una descripción general que debería haberse declarado como mercancía peligrosa, o mercancías peligrosas prohibidas o en cantidad superior a la permitida presentes en el equipaje o junto al cuerpo de un pasajero o tripulante, o en un envío postal.",
-            claves: ["Descripción general que oculta lo que es", "También en equipaje o en la persona", "También en el correo"],
-          },
-          {
-            nivel: "interpretacion",
-            q: "¿Por qué el reglamento obliga a que el personal de reservas y de recepción tenga una lista de descripciones generales?",
-            respuesta:
-              "Porque las mercancías ocultas no se reconocen por su aspecto sino por cómo se describen. «Repuestos», «muestras», «equipo médico» o «material de rodaje» pueden contener perfectamente mercancías peligrosas. La lista existe para que quien recibe la carga o al pasajero sepa cuándo tiene que pedir confirmación del contenido en vez de dar por buena la descripción.",
-            claves: ["No se reconocen por el aspecto", "Descripciones generales sospechosas", "Obliga a pedir confirmación"],
-          },
-          {
-            nivel: "situacion",
-            q: "En tierra descubren una mercancía peligrosa no declarada en la carga de tu vuelo y la retiran antes de embarcarla. No pasó nada. ¿Hay que notificar?",
-            respuesta:
-              "Sí. Descubrir una mercancía peligrosa oculta ya es un suceso con mercancías peligrosas, aunque no haya daños ni llegue a bordo. Es más: es el nivel que más información aporta al sistema, porque señala un fallo de la cadena que todavía no ha costado nada. Notificarlo hoy es el accidente que no ocurre el año que viene.",
-            claves: ["Sí se notifica", "Es un suceso aunque no haya daño", "Alimenta el SMS"],
-          },
-        ],
       },
       {
         kind: "ponAPrueba",
