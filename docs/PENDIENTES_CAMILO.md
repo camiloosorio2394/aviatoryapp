@@ -1165,9 +1165,9 @@ los gradientes, las altitudes de las capas, las velocidades de los frentes) sale
 capítulo y se citan como suyas. Lo que no está en el capítulo no se inventa: va como
 escenario de práctica rotulado, o con un aviso de verificar.
 
-Las cuatro partes: la atmósfera y el aire en movimiento (1 a 5), el agua en el aire
-(6 a 9), masas de aire, frentes y tormentas (10 a 12), y los servicios y el código
-(13 a 30).
+Desde el 11 de septiembre van en seis niveles (ver 16.6): la atmósfera y el aire en
+movimiento (1 a 5), el agua en el aire (6 a 9), masas de aire, frentes y tormentas
+(10 a 12), el METAR (13 a 21), el TAF (22 a 25) y la información en ruta (26 a 30).
 
 ### 16.3 · Veinte huecos de imagen, cada uno con su encargo escrito
 
@@ -1215,8 +1215,8 @@ Dos cosas que sí conviene que sepas:
 
 - **El pronóstico que sale en pantalla no es real, y el video lo dice.** No hay ningún
   METAR ni TAF real en el módulo: todos están redactados para el curso y el indicativo
-  `SKXX` es deliberadamente falso. El video usa el TAF de la lección 29, completo y sin
-  alterar, y lo rotula en pantalla como `ESCENARIO DE PRÁCTICA · LECCIÓN 29` en los dos
+  `SKXX` es deliberadamente falso. El video usa el TAF de la lección 24, completo y sin
+  alterar, y lo rotula en pantalla como `ESCENARIO DE PRÁCTICA · LECCIÓN 24` en los dos
   planos donde aparece.
 - **El video tiene el turquesa de antes.** Se calculó con los tokens de #119
   (`#0D4B52`, `#49939C`, `#E5F3F5`), pero al mergear mandaron los de `main`, que son
@@ -1231,3 +1231,34 @@ Dos cosas que sí conviene que sepas:
 
 **Las veinte figuras**: si las encargas, si las dibujo yo en SVG, o si el módulo sale con
 los huecos rotulados. Las tres fotografías de nubes hay que conseguirlas aparte.
+
+### 16.6 · El orden por niveles, y una segunda migración (11 de septiembre de 2026)
+
+El índice no se entendía: cuatro partes de teoría, luego «De dónde sale la
+información», y recién ahí «Básico / Intermedio / Avanzado» del METAR. Además las
+lecciones de información en ruta (PIREP, avisos, cartas) dan por sabidos el METAR y
+el TAF, y estaban delante. Ahora son seis niveles en orden, con el mismo rótulo que
+Mercancías, y las lecciones ya no llevan la etiqueta suelta de nivel:
+
+| Nivel | Lecciones |
+|---|---|
+| 1 · La atmósfera y el aire en movimiento | 1 a 5 |
+| 2 · Agua, estabilidad y nubes | 6 a 9 |
+| 3 · Masas de aire, frentes y tormentas | 10 a 12 |
+| 4 · El METAR, grupo por grupo | 13 a 21 |
+| 5 · El TAF | 22 a 25 |
+| 6 · Información en ruta | 26 a 30 |
+
+Mover lecciones cambia sus números, y el progreso guarda números.
+`supabase/migrations/20260911030000_meteorologia_orden_por_niveles.sql` los
+renumera **y repara** la fila que el respaldo del navegador ya había mezclado
+(`{1..6, 18..23}` en una cuenta de prueba de Camilo). No borra filas, tiene guarda
+para no aplicarse dos veces, y **la aplica Camilo**, con el código ya desplegado.
+
+El respaldo del navegador cambió de clave (`aviatory.meteorologia.progreso`). De la
+vieja solo se rescatan la práctica y la mejor nota, así que ya no puede volver a
+subir números de otra numeración. Y la migración del 10 de septiembre quedó envuelta
+en una guarda por umbral: volver a correrla ya no mueve nada.
+
+Los rótulos de los huecos de imagen (`MT-T01-01`, `MT-S13-01`...) no cambian: son
+nombres de encargo, no posiciones.

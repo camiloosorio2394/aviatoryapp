@@ -29,32 +29,50 @@
 -- está al final, comentada.
 -- ============================================================================
 
--- ─── 1 · El umbral del logro ────────────────────────────────────────────────
-update public.module_thresholds
-  set total = 30,
-      nota = 'METAR_LESSON_TOTAL de src/lib/metarLesson.ts (17 de teoría del clima + 9 de METAR + 4 de TAF)'
-  where code = 'metar_lesson';
+-- ─── Nota del 11 de septiembre de 2026 ──────────────────────────────────────
+-- Esta migración ya está aplicada en producción (versión 20260911015546). Se
+-- envolvió en una guarda para que volver a correrla no toque nada. La de antes
+-- («el número más alto es 13 o menos») deja de proteger en cuanto un alumno lee
+-- solo las primeras lecciones, y el historial de migraciones está
+-- desincronizado (docs/PENDIENTES_CAMILO.md, §11): un `db push` la intentaría
+-- otra vez. Ahora la guarda es el umbral, que solo vale 13 antes de la primera
+-- pasada. El orden de las lecciones cambió después de esta: ver
+-- 20260911030000_meteorologia_orden_por_niveles.sql.
 
-update public.achievements
-  set name = 'Meteorología leída',
-      description = 'Leíste las treinta lecciones del módulo: la teoría del clima, de dónde sale la información, y el METAR y el TAF grupo por grupo'
-  where code = 'metar_lesson';
+do $$
+begin
+  if (select total from public.module_thresholds where code = 'metar_lesson') is distinct from 13 then
+    raise notice 'meteorologia_teoria_del_clima ya estaba aplicada: no se toca nada.';
+    return;
+  end if;
 
--- ─── 2 · El progreso ya guardado, a su sitio nuevo ──────────────────────────
--- Suma 17 a cada número. La guarda del `where` es lo que hace la operación
--- segura de repetir: antes de correrla ningún valor pasa de 13, y después
--- ninguno baja de 18.
-update public.user_metar_progress
-  set lesson_screens = (
-        select coalesce(array_agg(n + 17 order by n + 17), '{}')
-        from unnest(lesson_screens) as n
-      )
-  where lesson_screens is not null
-    and array_length(lesson_screens, 1) > 0
-    and (select max(n) from unnest(lesson_screens) as n) <= 13;
+  -- ─── 1 · El umbral del logro ─────────────────────────────────────────────
+  update public.module_thresholds
+    set total = 30,
+        nota = 'METAR_LESSON_TOTAL de src/lib/metarLesson.ts (17 de teoría del clima + 9 de METAR + 4 de TAF)'
+    where code = 'metar_lesson';
 
-comment on column public.user_metar_progress.lesson_screens is
-  'Números de lección leída, 1 a 30. Del 1 al 17, teoría del clima y servicios meteorológicos; del 18 al 26, METAR; del 27 al 30, TAF (septiembre de 2026).';
+  update public.achievements
+    set name = 'Meteorología leída',
+        description = 'Leíste las treinta lecciones del módulo: la teoría del clima, de dónde sale la información, y el METAR y el TAF grupo por grupo'
+    where code = 'metar_lesson';
+
+  -- ─── 2 · El progreso ya guardado, a su sitio nuevo ───────────────────────
+  -- Suma 17 a cada número.
+  update public.user_metar_progress
+    set lesson_screens = (
+          select coalesce(array_agg(n + 17 order by n + 17), '{}')
+          from unnest(lesson_screens) as n
+        )
+    where lesson_screens is not null
+      and array_length(lesson_screens, 1) > 0
+      and (select max(n) from unnest(lesson_screens) as n) <= 13;
+
+  execute $c$
+    comment on column public.user_metar_progress.lesson_screens is
+      'Números de lección leída, 1 a 30. Del 1 al 17, teoría del clima y servicios meteorológicos; del 18 al 26, METAR; del 27 al 30, TAF (septiembre de 2026).'
+  $c$;
+end $$;
 
 -- ─── Consulta de control, por si quieres mirar antes o después ──────────────
 -- select user_id, lesson_screens

@@ -481,7 +481,21 @@ export const METAR_LEGEND_TOTAL =
 // El respaldo local es lo que hace que la lección funcione sin sesión. La
 // verdad entre dispositivos vive en user_metar_progress: ver lib/metarProgress.
 
-const LS_KEY = "aviatory.metar.progress"
+/**
+ * La clave del respaldo local.
+ *
+ * Cambió el 11 de septiembre de 2026. El respaldo guarda NÚMEROS de lección, y
+ * la numeración cambió dos veces en dos días (trece lecciones, luego treinta
+ * con la teoría delante, luego treinta por niveles). Con la clave de antes, al
+ * abrir el módulo la app subía a la base los números viejos como si fueran
+ * lecciones pendientes, y marcaba leídas lecciones que nadie abrió.
+ *
+ * De la clave vieja se rescata lo que no depende del orden: la práctica y la
+ * mejor nota. Las lecciones leídas vienen de la base, que sí se renumeró; quien
+ * estudió sin cuenta pierde esas marcas, y hoy a la app solo entran Camilo y Nico.
+ */
+const LS_KEY = "aviatory.meteorologia.progreso"
+const LS_KEY_ANTERIOR = "aviatory.metar.progress"
 
 export interface MetarLocalProgress {
   lessonScreens: number[]
@@ -497,10 +511,26 @@ const EMPTY_METAR_PROGRESS: MetarLocalProgress = {
   bestExamScore: null,
 }
 
+/** De la clave vieja, todo menos las lecciones: sus números son de otra numeración. */
+function rescatarAnterior(): MetarLocalProgress {
+  try {
+    const raw = localStorage.getItem(LS_KEY_ANTERIOR)
+    if (!raw) return EMPTY_METAR_PROGRESS
+    const parsed = JSON.parse(raw) as Partial<MetarLocalProgress>
+    return {
+      lessonScreens: [],
+      practiceDone: Array.isArray(parsed.practiceDone) ? parsed.practiceDone : [],
+      bestExamScore: typeof parsed.bestExamScore === "number" ? parsed.bestExamScore : null,
+    }
+  } catch {
+    return EMPTY_METAR_PROGRESS
+  }
+}
+
 export function readMetarProgress(): MetarLocalProgress {
   try {
     const raw = localStorage.getItem(LS_KEY)
-    if (!raw) return EMPTY_METAR_PROGRESS
+    if (!raw) return rescatarAnterior()
     const parsed = JSON.parse(raw) as Partial<MetarLocalProgress>
     return {
       lessonScreens: Array.isArray(parsed.lessonScreens) ? parsed.lessonScreens : [],

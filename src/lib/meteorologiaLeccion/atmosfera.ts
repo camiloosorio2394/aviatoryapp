@@ -1,5 +1,5 @@
 /**
- * Parte 1 · La atmósfera y el aire en movimiento.
+ * Nivel 1 · La atmósfera y el aire en movimiento.
  *
  * Adapta el capítulo 11 del Pilot Handbook of Aeronautical Knowledge (FAA
  * H-8083-25, edición en español) a lo que un piloto necesita para una
@@ -22,7 +22,6 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     title: "La atmósfera en la que vuelas",
     kicker: "Dónde ocurre el tiempo y dónde deja de ocurrir",
     minutes: 6,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -170,7 +169,6 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     title: "La presión y lo que le hace a tu altímetro",
     kicker: "Por qué el mismo número significa cosas distintas",
     minutes: 8,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -338,7 +336,6 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     title: "Por qué se mueve el aire",
     kicker: "Calentamiento desigual, Coriolis y de qué lado te conviene volar",
     minutes: 7,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -494,7 +491,6 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     title: "El viento cerca del suelo",
     kicker: "Convección, brisas y lo que hace un edificio con el aire",
     minutes: 8,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -667,7 +663,6 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     title: "Cizalladura a bajo nivel",
     kicker: "La microrráfaga, paso a paso",
     minutes: 9,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",

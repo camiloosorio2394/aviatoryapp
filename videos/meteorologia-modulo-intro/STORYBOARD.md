@@ -11,7 +11,7 @@ music: documental sobrio, cuerdas graves contenidas, tensión baja que resuelve 
 # Módulo Meteorología · video de apertura
 
 **El pronóstico que sostiene el video sale del módulo**, completo y sin alterar: es el TAF
-de la lección 29 (`src/lib/metarLesson.ts`, bloque `code` de «Leer un TAF completo»).
+de la lección 24 (`src/lib/metarLesson.ts`, bloque `code` de «Leer un TAF completo»).
 Aparece ilegible en el Frame 2 y con la ventana de llegada marcada en el Frame 7: es la
 misma pieza de pantalla, y esa permanencia es lo que hace legible la transformación.
 
@@ -27,7 +27,7 @@ TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025
 **No es un informe real y el video lo dice.** La lección lo rotula con un callout
 («está construido para este curso … no es un informe real de ningún aeródromo») y el
 indicativo `SKXX` es deliberadamente falso. En el video, el bloque lleva el rótulo
-`ESCENARIO DE PRÁCTICA · LECCIÓN 29` en mono, presente **en los dos planos** donde
+`ESCENARIO DE PRÁCTICA · LECCIÓN 24` en mono, presente **en los dos planos** donde
 aparece, el 2 y el 7. No hay ningún otro METAR, TAF ni SIGMET en pantalla, y ninguna cifra
 del bloque se retoca.
 
@@ -36,7 +36,7 @@ rótulo de este storyboard está redactado para el video: todos son texto del m�
 
 | Frame | En pantalla | Fuente en el módulo |
 |---|---|---|
-| 2, 7 | el bloque TAF | lección 29, bloque `code` |
+| 2, 7 | el bloque TAF | lección 24, bloque `code` |
 | 4 | «cuándo el aire sube solo» | título de la lección 6 |
 | 4 | «a qué altura está la base» | kicker de la lección 7 |
 | 4 | «lo que tienes delante» | título de la lección 8 |
@@ -46,9 +46,9 @@ rótulo de este storyboard está redactado para el video: todos son texto del m�
 | 5 | antes de que pase · durante el paso · después | lección 11, «la firma de un frente cálido, en tres tiempos» |
 | 5 | las tres lecturas del barómetro | lección 11, últimas viñetas de cada uno de los tres tiempos |
 | 5 | los cuatro tipos y su `ref` | lección 10, bloque `fichas` |
-| 6 | las cinco sustituciones de la línea `FM160300` | lección 29, bloque `kv`, fila «FM160300» |
-| 7 | `TU LLEGADA · 0600Z` | lección 29, `piensaComoPiloto`, vuelo **C** |
-| 7 | «cae dentro del PROB30» | lección 29, clave del vuelo **C** |
+| 6 | las cinco sustituciones de la línea `FM160300` | lección 24, bloque `kv`, fila «FM160300» |
+| 7 | `TU LLEGADA · 0600Z` | lección 24, `piensaComoPiloto`, vuelo **C** |
+| 7 | «cae dentro del PROB30» | lección 24, clave del vuelo **C** |
 | 8 | `30 LECCIONES · PRÁCTICA · EVALUACIÓN` | recuento real: 30 lecciones, 191 minutos |
 
 **Duraciones.** Las de abajo son **estimadas**, medidas a 12,0 caracteres de guion por
@@ -94,7 +94,7 @@ Scene 3 (2.4–3.8s): una hairline en acento `#49939C` se dibuja bajo la palabra
 
 Scene 1 (0.0–1.8s): abre a sangre sobre `TSRA BKN010CB` de la tercera línea, tan cerca que los caracteres se cortan por los bordes del cuadro. Mono, papel sobre navy. Nada legible, y esa es la intención. Framing layered-depth, encuadre macro.
 Scene 2 (1.8–5.0s): un único zoom-out desacelerado descubre primero la línea `TEMPO` entera y después el bloque de seis líneas. La cámara no se detiene mientras la voz dice «lo que te vas a encontrar al aterrizar». El zoom-out ES el motor de la escena: no hay ningún acercamiento en todo el plano.
-Scene 3 (5.0–6.8s): el bloque queda centrado, ~64% del cuadro, con margen de papel alrededor, y debajo aparece el rótulo `ESCENARIO DE PRÁCTICA · LECCIÓN 29`. Se asienta y la cámara se para.
+Scene 3 (5.0–6.8s): el bloque queda centrado, ~64% del cuadro, con margen de papel alrededor, y debajo aparece el rótulo `ESCENARIO DE PRÁCTICA · LECCIÓN 24`. Se asienta y la cámara se para.
 Scene 4 (6.8–9.5s): en «si no sabes qué lo produce», el bloque baja a media opacidad **excepto los grupos de cambio, que quedan a plena tinta**: las dos apariciones de `BECMG`, el `TEMPO`, el `FM160300` y el `PROB30`. Son exactamente los que ordenan el pronóstico en el tiempo, y son los que el alumno no sabe leer. Quietud absoluta.
 
 ## Frame 3 — La atmósfera
@@ -179,7 +179,7 @@ Scene 4 (5.2–7.2s): la cámara se aleja lo justo para que la tira y los cuatro
 - sfx: tic-por-sustitución
 
 La línea es la cuarta del mismo bloque que sostiene el video, y las cinco traducciones son
-literalmente las de la lección 29: «A partir de las 03Z, línea nueva: viento flojo del
+literalmente las de la lección 24: «A partir de las 03Z, línea nueva: viento flojo del
 este, 1.200 metros con bruma y cielo cubierto a 600 pies».
 
 Scene 1 (0.0–1.2s): papel. `FM160300 09006KT 1200 BR OVC006` centrado en mono grande, ~66% del ancho. Framing centrado.
@@ -247,7 +247,7 @@ su único argumento.
 **El giro es al revés que en el NOTAM, a propósito.** Aquel prometía «esto lo lees de
 corrido». Un TAF no se lee de corrido: el Frame 7 deja las seis líneas en pantalla y marca
 una. Si el plano acabara con las seis explicadas, el video estaría prometiendo lo
-contrario de lo que enseña la lección 29.
+contrario de lo que enseña la lección 24.
 
 **Movimiento.** Un solo gesto por escena. Nada de movimiento ocioso ni de elementos que
 respiran: si algo se mueve, es porque está diciendo algo. Los planos 1, 4, 6 y 7 terminan

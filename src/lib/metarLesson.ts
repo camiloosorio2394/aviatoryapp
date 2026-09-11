@@ -20,10 +20,11 @@ import { PARTE_SERVICIOS } from "@/lib/meteorologiaLeccion/servicios"
 /**
  * Las lecciones del código: METAR y TAF, grupo por grupo.
  *
- * Dejan de ser la lección entera y pasan a ser su última parte. Los números
- * `n` de aquí siguen contando desde 1 porque son los del archivo; los de la
- * lección se recalculan abajo, al componerla, para que no haya que renumerar
- * trece pantallas a mano cada vez que se añade teoría delante.
+ * Dejan de ser la lección entera: son los niveles 4 y 5, entre la teoría y la
+ * información en ruta. Los números `n` de aquí siguen contando desde 1 porque
+ * son los del archivo; los de la lección se recalculan abajo, al componerla,
+ * para que no haya que renumerar trece pantallas a mano cada vez que se mueve
+ * una parte.
  */
 const CODIGO: DocScreen[] = [
   // ── 1 ──────────────────────────────────────────────────────────────────────
@@ -32,7 +33,6 @@ const CODIGO: DocScreen[] = [
     title: "¿Qué es un METAR?",
     kicker: "El estado del cielo, en una línea",
     minutes: 2,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -86,7 +86,6 @@ const CODIGO: DocScreen[] = [
     title: "La plantilla completa",
     kicker: "Todo METAR sigue el mismo orden",
     minutes: 3,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -202,7 +201,6 @@ const CODIGO: DocScreen[] = [
     title: "El viento",
     kicker: "Dirección, ráfagas y cizalladura",
     minutes: 4,
-    level: "basico",
     blocks: [
       {
         kind: "p",
@@ -294,7 +292,6 @@ const CODIGO: DocScreen[] = [
     title: "Visibilidad y alcance de pista",
     kicker: "Metros, millas y el RVR",
     minutes: 3,
-    level: "basico",
     blocks: [
       {
         kind: "list",
@@ -365,7 +362,6 @@ const CODIGO: DocScreen[] = [
     title: "El tiempo presente",
     kicker: "Calificador, descriptor y fenómeno",
     minutes: 5,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -515,7 +511,6 @@ const CODIGO: DocScreen[] = [
     title: "Nubes y CAVOK",
     kicker: "Octavos de cielo y el techo",
     minutes: 4,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -659,7 +654,6 @@ const CODIGO: DocScreen[] = [
     title: "Temperatura, rocío y QNH",
     kicker: "Los números que ajustan tu altímetro",
     minutes: 3,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -745,7 +739,6 @@ const CODIGO: DocScreen[] = [
     title: "Tendencias y comentarios",
     kicker: "Lo que viene en las próximas 2 horas",
     minutes: 3,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -817,7 +810,6 @@ const CODIGO: DocScreen[] = [
     title: "Método de lectura en 5 pasos",
     kicker: "La rutina y los errores comunes",
     minutes: 3,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -943,7 +935,6 @@ const CODIGO: DocScreen[] = [
     title: "Qué es un TAF",
     kicker: "El pronóstico, no la observación",
     minutes: 4,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -1043,7 +1034,6 @@ const CODIGO: DocScreen[] = [
     title: "Los grupos de cambio",
     kicker: "FM, BECMG, TEMPO y PROB",
     minutes: 5,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -1172,7 +1162,6 @@ const CODIGO: DocScreen[] = [
     title: "Leer un TAF completo",
     kicker: "De la cabecera a la decisión",
     minutes: 5,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -1271,7 +1260,6 @@ const CODIGO: DocScreen[] = [
     title: "El TAF y tu alterno",
     kicker: "Del pronóstico a la decisión",
     minutes: 4,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -1363,33 +1351,28 @@ const CODIGO: DocScreen[] = [
 ]
 
 /**
- * Los tres niveles con los que el índice agrupa las lecciones.
+ * La lección completa, en seis niveles que se leen en orden.
  *
- * Coinciden con el `level` que cada lección ya declaraba; aquí solo se les
- * pone nombre para que el lector los rotule, como hace NOTAM.
+ * Primero la teoría del clima, después el código del aeródromo y al final la
+ * información en ruta. Se puede decodificar `BKN015CB` sin saber qué es un
+ * cumulonimbus, pero no se puede **decidir** con él; y el PIREP, los avisos y
+ * las cartas dan por sabidos el METAR y el TAF, así que van detrás de ellos.
+ *
+ * Hasta el 11 de septiembre de 2026 la información en ruta iba delante del
+ * código (lecciones 13 a 17) y el índice mezclaba las partes de teoría con
+ * «Básico / Intermedio / Avanzado» del METAR. El progreso guardado se movió con
+ * la migración 20260911030000_meteorologia_orden_por_niveles.sql.
+ *
+ * Los `n` del código y de la información en ruta se recalculan aquí en vez de
+ * reescribirse a mano en cada pantalla: así mover una parte no obliga a tocar
+ * el contenido, que es lo que se acaba desincronizando.
  */
-/**
- * La lección completa: primero la teoría del clima, después el código.
- *
- * Ese orden y no el contrario. Se puede decodificar `BKN015CB` sin saber qué
- * es un cumulonimbus, pero no se puede **decidir** con él. La teoría venía del
- * capítulo 11 del PHAK y el código ya estaba escrito, así que lo que se hizo
- * fue ponerla delante.
- *
- * Los `n` de la parte del código se recalculan aquí en vez de reescribirse a
- * mano en las trece pantallas: así añadir teoría delante no obliga a tocar el
- * contenido, que es lo que se acaba desincronizando.
- */
-const TEORIA: DocScreen[] = [
-  ...PARTE_ATMOSFERA,
-  ...PARTE_AGUA,
-  ...PARTE_FRENTES,
-  ...PARTE_SERVICIOS,
-]
+const TEORIA: DocScreen[] = [...PARTE_ATMOSFERA, ...PARTE_AGUA, ...PARTE_FRENTES]
 
 export const METAR_LESSON: DocScreen[] = [
   ...TEORIA,
   ...CODIGO.map((s, i) => ({ ...s, n: TEORIA.length + i + 1 })),
+  ...PARTE_SERVICIOS.map((s, i) => ({ ...s, n: TEORIA.length + CODIGO.length + i + 1 })),
 ]
 
 // La numeración es la que se guarda como progreso: si una parte se desordena,
@@ -1400,21 +1383,19 @@ METAR_LESSON.forEach((s, i) => {
   }
 })
 
+/** Cuántas lecciones del código son de METAR; las que siguen son de TAF. */
+const LECCIONES_METAR = 9
+
 export const METAR_NIVELES = [
-  { titulo: "La atmósfera y el aire en movimiento", desde: 1 },
-  { titulo: "Agua, estabilidad y nubes", desde: PARTE_ATMOSFERA.length + 1 },
+  { titulo: "Nivel 1 · La atmósfera y el aire en movimiento", desde: 1 },
+  { titulo: "Nivel 2 · Agua, estabilidad y nubes", desde: PARTE_ATMOSFERA.length + 1 },
   {
-    titulo: "Masas de aire, frentes y tormentas",
+    titulo: "Nivel 3 · Masas de aire, frentes y tormentas",
     desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + 1,
   },
-  {
-    titulo: "De dónde sale la información",
-    desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + PARTE_FRENTES.length + 1,
-  },
-  { titulo: "Básico · La línea y sus partes", desde: TEORIA.length + 1 },
-  { titulo: "Intermedio · Fenómenos y cielo", desde: TEORIA.length + 5 },
-  { titulo: "Avanzado · Tendencia y método", desde: TEORIA.length + 8 },
-  { titulo: "TAF · El pronóstico", desde: TEORIA.length + 10 },
+  { titulo: "Nivel 4 · El METAR, grupo por grupo", desde: TEORIA.length + 1 },
+  { titulo: "Nivel 5 · El TAF", desde: TEORIA.length + LECCIONES_METAR + 1 },
+  { titulo: "Nivel 6 · Información en ruta", desde: TEORIA.length + CODIGO.length + 1 },
 ]
 
 export const METAR_LESSON_TOTAL = METAR_LESSON.length

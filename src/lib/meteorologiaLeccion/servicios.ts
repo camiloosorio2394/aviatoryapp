@@ -1,5 +1,9 @@
 /**
- * Parte 4 · De dónde sale la información (capítulo 12 del PHAK).
+ * Nivel 6 · Información en ruta (capítulo 12 del PHAK).
+ *
+ * Va al final del módulo, detrás del METAR y del TAF, porque el PIREP, los
+ * avisos y las cartas los dan por sabidos. Los `n` de este archivo cuentan
+ * desde 1; su posición en la lección la calcula metarLesson.ts.
  *
  * Solo lo que NO se solapa con METAR y TAF, que ya están en la parte del
  * código: las observaciones y sus fuentes, el PIREP y el RAREP, las
@@ -22,11 +26,10 @@ import type { DocScreen } from "@/lib/docBlocks"
 export const PARTE_SERVICIOS: DocScreen[] = [
   // ── 13 ──────────────────────────────────────────────────────────────────
   {
-    n: 13,
+    n: 1,
     title: "De dónde sale el dato",
     kicker: "Cuatro formas de mirar la atmósfera",
     minutes: 8,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -132,11 +135,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
 
   // ── 14 ──────────────────────────────────────────────────────────────────
   {
-    n: 14,
+    n: 2,
     title: "El PIREP y el RAREP",
     kicker: "El único informe que escribes tú",
     minutes: 9,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -280,11 +282,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
 
   // ── 15 ──────────────────────────────────────────────────────────────────
   {
-    n: 15,
+    n: 3,
     title: "Los avisos en vuelo",
     kicker: "AIRMET, SIGMET y el convectivo",
     minutes: 9,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -429,11 +430,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
 
   // ── 16 ──────────────────────────────────────────────────────────────────
   {
-    n: 16,
+    n: 4,
     title: "Pronóstico de área y vientos en altura",
     kicker: "Lo que va a pasar en una región, y qué viento hay en tu nivel",
     minutes: 8,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -543,11 +543,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
 
   // ── 17 ──────────────────────────────────────────────────────────────────
   {
-    n: 17,
+    n: 5,
     title: "Las cartas del tiempo",
     kicker: "La imagen global, antes de mirar ningún aeródromo",
     minutes: 7,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
