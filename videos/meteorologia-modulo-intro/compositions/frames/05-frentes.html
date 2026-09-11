@@ -25,7 +25,7 @@
       --mt-navy: #14202e;
       --mt-cream: #fbfaf8;
       /* sobre navy el acento es el mismo matiz a más luminosidad: 4,7:1 */
-      --mt-accent: #49939c;
+      --mt-accent: #3d97a6;
     }
 
     .mt05-ground {
@@ -295,7 +295,7 @@
       ["1", "2", "3"].forEach(function (n, i) {
         var st = q(".mt05-s" + n);
         var name = st.querySelector(".mt05-st-name");
-        tl.to(name, { color: "#49939c", duration: 0.34, ease: "power2.out" }, CRUCE[i]);
+        tl.to(name, { color: "#3d97a6", duration: 0.34, ease: "power2.out" }, CRUCE[i]);
         /* el acento viaja con la cámara: al cruzar la siguiente, esta vuelve a
            ser chrome. Solo la última se queda marcada, que es donde aterriza el
            paneo, y así el frame conserva UN solo momento de acento. */

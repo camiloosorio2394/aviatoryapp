@@ -64,15 +64,15 @@ son los tokens `--av-mt-*` (matiz 205) y su conversión a hex en `.lector-notam.
 | | |
 |---|---|
 | Navy (fondo, superficie de código) | `#14202E` |
-| Turquesa petróleo (acento del módulo) | `#0D4B52` |
-| Turquesa claro (acento sobre navy) | `#49939C` |
+| Turquesa petróleo (acento del módulo) | `#1A4A52` |
+| Turquesa claro (acento sobre navy) | `#3D97A6` |
 | Papel | `#FBFAF8` |
 | Tinta | `#16191D` |
 | Titulares | **Archivo** |
 | Rótulos | Mono, mayúsculas, `letter-spacing 0.16em` |
 
-El `#0D4B52` es el acento sobre papel. Sobre navy no llega a contraste, así que ahí se
-usa el `#49939C`, que es el mismo matiz del token subido de luminosidad (es el
+El `#1A4A52` es el acento sobre papel. Sobre navy no llega a contraste, así que ahí se
+usa el `#3D97A6`, que es el mismo matiz del token subido de luminosidad (es el
 `--ln-focus` de la app, no un color nuevo).
 
 Lo que el alumno va a aprender, agrupado en cuatro promesas desde las treinta lecciones
