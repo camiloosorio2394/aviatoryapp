@@ -52,7 +52,7 @@ export interface Reporte {
  * un ejercicio cronometrado, y una excepción aquí no puede tumbar la tanda.
  *
  * Puede fallar por una razón concreta y esperada: mientras la migración
- * `20260909010000_reportes_de_contenido.sql` no esté aplicada, la tabla no
+ * `20260910183616_reportes_de_contenido.sql` no esté aplicada, la tabla no
  * existe. En ese caso se dice, no se finge que se envió: un «gracias» sobre un
  * reporte que no llegó a ninguna parte es peor que el fallo que se reportaba.
  */

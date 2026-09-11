@@ -1,7 +1,7 @@
 /**
  * Validaciones del perfil de piloto que la base también exige.
  *
- * Las restricciones de pilot_state (migración 20260911060000) son la regla; esto
+ * Las restricciones de pilot_state (migración 20260911143419) son la regla; esto
  * las repite en el formulario para decirle al piloto qué corregir antes de
  * enviar, en vez de mostrarle el error de la base.
  */

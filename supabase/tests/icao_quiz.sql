@@ -1,6 +1,6 @@
 -- ============================================================================
 -- Quiz ICAO: la corrección la hace el servidor, que guarda el intento y aplica
--- un tope. Migraciones 20260911190000 y 20260911193000.
+-- un tope. Migraciones 20260911171206 y 20260911172904.
 --
 -- Escribe filas de prueba y las deshace: termina en PRUEBA_DESHECHA con la
 -- lista de lo verificado, o en FALLO. Cómo se corre: supabase/tests/README.md.

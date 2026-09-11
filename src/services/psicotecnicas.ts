@@ -6,7 +6,7 @@
  * el tiempo y registra cada respuesta una vez (en entrenamiento devuelve la
  * corrección), psico_aplazar reinicia el reloj de un ejercicio que se deja para
  * el final y psico_terminar calcula precisión, velocidad y global y guarda el
- * intento. Ver supabase/migrations/20260911140000_psicotecnicas_en_el_servidor.sql.
+ * intento. Ver supabase/migrations/20260911161250_psicotecnicas_en_el_servidor.sql.
  */
 
 import type { CategoriaPsico, ModoPsico, NivelPsico, RespuestaPsico } from "@/lib/psicotecnicas"
