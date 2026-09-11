@@ -11,7 +11,6 @@ import {
   Activity,
   ListChecks,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 
 /**
@@ -24,7 +23,7 @@ import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileC
  */
 export function InterviewSim() {
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-7 sm:p-8">
           <div className="relative grid items-center gap-8 grid-cols-1 md:grid-cols-[1fr_auto]">
@@ -225,7 +224,7 @@ export function InterviewSim() {
           </div>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

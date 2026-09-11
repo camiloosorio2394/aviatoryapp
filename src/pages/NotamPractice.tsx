@@ -21,7 +21,6 @@ import {
   Target,
   X,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
@@ -245,7 +244,7 @@ export function NotamPractice() {
   const pct = modeItems.length > 0 ? Math.round((doneInMode / modeItems.length) * 100) : 0
 
   return (
-    <AppLayout>
+    <>
       <div className="notam-practica px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1560px] mx-auto">
         <Link
           to="/app/aerolinea/notam"
@@ -774,7 +773,7 @@ export function NotamPractice() {
           </div>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

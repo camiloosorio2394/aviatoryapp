@@ -26,7 +26,7 @@ import { toast } from "sonner"
 import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
+import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
@@ -462,6 +462,9 @@ export function Dashboard() {
     }
   }, [mastery])
 
+  // Antes del return temprano: un hook no puede quedar detrás de un if.
+  useRachaEnBarra(loading ? undefined : (streak?.current_streak ?? 0))
+
   if (loading) return <DashboardSkeleton />
 
   const stage = pilot?.stage ?? null
@@ -488,7 +491,7 @@ export function Dashboard() {
       : false
 
   return (
-    <AppLayout streak={streakDays}>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* Consola de vuelo: el hero grande y los cuatro indicadores como una
             sola pieza navy. El hero saluda, muestra el avance y trae integrada
@@ -691,7 +694,7 @@ export function Dashboard() {
           <CohortCard peers={peers} stageLabel={stageLabel} loading={deferredLoading} />
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -1551,7 +1554,7 @@ function CohortCard({
  */
 function DashboardSkeleton() {
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto animate-pulse">
         {/* Consola: hero + indicadores, una sola pieza */}
         <div className="h-[430px] bg-muted rounded-xl" />
@@ -1584,6 +1587,6 @@ function DashboardSkeleton() {
           <div className="h-[212px] bg-muted rounded-lg" />
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }

@@ -3,7 +3,6 @@ import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircl
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -195,7 +194,7 @@ export function Expiries() {
         : `${critical} ${plural(critical, "ítem vence", "ítems vencen")} en 7 días o menos`
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={eyebrow}
@@ -292,7 +291,7 @@ export function Expiries() {
           }}
         />
       )}
-    </AppLayout>
+    </>
   )
 }
 

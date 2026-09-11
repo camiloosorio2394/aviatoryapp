@@ -7,7 +7,6 @@ import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 import { accentText } from "@/lib/notam"
 import { CHANNEL_ICON, GROUP_META, airlineInitials, airlineTileKey, type ChannelType } from "@/lib/communityChannels"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { UserAvatar } from "@/components/UserAvatar"
 
@@ -331,7 +330,7 @@ export function CommunityChannel() {
 
   if (loading) {
     return (
-      <AppLayout>
+      <>
         <div className="p-8 animate-pulse">
           <div className="h-8 w-48 bg-muted rounded mb-4" />
           <div className="space-y-3">
@@ -340,25 +339,25 @@ export function CommunityChannel() {
             ))}
           </div>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   if (!channel) {
     return (
-      <AppLayout>
+      <>
         <div className="px-6 py-12 text-center">
           <p className="text-muted-foreground">Canal no encontrado.</p>
           <Button asChild variant="outline" className="mt-4 rounded-full">
             <Link to="/app/comunidad">Volver a comunidad</Link>
           </Button>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="flex flex-col h-[calc(100dvh-4rem)]">
         {/* Channel header */}
         <header className="px-4 sm:px-6 lg:px-10 py-4 border-b border-border/40 bg-background/80 backdrop-blur flex items-center justify-between gap-3">
@@ -489,7 +488,7 @@ export function CommunityChannel() {
           </p>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

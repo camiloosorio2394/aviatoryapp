@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
 import { CourseCard } from "@/components/ui/course-card"
@@ -181,7 +180,7 @@ export function Metar() {
   ]
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* Mismo control de volver que el hub de NOTAM: un enlace de texto sobre
             el título, no un botón compitiendo con la acción de la página. */}
@@ -369,7 +368,7 @@ export function Metar() {
           </div>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

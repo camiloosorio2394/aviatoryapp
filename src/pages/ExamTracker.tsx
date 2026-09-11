@@ -21,7 +21,6 @@ import {
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -101,7 +100,7 @@ export function ExamTracker() {
     : null
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="EXAM TRACKER · INTELIGENCIA COLECTIVA"
@@ -241,7 +240,7 @@ export function ExamTracker() {
           }}
         />
       )}
-    </AppLayout>
+    </>
   )
 }
 

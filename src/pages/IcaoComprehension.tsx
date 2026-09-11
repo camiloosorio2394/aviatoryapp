@@ -17,7 +17,6 @@ import {
   ChevronDown,
   MessageSquare,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { registrarEstudioDiario } from "@/lib/activity"
 import {
   SHORT_AUDIO_SETS,
@@ -42,7 +41,7 @@ export function IcaoComprehension() {
   const [tab, setTab] = useState<Tab>("2a")
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
@@ -105,7 +104,7 @@ export function IcaoComprehension() {
           {tab === "2c" && <InteractiveSection />}
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

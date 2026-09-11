@@ -10,7 +10,6 @@ import {
   Plane,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
@@ -409,7 +408,7 @@ export function AirlinePrep() {
   )
 
   return (
-    <AppLayout>
+    <>
       {/* `notam-hub` es lo que da el Archivo de las portadas a `.nh-display`.
           `@container`: las rejillas responden al ancho del contenido, no al de
           la ventana. La variable del violeta vive aquí porque solo esta
@@ -606,6 +605,6 @@ export function AirlinePrep() {
           </div>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }

@@ -7,7 +7,6 @@ import {
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileBorder, tileTint } from "@/lib/tileColors"
 import {
   buildInitialTest, gradeItem, estimateIcaoLevel, estimateInitialTestSize,
@@ -99,7 +98,7 @@ export function TestInicial() {
   const areaColor = isIcao ? "var(--av-blue-500)" : TILE_COLOR.violet
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <div className="flex items-center justify-between gap-3 mb-3">
           <Link
@@ -206,7 +205,7 @@ export function TestInicial() {
           </button>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -257,7 +256,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
   ]
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <section className="relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl mb-4" style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}>
@@ -305,7 +304,7 @@ function Intro({ onStart, building }: { onStart: () => void; building: boolean }
           </Link>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -368,7 +367,7 @@ function Result({
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>Test inicial · resultado</div>
         <h1 className="mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.05]">Tu punto de partida</h1>
@@ -459,6 +458,6 @@ function Result({
           <ArrowLeft className="h-3.5 w-3.5" /> Volver al dashboard
         </Link>
       </div>
-    </AppLayout>
+    </>
   )
 }

@@ -14,7 +14,6 @@ import {
   Award,
   ChevronDown,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
@@ -166,7 +165,7 @@ export function Icao() {
   const simulacro = resumirSimulacro(progreso)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1240px] mx-auto">
         {/* === HERO === */}
         <section className="relative overflow-hidden rounded-2xl">
@@ -311,7 +310,7 @@ export function Icao() {
         {/* === REFERENCIA (colapsable) === */}
         <ReferenceBlock />
       </div>
-    </AppLayout>
+    </>
   )
 }
 

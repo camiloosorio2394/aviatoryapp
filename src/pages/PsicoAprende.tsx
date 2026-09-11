@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight, GraduationCap } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
@@ -18,7 +17,7 @@ import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
  */
 export function PsicoAprende() {
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16 max-w-[980px] mx-auto">
         <Link
           to={PSICO_HUB}
@@ -105,6 +104,6 @@ export function PsicoAprende() {
           </Link>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }

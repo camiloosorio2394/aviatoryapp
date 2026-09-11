@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { ArrowLeft, ClipboardCheck, ShieldAlert } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { QuizEngine } from "@/components/QuizEngine"
 import { appButtonClass } from "@/lib/buttonStyles"
@@ -35,7 +34,7 @@ function guardarMejorLocal(r: ResultadoEvaluacion): void {
 
 export function MetarExam() {
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea/meteorologia"
@@ -105,6 +104,6 @@ export function MetarExam() {
           }
         />
       </div>
-    </AppLayout>
+    </>
   )
 }

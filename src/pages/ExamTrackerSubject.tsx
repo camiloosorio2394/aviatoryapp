@@ -13,7 +13,6 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 
@@ -81,7 +80,7 @@ export function ExamTrackerSubject() {
 
   if (loading) {
     return (
-      <AppLayout>
+      <>
         <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto animate-pulse">
           <div className="h-9 w-56 bg-muted rounded-xl mb-7" />
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
@@ -91,13 +90,13 @@ export function ExamTrackerSubject() {
           </div>
           <div className="h-64 bg-muted rounded-2xl" />
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   if (!intel) {
     return (
-      <AppLayout>
+      <>
         <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
           <div className="rounded-3xl border border-dashed border-border p-8 sm:p-10 text-center max-w-[520px] mx-auto">
             <h2 className="text-[17px] font-semibold text-foreground">No encontramos esta materia</h2>
@@ -113,12 +112,12 @@ export function ExamTrackerSubject() {
             </Link>
           </div>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={
@@ -202,7 +201,7 @@ export function ExamTrackerSubject() {
           </section>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

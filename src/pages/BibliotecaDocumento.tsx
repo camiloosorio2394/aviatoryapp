@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, ExternalLink, FileText } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { VisorPdf } from "@/components/lector/VisorPdf"
 import { appButtonClass } from "@/lib/buttonStyles"
@@ -52,18 +51,18 @@ export function BibliotecaDocumento() {
 
   if (cargando) {
     return (
-      <AppLayout>
+      <>
         <div className="px-4 sm:px-7 py-6 sm:py-8 max-w-[1280px] mx-auto">
           <div className="h-8 w-64 rounded bg-muted animate-pulse" aria-hidden />
           <div className="mt-6 surface rounded-xl h-[420px] animate-pulse" aria-hidden />
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   if (!item) {
     return (
-      <AppLayout>
+      <>
         <div className="px-4 sm:px-7 py-6 sm:py-8 max-w-[1280px] mx-auto">
           <Volver />
           <section className="surface rounded-xl p-8 text-center">
@@ -80,14 +79,14 @@ export function BibliotecaDocumento() {
             </Link>
           </section>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   const fecha = fechaEdicion(item.published_at)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <Volver />
 
@@ -154,7 +153,7 @@ export function BibliotecaDocumento() {
           </section>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

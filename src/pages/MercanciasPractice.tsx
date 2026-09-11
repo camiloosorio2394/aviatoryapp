@@ -19,7 +19,6 @@ import {
   Target,
   ClipboardList,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
 import { accentText } from "@/lib/notam"
@@ -144,7 +143,7 @@ export function MercanciasPractice() {
   const isDone = doneKeys.includes(clave)
 
   return (
-    <AppLayout>
+    <>
       <div className="notam-practica px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1560px] mx-auto">
         <Link
           to={MP_HUB}
@@ -324,7 +323,7 @@ export function MercanciasPractice() {
           <span>{AVISO}</span>
         </p>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

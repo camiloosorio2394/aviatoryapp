@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { supabase } from "@/integrations/supabase/client"
 
 /**
@@ -81,7 +80,7 @@ export function InterviewSpeakingIntro() {
   }, [])
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[920px] mx-auto">
         <Link
           to="/app/entrevistas"
@@ -207,7 +206,7 @@ export function InterviewSpeakingIntro() {
           </div>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

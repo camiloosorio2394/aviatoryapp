@@ -1,7 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, Play, RotateCcw, Timer } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { PsicoCargando, PsicoError } from "@/components/psicotecnicas/EstadosPsico"
 import { PsicoPlayer } from "@/components/psicotecnicas/PsicoPlayer"
@@ -168,7 +167,7 @@ export function PsicoSimulacro() {
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16 max-w-[820px] mx-auto">
         <Link
           to={PSICO_HUB}
@@ -240,14 +239,14 @@ export function PsicoSimulacro() {
 
         <p className="mt-5 text-[13px] text-muted-foreground leading-relaxed">{NOTA_TIEMPOS}</p>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
 function Marco({ children }: { children: ReactNode }) {
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">{children}</div>
-    </AppLayout>
+    </>
   )
 }

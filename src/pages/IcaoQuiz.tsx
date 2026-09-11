@@ -11,7 +11,6 @@ import {
   Sparkles,
   BookOpen,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { registrarEstudioDiario } from "@/lib/activity"
 import {
   contarPreguntasIcao,
@@ -154,7 +153,7 @@ export function IcaoQuiz() {
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[860px] mx-auto">
         <Link
           to="/app/icao"
@@ -203,7 +202,7 @@ export function IcaoQuiz() {
           />
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

@@ -3,7 +3,6 @@ import { Copy, Check, Gift, Sparkles, Users, MessageSquare, Mail } from "lucide-
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { CountUp } from "@/components/ui/count-up"
 
@@ -64,7 +63,7 @@ export function Referrals() {
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="REFERIDOS · GANA MESES GRATIS"
@@ -170,7 +169,7 @@ export function Referrals() {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
