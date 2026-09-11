@@ -54,9 +54,9 @@ export function Mercancias() {
       try {
         const traido = await fetchMercanciasProgress(user.id)
         if (cancelado || !traido) return
-        // Sube lo que se avanzó sin sesión antes de armar el resumen.
-        const remoto = await pushPendingMercancias(traido)
-        if (!cancelado) setProgreso({ ...remoto, bestScore: traido.bestScore })
+        // Sube lo que se avanzó sin sesión; el resumen muestra la base unida con lo local.
+        await pushPendingMercancias(traido)
+        if (!cancelado) setProgreso(traido)
       } catch {
         /* sin red: se queda el respaldo local */
       } finally {

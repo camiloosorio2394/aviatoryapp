@@ -1,15 +1,11 @@
 /**
- * Progreso de Mercancías Peligrosas: puente entre el respaldo local y la base.
- *
- * Mismas reglas que notamProgress y metarProgress: el respaldo local siempre se
- * escribe (el módulo funciona sin sesión y sin red), la base es la verdad entre
- * dispositivos, y lo avanzado sin sesión se sube en cuanto aparece una.
- *
- * Escribir va siempre por la RPC `mercancias_mark_progress`, que es idempotente.
- * Nunca por update directo.
+ * Progreso de Mercancías Peligrosas: el progreso de módulo común (progresoModulo)
+ * con el respaldo local del tema, su RPC mercancias_mark_progress y la mejor
+ * nota de la evaluación.
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { conMarca, crearProgresoModulo, type ProgresoRemoto } from "@/lib/progresoModulo"
 
 const LS_KEY = "aviatory.mercancias.progress"
 
@@ -18,8 +14,13 @@ export interface MercanciasProgreso {
   lessonScreens: number[]
   /** Ids de casos de práctica resueltos: "c1", "c2"… */
   practiceDone: string[]
-  /** Mejor puntaje del chequeo, sobre 100. */
+  /** Mejor puntaje de la evaluación, sobre 100. */
   bestScore: number | null
+}
+
+/** Lo que devuelve fetchMercanciasProgress: lo unido para mostrar, y lo que la base tiene de verdad. */
+export interface MercanciasTraido extends MercanciasProgreso {
+  remoto: ProgresoRemoto
 }
 
 const VACIO: MercanciasProgreso = { lessonScreens: [], practiceDone: [], bestScore: null }
@@ -47,123 +48,63 @@ export function writeMercanciasLocal(patch: Partial<MercanciasProgreso>): void {
   }
 }
 
-interface Fila {
-  lesson_screens: number[] | null
-  practice_done: string[] | null
-}
+const progreso = crearProgresoModulo({
+  tabla: "user_mercancias_progress",
+  rpc: "mercancias_mark_progress",
+  leerLocal: readMercanciasLocal,
+  anotarLocal: (marca) => {
+    const antes = readMercanciasLocal()
+    const despues = conMarca(antes, marca)
+    if (despues.lessonScreens !== antes.lessonScreens || despues.practiceDone !== antes.practiceDone) {
+      writeMercanciasLocal({ lessonScreens: despues.lessonScreens, practiceDone: despues.practiceDone })
+    }
+  },
+})
 
 /**
- * Lee el progreso del usuario, uniendo base y respaldo local.
- * Devuelve null si la consulta falla, para distinguir "no hay progreso" de "no
- * pudimos preguntar" y no borrar lo local de la vista.
+ * El progreso del piloto unido con el respaldo local, para mostrarlo, y en
+ * `remoto` lo que la base tiene de verdad, que es contra lo que se sube lo
+ * pendiente. null si la consulta falla.
  */
-export async function fetchMercanciasProgress(
-  userId: string
-): Promise<MercanciasProgreso | null> {
-  try {
-    const [prog, examen] = await Promise.all([
-      supabase
-        .from("user_mercancias_progress")
-        .select("lesson_screens, practice_done")
-        .eq("user_id", userId)
-        .maybeSingle(),
-      supabase
-        .from("user_mercancias_exam_attempts")
-        .select("score")
-        .eq("user_id", userId)
-        .order("score", { ascending: false })
-        .limit(1),
-    ])
-    if (prog.error) return null
+export async function fetchMercanciasProgress(userId: string): Promise<MercanciasTraido | null> {
+  const [remoto, examen] = await Promise.all([
+    progreso.leer(userId),
+    supabase
+      .from("user_mercancias_exam_attempts")
+      .select("score")
+      .eq("user_id", userId)
+      .order("score", { ascending: false })
+      .limit(1)
+      .then(
+        (r) => r,
+        () => ({ data: null }),
+      ),
+  ])
+  if (!remoto) return null
 
-    const fila = prog.data as Fila | null
-    const local = readMercanciasLocal()
-    const remoto = (examen.data ?? [])[0]?.score
-    const puntajes = [typeof remoto === "number" ? remoto : null, local.bestScore].filter(
-      (s): s is number => typeof s === "number"
-    )
+  const local = readMercanciasLocal()
+  const mejorRemoto = (examen.data ?? [])[0]?.score
+  const puntajes = [typeof mejorRemoto === "number" ? mejorRemoto : null, local.bestScore].filter(
+    (s): s is number => typeof s === "number",
+  )
 
-    return {
-      lessonScreens: Array.from(new Set([...(fila?.lesson_screens ?? []), ...local.lessonScreens])),
-      practiceDone: Array.from(new Set([...(fila?.practice_done ?? []), ...local.practiceDone])),
-      bestScore: puntajes.length > 0 ? Math.max(...puntajes) : null,
-    }
-  } catch {
-    return null
+  return {
+    lessonScreens: Array.from(new Set([...remoto.lessonScreens, ...local.lessonScreens])),
+    practiceDone: Array.from(new Set([...remoto.practiceDone, ...local.practiceDone])),
+    bestScore: puntajes.length > 0 ? Math.max(...puntajes) : null,
+    remoto,
   }
 }
 
 /** Marca una sección leída o un caso resuelto, local y en la base. */
-export async function markMercanciasProgress(mark: {
-  lessonScreen?: number
-  practiceId?: string
-}): Promise<void> {
-  const { lessonScreen = null, practiceId = null } = mark
-
-  // El respaldo local primero: si la red falla, el progreso igual queda.
-  const local = readMercanciasLocal()
-  if (lessonScreen !== null && !local.lessonScreens.includes(lessonScreen)) {
-    writeMercanciasLocal({
-      lessonScreens: [...local.lessonScreens, lessonScreen].sort((a, b) => a - b),
-    })
-  }
-  if (practiceId !== null && !local.practiceDone.includes(practiceId)) {
-    writeMercanciasLocal({ practiceDone: [...local.practiceDone, practiceId] })
-  }
-
-  try {
-    const { error } = await supabase.rpc("mercancias_mark_progress", {
-      p_lesson_screen: lessonScreen,
-      p_practice_id: practiceId,
-    })
-    // Sin sesión la RPC responde permiso denegado. Es el caso esperado de quien
-    // estudia sin cuenta: lo local ya quedó y se sube al iniciar sesión.
-    if (error) console.warn("mercancias_mark_progress", error.message)
-  } catch (err) {
-    console.warn("mercancias_mark_progress", err)
-  }
-}
-
-/** Corre las promesas de a `size` para no abrir muchas conexiones de golpe. */
-async function porTandas(tareas: (() => Promise<unknown>)[], size = 6): Promise<void> {
-  for (let i = 0; i < tareas.length; i += size) {
-    await Promise.all(tareas.slice(i, i + size).map((t) => t()))
-  }
-}
+export const markMercanciasProgress = progreso.marcar
 
 /**
- * Sube lo que se avanzó antes de iniciar sesión.
- * Devuelve el progreso ya actualizado con lo que se subió.
+ * Sube lo que se avanzó sin sesión, comparando contra lo que la base tiene (no
+ * contra lo ya unido con lo local: así nunca quedaba nada pendiente y nada se
+ * subía). Devuelve lo de la base más lo que se subió bien.
  */
-export async function pushPendingMercancias(
-  remoto: MercanciasProgreso
-): Promise<MercanciasProgreso> {
-  const local = readMercanciasLocal()
-  const secciones = local.lessonScreens.filter((n) => !remoto.lessonScreens.includes(n))
-  const casos = local.practiceDone.filter((id) => !remoto.practiceDone.includes(id))
-  if (secciones.length === 0 && casos.length === 0) return remoto
-
-  const tareas: (() => Promise<unknown>)[] = [
-    ...secciones.map(
-      (n) => async () =>
-        await supabase.rpc("mercancias_mark_progress", { p_lesson_screen: n, p_practice_id: null })
-    ),
-    ...casos.map(
-      (id) => async () =>
-        await supabase.rpc("mercancias_mark_progress", { p_lesson_screen: null, p_practice_id: id })
-    ),
-  ]
-
-  try {
-    await porTandas(tareas)
-  } catch (err) {
-    console.warn("mercancias backfill", err)
-    return remoto
-  }
-
-  return {
-    lessonScreens: Array.from(new Set([...remoto.lessonScreens, ...secciones])).sort((a, b) => a - b),
-    practiceDone: Array.from(new Set([...remoto.practiceDone, ...casos])),
-    bestScore: remoto.bestScore,
-  }
+export async function pushPendingMercancias(traido: MercanciasTraido): Promise<MercanciasProgreso> {
+  const subido = await progreso.subirPendiente(traido.remoto)
+  return { ...subido, bestScore: traido.bestScore }
 }
