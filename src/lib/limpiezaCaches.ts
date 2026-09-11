@@ -1,5 +1,5 @@
 /**
- * Borra los cachés de imágenes que dejó de usar el service worker.
+ * Borra los cachés que dejó de usar el service worker, y vacía el de la API.
  *
  * Cuando una regla de caché cambia de nombre, el caché viejo no desaparece:
  * se queda ocupando espacio en el dispositivo de cada piloto que ya lo tenía,
@@ -18,17 +18,28 @@
  * reconozco" se llevaría por delante el precaché de Workbox, cuyo nombre
  * incluye el origen y cambia entre entornos.
  *
+ * `supabase-cache` se jubiló porque guardaba cualquier respuesta de Supabase,
+ * también las de Auth, y un equipo compartido podía servírselas sin red al
+ * siguiente piloto. Su reemplazo solo guarda lecturas de la API REST y archivos
+ * públicos, y se vacía al cerrar sesión (borrarCacheDeLaApi).
+ *
  * Es idempotente: `caches.delete` de algo que no existe devuelve `false` sin
  * más, así que correrla en cada arranque no cuesta nada.
  */
 
+import { CACHE_API_SUPABASE } from "@/lib/cachesPwa"
+
 /** Cachés retirados. Al jubilar uno nuevo, se añade aquí y no se quita nunca. */
-const CACHES_JUBILADOS = ["modulo-images", "notam-images", "infografia-images"]
+const CACHES_JUBILADOS = ["modulo-images", "notam-images", "infografia-images", "supabase-cache"]
+
+/** Sin CacheStorage (navegador viejo, o contexto no seguro) no hay cachés que tocar. */
+function hayCacheStorage(): boolean {
+  // `window.caches` es undefined ahí, no basta con comprobar el tipo.
+  return typeof window !== "undefined" && "caches" in window
+}
 
 export async function limpiarCachesJubilados(): Promise<string[]> {
-  // Sin CacheStorage (navegador viejo, o contexto no seguro) no hay nada que
-  // hacer. `window.caches` es undefined ahí, no basta con comprobar el tipo.
-  if (typeof window === "undefined" || !("caches" in window)) return []
+  if (!hayCacheStorage()) return []
 
   try {
     const existentes = await window.caches.keys()
@@ -42,5 +53,20 @@ export async function limpiarCachesJubilados(): Promise<string[]> {
     // Un fallo limpiando cachés no puede tumbar el arranque de la app: el
     // piloto pierde unos megas de espacio, no la sesión.
     return []
+  }
+}
+
+/**
+ * Vacía la caché de respuestas de la API. Son datos de quien tenía la sesión
+ * abierta: se llama al cerrarla. Devuelve true si había algo que borrar.
+ */
+export async function borrarCacheDeLaApi(): Promise<boolean> {
+  if (!hayCacheStorage()) return false
+  try {
+    return await window.caches.delete(CACHE_API_SUPABASE)
+  } catch {
+    // Si el navegador no deja borrarla, la regla del service worker igual la
+    // vence en 24 horas y nunca guarda respuestas de Auth.
+    return false
   }
 }

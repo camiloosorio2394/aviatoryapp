@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from "@tailwindcss/vite"
 import { VitePWA } from 'vite-plugin-pwa'
+import { CACHE_API_SUPABASE } from './src/lib/cachesPwa'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -78,11 +79,16 @@ export default defineConfig({
         ],
         runtimeCaching: [
           {
-            // Supabase API calls: network-first (always fresh, fallback to cache)
-            urlPattern: /^https:\/\/gvwqmfxphsbmbrhyjcmk\.supabase\.co\/.*$/,
+            // Supabase: network-first, y sin red se sirve lo último visto. Solo
+            // lecturas de la API REST y archivos públicos de Storage. Nunca Auth
+            // (/auth/v1), Edge Functions ni URLs firmadas: son respuestas de una
+            // sesión concreta y en un equipo compartido le quedarían al siguiente
+            // piloto. La app vacía esta caché al cerrar sesión
+            // (src/lib/sesionEnEsteEquipo.ts).
+            urlPattern: /^https:\/\/gvwqmfxphsbmbrhyjcmk\.supabase\.co\/(rest\/v1|storage\/v1\/object\/public)\//,
             handler: 'NetworkFirst',
             options: {
-              cacheName: 'supabase-cache',
+              cacheName: CACHE_API_SUPABASE,
               networkTimeoutSeconds: 5,
               expiration: {
                 maxEntries: 60,

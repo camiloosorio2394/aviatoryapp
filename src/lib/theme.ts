@@ -6,13 +6,13 @@
  * - La aplicación inicial (antes del primer paint) la hace un script inline en
  *   index.html para evitar el flash y que NO se pierda al recargar.
  */
-export type ThemePref = "light" | "dark" | "system"
+import { CLAVE_TEMA } from "@/lib/preferenciasEquipo"
 
-const KEY = "aviatory.theme"
+export type ThemePref = "light" | "dark" | "system"
 
 export function getThemePref(): ThemePref {
   try {
-    const v = localStorage.getItem(KEY)
+    const v = localStorage.getItem(CLAVE_TEMA)
     if (v === "light" || v === "dark" || v === "system") return v
   } catch { /* noop */ }
   return "system"
@@ -28,7 +28,7 @@ export function resolveDark(pref: ThemePref): boolean {
 
 /** Persiste la preferencia y aplica la clase `dark` al <html>. */
 export function applyThemePref(pref: ThemePref): void {
-  try { localStorage.setItem(KEY, pref) } catch { /* noop */ }
+  try { localStorage.setItem(CLAVE_TEMA, pref) } catch { /* noop */ }
   document.documentElement.classList.toggle("dark", resolveDark(pref))
 }
 
