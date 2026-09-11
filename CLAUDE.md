@@ -95,6 +95,11 @@ tanda, lleva el reloj y calcula precisión, velocidad y global (`psico_iniciar`,
 - Los tiempos que cuentan son los de `private.psico_limite()`; `TIEMPOS` y `FACTOR_NIVEL`
   en `src/lib/psicotecnicas.ts` son su espejo para los textos.
 
+**Quiz de inglés ICAO** (y la lectura ICAO del test inicial): las preguntas están en
+`icao_quiz_questions` y el cliente las lee sin `correct_answer` ni `explanation`. Cada
+respuesta pasa por `icao_quiz_responder`, que corrige, guarda el intento y devuelve la
+correcta y la explicación. Todo va por `src/services/icaoQuiz.ts`.
+
 ## Base de datos: cómo se escribe una migración
 
 - **Políticas RLS con `(select auth.uid())`**, nunca `auth.uid()` a secas: así Postgres lo

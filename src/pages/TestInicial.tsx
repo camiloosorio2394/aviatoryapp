@@ -13,6 +13,7 @@ import {
   buildInitialTest, gradeItem, estimateIcaoLevel, estimateInitialTestSize,
   type BuiltTest, type GradedAnswer, type InitialTestSize, type TestItem,
 } from "@/lib/initialTest"
+import { clasificarError } from "@/services/rpc"
 
 type Phase = "intro" | "run" | "result"
 
@@ -69,9 +70,16 @@ export function TestInicial() {
     if (!item || graded || grading) return
     setSelected(letter)
     setGrading(true)
-    const g = await gradeItem(item, letter)
-    setResults((r) => ({ ...r, [item.uid]: g }))
-    setGrading(false)
+    try {
+      const g = await gradeItem(item, letter)
+      setResults((r) => ({ ...r, [item.uid]: g }))
+    } catch (e) {
+      // Sin corrección la pregunta sigue abierta: se puede volver a elegir.
+      setSelected(null)
+      toast.error(clasificarError(e).message)
+    } finally {
+      setGrading(false)
+    }
   }
 
   function next() {
@@ -120,7 +128,7 @@ export function TestInicial() {
         </div>
 
         <div className="rounded-2xl surface p-5 sm:p-6">
-          {item.audioUrl && <AudioItem url={item.audioUrl} />}
+          {item.kind === "audio" && <AudioItem url={item.audioUrl} />}
           {item.context && <p className="text-[13px] text-muted-foreground italic mb-3">{item.context}</p>}
           <h2 className="text-[17px] font-semibold tracking-[-0.01em] leading-snug">{item.prompt}</h2>
 
@@ -342,18 +350,21 @@ function Result({
   async function save() {
     if (!user || estimate == null) { navigate("/app"); return }
     setSaving(true)
-    try {
-      await supabase.from("pilot_state").upsert({
-        user_id: user.id,
-        icao_english_level: estimate,
-        updated_at: new Date().toISOString(),
-      })
-      toast.success("Listo, guardamos tu Nivel Inicial")
-      navigate("/app")
-    } catch (e) {
-      toast.error(e instanceof Error ? e.message : "No pudimos guardar")
+    // supabase-js no lanza: el error llega en la respuesta y hay que mirarlo,
+    // o se anuncia como guardado algo que no se guardó.
+    const { error } = await supabase.from("pilot_state").upsert({
+      user_id: user.id,
+      icao_english_level: estimate,
+      updated_at: new Date().toISOString(),
+    })
+    if (error) {
+      console.error("pilot_state", error)
+      toast.error("No pudimos guardar tu nivel. Revisa tu conexión e inténtalo de nuevo.")
       setSaving(false)
+      return
     }
+    toast.success("Listo, guardamos tu Nivel Inicial")
+    navigate("/app")
   }
 
   return (

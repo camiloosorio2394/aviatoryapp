@@ -12,29 +12,25 @@ import {
   BookOpen,
 } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { supabase } from "@/integrations/supabase/client"
 import { registrarEstudioDiario } from "@/lib/activity"
-import { useSession } from "@/hooks/useSession"
+import {
+  contarPreguntasIcao,
+  responderIcaoQuiz,
+  traerPreguntasIcao,
+  type CorreccionIcao,
+  type PreguntaIcao,
+} from "@/services/icaoQuiz"
+import { clasificarError } from "@/services/rpc"
 
 /**
  * Quiz simple para el módulo Inglés. NO usa vault (las preguntas no son del
  * banco oficial competitivo del PCA — son material pedagógico estándar del
  * libro de Cami).
  *
- * Flujo: traer N preguntas random (client-side shuffle), una a la vez,
- * marcar correcta/incorrecta + explicación, al final mostrar score.
- * Guardamos cada intento en `user_icao_quiz_attempts` (RLS por user_id).
+ * Flujo: traer N preguntas al azar, una a la vez. Cada respuesta la corrige el
+ * servidor, que guarda el intento y devuelve la correcta y la explicación
+ * (src/services/icaoQuiz.ts). Al final se muestra el puntaje.
  */
-
-interface QuizQuestion {
-  id: number
-  topic: string
-  prompt: string
-  context: string | null
-  options: Record<string, string>
-  correct_answer: string
-  explanation: string | null
-}
 
 const TOPICS: { value: string; label: string }[] = [
   { value: "all",           label: "Todos los temas" },
@@ -56,45 +52,41 @@ function topicLabel(value: string): string {
 const QUIZ_SIZE = 10
 
 export function IcaoQuiz() {
-  const { user } = useSession()
-  const [questions, setQuestions] = useState<QuizQuestion[]>([])
+  const [questions, setQuestions] = useState<PreguntaIcao[]>([])
   const [loading, setLoading] = useState(false)
   const [topic, setTopic] = useState<string>("all")
   const [started, setStarted] = useState(false)
   const [index, setIndex] = useState(0)
   const [selected, setSelected] = useState<string | null>(null)
-  const [revealed, setRevealed] = useState(false)
+  /** La corrección del servidor para la pregunta en pantalla; null mientras no se responde. */
+  const [correccion, setCorreccion] = useState<CorreccionIcao | null>(null)
+  const [corrigiendo, setCorrigiendo] = useState(false)
+  const [errorRespuesta, setErrorRespuesta] = useState<string | null>(null)
   const [score, setScore] = useState(0)
   const [history, setHistory] = useState<{ qId: number; correct: boolean }[]>([])
   /** null = todavía no sabemos cuántas preguntas hay por tema */
   const [counts, setCounts] = useState<Record<string, number> | null>(null)
   const [countsFailed, setCountsFailed] = useState(false)
   const [failed, setFailed] = useState(false)
+  /** Se pasa a resultados con "Ver resultados", después de leer la corrección de la última. */
+  const [finished, setFinished] = useState(false)
 
   const current = questions[index]
   const isLast = index === questions.length - 1
+  const revealed = correccion !== null
 
   // Conteo real por tema: sin esto el botón de empezar prometía 10 preguntas
   // incluso en temas vacíos y no hacía nada al pulsarlo.
   const loadCounts = useCallback(async () => {
     setCountsFailed(false)
     setCounts(null)
-    const { data, error } = await supabase
-      .from("icao_quiz_questions")
-      .select("topic")
-      .eq("is_active", true)
-      .limit(2000)
-    if (error || !data) {
+    try {
+      setCounts(await contarPreguntasIcao())
+    } catch (error) {
       console.error("icao_quiz_questions counts", error)
       setCounts({})
       setCountsFailed(true)
-      return
     }
-    const map: Record<string, number> = { all: data.length }
-    for (const row of data) {
-      map[row.topic] = (map[row.topic] ?? 0) + 1
-    }
-    setCounts(map)
   }, [])
 
   useEffect(() => {
@@ -107,58 +99,59 @@ export function IcaoQuiz() {
     setLoading(true)
     setFailed(false)
     setStarted(false)
+    setFinished(false)
     setIndex(0)
     setSelected(null)
-    setRevealed(false)
+    setCorreccion(null)
+    setErrorRespuesta(null)
     setScore(0)
     setHistory([])
 
-    let q = supabase
-      .from("icao_quiz_questions")
-      .select("id,topic,prompt,context,options,correct_answer,explanation")
-      .eq("is_active", true)
-    if (topic !== "all") q = q.eq("topic", topic)
-
-    const { data, error } = await q.limit(60)
-    setLoading(false)
-    if (error || !data || data.length === 0) {
+    let ronda: PreguntaIcao[] = []
+    try {
+      ronda = await traerPreguntasIcao(topic === "all" ? null : topic, QUIZ_SIZE)
+    } catch (error) {
       console.error("icao_quiz_questions", error)
+    }
+    setLoading(false)
+    if (ronda.length === 0) {
       setFailed(true)
       return
     }
-    // shuffle + slice
-    const shuffled = [...data].sort(() => Math.random() - 0.5).slice(0, QUIZ_SIZE)
-    setQuestions(shuffled as unknown as QuizQuestion[])
+    setQuestions(ronda)
     setStarted(true)
   }
 
   async function chooseAnswer(letter: string) {
-    if (revealed || !current) return
+    if (revealed || corrigiendo || !current) return
     setSelected(letter)
-    setRevealed(true)
-    void registrarEstudioDiario("icao-quiz")
-    const correct = letter === current.correct_answer
-    if (correct) setScore((s) => s + 1)
-    setHistory((h) => [...h, { qId: current.id, correct }])
-
-    // Save attempt (fire-and-forget; RLS impone user_id)
-    if (user) {
-      void supabase.from("user_icao_quiz_attempts").insert({
-        user_id: user.id,
-        question_id: current.id,
-        answer: letter,
-        is_correct: correct,
-      })
+    setCorrigiendo(true)
+    setErrorRespuesta(null)
+    try {
+      const c = await responderIcaoQuiz(current.id, letter)
+      setCorreccion(c)
+      if (c.correcta) setScore((s) => s + 1)
+      setHistory((h) => [...h, { qId: current.id, correct: c.correcta }])
+      void registrarEstudioDiario("icao-quiz")
+    } catch (error) {
+      // Sin corrección la pregunta sigue abierta: se puede volver a elegir.
+      setSelected(null)
+      setErrorRespuesta(clasificarError(error).message)
+    } finally {
+      setCorrigiendo(false)
     }
   }
 
   function next() {
+    if (isLast) {
+      setFinished(true)
+      return
+    }
     setSelected(null)
-    setRevealed(false)
-    setIndex((i) => Math.min(i + 1, questions.length - 1))
+    setCorreccion(null)
+    setErrorRespuesta(null)
+    setIndex((i) => i + 1)
   }
-
-  const finished = revealed && isLast
 
   return (
     <AppLayout>
@@ -191,7 +184,9 @@ export function IcaoQuiz() {
             index={index}
             total={questions.length}
             selected={selected}
-            revealed={revealed}
+            correccion={correccion}
+            corrigiendo={corrigiendo}
+            error={errorRespuesta}
             onChoose={chooseAnswer}
             onNext={next}
             isLast={isLast}
@@ -388,8 +383,9 @@ function EmptyBank({ allEmpty, onAllTopics }: { allEmpty: boolean; onAllTopics: 
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-function QuizCard({ question, index, total, selected, revealed, onChoose, onNext, isLast }: { question: QuizQuestion; index: number; total: number; selected: string | null; revealed: boolean; onChoose: (l: string) => void; onNext: () => void; isLast: boolean }) {
+function QuizCard({ question, index, total, selected, correccion, corrigiendo, error, onChoose, onNext, isLast }: { question: PreguntaIcao; index: number; total: number; selected: string | null; correccion: CorreccionIcao | null; corrigiendo: boolean; error: string | null; onChoose: (l: string) => void; onNext: () => void; isLast: boolean }) {
   const optionKeys = useMemo(() => Object.keys(question.options).sort(), [question.options])
+  const revealed = correccion !== null
 
   return (
     <>
@@ -421,8 +417,8 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
 
         <div className="mt-5 grid gap-2">
           {optionKeys.map((k) => {
-            const isCorrect = revealed && k === question.correct_answer
-            const isWrongChosen = revealed && selected === k && k !== question.correct_answer
+            const isCorrect = revealed && k === correccion.respuestaCorrecta
+            const isWrongChosen = revealed && selected === k && k !== correccion.respuestaCorrecta
             const baseBorder = "color-mix(in oklab, var(--border) 75%, transparent)"
             const borderColor = isCorrect
               ? "color-mix(in oklab, var(--av-green-400) 65%, transparent)"
@@ -442,7 +438,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
               <button
                 key={k}
                 onClick={() => onChoose(k)}
-                disabled={revealed}
+                disabled={revealed || corrigiendo}
                 className="text-left flex items-start gap-3 p-3.5 rounded-xl border transition-colors disabled:cursor-default"
                 style={{ borderColor, background: bg }}
               >
@@ -460,7 +456,19 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
           })}
         </div>
 
-        {revealed && question.explanation && (
+        {corrigiendo && (
+          <div className="mt-4 flex items-center gap-2 text-[13px] text-muted-foreground">
+            <Loader2 className="h-3.5 w-3.5 animate-spin" /> Verificando…
+          </div>
+        )}
+
+        {error && (
+          <div className="mt-4 text-[13px]" style={{ color: "var(--av-danger-fg)" }}>
+            {error}
+          </div>
+        )}
+
+        {correccion?.explicacion && (
           <div
             className="mt-5 rounded-2xl border p-4 text-[13px] leading-relaxed"
             style={{
@@ -471,7 +479,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
             <div className="text-[13px] font-semibold mb-1.5" style={{ color: "var(--av-blue-500)" }}>
               EXPLICACIÓN
             </div>
-            {question.explanation}
+            {correccion.explicacion}
           </div>
         )}
 

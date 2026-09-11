@@ -1,5 +1,6 @@
 /**
- * Lo común a las pruebas que corrige el servidor (evaluaciones y psicotécnicas):
+ * Lo común a las pruebas que corrige el servidor (evaluaciones, psicotécnicas,
+ * quiz ICAO y test inicial):
  * llamar a una función de la base, validar la forma de lo que devuelve y traducir
  * cualquier error a un mensaje apto para el piloto.
  */
@@ -45,10 +46,15 @@ export function clasificarError(error: unknown): ErrorEvaluacion {
   const texto = typeof mensaje === "string" ? mensaje : ""
 
   if (/demasiados_intentos/.test(texto)) return new ErrorEvaluacion("demasiados_intentos", error)
-  if (/sesion_vencida|sesion_terminada/.test(texto)) return new ErrorEvaluacion("intento_vencido", error)
-  if (/sesion_no_encontrada/.test(texto)) return new ErrorEvaluacion("intento_no_encontrado", error)
-  if (/evaluacion_no_disponible|banco_vacio|sin_ejercicios/.test(texto)) return new ErrorEvaluacion("no_disponible", error)
-  if (/posicion_invalida|opcion_invalida/.test(texto)) return new ErrorEvaluacion("respuesta_invalida", error)
+  // Las funciones del vault (materias PCA) responden en inglés; las nuevas, en español.
+  if (/sesion_vencida|sesion_terminada|session_expired|session_completed/.test(texto)) {
+    return new ErrorEvaluacion("intento_vencido", error)
+  }
+  if (/sesion_no_encontrada|session_not_found/.test(texto)) return new ErrorEvaluacion("intento_no_encontrado", error)
+  if (/evaluacion_no_disponible|banco_vacio|sin_ejercicios|pregunta_no_encontrada/.test(texto)) {
+    return new ErrorEvaluacion("no_disponible", error)
+  }
+  if (/posicion_invalida|opcion_invalida|invalid_position/.test(texto)) return new ErrorEvaluacion("respuesta_invalida", error)
   if (/unauthorized|JWT|not authenticated|permission denied|sin_sesion/i.test(texto)) return new ErrorEvaluacion("sin_sesion", error)
   if (error instanceof TypeError || /Failed to fetch|NetworkError|fetch failed|Load failed/i.test(texto)) {
     return new ErrorEvaluacion("sin_conexion", error)

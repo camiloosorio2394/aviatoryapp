@@ -2,37 +2,42 @@
  * Test inicial — diagnóstico de arranque.
  *
  * Combina:
- *  - INGLÉS ICAO: preguntas de lectura (icao_quiz_questions) + 1 de listening
- *    (audio real de comprensión). Da un "Nivel Inicial (estimado)", topado en 5
- *    (un quiz no mide hablar; el nivel oficial sale del simulacro TEA).
+ *  - INGLÉS ICAO: preguntas de lectura del quiz ICAO (las corrige el servidor)
+ *    + 1 de listening (audio real de comprensión). Da un "Nivel Inicial
+ *    (estimado)", topado en 5 (un quiz no mide hablar; el nivel oficial sale
+ *    del simulacro TEA).
  *  - MATERIAS PCA: ≥2 preguntas por materia desde el vault (server-validated).
  *
  * Sin migración: al terminar se guarda solo el nivel ICAO estimado en
  * pilot_state.icao_english_level; el desglose por materia se muestra al final.
  */
 import { supabase } from "@/integrations/supabase/client"
+import { barajar } from "@/lib/barajar"
 import { SHORT_AUDIO_SETS } from "@/lib/icaoComprehension"
 import { getSubjectMeta } from "@/lib/vaultSubjects"
+import { responderIcaoQuiz, traerPreguntasIcao } from "@/services/icaoQuiz"
+import { esObjeto, llamarRpc, texto, textoONulo } from "@/services/rpc"
 
-export type ItemKind = "mcq" | "vault" | "audio"
-
-export interface TestItem {
+interface ItemBase {
   uid: string
-  kind: ItemKind
   /** "icao" o el subject_slug de la materia */
   area: string
   areaLabel: string
   prompt: string
   context?: string | null
   options: { letter: string; text: string }[]
-  /** mcq/audio: respuesta conocida en cliente */
-  correctAnswer?: string
-  explanation?: string | null
-  audioUrl?: string
-  /** vault: se valida server-side */
-  token?: string
-  position?: number
 }
+
+/**
+ * Cada pregunta trae lo que necesita para corregirse:
+ *  - icao: lectura del quiz ICAO, la corrige icao_quiz_responder.
+ *  - vault: materia PCA, la corrige vault_submit_answer con el token de la sesión.
+ *  - audio: quién habla en un audio corto; la respuesta viaja con la app, junto al audio.
+ */
+export type TestItem =
+  | (ItemBase & { kind: "icao"; preguntaId: number })
+  | (ItemBase & { kind: "vault"; token: string; position: number })
+  | (ItemBase & { kind: "audio"; audioUrl: string; correctAnswer: string; explanation: string })
 
 export interface TestSubject {
   slug: string
@@ -60,42 +65,27 @@ function optsFromRecord(rec: Record<string, string> | null | undefined): { lette
     .map(([letter, text]) => ({ letter, text }))
 }
 
-function shuffle<T>(arr: T[]): T[] {
-  return [...arr].sort(() => Math.random() - 0.5)
-}
-
 /** Arma el test inicial completo (ICAO + 2 por materia). */
 export async function buildInitialTest(): Promise<BuiltTest> {
   // --- INGLÉS ICAO: lectura ---
-  const icaoItems: TestItem[] = []
-  try {
-    const { data } = await supabase
-      .from("icao_quiz_questions")
-      .select("id,topic,prompt,context,options,correct_answer,explanation")
-      .eq("is_active", true)
-      .limit(50)
-    const picked = shuffle((data ?? []) as Record<string, unknown>[]).slice(0, ICAO_READING)
-    for (const r of picked) {
-      icaoItems.push({
-        uid: `icao-${r.id}`,
-        kind: "mcq",
-        area: "icao",
-        areaLabel: "Inglés ICAO",
-        prompt: String(r.prompt),
-        context: (r.context as string) ?? null,
-        options: optsFromRecord(r.options as Record<string, string>),
-        correctAnswer: String(r.correct_answer),
-        explanation: (r.explanation as string) ?? null,
-      })
-    }
-  } catch {
-    /* sin banco ICAO → la sección queda vacía */
-  }
+  // Si el banco no responde, el test no arranca: sin esta parte no hay nivel
+  // estimado, que es lo que el test guarda.
+  const lectura = await traerPreguntasIcao(null, ICAO_READING)
+  const icaoItems: TestItem[] = lectura.map((p) => ({
+    uid: `icao-${p.id}`,
+    kind: "icao",
+    area: "icao",
+    areaLabel: "Inglés ICAO",
+    prompt: p.prompt,
+    context: p.context,
+    options: optsFromRecord(p.options),
+    preguntaId: p.id,
+  }))
 
   // --- INGLÉS ICAO: 1 de listening (audio real) ---
   const audioPool = SHORT_AUDIO_SETS.flatMap((s) => s.items).filter((a) => a.speaker)
   if (audioPool.length > 0) {
-    const a = shuffle(audioPool)[0]
+    const a = barajar(audioPool)[0]
     icaoItems.push({
       uid: `icao-audio-${a.id}`,
       kind: "audio",
@@ -232,32 +222,40 @@ export interface GradedAnswer {
   explanation: string | null
 }
 
-/** Valida una respuesta (vault → server; mcq/audio → cliente). */
+/**
+ * Corrige una respuesta. Si el servidor no la puede corregir lanza
+ * ErrorEvaluacion y la pregunta queda abierta para reintentarla: un fallo de
+ * red no es una respuesta incorrecta.
+ */
 export async function gradeItem(item: TestItem, letter: string): Promise<GradedAnswer> {
-  if (item.kind === "vault" && item.token && item.position != null) {
-    const { data } = await supabase.rpc("vault_submit_answer", {
-      p_token: item.token,
-      p_position: item.position,
-      p_answer: letter,
-    })
-    const row = (Array.isArray(data) ? data[0] : data) as
-      | { is_correct: boolean; correct_answer: string; explanation: string }
-      | null
-    return {
-      uid: item.uid,
-      area: item.area,
-      correct: !!row?.is_correct,
-      correctAnswer: row?.correct_answer ?? "",
-      explanation: row?.explanation ?? null,
+  const base = { uid: item.uid, area: item.area }
+  switch (item.kind) {
+    case "icao": {
+      const c = await responderIcaoQuiz(item.preguntaId, letter)
+      return { ...base, correct: c.correcta, correctAnswer: c.respuestaCorrecta, explanation: c.explicacion }
     }
-  }
-  const correct = letter === item.correctAnswer
-  return {
-    uid: item.uid,
-    area: item.area,
-    correct,
-    correctAnswer: item.correctAnswer ?? "",
-    explanation: item.explanation ?? null,
+    case "vault":
+      return llamarRpc(
+        "vault_submit_answer",
+        { p_token: item.token, p_position: item.position, p_answer: letter },
+        (datos) => {
+          const fila = Array.isArray(datos) ? datos[0] : datos
+          if (!esObjeto(fila) || typeof fila.is_correct !== "boolean") throw new Error("se esperaba una corrección")
+          return {
+            ...base,
+            correct: fila.is_correct,
+            correctAnswer: texto(fila.correct_answer),
+            explanation: textoONulo(fila.explanation),
+          }
+        },
+      )
+    case "audio":
+      return {
+        ...base,
+        correct: letter === item.correctAnswer,
+        correctAnswer: item.correctAnswer,
+        explanation: item.explanation,
+      }
   }
 }
 
