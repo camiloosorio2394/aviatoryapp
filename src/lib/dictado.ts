@@ -31,7 +31,7 @@ export function revocarConsentimiento(): void {
   try {
     localStorage.removeItem(CLAVE_CONSENTIMIENTO)
   } catch {
-    /* nada que hacer */
+    /* sin almacenamiento no hubo consentimiento guardado que retirar */
   }
 }
 
@@ -89,11 +89,12 @@ export async function borrarRespuestaHablada(questionId: string): Promise<void> 
     const { data } = await supabase.auth.getUser()
     const userId = data.user?.id
     if (!userId) return
-    await supabase
+    const { error } = await supabase
       .from("user_icao_speaking")
       .delete()
       .eq("user_id", userId)
       .eq("question_id", questionId)
+    if (error) console.warn("icao speaking borrar", error.message)
   } catch (err) {
     console.warn("icao speaking borrar", err)
   }

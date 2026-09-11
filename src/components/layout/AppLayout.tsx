@@ -61,7 +61,9 @@ export function AppLayout() {
   useEffect(() => {
     try {
       window.localStorage.setItem(CLAVE_BARRA_FIJADA, sidebarPinned ? "1" : "0")
-    } catch { /* noop */ }
+    } catch {
+      /* sin almacenamiento: la barra queda como está, solo no se recuerda */
+    }
   }, [sidebarPinned])
 
   // Con el drawer móvil abierto el fondo seguía scrolleando detrás del overlay:

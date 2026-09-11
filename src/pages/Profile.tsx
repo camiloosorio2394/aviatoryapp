@@ -31,6 +31,7 @@ type UsernameStatus =
   | { state: "checking" }
   | { state: "available" }
   | { state: "taken" }
+  | { state: "error" }
 
 type Stage =
   | "student_ppl"
@@ -98,7 +99,7 @@ export function Profile() {
   const [originalUsername, setOriginalUsername] = useState("")
   /** Igual que en Login: del servidor solo se guarda su respuesta y a qué
    *  nombre contesta. Lo demás se deduce de lo que hay escrito. */
-  const [respuesta, setRespuesta] = useState<{ nombre: string; libre: boolean | null } | null>(
+  const [respuesta, setRespuesta] = useState<{ nombre: string; libre: boolean | null; fallo?: boolean } | null>(
     null
   )
   const [photoUrl, setPhotoUrl] = useState<string | null>(null)
@@ -220,8 +221,10 @@ export function Profile() {
           ? { state: "invalid", reason: "3–30 caracteres, minúsculas, números o _" }
           : respuesta?.nombre !== username
             ? { state: "checking" }
-            : respuesta.libre === null
-              ? { state: "idle" }
+            : respuesta.fallo
+              ? { state: "error" }
+              : respuesta.libre === null
+                ? { state: "idle" }
               : { state: respuesta.libre ? "available" : "taken" }
 
   // El estado se fija dentro del callback del temporizador, no en el cuerpo del
@@ -231,8 +234,10 @@ export function Profile() {
     if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
-      const { data } = await supabase.rpc("check_username_available", { p_username: username })
-      setRespuesta({ nombre: username, libre: !!data })
+      const { data, error } = await supabase.rpc("check_username_available", { p_username: username })
+      // Antes un error de red salía como «ya está tomado».
+      if (error) console.warn("check_username_available", error.message)
+      setRespuesta({ nombre: username, libre: error ? null : !!data, fallo: Boolean(error) })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
   }, [username, hayQuePreguntar])
@@ -902,6 +907,12 @@ function UsernameHelp({ status }: { status: UsernameStatus }) {
       return <p className="mt-1"><span className="chip chip-green">Disponible</span></p>
     case "taken":
       return <p className="mt-1"><span className="chip chip-red">Ese usuario ya está tomado</span></p>
+    case "error":
+      return (
+        <p className="text-[12px] mt-1" style={{ color: "var(--av-danger-fg)" }}>
+          No pudimos comprobar si está libre. Revisa tu conexión y vuelve a escribirlo.
+        </p>
+      )
     case "unchanged":
       return null
     default:

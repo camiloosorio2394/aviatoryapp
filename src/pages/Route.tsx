@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, BookOpen, Clock } from "lucide-react"
+import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, BookOpen, Clock, RotateCcw } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
+import { EstadoError } from "@/components/EstadoError"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 
@@ -61,6 +63,9 @@ export function Route() {
   const [items, setItems] = useState<Item[]>([])
   const [completedIds, setCompletedIds] = useState<Set<number>>(new Set())
   const [loading, setLoading] = useState(true)
+  /** No se pudo leer la etapa o la checklist: se ofrece reintentar. */
+  const [fallo, setFallo] = useState(false)
+  const [intento, setIntento] = useState(0)
   const [togglingId, setTogglingId] = useState<number | null>(null)
 
   useEffect(() => {
@@ -69,11 +74,14 @@ export function Route() {
 
     async function load() {
       try {
-        const { data: ps } = await supabase
+        // supabase-js no lanza: sin revisar el error, una falla de red salía como
+        // «completa tu perfil» y mandaba al onboarding.
+        const { data: ps, error: errorEtapa } = await supabase
           .from("pilot_state")
           .select("stage")
           .eq("user_id", user!.id)
           .maybeSingle()
+        if (errorEtapa) throw errorEtapa
         const userStage = (ps as { stage?: PilotStage } | null)?.stage ?? null
         if (cancelled) return
         setStage(userStage)
@@ -83,13 +91,14 @@ export function Route() {
           return
         }
 
-        const { data: ch } = await supabase
+        const { data: ch, error: errorChecklist } = await supabase
           .from("checklists")
           .select("*")
           .eq("stage", userStage)
           .order("order_index")
           .limit(1)
           .maybeSingle()
+        if (errorChecklist) throw errorChecklist
         if (cancelled) return
         const checklistRow = ch as Checklist | null
         setChecklist(checklistRow)
@@ -111,13 +120,16 @@ export function Route() {
             .eq("user_id", user!.id),
         ])
         if (cancelled) return
+        if (itemsRes.error) throw itemsRes.error
+        if (progressRes.error) throw progressRes.error
 
         setItems((itemsRes.data ?? []) as Item[])
         setCompletedIds(
           new Set(((progressRes.data ?? []) as { item_id: number }[]).map((p) => p.item_id))
         )
       } catch (err) {
-        toast.error(err instanceof Error ? err.message : "No pudimos cargar tu ruta")
+        console.error("ruta", err)
+        if (!cancelled) setFallo(true)
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -127,7 +139,7 @@ export function Route() {
     return () => {
       cancelled = true
     }
-  }, [user])
+  }, [user, intento])
 
   async function toggleItem(item: Item) {
     if (!user || togglingId === item.id) return
@@ -194,6 +206,31 @@ export function Route() {
           <div className="h-64 bg-muted rounded-2xl" />
         </div>
       </>
+    )
+  }
+
+  if (fallo) {
+    return (
+      <div className="px-6 py-12 max-w-4xl mx-auto">
+        <EstadoError
+          titulo="No pudimos cargar tu ruta"
+          mensaje="Revisa tu conexión e inténtalo de nuevo. Tu avance está guardado."
+          acciones={
+            <button
+              type="button"
+              onClick={() => {
+                setFallo(false)
+                setLoading(true)
+                setIntento((n) => n + 1)
+              }}
+              className={appButtonClass({ size: "lg" })}
+              style={appButtonStyle()}
+            >
+              <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+            </button>
+          }
+        />
+      </div>
     )
   }
 

@@ -27,7 +27,9 @@ export function useRecorder() {
   const disable = useCallback(() => {
     try {
       if (recRef.current?.state !== "inactive") recRef.current?.stop()
-    } catch { /* noop */ }
+    } catch {
+      /* stop() lanza si el grabador ya se detuvo: no queda nada que cortar */
+    }
     streamRef.current?.getTracks().forEach((t) => t.stop())
     streamRef.current = null
     recRef.current = null
@@ -53,7 +55,10 @@ export function useRecorder() {
       rec.ondataavailable = (e) => { if (e.data.size) chunksRef.current.push(e.data) }
       rec.start()
       recRef.current = rec
-    } catch { /* noop */ }
+    } catch (err) {
+      // Ese paso queda sin audio (stopStep devuelve null y el resumen lo muestra así).
+      console.warn("grabación del paso", err)
+    }
   }, [])
 
   const stopStep = useCallback((): Promise<string | null> => {

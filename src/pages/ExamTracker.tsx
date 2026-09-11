@@ -423,12 +423,19 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
 
       if (selectedTopics.size > 0) {
         const reportId = (data as { id: number }).id
-        await supabase.from("exam_report_topics").insert(
+        const { error: errorTemas } = await supabase.from("exam_report_topics").insert(
           Array.from(selectedTopics).map((topic_id) => ({
             report_id: reportId,
             topic_id,
           }))
         )
+        // El reporte ya quedó: se avisa que faltaron los temas en vez de dar las gracias como si nada.
+        if (errorTemas) {
+          console.warn("exam_report_topics", errorTemas.message)
+          toast.warning("Guardamos tu reporte, pero no los temas que marcaste.")
+          onSaved()
+          return
+        }
       }
 
       toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")

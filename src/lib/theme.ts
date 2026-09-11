@@ -14,7 +14,9 @@ export function getThemePref(): ThemePref {
   try {
     const v = localStorage.getItem(CLAVE_TEMA)
     if (v === "light" || v === "dark" || v === "system") return v
-  } catch { /* noop */ }
+  } catch {
+    /* sin almacenamiento (modo privado): se sigue al sistema */
+  }
   return "system"
 }
 
@@ -28,7 +30,11 @@ export function resolveDark(pref: ThemePref): boolean {
 
 /** Persiste la preferencia y aplica la clase `dark` al <html>. */
 export function applyThemePref(pref: ThemePref): void {
-  try { localStorage.setItem(CLAVE_TEMA, pref) } catch { /* noop */ }
+  try {
+    localStorage.setItem(CLAVE_TEMA, pref)
+  } catch {
+    /* sin almacenamiento: el tema se aplica igual, solo no se recuerda */
+  }
   document.documentElement.classList.toggle("dark", resolveDark(pref))
 }
 
