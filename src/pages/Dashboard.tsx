@@ -8,20 +8,13 @@ import {
   WaypointIcon,
 } from "@/components/icons/aero"
 import { reportarError } from "@/lib/errores"
-import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
 import { EstadoError } from "@/components/EstadoError"
 import { SectionTitle } from "@/components/ui/section-title"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
-import {
-  EXAM_PASS_SCORE as NOTAM_PASS_SCORE,
-  readLocalProgress as readNotamLocal,
-  NOTAM_TOTALES,
-  NOTAM_PRACTICE_TOTAL,
-} from "@/lib/notamComun"
-import { fetchNotamProgress } from "@/lib/notamProgress"
-import { fetchHeatmapSeries } from "@/lib/activity"
+import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_TOTALES, NOTAM_PRACTICE_TOTAL } from "@/lib/notamComun"
+import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import {
   type PilotState,
@@ -62,8 +55,9 @@ export function Dashboard() {
   /** No se pudo leer el perfil o el estado del piloto: se ofrece reintentar. */
   const [fallo, setFallo] = useState(false)
   const [intento, setIntento] = useState(0)
-  /** Las tres RPC lentas (heatmap, cohorte, quiz diario) y los logros cargan
-   *  después del hero, con skeleton local en su propia card. */
+  /** Las tarjetas (logros, heatmap, cohorte, quiz diario…) cargan después del
+   *  hero, con skeleton local en su propia card: panel_tarjetas() es la llamada
+   *  lenta y el encabezado no la espera. */
   const [deferredLoading, setDeferredLoading] = useState(true)
   const [profile, setProfile] = useState<Profile | null>(null)
   const [pilot, setPilot] = useState<PilotState | null>(null)
@@ -86,49 +80,23 @@ export function Dashboard() {
 
     async function loadCore() {
       try {
-        const [profileRes, pilotRes, streakRes, subRes, attemptsRes] = await Promise.all([
-          supabase.from("profiles").select("full_name, username, photo_url").eq("id", user!.id).maybeSingle(),
-          supabase.from("pilot_state").select("stage, total_hours, hours_pic, licenses, icao_english_level, target_airline, target_date").eq("user_id", user!.id).maybeSingle(),
-          supabase.from("streaks").select("current_streak, longest_streak, last_activity_date").eq("user_id", user!.id).maybeSingle(),
-          supabase.from("subscriptions").select("status, plan, current_period_end").eq("user_id", user!.id).order("created_at", { ascending: false }).limit(1).maybeSingle(),
-          // vault_sessions, no quiz_attempts: la tabla vieja quedó congelada al
-          // migrar al vault y ninguna línea de la app la escribe, así que el
-          // contador se quedaba clavado por más que el piloto estudiara.
-          supabase
-            .from("vault_sessions")
-            .select("token", { count: "exact", head: true })
-            .eq("user_id", user!.id)
-            .not("completed_at", "is", null),
-        ])
-
+        const inicio = await traerInicioPanel()
         if (cancelled) return
 
-        // Sin perfil ni estado del piloto no se sabe si le falta el onboarding.
-        // Antes un error de red caía en «no tiene etapa» y lo mandaba a hacerlo
-        // otra vez, encima de sus datos.
-        const errorBase = profileRes.error ?? pilotRes.error
-        if (errorBase) {
-          reportarError("dashboard: perfil o estado del piloto", errorBase)
-          setFallo(true)
-          return
-        }
-        for (const r of [streakRes, subRes, attemptsRes]) {
-          if (r.error) console.warn("dashboard", r.error.message)
-        }
+        setProfile(inicio.perfil)
+        setPilot(inicio.piloto)
+        setStreak(inicio.racha)
+        setSubscription(inicio.suscripcion)
+        setRecentAttempts(inicio.quizzesCompletados)
 
-        setProfile(profileRes.data as Profile | null)
-        const ps = pilotRes.data as PilotState | null
-        setPilot(ps)
-        setStreak(streakRes.data as Streak | null)
-        setSubscription(subRes.data as Subscription | null)
-        setRecentAttempts(attemptsRes.count ?? 0)
-
-        if (!ps?.stage) {
+        if (!inicio.piloto?.stage) {
           navigate("/onboarding", { replace: true })
           return
         }
       } catch (err) {
-        reportarError("dashboard", err)
+        // Sin perfil ni estado del piloto no se sabe si le falta el onboarding:
+        // se ofrece reintentar en vez de mandarlo a hacerlo otra vez.
+        reportarError("dashboard: encabezado", err)
         if (!cancelled) setFallo(true)
       } finally {
         if (!cancelled) setLoading(false)
@@ -147,66 +115,25 @@ export function Dashboard() {
 
     async function loadDeferred() {
       try {
-        const [allAchievementsRes, userAchievementsRes, heatmapRes, peersRes, dailyRes, masteryRes, notamProg, notamBestRes, licensesRes, readinessRes] = await Promise.all([
-          supabase.from("achievements").select("*").order("order_index"),
-          // Sin limit: la card de logros muestra la colección completa y
-          // necesita saber cuáles están desbloqueados, no solo los últimos 4.
-          supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }),
-          // La serie del heatmap sale de daily_activity (src/lib/activity.ts).
-          fetchHeatmapSeries(user!.id),
-          supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
-          supabase.rpc("get_daily_quiz"),
-          supabase.rpc("get_subject_mastery"),
-          fetchNotamProgress(user!.id),
-          supabase.from("user_notam_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1),
-          supabase.from("licenses_held").select("id, license_type, custom_name, expires_date").eq("user_id", user!.id).not("expires_date", "is", null).order("expires_date", { ascending: true }),
-          supabase.from("user_pca_readiness").select("attempts_60d, avg_score_60d, best_score, passed_recently, readiness_color").eq("user_id", user!.id).maybeSingle(),
-        ])
-
-        supabase.rpc("check_my_expiries").then(({ error }) => {
-          if (error) console.warn("check_my_expiries", error.message)
-        })
+        const tarjetas = await traerTarjetasPanel()
+        revisarVencimientos()
         if (cancelled) return
 
-        // Cada card muestra su estado vacío si su consulta falla; el motivo queda en consola.
-        const resultados = { allAchievementsRes, userAchievementsRes, peersRes, dailyRes, masteryRes, notamBestRes, licensesRes, readinessRes }
-        for (const [nombre, r] of Object.entries(resultados)) {
-          if (r.error) console.warn(`dashboard: ${nombre}`, r.error.message)
-        }
-
-        setAllAchievements((allAchievementsRes.data ?? []) as Achievement[])
-
-        type UARow = { unlocked_at: string; achievements: Achievement | Achievement[] | null }
-        const unlocked: Achievement[] = []
-        for (const row of (userAchievementsRes.data ?? []) as UARow[]) {
-          const ach = Array.isArray(row.achievements) ? row.achievements[0] : row.achievements
-          if (ach) unlocked.push({ ...ach, unlocked_at: row.unlocked_at })
-        }
-        setAchievements(unlocked)
-
-        setHeatmap(heatmapRes)
-        setPeers((peersRes.data ?? []) as Peer[])
-        setDaily((dailyRes.data ?? []) as DailyQuizQuestion[])
-        setMastery((masteryRes.data ?? []) as SubjectMastery[])
-
-        // NOTAM: remoto unido al respaldo local, igual que el hub del módulo.
-        // Todo en cero significa curso sin empezar, y la card lo dice con un
-        // guion en vez de un 0%.
-        const local = readNotamLocal()
-        const lesson = new Set([...(notamProg?.lessonScreens ?? []), ...local.lessonScreens]).size
-        const practice = new Set([...(notamProg?.practiceDone ?? []), ...local.exercisesDone]).size
-        const remoteBest = (notamBestRes.data as { score: number | null }[] | null)?.[0]?.score ?? null
-        const scores = [remoteBest, local.bestExamScore].filter((v): v is number => typeof v === "number")
-        const best = scores.length > 0 ? Math.max(...scores) : null
-        setNotam(lesson === 0 && practice === 0 && best === null ? null : { lesson, practice, best })
-
-        setLicenses((licensesRes.data ?? []) as LicenseRow[])
-        setReadiness(readinessRes.data as PcaReadiness | null)
+        setAllAchievements(tarjetas.logros)
+        setAchievements(tarjetas.desbloqueados)
+        setHeatmap(tarjetas.actividad)
+        setPeers(tarjetas.companeros)
+        setDaily(tarjetas.quizDiario)
+        setMastery(tarjetas.dominio)
+        // NOTAM contado en la base contra el catálogo; null si no ha empezado,
+        // y la card lo dice con un guion en vez de un 0%.
+        setNotam(tarjetas.notam)
+        setLicenses(tarjetas.licencias)
+        setReadiness(tarjetas.preparacion)
       } catch (err) {
-        // Estas cards muestran su propio estado vacío si algo falla: no
-        // interrumpimos el dashboard con un toast, pero una excepción aquí es
-        // un fallo de código y se reporta.
-        reportarError("dashboard: tarjetas secundarias", err)
+        // Las cards muestran su propio estado vacío si algo falla: no se
+        // interrumpe el dashboard con un toast, pero el fallo se reporta.
+        reportarError("dashboard: tarjetas", err)
       } finally {
         if (!cancelled) setDeferredLoading(false)
       }
