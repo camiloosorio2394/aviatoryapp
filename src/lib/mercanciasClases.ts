@@ -48,7 +48,7 @@ export interface ClaseMP {
   /** La definición de la clase, como la transcribe el reglamento. */
   definicion: string
   /** Artículo de la definición. */
-  ref: string
+  ref?: string
   ejemplos: string[]
   divisiones: Division[]
   /** Rótulo de los subgrupos, si los hay: "Categorías de etiqueta", "Grupos de la clase". */
@@ -77,7 +77,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Reacción química que explota, proyecta fragmentos o produce fuego, humo o ruido.",
     definicion:
       "Comprende las sustancias explosivas (no se incluyen las que no son en sí mismas explosivas pero pueden formar mezclas explosivas de gases, vapores o polvo), excepto las demasiado peligrosas para el transporte o aquellas cuyo riesgo principal corresponde a otra clase; los objetos explosivos, excepto los artefactos cuya ignición o cebado por inadvertencia durante el transporte no daría ninguna manifestación exterior; y las sustancias y objetos fabricados para producir un efecto explosivo o pirotécnico.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (1)",
     ejemplos: ["Municiones", "Pirotecnia", "Detonadores", "Cordón detonante"],
     divisiones: [
       { id: "1.1", txt: "Peligro de explosión en masa" },
@@ -102,7 +101,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Gas a presión: puede ser inflamable, tóxico o solo estar comprimido, pero todos empujan.",
     definicion:
       "Pertenecen a esta clase los gases comprimidos, gases licuados, gases disueltos, gases licuados refrigerados, mezclas de uno o más gases con uno o más vapores de sustancias de otras clases, objetos cargados con gas y aerosoles.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (2)",
     ejemplos: ["Aerosoles", "Extintores", "Oxígeno", "Butano", "Objetos cargados con gas"],
     divisiones: [
       { id: "2.1", txt: "Gases inflamables" },
@@ -122,7 +120,6 @@ export const CLASES: ClaseMP[] = [
       "Despiden vapores inflamables por debajo de 60,5 °C en crisol cerrado o 65,6 °C en crisol abierto: el punto de inflamación.",
     definicion:
       "Líquidos, mezclas de líquidos o líquidos que contienen sólidos en solución o en suspensión (por ejemplo pinturas, barnices y lacas, pero no las sustancias con otra clasificación por sus características peligrosas) que despiden vapores inflamables a temperaturas que no exceden de 60,5 °C en crisol cerrado o de 65,6 °C en crisol abierto: el punto de inflamación. Comprende también los explosivos insensibilizados líquidos.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (3)",
     ejemplos: ["Gasolina", "Pinturas, barnices y lacas (ejemplo del RAC)", "Thinner", "Perfumes", "Algunos adhesivos"],
     divisiones: [],
     rombos: ["3"],
@@ -137,7 +134,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Sólidos que se inflaman con facilidad, se calientan solos o desprenden gas inflamable con el agua.",
     definicion:
       "Sólidos inflamables; sustancias susceptibles de combustión espontánea; sustancias que, en contacto con el agua, desprenden gases inflamables.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (4)",
     ejemplos: ["Fósforos", "Azufre", "Sodio metálico (4.3)", "Carburo de calcio (4.3)"],
     divisiones: [
       {
@@ -171,7 +167,6 @@ export const CLASES: ClaseMP[] = [
     color: "#C08A00",
     riesgo: "Liberan oxígeno y alimentan el fuego de al lado; los peróxidos además se descomponen solos con el calor.",
     definicion: "Sustancias comburentes y peróxidos orgánicos.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (5)",
     ejemplos: [
       "Peróxido de hidrógeno en solución (5.1)",
       "Nitrato de amonio (5.1)",
@@ -205,7 +200,6 @@ export const CLASES: ClaseMP[] = [
     riesgo:
       "Causan muerte o lesión al ingerirse, inhalarse o por contacto con la piel; o contienen patógenos.",
     definicion: "Sustancias tóxicas y sustancias infecciosas.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (6)",
     ejemplos: ["Pesticidas", "Cianuros", "Muestras biológicas (6.2)", "Material de diagnóstico"],
     divisiones: [
       {
@@ -233,7 +227,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Emite radiación ionizante.",
     definicion:
       "Todo material que contenga radionucleídos en los cuales tanto la concentración de actividad como la actividad total del envío excedan los valores especificados en las Instrucciones Técnicas.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (7)",
     ejemplos: ["Isótopos médicos", "Equipos de medición nuclear"],
     divisiones: [],
     subgruposTitulo: "Categorías de etiqueta (Apéndice 1)",
@@ -254,7 +247,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Destruyen tejidos vivos o corroen otras mercancías y el propio avión.",
     definicion:
       "Sustancias que, por su acción química, causan lesiones graves al entrar en contacto con tejidos vivos o que, si se produce un escape, provocan daños de consideración a otras mercancías o a los medios de transporte, o incluso los destruyen.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (8)",
     ejemplos: ["Ácidos", "Baterías húmedas", "Mercurio", "Soda cáustica"],
     divisiones: [],
     rombos: ["8"],
@@ -269,7 +261,6 @@ export const CLASES: ClaseMP[] = [
     riesgo: "Riesgos que no cubre ninguna de las otras clases.",
     definicion:
       "Sustancias y objetos peligrosos varios, incluidas las sustancias potencialmente peligrosas para el medio ambiente: sustancias y objetos que, durante el transporte por vía aérea, presentan un riesgo distinto de los correspondientes a las demás clases.",
-    ref: "Instrucciones Técnicas, Parte 2 · transcrita en el RAC 175.1010 (a) (9)",
     ejemplos: [
       "Baterías de litio",
       "Hielo seco, dióxido de carbono sólido (ejemplo del RAC)",

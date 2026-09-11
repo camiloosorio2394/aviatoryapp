@@ -43,7 +43,6 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "South African 295 · 1987",
-            ref: "Comisión Margo · FAA Lessons Learned · lección 13",
             puntos: [
               "**Qué falló:** un incendio en la cubierta principal de un combi, en una zona a la que la tripulación no podía llegar. La causa de la ignición nunca se determinó.",
               "**Qué cambió:** los requisitos de los combi y la exigencia de que la carga sea accesible y separable en vuelo.",
@@ -52,7 +51,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             titulo: "ValuJet 592 · 1996",
-            ref: "NTSB AAR-97/06 · lección 01",
             puntos: [
               "**Qué falló:** generadores de oxígeno sin tapas, declarados como «vacíos» y despachados como material de la compañía. Tres eslabones: expedidor, explotador y una regla de diseño de la autoridad.",
               "**Qué cambió:** detección y supresión de incendios obligatorias en las bodegas de clase D.",
@@ -61,7 +59,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             titulo: "UPS 6 · 2010",
-            ref: "GCAA (EAU) 2013 · lección 08",
             puntos: [
               "**Qué falló:** autoignición de una paleta con más de 81.000 baterías de litio. El humo llenó la cabina en minutos; el capitán quedó incapacitado al fallar su oxígeno.",
               "**Qué cambió:** la OACI endureció las baterías de litio como carga; desde 2016 las de ion litio sueltas no van en aeronaves de pasajeros.",
@@ -70,7 +67,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             titulo: "Asiana 991 · 2011",
-            ref: "ARAIB (Corea) · lección 15",
             puntos: [
               "**Qué falló:** un incendio en o cerca de una paleta con mercancías peligrosas en el fuselaje trasero, más rápido que el descenso. Los registradores se perdieron y la causa exacta no se determinó.",
               "**Qué cambió:** más presión sobre la estiba y la segregación de las mercancías peligrosas en cargueros y sobre la respuesta al humo en cabina.",
@@ -151,7 +147,6 @@ export const NIVEL_5: DocScreen[] = [
             respuesta:
               "ValuJet 592, 1996. Transportaba generadores químicos de oxígeno retirados de dos MD-80, sin las tapas de seguridad, declarados como material de la compañía y marcados como vacíos. No estaban vacíos. Se activaron en la bodega delantera y el incendio hizo que el avión cayera en los Everglades. Murieron las 110 personas a bordo.",
             claves: ["Generadores de oxígeno sin tapa", "Declarados como COMAT y marcados vacíos", "110 fallecidos"],
-            ref: "NTSB/AAR-97/06",
           },
           {
             nivel: "interpretacion",
@@ -185,8 +180,6 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "LAR 175.315 (a)",
-        rac: "RAC 175.315 (a)",
         titulo: "Los tres componentes de la instrucción",
         texto:
           "(1) Instrucción general de familiarización: debe tener como objetivo la familiarización con las disposiciones generales; (2) instrucción específica según la función: debe proporcionar formación detallada sobre los requisitos que se aplican a la función de la cual se encarga esa persona; y (3) instrucción sobre seguridad operacional: debe abarcar los peligros que suponen las mercancías peligrosas, la manipulación sin riesgos y los procedimientos de respuesta de emergencia.",
@@ -221,32 +214,26 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Cada 24 meses como mínimo",
-            ref: "LAR 175.310 (a)",
             puntos: ["Todas las personas que realicen o supervisen funciones relacionadas con pasajeros, equipajes, carga o correo."],
           },
           {
             titulo: "Al contratar",
-            ref: "LAR 175.310 (b)",
             puntos: ["La instrucción se imparte o se verifica en el momento de la contratación."],
           },
           {
             titulo: "Registro para la autoridad",
-            ref: "LAR 175.310 (c)",
             puntos: ["Cada organización mantiene el registro de la instrucción de sus empleados, disponible para la AAC."],
           },
           {
             titulo: "Ventana de 30 días",
-            ref: "LAR 175.310 (d)",
             puntos: ["El LAR permite hacer el recurrente dentro de los 30 días siguientes al vencimiento. Después de ese plazo, toca instrucción inicial otra vez."],
           },
           {
             titulo: "Instructores de Categoría 6",
-            ref: "LAR 175.320",
             puntos: ["Competencia pedagógica, programa de Categoría 6 completado y los requisitos de instructor de los RAC."],
           },
           {
             titulo: "Aunque no acepte mercancías peligrosas",
-            ref: "LAR 175.305 (b)",
             puntos: ["El explotador que decide no transportarlas cumple igual los programas de capacitación de la Tabla C.1."],
           },
         ],
@@ -262,29 +249,24 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "RAC 2 · Entrenamientos especiales periódicos",
-            ref: "2.2.1.1.6 (e)",
             puntos: [
               "Curso de Transporte de Mercancías Peligrosas conforme al Anexo 18 y a los Documentos 9284, 9481 y 9375 de la OACI vigentes, con una frecuencia no mayor a dos años, dentro del programa de entrenamiento del operador.",
             ],
           },
           {
             titulo: "RAC 2 · Tripulantes que no son pilotos",
-            ref: "2.3.1.2 (c)",
             puntos: ["El mismo curso cada dos años para los demás miembros de la tripulación."],
           },
           {
             titulo: "RAC 61 · Piloto comercial",
-            ref: "61.610 (g) (5)",
             puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga, los posibles riesgos en relación con el transporte de mercancías peligrosas»."],
           },
           {
             titulo: "RAC 61 · Piloto de transporte de línea aérea",
-            ref: "61.810 (g) (4)",
             puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga y de mercancías peligrosas»."],
           },
           {
             titulo: "RAC 2 · Auxiliar de servicios a bordo",
-            ref: "2.3.6.1, numeral 6",
             puntos: [
               "Transporte de mercancías peligrosas: conceptos generales, sus posibles riesgos, identificación de etiquetas, mercancías prohibidas, excepciones y procedimientos de emergencia. Es el temario más detallado del RAC 2, y describe bien lo que un piloto debe dominar.",
             ],
@@ -320,7 +302,6 @@ export const NIVEL_5: DocScreen[] = [
             respuesta:
               "Empieza cuando recibo la información escrita de las mercancías peligrosas del vuelo, que el explotador debe darme lo antes posible antes de la salida. La firmo antes de que se transporten, la mantengo al alcance durante todo el vuelo y conozco los procedimientos de emergencia. No me corresponde clasificar ni verificar embalajes: eso es del expedidor y de la aceptación. Lo que sí me corresponde es no salir sin esa información y actuar si algo en ella no cuadra.",
             claves: ["Recibir, firmar, tener al alcance", "No clasifico ni verifico embalajes", "Actuar si algo no cuadra"],
-            ref: "LAR 175.515",
           },
           {
             nivel: "situacion",
@@ -328,7 +309,6 @@ export const NIVEL_5: DocScreen[] = [
             respuesta:
               "Dos cosas, y una es grave. La primera: las baterías de litio no llevan grupo de embalaje, así que ese «GE II» es un error de documentación. La segunda, y la que para el vuelo: la marca CAO significa exclusivamente en aeronave de carga, y este vuelo lleva pasajeros. Ese bulto no puede ir, y no se arregla cambiándolo de posición. Lo hablo con el despachador antes de que se cargue.",
             claves: ["El litio no lleva grupo de embalaje", "CAO prohíbe en vuelo de pasajeros", "No se resuelve con la estiba"],
-            ref: "LAR 175.520 (c)",
           },
           {
             nivel: "situacion",
@@ -343,7 +323,6 @@ export const NIVEL_5: DocScreen[] = [
             respuesta:
               "Volar, identificar, comunicar. Primero el procedimiento del fabricante para humo o incendio en bodega, y el desvío si corresponde. Después la información escrita, que me dice qué hay, cuánto y en qué posición, y la información de respuesta de emergencia, que me dice cómo se comporta esa mercancía. Y después informo a la dependencia de tránsito aéreo, para que el aeródromo prepare los medios sabiendo qué va a encontrarse. Invertir ese orden consume el único recurso que no se recupera.",
             claves: ["Volar primero", "Identificar con el NOTOC", "Informar al ATS", "Doc 9481"],
-            ref: "LAR 175.620",
           },
           {
             nivel: "situacion",
@@ -351,7 +330,6 @@ export const NIVEL_5: DocScreen[] = [
             respuesta:
               "Sí: se notifica. El descubrimiento de una mercancía peligrosa oculta ya es un suceso con mercancías peligrosas aunque no haya daño ni llegue a bordo. Y es el nivel que más aporta, porque señala un fallo de la cadena que todavía no ha costado nada. El transporte de mercancías peligrosas está dentro del alcance del SMS del explotador precisamente para eso: para corregir antes, no para castigar después.",
             claves: ["Es un suceso aunque no haya daño", "Se notifica", "Entra en el SMS"],
-            ref: "LAR 175.625 y 175.220 (k)",
           },
         ],
       },
@@ -397,7 +375,6 @@ export const NIVEL_5: DocScreen[] = [
         preguntas: [
           {
             q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
-            ref: "Lecciones 01, 08, 13 y 15",
             opciones: [
               {
                 t: "Todos empezaron en cabina por un dispositivo de un pasajero.",
@@ -416,7 +393,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             q: "En ValuJet 592, ¿en qué eslabones de la cadena falló el sistema?",
-            ref: "NTSB AAR-97/06 · LAR 175.215, 175.410 y 175.220",
             opciones: [
               {
                 t: "Solo en la tripulación, que no revisó la bodega.",
@@ -435,7 +411,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             q: "Han pasado 25 meses desde tu último curso recurrente de mercancías peligrosas. ¿Qué corresponde?",
-            ref: "RAC 175.310 (a); LAR 175.310 (d)",
             opciones: [
               {
                 t: "Estás fuera del mínimo de 24 meses; el LAR admite el recurrente dentro de los 30 días siguientes al vencimiento, y pasado ese plazo toca instrucción inicial de nuevo.",
@@ -454,7 +429,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             q: "¿Qué documento son las «Instrucciones Técnicas» y quién las publica?",
-            ref: "LAR 175.001 (a) · RAC 175.040 (a)",
             opciones: [
               {
                 t: "El Doc 9284-AN/905 de la OACI, que cada reglamento nacional adopta en su última versión publicada.",
@@ -473,7 +447,6 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             q: "¿Qué obligación tiene un explotador que decidió no transportar mercancías peligrosas?",
-            ref: "LAR 175.305 (b)",
             opciones: [
               {
                 t: "Especificar en su manual los procedimientos para evitar que se introduzcan mercancías no declaradas, y capacitar igualmente a su personal.",

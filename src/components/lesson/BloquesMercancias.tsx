@@ -125,7 +125,7 @@ export function ClasesMP() {
 
         <div className="doc-soft mt-4 border-l-[3px] px-4 py-3" style={{ borderLeftColor: "var(--doc-accent)" }}>
           <div className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Definición · {clase.ref}
+            Definición{clase.ref ? ` · ${clase.ref}` : ""}
           </div>
           <p className="m-0 mt-1.5 text-[14.5px] leading-[1.65]" style={{ color: "var(--doc-fg)" }}>
             {clase.definicion}

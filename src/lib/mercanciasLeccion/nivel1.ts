@@ -37,12 +37,6 @@ export const NIVEL_1: DocScreen[] = [
           "La NTSB atribuyó el accidente a un incendio en la bodega iniciado por la activación de uno o más generadores. Señaló tres fallas: el taller que no identificó ni embaló bien los generadores, la aerolínea que no vigiló a su contratista y la autoridad, que no exigía detección ni extinción de incendios en las bodegas de clase D.",
         leccion:
           "La cadena falló en tres eslabones y los tres tienen nombre en la norma: el expedidor que no identifica ni embala (LAR 175.215 y 175.410), el explotador que no vigila ni capacita (LAR 175.220 y Capítulo D) y una regla de diseño que la autoridad no había cerrado. El comandante firmó un manifiesto que decía otra cosa. Este módulo trata de por qué esa firma tuya importa.",
-        cita: {
-          texto:
-            "…the failure of SabreTech to properly prepare, package, and identify unexpended chemical oxygen generators before presenting them to ValuJet for carriage…",
-          de: "NTSB, causa probable, informe AAR-97/06",
-        },
-        fuente: "NTSB, Aircraft Accident Report NTSB/AAR-97/06 (1997).",
         imagen: {
           src: "/modulos/mercancias/img-01-generador-oxigeno.webp",
           alt: "Generador químico de oxígeno de aviación, el tipo de dispositivo que viajaba sin tapa de seguridad en la bodega del vuelo 592.",
@@ -54,9 +48,6 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        oaci: "Anexo 18",
-        ref: "LAR 175.001 (a)",
-        rac: "RAC 175.001 (a) (31)",
         titulo: "Mercancías peligrosas",
         texto:
           "==Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de mercancías peligrosas de las Instrucciones Técnicas o esté clasificado conforme a dichas Instrucciones.==",
@@ -120,6 +111,10 @@ export const NIVEL_1: DocScreen[] = [
         text: "El LAR 175, y con él el reglamento de tu país, remite a las Instrucciones Técnicas casi en cada artículo. Cuando te pregunten dónde está la lista, cuánto puede llevar un pasajero o cómo se separa un bulto de otro, la respuesta detallada está en el Doc 9284; el reglamento es el que te obliga a aplicarlo (LAR 175.005 (b)).",
       },
       {
+        kind: "p",
+        text: "Todo lo que estudias en este módulo sale de estos cuatro documentos: el Anexo 18 y el Doc 9284 de la OACI, el LAR 175 del SRVSOP y el RAC 175 de Colombia. Como el LAR 175 es el reglamento que armonizan los países de la región, lo que aprendes aquí es aplicable en toda Latinoamérica. Los casos reales vienen de los informes oficiales de investigación de cada accidente. Por eso, a lo largo del módulo no citamos artículo por artículo: cuando necesites el texto exacto, está en el reglamento de tu país.",
+      },
+      {
         kind: "enLaOperacion",
         momento: "En la rampa",
         texto:
@@ -136,7 +131,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. Son dos mitades: el riesgo y estar en la lista o ser clasificable.",
             claves: ["Riesgo", "Lista o clasificable", "Instrucciones Técnicas"],
-            ref: "LAR 175.001 (a)",
           },
           {
             nivel: "interpretacion",
@@ -144,7 +138,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "No. Lo que clasifica es lo que la sustancia es y lo que puede hacer, no lo que dice el papel. Si va sin declarar sigue siendo mercancía peligrosa, y además pasa a ser una mercancía peligrosa oculta, que es un suceso notificable.",
             claves: ["No cambia la naturaleza", "Mercancía peligrosa oculta", "Es notificable"],
-            ref: "LAR 175.001 (a) y 175.625",
           },
           {
             nivel: "situacion",
@@ -152,7 +145,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "Que la cadena tiene varios eslabones y que el último es la firma del comandante. Los generadores iban mal clasificados, mal embalados y declarados como material de la compañía marcado «vacío». Ninguno de esos errores era mío, pero el avión era mío. Por eso la información que firmo antes de salir no es un trámite: es el único punto donde la cadena todavía se puede parar.",
             claves: ["Cadena de eslabones", "La firma es un control, no un trámite", "COMAT no exime"],
-            ref: "NTSB/AAR-97/06",
           },
         ],
       },
@@ -172,9 +164,6 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        oaci: "Instrucciones Técnicas, Partes 4 y 6",
-        ref: "LAR 175.420 (c)",
-        rac: "RAC 175.420 (b)",
         texto:
           "Los embalajes utilizados para el transporte de mercancías peligrosas por vía aérea serán de buena calidad y estarán construidos y cerrados de modo seguro, para evitar pérdidas que podrían originarse en las condiciones normales de transporte, debido a cambios de temperatura, humedad o presión, o a la vibración.",
       },
@@ -288,7 +277,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "Poco, y por eso hay que conocerlo: el equipo de respuesta de emergencia que exige el reglamento (bolsas grandes de polietileno, ligaduras y guantes largos de goma), los extintores de mano y el procedimiento del explotador. Con eso se contiene hasta aterrizar. No hay bomberos, ni ducha de emergencia, ni forma de aislar un bulto.",
             claves: ["Equipo de respuesta de emergencia", "Extintor de mano", "Procedimiento del explotador"],
-            ref: "LAR 175.620 (d)",
           },
         ],
       },
@@ -331,7 +319,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Una caja de mercancía peligrosa lista para volar, sola y centrada, con sus marcas y etiquetas a la vista: número ONU, etiqueta de clase y flechas de orientación. Sin texto dibujado encima: el nombre y las definiciones ya van en la ficha.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a)",
               texto: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte.",
             },
             puntos: ["Una caja lista para volar: el embalaje y lo que lleva dentro.", "Es la unidad que cuenta el NOTOC. Cuando ves «3 bultos», son tres de estos."],
@@ -345,7 +332,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Un embalaje abierto y sin la mercancía: la caja exterior con sus materiales interiores a la vista. Tiene que verse que es solo lo que contiene, sin el contenido.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a)",
               texto: "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
             },
             puntos: [
@@ -362,7 +348,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Varios bultos agrupados en una sola unidad para manipularlos juntos: envueltos en film o dentro de una caja exterior. Tiene que notarse que por dentro son varios.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a)",
               texto: "Embalaje utilizado por un expedidor único que contenga uno o más bultos y constituya una unidad para facilitar su manipulación y estiba.",
               nota: "Nota del reglamento: no se incluyen en esta definición los dispositivos de carga unitarizada.",
             },
@@ -377,7 +362,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Un contenedor de carga aérea o una paleta con red ya cargada, en la rampa o entrando a la bodega. Es el tamaño de arriba: donde van los bultos y los sobre-embalajes.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a) · Dispositivo de carga unitarizada",
               texto: "Toda variedad de contenedor de carga, contenedor de aeronave, paleta de aeronave con red o paleta de aeronave con red sobre un iglú.",
               nota: "Nota del reglamento: no se incluyen en esta definición los sobre-embalajes.",
             },
@@ -392,7 +376,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Primer plano de la marca de un bulto donde se lee con claridad el número ONU, por ejemplo «UN 3480», junto a la denominación. El número tiene que poder leerse a tamaño de ficha.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a) · Número de la ONU",
               texto: "Número de cuatro dígitos asignado por el Comité de expertos en transporte de mercaderías peligrosas, de las Naciones Unidas, que sirve para reconocer las diversas sustancias o determinado grupo de ellas.",
             },
             puntos: ["Cuatro dígitos que identifican la sustancia. UN 1263 es pintura, UN 3480 son baterías de litio sueltas.", "Es lo primero que lees, y lo primero que va a buscar quien atienda una emergencia."],
@@ -407,7 +390,6 @@ export const NIVEL_1: DocScreen[] = [
             },
             tecnica: {
               rotulo: "Lo que exige el reglamento",
-              ref: "LAR 175.410 (a)",
               texto: "La identificación de las mercancías peligrosas deberá ser hecha por medio de un número de la ONU (UN o ID) y por medio de la denominación del artículo expedido, de acuerdo con las Instrucciones Técnicas.",
               nota: "El LAR 175 no la define: exige usarla. Su definición está en las Instrucciones Técnicas (Doc 9284).",
             },
@@ -422,7 +404,6 @@ export const NIVEL_1: DocScreen[] = [
                 "Un grupo de bultos del mismo expedidor, juntos en la zona de aceptación de carga con su documentación. Tiene que leerse como una sola entrega, no como un bulto suelto.",
             },
             tecnica: {
-              ref: "LAR 175.001 (a)",
               texto: "Uno o más bultos de mercancías peligrosas que un explotador acepta de un expedidor de una sola vez y en un mismo sitio recibidos en un lote y despachados a un mismo consignatario y dirección.",
             },
             puntos: ["Uno o más bultos que el explotador acepta de un expedidor de una vez y para un mismo destinatario.", "Un envío puede ser un bulto o veinte. Cuenta como una sola aceptación."],
@@ -505,7 +486,6 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Ver el texto de los tres permisos",
-        cita: "LAR 175.001 (a) y 175.020",
         bloques: [
           {
             kind: "kv",
@@ -526,7 +506,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "El bulto es la unidad: el embalaje y su contenido. El sobre-embalaje son varios bultos de un mismo expedidor agrupados para manipularlos juntos. El ULD es el contenedor o la paleta con red de la aeronave, y no cuenta como sobre-embalaje. En el NOTOC el bulto me dice cuánto hay y el ULD dónde está.",
             claves: ["Bulto = unidad", "Sobre-embalaje = varios bultos, un expedidor", "ULD = contenedor o paleta"],
-            ref: "LAR 175.001 (a)",
           },
           {
             nivel: "interpretacion",
@@ -534,7 +513,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "La aprobación existe cuando las Instrucciones Técnicas ya previeron que ese caso puede ir con aprobación. La dispensa es la salida cuando no lo previeron: procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público, y siempre con un nivel de seguridad equivalente. Las dos las da la autoridad, no el explotador: él las pide.",
             claves: ["La norma lo previó = aprobación", "No lo previó = dispensa", "La da la autoridad"],
-            ref: "LAR 175.020 (d) y (e)",
           },
           {
             nivel: "situacion",
@@ -542,7 +520,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "No cambia nada. Es COMAT, y si está clasificado como mercancía peligrosa es COMAT peligroso: cumple las mismas reglas de clasificación, embalaje, marcado y documentación que cualquier envío de un tercero. De hecho es la trampa clásica, y es exactamente lo que falló en ValuJet 592.",
             claves: ["COMAT peligroso", "No exime de nada", "ValuJet 592"],
-            ref: "LAR 175.001 (a) y 175.020 (b)",
           },
         ],
       },
@@ -605,7 +582,6 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Ver las obligaciones completas de cada actor",
-        cita: "LAR 175.215 a 175.225",
         bloques: [
           {
             kind: "fichas",
@@ -613,7 +589,6 @@ export const NIVEL_1: DocScreen[] = [
             items: [
               {
                 titulo: "Expedidor",
-                ref: "LAR 175.215 y 175.410",
                 puntos: [
                   "Identifica exactamente las mercancías peligrosas que ofrece.",
                   "Es el responsable de la identificación y la clasificación.",
@@ -624,7 +599,6 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "Explotador",
-                ref: "LAR 175.220",
                 puntos: [
                   "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs (LAR 175.020 (a)).",
                   "Su manual de operaciones dice si acepta o rechaza carga con mercancías peligrosas.",
@@ -636,7 +610,6 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "Operador de terminal de carga",
-                ref: "LAR 175.225",
                 puntos: [
                   "Área especial de almacenamiento con acceso libre para los vehículos de salvamento y extinción.",
                   "Cuadros de etiquetas y tabla de segregación visibles y actualizados.",
@@ -646,7 +619,6 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "Operador de aeródromo",
-                ref: "LAR 175.005 (a) (6)",
                 nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional. En Colombia, el RAC 175.227 y 175.228.",
                 puntos: [
                   "Programa de manejo de mercancías peligrosas del aeródromo.",
@@ -657,7 +629,6 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "La AAC (tu autoridad)",
-                ref: "LAR 175.020 y 175.025",
                 nota: "En Colombia, la UAEAC (Aerocivil), por el RAC 175.035 y 175.230.",
                 puntos: [
                   "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el reglamento nacional.",
@@ -668,7 +639,6 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "Tripulación de vuelo",
-                ref: "LAR 175.515, 175.620 y Capítulo D",
                 puntos: [
                   "Recibe por escrito la información de mercancías peligrosas antes de la salida.",
                   "El piloto al mando la firma antes de que se transporten.",
@@ -683,8 +653,6 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "norma",
-        ref: "LAR 175.205 (c)",
-        rac: "RAC 175.205 (c)",
         titulo: "Quien actúa en nombre de otro responde igual",
         texto:
           "Si alguien realiza alguna función prevista en este Reglamento en nombre de quien entrega mercancías peligrosas para transportar por vía aérea, en nombre del explotador o en nombre del operador de terminal de carga, tendrá que realizarla necesariamente de conformidad con las condiciones previstas en este Reglamento y en las Instrucciones Técnicas.",
@@ -717,7 +685,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "Recibir por escrito y lo antes posible antes de la salida la información de las mercancías peligrosas a bordo, firmarla antes de que se transporten, tenerla al alcance durante todo el vuelo y conocer los procedimientos de emergencia. Y, si se presenta una situación en vuelo, informar a la dependencia de tránsito aéreo para que se avise en tierra.",
             claves: ["Recibir por escrito antes de la salida", "Firmar", "Tenerla al alcance en vuelo", "Informar a ATC"],
-            ref: "LAR 175.515 y 175.620",
           },
           {
             nivel: "interpretacion",
@@ -725,7 +692,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "La clasificación no es suya y no puede verificarla desde la cabina: eso corresponde al expedidor y a la aceptación. Lo que sí le corresponde es no volar sin la información escrita, conocerla, y actuar si algo en ella no cuadra. La responsabilidad del comandante está en el eslabón de información, no en el de clasificación.",
             claves: ["El expedidor clasifica", "El comandante recibe y conoce la información", "Actuar si algo no cuadra"],
-            ref: "LAR 175.215 y 175.515",
           },
           {
             nivel: "situacion",
@@ -733,7 +699,6 @@ export const NIVEL_1: DocScreen[] = [
             respuesta:
               "No salgo así. La norma exige que el explotador se la proporcione al piloto al mando por escrito y lo antes posible antes de la salida, y que la firme antes de que las mercancías se transporten. Sin ese documento no tengo qué hay, cuánto ni dónde, que es justo lo que necesitaría si algo pasa en vuelo. Lo pido y, si no aparece, se resuelve antes de mover el avión.",
             claves: ["Por escrito antes de la salida", "Firmada por el piloto al mando", "Sin ella no hay qué, cuánto ni dónde"],
-            ref: "LAR 175.515 (a)",
           },
         ],
       },
@@ -743,7 +708,6 @@ export const NIVEL_1: DocScreen[] = [
         preguntas: [
           {
             q: "Un explotador vuela solo rutas nacionales dentro de su país. ¿Le aplica el Doc 9284 de la OACI?",
-            ref: "LAR 175.005 (b)",
             opciones: [
               {
                 t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
@@ -762,7 +726,6 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "Una caja marcada «vacía» contiene generadores de oxígeno sin gastar. ¿Es mercancía peligrosa?",
-            ref: "LAR 175.001 (a)",
             opciones: [
               {
                 t: "No, porque el manifiesto dice que está vacía.",
@@ -781,7 +744,6 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "¿Por qué el reglamento exige que los embalajes resistan cambios de presión, y no solo golpes?",
-            ref: "LAR 175.420 (c) y (f)",
             opciones: [
               {
                 t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
@@ -800,7 +762,6 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "¿Quién es responsable de la identificación y clasificación de una mercancía peligrosa?",
-            ref: "LAR 175.410, 175.415 y 175.510",
             opciones: [
               {
                 t: "El expedidor.",
@@ -819,7 +780,6 @@ export const NIVEL_1: DocScreen[] = [
           },
           {
             q: "Un agente acreditado del explotador incumple un procedimiento de aceptación. ¿De quién es el problema?",
-            ref: "LAR 175.205 (c) y 175.220",
             opciones: [
               {
                 t: "Solo del agente: es una empresa independiente.",

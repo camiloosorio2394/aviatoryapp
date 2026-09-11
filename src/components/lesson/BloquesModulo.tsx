@@ -96,7 +96,7 @@ export function Norma({ block }: { block: NormaBlock }) {
     >
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5">
         {block.oaci && <Cita icono={Globe2} origen="OACI" texto={block.oaci} />}
-        <Cita icono={BookMarked} origen="SRVSOP" texto={block.ref} fuerte />
+        {block.ref && <Cita icono={BookMarked} origen="SRVSOP" texto={block.ref} fuerte />}
         {block.rac && <Cita icono={MapPin} origen="Colombia" texto={block.rac} tenue />}
         <span className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
           {NATURALEZA[nat]}
@@ -231,12 +231,14 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
           </blockquote>
         )}
 
-        <div
-          className="mono mt-4 border-t pt-3 text-[11px] leading-[1.5] doc-muted"
-          style={{ borderColor: "var(--doc-border)" }}
-        >
-          Fuente: {block.fuente}
-        </div>
+        {block.fuente && (
+          <div
+            className="mono mt-4 border-t pt-3 text-[11px] leading-[1.5] doc-muted"
+            style={{ borderColor: "var(--doc-border)" }}
+          >
+            Fuente: {block.fuente}
+          </div>
+        )}
       </div>
     </section>
   )
@@ -545,7 +547,7 @@ function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
           <div className="mt-3.5">
             <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
               {item.tecnica.rotulo ?? "Definición técnica"}
-              <span className="font-normal doc-muted"> · {item.tecnica.ref}</span>
+              {item.tecnica.ref && <span className="font-normal doc-muted"> · {item.tecnica.ref}</span>}
             </div>
             <p
               className="m-0 mt-1.5 border-l-2 pl-3 text-[14px] leading-[1.55]"

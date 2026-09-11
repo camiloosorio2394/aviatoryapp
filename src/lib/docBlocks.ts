@@ -62,7 +62,7 @@ export interface NormaBlock {
    * La cita que manda: el LAR 175 del SRVSOP, que es la norma regional.
    * "LAR 175.715 (a)".
    */
-  ref: string
+  ref?: string
   /**
    * De dónde sale la regla en la OACI: "Anexo 18" o la Parte o Tabla de las
    * Instrucciones Técnicas que la norma regional nombra ("Tabla 8-1").
@@ -105,7 +105,7 @@ export interface CasoRealBlock {
   leccion: string
   /** Frase textual del informe, si aporta. */
   cita?: { texto: string; de: string }
-  fuente: string
+  fuente?: string
   hueco?: { id: string; medida: string; descripcion: string }
   /** La foto, cuando ya existe. Sustituye al hueco. */
   imagen?: { src: string; alt: string }
@@ -190,7 +190,7 @@ export interface FichasBlock {
      * `rotulo` existe para cuando el texto no es una definición: el LAR usa
      * términos que no define, y eso tiene que decirse, no disimularse.
      */
-    tecnica?: { texto: string; ref: string; rotulo?: string; nota?: string }
+    tecnica?: { texto: string; ref?: string; rotulo?: string; nota?: string }
   }[]
 }
 
