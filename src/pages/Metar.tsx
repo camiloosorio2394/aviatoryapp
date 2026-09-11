@@ -16,8 +16,7 @@ import {
   resumirMetar,
 } from "@/lib/metar"
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
-import { METAR_EXAMPLES } from "@/lib/metar"
-import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
+import { METAR_EXAMPLES, METAR_LECCION } from "@/lib/metar"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
 import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
 import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
@@ -106,7 +105,7 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/aprende",
       icon: BookOpen,
       color: "var(--av-mt-700)",
-      meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
+      meta: `${METAR_LECCION.secciones} secciones de lectura`,
       title: "1. Aprende",
       blurb:
         "De la atmósfera al informe: por qué se mueve el aire, qué nube tienes delante, qué hace un frente cuando lo cruzas, y después el METAR y el TAF grupo por grupo.",
@@ -117,11 +116,11 @@ export function Metar() {
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
-          : resumen.lessonRead >= METAR_LESSON_TOTAL
+          : resumen.lessonRead >= METAR_LECCION.secciones
             ? "Lección completa"
-            : `${resumen.lessonRead} de ${METAR_LESSON_TOTAL} secciones leídas`,
+            : `${resumen.lessonRead} de ${METAR_LECCION.secciones} secciones leídas`,
       progress: resumen.lessonPct,
-      done: resumen.lessonRead >= METAR_LESSON_TOTAL,
+      done: resumen.lessonRead >= METAR_LECCION.secciones,
     },
     {
       to: "/app/aerolinea/meteorologia/decodificador",
@@ -331,7 +330,7 @@ export function Metar() {
                 <FilaAvance
                   titulo="Lección"
                   to="/app/aerolinea/meteorologia/aprende"
-                  valor={`${resumen.lessonRead} / ${METAR_LESSON_TOTAL}`}
+                  valor={`${resumen.lessonRead} / ${METAR_LECCION.secciones}`}
                   pct={resumen.lessonPct}
                   /* El petróleo del módulo no se ve sobre este cristal: aquí va
                      su claro calibrado, igual que NOTAM usa el suyo. */

@@ -16,8 +16,9 @@ import {
   MP_PRACTICA_TOTAL,
   MP_TITULO,
   resumirMercancias,
+  MP_LECTURA_MINUTOS,
+  MP_NIVELES,
 } from "@/lib/mercancias"
-import { MP_MINUTOS, MP_NIVELES } from "@/lib/mercanciasLeccion"
 import {
   fetchMercanciasProgress,
   pushPendingMercancias,
@@ -77,7 +78,7 @@ export function Mercancias() {
       photoAspect: "5/2" as const,
       icon: BookOpen,
       color: "var(--av-dg-700)",
-      meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_NIVELES.length} niveles · ${MP_MINUTOS} min`,
+      meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_NIVELES.length} niveles · ${MP_LECTURA_MINUTOS} min`,
       title: "1. Aprende",
       blurb:
         "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Y al cierre de cada nivel, la entrevista de aerolínea.",

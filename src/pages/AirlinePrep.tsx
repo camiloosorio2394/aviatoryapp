@@ -22,17 +22,21 @@ import {
   NOTAM_TOTALES,
 } from "@/lib/notamComun"
 import { fetchNotamProgress } from "@/lib/notamProgress"
-import { METAR_PRACTICE_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
+import { METAR_PRACTICE_TOTAL, readMetarProgress, resumirMetar, METAR_LECCION } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
-import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import {
   AIRLINE_MOCK_PASS_SCORE,
   BANCO_TOTAL,
   fetchMejorPuntajeSimulacro,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { MP_HUB, MP_LECTURA_TOTAL, MP_PRACTICA_TOTAL, resumirMercancias } from "@/lib/mercancias"
-import { MP_MINUTOS } from "@/lib/mercanciasLeccion"
+import {
+  MP_HUB,
+  MP_LECTURA_TOTAL,
+  MP_PRACTICA_TOTAL,
+  resumirMercancias,
+  MP_LECTURA_MINUTOS,
+} from "@/lib/mercancias"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -264,7 +268,7 @@ export function AirlinePrep() {
           icon: CloudSun,
           color: "var(--av-mt-700)",
           titulo: "Meteorología operacional",
-          meta: `${METAR_LESSON_TOTAL} secciones · ${METAR_LESSON_MINUTES} min`,
+          meta: `${METAR_LECCION.secciones} secciones · ${METAR_LECCION.minutos} min`,
           // Lo que se aprende, en el orden en que se lee.
           descripcion:
             "Del cielo al informe: nubes, frentes, METAR y TAF.",
@@ -273,10 +277,10 @@ export function AirlinePrep() {
           avance: metar.overall,
           completo: metar.overall >= 100,
           estado: metar.empty
-            ? `Sin empezar · ${METAR_LESSON_TOTAL} secciones`
+            ? `Sin empezar · ${METAR_LECCION.secciones} secciones`
             : metar.overall >= 100
               ? "Tema completo"
-              : `${metar.lessonRead}/${METAR_LESSON_TOTAL} secciones · ${metar.practiceDone}/${METAR_PRACTICE_TOTAL} informes`,
+              : `${metar.lessonRead}/${METAR_LECCION.secciones} secciones · ${metar.practiceDone}/${METAR_PRACTICE_TOTAL} informes`,
         },
       },
       {
@@ -288,7 +292,7 @@ export function AirlinePrep() {
           icon: AlertTriangle,
           color: "var(--av-dg-700)",
           titulo: "Mercancías peligrosas",
-          meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_MINUTOS} min`,
+          meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
           // La portada del propio módulo, la misma que ve en su hub. Vive en
           // public y no en assets porque así queda fuera del precache.

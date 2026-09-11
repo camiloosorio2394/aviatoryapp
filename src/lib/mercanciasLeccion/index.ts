@@ -19,20 +19,11 @@
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
-import type { LectorNivel } from "@/components/lesson/LectorLeccion"
 import { NIVEL_1 } from "./nivel1"
 import { NIVEL_2 } from "./nivel2"
 import { NIVEL_3 } from "./nivel3"
 import { NIVEL_4 } from "./nivel4"
 import { NIVEL_5 } from "./nivel5"
-
-export const MP_NIVELES: LectorNivel[] = [
-  { titulo: "Nivel 1 · Introducción", desde: 1 },
-  { titulo: "Nivel 2 · Identificación", desde: 5 },
-  { titulo: "Nivel 3 · Transporte aéreo", desde: 9 },
-  { titulo: "Nivel 4 · Situaciones del piloto", desde: 13 },
-  { titulo: "Nivel 5 · Casos reales y repaso", desde: 17 },
-]
 
 export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4, ...NIVEL_5]
 
