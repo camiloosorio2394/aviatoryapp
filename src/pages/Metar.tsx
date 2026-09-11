@@ -309,7 +309,7 @@ export function Metar() {
                       aria-label="Avance del módulo Meteorología"
                     >
                       <div
-                        className="h-full rounded-sm transition-all"
+                        className="h-full rounded-sm transition-[width]"
                         style={{ width: `${resumen.overall}%`, background: "var(--av-mt-500)" }}
                       />
                     </div>
@@ -418,7 +418,7 @@ function FilaAvance({
         aria-label={`Avance de ${titulo}`}
       >
         <div
-          className="h-full rounded-sm transition-all"
+          className="h-full rounded-sm transition-[width]"
           style={{ width: `${pct}%`, background: color }}
         />
       </div>

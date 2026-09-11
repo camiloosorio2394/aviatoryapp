@@ -319,7 +319,7 @@ export function Login() {
                 type="button"
                 variant="outline"
                 size="lg"
-                className="w-full h-12 rounded-full text-[15px] font-medium border-2 hover:border-blue-500/40 transition-all hover:-translate-y-0.5"
+                className="w-full h-12 rounded-full text-[15px] font-medium border-2 hover:border-blue-500/40 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
                 onClick={handleGoogle}
               >
                 <GoogleIcon className="h-5 w-5" />

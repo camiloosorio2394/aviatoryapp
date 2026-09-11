@@ -1,0 +1,283 @@
+<template>
+  <style>
+    /* ── Fonts (declared inside the template — the runtime clones only this) ── */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2) format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 500;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ── Frame root: styled by #root, never by a class ── */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "Archivo", system-ui, sans-serif;
+      color: #16191d;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* contract selector — the shared clip box */
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── background: warm paper, full-bleed, its own full-duration clip layer ── */
+    .f04-paper {
+      background-color: #fbfaf8;
+    }
+
+    /* ── camera (macro push-in runs underneath the whole shot) ── */
+    .f04-camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: 50% 50%;
+    }
+
+    .f04-frame {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── section-rule: the ink hairline that seats the composition in the frame width ── */
+    .f04-rule-top {
+      position: absolute;
+      top: 5cqw;
+      left: 4.2cqw;
+      width: 91.6cqw;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: left center;
+    }
+
+    /* ── la rejilla 3×3 — nueve celdas cuadradas sobre papel ── */
+    .f04-grid {
+      position: absolute;
+      top: 6.7708cqw;
+      left: 32.3958cqw;
+      width: 35.2083cqw;
+      height: 35.2083cqw;
+      display: grid;
+      grid-template-columns: repeat(3, 10.8333cqw);
+      grid-template-rows: repeat(3, 10.8333cqw);
+      gap: 1.3542cqw;
+    }
+
+    .f04-cell {
+      position: relative;
+      width: 10.8333cqw;
+      height: 10.8333cqw;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* arrival edge — lifts on landing, settles back to the resting hairline */
+    .f04-edge {
+      position: absolute;
+      inset: -1px;
+      border: 1px solid rgba(22, 25, 29, 0.24);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .f04-cifra {
+      font-family: "Archivo", system-ui, sans-serif;
+      font-size: 5.4cqw;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: -0.022em;
+      color: #16191d;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ── los dos rótulos mono, debajo de la rejilla ── */
+    .f04-rotulos {
+      position: absolute;
+      top: 43.4375cqw;
+      left: 32.3958cqw;
+      width: 35.2083cqw;
+      height: 1.7cqw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.05cqw;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 1.46cqw;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .f04-rotulo {
+      color: rgba(22, 25, 29, 0.72);
+    }
+
+    .f04-punto {
+      color: rgba(22, 25, 29, 0.42);
+      letter-spacing: 0;
+    }
+
+    /* ── el único momento de voltaje: la hairline mostaza que subraya los rótulos ── */
+    .f04-rule-acento {
+      position: absolute;
+      top: 45.9375cqw;
+      left: 32.3958cqw;
+      width: 35.2083cqw;
+      height: 1px;
+      background-color: #7a5c12;
+      transform-origin: left center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-identificar" data-width="1920" data-height="1080">
+    <!-- background: full-bleed warm paper on its own full-duration clip layer -->
+    <div id="f04-paper" class="clip f04-paper" data-start="0" data-duration="7.339" data-track-index="0"></div>
+
+    <div id="f04-stage" class="clip" data-start="0" data-duration="7.339" data-track-index="1">
+      <div class="f04-camera">
+        <div class="f04-frame">
+          <div class="f04-rule-top"></div>
+
+          <div class="f04-grid">
+            <div class="f04-cell"><span class="f04-cifra">1</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">2</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">3</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">4</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">5</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">6</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">7</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">8</span><span class="f04-edge"></span></div>
+            <div class="f04-cell"><span class="f04-cifra">9</span><span class="f04-edge"></span></div>
+          </div>
+
+          <div class="f04-rotulos">
+            <span class="f04-rotulo" id="f04-rotulo-a">Etiquetas</span>
+            <span class="f04-punto" id="f04-punto">&#183;</span>
+            <span class="f04-rotulo" id="f04-rotulo-b">Grupos de embalaje</span>
+          </div>
+
+          <div class="f04-rule-acento"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var scope = document.querySelector('[data-composition-id="04-identificar"]');
+      if (!scope) return;
+
+      var q = function (sel) {
+        return scope.querySelector(sel);
+      };
+      var qa = function (sel) {
+        return Array.prototype.slice.call(scope.querySelectorAll(sel));
+      };
+
+      /* Tiempos reales de audio_meta.json → voices[] con frame: 4
+         voz = 6.139s ("Vas a reconocer las nueve clases, sus etiquetas y sus grupos de embalaje.")
+         + 1.2s de remanso en quietud = 7.339s */
+      var DUR = 7.339;
+      var VOZ = 6.139;
+
+      var celdas = qa(".f04-cell");
+      var edges = qa(".f04-edge");
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* macro camera: un push lentísimo que decelera hasta pararse con la voz */
+      tl.fromTo(q(".f04-camera"), { scale: 1 }, { scale: 1.012, duration: VOZ, ease: "power1.out" }, 0);
+
+      /* ── Escena 1 — «Vas a reconocer las nueve clases» (w2 0.68 · w4 1.62 · w5 2.02–2.58)
+         grid-card-assemble: cada celda entra desde abajo, recorrido corto, directo a su casilla,
+         en orden del 1 al 9. El gesto de la escena es el ensamblado. ── */
+      tl.fromTo(q(".f04-rule-top"), { scaleX: 0 }, { scaleX: 1, duration: 0.68, ease: "power2.out" }, 0.02);
+
+      var T0 = 0.26;
+      var PASO = 0.16;
+      tl.fromTo(
+        celdas,
+        { opacity: 0, y: 34, scale: 0.984 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", stagger: PASO },
+        T0
+      );
+      tl.fromTo(
+        edges,
+        { opacity: 1 },
+        { opacity: 0, duration: 0.62, ease: "power2.out", stagger: PASO },
+        T0 + 0.16
+      );
+
+      /* ── Escena 2 — las nueve quedan; entran los dos rótulos mono
+         «sus etiquetas» (w7 3.339) · «y» (w8 4.199) · «sus grupos de embalaje» (w10 4.619)
+         El gesto de la escena es el barrido de máscara sobre cada rótulo. ── */
+      tl.fromTo(
+        q("#f04-rotulo-a"),
+        { clipPath: "inset(0% 100% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.out" },
+        3.26
+      );
+      tl.fromTo(q("#f04-punto"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 4.22);
+      tl.fromTo(
+        q("#f04-rotulo-b"),
+        { clipPath: "inset(0% 100% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.62, ease: "power2.out" },
+        4.54
+      );
+
+      /* ── Escena 3 — «embalaje» (w12 5.139–5.819): la hairline mostaza subraya la fila
+         de rótulos y ahí se declara la quietud. El gesto de la escena es el trazo. ── */
+      tl.fromTo(q(".f04-rule-acento"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.out" }, 5.6);
+
+      /* Remanso — 6.139s → 7.339s: nada se mueve, ni la cámara. Sostiene el timeline hasta DUR. */
+      tl.fromTo(
+        q(".f04-camera"),
+        { scale: 1.012 },
+        { scale: 1.012, duration: DUR - VOZ, ease: "none" },
+        VOZ
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-identificar"] = tl;
+    })();
+  </script>
+</template>

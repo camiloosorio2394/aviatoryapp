@@ -94,7 +94,7 @@ export function Contact() {
                     href={c.href}
                     target={c.href.startsWith("http") ? "_blank" : undefined}
                     rel={c.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="group flex items-start gap-4 rounded-2xl border border-border/60 bg-card p-5 transition-all hover:border-blue-500/30 hover:shadow-md hover:-translate-y-0.5"
+                    className="group flex items-start gap-4 rounded-2xl border border-border/60 bg-card p-5 transition-[transform,box-shadow,border-color,background-color] hover:border-blue-500/30 hover:shadow-md hover:-translate-y-0.5"
                   >
                     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 dark:bg-blue-950/40">
                       <c.icon className="h-5 w-5 text-blue-600 dark:text-blue-400" />

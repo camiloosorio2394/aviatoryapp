@@ -252,7 +252,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   return (
     <Link
       to={`/app/examenes/${intel.subject_slug}`}
-      className="group block rounded-2xl surface p-5 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
       }}
@@ -517,7 +517,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <button
                   type="button"
                   onClick={() => setPassed("yes")}
-                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-[color,background-color,border-color,box-shadow] ${
                     passed === "yes"
                       ? "text-white"
                       : "border-border bg-card hover:border-foreground/30"
@@ -533,7 +533,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <button
                   type="button"
                   onClick={() => setPassed("no")}
-                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-[color,background-color,border-color,box-shadow] ${
                     passed === "no" ? "text-white" : "border-border bg-card hover:border-foreground/30"
                   }`}
                   style={passed === "no" ? {
@@ -569,7 +569,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                       key={n}
                       type="button"
                       onClick={() => setDifficulty(n)}
-                      className={`tabular-nums flex-1 h-11 rounded-xl border font-semibold transition-all ${
+                      className={`tabular-nums flex-1 h-11 rounded-xl border font-semibold transition-[color,background-color,border-color,box-shadow] ${
                         difficulty === n ? "text-white" : "border-border bg-card hover:border-foreground/30"
                       }`}
                       style={difficulty === n ? {
@@ -598,7 +598,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                         key={t.id}
                         type="button"
                         onClick={() => toggleTopic(t.id)}
-                        className={`rounded-xl border p-3 text-left text-[15px] transition-all ${
+                        className={`rounded-xl border p-3 text-left text-[15px] transition-[color,background-color,border-color,box-shadow] ${
                           active ? "" : "border-border bg-card hover:border-foreground/30"
                         }`}
                         style={active ? {
