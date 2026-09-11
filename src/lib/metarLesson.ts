@@ -65,11 +65,12 @@ const CODIGO: DocScreen[] = [
           "El `SPECI` es un informe **especial**, fuera de horario. Se emite justo porque la condición cambió fuerte antes de la observación siguiente. Si ves uno, mira qué grupo se movió: alguien decidió que no podía esperar.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-POR-01 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
-        descripcion:
-          "Cabina en preparación de vuelo con el informe meteorológico a la vista, o una estación meteorológica automática de aeródromo con la pista al fondo. Es la portada conceptual del módulo: de dónde sale el dato y dónde se usa.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-por-01-preparacion-vuelo.webp",
+        alt: "Piloto en cabina durante la preparación del vuelo, con la carta aeronáutica desplegada sobre las piernas, una tablilla con el plan y el teléfono encima.",
+        ancho: 1600,
+        alto: 900,
+        pie: "El dato meteorológico se consulta aquí, antes de soltar frenos: no es teoría, es parte del briefing.",
       },
       {
         kind: "enLaOperacion",
@@ -321,11 +322,12 @@ const CODIGO: DocScreen[] = [
           "El RVR es el alcance visual medido **en esa pista**, y cuando difiere de la visibilidad general es el que manda para la aproximación. Por eso un aeródromo con niebla puede seguir operando: la visibilidad general está peor que lo que se ve desde la senda.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-IMG-02 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
-        descripcion:
-          "Cabecera de pista con niebla, donde se vean las luces de aproximación perdiéndose a media distancia. Es la imagen que hace tangible el RVR: se ve exactamente hasta dónde llega la vista y dónde deja de llegar. Mejor desde el punto de vista del piloto que desde el lateral.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-img-02-pista-baja-visibilidad.webp",
+        alt: "Cabecera de pista en baja visibilidad, con las barras rojas de umbral y las luces de aproximación perdiéndose en la bruma, y una aeronave en la toma.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Esto es el RVR hecho imagen: se ve exactamente hasta dónde llega la vista, y dónde deja de llegar.",
       },
       {
         kind: "entrevista",
@@ -598,11 +600,12 @@ const CODIGO: DocScreen[] = [
         alto: 320,
       },
       {
-        kind: "hueco",
-        rotulo: "MT-IMG-01 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
-        descripcion:
-          "Un cumulonimbo maduro con yunque bien definido, fotografiado desde el aire a distancia segura. Es la nube que más decisiones cambia y el módulo la nombra sin enseñarla nunca. Si consigues una desde cabina, mejor: la escala se entiende sola.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-img-01-cumulonimbo-desde-el-aire.webp",
+        alt: "Cumulonimbo maduro visto desde altitud de crucero, con el yunque extendiéndose por encima de las torres convectivas.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Desde crucero, el yunque se ve extendido por encima de todo lo demás. La escala se entiende sola.",
       },
       {
         kind: "piensaComoPiloto",
