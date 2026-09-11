@@ -1,0 +1,239 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Brand faces ──────────────────────────────────────────────────────────
+       Las tipografías sí están en el proyecto (assets/fonts/, copiadas del video
+       de NOTAM), así que se declaran locales y no se pide nada a la red: el
+       render sale igual sin conexión y sin primer fetch a Google Fonts.
+       Todo el texto del video está en Latin-1, así que basta la cara latina.
+       font-display:block para que el renderer nunca capture una cara de
+       reemplazo.                                                                */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    /* El root del frame se estiliza por #root (nunca con una clase en el
+       elemento del composition-id) y NO lleva fondo: el campo navy a sangre es
+       su propia capa class="clip" de duración completa, abajo. */
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      /* átomos de frame.md */
+      --mt-navy: #14202e;
+      --mt-cream: #fbfaf8;
+      /* el acento del módulo (#0D4B52, --av-mt-700) no se ve sobre navy: 1,7:1.
+         Sobre navy va el mismo matiz a más luminosidad (#49939C, --av-mt-500),
+         que da 4,7:1. UN solo momento de acento. */
+      --mt-accent: #49939c;
+    }
+
+    /* ── background: campo navy + retícula hairline, 3 capas de profundidad ──── */
+    .mt01-bg {
+      position: absolute;
+      inset: 0;
+      background-color: var(--mt-navy);
+    }
+    .mt01-depth {
+      position: absolute;
+      inset: 0;
+    }
+    .mt01-grid-fine {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px);
+    }
+    .mt01-grid-coarse {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px);
+    }
+    .mt01-pool {
+      background-image:
+        radial-gradient(78% 62% at 50% 44%, rgba(251, 250, 248, 0.055) 0%, rgba(251, 250, 248, 0) 68%),
+        radial-gradient(122% 100% at 50% 50%, rgba(9, 14, 21, 0) 42%, rgba(9, 14, 21, 0.62) 100%);
+    }
+
+    /* ── stage: todo el contenido por encima de y=900 (banda de subtítulos) ──── */
+    .mt01-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 200px;
+    }
+
+    /* rótulo mono (supporting) */
+    .mt01-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.95em;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 1.6cqw;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.66);
+      white-space: nowrap;
+    }
+    .mt01-tick {
+      display: block;
+      width: 3.4cqw;
+      height: 1px;
+      background: rgba(251, 250, 248, 0.24);
+      flex: none;
+    }
+    .mt01-kw {
+      display: inline-block;
+    }
+
+    /* METEOROLOGÍA (foreground subject) + la hairline de acento.
+       Doce letras contra las cinco de NOTAM: la rampa baja de 15cqw a 8.6cqw
+       para que la palabra quepa en ~72cqw sin romper la medida de frame.md. */
+    .mt01-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: fit-content;
+      margin-top: 90px;
+    }
+    /* máscara de entrada: las letras suben desde debajo de la línea base.
+       El padding/margen superior deja aire para el halo del desenfoque. */
+    .mt01-mask {
+      overflow: hidden;
+      padding-top: 48px;
+      margin-top: -48px;
+    }
+    .mt01-word {
+      display: block;
+      text-align: center;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 8.6cqw;
+      line-height: 1.04;
+      letter-spacing: -0.022em;
+      color: var(--mt-cream);
+      white-space: nowrap;
+    }
+    .mt01-ltr {
+      --dof: 0px;
+      display: inline-block;
+      filter: blur(var(--dof));
+      will-change: filter, transform, opacity;
+    }
+    .mt01-rule {
+      height: 1px;
+      margin-top: 34px;
+      background: var(--mt-accent);
+      transform-origin: left center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.783" data-width="1920" data-height="1080">
+    <!-- fondo a sangre: capa propia con class="clip", duración completa -->
+    <div id="mt01-fondo-navy" class="clip mt01-bg" data-start="0" data-duration="5.783" data-track-index="0">
+      <div class="mt01-depth mt01-pool"></div>
+      <div class="mt01-depth mt01-grid-coarse"></div>
+      <div class="mt01-depth mt01-grid-fine"></div>
+    </div>
+
+    <div id="mt01-escena" class="clip mt01-stage" data-start="0" data-duration="5.783" data-track-index="1">
+      <div class="mt01-kicker">
+        <span class="mt01-tick"></span>
+        <span class="mt01-kw">INGRESO</span>
+        <span class="mt01-kw">A</span>
+        <span class="mt01-kw">AEROLÍNEA</span>
+        <span class="mt01-kw">·</span>
+        <span class="mt01-kw">MÓDULO</span>
+        <span class="mt01-kw">3</span>
+      </div>
+
+      <div class="mt01-lockup">
+        <div class="mt01-mask">
+          <span class="mt01-word"><span class="mt01-ltr">M</span><span class="mt01-ltr">E</span><span class="mt01-ltr">T</span><span class="mt01-ltr">E</span><span class="mt01-ltr">O</span><span class="mt01-ltr">R</span><span class="mt01-ltr">O</span><span class="mt01-ltr">L</span><span class="mt01-ltr">O</span><span class="mt01-ltr">G</span><span class="mt01-ltr">Í</span><span class="mt01-ltr">A</span></span>
+        </div>
+        <div class="mt01-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "01-apertura";
+      var root = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!root) return;
+      var q = function (s) {
+        return root.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(root.querySelectorAll(s));
+      };
+
+      var D = 5.283;
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.0–1.0s) ────────────────────────────────────────────────
+      // El campo navy ya es opaco en t=0 (color de la capa .clip). Las tres capas
+      // de profundidad se asientan: pozo de luz, retícula gruesa, retícula fina.
+      tl.fromTo(q(".mt01-pool"), { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt01-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.06);
+
+      // rótulo mono — revelado por palabra en el tercio superior
+      tl.fromTo(q(".mt01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.12);
+      tl.fromTo(
+        qa(".mt01-kw"),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", stagger: 0.075 },
+        0.18,
+      );
+
+      // ── Scene 2 (~0.95–2.4s) ──────────────────────────────────────────────
+      // METEOROLOGÍA entra desde abajo tras la máscara y se resuelve desde el
+      // desenfoque (se tensa la variable --dof, que lee filter: blur()).
+      // Escalonado por letra, curva larga. El escalón es más corto que en NOTAM
+      // porque son doce letras y no cinco: el barrido tiene que durar lo mismo.
+      tl.fromTo(
+        qa(".mt01-ltr"),
+        { yPercent: 100, opacity: 0, "--dof": "22px" },
+        {
+          yPercent: 0,
+          opacity: 1,
+          "--dof": "0px",
+          duration: 1.02,
+          ease: "power3.out",
+          stagger: 0.032,
+        },
+        0.95,
+      );
+
+      // ── Scene 3 (2.4–3.8s) ────────────────────────────────────────────────
+      // La hairline de acento se dibuja bajo la palabra de izquierda a derecha y
+      // queda. Después, quietud: lectura sostenida, sin deriva de cámara y sin
+      // salida (la transición de raíz es la salida).
+      tl.fromTo(q(".mt01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 2.4);
+
+      // ancla de duración completa
+      tl.to({}, { duration: D }, 0);
+
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

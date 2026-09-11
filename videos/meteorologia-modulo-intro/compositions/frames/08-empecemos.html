@@ -1,0 +1,193 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      --mt-navy: #14202e;
+      --mt-cream: #fbfaf8;
+      --mt-accent: #49939c;
+    }
+
+    .mt08-bg {
+      position: absolute;
+      inset: 0;
+      background-color: var(--mt-navy);
+    }
+    .mt08-depth {
+      position: absolute;
+      inset: 0;
+    }
+    .mt08-grid-fine {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px);
+    }
+    .mt08-grid-coarse {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px);
+    }
+    .mt08-pool {
+      background-image:
+        radial-gradient(78% 62% at 50% 44%, rgba(251, 250, 248, 0.055) 0%, rgba(251, 250, 248, 0) 68%),
+        radial-gradient(122% 100% at 50% 50%, rgba(9, 14, 21, 0) 42%, rgba(9, 14, 21, 0.62) 100%);
+    }
+
+    .mt08-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 200px;
+    }
+
+    /* la marca (foreground subject), resolviéndose desde el desenfoque */
+    .mt08-marca {
+      --dof: 0px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 10.5cqw;
+      line-height: 1.0;
+      letter-spacing: -0.022em;
+      color: var(--mt-cream);
+      white-space: nowrap;
+      filter: blur(var(--dof));
+      will-change: filter, transform, opacity;
+    }
+
+    /* la línea de promesa (supporting), con tracking ancho */
+    .mt08-promesa {
+      display: flex;
+      align-items: center;
+      gap: 0.9em;
+      margin-top: 58px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 1.7cqw;
+      line-height: 1;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.7);
+      white-space: nowrap;
+    }
+    .mt08-pw {
+      display: inline-block;
+    }
+
+    .mt08-rule {
+      width: 34cqw;
+      height: 1px;
+      margin-top: 42px;
+      background: var(--mt-accent);
+      transform-origin: 50% 50%;
+    }
+
+    /* la única salida propia del video: el cuadro cae a negro suave */
+    .mt08-salida {
+      position: absolute;
+      inset: 0;
+      background: #07090c;
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
+
+  <div id="root" data-composition-id="08-empecemos" data-start="0" data-duration="5.533" data-width="1920" data-height="1080">
+    <div id="mt08-fondo-navy" class="clip mt08-bg" data-start="0" data-duration="5.533" data-track-index="0">
+      <div class="mt08-depth mt08-pool"></div>
+      <div class="mt08-depth mt08-grid-coarse"></div>
+      <div class="mt08-depth mt08-grid-fine"></div>
+    </div>
+
+    <div id="mt08-escena" class="clip mt08-stage" data-start="0" data-duration="5.533" data-track-index="1">
+      <div class="mt08-marca">AVIATORY</div>
+      <div class="mt08-promesa">
+        <span class="mt08-pw">30</span>
+        <span class="mt08-pw">LECCIONES</span>
+        <span class="mt08-pw">·</span>
+        <span class="mt08-pw">PRÁCTICA</span>
+        <span class="mt08-pw">·</span>
+        <span class="mt08-pw">EVALUACIÓN</span>
+      </div>
+      <div class="mt08-rule"></div>
+    </div>
+
+    <div id="mt08-salida-a-negro" class="clip mt08-salida" data-start="0" data-duration="5.533" data-track-index="2"></div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "08-empecemos";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(ROOT.querySelectorAll(s));
+      };
+
+      var D = 5.533;
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 4.333s. Re-cuear con
+         audio_engine_meta.json cuando exista la locución. */
+
+      /* ── Escena 1 (0.0–1.2s) ──────────────────────────────────────────────
+         Corte a navy. AVIATORY se resuelve desde el desenfoque y se asienta en
+         el centro. No se construye por partes ni orbita nada: es lo único que
+         va con el tono documental del resto. */
+      tl.fromTo(q(".mt08-pool"), { opacity: 0.4 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt08-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.0, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt08-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.85, ease: "power2.out" }, 0.06);
+      tl.fromTo(
+        q(".mt08-marca"),
+        { opacity: 0, scale: 0.965, "--dof": "20px" },
+        { opacity: 1, scale: 1, "--dof": "0px", duration: 1.15, ease: "power3.out" },
+        0.1,
+      );
+
+      /* ── Escena 2 (1.2–2.8s) ──────────────────────────────────────────────
+         Debajo entra la promesa concreta del módulo, revelada por palabra y
+         cueada a la voz: «Treinta lecciones, práctica y evaluación». */
+      tl.fromTo(
+        qa(".mt08-pw"),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "power3.out", stagger: 0.12 },
+        1.25,
+      );
+
+      /* ── Escena 3 (2.8–4.3s) ──────────────────────────────────────────────
+         La hairline de acento se dibuja bajo la línea desde el centro, se
+         sostiene, y el cuadro cae a negro suave sobre «Empecemos». Es el único
+         plano del video con salida propia. */
+      tl.fromTo(q(".mt08-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.inOut" }, 2.8);
+      tl.to(q(".mt08-salida"), { opacity: 1, duration: 1.0, ease: "power2.in" }, 4.35);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

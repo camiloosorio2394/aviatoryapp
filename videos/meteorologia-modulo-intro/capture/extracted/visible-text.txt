@@ -1,0 +1,59 @@
+MÓDULO METEOROLOGÍA · AVIATORY
+Tema del bloque «Ingreso a aerolínea». Treinta lecciones, práctica y evaluación,
+191 minutos. Módulo 3.
+
+DE QUÉ TRATA
+De la atmósfera en la que vuelas y del código con el que te la cuentan. Las
+primeras diecisiete lecciones explican el fenómeno: por qué se mueve el aire,
+qué le hace la presión al altímetro, cuándo el aire sube solo, de dónde sale una
+niebla y qué pasa al cruzar un frente. Las trece últimas enseñan a leerlo escrito:
+METAR, TAF y los avisos en vuelo.
+
+LAS CUATRO PARTES
+Parte 1 · La atmósfera y el aire en movimiento (lecciones 1 a 5)
+Parte 2 · El agua en el aire (lecciones 6 a 9)
+Parte 3 · Masas de aire, frentes y tormentas (lecciones 10 a 12)
+Parte 4 · Los servicios meteorológicos y el código (lecciones 13 a 30)
+
+LAS TREINTA LECCIONES
+01 La atmósfera en la que vuelas
+02 La presión y lo que le hace a tu altímetro
+03 Por qué se mueve el aire
+04 El viento cerca del suelo
+05 Cizalladura a bajo nivel
+06 Estabilidad: cuándo el aire sube solo
+07 Humedad y punto de rocío
+08 Nubes: reconocer lo que tienes delante
+09 Niebla, techo y visibilidad
+10 Masas de aire y frentes
+11 Cruzar un frente
+12 Tormentas y sus peligros
+13 De dónde sale el dato
+14 El PIREP y el RAREP
+15 Los avisos en vuelo
+16 Pronóstico de área y vientos en altura
+17 Las cartas del tiempo
+18 ¿Qué es un METAR?
+19 La plantilla completa
+20 El viento
+21 Visibilidad y alcance de pista
+22 El tiempo presente
+23 Nubes y CAVOK
+24 Temperatura, rocío y QNH
+25 Tendencias y comentarios
+26 Método de lectura en 5 pasos
+27 Qué es un TAF
+28 Los grupos de cambio
+29 Leer un TAF completo
+30 El TAF y tu alterno
+
+POR QUÉ CUESTA
+Porque son dos dificultades encadenadas y casi siempre se enseñan por separado.
+Una es el código: grupos posicionales, abreviaturas y ventanas de validez que se
+pisan entre ellas. La otra es el fenómeno: descifrar la cadena no sirve de nada
+si no se sabe qué la produce. Este módulo enseña el fenómeno primero y el código
+después.
+
+LA PROMESA
+Al terminar el módulo, un pronóstico no se lee entero de corrido: se lee buscando
+la ventana propia, la hora a la que le toca aterrizar a ese vuelo.

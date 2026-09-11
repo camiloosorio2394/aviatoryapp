@@ -1,0 +1,285 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", monospace;
+    }
+
+    /* suelo de papel a sangre */
+    .mt02-ground {
+      position: absolute;
+      inset: 0;
+      background: #fbfaf8;
+    }
+
+    /* ── Camera stage: escena recortada, lleva el resolve del foco macro ── */
+    .mt02-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      background: #fbfaf8;
+      --dof: 0px;
+      filter: blur(var(--dof));
+      will-change: filter;
+    }
+
+    /* ── El único envoltorio del mundo. Cámara = transform solo en él. ── */
+    .mt02-world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    /* ── rótulos mono sobre y bajo la superficie de código (tinta sobre papel) ── */
+    .mt02-label {
+      position: absolute;
+      left: 365px;
+      width: 1190px;
+      height: 32px;
+      font-size: 26px;
+      line-height: 32px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      opacity: 0;
+      white-space: pre;
+    }
+    .mt02-label-top {
+      top: 136px;
+    }
+    /* el rótulo que impide leer el bloque como un informe real */
+    .mt02-label-bottom {
+      top: 708px;
+    }
+
+    /* ── section-rule: el único momento de acento del frame, se dibuja ── */
+    .mt02-rule {
+      position: absolute;
+      left: 365px;
+      top: 180px;
+      width: 1190px;
+      height: 1px;
+      background: #0d4b52;
+      transform-origin: 0% 50%;
+    }
+
+    /* ── code-surface: panel navy, elevación por hairline, 62% del cuadro ── */
+    .mt02-panel {
+      position: absolute;
+      left: 365px;
+      top: 204px;
+      width: 1190px;
+      height: 480px;
+      padding: 48px 44px;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+
+    .mt02-code {
+      font-size: 38px;
+      line-height: 64px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #fbfaf8;
+    }
+
+    .mt02-ln {
+      white-space: pre;
+      height: 64px;
+    }
+
+    /* los cinco grupos de cambio: los que ordenan el pronóstico en el tiempo.
+       Llevan su propio color, así que no heredan el atenuado del bloque. */
+    .mt02-ink {
+      color: #fbfaf8;
+      background-color: rgba(251, 250, 248, 0);
+      padding: 6px 5px;
+      margin: 0 -5px;
+      border-radius: 5px;
+    }
+  </style>
+
+  <div id="root" data-composition-id="02-pronostico-ilegible" data-start="0" data-duration="10.7" data-width="1920" data-height="1080">
+
+    <div id="mt02-suelo-papel" class="clip mt02-ground" data-start="0" data-duration="10.7" data-track-index="0"></div>
+
+    <div id="mt02-camara" class="clip mt02-stage" data-start="0" data-duration="10.7" data-track-index="1">
+      <!-- el mundo se sale del contenedor a propósito: es el zoom-out macro -->
+        <div class="mt02-world" data-layout-allow-overflow>
+
+        <div class="mt02-label mt02-label-top">TAF SKXX · PRONÓSTICO DE AERÓDROMO</div>
+        <div class="mt02-rule"></div>
+
+        <div class="mt02-panel">
+          <div class="mt02-code"><div class="mt02-ln">TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1520/1522 15012G22KT 6000 -RA BKN015</div><div class="mt02-ln">     <span class="mt02-ink">TEMPO</span> 1522/1602 3000 TSRA BKN010CB</div><div class="mt02-ln">     <span class="mt02-ink">FM160300</span> 09006KT 1200 BR OVC006</div><div class="mt02-ln">     <span class="mt02-ink">PROB30</span> 1604/1608 0500 FG</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1612/1614 9999 NSW SCT030</div></div>
+        </div>
+
+        <div class="mt02-label mt02-label-bottom">Escenario de práctica · Lección 29</div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "02-pronostico-ilegible";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+
+      var world = ROOT.querySelector(".mt02-world");
+      var stage = ROOT.querySelector(".mt02-stage");
+      var labelTop = ROOT.querySelector(".mt02-label-top");
+      var labelBottom = ROOT.querySelector(".mt02-label-bottom");
+      var rule = ROOT.querySelector(".mt02-rule");
+      var code = ROOT.querySelector(".mt02-code");
+      var inks = ROOT.querySelectorAll(".mt02-ink");
+
+      /* ────────────────────────────────────────────────────────────────
+         CÁMARA VIRTUAL (viewport-change, un solo envoltorio)
+         El mundo está maquetado en su layout final a 1x; la cámara es lo
+         ÚNICO que se mueve, y solo se mueve hacia fuera. Un transform
+         compuesto sobre un solo .world  =>  T = -offset * S, con el offset
+         medido desde el centro del mundo (transform-origin 50% 50%).
+
+         Detalle focal = el centro de `TSRA BKN010CB` en la línea TEMPO,
+         derivado de la rejilla mono maquetada: caja de texto left 365 + 1px
+         de borde + 44 de padding = 410px; avance por carácter 38px * 0.6 =
+         22.8px; `TSRA BKN010CB` ocupa las columnas 26 a 38, centro 32.5
+         -> x = 410 + 32.5*22.8 = 1151. Primera línea top 204 + 1 + 48 = 253;
+         caja de línea 64px; TEMPO es la fila 2 -> y = 253 + 2*64 + 32 = 413.
+         ──────────────────────────────────────────────────────────────── */
+      var WORLD_CX = 960,
+        WORLD_CY = 540;
+      var DETAIL_X = 1151,
+        DETAIL_Y = 413;
+
+      var S0 = 10.5; /* apertura macro: ~8 caracteres de ancho de cuadro */
+      var S1 = 9.6; /* final del paseo previo al revelado (~9% de recorrido) */
+
+      var FOX0 = DETAIL_X - WORLD_CX; /* 191 */
+      var FOY0 = DETAIL_Y - WORLD_CY; /* -127 */
+      var FOX1 = FOX0 + 30; /* la cámara se desliza a la derecha por la línea */
+      var FOY1 = FOY0 + 6;
+
+      /* T = -offset * S, resuelto una vez por pose. Las poses son valores de
+         transform reales de GSAP y no un escritor en onUpdate: un renderer
+         busca fotograma con los callbacks suprimidos, así que una cámara
+         movida por callback no se movería nunca. */
+      var OPEN = { x: -FOX0 * S0, y: -FOY0 * S0, scale: S0 };
+      var RIDE = { x: -FOX1 * S1, y: -FOY1 * S1, scale: S1 };
+
+      /* smoothstep — la escena 1 es un paseo lento, nunca una pausa muerta */
+      function driftEase(p) {
+        return p * p * (3 - 2 * p);
+      }
+
+      /* El único movimiento hacia fuera de la escena 2. El valor con curva se
+         reasigna para que la ESCALA retroceda de forma exponencial (tasa de
+         zoom percibida constante) bajo un perfil power3.out: deceleración de
+         clase expo hasta pararse del todo. Una sola curva, compartida por
+         escala y traslación, así que el detalle deriva del centro del cuadro a
+         su sitio mientras el plano general toma el relevo. */
+      function pullEase(p) {
+        var q = 1 - p;
+        var g = 1 - q * q * q;
+        return (S1 - Math.pow(S1, 1 - g)) / (S1 - 1);
+      }
+
+      var D = 10.7;
+      var tl = gsap.timeline({ paused: true });
+
+      /* ────────────────────────────────────────────────────────────────
+         CUES. Son estimaciones proporcionales sobre la ventana de voz de
+         9.500s (el guion medido a 12,0 c/s). Cuando exista la locución real
+         hay que volver a cuear cada tween con los tiempos de palabra de
+         audio_engine_meta.json, igual que está hecho el video de NOTAM, cuyos
+         comentarios citan la palabra exacta de cada cue.
+         ──────────────────────────────────────────────────────────────── */
+
+      /* Escena 1 (0.0–1.80s) — macro sobre TSRA BKN010CB, la cámara ya saliendo. */
+      tl.fromTo(
+        world,
+        { x: OPEN.x, y: OPEN.y, scale: OPEN.scale },
+        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale, duration: 1.8, ease: driftEase },
+        0,
+      );
+
+      /* Escena 2 (1.80–5.60s) — EL movimiento: un solo zoom-out desacelerado
+         hasta el plano general. Corre mientras la voz dice «lo que te vas a
+         encontrar al aterrizar», descubre la línea TEMPO entera y después el
+         bloque de seis, y se para en seco al acabar la frase. El cuadro queda
+         BLOQUEADO desde 5.60s: no existe ningún tween de cámara después. */
+      tl.fromTo(
+        world,
+        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale },
+        { x: 0, y: 0, scale: 1, duration: 3.8, ease: pullEase, immediateRender: false },
+        1.8,
+      );
+
+      /* Escena 1 — resolve de desenfoque a nitidez, acordado con la salida temprana */
+      tl.fromTo(stage, { "--dof": "11px" }, { "--dof": "0px", duration: 2.6, ease: "power2.out" }, 0);
+
+      /* Escena 3 (5.60–7.40s) — el cuadro está bloqueado y el documento se
+         presenta. Los dos rótulos mono y la única línea de acento se dibujan
+         sobre «Y descifrarlo no sirve». Cámara intacta. */
+      tl.fromTo(labelTop, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 5.8);
+      tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.78, ease: "power2.out" }, 6.1);
+      tl.fromTo(labelBottom, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 6.5);
+
+      /* Escena 4 (7.70–9.00s) — en «si no sabes qué lo produce» el bloque cae a
+         media tinta. Los cinco grupos de cambio llevan su propio color, así que
+         no heredan el atenuado: BECMG, TEMPO, FM160300 y PROB30 se quedan a
+         plena tinta y ganan un realce apenas perceptible. El último tween
+         aterriza en 9.00s; la voz se acaba en 9.50s y los 1.2s finales son
+         quietud absoluta. */
+      tl.fromTo(
+        code,
+        { color: "rgba(251,250,248,1)" },
+        { color: "rgba(251,250,248,0.44)", duration: 1.25, ease: "power2.inOut" },
+        7.7,
+      );
+      tl.fromTo(
+        inks,
+        { backgroundColor: "rgba(251,250,248,0)" },
+        { backgroundColor: "rgba(251,250,248,0.12)", duration: 1.0, ease: "power2.out" },
+        7.76,
+      );
+
+      /* sostiene el cuadro aterrizado hasta el final del plano: no hay salida */
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, D - 0.002);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

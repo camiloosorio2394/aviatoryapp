@@ -1,0 +1,335 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      --mt-navy: #14202e;
+      --mt-cream: #fbfaf8;
+      /* sobre navy el acento es el mismo matiz a más luminosidad: 4,7:1 */
+      --mt-accent: #49939c;
+    }
+
+    .mt05-ground {
+      position: absolute;
+      inset: 0;
+      background: var(--mt-navy);
+    }
+
+    /* la escena recortada; la cámara es el transform de .mt05-world y nada más */
+    .mt05-stage {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+    .mt05-world {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 50% 50%;
+      will-change: transform;
+    }
+
+    .mt05-kicker,
+    .mt05-sub {
+      position: absolute;
+      left: 80px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: pre;
+    }
+    .mt05-kicker {
+      top: 104px;
+      font-size: 26px;
+      line-height: 32px;
+      color: rgba(251, 250, 248, 0.6);
+    }
+    .mt05-sub {
+      top: 186px;
+      font-size: 24px;
+      line-height: 30px;
+      color: rgba(251, 250, 248, 0.42);
+    }
+
+    /* ── la tira de tres estaciones (foreground subject) ─────────────────── */
+    .mt05-axis {
+      position: absolute;
+      left: 80px;
+      top: 268px;
+      width: 1760px;
+      height: 1px;
+      background: rgba(251, 250, 248, 0.2);
+      transform-origin: 0% 50%;
+    }
+    .mt05-station {
+      position: absolute;
+      top: 296px;
+      width: 580px;
+    }
+    .mt05-s1 {
+      left: 80px;
+    }
+    .mt05-s2 {
+      left: 670px;
+    }
+    .mt05-s3 {
+      left: 1260px;
+    }
+    .mt05-tick {
+      position: absolute;
+      left: 0;
+      top: -28px;
+      width: 1px;
+      height: 28px;
+      background: rgba(251, 250, 248, 0.28);
+    }
+    .mt05-st-name {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 34px;
+      line-height: 42px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.46);
+      white-space: nowrap;
+    }
+    .mt05-st-read {
+      margin-top: 18px;
+      padding-right: 40px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 1.18;
+      letter-spacing: -0.01em;
+      color: var(--mt-cream);
+      opacity: 0;
+    }
+
+    /* ── los cuatro tipos (supporting) ─────────────────────────────────────── */
+    .mt05-type {
+      position: absolute;
+      left: 80px;
+      width: 1760px;
+      height: 68px;
+      white-space: nowrap;
+    }
+    .mt05-t1 {
+      top: 520px;
+    }
+    .mt05-t2 {
+      top: 588px;
+    }
+    .mt05-t3 {
+      top: 656px;
+    }
+    .mt05-t4 {
+      top: 724px;
+    }
+    .mt05-ty-name {
+      display: inline-block;
+      width: 300px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 40px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.58);
+      vertical-align: middle;
+    }
+    .mt05-ty-ref {
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 34px;
+      line-height: 40px;
+      letter-spacing: -0.005em;
+      color: rgba(251, 250, 248, 0.8);
+      vertical-align: middle;
+    }
+
+    .mt05-progress {
+      position: absolute;
+      right: 80px;
+      top: 830px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0.16em;
+      color: var(--mt-accent);
+      white-space: pre;
+      opacity: 0;
+    }
+  </style>
+
+  <div id="root" data-composition-id="05-frentes" data-start="0" data-duration="8.45" data-width="1920" data-height="1080">
+    <div id="mt05-fondo-navy" class="clip mt05-ground" data-start="0" data-duration="8.45" data-track-index="0"></div>
+
+    <div id="mt05-camara" class="clip mt05-stage" data-start="0" data-duration="8.45" data-track-index="1">
+      <!-- el mundo se sale del contenedor a propósito: la cámara pasea a 1.55 -->
+      <div class="mt05-world" data-layout-allow-overflow>
+        <div class="mt05-kicker">Parte 3 · Masas de aire, frentes y tormentas</div>
+        <div class="mt05-sub">La firma de un frente cálido</div>
+
+        <div class="mt05-axis"></div>
+
+        <div class="mt05-station mt05-s1">
+          <span class="mt05-tick"></span>
+          <div class="mt05-st-name">Antes de que pase</div>
+          <div class="mt05-st-read">la presión sigue cayendo</div>
+        </div>
+        <div class="mt05-station mt05-s2">
+          <span class="mt05-tick"></span>
+          <div class="mt05-st-name">Durante el paso</div>
+          <div class="mt05-st-read">la presión se nivela</div>
+        </div>
+        <div class="mt05-station mt05-s3">
+          <span class="mt05-tick"></span>
+          <div class="mt05-st-name">Después</div>
+          <div class="mt05-st-read">ligero aumento y después un descenso</div>
+        </div>
+
+        <div class="mt05-type mt05-t1">
+          <span class="mt05-ty-name">Cálido</span><span class="mt05-ty-ref">el aire cálido avanza y sustituye al frío</span>
+        </div>
+        <div class="mt05-type mt05-t2">
+          <span class="mt05-ty-name">Frío</span><span class="mt05-ty-ref">el aire frío avanza y sustituye al cálido</span>
+        </div>
+        <div class="mt05-type mt05-t3">
+          <span class="mt05-ty-name">Estacionario</span><span class="mt05-ty-ref">las dos masas se empujan con fuerzas parecidas</span>
+        </div>
+        <div class="mt05-type mt05-t4">
+          <span class="mt05-ty-name">Ocluido</span><span class="mt05-ty-ref">un frente frío rápido alcanza a uno cálido lento</span>
+        </div>
+
+        <div class="mt05-progress">3/4</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "05-frentes";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(ROOT.querySelectorAll(s));
+      };
+
+      /* ────────────────────────────────────────────────────────────────
+         CÁMARA VIRTUAL, la misma forma que en el frame 2: un solo
+         envoltorio, transform-origin 50% 50%, T = -offset * S.
+
+         El mundo está maquetado a 1x con las tres estaciones ya cabiendo en
+         los 1920 (620px cada una), así que el plano general de la escena 4 es
+         simplemente scale 1. El paneo de la escena 2 es un acercamiento a
+         1.55 que recorre las tres: a esa escala una estación ocupa 961px,
+         media pantalla, y las vecinas se salen por los bordes.
+
+         Centros a 1x: estación 1 en x=370, la 2 en 960, la 3 en 1550. Centro
+         vertical de la tira, y=360. Centro del bloque de tipos, y=645.
+         ──────────────────────────────────────────────────────────────── */
+      var CX = 960,
+        CY = 540;
+      var S = 1.55;
+      var pose = function (x, y, s) {
+        return { x: -(x - CX) * s, y: -(y - CY) * s, scale: s };
+      };
+
+      var P1 = pose(370, 360, S); /* estación 1 centrada */
+      var P3 = pose(1550, 360, S); /* estación 3 centrada */
+      var PTYPES = pose(960, 645, S); /* los cuatro tipos, mismo acercamiento */
+      var PWIDE = { x: 0, y: 0, scale: 1 }; /* plano general: todo en cuadro */
+
+      var D = 8.45;
+      var world = q(".mt05-world");
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 7.250s. Re-cuear con
+         audio_engine_meta.json cuando exista la locución. */
+
+      /* ── Escena 1 (0.0–1.0s) ──────────────────────────────────────────────
+         Vuelve la superficie navy. La cámara abre ya en la estación 1 y el eje
+         de la tira se dibuja de izquierda a derecha. */
+      tl.set(world, P1);
+      tl.fromTo(q(".mt05-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt05-sub"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.16);
+      tl.fromTo(q(".mt05-axis"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.1);
+
+      /* ── Escena 2 (1.0–3.6s) ──────────────────────────────────────────────
+         UN solo paneo continuo de la estación 1 a la 3. No se detiene. Cada
+         estación pasa a acento y suelta su lectura del barómetro justo cuando
+         cruza el centro del cuadro: 1.0s, 2.2s y 3.4s. */
+      tl.fromTo(world, P1, { x: P3.x, y: P3.y, scale: S, duration: 2.6, ease: "none", immediateRender: false }, 1.0);
+
+      var CRUCE = [1.0, 2.2, 3.4];
+      var CHROME = "rgba(251,250,248,0.46)";
+      ["1", "2", "3"].forEach(function (n, i) {
+        var st = q(".mt05-s" + n);
+        var name = st.querySelector(".mt05-st-name");
+        tl.to(name, { color: "#49939c", duration: 0.34, ease: "power2.out" }, CRUCE[i]);
+        /* el acento viaja con la cámara: al cruzar la siguiente, esta vuelve a
+           ser chrome. Solo la última se queda marcada, que es donde aterriza el
+           paneo, y así el frame conserva UN solo momento de acento. */
+        if (i < 2) {
+          tl.to(name, { color: CHROME, duration: 0.45, ease: "power2.inOut" }, CRUCE[i + 1] - 0.12);
+        }
+        tl.fromTo(
+          st.querySelector(".mt05-st-read"),
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.46, ease: "power3.out" },
+          CRUCE[i] + 0.08,
+        );
+      });
+
+      /* ── Escena 3 (3.6–5.2s) ──────────────────────────────────────────────
+         Paneo corto hacia abajo, al mismo acercamiento. Los cuatro tipos
+         entran escalonados. Sin detenerse en ninguno: solo se enumeran. */
+      tl.to(world, { x: PTYPES.x, y: PTYPES.y, duration: 1.0, ease: "power2.inOut" }, 3.6);
+      tl.fromTo(
+        qa(".mt05-type"),
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, duration: 0.4, ease: "power2.out", stagger: 0.17 },
+        3.8,
+      );
+
+      /* ── Escena 4 (5.2–7.2s) ──────────────────────────────────────────────
+         La cámara se aleja lo justo para que la tira y los cuatro tipos queden
+         juntos en cuadro. Después, quietud: no hay tween de cámara tras 6.3s. */
+      tl.to(world, { x: PWIDE.x, y: PWIDE.y, scale: PWIDE.scale, duration: 1.1, ease: "power2.inOut" }, 5.2);
+      tl.to(q(".mt05-progress"), { opacity: 1, duration: 0.5, ease: "power2.out" }, 6.3);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

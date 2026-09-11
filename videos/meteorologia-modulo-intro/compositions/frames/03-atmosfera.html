@@ -1,0 +1,212 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/Archivo_400.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2");
+    }
+
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      --mt-ink: #16191d;
+      --mt-cream: #fbfaf8;
+      /* sobre papel el acento del módulo sí se ve: 9,4:1 */
+      --mt-accent: #0d4b52;
+    }
+
+    .mt03-ground {
+      position: absolute;
+      inset: 0;
+      background: var(--mt-cream);
+    }
+
+    /* chrome: hairline superior y rótulo de parte */
+    .mt03-hair {
+      position: absolute;
+      left: 140px;
+      top: 80px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.12);
+    }
+    .mt03-kicker {
+      position: absolute;
+      left: 140px;
+      top: 110px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 32px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.62);
+      white-space: pre;
+    }
+
+    /* ── la palabra y sus dos consecuencias (foreground subject) ── */
+    .mt03-word {
+      position: absolute;
+      left: 140px;
+      top: 320px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 8.2cqw;
+      line-height: 1.02;
+      letter-spacing: -0.022em;
+      color: var(--mt-ink);
+      white-space: nowrap;
+      transform-origin: 0% 50%;
+    }
+    /* la hairline vertical de acento: EL momento de voltaje del frame */
+    .mt03-divider {
+      position: absolute;
+      left: 784px;
+      top: 300px;
+      width: 1px;
+      height: 210px;
+      background: var(--mt-accent);
+      transform-origin: 50% 0%;
+    }
+    .mt03-conseq {
+      position: absolute;
+      left: 832px;
+      width: 948px;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 4.6cqw;
+      line-height: 1.06;
+      letter-spacing: -0.018em;
+      color: var(--mt-ink);
+      white-space: nowrap;
+    }
+    .mt03-conseq-1 {
+      top: 312px;
+    }
+    .mt03-conseq-2 {
+      top: 418px;
+    }
+
+    /* ── las cinco lecciones reales, en mono, una columna (supporting) ── */
+    .mt03-list {
+      position: absolute;
+      left: 140px;
+      top: 612px;
+      width: 1100px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 46px;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.58);
+    }
+    .mt03-li {
+      white-space: pre;
+      height: 46px;
+    }
+
+    /* marca de progreso: chrome en acento, igual que en el video de NOTAM */
+    .mt03-progress {
+      position: absolute;
+      right: 140px;
+      top: 790px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 36px;
+      letter-spacing: 0.16em;
+      color: var(--mt-accent);
+      white-space: pre;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-atmosfera" data-start="0" data-duration="8.2" data-width="1920" data-height="1080">
+    <div id="mt03-suelo-papel" class="clip mt03-ground" data-start="0" data-duration="8.2" data-track-index="0"></div>
+
+    <div id="mt03-escena" class="clip" data-start="0" data-duration="8.2" data-track-index="1" style="position:absolute; inset:0;">
+      <div class="mt03-hair"></div>
+      <div class="mt03-kicker">Parte 1 · La atmósfera y el aire en movimiento</div>
+
+      <div class="mt03-word">Presión</div>
+      <div class="mt03-divider"></div>
+      <div class="mt03-conseq mt03-conseq-1">mueve el aire</div>
+      <div class="mt03-conseq mt03-conseq-2">mueve tu altímetro</div>
+
+      <div class="mt03-list">
+        <div class="mt03-li">01  La atmósfera en la que vuelas</div>
+        <div class="mt03-li">02  La presión y lo que le hace a tu altímetro</div>
+        <div class="mt03-li">03  Por qué se mueve el aire</div>
+        <div class="mt03-li">04  El viento cerca del suelo</div>
+        <div class="mt03-li">05  Cizalladura a bajo nivel</div>
+      </div>
+
+      <div class="mt03-progress">1/4</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "03-atmosfera";
+      var ROOT = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!ROOT) return;
+      var q = function (s) {
+        return ROOT.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(ROOT.querySelectorAll(s));
+      };
+
+      var D = 8.2;
+      var tl = gsap.timeline({ paused: true });
+
+      /* Cues estimados sobre la ventana de voz de 7.000s. Re-cuear con
+         audio_engine_meta.json cuando exista la locución. */
+
+      /* ── Escena 1 (0.0–1.4s) ──────────────────────────────────────────────
+         Corte a papel. «Presión» sola, centrada: se maqueta ya en su sitio
+         final de la izquierda y se trae al centro con un transform, que es el
+         único que se deshace en la escena 2. Así no hay reflow. */
+      var CENTRO = (1920 - 572) / 2 - 140; /* desplazamiento para centrarla */
+      tl.set(q(".mt03-word"), { x: CENTRO });
+      tl.fromTo(q(".mt03-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mt03-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.fromTo(q(".mt03-word"), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.72, ease: "power3.out" }, 0.18);
+
+      /* ── Escena 2 (1.4–3.4s) ──────────────────────────────────────────────
+         La palabra se va a la izquierda (un solo gesto), la hairline de acento
+         se dibuja hacia abajo y entran las dos consecuencias, una por cue. */
+      tl.to(q(".mt03-word"), { x: 0, duration: 0.9, ease: "power2.inOut" }, 1.4);
+      tl.fromTo(q(".mt03-divider"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power2.out" }, 1.85);
+      tl.fromTo(q(".mt03-conseq-1"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 2.05);
+      tl.fromTo(q(".mt03-conseq-2"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 2.62);
+
+      /* ── Escena 3 (3.4–7.0s) ──────────────────────────────────────────────
+         Entran escalonadas las cinco lecciones reales de la parte 1 y la marca
+         de progreso. Después, quietud: nada se mueve hasta el corte. */
+      tl.fromTo(
+        qa(".mt03-li"),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.42, ease: "power2.out", stagger: 0.13 },
+        3.5,
+      );
+      tl.fromTo(q(".mt03-progress"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.5);
+
+      tl.to({}, { duration: D }, 0);
+      window.__timelines = window.__timelines || {};
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

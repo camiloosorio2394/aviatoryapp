@@ -1,0 +1,13 @@
+{
+  "lines": [
+    { "id": "01", "sfx": ["impacto-suave"] },
+    { "id": "02", "sfx": ["zumbido-grave-descendente"] },
+    { "id": "03", "sfx": ["tic-seco"] },
+    { "id": "04", "sfx": ["tic-escalonado"] },
+    { "id": "05", "sfx": ["whoosh-corto"] },
+    { "id": "06", "sfx": ["tic-por-sustitución"] },
+    { "id": "07", "sfx": ["cascada-tics-suaves", "impacto-final"] },
+    { "id": "08", "sfx": ["impacto-grave-cierre"] }
+  ],
+  "bgm": { "mode": "none" }
+}
