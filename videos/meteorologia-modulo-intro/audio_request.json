@@ -1,4 +1,7 @@
 {
+  "provider": "auto",
+  "lang": "es",
+  "speed": 0.92,
   "lines": [
     { "id": "01", "sfx": ["impacto-suave"] },
     { "id": "02", "sfx": ["zumbido-grave-descendente"] },
