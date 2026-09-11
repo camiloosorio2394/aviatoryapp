@@ -5,7 +5,7 @@
  * explicación llegan solo al responder, desde icao_quiz_responder, que además
  * guarda el intento (lo que cuenta como avance). Lo usan el quiz y la parte de
  * lectura ICAO del test inicial.
- * Ver supabase/migrations/20260911190000_icao_quiz_corregido_en_el_servidor.sql.
+ * Ver supabase/migrations/20260911171206_icao_quiz_corregido_en_el_servidor.sql.
  */
 
 import { supabase } from "@/integrations/supabase/client"

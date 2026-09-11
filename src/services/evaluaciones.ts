@@ -5,7 +5,7 @@
  * navegador nunca las recibe juntas: evaluacion_iniciar entrega enunciado y
  * opciones ya barajadas, evaluacion_responder registra cada respuesta una sola
  * vez y evaluacion_terminar calcula el puntaje, lo guarda y devuelve la
- * revisión. Ver supabase/migrations/20260911080000_evaluaciones_en_el_servidor.sql.
+ * revisión. Ver supabase/migrations/20260911145550_evaluaciones_en_el_servidor.sql.
  *
  * Este archivo es la única puerta a esas funciones: tipa lo que devuelven, lo
  * valida y traduce los errores a mensajes para el piloto.

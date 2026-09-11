@@ -11,7 +11,7 @@
  *   1. registrarActividadDeEstudio() se llama al COMPLETAR un quiz o examen.
  *   2. El heatmap se arma aquí leyendo la tabla daily_activity directo (RLS
  *      propio), sin pasar por la RPC rota. La migración
- *      20260731030000_fix_activity_heatmap.sql la repara para el futuro.
+ *      20260801020804_fix_activity_heatmap.sql la repara para el futuro.
  */
 
 import { supabase } from "@/integrations/supabase/client"
