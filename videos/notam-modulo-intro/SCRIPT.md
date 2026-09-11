@@ -22,7 +22,7 @@
 
 **Delivery:** Baja el ritmo en la primera frase, que es la que carga el peso. Pausa antes de «Y está escrito».
 
-    Esto decide si tu vuelo sale, por dónde entra, y qué te vas a encontrar al aterrizar. Y está escrito en un código que nadie te enseñó a leer.
+    Esto decide si tu vuelo sale, por dónde entra, y qué encuentras al aterrizar. Y está escrito en un código que nadie te enseñó a leer.
 
 ## Line 3 — Qué es y quién lo publica (Frame 3)
 

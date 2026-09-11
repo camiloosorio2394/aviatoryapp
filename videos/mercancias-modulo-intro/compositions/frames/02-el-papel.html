@@ -1,6 +1,6 @@
 <template>
   <!-- ═══════════════════════════════════════════════════════════════════════
-       FRAME 02 — «El papel que pasa por tus manos» · 1920×1080 · 8.227s
+       FRAME 02 — «El papel que pasa por tus manos» · 1920×1080 · 9.011s
 
        PANEL GEOMETRY — FROZEN CONTRACT. Frame 07 calca este panel píxel a
        píxel; estos son los valores exactos, cópialos tal cual:
@@ -174,11 +174,11 @@
     }
   </style>
 
-  <div id="root" data-composition-id="02-el-papel" data-start="0" data-duration="8.227" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="02-el-papel" data-start="0" data-duration="9.011" data-width="1920" data-height="1080">
 
-    <div id="frame-02-el-papel-ground" class="clip f02ep-ground" data-start="0" data-duration="8.227" data-track-index="0"></div>
+    <div id="frame-02-el-papel-ground" class="clip f02ep-ground" data-start="0" data-duration="9.011" data-track-index="0"></div>
 
-    <div id="frame-02-el-papel-stage" class="clip f02ep-stage" data-start="0" data-duration="8.227" data-track-index="1">
+    <div id="frame-02-el-papel-stage" class="clip f02ep-stage" data-start="0" data-duration="9.011" data-track-index="1">
       <div class="f02ep-world">
 
         <div class="f02ep-label">NOTOC · NOTIFICATION TO CAPTAIN</div>
@@ -227,16 +227,16 @@
          como quietud con un acercamiento imperceptible del 2%; eso es el
          total del movimiento de cámara del plano.
 
-         VO (audio_meta.json, frame 2, 7.027s de voz sobre 8.227s de plano):
-           w0  «Esto»   0.179 | w4  «avión.» 1.279-1.719
-           w5  «Y»      2.299 | w7  «papel»  2.559
-           w10 «dice»   3.259 | w14 «manos»  4.639
-           w19 «puerta.» 6.239-6.699
+         VO (voz regenerada en español, frame 2, tiempos desde el inicio de la escena · 9.011s de plano):
+           w0  «Esto»   0.199 | w4  «avión.» 1.399
+           w5  «Y»      2.899 | w7  «papel»  3.179
+           w10 «dice»   3.939 | w14 «manos»  5.299
+           w19 «puerta.» 7.079
          ──────────────────────────────────────────────────────────────── */
 
       var tl = gsap.timeline({ paused: true });
 
-      /* Scene 1 (0.0–1.2s) — el panel navy entra con un fundido corto sobre el
+      /* Scene 1 (0.0–1.4s) — el panel navy entra con un fundido corto sobre el
          papel crema, con su hairline crema@14%. Sin desplazamiento, sin escala:
          la sensación es «me acaban de pasar un papel», no una llegada. Arranca
          en 0.06 y está completo en 0.61 — el sujeto es visible mucho antes de
@@ -246,44 +246,44 @@
         { opacity: 1, duration: 0.55, ease: 'power2.out' },
         0.06);
 
-      /* Scene 2 (1.2–3.0s) — el NOTOC aparece COMPLETO dentro del panel. Cascada
+      /* Scene 2 (1.4–3.62s) — el NOTOC aparece COMPLETO dentro del panel. Cascada
          de opacidad de arriba abajo muy corta (0.34s por línea, stagger 0.032 →
-         0.66s de punta a punta), disparada en «avión.» (w4 @1.279): el documento
+         0.66s de punta a punta), disparada en «avión.» (w4 @1.399): el documento
          se entrega entero, no se escribe. Las once líneas comparten duración,
          color y peso — ninguna se destaca. */
       tl.fromTo(lines,
         { opacity: 0 },
         { opacity: 1, duration: 0.34, ease: 'power1.out', stagger: 0.032 },
-        1.279);
+        1.399);
 
       /* Scene 2 (cola) — la cabecera del documento se presenta sobre «Y … papel»:
-         el rótulo mono en «Y» (w5 @2.299) y la única regla mostaza dibujándose
-         en «papel» (w7 @2.559). Ambas aterrizan justo en 3.0s, el borde de la
-         quietud declarada. Es el único acento de color del frame. */
+         el rótulo mono en «Y» (w5 @2.899) y la única regla mostaza dibujándose
+         en «papel» (w7 @3.179). El rótulo aterriza en 3.399s y la regla en 3.619s,
+         el borde de la quietud declarada. Es el único acento de color del frame. */
       tl.fromTo(label,
         { opacity: 0, y: 10 },
         { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' },
-        2.299);
+        2.899);
 
       tl.fromTo(rule,
         { scaleX: 0 },
         { scaleX: 1, duration: 0.44, ease: 'power2.out' },
-        2.559);
+        3.179);
 
-      /* Scene 3 (3.0–7.8s) — QUIETUD DECLARADA. El paquete la marca como beat de
-         reposo: el espectador tiene 4.8s para intentar leer el NOTOC y no
+      /* Scene 3 (3.619–9.011s) — QUIETUD DECLARADA. El paquete la marca como beat de
+         reposo: el espectador tiene 5.392s para intentar leer el NOTOC y no
          conseguirlo. Todo el movimiento es un acercamiento del 2% sobre el mundo,
          lineal para que no se perciba como un gesto. Nada más entra, nada sale.
-         Corre por debajo de «pasa por tus manos antes de cerrar la puerta».
-         Termina en 7.8s: los 0.427s finales son inmovilidad absoluta. */
+         Corre por debajo de «lo dice pasa por tus manos antes de cerrar la puerta».
+         Llega hasta el último fotograma: termina con la escena, en 9.011s. */
       tl.fromTo(world,
         { scale: 1 },
-        { scale: 1.02, duration: 4.8, ease: 'none' },
-        3.0);
+        { scale: 1.02, duration: 5.392, ease: 'none' },
+        3.619);
 
       /* Sostener el plano aterrizado hasta el final — sin movimiento de salida
          (el frame no es el último; la transición raíz es la salida). */
-      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 8.226);
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 9.010);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['02-el-papel'] = tl;

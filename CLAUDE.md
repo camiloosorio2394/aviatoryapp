@@ -38,7 +38,7 @@ Cada módulo cambia solo el acento, re-anclando `--av-blue-500`:
 |---|---|---|
 | NOTAM | `.lector-notam` | `#123A6B` azul carta |
 | Mercancías | `.lector-notam .lector-mp` | `#7A5C12` mostaza (tokens `--av-dg-*`) |
-| Meteorología | `.lector-notam .lector-mt` | `#0D4B52` turquesa petróleo (tokens `--av-mt-*`) |
+| Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
 
 **El ámbar y el rojo no son identidad, son semántica**: significan alerta y error en toda la
 app. No usarlos como color de módulo. Y `--av-green-400` es el verde de «correcto»: por eso
@@ -77,6 +77,27 @@ decisión implica.
 Van a `public/modulos/<modulo>/` y **no** a `assets`: bajo `assets` entrarían al precache del
 service worker y cada piloto se las descargaría al instalar. Portadas por nombre de archivo:
 `leccion-NN.webp`. Conversión con `node scripts/optimizar-imagenes.mjs <origen> <destino> <ancho>`.
+
+## Videos de módulo
+
+Cada módulo abre con un video de ~1 minuto hecho con HyperFrames (`videos/<modulo>-modulo-intro/`).
+Se versiona la fuente y no lo generado; el mp4 va comprimido a `public/modulos/<modulo>/intro.mp4`
+y lo muestra `src/components/modulo/VideoIntro.tsx`.
+
+**TRAMPA DEL IDIOMA DE LA VOZ.** El flujo `faceless-explainer` NO le pasa el idioma al motor de
+audio, que cae en `"en"`. Con eso HeyGen pronuncia el español con fonética inglesa («pintiura»,
+«contenedour») y los tiempos de los subtítulos salen del modelo de transcripción solo-inglés. Pasó
+en los dos primeros videos y hubo que rehacerlos. Antes de generar voz, comprueba que
+`audio_request.json` lleve `"lang": "es"`. La voz de la serie es **William Shanks**
+(`001248bb63f847888d37b766ee8b3a47`, velocidad 0.92), que HeyGen registra como española: el
+problema nunca fue la voz, fue el idioma.
+
+En la máquina de Camilo la skill está parcheada para leer `language:` del `BRIEF.md`, pero las
+skills no se versionan, así que **ese parche no llega a otra máquina** y un `skills update` lo borra.
+
+Las demás reglas de la serie: 8 escenas, tope de 60 s, un remanso de silencio al final de cada
+escena, y **todos los clips de una escena cubren su duración entera** (el cierre de NOTAM se quedó
+1,6 s en blanco porque sus capas terminaban antes que la escena).
 
 ## Skills instaladas
 

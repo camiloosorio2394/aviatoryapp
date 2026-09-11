@@ -229,11 +229,11 @@
     }
   </style>
 
-  <div data-hf-id="hf-77dy" id="root" data-composition-id="07-notam-entendido" data-start="0" data-duration="3.422" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-77dy" id="root" data-composition-id="07-notam-entendido" data-start="0" data-duration="4.979" data-width="1920" data-height="1080">
 
-    <div data-hf-id="hf-uief" class="clip f07nte-ground" data-start="0" data-duration="3.422" data-track-index="0"></div>
+    <div data-hf-id="hf-uief" class="clip f07nte-ground" data-start="0" data-duration="4.979" data-track-index="0"></div>
 
-    <div data-hf-id="hf-zsuv" class="clip f07nte-stage" data-start="0" data-duration="3.422" data-track-index="1">
+    <div data-hf-id="hf-zsuv" class="clip f07nte-stage" data-start="0" data-duration="4.979" data-track-index="1">
 
       <div data-hf-id="hf-is3p" class="f07nte-label">NOTAM A2526/26 · SCEL</div>
       <div data-hf-id="hf-sd5j" class="f07nte-rule"></div>
@@ -286,13 +286,24 @@
          has to be instant, so nothing about it may move.
          ──────────────────────────────────────────────────────────────── */
 
-      /* Scene 2 (0.6–2.3s) — grid-card-assemble cascade, adapted: the items
+      /* VO cues (from scene start): Al@0.199 terminar,@0.419 esto@1.579
+         lo@2.039 lees@2.220 de@2.599 corrido.@2.779 — scene 4.979s.
+
+         Scene 1 (0.0–0.62s) — "Al terminar,": the block is whole at frame 0,
+         the root crossfade (0.5s) is its only arrival. Recognition beat.
+
+         Scene 2 (0.62–2.66s) — grid-card-assemble cascade, adapted: the items
          that assemble are ANNOTATIONS landing on a block already on screen.
          Short-path slide from the right directly into its own slot, staggered
-         top-to-bottom, ~0.24s apart. No scatter, no overshoot (code-editorial
-         motion register: cross-dissolve + short slide, never bounce). */
-      var T0 = 0.58;
-      var GAP = 0.24;
+         top-to-bottom at an even 0.3205s so the read carries through the
+         breath after "terminar," with no dead air:
+           ann0 identificación   0.618  (tail of "terminar,", crossfade done)
+           ann3 desde cuándo     1.579  = "esto"
+           ann5 cuándo aplica    2.220  = "lees"
+         No scatter, no overshoot (code-editorial motion register:
+         cross-dissolve + short slide, never bounce). */
+      var T0 = 0.618;
+      var GAP = 0.3205;
 
       for (var i = 0; i < anns.length; i++) {
         var at = T0 + i * GAP;
@@ -312,9 +323,9 @@
           ease: 'power3.out'
         }, at);
       }
-      /* last annotation lands at 0.58 + 5*0.24 + 0.44 = 2.22s */
+      /* last annotation starts on "lees" (2.220) and settles at 2.66s */
 
-      /* Scene 3 (2.3–3.42s) — EL PAGO. The E) annotation breaks the margin
+      /* Scene 3 (2.779–4.979s) — EL PAGO on "corrido.". The E) annotation breaks the margin
          grid: it is the only long one, it is the only one in Archivo, it is
          the only accent, and it lands ON the panel instead of beside it.
          Medio golpe de escala = 0.93 → 1 from the right edge, power3.out. */
@@ -324,7 +335,7 @@
         scale: 1,
         duration: 0.5,
         ease: 'power3.out'
-      }, 2.42);
+      }, 2.779);
 
       /* the E) fragment takes the accent wash so the eye ties the code to the
          sentence — the same highlight mechanic Frame 2 used, now in the accent */
@@ -332,10 +343,12 @@
         backgroundColor: 'rgba(46,111,184,0.26)',
         duration: 0.42,
         ease: 'power2.out'
-      }, 2.46);
+      }, 2.819);
 
-      /* 2.92 → 3.422s: quietud total. Nothing tweens, nothing exits
-         (Frame 8 follows; the root transition owns the exit). */
+      /* 3.279 → 4.979s: quietud total, sostenida. Nothing tweens, nothing
+         exits (Frame 8 follows; the root transition owns the exit). The empty
+         tween only stretches the timeline to the full scene length. */
+      tl.to({}, { duration: 4.979 }, 0);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['07-notam-entendido'] = tl;

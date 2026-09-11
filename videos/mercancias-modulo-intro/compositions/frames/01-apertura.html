@@ -162,22 +162,22 @@
       will-change: filter, transform, opacity;
     }
     .mp01-rule {
-      height: 1px;
+      height: 3px;
       margin-top: 46px;
       background: var(--mp01-accent);
       transform-origin: left center;
     }
   </style>
 
-  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.98" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.667" data-width="1920" data-height="1080">
     <!-- fondo a sangre: capa propia con class="clip", duración completa -->
-    <div id="mp01-fondo" class="clip mp01-bg" data-start="0" data-duration="5.98" data-track-index="0">
+    <div id="mp01-fondo" class="clip mp01-bg" data-start="0" data-duration="5.667" data-track-index="0">
       <div class="mp01-depth mp01-pool"></div>
       <div class="mp01-depth mp01-grid-coarse"></div>
       <div class="mp01-depth mp01-grid-fine"></div>
     </div>
 
-    <div id="mp01-escena" class="clip mp01-stage" data-start="0" data-duration="5.98" data-track-index="1">
+    <div id="mp01-escena" class="clip mp01-stage" data-start="0" data-duration="5.667" data-track-index="1">
       <div class="mp01-kicker">
         <span class="mp01-tick"></span>
         <span class="mp01-kw">INGRESO</span>
@@ -215,7 +215,7 @@
         return Array.prototype.slice.call(root.querySelectorAll(s));
       };
 
-      var D = 5.98;
+      var D = 5.667;
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
@@ -236,11 +236,11 @@
         0.18,
       );
 
-      // ── Scene 2 (1.68–3.74s) ──────────────────────────────────────────────
+      // ── Scene 2 (1.52–3.60s) ──────────────────────────────────────────────
       // El título entra desde abajo tras la máscara y se resuelve desde el
       // desenfoque (depth-of-field-blur: se tensa la variable --dof, que lee
       // filter: blur()). Escalonado por línea — MERCANCÍAS entra sobre la palabra
-      // "Mercancías" (VO 1.759s) y PELIGROSAS sobre "peligrosas" (VO 2.559s).
+      // "Mercancías" (VO 1.599s) y PELIGROSAS sobre "peligrosas" (VO 2.419s).
       tl.fromTo(
         qa(".mp01-l1"),
         { yPercent: 100, opacity: 0, "--dof": "22px" },
@@ -252,7 +252,7 @@
           ease: "power3.out",
           stagger: 0.04,
         },
-        1.68,
+        1.52,
       );
       tl.fromTo(
         qa(".mp01-l2"),
@@ -265,15 +265,15 @@
           ease: "power3.out",
           stagger: 0.04,
         },
-        2.48,
+        2.34,
       );
 
-      // ── Scene 3 (3.6s–fin) ────────────────────────────────────────────────
+      // ── Scene 3 (3.7s–fin) ────────────────────────────────────────────────
       // La hairline de acento se dibuja bajo PELIGROSAS de izquierda a derecha y
-      // queda, cerrando sobre "de Aviatory" (VO 3.559–4.48s). Después, quietud:
+      // queda, cerrando al terminar "Aviatory." (VO 3.399–4.179s). Después, quietud:
       // lectura sostenida, sin deriva de cámara y sin salida (la transición de
       // raíz es la salida).
-      tl.fromTo(q(".mp01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 3.6);
+      tl.fromTo(q(".mp01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 3.7);
 
       // ancla de duración completa
       tl.to({}, { duration: D }, 0);

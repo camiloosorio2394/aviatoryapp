@@ -136,9 +136,9 @@
   </style>
 
   <div data-hf-id="hf-rl6c" id="root" data-composition-id="08-empecemos" data-width="1920" data-height="1080">
-    <div data-hf-id="hf-4mqc" class="clip f08-empecemos-bg" data-start="0" data-duration="4.702" data-track-index="0"></div>
+    <div data-hf-id="hf-4mqc" class="clip f08-empecemos-bg" data-start="0" data-duration="6.198" data-track-index="0"></div>
 
-    <div data-hf-id="hf-smp6" class="clip f08-empecemos-stage" data-start="0" data-duration="4.702" data-track-index="1">
+    <div data-hf-id="hf-smp6" class="clip f08-empecemos-stage" data-start="0" data-duration="6.198" data-track-index="1">
       <div data-hf-id="hf-lzqb" class="f08-empecemos-mark" id="f08-empecemos-mark">AVIATORY</div>
 
       <div data-hf-id="hf-2txk" class="f08-empecemos-promise-wrap">
@@ -149,7 +149,7 @@
       </div>
     </div>
 
-    <div data-hf-id="hf-9g51" class="clip f08-empecemos-blackout" id="f08-empecemos-blackout" data-start="0" data-duration="4.702" data-track-index="2"></div>
+    <div data-hf-id="hf-9g51" class="clip f08-empecemos-blackout" id="f08-empecemos-blackout" data-start="0" data-duration="6.198" data-track-index="2"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" id="f08-empecemos-gsap"></script>
@@ -184,25 +184,29 @@
         { scale: 1.045 },
         { scale: 1, duration: 1.32, ease: 'power3.out' }, 0);
 
-      /* ── Scene 2 (1.2–2.8s) — the promise line arrives group by group, cued to the voice:
-            "…lecciones" 1.18 · "práctica" 1.80 · "evaluación" 2.54. Quiet fade register, no overshoot. ── */
-      var cues = [1.18, 1.80, 2.54];
+      /* ── Scene 2 (0.56–3.18s) — the promise line arrives group by group, cued to the voice:
+            "lecciones" 0.560 · "práctica" 1.819 · "evaluación." 2.720. Quiet fade register, no overshoot. ── */
+      var cues = [0.56, 1.819, 2.72];
       for (var i = 0; i < words.length; i++) {
         tl.fromTo(words[i],
           { opacity: 0, y: 14 },
           { opacity: 1, y: 0, duration: 0.46, ease: 'power2.out' },
-          cues[i] !== undefined ? cues[i] : 2.54);
+          cues[i] !== undefined ? cues[i] : 2.72);
       }
 
-      /* ── Scene 3 (2.8–4.702s) — the accent hairline draws left→right beneath the line,
-            holds through "Empecemos.", and the frame falls to soft black. The one exit in the video. ── */
+      /* ── Scene 3 (4.019–6.198s) — the accent hairline draws left→right beneath the line on
+            "Empecemos." (4.019), the lockup holds past the end of the word (4.859), and the frame
+            falls to soft black, landing exactly on the scene end. The one exit in the video. ── */
+      var SCENE_END = 6.198;
+      var FADE = 0.52;
+
       tl.fromTo(rule,
         { scaleX: 0, transformOrigin: 'left center' },
-        { scaleX: 1, transformOrigin: 'left center', duration: 0.62, ease: 'power2.inOut' }, 3.06);
+        { scaleX: 1, transformOrigin: 'left center', duration: 0.62, ease: 'power2.inOut' }, 4.019);
 
       tl.fromTo(blackout,
         { opacity: 0 },
-        { opacity: 1, duration: 0.52, ease: 'power2.inOut' }, 4.18);
+        { opacity: 1, duration: FADE, ease: 'power2.inOut' }, SCENE_END - FADE);
 
       window.__timelines['08-empecemos'] = tl;
     })();

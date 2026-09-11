@@ -148,6 +148,18 @@
       transform-origin: left center;
     }
 
+    /* ---- the seven mustard underlines: one per header, 3px bright mustard, laid on
+            the header / gloss separator in each column's own width (the PROPER SHIPPING
+            NAME header runs two lines, so the row's common floor is the separator).
+            Each draws left to right as its header enters. #DEB042 on #151618 = 9.0:1. ---- */
+    .n6-under {
+      position: absolute;
+      top: 241px;
+      height: 3px;
+      background-color: #DEB042;
+      transform-origin: left center;
+    }
+
     /* ---- the seven column headers: the form's literal voice, mono, cream ---- */
     .n6-head {
       position: absolute;
@@ -161,7 +173,7 @@
       opacity: 0;
     }
 
-    /* ---- the glosses: our voice, sans, quiet — one word under each header ---- */
+    /* ---- the glosses: our voice, sans, in bright mustard — one word under each header ---- */
     .n6-gloss {
       position: absolute;
       top: 280px;
@@ -170,7 +182,7 @@
       font-weight: 400;
       line-height: 46px;
       letter-spacing: -0.004em;
-      color: rgba(251, 250, 248, 0.55);
+      color: #DEB042;
       opacity: 0;
     }
 
@@ -185,10 +197,26 @@
       transform-origin: left center;
     }
 
+    /* DRILL CODE as a solid mustard chip: #7A5C12 fill, cream label (6.0:1).
+       Box 80..~480 x 760..852 — well above the 900px caption keep-out. */
     #n6-drill {
       position: absolute;
       left: 80px;
       top: 760px;
+      padding: 18px 30px 18px 36px; /* right side trimmed by the 0.16em trailing tracking */
+    }
+
+    #n6-drill-fill {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      background-color: #7A5C12;
+      transform-origin: left center;
+    }
+
+    #n6-drill-label {
+      position: relative;
+      display: block;
       height: 56px;
       line-height: 56px;
       font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
@@ -196,16 +224,17 @@
       font-weight: 500;
       letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: #7A5C12;
+      white-space: nowrap;
+      color: #FBFAF8;
       opacity: 0;
     }
   </style>
 
-  <div data-hf-id="hf-n6r0" id="root" data-composition-id="06-el-notoc" data-start="0" data-duration="7.208" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-n6r0" id="root" data-composition-id="06-el-notoc" data-start="0" data-duration="7.391" data-width="1920" data-height="1080">
     <!-- background: the warm paper floor — full-bleed, own clip layer, full duration -->
-    <div data-hf-id="hf-n6p1" class="clip" id="n6-paper" data-start="0" data-duration="7.208" data-track-index="0"></div>
+    <div data-hf-id="hf-n6p1" class="clip" id="n6-paper" data-start="0" data-duration="7.391" data-track-index="0"></div>
 
-    <div data-hf-id="hf-n6s2" class="clip" id="n6-stage" data-start="0" data-duration="7.208" data-track-index="1">
+    <div data-hf-id="hf-n6s2" class="clip" id="n6-stage" data-start="0" data-duration="7.391" data-track-index="1">
       <div data-hf-id="hf-n6k3" id="n6-kicker">
         <svg data-hf-id="hf-n6k4" id="n6-spike" viewBox="0 0 24 24" aria-hidden="true">
           <g data-hf-id="hf-n6k5" stroke="#7A5C12" stroke-width="2.6" stroke-linecap="round">
@@ -233,6 +262,15 @@
 
         <div data-hf-id="hf-n6m0" id="n6-mid-rule"></div>
 
+        <!-- supporting: the mustard underline of each header, in its column width -->
+        <div data-hf-id="hf-n6u1" class="n6-under" id="n6-under-1" style="left: 104px; width: 122px"></div>
+        <div data-hf-id="hf-n6u2" class="n6-under" id="n6-under-2" style="left: 274px; width: 102px"></div>
+        <div data-hf-id="hf-n6u3" class="n6-under" id="n6-under-3" style="left: 424px; width: 652px"></div>
+        <div data-hf-id="hf-n6u4" class="n6-under" id="n6-under-4" style="left: 1124px; width: 102px"></div>
+        <div data-hf-id="hf-n6u5" class="n6-under" id="n6-under-5" style="left: 1274px; width: 102px"></div>
+        <div data-hf-id="hf-n6u6" class="n6-under" id="n6-under-6" style="left: 1424px; width: 172px"></div>
+        <div data-hf-id="hf-n6u7" class="n6-under" id="n6-under-7" style="left: 1644px; width: 172px"></div>
+
         <!-- focal: the seven NOTOC column headers, in their real column widths -->
         <div data-hf-id="hf-n6h1" class="n6-head" id="n6-head-1" style="left: 104px; width: 122px">POS</div>
         <div data-hf-id="hf-n6h2" class="n6-head" id="n6-head-2" style="left: 274px; width: 102px">UN</div>
@@ -252,40 +290,57 @@
         <div data-hf-id="hf-n6g7" class="n6-gloss" id="n6-gloss-7" style="left: 1644px; width: 172px">unidad</div>
       </div>
 
-      <!-- the foot: hairline, then the one mustard voltage moment -->
+      <!-- the foot: hairline, then the one mustard voltage moment, as a solid chip -->
       <div data-hf-id="hf-n6f0" id="n6-foot-rule"></div>
-      <div data-hf-id="hf-n6d0" id="n6-drill">DRILL CODE</div>
+      <div data-hf-id="hf-n6d0" id="n6-drill">
+        <div data-hf-id="hf-n6d1" id="n6-drill-fill"></div>
+        <span data-hf-id="hf-n6d2" id="n6-drill-label">DRILL CODE</span>
+      </div>
     </div>
   </div>
 
   <script>
     (function () {
-      var DUR = 7.208;
+      var DUR = 7.391;
 
-      /* Scene 1 (0.0-2.6s): the seven headers arrive left to right, one every 0.3s.
-         Scene 2 (2.6-4.4s): the glosses land under them on the same cadence.
-         Scene 3 (4.4-6.0s): the hairline draws and DRILL CODE arrives; then quietud. */
-      var HEAD_T = [0.10, 0.40, 0.70, 1.00, 1.30, 1.60, 1.90];
-      var GLOSS_T = [2.70, 2.91, 3.12, 3.33, 3.54, 3.75, 3.96];
+      /* Voice cues (scene-local): leer 0.719 · ese 1.059 · papel 1.319 · columna 1.799 ·
+         por 2.359 · columna, 2.579 · y 3.699 · qué 3.859 · hacer 4.039 · si 4.519 ·
+         algo 4.679 · pasa 5.0 · en 5.319 · vuelo. 5.46.
+         Scene 1 (0.72-2.6s): the seven headers arrive left to right between "leer" and
+           "columna,", each one drawing its mustard underline as it lands.
+         Scene 2 (2.6-4.0s): the mustard glosses land under them, between "columna," and "hacer".
+         Scene 3 (4.52-5.46s): the foot hairline draws and the DRILL CODE chip fills in on
+           "algo pasa en vuelo". Then quietud declarada to 7.391. */
+      var HEAD_T = [0.72, 0.977, 1.233, 1.49, 1.747, 2.003, 2.26];
+      var GLOSS_T = [2.62, 2.79, 2.96, 3.13, 3.30, 3.47, 3.64];
 
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
       /* ---------- the stage: paper floor + navy band are the GROUND — they are
-                    simply there on the cut, never faded in. Only the chrome arrives. ---------- */
+                    simply there on the cut, never faded in. Only the chrome arrives,
+                    and the faint separator sets the form's floor under "vas a". ---------- */
       tl.fromTo("#n6-kicker", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.04);
       tl.fromTo("#n6-index", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.12);
+      tl.fromTo("#n6-mid-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 0.30);
 
       /* ---------- scene 1: the row is READ, not received — column by column.
                     Each header nudges in from the left; the column rule to its left
-                    draws down with it, so the form's grid builds as the row does.
-                    The first header is legible by t = 0.44s. ---------- */
+                    draws down with it and its mustard underline draws left to right,
+                    so the form's grid and its color build as the row does. ---------- */
       for (var i = 0; i < 7; i++) {
         tl.fromTo(
           "#n6-head-" + (i + 1),
           { opacity: 0, x: -18 },
           { opacity: 1, x: 0, duration: 0.34, ease: "power2.out" },
           HEAD_T[i]
+        );
+
+        tl.fromTo(
+          "#n6-under-" + (i + 1),
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.38, ease: "power2.out" },
+          HEAD_T[i] + 0.05
         );
 
         /* columns 2..7 each bring the rule on their left */
@@ -299,11 +354,9 @@
         }
       }
 
-      /* ---------- scene 2: the separator draws, then the one-word gloss under each
-                    header on the same left-to-right cadence — the form's English
-                    answered in our own voice, quietly. ---------- */
-      tl.fromTo("#n6-mid-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 2.58);
-
+      /* ---------- scene 2: the one-word gloss under each header on the same
+                    left-to-right cadence — the form's English answered in our own
+                    voice, in bright mustard. The last gloss lands by "hacer". ---------- */
       for (var j = 0; j < 7; j++) {
         tl.fromTo(
           "#n6-gloss-" + (j + 1),
@@ -313,18 +366,20 @@
         );
       }
 
-      /* ---------- scene 3: the foot hairline draws left to right and the single
-                    mustard moment lands. Quietud declarada — it enters and holds. ---------- */
-      tl.fromTo("#n6-foot-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.60, ease: "power2.out" }, 4.45);
+      /* ---------- scene 3: the foot hairline draws on "si", the mustard fill wipes
+                    across on "algo", the cream label lands on "pasa" and is set by
+                    "vuelo." Quietud declarada — it enters and holds. ---------- */
+      tl.fromTo("#n6-foot-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.50, ease: "power2.out" }, 4.52);
+      tl.fromTo("#n6-drill-fill", { scaleX: 0 }, { scaleX: 1, duration: 0.40, ease: "power2.out" }, 4.68);
       tl.fromTo(
-        "#n6-drill",
-        { opacity: 0, x: -14 },
-        { opacity: 1, x: 0, duration: 0.58, ease: "power2.out" },
-        4.80
+        "#n6-drill-label",
+        { opacity: 0, x: -10 },
+        { opacity: 1, x: 0, duration: 0.46, ease: "power2.out" },
+        4.92
       );
 
       /* the shot holds to the end. This no-op pins the timeline to the full scene length. */
-      tl.set("#n6-drill", { opacity: 1 }, DUR);
+      tl.set("#n6-drill-label", { opacity: 1 }, DUR);
 
       window.__timelines["06-el-notoc"] = tl;
     })();
