@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { supabase } from "@/integrations/supabase/client"
+import { esTopeDePublicaciones } from "@/lib/topes"
 
 /**
  * Mensajes de un canal de la comunidad: por páginas, en vivo y con sus autores.
@@ -222,7 +223,10 @@ export function useMensajesCanal(canalId: number | null, userId: string | undefi
         .single()
       if (error || !data) {
         setMensajes((prev) => prev.filter((m) => m.id !== provisional.id))
-        return error?.message ?? "No se pudo publicar el mensaje."
+        if (error) console.warn("community_messages", error.message)
+        return esTopeDePublicaciones(error)
+          ? "Vas muy rápido: espera unos minutos para volver a publicar."
+          : "No se pudo publicar el mensaje. Revisa tu conexión e inténtalo de nuevo."
       }
       const real = data as MensajeCanal
       setMensajes((prev) => unirMensajes(prev.filter((m) => m.id !== provisional.id), [real]))

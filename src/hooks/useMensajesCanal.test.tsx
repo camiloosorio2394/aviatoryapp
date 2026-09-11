@@ -27,7 +27,7 @@ let llamadas: Llamada[]
 /** Todos los mensajes del canal, del más viejo al más nuevo. */
 let historial: MensajeCanal[]
 let reaccionesServidor: ReaccionCanal[]
-let fallaInsert: boolean
+let fallaInsert: false | "red" | "tope"
 let eventos: Record<string, (payload: { new?: unknown; old?: unknown }) => void>
 let alCambiarEstado: (estado: string) => void
 let estado: Estado
@@ -45,7 +45,8 @@ function consulta(tabla: string) {
       }
       if (tabla === "community_messages" && tiene("insert")) {
         const fila = { ...(tiene("insert")?.[1] as object), id: 999, edited_at: null, created_at: new Date(base + 999 * 60_000).toISOString() }
-        return Promise.resolve(fallaInsert ? { data: null, error: { message: "sin red" } } : { data: fila, error: null }).then(ok)
+        const errores = { red: { message: "TypeError: Failed to fetch" }, tope: { message: "demasiadas_publicaciones" } }
+        return Promise.resolve(fallaInsert ? { data: null, error: errores[fallaInsert] } : { data: fila, error: null }).then(ok)
       }
       if (tabla === "community_messages") {
         const antesDe = tiene("lt")?.[2] as string | undefined
@@ -181,16 +182,23 @@ describe("useMensajesCanal", () => {
     expect(estado.reacciones).toContainEqual({ message_id: 60, user_id: "piloto-1", emoji: "👏" })
   })
 
-  it("si publicar falla, el mensaje provisional se quita y vuelve el error", async () => {
+  it("si publicar falla, el mensaje provisional se quita y el error se explica", async () => {
+    vi.spyOn(console, "warn").mockImplementation(() => {})
     await montar()
-    fallaInsert = true
+    fallaInsert = "red"
     let error: string | null = null
     await act(async () => {
       error = await estado.enviar("Hola")
     })
 
-    expect(error).toBe("sin red")
+    expect(error).toMatch(/Revisa tu conexión/)
     expect(estado.mensajes.some((m) => m.id < 0)).toBe(false)
     expect(estado.mensajes).toHaveLength(PAGINA_MENSAJES)
+
+    fallaInsert = "tope"
+    await act(async () => {
+      error = await estado.enviar("Otra vez")
+    })
+    expect(error).toMatch(/espera unos minutos/)
   })
 })
