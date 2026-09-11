@@ -11,7 +11,7 @@
  * valida y traduce los errores a mensajes para el piloto.
  */
 
-import { entero, esObjeto, llamarRpc, texto, textoONulo, type Crudo } from "@/services/rpc"
+import { entero, enteroONulo, esObjeto, llamarRpc, texto, textoONulo, type Crudo } from "@/services/rpc"
 
 export type ClaveEvaluacion =
   | "notam_evaluacion"
@@ -53,10 +53,18 @@ export interface Correccion {
   referencia: string | null
 }
 
-export interface RevisionPregunta extends Correccion {
+export interface RevisionPregunta {
   posicion: number
   /** null si quedó sin responder. */
   opcion: number | null
+  correcta: boolean
+  /**
+   * La correcta, su explicación y su referencia llegan solo en las preguntas
+   * respondidas: terminar un intento sin responder no entrega el banco.
+   */
+  opcionCorrecta: number | null
+  explicacion: string | null
+  referencia: string | null
 }
 
 export interface ResultadoEvaluacion {
@@ -122,9 +130,12 @@ export function leerResultado(datos: unknown): ResultadoEvaluacion {
     revision: datos.revision.map((r) => {
       if (!esObjeto(r)) throw new Error("revisión con forma inesperada")
       return {
-        ...correccionDe(r),
         posicion: entero(r.posicion),
-        opcion: r.opcion === null || r.opcion === undefined ? null : entero(r.opcion),
+        opcion: enteroONulo(r.opcion),
+        correcta: r.correcta === true,
+        opcionCorrecta: enteroONulo(r.opcion_correcta),
+        explicacion: textoONulo(r.explicacion),
+        referencia: textoONulo(r.referencia),
       }
     }),
   }

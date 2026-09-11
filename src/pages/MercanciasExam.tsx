@@ -2,7 +2,12 @@ import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
 import { supabase } from "@/integrations/supabase/client"
 import { MP_APRENDE, MP_EXAM_PER_ATTEMPT, MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA } from "@/lib/mercancias"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
-import { fetchMercanciasProgress, readMercanciasLocal, writeMercanciasLocal } from "@/lib/mercanciasProgress"
+import {
+  fetchMercanciasProgress,
+  pushPendingMercancias,
+  readMercanciasLocal,
+  writeMercanciasLocal,
+} from "@/lib/mercanciasProgress"
 
 /**
  * Evaluación de Mercancías peligrosas: la misma pantalla que la de NOTAM, con la
@@ -27,9 +32,10 @@ const CONFIG: ExamenConfig = {
   evaluacion: "mercancias_evaluacion",
   leerLeidas: () => readMercanciasLocal().lessonScreens,
   escribirLeidas: (ns) => writeMercanciasLocal({ lessonScreens: ns }),
-  hidratarLeidas: async (uid) => {
-    const p = await fetchMercanciasProgress(uid)
-    return p ? p.lessonScreens : null
+  sincronizarLeidas: async (uid) => {
+    const traido = await fetchMercanciasProgress(uid)
+    if (!traido) return null
+    return (await pushPendingMercancias(traido)).lessonScreens
   },
   leerMejorLocal: () => readMercanciasLocal().bestScore,
   escribirMejorLocal: (score) => writeMercanciasLocal({ bestScore: score }),

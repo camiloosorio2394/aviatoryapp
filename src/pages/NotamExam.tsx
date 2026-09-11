@@ -8,7 +8,7 @@ import {
   EXAM_PER_ATTEMPT,
   NOTAM_TOTALES,
 } from "@/lib/notamComun"
-import { fetchNotamProgress } from "@/lib/notamProgress"
+import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 
 /**
  * Evaluación de la sección NOTAM.
@@ -38,9 +38,10 @@ const CONFIG: ExamenConfig = {
   escribirLeidas: (ns) => {
     writeLocalProgress({ lessonScreens: ns })
   },
-  hidratarLeidas: async (uid) => {
-    const p = await fetchNotamProgress(uid)
-    return p ? p.lessonScreens : null
+  sincronizarLeidas: async (uid) => {
+    const remoto = await fetchNotamProgress(uid)
+    if (!remoto) return null
+    return (await pushPendingLocalProgress(remoto)).lessonScreens
   },
   leerMejorLocal: () => readLocalProgress().bestExamScore,
   escribirMejorLocal: (score) => {

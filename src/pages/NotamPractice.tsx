@@ -33,7 +33,7 @@ import {
   type NotamExercise,
   type RealNotam,
 } from "@/lib/notam"
-import { readLocalProgress } from "@/lib/notamComun"
+import { claveEjercicioNotam, claveNotamReal, readLocalProgress } from "@/lib/notamComun"
 import { accentText } from "@/lib/tileColors"
 import { fetchNotamProgress, markNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 import { registrarEstudioDiario } from "@/lib/activity"
@@ -58,8 +58,7 @@ import { registrarEstudioDiario } from "@/lib/activity"
 type Mode = "texto" | "imagen"
 
 interface PracticeItem {
-  /** Clave de progreso: "txt-<id>" o "real-<id>". Prefijos nuevos porque los
-      bancos se rehicieron y un "ex-7" viejo ya no señala al mismo ejercicio. */
+  /** Clave de progreso: claveEjercicioNotam o claveNotamReal (notamComun). */
   key: string
   mode: Mode
   /** Solo en los NOTAM reales; es lo único por lo que se puede filtrar. */
@@ -79,7 +78,7 @@ const CONSIGNA =
   "Decodifica este NOTAM y explícalo con tus palabras: qué informa, a qué aeropuerto o FIR corresponde, desde y hasta cuándo, y qué implica para la operación."
 
 const TEXT_ITEMS: PracticeItem[] = EXERCISES.map((e) => ({
-  key: `txt-${e.id}`,
+  key: claveEjercicioNotam(e.id),
   mode: "texto",
   pais: null,
   titulo: e.titulo,
@@ -93,7 +92,7 @@ const TEXT_ITEMS: PracticeItem[] = EXERCISES.map((e) => ({
 }))
 
 const IMAGE_ITEMS: PracticeItem[] = REAL_NOTAMS.map((n) => ({
-  key: `real-${n.id}`,
+  key: claveNotamReal(n.id),
   mode: "imagen",
   pais: n.pais,
   titulo: n.identificacion,

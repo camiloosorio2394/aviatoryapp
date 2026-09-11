@@ -196,13 +196,21 @@ export function QuizEngine({ evaluacion, backTo, backLabel, onFinish, footer }: 
                           </span>
                         </div>
                       )}
-                      <div className="mt-1 text-[13px]">
-                        <span className="text-muted-foreground">Correcta: </span>
-                        <span className="font-medium">{inline(pregunta.opciones[revision.opcionCorrecta])}</span>
-                      </div>
-                      <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
-                        {inline(revision.explicacion)}
-                      </p>
+                      {revision.opcionCorrecta !== null && revision.explicacion !== null ? (
+                        <>
+                          <div className="mt-1 text-[13px]">
+                            <span className="text-muted-foreground">Correcta: </span>
+                            <span className="font-medium">{inline(pregunta.opciones[revision.opcionCorrecta])}</span>
+                          </div>
+                          <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
+                            {inline(revision.explicacion)}
+                          </p>
+                        </>
+                      ) : (
+                        <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
+                          La correcta y su explicación se muestran en las preguntas que respondiste.
+                        </p>
+                      )}
                       <div className="mt-2 text-[12px] text-muted-foreground">
                         {pregunta.tema ? `${pregunta.tema} · ` : ""}
                         {referenciaDe(revision.referencia, pregunta.tema)}

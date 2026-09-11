@@ -90,7 +90,12 @@ export interface ExamenConfig {
   evaluacion: ClaveEvaluacion
   leerLeidas: () => number[]
   escribirLeidas: (ns: number[]) => void
-  hidratarLeidas: (uid: string) => Promise<number[] | null>
+  /**
+   * Sube lo leído en este equipo que la base no tiene y devuelve lo que la base
+   * confirmó. null si no se pudo preguntar. El servidor abre la evaluación solo
+   * con la lección completa en la base.
+   */
+  sincronizarLeidas: (uid: string) => Promise<number[] | null>
   leerMejorLocal: () => number | null
   escribirMejorLocal: (score: number) => void
   cargarHistorial: (uid: string) => Promise<{ rows: FilaHistorial[]; count: number; best: number | null } | null>
@@ -131,37 +136,37 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
     [config.totalLecciones],
   )
 
-  // La llave de entrada. El respaldo local abre de inmediato; si no alcanza, se
-  // le pregunta a la base antes de bloquear, porque la lectura pudo hacerse en
-  // otro dispositivo y sería injusto cerrarle la puerta a quien ya la terminó.
+  // La llave de entrada. Quien abre la evaluación es el servidor, y solo con la
+  // lección completa en la base. Con sesión, antes de decidir se sube lo leído
+  // en este equipo (pudo leerse sin conexión) y se une con lo que la base tiene,
+  // que pudo leerse en otro dispositivo. Sin sesión, lo local es lo disponible.
   const [leidas, setLeidas] = useState<number[]>(() => soloExistentes(config.leerLeidas()))
-  const [hidratado, setHidratado] = useState(false)
+  const [sincronizado, setSincronizado] = useState(false)
   const completa = leidas.length >= config.totalLecciones
-  // Sin sesión no hay nada que consultar: lo local es toda la verdad disponible.
-  const esperando = !completa && (sessionLoading || (!!user?.id && !hidratado))
+  const esperando = sessionLoading || (!!user?.id && !sincronizado)
   const bloqueado = !completa && !esperando
 
   useEffect(() => {
-    if (completa || sessionLoading) return
+    if (sessionLoading) return
     const uid = user?.id
     if (!uid) return
     let cancelled = false
     void (async () => {
-      const fetched = await config.hidratarLeidas(uid)
+      const confirmadas = await config.sincronizarLeidas(uid)
       if (cancelled) return
-      if (fetched) {
-        const merged = soloExistentes(Array.from(new Set([...config.leerLeidas(), ...fetched]))).sort(
+      if (confirmadas) {
+        const merged = soloExistentes(Array.from(new Set([...config.leerLeidas(), ...confirmadas]))).sort(
           (a, b) => a - b,
         )
         config.escribirLeidas(merged)
         setLeidas(merged)
       }
-      setHidratado(true)
+      setSincronizado(true)
     })()
     return () => {
       cancelled = true
     }
-  }, [user?.id, sessionLoading, completa, config, soloExistentes])
+  }, [user?.id, sessionLoading, config, soloExistentes])
 
   if (esperando) return <Cargando texto="Abriendo la evaluación..." />
 
@@ -933,7 +938,7 @@ function ReviewItem({ acento, n, pregunta, revision }: { acento: string; n: numb
   const marca = ok ? acento : "var(--av-wine-500)"
   const textoMarca = ok ? accentText(acento) : "var(--av-wine-fg)"
   const elegida = revision.opcion !== null ? pregunta.opciones[revision.opcion] : null
-  const correcta = pregunta.opciones[revision.opcionCorrecta]
+  const correcta = revision.opcionCorrecta === null ? null : pregunta.opciones[revision.opcionCorrecta]
 
   return (
     <div className="overflow-hidden rounded-[14px] border bg-card" style={{ borderColor: mix("var(--border)", open ? 95 : 75) }}>
@@ -985,19 +990,27 @@ function ReviewItem({ acento, n, pregunta, revision }: { acento: string; n: numb
                   {elegida ?? "Sin responder"}
                 </Respuesta>
               </div>
-              <div className="mt-6">
-                <Rotulo>Respuesta correcta</Rotulo>
-                <Respuesta glifo="✓" color={acento}>
-                  {correcta}
-                </Respuesta>
-              </div>
+              {correcta !== null && (
+                <div className="mt-6">
+                  <Rotulo>Respuesta correcta</Rotulo>
+                  <Respuesta glifo="✓" color={acento}>
+                    {correcta}
+                  </Respuesta>
+                </div>
+              )}
             </>
           )}
 
-          <div className="mt-6">
-            <Rotulo>Explicación</Rotulo>
-            <Explicacion acento={acento} texto={revision.explicacion} referencia={revision.referencia ?? undefined} />
-          </div>
+          {revision.explicacion !== null ? (
+            <div className="mt-6">
+              <Rotulo>Explicación</Rotulo>
+              <Explicacion acento={acento} texto={revision.explicacion} referencia={revision.referencia ?? undefined} />
+            </div>
+          ) : (
+            <p className="mt-6 max-w-[62ch] text-[13px] leading-relaxed text-muted-foreground">
+              La respuesta correcta y su explicación se muestran en las preguntas que respondiste.
+            </p>
+          )}
         </div>
         </div>
       </div>
