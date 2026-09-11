@@ -150,7 +150,9 @@ export function Expiries() {
     void traer().then((r) => {
       if (vivo) aplicar(r)
     })
-    void supabase.rpc("check_my_expiries")
+    void supabase.rpc("check_my_expiries").then(({ error }) => {
+      if (error) console.warn("check_my_expiries", error.message)
+    })
     return () => {
       vivo = false
     }

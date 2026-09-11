@@ -184,11 +184,10 @@ export async function fetchItem(slug: string): Promise<ItemBiblioteca | null> {
  * brief la daba por hecha. Si falla, la pantalla sigue funcionando.
  */
 export async function contarApertura(id: number): Promise<void> {
-  try {
-    await supabase.rpc("bump_library_item_views", { p_item_id: id })
-  } catch {
-    /* que no se cuente una visita no es motivo para romper la pantalla */
-  }
+  // supabase-js no lanza: el error llega en la respuesta. Que no se cuente una
+  // visita no es motivo para romper la pantalla, pero el motivo queda en consola.
+  const { error } = await supabase.rpc("bump_library_item_views", { p_item_id: id })
+  if (error) console.warn("bump_library_item_views", error.message)
 }
 
 /**
@@ -226,15 +225,13 @@ export async function fetchSeguirLeyendo(userId: string, limite = 8): Promise<nu
  * midió el archivo, así que la cifra sale gratis y siempre correcta. La RPC solo
  * escribe sobre null, así que llamarla de más no pisa nada.
  *
- * Si la migración `20260802050000` todavía no está aplicada, esto falla en
- * silencio y el documento simplemente no muestra su número de páginas.
+ * Si la RPC falla, el documento simplemente no muestra su número de páginas;
+ * el motivo queda en consola.
  */
 export async function guardarPaginas(id: number, paginas: number): Promise<void> {
-  try {
-    await supabase.rpc("set_library_item_pages", { p_item_id: id, p_paginas: paginas })
-  } catch {
-    /* que no se guarde el número de páginas no es motivo para romper el visor */
-  }
+  // Que no se guarde el número de páginas no es motivo para romper el visor.
+  const { error } = await supabase.rpc("set_library_item_pages", { p_item_id: id, p_paginas: paginas })
+  if (error) console.warn("set_library_item_pages", error.message)
 }
 
 /**

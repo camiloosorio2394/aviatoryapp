@@ -109,7 +109,8 @@ export async function buildInitialTest(): Promise<BuiltTest> {
   const subjectsIncluded: TestSubject[] = []
   const pcaItems: TestItem[] = []
   try {
-    const { data: subs } = await supabase.rpc("vault_list_subjects", { p_module: "pca" })
+    const { data: subs, error: errorMaterias } = await supabase.rpc("vault_list_subjects", { p_module: "pca" })
+    if (errorMaterias) console.warn("test inicial: vault_list_subjects", errorMaterias.message)
     // Banco más grande primero: así el test arranca por donde hay más para medir
     // y la "materia más floja" se desempata por tamaño de banco, no por nombre.
     const list = ((subs ?? []) as { subject_slug: string; question_count: number }[])
@@ -127,7 +128,10 @@ export async function buildInitialTest(): Promise<BuiltTest> {
             p_module: "pca",
             p_count: Math.min(PER_SUBJECT, s.question_count),
           })
-          if (error) return null
+          if (error) {
+            console.warn("test inicial: vault_start_quiz", s.subject_slug, error.message)
+            return null
+          }
           const row = Array.isArray(data) ? data[0] : data
           if (!row) return null
           return {
@@ -158,8 +162,9 @@ export async function buildInitialTest(): Promise<BuiltTest> {
         })
       }
     }
-  } catch {
-    /* sin vault → solo sección ICAO */
+  } catch (err) {
+    // Sin vault el test sigue con la sección ICAO; el motivo queda en consola.
+    console.warn("test inicial: materias", err)
   }
 
   // ICAO primero, luego las materias en el mismo orden que `subjects`
