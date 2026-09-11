@@ -1,6 +1,7 @@
 import type { ReactNode } from "react"
 import { Navigate, useLocation } from "react-router-dom"
 import { useSession } from "@/hooks/useSession"
+import { PasskeyInvitacion } from "@/components/auth/PasskeyInvitacion"
 
 interface RequireAuthProps {
   children: ReactNode
@@ -22,5 +23,6 @@ export function RequireAuth({ children }: RequireAuthProps) {
     return <Navigate to="/login" replace state={{ from: location }} />
   }
 
-  return <>{children}</>
+  // Con sesión: se ofrece el passkey una vez, y quien lo posponga entra igual.
+  return <PasskeyInvitacion>{children}</PasskeyInvitacion>
 }
