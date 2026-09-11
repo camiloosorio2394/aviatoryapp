@@ -168,11 +168,11 @@ const CODIGO: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-ILU-02 · Ilustración · 21:9 · 2000×860 · SVG",
-        descripcion:
-          "Un METAR real escrito grande en monoespaciada, con cada grupo señalado por una llave o una línea guía hacia su nombre: estación, día y hora Zulú, viento, visibilidad, RVR, tiempo presente, nubes, temperatura y rocío, QNH, tendencia. Es el mapa de la lección y debería poder mirarse una sola vez y volver a él siempre.",
-        alto: 260,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-ilu-02-metar-grupo-a-grupo.webp",
+        alt: "El METAR de referencia escrito en grande y partido en sus diez grupos, cada uno con una línea guía hasta su nombre.",
+        ancho: 2000,
+        alto: 860,
       },
       {
         kind: "entrevista",
@@ -237,11 +237,11 @@ const CODIGO: DocScreen[] = [
           "El viento sopla **desde** 270°, y la 09 apunta a 090°: lo tienes justo por la cola. Y el número que limita no es el promedio sino la ráfaga, 28 nudos, que es contra la que se compara el límite de viento de cola del avión.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-DIA-02 · Diagrama · 4:3 · 1200×900 · SVG",
-        descripcion:
-          "Una pista vista desde arriba con su rumbo marcado y una rosa de vientos superpuesta, mostrando cómo se descompone un viento de 270° a 15 nudos en componente de cara y componente cruzada sobre la pista 09 y sobre la 27. Con las dos flechas y los dos números. Es lo que convierte «27015KT» en una decisión.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-dia-02-componente-de-viento.webp",
+        alt: "Una pista 09/27 vista desde arriba con una rosa de vientos, y el viento de 270 grados a 15 nudos descompuesto: cola por la 09 y cara por la 27.",
+        ancho: 1200,
+        alto: 900,
       },
       {
         kind: "piensaComoPiloto",
@@ -457,11 +457,11 @@ const CODIGO: DocScreen[] = [
           "`VC` es el calificador de posición: **in the vicinity**, en la vecindad. La tormenta está cerca pero no encima. Cambia la decisión: no es lo mismo despegar con una celda sobre el campo que con una a diez millas moviéndose hacia ti.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-DIA-01 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "La estructura de un grupo de tiempo presente desmontada en tres piezas, con `+TSRA` de ejemplo: el calificador de intensidad (− ligero, sin signo moderado, + fuerte, VC en las proximidades), el descriptor (TS tormenta, SH chubascos, FZ engelante, BC bancos, MI baja, DR arrastre, BL ventisca, SG, PR) y el fenómeno (RA lluvia, SN nieve, FG niebla, BR bruma, HZ calima, GR granizo…). Tres columnas y una flecha que las une para que se lea como una frase.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-dia-01-tiempo-presente.webp",
+        alt: "La estructura del grupo de tiempo presente en tres columnas, calificador, descriptor y fenómeno, con el ejemplo +TSRA resaltado en cada una.",
+        ancho: 1600,
+        alto: 900,
       },
       {
         kind: "piensaComoPiloto",
@@ -593,11 +593,11 @@ const CODIGO: DocScreen[] = [
           "El techo es la base de la primera capa que cubra **más de la mitad** del cielo, o sea la primera `BKN` u `OVC`: aquí `BKN025`, 2500 ft. Las `FEW` y `SCT` de abajo no cuentan para el techo. Y ojo al `CB` pegado: hay convección, que pesa más que el techo mismo.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-ILU-01 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
-        descripcion:
-          "Corte vertical del cielo con las nubes ordenadas por altura y nombradas: estratos y cúmulos abajo, altocúmulos y altostratos en el medio, cirros arriba, y un cumulonimbo atravesándolo todo desde la base hasta el yunque. Con la escala de pies a la izquierda. Es la imagen que convierte FEW, SCT, BKN y OVC en algo que se reconoce mirando por la ventanilla.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-ilu-01-cielo-por-altura.webp",
+        alt: "Corte vertical del cielo con las nubes ordenadas por altura y nombradas, con la escala de pies a la izquierda y un cumulonimbo atravesándolo todo desde la base hasta el yunque.",
+        ancho: 1600,
+        alto: 900,
       },
       {
         kind: "figura",
@@ -944,11 +944,11 @@ const CODIGO: DocScreen[] = [
         text: "El METAR te dice lo que **hay**. El TAF te dice lo que se **espera**. Esa es toda la diferencia, y de ella salen las dos preguntas que un piloto responde con cada uno: el METAR contesta «¿puedo aterrizar ahora?» y el TAF, «¿voy a poder aterrizar cuando llegue, y qué llevo de alterno?».",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-ILU-03 · Ilustración · 21:9 · 2000×860 · SVG",
-        descripcion:
-          "Una línea de tiempo horizontal. A la izquierda, un punto marcado METAR con la etiqueta «lo que hay, ahora». A la derecha, una banda que cubre todo el resto rotulada TAF con «lo que se espera, durante este periodo», y dentro de ella la hora estimada de llegada del vuelo marcada con un avión. Es la imagen que explica por qué se leen los dos y no uno.",
-        alto: 260,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-ilu-03-metar-punto-taf-banda.webp",
+        alt: "Línea de tiempo con el METAR como un punto al principio y el TAF como una banda que cubre todo el periodo, con la hora estimada de llegada marcada dentro de ella.",
+        ancho: 2000,
+        alto: 860,
       },
       { kind: "sub", text: "Cómo empieza un TAF" },
       {
@@ -1087,11 +1087,11 @@ const CODIGO: DocScreen[] = [
         text: "**FM borra; BECMG matiza.** Después de un FM, todo lo anterior deja de valer y hay que leer la línea completa. Después de un BECMG, solo cambia lo que ese grupo nombra. Si lees un BECMG como si fuera un FM, te inventas condiciones que el pronóstico no dijo.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-DIA-03 · Diagrama · 21:9 · 2000×860 · SVG",
-        descripcion:
-          "Cuatro carriles horizontales sobre la misma línea de tiempo, uno por grupo. FM: un corte vertical limpio y todo lo de la derecha en color nuevo. BECMG: una transición en degradado dentro de su ventana. TEMPO: bloques cortos intermitentes. PROB40: los mismos bloques pero al 40 % de opacidad. La imagen tiene que dejar ver de un vistazo que FM es un corte y TEMPO un parpadeo.",
-        alto: 260,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-dia-03-grupos-de-cambio.webp",
+        alt: "Cuatro carriles sobre la misma línea de tiempo, uno por grupo de cambio: FM como un corte limpio, BECMG como una transición, TEMPO como bloques intermitentes y PROB40 como los mismos bloques atenuados.",
+        ancho: 2000,
+        alto: 860,
       },
       {
         kind: "check",

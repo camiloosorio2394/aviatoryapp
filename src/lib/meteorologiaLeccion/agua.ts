@@ -137,11 +137,11 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T06-01 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Perfil vertical con dos curvas de temperatura lado a lado: a la izquierda una atmósfera normal (temperatura bajando con la altura) y a la derecha una con inversión de superficie (la curva se dobla y sube en los primeros cientos de pies). En la de la derecha, sombrear la capa de inversión y rotular «techo de la inversión» sobre ella, con niebla y neblina dibujadas atrapadas debajo. Sustituye a la figura del capítulo y añade la comparación, que es lo que hace que se entienda.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t06-01-inversion-de-superficie.webp",
+        alt: "Dos perfiles verticales de temperatura lado a lado: a la izquierda una atmósfera normal, con la temperatura bajando con la altura; a la derecha una con inversión de superficie, con la capa sombreada y niebla atrapada debajo.",
+        ancho: 1600,
+        alto: 900,
         pie: "La misma altura, dos comportamientos de la temperatura.",
       },
       {
@@ -273,12 +273,11 @@ export const PARTE_AGUA: DocScreen[] = [
         text: "La separación dividida entre 2,45, por mil. Y si quieres el atajo mental, cada grado de separación son unos 400 ft de base. Con 8 grados, unos 3.200 ft, que es la cuenta de arriba con un error de sesenta pies.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T07-01 · Diagrama · 4:3 · 1200×900 · SVG",
-        descripcion:
-          "Perfil vertical con dos rectas que convergen: la de temperatura bajando 3 °C por 1.000 ft y la de punto de rocío bajando 0,55 °C por 1.000 ft, partiendo de 29 y 21 °C en superficie. Donde se cortan, dibujar la base de la nube y acotar la altura con 3.260 ft AGL. Los dos gradientes rotulados sobre cada recta. Es la figura que hace que la fórmula deje de memorizarse.",
-        alto: 400,
-        ratio: "4 / 3",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t07-01-base-de-la-nube.webp",
+        alt: "Gráfico de temperatura contra altura con dos rectas que salen del suelo, la de temperatura desde 29 grados y la de punto de rocío desde 21, y se cortan a 3.260 ft, donde está la base de la nube.",
+        ancho: 1200,
+        alto: 900,
         anchoMax: 520,
         pie: "Dos rectas que se acercan 2,45 °C cada mil pies.",
       },
@@ -432,12 +431,11 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T08-01 · Diagrama · 3:2 · 1800×1200 · SVG",
-        descripcion:
-          "Corte vertical con las cuatro familias colocadas a su altura real, con una escala de pies AGL a la izquierda marcando 6.500 y 20.000, y la silueta de cada tipo dibujada donde corresponde (estratos, estratocúmulos, nimboestratos abajo; altoestratos y altocúmulos en medio; cirros, cirroestratos y cirrocúmulos arriba; y la columna de cúmulo a cumulonimbus atravesándolas todas). Sustituye a la figura 11-22 del PHAK.",
-        alto: 460,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t08-01-familias-por-altura.webp",
+        alt: "Corte vertical con las cuatro familias de nubes a su altura real, con la escala de pies marcando 6.500 y 20.000, y la columna del cumulonimbus atravesándolas todas hasta el yunque.",
+        ancho: 1800,
+        alto: 1200,
         pie: "Las cuatro familias, cada una a su altura.",
       },
             {
@@ -712,11 +710,11 @@ export const PARTE_AGUA: DocScreen[] = [
         text: "No es «¿hay niebla?», es «¿qué niebla es?». Si es de radiación, el sol y el viento la levantan y la espera tiene sentido. Si es de advección o de ladera, no se quema con el sol y puede durar días: ahí la decisión es el alterno, no el retraso.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T09-01 · Ilustración · 16:9 · 1600×900 · SVG o WebP",
-        descripcion:
-          "Cuatro viñetas en rejilla, una por tipo de niebla (radiación, advección, ladera y vapor), cada una con el mecanismo dibujado: suelo enfriándose de noche; aire cálido cruzando una costa hacia tierra fría; aire subiendo una ladera; aire frío sobre agua cálida con el vapor ascendiendo. Debajo de cada viñeta, una línea con si se quema con el sol o no, que es lo operativo.",
-        alto: 360,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t09-01-cuatro-nieblas.webp",
+        alt: "Cuatro viñetas con el mecanismo de cada tipo de niebla, radiación, advección, ladera y vapor, y debajo de cada una si se quema con el sol o no.",
+        ancho: 1600,
+        alto: 900,
         pie: "Cuatro mecanismos distintos, cuatro decisiones distintas.",
       },
       {

@@ -91,12 +91,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T01-01 · Diagrama · 4:5 · 900×1125 · SVG o WebP",
-        descripcion:
-          "Corte vertical de la atmósfera con las cuatro capas rotuladas, la tropopausa marcada como una línea gruesa y, al lado, una escala de altitud en pies con los niveles de vuelo típicos de un jet comercial (FL350 a FL410) señalados sobre ella. Tiene que verse de un golpe que el avión de línea vuela justo debajo de la tapa. Sustituye a la figura 11-2 del PHAK, que no podemos usar.",
-        alto: 420,
-        ratio: "4 / 5",
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t01-01-corte-atmosfera.webp",
+        alt: "Corte vertical de la atmósfera con las cuatro capas rotuladas, la tropopausa marcada como una línea gruesa y la banda de crucero de un jet de línea, entre FL350 y FL410, justo por debajo de ella.",
+        ancho: 900,
+        alto: 1125,
         anchoMax: 380,
         pie: "Dónde vuela un jet comercial respecto de la tropopausa.",
       },
@@ -239,11 +238,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T02-01 · Diagrama comparativo · 16:9 · 1600×900 · SVG o WebP",
-        descripcion:
-          "Dos siluetas de pista, una encima de otra, con la misma aeronave. Arriba: nivel del mar, día estándar, carrera corta marcada con una cota. Abajo: 8.000 ft de altitud de presión, carrera de más del doble, con la misma cota para comparar. Sin cifras inventadas: se rotula con las del PHAK (745 ft al nivel del mar y «más del doble» a 8.000 ft). Sustituye a la figura 11-9.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t02-01-carrera-dos-altitudes.webp",
+        alt: "Dos siluetas de pista con la misma aeronave: arriba, a nivel del mar, la carrera de despegue acotada en 745 ft; abajo, a 8.000 ft de altitud de presión, una carrera de más del doble.",
+        ancho: 1600,
+        alto: 900,
         pie: "La misma aeronave, el mismo peso, dos altitudes de presión.",
       },
       {
@@ -384,11 +383,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Un piloto de la región vuela los dos hemisferios en la misma semana, así que este no es un dato de examen. En el hemisferio sur el aire que sale de una alta se desvía a la izquierda y la circula en sentido antihorario (anticiclónica), y alrededor de una baja gira en sentido horario (ciclónica). En el hemisferio norte es al revés. El mismo símbolo en la carta significa un giro distinto según de qué lado del ecuador esté.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T03-01 · Diagrama · 16:9 · 1600×900 · SVG o WebP",
-        descripcion:
-          "Dos hemisferios lado a lado, cada uno con una alta y una baja, y flechas curvas mostrando el sentido de giro en cada caso. Rotulado «anticiclónica» y «ciclónica» en los cuatro casos. La pieza tiene que dejar claro de un vistazo que el sentido se invierte al cruzar el ecuador, que es el error que un piloto de la región comete de verdad. Sustituye a la figura 11-10 del PHAK y la amplía a los dos hemisferios.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t03-01-coriolis-dos-hemisferios.webp",
+        alt: "Cuatro sistemas de presión, dos por hemisferio, con flechas curvas mostrando el sentido de giro. El ecuador separa los dos grupos y el sentido se invierte al cruzarlo.",
+        ancho: 1600,
+        alto: 900,
         pie: "El mismo sistema de presión gira al revés en cada hemisferio.",
       },
       {
@@ -512,11 +511,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Corrientes de convección: pequeñas circulaciones locales que nacen del calentamiento desparejo de la superficie. Son las responsables del aire con baches que se siente volando bajo en un día caluroso.",
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T04-01 · Ilustración · 16:9 · 1600×900 · WebP",
-        descripcion:
-          "Perfil de terreno con cuatro superficies seguidas (asfalto, campo arado, bosque y lago) y flechas verticales sobre cada una: ascendentes sobre asfalto y arado, descendentes sobre bosque y agua. Una aeronave en vuelo bajo cruzándolas, con la trayectoria dibujada ondulada para que se vea el bacheo. Sustituye a la figura 11-14 del PHAK.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t04-01-cuatro-superficies.webp",
+        alt: "Perfil de terreno con cuatro superficies seguidas, asfalto, campo arado, bosque y lago, con flechas ascendentes sobre las dos primeras y descendentes sobre las dos últimas, y una trayectoria de vuelo bajo ondulada cruzándolas.",
+        ancho: 1600,
+        alto: 900,
         pie: "El mismo tramo de vuelo bajo, cuatro superficies, cuatro empujones distintos.",
       },
       {
@@ -582,11 +581,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T04-02 · Ilustración · 16:9 · 1600×900 · WebP",
-        descripcion:
-          "Pista con un hangar grande a barlovento y el flujo de viento dibujado con líneas de corriente: liso antes del edificio, roto y con remolinos a sotavento, justo sobre la zona de toma. Una aeronave en final cruzando esa zona. Sustituye a la figura 11-15 del PHAK.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t04-02-edificio-y-turbulencia.webp",
+        alt: "Pista con un hangar a barlovento: las líneas de corriente llegan lisas, se rompen en remolinos a sotavento y esa zona rota cae justo sobre la zona de toma, que cruza una aeronave en final.",
+        ancho: 1600,
+        alto: 900,
         pie: "El edificio no se mueve, pero mueve el aire donde vas a tomar.",
       },
       {
@@ -744,11 +743,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MT-T05-01 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Corte vertical de una microrráfaga sobre una pista: la columna de aire descendente golpeando el suelo y abriéndose en abanico, con la trayectoria de un avión en despegue superpuesta y los cuatro momentos numerados sobre ella (1 viento de frente, 2 descendente, 3 viento de cola, 4 impacto). Los números tienen que estar sobre la trayectoria, no en una leyenda aparte. Sustituye a la figura 11-17 del PHAK y es la imagen más importante del módulo.",
-        alto: 380,
+        kind: "figura",
+        src: "/modulos/meteorologia/mt-t05-01-microrrafaga-cuatro-tiempos.webp",
+        alt: "Corte vertical de una microrráfaga sobre una pista: la columna descendente golpea el suelo y se abre en abanico, con los cuatro momentos numerados sobre la trayectoria de despegue, del viento de frente al impacto.",
+        ancho: 1600,
+        alto: 900,
         pie: "Los cuatro tiempos de una microrráfaga, sobre la trayectoria de despegue.",
       },
       {
