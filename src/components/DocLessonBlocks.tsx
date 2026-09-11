@@ -1555,7 +1555,7 @@ function Transicion({ de, a, nota }: { de: string; a: string; nota?: string }) {
 
   const ficha = (texto: string, entra: boolean) => (
     <span
-      className="rounded-md border px-4 py-2.5 text-[15px] font-semibold transition-all duration-500"
+      className="rounded-md border px-4 py-2.5 text-[15px] font-semibold transition-[color,background-color,border-color,box-shadow] duration-500"
       style={{
         borderColor: docAccent(ACENTO, 32),
         color: docAccent(ACENTO, 75),
@@ -1802,7 +1802,7 @@ function Laboratorio({ intro, items }: { intro?: string; items: LabNotam[] }) {
                 return (
                   <span
                     key={i}
-                    className="block rounded-[3px] px-1.5 transition-all"
+                    className="block rounded-[3px] px-1.5 transition-[color,background-color,border-color,box-shadow]"
                     style={{
                       background: on ? docTint(ACENTO, 16) : "transparent",
                       color: on ? docAccent(ACENTO, 88) : "var(--doc-fg)",

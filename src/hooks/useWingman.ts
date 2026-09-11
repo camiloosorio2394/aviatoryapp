@@ -45,7 +45,7 @@ export function useWingman() {
   const [isPro, setIsPro] = useState<boolean>(false)
 
   // Fetch usage + plan once on mount and when panel opens
-  const refreshUsage = useCallback(async () => {
+  const traerUso = useCallback(async () => {
     const [{ data: usageData }, { data: subData }] = await Promise.all([
       supabase.rpc("ai_usage_this_month"),
       supabase
@@ -55,18 +55,33 @@ export function useWingman() {
         .limit(1)
         .maybeSingle(),
     ])
-    setUsage((usageData as number) ?? 0)
     const sub = subData as { plan?: string; status?: string } | null
-    setIsPro(
-      !!sub &&
+    return {
+      usados: (usageData as number) ?? 0,
+      pro:
+        !!sub &&
         ["pro_monthly", "pro_annual", "founder_lifetime"].includes(sub.plan ?? "") &&
-        ["trialing", "active"].includes(sub.status ?? "")
-    )
+        ["trialing", "active"].includes(sub.status ?? ""),
+    }
   }, [])
 
+  const refreshUsage = useCallback(async () => {
+    const r = await traerUso()
+    setUsage(r.usados)
+    setIsPro(r.pro)
+  }, [traerUso])
+
   useEffect(() => {
-    refreshUsage()
-  }, [refreshUsage])
+    let vivo = true
+    void traerUso().then((r) => {
+      if (!vivo) return
+      setUsage(r.usados)
+      setIsPro(r.pro)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traerUso])
 
   const openWith = useCallback(
     (ctx: WingmanContext) => {

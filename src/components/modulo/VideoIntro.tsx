@@ -54,6 +54,12 @@ interface VideoIntroProps {
   continuarTexto: string
   /** Clave de recuerdo, unica por modulo. */
   claveVisto: string
+  /**
+   * Color del boton de play y del boton de continuar. Por defecto el azul, que
+   * es el de NOTAM; cada modulo pasa el suyo. Va aqui y no en una clase porque
+   * son los dos unicos puntos de voltaje del componente.
+   */
+  acento?: string
 }
 
 export function VideoIntro({
@@ -65,6 +71,7 @@ export function VideoIntro({
   continuarA,
   continuarTexto,
   claveVisto,
+  acento = "var(--av-blue-500)",
 }: VideoIntroProps) {
   const [abierto, setAbierto] = useState(false)
   const [termino, setTermino] = useState(false)
@@ -150,7 +157,7 @@ export function VideoIntro({
           <span className="absolute inset-0 grid place-items-center" aria-hidden>
             <span
               className="grid h-8 w-8 place-items-center rounded-full shadow-[0_2px_10px_rgba(0,0,0,0.45)] transition-transform group-hover:scale-110"
-              style={{ background: "var(--av-blue-500)" }}
+              style={{ background: acento }}
             >
               <Play className="h-3.5 w-3.5 translate-x-[1px] fill-white text-white" />
             </span>
@@ -239,7 +246,7 @@ export function VideoIntro({
                         to={continuarA}
                         onClick={cerrar}
                         className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-colors"
-                        style={{ background: "var(--av-blue-500)" }}
+                        style={{ background: acento }}
                       >
                         {continuarTexto} <ArrowRight className="h-4 w-4" />
                       </Link>

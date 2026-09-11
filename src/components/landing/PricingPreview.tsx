@@ -83,7 +83,7 @@ export function PricingPreview() {
           {plans.map((p, i) => (
             <Reveal key={p.name} delay={i * 80}>
               <div
-                className="relative h-full rounded-2xl border bg-card p-7 flex flex-col transition-all hover:-translate-y-0.5"
+                className="relative h-full rounded-2xl border bg-card p-7 flex flex-col transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
                 style={{
                   borderColor: p.highlight
                     ? "color-mix(in oklab, var(--av-blue-500) 55%, transparent)"

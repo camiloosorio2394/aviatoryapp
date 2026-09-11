@@ -369,7 +369,7 @@ export function NotamPractice() {
               aria-label="Progreso del modo activo"
             >
               <div
-                className="h-full rounded-full transition-all"
+                className="h-full rounded-full transition-[width]"
                 style={{ width: `${pct}%`, background: "var(--av-blue-500)" }}
               />
             </div>

@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
-import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -75,7 +75,7 @@ export function Mercancias() {
     {
       to: MP_APRENDE,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: BookOpen,
       color: "var(--av-dg-700)",
       meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_NIVELES.length} niveles · ${MP_MINUTOS} min`,
@@ -83,7 +83,7 @@ export function Mercancias() {
       blurb:
         "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Cada afirmación con su artículo.",
       cta: "Iniciar formación",
-      photoHueco: "MP-POR-01 · Portada 3:2 · 1200×800 · Un bulto etiquetado en rampa",
+      photoHueco: "MP-POR-01 · Portada 5:2 · 1200×480 · Un bulto etiquetado en rampa",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -96,7 +96,7 @@ export function Mercancias() {
     {
       to: MP_PRACTICA,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: Target,
       color: "var(--av-dg-700)",
       meta: `${MP_PRACTICA_TOTAL} ejercicios · Etiquetas, envíos y escenarios`,
@@ -104,7 +104,7 @@ export function Mercancias() {
       blurb:
         "Reconoces etiquetas, clasificas envíos y resuelves escenarios de entrevista técnica.",
       cta: "Iniciar práctica",
-      photoHueco: "MP-POR-02 · Portada 3:2 · 1200×800 · Un ULD con etiquetas de riesgo",
+      photoHueco: "MP-POR-02 · Portada 5:2 · 1200×480 · Un ULD con etiquetas de riesgo",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -115,7 +115,7 @@ export function Mercancias() {
     {
       to: MP_EVALUACION,
       densidad: "compacta" as const,
-      photoAspect: "3/2" as const,
+      photoAspect: "5/2" as const,
       icon: GraduationCap,
       color: "var(--av-dg-700)",
       meta: `${MP_EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${MP_PASS_SCORE}%`,
@@ -123,7 +123,7 @@ export function Mercancias() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación y el artículo de cada pregunta.",
       cta: "Iniciar evaluación",
-      photoHueco: "MP-POR-03 · Portada 3:2 · 1200×800 · Cabina con el NOTOC en la mano",
+      photoHueco: "MP-POR-03 · Portada 5:2 · 1200×480 · Cabina con el NOTOC en la mano",
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -193,31 +193,20 @@ export function Mercancias() {
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {/* El video de este módulo todavía no existe. El hueco NO se
-                    quita ni se cambia por texto: guarda la caja exacta de la
-                    tarjeta de NOTAM (radio 12, miniatura 92x52), así que el día
-                    que haya video se pone <VideoIntro> aquí y no se mueve nada
-                    de sitio alrededor. */}
-                <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
-                  <EspacioReservado
-                    etiqueta="Video 16:9"
-                    className="h-[52px] w-[92px] shrink-0 rounded-[8px]"
-                  />
-                  <div className="min-w-0">
-                    <div
-                      className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: "var(--av-dg-500)" }}
-                    >
-                      Empieza por aquí
-                    </div>
-                    <div className="mt-1 text-[15px] font-semibold leading-[1.35] text-white/70">
-                      Introducción al módulo
-                    </div>
-                    <div className="mt-1 text-[12px] text-white/45">
-                      [VIDEO · 16:9 · ESPACIO RESERVADO]
-                    </div>
-                  </div>
-                </div>
+                {/* La miniatura y el cartel son el mismo fotograma mientras el
+                    módulo no tenga foto de hero. Cuando la haya, la miniatura
+                    pasa a ser esa foto, como en NOTAM. */}
+                <VideoIntro
+                  src="/modulos/mercancias/intro.mp4"
+                  miniatura="/modulos/mercancias/intro-poster.webp"
+                  portada="/modulos/mercancias/intro-poster.webp"
+                  duracion="59 s"
+                  titulo="Introducción al módulo de Mercancías peligrosas"
+                  continuarA={MP_APRENDE}
+                  continuarTexto="Empezar la lección"
+                  claveVisto="av:visto:intro:mercancias"
+                  acento="var(--av-dg-700)"
+                />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
@@ -269,7 +258,7 @@ export function Mercancias() {
                       aria-label="Avance del módulo Mercancías peligrosas"
                     >
                       <div
-                        className="h-full rounded-sm transition-all"
+                        className="h-full rounded-sm transition-[width]"
                         style={{ width: `${resumen.overall}%`, background: "var(--av-dg-500)" }}
                       />
                     </div>

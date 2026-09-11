@@ -1,0 +1,29 @@
+# Qué se versiona de este proyecto de video y qué no.
+#
+# Se versiona la FUENTE: el brief, el guion, el storyboard, la especificación de
+# diseño, las composiciones HTML y las tipografías. Con eso se vuelve a renderizar
+# el video entero. Son unos 600 KB.
+#
+# No se versiona lo GENERADO, que son 20 de los 24 MB del proyecto y se puede
+# reconstruir con `npm run render` y el pipeline de audio:
+#
+#   renders/      el mp4 de salida. Además ya vive, comprimido, en
+#                 public/modulos/notam/intro.mp4, que es el que sirve la app.
+#   assets/voice/ locución generada por TTS a partir de SCRIPT.md
+#   assets/bgm/   y sfx/: se descargan del catálogo de HeyGen
+#   snapshots/    capturas de verificación de lint
+#   .thumbnails/  2,7 MB en 402 miniaturas que el Studio rehace solo
+#
+# Las tipografías SÍ entran (276 KB): sin ellas el render sale con otra letra,
+# y no se descargan solas. Y .media/preferences.json también (4 KB): guarda la
+# voz y el preset elegidos, que es lo que hace repetible el render.
+
+renders/
+assets/voice/
+assets/bgm/
+assets/sfx/
+snapshots/
+node_modules/
+.hyperframes/
+.thumbnails/
+mosaico*.jpg

@@ -140,49 +140,6 @@ export const NIVEL_5: DocScreen[] = [
           "COMAT y COMAT peligroso, mercancía peligrosa oculta, la aceptación y la información al piloto al mando, y la notificación. Es ValuJet contado desde tu asiento.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
-            ref: "Lecciones 01, 08, 13 y 15",
-            opciones: [
-              {
-                t: "Todos empezaron en cabina por un dispositivo de un pasajero.",
-                fb: "Ninguno. Los cuatro empezaron en una bodega o en la cubierta de carga: con carga mal declarada, con baterías de litio como carga, o con un fuego al que no se podía llegar.",
-              },
-              {
-                t: "Todos empezaron en una bodega y la tripulación se enteró cuando el fuego ya llevaba minutos.",
-                ok: true,
-                fb: "Es el patrón. Por eso el reglamento actúa antes del vuelo (aceptación, estiba, segregación, información al comandante) y exige que lo necesario para responder ya esté a bordo.",
-              },
-              {
-                t: "En todos se determinó la causa exacta y se sancionó al expedidor.",
-                fb: "En South African 295 y en Asiana 991 la causa de la ignición nunca se determinó. Y la lección no es la sanción: es lo que cambió en la norma después.",
-              },
-            ],
-          },
-          {
-            q: "En ValuJet 592, ¿en qué eslabones de la cadena falló el sistema?",
-            ref: "NTSB AAR-97/06 · LAR 175.215, 175.410 y 175.220",
-            opciones: [
-              {
-                t: "Solo en la tripulación, que no revisó la bodega.",
-                fb: "La tripulación firmó un manifiesto que decía «vacíos». El fallo estaba antes: en quien no identificó ni embaló (expedidor), en quien no vigiló a su contratista (explotador) y en una regla de diseño que la autoridad no había cerrado.",
-              },
-              {
-                t: "En el expedidor que no identificó ni embaló, en el explotador que no vigiló ni capacitó, y en una regla de diseño de la autoridad.",
-                ok: true,
-                fb: "Tres fallas, tres artículos: 175.215 y 175.416 para el expedidor, 175.220 y el Capítulo D para el explotador, y la exigencia de detección y supresión en bodegas de clase D que vino después.",
-              },
-              {
-                t: "En el fabricante de los generadores.",
-                fb: "Los generadores funcionaron como estaban diseñados: produjeron oxígeno y calor. El problema fue transportarlos sin tapas, sin declarar y sin embalar.",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         titulo: "Lo que te pueden preguntar sobre casos",
         intro:
@@ -210,14 +167,6 @@ export const NIVEL_5: DocScreen[] = [
               "Que el fallo empezó en la información, no en el fuego. Una clasificación que no se hizo, una declaración que no se comprobó o una descripción genérica que nadie cuestionó. Y que una vez el fuego está en la bodega, la tripulación no puede llegar hasta él: lo único que queda es el tiempo hasta un aeródromo utilizable y lo que ya estaba a bordo. Por eso todo el esfuerzo normativo está antes de la salida.",
             claves: ["El fallo empieza en la información", "El fuego en bodega no se alcanza", "Todo se juega antes de salir"],
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Cuatro accidentes con informe oficial: Helderberg (1987), ValuJet (1996), UPS 6 (2010), Asiana 991 (2011).",
-          "El patrón: empieza en la bodega, el papel no coincide con la caja, el fuego va más rápido que la respuesta, y lo que salva es lo que ya estaba a bordo.",
-          "COMAT no es «de la casa y por tanto inofensivo»: si está clasificado, es COMAT peligroso y entra al NOTOC.",
         ],
       },
     ],
@@ -437,8 +386,53 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
+        kind: "cta",
+        texto: "Con las dieciocho lecciones leídas, lo que sigue es usarlas: reconocer etiquetas, clasificar envíos, resolver escenarios y ensayar las preguntas de una entrevista.",
+        destino: MP_PRACTICA,
+        rotulo: "Ir a la práctica",
+      },
+      {
         kind: "ponAPrueba",
+        titulo: "Control del nivel 5",
         preguntas: [
+          {
+            q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
+            ref: "Lecciones 01, 08, 13 y 15",
+            opciones: [
+              {
+                t: "Todos empezaron en cabina por un dispositivo de un pasajero.",
+                fb: "Ninguno. Los cuatro empezaron en una bodega o en la cubierta de carga: con carga mal declarada, con baterías de litio como carga, o con un fuego al que no se podía llegar.",
+              },
+              {
+                t: "Todos empezaron en una bodega y la tripulación se enteró cuando el fuego ya llevaba minutos.",
+                ok: true,
+                fb: "Es el patrón. Por eso el reglamento actúa antes del vuelo (aceptación, estiba, segregación, información al comandante) y exige que lo necesario para responder ya esté a bordo.",
+              },
+              {
+                t: "En todos se determinó la causa exacta y se sancionó al expedidor.",
+                fb: "En South African 295 y en Asiana 991 la causa de la ignición nunca se determinó. Y la lección no es la sanción: es lo que cambió en la norma después.",
+              },
+            ],
+          },
+          {
+            q: "En ValuJet 592, ¿en qué eslabones de la cadena falló el sistema?",
+            ref: "NTSB AAR-97/06 · LAR 175.215, 175.410 y 175.220",
+            opciones: [
+              {
+                t: "Solo en la tripulación, que no revisó la bodega.",
+                fb: "La tripulación firmó un manifiesto que decía «vacíos». El fallo estaba antes: en quien no identificó ni embaló (expedidor), en quien no vigiló a su contratista (explotador) y en una regla de diseño que la autoridad no había cerrado.",
+              },
+              {
+                t: "En el expedidor que no identificó ni embaló, en el explotador que no vigiló ni capacitó, y en una regla de diseño de la autoridad.",
+                ok: true,
+                fb: "Tres fallas, tres artículos: 175.215 y 175.416 para el expedidor, 175.220 y el Capítulo D para el explotador, y la exigencia de detección y supresión en bodegas de clase D que vino después.",
+              },
+              {
+                t: "En el fabricante de los generadores.",
+                fb: "Los generadores funcionaron como estaban diseñados: produjeron oxígeno y calor. El problema fue transportarlos sin tapas, sin declarar y sin embalar.",
+              },
+            ],
+          },
           {
             q: "Han pasado 25 meses desde tu último curso recurrente de mercancías peligrosas. ¿Qué corresponde?",
             ref: "RAC 175.310 (a); LAR 175.310 (d)",
@@ -495,22 +489,7 @@ export const NIVEL_5: DocScreen[] = [
                 fb: "Insuficiente. La obligación material es tener procedimientos contra las no declaradas y capacitar.",
               },
             ],
-          },
-        ],
-      },
-      {
-        kind: "cta",
-        texto: "Con las dieciocho lecciones leídas, lo que sigue es usarlas: reconocer etiquetas, clasificar envíos, resolver escenarios y ensayar las preguntas de una entrevista.",
-        destino: MP_PRACTICA,
-        rotulo: "Ir a la práctica",
-      },
-      {
-        kind: "summary",
-        items: [
-          "Tres componentes de instrucción (175.315): familiarización, específica según la función y seguridad operacional.",
-          "Cada 24 meses como mínimo (175.310 (a)); ventana de 30 días del LAR; instructores de Categoría 6.",
-          "El curso también lo exigen el RAC 2 (2.2.1.1.6 (e), 2.3.1.2 (c)) y el RAC 61 (61.610 (g) (5), 61.810 (g) (4)).",
-          "Veinte respuestas con artículo. Si dudas en una, vuelve a su lección.",
+          }
         ],
       },
     ],

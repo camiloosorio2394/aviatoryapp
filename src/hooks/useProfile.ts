@@ -14,24 +14,35 @@ export function useProfile() {
   const [profile, setProfile] = useState<ProfileLite | null>(null)
   const [loading, setLoading] = useState(true)
 
-  const refresh = useCallback(async () => {
-    if (!user) {
-      setProfile(null)
-      setLoading(false)
-      return
-    }
+  /** Trae y devuelve. `sirve` dice si el resultado se puede usar: cuando la
+   *  consulta falla, el perfil que ya había no se toca. */
+  const traer = useCallback(async () => {
+    if (!user) return { sirve: true, perfil: null as ProfileLite | null }
     const { data, error } = await supabase
       .from("profiles")
       .select("id, full_name, username, photo_url")
       .eq("id", user.id)
       .maybeSingle()
-    if (!error) setProfile((data ?? null) as ProfileLite | null)
-    setLoading(false)
+    return { sirve: !error, perfil: (data ?? null) as ProfileLite | null }
   }, [user])
 
+  const refresh = useCallback(async () => {
+    const r = await traer()
+    if (r.sirve) setProfile(r.perfil)
+    setLoading(false)
+  }, [traer])
+
   useEffect(() => {
-    refresh()
-  }, [refresh])
+    let vivo = true
+    void traer().then((r) => {
+      if (!vivo) return
+      if (r.sirve) setProfile(r.perfil)
+      setLoading(false)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traer])
 
   return { profile, loading, refresh }
 }

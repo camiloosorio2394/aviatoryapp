@@ -19,23 +19,36 @@ export function useNotifications() {
   const { user } = useSession()
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
-  const [loading, setLoading] = useState(false)
+  // Se está cargando mientras haya sesión y todavía no haya llegado la primera
+  // tanda. Antes era un estado que el efecto ponía en true nada más entrar, que
+  // es justo un setState en el cuerpo del efecto.
+  const [cargado, setCargado] = useState(false)
+  const loading = !!user && !cargado
 
-  const fetchAll = useCallback(async () => {
-    if (!user) return
+  /** Trae y devuelve. Null si no hay sesión o si la consulta falla: en los dos
+   *  casos lo que ya se tenía se queda como está. */
+  const traer = useCallback(async () => {
+    if (!user) return null
     const { data, error } = await supabase
       .from("notifications")
       .select("*")
       .eq("user_id", user.id)
       .order("created_at", { ascending: false })
       .limit(30)
-    if (!error) {
-      const list = (data ?? []) as Notification[]
+    return error ? null : ((data ?? []) as Notification[])
+  }, [user])
+
+  const aplicar = useCallback((list: Notification[] | null) => {
+    if (list) {
       setNotifications(list)
       setUnreadCount(list.filter((n) => n.read_at === null).length)
     }
-    setLoading(false)
-  }, [user])
+    setCargado(true)
+  }, [])
+
+  const fetchAll = useCallback(async () => {
+    aplicar(await traer())
+  }, [traer, aplicar])
 
   const markAllRead = useCallback(async () => {
     if (!user || unreadCount === 0) return
@@ -48,8 +61,10 @@ export function useNotifications() {
 
   useEffect(() => {
     if (!user) return
-    setLoading(true)
-    fetchAll()
+    let vivo = true
+    void traer().then((list) => {
+      if (vivo) aplicar(list)
+    })
 
     // Realtime — escucha inserts en notifications del user
     const channel = supabase
@@ -74,10 +89,11 @@ export function useNotifications() {
     const timer = window.setInterval(fetchAll, POLL_MS)
 
     return () => {
+      vivo = false
       window.clearInterval(timer)
       supabase.removeChannel(channel)
     }
-  }, [user, fetchAll])
+  }, [user, traer, aplicar, fetchAll])
 
   return { notifications, unreadCount, loading, markAllRead, refresh: fetchAll }
 }

@@ -271,7 +271,7 @@ function QuizRunner({ items, kicker, accent = "var(--av-blue-500)" }: { items: Q
           {idx + 1} <span className="opacity-50">/ {order.length}</span>
         </div>
         <div className="flex-1 mx-3 h-1.5 rounded-full bg-border/50 overflow-hidden">
-          <div className="h-full rounded-full transition-all" style={{ width: `${((idx + (revealed ? 1 : 0)) / order.length) * 100}%`, background: accent }} />
+          <div className="h-full rounded-full transition-[width]" style={{ width: `${((idx + (revealed ? 1 : 0)) / order.length) * 100}%`, background: accent }} />
         </div>
         {scorable > 0 && <div className="tabular-nums text-[12px] text-muted-foreground">✓ {score}</div>}
       </div>

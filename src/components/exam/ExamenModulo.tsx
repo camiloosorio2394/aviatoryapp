@@ -282,7 +282,7 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
             aria-label={`Pregunta ${idx + 1} de ${total}`}
           >
             <div
-              className="h-full rounded-full transition-all"
+              className="h-full rounded-full transition-[width]"
               style={{ width: `${((idx + 1) / total) * 100}%`, background: config.acento }}
             />
           </div>
@@ -479,7 +479,7 @@ function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: number[] 
             aria-valuenow={hechas}
             aria-label={`${hechas} de ${T} ${unidad} leídas`}
           >
-            <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: "var(--av-amber-400)" }} />
+            <div className="h-full rounded-full transition-[width]" style={{ width: `${pct}%`, background: "var(--av-amber-400)" }} />
           </div>
         </div>
 
@@ -756,7 +756,7 @@ function Result({ config, questions, picks, correctCount, score, passed, elapsed
             aria-valuenow={score}
             aria-label={`Puntaje ${score} sobre 100`}
           >
-            <div className="h-full rounded-full transition-all" style={{ width: `${Math.max(score, 1)}%`, background: color }} />
+            <div className="h-full rounded-full transition-[width]" style={{ width: `${Math.max(score, 1)}%`, background: color }} />
           </div>
           <div className="relative mt-1 h-[11px]">
             <span className="absolute top-0 block h-[5px] w-px" style={{ left: `${config.aprobacion}%`, background: mix("var(--foreground)", 35) }} aria-hidden="true" />
@@ -929,9 +929,18 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
         <span className="mt-[2px] flex-shrink-0 text-muted-foreground">{open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}</span>
       </button>
 
-      {open && (
+      {/* Plegable con transición y no con keyframes: se puede interrumpir, y
+          sobre todo se cierra como se abrió. Antes `{open && …}` lo desmontaba
+          de golpe, así que la tarjeta se abría en 430 ms y se cerraba en cero.
+          Esta pantalla se recorre tarjeta a tarjeta por veinte preguntas. */}
+      <div
+        className={`grid transition-[grid-template-rows] duration-200 ease-out ${
+          open ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+        }`}
+      >
+        <div className="overflow-hidden">
         <div className="px-5 pb-7 sm:px-6">
-          <div className="rev-aparece pt-1.5">
+          <div className="pt-1.5">
             <Rotulo>Pregunta</Rotulo>
             <p className="mt-2.5 max-w-[62ch] text-[19px] font-semibold leading-[1.45] text-foreground sm:text-[20px]" style={{ letterSpacing: "-0.012em" }}>
               {question.pregunta}
@@ -941,7 +950,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
           <Filete className="mt-6" />
 
           {ok ? (
-            <div className="rev-aparece rev-aparece-2 mt-6">
+            <div className="mt-6">
               <Rotulo>Respuesta</Rotulo>
               <Respuesta glifo="✓" color={marca}>
                 {elegida ?? question.shuffledOptions[question.correctIndex]}
@@ -949,13 +958,13 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
             </div>
           ) : (
             <>
-              <div className="rev-aparece rev-aparece-2 mt-6">
+              <div className="mt-6">
                 <Rotulo>Tu respuesta</Rotulo>
                 <Respuesta glifo="✕" color="var(--av-wine-500)">
                   {elegida ?? "Sin responder"}
                 </Respuesta>
               </div>
-              <div className="rev-aparece rev-aparece-3 mt-6">
+              <div className="mt-6">
                 <Rotulo>Respuesta correcta</Rotulo>
                 <Respuesta glifo="✓" color={acento}>
                   {question.shuffledOptions[question.correctIndex]}
@@ -964,12 +973,13 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
             </>
           )}
 
-          <div className={`rev-aparece mt-6 ${ok ? "rev-aparece-3" : "rev-aparece-4"}`}>
+          <div className="mt-6">
             <Rotulo>Explicación</Rotulo>
             <Explicacion acento={acento} texto={question.explicacion} referencia={question.referencia} />
           </div>
         </div>
-      )}
+        </div>
+      </div>
     </div>
   )
 }

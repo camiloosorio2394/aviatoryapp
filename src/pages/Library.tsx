@@ -284,7 +284,7 @@ function Portada({ item }: { item: ItemBiblioteca }) {
       style={{ scrollSnapAlign: "start" }}
     >
       <div
-        className="relative aspect-[1055/1491] w-full overflow-hidden rounded-[6px] transition-all duration-200 group-hover:-translate-y-1.5"
+        className="relative aspect-[1055/1491] w-full overflow-hidden rounded-[6px] transition-[transform,box-shadow,border-color,background-color] duration-200 group-hover:-translate-y-1.5"
         style={{
           background: "var(--muted)",
           boxShadow: "0 1px 2px rgb(11 16 32 / 10%), 0 8px 20px -12px rgb(11 16 32 / 45%)",

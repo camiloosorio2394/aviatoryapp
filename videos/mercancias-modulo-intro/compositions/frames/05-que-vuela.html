@@ -1,0 +1,300 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* JetBrains Mono — the indexical voice of this frame. No local woff2 is staged
+       in this project (frame.md carries no auto-generated @font-face block), so the
+       preset's Google-hosted faces are declared here. latin + latin-ext are both
+       loaded: the band carries the · middle dot. font-display:block so the renderer
+       never snapshots a fallback face. */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* the frame root — styled by #root, never by a class on the composition element */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── full-bleed ground (papel): its own clip layer, never the root ───── */
+    #qv05-bg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #FBFAF8;
+    }
+
+    #qv05-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* ── the traverse: one hairline strip the three stations sit on ──────── */
+    #qv05-strip {
+      position: absolute;
+      left: 80px;
+      top: 202px;
+      width: 1760px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.14);
+      transform-origin: 0 50%;
+    }
+
+    /* ── the three stations (foreground subject) ─────────────────────────── */
+    .qv05-col {
+      position: absolute;
+      top: 250px;
+      width: 560px;
+      height: 300px;
+      background-color: #F0E7CF;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 12px;
+    }
+
+    .qv05-label {
+      position: absolute;
+      left: 36px;
+      top: 44px;
+      width: 488px;
+      height: 48px;
+      line-height: 48px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.72);
+      white-space: pre;
+    }
+
+    .qv05-head-rule {
+      position: absolute;
+      left: 36px;
+      top: 122px;
+      width: 488px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: 0 50%;
+    }
+
+
+    /* ── the cancel mark that crosses station 3 — stays crisp while it dims ─ */
+    #qv05-strike {
+      position: absolute;
+      left: 1280px;
+      top: 495px;
+      width: 560px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.55);
+      transform-origin: 0 50%;
+    }
+
+    /* ── the band at the foot — the ONE mustard moment ───────────────────── */
+    #qv05-band {
+      position: absolute;
+      left: 0;
+      top: 768px;
+      width: 1920px;
+      height: 110px;
+    }
+
+    #qv05-band-bg {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(122, 92, 18, 0.12);
+      transform-origin: 0 50%;
+    }
+
+    #qv05-band-text {
+      position: absolute;
+      inset: 0;
+      line-height: 110px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: #7A5C12;
+      white-space: pre;
+    }
+
+    .qv05-band-part {
+      display: inline-block;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="05-que-vuela"
+    data-duration="6.581"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div id="qv05-bg" class="clip" data-start="0" data-duration="6.581" data-track-index="0"></div>
+
+    <div id="qv05-scene" class="clip" data-start="0" data-duration="6.581" data-track-index="1">
+      <div id="qv05-strip"></div>
+
+      <div class="qv05-col" id="qv05-c1" style="left: 80px">
+        <div class="qv05-label" id="qv05-lb1">PERMITIDO</div>
+        <div class="qv05-head-rule"></div>
+      </div>
+
+      <div class="qv05-col" id="qv05-c2" style="left: 680px">
+        <div class="qv05-label" id="qv05-lb2">CON CONDICIONES</div>
+        <div class="qv05-head-rule"></div>
+      </div>
+
+      <div class="qv05-col" id="qv05-c3" style="left: 1280px">
+        <div class="qv05-label" id="qv05-lb3">PROHIBIDO</div>
+        <div class="qv05-head-rule"></div>
+      </div>
+
+      <div id="qv05-strike"></div>
+
+      <div id="qv05-band">
+        <div id="qv05-band-bg"></div>
+        <div id="qv05-band-text"><span class="qv05-band-part">CAO</span><span class="qv05-band-part"> · SOLO AERONAVE DE CARGA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="05-que-vuela"]');
+      var el = function (s) { return root.querySelector(s); };
+      var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+
+      var INK = "#16191D";
+
+      // ── voice map (assets/voice/05.wav · 5.381s, then 1.2s de quietud) ───
+      // "Vas a saber"        0.259–0.959  → las tres columnas suben, escalonadas
+      // "qué puede volar,"   1.100–2.079  → las dos primeras pasan a plena tinta
+      // "qué no,"            2.740–3.199  → la tercera se atenúa y la cruza la hairline
+      // "y en qué aeronave." 3.859–5.079  → entra la banda CAO al pie
+      //  5.079–6.581                       → quietud
+
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.0–1.30) · el travelling dibuja la franja y las tres ───
+      //    estaciones suben desde abajo, escalonadas 0.2s
+      tl.fromTo(
+        el("#qv05-strip"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.90, ease: "power2.out" },
+        0.05
+      );
+
+      var COLS = ["#qv05-c1", "#qv05-c2", "#qv05-c3"];
+      var LABELS = ["#qv05-lb1", "#qv05-lb2", "#qv05-lb3"];
+
+      for (var i = 0; i < 3; i++) {
+        var at = 0.10 + i * 0.20;
+        var col = el(COLS[i]);
+
+        tl.fromTo(
+          col,
+          { opacity: 0, y: 44 },
+          { opacity: 1, y: 0, duration: 0.54, ease: "power2.out" },
+          at
+        );
+        tl.fromTo(
+          el(LABELS[i]),
+          { opacity: 0, y: 16 },
+          { opacity: 1, y: 0, duration: 0.40, ease: "power2.out" },
+          at + 0.18
+        );
+        tl.fromTo(
+          col.querySelector(".qv05-head-rule"),
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.46, ease: "power2.out" },
+          at + 0.34
+        );
+      }
+
+      // ── Scene 2a (1.10–2.10) · "qué puede volar" — las dos que sí vuelan
+      //    pasan a plena tinta
+      var INK_BEAT = [1.12, 1.56];
+      for (var k = 0; k < 2; k++) {
+        tl.to(
+          el(LABELS[k]),
+          { color: INK, duration: 0.34, ease: "power1.out" },
+          INK_BEAT[k]
+        );
+        tl.to(
+          el(COLS[k]),
+          { borderColor: "rgba(22, 25, 29, 0.20)", duration: 0.34, ease: "power1.out" },
+          INK_BEAT[k]
+        );
+      }
+
+      // ── Scene 2b (2.60–3.40) · "qué no" — la tercera se cierra: 35% y una
+      //    hairline la cruza (el gesto de la escena)
+      tl.to(el("#qv05-lb3"), { color: INK, duration: 0.24, ease: "power1.out" }, 2.56);
+      tl.to(el("#qv05-c3"), { opacity: 0.35, duration: 0.58, ease: "power2.inOut" }, 2.62);
+      tl.fromTo(
+        el("#qv05-strike"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.58, ease: "power2.inOut" },
+        2.80
+      );
+
+      // ── Scene 3 (3.90–5.20) · "y en qué aeronave" — la banda entra al pie
+      tl.fromTo(
+        el("#qv05-band-bg"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.66, ease: "power2.inOut" },
+        3.90
+      );
+      var parts = all(".qv05-band-part");
+      tl.fromTo(parts[0], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 4.26);
+      tl.fromTo(parts[1], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" }, 4.56);
+
+      // quietud — el cuadro se sostiene hasta el final, sin salida
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 6.58);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["05-que-vuela"] = tl;
+    })();
+  </script>
+</template>

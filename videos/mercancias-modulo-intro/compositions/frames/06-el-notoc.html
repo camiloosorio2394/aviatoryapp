@@ -1,0 +1,332 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ---- fonts (the video's ramp, as the sibling frames set it: Archivo for the
+            reading voice + JetBrains Mono for the index / the form's own voice).
+            No display serif is named here: this frame carries no serif moment. ---- */
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 400;
+      font-stretch: 100%;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'JetBrains Mono';
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
+    /* ---- frame root: NO background here (the ground is a clip layer) ---- */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+    }
+
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* the warm paper floor — full-bleed ground, own clip layer, full duration */
+    #n6-paper {
+      background-color: #FBFAF8;
+    }
+
+    #n6-stage {
+      color: #16191D;
+    }
+
+    /* ---- masthead chrome on the cream floor ---- */
+    #n6-kicker {
+      position: absolute;
+      left: 80px;
+      top: 84px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #16191D;
+    }
+
+    #n6-spike {
+      width: 24px;
+      height: 24px;
+      flex: none;
+    }
+
+    #n6-index {
+      position: absolute;
+      right: 80px;
+      top: 84px;
+      height: 36px;
+      line-height: 36px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(22, 25, 29, 0.58);
+    }
+
+    /* ---- the navy band: the form surface the headers stand on (full-bleed, y 200-596) ---- */
+    #n6-band {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 200px;
+      height: 396px;
+      background-color: #151618;
+    }
+
+    .n6-band-edge {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: rgba(251, 250, 248, 0.14);
+    }
+
+    #n6-band-top {
+      top: 0;
+    }
+
+    #n6-band-bottom {
+      top: 395px;
+    }
+
+    /* column rules — the form's own grid, drawn top-down as each column lands */
+    .n6-col-rule {
+      position: absolute;
+      top: 0;
+      width: 1px;
+      height: 396px;
+      background-color: rgba(251, 250, 248, 0.10);
+      transform-origin: top center;
+    }
+
+    /* the header / gloss separator inside the band */
+    #n6-mid-rule {
+      position: absolute;
+      left: 80px;
+      width: 1760px;
+      top: 242px;
+      height: 1px;
+      background-color: rgba(251, 250, 248, 0.14);
+      transform-origin: left center;
+    }
+
+    /* ---- the seven column headers: the form's literal voice, mono, cream ---- */
+    .n6-head {
+      position: absolute;
+      top: 58px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 62px;
+      font-weight: 500;
+      line-height: 76px;
+      letter-spacing: 0.01em;
+      color: #FBFAF8;
+      opacity: 0;
+    }
+
+    /* ---- the glosses: our voice, sans, quiet — one word under each header ---- */
+    .n6-gloss {
+      position: absolute;
+      top: 280px;
+      font-family: "Archivo", "Helvetica Neue", Arial, sans-serif;
+      font-size: 34px;
+      font-weight: 400;
+      line-height: 46px;
+      letter-spacing: -0.004em;
+      color: rgba(251, 250, 248, 0.55);
+      opacity: 0;
+    }
+
+    /* ---- the foot: hairline, then the one voltage moment ---- */
+    #n6-foot-rule {
+      position: absolute;
+      left: 80px;
+      width: 1760px;
+      top: 724px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: left center;
+    }
+
+    #n6-drill {
+      position: absolute;
+      left: 80px;
+      top: 760px;
+      height: 56px;
+      line-height: 56px;
+      font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+      font-size: 44px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #7A5C12;
+      opacity: 0;
+    }
+  </style>
+
+  <div data-hf-id="hf-n6r0" id="root" data-composition-id="06-el-notoc" data-start="0" data-duration="7.208" data-width="1920" data-height="1080">
+    <!-- background: the warm paper floor — full-bleed, own clip layer, full duration -->
+    <div data-hf-id="hf-n6p1" class="clip" id="n6-paper" data-start="0" data-duration="7.208" data-track-index="0"></div>
+
+    <div data-hf-id="hf-n6s2" class="clip" id="n6-stage" data-start="0" data-duration="7.208" data-track-index="1">
+      <div data-hf-id="hf-n6k3" id="n6-kicker">
+        <svg data-hf-id="hf-n6k4" id="n6-spike" viewBox="0 0 24 24" aria-hidden="true">
+          <g data-hf-id="hf-n6k5" stroke="#7A5C12" stroke-width="2.6" stroke-linecap="round">
+            <line data-hf-id="hf-n6k6" x1="12" y1="3" x2="12" y2="21" />
+            <line data-hf-id="hf-n6k7" x1="4.2" y1="7.5" x2="19.8" y2="16.5" />
+            <line data-hf-id="hf-n6k8" x1="4.2" y1="16.5" x2="19.8" y2="7.5" />
+          </g>
+        </svg>
+        <span data-hf-id="hf-n6k9">NOTOC</span>
+      </div>
+
+      <div data-hf-id="hf-n6i0" id="n6-index">7 columnas</div>
+
+      <!-- background element: the navy form band the headers stand on -->
+      <div data-hf-id="hf-n6b1" id="n6-band">
+        <div data-hf-id="hf-n6b2" class="n6-band-edge" id="n6-band-top"></div>
+        <div data-hf-id="hf-n6b3" class="n6-band-edge" id="n6-band-bottom"></div>
+
+        <div data-hf-id="hf-n6r1" class="n6-col-rule" id="n6-rule-1" style="left: 250px"></div>
+        <div data-hf-id="hf-n6r2" class="n6-col-rule" id="n6-rule-2" style="left: 400px"></div>
+        <div data-hf-id="hf-n6r3" class="n6-col-rule" id="n6-rule-3" style="left: 1100px"></div>
+        <div data-hf-id="hf-n6r4" class="n6-col-rule" id="n6-rule-4" style="left: 1250px"></div>
+        <div data-hf-id="hf-n6r5" class="n6-col-rule" id="n6-rule-5" style="left: 1400px"></div>
+        <div data-hf-id="hf-n6r6" class="n6-col-rule" id="n6-rule-6" style="left: 1620px"></div>
+
+        <div data-hf-id="hf-n6m0" id="n6-mid-rule"></div>
+
+        <!-- focal: the seven NOTOC column headers, in their real column widths -->
+        <div data-hf-id="hf-n6h1" class="n6-head" id="n6-head-1" style="left: 104px; width: 122px">POS</div>
+        <div data-hf-id="hf-n6h2" class="n6-head" id="n6-head-2" style="left: 274px; width: 102px">UN</div>
+        <div data-hf-id="hf-n6h3" class="n6-head" id="n6-head-3" style="left: 424px; width: 652px">PROPER SHIPPING NAME</div>
+        <div data-hf-id="hf-n6h4" class="n6-head" id="n6-head-4" style="left: 1124px; width: 102px">CL</div>
+        <div data-hf-id="hf-n6h5" class="n6-head" id="n6-head-5" style="left: 1274px; width: 102px">GE</div>
+        <div data-hf-id="hf-n6h6" class="n6-head" id="n6-head-6" style="left: 1424px; width: 172px">PKG</div>
+        <div data-hf-id="hf-n6h7" class="n6-head" id="n6-head-7" style="left: 1644px; width: 172px">ULD</div>
+
+        <!-- supporting: one-word gloss under each header -->
+        <div data-hf-id="hf-n6g1" class="n6-gloss" id="n6-gloss-1" style="left: 104px; width: 122px">dónde</div>
+        <div data-hf-id="hf-n6g2" class="n6-gloss" id="n6-gloss-2" style="left: 274px; width: 102px">qué</div>
+        <div data-hf-id="hf-n6g3" class="n6-gloss" id="n6-gloss-3" style="left: 424px; width: 652px">nombre</div>
+        <div data-hf-id="hf-n6g4" class="n6-gloss" id="n6-gloss-4" style="left: 1124px; width: 102px">clase</div>
+        <div data-hf-id="hf-n6g5" class="n6-gloss" id="n6-gloss-5" style="left: 1274px; width: 102px">grupo</div>
+        <div data-hf-id="hf-n6g6" class="n6-gloss" id="n6-gloss-6" style="left: 1424px; width: 172px">bultos</div>
+        <div data-hf-id="hf-n6g7" class="n6-gloss" id="n6-gloss-7" style="left: 1644px; width: 172px">unidad</div>
+      </div>
+
+      <!-- the foot: hairline, then the one mustard voltage moment -->
+      <div data-hf-id="hf-n6f0" id="n6-foot-rule"></div>
+      <div data-hf-id="hf-n6d0" id="n6-drill">DRILL CODE</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var DUR = 7.208;
+
+      /* Scene 1 (0.0-2.6s): the seven headers arrive left to right, one every 0.3s.
+         Scene 2 (2.6-4.4s): the glosses land under them on the same cadence.
+         Scene 3 (4.4-6.0s): the hairline draws and DRILL CODE arrives; then quietud. */
+      var HEAD_T = [0.10, 0.40, 0.70, 1.00, 1.30, 1.60, 1.90];
+      var GLOSS_T = [2.70, 2.91, 3.12, 3.33, 3.54, 3.75, 3.96];
+
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      /* ---------- the stage: paper floor + navy band are the GROUND — they are
+                    simply there on the cut, never faded in. Only the chrome arrives. ---------- */
+      tl.fromTo("#n6-kicker", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.04);
+      tl.fromTo("#n6-index", { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 0.12);
+
+      /* ---------- scene 1: the row is READ, not received — column by column.
+                    Each header nudges in from the left; the column rule to its left
+                    draws down with it, so the form's grid builds as the row does.
+                    The first header is legible by t = 0.44s. ---------- */
+      for (var i = 0; i < 7; i++) {
+        tl.fromTo(
+          "#n6-head-" + (i + 1),
+          { opacity: 0, x: -18 },
+          { opacity: 1, x: 0, duration: 0.34, ease: "power2.out" },
+          HEAD_T[i]
+        );
+
+        /* columns 2..7 each bring the rule on their left */
+        if (i > 0) {
+          tl.fromTo(
+            "#n6-rule-" + i,
+            { scaleY: 0 },
+            { scaleY: 1, duration: 0.30, ease: "power2.out" },
+            HEAD_T[i] - 0.06
+          );
+        }
+      }
+
+      /* ---------- scene 2: the separator draws, then the one-word gloss under each
+                    header on the same left-to-right cadence — the form's English
+                    answered in our own voice, quietly. ---------- */
+      tl.fromTo("#n6-mid-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.55, ease: "power2.out" }, 2.58);
+
+      for (var j = 0; j < 7; j++) {
+        tl.fromTo(
+          "#n6-gloss-" + (j + 1),
+          { opacity: 0, y: 12 },
+          { opacity: 1, y: 0, duration: 0.36, ease: "power2.out" },
+          GLOSS_T[j]
+        );
+      }
+
+      /* ---------- scene 3: the foot hairline draws left to right and the single
+                    mustard moment lands. Quietud declarada — it enters and holds. ---------- */
+      tl.fromTo("#n6-foot-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.60, ease: "power2.out" }, 4.45);
+      tl.fromTo(
+        "#n6-drill",
+        { opacity: 0, x: -14 },
+        { opacity: 1, x: 0, duration: 0.58, ease: "power2.out" },
+        4.80
+      );
+
+      /* the shot holds to the end. This no-op pins the timeline to the full scene length. */
+      tl.set("#n6-drill", { opacity: 1 }, DUR);
+
+      window.__timelines["06-el-notoc"] = tl;
+    })();
+  </script>
+</template>

@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react"
+import { useCallback, useEffect, useState, type FormEvent } from "react"
 import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
@@ -124,23 +124,38 @@ export function Expiries() {
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
 
-  async function load() {
-    if (!user) return
-    const { data, error } = await supabase
+  const traer = useCallback(async () => {
+    if (!user) return null
+    return supabase
       .from("licenses_held")
       .select("*")
       .eq("user_id", user.id)
       .order("expires_date", { ascending: true, nullsFirst: false })
-    if (error) toast.error(error.message)
-    else setLicenses((data ?? []) as License[])
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    load()
-    supabase.rpc("check_my_expiries").then(() => undefined)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
+
+  const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
+    if (!r) return
+    if (r.error) toast.error(r.error.message)
+    else setLicenses((r.data ?? []) as License[])
+    setLoading(false)
+  }, [])
+
+  const load = useCallback(async () => {
+    aplicar(await traer())
+  }, [traer, aplicar])
+
+  // El estado se fija dentro del callback de la promesa, no en el cuerpo del
+  // efecto, y de paso gana la guarda de cancelación que no tenía.
+  useEffect(() => {
+    let vivo = true
+    void traer().then((r) => {
+      if (vivo) aplicar(r)
+    })
+    void supabase.rpc("check_my_expiries")
+    return () => {
+      vivo = false
+    }
+  }, [traer, aplicar])
 
   async function deleteOne(id: number) {
     if (!confirm("¿Eliminar esta licencia o certificación?")) return
