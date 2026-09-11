@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState, type ChangeEvent } from "react"
-import { Link } from "react-router-dom"
 import { toast } from "sonner"
-import { AtSign, Camera, Check, FileText, Loader2, Mic, Save, Trash2, X, Radar, Settings, User as UserIcon, TrendingUp, ArrowRight, Headphones } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
-import { traerResumenBitacora } from "@/services/bitacora"
-import { docAccent, docTint } from "@/lib/docSheet"
+import { AtSign, Camera, FileText, Loader2, Save, Trash2, Radar, Settings, User as UserIcon } from "lucide-react"
+import {
+  borrarFotoDePerfil,
+  comprobarUsuarioLibre,
+  guardarPerfil,
+  subirFotoDePerfil,
+  traerPerfil,
+} from "@/services/perfil"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import {
   Select,
   SelectContent,
@@ -19,75 +21,18 @@ import {
 import { UserAvatar } from "@/components/UserAvatar"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
-import { appButtonClass } from "@/lib/buttonStyles"
-import { revocarConsentimiento, tieneConsentimiento } from "@/lib/dictado"
 import { validarHorasDeVuelo } from "@/lib/validacionPiloto"
-
-const USERNAME_REGEX = /^[a-z0-9_]{3,30}$/
-
-type UsernameStatus =
-  | { state: "idle" }
-  | { state: "unchanged" }
-  | { state: "invalid"; reason: string }
-  | { state: "checking" }
-  | { state: "available" }
-  | { state: "taken" }
-  | { state: "error" }
-
-type Stage =
-  | "student_ppl"
-  | "ppl"
-  | "cpl_in_progress"
-  | "cpl_ready"
-  | "hour_building"
-  | "instructor"
-  | "airline_candidate"
-
-const STAGES: { value: Stage; label: string }[] = [
-  { value: "student_ppl", label: "Estudiante PPL" },
-  { value: "ppl", label: "PPL emitido" },
-  { value: "cpl_in_progress", label: "Cursando CPL" },
-  { value: "cpl_ready", label: "CPL emitido" },
-  { value: "hour_building", label: "Hour building" },
-  { value: "instructor", label: "Instructor de vuelo" },
-  { value: "airline_candidate", label: "Candidato a aerolínea" },
-]
-
-const LICENSES = ["PPL", "CPL", "IFR", "MEP", "ATPL"] as const
-
-interface Skill {
-  key: string
-  label: string
-  value: number
-  hasData: boolean
-  raw: string
-}
-
-/** Próximo paso accionable por dimensión (a qué módulo ir para mejorarla). */
-const DIM_ADVICE: Record<string, { cta: string; href: string }> = {
-  horas: { cta: "Registra tus vuelos en el Logbook", href: "/app/logbook" },
-  pic: { cta: "Suma horas como PIC en el Logbook", href: "/app/logbook" },
-  icao: { cta: "Haz el simulacro TEA", href: "/app/icao/simulacro" },
-  licencias: { cta: "Carga tus licencias en Vencimientos", href: "/app/vencimientos" },
-  xc: { cta: "Registra vuelos cross-country", href: "/app/logbook" },
-  recurrencia: { cta: "Revisa tus vencimientos", href: "/app/vencimientos" },
-}
-
-function icaoLevelLabel(n: number): string {
-  if (n <= 3) return "Pre-operacional"
-  if (n === 4) return "Operacional"
-  if (n === 5) return "Extendido"
-  return "Experto"
-}
-
-/** Certificado o licencia del piloto, tal como vive en Vencimientos. */
-interface CertRow {
-  id: string
-  license_type: string
-  custom_name: string | null
-  issued_date: string | null
-  expires_date: string | null
-}
+import { Field } from "@/components/perfil/Field"
+import { IcaoStatusField } from "@/components/perfil/IcaoStatusField"
+import { PermisoDictado } from "@/components/perfil/PermisoDictado"
+import { PilotCv } from "@/components/perfil/PilotCv"
+import { PilotIdCard } from "@/components/perfil/PilotIdCard"
+import { SkillsRadar } from "@/components/perfil/SkillsRadar"
+import { StrengthsSummary } from "@/components/perfil/StrengthsSummary"
+import { UsernameHelp } from "@/components/perfil/UsernameHelp"
+import { UsernameIcon } from "@/components/perfil/UsernameIcon"
+import { LICENSES, STAGES, USERNAME_REGEX } from "@/components/perfil/datos"
+import type { CertRow, Skill, Stage, UsernameStatus } from "@/components/perfil/tipos"
 
 export function Profile() {
   const { user } = useSession()
@@ -126,78 +71,27 @@ export function Profile() {
     let cancelled = false
     async function load() {
       try {
-        const [profileRes, pilotRes, bitacoraRes, licRes, mockRes, achMineRes, achAllRes, pcaBestRes, quizCountRes, streakRes] = await Promise.all([
-          supabase.from("profiles").select("full_name, country, username, photo_url").eq("id", user!.id).maybeSingle(),
-          supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
-          traerResumenBitacora(user!.id),
-          supabase.from("licenses_held").select("id, license_type, custom_name, issued_date, expires_date").eq("user_id", user!.id).order("expires_date", { ascending: true, nullsFirst: false }),
-          supabase.from("user_icao_mock_results").select("final_level, taken_at").eq("user_id", user!.id).order("taken_at", { ascending: false }).limit(1).maybeSingle(),
-          supabase.from("user_achievements").select("achievement_id", { count: "exact", head: true }).eq("user_id", user!.id),
-          supabase.from("achievements").select("id", { count: "exact", head: true }),
-          supabase.from("user_pca_exam_attempts").select("score").eq("user_id", user!.id).order("score", { ascending: false }).limit(1).maybeSingle(),
-          // vault_sessions, no quiz_attempts: la tabla vieja quedó congelada al
-          // migrar al vault, así que este número no se movía nunca. Era real,
-          // pero de otra época: una mentira en pantalla de las difíciles de ver.
-          supabase
-            .from("vault_sessions")
-            .select("token", { count: "exact", head: true })
-            .eq("user_id", user!.id)
-            .not("completed_at", "is", null),
-          supabase.from("streaks").select("longest_streak").eq("user_id", user!.id).maybeSingle(),
-        ])
+        const datos = await traerPerfil(user!.id)
         if (cancelled) return
-        if (profileRes.data) {
-          const p = profileRes.data as { full_name?: string; country?: string; username?: string; photo_url?: string }
-          setFullName(p.full_name ?? "")
-          setCountry(p.country ?? "")
-          setUsername(p.username ?? "")
-          setOriginalUsername(p.username ?? "")
-          setPhotoUrl(p.photo_url ?? null)
-        }
-        const pilot = pilotRes.data as { stage?: Stage; total_hours?: number; hours_pic?: number; icao_english_level?: number; target_airline?: string; licenses?: string[] } | null
-        if (pilot) {
-          setStage(pilot.stage ?? "")
-          setTotalHours(pilot.total_hours?.toString() ?? "")
-          setHoursPic(pilot.hours_pic?.toString() ?? "")
-          setTargetAirline(pilot.target_airline ?? "")
-          setLicenses(pilot.licenses ?? [])
-        }
-
-        // Agregado de la bitácora (fuente real de horas), sumado en la base. Si
-        // falla, la tarjeta usa las horas declaradas en pilot_state.
-        if (bitacoraRes.error) console.warn("perfil: bitacora_resumen", bitacoraRes.error.message)
-        const bitacora = bitacoraRes.resumen
-        setFlightAgg({
-          totalMin: bitacora.minutosTotal,
-          picMin: bitacora.minutosPic,
-          xcMin: bitacora.minutosTravesia,
-          count: bitacora.vuelos,
-        })
-        setLastFlight(bitacora.ultimoVuelo)
-
-        setStudyStats({
-          pcaBest: (pcaBestRes.data as { score: number | null } | null)?.score ?? null,
-          quizzes: quizCountRes.count ?? 0,
-          longestStreak: (streakRes.data as { longest_streak: number | null } | null)?.longest_streak ?? 0,
-        })
-
-        // Certificados completos: alimentan la hoja de vida y la recurrencia
-        const lic = (licRes.data ?? []) as CertRow[]
-        setCerts(lic)
-        const dated = lic.filter((l): l is CertRow & { expires_date: string } => Boolean(l.expires_date))
-        const today = new Date().toISOString().slice(0, 10)
-        setCurrency({ valid: dated.filter((l) => l.expires_date >= today).length, total: dated.length })
-
-        setAchCount({ unlocked: achMineRes.count ?? 0, total: achAllRes.count ?? 0 })
-
-        // Nivel ICAO: el oficial es el simulacro TEA (mock). Si no hay simulacro,
-        // se usa la estimación del test inicial (pilot_state.icao_english_level),
-        // marcada como "estimado". Nunca auto-declarado a mano.
-        const mock = mockRes.data as { final_level?: number; taken_at?: string } | null
-        const estimate = pilot?.icao_english_level ?? null
-        setIcaoLevelState(mock?.final_level ?? estimate)
-        setIcaoTakenAt(mock?.taken_at ?? null)
-        setIcaoSource(mock?.final_level != null ? "mock" : estimate != null ? "estimate" : null)
+        setFullName(datos.fullName)
+        setCountry(datos.country)
+        setUsername(datos.username)
+        setOriginalUsername(datos.username)
+        setPhotoUrl(datos.photoUrl)
+        setStage(datos.stage)
+        setTotalHours(datos.totalHours)
+        setHoursPic(datos.hoursPic)
+        setTargetAirline(datos.targetAirline)
+        setLicenses(datos.licenses)
+        setFlightAgg(datos.vuelos)
+        setLastFlight(datos.ultimoVuelo)
+        setStudyStats(datos.estudio)
+        setCerts(datos.certs)
+        setCurrency(datos.recurrencia)
+        setAchCount(datos.logros)
+        setIcaoLevelState(datos.icao.level)
+        setIcaoTakenAt(datos.icao.takenAt)
+        setIcaoSource(datos.icao.source)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos cargar tu perfil")
       } finally {
@@ -236,10 +130,8 @@ export function Profile() {
     if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
-      const { data, error } = await supabase.rpc("check_username_available", { p_username: username })
-      // Antes un error de red salía como «ya está tomado».
-      if (error) console.warn("check_username_available", error.message)
-      setRespuesta({ nombre: username, libre: error ? null : !!data, fallo: Boolean(error) })
+      const { libre, fallo } = await comprobarUsuarioLibre(username)
+      setRespuesta({ nombre: username, libre, fallo })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
   }, [username, hayQuePreguntar])
@@ -262,14 +154,7 @@ export function Profile() {
     }
     setUploading(true)
     try {
-      const path = `${user.id}/avatar.${ext}`
-      const { error: upErr } = await supabase.storage.from("avatars").upload(path, file, { upsert: true, cacheControl: "0", contentType: file.type })
-      if (upErr) throw upErr
-      const { data: urlData } = supabase.storage.from("avatars").getPublicUrl(path)
-      const finalUrl = `${urlData.publicUrl}?v=${Date.now()}`
-      const { error: dbErr } = await supabase.from("profiles").update({ photo_url: finalUrl }).eq("id", user.id)
-      if (dbErr) throw dbErr
-      setPhotoUrl(finalUrl)
+      setPhotoUrl(await subirFotoDePerfil(user.id, file, ext))
       toast.success("Tu foto se actualizó")
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos subir tu foto")
@@ -283,11 +168,7 @@ export function Profile() {
     if (!user || !photoUrl) return
     setUploading(true)
     try {
-      for (const ext of ["png", "jpg", "jpeg", "webp"]) {
-        await supabase.storage.from("avatars").remove([`${user.id}/avatar.${ext}`])
-      }
-      const { error } = await supabase.from("profiles").update({ photo_url: null }).eq("id", user.id)
-      if (error) throw error
+      await borrarFotoDePerfil(user.id)
       setPhotoUrl(null)
       toast.success("Foto eliminada")
     } catch (err) {
@@ -310,21 +191,7 @@ export function Profile() {
     }
     setSaving(true)
     try {
-      const [pRes, sRes] = await Promise.all([
-        supabase.from("profiles").update({ full_name: fullName || null, country: country || null, username: username || null }).eq("id", user.id),
-        supabase.from("pilot_state").upsert({
-          user_id: user.id,
-          stage: stage || null,
-          total_hours: totalHours ? Number(totalHours) : null,
-          hours_pic: hoursPic ? Number(hoursPic) : null,
-          // icao_english_level NO se setea acá: el nivel oficial sale del simulacro TEA.
-          target_airline: targetAirline || null,
-          licenses,
-          updated_at: new Date().toISOString(),
-        }),
-      ])
-      if (pRes.error) throw pRes.error
-      if (sRes.error) throw sRes.error
+      await guardarPerfil(user.id, { fullName, country, username, stage, totalHours, hoursPic, targetAirline, licenses })
       setOriginalUsername(username)
       toast.success("Perfil actualizado")
     } catch (err) {
@@ -633,709 +500,5 @@ export function Profile() {
         <PermisoDictado />
       </div>
     </>
-  )
-}
-
-function PilotIdCard({
-  photoUrl,
-  username,
-  fullName,
-  email,
-  totalH,
-  picH,
-  icao,
-  targetAirline,
-  stage,
-  uploading,
-}: {
-  photoUrl: string | null
-  username: string
-  fullName: string
-  email?: string
-  totalH: number
-  picH: number
-  icao: number | null
-  targetAirline: string
-  stage: Stage | ""
-  uploading: boolean
-}) {
-  const stageLabel = stage ? STAGES.find((s) => s.value === stage)?.label ?? "—" : "—"
-  const fmt = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
-  return (
-    <div className="rounded-2xl surface p-6 overflow-hidden h-fit">
-      <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-        Aviatory · Pilot ID
-      </div>
-      <div className="mt-4 flex items-center gap-3.5">
-        <div className="relative">
-          <UserAvatar
-            photoUrl={photoUrl}
-            username={username}
-            fullName={fullName}
-            email={email}
-            size="xl"
-            ring
-            className="!h-16 !w-16 !text-xl"
-          />
-          {uploading && (
-            <div className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center">
-              <Loader2 className="h-4 w-4 animate-spin text-white" />
-            </div>
-          )}
-        </div>
-        <div>
-          <div className="text-xl font-semibold tracking-[-0.025em] text-foreground">
-            {fullName || username || "Tu nombre"}
-          </div>
-          <div className="text-[12px] text-muted-foreground">
-            {username ? `@${username}` : email} · {stageLabel}
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-5 grid grid-cols-2 gap-x-3 gap-y-4">
-        <IdField label="Horas totales" value={`${fmt(totalH)} h`} />
-        <IdField label="Horas PIC" value={`${fmt(picH)} h`} />
-        <IdField label="ICAO" value={icao != null ? `Nivel ${icao}` : "Sin evaluar"} />
-        <IdField label="Objetivo" value={targetAirline || "—"} />
-      </div>
-    </div>
-  )
-}
-
-function IdField({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <div className="text-[12px] font-semibold text-muted-foreground">
-        {label}
-      </div>
-      <div className="tabular-nums mt-0.5 text-[15px] font-semibold text-foreground tracking-[-0.02em]">
-        {value}
-      </div>
-    </div>
-  )
-}
-
-function SkillsRadar({ skills }: { skills: { label: string; value: number }[] }) {
-  const N = skills.length
-  const cx = 100, cy = 100, r = 80
-  const polar = (v: number, i: number) => {
-    const angle = (i / N) * Math.PI * 2 - Math.PI / 2
-    const rr = (v / 100) * r
-    return [cx + rr * Math.cos(angle), cy + rr * Math.sin(angle)] as [number, number]
-  }
-  const pts = skills.map((s, i) => polar(s.value, i))
-
-  return (
-    <svg width={200} height={200} viewBox="0 0 200 200">
-      {[0.25, 0.5, 0.75, 1].map((rr) => (
-        <circle key={rr} cx={cx} cy={cy} r={r * rr} fill="none" stroke="var(--border)" strokeWidth={1} strokeDasharray={rr === 1 ? "0" : "2 4"} />
-      ))}
-      {skills.map((_, i) => {
-        const a = (i / N) * Math.PI * 2 - Math.PI / 2
-        return (
-          <line key={i} x1={cx} y1={cy} x2={cx + r * Math.cos(a)} y2={cy + r * Math.sin(a)} stroke="var(--border)" strokeWidth={1} />
-        )
-      })}
-      <polygon
-        points={pts.map((p) => p.join(",")).join(" ")}
-        fill="var(--av-blue-500)"
-        fillOpacity={0.15}
-        stroke="var(--av-blue-500)"
-        strokeWidth={2}
-      />
-      {pts.map((p, i) => (
-        <circle key={i} cx={p[0]} cy={p[1]} r={3.5} fill="var(--av-blue-500)" stroke="var(--background)" strokeWidth={1.5} />
-      ))}
-      {skills.map((s, i) => {
-        const a = (i / N) * Math.PI * 2 - Math.PI / 2
-        const lr = 96
-        return (
-          <text
-            key={i}
-            x={cx + lr * Math.cos(a)}
-            y={cy + lr * Math.sin(a)}
-            fontSize={9}
-            fontWeight={600}
-            fill="var(--muted-foreground)"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            style={{ letterSpacing: "0.02em" }}
-          >
-            {s.label.slice(0, 8)}
-          </text>
-        )
-      })}
-    </svg>
-  )
-}
-
-function StrengthsSummary({ strengths, gaps }: { strengths: Skill[]; gaps: Skill[] }) {
-  return (
-    <div className="rounded-2xl surface p-6">
-      <SectionTitle icon={TrendingUp} eyebrow="Resumen" title="Fortalezas y debilidades" />
-      <div className="grid gap-6 sm:grid-cols-2 mt-1">
-        <div>
-          <div className="mb-2.5">
-            <span className="chip chip-green">Tus fortalezas</span>
-          </div>
-          {strengths.length === 0 ? (
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Todavía no hay datos suficientes para destacar fortalezas. Empieza por los próximos
-              pasos que te sugerimos.
-            </p>
-          ) : (
-            <ul className="space-y-2">
-              {strengths.map((s) => (
-                <li key={s.key} className="flex items-start gap-2 text-[13px]">
-                  <Check className="h-4 w-4 flex-shrink-0 mt-0.5" style={{ color: "var(--av-green-400)" }} strokeWidth={3} />
-                  <span>
-                    <span className="font-semibold text-foreground">{s.label}</span>
-                    <span className="text-muted-foreground"> · {s.raw} ({Math.round(s.value)}%)</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-        <div>
-          <div className="mb-2.5">
-            <span className="chip chip-amber">Próximos pasos</span>
-          </div>
-          {gaps.length === 0 ? (
-            <p className="text-[13px] text-muted-foreground leading-relaxed">
-              Vas muy bien: no hay debilidades marcadas ahora mismo.
-            </p>
-          ) : (
-            <ul className="space-y-3">
-              {gaps.map((s) => {
-                const adv = DIM_ADVICE[s.key]
-                return (
-                  <li key={s.key} className="text-[13px]">
-                    <div>
-                      <span className="font-semibold text-foreground">{s.label}</span>
-                      <span className="text-muted-foreground"> · {s.raw}</span>
-                    </div>
-                    {adv && (
-                      <Link
-                        to={adv.href}
-                        className="inline-flex items-center gap-1 text-[13px] font-semibold mt-0.5"
-                        style={{ color: "var(--av-blue-500)" }}
-                      >
-                        {adv.cta} <ArrowRight className="h-3 w-3" />
-                      </Link>
-                    )}
-                  </li>
-                )
-              })}
-            </ul>
-          )}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function IcaoStatusField({ level, takenAt, source }: { level: number | null; takenAt: string | null; source: "mock" | "estimate" | null }) {
-  if (level == null) {
-    return (
-      <>
-        <Link
-          to="/app/test-inicial"
-          className="flex items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-muted/30 px-4 h-11 hover:bg-muted/50 transition-colors"
-        >
-          <span className="inline-flex items-center gap-2 text-[13px] text-muted-foreground">
-            <Headphones className="h-4 w-4" /> Sin evaluar: haz el test inicial
-          </span>
-          <ArrowRight className="h-4 w-4 text-muted-foreground" />
-        </Link>
-        <p className="text-[12px] text-muted-foreground mt-1">
-          Tu nivel ICAO sale del módulo, no se declara a mano.
-        </p>
-      </>
-    )
-  }
-  const dateStr = takenAt
-    ? new Date(takenAt).toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
-    : null
-  const isEstimate = source === "estimate"
-  return (
-    <>
-      <div className="flex items-center justify-between gap-3 rounded-xl surface px-4 h-11">
-        <span className="inline-flex items-baseline gap-2">
-          <span className="text-[15px] font-semibold text-foreground tabular-nums">Nivel {level}</span>
-          <span className="text-[13px] text-muted-foreground">
-            {icaoLevelLabel(level)}{isEstimate ? " · estimado" : ""}
-          </span>
-        </span>
-        <Link
-          to="/app/icao/simulacro"
-          className="text-[12px] font-semibold inline-flex items-center gap-1"
-          style={{ color: "var(--av-blue-500)" }}
-        >
-          {isEstimate ? "Confirmar" : "Repetir"} <ArrowRight className="h-3 w-3" />
-        </Link>
-      </div>
-      <p className="text-[12px] text-muted-foreground mt-1">
-        {isEstimate
-          ? "Estimado del test inicial. Confirma tu nivel oficial con el simulacro TEA."
-          : `${dateStr ? `Evaluado el ${dateStr} · ` : ""}sale de tu simulacro TEA, no se declara a mano.`}
-      </p>
-    </>
-  )
-}
-
-function UsernameIcon({ status }: { status: UsernameStatus }) {
-  switch (status.state) {
-    case "checking":
-      return <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" />
-    case "available":
-      return <Check className="h-4 w-4" style={{ color: "var(--av-green-400)" }} />
-    case "taken":
-    case "invalid":
-      return <X className="h-4 w-4" style={{ color: "var(--av-red-400)" }} />
-    default:
-      return null
-  }
-}
-
-function UsernameHelp({ status }: { status: UsernameStatus }) {
-  switch (status.state) {
-    case "invalid":
-      return <p className="text-[12px] text-muted-foreground mt-1">{status.reason}</p>
-    case "checking":
-      return <p className="text-[12px] text-muted-foreground mt-1">Verificando disponibilidad…</p>
-    case "available":
-      return <p className="mt-1"><span className="chip chip-green">Disponible</span></p>
-    case "taken":
-      return <p className="mt-1"><span className="chip chip-red">Ese usuario ya está tomado</span></p>
-    case "error":
-      return (
-        <p className="text-[12px] mt-1" style={{ color: "var(--av-danger-fg)" }}>
-          No pudimos comprobar si está libre. Revisa tu conexión y vuelve a escribirlo.
-        </p>
-      )
-    case "unchanged":
-      return null
-    default:
-      return <p className="text-[12px] text-muted-foreground mt-1">3–30 caracteres, minúsculas, números o _</p>
-  }
-}
-
-function Field({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="space-y-2">
-      <Label className="text-[15px]">{label}</Label>
-      {children}
-    </div>
-  )
-}
-
-/** Días desde hoy hasta la fecha (negativo si ya pasó). */
-function cvDaysUntil(iso: string): number {
-  const d = new Date(iso + "T00:00:00")
-  const today = new Date()
-  today.setHours(0, 0, 0, 0)
-  return Math.round((d.getTime() - today.getTime()) / 86400000)
-}
-
-function cvDate(iso: string | null): string {
-  if (!iso) return "—"
-  return new Date(iso + "T00:00:00").toLocaleDateString("es-CO", { day: "2-digit", month: "short", year: "numeric" })
-}
-
-/** Chip de fuente del dato: lo que midió Aviatory contra lo que declaró el piloto. */
-function FuenteChip({ verificado }: { verificado: boolean }) {
-  return (
-    <span
-      className="mono text-[10px] font-bold uppercase tracking-[0.08em] px-1.5 py-0.5 rounded"
-      style={
-        verificado
-          ? { color: "var(--av-success-fg)", background: "color-mix(in oklab, var(--av-green-400) 12%, transparent)" }
-          : { color: "var(--doc-muted, #6a6e76)", background: "color-mix(in oklab, var(--doc-fg) 6%, transparent)" }
-      }
-    >
-      {verificado ? "Verificado por Aviatory" : "Declarado"}
-    </span>
-  )
-}
-
-/**
- * La hoja de vida en papel, pensada para el ojo de un reclutador.
- *
- * La regla que la ordena: separar lo que Aviatory midió (simulacros, práctica,
- * constancia, bitácora) de lo que el piloto declaró (horas, licencias). Esa
- * distinción es la que ninguna hoja de vida en PDF puede ofrecer, y es el
- * argumento para que más adelante las aerolíneas contraten por aquí.
- * Reutiliza la hoja de lectura del módulo NOTAM (.doc-sheet).
- */
-function PilotCv({
-  photoUrl,
-  fullName,
-  username,
-  country,
-  stage,
-  stageLabel,
-  totalHours,
-  hoursPic,
-  flightCount,
-  licenses,
-  targetAirline,
-  icaoLevel,
-  icaoSource,
-  icaoTakenAt,
-  certs,
-  achUnlocked,
-  achTotal,
-  lastFlight,
-  pcaBest,
-  quizzes,
-  longestStreak,
-}: {
-  photoUrl: string | null
-  fullName: string
-  username: string
-  country: string
-  stage: string
-  stageLabel: string | null
-  totalHours: string
-  hoursPic: string
-  flightCount: number
-  licenses: string[]
-  targetAirline: string
-  icaoLevel: number | null
-  icaoSource: "mock" | "estimate" | null
-  icaoTakenAt: string | null
-  certs: {
-    id: string
-    license_type: string
-    custom_name: string | null
-    issued_date: string | null
-    expires_date: string | null
-  }[]
-  achUnlocked: number
-  achTotal: number
-  lastFlight: string | null
-  pcaBest: number | null
-  quizzes: number
-  longestStreak: number
-}) {
-  const nombre = fullName.trim() || username.trim() || "Piloto Aviatory"
-  const icaoVerificado = icaoSource === "mock" && icaoLevel !== null
-  const diasUltimoVuelo = lastFlight !== null ? -cvDaysUntil(lastFlight) : null
-
-  /**
-   * Completitud de la hoja: cuenta solo campos que un reclutador espera ver.
-   * Cada uno es un dato real presente o ausente, no una estimación.
-   */
-  const checklist: { label: string; ok: boolean }[] = [
-    { label: "foto", ok: Boolean(photoUrl) },
-    { label: "nombre", ok: fullName.trim().length > 0 },
-    { label: "país", ok: country.trim().length > 0 },
-    { label: "etapa", ok: Boolean(stage) },
-    { label: "horas declaradas", ok: Number(totalHours) > 0 },
-    { label: "licencias", ok: licenses.length > 0 },
-    { label: "certificados con vigencia", ok: certs.some((c) => c.expires_date) },
-    { label: "inglés ICAO por simulacro", ok: icaoVerificado },
-    { label: "bitácora con vuelos", ok: flightCount > 0 },
-    { label: "aerolínea objetivo", ok: targetAirline.trim().length > 0 },
-  ]
-  const completos = checklist.filter((c) => c.ok).length
-  const completitud = Math.round((completos / checklist.length) * 100)
-  const faltantes = checklist.filter((c) => !c.ok).map((c) => c.label)
-
-  return (
-    <article className="doc-sheet rounded-xl px-5 sm:px-8 py-6 sm:py-8">
-      {/* Completitud: lo primero que ve el piloto es qué le falta para que un
-          reclutador vea una hoja completa. Solo campos reales. */}
-      <div className="pb-5 border-b doc-rule">
-        <div className="flex items-baseline justify-between gap-3">
-          <div className="text-[12px] font-semibold uppercase tracking-[0.14em] doc-muted">
-            Hoja lista para reclutador
-          </div>
-          <span className="tabular-nums text-[20px] font-semibold">{completitud}%</span>
-        </div>
-        <div className="mt-2 h-1.5 rounded-full overflow-hidden" style={{ background: "color-mix(in oklab, var(--doc-fg) 10%, var(--doc-bg))" }}>
-          <div
-            className="h-full rounded-full transition-[width] duration-700"
-            style={{ width: `${completitud}%`, background: docAccent("var(--av-blue-500)", 70) }}
-          />
-        </div>
-        {faltantes.length > 0 && (
-          <p className="mt-2 mb-0 text-[13px] doc-muted">
-            Te falta: {faltantes.join(", ")}.
-          </p>
-        )}
-      </div>
-
-      {/* Encabezado del documento */}
-      <header className="py-5 border-b doc-rule">
-        <div className="flex flex-wrap items-start justify-between gap-4">
-          <div className="flex items-center gap-4 min-w-0">
-            {photoUrl ? (
-              <img
-                src={photoUrl}
-                alt=""
-                className="h-16 w-16 rounded-full object-cover border doc-rule flex-shrink-0"
-              />
-            ) : (
-              <div
-                className="h-16 w-16 rounded-full flex items-center justify-center text-[22px] font-semibold flex-shrink-0"
-                style={{ background: docTint("var(--av-blue-500)", 12), color: docAccent("var(--av-blue-500)", 60) }}
-              >
-                {(nombre[0] ?? "P").toUpperCase()}
-              </div>
-            )}
-            <div className="min-w-0">
-              <div className="text-[12px] font-semibold uppercase tracking-[0.14em] doc-muted">
-                Hoja de vida de piloto
-              </div>
-              <h2 className="mt-0.5 mb-0 text-[24px] font-semibold tracking-[-0.02em] leading-tight">
-                {nombre}
-              </h2>
-              <div className="mt-0.5 text-[13px] doc-muted">
-                {username ? `@${username}` : ""}
-                {username && country ? " · " : ""}
-                {country}
-              </div>
-            </div>
-          </div>
-          {stage && stageLabel && (
-            <div className="text-right">
-              <div className="text-[12px] doc-muted">Etapa</div>
-              <div className="text-[15px] font-semibold">{stageLabel}</div>
-              {targetAirline && <div className="text-[13px] doc-muted">Objetivo: {targetAirline}</div>}
-            </div>
-          )}
-        </div>
-      </header>
-
-      {/* Verificado por Aviatory: lo que la app midió, con fecha. Es la parte
-          que una aerolínea no puede conseguir en un PDF. */}
-      <div className="py-5 border-b doc-rule">
-        <div className="flex items-center gap-2.5 mb-3">
-          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Desempeño medido
-          </span>
-          <FuenteChip verificado />
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div>
-            <div className="text-[12px] doc-muted">Inglés ICAO (simulacro TEA)</div>
-            <div className="tabular-nums text-[20px] font-semibold">
-              {icaoVerificado ? icaoLevel : "—"}
-            </div>
-            <div className="text-[12px] doc-muted">
-              {icaoVerificado && icaoTakenAt
-                ? cvDate(icaoTakenAt.slice(0, 10))
-                : icaoVerificado
-                  ? "medido"
-                  : "sin simulacro"}
-            </div>
-          </div>
-          <div>
-            <div className="text-[12px] doc-muted">Mejor examen PCA</div>
-            <div className="tabular-nums text-[20px] font-semibold">{pcaBest ?? "—"}</div>
-            <div className="text-[12px] doc-muted">{pcaBest !== null ? "sobre 100" : "sin intentos"}</div>
-          </div>
-          <div>
-            <div className="text-[12px] doc-muted">Quizzes resueltos</div>
-            <div className="tabular-nums text-[20px] font-semibold">{quizzes > 0 ? quizzes : "—"}</div>
-            <div className="text-[12px] doc-muted">{quizzes > 0 ? "en el banco por materia" : "ninguno aún"}</div>
-          </div>
-          <div>
-            <div className="text-[12px] doc-muted">Mejor racha de estudio</div>
-            <div className="tabular-nums text-[20px] font-semibold">
-              {longestStreak > 0 ? `${longestStreak} d` : "—"}
-            </div>
-            <div className="text-[12px] doc-muted">
-              {achTotal > 0 ? `${achUnlocked} de ${achTotal} logros` : "constancia"}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bitácora: la recencia es lo primero que mira un reclutador */}
-      <div className="py-5 border-b doc-rule">
-        <div className="flex items-center gap-2.5 mb-3">
-          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Bitácora en Aviatory
-          </span>
-          <FuenteChip verificado />
-        </div>
-        {flightCount === 0 ? (
-          <p className="m-0 text-[13px] doc-muted">
-            Sin vuelos registrados. La bitácora se llena en Logbook y aquí aparece la recencia.
-          </p>
-        ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-            <div>
-              <div className="text-[12px] doc-muted">Vuelos</div>
-              <div className="tabular-nums text-[20px] font-semibold">{flightCount}</div>
-            </div>
-            <div>
-              <div className="text-[12px] doc-muted">Último vuelo</div>
-              <div className="tabular-nums text-[20px] font-semibold">
-                {diasUltimoVuelo === null ? "—" : diasUltimoVuelo === 0 ? "Hoy" : `Hace ${diasUltimoVuelo} d`}
-              </div>
-            </div>
-            <div>
-              <div className="text-[12px] doc-muted">Fecha</div>
-              <div className="text-[15px] font-semibold">{cvDate(lastFlight)}</div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Declarado por el piloto */}
-      <div className="py-5 border-b doc-rule">
-        <div className="flex items-center gap-2.5 mb-3">
-          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Experiencia declarada
-          </span>
-          <FuenteChip verificado={false} />
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-          <div>
-            <div className="text-[12px] doc-muted">Horas totales</div>
-            <div className="tabular-nums text-[20px] font-semibold">{totalHours || "—"}</div>
-          </div>
-          <div>
-            <div className="text-[12px] doc-muted">Horas PIC</div>
-            <div className="tabular-nums text-[20px] font-semibold">{hoursPic || "—"}</div>
-          </div>
-          <div className="col-span-2">
-            <div className="text-[12px] doc-muted">Licencias</div>
-            {licenses.length > 0 ? (
-              <div className="mt-1 flex flex-wrap gap-2">
-                {licenses.map((l) => (
-                  <span key={l} className="mono text-[13px] font-semibold px-2.5 py-1 rounded-md border doc-rule doc-soft">
-                    {l}
-                  </span>
-                ))}
-              </div>
-            ) : (
-              <div className="text-[15px] font-semibold doc-muted">—</div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* Certificados y vigencias, desde Vencimientos */}
-      <div className="py-5 border-b doc-rule">
-        <div className="flex items-center gap-2.5 mb-2">
-          <span className="text-[12px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Certificados y vigencias
-          </span>
-          <FuenteChip verificado={false} />
-        </div>
-        {certs.length === 0 ? (
-          <p className="m-0 text-[13px] doc-muted">
-            Aún no registras certificados. Se agregan en la sección Vencimientos y aparecen aquí solos.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[440px] border-collapse text-left">
-              <thead>
-                <tr>
-                  {["Documento", "Emitido", "Vence", "Estado"].map((h) => (
-                    <th key={h} className="py-2 pr-4 border-b doc-rule doc-muted text-[11px] font-bold uppercase tracking-[0.07em]">
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {certs.map((c) => {
-                  const dias = c.expires_date ? cvDaysUntil(c.expires_date) : null
-                  const estado =
-                    dias === null
-                      ? { label: "Sin vencimiento", color: "var(--doc-muted, #6a6e76)" }
-                      : dias < 0
-                        ? { label: "Vencido", color: "var(--av-danger-fg)" }
-                        : dias <= 90
-                          ? { label: `Vence en ${dias} d`, color: "var(--av-warn-fg)" }
-                          : { label: "Vigente", color: "var(--av-success-fg)" }
-                  return (
-                    <tr key={c.id} className="border-b doc-rule last:border-b-0">
-                      <td className="py-2.5 pr-4 text-[13px] font-semibold">
-                        {c.custom_name ?? c.license_type}
-                      </td>
-                      <td className="py-2.5 pr-4 tabular-nums text-[13px] doc-muted">{cvDate(c.issued_date)}</td>
-                      <td className="py-2.5 pr-4 tabular-nums text-[13px] doc-muted">{cvDate(c.expires_date)}</td>
-                      <td className="py-2.5 pr-4 text-[13px] font-semibold" style={{ color: estado.color }}>
-                        {estado.label}
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
-        <Link
-          to="/app/vencimientos"
-          className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-          style={{ color: docAccent("var(--av-blue-500)", 60) }}
-        >
-          Gestionar certificados en Vencimientos <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
-      </div>
-
-      {/* Pie */}
-      <footer className="pt-4 flex flex-wrap items-center justify-between gap-3">
-        <div className="text-[13px] doc-muted">
-          Lo marcado como verificado lo midió Aviatory con fecha; lo declarado lo escribiste tú.
-        </div>
-        <div className="text-[12px] doc-muted">
-          Visible solo para ti. Compartirla con la comunidad y con aerolíneas: pronto.
-        </div>
-      </footer>
-    </article>
-  )
-}
-/**
- * Permiso de dictado.
- *
- * El consentimiento para responder hablando se guarda por dispositivo, así que
- * este bloque solo muestra y retira el de ESTE equipo, y lo dice. Retirarlo no
- * borra lo ya transcrito: para eso está el botón de borrar de cada pregunta, y
- * conviene no mezclar las dos cosas.
- */
-function PermisoDictado() {
-  const [dado, setDado] = useState(() => tieneConsentimiento())
-
-  return (
-    <section className="mt-6">
-      <SectionTitle
-        icon={Mic}
-        eyebrow="Permisos"
-        title="Responder hablando"
-        hint="El dictado del módulo de inglés ICAO, en este dispositivo."
-      />
-      <div className="surface rounded-xl p-5">
-        <p className="text-[15px] leading-relaxed text-muted-foreground max-w-[680px]">
-          {dado
-            ? "Diste permiso para usar el micrófono y que tu navegador convierta a texto lo que dices. Aviatory guarda solo el texto, nunca el audio."
-            : "No has dado permiso en este dispositivo. Se te va a pedir la primera vez que quieras responder hablando."}
-        </p>
-        {dado && (
-          <button
-            type="button"
-            onClick={() => {
-              revocarConsentimiento()
-              setDado(false)
-            }}
-            className={appButtonClass({ variant: "secondary" }, "mt-4 cursor-pointer")}
-          >
-            Retirar el permiso
-          </button>
-        )}
-        <p className="mt-3 text-[13px] text-muted-foreground max-w-[680px]">
-          Retirarlo no borra las respuestas que ya transcribiste. Cada una se borra desde su propia
-          pregunta.
-        </p>
-      </div>
-    </section>
   )
 }
