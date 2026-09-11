@@ -15,6 +15,7 @@ export type CodigoErrorEvaluacion =
   | "intento_vencido"
   | "intento_no_encontrado"
   | "respuesta_invalida"
+  | "leccion_incompleta"
   | "desconocido"
 
 const MENSAJES: Record<CodigoErrorEvaluacion, string> = {
@@ -25,6 +26,7 @@ const MENSAJES: Record<CodigoErrorEvaluacion, string> = {
   intento_vencido: "Este intento venció. Empieza uno nuevo.",
   intento_no_encontrado: "No encontramos este intento. Empieza uno nuevo.",
   respuesta_invalida: "No pudimos registrar esa respuesta. Elige una opción y vuelve a intentarlo.",
+  leccion_incompleta: "La evaluación se abre con la lección completa. Termina las secciones que te faltan y vuelve.",
   desconocido: "No pudimos procesar la prueba. Vuelve a intentarlo en un momento.",
 }
 
@@ -46,6 +48,7 @@ export function clasificarError(error: unknown): ErrorEvaluacion {
   const texto = typeof mensaje === "string" ? mensaje : ""
 
   if (/demasiados_intentos/.test(texto)) return new ErrorEvaluacion("demasiados_intentos", error)
+  if (/leccion_incompleta/.test(texto)) return new ErrorEvaluacion("leccion_incompleta", error)
   // Las funciones del vault (materias PCA) responden en inglés; las nuevas, en español.
   if (/sesion_vencida|sesion_terminada|session_expired|session_completed/.test(texto)) {
     return new ErrorEvaluacion("intento_vencido", error)

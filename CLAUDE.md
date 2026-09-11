@@ -86,6 +86,14 @@ Así nadie ve las respuestas abriendo DevTools ni se inventa un puntaje.
   **Un «pon a prueba» de lección no debe copiar una pregunta de evaluación.**
 - En CI, `scripts/bancos/verificar-dist.mjs` revisa el build: si un texto de un banco
   aparece en `dist/`, falla.
+- **Progreso de módulo** (NOTAM, Meteorología, Mercancías): la base solo acepta secciones y
+  prácticas que existen, según `contenido/catalogo/modulos.json`, y la evaluación de NOTAM y
+  Mercancías se abre con la lección completa en la base. Las claves de práctica salen de sus
+  funciones (`claveEjercicioNotam`, `claveEjercicioMetar`, `claveCaso`…), nunca escritas a mano.
+  Si cambia el contenido, `scripts/catalogo` falla: `ACTUALIZAR_CATALOGO=1 npx vitest run
+  scripts/catalogo` y luego `node scripts/catalogo/sembrar.mjs` (SQL para Supabase).
+- Al terminar un intento, el servidor entrega la correcta y la explicación **solo de lo
+  respondido**; la revisión tiene que funcionar sin ellas en las preguntas sin responder.
 
 **Psicotécnicas** van igual (entrenamiento, evaluación y simulacro): el servidor sortea la
 tanda, lleva el reloj y calcula precisión, velocidad y global (`psico_iniciar`,

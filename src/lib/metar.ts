@@ -443,6 +443,8 @@ export interface MetarExercise {
 }
 
 export const METAR_EXERCISES = ejerciciosRaw.ejercicios as MetarExercise[]
+/** Clave de progreso de un ejercicio. La usan la práctica y el catálogo del servidor. */
+export const claveEjercicioMetar = (id: number) => `ex-${id}`
 export const METAR_EXERCISE_META = ejerciciosRaw.meta
 export const METAR_EXAM_META = examenRaw.meta
 /** Preguntas de la evaluación. El banco vive en el servidor (contenido/bancos/metar_evaluacion.json). */

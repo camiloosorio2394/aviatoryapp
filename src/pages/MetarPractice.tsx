@@ -17,7 +17,7 @@ import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { LEVEL_META, type NotamLevel } from "@/lib/notamComun"
 import { accentText } from "@/lib/tileColors"
-import { METAR_DISCLAIMERS, METAR_EXERCISES, readMetarProgress } from "@/lib/metar"
+import { METAR_DISCLAIMERS, METAR_EXERCISES, claveEjercicioMetar, readMetarProgress } from "@/lib/metar"
 import { fetchMetarProgress, markMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
 import { useSession } from "@/hooks/useSession"
 
@@ -89,9 +89,9 @@ export function MetarPractice() {
 
   const safeIdx = list.length > 0 ? Math.min(idx, list.length - 1) : 0
   const item = list.length > 0 ? list[safeIdx] : null
-  const key = item ? `ex-${item.id}` : ""
+  const key = item ? claveEjercicioMetar(item.id) : ""
   const isDone = key !== "" && doneKeys.includes(key)
-  const doneCount = METAR_EXERCISES.filter((e) => doneKeys.includes(`ex-${e.id}`)).length
+  const doneCount = METAR_EXERCISES.filter((e) => doneKeys.includes(claveEjercicioMetar(e.id))).length
   const pct = Math.round((doneCount / METAR_EXERCISES.length) * 100)
 
   function irA(i: number): void {
@@ -176,7 +176,7 @@ export function MetarPractice() {
 
           <div className="mt-4 flex flex-wrap gap-1.5">
             {list.map((e, i) => {
-              const hecho = doneKeys.includes(`ex-${e.id}`)
+              const hecho = doneKeys.includes(claveEjercicioMetar(e.id))
               const activo = i === safeIdx
               return (
                 <button

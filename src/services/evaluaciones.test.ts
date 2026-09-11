@@ -44,9 +44,23 @@ describe("lectura de lo que devuelve el servidor", () => {
     })
     expect(r.revision[1]).toMatchObject({ opcion: null, opcionCorrecta: 1, referencia: "Ref" })
   })
+
+  it("una pregunta sin responder puede llegar sin la correcta ni la explicación", () => {
+    const r = leerResultado({
+      puntaje: 0, correctas: 0, total: 1, aprobada: false, aprobacion: 80, duracion_segundos: 5,
+      revision: [{ posicion: 1, opcion: null, correcta: false, opcion_correcta: null, explicacion: null, referencia: null }],
+    })
+    expect(r.revision[0]).toEqual({
+      posicion: 1, opcion: null, correcta: false, opcionCorrecta: null, explicacion: null, referencia: null,
+    })
+  })
 })
 
 describe("errores para el piloto", () => {
+  it("la lección incompleta se explica como tal", () => {
+    expect(clasificarError({ message: "leccion_incompleta", code: "P0001" }).codigo).toBe("leccion_incompleta")
+  })
+
   it("traduce los errores del servidor sin mostrar texto técnico", () => {
     expect(clasificarError({ message: "demasiados_intentos", code: "P0001" }).codigo).toBe("demasiados_intentos")
     expect(clasificarError({ message: "sesion_vencida" }).codigo).toBe("intento_vencido")

@@ -79,6 +79,15 @@ export const EXAM_PER_ATTEMPT = examRaw.meta.por_intento as number
 /** Aviso obligatorio en la evaluación: preguntas de práctica, no oficiales de Aerocivil ni OACI. */
 export const AVISO_EVALUACION = plainText(examRaw.meta.aviso_en_pantalla as string)
 
+/**
+ * Claves de progreso de la práctica. Las usan la pantalla y el catálogo del
+ * servidor (contenido/catalogo/modulos.json), que solo acepta claves que existen.
+ * Prefijos nuevos porque los bancos se rehicieron: un "ex-7" viejo ya no señala
+ * al mismo ejercicio.
+ */
+export const claveEjercicioNotam = (id: number) => `txt-${id}`
+export const claveNotamReal = (id: string) => `real-${id}`
+
 /** Denominador de la práctica: NOTAM reales más ejercicios de texto. */
 export const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALES.reales + NOTAM_TOTALES.exercises
 
