@@ -30,6 +30,7 @@ let reaccionesServidor: ReaccionCanal[]
 let fallaInsert: false | "red" | "tope"
 let eventos: Record<string, (payload: { new?: unknown; old?: unknown }) => void>
 let alCambiarEstado: (estado: string) => void
+let filtros: Record<string, string | undefined>
 let estado: Estado
 let root: Root
 
@@ -94,6 +95,7 @@ beforeEach(() => {
   reaccionesServidor = [{ message_id: 70, user_id: "piloto-1", emoji: "👍" }, { message_id: 5, user_id: "piloto-2", emoji: "🔥" }]
   fallaInsert = false
   eventos = {}
+  filtros = {}
   supabase.from.mockReset().mockImplementation(consulta)
   // Un autor sin fila de perfil no vuelve: antes eso bastaba para pedirlo sin parar.
   supabase.rpc.mockReset().mockImplementation(async (_fn: string, { p_user_ids }: { p_user_ids: string[] }) => ({
@@ -102,8 +104,9 @@ beforeEach(() => {
   }))
   supabase.removeChannel.mockReset()
   const canal = {
-    on: vi.fn((_t: string, filtro: { event: string; table: string }, cb: (p: { new?: unknown; old?: unknown }) => void) => {
+    on: vi.fn((_t: string, filtro: { event: string; table: string; filter?: string }, cb: (p: { new?: unknown; old?: unknown }) => void) => {
       eventos[`${filtro.event}:${filtro.table}`] = cb
+      filtros[`${filtro.event}:${filtro.table}`] = filtro.filter
       return canal
     }),
     subscribe: vi.fn((cb: (e: string) => void) => {
@@ -119,6 +122,17 @@ afterEach(() => {
 })
 
 describe("useMensajesCanal", () => {
+  it("cada suscripción en vivo va filtrada por el canal, también reacciones y borrados", async () => {
+    await montar()
+
+    expect(filtros).toEqual({
+      "INSERT:community_messages": "channel_id=eq.7",
+      "DELETE:community_messages": "channel_id=eq.7",
+      "INSERT:community_reactions": "channel_id=eq.7",
+      "DELETE:community_reactions": "channel_id=eq.7",
+    })
+  })
+
   it("entra con los últimos mensajes, en orden, sin esperar a Realtime", async () => {
     await montar()
 

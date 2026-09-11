@@ -148,11 +148,16 @@ export function useMensajesCanal(canalId: number | null, userId: string | undefi
 
     void traerUltimas()
 
+    // Todo va filtrado por canal. Los borrados también: las dos tablas tienen
+    // replica identity full, así que Realtime compara el filtro con la fila
+    // entera; por RLS, el aviso trae solo la llave primaria
+    // (supabase/migrations/20260911204044_comunidad_en_vivo_por_canal.sql).
+    const filtro = `channel_id=eq.${canalId}`
     const canal = supabase
       .channel(`channel-${canalId}`)
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "community_messages", filter: `channel_id=eq.${canalId}` },
+        { event: "INSERT", schema: "public", table: "community_messages", filter: filtro },
         (payload) => {
           const m = payload.new as MensajeCanal
           setMensajes((prev) => unirMensajes(prev, [m]))
@@ -162,20 +167,20 @@ export function useMensajesCanal(canalId: number | null, userId: string | undefi
       )
       .on(
         "postgres_changes",
-        { event: "DELETE", schema: "public", table: "community_messages", filter: `channel_id=eq.${canalId}` },
+        { event: "DELETE", schema: "public", table: "community_messages", filter: filtro },
         (payload) => {
           const id = (payload.old as { id: number }).id
           setMensajes((prev) => prev.filter((m) => m.id !== id))
         },
       )
-      // Las reacciones no tienen canal, así que llegan las de toda la comunidad:
-      // solo se toman las de mensajes que están en pantalla.
-      .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_reactions" }, (payload) => {
+      // Del canal llegan también reacciones a mensajes que no están cargados
+      // (páginas anteriores): solo se toman las de lo que está en pantalla.
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "community_reactions", filter: filtro }, (payload) => {
         const r = payload.new as ReaccionCanal
         if (!cargados.current.has(r.message_id)) return
         setReacciones((prev) => (prev.some((p) => mismaReaccion(p, r)) ? prev : [...prev, r]))
       })
-      .on("postgres_changes", { event: "DELETE", schema: "public", table: "community_reactions" }, (payload) => {
+      .on("postgres_changes", { event: "DELETE", schema: "public", table: "community_reactions", filter: filtro }, (payload) => {
         const r = payload.old as ReaccionCanal
         setReacciones((prev) => prev.filter((p) => !mismaReaccion(p, r)))
       })
