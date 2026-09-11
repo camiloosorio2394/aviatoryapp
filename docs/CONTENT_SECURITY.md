@@ -52,6 +52,23 @@ Adicionales:
 - Patrón detectable: usuario pidiendo 100/hora repetidamente → flag para revisión manual.
 - Patrón detectable: usuario abriendo sesión, leyendo preguntas, abandonando sin submit → scraper.
 
+## Evaluaciones de módulo (NOTAM, Meteorología, Mercancías, simulacro)
+
+Mismo principio que el vault, sin cifrado (el contenido no es secreto comercial, lo que
+importa es que la nota sea real):
+
+- Bancos en `banco_preguntas`, reglas en `evaluaciones` y `evaluacion_fuentes`, intentos
+  en `evaluacion_sesiones`. RLS activo, **cero policies y sin grants** para `anon` y
+  `authenticated`: solo las funciones `security definer` leen esas tablas.
+- `evaluacion_iniciar` sortea por cupos, baraja opciones y devuelve enunciado + opciones
+  por posición. Nunca el id de la pregunta ni la correcta. Máximo 30 intentos por hora.
+- `evaluacion_responder` registra la primera respuesta de cada posición (reintentar no la
+  cambia). Solo devuelve la corrección si la evaluación es de retroalimentación inmediata.
+- `evaluacion_terminar` calcula el puntaje con lo registrado, guarda el intento en la tabla
+  de historial del módulo y suma actividad y racha. Es idempotente.
+- La fuente de los bancos es `contenido/bancos/*.json` y se cargan con
+  `scripts/bancos/sembrar.mjs`. No van en el bundle; una prueba lo vigila.
+
 ## Plus: frontend (ya activo)
 
 PR #29 ya añadió en `src/components/ProtectedContent.tsx`:

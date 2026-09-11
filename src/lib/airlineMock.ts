@@ -1,79 +1,34 @@
 /**
  * Persistencia del simulacro de entrevista técnica.
  *
- * Mismas reglas que el resto del módulo: el respaldo local siempre se escribe
- * (el simulacro funciona sin sesión y sin red), y la base es la verdad entre
- * dispositivos. Aquí no hay progreso que acumular, solo el mejor puntaje: el
- * simulacro no se completa, se repite.
- *
- * La tabla la crea la migración 20260801040000_simulacro_aerolinea.sql. Mientras
- * no esté aplicada, el insert falla, el respaldo local ya quedó escrito y la
- * pantalla funciona igual: lo único que no viaja es el intento entre
- * dispositivos.
+ * El simulacro lo sortea, califica y guarda el servidor (evaluacion simulacro_aerolinea).
+ * Aquí queda el respaldo local del mejor puntaje, para que el hub lo muestre sin red,
+ * y la lectura del mejor puntaje guardado.
  */
 
 import { supabase } from "@/integrations/supabase/client"
-import type { QuizQuestion } from "@/components/QuizEngine"
-import { EXAM_QUESTIONS } from "@/lib/notam"
-import { METAR_EXAM_QUESTIONS } from "@/lib/metar"
 import { MP_HUB } from "@/lib/mercancias"
-import { PREGUNTAS } from "@/lib/mercanciasPractica"
+import { METAR_EXAM_TOTAL } from "@/lib/metar"
+import { TOTALS } from "@/lib/notam"
+
+/** Preguntas de Mercancías peligrosas que entran al simulacro (contenido/bancos/mercancias_chequeo.json). */
+export const MP_CHEQUEO_TOTAL = 5
 
 /**
- * Los bancos de los temas abiertos. Añadir un tema es añadir una entrada.
+ * Los temas que entran al simulacro, con cuántas preguntas aporta cada uno.
  *
- * Vive aquí y no en la pantalla del simulacro porque el hub del módulo también
- * necesita saber cuántas preguntas hay: cuando lo calculaba por su cuenta se
- * desincronizó al entrar Mercancías Peligrosas, y anunciaba 40 preguntas
- * cuando ya había 45.
+ * Las preguntas viven en el servidor (evaluacion_fuentes de simulacro_aerolinea).
+ * Esta lista es lo que ven el hub y la pantalla de arranque, y una prueba
+ * comprueba que los conteos cuadren con contenido/bancos/.
  */
-export const BANCOS: { tema: string; ruta: string; preguntas: QuizQuestion[] }[] = [
-  {
-    tema: "NOTAM",
-    ruta: "/app/aerolinea/notam",
-    preguntas: EXAM_QUESTIONS.map((q) => ({
-      id: `notam-${q.id}`,
-      pregunta: q.pregunta,
-      opciones: q.opciones,
-      correcta: q.correcta,
-      explicacion: q.explicacion,
-      referencia: q.referencia ?? "Módulo NOTAM de Aviatory",
-      origen: "NOTAM",
-    })),
-  },
-  {
-    tema: "Meteorología",
-    ruta: "/app/aerolinea/meteorologia",
-    preguntas: METAR_EXAM_QUESTIONS.map((q) => ({
-      id: `metar-${q.id}`,
-      pregunta: q.pregunta,
-      opciones: q.opciones,
-      correcta: q.correcta,
-      explicacion: q.explicacion,
-      referencia: q.referencia,
-      origen: "Meteorología",
-    })),
-  },
-  {
-    tema: "Mercancías peligrosas",
-    ruta: MP_HUB,
-    preguntas: PREGUNTAS.map((q) => ({
-      id: `mp-${q.id}`,
-      pregunta: q.texto,
-      opciones: q.ops,
-      correcta: q.ok,
-      explicacion: q.explica,
-      referencia: `Sección ${q.ref} del módulo`,
-      origen: "Mercancías peligrosas",
-    })),
-  },
+export const TEMAS_SIMULACRO: { tema: string; ruta: string; preguntas: number }[] = [
+  { tema: "NOTAM", ruta: "/app/aerolinea/notam", preguntas: TOTALS.examQuestions },
+  { tema: "Meteorología", ruta: "/app/aerolinea/meteorologia", preguntas: METAR_EXAM_TOTAL },
+  { tema: "Mercancías peligrosas", ruta: MP_HUB, preguntas: MP_CHEQUEO_TOTAL },
 ]
 
-/** Todas las preguntas del sorteo, de todos los temas abiertos. */
-export const BANCO_COMPLETO: QuizQuestion[] = BANCOS.flatMap((b) => b.preguntas)
-
-/** Cuántas preguntas hay en el banco. Es lo que anuncian el hub y la pantalla. */
-export const BANCO_TOTAL = BANCO_COMPLETO.length
+/** Cuántas preguntas hay en el sorteo. Es lo que anuncian el hub y la pantalla. */
+export const BANCO_TOTAL = TEMAS_SIMULACRO.reduce((suma, t) => suma + t.preguntas, 0)
 
 /**
  * Mínimo de aprobación del simulacro, sobre 100.
@@ -120,39 +75,15 @@ function writeAirlineMockLocal(patch: Partial<AirlineMockLocal>): void {
 }
 
 /**
- * Guarda un intento: respaldo local primero, después la base.
- *
- * El insert es el que dispara la revisión de logros en la base, así que aquí no
- * hay nada que llamar aparte para `airline_mock_passed`.
+ * Anota un intento en el respaldo local: el mejor puntaje y cuántos van. El
+ * intento ya lo guardó el servidor al terminar (y con él, el logro).
  */
-export async function guardarIntentoSimulacro(intento: {
-  score: number
-  correct: number
-  total: number
-}): Promise<void> {
+export function anotarIntentoSimulacroLocal(score: number): void {
   const local = readAirlineMockLocal()
   writeAirlineMockLocal({
-    bestScore: local.bestScore === null ? intento.score : Math.max(local.bestScore, intento.score),
+    bestScore: local.bestScore === null ? score : Math.max(local.bestScore, score),
     attempts: local.attempts + 1,
   })
-
-  try {
-    const { data } = await supabase.auth.getUser()
-    const userId = data.user?.id
-    // Sin sesión no hay dónde guardarlo: lo local ya quedó y es el caso
-    // esperado de quien prueba el simulacro sin cuenta.
-    if (!userId) return
-
-    const { error } = await supabase.from("user_airline_mock_attempts").insert({
-      user_id: userId,
-      score: intento.score,
-      correct: intento.correct,
-      total: intento.total,
-    })
-    if (error) console.warn("airline mock save", error.message)
-  } catch (err) {
-    console.warn("airline mock save", err)
-  }
 }
 
 /**

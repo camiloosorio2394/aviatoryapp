@@ -1,13 +1,13 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
 import { supabase } from "@/integrations/supabase/client"
 import { MP_APRENDE, MP_EXAM_PER_ATTEMPT, MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA } from "@/lib/mercancias"
-import { MP_EVALUACION_META, buildMercanciasExam } from "@/lib/mercanciasEvaluacion"
+import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { fetchMercanciasProgress, readMercanciasLocal, writeMercanciasLocal } from "@/lib/mercanciasProgress"
 
 /**
- * Evaluación de Mercancías peligrosas: la misma pantalla que la de NOTAM, con
- * el banco del módulo, el acento amarillo y la tabla
- * `user_mercancias_exam_attempts` (score, correct, total, taken_at).
+ * Evaluación de Mercancías peligrosas: la misma pantalla que la de NOTAM, con la
+ * evaluación mercancias_evaluacion del servidor, el acento amarillo y el historial
+ * de `user_mercancias_exam_attempts` (score, correct, total, taken_at).
  *
  * Ruta: /app/aerolinea/mercancias/evaluacion
  */
@@ -21,11 +21,10 @@ const CONFIG: ExamenConfig = {
   totalLecciones: MP_LECTURA_TOTAL,
   unidadLeccion: "lecciones",
   porIntento: MP_EXAM_PER_ATTEMPT,
-  puntosPorPregunta: MP_EVALUACION_META.puntajePorPregunta,
   aprobacion: MP_PASS_SCORE,
   aviso: MP_EVALUACION_META.aviso,
   acento: "var(--av-dg-700)",
-  construir: () => buildMercanciasExam(MP_EXAM_PER_ATTEMPT),
+  evaluacion: "mercancias_evaluacion",
   leerLeidas: () => readMercanciasLocal().lessonScreens,
   escribirLeidas: (ns) => writeMercanciasLocal({ lessonScreens: ns }),
   hidratarLeidas: async (uid) => {
@@ -34,15 +33,6 @@ const CONFIG: ExamenConfig = {
   },
   leerMejorLocal: () => readMercanciasLocal().bestScore,
   escribirMejorLocal: (score) => writeMercanciasLocal({ bestScore: score }),
-  guardarIntento: async (uid, intento) => {
-    const { error } = await supabase.from("user_mercancias_exam_attempts").insert({
-      user_id: uid,
-      score: intento.score,
-      correct: intento.correct,
-      total: intento.total,
-    })
-    return error ? error.message : null
-  },
   cargarHistorial: async (uid) => {
     // Dos consultas: la página reciente para la lista y el máximo histórico
     // para el puntaje, que con más de 10 intentos puede quedar fuera de la página.

@@ -1,0 +1,1506 @@
+{
+  "banco": "notam_evaluacion",
+  "descripcion": "Evaluación de NOTAM. Cada intento toma 25 al azar; se usa también en el simulacro de aerolínea.",
+  "preguntas": [
+    {
+      "id": "1",
+      "enunciado": "¿Cuál es el propósito principal de un NOTAM?",
+      "opciones": [
+        "Proporcionar información meteorológica.",
+        "Informar sobre una condición, cambio o restricción relevante para la operación.",
+        "Sustituir el AIP.",
+        "Autorizar vuelos especiales."
+      ],
+      "correcta": 1,
+      "explicacion": "El NOTAM comunica información aeronáutica que puede afectar la planificación o ejecución de una operación. No sustituye el AIP ni funciona como una autorización de vuelo.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "2",
+      "enunciado": "¿Qué significa NOTAMR?",
+      "opciones": [
+        "NOTAM restringido.",
+        "NOTAM que reemplaza un NOTAM anterior.",
+        "NOTAM rechazado.",
+        "NOTAM reservado."
+      ],
+      "correcta": 1,
+      "explicacion": "La letra R indica que el NOTAM actual reemplaza a otro NOTAM previamente publicado. El identificador del NOTAM reemplazado se indica en el encabezado.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "3",
+      "enunciado": "En un NOTAM, la casilla E) contiene principalmente:",
+      "opciones": [
+        "La FIR.",
+        "La descripción de la condición notificada.",
+        "La fecha de publicación.",
+        "El límite vertical inferior."
+      ],
+      "correcta": 1,
+      "explicacion": "La casilla E) contiene la descripción textual de la condición, restricción, cambio o situación operacional que se está notificando.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "4",
+      "enunciado": "¿Qué significa RWY?",
+      "opciones": [
+        "Radio Waypoint.",
+        "Runway.",
+        "Radar Warning.",
+        "Route Way."
+      ],
+      "correcta": 1,
+      "explicacion": "RWY es la abreviatura aeronáutica utilizada para Runway, es decir, pista.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "5",
+      "enunciado": "¿Qué servicio aeronáutico está relacionado con la publicación y distribución de información aeronáutica?",
+      "opciones": [
+        "ATC.",
+        "AIS.",
+        "ATO.",
+        "AOC."
+      ],
+      "correcta": 1,
+      "explicacion": "AIS corresponde a Aeronautical Information Services. Dentro de este sistema se gestiona y distribuye información aeronáutica destinada a los usuarios.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "6",
+      "enunciado": "¿Qué significa TWY?",
+      "opciones": [
+        "Tower.",
+        "Taxiway.",
+        "Track Waypoint.",
+        "Terminal Way."
+      ],
+      "correcta": 1,
+      "explicacion": "TWY significa Taxiway, es decir, calle de rodaje.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "7",
+      "enunciado": "En `A1956/26 NOTAMR A1635/26`, ¿qué indica `A1635/26`?",
+      "opciones": [
+        "El aeropuerto.",
+        "El NOTAM anterior que está siendo reemplazado.",
+        "La FIR.",
+        "El límite vertical."
+      ],
+      "correcta": 1,
+      "explicacion": "Al tratarse de un NOTAMR, el identificador que aparece después de NOTAMR corresponde al NOTAM que está siendo reemplazado.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "8",
+      "enunciado": "¿Qué significa CLSD?",
+      "opciones": [
+        "Clearance.",
+        "Closed.",
+        "Classified.",
+        "Close."
+      ],
+      "correcta": 1,
+      "explicacion": "CLSD significa Closed, es decir, cerrado.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "9",
+      "enunciado": "¿Cuál es la función general de la línea Q?",
+      "opciones": [
+        "Proporcionar una descripción narrativa completa.",
+        "Resumir y clasificar información del NOTAM mediante códigos estandarizados.",
+        "Sustituir la casilla E).",
+        "Mostrar la frecuencia principal."
+      ],
+      "correcta": 1,
+      "explicacion": "La línea Q proporciona información codificada que permite clasificar y filtrar rápidamente el NOTAM. La descripción operacional completa se encuentra en E).",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "10",
+      "enunciado": "¿Qué identifica principalmente la casilla A)?",
+      "opciones": [
+        "La condición operacional.",
+        "El lugar al que aplica la información.",
+        "El límite vertical.",
+        "El horario específico."
+      ],
+      "correcta": 1,
+      "explicacion": "A) identifica el lugar, aeródromo, instalación u otra referencia geográfica a la que se aplica la información.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "11",
+      "enunciado": "¿Qué significa `U/S`?",
+      "opciones": [
+        "Unserviceable.",
+        "Upper Service.",
+        "Unknown System.",
+        "Universal Service."
+      ],
+      "correcta": 0,
+      "explicacion": "U/S significa Unserviceable, utilizado para indicar que una instalación, equipo o ayuda no está disponible para el servicio previsto.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "12",
+      "enunciado": "Si un NOTAM indica `C) PERM`, significa que:",
+      "opciones": [
+        "La condición solo dura 24 horas.",
+        "La información es permanente.",
+        "La información está estimada.",
+        "El NOTAM está cancelado."
+      ],
+      "correcta": 1,
+      "explicacion": "PERM indica que la información tiene carácter permanente y no corresponde a una condición temporal con una fecha final determinada.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "13",
+      "enunciado": "¿Qué significa WIP?",
+      "opciones": [
+        "Weather in progress.",
+        "Work in progress.",
+        "Waypoint in position.",
+        "Warning information procedure."
+      ],
+      "correcta": 1,
+      "explicacion": "WIP significa Work in Progress, utilizado para indicar trabajos en curso.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "14",
+      "enunciado": "Encuentras un NOTAM de cierre de pista. ¿Qué debes hacer?",
+      "opciones": [
+        "Ignorarlo si el aeropuerto sigue abierto.",
+        "Evaluar cómo afecta la operación y la planificación.",
+        "Cancelar automáticamente el vuelo.",
+        "Consultarlo después del aterrizaje."
+      ],
+      "correcta": 1,
+      "explicacion": "Que una pista esté cerrada no significa automáticamente que el aeropuerto esté cerrado. El piloto debe determinar cómo afecta la pista disponible, los procedimientos, la performance y demás elementos de la operación.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "15",
+      "enunciado": "¿Qué significa BTN?",
+      "opciones": [
+        "Before.",
+        "Between.",
+        "Bottom.",
+        "Below terminal navigation."
+      ],
+      "correcta": 1,
+      "explicacion": "BTN significa Between, es decir, entre.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "16",
+      "enunciado": "`B) 2607091316` corresponde a:",
+      "opciones": [
+        "09 de julio de 2026 a las 13:16 UTC.",
+        "26 de julio de 2009 a las 13:16 UTC.",
+        "07 de septiembre de 2026 a las 13:16 UTC.",
+        "26 de septiembre de 2007 a las 13:16 UTC."
+      ],
+      "correcta": 0,
+      "explicacion": "El formato es AAMMDDHHMM. 26 es el año 2026, 07 es julio, 09 es el día 9 y 1316 es la hora UTC.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "17",
+      "enunciado": "¿En qué sistema horario se expresan normalmente las horas de un NOTAM?",
+      "opciones": [
+        "Hora local.",
+        "UTC.",
+        "Hora solar.",
+        "Hora de verano."
+      ],
+      "correcta": 1,
+      "explicacion": "Las referencias temporales de los NOTAM se expresan normalmente en UTC para evitar confusiones entre zonas horarias.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "18",
+      "enunciado": "¿Qué significa THR?",
+      "opciones": [
+        "Thrust.",
+        "Threshold.",
+        "Three Hour Restriction.",
+        "Track Heading Reference."
+      ],
+      "correcta": 1,
+      "explicacion": "THR significa Threshold, es decir, umbral de pista.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "19",
+      "enunciado": "¿Para qué se utiliza la casilla D)?",
+      "opciones": [
+        "Identificar el aeropuerto.",
+        "Indicar períodos o horarios específicos de aplicación.",
+        "Indicar la FIR.",
+        "Identificar el límite inferior."
+      ],
+      "correcta": 1,
+      "explicacion": "D) se utiliza para especificar los días y horarios durante los cuales se presenta la condición cuando no aplica de manera continua durante toda la vigencia.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "20",
+      "enunciado": "¿Qué significa LTD?",
+      "opciones": [
+        "Limited.",
+        "Located.",
+        "Landing.",
+        "Local Traffic Departure."
+      ],
+      "correcta": 0,
+      "explicacion": "LTD significa Limited, es decir, limitado.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "21",
+      "enunciado": "¿Qué significa NOTAMC?",
+      "opciones": [
+        "NOTAM cancelado.",
+        "Cancelación de un NOTAM anterior.",
+        "NOTAM modificado.",
+        "NOTAM de navegación."
+      ],
+      "correcta": 1,
+      "explicacion": "NOTAMC indica que el NOTAM identificado está cancelando información publicada anteriormente.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "22",
+      "enunciado": "En la línea Q, `IV` indica que la información está relacionada con:",
+      "opciones": [
+        "IFR solamente.",
+        "VFR solamente.",
+        "IFR y VFR.",
+        "Aviación militar."
+      ],
+      "correcta": 2,
+      "explicacion": "I corresponde a IFR y V a VFR. La combinación IV indica que la información está asociada a ambos tipos de tránsito.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "23",
+      "enunciado": "¿Qué significa VIS?",
+      "opciones": [
+        "Visual.",
+        "Visibility.",
+        "VOR Information Service.",
+        "Vertical Instrument System."
+      ],
+      "correcta": 1,
+      "explicacion": "VIS corresponde a Visibility, es decir, visibilidad.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "24",
+      "enunciado": "Lee `E) RWY 13L/31R CLSD DUE WIP`. ¿Qué significa?",
+      "opciones": [
+        "La pista 13L/31R está cerrada debido a trabajos en curso.",
+        "La pista está abierta por trabajos.",
+        "La calle de rodaje está cerrada.",
+        "La pista tiene visibilidad reducida."
+      ],
+      "correcta": 0,
+      "explicacion": "RWY identifica la pista, CLSD indica cerrada y DUE WIP indica que el motivo son trabajos en curso.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "25",
+      "enunciado": "¿Qué significa SFC?",
+      "opciones": [
+        "Surface.",
+        "Special Flight Condition.",
+        "Safety Facility.",
+        "Standard Flight Course."
+      ],
+      "correcta": 0,
+      "explicacion": "SFC significa Surface, utilizado para indicar la superficie o nivel del terreno.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "26",
+      "enunciado": "Si `F)` es SFC y `G)` es 1000 FT, la condición aplica:",
+      "opciones": [
+        "Por encima de 1000 ft únicamente.",
+        "Desde superficie hasta 1000 ft.",
+        "Solo a 1000 ft.",
+        "Desde 1000 ft hasta FL100."
+      ],
+      "correcta": 1,
+      "explicacion": "F) representa el límite inferior y G) el límite superior. En este caso, el intervalo va desde la superficie hasta 1000 ft.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "27",
+      "enunciado": "¿Qué significa OPR?",
+      "opciones": [
+        "Operator Report.",
+        "Operate, es decir, opera.",
+        "Operational Radar.",
+        "Operations Restriction."
+      ],
+      "correcta": 1,
+      "explicacion": "OPR se utiliza para expresar Operate u Operating, según el contexto del NOTAM.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "28",
+      "enunciado": "En la línea Q, el primer componente corresponde a:",
+      "opciones": [
+        "El código NOTAM.",
+        "La FIR asociada.",
+        "El tránsito.",
+        "El horario."
+      ],
+      "correcta": 1,
+      "explicacion": "El primer grupo de la línea Q identifica la FIR asociada al NOTAM.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "29",
+      "enunciado": "En `0202S07956W001`, el grupo representa:",
+      "opciones": [
+        "Aeropuerto y pista.",
+        "Coordenadas y radio.",
+        "Fecha y hora.",
+        "FIR y código NOTAM."
+      ],
+      "correcta": 1,
+      "explicacion": "Los primeros grupos proporcionan latitud y longitud, y el último grupo indica el radio en millas náuticas.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "30",
+      "enunciado": "En `000/001`, los grupos corresponden a:",
+      "opciones": [
+        "Dos frecuencias.",
+        "Límites verticales.",
+        "Dos aeropuertos.",
+        "Dos procedimientos."
+      ],
+      "correcta": 1,
+      "explicacion": "Son los límites verticales codificados de la línea Q.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "31",
+      "enunciado": "¿Qué significa DUE TO?",
+      "opciones": [
+        "Durante.",
+        "Debido a.",
+        "Después de.",
+        "Hasta."
+      ],
+      "correcta": 1,
+      "explicacion": "DUE TO introduce la causa o razón de la condición notificada.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "32",
+      "enunciado": "Una aplicación presenta NOTAM. Esto significa que:",
+      "opciones": [
+        "La aplicación reemplaza la responsabilidad operacional.",
+        "La aplicación facilita la consulta, pero el piloto conserva la responsabilidad de verificar la información.",
+        "La aplicación emite los NOTAM.",
+        "La información deja de requerir verificación."
+      ],
+      "correcta": 1,
+      "explicacion": "Las aplicaciones son herramientas para consultar y organizar información. No trasladan la responsabilidad operacional del usuario.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "33",
+      "enunciado": "¿Qué significa CTN?",
+      "opciones": [
+        "Continue.",
+        "Caution.",
+        "Container.",
+        "Control."
+      ],
+      "correcta": 1,
+      "explicacion": "CTN significa Caution, utilizado para indicar precaución.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "34",
+      "enunciado": "¿Qué describe principalmente la casilla E)?",
+      "opciones": [
+        "Qué está ocurriendo.",
+        "Quién publicó el NOTAM.",
+        "La FIR.",
+        "La fecha."
+      ],
+      "correcta": 0,
+      "explicacion": "E) proporciona la descripción textual de la condición operacional notificada.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "35",
+      "enunciado": "`E) PAPI RWY 19 U/S` significa:",
+      "opciones": [
+        "La pista 19 está cerrada.",
+        "El PAPI de la pista 19 está fuera de servicio.",
+        "El ILS de la pista 19 está fuera de servicio.",
+        "La pista 19 está restringida a VFR."
+      ],
+      "correcta": 1,
+      "explicacion": "PAPI identifica la ayuda visual, RWY 19 la pista asociada y U/S indica que el sistema está fuera de servicio.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "36",
+      "enunciado": "¿Qué significa APCH?",
+      "opciones": [
+        "Approach.",
+        "Airport Check.",
+        "Approach Control Handling.",
+        "Aircraft Position Heading."
+      ],
+      "correcta": 0,
+      "explicacion": "APCH significa Approach, utilizado en relación con aproximaciones.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "37",
+      "enunciado": "¿Qué significa DEP?",
+      "opciones": [
+        "Departure.",
+        "Departure Equipment.",
+        "Departure Emergency Procedure.",
+        "Departure Point."
+      ],
+      "correcta": 0,
+      "explicacion": "DEP significa Departure, salida.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "38",
+      "enunciado": "¿Qué significa ARR?",
+      "opciones": [
+        "Arrival.",
+        "Arrival Radar Route.",
+        "Aircraft Radar Reference.",
+        "Area Restriction."
+      ],
+      "correcta": 0,
+      "explicacion": "ARR significa Arrival, llegada.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "39",
+      "enunciado": "¿Qué significa ACFT?",
+      "opciones": [
+        "Aircraft.",
+        "Airport Facility.",
+        "Air Control Flight.",
+        "Aircraft Frequency."
+      ],
+      "correcta": 0,
+      "explicacion": "ACFT es la abreviatura de Aircraft, aeronave.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "40",
+      "enunciado": "En `A2611/26 NOTAMR A1636/26`, el NOTAM que estás leyendo es:",
+      "opciones": [
+        "A1636/26.",
+        "A2611/26.",
+        "Ambos.",
+        "Ninguno."
+      ],
+      "correcta": 1,
+      "explicacion": "A2611/26 es el identificador del NOTAM actual. A1636/26 es el NOTAM anterior que este reemplaza.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "41",
+      "enunciado": "¿Qué significa NOTAMN?",
+      "opciones": [
+        "Nueva información.",
+        "Información cancelada.",
+        "Información restringida.",
+        "Información meteorológica."
+      ],
+      "correcta": 0,
+      "explicacion": "NOTAMN identifica la publicación de nueva información.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "42",
+      "enunciado": "Un NOTAMR indica que:",
+      "opciones": [
+        "El NOTAM anterior sigue siendo el principal.",
+        "El NOTAM actual reemplaza al indicado.",
+        "El NOTAM está cancelado.",
+        "Solo aplica a VFR."
+      ],
+      "correcta": 1,
+      "explicacion": "El propósito de NOTAMR es sustituir la información contenida en un NOTAM anterior por la información del nuevo NOTAM.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "43",
+      "enunciado": "Un NOTAMC indica que:",
+      "opciones": [
+        "Se publica información nueva.",
+        "Se cancela un NOTAM anterior.",
+        "Se modifica la FIR.",
+        "Se cambia el aeropuerto."
+      ],
+      "correcta": 1,
+      "explicacion": "NOTAMC se utiliza para cancelar un NOTAM identificado previamente.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "44",
+      "enunciado": "¿Qué significa PERM?",
+      "opciones": [
+        "Permission.",
+        "Permanent.",
+        "Permit Required.",
+        "Performance."
+      ],
+      "correcta": 1,
+      "explicacion": "PERM significa Permanent, es decir, permanente.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "45",
+      "enunciado": "¿Qué significa EST?",
+      "opciones": [
+        "Estimated.",
+        "Established.",
+        "Estimated Station.",
+        "Eastern Standard Time."
+      ],
+      "correcta": 0,
+      "explicacion": "EST indica que el tiempo señalado es estimado.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "46",
+      "enunciado": "¿Qué significa FM?",
+      "opciones": [
+        "From.",
+        "Flight Mode.",
+        "Frequency Minimum.",
+        "Final Movement."
+      ],
+      "correcta": 0,
+      "explicacion": "FM significa From, desde.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "47",
+      "enunciado": "¿Qué significa TIL?",
+      "opciones": [
+        "Terminal.",
+        "Until.",
+        "Till Landing.",
+        "Traffic Information Limit."
+      ],
+      "correcta": 1,
+      "explicacion": "TIL significa Until, hasta.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "48",
+      "enunciado": "¿Qué significa H24?",
+      "opciones": [
+        "24 minutos.",
+        "24 horas.",
+        "Desde las 24:00.",
+        "Horario desconocido."
+      ],
+      "correcta": 1,
+      "explicacion": "H24 significa que la condición o servicio se aplica durante las 24 horas del día, según el contexto.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "49",
+      "enunciado": "¿Qué significa REF?",
+      "opciones": [
+        "Reference.",
+        "Refueling.",
+        "Radar Effect.",
+        "Restricted Flight."
+      ],
+      "correcta": 0,
+      "explicacion": "REF significa Reference, utilizado para señalar una referencia documental o publicada.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "50",
+      "enunciado": "`E) TWY AC CLSD` significa:",
+      "opciones": [
+        "La pista AC está cerrada.",
+        "La calle de rodaje AC está cerrada.",
+        "El aeropuerto está cerrado.",
+        "La torre está cerrada."
+      ],
+      "correcta": 1,
+      "explicacion": "TWY identifica una calle de rodaje y CLSD indica que está cerrada. El NOTAM no indica que todo el aeropuerto esté cerrado.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "51",
+      "enunciado": "¿Para qué se utilizan `F)` y `G)` cuando aparecen?",
+      "opciones": [
+        "Para definir límites verticales.",
+        "Para definir el código NOTAM.",
+        "Para definir el aeropuerto.",
+        "Para definir la hora local."
+      ],
+      "correcta": 0,
+      "explicacion": "F) establece el límite vertical inferior y G) el límite vertical superior de la condición cuando corresponde.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "52",
+      "enunciado": "En `Q) SKEC/...`, SKEC corresponde a:",
+      "opciones": [
+        "Una pista.",
+        "La FIR asociada.",
+        "Una frecuencia.",
+        "Un procedimiento."
+      ],
+      "correcta": 1,
+      "explicacion": "SKEC es el indicador de la FIR utilizada en el primer componente de esa línea Q.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "53",
+      "enunciado": "El código NOTAM utilizado en la línea Q está formado por:",
+      "opciones": [
+        "Tres letras.",
+        "Cuatro letras.",
+        "Cinco letras.",
+        "Seis letras."
+      ],
+      "correcta": 2,
+      "explicacion": "La estructura del código NOTAM emplea cinco caracteres alfabéticos, comenzando con Q.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "54",
+      "enunciado": "En un código NOTAM de cinco letras, la primera letra es:",
+      "opciones": [
+        "A.",
+        "N.",
+        "Q.",
+        "C."
+      ],
+      "correcta": 2,
+      "explicacion": "El código NOTAM comienza con la letra Q; las siguientes letras identifican el asunto y su condición.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "55",
+      "enunciado": "¿Qué significa WIP en `RWY CLSD DUE WIP`?",
+      "opciones": [
+        "Trabajos en curso.",
+        "Visibilidad reducida.",
+        "Pista contaminada.",
+        "Viento fuerte."
+      ],
+      "correcta": 0,
+      "explicacion": "WIP corresponde a Work in Progress, es decir, trabajos en curso.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "56",
+      "enunciado": "¿Qué significa ALSF?",
+      "opciones": [
+        "Sistema de luces de aproximación.",
+        "Sistema VOR.",
+        "Sistema de rodaje.",
+        "Sistema de iluminación de plataforma."
+      ],
+      "correcta": 0,
+      "explicacion": "ALSF identifica un sistema de luces de aproximación utilizado para proporcionar referencias visuales durante la aproximación.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "57",
+      "enunciado": "¿Qué significa ILS?",
+      "opciones": [
+        "Instrument Landing System.",
+        "Instrument Lighting Service.",
+        "Internal Landing Signal.",
+        "International Landing Standard."
+      ],
+      "correcta": 0,
+      "explicacion": "ILS significa Instrument Landing System, sistema de aterrizaje por instrumentos.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "58",
+      "enunciado": "¿Qué significa LOC en una aproximación?",
+      "opciones": [
+        "Localizer.",
+        "Location.",
+        "Local Control.",
+        "Local Communication."
+      ],
+      "correcta": 0,
+      "explicacion": "LOC hace referencia al localizador, componente lateral del sistema ILS.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "59",
+      "enunciado": "¿Qué significa VOR?",
+      "opciones": [
+        "VHF Omnidirectional Range.",
+        "Visual Operations Radar.",
+        "Vertical Omnidirectional Route.",
+        "VHF Operational Reference."
+      ],
+      "correcta": 0,
+      "explicacion": "VOR significa VHF Omnidirectional Range, una radioayuda para navegación.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "60",
+      "enunciado": "¿Qué significa DME?",
+      "opciones": [
+        "Distance Measuring Equipment.",
+        "Directional Measuring Equipment.",
+        "Distance Management Equipment.",
+        "Departure Measuring Equipment."
+      ],
+      "correcta": 0,
+      "explicacion": "DME significa Distance Measuring Equipment y proporciona información de distancia respecto a la estación.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "61",
+      "enunciado": "¿Qué significa NDB?",
+      "opciones": [
+        "Non-Directional Beacon.",
+        "Navigation Direction Beacon.",
+        "Non-Distance Bearing.",
+        "Navigation Data Beacon."
+      ],
+      "correcta": 0,
+      "explicacion": "NDB significa Non-Directional Beacon, radiofaro no direccional.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "62",
+      "enunciado": "`E) TWR LTD` significa:",
+      "opciones": [
+        "La torre está cerrada.",
+        "El servicio de torre está limitado.",
+        "La pista está limitada.",
+        "El servicio radar está fuera de servicio."
+      ],
+      "correcta": 1,
+      "explicacion": "TWR corresponde al servicio de torre y LTD significa Limited, limitado.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "63",
+      "enunciado": "`E) TWY I OPR UNICAMENTE AVIACION MIL` significa:",
+      "opciones": [
+        "La calle I está cerrada.",
+        "La calle I opera únicamente para aviación militar.",
+        "La pista I está reservada.",
+        "La torre opera únicamente para aviación militar."
+      ],
+      "correcta": 1,
+      "explicacion": "TWY identifica la calle de rodaje, OPR indica que opera y el texto especifica que su utilización está limitada a la aviación militar.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "64",
+      "enunciado": "¿Por qué no debe traducirse un NOTAM palabra por palabra?",
+      "opciones": [
+        "Porque no tiene lenguaje aeronáutico.",
+        "Porque utiliza abreviaturas y fraseología que deben interpretarse en contexto.",
+        "Porque solo debe leerse la línea Q.",
+        "Porque E) no tiene valor operacional."
+      ],
+      "correcta": 1,
+      "explicacion": "Una traducción literal puede perder el sentido operacional. La lectura correcta relaciona las abreviaturas con el elemento o condición que describen.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "65",
+      "enunciado": "¿Qué debe buscar inicialmente el piloto al analizar la casilla E)?",
+      "opciones": [
+        "El fabricante del aeropuerto.",
+        "Qué está ocurriendo y a qué elemento se refiere.",
+        "El costo de la condición.",
+        "La antigüedad de la infraestructura."
+      ],
+      "correcta": 1,
+      "explicacion": "La primera finalidad de E) es identificar la condición operacional y el elemento afectado.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "66",
+      "enunciado": "Un PAPI fuera de servicio significa que:",
+      "opciones": [
+        "La pista necesariamente está cerrada.",
+        "Una ayuda visual asociada a esa pista no está disponible.",
+        "El aeropuerto está cerrado.",
+        "El ILS está automáticamente fuera de servicio."
+      ],
+      "correcta": 1,
+      "explicacion": "Un NOTAM sobre PAPI fuera de servicio informa específicamente sobre esa ayuda visual. No implica automáticamente cierre de pista ni falla del ILS.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "67",
+      "enunciado": "Si un NOTAM está asociado a una FIR, significa que:",
+      "opciones": [
+        "Afecta automáticamente a todos los vuelos de la FIR.",
+        "Debe analizarse su área, vigencia, alcance y relación con la operación.",
+        "El vuelo debe cancelarse.",
+        "Solo afecta VFR."
+      ],
+      "correcta": 1,
+      "explicacion": "La pertenencia a una FIR permite identificar el contexto geográfico y de información, pero no significa que toda operación dentro de ella esté afectada.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "68",
+      "enunciado": "¿Qué representa el radio al final del grupo de coordenadas de la línea Q?",
+      "opciones": [
+        "La distancia de vuelo.",
+        "El radio utilizado para definir el área de referencia del NOTAM.",
+        "La longitud de pista.",
+        "La elevación del aeropuerto."
+      ],
+      "correcta": 1,
+      "explicacion": "El último grupo indica el radio en millas náuticas alrededor del punto central indicado por las coordenadas.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "69",
+      "enunciado": "En `0202S07956W001`, `0202S` corresponde a:",
+      "opciones": [
+        "Longitud.",
+        "Latitud.",
+        "Radio.",
+        "FIR."
+      ],
+      "correcta": 1,
+      "explicacion": "El primer grupo corresponde a la latitud: 02°02′ Sur.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "70",
+      "enunciado": "En `0202S07956W001`, `07956W` corresponde a:",
+      "opciones": [
+        "Longitud.",
+        "Latitud.",
+        "Radio.",
+        "Altitud."
+      ],
+      "correcta": 0,
+      "explicacion": "El segundo grupo corresponde a la longitud: 079°56′ Oeste.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "71",
+      "enunciado": "En `0202S07956W001`, `001` corresponde a:",
+      "opciones": [
+        "1 ft.",
+        "1 NM.",
+        "1000 ft.",
+        "1 km."
+      ],
+      "correcta": 1,
+      "explicacion": "En el componente geográfico de la línea Q, el último grupo de tres cifras representa el radio en millas náuticas.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "72",
+      "enunciado": "En un componente de alcance `AW`, la A corresponde a:",
+      "opciones": [
+        "Aeródromo.",
+        "Altitud.",
+        "Aproximación.",
+        "Aeronave."
+      ],
+      "correcta": 0,
+      "explicacion": "A identifica información relacionada con un aeródromo y W identifica una advertencia para navegación.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "73",
+      "enunciado": "En el componente de alcance, la E corresponde a:",
+      "opciones": [
+        "Emergencia.",
+        "En ruta.",
+        "Elevación.",
+        "Estimado."
+      ],
+      "correcta": 1,
+      "explicacion": "E identifica información relacionada con el entorno en ruta.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "74",
+      "enunciado": "En el componente de alcance, la W corresponde a:",
+      "opciones": [
+        "Advertencia para la navegación.",
+        "Meteorología.",
+        "Punto de recorrido.",
+        "Oeste."
+      ],
+      "correcta": 0,
+      "explicacion": "W representa una advertencia de navegación.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "75",
+      "enunciado": "¿Qué representa `NBO` en la línea Q?",
+      "opciones": [
+        "Un aeropuerto.",
+        "El propósito de la información.",
+        "Una pista.",
+        "Un límite vertical."
+      ],
+      "correcta": 1,
+      "explicacion": "NBO pertenece al componente que describe el propósito de la información dentro del sistema NOTAM.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "76",
+      "enunciado": "¿Qué significa la B de `NBO`?",
+      "opciones": [
+        "Que la información está destinada al boletín previo al vuelo.",
+        "Que la información es de carácter básico.",
+        "Que la información corresponde a VFR.",
+        "Que la información es de emergencia."
+      ],
+      "correcta": 0,
+      "explicacion": "En esta codificación, B indica que la información está destinada a ser incluida en el boletín previo al vuelo.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "77",
+      "enunciado": "En `NBO`, la O indica relación con:",
+      "opciones": [
+        "Operaciones de vuelo.",
+        "Obstáculos únicamente.",
+        "Oceanografía.",
+        "Organización aeroportuaria."
+      ],
+      "correcta": 0,
+      "explicacion": "O identifica información relacionada con operaciones de vuelo.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "78",
+      "enunciado": "En `IV`, la I corresponde a:",
+      "opciones": [
+        "Instrument.",
+        "IFR.",
+        "International.",
+        "Information."
+      ],
+      "correcta": 1,
+      "explicacion": "I representa IFR dentro del componente de tránsito de la línea Q.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "79",
+      "enunciado": "En `IV`, la V corresponde a:",
+      "opciones": [
+        "VOR.",
+        "VFR.",
+        "Aeropuerto visual.",
+        "Vertical."
+      ],
+      "correcta": 1,
+      "explicacion": "V representa VFR.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "80",
+      "enunciado": "¿Qué significa `IV`?",
+      "opciones": [
+        "IFR y VFR.",
+        "IFR solamente.",
+        "VFR solamente.",
+        "Aviación militar."
+      ],
+      "correcta": 0,
+      "explicacion": "La combinación I más V indica que la información está relacionada tanto con IFR como con VFR.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "81",
+      "enunciado": "Un NOTAM trae `D) 08-09 BTN 2000-2200` y `E) RWY 17L/35R CLSD`. La condición del día 08 aplica:",
+      "opciones": [
+        "Durante todo el día.",
+        "Entre las 2000 y las 2200 UTC.",
+        "Después de las 2200.",
+        "Antes de las 2000."
+      ],
+      "correcta": 1,
+      "explicacion": "D) especifica el período de actividad. El cierre se presenta entre las 2000 y las 2200 UTC durante los días indicados.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "82",
+      "enunciado": "En ese mismo NOTAM, ¿qué casilla permite conocer ese horario?",
+      "opciones": [
+        "La casilla A).",
+        "La casilla B).",
+        "La casilla D).",
+        "La casilla F)."
+      ],
+      "correcta": 2,
+      "explicacion": "D) permite expresar días y horarios específicos dentro del período general de vigencia.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "83",
+      "enunciado": "Si tu llegada está prevista dentro del período indicado en `D)`, debes:",
+      "opciones": [
+        "Ignorar el NOTAM porque C) no ha vencido.",
+        "Considerar la condición como activa durante ese período.",
+        "Asumir que la pista está abierta.",
+        "Utilizar obligatoriamente la pista cerrada."
+      ],
+      "correcta": 1,
+      "explicacion": "D) determina cuándo se encuentra activa la condición. Por tanto, una operación dentro de ese horario debe considerar el cierre.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "84",
+      "enunciado": "Un NOTAM trae `F) GND` y `G) 1200FT`. Significa que la condición se extiende:",
+      "opciones": [
+        "Desde la superficie hasta 1200 ft.",
+        "Solo a 1200 ft.",
+        "Por encima de 1200 ft.",
+        "Desde FL120 hasta la superficie."
+      ],
+      "correcta": 0,
+      "explicacion": "F) es el límite inferior y G) el superior. GND equivale a superficie en este contexto.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "85",
+      "enunciado": "Un NOTAM informa una actividad UAS desde GND hasta 1200 ft. ¿Qué debe comparar el piloto?",
+      "opciones": [
+        "Solamente el operador del UAS.",
+        "Área, horario, niveles y ruta prevista.",
+        "Solo la longitud de pista.",
+        "Solo la matrícula de la aeronave."
+      ],
+      "correcta": 1,
+      "explicacion": "La relevancia de una actividad UAS depende de su ubicación, período de actividad, límites verticales y relación con la trayectoria de vuelo.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "86",
+      "enunciado": "Un NOTAM informa que una aproximación instrumental no está disponible debido a una radioayuda fuera de servicio. Esto representa:",
+      "opciones": [
+        "Una relación entre una causa técnica y una consecuencia operacional.",
+        "Un cierre automático del aeropuerto.",
+        "Una restricción exclusivamente VFR.",
+        "Un cambio meteorológico."
+      ],
+      "correcta": 0,
+      "explicacion": "El NOTAM comunica una relación de causa y efecto: una radioayuda no disponible puede impedir la utilización de determinados procedimientos.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "87",
+      "enunciado": "Si un NOTAM indica que una calle de rodaje está cerrada, ¿qué área puede verse directamente afectada?",
+      "opciones": [
+        "El movimiento en tierra.",
+        "La licencia del piloto.",
+        "El certificado médico.",
+        "El peso máximo de despegue."
+      ],
+      "correcta": 0,
+      "explicacion": "Una calle de rodaje forma parte del sistema de movimiento en superficie, por lo que su cierre puede afectar las rutas de rodaje.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "88",
+      "enunciado": "Un NOTAM informa que una ayuda a la navegación está fuera de servicio. ¿Qué debes determinar?",
+      "opciones": [
+        "Si está relacionada con la ruta o el procedimiento previsto.",
+        "Si el aeropuerto tiene dos pistas.",
+        "Solo la hora local.",
+        "La compañía que emitió el NOTAM."
+      ],
+      "correcta": 0,
+      "explicacion": "La importancia operacional depende de si esa ayuda se utiliza para la ruta, la salida, la llegada o la aproximación prevista.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "89",
+      "enunciado": "Si un NOTAM contiene información permanente, debes:",
+      "opciones": [
+        "Ignorarlo por ser antigua.",
+        "Considerarlo de acuerdo con su estado y contenido vigente.",
+        "Suponer que está cancelado.",
+        "Utilizar siempre la información anterior."
+      ],
+      "correcta": 1,
+      "explicacion": "Permanente no significa irrelevante. La información debe seguir considerándose mientras permanezca vigente y aplicable.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "90",
+      "enunciado": "En la lectura de un NOTAM completo, la pregunta final debería ser:",
+      "opciones": [
+        "¿Quién escribió el NOTAM?",
+        "¿Qué significa esta información para mi operación?",
+        "¿Cuántos pilotos lo conocen?",
+        "¿Cuándo fue construido el aeropuerto?"
+      ],
+      "correcta": 1,
+      "explicacion": "El objetivo final de la interpretación es relacionar la información del NOTAM con la operación concreta.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "91",
+      "enunciado": "Un piloto encuentra un NOTAM de cierre de pista, pero su vuelo utiliza otra pista disponible. ¿Qué debe hacer?",
+      "opciones": [
+        "Cancelar automáticamente.",
+        "Analizar si el cierre tiene alguna repercusión sobre la operación.",
+        "Ignorar todos los NOTAM del aeropuerto.",
+        "Utilizar obligatoriamente la pista cerrada."
+      ],
+      "correcta": 1,
+      "explicacion": "No todos los NOTAM afectan de la misma manera. El piloto debe determinar si el cierre tiene impacto sobre su ruta, procedimiento, performance, alterno u otros aspectos.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "92",
+      "enunciado": "¿Cuál es el error de leer solamente la línea Q?",
+      "opciones": [
+        "La línea Q no existe.",
+        "La línea Q resume información, pero no sustituye el contenido operacional.",
+        "La línea Q contiene toda la descripción.",
+        "Solo aplica a VFR."
+      ],
+      "correcta": 1,
+      "explicacion": "La línea Q permite clasificar y filtrar el NOTAM, pero para comprender exactamente qué está ocurriendo es necesario revisar el resto del NOTAM, especialmente E).",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "93",
+      "enunciado": "¿Cuál es el error de leer solamente la casilla E)?",
+      "opciones": [
+        "Ninguno.",
+        "Se puede perder información sobre ubicación, vigencia, horarios o alcance.",
+        "E) nunca contiene información operacional.",
+        "E) siempre está vacía."
+      ],
+      "correcta": 1,
+      "explicacion": "E) explica la condición, pero su significado operacional depende también de dónde y cuándo aplica y, cuando corresponda, de sus límites.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "94",
+      "enunciado": "¿Qué diferencia existe entre comprender un NOTAM y evaluarlo operacionalmente?",
+      "opciones": [
+        "No existe diferencia.",
+        "Comprenderlo es saber qué informa; evaluarlo es determinar qué significa para la operación.",
+        "Comprenderlo significa cancelarlo.",
+        "Evaluarlo significa traducirlo."
+      ],
+      "correcta": 1,
+      "explicacion": "La comprensión permite conocer el contenido. La evaluación operacional agrega el contexto de la ruta, la aeronave, el aeropuerto, el procedimiento, el horario y las demás variables del vuelo.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "95",
+      "enunciado": "Cuando la casilla D) contiene horarios específicos, esos horarios deben:",
+      "opciones": [
+        "Ignorarse mientras C) siga vigente.",
+        "Considerarse para determinar cuándo está activa la condición.",
+        "Convertirse automáticamente a hora local.",
+        "Interpretarse como horarios administrativos."
+      ],
+      "correcta": 1,
+      "explicacion": "D) define los períodos concretos de actividad dentro de la vigencia general del NOTAM.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "96",
+      "enunciado": "¿Cuál es una secuencia adecuada para analizar un NOTAM?",
+      "opciones": [
+        "Leer E), ignorar todo lo demás y decidir.",
+        "Identificar dónde, cuándo, qué ocurre y cómo se relaciona con la operación.",
+        "Leer solamente el número.",
+        "Leer únicamente la FIR."
+      ],
+      "correcta": 1,
+      "explicacion": "Una interpretación adecuada integra ubicación, tiempo, condición, alcance y relación con el vuelo.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "97",
+      "enunciado": "Un NOTAM puede contener información relacionada con:",
+      "opciones": [
+        "Solo pistas.",
+        "Pistas, calles de rodaje, ayudas, procedimientos, espacio aéreo y otras condiciones operacionales.",
+        "Solo meteorología.",
+        "Solo aeropuertos internacionales."
+      ],
+      "correcta": 1,
+      "explicacion": "Los NOTAM pueden comunicar una amplia variedad de condiciones aeronáuticas relevantes para la operación.",
+      "metadatos": {
+        "nivel": "intermedio"
+      }
+    },
+    {
+      "id": "98",
+      "enunciado": "¿Qué significa `VIS REDUCED`?",
+      "opciones": [
+        "Visibilidad reducida.",
+        "Vista reducida en cabina.",
+        "Sistema visual reducido.",
+        "Pista reducida."
+      ],
+      "correcta": 0,
+      "explicacion": "VIS es Visibility y REDUCED indica reducida. La expresión comunica una reducción de la visibilidad.",
+      "metadatos": {
+        "nivel": "basico"
+      }
+    },
+    {
+      "id": "99",
+      "enunciado": "Lee `E) TWR LTD, VIS REDUCED BTN TWY A AND THR 01 DUE TO TREES`. ¿Cuál es la interpretación correcta?",
+      "opciones": [
+        "La torre está cerrada y la pista está fuera de servicio.",
+        "El servicio de torre está limitado y la visibilidad está reducida entre la TWY A y el THR 01 debido a árboles.",
+        "La calle de rodaje A está cerrada por árboles.",
+        "El umbral 01 está cerrado."
+      ],
+      "correcta": 1,
+      "explicacion": "TWR LTD indica servicio de torre limitado; VIS REDUCED indica visibilidad reducida; BTN identifica el tramo entre TWY A y THR 01; DUE TO TREES señala la causa.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    },
+    {
+      "id": "100",
+      "enunciado": "¿Cuál resume mejor la habilidad que debe desarrollar el estudiante al completar el módulo de NOTAM?",
+      "opciones": [
+        "Memorizar todos los códigos NOTAM.",
+        "Traducir cualquier NOTAM palabra por palabra.",
+        "Leer, comprender e interpretar la información y determinar su relevancia para una operación.",
+        "Identificar únicamente el aeropuerto."
+      ],
+      "correcta": 2,
+      "explicacion": "El propósito del módulo no es memorizar códigos. El estudiante debe ser capaz de tomar información real, entenderla y determinar qué significado tiene para una operación concreta.",
+      "metadatos": {
+        "nivel": "avanzado"
+      }
+    }
+  ]
+}

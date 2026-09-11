@@ -1,0 +1,71 @@
+{
+  "banco": "mercancias_chequeo",
+  "descripcion": "Preguntas de Mercancías peligrosas que entran al simulacro de aerolínea.",
+  "preguntas": [
+    {
+      "id": "p1",
+      "enunciado": "¿En qué clase están las baterías de litio?",
+      "opciones": [
+        "Clase 3, líquidos inflamables",
+        "Clase 8, corrosivas",
+        "Clase 9, mercancías varias"
+      ],
+      "correcta": 2,
+      "explicacion": "Clase 9. Es la respuesta que más se falla en entrevista, casi siempre ubicándolas en la 3 o en la 8.",
+      "referencia": "Sección 08 del módulo",
+      "metadatos": {}
+    },
+    {
+      "id": "p2",
+      "enunciado": "Un pasajero quiere llevar un power bank en su maleta facturada. ¿Puede?",
+      "opciones": [
+        "Sí, si va apagado y protegido",
+        "No: las baterías de repuesto van solo en cabina",
+        "Sí, si no pasa de 100 Wh"
+      ],
+      "correcta": 1,
+      "explicacion": "No. Las baterías de repuesto y los power banks van únicamente en cabina, con los terminales protegidos contra cortocircuito.",
+      "referencia": "Sección 11 del módulo",
+      "metadatos": {}
+    },
+    {
+      "id": "p3",
+      "enunciado": "¿Qué es el NOTOC?",
+      "opciones": [
+        "La declaración que firma el expedidor",
+        "La información escrita al comandante sobre las mercancías peligrosas a bordo",
+        "El listado de la IATA con todas las sustancias"
+      ],
+      "correcta": 1,
+      "explicacion": "Es la información escrita al piloto al mando. La declaración del expedidor es otro documento, y es la fuente con la que se arma.",
+      "referencia": "Sección 14 del módulo",
+      "metadatos": {}
+    },
+    {
+      "id": "p4",
+      "enunciado": "En el NOTOC de un vuelo con pasajeros aparece un bulto marcado «Cargo Aircraft Only». ¿Qué haces?",
+      "opciones": [
+        "Lo acepto si va estibado lejos de la cabina",
+        "Lo acepto si el expedidor lo aprueba por escrito",
+        "No sale: ese bulto no puede ir en una aeronave con pasajeros"
+      ],
+      "correcta": 2,
+      "explicacion": "No sale. Un bulto de solo aeronaves de carga está prohibido en un vuelo con pasajeros.",
+      "referencia": "Sección 13 del módulo",
+      "metadatos": {}
+    },
+    {
+      "id": "p5",
+      "enunciado": "Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
+      "opciones": [
+        "Informar al ATC qué mercancía llevas",
+        "Volar la aeronave y gestionar el humo",
+        "Consultar el NOTOC para identificar la sustancia"
+      ],
+      "correcta": 1,
+      "explicacion": "Primero se vuela. Identificar con el NOTOC y avisar al ATS vienen enseguida, pero después.",
+      "referencia": "Sección 15 del módulo",
+      "metadatos": {}
+    }
+  ]
+}

@@ -59,6 +59,26 @@ Los genéricos están en `src/lib/docBlocks.ts` y los pinta `DocBlock` en
 
 Todos toman el acento del lector en el que estén. Sirven para cualquier módulo.
 
+## Evaluaciones: el banco vive en el servidor
+
+Las evaluaciones que dan nota (NOTAM, Meteorología, Mercancías y el simulacro de
+aerolínea) **no traen sus preguntas en el bundle**. El servidor sortea, corrige y guarda
+el intento (`evaluacion_iniciar`, `evaluacion_responder`, `evaluacion_terminar`); el
+cliente solo recibe enunciados y opciones, y la corrección cuando la evaluación la da.
+Así nadie ve las respuestas abriendo DevTools ni se inventa un puntaje.
+
+- **Bancos**: `contenido/bancos/<banco>.json` (fuera de `src/`). Se editan ahí.
+- **Cargarlos**: `node scripts/bancos/sembrar.mjs <banco>` (o sin argumento, todos) imprime el
+  SQL (upsert por `id`; lo que se quita del archivo queda inactivo, nunca se borra).
+  Se corre en Supabase.
+- **Reglas de cada evaluación** (preguntas por intento, aprobación, cuándo se ve la
+  corrección, de qué bancos sale): tabla `evaluaciones` y `evaluacion_fuentes`, por migración.
+- **Pantallas**: `ExamenModulo` (corrección al final) y `QuizEngine` (corrección inmediata),
+  ambos sobre `useEvaluacion` y `src/services/evaluaciones.ts`.
+- `src/lib/evaluacionesContenido.test.ts` falla si un archivo de `src/` vuelve a traer
+  preguntas de un banco, o si los conteos que anuncia la app no cuadran con los bancos.
+  **Un «pon a prueba» de lección no debe copiar una pregunta de evaluación.**
+
 ## Cómo se enseña aquí
 
 El alumno es **un piloto que prepara entrevista de aerolínea**, no personal de tierra ni
