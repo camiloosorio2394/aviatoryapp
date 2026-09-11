@@ -4,7 +4,6 @@ import {
   AlertTriangle,
   ArrowRight,
   Brain,
-  Briefcase,
   ClipboardCheck,
   ClipboardList,
   CloudSun,
@@ -12,10 +11,9 @@ import {
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { PageHeader } from "@/components/ui/page-header"
-import { CourseCard } from "@/components/ui/course-card"
-import type { CourseCardProps } from "@/components/ui/course-card"
-import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
+import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
+import { appButtonClass } from "@/lib/buttonStyles"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -25,13 +23,7 @@ import {
   resumirNotam,
 } from "@/lib/notam"
 import { fetchNotamProgress } from "@/lib/notamProgress"
-import {
-  METAR_EXAM_QUESTIONS,
-  METAR_LEGEND_TOTAL,
-  METAR_PRACTICE_TOTAL,
-  readMetarProgress,
-  resumirMetar,
-} from "@/lib/metar"
+import { METAR_PRACTICE_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
 import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import { LESSON_MINUTES } from "@/lib/notamLesson"
@@ -42,10 +34,10 @@ import {
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
 import { MP_HUB, MP_LECTURA_TOTAL, MP_PRACTICA_TOTAL, resumirMercancias } from "@/lib/mercancias"
+import { MP_MINUTOS } from "@/lib/mercanciasLeccion"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
-import { BANCO_TOTAL as PSICO_BANCO_TOTAL, TOTALES as PSICO_TOTALES } from "@/data/psicotecnicas"
+import { BANCO_TOTAL as PSICO_BANCO_TOTAL } from "@/data/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
-import { ROMBOS_TOTAL } from "@/lib/mercanciasClases"
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
 import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jpg"
@@ -53,21 +45,37 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jp
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
+// La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
+// así que el hero no repite imagen con lo que tiene debajo.
+import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
 
 /**
  * Módulo Ingreso a aerolínea: la lista de TEMAS de estudio.
- *
- * Cada tema se abre por dentro cuando su contenido está listo; hoy están
- * abiertos NOTAM y Meteorología operacional.
  *
  * La pantalla lee el progreso real de cada tema y ordena por él: primero lo
  * que quedó a medias, después lo que no se ha tocado y de último lo terminado.
  * Antes era estática, así que quien llevaba 6 de 13 secciones de NOTAM veía
  * exactamente lo mismo que quien nunca lo abrió.
  *
- * Las tarjetas usan el mismo componente de catálogo que la portada y los hubs
- * de cada tema: la foto orienta y distingue, y el único botón primario de la
- * pantalla es el de continuar.
+ * Composición pensada para cuatro columnas (11 de septiembre de 2026):
+ *
+ *  - Arriba, el hero de las portadas de módulo en su versión corta: foto bajo
+ *    velo navy, titular en Archivo y el panel de avance de cristal. Antes
+ *    era la cabecera genérica de la app, y la pantalla que agrupa los módulos
+ *    no se parecía a ninguno de ellos.
+ *  - Los temas van en una rejilla de cuatro, porque son cuatro y son
+ *    equivalentes. Las herramientas no se estudian ni se terminan, así que van
+ *    en su propio grupo, en dos tarjetas horizontales que llenan la fila en vez
+ *    de dejar dos huecos.
+ *  - La rejilla responde al ancho del contenido y no al de la ventana, porque
+ *    la barra lateral se come 245 px: una, dos o cuatro columnas, nunca tres,
+ *    que con cuatro temas deja uno huérfano.
+ *  - Lo que viene después va pegado a los temas, como una fila de pastillas: es
+ *    la continuación de la rejilla, no un párrafo aparte.
+ *
+ * Las tarjetas son `TarjetaModulo`, la versión compacta de la tarjeta de
+ * catálogo. El único botón primario de la pantalla sigue siendo el de
+ * continuar.
  */
 
 /**
@@ -85,29 +93,24 @@ const PROXIMOS: string[] = [
   "Entrevista HR y CRM",
 ]
 
-
-/**
- * Enumera en castellano: "A", "A y B", "A, B y C".
- *
- * La frase de la ruta se armaba con `PROXIMOS.slice(1, -1).join(", ")`, que
- * asume tres pendientes o más. La lista se encoge por diseño cada vez que se
- * abre un tema, así que era cuestión de tiempo: con dos pendientes salía un
- * doble espacio ("vienen  y B") y con uno el mismo tema aparecía dos veces
- * ("el próximo es A. Después vienen  y A").
- */
-function enumerar(items: string[]): string {
-  if (items.length <= 1) return items[0] ?? ""
-  return `${items.slice(0, -1).join(", ")} y ${items[items.length - 1]}`
-}
+/** Rótulo de grupo: el de las portadas de módulo, en Archivo y con aire. */
+const ROTULO =
+  "nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
 
 interface TemaEstado {
-  card: CourseCardProps
+  card: Omit<TarjetaModuloProps, "cargando" | "chip" | "orientacion">
   /** Avance del tema, 0 a 100. Decide el orden de la lista. */
   pct: number
   to: string
   nombre: string
-  /** Una herramienta no se estudia ni se completa: va al final y no se retoma. */
+  /** Una herramienta no se estudia ni se completa: va aparte y no se retoma. */
   herramienta?: boolean
+}
+
+/** El CTA de un tema según por dónde vas. */
+function ctaDeTema(pct: number): string {
+  if (pct >= 100) return "Repasar"
+  return pct > 0 ? "Continuar" : "Empezar"
 }
 
 export function AirlinePrep() {
@@ -221,6 +224,10 @@ export function AirlinePrep() {
   const metar = useMemo(() => resumirMetar(metarProgress), [metarProgress])
   const mercancias = useMemo(() => resumirMercancias(mercanciasProgreso), [mercanciasProgreso])
 
+  // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
+  // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
+  // «9 secciones» a mano ya no cuadraban con los módulos: ahora salen de los
+  // mismos totales que la lección.
   const temas: TemaEstado[] = useMemo(() => {
     const lista: TemaEstado[] = [
       {
@@ -235,21 +242,19 @@ export function AirlinePrep() {
           // regla es que el símbolo diga algo, no que decore.
           icon: AerodromeIcon,
           color: "var(--av-blue-500)",
-          // Las cifras salen de los datos cargados, no de un texto a mano: si
-          // el banco crece, la promesa de la tarjeta crece con él.
-          meta: `${TOTALS.lessonScreens} secciones (${LESSON_MINUTES} min) · ${TOTALS.subjects + TOTALS.statuses} códigos · ${TOTALS.reales} NOTAM reales · ${TOTALS.exercises} ejercicios · banco de ${TOTALS.examQuestions} preguntas`,
-          title: "NOTAM",
-          blurb:
-            "Qué es un NOTAM, cómo se lee la línea Q y cómo decodificar cualquier aviso. Con material real de la Aerocivil.",
-          photo: notamPhoto,
-          cta: notam.empty ? "Empezar el tema" : "Seguir con el tema",
-          progress: notam.overall,
-          done: notam.overall >= 100,
-          status: notam.empty
-            ? "Arranca por la lección: 13 secciones cortas"
+          titulo: "NOTAM",
+          meta: `${TOTALS.lessonScreens} secciones · ${LESSON_MINUTES} min`,
+          descripcion:
+            "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
+          foto: notamPhoto,
+          cta: ctaDeTema(notam.overall),
+          avance: notam.overall,
+          completo: notam.overall >= 100,
+          estado: notam.empty
+            ? `Sin empezar · ${TOTALS.lessonScreens} secciones`
             : notam.overall >= 100
               ? "Tema completo"
-              : `Vas por el ${notam.overall}%: ${notam.lessonRead} de ${TOTALS.lessonScreens} secciones y ${notam.practiceDone} de ${NOTAM_PRACTICE_TOTAL} ejercicios`,
+              : `${notam.lessonRead}/${TOTALS.lessonScreens} secciones · ${notam.practiceDone}/${NOTAM_PRACTICE_TOTAL} ejercicios`,
         },
       },
       {
@@ -260,21 +265,20 @@ export function AirlinePrep() {
           to: "/app/aerolinea/meteorologia",
           icon: CloudSun,
           color: "var(--av-mt-700)",
-          meta: `${METAR_LESSON_TOTAL} secciones (${METAR_LESSON_MINUTES} min) · ${METAR_LEGEND_TOTAL} claves · ${METAR_PRACTICE_TOTAL} informes de práctica · ${METAR_EXAM_QUESTIONS.length} preguntas`,
-          title: "Meteorología operacional",
-          // El curso TAF ya existe (lecciones 10 a 13), así que la promesa
-          // vuelve a ser la completa.
-          blurb:
-            "METAR y TAF: leer lo que hay, anticipar lo que viene y decidir con qué alterno sales. Es la pareja que te preguntan en la entrevista técnica.",
-          photo: meteorologiaPhoto,
-          cta: metar.empty ? "Empezar el tema" : "Seguir con el tema",
-          progress: metar.overall,
-          done: metar.overall >= 100,
-          status: metar.empty
-            ? "Arranca por la lección: 9 secciones cortas"
+          titulo: "Meteorología operacional",
+          meta: `${METAR_LESSON_TOTAL} secciones · ${METAR_LESSON_MINUTES} min`,
+          // Lo que se aprende, en el orden en que se lee.
+          descripcion:
+            "Del cielo al informe: nubes, frentes, METAR y TAF.",
+          foto: meteorologiaPhoto,
+          cta: ctaDeTema(metar.overall),
+          avance: metar.overall,
+          completo: metar.overall >= 100,
+          estado: metar.empty
+            ? `Sin empezar · ${METAR_LESSON_TOTAL} secciones`
             : metar.overall >= 100
               ? "Tema completo"
-              : `Vas por el ${metar.overall}%: ${metar.lessonRead} de ${METAR_LESSON_TOTAL} secciones y ${metar.practiceDone} de ${METAR_PRACTICE_TOTAL} informes`,
+              : `${metar.lessonRead}/${METAR_LESSON_TOTAL} secciones · ${metar.practiceDone}/${METAR_PRACTICE_TOTAL} informes`,
         },
       },
       {
@@ -285,21 +289,20 @@ export function AirlinePrep() {
           to: MP_HUB,
           icon: AlertTriangle,
           color: "var(--av-dg-700)",
-          meta: `${MP_LECTURA_TOTAL} lecciones · 9 clases y ${ROMBOS_TOTAL} etiquetas · práctica y evaluación`,
-          title: "Mercancías peligrosas",
-          blurb:
-            "Dieciocho lecciones en cinco niveles, con su artículo en cada afirmación y la cita en tres niveles, de la OACI al reglamento de tu país: las nueve clases, el NOTOC, las baterías de litio y qué hacer en vuelo. Práctica y evaluación propias.",
+          titulo: "Mercancías peligrosas",
+          meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_MINUTOS} min`,
+          descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
           // La portada del propio módulo, la misma que ve en su hub. Vive en
           // public y no en assets porque así queda fuera del precache.
-          photo: "/infografias/mercancias/portada.webp",
-          cta: mercancias.empty ? "Empezar el tema" : "Seguir con el tema",
-          progress: mercancias.overall,
-          done: mercancias.overall >= 100,
-          status: mercancias.empty
-            ? "Arranca por el briefing: 9 secciones"
+          foto: "/infografias/mercancias/portada.webp",
+          cta: ctaDeTema(mercancias.overall),
+          avance: mercancias.overall,
+          completo: mercancias.overall >= 100,
+          estado: mercancias.empty
+            ? `Sin empezar · ${MP_LECTURA_TOTAL} lecciones`
             : mercancias.overall >= 100
               ? "Tema completo"
-              : `Vas por el ${mercancias.overall}%: ${mercancias.lessonRead} de ${MP_LECTURA_TOTAL} lecciones y ${mercancias.practiceDone} de ${MP_PRACTICA_TOTAL} ejercicios`,
+              : `${mercancias.lessonRead}/${MP_LECTURA_TOTAL} lecciones · ${mercancias.practiceDone}/${MP_PRACTICA_TOTAL} ejercicios`,
         },
       },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
@@ -312,20 +315,22 @@ export function AirlinePrep() {
         card: {
           to: PSICO_HUB,
           icon: Brain,
-          color: "var(--av-violet-400)",
-          meta: `${PSICO_BANCO_TOTAL} ejercicios · ${PSICO_TOTALES.abstracto} abstracto, ${PSICO_TOTALES.espacial} espacial, ${PSICO_TOTALES.numerico} numérico · simulacro de ${SIMULACRO_TOTAL}`,
-          title: "Pruebas psicotécnicas",
-          blurb:
-            "Razonamiento abstracto, espacial y numérico contra el reloj. Tres modos y tres niveles: el tiempo se acorta a medida que subes.",
+          // El violeta del tema, en su escalón de texto: el --av-violet-400 a
+          // secas no llega a AA sobre blanco. Es el mismo valor que ya usa
+          // .chip-violet; la variable se define en el contenedor de la página.
+          color: "var(--psico-acento)",
+          titulo: "Pruebas psicotécnicas",
+          meta: `${PSICO_BANCO_TOTAL} ejercicios cronometrados`,
+          descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
           // La portada del propio tema, dibujada para él. Vive en public y no en
           // assets porque así queda fuera del precache, como la de Mercancías.
-          photo: "/infografias/psicotecnicas/portada.webp",
-          cta: mejorPsico === null ? "Empezar el tema" : "Seguir entrenando",
-          progress: mejorPsico ?? 0,
-          status:
+          foto: "/infografias/psicotecnicas/portada.webp",
+          cta: mejorPsico === null ? "Empezar" : "Entrenar",
+          avance: mejorPsico ?? 0,
+          estado:
             mejorPsico === null
-              ? "Arranca por la lección del cubo, o entra directo a entrenar"
-              : `Tu mejor simulacro: ${mejorPsico} sobre 100`,
+              ? `Sin empezar · simulacro de ${SIMULACRO_TOTAL}`
+              : `Mejor simulacro: ${mejorPsico}/100`,
         },
       },
       // El cierre del módulo, al estilo del simulacro TEA: la razón para volver
@@ -338,23 +343,19 @@ export function AirlinePrep() {
         card: {
           to: "/app/aerolinea/simulacro",
           icon: ClipboardCheck,
-          color: "var(--av-amber-400)",
+          titulo: "Simulacro de entrevista técnica",
           // Del propio banco, no de una suma a mano: cuando entró Mercancías
           // Peligrosas esta cifra se quedó anunciando 40 con 45 cargadas.
-          meta: `${BANCO_TOTAL} preguntas en el banco, 25 por intento`,
-          title: "Simulacro de entrevista técnica",
-          blurb:
-            "Preguntas mezcladas de todos los temas abiertos, sin decirte de cuál es cada una. Como en la prueba de verdad.",
-          photo: simulacroPhoto,
+          meta: `${BANCO_TOTAL} preguntas · 25 por intento`,
+          descripcion: "Preguntas de todos los temas, mezcladas, como en la prueba de verdad.",
+          foto: simulacroPhoto,
           cta: mejorSimulacro === null ? "Presentar el simulacro" : "Volver a presentarlo",
-          // Antes decía "Cada intento baraja de nuevo": cierto, pero esquivaba
-          // que también olvidaba cada intento. Ahora el pie es el marcador.
-          status:
+          estado:
             mejorSimulacro === null
-              ? "Sin presentar · cada intento baraja de nuevo"
+              ? "Sin presentar · baraja en cada intento"
               : mejorSimulacro >= AIRLINE_MOCK_PASS_SCORE
-                ? `Tu mejor puntaje: ${mejorSimulacro} sobre 100 · aprobado`
-                : `Tu mejor puntaje: ${mejorSimulacro} sobre 100 · apruebas con ${AIRLINE_MOCK_PASS_SCORE}`,
+                ? `Mejor puntaje: ${mejorSimulacro}/100 · aprobado`
+                : `Mejor puntaje: ${mejorSimulacro}/100 · apruebas con ${AIRLINE_MOCK_PASS_SCORE}`,
         },
       },
       {
@@ -365,14 +366,13 @@ export function AirlinePrep() {
         card: {
           to: "/app/match",
           icon: ClipboardList,
-          color: "var(--av-green-400)",
-          meta: "Tus horas y tu perfil contra lo que pide cada aerolínea",
-          title: "Para cuál calificas",
-          blurb:
-            "Qué pide cada aerolínea de la región y qué te falta a ti para postular. Se calcula con tu Logbook y tu perfil, así que se actualiza solo.",
-          photo: matchPhoto,
+          titulo: "Para cuál calificas",
+          meta: "Siempre disponible",
+          descripcion:
+            "Qué pide cada aerolínea de la región y qué te falta a ti para postular.",
+          foto: matchPhoto,
           cta: "Ver mi match",
-          status: "Herramienta, siempre disponible",
+          estado: "Se calcula con tu Logbook y tu perfil",
         },
       },
     ]
@@ -389,89 +389,214 @@ export function AirlinePrep() {
       .map(({ t }) => t)
   }, [notam, metar, mercancias, mejorSimulacro, mejorPsico])
 
+  const cursables = temas.filter((t) => !t.herramienta)
+  const herramientas = temas.filter((t) => t.herramienta)
+
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.
-  const cursables = temas.filter((t) => !t.herramienta)
   const enCurso = cursables.find((t) => t.pct > 0 && t.pct < 100)
   const continuar = enCurso ?? cursables[0]
 
-  // Para la línea de ruta: cuántos temas hay abiertos y por cuál vas. Si
+  // Para la fila de lo que viene: cuántos temas hay abiertos y por cuál vas. Si
   // empezaste uno, vas por el primero, no por el segundo: el número es cuántos
   // has tocado, con mínimo uno (el que estás a punto de empezar).
   const disponibles = cursables.length
   const temaActual = Math.min(Math.max(1, cursables.filter((t) => t.pct > 0).length), disponibles)
+  // La cifra grande del panel: el promedio de los temas abiertos, el mismo
+  // cálculo con el que cada portada resume sus partes.
+  const avanceGeneral = Math.round(
+    cursables.reduce((suma, t) => suma + t.pct, 0) / Math.max(1, disponibles)
+  )
 
   return (
     <AppLayout>
-      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
-        <PageHeader
-          eyebrow={
-            <>
-              <Briefcase className="h-3.5 w-3.5" /> Carrera
-            </>
-          }
-          title="Preparación para aerolínea"
-          subtitle="Los temas que evalúan las aerolíneas de Latinoamérica, uno por uno. Abrimos cada tema cuando su contenido está completo, no antes."
-          actions={
-            loading ? (
-              <span
-                className="block h-9 w-44 rounded-lg bg-muted animate-pulse"
-                aria-hidden="true"
+      {/* `notam-hub` es lo que da el Archivo de las portadas a `.nh-display`.
+          `@container`: las rejillas responden al ancho del contenido, no al de
+          la ventana. La variable del violeta vive aquí porque solo esta
+          pantalla la necesita. */}
+      <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1280px] mx-auto [--psico-acento:oklch(0.45_0.2_295)] dark:[--psico-acento:var(--av-violet-400)]">
+        {/* El hero de las portadas de módulo, en su versión corta: la foto a
+            sangre bajo el velo navy, el titular en Archivo, un solo botón y el
+            panel de avance dentro, porque «qué es esto» y «cómo voy» son la
+            misma pregunta al llegar. Mide lo justo para que la primera fila de
+            tarjetas se vea sin bajar. */}
+        <section className="relative overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+          <img
+            src={heroPhoto}
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ objectPosition: "center 27%" }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(105deg, rgba(8,20,36,.92) 0%, rgba(8,20,36,.80) 42%, rgba(8,20,36,.58) 72%, rgba(8,20,36,.42) 100%)",
+            }}
+          />
+
+          <div className="relative grid gap-6 px-6 py-6 sm:px-10 sm:py-7 @4xl:grid-cols-[minmax(0,1fr)_minmax(0,272px)] @4xl:gap-10">
+            <div className="min-w-0 self-center">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                  Módulo
+                </span>
+                <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                  {disponibles} temas abiertos · {PROXIMOS.length} en camino
+                </span>
+              </div>
+
+              <h1 className="nh-display mt-3 text-[32px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[38px] @5xl:text-[44px]">
+                Ingreso a aerolínea
+              </h1>
+
+              <p className="mt-3 mb-0 max-w-[52ch] text-[15px] leading-[1.55] text-white/80">
+                Lo que evalúan las aerolíneas de la región, tema por tema.
+              </p>
+
+              <div className="mt-5">
+                {loading ? (
+                  <span
+                    className="block h-11 w-48 rounded-[10px] bg-white/15 animate-pulse"
+                    aria-hidden="true"
+                  />
+                ) : (
+                  <Link
+                    to={continuar.to}
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-[10px] px-5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-transform active:scale-[0.98]"
+                    style={{ background: "var(--av-blue-500)" }}
+                  >
+                    <Plane className="h-4 w-4" />
+                    {enCurso ? `Seguir con ${enCurso.nombre}` : `Empezar por ${continuar.nombre}`}
+                  </Link>
+                )}
+              </div>
+            </div>
+
+            {/* El mismo panel de cristal de las portadas, sin las filas por
+                parte: aquí cada tema ya trae su barra en la tarjeta de abajo, y
+                repetirlas duplicaba el hero sin decir nada nuevo. Queda la cifra
+                global y por dónde vas en la ruta. */}
+            <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
+              <div className="px-3.5 pb-3 pt-3.5">
+                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                  Tu avance
+                </div>
+                {loading ? (
+                  <>
+                    <div className="mt-2.5 h-6 w-16 animate-pulse rounded bg-white/15" />
+                    <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
+                  </>
+                ) : (
+                  <>
+                    <div className="mt-1.5 flex items-baseline gap-2">
+                      <span className="nh-display tabular text-[23px] font-bold leading-none text-white">
+                        {avanceGeneral}%
+                      </span>
+                      <span className="text-[11px] text-white/60">de los temas abiertos</span>
+                    </div>
+                    <div
+                      className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
+                      role="progressbar"
+                      aria-valuenow={avanceGeneral}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                      aria-label="Avance de Ingreso a aerolínea"
+                    >
+                      <div
+                        className="h-full rounded-sm transition-[width]"
+                        style={{ width: `${avanceGeneral}%`, background: "var(--av-green-400)" }}
+                      />
+                    </div>
+                  </>
+                )}
+                {!sessionLoading && !user && (
+                  <p className="mt-2 mb-0 text-[10.5px] leading-[1.5] text-white/55">
+                    Inicia sesión para guardar tu avance en la cuenta.
+                  </p>
+                )}
+              </div>
+
+              {PROXIMOS.length > 0 && (
+                <div className="border-t border-white/10 px-3.5 py-2.5 text-[11.5px] leading-[1.5] text-white/65">
+                  <span className="font-semibold text-white/90">
+                    Tema {temaActual} de {disponibles + PROXIMOS.length}
+                  </span>{" "}
+                  · el próximo que abrimos es {PROXIMOS[0]}
+                </div>
+              )}
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-8" aria-labelledby="aerolinea-temas">
+          <h2 id="aerolinea-temas" className={ROTULO}>
+            Temas de estudio
+          </h2>
+
+          {/* Una, dos o cuatro columnas. Nunca tres: con cuatro temas deja uno
+              solo en la segunda fila. */}
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
+            {cursables.map((t) => (
+              <TarjetaModulo
+                key={t.to}
+                {...t.card}
+                chip={enCurso && t.to === enCurso.to ? "En curso" : undefined}
+                cargando={loading}
               />
-            ) : (
-              <Link
-                to={continuar.to}
-                className={appButtonClass({ size: "lg" })}
-                style={appButtonStyle()}
-              >
-                <Plane className="h-4 w-4" />
-                {enCurso ? `Seguir con ${enCurso.nombre}` : `Empezar por ${continuar.nombre}`}
-              </Link>
-            )
-          }
-        />
+            ))}
+          </div>
 
-        {/* Temas con contenido */}
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-          {temas.map((t) => (
-            <CourseCard key={t.to} {...t.card} statusLoading={loading} />
-          ))}
-        </div>
+          {/* Los que siguen, contados como ruta y no como huecos: una fila de
+              pastillas pegada a la rejilla, que es de lo que es continuación.
+              Las pastillas no son botones: no se abren hasta estar completos. */}
+          {PROXIMOS.length > 0 && (
+            <div className="mt-5 flex flex-col gap-2.5 @3xl:flex-row @3xl:items-center @3xl:gap-4">
+              <p className="m-0 shrink-0 text-[12.5px] text-muted-foreground">
+                <span className="font-semibold text-foreground">En camino.</span> Se abren en este
+                orden, cada uno cuando está completo:
+              </p>
+              <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
+                {PROXIMOS.map((p, i) => (
+                  <li
+                    key={p}
+                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-2.5 py-1 text-[12.5px] text-muted-foreground"
+                  >
+                    <span className="tabular text-[11px] font-semibold text-foreground/70">
+                      {disponibles + i + 1}
+                    </span>
+                    {p}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          )}
+        </section>
 
-        {/* Los que siguen, contados como ruta y no como huecos. Antes eran seis
-            tarjetas apagadas que ocupaban media pantalla para decir solamente
-            que no existen; un temario que avanza es lo que un piloto quiere
-            ver. Las cifras salen del propio arreglo: no se descuadran solas. */}
-        {PROXIMOS.length > 0 && (
-          <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-[820px]">
-            <span className="font-medium text-foreground">
-              Vas por el tema {temaActual} de {disponibles + PROXIMOS.length}. El próximo que
-              abrimos es {PROXIMOS[0]}.
-            </span>{" "}
-            {PROXIMOS.length > 2 ? (
-              <>
-                Después vienen {enumerar(PROXIMOS.slice(1))}. Los abrimos en ese orden, cada uno
-                cuando su contenido está completo.
-              </>
-            ) : PROXIMOS.length === 2 ? (
-              <>
-                Después viene {PROXIMOS[1]}. Los abrimos en ese orden, cada uno cuando su contenido
-                está completo.
-              </>
-            ) : (
-              "Lo abrimos cuando su contenido esté completo, no antes."
-            )}
-          </p>
-        )}
+        <section className="mt-10" aria-labelledby="aerolinea-herramientas">
+          <h2 id="aerolinea-herramientas" className={ROTULO}>
+            Herramientas
+          </h2>
+          <div className="mt-3 grid grid-cols-1 gap-4 @3xl:grid-cols-2">
+            {herramientas.map((t) => (
+              <TarjetaModulo key={t.to} {...t.card} orientacion="horizontal" cargando={loading} />
+            ))}
+          </div>
+        </section>
 
-        {/* Lo que sí puedes adelantar hoy */}
-        <section className="mt-8 rounded-xl surface p-6">
-          <div className="text-[15px] font-semibold">Mientras tanto</div>
-          <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">
-            Tu Logbook y tus vencimientos alimentan el Pilot ID que vas a necesitar el día que
-            postules. Cuanto más completo esté, más fino sale tu match por aerolínea.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2">
+        {/* Lo que sí puedes adelantar hoy: en una franja, no en un bloque. */}
+        <section className="mt-10 flex flex-col gap-3 rounded-xl surface px-5 py-4 @3xl:flex-row @3xl:items-center @3xl:justify-between @3xl:gap-6">
+          <div className="min-w-0">
+            <h2 className="m-0 text-[15px] font-semibold">Mientras tanto</h2>
+            <p className="mt-0.5 mb-0 max-w-[64ch] text-[13px] leading-relaxed text-muted-foreground">
+              Tu Logbook y tus vencimientos alimentan el Pilot ID con el que vas a postular, y
+              afinan tu match por aerolínea.
+            </p>
+          </div>
+          <div className="flex shrink-0 flex-wrap gap-2">
             <Link to="/app/logbook" className={appButtonClass({ variant: "secondary" })}>
               Mi Logbook <ArrowRight className="h-3.5 w-3.5" />
             </Link>
