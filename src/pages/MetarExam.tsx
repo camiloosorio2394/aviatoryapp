@@ -7,7 +7,7 @@ import { accentText } from "@/lib/tileColors"
 import {
   METAR_DISCLAIMERS,
   METAR_EXAM_PASS_SCORE,
-  METAR_EXAM_TOTAL,
+  METAR_EXAM_PER_ATTEMPT,
   readMetarProgress,
   writeMetarProgress,
 } from "@/lib/metar"
@@ -50,7 +50,7 @@ export function MetarExam() {
             </>
           }
           title="Evaluación de METAR"
-          subtitle={`${METAR_EXAM_TOTAL} preguntas de opción múltiple, barajadas. Cada una trae su explicación y su referencia. Apruebas con ${METAR_EXAM_PASS_SCORE} sobre 100.`}
+          subtitle={`${METAR_EXAM_PER_ATTEMPT} preguntas de opción múltiple, barajadas. Cada una trae su explicación y su referencia. Apruebas con ${METAR_EXAM_PASS_SCORE} sobre 100.`}
         />
 
         <div
