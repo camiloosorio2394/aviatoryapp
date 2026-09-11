@@ -490,8 +490,103 @@ function Pregunta({
 // ─── Fichas ──────────────────────────────────────────────────────────────────
 
 /** Fichas con título, referencia y puntos. Sirven para actores, términos y comparaciones. */
+/**
+ * Ficha de vocabulario con imagen: foto arriba, el término, lo que dice el
+ * reglamento y lo que significa para el piloto.
+ *
+ * Nació para la sección 3 de Mercancías, donde Camilo pidió las dos
+ * definiciones juntas. La técnica va primero y literal, con su artículo; la del
+ * piloto después, porque se entiende mejor sabiendo qué traduce.
+ *
+ * Los rótulos de dentro van en frase y no en mono mayúscula: sobre papel, en
+ * pequeño, la mono se leía como hecha a máquina.
+ */
+function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
+  return (
+    <article
+      className="flex flex-col overflow-hidden rounded-[14px] border"
+      style={{
+        borderColor: "var(--ln-hair, var(--doc-border))",
+        // El papel del lector, por lo mismo que en FichaPiloto: con --doc-bg salía
+        // gris en modo oscuro sobre la página blanca.
+        background: "var(--ln-paper, var(--doc-bg))",
+        boxShadow: "0 1px 2px rgb(22 25 29 / 5%), 0 10px 28px -20px rgb(22 25 29 / 22%)",
+      }}
+    >
+      {item.imagen ? (
+        <img
+          src={item.imagen.src}
+          alt={item.imagen.alt}
+          loading="lazy"
+          decoding="async"
+          className="block aspect-[3/2] w-full object-cover"
+          style={{ background: "var(--ln-sunk)" }}
+        />
+      ) : (
+        item.hueco && (
+          <div className="border-b" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
+            <HuecoImagen
+              rotulo={`${item.hueco.id} · ${item.hueco.medida}`}
+              descripcion={item.hueco.descripcion}
+              alto={220}
+              ratio="3 / 2"
+            />
+          </div>
+        )
+      )}
+
+      <div className="flex flex-1 flex-col px-5 pb-5 pt-4 sm:px-6">
+        <h3 className="ln-display m-0 text-[22px] font-semibold" style={{ lineHeight: 1.15, color: "var(--doc-fg)" }}>
+          {item.titulo}
+        </h3>
+
+        {item.tecnica && (
+          <div className="mt-3.5">
+            <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+              {item.tecnica.rotulo ?? "Definición técnica"}
+              <span className="font-normal doc-muted"> · {item.tecnica.ref}</span>
+            </div>
+            <p
+              className="m-0 mt-1.5 border-l-2 pl-3 text-[14px] leading-[1.55]"
+              style={{ borderColor: docAccent(ACENTO, 40), color: "var(--ln-ink-strong, var(--doc-fg))" }}
+            >
+              {item.tecnica.texto}
+            </p>
+            {item.tecnica.nota && (
+              <p className="m-0 mt-1.5 pl-3.5 text-[12.5px] leading-[1.5] doc-muted">{renderInline(item.tecnica.nota)}</p>
+            )}
+          </div>
+        )}
+
+        <div className="mt-4 border-t pt-3.5" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
+          <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+            En palabras de piloto
+          </div>
+          <ul className="m-0 mt-2 flex list-none flex-col gap-2 p-0">
+            {item.puntos.map((p, j) => (
+              <li key={j} className="grid grid-cols-[7px_1fr] gap-2.5 text-[15px] leading-[1.55]">
+                <span
+                  aria-hidden
+                  className="mt-[9px] h-[6px] w-[6px] rounded-full"
+                  style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+                />
+                <span>{renderInline(p)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {item.nota && <p className="m-0 mt-3 text-[12.5px] leading-[1.5] doc-muted">{renderInline(item.nota)}</p>}
+      </div>
+    </article>
+  )
+}
+
 export function Fichas({ block }: { block: FichasBlock }) {
   const cols = block.columnas ?? 3
+  // Basta con que una ficha lleve imagen para que todas pasen a la versión con
+  // imagen: una rejilla mezclada, con fichas altas y bajas, se lee desordenada.
+  const conImagen = block.items.some((it) => it.imagen || it.hueco || it.tecnica)
   return (
     <section>
       {block.titulo && (
@@ -502,8 +597,11 @@ export function Fichas({ block }: { block: FichasBlock }) {
           {block.titulo}
         </h2>
       )}
-      <div className={`grid gap-3 sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : ""}`}>
-        {block.items.map((it, i) => (
+      <div className={`grid sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : ""} ${conImagen ? "gap-5" : "gap-3"}`}>
+        {block.items.map((it, i) =>
+          conImagen ? (
+            <FichaConImagen key={i} item={it} />
+          ) : (
           <div
             key={i}
             className="flex flex-col rounded-[10px] border px-4 py-4"
@@ -527,7 +625,8 @@ export function Fichas({ block }: { block: FichasBlock }) {
             </ul>
             {it.nota && <p className="m-0 mt-3 text-[12.5px] leading-[1.5] doc-muted">{renderInline(it.nota)}</p>}
           </div>
-        ))}
+          ),
+        )}
       </div>
     </section>
   )

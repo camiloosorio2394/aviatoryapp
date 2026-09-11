@@ -176,7 +176,22 @@ export interface FichasBlock {
   kind: "fichas"
   titulo?: string
   columnas?: 1 | 2 | 3
-  items: { titulo: string; ref?: string; puntos: string[]; nota?: string }[]
+  items: {
+    titulo: string
+    ref?: string
+    puntos: string[]
+    nota?: string
+    /** Foto encima de la ficha. Con foto o hueco, la ficha pasa a la versión con imagen. */
+    imagen?: FotoFicha
+    /** La foto que todavía no existe, rotulada con su medida. */
+    hueco?: HuecoFoto
+    /**
+     * Lo que dice el reglamento, literal, antes de la explicación para el piloto.
+     * `rotulo` existe para cuando el texto no es una definición: el LAR usa
+     * términos que no define, y eso tiene que decirse, no disimularse.
+     */
+    tecnica?: { texto: string; ref: string; rotulo?: string; nota?: string }
+  }[]
 }
 
 /**

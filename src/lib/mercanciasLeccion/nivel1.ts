@@ -292,7 +292,11 @@ export const NIVEL_1: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "No te vamos a pedir que recites doce definiciones. Te vamos a enseñar **dónde oye cada palabra un piloto**, porque ese es el gancho que hace que se queden. Si sabes que «sobre-embalaje» es lo que ves en la paleta y «bulto» lo que cuenta el NOTOC, la definición sale sola.",
+        text: "No necesitas memorizar una lista de definiciones. Lo importante es aprender a reconocer estos términos cuando aparezcan durante una operación.",
+      },
+      {
+        kind: "p",
+        text: "Piénsalo como piloto: cada palabra tiene un contexto en el que puedes encontrarla: en la documentación, durante la preparación del vuelo, en la información entregada a la tripulación o al observar la carga.",
       },
       {
         kind: "hueco",
@@ -304,49 +308,96 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "Lo que vas a leer en el papel que firmas" },
       {
         kind: "fichas",
-        columnas: 3,
+        columnas: 2,
         items: [
           {
             titulo: "Bulto",
+            hueco: {
+              id: "MP-IMG-08",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Una caja de mercancía peligrosa lista para volar, sola y centrada, con sus marcas y etiquetas a la vista: número ONU, etiqueta de clase y flechas de orientación. Sin texto dibujado encima: el nombre y las definiciones ya van en la ficha.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a)",
+              texto: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte.",
+              nota: "**Embalaje**, en el mismo artículo: los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
+            },
             puntos: ["Una caja lista para volar: el embalaje y lo que lleva dentro.", "Es la unidad que cuenta el NOTOC. Cuando ves «3 bultos», son tres de estos."],
           },
           {
             titulo: "Sobre-embalaje",
+            hueco: {
+              id: "MP-IMG-09",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Varios bultos agrupados en una sola unidad para manipularlos juntos: envueltos en film o dentro de una caja exterior. Tiene que notarse que por dentro son varios.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a)",
+              texto: "Embalaje utilizado por un expedidor único que contenga uno o más bultos y constituya una unidad para facilitar su manipulación y estiba.",
+              nota: "Nota del reglamento: no se incluyen en esta definición los dispositivos de carga unitarizada.",
+            },
             puntos: ["Varios bultos de un mismo expedidor agrupados en uno para manipularlos juntos.", "Por fuera parece un bulto. Por dentro son varios, y cada uno con su etiqueta."],
           },
           {
             titulo: "ULD",
+            hueco: {
+              id: "MP-IMG-10",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Un contenedor de carga aérea o una paleta con red ya cargada, en la rampa o entrando a la bodega. Es el tamaño de arriba: donde van los bultos y los sobre-embalajes.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a) · Dispositivo de carga unitarizada",
+              texto: "Toda variedad de contenedor de carga, contenedor de aeronave, paleta de aeronave con red o paleta de aeronave con red sobre un iglú.",
+              nota: "Nota del reglamento: no se incluyen en esta definición los sobre-embalajes.",
+            },
             puntos: ["El contenedor o la paleta con red donde va la carga.", "En el NOTOC te dice **dónde** está el bulto. Es lo que buscarías si tuvieras que decirle a alguien en qué parte de la bodega está."],
           },
           {
             titulo: "Número ONU",
+            hueco: {
+              id: "MP-IMG-11",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Primer plano de la marca de un bulto donde se lee con claridad el número ONU, por ejemplo «UN 3480», junto a la denominación. El número tiene que poder leerse a tamaño de ficha.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a) · Número de la ONU",
+              texto: "Número de cuatro dígitos asignado por el Comité de expertos en transporte de mercaderías peligrosas, de las Naciones Unidas, que sirve para reconocer las diversas sustancias o determinado grupo de ellas.",
+            },
             puntos: ["Cuatro dígitos que identifican la sustancia. UN 1263 es pintura, UN 3480 son baterías de litio sueltas.", "Es lo primero que lees, y lo primero que va a buscar quien atienda una emergencia."],
           },
           {
             titulo: "Denominación del artículo expedido",
+            hueco: {
+              id: "MP-IMG-12",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Primer plano de la marca de un bulto de pintura con su denominación oficial y su número ONU (UN 1263). Si la lata o la caja lleva además un nombre comercial, mejor: esa diferencia es lo que enseña la ficha.",
+            },
+            tecnica: {
+              rotulo: "Lo que exige el reglamento",
+              ref: "LAR 175.410 (a)",
+              texto: "La identificación de las mercancías peligrosas deberá ser hecha por medio de un número de la ONU (UN o ID) y por medio de la denominación del artículo expedido, de acuerdo con las Instrucciones Técnicas.",
+              nota: "El LAR 175 no la define: exige usarla. Su definición está en las Instrucciones Técnicas (Doc 9284).",
+            },
             puntos: ["El nombre oficial de transporte, no el comercial.", "Una lata de «Aviatory Gloss» va como pintura. Si el NOTOC trae un nombre de marca, algo se saltó un paso."],
           },
           {
             titulo: "Envío",
+            hueco: {
+              id: "MP-IMG-13",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Un grupo de bultos del mismo expedidor, juntos en la zona de aceptación de carga con su documentación. Tiene que leerse como una sola entrega, no como un bulto suelto.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a)",
+              texto: "Uno o más bultos de mercancías peligrosas que un explotador acepta de un expedidor de una sola vez y en un mismo sitio recibidos en un lote y despachados a un mismo consignatario y dirección.",
+            },
             puntos: ["Uno o más bultos que el explotador acepta de un expedidor de una vez y para un mismo destinatario.", "Un envío puede ser un bulto o veinte. Cuenta como una sola aceptación."],
-          },
-        ],
-      },
-      {
-        kind: "detalleTecnico",
-        etiqueta: "Ver definiciones literales del reglamento",
-        cita: "LAR 175.001 (a)",
-        bloques: [
-          {
-            kind: "kv",
-            items: [
-              { k: "Bulto", v: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte." },
-              { k: "Embalaje", v: "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención." },
-              { k: "Sobre-embalaje", v: "Embalaje utilizado por un expedidor único que contenga uno o más bultos y constituya una unidad para facilitar su manipulación y estiba. No incluye los dispositivos de carga unitarizada." },
-              { k: "Dispositivo de carga unitarizada", v: "Toda variedad de contenedor de carga, contenedor de aeronave, paleta de aeronave con red o paleta de aeronave con red sobre un iglú. No se incluyen los sobre-embalajes." },
-              { k: "Envío", v: "Uno o más bultos de mercancías peligrosas que un explotador acepta de un expedidor de una sola vez y en un mismo sitio, recibidos en un lote y despachados a un mismo consignatario y dirección." },
-              { k: "Número de la ONU", v: "Número de cuatro dígitos asignado por el Comité de expertos en transporte de mercaderías peligrosas de las Naciones Unidas, que sirve para reconocer las diversas sustancias o determinado grupo de ellas." },
-            ],
           },
         ],
       },

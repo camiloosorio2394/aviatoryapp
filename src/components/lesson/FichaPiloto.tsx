@@ -124,7 +124,10 @@ export function Ficha({
       className="relative overflow-hidden rounded-[14px] border"
       style={{
         borderColor: FILETE,
-        background: "var(--doc-bg)",
+        // El papel del lector y no --doc-bg: la hoja se atenúa en modo oscuro y la
+        // página del lector no, así que con --doc-bg la ficha salía gris sobre
+        // blanco. Fuera del lector no hay --ln-paper y vuelve a --doc-bg.
+        background: "var(--ln-paper, var(--doc-bg))",
         boxShadow: "0 1px 2px rgb(22 25 29 / 5%), 0 10px 28px -18px rgb(22 25 29 / 22%)",
       }}
     >
