@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client"
+import { esTopeDePublicaciones } from "@/lib/topes"
 
 /**
  * Reportar un fallo de contenido desde la app.
@@ -81,6 +82,9 @@ export async function enviarReporte(reporte: Reporte): Promise<{ ok: boolean; er
       // A la consola con el detalle: si la tabla todavía no existe, es lo que
       // lo dice, y el mensaje de pantalla no debe cargar con eso.
       console.error("[Aviatory] No se pudo guardar el reporte:", error)
+      if (esTopeDePublicaciones(error)) {
+        return { ok: false, error: "Ya enviaste muchos reportes hoy. Gracias: vuelve a intentarlo mañana." }
+      }
       return { ok: false, error: "No pudimos enviarlo ahora. Inténtalo más tarde." }
     }
     return { ok: true }

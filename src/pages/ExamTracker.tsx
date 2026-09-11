@@ -21,6 +21,7 @@ import {
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
+import { esTopeDePublicaciones } from "@/lib/topes"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -441,7 +442,12 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
       toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")
       onSaved()
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "No pudimos guardar")
+      console.error("exam_reports", err)
+      toast.error(
+        esTopeDePublicaciones(err)
+          ? "Ya enviaste varios reportes hoy. Vuelve a intentarlo mañana."
+          : "No pudimos guardar tu reporte. Revisa tu conexión e inténtalo de nuevo.",
+      )
     } finally {
       setSaving(false)
     }
