@@ -132,6 +132,14 @@ correcta y la explicación. Todo va por `src/services/icaoQuiz.ts`.
 - Antes de aplicar, se prueba dentro de un bloque `do` que termina en excepción (todo se
   deshace), simulando al piloto con `set_config('request.jwt.claims', …)` y
   `set local role authenticated`. Nunca se borran filas.
+- **La prueba queda en el repo.** Una migración que cambia una regla del servidor agrega o
+  actualiza su archivo en `supabase/tests/` en el mismo PR, y se corre otra vez contra la
+  base ya migrada. `permisos.sql` verifica las reglas de arriba para toda la base; si una
+  tabla nueva la hace fallar, se corrige la tabla, no la prueba. Cómo se corren:
+  `supabase/tests/README.md`.
+- **El archivo lleva la versión que registró la base.** Después de aplicar:
+  `select version from supabase_migrations.schema_migrations where name = '<nombre>'`, y el
+  archivo se llama `<version>_<nombre>.sql`.
 
 ## Cabeceras de seguridad (vercel.json)
 
