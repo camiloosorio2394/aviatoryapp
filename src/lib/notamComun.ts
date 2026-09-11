@@ -180,3 +180,13 @@ export function writeLocalProgress(patch: Partial<NotamLocalProgress>): NotamLoc
   }
   return next
 }
+
+/**
+ * URL de la captura de un NOTAM real.
+ *
+ * Aquí sí se respeta la subcarpeta: las capturas viven en
+ * public/notams/practica/ y la ficha guarda "practica/<archivo>.png".
+ */
+export function realNotamImageUrl(rel: string): string {
+  return `/notams/${rel.replace(/^\/+/, "")}`
+}

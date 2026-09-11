@@ -100,7 +100,7 @@ export interface NotamExercise {
  */
 export interface RealNotam {
   id: string
-  /** Ruta relativa dentro de public/notams/; usar realNotamImageUrl() */
+  /** Ruta relativa dentro de public/notams/; usar realNotamImageUrl() de @/lib/notamComun */
   imagen: string
   identificacion: string
   aerodromo: string
@@ -181,16 +181,6 @@ export const RUBRIC: RubricCriterion[] = Object.entries(
 }))
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-/**
- * URL de la captura de un NOTAM real.
- *
- * Aquí sí se respeta la subcarpeta: las capturas viven en
- * public/notams/practica/ y la ficha guarda "practica/<archivo>.png".
- */
-export function realNotamImageUrl(rel: string): string {
-  return `/notams/${rel.replace(/^\/+/, "")}`
-}
 
 export interface DecodedQ {
   input: string
