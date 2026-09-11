@@ -116,7 +116,7 @@ export function TestInicial() {
 
         {/* progress */}
         <div className="h-1.5 rounded-full bg-muted overflow-hidden mb-7">
-          <div className="h-full rounded-full transition-all duration-500" style={{ width: `${(answeredCount / total) * 100}%`, background: "var(--av-blue-500)" }} />
+          <div className="h-full rounded-full transition-[width] duration-500" style={{ width: `${(answeredCount / total) * 100}%`, background: "var(--av-blue-500)" }} />
         </div>
 
         <div className="rounded-2xl surface p-5 sm:p-6">

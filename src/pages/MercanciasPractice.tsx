@@ -217,7 +217,7 @@ export function MercanciasPractice() {
               aria-valuemax={total}
               aria-label="Progreso del modo activo"
             >
-              <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: ACENTO }} />
+              <div className="h-full rounded-full transition-[width]" style={{ width: `${pct}%`, background: ACENTO }} />
             </div>
           </div>
 

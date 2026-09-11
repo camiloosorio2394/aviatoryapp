@@ -1396,7 +1396,7 @@ function AchievementsCard({
         right={
           <Link
             to="/app/perfil"
-            className="text-[12px] font-semibold inline-flex items-center gap-1 hover:gap-2 transition-all"
+            className="text-[12px] font-semibold inline-flex items-center gap-1 hover:gap-2 transition-[color,background-color,border-color,box-shadow]"
             style={{ color: "var(--av-blue-500)" }}
           >
             Ver todos <ArrowRight className="h-3 w-3" />

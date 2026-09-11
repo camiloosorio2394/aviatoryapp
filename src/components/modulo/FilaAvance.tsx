@@ -58,7 +58,7 @@ export function FilaAvance({
         aria-label={`Avance de ${titulo}`}
       >
         <div
-          className="h-full rounded-sm transition-all"
+          className="h-full rounded-sm transition-[width]"
           style={{ width: `${pct}%`, background: color }}
         />
       </div>

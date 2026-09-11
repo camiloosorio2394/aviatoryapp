@@ -11,6 +11,8 @@ interface Props {
   isPro: boolean
   freeLimit: number
   onClose: () => void
+  /** Mientras dura la salida, para que el cajón se vaya como vino. */
+  saliendo?: boolean
   onSend: (text?: string) => void | Promise<void>
   onFeedback: (msg: WingmanMessage, value: "thumbs_up" | "thumbs_down") => void | Promise<void>
 }
@@ -21,6 +23,7 @@ export function WingmanPanel({
   isPro,
   freeLimit,
   onClose,
+  saliendo = false,
   onSend,
   onFeedback,
 }: Props) {
@@ -89,14 +92,14 @@ export function WingmanPanel({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 z-40 bg-background/60 backdrop-blur-sm animate-in fade-in duration-150"
+        className={`fixed inset-0 z-40 bg-background/60 backdrop-blur-sm duration-150 ${saliendo ? "animate-out fade-out" : "animate-in fade-in"}`}
         onClick={onClose}
         aria-hidden
       />
 
       {/* Panel */}
       <aside
-        className="fixed inset-y-0 right-0 z-50 w-full sm:w-[440px] bg-card border-l border-border/60 shadow-2xl flex flex-col animate-in slide-in-from-right duration-300"
+        className={`fixed inset-y-0 right-0 z-50 w-full sm:w-[440px] bg-card border-l border-border/60 shadow-2xl flex flex-col duration-200 ${saliendo ? "animate-out slide-out-to-right" : "animate-in slide-in-from-right"}`}
         role="dialog"
         aria-label="Wingman, tu copiloto IA"
       >

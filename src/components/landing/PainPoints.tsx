@@ -35,7 +35,7 @@ export function PainPoints() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {pains.map((p, i) => (
             <Reveal key={p.title} delay={i * 60}>
-              <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-0.5">
+              <div className="group h-full rounded-2xl border border-border bg-card p-6 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5">
                 <div className="flex items-center justify-center h-10 w-10 rounded-xl mb-4" style={{ background: "color-mix(in oklab, var(--av-blue-500) 12%, transparent)" }}>
                   <p.icon className="h-5 w-5" style={{ color: "var(--av-blue-500)" }} />
                 </div>

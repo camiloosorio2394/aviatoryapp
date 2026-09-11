@@ -216,7 +216,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         setHovered(false)
         onHoverChange?.(false)
       }}
-      className="flex flex-col h-full overflow-hidden transition-[width] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      className="flex flex-col h-full overflow-hidden"
       style={{
         width: expanded ? 240 : 64,
         background: "var(--rail)",

@@ -1,0 +1,215 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* — index voice (code-editorial preset): JetBrains Mono. The whole frame is
+         indexical, so the mono face is the only one this composition names.
+         Local staged WOFF2 first, pinned Google WOFF2 as the fallback. — */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+    }
+
+    /* frame root — styled by #root, never by a class on the composition element */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "JetBrains Mono", monospace;
+      color: #16191D;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── background: the mustard tile, full-bleed, on its own full-duration clip ── */
+    .f03-por-que-existe-tile {
+      position: absolute;
+      inset: 0;
+      background: #F0E7CF;
+    }
+    .f03-por-que-existe-topline {
+      position: absolute;
+      left: 140px;
+      top: 110px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.16);
+      transform-origin: 0% 50%;
+    }
+
+    /* ── stage ── */
+    .f03-por-que-existe-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* the chain: one mustard hairline, centre of the first link to centre of the
+       last, running behind the four plaques and showing only in the gaps */
+    .f03-por-que-existe-chain {
+      position: absolute;
+      left: 318px;
+      top: 429px;
+      width: 1284px;
+      height: 1px;
+      background: #7A5C12;
+      transform-origin: 0% 50%;
+    }
+
+    /* the four links — card-hairline plaques, cream on the tile, one soft warm shadow */
+    .f03-por-que-existe-link {
+      position: absolute;
+      top: 320px;
+      width: 356px;
+      height: 220px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FBFAF8;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(22, 25, 29, 0.08), 0 4px 16px rgba(22, 25, 29, 0.04);
+    }
+    .f03-por-que-existe-l1 { left: 140px; }
+    .f03-por-que-existe-l2 { left: 568px; }
+    .f03-por-que-existe-l3 { left: 996px; }
+    .f03-por-que-existe-l4 { left: 1424px; }
+
+    .f03-por-que-existe-sigla {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 52px;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-indent: 0.08em; /* balances the trailing letter-space */
+      color: #16191D;
+      white-space: nowrap;
+    }
+
+    /* the voltage of the scene: RAC 175 fills solid mustard, cream text on top
+       (cream #FBFAF8 on #7A5C12 ≈ 6:1, AA). The fill covers the card's border box
+       and is wiped on left to right; its cream sigla sits exactly over the ink one. */
+    .f03-por-que-existe-fill {
+      position: absolute;
+      inset: -1px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #7A5C12;
+      border-radius: 8px;
+    }
+    .f03-por-que-existe-fill .f03-por-que-existe-sigla {
+      color: #FBFAF8;
+    }
+
+    /* the footnote: the report this module traces back to
+       (ink @68% over the tile ≈ 5.5:1, AA) */
+    .f03-por-que-existe-cite {
+      position: absolute;
+      left: 140px;
+      top: 806px;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 26px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.68);
+      white-space: nowrap;
+    }
+    .f03-por-que-existe-citerule {
+      position: absolute;
+      left: 140px;
+      top: 862px;
+      width: 460px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.20);
+      transform-origin: 0% 50%;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-por-que-existe" data-width="1920" data-height="1080">
+    <!-- full-bleed ground: its own clip layer, full duration, lowest track -->
+    <div id="f03-por-que-existe-ground" class="clip f03-por-que-existe-tile" data-start="0" data-duration="6.686" data-track-index="0">
+      <div class="f03-por-que-existe-topline"></div>
+    </div>
+
+    <div id="f03-por-que-existe-scene" class="clip f03-por-que-existe-stage" data-start="0" data-duration="6.686" data-track-index="1">
+      <!-- the hairline first in DOM: the plaques mask it into the gaps -->
+      <div class="f03-por-que-existe-chain"></div>
+
+      <div class="f03-por-que-existe-link f03-por-que-existe-l1">
+        <div class="f03-por-que-existe-sigla">ANEXO 18</div>
+      </div>
+      <div class="f03-por-que-existe-link f03-por-que-existe-l2">
+        <div class="f03-por-que-existe-sigla">DOC 9284</div>
+      </div>
+      <div class="f03-por-que-existe-link f03-por-que-existe-l3">
+        <div class="f03-por-que-existe-sigla">LAR 175</div>
+      </div>
+      <div class="f03-por-que-existe-link f03-por-que-existe-l4">
+        <div class="f03-por-que-existe-sigla">RAC 175</div>
+        <div class="f03-por-que-existe-fill" aria-hidden="true">
+          <div class="f03-por-que-existe-sigla">RAC 175</div>
+        </div>
+      </div>
+
+      <div class="f03-por-que-existe-cite">ValuJet 592 · NTSB/AAR-97/06</div>
+      <div class="f03-por-que-existe-citerule"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="03-por-que-existe"]');
+      var one = function (sel) { return root.querySelector(sel); };
+      var all = function (sel) { return root.querySelectorAll(sel); };
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* ── Scene 1 (0.0–2.3s) — the tile rules itself; from "Aquí" (0.199) the
+            mustard thread draws left to right, and on "aprender…existe"
+            (0.799–1.919) the four links land on it, one every 0.34s ── */
+      tl.fromTo(one(".f03-por-que-existe-topline"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.02);
+
+      tl.fromTo(one(".f03-por-que-existe-chain"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.45, ease: "power1.inOut" }, 0.20);
+
+      tl.fromTo(all(".f03-por-que-existe-link"),
+        { opacity: 0, x: -18 },
+        { opacity: 1, x: 0, duration: 0.45, stagger: 0.34, ease: "power3.out" }, 0.80);
+
+      /* ── Scene 2 (2.56–3.1s) — on "norma," (2.559) the national link fills
+            solid mustard, wiped on left to right: the one voltage of the scene ── */
+      tl.fromTo(one(".f03-por-que-existe-fill"),
+        { clipPath: "inset(0% 100% 0% 0%)" },
+        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.55, ease: "power2.inOut" }, 2.559);
+
+      /* ── Scene 3 (3.82s–) — on "accidente" (3.819) the report reference
+            fades up at the foot ── */
+      tl.fromTo(one(".f03-por-que-existe-cite"),
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.9, ease: "power2.out" }, 3.819);
+
+      /* ── quietud (4.58s–end) — on "escribió." (4.579) the footnote rule draws
+            slowly under the reference and the frame settles; a held read ── */
+      tl.fromTo(one(".f03-por-que-existe-citerule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 1.2, ease: "power1.inOut" }, 4.579);
+
+      /* hold the full scene length (6.686s) */
+      tl.to({}, { duration: 0.01 }, 6.676);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-por-que-existe"] = tl;
+    })();
+  </script>
+</template>

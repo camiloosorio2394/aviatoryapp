@@ -69,7 +69,7 @@ export function Header() {
               to={link.to}
               end={link.to === "/"}
               className={({ isActive }) =>
-                `relative px-4 py-2 text-[15px] font-semibold tracking-tight rounded-full transition-all ${
+                `relative px-4 py-2 text-[15px] font-semibold tracking-tight rounded-full transition-[color,background-color] ${
                   isActive
                     ? "text-foreground bg-foreground/[0.06]"
                     : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"

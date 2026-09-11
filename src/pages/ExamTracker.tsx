@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react"
+import { useEffect, useState, type FormEvent, useCallback } from "react"
 import { Link } from "react-router-dom"
 import {
   Users,
@@ -66,16 +66,29 @@ export function ExamTracker() {
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
 
-  async function load() {
-    const { data, error } = await supabase.rpc("get_all_subjects_intel")
-    if (error) toast.error(error.message)
-    else setIntel((data ?? []) as SubjectIntel[])
-    setLoading(false)
-  }
+  const traer = useCallback(async () => supabase.rpc("get_all_subjects_intel"), [])
 
-  useEffect(() => {
-    load()
+  const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
+    if (r.error) toast.error(r.error.message)
+    else setIntel((r.data ?? []) as SubjectIntel[])
+    setLoading(false)
   }, [])
+
+  const load = useCallback(async () => {
+    aplicar(await traer())
+  }, [traer, aplicar])
+
+  // El estado se fija dentro del callback de la promesa y no en el cuerpo del
+  // efecto. De paso gana la guarda de cancelación, que no tenía.
+  useEffect(() => {
+    let vivo = true
+    void traer().then((r) => {
+      if (vivo) aplicar(r)
+    })
+    return () => {
+      vivo = false
+    }
+  }, [traer, aplicar])
 
   const totalReports = intel.reduce((acc, i) => acc + i.total_reports, 0)
   const totalSubjects = intel.length
@@ -239,7 +252,7 @@ function SubjectIntelCard({ intel }: { intel: SubjectIntel }) {
   return (
     <Link
       to={`/app/examenes/${intel.subject_slug}`}
-      className="group block rounded-2xl surface p-5 transition-all hover:-translate-y-0.5"
+      className="group block rounded-2xl surface p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = "color-mix(in oklab, var(--av-blue-500) 50%, transparent)"
       }}
@@ -504,7 +517,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <button
                   type="button"
                   onClick={() => setPassed("yes")}
-                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-[color,background-color,border-color,box-shadow] ${
                     passed === "yes"
                       ? "text-white"
                       : "border-border bg-card hover:border-foreground/30"
@@ -520,7 +533,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                 <button
                   type="button"
                   onClick={() => setPassed("no")}
-                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-all ${
+                  className={`rounded-xl border p-3 text-[15px] font-semibold transition-[color,background-color,border-color,box-shadow] ${
                     passed === "no" ? "text-white" : "border-border bg-card hover:border-foreground/30"
                   }`}
                   style={passed === "no" ? {
@@ -556,7 +569,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                       key={n}
                       type="button"
                       onClick={() => setDifficulty(n)}
-                      className={`tabular-nums flex-1 h-11 rounded-xl border font-semibold transition-all ${
+                      className={`tabular-nums flex-1 h-11 rounded-xl border font-semibold transition-[color,background-color,border-color,box-shadow] ${
                         difficulty === n ? "text-white" : "border-border bg-card hover:border-foreground/30"
                       }`}
                       style={difficulty === n ? {
@@ -585,7 +598,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
                         key={t.id}
                         type="button"
                         onClick={() => toggleTopic(t.id)}
-                        className={`rounded-xl border p-3 text-left text-[15px] transition-all ${
+                        className={`rounded-xl border p-3 text-left text-[15px] transition-[color,background-color,border-color,box-shadow] ${
                           active ? "" : "border-border bg-card hover:border-foreground/30"
                         }`}
                         style={active ? {

@@ -1,0 +1,317 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Fonts: los WOFF2 que viajan con el proyecto (assets/fonts), Google fijado como respaldo ── */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500_ext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Frame root: estilado por #root, nunca por una clase ── */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* contract selector: la caja compartida de cada clip */
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── Capa 0: navy a sangre, su propio clip de duración completa ── */
+    #f04-identificar-ground {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #14202E;
+    }
+
+    /* ── Capa 1: el escenario ── */
+    #f04-identificar-stage {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* cámara macro: un empuje lentísimo que se detiene cuando la hairline aterriza.
+       Origen en el centro óptico del bloque (y = 450), no del lienzo */
+    .f04-identificar-camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: 960px 450px;
+    }
+
+    /* ── La rejilla 3×3: rombos de 190px, 40px de aire entre casillas.
+       Bloque completo 74 → 826px: centrado en y = 450, lejos del corte de 900 ── */
+    .f04-identificar-grid {
+      position: absolute;
+      left: 635px;
+      top: 74px;
+      width: 650px;
+      height: 650px;
+      display: grid;
+      grid-template-columns: repeat(3, 190px);
+      grid-template-rows: repeat(3, 190px);
+      gap: 40px;
+    }
+
+    .f04-identificar-slot {
+      position: relative;
+      width: 190px;
+      height: 190px;
+    }
+
+    /* marca de casilla: establece la rejilla vacía en «Vas a reconocer»;
+       la etiqueta (opaca en su centro) la tapa al aterrizar */
+    .f04-identificar-mark {
+      position: absolute;
+      left: 88px;
+      top: 88px;
+      width: 14px;
+      height: 14px;
+    }
+    .f04-identificar-mark::before,
+    .f04-identificar-mark::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(251, 250, 248, 0.22);
+    }
+    .f04-identificar-mark::before {
+      left: 6px;
+      top: 0;
+      width: 2px;
+      height: 14px;
+    }
+    .f04-identificar-mark::after {
+      left: 0;
+      top: 6px;
+      width: 14px;
+      height: 2px;
+    }
+
+    /* la etiqueta real (320×320, cuadrada): se muestra entera, sin deformar ni recortar */
+    .f04-identificar-etiqueta {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 190px;
+      height: 190px;
+      display: block;
+      object-fit: contain;
+      transform-origin: 50% 50%;
+    }
+
+    /* ── Los rótulos mono, debajo de la rejilla, con su hairline ── */
+    .f04-identificar-foot {
+      position: absolute;
+      left: 0;
+      top: 776px;
+      width: 1920px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .f04-identificar-foot-inner {
+      width: fit-content;
+    }
+
+    .f04-identificar-rotulos {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      height: 28px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 28px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: rgba(251, 250, 248, 0.92);
+    }
+
+    .f04-identificar-rotulo {
+      display: block;
+      /* recoge el tracking del último glifo para que el aire a ambos lados del punto sea igual */
+      margin-right: -0.16em;
+    }
+
+    .f04-identificar-punto {
+      display: block;
+      color: #DEB042;
+      letter-spacing: 0;
+    }
+
+    /* hairline de 2px en mostaza brillante: mide lo mismo que la fila de rótulos */
+    .f04-identificar-rule {
+      width: 100%;
+      height: 2px;
+      margin-top: 20px;
+      background-color: #DEB042;
+      transform-origin: left center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-identificar" data-width="1920" data-height="1080">
+    <!-- Capa 0: navy a sangre -->
+    <div id="f04-identificar-ground" class="clip" data-start="0" data-duration="7.234" data-track-index="0"></div>
+
+    <!-- Capa 1: rejilla de etiquetas + rótulos -->
+    <div id="f04-identificar-stage" class="clip" data-start="0" data-duration="7.234" data-track-index="1">
+      <div class="f04-identificar-camera">
+        <div class="f04-identificar-grid">
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-1-1.webp" width="190" height="190" alt="Clase 1, explosivos" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-2-1.webp" width="190" height="190" alt="Clase 2, gas inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-3.webp" width="190" height="190" alt="Clase 3, líquido inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-4-1.webp" width="190" height="190" alt="Clase 4, sólido inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-5-1.webp" width="190" height="190" alt="Clase 5, comburente" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-6-1.webp" width="190" height="190" alt="Clase 6, tóxico" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-7.webp" width="190" height="190" alt="Clase 7, radiactivo" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-8.webp" width="190" height="190" alt="Clase 8, corrosivo" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-9.webp" width="190" height="190" alt="Clase 9, varios" /></div>
+        </div>
+
+        <div class="f04-identificar-foot">
+          <div class="f04-identificar-foot-inner">
+            <div class="f04-identificar-rotulos">
+              <span class="f04-identificar-rotulo" id="f04-identificar-rotulo-a">Etiquetas</span>
+              <span class="f04-identificar-punto" id="f04-identificar-punto">&#183;</span>
+              <span class="f04-identificar-rotulo" id="f04-identificar-rotulo-b">Grupos de embalaje</span>
+            </div>
+            <div class="f04-identificar-rule" id="f04-identificar-rule"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var scope = document.querySelector('[data-composition-id="04-identificar"]');
+      if (!scope) return;
+
+      var q = function (sel) {
+        return scope.querySelector(sel);
+      };
+      var qa = function (sel) {
+        return Array.prototype.slice.call(scope.querySelectorAll(sel));
+      };
+
+      /* Voz real (audio_meta.json, frame 4): 6.034s + 1.2s de quietud = 7.234s
+         Vas 0.259 · a 0.519 · reconocer 0.62 · las 1.279 · nueve 1.519 · clases, 1.819–2.319
+         sus 2.779 · etiquetas 2.98 · y 4.119 · sus 4.279 · grupos 4.5 · de 4.98 · embalaje. 5.119–5.719 */
+      var DUR = 7.234;
+      var QUIETUD = 5.9;
+
+      var camara = q(".f04-identificar-camera");
+      var marcas = qa(".f04-identificar-mark");
+      var etiquetas = qa(".f04-identificar-etiqueta");
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* cámara macro: empuje casi imperceptible que decelera y se detiene con la hairline */
+      tl.fromTo(camara, { scale: 1 }, { scale: 1.014, duration: QUIETUD, ease: "power2.out" }, 0);
+
+      /* ── Escena 1a — «Vas a reconocer» (0.259–1.199)
+         la rejilla vacía se establece: nueve marcas de casilla, en orden de clase ── */
+      tl.fromTo(
+        marcas,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out", stagger: 0.06 },
+        0.24
+      );
+
+      /* ── Escena 1b — «las nueve clases,» (1.279–2.319)
+         grid-card-assemble: cada etiqueta aterriza en su casilla, una a una, 1 → 9.
+         Escala suave desde 0.85 + opacidad; sin rebote. La novena cierra con «clases,» ── */
+      var E0 = 1.26;
+      var PASO = 0.1;
+      tl.fromTo(
+        etiquetas,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out", stagger: PASO },
+        E0
+      );
+      tl.fromTo(
+        etiquetas,
+        { scale: 0.85 },
+        { scale: 1, duration: 0.46, ease: "power3.out", stagger: PASO },
+        E0
+      );
+      /* la marca cede su casilla a la etiqueta: no se transparenta bajo el fundido */
+      tl.fromTo(
+        marcas,
+        { opacity: 1 },
+        { opacity: 0, duration: 0.14, ease: "power1.in", stagger: PASO, immediateRender: false },
+        E0
+      );
+
+      /* ── Escena 2 — los rótulos, cada uno en su palabra ── */
+      /* «etiquetas» (2.98) */
+      tl.fromTo(
+        q("#f04-identificar-rotulo-a"),
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" },
+        2.94
+      );
+      /* «y» (4.119): el punto medio mostaza */
+      tl.fromTo(
+        q("#f04-identificar-punto"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out" },
+        4.1
+      );
+      /* «grupos» (4.5) */
+      tl.fromTo(
+        q("#f04-identificar-rotulo-b"),
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+        4.46
+      );
+
+      /* ── Escena 3 — «embalaje.» (5.119–5.719): la hairline mostaza subraya la fila ── */
+      tl.fromTo(
+        q("#f04-identificar-rule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.7, ease: "power2.inOut" },
+        5.2
+      );
+
+      /* Quietud declarada — 5.9s → 7.234s: nada se mueve, ni la cámara. Sostiene el timeline hasta DUR. */
+      tl.fromTo(
+        camara,
+        { scale: 1.014 },
+        { scale: 1.014, duration: DUR - QUIETUD, ease: "none", immediateRender: false },
+        QUIETUD
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-identificar"] = tl;
+    })();
+  </script>
+</template>

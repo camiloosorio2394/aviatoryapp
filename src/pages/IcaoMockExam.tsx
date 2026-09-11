@@ -361,7 +361,7 @@ function RunHeader({ idx, total, part, elapsed, recording }: { idx: number; tota
         </div>
       </div>
       <div className="h-1.5 rounded-full bg-border/50 overflow-hidden">
-        <div className="h-full rounded-full transition-all" style={{ width: `${pct}%`, background: "var(--av-blue-500)" }} />
+        <div className="h-full rounded-full transition-[width]" style={{ width: `${pct}%`, background: "var(--av-blue-500)" }} />
       </div>
     </div>
   )

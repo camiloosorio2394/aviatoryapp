@@ -400,7 +400,7 @@ function QuizCard({ question, index, total, selected, revealed, onChoose, onNext
         </div>
         <div className="flex-1 mx-4 h-1 rounded-full bg-border/50 overflow-hidden">
           <div
-            className="h-full rounded-full transition-all"
+            className="h-full rounded-full transition-[width]"
             style={{
               width: `${((index + (revealed ? 1 : 0)) / total) * 100}%`,
               background: "var(--av-blue-500)",

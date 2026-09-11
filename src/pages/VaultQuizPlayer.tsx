@@ -289,8 +289,16 @@ export function VaultQuizPlayer() {
                   : `Repasar las ${wrongList.length} que fallaste`}
               </button>
 
-              {reviewOpen && (
-                <div className="mt-4 space-y-3 rev-aparece">
+              {/* Plegable con transición: antes `{reviewOpen && …}` desmontaba
+                  la lista entera de golpe, así que se abría en 220 ms y se
+                  cerraba en cero. */}
+              <div
+                className={`grid transition-[grid-template-rows] duration-200 ease-out ${
+                  reviewOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                }`}
+              >
+                <div className="overflow-hidden">
+                <div className="mt-4 space-y-3">
                   {wrongList.map((h) => (
                     <div
                       key={h.position}
@@ -312,7 +320,8 @@ export function VaultQuizPlayer() {
                     </div>
                   ))}
                 </div>
-              )}
+                </div>
+              </div>
             </div>
           )}
 
@@ -371,7 +380,7 @@ export function VaultQuizPlayer() {
         {/* Progress bar */}
         <div className="h-1 rounded-full bg-muted overflow-hidden mb-7">
           <div
-            className="h-full transition-all duration-300 ease-out"
+            className="h-full transition-[width] duration-300 ease-out"
             style={{
               width: `${progressPct}%`,
               background: "var(--av-blue-500)",

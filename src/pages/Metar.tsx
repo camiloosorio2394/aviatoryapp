@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
-import { CourseCard } from "@/components/ui/course-card"
 import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
 import { supabase } from "@/integrations/supabase/client"
@@ -41,7 +41,6 @@ import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
 
 export function Metar() {
   const { user, isLoading: sessionLoading } = useSession()
-  const [loading, setLoading] = useState(true)
   // Arranca con el respaldo local para no mostrar cero mientras carga, y se
   // completa con lo que haya en la base (que es la verdad entre dispositivos).
   // Las tres partes se hidratan juntas. Antes solo la lección venía de la base
@@ -56,19 +55,21 @@ export function Metar() {
     }
   })
 
+  // El panel de avance necesita saber cuándo el dato es el bueno: sin esto
+  // enseñaría el respaldo local como si fuera definitivo. Se deriva en vez de
+  // guardarse, que llamar setState en el cuerpo del efecto encadena renders.
+  const [hidratado, setHidratado] = useState(false)
+  const cargando = sessionLoading || (!!user?.id && !hidratado)
+
   useEffect(() => {
     if (sessionLoading) return
+    // Sin sesión no hay nada que esperar: el respaldo local ya es todo lo
+    // que va a haber, y `cargando` se apaga solo.
+    const uid = user?.id
+    if (!uid) return
     let cancelled = false
 
     void (async () => {
-      const uid = user?.id
-      // Sin sesión no hay nada que esperar: lo que se ve es el respaldo local
-      // y ya está cargado. Dejar `loading` puesto tendría las cifras en
-      // esqueleto para siempre.
-      if (!uid) {
-        if (!cancelled) setLoading(false)
-        return
-      }
       const [fetched, examRes] = await Promise.all([
         fetchMetarProgress(uid),
         supabase
@@ -78,11 +79,7 @@ export function Metar() {
           .order("score", { ascending: false })
           .limit(1),
       ])
-      if (cancelled) return
-      if (!fetched) {
-        setLoading(false)
-        return
-      }
+      if (cancelled || !fetched) return
       const remote = await pushPendingMetarProgress(fetched)
       if (cancelled) return
       const local = readMetarProgress()
@@ -95,7 +92,7 @@ export function Metar() {
         practiceDone: Array.from(new Set([...local.practiceDone, ...remote.practiceDone])),
         bestExamScore: scores.length > 0 ? Math.max(...scores) : null,
       })
-      setLoading(false)
+      setHidratado(true)
     })()
 
     return () => {
@@ -110,13 +107,14 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/aprende",
       icon: BookOpen,
       color: "var(--av-mt-700)",
-      densidad: "compacta" as const,
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
-      title: "Aprende",
+      title: "1. Aprende",
       blurb:
         "De la atmósfera al informe: por qué se mueve el aire, qué nube tienes delante, qué hace un frente cuando lo cruzas, y después el METAR y el TAF grupo por grupo.",
       cta: "Abrir la lección",
       photo: aprendePhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -130,26 +128,28 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/decodificador",
       icon: ScanSearch,
       color: "var(--av-mt-700)",
-      densidad: "compacta" as const,
       meta: `${METAR_LEGEND_TOTAL} claves y ${METAR_EXAMPLES.length} informes de ejemplo`,
-      title: "Decodificador",
+      title: "2. Decodificador",
       blurb:
         "Pega cualquier METAR y te lo desarma grupo por grupo. Trae las tablas de fenómenos, descriptores, nubes y tendencias con buscador.",
       cta: "Abrir el decodificador",
       photo: decodificadorPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status: "Consulta libre, sin límite",
     },
     {
       to: "/app/aerolinea/meteorologia/practica",
       icon: Target,
       color: "var(--av-mt-700)",
-      densidad: "compacta" as const,
       meta: `${METAR_PRACTICE_TOTAL} informes con respuesta modelo`,
-      title: "Práctica",
+      title: "3. Práctica",
       blurb:
         "Lees el informe, lo interpretas con tus palabras y solo después comparas con la respuesta modelo. Con los errores típicos de cada caso.",
-      cta: "Empezar a practicar",
+      cta: "Iniciar práctica",
       photo: practicaPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -161,13 +161,14 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
       color: "var(--av-mt-700)",
-      densidad: "compacta" as const,
       meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
-      title: "Evaluación",
+      title: "4. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",
-      cta: "Presentar la evaluación",
+      cta: "Iniciar evaluación",
       photo: evaluacionPhoto,
+      photoAspect: "5/2" as const,
+      densidad: "compacta" as const,
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -181,7 +182,9 @@ export function Metar() {
 
   return (
     <AppLayout>
-      <div className="notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1280px] mx-auto">
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+        {/* Mismo control de volver que el hub de NOTAM: un enlace de texto sobre
+            el título, no un botón compitiendo con la acción de la página. */}
         <Link
           to="/app/aerolinea"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -189,13 +192,11 @@ export function Metar() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
 
-        {/* Hero de módulo: la foto a sangre bajo un velo navy en degradado,
-            para que el título se lea sobre cualquier zona de la imagen. */}
+        {/* Hero de sección. Sin foto todavía: el hueco conserva la caja, el
+            velo y la forma, y el rótulo de la esquina dice la medida que hace
+            falta. Cuando llegue la imagen se pone el <img> aquí y no se mueve
+            nada alrededor. */}
         <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
-          {/* La foto del módulo que hay hoy mide 800x420 y este hero pide
-              2432x860: ponerla sería cambiar el recurso por uno peor. El hueco
-              NO se borra, conserva la caja, el velo y la forma, así que cuando
-              llegue la imagen se pone el <img> justo aquí y no se mueve nada. */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -240,10 +241,8 @@ export function Metar() {
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
                 {/* El video de este módulo todavía no existe. El hueco NO se
-                    quita ni se cambia por texto: guarda la caja exacta de la
-                    tarjeta de NOTAM (radio 12, miniatura 92x52), así que el día
-                    que haya video se pone <VideoIntro> aquí y no se mueve nada
-                    de sitio alrededor. */}
+                    quita: guarda la caja exacta de la tarjeta de NOTAM, así que
+                    el día que haya video se pone <VideoIntro> aquí. */}
                 <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
                   <EspacioReservado
                     etiqueta="Video 16:9"
@@ -284,16 +283,15 @@ export function Metar() {
             </div>
 
             {/* Avance del módulo: la cifra global y, bajo una línea fina, de qué
-                se compone. Una sola caja de cristal sobre la foto. Los 33px de
-                margen son el alto del rótulo más el margen del título, o sea lo
-                que la columna izquierda tiene por encima del h1 y esta no: con
-                ellos, el tope del cuadro y el de las letras coinciden. */}
+                se compone. Los 33px de margen son el alto del rótulo más el
+                margen del título, o sea lo que la columna izquierda tiene por
+                encima del h1 y esta no. */}
             <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] lg:mt-[33px] lg:min-w-[210px]">
               <div className="px-3.5 pb-3 pt-3.5">
                 <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
                   Tu avance
                 </div>
-                {loading ? (
+                {cargando ? (
                   <>
                     <div className="mt-2.5 h-6 w-16 animate-pulse rounded bg-white/15" />
                     <div className="mt-3 h-1 animate-pulse rounded-sm bg-white/15" />
@@ -312,11 +310,11 @@ export function Metar() {
                       aria-valuenow={resumen.overall}
                       aria-valuemin={0}
                       aria-valuemax={100}
-                      aria-label="Avance del módulo de Meteorología"
+                      aria-label="Avance del módulo Meteorología"
                     >
                       <div
-                        className="h-full rounded-sm transition-all"
-                        style={{ width: `${resumen.overall}%`, background: "var(--av-green-400)" }}
+                        className="h-full rounded-sm transition-[width]"
+                        style={{ width: `${resumen.overall}%`, background: "var(--av-mt-500)" }}
                       />
                     </div>
                   </>
@@ -328,16 +326,18 @@ export function Metar() {
                 )}
               </div>
 
+              {/* Tres filas y no cuatro: el Decodificador es consulta libre y
+                  `resumirMetar` no lo mide, así que no habría nada que pintar. */}
               <div className="border-t border-white/10 p-1">
-                {/* El petróleo del módulo no se ve sobre este cristal: aquí
-                    valen los mismos claros calibrados que en NOTAM. */}
                 <FilaAvance
                   titulo="Lección"
                   to="/app/aerolinea/meteorologia/aprende"
                   valor={`${resumen.lessonRead} / ${METAR_LESSON_TOTAL}`}
                   pct={resumen.lessonPct}
+                  /* El petróleo del módulo no se ve sobre este cristal: aquí va
+                     su claro calibrado, igual que NOTAM usa el suyo. */
                   color="#68AFB7"
-                  cargando={loading}
+                  cargando={cargando}
                 />
                 <FilaAvance
                   titulo="Práctica"
@@ -345,7 +345,7 @@ export function Metar() {
                   valor={`${resumen.practiceDone} / ${METAR_PRACTICE_TOTAL}`}
                   pct={resumen.practicePct}
                   color="var(--av-cyan-400)"
-                  cargando={loading}
+                  cargando={cargando}
                 />
                 <FilaAvance
                   titulo="Evaluación"
@@ -354,18 +354,17 @@ export function Metar() {
                   aviso={resumen.best === null}
                   pct={resumen.examPct}
                   color={resumen.passed ? "var(--av-green-400)" : "var(--av-amber-400)"}
-                  cargando={loading}
+                  cargando={cargando}
                 />
               </div>
             </div>
           </div>
         </section>
 
-        {/* Las 4 partes */}
         <section className="pt-10">
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {partes.map((p) => (
-              <CourseCard key={p.to} {...p} statusLoading={loading} />
+              <CourseCard key={p.title} {...p} statusLoading={cargando} />
             ))}
           </div>
         </section>
@@ -373,3 +372,6 @@ export function Metar() {
     </AppLayout>
   )
 }
+
+// ─── Sub componentes ─────────────────────────────────────────────────────────
+

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { usePrefiereQuieto } from "@/hooks/usePrefiereQuieto"
 import { Link } from "react-router-dom"
 import { ArrowRight, ChevronDown, RotateCcw } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
@@ -38,20 +39,17 @@ interface Props {
  * el valor final de entrada, sin recorrido.
  */
 function useContador(valor: number, activo = true): number {
-  const [visible, setVisible] = useState(() => (activo ? 0 : valor))
+  const quieto = usePrefiereQuieto()
+  const anima = activo && !quieto
+  const [animado, setAnimado] = useState(0)
+
+  // Sin animación la cifra es la cifra: se deriva en vez de fijarse desde el
+  // efecto, que era un setState en su cuerpo cada vez que el informe se abría
+  // con el movimiento reducido puesto.
+  const visible = anima ? animado : valor
 
   useEffect(() => {
-    if (!activo) {
-      setVisible(valor)
-      return
-    }
-    const quieto =
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    if (quieto) {
-      setVisible(valor)
-      return
-    }
+    if (!anima) return
 
     const DURACION = 600
     const desde = Date.now()
@@ -60,11 +58,11 @@ function useContador(valor: number, activo = true): number {
     const t = window.setInterval(() => {
       const parte = Math.min(1, (Date.now() - desde) / DURACION)
       // Frena al final en vez de cortarse en seco.
-      setVisible(Math.round(valor * (1 - Math.pow(1 - parte, 3))))
+      setAnimado(Math.round(valor * (1 - Math.pow(1 - parte, 3))))
       if (parte >= 1) window.clearInterval(t)
     }, 16)
     return () => window.clearInterval(t)
-  }, [valor, activo])
+  }, [valor, anima])
 
   return visible
 }

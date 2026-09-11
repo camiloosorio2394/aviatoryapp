@@ -1140,42 +1140,18 @@ cuadernillo en papel (9.5.3).
 
 ## 16 · Meteorología: el módulo pasa de 13 a 30 lecciones (10 de septiembre de 2026)
 
-Tres PR encadenadas, y **una de ellas toca filas de usuarios**, así que esa no la
-aplico yo.
+Las tres PR están mergeadas y **la migración está aplicada**, el 11 de septiembre de 2026.
+Queda lo de 16.3 y 16.4.
 
-| PR | Rama | Qué trae |
-|---|---|---|
-| [#119](https://github.com/camiloosorio2394/aviatoryapp/pull/119) | `meteo/clima-y-servicios` → `main` | 17 lecciones de teoría, el módulo en turquesa, la migración y 20 huecos de imagen |
-| [#120](https://github.com/camiloosorio2394/aviatoryapp/pull/120) | `fix/lint-limpio` → `main` | los 25 errores de lint, a cero |
-| [#122](https://github.com/camiloosorio2394/aviatoryapp/pull/122) | `video/meteorologia-intro` → `meteo/clima-y-servicios` | el video de apertura del módulo, terminado en imagen |
+### 16.1 · La migración, aplicada
 
-### 16.1 · La migración, que sí toca datos de los usuarios
+`20260911010000_meteorologia_teoria_del_clima.sql` se aplicó justo después de mergear
+#119, para que el código nuevo no llegara a producción leyendo el progreso con la
+numeración vieja. Comprobado después contra la base:
 
-`supabase/migrations/20260911010000_meteorologia_teoria_del_clima.sql`.
-
-Hace tres cosas. Las dos primeras son inocuas: sube `module_thresholds.total` de 13 a
-30 y reescribe el texto del logro. La tercera **desplaza progreso ya guardado**, y es
-la que hay que entender antes de correrla.
-
-`user_metar_progress.lesson_screens` guarda números de lección. Al meter diecisiete
-lecciones delante, esos números dejaron de significar lo mismo: quien tenía guardado el
-`1` había leído «¿Qué es un METAR?», que ahora es la lección `18`. Si no se desplaza, a
-ese alumno le salen como leídas trece lecciones de teoría que no ha abierto, y como sin
-leer las trece que sí leyó. **Es peor que perder el progreso: es progreso equivocado.**
-
-La operación suma 17 a cada número y **no borra ninguna fila**. Se puede repetir sin
-daño: solo mueve filas cuyo máximo sea 13 o menos, y después del cambio el mínimo
-posible es 18, así que una segunda pasada no encuentra nada que mover.
-
-Al final del archivo, comentada, está la consulta de control por si quieres mirar antes
-y después:
-
-```sql
-select user_id, lesson_screens
-from public.user_metar_progress
-where lesson_screens is not null and array_length(lesson_screens, 1) > 0
-order by user_id;
-```
+- `module_thresholds.metar_lesson` en **30**, y el logro renombrado a «Meteorología leída».
+- **2 progresos desplazados** (los de Camilo y Nico, que eran los únicos) y **0** sin mover.
+- Las 3 filas de `user_metar_progress` siguen ahí: no se borró ninguna.
 
 ### 16.2 · Por qué la teoría va delante del código
 
@@ -1242,13 +1218,16 @@ Dos cosas que sí conviene que sepas:
   `SKXX` es deliberadamente falso. El video usa el TAF de la lección 29, completo y sin
   alterar, y lo rotula en pantalla como `ESCENARIO DE PRÁCTICA · LECCIÓN 29` en los dos
   planos donde aparece.
+- **El video tiene el turquesa de antes.** Se calculó con los tokens de #119
+  (`#0D4B52`, `#49939C`, `#E5F3F5`), pero al mergear mandaron los de `main`, que son
+  los que documenta CLAUDE.md: `--ln-primary #1A4A52`, `--ln-focus #3D97A6`,
+  `--ln-tint #E4EFF1`. La diferencia es pequeña, pero al generar el audio conviene
+  regenerar también la imagen con estos tres, o el video no casará con la portada.
 - **El hueco del hero ya está reservado** en `src/pages/Metar.tsx`. Cuando exista el
   MP4 va a `public/modulos/meteorologia/intro.mp4` y el póster al lado; hasta entonces
   hay un `EspacioReservado` en su sitio, no un video roto.
 
 ### 16.5 · Lo que decides tú
 
-1. **Aplicar la migración** de 16.1, entendiendo que desplaza progreso guardado.
-2. **Las veinte figuras**: si las encargas, si las dibujo yo en SVG, o si el módulo sale
-   con los huecos rotulados. Las tres fotografías de nubes hay que conseguirlas aparte.
-3. **Revisar las tres PR** en el orden #119, #120, #122.
+**Las veinte figuras**: si las encargas, si las dibujo yo en SVG, o si el módulo sale con
+los huecos rotulados. Las tres fotografías de nubes hay que conseguirlas aparte.

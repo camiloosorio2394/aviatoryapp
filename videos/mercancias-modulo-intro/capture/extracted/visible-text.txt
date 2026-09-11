@@ -1,0 +1,111 @@
+MÓDULO: MERCANCÍAS PELIGROSAS · AVIATORY
+Fuente: el módulo real de la app (src/lib/mercanciasLeccion/), 18 lecciones en 5 niveles.
+Nada de lo que sigue está inventado: todo sale de las lecciones o de las normas que citan.
+
+
+=== EL OBJETO QUE SOSTIENE EL VIDEO: EL NOTOC ===
+
+El NOTOC (Notification to Captain) es la información escrita que el explotador entrega al
+piloto al mando antes de cada salida cuando lleva mercancías peligrosas a bordo. Es el
+último eslabón de la cadena y el único que el piloto toca con las manos.
+
+Este es el NOTOC de la lección 14 (nivel 4). Va completo y sin alterar:
+
+NOTIFICATION TO CAPTAIN          FLT AV0000 / 00MMM / HK-XXXX
+STA: SKBO   DEST: SBGR   CPT: ______________________
+
+POS  UN     PROPER SHIPPING NAME        CL  GE  PKG  ULD
+---  -----  --------------------------  --  --  ---  ------------
+1FL  1263   PAINT                       3   II   2   AKE 12345 AV
+1FL  1830   SULPHURIC ACID              8   II   1   AKE 12345 AV
+5AR  3480   LITHIUM ION BATTERIES       9   --   4   PMC 67890 AV
+                                             CAO
+
+DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481
+
+Cómo se lee, columna por columna:
+- POS: dónde va. 1FL es bodega delantera (forward lower), 5AR es trasera (aft).
+- UN: cuatro dígitos que identifican la sustancia. Es lo primero que daría por radio
+  quien tuviera que describir el problema.
+- PROPER SHIPPING NAME: la denominación del artículo expedido.
+- CL: la clase de riesgo. 3 líquido inflamable, 8 corrosivo, 9 misceláneo.
+- GE: grupo de embalaje, en números romanos.
+- PKG: cuántos bultos.
+- ULD: en qué unidad de carga van.
+- CAO: Cargo Aircraft Only. Solo en aeronave de carga.
+- DRILL CODE: el código de procedimiento de emergencia.
+
+EL GIRO: la pintura (UN 1263, clase 3, inflamable) y el ácido sulfúrico (UN 1830, clase 8,
+corrosivo) comparten el mismo ULD, AKE 12345 AV. Esa combinación la regula la tabla de
+segregación. Preguntarlo antes de firmar es legítimo, y es exactamente lo que el módulo
+enseña a ver.
+
+Lo que la firma certifica: no el embalaje, sino que la información llegó. Es el último
+punto donde el vuelo se puede parar.
+
+
+=== NIVEL 1 · INTRODUCCIÓN ===
+
+Por qué existe la norma. El vuelo ValuJet 592 (NTSB/AAR-97/06) la fundó: unos generadores
+de oxígeno mal clasificados, mal embalados y declarados como material de la compañía
+marcado «vacío». Tres fallas, tres artículos. La firma del comandante era el último
+control, y firmó lo que decía la caja.
+
+Mercancía peligrosa = riesgo + estar en la lista o ser clasificable (LAR 175.001 (a)).
+La cadena de la norma: Anexo 18 de la OACI → Doc 9284 (Instrucciones Técnicas) →
+LAR 175 del SRVSOP → el reglamento de cada país, como el RAC 175 de Colombia.
+Aplica a vuelos internos e internacionales por igual (LAR 175.005 (b)).
+
+Quién responde por qué: el expedidor clasifica y declara; el explotador acepta o rechaza;
+el piloto recibe, firma y conoce. Quien actúa en nombre de otro responde igual
+(LAR 175.205 (c)): subcontratar no diluye la obligación.
+
+Lecciones: El vuelo 592 · ¿Por qué es peligroso en un avión? · El vocabulario que te van
+a preguntar · Quién responde por qué.
+
+
+=== NIVEL 2 · IDENTIFICACIÓN ===
+
+Las nueve clases de riesgo. Clase y división no son lo mismo, y la numeración no es un
+ranking: la clase 9 no es «menos peligrosa» que la 3.
+
+Etiquetas de riesgo y etiquetas de manipulación. Las de manipulación no indican clase.
+
+Grupos de embalaje, en romanos: I alto, II medio, III bajo. No es un capricho.
+Las baterías de litio no llevan grupo de embalaje: su transporte lo gobierna la
+instrucción de embalaje de las Instrucciones Técnicas.
+UN 3480 baterías de ion litio sueltas · UN 3481 en o con un equipo.
+UN 3090 baterías de metal litio sueltas · UN 3091 en o con un equipo.
+
+Lecciones: Las nueve clases · Etiquetas: de riesgo y de manipulación · Grupos de embalaje
+y cantidades · Baterías de litio.
+
+
+=== NIVEL 3 · TRANSPORTE AÉREO ===
+
+Qué puede volar, qué no y en qué aeronave. Lo prohibido, lo permitido con condiciones y lo
+que necesita aprobación o exención. Los cuatro niveles de permiso.
+
+Cantidades y límites: cifras para estudiar, no para el mostrador. Antes de usar una cifra
+en línea de vuelo, se confirma la edición en vigor y el manual del explotador.
+
+
+=== NIVEL 4 · SITUACIONES DEL PILOTO ===
+
+De la aceptación a la bodega. El NOTOC. La emergencia en vuelo. Notificar: qué, a quién y
+por qué.
+
+Mercancías peligrosas ocultas: si el expedidor no declara algo, no deja de serlo. Pasa a
+ser una mercancía peligrosa oculta, y eso es un suceso notificable (LAR 175.625).
+
+
+=== NIVEL 5 · CASOS REALES Y REPASO ===
+
+Lo que la industria aprendió. Lo que te exigen y veinte respuestas listas.
+
+
+=== A QUIÉN VA DIRIGIDO ===
+
+Pilotos que preparan el ingreso a una aerolínea en Latinoamérica. No es personal de tierra
+ni estudiante de la materia: es alguien que va a firmar ese papel y a quien se lo van a
+preguntar en una entrevista técnica.

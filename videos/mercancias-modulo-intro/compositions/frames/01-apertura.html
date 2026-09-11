@@ -1,0 +1,284 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Brand faces ──────────────────────────────────────────────────────────
+       No font files are staged in this project (assets/ carries only bgm + voice,
+       and frame.md brings no auto-generated @font-face block), so the same
+       Google-hosted Archivo + JetBrains Mono faces the NOTAM opener uses are
+       declared here. latin + latin-ext are both loaded: MERCANCÍAS carries the Í
+       and el rótulo mono lleva Í / Ó / ·.
+       font-display:block so the renderer never snapshots a fallback face.        */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* The frame root is styled by #root (never a class on the composition-id
+       element) and carries NO background — the full-bleed navy ground is its own
+       full-duration class="clip" layer below. */
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      /* frame.md atoms */
+      --mp01-navy: #14202e;
+      --mp01-cream: #fbfaf8;
+      /* el acento del módulo es mostaza #7A5C12; sobre navy queda en 2.6:1, así que
+         se usa el token brillante del brief — oklch(0.78 0.135 86) = #DEB042, misma
+         familia mostaza a mayor luminosidad. ONE accent moment. */
+      --mp01-accent: #deb042;
+    }
+
+    /* ── background: campo navy + retícula hairline, 3 capas de profundidad ──── */
+    .mp01-bg {
+      position: absolute;
+      inset: 0;
+      background-color: var(--mp01-navy);
+    }
+    .mp01-depth {
+      position: absolute;
+      inset: 0;
+    }
+    .mp01-grid-fine {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px);
+    }
+    .mp01-grid-coarse {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px);
+    }
+    .mp01-pool {
+      background-image:
+        radial-gradient(78% 62% at 50% 44%, rgba(251, 250, 248, 0.055) 0%, rgba(251, 250, 248, 0) 68%),
+        radial-gradient(122% 100% at 50% 50%, rgba(9, 14, 21, 0) 42%, rgba(9, 14, 21, 0.62) 100%);
+    }
+
+    /* ── stage: todo el contenido por encima de y=900 (banda de subtítulos) ──── */
+    .mp01-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 200px;
+    }
+
+    /* rótulo mono (supporting) */
+    .mp01-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.95em;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 1.6cqw;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.66);
+      white-space: nowrap;
+    }
+    .mp01-tick {
+      display: block;
+      width: 3.4cqw;
+      height: 1px;
+      background: rgba(251, 250, 248, 0.24);
+      flex: none;
+    }
+    .mp01-kw {
+      display: inline-block;
+    }
+
+    /* MERCANCÍAS PELIGROSAS (foreground subject) + la hairline de acento.
+       Dos líneas: el título es de dos palabras, así que se apilan y el acento
+       subraya solo la segunda. 9.4cqw ≈ 62% del ancho en la línea más larga. */
+    .mp01-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: fit-content;
+      margin-top: 90px;
+    }
+    .mp01-line {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: fit-content;
+    }
+    /* máscara de entrada: las letras suben desde debajo de la línea base.
+       El padding/margen superior deja aire para el halo del desenfoque. */
+    .mp01-mask {
+      overflow: hidden;
+      padding-top: 64px;
+      margin-top: -64px;
+    }
+    .mp01-word {
+      display: block;
+      text-align: center;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 9.4cqw;
+      line-height: 0.98;
+      letter-spacing: -0.018em;
+      color: var(--mp01-cream);
+      white-space: nowrap;
+    }
+    .mp01-ltr {
+      --dof: 0px;
+      display: inline-block;
+      filter: blur(var(--dof));
+      will-change: filter, transform, opacity;
+    }
+    .mp01-rule {
+      height: 3px;
+      margin-top: 46px;
+      background: var(--mp01-accent);
+      transform-origin: left center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.667" data-width="1920" data-height="1080">
+    <!-- fondo a sangre: capa propia con class="clip", duración completa -->
+    <div id="mp01-fondo" class="clip mp01-bg" data-start="0" data-duration="5.667" data-track-index="0">
+      <div class="mp01-depth mp01-pool"></div>
+      <div class="mp01-depth mp01-grid-coarse"></div>
+      <div class="mp01-depth mp01-grid-fine"></div>
+    </div>
+
+    <div id="mp01-escena" class="clip mp01-stage" data-start="0" data-duration="5.667" data-track-index="1">
+      <div class="mp01-kicker">
+        <span class="mp01-tick"></span>
+        <span class="mp01-kw">INGRESO</span>
+        <span class="mp01-kw">A</span>
+        <span class="mp01-kw">AEROLÍNEA</span>
+        <span class="mp01-kw">·</span>
+        <span class="mp01-kw">MÓDULO</span>
+      </div>
+
+      <div class="mp01-lockup">
+        <div class="mp01-line">
+          <div class="mp01-mask">
+            <span class="mp01-word"><span class="mp01-ltr mp01-l1">M</span><span class="mp01-ltr mp01-l1">E</span><span class="mp01-ltr mp01-l1">R</span><span class="mp01-ltr mp01-l1">C</span><span class="mp01-ltr mp01-l1">A</span><span class="mp01-ltr mp01-l1">N</span><span class="mp01-ltr mp01-l1">C</span><span class="mp01-ltr mp01-l1">Í</span><span class="mp01-ltr mp01-l1">A</span><span class="mp01-ltr mp01-l1">S</span></span>
+          </div>
+        </div>
+        <div class="mp01-line">
+          <div class="mp01-mask">
+            <span class="mp01-word"><span class="mp01-ltr mp01-l2">P</span><span class="mp01-ltr mp01-l2">E</span><span class="mp01-ltr mp01-l2">L</span><span class="mp01-ltr mp01-l2">I</span><span class="mp01-ltr mp01-l2">G</span><span class="mp01-ltr mp01-l2">R</span><span class="mp01-ltr mp01-l2">O</span><span class="mp01-ltr mp01-l2">S</span><span class="mp01-ltr mp01-l2">A</span><span class="mp01-ltr mp01-l2">S</span></span>
+          </div>
+          <div class="mp01-rule"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "01-apertura";
+      var root = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!root) return;
+      var q = function (s) {
+        return root.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(root.querySelectorAll(s));
+      };
+
+      var D = 5.667;
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.0–1.0s) ────────────────────────────────────────────────
+      // "Bienvenido al módulo…" — el campo navy ya es opaco en t=0 (color de la
+      // capa .clip). Las tres capas de profundidad se asientan: retícula gruesa,
+      // retícula fina, pozo de luz.
+      tl.fromTo(q(".mp01-pool"), { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mp01-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
+      tl.fromTo(q(".mp01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.06);
+
+      // rótulo mono — revelado por palabra en el tercio superior
+      tl.fromTo(q(".mp01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.12);
+      tl.fromTo(
+        qa(".mp01-kw"),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", stagger: 0.085 },
+        0.18,
+      );
+
+      // ── Scene 2 (1.52–3.60s) ──────────────────────────────────────────────
+      // El título entra desde abajo tras la máscara y se resuelve desde el
+      // desenfoque (depth-of-field-blur: se tensa la variable --dof, que lee
+      // filter: blur()). Escalonado por línea — MERCANCÍAS entra sobre la palabra
+      // "Mercancías" (VO 1.599s) y PELIGROSAS sobre "peligrosas" (VO 2.419s).
+      tl.fromTo(
+        qa(".mp01-l1"),
+        { yPercent: 100, opacity: 0, "--dof": "22px" },
+        {
+          yPercent: 0,
+          opacity: 1,
+          "--dof": "0px",
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.04,
+        },
+        1.52,
+      );
+      tl.fromTo(
+        qa(".mp01-l2"),
+        { yPercent: 100, opacity: 0, "--dof": "22px" },
+        {
+          yPercent: 0,
+          opacity: 1,
+          "--dof": "0px",
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.04,
+        },
+        2.34,
+      );
+
+      // ── Scene 3 (3.7s–fin) ────────────────────────────────────────────────
+      // La hairline de acento se dibuja bajo PELIGROSAS de izquierda a derecha y
+      // queda, cerrando al terminar "Aviatory." (VO 3.399–4.179s). Después, quietud:
+      // lectura sostenida, sin deriva de cámara y sin salida (la transición de
+      // raíz es la salida).
+      tl.fromTo(q(".mp01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.inOut" }, 3.7);
+
+      // ancla de duración completa
+      tl.to({}, { duration: D }, 0);
+
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>

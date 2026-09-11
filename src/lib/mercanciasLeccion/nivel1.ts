@@ -126,49 +126,6 @@ export const NIVEL_1: DocScreen[] = [
           "Sube un bulto a tu avión con una etiqueta que no reconoces. La pregunta no es «¿parece peligroso?». Es «¿está clasificado, documentado y aceptado conforme a las Instrucciones?». Si nadie te lo puede decir, ese bulto no ha pasado por la cadena que este módulo describe.",
       },
       {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "Un explotador vuela solo rutas nacionales dentro de su país. ¿Le aplica el Doc 9284 de la OACI?",
-            ref: "LAR 175.005 (b)",
-            opciones: [
-              {
-                t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
-                ok: true,
-                fb: "El LAR 175.005 (b) lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El RAC 175.016 de Colombia lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
-              },
-              {
-                t: "No. Las Instrucciones Técnicas solo rigen el transporte internacional.",
-                fb: "Es la trampa clásica. El LAR 175.005 (b) exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
-              },
-              {
-                t: "Solo si transporta carga; si es de pasajeros, no.",
-                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: el LAR 175.305 (b) le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
-              },
-            ],
-          },
-          {
-            q: "Una caja marcada «vacía» contiene generadores de oxígeno sin gastar. ¿Es mercancía peligrosa?",
-            ref: "LAR 175.001 (a)",
-            opciones: [
-              {
-                t: "No, porque el manifiesto dice que está vacía.",
-                fb: "La definición no mira el manifiesto: mira si el objeto puede constituir un riesgo y si está en la lista o es clasificable. Un generador sin gastar lo está. Marcarlo como vacío es exactamente lo que pasó en ValuJet.",
-              },
-              {
-                t: "Sí: lo que la clasifica es lo que contiene y lo que puede hacer, no lo que dice la caja.",
-                ok: true,
-                fb: "La definición del LAR 175.001 (a) tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
-              },
-              {
-                t: "Solo si el expedidor la declara como tal.",
-                fb: "La declaración es una obligación del expedidor (LAR 175.215 (a)), no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta (LAR 175.001 (a)).",
-              },
-            ],
-          },
-        ],
-      },
-      {
         kind: "entrevista",
         intro:
           "Esta lección da para tres preguntas, y las tres caen. Intenta responder en voz alta antes de abrir.",
@@ -197,15 +154,6 @@ export const NIVEL_1: DocScreen[] = [
             claves: ["Cadena de eslabones", "La firma es un control, no un trámite", "COMAT no exime"],
             ref: "NTSB/AAR-97/06",
           },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Mercancía peligrosa = riesgo + estar en la lista o ser clasificable (LAR 175.001 (a)).",
-          "La cadena: Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país.",
-          "El reglamento aplica a vuelos internos e internacionales por igual (LAR 175.005 (b)).",
-          "ValuJet 592: tres fallas, tres artículos. La firma del comandante era el último control y firmó lo que decía la caja.",
         ],
       },
     ],
@@ -284,30 +232,6 @@ export const NIVEL_1: DocScreen[] = [
         momento: "Antes de la salida",
         texto:
           "Cuando en la información al piloto al mando veas un envío de líquido inflamable en la bodega trasera, no lo leas como «pintura». Léelo como vapores inflamables, en un espacio cerrado, con una diferencia de presión que crece durante el ascenso, durante tres horas. Con esa lectura se entienden todas las limitaciones de cantidad que vienen después.",
-      },
-      {
-        kind: "ponAPrueba",
-        preguntas: [
-          {
-            q: "¿Por qué el reglamento exige que los embalajes resistan cambios de presión, y no solo golpes?",
-            ref: "LAR 175.420 (c) y (f)",
-            opciones: [
-              {
-                t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
-                ok: true,
-                fb: "El 175.420 (b) nombra expresamente los cambios de temperatura, humedad o presión y la vibración como las condiciones normales del transporte aéreo que el embalaje tiene que aguantar.",
-              },
-              {
-                t: "Porque las bodegas no están presurizadas.",
-                fb: "En los aviones presurizados las bodegas también lo están, pero a la altitud de cabina, que es menor que la presión del suelo. La diferencia sigue existiendo.",
-              },
-              {
-                t: "Porque los golpes no importan en el transporte aéreo.",
-                fb: "Importan, y por eso el mismo artículo exige acolchar y sujetar los embalajes interiores (175.420 (e)). Lo que añade el vuelo es presión, temperatura y vibración sostenida.",
-              },
-            ],
-          },
-        ],
       },
       {
         kind: "piensaComoPiloto",
@@ -693,8 +617,95 @@ export const NIVEL_1: DocScreen[] = [
           "La firma no te convierte en experto en embalaje. Te convierte en el último que pudo decir «esto no sale así».",
       },
       {
-        kind: "ponAPrueba",
+        kind: "entrevista",
         preguntas: [
+          {
+            nivel: "concepto",
+            q: "¿Cuáles son las responsabilidades del piloto al mando en materia de mercancías peligrosas?",
+            respuesta:
+              "Recibir por escrito y lo antes posible antes de la salida la información de las mercancías peligrosas a bordo, firmarla antes de que se transporten, tenerla al alcance durante todo el vuelo y conocer los procedimientos de emergencia. Y, si se presenta una situación en vuelo, informar a la dependencia de tránsito aéreo para que se avise en tierra.",
+            claves: ["Recibir por escrito antes de la salida", "Firmar", "Tenerla al alcance en vuelo", "Informar a ATC"],
+            ref: "LAR 175.515 y 175.620",
+          },
+          {
+            nivel: "interpretacion",
+            q: "Si el expedidor declara mal un envío, ¿qué responsabilidad tiene el comandante?",
+            respuesta:
+              "La clasificación no es suya y no puede verificarla desde la cabina: eso corresponde al expedidor y a la aceptación. Lo que sí le corresponde es no volar sin la información escrita, conocerla, y actuar si algo en ella no cuadra. La responsabilidad del comandante está en el eslabón de información, no en el de clasificación.",
+            claves: ["El expedidor clasifica", "El comandante recibe y conoce la información", "Actuar si algo no cuadra"],
+            ref: "LAR 175.215 y 175.515",
+          },
+          {
+            nivel: "situacion",
+            q: "Vas a salir y no te han entregado la información de mercancías peligrosas, aunque sabes que llevas carga declarada. ¿Qué haces?",
+            respuesta:
+              "No salgo así. La norma exige que el explotador se la proporcione al piloto al mando por escrito y lo antes posible antes de la salida, y que la firme antes de que las mercancías se transporten. Sin ese documento no tengo qué hay, cuánto ni dónde, que es justo lo que necesitaría si algo pasa en vuelo. Lo pido y, si no aparece, se resuelve antes de mover el avión.",
+            claves: ["Por escrito antes de la salida", "Firmada por el piloto al mando", "Sin ella no hay qué, cuánto ni dónde"],
+            ref: "LAR 175.515 (a)",
+          },
+        ],
+      },
+      {
+        kind: "ponAPrueba",
+        titulo: "Control del nivel 1",
+        preguntas: [
+          {
+            q: "Un explotador vuela solo rutas nacionales dentro de su país. ¿Le aplica el Doc 9284 de la OACI?",
+            ref: "LAR 175.005 (b)",
+            opciones: [
+              {
+                t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
+                ok: true,
+                fb: "El LAR 175.005 (b) lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El RAC 175.016 de Colombia lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
+              },
+              {
+                t: "No. Las Instrucciones Técnicas solo rigen el transporte internacional.",
+                fb: "Es la trampa clásica. El LAR 175.005 (b) exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
+              },
+              {
+                t: "Solo si transporta carga; si es de pasajeros, no.",
+                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: el LAR 175.305 (b) le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
+              },
+            ],
+          },
+          {
+            q: "Una caja marcada «vacía» contiene generadores de oxígeno sin gastar. ¿Es mercancía peligrosa?",
+            ref: "LAR 175.001 (a)",
+            opciones: [
+              {
+                t: "No, porque el manifiesto dice que está vacía.",
+                fb: "La definición no mira el manifiesto: mira si el objeto puede constituir un riesgo y si está en la lista o es clasificable. Un generador sin gastar lo está. Marcarlo como vacío es exactamente lo que pasó en ValuJet.",
+              },
+              {
+                t: "Sí: lo que la clasifica es lo que contiene y lo que puede hacer, no lo que dice la caja.",
+                ok: true,
+                fb: "La definición del LAR 175.001 (a) tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
+              },
+              {
+                t: "Solo si el expedidor la declara como tal.",
+                fb: "La declaración es una obligación del expedidor (LAR 175.215 (a)), no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta (LAR 175.001 (a)).",
+              },
+            ],
+          },
+          {
+            q: "¿Por qué el reglamento exige que los embalajes resistan cambios de presión, y no solo golpes?",
+            ref: "LAR 175.420 (c) y (f)",
+            opciones: [
+              {
+                t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
+                ok: true,
+                fb: "El 175.420 (b) nombra expresamente los cambios de temperatura, humedad o presión y la vibración como las condiciones normales del transporte aéreo que el embalaje tiene que aguantar.",
+              },
+              {
+                t: "Porque las bodegas no están presurizadas.",
+                fb: "En los aviones presurizados las bodegas también lo están, pero a la altitud de cabina, que es menor que la presión del suelo. La diferencia sigue existiendo.",
+              },
+              {
+                t: "Porque los golpes no importan en el transporte aéreo.",
+                fb: "Importan, y por eso el mismo artículo exige acolchar y sujetar los embalajes interiores (175.420 (e)). Lo que añade el vuelo es presión, temperatura y vibración sostenida.",
+              },
+            ],
+          },
           {
             q: "¿Quién es responsable de la identificación y clasificación de una mercancía peligrosa?",
             ref: "LAR 175.410, 175.415 y 175.510",
@@ -732,45 +743,7 @@ export const NIVEL_1: DocScreen[] = [
                 fb: "La firma acredita que recibiste la información, no que la aceptación en tierra se hizo bien.",
               },
             ],
-          },
-        ],
-      },
-      {
-        kind: "entrevista",
-        preguntas: [
-          {
-            nivel: "concepto",
-            q: "¿Cuáles son las responsabilidades del piloto al mando en materia de mercancías peligrosas?",
-            respuesta:
-              "Recibir por escrito y lo antes posible antes de la salida la información de las mercancías peligrosas a bordo, firmarla antes de que se transporten, tenerla al alcance durante todo el vuelo y conocer los procedimientos de emergencia. Y, si se presenta una situación en vuelo, informar a la dependencia de tránsito aéreo para que se avise en tierra.",
-            claves: ["Recibir por escrito antes de la salida", "Firmar", "Tenerla al alcance en vuelo", "Informar a ATC"],
-            ref: "LAR 175.515 y 175.620",
-          },
-          {
-            nivel: "interpretacion",
-            q: "Si el expedidor declara mal un envío, ¿qué responsabilidad tiene el comandante?",
-            respuesta:
-              "La clasificación no es suya y no puede verificarla desde la cabina: eso corresponde al expedidor y a la aceptación. Lo que sí le corresponde es no volar sin la información escrita, conocerla, y actuar si algo en ella no cuadra. La responsabilidad del comandante está en el eslabón de información, no en el de clasificación.",
-            claves: ["El expedidor clasifica", "El comandante recibe y conoce la información", "Actuar si algo no cuadra"],
-            ref: "LAR 175.215 y 175.515",
-          },
-          {
-            nivel: "situacion",
-            q: "Vas a salir y no te han entregado la información de mercancías peligrosas, aunque sabes que llevas carga declarada. ¿Qué haces?",
-            respuesta:
-              "No salgo así. La norma exige que el explotador se la proporcione al piloto al mando por escrito y lo antes posible antes de la salida, y que la firme antes de que las mercancías se transporten. Sin ese documento no tengo qué hay, cuánto ni dónde, que es justo lo que necesitaría si algo pasa en vuelo. Lo pido y, si no aparece, se resuelve antes de mover el avión.",
-            claves: ["Por escrito antes de la salida", "Firmada por el piloto al mando", "Sin ella no hay qué, cuánto ni dónde"],
-            ref: "LAR 175.515 (a)",
-          },
-        ],
-      },
-      {
-        kind: "summary",
-        items: [
-          "Cada eslabón produce algo que termina llegando a la cabina: el UN que lees, el bulto que va en tu bodega y la posición que consultarías con humo.",
-          "El expedidor clasifica y declara; el explotador acepta o rechaza; tú recibes, firmas y conoces.",
-          "Quien actúa en nombre de otro responde igual (LAR 175.205 (c)): subcontratar no diluye la obligación.",
-          "Tu firma no certifica el embalaje. Certifica que la información llegó, y es el último punto donde el vuelo se puede parar.",
+          }
         ],
       },
     ],

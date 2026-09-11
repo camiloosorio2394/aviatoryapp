@@ -252,7 +252,7 @@ export function PsicoHub() {
                     aria-label="Mejor resultado en el simulacro psicotécnico"
                   >
                     <div
-                      className="h-full rounded-sm transition-all"
+                      className="h-full rounded-sm transition-[width]"
                       style={{ width: `${mejorSimulacro}%`, background: "#4E9BF5" }}
                     />
                   </div>

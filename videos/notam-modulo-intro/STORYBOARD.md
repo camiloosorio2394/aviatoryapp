@@ -31,7 +31,7 @@ E) RWY 17L/35R CLSD
 
 - status: outline
 - src: compositions/frames/01-apertura.html
-- duration: 4.491s
+- duration: 4.762s
 - transition_in: cut
 - blueprint: titlecard-reveal (Adapt)
 - scene: Rótulo del módulo sobre navy; el título entra y se asienta.
@@ -51,7 +51,7 @@ Scene 3 (2.3–3.5s): una hairline en acento `#123A6B` se dibuja bajo la palabra
 
 - status: outline
 - src: compositions/frames/02-codigo-ilegible.html
-- duration: 12.981s
+- duration: 11.945s
 - transition_in: crossfade
 - blueprint: zoom-out-workspace-reveal (Reproduce)
 - scene: Abre pegado a un fragmento ilegible del NOTAM; la cámara retrocede y aparece el aviso entero, denso.
@@ -69,7 +69,7 @@ Scene 4 (7.0–9.33s): en «nadie te enseñó a leer», el bloque baja a media o
 
 - status: outline
 - src: compositions/frames/03-que-es.html
-- duration: 5.327s
+- duration: 6.251s
 - transition_in: cut
 - blueprint: kinetic-type-beats (Reproduce)
 - scene: La palabra se despliega a su significado y entra quién lo publica.
@@ -86,7 +86,7 @@ Scene 3 (2.8–4.62s): debajo entra la segunda idea, *quién lo publica*, con tr
 
 - status: outline
 - src: compositions/frames/04-tres-tipos.html
-- duration: 7.704s
+- duration: 7.87s
 - transition_in: cut
 - blueprint: grid-card-assemble (Reproduce)
 - scene: Tres fichas entran en cascada: NOTAMN, NOTAMR, NOTAMC, cada una con su verbo.
@@ -104,7 +104,7 @@ Scene 4 (3.9–5.49s): las tres asentadas en tríptico, pesos iguales, ninguna d
 
 - status: outline
 - src: compositions/frames/05-linea-q.html
-- duration: 10.761s
+- duration: 10.143s
 - transition_in: cut
 - blueprint: spatial-pan-stations (Adapt)
 - scene: La cámara recorre la línea Q real; cada campo se ilumina con su nombre al pasar.
@@ -125,7 +125,7 @@ Scene 4 (5.2–6.30s): la cámara se aleja lo justo para que la línea Q y los �
 
 - status: outline
 - src: compositions/frames/06-casilla-e.html
-- duration: 6.503s
+- duration: 6.851s
 - transition_in: cut
 - blueprint: kinetic-type-beats (Reproduce)
 - scene: `RWY 17L/35R CLSD` se traduce en el sitio a lenguaje natural.
@@ -142,7 +142,7 @@ Scene 3 (3.4–5.22s): queda leyéndose *pista 17L/35R cerrada* en Archivo, y en
 
 - status: outline
 - src: compositions/frames/07-notam-entendido.html
-- duration: 4.761s
+- duration: 4.979s
 - transition_in: crossfade
 - blueprint: grid-card-assemble (Adapt)
 - scene: El aviso del Frame 2 reaparece y las anotaciones entran en cascada sobre cada casilla.
@@ -162,7 +162,7 @@ Scene 3 (2.3–3.42s): la última etiqueta, la de `E)`, entra en acento con medi
 
 - status: outline
 - src: compositions/frames/08-empecemos.html
-- duration: 6.32s
+- duration: 6.198s
 - transition_in: cut
 - blueprint: logo-assemble-lockup (Adapt)
 - scene: Cierre de marca con la promesa concreta del módulo.

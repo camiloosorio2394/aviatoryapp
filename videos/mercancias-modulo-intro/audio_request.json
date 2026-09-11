@@ -1,0 +1,46 @@
+{
+  "provider": "auto",
+  "lang": "es",
+  "speed": 0.92,
+  "lines": [
+    {
+      "id": "01",
+      "text": "Bienvenido al módulo de Mercancías peligrosas de Aviatory."
+    },
+    {
+      "id": "02",
+      "text": "Esto sube a tu avión. Y el papel que lo dice pasa por tus manos antes de cerrar la puerta."
+    },
+    {
+      "id": "03",
+      "text": "Aquí vas a aprender por qué existe la norma, y qué accidente la escribió."
+    },
+    {
+      "id": "04",
+      "text": "Vas a reconocer las nueve clases, sus etiquetas y sus grupos de embalaje."
+    },
+    {
+      "id": "05",
+      "text": "Vas a saber qué puede volar, qué no, y en qué aeronave."
+    },
+    {
+      "id": "06",
+      "text": "Y vas a leer ese papel columna por columna, y qué hacer si algo pasa en vuelo."
+    },
+    {
+      "id": "07",
+      "text": "Al terminar, verás que la pintura y el ácido comparten contenedor. Y por qué se pregunta antes de firmar."
+    },
+    {
+      "id": "08",
+      "text": "Dieciocho lecciones, práctica y evaluación. Empecemos."
+    }
+  ],
+  "bgm": {
+    "mode": "retrieve",
+    "query": "documental sobrio, cuerdas graves contenidas, tensión baja que resuelve en calma",
+    "blob": "El papel que firmas antes de salir es el último punto donde la cadena se puede parar",
+    "arc": "Bienvenida → El papel ilegible → Lo que vas a aprender (4 promesas) → El mismo papel, entendido → Empecemos"
+  },
+  "voice": "001248bb63f847888d37b766ee8b3a47"
+}

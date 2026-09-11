@@ -232,7 +232,7 @@ export function Onboarding() {
 
       <div className="h-1 bg-muted">
         <div
-          className="h-full transition-all duration-700"
+          className="h-full transition-[width] duration-700"
           style={{
             width: `${progress}%`,
             background: "linear-gradient(90deg, var(--av-blue-400), var(--av-blue-500))",
@@ -270,7 +270,7 @@ export function Onboarding() {
                       key={s.value}
                       type="button"
                       onClick={() => update("stage", s.value)}
-                      className={`w-full text-left rounded-2xl border p-4 transition-all ${
+                      className={`w-full text-left rounded-2xl border p-4 transition-[color,background-color,border-color,box-shadow] ${
                         active ? "" : "border-border/60 hover:bg-muted/40"
                       }`}
                       style={
@@ -349,7 +349,7 @@ export function Onboarding() {
                         key={lic.value}
                         type="button"
                         onClick={() => toggleLicense(lic.value)}
-                        className={`h-12 rounded-xl border text-[17px] font-semibold transition-all ${
+                        className={`h-12 rounded-xl border text-[17px] font-semibold transition-[color,background-color,border-color,box-shadow] ${
                           active
                             ? "text-white scale-[1.02]"
                             : "border-border/60 bg-card hover:bg-muted/40"

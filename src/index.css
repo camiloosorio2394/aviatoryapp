@@ -5,6 +5,13 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* El ease por defecto de todas las utilidades `transition-*` sueltas.
+     Tailwind trae `cubic-bezier(0.4, 0, 0.2, 1)`, que es un in-out: arranca
+     lento justo en el fotograma que el ojo está mirando, y por eso 300
+     utilidades del proyecto se sentían más pesadas que el CSS escrito a
+     mano, que sí usa la curva de la casa. Ahora las dos son la misma. */
+  --default-transition-timing-function: var(--ease-av);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -255,7 +262,9 @@
     backdrop-filter: blur(12px);
     color: oklch(0.205 0 0);
     border: 1px solid rgb(0 0 0 / 8%);
-    transition: all 200ms var(--ease-av);
+    transition: background-color 200ms var(--ease-av),
+      transform 200ms var(--ease-av),
+      box-shadow 200ms var(--ease-av);
   }
   .btn-apple-ghost:hover {
     background-color: rgb(0 0 0 / 5%);
@@ -1472,16 +1481,16 @@
    que a esta luminosidad ni siquiera cabe en sRGB sin gritar. Los hex del
    lector, más abajo, salen de estos mismos oklch y no de otro ojo. */
 :root {
-  --av-mt-500: oklch(0.62 0.075 205);
-  --av-mt-600: oklch(0.50 0.072 205);
-  --av-mt-700: oklch(0.38 0.060 206);
-  --av-mt-fg: oklch(0.35 0.055 206);
+  --av-mt-500: oklch(0.63 0.075 205);
+  --av-mt-600: oklch(0.52 0.072 205);
+  --av-mt-700: oklch(0.41 0.062 206);
+  --av-mt-fg: oklch(0.37 0.055 206);
 }
 .dark {
-  --av-mt-500: oklch(0.71 0.072 205);
-  --av-mt-600: oklch(0.61 0.070 205);
-  --av-mt-700: oklch(0.50 0.062 206);
-  --av-mt-fg: oklch(0.77 0.060 205);
+  --av-mt-500: oklch(0.72 0.075 205);
+  --av-mt-600: oklch(0.63 0.072 205);
+  --av-mt-700: oklch(0.52 0.065 206);
+  --av-mt-fg: oklch(0.78 0.062 205);
 }
 
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
@@ -1507,12 +1516,12 @@
    de los tokens --av-mt-* de arriba, convertido: si un día se mueve el matiz,
    se mueven los dos juntos. */
 .lector-notam.lector-mt {
-  --ln-primary: #0D4B52;
-  --ln-primary-hover: #00353C;
-  --ln-bright: #327E86;
-  --ln-tint: #E5F3F5;
-  --ln-pill: #044046;
-  --ln-focus: #49939C;
+  --ln-primary: #1A4A52;
+  --ln-primary-hover: #123A41;
+  --ln-bright: #2E7C89;
+  --ln-tint: #E4EFF1;
+  --ln-pill: #153E45;
+  --ln-focus: #3D97A6;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }

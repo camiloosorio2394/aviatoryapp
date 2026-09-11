@@ -286,7 +286,7 @@ export function Route() {
                 style={{ top: 24, background: "var(--border)" }}
               />
               <div
-                className="absolute left-0 h-0.5 rounded-full transition-all duration-700"
+                className="absolute left-0 h-0.5 rounded-full transition-[width] duration-700"
                 style={{
                   top: 24,
                   width: `${(currentIdx / (STAGE_ORDER.length - 1)) * 100}%`,
@@ -355,7 +355,7 @@ export function Route() {
           </div>
           <div className="relative h-2.5 rounded-full overflow-hidden bg-muted">
             <div
-              className="h-full rounded-full transition-all duration-700"
+              className="h-full rounded-full transition-[width] duration-700"
               style={{ width: `${percent}%`, background: "var(--av-blue-500)" }}
             />
           </div>
@@ -387,7 +387,7 @@ export function Route() {
                       }}
                     >
                       <span
-                        className="flex h-[22px] w-[22px] items-center justify-center rounded-md flex-shrink-0 mt-0.5 transition-all"
+                        className="flex h-[22px] w-[22px] items-center justify-center rounded-md flex-shrink-0 mt-0.5 transition-[color,background-color,border-color,box-shadow]"
                         style={{
                           background: checked ? "var(--av-green-400)" : "transparent",
                           border: checked ? "none" : "1.5px solid var(--border)",
