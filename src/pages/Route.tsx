@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, BookOpen, Clock, RotateCcw } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { EstadoError } from "@/components/EstadoError"
@@ -128,7 +129,7 @@ export function Route() {
           new Set(((progressRes.data ?? []) as { item_id: number }[]).map((p) => p.item_id))
         )
       } catch (err) {
-        console.error("ruta", err)
+        reportarError("ruta", err)
         if (!cancelled) setFallo(true)
       } finally {
         if (!cancelled) setLoading(false)

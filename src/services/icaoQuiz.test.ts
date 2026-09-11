@@ -64,6 +64,7 @@ describe("preguntas del quiz ICAO", () => {
 
   it("una fila con forma inesperada llega al piloto como error general", async () => {
     vi.spyOn(console, "error").mockImplementation(() => {})
+    vi.spyOn(console, "warn").mockImplementation(() => {})
     consulta(Promise.resolve({ data: [{ ...fila(1), options: null }], error: null }))
     const error = await traerPreguntasIcao(null, 10).catch((e: unknown) => e)
     expect(error).toBeInstanceOf(ErrorEvaluacion)

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 export type WingmanMessage = {
   id: string             // local UUID for React keys
@@ -223,17 +224,21 @@ export function useWingman() {
   const giveFeedback = useCallback(
     async (msg: WingmanMessage, value: "thumbs_up" | "thumbs_down") => {
       if (!msg.serverId) return
-      // Optimistic
-      setState((prev) => ({
-        ...prev,
-        messages: prev.messages.map((m) =>
-          m.id === msg.id ? { ...m, feedback: value } : m
-        ),
-      }))
-      await supabase
+      const marcar = (feedback: WingmanMessage["feedback"]) =>
+        setState((prev) => ({
+          ...prev,
+          messages: prev.messages.map((m) => (m.id === msg.id ? { ...m, feedback } : m)),
+        }))
+      // Se marca de inmediato y se deshace si la base no la guarda.
+      marcar(value)
+      const { error } = await supabase
         .from("ai_interactions")
         .update({ feedback: value, feedback_at: new Date().toISOString() })
         .eq("id", msg.serverId)
+      if (error) {
+        marcar(msg.feedback)
+        reportarError("wingman: calificación", error)
+      }
     },
     []
   )

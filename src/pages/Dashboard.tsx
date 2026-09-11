@@ -25,6 +25,7 @@ import {
 } from "@/components/icons/aero"
 import { toast } from "sonner"
 import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
+import { reportarError } from "@/lib/errores"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
@@ -326,7 +327,7 @@ export function Dashboard() {
         // otra vez, encima de sus datos.
         const errorBase = profileRes.error ?? pilotRes.error
         if (errorBase) {
-          console.error("dashboard: perfil o estado del piloto", errorBase)
+          reportarError("dashboard: perfil o estado del piloto", errorBase)
           setFallo(true)
           return
         }
@@ -346,7 +347,7 @@ export function Dashboard() {
           return
         }
       } catch (err) {
-        console.error("dashboard", err)
+        reportarError("dashboard", err)
         if (!cancelled) setFallo(true)
       } finally {
         if (!cancelled) setLoading(false)
@@ -370,8 +371,7 @@ export function Dashboard() {
           // Sin limit: la card de logros muestra la colección completa y
           // necesita saber cuáles están desbloqueados, no solo los últimos 4.
           supabase.from("user_achievements").select("achievement_id, unlocked_at, achievements(*)").eq("user_id", user!.id).order("unlocked_at", { ascending: false }),
-          // get_activity_heatmap está rota a nivel SQL (42804) y este catch se
-          // tragaba el error: la serie sale de la tabla daily_activity directo.
+          // La serie del heatmap sale de daily_activity (src/lib/activity.ts).
           fetchHeatmapSeries(user!.id),
           supabase.rpc("get_peers_in_stage", { p_limit: 5 }),
           supabase.rpc("get_daily_quiz"),
@@ -423,8 +423,9 @@ export function Dashboard() {
         setReadiness(readinessRes.data as PcaReadiness | null)
       } catch (err) {
         // Estas cards muestran su propio estado vacío si algo falla: no
-        // interrumpimos el dashboard con un toast por el heatmap.
-        console.warn("dashboard: tarjetas secundarias", err)
+        // interrumpimos el dashboard con un toast, pero una excepción aquí es
+        // un fallo de código y se reporta.
+        reportarError("dashboard: tarjetas secundarias", err)
       } finally {
         if (!cancelled) setDeferredLoading(false)
       }

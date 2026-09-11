@@ -16,6 +16,7 @@ esa forma.
 | `progreso_y_evaluaciones.sql` | Marcas de progreso contra el catálogo, lección completa para abrir la evaluación, corrección solo de lo respondido, tope de intentos. |
 | `comunidad_y_reportes.sql` | Topes de mensajes y reportes, fecha del servidor, reportes sin editar, visitas de la biblioteca. |
 | `icao_quiz.sql` | Corrección en el servidor, opciones válidas, intentos solo por la función, tope por hora. |
+| `errores_cliente.sql` | Reporte de errores solo con sesión, recortado, con tope por hora y sin acceso directo a la tabla. |
 
 ## Cómo se corren
 

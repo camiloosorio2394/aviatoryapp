@@ -87,6 +87,16 @@ export default defineConfig([
     },
   },
   {
+    // console.error solo llega a la consola del navegador del piloto: lo que
+    // alguien tiene que ver va por reportarError (src/lib/errores.ts), que
+    // además lo guarda en la base. console.warn queda para lo degradado.
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/**/*.test.{ts,tsx}', 'src/lib/errores.ts'],
+    rules: {
+      'no-console': ['error', { allow: ['warn'] }],
+    },
+  },
+  {
     files: ['src/**/*.{ts,tsx}'],
     ignores: ['src/**/*.test.{ts,tsx}'],
     rules: restringirContenido(null),

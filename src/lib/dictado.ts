@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 /**
  * Dictado del TEA: consentimiento y guardado.
@@ -76,7 +77,7 @@ export async function guardarRespuestaHablada(r: RespuestaHabladaGuardada): Prom
       confianza: r.confianza,
       motor: "webspeech",
     })
-    if (error) console.warn("icao speaking", error.message)
+    if (error) reportarError("ICAO hablado: guardar", error)
   } catch (err) {
     console.warn("icao speaking", err)
   }
@@ -94,7 +95,7 @@ export async function borrarRespuestaHablada(questionId: string): Promise<void> 
       .delete()
       .eq("user_id", userId)
       .eq("question_id", questionId)
-    if (error) console.warn("icao speaking borrar", error.message)
+    if (error) reportarError("ICAO hablado: borrar", error)
   } catch (err) {
     console.warn("icao speaking borrar", err)
   }

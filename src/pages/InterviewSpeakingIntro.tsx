@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 /**
  * Preguntas de entrevista intro (speaking) — las que TODA aerolínea hace al
@@ -66,7 +67,7 @@ export function InterviewSpeakingIntro() {
         .order("order_index", { ascending: true })
       if (cancelled) return
       if (qres.error) {
-        console.error("interview_sim_questions", qres.error)
+        reportarError("entrevista: preguntas", qres.error)
       } else {
         setQuestions((qres.data ?? []).map((row) => ({
           ...row,

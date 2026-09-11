@@ -12,6 +12,7 @@ import {
   BookOpen,
 } from "lucide-react"
 import { registrarEstudioDiario } from "@/lib/activity"
+import { reportarError } from "@/lib/errores"
 import {
   contarPreguntasIcao,
   responderIcaoQuiz,
@@ -82,7 +83,7 @@ export function IcaoQuiz() {
     try {
       setCounts(await contarPreguntasIcao())
     } catch (error) {
-      console.error("icao_quiz_questions counts", error)
+      reportarError("quiz ICAO: conteos", error)
       setCounts({})
       setCountsFailed(true)
     }
@@ -110,7 +111,7 @@ export function IcaoQuiz() {
     try {
       ronda = await traerPreguntasIcao(topic === "all" ? null : topic, QUIZ_SIZE)
     } catch (error) {
-      console.error("icao_quiz_questions", error)
+      reportarError("quiz ICAO: preguntas", error)
     }
     setLoading(false)
     if (ronda.length === 0) {

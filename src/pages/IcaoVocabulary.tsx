@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { traerAlaVista } from "@/lib/motion"
+import { reportarError } from "@/lib/errores"
 import {
   Search,
   BookOpen,
@@ -99,7 +100,7 @@ export function IcaoVocabulary() {
         .limit(1000)
       if (cancelled) return
       if (error) {
-        console.error("icao_vocabulary", error)
+        reportarError("vocabulario ICAO", error)
       } else {
         setData((data ?? []) as VocabEntry[])
       }

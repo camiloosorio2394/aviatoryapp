@@ -5,10 +5,13 @@ import { Analytics } from '@vercel/analytics/react'
 import './index.css'
 import App from './App.tsx'
 import { initAnalytics } from './lib/analytics'
+import { escucharErroresGlobales } from './lib/errores'
 import { limpiarCachesJubilados } from './lib/limpiezaCaches'
 import { protegerDatosDeEsteEquipo } from './lib/sesionEnEsteEquipo'
 import { watchSystemTheme } from './lib/theme'
 
+// Lo que ninguna pantalla atrapa también se reporta (src/lib/errores.ts).
+escucharErroresGlobales()
 initAnalytics()
 // Día/noche automático: si la preferencia es "system", sigue al SO en vivo.
 watchSystemTheme()

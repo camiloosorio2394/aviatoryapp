@@ -1,4 +1,5 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
+import { reportarError } from "@/lib/errores"
 import { supabase } from "@/integrations/supabase/client"
 import { MP_APRENDE, MP_EXAM_PER_ATTEMPT, MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA } from "@/lib/mercancias"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
@@ -52,7 +53,7 @@ const CONFIG: ExamenConfig = {
       supabase.from("user_mercancias_exam_attempts").select("score").eq("user_id", uid).order("score", { ascending: false }).limit(1),
     ])
     if (listRes.error) {
-      console.error("mercancias exam history", listRes.error)
+      reportarError("mercancías: historial de evaluación", listRes.error)
       return null
     }
     const rows = (listRes.data ?? []) as { id: string; score: number; correct: number; total: number; taken_at: string }[]

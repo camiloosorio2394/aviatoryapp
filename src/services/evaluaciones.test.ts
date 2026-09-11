@@ -102,8 +102,10 @@ describe("llamadas", () => {
     await expect(terminarEvaluacion("s")).rejects.toMatchObject({ codigo: "intento_no_encontrado" })
 
     const consola = vi.spyOn(console, "error").mockImplementation(() => {})
+    const aviso = vi.spyOn(console, "warn").mockImplementation(() => {})
     rpc.mockResolvedValue({ data: { basura: true }, error: null })
     await expect(terminarEvaluacion("s")).rejects.toBeInstanceOf(ErrorEvaluacion)
     consola.mockRestore()
+    aviso.mockRestore()
   })
 })

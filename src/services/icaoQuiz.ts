@@ -9,6 +9,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 import { barajar } from "@/lib/barajar"
 import {
   clasificarError,
@@ -85,8 +86,8 @@ export async function traerPreguntasIcao(tema: string | null, cantidad: number):
   try {
     return barajar((resultado.data ?? []) as Crudo[]).slice(0, cantidad).map(leerPreguntaIcao)
   } catch (error) {
-    // Igual que en llamarRpc: el detalle queda en consola y al piloto le llega un mensaje general.
-    console.error("icao_quiz_questions: fila inválida", error)
+    // Igual que en llamarRpc: el detalle se reporta y al piloto le llega un mensaje general.
+    reportarError("icao_quiz_questions: fila inválida", error)
     throw new ErrorEvaluacion("desconocido", error)
   }
 }

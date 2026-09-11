@@ -6,6 +6,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 export type CodigoErrorEvaluacion =
   | "sin_sesion"
@@ -108,9 +109,9 @@ export async function llamarRpc<T>(
   try {
     return leer(resultado.data)
   } catch (error) {
-    // Una forma inesperada es un desajuste entre la app y la base: se registra
+    // Una forma inesperada es un desajuste entre la app y la base: se reporta
     // con el detalle, y al piloto le llega un mensaje general.
-    console.error(`${funcion}: respuesta inválida`, error)
+    reportarError(`${funcion}: respuesta inválida`, error)
     throw new ErrorEvaluacion("desconocido", error)
   }
 }

@@ -1,20 +1,16 @@
 /**
  * Registro de actividad de estudio y serie del heatmap.
  *
- * Historia del bug que motivó este archivo (31 jul 2026): las RPC
- * record_daily_activity e increment_streak existían en la base y NINGÚN flujo
- * las llamaba, así que el heatmap marcaba cero y la racha se ponía en riesgo
- * el mismo día en que el piloto hacía quizzes. Además get_activity_heatmap
- * está rota a nivel SQL (42804: declara date y devuelve timestamptz), y el
- * dashboard se tragaba el error en silencio. Por eso:
- *
- *   1. registrarActividadDeEstudio() se llama al COMPLETAR un quiz o examen.
- *   2. El heatmap se arma aquí leyendo la tabla daily_activity directo (RLS
- *      propio), sin pasar por la RPC rota. La migración
- *      20260801020804_fix_activity_heatmap.sql la repara para el futuro.
+ * Estudiar marca el día: suma al heatmap (daily_activity) y mantiene la racha.
+ * - registrarActividadDeEstudio(): al completar un quiz o una evaluación, con
+ *   preguntas y aciertos.
+ * - registrarEstudioDiario(): al estudiar en una superficie sin preguntas (una
+ *   lección, una práctica), como mucho una vez al día por superficie.
+ * - fetchHeatmapSeries(): la serie del heatmap, leída de daily_activity con su RLS.
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 export interface ActivityDay {
   date: string
@@ -24,16 +20,19 @@ export interface ActivityDay {
 
 /**
  * Marca el día como estudiado: suma al heatmap y mantiene viva la racha.
- * Se dispara y se olvida: si falla la red, el quiz ya quedó guardado y no
- * tiene sentido molestar al usuario por el registro de actividad.
+ * Devuelve true si la base registró las dos cosas. Sin sesión no hay nada que
+ * registrar. Un fallo no interrumpe al piloto (lo que estudió ya quedó guardado
+ * por su lado), pero se reporta.
  */
 export async function registrarActividadDeEstudio(datos: {
   questions: number
   correct: number
   minutes?: number
-}): Promise<void> {
+}): Promise<boolean> {
   try {
-    await Promise.all([
+    const { data } = await supabase.auth.getSession()
+    if (!data.session) return false
+    const [actividad, racha] = await Promise.all([
       supabase.rpc("record_daily_activity", {
         p_questions: datos.questions,
         p_correct: datos.correct,
@@ -41,12 +40,21 @@ export async function registrarActividadDeEstudio(datos: {
       }),
       supabase.rpc("increment_streak"),
     ])
+    const error = actividad.error ?? racha.error
+    if (error) {
+      reportarError("registro de actividad", error)
+      return false
+    }
+    return true
   } catch (err) {
-    console.warn("registro de actividad", err)
+    reportarError("registro de actividad", err)
+    return false
   }
 }
 
 const LS_REGISTRADAS = "aviatory.actividad.superficies"
+/** Superficies con un registro en camino: dos secciones leídas seguidas no lo mandan dos veces. */
+const enCamino = new Set<string>()
 
 /** Fecha de hoy en Colombia, que es la zona con la que la base cierra el día. */
 function hoyEnColombia(): string {
@@ -63,6 +71,9 @@ function hoyEnColombia(): string {
  * significar nada. Con el tope, cada superficie aporta lo mismo, que es lo
  * único que se quiere decir: estudiaste aquí hoy.
  *
+ * La marca del día se anota cuando la base confirma el registro: si falla, el
+ * siguiente estudio en esa superficie lo intenta otra vez.
+ *
  * Responder un quiz o una evaluación sigue yendo por
  * `registrarActividadDeEstudio`, que sí acumula preguntas y aciertos.
  */
@@ -71,15 +82,26 @@ export async function registrarEstudioDiario(
   datos: { minutes?: number } = {}
 ): Promise<void> {
   const hoy = hoyEnColombia()
+  let marcas: Record<string, string> = {}
   try {
-    const marcas = JSON.parse(localStorage.getItem(LS_REGISTRADAS) ?? "{}") as Record<string, string>
-    if (marcas[superficie] === hoy) return
-    localStorage.setItem(LS_REGISTRADAS, JSON.stringify({ ...marcas, [superficie]: hoy }))
+    marcas = JSON.parse(localStorage.getItem(LS_REGISTRADAS) ?? "{}") as Record<string, string>
   } catch {
-    /* localStorage bloqueado: se registra igual, solo se pierde el tope */
+    /* localStorage bloqueado o dañado: se registra igual, solo se pierde el tope */
   }
+  if (marcas[superficie] === hoy || enCamino.has(superficie)) return
 
-  await registrarActividadDeEstudio({ questions: 0, correct: 0, minutes: datos.minutes ?? 0 })
+  enCamino.add(superficie)
+  try {
+    const registrada = await registrarActividadDeEstudio({ questions: 0, correct: 0, minutes: datos.minutes ?? 0 })
+    if (!registrada) return
+    try {
+      localStorage.setItem(LS_REGISTRADAS, JSON.stringify({ ...marcas, [superficie]: hoy }))
+    } catch {
+      /* localStorage bloqueado: sin tope, cada estudio vuelve a registrar el día */
+    }
+  } finally {
+    enCamino.delete(superficie)
+  }
 }
 
 const WEEKS = 12
@@ -107,16 +129,16 @@ export async function fetchHeatmapSeries(userId: string): Promise<ActivityDay[]>
       .select("date, activities_count, questions_answered")
       .eq("user_id", userId)
       .gte("date", isoInicio)
-    if (!error) {
-      for (const row of (data ?? []) as ActivityDay[]) {
-        porFecha.set(row.date, {
-          activities_count: row.activities_count ?? 0,
-          questions_answered: row.questions_answered ?? 0,
-        })
-      }
+    // Sin datos, la serie sale en ceros y el heatmap muestra su estado vacío.
+    if (error) console.warn("heatmap: daily_activity", error.message)
+    for (const row of (data ?? []) as ActivityDay[]) {
+      porFecha.set(row.date, {
+        activities_count: row.activities_count ?? 0,
+        questions_answered: row.questions_answered ?? 0,
+      })
     }
-  } catch {
-    /* sin red: la serie sale en ceros y el heatmap muestra su estado vacío */
+  } catch (err) {
+    console.warn("heatmap: daily_activity", err)
   }
 
   const serie: ActivityDay[] = []
