@@ -17,15 +17,14 @@ import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
   NOTAM_PRACTICE_TOTAL,
-  TOTALS,
   readLocalProgress,
   resumirNotam,
-} from "@/lib/notam"
+  NOTAM_TOTALES,
+} from "@/lib/notamComun"
 import { fetchNotamProgress } from "@/lib/notamProgress"
 import { METAR_PRACTICE_TOTAL, readMetarProgress, resumirMetar } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"
 import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
-import { LESSON_MINUTES } from "@/lib/notamLesson"
 import {
   AIRLINE_MOCK_PASS_SCORE,
   BANCO_TOTAL,
@@ -242,7 +241,7 @@ export function AirlinePrep() {
           icon: AerodromeIcon,
           color: "var(--av-blue-500)",
           titulo: "NOTAM",
-          meta: `${TOTALS.lessonScreens} secciones · ${LESSON_MINUTES} min`,
+          meta: `${NOTAM_TOTALES.lessonScreens} secciones · ${NOTAM_TOTALES.lessonMinutes} min`,
           descripcion:
             "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
           foto: notamPhoto,
@@ -250,10 +249,10 @@ export function AirlinePrep() {
           avance: notam.overall,
           completo: notam.overall >= 100,
           estado: notam.empty
-            ? `Sin empezar · ${TOTALS.lessonScreens} secciones`
+            ? `Sin empezar · ${NOTAM_TOTALES.lessonScreens} secciones`
             : notam.overall >= 100
               ? "Tema completo"
-              : `${notam.lessonRead}/${TOTALS.lessonScreens} secciones · ${notam.practiceDone}/${NOTAM_PRACTICE_TOTAL} ejercicios`,
+              : `${notam.lessonRead}/${NOTAM_TOTALES.lessonScreens} secciones · ${notam.practiceDone}/${NOTAM_PRACTICE_TOTAL} ejercicios`,
         },
       },
       {

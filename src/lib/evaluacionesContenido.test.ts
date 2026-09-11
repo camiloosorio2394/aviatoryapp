@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest"
 import { BANCO_TOTAL, MP_CHEQUEO_TOTAL, TEMAS_SIMULACRO } from "@/lib/airlineMock"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
-import { EXAM_PER_ATTEMPT, TOTALS } from "@/lib/notam"
+import { TOTALS } from "@/lib/notam"
+import { EXAM_PER_ATTEMPT } from "@/lib/notamComun"
 
 interface Banco {
   banco: string

@@ -30,13 +30,13 @@ import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
-import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
+import { TILE_COLOR, tileTint, tileBorder, type TileColorKey, accentText } from "@/lib/tileColors"
 import {
   EXAM_PASS_SCORE as NOTAM_PASS_SCORE,
-  TOTALS as NOTAM_TOTALS,
-  accentText,
   readLocalProgress as readNotamLocal,
-} from "@/lib/notam"
+  NOTAM_TOTALES,
+  NOTAM_PRACTICE_TOTAL,
+} from "@/lib/notamComun"
 import { fetchNotamProgress } from "@/lib/notamProgress"
 import { shareStreak } from "@/lib/shareStreak"
 import { fetchHeatmapSeries } from "@/lib/activity"
@@ -126,7 +126,6 @@ interface NotamResumen {
   best: number | null
 }
 
-const NOTAM_PRACTICE_TOTAL = NOTAM_TOTALS.reales + NOTAM_TOTALS.exercises
 
 /** Documento del piloto con fecha de vencimiento (licencia, médico, habilitación). */
 interface LicenseRow {
@@ -625,7 +624,7 @@ export function Dashboard() {
                 done={notam !== null && notam.best !== null && notam.best >= NOTAM_PASS_SCORE}
                 status={
                   notam
-                    ? `Lección ${Math.min(notam.lesson, NOTAM_TOTALS.lessonScreens)} de ${NOTAM_TOTALS.lessonScreens} · práctica ${Math.min(notam.practice, NOTAM_PRACTICE_TOTAL)} de ${NOTAM_PRACTICE_TOTAL}`
+                    ? `Lección ${Math.min(notam.lesson, NOTAM_TOTALES.lessonScreens)} de ${NOTAM_TOTALES.lessonScreens} · práctica ${Math.min(notam.practice, NOTAM_PRACTICE_TOTAL)} de ${NOTAM_PRACTICE_TOTAL}`
                     : "Sin empezar"
                 }
                 hint={
@@ -704,7 +703,7 @@ export function Dashboard() {
  * (o el 100 si ya está aprobada). Si se toca allá, hay que tocarla aquí.
  */
 function notamPct(n: NotamResumen): number {
-  const lessonPct = (Math.min(n.lesson, NOTAM_TOTALS.lessonScreens) / NOTAM_TOTALS.lessonScreens) * 100
+  const lessonPct = (Math.min(n.lesson, NOTAM_TOTALES.lessonScreens) / NOTAM_TOTALES.lessonScreens) * 100
   const practicePct = (Math.min(n.practice, NOTAM_PRACTICE_TOTAL) / NOTAM_PRACTICE_TOTAL) * 100
   const examPct = n.best !== null && n.best >= NOTAM_PASS_SCORE ? 100 : (n.best ?? 0)
   return Math.round((lessonPct + practicePct + examPct) / 3)

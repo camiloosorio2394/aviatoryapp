@@ -12,7 +12,7 @@ import {
   type CategoriaBiblioteca,
   type ItemBiblioteca,
 } from "@/lib/biblioteca"
-import { readLocalProgress, resumirNotam } from "@/lib/notam"
+import { readLocalProgress, resumirNotam } from "@/lib/notamComun"
 import { fetchNotamProgress } from "@/lib/notamProgress"
 import { readMetarProgress, resumirMetar } from "@/lib/metar"
 import { fetchMetarProgress } from "@/lib/metarProgress"

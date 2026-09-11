@@ -1,13 +1,13 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
 import { supabase } from "@/integrations/supabase/client"
 import {
-  DISCLAIMERS,
   EXAM_PASS_SCORE,
-  EXAM_PER_ATTEMPT,
-  TOTALS,
   readLocalProgress,
   writeLocalProgress,
-} from "@/lib/notam"
+  AVISO_EVALUACION,
+  EXAM_PER_ATTEMPT,
+  NOTAM_TOTALES,
+} from "@/lib/notamComun"
 import { fetchNotamProgress } from "@/lib/notamProgress"
 
 /**
@@ -27,11 +27,11 @@ const CONFIG: ExamenConfig = {
   hub: "/app/aerolinea/notam",
   leccion: "/app/aerolinea/notam/aprende",
   practica: "/app/aerolinea/notam/practica",
-  totalLecciones: TOTALS.lessonScreens,
+  totalLecciones: NOTAM_TOTALES.lessonScreens,
   unidadLeccion: "secciones",
   porIntento: EXAM_PER_ATTEMPT,
   aprobacion: EXAM_PASS_SCORE,
-  aviso: DISCLAIMERS.exam,
+  aviso: AVISO_EVALUACION,
   acento: "var(--av-blue-500)",
   evaluacion: "notam_evaluacion",
   leerLeidas: () => readLocalProgress().lessonScreens,
@@ -85,7 +85,7 @@ const CONFIG: ExamenConfig = {
     }
   },
   pasos: {
-    leccion: `Las ${TOTALS.lessonScreens} secciones: formato OACI, casillas y códigos Q explicados paso a paso.`,
+    leccion: `Las ${NOTAM_TOTALES.lessonScreens} secciones: formato OACI, casillas y códigos Q explicados paso a paso.`,
     practica: "NOTAM reales de Colombia y del mundo, y ejercicios escritos para entrenar la lectura.",
   },
 }

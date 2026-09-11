@@ -3,7 +3,7 @@ import { ArrowLeft, ClipboardCheck, ShieldAlert } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
 import { QuizEngine } from "@/components/QuizEngine"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { accentText } from "@/lib/notam"
+import { accentText } from "@/lib/tileColors"
 import {
   METAR_DISCLAIMERS,
   METAR_EXAM_PASS_SCORE,

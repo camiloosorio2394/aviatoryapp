@@ -1,43 +1,52 @@
-import posthog from "posthog-js"
+import type { PostHog } from "posthog-js"
 
 const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY as string | undefined
 const POSTHOG_HOST = (import.meta.env.VITE_POSTHOG_HOST as string | undefined) ??
   "https://us.i.posthog.com"
 
-let initialized = false
-
 /**
- * Inicializa PostHog solo si:
- *  - VITE_POSTHOG_KEY está configurada (no rompe si falta)
- *  - No es localhost (evita gastar events de dev)
+ * PostHog se descarga solo si hay clave y no es localhost.
+ *
+ * Importado de forma estática eran 273 KB dentro del trozo inicial (el 37 %):
+ * lo descargaba y evaluaba cada visita, también la landing, aunque sin clave no
+ * se usara. Ahora es un import() que solo corre al inicializar con clave.
+ *
+ * Lo que se registra mientras llega (la primera vista de página, el identify)
+ * se aplica al llegar, en el mismo orden. Sin clave, todo es un no-op.
  */
+let cargando: Promise<PostHog | null> | null = null
+
 export function initAnalytics() {
-  if (initialized) return
-  if (!POSTHOG_KEY) return
-  if (typeof window === "undefined") return
+  if (cargando || !POSTHOG_KEY || typeof window === "undefined") return
 
-  const isLocal =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
+  const host = window.location.hostname
+  // Localhost no gasta eventos de desarrollo.
+  if (host === "localhost" || host === "127.0.0.1") return
 
-  if (isLocal) return
-
-  posthog.init(POSTHOG_KEY, {
-    api_host: POSTHOG_HOST,
-    person_profiles: "identified_only",
-    autocapture: true,
-    capture_pageview: false, // lo manejamos nosotros para tener path normalizado
-    capture_pageleave: true,
-    disable_session_recording: false,
-    loaded: () => {
-      initialized = true
-    },
-  })
-  initialized = true
+  const clave = POSTHOG_KEY
+  cargando = import("posthog-js")
+    .then(({ default: posthog }) => {
+      posthog.init(clave, {
+        api_host: POSTHOG_HOST,
+        person_profiles: "identified_only",
+        autocapture: true,
+        capture_pageview: false, // lo manejamos nosotros para tener path normalizado
+        capture_pageleave: true,
+        disable_session_recording: false,
+      })
+      return posthog
+    })
+    .catch((error: unknown) => {
+      console.warn("analytics: no se pudo cargar PostHog", error)
+      return null
+    })
 }
 
-export function isAnalyticsEnabled() {
-  return initialized
+function conPosthog(uso: (posthog: PostHog) => void) {
+  if (!cargando) return
+  void cargando.then((posthog) => {
+    if (posthog) uso(posthog)
+  })
 }
 
 /**
@@ -45,25 +54,23 @@ export function isAnalyticsEnabled() {
  * Llamar después del login/signup exitoso.
  */
 export function identifyUser(userId: string, traits: Record<string, unknown> = {}) {
-  if (!initialized) return
-  posthog.identify(userId, traits)
+  conPosthog((posthog) => posthog.identify(userId, traits))
 }
 
 export function resetIdentity() {
-  if (!initialized) return
-  posthog.reset()
+  conPosthog((posthog) => posthog.reset())
 }
 
 export type TrackProps = Record<string, string | number | boolean | null | undefined>
 
 export function track(event: string, props: TrackProps = {}) {
-  if (!initialized) return
-  posthog.capture(event, props)
+  conPosthog((posthog) => posthog.capture(event, props))
 }
 
 export function trackPageView(path: string) {
-  if (!initialized) return
-  posthog.capture("$pageview", { $current_url: window.location.href, path })
+  // La URL de cuando se vio la página, no la de cuando termine de cargar PostHog.
+  const url = window.location.href
+  conPosthog((posthog) => posthog.capture("$pageview", { $current_url: url, path }))
 }
 
 /** Common events centralized para evitar typos */

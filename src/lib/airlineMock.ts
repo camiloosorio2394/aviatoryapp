@@ -9,7 +9,7 @@
 import { supabase } from "@/integrations/supabase/client"
 import { MP_HUB } from "@/lib/mercancias"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
-import { TOTALS } from "@/lib/notam"
+import { NOTAM_TOTALES } from "@/lib/notamComun"
 
 /** Preguntas de Mercancías peligrosas que entran al simulacro (contenido/bancos/mercancias_chequeo.json). */
 export const MP_CHEQUEO_TOTAL = 5
@@ -22,7 +22,7 @@ export const MP_CHEQUEO_TOTAL = 5
  * comprueba que los conteos cuadren con contenido/bancos/.
  */
 export const TEMAS_SIMULACRO: { tema: string; ruta: string; preguntas: number }[] = [
-  { tema: "NOTAM", ruta: "/app/aerolinea/notam", preguntas: TOTALS.examQuestions },
+  { tema: "NOTAM", ruta: "/app/aerolinea/notam", preguntas: NOTAM_TOTALES.examQuestions },
   { tema: "Meteorología", ruta: "/app/aerolinea/meteorologia", preguntas: METAR_EXAM_TOTAL },
   { tema: "Mercancías peligrosas", ruta: MP_HUB, preguntas: MP_CHEQUEO_TOTAL },
 ]
