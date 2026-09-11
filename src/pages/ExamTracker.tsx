@@ -19,8 +19,16 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
 import { reportarError } from "@/lib/errores"
+import {
+  guardarReporte,
+  traerIntelDeMaterias,
+  traerMaterias,
+  traerTemas,
+  type Subject,
+  type SubjectIntel,
+  type SubjectTopic,
+} from "@/services/reportesExamen"
 import { useSession } from "@/hooks/useSession"
 import { esTopeDePublicaciones } from "@/lib/topes"
 import { Button } from "@/components/ui/button"
@@ -37,15 +45,6 @@ import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { CountUp } from "@/components/ui/count-up"
 import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
-
-interface SubjectIntel {
-  subject_id: number
-  subject_name: string
-  subject_slug: string
-  total_reports: number
-  pass_rate: number | null
-  hottest_topic: string | null
-}
 
 /** Identidad visual de cada materia: icono y color del cuadrito tintado. */
 const SUBJECT_ICON: Record<string, { icon: LucideIcon; color: TileColorKey }> = {
@@ -67,29 +66,27 @@ export function ExamTracker() {
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
 
-  const traer = useCallback(async () => supabase.rpc("get_all_subjects_intel"), [])
-
-  const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
+  const aplicar = useCallback((r: Awaited<ReturnType<typeof traerIntelDeMaterias>>) => {
     if (r.error) toast.error(r.error.message)
-    else setIntel((r.data ?? []) as SubjectIntel[])
+    else setIntel(r.materias)
     setLoading(false)
   }, [])
 
   const load = useCallback(async () => {
-    aplicar(await traer())
-  }, [traer, aplicar])
+    aplicar(await traerIntelDeMaterias())
+  }, [aplicar])
 
   // El estado se fija dentro del callback de la promesa y no en el cuerpo del
   // efecto. De paso gana la guarda de cancelación, que no tenía.
   useEffect(() => {
     let vivo = true
-    void traer().then((r) => {
+    void traerIntelDeMaterias().then((r) => {
       if (vivo) aplicar(r)
     })
     return () => {
       vivo = false
     }
-  }, [traer, aplicar])
+  }, [aplicar])
 
   const totalReports = intel.reduce((acc, i) => acc + i.total_reports, 0)
   const totalSubjects = intel.length
@@ -335,19 +332,6 @@ function HowStep({ n, title, body }: { n: string; title: string; body: string })
 
 // ───────────────────────── New Report Dialog (full form preserved)
 
-interface Subject {
-  id: number
-  name: string
-  slug: string
-}
-
-interface Topic {
-  id: number
-  subject_id: number
-  key: string
-  label: string
-}
-
 const REGIONS: { value: string; label: string }[] = [
   { value: "bogota", label: "Bogotá" },
   { value: "medellin", label: "Medellín" },
@@ -363,7 +347,7 @@ const REGIONS: { value: string; label: string }[] = [
 function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: () => void }) {
   const { user } = useSession()
   const [subjects, setSubjects] = useState<Subject[]>([])
-  const [topics, setTopics] = useState<Topic[]>([])
+  const [topics, setTopics] = useState<SubjectTopic[]>([])
   const [saving, setSaving] = useState(false)
 
   const [subjectId, setSubjectId] = useState<string>("")
@@ -377,17 +361,8 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
   const [recalled, setRecalled] = useState<string>("")
 
   useEffect(() => {
-    supabase
-      .from("subjects")
-      .select("id, name, slug")
-      .order("order_index")
-      .then(({ data }) => setSubjects((data ?? []) as Subject[]))
-
-    supabase
-      .from("subject_topics")
-      .select("*")
-      .order("order_index")
-      .then(({ data }) => setTopics((data ?? []) as Topic[]))
+    void traerMaterias().then(setSubjects)
+    void traerTemas().then(setTopics)
   }, [])
 
   const filteredTopics = topics.filter((t) => String(t.subject_id) === subjectId)
@@ -406,41 +381,24 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
     if (!user || !subjectId) return
     setSaving(true)
     try {
-      const { data, error } = await supabase
-        .from("exam_reports")
-        .insert({
-          user_id: user.id,
-          subject_id: Number(subjectId),
-          exam_date: examDate,
+      const { temasGuardados } = await guardarReporte(
+        {
+          userId: user.id,
+          subjectId: Number(subjectId),
+          examDate,
           region,
           passed: passed === "yes",
           score: score ? Number(score) : null,
           difficulty,
           tips: tips.trim() || null,
-          recalled_questions: recalled.trim() || null,
-        })
-        .select("id")
-        .single()
-      if (error) throw error
+          recalledQuestions: recalled.trim() || null,
+        },
+        Array.from(selectedTopics),
+      )
 
-      if (selectedTopics.size > 0) {
-        const reportId = (data as { id: number }).id
-        const { error: errorTemas } = await supabase.from("exam_report_topics").insert(
-          Array.from(selectedTopics).map((topic_id) => ({
-            report_id: reportId,
-            topic_id,
-          }))
-        )
-        // El reporte ya quedó: se avisa que faltaron los temas en vez de dar las gracias como si nada.
-        if (errorTemas) {
-          reportarError("reporte de examen: temas", errorTemas)
-          toast.warning("Guardamos tu reporte, pero no los temas que marcaste.")
-          onSaved()
-          return
-        }
-      }
-
-      toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")
+      // El reporte ya quedó: se avisa que faltaron los temas en vez de dar las gracias como si nada.
+      if (!temasGuardados) toast.warning("Guardamos tu reporte, pero no los temas que marcaste.")
+      else toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")
       onSaved()
     } catch (err) {
       if (esTopeDePublicaciones(err)) {
