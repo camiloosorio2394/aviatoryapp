@@ -11,7 +11,7 @@ import {
 import { useEvaluacion } from "@/hooks/useEvaluacion"
 import { subirArriba } from "@/lib/motion"
 import { accentText } from "@/lib/tileColors"
-import { type ExamenConfig } from "@/components/exam/tipos"
+import type { ExamenConfig } from "@/components/exam/tipos"
 import { OPTION_LETTERS, fmtTime, mix } from "@/components/exam/formato"
 import { Cargando } from "@/components/exam/PuertaCerrada"
 import { Result } from "@/components/exam/Resultado"

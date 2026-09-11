@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { Radar, Lightbulb } from "lucide-react"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { type PilotStage } from "@/components/dashboard/tipos"
+import type { PilotStage } from "@/components/dashboard/tipos"
 import { FIRST_ACTION } from "@/components/dashboard/plan"
 
 export function WingmanInsight({

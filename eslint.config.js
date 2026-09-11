@@ -65,6 +65,12 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      // Con verbatimModuleSyntax, import { type X } deja un import con efecto al
+      // ejecutar: el módulo entra al bundle aunque solo se usen sus tipos. Así
+      // un tipo de un archivo de contenido arrastraría el contenido entero.
+      '@typescript-eslint/no-import-type-side-effects': 'error',
+    },
   },
   {
     // El banco de psicotécnicas (con sus respuestas) lo sirve el servidor. Si la

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react"
 import { useSession } from "@/hooks/useSession"
-import { type ExamenConfig } from "@/components/exam/tipos"
+import type { ExamenConfig } from "@/components/exam/tipos"
 import { Intento } from "@/components/exam/Intento"
 import { Cargando, Bloqueado } from "@/components/exam/PuertaCerrada"
 

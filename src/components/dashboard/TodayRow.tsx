@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
-import { type NextStep } from "@/components/dashboard/plan"
+import type { NextStep } from "@/components/dashboard/plan"
 
 /**
  * Fila compacta, no card. Tres cards de 180px para decir "Revisa tu match,

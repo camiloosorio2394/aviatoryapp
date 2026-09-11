@@ -1,8 +1,8 @@
-import { type ComponentType } from "react"
+import type { ComponentType } from "react"
 import { Users } from "lucide-react"
 import { AerodromeIcon, NdbIcon, VorIcon } from "@/components/icons/aero"
 import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_TOTALES, NOTAM_PRACTICE_TOTAL } from "@/lib/notamComun"
-import { type NotamResumen, type PilotStage } from "@/components/dashboard/tipos"
+import type { NotamResumen, PilotStage } from "@/components/dashboard/tipos"
 
 /** Días desde hoy hasta la fecha, negativo si ya pasó. */
 export function daysUntil(iso: string): number {

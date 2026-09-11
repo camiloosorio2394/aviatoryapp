@@ -9,7 +9,7 @@ import {
   PenLine,
 } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
-import { type ExamenConfig } from "@/components/exam/tipos"
+import type { ExamenConfig } from "@/components/exam/tipos"
 import { mix } from "@/components/exam/formato"
 
 // ─── Puerta cerrada ──────────────────────────────────────────────────────────

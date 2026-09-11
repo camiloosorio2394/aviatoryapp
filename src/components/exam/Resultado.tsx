@@ -11,7 +11,7 @@ import type {
   RevisionPregunta,
   SesionEvaluacion,
 } from "@/services/evaluaciones"
-import { type ExamenConfig } from "@/components/exam/tipos"
+import type { ExamenConfig } from "@/components/exam/tipos"
 import { fmtTime, mix } from "@/components/exam/formato"
 import { AttemptHistory } from "@/components/exam/Historial"
 
