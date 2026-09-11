@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useRef, useState, type FormEvent } from "react"
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent } from "react"
 import { Link, useParams } from "react-router-dom"
-import { ArrowLeft, Hash, Send, Smile, Flame } from "lucide-react"
+import { ArrowLeft, Hash, Send, Smile, Flame, Loader2 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { TILE_COLOR, tileTint, tileBorder, accentText } from "@/lib/tileColors"
 
 import { CHANNEL_ICON, GROUP_META, airlineInitials, airlineTileKey, type ChannelType } from "@/lib/communityChannels"
 import { useSession } from "@/hooks/useSession"
+import { useMensajesCanal, type AutorCanal, type MensajeCanal, type ReaccionCanal } from "@/hooks/useMensajesCanal"
 import { Button } from "@/components/ui/button"
 import { UserAvatar } from "@/components/UserAvatar"
 
@@ -19,56 +20,42 @@ interface Channel {
   emoji: string | null
 }
 
-interface ProfileLite {
-  id: string
-  username: string | null
-  full_name?: string | null
-  photo_url: string | null
-}
-
-interface StreakLite {
-  user_id: string
-  current_streak: number
-}
-
-interface Reaction {
-  message_id: number
-  user_id: string
-  emoji: string
-}
-
-interface Message {
-  id: number
-  channel_id: number
-  user_id: string
-  content: string
-  edited_at: string | null
-  created_at: string
-}
-
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
 
 /** Una sola lista vacía para todo el archivo: creando una nueva en cada render,
  *  cualquier dependencia que la mire se creería que cambió. */
-const SIN_REACCIONES: Reaction[] = []
+const SIN_REACCIONES: ReaccionCanal[] = []
 
 export function CommunityChannel() {
   const { slug } = useParams<{ slug: string }>()
   const { user } = useSession()
   const [channel, setChannel] = useState<Channel | null>(null)
-  const [messages, setMessages] = useState<Message[]>([])
-  const [profiles, setProfiles] = useState<Record<string, ProfileLite>>({})
-  const [streaks, setStreaks] = useState<Record<string, number>>({})
-  // Sin mensajes no hay reacciones, y eso no es un estado que se fije: es una
-  // consecuencia. Se deriva, y así el efecto de abajo no tiene que vaciarlo
-  // desde su cuerpo.
-  const [reacciones, setReacciones] = useState<Reaction[]>([])
-  const reactions = messages.length === 0 ? SIN_REACCIONES : reacciones
   const [input, setInput] = useState("")
   const [sending, setSending] = useState(false)
   const [loading, setLoading] = useState(true)
   const [reactionMenuFor, setReactionMenuFor] = useState<number | null>(null)
   const scrollRef = useRef<HTMLDivElement | null>(null)
+  const {
+    mensajes,
+    reacciones,
+    autores,
+    hayAnteriores,
+    cargandoAnteriores,
+    cargarAnteriores,
+    enviar,
+    alternarReaccion,
+  } = useMensajesCanal(channel?.id ?? null, user?.id)
+
+  /** Reacciones agrupadas por mensaje: se calcula cuando cambian, no con cada tecla del composer. */
+  const reaccionesPorMensaje = useMemo(() => {
+    const porMensaje = new Map<number, ReaccionCanal[]>()
+    for (const r of reacciones) {
+      const lista = porMensaje.get(r.message_id)
+      if (lista) lista.push(r)
+      else porMensaje.set(r.message_id, [r])
+    }
+    return porMensaje
+  }, [reacciones])
 
   // ---- Load channel + initial messages
   useEffect(() => {
@@ -96,235 +83,50 @@ export function CommunityChannel() {
     }
   }, [slug])
 
-  // ---- Initial fetch + Realtime subscription
-  /** Trae y devuelve. Null cuando no hay canal o la consulta falla: en los dos
-   *  casos lo que hay en pantalla se queda como está. */
-  const traerMensajes = useCallback(async () => {
-    if (!channel) return null
-    const { data, error } = await supabase
-      .from("community_messages")
-      .select("*")
-      .eq("channel_id", channel.id)
-      .order("created_at", { ascending: true })
-      .limit(200)
-    return error ? null : ((data ?? []) as Message[])
-  }, [channel])
 
-  useEffect(() => {
-    if (!channel) return
-    let vivo = true
-    // El estado se fija dentro del callback de la promesa y no en el cuerpo del
-    // efecto, que es lo que pide react-hooks/set-state-in-effect.
-    void traerMensajes().then((lista) => {
-      if (vivo && lista) setMessages(lista)
-    })
+  // Al llegar un mensaje nuevo (el último cambia) se baja al final. Al cargar
+  // anteriores (cambia el primero) se conserva lo que se estaba leyendo.
+  const primerId = mensajes[0]?.id
+  const ultimoId = mensajes[mensajes.length - 1]?.id
+  const distanciaAlFinal = useRef<number | null>(null)
 
-    // Realtime: nuevos mensajes en este canal
-    const rt = supabase
-      .channel(`channel-${channel.id}`)
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "community_messages",
-          filter: `channel_id=eq.${channel.id}`,
-        },
-        (payload) => {
-          const m = payload.new as Message
-          // Skip si ya está (optimistic UI ya lo agregó)
-          setMessages((prev) =>
-            prev.some((x) => x.id === m.id) ? prev : [...prev, m]
-          )
-        }
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "DELETE",
-          schema: "public",
-          table: "community_messages",
-          filter: `channel_id=eq.${channel.id}`,
-        },
-        (payload) => {
-          const oldId = (payload.old as { id: number }).id
-          setMessages((prev) => prev.filter((m) => m.id !== oldId))
-        }
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "INSERT",
-          schema: "public",
-          table: "community_reactions",
-        },
-        (payload) => {
-          const r = payload.new as Reaction
-          setReacciones((prev) =>
-            prev.some(
-              (x) =>
-                x.message_id === r.message_id &&
-                x.user_id === r.user_id &&
-                x.emoji === r.emoji
-            )
-              ? prev
-              : [...prev, r]
-          )
-        }
-      )
-      .on(
-        "postgres_changes",
-        {
-          event: "DELETE",
-          schema: "public",
-          table: "community_reactions",
-        },
-        (payload) => {
-          const o = payload.old as Reaction
-          setReacciones((prev) =>
-            prev.filter(
-              (r) =>
-                !(
-                  r.message_id === o.message_id &&
-                  r.user_id === o.user_id &&
-                  r.emoji === o.emoji
-                )
-            )
-          )
-        }
-      )
-      .subscribe()
-
-    return () => {
-      vivo = false
-      supabase.removeChannel(rt)
-    }
-  }, [channel, traerMensajes])
-
-  // ---- Fetch profile + streak data for users in messages
-  useEffect(() => {
-    const userIds = Array.from(new Set(messages.map((m) => m.user_id)))
-    const missingProfiles = userIds.filter((id) => !profiles[id])
-    const missingStreaks = userIds.filter((id) => streaks[id] === undefined)
-
-    if (missingProfiles.length > 0) {
-      supabase
-        .rpc("get_profile_avatars", { p_user_ids: missingProfiles })
-        .then(({ data }) => {
-          if (!data) return
-          setProfiles((prev) => {
-            const next = { ...prev }
-            for (const p of data as ProfileLite[]) next[p.id] = p
-            return next
-          })
-        })
-    }
-    if (missingStreaks.length > 0) {
-      supabase
-        .from("streaks")
-        .select("user_id, current_streak")
-        .in("user_id", missingStreaks)
-        .then(({ data }) => {
-          if (!data) return
-          setStreaks((prev) => {
-            const next = { ...prev }
-            for (const s of data as StreakLite[]) next[s.user_id] = s.current_streak
-            return next
-          })
-        })
-    }
-  }, [messages, profiles, streaks])
-
-  // ---- Fetch reactions for messages
-  useEffect(() => {
-    if (messages.length === 0) return
-    const ids = messages.map((m) => m.id)
-    let vivo = true
-    void supabase
-      .from("community_reactions")
-      .select("*")
-      .in("message_id", ids)
-      .then(({ data }) => {
-        if (vivo) setReacciones((data ?? []) as Reaction[])
-      })
-    return () => {
-      vivo = false
-    }
-  }, [messages])
-
-  // ---- Auto-scroll to bottom on new messages
   useEffect(() => {
     if (!scrollRef.current) return
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight
-  }, [messages.length])
+  }, [ultimoId])
+
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el || distanciaAlFinal.current === null) return
+    el.scrollTop = el.scrollHeight - distanciaAlFinal.current
+    distanciaAlFinal.current = null
+  }, [primerId])
+
+  async function verAnteriores() {
+    const el = scrollRef.current
+    distanciaAlFinal.current = el ? el.scrollHeight - el.scrollTop : null
+    if (!(await cargarAnteriores())) {
+      distanciaAlFinal.current = null
+      toast.error("No pudimos traer los mensajes anteriores. Inténtalo de nuevo.")
+    }
+  }
 
   async function handleSend(e: FormEvent) {
     e.preventDefault()
     const text = input.trim()
     if (!text || !channel || !user || sending) return
     setSending(true)
-    const optimisticId = -Date.now()
-    const optimistic: Message = {
-      id: optimisticId,
-      channel_id: channel.id,
-      user_id: user.id,
-      content: text,
-      edited_at: null,
-      created_at: new Date().toISOString(),
-    }
-    setMessages((prev) => [...prev, optimistic])
     setInput("")
-
-    const { error, data } = await supabase
-      .from("community_messages")
-      .insert({ channel_id: channel.id, user_id: user.id, content: text })
-      .select("*")
-      .single()
-
+    const error = await enviar(text)
     setSending(false)
     if (error) {
-      setMessages((prev) => prev.filter((m) => m.id !== optimisticId))
-      toast.error(error.message)
-    } else if (data) {
-      setMessages((prev) =>
-        prev.map((m) => (m.id === optimisticId ? (data as Message) : m))
-      )
+      setInput(text)
+      toast.error(error)
     }
   }
 
   async function toggleReaction(messageId: number, emoji: string) {
-    if (!user) return
-    const existing = reactions.find(
-      (r) => r.message_id === messageId && r.user_id === user.id && r.emoji === emoji
-    )
-    if (existing) {
-      setReacciones((prev) =>
-        prev.filter(
-          (r) =>
-            !(r.message_id === messageId && r.user_id === user.id && r.emoji === emoji)
-        )
-      )
-      await supabase
-        .from("community_reactions")
-        .delete()
-        .eq("message_id", messageId)
-        .eq("user_id", user.id)
-        .eq("emoji", emoji)
-    } else {
-      const optimistic: Reaction = { message_id: messageId, user_id: user.id, emoji }
-      setReacciones((prev) => [...prev, optimistic])
-      const { error } = await supabase
-        .from("community_reactions")
-        .insert({ message_id: messageId, user_id: user.id, emoji })
-      if (error) {
-        setReacciones((prev) =>
-          prev.filter(
-            (r) =>
-              !(r.message_id === messageId && r.user_id === user.id && r.emoji === emoji)
-          )
-        )
-      }
-    }
+    await alternarReaccion(messageId, emoji)
     setReactionMenuFor(null)
   }
 
@@ -419,11 +221,26 @@ export function CommunityChannel() {
           ref={scrollRef}
           className="flex-1 overflow-y-auto px-4 sm:px-6 lg:px-10 py-6 space-y-3"
         >
-          {messages.length === 0 ? (
+          {hayAnteriores && (
+            <div className="flex justify-center pb-2">
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="rounded-full"
+                onClick={verAnteriores}
+                disabled={cargandoAnteriores}
+              >
+                {cargandoAnteriores && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
+                Ver mensajes anteriores
+              </Button>
+            </div>
+          )}
+          {mensajes.length === 0 ? (
             <EmptyChannel />
           ) : (
-            messages.map((m, i) => {
-              const prev = messages[i - 1]
+            mensajes.map((m, i) => {
+              const prev = mensajes[i - 1]
               const sameAuthorAsPrev =
                 prev && prev.user_id === m.user_id &&
                 new Date(m.created_at).getTime() - new Date(prev.created_at).getTime() < 5 * 60_000
@@ -431,11 +248,11 @@ export function CommunityChannel() {
                 <MessageBubble
                   key={m.id}
                   message={m}
-                  profile={profiles[m.user_id]}
-                  streak={streaks[m.user_id] ?? 0}
+                  profile={autores[m.user_id]}
+                  streak={autores[m.user_id]?.current_streak ?? 0}
                   isOwn={user?.id === m.user_id}
                   compact={!!sameAuthorAsPrev}
-                  reactions={reactions.filter((r) => r.message_id === m.id)}
+                  reactions={reaccionesPorMensaje.get(m.id) ?? SIN_REACCIONES}
                   currentUserId={user?.id}
                   reactionMenuOpen={reactionMenuFor === m.id}
                   onToggleReactionMenu={() =>
@@ -521,20 +338,18 @@ function MessageBubble({
   onToggleReactionMenu,
   onReact,
 }: {
-  message: Message
-  profile: ProfileLite | undefined
+  message: MensajeCanal
+  profile: AutorCanal | undefined
   streak: number
   isOwn: boolean
   compact: boolean
-  reactions: Reaction[]
+  reactions: ReaccionCanal[]
   currentUserId: string | undefined
   reactionMenuOpen: boolean
   onToggleReactionMenu: () => void
   onReact: (emoji: string) => void
 }) {
-  const displayName = profile?.username
-    ? `@${profile.username}`
-    : profile?.full_name?.split(" ")[0] ?? "anónimo"
+  const displayName = profile?.username ? `@${profile.username}` : "anónimo"
   const time = new Date(message.created_at).toLocaleTimeString("es-CO", {
     hour: "2-digit",
     minute: "2-digit",
@@ -558,7 +373,6 @@ function MessageBubble({
           <UserAvatar
             photoUrl={profile?.photo_url}
             username={profile?.username}
-            fullName={profile?.full_name}
             size="md"
             gradient={isOwn ? "from-blue-500 to-blue-700" : "from-slate-500 to-slate-700"}
             className="!h-9 !w-9 shadow-md"
