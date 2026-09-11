@@ -1,6 +1,7 @@
 -- ============================================================================
--- Comunidad y reportes: tope por piloto, fecha del servidor y columnas que el
--- cliente puede mandar. Migración 20260911193818.
+-- Comunidad y reportes: tope por piloto, fecha del servidor, columnas que el
+-- cliente puede mandar y avisos en vivo por canal. Migraciones 20260911193818 y
+-- 20260911204044.
 --
 -- Escribe filas de prueba y las deshace: termina en PRUEBA_DESHECHA con la
 -- lista de lo verificado, o en FALLO. Cómo se corre: supabase/tests/README.md.
@@ -14,6 +15,8 @@ declare
   x_vistas int;
   x_fecha timestamptz;
   x_i int;
+  x_mensaje bigint;
+  x_canal_reaccion bigint;
   x_log text := '';
 begin
   select id into x_a from auth.users order by created_at limit 1;
@@ -91,6 +94,33 @@ begin
   returning created_at into x_fecha;
   if x_fecha > now() + interval '1 minute' then raise exception 'FALLO created_at futuro aceptado'; end if;
   x_log := x_log || ' fecha_del_servidor';
+
+  -- La reacción toma el canal de su mensaje; el cliente no lo manda.
+  delete from public.community_messages where user_id = x_a and created_at > now() - interval '10 minutes';
+  perform set_config('request.jwt.claims', json_build_object('sub', x_a, 'role', 'authenticated')::text, true);
+  set local role authenticated;
+  insert into public.community_messages (channel_id, user_id, content) values (x_canal, x_a, 'con reacción')
+  returning id into x_mensaje;
+  insert into public.community_reactions (message_id, user_id, emoji) values (x_mensaje, x_a, '👍')
+  returning channel_id into x_canal_reaccion;
+  if x_canal_reaccion is distinct from x_canal then
+    raise exception 'FALLO la reacción quedó en el canal % y no en %', x_canal_reaccion, x_canal;
+  end if;
+  begin
+    insert into public.community_reactions (message_id, user_id, emoji, channel_id) values (x_mensaje, x_a, '🔥', x_canal);
+    raise exception 'FALLO el cliente fijó channel_id';
+  exception when insufficient_privilege then null;
+  end;
+  reset role;
+  x_log := x_log || ' reaccion_con_canal';
+
+  -- Los borrados llevan la fila entera al WAL: el filtro por canal de Realtime
+  -- los encuentra.
+  if (select relreplident from pg_class where oid = 'public.community_messages'::regclass) <> 'f'
+     or (select relreplident from pg_class where oid = 'public.community_reactions'::regclass) <> 'f' then
+    raise exception 'FALLO replica identity de la comunidad no es full';
+  end if;
+  x_log := x_log || ' borrados_filtrables';
 
   -- Reacciones y reportes de contenido usan el mismo disparador con su tope.
   if not exists (select 1 from pg_trigger where tgname = 'trg_tope_community_reactions' and encode(tgargs, 'escape') like '120\\00010 minutes%')
