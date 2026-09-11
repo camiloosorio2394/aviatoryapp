@@ -67,7 +67,7 @@ export function Icao() {
     if (sessionLoading || !user) return
     let cancelado = false
     void (async () => {
-      const p = await fetchIcaoProgress(user.id)
+      const p = await fetchIcaoProgress()
       if (cancelado) return
       setProgreso(p)
       setHidratado(true)

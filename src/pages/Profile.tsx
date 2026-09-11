@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { toast } from "sonner"
 import { AtSign, Camera, Check, FileText, Loader2, Mic, Save, Trash2, X, Radar, Settings, User as UserIcon, TrendingUp, ArrowRight, Headphones } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
+import { traerResumenBitacora } from "@/services/bitacora"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
@@ -125,10 +126,10 @@ export function Profile() {
     let cancelled = false
     async function load() {
       try {
-        const [profileRes, pilotRes, flightsRes, licRes, mockRes, achMineRes, achAllRes, pcaBestRes, quizCountRes, streakRes] = await Promise.all([
+        const [profileRes, pilotRes, bitacoraRes, licRes, mockRes, achMineRes, achAllRes, pcaBestRes, quizCountRes, streakRes] = await Promise.all([
           supabase.from("profiles").select("full_name, country, username, photo_url").eq("id", user!.id).maybeSingle(),
           supabase.from("pilot_state").select("*").eq("user_id", user!.id).maybeSingle(),
-          supabase.from("flights").select("total_minutes, pic_minutes, cross_country_minutes, night_minutes, instrument_real_minutes, instrument_sim_minutes, flight_date").eq("user_id", user!.id).order("flight_date", { ascending: false }),
+          traerResumenBitacora(user!.id),
           supabase.from("licenses_held").select("id, license_type, custom_name, issued_date, expires_date").eq("user_id", user!.id).order("expires_date", { ascending: true, nullsFirst: false }),
           supabase.from("user_icao_mock_results").select("final_level, taken_at").eq("user_id", user!.id).order("taken_at", { ascending: false }).limit(1).maybeSingle(),
           supabase.from("user_achievements").select("achievement_id", { count: "exact", head: true }).eq("user_id", user!.id),
@@ -162,16 +163,17 @@ export function Profile() {
           setLicenses(pilot.licenses ?? [])
         }
 
-        // Agregado del logbook (fuente real de horas). Viene ordenado por fecha
-        // descendente, así que el primero es el vuelo más reciente.
-        const flights = (flightsRes.data ?? []) as { total_minutes: number; pic_minutes: number; cross_country_minutes: number; flight_date: string | null }[]
+        // Agregado de la bitácora (fuente real de horas), sumado en la base. Si
+        // falla, la tarjeta usa las horas declaradas en pilot_state.
+        if (bitacoraRes.error) console.warn("perfil: bitacora_resumen", bitacoraRes.error.message)
+        const bitacora = bitacoraRes.resumen
         setFlightAgg({
-          totalMin: flights.reduce((a, f) => a + (f.total_minutes ?? 0), 0),
-          picMin: flights.reduce((a, f) => a + (f.pic_minutes ?? 0), 0),
-          xcMin: flights.reduce((a, f) => a + (f.cross_country_minutes ?? 0), 0),
-          count: flights.length,
+          totalMin: bitacora.minutosTotal,
+          picMin: bitacora.minutosPic,
+          xcMin: bitacora.minutosTravesia,
+          count: bitacora.vuelos,
         })
-        setLastFlight(flights[0]?.flight_date ?? null)
+        setLastFlight(bitacora.ultimoVuelo)
 
         setStudyStats({
           pcaBest: (pcaBestRes.data as { score: number | null } | null)?.score ?? null,
