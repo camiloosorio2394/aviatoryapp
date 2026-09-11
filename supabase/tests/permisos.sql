@@ -94,6 +94,24 @@ begin
   if x_lista is not null then raise exception 'FALLO el cliente lee: %', x_lista; end if;
   x_log := x_log || ' correcciones_ocultas';
 
+  -- Lo que la app no usa no queda abierto (migración 20260911212138).
+  -- Si una pantalla lo necesita, la migración que la trae devuelve el permiso y
+  -- lo saca de esta lista.
+  select string_agg(f, ', ') into x_lista
+  from unnest(array[
+    'public.get_daily_quiz()', 'public.get_peers_in_stage(integer)', 'public.get_subject_mastery()',
+    'public.ai_usage_this_month()', 'public.get_activity_heatmap()', 'public.get_pilot_cv(text)',
+    'public.recalc_pilot_hours(uuid)', 'public.unread_notifications_count()'
+  ]) as f
+  where has_function_privilege('authenticated', f, 'execute');
+  if x_lista is null then
+    select string_agg(t, ', ') into x_lista
+    from unnest(array['public.user_pca_readiness', 'public.daily_activity']) as t
+    where has_table_privilege('authenticated', t, 'select');
+  end if;
+  if x_lista is not null then raise exception 'FALLO el cliente conserva acceso sin uso: %', x_lista; end if;
+  x_log := x_log || ' sin_uso_cerrado';
+
   -- El cliente escribe solo en estas tablas: lo que el piloto declara o publica.
   -- Puntajes, intentos, progreso, logros y rachas van por funciones. Una tabla
   -- nueva que el cliente escriba entra a esta lista con su razón.

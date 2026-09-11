@@ -1,7 +1,11 @@
 -- ============================================================================
 -- Panel del piloto: panel_inicio() y panel_tarjetas() devuelven lo mismo que
--- las consultas que reemplazan, hechas por el propio piloto con su RLS, y nada
--- de otro piloto.
+-- las consultas que reemplazan, y nada de otro piloto.
+--
+-- Lo que el cliente todavía lee (perfil, estado, quizzes, logros, documentos)
+-- se compara como el piloto, con su RLS. Lo que ya solo lee el servidor
+-- (actividad, compañeros, dominio, preparación) se compara como servidor, con
+-- el mismo piloto en la sesión.
 --
 -- Solo lee. Termina en PRUEBA_DESHECHA con la lista de lo verificado, o en
 -- FALLO. Cómo se corre: supabase/tests/README.md.
@@ -39,7 +43,7 @@ begin
     x_inicio := public.panel_inicio();
     x_tarjetas := public.panel_tarjetas();
 
-    -- Encabezado: lo mismo que las cinco consultas, con el RLS del piloto.
+    -- Como el piloto, con su RLS.
     x_esperado := (select jsonb_build_object('full_name', full_name, 'username', username, 'photo_url', photo_url)
                    from public.profiles where id = x_usuario);
     if x_inicio -> 'perfil' is distinct from x_esperado then
@@ -52,8 +56,6 @@ begin
        <> (select count(*) from public.vault_sessions where user_id = x_usuario and completed_at is not null) then
       raise exception 'FALLO quizzes de %', x_usuario;
     end if;
-
-    -- Tarjetas.
     if (select count(*) from jsonb_array_elements(x_tarjetas -> 'logros') e where e ->> 'unlocked_at' is not null)
        <> (select count(*) from public.user_achievements where user_id = x_usuario) then
       raise exception 'FALLO logros desbloqueados de %', x_usuario;
@@ -61,6 +63,19 @@ begin
     if jsonb_array_length(x_tarjetas -> 'logros') <> (select count(*) from public.achievements) then
       raise exception 'FALLO catálogo de logros';
     end if;
+    if jsonb_array_length(x_tarjetas -> 'licencias')
+       <> (select count(*) from public.licenses_held where user_id = x_usuario and expires_date is not null) then
+      raise exception 'FALLO documentos de %', x_usuario;
+    end if;
+    if exists (select 1 from jsonb_array_elements(x_tarjetas -> 'quiz_diario') e where e ? 'explanation' or e ? 'options') then
+      raise exception 'FALLO el quiz del día trae explicación u opciones';
+    end if;
+    if (x_tarjetas -> 'notam' ->> 'lecciones')::int > x_lecciones_notam then
+      raise exception 'FALLO NOTAM cuenta secciones que no existen';
+    end if;
+    reset role;
+
+    -- Como servidor, con el mismo piloto en la sesión.
     if jsonb_array_length(x_tarjetas -> 'actividad')
        <> (select count(*) from public.daily_activity where user_id = x_usuario and date >= current_date - 90) then
       raise exception 'FALLO actividad de %', x_usuario;
@@ -74,21 +89,10 @@ begin
     if x_tarjetas -> 'dominio' is distinct from x_esperado then
       raise exception 'FALLO dominio de %', x_usuario;
     end if;
-    if exists (select 1 from jsonb_array_elements(x_tarjetas -> 'quiz_diario') e where e ? 'explanation' or e ? 'options') then
-      raise exception 'FALLO el quiz del día trae explicación u opciones';
-    end if;
-    if (x_tarjetas -> 'notam' ->> 'lecciones')::int > x_lecciones_notam then
-      raise exception 'FALLO NOTAM cuenta secciones que no existen';
-    end if;
-    if jsonb_array_length(x_tarjetas -> 'licencias')
-       <> (select count(*) from public.licenses_held where user_id = x_usuario and expires_date is not null) then
-      raise exception 'FALLO documentos de %', x_usuario;
-    end if;
     if (x_tarjetas -> 'preparacion' ->> 'attempts_60d') is distinct from
        (select attempts_60d::text from public.user_pca_readiness where user_id = x_usuario) then
       raise exception 'FALLO preparación de %', x_usuario;
     end if;
-    reset role;
   end loop;
   x_log := x_log || ' igual_a_las_consultas(' || x_pilotos || '_pilotos)';
 
