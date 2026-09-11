@@ -11,7 +11,6 @@ import {
 } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
 import { accentText } from "@/lib/notam"
 import {
@@ -185,7 +184,7 @@ export function Community() {
   const comunidadVacia = totalChannels > 0 && Object.keys(activity).length === 0
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* Hero de módulo */}
         <section className="relative overflow-hidden rounded-xl mb-6">
@@ -275,7 +274,7 @@ export function Community() {
           </span>
         </p>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

@@ -23,6 +23,12 @@ Comprobar siempre con `npx tsc -b` (no `--noEmit`). No hay Prettier: la indentac
 `deepPlain()` en `src/lib/notam.ts` reescribe la raya larga `—` como `: `. **No usar rayas
 largas en el contenido**; van paréntesis o comillas angulares.
 
+**Pantallas con sesión**: `AppLayout` es la ruta de layout de `App.tsx` y se monta una sola vez
+(barra, Wingman, avisos y su suscripción). Una pantalla nueva con barra va como ruta hija ahí y
+**no se envuelve en `<AppLayout>`**; las de pantalla completa (lecciones, onboarding) van en el
+grupo sin layout. El chip de racha de la barra se publica con `useRachaEnBarra()`. Los avisos y
+los toasts de logros llegan por Realtime (`NotificacionesProvider`): nada se consulta por sondeo.
+
 ## Sistema de diseño
 
 El lector de lecciones es **uno solo y compartido**: `src/components/lesson/LectorLeccion.tsx`.

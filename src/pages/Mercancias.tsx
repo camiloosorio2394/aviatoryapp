@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { CourseCard } from "@/components/ui/course-card"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
 import { VideoIntro } from "@/components/modulo/VideoIntro"
@@ -135,7 +134,7 @@ export function Mercancias() {
   ]
 
   return (
-    <AppLayout>
+    <>
       <div className="notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea"
@@ -315,6 +314,6 @@ export function Mercancias() {
         </section>
 
       </div>
-    </AppLayout>
+    </>
   )
 }

@@ -11,7 +11,6 @@ import {
   Sparkles,
   UserCircle2,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
@@ -76,7 +75,7 @@ export function IcaoInterview() {
   const hasProfile = !!(pilot && (pilot.stage || pilot.totalHours || pilot.targetAirline))
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[940px] mx-auto">
         <Link
           to="/app/icao"
@@ -188,7 +187,7 @@ export function IcaoInterview() {
           {TEA_PART1_TOTAL} preguntas · 4 sets · TEA Parte 1 (Mayflower College)
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

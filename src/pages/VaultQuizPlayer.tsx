@@ -13,7 +13,6 @@ import {
   Timer,
   BookOpen,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { ProtectedContent } from "@/components/ProtectedContent"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { useVaultQuiz, type AnswerResult, type VaultError } from "@/hooks/useVaultQuiz"
@@ -177,12 +176,12 @@ export function VaultQuizPlayer() {
   // ──────────────────── Loading ────────────────────
   if (loading || (!session && !completed)) {
     return (
-      <AppLayout>
+      <>
         <div className="min-h-[60vh] flex flex-col items-center justify-center gap-3 text-muted-foreground">
           <Loader2 className="h-7 w-7 animate-spin" />
           <p className="text-[15px]">Preparando tu quiz…</p>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
@@ -191,7 +190,7 @@ export function VaultQuizPlayer() {
     const scorePct = Math.round((correctCount / session.questionCount) * 100)
     const passed = scorePct >= 70
     return (
-      <AppLayout>
+      <>
         <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[920px] mx-auto">
           <section className="anim-fade-up relative overflow-hidden rounded-2xl surface p-6 sm:p-8">
             <div className="relative grid items-center gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-[1fr_auto]">
@@ -342,7 +341,7 @@ export function VaultQuizPlayer() {
             </Link>
           </div>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
@@ -362,7 +361,7 @@ export function VaultQuizPlayer() {
   const optionEntries = Object.entries(currentQuestion.options)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-4 sm:pb-20 max-w-[920px] mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between gap-3 mb-5">
@@ -557,7 +556,7 @@ export function VaultQuizPlayer() {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -600,7 +599,7 @@ function noticeFor(error: VaultError, noQuestionsTitle: string): NoticeProps {
 
 function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-10 pb-20 max-w-[560px] mx-auto">
         <div className="rounded-2xl surface p-7 text-center">
           <div
@@ -635,6 +634,6 @@ function QuizNotice({ icon: Icon, color, title, line, onRetry }: NoticeProps) {
           </div>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }

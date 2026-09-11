@@ -5,7 +5,6 @@ import { AtSign, Camera, Check, FileText, Loader2, Mic, Save, Trash2, X, Radar, 
 import { supabase } from "@/integrations/supabase/client"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -334,7 +333,7 @@ export function Profile() {
 
   if (loading) {
     return (
-      <AppLayout>
+      <>
         <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto animate-pulse">
           <div className="mb-6 space-y-2.5">
             <div className="h-3 w-24 bg-muted rounded" />
@@ -350,7 +349,7 @@ export function Profile() {
             </div>
           </div>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
@@ -383,7 +382,7 @@ export function Profile() {
     .slice(0, 3)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader eyebrow="Mi perfil" title="Tu identidad como piloto" subtitle="Tu mapa de habilidades sale de datos reales: Logbook, Vencimientos y tus simulacros TEA. Aviatory lo usa para calcular tu progreso y plan." />
 
@@ -626,7 +625,7 @@ export function Profile() {
 
         <PermisoDictado />
       </div>
-    </AppLayout>
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from "react"
 import type { ComponentType } from "react"
-import { Navigate, Route, Routes, useParams } from "react-router-dom"
+import { Navigate, Outlet, Route, Routes, useParams } from "react-router-dom"
 import { Toaster } from "@/components/ui/sonner"
 import { ReloadPrompt } from "@/components/ReloadPrompt"
 import { RequireAuth } from "@/components/auth/RequireAuth"
@@ -22,11 +22,15 @@ import { identifyUser, resetIdentity } from "@/lib/analytics"
  * las cuarenta.
  *
  * El `.then` es porque las páginas son exportaciones con nombre, no por defecto.
+ *
+ * El layout de la app va igual: quien entra a la landing no descarga la barra,
+ * los avisos ni Wingman.
  */
 function page<T, K extends keyof T>(cargar: () => Promise<T>, nombre: K) {
   return lazy(() => cargar().then((m) => ({ default: m[nombre] as ComponentType })))
 }
 
+const AppLayout = page(() => import("@/components/layout/AppLayout"), "AppLayout")
 const Landing = page(() => import("@/pages/Landing"), "Landing")
 const Pricing = page(() => import("@/pages/Pricing"), "Pricing")
 const Contact = page(() => import("@/pages/Contact"), "Contact")
@@ -135,447 +139,132 @@ function App() {
           de una página que no llega a cargar. */}
       <ErrorBoundary>
         <Suspense fallback={<PaginaCargando />}>
-        <Routes>
-        {/* Public */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/terminos" element={<Terms />} />
-        <Route path="/privacidad" element={<Privacy />} />
-        <Route path="/login" element={<Login />} />
-        {/* Recuperar la contraseña va por fuera de RequireAuth a propósito:
-            Supabase entrega el enlace del correo como una sesión ya iniciada, y
-            atar la pantalla a esa carrera no aporta nada. */}
-        <Route path="/recuperar" element={<Recuperar />} />
-        <Route path="/nueva-clave" element={<NuevaClave />} />
+          <Routes>
+            {/* Public */}
+            <Route path="/" element={<Landing />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/terminos" element={<Terms />} />
+            <Route path="/privacidad" element={<Privacy />} />
+            <Route path="/login" element={<Login />} />
+            {/* Recuperar la contraseña va por fuera de RequireAuth a propósito:
+                Supabase entrega el enlace del correo como una sesión ya iniciada, y
+                atar la pantalla a esa carrera no aporta nada. */}
+            <Route path="/recuperar" element={<Recuperar />} />
+            <Route path="/nueva-clave" element={<NuevaClave />} />
 
-        {/* Auth-required onboarding */}
-        <Route
-          path="/onboarding"
-          element={
-            <RequireAuth>
-              <Onboarding />
-            </RequireAuth>
-          }
-        />
+            {/* Con sesión y a pantalla completa: sin barra lateral ni Wingman. */}
+            <Route
+              element={
+                <RequireAuth>
+                  <Outlet />
+                </RequireAuth>
+              }
+            >
+              <Route path="/onboarding" element={<Onboarding />} />
+              {/* Las lecciones de Ingreso a aerolínea usan el lector genérico de
+                  NOTAM, a pantalla completa. */}
+              <Route path="/app/aerolinea/notam/aprende" element={<NotamLesson />} />
+              <Route path="/app/aerolinea/meteorologia/aprende" element={<MetarLesson />} />
+              <Route path="/app/aerolinea/mercancias/aprende" element={<MercanciasLeccion />} />
+            </Route>
 
-        {/* App (auth required) */}
-        <Route
-          path="/app"
-          element={
-            <RequireAuth>
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-        {/* Materias y el viejo banco de preguntas se consolidaron en el módulo
-            Examen PCA (vault-backed). Estas rutas legacy redirigen ahí para que
-            cualquier link viejo (Dashboard, deep links) siga funcionando. */}
-        <Route
-          path="/app/test-inicial"
-          element={
-            <RequireAuth>
-              <TestInicial />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/materias"
-          element={
-            <RequireAuth>
-              <GeneralSubjects />
-            </RequireAuth>
-          }
-        />
-        {/* Exam Tracker y Match pasaron a vivir dentro de su modulo. Las rutas
-            viejas siguen funcionando para no romper enlaces ya compartidos. */}
-        {/* El banco oficial se mudo a la Biblioteca: es un documento de
-            referencia, no una herramienta del modulo. */}
-        <Route
-          path="/app/banco-oficial"
-          element={<Navigate to="/app/biblioteca/banco-preguntas-pca" replace />}
-        />
-        <Route path="/app/exam-tracker" element={<Navigate to="/app/examenes" replace />} />
-        <Route path="/app/exam-tracker/:slug" element={<LegacyExamTracker />} />
-        <Route path="/app/aerolineas" element={<Navigate to="/app/match" replace />} />
-        <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
-        <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
-        <Route path="/app/quiz/:slug" element={<Navigate to="/app/pca" replace />} />
+            {/* Con sesión, dentro de la app. AppLayout es la ruta de layout: se monta
+                una vez para todas estas pantallas, así que cambiar de pantalla no
+                vuelve a montar la barra, Wingman, los avisos ni sus suscripciones.
+                Una pantalla nueva con barra va aquí y no envuelve nada. */}
+            <Route
+              element={
+                <RequireAuth>
+                  <AppLayout />
+                </RequireAuth>
+              }
+            >
+              <Route path="/app" element={<Dashboard />} />
+              <Route path="/app/test-inicial" element={<TestInicial />} />
+              <Route path="/app/materias" element={<GeneralSubjects />} />
 
-        {/* New career modules */}
-        <Route
-          path="/app/icao"
-          element={
-            <RequireAuth>
-              <Icao />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/icao/vocabulario"
-          element={
-            <RequireAuth>
-              <IcaoVocabulary />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/icao/quiz"
-          element={
-            <RequireAuth>
-              <IcaoQuiz />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/icao/interview"
-          element={
-            <RequireAuth>
-              <IcaoInterview />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/icao/comprension"
-          element={
-            <RequireAuth>
-              <IcaoComprehension />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/icao/picture-description"
-          element={
-            <RequireAuth>
-              <IcaoPictureDescription />
-            </RequireAuth>
-          }
-        />
-        {/* Picture Description y Discussion se unificaron en un solo módulo
-            (TEA Part 3). La ruta vieja /discussion redirige para no romper links. */}
-        <Route path="/app/icao/discussion" element={<Navigate to="/app/icao/picture-description" replace />} />
-        <Route
-          path="/app/icao/simulacro"
-          element={
-            <RequireAuth>
-              <IcaoMockExam />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/pca"
-          element={
-            <RequireAuth>
-              <Pca />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/pca/quiz/:subject"
-          element={
-            <RequireAuth>
-              <VaultQuizPlayer />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea"
-          element={
-            <RequireAuth>
-              <AirlinePrep />
-            </RequireAuth>
-          }
-        />
-        {/* Sección NOTAM del módulo Ingreso a Aerolínea */}
-        <Route
-          path="/app/aerolinea/notam"
-          element={
-            <RequireAuth>
-              <Notam />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/notam/aprende"
-          element={
-            <RequireAuth>
-              <NotamLesson />
-            </RequireAuth>
-          }
-        />
-        
-        <Route
-          path="/app/aerolinea/notam/practica"
-          element={
-            <RequireAuth>
-              <NotamPractice />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/notam/evaluacion"
-          element={
-            <RequireAuth>
-              <NotamExam />
-            </RequireAuth>
-          }
-        />
-        {/* Tema Meteorología operacional (METAR) del módulo Ingreso a Aerolínea */}
-        <Route
-          path="/app/aerolinea/meteorologia"
-          element={
-            <RequireAuth>
-              <Metar />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/meteorologia/aprende"
-          element={
-            <RequireAuth>
-              <MetarLesson />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/meteorologia/decodificador"
-          element={
-            <RequireAuth>
-              <MetarDecoder />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/meteorologia/practica"
-          element={
-            <RequireAuth>
-              <MetarPractice />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/meteorologia/evaluacion"
-          element={
-            <RequireAuth>
-              <MetarExam />
-            </RequireAuth>
-          }
-        />
-        {/* Tema Mercancías peligrosas. El hub vive dentro de la app; la lección
-            usa el lector genérico de NOTAM, a pantalla completa. */}
-        <Route
-          path="/app/aerolinea/mercancias"
-          element={
-            <RequireAuth>
-              <Mercancias />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/mercancias/aprende"
-          element={
-            <RequireAuth>
-              <MercanciasLeccion />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/mercancias/practica"
-          element={
-            <RequireAuth>
-              <MercanciasPractice />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/mercancias/evaluacion"
-          element={
-            <RequireAuth>
-              <MercanciasExam />
-            </RequireAuth>
-          }
-        />
-        {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
-        <Route
-          path="/app/aerolinea/mercancias/leccion"
-          element={<Navigate to="/app/aerolinea/mercancias/aprende" replace />}
-        />
-        <Route
-          path="/app/aerolinea/simulacro"
-          element={
-            <RequireAuth>
-              <AirlineMockExam />
-            </RequireAuth>
-          }
-        />
-        {/* Tema Pruebas Psicotécnicas. El hub, los dos modos con filtro y el
-            simulacro; la lección va aparte porque no lleva reloj. */}
-        <Route
-          path="/app/aerolinea/psicotecnicas"
-          element={
-            <RequireAuth>
-              <PsicoHub />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/psicotecnicas/aprende"
-          element={
-            <RequireAuth>
-              <PsicoAprende />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/psicotecnicas/practica"
-          element={
-            <RequireAuth>
-              <PsicoPractica />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/psicotecnicas/evaluacion"
-          element={
-            <RequireAuth>
-              <PsicoEvaluacion />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/aerolinea/psicotecnicas/simulacro"
-          element={
-            <RequireAuth>
-              <PsicoSimulacro />
-            </RequireAuth>
-          }
-        />
-        {/* El panorama amplio de assessment (9 categorías, COMPASS/CUT-E/
-            PILAPT) sigue donde estaba: es otra cosa que el tema de razonamiento
-            que acaba de abrirse, y ahora enlaza a él. */}
-        <Route
-          path="/app/psicotecnicas"
-          element={
-            <RequireAuth>
-              <PsychTests />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/biblioteca"
-          element={
-            <RequireAuth>
-              <Library />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/biblioteca/:slug"
-          element={
-            <RequireAuth>
-              <BibliotecaDocumento />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/entrevistas"
-          element={
-            <RequireAuth>
-              <InterviewSim />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/entrevistas/speaking"
-          element={
-            <RequireAuth>
-              <InterviewSpeakingIntro />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/ruta"
-          element={
-            <RequireAuth>
-              <RoutePage />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/match"
-          element={
-            <RequireAuth>
-              <Airlines />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/logbook"
-          element={
-            <RequireAuth>
-              <Logbook />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/vencimientos"
-          element={
-            <RequireAuth>
-              <Expiries />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/referidos"
-          element={
-            <RequireAuth>
-              <Referrals />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/examenes"
-          element={
-            <RequireAuth>
-              <ExamTracker />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/examenes/:slug"
-          element={
-            <RequireAuth>
-              <ExamTrackerSubject />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/comunidad"
-          element={
-            <RequireAuth>
-              <Community />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/comunidad/:slug"
-          element={
-            <RequireAuth>
-              <CommunityChannel />
-            </RequireAuth>
-          }
-        />
-        <Route
-          path="/app/perfil"
-          element={
-            <RequireAuth>
-              <Profile />
-            </RequireAuth>
-          }
-        />
+              <Route path="/app/icao" element={<Icao />} />
+              <Route path="/app/icao/vocabulario" element={<IcaoVocabulary />} />
+              <Route path="/app/icao/quiz" element={<IcaoQuiz />} />
+              <Route path="/app/icao/interview" element={<IcaoInterview />} />
+              <Route path="/app/icao/comprension" element={<IcaoComprehension />} />
+              <Route path="/app/icao/picture-description" element={<IcaoPictureDescription />} />
+              <Route path="/app/icao/simulacro" element={<IcaoMockExam />} />
+              <Route path="/app/pca" element={<Pca />} />
+              <Route path="/app/pca/quiz/:subject" element={<VaultQuizPlayer />} />
+              <Route path="/app/aerolinea" element={<AirlinePrep />} />
+              {/* Sección NOTAM del módulo Ingreso a Aerolínea */}
+              <Route path="/app/aerolinea/notam" element={<Notam />} />
+              <Route path="/app/aerolinea/notam/practica" element={<NotamPractice />} />
+              <Route path="/app/aerolinea/notam/evaluacion" element={<NotamExam />} />
+              {/* Tema Meteorología operacional (METAR) del módulo Ingreso a Aerolínea */}
+              <Route path="/app/aerolinea/meteorologia" element={<Metar />} />
+              <Route path="/app/aerolinea/meteorologia/decodificador" element={<MetarDecoder />} />
+              <Route path="/app/aerolinea/meteorologia/practica" element={<MetarPractice />} />
+              <Route path="/app/aerolinea/meteorologia/evaluacion" element={<MetarExam />} />
+              {/* Tema Mercancías peligrosas. El hub vive dentro de la app; la lección
+                  va arriba, a pantalla completa. */}
+              <Route path="/app/aerolinea/mercancias" element={<Mercancias />} />
+              <Route path="/app/aerolinea/mercancias/practica" element={<MercanciasPractice />} />
+              <Route path="/app/aerolinea/mercancias/evaluacion" element={<MercanciasExam />} />
+              <Route path="/app/aerolinea/simulacro" element={<AirlineMockExam />} />
+              {/* Tema Pruebas Psicotécnicas. El hub, los dos modos con filtro y el
+                  simulacro; la lección va aparte porque no lleva reloj. */}
+              <Route path="/app/aerolinea/psicotecnicas" element={<PsicoHub />} />
+              <Route path="/app/aerolinea/psicotecnicas/aprende" element={<PsicoAprende />} />
+              <Route path="/app/aerolinea/psicotecnicas/practica" element={<PsicoPractica />} />
+              <Route path="/app/aerolinea/psicotecnicas/evaluacion" element={<PsicoEvaluacion />} />
+              <Route path="/app/aerolinea/psicotecnicas/simulacro" element={<PsicoSimulacro />} />
+              {/* El panorama amplio de assessment (9 categorías, COMPASS/CUT-E/
+                  PILAPT) sigue donde estaba: es otra cosa que el tema de razonamiento
+                  que acaba de abrirse, y ahora enlaza a él. */}
+              <Route path="/app/psicotecnicas" element={<PsychTests />} />
+              <Route path="/app/biblioteca" element={<Library />} />
+              <Route path="/app/biblioteca/:slug" element={<BibliotecaDocumento />} />
+              <Route path="/app/entrevistas" element={<InterviewSim />} />
+              <Route path="/app/entrevistas/speaking" element={<InterviewSpeakingIntro />} />
+              <Route path="/app/ruta" element={<RoutePage />} />
+              <Route path="/app/match" element={<Airlines />} />
+              <Route path="/app/logbook" element={<Logbook />} />
+              <Route path="/app/vencimientos" element={<Expiries />} />
+              <Route path="/app/referidos" element={<Referrals />} />
+              <Route path="/app/examenes" element={<ExamTracker />} />
+              <Route path="/app/examenes/:slug" element={<ExamTrackerSubject />} />
+              <Route path="/app/comunidad" element={<Community />} />
+              <Route path="/app/comunidad/:slug" element={<CommunityChannel />} />
+              <Route path="/app/perfil" element={<Profile />} />
+            </Route>
 
-        <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* Rutas viejas. Redirigen sin pedir sesión: la pantalla de destino la pide. */}
+            {/* Materias y el viejo banco de preguntas se consolidaron en el módulo
+                Examen PCA (vault-backed). Estas rutas legacy redirigen ahí para que
+                cualquier link viejo (Dashboard, deep links) siga funcionando. */}
+            <Route path="/app/materias/:slug" element={<Navigate to="/app/pca" replace />} />
+            <Route path="/app/quiz" element={<Navigate to="/app/pca" replace />} />
+            <Route path="/app/quiz/:slug" element={<Navigate to="/app/pca" replace />} />
+            {/* Exam Tracker y Match pasaron a vivir dentro de su modulo. Las rutas
+                viejas siguen funcionando para no romper enlaces ya compartidos. */}
+            <Route path="/app/exam-tracker" element={<Navigate to="/app/examenes" replace />} />
+            <Route path="/app/exam-tracker/:slug" element={<LegacyExamTracker />} />
+            <Route path="/app/aerolineas" element={<Navigate to="/app/match" replace />} />
+            {/* El banco oficial se mudo a la Biblioteca: es un documento de
+                referencia, no una herramienta del modulo. */}
+            <Route
+              path="/app/banco-oficial"
+              element={<Navigate to="/app/biblioteca/banco-preguntas-pca" replace />}
+            />
+            {/* Picture Description y Discussion se unificaron en un solo módulo
+                (TEA Part 3). La ruta vieja /discussion redirige para no romper links. */}
+            <Route path="/app/icao/discussion" element={<Navigate to="/app/icao/picture-description" replace />} />
+            {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
+            <Route
+              path="/app/aerolinea/mercancias/leccion"
+              element={<Navigate to="/app/aerolinea/mercancias/aprende" replace />}
+            />
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
         </Suspense>
       </ErrorBoundary>
       <Toaster />

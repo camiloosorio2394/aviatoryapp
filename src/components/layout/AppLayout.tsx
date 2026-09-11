@@ -1,8 +1,10 @@
-import { useEffect, useState, type ReactNode } from "react"
+import { Suspense, useEffect, useState } from "react"
+import { Outlet } from "react-router-dom"
 import { AppSidebar } from "./AppSidebar"
 import { AppTopbar } from "./AppTopbar"
+import { NotificacionesProvider } from "./NotificacionesProvider"
+import { RachaEnBarraContext } from "./rachaEnBarra"
 import { Wingman } from "@/components/Wingman"
-import { useAchievementToasts } from "@/hooks/useAchievementToasts"
 import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo"
 
 /**
@@ -12,15 +14,15 @@ import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo
  * - Mobile: sidebar slides in as drawer.
  * - Wingman floats bottom-right on every authenticated page.
  *
- * `streak` opcional: pásalo desde la página si quieres mostrar el chip de racha.
+ * Es la ruta de layout de las pantallas con sesión (App.tsx): se monta una vez
+ * y las páginas se dibujan en el <Outlet />. Cambiar de página no vuelve a
+ * montar la barra, Wingman, los avisos ni sus suscripciones.
+ *
+ * El chip de racha lo publica la página que la conoce, con useRachaEnBarra().
  */
-interface Props {
-  children: ReactNode
-  streak?: number
-}
-
-export function AppLayout({ children, streak }: Props) {
+export function AppLayout() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [streak, setStreak] = useState<number | undefined>(undefined)
   // Estado del hover desktop: cuando el sidebar se expande (64 → 240),
   // empujamos el contenido principal (incluido el topbar) para que NO se
   // interponga visualmente con el rail. El topbar siempre queda a la
@@ -72,8 +74,6 @@ export function AppLayout({ children, streak }: Props) {
     }
   }, [mobileOpen])
 
-  useAchievementToasts()
-
   // Padding-left del contenido principal:
   //   - sidebar oculto        → 0
   //   - sidebar colapsado     → 64px (lg:pl-16)
@@ -86,76 +86,85 @@ export function AppLayout({ children, streak }: Props) {
       : "lg:pl-16"
 
   return (
-    <div className="min-h-screen flex bg-background">
-      {/* Desktop sidebar — slide out if hidden */}
-      <div
-        className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 z-30 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          sidebarHidden ? "-translate-x-full" : "translate-x-0"
-        }`}
-        aria-hidden={sidebarHidden}
-      >
-        <AppSidebar
-          onHoverChange={setSidebarHovered}
-          pinned={sidebarPinned}
-          onPinChange={setSidebarPinned}
+    <NotificacionesProvider>
+      <div className="min-h-screen flex bg-background">
+        {/* Desktop sidebar — slide out if hidden */}
+        <div
+          className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 z-30 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            sidebarHidden ? "-translate-x-full" : "translate-x-0"
+          }`}
+          aria-hidden={sidebarHidden}
+        >
+          <AppSidebar
+            onHoverChange={setSidebarHovered}
+            pinned={sidebarPinned}
+            onPinChange={setSidebarPinned}
+          />
+        </div>
+
+        {/* Cajón de móvil. Va montado siempre y se mueve con `transform`, que es
+            el mismo patrón del rail de escritorio de aquí arriba. Antes entraba
+            con un keyframe y salía por teletransporte, y abrir y cerrar rápido lo
+            reiniciaba desde fuera de la pantalla en vez de retomarlo donde
+            estaba. Es la navegación principal en celular, que es justo donde más
+            se toca y se arrepiente uno a media animación.
+
+            `AppSidebar` no monta nada caro: ni consultas ni efectos, solo pinta.
+            El desenfoque del velo solo existe cuando el cajón está abierto: un
+            `backdrop-filter` a pantalla completa se compone aunque esté a opacidad
+            cero. */}
+        <div
+          className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-200 ${
+            mobileOpen ? "bg-background/60 backdrop-blur-sm opacity-100" : "pointer-events-none opacity-0"
+          }`}
+          onClick={() => setMobileOpen(false)}
+          aria-hidden
         />
+        <div
+          className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl transition-transform duration-200 ${
+            mobileOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+          aria-hidden={!mobileOpen}
+        >
+          <AppSidebar onClose={() => setMobileOpen(false)} forceExpanded />
+        </div>
+
+        {/* `min-w-0` no es decorativo: sin él, este elemento es un ítem flex con
+            `min-width: auto`, así que su ancho mínimo lo fija el contenido más
+            ancho de la página. Cualquier bloque con un mínimo fijo empujaba
+            entonces la página entera a lo ancho en vez de desplazarse dentro de
+            su caja, y en celular aparecía scroll lateral en toda la app.
+            Lo encontramos por dos caminos: el estante de la Biblioteca, que es
+            una tira horizontal, y el recorte de NOTAM de la lección. Medido a
+            390 px: la lección ocupaba 784 de ancho sin esto, 390 con esto. */}
+        {/* Sin `transition-[padding]`. Lo tenía, y el rail animaba su `width` al
+            mismo tiempo y disparado por hover: 300 ms reflowando el documento
+            entero (la barra superior, el <main> y cada tarjeta de dentro) cada
+            vez que el ratón pasaba por el borde izquierdo. El rail sigue
+            abriéndose, ahora de golpe. Si prefieres recuperar el deslizamiento,
+            la manera de hacerlo sin reflow es que el rail se superponga en vez
+            de empujar, y eso es una decisión de producto, no un arreglo. */}
+        <div
+          className={`flex-1 min-w-0 flex flex-col min-h-screen ${contentPaddingClass}`}
+        >
+          <AppTopbar
+            onMenuClick={() => setMobileOpen(true)}
+            sidebarHidden={sidebarHidden}
+            onToggleSidebar={() => setSidebarHidden((v) => !v)}
+            streak={streak}
+          />
+          <main className="flex-1 min-w-0">
+            <RachaEnBarraContext.Provider value={setStreak}>
+              {/* Mientras llega el trozo de la página, la barra y Wingman se quedan. */}
+              <Suspense fallback={<div className="min-h-[60vh]" aria-busy="true" />}>
+                <Outlet />
+              </Suspense>
+            </RachaEnBarraContext.Provider>
+          </main>
+        </div>
+
+        <Wingman />
       </div>
-
-      {/* Cajón de móvil. Va montado siempre y se mueve con `transform`, que es
-          el mismo patrón del rail de escritorio de aquí arriba. Antes entraba
-          con un keyframe y salía por teletransporte, y abrir y cerrar rápido lo
-          reiniciaba desde fuera de la pantalla en vez de retomarlo donde
-          estaba. Es la navegación principal en celular, que es justo donde más
-          se toca y se arrepiente uno a media animación.
-
-          `AppSidebar` no monta nada caro: ni consultas ni efectos, solo pinta.
-          El desenfoque del velo solo existe cuando el cajón está abierto: un
-          `backdrop-filter` a pantalla completa se compone aunque esté a opacidad
-          cero. */}
-      <div
-        className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-200 ${
-          mobileOpen ? "bg-background/60 backdrop-blur-sm opacity-100" : "pointer-events-none opacity-0"
-        }`}
-        onClick={() => setMobileOpen(false)}
-        aria-hidden
-      />
-      <div
-        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl transition-transform duration-200 ${
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-        aria-hidden={!mobileOpen}
-      >
-        <AppSidebar onClose={() => setMobileOpen(false)} forceExpanded />
-      </div>
-
-      {/* `min-w-0` no es decorativo: sin él, este elemento es un ítem flex con
-          `min-width: auto`, así que su ancho mínimo lo fija el contenido más
-          ancho de la página. Cualquier bloque con un mínimo fijo empujaba
-          entonces la página entera a lo ancho en vez de desplazarse dentro de
-          su caja, y en celular aparecía scroll lateral en toda la app.
-          Lo encontramos por dos caminos: el estante de la Biblioteca, que es
-          una tira horizontal, y el recorte de NOTAM de la lección. Medido a
-          390 px: la lección ocupaba 784 de ancho sin esto, 390 con esto. */}
-      {/* Sin `transition-[padding]`. Lo tenía, y el rail animaba su `width` al
-          mismo tiempo y disparado por hover: 300 ms reflowando el documento
-          entero (la barra superior, el <main> y cada tarjeta de dentro) cada
-          vez que el ratón pasaba por el borde izquierdo. El rail sigue
-          abriéndose, ahora de golpe. Si prefieres recuperar el deslizamiento,
-          la manera de hacerlo sin reflow es que el rail se superponga en vez
-          de empujar, y eso es una decisión de producto, no un arreglo. */}
-      <div
-        className={`flex-1 min-w-0 flex flex-col min-h-screen ${contentPaddingClass}`}
-      >
-        <AppTopbar
-          onMenuClick={() => setMobileOpen(true)}
-          sidebarHidden={sidebarHidden}
-          onToggleSidebar={() => setSidebarHidden((v) => !v)}
-          streak={streak}
-        />
-        <main className="flex-1 min-w-0">{children}</main>
-      </div>
-
-      <Wingman />
-    </div>
+    </NotificacionesProvider>
   )
 }

@@ -9,7 +9,6 @@ import {
   TriangleAlert,
 } from "lucide-react"
 import pcaFlightdeck from "@/assets/photos/pca-flightdeck.jpg"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { StatTile } from "@/components/pca/StatTile"
 import { ModuleCard } from "@/components/pca/ModuleCard"
@@ -52,7 +51,7 @@ export function Pca() {
     .sort((a, b) => b.count - a.count)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden rounded-xl mb-6">
@@ -264,7 +263,7 @@ export function Pca() {
           />
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

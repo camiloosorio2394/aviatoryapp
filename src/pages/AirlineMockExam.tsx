@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ClipboardCheck, Play, ShieldAlert, Timer } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { QuizEngine } from "@/components/QuizEngine"
@@ -51,7 +50,7 @@ export function AirlineMockExam() {
   const [mejorPrevio] = useState(() => readAirlineMockLocal().bestScore)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea"
@@ -166,7 +165,7 @@ export function AirlineMockExam() {
           />
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

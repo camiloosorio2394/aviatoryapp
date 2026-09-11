@@ -4,7 +4,6 @@ import { ArrowRight, Check, X, Globe, Target, MapPin } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
@@ -130,7 +129,7 @@ export function Airlines() {
   const bestMatch = profileReady ? matches[0] : undefined
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow="AEROLÍNEAS · MATCH CON TU PERFIL"
@@ -197,7 +196,7 @@ export function Airlines() {
           </>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 

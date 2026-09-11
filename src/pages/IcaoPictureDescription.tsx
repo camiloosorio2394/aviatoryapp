@@ -10,7 +10,6 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PICTURE_PAIRS, PART3_TASK_STEPS, type PicturePair } from "@/lib/icaoPictures"
 import { registrarEstudioDiario } from "@/lib/activity"
 
@@ -57,7 +56,7 @@ export function IcaoPictureDescription() {
   const total = PICTURE_PAIRS.length
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1080px] mx-auto">
         <Link
           to="/app/icao"
@@ -161,7 +160,7 @@ export function IcaoPictureDescription() {
           {total} pares de imágenes · TEA Parte 3 · material NEW PICTURES
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

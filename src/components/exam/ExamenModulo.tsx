@@ -16,7 +16,6 @@ import {
   Lock,
   PenLine,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { LogoIsotype } from "@/components/Logo"
 import { PageHeader } from "@/components/ui/page-header"
 import { Rotulo } from "@/components/ui/rotulo"
@@ -253,7 +252,7 @@ function Intento({
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[900px] mx-auto">
         <div className="mb-6">
           <div className="flex items-center justify-between gap-3 flex-wrap mb-2">
@@ -361,7 +360,7 @@ function Intento({
           Las respuestas correctas y las explicaciones aparecen al final, cuando termines las {total} preguntas.
         </p>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -376,7 +375,7 @@ function ErrorDeEvaluacion({
   onReintentar: () => void
 }) {
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <Link
           to={config.hub}
@@ -413,7 +412,7 @@ function ErrorDeEvaluacion({
           </Link>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -473,7 +472,7 @@ function OptionButton({
 
 function Cargando({ texto }: { texto: string }) {
   return (
-    <AppLayout>
+    <>
       <div
         className="px-5 sm:px-7 py-20 max-w-[900px] mx-auto flex flex-col items-center gap-3 text-muted-foreground"
         role="status"
@@ -482,7 +481,7 @@ function Cargando({ texto }: { texto: string }) {
         <Loader2 className="h-5 w-5 animate-spin" />
         <span className="text-[13px]">{texto}</span>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -503,7 +502,7 @@ function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: number[] 
   const unidadSing = unidad.endsWith("es") ? unidad.slice(0, -2) : unidad.slice(0, -1)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
         <Link
           to={config.hub}
@@ -592,7 +591,7 @@ function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: number[] 
           <div className="text-[13px] text-foreground/85 leading-relaxed">{config.aviso}</div>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -762,7 +761,7 @@ function Result({ config, sesion, resultado, userId, sessionLoading, onRetry }: 
   }, [score, config])
 
   return (
-    <AppLayout>
+    <>
       <div className="mx-auto max-w-[820px] px-5 py-9 pb-24 sm:px-7 sm:py-11">
         <header className="rev-aparece">
           <LogoIsotype variant="color" className="h-11 w-11 rounded-full" aria-hidden="true" />
@@ -858,7 +857,7 @@ function Result({ config, sesion, resultado, userId, sessionLoading, onRetry }: 
 
         <NotaDeReferencia texto={config.aviso} />
       </div>
-    </AppLayout>
+    </>
   )
 }
 

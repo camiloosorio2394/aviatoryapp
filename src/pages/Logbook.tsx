@@ -3,7 +3,6 @@ import { Plane, Plus, Trash2, X, Loader2, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -167,7 +166,7 @@ export function Logbook() {
   }, [filtered])
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={`LOGBOOK · ${minutesToHours(stats.total)}h TOTALES`}
@@ -308,7 +307,7 @@ export function Logbook() {
           }}
         />
       )}
-    </AppLayout>
+    </>
   )
 }
 

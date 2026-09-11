@@ -11,7 +11,6 @@ import {
   ShieldAlert,
   Target,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
@@ -113,7 +112,7 @@ export function MetarPractice() {
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <Link
           to="/app/aerolinea/meteorologia"
@@ -381,6 +380,6 @@ export function MetarPractice() {
           </button>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }

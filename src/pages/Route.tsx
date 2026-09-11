@@ -4,7 +4,6 @@ import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, B
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Button } from "@/components/ui/button"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
@@ -188,19 +187,19 @@ export function Route() {
 
   if (loading) {
     return (
-      <AppLayout>
+      <>
         <div className="px-6 py-12 max-w-4xl mx-auto animate-pulse space-y-4">
           <div className="h-8 w-48 bg-muted rounded" />
           <div className="h-32 bg-muted rounded-2xl" />
           <div className="h-64 bg-muted rounded-2xl" />
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   if (!stage) {
     return (
-      <AppLayout>
+      <>
         <div className="px-6 py-12 max-w-2xl mx-auto text-center">
           <MapIcon className="h-12 w-12 text-muted-foreground/40 mx-auto mb-4" />
           <h2 className="text-xl font-semibold">Completa tu perfil primero</h2>
@@ -211,13 +210,13 @@ export function Route() {
             <Link to="/onboarding">Ir al onboarding</Link>
           </Button>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   if (!checklist) {
     return (
-      <AppLayout>
+      <>
         <div className="px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
           <PageHeader
             eyebrow={
@@ -261,14 +260,14 @@ export function Route() {
             </Link>
           </div>
         </div>
-      </AppLayout>
+      </>
     )
   }
 
   const currentIdx = STAGE_ORDER.indexOf(stage)
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1480px] mx-auto">
         <PageHeader
           eyebrow={`Mi ruta · ${STAGE_LABEL[stage]}`}
@@ -453,6 +452,6 @@ export function Route() {
           </section>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }

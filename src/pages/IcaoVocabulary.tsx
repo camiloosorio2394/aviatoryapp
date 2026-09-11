@@ -11,7 +11,6 @@ import {
   ChevronDown,
   Lock,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { ContentGuard } from "@/components/ContentGuard"
 import { supabase } from "@/integrations/supabase/client"
 import { registrarEstudioDiario } from "@/lib/activity"
@@ -183,7 +182,7 @@ export function IcaoVocabulary() {
   const remaining = filtered.length - visible.length
 
   return (
-    <AppLayout>
+    <>
       <ContentGuard>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1240px] mx-auto">
         {/* Back link */}
@@ -387,7 +386,7 @@ export function IcaoVocabulary() {
         )}
       </div>
       </ContentGuard>
-    </AppLayout>
+    </>
   )
 }
 

@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom"
 import { GraduationCap, ArrowRight } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 
@@ -17,7 +16,7 @@ import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
  */
 export function GeneralSubjects() {
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={
@@ -62,6 +61,6 @@ export function GeneralSubjects() {
           </Link>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }

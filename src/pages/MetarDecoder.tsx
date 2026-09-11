@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ScanSearch, Search, ShieldAlert } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { accentText } from "@/lib/notam"
@@ -97,7 +96,7 @@ export function MetarDecoder() {
   }, [tab, query])
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         {/* Mismo control de volver que el decodificador de NOTAM. */}
         <Link
@@ -248,6 +247,6 @@ export function MetarDecoder() {
           </div>
         </section>
       </div>
-    </AppLayout>
+    </>
   )
 }

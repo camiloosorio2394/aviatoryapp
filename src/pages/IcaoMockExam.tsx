@@ -27,7 +27,6 @@ import {
   Save,
   CheckCircle2,
 } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { useRecorder } from "@/hooks/useRecorder"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
@@ -125,7 +124,7 @@ export function IcaoMockExam() {
   const step = steps[idx]
   const part = step.part
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-6 pb-24 max-w-[920px] mx-auto">
         <RunHeader idx={idx} total={steps.length} part={part} elapsed={elapsed} recording={wantRecord && rec.active} />
         <StepView step={step} onSkip={advance} />
@@ -142,14 +141,14 @@ export function IcaoMockExam() {
           </button>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
 // ─── INTRO ───────────────────────────────────────────────────────────────────
 function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecord: boolean; setWantRecord: (v: boolean) => void; recSupported: boolean; onStart: () => void }) {
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-20 max-w-[860px] mx-auto">
         <Link to="/app/icao" className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4">
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Inglés ICAO
@@ -221,7 +220,7 @@ function Intro({ wantRecord, setWantRecord, recSupported, onStart }: { wantRecor
           <Sparkles className="h-4.5 w-4.5" /> Empezar el simulacro
         </button>
       </div>
-    </AppLayout>
+    </>
   )
 }
 
@@ -538,7 +537,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
   }
 
   return (
-    <AppLayout>
+    <>
       <div className="px-7 py-9 sm:py-11 pb-24 max-w-[920px] mx-auto">
         <div className="text-center">
           <div className="text-[13px] font-semibold" style={{ color: "var(--av-success-fg)" }}>Simulacro terminado</div>
@@ -647,7 +646,7 @@ function Result({ steps, elapsed, recordings, recorded, onRestart }: { steps: Ex
           </Link>
         </div>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

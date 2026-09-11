@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight, Brain, GraduationCap, Target, Timer } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
@@ -148,7 +147,7 @@ export function PsicoHub() {
   ]
 
   return (
-    <AppLayout>
+    <>
       <div className="psico-hub mx-auto max-w-[1280px] px-5 py-9 pb-24 sm:px-8 sm:py-11">
         <Link
           to="/app/aerolinea"
@@ -345,7 +344,7 @@ export function PsicoHub() {
           {NOTA_TIEMPOS}
         </p>
       </div>
-    </AppLayout>
+    </>
   )
 }
 

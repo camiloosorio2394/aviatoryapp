@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { Library as LibraryIcon } from "lucide-react"
-import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { useSession } from "@/hooks/useSession"
 import {
@@ -186,7 +185,7 @@ export function Library() {
   }, [datos, seguirIds, moduloEnCurso])
 
   return (
-    <AppLayout>
+    <>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
         <PageHeader
           eyebrow={
@@ -223,7 +222,7 @@ export function Library() {
           </div>
         )}
       </div>
-    </AppLayout>
+    </>
   )
 }
 
