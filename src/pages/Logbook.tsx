@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react
 import { Plane, Plus, Trash2, X, Loader2, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
+import { RESUMEN_BITACORA_VACIO, traerResumenBitacora } from "@/services/bitacora"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -44,28 +46,43 @@ function hoursToMinutes(h: string): number {
 
 type FilterTab = "all" | "last30" | "year" | "pic" | "ifr"
 
+const LIMITE_LISTA = 500
+
 export function Logbook() {
   const { user } = useSession()
   const [flights, setFlights] = useState<Flight[]>([])
+  const [resumen, setResumen] = useState(RESUMEN_BITACORA_VACIO)
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
   const [filter, setFilter] = useState<FilterTab>("all")
 
+  // La lista trae los 500 vuelos más recientes; los totales salen de la base
+  // con todos (services/bitacora.ts).
   const traer = useCallback(async () => {
     if (!user) return null
-    return supabase
-      .from("flights")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("flight_date", { ascending: false })
-      .order("id", { ascending: false })
-      .limit(500)
+    const [lista, totales] = await Promise.all([
+      supabase
+        .from("flights")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("flight_date", { ascending: false })
+        .order("id", { ascending: false })
+        .limit(LIMITE_LISTA),
+      traerResumenBitacora(user.id),
+    ])
+    return { lista, totales }
   }, [user])
 
   const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
     if (!r) return
-    if (r.error) toast.error(r.error.message)
-    else setFlights((r.data ?? []) as Flight[])
+    const error = r.lista.error ?? r.totales.error
+    if (error) {
+      reportarError("bitácora: cargar", error)
+      toast.error("No pudimos cargar tu bitácora. Revisa tu conexión e inténtalo de nuevo.")
+    } else {
+      setFlights((r.lista.data ?? []) as Flight[])
+      setResumen(r.totales.resumen)
+    }
     setLoading(false)
   }, [])
 
@@ -91,33 +108,27 @@ export function Logbook() {
     setFlights((p) => p.filter((f) => f.id !== id))
     const { error } = await supabase.from("flights").delete().eq("id", id)
     if (error) {
-      toast.error(error.message)
+      reportarError("bitácora: eliminar vuelo", error)
+      toast.error("No pudimos eliminar el vuelo. Inténtalo de nuevo.")
       setFlights(prev)
     } else {
       toast.success("Vuelo eliminado")
+      void loadFlights()
     }
   }
 
-  const stats = useMemo(() => {
-    const sum = (key: keyof Flight) => flights.reduce((acc, f) => acc + (Number(f[key]) || 0), 0)
-    const last30Cutoff = new Date()
-    last30Cutoff.setDate(last30Cutoff.getDate() - 30)
-    const last30 = flights
-      .filter((f) => new Date(f.flight_date) >= last30Cutoff)
-      .reduce((acc, f) => acc + f.total_minutes, 0)
-    return {
-      total: sum("total_minutes"),
-      pic: sum("pic_minutes"),
-      sic: sum("sic_minutes"),
-      ifr: sum("instrument_real_minutes") + sum("instrument_sim_minutes"),
-      night: sum("night_minutes"),
-      xc: sum("cross_country_minutes"),
-      landings: sum("landings_day") + sum("landings_night"),
-      last30,
-    }
-  }, [flights])
+  const stats = {
+    total: resumen.minutosTotal,
+    pic: resumen.minutosPic,
+    sic: resumen.minutosSic,
+    ifr: resumen.minutosIfr,
+    night: resumen.minutosNoche,
+    xc: resumen.minutosTravesia,
+    landings: resumen.aterrizajes,
+  }
 
-  // Build a sparkline of total hours accumulated per month (last 8 months)
+  // Horas acumuladas por mes, últimos 8 meses. Sale de la lista: los 500 vuelos
+  // más recientes cubren esos meses.
   const trendSpark = useMemo(() => {
     const buckets = new Map<string, number>()
     const now = new Date()
@@ -229,7 +240,9 @@ export function Logbook() {
           </div>
           <div className="flex-1" />
           <span className="text-[13px] font-semibold text-muted-foreground">
-            {filtered.length} vuelos
+            {filter === "all" && resumen.vuelos > flights.length
+              ? `Los ${flights.length} más recientes de ${resumen.vuelos} vuelos`
+              : `${filtered.length} vuelos`}
           </span>
         </div>
 

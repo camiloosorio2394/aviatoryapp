@@ -14,6 +14,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 import { TEA_PART1_TOTAL } from "@/lib/icaoInterview"
 
 export interface IcaoProgress {
@@ -40,39 +41,44 @@ export const ICAO_PROGRESS_VACIO: IcaoProgress = {
   mejorNivel: null,
 }
 
-/**
- * Trae el avance del piloto.
- *
- * Si una consulta falla no tumba las demás: cada una cae a su valor neutro y la
- * pantalla enseña lo que sí pudo leer.
- */
-export async function fetchIcaoProgress(userId: string): Promise<IcaoProgress> {
-  const [quizAttempts, quizCount, vocabCount, speaking, mocks] = await Promise.all([
-    supabase.from("user_icao_quiz_attempts").select("question_id").eq("user_id", userId),
-    supabase.from("icao_quiz_questions").select("id", { count: "exact", head: true }),
-    supabase.from("icao_vocabulary").select("id", { count: "exact", head: true }),
-    supabase
-      .from("user_icao_speaking")
-      .select("question_id")
-      .eq("user_id", userId)
-      .eq("parte", 1),
-    supabase
-      .from("user_icao_mock_results")
-      .select("final_level")
-      .eq("user_id", userId),
-  ])
-
-  const niveles = (mocks.data ?? [])
-    .map((m) => m.final_level)
-    .filter((n): n is number => typeof n === "number")
-
+/** Convierte lo que devuelve icao_progreso(). Lanza si la forma no es la esperada. */
+export function leerIcaoProgress(datos: unknown): IcaoProgress {
+  const d = datos as Record<string, unknown> | null
+  const cuenta = (clave: string): number => {
+    const v = d?.[clave]
+    if (typeof v !== "number" || !Number.isInteger(v) || v < 0) throw new Error(`icao_progreso.${clave} inválido`)
+    return v
+  }
+  const nivel = d?.mejor_nivel
+  if (nivel !== null && (typeof nivel !== "number" || !Number.isInteger(nivel))) throw new Error("icao_progreso.mejor_nivel inválido")
   return {
-    quizRespondidas: new Set((quizAttempts.data ?? []).map((a) => a.question_id)).size,
-    quizTotal: quizCount.count ?? 0,
-    vocabularioTotal: vocabCount.count ?? 0,
-    interviewRespondidas: new Set((speaking.data ?? []).map((s) => s.question_id)).size,
-    simulacros: (mocks.data ?? []).length,
-    mejorNivel: niveles.length > 0 ? Math.max(...niveles) : null,
+    quizRespondidas: cuenta("quiz_respondidas"),
+    quizTotal: cuenta("quiz_total"),
+    vocabularioTotal: cuenta("vocabulario_total"),
+    interviewRespondidas: cuenta("interview_respondidas"),
+    simulacros: cuenta("simulacros"),
+    mejorNivel: nivel,
+  }
+}
+
+/**
+ * Trae el avance del piloto en una llamada: icao_progreso() cuenta en la base
+ * (supabase/migrations/20260911202806_resumenes_en_la_base.sql). Contarlo aquí
+ * obligaba a traer todos los intentos del quiz, y PostgREST corta en 1000 filas.
+ *
+ * Si falla, las tarjetas enseñan su contenido sin avance, como sin sesión.
+ */
+export async function fetchIcaoProgress(): Promise<IcaoProgress> {
+  const { data, error } = await supabase.rpc("icao_progreso")
+  if (error) {
+    console.warn("icao_progreso", error.message)
+    return ICAO_PROGRESS_VACIO
+  }
+  try {
+    return leerIcaoProgress(data)
+  } catch (err) {
+    reportarError("icao_progreso: respuesta inválida", err)
+    return ICAO_PROGRESS_VACIO
   }
 }
 

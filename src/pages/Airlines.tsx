@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ArrowRight, Check, X, Globe, Target, MapPin } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { RESUMEN_BITACORA_VACIO, traerResumenBitacora, type ResumenBitacora } from "@/services/bitacora"
 import { useSession } from "@/hooks/useSession"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
@@ -69,7 +70,7 @@ export function Airlines() {
     let cancelled = false
     async function load() {
       try {
-        const [airlinesRes, pilotRes, flightsRes, mockRes] = await Promise.all([
+        const [airlinesRes, pilotRes, bitacoraRes, mockRes] = await Promise.all([
           supabase.from("airlines").select("*").order("order_index"),
           user
             ? supabase
@@ -78,9 +79,7 @@ export function Airlines() {
                 .eq("user_id", user.id)
                 .maybeSingle()
             : Promise.resolve({ data: null }),
-          user
-            ? supabase.from("flights").select("total_minutes, pic_minutes").eq("user_id", user.id)
-            : Promise.resolve({ data: null }),
+          user ? traerResumenBitacora(user.id) : Promise.resolve(null),
           user
             ? supabase
                 .from("user_icao_mock_results")
@@ -93,10 +92,11 @@ export function Airlines() {
         ])
         if (cancelled) return
         setAirlines((airlinesRes.data ?? []) as Airline[])
+        if (bitacoraRes?.error) console.warn("aerolíneas: bitacora_resumen", bitacoraRes.error.message)
         setPilot(
           buildPilotProfile(
             pilotRes.data as PilotStateRow | null,
-            (flightsRes.data ?? []) as { total_minutes: number; pic_minutes: number }[],
+            bitacoraRes?.resumen ?? RESUMEN_BITACORA_VACIO,
             (mockRes.data as { final_level: number | null } | null)?.final_level ?? null
           )
         )
@@ -203,7 +203,7 @@ export function Airlines() {
 /**
  * Regla de prioridad de datos, idéntica a la de la pantalla de Perfil:
  *
- *  - Horas totales y PIC: el agregado real del Logbook (tabla flights) manda.
+ *  - Horas totales y PIC: el agregado real de la bitácora (bitacora_resumen) manda.
  *    Solo si el piloto todavía no registró ningún vuelo se usa el valor que
  *    declaró a mano en pilot_state.
  *  - Nivel de inglés ICAO: el nivel oficial es el del último simulacro TEA
@@ -215,15 +215,13 @@ export function Airlines() {
  */
 function buildPilotProfile(
   state: PilotStateRow | null,
-  flights: { total_minutes: number; pic_minutes: number }[],
+  bitacora: ResumenBitacora,
   mockIcaoLevel: number | null
 ): PilotProfile {
-  const hasFlights = flights.length > 0
-  const totalMin = flights.reduce((a, f) => a + (f.total_minutes ?? 0), 0)
-  const picMin = flights.reduce((a, f) => a + (f.pic_minutes ?? 0), 0)
+  const hasFlights = bitacora.vuelos > 0
   return {
-    totalHours: hasFlights ? totalMin / 60 : state?.total_hours ?? null,
-    hoursPic: hasFlights ? picMin / 60 : state?.hours_pic ?? null,
+    totalHours: hasFlights ? bitacora.minutosTotal / 60 : state?.total_hours ?? null,
+    hoursPic: hasFlights ? bitacora.minutosPic / 60 : state?.hours_pic ?? null,
     icaoLevel: mockIcaoLevel ?? state?.icao_english_level ?? null,
     licenses: state?.licenses ?? [],
   }
