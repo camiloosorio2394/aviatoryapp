@@ -9,6 +9,7 @@ import {
   Check,
   Plane,
   AtSign,
+  Fingerprint,
   X,
 } from "lucide-react"
 import { toast } from "sonner"
@@ -21,6 +22,7 @@ import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
 import { PasswordRules } from "@/components/auth/PasswordRules"
 import { Seo } from "@/components/Seo"
 import { track, Events } from "@/lib/analytics"
+import { entrarConPasskey, soportaPasskeys } from "@/services/passkeys"
 
 type Mode = "signin" | "signup"
 
@@ -84,6 +86,7 @@ export function Login() {
   const [confirm, setConfirm] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [passkeyCargando, setPasskeyCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
   /**
    * Lo único que se guarda del usuario es la respuesta del servidor, con el
@@ -207,6 +210,21 @@ export function Login() {
     }
   }
 
+  /**
+   * Entrar con Face ID, Touch ID o huella. La credencial es descubrible: el
+   * sistema ofrece las que el piloto tenga para este sitio, así que no hace
+   * falta escribir el correo. Al salir bien, `useSession` navega igual que con
+   * cualquier otro ingreso. Cancelar no es un error y no muestra nada.
+   */
+  async function handlePasskey() {
+    setError(null)
+    setPasskeyCargando(true)
+    const resultado = await entrarConPasskey()
+    if (resultado.ok) track(Events.LOGIN_COMPLETED, { method: "passkey" })
+    else if (resultado.mensaje) setError(resultado.mensaje)
+    setPasskeyCargando(false)
+  }
+
   async function handleGoogle() {
     setError(null)
     track(isSignup ? Events.SIGNUP_STARTED : Events.LOGIN_COMPLETED, { method: "google" })
@@ -325,6 +343,25 @@ export function Login() {
                 <GoogleIcon className="h-5 w-5" />
                 Continuar con Google
               </Button>
+              {/* Solo al entrar, y solo donde el navegador trae WebAuthn: un
+                  botón que no puede funcionar es peor que no tener botón. */}
+              {!isSignup && soportaPasskeys() && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  className="w-full h-12 rounded-full text-[15px] font-medium border-2 hover:border-blue-500/40 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
+                  onClick={handlePasskey}
+                  disabled={passkeyCargando}
+                >
+                  {passkeyCargando ? (
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <Fingerprint className="h-5 w-5" />
+                  )}
+                  Entrar con Face ID o huella
+                </Button>
+              )}
             </div>
 
             <div className="my-6 flex items-center gap-3">
