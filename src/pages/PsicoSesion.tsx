@@ -2,7 +2,8 @@ import { useState, type ReactNode } from "react"
 import { Link, useSearchParams } from "react-router-dom"
 import { ArrowLeft, Play, RotateCcw } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
-import { PsicoCargando, PsicoError } from "@/components/psicotecnicas/EstadosPsico"
+import { EstadoError } from "@/components/EstadoError"
+import { PsicoCargando } from "@/components/psicotecnicas/EstadosPsico"
 import { PsicoPlayer } from "@/components/psicotecnicas/PsicoPlayer"
 import { PsicoResultado } from "@/components/psicotecnicas/PsicoResultado"
 import { itemsDeRepaso, useSesionPsico } from "@/hooks/useSesionPsico"
@@ -87,7 +88,7 @@ export function PsicoSesion({ modo }: Props) {
   if (estado.fase === "error") {
     return (
       <Marco>
-        <PsicoError
+        <EstadoError
           titulo="No pudimos preparar la tanda"
           mensaje={estado.error.message}
           acciones={
@@ -131,7 +132,7 @@ export function PsicoSesion({ modo }: Props) {
     return (
       <Marco>
         {errorAccion ? (
-          <PsicoError
+          <EstadoError
             titulo="No pudimos cerrar la tanda"
             mensaje={errorAccion.message}
             acciones={

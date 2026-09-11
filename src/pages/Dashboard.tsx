@@ -13,6 +13,7 @@ import {
   Share2,
   Sun,
   Activity,
+  RotateCcw,
 } from "lucide-react"
 import {
   AerodromeIcon,
@@ -27,6 +28,7 @@ import heroCockpit from "@/assets/photos/cta-cockpit-dawn.jpg"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
+import { EstadoError } from "@/components/EstadoError"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CountUp } from "@/components/ui/count-up"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
@@ -41,7 +43,7 @@ import { fetchNotamProgress } from "@/lib/notamProgress"
 import { shareStreak } from "@/lib/shareStreak"
 import { fetchHeatmapSeries } from "@/lib/activity"
 import { badgeForCode } from "@/lib/achievementBadges"
-import { appButtonClass } from "@/lib/buttonStyles"
+import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 
 type PilotStage =
   | "student_ppl"
@@ -275,6 +277,9 @@ export function Dashboard() {
   const { user } = useSession()
   const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
+  /** No se pudo leer el perfil o el estado del piloto: se ofrece reintentar. */
+  const [fallo, setFallo] = useState(false)
+  const [intento, setIntento] = useState(0)
   /** Las tres RPC lentas (heatmap, cohorte, quiz diario) y los logros cargan
    *  después del hero, con skeleton local en su propia card. */
   const [deferredLoading, setDeferredLoading] = useState(true)
@@ -316,6 +321,19 @@ export function Dashboard() {
 
         if (cancelled) return
 
+        // Sin perfil ni estado del piloto no se sabe si le falta el onboarding.
+        // Antes un error de red caía en «no tiene etapa» y lo mandaba a hacerlo
+        // otra vez, encima de sus datos.
+        const errorBase = profileRes.error ?? pilotRes.error
+        if (errorBase) {
+          console.error("dashboard: perfil o estado del piloto", errorBase)
+          setFallo(true)
+          return
+        }
+        for (const r of [streakRes, subRes, attemptsRes]) {
+          if (r.error) console.warn("dashboard", r.error.message)
+        }
+
         setProfile(profileRes.data as Profile | null)
         const ps = pilotRes.data as PilotState | null
         setPilot(ps)
@@ -328,7 +346,8 @@ export function Dashboard() {
           return
         }
       } catch (err) {
-        toast.error(err instanceof Error ? err.message : "No pudimos cargar tu dashboard")
+        console.error("dashboard", err)
+        if (!cancelled) setFallo(true)
       } finally {
         if (!cancelled) setLoading(false)
       }
@@ -338,7 +357,7 @@ export function Dashboard() {
     return () => {
       cancelled = true
     }
-  }, [user, navigate])
+  }, [user, navigate, intento])
 
   useEffect(() => {
     if (!user) return
@@ -363,8 +382,16 @@ export function Dashboard() {
           supabase.from("user_pca_readiness").select("attempts_60d, avg_score_60d, best_score, passed_recently, readiness_color").eq("user_id", user!.id).maybeSingle(),
         ])
 
-        supabase.rpc("check_my_expiries").then(() => undefined)
+        supabase.rpc("check_my_expiries").then(({ error }) => {
+          if (error) console.warn("check_my_expiries", error.message)
+        })
         if (cancelled) return
+
+        // Cada card muestra su estado vacío si su consulta falla; el motivo queda en consola.
+        const resultados = { allAchievementsRes, userAchievementsRes, peersRes, dailyRes, masteryRes, notamBestRes, licensesRes, readinessRes }
+        for (const [nombre, r] of Object.entries(resultados)) {
+          if (r.error) console.warn(`dashboard: ${nombre}`, r.error.message)
+        }
 
         setAllAchievements((allAchievementsRes.data ?? []) as Achievement[])
 
@@ -394,9 +421,10 @@ export function Dashboard() {
 
         setLicenses((licensesRes.data ?? []) as LicenseRow[])
         setReadiness(readinessRes.data as PcaReadiness | null)
-      } catch {
+      } catch (err) {
         // Estas cards muestran su propio estado vacío si algo falla: no
         // interrumpimos el dashboard con un toast por el heatmap.
+        console.warn("dashboard: tarjetas secundarias", err)
       } finally {
         if (!cancelled) setDeferredLoading(false)
       }
@@ -463,6 +491,31 @@ export function Dashboard() {
 
   // Antes del return temprano: un hook no puede quedar detrás de un if.
   useRachaEnBarra(loading ? undefined : (streak?.current_streak ?? 0))
+
+  if (fallo) {
+    return (
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+        <EstadoError
+          titulo="No pudimos cargar tu panel"
+          mensaje="Revisa tu conexión e inténtalo de nuevo. Tu avance está guardado."
+          acciones={
+            <button
+              type="button"
+              onClick={() => {
+                setFallo(false)
+                setLoading(true)
+                setIntento((n) => n + 1)
+              }}
+              className={appButtonClass({ size: "lg" })}
+              style={appButtonStyle()}
+            >
+              <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+            </button>
+          }
+        />
+      </div>
+    )
+  }
 
   if (loading) return <DashboardSkeleton />
 

@@ -2,7 +2,8 @@ import { useEffect, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, Play, RotateCcw, Timer } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
-import { PsicoCargando, PsicoError } from "@/components/psicotecnicas/EstadosPsico"
+import { EstadoError } from "@/components/EstadoError"
+import { PsicoCargando } from "@/components/psicotecnicas/EstadosPsico"
 import { PsicoPlayer } from "@/components/psicotecnicas/PsicoPlayer"
 import { PsicoResultado } from "@/components/psicotecnicas/PsicoResultado"
 import { useSession } from "@/hooks/useSession"
@@ -74,7 +75,7 @@ export function PsicoSimulacro() {
   if (estado.fase === "error") {
     return (
       <Marco>
-        <PsicoError
+        <EstadoError
           titulo="No pudimos preparar el simulacro"
           mensaje={estado.error.message}
           acciones={
@@ -112,7 +113,7 @@ export function PsicoSimulacro() {
     return (
       <Marco>
         {errorAccion ? (
-          <PsicoError
+          <EstadoError
             titulo="No pudimos cerrar el simulacro"
             mensaje={errorAccion.message}
             acciones={
