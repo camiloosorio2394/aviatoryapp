@@ -1,7 +1,14 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react"
 import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import {
+  borrarLicencia,
+  guardarLicencia,
+  revisarVencimientos,
+  traerLicencias,
+  type License,
+  type LicenseType,
+} from "@/services/documentos"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,32 +22,6 @@ import {
 } from "@/components/ui/select"
 import { PageHeader } from "@/components/ui/page-header"
 import { CountUp } from "@/components/ui/count-up"
-
-type LicenseType =
-  | "medical_class_1"
-  | "medical_class_2"
-  | "medical_class_3"
-  | "ppl"
-  | "cpl"
-  | "atpl"
-  | "ifr"
-  | "multi_engine"
-  | "flight_instructor"
-  | "type_rating"
-  | "icao_english"
-  | "recurrent_check"
-  | "other"
-
-interface License {
-  id: number
-  license_type: LicenseType
-  custom_name: string | null
-  issued_date: string | null
-  expires_date: string | null
-  document_url: string | null
-  notes: string | null
-  created_at: string
-}
 
 const LICENSE_TYPE_LABEL: Record<LicenseType, string> = {
   medical_class_1: "Médico clase 1",
@@ -123,19 +104,12 @@ export function Expiries() {
   const [loading, setLoading] = useState(true)
   const [formOpen, setFormOpen] = useState(false)
 
-  const traer = useCallback(async () => {
-    if (!user) return null
-    return supabase
-      .from("licenses_held")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("expires_date", { ascending: true, nullsFirst: false })
-  }, [user])
+  const traer = useCallback(async () => (user ? traerLicencias(user.id) : null), [user])
 
   const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
     if (!r) return
     if (r.error) toast.error(r.error.message)
-    else setLicenses((r.data ?? []) as License[])
+    else setLicenses(r.licencias)
     setLoading(false)
   }, [])
 
@@ -150,9 +124,7 @@ export function Expiries() {
     void traer().then((r) => {
       if (vivo) aplicar(r)
     })
-    void supabase.rpc("check_my_expiries").then(({ error }) => {
-      if (error) console.warn("check_my_expiries", error.message)
-    })
+    void revisarVencimientos()
     return () => {
       vivo = false
     }
@@ -162,7 +134,7 @@ export function Expiries() {
     if (!confirm("¿Eliminar esta licencia o certificación?")) return
     const prev = licenses
     setLicenses((p) => p.filter((l) => l.id !== id))
-    const { error } = await supabase.from("licenses_held").delete().eq("id", id)
+    const { error } = await borrarLicencia(id)
     if (error) {
       toast.error(error.message)
       setLicenses(prev)
@@ -492,15 +464,14 @@ function NewLicenseDialog({
     if (!user) return
     setSaving(true)
     try {
-      const { error } = await supabase.from("licenses_held").insert({
-        user_id: user.id,
-        license_type: licenseType,
-        custom_name: needsCustomName ? customName.trim() || null : null,
-        issued_date: issuedDate || null,
-        expires_date: expiresDate || null,
+      await guardarLicencia({
+        userId: user.id,
+        licenseType,
+        customName: needsCustomName ? customName.trim() || null : null,
+        issuedDate: issuedDate || null,
+        expiresDate: expiresDate || null,
         notes: notes.trim() || null,
       })
-      if (error) throw error
       onSaved()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
