@@ -95,6 +95,18 @@ tanda, lleva el reloj y calcula precisión, velocidad y global (`psico_iniciar`,
 - Los tiempos que cuentan son los de `private.psico_limite()`; `TIEMPOS` y `FACTOR_NIVEL`
   en `src/lib/psicotecnicas.ts` son su espejo para los textos.
 
+## Base de datos: cómo se escribe una migración
+
+- **Políticas RLS con `(select auth.uid())`**, nunca `auth.uid()` a secas: así Postgres lo
+  calcula una vez por consulta y no una vez por fila.
+- Toda clave foránea lleva su índice.
+- Lo que cambia puntaje, logro, racha o acceso **no se escribe desde el cliente**: va por una
+  función `security definer` con `set search_path = ''` que valida `auth.uid()`. Las tablas
+  de intentos solo dan `select` al cliente.
+- Antes de aplicar, se prueba dentro de un bloque `do` que termina en excepción (todo se
+  deshace), simulando al piloto con `set_config('request.jwt.claims', …)` y
+  `set local role authenticated`. Nunca se borran filas.
+
 ## Cabeceras de seguridad (vercel.json)
 
 La app sale con una **Content-Security-Policy estricta**: scripts solo del propio dominio (y el
