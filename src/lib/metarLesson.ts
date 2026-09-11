@@ -12,8 +12,20 @@
 
 import type { LessonBlock } from "@/lib/notamLesson"
 import type { DocScreen } from "@/lib/docBlocks"
+import { PARTE_ATMOSFERA } from "@/lib/meteorologiaLeccion/atmosfera"
+import { PARTE_AGUA } from "@/lib/meteorologiaLeccion/agua"
+import { PARTE_FRENTES } from "@/lib/meteorologiaLeccion/frentes"
+import { PARTE_SERVICIOS } from "@/lib/meteorologiaLeccion/servicios"
 
-export const METAR_LESSON: DocScreen[] = [
+/**
+ * Las lecciones del código: METAR y TAF, grupo por grupo.
+ *
+ * Dejan de ser la lección entera y pasan a ser su última parte. Los números
+ * `n` de aquí siguen contando desde 1 porque son los del archivo; los de la
+ * lección se recalculan abajo, al componerla, para que no haya que renumerar
+ * trece pantallas a mano cada vez que se añade teoría delante.
+ */
+const CODIGO: DocScreen[] = [
   // ── 1 ──────────────────────────────────────────────────────────────────────
   {
     n: 1,
@@ -1356,11 +1368,53 @@ export const METAR_LESSON: DocScreen[] = [
  * Coinciden con el `level` que cada lección ya declaraba; aquí solo se les
  * pone nombre para que el lector los rotule, como hace NOTAM.
  */
+/**
+ * La lección completa: primero la teoría del clima, después el código.
+ *
+ * Ese orden y no el contrario. Se puede decodificar `BKN015CB` sin saber qué
+ * es un cumulonimbus, pero no se puede **decidir** con él. La teoría venía del
+ * capítulo 11 del PHAK y el código ya estaba escrito, así que lo que se hizo
+ * fue ponerla delante.
+ *
+ * Los `n` de la parte del código se recalculan aquí en vez de reescribirse a
+ * mano en las trece pantallas: así añadir teoría delante no obliga a tocar el
+ * contenido, que es lo que se acaba desincronizando.
+ */
+const TEORIA: DocScreen[] = [
+  ...PARTE_ATMOSFERA,
+  ...PARTE_AGUA,
+  ...PARTE_FRENTES,
+  ...PARTE_SERVICIOS,
+]
+
+export const METAR_LESSON: DocScreen[] = [
+  ...TEORIA,
+  ...CODIGO.map((s, i) => ({ ...s, n: TEORIA.length + i + 1 })),
+]
+
+// La numeración es la que se guarda como progreso: si una parte se desordena,
+// mejor caerse al arrancar que marcar leída la lección equivocada.
+METAR_LESSON.forEach((s, i) => {
+  if (s.n !== i + 1) {
+    throw new Error(`metarLesson: la lección ${s.n} está en la posición ${i + 1}`)
+  }
+})
+
 export const METAR_NIVELES = [
-  { titulo: "Básico · La línea y sus partes", desde: 1 },
-  { titulo: "Intermedio · Fenómenos y cielo", desde: 5 },
-  { titulo: "Avanzado · Tendencia y método", desde: 8 },
-  { titulo: "TAF · El pronóstico", desde: 10 },
+  { titulo: "La atmósfera y el aire en movimiento", desde: 1 },
+  { titulo: "Agua, estabilidad y nubes", desde: PARTE_ATMOSFERA.length + 1 },
+  {
+    titulo: "Masas de aire, frentes y tormentas",
+    desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + 1,
+  },
+  {
+    titulo: "De dónde sale la información",
+    desde: PARTE_ATMOSFERA.length + PARTE_AGUA.length + PARTE_FRENTES.length + 1,
+  },
+  { titulo: "Básico · La línea y sus partes", desde: TEORIA.length + 1 },
+  { titulo: "Intermedio · Fenómenos y cielo", desde: TEORIA.length + 5 },
+  { titulo: "Avanzado · Tendencia y método", desde: TEORIA.length + 8 },
+  { titulo: "TAF · El pronóstico", desde: TEORIA.length + 10 },
 ]
 
 export const METAR_LESSON_TOTAL = METAR_LESSON.length

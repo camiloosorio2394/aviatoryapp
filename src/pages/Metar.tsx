@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { EspacioReservado } from "@/components/modulo/EspacioReservado"
+import { FilaAvance } from "@/components/modulo/FilaAvance"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
@@ -24,16 +25,18 @@ import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
 import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
 
 /**
- * Hub del tema Meteorología operacional (módulo Ingreso a aerolínea).
+ * Hub del módulo Meteorología (dentro de Ingreso a aerolínea).
  * Ruta: /app/aerolinea/meteorologia
  *
- * El tema completo: lección, decodificador, práctica y evaluación. La
- * tendrá su propia lección. Las tres partes con progreso viven en la base con
- * respaldo local: lección y práctica en user_metar_progress, la evaluación en
- * user_metar_exam_attempts.
+ * Portada con el mismo sistema que NOTAM y Mercancías: la foto a sangre bajo
+ * un velo navy, el panel de avance dentro del hero (porque «qué es esto» y
+ * «cómo voy» son la misma pregunta al llegar) y las partes en tarjetas
+ * compactas. Lo que cambia entre módulos es el acento, y aquí es el petróleo
+ * de los tokens --av-mt-*.
  *
- * Las partes se presentan con la tarjeta de curso compartida, la misma del
- * catálogo de la portada y del hub de NOTAM.
+ * Las tres partes con progreso viven en la base con respaldo local: lección y
+ * práctica en user_metar_progress, la evaluación en user_metar_exam_attempts.
+ * El decodificador no mide nada: es consulta libre.
  */
 
 export function Metar() {
@@ -107,8 +110,8 @@ export function Metar() {
       meta: `${METAR_LESSON_TOTAL} secciones de lectura`,
       title: "1. Aprende",
       blurb:
-        "El METAR grupo por grupo (viento, visibilidad, tiempo presente, nubes, QNH y tendencias) y el TAF completo: grupos de cambio, lectura de un pronóstico y cómo decide tu alterno.",
-      cta: "Iniciar formación",
+        "De la atmósfera al informe: por qué se mueve el aire, qué nube tienes delante, qué hace un frente cuando lo cruzas, y después el METAR y el TAF grupo por grupo.",
+      cta: "Abrir la lección",
       photo: aprendePhoto,
       photoAspect: "5/2" as const,
       densidad: "compacta" as const,
@@ -230,9 +233,10 @@ export function Metar() {
               </h1>
 
               <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
-                La lectura obligada del briefing junto al NOTAM. El METAR dice lo que hay y el
-                TAF lo que se espera, pero antes está el cielo: qué nube tienes delante, qué
-                frente se te viene encima y qué decisión implica cada uno.
+                Por qué se mueve el aire, qué nube tienes delante y qué te hace un frente cuando lo
+                cruzas. Y después el informe: el METAR dice lo que hay, el TAF lo que se espera y
+                con qué alterno sales. Es la lectura obligada del briefing y lo que te preguntan en
+                la entrevista técnica.
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
@@ -330,7 +334,9 @@ export function Metar() {
                   to="/app/aerolinea/meteorologia/aprende"
                   valor={`${resumen.lessonRead} / ${METAR_LESSON_TOTAL}`}
                   pct={resumen.lessonPct}
-                  color="#4E9BF5"
+                  /* El petróleo del módulo no se ve sobre este cristal: aquí va
+                     su claro calibrado, igual que NOTAM usa el suyo. */
+                  color="#68AFB7"
                   cargando={cargando}
                 />
                 <FilaAvance
@@ -369,59 +375,3 @@ export function Metar() {
 
 // ─── Sub componentes ─────────────────────────────────────────────────────────
 
-/**
- * Una parte del módulo dentro del hero: nombre, cifra y barra.
- *
- * Misma pieza que en los hubs de NOTAM y Mercancías. El color se lo dan desde
- * fuera porque cada parte lleva el suyo: si todas fueran del acento del módulo
- * no se distinguiría el total de una de sus partes.
- */
-function FilaAvance({
-  titulo,
-  valor,
-  pct,
-  color,
-  aviso,
-  cargando,
-  to,
-}: {
-  titulo: string
-  valor: string
-  pct: number
-  color: string
-  /** Todavía no hay nada que medir: la cifra se dice en ámbar. */
-  aviso?: boolean
-  cargando?: boolean
-  to: string
-}) {
-  return (
-    <Link to={to} className="block rounded-[9px] px-2.5 py-1.5 transition-colors hover:bg-white/[0.07]">
-      <div className="flex items-baseline justify-between gap-3">
-        <span className="text-[12px] font-medium text-white/85">{titulo}</span>
-        {cargando ? (
-          <span className="h-3 w-12 animate-pulse rounded bg-white/15" />
-        ) : (
-          <span
-            className="tabular text-[11px]"
-            style={{ color: aviso ? "var(--av-amber-400)" : "rgba(255,255,255,0.62)" }}
-          >
-            {valor}
-          </span>
-        )}
-      </div>
-      <div
-        className="mt-1.5 h-[3px] overflow-hidden rounded-sm bg-white/15"
-        role="progressbar"
-        aria-valuenow={cargando ? undefined : pct}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-label={`Avance de ${titulo}`}
-      >
-        <div
-          className="h-full rounded-sm transition-[width]"
-          style={{ width: `${pct}%`, background: color }}
-        />
-      </div>
-    </Link>
-  )
-}

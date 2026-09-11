@@ -38,11 +38,13 @@ Cada módulo cambia solo el acento, re-anclando `--av-blue-500`:
 |---|---|---|
 | NOTAM | `.lector-notam` | `#123A6B` azul carta |
 | Mercancías | `.lector-notam .lector-mp` | `#7A5C12` mostaza (tokens `--av-dg-*`) |
-| Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
+| Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
 
 **El ámbar y el rojo no son identidad, son semántica**: significan alerta y error en toda la
 app. No usarlos como color de módulo. Y `--av-green-400` es el verde de «correcto»: por eso
-Meteorología tiene el suyo propio, más oscuro y con menos croma.
+Meteorología dejó de ser verde. Aunque el del módulo fuera más oscuro seguía
+siendo la misma familia, y un módulo entero teñido del color del acierto se lee
+como si todo estuviera validado.
 
 ## Bloques de contenido
 

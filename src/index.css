@@ -1470,11 +1470,16 @@
   --av-dg-fg: oklch(0.82 0.10 88);
 }
 
-/* Meteorología: verde de bosque, no el verde de «correcto».
-   El --av-green-400 de la app significa acierto y es brillante a propósito;
-   como identidad de módulo haría que todo pareciera validado. Este baja la
-   luminosidad y el croma hasta el terreno del navy del índice: sigue siendo
-   verde, pero se comporta como un color de documento. */
+/* Meteorología: turquesa petróleo.
+   Era verde de bosque, y el verde de esta app ya tiene dueño: --av-green-400
+   significa «correcto». Aunque el del módulo fuera más oscuro, seguía siendo
+   la misma familia, y un módulo entero teñido del color del acierto se lee
+   como si todo estuviera validado.
+
+   Petróleo quiere decir azulado, oscuro y apagado: el matiz se va del 166
+   (verde) al 205 (cian azulado) y el croma baja. Nada de turquesa de piscina,
+   que a esta luminosidad ni siquiera cabe en sRGB sin gritar. Los hex del
+   lector, más abajo, salen de estos mismos oklch y no de otro ojo. */
 :root {
   --av-mt-500: oklch(0.63 0.075 205);
   --av-mt-600: oklch(0.52 0.072 205);
@@ -1506,8 +1511,10 @@
   --doc-accent: var(--ln-primary);
 }
 
-/* Y el de Meteorología, igual, en verde. Mismo papel, misma tinta, mismo
-   navy: cambia lo que era azul carta. */
+/* Y el de Meteorología, igual, en turquesa petróleo. Mismo papel, misma
+   tinta, mismo navy: cambia lo que era azul carta. Cada hex es el mismo oklch
+   de los tokens --av-mt-* de arriba, convertido: si un día se mueve el matiz,
+   se mueven los dos juntos. */
 .lector-notam.lector-mt {
   --ln-primary: #1A4A52;
   --ln-primary-hover: #123A41;
