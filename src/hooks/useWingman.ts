@@ -39,49 +39,49 @@ function uid() {
   return Math.random().toString(36).slice(2)
 }
 
+// Si la conversación ya no se puede seguir, el próximo mensaje abre una nueva.
+const CONVERSACION_CERRADA = new Set(["conversation_full", "conversation_not_found"])
+
+type EstadoUso = { usadas: number; limite: number; pro: boolean }
+
+/**
+ * Cuántas conversaciones lleva el piloto este mes, cuántas tiene y si su plan
+ * las hace ilimitadas. Lo calcula la base (wingman_estado), con la misma regla
+ * que aplica la función de borde al recibir el mensaje.
+ */
+async function traerUso(): Promise<EstadoUso | null> {
+  const { data, error } = await supabase.rpc("wingman_estado")
+  if (error || !data) return null
+  const d = data as Partial<EstadoUso>
+  return { usadas: d.usadas ?? 0, limite: d.limite ?? 0, pro: d.pro === true }
+}
+
 export function useWingman() {
   const [state, setState] = useState<WingmanState>(initialState)
   const [usage, setUsage] = useState<number | null>(null)
   const [isPro, setIsPro] = useState<boolean>(false)
+  const [freeLimit, setFreeLimit] = useState<number>(0)
 
-  // Fetch usage + plan once on mount and when panel opens
-  const traerUso = useCallback(async () => {
-    const [{ data: usageData }, { data: subData }] = await Promise.all([
-      supabase.rpc("ai_usage_this_month"),
-      supabase
-        .from("subscriptions")
-        .select("plan, status")
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .maybeSingle(),
-    ])
-    const sub = subData as { plan?: string; status?: string } | null
-    return {
-      usados: (usageData as number) ?? 0,
-      pro:
-        !!sub &&
-        ["pro_monthly", "pro_annual", "founder_lifetime"].includes(sub.plan ?? "") &&
-        ["trialing", "active"].includes(sub.status ?? ""),
-    }
+  const aplicarUso = useCallback((r: EstadoUso | null) => {
+    if (!r) return
+    setUsage(r.usadas)
+    setFreeLimit(r.limite)
+    setIsPro(r.pro)
   }, [])
 
   const refreshUsage = useCallback(async () => {
-    const r = await traerUso()
-    setUsage(r.usados)
-    setIsPro(r.pro)
-  }, [traerUso])
+    aplicarUso(await traerUso())
+  }, [aplicarUso])
 
   useEffect(() => {
     let vivo = true
     void traerUso().then((r) => {
-      if (!vivo) return
-      setUsage(r.usados)
-      setIsPro(r.pro)
+      if (vivo) aplicarUso(r)
     })
     return () => {
       vivo = false
     }
-  }, [traerUso])
+  }, [aplicarUso])
 
   const openWith = useCallback(
     (ctx: WingmanContext) => {
@@ -139,11 +139,9 @@ export function useWingman() {
           return prev
         })
 
+        // El historial no se manda: el servidor usa el guardado de esta conversación.
         const ctx = state.context
         const conversation_id = state.conversationId
-        const conversation_history = state.messages
-          .filter((m) => !m.pending && !m.error)
-          .map((m) => ({ role: m.role, content: m.content }))
 
         const supabaseUrl = import.meta.env.VITE_SUPABASE_URL as string
         const res = await fetch(`${supabaseUrl}/functions/v1/wingman`, {
@@ -158,7 +156,6 @@ export function useWingman() {
             attempt_id: ctx?.attempt_id,
             message: text,
             conversation_id,
-            conversation_history: conversation_history.length > 0 ? conversation_history : undefined,
           }),
         })
 
@@ -182,6 +179,7 @@ export function useWingman() {
           setState((prev) => ({
             ...prev,
             sending: false,
+            conversationId: CONVERSACION_CERRADA.has(errCode) ? null : prev.conversationId,
             messages: prev.messages.map((m) =>
               m.id === pendingId
                 ? { ...m, content: errMsg, pending: false, error: true }
@@ -244,7 +242,7 @@ export function useWingman() {
     state,
     usage,
     isPro,
-    freeLimit: 5,
+    freeLimit,
     openWith,
     close,
     send,

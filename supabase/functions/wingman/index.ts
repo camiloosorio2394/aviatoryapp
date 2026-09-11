@@ -1,23 +1,34 @@
-// Wingman — Aviatory's AI tutor edge function
+// Wingman: el tutor de IA de Aviatory (función de borde).
 //
-// Purpose: receive a quiz failure (or follow-up question) from the client,
-// build aviation-tutor context, call Anthropic Sonnet with prompt caching,
-// persist the conversation in ai_interactions, return the response.
+// Recibe un mensaje del piloto, llama a Anthropic con el prompt de sistema en
+// caché y guarda la conversación en ai_interactions.
 //
-// Without ANTHROPIC_API_KEY set, the function returns 503 with a graceful
-// "siendo configurado" message — the frontend renders a friendly placeholder.
+// Lo que decide el servidor, no el navegador:
+//   - quién es el piloto (JWT verificado con Auth);
+//   - si puede mandar este mensaje: `wingman_reservar` revisa, bajo un candado
+//     por usuario, los límites por minuto, por día, por mes y por conversación,
+//     y registra el mensaje antes de llamar al modelo;
+//   - qué historial ve el modelo: el guardado en la base, nunca el que mande el
+//     cliente.
+// Si el modelo falla, `wingman_cerrar` marca el mensaje como fallido y no cuenta.
 //
-// To enable: set ANTHROPIC_API_KEY in Supabase project secrets:
-//   1. Dashboard → Project Settings → Edge Functions → Secrets → Add
-//      Name: ANTHROPIC_API_KEY
-//      Value: sk-ant-...
-//   2. No re-deploy needed; secrets are read live.
+// Configuración (Dashboard → Edge Functions → Secrets):
+//   ANTHROPIC_API_KEY   obligatoria; sin ella responde 503 con un aviso amable.
+//   WINGMAN_MODELO      opcional; por defecto claude-sonnet-4-5.
+//   WINGMAN_ORIGENES    opcional; orígenes permitidos separados por coma.
 
 import { createClient } from "jsr:@supabase/supabase-js@2"
 
-const FREE_TIER_LIMIT = 5           // conversaciones por mes en free
-const ANTHROPIC_MODEL = "claude-sonnet-4-5"
+const MODELO = Deno.env.get("WINGMAN_MODELO") ?? "claude-sonnet-4-5"
 const MAX_TOKENS = 1024
+const TIEMPO_MAXIMO_MS = 45_000
+const CARACTERES_MENSAJE = 4000 // la base vuelve a validarlo
+const ORIGENES = (Deno.env.get("WINGMAN_ORIGENES") ?? "https://aviatoryapp-mu.vercel.app,http://localhost:5173")
+  .split(",")
+  .map((o) => o.trim())
+  .filter(Boolean)
+const TIPOS = new Set(["quiz_explain", "study_help", "general"])
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 const SYSTEM_PROMPT = `Sos Wingman, el copiloto digital de Aviatory.
 
@@ -44,287 +55,221 @@ LÍMITES:
 
 Tu mejor cumplido: cuando el piloto entienda algo que no entendía y siga adelante.`
 
-interface RequestBody {
-  kind?: "quiz_explain" | "study_help" | "general"
-  question_id?: number
-  attempt_id?: number
-  message?: string
-  conversation_id?: string
-  conversation_history?: { role: "user" | "assistant"; content: string }[]
+type Turno = { role: "user" | "assistant"; content: string }
+
+interface Reserva {
+  conversation_id: string
+  mensaje_id: number
+  historial: Turno[]
 }
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
+// Errores de wingman_reservar → respuesta para el piloto.
+const ERRORES_RESERVA: Record<string, { status: number; error: string; message: string }> = {
+  limite_mensual: {
+    status: 402,
+    error: "limit_reached",
+    message: "Llegaste a tu límite de explicaciones gratis este mes. Pasa a Pro para tenerlas ilimitadas.",
+  },
+  demasiado_rapido: {
+    status: 429,
+    error: "rate_limited",
+    message: "Vas muy rápido. Espera un minuto y vuelve a preguntar.",
+  },
+  limite_diario: {
+    status: 429,
+    error: "daily_limit",
+    message: "Llegaste al máximo de mensajes por hoy. Mañana seguimos.",
+  },
+  conversacion_llena: {
+    status: 409,
+    error: "conversation_full",
+    message: "Esta conversación ya es muy larga. Empieza una nueva para seguir.",
+  },
+  conversacion_no_encontrada: {
+    status: 404,
+    error: "conversation_not_found",
+    message: "No encontramos esa conversación. Empieza una nueva.",
+  },
+  mensaje_invalido: {
+    status: 400,
+    error: "invalid_message",
+    message: `Escribe un mensaje de hasta ${CARACTERES_MENSAJE} caracteres.`,
+  },
+  tipo_invalido: { status: 400, error: "invalid_body", message: "No pudimos leer tu mensaje." },
 }
 
-function jsonResponse(body: unknown, status = 200) {
+function cabeceras(origen: string | null): Record<string, string> {
+  const base: Record<string, string> = {
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    Vary: "Origin",
+  }
+  if (origen && ORIGENES.includes(origen)) base["Access-Control-Allow-Origin"] = origen
+  return base
+}
+
+function responder(origen: string | null, body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...cabeceras(origen), "Content-Type": "application/json" },
   })
 }
 
+function registrar(datos: Record<string, unknown>) {
+  // Sin contenido de mensajes: solo lo necesario para operar y cobrar.
+  console.log(JSON.stringify({ evento: "wingman", ...datos }))
+}
+
 Deno.serve(async (req: Request) => {
-  if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders })
-  if (req.method !== "POST") return jsonResponse({ error: "method_not_allowed" }, 405)
+  const origen = req.headers.get("Origin")
+  const origenPermitido = !origen || ORIGENES.includes(origen)
+
+  if (req.method === "OPTIONS") {
+    return new Response(null, { status: origenPermitido ? 204 : 403, headers: cabeceras(origen) })
+  }
+  if (!origenPermitido) return responder(origen, { error: "origin_not_allowed" }, 403)
+  if (req.method !== "POST") return responder(origen, { error: "method_not_allowed" }, 405)
+
+  const inicio = Date.now()
+  let userId: string | null = null
 
   try {
-    // ─── Auth ────────────────────────────────────────────────────────────
+    // ─── Piloto ──────────────────────────────────────────────────────────
     const authHeader = req.headers.get("Authorization")
-    if (!authHeader) return jsonResponse({ error: "no_auth" }, 401)
+    if (!authHeader) return responder(origen, { error: "no_auth" }, 401)
 
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!
-    const supabaseAnonKey = Deno.env.get("SUPABASE_ANON_KEY")!
-    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-
-    const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+    const comoPiloto = createClient(supabaseUrl, Deno.env.get("SUPABASE_ANON_KEY")!, {
       global: { headers: { Authorization: authHeader } },
     })
-
     const {
       data: { user },
-    } = await supabase.auth.getUser()
-    if (!user) return jsonResponse({ error: "unauthorized" }, 401)
+    } = await comoPiloto.auth.getUser()
+    if (!user) return responder(origen, { error: "unauthorized" }, 401)
+    userId = user.id
 
-    // ─── Parse input ─────────────────────────────────────────────────────
-    let body: RequestBody = {}
+    // ─── Petición ────────────────────────────────────────────────────────
+    let body: Record<string, unknown>
     try {
       body = await req.json()
     } catch {
-      return jsonResponse({ error: "invalid_body" }, 400)
+      return responder(origen, { error: "invalid_body", message: "No pudimos leer tu mensaje." }, 400)
+    }
+    const kind = typeof body.kind === "string" ? body.kind : "general"
+    const mensaje = typeof body.message === "string" ? body.message.trim() : ""
+    const conversationId = typeof body.conversation_id === "string" ? body.conversation_id : null
+    if (!TIPOS.has(kind) || (conversationId !== null && !UUID.test(conversationId))) {
+      return responder(origen, { error: "invalid_body", message: "No pudimos leer tu mensaje." }, 400)
+    }
+    if (!mensaje || mensaje.length > CARACTERES_MENSAJE) {
+      return responder(origen, ERRORES_RESERVA.mensaje_invalido, 400)
     }
 
-    const kind = body.kind ?? "quiz_explain"
-
-    // ─── Graceful degradation: no API key ────────────────────────────────
     const apiKey = Deno.env.get("ANTHROPIC_API_KEY")
     if (!apiKey) {
-      return jsonResponse(
+      return responder(
+        origen,
         {
           error: "wingman_not_configured",
-          message:
-            "Wingman está siendo configurado por el equipo de Aviatory. Vuelve a intentar en unos días.",
+          message: "Wingman está siendo configurado por el equipo de Aviatory. Vuelve a intentar en unos días.",
         },
-        503
+        503,
       )
     }
 
-    // ─── Usage limit (free tier) ────────────────────────────────────────
-    const { data: subRow } = await supabase
-      .from("subscriptions")
-      .select("plan, status")
-      .eq("user_id", user.id)
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle()
-
-    const isPro =
-      subRow &&
-      ["pro_monthly", "pro_annual", "founder_lifetime"].includes(
-        (subRow as { plan: string }).plan
-      ) &&
-      ["trialing", "active"].includes((subRow as { status: string }).status)
-
-    if (!isPro) {
-      const { data: usage } = await supabase.rpc("ai_usage_this_month")
-      const used = (usage as number) ?? 0
-      if (used >= FREE_TIER_LIMIT) {
-        return jsonResponse(
-          {
-            error: "limit_reached",
-            message: `Llegaste a tu límite de ${FREE_TIER_LIMIT} explicaciones gratis este mes. Upgradeá a Pro para ilimitadas.`,
-            used,
-            limit: FREE_TIER_LIMIT,
-          },
-          402
-        )
-      }
-    }
-
-    // ─── Build user message + context ───────────────────────────────────
-    let userMsg = body.message ?? ""
-
-    if (kind === "quiz_explain" && body.question_id && !body.conversation_id) {
-      // First turn: load the failed question + pilot context
-      const [qRes, pilotRes] = await Promise.all([
-        supabase
-          .from("questions")
-          .select(
-            "statement, explanation, subjects(name), answer_options(text, is_correct, order_index)"
-          )
-          .eq("id", body.question_id)
-          .maybeSingle(),
-        supabase
-          .from("pilot_state")
-          .select("stage, total_hours, target_airline, icao_english_level")
-          .eq("user_id", user.id)
-          .maybeSingle(),
-      ])
-
-      type AnswerOption = { text: string; is_correct: boolean; order_index: number }
-      type QuestionRow = {
-        statement: string
-        explanation: string | null
-        subjects: { name: string } | null
-        answer_options: AnswerOption[]
-      }
-      type PilotRow = {
-        stage: string | null
-        total_hours: number | null
-        target_airline: string | null
-        icao_english_level: number | null
-      }
-
-      const q = qRes.data as QuestionRow | null
-      const p = (pilotRes.data as PilotRow | null) ?? {
-        stage: null,
-        total_hours: null,
-        target_airline: null,
-        icao_english_level: null,
-      }
-
-      if (q) {
-        const options = (q.answer_options ?? [])
-          .sort((a, b) => a.order_index - b.order_index)
-          .map(
-            (o, i) =>
-              `${String.fromCharCode(65 + i)}) ${o.text}${o.is_correct ? "  ← CORRECTA" : ""}`
-          )
-          .join("\n")
-
-        userMsg = `Fallé esta pregunta del examen Aerocivil PCA${
-          q.subjects ? ` (${q.subjects.name})` : ""
-        } y necesito que me la expliques bien.
-
-PREGUNTA:
-${q.statement}
-
-OPCIONES:
-${options}
-
-EXPLICACIÓN OFICIAL (puede ser corta o ausente):
-${q.explanation ?? "(sin explicación oficial cargada)"}
-
-MI CONTEXTO:
-- Etapa: ${p.stage ?? "no cargada"}
-- Horas: ${p.total_hours ?? 0}h
-- Aerolínea objetivo: ${p.target_airline ?? "—"}
-- ICAO inglés: ${p.icao_english_level ?? "—"}
-
-Explicame por qué la opción correcta es correcta, por qué cada distractor está mal, y dame un tip para recordar la regla.`
-      }
-    }
-
-    if (!userMsg) {
-      return jsonResponse({ error: "empty_message" }, 400)
-    }
-
-    // Build messages array (include history for follow-ups)
-    const messages: { role: "user" | "assistant"; content: string }[] = []
-    if (body.conversation_history && Array.isArray(body.conversation_history)) {
-      messages.push(...body.conversation_history)
-    }
-    messages.push({ role: "user", content: userMsg })
-
-    // ─── Call Anthropic with prompt caching on the system ───────────────
-    const anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        model: ANTHROPIC_MODEL,
-        max_tokens: MAX_TOKENS,
-        system: [
-          {
-            type: "text",
-            text: SYSTEM_PROMPT,
-            cache_control: { type: "ephemeral" },
-          },
-        ],
-        messages,
-      }),
+    // ─── Reserva: límites e historial desde la base ─────────────────────
+    const servidor = createClient(supabaseUrl, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!)
+    const { data: reservaData, error: reservaError } = await servidor.rpc("wingman_reservar", {
+      p_user_id: user.id,
+      p_conversation_id: conversationId,
+      p_kind: kind,
+      p_mensaje: mensaje,
     })
+    if (reservaError) {
+      const conocido = ERRORES_RESERVA[reservaError.message]
+      registrar({ usuario: user.id, estado: reservaError.message, ms: Date.now() - inicio })
+      if (conocido) return responder(origen, conocido, conocido.status)
+      console.error("wingman_reservar:", reservaError)
+      return responder(origen, { error: "internal", message: "Algo salió mal procesando tu pregunta. Prueba de nuevo." }, 500)
+    }
+    const reserva = reservaData as Reserva
+
+    // ─── Modelo ──────────────────────────────────────────────────────────
+    const cerrarSinRespuesta = () =>
+      servidor.rpc("wingman_cerrar", {
+        p_mensaje_id: reserva.mensaje_id,
+        p_texto: null,
+        p_tokens_input: null,
+        p_tokens_output: null,
+        p_modelo: null,
+      })
+
+    let anthropicRes: Response
+    try {
+      anthropicRes = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        signal: AbortSignal.timeout(TIEMPO_MAXIMO_MS),
+        headers: {
+          "x-api-key": apiKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: MODELO,
+          max_tokens: MAX_TOKENS,
+          system: [{ type: "text", text: SYSTEM_PROMPT, cache_control: { type: "ephemeral" } }],
+          messages: [...reserva.historial, { role: "user", content: mensaje }],
+        }),
+      })
+    } catch (error) {
+      await cerrarSinRespuesta()
+      registrar({ usuario: user.id, estado: "modelo_sin_respuesta", ms: Date.now() - inicio })
+      console.error("Anthropic sin respuesta:", error)
+      return responder(origen, { error: "llm_error", message: "No pudimos generar la explicación. Prueba de nuevo en un momento." }, 502)
+    }
 
     if (!anthropicRes.ok) {
-      const errText = await anthropicRes.text()
-      console.error("Anthropic error:", anthropicRes.status, errText)
-      return jsonResponse(
-        {
-          error: "llm_error",
-          message: "No pudimos generar la explicación. Probá de nuevo en un momento.",
-        },
-        502
-      )
+      await cerrarSinRespuesta()
+      registrar({ usuario: user.id, estado: `modelo_${anthropicRes.status}`, ms: Date.now() - inicio })
+      console.error("Anthropic error:", anthropicRes.status, await anthropicRes.text())
+      return responder(origen, { error: "llm_error", message: "No pudimos generar la explicación. Prueba de nuevo en un momento." }, 502)
     }
 
     type AnthropicResponse = {
-      content: { type: string; text: string }[]
-      usage: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number }
+      content: { type: string; text?: string }[]
+      usage?: { input_tokens: number; output_tokens: number; cache_read_input_tokens?: number }
     }
     const result = (await anthropicRes.json()) as AnthropicResponse
-    const text = result.content?.[0]?.text ?? "(sin respuesta)"
-    const tokens_input = result.usage?.input_tokens ?? 0
-    const tokens_output = result.usage?.output_tokens ?? 0
+    const text =
+      result.content
+        ?.filter((b) => b.type === "text" && b.text)
+        .map((b) => b.text)
+        .join("\n\n") || "(sin respuesta)"
+    const tokensInput = result.usage?.input_tokens ?? 0
+    const tokensOutput = result.usage?.output_tokens ?? 0
 
-    // ─── Persist conversation (service role so RLS doesn't block) ───────
-    const admin = createClient(supabaseUrl, supabaseServiceKey)
+    const { data: respuestaId, error: cierreError } = await servidor.rpc("wingman_cerrar", {
+      p_mensaje_id: reserva.mensaje_id,
+      p_texto: text,
+      p_tokens_input: tokensInput,
+      p_tokens_output: tokensOutput,
+      p_modelo: MODELO,
+    })
+    if (cierreError) console.error("wingman_cerrar:", cierreError)
 
-    const conversation_id = body.conversation_id ?? crypto.randomUUID()
+    registrar({ usuario: user.id, estado: "ok", ms: Date.now() - inicio, tokens_input: tokensInput, tokens_output: tokensOutput })
 
-    const { data: inserted, error: insertErr } = await admin
-      .from("ai_interactions")
-      .insert([
-        {
-          user_id: user.id,
-          conversation_id,
-          kind,
-          question_id: body.question_id ?? null,
-          attempt_id: body.attempt_id ?? null,
-          role: "user",
-          content: userMsg,
-        },
-        {
-          user_id: user.id,
-          conversation_id,
-          kind,
-          question_id: body.question_id ?? null,
-          attempt_id: body.attempt_id ?? null,
-          role: "assistant",
-          content: text,
-          tokens_input,
-          tokens_output,
-          model: ANTHROPIC_MODEL,
-        },
-      ])
-      .select("id, role")
-
-    if (insertErr) console.error("ai_interactions insert error:", insertErr)
-
-    const assistantRow = (inserted ?? []).find((r) => r.role === "assistant") as
-      | { id: number }
-      | undefined
-
-    return jsonResponse({
-      conversation_id,
-      message_id: assistantRow?.id,
+    return responder(origen, {
+      conversation_id: reserva.conversation_id,
+      message_id: respuestaId ?? undefined,
       text,
-      tokens_input,
-      tokens_output,
+      tokens_input: tokensInput,
+      tokens_output: tokensOutput,
       cache_read_tokens: result.usage?.cache_read_input_tokens ?? 0,
     })
   } catch (err) {
+    registrar({ usuario: userId, estado: "error_interno", ms: Date.now() - inicio })
     console.error("wingman internal error:", err)
-    return jsonResponse(
-      {
-        error: "internal",
-        message: "Algo salió mal procesando tu pregunta. Probá de nuevo.",
-      },
-      500
-    )
+    return responder(origen, { error: "internal", message: "Algo salió mal procesando tu pregunta. Prueba de nuevo." }, 500)
   }
 })
