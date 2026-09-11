@@ -1,7 +1,7 @@
 /**
  * Marcado ligero de las lecciones-documento, convertido a nodos de React sin
- * dangerouslySetInnerHTML. Soporta **negrita** y `codigo`, con los colores de
- * las variables --doc-*.
+ * dangerouslySetInnerHTML. Soporta **negrita**, ==resaltado== y `codigo`, con
+ * los colores de las variables --doc-*.
  *
  * Nació dentro de DocLessonBlocks y vive aparte para que los bloques de curso
  * (BloquesModulo) lo usen sin importar el renderizador entero.
@@ -11,7 +11,7 @@ import type { ReactNode } from "react"
 import { docAccent, docTint } from "@/lib/docSheet"
 
 export function renderInline(text: string): ReactNode[] {
-  const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`)/g)
+  const parts = text.split(/(\*\*[^*]+\*\*|==[^=]+==|`[^`]+`)/g)
   const out: ReactNode[] = []
   parts.forEach((part, i) => {
     if (part === "") return
@@ -20,6 +20,27 @@ export function renderInline(text: string): ReactNode[] {
         <strong key={i} className="font-semibold" style={{ color: "var(--doc-fg)" }}>
           {part.slice(2, -2)}
         </strong>,
+      )
+      return
+    }
+    if (part.length > 4 && part.startsWith("==") && part.endsWith("==")) {
+      out.push(
+        // Resaltador de marcador: una banda en la mitad baja de la línea, del
+        // tinte del acento del módulo, el mismo que usa el rotulador de las
+        // líneas de NOTAM. `box-decoration-break` repite el trazo en cada
+        // renglón cuando el texto resaltado ocupa varios.
+        <mark
+          key={i}
+          className="rounded-[2px] px-[0.12em]"
+          style={{
+            color: "inherit",
+            background: `linear-gradient(to bottom, transparent 42%, ${docTint("var(--av-blue-500)", 24)} 42%)`,
+            WebkitBoxDecorationBreak: "clone",
+            boxDecorationBreak: "clone",
+          }}
+        >
+          {part.slice(2, -2)}
+        </mark>,
       )
       return
     }

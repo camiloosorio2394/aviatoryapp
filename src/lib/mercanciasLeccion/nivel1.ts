@@ -59,7 +59,7 @@ export const NIVEL_1: DocScreen[] = [
         rac: "RAC 175.001 (a) (31)",
         titulo: "Mercancías peligrosas",
         texto:
-          "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de mercancías peligrosas de las Instrucciones Técnicas o esté clasificado conforme a dichas Instrucciones.",
+          "==Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de mercancías peligrosas de las Instrucciones Técnicas o esté clasificado conforme a dichas Instrucciones.==",
       },
       {
         kind: "p",
@@ -67,7 +67,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "definicion",
-        text: "Los generadores de ValuJet no dejaban de ser mercancía peligrosa por llamarse «canisters» ni por ir marcados como vacíos. Lo que cuenta es lo que la sustancia hace, no lo que dice la caja.",
+        text: "En ValuJet 592, los generadores químicos de oxígeno figuraban en el manifiesto como «Oxy Canisters, Empty»: cilindros de oxígeno vacíos. No estaban vacíos, y el nombre que llevaban en el papel no les quitaba el riesgo. Algo es mercancía peligrosa por lo que puede hacer, no por cómo lo llamen ni por lo que diga la caja.",
       },
       { kind: "sub", text: "De dónde viene la obligación" },
       { kind: "p", text: "Cuatro documentos, uno dentro del otro. Toca cada eslabón." },
@@ -187,45 +187,45 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Presión",
+            icono: "/modulos/mercancias/ico-presion.webp",
             desc: "La cabina y las bodegas vuelan a una presión menor que la del suelo. Un recipiente cerrado a nivel del mar queda con presión hacia afuera: lo que estaba justo se abre, y la fuga pequeña se agranda.",
           },
           {
             titulo: "Temperatura",
+            icono: "/modulos/mercancias/ico-temperatura.webp",
             desc: "Entre la plataforma y el crucero hay decenas de grados de diferencia. Un líquido inflamable que se calienta despide más vapor; un peróxido que se calienta se descompone.",
           },
           {
             titulo: "Vibración",
+            icono: "/modulos/mercancias/ico-vibracion.webp",
             desc: "Horas de vibración aflojan tapas, rozan embalajes entre sí y rompen frascos interiores. Por eso el 175.420 (e) exige acolchar y sujetar los embalajes interiores.",
           },
           {
             titulo: "Tiempo y aislamiento",
+            icono: "/modulos/mercancias/ico-tiempo.webp",
             desc: "En tierra un derrame se atiende en minutos. En crucero el aeródromo más cercano puede estar a más de una hora. Lo que pase lo resuelve la tripulación con lo que ya está a bordo.",
           },
         ],
       },
-      {
-        kind: "figura",
-        src: "/modulos/mercancias/ico-cuatro-enemigos.webp",
-        alt: "Cuatro iconos: un manómetro sobre nubes, un termómetro entre un copo de nieve y un sol, una caja en una cinta transportadora con ondas de vibración, y un reloj con un avión en pista.",
-        ancho: 1200,
-        alto: 800,
-        anchoMax: 620,
-        pie: "Presión, temperatura, vibración y tiempo. Los cuatro actúan a la vez durante todo el vuelo.",
-      },
-      { kind: "sub", text: "Lo que no hay a bordo" },
+      { kind: "sub", text: "Lo que cambia cuando el problema ocurre en vuelo" },
       {
         kind: "p",
-        text: "En un avión no hay bomberos, no hay ducha de emergencia, no hay dónde aislar un bulto y no se puede abrir una ventana. El equipo mínimo de respuesta que exige el reglamento cabe en una bolsa: bolsas grandes de polietileno, ligaduras y guantes largos de goma (175.620). Con eso, con el extintor de mano y con el procedimiento del explotador se atiende lo que ocurra hasta aterrizar.",
+        text: "En tierra, un incidente con mercancías peligrosas puede recibir apoyo externo rápidamente. En vuelo, la tripulación debe actuar con los procedimientos y equipos disponibles a bordo y mantener la situación controlada hasta poder aterrizar.",
+      },
+      {
+        kind: "p",
+        text: "Por eso, el explotador debe proporcionar procedimientos de emergencia y el equipo previsto para responder a determinados eventos con mercancías peligrosas, incluyendo elementos como bolsas grandes de polietileno, ligaduras y guantes largos de goma (175.620).",
+      },
+      { kind: "sub", text: "¿Qué significa esto para ti como piloto?" },
+      {
+        kind: "p",
+        text: "No significa que tengas que hacer el trabajo del personal de tierra. Significa que debes saber reconocer el riesgo, conocer el procedimiento de tu operador y utilizar los recursos disponibles a bordo cuando una mercancía peligrosa genere una situación anormal.",
       },
       {
         kind: "callout",
         tone: "warn",
         title: "El caso de las bodegas clase D",
         text: "En ValuJet 592 la bodega delantera no tenía detección ni extinción de incendios. La tripulación se enteró del fuego cuando el humo llegó a la cabina, y para entonces llevaba minutos ardiendo. Después del accidente la FAA exigió detección y supresión en esas bodegas. Es la razón por la que hoy la bodega de tu avión avisa. Fuente: NTSB AAR-97/06.",
-      },
-      {
-        kind: "definicion",
-        text: "El riesgo de una mercancía peligrosa en aviación no es solo lo que la sustancia hace. Es lo que hace bajo presión, temperatura y vibración, durante horas, sin ayuda exterior. Cada regla de embalaje, cantidad y estiba que vas a ver existe por eso.",
       },
       {
         kind: "enLaOperacion",
