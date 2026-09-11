@@ -6,7 +6,8 @@
  *   preguntas y aciertos.
  * - registrarEstudioDiario(): al estudiar en una superficie sin preguntas (una
  *   lección, una práctica), como mucho una vez al día por superficie.
- * - fetchHeatmapSeries(): la serie del heatmap, leída de daily_activity con su RLS.
+ * - armarSerieHeatmap(): la serie del heatmap a partir de las filas de
+ *   daily_activity que trae panel_tarjetas() (services/panel.ts).
  */
 
 import { supabase } from "@/integrations/supabase/client"
@@ -111,8 +112,8 @@ const WEEKS = 12
  * con ceros donde no hubo actividad. La grilla del dashboard corta en
  * columnas de 7, así que la serie siempre arranca en lunes.
  */
-export async function fetchHeatmapSeries(userId: string): Promise<ActivityDay[]> {
-  const hoy = new Date()
+export function armarSerieHeatmap(filas: ActivityDay[], ahora = new Date()): ActivityDay[] {
+  const hoy = new Date(ahora)
   hoy.setHours(0, 0, 0, 0)
   const inicio = new Date(hoy)
   inicio.setDate(inicio.getDate() - (WEEKS - 1) * 7)
@@ -120,25 +121,12 @@ export async function fetchHeatmapSeries(userId: string): Promise<ActivityDay[]>
   const offset = (inicio.getDay() + 6) % 7
   inicio.setDate(inicio.getDate() - offset)
 
-  const isoInicio = inicio.toISOString().slice(0, 10)
-
   const porFecha = new Map<string, { activities_count: number; questions_answered: number }>()
-  try {
-    const { data, error } = await supabase
-      .from("daily_activity")
-      .select("date, activities_count, questions_answered")
-      .eq("user_id", userId)
-      .gte("date", isoInicio)
-    // Sin datos, la serie sale en ceros y el heatmap muestra su estado vacío.
-    if (error) console.warn("heatmap: daily_activity", error.message)
-    for (const row of (data ?? []) as ActivityDay[]) {
-      porFecha.set(row.date, {
-        activities_count: row.activities_count ?? 0,
-        questions_answered: row.questions_answered ?? 0,
-      })
-    }
-  } catch (err) {
-    console.warn("heatmap: daily_activity", err)
+  for (const row of filas) {
+    porFecha.set(row.date, {
+      activities_count: row.activities_count ?? 0,
+      questions_answered: row.questions_answered ?? 0,
+    })
   }
 
   const serie: ActivityDay[] = []
