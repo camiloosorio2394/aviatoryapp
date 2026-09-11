@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, ClipboardCheck, ScanSearch, Target } from "lucide-react"
-import { EspacioReservado } from "@/components/modulo/EspacioReservado"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
@@ -238,29 +238,17 @@ export function Metar() {
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {/* El video de este módulo todavía no existe. El hueco NO se
-                    quita: guarda la caja exacta de la tarjeta de NOTAM, así que
-                    el día que haya video se pone <VideoIntro> aquí. */}
-                <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/25 bg-[rgba(6,17,31,0.55)] p-2 pr-4 backdrop-blur-[6px]">
-                  <EspacioReservado
-                    etiqueta="Video 16:9"
-                    className="h-[52px] w-[92px] shrink-0 rounded-[8px]"
-                  />
-                  <div className="min-w-0">
-                    <div
-                      className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em]"
-                      style={{ color: "var(--av-mt-500)" }}
-                    >
-                      Empieza por aquí
-                    </div>
-                    <div className="mt-1 text-[15px] font-semibold leading-[1.35] text-white/70">
-                      Introducción al módulo
-                    </div>
-                    <div className="mt-1 text-[12px] text-white/45">
-                      [VIDEO · 16:9 · ESPACIO RESERVADO]
-                    </div>
-                  </div>
-                </div>
+                <VideoIntro
+                  src="/modulos/meteorologia/intro.mp4"
+                  miniatura="/modulos/meteorologia/intro-poster.webp"
+                  portada="/modulos/meteorologia/intro-poster.webp"
+                  duracion="58 s"
+                  titulo="Introducción al módulo de Meteorología"
+                  continuarA="/app/aerolinea/meteorologia/aprende"
+                  continuarTexto="Empezar la lección"
+                  claveVisto="av:visto:intro:meteorologia"
+                  acento="var(--av-mt-700)"
+                />
 
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
