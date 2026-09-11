@@ -190,7 +190,7 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
         </p>
       ) : (
         <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
-          Lo que te interesa a ti
+          Lo que te interesa como piloto
         </div>
       )}
 

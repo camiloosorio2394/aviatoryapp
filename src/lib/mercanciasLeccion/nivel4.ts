@@ -34,7 +34,7 @@ export const NIVEL_4: DocScreen[] = [
         consecuencia:
           "La investigación no pudo determinar qué encendió el fuego. Sí mostró que en un compartimento de carga de clase B grande la extinción manual no funciona, que la detección era tardía, que el humo pasaba a la zona de pasajeros y que los extintores de mano no alcanzaban. La industria endureció los requisitos de los combi y de la accesibilidad de la carga en vuelo.",
         leccion:
-          "Por qué existen las restricciones de estiba de los bultos «Exclusivamente en aeronaves de carga» y por qué el reglamento insiste en que se carguen de modo que un tripulante pueda verlos, manipularlos y separarlos en vuelo (Capítulo F, Carga y estiba, (d) y (e)). Un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada.",
+          "Por qué existen las restricciones de estiba de los bultos «Exclusivamente en aeronaves de carga» y por qué el reglamento insiste en que se carguen de modo que un tripulante pueda verlos, manipularlos y separarlos en vuelo. Un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada.",
         hueco: {
           id: "MP-IMG-04",
           medida: "16:9 · 1600×900 · JPG o WebP",
@@ -71,14 +71,12 @@ export const NIVEL_4: DocScreen[] = [
           {
             clave: "antes",
             etiqueta: "4 · Antes de estibar",
-            sub: "Cap. F, (f) y (g)",
             texto:
               "Los bultos se inspeccionan para verificar pérdidas o averías antes de estibarlos en la bodega o de meterlos en un ULD. No se estiba ningún bulto ni ULD sin esa comprobación.",
           },
           {
             clave: "estiba",
             etiqueta: "5 · Estiba y sujeción",
-            sub: "Cap. F, (i) y (j)",
             texto:
               "Se estiban en un área a la que solo tenga acceso la tripulación de vuelo o las personas autorizadas para acompañar el envío. El explotador las protege de averías y las sujeta de modo que no puedan inclinarse en vuelo ni cambiar la posición relativa de los bultos.",
           },
@@ -86,7 +84,7 @@ export const NIVEL_4: DocScreen[] = [
             clave: "segr",
             etiqueta: "6 · Segregación",
             texto:
-              "Los bultos capaces de reaccionar peligrosamente entre sí no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Tabla 7-1 de las Instrucciones; Tabla 7-2 para explosivos.",
+              "Los bultos capaces de reaccionar peligrosamente entre sí no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Las Instrucciones Técnicas tienen una tabla de segregación general y otra para explosivos.",
           },
         ],
       },
@@ -110,13 +108,13 @@ export const NIVEL_4: DocScreen[] = [
         kind: "hueco",
         rotulo: "MP-DIA-01 · Diagrama · 16:9 · 1800×1000 · SVG",
         descripcion:
-          "Corte lateral y planta de la bodega de un narrow-body: posiciones de ULD, bultos CAO accesibles, separación del material radiactivo respecto de personas, animales vivos y películas no reveladas, y un ejemplo de segregación entre incompatibles. Referencia visual; no sustituye la Tabla 7-1.",
+          "Corte lateral y planta de la bodega de un narrow-body: posiciones de ULD, bultos CAO accesibles, separación del material radiactivo respecto de personas, animales vivos y películas no reveladas, y un ejemplo de segregación entre incompatibles. Referencia visual; no sustituye la tabla de segregación.",
         alto: 320,
       },
       { kind: "sub", text: "Segregación: no sentar juntos a los que se pelean" },
       {
         kind: "p",
-        text: "Hay clases que no pueden viajar juntas. Un comburente junto a un inflamable es el ejemplo clásico: el comburente no arde, pero si hay una fuga alimenta el fuego del otro. La segregación evita que una fuga ponga en contacto sustancias incompatibles (175.001 (a) (26)).",
+        text: "Hay clases que no pueden viajar juntas. Un comburente junto a un inflamable es el ejemplo clásico: el comburente no arde, pero si hay una fuga alimenta el fuego del otro. La segregación evita que una fuga ponga en contacto sustancias incompatibles.",
       },
       {
         kind: "norma",
@@ -126,24 +124,24 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Tabla 7-1", v: "La tabla de segregación general de las Instrucciones Técnicas. La aplican el explotador y el operador de terminal de carga (175.525 (b) y (c))." },
-          { k: "Tabla 7-2", v: "La de explosivos (175.530 (a)). Con dispensa, la Tabla S-7-1 del Suplemento (175.530 (b))." },
-          { k: "Radiactivo", v: "Separado de las personas, los animales vivos y las películas no reveladas (175.525 (f) y 175.535 (e)). Y afianzado para mantener esa separación todo el vuelo." },
-          { k: "4.1 y 5.2", v: "Las sustancias de reacción espontánea y los peróxidos orgánicos se cubren del sol y van en un lugar ventilado, lejos de toda fuente de calor (Cap. F, (k))." },
-          { k: "Tóxicas e infecciosas", v: "Se estiban según las disposiciones de las Instrucciones Técnicas (175.525 (e))." },
+          { k: "Regla general", v: "La tabla de segregación de las Instrucciones Técnicas. La aplican el explotador y el operador de terminal de carga." },
+          { k: "Explosivos", v: "Tienen su propia tabla. Si van con dispensa, se aplica la del Suplemento de las Instrucciones." },
+          { k: "Radiactivo", v: "Separado de las personas, los animales vivos y las películas no reveladas. Y afianzado para mantener esa separación todo el vuelo." },
+          { k: "4.1 y 5.2", v: "Las sustancias de reacción espontánea y los peróxidos orgánicos se cubren del sol y van en un lugar ventilado, lejos de toda fuente de calor." },
+          { k: "Tóxicas e infecciosas", v: "Se estiban según las disposiciones de las Instrucciones Técnicas." },
         ],
       },
       {
         kind: "callout",
         tone: "info",
         title: "Radiactivo: la aeronave contaminada sale de servicio",
-        text: "Toda aeronave que quede contaminada por materiales radiactivos se retira inmediatamente de servicio y no se reintegra hasta que el nivel de radiación de toda superficie accesible y la contaminación transitoria estén por debajo de los valores de las Instrucciones (175.535 (d) y 175.615 (d)).",
+        text: "Toda aeronave que quede contaminada por materiales radiactivos se retira inmediatamente de servicio y no se reintegra hasta que el nivel de radiación de toda superficie accesible y la contaminación transitoria estén por debajo de los valores de las Instrucciones.",
       },
       {
         kind: "enLaOperacion",
         momento: "En la rampa, al descargar",
         texto:
-          "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación (Cap. F, (h)). Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado (175.615 (b)). Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
+          "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación. Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado. Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
       },
       {
         kind: "entrevista",
@@ -190,7 +188,7 @@ export const NIVEL_4: DocScreen[] = [
         texto:
           "Salvo en los casos en que las Instrucciones Técnicas indiquen lo contrario, el explotador de toda aeronave en la cual haya que transportar mercancías peligrosas, deberá proporcionar al piloto al mando, lo antes posible antes de la salida de la aeronave y por escrito, la información prevista en las Instrucciones Técnicas.",
       },
-      { kind: "p", text: "Siete requisitos salen de ese artículo y de los que le siguen. Toca cada uno." },
+      { kind: "p", text: "Siete requisitos salen de ese texto y de lo que le sigue en el reglamento. Toca cada uno." },
       {
         kind: "flujo",
         pista: "Elige un requisito para leer el texto del reglamento.",
@@ -233,7 +231,7 @@ export const NIVEL_4: DocScreen[] = [
             clave: "idioma",
             etiqueta: "Idioma",
             texto:
-              "«En el transporte internacional, en la información de mercancías peligrosas al piloto al mando, además de los idiomas exigidos por el Estado de origen, deberá utilizarse el inglés.» La misma regla aplica a las marcas (175.430 (c)).",
+              "«En el transporte internacional, en la información de mercancías peligrosas al piloto al mando, además de los idiomas exigidos por el Estado de origen, deberá utilizarse el inglés.» La misma regla aplica a las marcas.",
           },
         ],
       },
@@ -254,7 +252,7 @@ export const NIVEL_4: DocScreen[] = [
       { kind: "sub", text: "El NOTOC, columna por columna" },
       {
         kind: "p",
-        text: "El formato es horizontal y cada explotador usa el suyo, pero el bloque de mercancías peligrosas trae en general estas columnas. Los campos concretos los fija la Parte 7 de las Instrucciones Técnicas, que no está cargada en el proyecto: esto es lo que vas a encontrar en la práctica.",
+        text: "El formato es horizontal y cada explotador usa el suyo, pero el bloque de mercancías peligrosas trae en general estas columnas. Los campos concretos los fija una parte de las Instrucciones Técnicas que no está cargada en el proyecto: esto es lo que vas a encontrar en la práctica.",
       },
       {
         kind: "kv",
@@ -270,7 +268,7 @@ export const NIVEL_4: DocScreen[] = [
           { k: "Transport Index", v: "El índice de transporte, si es material radiactivo." },
           { k: "Packing Group", v: "Grupo de embalaje: I, II o III." },
           { k: "Loading position", v: "La posición de estiba a bordo." },
-          { k: "ERG code", v: "El código de la guía de respuesta de emergencia (Doc 9481)." },
+          { k: "ERG code", v: "El código de la guía de respuesta de emergencia." },
         ],
       },
       {
@@ -292,7 +290,7 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "«Firmo el NOTOC en crucero, cuando hay tiempo»",
-            puntos: ["La información se firma antes de que las mercancías sean transportadas. Firmar después no cumple el artículo."],
+            puntos: ["La información se firma antes de que las mercancías sean transportadas. Firmar después no cumple la norma."],
           },
           {
             titulo: "«El NOTOC se queda con el despachador»",
@@ -308,7 +306,7 @@ export const NIVEL_4: DocScreen[] = [
         kind: "enLaOperacion",
         momento: "En el briefing",
         texto:
-          "El NOTOC dice UN 1263, clase 3, grupo II, dos bultos en la bodega trasera. La declaración del expedidor dice grupo III. No firmas: preguntas. Si la discrepancia no se resuelve, el envío no sale. Y si alguien descubre después del vuelo que se transportaron mercancías sin información al piloto al mando, eso es un suceso que se notifica (175.625 (d)).",
+          "El NOTOC dice UN 1263, clase 3, grupo II, dos bultos en la bodega trasera. La declaración del expedidor dice grupo III. No firmas: preguntas. Si la discrepancia no se resuelve, el envío no sale. Y si alguien descubre después del vuelo que se transportaron mercancías sin información al piloto al mando, eso es un suceso que se notifica.",
       },
       { kind: "sub", text: "Léelo tú antes de que te lo expliquen" },
       {
@@ -399,7 +397,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         consecuencia:
           "La ARAIB de Corea concluyó que el fuego se inició en o cerca de una de las paletas que contenían mercancías peligrosas en el fuselaje trasero. La causa exacta no se pudo determinar porque los registradores de vuelo se perdieron.",
         leccion:
-          "La segregación y la posición de estiba no son burocracia: el fuego empieza en un sitio concreto. Y cuando la respuesta tiene que darse en minutos, lo que cuenta es lo que la tripulación ya sabía y ya tenía a mano: la información de emergencia disponible de inmediato (175.620 (b)), la tripulación al corriente de las medidas (175.620 (b) (2)) y el equipo a bordo (175.620 (d)).",
+          "La segregación y la posición de estiba no son burocracia: el fuego empieza en un sitio concreto. Y cuando la respuesta tiene que darse en minutos, lo que cuenta es lo que la tripulación ya sabía y ya tenía a mano: la información de emergencia disponible de inmediato, la tripulación al corriente de las medidas y el equipo a bordo.",
         hueco: {
           id: "MP-IMG-05",
           medida: "16:9 · 1600×900 · JPG o WebP",
@@ -417,13 +415,13 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
       },
       {
         kind: "flujo",
-        pista: "Elige un momento para leer qué exige el 175.620.",
+        pista: "Elige un momento para leer qué exige la norma.",
         pasos: [
           {
             clave: "info",
             etiqueta: "Antes · Información",
             texto:
-              "La información de respuesta de emergencia existe y está disponible de inmediato para el piloto al mando. La fuente que nombra el reglamento es el Doc 9481 de la OACI, cuyo código ERG aparece en el NOTOC.",
+              "La información de respuesta de emergencia existe y está disponible de inmediato para el piloto al mando. La fuente que nombra el reglamento es la guía de la OACI para estas emergencias, cuyo código ERG aparece en el NOTOC.",
           },
           {
             clave: "trip",
@@ -458,11 +456,11 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         orientacion: "vertical",
         items: [
           "**Volar primero.** Control de la aeronave, oxígeno y máscaras, gestión del humo. El orden de prioridades del vuelo no cambia por llevar mercancías peligrosas.",
-          "**Identificar.** El NOTOC dice qué sustancia es, de qué clase y dónde está. Por eso va al alcance del comandante durante el vuelo (175.515 (a) (2)).",
-          "**Contener.** Aplicar el QRH: fuego y humo, ventilación, y el equipo de respuesta para aislar lo que se pueda (175.620 (d)).",
-          "**Declarar.** MAYDAY o PAN PAN, e informar al ATS qué mercancía peligrosa hay a bordo, tan pronto la situación lo permita (175.620 (e)).",
+          "**Identificar.** El NOTOC dice qué sustancia es, de qué clase y dónde está. Por eso va al alcance del comandante durante el vuelo.",
+          "**Contener.** Aplicar el QRH: fuego y humo, ventilación, y el equipo de respuesta para aislar lo que se pueda.",
+          "**Declarar.** MAYDAY o PAN PAN, e informar al ATS qué mercancía peligrosa hay a bordo, tan pronto la situación lo permita.",
           "**Desviar.** Al aeródromo adecuado más cercano. Con un incendio a bordo, el tiempo es la variable.",
-          "**Informar.** Pasar los datos de la mercancía a los servicios de emergencia (175.620 (f) y (g)) y notificar el suceso (lección 16).",
+          "**Informar.** Pasar los datos de la mercancía a los servicios de emergencia y notificar el suceso (lección 16).",
         ],
       },
       {
@@ -479,7 +477,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         kind: "hueco",
         rotulo: "MP-FLJ-03 · Flujograma · 16:9 · 2000×1125 · SVG",
         descripcion:
-          "Dos carriles, cabina de mando y cabina de pasajeros, con los hitos: identificación del bulto o dispositivo, consulta del NOTOC y del Doc 9481, uso del equipo de respuesta, notificación al ATS, coordinación con el aeródromo de destino y entrega de información a los servicios de emergencia.",
+          "Dos carriles, cabina de mando y cabina de pasajeros, con los hitos: identificación del bulto o dispositivo, consulta del NOTOC y de la guía de respuesta de emergencia, uso del equipo de respuesta, notificación al ATS, coordinación con el aeródromo de destino y entrega de información a los servicios de emergencia.",
         alto: 320,
       },
       {
@@ -490,26 +488,26 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         preguntas: [
           {
             q: "¿Qué hace la cabina de mando primero?",
-            a: "Volar. Máscaras y oxígeno según el QRH de humo, control de la aeronave y de la ventilación. Solo después, identificar: el NOTOC ya está al alcance del comandante y dice que en la bodega posterior, la más cercana al galley trasero, va un envío de clase 8, corrosivo (175.515 (a) (2)).",
+            a: "Volar. Máscaras y oxígeno según el QRH de humo, control de la aeronave y de la ventilación. Solo después, identificar: el NOTOC ya está al alcance del comandante y dice que en la bodega posterior, la más cercana al galley trasero, va un envío de clase 8, corrosivo.",
           },
           {
             q: "¿Qué consultas para saber cómo responder?",
-            a: "La información de respuesta de emergencia, que debe estar disponible de inmediato: el Doc 9481 (o el documento equivalente del explotador) con el código ERG que trae el NOTOC para ese envío (175.620 (b) (1)).",
+            a: "La información de respuesta de emergencia, que debe estar disponible de inmediato: la guía de la OACI (o el documento equivalente del explotador) con el código ERG que trae el NOTOC para ese envío.",
           },
           {
             q: "¿Qué hace la tripulación de cabina con lo que tiene?",
-            a: "Lo que su procedimiento indique para humo de origen desconocido, y el equipo de respuesta si hay algo que contener: bolsas grandes de polietileno, ligaduras y guantes largos de goma como mínimo (175.620 (d) (1)). Con un corrosivo, los guantes no son opcionales.",
+            a: "Lo que su procedimiento indique para humo de origen desconocido, y el equipo de respuesta si hay algo que contener: bolsas grandes de polietileno, ligaduras y guantes largos de goma como mínimo. Con un corrosivo, los guantes no son opcionales.",
           },
           {
             q: "¿A quién informa el comandante y cuándo?",
-            a: "A la dependencia ATS, tan pronto la situación lo permita, para que esta informe a la administración aeroportuaria de la presencia de mercancías peligrosas a bordo (175.620 (e)). Con el desvío decidido, ese aviso es lo que hace que los bomberos lleguen sabiendo que hay un corrosivo.",
+            a: "A la dependencia ATS, tan pronto la situación lo permita, para que esta informe a la administración aeroportuaria de la presencia de mercancías peligrosas a bordo. Con el desvío decidido, ese aviso es lo que hace que los bomberos lleguen sabiendo que hay un corrosivo.",
           },
           {
             q: "¿Qué pasa después de aterrizar?",
-            a: "El explotador facilita sin dilación la información de las mercancías a los servicios de emergencia (175.620 (f) y (g)). Y es un incidente imputable a mercancías peligrosas: una ocurrencia relacionada con el transporte que vulneró la integridad de un embalaje o pudo poner en peligro a la aeronave (175.001 (a) (25)). Se notifica (175.625 (a)).",
+            a: "El explotador facilita sin dilación la información de las mercancías a los servicios de emergencia. Y es un incidente imputable a mercancías peligrosas: una ocurrencia relacionada con el transporte que vulneró la integridad de un embalaje o pudo poner en peligro a la aeronave. Se notifica.",
           },
         ],
-        concepto: "El orden de las decisiones (volar, identificar, contener, declarar, desviar, informar) y las cuatro cosas que el 175.620 exige que existan antes de que algo pase.",
+        concepto: "El orden de las decisiones (volar, identificar, contener, declarar, desviar, informar) y las cuatro cosas que el reglamento exige que existan antes de que algo pase.",
       },
       {
         kind: "piensaComoPiloto",
@@ -521,7 +519,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
           "**Primero el avión.** Procedimiento de humo o incendio en bodega del fabricante, y descenso o desvío si el procedimiento lo pide. Nada de esto empieza consultando papeles.",
           "**Después el papel.** El NOTOC me dice qué hay, cuánto y en qué posición. Clase 3 en el ULD que arde cambia lo que espero: líquido inflamable.",
           "**Después tierra.** El piloto al mando informa a la dependencia de tránsito aéreo, y esa es la vía por la que el aeródromo prepara los medios. Doy qué llevo, cuánto y dónde.",
-          "**Y la información de emergencia**, que tiene que estar disponible de inmediato: el código de intervención del Doc 9481 me dice cómo se comporta esa mercancía.",
+          "**Y la información de emergencia**, que tiene que estar disponible de inmediato: el código de intervención de la guía de la OACI me dice cómo se comporta esa mercancía.",
         ],
         cierre:
           "El orden importa: volar, luego identificar, luego comunicar. Invertirlo es el error clásico, y consume el único recurso que no se recupera, que es el tiempo.",
@@ -568,21 +566,21 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
       },
       {
         kind: "table",
-        head: ["Qué ocurre", "A quién se notifica", "Artículo"],
+        head: ["Qué ocurre", "A quién se notifica", "Tipo"],
         rows: [
-          ["Accidente o incidente relacionado con mercancías peligrosas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "175.625 (a)"],
-          ["Se descubren en la carga o el correo mercancías no declaradas o mal declaradas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "175.625 (b)"],
-          ["Se descubren mercancías no permitidas en el equipaje o en la persona de pasajeros o tripulantes", "Autoridades del Estado donde ocurrió", "175.625 (c)"],
-          ["Se transportaron mercancías mal cargadas, segregadas, separadas o afianzadas, o sin información al piloto al mando", "Autoridades del Estado del explotador y del Estado de origen", "175.625 (d)"],
-          ["Entidades distintas del explotador que poseen mercancías al ocurrir un accidente o incidente", "Los mismos requisitos de la sección", "175.625 (e)"],
-          ["Entidades distintas del explotador que descubren mercancías no declaradas o mal declaradas (aduanas, inspección de seguridad)", "Los mismos requisitos de la sección", "175.625 (f)"],
+          ["Accidente o incidente relacionado con mercancías peligrosas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Daño o peligro"],
+          ["Se descubren en la carga o el correo mercancías no declaradas o mal declaradas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Hallazgo en carga"],
+          ["Se descubren mercancías no permitidas en el equipaje o en la persona de pasajeros o tripulantes", "Autoridades del Estado donde ocurrió", "Hallazgo en equipaje"],
+          ["Se transportaron mercancías mal cargadas, segregadas, separadas o afianzadas, o sin información al piloto al mando", "Autoridades del Estado del explotador y del Estado de origen", "Fallo de estiba o de NOTOC"],
+          ["Entidades distintas del explotador que poseen mercancías al ocurrir un accidente o incidente", "Los mismos que el explotador", "Daño o peligro (terceros)"],
+          ["Entidades distintas del explotador que descubren mercancías no declaradas o mal declaradas (aduanas, inspección de seguridad)", "Los mismos que el explotador", "Hallazgo (terceros)"],
         ],
       },
       {
         kind: "callout",
         tone: "info",
         title: "¿A quién se notifica?",
-        text: "A las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso (LAR 175.625 (a)). En un vuelo internacional pueden ser dos autoridades distintas, y las dos esperan el aviso. Los plazos y el formulario los fija cada una: búscalos en el manual de tu explotador antes de necesitarlos, no el día del suceso.",
+        text: "A las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso. En un vuelo internacional pueden ser dos autoridades distintas, y las dos esperan el aviso. Los plazos y el formulario los fija cada una: búscalos en el manual de tu explotador antes de necesitarlos, no el día del suceso.",
       },
       { kind: "sub", text: "Los tres niveles de suceso" },
       {
@@ -615,7 +613,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
       },
       {
         kind: "definicion",
-        text: "Suceso con mercancías peligrosas: cualquier ocurrencia de incumplimiento, incidente o accidente imputable a mercancías peligrosas, incluyendo el descubrimiento de una mercancía peligrosa oculta (175.001 (a) (41)). Los tres niveles más el hallazgo.",
+        text: "Suceso con mercancías peligrosas: cualquier ocurrencia de incumplimiento, incidente o accidente imputable a mercancías peligrosas, incluyendo el descubrimiento de una mercancía peligrosa oculta. Los tres niveles más el hallazgo.",
       },
       {
         kind: "norma",
@@ -626,13 +624,13 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
         kind: "callout",
         tone: "info",
         title: "Por qué esto es SMS y no papeleo",
-        text: "El transporte de mercancías peligrosas entra en el alcance del SMS del explotador (LAR 175.220 (k)): no es un trámite aparte, es parte del sistema con el que la empresa gestiona su seguridad. Y las autoridades recopilan además los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva. Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
+        text: "El transporte de mercancías peligrosas entra en el alcance del SMS del explotador: no es un trámite aparte, es parte del sistema con el que la empresa gestiona su seguridad. Y las autoridades recopilan además los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva. Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
       },
       {
         kind: "callout",
         tone: "warn",
         title: "Consecuencia del incumplimiento",
-        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las penales, conforme a la legislación de cada país (LAR 175.205 (b)). Qué norma sanciona y con cuánto cambia según el Estado: en Colombia es el RAC 13, Régimen Sancionatorio, por remisión del RAC 175.636. Y alcanza también al caso en que otro Estado notifica la infracción de un explotador extranjero, o el envío llega sin cumplir las Instrucciones.",
+        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las penales, conforme a la legislación de cada país. Qué norma sanciona y con cuánto cambia según el Estado: en Colombia es el RAC 13, Régimen Sancionatorio. Y alcanza también al caso en que otro Estado notifica la infracción de un explotador extranjero, o el envío llega sin cumplir las Instrucciones.",
       },
       {
         kind: "enLaOperacion",
@@ -687,7 +685,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               },
               {
                 t: "Solo anotarlo en la bitácora y continuar.",
-                fb: "El 175.615 impone acciones materiales: descargar, verificar el resto del envío, comprobar la contaminación de otros bultos y eliminar sin demora la contaminación peligrosa.",
+                fb: "La norma impone acciones materiales: descargar, verificar el resto del envío, comprobar la contaminación de otros bultos y eliminar sin demora la contaminación peligrosa.",
               },
               {
                 t: "Esperar instrucciones del expedidor.",
@@ -723,7 +721,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               {
                 t: "No: sin documento de transporte diligenciado y sin inspeccionar el bulto no se acepta.",
                 ok: true,
-                fb: "Las dos condiciones del 175.514 son acumulativas. Y el personal usa una lista de verificación para no saltarse ninguna (175.510 (d)).",
+                fb: "Las dos condiciones son acumulativas. Y el personal usa una lista de verificación para no saltarse ninguna.",
               },
               {
                 t: "Sí, si el comandante lo autoriza.",
@@ -737,7 +735,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               {
                 t: "Notificar el suceso a las autoridades del Estado del explotador y del Estado de origen.",
                 ok: true,
-                fb: "El 175.625 (d) obliga a notificar todo suceso en el que se descubra que se transportaron mercancías peligrosas mal cargadas, segregadas, separadas o afianzadas, o respecto de las cuales no se proporcionó información al piloto al mando.",
+                fb: "El reglamento obliga a notificar todo suceso en el que se descubra que se transportaron mercancías peligrosas mal cargadas, segregadas, separadas o afianzadas, o respecto de las cuales no se proporcionó información al piloto al mando.",
               },
               {
                 t: "Ninguna, si el vuelo terminó sin novedad.",
@@ -745,7 +743,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               },
               {
                 t: "Solo registrarlo internamente en el SMS del explotador.",
-                fb: "Se integra al SMS (175.028) y además se notifica a las autoridades que correspondan.",
+                fb: "Se integra al SMS y además se notifica a las autoridades que correspondan.",
               },
             ],
           },
@@ -777,7 +775,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               {
                 t: "En español y además en inglés.",
                 ok: true,
-                fb: "Es la regla del 175.515 (c), y la misma de las marcas (175.430 (c)): en transporte internacional, inglés además de los idiomas del Estado de origen.",
+                fb: "Es la misma regla que para las marcas: en transporte internacional, inglés además de los idiomas del Estado de origen.",
               },
               {
                 t: "Solo en inglés, como toda la documentación internacional.",
@@ -795,11 +793,11 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               },
               {
                 t: "Extintor de halón, máscara antihumo y guantes ignífugos.",
-                fb: "Ese es equipamiento contra incendios exigido por otras partes de la reglamentación. El equipo de respuesta de mercancías peligrosas del 175.620 (d) (1) es de contención.",
+                fb: "Ese es equipamiento contra incendios exigido por otras partes de la reglamentación. El equipo de respuesta de mercancías peligrosas es de contención.",
               },
               {
-                t: "El Doc 9481 impreso y el NOTOC.",
-                fb: "Esos son información, no equipo. El 175.620 distingue la información de respuesta (b) del equipo material (d).",
+                t: "La guía de respuesta de emergencia impresa y el NOTOC.",
+                fb: "Esos son información, no equipo. El reglamento separa la información de respuesta del equipo.",
               },
             ],
           },
@@ -831,11 +829,11 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               {
                 t: "A la dependencia ATS, para que esta informe a la administración aeroportuaria.",
                 ok: true,
-                fb: "Es la cadena del 175.620 (e): comandante → ATS → administración aeroportuaria. Así los bomberos saben qué van a encontrar antes de que el avión toque pista.",
+                fb: "Es la cadena que fija el reglamento: comandante → ATS → administración aeroportuaria. Así los bomberos saben qué van a encontrar antes de que el avión toque pista.",
               },
               {
                 t: "Directamente a los bomberos del aeródromo de destino.",
-                fb: "El comandante no tiene ese canal. Habla con el ATS, y el ATS con el aeródromo. Después del aterrizaje, es el explotador quien entrega la información a los servicios de emergencia (175.620 (f)).",
+                fb: "El comandante no tiene ese canal. Habla con el ATS, y el ATS con el aeródromo. Después del aterrizaje, es el explotador quien entrega la información a los servicios de emergencia.",
               },
             ],
           },
@@ -845,11 +843,11 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
               {
                 t: "El explotador notifica a las autoridades del Estado en el cual ocurrió; y las entidades distintas del explotador que descubren el hallazgo deberían cumplir los mismos requisitos.",
                 ok: true,
-                fb: "El 175.625 (c) obliga al explotador cuando se descubren mercancías no permitidas en el equipaje o en la persona; el (f) extiende el deber a entidades como las autoridades aduaneras y los proveedores de inspección de seguridad.",
+                fb: "El reglamento obliga al explotador a notificar cuando se descubren mercancías no permitidas en el equipaje o en la persona, y extiende el deber a entidades como las autoridades aduaneras y los proveedores de inspección de seguridad.",
               },
               {
                 t: "Nadie: como no llegó a bordo, no hubo suceso.",
-                fb: "El descubrimiento de una mercancía peligrosa oculta es, por definición, un suceso con mercancías peligrosas (175.001 (a) (41)).",
+                fb: "El descubrimiento de una mercancía peligrosa oculta es, por definición, un suceso con mercancías peligrosas.",
               },
               {
                 t: "Solo la autoridad aeroportuaria, en su informe interno.",
@@ -858,16 +856,16 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
             ],
           },
           {
-            q: "Un bulto de mercancías peligrosas voló sin la segregación que exigía la Tabla 7-1. Nadie resultó afectado y nada se derramó. ¿Qué es?",
+            q: "Un bulto de mercancías peligrosas voló sin la segregación exigida. Nadie resultó afectado y nada se derramó. ¿Qué es?",
             opciones: [
               {
                 t: "Nada: sin daño no hay suceso.",
-                fb: "Sí hay suceso. Una ocurrencia atribuible al transporte que no produce incidente ni accidente es un incumplimiento imputable, y el 175.625 (d) obliga a notificar lo transportado sin segregar correctamente.",
+                fb: "Sí hay suceso. Una ocurrencia atribuible al transporte que no produce incidente ni accidente es un incumplimiento imputable, y el reglamento obliga a notificar lo transportado sin segregar correctamente.",
               },
               {
                 t: "Un incumplimiento imputable a mercancías peligrosas, que se notifica.",
                 ok: true,
-                fb: "Es el nivel más bajo de la escala y el que más datos aporta al sistema. Se notifica a las autoridades del Estado del explotador y del Estado de origen (175.625 (d)).",
+                fb: "Es el nivel más bajo de la escala y el que más datos aporta al sistema. Se notifica a las autoridades del Estado del explotador y del Estado de origen.",
               },
               {
                 t: "Un incidente imputable.",
@@ -884,12 +882,12 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
                 fb: "Es la conexión directa entre mercancías peligrosas y el SMS: prevenir la ocurrencia de accidentes e incidentes con lo que el sistema aprende de lo que casi pasa.",
               },
               {
-                t: "Para calcular sanciones del RAC 13.",
-                fb: "El régimen sancionatorio existe (175.636), pero la finalidad declarada de esta recopilación es preventiva, no punitiva.",
+                t: "Para calcular sanciones.",
+                fb: "El régimen sancionatorio existe, pero la finalidad declarada de esta recopilación es preventiva, no punitiva.",
               },
               {
                 t: "Para publicar estadísticas ante la OACI.",
-                fb: "La cooperación y el intercambio de información existen (175.626), pero el objeto de esta recopilación es el proceso predictivo y proactivo.",
+                fb: "La cooperación y el intercambio de información existen, pero el objeto de esta recopilación es el proceso predictivo y proactivo.",
               },
             ],
           }

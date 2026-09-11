@@ -7,6 +7,7 @@
  * cambian todas las lecciones a la vez, que es la gracia.
  */
 
+import { ImagenAmpliable } from "@/components/lesson/ImagenAmpliable"
 import { Fragment, lazy, Suspense, useState, type CSSProperties, type ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
@@ -2638,14 +2639,15 @@ function Figura({
       className={`ln-aparece ${anchoMax ? "m-0 w-full mx-auto" : "m-0 w-full"}${inView ? " ln-visible" : ""}`}
       style={anchoMax ? { maxWidth: anchoMax } : undefined}
     >
-      <img
+      {/* Se abre en grande: las ilustraciones del curso traen rótulos que a
+          ancho de columna no siempre se leen. La proporción va fijada para que
+          la página no salte mientras carga, como hacían width y height. */}
+      <ImagenAmpliable
         src={src}
         alt={alt}
-        width={ancho}
-        height={alto}
-        loading="lazy"
-        decoding="async"
-        className="block w-full h-auto rounded-lg border doc-rule"
+        className="w-full rounded-lg border doc-rule"
+        imgClassName="block w-full h-auto"
+        imgStyle={{ aspectRatio: `${ancho} / ${alto}` }}
       />
       {pie && <figcaption className="mt-2 text-[13px] leading-[1.6] doc-muted">{pie}</figcaption>}
     </figure>

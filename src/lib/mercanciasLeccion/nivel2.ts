@@ -29,7 +29,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Léelo dos veces: **una** clase, la del peligro **más importante**. Una sustancia inflamable y corrosiva no va en dos clases: va en una, y el otro peligro se trata como riesgo secundario y aparece en el etiquetado. La clasificación la recomienda el Comité de expertos de las Naciones Unidas (175.1005), y por eso es la misma en aire, mar y tierra.",
+        text: "Léelo dos veces: **una** clase, la del peligro **más importante**. Una sustancia inflamable y corrosiva no va en dos clases: va en una, y el otro peligro se trata como riesgo secundario y aparece en el etiquetado. La clasificación la recomienda el Comité de expertos de las Naciones Unidas, y por eso es la misma en aire, mar y tierra.",
       },
       {
         kind: "definicion",
@@ -47,7 +47,7 @@ export const NIVEL_2: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "La numeración no es un ranking",
-        text: "La clase 1 no es «más peligrosa» que la clase 9: son familias de riesgo distintas. Dentro de una clase, lo que gradúa el peligro es el grupo de embalaje (I gran peligro, II intermedio, III escaso), que no se asigna a las clases 1, 2 y 7 ni a las divisiones 5.2 y 6.2 (175.426 (a)). Eso lo ves en la lección 07.",
+        text: "La clase 1 no es «más peligrosa» que la clase 9: son familias de riesgo distintas. Dentro de una clase, lo que gradúa el peligro es el grupo de embalaje (I gran peligro, II intermedio, III escaso), que no se asigna a las clases 1, 2 y 7 ni a las divisiones 5.2 y 6.2. Eso lo ves en la lección 07.",
       },
       { kind: "sub", text: "Cómo se leen los colores" },
       {
@@ -228,7 +228,7 @@ export const NIVEL_2: DocScreen[] = [
               "**Qué te importa:** es la única etiqueta que puede sacar un bulto de tu vuelo. Si operas pasajeros y ese bulto aparece en tu bodega, no es un problema de estiba: no sube.",
               "**Ojo:** estibarlo lejos de la cabina no lo arregla. La prohibición es por tipo de aeronave, no por posición.",
             ],
-            nota: "La norma no la matiza: no se estiban en aeronave ocupada por pasajeros los bultos que lleven esta etiqueta (LAR 175.520 (c)).",
+            nota: "La norma no la matiza: no se estiban en aeronave ocupada por pasajeros los bultos que lleven esta etiqueta.",
           },
           {
             titulo: "③ Posición del bulto · flechas de orientación",
@@ -270,7 +270,7 @@ export const NIVEL_2: DocScreen[] = [
         bloques: [
           {
             kind: "p",
-            text: "Las de riesgo, por clase. Cada ficha trae el símbolo, el fondo y las franjas tal como los describe el Apéndice. Donde el Apéndice solo trae la figura sin describir los colores, la ficha lo dice.",
+            text: "Las de riesgo, por clase. Cada ficha trae el símbolo, el fondo y las franjas tal como los describe la norma. Donde solo hay figura, sin colores descritos, la ficha lo dice.",
           },
           { kind: "etiquetasMP", grupo: "riesgo" },
           {
@@ -439,7 +439,7 @@ export const NIVEL_2: DocScreen[] = [
           {
             titulo: "Cantidades exceptuadas",
             puntos: [
-              "Cantidades muy pequeñas, definidas en la Parte 3, Capítulo 5 de las Instrucciones.",
+              "Cantidades muy pequeñas, definidas en las Instrucciones Técnicas.",
               "Quedan fuera de casi todo el régimen: no generan la documentación de mercancías peligrosas.",
               "**Qué significa para ti:** normalmente **no aparecen en la información que firmas**. Van a bordo y tú no lo sabes.",
               "Y no pueden ir en equipaje ni en correo.",
@@ -448,7 +448,7 @@ export const NIVEL_2: DocScreen[] = [
           {
             titulo: "Cantidades limitadas",
             puntos: [
-              "Peligro menor, en embalajes de buena calidad probados a apilamiento y caída, con la marca de la Figura 3-1.",
+              "Peligro menor, en embalajes de buena calidad probados a apilamiento y caída, con la marca impresa de cantidad limitada.",
               "Se identifican por la instrucción de embalaje «Y» en la lista.",
               "**Qué significa para ti:** siguen siendo mercancías peligrosas declaradas. Están en el régimen, con marca propia.",
               "Un envío en cantidad limitada es un envío que ves.",
@@ -487,9 +487,9 @@ export const NIVEL_2: DocScreen[] = [
           {
             kind: "vinetas",
             items: [
-              "Si la lista de mercancías peligrosas trae «E0» en la columna 9 para un artículo, ese artículo **no** puede ir en cantidades exceptuadas (LAR 175.130 (b)).",
+              "Si la lista de mercancías peligrosas trae «E0» para un artículo, ese artículo **no** puede ir en cantidades exceptuadas.",
               "Cada bulto en cantidad exceptuada lleva una etiqueta de al menos 100 × 100 mm.",
-              "Las mercancías con instrucción de embalaje «Y» en la columna 10 son las que pueden ir en cantidades limitadas (LAR 175.135 (c)).",
+              "Las mercancías que en la lista traen la instrucción de embalaje «Y» son las que pueden ir en cantidades limitadas.",
             ],
           },
         ],
@@ -548,7 +548,7 @@ export const NIVEL_2: DocScreen[] = [
         consecuencia:
           "La GCAA de los Emiratos concluyó que el incendio se originó por autoignición del contenido de una paleta que llevaba baterías de litio y otros materiales combustibles. Después del accidente la OACI endureció las condiciones de las baterías de litio como carga y varias autoridades revisaron la protección contra el humo en cabina.",
         leccion:
-          "Cuando el humo llena la cabina, lo único que queda es lo que ya estaba a bordo y lo que la tripulación ya sabía. Por eso el 175.515 exige que la información de las mercancías esté al alcance del comandante durante el vuelo y el 175.620 que la información de emergencia esté disponible de inmediato. Una batería de litio en fuga térmica no es un incendio más: produce su propio calor, se reaviva y llena de humo un espacio del que no se puede salir.",
+          "Cuando el humo llena la cabina, lo único que queda es lo que ya estaba a bordo y lo que la tripulación ya sabía. Por eso la norma exige que la información de las mercancías esté al alcance del comandante durante el vuelo y que la de emergencia esté disponible de inmediato. Una batería de litio en fuga térmica no es un incendio más: produce su propio calor, se reaviva y llena de humo un espacio del que no se puede salir.",
         imagen: {
           src: "/modulos/mercancias/img-03-ups-six.webp",
           alt: "Imagen de referencia del accidente del Boeing 747 de carga de UPS, cuyo incendio se originó en una carga de baterías de litio.",
@@ -576,7 +576,7 @@ export const NIVEL_2: DocScreen[] = [
             puntos: [
               "Teléfonos, portátiles, power banks, cámaras, herramientas, vehículos eléctricos.",
               "Su tamaño se mide en vatios-hora (Wh). Es la cifra que fija qué puede llevar un pasajero.",
-              "Los números ONU salen de la Tabla 3-1 de las Instrucciones Técnicas.",
+              "Los números ONU salen de la lista de mercancías peligrosas de las Instrucciones Técnicas.",
             ],
           },
           {
@@ -608,7 +608,7 @@ export const NIVEL_2: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Lo que dicen las Instrucciones Técnicas vigentes",
-        text: "Desde el 1 de abril de 2016 las baterías de ion litio sueltas (UN 3480) están **prohibidas como carga en aeronaves de pasajeros** y solo van en carguero, con un estado de carga que no supere el 30 %. Los bultos llevan la etiqueta de clase 9 para litio (9A) y la marca de batería de litio. Estas reglas salen del Doc 9284, Partes 3 y 4, y de la IATA DGR, que cambian con cada edición: antes de aplicarlas, verifícalas contra la edición en vigor y el manual de tu explotador.",
+        text: "Desde el 1 de abril de 2016 las baterías de ion litio sueltas (UN 3480) están **prohibidas como carga en aeronaves de pasajeros** y solo van en carguero, con un estado de carga que no supere el 30 %. Los bultos llevan la etiqueta de clase 9 para litio (9A) y la marca de batería de litio. Estas reglas salen de las Instrucciones Técnicas y de la IATA DGR, que cambian con cada edición: antes de aplicarlas, verifícalas contra la edición en vigor y el manual de tu explotador.",
       },
       { kind: "sub", text: "Lo que puede llevar un pasajero" },
       {
@@ -644,7 +644,7 @@ export const NIVEL_2: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Cifras para estudiar, no para el mostrador",
-        text: "Los vatios-hora, los gramos y el número de unidades salen del Doc 9284, Parte 8 (Tabla 8-1), y de la sección 2.3 de la IATA DGR en su edición vigente, y de la política de tu explotador. Aquí están redondeados para aprender la regla. El RAC 175 remite a esa tabla en el 175.715.",
+        text: "Los vatios-hora, los gramos y el número de unidades salen de las Instrucciones Técnicas y de la IATA DGR en su edición vigente, y de la política de tu explotador. Aquí están redondeados para aprender la regla.",
       },
       {
         kind: "norma",
@@ -735,7 +735,7 @@ export const NIVEL_2: DocScreen[] = [
               },
               {
                 t: "Se prohíbe por incompatible.",
-                fb: "«Incompatible» describe mercancías que al mezclarse generarían calor, gases o una sustancia corrosiva (175.001 (a) (26)). Es un criterio de segregación entre bultos, no de clasificación de una sustancia.",
+                fb: "«Incompatible» describe mercancías que al mezclarse generarían calor, gases o una sustancia corrosiva. Es un criterio de segregación entre bultos, no de clasificación de una sustancia.",
               },
             ],
           },
@@ -744,16 +744,16 @@ export const NIVEL_2: DocScreen[] = [
             opciones: [
               {
                 t: "De ninguna: es solo agua congelada.",
-                fb: "El hielo seco no es agua: es dióxido de carbono sólido. Sublima y desplaza el oxígeno en un espacio cerrado, y por eso el RAC lo cita expresamente como ejemplo de sustancia de la clase 9.",
+                fb: "El hielo seco no es agua: es dióxido de carbono sólido. Sublima y desplaza el oxígeno en un espacio cerrado, y por eso se cita expresamente como ejemplo de sustancia de la clase 9.",
               },
               {
                 t: "Clase 2, porque se convierte en gas.",
-                fb: "La clase 2 son gases a presión: comprimidos, licuados, disueltos, refrigerados o en aerosol. El hielo seco es un sólido que sublima, y su riesgo (desplazar el oxígeno) es el que el RAC ubica en la clase 9.",
+                fb: "La clase 2 son gases a presión: comprimidos, licuados, disueltos, refrigerados o en aerosol. El hielo seco es un sólido que sublima, y su riesgo (desplazar el oxígeno) es lo que lo ubica en la clase 9.",
               },
               {
                 t: "Clase 9, mercancías peligrosas varias.",
                 ok: true,
-                fb: "El dióxido de carbono sólido (hielo seco) figura entre los artículos de la clase 9 que la Tabla 8-1 de las Instrucciones admite con condiciones. Es el caso típico de artículo que parece inocuo y no lo es.",
+                fb: "El dióxido de carbono sólido (hielo seco) figura entre los artículos de la clase 9 que las reglas para pasajeros y tripulantes admiten con condiciones. Es el caso típico de artículo que parece inocuo y no lo es.",
               },
             ],
           },
@@ -798,7 +798,7 @@ export const NIVEL_2: DocScreen[] = [
             opciones: [
               {
                 t: "Va sin etiqueta y se anota la novedad.",
-                fb: "No hay margen para eso: el mismo artículo que obliga a tener etiquetas de reposición cierra diciendo que sin certeza no se transporta.",
+                fb: "No hay margen para eso: la misma norma que obliga a tener etiquetas de reposición cierra diciendo que sin certeza no se transporta.",
               },
               {
                 t: "Se pega la de la clase más probable según el aspecto.",
@@ -852,12 +852,12 @@ export const NIVEL_2: DocScreen[] = [
             opciones: [
               {
                 t: "Sí, porque está exceptuado.",
-                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. El RAC 175.136 (a) de Colombia es explícito: ni como equipaje de mano o facturado, ni como correo. El LAR 175 no trae esa sección, así que revisa cómo lo resuelve tu reglamento; lo que sí manda en todo caso es la Tabla 8-1.",
+                fb: "«Exceptuado» se refiere a algunas disposiciones del transporte como carga, no al equipaje. En Colombia la norma es explícita: ni como equipaje de mano o facturado, ni como correo. El LAR no lo recoge, así que revisa cómo lo resuelve tu reglamento; lo que sí manda en todo caso son las reglas para pasajeros y tripulantes de las Instrucciones Técnicas.",
               },
               {
                 t: "No: las cantidades exceptuadas no van en equipaje ni en correo.",
                 ok: true,
-                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fija la Tabla 8-1 de las Instrucciones, a la que remite el LAR 175.715 (lección 11), no el régimen de cantidades exceptuadas.",
+                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fijan las reglas para pasajeros y tripulantes de las Instrucciones Técnicas (lección 11), no el régimen de cantidades exceptuadas.",
               },
               {
                 t: "Solo si el explotador lo autoriza en su manual.",

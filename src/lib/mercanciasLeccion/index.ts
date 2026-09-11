@@ -49,7 +49,7 @@ export const MP_MINUTOS = MP_LECCIONES.reduce((t, s) => t + s.minutes, 0)
 export const MP_FUENTES_LISTA: string[] = [
   "Anexo 18 al Convenio sobre Aviación Civil Internacional, Transporte sin riesgos de mercancías peligrosas por vía aérea. OACI.",
   "Doc 9284-AN/905, Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea. OACI. Del ciclo 2011-2012 se consultó el Adendo núm. 5 (discrepancias notificadas por Estados y explotadores).",
-  "LAR 175, Transporte sin riesgo de mercancías peligrosas por vía aérea. SRVSOP, Primera edición, Enmienda 4, diciembre de 2017. Es la norma que el módulo cita: los Estados miembros del Sistema Regional la adoptan en su propio reglamento.",
+  "LAR 175, Transporte sin riesgo de mercancías peligrosas por vía aérea. SRVSOP, Primera edición, Enmienda 4, diciembre de 2017. Es la base del módulo: los Estados miembros del Sistema Regional la adoptan en su propio reglamento.",
   "RAC 175, Transporte sin riesgos de mercancías peligrosas por vía aérea. UAEAC (Colombia), Edición original, marzo de 2016. Adoptado por Resolución 00478 del 29 de febrero de 2016 (Diario Oficial 49.830 del 31 de marzo de 2016); deroga el RAC 10. Se usa como ejemplo de adopción nacional.",
   "RAC 2, Personal aeronáutico, y RAC 61, Licencias para pilotos y sus habilitaciones. UAEAC (Colombia).",
   "NTSB/AAR-97/06 (ValuJet 592); GCAA de los Emiratos Árabes Unidos, informe final 2013 (UPS 6); ARAIB de Corea, informe final (Asiana 991); Departamento de Aviación Civil de Sudáfrica, informe de investigación (South African 295).",

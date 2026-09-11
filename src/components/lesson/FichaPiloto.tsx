@@ -15,6 +15,7 @@
 
 import type { ReactNode } from "react"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
+import { ImagenAmpliable } from "@/components/lesson/ImagenAmpliable"
 import type { FotoFicha, HuecoFoto } from "@/lib/docBlocks"
 
 const PRIMARIO = "var(--ln-primary, var(--av-blue-500))"
@@ -56,12 +57,14 @@ export function VisualFicha({ imagen, hueco, ves }: { imagen?: FotoFicha; hueco?
   if (imagen) {
     return (
       <div className="relative h-full min-h-[240px] md:min-h-[300px]">
-        <img
+        {/* El aviso «Ampliar» va arriba a la izquierda: abajo está «Lo que estás
+            viendo» y arriba a la derecha, la píldora de la ficha. */}
+        <ImagenAmpliable
           src={imagen.src}
           alt={imagen.alt}
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full"
+          imgClassName="h-full w-full object-cover"
+          esquina="arriba-izquierda"
         />
         {ves && ves.length > 0 && (
           <div

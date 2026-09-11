@@ -54,7 +54,7 @@ import { registrarEstudioDiario } from "@/lib/activity"
  * La misma casa que la práctica de NOTAM (cabecera sobre foto, pestañas,
  * selector numerado, la respuesta a la derecha) con cuatro modos:
  *
- *   Etiquetas   → ejercicios visuales por rondas con los rombos del Apéndice 1
+ *   Etiquetas   → ejercicios visuales por rondas con los rombos de las etiquetas
  *   Clasifica   → un envío; el piloto elige clase y si lleva grupo de embalaje
  *   Escenarios  → situaciones que se resuelven con las palabras propias y
  *                 después se comparan con la respuesta modelo

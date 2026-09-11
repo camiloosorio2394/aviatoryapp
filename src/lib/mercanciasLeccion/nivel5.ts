@@ -32,7 +32,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "hueco",
-        rotulo: "MP-ILU-03 · Ilustración · 21:9 · 2000×860 · SVG",
+        rotulo: "MP-ILU-05 · Ilustración · 21:9 · 2000×860 · SVG",
         descripcion:
           "Línea de tiempo 1987 → 2011 con los cuatro accidentes (South African 295, ValuJet 592, UPS 6, Asiana 991) y, debajo de cada uno, la regla que cambió después. Estilo Aviatory, sin texto pequeño.",
         alto: 240,
@@ -46,7 +46,7 @@ export const NIVEL_5: DocScreen[] = [
             puntos: [
               "**Qué falló:** un incendio en la cubierta principal de un combi, en una zona a la que la tripulación no podía llegar. La causa de la ignición nunca se determinó.",
               "**Qué cambió:** los requisitos de los combi y la exigencia de que la carga sea accesible y separable en vuelo.",
-              "**Lo que reconoces:** por qué los bultos «Exclusivamente en aeronaves de carga» se estiban donde un tripulante pueda verlos y manipularlos (Cap. F, (d) y (e)).",
+              "**Lo que reconoces:** por qué los bultos «Exclusivamente en aeronaves de carga» se estiban donde un tripulante pueda verlos y manipularlos.",
             ],
           },
           {
@@ -54,7 +54,7 @@ export const NIVEL_5: DocScreen[] = [
             puntos: [
               "**Qué falló:** generadores de oxígeno sin tapas, declarados como «vacíos» y despachados como material de la compañía. Tres eslabones: expedidor, explotador y una regla de diseño de la autoridad.",
               "**Qué cambió:** detección y supresión de incendios obligatorias en las bodegas de clase D.",
-              "**Lo que reconoces:** la descripción general que esconde una mercancía peligrosa (175.001 (a) (32)) y el peso de la firma del comandante (175.515 (a) (1)).",
+              "**Lo que reconoces:** la descripción general que esconde una mercancía peligrosa y el peso de la firma del comandante.",
             ],
           },
           {
@@ -62,7 +62,7 @@ export const NIVEL_5: DocScreen[] = [
             puntos: [
               "**Qué falló:** autoignición de una paleta con más de 81.000 baterías de litio. El humo llenó la cabina en minutos; el capitán quedó incapacitado al fallar su oxígeno.",
               "**Qué cambió:** la OACI endureció las baterías de litio como carga; desde 2016 las de ion litio sueltas no van en aeronaves de pasajeros.",
-              "**Lo que reconoces:** por qué la información tiene que estar al alcance del comandante en vuelo (175.515 (a) (2)) y disponible de inmediato para la emergencia (175.620 (b)).",
+              "**Lo que reconoces:** por qué la información tiene que estar al alcance del comandante en vuelo y disponible de inmediato para la emergencia.",
             ],
           },
           {
@@ -70,7 +70,7 @@ export const NIVEL_5: DocScreen[] = [
             puntos: [
               "**Qué falló:** un incendio en o cerca de una paleta con mercancías peligrosas en el fuselaje trasero, más rápido que el descenso. Los registradores se perdieron y la causa exacta no se determinó.",
               "**Qué cambió:** más presión sobre la estiba y la segregación de las mercancías peligrosas en cargueros y sobre la respuesta al humo en cabina.",
-              "**Lo que reconoces:** el fuego empieza en un sitio concreto (175.525) y la respuesta se da con lo que ya estaba a bordo (175.620 (d)).",
+              "**Lo que reconoces:** el fuego empieza en un sitio concreto (por eso la estiba y la segregación) y la respuesta se da con lo que ya estaba a bordo.",
             ],
           },
         ],
@@ -99,8 +99,8 @@ export const NIVEL_5: DocScreen[] = [
         kind: "vinetas",
         items: [
           "**El papel y la caja no coincidían.** ValuJet es el caso puro: lo que decía el manifiesto no era lo que iba en la bodega. Toda la cadena de la lección 04 existe para que coincidan, y tu firma es el último punto donde alguien lo comprueba.",
-          "**El fuego fue más rápido que la respuesta.** En UPS 6, Asiana 991 y el Helderberg la tripulación hizo lo que pudo con lo que tenía. Por eso el reglamento exige que la información, el conocimiento y el equipo existan antes de que algo pase (175.620 (b) y (d)).",
-          "**La información que salva es la que ya estaba a bordo.** Cuando el humo no deja ver el panel, no hay tiempo de buscar. El NOTOC al alcance (175.515 (a) (2)) y el Doc 9481 disponible de inmediato (175.620 (b) (1)) no son trámite: son lo único que queda.",
+          "**El fuego fue más rápido que la respuesta.** En UPS 6, Asiana 991 y el Helderberg la tripulación hizo lo que pudo con lo que tenía. Por eso el reglamento exige que la información, el conocimiento y el equipo existan antes de que algo pase.",
+          "**La información que salva es la que ya estaba a bordo.** Cuando el humo no deja ver el panel, no hay tiempo de buscar. El NOTOC al alcance y la guía de respuesta de emergencia disponible de inmediato no son trámite: son lo único que queda.",
         ],
       },
       {
@@ -117,11 +117,11 @@ export const NIVEL_5: DocScreen[] = [
         preguntas: [
           {
             q: "¿Qué te dice esa marca?",
-            a: "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho (175.001 (a) (10)). Repuestos de aeronave pueden incluir generadores de oxígeno, extintores, baterías o aerosoles; si alguno está clasificado, es COMAT peligroso (175.001 (a) (11)) y sigue todas las reglas, incluida la información al piloto al mando. Es exactamente la descripción con la que viajaron los generadores de ValuJet.",
+            a: "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho. Repuestos de aeronave pueden incluir generadores de oxígeno, extintores, baterías o aerosoles; si alguno está clasificado como mercancía peligrosa, es COMAT peligroso y sigue todas las reglas, incluida la información al piloto al mando. Es exactamente la descripción con la que viajaron los generadores de ValuJet.",
           },
           {
             q: "¿Qué preguntas antes de firmar?",
-            a: "Qué contienen las cajas y quién las aceptó. Un envío con mercancías peligrosas necesita documento de transporte e inspección antes de aceptarse (175.514), y si contiene mercancías peligrosas tiene que estar en la información que firmas (175.515 (a)). «Repuestos» es una descripción general que debe hacerte dudar (175.610 (a) (1)).",
+            a: "Qué contienen las cajas y quién las aceptó. Un envío con mercancías peligrosas solo se acepta con su documento de transporte diligenciado y después de inspeccionar el bulto, y si contiene mercancías peligrosas tiene que estar en la información escrita que firmas. «Repuestos» es una de esas descripciones generales que pueden esconder una mercancía peligrosa: debe hacerte dudar.",
           },
           {
             q: "¿Firmas el NOTOC tal como está?",
@@ -129,7 +129,7 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             q: "El vuelo sale sin aclararlo y después resulta que traía generadores de oxígeno. ¿Qué es eso?",
-            a: "Un suceso con mercancías peligrosas: mercancía no declarada o mal declarada descubierta en la carga (LAR 175.625 (b)) y transportada sin información al piloto al mando (LAR 175.625 (d)). Se notifica a la autoridad del Estado del explotador y a la del Estado donde ocurrió. Y si no pasó nada, es un incumplimiento imputable (LAR 175.001 (a)): el nivel que más datos aporta al SMS.",
+            a: "Un suceso con mercancías peligrosas, y por dos vías: mercancía no declarada o mal declarada descubierta en la carga, y mercancía transportada sin información al piloto al mando. Se notifica a la autoridad del Estado del explotador y a la del Estado donde ocurrió. Y si no pasó nada, es un incumplimiento imputable a mercancías peligrosas: el nivel que más datos aporta al SMS.",
           },
         ],
         concepto:
@@ -176,7 +176,7 @@ export const NIVEL_5: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "El curso de mercancías peligrosas no es un requisito de la aerolínea: es del reglamento, y aparece en tres partes distintas de los RAC. Esta lección te dice cuánto, cada cuánto y dónde está escrito, y cierra con las veinte respuestas que no puedes dudar en una entrevista.",
+        text: "El curso de mercancías peligrosas no es un requisito de la aerolínea: es del reglamento, y en Colombia aparece en tres reglamentos distintos. Esta lección te dice cuánto, cada cuánto y dónde está escrito, y cierra con las veinte respuestas que no puedes dudar en una entrevista.",
       },
       {
         kind: "norma",
@@ -187,7 +187,7 @@ export const NIVEL_5: DocScreen[] = [
       { kind: "sub", text: "Cuánto y cada cuánto" },
       {
         kind: "table",
-        head: ["Cargo (Tabla C.1)", "Inicial (h)", "Recurrente (h)"],
+        head: ["Cargo", "Inicial (h)", "Recurrente (h)"],
         rows: [
           ["Expedidores y quienes asumen sus responsabilidades", "40", "8"],
           ["Personal de aceptación de mercancías peligrosas", "40", "8"],
@@ -206,7 +206,7 @@ export const NIVEL_5: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Las horas, contra el original",
-        text: "Las horas por cargo son un añadido nacional: el LAR 175 fija el currículo y la periodicidad, pero no una tabla de horas, así que cada país publica la suya y la autoridad aprueba en definitiva cada programa. Las de arriba son la Tabla C.1 del RAC 175 de Colombia, transcritas de un PDF cuya maquetación desalinea las columnas: la fila de tripulación de vuelo (16 y 8) coincide con la transcripción de referencia, pero confírmala contra la tabla original de tu reglamento antes de citarla en una entrevista.",
+        text: "Las horas por cargo son un añadido nacional: el LAR fija el currículo y la periodicidad, pero no una tabla de horas, así que cada país publica la suya y la autoridad aprueba en definitiva cada programa. Las de arriba son las de Colombia, transcritas de un PDF cuya maquetación desalinea las columnas: la fila de tripulación de vuelo (16 y 8) coincide con la transcripción de referencia, pero confírmala contra la tabla original de tu reglamento antes de citarla en una entrevista.",
       },
       {
         kind: "fichas",
@@ -230,45 +230,45 @@ export const NIVEL_5: DocScreen[] = [
           },
           {
             titulo: "Instructores de Categoría 6",
-            puntos: ["Competencia pedagógica, programa de Categoría 6 completado y los requisitos de instructor de los RAC."],
+            puntos: ["Competencia pedagógica, programa de Categoría 6 completado y los requisitos de instructor que fije tu reglamento."],
           },
           {
             titulo: "Aunque no acepte mercancías peligrosas",
-            puntos: ["El explotador que decide no transportarlas cumple igual los programas de capacitación de la Tabla C.1."],
+            puntos: ["El explotador que decide no transportarlas cumple igual los programas de capacitación."],
           },
         ],
       },
       { kind: "sub", text: "Dónde más aparece: en tu licencia" },
       {
         kind: "p",
-        text: "El 175 no es el único sitio donde te exigen esto. El reglamento de licencias de cada país repite el requisito, porque el conocimiento de mercancías peligrosas se pide para la licencia, no solo para la operación. Abajo va Colombia como ejemplo, con el RAC 2 y el RAC 61; busca el artículo equivalente en el reglamento de licencias del tuyo, porque en una entrevista te lo pueden preguntar con el número.",
+        text: "El reglamento de mercancías peligrosas no es el único sitio donde te exigen esto. El reglamento de licencias de cada país repite el requisito, porque el conocimiento de mercancías peligrosas se pide para la licencia, no solo para la operación. Abajo va Colombia como ejemplo, con el RAC 2 y el RAC 61; busca el artículo equivalente en el reglamento de licencias del tuyo, porque en una entrevista te lo pueden preguntar con el número.",
       },
       {
         kind: "fichas",
         columnas: 2,
         items: [
           {
-            titulo: "RAC 2 · Entrenamientos especiales periódicos",
+            titulo: "Entrenamientos periódicos del piloto",
             puntos: [
-              "Curso de Transporte de Mercancías Peligrosas conforme al Anexo 18 y a los Documentos 9284, 9481 y 9375 de la OACI vigentes, con una frecuencia no mayor a dos años, dentro del programa de entrenamiento del operador.",
+              "Curso de Transporte de Mercancías Peligrosas conforme al Anexo 18 y a los documentos vigentes de la OACI (las Instrucciones Técnicas, la guía de respuesta de emergencia y el programa de instrucción), con una frecuencia no mayor a dos años, dentro del programa de entrenamiento del operador.",
             ],
           },
           {
-            titulo: "RAC 2 · Tripulantes que no son pilotos",
+            titulo: "Tripulantes que no son pilotos",
             puntos: ["El mismo curso cada dos años para los demás miembros de la tripulación."],
           },
           {
-            titulo: "RAC 61 · Piloto comercial",
+            titulo: "Licencia de piloto comercial",
             puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga, los posibles riesgos en relación con el transporte de mercancías peligrosas»."],
           },
           {
-            titulo: "RAC 61 · Piloto de transporte de línea aérea",
+            titulo: "Licencia de piloto de transporte de línea aérea",
             puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga y de mercancías peligrosas»."],
           },
           {
-            titulo: "RAC 2 · Auxiliar de servicios a bordo",
+            titulo: "Auxiliar de servicios a bordo",
             puntos: [
-              "Transporte de mercancías peligrosas: conceptos generales, sus posibles riesgos, identificación de etiquetas, mercancías prohibidas, excepciones y procedimientos de emergencia. Es el temario más detallado del RAC 2, y describe bien lo que un piloto debe dominar.",
+              "Transporte de mercancías peligrosas: conceptos generales, sus posibles riesgos, identificación de etiquetas, mercancías prohibidas, excepciones y procedimientos de emergencia. Es el temario más detallado de los cinco, y describe bien lo que un piloto debe dominar.",
             ],
           },
         ],
@@ -322,7 +322,7 @@ export const NIVEL_5: DocScreen[] = [
             q: "Salta la alarma de humo en la bodega donde llevas mercancías declaradas. ¿En qué orden actúas?",
             respuesta:
               "Volar, identificar, comunicar. Primero el procedimiento del fabricante para humo o incendio en bodega, y el desvío si corresponde. Después la información escrita, que me dice qué hay, cuánto y en qué posición, y la información de respuesta de emergencia, que me dice cómo se comporta esa mercancía. Y después informo a la dependencia de tránsito aéreo, para que el aeródromo prepare los medios sabiendo qué va a encontrarse. Invertir ese orden consume el único recurso que no se recupera.",
-            claves: ["Volar primero", "Identificar con el NOTOC", "Informar al ATS", "Doc 9481"],
+            claves: ["Volar primero", "Identificar con el NOTOC", "Informar al ATS", "Guía de respuesta de emergencia"],
           },
           {
             nivel: "situacion",
@@ -336,31 +336,31 @@ export const NIVEL_5: DocScreen[] = [
       { kind: "sub", text: "Veinte respuestas que debes tener listas" },
       {
         kind: "p",
-        text: "El repaso de última hora antes de una entrevista. Cada una con su artículo, para que la respuesta no sea «creo que» sino «dice el 175 punto tal».",
+        text: "El repaso de última hora antes de una entrevista. Veinte respuestas cortas, para que la respuesta no sea «creo que» sino «el reglamento dice que».",
       },
       {
         kind: "kv",
         items: [
-          { k: "1 · Definición", v: "Objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. `LAR 175.001 (a)`" },
-          { k: "2 · Marco", v: "Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país. En Colombia, el RAC 175, adoptado por la Resolución 00478 de 2016. `LAR 175.005 (b)`" },
-          { k: "3 · Alcance", v: "Cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional: vuelos internos e internacionales por igual, matrícula y operador nacionales o extranjeros. `LAR 175.005 (b)`" },
-          { k: "4 · Nueve clases", v: "Una sola clase por mercancía, según el peligro o el más importante de los peligros que represente. `Instrucciones Técnicas, Parte 2`" },
-          { k: "5 · Grupos de embalaje", v: "I gran peligro, II intermedio, III escaso. No aplican a las clases 1, 2 y 7, ni a 5.2 y 6.2. `Instrucciones Técnicas, Parte 2`" },
-          { k: "6 · Dos tipos de etiqueta", v: "De riesgo, para la mayoría de las mercancías de todas las clases; de manipulación, para algunas. `LAR 175.435`" },
-          { k: "7 · Etiqueta ilegible", v: "Se repone conforme al documento de transporte; sin certeza de cuál corresponde, no se transporta. `LAR 175.435 (b)`" },
-          { k: "8 · Cuatro niveles", v: "Prohibido siempre; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones. `LAR 175.110 y 175.020`" },
-          { k: "9 · Aviación civil privada", v: "Prohibido todo tipo de mercancías peligrosas. `RAC 175.115 (a)`" },
-          { k: "10 · Monomotores", v: "Es un añadido nacional, no del Anexo: en Colombia, clase 3 combustibles prohibida salvo lo del 175.715 y las demás clases con aprobación de la autoridad. Mira qué añade el tuyo. `RAC 175.115 (b) y (c)`" },
-          { k: "11 · Pasajeros y tripulantes", v: "Prohibido en equipaje facturado, de mano o consigo, salvo lo de la Tabla 8-1 de las Instrucciones y cumpliendo todos sus requisitos. `LAR 175.115 (b) y 175.715`" },
-          { k: "12 · Cantidades exceptuadas", v: "No van como equipaje ni como correo. E0 en la columna 9 significa que no admiten ese régimen. `LAR 175.130 (b) y RAC 175.136`" },
-          { k: "13 · Aceptación", v: "No se acepta sin documento de transporte diligenciado y sin haber inspeccionado el bulto. Con lista de verificación. `LAR 175.510`" },
-          { k: "14 · Estiba", v: "Nunca en cabina ocupada por pasajeros ni en el puesto de pilotaje. Los CAO no van en aeronave de pasajeros y en carguero deben ser accesibles en vuelo. `LAR 175.520 (b) a (e)`" },
-          { k: "15 · Segregación", v: "Los incompatibles no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Tabla 7-1 y, para explosivos, Tabla 7-2. `LAR 175.525 y 175.530`" },
-          { k: "16 · Radiactivo", v: "Separado de personas, animales vivos y películas no reveladas. Aeronave contaminada, fuera de servicio de inmediato. Y encima del permiso aeronáutico, el del organismo nuclear del país: Servicio Geológico en Colombia, CNEN en Brasil. `LAR 175.535`" },
-          { k: "17 · Información al piloto al mando", v: "Por escrito, lo antes posible antes de la salida, firmada antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional. `LAR 175.515`" },
-          { k: "18 · Emergencia en vuelo", v: "Información de respuesta disponible de inmediato (Doc 9481), tripulación al corriente, equipo a bordo, e informar al ATS tan pronto la situación lo permita. `LAR 175.620`" },
-          { k: "19 · Equipo mínimo de respuesta", v: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma. `175.620 (d) (1)`" },
-          { k: "20 · Instrucción de la tripulación de vuelo", v: "Como mínimo cada 24 meses; en el RAC 2, curso dentro de los entrenamientos periódicos con frecuencia no mayor a dos años; intensidad según la Tabla C.1 (verificar). `175.310 (a), Tabla C.1 y RAC 2, 2.2.1.1.6 (e)`" },
+          { k: "1 · Definición", v: "Objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas." },
+          { k: "2 · Marco", v: "Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país. En Colombia, el RAC 175." },
+          { k: "3 · Alcance", v: "Cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional: vuelos internos e internacionales por igual, matrícula y operador nacionales o extranjeros." },
+          { k: "4 · Nueve clases", v: "Una sola clase por mercancía, según el peligro o el más importante de los peligros que represente." },
+          { k: "5 · Grupos de embalaje", v: "I gran peligro, II intermedio, III escaso. No aplican a las clases 1, 2 y 7, ni a 5.2 y 6.2." },
+          { k: "6 · Dos tipos de etiqueta", v: "De riesgo, para la mayoría de las mercancías de todas las clases; de manipulación, para algunas." },
+          { k: "7 · Etiqueta ilegible", v: "Se repone conforme al documento de transporte; sin certeza de cuál corresponde, no se transporta." },
+          { k: "8 · Cuatro niveles", v: "Prohibido siempre; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones." },
+          { k: "9 · Aviación civil privada", v: "En Colombia, prohibido todo tipo de mercancías peligrosas." },
+          { k: "10 · Monomotores", v: "Es un añadido nacional, no del Anexo: en Colombia, clase 3 combustibles prohibida salvo las excepciones para pasajeros y tripulantes, y las demás clases solo con aprobación de la autoridad. Mira qué añade el tuyo." },
+          { k: "11 · Pasajeros y tripulantes", v: "Prohibido en equipaje facturado, de mano o consigo, salvo las excepciones que las Instrucciones Técnicas prevén para pasajeros y tripulantes, y cumpliendo todos sus requisitos." },
+          { k: "12 · Cantidades exceptuadas", v: "No van como equipaje ni como correo. E0 en la lista de las Instrucciones significa que no admiten ese régimen." },
+          { k: "13 · Aceptación", v: "No se acepta sin documento de transporte diligenciado y sin haber inspeccionado el bulto. Con lista de verificación." },
+          { k: "14 · Estiba", v: "Nunca en cabina ocupada por pasajeros ni en el puesto de pilotaje. Los CAO no van en aeronave de pasajeros y en carguero deben ser accesibles en vuelo." },
+          { k: "15 · Segregación", v: "Los incompatibles no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Las Instrucciones Técnicas traen una tabla de segregación general y otra para explosivos." },
+          { k: "16 · Radiactivo", v: "Separado de personas, animales vivos y películas no reveladas. Aeronave contaminada, fuera de servicio de inmediato. Y encima del permiso aeronáutico, el del organismo nuclear del país: Servicio Geológico en Colombia, CNEN en Brasil." },
+          { k: "17 · Información al piloto al mando", v: "Por escrito, lo antes posible antes de la salida, firmada antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional." },
+          { k: "18 · Emergencia en vuelo", v: "Información de respuesta disponible de inmediato (la guía de la OACI), tripulación al corriente, equipo a bordo, e informar al ATS tan pronto la situación lo permita." },
+          { k: "19 · Equipo mínimo de respuesta", v: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma." },
+          { k: "20 · Instrucción de la tripulación de vuelo", v: "Como mínimo cada 24 meses; en Colombia, además, como curso dentro de los entrenamientos periódicos con frecuencia no mayor a dos años; la intensidad en horas, según la tabla nacional (verificar)." },
         ],
       },
       {
@@ -401,7 +401,7 @@ export const NIVEL_5: DocScreen[] = [
               {
                 t: "En el expedidor que no identificó ni embaló, en el explotador que no vigiló ni capacitó, y en una regla de diseño de la autoridad.",
                 ok: true,
-                fb: "Tres fallas, tres artículos: 175.215 y 175.416 para el expedidor, 175.220 y el Capítulo D para el explotador, y la exigencia de detección y supresión en bodegas de clase D que vino después.",
+                fb: "Tres fallas, tres responsabilidades: la del expedidor, que debe clasificar, embalar y declarar; la del explotador, que responde por sus agentes y por la instrucción de su personal; y la exigencia de detección y supresión en bodegas de clase D que vino después.",
               },
               {
                 t: "En el fabricante de los generadores.",
@@ -415,7 +415,7 @@ export const NIVEL_5: DocScreen[] = [
               {
                 t: "Estás fuera del mínimo de 24 meses; el LAR admite el recurrente dentro de los 30 días siguientes al vencimiento, y pasado ese plazo toca instrucción inicial de nuevo.",
                 ok: true,
-                fb: "El RAC 175.310 (a) fija el mínimo de cada 24 meses; el LAR 175.310 (d) añade la ventana de 30 días y la consecuencia de excederla: nueva instrucción inicial, no recurrente.",
+                fb: "El mínimo de cada 24 meses es la regla general; el LAR añade la ventana de 30 días y la consecuencia de excederla: nueva instrucción inicial, no recurrente.",
               },
               {
                 t: "No pasa nada mientras no vueles con carga peligrosa.",
@@ -423,7 +423,7 @@ export const NIVEL_5: DocScreen[] = [
               },
               {
                 t: "Se repone con el recurrente en cualquier momento del año.",
-                fb: "Pasada la ventana de 30 días del LAR, lo que corresponde es la instrucción inicial completa.",
+                fb: "Pasada la ventana de 30 días, lo que corresponde es la instrucción inicial completa.",
               },
             ],
           },
@@ -431,17 +431,17 @@ export const NIVEL_5: DocScreen[] = [
             q: "¿Qué documento son las «Instrucciones Técnicas» y quién las publica?",
             opciones: [
               {
-                t: "El Doc 9284-AN/905 de la OACI, que cada reglamento nacional adopta en su última versión publicada.",
+                t: "El Doc 9284 de la OACI, que cada reglamento nacional adopta en su última versión publicada.",
                 ok: true,
-                fb: "Son las Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea, Doc 9284, aprobadas y publicadas periódicamente por la OACI (LAR 175.001 (a)). Cada autoridad las adopta en su última versión y toma las medidas para que sus enmiendas se apliquen: en Colombia, por el RAC 175.040.",
+                fb: "Son las Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea, Doc 9284, aprobadas y publicadas periódicamente por la OACI. Cada autoridad las adopta en su última versión y toma las medidas para que sus enmiendas se apliquen.",
               },
               {
-                t: "El Doc 9375, adoptado por el RAC 2.",
-                fb: "El Doc 9375 es el Programa de Instrucción sobre Mercancías Peligrosas: sirve para diseñar la capacitación (175.316), no es la norma técnica del transporte.",
+                t: "El Doc 9375 de la OACI, que cada autoridad adopta para la instrucción.",
+                fb: "El Doc 9375 es el Programa de Instrucción sobre Mercancías Peligrosas: sirve para diseñar la capacitación, no es la norma técnica del transporte.",
               },
               {
-                t: "El Doc 9481, adoptado por el RAC 22.",
-                fb: "El Doc 9481 es la orientación de respuesta de emergencia (175.620 (b) (1)), y el RAC 22 es el de SMS. Las Instrucciones Técnicas son el Doc 9284.",
+                t: "El Doc 9481 de la OACI, que cada autoridad adopta para la respuesta de emergencia.",
+                fb: "El Doc 9481 es la orientación de respuesta de emergencia, la que debe estar disponible de inmediato en vuelo. Las Instrucciones Técnicas son el Doc 9284.",
               },
             ],
           },
@@ -451,7 +451,7 @@ export const NIVEL_5: DocScreen[] = [
               {
                 t: "Especificar en su manual los procedimientos para evitar que se introduzcan mercancías no declaradas, y capacitar igualmente a su personal.",
                 ok: true,
-                fb: "El LAR 175.305 (b) es explícito: tenga o no autorización para transportarlas, el explotador mantiene programas de instrucción inicial y de repaso. Que no las acepte no significa que no le lleguen.",
+                fb: "La norma es explícita: tenga o no autorización para transportarlas, el explotador mantiene programas de instrucción inicial y de repaso. Que no las acepte no significa que no le lleguen.",
               },
               {
                 t: "Ninguna: el reglamento no le aplica.",

@@ -25,6 +25,7 @@ import type {
 import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
+import { ImagenAmpliable } from "@/components/lesson/ImagenAmpliable"
 import { Ficha, VisualFicha } from "@/components/lesson/FichaPiloto"
 
 /** El acento del lector. Se re-ancla por tema: azul en NOTAM, amarillo en Mercancías. */
@@ -497,14 +498,20 @@ function Pregunta({
  * reglamento y lo que significa para el piloto.
  *
  * Nació para la sección 3 de Mercancías, donde Camilo pidió las dos
- * definiciones juntas. La técnica va primero y literal, con su artículo; la
- * explicación en palabras fáciles después, porque se entiende mejor sabiendo
- * qué traduce.
+ * definiciones juntas. La técnica va primero y literal; la explicación en
+ * palabras fáciles después, en un párrafo corto, porque se entiende mejor
+ * sabiendo qué traduce.
+ *
+ * La imagen se abre en grande: trae partes señaladas con rótulos que al tamaño
+ * de la ficha no se leen. La letra va justificada y con guiones, que en una
+ * columna tan estrecha es lo que evita los huecos entre palabras.
  *
  * Los rótulos de dentro van en frase y no en mono mayúscula: sobre papel, en
  * pequeño, la mono se leía como hecha a máquina.
  */
 function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
+  // Con foto y sin explicación, la ficha es solo el nombre: la foto lo explica.
+  const soloNombre = !item.tecnica && !(item.puntos && item.puntos.length > 0)
   return (
     <article
       className="flex flex-col overflow-hidden rounded-[14px] border"
@@ -517,13 +524,13 @@ function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
       }}
     >
       {item.imagen ? (
-        <img
+        <ImagenAmpliable
           src={item.imagen.src}
           alt={item.imagen.alt}
-          loading="lazy"
-          decoding="async"
-          className="block aspect-[3/2] w-full object-cover"
-          style={{ background: "var(--ln-sunk)" }}
+          className="w-full border-b"
+          style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}
+          imgClassName="block aspect-[3/2] w-full object-cover"
+          imgStyle={{ background: "var(--ln-sunk)" }}
         />
       ) : (
         item.hueco && (
@@ -538,48 +545,46 @@ function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
         )
       )}
 
-      <div className="flex flex-1 flex-col px-5 pb-5 pt-4 sm:px-6">
-        <h3 className="ln-display m-0 text-[22px] font-semibold" style={{ lineHeight: 1.15, color: "var(--doc-fg)" }}>
+      <div className={`flex flex-1 flex-col px-5 sm:px-6 ${soloNombre ? "py-3.5 text-center" : "pb-5 pt-4"}`}>
+        <h3 className="ln-display m-0 text-[19px] font-semibold" style={{ lineHeight: 1.2, color: "var(--doc-fg)" }}>
           {item.titulo}
         </h3>
 
         {item.tecnica && (
-          <div className="mt-3.5">
-            <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+          <div className="mt-3">
+            <div className="text-[12px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
               {item.tecnica.rotulo ?? "Definición técnica"}
               {item.tecnica.ref && <span className="font-normal doc-muted"> · {item.tecnica.ref}</span>}
             </div>
             <p
-              className="m-0 mt-1.5 border-l-2 pl-3 text-[14px] leading-[1.55]"
+              className="m-0 mt-1.5 border-l-2 pl-3 text-justify text-[13.5px] leading-[1.6] hyphens-auto"
               style={{ borderColor: docAccent(ACENTO, 40), color: "var(--ln-ink-strong, var(--doc-fg))" }}
             >
               {item.tecnica.texto}
             </p>
             {item.tecnica.nota && (
-              <p className="m-0 mt-1.5 pl-3.5 text-[12.5px] leading-[1.5] doc-muted">{renderInline(item.tecnica.nota)}</p>
+              <p className="m-0 mt-1.5 pl-3.5 text-justify text-[12px] leading-[1.5] hyphens-auto doc-muted">
+                {renderInline(item.tecnica.nota)}
+              </p>
             )}
           </div>
         )}
 
-        <div className="mt-4 border-t pt-3.5" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
-          <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
-            En palabras fáciles de entender
-          </div>
-          <ul className="m-0 mt-2 flex list-none flex-col gap-2 p-0">
+        {item.puntos && item.puntos.length > 0 && (
+          <div className="mt-3.5 border-t pt-3" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
+            <div className="text-[12px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
+              {item.puntosRotulo ?? "En palabras fáciles de entender"}
+            </div>
+            {/* Un párrafo corto, no viñetas: Camilo lo quiere leído de corrido. */}
             {item.puntos.map((p, j) => (
-              <li key={j} className="grid grid-cols-[7px_1fr] gap-2.5 text-[15px] leading-[1.55]">
-                <span
-                  aria-hidden
-                  className="mt-[9px] h-[6px] w-[6px] rounded-full"
-                  style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
-                />
-                <span>{renderInline(p)}</span>
-              </li>
+              <p key={j} className="m-0 mt-1.5 text-justify text-[14px] leading-[1.6] hyphens-auto">
+                {renderInline(p)}
+              </p>
             ))}
-          </ul>
-        </div>
+          </div>
+        )}
 
-        {item.nota && <p className="m-0 mt-3 text-[12.5px] leading-[1.5] doc-muted">{renderInline(item.nota)}</p>}
+        {item.nota && <p className="m-0 mt-3 text-[12px] leading-[1.5] doc-muted">{renderInline(item.nota)}</p>}
       </div>
     </article>
   )
@@ -619,10 +624,10 @@ export function Fichas({ block }: { block: FichasBlock }) {
               </div>
             )}
             <ul className="m-0 mt-3 flex list-none flex-col gap-2 p-0">
-              {it.puntos.map((p, j) => (
+              {(it.puntos ?? []).map((p, j) => (
                 <li key={j} className="grid grid-cols-[7px_1fr] gap-2.5 text-[14px] leading-[1.55]">
                   <span aria-hidden className="mt-[8px] h-[6px] w-[6px]" style={{ background: "var(--doc-accent)" }} />
-                  <span>{renderInline(p)}</span>
+                  <span className="text-justify hyphens-auto">{renderInline(p)}</span>
                 </li>
               ))}
             </ul>

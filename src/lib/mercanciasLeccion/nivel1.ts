@@ -2,12 +2,12 @@
  * Nivel 1 · Introducción: por qué existe la norma, por qué el avión cambia el
  * riesgo, el vocabulario y quién responde por qué.
  *
- * La cita manda de lo mundial a lo nacional: Anexo 18 y Doc 9284 de la OACI,
- * LAR 175 del SRVSOP (Primera edición, Enmienda 4, diciembre 2017) y, como
- * ejemplo de adopción nacional, el RAC 175 de Colombia (Edición original,
- * marzo 2016). Cada equivalencia se contrastó contra los dos textos: el
- * literal no siempre lleva la misma letra en una norma y en la otra. El caso
- * real sale del informe de la NTSB y se cita como tal.
+ * Sin citas en el texto, por decisión de Camilo: la lección 1 dice de dónde
+ * sale todo (Anexo 18 y Doc 9284 de la OACI, LAR 175 del SRVSOP, Primera
+ * edición, Enmienda 4, diciembre 2017, y el RAC 175 de Colombia, Edición
+ * original, marzo 2016) y el resto del módulo no cita artículo por artículo.
+ * Cada dato y cada literal se contrastó igual contra los dos textos: el
+ * literal no siempre lleva la misma letra en una norma y en la otra.
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
@@ -36,7 +36,7 @@ export const NIVEL_1: DocScreen[] = [
         consecuencia:
           "La NTSB atribuyó el accidente a un incendio en la bodega iniciado por la activación de uno o más generadores. Señaló tres fallas: el taller que no identificó ni embaló bien los generadores, la aerolínea que no vigiló a su contratista y la autoridad, que no exigía detección ni extinción de incendios en las bodegas de clase D.",
         leccion:
-          "La cadena falló en tres eslabones y los tres tienen nombre en la norma: el expedidor que no identifica ni embala (LAR 175.215 y 175.410), el explotador que no vigila ni capacita (LAR 175.220 y Capítulo D) y una regla de diseño que la autoridad no había cerrado. El comandante firmó un manifiesto que decía otra cosa. Este módulo trata de por qué esa firma tuya importa.",
+          "La cadena falló en tres eslabones y los tres tienen nombre en la norma: el expedidor que no identifica ni embala, el explotador que no vigila ni capacita y una regla de diseño que la autoridad no había cerrado. El comandante firmó un manifiesto que decía otra cosa. Este módulo trata de por qué esa firma tuya importa.",
         imagen: {
           src: "/modulos/mercancias/img-01-generador-oxigeno.webp",
           alt: "Generador químico de oxígeno de aviación, el tipo de dispositivo que viajaba sin tapa de seguridad en la bodega del vuelo 592.",
@@ -54,7 +54,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Fíjate en las dos mitades: **riesgo** y **estar en la lista o ser clasificable**. Un artículo no es mercancía peligrosa porque lo parezca. Lo es porque encaja en los criterios de clasificación de las Instrucciones Técnicas. La lista es la Tabla 3-1 de las Instrucciones; lo que no está en la lista se clasifica con los mismos criterios (Parte 2 de las Instrucciones, según el LAR 175.415).",
+        text: "Fíjate en las dos mitades: **riesgo** y **estar en la lista o ser clasificable**. Un artículo no es mercancía peligrosa porque lo parezca. Lo es porque encaja en los criterios de clasificación de las Instrucciones Técnicas. La lista está en esas mismas Instrucciones, y lo que no figura en ella se clasifica con esos mismos criterios.",
       },
       {
         kind: "definicion",
@@ -78,21 +78,21 @@ export const NIVEL_1: DocScreen[] = [
             etiqueta: "Doc 9284",
             sub: "Instrucciones Técnicas",
             texto:
-              "El detalle operativo: la lista de mercancías, el embalaje, las marcas y etiquetas, la segregación y la información al piloto al mando. Se reedita cada dos años. Las normas de la región la llaman «Instrucciones Técnicas» y remiten a su última versión publicada (LAR 175.001 (a)).",
+              "El detalle operativo: la lista de mercancías, el embalaje, las marcas y etiquetas, la segregación y la información al piloto al mando. Se reedita cada dos años. Las normas de la región la llaman «Instrucciones Técnicas» y remiten a su última versión publicada.",
           },
           {
             clave: "lar175",
             etiqueta: "LAR 175",
             sub: "SRVSOP · la región",
             texto:
-              "El reglamento armonizado que el Sistema Regional de Cooperación para la Vigilancia de la Seguridad Operacional elaboró con fundamento en el Anexo 18 y propuso a sus Estados miembros. Es la norma que este módulo cita: su articulado, 175.001 a 175.715, es el que reconocerás en el reglamento de tu país.",
+              "El reglamento armonizado que el Sistema Regional de Cooperación para la Vigilancia de la Seguridad Operacional elaboró con fundamento en el Anexo 18 y propuso a sus Estados miembros. Es la base de este módulo, y sus reglas son las que reconocerás en el reglamento de tu país.",
           },
           {
             clave: "nacional",
             etiqueta: "Tu reglamento",
             sub: "Cada Estado publica el suyo",
             texto:
-              "Cada autoridad de aviación civil adopta el LAR 175 en su propia norma y le pone su nombre y su numeración. En Colombia es el RAC 175, adoptado por la Resolución 00478 de 2016. Esa es la que te aplica a ti, y aplica a vuelos internos e internacionales por igual: busca la tuya y ten a mano su número de artículo.",
+              "Cada autoridad de aviación civil adopta el LAR 175 en su propia norma y le pone su nombre y su numeración. En Colombia es el RAC 175, adoptado por la Resolución 00478 de 2016. Esa es la que te aplica a ti, y aplica a vuelos internos e internacionales por igual: busca la tuya y tenla a mano.",
           },
         ],
       },
@@ -108,7 +108,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "El reglamento fija el qué; las Instrucciones, el cómo",
-        text: "El LAR 175, y con él el reglamento de tu país, remite a las Instrucciones Técnicas casi en cada artículo. Cuando te pregunten dónde está la lista, cuánto puede llevar un pasajero o cómo se separa un bulto de otro, la respuesta detallada está en el Doc 9284; el reglamento es el que te obliga a aplicarlo (LAR 175.005 (b)).",
+        text: "El LAR 175, y con él el reglamento de tu país, remite a las Instrucciones Técnicas casi en cada artículo. Cuando te pregunten dónde está la lista, cuánto puede llevar un pasajero o cómo se separa un bulto de otro, la respuesta detallada está en el Doc 9284; el reglamento es el que te obliga a aplicarlo.",
       },
       {
         kind: "p",
@@ -187,7 +187,7 @@ export const NIVEL_1: DocScreen[] = [
           {
             titulo: "Vibración",
             icono: "/modulos/mercancias/ico-vibracion.webp",
-            desc: "Horas de vibración aflojan tapas, rozan embalajes entre sí y rompen frascos interiores. Por eso el 175.420 (e) exige acolchar y sujetar los embalajes interiores.",
+            desc: "Horas de vibración aflojan tapas, rozan embalajes entre sí y rompen frascos interiores. Por eso el reglamento exige acolchar y sujetar los embalajes interiores.",
           },
           {
             titulo: "Tiempo y aislamiento",
@@ -203,7 +203,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Por eso, el explotador debe proporcionar procedimientos de emergencia y el equipo previsto para responder a determinados eventos con mercancías peligrosas, incluyendo elementos como bolsas grandes de polietileno, ligaduras y guantes largos de goma (175.620).",
+        text: "Por eso, el explotador debe proporcionar procedimientos de emergencia y el equipo previsto para responder a determinados eventos con mercancías peligrosas, incluyendo elementos como bolsas grandes de polietileno, ligaduras y guantes largos de goma.",
       },
       { kind: "sub", text: "¿Qué significa esto para ti como piloto?" },
       {
@@ -214,18 +214,16 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "warn",
         title: "El caso de las bodegas clase D",
-        text: "En ValuJet 592 la bodega delantera no tenía detección ni extinción de incendios. La tripulación se enteró del fuego cuando el humo llegó a la cabina, y para entonces llevaba minutos ardiendo. Después del accidente la FAA exigió detección y supresión en esas bodegas. Es la razón por la que hoy la bodega de tu avión avisa. Fuente: NTSB AAR-97/06.",
+        text: "En ValuJet 592 la bodega delantera no tenía detección ni extinción de incendios. La tripulación se enteró del fuego cuando el humo llegó a la cabina, y para entonces llevaba minutos ardiendo. Después del accidente la FAA exigió detección y supresión en esas bodegas. Es la razón por la que hoy la bodega de tu avión avisa.",
       },
       {
         kind: "enLaOperacion",
         momento: "Antes de la salida",
         texto:
           "Cuando en la información al piloto al mando veas un envío de **líquido inflamable** en la bodega trasera, no lo leas como «pintura». Léelo como **vapores inflamables, en un espacio cerrado**, con una diferencia de presión que crece durante el ascenso, durante tres horas. Con esa lectura se entienden todas las limitaciones de cantidad que vienen después.",
-        hueco: {
-          id: "MP-IMG-06",
-          medida: "Fotografía · 4:3 · 1200×900",
-          descripcion:
-            "Un bulto de líquido inflamable estibado y sujeto en la bodega de un avión de pasajeros, con la etiqueta de clase 3 (rombo rojo con llama) y el número ONU a la vista. Tiene que ser de clase 3: es el envío que describe el texto.",
+        imagen: {
+          src: "/modulos/mercancias/img-06-bodega-clase-3.webp",
+          alt: "Paleta de cajas de pintura UN 1263 con la etiqueta de clase 3, envuelta en film y sujeta con red y cinchas dentro de la bodega de un avión.",
         },
       },
       {
@@ -254,11 +252,9 @@ export const NIVEL_1: DocScreen[] = [
         cierre:
           "La misma mercancía que en tierra parecía inofensiva ahora está dentro de una aeronave, bajo otras condiciones y lejos de ayuda externa. Por eso el transporte aéreo exige requisitos específicos de embalaje y control.",
         rotulo: "Escenario de práctica",
-        hueco: {
-          id: "MP-IMG-07",
-          medida: "Fotografía · 4:3 · 1200×900",
-          descripcion:
-            "Un avión de pasajeros en crucero sobre las nubes y, en detalle, una caja de aerosoles bien embalada. Tiene que verse en regla: el escenario va de un envío aceptado y embalado correctamente que en tierra parecía una carga normal.",
+        imagen: {
+          src: "/modulos/mercancias/img-07-crucero-fl350.webp",
+          alt: "Avión en crucero a FL350 sobre las nubes y una caja de aerosoles UN 1950 con etiqueta de clase 2. Recuadros: aeronave presurizada, vibración, lejos de ayuda y embalaje correcto.",
         },
       },
       {
@@ -287,7 +283,7 @@ export const NIVEL_1: DocScreen[] = [
   {
     n: 3,
     title: "El vocabulario que te van a preguntar",
-    kicker: "Catorce términos y tres permisos",
+    kicker: "Trece términos y tres permisos",
     minutes: 7,
     blocks: [
       {
@@ -299,11 +295,11 @@ export const NIVEL_1: DocScreen[] = [
         text: "Piénsalo como piloto: cada palabra tiene un contexto en el que puedes encontrarla: en la documentación, durante la preparación del vuelo, en la información entregada a la tripulación o al observar la carga.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-ILU-03 · Ilustración · 16:9 · 1600×900 · SVG o PNG",
-        descripcion:
-          "Un bulto, un sobre-embalaje y un ULD dibujados a la misma escala y en fila, con el número de bultos escrito en cada uno: 1 bulto, un sobre-embalaje con 3 bultos dentro, y un ULD con varios sobre-embalajes. Es la imagen que resuelve la confusión de golpe: son tres tamaños de la misma idea.",
-        alto: 280,
+        kind: "figura",
+        src: "/modulos/mercancias/ilu-03-bulto-sobre-embalaje-uld.webp",
+        alt: "Bulto, sobre-embalaje y ULD a la misma escala. Un bulto: una caja UN 1263 PAINT. Un sobre-embalaje: una caja exterior marcada OVERPACK con tres bultos dentro. Un ULD: un contenedor AKE con varios sobre-embalajes. Mismo concepto, diferente tamaño.",
+        ancho: 1672,
+        alto: 941,
       },
       { kind: "sub", text: "Lo que vas a leer en el papel que firmas" },
       {
@@ -312,150 +308,135 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "NOTOC",
-            hueco: {
-              id: "MP-IMG-15",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Un NOTOC en primer plano donde se lean las columnas de mercancías peligrosas: número ONU, clase, número de bultos y posición en bodega. Anonimizado (matrícula, número de vuelo y nombres), con el mismo cuidado que el de la lección 14.",
+            imagen: {
+              src: "/modulos/mercancias/img-15-notoc.webp",
+              alt: "NOTOC de ejemplo con nueve partes señaladas: datos del vuelo, título del documento, información de preparación, destinatario y remitente, mercancías peligrosas, otras cargas especiales, información adicional, firma de Load Control, y fecha y hora.",
             },
             tecnica: {
               rotulo: "Lo que exige el reglamento",
               texto: "Salvo en los casos en que las Instrucciones Técnicas indiquen lo contrario, el explotador de toda aeronave en la cual haya que transportar mercancías peligrosas, deberá proporcionar al piloto al mando, lo antes posible antes de la salida de la aeronave y por escrito, la información prevista en las Instrucciones Técnicas.",
-              nota: "El reglamento no usa la palabra NOTOC: habla de la información por escrito al piloto al mando. NOTOC, «Notification to Captain», es el nombre que le da la operación. Lo ves a fondo en la lección 14.",
             },
-            puntos: [
-              "El papel que te entrega el explotador antes de la salida: qué mercancías peligrosas llevas, cuántas y dónde van.",
-              "Lo firmas antes de que se transporten y lo tienes a mano todo el vuelo. Si algo pasa, es lo primero que miras.",
-            ],
+            puntos: ["El papel que te dice qué mercancías peligrosas llevas, cuántas y dónde van. Lo firmas antes de salir y lo tienes a mano todo el vuelo, por si algo pasa."],
           },
           {
             titulo: "Bulto",
-            hueco: {
-              id: "MP-IMG-08",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Una caja de mercancía peligrosa lista para volar, sola y centrada, con sus marcas y etiquetas a la vista: número ONU, etiqueta de clase y flechas de orientación. Sin texto dibujado encima: el nombre y las definiciones ya van en la ficha.",
+            imagen: {
+              src: "/modulos/mercancias/img-08-bulto.webp",
+              alt: "Caja de aerosoles UN 1950 en la rampa con cuatro partes señaladas: las marcas, el número ONU, la etiqueta de riesgo y las marcas de orientación.",
             },
             tecnica: {
               texto: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte.",
             },
-            puntos: ["Una caja lista para volar: el embalaje y lo que lleva dentro.", "Es la unidad que cuenta el NOTOC. Cuando ves «3 bultos», son tres de estos."],
+            puntos: ["Es la mercancía ya empacada y lista para volar: el embalaje con lo que lleva dentro. Cuando el NOTOC dice «3 bultos», son tres de estos."],
           },
           {
             titulo: "Embalaje",
-            hueco: {
-              id: "MP-IMG-09",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Un embalaje abierto y sin la mercancía: la caja exterior con sus materiales interiores a la vista. Tiene que verse que es solo lo que contiene, sin el contenido.",
+            imagen: {
+              src: "/modulos/mercancias/img-09-embalaje.webp",
+              alt: "Caja de cartón abierta y vacía con dos partes señaladas: la caja exterior, que contiene y protege, y la protección interior, que amortigua y evita daños.",
             },
             tecnica: {
               texto: "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
             },
-            puntos: [
-              "El recipiente y los materiales que necesita para contener bien la mercancía: la caja, la lata o el frasco, y lo que va con ellos.",
-              "Es lo de fuera del bulto. Embalaje más su contenido es un bulto.",
-            ],
+            puntos: ["Es lo que contiene y protege la mercancía: la caja, la lata o el frasco y su relleno. Vacío es embalaje; con la mercancía dentro, ya es un bulto."],
           },
           {
             titulo: "Sobre-embalaje",
-            hueco: {
-              id: "MP-IMG-10",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Varios bultos agrupados en una sola unidad para manipularlos juntos: envueltos en film o dentro de una caja exterior. Tiene que notarse que por dentro son varios.",
+            imagen: {
+              src: "/modulos/mercancias/img-10-sobre-embalaje.webp",
+              alt: "Paleta de cajas de aerosoles envueltas en film con cinco partes señaladas: varios bultos en una sola unidad, el film exterior, las marcas y etiquetas visibles, la marca OVERPACK y la paleta.",
             },
             tecnica: {
               texto: "Embalaje utilizado por un expedidor único que contenga uno o más bultos y constituya una unidad para facilitar su manipulación y estiba.",
-              nota: "Nota del reglamento: no se incluyen en esta definición los dispositivos de carga unitarizada.",
             },
-            puntos: ["Varios bultos de un mismo expedidor agrupados en uno para manipularlos juntos.", "Por fuera parece un bulto. Por dentro son varios, y cada uno con su etiqueta."],
+            puntos: ["Es la unidad en que un mismo expedidor junta sus bultos, con film o una caja por fuera, para moverlos más fácil. Por fuera parece uno solo; por dentro puede haber varios."],
           },
           {
             titulo: "ULD",
-            hueco: {
-              id: "MP-IMG-11",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Un contenedor de carga aérea o una paleta con red ya cargada, en la rampa o entrando a la bodega. Es el tamaño de arriba: donde van los bultos y los sobre-embalajes.",
+            imagen: {
+              src: "/modulos/mercancias/img-11-uld.webp",
+              alt: "Contenedor de carga aérea junto a un avión con tres partes señaladas: el contenedor ULD, la carga asegurada con red y la paleta que le sirve de base.",
             },
             tecnica: {
               texto: "Toda variedad de contenedor de carga, contenedor de aeronave, paleta de aeronave con red o paleta de aeronave con red sobre un iglú.",
-              nota: "Nota del reglamento: no se incluyen en esta definición los sobre-embalajes.",
             },
-            puntos: ["El contenedor o la paleta con red donde va la carga.", "En el NOTOC te dice **dónde** está el bulto. Es lo que buscarías si tuvieras que decirle a alguien en qué parte de la bodega está."],
+            puntos: ["Es el contenedor o la paleta con red que se sube a la bodega. En el NOTOC te dice **dónde** va cada bulto, que es lo que necesitas saber si algo pasa."],
           },
           {
             titulo: "Número ONU",
-            hueco: {
-              id: "MP-IMG-12",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Primer plano de la marca de un bulto donde se lee con claridad el número ONU, por ejemplo «UN 3480», junto a la denominación. El número tiene que poder leerse a tamaño de ficha.",
+            imagen: {
+              src: "/modulos/mercancias/img-12-numero-onu.webp",
+              alt: "Marca de baterías de litio en una caja con dos partes señaladas: el número ONU, UN 3480, y la denominación, LITHIUM ION BATTERIES.",
             },
             tecnica: {
               texto: "Número de cuatro dígitos asignado por el Comité de expertos en transporte de mercaderías peligrosas, de las Naciones Unidas, que sirve para reconocer las diversas sustancias o determinado grupo de ellas.",
             },
-            puntos: ["Cuatro dígitos que identifican la sustancia. UN 1263 es pintura, UN 3480 son baterías de litio sueltas.", "Es lo primero que lees, y lo primero que va a buscar quien atienda una emergencia."],
+            puntos: ["Son cuatro números que identifican la sustancia: UN 1263 es pintura y UN 3480, baterías de ion litio. Es lo primero que busca quien atiende una emergencia."],
           },
           {
             titulo: "Denominación del artículo expedido",
-            hueco: {
-              id: "MP-IMG-13",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Primer plano de la marca de un bulto de pintura con su denominación oficial y su número ONU (UN 1263). Si la lata o la caja lleva además un nombre comercial, mejor: esa diferencia es lo que enseña la ficha.",
+            imagen: {
+              src: "/modulos/mercancias/img-13-denominacion.webp",
+              alt: "Lata de pintura con tres partes señaladas: el nombre comercial del fabricante, el número ONU, UN 1263, y la denominación oficial, PAINT.",
             },
             tecnica: {
               rotulo: "Lo que exige el reglamento",
               texto: "La identificación de las mercancías peligrosas deberá ser hecha por medio de un número de la ONU (UN o ID) y por medio de la denominación del artículo expedido, de acuerdo con las Instrucciones Técnicas.",
-              nota: "El LAR 175 no la define: exige usarla. Su definición está en las Instrucciones Técnicas (Doc 9284).",
             },
-            puntos: ["El nombre oficial de transporte, no el comercial.", "Una lata de «Aviatory Gloss» va como pintura. Si el NOTOC trae un nombre de marca, algo se saltó un paso."],
+            puntos: ["Es el nombre oficial con que viaja la mercancía, no el de la marca: un esmalte de avión va como «PAINT». Si el NOTOC trae un nombre comercial, algo falló antes."],
           },
           {
             titulo: "Envío",
-            hueco: {
-              id: "MP-IMG-14",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Un grupo de bultos del mismo expedidor, juntos en la zona de aceptación de carga con su documentación. Tiene que leerse como una sola entrega, no como un bulto suelto.",
+            imagen: {
+              src: "/modulos/mercancias/img-14-envio.webp",
+              alt: "Paleta de cajas de pintura UN 1263 de un mismo expedidor en la zona de aceptación de carga, con la guía aérea y la declaración del expedidor al lado.",
             },
             tecnica: {
               texto: "Uno o más bultos de mercancías peligrosas que un explotador acepta de un expedidor de una sola vez y en un mismo sitio recibidos en un lote y despachados a un mismo consignatario y dirección.",
             },
-            puntos: ["Uno o más bultos que el explotador acepta de un expedidor de una vez y para un mismo destinatario.", "Un envío puede ser un bulto o veinte. Cuenta como una sola aceptación."],
+            puntos: ["Es todo lo que un expedidor entrega de una vez para un mismo destinatario. Puede ser un bulto o veinte: la aerolínea lo acepta como una sola entrega."],
           },
         ],
       },
       { kind: "sub", text: "Lo que vas a oír en una conversación" },
       {
         kind: "fichas",
-        columnas: 3,
+        columnas: 2,
         items: [
           {
             titulo: "Expedidor",
-            puntos: ["Quien envía la mercancía y responde de clasificarla, embalarla, marcarla y declararla.", "Es el primer eslabón. Cuando algo llega mal, casi siempre empezó aquí."],
+            imagen: {
+              src: "/modulos/mercancias/img-16-expedidor.webp",
+              alt: "Expedidor: quien ofrece o envía la mercancía y responde de que esté bien identificada, clasificada, embalada, marcada, etiquetada y documentada. En la foto, un empleado cierra una caja UN 1263 PAINT con etiqueta de clase 3 y prepara la declaración de mercancías peligrosas.",
+            },
           },
           {
             titulo: "COMAT",
-            puntos: ["Material de la propia compañía que viaja en su avión: un repuesto, una rueda, una batería de un equipo.", "Si está clasificado como mercancía peligrosa es **COMAT peligroso** y cumple todas las reglas. Ser de la casa no exime de nada, y en ValuJet eso costó 110 vidas."],
+            imagen: {
+              src: "/modulos/mercancias/img-17-comat.webp",
+              alt: "COMAT: material de la propia compañía que viaja en su avión, como un repuesto, una rueda o la batería de un equipo. Si está clasificado como mercancía peligrosa es COMAT peligroso y cumple todas las reglas: ser de la casa no exime de nada. En la foto, una rueda, una caja de repuestos y una batería UN 3480 de la aerolínea en la rampa.",
+            },
           },
           {
-            titulo: "Incompatible",
-            puntos: ["Dos mercancías que, si se mezclan, generan calor, gases o algo corrosivo.", "Es la razón de que existan tablas de segregación y de que no todo pueda ir junto en la misma bodega."],
+            titulo: "Mercancías incompatibles",
+            imagen: {
+              src: "/modulos/mercancias/img-18-incompatibles.webp",
+              alt: "Mercancías incompatibles: las que no deben ir juntas porque su interacción puede generar calor, fuego, gases o sustancias corrosivas; por eso existen reglas de segregación. En la foto, una paleta de hidróxido de sodio corrosivo (clase 8) y otra de gasolina (clase 3) con el aviso «No juntar».",
+            },
           },
           {
-            titulo: "Mercancía peligrosa oculta",
-            puntos: ["Carga declarada con una descripción general que debía declararse como peligrosa, o lo prohibido que aparece en un equipaje.", "Descubrir una **ya es un suceso notificable**, aunque no pase nada más. Lección 12."],
+            titulo: "Mercancías peligrosas ocultas",
+            imagen: {
+              src: "/modulos/mercancias/img-19-ocultas.webp",
+              alt: "Mercancías peligrosas ocultas: las que no se declararon como tales, bajo una descripción general de carga o en el equipaje de un pasajero. Descubrirlas puede ser un suceso que hay que reportar. En la foto, una caja rotulada SPARE PARTS con una batería de litio, un aerosol y un aditivo de combustible dentro.",
+            },
           },
           {
             titulo: "Declaración del expedidor",
-            puntos: ["El documento donde el expedidor certifica qué es, cómo va embalado y que cumple las Instrucciones.", "Tú no la firmas ni la revisas: viaja con la carga. Lo que llega a ti es el resumen, que es el NOTOC."],
-          },
-          {
-            titulo: "Piloto al mando",
-            puntos: ["El piloto designado para estar al mando y encargarse de la realización segura del vuelo.", "En este módulo esa palabra aparece cada vez que la norma le asigna algo a alguien que eres tú."],
+            imagen: {
+              src: "/modulos/mercancias/img-20-declaracion-expedidor.webp",
+              alt: "Declaración del expedidor: el documento con el que el expedidor declara qué mercancía peligrosa envía y certifica que la preparó según las Instrucciones Técnicas. La prepara y firma el expedidor, no la tripulación. En la foto, la declaración de un envío de UN 3480 junto al NOTOC, que es el resumen que llega a la tripulación.",
+            },
           },
         ],
       },
@@ -463,21 +444,30 @@ export const NIVEL_1: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Preparando el vuelo",
         situacion:
-          "En la información que te entregan lees: «UN 1263 PAINT, clase 3, GE II, 2 bultos, ULD AKE 12345 AV». Un compañero te dice que son «unas latas de pintura, nada del otro mundo».",
-        pregunta: "¿Qué acabas de leer de verdad, palabra por palabra?",
+          "En la información que recibes lees: **UN 1263 PAINT · Clase 3 · PG II · 2 bultos · ULD AKE 12345 AV**. Un compañero comenta: «Son unas latas de pintura, nada del otro mundo».",
+        pregunta: "¿Qué acabas de leer realmente?",
         claves: [
-          "**UN 1263** identifica la sustancia. Es lo primero que daría por radio si tuviera que describir el problema.",
-          "**PAINT** es la denominación del artículo expedido, el nombre oficial. No es la marca comercial.",
-          "**Clase 3** es líquido inflamable, y **GE II** que dentro de su clase presenta peligro intermedio.",
-          "**2 bultos** son dos cajas, no dos litros. Y el **ULD** me dice en qué contenedor están, que es lo que necesitaría para localizarlas.",
+          { titulo: "UN 1263", texto: "Identifica la mercancía." },
+          { titulo: "PAINT", texto: "Es la denominación oficial utilizada para el transporte." },
+          { titulo: "Clase 3", texto: "Indica que se trata de un líquido inflamable." },
+          {
+            titulo: "PG II",
+            texto: "Indica el grupo de embalaje asignado según el grado de peligro de la mercancía, cuando aplica.",
+          },
+          {
+            titulo: "2 bultos",
+            texto:
+              "Indica que hay dos unidades de transporte preparadas como bultos; no significa «dos litros» ni necesariamente dos recipientes individuales.",
+          },
+          { titulo: "ULD AKE 12345 AV", texto: "Identifica la unidad de carga donde están ubicados esos bultos." },
         ],
         cierre:
-          "Tu compañero no se equivoca en que es pintura. Se equivoca en «nada del otro mundo»: acaba de resumir cinco datos que en una emergencia son lo único que tienes.",
+          "Para el piloto, no son simplemente «dos cajas de pintura». Son una mercancía identificada, clasificada y localizada dentro de la aeronave.",
       },
       { kind: "sub", text: "Tres permisos que se confunden" },
       {
         kind: "p",
-        text: "Estas tres se preguntan mucho porque suenan parecido y significan cosas distintas. La diferencia está en **quién la da y cuándo existe**.",
+        text: "Aprobación, dispensa y excepción suenan parecidas, pero no significan lo mismo. La diferencia está en quién autoriza la operación y en qué momento la norma permite apartarse de las condiciones habituales.",
       },
       {
         kind: "fichas",
@@ -485,35 +475,54 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Aprobación",
-            puntos: ["La da la autoridad **cuando las Instrucciones dicen que ese caso puede ir con aprobación**.", "Existe porque la norma ya la previó."],
+            tecnica: {
+              rotulo: "Definición",
+              texto: "Autorización otorgada por la autoridad nacional que corresponda para transportar las mercancías peligrosas prohibidas en aeronaves de pasajeros o de carga, cuando en las Instrucciones Técnicas se establece que dichas mercancías pueden transportarse con una aprobación; o bien para otros fines especificados en las Instrucciones Técnicas.",
+            },
+            puntosRotulo: "Ejemplo práctico",
+            puntos: [
+              "Estás en tu A320 y debes transportar una mercancía peligrosa que normalmente está prohibida en una aeronave de pasajeros, pero las Instrucciones Técnicas permiten transportarla si se obtiene una aprobación previa.",
+              "La aprobación la gestiona el operador (el explotador) ante la autoridad competente. En Colombia, por ejemplo, ante la UAEAC (Aerocivil); en México, ante la AFAC.",
+              "Es decir, la norma permite ese transporte, pero el operador necesita una aprobación previa.",
+            ],
           },
           {
             titulo: "Dispensa",
-            puntos: ["La da la autoridad **cuando las Instrucciones NO prevén nada** para ese caso.", "Por extrema urgencia, porque otro modo de transporte no sirva o por interés público, siempre con seguridad equivalente."],
+            tecnica: {
+              rotulo: "Definición",
+              texto: "Toda autorización, que no sea una aprobación, otorgada por la autoridad nacional que corresponda, que exime de lo previsto en las Instrucciones Técnicas.",
+            },
+            puntosRotulo: "Ejemplo práctico",
+            puntos: [
+              "Estás en tu A320 y necesitas transportar una mercancía peligrosa por una situación de extrema urgencia, pero no puedes cumplir una condición específica de transporte establecida en las Instrucciones Técnicas: por ejemplo, una condición de cantidad, ruta, aeronave o forma de transporte.",
+              "El operador (el explotador) solicita una dispensa a la autoridad competente, que puede autorizar el transporte bajo condiciones especiales, siempre que se mantenga un nivel general de seguridad equivalente.",
+              "Es decir, la condición normal no puede cumplirse, pero la autoridad puede autorizar excepcionalmente apartarse de ella.",
+            ],
           },
           {
             titulo: "Excepción",
-            puntos: ["**No se pide a nadie**: ya está escrita en la norma.", "Ejemplo: lo que la aeronave lleva por exigencia de aeronavegabilidad o de operación."],
+            tecnica: {
+              rotulo: "Definición",
+              texto: "Toda disposición del presente Reglamento por la que se excluye determinado artículo, considerado mercancía peligrosa, de las condiciones normalmente aplicables a tal artículo.",
+            },
+            puntosRotulo: "Ejemplo práctico",
+            puntos: [
+              "Estás en tu A320 y durante la preparación del vuelo identificas una mercancía peligrosa. Al consultar las Instrucciones Técnicas encuentras que, para ese artículo y en esa condición específica, la propia norma establece que uno de los requisitos que normalmente se exige no aplica.",
+              "Es decir, no tienes que pedir una autorización para dejar de cumplir ese requisito, porque la propia norma ya establece la excepción.",
+            ],
           },
         ],
+      },
+      {
+        kind: "figura",
+        src: "/modulos/mercancias/ilu-04-aprobacion-dispensa-excepcion.webp",
+        alt: "Aprobación, dispensa y excepción, en tres columnas. Aprobación: la norma permite el transporte, pero se requiere una aprobación previa de la autoridad; el operador la solicita y, una vez otorgada, el transporte puede realizarse. Dispensa: no se puede cumplir una condición de la norma, pero la autoridad puede autorizar apartarse de ella bajo condiciones especiales, como cantidad limitada, ruta autorizada, aeronave específica o medidas adicionales de seguridad. Excepción: la propia norma establece que, para ese caso específico, un requisito no aplica, sin pedir autorización a nadie.",
+        ancho: 1536,
+        alto: 1024,
       },
       {
         kind: "definicion",
         text: "La regla para no equivocarse: si la norma lo previó, es aprobación. Si no lo previó y hay que salirse, es dispensa. Si no hay que pedir nada, es excepción.",
-      },
-      {
-        kind: "detalleTecnico",
-        etiqueta: "Ver el texto de los tres permisos",
-        bloques: [
-          {
-            kind: "kv",
-            items: [
-              { k: "Aprobación", v: "Autorización otorgada por la autoridad nacional que corresponda para transportar las mercancías peligrosas prohibidas en aeronaves de pasajeros o de carga, cuando en las Instrucciones Técnicas se establece que dichas mercancías pueden transportarse con una aprobación; o bien para otros fines especificados en las Instrucciones Técnicas. Nota: si no hay una referencia específica en las Instrucciones Técnicas para permitir el otorgamiento de una aprobación, se puede pedir una dispensa." },
-              { k: "Dispensa", v: "Toda autorización, que no sea una aprobación, otorgada por la autoridad nacional que corresponda, que exime de lo previsto en las Instrucciones Técnicas. Procede en casos de extrema urgencia, cuando otras modalidades de transporte no sean apropiadas o cuando el cumplimiento de todas las condiciones exigidas sea contrario al interés público, siempre que se logre un nivel general de seguridad equivalente (LAR 175.020 (e))." },
-              { k: "Excepción", v: "Toda disposición del presente Reglamento por la que se excluye determinado artículo, considerado mercancía peligrosa, de las condiciones normalmente aplicables a tal artículo." },
-            ],
-          },
-        ],
       },
       {
         kind: "entrevista",
@@ -561,7 +570,7 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Cadena de siete eslabones: expedidor, agente de carga, operador de terminal de carga, explotador en la aceptación, carga y aseguramiento, comandante y destino, cada uno con sus obligaciones.",
         ancho: 1800,
         alto: 775,
-        pie: "Los artículos del cuadro son los del RAC 175 de Colombia, que es donde la cadena está numerada eslabón por eslabón. En el LAR 175 los mismos deberes están en 175.215 (expedidor), 175.220 (explotador), 175.225 (terminal de carga) y 175.515 (información al comandante).",
+        pie: "El cuadro sigue el RAC 175 de Colombia. En el LAR 175 los mismos deberes están en las obligaciones del expedidor, del explotador y de la terminal de carga, y en la información al comandante.",
       },
       { kind: "sub", text: "Qué te llega a ti de cada eslabón" },
       {
@@ -618,12 +627,12 @@ export const NIVEL_1: DocScreen[] = [
               {
                 titulo: "Explotador",
                 puntos: [
-                  "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs (LAR 175.020 (a)).",
+                  "Solo acepta mercancías peligrosas si tiene la autorización en sus OpSpecs.",
                   "Su manual de operaciones dice si acepta o rechaza carga con mercancías peligrosas.",
                   "Si no las acepta, tiene procedimientos para que no entren sin declarar.",
                   "Programa de instrucción aprobado por la AAC.",
                   "Responde por que sus agentes acreditados cumplan sus procedimientos.",
-                  "Incluye el transporte de mercancías peligrosas en el alcance de su SMS (LAR 175.220 (k)).",
+                  "Incluye el transporte de mercancías peligrosas en el alcance de su SMS.",
                 ],
               },
               {
@@ -637,7 +646,7 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "Operador de aeródromo",
-                nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional. En Colombia, el RAC 175.227 y 175.228.",
+                nota: "El LAR 175 lo alcanza pero no le dedica sección de obligaciones: se las fija tu reglamento nacional, como hace el de Colombia.",
                 puntos: [
                   "Programa de manejo de mercancías peligrosas del aeródromo.",
                   "Capacita a su personal según la tabla de intensidad de su reglamento.",
@@ -647,7 +656,7 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 titulo: "La AAC (tu autoridad)",
-                nota: "En Colombia, la UAEAC (Aerocivil), por el RAC 175.035 y 175.230.",
+                nota: "En Colombia, la UAEAC (Aerocivil).",
                 puntos: [
                   "Autoridad competente para el Anexo 18, las Instrucciones Técnicas y el reglamento nacional.",
                   "Actualiza la norma con las enmiendas de la OACI.",
@@ -662,7 +671,7 @@ export const NIVEL_1: DocScreen[] = [
                   "El piloto al mando la firma antes de que se transporten.",
                   "La tiene al alcance durante todo el vuelo.",
                   "Conoce las medidas de emergencia con mercancías peligrosas.",
-                  "Recibe instrucción como mínimo cada 24 meses (LAR 175.310 (a)).",
+                  "Recibe instrucción como mínimo cada 24 meses.",
                 ],
               },
             ],
@@ -730,15 +739,15 @@ export const NIVEL_1: DocScreen[] = [
               {
                 t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
                 ok: true,
-                fb: "El LAR 175.005 (b) lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El RAC 175.016 de Colombia lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
+                fb: "El LAR 175 lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El reglamento colombiano lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
               },
               {
                 t: "No. Las Instrucciones Técnicas solo rigen el transporte internacional.",
-                fb: "Es la trampa clásica. El LAR 175.005 (b) exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
+                fb: "Es la trampa clásica. El reglamento exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
               },
               {
                 t: "Solo si transporta carga; si es de pasajeros, no.",
-                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: el LAR 175.305 (b) le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
+                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
               },
             ],
           },
@@ -752,11 +761,11 @@ export const NIVEL_1: DocScreen[] = [
               {
                 t: "Sí: lo que la clasifica es lo que contiene y lo que puede hacer, no lo que dice la caja.",
                 ok: true,
-                fb: "La definición del LAR 175.001 (a) tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
+                fb: "La definición tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
               },
               {
                 t: "Solo si el expedidor la declara como tal.",
-                fb: "La declaración es una obligación del expedidor (LAR 175.215 (a)), no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta (LAR 175.001 (a)).",
+                fb: "La declaración es una obligación del expedidor, no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta.",
               },
             ],
           },
@@ -766,7 +775,7 @@ export const NIVEL_1: DocScreen[] = [
               {
                 t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
                 ok: true,
-                fb: "El 175.420 (b) nombra expresamente los cambios de temperatura, humedad o presión y la vibración como las condiciones normales del transporte aéreo que el embalaje tiene que aguantar.",
+                fb: "El reglamento nombra expresamente los cambios de temperatura, humedad o presión y la vibración como las condiciones normales del transporte aéreo que el embalaje tiene que aguantar.",
               },
               {
                 t: "Porque las bodegas no están presurizadas.",
@@ -774,7 +783,7 @@ export const NIVEL_1: DocScreen[] = [
               },
               {
                 t: "Porque los golpes no importan en el transporte aéreo.",
-                fb: "Importan, y por eso el mismo artículo exige acolchar y sujetar los embalajes interiores (175.420 (e)). Lo que añade el vuelo es presión, temperatura y vibración sostenida.",
+                fb: "Importan, y por eso la misma norma exige acolchar y sujetar los embalajes interiores. Lo que añade el vuelo es presión, temperatura y vibración sostenida.",
               },
             ],
           },
@@ -806,7 +815,7 @@ export const NIVEL_1: DocScreen[] = [
               {
                 t: "Del agente y del explotador: actuar en nombre de otro no diluye la obligación.",
                 ok: true,
-                fb: "El LAR 175.205 (c) lo dice sin rodeos, y el explotador además responde de sus agentes acreditados. Subcontratar reparte el trabajo, no la responsabilidad.",
+                fb: "El reglamento lo dice sin rodeos, y el explotador además responde de sus agentes acreditados. Subcontratar reparte el trabajo, no la responsabilidad.",
               },
               {
                 t: "Del piloto al mando, que firmó la información del vuelo.",

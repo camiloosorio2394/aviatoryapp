@@ -1,6 +1,6 @@
 /**
  * Bloques propios de Mercancías peligrosas: el selector de las nueve clases y
- * las fichas de etiquetas del Apéndice 1.
+ * las fichas de etiquetas de riesgo y manipulación.
  *
  * Viven aparte de los bloques de curso porque traen sus datos (las clases, las
  * etiquetas, los rombos) y solo este módulo los usa. DocLessonBlocks los carga
@@ -224,7 +224,7 @@ export function ClasesMP() {
 // ─── Fichas de etiquetas ─────────────────────────────────────────────────────
 
 /**
- * Las etiquetas del Apéndice 1, en fichas: el rombo (o su hueco rotulado), el
+ * Las etiquetas, en fichas: el rombo (o su hueco rotulado), el
  * nombre, la clase y la especificación textual. Se agrupan por familia porque
  * lo que se enseña es la diferencia entre riesgo (qué es) y manipulación (cómo
  * se trata), no una lista de veinticinco.
@@ -233,7 +233,7 @@ export function EtiquetasMP({ grupo }: { grupo: GrupoEtiqueta | "todas" }) {
   const lista = grupo === "todas" ? ETIQUETAS : ETIQUETAS.filter((e) => e.grupo === grupo)
 
   return (
-    <section aria-label="Etiquetas del Apéndice 1">
+    <section aria-label="Etiquetas de mercancías peligrosas">
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {lista.map((e) => (
           <div
@@ -263,7 +263,6 @@ export function EtiquetasMP({ grupo }: { grupo: GrupoEtiqueta | "todas" }) {
                 <div className="mono mt-1 text-[10.5px] font-semibold uppercase tracking-[0.08em]" style={{ color: docAccent(ACENTO, 72) }}>
                   {e.clase}
                 </div>
-                <div className="mono mt-0.5 text-[10.5px] doc-muted">{e.figura}</div>
               </div>
             </div>
             <p className="m-0 mt-2.5 text-[13px] leading-[1.55]">{e.spec}</p>
@@ -277,7 +276,7 @@ export function EtiquetasMP({ grupo }: { grupo: GrupoEtiqueta | "todas" }) {
             )}
             {e.pend && (
               <p className="mono m-0 mt-2 text-[10.5px] leading-[1.5] doc-muted">
-                Colores no descritos en el texto del Apéndice: verificar contra el original.
+                Colores no descritos en el texto de la norma: verificar contra el original.
               </p>
             )}
           </div>

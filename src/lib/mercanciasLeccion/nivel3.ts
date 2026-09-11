@@ -31,7 +31,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Ese es el criterio material: aunque un artículo no esté nominado en la lista, si se comporta así en las condiciones normales del transporte, no vuela. El propio RAC lo advierte: la lista no es exhaustiva (175.110 (b) (1)).",
+        text: "Ese es el criterio material: aunque un artículo no esté nominado en la lista, si se comporta así en las condiciones normales del transporte, no vuela. La propia norma lo advierte: la lista no es exhaustiva.",
       },
       {
         kind: "fichas",
@@ -63,7 +63,7 @@ export const NIVEL_3: DocScreen[] = [
           {
             titulo: "4 · Permitido cumpliendo las Instrucciones",
             puntos: [
-              "El caso normal: únicamente se transportan mercancías peligrosas cumpliendo las especificaciones y procedimientos del RAC 175 y de las Instrucciones Técnicas.",
+              "El caso normal: únicamente se transportan mercancías peligrosas cumpliendo el reglamento y las especificaciones y procedimientos de las Instrucciones Técnicas.",
               "Es lo que hace el 99 % de los envíos que ves en un NOTOC.",
             ],
           },
@@ -73,13 +73,13 @@ export const NIVEL_3: DocScreen[] = [
         kind: "hueco",
         rotulo: "MP-FLJ-02 · Flujograma · 3:4 · 1200×1600 · SVG",
         descripcion:
-          "Árbol de decisión vertical con ramas sí/no: ¿está prohibido en todas las circunstancias? → ¿figura como prohibido en circunstancias normales? → ¿las Instrucciones prevén aprobación? → ¿hay dispensa? → transporte normal cumpliendo las Instrucciones. Cada rama con su artículo del RAC 175.",
+          "Árbol de decisión vertical con ramas sí/no: ¿está prohibido en todas las circunstancias? → ¿figura como prohibido en circunstancias normales? → ¿las Instrucciones prevén aprobación? → ¿hay dispensa? → transporte normal cumpliendo las Instrucciones.",
         alto: 420,
         anchoMax: 520,
       },
       {
         kind: "definicion",
-        text: "Cómo se lee la lista: «Prohibido» en las columnas 2 y 3 es prohibido en todos los casos; «Prohibido» en las columnas de aeronave de pasajeros o de carga es prohibido en circunstancias normales, y ahí cabe la dispensa o la aprobación (175.110 (b) (1) y (c) (1)).",
+        text: "Cómo se lee la lista: «Prohibido» en las columnas 2 y 3 es prohibido en todos los casos; «Prohibido» en las columnas de aeronave de pasajeros o de carga es prohibido en circunstancias normales, y ahí cabe la dispensa o la aprobación.",
       },
       {
         kind: "callout",
@@ -154,7 +154,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Ver el artículo completo de las discrepancias",
+        etiqueta: "Ver el texto completo de las discrepancias",
         bloques: [
           {
             kind: "norma",
@@ -202,7 +202,7 @@ export const NIVEL_3: DocScreen[] = [
             titulo: "Colombia · flota",
             puntos: [
               "Prohibido todo tipo de mercancías peligrosas en aeronaves de aviación civil privada.",
-              "Prohibida la clase 3 combustibles en monomotores, salvo lo que el 175.715 permite a pasajeros y tripulantes.",
+              "Prohibida la clase 3 combustibles en monomotores, salvo lo que se permite llevar a pasajeros y tripulantes.",
             ],
           },
           {
@@ -229,7 +229,7 @@ export const NIVEL_3: DocScreen[] = [
       {
         kind: "norma",
         texto:
-          "(a) Por razones de seguridad se prohíbe el transporte de todo tipo de mercancías peligrosas por vía aérea, en aeronaves clasificadas dentro de la Aviación Civil Privada. (b) Salvo lo señalado en el numeral 175.715, por razones de seguridad se prohíbe el transporte de mercancías peligrosas pertenecientes a la Clase 3 combustibles, por vía aérea, en aeronaves monomotores y las clasificadas dentro de la Aviación Civil Privada.",
+          "(a) Por razones de seguridad se prohíbe el transporte de todo tipo de mercancías peligrosas por vía aérea, en aeronaves clasificadas dentro de la Aviación Civil Privada. (b) Salvo lo señalado en […], por razones de seguridad se prohíbe el transporte de mercancías peligrosas pertenecientes a la Clase 3 combustibles, por vía aérea, en aeronaves monomotores y las clasificadas dentro de la Aviación Civil Privada.",
       },
       {
         kind: "detalleTecnico",
@@ -246,7 +246,7 @@ export const NIVEL_3: DocScreen[] = [
             {
               titulo: "Monomotores · clase 3",
               puntos: [
-                "Prohibida la clase 3 combustibles, salvo lo que el 175.715 permite llevar a pasajeros y tripulantes.",
+                "Prohibida la clase 3 combustibles, salvo lo que se permite llevar a pasajeros y tripulantes.",
               ],
             },
             {
@@ -259,7 +259,7 @@ export const NIVEL_3: DocScreen[] = [
             {
               titulo: "Ala rotatoria",
               puntos: [
-                "La AAC puede aprobar operar sin cumplir todos los requisitos habituales, según la Parte 7, Capítulo 7 de las Instrucciones. Es regional: está igual en el LAR 175.140.",
+                "La AAC puede aprobar operar sin cumplir todos los requisitos habituales, con las condiciones que fijan las Instrucciones. Es regional: el LAR lo recoge igual.",
               ],
             },
             {
@@ -269,14 +269,14 @@ export const NIVEL_3: DocScreen[] = [
             {
               titulo: "Correo aéreo",
               puntos: [
-                "No son admisibles, excepto: muestras de pacientes; sustancias infecciosas y el hielo seco que las refrigera, con declaración del expedidor; y material radiactivo con actividad de hasta una décima parte de la Tabla 2-15 de las Instrucciones.",
-                "El explotador necesita autorización en sus OpSpecs para llevar mercancías peligrosas por correo (175.125 (e)).",
+                "No son admisibles, excepto: muestras de pacientes; sustancias infecciosas y el hielo seco que las refrigera, con declaración del expedidor; y material radiactivo con actividad de hasta una décima parte del límite que fijan las Instrucciones.",
+                "El explotador necesita autorización en sus OpSpecs para llevar mercancías peligrosas por correo.",
               ],
             },
             {
               titulo: "Material radiactivo",
               puntos: [
-                "Sujeto al Capítulo 6, Parte 1 de las Instrucciones y al Reglamento del OIEA.",
+                "Sujeto a los requisitos de las Instrucciones y del Reglamento del OIEA.",
                 "El expedidor presenta al explotador la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica.",
               ],
             },
@@ -293,7 +293,7 @@ export const NIVEL_3: DocScreen[] = [
       { kind: "sub", text: "Y el explotador también pone las suyas" },
       {
         kind: "p",
-        text: "No solo los Estados: las aerolíneas notifican las suyas y se publican en la misma tabla. Casi siempre son más restrictivas que la norma, porque nacen de algo que le pasó a esa compañía. Si tu explotador adopta condiciones propias, las identifica en su manual de operaciones y la autoridad las notifica a la OACI. Lee estas tres de la región y fíjate en la última.",
+        text: "No solo los Estados: las aerolíneas notifican las suyas y también se publican en las Instrucciones. Casi siempre son más restrictivas que la norma, porque nacen de algo que le pasó a esa compañía. Si tu explotador adopta condiciones propias, las identifica en su manual de operaciones y la autoridad las notifica a la OACI. Lee estas tres de la región y fíjate en la última.",
       },
       {
         kind: "kv",
@@ -320,7 +320,7 @@ export const NIVEL_3: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "De dónde salen estos extractos",
-        text: "Son textuales del Adendo núm. 5 (31 de mayo de 2012) a las Instrucciones Técnicas, edición 2011-2012, Adjunto 3, Tabla A-1: discrepancias notificadas por los Estados y por los explotadores. Se citan como muestra de qué forma tienen, no como la lista vigente: cambian con cada edición. Lo que no cambia es que existen y que hay que buscarlas en la edición en vigor y en el manual de tu explotador.",
+        text: "Son textuales de la lista de discrepancias notificadas por los Estados y por los explotadores, en la edición 2011-2012 de las Instrucciones Técnicas. Se citan como muestra de qué forma tienen, no como la lista vigente: cambian con cada edición. Lo que no cambia es que existen y que hay que buscarlas en la edición en vigor y en el manual de tu explotador.",
       },
       {
         kind: "enLaOperacion",
@@ -335,7 +335,7 @@ export const NIVEL_3: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué son las discrepancias notificadas y dónde se publican?",
             respuesta:
-              "Son las diferencias que un Estado o un explotador aplica respecto de las Instrucciones Técnicas. Se notifican a la OACI y se publican en las propias Instrucciones, en el Adjunto 3. El explotador debe cumplir las de los Estados en los que opere o sobrevuele, y el expedidor las de todos los Estados involucrados y las del explotador al que entrega la carga.",
+              "Son las diferencias que un Estado o un explotador aplica respecto de las Instrucciones Técnicas. Se notifican a la OACI y se publican en las propias Instrucciones. El explotador debe cumplir las de los Estados en los que opere o sobrevuele, y el expedidor las de todos los Estados involucrados y las del explotador al que entrega la carga.",
             claves: ["Diferencias de Estados y de explotadores", "Se notifican a la OACI", "Se publican en las Instrucciones"],
           },
           {
@@ -366,16 +366,16 @@ export const NIVEL_3: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "La carga declarada llega con papeles. Lo que sube en el equipaje de 180 pasajeros, no. Por eso el reglamento le dedica un capítulo entero, el H, a lo que un pasajero o un tripulante puede llevar encima, en la maleta de mano y en la facturada.",
+        text: "La carga declarada llega con papeles. Lo que sube en el equipaje de 180 pasajeros, no. Por eso el reglamento le dedica un capítulo entero a lo que un pasajero o un tripulante puede llevar encima, en la maleta de mano y en la facturada.",
       },
       {
         kind: "norma",
         texto:
-          "Salvo en aquellas situaciones contempladas en las Instrucciones Técnicas, las mercancías peligrosas no deben ser transportadas por los pasajeros o las tripulaciones como o dentro del equipaje facturado, como o dentro del equipaje de mano, o consigo mismo. Está prohibido el transporte de mercancías peligrosas como equipaje facturado, equipaje de mano o en la persona, por pasajeros o tripulantes, con excepción de aquellas mercancías descritas en la Tabla 8-1 de las Instrucciones Técnicas, siempre que se cumplan todos los requisitos establecidos por dicha tabla.",
+          "Salvo en aquellas situaciones contempladas en las Instrucciones Técnicas, las mercancías peligrosas no deben ser transportadas por los pasajeros o las tripulaciones como o dentro del equipaje facturado, como o dentro del equipaje de mano, o consigo mismo. Está prohibido el transporte de mercancías peligrosas como equipaje facturado, equipaje de mano o en la persona, por pasajeros o tripulantes, con excepción de aquellas mercancías descritas en […] de las Instrucciones Técnicas, siempre que se cumplan todos los requisitos establecidos por dicha tabla.",
       },
       {
         kind: "definicion",
-        text: "La regla es prohibición general con una sola excepción: la Tabla 8-1 de las Instrucciones Técnicas. Y el tripulante está sujeto exactamente a la misma regla que el pasajero. Tu maleta no tiene fuero.",
+        text: "La regla es prohibición general con una sola excepción: lo que las Instrucciones Técnicas permiten expresamente. Y el tripulante está sujeto exactamente a la misma regla que el pasajero. Tu maleta no tiene fuero.",
       },
       {
         kind: "hueco",
@@ -384,7 +384,7 @@ export const NIVEL_3: DocScreen[] = [
           "Tabla interactiva y filtrable con las mercancías admitidas a pasajeros y tripulantes y sus condiciones: equipaje de mano, facturado, en la persona, aprobación del explotador y del comandante. Requiere cargar la Parte 8 de las Instrucciones Técnicas vigentes; no se incluye contenido para no publicar datos sin fuente.",
         alto: 220,
       },
-      { kind: "sub", text: "Lo que suele preguntarse de la Tabla 8-1" },
+      { kind: "sub", text: "Los casos que más se preguntan" },
       {
         kind: "kv",
         items: [
@@ -426,7 +426,7 @@ export const NIVEL_3: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "Esta lista es para estudiar",
-        text: "Los valores exactos (vatios-hora, gramos, litros, número de unidades) salen de la Tabla 8-1 del Doc 9284, Parte 8, y de la sección 2.3 de la IATA DGR en su edición vigente, y de la política de tu explotador. Aquí están resumidos para aprender la regla, no para aplicarla en mostrador.",
+        text: "Los valores exactos (vatios-hora, gramos, litros, número de unidades) salen de las Instrucciones Técnicas y de la DGR de la IATA en su edición vigente, y de la política de tu explotador. Aquí están resumidos para aprender la regla, no para aplicarla en mostrador.",
       },
       { kind: "sub", text: "Dónde se le informa al pasajero" },
       {
@@ -438,12 +438,12 @@ export const NIVEL_3: DocScreen[] = [
         numerada: true,
         orientacion: "vertical",
         items: [
-          "En el punto de compra del billete. Por internet, en texto o ilustración, y la compra no se completa si el pasajero no indica que comprendió las restricciones (175.705 (a)).",
-          "En el aeropuerto, con avisos destacados y suficientes donde se venden pasajes, en el despacho y en las zonas de embarque, con ejemplos visuales de lo prohibido (175.705 (b)).",
-          "En el despacho a distancia: la presentación no se completa sin la confirmación del pasajero (175.705 (d)).",
-          "En el autoservicio del aeropuerto: la información va en ilustración y el trámite no se completa sin confirmación (175.705 (e)).",
-          "En la recepción del equipaje: el personal obtiene confirmación de que no lleva mercancías no permitidas y pregunta por cualquier artículo sospechoso (175.705 (f)).",
-          "En el equipaje excedente que va como carga: la misma confirmación, a quien lo entrega (175.705 (g)).",
+          "En el punto de compra del billete. Por internet, en texto o ilustración, y la compra no se completa si el pasajero no indica que comprendió las restricciones.",
+          "En el aeropuerto, con avisos destacados y suficientes donde se venden pasajes, en el despacho y en las zonas de embarque, con ejemplos visuales de lo prohibido.",
+          "En el despacho a distancia: la presentación no se completa sin la confirmación del pasajero.",
+          "En el autoservicio del aeropuerto: la información va en ilustración y el trámite no se completa sin confirmación.",
+          "En la recepción del equipaje: el personal obtiene confirmación de que no lleva mercancías no permitidas y pregunta por cualquier artículo sospechoso.",
+          "En el equipaje excedente que va como carga: la misma confirmación, a quien lo entrega.",
         ],
       },
       {
@@ -455,7 +455,7 @@ export const NIVEL_3: DocScreen[] = [
         kind: "enLaOperacion",
         momento: "En el embarque",
         texto:
-          "El pasajero que discute en la puerta porque su maleta de mano baja a bodega con un power bank dentro: la respuesta no es una opinión tuya ni de la auxiliar. Es la Tabla 8-1 y el procedimiento del explotador. El power bank sale de la maleta y sube a cabina; el portátil que se queda dentro va apagado. Si el pasajero no lo acepta, la maleta no baja.",
+          "El pasajero que discute en la puerta porque su maleta de mano baja a bodega con un power bank dentro: la respuesta no es una opinión tuya ni de la auxiliar. La dan las Instrucciones Técnicas y el procedimiento del explotador. El power bank sale de la maleta y sube a cabina; el portátil que se queda dentro va apagado. Si el pasajero no lo acepta, la maleta no baja.",
       },
       {
         kind: "piensaComoPiloto",
@@ -466,7 +466,7 @@ export const NIVEL_3: DocScreen[] = [
         claves: [
           "**Los repuestos de litio, no.** Las baterías de repuesto y los power banks van en cabina, nunca facturados: si entran en fuga térmica en bodega, nadie interviene.",
           "**El encendedor, tampoco.** Va en la persona, y uno solo. Facturado no.",
-          "**El producto de limpieza depende de lo que sea.** Si es inflamable, la Tabla 8-1 marca qué cabe y en qué cantidad, y 500 ml puede pasarse.",
+          "**El producto de limpieza depende de lo que sea.** Si es inflamable, las Instrucciones Técnicas marcan qué cabe y en qué cantidad, y 500 ml puede pasarse.",
           "Y lo importante: **ir de uniforme no cambia nada**. La prohibición alcanza a pasajeros y a tripulantes por igual.",
         ],
         cierre:
@@ -479,8 +479,8 @@ export const NIVEL_3: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué puede llevar un pasajero en materia de mercancías peligrosas?",
             respuesta:
-              "La regla general es la prohibición: ni en equipaje facturado, ni de mano, ni en la persona. La única excepción es lo que describe la Tabla 8-1 de las Instrucciones Técnicas, y siempre con todas las condiciones que esa tabla impone: cantidades, si va en cabina o facturado, y si hace falta aprobación del explotador.",
-            claves: ["Prohibición general", "Única excepción: Tabla 8-1", "Con todas sus condiciones"],
+              "La regla general es la prohibición: ni en equipaje facturado, ni de mano, ni en la persona. La única excepción es lo que las Instrucciones Técnicas permiten expresamente, y siempre con todas las condiciones que imponen: cantidades, si va en cabina o facturado, y si hace falta aprobación del explotador.",
+            claves: ["Prohibición general", "Única excepción: lo que permiten las Instrucciones", "Con todas sus condiciones"],
           },
           {
             nivel: "interpretacion",
@@ -493,8 +493,8 @@ export const NIVEL_3: DocScreen[] = [
             nivel: "situacion",
             q: "Un tripulante te dice que él sí puede llevar cosas que un pasajero no, porque va trabajando. ¿Qué le respondes?",
             respuesta:
-              "Que se equivoca. La norma prohíbe el transporte de mercancías peligrosas a bordo tanto a pasajeros como a miembros de la tripulación, en equipaje facturado, de mano o en la persona, y la excepción es la misma Tabla 8-1 para los dos. Lo que la tripulación sí tiene es formación para saberlo, que es justamente por lo que se le exige más, no menos.",
-            claves: ["La tripulación no tiene fuero", "Misma Tabla 8-1", "Formación no es privilegio"],
+              "Que se equivoca. La norma prohíbe el transporte de mercancías peligrosas a bordo tanto a pasajeros como a miembros de la tripulación, en equipaje facturado, de mano o en la persona, y la excepción es la misma para los dos. Lo que la tripulación sí tiene es formación para saberlo, que es justamente por lo que se le exige más, no menos.",
+            claves: ["La tripulación no tiene fuero", "Misma excepción que el pasajero", "Formación no es privilegio"],
           },
         ],
       },
@@ -520,7 +520,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El 175.610 (a) obliga a que el personal de reservas, ventas, recepción de carga y recepción de pasajeros tenga a mano tres cosas: las **descripciones generales** que suelen usarse para artículos que pueden esconder mercancías peligrosas, **otras indicaciones** de que puede haberlas (etiquetas, marcas) y la lista de lo que el pasajero **sí** puede llevar. La lista oficial de descripciones generales está en el Capítulo 6 de la Parte 7 de las Instrucciones Técnicas.",
+        text: "El reglamento obliga a que el personal de reservas, ventas, recepción de carga y recepción de pasajeros tenga a mano tres cosas: las **descripciones generales** que suelen usarse para artículos que pueden esconder mercancías peligrosas, **otras indicaciones** de que puede haberlas (etiquetas, marcas) y la lista de lo que el pasajero **sí** puede llevar. La lista oficial de descripciones generales está en las Instrucciones Técnicas.",
       },
       {
         kind: "fichas",
@@ -530,10 +530,10 @@ export const NIVEL_3: DocScreen[] = [
             titulo: "Descripciones que deben hacerte dudar",
             puntos: [
               "«Repuestos de aeronave», «material de la compañía»: pueden traer generadores de oxígeno, extintores, baterías, aerosoles.",
-              "«Motor», «vehículo», «equipo accionado con acumulador»: el RAC los nombra como objetos de la clase 9.",
+              "«Motor», «vehículo», «equipo accionado con acumulador»: ejemplos expresos de objetos de la clase 9.",
               "«Equipo de salvamento de inflado automático»: ejemplo expreso de la clase 9.",
               "«Muestras», «material de diagnóstico»: pueden ser 6.1, 6.2, o ir con hielo seco (clase 9).",
-              "«Equipo de campamento», «herramientas», «kit de reparación»: combustibles, aerosoles, adhesivos, baterías. Descripciones habituales de la lista de la Parte 7, Capítulo 6.",
+              "«Equipo de campamento», «herramientas», «kit de reparación»: combustibles, aerosoles, adhesivos, baterías. Descripciones habituales de la lista oficial.",
             ],
           },
           {
@@ -585,7 +585,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "hueco",
-        rotulo: "MP-IMG-06 · Imagen real · 16:9 · 1600×900 · JPG o WebP",
+        rotulo: "MP-IMG-21 · Imagen real · 16:9 · 1600×900 · JPG o WebP",
         descripcion:
           "Una caja de aspecto totalmente inocente en una cinta de equipaje, con una descripción genérica escrita a mano tipo «REPUESTOS» o «MUESTRAS». Lo que enseña es que una mercancía oculta no parece peligrosa: parece carga normal. Si consigues una foto de un hallazgo real de aduanas o de una terminal de carga, mejor, con crédito.",
         alto: 300,
@@ -641,15 +641,15 @@ export const NIVEL_3: DocScreen[] = [
               {
                 t: "La aprobación existe cuando las Instrucciones Técnicas la prevén para ese caso; la dispensa exime de lo previsto en las Instrucciones cuando no hay referencia específica.",
                 ok: true,
-                fb: "La nota del 175.001 (a) (4) lo dice literalmente: si no hay una referencia específica en las Instrucciones Técnicas para otorgar una aprobación, se puede pedir una dispensa. Y la dispensa nunca procede para lo prohibido en todas las circunstancias (175.020 (g)).",
+                fb: "La propia definición de aprobación lo aclara: si no hay una referencia específica en las Instrucciones Técnicas para otorgar una aprobación, se puede pedir una dispensa. Y la dispensa nunca procede para lo prohibido en todas las circunstancias.",
               },
               {
                 t: "Son sinónimos; la diferencia es solo el nombre según el Estado.",
-                fb: "El reglamento las define por separado y con efectos distintos. La aprobación existe cuando las Instrucciones la prevén para ese caso; la dispensa es la salida cuando no la prevén, y procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público (LAR 175.020 (d) y (e)).",
+                fb: "El reglamento las define por separado y con efectos distintos. La aprobación existe cuando las Instrucciones la prevén para ese caso; la dispensa es la salida cuando no la prevén, y procede por extrema urgencia, porque otro modo de transporte no sea apropiado o porque cumplirlo todo sea contrario al interés público.",
               },
               {
                 t: "La dispensa la da el explotador y la aprobación la autoridad.",
-                fb: "Ambas las otorga la autoridad de aviación civil, no el explotador: él las pide. Y si ninguno de los criterios encaja, el Estado de sobrevuelo todavía puede otorgar la dispensa si se convence de que hay un nivel equivalente de seguridad (LAR 175.020 (f)).",
+                fb: "Ambas las otorga la autoridad de aviación civil, no el explotador: él las pide. Y si ninguno de los criterios encaja, el Estado de sobrevuelo todavía puede otorgar la dispensa si se convence de que hay un nivel equivalente de seguridad.",
               },
             ],
           },
@@ -658,16 +658,16 @@ export const NIVEL_3: DocScreen[] = [
             opciones: [
               {
                 t: "Sí, porque no está en la lista.",
-                fb: "La lista no es exhaustiva (175.110 (b) (1)). El criterio material del 175.110 (a) prohíbe todo lo que en las condiciones habituales del transporte pueda explotar, reaccionar, producir llamas o calor o emitir vapores peligrosos.",
+                fb: "La lista no es exhaustiva. El criterio material prohíbe todo lo que en las condiciones habituales del transporte pueda explotar, reaccionar, producir llamas o calor o emitir vapores peligrosos.",
               },
               {
-                t: "No: lo prohíbe el criterio material del 175.110 (a), esté o no en la lista.",
+                t: "No: lo prohíbe el criterio material, esté o no en la lista.",
                 ok: true,
-                fb: "Es el artículo que va antes que la lista. Si algo se comporta así, no vuela, y punto.",
+                fb: "Es el criterio que va antes que la lista. Si algo se comporta así, no vuela, y punto.",
               },
               {
                 t: "Solo con dispensa.",
-                fb: "La dispensa sirve para lo prohibido en circunstancias normales, no para lo que por su comportamiento no puede transportarse en ningún caso (175.020 (g)).",
+                fb: "La dispensa sirve para lo prohibido en circunstancias normales, no para lo que por su comportamiento no puede transportarse en ningún caso.",
               },
             ],
           },
@@ -681,11 +681,11 @@ export const NIVEL_3: DocScreen[] = [
               {
                 t: "Prohibido salvo dispensa.",
                 ok: true,
-                fb: "El LAR 175.110 (c) (2) los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la AAC.",
+                fb: "El reglamento los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la AAC.",
               },
               {
                 t: "Prohibido en todos los casos.",
-                fb: "No están en el nivel absoluto: la norma deja abierta la dispensa. Lo prohibido en todos los casos es lo que las Instrucciones nombran así cualesquiera que sean las circunstancias (175.114).",
+                fb: "No están en el nivel absoluto: la norma deja abierta la dispensa. Lo prohibido en todos los casos es lo que las Instrucciones nombran así cualesquiera que sean las circunstancias.",
               },
             ],
           },
@@ -699,11 +699,11 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "Nada especial: la clase 8 no está restringida en monomotores.",
-                fb: "El 175.115 (c) exige aprobación para mercancías distintas de la clase 3 en monomotores. Es una limitación propia del RAC, no del Anexo 18.",
+                fb: "El reglamento colombiano exige aprobación para mercancías distintas de la clase 3 en monomotores. Es una limitación nacional, no del Anexo 18.",
               },
               {
                 t: "Está prohibido en todos los casos.",
-                fb: "Lo prohibido en monomotor por razones de seguridad es la clase 3 combustibles, salvo lo señalado en 175.715.",
+                fb: "Lo prohibido en monomotor por razones de seguridad es la clase 3 combustibles, salvo lo que se permite llevar a pasajeros y tripulantes.",
               },
             ],
           },
@@ -712,16 +712,16 @@ export const NIVEL_3: DocScreen[] = [
             opciones: [
               {
                 t: "Ninguna: el correo no admite mercancías peligrosas.",
-                fb: "La regla general es esa (175.125 (a)), pero el (f) trae tres excepciones: muestras de pacientes, sustancias infecciosas con su hielo seco y declaración del expedidor, y material radiactivo de muy baja actividad.",
+                fb: "La regla general es esa, pero hay tres excepciones: muestras de pacientes, sustancias infecciosas con su hielo seco y declaración del expedidor, y material radiactivo de muy baja actividad.",
               },
               {
-                t: "Muestras de pacientes; sustancias infecciosas con el hielo seco que las refrigera y declaración del expedidor; y material radiactivo con actividad de hasta una décima parte de la Tabla 2-15.",
+                t: "Muestras de pacientes; sustancias infecciosas con el hielo seco que las refrigera y declaración del expedidor; y material radiactivo con actividad de hasta una décima parte del límite que fijan las Instrucciones.",
                 ok: true,
-                fb: "Son las tres del 175.125 (f), a reserva de lo que dispongan las autoridades postales y la Unión Postal Universal. Y el explotador necesita la autorización en sus OpSpecs (175.125 (e)).",
+                fb: "Son las tres que admite el correo, a reserva de lo que dispongan las autoridades postales y la Unión Postal Universal. Y el explotador necesita la autorización en sus OpSpecs.",
               },
               {
                 t: "Las mismas que en carga, si el operador postal las acepta.",
-                fb: "El correo tiene su propia lista, mucho más corta. Y el operador postal designado necesita que la autoridad examine y apruebe sus procedimientos antes de aceptar mercancías peligrosas en el correo (LAR 175.125 (b)).",
+                fb: "El correo tiene su propia lista, mucho más corta. Y el operador postal designado necesita que la autoridad examine y apruebe sus procedimientos antes de aceptar mercancías peligrosas en el correo.",
               },
             ],
           },
@@ -735,11 +735,11 @@ export const NIVEL_3: DocScreen[] = [
               {
                 t: "Sí: la autorización del Servicio Geológico Colombiano.",
                 ok: true,
-                fb: "Es una licencia de manejo o una autorización de importación o reexportación, según el caso. Y el explotador no acepta una declaración tachada o enmendada salvo que la enmienda esté anulada con la misma firma (175.536 (c)).",
+                fb: "Es una licencia de manejo o una autorización de importación o reexportación, según el caso. Y el explotador no acepta una declaración tachada o enmendada salvo que la enmienda esté anulada con la misma firma.",
               },
               {
                 t: "Sí: una dispensa de la autoridad aeronáutica.",
-                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA (LAR 175.120) y, además, el permiso del organismo nuclear del país que corresponda.",
+                fb: "El material radiactivo permitido no necesita dispensa: necesita cumplir las Instrucciones, el Reglamento del OIEA y, además, el permiso del organismo nuclear del país que corresponda.",
               },
             ],
           },
@@ -747,13 +747,13 @@ export const NIVEL_3: DocScreen[] = [
             q: "Un tripulante lleva en su maleta un artículo de la clase 2. ¿Qué aplica?",
             opciones: [
               {
-                t: "La misma regla que a un pasajero: prohibido salvo que esté en la Tabla 8-1 y cumpla todos sus requisitos.",
+                t: "La misma regla que a un pasajero: prohibido salvo que las Instrucciones Técnicas lo permitan y se cumplan todos sus requisitos.",
                 ok: true,
-                fb: "El 175.151 nombra expresamente a «los pasajeros o las tripulaciones», y el 175.715 fija la única excepción. Si se descubre, el explotador debe notificarlo (175.625).",
+                fb: "La norma nombra expresamente a «los pasajeros o las tripulaciones», y la única excepción es la misma para los dos. Si se descubre, el explotador debe notificarlo.",
               },
               {
                 t: "Los tripulantes están exceptuados por ser personal de la operación.",
-                fb: "La excepción del 175.145 es para objetos y sustancias exigidos por aeronavegabilidad y reglamentos de operación, no para el equipaje personal del tripulante.",
+                fb: "Hay una excepción, pero es para objetos y sustancias exigidos por aeronavegabilidad y reglamentos de operación, no para el equipaje personal del tripulante.",
               },
               {
                 t: "Depende de si el vuelo es nacional o internacional.",
@@ -775,7 +775,7 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "Solo en el sitio web del explotador.",
-                fb: "El sitio web es parte de la obligación (LAR 175.710 (a)), pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
+                fb: "El sitio web es parte de la obligación, pero no la agota: los avisos físicos con ejemplos visuales y la confirmación en el despacho son obligatorios también.",
               },
             ],
           },
@@ -784,16 +784,16 @@ export const NIVEL_3: DocScreen[] = [
             opciones: [
               {
                 t: "Sí: la confirmación del pasajero libera al explotador.",
-                fb: "La confirmación es obligatoria, pero el mismo inciso exige además obtener confirmación acerca del contenido de cualquier artículo que se sospeche pueda contener mercancías peligrosas no permitidas.",
+                fb: "La confirmación es obligatoria, pero la misma norma exige además obtener confirmación acerca del contenido de cualquier artículo que se sospeche pueda contener mercancías peligrosas no permitidas.",
               },
               {
                 t: "No: además hay que pedir confirmación del contenido de cualquier artículo sospechoso.",
                 ok: true,
-                fb: "Dos preguntas, no una: «¿lleva mercancías peligrosas no permitidas?» y «¿qué contiene esto?» ante cualquier artículo que haga dudar. La Nota 1 del 175.705 recuerda que muchos artículos que parecen inocuos las contienen.",
+                fb: "Dos preguntas, no una: «¿lleva mercancías peligrosas no permitidas?» y «¿qué contiene esto?» ante cualquier artículo que haga dudar. Muchos objetos que parecen inocuos contienen mercancías peligrosas.",
               },
               {
                 t: "No hay que preguntar nada: para eso está el control de seguridad.",
-                fb: "La requisa previene que entren; la confirmación en el despacho es una obligación distinta y expresa del 175.705 (f).",
+                fb: "La requisa previene que entren; la confirmación en el despacho es una obligación distinta y expresa.",
               },
             ],
           },
@@ -803,11 +803,11 @@ export const NIVEL_3: DocScreen[] = [
               {
                 t: "Sí.",
                 ok: true,
-                fb: "El RAC lo cita como ejemplo de objeto de la clase 9. Puede traer combustible residual, batería y aceite.",
+                fb: "Es un ejemplo expreso de objeto de la clase 9. Puede traer combustible residual, batería y aceite.",
               },
               {
                 t: "No.",
-                fb: "El RAC lo nombra expresamente entre los objetos de la clase 9. «Motor» es una descripción general clásica.",
+                fb: "Figura expresamente entre los objetos de la clase 9. «Motor» es una descripción general clásica.",
               },
             ],
           },
@@ -821,7 +821,7 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "No.",
-                fb: "Un chaleco o una balsa de inflado automático traen gas comprimido. El RAC los nombra como clase 9.",
+                fb: "Un chaleco o una balsa de inflado automático traen gas comprimido, y figuran expresamente como clase 9.",
               },
             ],
           },
@@ -849,7 +849,7 @@ export const NIVEL_3: DocScreen[] = [
               },
               {
                 t: "No es mercancía peligrosa.",
-                fb: "Sí lo es: el RAC la nombra en la clase 9 y le da etiqueta de manipulación. Lo que no es, es oculta: viene declarada.",
+                fb: "Sí lo es: pertenece a la clase 9 y tiene su propia etiqueta de manipulación. Lo que no es, es oculta: viene declarada.",
               },
             ],
           },

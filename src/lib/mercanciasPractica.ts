@@ -1,16 +1,17 @@
 /**
  * Práctica del módulo Mercancías peligrosas: cuatro modos.
  *
- *   Etiquetas   → cuatro ejercicios visuales con los rombos del Apéndice 1
+ *   Etiquetas   → cuatro ejercicios visuales con los rombos de las etiquetas
  *   Clasifica   → un envío, el piloto decide clase y grupo de embalaje
  *   Escenarios  → situaciones operacionales que se resuelven con las palabras
  *                 propias y después se comparan con la respuesta modelo
  *   Entrevista  → lo que podrían preguntarte, con la respuesta modelo y qué
  *                 evalúan con cada pregunta
  *
- * Todo lo normativo remite a su artículo del LAR 175, y a la Parte o Tabla de
- * las Instrucciones Técnicas cuando la norma la nombra. Lo que solo existe en
- * un reglamento nacional va marcado como tal. Los escenarios son
+ * Sin citas de artículo, como el resto del módulo: cada dato se comprobó
+ * contra el LAR 175 y, cuando la regla es de ahí, contra las Instrucciones
+ * Técnicas. Lo que solo existe en un reglamento nacional se dice como tal.
+ * Los escenarios son
  * construidos para el curso y lo dicen; las cifras que salen de las
  * Instrucciones Técnicas (no cargadas) llevan su aviso de verificación.
  */
@@ -82,7 +83,7 @@ export const EJERCICIOS_ETIQUETAS: EjercicioEtiquetas[] = [
   },
   {
     id: "criterio",
-    titulo: "Del artículo a la etiqueta",
+    titulo: "Del criterio a la etiqueta",
     descripcion: "Se enuncia el criterio de las Instrucciones Técnicas y eliges la etiqueta que le corresponde entre cuatro. Ocho rondas.",
     rondas: [
       { enunciado: "Sustancia que por reacción con el agua puede inflamarse espontáneamente o despedir gases inflamables en cantidades peligrosas.", opciones: [img("4-1"), img("4-2"), img("4-3"), img("3")], correcta: 2, explicacion: "División 4.3, «peligroso mojado»: fondo azul. Con esas no se echa agua." },
@@ -112,8 +113,8 @@ export const EJERCICIOS_ETIQUETAS: EjercicioEtiquetas[] = [
     titulo: "Riesgo o manipulación",
     descripcion: "Doce etiquetas mezcladas. Dices si cada una dice qué es (riesgo) o cómo se trata (manipulación). Doce rondas.",
     rondas: [
-      { enunciado: "Corrosivo", imagen: "8", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: corrosivo, clase 8. Etiqueta de riesgo (175.436 (a))." },
-      { enunciado: "«Exclusivamente en aeronaves de carga»", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "Dice cómo se trata el bulto: no va en avión con pasajeros. Manipulación (175.436 (b))." },
+      { enunciado: "Corrosivo", imagen: "8", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: corrosivo, clase 8. Etiqueta de riesgo." },
+      { enunciado: "«Exclusivamente en aeronaves de carga»", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "Dice cómo se trata el bulto: no va en avión con pasajeros. Manipulación." },
       { enunciado: "Material magnetizado", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "Azul sobre blanco, 110 × 90 mm. Es de manipulación: indica cómo estibarlo, lejos de lo que perturbe." },
       { enunciado: "Gas tóxico", imagen: "2-3", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: gas tóxico, división 2.3. Riesgo." },
       { enunciado: "Posición del bulto (flechas)", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "Rojo o negro sobre fondo contrastado, 74 × 105 mm. Dice hacia dónde va arriba: manipulación." },
@@ -122,7 +123,7 @@ export const EJERCICIOS_ETIQUETAS: EjercicioEtiquetas[] = [
       { enunciado: "Comburente", imagen: "5-1", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: comburente, división 5.1. Riesgo." },
       { enunciado: "«Manténgase alejado del calor»", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "Dice cómo se trata: lejos del calor. Manipulación. La usan la 4.1 de reacción espontánea y la 5.2." },
       { enunciado: "Sustancia infecciosa", imagen: "6-2", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: infecciosa, división 6.2. Riesgo." },
-      { enunciado: "Etiqueta de baterías de litio", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "El Apéndice 1 la incluye como etiqueta de manipulación (Figura 1.29). El rombo de clase 9 es el de riesgo; esta dice cómo tratar el bulto." },
+      { enunciado: "Etiqueta de baterías de litio", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "El reglamento la incluye como etiqueta de manipulación. El rombo de clase 9 es el de riesgo; esta dice cómo tratar el bulto." },
       { enunciado: "Mercancías peligrosas varias", imagen: "9", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: clase 9. Riesgo." },
     ],
   },
@@ -156,8 +157,8 @@ export const CASOS: CasoMP[] = [
     ge: true,
     respuesta: "Clase 3, líquido inflamable, con grupo de embalaje.",
     explicacion:
-      "La pintura tiene disolventes con punto de inflamación por debajo de 60,5 °C en crisol cerrado, así que es líquido inflamable. Lo que la clasifica es esa propiedad, no que se llame pintura: el RAC la cita como ejemplo de la clase 3 (175.1010 (a) (3)).",
-    embalaje: "UN 1263 es su número ONU y suele ir con grupo de embalaje II o III según el punto de inflamación (Tabla 3-1, verificar edición).",
+      "La pintura tiene disolventes con punto de inflamación por debajo de 60,5 °C en crisol cerrado, así que es líquido inflamable. Lo que la clasifica es esa propiedad, no que se llame pintura: el reglamento colombiano la cita como ejemplo de la clase 3.",
+    embalaje: "UN 1263 es su número ONU y suele ir con grupo de embalaje II o III según el punto de inflamación (Instrucciones Técnicas, verificar edición vigente).",
   },
   {
     id: "c2",
@@ -166,7 +167,7 @@ export const CASOS: CasoMP[] = [
     ge: false,
     respuesta: "Clase 9, sin grupo de embalaje. Y en ese vuelo no viaja.",
     explicacion:
-      "Es el caso que más se falla: las baterías de litio no son clase 3 ni clase 8, son clase 9 y no llevan grupo de embalaje (175.426 (a)). Lo que gobierna su transporte es la instrucción de embalaje y el estado de carga. Como carga suelta están prohibidas en aeronave de pasajeros desde 2016.",
+      "Es el caso que más se falla: las baterías de litio no son clase 3 ni clase 8, son clase 9 y no llevan grupo de embalaje. Lo que gobierna su transporte es la instrucción de embalaje y el estado de carga. Como carga suelta están prohibidas en aeronave de pasajeros desde 2016.",
     embalaje: "UN 3480, solo aeronave de carga y con estado de carga no mayor al 30 % (Instrucciones Técnicas, verificar edición vigente).",
   },
   {
@@ -176,7 +177,7 @@ export const CASOS: CasoMP[] = [
     ge: false,
     respuesta: "Clase 9, sin grupo de embalaje.",
     explicacion:
-      "El hielo seco es dióxido de carbono sólido: no arde ni es tóxico, pero sublima y desplaza el oxígeno en un espacio cerrado. Ese riesgo no encaja en ninguna de las otras ocho clases, y el RAC lo nombra como ejemplo de la 9 (175.1010 (a) (9)).",
+      "El hielo seco es dióxido de carbono sólido: no arde ni es tóxico, pero sublima y desplaza el oxígeno en un espacio cerrado. Ese riesgo no encaja en ninguna de las otras ocho clases, y el reglamento colombiano lo nombra como ejemplo de la 9.",
     embalaje: "UN 1845. El embalaje tiene que dejar salir el gas: cerrarlo hermético es el error.",
   },
   {
@@ -187,7 +188,7 @@ export const CASOS: CasoMP[] = [
     ge: true,
     respuesta: "Clase 4, división 4.3, con grupo de embalaje.",
     explicacion:
-      "Es un sólido inflamable, pero lo que importa es la división: la 4.3 desprende gas inflamable en contacto con el agua (175.1010 (a) (4)). Si hay un incidente, echar agua empeora las cosas: la división no es un detalle administrativo, es el dato que cambia la respuesta.",
+      "Es un sólido inflamable, pero lo que importa es la división: la 4.3 desprende gas inflamable en contacto con el agua. Si hay un incidente, echar agua empeora las cosas: la división no es un detalle administrativo, es el dato que cambia la respuesta.",
     embalaje: "Va bajo aceite justamente para aislarlo de la humedad del aire.",
   },
   {
@@ -197,7 +198,7 @@ export const CASOS: CasoMP[] = [
     ge: false,
     respuesta: "Clase 2, gases: los aerosoles están en la definición. Sin grupo de embalaje.",
     explicacion:
-      "El 175.1010 (a) (2) nombra los aerosoles expresamente entre los gases. La división depende del propelente: 2.1 si es inflamable, 2.2 si no. Los gases no llevan grupo de embalaje (175.426 (a)).",
+      "La definición de la clase 2 nombra expresamente los aerosoles. La división depende del propelente: 2.1 si es inflamable, 2.2 si no. Los gases no llevan grupo de embalaje.",
     embalaje: "UN 1950, aerosoles. Con propelente inflamable, división 2.1.",
   },
   {
@@ -208,7 +209,7 @@ export const CASOS: CasoMP[] = [
     ge: false,
     respuesta: "Clase 2, división 2.2, sin grupo de embalaje.",
     explicacion:
-      "Un extintor es un objeto cargado con gas comprimido (175.1010 (a) (2)). El CO₂ no es inflamable ni tóxico: división 2.2. Lo que empuja es la presión.",
+      "Un extintor es un objeto cargado con gas comprimido. El CO₂ no es inflamable ni tóxico: división 2.2. Lo que empuja es la presión.",
     embalaje: "UN 1044, extintores.",
   },
   {
@@ -219,7 +220,7 @@ export const CASOS: CasoMP[] = [
     ge: true,
     respuesta: "Clase 5, división 5.1, comburente, con grupo de embalaje.",
     explicacion:
-      "No arde por sí solo, pero libera oxígeno y facilita la combustión de lo que tenga al lado (175.1010 (a) (5)). Por eso se segrega de los inflamables (175.525). La 5.1 sí lleva grupo de embalaje; la 5.2 no.",
+      "No arde por sí solo, pero libera oxígeno y facilita la combustión de lo que tenga al lado. Por eso se segrega de los inflamables. La 5.1 sí lleva grupo de embalaje; la 5.2 no.",
     embalaje: "UN 2067 para el fertilizante a base de nitrato de amonio.",
   },
   {
@@ -230,7 +231,7 @@ export const CASOS: CasoMP[] = [
     ge: false,
     respuesta: "Clase 6, división 6.2, sustancia infecciosa, sin grupo de embalaje.",
     explicacion:
-      "«Se sabe o se cree fundadamente que contienen agentes patógenos» es la definición de la 6.2 (175.1010 (a) (6)). La 6.2 no lleva grupo de embalaje (175.426 (a)). Y ojo con el hielo seco que suele acompañarlas: es clase 9 y va aparte.",
+      "«Se sabe o se cree fundadamente que contienen agentes patógenos» es la definición de la 6.2, que no lleva grupo de embalaje. Y ojo con el hielo seco que suele acompañarlas: es clase 9 y va aparte.",
     embalaje: "Las de riesgo menor van como UN 3373, sustancia biológica Categoría B (Instrucciones Técnicas, verificar).",
   },
   {
@@ -240,7 +241,7 @@ export const CASOS: CasoMP[] = [
     ge: true,
     respuesta: "Clase 8, corrosiva, con grupo de embalaje.",
     explicacion:
-      "Causa lesiones graves a los tejidos vivos y, si se escapa, daña otras mercancías y el propio avión (175.1010 (a) (8)). Doble criterio, doble razón para el embalaje homologado y la segregación.",
+      "Causa lesiones graves a los tejidos vivos y, si se escapa, daña otras mercancías y el propio avión. Doble criterio, doble razón para el embalaje homologado y la segregación.",
     embalaje: "UN 1830, ácido sulfúrico, grupo de embalaje II.",
   },
   {
@@ -248,9 +249,9 @@ export const CASOS: CasoMP[] = [
     texto: "Un motor de combustión interna, drenado, que viaja como repuesto para un generador.",
     clase: "9",
     ge: false,
-    respuesta: "Clase 9: el RAC lo nombra como ejemplo de objeto de esa clase.",
+    respuesta: "Clase 9: el reglamento colombiano lo nombra como ejemplo de objeto de esa clase.",
     explicacion:
-      "El 175.1010 (a) (9) cita los motores de combustión interna entre los objetos de la clase 9. Aunque vaya drenado puede conservar residuos de combustible, batería o aceite, y por eso sigue siendo mercancía peligrosa y no «repuestos».",
+      "Los motores de combustión interna figuran entre los ejemplos de objetos de la clase 9. Aunque vaya drenado puede conservar residuos de combustible, batería o aceite, y por eso sigue siendo mercancía peligrosa y no «repuestos».",
     embalaje: "Ediciones posteriores de las Instrucciones Técnicas reclasifican los motores según el combustible que usan: verifica la edición vigente antes de citar el UN.",
   },
 ]
@@ -263,7 +264,7 @@ export interface EscenarioMP {
   situacion: string
   /** Lo que el piloto tiene que decidir, en preguntas. */
   preguntas: string[]
-  /** La respuesta modelo, con sus artículos. */
+  /** La respuesta modelo. */
   modelo: string
   puntos: string[]
 }
@@ -276,8 +277,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Embarque de un vuelo lleno. La auxiliar te avisa que van a bajar a bodega diez maletas de mano por falta de espacio. Un pasajero se niega a sacar nada de la suya: dice que solo lleva ropa, el portátil y un power bank.",
     preguntas: ["¿Qué puede ir en esa maleta a bodega y qué no?", "¿Qué le dices al pasajero y con qué respaldo?", "¿Qué pasa si la maleta baja como está?"],
     modelo:
-      "El power bank es una batería de repuesto: va solo en cabina, con los terminales protegidos, nunca en bodega. El portátil puede bajar si va apagado y protegido contra activación accidental. Eso es la Tabla 8-1 de las Instrucciones Técnicas, a la que remite el 175.715, y el procedimiento del explotador; no es una opinión de la tripulación. Si el pasajero no lo acepta, la maleta no baja: el 175.220 (c) prohíbe al explotador permitir mercancías peligrosas en el equipaje salvo lo que las Instrucciones autorizan. Si baja como está y se descubre después, es una mercancía no permitida en el equipaje y se notifica (175.625 (c)).",
-    puntos: ["Power bank = repuesto = solo cabina, terminales protegidos", "Portátil a bodega apagado y protegido", "Respaldo: Tabla 8-1 (175.715) y procedimiento del explotador", "Si no acepta, la maleta no baja (175.220 (c))", "Si baja y se descubre: notificación (175.625 (c))"],
+      "El power bank es una batería de repuesto: va solo en cabina, con los terminales protegidos, nunca en bodega. El portátil puede bajar si va apagado y protegido contra activación accidental. Eso sale de lo que las Instrucciones Técnicas permiten a los pasajeros y del procedimiento del explotador; no es una opinión de la tripulación. Si el pasajero no lo acepta, la maleta no baja: la norma prohíbe al explotador permitir mercancías peligrosas en el equipaje salvo lo que las Instrucciones autorizan. Si baja como está y se descubre después, es una mercancía no permitida en el equipaje y se notifica.",
+    puntos: ["Power bank = repuesto = solo cabina, terminales protegidos", "Portátil a bodega apagado y protegido", "Respaldo: Instrucciones Técnicas y procedimiento del explotador", "Si no acepta, la maleta no baja", "Si baja y se descubre: notificación"],
   },
   {
     id: "grupo",
@@ -286,8 +287,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Briefing. El NOTOC muestra UN 1263, pintura, clase 3, grupo de embalaje II, dos bultos en la bodega trasera. La declaración del expedidor que te muestran dice grupo de embalaje III para el mismo envío.",
     preguntas: ["¿Firmas el NOTOC?", "¿Por qué importa una diferencia entre II y III?", "¿Qué tiene que pasar para que el envío salga?"],
     modelo:
-      "No se firma con una discrepancia abierta. El grupo de embalaje gradúa el peligro dentro de la clase (175.426 (a)) y fija qué embalaje exige y cuánta cantidad admite por bulto: un II no es un III. La información al piloto al mando se firma antes de que las mercancías se transporten (175.515 (a) (1)) y firmar es dejar constancia de que sabes qué llevas. El envío sale cuando el explotador aclara con la declaración cuál es el dato correcto y corrige el documento que esté mal; si no se puede aclarar, no sale. Si el envío ya voló con información incorrecta, se notifica (175.625 (d)).",
-    puntos: ["No se firma con discrepancia", "El grupo cambia embalaje y cantidad admitida (175.426)", "La firma es previa al transporte (175.515 (a) (1))", "Se aclara con la declaración del expedidor o no sale", "Voló mal: notificación (175.625 (d))"],
+      "No se firma con una discrepancia abierta. El grupo de embalaje gradúa el peligro dentro de la clase y fija qué embalaje exige y cuánta cantidad admite por bulto: un II no es un III. La información al piloto al mando se firma antes de que las mercancías se transporten y firmar es dejar constancia de que sabes qué llevas. El envío sale cuando el explotador aclara con la declaración cuál es el dato correcto y corrige el documento que esté mal; si no se puede aclarar, no sale. Si el envío ya voló con información incorrecta, se notifica.",
+    puntos: ["No se firma con discrepancia", "El grupo cambia embalaje y cantidad admitida", "La firma es previa al transporte", "Se aclara con la declaración del expedidor o no sale", "Voló mal: notificación"],
   },
   {
     id: "cao",
@@ -296,8 +297,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Vuelo de pasajeros. En el NOTOC aparece un envío con la marca «Cargo Aircraft Only». El agente dice que va bien estibado en la bodega delantera, lejos de la cabina, y que el expedidor autorizó por escrito.",
     preguntas: ["¿Sale ese bulto?", "¿Cambia algo la posición o la autorización del expedidor?", "¿Qué tienes que asegurarte tú?"],
     modelo:
-      "No sale. Los bultos con la etiqueta «Exclusivamente en aeronaves de carga» no se estiban en una aeronave ocupada por pasajeros (Capítulo F, Carga y estiba, (c)). La posición no lo arregla y el expedidor no puede autorizar lo que la norma prohíbe. Comprobar que ningún CAO va en un vuelo con pasajeros es parte de lo que revisas antes de firmar la información al piloto al mando (175.515). Si aparece, el envío se baja y queda registrado por qué.",
-    puntos: ["CAO nunca en aeronave con pasajeros (Cap. F (c))", "Ni la posición ni el expedidor lo habilitan", "Es una comprobación previa a la firma del NOTOC", "El envío se baja"],
+      "No sale. Los bultos con la etiqueta «Exclusivamente en aeronaves de carga» no se estiban en una aeronave ocupada por pasajeros. La posición no lo arregla y el expedidor no puede autorizar lo que la norma prohíbe. Comprobar que ningún CAO va en un vuelo con pasajeros es parte de lo que revisas antes de firmar la información al piloto al mando. Si aparece, el envío se baja y queda registrado por qué.",
+    puntos: ["CAO nunca en aeronave con pasajeros", "Ni la posición ni el expedidor lo habilitan", "Es una comprobación previa a la firma del NOTOC", "El envío se baja"],
   },
   {
     id: "humo",
@@ -306,8 +307,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Crucero. Olor químico y humo tenue en el galley trasero. El NOTOC declara un envío de clase 8 en la bodega posterior y uno de 6.1 en la delantera.",
     preguntas: ["¿Qué hace primero la cabina de mando?", "¿Qué consultas y qué usas?", "¿A quién informas y cuándo?", "¿Qué queda después de aterrizar?"],
     modelo:
-      "Primero se vuela: máscaras, oxígeno, control de la aeronave y del humo según el QRH. Después se identifica con el NOTOC, que está al alcance del comandante en vuelo (175.515 (a) (2)): un corrosivo en la bodega posterior, la más cercana al humo. Se consulta la información de respuesta de emergencia, que debe estar disponible de inmediato (175.620 (b) (1), Doc 9481), y la cabina de pasajeros usa el equipo de respuesta (bolsas, ligaduras, guantes largos de goma, 175.620 (d) (1)). Se declara la emergencia y se informa al ATS tan pronto la situación lo permita para que avise a la administración aeroportuaria (175.620 (e)); se desvía al aeródromo adecuado más cercano. Después, el explotador entrega la información a los servicios de emergencia (175.620 (f) y (g)) y se notifica el incidente (175.625 (a)).",
-    puntos: ["Volar primero", "Identificar con el NOTOC (175.515 (a) (2))", "Doc 9481 y equipo de respuesta (175.620 (b) y (d))", "Declarar e informar al ATS tan pronto se pueda (175.620 (e))", "Desviar; después, información a servicios y notificación"],
+      "Primero se vuela: máscaras, oxígeno, control de la aeronave y del humo según el QRH. Después se identifica con el NOTOC, que está al alcance del comandante en vuelo: un corrosivo en la bodega posterior, la más cercana al humo. Se consulta la información de respuesta de emergencia, que debe estar disponible de inmediato, y la cabina de pasajeros usa el equipo de respuesta (bolsas, ligaduras, guantes largos de goma). Se declara la emergencia y se informa al ATS tan pronto la situación lo permita para que avise a la administración aeroportuaria; se desvía al aeródromo adecuado más cercano. Después, el explotador entrega la información a los servicios de emergencia y se notifica el incidente.",
+    puntos: ["Volar primero", "Identificar con el NOTOC", "Guía de emergencia y equipo de respuesta", "Declarar e informar al ATS tan pronto se pueda", "Desviar; después, información a servicios y notificación"],
   },
   {
     id: "comat",
@@ -316,8 +317,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Veinte minutos antes de la salida ves en la bodega seis cajas marcadas «AOG PARTS – COMPANY MATERIAL» que no aparecen en el NOTOC ni en el manifiesto de mercancías peligrosas.",
     preguntas: ["¿Qué te dice esa marca?", "¿Qué preguntas antes de firmar?", "¿Firmas?"],
     modelo:
-      "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho (175.001 (a) (10)). Si algo de eso está clasificado como mercancía peligrosa (un generador de oxígeno, una batería, un aerosol) es COMAT peligroso (175.001 (a) (11)) y sigue todas las reglas, incluida la información al piloto al mando. «Repuestos» es una descripción general que debe hacer dudar (175.610 (a) (1)). Antes de firmar se pregunta qué contienen y quién las aceptó: un envío con mercancías peligrosas necesita documento de transporte e inspección (175.514). No se firma hasta aclararlo; si el contenido no es peligroso y queda registrado, se firma; si lo es, entra al NOTOC o no sale. Es ValuJet contado desde tu asiento.",
-    puntos: ["COMAT y COMAT peligroso (175.001 (a) (10) y (11))", "Descripción general = pregunta (175.610 (a))", "Aceptación exige documento e inspección (175.514)", "No se firma hasta aclarar", "Si es peligroso: al NOTOC o no sale"],
+      "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho. Si algo de eso está clasificado como mercancía peligrosa (un generador de oxígeno, una batería, un aerosol) es COMAT peligroso y sigue todas las reglas, incluida la información al piloto al mando. «Repuestos» es una descripción general que debe hacer dudar. Antes de firmar se pregunta qué contienen y quién las aceptó: un envío con mercancías peligrosas necesita documento de transporte e inspección. No se firma hasta aclararlo; si el contenido no es peligroso y queda registrado, se firma; si lo es, entra al NOTOC o no sale. Es ValuJet contado desde tu asiento.",
+    puntos: ["COMAT y COMAT peligroso", "Descripción general = pregunta", "Aceptación exige documento e inspección", "No se firma hasta aclarar", "Si es peligroso: al NOTOC o no sale"],
   },
   {
     id: "etiqueta",
@@ -326,8 +327,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Durante el walkaround ves en la plataforma un bulto para tu vuelo con la etiqueta de riesgo medio despegada y con el número UN legible. El agente dice que la pega y ya.",
     preguntas: ["¿Puede reponerla el explotador?", "¿Con qué condición?", "¿Y si no está claro cuál etiqueta va?"],
     modelo:
-      "Sí puede: el explotador autorizado debe tener etiquetas de reposición para los casos de desprendimiento o deterioro (175.435 (b)) y las reemplaza conforme a los datos del documento de transporte (175.438 (e)). La condición es esa: que el documento diga cuál es. Si no se tiene la certeza de cuál etiqueta corresponde, no se transporta la mercancía (175.435 (b)). Tú no pegas etiquetas, pero no firmas por un bulto que nadie sabe qué es.",
-    puntos: ["Reposición permitida (175.435 (b))", "Según el documento de transporte (175.438 (e))", "Sin certeza, no vuela", "La etiqueta es parte del acondicionamiento exigido (175.220 (b))"],
+      "Sí puede: el explotador autorizado debe tener etiquetas de reposición para los casos de desprendimiento o deterioro y las reemplaza conforme a los datos del documento de transporte. La condición es esa: que el documento diga cuál es. Si no se tiene la certeza de cuál etiqueta corresponde, no se transporta la mercancía. Tú no pegas etiquetas, pero no firmas por un bulto que nadie sabe qué es.",
+    puntos: ["Reposición permitida", "Según el documento de transporte", "Sin certeza, no vuela", "La etiqueta es parte del acondicionamiento exigido"],
   },
   {
     id: "monomotor",
@@ -336,8 +337,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Operas un monomotor de carga en el Vichada. Te piden llevar tres canecas de gasolina de aviación para un aeródromo remoto, junto con otros repuestos.",
     preguntas: ["¿Puedes llevar la gasolina?", "¿Y los repuestos, si alguno es mercancía peligrosa de otra clase?", "¿De dónde sale esa regla?"],
     modelo:
-      "La gasolina no, pero por una regla que no está en el Anexo 18: es un añadido nacional. En Colombia, el RAC 175.115 (b) prohíbe la clase 3 combustibles en aeronaves monomotores, salvo lo que el 175.715 permite a pasajeros y tripulantes; las demás clases en monomotor requieren aprobación de la autoridad, que verifica las condiciones de seguridad del explotador y determina en qué aeródromos no la aprueba (175.115 (c)). Por eso no aparece en los cursos genéricos, y por eso tienes que abrir el reglamento de tu país: el mecanismo que permite estos añadidos es el LAR 175.115 (c), y lo que cada Estado añade se notifica a la OACI.",
-    puntos: ["Clase 3 combustibles prohibida en monomotor (RAC 175.115 (b))", "Otras clases: aprobación de la autoridad (RAC 175.115 (c))", "La autoridad puede excluir aeródromos", "Es un añadido nacional, no del Anexo 18: busca el de tu país"],
+      "La gasolina no, pero por una regla que no está en el Anexo 18: es un añadido nacional. En Colombia se prohíbe la clase 3 combustibles en aeronaves monomotores, salvo las excepciones para pasajeros y tripulantes; las demás clases en monomotor requieren aprobación de la autoridad, que verifica las condiciones de seguridad del explotador y determina en qué aeródromos no la aprueba. Por eso no aparece en los cursos genéricos, y por eso tienes que abrir el reglamento de tu país: el mecanismo que permite estos añadidos está en el propio LAR, y lo que cada Estado añade se notifica a la OACI.",
+    puntos: ["Colombia: clase 3 combustibles prohibida en monomotor", "Otras clases: aprobación de la autoridad", "La autoridad puede excluir aeródromos", "Es un añadido nacional, no del Anexo 18: busca el de tu país"],
   },
   {
     id: "silla",
@@ -346,8 +347,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Un pasajero con movilidad reducida embarca con su silla de ruedas eléctrica. La silla lleva una batería de ion litio. El agente pregunta si la batería va instalada en la silla o la retiran.",
     preguntas: ["¿Es mercancía peligrosa?", "¿Dónde se resuelve qué hacer con la batería?", "¿Qué debe saber el comandante?"],
     modelo:
-      "Sí: es una batería de ion litio, clase 9, sin grupo de embalaje. Las ayudas de movilidad con batería son una de las excepciones para pasajeros que las Instrucciones Técnicas regulan en la Tabla 8-1, con condiciones que dependen del tipo de batería y de si se retira o no (175.715): esas condiciones y los vatios-hora exactos hay que verificarlos en la edición vigente y en el procedimiento del explotador. Lo que el comandante debe saber es que se transporta y dónde va: para las ayudas de movilidad con batería de litio las Instrucciones exigen informar al piloto al mando, y la operación debe reflejarlo en el NOTOC o en el documento que use el explotador.",
-    puntos: ["Batería de litio = clase 9, sin grupo de embalaje", "Excepción de pasajeros: Tabla 8-1 (175.715), verificar edición", "Condiciones según tipo de batería y si se retira", "El comandante debe saber que va y dónde"],
+      "Sí: es una batería de ion litio, clase 9, sin grupo de embalaje. Las ayudas de movilidad con batería son una de las excepciones para pasajeros que regulan las Instrucciones Técnicas, con condiciones que dependen del tipo de batería y de si se retira o no: esas condiciones y los vatios-hora exactos hay que verificarlos en la edición vigente y en el procedimiento del explotador. Lo que el comandante debe saber es que se transporta y dónde va: para las ayudas de movilidad con batería de litio las Instrucciones exigen informar al piloto al mando, y la operación debe reflejarlo en el NOTOC o en el documento que use el explotador.",
+    puntos: ["Batería de litio = clase 9, sin grupo de embalaje", "Excepción de pasajeros de las Instrucciones Técnicas: verificar edición", "Condiciones según tipo de batería y si se retira", "El comandante debe saber que va y dónde"],
   },
   {
     id: "averia",
@@ -356,8 +357,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Turnaround en destino. El agente de rampa te comenta que uno de los bultos de mercancías peligrosas «venía mojado por fuera» y que ya lo bajaron.",
     preguntas: ["¿Qué tiene que hacer el explotador además de bajarlo?", "¿Qué preguntas tú?", "¿Es un suceso?"],
     modelo:
-      "Un bulto con averías o pérdidas se descarga, y el explotador se asegura de que el resto del envío esté en condiciones y de que ningún otro bulto quedó contaminado (175.615 (b)); toda contaminación peligrosa en la aeronave se elimina sin demora (175.615 (c)). Al descargar, si hay pérdidas se inspecciona la zona donde iba estibado para ver si hubo daño (Capítulo F, (h)). Lo que preguntas es qué era y qué había al lado: un corrosivo mojando otra carga es otro problema. Es un incidente imputable a mercancías peligrosas, porque hubo una manifestación de que se vulneró la integridad de un embalaje (175.001 (a) (25)), y se notifica (175.625 (a)).",
-    puntos: ["Descargar y revisar el resto del envío (175.615 (b))", "Inspeccionar la zona de estiba (Cap. F (h))", "Eliminar la contaminación (175.615 (c))", "Qué era y qué tenía al lado", "Incidente imputable: se notifica (175.625 (a))"],
+      "Un bulto con averías o pérdidas se descarga, y el explotador se asegura de que el resto del envío esté en condiciones y de que ningún otro bulto quedó contaminado; toda contaminación peligrosa en la aeronave se elimina sin demora. Al descargar, si hay pérdidas se inspecciona la zona donde iba estibado para ver si hubo daño. Lo que preguntas es qué era y qué había al lado: un corrosivo mojando otra carga es otro problema. Es un incidente imputable a mercancías peligrosas, porque hubo una manifestación de que se vulneró la integridad de un embalaje, y se notifica.",
+    puntos: ["Descargar y revisar el resto del envío", "Inspeccionar la zona de estiba", "Eliminar la contaminación", "Qué era y qué tenía al lado", "Incidente imputable: se notifica"],
   },
   {
     id: "dispensa",
@@ -366,8 +367,8 @@ export const ESCENARIOS: EscenarioMP[] = [
       "Un instituto de investigación quiere enviar por tu aerolínea animales vivos infectados para un estudio. Tu jefe de operaciones te pregunta qué papel necesitan.",
     preguntas: ["¿En qué nivel de permiso caen?", "¿Aprobación o dispensa?", "¿Quién la pide y quién la da?"],
     modelo:
-      "Los animales vivos infectados están nombrados expresamente entre las mercancías prohibidas salvo dispensa de la autoridad (LAR 175.110 (c) (2)). No es un caso de aprobación: la aprobación solo existe cuando las Instrucciones Técnicas dicen que ese caso puede transportarse con aprobación; si no hay esa referencia, lo que procede es la dispensa (LAR 175.001 (a), definición de aprobación y su nota). La dispensa la otorga la autoridad de aviación civil, la solicita el explotador y procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplirlo todo sería contrario al interés público, siempre con un nivel de seguridad equivalente y nunca para lo prohibido en todas las circunstancias (LAR 175.020 (e)).",
-    puntos: ["Prohibido salvo dispensa (175.112 (a) (2))", "Aprobación solo si las Instrucciones la prevén", "Dispensa: Secretaría de Seguridad Aérea (175.001 (a) (13))", "La pide el explotador", "Nunca para lo prohibido en todos los casos (175.020 (g))"],
+      "Los animales vivos infectados están nombrados expresamente entre las mercancías prohibidas salvo dispensa de la autoridad. No es un caso de aprobación: la aprobación solo existe cuando las Instrucciones Técnicas dicen que ese caso puede transportarse con aprobación; si no hay esa referencia, lo que procede es la dispensa. La dispensa la otorga la autoridad de aviación civil, la solicita el explotador y procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplirlo todo sería contrario al interés público, siempre con un nivel de seguridad equivalente y nunca para lo prohibido en todas las circunstancias.",
+    puntos: ["Prohibido salvo dispensa", "Aprobación solo si las Instrucciones la prevén", "Dispensa: la da la autoridad (en Colombia, la Secretaría de Seguridad Aérea)", "La pide el explotador", "Nunca para lo prohibido en todos los casos"],
   },
 ]
 
@@ -382,31 +383,31 @@ export interface PreguntaEntrevista {
 }
 
 export const ENTREVISTA: PreguntaEntrevista[] = [
-  { n: 1, pregunta: "¿Qué es una mercancía peligrosa?", respuesta: "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas (175.001 (a) (31)). Dos mitades: riesgo y estar en la lista o ser clasificable.", evaluan: "Que la definición no sea «cosas que explotan»: que sepas que hay lista y criterios." },
-  { n: 2, pregunta: "¿Cuál es el marco normativo?", respuesta: "Cuatro capas, una dentro de otra: el Anexo 18 al Convenio de Chicago, las Instrucciones Técnicas (Doc 9284) que lo desarrollan, el LAR 175 que el SRVSOP elaboró con fundamento en el Anexo 18 para la región, y el reglamento de cada Estado, que en Colombia es el RAC 175 (Resolución 00478 de 2016). El reglamento fija el qué y las Instrucciones el cómo.", evaluan: "Que conozcas la jerarquía y que el reglamento remite a las Instrucciones en casi cada artículo." },
-  { n: 3, pregunta: "¿Cuántas clases hay y cómo se asigna una?", respuesta: "Nueve. Una sola por mercancía, según el peligro o el más importante de los peligros que represente (175.1010 (a)). El resto es riesgo secundario y se ve en el etiquetado.", evaluan: "Que sepas que es una clase, no varias, y qué es el riesgo secundario." },
+  { n: 1, pregunta: "¿Qué es una mercancía peligrosa?", respuesta: "Todo objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas. Dos mitades: riesgo y estar en la lista o ser clasificable.", evaluan: "Que la definición no sea «cosas que explotan»: que sepas que hay lista y criterios." },
+  { n: 2, pregunta: "¿Cuál es el marco normativo?", respuesta: "Cuatro capas, una dentro de otra: el Anexo 18 al Convenio de Chicago, las Instrucciones Técnicas (Doc 9284) que lo desarrollan, el LAR 175 que el SRVSOP elaboró con fundamento en el Anexo 18 para la región, y el reglamento de cada Estado, que en Colombia es el RAC 175. El reglamento fija el qué y las Instrucciones el cómo.", evaluan: "Que conozcas la jerarquía y que el reglamento remite a las Instrucciones en casi cada artículo." },
+  { n: 3, pregunta: "¿Cuántas clases hay y cómo se asigna una?", respuesta: "Nueve. Una sola por mercancía, según el peligro o el más importante de los peligros que represente. El resto es riesgo secundario y se ve en el etiquetado.", evaluan: "Que sepas que es una clase, no varias, y qué es el riesgo secundario." },
   { n: 4, pregunta: "¿Cuál es la diferencia entre clase y división?", respuesta: "La clase es el riesgo principal, del 1 al 9; la división es el subtipo dentro de la clase, con punto: 2.1 es un gas inflamable dentro de la clase 2. La división cambia la respuesta en emergencia: 4.3 y agua, por ejemplo.", evaluan: "Que no digas «clase 2.1»." },
   { n: 5, pregunta: "¿En qué clase están las baterías de litio y qué grupo de embalaje llevan?", respuesta: "Clase 9, y no llevan grupo de embalaje. Lo que gobierna su transporte es la instrucción de embalaje y el estado de carga. Casi todo el mundo las ubica en la 3 o en la 8.", evaluan: "La pregunta que más se falla. Que no dudes." },
-  { n: 6, pregunta: "¿Qué es el grupo de embalaje?", respuesta: "El grado de peligro dentro de la clase: I gran peligro, II intermedio, III escaso (175.426 (a)). Va en romanos. No aplica a las clases 1, 2 y 7, ni a la 5.2, la 6.2 ni las sustancias de reacción espontánea de la 4.1.", evaluan: "Que sepas que no todas las clases lo llevan." },
-  { n: 7, pregunta: "¿Qué diferencia una etiqueta de riesgo de una de manipulación?", respuesta: "La de riesgo dice qué es (se requiere para la mayoría de las mercancías de todas las clases); la de manipulación dice cómo se trata el bulto (se requiere para algunas): CAO, posición, magnetizado, criogénicos, litio (175.436).", evaluan: "Que distingas el rombo de la señal de manipulación." },
-  { n: 8, pregunta: "¿Qué se hace con un bulto cuya etiqueta se despegó?", respuesta: "El explotador la repone conforme al documento de transporte (175.438 (e)); si no hay certeza de cuál corresponde, no se transporta la mercancía (175.435 (b)).", evaluan: "Que digas las dos mitades: se repone, y sin certeza no vuela." },
-  { n: 9, pregunta: "¿Cuáles son los niveles de permiso para transportar una mercancía peligrosa?", respuesta: "Prohibido en todos los casos (175.114); prohibido salvo dispensa (175.112); permitido con aprobación cuando las Instrucciones lo prevén (175.020 (f)); permitido cumpliendo las Instrucciones (175.011). Antes de todo, el criterio material del 175.110 (a): lo que explota, arde o emite vapores peligrosos en condiciones normales no vuela.", evaluan: "Que conozcas la escala y que la lista no es exhaustiva." },
-  { n: 10, pregunta: "¿Qué diferencia hay entre aprobación, dispensa y excepción?", respuesta: "La aprobación la da la autoridad cuando las Instrucciones Técnicas prevén que ese caso puede ir con aprobación; la dispensa la da también la autoridad y exime de lo previsto en las Instrucciones cuando no existe esa referencia, por extrema urgencia, porque otro modo no sea apropiado o por interés público; la excepción no se pide a nadie: ya está escrita en la norma (LAR 175.001 (a) y 175.020 (d) a (f)).", evaluan: "Que separes tres palabras que casi todos mezclan." },
-  { n: 11, pregunta: "¿Qué limitaciones añade tu país por su cuenta?", respuesta: "Primero el mecanismo: cada Estado notifica sus diferencias a la OACI y se publican en las Instrucciones; el explotador debe cumplir las de los Estados que opera o sobrevuela y el expedidor las de todos los involucrados (LAR 175.115 (c) a (e)). Después el ejemplo: Colombia prohíbe todo en aviación civil privada y la clase 3 combustibles en monomotores (RAC 175.115), y exige autorización del Servicio Geológico Colombiano para el radiactivo (RAC 175.536); Brasil pide portugués en las marcas domésticas (BR 6) y aprobación de la CNEN para el radiactivo (BR 8). Ten lista la de tu reglamento.", evaluan: "Que sepas que existen, dónde se publican y cuál te aplica a ti." },
-  { n: 12, pregunta: "¿Qué puede llevar un pasajero y dónde está escrito?", respuesta: "La regla es prohibición general (175.151); la única excepción es la Tabla 8-1 de las Instrucciones Técnicas, cumpliendo todos sus requisitos (175.715). Los tripulantes tienen la misma regla. Repuestos y power banks solo en cabina; las cifras exactas, en la edición vigente.", evaluan: "Que no cites cifras de memoria como si fueran norma: que sepas dónde están." },
-  { n: 13, pregunta: "¿Qué es una mercancía peligrosa oculta?", respuesta: "Carga declarada con descripción general que debió declararse como peligrosa, o mercancía prohibida o en exceso en el equipaje, en la persona o en el correo (175.001 (a) (32)). «Repuestos», «muestras», «material de la compañía» son las descripciones que deben hacer dudar.", evaluan: "Que conectes la definición con ValuJet." },
-  { n: 14, pregunta: "¿Qué condiciones exige el reglamento para aceptar mercancías peligrosas?", respuesta: "Documento de transporte debidamente diligenciado e inspección del bulto conforme a las Instrucciones, con lista de verificación (175.510, 175.512 y 175.514). Y el explotador necesita la autorización en sus OpSpecs (175.020 (a)).", evaluan: "Que sepas que la aceptación tiene dos condiciones acumulativas." },
-  { n: 15, pregunta: "¿Qué prohibiciones de estiba debe conocer el comandante?", respuesta: "Nada de mercancías peligrosas en la cabina de pasajeros ni en el puesto de pilotaje; ningún bulto «Exclusivamente en aeronaves de carga» en un avión con pasajeros; y en carguero, esos bultos donde un tripulante pueda verlos, manipularlos y separarlos en vuelo (Capítulo F, Carga y estiba, (b) a (e)).", evaluan: "Las tres. Y la razón: South African 295." },
-  { n: 16, pregunta: "¿Qué es la segregación y de dónde sale?", respuesta: "Que los bultos capaces de reaccionar peligrosamente entre sí no se estiben juntos ni donde puedan entrar en contacto si hay pérdidas (175.525 (a)). Se aplica la Tabla 7-1 de las Instrucciones y la 7-2 para explosivos (175.530). El radiactivo va separado de personas, animales vivos y películas no reveladas.", evaluan: "Que sepas que existe una tabla y que el criterio es «si hay pérdidas»." },
-  { n: 17, pregunta: "¿Qué es el NOTOC y qué exige la norma sobre él?", respuesta: "La información escrita al piloto al mando sobre las mercancías peligrosas a bordo. Por escrito, lo antes posible antes de la salida, firmada por el comandante antes de que se transporten, al alcance durante el vuelo, a disposición de los aeródromos de última salida y próxima llegada, con copia conservada en tierra, y en inglés además de los idiomas del Estado de origen en transporte internacional (LAR 175.515).", evaluan: "Los siete requisitos. Es la pregunta central." },
-  { n: 18, pregunta: "¿Cuándo firma el comandante el NOTOC?", respuesta: "Antes de que las mercancías sean transportadas (175.515 (a) (1)). No en crucero, no al llegar.", evaluan: "Que no dudes en el momento." },
+  { n: 6, pregunta: "¿Qué es el grupo de embalaje?", respuesta: "El grado de peligro dentro de la clase: I gran peligro, II intermedio, III escaso. Va en romanos. No aplica a las clases 1, 2 y 7, ni a la 5.2, la 6.2 ni las sustancias de reacción espontánea de la 4.1.", evaluan: "Que sepas que no todas las clases lo llevan." },
+  { n: 7, pregunta: "¿Qué diferencia una etiqueta de riesgo de una de manipulación?", respuesta: "La de riesgo dice qué es (se requiere para la mayoría de las mercancías de todas las clases); la de manipulación dice cómo se trata el bulto (se requiere para algunas): CAO, posición, magnetizado, criogénicos, litio.", evaluan: "Que distingas el rombo de la señal de manipulación." },
+  { n: 8, pregunta: "¿Qué se hace con un bulto cuya etiqueta se despegó?", respuesta: "El explotador la repone conforme al documento de transporte; si no hay certeza de cuál corresponde, no se transporta la mercancía.", evaluan: "Que digas las dos mitades: se repone, y sin certeza no vuela." },
+  { n: 9, pregunta: "¿Cuáles son los niveles de permiso para transportar una mercancía peligrosa?", respuesta: "Prohibido en todos los casos; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones. Antes de todo, el criterio material: lo que explota, arde o emite vapores peligrosos en condiciones normales no vuela.", evaluan: "Que conozcas la escala y que la lista no es exhaustiva." },
+  { n: 10, pregunta: "¿Qué diferencia hay entre aprobación, dispensa y excepción?", respuesta: "La aprobación la da la autoridad cuando las Instrucciones Técnicas prevén que ese caso puede ir con aprobación; la dispensa la da también la autoridad y exime de lo previsto en las Instrucciones cuando no existe esa referencia, por extrema urgencia, porque otro modo no sea apropiado o por interés público; la excepción no se pide a nadie: ya está escrita en la norma.", evaluan: "Que separes tres palabras que casi todos mezclan." },
+  { n: 11, pregunta: "¿Qué limitaciones añade tu país por su cuenta?", respuesta: "Primero el mecanismo: cada Estado notifica sus diferencias a la OACI y se publican en las Instrucciones; el explotador debe cumplir las de los Estados que opera o sobrevuela y el expedidor las de todos los involucrados. Después el ejemplo: Colombia prohíbe todo en aviación civil privada y la clase 3 combustibles en monomotores, y exige autorización del Servicio Geológico Colombiano para el radiactivo; Brasil pide portugués en las marcas domésticas y aprobación de la CNEN para el radiactivo. Ten lista la de tu reglamento.", evaluan: "Que sepas que existen, dónde se publican y cuál te aplica a ti." },
+  { n: 12, pregunta: "¿Qué puede llevar un pasajero y dónde está escrito?", respuesta: "La regla es prohibición general; la única excepción es la tabla de las Instrucciones Técnicas con lo que puede llevar un pasajero, cumpliendo todos sus requisitos. Los tripulantes tienen la misma regla. Repuestos y power banks solo en cabina; las cifras exactas, en la edición vigente.", evaluan: "Que no cites cifras de memoria como si fueran norma: que sepas dónde están." },
+  { n: 13, pregunta: "¿Qué es una mercancía peligrosa oculta?", respuesta: "Carga declarada con descripción general que debió declararse como peligrosa, o mercancía prohibida o en exceso en el equipaje, en la persona o en el correo. «Repuestos», «muestras», «material de la compañía» son las descripciones que deben hacer dudar.", evaluan: "Que conectes la definición con ValuJet." },
+  { n: 14, pregunta: "¿Qué condiciones exige el reglamento para aceptar mercancías peligrosas?", respuesta: "Documento de transporte debidamente diligenciado e inspección del bulto conforme a las Instrucciones, con lista de verificación. Y el explotador necesita la autorización en sus OpSpecs.", evaluan: "Que sepas que la aceptación tiene dos condiciones acumulativas." },
+  { n: 15, pregunta: "¿Qué prohibiciones de estiba debe conocer el comandante?", respuesta: "Nada de mercancías peligrosas en la cabina de pasajeros ni en el puesto de pilotaje; ningún bulto «Exclusivamente en aeronaves de carga» en un avión con pasajeros; y en carguero, esos bultos donde un tripulante pueda verlos, manipularlos y separarlos en vuelo.", evaluan: "Las tres. Y la razón: South African 295." },
+  { n: 16, pregunta: "¿Qué es la segregación y de dónde sale?", respuesta: "Que los bultos capaces de reaccionar peligrosamente entre sí no se estiben juntos ni donde puedan entrar en contacto si hay pérdidas. Se aplica la tabla de segregación de las Instrucciones, y otra específica para los explosivos. El radiactivo va separado de personas, animales vivos y películas no reveladas.", evaluan: "Que sepas que existe una tabla y que el criterio es «si hay pérdidas»." },
+  { n: 17, pregunta: "¿Qué es el NOTOC y qué exige la norma sobre él?", respuesta: "La información escrita al piloto al mando sobre las mercancías peligrosas a bordo. Por escrito, lo antes posible antes de la salida, firmada por el comandante antes de que se transporten, al alcance durante el vuelo, a disposición de los aeródromos de última salida y próxima llegada, con copia conservada en tierra, y en inglés además de los idiomas del Estado de origen en transporte internacional.", evaluan: "Los siete requisitos. Es la pregunta central." },
+  { n: 18, pregunta: "¿Cuándo firma el comandante el NOTOC?", respuesta: "Antes de que las mercancías sean transportadas. No en crucero, no al llegar.", evaluan: "Que no dudes en el momento." },
   { n: 19, pregunta: "¿Qué revisas antes de firmar?", respuesta: "Que estén el NOTOC y la declaración del expedidor; que ningún CAO vaya en un vuelo con pasajeros y nada en cabina; que el UN, la designación, la clase, el grupo de embalaje y la cantidad coincidan entre la declaración, el NOTOC y la lista; y dónde va cada bulto y qué tiene al lado. Si no cuadra, no se firma.", evaluan: "Que la firma sea una verificación y no un recibido." },
-  { n: 20, pregunta: "¿Qué exige el reglamento que exista antes de una emergencia con mercancías peligrosas?", respuesta: "Información de respuesta disponible de inmediato para el piloto al mando (Doc 9481), tripulación al corriente de las medidas, y el equipo de respuesta a bordo con instrucción para usarlo (175.620 (b) y (d)).", evaluan: "Que separes lo que es información de lo que es equipo." },
-  { n: 21, pregunta: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia?", respuesta: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma (175.620 (d) (1)). Es de contención, no de extinción.", evaluan: "Dato de examen, literal." },
-  { n: 22, pregunta: "Hay humo en cabina y sospechas de la carga. ¿Qué haces?", respuesta: "Volar primero: control, oxígeno, humo según el QRH. Identificar con el NOTOC, que está al alcance en vuelo. Contener con el QRH y el equipo. Declarar e informar al ATS tan pronto la situación lo permita, para que avise a la administración aeroportuaria (175.620 (e)). Desviar al aeródromo adecuado más cercano. Después, informar a los servicios de emergencia y notificar.", evaluan: "El orden de las decisiones y que el aviso al ATS no es opcional." },
-  { n: 23, pregunta: "¿Qué se notifica y a quién?", respuesta: "Accidentes e incidentes; mercancías no declaradas o mal declaradas en carga o correo; no permitidas en equipaje o en la persona; y lo transportado mal cargado, segregado o sin información al piloto al mando (LAR 175.625). Se notifica a las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso: en un vuelo internacional pueden ser dos. Descubrir una oculta ya es un suceso (LAR 175.001 (a)).", evaluan: "Que sepas que se notifica aunque no haya pasado nada." },
-  { n: 24, pregunta: "¿Qué relación hay entre mercancías peligrosas y el SMS?", respuesta: "El transporte de mercancías peligrosas entra en el ámbito de aplicación del SMS del explotador (LAR 175.220 (k)): no es un trámite aparte. Y las autoridades recopilan hasta los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva.", evaluan: "Que veas la notificación como dato del sistema, no como castigo." },
-  { n: 25, pregunta: "¿Cada cuánto debe recibir instrucción un piloto en mercancías peligrosas?", respuesta: "Como mínimo cada 24 meses (LAR 175.310 (a)), verificada o impartida al contratar (LAR 175.310 (b)), y el explotador mantiene el programa tenga o no autorización para transportarlas (LAR 175.305 (b)). Además está en el reglamento de licencias de cada país: en Colombia, el RAC 2 lo exige dentro de los entrenamientos periódicos con frecuencia no mayor a dos años (2.2.1.1.6 (e)) y el RAC 61 lo pone entre los conocimientos del piloto comercial y del de línea aérea. Las horas por cargo las fija cada reglamento nacional y las aprueba la autoridad.", evaluan: "Que sepas que es un requisito reglamentario, no una política de la aerolínea." },
+  { n: 20, pregunta: "¿Qué exige el reglamento que exista antes de una emergencia con mercancías peligrosas?", respuesta: "Información de respuesta disponible de inmediato para el piloto al mando, tripulación al corriente de las medidas, y el equipo de respuesta a bordo con instrucción para usarlo.", evaluan: "Que separes lo que es información de lo que es equipo." },
+  { n: 21, pregunta: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia?", respuesta: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma. Es de contención, no de extinción.", evaluan: "Dato de examen, literal." },
+  { n: 22, pregunta: "Hay humo en cabina y sospechas de la carga. ¿Qué haces?", respuesta: "Volar primero: control, oxígeno, humo según el QRH. Identificar con el NOTOC, que está al alcance en vuelo. Contener con el QRH y el equipo. Declarar e informar al ATS tan pronto la situación lo permita, para que avise a la administración aeroportuaria. Desviar al aeródromo adecuado más cercano. Después, informar a los servicios de emergencia y notificar.", evaluan: "El orden de las decisiones y que el aviso al ATS no es opcional." },
+  { n: 23, pregunta: "¿Qué se notifica y a quién?", respuesta: "Accidentes e incidentes; mercancías no declaradas o mal declaradas en carga o correo; no permitidas en equipaje o en la persona; y lo transportado mal cargado, segregado o sin información al piloto al mando. Se notifica a las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso: en un vuelo internacional pueden ser dos. Descubrir una oculta ya es un suceso.", evaluan: "Que sepas que se notifica aunque no haya pasado nada." },
+  { n: 24, pregunta: "¿Qué relación hay entre mercancías peligrosas y el SMS?", respuesta: "El transporte de mercancías peligrosas entra en el ámbito de aplicación del SMS del explotador: no es un trámite aparte. Y las autoridades recopilan hasta los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva.", evaluan: "Que veas la notificación como dato del sistema, no como castigo." },
+  { n: 25, pregunta: "¿Cada cuánto debe recibir instrucción un piloto en mercancías peligrosas?", respuesta: "Como mínimo cada 24 meses, verificada o impartida al contratar, y el explotador mantiene el programa tenga o no autorización para transportarlas. Además está en el reglamento de licencias de cada país: en Colombia se exige dentro de los entrenamientos periódicos, con frecuencia no mayor a dos años, y figura entre los conocimientos del piloto comercial y del de línea aérea. Las horas por cargo las fija cada reglamento nacional y las aprueba la autoridad.", evaluan: "Que sepas que es un requisito reglamentario, no una política de la aerolínea." },
 ]
 
 // ─── Totales y claves de progreso ────────────────────────────────────────────
@@ -466,7 +467,7 @@ export const PREGUNTAS: PreguntaMP[] = [
     ref: "14",
     ops: ["La declaración que firma el expedidor", "La información escrita al comandante sobre las mercancías peligrosas a bordo", "El listado de la IATA con todas las sustancias"],
     ok: 1,
-    explica: "Es la información escrita al piloto al mando (175.515). La declaración del expedidor es otro documento, y es la fuente con la que se arma.",
+    explica: "Es la información escrita al piloto al mando. La declaración del expedidor es otro documento, y es la fuente con la que se arma.",
   },
   {
     id: "p4",
@@ -474,7 +475,7 @@ export const PREGUNTAS: PreguntaMP[] = [
     ref: "13",
     ops: ["Lo acepto si va estibado lejos de la cabina", "Lo acepto si el expedidor lo aprueba por escrito", "No sale: ese bulto no puede ir en una aeronave con pasajeros"],
     ok: 2,
-    explica: "No sale. Un bulto de solo aeronaves de carga está prohibido en un vuelo con pasajeros (Capítulo F, Carga y estiba, (c)).",
+    explica: "No sale. Un bulto de solo aeronaves de carga está prohibido en un vuelo con pasajeros.",
   },
   {
     id: "p5",
@@ -482,6 +483,6 @@ export const PREGUNTAS: PreguntaMP[] = [
     ref: "15",
     ops: ["Informar al ATC qué mercancía llevas", "Volar la aeronave y gestionar el humo", "Consultar el NOTOC para identificar la sustancia"],
     ok: 1,
-    explica: "Primero se vuela. Identificar con el NOTOC y avisar al ATS vienen enseguida, pero después (175.620 (e)).",
+    explica: "Primero se vuela. Identificar con el NOTOC y avisar al ATS vienen enseguida, pero después.",
   },
 ]

@@ -189,7 +189,7 @@ export function Mercancias() {
               <p className="mt-4 max-w-[56ch] text-[16px] leading-[1.55] text-white/80">
                 Las nueve clases, quién responde por qué, lo que puede volar y lo que no, el
                 documento que firmas antes de cada salida y qué hacer si algo pasa en vuelo. Es lo
-                que te preguntan en una entrevista técnica, y cada respuesta trae su artículo.
+                que te preguntan en una entrevista técnica.
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">

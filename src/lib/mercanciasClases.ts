@@ -91,7 +91,7 @@ export const CLASES: ClaseMP[] = [
     ],
     rombos: ["1-1", "1-4"],
     ge: false,
-    nota: "Las divisiones describen el tipo de peligro, no una escala del 1 al 6: la 1.5 vuelve a tener peligro de explosión en masa. Las etiquetas de 1.1, 1.2, 1.5 y 1.6 llevan la advertencia de que normalmente esos bultos no se transportan por vía aérea (Apéndice 1).",
+    nota: "Las divisiones describen el tipo de peligro, no una escala del 1 al 6: la 1.5 vuelve a tener peligro de explosión en masa. Las etiquetas de 1.1, 1.2, 1.5 y 1.6 llevan la advertencia de que normalmente esos bultos no se transportan por vía aérea.",
   },
   {
     n: "2",
@@ -109,7 +109,7 @@ export const CLASES: ClaseMP[] = [
     ],
     rombos: ["2-1", "2-2", "2-3"],
     ge: false,
-    nota: "El rombo cambia con la división: rojo el inflamable, verde el no inflamable y blanco con calavera el tóxico. La 2.2 sin riesgo secundario es una de las admitidas en cantidades exceptuadas (175.130 (c) (1)).",
+    nota: "El rombo cambia con la división: rojo el inflamable, verde el no inflamable y blanco con calavera el tóxico. La 2.2 sin riesgo secundario es una de las admitidas en cantidades exceptuadas.",
   },
   {
     n: "3",
@@ -120,11 +120,11 @@ export const CLASES: ClaseMP[] = [
       "Despiden vapores inflamables por debajo de 60,5 °C en crisol cerrado o 65,6 °C en crisol abierto: el punto de inflamación.",
     definicion:
       "Líquidos, mezclas de líquidos o líquidos que contienen sólidos en solución o en suspensión (por ejemplo pinturas, barnices y lacas, pero no las sustancias con otra clasificación por sus características peligrosas) que despiden vapores inflamables a temperaturas que no exceden de 60,5 °C en crisol cerrado o de 65,6 °C en crisol abierto: el punto de inflamación. Comprende también los explosivos insensibilizados líquidos.",
-    ejemplos: ["Gasolina", "Pinturas, barnices y lacas (ejemplo del RAC)", "Thinner", "Perfumes", "Algunos adhesivos"],
+    ejemplos: ["Gasolina", "Pinturas, barnices y lacas", "Thinner", "Perfumes", "Algunos adhesivos"],
     divisiones: [],
     rombos: ["3"],
     ge: true,
-    nota: "Ojo con lo que añade cada país: en Colombia, por ejemplo, la clase 3 combustibles está prohibida en aeronaves monomotores y en aviación civil privada, salvo lo que el 175.715 permite a pasajeros y tripulantes (RAC 175.115). Lo ves en el nivel 3.",
+    nota: "Ojo con lo que añade cada país: en Colombia, por ejemplo, la clase 3 combustibles está prohibida en aeronaves monomotores y en aviación civil privada, salvo las excepciones para pasajeros y tripulantes. Lo ves en el nivel 3.",
   },
   {
     n: "4",
@@ -229,7 +229,7 @@ export const CLASES: ClaseMP[] = [
       "Todo material que contenga radionucleídos en los cuales tanto la concentración de actividad como la actividad total del envío excedan los valores especificados en las Instrucciones Técnicas.",
     ejemplos: ["Isótopos médicos", "Equipos de medición nuclear"],
     divisiones: [],
-    subgruposTitulo: "Categorías de etiqueta (Apéndice 1)",
+    subgruposTitulo: "Categorías de etiqueta",
     subgrupos: [
       { id: "I", txt: "Blanca: fondo blanco, una franja roja" },
       { id: "II", txt: "Amarilla: mitad superior amarilla, dos franjas rojas, índice de transporte" },
@@ -251,7 +251,7 @@ export const CLASES: ClaseMP[] = [
     divisiones: [],
     rombos: ["8"],
     ge: true,
-    nota: "Fíjate en el doble criterio de la definición: daño a tejidos vivos y daño a la carga o al medio de transporte. Los grupos II y III están admitidos en cantidades exceptuadas (175.130 (c) (7)).",
+    nota: "Fíjate en el doble criterio de la definición: daño a tejidos vivos y daño a la carga o al medio de transporte. Los grupos II y III están admitidos en cantidades exceptuadas.",
   },
   {
     n: "9",
@@ -263,14 +263,14 @@ export const CLASES: ClaseMP[] = [
       "Sustancias y objetos peligrosos varios, incluidas las sustancias potencialmente peligrosas para el medio ambiente: sustancias y objetos que, durante el transporte por vía aérea, presentan un riesgo distinto de los correspondientes a las demás clases.",
     ejemplos: [
       "Baterías de litio",
-      "Hielo seco, dióxido de carbono sólido (ejemplo del RAC)",
+      "Hielo seco, dióxido de carbono sólido",
       "Imanes: material magnetizado",
-      "Motores de combustión interna (ejemplo del RAC)",
-      "Equipos de salvamento de inflado automático (ejemplo del RAC)",
-      "Asbesto (ejemplo del RAC)",
+      "Motores de combustión interna",
+      "Equipos de salvamento de inflado automático",
+      "Asbesto",
     ],
     divisiones: [],
-    subgruposTitulo: "Grupos que nombra el RAC",
+    subgruposTitulo: "Grupos que incluye la clase",
     subgrupos: [
       { id: "A", txt: "Sustancias potencialmente peligrosas para el medio ambiente acuático" },
       { id: "B", txt: "Sustancias a temperaturas elevadas: 100 °C o más en líquido, 240 °C o más en sólido" },

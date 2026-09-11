@@ -179,7 +179,10 @@ export interface FichasBlock {
   items: {
     titulo: string
     ref?: string
-    puntos: string[]
+    /** La explicación. Puede faltar: con foto y solo el nombre, cuando la foto ya lo explica. */
+    puntos?: string[]
+    /** El rótulo sobre la explicación, si no es «En palabras fáciles de entender». */
+    puntosRotulo?: string
     nota?: string
     /** Foto encima de la ficha. Con foto o hueco, la ficha pasa a la versión con imagen. */
     imagen?: FotoFicha
