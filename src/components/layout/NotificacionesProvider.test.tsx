@@ -108,24 +108,27 @@ const consultasA = (tabla: string, sinUpdate = true) =>
   llamadas.filter((l) => l.tabla === tabla && (!sinUpdate || !l.metodos.some(([m]) => m === "update"))).length
 
 describe("NotificacionesProvider", () => {
-  it("al entrar evalúa los logros una vez y después se suscribe", async () => {
+  it("al entrar evalúa los logros una vez, trae los avisos y se suscribe", async () => {
     await montar()
 
     expect(supabase.rpc).toHaveBeenCalledTimes(1)
     expect(supabase.rpc).toHaveBeenCalledWith("check_and_unlock_achievements", { p_user_id: "piloto-1" })
     expect(supabase.channel).toHaveBeenCalledWith("notifs:piloto-1")
-    // Hasta que el canal no queda suscrito no se pide nada: lo que se pida antes podría perder un evento.
-    expect(llamadas).toHaveLength(0)
+    // Sin esperar a Realtime: si el socket no conecta, la lista igual llega.
+    expect(consultasA("notifications")).toBe(1)
+    expect(valor.notifications.map((n) => n.id)).toEqual([2, 1])
   })
 
-  it("al quedar suscrito trae los avisos y muestra los logros pendientes, una vez cada uno", async () => {
+  it("al quedar suscrito vuelve a traer y muestra cada logro pendiente una sola vez", async () => {
     await montar()
     alCambiarEstado("SUBSCRIBED")
     await drenar()
 
+    expect(consultasA("notifications")).toBe(2)
     expect(valor.notifications.map((n) => n.id)).toEqual([2, 1])
     expect(valor.unreadCount).toBe(1)
-    expect(toast.success).toHaveBeenCalledTimes(1)
+    // Se pidió dos veces (al entrar y al suscribirse); el id del toast evita que se vea dos.
+    expect(new Set(toast.success.mock.calls.map((c) => c[1].id))).toEqual(new Set(["logro-7"]))
     expect(toast.success.mock.calls[0][1]).toMatchObject({ id: "logro-7", description: "Primer paso: Elegiste tu etapa" })
     const visto = llamadas.find((l) => l.metodos.some(([m]) => m === "update"))
     expect(visto?.metodos).toContainEqual(["update", { seen: true }])
@@ -170,14 +173,14 @@ describe("NotificacionesProvider", () => {
     await montar()
     alCambiarEstado("SUBSCRIBED")
     await drenar()
-    expect(consultasA("notifications")).toBe(1)
+    expect(consultasA("notifications")).toBe(2)
 
     avisos = [aviso(9, "streak_at_risk"), ...avisos]
     alCambiarEstado("CHANNEL_ERROR")
     alCambiarEstado("SUBSCRIBED")
     await drenar()
 
-    expect(consultasA("notifications")).toBe(2)
+    expect(consultasA("notifications")).toBe(3)
     expect(valor.notifications[0].id).toBe(9)
   })
 

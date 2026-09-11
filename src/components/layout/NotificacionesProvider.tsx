@@ -10,9 +10,9 @@ import { NotificacionesContext, type Notification, type Notificaciones } from "@
  *
  * Se monta una vez, en AppLayout, con una sola suscripción de Realtime a las
  * filas de `notifications` del piloto:
- * - Cada vez que el canal queda suscrito (al entrar y al reconectar) se trae la
- *   lista y se muestran los logros pendientes: lo que llegó sin conexión no se
- *   pierde.
+ * - La lista y los logros pendientes se traen al abrir la sesión y otra vez cada
+ *   vez que el canal queda suscrito (al entrar y al reconectar): lo que llegó
+ *   sin conexión no se pierde, y si Realtime no conecta la lista igual llega.
  * - Un aviso nuevo entra a la lista; si es de un logro, sale su toast.
  *
  * Los logros los desbloquea la base, con disparadores en cada tabla que los
@@ -112,6 +112,8 @@ export function NotificacionesProvider({ children }: { children: ReactNode }) {
       const { error } = await supabase.rpc("check_and_unlock_achievements", { p_user_id: userId })
       if (error) console.warn("check_and_unlock_achievements", error.message)
       if (!vivo) return
+      void refresh()
+      void mostrarLogrosPendientes(userId)
 
       canal = supabase
         .channel(`notifs:${userId}`)
