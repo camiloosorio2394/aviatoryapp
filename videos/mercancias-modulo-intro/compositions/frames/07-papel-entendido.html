@@ -1,6 +1,6 @@
 <template>
   <!-- ═══════════════════════════════════════════════════════════════════════
-       FRAME 07 — «El mismo papel, entendido» · 1920×1080 · 10.194s
+       FRAME 07 — «El mismo papel, entendido» · 1920×1080 · 9.907s
 
        ESTE FRAME CALCA EL FRAME 02. El espectador vio este papel en la escena 2
        y tiene que RECONOCERLO: si el encuadre no coincide, el video pierde su
@@ -27,7 +27,7 @@
        byte por el generador. Sin recortes, sin filas inventadas, sin completar
        AV0000 / 00MMM / HK-XXXX, sin pies añadidos.
 
-       LO ÚNICO QUE CAMBIA RESPECTO AL FRAME 02
+       LO ÚNICO QUE CAMBIA RESPECTO AL FRAME 02 (todo entra DESPUÉS de 1.4s)
          1. Las dos filas de datos `1FL` (PAINT y SULPHURIC ACID) se quedan a
             plena tinta; las otras nueve líneas bajan al 45%. Nadie se mueve de
             sitio: solo cambia el peso.
@@ -35,8 +35,33 @@
             1350.6→1581) toma el acento mostaza BRILLANTE #DEB042. El mostaza
             oscuro #7A5C12 da 2.6:1 sobre #151618 y no se lee; #DEB042 es la
             misma familia a mayor luminosidad — el token que ya usa el Frame 01.
-         3. Entra una banda con `CLASE 3 Y CLASE 8 EN EL MISMO ULD`, mono, sobre
-            mostaza al 12% con borde hairline.
+         3. Cada fila recibe la etiqueta REAL de su clase, fuera del panel:
+            assets/etiquetas/clase-3.webp (líquido inflamable) con PAINT y
+            assets/etiquetas/clase-8.webp (corrosivo) con SULPHURIC ACID.
+         4. Entra una banda con `CLASE 3 Y CLASE 8 EN EL MISMO ULD`, mono,
+            RELLENO mostaza sólido #7A5C12 con texto crema (5.98:1).
+
+       DÓNDE VAN LAS ETIQUETAS (decisión razonada)
+         Filas: PAINT top 479 · ACID top 533. Centro óptico de mayúsculas
+         (JetBrains Mono: asc 1020 / desc 300 / cap 730 sobre 54px de línea) =
+         top + 26.8 → PAINT y≈506 · ACID y≈560. Solo 54px entre ellas.
+         Hueco libre a la derecha del panel: x 1660 → 1900.
+         Dos rombos de 54px apilados fila a fila serían ilegibles; lado a lado
+         obligan a que una hairline cruce la otra etiqueta. Así que van APILADOS
+         EN ABANICO: mismo orden que las filas (arriba PAINT, abajo ACID), a
+         160px (320 → 160, submuestreo exacto 2:1), con 20px entre cajas,
+         centrados en el eje de las dos filas (y=533):
+             clase 3  left 1704 · top 363 · 160×160 · centro y 443
+             clase 8  left 1704 · top 543 · 160×160 · centro y 623
+         Cada una se une a SU fila con una hairline de 1px en codo redondeado
+         (r 6) que nace 14px después del `AKE 12345 AV` (x 1595), sale del panel
+         a la altura de la fila, gira en x 1680.5 hacia fuera (arriba la de
+         PAINT, abajo la de ACID — nunca se cruzan) y muere en el VÉRTICE
+         IZQUIERDO del rombo, que cae justo en el centro y de la etiqueta.
+         Color de la hairline según el suelo que pisa: #DEB042 sobre el navy
+         (x < 1640, 8.9:1) y #7A5C12 sobre el crema (x ≥ 1640, 5.98:1). Es una
+         sola geometría recortada en dos, así que se dibuja como un solo trazo.
+         Longitud de cada trazo: 79.5 + 9.42 + 51 + 9.42 + 21.5 = 170.85px.
 
        DÓNDE VA LA BANDA (decisión razonada del keep-out)
          El panel termina en y=856 y los captions empiezan en y=900: los 44px
@@ -48,7 +73,7 @@
          a la columna del código: 333 → 1581, de la col 0 a la col 65.
          Tipografía: token «kicker» de frame.md — JetBrains Mono 28px, 0.16em,
          mayúsculas (1.46cqw, por encima del piso de legibilidad de 1.4cqw).
-         NADA en la composición baja de y=856. Keep-out respetado con holgura.
+         NADA en la composición baja de y=856 (etiquetas: fondo en y=703).
 
        CÁMARA: ninguna. El Frame 02 se permitía un acercamiento del 2% en su
        quietud; aquí el encuadre es rigurosamente fijo desde el frame 0, porque
@@ -56,15 +81,18 @@
 
        VERIFICADO: el estado de corte (t < 1.4s) de este frame renderizado en
        headless Chrome es IDÉNTICO PÍXEL A PÍXEL al estado aterrizado del
-       Frame 02 — 0 píxeles distintos de 2.073.600. Ver la nota de
-       `will-change` en .f07pe-world: es lo que iguala el rasterizado.
+       Frame 02 — 0 píxeles distintos de 2.073.600. Etiquetas, hairlines y
+       banda existen en el DOM desde t=0 pero no pintan nada hasta su palabra.
+       Ver la nota de `will-change` en .f07pe-world: es lo que iguala el
+       rasterizado.
 
-       VO (caption_groups.json, offset del frame = 42.308s → tiempos relativos):
-         «Al» 0.179 · «terminar,» 0.359–0.879 · «verás» 1.299 · «que» 1.699
-         «la» 1.839 · «pintura» 1.979–2.480 · «y el» 2.720 · «ácido» 2.980–3.399
-         «comparten» 3.759 · «contenedor.» 4.380–5.059
-         «Y por qué se pregunta» 5.759–7.019 · «antes de firmar.» 7.379–8.319
-       Los últimos 1.875s son silencio: la quietud sostenida más larga del video.
+       VO (voz regenerada en español, 9.907s, tiempos relativos al frame):
+         «Al» 0.199 · «terminar,» 0.399 · «verás» 1.5 · «que» 1.86 · «la» 1.959
+         «pintura» 2.099 · «y» 2.74 · «el» 2.859 · «ácido» 3.019
+         «comparten» 3.579 · «contenedor.» 4.219
+         «Y» 5.739 · «por» 5.859 · «qué» 6.019 · «se» 6.199 · «pregunta» 6.359
+         «antes» 7.019 · «de» 7.379 · «firmar.» 7.519
+       Todo aterriza en 4.34s; lo que sigue es quietud sostenida hasta 9.907.
        ═══════════════════════════════════════════════════════════════════ -->
 
   <style>
@@ -197,7 +225,48 @@
       color: inherit;
     }
 
-    /* ── La banda: dentro del panel, en su padding inferior libre (792→855) ── */
+    /* ── Hairlines fila → etiqueta. El SVG cubre x 1580→1900 · y 340→740 y su
+         viewBox usa coordenadas de lienzo, así que los trazos se escriben con
+         los mismos números que la rejilla. Sin relleno: no pinta nada hasta
+         que el dashoffset baja. ── */
+    .f07pe-leads {
+      position: absolute;
+      left: 1580px;
+      top: 340px;
+      width: 320px;
+      height: 400px;
+      overflow: visible;
+    }
+
+    .f07pe-lead {
+      fill: none;
+      stroke-width: 1;
+      stroke-linecap: butt;
+      stroke-linejoin: round;
+    }
+
+    /* ── Etiquetas reales de clase, fuera del panel. Sin transform en CSS: la
+         escala de entrada la pone GSAP y crece desde el vértice izquierdo,
+         donde llega la hairline. ── */
+    .f07pe-lbl {
+      position: absolute;
+      left: 1704px;
+      width: 160px;
+      height: 160px;
+      display: block;
+      transform-origin: 0% 50%;
+    }
+
+    .f07pe-lbl-3 {
+      top: 363px;
+    }
+
+    .f07pe-lbl-8 {
+      top: 543px;
+    }
+
+    /* ── La banda: dentro del panel, en su padding inferior libre (792→855).
+         Relleno mostaza sólido, texto crema. ── */
     .f07pe-band {
       position: absolute;
       left: 333px;
@@ -208,8 +277,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(222, 176, 66, 0.12);
-      border: 1px solid rgba(222, 176, 66, 0.34);
+      background: #7A5C12;
       border-radius: 6px;
     }
 
@@ -221,16 +289,16 @@
       letter-spacing: 0.16em;
       text-indent: 0.16em;
       text-transform: uppercase;
-      color: #DEB042;
+      color: #FBFAF8;
       white-space: pre;
     }
   </style>
 
-  <div id="root" data-composition-id="07-papel-entendido" data-start="0" data-duration="10.194" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="07-papel-entendido" data-start="0" data-duration="9.907" data-width="1920" data-height="1080">
 
-    <div id="frame-07-papel-entendido-ground" class="clip f07pe-ground" data-start="0" data-duration="10.194" data-track-index="0"></div>
+    <div id="frame-07-papel-entendido-ground" class="clip f07pe-ground" data-start="0" data-duration="9.907" data-track-index="0"></div>
 
-    <div id="frame-07-papel-entendido-stage" class="clip f07pe-stage" data-start="0" data-duration="10.194" data-track-index="1">
+    <div id="frame-07-papel-entendido-stage" class="clip f07pe-stage" data-start="0" data-duration="9.907" data-track-index="1">
       <div class="f07pe-world">
 
         <div class="f07pe-label">NOTOC · NOTIFICATION TO CAPTAIN</div>
@@ -256,6 +324,26 @@
           <span class="f07pe-band-tx">CLASE 3 Y CLASE 8 EN EL MISMO ULD</span>
         </div>
 
+        <!-- Hairlines: una geometría por fila, recortada en dos colores por el
+             borde del panel (x=1640). Ambas copias comparten dashoffset. -->
+        <svg class="f07pe-leads" viewBox="1580 340 320 400" width="320" height="400" aria-hidden="true">
+          <defs>
+            <clipPath id="f07pe-clip-navy"><rect x="1580" y="340" width="60" height="400"></rect></clipPath>
+            <clipPath id="f07pe-clip-paper"><rect x="1640" y="340" width="260" height="400"></rect></clipPath>
+          </defs>
+          <g clip-path="url(#f07pe-clip-navy)" stroke="#DEB042">
+            <path class="f07pe-lead f07pe-lead-3" d="M1595 506.5 H1674.5 A6 6 0 0 0 1680.5 500.5 V449.5 A6 6 0 0 1 1686.5 443.5 H1708" stroke-dasharray="172 400" stroke-dashoffset="173"></path>
+            <path class="f07pe-lead f07pe-lead-8" d="M1595 560.5 H1674.5 A6 6 0 0 1 1680.5 566.5 V617.5 A6 6 0 0 0 1686.5 623.5 H1708" stroke-dasharray="172 400" stroke-dashoffset="173"></path>
+          </g>
+          <g clip-path="url(#f07pe-clip-paper)" stroke="#7A5C12">
+            <path class="f07pe-lead f07pe-lead-3" d="M1595 506.5 H1674.5 A6 6 0 0 0 1680.5 500.5 V449.5 A6 6 0 0 1 1686.5 443.5 H1708" stroke-dasharray="172 400" stroke-dashoffset="173"></path>
+            <path class="f07pe-lead f07pe-lead-8" d="M1595 560.5 H1674.5 A6 6 0 0 1 1680.5 566.5 V617.5 A6 6 0 0 0 1686.5 623.5 H1708" stroke-dasharray="172 400" stroke-dashoffset="173"></path>
+          </g>
+        </svg>
+
+        <img class="f07pe-lbl f07pe-lbl-3" src="assets/etiquetas/clase-3.webp" width="160" height="160" alt="">
+        <img class="f07pe-lbl f07pe-lbl-8" src="assets/etiquetas/clase-8.webp" width="160" height="160" alt="">
+
       </div>
     </div>
   </div>
@@ -269,6 +357,10 @@
       var rest = ROOT.querySelectorAll('.f07pe-ln:not(.f07pe-hi)');
       var uldPaint = ROOT.querySelector('#f07pe-uld-paint');
       var uldAcid = ROOT.querySelector('#f07pe-uld-acid');
+      var lead3 = ROOT.querySelectorAll('.f07pe-lead-3');
+      var lead8 = ROOT.querySelectorAll('.f07pe-lead-8');
+      var lbl3 = ROOT.querySelector('.f07pe-lbl-3');
+      var lbl8 = ROOT.querySelector('.f07pe-lbl-8');
       var band = ROOT.querySelector('.f07pe-band');
       var bandTx = ROOT.querySelector('.f07pe-band-tx');
 
@@ -277,62 +369,87 @@
          ensamblado: la rejilla YA está en pantalla desde el frame 0, calcada
          del Frame 02. Lo que sobrevive del blueprint es su verbo de
          desénfasis — «dim-by-position de-emphasis» (opacidad por posición de
-         fila) — y el «pill / label mask-wipe» de la banda. La cascada de
-         llegada la gastó el Frame 02; repetirla rompería el reconocimiento.
+         fila) —, el «tethered-card spring-in» sin muelle (etiqueta unida a su
+         fila por una hairline) y el «pill / label mask-wipe» de la banda. La
+         cascada de llegada la gastó el Frame 02; repetirla rompería el
+         reconocimiento.
          ──────────────────────────────────────────────────────────────── */
 
       var tl = gsap.timeline({ paused: true });
 
-      /* Scene 1 (0.0–1.4s) — CORTE SECO. Ni un tween. Durante segundo y medio
-         la imagen es exactamente la del Frame 02: el panel completo, el NOTOC
-         entero, todas las líneas al mismo peso. El sujeto es visible en t=0,
-         muy por delante del límite de 0.5s. Corre bajo «Al terminar,». */
+      /* Scene 1 (0.0–1.5s) — CORTE SECO. Ni un tween antes de 1.5s. La imagen
+         es exactamente la del Frame 02: el panel completo, el NOTOC entero,
+         todas las líneas al mismo peso. Etiquetas, hairlines y banda están en
+         el DOM pero no pintan (opacidad 0 / dashoffset fuera del trazo / clip
+         cerrado, fijados por los fromTo). El sujeto es visible en t=0. Corre
+         bajo «Al terminar,». */
 
-      /* Scene 2a (1.4–2.44s) — el resto del NOTOC baja al 45%. Nueve líneas,
-         stagger de 0.022 arriba→abajo (0.176s de punta a punta) para que se
-         lea como UN gesto con una leve caída, no como nueve fundidos. Nada se
-         desplaza: solo cambia el peso. Arranca en «verás» (1.299 → 1.399). */
+      /* Scene 2a (1.5–2.54s) — el resto del NOTOC baja al 45% en «verás»
+         (1.5). Nueve líneas, stagger de 0.022 arriba→abajo (0.176s de punta a
+         punta): UN gesto con una leve caída, no nueve fundidos. Nada se
+         desplaza: las dos filas 1FL se quedan a plena tinta. */
       tl.fromTo(rest,
         { opacity: 1 },
         { opacity: 0.45, duration: 0.86, ease: 'power2.inOut', stagger: 0.022 },
-        1.399);
+        1.5);
 
-      /* Scene 2b (1.98–3.40s) — el acento mostaza brillante aterriza en el
-         `AKE 12345 AV` de cada fila, cada uno en su palabra: PAINT en
-         «pintura» (1.979) y SULPHURIC ACID en «ácido» (2.980). Es un cambio de
-         color, no de posición: el contenedor compartido se nombra solo. */
+      /* Scene 2b — PAINT en «pintura» (2.099): su `AKE 12345 AV` toma el
+         mostaza brillante, la hairline sale de la fila y dibuja el codo hacia
+         arriba, y la etiqueta de clase 3 aterriza en el vértice donde muere el
+         trazo (fundido + 0.92→1 desde el vértice izquierdo, sin overshoot). */
       tl.fromTo(uldPaint,
         { color: '#FBFAF8' },
         { color: '#DEB042', duration: 0.42, ease: 'power2.out' },
-        1.979);
+        2.099);
 
+      tl.fromTo(lead3,
+        { attr: { 'stroke-dashoffset': 173 } },
+        { attr: { 'stroke-dashoffset': 0 }, duration: 0.3, ease: 'power2.out' },
+        2.099);
+
+      tl.fromTo(lbl3,
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.46, ease: 'power2.out' },
+        2.099);
+
+      /* Scene 2c — SULPHURIC ACID en «ácido» (3.019): el mismo gesto, con el
+         codo hacia abajo hasta la etiqueta de clase 8. */
       tl.fromTo(uldAcid,
         { color: '#FBFAF8' },
         { color: '#DEB042', duration: 0.42, ease: 'power2.out' },
-        2.980);
+        3.019);
 
-      /* Scene 3 (4.0–10.194s) — la banda entra en «comparten» (3.759 → 4.019):
-         primero la superficie mostaza al 12% con su hairline, un fundido corto
-         de 0.5s; después el rótulo se descubre de izquierda a derecha con un
-         mask-wipe de clip-path que termina en 4.92s, justo cuando la voz cierra
-         «contenedor.» (5.059). No hay overshoot: el registro de frame.md son
-         disolvencias cortas y el mostaza como único «draw-on». */
+      tl.fromTo(lead8,
+        { attr: { 'stroke-dashoffset': 173 } },
+        { attr: { 'stroke-dashoffset': 0 }, duration: 0.3, ease: 'power2.out' },
+        3.019);
+
+      tl.fromTo(lbl8,
+        { opacity: 0, scale: 0.92 },
+        { opacity: 1, scale: 1, duration: 0.46, ease: 'power2.out' },
+        3.019);
+
+      /* Scene 3 (3.579–4.34s) — la banda entra en «comparten» (3.579): el
+         relleno mostaza sólido se dibuja de izquierda a derecha con un
+         clip-path (el mostaza como único «draw-on» de frame.md) y el rótulo
+         crema se descubre detrás de su borde, siempre por detrás del frente
+         del relleno. Aterriza en 4.34s, bajo «contenedor.» (4.219). */
       tl.fromTo(band,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.5, ease: 'power2.out' },
-        4.019);
+        { clipPath: 'inset(0% 100% 0% 0%)' },
+        { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.52, ease: 'power2.inOut' },
+        3.579);
 
       tl.fromTo(bandTx,
         { clipPath: 'inset(0% 100% 0% 0%)' },
-        { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.66, ease: 'power2.out' },
-        4.259);
+        { clipPath: 'inset(0% 0% 0% 0%)', duration: 0.58, ease: 'power2.out' },
+        3.759);
 
-      /* Scene 3 (cola, 4.92–10.194s) — QUIETUD SOSTENIDA, 5.27s, la más larga
+      /* Scene 3 (cola, 4.34–9.907s) — QUIETUD SOSTENIDA, 5.57s, la más larga
          del video. Nada entra, nada sale, nada se mueve: la imagen aterrizada
          se queda quieta bajo «Y por qué se pregunta antes de firmar» y sigue
-         quieta 1.875s de silencio después. Sin tween de salida — el frame no es
+         quieta en el silencio posterior. Sin tween de salida — el frame no es
          el último y la transición raíz es la salida. */
-      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 10.193);
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 9.906);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['07-papel-entendido'] = tl;

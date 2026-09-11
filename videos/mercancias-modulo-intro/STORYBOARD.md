@@ -42,7 +42,7 @@ entero.
 
 - status: animated
 - src: compositions/frames/01-apertura.html
-- duration: 5.98s
+- duration: 5.667s
 - transition_in: cut
 - blueprint: titlecard-reveal (Adapt)
 - scene: Rótulo del módulo sobre navy; el título entra y se asienta.
@@ -62,7 +62,7 @@ Scene 3 (2.4–3.6s): una hairline en acento `#7A5C12` se dibuja bajo **PELIGROS
 
 - status: animated
 - src: compositions/frames/02-el-papel.html
-- duration: 8.227s
+- duration: 9.011s
 - transition_in: cut
 - blueprint: zoom-out-workspace-reveal (Adapt)
 - scene: El NOTOC completo sobre superficie de código navy. Ilegible: se lee como una rejilla de datos, no como información.
@@ -102,7 +102,7 @@ Scene 3 (3.0–7.8s): quietud declarada. Un acercamiento imperceptible (2%) sobr
 
 - status: animated
 - src: compositions/frames/03-por-que-existe.html
-- duration: 6.973s
+- duration: 6.686s
 - transition_in: cut
 - blueprint: kinetic-type-beats (Adapt)
 - scene: La cadena de la norma, de lo mundial a lo nacional, con el caso que la fundó al pie.
@@ -122,7 +122,7 @@ Scene 3 (2.8–4.2s): al pie entra `ValuJet 592 · NTSB/AAR-97/06` en mono peque
 
 - status: animated
 - src: compositions/frames/04-identificar.html
-- duration: 7.339s
+- duration: 7.234s
 - transition_in: cut
 - blueprint: grid-card-assemble (Reproduce)
 - scene: Las nueve clases como rejilla de nueve celdas numeradas; debajo, etiquetas y grupos de embalaje.
@@ -143,7 +143,7 @@ Scene 3 (3.0–4.5s): una hairline mostaza subraya la fila de rótulos. Quietud 
 
 - status: animated
 - src: compositions/frames/05-que-vuela.html
-- duration: 6.581s
+- duration: 6.163s
 - transition_in: cut
 - blueprint: spatial-pan-stations (Adapt)
 - scene: Tres columnas: permitido, permitido con condiciones, prohibido. La tercera se cierra.
@@ -163,7 +163,7 @@ Scene 3 (2.5–3.8s): al pie entra la banda `CAO · SOLO AERONAVE DE CARGA` en m
 
 - status: animated
 - src: compositions/frames/06-el-notoc.html
-- duration: 7.208s
+- duration: 7.391s
 - transition_in: cut
 - blueprint: kinetic-type-beats (Adapt)
 - scene: Los ocho encabezados de columna del NOTOC, en fila, revelándose uno a uno.
@@ -183,7 +183,7 @@ Scene 3 (4.4–6.0s): entra `DRILL CODE` al pie, en acento mostaza, separado por
 
 - status: animated
 - src: compositions/frames/07-papel-entendido.html
-- duration: 10.194s
+- duration: 9.907s
 - transition_in: cut
 - blueprint: grid-card-assemble (Adapt)
 - scene: El NOTOC vuelve idéntico al Frame 2. Dos líneas se encienden y una banda nombra lo que comparten.
@@ -224,7 +224,7 @@ Scene 3 (4.0–8.2s): una banda entra bajo el panel, en mostaza al 12% con borde
 
 - status: animated
 - src: compositions/frames/08-empecemos.html
-- duration: 6.372s
+- duration: 6.686s
 - transition_in: cut
 - blueprint: logo-assemble-lockup (Adapt)
 - scene: El cierre: qué trae el módulo y la palabra final.

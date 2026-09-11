@@ -283,11 +283,11 @@
     }
   </style>
 
-  <div data-hf-id="hf-ztyh" id="root" data-composition-id="06-casilla-e" data-start="0" data-duration="7.003" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-ztyh" id="root" data-composition-id="06-casilla-e" data-start="0" data-duration="7.351" data-width="1920" data-height="1080">
     <!-- background: papel — full-bleed, own clip layer, full duration -->
-    <div data-hf-id="hf-60pe" class="clip" id="e6-paper" data-start="0" data-duration="5.724" data-track-index="0"></div>
+    <div data-hf-id="hf-60pe" class="clip" id="e6-paper" data-start="0" data-duration="7.351" data-track-index="0"></div>
 
-    <div data-hf-id="hf-qsi3" class="clip" id="e6-stage" data-start="0" data-duration="5.724" data-track-index="1">
+    <div data-hf-id="hf-qsi3" class="clip" id="e6-stage" data-start="0" data-duration="7.351" data-track-index="1">
       <div data-hf-id="hf-jfo2" id="e6-kicker">
         <svg data-hf-id="hf-i5bm" id="e6-spike" viewBox="0 0 24 24" aria-hidden="true">
           <g data-hf-id="hf-fvqo" stroke="#123A6B" stroke-width="2.6" stroke-linecap="round">
@@ -327,11 +327,11 @@
 
   <script>
     (function () {
-      var DUR = 5.224;
+      var DUR = 6.851;
 
-      /* the two substitution cues (scene 2 window: 1.2 - 3.4s) */
-      var SWAP_RWY = 1.52;
-      var SWAP_CLSD = 2.66;
+      /* the two substitution cues: casilla@1.399 -> RWY, e@2.419 -> CLSD */
+      var SWAP_RWY = 1.40;
+      var SWAP_CLSD = 2.42;
       var TICK = 0.12; /* selection-box flash length */
 
       window.__timelines = window.__timelines || {};
@@ -353,10 +353,10 @@
       );
 
       /* the two fields that can translate get their marker drawn left to right */
-      tl.fromTo("#e6-mark-rwy", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.66);
-      tl.fromTo("#e6-mark-clsd", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.8);
+      tl.fromTo("#e6-mark-rwy", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.61);
+      tl.fromTo("#e6-mark-clsd", { scaleX: 0 }, { scaleX: 1, duration: 0.34, ease: "power2.out" }, 0.75);
 
-      /* ---------- scene 2 (1.2-3.4s): substitution in place, token by token, by HARD CUT.
+      /* ---------- scene 2 (1.40-2.42s): substitution in place, token by token, by HARD CUT.
                     Every state change is a zero-duration set (never a callback, never a
                     fade), so a frame-by-frame seek lands on the exact state. The slots are
                     fixed width, so the line never moves — the change itself is the movement.
@@ -371,21 +371,21 @@
       tl.set("#e6-nat-clsd", { display: "inline" }, SWAP_CLSD);
       tl.set("#e6-flash-clsd", { opacity: 0 }, SWAP_CLSD + TICK);
 
-      /* ---------- scene 3 (3.4-5.224s): the reading settles, the source stays visible ---------- */
+      /* ---------- scene 3 (3.15-6.851s): the reading settles, the source stays visible ---------- */
       /* the casilla marker steps back to chrome so the line reads: pista 17L/35R cerrada.
          Tweened as colour, not opacity — nothing leaves the frame here. */
-      tl.to("#e6-w-e", { color: "rgba(22, 25, 29, 0.24)", duration: 0.36, ease: "power2.out" }, 3.42);
+      tl.to("#e6-w-e", { color: "rgba(22, 25, 29, 0.24)", duration: 0.36, ease: "power2.out" }, 3.15);
       tl.to(
         ".e6-mark",
         { backgroundColor: "rgba(22, 25, 29, 0.08)", duration: 0.4, ease: "power2.out" },
-        3.45
+        3.18
       );
 
       /* the one coral moment: the resolved reading is underlined left to right */
-      tl.fromTo("#e6-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.58, ease: "power2.out" }, 3.55);
+      tl.fromTo("#e6-underline", { scaleX: 0 }, { scaleX: 1, duration: 0.58, ease: "power2.out" }, 3.85);
 
       /* and above it, small and attenuated, where it came from */
-      tl.fromTo("#e6-origin", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.25);
+      tl.fromTo("#e6-origin", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.91);
 
       /* quietud — the shot holds. This no-op pins the timeline to the full scene length. */
       tl.set("#e6-origin", { opacity: 1 }, DUR);

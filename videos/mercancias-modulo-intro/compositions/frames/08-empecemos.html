@@ -106,23 +106,20 @@
       display: inline-block;
     }
 
-    /* the hairline sits on a navy track so the accent's screen blend always has the
-       ground beneath it, whatever stacking context the runtime puts the clip in */
+    /* the hairline's track, measured to the promise line's ink */
     .f08-empecemos-rule-track {
       position: relative;
-      height: 1px;
+      height: 3px;
       width: 100%;
       margin-top: 1.35cqw;
-      background: #14202E;
     }
 
-    /* the module accent — mostaza, the single voltage of the frame */
+    /* the module accent — bright mostaza, 3px, the single voltage of the frame */
     .f08-empecemos-rule {
       position: absolute;
       inset: 0;
-      height: 1px;
-      background: #7A5C12;
-      mix-blend-mode: screen;
+      height: 3px;
+      background: #DEB042;
       transform-origin: left center;
     }
 
@@ -137,9 +134,9 @@
   </style>
 
   <div id="root" data-composition-id="08-empecemos" data-width="1920" data-height="1080">
-    <div class="clip f08-empecemos-bg" id="f08-empecemos-bg" data-start="0" data-duration="6.372" data-track-index="0"></div>
+    <div class="clip f08-empecemos-bg" id="f08-empecemos-bg" data-start="0" data-duration="6.686" data-track-index="0"></div>
 
-    <div class="clip f08-empecemos-stage" id="f08-empecemos-stage" data-start="0" data-duration="6.372" data-track-index="1">
+    <div class="clip f08-empecemos-stage" id="f08-empecemos-stage" data-start="0" data-duration="6.686" data-track-index="1">
       <div class="f08-empecemos-mark" id="f08-empecemos-mark">AVIATORY</div>
 
       <div class="f08-empecemos-promise-wrap">
@@ -150,7 +147,7 @@
       </div>
     </div>
 
-    <div class="clip f08-empecemos-blackout" id="f08-empecemos-blackout" data-start="0" data-duration="6.372" data-track-index="2"></div>
+    <div class="clip f08-empecemos-blackout" id="f08-empecemos-blackout" data-start="0" data-duration="6.686" data-track-index="2"></div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js" id="f08-empecemos-gsap"></script>
@@ -173,39 +170,41 @@
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
-      /* ── Scene 1 (0.0–1.2s) — cut to navy; AVIATORY resolves out of defocus and settles.
+      /* ── Scene 1 (0.0–0.94s) — cut to navy; AVIATORY resolves out of defocus under "Dieciocho"
+            (0.259) and is settled by "lecciones," (0.939), where the promise line begins.
             One gesture: a rack-focus landing, not a parts build. Hero readable well before 0.5s. ── */
       tl.fromTo(mark,
         { opacity: 0 },
-        { opacity: 1, duration: 0.52, ease: 'power1.out' }, 0);
+        { opacity: 1, duration: 0.42, ease: 'power1.out' }, 0);
       tl.fromTo(mark,
         { filter: 'blur(38px)' },
-        { filter: 'blur(0px)', duration: 1.18, ease: 'power3.out' }, 0);
+        { filter: 'blur(0px)', duration: 0.94, ease: 'power3.out' }, 0);
       tl.fromTo(mark,
         { scale: 1.045 },
-        { scale: 1, duration: 1.32, ease: 'power3.out' }, 0);
+        { scale: 1, duration: 1.06, ease: 'power3.out' }, 0);
 
-      /* ── Scene 2 (1.2–2.8s) — the promise line arrives group by group, cued to the voice:
-            "…lecciones," ends 1.379 · "práctica" 1.899 · "evaluación." 2.779. Quiet fade register,
-            no overshoot — identical cues and curves to the NOTAM closer. ── */
-      var cues = [1.18, 1.80, 2.54];
+      /* ── Scene 2 (0.94–3.5s) — the promise line arrives group by group, on the voice:
+            "lecciones," 0.939 · "práctica" 2.159 · "evaluación." 3.039. Quiet fade register,
+            no overshoot — same curves as the NOTAM closer. ── */
+      var cues = [0.94, 2.16, 3.04];
       for (var i = 0; i < words.length; i++) {
         tl.fromTo(words[i],
           { opacity: 0, y: 14 },
           { opacity: 1, y: 0, duration: 0.46, ease: 'power2.out' },
-          cues[i] !== undefined ? cues[i] : 2.54);
+          cues[i] !== undefined ? cues[i] : 3.04);
       }
 
-      /* ── Scene 3 (2.8–6.372s) — the mostaza hairline draws left→right beneath the line and
-            STAYS. Long declared stillness through "Empecemos." (4.019–4.779), then the frame
-            falls to soft black on the last half second. The one exit in the video. ── */
+      /* ── Scene 3 (3.5–6.686s) — the bright mostaza hairline draws left→right beneath the line on
+            "Empecemos." (4.339) and STAYS. Declared stillness, then the frame falls to soft black
+            over the last 0.52s: 6.166 + 0.52 = 6.686, landing exactly on the scene's end.
+            The one exit in the video. ── */
       tl.fromTo(rule,
         { scaleX: 0, transformOrigin: 'left center' },
-        { scaleX: 1, transformOrigin: 'left center', duration: 0.62, ease: 'power2.inOut' }, 3.06);
+        { scaleX: 1, transformOrigin: 'left center', duration: 0.62, ease: 'power2.inOut' }, 4.339);
 
       tl.fromTo(blackout,
         { opacity: 0 },
-        { opacity: 1, duration: 0.52, ease: 'power2.inOut' }, 5.852);
+        { opacity: 1, duration: 0.52, ease: 'power2.inOut' }, 6.166);
 
       window.__timelines['08-empecemos'] = tl;
     })();
