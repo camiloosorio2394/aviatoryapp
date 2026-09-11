@@ -3,9 +3,7 @@ import { AppSidebar } from "./AppSidebar"
 import { AppTopbar } from "./AppTopbar"
 import { Wingman } from "@/components/Wingman"
 import { useAchievementToasts } from "@/hooks/useAchievementToasts"
-
-const SIDEBAR_HIDDEN_KEY = "aviatory.sidebarHidden"
-const SIDEBAR_PINNED_KEY = "aviatory.sidebarPinned"
+import { CLAVE_BARRA_FIJADA, CLAVE_BARRA_OCULTA } from "@/lib/preferenciasEquipo"
 
 /**
  * App shell:
@@ -32,7 +30,7 @@ export function AppLayout({ children, streak }: Props) {
   const [sidebarHidden, setSidebarHidden] = useState<boolean>(() => {
     if (typeof window === "undefined") return false
     try {
-      return window.localStorage.getItem(SIDEBAR_HIDDEN_KEY) === "1"
+      return window.localStorage.getItem(CLAVE_BARRA_OCULTA) === "1"
     } catch {
       return false
     }
@@ -43,7 +41,7 @@ export function AppLayout({ children, streak }: Props) {
   const [sidebarPinned, setSidebarPinned] = useState<boolean>(() => {
     if (typeof window === "undefined") return true
     try {
-      const v = window.localStorage.getItem(SIDEBAR_PINNED_KEY)
+      const v = window.localStorage.getItem(CLAVE_BARRA_FIJADA)
       return v === null ? true : v === "1"
     } catch {
       return true
@@ -52,7 +50,7 @@ export function AppLayout({ children, streak }: Props) {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(SIDEBAR_HIDDEN_KEY, sidebarHidden ? "1" : "0")
+      window.localStorage.setItem(CLAVE_BARRA_OCULTA, sidebarHidden ? "1" : "0")
     } catch {
       /* localStorage podría estar bloqueado (incógnito, etc.) — sigue */
     }
@@ -60,7 +58,7 @@ export function AppLayout({ children, streak }: Props) {
 
   useEffect(() => {
     try {
-      window.localStorage.setItem(SIDEBAR_PINNED_KEY, sidebarPinned ? "1" : "0")
+      window.localStorage.setItem(CLAVE_BARRA_FIJADA, sidebarPinned ? "1" : "0")
     } catch { /* noop */ }
   }, [sidebarPinned])
 
