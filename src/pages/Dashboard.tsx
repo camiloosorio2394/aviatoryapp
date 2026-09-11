@@ -103,7 +103,6 @@ interface DailyQuizQuestion {
 }
 
 interface Peer {
-  user_id: string
   username: string
   current_streak: number
 }
@@ -1521,7 +1520,7 @@ function CohortCard({
         <div className="flex flex-col gap-2">
           {peers.map((p) => (
             <div
-              key={p.user_id}
+              key={p.username}
               className="flex items-center gap-3 px-2 py-2 rounded-lg transition-colors hover:bg-muted/50"
             >
               <div

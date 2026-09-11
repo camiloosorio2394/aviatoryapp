@@ -21,6 +21,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { revocarConsentimiento, tieneConsentimiento } from "@/lib/dictado"
+import { validarHorasDeVuelo } from "@/lib/validacionPiloto"
 
 const USERNAME_REGEX = /^[a-z0-9_]{3,30}$/
 
@@ -294,6 +295,11 @@ export function Profile() {
     if (!user) return
     if (!usernameOK) {
       toast.error("Tu usuario no está disponible o no es válido")
+      return
+    }
+    const errorHoras = validarHorasDeVuelo(totalHours, hoursPic)
+    if (errorHoras) {
+      toast.error(errorHoras)
       return
     }
     setSaving(true)

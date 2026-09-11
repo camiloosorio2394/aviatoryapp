@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/select"
 import { LogoHorizontal } from "@/components/Logo"
 import { track, Events } from "@/lib/analytics"
+import { validarHorasDeVuelo } from "@/lib/validacionPiloto"
 
 type Stage =
   | "student_ppl"
@@ -203,6 +204,17 @@ export function Onboarding() {
     } finally {
       setSubmitting(false)
     }
+  }
+
+  function avanzar() {
+    if (step === 1) {
+      const errorHoras = validarHorasDeVuelo(form.total_hours, form.hours_pic)
+      if (errorHoras) {
+        toast.error(errorHoras)
+        return
+      }
+    }
+    setStep((s) => s + 1)
   }
 
   const isLast = step === STEPS.length - 1
@@ -477,7 +489,7 @@ export function Onboarding() {
               </Button>
             ) : (
               <Button
-                onClick={() => setStep((s) => s + 1)}
+                onClick={avanzar}
                 disabled={!canAdvance}
                 size="lg"
                 className="rounded-xl h-12 px-8 border-0 text-white disabled:opacity-50 transition-transform hover:-translate-y-0.5"
