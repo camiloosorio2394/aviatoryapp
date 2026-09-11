@@ -79,6 +79,16 @@ Así nadie ve las respuestas abriendo DevTools ni se inventa un puntaje.
   preguntas de un banco, o si los conteos que anuncia la app no cuadran con los bancos.
   **Un «pon a prueba» de lección no debe copiar una pregunta de evaluación.**
 
+## Cabeceras de seguridad (vercel.json)
+
+La app sale con una **Content-Security-Policy estricta**: scripts solo del propio dominio (y el
+script del tema de `index.html`, autorizado por hash), conexiones solo a Supabase, fuentes
+de Google Fonts, sin iframes. Si algo nuevo carga de otro dominio (un video embebido, una
+librería por CDN, otra API), **hay que agregar ese dominio a la directiva que toque en
+`vercel.json`**; si no, el navegador lo bloquea en producción aunque en `npm run dev` funcione.
+Si se cambia el script en línea de `index.html`, cambia su hash: `src/cabecerasHttp.test.ts`
+falla y dice cuál poner.
+
 ## Cómo se enseña aquí
 
 El alumno es **un piloto que prepara entrevista de aerolínea**, no personal de tierra ni
