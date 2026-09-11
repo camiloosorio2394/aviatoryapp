@@ -156,10 +156,10 @@
     }
   </style>
 
-  <div data-hf-id="hf-m6ol" id="root" data-composition-id="05-linea-q" data-duration="10.761" data-width="1920" data-height="1080">
-    <div data-hf-id="hf-u435" id="lq05-bg" class="clip" data-start="0" data-duration="10.761" data-track-index="0"></div>
+  <div data-hf-id="hf-m6ol" id="root" data-composition-id="05-linea-q" data-duration="10.143" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-u435" id="lq05-bg" class="clip" data-start="0" data-duration="10.143" data-track-index="0"></div>
 
-    <div data-hf-id="hf-uz0t" id="lq05-scene" class="clip" data-start="0" data-duration="10.761" data-track-index="1">
+    <div data-hf-id="hf-uz0t" id="lq05-scene" class="clip" data-start="0" data-duration="10.143" data-track-index="1">
       <div data-hf-id="hf-ohpy" id="lq05-world" data-layout-allow-overflow>
         <!-- field names, one per station -->
         <div data-hf-id="hf-qpok" class="lq05-label" id="lq05-l1" style="left: -138.24px">FIR</div>
@@ -238,20 +238,20 @@
       var PAN_S = 2.2;
       var STOP = [1012.35, 1012.35, 811.0, 495.6, 225.3, -45.1, -405.5, -1012.35];
 
-      // ── voice map (assets/voice/05.wav · 9.561s, then 1.2s de quietud) ───
-      // "Vas a leer la línea cu,"  0.239–2.059   → the line lands, camera dives in
-      // "pieza por pieza."         2.659–3.859   → the eight-field walk
-      //  (silence 3.859–4.779)                   → the last two fields breathe
-      // "Y los ítems,"             4.779–5.679   → pan down onto the column
-      // "de la A a la G,"          6.119–7.599   → A) … G) enumerate
-      // "uno por uno."             8.539–9.299   → pull back, both in frame
-      //  9.44–10.761                             → absolute stillness
+      // ── voice map (assets/voice/05.wav regenerada · escena 10.143s) ─────────
+      // "Vas a leer la línea cu,"  0.239–1.860   → the line lands, camera dives in on "línea" (1.100)
+      // "pieza por pieza."         2.419–3.580   → the eight-field walk, BEAT[3] on "pieza" (2.419)
+      //  (silence 3.580–4.500)                   → the last two fields breathe
+      // "Y los ítems,"             4.500–5.580   → pan down onto the column, leaving on "los" (4.639)
+      // "de la A a la G,"          6.039–7.519   → A) … G) enumerate, G) lands after "G," (7.399)
+      // "uno por uno."             8.059–9.000   → pull back on "uno", 3/4 on "uno." (8.599)
+      //  9.08–10.143                             → absolute stillness
 
       // Arrival beat per field — 0.44s apart (was 0.346), so every field now
       // holds ~0.18s dead still after the pan lands before the next one starts.
-      var BEAT = [1.26, 1.70, 2.14, 2.58, 3.02, 3.46, 3.90, 4.34];
+      var BEAT = [1.10, 1.54, 1.98, 2.42, 2.86, 3.30, 3.74, 4.18];
       var PAN_DUR = 0.26;         // travel time between two adjacent fields
-      var WALK_END = 4.80;        // the camera leaves the Q line here, on "Y"
+      var WALK_END = 4.66;        // the camera leaves the Q line here, on "Y los" (4.639)
 
       // Travelling read head: [x offset from the line start, width in px]
       var MARK = [
@@ -272,21 +272,21 @@
 
       gsap.set(world, CAM_S1);
 
-      // ── Scene 1 (0.0–1.26) · the real Q line lands full width on navy ────
+      // ── Scene 1 (0.0–1.10) · the real Q line lands full width on navy ────
       tl.fromTo(
         all(".lq05-ch"),
         { opacity: 0, y: 22 },
-        { opacity: 1, y: 0, duration: 0.44, ease: "power2.out", stagger: 0.03 },
+        { opacity: 1, y: 0, duration: 0.40, ease: "power2.out", stagger: 0.024 },
         0.02
       );
       tl.fromTo(
         el("#lq05-rule"),
         { scaleX: 0 },
-        { scaleX: 1, duration: 0.6, ease: "power2.out" },
-        0.45
+        { scaleX: 1, duration: 0.48, ease: "power2.out" },
+        0.41
       );
 
-      // ── Scene 2 (1.26–4.80) · the camera walks the eight fields ──────────
+      // ── Scene 2 (1.10–4.66) · the camera walks the eight fields ──────────
       // dive into station 1, arriving exactly on BEAT[0]
       tl.to(
         world,
@@ -331,41 +331,41 @@
         tl.to(label, { opacity: 0, duration: 0.18, ease: "power1.in" }, out);
       }
 
-      // ── Scene 3 (4.80–8.20) · pan down, the A)–G) column enumerates ──────
+      // ── Scene 3 (4.66–8.00) · pan down, the A)–G) column enumerates ──────
       tl.to(
         world,
         { x: 0, y: -480, scale: 1.25, duration: 0.62, ease: "power2.inOut" },
         WALK_END
       );
-      // one row every 0.38s, spanning "Y los ítems, de la A a la G"
+      // one row every 0.37s, from "ítems" (4.940) to just after "G," (7.399)
       tl.fromTo(
         all(".lq05-item"),
         { opacity: 0, y: 26 },
-        { opacity: 1, y: 0, duration: 0.44, ease: "power2.out", stagger: 0.38 },
-        5.36
+        { opacity: 1, y: 0, duration: 0.44, ease: "power2.out", stagger: 0.37 },
+        5.22
       );
       tl.fromTo(
         all(".lq05-item-rule"),
         { scaleX: 0 },
-        { scaleX: 1, duration: 0.5, ease: "power2.out", stagger: 0.38 },
-        5.42
+        { scaleX: 1, duration: 0.5, ease: "power2.out", stagger: 0.37 },
+        5.28
       );
 
-      // ── Scene 4 (8.50–9.44) · pull back so line + items share the frame ──
+      // ── Scene 4 (8.14–9.08) · pull back so line + items share the frame ──
       tl.to(
         world,
         { x: 0, y: -270, scale: 1.0, duration: 0.86, ease: "power2.inOut" },
-        8.50
+        8.14
       );
       tl.fromTo(
         el("#lq05-progress"),
         { opacity: 0, y: 14 },
         { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
-        9.02
+        8.66
       );
 
-      // hold the landed frame — 1.32s of absolute stillness to the end
-      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 10.76);
+      // hold the landed frame — 1.06s of absolute stillness to the end
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 10.142);
 
       window.__timelines = window.__timelines || {};
       window.__timelines["05-linea-q"] = tl;

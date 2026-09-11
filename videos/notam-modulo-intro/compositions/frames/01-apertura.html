@@ -159,15 +159,15 @@
     }
   </style>
 
-  <div data-hf-id="hf-f3c5" id="root" data-composition-id="01-apertura" data-start="0" data-duration="4.991" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-f3c5" id="root" data-composition-id="01-apertura" data-start="0" data-duration="5.262" data-width="1920" data-height="1080">
     <!-- fondo a sangre: capa propia con class="clip", duración completa -->
-    <div data-hf-id="hf-15p4" class="clip ap01-bg" data-start="0" data-duration="4" data-track-index="0">
+    <div data-hf-id="hf-15p4" class="clip ap01-bg" data-start="0" data-duration="5.262" data-track-index="0">
       <div data-hf-id="hf-fm8n" class="ap01-depth ap01-pool"></div>
       <div data-hf-id="hf-i35t" class="ap01-depth ap01-grid-coarse"></div>
       <div data-hf-id="hf-5ewu" class="ap01-depth ap01-grid-fine"></div>
     </div>
 
-    <div data-hf-id="hf-81b8" class="clip ap01-stage" data-start="0" data-duration="4" data-track-index="1">
+    <div data-hf-id="hf-81b8" class="clip ap01-stage" data-start="0" data-duration="5.262" data-track-index="1">
       <div data-hf-id="hf-o1s8" class="ap01-kicker">
         <span data-hf-id="hf-r0tv" class="ap01-tick"></span>
         <span data-hf-id="hf-qyp1" class="ap01-kw">INGRESO</span>
@@ -198,11 +198,11 @@
         return Array.prototype.slice.call(root.querySelectorAll(s));
       };
 
-      var D = 3.5;
+      var D = 4.762;
       window.__timelines = window.__timelines || {};
       var tl = gsap.timeline({ paused: true });
 
-      // ── Scene 1 (0.0–1.0s) ────────────────────────────────────────────────
+      // ── Scene 1 (0.0–1.62s) ────────────────────────────────────────────────
       // El campo navy ya es opaco en t=0 (color de la capa .clip). Las tres capas
       // de profundidad se asientan: retícula gruesa, retícula fina, pozo de luz.
       tl.fromTo(q(".ap01-pool"), { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0);
@@ -210,15 +210,18 @@
       tl.fromTo(q(".ap01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.06);
 
       // rótulo mono — revelado por palabra en el tercio superior
-      tl.fromTo(q(".ap01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.12);
+      tl.fromTo(q(".ap01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.219);
+      // (Bienvenido 0.219) primeras cuatro piezas; «MÓDULO» aterriza con «módulo» 1.039
+      var kws = qa(".ap01-kw");
       tl.fromTo(
-        qa(".ap01-kw"),
+        kws.slice(0, 4),
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", stagger: 0.085 },
-        0.18,
+        0.279,
       );
+      tl.fromTo(kws[4], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.44, ease: "power3.out" }, 1.039);
 
-      // ── Scene 2 (~0.9–2.3s) ───────────────────────────────────────────────
+      // ── Scene 2 (1.62–2.94s) ───────────────────────────────────────────────
       // NOTAM entra desde abajo tras la máscara y se resuelve desde el desenfoque
       // (depth-of-field-blur: se tensa la variable --dof, que lee filter: blur()).
       // Escalonado por letra, curva larga.
@@ -233,14 +236,14 @@
           ease: "power3.out",
           stagger: 0.075,
         },
-        0.86,
+        1.62,
       );
 
-      // ── Scene 3 (2.3–3.5s) ────────────────────────────────────────────────
+      // ── Scene 3 (3.5–4.762s) ────────────────────────────────────────────────
       // La hairline de acento se dibuja bajo la palabra de izquierda a derecha y
       // queda. Después, quietud: lectura sostenida, sin deriva de cámara y sin
       // salida (la transición de raíz es la salida).
-      tl.fromTo(q(".ap01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.74, ease: "power2.inOut" }, 2.3);
+      tl.fromTo(q(".ap01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.74, ease: "power2.inOut" }, 3.5);
 
       // ancla de duración completa
       tl.to({}, { duration: D }, 0);

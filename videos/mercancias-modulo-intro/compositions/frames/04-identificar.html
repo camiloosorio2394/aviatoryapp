@@ -1,43 +1,28 @@
 <template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
   <style>
-    /* ── Fonts (declared inside the template — the runtime clones only this) ── */
+    /* ── Fonts: los WOFF2 que viajan con el proyecto (assets/fonts), Google fijado como respaldo ── */
     @font-face {
-      font-family: "Archivo";
-      font-style: normal;
-      font-weight: 400;
-      font-stretch: 100%;
-      font-display: block;
-      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-      font-family: "Archivo";
-      font-style: normal;
-      font-weight: 400;
-      font-stretch: 100%;
-      font-display: block;
-      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2) format("woff2");
-      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
-    }
-    @font-face {
-      font-family: "Archivo";
+      font-family: "JetBrains Mono";
       font-style: normal;
       font-weight: 500;
-      font-stretch: 100%;
       font-display: block;
-      src: url(https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      src: url("assets/fonts/JetBrainsMono_500.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
     }
     @font-face {
       font-family: "JetBrains Mono";
       font-style: normal;
       font-weight: 500;
       font-display: block;
-      src: url(https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2) format("woff2");
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      src: url("assets/fonts/JetBrainsMono_500_ext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
     }
 
-    /* ── Frame root: styled by #root, never by a class ── */
+    /* ── Frame root: estilado por #root, nunca por una clase ── */
     #root {
       position: absolute;
       inset: 0;
@@ -45,157 +30,181 @@
       height: 1080px;
       overflow: hidden;
       container-type: size;
-      font-family: "Archivo", system-ui, sans-serif;
-      color: #16191d;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* contract selector — the shared clip box */
+    /* contract selector: la caja compartida de cada clip */
     .clip {
       position: absolute;
       inset: 0;
     }
 
-    /* ── background: warm paper, full-bleed, its own full-duration clip layer ── */
-    .f04-paper {
-      background-color: #fbfaf8;
-    }
-
-    /* ── camera (macro push-in runs underneath the whole shot) ── */
-    .f04-camera {
+    /* ── Capa 0: navy a sangre, su propio clip de duración completa ── */
+    #f04-identificar-ground {
       position: absolute;
       inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #14202E;
+    }
+
+    /* ── Capa 1: el escenario ── */
+    #f04-identificar-stage {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* cámara macro: un empuje lentísimo que se detiene cuando la hairline aterriza.
+       Origen en el centro óptico del bloque (y = 450), no del lienzo */
+    .f04-identificar-camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: 960px 450px;
+    }
+
+    /* ── La rejilla 3×3: rombos de 190px, 40px de aire entre casillas.
+       Bloque completo 74 → 826px: centrado en y = 450, lejos del corte de 900 ── */
+    .f04-identificar-grid {
+      position: absolute;
+      left: 635px;
+      top: 74px;
+      width: 650px;
+      height: 650px;
+      display: grid;
+      grid-template-columns: repeat(3, 190px);
+      grid-template-rows: repeat(3, 190px);
+      gap: 40px;
+    }
+
+    .f04-identificar-slot {
+      position: relative;
+      width: 190px;
+      height: 190px;
+    }
+
+    /* marca de casilla: establece la rejilla vacía en «Vas a reconocer»;
+       la etiqueta (opaca en su centro) la tapa al aterrizar */
+    .f04-identificar-mark {
+      position: absolute;
+      left: 88px;
+      top: 88px;
+      width: 14px;
+      height: 14px;
+    }
+    .f04-identificar-mark::before,
+    .f04-identificar-mark::after {
+      content: "";
+      position: absolute;
+      background-color: rgba(251, 250, 248, 0.22);
+    }
+    .f04-identificar-mark::before {
+      left: 6px;
+      top: 0;
+      width: 2px;
+      height: 14px;
+    }
+    .f04-identificar-mark::after {
+      left: 0;
+      top: 6px;
+      width: 14px;
+      height: 2px;
+    }
+
+    /* la etiqueta real (320×320, cuadrada): se muestra entera, sin deformar ni recortar */
+    .f04-identificar-etiqueta {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 190px;
+      height: 190px;
+      display: block;
+      object-fit: contain;
       transform-origin: 50% 50%;
     }
 
-    .f04-frame {
+    /* ── Los rótulos mono, debajo de la rejilla, con su hairline ── */
+    .f04-identificar-foot {
       position: absolute;
-      inset: 0;
-    }
-
-    /* ── section-rule: the ink hairline that seats the composition in the frame width ── */
-    .f04-rule-top {
-      position: absolute;
-      top: 5cqw;
-      left: 4.2cqw;
-      width: 91.6cqw;
-      height: 1px;
-      background-color: rgba(22, 25, 29, 0.12);
-      transform-origin: left center;
-    }
-
-    /* ── la rejilla 3×3 — nueve celdas cuadradas sobre papel ── */
-    .f04-grid {
-      position: absolute;
-      top: 6.7708cqw;
-      left: 32.3958cqw;
-      width: 35.2083cqw;
-      height: 35.2083cqw;
-      display: grid;
-      grid-template-columns: repeat(3, 10.8333cqw);
-      grid-template-rows: repeat(3, 10.8333cqw);
-      gap: 1.3542cqw;
-    }
-
-    .f04-cell {
-      position: relative;
-      width: 10.8333cqw;
-      height: 10.8333cqw;
-      border: 1px solid rgba(22, 25, 29, 0.12);
-      border-radius: 8px;
+      left: 0;
+      top: 776px;
+      width: 1920px;
       display: flex;
-      align-items: center;
       justify-content: center;
     }
 
-    /* arrival edge — lifts on landing, settles back to the resting hairline */
-    .f04-edge {
-      position: absolute;
-      inset: -1px;
-      border: 1px solid rgba(22, 25, 29, 0.24);
-      border-radius: 8px;
-      pointer-events: none;
+    .f04-identificar-foot-inner {
+      width: fit-content;
     }
 
-    .f04-cifra {
-      font-family: "Archivo", system-ui, sans-serif;
-      font-size: 5.4cqw;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.022em;
-      color: #16191d;
-      font-variant-numeric: tabular-nums;
-    }
-
-    /* ── los dos rótulos mono, debajo de la rejilla ── */
-    .f04-rotulos {
-      position: absolute;
-      top: 43.4375cqw;
-      left: 32.3958cqw;
-      width: 35.2083cqw;
-      height: 1.7cqw;
+    .f04-identificar-rotulos {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 1.05cqw;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 1.46cqw;
+      gap: 22px;
+      height: 28px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 28px;
       font-weight: 500;
-      letter-spacing: 0.16em;
       line-height: 1;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       white-space: nowrap;
+      color: rgba(251, 250, 248, 0.92);
     }
 
-    .f04-rotulo {
-      color: rgba(22, 25, 29, 0.72);
+    .f04-identificar-rotulo {
+      display: block;
+      /* recoge el tracking del último glifo para que el aire a ambos lados del punto sea igual */
+      margin-right: -0.16em;
     }
 
-    .f04-punto {
-      color: rgba(22, 25, 29, 0.42);
+    .f04-identificar-punto {
+      display: block;
+      color: #DEB042;
       letter-spacing: 0;
     }
 
-    /* ── el único momento de voltaje: la hairline mostaza que subraya los rótulos ── */
-    .f04-rule-acento {
-      position: absolute;
-      top: 45.9375cqw;
-      left: 32.3958cqw;
-      width: 35.2083cqw;
-      height: 1px;
-      background-color: #7a5c12;
+    /* hairline de 2px en mostaza brillante: mide lo mismo que la fila de rótulos */
+    .f04-identificar-rule {
+      width: 100%;
+      height: 2px;
+      margin-top: 20px;
+      background-color: #DEB042;
       transform-origin: left center;
     }
   </style>
 
   <div id="root" data-composition-id="04-identificar" data-width="1920" data-height="1080">
-    <!-- background: full-bleed warm paper on its own full-duration clip layer -->
-    <div id="f04-paper" class="clip f04-paper" data-start="0" data-duration="7.339" data-track-index="0"></div>
+    <!-- Capa 0: navy a sangre -->
+    <div id="f04-identificar-ground" class="clip" data-start="0" data-duration="7.234" data-track-index="0"></div>
 
-    <div id="f04-stage" class="clip" data-start="0" data-duration="7.339" data-track-index="1">
-      <div class="f04-camera">
-        <div class="f04-frame">
-          <div class="f04-rule-top"></div>
+    <!-- Capa 1: rejilla de etiquetas + rótulos -->
+    <div id="f04-identificar-stage" class="clip" data-start="0" data-duration="7.234" data-track-index="1">
+      <div class="f04-identificar-camera">
+        <div class="f04-identificar-grid">
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-1-1.webp" width="190" height="190" alt="Clase 1, explosivos" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-2-1.webp" width="190" height="190" alt="Clase 2, gas inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-3.webp" width="190" height="190" alt="Clase 3, líquido inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-4-1.webp" width="190" height="190" alt="Clase 4, sólido inflamable" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-5-1.webp" width="190" height="190" alt="Clase 5, comburente" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-6-1.webp" width="190" height="190" alt="Clase 6, tóxico" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-7.webp" width="190" height="190" alt="Clase 7, radiactivo" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-8.webp" width="190" height="190" alt="Clase 8, corrosivo" /></div>
+          <div class="f04-identificar-slot"><span class="f04-identificar-mark"></span><img class="f04-identificar-etiqueta" src="assets/etiquetas/clase-9.webp" width="190" height="190" alt="Clase 9, varios" /></div>
+        </div>
 
-          <div class="f04-grid">
-            <div class="f04-cell"><span class="f04-cifra">1</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">2</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">3</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">4</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">5</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">6</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">7</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">8</span><span class="f04-edge"></span></div>
-            <div class="f04-cell"><span class="f04-cifra">9</span><span class="f04-edge"></span></div>
+        <div class="f04-identificar-foot">
+          <div class="f04-identificar-foot-inner">
+            <div class="f04-identificar-rotulos">
+              <span class="f04-identificar-rotulo" id="f04-identificar-rotulo-a">Etiquetas</span>
+              <span class="f04-identificar-punto" id="f04-identificar-punto">&#183;</span>
+              <span class="f04-identificar-rotulo" id="f04-identificar-rotulo-b">Grupos de embalaje</span>
+            </div>
+            <div class="f04-identificar-rule" id="f04-identificar-rule"></div>
           </div>
-
-          <div class="f04-rotulos">
-            <span class="f04-rotulo" id="f04-rotulo-a">Etiquetas</span>
-            <span class="f04-punto" id="f04-punto">&#183;</span>
-            <span class="f04-rotulo" id="f04-rotulo-b">Grupos de embalaje</span>
-          </div>
-
-          <div class="f04-rule-acento"></div>
         </div>
       </div>
     </div>
@@ -213,67 +222,92 @@
         return Array.prototype.slice.call(scope.querySelectorAll(sel));
       };
 
-      /* Tiempos reales de audio_meta.json → voices[] con frame: 4
-         voz = 6.139s ("Vas a reconocer las nueve clases, sus etiquetas y sus grupos de embalaje.")
-         + 1.2s de remanso en quietud = 7.339s */
-      var DUR = 7.339;
-      var VOZ = 6.139;
+      /* Voz real (audio_meta.json, frame 4): 6.034s + 1.2s de quietud = 7.234s
+         Vas 0.259 · a 0.519 · reconocer 0.62 · las 1.279 · nueve 1.519 · clases, 1.819–2.319
+         sus 2.779 · etiquetas 2.98 · y 4.119 · sus 4.279 · grupos 4.5 · de 4.98 · embalaje. 5.119–5.719 */
+      var DUR = 7.234;
+      var QUIETUD = 5.9;
 
-      var celdas = qa(".f04-cell");
-      var edges = qa(".f04-edge");
+      var camara = q(".f04-identificar-camera");
+      var marcas = qa(".f04-identificar-mark");
+      var etiquetas = qa(".f04-identificar-etiqueta");
 
       var tl = gsap.timeline({ paused: true });
 
-      /* macro camera: un push lentísimo que decelera hasta pararse con la voz */
-      tl.fromTo(q(".f04-camera"), { scale: 1 }, { scale: 1.012, duration: VOZ, ease: "power1.out" }, 0);
+      /* cámara macro: empuje casi imperceptible que decelera y se detiene con la hairline */
+      tl.fromTo(camara, { scale: 1 }, { scale: 1.014, duration: QUIETUD, ease: "power2.out" }, 0);
 
-      /* ── Escena 1 — «Vas a reconocer las nueve clases» (w2 0.68 · w4 1.62 · w5 2.02–2.58)
-         grid-card-assemble: cada celda entra desde abajo, recorrido corto, directo a su casilla,
-         en orden del 1 al 9. El gesto de la escena es el ensamblado. ── */
-      tl.fromTo(q(".f04-rule-top"), { scaleX: 0 }, { scaleX: 1, duration: 0.68, ease: "power2.out" }, 0.02);
-
-      var T0 = 0.26;
-      var PASO = 0.16;
+      /* ── Escena 1a — «Vas a reconocer» (0.259–1.199)
+         la rejilla vacía se establece: nueve marcas de casilla, en orden de clase ── */
       tl.fromTo(
-        celdas,
-        { opacity: 0, y: 34, scale: 0.984 },
-        { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", stagger: PASO },
-        T0
+        marcas,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out", stagger: 0.06 },
+        0.24
+      );
+
+      /* ── Escena 1b — «las nueve clases,» (1.279–2.319)
+         grid-card-assemble: cada etiqueta aterriza en su casilla, una a una, 1 → 9.
+         Escala suave desde 0.85 + opacidad; sin rebote. La novena cierra con «clases,» ── */
+      var E0 = 1.26;
+      var PASO = 0.1;
+      tl.fromTo(
+        etiquetas,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out", stagger: PASO },
+        E0
       );
       tl.fromTo(
-        edges,
+        etiquetas,
+        { scale: 0.85 },
+        { scale: 1, duration: 0.46, ease: "power3.out", stagger: PASO },
+        E0
+      );
+      /* la marca cede su casilla a la etiqueta: no se transparenta bajo el fundido */
+      tl.fromTo(
+        marcas,
         { opacity: 1 },
-        { opacity: 0, duration: 0.62, ease: "power2.out", stagger: PASO },
-        T0 + 0.16
+        { opacity: 0, duration: 0.14, ease: "power1.in", stagger: PASO, immediateRender: false },
+        E0
       );
 
-      /* ── Escena 2 — las nueve quedan; entran los dos rótulos mono
-         «sus etiquetas» (w7 3.339) · «y» (w8 4.199) · «sus grupos de embalaje» (w10 4.619)
-         El gesto de la escena es el barrido de máscara sobre cada rótulo. ── */
+      /* ── Escena 2 — los rótulos, cada uno en su palabra ── */
+      /* «etiquetas» (2.98) */
       tl.fromTo(
-        q("#f04-rotulo-a"),
-        { clipPath: "inset(0% 100% 0% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.5, ease: "power2.out" },
-        3.26
+        q("#f04-identificar-rotulo-a"),
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.46, ease: "power2.out" },
+        2.94
       );
-      tl.fromTo(q("#f04-punto"), { opacity: 0 }, { opacity: 1, duration: 0.3, ease: "power1.out" }, 4.22);
+      /* «y» (4.119): el punto medio mostaza */
       tl.fromTo(
-        q("#f04-rotulo-b"),
-        { clipPath: "inset(0% 100% 0% 0%)" },
-        { clipPath: "inset(0% 0% 0% 0%)", duration: 0.62, ease: "power2.out" },
-        4.54
+        q("#f04-identificar-punto"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.3, ease: "power1.out" },
+        4.1
+      );
+      /* «grupos» (4.5) */
+      tl.fromTo(
+        q("#f04-identificar-rotulo-b"),
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+        4.46
       );
 
-      /* ── Escena 3 — «embalaje» (w12 5.139–5.819): la hairline mostaza subraya la fila
-         de rótulos y ahí se declara la quietud. El gesto de la escena es el trazo. ── */
-      tl.fromTo(q(".f04-rule-acento"), { scaleX: 0 }, { scaleX: 1, duration: 0.72, ease: "power2.out" }, 5.6);
-
-      /* Remanso — 6.139s → 7.339s: nada se mueve, ni la cámara. Sostiene el timeline hasta DUR. */
+      /* ── Escena 3 — «embalaje.» (5.119–5.719): la hairline mostaza subraya la fila ── */
       tl.fromTo(
-        q(".f04-camera"),
-        { scale: 1.012 },
-        { scale: 1.012, duration: DUR - VOZ, ease: "none" },
-        VOZ
+        q("#f04-identificar-rule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.7, ease: "power2.inOut" },
+        5.2
+      );
+
+      /* Quietud declarada — 5.9s → 7.234s: nada se mueve, ni la cámara. Sostiene el timeline hasta DUR. */
+      tl.fromTo(
+        camara,
+        { scale: 1.014 },
+        { scale: 1.014, duration: DUR - QUIETUD, ease: "none", immediateRender: false },
+        QUIETUD
       );
 
       window.__timelines = window.__timelines || {};

@@ -138,11 +138,11 @@
     }
   </style>
 
-  <div data-hf-id="hf-9i11" id="root" data-composition-id="02-codigo-ilegible" data-start="0" data-duration="12.981" data-width="1920" data-height="1080">
+  <div data-hf-id="hf-9i11" id="root" data-composition-id="02-codigo-ilegible" data-start="0" data-duration="11.945" data-width="1920" data-height="1080">
 
-    <div data-hf-id="hf-oxl6" class="clip f02cil-ground" data-start="0" data-duration="12.981" data-track-index="0"></div>
+    <div data-hf-id="hf-oxl6" class="clip f02cil-ground" data-start="0" data-duration="11.945" data-track-index="0"></div>
 
-    <div data-hf-id="hf-9bga" class="clip f02cil-stage" data-start="0" data-duration="12.981" data-track-index="1">
+    <div data-hf-id="hf-9bga" class="clip f02cil-stage" data-start="0" data-duration="11.945" data-track-index="1">
       <div data-hf-id="hf-qbnj" class="f02cil-world">
 
         <div data-hf-id="hf-vcdb" class="f02cil-label">NOTAM A0512/25 · SCEL</div>
@@ -208,7 +208,7 @@
          ease, shared by scale + translate, so the detail drifts from frame
          centre to its home slot as the wide takes over. The cubic profile keeps
          the opening rate of the verified 9.33s cut and spends the extra runway
-         of the 12.981s cut on a longer, softer landing. */
+         of the 11.945s cut on a longer, softer landing. */
       function pullEase(p) {
         var q = 1 - p;
         var g = 1 - q * q * q;
@@ -217,66 +217,66 @@
 
       var tl = gsap.timeline({ paused: true });
 
-      /* Scene 1 (0.0-1.919s) — macro on QMRLC, the camera already easing outward.
-         Ends on the word «sale,» (voice w5 @1.919) — audio_meta.json, frame 2. */
+      /* Scene 1 (0.0-1.959s) — macro on QMRLC, the camera already easing outward.
+         Ends on the word «sale,» (voice w5 @1.959) — audio_meta.json, frame 2. */
       tl.fromTo(world,
         { x: OPEN.x, y: OPEN.y, scale: OPEN.scale },
-        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale, duration: 1.919, ease: driftEase },
+        { x: RIDE.x, y: RIDE.y, scale: RIDE.scale, duration: 1.959, ease: driftEase },
         0);
 
-      /* Scene 2 (1.919-6.899s) — THE move: one decelerating zoom-out to the wide.
-         It starts under «...vuelo sale» (w5 1.919) so the camera is still running
+      /* Scene 2 (1.959-6.459s) — THE move: one decelerating zoom-out to the wide.
+         It starts under «...vuelo sale» (w5 1.959) so the camera is still running
          while the voice says «decide si tu vuelo sale», uncovers the Q line whole
-         (~scale 1.6 @3.9s) and then the full block, and eases to a dead stop on
-         the last word of the sentence, «aterrizar.» (w16 end @6.899). The frame is
-         LOCKED from 6.899s on; no camera tween exists after it. */
+         (~scale 1.6 @3.8s) and then the full block, and eases to a dead stop on
+         the last word of the sentence, «aterrizar.» (w13 end @6.459). The frame is
+         LOCKED from 6.459s on; no camera tween exists after it. */
       tl.fromTo(world,
         { x: RIDE.x, y: RIDE.y, scale: RIDE.scale },
-        { x: 0, y: 0, scale: 1, duration: 4.98, ease: pullEase, immediateRender: false },
-        1.919);
+        { x: 0, y: 0, scale: 1, duration: 4.5, ease: pullEase, immediateRender: false },
+        1.959);
 
       /* Scene 1 — blur-to-sharp macro resolve, chorded to the early pull */
       tl.fromTo(stage, { '--dof': '11px' }, {
         '--dof': '0px',
-        duration: 2.6,
+        duration: 2.64,
         ease: 'power2.out'
       }, 0);
 
-      /* Scene 3 (6.899-9.84s) — the frame is locked; the document presents itself.
+      /* Scene 3 (6.459-9.199s) — the frame is locked; the document presents itself.
          Chrome label + the one coral rule draw on over «Y está escrito en un
-         código» (w17 @7.639, w19 @8.099). Camera untouched. */
+         código» (w14 @7.059, w16 @7.460). Camera untouched. */
       tl.fromTo(label, { opacity: 0, y: 12 }, {
         opacity: 1,
         y: 0,
         duration: 0.62,
         ease: 'power2.out'
-      }, 7.639);
+      }, 7.059);
 
       tl.fromTo(rule, { scaleX: 0 }, {
         scaleX: 1,
         duration: 0.78,
         ease: 'power2.out'
-      }, 8.099);
+      }, 7.46);
 
-      /* Scene 4 (9.84-11.09s) — on «nadie te enseñó a leer» (w24 @9.84 ... w28
-         end @11.539) the block falls to half ink. The three fragments carry their
+      /* Scene 4 (9.199-10.449s) — on «nadie te enseñó a leer» (w21 @9.199 ... w25
+         end @10.659) the block falls to half ink. The three fragments carry their
          own colour, so they do not inherit the dim: QMRLC, BTN, CLSD stay at full
-         ink. The last tween lands at 11.09s — the voice runs out at 11.781s and
-         the closing 1.2s (11.781-12.981) are absolute stillness. */
+         ink. The last tween lands at 10.449s — the voice runs out at 10.945s and
+         the closing 1.0s (10.945-11.945) are absolute stillness. */
       tl.fromTo(code, { color: 'rgba(251,250,248,1)' }, {
         color: 'rgba(251,250,248,0.44)',
         duration: 1.25,
         ease: 'power2.inOut'
-      }, 9.84);
+      }, 9.199);
 
       tl.fromTo(inks, { backgroundColor: 'rgba(251,250,248,0)' }, {
         backgroundColor: 'rgba(251,250,248,0.12)',
         duration: 1.0,
         ease: 'power2.out'
-      }, 9.9);
+      }, 9.259);
 
       /* hold the landed frame out to the full scene length — no exit move */
-      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 12.98);
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 11.944);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['02-codigo-ilegible'] = tl;

@@ -20,674 +20,656 @@
     {
       "id": "01",
       "path": "assets/voice/01.wav",
-      "duration_s": 3.291,
+      "duration_s": 3.762,
       "words": [
         {
           "id": "w0",
           "text": "Bienvenido",
-          "start": 0.199,
-          "end": 0.799
+          "start": 0.219,
+          "end": 0.819
         },
         {
           "id": "w1",
           "text": "al",
-          "start": 0.819,
-          "end": 0.959
+          "start": 0.859,
+          "end": 1
         },
         {
           "id": "w2",
           "text": "módulo",
-          "start": 1.019,
-          "end": 1.419
+          "start": 1.039,
+          "end": 1.439
         },
         {
           "id": "w3",
           "text": "de",
-          "start": 1.439,
-          "end": 1.5
+          "start": 1.459,
+          "end": 1.519
         },
         {
           "id": "w4",
           "text": "NOTAM",
           "start": 1.62,
-          "end": 2.099
+          "end": 2.18
         },
         {
           "id": "w5",
           "text": "de",
-          "start": 2.159,
-          "end": 2.259
+          "start": 2.679,
+          "end": 2.779
         },
         {
           "id": "w6",
           "text": "Aviatory.",
-          "start": 2.319,
-          "end": 3
+          "start": 2.819,
+          "end": 3.5
         }
       ]
     },
     {
       "id": "02",
       "path": "assets/voice/02.wav",
-      "duration_s": 11.781,
+      "duration_s": 10.945,
       "words": [
         {
           "id": "w0",
           "text": "Esto",
           "start": 0.219,
-          "end": 0.539
+          "end": 0.56
         },
         {
           "id": "w1",
           "text": "decide",
-          "start": 0.579,
-          "end": 1.059
+          "start": 0.599,
+          "end": 1.1
         },
         {
           "id": "w2",
           "text": "si",
-          "start": 1.139,
-          "end": 1.24
+          "start": 1.22,
+          "end": 1.299
         },
         {
           "id": "w3",
           "text": "tu",
-          "start": 1.319,
-          "end": 1.399
+          "start": 1.419,
+          "end": 1.48
         },
         {
           "id": "w4",
           "text": "vuelo",
-          "start": 1.48,
-          "end": 1.759
+          "start": 1.559,
+          "end": 1.879
         },
         {
           "id": "w5",
           "text": "sale,",
-          "start": 1.919,
-          "end": 2.279
+          "start": 1.959,
+          "end": 2.299
         },
         {
           "id": "w6",
           "text": "por",
-          "start": 2.72,
-          "end": 2.859
+          "start": 2.96,
+          "end": 3.079
         },
         {
           "id": "w7",
           "text": "dónde",
-          "start": 2.939,
-          "end": 3.22
+          "start": 3.159,
+          "end": 3.48
         },
         {
           "id": "w8",
           "text": "entra,",
-          "start": 3.299,
-          "end": 3.699
+          "start": 3.579,
+          "end": 3.959
         },
         {
           "id": "w9",
           "text": "y",
-          "start": 4.299,
-          "end": 4.319
+          "start": 4.579,
+          "end": 4.599
         },
         {
           "id": "w10",
           "text": "qué",
-          "start": 4.5,
-          "end": 4.619
+          "start": 4.739,
+          "end": 4.859
         },
         {
           "id": "w11",
-          "text": "te",
-          "start": 4.719,
-          "end": 4.799
+          "text": "encuentras",
+          "start": 4.9,
+          "end": 5.539
         },
         {
           "id": "w12",
-          "text": "vas",
-          "start": 4.88,
-          "end": 5.099
+          "text": "al",
+          "start": 5.579,
+          "end": 5.699
         },
         {
           "id": "w13",
-          "text": "a",
-          "start": 5.159,
-          "end": 5.179
+          "text": "aterrizar.",
+          "start": 5.719,
+          "end": 6.459
         },
         {
           "id": "w14",
-          "text": "encontrar",
-          "start": 5.219,
-          "end": 5.839
+          "text": "Y",
+          "start": 7.059,
+          "end": 7.079
         },
         {
           "id": "w15",
-          "text": "al",
-          "start": 6,
-          "end": 6.099
+          "text": "está",
+          "start": 7.159,
+          "end": 7.399
         },
         {
           "id": "w16",
-          "text": "aterrizar.",
-          "start": 6.139,
-          "end": 6.899
+          "text": "escrito",
+          "start": 7.46,
+          "end": 7.899
         },
         {
           "id": "w17",
-          "text": "Y",
-          "start": 7.639,
-          "end": 7.679
-        },
-        {
-          "id": "w18",
-          "text": "está",
-          "start": 7.759,
+          "text": "en",
+          "start": 7.96,
           "end": 8.039
         },
         {
-          "id": "w19",
-          "text": "escrito",
+          "id": "w18",
+          "text": "un",
           "start": 8.099,
-          "end": 8.579
+          "end": 8.239
+        },
+        {
+          "id": "w19",
+          "text": "código",
+          "start": 8.319,
+          "end": 8.739
         },
         {
           "id": "w20",
-          "text": "en",
-          "start": 8.639,
-          "end": 8.72
+          "text": "que",
+          "start": 8.92,
+          "end": 9.02
         },
         {
           "id": "w21",
-          "text": "un",
-          "start": 8.779,
-          "end": 8.939
-        },
-        {
-          "id": "w22",
-          "text": "código",
-          "start": 9.019,
+          "text": "nadie",
+          "start": 9.199,
           "end": 9.5
         },
         {
+          "id": "w22",
+          "text": "te",
+          "start": 9.619,
+          "end": 9.679
+        },
+        {
           "id": "w23",
-          "text": "que",
-          "start": 9.559,
-          "end": 9.639
+          "text": "enseñó",
+          "start": 9.699,
+          "end": 10.159
         },
         {
           "id": "w24",
-          "text": "nadie",
-          "start": 9.84,
-          "end": 10.199
+          "text": "a",
+          "start": 10.199,
+          "end": 10.239
         },
         {
           "id": "w25",
-          "text": "te",
-          "start": 10.319,
-          "end": 10.38
-        },
-        {
-          "id": "w26",
-          "text": "enseñó",
-          "start": 10.46,
-          "end": 10.96
-        },
-        {
-          "id": "w27",
-          "text": "a",
-          "start": 11.019,
-          "end": 11.059
-        },
-        {
-          "id": "w28",
           "text": "leer.",
-          "start": 11.119,
-          "end": 11.539
+          "start": 10.319,
+          "end": 10.659
         }
       ]
     },
     {
       "id": "03",
       "path": "assets/voice/03.wav",
-      "duration_s": 4.127,
+      "duration_s": 5.251,
       "words": [
         {
           "id": "w0",
           "text": "Aquí",
-          "start": 0.179,
-          "end": 0.399
+          "start": 0.159,
+          "end": 0.439
         },
         {
           "id": "w1",
           "text": "vas",
-          "start": 0.459,
-          "end": 0.659
+          "start": 0.519,
+          "end": 0.719
         },
         {
           "id": "w2",
           "text": "a",
-          "start": 0.68,
-          "end": 0.719
+          "start": 0.759,
+          "end": 0.819
         },
         {
           "id": "w3",
           "text": "aprender",
-          "start": 0.739,
-          "end": 1.259
+          "start": 0.839,
+          "end": 1.579
         },
         {
           "id": "w4",
           "text": "qué",
-          "start": 1.319,
-          "end": 1.399
+          "start": 1.639,
+          "end": 1.839
         },
         {
           "id": "w5",
           "text": "es",
-          "start": 1.439,
-          "end": 1.559
+          "start": 1.919,
+          "end": 2.059
         },
         {
           "id": "w6",
           "text": "un",
-          "start": 1.62,
-          "end": 1.699
+          "start": 2.139,
+          "end": 2.299
         },
         {
           "id": "w7",
           "text": "NOTAM,",
-          "start": 1.74,
-          "end": 2.319
+          "start": 2.339,
+          "end": 2.96
         },
         {
           "id": "w8",
           "text": "y",
-          "start": 2.839,
-          "end": 2.879
+          "start": 3.639,
+          "end": 3.679
         },
         {
           "id": "w9",
           "text": "quién",
-          "start": 3.019,
-          "end": 3.159
+          "start": 3.899,
+          "end": 4.119
         },
         {
           "id": "w10",
           "text": "lo",
-          "start": 3.199,
-          "end": 3.299
+          "start": 4.179,
+          "end": 4.239
         },
         {
           "id": "w11",
           "text": "publica.",
-          "start": 3.359,
-          "end": 3.879
+          "start": 4.36,
+          "end": 4.959
         }
       ]
     },
     {
       "id": "04",
       "path": "assets/voice/04.wav",
-      "duration_s": 6.504,
+      "duration_s": 6.87,
       "words": [
         {
           "id": "w0",
           "text": "Vas",
-          "start": 0.299,
-          "end": 0.519
+          "start": 0.219,
+          "end": 0.419
         },
         {
           "id": "w1",
           "text": "a",
-          "start": 0.539,
-          "end": 0.62
+          "start": 0.439,
+          "end": 0.5
         },
         {
           "id": "w2",
           "text": "diferenciar",
-          "start": 0.659,
-          "end": 1.559
+          "start": 0.539,
+          "end": 1.279
         },
         {
           "id": "w3",
           "text": "un",
-          "start": 1.639,
-          "end": 1.779
+          "start": 1.419,
+          "end": 1.679
         },
         {
           "id": "w4",
           "text": "NOTAM",
-          "start": 1.799,
-          "end": 2.259
+          "start": 1.719,
+          "end": 2.2
         },
         {
           "id": "w5",
           "text": "ene,",
-          "start": 2.359,
-          "end": 2.46
+          "start": 2.299,
+          "end": 2.579
         },
         {
           "id": "w6",
           "text": "de",
-          "start": 3.299,
-          "end": 3.399
+          "start": 3.179,
+          "end": 3.279
         },
         {
           "id": "w7",
           "text": "un",
-          "start": 3.46,
-          "end": 3.579
+          "start": 3.339,
+          "end": 3.419
         },
         {
           "id": "w8",
           "text": "NOTAM",
-          "start": 3.619,
-          "end": 4.039
+          "start": 3.559,
+          "end": 4.099
         },
         {
           "id": "w9",
           "text": "erre,",
-          "start": 4.159,
-          "end": 4.44
+          "start": 4.199,
+          "end": 4.599
         },
         {
           "id": "w10",
           "text": "y",
-          "start": 5.019,
-          "end": 5.079
+          "start": 5.199,
+          "end": 5.279
         },
         {
           "id": "w11",
           "text": "de",
-          "start": 5.179,
-          "end": 5.279
+          "start": 5.339,
+          "end": 5.44
         },
         {
           "id": "w12",
           "text": "un",
-          "start": 5.339,
-          "end": 5.379
+          "start": 5.48,
+          "end": 5.599
         },
         {
           "id": "w13",
           "text": "NOTAM",
-          "start": 5.48,
-          "end": 5.819
+          "start": 5.699,
+          "end": 6.179
         },
         {
           "id": "w14",
           "text": "ce.",
-          "start": 5.94,
-          "end": 6.199
+          "start": 6.299,
+          "end": 6.579
         }
       ]
     },
     {
       "id": "05",
       "path": "assets/voice/05.wav",
-      "duration_s": 9.561,
+      "duration_s": 9.143,
       "words": [
         {
           "id": "w0",
           "text": "Vas",
           "start": 0.239,
-          "end": 0.56
+          "end": 0.439
         },
         {
           "id": "w1",
           "text": "a",
-          "start": 0.699,
-          "end": 0.759
+          "start": 0.459,
+          "end": 0.5
         },
         {
           "id": "w2",
           "text": "leer",
-          "start": 0.819,
-          "end": 1.199
+          "start": 0.56,
+          "end": 0.899
         },
         {
           "id": "w3",
           "text": "la",
-          "start": 1.259,
-          "end": 1.339
+          "start": 0.939,
+          "end": 1.059
         },
         {
           "id": "w4",
           "text": "línea",
-          "start": 1.439,
-          "end": 1.779
+          "start": 1.1,
+          "end": 1.419
         },
         {
           "id": "w5",
           "text": "cu,",
-          "start": 1.919,
-          "end": 2.059
+          "start": 1.639,
+          "end": 1.74
         },
         {
           "id": "w6",
           "text": "pieza",
-          "start": 2.659,
-          "end": 3.079
+          "start": 2.419,
+          "end": 2.779
         },
         {
           "id": "w7",
           "text": "por",
-          "start": 3.24,
-          "end": 3.339
+          "start": 2.819,
+          "end": 2.919
         },
         {
           "id": "w8",
           "text": "pieza.",
-          "start": 3.439,
-          "end": 3.859
+          "start": 3.039,
+          "end": 3.46
         },
         {
           "id": "w9",
           "text": "Y",
-          "start": 4.779,
-          "end": 4.859
+          "start": 4.5,
+          "end": 4.579
         },
         {
           "id": "w10",
           "text": "los",
-          "start": 4.92,
-          "end": 5.139
+          "start": 4.639,
+          "end": 4.819
         },
         {
           "id": "w11",
           "text": "ítems,",
-          "start": 5.179,
-          "end": 5.679
+          "start": 4.94,
+          "end": 5.46
         },
         {
           "id": "w12",
           "text": "de",
-          "start": 6.119,
-          "end": 6.159
+          "start": 6.039,
+          "end": 6.139
         },
         {
           "id": "w13",
           "text": "la",
-          "start": 6.219,
-          "end": 6.319
+          "start": 6.199,
+          "end": 6.279
         },
         {
           "id": "w14",
           "text": "A",
-          "start": 6.44,
-          "end": 6.759
+          "start": 6.399,
+          "end": 6.619
         },
         {
           "id": "w15",
           "text": "a",
-          "start": 7.259,
-          "end": 7.379
+          "start": 6.859,
+          "end": 6.879
         },
         {
           "id": "w16",
           "text": "la",
-          "start": 7.399,
-          "end": 7.5
+          "start": 6.96,
+          "end": 7.019
         },
         {
           "id": "w17",
           "text": "G,",
-          "start": 7.579,
-          "end": 7.599
+          "start": 7.159,
+          "end": 7.399
         },
         {
           "id": "w18",
           "text": "uno",
-          "start": 8.539,
-          "end": 8.72
+          "start": 8.059,
+          "end": 8.24
         },
         {
           "id": "w19",
           "text": "por",
-          "start": 8.859,
-          "end": 8.96
+          "start": 8.38,
+          "end": 8.519
         },
         {
           "id": "w20",
           "text": "uno.",
-          "start": 9.079,
-          "end": 9.299
+          "start": 8.599,
+          "end": 8.88
         }
       ]
     },
     {
       "id": "06",
       "path": "assets/voice/06.wav",
-      "duration_s": 5.303,
+      "duration_s": 5.851,
       "words": [
         {
           "id": "w0",
           "text": "Y",
-          "start": 0.199,
-          "end": 0.28
+          "start": 0.319,
+          "end": 0.34
         },
         {
           "id": "w1",
           "text": "vas",
-          "start": 0.34,
+          "start": 0.359,
           "end": 0.539
         },
         {
           "id": "w2",
           "text": "a",
-          "start": 0.599,
+          "start": 0.56,
           "end": 0.62
         },
         {
           "id": "w3",
           "text": "descifrar",
-          "start": 0.699,
-          "end": 1.24
+          "start": 0.659,
+          "end": 1.199
         },
         {
           "id": "w4",
           "text": "la",
-          "start": 1.279,
-          "end": 1.379
+          "start": 1.24,
+          "end": 1.299
         },
         {
           "id": "w5",
           "text": "casilla",
-          "start": 1.459,
-          "end": 1.959
+          "start": 1.399,
+          "end": 1.979
         },
         {
           "id": "w6",
           "text": "e,",
-          "start": 2.22,
-          "end": 2.46
+          "start": 2.419,
+          "end": 2.72
         },
         {
           "id": "w7",
           "text": "con",
-          "start": 2.919,
-          "end": 3.079
+          "start": 3.199,
+          "end": 3.419
         },
         {
           "id": "w8",
           "text": "toda",
-          "start": 3.119,
-          "end": 3.359
+          "start": 3.5,
+          "end": 3.699
         },
         {
           "id": "w9",
           "text": "su",
-          "start": 3.399,
-          "end": 3.48
+          "start": 3.759,
+          "end": 3.879
         },
         {
           "id": "w10",
           "text": "fraseología",
-          "start": 3.579,
-          "end": 4.319
+          "start": 3.899,
+          "end": 4.839
         },
         {
           "id": "w11",
           "text": "abreviada.",
-          "start": 4.4,
-          "end": 5
+          "start": 4.96,
+          "end": 5.539
         }
       ]
     },
     {
       "id": "07",
       "path": "assets/voice/07.wav",
-      "duration_s": 3.161,
+      "duration_s": 3.579,
       "words": [
         {
           "id": "w0",
           "text": "Al",
-          "start": 0.179,
-          "end": 0.319
+          "start": 0.199,
+          "end": 0.34
         },
         {
           "id": "w1",
           "text": "terminar,",
-          "start": 0.399,
-          "end": 0.919
+          "start": 0.419,
+          "end": 1.039
         },
         {
           "id": "w2",
           "text": "esto",
-          "start": 1.419,
-          "end": 1.679
+          "start": 1.579,
+          "end": 2
         },
         {
           "id": "w3",
           "text": "lo",
-          "start": 1.759,
-          "end": 1.879
+          "start": 2.039,
+          "end": 2.18
         },
         {
           "id": "w4",
           "text": "lees",
-          "start": 1.919,
-          "end": 2.22
+          "start": 2.22,
+          "end": 2.559
         },
         {
           "id": "w5",
           "text": "de",
-          "start": 2.259,
-          "end": 2.359
+          "start": 2.599,
+          "end": 2.679
         },
         {
           "id": "w6",
           "text": "corrido.",
-          "start": 2.399,
-          "end": 2.839
+          "start": 2.779,
+          "end": 3.319
         }
       ]
     },
     {
       "id": "08",
       "path": "assets/voice/08.wav",
-      "duration_s": 5.12,
+      "duration_s": 5.198,
       "words": [
         {
           "id": "w0",
@@ -698,32 +680,32 @@
         {
           "id": "w1",
           "text": "lecciones,",
-          "start": 0.599,
-          "end": 1.279
+          "start": 0.56,
+          "end": 1.339
         },
         {
           "id": "w2",
           "text": "práctica",
-          "start": 1.839,
-          "end": 2.399
+          "start": 1.819,
+          "end": 2.559
         },
         {
           "id": "w3",
           "text": "y",
-          "start": 2.579,
-          "end": 2.619
+          "start": 2.599,
+          "end": 2.659
         },
         {
           "id": "w4",
           "text": "evaluación.",
-          "start": 2.7,
-          "end": 3.439
+          "start": 2.72,
+          "end": 3.519
         },
         {
           "id": "w5",
           "text": "Empecemos.",
-          "start": 4,
-          "end": 4.739
+          "start": 4.019,
+          "end": 4.859
         }
       ]
     }
@@ -811,5 +793,5 @@
       "volume": 0.35
     }
   ],
-  "total_duration_s": 48.848
+  "total_duration_s": 50.599
 }
