@@ -1,12 +1,18 @@
 {
   "tts_provider": "heygen",
   "voice_id": "001248bb63f847888d37b766ee8b3a47",
-  "bgm": null,
+  "bgm": {
+    "path": "assets/bgm/track.mp3",
+    "volume": 0.12,
+    "query": "documental sobrio, cuerdas graves contenidas, tensión baja que resuelve en calma",
+    "mode": "retrieve",
+    "duration_s": 15
+  },
   "bgm_pending": false,
-  "bgm_provider": null,
+  "bgm_provider": "heygen",
   "bgm_pid": null,
   "bgm_log": null,
-  "bgm_mode": null,
+  "bgm_mode": "retrieve",
   "bgm_target_duration_s": null,
   "bgm_seed_duration_s": null,
   "bgm_loop_count": null,
@@ -686,6 +692,88 @@
       ]
     }
   ],
-  "sfx": [],
+  "sfx": [
+    {
+      "id": "01",
+      "name": "impacto-suave",
+      "file": "assets/sfx/impacto-suave.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 2.758,
+      "volume": 0.35
+    },
+    {
+      "id": "02",
+      "name": "zumbido-grave-descendente",
+      "file": "assets/sfx/zumbido-grave-descendente.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 5.901,
+      "volume": 0.35
+    },
+    {
+      "id": "03",
+      "name": "tic-seco",
+      "file": "assets/sfx/tic-seco.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 7.778,
+      "volume": 0.35
+    },
+    {
+      "id": "04",
+      "name": "tic-escalonado",
+      "file": "assets/sfx/tic-escalonado.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 1.334,
+      "volume": 0.35
+    },
+    {
+      "id": "05",
+      "name": "whoosh-corto",
+      "file": "assets/sfx/whoosh-corto.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 1.056,
+      "volume": 0.35
+    },
+    {
+      "id": "06",
+      "name": "tic-por-sustitución",
+      "file": "assets/sfx/tic-por-sustituci-n.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 7.778,
+      "volume": 0.35
+    },
+    {
+      "id": "07",
+      "name": "cascada-tics-suaves",
+      "file": "assets/sfx/cascada-tics-suaves.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 3.855,
+      "volume": 0.35
+    },
+    {
+      "id": "07",
+      "name": "impacto-final",
+      "file": "assets/sfx/impacto-final.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 3.454,
+      "volume": 0.35
+    },
+    {
+      "id": "08",
+      "name": "impacto-grave-cierre",
+      "file": "assets/sfx/impacto-grave-cierre.mp3",
+      "source": "heygen",
+      "offset_s": 0,
+      "duration_s": 5.28,
+      "volume": 0.35
+    }
+  ],
   "total_duration_s": 48.117
 }

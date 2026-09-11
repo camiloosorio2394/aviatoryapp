@@ -34,6 +34,10 @@
 
     /* ── Camera stage: escena recortada, lleva el resolve del foco macro ── */
     .mt02-stage {
+      /* El macro llena el cuadro, así que sin este recorte el código se mete
+         debajo de los subtítulos. Se recorta la ESCENA, no el suelo de papel:
+         abajo queda una franja de papel limpia donde se apoya el subtítulo. */
+      clip-path: inset(0 0 180px 0);
       position: absolute;
       left: 0;
       top: 0;
@@ -141,7 +145,7 @@
         <div class="mt02-rule"></div>
 
         <div class="mt02-panel">
-          <div class="mt02-code"><div class="mt02-ln">TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1520/1522 15012G22KT 6000 -RA BKN015</div><div class="mt02-ln">     <span class="mt02-ink">TEMPO</span> 1522/1602 3000 TSRA BKN010CB</div><div class="mt02-ln">     <span class="mt02-ink">FM160300</span> 09006KT 1200 BR OVC006</div><div class="mt02-ln">     <span class="mt02-ink">PROB30</span> 1604/1608 0500 FG</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1612/1614 9999 NSW SCT030</div></div>
+          <div class="mt02-code" data-layout-allow-overlap><div class="mt02-ln">TAF SKXX 151700Z 1518/1624 20008KT 9999 SCT025</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1520/1522 15012G22KT 6000 -RA BKN015</div><div class="mt02-ln">     <span class="mt02-ink">TEMPO</span> 1522/1602 3000 TSRA BKN010CB</div><div class="mt02-ln">     <span class="mt02-ink">FM160300</span> 09006KT 1200 BR OVC006</div><div class="mt02-ln">     <span class="mt02-ink">PROB30</span> 1604/1608 0500 FG</div><div class="mt02-ln">     <span class="mt02-ink">BECMG</span> 1612/1614 9999 NSW SCT030</div></div>
         </div>
 
         <div class="mt02-label mt02-label-bottom">Escenario de práctica · Lección 24</div>

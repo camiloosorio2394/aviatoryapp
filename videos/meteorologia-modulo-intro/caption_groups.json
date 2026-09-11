@@ -1,0 +1,931 @@
+{
+  "total_duration_s": 58.117,
+  "width": 1920,
+  "height": 1080,
+  "groups": [
+    {
+      "id": "caption-group-0",
+      "frame": 1,
+      "start": 0.199,
+      "end": 1.399,
+      "text": "Bienvenido al módulo de",
+      "words": [
+        {
+          "id": "caption-word-0-0",
+          "text": "Bienvenido",
+          "start": 0.199,
+          "end": 0.74
+        },
+        {
+          "id": "caption-word-0-1",
+          "text": "al",
+          "start": 0.779,
+          "end": 0.899
+        },
+        {
+          "id": "caption-word-0-2",
+          "text": "módulo",
+          "start": 0.939,
+          "end": 1.319
+        },
+        {
+          "id": "caption-word-0-3",
+          "text": "de",
+          "start": 1.36,
+          "end": 1.399
+        }
+      ]
+    },
+    {
+      "id": "caption-group-1",
+      "frame": 1,
+      "start": 1.48,
+      "end": 3.22,
+      "text": "Meteorología de Aviatory.",
+      "words": [
+        {
+          "id": "caption-word-1-0",
+          "text": "Meteorología",
+          "start": 1.48,
+          "end": 2.339
+        },
+        {
+          "id": "caption-word-1-1",
+          "text": "de",
+          "start": 2.379,
+          "end": 2.46
+        },
+        {
+          "id": "caption-word-1-2",
+          "text": "Aviatory.",
+          "start": 2.559,
+          "end": 3.22
+        }
+      ]
+    },
+    {
+      "id": "caption-group-2",
+      "frame": 2,
+      "start": 4.978,
+      "end": 7.138,
+      "text": "Este pronóstico ya dice",
+      "words": [
+        {
+          "id": "caption-word-2-0",
+          "text": "Este",
+          "start": 4.978,
+          "end": 5.318
+        },
+        {
+          "id": "caption-word-2-1",
+          "text": "pronóstico",
+          "start": 5.358,
+          "end": 6.418
+        },
+        {
+          "id": "caption-word-2-2",
+          "text": "ya",
+          "start": 6.538,
+          "end": 6.718
+        },
+        {
+          "id": "caption-word-2-3",
+          "text": "dice",
+          "start": 6.779,
+          "end": 7.138
+        }
+      ]
+    },
+    {
+      "id": "caption-group-3",
+      "frame": 2,
+      "start": 7.178,
+      "end": 8.098,
+      "text": "lo que te espera",
+      "words": [
+        {
+          "id": "caption-word-3-0",
+          "text": "lo",
+          "start": 7.178,
+          "end": 7.239
+        },
+        {
+          "id": "caption-word-3-1",
+          "text": "que",
+          "start": 7.338,
+          "end": 7.378
+        },
+        {
+          "id": "caption-word-3-2",
+          "text": "te",
+          "start": 7.479,
+          "end": 7.578
+        },
+        {
+          "id": "caption-word-3-3",
+          "text": "espera",
+          "start": 7.718,
+          "end": 8.098
+        }
+      ]
+    },
+    {
+      "id": "caption-group-4",
+      "frame": 2,
+      "start": 8.178,
+      "end": 9.538,
+      "text": "al aterrizar.",
+      "words": [
+        {
+          "id": "caption-word-4-0",
+          "text": "al",
+          "start": 8.178,
+          "end": 8.279
+        },
+        {
+          "id": "caption-word-4-1",
+          "text": "aterrizar.",
+          "start": 8.318,
+          "end": 9.538
+        }
+      ]
+    },
+    {
+      "id": "caption-group-5",
+      "frame": 2,
+      "start": 9.638,
+      "end": 11.258,
+      "text": "Y descifrarlo no sirve",
+      "words": [
+        {
+          "id": "caption-word-5-0",
+          "text": "Y",
+          "start": 9.638,
+          "end": 9.658
+        },
+        {
+          "id": "caption-word-5-1",
+          "text": "descifrarlo",
+          "start": 9.719,
+          "end": 10.578
+        },
+        {
+          "id": "caption-word-5-2",
+          "text": "no",
+          "start": 10.618,
+          "end": 10.798
+        },
+        {
+          "id": "caption-word-5-3",
+          "text": "sirve",
+          "start": 10.858,
+          "end": 11.258
+        }
+      ]
+    },
+    {
+      "id": "caption-group-6",
+      "frame": 2,
+      "start": 11.298,
+      "end": 12.219,
+      "text": "si no sabes qué",
+      "words": [
+        {
+          "id": "caption-word-6-0",
+          "text": "si",
+          "start": 11.298,
+          "end": 11.358
+        },
+        {
+          "id": "caption-word-6-1",
+          "text": "no",
+          "start": 11.458,
+          "end": 11.618
+        },
+        {
+          "id": "caption-word-6-2",
+          "text": "sabes",
+          "start": 11.678,
+          "end": 12.098
+        },
+        {
+          "id": "caption-word-6-3",
+          "text": "qué",
+          "start": 12.158,
+          "end": 12.219
+        }
+      ]
+    },
+    {
+      "id": "caption-group-7",
+      "frame": 2,
+      "start": 12.298,
+      "end": 13.039,
+      "text": "lo produce.",
+      "words": [
+        {
+          "id": "caption-word-7-0",
+          "text": "lo",
+          "start": 12.298,
+          "end": 12.338
+        },
+        {
+          "id": "caption-word-7-1",
+          "text": "produce.",
+          "start": 12.438,
+          "end": 13.039
+        }
+      ]
+    },
+    {
+      "id": "caption-group-8",
+      "frame": 3,
+      "start": 14.752,
+      "end": 15.772,
+      "text": "Aquí vas a entender",
+      "words": [
+        {
+          "id": "caption-word-8-0",
+          "text": "Aquí",
+          "start": 14.752,
+          "end": 14.992
+        },
+        {
+          "id": "caption-word-8-1",
+          "text": "vas",
+          "start": 15.032,
+          "end": 15.212
+        },
+        {
+          "id": "caption-word-8-2",
+          "text": "a",
+          "start": 15.253,
+          "end": 15.272
+        },
+        {
+          "id": "caption-word-8-3",
+          "text": "entender",
+          "start": 15.332,
+          "end": 15.772
+        }
+      ]
+    },
+    {
+      "id": "caption-group-9",
+      "frame": 3,
+      "start": 15.872,
+      "end": 16.652,
+      "text": "por qué se mueve",
+      "words": [
+        {
+          "id": "caption-word-9-0",
+          "text": "por",
+          "start": 15.872,
+          "end": 15.992
+        },
+        {
+          "id": "caption-word-9-1",
+          "text": "qué",
+          "start": 16.092,
+          "end": 16.172
+        },
+        {
+          "id": "caption-word-9-2",
+          "text": "se",
+          "start": 16.252,
+          "end": 16.332
+        },
+        {
+          "id": "caption-word-9-3",
+          "text": "mueve",
+          "start": 16.412,
+          "end": 16.652
+        }
+      ]
+    },
+    {
+      "id": "caption-group-10",
+      "frame": 3,
+      "start": 16.692,
+      "end": 17.192,
+      "text": "el aire,",
+      "words": [
+        {
+          "id": "caption-word-10-0",
+          "text": "el",
+          "start": 16.692,
+          "end": 16.793
+        },
+        {
+          "id": "caption-word-10-1",
+          "text": "aire,",
+          "start": 16.872,
+          "end": 17.192
+        }
+      ]
+    },
+    {
+      "id": "caption-group-11",
+      "frame": 3,
+      "start": 17.712,
+      "end": 18.392,
+      "text": "y qué le hace",
+      "words": [
+        {
+          "id": "caption-word-11-0",
+          "text": "y",
+          "start": 17.712,
+          "end": 17.752
+        },
+        {
+          "id": "caption-word-11-1",
+          "text": "qué",
+          "start": 17.852,
+          "end": 17.952
+        },
+        {
+          "id": "caption-word-11-2",
+          "text": "le",
+          "start": 17.992,
+          "end": 18.092
+        },
+        {
+          "id": "caption-word-11-3",
+          "text": "hace",
+          "start": 18.172,
+          "end": 18.392
+        }
+      ]
+    },
+    {
+      "id": "caption-group-12",
+      "frame": 3,
+      "start": 18.452,
+      "end": 19.912,
+      "text": "la presión al altímetro.",
+      "words": [
+        {
+          "id": "caption-word-12-0",
+          "text": "la",
+          "start": 18.452,
+          "end": 18.492
+        },
+        {
+          "id": "caption-word-12-1",
+          "text": "presión",
+          "start": 18.592,
+          "end": 19.013
+        },
+        {
+          "id": "caption-word-12-2",
+          "text": "al",
+          "start": 19.073,
+          "end": 19.152
+        },
+        {
+          "id": "caption-word-12-3",
+          "text": "altímetro.",
+          "start": 19.192,
+          "end": 19.912
+        }
+      ]
+    },
+    {
+      "id": "caption-group-13",
+      "frame": 4,
+      "start": 21.701,
+      "end": 22.542,
+      "text": "Vas a leer el",
+      "words": [
+        {
+          "id": "caption-word-13-0",
+          "text": "Vas",
+          "start": 21.701,
+          "end": 21.921
+        },
+        {
+          "id": "caption-word-13-1",
+          "text": "a",
+          "start": 21.942,
+          "end": 22.021
+        },
+        {
+          "id": "caption-word-13-2",
+          "text": "leer",
+          "start": 22.062,
+          "end": 22.401
+        },
+        {
+          "id": "caption-word-13-3",
+          "text": "el",
+          "start": 22.421,
+          "end": 22.542
+        }
+      ]
+    },
+    {
+      "id": "caption-group-14",
+      "frame": 4,
+      "start": 22.621,
+      "end": 23.902,
+      "text": "agua que lleva dentro:",
+      "words": [
+        {
+          "id": "caption-word-14-0",
+          "text": "agua",
+          "start": 22.621,
+          "end": 22.901
+        },
+        {
+          "id": "caption-word-14-1",
+          "text": "que",
+          "start": 22.961,
+          "end": 23.021
+        },
+        {
+          "id": "caption-word-14-2",
+          "text": "lleva",
+          "start": 23.121,
+          "end": 23.401
+        },
+        {
+          "id": "caption-word-14-3",
+          "text": "dentro:",
+          "start": 23.442,
+          "end": 23.902
+        }
+      ]
+    },
+    {
+      "id": "caption-group-15",
+      "frame": 4,
+      "start": 24.361,
+      "end": 24.942,
+      "text": "rocío,",
+      "words": [
+        {
+          "id": "caption-word-15-0",
+          "text": "rocío,",
+          "start": 24.361,
+          "end": 24.942
+        }
+      ]
+    },
+    {
+      "id": "caption-group-16",
+      "frame": 4,
+      "start": 25.401,
+      "end": 26.761,
+      "text": "nubes y niebla.",
+      "words": [
+        {
+          "id": "caption-word-16-0",
+          "text": "nubes",
+          "start": 25.401,
+          "end": 26.061
+        },
+        {
+          "id": "caption-word-16-1",
+          "text": "y",
+          "start": 26.101,
+          "end": 26.141
+        },
+        {
+          "id": "caption-word-16-2",
+          "text": "niebla.",
+          "start": 26.261,
+          "end": 26.761
+        }
+      ]
+    },
+    {
+      "id": "caption-group-17",
+      "frame": 5,
+      "start": 28.497,
+      "end": 29.498,
+      "text": "Vas a cruzar un",
+      "words": [
+        {
+          "id": "caption-word-17-0",
+          "text": "Vas",
+          "start": 28.497,
+          "end": 28.697
+        },
+        {
+          "id": "caption-word-17-1",
+          "text": "a",
+          "start": 28.758,
+          "end": 28.797
+        },
+        {
+          "id": "caption-word-17-2",
+          "text": "cruzar",
+          "start": 28.897,
+          "end": 29.337
+        },
+        {
+          "id": "caption-word-17-3",
+          "text": "un",
+          "start": 29.397,
+          "end": 29.498
+        }
+      ]
+    },
+    {
+      "id": "caption-group-18",
+      "frame": 5,
+      "start": 29.618,
+      "end": 31.337,
+      "text": "frente sabiendo qué hay",
+      "words": [
+        {
+          "id": "caption-word-18-0",
+          "text": "frente",
+          "start": 29.618,
+          "end": 30.017
+        },
+        {
+          "id": "caption-word-18-1",
+          "text": "sabiendo",
+          "start": 30.118,
+          "end": 30.657
+        },
+        {
+          "id": "caption-word-18-2",
+          "text": "qué",
+          "start": 30.857,
+          "end": 31.057
+        },
+        {
+          "id": "caption-word-18-3",
+          "text": "hay",
+          "start": 31.137,
+          "end": 31.337
+        }
+      ]
+    },
+    {
+      "id": "caption-group-19",
+      "frame": 5,
+      "start": 31.417,
+      "end": 32.297,
+      "text": "al otro lado.",
+      "words": [
+        {
+          "id": "caption-word-19-0",
+          "text": "al",
+          "start": 31.417,
+          "end": 31.537
+        },
+        {
+          "id": "caption-word-19-1",
+          "text": "otro",
+          "start": 31.577,
+          "end": 31.817
+        },
+        {
+          "id": "caption-word-19-2",
+          "text": "lado.",
+          "start": 31.897,
+          "end": 32.297
+        }
+      ]
+    },
+    {
+      "id": "caption-group-20",
+      "frame": 5,
+      "start": 33.178,
+      "end": 34.357,
+      "text": "Y a leer una",
+      "words": [
+        {
+          "id": "caption-word-20-0",
+          "text": "Y",
+          "start": 33.178,
+          "end": 33.258
+        },
+        {
+          "id": "caption-word-20-1",
+          "text": "a",
+          "start": 33.337,
+          "end": 33.437
+        },
+        {
+          "id": "caption-word-20-2",
+          "text": "leer",
+          "start": 33.457,
+          "end": 34.057
+        },
+        {
+          "id": "caption-word-20-3",
+          "text": "una",
+          "start": 34.158,
+          "end": 34.357
+        }
+      ]
+    },
+    {
+      "id": "caption-group-21",
+      "frame": 5,
+      "start": 34.477,
+      "end": 35.957,
+      "text": "tormenta por dentro.",
+      "words": [
+        {
+          "id": "caption-word-21-0",
+          "text": "tormenta",
+          "start": 34.477,
+          "end": 35.057
+        },
+        {
+          "id": "caption-word-21-1",
+          "text": "por",
+          "start": 35.198,
+          "end": 35.337
+        },
+        {
+          "id": "caption-word-21-2",
+          "text": "dentro.",
+          "start": 35.437,
+          "end": 35.957
+        }
+      ]
+    },
+    {
+      "id": "caption-group-22",
+      "frame": 6,
+      "start": 37.618,
+      "end": 38.598,
+      "text": "Y vas a descifrar",
+      "words": [
+        {
+          "id": "caption-word-22-0",
+          "text": "Y",
+          "start": 37.618,
+          "end": 37.718
+        },
+        {
+          "id": "caption-word-22-1",
+          "text": "vas",
+          "start": 37.739,
+          "end": 37.959
+        },
+        {
+          "id": "caption-word-22-2",
+          "text": "a",
+          "start": 37.998,
+          "end": 38.038
+        },
+        {
+          "id": "caption-word-22-3",
+          "text": "descifrar",
+          "start": 38.118,
+          "end": 38.598
+        }
+      ]
+    },
+    {
+      "id": "caption-group-23",
+      "frame": 6,
+      "start": 38.639,
+      "end": 39.278,
+      "text": "el código:",
+      "words": [
+        {
+          "id": "caption-word-23-0",
+          "text": "el",
+          "start": 38.639,
+          "end": 38.718
+        },
+        {
+          "id": "caption-word-23-1",
+          "text": "código:",
+          "start": 38.818,
+          "end": 39.278
+        }
+      ]
+    },
+    {
+      "id": "caption-group-24",
+      "frame": 6,
+      "start": 40.018,
+      "end": 40.498,
+      "text": "METAR,",
+      "words": [
+        {
+          "id": "caption-word-24-0",
+          "text": "METAR,",
+          "start": 40.018,
+          "end": 40.498
+        }
+      ]
+    },
+    {
+      "id": "caption-group-25",
+      "frame": 6,
+      "start": 41.198,
+      "end": 41.638,
+      "text": "taf",
+      "words": [
+        {
+          "id": "caption-word-25-0",
+          "text": "taf",
+          "start": 41.198,
+          "end": 41.638
+        }
+      ]
+    },
+    {
+      "id": "caption-group-26",
+      "frame": 6,
+      "start": 42.098,
+      "end": 43.258,
+      "text": "y avisos en vuelo.",
+      "words": [
+        {
+          "id": "caption-word-26-0",
+          "text": "y",
+          "start": 42.098,
+          "end": 42.118
+        },
+        {
+          "id": "caption-word-26-1",
+          "text": "avisos",
+          "start": 42.218,
+          "end": 42.678
+        },
+        {
+          "id": "caption-word-26-2",
+          "text": "en",
+          "start": 42.718,
+          "end": 42.799
+        },
+        {
+          "id": "caption-word-26-3",
+          "text": "vuelo.",
+          "start": 42.879,
+          "end": 43.258
+        }
+      ]
+    },
+    {
+      "id": "caption-group-27",
+      "frame": 7,
+      "start": 44.885,
+      "end": 45.705,
+      "text": "Al terminar,",
+      "words": [
+        {
+          "id": "caption-word-27-0",
+          "text": "Al",
+          "start": 44.885,
+          "end": 45.005
+        },
+        {
+          "id": "caption-word-27-1",
+          "text": "terminar,",
+          "start": 45.105,
+          "end": 45.705
+        }
+      ]
+    },
+    {
+      "id": "caption-group-28",
+      "frame": 7,
+      "start": 46.225,
+      "end": 47.545,
+      "text": "no lees el pronóstico",
+      "words": [
+        {
+          "id": "caption-word-28-0",
+          "text": "no",
+          "start": 46.225,
+          "end": 46.345
+        },
+        {
+          "id": "caption-word-28-1",
+          "text": "lees",
+          "start": 46.445,
+          "end": 46.765
+        },
+        {
+          "id": "caption-word-28-2",
+          "text": "el",
+          "start": 46.805,
+          "end": 46.926
+        },
+        {
+          "id": "caption-word-28-3",
+          "text": "pronóstico",
+          "start": 46.945,
+          "end": 47.545
+        }
+      ]
+    },
+    {
+      "id": "caption-group-29",
+      "frame": 7,
+      "start": 47.605,
+      "end": 48.065,
+      "text": "entero:",
+      "words": [
+        {
+          "id": "caption-word-29-0",
+          "text": "entero:",
+          "start": 47.605,
+          "end": 48.065
+        }
+      ]
+    },
+    {
+      "id": "caption-group-30",
+      "frame": 7,
+      "start": 48.645,
+      "end": 49.865,
+      "text": "buscas tu ventana.",
+      "words": [
+        {
+          "id": "caption-word-30-0",
+          "text": "buscas",
+          "start": 48.645,
+          "end": 49.086
+        },
+        {
+          "id": "caption-word-30-1",
+          "text": "tu",
+          "start": 49.166,
+          "end": 49.225
+        },
+        {
+          "id": "caption-word-30-2",
+          "text": "ventana.",
+          "start": 49.305,
+          "end": 49.865
+        }
+      ]
+    },
+    {
+      "id": "caption-group-31",
+      "frame": 8,
+      "start": 51.898,
+      "end": 53.098,
+      "text": "Treinta lecciones,",
+      "words": [
+        {
+          "id": "caption-word-31-0",
+          "text": "Treinta",
+          "start": 51.898,
+          "end": 52.279
+        },
+        {
+          "id": "caption-word-31-1",
+          "text": "lecciones,",
+          "start": 52.358,
+          "end": 53.098
+        }
+      ]
+    },
+    {
+      "id": "caption-group-32",
+      "frame": 8,
+      "start": 53.518,
+      "end": 55.298,
+      "text": "práctica y evaluación.",
+      "words": [
+        {
+          "id": "caption-word-32-0",
+          "text": "práctica",
+          "start": 53.518,
+          "end": 54.298
+        },
+        {
+          "id": "caption-word-32-1",
+          "text": "y",
+          "start": 54.338,
+          "end": 54.439
+        },
+        {
+          "id": "caption-word-32-2",
+          "text": "evaluación.",
+          "start": 54.518,
+          "end": 55.298
+        }
+      ]
+    },
+    {
+      "id": "caption-group-33",
+      "frame": 8,
+      "start": 55.838,
+      "end": 56.558,
+      "text": "Empecemos.",
+      "words": [
+        {
+          "id": "caption-word-33-0",
+          "text": "Empecemos.",
+          "start": 55.838,
+          "end": 56.558
+        }
+      ]
+    }
+  ]
+}
