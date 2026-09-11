@@ -30,7 +30,7 @@ de decirse.
 
 Donde el módulo de NOTAM prometía «esto lo lees de corrido», este promete lo contrario,
 y a propósito: un TAF **no** se lee de corrido. Se lee buscando la hora a la que te toca
-aterrizar. Ese es el giro del video y es la frase de cierre de la lección 29 del módulo.
+aterrizar. Ese es el giro del video y es la frase de cierre de la lección 24 del módulo.
 
 ## Customizations
 
@@ -43,7 +43,7 @@ aterrizar. Ese es el giro del video y es la frase de cierre de la lección 29 de
 - **Subtítulos incrustados en español**: el alumno ve el curso en cualquier parte y
   muchas veces sin sonido.
 - **Nada inventado.** El pronóstico que aparece en pantalla sale completo y sin alterar
-  de la lección 29 del módulo (`src/lib/metarLesson.ts`), y va **rotulado en pantalla
+  de la lección 24 del módulo (`src/lib/metarLesson.ts`), y va **rotulado en pantalla
   como escenario de práctica**, que es exactamente cómo lo rotula la lección. Ninguna
   cifra, ningún aeródromo y ningún fenómeno se añade ni se retoca.
 
@@ -81,7 +81,7 @@ reales del módulo (`src/lib/meteorologiaLeccion/*.ts` + `src/lib/metarLesson.ts
 1. La atmósfera y el aire en movimiento: presión, altímetro, viento, cizalladura (1 a 5)
 2. El agua en el aire: estabilidad, punto de rocío, nubes, niebla (6 a 9)
 3. Masas de aire, frentes y tormentas (10 a 12)
-4. Los servicios y el código: de dónde sale el dato, los avisos, METAR y TAF (13 a 30)
+4. El código y la información en ruta: METAR y TAF, de dónde sale el dato y los avisos (13 a 30)
 
 Cierre con la promesa concreta del módulo: **treinta lecciones, práctica y evaluación.**
 

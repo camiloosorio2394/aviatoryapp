@@ -1,5 +1,5 @@
 /**
- * Parte 2 · Agua, estabilidad y nubes.
+ * Nivel 2 · Agua, estabilidad y nubes.
  *
  * Sigue con el capítulo 11 del PHAK. Aquí está la lección que más se usa en
  * cabina de todo el módulo: reconocer una nube por su forma y saber qué trae
@@ -21,7 +21,6 @@ export const PARTE_AGUA: DocScreen[] = [
     title: "Estabilidad: cuándo el aire sube solo",
     kicker: "Lo que decide si el día trae baches o calma",
     minutes: 7,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -182,7 +181,6 @@ export const PARTE_AGUA: DocScreen[] = [
     title: "Humedad y punto de rocío",
     kicker: "La cuenta que te dice a qué altura está la base",
     minutes: 8,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -360,7 +358,6 @@ export const PARTE_AGUA: DocScreen[] = [
     title: "Nubes: reconocer lo que tienes delante",
     kicker: "Por altura, por forma y por lo que traen dentro",
     minutes: 10,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",
@@ -532,7 +529,6 @@ export const PARTE_AGUA: DocScreen[] = [
     title: "Niebla, techo y visibilidad",
     kicker: "Los tres números que deciden si entras",
     minutes: 9,
-    level: "intermedio",
     blocks: [
       {
         kind: "p",

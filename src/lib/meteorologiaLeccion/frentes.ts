@@ -1,5 +1,5 @@
 /**
- * Parte 3 · Masas de aire, frentes y tormentas.
+ * Nivel 3 · Masas de aire, frentes y tormentas.
  *
  * Cierra el capítulo 11 del PHAK. Los dos vuelos de ejemplo (Junín a Formosa
  * cruzando un frente cálido y el mismo tramo cruzando uno frío) son los del
@@ -21,7 +21,6 @@ export const PARTE_FRENTES: DocScreen[] = [
     title: "Masas de aire y frentes",
     kicker: "De dónde viene el aire y qué pasa cuando se encuentran dos",
     minutes: 9,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -173,7 +172,6 @@ export const PARTE_FRENTES: DocScreen[] = [
     title: "Cruzar un frente",
     kicker: "El mismo tramo, dos frentes, dos decisiones",
     minutes: 10,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
@@ -354,7 +352,6 @@ export const PARTE_FRENTES: DocScreen[] = [
     title: "Tormentas y sus peligros",
     kicker: "Todo lo que puede salir mal, en un solo paquete",
     minutes: 11,
-    level: "avanzado",
     blocks: [
       {
         kind: "p",
