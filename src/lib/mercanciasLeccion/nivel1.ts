@@ -333,14 +333,30 @@ export const NIVEL_1: DocScreen[] = [
             tecnica: {
               ref: "LAR 175.001 (a)",
               texto: "El producto final de la operación de empacado, que comprende el embalaje en sí y su contenido preparado en forma idónea para el transporte.",
-              nota: "**Embalaje**, en el mismo artículo: los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
             },
             puntos: ["Una caja lista para volar: el embalaje y lo que lleva dentro.", "Es la unidad que cuenta el NOTOC. Cuando ves «3 bultos», son tres de estos."],
           },
           {
-            titulo: "Sobre-embalaje",
+            titulo: "Embalaje",
             hueco: {
               id: "MP-IMG-09",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Un embalaje abierto y sin la mercancía: la caja exterior con sus materiales interiores a la vista. Tiene que verse que es solo lo que contiene, sin el contenido.",
+            },
+            tecnica: {
+              ref: "LAR 175.001 (a)",
+              texto: "Los recipientes y demás componentes o materiales necesarios para que el recipiente sea idóneo a su función de contención.",
+            },
+            puntos: [
+              "El recipiente y los materiales que necesita para contener bien la mercancía: la caja, la lata o el frasco, y lo que va con ellos.",
+              "Es lo de fuera del bulto. Embalaje más su contenido es un bulto.",
+            ],
+          },
+          {
+            titulo: "Sobre-embalaje",
+            hueco: {
+              id: "MP-IMG-10",
               medida: "Fotografía · 3:2 · 1200×800",
               descripcion:
                 "Varios bultos agrupados en una sola unidad para manipularlos juntos: envueltos en film o dentro de una caja exterior. Tiene que notarse que por dentro son varios.",
@@ -355,7 +371,7 @@ export const NIVEL_1: DocScreen[] = [
           {
             titulo: "ULD",
             hueco: {
-              id: "MP-IMG-10",
+              id: "MP-IMG-11",
               medida: "Fotografía · 3:2 · 1200×800",
               descripcion:
                 "Un contenedor de carga aérea o una paleta con red ya cargada, en la rampa o entrando a la bodega. Es el tamaño de arriba: donde van los bultos y los sobre-embalajes.",
@@ -370,7 +386,7 @@ export const NIVEL_1: DocScreen[] = [
           {
             titulo: "Número ONU",
             hueco: {
-              id: "MP-IMG-11",
+              id: "MP-IMG-12",
               medida: "Fotografía · 3:2 · 1200×800",
               descripcion:
                 "Primer plano de la marca de un bulto donde se lee con claridad el número ONU, por ejemplo «UN 3480», junto a la denominación. El número tiene que poder leerse a tamaño de ficha.",
@@ -384,7 +400,7 @@ export const NIVEL_1: DocScreen[] = [
           {
             titulo: "Denominación del artículo expedido",
             hueco: {
-              id: "MP-IMG-12",
+              id: "MP-IMG-13",
               medida: "Fotografía · 3:2 · 1200×800",
               descripcion:
                 "Primer plano de la marca de un bulto de pintura con su denominación oficial y su número ONU (UN 1263). Si la lata o la caja lleva además un nombre comercial, mejor: esa diferencia es lo que enseña la ficha.",
@@ -400,7 +416,7 @@ export const NIVEL_1: DocScreen[] = [
           {
             titulo: "Envío",
             hueco: {
-              id: "MP-IMG-13",
+              id: "MP-IMG-14",
               medida: "Fotografía · 3:2 · 1200×800",
               descripcion:
                 "Un grupo de bultos del mismo expedidor, juntos en la zona de aceptación de carga con su documentación. Tiene que leerse como una sola entrega, no como un bulto suelto.",

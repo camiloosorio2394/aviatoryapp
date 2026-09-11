@@ -495,8 +495,9 @@ function Pregunta({
  * reglamento y lo que significa para el piloto.
  *
  * Nació para la sección 3 de Mercancías, donde Camilo pidió las dos
- * definiciones juntas. La técnica va primero y literal, con su artículo; la del
- * piloto después, porque se entiende mejor sabiendo qué traduce.
+ * definiciones juntas. La técnica va primero y literal, con su artículo; la
+ * explicación en palabras fáciles después, porque se entiende mejor sabiendo
+ * qué traduce.
  *
  * Los rótulos de dentro van en frase y no en mono mayúscula: sobre papel, en
  * pequeño, la mono se leía como hecha a máquina.
@@ -560,7 +561,7 @@ function FichaConImagen({ item }: { item: FichasBlock["items"][number] }) {
 
         <div className="mt-4 border-t pt-3.5" style={{ borderColor: "var(--ln-hair, var(--doc-border))" }}>
           <div className="text-[13px] font-semibold" style={{ color: "var(--ln-primary, var(--av-blue-500))" }}>
-            En palabras de piloto
+            En palabras fáciles de entender
           </div>
           <ul className="m-0 mt-2 flex list-none flex-col gap-2 p-0">
             {item.puntos.map((p, j) => (
