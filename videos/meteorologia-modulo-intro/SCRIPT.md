@@ -23,7 +23,7 @@
 **Presupuesto de duración.** El video tiene tope de 1 minuto. El guion está medido a
 12,0 caracteres por segundo, que es el ritmo medido del video de NOTAM con esta misma
 voz a 0,92 (sus ocho líneas dieron entre 11,7 y 13,3 c/s en prosa sin letras sueltas, y
-12,0 es el extremo lento de ese rango). 568 caracteres de locución dan unos 47,3 s, y con
+12,0 es el extremo lento de ese rango). 555 caracteres de locución dan unos 47,3 s, y con
 el silencio de cola de cada plano (1,2 s, y 1,6 s en el giro) el total queda en
 **57,3 s estimados**.
 
@@ -50,7 +50,7 @@ locución más lenta de 12,0 c/s obliga a recortar.
 
 **Delivery:** Baja el ritmo en la primera frase, que es la que carga el peso. Pausa clara antes de «Y descifrarlo». La segunda frase es el argumento del módulo entero: dicha sin énfasis, como una constatación.
 
-    Este pronóstico ya dice lo que te vas a encontrar al aterrizar. Y descifrarlo no sirve si no sabes qué lo produce.
+    Este pronóstico ya dice lo que te espera al aterrizar. Y descifrarlo no sirve si no sabes qué lo produce.
 
 ## Line 3 — La atmósfera (Frame 3)
 
@@ -74,7 +74,7 @@ locución más lenta de 12,0 c/s obliga a recortar.
 
 **Delivery:** Cierra la serie de promesas. Ligero acento en «descifrar». Las dos siglas marcadas por separado, con una respiración entre ellas.
 
-    Y vas a descifrar el código: METAR, taf y los avisos en vuelo.
+    Y vas a descifrar el código: METAR, taf y avisos en vuelo.
 
 ## Line 7 — El giro (Frame 7)
 

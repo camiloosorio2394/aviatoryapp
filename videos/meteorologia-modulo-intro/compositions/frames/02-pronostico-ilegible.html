@@ -129,11 +129,11 @@
     }
   </style>
 
-  <div id="root" data-composition-id="02-pronostico-ilegible" data-start="0" data-duration="10.7" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="02-pronostico-ilegible" data-start="0" data-duration="9.794" data-width="1920" data-height="1080">
 
-    <div id="mt02-suelo-papel" class="clip mt02-ground" data-start="0" data-duration="10.7" data-track-index="0"></div>
+    <div id="mt02-suelo-papel" class="clip mt02-ground" data-start="0" data-duration="9.794" data-track-index="0"></div>
 
-    <div id="mt02-camara" class="clip mt02-stage" data-start="0" data-duration="10.7" data-track-index="1">
+    <div id="mt02-camara" class="clip mt02-stage" data-start="0" data-duration="9.794" data-track-index="1">
       <!-- el mundo se sale del contenedor a propósito: es el zoom-out macro -->
         <div class="mt02-world" data-layout-allow-overflow>
 
@@ -215,7 +215,7 @@
         return (S1 - Math.pow(S1, 1 - g)) / (S1 - 1);
       }
 
-      var D = 10.7;
+      var D = 9.794;
       var tl = gsap.timeline({ paused: true });
 
       /* ────────────────────────────────────────────────────────────────
@@ -252,9 +252,9 @@
       /* Escena 3 (5.60–7.40s) — el cuadro está bloqueado y el documento se
          presenta. Los dos rótulos mono y la única línea de acento se dibujan
          sobre «Y descifrarlo no sirve». Cámara intacta. */
-      tl.fromTo(labelTop, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 5.8);
-      tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.78, ease: "power2.out" }, 6.1);
-      tl.fromTo(labelBottom, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 6.5);
+      tl.fromTo(labelTop, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 5.247);
+      tl.fromTo(rule, { scaleX: 0 }, { scaleX: 1, duration: 0.78, ease: "power2.out" }, 5.518);
+      tl.fromTo(labelBottom, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.62, ease: "power2.out" }, 5.88);
 
       /* Escena 4 (7.70–9.00s) — en «si no sabes qué lo produce» el bloque cae a
          media tinta. Los cinco grupos de cambio llevan su propio color, así que

@@ -133,10 +133,10 @@
     }
   </style>
 
-  <div id="root" data-composition-id="03-atmosfera" data-start="0" data-duration="8.2" data-width="1920" data-height="1080">
-    <div id="mt03-suelo-papel" class="clip mt03-ground" data-start="0" data-duration="8.2" data-track-index="0"></div>
+  <div id="root" data-composition-id="03-atmosfera" data-start="0" data-duration="6.869" data-width="1920" data-height="1080">
+    <div id="mt03-suelo-papel" class="clip mt03-ground" data-start="0" data-duration="6.869" data-track-index="0"></div>
 
-    <div id="mt03-escena" class="clip" data-start="0" data-duration="8.2" data-track-index="1" style="position:absolute; inset:0;">
+    <div id="mt03-escena" class="clip" data-start="0" data-duration="6.869" data-track-index="1" style="position:absolute; inset:0;">
       <div class="mt03-hair"></div>
       <div class="mt03-kicker">Parte 1 · La atmósfera y el aire en movimiento</div>
 
@@ -169,11 +169,12 @@
         return Array.prototype.slice.call(ROOT.querySelectorAll(s));
       };
 
-      var D = 8.2;
+      var D = 6.869;
       var tl = gsap.timeline({ paused: true });
 
-      /* Cues estimados sobre la ventana de voz de 7.000s. Re-cuear con
-         audio_engine_meta.json cuando exista la locución. */
+      /* Cues re-escalados a la ventana de voz real de 5.669s
+         (audio_engine_meta.json). Se escaló la POSICIÓN de cada cue, no la
+         duración de cada movimiento. */
 
       /* ── Escena 1 (0.0–1.4s) ──────────────────────────────────────────────
          Corte a papel. «Presión» sola, centrada: se maqueta ya en su sitio
@@ -182,16 +183,16 @@
       var CENTRO = (1920 - 572) / 2 - 140; /* desplazamiento para centrarla */
       tl.set(q(".mt03-word"), { x: CENTRO });
       tl.fromTo(q(".mt03-hair"), { scaleX: 0, transformOrigin: "0% 50%" }, { scaleX: 1, duration: 0.7, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt03-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.1);
-      tl.fromTo(q(".mt03-word"), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.72, ease: "power3.out" }, 0.18);
+      tl.fromTo(q(".mt03-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.081);
+      tl.fromTo(q(".mt03-word"), { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.72, ease: "power3.out" }, 0.146);
 
       /* ── Escena 2 (1.4–3.4s) ──────────────────────────────────────────────
          La palabra se va a la izquierda (un solo gesto), la hairline de acento
          se dibuja hacia abajo y entran las dos consecuencias, una por cue. */
-      tl.to(q(".mt03-word"), { x: 0, duration: 0.9, ease: "power2.inOut" }, 1.4);
-      tl.fromTo(q(".mt03-divider"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power2.out" }, 1.85);
-      tl.fromTo(q(".mt03-conseq-1"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 2.05);
-      tl.fromTo(q(".mt03-conseq-2"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 2.62);
+      tl.to(q(".mt03-word"), { x: 0, duration: 0.9, ease: "power2.inOut" }, 1.134);
+      tl.fromTo(q(".mt03-divider"), { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power2.out" }, 1.498);
+      tl.fromTo(q(".mt03-conseq-1"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 1.66);
+      tl.fromTo(q(".mt03-conseq-2"), { opacity: 0, x: -22 }, { opacity: 1, x: 0, duration: 0.56, ease: "power3.out" }, 2.122);
 
       /* ── Escena 3 (3.4–7.0s) ──────────────────────────────────────────────
          Entran escalonadas las cinco lecciones reales de la parte 1 y la marca
@@ -202,7 +203,7 @@
         { opacity: 1, y: 0, duration: 0.42, ease: "power2.out", stagger: 0.13 },
         3.5,
       );
-      tl.fromTo(q(".mt03-progress"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 4.5);
+      tl.fromTo(q(".mt03-progress"), { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }, 3.644);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};

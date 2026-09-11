@@ -15,7 +15,7 @@
       "sfx": [
         "zumbido-grave-descendente"
       ],
-      "text": "Este pronóstico ya dice lo que te vas a encontrar al aterrizar. Y descifrarlo no sirve si no sabes qué lo produce."
+      "text": "Este pronóstico ya dice lo que te espera al aterrizar. Y descifrarlo no sirve si no sabes qué lo produce."
     },
     {
       "id": "03",
@@ -43,7 +43,7 @@
       "sfx": [
         "tic-por-sustitución"
       ],
-      "text": "Y vas a descifrar el código: METAR, taf y los avisos en vuelo."
+      "text": "Y vas a descifrar el código: METAR, taf y avisos en vuelo."
     },
     {
       "id": "07",

@@ -63,139 +63,127 @@
     {
       "id": "02",
       "path": "assets/voice/02.wav",
-      "duration_s": 9.561,
+      "duration_s": 8.594,
       "words": [
         {
           "id": "w0",
           "text": "Este",
           "start": 0.199,
-          "end": 0.459
+          "end": 0.539
         },
         {
           "id": "w1",
           "text": "pronóstico",
-          "start": 0.539,
-          "end": 1.24
+          "start": 0.579,
+          "end": 1.639
         },
         {
           "id": "w2",
           "text": "ya",
-          "start": 1.74,
-          "end": 1.839
+          "start": 1.759,
+          "end": 1.939
         },
         {
           "id": "w3",
           "text": "dice",
-          "start": 1.919,
-          "end": 2.259
+          "start": 2,
+          "end": 2.359
         },
         {
           "id": "w4",
           "text": "lo",
-          "start": 2.299,
-          "end": 2.379
+          "start": 2.399,
+          "end": 2.46
         },
         {
           "id": "w5",
           "text": "que",
-          "start": 2.48,
+          "start": 2.559,
           "end": 2.599
         },
         {
           "id": "w6",
           "text": "te",
-          "start": 2.639,
-          "end": 2.759
+          "start": 2.7,
+          "end": 2.799
         },
         {
           "id": "w7",
-          "text": "vas",
-          "start": 2.799,
-          "end": 3.019
+          "text": "espera",
+          "start": 2.939,
+          "end": 3.319
         },
         {
           "id": "w8",
-          "text": "a",
-          "start": 3.079,
-          "end": 3.099
+          "text": "al",
+          "start": 3.399,
+          "end": 3.5
         },
         {
           "id": "w9",
-          "text": "encontrar",
-          "start": 3.159,
-          "end": 3.799
+          "text": "aterrizar.",
+          "start": 3.539,
+          "end": 4.759
         },
         {
           "id": "w10",
-          "text": "al",
-          "start": 3.959,
-          "end": 4.079
+          "text": "Y",
+          "start": 4.859,
+          "end": 4.879
         },
         {
           "id": "w11",
-          "text": "aterrizar.",
-          "start": 4.139,
-          "end": 4.859
+          "text": "descifrarlo",
+          "start": 4.94,
+          "end": 5.799
         },
         {
           "id": "w12",
-          "text": "Y",
-          "start": 5.4,
-          "end": 5.44
+          "text": "no",
+          "start": 5.839,
+          "end": 6.019
         },
         {
           "id": "w13",
-          "text": "descifrarlo",
-          "start": 5.519,
-          "end": 6.399
+          "text": "sirve",
+          "start": 6.079,
+          "end": 6.479
         },
         {
           "id": "w14",
-          "text": "no",
-          "start": 6.899,
-          "end": 7
+          "text": "si",
+          "start": 6.519,
+          "end": 6.579
         },
         {
           "id": "w15",
-          "text": "sirve",
-          "start": 7.159,
-          "end": 7.48
+          "text": "no",
+          "start": 6.679,
+          "end": 6.839
         },
         {
           "id": "w16",
-          "text": "si",
-          "start": 7.599,
-          "end": 7.659
+          "text": "sabes",
+          "start": 6.899,
+          "end": 7.319
         },
         {
           "id": "w17",
-          "text": "no",
-          "start": 7.759,
-          "end": 7.899
+          "text": "qué",
+          "start": 7.379,
+          "end": 7.44
         },
         {
           "id": "w18",
-          "text": "sabes",
-          "start": 7.96,
-          "end": 8.3
+          "text": "lo",
+          "start": 7.519,
+          "end": 7.559
         },
         {
           "id": "w19",
-          "text": "qué",
-          "start": 8.399,
-          "end": 8.5
-        },
-        {
-          "id": "w20",
-          "text": "lo",
-          "start": 8.539,
-          "end": 8.599
-        },
-        {
-          "id": "w21",
           "text": "produce.",
-          "start": 8.679,
-          "end": 9.239
+          "start": 7.659,
+          "end": 8.26
         }
       ]
     },
@@ -511,7 +499,7 @@
     {
       "id": "06",
       "path": "assets/voice/06.wav",
-      "duration_s": 6.74,
+      "duration_s": 6.087,
       "words": [
         {
           "id": "w0",
@@ -522,74 +510,68 @@
         {
           "id": "w1",
           "text": "vas",
-          "start": 0.359,
-          "end": 0.579
+          "start": 0.34,
+          "end": 0.56
         },
         {
           "id": "w2",
           "text": "a",
-          "start": 0.62,
-          "end": 0.659
+          "start": 0.599,
+          "end": 0.639
         },
         {
           "id": "w3",
           "text": "descifrar",
-          "start": 0.74,
-          "end": 1.259
+          "start": 0.719,
+          "end": 1.199
         },
         {
           "id": "w4",
           "text": "el",
-          "start": 1.299,
-          "end": 1.379
+          "start": 1.24,
+          "end": 1.319
         },
         {
           "id": "w5",
           "text": "código:",
-          "start": 1.48,
-          "end": 1.959
+          "start": 1.419,
+          "end": 1.879
         },
         {
           "id": "w6",
           "text": "METAR,",
-          "start": 3.079,
-          "end": 3.579
+          "start": 2.619,
+          "end": 3.099
         },
         {
           "id": "w7",
           "text": "taf",
-          "start": 4.079,
-          "end": 4.959
+          "start": 3.799,
+          "end": 4.239
         },
         {
           "id": "w8",
           "text": "y",
-          "start": 5.039,
-          "end": 5.059
+          "start": 4.699,
+          "end": 4.719
         },
         {
           "id": "w9",
-          "text": "los",
-          "start": 5.159,
-          "end": 5.299
+          "text": "avisos",
+          "start": 4.819,
+          "end": 5.279
         },
         {
           "id": "w10",
-          "text": "avisos",
-          "start": 5.38,
-          "end": 5.819
+          "text": "en",
+          "start": 5.319,
+          "end": 5.4
         },
         {
           "id": "w11",
-          "text": "en",
-          "start": 5.879,
-          "end": 5.98
-        },
-        {
-          "id": "w12",
           "text": "vuelo.",
-          "start": 6.079,
-          "end": 6.42
+          "start": 5.48,
+          "end": 5.859
         }
       ]
     },
@@ -705,5 +687,5 @@
     }
   ],
   "sfx": [],
-  "total_duration_s": 49.737
+  "total_duration_s": 48.117
 }

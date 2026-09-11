@@ -187,10 +187,10 @@
     }
   </style>
 
-  <div id="root" data-composition-id="05-frentes" data-start="0" data-duration="8.45" data-width="1920" data-height="1080">
-    <div id="mt05-fondo-navy" class="clip mt05-ground" data-start="0" data-duration="8.45" data-track-index="0"></div>
+  <div id="root" data-composition-id="05-frentes" data-start="0" data-duration="9.141" data-width="1920" data-height="1080">
+    <div id="mt05-fondo-navy" class="clip mt05-ground" data-start="0" data-duration="9.141" data-track-index="0"></div>
 
-    <div id="mt05-camara" class="clip mt05-stage" data-start="0" data-duration="8.45" data-track-index="1">
+    <div id="mt05-camara" class="clip mt05-stage" data-start="0" data-duration="9.141" data-track-index="1">
       <!-- el mundo se sale del contenedor a propósito: la cámara pasea a 1.55 -->
       <div class="mt05-world" data-layout-allow-overflow>
         <div class="mt05-kicker">Parte 3 · Masas de aire, frentes y tormentas</div>
@@ -269,26 +269,27 @@
       var PTYPES = pose(960, 645, S); /* los cuatro tipos, mismo acercamiento */
       var PWIDE = { x: 0, y: 0, scale: 1 }; /* plano general: todo en cuadro */
 
-      var D = 8.45;
+      var D = 9.141;
       var world = q(".mt05-world");
       var tl = gsap.timeline({ paused: true });
 
-      /* Cues estimados sobre la ventana de voz de 7.250s. Re-cuear con
-         audio_engine_meta.json cuando exista la locución. */
+      /* Cues re-escalados a la ventana de voz real de 7.941s
+         (audio_engine_meta.json). Se escaló la POSICIÓN de cada cue, no la
+         duración de cada movimiento. */
 
       /* ── Escena 1 (0.0–1.0s) ──────────────────────────────────────────────
          Vuelve la superficie navy. La cámara abre ya en la estación 1 y el eje
          de la tira se dibuja de izquierda a derecha. */
       tl.set(world, P1);
       tl.fromTo(q(".mt05-kicker"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0);
-      tl.fromTo(q(".mt05-sub"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.16);
-      tl.fromTo(q(".mt05-axis"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.1);
+      tl.fromTo(q(".mt05-sub"), { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 0.175);
+      tl.fromTo(q(".mt05-axis"), { scaleX: 0 }, { scaleX: 1, duration: 0.8, ease: "power2.out" }, 0.11);
 
       /* ── Escena 2 (1.0–3.6s) ──────────────────────────────────────────────
          UN solo paneo continuo de la estación 1 a la 3. No se detiene. Cada
          estación pasa a acento y suelta su lectura del barómetro justo cuando
          cruza el centro del cuadro: 1.0s, 2.2s y 3.4s. */
-      tl.fromTo(world, P1, { x: P3.x, y: P3.y, scale: S, duration: 2.6, ease: "none", immediateRender: false }, 1.0);
+      tl.fromTo(world, P1, { x: P3.x, y: P3.y, scale: S, duration: 2.6, ease: "none", immediateRender: false }, 1.095);
 
       var CRUCE = [1.0, 2.2, 3.4];
       var CHROME = "rgba(251,250,248,0.46)";
@@ -313,7 +314,7 @@
       /* ── Escena 3 (3.6–5.2s) ──────────────────────────────────────────────
          Paneo corto hacia abajo, al mismo acercamiento. Los cuatro tipos
          entran escalonados. Sin detenerse en ninguno: solo se enumeran. */
-      tl.to(world, { x: PTYPES.x, y: PTYPES.y, duration: 1.0, ease: "power2.inOut" }, 3.6);
+      tl.to(world, { x: PTYPES.x, y: PTYPES.y, duration: 1.0, ease: "power2.inOut" }, 3.943);
       tl.fromTo(
         qa(".mt05-type"),
         { opacity: 0, x: -20 },
@@ -324,8 +325,8 @@
       /* ── Escena 4 (5.2–7.2s) ──────────────────────────────────────────────
          La cámara se aleja lo justo para que la tira y los cuatro tipos queden
          juntos en cuadro. Después, quietud: no hay tween de cámara tras 6.3s. */
-      tl.to(world, { x: PWIDE.x, y: PWIDE.y, scale: PWIDE.scale, duration: 1.1, ease: "power2.inOut" }, 5.2);
-      tl.to(q(".mt05-progress"), { opacity: 1, duration: 0.5, ease: "power2.out" }, 6.3);
+      tl.to(world, { x: PWIDE.x, y: PWIDE.y, scale: PWIDE.scale, duration: 1.1, ease: "power2.inOut" }, 5.696);
+      tl.to(q(".mt05-progress"), { opacity: 1, duration: 0.5, ease: "power2.out" }, 6.9);
 
       tl.to({}, { duration: D }, 0);
       window.__timelines = window.__timelines || {};
