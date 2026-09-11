@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import type { ReactNode, RefObject } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
+import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
   AlertTriangle,
@@ -21,10 +21,17 @@ import { LogoIsotype } from "@/components/Logo"
 import { PageHeader } from "@/components/ui/page-header"
 import { Rotulo } from "@/components/ui/rotulo"
 import { SectionTitle } from "@/components/ui/section-title"
-import { registrarActividadDeEstudio } from "@/lib/activity"
+import { useEvaluacion } from "@/hooks/useEvaluacion"
 import { useSession } from "@/hooks/useSession"
 import { subirArriba } from "@/lib/motion"
 import { accentText } from "@/lib/notam"
+import type {
+  ClaveEvaluacion,
+  PreguntaEvaluacion,
+  ResultadoEvaluacion,
+  RevisionPregunta,
+  SesionEvaluacion,
+} from "@/services/evaluaciones"
 
 /**
  * Evaluación de un módulo.
@@ -42,29 +49,11 @@ import { accentText } from "@/lib/notam"
  *   5. Al terminar se muestra el porcentaje y, debajo, todas las respuestas
  *      con su explicación.
  *
- * El módulo trae sus preguntas, sus rutas, su progreso y su persistencia; la
- * pantalla no sabe de tablas ni de bancos.
+ * El sorteo, la calificación y el guardado los hace el servidor
+ * (services/evaluaciones.ts): la pantalla no tiene las respuestas correctas
+ * hasta que el intento termina. El módulo trae sus rutas, su progreso y su
+ * historial; la pantalla no sabe de tablas ni de bancos.
  */
-
-/** Una pregunta lista para presentarse: opciones barajadas y la correcta remapeada. */
-export interface PreguntaExamen {
-  id: number
-  pregunta: string
-  shuffledOptions: string[]
-  correctIndex: number
-  explicacion: string
-  referencia?: string
-}
-
-/** Lo que se guarda de un intento. */
-export interface IntentoExamen {
-  score: number
-  correct: number
-  total: number
-  passed: boolean
-  elapsed: number
-  answers: { id: number; elegida: string; correcta: string; ok: boolean }[]
-}
 
 /** Una fila del historial, ya normalizada desde la tabla del módulo. */
 export interface FilaHistorial {
@@ -90,30 +79,27 @@ export interface ExamenConfig {
   totalLecciones: number
   /** "secciones" o "lecciones", para los textos de la puerta cerrada. */
   unidadLeccion: string
+  /** Preguntas por intento, para los textos previos. El sorteo real lo hace el servidor. */
   porIntento: number
-  puntosPorPregunta: number
+  /** Mínimo de aprobación para los textos previos. El que califica lo devuelve el servidor. */
   aprobacion: number
   /** Nota de referencia del banco, al pie del resultado y en la puerta cerrada. */
   aviso: string
   /** Acento del módulo: el azul de NOTAM o el amarillo de Mercancías. */
   acento: string
-  construir: () => PreguntaExamen[]
+  /** La evaluación del servidor que presenta esta pantalla. */
+  evaluacion: ClaveEvaluacion
   leerLeidas: () => number[]
   escribirLeidas: (ns: number[]) => void
   hidratarLeidas: (uid: string) => Promise<number[] | null>
   leerMejorLocal: () => number | null
   escribirMejorLocal: (score: number) => void
-  /** Devuelve un mensaje de error, o null si se guardó. */
-  guardarIntento: (uid: string, intento: IntentoExamen) => Promise<string | null>
   cargarHistorial: (uid: string) => Promise<{ rows: FilaHistorial[]; count: number; best: number | null } | null>
   /** Textos de los dos enlaces de salida cuando no se aprobó. */
   pasos: { leccion: string; practica: string }
 }
 
 const OPTION_LETTERS = ["A", "B", "C", "D", "E", "F"]
-
-type Phase = "running" | "done"
-type SaveState = "idle" | "saving" | "saved" | "error" | "anon"
 
 // ─── Helpers de formato y color ──────────────────────────────────────────────
 
@@ -139,13 +125,6 @@ function mix(token: string, pct: number): string {
 
 export function ExamenModulo({ config }: { config: ExamenConfig }) {
   const { user, isLoading: sessionLoading } = useSession()
-  const [phase, setPhase] = useState<Phase>("running")
-  // El set se arma una sola vez por intento: el módulo saca N del banco y
-  // baraja también las opciones de cada una.
-  const [questions, setQuestions] = useState<PreguntaExamen[]>(() => config.construir())
-  const [idx, setIdx] = useState(0)
-  const [picks, setPicks] = useState<Record<number, number | undefined>>({})
-  const [elapsed, setElapsed] = useState(0)
 
   // Descarta lecciones que ya no existen: el módulo se recortó y queda progreso viejo.
   const soloExistentes = useCallback(
@@ -162,10 +141,6 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
   // Sin sesión no hay nada que consultar: lo local es toda la verdad disponible.
   const esperando = !completa && (sessionLoading || (!!user?.id && !hidratado))
   const bloqueado = !completa && !esperando
-
-  // El guard del guardado vive acá, no dentro de Result: Result se monta y se
-  // desmonta con la fase y un ref suyo se reinicia en cada remonte.
-  const savedAttemptRef = useRef(false)
 
   useEffect(() => {
     if (completa || sessionLoading) return
@@ -189,71 +164,93 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
     }
   }, [user?.id, sessionLoading, completa, config, soloExistentes])
 
-  useEffect(() => {
-    if (!completa || phase !== "running") return
-    const t = window.setInterval(() => setElapsed((e) => e + 1), 1000)
-    return () => window.clearInterval(t)
-  }, [phase, completa])
-
-  const total = questions.length
-  const correctCount = useMemo(
-    () => questions.reduce((acc, q, i) => (picks[i] === q.correctIndex ? acc + 1 : acc), 0),
-    [questions, picks],
-  )
-  const score = Math.round(correctCount * config.puntosPorPregunta)
-  const passed = score >= config.aprobacion
-
-  const start = useCallback(() => {
-    savedAttemptRef.current = false
-    setQuestions(config.construir())
-    setPicks({})
-    setIdx(0)
-    setElapsed(0)
-    setPhase("running")
-    subirArriba()
-  }, [config])
-
-  function choose(optionIndex: number) {
-    // Se puede cambiar de opción mientras no se avance.
-    setPicks((p) => ({ ...p, [idx]: optionIndex }))
-  }
-
-  function next() {
-    if (picks[idx] === undefined) return
-    if (idx >= total - 1) {
-      setPhase("done")
-      subirArriba()
-      return
-    }
-    setIdx((i) => i + 1)
-    subirArriba()
-  }
-
-  if (esperando) return <Cargando />
+  if (esperando) return <Cargando texto="Abriendo la evaluación..." />
 
   if (bloqueado) return <Bloqueado config={config} leidas={leidas} />
 
-  if (phase === "done") {
+  // El intento se monta solo con la puerta abierta: pedir preguntas antes sería
+  // gastar un intento de la hora en alguien que todavía no puede presentarla.
+  return <Intento config={config} userId={user?.id ?? null} sessionLoading={sessionLoading} />
+}
+
+// ─── Intento ─────────────────────────────────────────────────────────────────
+
+function Intento({
+  config,
+  userId,
+  sessionLoading,
+}: {
+  config: ExamenConfig
+  userId: string | null
+  sessionLoading: boolean
+}) {
+  const { estado, enviando, errorAccion, responder, terminar, reiniciar } = useEvaluacion(config.evaluacion)
+  const [idx, setIdx] = useState(0)
+  // Opción elegida por posición. Se puede cambiar mientras no se avance; al
+  // avanzar se envía, y en el servidor cuenta la primera que llegó.
+  const [picks, setPicks] = useState<Record<number, number>>({})
+  const [elapsed, setElapsed] = useState(0)
+  const enCurso = estado.fase === "en_curso"
+
+  useEffect(() => {
+    if (!enCurso) return
+    const t = window.setInterval(() => setElapsed((e) => e + 1), 1000)
+    return () => window.clearInterval(t)
+  }, [enCurso])
+
+  const otroIntento = useCallback(() => {
+    setIdx(0)
+    setPicks({})
+    setElapsed(0)
+    reiniciar()
+    subirArriba()
+  }, [reiniciar])
+
+  if (estado.fase === "iniciando") return <Cargando texto="Preparando tus preguntas..." />
+  if (estado.fase === "terminando") return <Cargando texto="Calificando tu evaluación..." />
+  if (estado.fase === "error") {
+    return <ErrorDeEvaluacion config={config} mensaje={estado.error.message} onReintentar={otroIntento} />
+  }
+  if (estado.fase === "terminada") {
     return (
       <Result
         config={config}
-        questions={questions}
-        picks={picks}
-        correctCount={correctCount}
-        score={score}
-        passed={passed}
-        elapsed={elapsed}
-        userId={user?.id ?? null}
+        sesion={estado.sesion}
+        resultado={estado.resultado}
+        userId={userId}
         sessionLoading={sessionLoading}
-        savedRef={savedAttemptRef}
-        onRetry={start}
+        onRetry={otroIntento}
       />
     )
   }
 
-  const q = questions[idx]
-  const picked = picks[idx]
+  const total = estado.sesion.preguntas.length
+  const q = estado.sesion.preguntas[idx]
+  const picked = picks[q.posicion]
   const answered = picked !== undefined
+  const esUltima = idx >= total - 1
+  const puntosPorPregunta = Math.round(100 / total)
+  const hayQueEmpezarDeNuevo =
+    errorAccion?.codigo === "intento_vencido" || errorAccion?.codigo === "intento_no_encontrado"
+
+  function choose(optionIndex: number) {
+    // Se puede cambiar de opción mientras no se avance.
+    setPicks((p) => ({ ...p, [q.posicion]: optionIndex }))
+  }
+
+  async function next() {
+    if (picked === undefined || enviando) return
+    const registrada = await responder(q.posicion, picked)
+    if (!registrada) return
+    // Si ya estaba registrada (un reintento tras un corte de red), manda la del servidor.
+    if (registrada.opcion !== picked) setPicks((p) => ({ ...p, [q.posicion]: registrada.opcion }))
+    subirArriba()
+    if (esUltima) {
+      await terminar()
+      return
+    }
+    setIdx((i) => i + 1)
+  }
 
   return (
     <AppLayout>
@@ -292,27 +289,49 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
             que tiene enfrente es "avanzada". */}
         <div className="rounded-2xl surface p-5 sm:p-6">
           <div className="flex items-center justify-end">
-            <span className="tabular text-[12px] text-muted-foreground">{config.puntosPorPregunta} puntos</span>
+            <span className="tabular text-[12px] text-muted-foreground">{puntosPorPregunta} puntos</span>
           </div>
 
           <h2 className="mt-2 text-[20px] sm:text-[20px] font-semibold leading-snug tracking-[-0.01em]">
-            {q.pregunta}
+            {q.enunciado}
           </h2>
 
           {/* Sin corrección en pantalla: la opción elegida solo se ve elegida. */}
           <div className="mt-5 grid gap-2.5">
-            {q.shuffledOptions.map((opt, oi) => (
+            {q.opciones.map((opt, oi) => (
               <OptionButton
-                key={`${q.id}-${oi}`}
+                key={`${q.posicion}-${oi}`}
                 acento={config.acento}
                 letter={OPTION_LETTERS[oi] ?? String(oi + 1)}
                 text={opt}
                 isPicked={picked === oi}
+                disabled={enviando}
                 onClick={() => choose(oi)}
               />
             ))}
           </div>
         </div>
+
+        {errorAccion && (
+          <div
+            role="alert"
+            className="mt-5 flex flex-wrap items-start gap-3 rounded-xl border p-4"
+            style={{ borderColor: mix("var(--av-amber-400)", 30), background: mix("var(--av-amber-400)", 6) }}
+          >
+            <AlertTriangle className="mt-0.5 h-4.5 w-4.5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
+            <p className="min-w-0 flex-1 text-[13px] leading-relaxed text-foreground/85">{errorAccion.message}</p>
+            {hayQueEmpezarDeNuevo && (
+              <button
+                type="button"
+                onClick={otroIntento}
+                className="text-[13px] font-semibold underline underline-offset-4"
+                style={{ color: accentText(config.acento) }}
+              >
+                Empezar un intento nuevo
+              </button>
+            )}
+          </div>
+        )}
 
         <div className="mt-6 flex items-center justify-between gap-3 flex-wrap">
           <div className="text-[13px] text-muted-foreground">
@@ -320,18 +339,79 @@ export function ExamenModulo({ config }: { config: ExamenConfig }) {
           </div>
           <button
             type="button"
-            onClick={next}
-            disabled={!answered}
+            onClick={() => void next()}
+            disabled={!answered || enviando || hayQueEmpezarDeNuevo}
+            aria-busy={enviando}
             className="inline-flex items-center gap-2 h-12 px-6 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
             style={{ background: config.acento }}
           >
-            {idx >= total - 1 ? "Terminar y ver mi resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+            {enviando ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" /> Guardando tu respuesta...
+              </>
+            ) : (
+              <>
+                {esUltima ? "Terminar y ver mi resultado" : "Siguiente"} <ArrowRight className="h-4 w-4" />
+              </>
+            )}
           </button>
         </div>
 
         <p className="mt-4 text-[12px] text-muted-foreground leading-relaxed">
           Las respuestas correctas y las explicaciones aparecen al final, cuando termines las {total} preguntas.
         </p>
+      </div>
+    </AppLayout>
+  )
+}
+
+/** El intento no pudo empezar: qué pasó, reintentar o volver. */
+function ErrorDeEvaluacion({
+  config,
+  mensaje,
+  onReintentar,
+}: {
+  config: ExamenConfig
+  mensaje: string
+  onReintentar: () => void
+}) {
+  return (
+    <AppLayout>
+      <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[760px] mx-auto">
+        <Link
+          to={config.hub}
+          className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
+        >
+          <ArrowLeft className="h-3.5 w-3.5" /> {config.volverTexto}
+        </Link>
+        <div
+          role="alert"
+          className="rounded-2xl border p-5 sm:p-6 flex items-start gap-3"
+          style={{ borderColor: mix("var(--av-amber-400)", 28), background: mix("var(--av-amber-400)", 5) }}
+        >
+          <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0" style={{ color: "var(--av-amber-400)" }} />
+          <div className="min-w-0">
+            <div className="text-[17px] font-semibold tracking-[-0.01em]">No pudimos abrir la evaluación</div>
+            <p className="mt-1 text-[14px] leading-relaxed text-foreground/85">{mensaje}</p>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-col gap-2.5 sm:flex-row">
+          <button
+            type="button"
+            onClick={onReintentar}
+            className="inline-flex h-12 items-center justify-center rounded-[10px] border-0 px-7 text-[15px] font-semibold text-white transition-colors"
+            style={{ background: config.acento }}
+          >
+            Intentar de nuevo
+          </button>
+          <Link
+            to={config.hub}
+            className="inline-flex h-12 items-center justify-center rounded-[10px] border px-7 text-[15px] font-semibold transition-colors hover:bg-muted/50"
+            style={{ borderColor: mix("var(--border)", 85) }}
+          >
+            Volver a la sección
+          </Link>
+        </div>
       </div>
     </AppLayout>
   )
@@ -349,12 +429,14 @@ function OptionButton({
   letter,
   text,
   isPicked,
+  disabled = false,
   onClick,
 }: {
   acento: string
   letter: string
   text: string
   isPicked: boolean
+  disabled?: boolean
   onClick: () => void
 }) {
   const borderColor = isPicked ? mix(acento, 55) : mix("var(--border)", 70)
@@ -362,9 +444,10 @@ function OptionButton({
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-pressed={isPicked}
       aria-label={`Opción ${letter}: ${text}`}
-      className="w-full text-left rounded-xl border p-3.5 sm:p-4 flex items-start gap-3 min-h-[56px] transition-colors hover:bg-muted/40"
+      className="w-full text-left rounded-xl border p-3.5 sm:p-4 flex items-start gap-3 min-h-[56px] transition-colors hover:bg-muted/40 disabled:cursor-wait"
       style={{ borderColor, background: isPicked ? mix(acento, 8) : "transparent" }}
     >
       <span
@@ -388,16 +471,16 @@ function OptionButton({
 
 // ─── Puerta cerrada ──────────────────────────────────────────────────────────
 
-function Cargando() {
+function Cargando({ texto }: { texto: string }) {
   return (
     <AppLayout>
       <div
         className="px-5 sm:px-7 py-20 max-w-[900px] mx-auto flex flex-col items-center gap-3 text-muted-foreground"
         role="status"
-        aria-label="Abriendo la evaluación"
+        aria-label={texto}
       >
         <Loader2 className="h-5 w-5 animate-spin" />
-        <span className="text-[13px]">Abriendo la evaluación...</span>
+        <span className="text-[13px]">{texto}</span>
       </div>
     </AppLayout>
   )
@@ -660,64 +743,23 @@ function Stat({ label, value, color }: { label: string; value: string; color: st
 
 interface ResultProps {
   config: ExamenConfig
-  questions: PreguntaExamen[]
-  picks: Record<number, number | undefined>
-  correctCount: number
-  score: number
-  passed: boolean
-  elapsed: number
+  sesion: SesionEvaluacion
+  resultado: ResultadoEvaluacion
   userId: string | null
   sessionLoading: boolean
-  savedRef: RefObject<boolean>
   onRetry: () => void
 }
 
-function Result({ config, questions, picks, correctCount, score, passed, elapsed, userId, sessionLoading, savedRef, onRetry }: ResultProps) {
-  const [saveState, setSaveState] = useState<SaveState>("idle")
-  const total = questions.length
+function Result({ config, sesion, resultado, userId, sessionLoading, onRetry }: ResultProps) {
+  const { puntaje: score, correctas: correctCount, total, aprobada: passed, aprobacion, duracionSegundos: elapsed } = resultado
   const color = passed ? config.acento : "var(--av-wine-500)"
   const colorTexto = passed ? accentText(config.acento) : "var(--av-wine-fg)"
 
-  const answers = useMemo(
-    () =>
-      questions.map((q, i) => {
-        const pickedIndex = picks[i]
-        return {
-          id: q.id,
-          elegida: pickedIndex !== undefined ? q.shuffledOptions[pickedIndex] : "",
-          correcta: q.shuffledOptions[q.correctIndex],
-          ok: pickedIndex === q.correctIndex,
-        }
-      }),
-    [questions, picks],
-  )
-
-  // El progreso local es el respaldo: se guarda siempre, aunque la red falle.
+  // El progreso local es el respaldo del mejor puntaje, para abrir el hub sin red.
   useEffect(() => {
     const prev = config.leerMejorLocal()
     if (prev == null || score > prev) config.escribirMejorLocal(score)
   }, [score, config])
-
-  useEffect(() => {
-    if (sessionLoading || savedRef.current) return
-    savedRef.current = true
-    void (async () => {
-      if (!userId) {
-        setSaveState("anon")
-        return
-      }
-      setSaveState("saving")
-      const error = await config.guardarIntento(userId, { score, correct: correctCount, total, passed, elapsed, answers })
-      if (error) {
-        console.error(`${config.nombre} exam save`, error)
-        setSaveState("error")
-        return
-      }
-      setSaveState("saved")
-      // La evaluación cuenta como día estudiado, igual que un quiz del banco.
-      void registrarActividadDeEstudio({ questions: total, correct: correctCount, minutes: Math.round(elapsed / 60) })
-    })()
-  }, [sessionLoading, userId, score, correctCount, total, passed, answers, elapsed, savedRef, config])
 
   return (
     <AppLayout>
@@ -742,7 +784,7 @@ function Result({ config, questions, picks, correctCount, score, passed, elapsed
             <dl className="flex flex-wrap items-end gap-x-9 gap-y-4">
               <Dato rotulo="Correctas" valor={`${correctCount} de ${total}`} />
               <Dato rotulo="Tiempo" valor={fmtTime(elapsed)} />
-              <Dato rotulo="Mínimo" valor={`${config.aprobacion}%`} />
+              <Dato rotulo="Mínimo" valor={`${aprobacion}%`} />
               <Dato rotulo="Resultado" valor={passed ? "Aprobado" : "No aprobado"} color={colorTexto} />
             </dl>
           </div>
@@ -759,13 +801,13 @@ function Result({ config, questions, picks, correctCount, score, passed, elapsed
             <div className="h-full rounded-full transition-[width]" style={{ width: `${Math.max(score, 1)}%`, background: color }} />
           </div>
           <div className="relative mt-1 h-[11px]">
-            <span className="absolute top-0 block h-[5px] w-px" style={{ left: `${config.aprobacion}%`, background: mix("var(--foreground)", 35) }} aria-hidden="true" />
-            <span className="tabular absolute top-[6px] -translate-x-1/2 text-[10px] text-muted-foreground" style={{ left: `${config.aprobacion}%` }} aria-hidden="true">
-              {config.aprobacion}
+            <span className="absolute top-0 block h-[5px] w-px" style={{ left: `${aprobacion}%`, background: mix("var(--foreground)", 35) }} aria-hidden="true" />
+            <span className="tabular absolute top-[6px] -translate-x-1/2 text-[10px] text-muted-foreground" style={{ left: `${aprobacion}%` }} aria-hidden="true">
+              {aprobacion}
             </span>
           </div>
 
-          <SaveNote state={saveState} />
+          <p className="mt-6 text-[12px] text-muted-foreground">Guardado en tu historial.</p>
         </section>
 
         <Filete className="mt-10" />
@@ -777,8 +819,8 @@ function Result({ config, questions, picks, correctCount, score, passed, elapsed
             su explicación. Las falladas quedan abiertas.
           </p>
           <div className="mt-6 space-y-3">
-            {questions.map((q, i) => (
-              <ReviewItem key={q.id} acento={config.acento} n={i + 1} question={q} pickedIndex={picks[i]} />
+            {sesion.preguntas.map((pregunta, i) => (
+              <ReviewItem key={pregunta.posicion} acento={config.acento} n={i + 1} pregunta={pregunta} revision={resultado.revision[i]} />
             ))}
           </div>
         </section>
@@ -786,7 +828,7 @@ function Result({ config, questions, picks, correctCount, score, passed, elapsed
         <Filete className="mt-10" />
 
         <div className="mt-8">
-          <AttemptHistory config={config} userId={userId} sessionLoading={sessionLoading} refreshKey={saveState === "saved" ? 1 : 0} total={total} />
+          <AttemptHistory config={config} userId={userId} sessionLoading={sessionLoading} refreshKey={1} total={total} />
         </div>
 
         <div className="mt-10 flex flex-col gap-2.5 sm:flex-row">
@@ -882,37 +924,17 @@ function NotaDeReferencia({ texto }: { texto: string }) {
   )
 }
 
-function SaveNote({ state }: { state: SaveState }) {
-  if (state === "saving") {
-    return (
-      <div className="mt-6 inline-flex items-center gap-2 text-[12px] text-muted-foreground">
-        <Loader2 className="h-3.5 w-3.5 animate-spin" /> Guardando tu intento...
-      </div>
-    )
-  }
-  if (state === "saved") return <div className="mt-6 text-[12px] text-muted-foreground">Guardado en tu historial.</div>
-  if (state === "error") {
-    return (
-      <div className="mt-6 max-w-[600px] text-[12px] leading-relaxed text-muted-foreground">
-        No pudimos guardar este intento en tu historial. Tu resultado de arriba es válido, solo no quedó registrado en la
-        nube.
-      </div>
-    )
-  }
-  if (state === "anon") return <div className="mt-6 text-[12px] text-muted-foreground">Inicia sesión para guardar tus intentos y seguir tu progreso.</div>
-  return null
-}
-
 /**
  * Una pregunta del repaso, como ficha cerrada. Orden: pregunta → tu respuesta
  * → respuesta correcta → explicación. La que acertó se resume.
  */
-function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: number; question: PreguntaExamen; pickedIndex: number | undefined }) {
-  const ok = pickedIndex === question.correctIndex
+function ReviewItem({ acento, n, pregunta, revision }: { acento: string; n: number; pregunta: PreguntaEvaluacion; revision: RevisionPregunta }) {
+  const ok = revision.correcta
   const [open, setOpen] = useState(!ok)
   const marca = ok ? acento : "var(--av-wine-500)"
   const textoMarca = ok ? accentText(acento) : "var(--av-wine-fg)"
-  const elegida = pickedIndex !== undefined ? question.shuffledOptions[pickedIndex] : null
+  const elegida = revision.opcion !== null ? pregunta.opciones[revision.opcion] : null
+  const correcta = pregunta.opciones[revision.opcionCorrecta]
 
   return (
     <div className="overflow-hidden rounded-[14px] border bg-card" style={{ borderColor: mix("var(--border)", open ? 95 : 75) }}>
@@ -924,7 +946,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
           <span className="mono block text-[11px] font-medium uppercase tracking-[0.16em]" style={{ color: textoMarca }}>
             <span aria-hidden="true">{ok ? "✓" : "✕"}</span> {ok ? "Correcta" : "Incorrecta"}
           </span>
-          {!open && <span className="mt-2 block text-[15px] font-medium leading-snug text-foreground/85">{question.pregunta}</span>}
+          {!open && <span className="mt-2 block text-[15px] font-medium leading-snug text-foreground/85">{pregunta.enunciado}</span>}
         </span>
         <span className="mt-[2px] flex-shrink-0 text-muted-foreground">{open ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}</span>
       </button>
@@ -943,7 +965,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
           <div className="pt-1.5">
             <Rotulo>Pregunta</Rotulo>
             <p className="mt-2.5 max-w-[62ch] text-[19px] font-semibold leading-[1.45] text-foreground sm:text-[20px]" style={{ letterSpacing: "-0.012em" }}>
-              {question.pregunta}
+              {pregunta.enunciado}
             </p>
           </div>
 
@@ -953,7 +975,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
             <div className="mt-6">
               <Rotulo>Respuesta</Rotulo>
               <Respuesta glifo="✓" color={marca}>
-                {elegida ?? question.shuffledOptions[question.correctIndex]}
+                {elegida ?? correcta}
               </Respuesta>
             </div>
           ) : (
@@ -967,7 +989,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
               <div className="mt-6">
                 <Rotulo>Respuesta correcta</Rotulo>
                 <Respuesta glifo="✓" color={acento}>
-                  {question.shuffledOptions[question.correctIndex]}
+                  {correcta}
                 </Respuesta>
               </div>
             </>
@@ -975,7 +997,7 @@ function ReviewItem({ acento, n, question, pickedIndex }: { acento: string; n: n
 
           <div className="mt-6">
             <Rotulo>Explicación</Rotulo>
-            <Explicacion acento={acento} texto={question.explicacion} referencia={question.referencia} />
+            <Explicacion acento={acento} texto={revision.explicacion} referencia={revision.referencia ?? undefined} />
           </div>
         </div>
         </div>

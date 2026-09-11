@@ -3,18 +3,16 @@ import { ArrowLeft, ClipboardCheck, ShieldAlert } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { QuizEngine } from "@/components/QuizEngine"
-import type { QuizQuestion, QuizResultado } from "@/components/QuizEngine"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { supabase } from "@/integrations/supabase/client"
-import { registrarActividadDeEstudio } from "@/lib/activity"
 import { accentText } from "@/lib/notam"
 import {
   METAR_DISCLAIMERS,
   METAR_EXAM_PASS_SCORE,
-  METAR_EXAM_QUESTIONS,
+  METAR_EXAM_TOTAL,
   readMetarProgress,
   writeMetarProgress,
 } from "@/lib/metar"
+import type { ResultadoEvaluacion } from "@/services/evaluaciones"
 
 /**
  * Evaluación del tema METAR (ruta /app/aerolinea/meteorologia/evaluacion).
@@ -23,53 +21,19 @@ import {
  * comprobaba si había aprendido, así que el tema no podía marcarse como
  * completo. Misma mecánica y mismo mínimo que la evaluación de NOTAM.
  *
- * El intento se guarda en los dos sitios: el respaldo local siempre (la
- * evaluación funciona sin sesión y sin red) y user_metar_exam_attempts cuando
- * hay sesión, que es lo que lo hace viajar entre dispositivos y lo que dispara
- * la revisión del logro metar_master en la base.
+ * Las preguntas, la corrección de cada respuesta y el guardado del intento son
+ * del servidor (evaluación metar_evaluacion); al guardar se dispara la revisión
+ * del logro metar_master en la base. Aquí solo queda el respaldo local del mejor
+ * puntaje, que el hub del tema muestra aunque no haya red.
  */
-/**
- * Guarda el intento en la base. Sin sesión no hay dónde: lo local ya quedó y es
- * el caso esperado de quien estudia sin cuenta.
- */
-async function persistirIntento(r: QuizResultado): Promise<void> {
-  try {
-    const { data } = await supabase.auth.getUser()
-    const userId = data.user?.id
-    if (!userId) return
-    const { error } = await supabase.from("user_metar_exam_attempts").insert({
-      user_id: userId,
-      score: r.score,
-      correct: r.aciertos,
-      total: r.total,
-    })
-    if (error) console.warn("metar exam save", error.message)
-  } catch (err) {
-    console.warn("metar exam save", err)
+function guardarMejorLocal(r: ResultadoEvaluacion): void {
+  const previo = readMetarProgress().bestExamScore
+  if (previo === null || r.puntaje > previo) {
+    writeMetarProgress({ bestExamScore: r.puntaje })
   }
 }
 
 export function MetarExam() {
-  const preguntas: QuizQuestion[] = METAR_EXAM_QUESTIONS.map((q) => ({
-    id: q.id,
-    pregunta: q.pregunta,
-    opciones: q.opciones,
-    correcta: q.correcta,
-    explicacion: q.explicacion,
-    referencia: q.referencia,
-  }))
-
-  function guardar(r: QuizResultado): void {
-    // El respaldo local primero: se guarda siempre, aunque la red falle.
-    const previo = readMetarProgress().bestExamScore
-    if (previo === null || r.score > previo) {
-      writeMetarProgress({ bestExamScore: r.score })
-    }
-    void persistirIntento(r)
-    // La evaluación cuenta como día estudiado, con sus preguntas y aciertos.
-    void registrarActividadDeEstudio({ questions: r.total, correct: r.aciertos })
-  }
-
   return (
     <AppLayout>
       <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
@@ -87,7 +51,7 @@ export function MetarExam() {
             </>
           }
           title="Evaluación de METAR"
-          subtitle={`${METAR_EXAM_QUESTIONS.length} preguntas de opción múltiple, barajadas. Cada una trae su explicación y su referencia. Apruebas con ${METAR_EXAM_PASS_SCORE} sobre 100.`}
+          subtitle={`${METAR_EXAM_TOTAL} preguntas de opción múltiple, barajadas. Cada una trae su explicación y su referencia. Apruebas con ${METAR_EXAM_PASS_SCORE} sobre 100.`}
         />
 
         <div
@@ -109,13 +73,12 @@ export function MetarExam() {
         </div>
 
         <QuizEngine
-          questions={preguntas}
-          passScore={METAR_EXAM_PASS_SCORE}
+          evaluacion="metar_evaluacion"
           backTo="/app/aerolinea/meteorologia"
           backLabel="Volver al tema"
-          onFinish={guardar}
+          onFinish={guardarMejorLocal}
           footer={(r) =>
-            r.aprobado ? null : (
+            r.aprobada ? null : (
               <section className="mt-6 rounded-xl surface p-6">
                 <div className="text-[15px] font-semibold">Antes de volver a intentarlo</div>
                 <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed max-w-[680px]">

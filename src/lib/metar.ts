@@ -436,21 +436,11 @@ export interface MetarExercise {
   fuente: string
 }
 
-export interface MetarExamQuestion {
-  id: number
-  nivel: NotamLevel
-  pregunta: string
-  opciones: string[]
-  /** Índice en el array original. Al barajar hay que remapearlo. */
-  correcta: number
-  explicacion: string
-  referencia: string
-}
-
 export const METAR_EXERCISES = ejerciciosRaw.ejercicios as MetarExercise[]
 export const METAR_EXERCISE_META = ejerciciosRaw.meta
-export const METAR_EXAM_QUESTIONS = examenRaw.preguntas as MetarExamQuestion[]
 export const METAR_EXAM_META = examenRaw.meta
+/** Preguntas de la evaluación. El banco vive en el servidor (contenido/bancos/metar_evaluacion.json). */
+export const METAR_EXAM_TOTAL = METAR_EXAM_META.total as number
 
 export const METAR_EXAM_PASS_SCORE = METAR_EXAM_META.calificacion.aprobacion as number
 export const METAR_EXAM_POINTS = METAR_EXAM_META.calificacion.puntaje_por_pregunta as number

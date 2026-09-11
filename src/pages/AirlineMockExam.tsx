@@ -1,21 +1,19 @@
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ClipboardCheck, Play, ShieldAlert, Timer } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
 import { QuizEngine } from "@/components/QuizEngine"
-import type { QuizQuestion, QuizResultado } from "@/components/QuizEngine"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
-import { registrarActividadDeEstudio } from "@/lib/activity"
 import {
   AIRLINE_MOCK_PASS_SCORE,
-  BANCOS,
-  BANCO_COMPLETO,
-  guardarIntentoSimulacro,
+  TEMAS_SIMULACRO,
+  anotarIntentoSimulacroLocal,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { accentText, shuffle } from "@/lib/notam"
+import { accentText } from "@/lib/notam"
+import type { ResultadoEvaluacion, SesionEvaluacion } from "@/services/evaluaciones"
 
 /**
  * Simulacro de entrevista técnica (ruta /app/aerolinea/simulacro).
@@ -32,13 +30,18 @@ import { accentText, shuffle } from "@/lib/notam"
  * El mínimo es más alto que el de una evaluación de tema (85 contra 80): en una
  * prueba técnica de aerolínea no se aprueba raspando.
  *
- * Cada intento se guarda (respaldo local y user_airline_mock_attempts): sin eso
- * el simulacro era la única pieza del módulo que olvidaba todo al salir de la
- * pantalla, y la que da la razón para volver es justo esta.
+ * El sorteo, la corrección y el guardado del intento son del servidor
+ * (evaluación simulacro_aerolinea, que mezcla los bancos de los temas abiertos).
+ * Aquí queda el respaldo local del mejor puntaje, que es lo que convierte la
+ * pantalla de arranque en una marca que superar.
  */
 
 const PASS_SCORE = AIRLINE_MOCK_PASS_SCORE
 const TOTAL_PREGUNTAS = 25
+
+function anotarIntento(r: ResultadoEvaluacion): void {
+  anotarIntentoSimulacroLocal(r.puntaje)
+}
 
 export function AirlineMockExam() {
   const [empezado, setEmpezado] = useState(false)
@@ -46,18 +49,6 @@ export function AirlineMockExam() {
   // El mejor puntaje previo se lee del respaldo local al montar: es lo que
   // convierte la pantalla de arranque en un marcador que hay que superar.
   const [mejorPrevio] = useState(() => readAirlineMockLocal().bestScore)
-
-  // Se sortea del banco entero, no por cupos: así el simulacro representa el
-  // peso real de cada tema en el material que hay cargado.
-  const preguntas = useMemo(
-    () => shuffle(BANCO_COMPLETO, semilla || undefined).slice(0, TOTAL_PREGUNTAS),
-    [semilla]
-  )
-
-  function guardar(r: QuizResultado): void {
-    void guardarIntentoSimulacro({ score: r.score, correct: r.aciertos, total: r.total })
-    void registrarActividadDeEstudio({ questions: r.total, correct: r.aciertos })
-  }
 
   return (
     <AppLayout>
@@ -134,11 +125,11 @@ export function AirlineMockExam() {
                 hint="Cada tema que se abra entra solo al sorteo, sin tocar esta pantalla."
               />
               <div className="grid gap-3 sm:grid-cols-2">
-                {BANCOS.map((b) => (
-                  <Link key={b.tema} to={b.ruta} className="surface-lift rounded-xl surface p-5">
-                    <div className="text-[15px] font-semibold">{b.tema}</div>
+                {TEMAS_SIMULACRO.map((t) => (
+                  <Link key={t.tema} to={t.ruta} className="surface-lift rounded-xl surface p-5">
+                    <div className="text-[15px] font-semibold">{t.tema}</div>
                     <div className="mt-0.5 text-[13px] text-muted-foreground">
-                      {b.preguntas.length} preguntas en el banco
+                      {t.preguntas} preguntas en el banco
                     </div>
                   </Link>
                 ))}
@@ -167,12 +158,11 @@ export function AirlineMockExam() {
         ) : (
           <QuizEngine
             key={semilla}
-            questions={preguntas}
-            passScore={PASS_SCORE}
+            evaluacion="simulacro_aerolinea"
             backTo="/app/aerolinea"
             backLabel="Volver al módulo"
-            onFinish={guardar}
-            footer={() => <PorTema preguntas={preguntas} />}
+            onFinish={anotarIntento}
+            footer={(_, sesion) => <PorTema sesion={sesion} />}
           />
         )}
       </div>
@@ -188,10 +178,10 @@ export function AirlineMockExam() {
  * abajo ya dice cuáles fallaste y de qué tema es cada una, así que aquí basta
  * con dejar el camino de vuelta a cada tema.
  */
-function PorTema({ preguntas }: { preguntas: QuizQuestion[] }) {
+function PorTema({ sesion }: { sesion: SesionEvaluacion }) {
   const conteo = new Map<string, number>()
-  for (const q of preguntas) {
-    const t = q.origen ?? "Otros"
+  for (const q of sesion.preguntas) {
+    const t = q.tema ?? "Otros"
     conteo.set(t, (conteo.get(t) ?? 0) + 1)
   }
 
@@ -211,9 +201,9 @@ function PorTema({ preguntas }: { preguntas: QuizQuestion[] }) {
         . Mira la revisión de abajo: cada pregunta dice de qué tema es y qué sección la explica.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
-        {BANCOS.map((b) => (
-          <Link key={b.tema} to={b.ruta} className={appButtonClass({ variant: "secondary" })}>
-            Repasar {b.tema}
+        {TEMAS_SIMULACRO.map((t) => (
+          <Link key={t.tema} to={t.ruta} className={appButtonClass({ variant: "secondary" })}>
+            Repasar {t.tema}
           </Link>
         ))}
       </div>

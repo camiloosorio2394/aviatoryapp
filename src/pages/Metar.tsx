@@ -10,7 +10,7 @@ import { useSession } from "@/hooks/useSession"
 import { supabase } from "@/integrations/supabase/client"
 import {
   METAR_EXAM_PASS_SCORE,
-  METAR_EXAM_QUESTIONS,
+  METAR_EXAM_TOTAL,
   METAR_LEGEND_TOTAL,
   METAR_PRACTICE_TOTAL,
   readMetarProgress,
@@ -161,7 +161,7 @@ export function Metar() {
       to: "/app/aerolinea/meteorologia/evaluacion",
       icon: ClipboardCheck,
       color: "var(--av-mt-700)",
-      meta: `${METAR_EXAM_QUESTIONS.length} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
+      meta: `${METAR_EXAM_TOTAL} preguntas, apruebas con ${METAR_EXAM_PASS_SCORE}`,
       title: "4. Evaluación",
       blurb:
         "Opción múltiple con preguntas y opciones barajadas. Al final ves la explicación y la referencia de cada una.",

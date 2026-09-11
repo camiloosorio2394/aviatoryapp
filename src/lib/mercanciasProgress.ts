@@ -124,33 +124,6 @@ export async function markMercanciasProgress(mark: {
   }
 }
 
-/** Guarda un intento del chequeo: respaldo local primero, después la base. */
-export async function guardarChequeoMercancias(intento: {
-  score: number
-  correct: number
-  total: number
-}): Promise<void> {
-  const local = readMercanciasLocal()
-  writeMercanciasLocal({
-    bestScore: local.bestScore === null ? intento.score : Math.max(local.bestScore, intento.score),
-  })
-
-  try {
-    const { data } = await supabase.auth.getUser()
-    const userId = data.user?.id
-    if (!userId) return
-    const { error } = await supabase.from("user_mercancias_exam_attempts").insert({
-      user_id: userId,
-      score: intento.score,
-      correct: intento.correct,
-      total: intento.total,
-    })
-    if (error) console.warn("mercancias chequeo", error.message)
-  } catch (err) {
-    console.warn("mercancias chequeo", err)
-  }
-}
-
 /** Corre las promesas de a `size` para no abrir muchas conexiones de golpe. */
 async function porTandas(tareas: (() => Promise<unknown>)[], size = 6): Promise<void> {
   for (let i = 0; i < tareas.length; i += size) {

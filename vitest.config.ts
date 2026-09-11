@@ -8,6 +8,11 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
-    include: ["src/**/*.test.{ts,tsx}"],
+    // Un cliente de Supabase que nunca sale a la red: las pruebas simulan sus respuestas.
+    env: {
+      VITE_SUPABASE_URL: "http://127.0.0.1:54321",
+      VITE_SUPABASE_ANON_KEY: "clave-anon-de-pruebas",
+    },
+    include: ["src/**/*.test.{ts,tsx}", "scripts/**/*.test.ts"],
   },
 })

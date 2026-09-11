@@ -1,21 +1,23 @@
-import { useMemo, useState, type ReactNode } from "react"
+import { useEffect, useRef, useState, type ReactNode } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowRight, CheckCircle2, RotateCcw, Target, XCircle } from "lucide-react"
+import { AlertTriangle, ArrowLeft, ArrowRight, CheckCircle2, Loader2, RotateCcw, Target, XCircle } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
+import { useEvaluacion } from "@/hooks/useEvaluacion"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
-import { accentText, shuffle } from "@/lib/notam"
+import { accentText } from "@/lib/notam"
+import type { ClaveEvaluacion, ResultadoEvaluacion, SesionEvaluacion } from "@/services/evaluaciones"
 
 /**
- * Motor de evaluación de opción múltiple.
+ * Motor de evaluación de opción múltiple con corrección al momento.
  *
  * Nació al cerrar el tema METAR y al construir el simulacro de entrevista
- * técnica: las dos pantallas necesitaban exactamente lo mismo (barajar,
- * responder una a una, explicar al momento y dar un informe al final), y la
- * evaluación de NOTAM ya lo tenía resuelto en novecientas líneas propias.
- * Antes de escribir una tercera copia, el mecanismo vive aquí.
+ * técnica: las dos pantallas necesitaban exactamente lo mismo (responder una a
+ * una, explicar al momento y dar un informe al final).
  *
- * Lo que NO hace: guardar. Cada pantalla decide dónde persiste su resultado,
- * porque cada tema guarda en su propia tabla.
+ * Las preguntas, la corrección de cada respuesta y el resultado vienen del
+ * servidor (services/evaluaciones.ts): la pantalla no conoce la opción correcta
+ * hasta que el piloto responde. El guardado del intento también lo hace el
+ * servidor; cada pantalla solo decide qué más hacer con el resultado.
  */
 
 /**
@@ -48,112 +50,85 @@ function inline(text: string): ReactNode[] {
   })
 }
 
-export interface QuizQuestion {
-  id: number | string
-  pregunta: string
-  opciones: string[]
-  /** Índice de la correcta dentro de `opciones`. */
-  correcta: number
-  explicacion: string
-  referencia: string
-  /** Etiqueta de procedencia, para los bancos mezclados. */
-  origen?: string
-}
-
-interface Barajada extends QuizQuestion {
-  opcionesBarajadas: string[]
-  correctaIdx: number
-}
-
-export interface QuizResultado {
-  aciertos: number
-  total: number
-  /** Sobre 100. */
-  score: number
-  aprobado: boolean
+/** Referencia a mostrar: la de la pregunta o, en los bancos que no la traen, el módulo. */
+function referenciaDe(referencia: string | null, tema: string | null): string {
+  return referencia ?? (tema ? `Módulo ${tema} de Aviatory` : "")
 }
 
 interface QuizEngineProps {
-  questions: QuizQuestion[]
-  /** Puntaje mínimo de aprobación, sobre 100. */
-  passScore: number
+  /** Evaluación del servidor que se presenta. */
+  evaluacion: ClaveEvaluacion
   /** Adónde vuelve el botón de salida. */
   backTo: string
   backLabel: string
-  /** Se llama una vez, al terminar. Aquí cada pantalla guarda su resultado. */
-  onFinish?: (r: QuizResultado) => void
+  /** Se llama una vez por intento, con el resultado ya guardado en el servidor. */
+  onFinish?: (resultado: ResultadoEvaluacion) => void
   /** Bloque libre bajo el resultado: recomendaciones, enlaces, lo que toque. */
-  footer?: (r: QuizResultado) => React.ReactNode
+  footer?: (resultado: ResultadoEvaluacion, sesion: SesionEvaluacion) => ReactNode
 }
 
-export function QuizEngine({
-  questions,
-  passScore,
-  backTo,
-  backLabel,
-  onFinish,
-  footer,
-}: QuizEngineProps) {
-  // Semilla fija por montaje: el intento es reproducible mientras dure, y
-  // volver a empezar baraja de nuevo.
-  const [seed, setSeed] = useState(() => Math.floor(Math.random() * 2 ** 31) || 1)
-
-  const barajadas: Barajada[] = useMemo(() => {
-    return shuffle(questions, seed).map((q, i) => {
-      const textoCorrecto = q.opciones[q.correcta]
-      const opcionesBarajadas = shuffle(q.opciones, seed + i + 1)
-      return { ...q, opcionesBarajadas, correctaIdx: opcionesBarajadas.indexOf(textoCorrecto) }
-    })
-  }, [questions, seed])
-
+export function QuizEngine({ evaluacion, backTo, backLabel, onFinish, footer }: QuizEngineProps) {
+  const { estado, respuestas, enviando, errorAccion, responder, terminar, reiniciar } = useEvaluacion(evaluacion)
   const [idx, setIdx] = useState(0)
-  const [respuestas, setRespuestas] = useState<Record<number, number>>({})
-  const [terminado, setTerminado] = useState(false)
-  const [avisado, setAvisado] = useState(false)
 
-  const total = barajadas.length
-  const actual = barajadas[idx]
-  const elegida = respuestas[idx]
-  const respondida = elegida !== undefined
+  // El aviso al padre va una sola vez por intento: el resultado puede volver a
+  // pintarse sin que eso sea un intento nuevo.
+  const avisado = useRef<string | null>(null)
+  useEffect(() => {
+    if (estado.fase !== "terminada" || avisado.current === estado.sesion.id) return
+    avisado.current = estado.sesion.id
+    onFinish?.(estado.resultado)
+  }, [estado, onFinish])
 
-  const aciertos = barajadas.reduce(
-    (acc, q, i) => acc + (respuestas[i] === q.correctaIdx ? 1 : 0),
-    0
-  )
-  const score = total > 0 ? Math.round((aciertos / total) * 100) : 0
-  const aprobado = score >= passScore
-  const resultado: QuizResultado = { aciertos, total, score, aprobado }
-
-  function responder(i: number): void {
-    if (respondida) return
-    setRespuestas((prev) => ({ ...prev, [idx]: i }))
-  }
-
-  function siguiente(): void {
-    if (idx < total - 1) {
-      setIdx(idx + 1)
-      return
-    }
-    setTerminado(true)
-    // El aviso al padre va una sola vez: si el usuario vuelve a la última
-    // pregunta y pulsa otra vez, no se guardan dos intentos iguales.
-    if (!avisado) {
-      setAvisado(true)
-      onFinish?.(resultado)
-    }
-  }
-
-  function reiniciar(): void {
-    setSeed(Math.floor(Math.random() * 2 ** 31) || 1)
+  function volverAEmpezar(): void {
     setIdx(0)
-    setRespuestas({})
-    setTerminado(false)
-    setAvisado(false)
+    reiniciar()
   }
 
-  if (total === 0) return null
+  if (estado.fase === "iniciando" || estado.fase === "terminando") {
+    return (
+      <section
+        className="rounded-xl surface p-8 flex flex-col items-center gap-3 text-muted-foreground"
+        role="status"
+        aria-live="polite"
+      >
+        <Loader2 className="h-5 w-5 animate-spin" />
+        <span className="text-[13px]">
+          {estado.fase === "iniciando" ? "Preparando tus preguntas..." : "Calificando tu intento..."}
+        </span>
+      </section>
+    )
+  }
 
-  if (terminado) {
+  if (estado.fase === "error") {
+    return (
+      <section className="rounded-xl surface p-6 sm:p-8" role="alert">
+        <div className="flex items-start gap-3">
+          <AlertTriangle
+            className="mt-0.5 h-5 w-5 shrink-0"
+            style={{ color: accentText("var(--av-amber-400)", 75) }}
+            aria-hidden
+          />
+          <div className="min-w-0">
+            <div className="text-[17px] font-semibold tracking-[-0.01em]">No pudimos abrir la evaluación</div>
+            <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{estado.error.message}</p>
+          </div>
+        </div>
+        <div className="mt-5 flex flex-wrap gap-2">
+          <button type="button" onClick={volverAEmpezar} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
+            <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+          </button>
+          <Link to={backTo} className={appButtonClass({ variant: "secondary", size: "lg" })}>
+            {backLabel}
+          </Link>
+        </div>
+      </section>
+    )
+  }
+
+  if (estado.fase === "terminada") {
+    const { sesion, resultado } = estado
+    const aprobado = resultado.aprobada
     const color = aprobado ? "var(--av-green-400)" : "var(--av-amber-400)"
     return (
       <>
@@ -171,16 +146,16 @@ export function QuizEngine({
             className="tabular mt-4 text-[32px] font-semibold tracking-[-0.03em]"
             style={{ color: accentText(color) }}
           >
-            {score} / 100
+            {resultado.puntaje} / 100
           </div>
           <div className="mt-1 text-[17px] font-semibold">
             {aprobado ? "Aprobada" : "No alcanzaste el mínimo"}
           </div>
           <p className="mt-1.5 text-[13px] text-muted-foreground">
-            {aciertos} de {total} correctas. Se aprueba con {passScore}.
+            {resultado.correctas} de {resultado.total} correctas. Se aprueba con {resultado.aprobacion}.
           </p>
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <button type="button" onClick={reiniciar} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
+            <button type="button" onClick={volverAEmpezar} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
               <RotateCcw className="h-4 w-4" /> Volver a intentar
             </button>
             <Link to={backTo} className={appButtonClass({ variant: "secondary", size: "lg" })}>
@@ -189,7 +164,7 @@ export function QuizEngine({
           </div>
         </section>
 
-        {footer?.(resultado)}
+        {footer?.(resultado, sesion)}
 
         {/* Revisión: la parte que de verdad enseña */}
         <section className="mt-8">
@@ -199,11 +174,11 @@ export function QuizEngine({
             hint="Lo que fallaste es lo que hay que volver a leer."
           />
           <div className="flex flex-col gap-3">
-            {barajadas.map((q, i) => {
-              const dada = respuestas[i]
-              const bien = dada === q.correctaIdx
+            {sesion.preguntas.map((pregunta, i) => {
+              const revision = resultado.revision[i]
+              const bien = revision.correcta
               return (
-                <div key={q.id} className="rounded-xl surface p-5">
+                <div key={pregunta.posicion} className="rounded-xl surface p-5">
                   <div className="flex items-start gap-2.5">
                     <span
                       className="shrink-0 mt-0.5"
@@ -212,25 +187,25 @@ export function QuizEngine({
                       {bien ? <CheckCircle2 className="h-4 w-4" /> : <XCircle className="h-4 w-4" />}
                     </span>
                     <div className="min-w-0">
-                      <div className="text-[15px] font-medium">{inline(q.pregunta)}</div>
+                      <div className="text-[15px] font-medium">{inline(pregunta.enunciado)}</div>
                       {!bien && (
                         <div className="mt-1.5 text-[13px] text-muted-foreground">
                           Respondiste:{" "}
                           <span className="text-foreground">
-                            {dada === undefined ? "sin responder" : inline(q.opcionesBarajadas[dada])}
+                            {revision.opcion === null ? "sin responder" : inline(pregunta.opciones[revision.opcion])}
                           </span>
                         </div>
                       )}
                       <div className="mt-1 text-[13px]">
                         <span className="text-muted-foreground">Correcta: </span>
-                        <span className="font-medium">{inline(q.opcionesBarajadas[q.correctaIdx])}</span>
+                        <span className="font-medium">{inline(pregunta.opciones[revision.opcionCorrecta])}</span>
                       </div>
                       <p className="mt-2 text-[13px] text-muted-foreground leading-relaxed">
-                        {inline(q.explicacion)}
+                        {inline(revision.explicacion)}
                       </p>
                       <div className="mt-2 text-[12px] text-muted-foreground">
-                        {q.origen ? `${q.origen} · ` : ""}
-                        {q.referencia}
+                        {pregunta.tema ? `${pregunta.tema} · ` : ""}
+                        {referenciaDe(revision.referencia, pregunta.tema)}
                       </div>
                     </div>
                   </div>
@@ -243,15 +218,36 @@ export function QuizEngine({
     )
   }
 
+  const { sesion } = estado
+  const total = sesion.preguntas.length
+  const actual = sesion.preguntas[idx]
+  const respuesta = respuestas[actual.posicion]
+  const correccion = respuesta?.correccion ?? null
+  const respondida = respuesta !== undefined
+  const esUltima = idx === total - 1
+  const hayQueEmpezarDeNuevo =
+    errorAccion?.codigo === "intento_vencido" || errorAccion?.codigo === "intento_no_encontrado"
+
+  function responderOpcion(opcion: number): void {
+    if (respondida || enviando) return
+    void responder(actual.posicion, opcion)
+  }
+
+  function siguiente(): void {
+    if (!esUltima) {
+      setIdx(idx + 1)
+      return
+    }
+    void terminar()
+  }
+
   return (
     <section className="rounded-xl surface p-5 sm:p-6">
       <div className="flex items-center justify-between gap-3">
         <span className="text-[12px] font-medium text-muted-foreground tabular">
           Pregunta {idx + 1} de {total}
         </span>
-        {actual.origen && (
-          <span className="chip">{actual.origen}</span>
-        )}
+        {actual.tema && <span className="chip">{actual.tema}</span>}
       </div>
 
       <div className="mt-2.5 h-1.5 rounded-full bg-muted overflow-hidden">
@@ -265,21 +261,21 @@ export function QuizEngine({
       </div>
 
       <h2 className="mt-4 text-[17px] font-semibold tracking-[-0.01em] leading-snug">
-        {inline(actual.pregunta)}
+        {inline(actual.enunciado)}
       </h2>
 
-      <ul className="mt-4 p-0 list-none flex flex-col gap-2">
-        {actual.opcionesBarajadas.map((op, i) => {
-          const esLaBuena = i === actual.correctaIdx
-          const revelada = respondida && (i === elegida || esLaBuena)
+      <ul className="mt-4 p-0 list-none flex flex-col gap-2" aria-busy={enviando}>
+        {actual.opciones.map((op, i) => {
+          const esLaBuena = correccion !== null && i === correccion.opcionCorrecta
+          const revelada = correccion !== null && (i === respuesta?.opcion || esLaBuena)
           const tono = esLaBuena ? "var(--av-green-400)" : "var(--av-red-400)"
           return (
             <li key={i}>
               <button
                 type="button"
-                onClick={() => responder(i)}
-                disabled={respondida}
-                aria-pressed={i === elegida}
+                onClick={() => responderOpcion(i)}
+                disabled={respondida || enviando}
+                aria-pressed={i === respuesta?.opcion}
                 className="w-full text-left rounded-lg border px-4 py-3 text-[15px] leading-snug transition-[color,background-color,border-color,transform] duration-150 ease-out active:scale-[0.99] disabled:active:scale-100 disabled:cursor-default"
                 style={{
                   borderColor: revelada
@@ -305,23 +301,40 @@ export function QuizEngine({
         })}
       </ul>
 
-      {respondida && (
+      {enviando && (
+        <div className="mt-4 inline-flex items-center gap-2 text-[13px] text-muted-foreground" role="status">
+          <Loader2 className="h-3.5 w-3.5 animate-spin" /> Comprobando tu respuesta...
+        </div>
+      )}
+
+      {errorAccion && (
+        <div className="mt-4 rounded-lg border border-border bg-muted/40 p-4 flex flex-wrap items-start gap-2.5" role="alert">
+          <AlertTriangle
+            className="mt-0.5 h-4 w-4 shrink-0"
+            style={{ color: accentText("var(--av-amber-400)", 75) }}
+            aria-hidden
+          />
+          <p className="m-0 min-w-0 flex-1 text-[13px] text-muted-foreground leading-relaxed">{errorAccion.message}</p>
+          {hayQueEmpezarDeNuevo && (
+            <button type="button" onClick={volverAEmpezar} className={appButtonClass({ variant: "secondary" })}>
+              Empezar un intento nuevo
+            </button>
+          )}
+        </div>
+      )}
+
+      {correccion && (
         <div className="mt-4 rounded-lg border border-border bg-muted/40 p-4" role="status" aria-live="polite">
           <div
             className="text-[13px] font-semibold"
             style={{
-              color: accentText(
-                elegida === actual.correctaIdx ? "var(--av-green-400)" : "var(--av-amber-400)",
-                70
-              ),
+              color: accentText(correccion.correcta ? "var(--av-green-400)" : "var(--av-amber-400)", 70),
             }}
           >
-            {elegida === actual.correctaIdx ? "Correcto" : "No es esa"}
+            {correccion.correcta ? "Correcto" : "No es esa"}
           </div>
-          <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
-            {inline(actual.explicacion)}
-          </p>
-          <div className="mt-2 text-[12px] text-muted-foreground">{actual.referencia}</div>
+          <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">{inline(correccion.explicacion)}</p>
+          <div className="mt-2 text-[12px] text-muted-foreground">{referenciaDe(correccion.referencia, actual.tema)}</div>
         </div>
       )}
 
@@ -337,11 +350,11 @@ export function QuizEngine({
         <button
           type="button"
           onClick={siguiente}
-          disabled={!respondida}
+          disabled={!respondida || hayQueEmpezarDeNuevo}
           className={appButtonClass({}, "disabled:opacity-40")}
           style={appButtonStyle()}
         >
-          {idx === total - 1 ? "Ver resultado" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
+          {esUltima ? "Ver resultado" : "Siguiente"} <ArrowRight className="h-3.5 w-3.5" />
         </button>
       </div>
     </section>

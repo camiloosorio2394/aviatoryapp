@@ -9,7 +9,7 @@
  *   1. Aprende      → LESSON_SCREENS (notamLesson.ts)
  *   2. Decodificador → SUBJECT_CODES + STATUS_CODES + decodeQ()
  *   3. Practica     → REAL_NOTAMS (capturas reales) + EXERCISES (texto)
- *   4. Evaluación   → EXAM_QUESTIONS
+ *   4. Evaluación   → en el servidor (contenido/bancos/notam_evaluacion.json)
  */
 
 import codesRaw from "@/data/notam/notam_codes.json"
@@ -127,18 +127,6 @@ export interface NationalNotam {
   fuente_imagen: string
 }
 
-export interface ExamQuestion {
-  id: number
-  nivel: NotamLevel
-  pregunta: string
-  opciones: string[]
-  /** Índice en el array original. Al barajar hay que remapearlo. */
-  correcta: number
-  explicacion: string
-  /** Página del Doc 8400, si la pregunta viene de ahí. El banco del módulo no la trae. */
-  referencia?: string
-}
-
 /** Criterio de la rúbrica de evaluación de respuestas abiertas. */
 export interface RubricCriterion {
   key: string
@@ -205,7 +193,6 @@ export const SPECIAL_RULES = CODE_META.reglas_especiales
 
 export const EXERCISES = deepPlain(exercisesRaw.ejercicios as NotamExercise[])
 export const EXERCISE_META = deepPlain(exercisesRaw.meta)
-export const EXAM_QUESTIONS = deepPlain(examRaw.preguntas as ExamQuestion[])
 export const EXAM_META = deepPlain(examRaw.meta)
 export const NATIONAL_NOTAMS = deepPlain(nationalRaw.notams as NationalNotam[])
 export const NATIONAL_META = deepPlain(nationalRaw.meta)
@@ -221,7 +208,8 @@ export const TOTALS = {
   national: NATIONAL_NOTAMS.length,
   /** NOTAM reales del modo práctica: los de la columna izquierda. */
   reales: REAL_NOTAMS.length,
-  examQuestions: EXAM_QUESTIONS.length,
+  /** Preguntas del banco de la evaluación, que vive en el servidor. */
+  examQuestions: EXAM_META.total as number,
   // Derivado, no fijo: si se agrega o se reordena una sección de la lección, el
   // denominador del progreso del hub tiene que moverse con ella.
   lessonScreens: LESSON_TOTAL,
@@ -238,10 +226,7 @@ export const EXAM_POINTS_PER_QUESTION = EXAM_META.calificacion.puntaje_por_pregu
  * distintos que no se pueden confundir: TOTALS.examQuestions es el banco
  * completo y este es lo que la persona responde de verdad.
  */
-export const EXAM_PER_ATTEMPT = Math.min(
-  (EXAM_META.por_intento as number | undefined) ?? EXAM_QUESTIONS.length,
-  EXAM_QUESTIONS.length,
-)
+export const EXAM_PER_ATTEMPT = EXAM_META.por_intento as number
 
 /** Denominador de la práctica: NOTAM reales más ejercicios de texto. */
 export const NOTAM_PRACTICE_TOTAL = TOTALS.reales + TOTALS.exercises
@@ -498,27 +483,6 @@ export function shuffle<T>(items: T[], seed?: number): T[] {
     ;[out[i], out[j]] = [out[j], out[i]]
   }
   return out
-}
-
-export interface ShuffledQuestion extends ExamQuestion {
-  /** Opciones barajadas */
-  shuffledOptions: string[]
-  /** Índice de la respuesta correcta DENTRO de shuffledOptions */
-  correctIndex: number
-}
-
-/** Prepara la evaluación: baraja preguntas y opciones, remapeando la correcta. */
-export function buildExam(count?: number, seed?: number): ShuffledQuestion[] {
-  const picked = shuffle(EXAM_QUESTIONS, seed).slice(0, count ?? EXAM_QUESTIONS.length)
-  return picked.map((q, qi) => {
-    const correctText = q.opciones[q.correcta]
-    const shuffledOptions = shuffle(q.opciones, seed ? seed + qi + 1 : undefined)
-    return {
-      ...q,
-      shuffledOptions,
-      correctIndex: shuffledOptions.indexOf(correctText),
-    }
-  })
 }
 
 /** Glosario mínimo para leer la casilla E) (verificado en el Doc 8400, sección 1). */

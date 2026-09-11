@@ -1,11 +1,9 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
 import { supabase } from "@/integrations/supabase/client"
 import {
-  buildExam,
   DISCLAIMERS,
   EXAM_PASS_SCORE,
   EXAM_PER_ATTEMPT,
-  EXAM_POINTS_PER_QUESTION,
   TOTALS,
   readLocalProgress,
   writeLocalProgress,
@@ -15,8 +13,8 @@ import { fetchNotamProgress } from "@/lib/notamProgress"
 /**
  * Evaluación de la sección NOTAM.
  *
- * La pantalla es la genérica (ExamenModulo); aquí solo se dice qué banco,
- * qué rutas, qué progreso y qué tabla. Las reglas de Camilo (sin bienvenida,
+ * La pantalla es la genérica (ExamenModulo); aquí solo se dice qué evaluación
+ * del servidor, qué rutas, qué progreso y qué historial. Las reglas de Camilo (sin bienvenida,
  * puerta cerrada hasta leer todo, 25 al azar de 100, sin retroalimentación
  * durante, resultado con porcentaje y revisión) viven en el componente.
  *
@@ -32,11 +30,10 @@ const CONFIG: ExamenConfig = {
   totalLecciones: TOTALS.lessonScreens,
   unidadLeccion: "secciones",
   porIntento: EXAM_PER_ATTEMPT,
-  puntosPorPregunta: EXAM_POINTS_PER_QUESTION,
   aprobacion: EXAM_PASS_SCORE,
   aviso: DISCLAIMERS.exam,
   acento: "var(--av-blue-500)",
-  construir: () => buildExam(EXAM_PER_ATTEMPT),
+  evaluacion: "notam_evaluacion",
   leerLeidas: () => readLocalProgress().lessonScreens,
   escribirLeidas: (ns) => {
     writeLocalProgress({ lessonScreens: ns })
@@ -48,18 +45,6 @@ const CONFIG: ExamenConfig = {
   leerMejorLocal: () => readLocalProgress().bestExamScore,
   escribirMejorLocal: (score) => {
     writeLocalProgress({ bestExamScore: score })
-  },
-  guardarIntento: async (uid, intento) => {
-    const { error } = await supabase.from("user_notam_exam_attempts").insert({
-      user_id: uid,
-      score: intento.score,
-      correct_count: intento.correct,
-      total_questions: intento.total,
-      passed: intento.passed,
-      answers: intento.answers,
-      duration_seconds: intento.elapsed,
-    })
-    return error ? error.message : null
   },
   cargarHistorial: async (uid) => {
     const [listRes, bestRes] = await Promise.all([
