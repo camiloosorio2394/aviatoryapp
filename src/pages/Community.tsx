@@ -9,7 +9,7 @@ import {
   TriangleAlert,
   Users,
 } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
+import { traerPortadaComunidad, type Channel, type ChannelActivity } from "@/services/comunidad"
 import { useSession } from "@/hooks/useSession"
 import { TILE_COLOR, tileTint, tileBorder, accentText } from "@/lib/tileColors"
 
@@ -23,34 +23,6 @@ import {
   type ChannelType,
 } from "@/lib/communityChannels"
 import heroPhoto from "@/assets/photos/aerolinea-piloto.jpg"
-
-interface Channel {
-  id: number
-  slug: string
-  name: string
-  description: string | null
-  type: ChannelType
-  emoji: string | null
-  member_count: number
-  order_index: number
-}
-
-interface MessageMeta {
-  channel_id: number
-  created_at: string
-}
-
-interface ChannelActivity {
-  messages: number
-  lastAt: string
-}
-
-/**
- * Muestra de mensajes para calcular señal de actividad por canal. Con el
- * volumen actual entra completa; si algún día se supera, el conteo sigue
- * siendo "al menos esto", nunca un número inventado.
- */
-const MESSAGE_SAMPLE = 2000
 
 const GROUP_ORDER: ChannelType[] = ["general", "stage", "subject", "airline"]
 
@@ -70,48 +42,14 @@ export function Community() {
     async function load() {
       setLoading(true)
       setFailed(false)
-      const [channelsRes, messagesRes, pilotRes] = await Promise.all([
-        supabase.from("community_channels").select("*").order("order_index"),
-        supabase
-          .from("community_messages")
-          .select("channel_id, created_at")
-          .order("created_at", { ascending: false })
-          .limit(MESSAGE_SAMPLE),
-        user
-          ? supabase.from("pilot_state").select("stage, target_airline").eq("user_id", user.id).maybeSingle()
-          : Promise.resolve({ data: null, error: null }),
-      ])
+      const portada = await traerPortadaComunidad(user?.id)
       if (cancelled) return
 
-      if (channelsRes.error) {
-        setChannels([])
-        setActivity({})
-        setFailed(true)
-        setLoading(false)
-        return
-      }
-
-      setChannels((channelsRes.data ?? []) as Channel[])
-
-      const pilot = pilotRes.data as { stage: string | null; target_airline: string | null } | null
-      setPilotStage(pilot?.stage ?? null)
-      setTargetAirline(pilot?.target_airline ?? null)
-
-      const map: Record<number, ChannelActivity> = {}
-      if (!messagesRes.error) {
-        for (const row of (messagesRes.data ?? []) as MessageMeta[]) {
-          const current = map[row.channel_id]
-          if (current) {
-            current.messages += 1
-            if (Date.parse(row.created_at) > Date.parse(current.lastAt)) {
-              current.lastAt = row.created_at
-            }
-          } else {
-            map[row.channel_id] = { messages: 1, lastAt: row.created_at }
-          }
-        }
-      }
-      setActivity(map)
+      setChannels(portada.canales)
+      setActivity(portada.actividad)
+      setPilotStage(portada.etapa)
+      setTargetAirline(portada.aerolineaObjetivo)
+      setFailed(portada.fallo)
       setLoading(false)
     }
 
