@@ -11,7 +11,7 @@ import {
   anotarIntentoSimulacroLocal,
   readAirlineMockLocal,
 } from "@/lib/airlineMock"
-import { accentText } from "@/lib/notam"
+import { accentText } from "@/lib/tileColors"
 import type { ResultadoEvaluacion, SesionEvaluacion } from "@/services/evaluaciones"
 
 /**

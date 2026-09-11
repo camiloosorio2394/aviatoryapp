@@ -18,7 +18,7 @@
 import { METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import ejerciciosRaw from "@/data/metar/ejercicios_metar.json"
 import examenRaw from "@/data/metar/evaluacion_metar.json"
-import type { NotamLevel } from "@/lib/notam"
+import type { NotamLevel } from "@/lib/notamComun"
 
 // ─── Tablas de códigos (leyenda del curso, normalizada) ──────────────────────
 

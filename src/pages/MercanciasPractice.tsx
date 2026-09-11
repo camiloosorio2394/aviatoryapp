@@ -21,7 +21,7 @@ import {
 } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
-import { accentText } from "@/lib/notam"
+import { accentText } from "@/lib/tileColors"
 import { MP_HUB, MP_TITULO } from "@/lib/mercancias"
 import { CLASES, rombo } from "@/lib/mercanciasClases"
 import {

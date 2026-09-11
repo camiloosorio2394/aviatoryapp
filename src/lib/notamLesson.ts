@@ -22,7 +22,7 @@
  * Decodificador. La sección 9 trae solo el subconjunto mínimo para leer la casilla E).
  */
 
-import type { NotamLevel } from "@/lib/notam"
+import type { NotamLevel } from "@/lib/notamComun"
 import type { DocScreen } from "@/lib/docBlocks"
 import { LINEA_Q_COLOR } from "@/lib/lineaQ"
 

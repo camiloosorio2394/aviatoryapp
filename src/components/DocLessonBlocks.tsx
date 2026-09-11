@@ -33,7 +33,7 @@ import {
 import { useInView } from "@/hooks/useInView"
 import type { BreakdownPart, CampoNotam, LabNotam, PasoIcono, TarjetaIcono } from "@/lib/notamLesson"
 import type { DocBlockData } from "@/lib/docBlocks"
-import { DISCLAIMERS, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notam"
+import { AVISO_NACIONALES, NATIONAL_NOTAMS, notamImageUrl } from "@/lib/notamNacionales"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
 import {
@@ -2712,7 +2712,7 @@ function NotamFigure({
             className="text-[12px] leading-[1.55]"
             style={{ color: docAccent("var(--av-amber-400)", 78) }}
           >
-            {DISCLAIMERS.national}
+            {AVISO_NACIONALES}
           </span>
         </div>
       </div>

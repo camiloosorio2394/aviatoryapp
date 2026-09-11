@@ -3,7 +3,7 @@
  * local de la sección NOTAM y su RPC notam_mark_progress.
  */
 
-import { readLocalProgress, writeLocalProgress } from "@/lib/notam"
+import { readLocalProgress, writeLocalProgress } from "@/lib/notamComun"
 import { conMarca, crearProgresoModulo, type ProgresoRemoto } from "@/lib/progresoModulo"
 
 export type NotamRemoteProgress = ProgresoRemoto

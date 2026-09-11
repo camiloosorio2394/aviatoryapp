@@ -29,12 +29,12 @@ import {
   EXERCISES,
   REAL_NOTAMS,
   TOTALS,
-  accentText,
-  readLocalProgress,
   realNotamImageUrl,
   type NotamExercise,
   type RealNotam,
 } from "@/lib/notam"
+import { readLocalProgress } from "@/lib/notamComun"
+import { accentText } from "@/lib/tileColors"
 import { fetchNotamProgress, markNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 import { registrarEstudioDiario } from "@/lib/activity"
 

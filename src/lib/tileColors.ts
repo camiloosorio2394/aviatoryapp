@@ -24,6 +24,19 @@ export function tileTint(key: TileColorKey, pct = 14): string {
   return `color-mix(in oklab, ${TILE_COLOR[key]} ${pct}%, transparent)`
 }
 
+/**
+ * Color legible para texto chico pintado con un token --av-*.
+ *
+ * Los tokens --av-*-400 son claros a propósito (sirven para iconos y barras),
+ * así que como color de texto sobre una superficie blanca dan un contraste de
+ * ~2:1 y quedan ilegibles en modo claro. Mezclarlos con --foreground los baja
+ * a un contraste usable sin perder la identidad del color, y funciona igual en
+ * claro y en oscuro porque --foreground se invierte con el tema.
+ */
+export function accentText(token: string, mix = 62): string {
+  return `color-mix(in oklab, ${token} ${mix}%, var(--foreground))`
+}
+
 /** Borde tenue del mismo color. */
 export function tileBorder(key: TileColorKey, pct = 28): string {
   return `color-mix(in oklab, ${TILE_COLOR[key]} ${pct}%, transparent)`

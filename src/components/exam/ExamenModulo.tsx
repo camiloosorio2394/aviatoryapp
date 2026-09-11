@@ -23,7 +23,7 @@ import { SectionTitle } from "@/components/ui/section-title"
 import { useEvaluacion } from "@/hooks/useEvaluacion"
 import { useSession } from "@/hooks/useSession"
 import { subirArriba } from "@/lib/motion"
-import { accentText } from "@/lib/notam"
+import { accentText } from "@/lib/tileColors"
 import type {
   ClaveEvaluacion,
   PreguntaEvaluacion,

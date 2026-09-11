@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react"
 import { LectorLeccion, type LectorModulo } from "@/components/lesson/LectorLeccion"
-import { readLocalProgress, writeLocalProgress } from "@/lib/notam"
+import { readLocalProgress, writeLocalProgress } from "@/lib/notamComun"
 import {
   fetchNotamProgress,
   markNotamProgress,

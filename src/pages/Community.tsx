@@ -11,8 +11,8 @@ import {
 } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
-import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
-import { accentText } from "@/lib/notam"
+import { TILE_COLOR, tileTint, tileBorder, accentText } from "@/lib/tileColors"
+
 import {
   CHANNEL_ICON,
   GROUP_META,

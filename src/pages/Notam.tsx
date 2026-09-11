@@ -10,12 +10,12 @@ import { supabase } from "@/integrations/supabase/client"
 import { useSession } from "@/hooks/useSession"
 import {
   EXAM_PASS_SCORE,
-  EXAM_PER_ATTEMPT,
   NOTAM_PRACTICE_TOTAL,
-  TOTALS,
   readLocalProgress,
   resumirNotam,
-} from "@/lib/notam"
+  EXAM_PER_ATTEMPT,
+  NOTAM_TOTALES,
+} from "@/lib/notamComun"
 import { fetchNotamProgress, pushPendingLocalProgress } from "@/lib/notamProgress"
 
 /**
@@ -135,7 +135,7 @@ export function Notam() {
       densidad: "compacta" as const,
       icon: BookOpen,
       color: "var(--av-blue-500)",
-      meta: `${TOTALS.lessonScreens} secciones de formación`,
+      meta: `${NOTAM_TOTALES.lessonScreens} secciones de formación`,
       title: "1. Aprende",
       blurb:
         "Conoce la estructura del NOTAM, identifica sus componentes y aprende a interpretar la información aeronáutica.",
@@ -145,11 +145,11 @@ export function Notam() {
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
-          : resumen.lessonRead >= TOTALS.lessonScreens
+          : resumen.lessonRead >= NOTAM_TOTALES.lessonScreens
             ? "Lección completa"
-            : `${resumen.lessonRead} de ${TOTALS.lessonScreens} secciones leídas`,
+            : `${resumen.lessonRead} de ${NOTAM_TOTALES.lessonScreens} secciones leídas`,
       progress: resumen.lessonPct,
-      done: resumen.lessonRead >= TOTALS.lessonScreens,
+      done: resumen.lessonRead >= NOTAM_TOTALES.lessonScreens,
     },
     {
       to: "/app/aerolinea/notam/practica",
@@ -340,7 +340,7 @@ export function Notam() {
                 <FilaAvance
                   titulo="Lección"
                   to="/app/aerolinea/notam/aprende"
-                  valor={`${resumen.lessonRead} / ${TOTALS.lessonScreens}`}
+                  valor={`${resumen.lessonRead} / ${NOTAM_TOTALES.lessonScreens}`}
                   pct={resumen.lessonPct}
                   color="#4E9BF5"
                   cargando={loading}

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import { ArrowLeft, ScanSearch, Search, ShieldAlert } from "lucide-react"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
-import { accentText } from "@/lib/notam"
+import { accentText } from "@/lib/tileColors"
 import {
   CLOUD_COVER,
   CONVECTIVE,

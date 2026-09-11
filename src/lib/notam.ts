@@ -10,18 +10,21 @@
  *   2. Decodificador → SUBJECT_CODES + STATUS_CODES + decodeQ()
  *   3. Practica     → REAL_NOTAMS (capturas reales) + EXERCISES (texto)
  *   4. Evaluación   → en el servidor (contenido/bancos/notam_evaluacion.json)
+ *
+ * Solo lo importan las pantallas de la sección NOTAM (ESLint lo exige): con la
+ * lección pesa unos 400 KB. Nivel, progreso local, conteos, datos
+ * de la evaluación y resumen de avance están en notamComun.ts; los NOTAM
+ * nacionales de la lección, en notamNacionales.ts.
  */
 
 import codesRaw from "@/data/notam/notam_codes.json"
 import exercisesRaw from "@/data/notam/ejercicios_interpretacion.json"
-import examRaw from "@/data/notam/evaluacion_notam.json"
-import nationalRaw from "@/data/notam/notams_nacionales.json"
 import realesRaw from "@/data/notam/notams_reales.json"
+import { deepPlain, NOTAM_TOTALES, type NotamLevel } from "@/lib/notamComun"
 import { LESSON_TOTAL } from "@/lib/notamLesson"
+import { NATIONAL_NOTAMS } from "@/lib/notamNacionales"
 
 // ─── Tipos ───────────────────────────────────────────────────────────────────
-
-export type NotamLevel = "basico" | "intermedio" | "avanzado"
 
 export interface SubjectCode {
   /** Significado normativo del asunto (2ª/3ª letras) */
@@ -112,69 +115,12 @@ export interface RealNotam {
   fuente_imagen: string
 }
 
-export interface NationalNotam {
-  id: string
-  /** Ruta original del paquete de contenido; usar notamImageUrl() para la URL servible */
-  imagen: string
-  serie_numero: string
-  aerodromo: string
-  nivel: NotamLevel
-  /** Transcripción del recorte: alt-text, búsqueda y evaluación sin OCR */
-  transcripcion: string
-  decodificacion: string
-  puntos_clave: string[]
-  errores_tipicos?: string[]
-  fuente_imagen: string
-}
-
 /** Criterio de la rúbrica de evaluación de respuestas abiertas. */
 export interface RubricCriterion {
   key: string
   label: string
   peso: number
   descripcion: string
-}
-
-// ─── Normalización de texto ──────────────────────────────────────────────────
-
-/**
- * Reemplaza el guion largo por dos puntos.
- *
- * El paquete de contenido usa "—" como separador ("PAPI inoperativo — Rionegro",
- * "Doc 8400, pág. 7-3 — decodificado en el propio documento"). En Aviatory el
- * guion largo no se muestra nunca, así que se limpia UNA vez acá, en el origen,
- * en lugar de que cada pantalla arme su propio helper y el mismo texto salga
- * distinto según la página.
- */
-export function plainText(value: string): string {
-  return value.replace(/\s*—\s*/g, ": ")
-}
-
-/** Aplica plainText a todos los strings de una estructura, sin mutar el original. */
-function deepPlain<T>(value: T): T {
-  if (typeof value === "string") return plainText(value) as unknown as T
-  if (Array.isArray(value)) return value.map((v) => deepPlain(v)) as unknown as T
-  if (value !== null && typeof value === "object") {
-    const out: Record<string, unknown> = {}
-    for (const [k, v] of Object.entries(value as Record<string, unknown>)) {
-      out[k] = deepPlain(v)
-    }
-    return out as T
-  }
-  return value
-}
-
-/**
- * Color legible para texto chico pintado con un token --av-*.
- *
- * Los tokens --av-*-400 son claros a propósito (sirven para iconos y barras),
- * así que como color de texto sobre una superficie blanca dan un contraste de
- * ~2:1 y quedan ilegibles en modo claro. Mezclarlos con --foreground los baja
- * a un contraste usable sin perder la identidad del color, y funciona igual en
- * claro y en oscuro porque --foreground se invierte con el tema.
- */
-export function accentText(token: string, mix = 62): string {
-  return `color-mix(in oklab, ${token} ${mix}%, var(--foreground))`
 }
 
 // ─── Datos ───────────────────────────────────────────────────────────────────
@@ -193,9 +139,6 @@ export const SPECIAL_RULES = CODE_META.reglas_especiales
 
 export const EXERCISES = deepPlain(exercisesRaw.ejercicios as NotamExercise[])
 export const EXERCISE_META = deepPlain(exercisesRaw.meta)
-export const EXAM_META = deepPlain(examRaw.meta)
-export const NATIONAL_NOTAMS = deepPlain(nationalRaw.notams as NationalNotam[])
-export const NATIONAL_META = deepPlain(nationalRaw.meta)
 
 /** Los 31 NOTAM reales del modo práctica, con su captura. */
 export const REAL_NOTAMS = deepPlain(realesRaw.notams as RealNotam[])
@@ -209,88 +152,19 @@ export const TOTALS = {
   /** NOTAM reales del modo práctica: los de la columna izquierda. */
   reales: REAL_NOTAMS.length,
   /** Preguntas del banco de la evaluación, que vive en el servidor. */
-  examQuestions: EXAM_META.total as number,
+  examQuestions: NOTAM_TOTALES.examQuestions,
   // Derivado, no fijo: si se agrega o se reordena una sección de la lección, el
   // denominador del progreso del hub tiene que moverse con ella.
   lessonScreens: LESSON_TOTAL,
 } as const
-
-/** Puntaje mínimo de aprobación de la evaluación (sobre 100). */
-export const EXAM_PASS_SCORE = EXAM_META.calificacion.aprobacion as number
-export const EXAM_POINTS_PER_QUESTION = EXAM_META.calificacion.puntaje_por_pregunta as number
-
-/**
- * Cuántas preguntas entran en UN intento.
- *
- * El banco tiene 100 y el examen toma 25 al azar, así que hay dos números
- * distintos que no se pueden confundir: TOTALS.examQuestions es el banco
- * completo y este es lo que la persona responde de verdad.
- */
-export const EXAM_PER_ATTEMPT = EXAM_META.por_intento as number
-
-/** Denominador de la práctica: NOTAM reales más ejercicios de texto. */
-export const NOTAM_PRACTICE_TOTAL = TOTALS.reales + TOTALS.exercises
-
-export interface NotamResumen {
-  lessonRead: number
-  practiceDone: number
-  best: number | null
-  passed: boolean
-  lessonPct: number
-  practicePct: number
-  examPct: number
-  /** Avance del tema completo, 0 a 100. */
-  overall: number
-  /** Todavía no tocó nada del tema. */
-  empty: boolean
-}
-
-/**
- * Resume el avance del tema NOTAM.
- *
- * Vive aquí y no dentro del hub porque lo consumen dos pantallas: el hub de
- * NOTAM y la lista de temas de Ingreso a aerolínea. Con la cuenta duplicada,
- * la misma persona veía dos porcentajes distintos según por dónde entrara.
- */
-export function resumirNotam(progreso: {
-  lessonScreens: number[]
-  practiceDone: string[]
-  bestExamScore: number | null
-}): NotamResumen {
-  const lessonRead = Math.min(progreso.lessonScreens.length, TOTALS.lessonScreens)
-  const practiceDone = Math.min(progreso.practiceDone.length, NOTAM_PRACTICE_TOTAL)
-  const best = progreso.bestExamScore
-  const passed = best !== null && best >= EXAM_PASS_SCORE
-
-  const lessonPct = Math.round((lessonRead / TOTALS.lessonScreens) * 100)
-  const practicePct = Math.round((practiceDone / NOTAM_PRACTICE_TOTAL) * 100)
-  // La evaluacion aporta tu mejor puntaje; si ya aprobaste, aporta el 100 por ciento.
-  const examPct = passed ? 100 : (best ?? 0)
-
-  return {
-    lessonRead,
-    practiceDone,
-    best,
-    passed,
-    lessonPct,
-    practicePct,
-    examPct,
-    overall: Math.round((lessonPct + practicePct + examPct) / 3),
-    empty: lessonRead === 0 && practiceDone === 0 && best === null,
-  }
-}
 
 // ─── Avisos obligatorios en pantalla (reglas de producto del paquete) ────────
 
 export const DISCLAIMERS = {
   /** Los ejercicios de texto salen todos de NOTAM reales; ya no hay ninguno inventado. */
   practice: EXERCISE_META.aviso_obligatorio_en_pantalla as string,
-  /** NOTAM colombianos reales embebidos en la lección (vigencia expirada). */
-  national: NATIONAL_META.aviso_obligatorio_en_pantalla as string,
   /** Las 31 capturas reales del modo práctica. */
   reales: REAL_META.aviso_obligatorio_en_pantalla as string,
-  /** Preguntas de práctica, no oficiales de Aerocivil ni OACI. */
-  exam: EXAM_META.aviso_en_pantalla as string,
   /** El Doc 8400 cargado es la 6ª ed. (2004); existen ediciones posteriores. */
   edition: CODE_META.advertencia_vigencia as string,
 } as const
@@ -307,11 +181,6 @@ export const RUBRIC: RubricCriterion[] = Object.entries(
 }))
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
-
-/** URL servible de la imagen de un NOTAM nacional (los PNG viven en /public/notams). */
-export function notamImageUrl(rel: string): string {
-  return `/notams/${rel.split("/").pop()}`
-}
 
 /**
  * URL de la captura de un NOTAM real.
@@ -446,12 +315,6 @@ export function formatNotamDateTime(group: string): { utc: string; local: string
   }
 }
 
-/** Etiqueta y color de nivel, alineados con los tokens del sistema. */
-export const LEVEL_META: Record<NotamLevel, { label: string; color: string }> = {
-  basico: { label: "Básico", color: "var(--av-green-400)" },
-  intermedio: { label: "Intermedio", color: "var(--av-blue-500)" },
-  avanzado: { label: "Avanzado", color: "var(--av-amber-400)" },
-}
 
 /** Etiqueta de procedencia de cada ejercicio, para mostrar la fuente sin ambigüedad. */
 export const ORIGIN_META: Record<ExerciseOrigin, { label: string; real: boolean }> = {
@@ -537,43 +400,3 @@ export const GLOSSARY: { abbr: string; meaning: string }[] = [
   { abbr: "LDA", meaning: "distancia de aterrizaje disponible" },
 ]
 
-// ─── Progreso local (respaldo offline del progreso en DB) ────────────────────
-
-const LS_KEY = "aviatory.notam.progress"
-
-export interface NotamLocalProgress {
-  lessonScreens: number[]
-  exercisesDone: string[]
-  bestExamScore: number | null
-}
-
-const EMPTY_PROGRESS: NotamLocalProgress = {
-  lessonScreens: [],
-  exercisesDone: [],
-  bestExamScore: null,
-}
-
-export function readLocalProgress(): NotamLocalProgress {
-  try {
-    const raw = localStorage.getItem(LS_KEY)
-    if (!raw) return EMPTY_PROGRESS
-    const parsed = JSON.parse(raw) as Partial<NotamLocalProgress>
-    return {
-      lessonScreens: Array.isArray(parsed.lessonScreens) ? parsed.lessonScreens : [],
-      exercisesDone: Array.isArray(parsed.exercisesDone) ? parsed.exercisesDone : [],
-      bestExamScore: typeof parsed.bestExamScore === "number" ? parsed.bestExamScore : null,
-    }
-  } catch {
-    return EMPTY_PROGRESS
-  }
-}
-
-export function writeLocalProgress(patch: Partial<NotamLocalProgress>): NotamLocalProgress {
-  const next = { ...readLocalProgress(), ...patch }
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(next))
-  } catch {
-    /* localStorage puede estar bloqueado (incógnito): el progreso queda solo en memoria */
-  }
-  return next
-}

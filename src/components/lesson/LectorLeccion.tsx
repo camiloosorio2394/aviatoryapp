@@ -7,7 +7,7 @@ import { PantallaEntrevista, type LectorEntrevista } from "@/components/lesson/E
 import { docAccent } from "@/lib/docSheet"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
-import { LEVEL_META } from "@/lib/notam"
+import { LEVEL_META } from "@/lib/notamComun"
 import type { DocScreen } from "@/lib/docBlocks"
 
 /**
