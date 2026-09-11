@@ -17,6 +17,7 @@ import {
 } from "@/lib/metar"
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
 import { METAR_EXAMPLES, METAR_LECCION } from "@/lib/metar"
+import heroPhoto from "@/assets/photos/meteorologia-hero.webp"
 import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
 import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
 import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
@@ -190,26 +191,26 @@ export function Metar() {
           <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
         </Link>
 
-        {/* Hero de sección. Sin foto todavía: el hueco conserva la caja, el
-            velo y la forma, y el rótulo de la esquina dice la medida que hace
-            falta. Cuando llegue la imagen se pone el <img> aquí y no se mueve
-            nada alrededor. */}
+        {/* Hero de sección. La foto va a sangre bajo un velo navy, igual que
+            en NOTAM: el título tiene que leerse sobre cualquier zona, y por eso
+            el velo es un degradado y no una opacidad plana. La imagen lleva su
+            capa de rótulos hacia la derecha, así que el degradado pesa a la
+            izquierda y la deja respirar. */}
         <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+          <img
+            src={heroPhoto}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden
+          />
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(105deg, rgba(8,20,36,.97) 0%, rgba(8,20,36,.94) 42%, rgba(8,20,36,.86) 72%, rgba(8,20,36,.78) 100%)",
+                "linear-gradient(105deg, rgba(8,20,36,.90) 0%, rgba(8,20,36,.76) 40%, rgba(8,20,36,.50) 70%, rgba(8,20,36,.30) 100%)",
             }}
             aria-hidden
           />
-          <div
-            className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
-            aria-hidden
-          />
-          <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-            [Imagen de fondo · 2432×860 · espacio reservado]
-          </span>
 
           <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
             <div className="min-w-0">

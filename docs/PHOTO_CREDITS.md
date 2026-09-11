@@ -23,6 +23,7 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 | `metar-practica-cabina-nubes.jpg` | Card METAR · Práctica | https://unsplash.com/photos/_4PsqBPe7RU (Walter Mmari) |
 | `metar-evaluacion-escritorio.jpg` | Card METAR · Evaluación | https://unsplash.com/photos/h6pUcouJ9BA (sara sanchez sabogal) |
 | `tema-notam-pista-luces.jpg` | Card del tema NOTAM en Ingreso a aerolínea | https://unsplash.com/photos/SgWHP0mZ6-w (Fabio Sasso) |
+| `meteorologia-hero.webp` | Hero del módulo Meteorología (foto + capa de rótulos) | https://unsplash.com/photos/er7TM4GPqWg (Nikola Ancevski) |
 | `tema-meteorologia-nubes-altura.jpg` | Card del tema Meteorología en Ingreso a aerolínea | https://unsplash.com/photos/10lbZPBl3Zw (Vilmantas Bekesius) |
 
 ## Imágenes de módulo (`public/modulos/`)
