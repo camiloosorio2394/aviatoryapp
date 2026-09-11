@@ -33,18 +33,26 @@ export interface SesionPsico {
   ejercicios: EjercicioEnPantalla[]
 }
 
-/** Lo que se revela de un ejercicio al corregirlo. */
+/**
+ * Lo que se revela de un ejercicio al corregirlo.
+ *
+ * En el repaso del final, la respuesta y la explicación llegan **solo de lo
+ * respondido**: terminar una tanda sin responder no entrega el banco. Lo que se
+ * dejó pasar llega con `respuesta` en null y la pantalla lo dice.
+ */
 export interface SolucionPsico {
   /** Id estable del ejercicio, para reportar un problema con él. */
   id: string
-  /** Índice de la opción correcta. */
-  respuesta: number
+  /** Índice de la opción correcta, o null si el ejercicio quedó sin responder. */
+  respuesta: number | null
   explicacion: string
   subcategoria: string
   fuente: string | null
 }
 
+/** La corrección del entrenamiento, que siempre llega completa: se acaba de responder. */
 export interface CorreccionPsico extends SolucionPsico {
+  respuesta: number
   correcta: boolean
 }
 
@@ -105,7 +113,7 @@ function figuraDe(v: unknown): Figura | null {
 function solucionDe(o: Crudo): SolucionPsico {
   return {
     id: texto(o.id),
-    respuesta: entero(o.respuesta),
+    respuesta: enteroONulo(o.respuesta),
     explicacion: typeof o.explicacion === "string" ? o.explicacion : "",
     subcategoria: typeof o.subcategoria === "string" ? o.subcategoria : "",
     fuente: textoONulo(o.fuente),
@@ -142,7 +150,10 @@ export function leerRespuestaPsico(datos: unknown): RespuestaRegistradaPsico {
     opcion: enteroONulo(datos.opcion),
     segundos: entero(datos.segundos),
     limite: entero(datos.limite),
-    correccion: "respuesta" in datos ? { ...solucionDe(datos), correcta: datos.correcta === true } : null,
+    correccion:
+      "respuesta" in datos
+        ? { ...solucionDe(datos), respuesta: entero(datos.respuesta), correcta: datos.correcta === true }
+        : null,
   }
 }
 
