@@ -33,17 +33,16 @@ export function CountUp({
   className,
   start = true,
 }: Props) {
+  // Quien pidió menos movimiento recibe la cifra y ya. El dato es el número, no
+  // el camino hasta él: contarlo no lo explica, solo lo hace esperar. Se decide
+  // en el render y no guardando nada: meterlo en el efecto era un setState
+  // sincrónico dentro de un efecto, que es un error de lint y además un render
+  // de más.
+  const quieto = prefiereQuieto()
   const [val, setVal] = useState(0)
 
   useEffect(() => {
-    if (!start) return
-
-    // Quien pidió menos movimiento recibe la cifra y ya. El dato es el número,
-    // no el camino hasta él: contarlo no lo explica, solo lo hace esperar.
-    if (prefiereQuieto()) {
-      setVal(to)
-      return
-    }
+    if (!start || quieto) return
 
     let raf: number
     let inicio: number | null = null
@@ -56,12 +55,12 @@ export function CountUp({
     }
     raf = requestAnimationFrame(step)
     return () => cancelAnimationFrame(raf)
-  }, [to, duration, start])
+  }, [to, duration, start, quieto])
 
   return (
     <span className={className}>
       {prefix}
-      {format(val)}
+      {format(quieto ? to : val)}
       {suffix}
     </span>
   )

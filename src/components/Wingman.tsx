@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { X } from "lucide-react"
 import { useWingman } from "@/hooks/useWingman"
@@ -14,6 +15,25 @@ import { WingmanPanel } from "@/components/wingman/WingmanPanel"
 export function Wingman() {
   const { state, usage, isPro, freeLimit, openWith, close, send, giveFeedback } = useWingman()
   const open = state.isOpen
+
+  /* El panel no puede quedarse montado como el cajón de móvil: tiene cuatro
+     efectos y la conversación dentro. Así que se le da tiempo a salir antes
+     de desmontarlo. Sin esto el cajón entraba deslizando y desaparecía de
+     golpe, que es la mitad de una animación. */
+  const [saliendo, setSaliendo] = useState(false)
+  const temporizador = useRef<number | null>(null)
+
+  useEffect(() => () => {
+    if (temporizador.current !== null) window.clearTimeout(temporizador.current)
+  }, [])
+
+  function cerrarConSalida() {
+    setSaliendo(true)
+    temporizador.current = window.setTimeout(() => {
+      setSaliendo(false)
+      close()
+    }, 200)
+  }
   const { pathname } = useLocation()
 
   // El launcher es fixed y vivía en z-50, encima del botón primario de varios
@@ -32,7 +52,7 @@ export function Wingman() {
       {/* Floating launcher */}
       <button
         type="button"
-        onClick={() => (open ? close() : openWith({ kind: "general" }))}
+        onClick={() => (open ? cerrarConSalida() : openWith({ kind: "general" }))}
         aria-label={open ? "Cerrar Wingman" : "Abrir Wingman"}
         className={`fixed ${elevado ? "bottom-24" : "bottom-6"} right-6 z-40 w-[60px] h-[60px] rounded-full border-0 cursor-pointer text-white flex items-center justify-center transition-transform duration-200 hover:scale-105 active:scale-[0.97]`}
         style={{
@@ -57,13 +77,14 @@ export function Wingman() {
       </button>
 
       {/* Real chat panel — slide-in desde la derecha, con su propio overlay */}
-      {open && (
+      {(open || saliendo) && (
         <WingmanPanel
           state={state}
           usage={usage}
           isPro={isPro}
           freeLimit={freeLimit}
-          onClose={close}
+          saliendo={saliendo}
+          onClose={cerrarConSalida}
           onSend={send}
           onFeedback={giveFeedback}
         />

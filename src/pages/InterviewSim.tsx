@@ -80,7 +80,7 @@ export function InterviewSim() {
         {/* === CTA destacado: Intro Speaking (lo único activo hoy) === */}
         <Link
           to="/app/entrevistas/speaking"
-          className="mt-8 block rounded-2xl border p-5 transition-all hover:-translate-y-0.5"
+          className="mt-8 block rounded-2xl border p-5 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
           style={{
             borderColor: "color-mix(in oklab, var(--av-amber-400) 38%, transparent)",
             background:
@@ -209,7 +209,7 @@ export function InterviewSim() {
           <div className="flex flex-wrap items-center gap-2">
             <Link
               to="/app/aerolinea"
-              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-all hover:-translate-y-0.5"
+              className="inline-flex items-center gap-1.5 h-10 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
               style={{
                 background: "var(--av-blue-500)",
               }}

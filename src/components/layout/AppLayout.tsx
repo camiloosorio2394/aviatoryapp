@@ -103,19 +103,32 @@ export function AppLayout({ children, streak }: Props) {
         />
       </div>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <>
-          <div
-            className="lg:hidden fixed inset-0 z-40 bg-background/60 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-            aria-hidden
-          />
-          <div className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl animate-in slide-in-from-left duration-200">
-            <AppSidebar onClose={() => setMobileOpen(false)} forceExpanded />
-          </div>
-        </>
-      )}
+      {/* Cajón de móvil. Va montado siempre y se mueve con `transform`, que es
+          el mismo patrón del rail de escritorio de aquí arriba. Antes entraba
+          con un keyframe y salía por teletransporte, y abrir y cerrar rápido lo
+          reiniciaba desde fuera de la pantalla en vez de retomarlo donde
+          estaba. Es la navegación principal en celular, que es justo donde más
+          se toca y se arrepiente uno a media animación.
+
+          `AppSidebar` no monta nada caro: ni consultas ni efectos, solo pinta.
+          El desenfoque del velo solo existe cuando el cajón está abierto: un
+          `backdrop-filter` a pantalla completa se compone aunque esté a opacidad
+          cero. */}
+      <div
+        className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-200 ${
+          mobileOpen ? "bg-background/60 backdrop-blur-sm opacity-100" : "pointer-events-none opacity-0"
+        }`}
+        onClick={() => setMobileOpen(false)}
+        aria-hidden
+      />
+      <div
+        className={`lg:hidden fixed inset-y-0 left-0 z-50 w-64 shadow-2xl transition-transform duration-200 ${
+          mobileOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        aria-hidden={!mobileOpen}
+      >
+        <AppSidebar onClose={() => setMobileOpen(false)} forceExpanded />
+      </div>
 
       {/* `min-w-0` no es decorativo: sin él, este elemento es un ítem flex con
           `min-width: auto`, así que su ancho mínimo lo fija el contenido más
@@ -125,8 +138,15 @@ export function AppLayout({ children, streak }: Props) {
           Lo encontramos por dos caminos: el estante de la Biblioteca, que es
           una tira horizontal, y el recorte de NOTAM de la lección. Medido a
           390 px: la lección ocupaba 784 de ancho sin esto, 390 con esto. */}
+      {/* Sin `transition-[padding]`. Lo tenía, y el rail animaba su `width` al
+          mismo tiempo y disparado por hover: 300 ms reflowando el documento
+          entero (la barra superior, el <main> y cada tarjeta de dentro) cada
+          vez que el ratón pasaba por el borde izquierdo. El rail sigue
+          abriéndose, ahora de golpe. Si prefieres recuperar el deslizamiento,
+          la manera de hacerlo sin reflow es que el rail se superponga en vez
+          de empujar, y eso es una decisión de producto, no un arreglo. */}
       <div
-        className={`flex-1 min-w-0 flex flex-col min-h-screen transition-[padding] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${contentPaddingClass}`}
+        className={`flex-1 min-w-0 flex flex-col min-h-screen ${contentPaddingClass}`}
       >
         <AppTopbar
           onMenuClick={() => setMobileOpen(true)}

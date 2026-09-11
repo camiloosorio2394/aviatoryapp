@@ -29,7 +29,7 @@ export function Features() {
           {features.map((f) => (
             <div
               key={f.title}
-              className="group rounded-2xl p-6 transition-all duration-300 hover:bg-muted/50"
+              className="group rounded-2xl p-6 transition-[color,background-color,border-color,box-shadow] duration-300 hover:bg-muted/50"
             >
               <f.icon className="h-7 w-7 text-blue-600 dark:text-blue-400 transition-transform duration-300 group-hover:scale-110" />
               <h3 className="mt-4 text-lg font-semibold">{f.title}</h3>

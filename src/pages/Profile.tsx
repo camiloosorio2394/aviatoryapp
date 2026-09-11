@@ -527,7 +527,7 @@ export function Profile() {
                           key={lic}
                           type="button"
                           onClick={() => toggleLicense(lic)}
-                          className="px-4 py-2 rounded-full text-[15px] font-semibold border transition-all"
+                          className="px-4 py-2 rounded-full text-[15px] font-semibold border transition-[color,background-color,border-color,box-shadow]"
                           style={active ? {
                             background: "var(--av-blue-500)",
                             borderColor: "var(--av-blue-500)",

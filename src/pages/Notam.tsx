@@ -313,7 +313,7 @@ export function Notam() {
                       aria-label="Avance de la sección NOTAM"
                     >
                       <div
-                        className="h-full rounded-sm transition-all"
+                        className="h-full rounded-sm transition-[width]"
                         style={{
                           width: `${resumen.overall}%`,
                           background: "var(--av-green-400)",
@@ -435,7 +435,7 @@ function FilaAvance({
         aria-label={`Avance de ${titulo}`}
       >
         <div
-          className="h-full rounded-sm transition-all"
+          className="h-full rounded-sm transition-[width]"
           style={{ width: `${pct}%`, background: color }}
         />
       </div>

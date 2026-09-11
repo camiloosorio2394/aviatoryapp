@@ -180,7 +180,7 @@ export function Pricing() {
               return (
                 <div
                   key={t.name}
-                  className={`relative rounded-3xl p-8 transition-all duration-500 ${
+                  className={`relative rounded-3xl p-8 transition-[color,background-color,border-color,box-shadow] duration-500 ${
                     t.highlight
                       ? "halo-pulse text-white backdrop-blur-xl scale-100 lg:scale-105"
                       : "bg-card/80 backdrop-blur-sm border border-border/60 card-apple"
