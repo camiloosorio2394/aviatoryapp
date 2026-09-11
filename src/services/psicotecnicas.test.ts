@@ -75,6 +75,24 @@ describe("lectura de lo que devuelve el servidor", () => {
     expect(r.soluciones.get(2)?.respuesta).toBe(0)
     expect(() => leerResultadoPsico({ total: 1, respuestas: [{ posicion: 9, categoria: "numerico" }], revision: [] })).toThrow()
   })
+
+  it("lo que quedó sin responder llega sin su respuesta", () => {
+    const r = leerResultadoPsico({
+      total: 2, correctas: 1, porcentaje: 50, velocidad: 40, global: 47, aprobacion: 80,
+      respuestas: [
+        { posicion: 1, categoria: "numerico", elegida: 1, correcta: true, segundos: 20, limite: 60 },
+        { posicion: 2, categoria: "abstracto", elegida: null, correcta: false, segundos: 34, limite: 34 },
+      ],
+      revision: [
+        { posicion: 1, id: "NU-01", respuesta: 1, explicacion: "a", subcategoria: "s", fuente: "f" },
+        { posicion: 2, id: "AB-02", respuesta: null, explicacion: null, subcategoria: null, fuente: null },
+      ],
+    })
+    expect(r.soluciones.get(1)?.respuesta).toBe(1)
+    expect(r.soluciones.get(2)).toMatchObject({ id: "AB-02", respuesta: null, explicacion: "" })
+    // El repaso sigue sabiendo de qué ejercicio se trata, para poder reportarlo.
+    expect(r.respuestas[1].id).toBe("AB-02")
+  })
 })
 
 describe("llamadas", () => {

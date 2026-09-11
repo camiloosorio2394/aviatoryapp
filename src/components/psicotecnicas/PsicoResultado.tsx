@@ -284,6 +284,9 @@ export function PsicoResultado({
 function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
   const [abierta, setAbierta] = useState(false)
   const suya = respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida]
+  // La correcta y la explicación llegan solo de lo respondido: lo que se dejó
+  // pasar se repasa con la figura, sin revelar la respuesta.
+  const correcta = solucion.respuesta === null ? null : ejercicio.opciones[solucion.respuesta]
   const { figura } = ejercicio
 
   return (
@@ -300,11 +303,15 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
         <span className="min-w-0 flex-1 text-[15px]">
           {suya === null ? (
             <span className="text-muted-foreground">Se quedó sin responder</span>
+          ) : correcta === null ? (
+            <>
+              Respondiste <strong className="font-semibold">{suya}</strong>
+            </>
           ) : (
             <>
               Respondiste <strong className="font-semibold">{suya}</strong>; era{" "}
               <strong className="font-semibold" style={{ color: "var(--av-green-400)" }}>
-                {ejercicio.opciones[solucion.respuesta]}
+                {correcta}
               </strong>
             </>
           )}
@@ -323,7 +330,7 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
               <FiguraEnunciado figura={figura} />
               <div className="mt-3 flex flex-wrap gap-3">
                 {ejercicio.opciones.map((opcion, i) => {
-                  const buena = i === solucion.respuesta
+                  const buena = solucion.respuesta !== null && i === solucion.respuesta
                   const suyaEsta = i === respuesta.elegida
                   return (
                     <span
@@ -369,7 +376,9 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
           )}
 
           <p className="mt-4 text-[15px] leading-relaxed text-foreground/90">
-            {solucion.explicacion}
+            {correcta === null
+              ? "La respuesta y la explicación se muestran en los ejercicios que respondiste."
+              : solucion.explicacion}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
             <span>{solucion.subcategoria}</span>
@@ -389,7 +398,7 @@ function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
             extra={{
               desde: "repaso",
               eligio: respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida],
-              correcta: ejercicio.opciones[solucion.respuesta],
+              correcta,
               dibujada: Boolean(ejercicio.figura),
             }}
           />

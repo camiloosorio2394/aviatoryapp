@@ -18,6 +18,7 @@ esa forma.
 | `icao_quiz.sql` | Corrección en el servidor, opciones válidas, intentos solo por la función, tope por hora. |
 | `errores_cliente.sql` | Reporte de errores solo con sesión, recortado, con tope por hora y sin acceso directo a la tabla. |
 | `logros.sql` | Lección y práctica contra el catálogo, claves viejas que no cuentan, un grupo por disparador, ponerse al día solo sobre sí mismo. |
+| `psicotecnicas.sql` | El reloj lo lleva el servidor: aplazar acumula el tiempo, el tiempo agotado no cuenta, y ni el banco ni la sesión se leen desde el cliente. |
 | `panel.sql` | `panel_inicio()` y `panel_tarjetas()` devuelven lo mismo que las consultas que reemplazan, piloto por piloto, sin sesión no responden. Solo lee. |
 | `resumenes.sql` | `bitacora_resumen` e `icao_progreso()` cuentan más de 1000 filas y solo las del piloto. |
 
