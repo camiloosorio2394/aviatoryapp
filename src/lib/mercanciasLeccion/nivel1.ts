@@ -287,7 +287,7 @@ export const NIVEL_1: DocScreen[] = [
   {
     n: 3,
     title: "El vocabulario que te van a preguntar",
-    kicker: "Doce términos y tres permisos",
+    kicker: "Catorce términos y tres permisos",
     minutes: 7,
     blocks: [
       {
@@ -310,6 +310,24 @@ export const NIVEL_1: DocScreen[] = [
         kind: "fichas",
         columnas: 2,
         items: [
+          {
+            titulo: "NOTOC",
+            hueco: {
+              id: "MP-IMG-15",
+              medida: "Fotografía · 3:2 · 1200×800",
+              descripcion:
+                "Un NOTOC en primer plano donde se lean las columnas de mercancías peligrosas: número ONU, clase, número de bultos y posición en bodega. Anonimizado (matrícula, número de vuelo y nombres), con el mismo cuidado que el de la lección 14.",
+            },
+            tecnica: {
+              rotulo: "Lo que exige el reglamento",
+              texto: "Salvo en los casos en que las Instrucciones Técnicas indiquen lo contrario, el explotador de toda aeronave en la cual haya que transportar mercancías peligrosas, deberá proporcionar al piloto al mando, lo antes posible antes de la salida de la aeronave y por escrito, la información prevista en las Instrucciones Técnicas.",
+              nota: "El reglamento no usa la palabra NOTOC: habla de la información por escrito al piloto al mando. NOTOC, «Notification to Captain», es el nombre que le da la operación. Lo ves a fondo en la lección 14.",
+            },
+            puntos: [
+              "El papel que te entrega el explotador antes de la salida: qué mercancías peligrosas llevas, cuántas y dónde van.",
+              "Lo firmas antes de que se transporten y lo tienes a mano todo el vuelo. Si algo pasa, es lo primero que miras.",
+            ],
+          },
           {
             titulo: "Bulto",
             hueco: {
