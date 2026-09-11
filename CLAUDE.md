@@ -29,6 +29,13 @@ largas en el contenido**; van paréntesis o comillas angulares.
 grupo sin layout. El chip de racha de la barra se publica con `useRachaEnBarra()`. Los avisos y
 los toasts de logros llegan por Realtime (`NotificacionesProvider`): nada se consulta por sondeo.
 
+**Errores**: lo que rompe algo que el piloto esperaba (una pantalla que se cae, algo que no se
+guardó, una respuesta del servidor con otra forma) va por `reportarError(contexto, error)` de
+`src/lib/errores.ts`. Queda en la consola y en la tabla `errores_cliente`, que se lee desde el
+panel de Supabase. `console.warn` es para lo degradado y esperable (una tarjeta opcional sin
+datos, sin conexión). ESLint no deja usar `console.error` ni `console.log` en `src/`. Los errores
+que nadie atrapa también se reportan (`escucharErroresGlobales` en `main.tsx`).
+
 ## Sistema de diseño
 
 El lector de lecciones es **uno solo y compartido**: `src/components/lesson/LectorLeccion.tsx`.

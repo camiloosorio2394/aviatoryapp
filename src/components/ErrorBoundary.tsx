@@ -1,4 +1,5 @@
 import { Component, type ErrorInfo, type ReactNode } from "react"
+import { reportarError } from "@/lib/errores"
 
 /**
  * La red debajo de toda la aplicación.
@@ -10,9 +11,9 @@ import { Component, type ErrorInfo, type ReactNode } from "react"
  *
  * Dos decisiones que parecen detalles y no lo son:
  *
- * — **El error se deja en la consola.** Tragárselo para que la pantalla quede
- *   bonita es peor que el fallo: sin traza no hay diagnóstico, y quien reporte
- *   el problema solo podrá decir «se puso en blanco».
+ * — **El error se reporta.** Queda en la consola y en la base (`reportarError`),
+ *   con el árbol de componentes. Tragárselo para que la pantalla quede bonita es
+ *   peor que el fallo: sin traza no hay diagnóstico.
  * — **Recargar es un `location.reload`, no un `setState`.** Volver a montar el
  *   mismo árbol con el mismo estado roto reproduce el mismo error al instante.
  *   Y como la aplicación es una PWA con service worker, se ofrece además
@@ -39,9 +40,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    // A la consola, siempre. Es lo único que queda para diagnosticar, y en
-    // producción es lo que el piloto puede copiar y mandarnos.
-    console.error("[Aviatory] La pantalla se cayó:", error, info.componentStack)
+    reportarError("pantalla caída", error, info.componentStack ?? undefined)
   }
 
   render() {

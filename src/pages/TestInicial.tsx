@@ -6,6 +6,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { TILE_COLOR, tileBorder, tileTint } from "@/lib/tileColors"
 import {
@@ -357,7 +358,7 @@ function Result({
       updated_at: new Date().toISOString(),
     })
     if (error) {
-      console.error("pilot_state", error)
+      reportarError("test inicial: guardar nivel", error)
       toast.error("No pudimos guardar tu nivel. Revisa tu conexión e inténtalo de nuevo.")
       setSaving(false)
       return

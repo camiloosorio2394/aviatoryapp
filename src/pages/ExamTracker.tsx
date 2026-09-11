@@ -20,6 +20,7 @@ import {
 } from "lucide-react"
 import { toast } from "sonner"
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { esTopeDePublicaciones } from "@/lib/topes"
 import { Button } from "@/components/ui/button"
@@ -432,7 +433,7 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
         )
         // El reporte ya quedó: se avisa que faltaron los temas en vez de dar las gracias como si nada.
         if (errorTemas) {
-          console.warn("exam_report_topics", errorTemas.message)
+          reportarError("reporte de examen: temas", errorTemas)
           toast.warning("Guardamos tu reporte, pero no los temas que marcaste.")
           onSaved()
           return
@@ -442,12 +443,12 @@ function NewReportDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
       toast.success("¡Gracias por tu reporte! La comunidad lo va a aprovechar.")
       onSaved()
     } catch (err) {
-      console.error("exam_reports", err)
-      toast.error(
-        esTopeDePublicaciones(err)
-          ? "Ya enviaste varios reportes hoy. Vuelve a intentarlo mañana."
-          : "No pudimos guardar tu reporte. Revisa tu conexión e inténtalo de nuevo.",
-      )
+      if (esTopeDePublicaciones(err)) {
+        toast.error("Ya enviaste varios reportes hoy. Vuelve a intentarlo mañana.")
+      } else {
+        reportarError("reporte de examen", err)
+        toast.error("No pudimos guardar tu reporte. Revisa tu conexión e inténtalo de nuevo.")
+      }
     } finally {
       setSaving(false)
     }

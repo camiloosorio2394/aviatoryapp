@@ -14,6 +14,7 @@
  */
 
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 export interface ProgresoRemoto {
   lessonScreens: number[]
@@ -74,8 +75,14 @@ export function crearProgresoModulo({ tabla, rpc, leerLocal, anotarLocal }: Conf
         p_practice_id: marca.practiceId ?? null,
       })
       // Sin sesión la RPC responde permiso denegado: es el caso esperado de quien
-      // estudia sin cuenta, y lo local ya quedó para subirlo después.
-      if (error) console.warn(rpc, error.message)
+      // estudia sin cuenta, y lo local ya quedó para subirlo después. Una clave
+      // que el catálogo de la base no conoce es un desajuste entre la app y la
+      // base (contenido/catalogo), y se reporta.
+      if (error && /leccion_invalida|practica_invalida|catalogo_no_disponible/.test(error.message)) {
+        reportarError(`${rpc}: marca fuera del catálogo`, error)
+      } else if (error) {
+        console.warn(rpc, error.message)
+      }
       return !error
     } catch (error) {
       console.warn(rpc, error)

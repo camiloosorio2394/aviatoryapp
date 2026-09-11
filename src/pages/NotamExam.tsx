@@ -1,4 +1,5 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
+import { reportarError } from "@/lib/errores"
 import { supabase } from "@/integrations/supabase/client"
 import {
   EXAM_PASS_SCORE,
@@ -58,7 +59,7 @@ const CONFIG: ExamenConfig = {
       supabase.from("user_notam_exam_attempts").select("score").eq("user_id", uid).order("score", { ascending: false }).limit(1),
     ])
     if (listRes.error) {
-      console.error("notam exam history", listRes.error)
+      reportarError("NOTAM: historial de evaluación", listRes.error)
       return null
     }
     const rows = (listRes.data ?? []) as {

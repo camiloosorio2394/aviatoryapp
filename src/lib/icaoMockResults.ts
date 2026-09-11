@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client"
+import { reportarError } from "@/lib/errores"
 
 /** Resultado guardado de un simulacro TEA. */
 export interface MockResult {
@@ -19,7 +20,7 @@ export async function fetchMockHistory(userId: string, limit = 12): Promise<Mock
     .order("taken_at", { ascending: false })
     .limit(limit)
   if (error) {
-    console.error("fetchMockHistory", error)
+    reportarError("simulacro ICAO: historial", error)
     return []
   }
   return (data ?? []) as MockResult[]
@@ -42,7 +43,7 @@ export async function saveMockResult(input: {
     recorded: input.recorded,
   })
   if (error) {
-    console.error("saveMockResult", error)
+    reportarError("simulacro ICAO: guardar resultado", error)
     return { ok: false }
   }
 
@@ -54,7 +55,7 @@ export async function saveMockResult(input: {
       .from("pilot_state")
       .update({ icao_english_level: input.finalLevel, updated_at: new Date().toISOString() })
       .eq("user_id", input.userId)
-    if (psErr) console.error("saveMockResult:pilot_state", psErr)
+    if (psErr) reportarError("simulacro ICAO: nivel en pilot_state", psErr)
   }
 
   return { ok: true }
