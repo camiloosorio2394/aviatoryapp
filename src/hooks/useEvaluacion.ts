@@ -1,15 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import {
-  clasificarError,
   iniciarEvaluacion,
   responderPregunta,
   terminarEvaluacion,
   type ClaveEvaluacion,
-  type ErrorEvaluacion,
   type RespuestaRegistrada,
   type ResultadoEvaluacion,
   type SesionEvaluacion,
 } from "@/services/evaluaciones"
+import { clasificarError, type ErrorEvaluacion } from "@/services/rpc"
 
 /**
  * Un intento de evaluación, de principio a fin.

@@ -1,10 +1,12 @@
-import { useCallback, useMemo, useState } from "react"
+import { useState, type ReactNode } from "react"
 import { Link, useSearchParams } from "react-router-dom"
-import { ArrowLeft, Play } from "lucide-react"
+import { ArrowLeft, Play, RotateCcw } from "lucide-react"
 import { AppLayout } from "@/components/layout/AppLayout"
 import { PageHeader } from "@/components/ui/page-header"
+import { PsicoCargando, PsicoError } from "@/components/psicotecnicas/EstadosPsico"
 import { PsicoPlayer } from "@/components/psicotecnicas/PsicoPlayer"
 import { PsicoResultado } from "@/components/psicotecnicas/PsicoResultado"
+import { itemsDeRepaso, useSesionPsico } from "@/hooks/useSesionPsico"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import {
   CATEGORIAS,
@@ -15,14 +17,8 @@ import {
   type CategoriaPsico,
   type ModoPsico,
   type NivelPsico,
-  type RespuestaPsico,
-  type ResultadoPsico,
-  armarTanda,
-  calcularResultado,
-  filtrar,
 } from "@/lib/psicotecnicas"
-import { BANCO } from "@/data/psicotecnicas"
-import { guardarSesion } from "@/lib/psicotecnicasProgress"
+import { disponiblesPsico } from "@/lib/psicotecnicasConteo"
 
 type Filtro = CategoriaPsico | "todas"
 type Nivel = NivelPsico | "todos"
@@ -51,9 +47,10 @@ export function PsicoEvaluacion() {
 /**
  * Una tanda de entrenamiento o de evaluación.
  *
- * La pantalla tiene tres estados y no navega entre rutas para pasar de uno a
- * otro: configurar, resolver y resultado. Cambiar de URL a mitad de una prueba
- * cronometrada es la forma más fácil de perder el reloj y las respuestas.
+ * La pantalla no navega entre rutas para pasar de configurar a resolver y al
+ * resultado: cambiar de URL a mitad de una prueba cronometrada es la forma más
+ * fácil de perder el reloj y las respuestas. Los ejercicios, el reloj y la nota
+ * son del servidor (useSesionPsico).
  *
  * La configuración llega por query string cuando se entra desde una tarjeta del
  * hub («entrenar espacial»), de modo que ese enlace deja el filtro puesto y el
@@ -70,63 +67,101 @@ export function PsicoSesion({ modo }: Props) {
   )
   const [nivel, setNivel] = useState<Nivel>("todos")
   const [cantidad, setCantidad] = useState<number>(10)
-  const [tanda, setTanda] = useState<ReturnType<typeof armarTanda> | null>(null)
-  const [resultado, setResultado] = useState<ResultadoPsico | null>(null)
-  // Se guardan también las respuestas: son las que dejan repasar los
-  // fallados en el informe, con su figura y su explicación.
-  const [respuestas, setRespuestas] = useState<RespuestaPsico[] | null>(null)
+  const psico = useSesionPsico()
+  const { estado, errorAccion } = psico
 
   /** Cuántos hay realmente con el filtro puesto: la pantalla no promete de más. */
-  const disponibles = useMemo(
-    () => filtrar(BANCO, { categoria, nivel }).length,
-    [categoria, nivel]
-  )
+  const disponibles = disponiblesPsico({ categoria, nivel })
 
-  const empezar = useCallback(() => {
-    setResultado(null)
-    setRespuestas(null)
-    setTanda(armarTanda(BANCO, { categoria, nivel }, Math.min(cantidad, disponibles)))
-  }, [categoria, nivel, cantidad, disponibles])
+  function empezar() {
+    void psico.empezar({ modo, categoria, nivel, cantidad: Math.min(cantidad, disponibles) })
+  }
 
-  const terminar = useCallback(
-    (respuestas: RespuestaPsico[]) => {
-      const r = calcularResultado(respuestas)
-      setRespuestas(respuestas)
-      setResultado(r)
-      setTanda(null)
-      void guardarSesion({ modo, nivel, categoria, resultado: r })
-    },
-    [modo, nivel, categoria]
-  )
-
-  // Resolviendo: la pantalla se queda con el ejercicio y nada más.
-  if (tanda) {
+  if (estado.fase === "iniciando") {
     return (
-      <AppLayout>
-        <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">
-          <PsicoPlayer
-            ejercicios={tanda}
-            modo={modo}
-            nivel={nivel}
-            onTerminar={terminar}
-          />
-        </div>
-      </AppLayout>
+      <Marco>
+        <PsicoCargando texto="Preparando tus ejercicios..." />
+      </Marco>
     )
   }
 
-  if (resultado) {
+  if (estado.fase === "error") {
     return (
-      <AppLayout>
-        <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">
-          <PsicoResultado
-            resultado={resultado}
-            ejercicios={tanda ?? undefined}
-            respuestas={respuestas ?? undefined}
-            onRepetir={empezar}
+      <Marco>
+        <PsicoError
+          titulo="No pudimos preparar la tanda"
+          mensaje={estado.error.message}
+          acciones={
+            <>
+              <button
+                type="button"
+                onClick={() => void psico.empezar(estado.parametros)}
+                className={appButtonClass({ size: "lg" })}
+                style={appButtonStyle()}
+              >
+                <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+              </button>
+              <button type="button" onClick={psico.volverAConfigurar} className={appButtonClass({ variant: "secondary", size: "lg" })}>
+                Cambiar la configuración
+              </button>
+            </>
+          }
+        />
+      </Marco>
+    )
+  }
+
+  // Resolviendo: la pantalla se queda con el ejercicio y nada más.
+  if (estado.fase === "en_curso") {
+    return (
+      <Marco>
+        <PsicoPlayer
+          key={estado.sesion.id}
+          sesion={estado.sesion}
+          onCorregir={psico.corregir}
+          onRegistrar={psico.registrar}
+          onAplazar={psico.aplazar}
+          onTerminar={() => void psico.terminar()}
+          errorAccion={errorAccion}
+        />
+      </Marco>
+    )
+  }
+
+  if (estado.fase === "terminando") {
+    return (
+      <Marco>
+        {errorAccion ? (
+          <PsicoError
+            titulo="No pudimos cerrar la tanda"
+            mensaje={errorAccion.message}
+            acciones={
+              <>
+                <button type="button" onClick={() => void psico.terminar()} className={appButtonClass({ size: "lg" })} style={appButtonStyle()}>
+                  <RotateCcw className="h-4 w-4" /> Intentar de nuevo
+                </button>
+                <button type="button" onClick={psico.volverAConfigurar} className={appButtonClass({ variant: "secondary", size: "lg" })}>
+                  Empezar otra tanda
+                </button>
+              </>
+            }
           />
-        </div>
-      </AppLayout>
+        ) : (
+          <PsicoCargando texto="Calculando tu resultado..." />
+        )}
+      </Marco>
+    )
+  }
+
+  if (estado.fase === "terminada") {
+    return (
+      <Marco>
+        <PsicoResultado
+          resultado={estado.resultado}
+          repaso={itemsDeRepaso(estado.sesion, estado.servidor)}
+          onRepetir={empezar}
+        />
+      </Marco>
     )
   }
 
@@ -205,7 +240,15 @@ export function PsicoSesion({ modo }: Props) {
   )
 }
 
-function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
+function Marco({ children }: { children: ReactNode }) {
+  return (
+    <AppLayout>
+      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-16">{children}</div>
+    </AppLayout>
+  )
+}
+
+function Grupo({ titulo, children }: { titulo: string; children: ReactNode }) {
   return (
     <div>
       <div className="text-[13px] font-semibold text-foreground/80 mb-2">{titulo}</div>
@@ -221,7 +264,7 @@ function Opcion({
 }: {
   activo: boolean
   onClick: () => void
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
     <button

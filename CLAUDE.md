@@ -78,6 +78,22 @@ Así nadie ve las respuestas abriendo DevTools ni se inventa un puntaje.
 - `src/lib/evaluacionesContenido.test.ts` falla si un archivo de `src/` vuelve a traer
   preguntas de un banco, o si los conteos que anuncia la app no cuadran con los bancos.
   **Un «pon a prueba» de lección no debe copiar una pregunta de evaluación.**
+- En CI, `scripts/bancos/verificar-dist.mjs` revisa el build: si un texto de un banco
+  aparece en `dist/`, falla.
+
+**Psicotécnicas** van igual (entrenamiento, evaluación y simulacro): el servidor sortea la
+tanda, lleva el reloj y calcula precisión, velocidad y global (`psico_iniciar`,
+`psico_responder`, `psico_aplazar`, `psico_terminar`). Diferencias:
+
+- La fuente editorial sigue siendo `src/data/psicotecnicas/` (la usan los verificadores
+  de `scripts/psicotecnicas/`), pero **la app no la importa**: ESLint lo prohíbe salvo
+  `@/data/psicotecnicas/aprende` (resueltos y teoría del cubo).
+- Después de editar ejercicios: `node scripts/bancos/exportar-psicotecnicas.mjs` (escribe
+  `contenido/bancos/psicotecnicas.json`) y `node scripts/bancos/sembrar.mjs psicotecnicas`.
+  Si se olvida, `src/lib/psicotecnicasBanco.test.ts` falla; también si cambian los conteos
+  de `src/lib/psicotecnicasConteo.ts`.
+- Los tiempos que cuentan son los de `private.psico_limite()`; `TIEMPOS` y `FACTOR_NIVEL`
+  en `src/lib/psicotecnicas.ts` son su espejo para los textos.
 
 ## Cabeceras de seguridad (vercel.json)
 

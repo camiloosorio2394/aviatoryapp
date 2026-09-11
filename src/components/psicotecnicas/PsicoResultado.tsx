@@ -9,24 +9,21 @@ import {
   CATEGORIAS,
   NOTA_TIEMPOS,
   PSICO_HUB,
-  type EjercicioPsico,
-  type RespuestaPsico,
   type ResultadoPsico,
   nivelAlcanzado,
 } from "@/lib/psicotecnicas"
+import type { ItemRepaso } from "@/services/psicotecnicas"
 
 interface Props {
   resultado: ResultadoPsico
   /** El simulacro añade el puntaje global, la velocidad y la precisión. */
   conPuntajeGlobal?: boolean
   /**
-   * La tanda y lo que se respondió, para poder repasar los fallados.
-   *
-   * Van juntos y son opcionales: sin ellos el informe sigue siendo el mismo,
+   * La tanda con lo que se respondió y la solución de cada ejercicio, que el
+   * servidor entrega al cerrarla. Sin esto el informe sigue siendo el mismo,
    * solo que sin la revisión.
    */
-  ejercicios?: EjercicioPsico[]
-  respuestas?: RespuestaPsico[]
+  repaso?: ItemRepaso[]
   onRepetir: () => void
 }
 
@@ -130,8 +127,7 @@ function BarraCategoria({
 export function PsicoResultado({
   resultado,
   conPuntajeGlobal,
-  ejercicios,
-  respuestas,
+  repaso: tanda,
   onRepetir,
 }: Props) {
   const r = resultado
@@ -146,15 +142,7 @@ export function PsicoResultado({
    * recuperaba. Los aciertos no entran: repasar lo que ya salió bien es tiempo
    * que no enseña nada.
    */
-  const repaso =
-    ejercicios && respuestas
-      ? respuestas
-          .filter((a) => !a.correcta)
-          .map((a) => ({ respuesta: a, ejercicio: ejercicios.find((e) => e.id === a.id) }))
-          .filter((x): x is { respuesta: RespuestaPsico; ejercicio: EjercicioPsico } =>
-            Boolean(x.ejercicio)
-          )
-      : []
+  const repaso = (tanda ?? []).filter((item) => !item.respuesta.correcta)
 
   return (
     <div className="max-w-[900px] mx-auto">
@@ -258,8 +246,8 @@ export function PsicoResultado({
             sesión donde se aprende: en la prueba la explicación pasa y no vuelve.
           </p>
           <div className="mt-5 space-y-3">
-            {repaso.map(({ respuesta, ejercicio }) => (
-              <FichaRepaso key={ejercicio.id} ejercicio={ejercicio} respuesta={respuesta} />
+            {repaso.map((item) => (
+              <FichaRepaso key={item.solucion.id} {...item} />
             ))}
           </div>
         </section>
@@ -293,15 +281,10 @@ export function PsicoResultado({
  * despliega entero no se lee. Se abre el que interesa, se mira la figura al
  * lado de la explicación, y se cierra.
  */
-function FichaRepaso({
-  ejercicio,
-  respuesta,
-}: {
-  ejercicio: EjercicioPsico
-  respuesta: RespuestaPsico
-}) {
+function FichaRepaso({ ejercicio, respuesta, solucion }: ItemRepaso) {
   const [abierta, setAbierta] = useState(false)
   const suya = respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida]
+  const { figura } = ejercicio
 
   return (
     <div className="rounded-xl border border-border overflow-hidden">
@@ -312,7 +295,7 @@ function FichaRepaso({
         className="flex w-full items-center gap-3 px-4 py-3 text-left hover:bg-muted transition-colors"
       >
         <span className="text-[13px] font-semibold text-muted-foreground tabular-nums shrink-0">
-          {ejercicio.id}
+          {solucion.id}
         </span>
         <span className="min-w-0 flex-1 text-[15px]">
           {suya === null ? (
@@ -321,7 +304,7 @@ function FichaRepaso({
             <>
               Respondiste <strong className="font-semibold">{suya}</strong>; era{" "}
               <strong className="font-semibold" style={{ color: "var(--av-green-400)" }}>
-                {ejercicio.opciones[ejercicio.respuesta]}
+                {ejercicio.opciones[solucion.respuesta]}
               </strong>
             </>
           )}
@@ -335,12 +318,12 @@ function FichaRepaso({
         <div className="border-t border-border px-4 py-4">
           <div className="text-[15px] font-medium">{ejercicio.enunciado}</div>
 
-          {ejercicio.figura ? (
+          {figura ? (
             <>
-              <FiguraEnunciado figura={ejercicio.figura} />
+              <FiguraEnunciado figura={figura} />
               <div className="mt-3 flex flex-wrap gap-3">
                 {ejercicio.opciones.map((opcion, i) => {
-                  const buena = i === ejercicio.respuesta
+                  const buena = i === solucion.respuesta
                   const suyaEsta = i === respuesta.elegida
                   return (
                     <span
@@ -359,7 +342,7 @@ function FichaRepaso({
                             : undefined,
                       }}
                     >
-                      <FiguraOpcion figura={ejercicio.figura!} indice={i} />
+                      <FiguraOpcion figura={figura} indice={i} />
                       <span className="text-[13px] font-semibold text-muted-foreground">
                         {opcion}
                       </span>
@@ -386,10 +369,10 @@ function FichaRepaso({
           )}
 
           <p className="mt-4 text-[15px] leading-relaxed text-foreground/90">
-            {ejercicio.explicacion}
+            {solucion.explicacion}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
-            <span>{ejercicio.subcategoria}</span>
+            <span>{solucion.subcategoria}</span>
             <span>·</span>
             <span>
               {respuesta.segundos} s de {respuesta.limite} s
@@ -402,11 +385,11 @@ function FichaRepaso({
               es cuando de verdad sabe si lo que falló fue él o la pregunta. */}
           <ReportarProblema
             modulo="psicotecnicas"
-            ejercicioId={ejercicio.id}
+            ejercicioId={solucion.id}
             extra={{
               desde: "repaso",
               eligio: respuesta.elegida === null ? null : ejercicio.opciones[respuesta.elegida],
-              correcta: ejercicio.opciones[ejercicio.respuesta],
+              correcta: ejercicio.opciones[solucion.respuesta],
               dibujada: Boolean(ejercicio.figura),
             }}
           />

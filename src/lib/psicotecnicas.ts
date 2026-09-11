@@ -1,15 +1,16 @@
 /**
- * Pruebas psicotécnicas: tipos, tiempos y la lógica de armar una sesión.
+ * Pruebas psicotécnicas: tipos, tiempos y el cálculo del informe.
  *
  * El módulo entrena las tres familias de razonamiento que aparecen en los
  * procesos de selección de pilotos —abstracto, espacial y numérico— con
  * ejercicios extraídos de material real, no redactados aquí. Cada ejercicio
- * declara de qué documento salió (`fuente`), y el banco vive en
- * `src/data/psicotecnicas/`.
+ * declara de qué documento salió (`fuente`). La fuente editorial del banco es
+ * `src/data/psicotecnicas/`, pero la app no la importa: los ejercicios, el reloj
+ * y la nota los sirve el servidor (services/psicotecnicas.ts).
  *
  * Los tiempos son parámetros de entrenamiento, no cifras oficiales de ninguna
- * aerolínea: se cambian en TIEMPOS sin tocar un solo ejercicio, que es
- * exactamente la razón de que estén separados del banco.
+ * aerolínea. Los que cuentan son los de private.psico_limite() en la base; los
+ * de aquí son su espejo para los textos de las pantallas.
  */
 
 import type { Figura } from "./psicotecnicasFiguras"
@@ -84,7 +85,8 @@ export const TIEMPOS: Record<ModoPsico, Record<CategoriaPsico, number>> = {
 }
 
 /**
- * Cuánto se estira o se encoge el tiempo según el nivel.
+ * Cuánto se estira o se encoge el tiempo según el nivel. Espejo de
+ * private.psico_limite(), que es la que fija el reloj de cada ejercicio.
  *
  * La progresión del módulo no es solo "ejercicios más difíciles": es el mismo
  * ejercicio con menos tiempo. Primero precisión, luego velocidad, al final
@@ -94,19 +96,6 @@ export const FACTOR_NIVEL: Record<NivelPsico, number> = {
   basico: 1.35,
   intermedio: 1,
   avanzado: 0.75,
-}
-
-/** Segundos que le tocan a un ejercicio en un modo y nivel dados. */
-export function tiempoDe(
-  ejercicio: EjercicioPsico,
-  modo: ModoPsico,
-  nivel: NivelPsico | "todos"
-): number {
-  const base = TIEMPOS[modo][ejercicio.categoria]
-  // En entrenamiento el nivel no aprieta el reloj: se entra a aprender.
-  if (modo === "entrenamiento") return base
-  const factor = nivel === "todos" ? FACTOR_NIVEL[ejercicio.nivel] : FACTOR_NIVEL[nivel]
-  return Math.round(base * factor)
 }
 
 /** La nota legal que acompaña a todo lo que lleve cronómetro. */
@@ -219,70 +208,10 @@ export const SIMULACRO_TOTAL =
 // ────────────────────────────────────────────────────────────────────────────
 // Selección
 
-/** Baraja sin tocar el arreglo de entrada (Fisher-Yates). */
-export function barajar<T>(items: readonly T[]): T[] {
-  const copia = [...items]
-  for (let i = copia.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[copia[i], copia[j]] = [copia[j], copia[i]]
-  }
-  return copia
-}
-
+/** El filtro de una tanda. La tanda la sortea el servidor (psico_iniciar). */
 export interface FiltroPsico {
   categoria: CategoriaPsico | "todas"
   nivel: NivelPsico | "todos"
-}
-
-export function filtrar(
-  banco: readonly EjercicioPsico[],
-  { categoria, nivel }: FiltroPsico
-): EjercicioPsico[] {
-  return banco.filter(
-    (e) =>
-      (categoria === "todas" || e.categoria === categoria) &&
-      (nivel === "todos" || e.nivel === nivel)
-  )
-}
-
-/**
- * Arma una tanda de ejercicios sin repetir dentro de la sesión.
- *
- * Si el filtro deja menos de los pedidos, devuelve los que haya: es preferible
- * una tanda corta a rellenarla repitiendo, que es justo lo que arruina la
- * medición.
- */
-export function armarTanda(
-  banco: readonly EjercicioPsico[],
-  filtro: FiltroPsico,
-  cantidad: number
-): EjercicioPsico[] {
-  return barajar(filtrar(banco, filtro)).slice(0, cantidad)
-}
-
-/**
- * Arma el simulacro: 10 de cada familia, barajadas entre sí para que no vengan
- * por bloques. Si a una familia le faltan ejercicios se completa con las otras,
- * de modo que el simulacro siempre tenga 30 mientras el banco dé para ello.
- */
-export function armarSimulacro(banco: readonly EjercicioPsico[]): EjercicioPsico[] {
-  const elegidos: EjercicioPsico[] = []
-  const usados = new Set<string>()
-
-  for (const categoria of ["abstracto", "espacial", "numerico"] as const) {
-    const tanda = armarTanda(banco, { categoria, nivel: "todos" }, SIMULACRO[categoria])
-    for (const e of tanda) {
-      elegidos.push(e)
-      usados.add(e.id)
-    }
-  }
-
-  if (elegidos.length < SIMULACRO_TOTAL) {
-    const resto = barajar(banco.filter((e) => !usados.has(e.id)))
-    elegidos.push(...resto.slice(0, SIMULACRO_TOTAL - elegidos.length))
-  }
-
-  return barajar(elegidos)
 }
 
 // ────────────────────────────────────────────────────────────────────────────

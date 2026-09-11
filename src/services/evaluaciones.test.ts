@@ -3,9 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
 const rpc = vi.hoisted(() => vi.fn())
 vi.mock("@/integrations/supabase/client", () => ({ supabase: { rpc } }))
 
+const { ErrorEvaluacion, clasificarError } = await import("@/services/rpc")
 const {
-  ErrorEvaluacion,
-  clasificarError,
   iniciarEvaluacion,
   leerResultado,
   leerSesion,

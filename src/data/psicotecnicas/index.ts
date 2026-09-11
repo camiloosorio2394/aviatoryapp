@@ -1,10 +1,10 @@
 import type { CategoriaPsico, EjercicioPsico } from "@/lib/psicotecnicas"
 import { ABSTRACTO } from "./abstracto"
-import { ESPACIAL, EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "./espacial"
+import { ESPACIAL } from "./espacial"
 import { NUMERICO } from "./numerico"
 import { SERIES } from "./series"
 
-export { EJEMPLOS_ESPACIAL, TEORIA_CUBO }
+export { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "./aprende"
 
 /**
  * El banco completo, en un solo arreglo.

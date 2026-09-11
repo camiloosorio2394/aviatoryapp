@@ -19,7 +19,7 @@ import {
   type CategoriaPsico,
 } from "@/lib/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
-import { BANCO_TOTAL } from "@/data/psicotecnicas"
+import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 
 /**
  * Portada del tema Pruebas psicotécnicas (módulo Ingreso a aerolínea).
@@ -113,7 +113,7 @@ export function PsicoHub() {
       blurb: MODOS.entrenamiento.descripcion,
       icon: Brain,
       color: "var(--av-violet-400)",
-      meta: `${BANCO_TOTAL} ejercicios · ${TIEMPOS.entrenamiento.abstracto} s recomendados`,
+      meta: `${PSICO_TOTAL} ejercicios · ${TIEMPOS.entrenamiento.abstracto} s recomendados`,
       photo: MEDIA.practica,
       to: "/app/aerolinea/psicotecnicas/practica",
       cta: "Entrenar",

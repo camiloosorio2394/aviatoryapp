@@ -1,21 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react"
-import { Bookmark, CheckCircle2, ChevronRight, XCircle } from "lucide-react"
+import { AlertTriangle, Bookmark, CheckCircle2, ChevronRight, Loader2, XCircle } from "lucide-react"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { FiguraEnunciado, FiguraOpcion } from "./FiguraPsico"
 import { ReportarProblema } from "@/components/ReportarProblema"
-import {
-  type EjercicioPsico,
-  type ModoPsico,
-  type NivelPsico,
-  type RespuestaPsico,
-  tiempoDe,
-} from "@/lib/psicotecnicas"
+import type { CorreccionPsico, SesionPsico } from "@/services/psicotecnicas"
+import type { ErrorEvaluacion } from "@/services/rpc"
 
 interface Props {
-  ejercicios: EjercicioPsico[]
-  modo: ModoPsico
-  nivel: NivelPsico | "todos"
-  onTerminar: (respuestas: RespuestaPsico[]) => void
+  sesion: SesionPsico
+  /** Entrenamiento: registra y espera la corrección. null si no se pudo. */
+  onCorregir: (posicion: number, opcion: number, segundos: number) => Promise<CorreccionPsico | null>
+  /** Evaluación y simulación: registra sin esperar. opcion null = se acabó el tiempo. */
+  onRegistrar: (posicion: number, opcion: number | null, segundos: number) => void
+  onAplazar: (posicion: number) => void
+  onTerminar: () => void
+  /** Lo último que falló al hablar con el servidor, para decírselo al piloto. */
+  errorAccion: ErrorEvaluacion | null
 }
 
 /**
@@ -62,18 +62,22 @@ function AroReloj({ restante, limite }: { restante: number; limite: number }) {
  *
  * Los tres modos comparten mecanismo y se diferencian en dos decisiones:
  *
- * — Entrenamiento corrige al momento y deja seguir aunque el reloj llegue a
- *   cero, porque ahí el cronómetro es una referencia y no un examen. Que se
- *   pasara del tiempo igual queda registrado: es justo el dato que hay que
- *   mejorar.
+ * — Entrenamiento corrige al momento (la corrección la da el servidor) y deja
+ *   seguir aunque el reloj llegue a cero, porque ahí el cronómetro es una
+ *   referencia y no un examen. Que se pasara del tiempo igual queda registrado:
+ *   es justo el dato que hay que mejorar.
  * — Evaluación y simulación no corrigen nada durante la prueba y pasan sola de
  *   ejercicio al agotarse el tiempo, contándolo como no respondido. Enseñar el
- *   acierto en mitad de una prueba cambia lo que mide.
+ *   acierto en mitad de una prueba cambia lo que mide. La respuesta sale hacia
+ *   el servidor sin esperar: cada milisegundo entre un ejercicio y el siguiente
+ *   es tiempo que en la prueba real no se pierde.
  *
  * Durante el ejercicio la pantalla no muestra nada que no haga falta: número,
  * barra, reloj y el ejercicio. Ni menú, ni categoría, ni explicaciones.
  */
-export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
+export function PsicoPlayer({ sesion, onCorregir, onRegistrar, onAplazar, onTerminar, errorAccion }: Props) {
+  const { ejercicios, modo } = sesion
+
   /**
    * El orden real de la tanda.
    *
@@ -87,12 +91,10 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
   const [aplazados, setAplazados] = useState<Set<number>>(() => new Set())
   const [indice, setIndice] = useState(0)
   const [elegida, setElegida] = useState<number | null>(null)
-  const [revelado, setRevelado] = useState(false)
-  const [restante, setRestante] = useState(() =>
-    ejercicios.length > 0 ? tiempoDe(ejercicios[0], modo, nivel) : 0
-  )
+  const [correccion, setCorreccion] = useState<CorreccionPsico | null>(null)
+  const [comprobando, setComprobando] = useState(false)
+  const [restante, setRestante] = useState(() => ejercicios[0]?.limite ?? 0)
 
-  const respuestas = useRef<RespuestaPsico[]>([])
   const inicio = useRef<number>(0)
   const restanteRef = useRef(restante)
 
@@ -103,46 +105,31 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
     setRestante(s)
   }, [])
 
-  // El cronómetro del primer ejercicio arranca al montar. Antes se leía con
-  // `useRef(Date.now())`, que evalúa el reloj en cada render aunque solo cuente
-  // el primero, y leer el reloj durante el render es impuro.
+  // El cronómetro del primer ejercicio arranca al montar. Leer el reloj durante
+  // el render es impuro, así que se fija desde un efecto.
   useEffect(() => {
     inicio.current = Date.now()
   }, [])
   const ejercicio = ejercicios[orden[indice]]
-  const limite = ejercicio ? tiempoDe(ejercicio, modo, nivel) : 0
+  const limite = ejercicio?.limite ?? 0
   const corrigeAlMomento = modo === "entrenamiento"
+  const revelado = correccion !== null
 
-  /**
-   * Cierra el ejercicio actual y avanza. `eleccion` es null cuando se acabó el
-   * tiempo sin responder.
-   */
-  const avanzar = useCallback(
-    (eleccion: number | null) => {
-      if (!ejercicio) return
-      const segundos = Math.round((Date.now() - inicio.current) / 1000)
-      respuestas.current.push({
-        id: ejercicio.id,
-        categoria: ejercicio.categoria,
-        elegida: eleccion,
-        correcta: eleccion === ejercicio.respuesta,
-        segundos,
-        limite,
-      })
+  const segundosEnPantalla = useCallback(() => Math.round((Date.now() - inicio.current) / 1000), [])
 
-      const siguiente = indice + 1
-      if (siguiente >= orden.length) {
-        onTerminar(respuestas.current)
-        return
-      }
-      setIndice(siguiente)
-      setElegida(null)
-      setRevelado(false)
-      ponerRestante(tiempoDe(ejercicios[orden[siguiente]], modo, nivel))
-      inicio.current = Date.now()
-    },
-    [ejercicio, ejercicios, indice, limite, modo, nivel, onTerminar, orden, ponerRestante]
-  )
+  /** Pasa al siguiente ejercicio, o cierra la tanda si era el último. */
+  const avanzar = useCallback(() => {
+    const siguiente = indice + 1
+    if (siguiente >= orden.length) {
+      onTerminar()
+      return
+    }
+    setIndice(siguiente)
+    setElegida(null)
+    setCorreccion(null)
+    ponerRestante(ejercicios[orden[siguiente]].limite)
+    inicio.current = Date.now()
+  }, [ejercicios, indice, onTerminar, orden, ponerRestante])
 
   /**
    * Deja el ejercicio para el final: se va al fondo de la cola y el reloj
@@ -150,57 +137,67 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
    *
    * El tiempo que se registra es el de la pasada en que se responde, no la
    * suma de las dos. Es lo que pasa en una prueba real: se vuelve a la
-   * pregunta con la cabeza fresca, y lo que mide el reloj es esa vuelta.
+   * pregunta con la cabeza fresca, y lo que mide el reloj es esa vuelta. El
+   * servidor lo sabe porque también se le avisa.
    */
   const aplazar = useCallback(() => {
-    if (!ejercicio || revelado) return
+    if (!ejercicio || revelado || comprobando) return
     const posicion = orden[indice]
     const resto = orden.filter((_, i) => i !== indice)
+    onAplazar(ejercicio.posicion)
     setOrden([...resto, posicion])
     setAplazados((previos) => new Set(previos).add(posicion))
     setElegida(null)
-    ponerRestante(tiempoDe(ejercicios[resto[indice] ?? posicion], modo, nivel))
+    ponerRestante(ejercicios[resto[indice] ?? posicion].limite)
     inicio.current = Date.now()
-  }, [ejercicio, ejercicios, indice, modo, nivel, orden, revelado, ponerRestante])
+  }, [comprobando, ejercicio, ejercicios, indice, onAplazar, orden, revelado, ponerRestante])
 
   // El reloj descuenta y además decide qué pasa al llegar a cero, desde el
-  // propio temporizador. Antes el cero lo miraba un efecto sobre `restante`, y
-  // eso son dos cosas malas: un setState en el cuerpo de un efecto y una vuelta
-  // de render de más entre el cero y el avance. Lo que NO se puede hacer, y por
-  // eso no se hace, es avanzar desde dentro del actualizador de estado: eso
-  // dispara una actualización de otro componente en mitad del render de este.
+  // propio temporizador. Lo que NO se puede hacer, y por eso no se hace, es
+  // avanzar desde dentro del actualizador de estado: eso dispara una
+  // actualización de otro componente en mitad del render de este.
   //
   // En entrenamiento el cero no expulsa: se queda ahí y solo avisa. En los
   // otros dos modos cierra el ejercicio como no respondido.
   useEffect(() => {
-    if (!ejercicio || revelado) return
+    if (!ejercicio || revelado || comprobando) return
     const t = window.setInterval(() => {
       const s = restanteRef.current
       const siguiente = s <= 1 ? 0 : s - 1
       ponerRestante(siguiente)
-      if (siguiente === 0 && !corrigeAlMomento) avanzar(null)
+      if (siguiente === 0 && !corrigeAlMomento) {
+        onRegistrar(ejercicio.posicion, null, segundosEnPantalla())
+        avanzar()
+      }
     }, 1000)
     return () => window.clearInterval(t)
-  }, [ejercicio, revelado, corrigeAlMomento, avanzar, ponerRestante])
+  }, [ejercicio, revelado, comprobando, corrigeAlMomento, avanzar, onRegistrar, ponerRestante, segundosEnPantalla])
 
   if (!ejercicio) return null
 
-  function responder(i: number) {
-    if (revelado) return
-    if (corrigeAlMomento) {
-      setElegida(i)
-      setRevelado(true)
-    } else {
+  async function responder(i: number) {
+    if (revelado || comprobando) return
+    const segundos = segundosEnPantalla()
+    if (!corrigeAlMomento) {
       // Sin corrección al momento, elegir es contestar y pasar.
-      avanzar(i)
+      onRegistrar(ejercicio.posicion, i, segundos)
+      avanzar()
+      return
     }
+    setElegida(i)
+    setComprobando(true)
+    const c = await onCorregir(ejercicio.posicion, i, segundos)
+    setComprobando(false)
+    if (c) setCorreccion(c)
+    // Si no llegó la corrección, el aviso de error queda a la vista y se puede volver a elegir.
+    else setElegida(null)
   }
 
-  const acertado = revelado && elegida === ejercicio.respuesta
+  const acertado = correccion?.correcta === true
   const primera = indice === 0
   const yaAplazado = aplazados.has(orden[indice])
   // Aplazar solo tiene sentido si queda algo por delante a donde mandarlo.
-  const puedeAplazar = !revelado && !yaAplazado && indice < orden.length - 1
+  const puedeAplazar = !revelado && !comprobando && !yaAplazado && indice < orden.length - 1
   const progreso = Math.round((indice / orden.length) * 100)
   const apurado = restante <= 10
   const agotado = restante === 0
@@ -243,9 +240,7 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
         </h2>
 
         {/* Los ejercicios dibujados mandan sobre el recorte: son los que no
-            llevan marcas ajenas encima y se leen sin ampliar. El recorte sigue
-            en el repositorio como prueba de qué decia la fuente, pero ya no se
-            enseña. */}
+            llevan marcas ajenas encima y se leen sin ampliar. */}
         {/* La figura entra subiendo diez píxeles la primera vez que se abre la
             sesión: plantarse de golpe se lee como un salto de maquetación. De
             ahí en adelante NO se anima nada, porque cada milisegundo entre un
@@ -282,16 +277,16 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
           }
         >
           {ejercicio.opciones.map((opcion, i) => {
-            const esCorrecta = revelado && i === ejercicio.respuesta
+            const esCorrecta = revelado && i === correccion.respuesta
             const esFallo = revelado && i === elegida && !acertado
             // En entrenamiento el cero no cierra nada, así que las opciones
             // siguen activas: es lo que promete el aviso de abajo.
-            const bloqueado = revelado || (agotado && !corrigeAlMomento)
+            const bloqueado = revelado || comprobando || (agotado && !corrigeAlMomento)
             return (
               <button
                 key={opcion + i}
                 type="button"
-                onClick={() => responder(i)}
+                onClick={() => void responder(i)}
                 disabled={bloqueado}
                 aria-label={
                   ejercicio.figura || ejercicio.opcionesEnImagen
@@ -312,7 +307,9 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
                     ? "var(--av-green-400)"
                     : esFallo
                       ? "var(--av-red-400)"
-                      : "var(--border)",
+                      : comprobando && i === elegida
+                        ? "var(--av-blue-500)"
+                        : "var(--border)",
                   background: esCorrecta
                     ? "color-mix(in oklab, var(--av-green-400) 12%, transparent)"
                     : esFallo
@@ -341,6 +338,22 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
             )
           })}
         </div>
+
+        {comprobando && (
+          <p className="mt-4 inline-flex items-center gap-2 text-[13px] text-muted-foreground" role="status">
+            <Loader2 className="h-3.5 w-3.5 animate-spin" /> Comprobando tu respuesta...
+          </p>
+        )}
+
+        {errorAccion && !comprobando && (
+          <div
+            className="mt-4 rounded-lg border border-border bg-muted/40 p-3 flex items-start gap-2.5"
+            role="alert"
+          >
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" style={{ color: "var(--av-amber-400)" }} aria-hidden />
+            <p className="m-0 text-[13px] text-muted-foreground leading-relaxed">{errorAccion.message}</p>
+          </div>
+        )}
 
         {/* Dejar uno para el final. La cola lo devuelve al terminar la tanda,
             con el reloj de nuevo a cero: es cómo se hace en una prueba real. */}
@@ -383,19 +396,23 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
               )}
               {acertado
                 ? "Correcto"
-                : `Respuesta correcta: ${ejercicio.opciones[ejercicio.respuesta]}`}
+                : `Respuesta correcta: ${ejercicio.opciones[correccion.respuesta]}`}
             </div>
             <p className="mt-2 text-[15px] leading-relaxed text-foreground/90">
-              {ejercicio.explicacion}
+              {correccion.explicacion}
             </p>
             <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px] text-muted-foreground">
-              <span>{ejercicio.subcategoria}</span>
-              <span>·</span>
-              <span>{ejercicio.fuente}</span>
+              <span>{correccion.subcategoria}</span>
+              {correccion.fuente && (
+                <>
+                  <span>·</span>
+                  <span>{correccion.fuente}</span>
+                </>
+              )}
             </div>
             <button
               type="button"
-              onClick={() => avanzar(elegida)}
+              onClick={avanzar}
               className={appButtonClass({ size: "lg" }, "mt-5")}
               style={appButtonStyle()}
             >
@@ -409,11 +426,11 @@ export function PsicoPlayer({ ejercicios, modo, nivel, onTerminar }: Props) {
                 con calma y es justo cuando sabe si algo no cuadraba. */}
             <ReportarProblema
               modulo="psicotecnicas"
-              ejercicioId={ejercicio.id}
+              ejercicioId={correccion.id}
               extra={{
                 modo,
                 eligio: elegida === null ? null : ejercicio.opciones[elegida],
-                correcta: ejercicio.opciones[ejercicio.respuesta],
+                correcta: ejercicio.opciones[correccion.respuesta],
                 dibujada: Boolean(ejercicio.figura),
               }}
             />
