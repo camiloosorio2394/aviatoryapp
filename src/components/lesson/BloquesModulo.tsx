@@ -11,7 +11,8 @@
  */
 
 import { useState } from "react"
-import { BookMarked, ChevronDown, ClipboardList, Globe2, HelpCircle, MapPin, Plane, Quote } from "lucide-react"
+import type { CSSProperties } from "react"
+import { BookMarked, ChevronDown, ClipboardList, Globe2, HelpCircle, MapPin, Quote } from "lucide-react"
 import type {
   CasoRealBlock,
   EnLaOperacionBlock,
@@ -24,6 +25,7 @@ import type {
 import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
+import { Ficha, VisualFicha } from "@/components/lesson/FichaPiloto"
 
 /** El acento del lector. Se re-ancla por tema: azul en NOTAM, amarillo en Mercancías. */
 const ACENTO = "var(--av-blue-500)"
@@ -244,35 +246,34 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
 
 /** El concepto, bajado al momento real del trabajo: briefing, rampa, vuelo. */
 export function EnLaOperacion({ block }: { block: EnLaOperacionBlock }) {
+  const visual =
+    block.imagen || block.hueco ? <VisualFicha imagen={block.imagen} hueco={block.hueco} ves={block.ves} /> : null
+
   return (
-    <div
-      className="rounded-[10px] border px-5 py-4 sm:px-6 sm:py-5"
-      style={{ borderColor: docAccent(ACENTO, 24), background: docTint(ACENTO, 6) }}
-    >
-      <div
-        className="flex items-center gap-2 mono text-[10.5px] font-semibold uppercase tracking-[0.16em]"
-        style={{ color: docAccent(ACENTO, 72) }}
-      >
-        <Plane className="h-3.5 w-3.5" aria-hidden />
-        En la operación · {block.momento}
+    <Ficha nombre="En la operación" momento={block.momento} rotulo={block.rotulo} visual={visual}>
+      {/* La negrita va del acento del módulo: son las palabras que hay que
+          llevarse, y en la maqueta se leían antes que el resto. */}
+      <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>
+        <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
+          {renderInline(block.texto)}
+        </p>
+        {block.pasos && block.pasos.length > 0 && (
+          <ol className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
+            {block.pasos.map((p, i) => (
+              <li key={i} className="grid grid-cols-[28px_1fr] gap-3 text-[15px] leading-[1.6]">
+                <span
+                  className="mt-[1px] flex h-[24px] w-[24px] items-center justify-center rounded-full text-[12px] font-semibold text-white tabular-nums"
+                  style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+                >
+                  {i + 1}
+                </span>
+                <span>{renderInline(p)}</span>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
-      <p className="m-0 mt-2.5 text-[15px] leading-[1.7]">{renderInline(block.texto)}</p>
-      {block.pasos && block.pasos.length > 0 && (
-        <ol className="m-0 mt-3 flex list-none flex-col gap-2 p-0">
-          {block.pasos.map((p, i) => (
-            <li key={i} className="grid grid-cols-[26px_1fr] gap-2.5 text-[14.5px] leading-[1.6]">
-              <span
-                className="mono mt-[2px] flex h-[22px] w-[22px] items-center justify-center rounded-[5px] text-[11px] font-semibold"
-                style={{ background: docTint(ACENTO, 16), color: docAccent(ACENTO, 80) }}
-              >
-                {i + 1}
-              </span>
-              <span>{renderInline(p)}</span>
-            </li>
-          ))}
-        </ol>
-      )}
-    </div>
+    </Ficha>
   )
 }
 

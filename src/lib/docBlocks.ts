@@ -112,12 +112,31 @@ export interface CasoRealBlock {
 }
 
 /** La aplicación concreta de un concepto en el trabajo diario del piloto. */
+/** Foto que acompaña a una ficha, a la derecha en escritorio. */
+export interface FotoFicha {
+  src: string
+  alt: string
+}
+
+/** La foto que todavía no existe: rotulada con su medida y lo que tiene que enseñar. */
+export interface HuecoFoto {
+  id: string
+  medida: string
+  descripcion: string
+}
+
 export interface EnLaOperacionBlock {
   kind: "enLaOperacion"
   /** "En el briefing", "En la rampa", "En vuelo". */
   momento: string
   texto: string
   pasos?: string[]
+  /** El rótulo de la esquina, «Escenario de práctica» por ejemplo. Solo si lo es. */
+  rotulo?: string
+  imagen?: FotoFicha
+  hueco?: HuecoFoto
+  /** «Lo que estás viendo»: qué señalar en la foto. Solo se pinta con foto real. */
+  ves?: string[]
 }
 
 /**
@@ -207,6 +226,12 @@ export interface PiensaComoPilotoBlock {
   pregunta: string
   claves: string[]
   cierre?: string
+  /** El rótulo de la esquina, «Escenario de práctica» por ejemplo. Solo si lo es. */
+  rotulo?: string
+  imagen?: FotoFicha
+  hueco?: HuecoFoto
+  /** «Lo que estás viendo»: qué señalar en la foto. Solo se pinta con foto real. */
+  ves?: string[]
 }
 
 /**

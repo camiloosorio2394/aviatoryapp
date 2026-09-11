@@ -231,7 +231,13 @@ export const NIVEL_1: DocScreen[] = [
         kind: "enLaOperacion",
         momento: "Antes de la salida",
         texto:
-          "Cuando en la información al piloto al mando veas un envío de líquido inflamable en la bodega trasera, no lo leas como «pintura». Léelo como vapores inflamables, en un espacio cerrado, con una diferencia de presión que crece durante el ascenso, durante tres horas. Con esa lectura se entienden todas las limitaciones de cantidad que vienen después.",
+          "Cuando en la información al piloto al mando veas un envío de **líquido inflamable** en la bodega trasera, no lo leas como «pintura». Léelo como **vapores inflamables, en un espacio cerrado**, con una diferencia de presión que crece durante el ascenso, durante tres horas. Con esa lectura se entienden todas las limitaciones de cantidad que vienen después.",
+        hueco: {
+          id: "MP-IMG-06",
+          medida: "Fotografía · 4:3 · 1200×900",
+          descripcion:
+            "Un bulto de líquido inflamable estibado y sujeto en la bodega de un avión de pasajeros, con la etiqueta de clase 3 (rombo rojo con llama) y el número ONU a la vista. Tiene que ser de clase 3: es el envío que describe el texto.",
+        },
       },
       {
         kind: "piensaComoPiloto",
@@ -246,6 +252,13 @@ export const NIVEL_1: DocScreen[] = [
         ],
         cierre:
           "Por eso el reglamento exige que el embalaje aguante cambios de temperatura, humedad, presión y vibración: no describe un almacén, describe tu vuelo.",
+        rotulo: "Escenario de práctica",
+        hueco: {
+          id: "MP-IMG-07",
+          medida: "Fotografía · 4:3 · 1200×900",
+          descripcion:
+            "Un avión de pasajeros en crucero sobre las nubes y, en detalle, una caja de aerosoles bien embalada y marcada como cantidad limitada. Tiene que verse pequeña y en regla: el escenario va de un envío que en tierra nadie miró dos veces.",
+        },
       },
       {
         kind: "entrevista",

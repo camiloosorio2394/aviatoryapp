@@ -14,7 +14,8 @@
  */
 
 import { useId, useState } from "react"
-import { ChevronDown, Eye, MessageSquareQuote, Plane, Target } from "lucide-react"
+import type { CSSProperties } from "react"
+import { ArrowRight, ChevronDown, Eye, MessageSquareQuote, Target } from "lucide-react"
 import type {
   DetalleTecnicoBlock,
   EntrevistaBlock,
@@ -23,6 +24,7 @@ import type {
 } from "@/lib/docBlocks"
 import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
+import { Ficha, VisualFicha } from "@/components/lesson/FichaPiloto"
 
 /** El acento del lector: azul en NOTAM, amarillo en Mercancías. */
 const ACENTO = "var(--av-blue-500)"
@@ -169,76 +171,70 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
 export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
   const [visto, setVisto] = useState(false)
   const base = useId()
+  const visual =
+    block.imagen || block.hueco ? <VisualFicha imagen={block.imagen} hueco={block.hueco} ves={block.ves} /> : null
 
   return (
-    <section
-      className="rounded-[10px] border p-4 sm:p-5"
-      style={{ borderColor: docAccent(ACENTO, 30), background: docTint(ACENTO, 6) }}
-      aria-label="Piensa como piloto"
-    >
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <span
-          className="mono inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em]"
-          style={{ color: docAccent(ACENTO, 65) }}
-        >
-          <Plane className="h-3.5 w-3.5" aria-hidden /> Piensa como piloto
-        </span>
-        {block.momento && (
-          <span className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            {block.momento}
+    <Ficha nombre="Piensa como piloto" momento={block.momento} rotulo={block.rotulo} visual={visual}>
+      <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>
+        <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
+          {renderInline(block.situacion)}
+        </p>
+
+        {/* La pregunta, separada de la situación: es lo que el alumno tiene que
+            contestarse, y en un párrafo más se perdía. */}
+        <div className="mt-5 flex items-start gap-3.5 rounded-[12px] px-4 py-3.5" style={{ background: docTint(ACENTO, 9) }}>
+          <span
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[17px] font-bold text-white"
+            style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+            aria-hidden
+          >
+            ?
           </span>
+          <div className="min-w-0 pt-[5px]">
+            <p className="m-0 text-[17px] font-semibold leading-[1.45]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
+              {renderInline(block.pregunta)}
+            </p>
+            {!visto && <p className="m-0 mt-1 text-[13px] doc-muted">Piénsalo antes de ver la respuesta.</p>}
+          </div>
+        </div>
+
+        {!visto ? (
+          <button
+            type="button"
+            onClick={() => setVisto(true)}
+            aria-expanded={false}
+            aria-controls={`${base}-resp`}
+            className="mt-5 inline-flex h-11 items-center gap-2 rounded-[10px] px-5 text-[15px] font-semibold text-white transition-[filter,transform] duration-150 ease-out hover:brightness-110 active:scale-[0.98]"
+            style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+          >
+            Piénsalo y luego mira
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </button>
+        ) : (
+          <div id={`${base}-resp`} className="rev-aparece-2 mt-5">
+            <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
+              Lo que te interesa a ti
+            </div>
+            <ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0">
+              {block.claves.map((c, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-[15px] leading-[1.6]">
+                  <span
+                    className="mt-[8px] h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ background: "var(--ln-primary, var(--av-blue-500))" }}
+                    aria-hidden
+                  />
+                  <span>{renderInline(c)}</span>
+                </li>
+              ))}
+            </ul>
+            {block.cierre && (
+              <p className="m-0 mt-3.5 text-[15px] leading-[1.65] doc-muted">{renderInline(block.cierre)}</p>
+            )}
+          </div>
         )}
       </div>
-
-      <p className="m-0 mt-2.5 text-[15.5px] leading-[1.7]" style={{ color: "var(--ln-ink-strong, var(--doc-fg))" }}>
-        {renderInline(block.situacion)}
-      </p>
-
-      <p className="m-0 mt-2.5 text-[15.5px] font-semibold leading-[1.6]" style={{ color: docAccent(ACENTO, 78) }}>
-        {renderInline(block.pregunta)}
-      </p>
-
-      {!visto ? (
-        <button
-          type="button"
-          onClick={() => setVisto(true)}
-          aria-expanded={false}
-          aria-controls={`${base}-resp`}
-          className="mt-3.5 rounded-lg border px-3.5 py-2 text-[14px] font-semibold transition-colors"
-          style={{
-            borderColor: docAccent(ACENTO, 45),
-            background: "var(--doc-bg)",
-            color: docAccent(ACENTO, 78),
-          }}
-        >
-          Piénsalo y luego mira
-        </button>
-      ) : (
-        <div id={`${base}-resp`} className="rev-aparece-2 mt-3.5">
-          <div
-            className="mono text-[10px] font-semibold uppercase tracking-[0.14em]"
-            style={{ color: docAccent(ACENTO, 65) }}
-          >
-            Lo que te interesa a ti
-          </div>
-          <ul className="m-0 mt-2 flex list-none flex-col gap-1.5 p-0">
-            {block.claves.map((c, i) => (
-              <li key={i} className="flex items-start gap-2 text-[15px] leading-[1.6]">
-                <span
-                  className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
-                  style={{ background: docAccent(ACENTO, 55) }}
-                  aria-hidden
-                />
-                <span>{renderInline(c)}</span>
-              </li>
-            ))}
-          </ul>
-          {block.cierre && (
-            <p className="m-0 mt-3 text-[15px] leading-[1.65] doc-muted">{renderInline(block.cierre)}</p>
-          )}
-        </div>
-      )}
-    </section>
+    </Ficha>
   )
 }
 
