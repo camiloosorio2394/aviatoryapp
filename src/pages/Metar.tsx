@@ -6,7 +6,7 @@ import { VideoIntro } from "@/components/modulo/VideoIntro"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { useSession } from "@/hooks/useSession"
-import { supabase } from "@/integrations/supabase/client"
+import { traerMejorPuntaje } from "@/services/intentosExamen"
 import {
   METAR_EXAM_PASS_SCORE,
   METAR_EXAM_PER_ATTEMPT,
@@ -69,21 +69,15 @@ export function Metar() {
     let cancelled = false
 
     void (async () => {
-      const [fetched, examRes] = await Promise.all([
+      const [fetched, examen] = await Promise.all([
         fetchMetarProgress(uid),
-        supabase
-          .from("user_metar_exam_attempts")
-          .select("score")
-          .eq("user_id", uid)
-          .order("score", { ascending: false })
-          .limit(1),
+        traerMejorPuntaje("user_metar_exam_attempts", uid),
       ])
       if (cancelled || !fetched) return
       const remote = await pushPendingMetarProgress(fetched)
       if (cancelled) return
       const local = readMetarProgress()
-      const best = (examRes.data ?? [])[0]?.score
-      const scores = [typeof best === "number" ? best : null, local.bestExamScore].filter(
+      const scores = [examen.mejor, local.bestExamScore].filter(
         (s): s is number => typeof s === "number"
       )
       setProgreso({
