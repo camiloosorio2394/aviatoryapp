@@ -115,6 +115,22 @@ describe("listas del formulario", () => {
     expect(await traerTemas()).toHaveLength(1)
     expect(from).toHaveBeenCalledWith("subjects")
     expect(from).toHaveBeenCalledWith("subject_topics")
+    expect(reportarError).not.toHaveBeenCalled()
+  })
+
+  /**
+   * Sin materias, el desplegable del formulario sale vacío y el piloto no
+   * puede enviar su reporte. Que eso pase en silencio es lo que hay que evitar.
+   */
+  it("si falla la consulta se reporta, en vez de dejar el formulario mudo", async () => {
+    respuestas.set("tabla:subjects", { data: null, error: { message: "sin permiso" } })
+    respuestas.set("tabla:subject_topics", { data: null, error: { message: "sin permiso" } })
+
+    expect(await traerMaterias()).toEqual([])
+    expect(reportarError).toHaveBeenCalledWith("reporte de examen: materias", { message: "sin permiso" })
+
+    expect(await traerTemas()).toEqual([])
+    expect(reportarError).toHaveBeenCalledWith("reporte de examen: temas del formulario", { message: "sin permiso" })
   })
 })
 

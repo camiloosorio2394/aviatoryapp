@@ -96,15 +96,28 @@ export async function traerIntelDeMateria(
   return { intel: error ? null : leerIntel(data), error }
 }
 
-/** Las materias del formulario, en el orden en que se muestran. */
+/**
+ * Las materias del formulario, en el orden en que se muestran.
+ *
+ * Si falla se reporta: sin materias el desplegable sale vacío y el piloto no
+ * puede enviar su reporte, sin que nada le diga por qué.
+ */
 export async function traerMaterias(): Promise<Subject[]> {
-  const { data } = await supabase.from("subjects").select("id, name, slug").order("order_index")
+  const { data, error } = await supabase.from("subjects").select("id, name, slug").order("order_index")
+  if (error) {
+    reportarError("reporte de examen: materias", error)
+    return []
+  }
   return (data ?? []) as Subject[]
 }
 
 /** Los temas de todas las materias; el formulario filtra por la elegida. */
 export async function traerTemas(): Promise<SubjectTopic[]> {
-  const { data } = await supabase.from("subject_topics").select("*").order("order_index")
+  const { data, error } = await supabase.from("subject_topics").select("*").order("order_index")
+  if (error) {
+    reportarError("reporte de examen: temas del formulario", error)
+    return []
+  }
   return (data ?? []) as SubjectTopic[]
 }
 
