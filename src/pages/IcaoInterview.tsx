@@ -11,7 +11,7 @@ import {
   Sparkles,
   UserCircle2,
 } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
+import { traerPilotoParaEntrevista } from "@/services/ingles"
 import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
 import { personalizedInterviewAnswer, type InterviewPilot } from "@/lib/personalizeInterview"
@@ -49,26 +49,9 @@ export function IcaoInterview() {
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    supabase
-      .from("pilot_state")
-      .select("stage, total_hours, hours_pic, target_airline, licenses, country")
-      .eq("user_id", user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        if (cancelled || !data) return
-        const p = data as {
-          stage?: InterviewPilot["stage"]; total_hours?: number; hours_pic?: number
-          target_airline?: string; licenses?: string[]; country?: string
-        }
-        setPilot({
-          stage: p.stage ?? null,
-          totalHours: p.total_hours ?? null,
-          hoursPic: p.hours_pic ?? null,
-          targetAirline: p.target_airline ?? null,
-          licenses: p.licenses ?? null,
-          country: p.country ?? null,
-        })
-      })
+    void traerPilotoParaEntrevista(user.id).then((p) => {
+      if (!cancelled && p) setPilot(p)
+    })
     return () => { cancelled = true }
   }, [user])
 
