@@ -76,8 +76,15 @@ export function AppTopbar({
       .select("username, photo_url")
       .eq("id", user.id)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
         if (cancelled) return
+        // El avatar cae a las iniciales y el menú al correo, así que el piloto
+        // no ve nada roto. Por eso se avisa y no se reporta: es degradado y
+        // esperable, no algo que le rompa la sesión.
+        if (error) {
+          console.warn("barra: perfil", error.message)
+          return
+        }
         const p = data as { username?: string; photo_url?: string } | null
         setUsername(p?.username ?? null)
         setPhotoUrl(p?.photo_url ?? null)
