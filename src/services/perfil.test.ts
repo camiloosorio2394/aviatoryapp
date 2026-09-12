@@ -87,7 +87,7 @@ describe("traer el perfil", () => {
       error: null,
     })
     respuestas.set("pilot_state", {
-      data: { stage: "cpl_ready", total_hours: 240, hours_pic: 120, icao_english_level: 4, target_airline: "Avianca", licenses: ["PPL", "CPL"] },
+      data: { stage: "cpl_ready", horas_previas_total: 240, horas_previas_pic: 120, total_hours: 240, hours_pic: 120, icao_english_level: 4, target_airline: "Avianca", licenses: ["PPL", "CPL"] },
       error: null,
     })
     respuestas.set("licenses_held", { data: [{ ...CERT, expires_date: "2027-03-01" }], error: null })
@@ -108,8 +108,8 @@ describe("traer el perfil", () => {
     expect(datos.username).toBe("capi_juanma")
     expect(datos.stage).toBe("cpl_ready")
     // Las horas de pilot_state llegan como texto: son las que se editan a mano.
-    expect(datos.totalHours).toBe("240")
-    expect(datos.hoursPic).toBe("120")
+    expect(datos.horasPreviasTotal).toBe("240")
+    expect(datos.horasPreviasPic).toBe("120")
     expect(datos.licenses).toEqual(["PPL", "CPL"])
     expect(datos.vuelos).toEqual({ totalMin: 6000, picMin: 3000, xcMin: 1200, count: 30 })
     expect(datos.ultimoVuelo).toBe("2026-09-01")
@@ -129,8 +129,8 @@ describe("traer el perfil", () => {
       username: "",
       photoUrl: null,
       stage: "",
-      totalHours: "",
-      hoursPic: "",
+      horasPreviasTotal: "",
+      horasPreviasPic: "",
       targetAirline: "",
       licenses: [],
       certs: [],

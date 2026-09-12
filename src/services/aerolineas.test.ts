@@ -15,13 +15,6 @@ const { from, respuestas } = vi.hoisted(() => {
 })
 vi.mock("@/integrations/supabase/client", () => ({ supabase: { from } }))
 
-const traerResumenBitacora = vi.hoisted(() => vi.fn())
-vi.mock("@/services/bitacora", async (original) => ({
-  ...(await original<typeof import("./bitacora")>()),
-  traerResumenBitacora,
-}))
-
-import { RESUMEN_BITACORA_VACIO } from "./bitacora"
 import {
   armarPerfilDePiloto,
   traerAerolineasYPiloto,
@@ -36,37 +29,30 @@ const DECLARADO: PilotStateRow = {
   icao_english_level: 4,
 }
 
-const CON_VUELOS = { ...RESUMEN_BITACORA_VACIO, vuelos: 42, minutosTotal: 24000, minutosPic: 12000 }
-
 beforeEach(() => {
   vi.clearAllMocks()
   respuestas.clear()
-  traerResumenBitacora.mockResolvedValue({ resumen: RESUMEN_BITACORA_VACIO, error: null })
 })
 
 describe("la regla de prioridad del perfil", () => {
-  it("con vuelos registrados manda la bitácora, no lo declarado", () => {
-    expect(armarPerfilDePiloto(DECLARADO, CON_VUELOS, null)).toEqual({
-      totalHours: 400,
-      hoursPic: 200,
+  it("las horas salen de pilot_state, que ya es la carrera completa", () => {
+    // 300 son las previas más la bitácora: la suma la hace la base, no esta
+    // función. Antes aquí se escogía entre una cosa y la otra, y un piloto con
+    // carrera previa y dos vuelos en Aviatory quedaba con dos horas.
+    expect(armarPerfilDePiloto(DECLARADO, null)).toEqual({
+      totalHours: 300,
+      hoursPic: 150,
       icaoLevel: 4,
       licenses: ["PPL", "CPL"],
     })
   })
 
-  it("sin vuelos se usa lo que declaró a mano", () => {
-    expect(armarPerfilDePiloto(DECLARADO, RESUMEN_BITACORA_VACIO, null)).toMatchObject({
-      totalHours: 300,
-      hoursPic: 150,
-    })
-  })
-
   it("el simulacro TEA manda sobre la estimación del test inicial", () => {
-    expect(armarPerfilDePiloto(DECLARADO, RESUMEN_BITACORA_VACIO, 5).icaoLevel).toBe(5)
+    expect(armarPerfilDePiloto(DECLARADO, 5).icaoLevel).toBe(5)
   })
 
   it("un piloto sin nada no sale con ceros inventados", () => {
-    expect(armarPerfilDePiloto(null, RESUMEN_BITACORA_VACIO, null)).toEqual({
+    expect(armarPerfilDePiloto(null, null)).toEqual({
       totalHours: null,
       hoursPic: null,
       icaoLevel: null,
@@ -90,12 +76,11 @@ describe("traer aerolíneas y perfil", () => {
     respuestas.set("airlines", { data: [AVIANCA], error: null })
     respuestas.set("pilot_state", { data: DECLARADO, error: null })
     respuestas.set("user_icao_mock_results", { data: { final_level: 5 }, error: null })
-    traerResumenBitacora.mockResolvedValue({ resumen: CON_VUELOS, error: null })
 
     const { aerolineas, piloto } = await traerAerolineasYPiloto("piloto")
 
     expect(aerolineas).toEqual([AVIANCA])
-    expect(piloto).toEqual({ totalHours: 400, hoursPic: 200, icaoLevel: 5, licenses: ["PPL", "CPL"] })
+    expect(piloto).toEqual({ totalHours: 300, hoursPic: 150, icaoLevel: 5, licenses: ["PPL", "CPL"] })
   })
 
   it("sin sesión trae las aerolíneas igual, con el perfil vacío", async () => {
@@ -106,20 +91,15 @@ describe("traer aerolíneas y perfil", () => {
     expect(aerolineas).toEqual([AVIANCA])
     expect(piloto).toEqual({ totalHours: null, hoursPic: null, icaoLevel: null, licenses: [] })
     expect(from).not.toHaveBeenCalledWith("pilot_state")
-    expect(traerResumenBitacora).not.toHaveBeenCalled()
   })
 
-  it("si el agregado de la bitácora falla se sigue con lo declarado, avisando", async () => {
-    const avisos = vi.spyOn(console, "warn").mockImplementation(() => {})
+  it("ya no consulta la bitácora: las horas vienen sumadas de pilot_state", async () => {
     respuestas.set("airlines", { data: [AVIANCA], error: null })
     respuestas.set("pilot_state", { data: DECLARADO, error: null })
-    traerResumenBitacora.mockResolvedValue({ resumen: RESUMEN_BITACORA_VACIO, error: { message: "sin vista" } })
 
-    const { piloto } = await traerAerolineasYPiloto("piloto")
+    await traerAerolineasYPiloto("piloto")
 
-    expect(piloto.totalHours).toBe(300)
-    expect(avisos).toHaveBeenCalledWith("aerolíneas: bitacora_resumen", "sin vista")
-    avisos.mockRestore()
+    expect(from).not.toHaveBeenCalledWith("bitacora_resumen")
   })
 })
 

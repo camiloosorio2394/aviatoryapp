@@ -178,6 +178,17 @@ export function Logbook() {
           <BigStat label="Landings" value={stats.landings} unit="" />
         </div>
 
+        {/* Ventanas recientes. No son un adorno: una aerolínea mira si estás en
+            práctica, y los 90 días son de los que dependen los despegues y
+            aterrizajes para llevar pasajeros. Salen de la base, que las calcula
+            sobre todos los vuelos y no sobre los que alcanzó a traer la lista. */}
+        <div className="rounded-2xl border border-border px-4 py-3 mb-6 flex flex-wrap items-baseline gap-x-8 gap-y-2" style={{ background: "var(--card)" }}>
+          <span className="text-[12px] font-semibold text-muted-foreground">En práctica</span>
+          <Ventana label="Últimos 90 días" valor={`${minutesToHours(resumen.minutosUltimos90Dias)} h`} />
+          <Ventana label="Aterrizajes en 90 días" valor={String(resumen.aterrizajesUltimos90Dias)} />
+          <Ventana label="Últimos 12 meses" valor={`${minutesToHours(resumen.minutosUltimos365Dias)} h`} />
+        </div>
+
         {/* Filters */}
         <div className="flex items-center gap-2 mb-3.5 flex-wrap">
           <div
@@ -289,6 +300,16 @@ export function Logbook() {
         />
       )}
     </>
+  )
+}
+
+/** Una cifra de ventana reciente: rótulo pequeño y número al lado. */
+function Ventana({ label, valor }: { label: string; valor: string }) {
+  return (
+    <span className="inline-flex items-baseline gap-2">
+      <span className="text-[12px] text-muted-foreground">{label}</span>
+      <span className="tabular-nums text-[15px] font-semibold text-foreground">{valor}</span>
+    </span>
   )
 }
 

@@ -19,6 +19,13 @@ export interface ResumenBitacora {
   minutosNoche: number
   minutosTravesia: number
   aterrizajes: number
+  /**
+   * Ventanas recientes. Los 90 días no son un número redondo: son de los que
+   * dependen los despegues y aterrizajes para llevar pasajeros.
+   */
+  minutosUltimos90Dias: number
+  minutosUltimos365Dias: number
+  aterrizajesUltimos90Dias: number
   /** Fecha (YYYY-MM-DD) del vuelo más reciente. */
   ultimoVuelo: string | null
 }
@@ -32,6 +39,9 @@ export const RESUMEN_BITACORA_VACIO: ResumenBitacora = {
   minutosNoche: 0,
   minutosTravesia: 0,
   aterrizajes: 0,
+  minutosUltimos90Dias: 0,
+  minutosUltimos365Dias: 0,
+  aterrizajesUltimos90Dias: 0,
   ultimoVuelo: null,
 }
 
@@ -44,6 +54,9 @@ interface FilaResumen {
   minutos_noche: number
   minutos_travesia: number
   aterrizajes: number
+  minutos_ultimos_90_dias: number
+  minutos_ultimos_365_dias: number
+  aterrizajes_ultimos_90_dias: number
   ultimo_vuelo: string | null
 }
 
@@ -59,6 +72,9 @@ export function leerResumenBitacora(fila: FilaResumen | null): ResumenBitacora {
     minutosNoche: fila.minutos_noche,
     minutosTravesia: fila.minutos_travesia,
     aterrizajes: fila.aterrizajes,
+    minutosUltimos90Dias: fila.minutos_ultimos_90_dias,
+    minutosUltimos365Dias: fila.minutos_ultimos_365_dias,
+    aterrizajesUltimos90Dias: fila.aterrizajes_ultimos_90_dias,
     ultimoVuelo: fila.ultimo_vuelo,
   }
 }
@@ -69,7 +85,7 @@ export async function traerResumenBitacora(
   const { data, error } = await supabase
     .from("bitacora_resumen")
     .select(
-      "vuelos, minutos_total, minutos_pic, minutos_sic, minutos_ifr, minutos_noche, minutos_travesia, aterrizajes, ultimo_vuelo",
+      "vuelos, minutos_total, minutos_pic, minutos_sic, minutos_ifr, minutos_noche, minutos_travesia, aterrizajes, minutos_ultimos_90_dias, minutos_ultimos_365_dias, aterrizajes_ultimos_90_dias, ultimo_vuelo",
     )
     .eq("user_id", userId)
     .maybeSingle()

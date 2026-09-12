@@ -1,14 +1,13 @@
 /**
  * Ingreso a aerolínea: los requisitos de cada una y con qué se comparan.
  *
- * `armarPerfilDePiloto` es la regla de prioridad entre lo medido y lo
- * declarado. Vive aquí y no en la pantalla porque es la misma que usa el Pilot
- * ID del perfil, y si las dos se separan el match empieza a contradecir lo que
- * el piloto ve de sí mismo.
+ * `armarPerfilDePiloto` arma el perfil contra el que se mide el match. Vive
+ * aquí y no en la pantalla porque es el mismo que usa el Pilot ID del perfil, y
+ * si los dos se separan el match empieza a contradecir lo que el piloto ve de
+ * sí mismo.
  */
 
 import { supabase } from "@/integrations/supabase/client"
-import { RESUMEN_BITACORA_VACIO, traerResumenBitacora, type ResumenBitacora } from "@/services/bitacora"
 
 export interface AirlineRequirements {
   min_hours_total?: number
@@ -28,7 +27,7 @@ export interface Airline {
   order_index: number
 }
 
-/** Fila declarada en `pilot_state` (lo que el piloto escribió a mano en su perfil). */
+/** Fila de `pilot_state`: horas de carrera ya sumadas, y lo que el piloto marcó a mano. */
 export interface PilotStateRow {
   total_hours: number | null
   hours_pic: number | null
@@ -52,23 +51,25 @@ export const PERFIL_VACIO: PilotProfile = {
 }
 
 /**
- * La regla de prioridad, medido antes que declarado:
+ * De dónde sale cada dato:
  *
- *  - Horas y PIC: la bitácora si hay vuelos; si no, lo declarado en
- *    `pilot_state`.
+ *  - Horas y PIC: `pilot_state.total_hours`, que ya es la carrera completa.
+ *    Antes se escogía entre la bitácora Y lo declarado, y con vuelos en la
+ *    bitácora se ignoraba lo volado antes de Aviatory: un piloto con 240 h de
+ *    carrera y dos vuelos aquí quedaba con 2 h y no daba el mínimo de ninguna
+ *    aerolínea. Desde `20260912210000_horas_de_carrera` la base suma las dos
+ *    cosas y aquí solo se lee.
  *  - Inglés ICAO: el simulacro TEA si lo hizo; si no, la estimación del test
  *    inicial guardada en `pilot_state.icao_english_level`.
  *  - Licencias: `pilot_state.licenses`, que es donde el piloto las marca.
  */
 export function armarPerfilDePiloto(
   estado: PilotStateRow | null,
-  bitacora: ResumenBitacora,
   nivelIcaoDelSimulacro: number | null,
 ): PilotProfile {
-  const hayVuelos = bitacora.vuelos > 0
   return {
-    totalHours: hayVuelos ? bitacora.minutosTotal / 60 : estado?.total_hours ?? null,
-    hoursPic: hayVuelos ? bitacora.minutosPic / 60 : estado?.hours_pic ?? null,
+    totalHours: estado?.total_hours ?? null,
+    hoursPic: estado?.hours_pic ?? null,
     icaoLevel: nivelIcaoDelSimulacro ?? estado?.icao_english_level ?? null,
     licenses: estado?.licenses ?? [],
   }
@@ -82,7 +83,7 @@ export function armarPerfilDePiloto(
 export async function traerAerolineasYPiloto(
   userId: string | undefined,
 ): Promise<{ aerolineas: Airline[]; piloto: PilotProfile }> {
-  const [aerolineasRes, pilotRes, bitacoraRes, mockRes] = await Promise.all([
+  const [aerolineasRes, pilotRes, mockRes] = await Promise.all([
     supabase.from("airlines").select("*").order("order_index"),
     userId
       ? supabase
@@ -91,7 +92,6 @@ export async function traerAerolineasYPiloto(
           .eq("user_id", userId)
           .maybeSingle()
       : Promise.resolve({ data: null }),
-    userId ? traerResumenBitacora(userId) : Promise.resolve(null),
     userId
       ? supabase
           .from("user_icao_mock_results")
@@ -103,15 +103,10 @@ export async function traerAerolineasYPiloto(
       : Promise.resolve({ data: null }),
   ])
 
-  // Si el agregado de la bitácora falla se sigue con lo declarado: es mejor un
-  // match con las horas del perfil que ningún match.
-  if (bitacoraRes?.error) console.warn("aerolíneas: bitacora_resumen", bitacoraRes.error.message)
-
   return {
     aerolineas: (aerolineasRes.data ?? []) as Airline[],
     piloto: armarPerfilDePiloto(
       pilotRes.data as PilotStateRow | null,
-      bitacoraRes?.resumen ?? RESUMEN_BITACORA_VACIO,
       (mockRes.data as { final_level: number | null } | null)?.final_level ?? null,
     ),
   }
