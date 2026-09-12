@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react"
 import { Link } from "react-router-dom"
 import { traerAlaVista } from "@/lib/motion"
-import { reportarError } from "@/lib/errores"
 import {
   Search,
   BookOpen,
@@ -13,7 +12,7 @@ import {
   Lock,
 } from "lucide-react"
 import { ContentGuard } from "@/components/ContentGuard"
-import { supabase } from "@/integrations/supabase/client"
+import { traerVocabulario, type VocabCategory, type VocabEntry } from "@/services/ingles"
 import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
@@ -29,24 +28,6 @@ import { registrarEstudioDiario } from "@/lib/activity"
  * corta en PAGE_SIZE tarjetas. El filtro sigue siendo client-side: esto no
  * cambia el fetch, solo evita pintar 351 tarjetas idénticas de una sola vez.
  */
-
-interface VocabEntry {
-  id: number
-  term_en: string
-  translation_es: string
-  definition: string
-  category: VocabCategory
-}
-
-type VocabCategory =
-  | "aircraft"
-  | "airport"
-  | "navigation"
-  | "flight_ops"
-  | "weather"
-  | "health"
-  | "security"
-  | "non_routine"
 
 const CATEGORIES: { slug: VocabCategory | "all"; label: string }[] = [
   { slug: "all",         label: "Todas" },
@@ -92,18 +73,9 @@ export function IcaoVocabulary() {
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      const { data, error } = await supabase
-        .from("icao_vocabulary")
-        .select("id,term_en,translation_es,definition,category")
-        .eq("is_active", true)
-        .order("term_en", { ascending: true })
-        .limit(1000)
+      const terminos = await traerVocabulario()
       if (cancelled) return
-      if (error) {
-        reportarError("vocabulario ICAO", error)
-      } else {
-        setData((data ?? []) as VocabEntry[])
-      }
+      setData(terminos)
       setLoading(false)
     })()
     return () => { cancelled = true }
