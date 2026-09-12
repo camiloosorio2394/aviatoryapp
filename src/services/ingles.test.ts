@@ -113,7 +113,7 @@ describe("preguntas de entrevista", () => {
 })
 
 describe("el piloto con el que se personaliza la entrevista", () => {
-  it("traduce la fila a lo que espera personalizeInterview", async () => {
+  it("junta pilot_state con el país, que vive en profiles", async () => {
     respuestas.set("pilot_state", {
       data: {
         stage: "cpl_ready",
@@ -121,10 +121,10 @@ describe("el piloto con el que se personaliza la entrevista", () => {
         hours_pic: 180,
         target_airline: "Avianca",
         licenses: ["PPL", "CPL"],
-        country: "Colombia",
       },
       error: null,
     })
+    respuestas.set("profiles", { data: { country: "Colombia" }, error: null })
 
     expect(await traerPilotoParaEntrevista("piloto")).toEqual({
       stage: "cpl_ready",
@@ -151,5 +151,24 @@ describe("el piloto con el que se personaliza la entrevista", () => {
       licenses: null,
       country: null,
     })
+  })
+
+  /**
+   * Nunca más en silencio: pedirle `country` a `pilot_state` hacía fallar la
+   * consulta entera con 42703, el error se tragaba, y todo el mundo veía
+   * respuestas genéricas sin que nadie se enterara.
+   */
+  it("si una de las dos consultas falla, se reporta y no se finge un perfil", async () => {
+    respuestas.set("pilot_state", { data: null, error: { message: "42703" } })
+    respuestas.set("profiles", { data: { country: "Colombia" }, error: null })
+
+    expect(await traerPilotoParaEntrevista("piloto")).toBeNull()
+    expect(reportarError).toHaveBeenCalledWith("entrevista: perfil del piloto", { message: "42703" })
+  })
+
+  it("sin pilot_state pero con país, el país igual llega", async () => {
+    respuestas.set("profiles", { data: { country: "Colombia" }, error: null })
+
+    expect(await traerPilotoParaEntrevista("piloto")).toMatchObject({ stage: null, country: "Colombia" })
   })
 })

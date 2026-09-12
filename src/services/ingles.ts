@@ -94,31 +94,44 @@ export async function traerPreguntasDeEntrevista(slugCategoria: string): Promise
 
 /**
  * El perfil con el que se personalizan las respuestas sugeridas de la
- * entrevista. `null` cuando no hay fila: entonces las respuestas quedan
- * genéricas, que es mejor que inventarle horas a nadie.
+ * entrevista. `null` cuando no hay nada guardado: entonces las respuestas
+ * quedan genéricas, que es mejor que inventarle horas a nadie.
+ *
+ * Son dos consultas porque el país vive en `profiles` y el resto en
+ * `pilot_state`, y entre esas dos tablas no hay clave foránea que PostgREST
+ * pueda seguir. Pedirle `country` a `pilot_state` hacía que la consulta
+ * entera fallara con 42703 y que nadie viera nunca una respuesta personalizada.
  */
 export async function traerPilotoParaEntrevista(userId: string): Promise<InterviewPilot | null> {
-  const { data } = await supabase
-    .from("pilot_state")
-    .select("stage, total_hours, hours_pic, target_airline, licenses, country")
-    .eq("user_id", userId)
-    .maybeSingle()
-  if (!data) return null
+  const [estado, perfil] = await Promise.all([
+    supabase
+      .from("pilot_state")
+      .select("stage, total_hours, hours_pic, target_airline, licenses")
+      .eq("user_id", userId)
+      .maybeSingle(),
+    supabase.from("profiles").select("country").eq("id", userId).maybeSingle(),
+  ])
 
-  const p = data as {
+  const error = estado.error ?? perfil.error
+  if (error) {
+    reportarError("entrevista: perfil del piloto", error)
+    return null
+  }
+  if (!estado.data && !perfil.data) return null
+
+  const p = estado.data as {
     stage?: InterviewPilot["stage"]
     total_hours?: number
     hours_pic?: number
     target_airline?: string
     licenses?: string[]
-    country?: string
-  }
+  } | null
   return {
-    stage: p.stage ?? null,
-    totalHours: p.total_hours ?? null,
-    hoursPic: p.hours_pic ?? null,
-    targetAirline: p.target_airline ?? null,
-    licenses: p.licenses ?? null,
-    country: p.country ?? null,
+    stage: p?.stage ?? null,
+    totalHours: p?.total_hours ?? null,
+    hoursPic: p?.hours_pic ?? null,
+    targetAirline: p?.target_airline ?? null,
+    licenses: p?.licenses ?? null,
+    country: (perfil.data as { country?: string } | null)?.country ?? null,
   }
 }
