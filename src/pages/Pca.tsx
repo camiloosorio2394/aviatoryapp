@@ -8,7 +8,7 @@ import {
   ShieldCheck,
   TriangleAlert,
 } from "lucide-react"
-import pcaFlightdeck from "@/assets/photos/pca-flightdeck.jpg"
+import pcaFlightdeck from "@/assets/photos/pca-flightdeck.webp"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { StatTile } from "@/components/pca/StatTile"
 import { ModuleCard } from "@/components/pca/ModuleCard"
