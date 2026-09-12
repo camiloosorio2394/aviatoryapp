@@ -5,8 +5,7 @@ import {
   Radio, BookOpen, Gauge, Headphones,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
-import { reportarError } from "@/lib/errores"
+import { guardarNivelIcaoEstimado } from "@/services/piloto"
 import { useSession } from "@/hooks/useSession"
 import { TILE_COLOR, tileBorder, tileTint } from "@/lib/tileColors"
 import {
@@ -350,15 +349,7 @@ function Result({
   async function save() {
     if (!user || estimate == null) { navigate("/app"); return }
     setSaving(true)
-    // supabase-js no lanza: el error llega en la respuesta y hay que mirarlo,
-    // o se anuncia como guardado algo que no se guardó.
-    const { error } = await supabase.from("pilot_state").upsert({
-      user_id: user.id,
-      icao_english_level: estimate,
-      updated_at: new Date().toISOString(),
-    })
-    if (error) {
-      reportarError("test inicial: guardar nivel", error)
+    if (!(await guardarNivelIcaoEstimado(user.id, estimate))) {
       toast.error("No pudimos guardar tu nivel. Revisa tu conexión e inténtalo de nuevo.")
       setSaving(false)
       return

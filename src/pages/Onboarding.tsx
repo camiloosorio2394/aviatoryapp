@@ -13,7 +13,7 @@ import {
   type LucideIcon,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { guardarPerfilInicial } from "@/services/piloto"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -179,18 +179,15 @@ export function Onboarding() {
     }
     setSubmitting(true)
     try {
-      const { error } = await supabase.from("pilot_state").upsert({
-        user_id: user.id,
+      // icao_english_level NO se manda: sale del test inicial / simulacro TEA.
+      await guardarPerfilInicial(user.id, {
         stage: form.stage || null,
-        total_hours: form.total_hours ? Number(form.total_hours) : null,
-        hours_pic: form.hours_pic ? Number(form.hours_pic) : null,
+        horasPreviasTotal: form.total_hours ? Number(form.total_hours) : null,
+        horasPreviasPic: form.hours_pic ? Number(form.hours_pic) : null,
         licenses: form.licenses,
-        // icao_english_level NO se setea acá: sale del test inicial / simulacro TEA.
-        target_airline: form.target_airline || null,
-        target_date: form.target_date || null,
-        updated_at: new Date().toISOString(),
+        targetAirline: form.target_airline || null,
+        targetDate: form.target_date || null,
       })
-      if (error) throw error
       track(Events.ONBOARDING_COMPLETED, {
         stage: form.stage || null,
         target_airline: form.target_airline || null,

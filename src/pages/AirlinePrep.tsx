@@ -13,7 +13,7 @@ import { AerodromeIcon } from "@/components/icons/aero"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
-import { supabase } from "@/integrations/supabase/client"
+import { traerMejoresPuntajesDeExamen } from "@/services/aerolineas"
 import { useSession } from "@/hooks/useSession"
 import {
   NOTAM_PRACTICE_TOTAL,
@@ -155,22 +155,10 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, examRes, metarExamRes, mockRes, mpRes, psicoRes] =
-        await Promise.all([
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, psicoRes] = await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
-        supabase
-          .from("user_notam_exam_attempts")
-          .select("score")
-          .eq("user_id", user.id)
-          .order("score", { ascending: false })
-          .limit(1),
-        supabase
-          .from("user_metar_exam_attempts")
-          .select("score")
-          .eq("user_id", user.id)
-          .order("score", { ascending: false })
-          .limit(1),
+        traerMejoresPuntajesDeExamen(user.id),
         fetchMejorPuntajeSimulacro(user.id),
         fetchMercanciasProgress(user.id),
         mejorSimulacroRemoto(user.id),
@@ -178,9 +166,8 @@ export function AirlinePrep() {
       if (cancelled) return
 
       if (notamRes) {
-        const best = (examRes.data ?? [])[0]?.score
         const local = readLocalProgress()
-        const scores = [typeof best === "number" ? best : null, local.bestExamScore].filter(
+        const scores = [mejoresExamen.notam, local.bestExamScore].filter(
           (s): s is number => typeof s === "number"
         )
         setNotamProgress({
@@ -192,9 +179,8 @@ export function AirlinePrep() {
         })
       }
       if (metarRes) {
-        const best = (metarExamRes.data ?? [])[0]?.score
         const local = readMetarProgress()
-        const scores = [typeof best === "number" ? best : null, local.bestExamScore].filter(
+        const scores = [mejoresExamen.metar, local.bestExamScore].filter(
           (s): s is number => typeof s === "number"
         )
         setMetarProgress({
