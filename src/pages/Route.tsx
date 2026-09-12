@@ -2,7 +2,14 @@ import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { Check, Loader2, Map as MapIcon, Trophy, Sparkles, ArrowRight, Target, BookOpen, Clock, RotateCcw } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import {
+  desmarcarItem,
+  marcarItem,
+  traerRuta,
+  type Checklist,
+  type ChecklistItem,
+  type PilotStage,
+} from "@/services/ruta"
 import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
@@ -10,32 +17,6 @@ import { EstadoError } from "@/components/EstadoError"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
-
-type PilotStage =
-  | "student_ppl"
-  | "ppl"
-  | "cpl_in_progress"
-  | "cpl_ready"
-  | "hour_building"
-  | "instructor"
-  | "airline_candidate"
-
-interface Checklist {
-  id: number
-  stage: PilotStage
-  name: string
-  description: string | null
-}
-
-interface Item {
-  id: number
-  checklist_id: number
-  key: string
-  title: string
-  description: string | null
-  category: string | null
-  order_index: number
-}
 
 const STAGE_LABEL: Record<PilotStage, string> = {
   student_ppl: "Estudiante PPL",
@@ -61,7 +42,7 @@ export function Route() {
   const { user } = useSession()
   const [stage, setStage] = useState<PilotStage | null>(null)
   const [checklist, setChecklist] = useState<Checklist | null>(null)
-  const [items, setItems] = useState<Item[]>([])
+  const [items, setItems] = useState<ChecklistItem[]>([])
   const [completedIds, setCompletedIds] = useState<Set<number>>(new Set())
   const [loading, setLoading] = useState(true)
   /** No se pudo leer la etapa o la checklist: se ofrece reintentar. */
@@ -75,59 +56,12 @@ export function Route() {
 
     async function load() {
       try {
-        // supabase-js no lanza: sin revisar el error, una falla de red salía como
-        // «completa tu perfil» y mandaba al onboarding.
-        const { data: ps, error: errorEtapa } = await supabase
-          .from("pilot_state")
-          .select("stage")
-          .eq("user_id", user!.id)
-          .maybeSingle()
-        if (errorEtapa) throw errorEtapa
-        const userStage = (ps as { stage?: PilotStage } | null)?.stage ?? null
+        const ruta = await traerRuta(user!.id)
         if (cancelled) return
-        setStage(userStage)
-
-        if (!userStage) {
-          setLoading(false)
-          return
-        }
-
-        const { data: ch, error: errorChecklist } = await supabase
-          .from("checklists")
-          .select("*")
-          .eq("stage", userStage)
-          .order("order_index")
-          .limit(1)
-          .maybeSingle()
-        if (errorChecklist) throw errorChecklist
-        if (cancelled) return
-        const checklistRow = ch as Checklist | null
-        setChecklist(checklistRow)
-
-        if (!checklistRow) {
-          setLoading(false)
-          return
-        }
-
-        const [itemsRes, progressRes] = await Promise.all([
-          supabase
-            .from("checklist_items")
-            .select("*")
-            .eq("checklist_id", checklistRow.id)
-            .order("order_index"),
-          supabase
-            .from("checklist_progress")
-            .select("item_id")
-            .eq("user_id", user!.id),
-        ])
-        if (cancelled) return
-        if (itemsRes.error) throw itemsRes.error
-        if (progressRes.error) throw progressRes.error
-
-        setItems((itemsRes.data ?? []) as Item[])
-        setCompletedIds(
-          new Set(((progressRes.data ?? []) as { item_id: number }[]).map((p) => p.item_id))
-        )
+        setStage(ruta.etapa)
+        setChecklist(ruta.checklist)
+        setItems(ruta.items)
+        setCompletedIds(ruta.completados)
       } catch (err) {
         reportarError("ruta", err)
         if (!cancelled) setFallo(true)
@@ -142,7 +76,7 @@ export function Route() {
     }
   }, [user, intento])
 
-  async function toggleItem(item: Item) {
+  async function toggleItem(item: ChecklistItem) {
     if (!user || togglingId === item.id) return
     setTogglingId(item.id)
     const isCompleted = completedIds.has(item.id)
@@ -155,17 +89,9 @@ export function Route() {
 
     try {
       if (isCompleted) {
-        const { error } = await supabase
-          .from("checklist_progress")
-          .delete()
-          .eq("user_id", user.id)
-          .eq("item_id", item.id)
-        if (error) throw error
+        await desmarcarItem(user.id, item.id)
       } else {
-        const { error } = await supabase
-          .from("checklist_progress")
-          .insert({ user_id: user.id, item_id: item.id })
-        if (error) throw error
+        await marcarItem(user.id, item.id)
         if (item.title.includes("🎉")) {
           toast.success("Hito conseguido")
         }
@@ -184,7 +110,7 @@ export function Route() {
   }
 
   const categories = useMemo(() => {
-    const map = new Map<string, Item[]>()
+    const map = new Map<string, ChecklistItem[]>()
     for (const item of items) {
       const cat = item.category ?? "General"
       if (!map.has(cat)) map.set(cat, [])
