@@ -2,49 +2,17 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, Check, X, Globe, Target, MapPin } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
-import { RESUMEN_BITACORA_VACIO, traerResumenBitacora, type ResumenBitacora } from "@/services/bitacora"
+import {
+  PERFIL_VACIO,
+  traerAerolineasYPiloto,
+  type Airline,
+  type AirlineRequirements,
+  type PilotProfile,
+} from "@/services/aerolineas"
 import { useSession } from "@/hooks/useSession"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
-
-interface AirlineRequirements {
-  min_hours_total?: number
-  min_hours_pic?: number
-  icao_english?: number
-  licenses?: string[]
-  age_max?: number
-}
-
-interface Airline {
-  id: number
-  name: string
-  code: string | null
-  country: string
-  brand_color: string | null
-  requirements: AirlineRequirements
-  order_index: number
-}
-
-/** Fila declarada en pilot_state (lo que el piloto escribió a mano en su perfil). */
-interface PilotStateRow {
-  total_hours: number | null
-  hours_pic: number | null
-  licenses: string[] | null
-  icao_english_level: number | null
-}
-
-/**
- * Perfil consolidado del piloto: la única fuente de verdad que usa esta pantalla.
- * Ver buildPilotProfile() para la regla de prioridad (es la misma que usa Perfil).
- */
-interface PilotProfile {
-  totalHours: number | null
-  hoursPic: number | null
-  icaoLevel: number | null
-  licenses: string[]
-}
 
 interface MatchCheck {
   label: string
@@ -53,53 +21,20 @@ interface MatchCheck {
   passed: boolean
 }
 
-const EMPTY_PROFILE: PilotProfile = {
-  totalHours: null,
-  hoursPic: null,
-  icaoLevel: null,
-  licenses: [],
-}
-
 export function Airlines() {
   const { user } = useSession()
   const [airlines, setAirlines] = useState<Airline[]>([])
-  const [pilot, setPilot] = useState<PilotProfile>(EMPTY_PROFILE)
+  const [pilot, setPilot] = useState<PilotProfile>(PERFIL_VACIO)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     let cancelled = false
     async function load() {
       try {
-        const [airlinesRes, pilotRes, bitacoraRes, mockRes] = await Promise.all([
-          supabase.from("airlines").select("*").order("order_index"),
-          user
-            ? supabase
-                .from("pilot_state")
-                .select("total_hours, hours_pic, licenses, icao_english_level")
-                .eq("user_id", user.id)
-                .maybeSingle()
-            : Promise.resolve({ data: null }),
-          user ? traerResumenBitacora(user.id) : Promise.resolve(null),
-          user
-            ? supabase
-                .from("user_icao_mock_results")
-                .select("final_level")
-                .eq("user_id", user.id)
-                .order("taken_at", { ascending: false })
-                .limit(1)
-                .maybeSingle()
-            : Promise.resolve({ data: null }),
-        ])
+        const { aerolineas, piloto } = await traerAerolineasYPiloto(user?.id)
         if (cancelled) return
-        setAirlines((airlinesRes.data ?? []) as Airline[])
-        if (bitacoraRes?.error) console.warn("aerolíneas: bitacora_resumen", bitacoraRes.error.message)
-        setPilot(
-          buildPilotProfile(
-            pilotRes.data as PilotStateRow | null,
-            bitacoraRes?.resumen ?? RESUMEN_BITACORA_VACIO,
-            (mockRes.data as { final_level: number | null } | null)?.final_level ?? null
-          )
-        )
+        setAirlines(aerolineas)
+        setPilot(piloto)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "No pudimos cargar las aerolíneas")
       } finally {
@@ -198,33 +133,6 @@ export function Airlines() {
       </div>
     </>
   )
-}
-
-/**
- * Regla de prioridad de datos, idéntica a la de la pantalla de Perfil:
- *
- *  - Horas totales y PIC: el agregado real de la bitácora (bitacora_resumen) manda.
- *    Solo si el piloto todavía no registró ningún vuelo se usa el valor que
- *    declaró a mano en pilot_state.
- *  - Nivel de inglés ICAO: el nivel oficial es el del último simulacro TEA
- *    (user_icao_mock_results.final_level). Si nunca lo hizo, se cae a la
- *    estimación del test inicial guardada en pilot_state.icao_english_level.
- *  - Licencias: pilot_state.licenses (es donde el piloto las marca).
- *
- * Así el match de aerolíneas no contradice lo que el piloto ve en su Pilot ID.
- */
-function buildPilotProfile(
-  state: PilotStateRow | null,
-  bitacora: ResumenBitacora,
-  mockIcaoLevel: number | null
-): PilotProfile {
-  const hasFlights = bitacora.vuelos > 0
-  return {
-    totalHours: hasFlights ? bitacora.minutosTotal / 60 : state?.total_hours ?? null,
-    hoursPic: hasFlights ? bitacora.minutosPic / 60 : state?.hours_pic ?? null,
-    icaoLevel: mockIcaoLevel ?? state?.icao_english_level ?? null,
-    licenses: state?.licenses ?? [],
-  }
 }
 
 function fmtHours(h: number): string {
