@@ -182,8 +182,8 @@ export function Onboarding() {
       // icao_english_level NO se manda: sale del test inicial / simulacro TEA.
       await guardarPerfilInicial(user.id, {
         stage: form.stage || null,
-        totalHours: form.total_hours ? Number(form.total_hours) : null,
-        hoursPic: form.hours_pic ? Number(form.hours_pic) : null,
+        horasPreviasTotal: form.total_hours ? Number(form.total_hours) : null,
+        horasPreviasPic: form.hours_pic ? Number(form.hours_pic) : null,
         licenses: form.licenses,
         targetAirline: form.target_airline || null,
         targetDate: form.target_date || null,
