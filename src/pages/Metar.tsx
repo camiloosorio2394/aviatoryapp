@@ -18,10 +18,10 @@ import {
 import { fetchMetarProgress, pushPendingMetarProgress } from "@/lib/metarProgress"
 import { METAR_EXAMPLES, METAR_LECCION } from "@/lib/metar"
 import heroPhoto from "@/assets/photos/meteorologia-hero.webp"
-import aprendePhoto from "@/assets/photos/metar-leccion-nubes.jpg"
-import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.jpg"
-import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.jpg"
-import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.jpg"
+import aprendePhoto from "@/assets/photos/metar-leccion-nubes.webp"
+import decodificadorPhoto from "@/assets/photos/metar-decodificador-manga.webp"
+import practicaPhoto from "@/assets/photos/metar-practica-cabina-nubes.webp"
+import evaluacionPhoto from "@/assets/photos/metar-evaluacion-escritorio.webp"
 
 /**
  * Hub del módulo Meteorología (dentro de Ingreso a aerolínea).

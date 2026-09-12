@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Brain, GraduationCap, Target, Timer } from "luci
 import { Rotulo } from "@/components/ui/rotulo"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
-import heroPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
+import heroPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
 import { useInView } from "@/hooks/useInView"
 import { useSession } from "@/hooks/useSession"
 import {

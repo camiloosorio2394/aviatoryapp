@@ -7,24 +7,24 @@ para poder rastrear el original si hay que re-descargar en otra resolución.
 
 | Archivo | Uso | Fuente |
 |---|---|---|
-| `icao-night-cockpit.jpg` | Card Inglés ICAO (landing + hero) | https://unsplash.com/photos/vIXXmgGp4gU (Rodrigo Soares) |
-| `pca-flightdeck.jpg` | Card Examen PCA | https://unsplash.com/photos/Ff5dTEd_uxQ (Benjamin Chambon) |
-| `psicotecnicas-mano-panel.jpg` | Card Psicotécnicas | https://unsplash.com/photos/4UgUpo3YdKk |
-| `entrevistas-interview.jpg` | Card Simulador de entrevistas | https://unsplash.com/photos/eF7HN40WbAQ |
-| `aerolinea-piloto.jpg` | Card Ingreso a aerolínea | https://unsplash.com/photos/1FDKmozNMac (Oliver Streit) |
-| `wingman-cockpit-dusk.jpg` | Card Wingman | https://unsplash.com/photos/eUCmDtS9x3w (Shot By Joe) |
+| `icao-night-cockpit.webp` | Card Inglés ICAO (landing + hero) | https://unsplash.com/photos/vIXXmgGp4gU (Rodrigo Soares) |
+| `pca-flightdeck.webp` | Card Examen PCA | https://unsplash.com/photos/Ff5dTEd_uxQ (Benjamin Chambon) |
+| `psicotecnicas-mano-panel.webp` | Card Psicotécnicas | https://unsplash.com/photos/4UgUpo3YdKk |
+| `entrevistas-interview.webp` | Card Simulador de entrevistas | https://unsplash.com/photos/eF7HN40WbAQ |
+| `aerolinea-piloto.webp` | Card Ingreso a aerolínea | https://unsplash.com/photos/1FDKmozNMac (Oliver Streit) |
+| `wingman-cockpit-dusk.webp` | Card Wingman | https://unsplash.com/photos/eUCmDtS9x3w (Shot By Joe) |
 | `cta-cockpit-dawn.jpg` | Banda CTA final de la landing | https://unsplash.com/photos/ypsFFH-XRv0 |
-| `notam-aprende-planeacion.jpg` | Card NOTAM · Aprende | https://unsplash.com/photos/OPVCcRg5NXU (Michal Mokrzycki) |
-| `notam-decodificador-tablero.jpg` | Card NOTAM · Decodificador | https://unsplash.com/photos/EmqjMxS7IsY (Joseph Bobadilla) |
-| `notam-practica-cabina.jpg` | Card NOTAM · Práctica | https://unsplash.com/photos/7ofz-Ps2E8w (Pasqualino Capobianco) |
-| `notam-evaluacion-examen.jpg` | Card NOTAM · Evaluación | https://unsplash.com/photos/oXV3bzR7jxI (Ben Mullins) |
-| `metar-leccion-nubes.jpg` | Card METAR · Aprende | https://unsplash.com/photos/ap3LXI0fPJY (Jason Mavrommatis) |
-| `metar-decodificador-manga.jpg` | Card METAR · Decodificador | https://unsplash.com/photos/gDULrt23rXM (Ben Soyka) |
-| `metar-practica-cabina-nubes.jpg` | Card METAR · Práctica | https://unsplash.com/photos/_4PsqBPe7RU (Walter Mmari) |
-| `metar-evaluacion-escritorio.jpg` | Card METAR · Evaluación | https://unsplash.com/photos/h6pUcouJ9BA (sara sanchez sabogal) |
-| `tema-notam-pista-luces.jpg` | Card del tema NOTAM en Ingreso a aerolínea | https://unsplash.com/photos/SgWHP0mZ6-w (Fabio Sasso) |
+| `notam-aprende-planeacion.webp` | Card NOTAM · Aprende | https://unsplash.com/photos/OPVCcRg5NXU (Michal Mokrzycki) |
+| `notam-decodificador-tablero.webp` | Card NOTAM · Decodificador | https://unsplash.com/photos/EmqjMxS7IsY (Joseph Bobadilla) |
+| `notam-practica-cabina.webp` | Card NOTAM · Práctica | https://unsplash.com/photos/7ofz-Ps2E8w (Pasqualino Capobianco) |
+| `notam-evaluacion-examen.webp` | Card NOTAM · Evaluación | https://unsplash.com/photos/oXV3bzR7jxI (Ben Mullins) |
+| `metar-leccion-nubes.webp` | Card METAR · Aprende | https://unsplash.com/photos/ap3LXI0fPJY (Jason Mavrommatis) |
+| `metar-decodificador-manga.webp` | Card METAR · Decodificador | https://unsplash.com/photos/gDULrt23rXM (Ben Soyka) |
+| `metar-practica-cabina-nubes.webp` | Card METAR · Práctica | https://unsplash.com/photos/_4PsqBPe7RU (Walter Mmari) |
+| `metar-evaluacion-escritorio.webp` | Card METAR · Evaluación | https://unsplash.com/photos/h6pUcouJ9BA (sara sanchez sabogal) |
+| `tema-notam-pista-luces.webp` | Card del tema NOTAM en Ingreso a aerolínea | https://unsplash.com/photos/SgWHP0mZ6-w (Fabio Sasso) |
 | `meteorologia-hero.webp` | Hero del módulo Meteorología (foto + capa de rótulos) | https://unsplash.com/photos/er7TM4GPqWg (Nikola Ancevski) |
-| `tema-meteorologia-nubes-altura.jpg` | Card del tema Meteorología en Ingreso a aerolínea | https://unsplash.com/photos/10lbZPBl3Zw (Vilmantas Bekesius) |
+| `tema-meteorologia-nubes-altura.webp` | Card del tema Meteorología en Ingreso a aerolínea | https://unsplash.com/photos/10lbZPBl3Zw (Vilmantas Bekesius) |
 
 ## Imágenes de módulo (`public/modulos/`)
 

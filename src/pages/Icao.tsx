@@ -33,7 +33,7 @@ import {
   SHORT_AUDIO_TOTAL,
 } from "@/lib/icaoComprehension"
 import { PART3_TASK_STEPS, PICTURE_PAIRS } from "@/lib/icaoPictures"
-import heroPhoto from "@/assets/photos/icao-night-cockpit.jpg"
+import heroPhoto from "@/assets/photos/icao-night-cockpit.webp"
 
 /**
  * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for

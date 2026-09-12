@@ -19,7 +19,7 @@ import {
   Target,
   X,
 } from "lucide-react"
-import practicaPhoto from "@/assets/photos/notam-practica-cabina.jpg"
+import practicaPhoto from "@/assets/photos/notam-practica-cabina.webp"
 import { SectionTitle } from "@/components/ui/section-title"
 import { useSession } from "@/hooks/useSession"
 import {
