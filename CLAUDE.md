@@ -36,6 +36,12 @@ panel de Supabase. `console.warn` es para lo degradado y esperable (una tarjeta 
 datos, sin conexión). ESLint no deja usar `console.error` ni `console.log` en `src/`. Los errores
 que nadie atrapa también se reportan (`escucharErroresGlobales` en `main.tsx`).
 
+**Y alguien los tiene que leer**: `node scripts/errores/resumen.mjs` agrupa `errores_cliente`
+por contexto y mensaje (quitando ids y fechas, que si no el mismo fallo sale cincuenta veces)
+y ordena por **pilotos afectados**, no por número de reportes. `--dias 7`, `--horas 2` o
+`--json`. Pide `SUPABASE_SERVICE_ROLE_KEY` en `.env.local`: la tabla no da permisos ni a
+`anon` ni a `authenticated` a propósito.
+
 ## Sistema de diseño
 
 El lector de lecciones es **uno solo y compartido**: `src/components/lesson/LectorLeccion.tsx`.
