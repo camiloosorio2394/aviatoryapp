@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   ArrowRight,
   BadgeCheck,
+  CalendarClock,
   Check,
   ClipboardCheck,
   Clock,
@@ -28,6 +29,8 @@ import {
 import { LogoHorizontal } from "@/components/Logo"
 import { track, Events } from "@/lib/analytics"
 import { validarHorasDeVuelo } from "@/lib/validacionPiloto"
+import { PlanDeEstudioCampos } from "@/components/constancia/PlanDeEstudioCampos"
+import { guardarPlanDeEstudio, resumirPlan, zonaDelEquipo, type PlanDeEstudio } from "@/services/planDeEstudio"
 
 type Stage =
   | "student_ppl"
@@ -101,6 +104,14 @@ interface FormState {
   target_date: string
 }
 
+/** Tres días entre semana, después del trabajo: lo que la mayoría puede sostener. */
+const PLAN_SUGERIDO: PlanDeEstudio = {
+  dias: [1, 3, 5],
+  hora: "20:00",
+  zona: "America/Bogota",
+  minutosMeta: 20,
+}
+
 const INITIAL: FormState = {
   stage: "",
   total_hours: "",
@@ -121,6 +132,11 @@ const STEPS: { title: string; sub: string; icon: LucideIcon }[] = [
   { title: "¿Cuántas horas de vuelo tienes?", sub: "Las que están en tu logbook.", icon: Clock },
   { title: "¿Qué licencias tienes?", sub: "Marca todas las que apliquen.", icon: BadgeCheck },
   { title: "Tu objetivo", sub: "¿A qué aerolínea apuntas y para cuándo?", icon: Target },
+  {
+    title: "¿Qué días vas a estudiar?",
+    sub: "Te avisamos esos días, a esa hora. Nada más.",
+    icon: CalendarClock,
+  },
   { title: "Confirma tus datos", sub: "Vas a poder editarlos después.", icon: ClipboardCheck },
 ]
 
@@ -145,6 +161,7 @@ export function Onboarding() {
   const [step, setStep] = useState(0)
   const [form, setForm] = useState<FormState>(INITIAL)
   const [submitting, setSubmitting] = useState(false)
+  const [plan, setPlan] = useState<PlanDeEstudio>(PLAN_SUGERIDO)
   const navigate = useNavigate()
   const { user } = useSession()
 
@@ -167,6 +184,8 @@ export function Onboarding() {
         return !!form.stage
       case 1:
         return form.total_hours !== ""
+      case 4:
+        return plan.dias.length > 0
       default:
         return true
     }
@@ -188,6 +207,14 @@ export function Onboarding() {
         targetAirline: form.target_airline || null,
         targetDate: form.target_date || null,
       })
+      try {
+        await guardarPlanDeEstudio(user.id, { ...plan, zona: zonaDelEquipo() })
+      } catch {
+        // Ya se reportó en el servicio. Que no se pueda guardar el plan no es
+        // razón para devolverlo al principio del onboarding: lo pone en su
+        // perfil cuando quiera.
+        console.warn("onboarding: no se pudo guardar el plan de estudio")
+      }
       track(Events.ONBOARDING_COMPLETED, {
         stage: form.stage || null,
         target_airline: form.target_airline || null,
@@ -424,6 +451,10 @@ export function Onboarding() {
             )}
 
             {step === 4 && (
+              <PlanDeEstudioCampos plan={plan} alCambiar={setPlan} />
+            )}
+
+            {step === 5 && (
               <>
                 <ul className="space-y-3 text-[15px]">
                   <SummaryRow label="Etapa" value={stageSummary} />
@@ -441,6 +472,7 @@ export function Onboarding() {
                       form.target_date ? ` · ${formatTargetDate(form.target_date)}` : ""
                     }`}
                   />
+                  <SummaryRow label="Estudio" value={`${resumirPlan(plan)} · ${plan.minutosMeta} min`} />
                 </ul>
                 <div
                   className="mt-4 rounded-2xl border p-3.5 text-[13px] text-muted-foreground"

@@ -4,6 +4,7 @@ import { AlertTriangle, ArrowLeft, ArrowRight, CheckCircle2, Loader2, RotateCcw,
 import { SectionTitle } from "@/components/ui/section-title"
 import { useEvaluacion } from "@/hooks/useEvaluacion"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
+import { InvitarTrasAprobar } from "@/components/constancia/InvitarTrasAprobar"
 import { accentText } from "@/lib/tileColors"
 import type { ClaveEvaluacion, ResultadoEvaluacion, SesionEvaluacion } from "@/services/evaluaciones"
 
@@ -163,6 +164,8 @@ export function QuizEngine({ evaluacion, backTo, backLabel, onFinish, footer }: 
             </Link>
           </div>
         </section>
+
+        {aprobado && <InvitarTrasAprobar />}
 
         {footer?.(resultado, sesion)}
 

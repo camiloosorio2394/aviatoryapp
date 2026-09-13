@@ -32,6 +32,7 @@ import { StrengthsSummary } from "@/components/perfil/StrengthsSummary"
 import { UsernameHelp } from "@/components/perfil/UsernameHelp"
 import { UsernameIcon } from "@/components/perfil/UsernameIcon"
 import { VerificacionHoras } from "@/components/perfil/VerificacionHoras"
+import { SeccionPlanDeEstudio } from "@/components/constancia/SeccionPlanDeEstudio"
 import { LICENSES, STAGES, USERNAME_REGEX } from "@/components/perfil/datos"
 import type { CertRow, Skill, Stage, UsernameStatus } from "@/components/perfil/tipos"
 import { traerVerificacion, type VerificacionDeHoras } from "@/services/verificacionHoras"
@@ -546,6 +547,8 @@ export function Profile() {
             longestStreak={studyStats.longestStreak}
           />
         </section>
+
+        {user && <SeccionPlanDeEstudio userId={user.id} />}
 
         <PermisoDictado />
       </div>
