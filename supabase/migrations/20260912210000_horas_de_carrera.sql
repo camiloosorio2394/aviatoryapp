@@ -141,6 +141,10 @@ select
   coalesce(sum(f.total_minutes) filter (
     where f.flight_date >= (now() at time zone 'America/Bogota')::date - 30
   ), 0)::int as minutos_ultimos_30_dias,
+  max(f.flight_date) as ultimo_vuelo,
+  -- Las tres nuevas van AL FINAL y no junto a la de 30 días, donde se leerían
+  -- mejor: `create or replace view` solo deja agregar columnas al final. Meterla
+  -- en medio falla con 42P16, porque para Postgres es renombrar las de después.
   coalesce(sum(f.total_minutes) filter (
     where f.flight_date >= (now() at time zone 'America/Bogota')::date - 90
   ), 0)::int as minutos_ultimos_90_dias,
@@ -149,8 +153,7 @@ select
   ), 0)::int as minutos_ultimos_365_dias,
   coalesce(sum(f.landings_day + f.landings_night) filter (
     where f.flight_date >= (now() at time zone 'America/Bogota')::date - 90
-  ), 0)::int as aterrizajes_ultimos_90_dias,
-  max(f.flight_date) as ultimo_vuelo
+  ), 0)::int as aterrizajes_ultimos_90_dias
 from public.flights f
 group by f.user_id;
 
