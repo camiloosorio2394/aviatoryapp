@@ -1,0 +1,46 @@
+import { beforeEach, describe, expect, it, vi } from "vitest"
+
+const rpc = vi.hoisted(() => vi.fn())
+vi.mock("@/integrations/supabase/client", () => ({ supabase: { rpc } }))
+
+const reportarError = vi.hoisted(() => vi.fn())
+vi.mock("@/lib/errores", () => ({ reportarError }))
+
+import { traerEstadisticasDeReferidos } from "./referidos"
+
+const FILA = { my_code: "NICO7", total_referred: 4, active_referred: 2 }
+
+beforeEach(() => {
+  vi.clearAllMocks()
+})
+
+describe("estadísticas de referidos", () => {
+  it("acepta la fila suelta y dentro de un arreglo", async () => {
+    rpc.mockResolvedValue({ data: FILA, error: null })
+    expect(await traerEstadisticasDeReferidos()).toEqual(FILA)
+
+    rpc.mockResolvedValue({ data: [FILA], error: null })
+    expect(await traerEstadisticasDeReferidos()).toEqual(FILA)
+    expect(rpc).toHaveBeenCalledWith("get_referral_stats")
+  })
+
+  it("sin datos devuelve null y la pantalla muestra un guion", async () => {
+    rpc.mockResolvedValue({ data: null, error: null })
+    expect(await traerEstadisticasDeReferidos()).toBeNull()
+
+    rpc.mockResolvedValue({ data: [], error: null })
+    expect(await traerEstadisticasDeReferidos()).toBeNull()
+    expect(reportarError).not.toHaveBeenCalled()
+  })
+
+  /**
+   * En pantalla, un fallo es indistinguible de «no has referido a nadie»: las
+   * dos cosas salen como un cero. Por eso este sí se reporta.
+   */
+  it("si la consulta falla se reporta, porque el cero mentiría", async () => {
+    rpc.mockResolvedValue({ data: null, error: { message: "sin permiso" } })
+
+    expect(await traerEstadisticasDeReferidos()).toBeNull()
+    expect(reportarError).toHaveBeenCalledWith("referidos: estadísticas", { message: "sin permiso" })
+  })
+})
