@@ -1,7 +1,10 @@
 import type { ComponentType } from "react"
 import { Users } from "lucide-react"
-import { AerodromeIcon, NdbIcon, VorIcon } from "@/components/icons/aero"
+import { AerodromeIcon, LocalizerIcon, NdbIcon, VorIcon } from "@/components/icons/aero"
 import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_TOTALES, NOTAM_PRACTICE_TOTAL } from "@/lib/notamComun"
+import { METAR_CONTEO } from "@/lib/metarConteo"
+import { MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA_TOTAL } from "@/lib/mercancias"
+import type { TileColorKey } from "@/lib/tileColors"
 import type { NotamResumen, PilotStage } from "@/components/dashboard/tipos"
 
 /** Días desde hoy hasta la fecha, negativo si ya pasó. */
@@ -136,9 +139,76 @@ export function trialDaysLeft(end: string | null): number | null {
  * práctica y evaluación pesan igual, y la evaluación aporta el mejor puntaje
  * (o el 100 si ya está aprobada). Si se toca allá, hay que tocarla aquí.
  */
-export function notamPct(n: NotamResumen): number {
-  const lessonPct = (Math.min(n.lesson, NOTAM_TOTALES.lessonScreens) / NOTAM_TOTALES.lessonScreens) * 100
-  const practicePct = (Math.min(n.practice, NOTAM_PRACTICE_TOTAL) / NOTAM_PRACTICE_TOTAL) * 100
-  const examPct = n.best !== null && n.best >= NOTAM_PASS_SCORE ? 100 : (n.best ?? 0)
-  return Math.round((lessonPct + practicePct + examPct) / 3)
+export interface TotalesModulo {
+  secciones: number
+  practicas: number
+  aprobacion: number
 }
+
+/**
+ * Avance de un módulo: el promedio de lección, práctica y evaluación.
+ *
+ * La evaluación cuenta 100 apenas se aprueba y no su puntaje: pasarla con 84 no
+ * es tener «menos módulo hecho» que pasarla con 96.
+ */
+export function avanceDeModulo(m: NotamResumen, t: TotalesModulo): number {
+  const leccion = (Math.min(m.lesson, t.secciones) / t.secciones) * 100
+  const practica = (Math.min(m.practice, t.practicas) / t.practicas) * 100
+  const examen = m.best !== null && m.best >= t.aprobacion ? 100 : (m.best ?? 0)
+  return Math.round((leccion + practica + examen) / 3)
+}
+
+export function notamPct(n: NotamResumen): number {
+  return avanceDeModulo(n, MODULOS_AEROLINEA[0].totales)
+}
+
+/**
+ * Los tres módulos de Ingreso a aerolínea, con el acento que el piloto se va a
+ * encontrar al entrar. El panel mostraba solo NOTAM: Meteorología y Mercancías
+ * están terminados y no aparecían en la pantalla de inicio por ningún lado.
+ *
+ * Los conteos son fijos a propósito. Importar `metar.ts` aquí se llevaría sus
+ * 22 KB de ejercicios al trozo del inicio; `leccionesConteo.test.ts` vigila que
+ * no se desfasen del contenido.
+ */
+export const MODULOS_AEROLINEA = [
+  {
+    clave: "notam" as const,
+    icono: LocalizerIcon,
+    color: "blue" as TileColorKey,
+    titulo: "NOTAM",
+    href: "/app/aerolinea/notam",
+    totales: {
+      secciones: NOTAM_TOTALES.lessonScreens,
+      practicas: NOTAM_PRACTICE_TOTAL,
+      aprobacion: NOTAM_PASS_SCORE,
+    },
+    promesa: "Lección y práctica con NOTAM reales de la Aerocivil.",
+  },
+  {
+    clave: "metar" as const,
+    icono: AerodromeIcon,
+    color: "meteorologia" as TileColorKey,
+    titulo: "Meteorología",
+    href: "/app/aerolinea/meteorologia",
+    totales: {
+      secciones: METAR_CONTEO.secciones,
+      practicas: METAR_CONTEO.practicas,
+      aprobacion: METAR_CONTEO.aprobacion,
+    },
+    promesa: "METAR y TAF reales, decodificados campo por campo.",
+  },
+  {
+    clave: "mercancias" as const,
+    icono: NdbIcon,
+    color: "mercancias" as TileColorKey,
+    titulo: "Mercancías peligrosas",
+    href: "/app/aerolinea/mercancias",
+    totales: {
+      secciones: MP_LECTURA_TOTAL,
+      practicas: MP_PRACTICA_TOTAL,
+      aprobacion: MP_PASS_SCORE,
+    },
+    promesa: "Las nueve clases, el etiquetado y qué hacer a bordo.",
+  },
+]

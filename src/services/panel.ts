@@ -43,8 +43,13 @@ export interface TarjetasPanel {
   companeros: Peer[]
   quizDiario: DailyQuizQuestion[]
   dominio: SubjectMastery[]
-  /** null si el curso no tiene avance: la tarjeta lo dice con un guion. */
+  /**
+   * Los tres módulos de Ingreso a aerolínea. `null` en uno significa que el
+   * piloto no lo ha tocado, y la tarjeta lo dice; no es un cero.
+   */
   notam: NotamResumen | null
+  metar: NotamResumen | null
+  mercancias: NotamResumen | null
   licencias: LicenseRow[]
   preparacion: PcaReadiness | null
 }
@@ -100,10 +105,22 @@ export function leerTarjetasPanel(datos: unknown, hoy = new Date()): TarjetasPan
     .filter((l): l is LogroCrudo & { unlocked_at: string } => typeof l.unlocked_at === "string")
     .sort((a, b) => Date.parse(b.unlocked_at) - Date.parse(a.unlocked_at))
 
-  const notam = objeto(d.notam, "notam")
-  const lesson = entero(notam.lecciones, "notam.lecciones")
-  const practice = entero(notam.practicas, "notam.practicas")
-  const best = notam.mejor === null ? null : entero(notam.mejor, "notam.mejor")
+  /**
+   * Los tres módulos vienen con la misma forma, así que se leen igual.
+   *
+   * Un módulo que no viene se lee como «sin avance» y no como error: si el
+   * cliente sale antes que la migración que los agregó, el panel muestra el
+   * módulo sin empezar en vez de caerse entero. Lo que sí viene se valida
+   * igual de estricto que todo lo demás.
+   */
+  const moduloResumen = (campo: string): NotamResumen | null => {
+    if (d[campo] === undefined || d[campo] === null) return null
+    const m = objeto(d[campo], campo)
+    const lesson = entero(m.lecciones, `${campo}.lecciones`)
+    const practice = entero(m.practicas, `${campo}.practicas`)
+    const best = m.mejor === null || m.mejor === undefined ? null : entero(m.mejor, `${campo}.mejor`)
+    return lesson === 0 && practice === 0 && best === null ? null : { lesson, practice, best }
+  }
 
   return {
     logros,
@@ -112,7 +129,9 @@ export function leerTarjetasPanel(datos: unknown, hoy = new Date()): TarjetasPan
     companeros: lista<Peer>(d.companeros, "companeros"),
     quizDiario: lista<DailyQuizQuestion>(d.quiz_diario, "quiz_diario"),
     dominio: lista<SubjectMastery>(d.dominio, "dominio"),
-    notam: lesson === 0 && practice === 0 && best === null ? null : { lesson, practice, best },
+    notam: moduloResumen("notam"),
+    metar: moduloResumen("metar"),
+    mercancias: moduloResumen("mercancias"),
     licencias: lista<LicenseRow>(d.licencias, "licencias"),
     preparacion: objetoONulo<PcaReadiness>(d.preparacion, "preparacion"),
   }

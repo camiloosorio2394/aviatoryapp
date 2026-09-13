@@ -15,6 +15,8 @@ const tarjetas = (cambios: Record<string, unknown> = {}) => ({
   quiz_diario: [],
   dominio: [],
   notam: { lecciones: 4, practicas: 3, mejor: 76 },
+  metar: { lecciones: 2, practicas: 9, mejor: null },
+  mercancias: { lecciones: 0, practicas: 0, mejor: null },
   licencias: [],
   preparacion: null,
   ...cambios,
@@ -50,6 +52,20 @@ describe("panel del piloto", () => {
 
   it("NOTAM sin avance es null, y con avance trae lo contado en la base", () => {
     expect(leerTarjetasPanel(tarjetas()).notam).toEqual({ lesson: 4, practice: 3, best: 76 })
+    // Los tres módulos se leen igual, y el que no se ha tocado queda en null.
+    expect(leerTarjetasPanel(tarjetas()).metar).toEqual({ lesson: 2, practice: 9, best: null })
+    expect(leerTarjetasPanel(tarjetas()).mercancias).toBeNull()
+  })
+
+  it("un módulo que la base todavía no manda no tumba el panel", () => {
+    // Pasa si el cliente sale antes que la migración que agregó los módulos.
+    const sinModulos = tarjetas()
+    delete (sinModulos as Record<string, unknown>).metar
+    delete (sinModulos as Record<string, unknown>).mercancias
+    const leido = leerTarjetasPanel(sinModulos)
+    expect(leido.metar).toBeNull()
+    expect(leido.mercancias).toBeNull()
+    expect(leido.notam).toEqual({ lesson: 4, practice: 3, best: 76 })
     expect(leerTarjetasPanel(tarjetas({ notam: { lecciones: 0, practicas: 0, mejor: null } })).notam).toBeNull()
   })
 

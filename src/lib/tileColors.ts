@@ -8,7 +8,17 @@
  * claro/oscuro definido en index.css.
  */
 
-export type TileColorKey = "cyan" | "blue" | "violet" | "amber" | "green" | "red"
+export type TileColorKey =
+  | "cyan"
+  | "blue"
+  | "violet"
+  | "amber"
+  | "green"
+  | "red"
+  /** Los acentos de los módulos de Ingreso a aerolínea, para que la tarjeta
+   *  del panel prometa el color que el piloto se va a encontrar al entrar. */
+  | "meteorologia"
+  | "mercancias"
 
 export const TILE_COLOR: Record<TileColorKey, string> = {
   cyan: "var(--av-cyan-400)",
@@ -17,6 +27,8 @@ export const TILE_COLOR: Record<TileColorKey, string> = {
   amber: "var(--av-amber-400)",
   green: "var(--av-green-400)",
   red: "var(--av-red-400)",
+  meteorologia: "var(--av-mt-500)",
+  mercancias: "var(--av-dg-500)",
 }
 
 /** Fondo tenue del mismo color, para el cuadrito que envuelve un icono. */
