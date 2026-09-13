@@ -1,9 +1,14 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react"
 import { Plane, Plus, Trash2, X, Loader2, ArrowRight } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
 import { reportarError } from "@/lib/errores"
-import { RESUMEN_BITACORA_VACIO, traerResumenBitacora } from "@/services/bitacora"
+import {
+  borrarVuelo,
+  guardarVuelo,
+  traerBitacora,
+  RESUMEN_BITACORA_VACIO,
+  type Flight,
+} from "@/services/bitacora"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,27 +16,6 @@ import { Label } from "@/components/ui/label"
 import { PageHeader } from "@/components/ui/page-header"
 import { Sparkline } from "@/components/ui/sparkline"
 import { CountUp } from "@/components/ui/count-up"
-
-interface Flight {
-  id: number
-  flight_date: string
-  aircraft_registration: string | null
-  aircraft_type: string | null
-  from_airport: string | null
-  to_airport: string | null
-  total_minutes: number
-  pic_minutes: number
-  sic_minutes: number
-  dual_minutes: number
-  instrument_real_minutes: number
-  instrument_sim_minutes: number
-  night_minutes: number
-  cross_country_minutes: number
-  landings_day: number
-  landings_night: number
-  remarks: string | null
-  created_at: string
-}
 
 function minutesToHours(min: number): string {
   if (min === 0) return "0.0"
@@ -46,8 +30,6 @@ function hoursToMinutes(h: string): number {
 
 type FilterTab = "all" | "last30" | "year" | "pic" | "ifr"
 
-const LIMITE_LISTA = 500
-
 export function Logbook() {
   const { user } = useSession()
   const [flights, setFlights] = useState<Flight[]>([])
@@ -58,30 +40,16 @@ export function Logbook() {
 
   // La lista trae los 500 vuelos más recientes; los totales salen de la base
   // con todos (services/bitacora.ts).
-  const traer = useCallback(async () => {
-    if (!user) return null
-    const [lista, totales] = await Promise.all([
-      supabase
-        .from("flights")
-        .select("*")
-        .eq("user_id", user.id)
-        .order("flight_date", { ascending: false })
-        .order("id", { ascending: false })
-        .limit(LIMITE_LISTA),
-      traerResumenBitacora(user.id),
-    ])
-    return { lista, totales }
-  }, [user])
+  const traer = useCallback(async () => (user ? traerBitacora(user.id) : null), [user])
 
   const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
     if (!r) return
-    const error = r.lista.error ?? r.totales.error
-    if (error) {
-      reportarError("bitácora: cargar", error)
+    if (r.error) {
+      reportarError("bitácora: cargar", r.error)
       toast.error("No pudimos cargar tu bitácora. Revisa tu conexión e inténtalo de nuevo.")
     } else {
-      setFlights((r.lista.data ?? []) as Flight[])
-      setResumen(r.totales.resumen)
+      setFlights(r.vuelos)
+      setResumen(r.resumen)
     }
     setLoading(false)
   }, [])
@@ -106,7 +74,7 @@ export function Logbook() {
     if (!confirm("¿Eliminar este vuelo del logbook?")) return
     const prev = flights
     setFlights((p) => p.filter((f) => f.id !== id))
-    const { error } = await supabase.from("flights").delete().eq("id", id)
+    const { error } = await borrarVuelo(id)
     if (error) {
       reportarError("bitácora: eliminar vuelo", error)
       toast.error("No pudimos eliminar el vuelo. Inténtalo de nuevo.")
@@ -614,26 +582,25 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
     }
     setSaving(true)
     try {
-      const { error } = await supabase.from("flights").insert({
-        user_id: user.id,
-        flight_date: date,
-        aircraft_registration: registration.trim().toUpperCase() || null,
-        aircraft_type: aircraftType.trim().toUpperCase() || null,
-        from_airport: from.trim().toUpperCase() || null,
-        to_airport: to.trim().toUpperCase() || null,
-        total_minutes: totalMin,
-        pic_minutes: hoursToMinutes(picH),
-        sic_minutes: hoursToMinutes(sicH),
-        dual_minutes: hoursToMinutes(dualH),
-        instrument_real_minutes: hoursToMinutes(instReal),
-        instrument_sim_minutes: hoursToMinutes(instSim),
-        night_minutes: hoursToMinutes(nightH),
-        cross_country_minutes: hoursToMinutes(xcH),
-        landings_day: parseInt(landingsDay) || 0,
-        landings_night: parseInt(landingsNight) || 0,
+      await guardarVuelo({
+        userId: user.id,
+        flightDate: date,
+        aircraftRegistration: registration.trim().toUpperCase() || null,
+        aircraftType: aircraftType.trim().toUpperCase() || null,
+        fromAirport: from.trim().toUpperCase() || null,
+        toAirport: to.trim().toUpperCase() || null,
+        totalMinutes: totalMin,
+        picMinutes: hoursToMinutes(picH),
+        sicMinutes: hoursToMinutes(sicH),
+        dualMinutes: hoursToMinutes(dualH),
+        instrumentRealMinutes: hoursToMinutes(instReal),
+        instrumentSimMinutes: hoursToMinutes(instSim),
+        nightMinutes: hoursToMinutes(nightH),
+        crossCountryMinutes: hoursToMinutes(xcH),
+        landingsDay: parseInt(landingsDay) || 0,
+        landingsNight: parseInt(landingsNight) || 0,
         remarks: remarks.trim() || null,
       })
-      if (error) throw error
       onSaved()
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "No pudimos guardar el vuelo")
