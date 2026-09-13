@@ -1,0 +1,22 @@
+-- ============================================================================
+-- `daily_activity` tenía política de lectura y ningún permiso para usarla.
+--
+-- La política `daily_activity_select_own` existe desde mayo, pero nunca hubo
+-- un `grant select`. Una política de RLS no concede permiso: filtra filas
+-- dentro del permiso que ya se tenga. Sin el grant, la consulta muere antes de
+-- llegar a la política, con `42501: permission denied for table`.
+--
+-- El hueco estuvo latente porque hasta hoy nadie la leía directo: el panel la
+-- recibe por `panel_tarjetas()`, que es `security definer` y corre como su
+-- dueño. La línea de ritmo del perfil (`services/ritmoDeEstudio.ts`) es la
+-- primera consulta del cliente que la toca, y falla.
+--
+-- Salió probando producción con la cuenta de piloto de prueba, después de
+-- aplicar las migraciones. No lo habría visto de otra forma: con la llave de
+-- servicio funciona, porque esa sí salta los permisos.
+--
+-- No toca filas ni cambia ninguna política: concede exactamente lo que la
+-- política ya decía que se podía leer.
+-- ============================================================================
+
+grant select on table public.daily_activity to authenticated;
