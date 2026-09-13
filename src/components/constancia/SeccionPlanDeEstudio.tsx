@@ -12,6 +12,38 @@ import {
   type PlanDeEstudio,
 } from "@/services/planDeEstudio"
 import { traerEstadoDeRacha, type EstadoDeRacha } from "@/services/racha"
+import {
+  diasHastaLaFecha,
+  diasPrometidos,
+  DIAS_DE_LA_VENTANA,
+  traerRitmoDeEstudio,
+  type RitmoDeEstudio,
+} from "@/services/ritmoDeEstudio"
+
+/**
+ * Cómo va contra su fecha, sin inventarse porcentajes del temario: días con los
+ * que llegó y días que prometió, que son dos datos comprobables.
+ */
+function frenteALaFecha(ritmo: RitmoDeEstudio, diasDelPlan: number[] | null): string {
+  const faltan = diasHastaLaFecha(ritmo.fechaObjetivo)
+  const estudiados = `En las últimas ${DIAS_DE_LA_VENTANA / 7} semanas estudiaste ${ritmo.diasEstudiados} ${ritmo.diasEstudiados === 1 ? "día" : "días"}`
+
+  if (diasDelPlan !== null && diasDelPlan.length > 0) {
+    const prometidos = diasPrometidos(diasDelPlan)
+    const veredicto =
+      ritmo.diasEstudiados >= prometidos
+        ? "Vas cumpliendo."
+        : `Tu plan son ${prometidos}.`
+    return faltan !== null && faltan > 0
+      ? `Faltan ${faltan} ${faltan === 1 ? "día" : "días"} para tu fecha. ${estudiados}. ${veredicto}`
+      : `${estudiados}. ${veredicto}`
+  }
+
+  if (faltan !== null && faltan > 0) {
+    return `Faltan ${faltan} ${faltan === 1 ? "día" : "días"} para tu fecha. ${estudiados}.`
+  }
+  return `${estudiados} de ${DIAS_DE_LA_VENTANA}.`
+}
 
 /** Lo que se ofrece a quien no tiene plan: tres días entre semana, después del trabajo. */
 function planSugerido(): PlanDeEstudio {
@@ -31,6 +63,7 @@ export function SeccionPlanDeEstudio({ userId }: { userId: string }) {
   const [borrador, setBorrador] = useState<PlanDeEstudio>(planSugerido)
   const [guardando, setGuardando] = useState(false)
   const [racha, setRacha] = useState<EstadoDeRacha | null>(null)
+  const [ritmo, setRitmo] = useState<RitmoDeEstudio | null>(null)
 
   useEffect(() => {
     let cancelado = false
@@ -41,6 +74,9 @@ export function SeccionPlanDeEstudio({ userId }: { userId: string }) {
     })
     traerEstadoDeRacha(userId).then((r) => {
       if (!cancelado) setRacha(r)
+    })
+    traerRitmoDeEstudio(userId).then((r) => {
+      if (!cancelado) setRitmo(r)
     })
     return () => {
       cancelado = true
@@ -120,6 +156,14 @@ export function SeccionPlanDeEstudio({ userId }: { userId: string }) {
             </button>
             {/* El día de gracia se dice aquí y no se esconde: saber que existe
                 es justo lo que evita que un día malo se convierta en dejarlo. */}
+            {/* La fecha que se puso, con el ritmo al lado. Una cuenta regresiva
+                sola no dice nada; lo que mueve es saber si al paso de las
+                últimas semanas se llega. */}
+            {ritmo !== null && (
+              <p className="mt-3 m-0 text-[13px] text-muted-foreground">
+                {frenteALaFecha(ritmo, plan?.dias ?? null)}
+              </p>
+            )}
             {racha !== null && racha.dias > 0 && (
               <p className="mt-3 m-0 text-[13px] text-muted-foreground">
                 {racha.tieneGracia
