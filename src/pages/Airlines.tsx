@@ -19,6 +19,12 @@ interface MatchCheck {
   have: string
   need: string
   passed: boolean
+  /**
+   * Lo que falta, en las unidades del piloto: «45 h de vuelo», «subir a nivel
+   * 4 de inglés». «Te faltan 2 requisitos» no le dice a nadie qué hacer el
+   * lunes; la distancia concreta sí, y además se ve acercarse.
+   */
+  falta?: string
 }
 
 export function Airlines() {
@@ -108,7 +114,7 @@ export function Airlines() {
                     <p className="m-0 text-muted-foreground text-[13px] leading-relaxed max-w-[600px]">
                       {bestMatch.missing === 0
                         ? "Cumples todos los requisitos públicos. Postúlate cuando abran convocatoria."
-                        : `Te faltan ${bestMatch.missing} requisito${bestMatch.missing !== 1 ? "s" : ""} para postular. Mira los detalles abajo.`}
+                        : `Te faltan ${loQueFalta(bestMatch.checks)} para postular.`}
                     </p>
                   </div>
                 </div>
@@ -142,19 +148,23 @@ function fmtHours(h: number): string {
 function buildChecks(req: AirlineRequirements, pilot: PilotProfile): MatchCheck[] {
   const checks: MatchCheck[] = []
   if (req.min_hours_total) {
+    const tiene = pilot.totalHours ?? 0
     checks.push({
       label: "Horas totales",
       have: pilot.totalHours != null ? `${fmtHours(pilot.totalHours)}h` : "—",
       need: `${req.min_hours_total}h`,
-      passed: (pilot.totalHours ?? 0) >= req.min_hours_total,
+      passed: tiene >= req.min_hours_total,
+      falta: `${fmtHours(req.min_hours_total - tiene)} h de vuelo`,
     })
   }
   if (req.min_hours_pic) {
+    const tiene = pilot.hoursPic ?? 0
     checks.push({
       label: "Horas PIC",
       have: pilot.hoursPic != null ? `${fmtHours(pilot.hoursPic)}h` : "—",
       need: `${req.min_hours_pic}h`,
-      passed: (pilot.hoursPic ?? 0) >= req.min_hours_pic,
+      passed: tiene >= req.min_hours_pic,
+      falta: `${fmtHours(req.min_hours_pic - tiene)} h como PIC`,
     })
   }
   if (req.icao_english) {
@@ -163,17 +173,37 @@ function buildChecks(req: AirlineRequirements, pilot: PilotProfile): MatchCheck[
       have: pilot.icaoLevel != null ? `Nivel ${pilot.icaoLevel}` : "—",
       need: `Nivel ${req.icao_english}`,
       passed: (pilot.icaoLevel ?? 0) >= req.icao_english,
+      falta: `subir a nivel ${req.icao_english} de inglés`,
     })
   }
   if (req.licenses && req.licenses.length > 0) {
+    const faltantes = req.licenses.filter((l) => !pilot.licenses.includes(l))
     checks.push({
       label: "Licencias",
       have: pilot.licenses.length > 0 ? pilot.licenses.join(", ") : "—",
       need: req.licenses.join(" + "),
-      passed: req.licenses.every((l) => pilot.licenses.includes(l)),
+      passed: faltantes.length === 0,
+      falta: faltantes.length === 1 ? `la ${faltantes[0]}` : `las licencias ${unirConY(faltantes)}`,
     })
   }
   return checks
+}
+
+/** «CPL, IFR y HME». La coma serial no existe en español. */
+function unirConY(partes: string[]): string {
+  if (partes.length <= 1) return partes[0] ?? ""
+  return `${partes.slice(0, -1).join(", ")} y ${partes[partes.length - 1]}`
+}
+
+/**
+ * Lo que le falta al piloto, dicho en concreto y sin abrumar: los dos huecos
+ * más cercanos y cuántos quedan detrás.
+ */
+function loQueFalta(checks: MatchCheck[]): string {
+  const huecos = checks.filter((c) => !c.passed && c.falta).map((c) => c.falta as string)
+  if (huecos.length === 0) return ""
+  if (huecos.length <= 2) return unirConY(huecos)
+  return `${unirConY(huecos.slice(0, 2))}, y ${huecos.length - 2} requisito${huecos.length - 2 !== 1 ? "s" : ""} más`
 }
 
 /** Pre estado: sin datos reales no mostramos porcentajes, mostramos la salida. */
@@ -300,7 +330,8 @@ function AirlineCard({
           </div>
         ) : (
           <div className="mt-4 w-full h-9 rounded-lg border border-border bg-background flex items-center justify-center font-semibold text-[13px] text-muted-foreground">
-            Te faltan {missing} requisito{missing !== 1 ? "s" : ""}
+            {/* El verbo también concuerda: con uno es «te falta», no «te faltan». */}
+            Te falta{missing !== 1 ? "n" : ""} {missing} requisito{missing !== 1 ? "s" : ""}
           </div>
         )}
       </div>
