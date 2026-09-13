@@ -20,6 +20,7 @@ esa forma.
 | `logros.sql` | Lección y práctica contra el catálogo, claves viejas que no cuentan, un grupo por disparador, ponerse al día solo sobre sí mismo. |
 | `psicotecnicas.sql` | El reloj lo lleva el servidor: aplazar acumula el tiempo, el tiempo agotado no cuenta, y ni el banco ni la sesión se leen desde el cliente. |
 | `panel.sql` | `panel_inicio()` y `panel_tarjetas()` devuelven lo mismo que las consultas que reemplazan, piloto por piloto, sin sesión no responden. Solo lee. |
+| `constancia.sql` | El plan de estudio es del piloto y solo suyo, la racha sobrevive a un día por mes (uno, no dos), y los avisos que corren de noche salen cuando deben y una sola vez al día. |
 | `resumenes.sql` | `bitacora_resumen` e `icao_progreso()` cuentan más de 1000 filas y solo las del piloto. |
 
 ## Cómo se corren
