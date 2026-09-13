@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { METAR_LECCION } from "@/lib/metar"
+import { METAR_EXAM_PASS_SCORE, METAR_LECCION, METAR_PRACTICE_TOTAL } from "@/lib/metar"
+import { METAR_CONTEO } from "@/lib/metarConteo"
 import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import { MP_LECTURA_MINUTOS, MP_LECTURA_TOTAL, MP_NIVELES, MP_PRACTICA_TOTAL } from "@/lib/mercancias"
 import { MP_LECCIONES, MP_LECCION_TOTAL, MP_MINUTOS } from "@/lib/mercanciasLeccion"
@@ -13,6 +14,16 @@ import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
 describe("conteos fijos de las lecciones", () => {
   it("METAR: secciones y minutos de la lección", () => {
     expect(METAR_LECCION).toEqual({ secciones: METAR_LESSON_TOTAL, minutos: METAR_LESSON_MINUTES })
+  })
+
+  it("METAR: el conteo que usa el panel no se desfasa del módulo", () => {
+    // El panel no puede importar metar.ts (22 KB de ejercicios), así que lleva
+    // los números aparte. Si el contenido cambia, aquí se ve.
+    expect(METAR_CONTEO).toEqual({
+      secciones: METAR_LECCION.secciones,
+      practicas: METAR_PRACTICE_TOTAL,
+      aprobacion: METAR_EXAM_PASS_SCORE,
+    })
   })
 
   it("Mercancías: lecciones, minutos y ejercicios de práctica", () => {

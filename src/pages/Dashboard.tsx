@@ -1,19 +1,13 @@
 import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RotateCcw } from "lucide-react"
-import {
-  HoldingIcon,
-  LocalizerIcon,
-  VorIcon,
-  WaypointIcon,
-} from "@/components/icons/aero"
+import { HoldingIcon, LocalizerIcon, VorIcon, WaypointIcon } from "@/components/icons/aero"
 import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
 import { EstadoError } from "@/components/EstadoError"
 import { SectionTitle } from "@/components/ui/section-title"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
-import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_TOTALES, NOTAM_PRACTICE_TOTAL } from "@/lib/notamComun"
 import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import type {
@@ -36,7 +30,8 @@ import {
   computeAirlineProgress,
   buildTodayPlan,
   trialDaysLeft,
-  notamPct,
+  avanceDeModulo,
+  MODULOS_AEROLINEA,
 } from "@/components/dashboard/plan"
 import { CourseCard } from "@/components/dashboard/CourseCard"
 import { ExpiryAlert } from "@/components/dashboard/ExpiryAlert"
@@ -70,7 +65,7 @@ export function Dashboard() {
   const [peers, setPeers] = useState<Peer[]>([])
   const [daily, setDaily] = useState<DailyQuizQuestion[]>([])
   const [mastery, setMastery] = useState<SubjectMastery[]>([])
-  const [notam, setNotam] = useState<NotamResumen | null>(null)
+  const [modulos, setModulos] = useState<Record<string, NotamResumen | null>>({})
   const [licenses, setLicenses] = useState<LicenseRow[]>([])
   const [readiness, setReadiness] = useState<PcaReadiness | null>(null)
 
@@ -127,7 +122,7 @@ export function Dashboard() {
         setMastery(tarjetas.dominio)
         // NOTAM contado en la base contra el catálogo; null si no ha empezado,
         // y la card lo dice con un guion en vez de un 0%.
-        setNotam(tarjetas.notam)
+        setModulos({ notam: tarjetas.notam, metar: tarjetas.metar, mercancias: tarjetas.mercancias })
         setLicenses(tarjetas.licencias)
         setReadiness(tarjetas.preparacion)
       } catch (err) {
@@ -282,7 +277,7 @@ export function Dashboard() {
                 note={pilot.hours_pic ? `PIC ${pilot.hours_pic.toFixed(1)}` : undefined}
               />
             ) : (
-            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} note="Sin registrar" />
+            <KpiTile eyebrow="Horas totales" value={0} format={() => "—"} note="Anótalas en tu perfil" />
             )}
             {streakDays > 0 ? (
             <KpiTile
@@ -307,7 +302,7 @@ export function Dashboard() {
                 tone={(icaoLevel ?? 0) < 4 ? "warn" : undefined}
               />
             ) : (
-            <KpiTile eyebrow="Inglés ICAO" value={0} format={() => "—"} note="Sin medir" />
+            <KpiTile eyebrow="Inglés ICAO" value={0} format={() => "—"} note="Mídelo en el test inicial" />
             )}
           </KpiPanel>
         </div>
@@ -324,16 +319,15 @@ export function Dashboard() {
             hint="El avance sale de tu práctica registrada, no se estima."
           />
           {deferredLoading ? (
-            <div className="grid gap-4 md:grid-cols-3 mt-3">
-              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+            <div className="grid gap-4 md:grid-cols-2 mt-3">
               <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
               <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
             </div>
           ) : (
-            <div className="grid gap-4 md:grid-cols-3 mt-3">
+            <div className="grid gap-4 md:grid-cols-2 mt-3">
               <CourseCard
                 icon={WaypointIcon}
-                color="blue"
+                color="violet"
                 eyebrow="Examen PCA"
                 title="Banco por materia"
                 href="/app/pca"
@@ -376,28 +370,58 @@ export function Dashboard() {
                 }
                 cta={icaoMeasured ? "Continuar" : "Medir mi nivel"}
               />
-              <CourseCard
-                icon={LocalizerIcon}
-                color="violet"
-                eyebrow="Prep aerolínea"
-                title="NOTAM"
-                href="/app/aerolinea/notam"
-                pct={notam ? notamPct(notam) : null}
-                done={notam !== null && notam.best !== null && notam.best >= NOTAM_PASS_SCORE}
-                status={
-                  notam
-                    ? `Lección ${Math.min(notam.lesson, NOTAM_TOTALES.lessonScreens)} de ${NOTAM_TOTALES.lessonScreens} · práctica ${Math.min(notam.practice, NOTAM_PRACTICE_TOTAL)} de ${NOTAM_PRACTICE_TOTAL}`
-                    : "Sin empezar"
-                }
-                hint={
-                  notam?.best != null
-                    ? notam.best >= NOTAM_PASS_SCORE
-                      ? `Evaluación aprobada con ${notam.best} de 100.`
-                      : `Mejor puntaje en la evaluación: ${notam.best} de 100.`
-                    : "Lección y práctica con NOTAM reales de la Aerocivil."
-                }
-                cta={notam ? "Continuar" : "Empezar NOTAM"}
-              />
+            </div>
+          )}
+        </section>
+
+        {/* Los tres módulos de Ingreso a aerolínea. El panel mostraba solo NOTAM
+            y Meteorología y Mercancías llevaban meses terminados: un piloto que
+            iba por cualquiera de los dos no veía su avance en su propia pantalla
+            de inicio. Cada tarjeta lleva el acento con el que abre su módulo. */}
+        <section className="mt-6">
+          <SectionTitle
+            icon={LocalizerIcon}
+            eyebrow="Ingreso a aerolínea"
+            title="Los tres módulos del proceso"
+            hint="Lección, práctica y evaluación de cada uno. El avance sale de lo que registraste."
+          />
+          {deferredLoading ? (
+            <div className="grid gap-4 md:grid-cols-3 mt-3">
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+              <div className="h-[184px] rounded-xl bg-muted animate-pulse" />
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-3 mt-3">
+              {MODULOS_AEROLINEA.map((m) => {
+                const avance = modulos[m.clave] ?? null
+                const aprobada = avance?.best != null && avance.best >= m.totales.aprobacion
+                return (
+                  <CourseCard
+                    key={m.clave}
+                    icon={m.icono}
+                    color={m.color}
+                    eyebrow="Prep aerolínea"
+                    title={m.titulo}
+                    href={m.href}
+                    pct={avance ? avanceDeModulo(avance, m.totales) : null}
+                    done={aprobada}
+                    status={
+                      avance
+                        ? `Lección ${Math.min(avance.lesson, m.totales.secciones)} de ${m.totales.secciones} · práctica ${Math.min(avance.practice, m.totales.practicas)} de ${m.totales.practicas}`
+                        : "Sin empezar"
+                    }
+                    hint={
+                      avance?.best != null
+                        ? aprobada
+                          ? `Evaluación aprobada con ${avance.best} de 100.`
+                          : `Mejor puntaje en la evaluación: ${avance.best} de 100.`
+                        : m.promesa
+                    }
+                    cta={avance ? "Continuar" : `Empezar ${m.titulo}`}
+                  />
+                )
+              })}
             </div>
           )}
         </section>
