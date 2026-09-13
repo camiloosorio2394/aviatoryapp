@@ -1,6 +1,5 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
-import { reportarError } from "@/lib/errores"
-import { supabase } from "@/integrations/supabase/client"
+import { traerHistorialNotam } from "@/services/intentosExamen"
 import {
   EXAM_PASS_SCORE,
   readLocalProgress,
@@ -49,31 +48,10 @@ const CONFIG: ExamenConfig = {
     writeLocalProgress({ bestExamScore: score })
   },
   cargarHistorial: async (uid) => {
-    const [listRes, bestRes] = await Promise.all([
-      supabase
-        .from("user_notam_exam_attempts")
-        .select("id,score,correct_count,total_questions,passed,duration_seconds,created_at", { count: "exact" })
-        .eq("user_id", uid)
-        .order("created_at", { ascending: false })
-        .limit(10),
-      supabase.from("user_notam_exam_attempts").select("score").eq("user_id", uid).order("score", { ascending: false }).limit(1),
-    ])
-    if (listRes.error) {
-      reportarError("NOTAM: historial de evaluación", listRes.error)
-      return null
-    }
-    const rows = (listRes.data ?? []) as {
-      id: string
-      score: number
-      correct_count: number
-      total_questions: number
-      passed: boolean
-      duration_seconds: number | null
-      created_at: string
-    }[]
-    const top = (bestRes.data ?? []) as { score: number }[]
+    const historial = await traerHistorialNotam(uid)
+    if (!historial) return null
     return {
-      rows: rows.map((r) => ({
+      rows: historial.filas.map((r) => ({
         id: r.id,
         score: r.score,
         correct: r.correct_count,
@@ -82,8 +60,8 @@ const CONFIG: ExamenConfig = {
         duration: r.duration_seconds,
         at: r.created_at,
       })),
-      count: listRes.count ?? rows.length,
-      best: top.length ? top[0].score : null,
+      count: historial.cuantos,
+      best: historial.mejor,
     }
   },
   pasos: {

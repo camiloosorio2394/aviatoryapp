@@ -2,23 +2,14 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent }
 import { Link, useParams } from "react-router-dom"
 import { ArrowLeft, Hash, Send, Smile, Flame, Loader2 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { traerCanalPorSlug, type Channel } from "@/services/comunidad"
 import { TILE_COLOR, tileTint, tileBorder, accentText } from "@/lib/tileColors"
 
-import { CHANNEL_ICON, GROUP_META, airlineInitials, airlineTileKey, type ChannelType } from "@/lib/communityChannels"
+import { CHANNEL_ICON, GROUP_META, airlineInitials, airlineTileKey } from "@/lib/communityChannels"
 import { useSession } from "@/hooks/useSession"
 import { useMensajesCanal, type AutorCanal, type MensajeCanal, type ReaccionCanal } from "@/hooks/useMensajesCanal"
 import { Button } from "@/components/ui/button"
 import { UserAvatar } from "@/components/UserAvatar"
-
-interface Channel {
-  id: number
-  slug: string
-  name: string
-  description: string | null
-  type: ChannelType
-  emoji: string | null
-}
 
 const REACTION_PALETTE = ["👍", "✈️", "🔥", "🎓", "👏", "💪"]
 
@@ -63,14 +54,9 @@ export function CommunityChannel() {
     let cancelled = false
     async function load() {
       try {
-        const { data: ch, error: chErr } = await supabase
-          .from("community_channels")
-          .select("*")
-          .eq("slug", slug!)
-          .single()
-        if (chErr) throw chErr
+        const ch = await traerCanalPorSlug(slug!)
         if (cancelled) return
-        setChannel(ch as Channel)
+        setChannel(ch)
       } catch (err) {
         toast.error(err instanceof Error ? err.message : "Canal no encontrado")
       } finally {

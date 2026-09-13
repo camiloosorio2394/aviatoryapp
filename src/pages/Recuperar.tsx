@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, Loader2, Mail, MailCheck } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
+import { enviarCorreoDeRecuperacion } from "@/services/sesion"
 import { AuthShell } from "@/components/auth/AuthShell"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -32,13 +32,9 @@ export function Recuperar() {
     setError(null)
     setEnviando(true)
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        // A dónde vuelve el piloto al abrir el enlace del correo. Se arma con
-        // el origen de donde está y no con una constante: así funciona igual en
-        // producción, en una preview de Vercel y en local, sin tocar código.
-        redirectTo: `${window.location.origin}/nueva-clave`,
-      })
-      if (error) throw error
+      // A dónde vuelve el piloto al abrir el enlace del correo: el origen de
+      // donde está, no una constante.
+      await enviarCorreoDeRecuperacion(email.trim(), `${window.location.origin}/nueva-clave`)
       setEnviado(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : "No pudimos enviar el correo. Inténtalo otra vez.")

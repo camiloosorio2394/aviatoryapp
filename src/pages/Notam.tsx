@@ -6,7 +6,7 @@ import { FilaAvance } from "@/components/modulo/FilaAvance"
 import { VideoIntro } from "@/components/modulo/VideoIntro"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/notam-hero.webp"
-import { supabase } from "@/integrations/supabase/client"
+import { traerMejorPuntaje } from "@/services/intentosExamen"
 import { useSession } from "@/hooks/useSession"
 import {
   EXAM_PASS_SCORE,
@@ -32,10 +32,6 @@ interface NotamProgress {
   lessonScreens: number[]
   practiceDone: string[]
   bestExamScore: number | null
-}
-
-interface AttemptRow {
-  score: number | null
 }
 
 const EMPTY_PROGRESS: NotamProgress = {
@@ -82,17 +78,12 @@ export function Notam() {
       }
 
       try {
-        const [progRes, examRes] = await Promise.all([
+        const [progRes, examen] = await Promise.all([
           fetchNotamProgress(user.id),
-          supabase
-            .from("user_notam_exam_attempts")
-            .select("score")
-            .eq("user_id", user.id)
-            .order("score", { ascending: false })
-            .limit(1),
+          traerMejorPuntaje("user_notam_exam_attempts", user.id),
         ])
         if (cancelled) return
-        if (examRes.error) throw examRes.error
+        if (examen.error) throw examen.error
         if (!progRes) throw new Error("no se pudo leer el progreso guardado")
 
         // Sube lo que el usuario avanzó sin sesión antes de armar el resumen: así
@@ -101,11 +92,10 @@ export function Notam() {
         const remotoSync = await pushPendingLocalProgress(progRes)
         if (cancelled) return
 
-        const attempts = (examRes.data ?? []) as AttemptRow[]
         const remoto: NotamProgress = {
           lessonScreens: remotoSync.lessonScreens,
           practiceDone: remotoSync.practiceDone,
-          bestExamScore: typeof attempts[0]?.score === "number" ? attempts[0].score : null,
+          bestExamScore: examen.mejor,
         }
         setProgress(unirProgreso(remoto, localProgress))
       } catch {

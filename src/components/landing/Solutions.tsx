@@ -1,12 +1,12 @@
 import { Brain, Globe2, Plane, BookOpen, Video, Sparkles } from "lucide-react"
 import { Reveal } from "@/components/Reveal"
 import { CourseCard } from "@/components/ui/course-card"
-import icaoPhoto from "@/assets/photos/icao-night-cockpit.jpg"
-import pcaPhoto from "@/assets/photos/pca-flightdeck.jpg"
-import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.jpg"
-import entrevistasPhoto from "@/assets/photos/entrevistas-interview.jpg"
-import aerolineaPhoto from "@/assets/photos/aerolinea-piloto.jpg"
-import wingmanPhoto from "@/assets/photos/wingman-cockpit-dusk.jpg"
+import icaoPhoto from "@/assets/photos/icao-night-cockpit.webp"
+import pcaPhoto from "@/assets/photos/pca-flightdeck.webp"
+import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
+import entrevistasPhoto from "@/assets/photos/entrevistas-interview.webp"
+import aerolineaPhoto from "@/assets/photos/aerolinea-piloto.webp"
+import wingmanPhoto from "@/assets/photos/wingman-cockpit-dusk.webp"
 
 /**
  * Catálogo de cursos: los módulos de Aviatory presentados como cursos

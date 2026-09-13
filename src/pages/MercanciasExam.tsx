@@ -1,6 +1,5 @@
 import { ExamenModulo, type ExamenConfig } from "@/components/exam/ExamenModulo"
-import { reportarError } from "@/lib/errores"
-import { supabase } from "@/integrations/supabase/client"
+import { traerHistorialMercancias } from "@/services/intentosExamen"
 import { MP_APRENDE, MP_EXAM_PER_ATTEMPT, MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA } from "@/lib/mercancias"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import {
@@ -41,25 +40,10 @@ const CONFIG: ExamenConfig = {
   leerMejorLocal: () => readMercanciasLocal().bestScore,
   escribirMejorLocal: (score) => writeMercanciasLocal({ bestScore: score }),
   cargarHistorial: async (uid) => {
-    // Dos consultas: la página reciente para la lista y el máximo histórico
-    // para el puntaje, que con más de 10 intentos puede quedar fuera de la página.
-    const [listRes, bestRes] = await Promise.all([
-      supabase
-        .from("user_mercancias_exam_attempts")
-        .select("id,score,correct,total,taken_at", { count: "exact" })
-        .eq("user_id", uid)
-        .order("taken_at", { ascending: false })
-        .limit(10),
-      supabase.from("user_mercancias_exam_attempts").select("score").eq("user_id", uid).order("score", { ascending: false }).limit(1),
-    ])
-    if (listRes.error) {
-      reportarError("mercancías: historial de evaluación", listRes.error)
-      return null
-    }
-    const rows = (listRes.data ?? []) as { id: string; score: number; correct: number; total: number; taken_at: string }[]
-    const top = (bestRes.data ?? []) as { score: number }[]
+    const historial = await traerHistorialMercancias(uid)
+    if (!historial) return null
     return {
-      rows: rows.map((r) => ({
+      rows: historial.filas.map((r) => ({
         id: r.id,
         score: r.score,
         correct: r.correct,
@@ -68,8 +52,8 @@ const CONFIG: ExamenConfig = {
         duration: null,
         at: r.taken_at,
       })),
-      count: listRes.count ?? rows.length,
-      best: top.length ? top[0].score : null,
+      count: historial.cuantos,
+      best: historial.mejor,
     }
   },
   pasos: {

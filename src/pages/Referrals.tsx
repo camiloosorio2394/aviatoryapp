@@ -1,30 +1,23 @@
 import { useEffect, useState } from "react"
 import { Copy, Check, Gift, Sparkles, Users, MessageSquare, Mail } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { traerEstadisticasDeReferidos, type EstadisticasReferidos } from "@/services/referidos"
 import { useSession } from "@/hooks/useSession"
 import { PageHeader } from "@/components/ui/page-header"
 import { CountUp } from "@/components/ui/count-up"
 
-interface Stats {
-  my_code: string | null
-  total_referred: number
-  active_referred: number
-}
-
 export function Referrals() {
   const { user } = useSession()
-  const [stats, setStats] = useState<Stats | null>(null)
+  const [stats, setStats] = useState<EstadisticasReferidos | null>(null)
   const [loading, setLoading] = useState(true)
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    supabase.rpc("get_referral_stats").then(({ data }) => {
+    void traerEstadisticasDeReferidos().then((fila) => {
       if (cancelled) return
-      const row = Array.isArray(data) ? data[0] : data
-      setStats((row as Stats) ?? null)
+      setStats(fila)
       setLoading(false)
     })
     return () => {

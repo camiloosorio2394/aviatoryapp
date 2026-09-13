@@ -16,15 +16,11 @@ export default defineConfig({
       // usuario no pierda lo que esté haciendo. Ver src/components/ReloadPrompt.tsx
       registerType: 'prompt',
       injectRegister: 'auto',
-      includeAssets: [
-        'favicon-16x16.png',
-        'favicon-32x32.png',
-        'favicon-48x48.png',
-        'apple-touch-icon.png',
-        'og-default.png',
-        'robots.txt',
-        'sitemap.xml',
-      ],
+      // Solo lo que `globPatterns` NO recoge ya. Los .png de public/ entran
+      // por el glob, y listarlos aquí además los metía DOS VECES en el
+      // precache: siete archivos duplicados, 272 KB que cada piloto se
+      // descargaba dos veces al instalar.
+      includeAssets: ['robots.txt', 'sitemap.xml'],
       manifest: {
         name: 'Aviatory',
         short_name: 'Aviatory',
@@ -70,7 +66,20 @@ export default defineConfig({
         // de una seccion concreta. Van bajo demanda por el mismo motivo.
         // Las ilustraciones de los modulos (public/modulos/<modulo>/) son el
         // mismo caso que las infografias: material de una seccion concreta.
-        globIgnores: ['notams/**', 'infografias/**', 'modulos/**'],
+        // Las imagenes de og: las pide el servidor de WhatsApp o de X cuando
+        // alguien comparte un enlace, nunca el navegador del piloto. Meterlas
+        // en el precache eran 160 KB de instalacion que no se miran jamas.
+        // Los android-chrome: los agrega el plugin por su cuenta, porque son
+        // los iconos del manifest. Dejarlos tambien en el glob los metia dos
+        // veces, y son los dos archivos mas pesados de public/.
+        globIgnores: [
+          'notams/**',
+          'infografias/**',
+          'modulos/**',
+          'og-card.jpg',
+          'og-default.png',
+          'android-chrome-*.png',
+        ],
         // Don't pre-cache API responses or auth-required pages
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [

@@ -12,34 +12,9 @@ import {
   MessagesSquare,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { traerIntelDeMateria, type Intel, type RecentReport, type Topic } from "@/services/reportesExamen"
 import { PageHeader } from "@/components/ui/page-header"
 import { SectionTitle } from "@/components/ui/section-title"
-
-interface Topic {
-  key: string
-  label: string
-  count: number
-  frequency_pct: number
-}
-
-interface RecentReport {
-  exam_date: string
-  region: string
-  passed: boolean
-  difficulty: number | null
-  tips: string | null
-}
-
-interface Intel {
-  subject_id: number
-  subject_name: string
-  total_reports: number
-  pass_rate: number | null
-  avg_difficulty: number | null
-  top_topics: Topic[]
-  recent_reports: RecentReport[]
-}
 
 const REGION_LABEL: Record<string, string> = {
   bogota: "Bogotá",
@@ -63,14 +38,10 @@ export function ExamTrackerSubject() {
     let alive = true
     void (async () => {
       setLoading(true)
-      const { data, error } = await supabase.rpc("get_subject_intel", { p_subject_slug: slug })
+      const { intel: traido, error } = await traerIntelDeMateria(slug)
       if (!alive) return
-      if (error) {
-        toast.error(error.message)
-      } else {
-        const row = Array.isArray(data) ? data[0] : data
-        setIntel((row as Intel) ?? null)
-      }
+      if (error) toast.error(error.message)
+      else setIntel(traido)
       setLoading(false)
     })()
     return () => {

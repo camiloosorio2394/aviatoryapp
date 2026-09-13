@@ -9,10 +9,16 @@ import {
   Check,
   Plane,
   AtSign,
+  Fingerprint,
   X,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import {
+  comprobarUsuarioLibre,
+  entrarConClave,
+  entrarConGoogle,
+  registrarPiloto,
+} from "@/services/sesion"
 import { useSession } from "@/hooks/useSession"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -21,6 +27,7 @@ import { LogoHorizontal, LogoIsotype } from "@/components/Logo"
 import { PasswordRules } from "@/components/auth/PasswordRules"
 import { Seo } from "@/components/Seo"
 import { track, Events } from "@/lib/analytics"
+import { entrarConPasskey, soportaPasskeys } from "@/services/passkeys"
 
 type Mode = "signin" | "signup"
 
@@ -84,6 +91,7 @@ export function Login() {
   const [confirm, setConfirm] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [passkeyCargando, setPasskeyCargando] = useState(false)
   const [error, setError] = useState<string | null>(null)
   /**
    * Lo único que se guarda del usuario es la respuesta del servidor, con el
@@ -130,10 +138,8 @@ export function Login() {
     if (!hayQuePreguntar) return
     window.clearTimeout(checkTimer.current)
     checkTimer.current = window.setTimeout(async () => {
-      const { data, error } = await supabase.rpc("check_username_available", {
-        p_username: username,
-      })
-      setRespuesta({ nombre: username, libre: error ? null : !!data })
+      const { libre } = await comprobarUsuarioLibre(username)
+      setRespuesta({ nombre: username, libre })
     }, 400)
     return () => window.clearTimeout(checkTimer.current)
   }, [username, hayQuePreguntar])
@@ -166,37 +172,23 @@ export function Login() {
       if (isSignup) {
         track(Events.SIGNUP_STARTED, { method: "email" })
         // Double-check username right before signup (race-safe)
-        const { data: stillAvailable, error: checkErr } = await supabase.rpc(
-          "check_username_available",
-          { p_username: username }
-        )
+        const { libre, error: checkErr } = await comprobarUsuarioLibre(username)
         if (checkErr) throw checkErr
-        if (!stillAvailable) {
+        if (!libre) {
           setRespuesta({ nombre: username, libre: false })
           throw new Error("Ese usuario ya fue tomado mientras escribías. Prueba otro.")
         }
 
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            data: {
-              username,
-              ...(referralCode ? { referral_code: referralCode } : {}),
-            },
-          },
-        })
-        if (error) throw error
+        const { haySesion } = await registrarPiloto({ email, password, username, referralCode })
         track(Events.SIGNUP_COMPLETED, { method: "email" })
-        if (data.session) {
+        if (haySesion) {
           navigate("/onboarding", { replace: true })
         } else {
           toast.success("Te enviamos un email de confirmación. Revisa tu bandeja.")
           setMode("signin")
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw error
+        await entrarConClave(email, password)
         track(Events.LOGIN_COMPLETED, { method: "email" })
       }
     } catch (err) {
@@ -207,13 +199,25 @@ export function Login() {
     }
   }
 
+  /**
+   * Entrar con Face ID, Touch ID o huella. La credencial es descubrible: el
+   * sistema ofrece las que el piloto tenga para este sitio, así que no hace
+   * falta escribir el correo. Al salir bien, `useSession` navega igual que con
+   * cualquier otro ingreso. Cancelar no es un error y no muestra nada.
+   */
+  async function handlePasskey() {
+    setError(null)
+    setPasskeyCargando(true)
+    const resultado = await entrarConPasskey()
+    if (resultado.ok) track(Events.LOGIN_COMPLETED, { method: "passkey" })
+    else if (resultado.mensaje) setError(resultado.mensaje)
+    setPasskeyCargando(false)
+  }
+
   async function handleGoogle() {
     setError(null)
     track(isSignup ? Events.SIGNUP_STARTED : Events.LOGIN_COMPLETED, { method: "google" })
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/app` },
-    })
+    const { error } = await entrarConGoogle(`${window.location.origin}/app`)
     if (error) setError(error.message)
   }
 
@@ -325,6 +329,25 @@ export function Login() {
                 <GoogleIcon className="h-5 w-5" />
                 Continuar con Google
               </Button>
+              {/* Solo al entrar, y solo donde el navegador trae WebAuthn: un
+                  botón que no puede funcionar es peor que no tener botón. */}
+              {!isSignup && soportaPasskeys() && (
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="lg"
+                  className="w-full h-12 rounded-full text-[15px] font-medium border-2 hover:border-blue-500/40 transition-[transform,box-shadow,border-color,background-color] hover:-translate-y-0.5"
+                  onClick={handlePasskey}
+                  disabled={passkeyCargando}
+                >
+                  {passkeyCargando ? (
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                  ) : (
+                    <Fingerprint className="h-5 w-5" />
+                  )}
+                  Entrar con Face ID o huella
+                </Button>
+              )}
             </div>
 
             <div className="my-6 flex items-center gap-3">
