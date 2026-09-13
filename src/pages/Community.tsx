@@ -22,7 +22,7 @@ import {
   relativeTime,
   type ChannelType,
 } from "@/lib/communityChannels"
-import heroPhoto from "@/assets/photos/aerolinea-piloto.jpg"
+import heroPhoto from "@/assets/photos/aerolinea-piloto.webp"
 
 const GROUP_ORDER: ChannelType[] = ["general", "stage", "subject", "airline"]
 

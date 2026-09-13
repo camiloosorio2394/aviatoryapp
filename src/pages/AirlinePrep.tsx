@@ -41,12 +41,12 @@ import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
-import notamPhoto from "@/assets/photos/tema-notam-pista-luces.jpg"
-import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.jpg"
+import notamPhoto from "@/assets/photos/tema-notam-pista-luces.webp"
+import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.webp"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
-import matchPhoto from "@/assets/photos/aerolinea-piloto.jpg"
-import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.jpg"
+import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
+import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.webp"
 // La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
 // así que el hero no repite imagen con lo que tiene debajo.
 import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
