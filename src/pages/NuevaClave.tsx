@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { ArrowRight, Eye, EyeOff, Loader2, ShieldCheck } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { cambiarClave, cerrarSesion } from "@/services/sesion"
 import { useSession } from "@/hooks/useSession"
 import { AuthShell } from "@/components/auth/AuthShell"
 import { PasswordRules } from "@/components/auth/PasswordRules"
@@ -69,7 +69,7 @@ export function NuevaClave() {
 
   // Si el enlace vino con error no tiene sentido dejar la sesión a medias.
   useEffect(() => {
-    if (errorEnlace) void supabase.auth.signOut()
+    if (errorEnlace) void cerrarSesion()
   }, [errorEnlace])
 
   async function guardar(evento: FormEvent) {
@@ -77,8 +77,7 @@ export function NuevaClave() {
     setError(null)
     setGuardando(true)
     try {
-      const { error } = await supabase.auth.updateUser({ password: clave })
-      if (error) throw error
+      await cambiarClave(clave)
       toast.success("Listo, tu contraseña quedó cambiada.")
       navigate("/app", { replace: true })
     } catch (err) {
