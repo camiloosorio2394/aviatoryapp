@@ -2,7 +2,15 @@ import { createContext, useContext } from "react"
 
 export interface Notification {
   id: number
-  type: "achievement" | "streak_at_risk" | "milestone_close" | "expiry_warning" | "community_mention" | "wingman_insight"
+  type:
+    | "achievement"
+    | "streak_at_risk"
+    | "milestone_close"
+    | "expiry_warning"
+    | "community_mention"
+    | "wingman_insight"
+    /** «Hoy es uno de los días que elegiste». Lo manda el agendador, no la app. */
+    | "plan_reminder"
   title: string
   body: string | null
   icon: string | null
