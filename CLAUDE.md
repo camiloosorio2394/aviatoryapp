@@ -29,6 +29,19 @@ largas en el contenido**; van paréntesis o comillas angulares.
 grupo sin layout. El chip de racha de la barra se publica con `useRachaEnBarra()`. Los avisos y
 los toasts de logros llegan por Realtime (`NotificacionesProvider`): nada se consulta por sondeo.
 
+**El acceso a datos no vive en la pantalla**: una pantalla o un componente no importa
+`@/integrations/supabase/client` ni consulta la base. Pide los datos a un servicio de
+`src/services/*`, que es donde van la consulta, la forma validada y el `reportarError`
+(modelos: `services/bitacora.ts`, `services/panel.ts`, `services/evaluaciones.ts`), o a los
+hooks y `lib` que ya existen. Así la pantalla se prueba sin red y la consulta se prueba sin
+pantalla. Lo vigila `@typescript-eslint/no-restricted-imports` en `eslint.config.js`.
+
+Las pantallas que todavía lo hacen están en la lista `ACCESO_DIRECTO_HEREDADO` del mismo
+archivo, generada con grep. **Esa lista solo se achica**: la pantalla que pasa a un servicio
+sale de ahí y no vuelve, y una pantalla nueva no se agrega. Ojo al tocar esos bloques: el
+contenido pesado y el cliente comparten la regla a propósito, porque en flat config el último
+bloque que la nombra la reemplaza entera y si no compartieran se pisarían.
+
 **Errores**: lo que rompe algo que el piloto esperaba (una pantalla que se cae, algo que no se
 guardó, una respuesta del servidor con otra forma) va por `reportarError(contexto, error)` de
 `src/lib/errores.ts`. Queda en la consola y en la tabla `errores_cliente`, que se lee desde el
@@ -51,7 +64,7 @@ Cada módulo cambia solo el acento, re-anclando `--av-blue-500`:
 |---|---|---|
 | NOTAM | `.lector-notam` | `#123A6B` azul carta |
 | Mercancías | `.lector-notam .lector-mp` | `#7A5C12` mostaza (tokens `--av-dg-*`) |
-| Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
+| Meteorología | `.lector-notam .lector-mt` | `#1A4A52` turquesa petróleo (tokens `--av-mt-*`) |
 
 **El ámbar y el rojo no son identidad, son semántica**: significan alerta y error en toda la
 app. No usarlos como color de módulo. Y `--av-green-400` es el verde de «correcto»: por eso
