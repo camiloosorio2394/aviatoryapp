@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { LogoIsotype } from "@/components/Logo"
+import { useSession } from "@/hooks/useSession"
 
 const navLinks = [
   { to: "/", label: "Inicio" },
@@ -13,6 +14,13 @@ const navLinks = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  /**
+   * Las páginas públicas también las miran pilotos con la sesión abierta: el
+   * botón «Ver planes» de la barra, el de Wingman cuando se acaba el límite
+   * gratis, y el «Ir al inicio» del 404. Ofrecerles «Iniciar sesión» ahí
+   * parecía haberlos echado de la app, y no había puerta de vuelta.
+   */
+  const { session } = useSession()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -82,21 +90,33 @@ export function Header() {
         </nav>
 
         <div className="hidden md:flex items-center gap-2">
-          <Button
-            asChild
-            variant="ghost"
-            size="sm"
-            className="rounded-full h-11 px-5 text-[15px] font-semibold"
-          >
-            <Link to="/login">Iniciar sesión</Link>
-          </Button>
-          <Button
-            asChild
-            size="sm"
-            className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
-          >
-            <Link to="/login?mode=signup">Comenzar gratis</Link>
-          </Button>
+          {session ? (
+            <Button
+              asChild
+              size="sm"
+              className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
+            >
+              <Link to="/app">Volver a la app</Link>
+            </Button>
+          ) : (
+            <>
+              <Button
+                asChild
+                variant="ghost"
+                size="sm"
+                className="rounded-full h-11 px-5 text-[15px] font-semibold"
+              >
+                <Link to="/login">Iniciar sesión</Link>
+              </Button>
+              <Button
+                asChild
+                size="sm"
+                className="btn-apple rounded-full h-11 px-6 text-[15px] border-0 font-semibold"
+              >
+                <Link to="/login?mode=signup">Comenzar gratis</Link>
+              </Button>
+            </>
+          )}
         </div>
 
         <button
@@ -131,25 +151,39 @@ export function Header() {
               </NavLink>
             ))}
             <div className="pt-4 mt-2 border-t border-border/40 flex flex-col gap-2.5">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="w-full rounded-full h-12 text-[17px]"
-              >
-                <Link to="/login" onClick={() => setMobileOpen(false)}>
-                  Iniciar sesión
-                </Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                className="btn-apple w-full rounded-full h-12 text-[17px] border-0"
-              >
-                <Link to="/login?mode=signup" onClick={() => setMobileOpen(false)}>
-                  Comenzar gratis
-                </Link>
-              </Button>
+              {session ? (
+                <Button
+                  asChild
+                  size="lg"
+                  className="btn-apple w-full rounded-full h-12 text-[17px] border-0"
+                >
+                  <Link to="/app" onClick={() => setMobileOpen(false)}>
+                    Volver a la app
+                  </Link>
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="w-full rounded-full h-12 text-[17px]"
+                  >
+                    <Link to="/login" onClick={() => setMobileOpen(false)}>
+                      Iniciar sesión
+                    </Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    className="btn-apple w-full rounded-full h-12 text-[17px] border-0"
+                  >
+                    <Link to="/login?mode=signup" onClick={() => setMobileOpen(false)}>
+                      Comenzar gratis
+                    </Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
