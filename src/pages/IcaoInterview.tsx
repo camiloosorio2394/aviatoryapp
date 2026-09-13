@@ -11,8 +11,7 @@ import {
   Sparkles,
   UserCircle2,
 } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
-import { reportarError } from "@/lib/errores"
+import { traerPilotoParaEntrevista } from "@/services/ingles"
 import { useSession } from "@/hooks/useSession"
 import { TEA_PART1_SETS, TEA_PART1_TOTAL, type InterviewQuestion } from "@/lib/icaoInterview"
 import { personalizedInterviewAnswer, type InterviewPilot } from "@/lib/personalizeInterview"
@@ -47,46 +46,12 @@ export function IcaoInterview() {
     }
   }, [user?.id])
 
-  // El país está en `profiles` y el resto en `pilot_state`: son dos consultas
-  // porque entre las dos tablas no hay clave foránea que PostgREST pueda seguir.
   useEffect(() => {
     if (!user) return
     let cancelled = false
-
-    void (async () => {
-      const [estado, perfil] = await Promise.all([
-        supabase
-          .from("pilot_state")
-          .select("stage, total_hours, hours_pic, target_airline, licenses")
-          .eq("user_id", user.id)
-          .maybeSingle(),
-        supabase.from("profiles").select("country").eq("id", user.id).maybeSingle(),
-      ])
-      if (cancelled) return
-
-      // Si falla se reporta: sin esto, el error se tragaba y las respuestas
-      // sugeridas salían genéricas para todo el mundo sin que nadie lo supiera.
-      const error = estado.error ?? perfil.error
-      if (error) {
-        reportarError("entrevista: perfil del piloto", error)
-        return
-      }
-      if (!estado.data && !perfil.data) return
-
-      const p = estado.data as {
-        stage?: InterviewPilot["stage"]; total_hours?: number; hours_pic?: number
-        target_airline?: string; licenses?: string[]
-      } | null
-      setPilot({
-        stage: p?.stage ?? null,
-        totalHours: p?.total_hours ?? null,
-        hoursPic: p?.hours_pic ?? null,
-        targetAirline: p?.target_airline ?? null,
-        licenses: p?.licenses ?? null,
-        country: (perfil.data as { country?: string } | null)?.country ?? null,
-      })
-    })()
-
+    void traerPilotoParaEntrevista(user.id).then((p) => {
+      if (!cancelled && p) setPilot(p)
+    })
     return () => { cancelled = true }
   }, [user])
 

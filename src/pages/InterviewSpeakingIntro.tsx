@@ -11,8 +11,7 @@ import {
   CheckCircle2,
   ArrowRight,
 } from "lucide-react"
-import { supabase } from "@/integrations/supabase/client"
-import { reportarError } from "@/lib/errores"
+import { traerPreguntasDeEntrevista, type InterviewQuestion } from "@/services/ingles"
 
 /**
  * Preguntas de entrevista intro (speaking) — las que TODA aerolínea hace al
@@ -25,56 +24,17 @@ import { reportarError } from "@/lib/errores"
  * feedback tables) pero queda para una iteración siguiente.
  */
 
-interface Question {
-  id: number
-  slug: string
-  question_text: string
-  intent: string | null
-  expected_topics: string[]
-  follow_ups: string[]
-  ideal_duration_seconds: number
-  order_index: number
-}
-
-interface CategoryRow {
-  id: number
-}
-
 export function InterviewSpeakingIntro() {
-  const [questions, setQuestions] = useState<Question[]>([])
+  const [questions, setQuestions] = useState<InterviewQuestion[]>([])
   const [loading, setLoading] = useState(true)
   const [openId, setOpenId] = useState<number | null>(null)
 
   useEffect(() => {
     let cancelled = false
     ;(async () => {
-      const cat = await supabase
-        .from("interview_sim_categories")
-        .select("id")
-        .eq("slug", "intro_speaking")
-        .maybeSingle()
+      const preguntas = await traerPreguntasDeEntrevista("intro_speaking")
       if (cancelled) return
-      const catRow = cat.data as CategoryRow | null
-      if (!catRow) {
-        setLoading(false)
-        return
-      }
-      const qres = await supabase
-        .from("interview_sim_questions")
-        .select("id,slug,question_text,intent,expected_topics,follow_ups,ideal_duration_seconds,order_index")
-        .eq("category_id", catRow.id)
-        .eq("is_active", true)
-        .order("order_index", { ascending: true })
-      if (cancelled) return
-      if (qres.error) {
-        reportarError("entrevista: preguntas", qres.error)
-      } else {
-        setQuestions((qres.data ?? []).map((row) => ({
-          ...row,
-          expected_topics: Array.isArray(row.expected_topics) ? (row.expected_topics as string[]) : [],
-          follow_ups: Array.isArray(row.follow_ups) ? (row.follow_ups as string[]) : [],
-        })) as Question[])
-      }
+      setQuestions(preguntas)
       setLoading(false)
     })()
     return () => { cancelled = true }
@@ -211,7 +171,7 @@ export function InterviewSpeakingIntro() {
   )
 }
 
-function QuestionRow({ number, question, open, onToggle }: { number: number; question: Question; open: boolean; onToggle: () => void }) {
+function QuestionRow({ number, question, open, onToggle }: { number: number; question: InterviewQuestion; open: boolean; onToggle: () => void }) {
   return (
     <div
       className="rounded-2xl border bg-card overflow-hidden"
