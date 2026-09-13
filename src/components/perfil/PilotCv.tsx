@@ -23,6 +23,8 @@ export function PilotCv({
   stageLabel,
   totalHours,
   hoursPic,
+  horasVerificadas,
+  horasVerificadasEn,
   flightCount,
   licenses,
   targetAirline,
@@ -43,8 +45,11 @@ export function PilotCv({
   country: string
   stage: string
   stageLabel: string | null
-  totalHours: string
-  hoursPic: string
+  /** Carrera completa: horas previas más bitácora, tal como la calcula la base. */
+  totalHours: number | null
+  hoursPic: number | null
+  horasVerificadas: boolean
+  horasVerificadasEn: string | null
   flightCount: number
   licenses: string[]
   targetAirline: string
@@ -72,7 +77,7 @@ export function PilotCv({
     { label: "nombre", ok: fullName.trim().length > 0 },
     { label: "país", ok: country.trim().length > 0 },
     { label: "etapa", ok: Boolean(stage) },
-    { label: "horas declaradas", ok: Number(totalHours) > 0 },
+    { label: "horas declaradas", ok: (totalHours ?? 0) > 0 },
     { label: "licencias", ok: licenses.length > 0 },
     { label: "certificados con vigencia", ok: certs.some((c) => c.expires_date) },
     { label: "inglés ICAO por simulacro", ok: icaoVerificado },
@@ -237,11 +242,17 @@ export function PilotCv({
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div>
             <div className="text-[12px] doc-muted">Horas totales</div>
-            <div className="tabular-nums text-[20px] font-semibold">{totalHours || "—"}</div>
+            <div className="tabular-nums text-[20px] font-semibold">{horas(totalHours)}</div>
+            {horasVerificadas && (
+              <div className="mt-1 flex items-center gap-1.5">
+                <FuenteChip verificado />
+                <span className="text-[11px] doc-muted">{cvDate(diaDe(horasVerificadasEn))}</span>
+              </div>
+            )}
           </div>
           <div>
             <div className="text-[12px] doc-muted">Horas PIC</div>
-            <div className="tabular-nums text-[20px] font-semibold">{hoursPic || "—"}</div>
+            <div className="tabular-nums text-[20px] font-semibold">{horas(hoursPic)}</div>
           </div>
           <div className="col-span-2">
             <div className="text-[12px] doc-muted">Licencias</div>
@@ -332,4 +343,14 @@ export function PilotCv({
       </footer>
     </article>
   )
+}
+
+/** Las horas con un decimal, o la raya cuando no hay nada que mostrar. */
+function horas(valor: number | null): string {
+  return valor === null || valor === 0 ? "—" : valor.toFixed(1)
+}
+
+/** El día de un instante del servidor, para que lo formatee cvDate. */
+function diaDe(iso: string | null): string | null {
+  return iso ? iso.slice(0, 10) : null
 }

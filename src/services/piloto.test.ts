@@ -21,8 +21,8 @@ import { guardarNivelIcaoEstimado, guardarPerfilInicial } from "./piloto"
 
 const PERFIL = {
   stage: "cpl_in_progress",
-  totalHours: 240,
-  hoursPic: 120,
+  horasPreviasTotal: 240,
+  horasPreviasPic: 120,
   licenses: ["PPL"],
   targetAirline: "Avianca",
   targetDate: "2027-06-01",
@@ -43,8 +43,8 @@ describe("el perfil que llena el onboarding", () => {
     expect(escrito).toMatchObject({
       user_id: "piloto",
       stage: "cpl_in_progress",
-      total_hours: 240,
-      hours_pic: 120,
+      horas_previas_total: 240,
+      horas_previas_pic: 120,
       licenses: ["PPL"],
       target_airline: "Avianca",
       target_date: "2027-06-01",
@@ -69,7 +69,7 @@ describe("el nivel de inglés estimado por el test inicial", () => {
 
     const escrito = ultimoUpsert.fila ?? {}
     expect(escrito).toMatchObject({ user_id: "piloto", icao_english_level: 4 })
-    for (const columna of ["stage", "total_hours", "hours_pic", "licenses", "target_airline", "target_date"]) {
+    for (const columna of ["stage", "horas_previas_total", "horas_previas_pic", "licenses", "target_airline", "target_date"]) {
       expect(escrito).not.toHaveProperty(columna)
     }
     expect(reportarError).not.toHaveBeenCalled()

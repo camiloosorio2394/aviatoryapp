@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent } from "react"
+import { useCallback, useEffect, useRef, useState, type ChangeEvent } from "react"
 import { toast } from "sonner"
 import { AtSign, Camera, FileText, Loader2, Save, Trash2, Radar, Settings, User as UserIcon } from "lucide-react"
 import {
@@ -31,8 +31,12 @@ import { SkillsRadar } from "@/components/perfil/SkillsRadar"
 import { StrengthsSummary } from "@/components/perfil/StrengthsSummary"
 import { UsernameHelp } from "@/components/perfil/UsernameHelp"
 import { UsernameIcon } from "@/components/perfil/UsernameIcon"
+import { VerificacionHoras } from "@/components/perfil/VerificacionHoras"
 import { LICENSES, STAGES, USERNAME_REGEX } from "@/components/perfil/datos"
 import type { CertRow, Skill, Stage, UsernameStatus } from "@/components/perfil/tipos"
+import { traerVerificacion, type VerificacionDeHoras } from "@/services/verificacionHoras"
+
+const totalHoras = (minutos: number) => (minutos / 60).toFixed(1)
 
 export function Profile() {
   const { user } = useSession()
@@ -65,6 +69,24 @@ export function Profile() {
   const [achCount, setAchCount] = useState<{ unlocked: number; total: number }>({ unlocked: 0, total: 0 })
   const [studyStats, setStudyStats] = useState<{ pcaBest: number | null; quizzes: number; longestStreak: number }>({ pcaBest: null, quizzes: 0, longestStreak: 0 })
   const [lastFlight, setLastFlight] = useState<string | null>(null)
+  /** La carrera completa que calcula la base: previas más bitácora. */
+  const [totalCarrera, setTotalCarrera] = useState<number | null>(null)
+  const [picCarrera, setPicCarrera] = useState<number | null>(null)
+  const [verificacion, setVerificacion] = useState<VerificacionDeHoras | null>(null)
+
+  /**
+   * El sello de verificación se relee aparte del perfil: cambia cuando el
+   * piloto pide o retira la revisión, y no hay por qué recargar todo el perfil
+   * para eso.
+   */
+  const releerVerificacion = useCallback(() => {
+    if (!user) return
+    traerVerificacion(user.id).then(setVerificacion)
+  }, [user])
+
+  useEffect(() => {
+    releerVerificacion()
+  }, [releerVerificacion])
 
   useEffect(() => {
     if (!user) return
@@ -79,8 +101,10 @@ export function Profile() {
         setOriginalUsername(datos.username)
         setPhotoUrl(datos.photoUrl)
         setStage(datos.stage)
-        setTotalHours(datos.totalHours)
-        setHoursPic(datos.hoursPic)
+        setTotalHours(datos.horasPreviasTotal)
+        setHoursPic(datos.horasPreviasPic)
+        setTotalCarrera(datos.totalCarrera)
+        setPicCarrera(datos.picCarrera)
         setTargetAirline(datos.targetAirline)
         setLicenses(datos.licenses)
         setFlightAgg(datos.vuelos)
@@ -191,7 +215,7 @@ export function Profile() {
     }
     setSaving(true)
     try {
-      await guardarPerfil(user.id, { fullName, country, username, stage, totalHours, hoursPic, targetAirline, licenses })
+      await guardarPerfil(user.id, { fullName, country, username, stage, horasPreviasTotal: totalHours, horasPreviasPic: hoursPic, targetAirline, licenses })
       setOriginalUsername(username)
       toast.success("Perfil actualizado")
     } catch (err) {
@@ -232,9 +256,11 @@ export function Profile() {
   const BENCH = { totalH: 1500, picH: 1000, xcH: 200 }
   const fmtH = (h: number) => (h % 1 === 0 ? String(h) : h.toFixed(1))
   const hasFlights = flightAgg.count > 0
-  // Horas/PIC: del Logbook si hay vuelos; si no, del valor en pilot_state.
-  const totalH = hasFlights ? flightAgg.totalMin / 60 : Number(totalHours) || 0
-  const picH = hasFlights ? flightAgg.picMin / 60 : Number(hoursPic) || 0
+  // Horas/PIC: la carrera completa que calcula la base (previas más bitácora).
+  // Antes se escogía entre una cosa y la otra, y con un vuelo registrado aquí
+  // el Pilot ID mostraba las horas de ese vuelo y no las de la carrera.
+  const totalH = totalCarrera ?? 0
+  const picH = picCarrera ?? 0
   const xcH = flightAgg.xcMin / 60
   const recurPct = currency.total > 0 ? (currency.valid / currency.total) * 100 : null
   const icaoPct = icaoLevel != null ? (icaoLevel / 6) * 100 : null
@@ -399,13 +425,35 @@ export function Profile() {
                   </Select>
                 </Field>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <Field label="Horas totales">
+                  <Field label="Horas antes de Aviatory">
                     <Input type="number" value={totalHours} onChange={(e) => setTotalHours(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                   </Field>
-                  <Field label="Horas PIC">
+                  <Field label="De esas, PIC">
                     <Input type="number" value={hoursPic} onChange={(e) => setHoursPic(e.target.value)} className="h-11 rounded-xl tabular-nums" />
                   </Field>
                 </div>
+                {/* El total no se escribe: lo calcula la base sumando lo de
+                    arriba y la bitácora. Se muestra para que el piloto vea que
+                    registrar vuelos aquí suma y no reemplaza. */}
+                <div className="rounded-xl surface px-4 py-3 flex items-baseline justify-between gap-3">
+                  <span className="text-[13px] text-muted-foreground">
+                    Total de carrera
+                    {flightAgg.count > 0 && ` · ${totalHoras(flightAgg.totalMin)} h de ${flightAgg.count} ${flightAgg.count === 1 ? "vuelo" : "vuelos"} en Aviatory`}
+                  </span>
+                  <span className="tabular-nums text-[17px] font-semibold text-foreground">
+                    {totalCarrera != null ? `${totalCarrera.toFixed(1)} h` : "—"}
+                    {picCarrera != null && <span className="ml-2 text-[13px] font-normal text-muted-foreground">PIC {picCarrera.toFixed(1)}</span>}
+                  </span>
+                </div>
+                {user && (
+                  <VerificacionHoras
+                    userId={user.id}
+                    totalCarrera={totalCarrera}
+                    picCarrera={picCarrera}
+                    verificacion={verificacion}
+                    alCambiar={releerVerificacion}
+                  />
+                )}
                 <Field label="Licencias">
                   <div className="flex flex-wrap gap-2">
                     {LICENSES.map((lic) => {
@@ -479,8 +527,10 @@ export function Profile() {
             country={country}
             stage={stage}
             stageLabel={STAGES.find((s) => s.value === stage)?.label ?? null}
-            totalHours={totalHours}
-            hoursPic={hoursPic}
+            totalHours={totalCarrera}
+            hoursPic={picCarrera}
+            horasVerificadas={verificacion?.estado === "verificada" && verificacion.cubreLoDeclarado}
+            horasVerificadasEn={verificacion?.revisadoEn ?? null}
             flightCount={flightAgg.count}
             licenses={licenses}
             targetAirline={targetAirline}

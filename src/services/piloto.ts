@@ -12,24 +12,26 @@ import { reportarError } from "@/lib/errores"
 
 export interface PerfilInicial {
   stage: string | null
-  totalHours: number | null
-  hoursPic: number | null
+  /** Lo volado antes de Aviatory. La base le suma la bitácora para el total. */
+  horasPreviasTotal: number | null
+  horasPreviasPic: number | null
   licenses: string[]
   targetAirline: string | null
   targetDate: string | null
 }
 
 /**
- * Lo que llena el onboarding. `icao_english_level` NO se escribe aquí: sale
- * del test inicial o del simulacro TEA, nunca de lo que el piloto declare.
+ * Lo que llena el onboarding. Dos cosas NO se escriben aquí:
+ * `icao_english_level`, que sale del test inicial o del simulacro TEA, y
+ * `total_hours`, que lo calcula la base como previas más bitácora.
  * Lanza si falla, que es lo que espera la pantalla.
  */
 export async function guardarPerfilInicial(userId: string, datos: PerfilInicial): Promise<void> {
   const { error } = await supabase.from("pilot_state").upsert({
     user_id: userId,
     stage: datos.stage,
-    total_hours: datos.totalHours,
-    hours_pic: datos.hoursPic,
+    horas_previas_total: datos.horasPreviasTotal,
+    horas_previas_pic: datos.horasPreviasPic,
     licenses: datos.licenses,
     target_airline: datos.targetAirline,
     target_date: datos.targetDate,

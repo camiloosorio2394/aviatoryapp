@@ -19,8 +19,13 @@ export interface DatosDelPerfil {
   username: string
   photoUrl: string | null
   stage: Stage | ""
-  totalHours: string
-  hoursPic: string
+  /** Lo que el piloto editaba antes como «horas totales»: ahora es su carrera
+   *  previa a Aviatory. El total lo calcula la base sumándole la bitácora. */
+  horasPreviasTotal: string
+  horasPreviasPic: string
+  /** La carrera completa, calculada. Solo se muestra. */
+  totalCarrera: number | null
+  picCarrera: number | null
   targetAirline: string
   licenses: string[]
   vuelos: { totalMin: number; picMin: number; xcMin: number; count: number }
@@ -34,6 +39,8 @@ export interface DatosDelPerfil {
 
 interface FilaPiloto {
   stage?: Stage
+  horas_previas_total?: number
+  horas_previas_pic?: number
   total_hours?: number
   hours_pic?: number
   icao_english_level?: number
@@ -121,8 +128,10 @@ export async function traerPerfil(userId: string): Promise<DatosDelPerfil> {
     username: p.username ?? "",
     photoUrl: p.photo_url ?? null,
     stage: pilot?.stage ?? "",
-    totalHours: pilot?.total_hours?.toString() ?? "",
-    hoursPic: pilot?.hours_pic?.toString() ?? "",
+    horasPreviasTotal: pilot?.horas_previas_total?.toString() ?? "",
+    horasPreviasPic: pilot?.horas_previas_pic?.toString() ?? "",
+    totalCarrera: pilot?.total_hours ?? null,
+    picCarrera: pilot?.hours_pic ?? null,
     targetAirline: pilot?.target_airline ?? "",
     licenses: pilot?.licenses ?? [],
     vuelos: {
@@ -187,8 +196,8 @@ export interface PerfilParaGuardar {
   country: string
   username: string
   stage: Stage | ""
-  totalHours: string
-  hoursPic: string
+  horasPreviasTotal: string
+  horasPreviasPic: string
   targetAirline: string
   licenses: string[]
 }
@@ -207,8 +216,10 @@ export async function guardarPerfil(userId: string, datos: PerfilParaGuardar): P
     supabase.from("pilot_state").upsert({
       user_id: userId,
       stage: datos.stage || null,
-      total_hours: datos.totalHours ? Number(datos.totalHours) : null,
-      hours_pic: datos.hoursPic ? Number(datos.hoursPic) : null,
+      // total_hours y hours_pic NO se mandan: los calcula la base sumando
+      // estas horas previas más la bitácora (20260912210000_horas_de_carrera).
+      horas_previas_total: datos.horasPreviasTotal ? Number(datos.horasPreviasTotal) : null,
+      horas_previas_pic: datos.horasPreviasPic ? Number(datos.horasPreviasPic) : null,
       // icao_english_level NO se setea acá: el nivel oficial sale del simulacro TEA.
       target_airline: datos.targetAirline || null,
       licenses: datos.licenses,
