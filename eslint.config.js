@@ -39,47 +39,6 @@ const CONTENIDO = [
   },
 ]
 
-/**
- * Pantallas y componentes que todavía consultan la base directo, con el cliente
- * de Supabase importado en el propio archivo. El acceso a datos va en
- * `src/services/*` (modelos: `services/bitacora.ts`, `services/panel.ts`,
- * `services/evaluaciones.ts`) o en los hooks y lib que ya existen.
- *
- * **Esta lista solo se achica.** Cada pantalla que pasa a un servicio sale de
- * aquí y no vuelve; una pantalla nueva no se agrega. La lista se generó con
- * grep, no a mano:
- *
- *   grep -rln "@/integrations/supabase/client" src/pages src/components \
- *     --include="*.ts" --include="*.tsx" | grep -v "\.test\." | sort
- */
-const ACCESO_DIRECTO_HEREDADO = [
-  'src/components/layout/AppTopbar.tsx',
-  'src/components/layout/NotificacionesProvider.tsx',
-  'src/pages/AirlinePrep.tsx',
-  'src/pages/Airlines.tsx',
-  'src/pages/Community.tsx',
-  'src/pages/CommunityChannel.tsx',
-  'src/pages/ExamTracker.tsx',
-  'src/pages/ExamTrackerSubject.tsx',
-  'src/pages/Expiries.tsx',
-  'src/pages/IcaoInterview.tsx',
-  'src/pages/IcaoVocabulary.tsx',
-  'src/pages/InterviewSpeakingIntro.tsx',
-  'src/pages/Logbook.tsx',
-  'src/pages/Login.tsx',
-  'src/pages/MercanciasExam.tsx',
-  'src/pages/Metar.tsx',
-  'src/pages/Notam.tsx',
-  'src/pages/NotamExam.tsx',
-  'src/pages/NuevaClave.tsx',
-  'src/pages/Onboarding.tsx',
-  'src/pages/Profile.tsx',
-  'src/pages/Recuperar.tsx',
-  'src/pages/Referrals.tsx',
-  'src/pages/Route.tsx',
-  'src/pages/TestInicial.tsx',
-]
-
 const CLIENTE_SUPABASE = {
   name: '@/integrations/supabase/client',
   message:
@@ -172,8 +131,12 @@ export default defineConfig([
     // Una pantalla no habla con la base: le pide los datos a un servicio, que es
     // donde vive la consulta, la forma validada y el reporte de error. Así la
     // pantalla se prueba sin red y la consulta se prueba sin pantalla.
+    //
+    // Ya no hay excepciones: la lista de las veinticinco pantallas que todavía
+    // consultaban directo quedó vacía y se borró. Una pantalla nueva no puede
+    // volver a abrirla, que era justo el riesgo de dejarla puesta.
     files: ['src/pages/**/*.{ts,tsx}', 'src/components/**/*.{ts,tsx}'],
-    ignores: ['src/**/*.test.{ts,tsx}', ...ACCESO_DIRECTO_HEREDADO],
+    ignores: ['src/**/*.test.{ts,tsx}'],
     rules: restringirImports(null, true),
   },
   // Cada sección puede importar su propio contenido y nada más. Va después de
@@ -181,14 +144,6 @@ export default defineConfig([
   // lleva también la restricción del cliente.
   ...[...new Set(CONTENIDO.flatMap((c) => c.permitido))].flatMap((patron) => [
     { files: [patron], rules: restringirImports(patron, false) },
-    ...(esPantalla(patron)
-      ? [
-          {
-            files: [patron],
-            ignores: ACCESO_DIRECTO_HEREDADO,
-            rules: restringirImports(patron, true),
-          },
-        ]
-      : []),
+    ...(esPantalla(patron) ? [{ files: [patron], rules: restringirImports(patron, true) }] : []),
   ]),
 ])

@@ -83,7 +83,15 @@ export async function cambiarClave(clave: string): Promise<void> {
   if (error) throw error
 }
 
-/** Cierra la sesión. Se usa cuando el enlace del correo vino con error. */
-export async function cerrarSesion(): Promise<void> {
-  await supabase.auth.signOut()
+/**
+ * Cierra la sesión. Devuelve el mensaje de error si Supabase se quejó, o null.
+ *
+ * No lanza a propósito, porque tiene dos usos con distinta urgencia: NuevaClave
+ * la llama cuando el enlace del correo ya venía mal —ahí un fallo al cerrar no
+ * cambia nada— y la barra la llama porque el piloto acaba de pedir salir, y ahí
+ * sí hay que decírselo.
+ */
+export async function cerrarSesion(): Promise<string | null> {
+  const { error } = await supabase.auth.signOut()
+  return error?.message ?? null
 }

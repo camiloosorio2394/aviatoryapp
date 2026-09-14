@@ -14,7 +14,8 @@ import {
   Monitor,
 } from "lucide-react"
 import { toast } from "sonner"
-import { supabase } from "@/integrations/supabase/client"
+import { traerIdentidadEnLaBarra } from "@/services/perfil"
+import { cerrarSesion } from "@/services/sesion"
 import { useSession } from "@/hooks/useSession"
 import { UserAvatar } from "@/components/UserAvatar"
 import { LogoIsotype } from "@/components/Logo"
@@ -71,24 +72,11 @@ export function AppTopbar({
   useEffect(() => {
     if (!user) return
     let cancelled = false
-    supabase
-      .from("profiles")
-      .select("username, photo_url")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data, error }) => {
-        if (cancelled) return
-        // El avatar cae a las iniciales y el menú al correo, así que el piloto
-        // no ve nada roto. Por eso se avisa y no se reporta: es degradado y
-        // esperable, no algo que le rompa la sesión.
-        if (error) {
-          console.warn("barra: perfil", error.message)
-          return
-        }
-        const p = data as { username?: string; photo_url?: string } | null
-        setUsername(p?.username ?? null)
-        setPhotoUrl(p?.photo_url ?? null)
-      })
+    void traerIdentidadEnLaBarra(user.id).then((identidad) => {
+      if (cancelled || !identidad) return
+      setUsername(identidad.username)
+      setPhotoUrl(identidad.photoUrl)
+    })
     return () => {
       cancelled = true
     }
@@ -116,9 +104,9 @@ export function AppTopbar({
   }
 
   async function handleSignOut() {
-    const { error } = await supabase.auth.signOut()
-    if (error) {
-      toast.error(error.message)
+    const fallo = await cerrarSesion()
+    if (fallo) {
+      toast.error(fallo)
       return
     }
     navigate("/", { replace: true })
