@@ -251,9 +251,14 @@ begin
     order by (a.requirements->>'min_hours_total')::numeric
     limit 1;
 
-  insert into public.pilot_state (user_id, total_hours)
+  -- total_hours ya no se escribe a mano: desde las horas de carrera sale de
+  -- horas_previas_total más la bitácora, y un update directo no pega (lo
+  -- comprueba horas_de_carrera.sql). Se declara lo previo, con la bitácora
+  -- vacía, y así el total queda donde la prueba lo necesita.
+  delete from public.flights where user_id = x_a;
+  insert into public.pilot_state (user_id, horas_previas_total)
   values (x_a, x_minimo - 20)
-  on conflict (user_id) do update set total_hours = excluded.total_hours;
+  on conflict (user_id) do update set horas_previas_total = excluded.horas_previas_total;
 
   -- Sin vuelo reciente no hay aviso: es premio por anotar, no recordatorio.
   perform private.avisar_meta_de_horas_cerca();
