@@ -1,5 +1,6 @@
 -- ============================================================================
--- Psicotécnicas: el reloj lo lleva el servidor y aplazar no regala tiempo.
+-- Psicotécnicas: el reloj lo lleva el servidor, aplazar no regala tiempo y
+-- terminar no entrega el banco.
 --
 -- Escribe filas de prueba y las deshace: termina en PRUEBA_DESHECHA con la
 -- lista de lo verificado, o en FALLO. Cómo se corre: supabase/tests/README.md.
@@ -9,6 +10,7 @@ declare
   x_a uuid;
   x_sesion uuid;
   x_r jsonb;
+  x_rev jsonb;
   x_n int;
   x_limite int;
   x_log text := '';
@@ -92,6 +94,51 @@ begin
   end;
   reset role;
   x_log := x_log || ' banco_y_sesion_cerrados';
+
+  -- ── Terminar no entrega el banco ──────────────────────────────────────────
+  -- Otra tanda, con uno solo respondido: el repaso corrige ese y tapa el resto.
+  delete from public.psico_sesiones where user_id = x_a;
+  set local role authenticated;
+  x_r := public.psico_iniciar('evaluacion', 'todas', 'todos', 3);
+  x_sesion := (x_r ->> 'sesion')::uuid;
+  perform public.psico_responder(x_sesion, 2, 0, 5);
+  x_r := public.psico_terminar(x_sesion);
+  reset role;
+
+  x_rev := x_r -> 'revision';
+  if jsonb_typeof(x_rev -> 1 -> 'respuesta') <> 'number' then
+    raise exception 'FALLO lo respondido llegó sin respuesta: %', x_rev -> 1;
+  end if;
+  x_log := x_log || ' lo_respondido_se_corrige';
+
+  if jsonb_typeof(x_rev -> 0 -> 'respuesta') <> 'null'
+     or jsonb_typeof(x_rev -> 0 -> 'explicacion') <> 'null'
+     or jsonb_typeof(x_rev -> 2 -> 'respuesta') <> 'null' then
+    raise exception 'FALLO lo no respondido trae la respuesta: %', x_rev;
+  end if;
+  x_log := x_log || ' lo_no_respondido_se_tapa';
+
+  -- El repaso sigue sirviendo: el ejercicio se puede reportar y ubicar.
+  if (x_rev -> 0 ->> 'id') is null or (x_rev -> 0 ->> 'subcategoria') is null then
+    raise exception 'FALLO se tapó de más, el repaso perdió el id o la categoría: %', x_rev -> 0;
+  end if;
+  x_log := x_log || ' repaso_conserva_id';
+
+  -- Lo guardado queda completo; lo que sale por el API, no.
+  select resultado -> 'revision' into x_rev from public.psico_sesiones where id = x_sesion;
+  if jsonb_typeof(x_rev -> 0 -> 'respuesta') <> 'number' then
+    raise exception 'FALLO la base perdió la corrección completa: %', x_rev -> 0;
+  end if;
+  x_log := x_log || ' la_base_guarda_todo';
+
+  -- Volver a pedir una tanda ya terminada tampoco la entrega.
+  set local role authenticated;
+  x_r := public.psico_terminar(x_sesion);
+  reset role;
+  if jsonb_typeof(x_r -> 'revision' -> 0 -> 'respuesta') <> 'null' then
+    raise exception 'FALLO al repetir terminar salió la respuesta: %', x_r -> 'revision' -> 0;
+  end if;
+  x_log := x_log || ' repetir_terminar_tampoco';
 
   raise exception 'PRUEBA_DESHECHA%', x_log;
 end
