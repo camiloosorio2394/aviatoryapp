@@ -1,0 +1,72 @@
+# Latido diario a Supabase.
+#
+# El plan gratis pausa un proyecto sin actividad. Antes del lanzamiento hay días
+# enteros sin nadie dentro, así que este cron hace un pedido real a la base para
+# que no se duerma: llama al RPC public.latido(), que devuelve la hora del
+# servidor y no lee ninguna tabla.
+#
+# La llave es la anon/publishable, la misma que ya va dentro del bundle que
+# descarga cualquier visitante. Va en secrets igual, para que rotarla no obligue
+# a tocar este archivo.
+#
+# Si falla, falla el workflow y GitHub avisa por correo: un latido que no llega
+# es exactamente lo que hay que ver a tiempo.
+#
+# Ojo: GitHub apaga los cron de los repos sin actividad durante 60 días. Si el
+# repo se queda quieto tanto tiempo, hay que volver a habilitarlo desde Actions.
+name: Latido Supabase
+
+on:
+  schedule:
+    - cron: "17 12 * * *" # todos los días, 12:17 UTC (7:17 en Bogotá)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: latido-supabase
+  cancel-in-progress: false
+
+jobs:
+  latido:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Tocar la base
+        env:
+          URL: ${{ secrets.SUPABASE_URL }}
+          LLAVE: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+
+          if [ -z "${URL}" ] || [ -z "${LLAVE}" ]; then
+            echo "Faltan los secrets SUPABASE_URL o SUPABASE_ANON_KEY del repositorio."
+            exit 1
+          fi
+
+          # Tres intentos con espera: un 5xx pasajero de Supabase no debería
+          # dejar el día sin latido ni llenar el correo de falsas alarmas.
+          for intento in 1 2 3; do
+            codigo=$(curl -sS -o respuesta.txt -w "%{http_code}" \
+              --max-time 30 \
+              -X POST "${URL}/rest/v1/rpc/latido" \
+              -H "apikey: ${LLAVE}" \
+              -H "Content-Type: application/json" \
+              -d '{}' || echo "000")
+
+            if [ "${codigo}" = "200" ]; then
+              echo "Latido ${intento}: la base contestó ${codigo} con $(cat respuesta.txt)"
+              exit 0
+            fi
+
+            echo "Latido ${intento}: la base contestó ${codigo}"
+            cat respuesta.txt || true
+            # if, no `&&`: con set -e, un `&&` que da falso en el último intento
+            # cortaría el script antes del mensaje de abajo.
+            if [ "${intento}" -lt 3 ]; then sleep 30; fi
+          done
+
+          echo "Tres intentos y ninguno llegó. Revisar si el proyecto está pausado:"
+          echo "https://supabase.com/dashboard/project/gvwqmfxphsbmbrhyjcmk"
+          exit 1
