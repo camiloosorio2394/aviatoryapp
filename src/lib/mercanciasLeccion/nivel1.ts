@@ -424,7 +424,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "fichas",
-        columnas: 3,
+        columnas: 1,
         items: [
           {
             titulo: "Aprobación",
@@ -467,13 +467,6 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/mercancias/ilu-04-aprobacion-dispensa-excepcion.webp",
-        alt: "Aprobación, dispensa y excepción, en tres columnas. Aprobación: la norma permite el transporte, pero se requiere una aprobación previa de la autoridad; el operador la solicita y, una vez otorgada, el transporte puede realizarse. Dispensa: no se puede cumplir una condición de la norma, pero la autoridad puede autorizar apartarse de ella bajo condiciones especiales, como cantidad limitada, ruta autorizada, aeronave específica o medidas adicionales de seguridad. Excepción: la propia norma establece que, para ese caso específico, un requisito no aplica, sin pedir autorización a nadie.",
-        ancho: 1536,
-        alto: 1024,
-      },
-      {
         kind: "definicion",
         text: "La regla para no equivocarse: si la norma lo previó, es aprobación. Si no lo previó y hay que salirse, es dispensa. Si no hay que pedir nada, es excepción.",
       },
@@ -497,7 +490,6 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Cadena de siete eslabones: expedidor, agente de carga, operador de terminal de carga, explotador en la aceptación, carga y aseguramiento, comandante y destino, cada uno con sus obligaciones.",
         ancho: 1800,
         alto: 775,
-        pie: "El cuadro sigue el RAC 175 de Colombia. En el LAR 175 los mismos deberes están en las obligaciones del expedidor, del explotador y de la terminal de carga, y en la información al comandante.",
       },
       { kind: "sub", text: "Qué te llega a ti de cada eslabón" },
       {
@@ -505,31 +497,64 @@ export const NIVEL_1: DocScreen[] = [
         text: "Léelo así y la cadena deja de ser un organigrama. Cada uno produce algo, y ese algo termina llegando a la cabina convertido en una línea de papel o en una caja en tu bodega.",
       },
       {
-        kind: "kv",
+        kind: "fichas",
+        columnas: 1,
         items: [
           {
-            k: "Expedidor",
-            v: "Clasifica, embala, marca, etiqueta y declara. **Lo que te llega a ti:** que el UN y la clase del NOTOC signifiquen de verdad lo que hay en la caja. Si mintió, tú vuelas con otra cosa.",
+            titulo: "Agente de carga",
+            tecnica: {
+              rotulo: "Qué hace",
+              texto: "Recibe la mercancía, verifica la documentación y coordina su envío.",
+            },
+            puntosRotulo: "¿Qué llega hasta ti?",
+            puntos: [
+              "Su trabajo es principalmente un filtro previo. Tú normalmente no ves ese proceso, pero de él depende que la carga llegue correctamente preparada a la operación.",
+            ],
           },
           {
-            k: "Agente de carga",
-            v: "Verifica la documentación y coordina la transferencia. **Lo que te llega a ti:** casi siempre nada visible. Es un filtro silencioso: cuando funciona, no te enteras.",
+            titulo: "Terminal de carga",
+            tecnica: {
+              rotulo: "Qué hace",
+              texto: "Recibe, almacena y manipula la mercancía antes de entregarla para el vuelo.",
+            },
+            puntosRotulo: "¿Qué llega hasta ti?",
+            puntos: [
+              "Que la mercancía haya sido almacenada y manipulada correctamente antes de ser cargada en la aeronave.",
+            ],
           },
           {
-            k: "Terminal de carga",
-            v: "Almacena en área especial, con cuadros de etiquetas y tabla de segregación a la vista. **Lo que te llega a ti:** que dos incompatibles no hayan pasado la noche juntos antes de subir.",
+            titulo: "Explotador",
+            tecnica: {
+              rotulo: "Qué hace",
+              texto:
+                "Determina si puede aceptar la mercancía para el transporte y aplica los procedimientos establecidos por el operador.",
+            },
+            puntosRotulo: "¿Qué llega hasta ti?",
+            puntos: ["La carga que finalmente ha sido aceptada para ese vuelo y la información que recibe la tripulación."],
           },
           {
-            k: "Explotador (aceptación)",
-            v: "Solo acepta si tiene la autorización en sus OpSpecs, e inspecciona el bulto con lista de verificación. **Lo que te llega a ti:** el filtro que decide si ese envío llega a existir en tu vuelo.",
+            titulo: "Carga y estiba",
+            tecnica: {
+              rotulo: "Qué hace",
+              texto:
+                "Ubica, segrega y asegura la mercancía dentro de la aeronave de acuerdo con los procedimientos aplicables.",
+            },
+            puntosRotulo: "¿Qué llega hasta ti?",
+            puntos: [
+              "La ubicación de la mercancía en la aeronave, que puedes consultar en la información entregada a la tripulación.",
+            ],
           },
           {
-            k: "Carga y estiba",
-            v: "Coloca, segrega y asegura según las Instrucciones. **Lo que te llega a ti:** la posición real de la mercancía, que es la casilla del NOTOC que miras si hay humo.",
-          },
-          {
-            k: "Tú, piloto al mando",
-            v: "Recibes la información por escrito, la firmas antes de que se transporte y la tienes al alcance durante el vuelo. **Eres el último control de una cadena que no viste.**",
+            titulo: "Tú, piloto al mando",
+            tecnica: {
+              rotulo: "Qué haces",
+              texto:
+                "Recibes la información sobre las mercancías peligrosas transportadas, la conoces antes del vuelo y la tienes disponible durante la operación.",
+            },
+            puntosRotulo: "Tu papel",
+            puntos: [
+              "Eres quien debe entender qué mercancías peligrosas llevas, dónde están y qué hacer si ocurre una emergencia.",
+            ],
           },
         ],
       },
@@ -606,29 +631,17 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
-        kind: "norma",
-        titulo: "Quien actúa en nombre de otro responde igual",
-        texto:
-          "Si alguien realiza alguna función prevista en este Reglamento en nombre de quien entrega mercancías peligrosas para transportar por vía aérea, en nombre del explotador o en nombre del operador de terminal de carga, tendrá que realizarla necesariamente de conformidad con las condiciones previstas en este Reglamento y en las Instrucciones Técnicas.",
-      },
-      {
-        kind: "p",
-        text: "Traducido: subcontratar no diluye la responsabilidad. El explotador responde de que sus agentes acreditados cumplan sus procedimientos, aunque no sean empleados suyos.",
-      },
-      {
         kind: "piensaComoPiloto",
         momento: "Cinco minutos antes de firmar",
         situacion:
-          "Te entregan la información de mercancías peligrosas del vuelo. Trae dos bultos de clase 8 en un ULD de bodega delantera. Está completa, legible y firmada por el despachador. Tú no viste el bulto, no viste la declaración del expedidor y no estuviste en la aceptación.",
-        pregunta: "Entonces, ¿qué estás firmando exactamente?",
+          "Te entregan la información de mercancías peligrosas del vuelo. Indica dos bultos de Clase 8, ubicados en un ULD de la bodega delantera. La información está completa y legible. Tú no viste el bulto, no viste la declaración del expedidor y no participaste en la aceptación.",
+        pregunta: "¿Qué estás firmando realmente?",
         claves: [
-          "No estás certificando que la clasificación sea correcta: eso lo certificó el expedidor y lo verificó la aceptación.",
-          "Estás dejando constancia de que **recibiste la información** y de que la conoces: qué hay, cuánto y dónde está.",
-          "Y estás asumiendo que si esa información no está o está mal, el vuelo no sale así. Es el punto donde la cadena todavía se puede parar.",
-          "Si algo no cuadra (un grupo de embalaje en un UN de litio, una posición que no existe en ese avión), preguntar es parte del trabajo, no una molestia.",
+          "No estás certificando que tú clasificaste o embalaste la mercancía. Esas etapas corresponden a otros responsables dentro de la cadena.",
+          "Estás recibiendo y dejando constancia de que recibiste la información escrita sobre las mercancías peligrosas que serán transportadas. El RAC 175.515 exige que esta información sea proporcionada al piloto al mando y que sea firmada antes del transporte.",
+          "Como piloto, necesitas poder entender la información que recibes y detectar una inconsistencia evidente. Por ejemplo, una ubicación que no corresponde con la aeronave o una información que no coincide con lo que te han comunicado. Ante una duda, debes aclararla antes de continuar, de acuerdo con los procedimientos del operador.",
+          "La información debe permanecer disponible para ti durante el vuelo, precisamente para que puedas consultarla si ocurre una situación relacionada con las mercancías peligrosas.",
         ],
-        cierre:
-          "La firma no te convierte en experto en embalaje. Te convierte en el último que pudo decir «esto no sale así».",
       },
       {
         kind: "ponAPrueba",

@@ -547,7 +547,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
 
       <div className="mt-[26px] flex items-baseline justify-between px-5">
         <span
-          className="mono text-[10px] font-semibold uppercase tracking-[0.16em]"
+          className="rotulo text-[10px] font-semibold uppercase tracking-[0.16em]"
           style={{ color: "var(--ln-navy-label)" }}
         >
           {modulo.rotulo}
@@ -582,7 +582,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
               <div key={f.clave}>
                 {nivel && (
                   <div
-                    className={`mono px-5 text-[9.5px] font-semibold uppercase tracking-[0.16em] ${i === 0 ? "pb-1.5" : "pt-4 pb-1.5"}`}
+                    className={`rotulo px-5 text-[9.5px] font-semibold uppercase tracking-[0.16em] ${i === 0 ? "pb-1.5" : "pt-4 pb-1.5"}`}
                     style={{ color: "var(--ln-navy-label)" }}
                     aria-hidden
                   >
@@ -623,7 +623,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
                           Lo que te pueden preguntar
                         </span>
                         <span
-                          className="mono mt-[3px] block text-[9.5px] font-semibold uppercase tracking-[0.14em]"
+                          className="rotulo mt-[3px] block text-[9.5px] font-semibold uppercase tracking-[0.14em]"
                           style={{ color: "var(--ln-navy-dim)" }}
                         >
                           Entrevista · {f.preguntas} preguntas

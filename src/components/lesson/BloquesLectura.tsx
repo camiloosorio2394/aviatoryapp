@@ -57,7 +57,7 @@ export function NotamPanel({
         >
           {rotulo && (
             <span
-              className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
+              className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em]"
               style={{ color: docAccent(ACENTO, 70) }}
             >
               {rotulo}
@@ -99,7 +99,7 @@ export function NotamPanel({
           const cuerpo = (
             <span className="relative z-[1] grid gap-x-5 gap-y-1 sm:grid-cols-[minmax(0,140px)_minmax(0,1fr)]">
               <span
-                className="mono text-[11px] font-semibold uppercase tracking-[0.09em] sm:pt-[3px]"
+                className="rotulo text-[11px] font-semibold uppercase tracking-[0.09em] sm:pt-[3px]"
                 style={{ color: docAccent(ACENTO, linea.fuerte ? 75 : 50) }}
               >
                 {linea.marca}
@@ -350,13 +350,13 @@ export function Laboratorio({ intro, items }: { intro?: string; items: LabNotam[
           style={{ background: docTint(ACENTO, 8) }}
         >
           <span
-            className="mono text-[11px] font-semibold uppercase tracking-[0.1em]"
+            className="rotulo text-[11px] font-semibold uppercase tracking-[0.1em]"
             style={{ color: docAccent(ACENTO, 72) }}
           >
             NOTAM {ficha.n} · {ficha.aeropuerto} · FIR {ficha.fir}
           </span>
           <span
-            className="mono shrink-0 whitespace-nowrap rounded-md border px-2 py-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em]"
+            className="rotulo shrink-0 whitespace-nowrap rounded-md border px-2 py-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em]"
             style={{
               borderColor: docAccent(ACENTO, 30),
               color: docAccent(ACENTO, 66),
@@ -396,7 +396,7 @@ export function Laboratorio({ intro, items }: { intro?: string; items: LabNotam[
         {/* Los botones de casilla */}
         <div className="border-t doc-rule px-4 py-3.5 sm:px-5">
           <div
-            className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+            className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.12em]"
             style={{ color: "var(--doc-muted-fg)" }}
           >
             Selecciona una parte para analizar
@@ -457,7 +457,7 @@ export function Laboratorio({ intro, items }: { intro?: string; items: LabNotam[
           {abierta ? (
             <div className="ln-paso">
               <div
-                className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em]"
+                className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.12em]"
                 style={{ color: "var(--doc-muted-fg)" }}
               >
                 Qué significa
@@ -816,7 +816,7 @@ function Casillas({
               {["Cas.", "Contenido", "Qué significa"].map((h) => (
                 <th
                   key={h}
-                  className="mono px-3.5 py-2 border-b doc-rule doc-muted text-[10.5px] font-medium uppercase tracking-[0.1em]"
+                  className="rotulo px-3.5 py-2 border-b doc-rule doc-muted text-[10.5px] font-medium uppercase tracking-[0.1em]"
                 >
                   {h}
                 </th>

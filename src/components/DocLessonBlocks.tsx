@@ -351,7 +351,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
                 {block.sellos.map((sello, i) => (
                   <span
                     key={i}
-                    className="mono rounded-md border px-2.5 py-1 text-[11.5px] font-semibold uppercase tracking-[0.08em]"
+                    className="rotulo rounded-md border px-2.5 py-1 text-[11.5px] font-semibold uppercase tracking-[0.08em]"
                     style={{
                       borderColor: docAccent(tone.color, 40),
                       color: docAccent(tone.color, 75),
@@ -579,7 +579,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
             </div>
             {block.fuente && (
               <div
-                className="mono pt-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em] doc-muted"
+                className="rotulo pt-[3px] text-[10.5px] font-semibold uppercase tracking-[0.08em] doc-muted"
               >
                 Fuente: {block.fuente}
               </div>

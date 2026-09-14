@@ -114,7 +114,7 @@ function PortadaEntrevista({
       <div className="absolute inset-0 flex flex-col" style={{ padding: "5.2cqw 6cqw 4.6cqw" }}>
         <div className="flex items-center" style={{ gap: "1.8cqw" }}>
           <span aria-hidden className="block" style={{ width: "6cqw", height: "1.1cqw", background: "var(--ln-bright)" }} />
-          <span className="mono font-semibold uppercase text-white" style={{ fontSize: "max(2.1cqw, 9px)", letterSpacing: "0.22em" }}>
+          <span className="rotulo font-semibold uppercase text-white" style={{ fontSize: "max(2.1cqw, 9px)", letterSpacing: "0.22em" }}>
             Nivel <span style={{ color: "var(--ln-bright)" }}>{entrevista.nivel}</span>
           </span>
         </div>
@@ -125,7 +125,7 @@ function PortadaEntrevista({
           <span style={{ color: "var(--ln-bright)" }}>preguntar</span>
         </h2>
 
-        <div className="mono flex items-center font-semibold uppercase" style={{ marginTop: "2.2cqw", gap: "1.6cqw", fontSize: "max(1.7cqw, 7.5px)", letterSpacing: "0.24em", color: "var(--ln-navy-text)" }}>
+        <div className="rotulo flex items-center font-semibold uppercase" style={{ marginTop: "2.2cqw", gap: "1.6cqw", fontSize: "max(1.7cqw, 7.5px)", letterSpacing: "0.24em", color: "var(--ln-navy-text)" }}>
           <span aria-hidden className="block h-px" style={{ width: "5cqw", background: "var(--ln-bright)" }} />
           <span className="@max-[520px]:hidden">Entrevista de aerolínea · </span>
           {entrevista.titulo}
@@ -156,7 +156,7 @@ function PortadaEntrevista({
                   <span className="ln-display font-bold leading-none text-white" style={{ fontSize: "max(3cqw, 12px)" }}>
                     {cuentas[tipo.id]}
                   </span>
-                  <span className="mono font-semibold uppercase leading-none @max-[520px]:hidden" style={{ fontSize: "1.2cqw", letterSpacing: "0.08em", color: "var(--ln-navy-text)" }}>
+                  <span className="rotulo font-semibold uppercase leading-none @max-[520px]:hidden" style={{ fontSize: "1.2cqw", letterSpacing: "0.08em", color: "var(--ln-navy-text)" }}>
                     {tipo.label}
                   </span>
                 </div>
@@ -307,7 +307,7 @@ export function PantallaEntrevista({
 
         <div className="min-w-[180px]" aria-live="polite">
           <div className="flex items-baseline justify-between gap-3">
-            <span className="mono text-[10.5px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
+            <span className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
               Dominadas
             </span>
             <span className="mono tabular text-[12px] font-semibold" style={{ color: "var(--ln-primary)" }}>
@@ -395,7 +395,7 @@ function TarjetaPregunta({
               {dosCifras(numero)}
             </span>
             <span
-              className="mono inline-flex items-center gap-1.5 rounded-[4px] px-1.5 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.12em]"
+              className="rotulo inline-flex items-center gap-1.5 rounded-[4px] px-1.5 py-[3px] text-[9.5px] font-semibold uppercase tracking-[0.12em]"
               style={{ background: "var(--ln-tint)", color: "var(--ln-primary)" }}
               title={tipo.pista}
             >
@@ -440,7 +440,7 @@ function TarjetaPregunta({
 
           {abierta && (
             <div id={`${base}-r`} className="rev-aparece mt-4 border-t pt-4" style={{ borderColor: "var(--ln-hair)" }}>
-              <div className="mono text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
+              <div className="rotulo text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
                 Respuesta esperada
               </div>
               <p className="m-0 mt-1.5 text-[15.5px] leading-[1.7]" style={{ color: "var(--ln-body)" }}>
@@ -448,7 +448,7 @@ function TarjetaPregunta({
               </p>
               {pregunta.claves && pregunta.claves.length > 0 && (
                 <div className="mt-3.5">
-                  <div className="mono text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
+                  <div className="rotulo text-[10px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--ln-faint)" }}>
                     Tenías que mencionar
                   </div>
                   <div className="mt-2 flex flex-wrap gap-1.5">
