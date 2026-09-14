@@ -210,7 +210,7 @@ export function Referencias({
     <section>
       {rotulo && (
         <div
-          className="mono mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
+          className="rotulo mb-2 text-[11px] font-semibold uppercase tracking-[0.12em]"
           style={{ color: docAccent(ACENTO, 60) }}
         >
           {rotulo}
@@ -335,7 +335,7 @@ function Paso({ paso, n }: { paso: PasoItem; n: number }) {
             <button
               type="button"
               onClick={() => setAbierto(true)}
-              className="mono rounded-md border px-3 py-2 text-[11.5px] font-semibold uppercase tracking-[0.09em] transition-colors"
+              className="rotulo rounded-md border px-3 py-2 text-[11.5px] font-semibold uppercase tracking-[0.09em] transition-colors"
               style={{
                 borderColor: docAccent(ACENTO, 40),
                 color: docAccent(ACENTO, 70),
@@ -683,7 +683,7 @@ export function Cadena({ items }: { items: CadenaItem[] }) {
                   {it.token}
                 </span>
                 <span
-                  className="mono text-[10.5px] font-semibold uppercase tracking-[0.08em]"
+                  className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.08em]"
                   style={{ color: docAccent(color, 70) }}
                 >
                   {it.rotulo}

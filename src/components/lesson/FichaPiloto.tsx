@@ -38,7 +38,7 @@ function AvionRelleno({ className }: { className?: string }) {
 function Pildora({ children }: { children: ReactNode }) {
   return (
     <span
-      className="mono inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]"
+      className="rotulo inline-flex items-center rounded-full border px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em]"
       style={{ borderColor: PRIMARIO, color: PRIMARIO, background: "rgb(251 250 248 / 92%)" }}
     >
       {children}
@@ -73,7 +73,7 @@ export function VisualFicha({ imagen, hueco, ves }: { imagen?: FotoFicha; hueco?
               className="absolute bottom-4 left-4 right-4 rounded-[12px] px-4 py-3.5 text-white sm:left-auto sm:max-w-[250px]"
               style={{ background: "rgb(14 18 22 / 76%)", backdropFilter: "blur(10px)" }}
             >
-              <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">Lo que estás viendo</div>
+              <div className="rotulo text-[11px] font-semibold uppercase tracking-[0.14em] text-white/75">Lo que estás viendo</div>
               <ul className="m-0 mt-2.5 flex list-none flex-col gap-2 p-0">
                 {ves.map((v, i) => (
                   <li key={i} className="flex items-start gap-2.5 text-[13px] leading-[1.45]">
@@ -143,7 +143,7 @@ export function Ficha({
       style={{ background: PRIMARIO, clipPath: "polygon(0 0, 100% 0, calc(100% - 22px) 100%, 0 100%)" }}
     >
       <AvionRelleno className="h-[17px] w-[17px] shrink-0" />
-      <span className="mono text-[12px] font-semibold uppercase leading-[1.35] tracking-[0.14em]">
+      <span className="rotulo text-[12px] font-semibold uppercase leading-[1.35] tracking-[0.14em]">
         {nombre}
         {momento && (
           <>

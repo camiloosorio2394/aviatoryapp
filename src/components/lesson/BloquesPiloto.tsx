@@ -57,7 +57,7 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
     >
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 px-4 pt-4 sm:px-5">
         <span
-          className="mono inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em]"
+          className="rotulo inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em]"
           style={{ color: docAccent(ACENTO, 65) }}
         >
           <Eye className="h-3.5 w-3.5" aria-hidden /> Reconoce
@@ -135,22 +135,24 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
               {punto.que}
             </div>
             <p className="m-0 mt-1.5 text-[15px] leading-[1.65]">{renderInline(punto.significa)}</p>
+            {punto.piloto && (
             <div
               className="mt-3 border-l-[3px] pl-3"
               style={{ borderColor: docAccent(ACENTO, 45) }}
             >
               <div
-                className="mono text-[10px] font-semibold uppercase tracking-[0.14em]"
+                className="rotulo text-[10px] font-semibold uppercase tracking-[0.14em]"
                 style={{ color: docAccent(ACENTO, 65) }}
               >
                 Qué te importa a ti
               </div>
               <p className="m-0 mt-1 text-[15px] leading-[1.6]">{renderInline(punto.piloto)}</p>
             </div>
+            )}
           </div>
         ) : (
           <p className="m-0 text-[14px] italic doc-muted">
-            Pulsa un número sobre la imagen para ver qué es y por qué te importa.
+            Pulsa un número sobre la imagen para ver qué es.
           </p>
         )}
       </div>
@@ -189,7 +191,7 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
           {renderInline(block.respuesta)}
         </p>
       ) : (
-        <div className="mono text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
+        <div className="rotulo text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: docAccent(ACENTO, 65) }}>
           Lo que te interesa como piloto
         </div>
       )}
@@ -307,7 +309,7 @@ export function Entrevista({ block }: { block: EntrevistaBlock }) {
       aria-label="Lo que te pueden preguntar en una entrevista"
     >
       <div
-        className="mono inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em]"
+        className="rotulo inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.14em]"
         style={{ color: docAccent(ACENTO, 65) }}
       >
         <MessageSquareQuote className="h-3.5 w-3.5" aria-hidden />
@@ -342,7 +344,7 @@ function PreguntaEntrevista({ pregunta }: { pregunta: EntrevistaBlock["preguntas
         className="flex w-full items-start gap-2.5 px-3.5 py-3 text-left"
       >
         <span
-          className="mono mt-[3px] shrink-0 rounded-[4px] px-1.5 py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.1em]"
+          className="rotulo mt-[3px] shrink-0 rounded-[4px] px-1.5 py-[2px] text-[9.5px] font-semibold uppercase tracking-[0.1em]"
           style={{ background: docTint(ACENTO, 14), color: docAccent(ACENTO, 75) }}
         >
           {NIVEL[pregunta.nivel]}
@@ -359,7 +361,7 @@ function PreguntaEntrevista({ pregunta }: { pregunta: EntrevistaBlock["preguntas
       {abierta && (
         <div id={`${base}-r`} className="rev-aparece-2 border-t px-3.5 py-3" style={{ borderColor: "var(--doc-border)" }}>
           <div
-            className="mono text-[10px] font-semibold uppercase tracking-[0.14em]"
+            className="rotulo text-[10px] font-semibold uppercase tracking-[0.14em]"
             style={{ color: docAccent(ACENTO, 65) }}
           >
             Respuesta esperada
@@ -367,7 +369,7 @@ function PreguntaEntrevista({ pregunta }: { pregunta: EntrevistaBlock["preguntas
           <p className="m-0 mt-1.5 text-[15px] leading-[1.65]">{renderInline(pregunta.respuesta)}</p>
           {pregunta.claves && pregunta.claves.length > 0 && (
             <div className="mt-3">
-              <div className="mono text-[10px] font-semibold uppercase tracking-[0.14em] doc-muted">
+              <div className="rotulo text-[10px] font-semibold uppercase tracking-[0.14em] doc-muted">
                 Tenías que mencionar
               </div>
               <div className="mt-1.5 flex flex-wrap gap-1.5">
@@ -427,7 +429,7 @@ export function DetalleTecnico({
         className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left"
       >
         <Target className="h-3.5 w-3.5 shrink-0" style={{ color: "var(--doc-muted)" }} aria-hidden />
-        <span className="mono flex-1 text-[11.5px] font-semibold uppercase tracking-[0.1em]" style={{ color: "var(--doc-fg)" }}>
+        <span className="rotulo flex-1 text-[11.5px] font-semibold uppercase tracking-[0.1em]" style={{ color: "var(--doc-fg)" }}>
           {etiqueta ?? "Ver detalle técnico"}
         </span>
         {cita && <span className="mono text-[11px] doc-muted">{cita}</span>}

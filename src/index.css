@@ -1098,6 +1098,17 @@
 /* === Typography helpers === */
 .mono { font-family: var(--font-mono); font-feature-settings: "ss01"; }
 
+/* Los rótulos en versalitas de las lecciones: «RECONOCE», «DEFINICIÓN»,
+   «PIENSA COMO PILOTO». Antes iban en la monoespaciada, igual que un METAR o
+   un número UN, y en versalitas eso se lee mecánico: letras del mismo ancho,
+   sin ritmo. La monoespaciada se queda donde es un dato; el rótulo es un
+   letrero, y va en la misma display que los títulos del módulo.
+   Archivo está cargada en 700 y 800, que es lo que piden estos tamaños. */
+.rotulo {
+  font-family: "Archivo", var(--font-sans);
+  font-feature-settings: "ss01";
+}
+
 /* === Contenido protegido (ContentGuard) === */
 /* Al imprimir / "guardar como PDF" desde una página protegida, ocultamos todo
    y mostramos un aviso, para que no se pueda exportar el contenido por print. */

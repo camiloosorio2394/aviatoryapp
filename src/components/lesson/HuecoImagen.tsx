@@ -43,7 +43,7 @@ export function HuecoImagen({
         }}
       >
         <span
-          className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
+          className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em]"
           style={{ color: "var(--ln-primary, var(--doc-accent))" }}
         >
           {rotulo}

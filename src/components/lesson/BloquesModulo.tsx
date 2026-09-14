@@ -99,7 +99,7 @@ export function Norma({ block }: { block: NormaBlock }) {
         {block.oaci && <Cita icono={Globe2} origen="OACI" texto={block.oaci} />}
         {block.ref && <Cita icono={BookMarked} origen="SRVSOP" texto={block.ref} fuerte />}
         {block.rac && <Cita icono={MapPin} origen="Colombia" texto={block.rac} tenue />}
-        <span className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
+        <span className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
           {NATURALEZA[nat]}
         </span>
       </div>
@@ -142,7 +142,7 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
         style={{ background: "var(--ln-navy, #14202E)" }}
       >
         <div
-          className="mono text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+          className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.16em]"
           style={{ color: "var(--ln-navy-label, #8FA1B6)" }}
         >
           Caso real
@@ -184,7 +184,7 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
 
       <div className="px-5 py-5 sm:px-6" style={{ background: "var(--doc-bg)" }}>
         <dl className="m-0 grid gap-x-5 gap-y-1 sm:grid-cols-[150px_1fr]">
-          <dt className="mono text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
+          <dt className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
             Qué se transportaba
           </dt>
           <dd className="m-0 text-[15px] leading-[1.6]">{renderInline(block.mercancia)}</dd>
@@ -200,7 +200,7 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
           <div className="doc-soft rounded-[8px] px-4 py-3.5">
-            <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            <div className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
               Consecuencia
             </div>
             <p className="m-0 mt-1.5 text-[14.5px] leading-[1.6]">{renderInline(block.consecuencia)}</p>
@@ -210,7 +210,7 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
             style={{ background: docTint(ACENTO, 9), border: `1px solid ${docAccent(ACENTO, 22)}` }}
           >
             <div
-              className="mono text-[11px] font-semibold uppercase tracking-[0.12em]"
+              className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em]"
               style={{ color: docAccent(ACENTO, 70) }}
             >
               Lo que un piloto debe reconocer
@@ -257,9 +257,17 @@ export function EnLaOperacion({ block }: { block: EnLaOperacionBlock }) {
       {/* La negrita va del acento del módulo: son las palabras que hay que
           llevarse, y en la maqueta se leían antes que el resto. */}
       <div style={{ "--doc-fg": "var(--ln-primary, var(--av-blue-500))" } as CSSProperties}>
-        <p className="m-0 text-[17px] leading-[1.65]" style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}>
-          {renderInline(block.texto)}
-        </p>
+        {/* Una línea en blanco separa párrafos: hay fichas que ya no caben en
+            uno solo y de corrido se leen como un muro. */}
+        {block.texto.split("\n\n").map((parrafo, i) => (
+          <p
+            key={i}
+            className={`m-0 text-[17px] leading-[1.65] ${i > 0 ? "mt-3.5" : ""}`}
+            style={{ color: "var(--ln-ink-strong, var(--ln-ink, #16191D))" }}
+          >
+            {renderInline(parrafo)}
+          </p>
+        ))}
         {block.pasos && block.pasos.length > 0 && (
           <ol className="m-0 mt-4 flex list-none flex-col gap-2.5 p-0">
             {block.pasos.map((p, i) => (
@@ -303,7 +311,7 @@ export function Escenario({ block }: { block: EscenarioBlock }) {
       >
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
           <span
-            className="mono inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.16em]"
+            className="rotulo inline-flex items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.16em]"
             style={{ color: "var(--ln-caution, #B45309)" }}
           >
             <ClipboardList className="h-3.5 w-3.5" aria-hidden /> Escenario de práctica
@@ -605,7 +613,13 @@ export function Fichas({ block }: { block: FichasBlock }) {
           {block.titulo}
         </h2>
       )}
-      <div className={`grid sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : ""} ${conImagen ? "gap-5" : "gap-3"}`}>
+      {/* `columnas: 1` significa una sola, también en pantalla ancha: hay fichas
+          cuyo texto es una definición entera y en media columna se parte en
+          renglones de tres palabras. Antes el `sm:grid-cols-2` iba fijo y
+          pedir una columna no servía de nada. */}
+      <div
+        className={`grid ${cols === 1 ? "" : `sm:grid-cols-2 ${cols === 3 ? "lg:grid-cols-3" : ""}`} ${conImagen ? "gap-5" : "gap-3"}`}
+      >
         {block.items.map((it, i) =>
           conImagen ? (
             <FichaConImagen key={i} item={it} />

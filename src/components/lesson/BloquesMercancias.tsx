@@ -105,7 +105,7 @@ export function ClasesMP() {
         <div className="flex items-start gap-4">
           <Rombo id={clase.rombos[0]} tam={64} etiqueta={`Clase ${clase.n}, ${clase.nombre}`} />
           <div className="min-w-0 flex-1">
-            <div className="mono text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            <div className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
               Clase {clase.n}
             </div>
             <h3
@@ -124,7 +124,7 @@ export function ClasesMP() {
         </div>
 
         <div className="doc-soft mt-4 border-l-[3px] px-4 py-3" style={{ borderLeftColor: "var(--doc-accent)" }}>
-          <div className="mono text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
+          <div className="rotulo text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
             Definición{clase.ref ? ` · ${clase.ref}` : ""}
           </div>
           <p className="m-0 mt-1.5 text-[14.5px] leading-[1.65]" style={{ color: "var(--doc-fg)" }}>
@@ -132,8 +132,17 @@ export function ClasesMP() {
           </p>
         </div>
 
+        {/* La misma idea sin el idioma del reglamento. Va fuera del recuadro de
+            la norma a propósito: lo de dentro es literal, esto es del curso. */}
+        <p className="m-0 mt-3 text-[14.5px] leading-[1.65]">
+          <strong className="font-semibold" style={{ color: "var(--doc-fg)" }}>
+            En otras palabras.
+          </strong>{" "}
+          {clase.enOtrasPalabras}
+        </p>
+
         <div className="mt-4">
-          <div className="mono mb-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
+          <div className="rotulo mb-1.5 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
             Ejemplos
           </div>
           <ul className="m-0 flex list-none flex-wrap gap-1.5 p-0">
@@ -151,21 +160,34 @@ export function ClasesMP() {
 
         {clase.divisiones.length > 0 && (
           <div className="mt-4">
-            <div className="mono mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            <div className="rotulo mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
               Divisiones
             </div>
-            <ul className="m-0 flex list-none flex-col gap-2 p-0">
+            {/* El rombo manda: se ve primero y a tamaño de reconocerlo, y el
+                texto de la división va al lado. A 30 px no se distinguía un 1.1
+                de un 1.4, que es justo lo que hay que aprender aquí. */}
+            <ul className="m-0 flex list-none flex-col gap-3 p-0">
               {clase.divisiones.map((d) => {
                 const tieneRombo = clase.rombos.includes(d.id.replace(".", "-"))
                 return (
-                  <li key={d.id} className="flex items-start gap-2.5">
-                    <Rombo id={tieneRombo ? d.id.replace(".", "-") : undefined} tam={30} />
-                    <div className="min-w-0 text-[13.5px] leading-snug">
-                      <span className="mono font-semibold" style={{ color: "var(--doc-fg)" }}>
-                        {d.id}
-                      </span>{" "}
-                      · {d.txt}
-                      {d.detalle && <div className="mt-0.5 text-[13px] leading-[1.55] doc-muted">{d.detalle}</div>}
+                  <li
+                    key={d.id}
+                    className="flex items-start gap-4 rounded-[10px] border px-3 py-3"
+                    style={{ borderColor: "var(--doc-border)", background: "var(--doc-bg)" }}
+                  >
+                    <Rombo
+                      id={tieneRombo ? d.id.replace(".", "-") : undefined}
+                      tam={58}
+                      etiqueta={`División ${d.id}`}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <div
+                        className="text-[15px] font-semibold leading-snug"
+                        style={{ color: "var(--doc-fg)" }}
+                      >
+                        <span style={{ color: clase.color }}>{d.id}</span> · {d.txt}
+                      </div>
+                      {d.detalle && <p className="m-0 mt-1 text-[13.5px] leading-[1.55] doc-muted">{d.detalle}</p>}
                     </div>
                   </li>
                 )
@@ -176,15 +198,24 @@ export function ClasesMP() {
 
         {clase.subgrupos && clase.subgrupos.length > 0 && (
           <div className="mt-4">
-            <div className="mono mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
+            <div className="rotulo mb-2 text-[10.5px] font-semibold uppercase tracking-[0.12em] doc-muted">
               {clase.subgruposTitulo}
             </div>
             <ul className="m-0 flex list-none flex-col gap-1.5 p-0">
               {clase.subgrupos.map((g) => (
-                <li key={g.id} className="grid grid-cols-[28px_1fr] gap-2 text-[13.5px] leading-snug">
-                  <span className="mono font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
-                    {g.id}
-                  </span>
+                <li key={g.txt} className="grid grid-cols-[28px_1fr] gap-2 text-[13.5px] leading-snug">
+                  {g.id ? (
+                    <span className="font-semibold" style={{ color: docAccent(ACENTO, 75) }}>
+                      {g.id}
+                    </span>
+                  ) : (
+                    <span aria-hidden className="pt-[7px]">
+                      <span
+                        className="block h-1.5 w-1.5 rounded-full"
+                        style={{ background: docAccent(ACENTO, 55), marginLeft: 10 }}
+                      />
+                    </span>
+                  )}
                   <span>{g.txt}</span>
                 </li>
               ))}
@@ -215,6 +246,18 @@ export function ClasesMP() {
           <p className="m-0 mt-3 text-[13.5px] leading-[1.6]" style={{ color: "var(--doc-fg)" }}>
             {clase.nota}
           </p>
+        )}
+
+        {clase.importante && (
+          <div
+            className="mt-3 border-l-[3px] px-4 py-3"
+            style={{ borderLeftColor: clase.color, background: docTint(ACENTO, 7) }}
+          >
+            <div className="text-[13px] font-semibold" style={{ color: "var(--doc-fg)" }}>
+              Importante para el piloto
+            </div>
+            <p className="m-0 mt-1 text-[13.5px] leading-[1.6]">{clase.importante}</p>
+          </div>
         )}
       </div>
     </section>
@@ -260,7 +303,7 @@ export function EtiquetasMP({ grupo }: { grupo: GrupoEtiqueta | "todas" }) {
                 <div className="text-[14.5px] font-semibold leading-[1.25]" style={{ color: "var(--doc-fg)" }}>
                   {e.nombre}
                 </div>
-                <div className="mono mt-1 text-[10.5px] font-semibold uppercase tracking-[0.08em]" style={{ color: docAccent(ACENTO, 72) }}>
+                <div className="rotulo mt-1 text-[10.5px] font-semibold uppercase tracking-[0.08em]" style={{ color: docAccent(ACENTO, 72) }}>
                   {e.clase}
                 </div>
               </div>

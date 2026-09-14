@@ -29,7 +29,15 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Léelo dos veces: **una** clase, la del peligro **más importante**. Una sustancia inflamable y corrosiva no va en dos clases: va en una, y el otro peligro se trata como riesgo secundario y aparece en el etiquetado. La clasificación la recomienda el Comité de expertos de las Naciones Unidas, y por eso es la misma en aire, mar y tierra.",
+        text: "Léelo dos veces: **una clase principal**, la del peligro que determina su clasificación. Una sustancia puede presentar además otros peligros, que se consideran riesgos secundarios y pueden aparecer en el etiquetado.",
+      },
+      {
+        kind: "p",
+        text: "Por ejemplo: recibes un envío identificado como **UN 1263 PAINT, Clase 3**. Aunque se trate simplemente de pintura, su clasificación te indica que el peligro principal es el de un líquido inflamable. Si además presenta un riesgo secundario, este deberá reflejarse de acuerdo con las reglas de etiquetado aplicables.",
+      },
+      {
+        kind: "p",
+        text: "La clasificación la recomienda el Comité de expertos de las Naciones Unidas, y constituye una base común para identificar los peligros en los diferentes modos de transporte.",
       },
       {
         kind: "definicion",
@@ -38,42 +46,25 @@ export const NIVEL_2: DocScreen[] = [
       { kind: "sub", text: "Toca cada clase" },
       { kind: "clasesMP" },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "Clase y división no son lo mismo",
-        text: "La clase es el riesgo principal, del 1 al 9. La división es el subtipo dentro de la clase, y se escribe con un punto: `2.1` es un gas inflamable, dentro de la clase 2. Decir «clase 2.1» en una entrevista delata que no se entendió la diferencia.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "La numeración no es un ranking",
-        text: "La clase 1 no es «más peligrosa» que la clase 9: son familias de riesgo distintas. Dentro de una clase, lo que gradúa el peligro es el grupo de embalaje (I gran peligro, II intermedio, III escaso), que no se asigna a las clases 1, 2 y 7 ni a las divisiones 5.2 y 6.2. Eso lo ves en la lección 07.",
-      },
-      { kind: "sub", text: "Cómo se leen los colores" },
-      {
-        kind: "p",
-        text: "El color del rombo no es decoración: es la primera señal. El rojo es inflamable, el verde es gas que no arde, el amarillo es comburente, el blanco con calavera es tóxico y las siete franjas negras son la clase 9. Por eso hay clases que comparten color: la 3 y la 4 son rojas porque las dos arden, y verlo así es lo correcto. Y ojo con la 5: la 5.1 es amarilla, pero la 5.2 va roja arriba y amarilla abajo.",
-      },
-      {
         kind: "enLaOperacion",
         momento: "En el NOTOC",
         texto:
-          "En la información al piloto al mando la clase aparece como una cifra: «3», «4.3», «9». Esa cifra te dice qué hace la mercancía si algo sale mal. Con una 4.3 en la bodega, el agua no es la respuesta; con una 5.1, lo que hay que alejar es cualquier cosa que arda. La clase es la primera lectura de emergencia, antes de abrir cualquier guía.",
+          "En la información entregada al piloto al mando, la mercancía peligrosa aparece identificada, entre otros datos, por su clase o división: «3», «4.3», «5.1», «9». Esa cifra te da una primera indicación del peligro principal que presenta la mercancía y te permite interpretar rápidamente el riesgo asociado.\n\nPor ejemplo, si en el NOTOC encuentras UN 3480 — LITHIUM ION BATTERIES — Clase 9 — ULD AKE 12345, sabes que llevas baterías de ion-litio y, además, dónde están ubicadas. Si durante el vuelo se presenta humo, olor extraño o indicios de sobrecalentamiento, esta información permite identificar la mercancía involucrada y su ubicación para aplicar el procedimiento de emergencia establecido por el operador.\n\nLa clase te orienta sobre el peligro; la respuesta concreta depende de la mercancía, la información disponible y los procedimientos de emergencia aplicables.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En plataforma, mientras haces la vuelta al avión",
         situacion:
-          "Ves una paleta esperando a subir. Encima, un bulto con un **rombo rojo y una llama negra**, con un 3 en la esquina de abajo. Nadie te ha dicho nada todavía y el NOTOC aún no te ha llegado.",
+          "Ves una paleta esperando a subir. Encima, un bulto con un **rombo rojo y una llama negra**, con un 3 en la parte inferior. Nadie te ha dicho nada todavía y el NOTOC aún no te ha llegado.",
         pregunta: "¿Qué sabes ya, solo con eso, y qué te falta por saber?",
         claves: [
-          "**Ya sé:** rojo con llama es inflamable, y el 3 lo sitúa en líquidos inflamables. Arde, y arde con facilidad.",
-          "**Ya sé:** eso va a aparecer en mi información escrita. Si luego no aparece, tengo un problema que resolver antes de salir.",
-          "**Me falta:** cuánto hay, en qué bulto y **dónde va estibado**. Un litro y doscientos litros arden igual, pero se responden distinto.",
-          "**Me falta:** si lleva riesgo secundario. Un segundo rombo cambiaría la respuesta ante una fuga.",
+          "**Ya sé:** el color rojo y la llama indican un peligro de inflamabilidad, y el 3 identifica la Clase 3: líquidos inflamables.",
+          "**Ya sé:** esa mercancía, si finalmente es aceptada para el vuelo, deberá estar reflejada en la información operacional que recibe la tripulación. Si luego la información no coincide con lo que encuentras en plataforma, hay una discrepancia que debe aclararse antes de continuar, de acuerdo con los procedimientos del operador.",
+          "**Me falta:** saber qué sustancia es, cuánto se transporta y dónde quedará ubicada. La cantidad y las características de la mercancía influyen en el riesgo y en la respuesta ante un incidente.",
+          "**Me falta:** comprobar si existe un riesgo secundario. Un segundo rombo puede indicar otro peligro que también debe considerarse ante una fuga, incendio u otra situación anormal.",
         ],
         cierre:
-          "El rombo te da la mitad de la respuesta en dos segundos y desde diez metros. La otra mitad está en el papel que vas a firmar.",
+          "El rombo te permite identificar rápidamente el peligro principal. La información del NOTOC te permite saber qué mercancía llevas, cuánto transportas y dónde está ubicada.",
       },
     ],
   },
@@ -93,7 +84,7 @@ export const NIVEL_2: DocScreen[] = [
         kind: "reconoce",
         titulo: "Un bulto real, en la cinta",
         intro:
-          "Esta caja está bien preparada. Todo lo que ves lo puso el expedidor antes de que saliera de su bodega. Pulsa cada número y averigua qué es y por qué te importa a ti.",
+          "Esta caja está bien preparada. Todo lo que ves lo puso el expedidor antes de que saliera de su bodega. Pulsa cada número y averigua qué es cada cosa.",
         imagen: {
           src: "/modulos/mercancias/img-04-bulto-marcado.webp",
           alt: "Caja de cartón en una cinta transportadora con flechas de orientación, una etiqueta de expedición, la marca de especificación del embalaje y tres rombos de riesgo.",
@@ -106,54 +97,42 @@ export const NIVEL_2: DocScreen[] = [
             y: 34,
             que: "Flechas de orientación",
             significa:
-              "Etiqueta de manipulación «posición del bulto». Dos flechas que indican hacia dónde va «arriba». Van en dos caras opuestas del bulto.",
-            piloto:
-              "Te dice que dentro hay líquido y que el cierre solo sella en esa posición. Si alguien lo estiba de lado o boca abajo, el contenido busca la tapa. Es la etiqueta más fácil de ignorar y la que más derrames evita.",
+              "Etiqueta de manipulación que indica la posición correcta del bulto durante el transporte. Las dos flechas apuntan hacia arriba y se colocan en dos caras verticales opuestas del bulto.",
           },
           {
             x: 37,
             y: 30,
             que: "Etiqueta de expedición",
             significa:
-              "Los datos del envío: expedidor, destinatario, número de guía. Es lo que permite rastrear el bulto y llegar a la declaración del expedidor.",
-            piloto:
-              "Tú no la usas en vuelo. Pero es el hilo que conecta esa caja con el papel que tú firmaste: si en el NOTOC hay un UN y nadie encuentra a qué bulto corresponde, se tira de aquí.",
+              "Contiene los datos que permiten identificar y rastrear el envío, como el expedidor, el destinatario y el número de guía aérea (AWB). Forma parte de la trazabilidad del bulto desde su origen hasta su destino.",
           },
           {
             x: 22,
             y: 75,
             que: "Marca de especificación",
             significa:
-              "«4GV/X17.3/S/18» con el símbolo de la ONU. Certifica que ese embalaje superó los ensayos de las Instrucciones Técnicas: caída, apilamiento, presión.",
-            piloto:
-              "Es la prueba de que la caja está diseñada para aguantar tu vuelo, no un camión. Marcar un embalaje como homologado sin serlo es una infracción, y es exactamente el tipo de fallo que no se ve hasta que hay humo.",
+              "`4GV/X17.3/S/18` junto al símbolo de la ONU. Esta marca identifica un embalaje certificado según una especificación de diseño y proporciona información sobre el tipo de embalaje, el grupo de embalaje que puede admitir, el estado de la materia y la masa máxima permitida, según corresponda. Su diseño ha sido sometido a los ensayos de desempeño exigidos, como caída, apilamiento y presión interna, de acuerdo con las especificaciones aplicables.",
           },
           {
             x: 48,
             y: 44,
             que: "Contaminante del medio ambiente",
             significa:
-              "El pez y el árbol muertos. Indica que la sustancia daña el medio ambiente acuático. Acompaña al riesgo principal, no lo sustituye.",
-            piloto:
-              "Cambia lo que se hace **después**: un derrame de esto no se barre y ya está. Si ocurre en tu avión, el aeródromo de destino tiene que saberlo para tratar el residuo.",
+              "El símbolo del pez y el árbol muertos indica que la sustancia presenta un peligro para el medio ambiente, especialmente para el medio acuático. Esta marca puede acompañar al riesgo principal de la mercancía y no lo sustituye.",
           },
           {
             x: 40,
             y: 60,
-            que: "Corrosivo, clase 8",
+            que: "Corrosivo · Clase 8",
             significa:
-              "Rombo mitad blanco arriba, mitad negro abajo, con dos chorros que corroen una mano y una placa. Es el riesgo principal de este bulto.",
-            piloto:
-              "Ataca metal y piel. En una fuga te importa dónde está estibado (¿cerca de mandos, de cables?) y que nadie lo manipule sin los guantes largos de goma del equipo de emergencia.",
+              "Rombo dividido en blanco y negro, con dos tubos de ensayo que muestran el líquido corrosivo atacando una mano y una superficie metálica. Identifica una sustancia corrosiva y señala que este es el riesgo principal del bulto.",
           },
           {
             x: 49,
             y: 70,
-            que: "Tóxico, clase 6",
+            que: "Tóxico · Clase 6",
             significa:
-              "Calavera y tibias cruzadas sobre fondo blanco. Aquí va como **riesgo secundario**: por eso la esquina inferior lleva el 6 pero el bulto es principalmente de clase 8.",
-            piloto:
-              "Una sola caja puede llevar dos rombos. Uno manda y el otro avisa. Si solo lees el primero, te pierdes la mitad del problema: esto además es tóxico.",
+              "Calavera y tibias cruzadas sobre fondo blanco. Aquí aparece como **riesgo secundario**: por eso la esquina inferior lleva el 6 aunque el riesgo principal del bulto sea el de clase 8.",
           },
         ],
       },
@@ -165,63 +144,20 @@ export const NIVEL_2: DocScreen[] = [
       },
       { kind: "sub", text: "Dos familias, dos preguntas distintas" },
       {
-        kind: "figura",
-        src: "/modulos/mercancias/img-05-panel-etiquetas.webp",
-        alt: "Panel con las etiquetas de riesgo de las nueve clases: explosivos, gases, líquidos inflamables, sólidos inflamables, comburentes, tóxicos, infecciosos, radiactivo, corrosivos y riesgos varios.",
-        ancho: 608,
-        alto: 331,
-        pie: "Todas las de riesgo juntas, como las verías en el cuadro que la terminal de carga tiene a la vista por obligación. Fíjate en que el color se repite entre clases: lo que identifica no es el color, es el símbolo con el número de la esquina.",
+        kind: "p",
+        text: "Cuando observas un bulto de mercancías peligrosas, puedes encontrar diferentes tipos de etiquetas y marcas. No todas cumplen la misma función: unas identifican qué riesgo presenta la mercancía, mientras que otras indican cómo debe manipularse, transportarse o mantenerse el bulto. Por eso es importante aprender a distinguirlas.",
       },
-      {
-        kind: "definicion",
-        text: "**De riesgo** responden a «¿qué es?». **De manipulación** responden a «¿cómo se trata?». Un bulto puede llevar varias de las dos, y llevarlas todas es lo normal, no lo raro.",
-      },
-      { kind: "sub", text: "Tres etiquetas a fondo" },
       {
         kind: "p",
-        text: "De las veinticinco, estas tres son las que más te van a cambiar el día. Las otras están completas en el detalle del final.",
+        text: "Las **etiquetas de riesgo** permiten identificar el riesgo mediante el símbolo y el número de clase o división. Las **marcas y etiquetas de manipulación** proporcionan indicaciones específicas sobre el tratamiento del bulto, como mantenerlo en una determinada posición o protegerlo de ciertas condiciones. Un mismo bulto puede llevar varias indicaciones de ambas familias, dependiendo de las características de la mercancía y de las condiciones de transporte.",
       },
       {
-        kind: "fichas",
-        columnas: 1,
-        items: [
-          {
-            titulo: "① Líquido inflamable · clase 3",
-            puntos: [
-              "**Qué ves:** rombo rojo con una llama negra o blanca y un 3 en la esquina inferior.",
-              "**Qué significa:** líquido que arde. El criterio son 60,5 °C en vaso cerrado o 65,6 °C en vaso abierto.",
-              "**Qué te importa:** es la clase que más vas a ver, y la que más restricciones de flota arrastra. Pinturas, thinner, perfumes, adhesivos, combustible de muestra.",
-              "**Ejemplo:** UN 1263 PAINT. Suena inofensivo hasta que recuerdas que es un líquido inflamable en una bodega presurizada.",
-            ],
-          },
-          {
-            titulo: "② Exclusivamente en aeronaves de carga · CAO",
-            puntos: [
-              "**Qué ves:** un rectángulo naranja con texto negro y la silueta de un avión de carga. No es un rombo: es de manipulación.",
-              "**Qué significa:** esa cantidad de esa mercancía **no puede ir en una aeronave que lleve pasajeros**. Punto.",
-              "**Qué te importa:** es la única etiqueta que puede sacar un bulto de tu vuelo. Si operas pasajeros y ese bulto aparece en tu bodega, no es un problema de estiba: no sube.",
-              "**Ojo:** estibarlo lejos de la cabina no lo arregla. La prohibición es por tipo de aeronave, no por posición.",
-            ],
-            nota: "La norma no la matiza: no se estiban en aeronave ocupada por pasajeros los bultos que lleven esta etiqueta.",
-          },
-          {
-            titulo: "③ Posición del bulto · flechas de orientación",
-            puntos: [
-              "**Qué ves:** dos flechas negras o rojas apuntando arriba, sobre fondo contrastado, en dos caras opuestas.",
-              "**Qué significa:** ese bulto tiene un arriba y un abajo. Casi siempre es porque contiene líquido y el cierre solo sella en esa posición.",
-              "**Qué te importa:** un bulto tumbado con líquido dentro es un derrame esperando. Es el fallo más frecuente y el más barato de evitar.",
-              "**Ejemplo:** una batería de plomo-ácido de una unidad de tierra, tumbada en la paleta. El electrolito es corrosivo y busca la tapa.",
-            ],
-          },
-        ],
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-ETQ-20 · Etiqueta CAO · 400×400 · PNG con fondo transparente",
-        descripcion:
-          "La etiqueta «Cargo Aircraft Only»: rectángulo naranja, texto negro, silueta de avión de carga. 120 × 110 mm en la realidad. Es la única etiqueta que puede sacar un bulto de un vuelo de pasajeros, así que merece verse grande.",
-        alto: 220,
-        ratio: "1 / 1",
+        kind: "figura",
+        src: "/infografias/mercancias/dos-familias.webp",
+        alt: "Un bulto en una paleta con sus etiquetas señaladas. A la izquierda, las etiquetas de riesgo: clase 3 líquido inflamable como riesgo principal, y clase 8 corrosivo y clase 6 tóxico como riesgos secundarios. A la derecha, las marcas y etiquetas de manipulación: flechas de orientación, frágil y mantener alejado del calor.",
+        ancho: 1536,
+        alto: 1024,
+        pie: "Toca la imagen para verla en grande. A la izquierda, qué es: identifica qué puede ocurrir con la mercancía. A la derecha, cómo se trata: indica cómo debe manejarse o transportarse.",
       },
       {
         kind: "piensaComoPiloto",

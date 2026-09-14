@@ -225,8 +225,12 @@ export interface ReconoceBlock {
     que: string
     /** Qué significa. */
     significa: string
-    /** Y esto por qué le importa a un piloto. */
-    piloto: string
+    /**
+     * Y esto por qué le importa a un piloto. Opcional: en Mercancías las fichas
+     * del bulto se quedan en qué es cada marca, sin repetir en cada punto lo
+     * que ya dice la lección entera.
+     */
+    piloto?: string
   }[]
 }
 
