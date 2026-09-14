@@ -1,9 +1,8 @@
 # Historial de migraciones
 
 `supabase/migrations/` tiene un archivo por cada fila de
-`supabase_migrations.schema_migrations` de producción (72 al 11 de septiembre de
-2026), con la versión y el nombre que registró la base. Hay además un archivo
-que se aplicó a mano y no está en ese historial (ver abajo).
+`supabase_migrations.schema_migrations` de producción —**92 y 92 al 14 de
+septiembre de 2026**—, con la versión y el nombre que registró la base.
 
 Antes de esta alineación, el repo tenía 63 archivos: 32 con una versión
 inventada al escribirlos, 7 migraciones que solo existían en la base y un
@@ -88,15 +87,39 @@ el estado real de producción:
   `20260801021117_subject_mastery_desde_vault` no está en el historial, pero
   producción ya tiene ese texto.
 
-## Aplicada a mano, fuera del historial
+## Las dos que faltaban en el historial (cerrado el 14 de septiembre de 2026)
 
-`20260911030000_meteorologia_orden_por_niveles` se corrió en el SQL Editor. Su
-marca está en producción: el comentario de `user_metar_progress.lesson_screens`
-dice `[orden por niveles]`. Para registrarla sin volver a correrla, con el CLI
-enlazado al proyecto:
+Había dos archivos en el repo sin fila en `schema_migrations`. Se compararon
+las 90 filas de producción contra los 92 archivos del repo, uno por uno:
+
+| Versión | Estaba aplicada | Qué se hizo |
+| --- | --- | --- |
+| `20260911030000_meteorologia_orden_por_niveles` | Sí | Solo registrarla |
+| `20260911210000_meteorologia_evaluacion_seis_niveles` | **No** | Aplicarla y registrarla |
+
+La primera se había corrido en el SQL Editor: su marca está en producción, el
+comentario de `user_metar_progress.lesson_screens` dice `[orden por niveles]`.
+
+La segunda **nunca se había corrido**, y con ella tampoco se había cargado el
+banco de Meteorología: producción seguía con las 20 preguntas del código METAR
+y sorteaba 20 de 20, mientras la app anunciaba «25 al azar de 104». Se cargó el
+banco con `scripts/bancos/sembrar.mjs`, se corrieron sus dos `update` y se
+comprobó con md5 que los cinco bancos de producción son los de
+`contenido/bancos/`. `supabase/tests/progreso_y_evaluaciones.sql` ahora lo
+vigila con `bancos_como_en_el_repo` y `la_muestra_es_muestra`.
+
+Hoy hay **92 filas y 92 archivos**, sin sobrantes por ningún lado.
+
+### Cómo se registra una que se aplicó por fuera
+
+Con el CLI enlazado al proyecto:
 
 ```bash
-supabase migration repair --status applied 20260911030000
+supabase migration repair --status applied <version>
 ```
 
-Si se vuelve a correr, no mueve nada: su propia guarda revisa esa marca.
+Es equivalente a insertar su fila en `supabase_migrations.schema_migrations`
+(`version` y `name`, sin `statements`, que es lo que deja el propio comando).
+Antes de registrarla hay que **comprobar que de verdad está aplicada**: si no lo
+está, marcarla hace que `db push` la salte para siempre. Eso es exactamente lo
+que llevaba tres días pasando con la evaluación de Meteorología.

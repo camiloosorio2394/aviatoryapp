@@ -118,6 +118,49 @@ begin
   x_log := x_log || ' tope_10';
   reset role;
 
+  -- ── Los bancos que hay en producción son los del repo ─────────────────────
+  -- El 14 de septiembre de 2026 se descubrió que el banco de Meteorología nunca
+  -- se había cargado: el módulo eran seis niveles y 104 preguntas desde el PR
+  -- #134, pero producción seguía con las 20 del código METAR y sorteaba 20 de
+  -- 20, o sea el banco entero en cada intento. La app anunciaba «25 al azar de
+  -- 104» y nadie lo cruzó nunca contra la base.
+  --
+  -- Estos números salen de contenido/bancos/, que es la fuente; del lado del
+  -- cliente ya los vigila src/lib/evaluacionesContenido.test.ts. Aquí se cierra
+  -- el círculo contra producción. Si cambia un banco, se actualizan los dos.
+  for x_clave, x_n in
+    select * from (values
+      ('notam_evaluacion', 100),
+      ('metar_evaluacion', 104),
+      ('mercancias_evaluacion', 60),
+      ('mercancias_chequeo', 5),
+      ('psicotecnicas', 238)
+    ) as esperado(banco, cuantas)
+  loop
+    select count(*) into x_m from public.banco_preguntas where banco = x_clave and activa;
+    if x_m <> x_n then
+      raise exception 'FALLO el banco % tiene % preguntas activas y el repo trae %', x_clave, x_m, x_n;
+    end if;
+  end loop;
+  x_log := x_log || ' bancos_como_en_el_repo';
+
+  -- Y ninguna evaluación sortea todo lo que tiene: con por_intento igual al
+  -- banco, «una muestra al azar» es el banco entero, que es justo lo que pasaba
+  -- en Meteorología.
+  select string_agg(e.clave, ', ' order by e.clave) into x_clave
+  from public.evaluaciones e
+  where e.activa
+    and e.preguntas_por_intento >= (
+      select count(*)
+      from public.evaluacion_fuentes f
+      join public.banco_preguntas b on b.banco = f.banco and b.activa
+      where f.evaluacion = e.clave
+    );
+  if x_clave is not null then
+    raise exception 'FALLO estas evaluaciones sortean todo su banco: %', x_clave;
+  end if;
+  x_log := x_log || ' la_muestra_es_muestra';
+
   raise exception 'PRUEBA_DESHECHA%', x_log;
 end
 $prueba$;

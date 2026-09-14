@@ -1,0 +1,78 @@
+# Las pruebas de supabase/tests/, corridas de noche contra la base.
+#
+# Por qué existe: esas trece pruebas comprueban reglas que viven en la base
+# —correcciones, topes, permisos— y no corren en el CI de cada PR porque hacen
+# falta credenciales. El 14 de septiembre de 2026, al correrlas a mano después de
+# 27 PR, dos habían quedado desfasadas y el banco de Meteorología llevaba tres
+# días sin cargar en producción. Mientras la única defensa sea acordarse de
+# correrlas, esto se repite.
+#
+# Son seguras por construcción: cada archivo es un único bloque `do $prueba$` que
+# termina SIEMPRE en `raise exception 'PRUEBA_DESHECHA…'`, así que la transacción
+# se deshace entera y no queda ninguna fila escrita. El CI de cada PR verifica esa
+# forma antes de que nada llegue aquí (scripts/db/pruebasDeBase.test.ts).
+#
+# ─── HACE FALTA UN SECRET, Y LA DECISIÓN ES DE CAMILO ────────────────────────
+#
+# SUPABASE_DB_URL, la cadena de conexión de Supabase → Project Settings →
+# Database → Connection string (la de sesión, con la contraseña). Es una llave
+# con acceso total a la base: GitHub no la expone a los forks en `schedule` ni en
+# `workflow_dispatch`, pero mientras el repo sea público vale la pena decidirlo a
+# conciencia. Sin el secret este workflow no hace nada más que decir que falta.
+name: Pruebas de base
+
+on:
+  schedule:
+    - cron: "40 8 * * *" # todas las noches, 3:40 en Bogotá
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pruebas-de-base
+  cancel-in-progress: false
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Correr supabase/tests
+        env:
+          URL: ${{ secrets.SUPABASE_DB_URL }}
+        run: |
+          set -uo pipefail
+
+          if [ -z "${URL}" ]; then
+            echo "Falta el secret SUPABASE_DB_URL del repositorio."
+            echo "Supabase → Project Settings → Database → Connection string."
+            exit 1
+          fi
+
+          fallos=0
+          for archivo in supabase/tests/*.sql; do
+            # psql sale con error a propósito: la prueba termina lanzando
+            # PRUEBA_DESHECHA para deshacer lo que escribió. Lo que decide si
+            # pasó o no es el texto, no el código de salida.
+            salida=$(psql "${URL}" --no-psqlrc -v ON_ERROR_STOP=1 -f "${archivo}" 2>&1 || true)
+
+            if printf '%s' "${salida}" | grep -q 'PRUEBA_DESHECHA'; then
+              echo "::notice file=${archivo}::$(printf '%s' "${salida}" | grep -o 'PRUEBA_DESHECHA.*' | head -1)"
+              echo "OK    ${archivo}"
+            else
+              echo "FALLA ${archivo}"
+              printf '%s\n' "${salida}" | tail -25
+              echo "::error file=${archivo}::la prueba no terminó en PRUEBA_DESHECHA"
+              fallos=$((fallos + 1))
+            fi
+          done
+
+          echo ""
+          if [ "${fallos}" -gt 0 ]; then
+            echo "${fallos} prueba(s) de base sin pasar."
+            exit 1
+          fi
+          echo "Las trece pruebas de base pasaron y se deshicieron solas."
