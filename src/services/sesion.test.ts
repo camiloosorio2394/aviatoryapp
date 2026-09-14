@@ -149,9 +149,14 @@ describe("recuperar la contraseña", () => {
     await expect(cambiarClave("claveNueva1")).rejects.toThrow("Auth session missing")
   })
 
-  it("cerrar sesión no lanza: se usa cuando el enlace ya venía mal", async () => {
+  it("cerrar sesión no lanza: devuelve el mensaje y quien llama decide", async () => {
     signOut.mockResolvedValue({ error: { message: "lo que sea" } })
-    await expect(cerrarSesion()).resolves.toBeUndefined()
+    await expect(cerrarSesion()).resolves.toBe("lo que sea")
     expect(signOut).toHaveBeenCalled()
+  })
+
+  it("cerrar sesión sin problema devuelve null", async () => {
+    signOut.mockResolvedValue({ error: null })
+    await expect(cerrarSesion()).resolves.toBeNull()
   })
 })

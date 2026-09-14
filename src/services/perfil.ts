@@ -153,6 +153,37 @@ export async function traerPerfil(userId: string): Promise<DatosDelPerfil> {
   }
 }
 
+/** Lo único que la barra de arriba necesita del perfil. */
+export interface IdentidadEnLaBarra {
+  username: string | null
+  photoUrl: string | null
+}
+
+/**
+ * El nombre de usuario y la foto, para la barra.
+ *
+ * Aparte de traerPerfil() a propósito: aquella hace diez consultas para pintar
+ * la pantalla del perfil, y la barra vive en todas las rutas. Aquí van dos
+ * columnas de una tabla.
+ *
+ * Devuelve null si no se pudo leer, sin lanzar: el avatar cae a las iniciales y
+ * el menú al correo, así que el piloto no ve nada roto. Quien llama avisa por
+ * consola; es degradado y esperable, no algo que le rompa la sesión.
+ */
+export async function traerIdentidadEnLaBarra(userId: string): Promise<IdentidadEnLaBarra | null> {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("username, photo_url")
+    .eq("id", userId)
+    .maybeSingle()
+  if (error) {
+    console.warn("barra: perfil", error.message)
+    return null
+  }
+  const p = data as { username?: string; photo_url?: string } | null
+  return { username: p?.username ?? null, photoUrl: p?.photo_url ?? null }
+}
+
 /**
  * Si el nombre de usuario está libre. `libre: null` con `fallo` es «no se pudo
  * comprobar»: antes un error de red salía en pantalla como «ya está tomado».
