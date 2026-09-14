@@ -22,6 +22,9 @@ esa forma.
 | `panel.sql` | `panel_inicio()` y `panel_tarjetas()` devuelven lo mismo que las consultas que reemplazan, piloto por piloto, sin sesión no responden. Solo lee. |
 | `constancia.sql` | El plan de estudio es del piloto y solo suyo, la racha sobrevive a un día por mes (uno, no dos), y los avisos que corren de noche salen cuando deben y una sola vez al día. |
 | `resumenes.sql` | `bitacora_resumen` e `icao_progreso()` cuentan más de 1000 filas y solo las del piloto. |
+| `horas_de_carrera.sql` | Las horas previas más la bitácora, la verificación y lo que el piloto no puede cambiar solo. |
+| `vault.sql` | El banco de la bóveda va cifrado: la tanda viaja sin respuestas, el tamaño y la posición los acota el servidor, una tanda ajena no se responde y el tope por hora frena. |
+| `wingman.sql` | El cupo del tutor se cuenta por conversación y por mes, no por mensaje; lo fallido no se cobra y el historial es de cada quien. |
 
 ## Cómo se corren
 
