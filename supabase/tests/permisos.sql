@@ -31,13 +31,20 @@ begin
   if x_lista is not null then raise exception 'FALLO anon con permisos en: %', x_lista; end if;
   x_log := x_log || ' anon_sin_tablas';
 
-  -- anon ejecuta en public una sola función: la que usa el registro.
+  -- Lo que anon puede ejecutar en public, con su razón cada una. Quien agregue
+  -- una tercera tiene que justificarla aquí: sin sesión no hay a quién pedirle
+  -- cuentas, así que esta lista es la superficie abierta de la app.
   select string_agg(p.proname, ', ' order by p.proname) into x_lista
   from pg_proc p join pg_namespace n on n.oid = p.pronamespace
   where n.nspname = 'public' and has_function_privilege('anon', p.oid, 'execute')
-    and p.proname <> 'check_username_available';
+    and p.proname not in (
+      'check_username_available', -- el registro la llama antes de que haya sesión
+      'latido'                    -- devuelve now() y nada más; la llama el cron
+                                  -- de GitHub Actions para que Supabase no pause
+                                  -- el proyecto por inactividad
+    );
   if x_lista is not null then raise exception 'FALLO anon ejecuta: %', x_lista; end if;
-  x_log := x_log || ' anon_una_funcion';
+  x_log := x_log || ' anon_solo_lo_justificado';
 
   -- El esquema private no se ve desde el cliente.
   if has_schema_privilege('anon', 'private', 'usage') or has_schema_privilege('authenticated', 'private', 'usage') then
@@ -105,12 +112,25 @@ begin
   ]) as f
   where has_function_privilege('authenticated', f, 'execute');
   if x_lista is null then
+    -- daily_activity salió de esta lista en la migración 20260913160000: el mapa
+    -- de constancia la lee, así que el permiso volvió con su razón. Su política
+    -- se comprueba abajo.
     select string_agg(t, ', ') into x_lista
-    from unnest(array['public.user_pca_readiness', 'public.daily_activity']) as t
+    from unnest(array['public.user_pca_readiness']) as t
     where has_table_privilege('authenticated', t, 'select');
   end if;
   if x_lista is not null then raise exception 'FALLO el cliente conserva acceso sin uso: %', x_lista; end if;
   x_log := x_log || ' sin_uso_cerrado';
+
+  -- Lo que el cliente sí lee de su actividad lo lee solo de sí mismo.
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public' and tablename = 'daily_activity' and cmd = 'SELECT'
+      and qual like '%auth.uid()%' and qual like '%user_id%'
+  ) then
+    raise exception 'FALLO daily_activity se lee sin filtrar por dueño';
+  end if;
+  x_log := x_log || ' actividad_solo_la_propia';
 
   -- El cliente escribe solo en estas tablas: lo que el piloto declara o publica.
   -- Puntajes, intentos, progreso, logros y rachas van por funciones. Una tabla
@@ -134,13 +154,41 @@ begin
       'flights',                -- bitácora que el piloto declara
       'licenses_held',          -- licencias que el piloto declara
       'pilot_state',            -- horas y metas que el piloto declara
+      'plan_de_estudio',        -- el plan que el piloto arma para sí mismo
       'profiles',               -- nombre, país, usuario, foto, CV público
       'user_achievements',      -- solo la marca «visto»
       'user_icao_mock_results', -- autoevaluación del simulacro ICAO
-      'user_icao_speaking'      -- grabaciones de práctica propias
+      'user_icao_speaking',     -- grabaciones de práctica propias
+      'verificaciones_horas'    -- pide que le verifiquen las horas; solo puede
+                                -- crearla en 'pendiente' y no puede cambiarla
     );
   if x_lista is not null then raise exception 'FALLO el cliente escribe en: %', x_lista; end if;
   x_log := x_log || ' escrituras_acotadas';
+
+  -- Las dos tablas que entraron con la constancia y las horas: el piloto
+  -- escribe solo lo suyo, y una verificación nace 'pendiente' o no nace. Sin
+  -- esto, «está en la lista» sería toda la comprobación.
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public' and tablename = 'plan_de_estudio' and cmd = 'UPDATE'
+      and qual like '%auth.uid()%' and with_check like '%auth.uid()%'
+  ) then
+    raise exception 'FALLO el plan de estudio se edita sin ser el dueño';
+  end if;
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public' and tablename = 'verificaciones_horas' and cmd = 'INSERT'
+      and with_check like '%auth.uid()%' and with_check like '%pendiente%'
+  ) then
+    raise exception 'FALLO una verificación de horas puede nacer aprobada';
+  end if;
+  if exists (
+    select 1 from pg_policies
+    where schemaname = 'public' and tablename = 'verificaciones_horas' and cmd in ('UPDATE', 'DELETE')
+  ) then
+    raise exception 'FALLO el piloto puede cambiar o borrar su verificación de horas';
+  end if;
+  x_log := x_log || ' plan_y_verificacion_acotados';
 
   -- De profiles y user_achievements, solo esas columnas.
   if has_column_privilege('authenticated', 'public.user_achievements', 'unlocked_at', 'update')
