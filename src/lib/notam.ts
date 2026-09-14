@@ -21,8 +21,6 @@ import codesRaw from "@/data/notam/notam_codes.json"
 import exercisesRaw from "@/data/notam/ejercicios_interpretacion.json"
 import realesRaw from "@/data/notam/notams_reales.json"
 import { deepPlain, NOTAM_TOTALES, type NotamLevel } from "@/lib/notamComun"
-import { LESSON_TOTAL } from "@/lib/notamLesson"
-import { NATIONAL_NOTAMS } from "@/lib/notamNacionales"
 
 // ─── Tipos ───────────────────────────────────────────────────────────────────
 
@@ -148,14 +146,14 @@ export const TOTALS = {
   subjects: Object.keys(SUBJECT_CODES).length,
   statuses: Object.keys(STATUS_CODES).length,
   exercises: EXERCISES.length,
-  national: NATIONAL_NOTAMS.length,
   /** NOTAM reales del modo práctica: los de la columna izquierda. */
   reales: REAL_NOTAMS.length,
   /** Preguntas del banco de la evaluación, que vive en el servidor. */
   examQuestions: NOTAM_TOTALES.examQuestions,
-  // Derivado, no fijo: si se agrega o se reordena una sección de la lección, el
-  // denominador del progreso del hub tiene que moverse con ella.
-  lessonScreens: LESSON_TOTAL,
+  // Las secciones de la lección y los NOTAM nacionales no se cuentan aquí: los
+  // traía importando notamLesson y notamNacionales, y con eso la práctica se
+  // llevaba la lección entera (119 kB). El conteo fijo está en NOTAM_TOTALES, y
+  // notamComun.test.ts lo compara con el contenido.
 } as const
 
 // ─── Avisos obligatorios en pantalla (reglas de producto del paquete) ────────
