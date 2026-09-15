@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Clasificar un suceso y notificar un hallazgo</title>
+  <desc id="desc">Tres categorías son incumplimiento, incidente y accidente según los hechos. Encontrar mercancía no declarada o mal declarada no añade un cuarto grado: es un hallazgo notificable cuya gravedad se evalúa. Los reportes alimentan medidas de seguridad.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f3ef"/>
+  <rect x="65" y="61" width="15" height="75" rx="7" fill="#caa63e"/>
+  <text x="106" y="126" font-family="Arial,sans-serif" font-size="66" font-weight="700" fill="#14364a">CÓMO SE CLASIFICA UN SUCESO</text>
+  <text x="107" y="183" font-family="Arial,sans-serif" font-size="37" fill="#526973">No se clasifica por intuición ni por el resultado aparente del vuelo.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="72" y="231" width="453" height="313" rx="30" fill="#e6ecea" stroke="#b7c9c5" stroke-width="3"/>
+    <rect x="72" y="231" width="453" height="77" rx="30" fill="#14364a"/>
+    <rect x="72" y="269" width="453" height="39" fill="#14364a"/>
+    <text x="102" y="287" font-size="45" font-weight="700" fill="#fff">INCUMPLIMIENTO</text>
+    <text x="105" y="371" font-size="42" font-weight="700" fill="#14364a">Requisito vulnerado</text>
+    <text x="105" y="431" font-size="38" fill="#425d66">sin accidente ni</text>
+    <text x="105" y="482" font-size="38" fill="#425d66">incidente.</text>
+    <rect x="573" y="231" width="453" height="313" rx="30" fill="#e6ecea" stroke="#b7c9c5" stroke-width="3"/>
+    <rect x="573" y="231" width="453" height="77" rx="30" fill="#2e6972"/>
+    <rect x="573" y="269" width="453" height="39" fill="#2e6972"/>
+    <text x="603" y="287" font-size="54" font-weight="700" fill="#fff">INCIDENTE</text>
+    <text x="605" y="371" font-size="42" font-weight="700" fill="#14364a">Daño, fuga, fuego</text>
+    <text x="605" y="431" font-size="38" fill="#425d66">o peligro para avión</text>
+    <text x="605" y="482" font-size="38" fill="#425d66">u ocupantes.</text>
+    <rect x="1074" y="231" width="453" height="313" rx="30" fill="#e6ecea" stroke="#b7c9c5" stroke-width="3"/>
+    <rect x="1074" y="231" width="453" height="77" rx="30" fill="#89572f"/>
+    <rect x="1074" y="269" width="453" height="39" fill="#89572f"/>
+    <text x="1104" y="287" font-size="54" font-weight="700" fill="#fff">ACCIDENTE</text>
+    <text x="1106" y="371" font-size="40" font-weight="700" fill="#14364a">Lesión grave o</text>
+    <text x="1106" y="431" font-size="36" fill="#425d66">mortal; daño de</text>
+    <text x="1106" y="482" font-size="36" fill="#425d66">consideración.</text>
+    <rect x="72" y="585" width="1455" height="154" rx="26" fill="#e9c45e"/>
+    <text x="106" y="646" font-size="46" font-weight="700" fill="#14364a">HALLAZGO: NO DECLARADA O MAL DECLARADA</text>
+    <text x="106" y="705" font-size="38" fill="#14364a">Se notifica; no es una cuarta categoría automática.</text>
+    <path d="M72 790 H1527" stroke="#bccdc8" stroke-width="3"/>
+    <text x="72" y="833" font-size="43" font-weight="700" fill="#14364a">DATOS DEL REPORTE → SMS</text>
+    <text x="72" y="878" font-size="39" font-weight="700" fill="#14364a">→ MEDIDAS PREVENTIVAS</text>
+  </g>
+</svg>
