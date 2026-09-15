@@ -1056,12 +1056,10 @@ export const AERO_LECCIONES: DocScreen[] = [
         "items": [
           "**QUÉ ES:** paneles en el extradós que se levantan.",
           "**QUÉ HACE:** destruyen sustentación y aumentan resistencia.",
-          "**CUÁNDO SE UTILIZA:**"
+          "**CUÁNDO SE UTILIZA:**",
+          "**Spoilers de vuelo:** asimétricos para ayudar al alabeo (sin guiñada adversa); simétricos como frenos aerodinámicos.",
+          "**Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado."
         ]
-      },
-      {
-        "kind": "p",
-        "text": "- **Spoilers de vuelo:** asimétricos para ayudar al alabeo (sin guiñada adversa); simétricos como frenos aerodinámicos.   - **Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado."
       },
       {
         "kind": "p",

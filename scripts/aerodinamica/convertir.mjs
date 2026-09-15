@@ -194,10 +194,15 @@ function finDeParrafo(cuerpo, i) {
 /** Viñetas seguidas, del mismo tipo. */
 function leerLista(cuerpo, i, ordenada) {
   const marca = ordenada ? /^\d+\. / : /^- /
+  // Las viñetas anidadas («  - ») entran en la misma lista: el catálogo de
+  // bloques no tiene listas de dos niveles, y en el único sitio donde el
+  // documento las usa (los spoilers de la sección 7) la viñeta madre es solo
+  // un rótulo, así que sus hijas se leen igual de bien al mismo nivel.
+  const hija = ordenada ? /^\s+\d+\. / : /^\s+- /
   const items = []
   let j = i
-  while (j < cuerpo.length && marca.test(cuerpo[j])) {
-    items.push(cuerpo[j].replace(marca, "").trim())
+  while (j < cuerpo.length && (marca.test(cuerpo[j]) || hija.test(cuerpo[j]))) {
+    items.push(cuerpo[j].replace(marca, "").replace(hija, "").trim())
     j++
   }
   return { items, siguiente: j }
