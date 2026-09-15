@@ -484,6 +484,11 @@ export type LessonBlock =
         | "meteo-simbolos"
         | "meteo-ruta"
         | "meteo-etapas"
+        | "meteo-tiempo-presente"
+        | "meteo-componente"
+        | "meteo-cobertura"
+        | "meteo-linea-tiempo"
+        | "meteo-cambios"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
