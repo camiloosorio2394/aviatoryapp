@@ -168,13 +168,6 @@ const CODIGO: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-ilu-02-metar-grupo-a-grupo.webp",
-        alt: "El METAR de referencia escrito en grande y partido en sus diez grupos, cada uno con una línea guía hasta su nombre.",
-        ancho: 2000,
-        alto: 860,
-      },
-      {
         kind: "entrevista",
         preguntas: [
           {
@@ -237,11 +230,8 @@ const CODIGO: DocScreen[] = [
           "El viento sopla **desde** 270°, y la 09 apunta a 090°: lo tienes justo por la cola. Y el número que limita no es el promedio sino la ráfaga, 28 nudos, que es contra la que se compara el límite de viento de cola del avión.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-dia-02-componente-de-viento.webp",
-        alt: "Una pista 09/27 vista desde arriba con una rosa de vientos, y el viento de 270 grados a 15 nudos descompuesto: cola por la 09 y cara por la 27.",
-        ancho: 1200,
-        alto: 900,
+        kind: "infografia",
+        nombre: "meteo-componente",
       },
       {
         kind: "piensaComoPiloto",
@@ -457,11 +447,8 @@ const CODIGO: DocScreen[] = [
           "`VC` es el calificador de posición: **in the vicinity**, en la vecindad. La tormenta está cerca pero no encima. Cambia la decisión: no es lo mismo despegar con una celda sobre el campo que con una a diez millas moviéndose hacia ti.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-dia-01-tiempo-presente.webp",
-        alt: "La estructura del grupo de tiempo presente en tres columnas, calificador, descriptor y fenómeno, con el ejemplo +TSRA resaltado en cada una.",
-        ancho: 1600,
-        alto: 900,
+        kind: "infografia",
+        nombre: "meteo-tiempo-presente",
       },
       {
         kind: "piensaComoPiloto",
@@ -593,11 +580,8 @@ const CODIGO: DocScreen[] = [
           "El techo es la base de la primera capa que cubra **más de la mitad** del cielo, o sea la primera `BKN` u `OVC`: aquí `BKN025`, 2500 ft. Las `FEW` y `SCT` de abajo no cuentan para el techo. Y ojo al `CB` pegado: hay convección, que pesa más que el techo mismo.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-ilu-01-cielo-por-altura.webp",
-        alt: "Corte vertical del cielo con las nubes ordenadas por altura y nombradas, con la escala de pies a la izquierda y un cumulonimbo atravesándolo todo desde la base hasta el yunque.",
-        ancho: 1600,
-        alto: 900,
+        kind: "infografia",
+        nombre: "meteo-cobertura",
       },
       {
         kind: "figura",
@@ -944,11 +928,8 @@ const CODIGO: DocScreen[] = [
         text: "El METAR te dice lo que **hay**. El TAF te dice lo que se **espera**. Esa es toda la diferencia, y de ella salen las dos preguntas que un piloto responde con cada uno: el METAR contesta «¿puedo aterrizar ahora?» y el TAF, «¿voy a poder aterrizar cuando llegue, y qué llevo de alterno?».",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-ilu-03-metar-punto-taf-banda.webp",
-        alt: "Línea de tiempo con el METAR como un punto al principio y el TAF como una banda que cubre todo el periodo, con la hora estimada de llegada marcada dentro de ella.",
-        ancho: 2000,
-        alto: 860,
+        kind: "infografia",
+        nombre: "meteo-linea-tiempo",
       },
       { kind: "sub", text: "Cómo empieza un TAF" },
       {
@@ -1087,11 +1068,8 @@ const CODIGO: DocScreen[] = [
         text: "**FM borra; BECMG matiza.** Después de un FM, todo lo anterior deja de valer y hay que leer la línea completa. Después de un BECMG, solo cambia lo que ese grupo nombra. Si lees un BECMG como si fuera un FM, te inventas condiciones que el pronóstico no dijo.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-dia-03-grupos-de-cambio.webp",
-        alt: "Cuatro carriles sobre la misma línea de tiempo, uno por grupo de cambio: FM como un corte limpio, BECMG como una transición, TEMPO como bloques intermitentes y PROB40 como los mismos bloques atenuados.",
-        ancho: 2000,
-        alto: 860,
+        kind: "infografia",
+        nombre: "meteo-cambios",
       },
       {
         kind: "check",

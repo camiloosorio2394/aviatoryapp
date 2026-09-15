@@ -107,6 +107,21 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "meteo-etapas": lazy(() =>
     import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoEtapas })),
   ),
+  "meteo-tiempo-presente": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoTiempoPresente })),
+  ),
+  "meteo-componente": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoComponente })),
+  ),
+  "meteo-cobertura": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoCobertura })),
+  ),
+  "meteo-linea-tiempo": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoLineaTiempo })),
+  ),
+  "meteo-cambios": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoCambios })),
+  ),
 }
 
 /**
