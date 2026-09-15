@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Casos investigados y barreras de seguridad</title>
+  <desc id="desc">Cuatro tarjetas comparan hechos, incertidumbres y barreras de seguridad para South African 295, ValuJet 592, UPS 6 y Asiana 991. No se afirma que una causa única explique todos los casos.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f3ef"/><rect x="66" y="62" width="15" height="78" rx="7" fill="#caa63e"/>
+  <text x="108" y="126" font-family="Arial,sans-serif" font-size="62" font-weight="700" fill="#14364a">CUATRO INFORMES · TRES PREGUNTAS</text>
+  <text x="108" y="178" font-family="Arial,sans-serif" font-size="34" fill="#536b76">¿Qué se estableció? ¿Qué quedó incierto? ¿Qué barrera sí controlamos?</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="68" y="223" width="348" height="464" rx="24" fill="#14364a"/><rect x="438" y="223" width="348" height="464" rx="24" fill="#14364a"/><rect x="808" y="223" width="348" height="464" rx="24" fill="#14364a"/><rect x="1178" y="223" width="348" height="464" rx="24" fill="#14364a"/>
+    <g fill="#fff" font-weight="700"><text x="96" y="278" font-size="31">SOUTH AFRICAN</text><text x="96" y="321" font-size="40">295 · 1987</text><text x="466" y="278" font-size="34">VALUJET 592</text><text x="466" y="321" font-size="40">1996</text><text x="836" y="278" font-size="34">UPS 6</text><text x="836" y="321" font-size="40">2010</text><text x="1206" y="278" font-size="34">ASIANA 991</text><text x="1206" y="321" font-size="40">2011</text></g>
+    <g font-size="26" fill="#e9c65d" font-weight="700"><text x="96" y="372">HECHO</text><text x="466" y="372">HECHO</text><text x="836" y="372">HECHO</text><text x="1206" y="372">HECHO</text></g>
+    <g font-size="27" fill="#fff"><text x="96" y="414">Fuego en cubierta</text><text x="96" y="451">principal.</text><text x="466" y="414">Generadores mal</text><text x="466" y="451">preparados.</text><text x="836" y="414">Fuego de carga</text><text x="836" y="451">se propaga.</text><text x="1206" y="414">Fuego en o cerca</text><text x="1206" y="451">de paletas.</text></g>
+    <g font-size="26" fill="#e9c65d" font-weight="700"><text x="96" y="503">INCERTIDUMBRE</text><text x="466" y="503">INCERTIDUMBRE</text><text x="836" y="503">INCERTIDUMBRE</text><text x="1206" y="503">INCERTIDUMBRE</text></g>
+    <g font-size="25" fill="#fff"><text x="96" y="542">Ignición no</text><text x="96" y="577">establecida.</text><text x="466" y="542">Cadena causal</text><text x="466" y="577">se reconstruye.</text><text x="836" y="542">No se reduce a</text><text x="836" y="577">una sola frase.</text><text x="1206" y="542">Causa no</text><text x="1206" y="577">determinada.</text></g>
+    <g font-size="26" fill="#e9c65d" font-weight="700"><text x="96" y="629">BARRERA</text><text x="466" y="629">BARRERA</text><text x="836" y="629">BARRERA</text><text x="1206" y="629">BARRERA</text></g>
+    <g font-size="24" fill="#fff"><text x="96" y="666">Posición y</text><text x="96" y="699">respuesta.</text><text x="466" y="666">Declarar y</text><text x="466" y="699">aceptar.</text><text x="836" y="666">Información,</text><text x="836" y="699">equipo, guía.</text><text x="1206" y="666">Identidad y</text><text x="1206" y="699">ubicación.</text></g>
+  </g>
+  <path d="M68 757 H1526" stroke="#bdcdc8" stroke-width="3"/><text x="68" y="822" font-family="Arial,sans-serif" font-size="40" font-weight="700" fill="#14364a">HECHOS → INCERTIDUMBRES → BARRERAS PREVENTIVAS</text><text x="68" y="868" font-family="Arial,sans-serif" font-size="29" fill="#536b76">Una investigación no autoriza a inventar una causa ni a generalizar una palabra.</text>
+</svg>
