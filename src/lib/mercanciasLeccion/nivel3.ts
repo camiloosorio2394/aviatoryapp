@@ -569,7 +569,7 @@ DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
       },
       {
         kind: "ponAPrueba",
-        titulo: "Control del nivel 4",
+        titulo: "Control del nivel 3",
         preguntas: [
           {
             q: "Durante la descarga se detecta una avería en un bulto con mercancías peligrosas. ¿Qué exige el reglamento además de retirarlo?",
