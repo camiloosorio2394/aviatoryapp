@@ -37,7 +37,7 @@ import { InfografiaCanvas } from "@/components/lesson/InfografiaCanvas"
  * el empujón de la presión antes de que Coriolis lo tuerza; por eso solo uno de
  * los cuatro lleva el rótulo, y es el que explica los otros tres.
  *
- * **Densidad.** El techo lo marca `mt-t02-01-carrera-dos-altitudes`. Aquí van
+ * **Densidad.** El techo lo marca `MeteoCarrera`. Aquí van
  * ocho rótulos y cuatro letras, y nada más. La lámina que sustituye llevaba un
  * cajón de texto a la derecha con seis líneas de prosa: eso es trabajo del HTML
  * de la sección, que ya lo hace.

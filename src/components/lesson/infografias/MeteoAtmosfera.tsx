@@ -11,7 +11,7 @@ import { InfografiaCanvas } from "@/components/lesson/InfografiaCanvas"
  * también lleva su texto en el producto y no en el píxel.
  *
  * **Seis rótulos y ni uno más.** El techo de densidad del módulo lo marca
- * `mt-t02-01-carrera-dos-altitudes`: dos barras, media docena de rótulos en mono
+ * `MeteoCarrera`: dos barras, media docena de rótulos en mono
  * y mayúsculas, y aire por todas partes. Una primera versión de esta lámina
  * llevaba treinta elementos de texto (columna de capas con descripciones, escala
  * numérica, título y pie) y pasaba de largo ese techo. Lo que se cayó:

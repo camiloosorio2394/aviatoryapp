@@ -98,18 +98,27 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "El capítulo lo dice sin adornos: los pilotos **siguen siendo la única fuente de información en tiempo real sobre turbulencia, engelamiento y altura de nubes**. Juntas, las radiosondas y los informes de pilotos son lo que hay sobre el aire en altura.",
       },
       {
+        kind: "check",
+        question:
+          "Por una zona no ha pasado tráfico en las últimas horas. ¿Qué fuente te puede decir si hay engelamiento a FL180?",
+        options: [
+          "El radar: el engelamiento va con humedad, y la humedad da eco",
+          "La radiosonda, que sube midiendo y puede llegar a 115.000 ft",
+          "Ninguna: turbulencia, engelamiento y altura de nubes solo los reporta en tiempo real un piloto",
+        ],
+        answer: 2,
+        explain:
+          "La radiosonda mide temperatura, presión, velocidad y dirección del viento, no engelamiento. El radar detecta precipitación, y el agua superenfriada dentro de una nube puede no dar eco. El capítulo lo dice sin adornos: los pilotos siguen siendo la única fuente de información en tiempo real sobre turbulencia, engelamiento y altura de nubes. Por eso tu PIREP no es un trámite: en muchos tramos es el único dato que va a existir.",
+      },
+      {
         kind: "callout",
         tone: "info",
         title: "Y en una aerolínea, además, automático",
         text: "Muchas líneas aéreas tienen aeronaves equipadas con instrumentos que transmiten observaciones meteorológicas en vuelo por DataLink al despachador, que las difunde a las autoridades de pronóstico. Es decir: si vuelas para una compañía así, tu avión ya está reportando. Eso no sustituye tu PIREP de turbulencia o de engelamiento, que es un juicio y no una medición.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s13-01-cuatro-fuentes.webp",
-        alt: "Las cuatro fuentes de observación en un corte: estación de superficie, radiosonda, radar y satélite, cada una con qué mide y qué no ve.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Cada fuente ve una cosa distinta, y ninguna lo ve todo.",
+        kind: "infografia",
+        nombre: "meteo-fuentes",
       },
       {
         kind: "piensaComoPiloto",
@@ -194,13 +203,22 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "En el formulario, los elementos 1 a 5 son información requerida, más al menos un fenómeno meteorológico encontrado. O sea: dónde, cuándo, a qué nivel, con qué avión, y qué te pasó. Lo demás suma. Un PIREP no se deja de mandar por no acordarse del formato completo.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s14-01-formulario-pirep.webp",
-        alt: "El formulario de PIREP con sus campos numerados en columna y, al lado de cada uno, el trozo correspondiente de un informe real. Los cinco primeros van marcados como obligatorios.",
-        ancho: 1200,
-        alto: 1600,
-        anchoMax: 420,
-        pie: "El formulario y un informe real, uno al lado del otro.",
+        kind: "infografia",
+        nombre: "meteo-pirep",
+      },
+      {
+        kind: "check",
+        codigo: "UA/OV GGG 180040/TM 1615/FL 100/TP B738/SK 120 BKN/TA 05/WV 250045/TB MOD",
+        question:
+          "¿Dónde y a qué nivel se encontró esa turbulencia moderada?",
+        options: [
+          "A 40 NM en el radial 180 del VOR GGG, a 10.000 ft",
+          "A 180 NM en el radial 040 del VOR GGG, a 100 ft",
+          "Sobre el VOR GGG a 1.615 ft, con viento del 250 a 45 kt",
+        ],
+        answer: 0,
+        explain:
+          "En `OV GGG 180040` los tres primeros dígitos son el radial y los dos últimos la distancia: radial 180, 40 NM. `FL 100` son 10.000 ft, no 100. Y `TM 1615` es la hora Zulú, no una altura. Dónde, cuándo y a qué nivel son tres de los cinco elementos obligatorios del informe, y son justo los que hacen que le sirva a otro.",
       },
       {
         kind: "sub",
@@ -399,6 +417,19 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Te da el fenómeno, la banda de niveles exacta, la causa y la ventana de tiempo. Con eso se decide un nivel de crucero distinto sin llamar a nadie. Un aviso que solo dijera «turbulencia en la zona» no serviría para nada operativo.",
       },
       {
+        kind: "check",
+        question:
+          "Un SIGMET anuncia turbulencia en aire claro ocasional moderada o mayor entre 28.000 y 35.000 ft por la corriente en chorro, con las condiciones empezando después de las 0200Z. Vas a cruzar la zona a FL310. ¿Qué haces?",
+        options: [
+          "Nada: el aviso es de turbulencia en aire claro, y el aire claro no se ve ni se esquiva",
+          "Pides un nivel fuera de la banda de 28.000 a 35.000 ft, que es donde el aviso la sitúa",
+          "Esperas a las 0200Z, porque hasta esa hora el aviso todavía no está en vigor",
+        ],
+        answer: 1,
+        explain:
+          "El valor del aviso está en que da la banda exacta, la causa y la ventana de tiempo. FL310 cae dentro de la banda, así que el nivel es lo primero que se mueve, y eso se decide sin llamar a nadie. Ojo con la hora: las condiciones empiezan después de las 0200Z, no terminan, así que esperar a esa hora es entrar en ellas.",
+      },
+      {
         kind: "sub",
         text: "Y uno convectivo",
       },
@@ -422,6 +453,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         tone: "verificar",
         title: "Los nombres son de allá; el concepto es de todos",
         text: "Sierra, Tango y Zulu son los designadores del sistema estadounidense, igual que la codificación de las regiones. La OACI estandariza que exista el aviso SIGMET y su contenido, y cada Estado publica los suyos a través de su servicio meteorológico y su oficina de vigilancia. Antes de volar en un espacio aéreo, mira en la publicación de información aeronáutica de ese país qué productos se emiten, quién los emite y por qué canal llegan.",
+      },
+      {
+        kind: "infografia",
+        nombre: "meteo-avisos",
       },
       {
         kind: "entrevista",
@@ -493,6 +528,19 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "El pronóstico de área cubre nubes y tiempo VFR, así que trae una advertencia diciendo que hay que consultar además el AIRMET correspondiente para condiciones IFR y oscurecimiento de montaña. Y otra: cuando aparece el código TS, implica que puede haber turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR. Una sola sigla arrastra cuatro peligros.",
       },
       {
+        kind: "check",
+        question:
+          "En el pronóstico de área de tu zona aparece el código TS. ¿Qué tienes que dar por incluido?",
+        options: [
+          "Solo tormentas: si hubiera turbulencia o engelamiento severos irían codificados aparte",
+          "Tormentas y granizo, que es lo que define la sigla",
+          "Turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR",
+        ],
+        answer: 2,
+        explain:
+          "Cuando aparece TS en un pronóstico de área, esa sola sigla implica que puede haber turbulencia severa o mayor, engelamiento severo, cizalladura a bajo nivel y condiciones IFR. No hace falta que los escriban: van dentro. Y como el pronóstico de área cubre nubes y tiempo VFR, trae además la advertencia de consultar el AIRMET correspondiente para condiciones IFR y oscurecimiento de montaña.",
+      },
+      {
         kind: "sub",
         text: "Vientos y temperaturas en altura",
       },
@@ -543,6 +591,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         tone: "info",
         title: "El tope de la escala",
         text: "Si el viento pronosticado es de 200 kt o más, se codifica como 99. Un «7799» son 270 grados a 199 kt o más. Y por encima de 24.000 ft las temperaturas son siempre negativas, así que el signo menos se omite.",
+      },
+      {
+        kind: "infografia",
+        nombre: "meteo-viento-codificado",
       },
       {
         kind: "piensaComoPiloto",
@@ -623,6 +675,19 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         ],
       },
       {
+        kind: "check",
+        question:
+          "En un modelo de estación, la flecha del viento lleva un banderín y dos púas enteras. ¿Qué viento hay, y de dónde?",
+        options: [
+          "52 kt, y la flecha apunta hacia donde va el viento",
+          "70 kt, y la flecha apunta desde donde sopla el viento",
+          "20 kt: las púas son las que cuentan, y el banderín solo marca que el dato es medido",
+        ],
+        answer: 1,
+        explain:
+          "Un banderín son 50 kt, cada púa entera 10 kt y media púa 5 kt: 50 más 10 más 10 son 70 kt. Y la otra mitad del símbolo es la dirección: la flecha apunta desde donde sopla el viento, igual que los 270 de un METAR son de dónde viene y no hacia dónde va.",
+      },
+      {
         kind: "callout",
         tone: "tip",
         title: "La presión a nivel del mar, en tres dígitos",
@@ -672,13 +737,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo, que está escrita para el hemisferio norte: el viento a 2.000 ft AGL está de 20° a 40° **a la derecha** del de superficie, es decir, girado en el sentido de las agujas del reloj, y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. **En el hemisferio sur el giro es al revés: a la izquierda.** Con viento de superficie del 180, a 2.000 ft esperas del 200 al 220 en el norte y del 140 al 160 en el sur. Sin información de vientos en altura, esa estimación te saca del apuro.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s17-01-modelo-de-estacion.webp",
-        alt: "Un modelo de estación dibujado grande con llamadas numeradas a cada campo, y debajo dos grupos de isobaras, separadas y juntas, rotulados con el viento que implican.",
-        ancho: 1600,
-        alto: 1200,
-        anchoMax: 620,
-        pie: "Todo lo que dice un solo punto de la carta.",
+        kind: "infografia",
+        nombre: "meteo-isobaras",
       },
       {
         kind: "entrevista",

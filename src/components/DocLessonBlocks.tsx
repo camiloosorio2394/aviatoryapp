@@ -107,6 +107,44 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "meteo-etapas": lazy(() =>
     import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoEtapas })),
   ),
+  "meteo-tiempo-presente": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoTiempoPresente })),
+  ),
+  "meteo-componente": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoComponente })),
+  ),
+  "meteo-cobertura": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoCobertura })),
+  ),
+  "meteo-linea-tiempo": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoLineaTiempo })),
+  ),
+  "meteo-cambios": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCodigo").then((m) => ({ default: m.MeteoCambios })),
+  ),
+  "meteo-fuentes": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoFuentes })),
+  ),
+  "meteo-pirep": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoPirep })),
+  ),
+  "meteo-isobaras": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoIsobaras })),
+  ),
+  "meteo-avisos": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoAvisos })),
+  ),
+  "meteo-viento-codificado": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({
+      default: m.MeteoComponenteViento,
+    })),
+  ),
+  "meteo-microrrafaga": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoMicrorrafaga })),
+  ),
+  "meteo-carrera": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoCarrera })),
+  ),
 }
 
 /**
