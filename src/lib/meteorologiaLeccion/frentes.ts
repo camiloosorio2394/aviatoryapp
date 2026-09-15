@@ -49,6 +49,19 @@ export const PARTE_FRENTES: DocScreen[] = [
         nombre: "meteo-masas",
       },
       {
+        kind: "check",
+        question:
+          "Una masa de aire polar continental, fría y seca, se desplaza sobre una región mucho más caliente. ¿Qué esperas encontrar?",
+        options: [
+          "Estratos bajos y niebla: el aire de origen polar trae mala visibilidad vaya donde vaya",
+          "Nada nuevo: la masa conserva la temperatura y la humedad de su región de origen",
+          "Cúmulos, chaparrones y turbulencia, y aun así buena visibilidad en superficie",
+        ],
+        answer: 2,
+        explain:
+          "Lo que decide no es de dónde vino la masa, es sobre qué está pasando ahora. Sobre una superficie más caliente se calienta desde abajo, se vuelve inestable y da cúmulos, chaparrones y turbulencia. Y la visibilidad en superficie es buena por lo mismo: las corrientes de convección se llevan el humo y el polvo hacia arriba. El caso contrario, sobre superficie más fría, da estratos bajos, niebla y mala visibilidad.",
+      },
+      {
         kind: "sub",
         text: "Entender: el frente es la frontera",
       },
@@ -291,6 +304,19 @@ export const PARTE_FRENTES: DocScreen[] = [
         text: "El tiempo de un frente frío se produce a lo largo del límite frontal y no por delante. Pero en los meses de verano pueden formarse líneas de turbonada hasta 300 km POR DELANTE de un frente frío severo. Ver el frente lejos en la carta no significa que el tiempo esté lejos.",
       },
       {
+        kind: "check",
+        question:
+          "Es verano y en la carta el frente frío está todavía a 200 km de tu ruta. ¿Puedes contar con que el tiempo está igual de lejos?",
+        options: [
+          "Sí: el tiempo de un frente frío se produce a lo largo del límite frontal, así que viaja con él",
+          "No: pueden formarse líneas de turbonada hasta 300 km por delante de un frente frío severo",
+          "No, pero al revés: el tiempo de un frente frío queda por detrás, así que ya lo tienes pasado",
+        ],
+        answer: 1,
+        explain:
+          "La regla general sí dice que el tiempo de un frente frío se produce a lo largo del límite frontal y no por delante, y por eso la primera opción suena razonable. La excepción es justo la que hay que saberse: en los meses de verano pueden formarse líneas de turbonada hasta 300 km por delante de un frente frío severo. Ver el frente lejos en la carta no significa que el tiempo esté lejos.",
+      },
+      {
         kind: "sub",
         text: "El frente frío rápido, que es el peor de los dos",
       },
@@ -491,6 +517,19 @@ export const PARTE_FRENTES: DocScreen[] = [
           "Suele contener tormentas estables y presenta el riesgo meteorológico individual más intenso para las aeronaves.",
           "Se forma rápidamente y alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad.",
         ],
+      },
+      {
+        kind: "check",
+        question:
+          "Tienes una línea de turbonada pronosticada en la zona y puedes salir a media mañana o a última hora de la tarde. ¿Qué tienes en cuenta?",
+        options: [
+          "Que alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad",
+          "Que lo peor es a media mañana, cuando el calentamiento del suelo dispara la convección",
+          "Que la hora da igual: una línea de turbonada mantiene su intensidad mientras exista",
+        ],
+        answer: 0,
+        explain:
+          "La línea de turbonada se forma rápidamente y alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad. Eso convierte la hora de salida en una decisión meteorológica: la misma ruta a las once de la mañana y a las siete de la tarde no es el mismo vuelo. Y si la línea ya está hecha, suele ser demasiado larga para desviarla con facilidad y demasiado ancha y severa para penetrarla.",
       },
       {
         kind: "callout",

@@ -103,6 +103,19 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
+        kind: "check",
+        question:
+          "El sondeo del día dice que la atmósfera se enfría 3,5 °C por cada 1.000 ft. ¿Qué tipo de día tienes?",
+        options: [
+          "Absolutamente inestable: la burbuja sube igual, esté seca o saturada",
+          "Estable: 3,5 °C es más de lo normal, y cuanto más frío haga arriba más le cuesta subir al aire",
+          "Condicionalmente inestable: hará falta que el aire se sature para que la burbuja siga subiendo",
+        ],
+        answer: 0,
+        explain:
+          "La cuenta es una comparación: la burbuja se enfría a su ritmo adiabático (3 °C por 1.000 ft si está seca, menos si está saturada) y la atmósfera de ese día al suyo. Si la atmósfera se enfría más rápido que la burbuja, la burbuja siempre queda más caliente que su entorno y sigue subiendo. Con 3,5 °C eso pasa incluso con aire seco. El caso condicional es el de en medio, entre el gradiente húmedo y el seco, y ese sí depende de que el aire se sature.",
+      },
+      {
         kind: "sub",
         text: "La inversión, que es la excepción que hay que reconocer",
       },
@@ -201,6 +214,19 @@ export const PARTE_AGUA: DocScreen[] = [
       {
         kind: "p",
         text: "La cantidad de humedad que la atmósfera puede contener depende de su temperatura. **Cada 11 °C (20 °F) de aumento, la capacidad se duplica.** Cada 11 °C de bajada, se reduce a la mitad. Por eso el mismo vapor de agua que de tarde no era nada, de madrugada es niebla.",
+      },
+      {
+        kind: "check",
+        question:
+          "El aire de la madrugada tiene la misma cantidad de vapor de agua que tenía por la tarde, y sin embargo ahora hay niebla. ¿Por qué?",
+        options: [
+          "Porque de noche el suelo sigue evaporando y entra humedad nueva a las capas bajas",
+          "Porque sin sol el aire deja de moverse y la humedad que había se acumula abajo",
+          "Porque al bajar la temperatura baja la capacidad: cada 11 °C menos, se reduce a la mitad",
+        ],
+        answer: 2,
+        explain:
+          "No cambió cuánta humedad hay: cambió cuánta cabe. La capacidad del aire se duplica cada 11 °C que sube y se reduce a la mitad cada 11 °C que baja. La misma humedad que de tarde no llegaba ni a la mitad de la capacidad, de madrugada ya es el 100 %, y ahí condensa. Es la misma cuenta que la de la base de las nubes, solo que aquí el que enfría es el suelo y no la altura.",
       },
       {
         kind: "kv",
@@ -549,6 +575,19 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
+        kind: "check",
+        question:
+          "Por delante ves una torre de contorno abultado que sigue creciendo, con el tope todavía redondeado y sin yunque. ¿Qué haces?",
+        options: [
+          "Pides el desvío ahora: está en etapa cúmulo y va camino de cumulonimbus",
+          "Esperas a ver si desarrolla yunque, porque hasta que no sea cumulonimbus no hay amenaza",
+          "Mantienes ruta y subes: mientras no tenga yunque, la nube no llega a niveles de crucero",
+        ],
+        answer: 0,
+        explain:
+          "El tope redondeado y sin yunque dice que la célula está en etapa cúmulo, no que sea inofensiva. El contorno abultado y nítido contra el azul es corriente ascendente activa: está creciendo mientras la miras, y una torre con ese ritmo madura en cuestión de minutos. Los cúmulos en torre ya marcan inestabilidad, y dentro y alrededor el aire es turbulento. El desvío barato es el que se pide ahora.",
+      },
+      {
         kind: "sub",
         text: "Interpretar: el cumulonimbus, aparte de todos",
       },
@@ -713,6 +752,19 @@ export const PARTE_AGUA: DocScreen[] = [
         tone: "verificar",
         title: "Los mínimos son de la carta, no del curso",
         text: "Qué techo y qué visibilidad necesitas para una aproximación concreta está en la carta de aproximación de ese aeropuerto y en el manual de operaciones de tu explotador, con los ajustes que le correspondan a tu operación. Ningún curso general puede darte ese número. Lo que sí es general es lo de arriba: techo y visibilidad son dos límites distintos, y en una aproximación de precisión el que decide es la visibilidad o el RVR, no el techo.",
+      },
+      {
+        kind: "check",
+        question:
+          "En una aproximación 3D, como un ILS, ¿cuál de los dos límites decide si puedes intentarla?",
+        options: [
+          "El techo, porque es el que dice a qué altura vas a ver la pista",
+          "La visibilidad o el RVR: los mínimos se dan en DA/H y en visibilidad o RVR, y el techo no está ahí",
+          "Los dos por igual: si cualquiera de ellos queda bajo mínimos, la aproximación no se intenta",
+        ],
+        answer: 1,
+        explain:
+          "Techo y visibilidad son dos límites distintos y no pesan igual. En una aproximación 3D los mínimos se dan en DA/H y en visibilidad o RVR; el techo no es uno de ellos. Donde el techo vuelve a contar es al planear alternos, según la norma de tu operación. Y el número concreto no sale de ningún curso: sale de la carta de ese aeropuerto y del manual de tu explotador.",
       },
       {
         kind: "sub",

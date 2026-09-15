@@ -44,6 +44,19 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Del aire seco, el nitrógeno y el oxígeno se reparten el 99 % y no le cambian el día a nadie. El que manda es el que ni siquiera sale en esa cuenta: el **vapor de agua**, que va de 0 a 5 % según dónde y cuándo, y es responsable de casi todo lo que te cambia el plan. Las nubes, la precipitación, la niebla, el engelamiento. Todo lo que decide si sales o no sales sale de ese cero a cinco por ciento.",
       },
       {
+        kind: "check",
+        question:
+          "De todo lo que compone el aire, ¿qué parte decide si tu vuelo sale o se complica?",
+        options: [
+          "El nitrógeno, que es el 78 % del aire seco y es el que le da su densidad",
+          "El oxígeno, porque de él dependen el rendimiento del motor y la presurización",
+          "El vapor de agua, que va de 0 a 5 % y ni siquiera entra en la cuenta del aire seco",
+        ],
+        answer: 2,
+        explain:
+          "El nitrógeno y el oxígeno se reparten el 99 % del aire seco y son prácticamente constantes: por constantes, no explican por qué hoy hay niebla y ayer no. Lo que cambia de un día a otro, de 0 a 5 %, es el vapor de agua, y de ahí salen las nubes, la precipitación, la niebla y el engelamiento.",
+      },
+      {
         kind: "sub",
         text: "Las capas, y por qué solo te importa una y media",
       },
@@ -261,6 +274,19 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Siguiendo la presión de una estación a lo largo del tiempo: si sube de forma sostenida, lo normal es que se acerque buen tiempo. Si baja, y sobre todo si cae rápido, lo normal es mal tiempo y posiblemente tormentas fuertes. Es la lectura más barata que existe y está en cada METAR sucesivo del mismo aeródromo.",
       },
       {
+        kind: "check",
+        question:
+          "Miras los METAR sucesivos de tu destino y el QNH va 1015, 1012, 1008 en tres horas. ¿Qué haces con eso?",
+        options: [
+          "Corregir el ajuste del altímetro y seguir igual: es lo único que cambia una presión que baja",
+          "Nada todavía: las tres lecturas están dentro del rango habitual, de 950 a 1.040 mb",
+          "Contar con deterioro, y posiblemente con tormentas fuertes: la presión no solo baja, cae rápido",
+        ],
+        answer: 2,
+        explain:
+          "Presión que sube de forma sostenida suele traer buen tiempo; presión que baja, y sobre todo que cae rápido, suele traer mal tiempo y posiblemente tormentas fuertes. Corregir el ajuste del altímetro es obligatorio, pero es lo de menos: lo que acaba de cambiar es el pronóstico. Y que las lecturas estén en rango no dice nada, porque lo que informa aquí es la tendencia y no el valor.",
+      },
+      {
         kind: "entrevista",
         titulo: "Cómo te lo pueden preguntar",
         preguntas: [
@@ -376,6 +402,19 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "infografia",
         nombre: "meteo-coriolis",
+      },
+      {
+        kind: "check",
+        question:
+          "El mismo día vuelas Bogotá y luego Santiago, y en las dos cartas hay una baja. ¿Qué cambia al cruzar el ecuador?",
+        options: [
+          "Nada: el símbolo de baja significa lo mismo en los dos hemisferios y el aire entra igual",
+          "El sentido de giro se invierte: antihorario alrededor de la baja en el norte, horario en el sur",
+          "El aire deja de entrar hacia la baja y pasa a salir de ella, como si fuera una alta",
+        ],
+        answer: 1,
+        explain:
+          "Lo que se invierte es el giro, no el flujo. En las dos bajas el aire sigue entrando para reemplazar al que asciende, porque el aire siempre va de la alta a la baja. Lo que cambia es hacia dónde lo tuerce Coriolis: a la derecha en el norte y a la izquierda en el sur, así que alrededor de una baja el giro es antihorario arriba y horario abajo. El mismo símbolo en la carta significa un giro distinto según de qué lado del ecuador esté.",
       },
       {
         kind: "sub",
@@ -551,6 +590,19 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "p",
         text: "En un aeropuerto costero eso significa que la pista en uso puede cambiar de forma previsible entre la tarde y la madrugada, sin que pase ningún frente ni cambie ningún sistema. Es la explicación de la mitad de los cambios de configuración que ves en un destino de playa.",
+      },
+      {
+        kind: "check",
+        question:
+          "Aterrizas en un aeropuerto costero a las tres de la tarde con viento que entra del mar. Vuelves a las cuatro de la madrugada. ¿Qué esperas?",
+        options: [
+          "El mismo viento: la brisa la fija la geografía del lugar y no cambia de sentido",
+          "Calma: de noche se iguala la temperatura entre la tierra y el agua y la brisa desaparece",
+          "Viento saliendo de la tierra hacia el mar, y con eso, posiblemente la pista contraria en uso",
+        ],
+        answer: 2,
+        explain:
+          "De día la tierra se calienta más rápido que el agua: el aire sobre tierra sube y lo reemplaza el que viene del mar. De noche se invierte, porque la tierra también se enfría más rápido: ahora el aire más caliente está sobre el agua y el que baja de la tierra ocupa su sitio. Mismo aeropuerto, pista en uso contraria, y sin que pase ningún frente ni cambie ningún sistema.",
       },
       {
         kind: "sub",
@@ -744,6 +796,19 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "p",
         text: "En los aeropuertos hay redes de anemómetros repartidos que detectan diferencias de velocidad del viento entre puntos. **Cuando la diferencia supera los 15 nudos, se emite una advertencia de cizalladura.** Ese sistema es el LLWAS (Low Level Wind Shear Alert System).",
+      },
+      {
+        kind: "check",
+        question:
+          "El aeropuerto tiene sistema de alerta de cizalladura y no ha emitido ninguna advertencia. ¿Qué puedes concluir?",
+        options: [
+          "Que no hay cizalladura en el campo: para eso está el sistema y por eso se instala",
+          "Que ninguna pareja de anemómetros ha medido todavía una diferencia de más de 15 kt",
+          "Que si hay cizalladura será la de inversión térmica, que es la que el sistema no detecta",
+        ],
+        answer: 1,
+        explain:
+          "El sistema compara la velocidad del viento entre anemómetros repartidos por el campo y avisa cuando la diferencia supera los 15 kt. Una microrráfaga mide menos de una milla de extensión horizontal y dura unos quince minutos: puede formarse, hacer daño y desaparecer sin que ninguna pareja de sensores llegue al umbral. La advertencia existe cuando existe; estar alerta tiene que ser permanente.",
       },
       {
         kind: "callout",
