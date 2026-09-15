@@ -455,6 +455,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Sierra, Tango y Zulu son los designadores del sistema estadounidense, igual que la codificación de las regiones. La OACI estandariza que exista el aviso SIGMET y su contenido, y cada Estado publica los suyos a través de su servicio meteorológico y su oficina de vigilancia. Antes de volar en un espacio aéreo, mira en la publicación de información aeronáutica de ese país qué productos se emiten, quién los emite y por qué canal llegan.",
       },
       {
+        kind: "infografia",
+        nombre: "meteo-avisos",
+      },
+      {
         kind: "entrevista",
         titulo: "Cómo te lo pueden preguntar",
         preguntas: [
@@ -587,6 +591,10 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         tone: "info",
         title: "El tope de la escala",
         text: "Si el viento pronosticado es de 200 kt o más, se codifica como 99. Un «7799» son 270 grados a 199 kt o más. Y por encima de 24.000 ft las temperaturas son siempre negativas, así que el signo menos se omite.",
+      },
+      {
+        kind: "infografia",
+        nombre: "meteo-viento-codificado",
       },
       {
         kind: "piensaComoPiloto",

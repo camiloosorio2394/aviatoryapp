@@ -131,6 +131,14 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "meteo-isobaras": lazy(() =>
     import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoIsobaras })),
   ),
+  "meteo-avisos": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({ default: m.MeteoAvisos })),
+  ),
+  "meteo-viento-codificado": lazy(() =>
+    import("@/components/lesson/infografias/MeteoServicios").then((m) => ({
+      default: m.MeteoComponenteViento,
+    })),
+  ),
   "meteo-microrrafaga": lazy(() =>
     import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoMicrorrafaga })),
   ),

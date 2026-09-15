@@ -269,3 +269,215 @@ export function MeteoIsobaras() {
     </Lienzo>
   )
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 28 · A quién le afecta cada aviso, que es en lo que se diferencian
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * La sección lo dice sin rodeos: «si en la entrevista te preguntan la diferencia
+ * y contestas solo *uno es más fuerte que el otro*, no has contestado». La
+ * diferencia de la OACI es de altura y de alcance, y eso es un corte vertical,
+ * no una lista: el AIRMET ocupa una franja baja **dentro** del alcance del
+ * SIGMET, y el techo de esa franja sube en zona montañosa porque el terreno
+ * sube con ella.
+ *
+ * Los dos aviones no son adorno. Son la pregunta de la sección dibujada: el de
+ * abajo recibe los dos avisos, el de arriba solo uno.
+ */
+const FL0 = 466
+const POR_FL = 1.78
+/** Altura del nivel de vuelo en el lienzo. */
+function nivel(fl: number) {
+  return FL0 - fl * POR_FL
+}
+
+const MONTE_IZQ_X = 580
+const COL_IZQ = 150
+const COL_DER = 930
+
+export function MeteoAvisos() {
+  const techoLlano = nivel(100)
+  const techoMonte = nivel(150)
+  const cima = 118
+  return (
+    <Lienzo etiqueta="Corte vertical del espacio aéreo. Una franja alta y ancha marcada SIGMET cubre toda la columna y sigue por encima del borde superior, con la nota de que alcanza a todas las aeronaves en ruta. Dentro de ella, pegada al suelo, una franja más marcada de AIRMET llega hasta el nivel de vuelo 100 sobre terreno llano y sube al nivel 150 sobre una montaña. Un avión vuela bajo, dentro de las dos franjas; otro vuela alto, solo dentro de la del SIGMET.">
+      {/* El alcance del SIGMET: toda la columna, y sigue hacia arriba. */}
+      <rect
+        x={COL_IZQ}
+        y={cima}
+        width={COL_DER - COL_IZQ}
+        height={FL0 - cima}
+        fill={RESALTADO}
+        stroke={ACENTO}
+        strokeWidth={1.4}
+      />
+      <line
+        x1={COL_IZQ}
+        y1={cima}
+        x2={COL_DER}
+        y2={cima}
+        stroke={PAPEL}
+        strokeWidth={4}
+      />
+      <line
+        x1={COL_IZQ}
+        y1={cima}
+        x2={COL_DER}
+        y2={cima}
+        stroke={ACENTO}
+        strokeWidth={1.6}
+        strokeDasharray="9 8"
+      />
+      <Flecha x1={COL_DER - 70} y1={cima + 4} x2={COL_DER - 70} y2={cima - 34} color={ACENTO} grosor={1.8} />
+      <Rotulo x={COL_DER - 92} y={cima - 42} ancla="end" color={ACENTO} tam={16}>Y POR ENCIMA</Rotulo>
+
+      {/* La montaña es la razón del escalón: el terreno sube y el techo con él. */}
+      <path
+        d={`M${MONTE_IZQ_X},${FL0} L648,372 L692,316 L726,266 L756,280 L800,336 L852,392 L${COL_DER},${FL0} Z`}
+        fill={SECUNDARIO}
+        opacity={0.42}
+      />
+
+      {/* La franja del AIRMET, por delante del terreno y con su escalón. */}
+      <path
+        d={`M${COL_IZQ},${FL0} L${COL_IZQ},${techoLlano} L${MONTE_IZQ_X},${techoLlano}
+            L${MONTE_IZQ_X},${techoMonte} L${COL_DER},${techoMonte} L${COL_DER},${FL0} Z`}
+        fill={ACENTO}
+        opacity={0.22}
+      />
+      <path
+        d={`M${COL_IZQ},${techoLlano} L${MONTE_IZQ_X},${techoLlano}
+            L${MONTE_IZQ_X},${techoMonte} L${COL_DER},${techoMonte}`}
+        fill="none"
+        stroke={ACENTO}
+        strokeWidth={2}
+      />
+
+      <line x1={COL_IZQ} y1={FL0} x2={COL_DER} y2={FL0} stroke={TINTA} strokeWidth={2.4} />
+
+      <Rotulo x={COL_IZQ + 22} y={158} color={ACENTO} tam={25}>SIGMET</Rotulo>
+      <Rotulo x={COL_IZQ + 22} y={186} color={SECUNDARIO} tam={16}>TODAS LAS AERONAVES EN RUTA</Rotulo>
+
+      <Rotulo x={COL_IZQ + 22} y={338} color={ACENTO} tam={25}>AIRMET</Rotulo>
+      <Rotulo x={COL_IZQ + 22} y={366} color={SECUNDARIO} tam={16}>VUELOS A BAJA ALTURA</Rotulo>
+
+      <Rotulo x={COL_IZQ - 12} y={techoLlano + 6} ancla="end" color={ACENTO} tam={18}>FL100</Rotulo>
+      <Rotulo x={COL_DER - 12} y={techoMonte - 16} ancla="end" color={ACENTO_CLARO} tam={18}>
+        FL150 EN ZONA MONTAÑOSA
+      </Rotulo>
+
+      <Jet x={398} cy={238} ancho={64} color={SECUNDARIO} />
+      <Jet x={398} cy={404} ancho={64} color={ACENTO} />
+    </Lienzo>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 29 · Deshacer un grupo de viento codificado
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Seis dígitos que se leen en tres pasos distintos. En texto son cuatro
+ * renglones que hay que sostener en la cabeza a la vez; aquí cada par se queda
+ * en su columna y la operación va escrita en la flecha, que es donde ocurre.
+ */
+const PARES = [
+  { crudo: "73", que: "DIRECCIÓN", op: "-50", sale: "230°", cambia: true },
+  { crudo: "19", que: "VELOCIDAD", op: "+100", sale: "119 kt", cambia: true },
+  { crudo: "60", que: "TEMPERATURA", op: "SIGNO OMITIDO", sale: "-60 °C", cambia: false },
+]
+
+const CAJA_W = 186
+const CAJA_SEP = 22
+
+export function MeteoComponenteViento() {
+  const total = PARES.length * CAJA_W + (PARES.length - 1) * CAJA_SEP
+  const inicio = (W - total) / 2
+  return (
+    <Lienzo etiqueta="El grupo 731960 partido en tres pares de dígitos, cada uno en su columna. El primer par, 73, con una flecha que resta 50 y da dirección 230 grados. El segundo, 19, con una flecha que suma 100 y da 119 nudos. El tercero, 60, que pasa tal cual con el signo omitido y da 60 grados bajo cero.">
+      {PARES.map((p, i) => {
+        const x = inicio + i * (CAJA_W + CAJA_SEP)
+        const cx = x + CAJA_W / 2
+        return (
+          <g key={p.crudo}>
+            <Rotulo x={cx} y={128} ancla="middle" color={SECUNDARIO} tam={16}>{p.que}</Rotulo>
+
+            <rect
+              x={x}
+              y={150}
+              width={CAJA_W}
+              height={104}
+              fill={RESALTADO}
+              stroke={LINEA}
+              strokeWidth={1.4}
+            />
+            <text
+              x={cx}
+              y={224}
+              textAnchor="middle"
+              fontFamily={MONO}
+              fontSize={72}
+              fontWeight={700}
+              fill={TINTA}
+            >
+              {p.crudo}
+            </text>
+
+            <Flecha
+              x1={cx}
+              y1={268}
+              x2={cx}
+              y2={344}
+              color={p.cambia ? ACENTO : SECUNDARIO}
+              grosor={p.cambia ? 2.4 : 1.6}
+              discontinua={!p.cambia}
+            />
+            <rect
+              x={cx - (p.op.length * 9.4 + 22) / 2}
+              y={290}
+              width={p.op.length * 9.4 + 22}
+              height={30}
+              fill={PAPEL}
+            />
+            <Rotulo
+              x={cx}
+              y={311}
+              ancla="middle"
+              color={p.cambia ? ACENTO : SECUNDARIO}
+              tam={p.cambia ? 19 : 14}
+            >
+              {p.op}
+            </Rotulo>
+
+            <rect
+              x={x}
+              y={358}
+              width={CAJA_W}
+              height={86}
+              fill={p.cambia ? ACENTO : PAPEL}
+              opacity={p.cambia ? 0.22 : 1}
+              stroke={p.cambia ? ACENTO : LINEA}
+              strokeWidth={1.6}
+            />
+            <text
+              x={cx}
+              y={414}
+              textAnchor="middle"
+              fontFamily={MONO}
+              fontSize={40}
+              fontWeight={700}
+              fill={p.cambia ? ACENTO : SECUNDARIO}
+            >
+              {p.sale}
+            </text>
+          </g>
+        )
+      })}
+
+      <Rotulo x={W / 2} y={490} ancla="middle" color={SECUNDARIO} tam={16}>
+        731960 ES VIENTO DEL 230 A 119 KT CON -60 °C
+      </Rotulo>
+    </Lienzo>
+  )
+}

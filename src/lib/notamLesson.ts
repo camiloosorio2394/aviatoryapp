@@ -492,6 +492,8 @@ export type LessonBlock =
         | "meteo-fuentes"
         | "meteo-pirep"
         | "meteo-isobaras"
+        | "meteo-avisos"
+        | "meteo-viento-codificado"
         | "meteo-microrrafaga"
         | "meteo-carrera"
     }
