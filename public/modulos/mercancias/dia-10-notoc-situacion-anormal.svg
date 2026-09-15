@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Qué aporta el NOTOC ante una situación anormal</title>
+  <desc id="desc">Una indicación anormal lleva a consultar el NOTOC para saber qué mercancía se transporta, qué riesgo presenta y dónde está. La actuación sigue los procedimientos del operador y la información de respuesta de emergencia aplicable, no una improvisación basada solo en la clase.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f4f3ee"/>
+  <rect x="68" y="67" width="15" height="80" rx="7" fill="#caa63e"/>
+  <text x="108" y="134" font-family="Arial,sans-serif" font-size="67" font-weight="700" fill="#153247">SI ALGO OCURRE EN VUELO</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="82" y="219" width="389" height="349" rx="33" fill="#263d4b"/>
+    <text x="124" y="324" font-size="60" font-weight="700" fill="#fff">HUMO</text>
+    <text x="124" y="404" font-size="60" font-weight="700" fill="#fff">OLOR</text>
+    <text x="124" y="484" font-size="60" font-weight="700" fill="#fff">ALERTA</text>
+    <path d="M491 392 H557" stroke="#caa63e" stroke-width="14" stroke-linecap="round"/>
+    <path d="M548 366 574 392 548 418" fill="none" stroke="#caa63e" stroke-width="11"/>
+    <rect x="582" y="219" width="340" height="349" rx="33" fill="#e2bd54"/>
+    <text x="618" y="392" font-size="78" font-weight="700" fill="#153247">NOTOC</text>
+    <path d="M944 392 H1010" stroke="#caa63e" stroke-width="14" stroke-linecap="round"/>
+    <path d="M1001 366 1027 392 1001 418" fill="none" stroke="#caa63e" stroke-width="11"/>
+    <rect x="1035" y="219" width="481" height="349" rx="33" fill="#dce9e8"/>
+    <text x="1068" y="317" font-size="51" font-weight="700" fill="#153247">¿QUÉ LLEVO?</text>
+    <text x="1068" y="406" font-size="51" font-weight="700" fill="#153247">¿QUÉ RIESGO?</text>
+    <text x="1068" y="495" font-size="51" font-weight="700" fill="#153247">¿DÓNDE?</text>
+    <path d="M1275 576 V641" stroke="#2b6970" stroke-width="12"/>
+    <path d="M1251 628 1275 664 1299 628" fill="none" stroke="#2b6970" stroke-width="10"/>
+    <rect x="82" y="673" width="1434" height="125" rx="27" fill="#18374a"/>
+    <text x="122" y="723" font-size="50" font-weight="700" fill="#fff">PROCEDIMIENTO</text>
+    <text x="122" y="781" font-size="42" font-weight="700" fill="#fff">+ RESPUESTA DE EMERGENCIA</text>
+  </g>
+  <text x="82" y="853" font-family="Arial,sans-serif" font-size="34" fill="#4f6570">El NOTOC informa; no sustituye el QRH ni el manual del operador.</text>
+</svg>

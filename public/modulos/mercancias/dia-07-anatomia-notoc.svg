@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Anatomía de una línea de información al piloto</title>
+  <desc id="desc">Ejemplo de estudio: UN 1263 PAINT clase 3 grupo de embalaje II, dos bultos de un litro cada uno en la posición ficticia A1 dentro del ULD ficticio AKE 12345. Cada dato señala qué permite entender al piloto.</desc>
+  <rect width="1600" height="900" rx="38" fill="#10283b"/>
+  <rect x="70" y="67" width="15" height="80" rx="7" fill="#f0c334"/>
+  <text x="106" y="134" fill="#fff" font-family="Arial,sans-serif" font-size="70" font-weight="700">UNA LÍNEA DEL NOTOC</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="71" y="223" width="341" height="253" rx="24" fill="#f7f3eb"/>
+    <rect x="443" y="223" width="341" height="253" rx="24" fill="#f7f3eb"/>
+    <rect x="815" y="223" width="341" height="253" rx="24" fill="#f7f3eb"/>
+    <rect x="1187" y="223" width="341" height="253" rx="24" fill="#f7f3eb"/>
+    <rect x="71" y="508" width="465" height="253" rx="24" fill="#e8f0ef"/>
+    <rect x="567" y="508" width="465" height="253" rx="24" fill="#e8f0ef"/>
+    <rect x="1063" y="508" width="465" height="253" rx="24" fill="#edce75"/>
+    <g fill="#536a73" font-size="38" font-weight="700">
+      <text x="100" y="294">NÚMERO ONU</text>
+      <text x="472" y="294">DENOMINACIÓN</text>
+      <text x="844" y="294">CLASE</text>
+      <text x="1216" y="294">GRUPO</text>
+      <text x="100" y="579">N.º DE BULTOS</text>
+      <text x="596" y="579">CANTIDAD</text>
+      <text x="1092" y="579" fill="#604927">UBICACIÓN</text>
+    </g>
+    <g fill="#173047" font-size="66" font-weight="700">
+      <text x="100" y="395">UN 1263</text>
+      <text x="472" y="395">PAINT</text>
+      <text x="844" y="395">3</text>
+      <text x="1216" y="395">II</text>
+      <text x="100" y="678">2 BULTOS</text>
+      <text x="596" y="678">1 L / BULTO</text>
+      <text x="1092" y="654">A1</text>
+      <text x="1092" y="716" font-size="51">ULD AKE 12345</text>
+    </g>
+  </g>
+  <text x="72" y="843" fill="#bed0da" font-family="Arial,sans-serif" font-size="41" font-weight="700">FORMATO DE ESTUDIO · LA UBICACIÓN CAMBIA SEGÚN EL OPERADOR</text>
+</svg>
