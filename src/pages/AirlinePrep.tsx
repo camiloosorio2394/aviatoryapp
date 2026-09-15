@@ -47,6 +47,9 @@ import meteorologiaPhoto from "@/assets/photos/tema-meteorologia-nubes-altura.we
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.webp"
+// La misma foto que abre el hub de Psicotécnicas. Antes la tarjeta traía la
+// portada del SIMULACRO, que es una página interior del tema.
+import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
 // La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
 // así que el hero no repite imagen con lo que tiene debajo.
 import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
@@ -239,7 +242,7 @@ export function AirlinePrep() {
           avance: notam.overall,
           completo: notam.overall >= 100,
           estado: notam.empty
-            ? `Sin empezar · ${NOTAM_TOTALES.lessonScreens} secciones`
+            ? "Sin empezar"
             : notam.overall >= 100
               ? "Tema completo"
               : `${notam.lessonRead}/${NOTAM_TOTALES.lessonScreens} secciones · ${notam.practiceDone}/${NOTAM_PRACTICE_TOTAL} ejercicios`,
@@ -263,7 +266,7 @@ export function AirlinePrep() {
           avance: metar.overall,
           completo: metar.overall >= 100,
           estado: metar.empty
-            ? `Sin empezar · ${METAR_LECCION.secciones} secciones`
+            ? "Sin empezar"
             : metar.overall >= 100
               ? "Tema completo"
               : `${metar.lessonRead}/${METAR_LECCION.secciones} secciones · ${metar.practiceDone}/${METAR_PRACTICE_TOTAL} informes`,
@@ -280,14 +283,16 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          // La portada del propio módulo, la misma que ve en su hub. Vive en
-          // public y no en assets porque así queda fuera del precache.
-          foto: "/infografias/mercancias/portada.webp",
+          // Sin portada: el módulo todavía no tiene la suya (su hub muestra el
+          // hueco MP-POR-01, «un bulto etiquetado en rampa»). Lo que había aquí
+          // era el hero de la PRÁCTICA de Mercancías, una lámina de etiquetas
+          // con texto diminuto que no casaba con las fotos de las otras tres.
+          // En cuanto exista la foto del módulo, se pone aquí y ya.
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
           estado: mercancias.empty
-            ? `Sin empezar · ${MP_LECTURA_TOTAL} lecciones`
+            ? "Sin empezar"
             : mercancias.overall >= 100
               ? "Tema completo"
               : `${mercancias.lessonRead}/${MP_LECTURA_TOTAL} lecciones · ${mercancias.practiceDone}/${MP_PRACTICA_TOTAL} ejercicios`,
@@ -308,16 +313,14 @@ export function AirlinePrep() {
           // .chip-violet; la variable se define en el contenedor de la página.
           color: "var(--psico-acento)",
           titulo: "Pruebas psicotécnicas",
-          meta: `${PSICO_TOTAL} ejercicios cronometrados`,
+          meta: `${PSICO_TOTAL} ejercicios · simulacro de ${SIMULACRO_TOTAL}`,
           descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
-          // La portada del propio tema, dibujada para él. Vive en public y no en
-          // assets porque así queda fuera del precache, como la de Mercancías.
-          foto: "/infografias/psicotecnicas/portada.webp",
+          foto: psicoPhoto,
           cta: mejorPsico === null ? "Empezar" : "Entrenar",
           avance: mejorPsico ?? 0,
           estado:
             mejorPsico === null
-              ? `Sin empezar · simulacro de ${SIMULACRO_TOTAL}`
+              ? "Sin empezar"
               : `Mejor simulacro: ${mejorPsico}/100`,
         },
       },
@@ -433,7 +436,7 @@ export function AirlinePrep() {
                 </span>
                 <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
                 <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
-                  {disponibles} temas abiertos · {PROXIMOS.length} en camino
+                  {disponibles} temas abiertos
                 </span>
               </div>
 
@@ -509,11 +512,8 @@ export function AirlinePrep() {
               </div>
 
               {PROXIMOS.length > 0 && (
-                <div className="border-t border-white/10 px-3.5 py-2.5 text-[11.5px] leading-[1.5] text-white/65">
-                  <span className="font-semibold text-white/90">
-                    Tema {temaActual} de {disponibles + PROXIMOS.length}
-                  </span>{" "}
-                  · el próximo que abrimos es {PROXIMOS[0]}
+                <div className="border-t border-white/10 px-3.5 py-2.5 text-[11.5px] font-semibold leading-[1.5] text-white/80">
+                  Tema {temaActual} de {disponibles + PROXIMOS.length}
                 </div>
               )}
             </div>
