@@ -20,12 +20,12 @@ export const LECCION_12: DocScreen = {
       text: "Un vuelo puede terminar sin daño y, aun así, dejar un hallazgo importante: carga no declarada, un embalaje averiado o información incorrecta al piloto. No se espera a que haya un accidente para comunicarlo. Primero se registran los hechos por el canal del explotador; después, el responsable los clasifica y realiza las notificaciones que correspondan.",
     },
     {
-      // MP-IMG-25 · Fotografía explicada · 3:2 · 1200×800.
+      // MP-IMG-25 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
       src: "/modulos/mercancias/foto-12-clasificacion.webp",
       alt: "Fotografía recreada de terminal aérea: personal de carga observa la esquina húmeda de un bulto, la fotografía y revisa documentos. Flechas señalan la avería observada y los hechos documentados. Un mensaje indica que el hallazgo se comunica y se clasifica según la evidencia.",
-      ancho: 1200,
-      alto: 800,
+      ancho: 1600,
+      alto: 900,
       pie: "Ejemplo conceptual. La humedad visible obliga a evaluar y documentar el bulto; la foto por sí sola no demuestra que contiene mercancías peligrosas ni determina el tipo jurídico del suceso.",
     },
     {
