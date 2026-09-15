@@ -964,6 +964,15 @@
   text-justify: inter-word;
   hyphens: auto;
 }
+/* En las columnas estrechas del curso de mercancías peligrosas, la
+   justificación y la partición fuerzan huecos y cortes incómodos. */
+@media (max-width: 800px) {
+  .lector-notam.lector-mp .doc-prose :where(p, li, dd):not(.mono) {
+    text-align: left;
+    hyphens: none;
+    line-height: 1.65;
+  }
+}
 .lector-notam .doc-prose :is(pre, code, .mono),
 .lector-notam .doc-prose :is(pre, code, .mono) :where(p, li, dd) {
   text-align: left;

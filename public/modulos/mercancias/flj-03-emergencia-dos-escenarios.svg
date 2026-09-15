@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Emergencia con mercancías peligrosas: dos escenarios</title>
+  <desc id="desc">Dos carriles separan una indicación en bodega de un incidente observado en cabina. En bodega se sigue el procedimiento de aeronave, se consulta el NOTOC y se informa al ATS cuando la situación lo permita. En cabina se aplica el procedimiento de tripulación, se informa al piloto y se coordina. No existe una maniobra única para todos los casos.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f3ef"/>
+  <rect x="68" y="66" width="14" height="78" rx="7" fill="#caa63e"/>
+  <text x="108" y="130" font-family="Arial,sans-serif" font-size="64" font-weight="700" fill="#163348">DOS ESCENARIOS DE EMERGENCIA</text>
+  <text x="108" y="182" font-family="Arial,sans-serif" font-size="33" fill="#536b76">Las acciones cambian con el compartimento y el procedimiento aplicable.</text>
+  <g font-family="Arial,sans-serif" font-weight="700">
+    <rect x="70" y="238" width="208" height="210" rx="25" fill="#14364a"/>
+    <text x="103" y="329" font-size="42" fill="#fff">BODEGA</text>
+    <text x="103" y="387" font-size="42" fill="#e6bf51">CARGA</text>
+    <rect x="303" y="238" width="275" height="210" rx="22" fill="#e3ebe9"/>
+    <text x="330" y="320" font-size="40" fill="#163348">INDICACIÓN</text>
+    <text x="330" y="376" font-size="40" fill="#163348">DE FUEGO</text>
+    <path d="M586 343 H615 M605 330 621 343 605 356" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="630" y="238" width="275" height="210" rx="22" fill="#e3ebe9"/>
+    <text x="657" y="320" font-size="40" fill="#163348">QRH Y</text>
+    <text x="657" y="376" font-size="40" fill="#163348">CONTROL</text>
+    <path d="M913 343 H942 M932 330 948 343 932 356" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="957" y="238" width="275" height="210" rx="22" fill="#e9c766"/>
+    <text x="984" y="320" font-size="40" fill="#163348">NOTOC:</text>
+    <text x="984" y="376" font-size="36" fill="#163348">QUÉ Y DÓNDE</text>
+    <path d="M1240 343 H1269 M1259 330 1275 343 1259 356" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1284" y="238" width="252" height="210" rx="22" fill="#d3e7e5"/>
+    <text x="1310" y="307" font-size="40" fill="#163348">ATS</text>
+    <text x="1310" y="365" font-size="31" fill="#163348">CUANDO SEA</text>
+    <text x="1310" y="405" font-size="31" fill="#163348">POSIBLE</text>
+    <rect x="70" y="502" width="208" height="210" rx="25" fill="#14364a"/>
+    <text x="103" y="592" font-size="42" fill="#fff">CABINA</text>
+    <text x="103" y="650" font-size="30" fill="#e6bf51">PASAJEROS</text>
+    <rect x="303" y="502" width="275" height="210" rx="22" fill="#e3ebe9"/>
+    <text x="330" y="583" font-size="35" fill="#163348">DISPOSITIVO</text>
+    <text x="330" y="639" font-size="40" fill="#163348">O HUMO</text>
+    <path d="M586 607 H615 M605 594 621 607 605 620" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="630" y="502" width="275" height="210" rx="22" fill="#e3ebe9"/>
+    <text x="657" y="583" font-size="31" fill="#163348">PROCEDIMIENTO</text>
+    <text x="657" y="639" font-size="40" fill="#163348">DE CABINA</text>
+    <path d="M913 607 H942 M932 594 948 607 932 620" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="957" y="502" width="275" height="210" rx="22" fill="#e9c766"/>
+    <text x="984" y="583" font-size="34" fill="#163348">INFORMAR AL</text>
+    <text x="984" y="639" font-size="40" fill="#163348">PILOTO</text>
+    <path d="M1240 607 H1269 M1259 594 1275 607 1259 620" fill="none" stroke="#caa63e" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="1284" y="502" width="252" height="210" rx="22" fill="#d3e7e5"/>
+    <text x="1310" y="582" font-size="34" fill="#163348">COORDINAR</text>
+    <text x="1310" y="637" font-size="34" fill="#163348">RESPUESTA</text>
+  </g>
+  <path d="M70 752 H1536" stroke="#c5d2d0" stroke-width="3"/>
+  <text x="70" y="808" font-family="Arial,sans-serif" font-size="39" font-weight="700" fill="#163348">PROCEDIMIENTO DEL OPERADOR</text>
+  <text x="70" y="856" font-family="Arial,sans-serif" font-size="36" font-weight="700" fill="#163348">+ GUÍA DE RESPUESTA</text>
+</svg>

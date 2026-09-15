@@ -10,6 +10,7 @@
 
 import type { DocScreen } from "@/lib/docBlocks"
 import { LECCION_10 } from "./leccion10"
+import { LECCION_11 } from "./leccion11"
 
 export const NIVEL_3: DocScreen[] = [
   // ── 09 ──────────────────────────────────────────────────────────────────
@@ -128,113 +129,7 @@ export const NIVEL_3: DocScreen[] = [
   // ── 10 ──────────────────────────────────────────────────────────────────
   LECCION_10,
 
-  // ── 11 ──────────────────────────────────────────────────────────────────
-  {
-    n: 11,
-    title: "Emergencia en vuelo",
-    kicker: "Asiana 991 y el orden de las decisiones",
-    minutes: 5,
-    blocks: [
-      {
-        kind: "casoReal",
-        titulo: "Asiana Cargo 991",
-        fecha: "28 de julio de 2011",
-        lugar: "Mar de China Oriental, cerca de la isla de Jeju",
-        aeronave: "Boeing 747-48EF · HL7604 · Incheon a Shanghái",
-        mercancia:
-          "Unos 400 kg de mercancías peligrosas, entre ellas baterías de litio, pinturas y líquidos fotorresistentes, en paletas de la parte trasera del fuselaje.",
-        queOcurrio: [
-          "Menos de una hora después del despegue la tripulación recibió la alarma de incendio en la bodega de carga. Declaró emergencia e intentó desviarse a Jeju.",
-          "El fuego avanzó más rápido que el descenso. La tripulación perdió el control y el avión cayó al mar. Murieron los dos pilotos.",
-        ],
-        consecuencia:
-          "La ARAIB de Corea concluyó que el fuego se inició en o cerca de una de las paletas que contenían mercancías peligrosas en el fuselaje trasero. La causa exacta no se pudo determinar porque los registradores de vuelo se perdieron.",
-        leccion:
-          "La segregación y la posición de estiba no son burocracia: el fuego empieza en un sitio concreto. Y cuando la respuesta tiene que darse en minutos, lo que cuenta es lo que la tripulación ya sabía y ya tenía a mano: la información de emergencia disponible de inmediato, la tripulación al corriente de las medidas y el equipo a bordo.",
-        hueco: {
-          id: "MP-IMG-05",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion: "Foto de referencia del 747-400F de Asiana Cargo o de una paleta con mercancías peligrosas etiquetadas. Con crédito.",
-        },
-      },
-      {
-        kind: "p",
-        text: "La respuesta exacta está en el QRH y en la guía de respuesta a emergencias de tu explotador. Lo que sigue es lo que el reglamento exige que exista antes, durante y después, y el orden de las decisiones, que es lo que se pregunta en entrevista y lo que hay que tener claro antes de necesitarlo.",
-      },
-      {
-        kind: "norma",
-        texto:
-          "El explotador debe asegurar que para envíos con respecto a los cuales las Instrucciones Técnicas requieren un documento de transporte de mercancías peligrosas, se disponga en todo momento y de inmediato de la información apropiada para utilizar en la respuesta de emergencia en caso de accidentes e incidentes relacionados con mercancías peligrosas transportadas por vía aérea. (1) Esta información debe estar a disposición del piloto al mando y puede obtenerse del Documento OACI 9481, Orientación sobre respuesta de emergencia para afrontar incidentes aéreos relacionados con mercancías peligrosas. (2) Los tripulantes de la aeronave deberán estar al corriente de las medidas que haya que tomar en caso de emergencia.",
-      },
-      {
-        kind: "flujo",
-        pista: "Elige un momento para leer qué exige la norma.",
-        pasos: [
-          {
-            clave: "info",
-            etiqueta: "Antes · Información",
-            texto:
-              "La información de respuesta de emergencia existe y está disponible de inmediato para el piloto al mando. La fuente que nombra el reglamento es la guía de la OACI para estas emergencias, cuyo código ERG aparece en el NOTOC.",
-          },
-          {
-            clave: "trip",
-            etiqueta: "Antes · Tripulación",
-            texto:
-              "Los tripulantes están al corriente de las medidas que hay que tomar. El explotador las pone en su manual de operaciones.",
-          },
-          {
-            clave: "equipo",
-            etiqueta: "Antes · Equipo",
-            texto:
-              "El equipo de respuesta de emergencia para mercancías peligrosas va a bordo, con instrucción a los tripulantes sobre su uso. Contenido mínimo: bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
-          },
-          {
-            clave: "ats",
-            etiqueta: "Durante · ATS",
-            texto:
-              "De presentarse en vuelo una emergencia, el piloto al mando informa a la dependencia de los servicios de tránsito aéreo, tan pronto la situación lo permita, para que esta informe a la administración aeroportuaria de la presencia de mercancías peligrosas a bordo.",
-          },
-          {
-            clave: "despues",
-            etiqueta: "Después · Servicios de emergencia",
-            texto:
-              "En accidente o incidente grave, el explotador facilita sin dilación al personal de emergencia la información de las mercancías a bordo, conforme a lo proporcionado por escrito al piloto al mando. En incidente, a los servicios de emergencia y a las autoridades del Estado donde ocurrió, si lo piden.",
-          },
-        ],
-      },
-      { kind: "sub", text: "El orden de las decisiones" },
-      {
-        kind: "secuencia",
-        numerada: true,
-        orientacion: "vertical",
-        items: [
-          "**Volar primero.** Control de la aeronave, oxígeno y máscaras, gestión del humo. El orden de prioridades del vuelo no cambia por llevar mercancías peligrosas.",
-          "**Identificar.** El NOTOC dice qué sustancia es, de qué clase y dónde está. Por eso va al alcance del comandante durante el vuelo.",
-          "**Contener.** Aplicar el QRH: fuego y humo, ventilación, y el equipo de respuesta para aislar lo que se pueda.",
-          "**Declarar.** MAYDAY o PAN PAN, e informar al ATS qué mercancía peligrosa hay a bordo, tan pronto la situación lo permita.",
-          "**Desviar.** Al aeródromo adecuado más cercano. Con un incendio a bordo, el tiempo es la variable.",
-          "**Informar.** Pasar los datos de la mercancía a los servicios de emergencia y notificar el suceso (lección 12).",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Una forma de recordarlo",
-        text: "Volar, identificar, contener, declarar, desviar, informar. Primero se vuela; el NOTOC es la fuente de información inmediata para todo lo demás.",
-      },
-      {
-        kind: "p",
-        text: "Informar la naturaleza de la mercancía cambia lo que encuentra el avión en tierra: qué agente extintor traen los bomberos, con qué protección se acercan y cómo evacúan. Un aviso tardío convierte una emergencia gestionable en una que se gestiona a ciegas. Por eso el reglamento dice «tan pronto la situación lo permita» y no «de inmediato»: reconoce que primero se controla la aeronave, pero no admite que la información no llegue.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-FLJ-03 · Flujograma · 16:9 · 2000×1125 · SVG",
-        descripcion:
-          "Dos carriles, cabina de mando y cabina de pasajeros, con los hitos: identificación del bulto o dispositivo, consulta del NOTOC y de la guía de respuesta de emergencia, uso del equipo de respuesta, notificación al ATS, coordinación con el aeródromo de destino y entrega de información a los servicios de emergencia.",
-        alto: 320,
-      },
-    ],
-  },
+  LECCION_11,
 
   // ── 12 ──────────────────────────────────────────────────────────────────
   {
