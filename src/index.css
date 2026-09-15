@@ -1540,6 +1540,15 @@
 .lector-notam.lector-mp .doc-sheet {
   --doc-accent: var(--ln-primary);
 }
+/* En la columna estrecha de Mercancías, justificar la prosa abría huecos y
+   partía palabras largas. En móvil se lee mejor con alineación natural. */
+@media (max-width: 640px) {
+  .lector-notam.lector-mp .doc-prose :where(p, li, dd):not(.mono) {
+    text-align: left;
+    hyphens: none;
+    line-height: 1.65;
+  }
+}
 
 /* Y el de Meteorología, igual, en turquesa petróleo. Mismo papel, misma
    tinta, mismo navy: cambia lo que era azul carta. Cada hex es el mismo oklch

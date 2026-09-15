@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Relacionar una línea del NOTOC con su ubicación</title>
+  <desc id="desc">Representación conceptual de una aeronave de pasajeros. Una línea de estudio para UN 1263 PAINT, dos bultos en el ULD AKE 12345, apunta a la posición ficticia A1 de la bodega delantera. La ubicación y los códigos varían según aeronave y operador.</desc>
+  <defs>
+    <marker id="arrow" markerUnits="userSpaceOnUse" markerWidth="54" markerHeight="54" refX="44" refY="27" orient="auto"><path d="M4 4 46 27 4 50" fill="none" stroke="#e7bb46" stroke-width="4"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="38" fill="#112a3d"/>
+  <rect x="69" y="67" width="15" height="80" rx="7" fill="#ecc23e"/>
+  <text x="107" y="134" font-family="Arial,sans-serif" font-size="67" font-weight="700" fill="#fff">DEL NOTOC A UNA POSICIÓN</text>
+  <rect x="81" y="202" width="1435" height="114" rx="21" fill="#f2f1ec"/>
+  <g font-family="Arial,sans-serif" fill="#163047">
+    <text x="119" y="254" font-size="37" font-weight="700">UN 1263 · PAINT</text>
+    <text x="119" y="298" font-size="34">2 bultos · ULD AKE 12345 · posición A1</text>
+  </g>
+  <g fill="#e2eced" stroke="#87a1ad" stroke-width="5">
+    <path d="M210 575 Q220 491 380 482 H1258 Q1344 482 1420 559 Q1441 588 1420 616 Q1381 646 1259 646 H326 Q254 646 210 605Z"/>
+    <path d="M390 490 299 348 252 348 296 503Z"/>
+    <path d="M762 619 634 780 H733 L886 627Z"/>
+  </g>
+  <path d="M1220 484 Q1278 524 1282 558" fill="none" stroke="#688395" stroke-width="5"/>
+  <path d="M325 566 H1260" stroke="#5f7d8c" stroke-width="4" stroke-dasharray="24 15"/>
+  <g fill="#658797">
+    <rect x="370" y="514" width="30" height="17" rx="7"/><rect x="420" y="514" width="30" height="17" rx="7"/>
+    <rect x="470" y="514" width="30" height="17" rx="7"/><rect x="520" y="514" width="30" height="17" rx="7"/>
+    <rect x="570" y="514" width="30" height="17" rx="7"/><rect x="620" y="514" width="30" height="17" rx="7"/>
+    <rect x="670" y="514" width="30" height="17" rx="7"/><rect x="720" y="514" width="30" height="17" rx="7"/>
+    <rect x="770" y="514" width="30" height="17" rx="7"/><rect x="820" y="514" width="30" height="17" rx="7"/>
+    <rect x="870" y="514" width="30" height="17" rx="7"/><rect x="920" y="514" width="30" height="17" rx="7"/>
+    <rect x="970" y="514" width="30" height="17" rx="7"/><rect x="1020" y="514" width="30" height="17" rx="7"/>
+  </g>
+  <rect x="926" y="572" width="256" height="61" rx="13" fill="#e9c96e" stroke="#a88931" stroke-width="5"/>
+  <text x="1054" y="616" text-anchor="middle" font-family="Arial,sans-serif" font-size="47" font-weight="700" fill="#163047">A1</text>
+  <path d="M1111 318 C1111 422 1110 501 1110 570" fill="none" stroke="#e7bb46" stroke-width="10" marker-end="url(#arrow)"/>
+  <text x="81" y="842" font-family="Arial,sans-serif" font-size="39" font-weight="700" fill="#c4d7dc">ESQUEMA DE ESTUDIO · NO ES UNA POSICIÓN UNIVERSAL</text>
+</svg>

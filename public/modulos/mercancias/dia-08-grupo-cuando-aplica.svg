@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">El grupo de embalaje solo aparece cuando está asignado</title>
+  <desc id="desc">Dos ejemplos de lectura independientes: UN 1263 PAINT, clase 3, puede tener grupo de embalaje II; UN 3480 LITHIUM ION BATTERIES, clase 9, no tiene grupo de embalaje asignado. Sin grupo no significa sin riesgo.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f4f0"/>
+  <rect x="69" y="65" width="15" height="83" rx="7" fill="#d3aa38"/>
+  <text x="109" y="135" font-family="Arial,sans-serif" font-size="67" font-weight="700" fill="#18374a">NO TODOS TIENEN GRUPO</text>
+  <rect x="70" y="227" width="707" height="527" rx="30" fill="#fff" stroke="#d8bd75" stroke-width="5"/>
+  <rect x="823" y="227" width="707" height="527" rx="30" fill="#fff" stroke="#8eb7b8" stroke-width="5"/>
+  <g font-family="Arial,sans-serif">
+    <rect x="103" y="257" width="637" height="67" rx="11" fill="#d9b759"/>
+    <rect x="856" y="257" width="637" height="67" rx="11" fill="#3b7a84"/>
+    <text x="129" y="305" font-size="49" font-weight="700" fill="#1d303f">UN 1263 · PAINT</text>
+    <text x="882" y="305" font-size="49" font-weight="700" fill="#fff">UN 3480</text>
+    <text x="872" y="368" font-size="39" fill="#4c6572">LITHIUM ION BATTERIES</text>
+    <text x="119" y="415" font-size="53" font-weight="700" fill="#18364a">CLASE 3</text>
+    <text x="872" y="445" font-size="53" font-weight="700" fill="#18364a">CLASE 9</text>
+    <text x="119" y="517" font-size="43" fill="#4c6572">Grupo de embalaje</text>
+    <text x="872" y="517" font-size="43" fill="#4c6572">Grupo de embalaje</text>
+    <text x="119" y="671" font-size="110" font-weight="700" fill="#a17a27">II</text>
+    <text x="872" y="639" font-size="64" font-weight="700" fill="#2e7079">NO ASIGNADO</text>
+    <text x="871" y="696" font-size="43" fill="#44616b">No significa «sin riesgo»</text>
+    <text x="73" y="841" font-size="40" font-weight="700" fill="#44616b">DOS EJEMPLOS DE LECTURA INDEPENDIENTES</text>
+  </g>
+</svg>
