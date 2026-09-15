@@ -65,6 +65,12 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "notam-linea-q": lazy(() =>
     import("@/components/lesson/infografias/NotamLineaQ").then((m) => ({ default: m.NotamLineaQ })),
   ),
+  "meteo-atmosfera": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAtmosfera").then((m) => ({ default: m.MeteoAtmosfera })),
+  ),
+  "meteo-coriolis": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCoriolis").then((m) => ({ default: m.MeteoCoriolis })),
+  ),
 }
 
 /**
