@@ -137,12 +137,8 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t06-01-inversion-de-superficie.webp",
-        alt: "Dos perfiles verticales de temperatura lado a lado: a la izquierda una atmósfera normal, con la temperatura bajando con la altura; a la derecha una con inversión de superficie, con la capa sombreada y niebla atrapada debajo.",
-        ancho: 1600,
-        alto: 900,
-        pie: "La misma altura, dos comportamientos de la temperatura.",
+        kind: "infografia",
+        nombre: "meteo-inversion",
       },
       {
         kind: "piensaComoPiloto",
@@ -273,13 +269,8 @@ export const PARTE_AGUA: DocScreen[] = [
         text: "La separación dividida entre 2,45, por mil. Y si quieres el atajo mental, cada grado de separación son unos 400 ft de base. Con 8 grados, unos 3.200 ft, que es la cuenta de arriba con un error de sesenta pies.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t07-01-base-de-la-nube.webp",
-        alt: "Gráfico de temperatura contra altura con dos rectas que salen del suelo, la de temperatura desde 29 grados y la de punto de rocío desde 21, y se cortan a 3.260 ft, donde está la base de la nube.",
-        ancho: 1200,
-        alto: 900,
-        anchoMax: 520,
-        pie: "Dos rectas que se acercan 2,45 °C cada mil pies.",
+        kind: "infografia",
+        nombre: "meteo-base-nube",
       },
       {
         kind: "sub",
@@ -431,12 +422,8 @@ export const PARTE_AGUA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t08-01-familias-por-altura.webp",
-        alt: "Corte vertical con las cuatro familias de nubes a su altura real, con la escala de pies marcando 6.500 y 20.000, y la columna del cumulonimbus atravesándolas todas hasta el yunque.",
-        ancho: 1800,
-        alto: 1200,
-        pie: "Las cuatro familias, cada una a su altura.",
+        kind: "infografia",
+        nombre: "meteo-familias",
       },
             {
         kind: "reconoce",
@@ -710,12 +697,8 @@ export const PARTE_AGUA: DocScreen[] = [
         text: "No es «¿hay niebla?», es «¿qué niebla es?». Si es de radiación, el sol y el viento la levantan y la espera tiene sentido. Si es de advección o de ladera, no se quema con el sol y puede durar días: ahí la decisión es el alterno, no el retraso.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t09-01-cuatro-nieblas.webp",
-        alt: "Cuatro viñetas con el mecanismo de cada tipo de niebla, radiación, advección, ladera y vapor, y debajo de cada una si se quema con el sol o no.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Cuatro mecanismos distintos, cuatro decisiones distintas.",
+        kind: "infografia",
+        nombre: "meteo-nieblas",
       },
       {
         kind: "sub",

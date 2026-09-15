@@ -476,6 +476,10 @@ export type LessonBlock =
         | "meteo-brisas"
         | "meteo-obstaculo"
         | "meteo-montana"
+        | "meteo-inversion"
+        | "meteo-base-nube"
+        | "meteo-familias"
+        | "meteo-nieblas"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {

@@ -83,6 +83,18 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "meteo-montana": lazy(() =>
     import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoMontana })),
   ),
+  "meteo-inversion": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoInversion })),
+  ),
+  "meteo-base-nube": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoBaseNube })),
+  ),
+  "meteo-familias": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoFamilias })),
+  ),
+  "meteo-nieblas": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoNieblas })),
+  ),
 }
 
 /**
