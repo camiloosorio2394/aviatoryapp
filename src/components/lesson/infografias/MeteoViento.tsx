@@ -15,6 +15,7 @@ import {
   DERECHA,
   IZQUIERDA,
   LINEA,
+  MONO,
   PAPEL,
   RESALTADO,
   SECUNDARIO,
@@ -487,6 +488,131 @@ export function MeteoMontana() {
       <Rotulo x={DER} y={62} ancla="end" color={ACENTO} tam={19}>SOTAVENTO</Rotulo>
 
       <line x1={IZQ} y1={BASE_M} x2={DER} y2={BASE_M} stroke={TINTA} strokeWidth={2} />
+    </Lienzo>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 5 · La microrráfaga, paso a paso
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Los cuatro momentos son los del texto de la sección, y el orden importa
+ * porque **el primero se siente bien**: el viento de frente sube la velocidad y
+ * la performance mejora. Eso es lo que engaña. Después viene la descendente, y
+ * al salir por el otro lado el viento se da la vuelta y se convierte en cola: la
+ * velocidad se desploma justo cuando ya no queda altura.
+ *
+ * La trayectoria de despegue se dibuja subiendo, hundiéndose al cruzar el núcleo
+ * y sin recuperar: es la forma del accidente, no la del vuelo que sale bien.
+ */
+const MOMENTOS = [
+  { n: "1", rotulo: "VIENTO DE FRENTE" },
+  { n: "2", rotulo: "DESCENDENTE" },
+  { n: "3", rotulo: "VIENTO DE COLA" },
+  { n: "4", rotulo: "EL RESULTADO" },
+] as const
+
+export function MeteoMicrorrafaga() {
+  const suelo = 470
+  const nucleo = 500
+  const yNube = 118
+  // Los cuatro puntos sobre la trayectoria, de izquierda a derecha.
+  const puntos = [
+    { x: 300, y: 372 },
+    { x: nucleo, y: 336 },
+    { x: 668, y: 396 },
+    { x: 830, y: 452 },
+  ]
+
+  return (
+    <Lienzo etiqueta="Corte vertical de una microrráfaga sobre una pista. La columna de aire desciende desde la nube, golpea el suelo y se abre en abanico hacia los dos lados. Sobre ella cruza la trayectoria de un despegue con cuatro momentos numerados: primero viento de frente, que engaña porque la performance mejora; después la corriente descendente; después el viento de cola, con la velocidad desplomándose; y al final el resultado, sin altura para recuperar.">
+      {/* La nube de la que sale todo. */}
+      <path
+        d={`M${nucleo - 210},${yNube + 46}
+            C${nucleo - 230},${yNube + 6} ${nucleo - 150},${yNube - 26} ${nucleo - 84},${yNube - 14}
+            C${nucleo - 40},${yNube - 48} ${nucleo + 54},${yNube - 44} ${nucleo + 86},${yNube - 6}
+            C${nucleo + 168},${yNube - 20} ${nucleo + 228},${yNube + 14} ${nucleo + 208},${yNube + 46} Z`}
+        fill="#FFFFFF"
+        stroke={LINEA}
+        strokeWidth={1.8}
+      />
+
+      {/* La columna que baja, y el abanico al llegar al suelo. */}
+      <rect x={nucleo - 62} y={yNube + 46} width={124} height={suelo - yNube - 46} fill={ACENTO} opacity={0.14} />
+      {[-36, 0, 36].map((dx) => (
+        <Flecha
+          key={dx}
+          x1={nucleo + dx}
+          y1={yNube + 58}
+          x2={nucleo + dx}
+          y2={suelo - 26}
+          color={ACENTO}
+          grosor={dx === 0 ? 3.4 : 2.4}
+          tam={dx === 0 ? 16 : 13}
+        />
+      ))}
+      {[0, 1].map((lado) => {
+        const s = lado === 0 ? -1 : 1
+        return (
+          <g key={lado}>
+            <Corriente
+              d={`M${nucleo + s * 54},${suelo - 34} Q${nucleo + s * 130},${suelo - 12} ${nucleo + s * 250},${suelo - 22}`}
+              color={ACENTO}
+              grosor={2.6}
+            />
+            <Punta x={nucleo + s * 252} y={suelo - 22} ang={lado === 0 ? IZQUIERDA : DERECHA} color={ACENTO} tam={14} />
+          </g>
+        )
+      })}
+
+      {/* La trayectoria de despegue: sube, se hunde al cruzar y no recupera. */}
+      <Corriente
+        d={`M${IZQ + 40},${suelo - 8} C${210},${suelo - 46} ${268},${396} ${puntos[0].x},${puntos[0].y}
+            C${390},${340} ${450},${330} ${puntos[1].x},${puntos[1].y}
+            C${570},${346} ${624},${380} ${puntos[2].x},${puntos[2].y}
+            C${736},${414} ${790},${442} ${puntos[3].x},${puntos[3].y}`}
+        color={SECUNDARIO}
+        grosor={2.6}
+      />
+      <Jet x={IZQ + 6} cy={suelo - 12} ancho={62} color={SECUNDARIO} />
+
+      {puntos.map((p, i) => (
+        <g key={MOMENTOS[i].n}>
+          <circle cx={p.x} cy={p.y} r={16} fill={PAPEL} stroke={SECUNDARIO} strokeWidth={2} />
+          <text
+            x={p.x}
+            y={p.y + 7}
+            textAnchor="middle"
+            fontFamily={MONO}
+            fontSize={19}
+            fontWeight={700}
+            fill={TINTA}
+          >
+            {MOMENTOS[i].n}
+          </text>
+          <Rotulo
+            x={p.x}
+            y={p.y - 30}
+            ancla="middle"
+            color={i === 0 ? ACENTO_CLARO : ACENTO}
+            tam={15}
+          >
+            {MOMENTOS[i].rotulo}
+          </Rotulo>
+        </g>
+      ))}
+
+      {/* La pista. */}
+      <rect x={IZQ} y={suelo} width={DER - IZQ} height={26} fill={ACENTO} opacity={0.42} />
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <rect key={i} x={IZQ + 60 + i * 140} y={suelo + 11} width={44} height={5} fill={PAPEL} opacity={0.9} />
+      ))}
+      <line x1={IZQ} y1={suelo} x2={DER} y2={suelo} stroke={TINTA} strokeWidth={2.4} />
+
+      <Rotulo x={IZQ} y={H - 30} color={ACENTO_CLARO} tam={16}>
+        EL PRIMER MOMENTO SE SIENTE BIEN: AHÍ ESTÁ LA TRAMPA
+      </Rotulo>
     </Lienzo>
   )
 }

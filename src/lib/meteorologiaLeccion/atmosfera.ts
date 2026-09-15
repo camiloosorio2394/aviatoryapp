@@ -734,12 +734,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t05-01-microrrafaga-cuatro-tiempos.webp",
-        alt: "Corte vertical de una microrráfaga sobre una pista: la columna descendente golpea el suelo y se abre en abanico, con los cuatro momentos numerados sobre la trayectoria de despegue, del viento de frente al impacto.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Los cuatro tiempos de una microrráfaga, sobre la trayectoria de despegue.",
+        kind: "infografia",
+        nombre: "meteo-microrrafaga",
       },
       {
         kind: "p",

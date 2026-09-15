@@ -104,12 +104,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Muchas líneas aéreas tienen aeronaves equipadas con instrumentos que transmiten observaciones meteorológicas en vuelo por DataLink al despachador, que las difunde a las autoridades de pronóstico. Es decir: si vuelas para una compañía así, tu avión ya está reportando. Eso no sustituye tu PIREP de turbulencia o de engelamiento, que es un juicio y no una medición.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s13-01-cuatro-fuentes.webp",
-        alt: "Las cuatro fuentes de observación en un corte: estación de superficie, radiosonda, radar y satélite, cada una con qué mide y qué no ve.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Cada fuente ve una cosa distinta, y ninguna lo ve todo.",
+        kind: "infografia",
+        nombre: "meteo-fuentes",
       },
       {
         kind: "piensaComoPiloto",
@@ -194,13 +190,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "En el formulario, los elementos 1 a 5 son información requerida, más al menos un fenómeno meteorológico encontrado. O sea: dónde, cuándo, a qué nivel, con qué avión, y qué te pasó. Lo demás suma. Un PIREP no se deja de mandar por no acordarse del formato completo.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s14-01-formulario-pirep.webp",
-        alt: "El formulario de PIREP con sus campos numerados en columna y, al lado de cada uno, el trozo correspondiente de un informe real. Los cinco primeros van marcados como obligatorios.",
-        ancho: 1200,
-        alto: 1600,
-        anchoMax: 420,
-        pie: "El formulario y un informe real, uno al lado del otro.",
+        kind: "infografia",
+        nombre: "meteo-pirep",
       },
       {
         kind: "sub",
@@ -672,13 +663,8 @@ export const PARTE_SERVICIOS: DocScreen[] = [
         text: "Las isobaras informan sobre el viento en los primeros miles de pies. Cerca del suelo la fricción cambia la dirección y frena la velocidad, pero entre 2.000 y 3.000 ft la velocidad es mayor y la dirección se vuelve más paralela a las isobaras. La regla práctica del capítulo, que está escrita para el hemisferio norte: el viento a 2.000 ft AGL está de 20° a 40° **a la derecha** del de superficie, es decir, girado en el sentido de las agujas del reloj, y es más fuerte, con más giro sobre terreno rugoso y menos sobre agua abierta. **En el hemisferio sur el giro es al revés: a la izquierda.** Con viento de superficie del 180, a 2.000 ft esperas del 200 al 220 en el norte y del 140 al 160 en el sur. Sin información de vientos en altura, esa estimación te saca del apuro.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-s17-01-modelo-de-estacion.webp",
-        alt: "Un modelo de estación dibujado grande con llamadas numeradas a cada campo, y debajo dos grupos de isobaras, separadas y juntas, rotulados con el viento que implican.",
-        ancho: 1600,
-        alto: 1200,
-        anchoMax: 620,
-        pie: "Todo lo que dice un solo punto de la carta.",
+        kind: "infografia",
+        nombre: "meteo-isobaras",
       },
       {
         kind: "entrevista",

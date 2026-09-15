@@ -489,6 +489,10 @@ export type LessonBlock =
         | "meteo-cobertura"
         | "meteo-linea-tiempo"
         | "meteo-cambios"
+        | "meteo-fuentes"
+        | "meteo-pirep"
+        | "meteo-isobaras"
+        | "meteo-microrrafaga"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
