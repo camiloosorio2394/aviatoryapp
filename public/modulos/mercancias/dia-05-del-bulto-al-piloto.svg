@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Del bulto a la información que recibe el piloto</title>
+  <desc id="desc">Cinco etapas: envío identificado, aceptación, carga y sujeción, ubicación registrada y NOTOC entregado al piloto. Las primeras cuatro corresponden a la operación en tierra; el piloto interpreta la información final.</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1">
+      <stop stop-color="#0c192a"/>
+      <stop offset="1" stop-color="#142a3e"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#04101b" flood-opacity="0.4"/>
+    </filter>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M 1 1 L 12 7 L 1 13" fill="none" stroke="#c7a64e" stroke-width="2.5"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" rx="42" fill="url(#bg)"/>
+  <path d="M 72 766 H 1528" stroke="#335068" stroke-width="2"/>
+  <text x="80" y="113" fill="#f8f4ed" font-family="Arial, sans-serif" font-size="52" font-weight="700">DEL BULTO AL PILOTO</text>
+  <text x="80" y="164" fill="#aec7d6" font-family="Arial, sans-serif" font-size="28">La mercancía se mueve; su identificación y su ubicación terminan en la información de vuelo.</text>
+
+  <g font-family="Arial, sans-serif" filter="url(#shadow)">
+    <rect x="76" y="260" width="272" height="376" rx="28" fill="#f2eee6"/>
+    <rect x="370" y="260" width="272" height="376" rx="28" fill="#f2eee6"/>
+    <rect x="664" y="260" width="272" height="376" rx="28" fill="#f2eee6"/>
+    <rect x="958" y="260" width="272" height="376" rx="28" fill="#f2eee6"/>
+    <rect x="1252" y="260" width="272" height="376" rx="28" fill="#dfca86"/>
+  </g>
+  <path d="M 92 690 H 1505" fill="none" stroke="#c7a64e" stroke-width="4" marker-end="url(#arrow)"/>
+  <g font-family="Arial, sans-serif" fill="#152739">
+    <text x="104" y="333" font-size="27" font-weight="700">01</text>
+    <text x="398" y="333" font-size="27" font-weight="700">02</text>
+    <text x="692" y="333" font-size="27" font-weight="700">03</text>
+    <text x="986" y="333" font-size="27" font-weight="700">04</text>
+    <text x="1280" y="333" font-size="27" font-weight="700">05</text>
+    <text x="104" y="407" font-size="35" font-weight="700">ENVÍO</text>
+    <text x="104" y="447" font-size="35" font-weight="700">IDENTIFICADO</text>
+    <text x="398" y="407" font-size="35" font-weight="700">ACEPTACIÓN</text>
+    <text x="692" y="407" font-size="35" font-weight="700">CARGA Y</text>
+    <text x="692" y="447" font-size="35" font-weight="700">SUJECIÓN</text>
+    <text x="986" y="407" font-size="35" font-weight="700">UBICACIÓN</text>
+    <text x="986" y="447" font-size="35" font-weight="700">REGISTRADA</text>
+    <text x="1280" y="407" font-size="35" font-weight="700">NOTOC</text>
+    <text x="1280" y="447" font-size="35" font-weight="700">AL PILOTO</text>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#395166" font-size="27">
+    <text x="104" y="520">Qué mercancía</text>
+    <text x="104" y="555">y cuántos bultos.</text>
+    <text x="398" y="520">Personal formado</text>
+    <text x="398" y="555">revisa el envío.</text>
+    <text x="692" y="520">Evita daños</text>
+    <text x="692" y="555">y movimiento.</text>
+    <text x="986" y="520">Dónde quedó</text>
+    <text x="986" y="555">en la aeronave.</text>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#162738" font-size="27">
+    <text x="1280" y="520">Qué lleva,</text>
+    <text x="1280" y="555">qué riesgo,</text>
+    <text x="1280" y="590">dónde está.</text>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="29" font-weight="700">
+    <text x="74" y="810" fill="#a9c3d0">PREPARACIÓN Y OPERACIÓN EN TIERRA</text>
+    <text x="1252" y="810" fill="#dfca86">PILOTO: INTERPRETAR</text>
+  </g>
+</svg>
