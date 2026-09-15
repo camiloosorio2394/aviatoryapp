@@ -294,7 +294,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "ponAPrueba",
-        titulo: "Control del nivel 5",
+        titulo: "Control del nivel 4",
         preguntas: [
           {
             q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
