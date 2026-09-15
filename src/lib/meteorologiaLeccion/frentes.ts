@@ -45,13 +45,8 @@ export const PARTE_FRENTES: DocScreen[] = [
         text: "Al moverse de su región de origen, la masa se modifica. Y ahí está la regla útil: si pasa sobre una superficie MÁS CALIENTE, se calienta desde abajo, se hace inestable y da cúmulos, chaparrones y turbulencia, con buena visibilidad en superficie. Si pasa sobre una superficie MÁS FRÍA, se hace estable y da estratos bajos y niebla, con mala visibilidad, porque el humo y el polvo no pueden ascender y se quedan atrapados abajo.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t10-01-origen-de-las-masas.webp",
-        alt: "Esquema por latitud y origen con las cuatro masas de aire de la región, marítima y continental por tropical y polar, y por dónde entra cada una.",
-        ancho: 1400,
-        alto: 1050,
-        anchoMax: 560,
-        pie: "De dónde viene el aire que te va a tocar.",
+        kind: "infografia",
+        nombre: "meteo-masas",
       },
       {
         kind: "sub",
@@ -110,12 +105,8 @@ export const PARTE_FRENTES: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t10-02-simbolos-frontales.webp",
-        alt: "Los cuatro símbolos frontales de carta, frío, cálido, estacionario y ocluido, y debajo de cada uno el corte vertical de cómo se monta una masa sobre la otra.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El símbolo de la carta y lo que significa en vertical.",
+        kind: "infografia",
+        nombre: "meteo-simbolos",
       },
       {
         kind: "sub",
@@ -315,12 +306,8 @@ export const PARTE_FRENTES: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t11-01-junin-formosa.webp",
-        alt: "Dos cortes verticales apilados del tramo de Junín a Formosa, uno contra frente cálido y otro contra frío, con las cuatro paradas rotuladas con su techo y su visibilidad.",
-        ancho: 1800,
-        alto: 600,
-        pie: "El mismo tramo, dos frentes, dos nubosidades.",
+        kind: "infografia",
+        nombre: "meteo-ruta",
       },
       {
         kind: "piensaComoPiloto",
@@ -420,12 +407,8 @@ export const PARTE_FRENTES: DocScreen[] = [
         text: "El capítulo dibuja el yunque en la disipación, cuando la cima deja de crecer y se extiende. Mucha bibliografía de meteorología lo muestra ya en la madurez, en cuanto la corriente ascendente llega arriba. Para la cabina la lectura es la misma con cualquiera de las dos: **un yunque no significa que la tormenta se esté apagando**. Dice que la ascendente llegó hasta arriba, y la célula se sigue rodeando igual: como verás más abajo, el granizo puede caer varios kilómetros fuera de la nube.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t12-01-tres-etapas-tormenta.webp",
-        alt: "Las tres etapas de una tormenta en fila, con las corrientes dentro de cada una: solo ascendentes en la etapa cúmulo, las dos a la vez en la madura, y descendentes con el yunque abierto en la de disipación.",
-        ancho: 1800,
-        alto: 600,
-        pie: "El ciclo entero, y dónde está el punto violento.",
+        kind: "infografia",
+        nombre: "meteo-etapas",
       },
       {
         kind: "sub",

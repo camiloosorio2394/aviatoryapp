@@ -480,6 +480,10 @@ export type LessonBlock =
         | "meteo-base-nube"
         | "meteo-familias"
         | "meteo-nieblas"
+        | "meteo-masas"
+        | "meteo-simbolos"
+        | "meteo-ruta"
+        | "meteo-etapas"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
