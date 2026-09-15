@@ -49,7 +49,7 @@ export const NIVEL_3: DocScreen[] = [
         alt: "Fotografía explicativa de una operación de carga comercial: cajas sobre una plataforma, un ULD sujeto y la entrada a la bodega. Tres flechas señalan los bultos cargados, el ULD y la posición de carga.",
         ancho: 1200,
         alto: 800,
-        pie: "La caja, la unidad de carga y su posición son cosas distintas. El NOTOC relaciona la mercancía identificada con la ubicación informada al piloto; esta escena ilustra la cadena, no un envío reglamentario concreto.",
+        pie: "Identifica la caja, la unidad de carga y su posición como tres datos distintos. El NOTOC los relaciona con la mercancía y el riesgo informados al piloto.",
       },
       { kind: "sub", text: "Quién comprueba el envío y qué llega al piloto" },
       {
@@ -67,7 +67,7 @@ export const NIVEL_3: DocScreen[] = [
         alt: "Fotografía realista de una operación de carga junto a una aeronave. Flechas señalan la unidad de carga ULD, los bultos y la posición de carga; el texto de la imagen recuerda que el piloto interpreta el resultado operacional.",
         ancho: 1600,
         alto: 900,
-        pie: "La fotografía muestra la cadena física que termina en la información al piloto. No certifica la clasificación, el embalaje ni la aceptación del envío.",
+        pie: "Del bulto al piloto: la clasificación, el embalaje y la aceptación se verifican en sus procedimientos; el NOTOC lleva a cabina la identidad, el riesgo y la ubicación final.",
       },
       { kind: "sub", text: "Estibar no es solo acomodar" },
       {
@@ -92,7 +92,7 @@ export const NIVEL_3: DocScreen[] = [
         alt: "Fotografía realista de dos bultos de mercancías incompatibles en una terminal, con rótulos que señalan una sustancia corrosiva clase 8, un líquido inflamable clase 3 y la separación entre ambos.",
         ancho: 1600,
         alto: 900,
-        pie: "La fotografía explica el propósito de la segregación. No permite decidir por sí sola qué mercancías deben separarse ni qué distancia utilizar.",
+        pie: "La separación evita que una pérdida conecte dos riesgos. Para decidir qué bultos se segregan y a qué distancia, se aplica la tabla y el procedimiento correspondiente.",
       },
       {
         kind: "callout",

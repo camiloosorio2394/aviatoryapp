@@ -83,7 +83,7 @@ export function Mercancias() {
       blurb:
         "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Y al cierre de cada nivel, la entrevista de aerolínea.",
       cta: "Iniciar formación",
-      photoHueco: "MP-POR-01 · Portada 5:2 · 1200×480 · Un bulto etiquetado en rampa",
+      photo: "/modulos/mercancias/mp-por-01-aprende.webp",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -104,7 +104,7 @@ export function Mercancias() {
       blurb:
         "Reconoces etiquetas, clasificas envíos y resuelves escenarios de entrevista técnica.",
       cta: "Iniciar práctica",
-      photoHueco: "MP-POR-02 · Portada 5:2 · 1200×480 · Un ULD con etiquetas de riesgo",
+      photo: "/modulos/mercancias/mp-por-02-practica.webp",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -123,7 +123,7 @@ export function Mercancias() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación y el artículo de cada pregunta.",
       cta: "Iniciar evaluación",
-      photoHueco: "MP-POR-03 · Portada 5:2 · 1200×480 · Cabina con el NOTOC en la mano",
+      photo: "/modulos/mercancias/mp-por-03-evaluacion.webp",
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -147,25 +147,20 @@ export function Mercancias() {
         {/* Hero de sección: la foto a sangre bajo un velo navy en degradado,
             para que el título se lea sobre cualquier zona de la imagen. */}
         <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
-          {/* La imagen de fondo se retiró para rehacerla. El hueco NO se borra:
-              el hero conserva su caja, su velo y su forma, así que cuando llegue
-              la imagen se vuelve a poner el <img> justo aquí y no cambia nada
-              más. El rótulo de la esquina dice la medida que hace falta. */}
+          <img
+            src="/modulos/mercancias/hub-hero.webp"
+            alt=""
+            aria-hidden
+            className="absolute inset-0 h-full w-full object-cover object-[67%_center] lg:object-center"
+          />
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(105deg, rgba(8,20,36,.97) 0%, rgba(8,20,36,.94) 42%, rgba(8,20,36,.86) 72%, rgba(8,20,36,.78) 100%)",
+                "linear-gradient(105deg, rgba(8,20,36,.92) 0%, rgba(8,20,36,.80) 42%, rgba(8,20,36,.54) 72%, rgba(8,20,36,.42) 100%)",
             }}
             aria-hidden
           />
-          <div
-            className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
-            aria-hidden
-          />
-          <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-            [Imagen de fondo · 2432×860 · espacio reservado]
-          </span>
 
           <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
             <div className="min-w-0">
@@ -193,9 +188,7 @@ export function Mercancias() {
               </p>
 
               <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-                {/* La miniatura y el cartel son el mismo fotograma mientras el
-                    módulo no tenga foto de hero. Cuando la haya, la miniatura
-                    pasa a ser esa foto, como en NOTAM. */}
+                {/* El vídeo conserva su fotograma propio como miniatura. */}
                 <VideoIntro
                   src="/modulos/mercancias/intro.mp4"
                   miniatura="/modulos/mercancias/intro-poster.webp"

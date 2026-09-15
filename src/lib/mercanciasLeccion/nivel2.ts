@@ -204,7 +204,7 @@ export const NIVEL_2: DocScreen[] = [
       {
         kind: "figura",
         src: "/modulos/mercancias/dia-04-tres-conceptos.webp",
-        alt: "Fotografía de tres ejemplos separados en una terminal de carga: la etiqueta de clase 8 señala el tipo de peligro; una tarjeta didáctica con grupo II señala el grado cuando aplica; y otro bulto con marca Y señala un régimen de cantidad limitada. Flechas y textos explican cada concepto.",
+        alt: "Tres ejemplos en una terminal de carga: la etiqueta de clase 8 señala el tipo de peligro; una tarjeta con grupo II señala el grado cuando aplica; y otro bulto con marca Y señala un régimen de cantidad limitada. Flechas y textos explican cada concepto.",
         ancho: 1200,
         alto: 800,
         pie: "Son ejemplos distintos. La clase se reconoce en la etiqueta; el grupo se confirma en la información del envío; la marca Y solo corresponde si la entrada permite cantidad limitada y se cumplen sus condiciones.",
@@ -245,7 +245,7 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Dos bultos corrosivos de clase 8 señalados con flechas. Uno indica grupo de embalaje I, mayor grado de riesgo, y el otro grupo III, menor grado de riesgo.",
         ancho: 1200,
         alto: 800,
-        pie: "Las tarjetas de GE de esta foto son didácticas, no marcas que debas deducir del rombo. Confirma el grupo asignado para la entrada en la información del envío.",
+        pie: "El rombo indica la clase, no el grupo de embalaje. Confirma el GE I o III de cada entrada en la información del envío y aplica sus requisitos de embalaje.",
       },
       {
         kind: "enLaOperacion",

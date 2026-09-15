@@ -35,13 +35,13 @@ export const LECCION_11: DocScreen = {
       leccion: "La ubicación y la composición de la carga importan para interpretar una emergencia. Pero una ubicación conocida no permite deducir la causa de ignición ni sustituye las acciones previstas para la aeronave.",
       fuente: "ARAIB/AAR1105, informe final (2015), secciones 3.2–3.3 · OACI",
       imagen: {
-        src: "/modulos/mercancias/img-28-asiana-tipos-carga.webp",
-        alt: "Fotografía didáctica nueva de paletas sujetas en la cubierta principal de un carguero. La franja superior enumera los tipos de carga citados por ARAIB: pintura y fotorresistentes inflamables, líquido corrosivo y baterías de ion-litio. La franja inferior aclara que no es una fotografía del vuelo.",
+        src: "/modulos/mercancias/img-33-asiana-carga-y-cronologia.webp",
+        alt: "Paletas sujetas en la cubierta principal de un carguero. La franja superior enumera pintura, fotorresistentes, líquido corrosivo y baterías de ion-litio; la inferior señala el aviso de fuego a las 03:54 y la caída al mar a las 04:11.",
       },
     },
     {
       kind: "p",
-      text: "La imagen ayuda a reconocer los tipos de carga, pero no reproduce las posiciones de OZ991 ni permite identificar qué producto pudo iniciar el incendio. Para eso se lee el informe, no los rótulos de una fotografía didáctica.",
+      text: "Fíjate en dos datos distintos: el informe ubicó el fuego en o cerca de paletas con mercancías peligrosas, pero no pudo identificar qué lo inició. La composición y la posición de la carga orientan la respuesta; no bastan para señalar una causa.",
     },
     {
       kind: "p",
