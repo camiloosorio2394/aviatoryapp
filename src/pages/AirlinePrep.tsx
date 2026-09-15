@@ -299,11 +299,11 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          // Sin portada: el módulo todavía no tiene la suya (su hub muestra el
-          // hueco MP-POR-01, «un bulto etiquetado en rampa»). Lo que había aquí
+          // Sin portada: el módulo todavía no tiene la suya. Lo que había aquí
           // era el hero de la PRÁCTICA de Mercancías, una lámina de etiquetas
           // con texto diminuto que no casaba con las fotos de las otras tres.
-          // En cuanto exista la foto del módulo, se pone aquí y ya.
+          // En cuanto exista la foto, se pone en `foto` y el hueco desaparece.
+          fotoHueco: "MP-TEM-01 · 2:1 · 1200×600 · Un bulto etiquetado en rampa",
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
@@ -325,8 +325,8 @@ export function AirlinePrep() {
           titulo: "Aerodinámica",
           meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
           descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
-          // Sin portada: el módulo todavía no tiene la suya. La tarjeta pinta
-          // su acento, como la de Mercancías, hasta que exista la foto.
+          // Sin portada, como Mercancías: el hueco dice qué falta.
+          fotoHueco: "AE-TEM-01 · 2:1 · 1200×600 · Ala en flecha desde la ventanilla",
           cta: ctaDeTema(aero.overall),
           avance: aero.overall,
           completo: aero.overall >= 100,

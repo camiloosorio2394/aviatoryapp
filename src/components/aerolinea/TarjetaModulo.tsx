@@ -41,6 +41,12 @@ export interface TarjetaModuloProps {
    * una página interior, que es lo que desalineaba la fila.
    */
   foto?: string
+  /**
+   * Qué imagen falta y de qué medida, cuando no hay `foto`. Va rotulado sobre
+   * el acento, como los huecos de las lecciones: la app está en construcción y
+   * el hueco es el recordatorio de lo que hay que producir.
+   */
+  fotoHueco?: string
   cta: string
   estado: string
   /** Avance de 0 a 100. En 0 no se dibuja la barra, pero se reserva su hueco. */
@@ -66,6 +72,7 @@ export function TarjetaModulo({
   icon: Icon,
   color,
   foto,
+  fotoHueco,
   cta,
   estado,
   avance = 0,
@@ -111,7 +118,18 @@ export function TarjetaModulo({
               <div aria-hidden className="absolute inset-0" style={{ background: tinte }} />
             </>
           ) : (
-            <div aria-hidden className="absolute inset-0" style={{ background: liso }} />
+            <>
+              <div aria-hidden className="absolute inset-0" style={{ background: liso }} />
+              <div
+                aria-hidden
+                className="absolute inset-1.5 rounded-lg border border-dashed border-white/15"
+              />
+              {fotoHueco && (
+                <span className="rotulo absolute inset-0 flex items-center justify-center px-6 text-center text-[9.5px] font-semibold uppercase leading-[1.5] tracking-[0.12em] text-white/45">
+                  {fotoHueco}
+                </span>
+              )}
+            </>
           )}
           <span
             className="absolute bottom-2.5 left-2.5 flex h-8 w-8 items-center justify-center rounded-lg backdrop-blur-sm"

@@ -42,10 +42,8 @@ const banco = (
   )
 )["/contenido/bancos/aerodinamica_evaluacion.json"]
 
-/** Las preguntas del quiz de cada sección, que viven en el front. */
-const quizDeSeccion = AERO_LECCIONES.flatMap((s) =>
-  s.blocks.flatMap((b) => (b.kind === "ponAPrueba" ? b.preguntas : [])),
-)
+/** Los bloques que preguntan algo: no puede quedar ninguno dentro de una sección. */
+const BLOQUES_QUE_PREGUNTAN = ["ponAPrueba", "escenario", "piensaComoPiloto", "entrevista"]
 
 describe("Aerodinámica: las doce secciones", () => {
   it("son doce, numeradas de 1 a 12, y suman los minutos que anuncia el hub", () => {
@@ -80,23 +78,28 @@ describe("Aerodinámica: las doce secciones", () => {
   })
 })
 
-describe("Aerodinámica: el quiz de cada sección", () => {
-  it("son cuarenta y cinco preguntas, y cada sección cierra con el suyo", () => {
-    expect(quizDeSeccion).toHaveLength(45)
+describe("Aerodinámica: dentro de una sección no se pregunta nada", () => {
+  // Regla de Camilo, la misma que vació Mercancías: se pregunta en la práctica
+  // y en el quiz final, no mientras se lee. El documento trae 45 preguntas de
+  // sección; el conversor las lee para validarlas y no las emite.
+  it("ninguna sección trae un bloque que pregunte", () => {
     for (const s of AERO_LECCIONES) {
-      const ultimo = s.blocks[s.blocks.length - 1]
-      expect(ultimo.kind, `sección ${s.n}`).toBe("ponAPrueba")
+      const preguntones = s.blocks.filter((b) => BLOQUES_QUE_PREGUNTAN.includes(b.kind))
+      expect(preguntones.map((b) => b.kind), `sección ${s.n}`).toEqual([])
     }
   })
 
-  it("cada pregunta tiene cuatro opciones y exactamente una correcta", () => {
-    for (const p of quizDeSeccion) {
-      expect(p.opciones, p.q).toHaveLength(4)
-      expect(p.opciones.filter((o) => o.ok), p.q).toHaveLength(1)
-      // La explicación del documento es de la pregunta, no de cada opción: se
-      // muestra la misma se elija la que se elija.
-      for (const o of p.opciones) expect(o.fb.length, p.q).toBeGreaterThan(10)
-      expect(new Set(p.opciones.map((o) => o.t)).size, p.q).toBe(4)
+  it("las preguntas de entrevista del texto siguen, con la respuesta al desplegar", () => {
+    // Son otra cosa: seis a lo largo del módulo, dentro de la prosa, con la
+    // respuesta escondida. No son un examen; son el desplegable de siempre.
+    const desplegables = AERO_LECCIONES.flatMap((s) =>
+      s.blocks.filter((b) => b.kind === "detalleTecnico"),
+    )
+    expect(desplegables.length).toBeGreaterThanOrEqual(6)
+    for (const d of desplegables) {
+      if (d.kind !== "detalleTecnico") continue
+      expect((d.etiqueta ?? "").length).toBeGreaterThan(5)
+      expect(d.bloques.length).toBeGreaterThan(0)
     }
   })
 })

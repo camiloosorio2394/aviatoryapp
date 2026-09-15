@@ -441,16 +441,10 @@ for (const t of tramos()) {
     i = siguiente
   }
 
-  bloques.push({
-    kind: "ponAPrueba",
-    titulo: `Quiz · Sección ${numero}`,
-    preguntas: preguntas.map((p) => ({
-      q: p.enunciado,
-      // La explicación es de la pregunta, no de cada opción: el documento trae
-      // una sola, y es la que se muestra al responder, sea cual sea la elegida.
-      opciones: p.opciones.map((t, k) => ({ t, ...(k === p.correcta ? { ok: true } : {}), fb: p.explicacion })),
-    })),
-  })
+  // El quiz de la sección NO entra en la lección. Regla de Camilo, la misma que
+  // vació Mercancías: dentro de un módulo no se pregunta nada; se pregunta en
+  // la práctica y en el quiz final. Se sigue leyendo del documento para
+  // contarlo y validarlo, pero no se emite.
 
   secciones.push({
     n: numero,
