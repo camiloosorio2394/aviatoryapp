@@ -601,15 +601,16 @@ export function AirlinePrep() {
             Temas de estudio
           </h2>
 
-          {/* Una, dos, tres o cinco columnas. Nunca cuatro: los temas son cinco
-              y una rejilla de cuatro deja el quinto solo en la segunda fila,
-              que se lee como un sobrante.
+          {/* Cuatro columnas. Cinco se probaron y quedaban demasiado estrechas
+              —unos 213 px por tarjeta, con la descripción cortada a nada—, así
+              que se paró en cuatro, que es donde la tarjeta todavía se lee.
 
-              El salto a cinco está en @5xl y no más arriba a propósito: con la
-              barra lateral puesta, un portátil de 1440 px deja unos 1130 px de
-              contenido, y ahí es donde tienen que caber los cinco. A ese ancho
-              cada tarjeta mide ~213 px, que es para lo que se compactó. */}
-          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-5">
+              Los temas son cinco, o sea que el quinto cae solo en la segunda
+              fila. En vez de dejar tres huecos, «En camino» entra en la misma
+              rejilla y ocupa las tres celdas que sobran: la fila queda completa
+              y con contenido de verdad, que además es su continuación natural
+              —los temas que hay, y los que vienen. */}
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
             {cursables.map((t) => (
               <TarjetaModulo
                 key={t.to}
@@ -618,32 +619,33 @@ export function AirlinePrep() {
                 cargando={loading}
               />
             ))}
+
+            {/* Borde sólido, no punteado: en esta app el punteado significa
+                «hueco por llenar» (los espacios de imagen reservados), y esto
+                no es un hueco, es la ruta que viene. */}
+            {PROXIMOS.length > 0 && (
+              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-3">
+                <p className="m-0 text-[12.5px] leading-relaxed text-muted-foreground">
+                  <span className="font-semibold text-foreground">En camino.</span> Se abren en este
+                  orden, cada uno cuando está completo:
+                </p>
+                <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
+                  {PROXIMOS.map((p, i) => (
+                    <li
+                      key={p}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-2.5 py-1 text-[12.5px] text-muted-foreground"
+                    >
+                      <span className="tabular text-[11px] font-semibold text-foreground/70">
+                        {disponibles + i + 1}
+                      </span>
+                      {p}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
           </div>
 
-          {/* Los que siguen, contados como ruta y no como huecos: una fila de
-              pastillas pegada a la rejilla, que es de lo que es continuación.
-              Las pastillas no son botones: no se abren hasta estar completos. */}
-          {PROXIMOS.length > 0 && (
-            <div className="mt-5 flex flex-col gap-2.5 @3xl:flex-row @3xl:items-center @3xl:gap-4">
-              <p className="m-0 shrink-0 text-[12.5px] text-muted-foreground">
-                <span className="font-semibold text-foreground">En camino.</span> Se abren en este
-                orden, cada uno cuando está completo:
-              </p>
-              <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
-                {PROXIMOS.map((p, i) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-2.5 py-1 text-[12.5px] text-muted-foreground"
-                  >
-                    <span className="tabular text-[11px] font-semibold text-foreground/70">
-                      {disponibles + i + 1}
-                    </span>
-                    {p}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
         </section>
 
         <section className="mt-10" aria-labelledby="aerolinea-herramientas">
