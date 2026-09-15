@@ -1,12 +1,6 @@
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
-import {
-  TILE_COLOR,
-  tileTint,
-  tileBorder,
-  type TileColorKey,
-  accentText,
-} from "@/lib/tileColors"
+import { accentText } from "@/lib/tileColors"
 import type { IconComponent } from "@/components/dashboard/plan"
 
 /**
@@ -29,7 +23,13 @@ export function CourseCard({
   cta,
 }: {
   icon: IconComponent
-  color: TileColorKey
+  /**
+   * El color, como token CSS (`var(--av-mt-500)`). Se recibe suelto y no como
+   * clave de una paleta para que el acento de cada módulo viva en un solo sitio
+   * (`lib/modulosAerolinea.ts`) y no haya que registrarlo también aquí: una
+   * clave más que mantener es una clave más que se olvida al agregar un módulo.
+   */
+  color: string
   eyebrow: string
   title: string
   href: string
@@ -48,9 +48,9 @@ export function CourseCard({
           <div
             className="flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0"
             style={{
-              background: tileTint(color),
-              border: `1px solid ${tileBorder(color, 20)}`,
-              color: accentText(TILE_COLOR[color], 75),
+              background: `color-mix(in oklab, ${color} 14%, transparent)`,
+              border: `1px solid color-mix(in oklab, ${color} 20%, transparent)`,
+              color: accentText(color, 75),
             }}
           >
             <Ic className="h-5 w-5" />
@@ -84,7 +84,7 @@ export function CourseCard({
             <div className="h-1.5 rounded-full overflow-hidden bg-muted">
               <div
                 className="h-full rounded-full transition-[width] duration-700"
-                style={{ width: `${pct}%`, background: TILE_COLOR[color] }}
+                style={{ width: `${pct}%`, background: color }}
               />
             </div>
           </>
@@ -94,7 +94,7 @@ export function CourseCard({
       <p className="mt-3 text-[13px] text-muted-foreground leading-snug flex-1">{hint}</p>
 
       <div className="mt-4 pt-4 border-t border-border flex items-center justify-between">
-        <span className="text-[13px] font-semibold" style={{ color: accentText(TILE_COLOR[color]) }}>
+        <span className="text-[13px] font-semibold" style={{ color: accentText(color) }}>
           {cta}
         </span>
         <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5" />
