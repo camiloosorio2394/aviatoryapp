@@ -50,7 +50,7 @@ export const MP_NIVELES: LectorNivel[] = [
 export const MP_LECTURA_TOTAL = 14
 
 /** Lectura estimada de todas las lecciones, en minutos (MP_MINUTOS). */
-export const MP_LECTURA_MINUTOS = 80
+export const MP_LECTURA_MINUTOS = 85
 
 /** Ejercicios de la práctica: etiquetas, casos, escenarios y entrevista (PRACTICA_TOTAL). Denominador de esa parte. */
 export const MP_PRACTICA_TOTAL = 49
