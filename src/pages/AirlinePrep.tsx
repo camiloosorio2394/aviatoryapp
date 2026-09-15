@@ -8,6 +8,7 @@ import {
   ClipboardList,
   CloudSun,
   Plane,
+  Wind,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
@@ -37,6 +38,17 @@ import {
   resumirMercancias,
   MP_LECTURA_MINUTOS,
 } from "@/lib/mercancias"
+import {
+  AERO_HUB,
+  AERO_LECTURA_MINUTOS,
+  AERO_LECTURA_TOTAL,
+  AERO_PRACTICA_TOTAL,
+  resumirAerodinamica,
+} from "@/lib/aerodinamica"
+import {
+  fetchAerodinamicaProgress,
+  readAerodinamicaLocal,
+} from "@/lib/aerodinamicaProgress"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -140,6 +152,7 @@ export function AirlinePrep() {
     () => readAirlineMockLocal().bestScore
   )
   const [mercanciasProgreso, setMercanciasProgreso] = useState(() => readMercanciasLocal())
+  const [aeroProgreso, setAeroProgreso] = useState(() => readAerodinamicaLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -158,12 +171,13 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, psicoRes] = await Promise.all([
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, psicoRes] = await Promise.all([
         fetchNotamProgress(user.id),
         fetchMetarProgress(user.id),
         traerMejoresPuntajesDeExamen(user.id),
         fetchMejorPuntajeSimulacro(user.id),
         fetchMercanciasProgress(user.id),
+        fetchAerodinamicaProgress(user.id),
         mejorSimulacroRemoto(user.id),
       ])
       if (cancelled) return
@@ -194,6 +208,7 @@ export function AirlinePrep() {
       }
       setMejorSimulacro(mockRes)
       if (mpRes) setMercanciasProgreso(mpRes)
+      if (aeRes) setAeroProgreso(aeRes)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
       // intento se hizo sin sesión en este mismo equipo, no se pierde.
       if (psicoRes !== null) {
@@ -214,6 +229,7 @@ export function AirlinePrep() {
   // la lección aparecía y los 10 informes y la evaluación salían en cero.
   const metar = useMemo(() => resumirMetar(metarProgress), [metarProgress])
   const mercancias = useMemo(() => resumirMercancias(mercanciasProgreso), [mercanciasProgreso])
+  const aero = useMemo(() => resumirAerodinamica(aeroProgreso), [aeroProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -298,6 +314,30 @@ export function AirlinePrep() {
               : `${mercancias.lessonRead}/${MP_LECTURA_TOTAL} lecciones · ${mercancias.practiceDone}/${MP_PRACTICA_TOTAL} ejercicios`,
         },
       },
+      {
+        nombre: "Aerodinámica",
+        to: AERO_HUB,
+        pct: aero.overall,
+        card: {
+          to: AERO_HUB,
+          icon: Wind,
+          color: "var(--av-ae-700)",
+          titulo: "Aerodinámica",
+          meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
+          descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
+          // Sin portada: el módulo todavía no tiene la suya. La tarjeta pinta
+          // su acento, como la de Mercancías, hasta que exista la foto.
+          cta: ctaDeTema(aero.overall),
+          avance: aero.overall,
+          completo: aero.overall >= 100,
+          estado:
+            aero.empty
+              ? "Sin empezar"
+              : aero.overall >= 100
+                ? "Tema completo"
+                : `${aero.lessonRead}/${AERO_LECTURA_TOTAL} secciones · ${aero.practiceDone}/${AERO_PRACTICA_TOTAL} ejercicios`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -378,7 +418,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
@@ -525,9 +565,10 @@ export function AirlinePrep() {
             Temas de estudio
           </h2>
 
-          {/* Una, dos o cuatro columnas. Nunca tres: con cuatro temas deja uno
-              solo en la segunda fila. */}
-          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
+          {/* Una, dos o tres columnas. Con cinco temas, tres dejan una pareja
+              en la segunda fila; cuatro dejarían uno solo, que se lee como un
+              sobrante. */}
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
             {cursables.map((t) => (
               <TarjetaModulo
                 key={t.to}

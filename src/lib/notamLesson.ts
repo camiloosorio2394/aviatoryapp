@@ -364,8 +364,13 @@ export type LessonBlock =
       pista?: string
       items: { codigo: string; nombre: string; detalle: string }[]
     }
-  /** El elemento interactivo de la lección; lo renderiza el reproductor. */
-  | { kind: "interactivo"; nombre: "notam-decodificador" }
+  /**
+   * El elemento interactivo de la lección; lo renderiza el reproductor, que
+   * conoce los suyos. El nombre es del catálogo de todos los módulos: así el
+   * bloque se escribe igual en cualquier lección y cada lector decide qué
+   * pinta.
+   */
+  | { kind: "interactivo"; nombre: "notam-decodificador" | "aero-margen-velocidad" }
   /**
    * Hueco de imagen rotulado, VISIBLE a propósito: la app está en
    * construcción y el hueco recuerda qué imagen falta y de qué medida.

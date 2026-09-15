@@ -1504,6 +1504,25 @@
   --av-mt-fg: oklch(0.78 0.062 205);
 }
 
+/* Aerodinámica: azul acero.
+   Los matices del círculo ya están casi todos con dueño: 264 es el azul carta
+   de NOTAM, 205 el petróleo de Meteorología, 78 el ocre de Mercancías, 295 el
+   violeta de psicotécnicas, y 155 y 25 son semántica (correcto y error). Este
+   se separa por croma, no por matiz: mismo lado frío que NOTAM pero mucho más
+   apagado, que es como se ve un plano de ingeniería al lado de un cartel. */
+:root {
+  --av-ae-500: oklch(0.60 0.075 250);
+  --av-ae-600: oklch(0.49 0.070 250);
+  --av-ae-700: oklch(0.39 0.060 252);
+  --av-ae-fg: oklch(0.36 0.055 252);
+}
+.dark {
+  --av-ae-500: oklch(0.70 0.075 250);
+  --av-ae-600: oklch(0.61 0.070 250);
+  --av-ae-700: oklch(0.50 0.062 252);
+  --av-ae-fg: oklch(0.77 0.062 250);
+}
+
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
    tinta y el navy del índice son los mismos, y solo lo que era azul carta
    pasa a amarillo. Los --av-blue-* re-anclados heredan el cambio, así que los
@@ -1537,6 +1556,23 @@
   --av-blue-400: var(--ln-bright);
 }
 .lector-notam.lector-mt .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+
+/* Y el de Aerodinámica, en azul acero. Los hex salen de los mismos oklch de
+   los tokens --av-ae-* de arriba: si un día se mueve el matiz, se mueven los
+   dos juntos. */
+.lector-notam.lector-ae {
+  --ln-primary: #2C4764;
+  --ln-primary-hover: #1D344E;
+  --ln-bright: #5D84AC;
+  --ln-tint: #E6F0FA;
+  --ln-pill: #213954;
+  --ln-focus: #6996C5;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-ae .doc-sheet {
   --doc-accent: var(--ln-primary);
 }
 

@@ -47,4 +47,13 @@ export interface ExamenConfig {
   cargarHistorial: (uid: string) => Promise<{ rows: FilaHistorial[]; count: number; best: number | null } | null>
   /** Textos de los dos enlaces de salida cuando no se aprobó. */
   pasos: { leccion: string; practica: string }
+  /**
+   * Adónde lleva un tema de los que hay que repasar. Con esto, el resultado
+   * cierra con las secciones de las preguntas falladas, cada una enlazada.
+   * Sin esto no se pinta esa parte: los módulos cuyo banco no trae tema no
+   * tienen nada que enlazar.
+   */
+  temaARuta?: (tema: string) => string | null
+  /** Cómo se nombra un tema en ese bloque: "Sección 4". */
+  temaARotulo?: (tema: string) => string
 }

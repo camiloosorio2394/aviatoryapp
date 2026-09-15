@@ -27,8 +27,16 @@ export interface MarcaProgreso {
 }
 
 export interface ConfigProgreso {
-  tabla: "user_notam_progress" | "user_metar_progress" | "user_mercancias_progress"
-  rpc: "notam_mark_progress" | "metar_mark_progress" | "mercancias_mark_progress"
+  tabla:
+    | "user_notam_progress"
+    | "user_metar_progress"
+    | "user_mercancias_progress"
+    | "user_aerodinamica_progress"
+  rpc:
+    | "notam_mark_progress"
+    | "metar_mark_progress"
+    | "mercancias_mark_progress"
+    | "aerodinamica_mark_progress"
   /** Lo que el respaldo local tiene leído y resuelto. */
   leerLocal: () => ProgresoRemoto
   /** Anota una marca en el respaldo local. */

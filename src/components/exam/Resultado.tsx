@@ -43,6 +43,26 @@ export function Result({ config, sesion, resultado, userId, sessionLoading, onRe
   const color = passed ? config.acento : "var(--av-wine-500)"
   const colorTexto = passed ? accentText(config.acento) : "var(--av-wine-fg)"
 
+  // Qué secciones tocó fallar. El tema viene en la pregunta que entregó
+  // evaluacion_iniciar y la revisión dice cuáles no se acertaron: se cruzan por
+  // posición. Solo se pinta si el módulo sabe adónde lleva cada tema.
+  const temasAFallar = (() => {
+    const aRuta = config.temaARuta
+    if (!aRuta) return []
+    const vistos = new Set<string>()
+    const salida: { tema: string; ruta: string; rotulo: string }[] = []
+    sesion.preguntas.forEach((pregunta, i) => {
+      if (resultado.revision[i]?.correcta !== false) return
+      const tema = pregunta.tema
+      if (!tema || vistos.has(tema)) return
+      const ruta = aRuta(tema)
+      if (!ruta) return
+      vistos.add(tema)
+      salida.push({ tema, ruta, rotulo: config.temaARotulo?.(tema) ?? tema })
+    })
+    return salida
+  })()
+
   // El progreso local es el respaldo del mejor puntaje, para abrir el hub sin red.
   useEffect(() => {
     const prev = config.leerMejorLocal()
@@ -97,6 +117,36 @@ export function Result({ config, sesion, resultado, userId, sessionLoading, onRe
 
           <p className="mt-6 text-[12px] text-muted-foreground">Guardado en tu historial.</p>
         </section>
+
+        {temasAFallar.length > 0 && (
+          <>
+            <Filete className="mt-10" />
+            <section className="mt-8">
+              <Rotulo>Temas que debes repasar</Rotulo>
+              <p className="mt-2.5 max-w-[600px] text-[14px] leading-relaxed text-muted-foreground">
+                Las secciones de las preguntas que fallaste, sin repetir. Empieza por aquí antes de
+                volver a presentar.
+              </p>
+              <ul className="m-0 mt-4 flex list-none flex-wrap gap-2 p-0">
+                {temasAFallar.map(({ tema, ruta, rotulo }) => (
+                  <li key={tema}>
+                    <Link
+                      to={ruta}
+                      className="inline-flex min-h-[38px] items-center rounded-full border px-3.5 text-[13.5px] font-medium transition-colors"
+                      style={{
+                        color: accentText(config.acento),
+                        background: `color-mix(in oklab, ${config.acento} 10%, transparent)`,
+                        borderColor: `color-mix(in oklab, ${config.acento} 38%, transparent)`,
+                      }}
+                    >
+                      {rotulo}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          </>
+        )}
 
         <Filete className="mt-10" />
 

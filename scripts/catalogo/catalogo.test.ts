@@ -19,6 +19,8 @@ import {
   claveEscenario,
   claveEtiquetas,
 } from "@/lib/mercanciasPractica"
+import { AERO_LECCIONES, AERO_LECCION_TOTAL } from "@/lib/aerodinamicaLeccion"
+import { AERO_PRACTICA_CLAVES } from "@/lib/aerodinamicaPractica"
 
 /**
  * El catálogo que usa la base para validar el progreso: cuántas secciones tiene
@@ -52,6 +54,10 @@ function catalogoDesdeContenido() {
         ...ENTREVISTA.map((p) => claveEntrevista(p.n)),
       ],
     },
+    aerodinamica: {
+      lecciones: AERO_LECCION_TOTAL,
+      practicas: AERO_PRACTICA_CLAVES,
+    },
   }
 }
 
@@ -72,7 +78,11 @@ describe("catálogo de contenido para la base", () => {
       expect(new Set(modulo.practicas).size).toBe(modulo.practicas.length)
       expect(modulo.lecciones).toBeGreaterThan(0)
     }
-    // Mercancías guarda el número de cada lección: tienen que ser 1..N seguidos.
+    // Mercancías y Aerodinámica guardan el número de cada lección: tienen que
+    // ser 1..N seguidos.
     expect(MP_LECCIONES.map((l) => l.n)).toEqual(Array.from({ length: MP_LECCION_TOTAL }, (_, i) => i + 1))
+    expect(AERO_LECCIONES.map((l) => l.n)).toEqual(
+      Array.from({ length: AERO_LECCION_TOTAL }, (_, i) => i + 1),
+    )
   })
 })

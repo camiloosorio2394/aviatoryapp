@@ -45,7 +45,8 @@ begin
   exception when invalid_parameter_value then x_log := x_log || ' clave_ajena';
   end;
   perform public.metar_mark_progress(30::smallint, 'ex-10');
-  perform public.mercancias_mark_progress(18::smallint, 'etq-reconoce');
+  -- La 12 es la última de Mercancías desde que se quitó el nivel 3 (PR #207).
+  perform public.mercancias_mark_progress(12::smallint, 'etq-reconoce');
 
   -- La evaluación de NOTAM se abre con las nueve secciones.
   begin
