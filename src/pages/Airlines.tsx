@@ -10,6 +10,7 @@ import {
   type PilotProfile,
 } from "@/services/aerolineas"
 import { useSession } from "@/hooks/useSession"
+import { MisPostulaciones } from "@/components/postulaciones/MisPostulaciones"
 import { PageHeader } from "@/components/ui/page-header"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { TILE_COLOR, tileTint, tileBorder } from "@/lib/tileColors"
@@ -134,6 +135,16 @@ export function Airlines() {
                 />
               ))}
             </div>
+
+            {/* A cuál se postuló de verdad. Va debajo del match porque es la
+                misma conversación: arriba, para cuál califica; aquí, qué pasó
+                cuando lo intentó. */}
+            {user && (
+              <MisPostulaciones
+                userId={user.id}
+                aerolineas={airlines.map((a) => ({ id: a.id, name: a.name }))}
+              />
+            )}
           </>
         )}
       </div>

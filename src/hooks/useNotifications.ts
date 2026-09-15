@@ -11,6 +11,8 @@ export interface Notification {
     | "wingman_insight"
     /** «Hoy es uno de los días que elegiste». Lo manda el agendador, no la app. */
     | "plan_reminder"
+    /** «Registraste esto hace tres semanas, ¿en qué quedó?». */
+    | "postulacion_seguimiento"
   title: string
   body: string | null
   icon: string | null

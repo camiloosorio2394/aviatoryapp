@@ -21,6 +21,7 @@ esa forma.
 | `psicotecnicas.sql` | El reloj lo lleva el servidor: aplazar acumula el tiempo, el tiempo agotado no cuenta, y ni el banco ni la sesión se leen desde el cliente. |
 | `panel.sql` | `panel_inicio()` y `panel_tarjetas()` devuelven lo mismo que las consultas que reemplazan, piloto por piloto, sin sesión no responden. Solo lee. |
 | `constancia.sql` | El plan de estudio es del piloto y solo suyo, la racha sobrevive a un día por mes (uno, no dos), y los avisos que corren de noche salen cuando deben y una sola vez al día. |
+| `postulaciones.sql` | Las postulaciones son del piloto y solo suyas, la fecha no puede ser del futuro, el cliente no escribe las fechas que mide el recordatorio, y el seguimiento pregunta una vez cada tres semanas y solo por las abiertas. |
 | `resumenes.sql` | `bitacora_resumen` e `icao_progreso()` cuentan más de 1000 filas y solo las del piloto. |
 | `horas_de_carrera.sql` | Las horas previas más la bitácora, la verificación y lo que el piloto no puede cambiar solo. |
 | `vault.sql` | El banco de la bóveda va cifrado: la tanda viaja sin respuestas, el tamaño y la posición los acota el servidor, una tanda ajena no se responde y el tope por hora frena. |
