@@ -24,7 +24,7 @@ export const NIVEL_4: DocScreen[] = [
     n: 13,
     title: "Lo que la industria aprendió",
     kicker: "Cuatro accidentes, cuatro lecciones",
-    minutes: 8,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
@@ -75,21 +75,6 @@ export const NIVEL_4: DocScreen[] = [
           },
         ],
       },
-      {
-        kind: "piensaComoPiloto",
-        momento: "Mirando los cuatro juntos",
-        situacion:
-          "South African 295, ValuJet 592, UPS 6 y Asiana 991. Cuatro aviones distintos, cuatro décadas, cuatro mercancías distintas. En los cuatro el fuego empezó en la carga y en ninguno la tripulación pudo llegar hasta él.",
-        pregunta: "Si tuvieras que quedarte con una sola lección de los cuatro, ¿cuál?",
-        claves: [
-          "Que el fuego en bodega **no se apaga: se gestiona hasta el suelo**. Todo lo que decide el resultado se decidió antes de que empezara.",
-          "Que lo que falló primero fue siempre **la información**: una clasificación, una declaración, una descripción. El fuego vino después.",
-          "Que el tiempo hasta un aeródromo utilizable es la variable que más pesa, y esa la fijas tú al planificar.",
-          "Y que en tres de los cuatro había alguien que podía haber preguntado algo y no lo preguntó.",
-        ],
-        cierre:
-          "Por eso este módulo insiste tanto en un papel. No porque el papel apague nada, sino porque es el último sitio donde la cadena se puede parar.",
-      },
       { kind: "sub", text: "El patrón" },
       {
         kind: "p",
@@ -109,32 +94,6 @@ export const NIVEL_4: DocScreen[] = [
         title: "Lo que no se sabe también enseña",
         text: "En South African 295 y en Asiana 991 la causa exacta de la ignición nunca se determinó. Eso no debilita la lección: la refuerza. Si no se puede saber qué encendió el fuego, lo que se puede controlar es qué había en la bodega, cómo estaba estibado y qué tan rápido lo supo la tripulación. Ahí es donde actúa el reglamento, y ahí es donde actúas tú.",
       },
-      {
-        kind: "escenario",
-        titulo: "Seis cajas que no están en el NOTOC",
-        situacion:
-          "Rampa, veinte minutos antes de la salida de un vuelo con pasajeros. El agente te trae el NOTOC con dos líneas: pintura, clase 3, y hielo seco, clase 9. Al pasar por la bodega ves seis cajas marcadas «AOG PARTS – COMPANY MATERIAL» que no aparecen en el NOTOC ni en el manifiesto de mercancías peligrosas.",
-        preguntas: [
-          {
-            q: "¿Qué te dice esa marca?",
-            a: "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho. Repuestos de aeronave pueden incluir generadores de oxígeno, extintores, baterías o aerosoles; si alguno está clasificado como mercancía peligrosa, es COMAT peligroso y sigue todas las reglas, incluida la información al piloto al mando. Es exactamente la descripción con la que viajaron los generadores de ValuJet.",
-          },
-          {
-            q: "¿Qué preguntas antes de firmar?",
-            a: "Qué contienen las cajas y quién las aceptó. Un envío con mercancías peligrosas solo se acepta con su documento de transporte diligenciado y después de inspeccionar el bulto, y si contiene mercancías peligrosas tiene que estar en la información escrita que firmas. «Repuestos» es una de esas descripciones generales que pueden esconder una mercancía peligrosa: debe hacerte dudar.",
-          },
-          {
-            q: "¿Firmas el NOTOC tal como está?",
-            a: "No hasta aclararlo. Firmar es dejar constancia de que sabes qué llevas y dónde. Si hay carga cuyo contenido nadie te puede confirmar, no lo sabes. Si el explotador confirma que las cajas no contienen mercancías peligrosas y queda registrado, firmas; si contienen, entran al NOTOC o no salen.",
-          },
-          {
-            q: "El vuelo sale sin aclararlo y después resulta que traía generadores de oxígeno. ¿Qué es eso?",
-            a: "Un suceso con mercancías peligrosas, y por dos vías: mercancía no declarada o mal declarada descubierta en la carga, y mercancía transportada sin información al piloto al mando. Se notifica a la autoridad del Estado del explotador y a la del Estado donde ocurrió. Y si no pasó nada, es un incumplimiento imputable a mercancías peligrosas: el nivel que más datos aporta al SMS.",
-          },
-        ],
-        concepto:
-          "COMAT y COMAT peligroso, mercancía peligrosa oculta, la aceptación y la información al piloto al mando, y la notificación. Es ValuJet contado desde tu asiento.",
-      },
     ],
   },
 
@@ -143,7 +102,7 @@ export const NIVEL_4: DocScreen[] = [
     n: 14,
     title: "Lo que te exigen y veinte respuestas listas",
     kicker: "Instrucción y repaso",
-    minutes: 8,
+    minutes: 5,
     blocks: [
       {
         kind: "p",
@@ -291,102 +250,6 @@ export const NIVEL_4: DocScreen[] = [
         texto: "Con las catorce lecciones leídas, lo que sigue es usarlas: reconocer etiquetas, clasificar envíos, resolver escenarios y ensayar las preguntas de una entrevista.",
         destino: MP_PRACTICA,
         rotulo: "Ir a la práctica",
-      },
-      {
-        kind: "ponAPrueba",
-        titulo: "Control del nivel 4",
-        preguntas: [
-          {
-            q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
-            opciones: [
-              {
-                t: "Todos empezaron en cabina por un dispositivo de un pasajero.",
-                fb: "Ninguno. Los cuatro empezaron en una bodega o en la cubierta de carga: con carga mal declarada, con baterías de litio como carga, o con un fuego al que no se podía llegar.",
-              },
-              {
-                t: "Todos empezaron en una bodega y la tripulación se enteró cuando el fuego ya llevaba minutos.",
-                ok: true,
-                fb: "Es el patrón. Por eso el reglamento actúa antes del vuelo (aceptación, estiba, segregación, información al comandante) y exige que lo necesario para responder ya esté a bordo.",
-              },
-              {
-                t: "En todos se determinó la causa exacta y se sancionó al expedidor.",
-                fb: "En South African 295 y en Asiana 991 la causa de la ignición nunca se determinó. Y la lección no es la sanción: es lo que cambió en la norma después.",
-              },
-            ],
-          },
-          {
-            q: "En ValuJet 592, ¿en qué eslabones de la cadena falló el sistema?",
-            opciones: [
-              {
-                t: "Solo en la tripulación, que no revisó la bodega.",
-                fb: "La tripulación firmó un manifiesto que decía «vacíos». El fallo estaba antes: en quien no identificó ni embaló (expedidor), en quien no vigiló a su contratista (explotador) y en una regla de diseño que la autoridad no había cerrado.",
-              },
-              {
-                t: "En el expedidor que no identificó ni embaló, en el explotador que no vigiló ni capacitó, y en una regla de diseño de la autoridad.",
-                ok: true,
-                fb: "Tres fallas, tres responsabilidades: la del expedidor, que debe clasificar, embalar y declarar; la del explotador, que responde por sus agentes y por la instrucción de su personal; y la exigencia de detección y supresión en bodegas de clase D que vino después.",
-              },
-              {
-                t: "En el fabricante de los generadores.",
-                fb: "Los generadores funcionaron como estaban diseñados: produjeron oxígeno y calor. El problema fue transportarlos sin tapas, sin declarar y sin embalar.",
-              },
-            ],
-          },
-          {
-            q: "Han pasado 25 meses desde tu último curso recurrente de mercancías peligrosas. ¿Qué corresponde?",
-            opciones: [
-              {
-                t: "Estás fuera del mínimo de 24 meses; el LAR admite el recurrente dentro de los 30 días siguientes al vencimiento, y pasado ese plazo toca instrucción inicial de nuevo.",
-                ok: true,
-                fb: "El mínimo de cada 24 meses es la regla general; el LAR añade la ventana de 30 días y la consecuencia de excederla: nueva instrucción inicial, no recurrente.",
-              },
-              {
-                t: "No pasa nada mientras no vueles con carga peligrosa.",
-                fb: "La exigencia no depende de qué transporta el vuelo: aplica a quienes realizan o supervisan funciones relacionadas con pasajeros, equipajes, carga o correo, y a explotadores que ni siquiera aceptan mercancías peligrosas.",
-              },
-              {
-                t: "Se repone con el recurrente en cualquier momento del año.",
-                fb: "Pasada la ventana de 30 días, lo que corresponde es la instrucción inicial completa.",
-              },
-            ],
-          },
-          {
-            q: "¿Qué documento son las «Instrucciones Técnicas» y quién las publica?",
-            opciones: [
-              {
-                t: "El Doc 9284 de la OACI, que cada reglamento nacional adopta en su última versión publicada.",
-                ok: true,
-                fb: "Son las Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea, Doc 9284, aprobadas y publicadas periódicamente por la OACI. Cada autoridad las adopta en su última versión y toma las medidas para que sus enmiendas se apliquen.",
-              },
-              {
-                t: "El Doc 9375 de la OACI, que cada autoridad adopta para la instrucción.",
-                fb: "El Doc 9375 es el Programa de Instrucción sobre Mercancías Peligrosas: sirve para diseñar la capacitación, no es la norma técnica del transporte.",
-              },
-              {
-                t: "El Doc 9481 de la OACI, que cada autoridad adopta para la respuesta de emergencia.",
-                fb: "El Doc 9481 es la orientación de respuesta de emergencia, la que debe estar disponible de inmediato en vuelo. Las Instrucciones Técnicas son el Doc 9284.",
-              },
-            ],
-          },
-          {
-            q: "¿Qué obligación tiene un explotador que decidió no transportar mercancías peligrosas?",
-            opciones: [
-              {
-                t: "Especificar en su manual los procedimientos para evitar que se introduzcan mercancías no declaradas, y capacitar igualmente a su personal.",
-                ok: true,
-                fb: "La norma es explícita: tenga o no autorización para transportarlas, el explotador mantiene programas de instrucción inicial y de repaso. Que no las acepte no significa que no le lleguen.",
-              },
-              {
-                t: "Ninguna: el reglamento no le aplica.",
-                fb: "El reglamento es expreso en incluir a los explotadores que no aceptan mercancías peligrosas, precisamente porque son los que más riesgo tienen de recibirlas sin declarar.",
-              },
-              {
-                t: "Solo informar a la autoridad su decisión.",
-                fb: "Insuficiente. La obligación material es tener procedimientos contra las no declaradas y capacitar.",
-              },
-            ],
-          }
-        ],
       },
     ],
   },
