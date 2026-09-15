@@ -525,7 +525,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "sub",
-        text: "Las brisas, que se dan vuelta cada doce horas",
+        text: "Las brisas, que cambian de sentido entre el día y la noche",
       },
       {
         kind: "fichas",
