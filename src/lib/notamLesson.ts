@@ -465,7 +465,26 @@ export type LessonBlock =
    * `nombre` es la clave del registro de INFOGRAFIAS en DocLessonBlocks: el
    * bloque no sabe maquetar, solo elige cuál mostrar.
    */
-  | { kind: "infografia"; nombre: "notam-que-es" | "notam-linea-q" }
+  | {
+      kind: "infografia"
+      nombre:
+        | "notam-que-es"
+        | "notam-linea-q"
+        | "meteo-atmosfera"
+        | "meteo-coriolis"
+        | "meteo-superficies"
+        | "meteo-brisas"
+        | "meteo-obstaculo"
+        | "meteo-montana"
+        | "meteo-inversion"
+        | "meteo-base-nube"
+        | "meteo-familias"
+        | "meteo-nieblas"
+        | "meteo-masas"
+        | "meteo-simbolos"
+        | "meteo-ruta"
+        | "meteo-etapas"
+    }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
       kind: "example"

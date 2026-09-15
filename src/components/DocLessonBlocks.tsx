@@ -65,6 +65,48 @@ const INFOGRAFIAS: Record<string, React.LazyExoticComponent<() => React.JSX.Elem
   "notam-linea-q": lazy(() =>
     import("@/components/lesson/infografias/NotamLineaQ").then((m) => ({ default: m.NotamLineaQ })),
   ),
+  "meteo-atmosfera": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAtmosfera").then((m) => ({ default: m.MeteoAtmosfera })),
+  ),
+  "meteo-coriolis": lazy(() =>
+    import("@/components/lesson/infografias/MeteoCoriolis").then((m) => ({ default: m.MeteoCoriolis })),
+  ),
+  "meteo-superficies": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoSuperficies })),
+  ),
+  "meteo-brisas": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoBrisas })),
+  ),
+  "meteo-obstaculo": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoObstaculo })),
+  ),
+  "meteo-montana": lazy(() =>
+    import("@/components/lesson/infografias/MeteoViento").then((m) => ({ default: m.MeteoMontana })),
+  ),
+  "meteo-inversion": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoInversion })),
+  ),
+  "meteo-base-nube": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoBaseNube })),
+  ),
+  "meteo-familias": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoFamilias })),
+  ),
+  "meteo-nieblas": lazy(() =>
+    import("@/components/lesson/infografias/MeteoAgua").then((m) => ({ default: m.MeteoNieblas })),
+  ),
+  "meteo-masas": lazy(() =>
+    import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoMasas })),
+  ),
+  "meteo-simbolos": lazy(() =>
+    import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoSimbolos })),
+  ),
+  "meteo-ruta": lazy(() =>
+    import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoRuta })),
+  ),
+  "meteo-etapas": lazy(() =>
+    import("@/components/lesson/infografias/MeteoFrentes").then((m) => ({ default: m.MeteoEtapas })),
+  ),
 }
 
 /**

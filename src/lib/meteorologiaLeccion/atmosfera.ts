@@ -25,28 +25,23 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Vas en un México a Santiago, nivel 380, de noche, aire liso. Miras abajo y hay una capa de nubes que se acaba de golpe, como si alguien le hubiera puesto una tapa. Esa tapa existe y tiene nombre: es la **tropopausa**, y saber dónde está te dice tres cosas antes de que el meteorólogo te las diga.",
+        text: "Vas de México a Santiago, en FL380, de noche y en aire liso. Debajo, la capa de nubes parece cortarse a una altura y no pasar de ahí. No hay ninguna tapa: lo que se acaba ahí arriba es la mezcla vertical del aire, y con ella la mayor parte de lo que forma tiempo. Ese límite se llama **tropopausa**, y saber a qué altura está te dice tres cosas antes de que te las diga el meteorólogo.",
       },
       {
         kind: "p",
-        text: "Toda la meteorología que te va a molestar vive por debajo de ella. Las nubes, las tormentas, la turbulencia de convección, el engelamiento. Por eso la primera pregunta de una entrevista sobre atmósfera casi nunca es «cuántas capas tiene»: es «por qué el tiempo se queda en la de abajo».",
+        text: "Por debajo se desarrolla casi todo el tiempo que te cambia el plan: las nubes, la precipitación, la turbulencia de convección, el engelamiento. Casi todo, no todo. Una tormenta con desarrollo vertical fuerte sube hasta la tropopausa y ahí se extiende de lado, que es el yunque que le ves encima, y las más potentes la penetran un trecho. Por eso la primera pregunta de una entrevista sobre atmósfera casi nunca es «cuántas capas tiene»: es «por qué el tiempo se concentra en la de abajo».",
       },
       {
         kind: "sub",
         text: "Qué hay ahí fuera",
       },
       {
-        kind: "kv",
-        items: [
-          { k: "Nitrógeno", v: "78 % del volumen" },
-          { k: "Oxígeno", v: "21 %" },
-          { k: "Argón, CO₂ y trazas", v: "el 1 % restante" },
-          { k: "Vapor de agua", v: "de 0 a 5 %, y es el que manda" },
-        ],
+        kind: "infografia",
+        nombre: "meteo-atmosfera",
       },
       {
         kind: "p",
-        text: "Ese último renglón es el importante. El vapor de agua es una parte pequeñísima de la mezcla y es responsable de casi todos los cambios de tiempo que te van a cambiar el plan: las nubes, la precipitación, la niebla, el engelamiento. Todo lo que decide si sales o no sales sale de ese cero a cinco por ciento.",
+        text: "Del aire seco, el nitrógeno y el oxígeno se reparten el 99 % y no le cambian el día a nadie. El que manda es el que ni siquiera sale en esa cuenta: el **vapor de agua**, que va de 0 a 5 % según dónde y cuándo, y es responsable de casi todo lo que te cambia el plan. Las nubes, la precipitación, la niebla, el engelamiento. Todo lo que decide si sales o no sales sale de ese cero a cinco por ciento.",
       },
       {
         kind: "sub",
@@ -57,26 +52,26 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         columnas: 2,
         items: [
           {
-            titulo: "Tropósfera",
+            titulo: "Troposfera",
             ref: "del suelo a 26.000 ft en los polos y 48.000 ft sobre el ecuador",
             puntos: [
               "Aquí ocurre casi todo: nubes, tormentas, turbulencia y las variaciones de temperatura.",
               "La temperatura baja unos 2 °C por cada 1.000 ft.",
               "La presión baja alrededor de 1 pulgada de mercurio por cada 1.000 ft (un milibar cada 30 ft).",
             ],
-            nota: "Que sea más alta sobre el ecuador que sobre los polos no es un dato de examen: es la razón de que en una ruta larga norte a sur la tapa te suba y te baje.",
+            nota: "Que sea más alta sobre el ecuador que sobre los polos no es un dato de examen: es la razón de que en una ruta larga norte a sur ese límite te suba y te baje.",
           },
           {
             titulo: "Tropopausa",
             ref: "el límite de arriba",
             puntos: [
-              "Atrapa la humedad y el tiempo asociado debajo de ella.",
+              "Debajo de ella queda el grueso de la humedad y del tiempo asociado.",
               "Su altura cambia con la latitud y la estación, así que su forma es elíptica y no redonda.",
               "Se asocia con la corriente en chorro y con la turbulencia en aire claro.",
             ],
           },
           {
-            titulo: "Estratósfera",
+            titulo: "Estratosfera",
             ref: "de la tropopausa a unos 160.000 ft",
             puntos: [
               "Poco cambio de tiempo y aire estable.",
@@ -84,20 +79,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             ],
           },
           {
-            titulo: "Mesósfera y termósfera",
+            titulo: "Mesosfera y termosfera",
             ref: "por encima",
             puntos: ["Influencia sobre el clima: prácticamente ninguna. No las vas a volar."],
           },
         ],
-      },
-      {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t01-01-corte-atmosfera.webp",
-        alt: "Corte vertical de la atmósfera con las cuatro capas rotuladas, la tropopausa marcada como una línea gruesa y la banda de crucero de un jet de línea, entre FL350 y FL410, justo por debajo de ella.",
-        ancho: 900,
-        alto: 1125,
-        anchoMax: 380,
-        pie: "Dónde vuela un jet comercial respecto de la tropopausa.",
       },
       {
         kind: "piensaComoPiloto",
@@ -106,7 +92,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           "Vuelas FL370 en ruta hacia el norte. El plan te da la tropopausa en FL380 al salir y en FL340 a mitad de ruta. No has pedido cambio de nivel.",
         pregunta: "¿Qué acaba de cambiar para ti, aunque el nivel sea el mismo?",
         claves: [
-          "Empezaste debajo de la tropopausa y vas a acabar por encima de ella: la tapa bajó hasta quedar por debajo de tu nivel.",
+          "Empezaste debajo de la tropopausa y vas a acabar por encima de ella: el límite bajó hasta quedar por debajo de tu nivel.",
           "Cerca de la tropopausa es donde vive la corriente en chorro, así que ahí se concentra la turbulencia en aire claro. Es el tramo en el que conviene tener el cinturón puesto aunque el aire esté liso.",
           "Por encima de la tropopausa el aire es más estable, así que si la turbulencia aparece justo al cruzarla y luego se calma, eso es lo que pasó y no una casualidad.",
         ],
@@ -121,16 +107,16 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es la tropopausa y por qué le importa a un piloto?",
             respuesta:
-              "Es el límite superior de la tropósfera. Actúa como tapa: atrapa debajo la humedad y el tiempo asociado, así que casi toda la meteorología significativa queda por debajo. Le importa al piloto porque marca dónde se acaba el tiempo y porque se asocia con la corriente en chorro y con la turbulencia en aire claro.",
+              "Es el límite superior de la troposfera. Debajo queda atrapada la humedad y el tiempo asociado, así que casi toda la meteorología significativa se desarrolla ahí; por encima el aire es estable y se mezcla poco en vertical. Le importa al piloto porque marca hasta dónde llega el grueso del tiempo y porque se asocia con la corriente en chorro y con la turbulencia en aire claro.",
             claves: [
-              "Límite superior de la tropósfera",
-              "Atrapa la humedad debajo",
+              "Límite superior de la troposfera",
+              "El grueso de la humedad queda debajo",
               "Corriente en chorro y turbulencia en aire claro",
             ],
           },
           {
             nivel: "interpretacion",
-            q: "En la tropósfera, ¿cuánto baja la temperatura y cuánto la presión al subir?",
+            q: "En la troposfera, ¿cuánto baja la temperatura y cuánto la presión al subir?",
             respuesta:
               "Unos 2 °C por cada 1.000 ft de temperatura, y alrededor de una pulgada de mercurio por cada 1.000 ft de presión, que es lo mismo que un milibar cada 30 ft.",
             claves: ["2 °C por 1.000 ft", "1 \"Hg por 1.000 ft", "1 mb cada 30 ft"],
@@ -154,8 +140,17 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             text: "La atmósfera alcanza casi 700 kilómetros desde la superficie y está en movimiento constante. Además de sostener la vida, absorbe energía del sol, recicla agua y otros productos químicos, y protege de la radiación de alta energía y del frío del espacio.",
           },
           {
+            kind: "kv",
+            items: [
+              { k: "Nitrógeno", v: "78 % del volumen de aire seco" },
+              { k: "Oxígeno", v: "21 %" },
+              { k: "Argón, CO₂ y trazas", v: "el 1 % restante" },
+              { k: "Vapor de agua", v: "de 0 a 5 %, aparte del aire seco y muy variable" },
+            ],
+          },
+          {
             kind: "p",
-            text: "Las cuatro capas se identifican por sus características térmicas, su composición química, su movimiento y su densidad. La estratósfera se extiende desde la tropopausa hasta unos 160.000 ft (50 km).",
+            text: "Las cuatro capas se identifican por sus características térmicas, su composición química, su movimiento y su densidad. La estratosfera se extiende desde la tropopausa hasta unos 160.000 ft (50 km).",
           },
         ],
       },
@@ -338,7 +333,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Vuelas Bogotá a Buenos Aires con viento de cola casi todo el tramo, y a la vuelta el mismo tramo te cuesta cuarenta minutos más. No es mala suerte ni una ruta mal planificada: es que la ida y la vuelta pasan por lados distintos del mismo sistema de presión. Esta lección es la que te deja mirar una carta de superficie y saber de antemano por dónde te conviene ir.",
+        text: "Vuelas de Bogotá a Buenos Aires con viento de cola durante buena parte del tramo. A la vuelta, el mismo trayecto te cuesta cuarenta minutos más. No es mala suerte ni necesariamente una mala planificación: los vientos asociados a los sistemas de presión pueden favorecer una dirección y penalizar la contraria. Esta lección te ayuda a mirar una carta de superficie y anticipar dónde puedes encontrar los vientos más favorables para tu ruta.",
       },
       {
         kind: "sub",
@@ -383,12 +378,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Un piloto de la región vuela los dos hemisferios en la misma semana, así que este no es un dato de examen. En el hemisferio sur el aire que sale de una alta se desvía a la izquierda y la circula en sentido antihorario (anticiclónica), y alrededor de una baja gira en sentido horario (ciclónica). En el hemisferio norte es al revés. El mismo símbolo en la carta significa un giro distinto según de qué lado del ecuador esté.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t03-01-coriolis-dos-hemisferios.webp",
-        alt: "Cuatro sistemas de presión, dos por hemisferio, con flechas curvas mostrando el sentido de giro. El ecuador separa los dos grupos y el sentido se invierte al cruzarlo.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El mismo sistema de presión gira al revés en cada hemisferio.",
+        kind: "infografia",
+        nombre: "meteo-coriolis",
       },
       {
         kind: "sub",
@@ -511,12 +502,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Corrientes de convección: pequeñas circulaciones locales que nacen del calentamiento desparejo de la superficie. Son las responsables del aire con baches que se siente volando bajo en un día caluroso.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t04-01-cuatro-superficies.webp",
-        alt: "Perfil de terreno con cuatro superficies seguidas, asfalto, campo arado, bosque y lago, con flechas ascendentes sobre las dos primeras y descendentes sobre las dos últimas, y una trayectoria de vuelo bajo ondulada cruzándolas.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El mismo tramo de vuelo bajo, cuatro superficies, cuatro empujones distintos.",
+        kind: "infografia",
+        nombre: "meteo-superficies",
       },
       {
         kind: "sub",
@@ -534,7 +521,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "sub",
-        text: "Las brisas, que se dan vuelta cada doce horas",
+        text: "Las brisas, que cambian de sentido entre el día y la noche",
       },
       {
         kind: "fichas",
@@ -562,6 +549,10 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
+        kind: "infografia",
+        nombre: "meteo-brisas",
+      },
+      {
         kind: "p",
         text: "En un aeropuerto costero eso significa que la pista en uso puede cambiar de forma previsible entre la tarde y la madrugada, sin que pase ningún frente ni cambie ningún sistema. Es la explicación de la mitad de los cambios de configuración que ves en un destino de playa.",
       },
@@ -581,12 +572,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t04-02-edificio-y-turbulencia.webp",
-        alt: "Pista con un hangar a barlovento: las líneas de corriente llegan lisas, se rompen en remolinos a sotavento y esa zona rota cae justo sobre la zona de toma, que cruza una aeronave en final.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El edificio no se mueve, pero mueve el aire donde vas a tomar.",
+        kind: "infografia",
+        nombre: "meteo-obstaculo",
       },
       {
         kind: "sub",
@@ -614,6 +601,10 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             ],
           },
         ],
+      },
+      {
+        kind: "infografia",
+        nombre: "meteo-montana",
       },
       {
         kind: "callout",
