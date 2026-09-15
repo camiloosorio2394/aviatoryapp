@@ -213,59 +213,104 @@ export const NIVEL_2: DocScreen[] = [
   {
     n: 7,
     title: "Grupos de embalaje y cantidades",
-    kicker: "Cuánto cuidado exige",
+    kicker: "Tres conceptos distintos",
     minutes: 7,
     blocks: [
+      { kind: "p", text: "Hay tres conceptos que debes aprender a diferenciar." },
       {
-        kind: "p",
-        text: "Esta lección va de tres escalas que se confunden todo el rato. La clase dice **qué** peligro hay. El grupo de embalaje dice **cuánto**, dentro de esa clase. Y las cantidades exceptuadas y limitadas dicen **cuándo** el peligro es tan pequeño que la norma afloja.",
+        kind: "kv",
+        items: [
+          { k: "Clase", v: "Indica qué tipo de riesgo presenta la mercancía." },
+          {
+            k: "Grupo de embalaje",
+            v: "Cuando aplica, indica el grado de riesgo de la sustancia dentro de su clasificación.",
+          },
+          {
+            k: "Cantidades limitadas y exceptuadas",
+            v: "Establecen condiciones específicas de transporte para determinadas mercancías cuando se encuentran en cantidades pequeñas.",
+          },
+        ],
       },
+      { kind: "definicion", text: "No son tres niveles de una misma escala. Son conceptos diferentes." },
       {
         kind: "callout",
         tone: "tip",
         title: "Seamos honestos con lo que te toca a ti",
-        text: "Tú no asignas grupos de embalaje ni decides si algo va en cantidad limitada: eso lo hace el expedidor y lo verifica la aceptación. Lo que sí haces es **leer un NOTOC y detectar cuando algo no cuadra**. Esta lección va de eso, y de las dos preguntas que caen en entrevista.",
+        text: "Como piloto, tú no asignas el grupo de embalaje ni decides si una mercancía puede transportarse como cantidad limitada o exceptuada. Estas determinaciones corresponden a las etapas de clasificación, preparación y aceptación de la mercancía. Lo que sí necesitas saber es qué significa la información que recibes y reconocer cuándo algo necesita ser verificado.",
+      },
+
+      { kind: "sub", text: "Grupo de embalaje" },
+      {
+        kind: "p",
+        text: "El grupo de embalaje se utiliza para indicar el grado de riesgo de determinadas sustancias peligrosas. Cuando aplica, se identifica con números romanos:",
+      },
+      { kind: "code", text: "I · II · III", grande: true },
+      {
+        kind: "p",
+        text: "El Grupo I corresponde al mayor grado de riesgo, el Grupo II a un grado intermedio y el Grupo III al menor grado de riesgo dentro de los criterios establecidos.",
+      },
+      {
+        kind: "p",
+        text: "El grupo de embalaje no indica cuánto se transporta. La cantidad permitida depende de otros factores establecidos para cada mercancía, como su número ONU, instrucción de embalaje, tipo de aeronave y régimen de transporte.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "Importante",
+        text: "No todas las mercancías peligrosas tienen grupo de embalaje.",
       },
       {
         kind: "hueco",
         rotulo: "MP-DIA-04 · Diagrama · 16:9 · 1600×900 · SVG",
         descripcion:
-          "Tres escalas en paralelo, como tres reglas verticales. La primera, la clase (1 a 9): qué peligro. La segunda, el grupo de embalaje (I, II, III): cuánto peligro dentro de esa clase. La tercera, el régimen de cantidad (plena, limitada, exceptuada): cuándo la norma afloja. Una flecha que cruza las tres mostrando que son preguntas distintas, no niveles de lo mismo.",
+          "Tres conceptos en paralelo, en tres columnas separadas y sin flechas que las encadenen. La primera, la clase (1 a 9): qué tipo de riesgo presenta la mercancía. La segunda, el grupo de embalaje (I, II, III), cuando aplica: el grado de riesgo dentro de su clasificación. La tercera, el régimen de cantidad (limitada, exceptuada): las condiciones específicas de transporte cuando la cantidad es pequeña. Lo que debe quedar claro al verlo es que responden preguntas distintas, no que sean tres peldaños de una escala.",
         alto: 300,
       },
-      { kind: "sub", text: "Lo que ves escrito y qué significa" },
+
+      { kind: "sub", text: "¿Por qué existen tres grupos?" },
       {
         kind: "p",
-        text: "En la información que te entregan, junto al número ONU y la clase, puede aparecer un número romano. Es el grupo de embalaje.",
+        text: "Dos sustancias pueden pertenecer a la misma clase y, aun así, tener diferentes grados de riesgo.",
       },
       {
-        kind: "kv",
-        items: [
-          { k: "I", v: "Gran peligro. El embalaje más exigente y los límites de cantidad por bulto más bajos." },
-          { k: "II", v: "Peligro intermedio. Es el que más vas a ver." },
-          { k: "III", v: "Escaso peligro. Embalaje menos exigente y límites más holgados." },
-        ],
+        kind: "p",
+        text: "Por ejemplo, dos sustancias pueden ser Clase 8, corrosivas, pero una puede cumplir los criterios para Grupo I y otra para Grupo III.",
       },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "Van en romanos, y no es un capricho",
-        text: "Se escriben `I`, `II` y `III`. Confundir el I con un uno o el II con un once cambia el embalaje exigido y la cantidad admitida. Si en un documento ves «GE 2» en arábigos, alguien lo transcribió a mano y puede haber transcrito más cosas.",
+        kind: "p",
+        text: "Por eso, conocer solamente la clase no siempre es suficiente para conocer las condiciones de embalaje aplicables.",
       },
       {
-        kind: "piensaComoPiloto",
-        momento: "Repasando el NOTOC",
-        situacion:
-          "Lees tres líneas: «UN 1263 PAINT, clase 3, **GE II**», «UN 1830 SULPHURIC ACID, clase 8, **GE II**» y «UN 3480 LITHIUM ION BATTERIES, clase 9, **GE II**».",
-        pregunta: "Una de las tres no puede estar bien. ¿Cuál y por qué?",
-        claves: [
-          "La tercera. Las **baterías de litio son clase 9 y no llevan grupo de embalaje**: lo que gobierna su transporte es la instrucción de embalaje y el estado de carga, no un grado de peligro.",
-          "No es una errata inocente. Si quien preparó ese documento se inventó un GE, ¿qué más rellenó de memoria?",
-          "Lo que haces con eso: preguntar antes de firmar. No para corregir la clasificación, que no es tuya, sino porque una incoherencia en el papel suele venir acompañada.",
-          "Las otras dos están bien: pintura clase 3 y ácido sulfúrico clase 8 sí llevan grupo de embalaje, y el II es el más frecuente.",
-        ],
-        cierre:
-          "Este es exactamente el nivel al que un piloto usa el grupo de embalaje: no para decidir nada, sino para detectar que el papel no cuadra.",
+        kind: "p",
+        text: "La clase te dice qué tipo de riesgo presenta la mercancía. El grupo de embalaje añade información sobre el grado de riesgo cuando este criterio aplica.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-IMG-14 · Fotografía · 3:2 · 1200×800",
+        descripcion:
+          "Dos bultos juntos en una terminal de carga, los dos con el rombo blanco y negro de la clase 8. En las marcas se distingue que uno declara grupo de embalaje I y el otro III: misma clase, distinto grado de riesgo y, por eso, distinto embalaje.",
+        alto: 320,
+        ratio: "3 / 2",
+      },
+
+      { kind: "sub", text: "No todas las mercancías tienen grupo de embalaje" },
+      {
+        kind: "p",
+        text: "El grupo de embalaje no se asigna a todas las mercancías peligrosas. Se utiliza únicamente cuando las características de la sustancia y las reglas de clasificación de esa mercancía establecen un grado de peligro mediante Grupo de Embalaje I, II o III.",
+      },
+      {
+        kind: "p",
+        text: "Hay mercancías cuya clasificación utiliza otros criterios y, por eso, no tienen Grupo de Embalaje. Esto no significa que sean menos peligrosas ni que tengan un tratamiento más flexible. Simplemente, el sistema de clasificación aplicable a esa mercancía no utiliza los grupos I, II y III.",
+      },
+      {
+        kind: "p",
+        text: "Un ejemplo muy importante en aviación son las baterías de ion-litio UN 3480. Se clasifican como Clase 9, pero no tienen Grupo de Embalaje asignado. Su transporte se controla mediante requisitos específicos relacionados con las características de la batería, su estado de carga, embalaje, cantidades y demás condiciones establecidas en las Instrucciones Técnicas.",
+      },
+      { kind: "p", text: "Por eso:" },
+      { kind: "code", text: "UN 3480 — LITHIUM ION BATTERIES — Clase 9 — GE II", grande: true },
+      {
+        kind: "p",
+        text: "sería una información que debe verificarse, porque UN 3480 no utiliza GE I, II o III.",
       },
       {
         kind: "detalleTecnico",
@@ -311,40 +356,62 @@ export const NIVEL_2: DocScreen[] = [
           },
         ],
       },
-      { kind: "sub", text: "Exceptuadas y limitadas: por qué te importa la diferencia" },
+      {
+        kind: "hueco",
+        rotulo: "MP-IMG-15 · Fotografía · 3:2 · 1200×800",
+        descripcion:
+          "Una batería de ion-litio de equipo, con su marcado UN 3480 y la etiqueta de clase 9 de litio a la vista. La foto tiene que dejar leer el marcado completo y que ahí no hay ningún número romano: es el ejemplo del texto.",
+        alto: 320,
+        ratio: "3 / 2",
+      },
+
+      { kind: "sub", text: "Cantidades limitadas y exceptuadas" },
+      { kind: "p", text: "Ahora pasamos a otro concepto diferente." },
       {
         kind: "p",
-        text: "Las dos suenan a «esto es poca cosa», y las dos significan cosas distintas. La diferencia que te afecta es **cuál de las dos te llega a ti por escrito**.",
+        text: "Una mercancía peligrosa puede transportarse bajo diferentes regímenes de cantidad cuando las Instrucciones Técnicas establecen condiciones específicas para ello.",
       },
       {
-        kind: "fichas",
-        columnas: 2,
-        items: [
-          {
-            titulo: "Cantidades exceptuadas",
-            puntos: [
-              "Cantidades muy pequeñas, definidas en las Instrucciones Técnicas.",
-              "Quedan fuera de casi todo el régimen: no generan la documentación de mercancías peligrosas.",
-              "**Qué significa para ti:** normalmente **no aparecen en la información que firmas**. Van a bordo y tú no lo sabes.",
-              "Y no pueden ir en equipaje ni en correo.",
-            ],
-          },
-          {
-            titulo: "Cantidades limitadas",
-            puntos: [
-              "Peligro menor, en embalajes de buena calidad probados a apilamiento y caída, con la marca impresa de cantidad limitada.",
-              "Se identifican por la instrucción de embalaje «Y» en la lista.",
-              "**Qué significa para ti:** siguen siendo mercancías peligrosas declaradas. Están en el régimen, con marca propia.",
-              "Un envío en cantidad limitada es un envío que ves.",
-            ],
-          },
-        ],
+        kind: "p",
+        text: "Las dos categorías que debes diferenciar son cantidad limitada y cantidad exceptuada.",
+      },
+      { kind: "definicion", text: "No significan que la mercancía deje de ser peligrosa." },
+
+      { kind: "sub", text: "Cantidad limitada" },
+      {
+        kind: "p",
+        text: "Una cantidad limitada corresponde a una cantidad pequeña de una determinada mercancía peligrosa que puede transportarse bajo las condiciones específicas establecidas para este régimen.",
       },
       {
-        kind: "callout",
-        tone: "warn",
-        title: "La consecuencia que sí es tuya",
-        text: "«Exceptuado» **no quiere decir inofensivo**: quiere decir que la norma lo dejó fuera de algunas obligaciones porque la cantidad es mínima. Si en vuelo aparece un olor o un humo que no corresponde a nada de tu NOTOC, recuerda que el NOTOC no lo lista todo. Es una de las razones por las que un incendio en bodega se trata como incendio de origen desconocido hasta que se demuestre lo contrario.",
+        kind: "p",
+        text: "La mercancía continúa estando sujeta a requisitos de transporte y debe cumplir las condiciones de embalaje, marcado y demás requisitos que correspondan.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-IMG-16 · Fotografía · 3:2 · 1200×800",
+        descripcion:
+          "Un bulto pequeño con la marca de cantidad limitada: el cuadrado apoyado sobre una punta, con las mitades de arriba y de abajo negras y el centro en blanco. Lo que debe verse es que la marca va impresa en el bulto, porque un envío en cantidad limitada sigue siendo un envío declarado.",
+        alto: 320,
+        ratio: "3 / 2",
+      },
+
+      { kind: "sub", text: "Cantidad exceptuada" },
+      {
+        kind: "p",
+        text: "Una cantidad exceptuada corresponde a cantidades muy pequeñas de determinadas mercancías peligrosas que, cuando cumplen las condiciones establecidas, pueden acogerse a determinadas excepciones del régimen general.",
+      },
+      { kind: "definicion", text: "Exceptuada no significa inofensiva." },
+      {
+        kind: "p",
+        text: "Significa que la normativa establece un tratamiento específico para esa pequeña cantidad.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-IMG-17 · Fotografía · 3:2 · 1200×800",
+        descripcion:
+          "Una caja de laboratorio con la etiqueta de cantidad exceptuada: el rectángulo con las franjas en diagonal, el número de la clase arriba y el espacio para el nombre del expedidor. Al lado, para dar escala, los frascos pequeños que van dentro.",
+        alto: 320,
+        ratio: "3 / 2",
       },
       {
         kind: "detalleTecnico",
