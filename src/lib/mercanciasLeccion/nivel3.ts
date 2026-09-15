@@ -11,6 +11,7 @@
 import type { DocScreen } from "@/lib/docBlocks"
 import { LECCION_10 } from "./leccion10"
 import { LECCION_11 } from "./leccion11"
+import { LECCION_12 } from "./leccion12"
 
 export const NIVEL_3: DocScreen[] = [
   // ── 09 ──────────────────────────────────────────────────────────────────
@@ -131,98 +132,5 @@ export const NIVEL_3: DocScreen[] = [
 
   LECCION_11,
 
-  // ── 12 ──────────────────────────────────────────────────────────────────
-  {
-    n: 12,
-    title: "Notificar: qué, a quién y por qué",
-    kicker: "Sucesos y SMS",
-    minutes: 4,
-    blocks: [
-      {
-        kind: "p",
-        text: "Lo que pasó se notifica, aunque haya terminado bien. Y también lo que no pasó: el hallazgo de una mercancía no declarada, mal declarada o no permitida es un suceso, con o sin consecuencias. Ese reporte es el que hace que el sistema encuentre al expedidor que no declaró, y es la parte que más se olvida.",
-      },
-      {
-        kind: "table",
-        head: ["Qué ocurre", "A quién se notifica", "Tipo"],
-        rows: [
-          ["Accidente o incidente relacionado con mercancías peligrosas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Daño o peligro"],
-          ["Se descubren en la carga o el correo mercancías no declaradas o mal declaradas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Hallazgo en carga"],
-          ["Se descubren mercancías no permitidas en el equipaje o en la persona de pasajeros o tripulantes", "Autoridades del Estado donde ocurrió", "Hallazgo en equipaje"],
-          ["Se transportaron mercancías mal cargadas, segregadas, separadas o afianzadas, o sin información al piloto al mando", "Autoridades del Estado del explotador y del Estado de origen", "Fallo de estiba o de NOTOC"],
-          ["Entidades distintas del explotador que poseen mercancías al ocurrir un accidente o incidente", "Los mismos que el explotador", "Daño o peligro (terceros)"],
-          ["Entidades distintas del explotador que descubren mercancías no declaradas o mal declaradas (aduanas, inspección de seguridad)", "Los mismos que el explotador", "Hallazgo (terceros)"],
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "¿A quién se notifica?",
-        text: "A las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso. En un vuelo internacional pueden ser dos autoridades distintas, y las dos esperan el aviso. Los plazos y el formulario los fija cada una: búscalos en el manual de tu explotador antes de necesitarlos, no el día del suceso.",
-      },
-      { kind: "sub", text: "Los tres niveles de suceso" },
-      {
-        kind: "fichas",
-        columnas: 3,
-        items: [
-          {
-            titulo: "Accidente imputable",
-            puntos: [
-              "Suceso atribuible al transporte aéreo de mercancías peligrosas o relacionado con él.",
-              "Ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente.",
-            ],
-          },
-          {
-            titulo: "Incidente imputable",
-            puntos: [
-              "Ocurrencia atribuible al transporte y relacionada con él que no constituye accidente. No tiene que producirse a bordo.",
-              "Ocasiona lesiones, daños, incendio, ruptura, derramamiento, fugas, radiación o cualquier manifestación de que se vulneró un embalaje.",
-              "También, toda ocurrencia que pueda haber puesto en peligro a la aeronave o a sus ocupantes.",
-            ],
-          },
-          {
-            titulo: "Incumplimiento imputable",
-            puntos: [
-              "Ocurrencia atribuible al transporte de mercancías peligrosas que no tiene como resultado un incidente ni un accidente.",
-              "El nivel más bajo de la escala, y el que más datos aporta al sistema.",
-            ],
-          },
-        ],
-      },
-      {
-        kind: "definicion",
-        text: "Suceso con mercancías peligrosas: cualquier ocurrencia de incumplimiento, incidente o accidente imputable a mercancías peligrosas, incluyendo el descubrimiento de una mercancía peligrosa oculta. Los tres niveles más el hallazgo.",
-      },
-      {
-        kind: "norma",
-        texto:
-          "Las Organizaciones Aeronáuticas deben integrar los programas de manejo de mercancías peligrosas a sus propios sistemas de gestión, SMS, con el fin de mantener en esta área los niveles aceptables de seguridad que prevengan la ocurrencia de accidentes e incidentes.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Por qué esto es SMS y no papeleo",
-        text: "El transporte de mercancías peligrosas entra en el alcance del SMS del explotador: no es un trámite aparte, es parte del sistema con el que la empresa gestiona su seguridad. Y las autoridades recopilan además los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva. Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Consecuencia del incumplimiento",
-        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las penales, conforme a la legislación de cada país. Qué norma sanciona y con cuánto cambia según el Estado: en Colombia es el RAC 13, Régimen Sancionatorio. Y alcanza también al caso en que otro Estado notifica la infracción de un explotador extranjero, o el envío llega sin cumplir las Instrucciones.",
-      },
-      {
-        kind: "enLaOperacion",
-        momento: "Después del vuelo",
-        texto:
-          "Se notifica todo suceso o accidente con mercancías peligrosas, y también el hallazgo de mercancías no declaradas o mal declaradas, aunque no haya pasado nada. Si en el turnaround aparece una batería suelta en una maleta facturada, si un bulto llegó mojado, si el NOTOC no traía un envío que sí iba: los tres se reportan por el canal de tu explotador. Primero se vuela; después, lo que pasó se cuenta.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-DIA-03 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Los cuatro niveles de suceso como una escalera ascendente: incumplimiento (sin daño), incidente (daño, fuga, lesión), accidente (lesiones graves o mortales, daños de consideración) y, cruzando los tres, el descubrimiento de una mercancía oculta. La flecha del valor para el SMS apunta al revés que la de la gravedad: el escalón más bajo es el que más enseña.",
-        alto: 300,
-      },
-    ],
-  },
+  LECCION_12,
 ]
