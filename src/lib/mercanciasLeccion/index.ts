@@ -2,9 +2,9 @@
  * La lección de Mercancías peligrosas: catorce lecciones en cuatro niveles.
  *
  * Progresión: Introducción → Identificación → Situaciones del piloto → Casos
- * reales y repaso. Cada nivel abre con un caso real y cada
- * lección cierra con «Pon a prueba lo que aprendiste». La práctica y la
- * evaluación son páginas aparte, como en NOTAM.
+ * reales y repaso. Cada nivel abre con un caso real y cierra con la entrevista
+ * de aerolínea: dentro de las lecciones no se pregunta nada, por decisión de
+ * Camilo. La práctica y la evaluación son páginas aparte, como en NOTAM.
  *
  * Fuentes, de lo mundial a lo nacional: Anexo 18 y Doc 9284 de la OACI (del
  * ciclo 2011-2012 se consultó el Adendo 5), LAR 175 del SRVSOP (Primera

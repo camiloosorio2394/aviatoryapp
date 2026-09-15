@@ -128,7 +128,7 @@ export const NIVEL_1: DocScreen[] = [
     n: 2,
     title: "¿Por qué es peligroso en un avión?",
     kicker: "La física del vuelo",
-    minutes: 6,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
@@ -198,37 +198,6 @@ export const NIVEL_1: DocScreen[] = [
           alt: "Paleta de cajas de pintura UN 1263 con la etiqueta de clase 3, envuelta en film y sujeta con red y cinchas dentro de la bodega de un avión.",
         },
       },
-      {
-        kind: "piensaComoPiloto",
-        momento: "En crucero, FL350",
-        situacion:
-          "Llevas en la bodega un envío de aerosoles que fue aceptado y embalado correctamente. En tierra parecía una carga normal, pero ahora estás a FL350: la aeronave está presurizada, existe vibración y estás lejos de la ayuda que tendrías en tierra.",
-        pregunta: "¿Qué cambió?",
-        respuesta: "La mercancía sigue siendo la misma. Lo que cambió es el entorno en el que está durante el vuelo.",
-        claves: [
-          {
-            titulo: "Presión",
-            texto: "La presión exterior es menor que en tierra. Si un recipiente no soporta adecuadamente esa diferencia, puede aumentar el riesgo de fuga.",
-          },
-          {
-            titulo: "Temperatura y vibración",
-            texto: "Durante el vuelo cambian las condiciones de temperatura y el bulto está sometido continuamente a vibraciones y movimientos.",
-          },
-          {
-            titulo: "Tiempo de respuesta",
-            texto: "Si aparece una fuga, humo o cualquier otra anomalía, la tripulación no puede simplemente abrir la bodega y retirar el bulto. Debe aplicar los procedimientos establecidos y gestionar la situación con los medios disponibles a bordo.",
-          },
-        ],
-        interesa:
-          "No necesitas imaginar que la mercancía «se vuelve peligrosa» al subir el avión. El riesgo cambia porque las condiciones de transporte cambian.",
-        cierre:
-          "La misma mercancía que en tierra parecía inofensiva ahora está dentro de una aeronave, bajo otras condiciones y lejos de ayuda externa. Por eso el transporte aéreo exige requisitos específicos de embalaje y control.",
-        rotulo: "Escenario de práctica",
-        imagen: {
-          src: "/modulos/mercancias/img-07-crucero-fl350.webp",
-          alt: "Avión en crucero a FL350 sobre las nubes y una caja de aerosoles UN 1950 con etiqueta de clase 2. Recuadros: aeronave presurizada, vibración, lejos de ayuda y embalaje correcto.",
-        },
-      },
     ],
   },
 
@@ -237,7 +206,7 @@ export const NIVEL_1: DocScreen[] = [
     n: 3,
     title: "El vocabulario que te van a preguntar",
     kicker: "Trece términos y tres permisos",
-    minutes: 7,
+    minutes: 6,
     blocks: [
       {
         kind: "p",
@@ -393,30 +362,6 @@ export const NIVEL_1: DocScreen[] = [
           },
         ],
       },
-      {
-        kind: "piensaComoPiloto",
-        momento: "Preparando el vuelo",
-        situacion:
-          "En la información que recibes lees: **UN 1263 PAINT · Clase 3 · PG II · 2 bultos · ULD AKE 12345 AV**. Un compañero comenta: «Son unas latas de pintura, nada del otro mundo».",
-        pregunta: "¿Qué acabas de leer realmente?",
-        claves: [
-          { titulo: "UN 1263", texto: "Identifica la mercancía." },
-          { titulo: "PAINT", texto: "Es la denominación oficial utilizada para el transporte." },
-          { titulo: "Clase 3", texto: "Indica que se trata de un líquido inflamable." },
-          {
-            titulo: "PG II",
-            texto: "Indica el grupo de embalaje asignado según el grado de peligro de la mercancía, cuando aplica.",
-          },
-          {
-            titulo: "2 bultos",
-            texto:
-              "Indica que hay dos unidades de transporte preparadas como bultos; no significa «dos litros» ni necesariamente dos recipientes individuales.",
-          },
-          { titulo: "ULD AKE 12345 AV", texto: "Identifica la unidad de carga donde están ubicados esos bultos." },
-        ],
-        cierre:
-          "Para el piloto, no son simplemente «dos cajas de pintura». Son una mercancía identificada, clasificada y localizada dentro de la aeronave.",
-      },
       { kind: "sub", text: "Tres permisos que se confunden" },
       {
         kind: "p",
@@ -478,7 +423,7 @@ export const NIVEL_1: DocScreen[] = [
     n: 4,
     title: "Quién responde por qué",
     kicker: "La cadena y tu lugar en ella",
-    minutes: 7,
+    minutes: 4,
     blocks: [
       {
         kind: "p",
@@ -628,115 +573,6 @@ export const NIVEL_1: DocScreen[] = [
               },
             ],
           },
-        ],
-      },
-      {
-        kind: "piensaComoPiloto",
-        momento: "Cinco minutos antes de firmar",
-        situacion:
-          "Te entregan la información de mercancías peligrosas del vuelo. Indica dos bultos de Clase 8, ubicados en un ULD de la bodega delantera. La información está completa y legible. Tú no viste el bulto, no viste la declaración del expedidor y no participaste en la aceptación.",
-        pregunta: "¿Qué estás firmando realmente?",
-        claves: [
-          "No estás certificando que tú clasificaste o embalaste la mercancía. Esas etapas corresponden a otros responsables dentro de la cadena.",
-          "Estás recibiendo y dejando constancia de que recibiste la información escrita sobre las mercancías peligrosas que serán transportadas. El RAC 175.515 exige que esta información sea proporcionada al piloto al mando y que sea firmada antes del transporte.",
-          "Como piloto, necesitas poder entender la información que recibes y detectar una inconsistencia evidente. Por ejemplo, una ubicación que no corresponde con la aeronave o una información que no coincide con lo que te han comunicado. Ante una duda, debes aclararla antes de continuar, de acuerdo con los procedimientos del operador.",
-          "La información debe permanecer disponible para ti durante el vuelo, precisamente para que puedas consultarla si ocurre una situación relacionada con las mercancías peligrosas.",
-        ],
-      },
-      {
-        kind: "ponAPrueba",
-        titulo: "Control del nivel 1",
-        preguntas: [
-          {
-            q: "Un explotador vuela solo rutas nacionales dentro de su país. ¿Le aplica el Doc 9284 de la OACI?",
-            opciones: [
-              {
-                t: "Sí. El reglamento adopta las Instrucciones Técnicas y aplica a vuelos internos e internacionales.",
-                ok: true,
-                fb: "El LAR 175 lo dice sin distinguir el tipo de vuelo: cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional. El reglamento colombiano lo repite y añade que aplica por igual a matrícula nacional o extranjera y a operador nacional o extranjero.",
-              },
-              {
-                t: "No. Las Instrucciones Técnicas solo rigen el transporte internacional.",
-                fb: "Es la trampa clásica. El reglamento exige cumplir las Instrucciones Técnicas en cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional, sin distinguir el tipo de vuelo.",
-              },
-              {
-                t: "Solo si transporta carga; si es de pasajeros, no.",
-                fb: "El reglamento aplica también al explotador que no acepta mercancías peligrosas: le exige programas de instrucción tenga o no autorización para transportarlas, justamente para que no entren sin declarar.",
-              },
-            ],
-          },
-          {
-            q: "Una caja marcada «vacía» contiene generadores de oxígeno sin gastar. ¿Es mercancía peligrosa?",
-            opciones: [
-              {
-                t: "No, porque el manifiesto dice que está vacía.",
-                fb: "La definición no mira el manifiesto: mira si el objeto puede constituir un riesgo y si está en la lista o es clasificable. Un generador sin gastar lo está. Marcarlo como vacío es exactamente lo que pasó en ValuJet.",
-              },
-              {
-                t: "Sí: lo que la clasifica es lo que contiene y lo que puede hacer, no lo que dice la caja.",
-                ok: true,
-                fb: "La definición tiene dos mitades, riesgo y estar en la lista o ser clasificable conforme a las Instrucciones, y los generadores sin gastar cumplen las dos.",
-              },
-              {
-                t: "Solo si el expedidor la declara como tal.",
-                fb: "La declaración es una obligación del expedidor, no la condición para que algo sea mercancía peligrosa. Si no la declara, sigue siéndolo, y además pasa a ser mercancía peligrosa oculta.",
-              },
-            ],
-          },
-          {
-            q: "¿Por qué el reglamento exige que los embalajes resistan cambios de presión, y no solo golpes?",
-            opciones: [
-              {
-                t: "Porque en vuelo la presión ambiente baja y un recipiente cerrado en tierra queda con presión hacia afuera.",
-                ok: true,
-                fb: "El reglamento nombra expresamente los cambios de temperatura, humedad o presión y la vibración como las condiciones normales del transporte aéreo que el embalaje tiene que aguantar.",
-              },
-              {
-                t: "Porque las bodegas no están presurizadas.",
-                fb: "En los aviones presurizados las bodegas también lo están, pero a la altitud de cabina, que es menor que la presión del suelo. La diferencia sigue existiendo.",
-              },
-              {
-                t: "Porque los golpes no importan en el transporte aéreo.",
-                fb: "Importan, y por eso la misma norma exige acolchar y sujetar los embalajes interiores. Lo que añade el vuelo es presión, temperatura y vibración sostenida.",
-              },
-            ],
-          },
-          {
-            q: "¿Quién es responsable de la identificación y clasificación de una mercancía peligrosa?",
-            opciones: [
-              {
-                t: "El expedidor.",
-                ok: true,
-                fb: "Es su obligación, y es el primer eslabón. Eso no exime al explotador de inspeccionar el bulto y la documentación antes de aceptar.",
-              },
-              {
-                t: "El explotador, al aceptarlas con la lista de verificación.",
-                fb: "El explotador verifica y puede rechazar, pero quien clasifica y responde de que la clasificación sea correcta es el expedidor.",
-              },
-              {
-                t: "El piloto al mando, al firmar la información escrita.",
-                fb: "El piloto recibe y firma la información. No clasifica ni verifica embalajes: ni es su función ni tendría cómo hacerlo desde la cabina.",
-              },
-            ],
-          },
-          {
-            q: "Un agente acreditado del explotador incumple un procedimiento de aceptación. ¿De quién es el problema?",
-            opciones: [
-              {
-                t: "Solo del agente: es una empresa independiente.",
-                fb: "Quien realiza una función en nombre del explotador tiene que hacerla conforme al reglamento, y el explotador responde de que sus agentes acreditados cumplan sus procedimientos.",
-              },
-              {
-                t: "Del agente y del explotador: actuar en nombre de otro no diluye la obligación.",
-                ok: true,
-                fb: "El reglamento lo dice sin rodeos, y el explotador además responde de sus agentes acreditados. Subcontratar reparte el trabajo, no la responsabilidad.",
-              },
-              {
-                t: "Del piloto al mando, que firmó la información del vuelo.",
-                fb: "La firma acredita que recibiste la información, no que la aceptación en tierra se hizo bien.",
-              },
-            ],
-          }
         ],
       },
     ],

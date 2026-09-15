@@ -55,15 +55,12 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     for (const c of coincidencias) porArchivo.set(c.archivo, (porArchivo.get(c.archivo) ?? 0) + 1)
     expect([...porArchivo].filter(([, n]) => n > 2)).toEqual([])
 
-    // Coincidencias editoriales conocidas: ejercicios «pon a prueba» de la lección
-    // de Mercancías que repiten, con su respuesta, una pregunta del banco. Cualquier
-    // coincidencia nueva hace fallar esta prueba: se cambia una de las dos preguntas
-    // o se agrega aquí con su razón.
-    const conocidas = [
-      "src/lib/mercanciasLeccion/nivel2.ts: Un pasajero quiere llevar un power bank en su maleta facturada. ¿Puede?",
-      "src/lib/mercanciasLeccion/nivel3.ts: ¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
-      "src/lib/mercanciasLeccion/nivel3.ts: Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
-    ]
+    // Ninguna. Las tres que había estaban en bloques de preguntas dentro de las
+    // lecciones de Mercancías, y esos bloques ya no existen: las preguntas solo
+    // van en la entrevista de cada nivel. Si aparece una coincidencia nueva, es
+    // que una lección repite una pregunta del banco y hay que cambiar una de las
+    // dos, o anotarla aquí con su razón.
+    const conocidas: string[] = []
     expect(coincidencias.map((c) => `${c.archivo}: ${c.enunciado}`).sort()).toEqual([...conocidas].sort())
   })
 })
