@@ -7,7 +7,7 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
-  Plane,
+  Play,
   Wind,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
@@ -89,12 +89,16 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
  *  - La rejilla responde al ancho del contenido y no al de la ventana, porque
  *    la barra lateral se come 245 px: una, dos, tres o cinco columnas, nunca
  *    cuatro, que con cinco temas deja uno huérfano en la segunda fila.
- *  - Lo que viene después va pegado a los temas, como una fila de pastillas: es
- *    la continuación de la rejilla, no un párrafo aparte.
+ *  - Lo que viene después («En camino») entra en la misma rejilla y ocupa las
+ *    celdas que le sobran a la segunda fila, en vez de ir suelto debajo.
  *
  * Las tarjetas son `TarjetaModulo`, la versión compacta de la tarjeta de
- * catálogo. El único botón primario de la pantalla sigue siendo el de
- * continuar.
+ * catálogo.
+ *
+ * El hero no lleva botón. Tenía uno de «Seguir con …», y en su sitio está ahora
+ * el hueco del video que presenta el módulo. Retomar no se pierde: la tarjeta
+ * del tema a medias va marcada «En curso» y es la primera de la rejilla, que es
+ * donde el ojo cae después del hero.
  */
 
 /**
@@ -443,7 +447,6 @@ export function AirlinePrep() {
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.
   const enCurso = cursables.find((t) => t.pct > 0 && t.pct < 100)
-  const continuar = enCurso ?? cursables[0]
 
   // Para la fila de lo que viene: cuántos temas hay abiertos y por cuál vas. Si
   // empezaste uno, vas por el primero, no por el segundo: el número es cuántos
@@ -505,22 +508,27 @@ export function AirlinePrep() {
                 Lo que evalúan las aerolíneas de la región, tema por tema.
               </p>
 
-              <div className="mt-5">
-                {loading ? (
-                  <span
-                    className="block h-11 w-48 rounded-[10px] bg-white/15 animate-pulse"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <Link
-                    to={continuar.to}
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-[10px] px-5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-transform active:scale-[0.98]"
-                    style={{ background: "var(--av-blue-500)" }}
-                  >
-                    <Plane className="h-4 w-4" />
-                    {enCurso ? `Seguir con ${enCurso.nombre}` : `Empezar por ${continuar.nombre}`}
-                  </Link>
-                )}
+              {/* El sitio del video que presenta el módulo entero, con la misma
+                  tarjeta de hueco que usaban los hubs de tema antes de tener el
+                  suyo: miniatura, rótulo y la especificación de lo que falta.
+                  Cuando exista el mp4 se cambia por un `VideoIntro` y no se
+                  mueve nada alrededor.
+
+                  Aquí había un botón de «Seguir con …». No se reemplaza por
+                  otro: la acción de retomar vive en la tarjeta del tema, que ya
+                  va marcada «En curso» y es la primera de la rejilla. */}
+              <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
+                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
+                  <Play className="h-4 w-4 text-white/35" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Espacio reservado
+                  </span>
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/60">
+                    IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
+                  </span>
+                </span>
               </div>
             </div>
 
@@ -601,15 +609,16 @@ export function AirlinePrep() {
             Temas de estudio
           </h2>
 
-          {/* Una, dos, tres o cinco columnas. Nunca cuatro: los temas son cinco
-              y una rejilla de cuatro deja el quinto solo en la segunda fila,
-              que se lee como un sobrante.
+          {/* Cuatro columnas. Cinco se probaron y quedaban demasiado estrechas
+              —unos 213 px por tarjeta, con la descripción cortada a nada—, así
+              que se paró en cuatro, que es donde la tarjeta todavía se lee.
 
-              El salto a cinco está en @5xl y no más arriba a propósito: con la
-              barra lateral puesta, un portátil de 1440 px deja unos 1130 px de
-              contenido, y ahí es donde tienen que caber los cinco. A ese ancho
-              cada tarjeta mide ~213 px, que es para lo que se compactó. */}
-          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-5">
+              Los temas son cinco, o sea que el quinto cae solo en la segunda
+              fila. En vez de dejar tres huecos, «En camino» entra en la misma
+              rejilla y ocupa las tres celdas que sobran: la fila queda completa
+              y con contenido de verdad, que además es su continuación natural
+              —los temas que hay, y los que vienen. */}
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-4">
             {cursables.map((t) => (
               <TarjetaModulo
                 key={t.to}
@@ -618,32 +627,33 @@ export function AirlinePrep() {
                 cargando={loading}
               />
             ))}
+
+            {/* Borde sólido, no punteado: en esta app el punteado significa
+                «hueco por llenar» (los espacios de imagen reservados), y esto
+                no es un hueco, es la ruta que viene. */}
+            {PROXIMOS.length > 0 && (
+              <div className="flex flex-col justify-center gap-3 rounded-2xl border border-border bg-muted/25 p-4 @xl:col-span-2 @4xl:col-span-3">
+                <p className="m-0 text-[12.5px] leading-relaxed text-muted-foreground">
+                  <span className="font-semibold text-foreground">En camino.</span> Se abren en este
+                  orden, cada uno cuando está completo:
+                </p>
+                <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
+                  {PROXIMOS.map((p, i) => (
+                    <li
+                      key={p}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-2.5 py-1 text-[12.5px] text-muted-foreground"
+                    >
+                      <span className="tabular text-[11px] font-semibold text-foreground/70">
+                        {disponibles + i + 1}
+                      </span>
+                      {p}
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
           </div>
 
-          {/* Los que siguen, contados como ruta y no como huecos: una fila de
-              pastillas pegada a la rejilla, que es de lo que es continuación.
-              Las pastillas no son botones: no se abren hasta estar completos. */}
-          {PROXIMOS.length > 0 && (
-            <div className="mt-5 flex flex-col gap-2.5 @3xl:flex-row @3xl:items-center @3xl:gap-4">
-              <p className="m-0 shrink-0 text-[12.5px] text-muted-foreground">
-                <span className="font-semibold text-foreground">En camino.</span> Se abren en este
-                orden, cada uno cuando está completo:
-              </p>
-              <ol className="m-0 flex list-none flex-wrap gap-2 p-0">
-                {PROXIMOS.map((p, i) => (
-                  <li
-                    key={p}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/40 px-2.5 py-1 text-[12.5px] text-muted-foreground"
-                  >
-                    <span className="tabular text-[11px] font-semibold text-foreground/70">
-                      {disponibles + i + 1}
-                    </span>
-                    {p}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          )}
         </section>
 
         <section className="mt-10" aria-labelledby="aerolinea-herramientas">
