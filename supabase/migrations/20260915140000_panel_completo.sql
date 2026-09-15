@@ -66,10 +66,9 @@ begin
     'dominio', coalesce((
       select jsonb_agg(to_jsonb(m)) from public.get_subject_mastery() m
     ), '[]'::jsonb),
-    -- Los tres módulos de Ingreso a aerolínea, con la misma forma. Antes solo
-    -- salía NOTAM: el panel anunciaba un módulo de los tres que la app ya
-    -- tiene terminados, y un piloto que iba por Meteorología no veía su avance
-    -- en ninguna parte de su pantalla de inicio.
+    -- Los módulos de Ingreso a aerolínea, todos con la misma forma. Cada uno
+    -- necesita su bloque porque cada uno tiene su propia tabla de intentos; del
+    -- lado del cliente ya se recorren desde una sola lista.
     'notam', jsonb_build_object(
       'lecciones', private.secciones_leidas(v_user, 'notam'),
       'practicas', private.practicas_hechas(v_user, 'notam'),
