@@ -1,8 +1,8 @@
 /**
- * La lección de Mercancías peligrosas: dieciocho lecciones en cinco niveles.
+ * La lección de Mercancías peligrosas: catorce lecciones en cuatro niveles.
  *
- * Progresión: Introducción → Identificación → Transporte aéreo → Situaciones
- * del piloto → Casos reales y repaso. Cada nivel abre con un caso real y cada
+ * Progresión: Introducción → Identificación → Situaciones del piloto → Casos
+ * reales y repaso. Cada nivel abre con un caso real y cada
  * lección cierra con «Pon a prueba lo que aprendiste». La práctica y la
  * evaluación son páginas aparte, como en NOTAM.
  *
@@ -23,9 +23,8 @@ import { NIVEL_1 } from "./nivel1"
 import { NIVEL_2 } from "./nivel2"
 import { NIVEL_3 } from "./nivel3"
 import { NIVEL_4 } from "./nivel4"
-import { NIVEL_5 } from "./nivel5"
 
-export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4, ...NIVEL_5]
+export const MP_LECCIONES: DocScreen[] = [...NIVEL_1, ...NIVEL_2, ...NIVEL_3, ...NIVEL_4]
 
 // La entrevista de aerolínea que cierra cada nivel, aparte de las lecciones.
 export { MP_ENTREVISTAS } from "./entrevistas"

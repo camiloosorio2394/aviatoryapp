@@ -1,147 +1,139 @@
 /**
- * Nivel 4 · Situaciones del piloto: de la aceptación a la bodega, el NOTOC,
- * la emergencia en vuelo y la notificación.
+ * Nivel 4 · Casos reales y repaso: los cuatro accidentes juntos, con su patrón,
+ * y lo que el reglamento te exige como piloto con las veinte respuestas que
+ * hay que tener listas.
  *
- * Artículos contrastados con el RAC 175 (Edición original, marzo 2016). Los
- * casos reales salen de los informes oficiales que cada uno cita. Los campos
- * del NOTOC están en la Parte 7 de las Instrucciones Técnicas, que no está
- * cargada: se enseñan los requisitos del 175.515 y las columnas habituales
- * con su aviso.
+ * Los casos remiten a sus lecciones (01, 08, 09 y 11), donde están contados
+ * con su fuente. La Tabla C.1 se transcribió del PDF del RAC 175, cuya
+ * maquetación desalinea las columnas al extraer el texto: las horas van con
+ * su aviso de verificación.
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
+
+/**
+ * La ruta de la práctica va escrita aquí y no importada de lib/mercancias:
+ * ese archivo importa el total de lecciones de este índice, y el ciclo dejaba
+ * la constante sin inicializar al evaluar el módulo.
+ */
+const MP_PRACTICA = "/app/aerolinea/mercancias/practica"
 
 export const NIVEL_4: DocScreen[] = [
   // ── 13 ──────────────────────────────────────────────────────────────────
   {
     n: 13,
-    title: "De la aceptación a la bodega",
-    kicker: "South African 295 y la estiba",
+    title: "Lo que la industria aprendió",
+    kicker: "Cuatro accidentes, cuatro lecciones",
     minutes: 8,
     blocks: [
       {
-        kind: "casoReal",
-        titulo: "South African Airways 295",
-        fecha: "28 de noviembre de 1987",
-        lugar: "Océano Índico, cerca de Mauricio",
-        aeronave: "Boeing 747-244B Combi · ZS-SAS «Helderberg» · Taipéi a Mauricio",
-        mercancia:
-          "Carga en la cubierta principal de un avión combi, con pasajeros y carga en el mismo piso. El origen de la ignición nunca se determinó.",
-        queOcurrio: [
-          "En crucero nocturno la tripulación reportó humo. El incendio se originó en la posición delantera derecha del compartimento de carga de la cubierta principal, con material de embalaje de plástico y cartón involucrado. El humo llegó a la zona ocupada.",
-          "La tripulación intentó combatir el fuego y desviarse a Mauricio. El avión cayó al mar. Murieron las 159 personas a bordo.",
-        ],
-        consecuencia:
-          "La investigación no pudo determinar qué encendió el fuego. Sí mostró que en un compartimento de carga de clase B grande la extinción manual no funciona, que la detección era tardía, que el humo pasaba a la zona de pasajeros y que los extintores de mano no alcanzaban. La industria endureció los requisitos de los combi y de la accesibilidad de la carga en vuelo.",
-        leccion:
-          "Por qué existen las restricciones de estiba de los bultos «Exclusivamente en aeronaves de carga» y por qué el reglamento insiste en que se carguen de modo que un tripulante pueda verlos, manipularlos y separarlos en vuelo. Un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada.",
-        hueco: {
-          id: "MP-IMG-04",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion:
-            "Foto de referencia del 747 Combi ZS-SAS o de una cubierta principal de un combi con la red de separación entre carga y pasajeros. Con crédito.",
-        },
-      },
-      {
         kind: "p",
-        text: "Cuando un bulto llega a tu avión ya pasó por seis pasos. Ninguno es tuyo, pero todos existen para que tu firma sea sobre algo verdadero. Toca cada uno.",
-      },
-      {
-        kind: "flujo",
-        pista: "Elige un paso para leer qué exige.",
-        pasos: [
-          {
-            clave: "doc",
-            etiqueta: "1 · Documento",
-            texto:
-              "Ningún explotador acepta mercancías peligrosas si no van acompañadas de un documento de transporte debidamente diligenciado, salvo cuando las Instrucciones Técnicas indiquen que no se requiere. El documento va con la declaración firmada del expedidor.",
-          },
-          {
-            clave: "insp",
-            etiqueta: "2 · Inspección",
-            texto:
-              "No se acepta hasta haber inspeccionado el bulto, sobre-embalaje o contenedor de carga conforme a los procedimientos de aceptación de las Instrucciones Técnicas.",
-          },
-          {
-            clave: "lista",
-            etiqueta: "3 · Lista de verificación",
-            texto:
-              "El personal de aceptación usa una lista de verificación que incluye la inspección del bulto y de la documentación. El envío se acepta únicamente si se cumplieron todos los requisitos.",
-          },
-          {
-            clave: "antes",
-            etiqueta: "4 · Antes de estibar",
-            texto:
-              "Los bultos se inspeccionan para verificar pérdidas o averías antes de estibarlos en la bodega o de meterlos en un ULD. No se estiba ningún bulto ni ULD sin esa comprobación.",
-          },
-          {
-            clave: "estiba",
-            etiqueta: "5 · Estiba y sujeción",
-            texto:
-              "Se estiban en un área a la que solo tenga acceso la tripulación de vuelo o las personas autorizadas para acompañar el envío. El explotador las protege de averías y las sujeta de modo que no puedan inclinarse en vuelo ni cambiar la posición relativa de los bultos.",
-          },
-          {
-            clave: "segr",
-            etiqueta: "6 · Segregación",
-            texto:
-              "Los bultos capaces de reaccionar peligrosamente entre sí no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Las Instrucciones Técnicas tienen una tabla de segregación general y otra para explosivos.",
-          },
-        ],
-      },
-      {
-        kind: "norma",
-        texto:
-          "Salvo en los casos permitidos en este Reglamento y en las Instrucciones Técnicas, no se estibarán mercancías peligrosas en la cabina de ninguna aeronave ocupada por pasajeros ni tampoco en el puesto de pilotaje. No se estibarán en una aeronave ocupada por pasajeros los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga».",
-      },
-      {
-        kind: "norma",
-        texto:
-          "A reserva de lo previsto en las Instrucciones Técnicas, los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga» se cargarán de modo tal que algún miembro de la tripulación o persona autorizada pueda verlos, manipularlos y, cuando su tamaño y peso lo permitan, separarlos en vuelo de las otras mercancías estibadas a bordo.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Tres prohibiciones de estiba que te preguntan",
-        text: "Nada de mercancías peligrosas en la cabina de pasajeros ni en el puesto de pilotaje. Ningún bulto «Exclusivamente en aeronaves de carga» en un avión con pasajeros. Y en el carguero, esos bultos donde un tripulante pueda verlos, manipularlos y separarlos en vuelo. Las tres salen del Helderberg y de lo que vino después.",
+        text: "Cuatro accidentes, cuatro lecciones. Los cuatro tienen informe oficial y ninguno se cuenta de memoria: ya los leíste en las lecciones 01, 08, 09 y 11. Aquí van juntos, en orden, para ver el patrón.",
       },
       {
         kind: "hueco",
-        rotulo: "MP-DIA-01 · Diagrama · 16:9 · 1800×1000 · SVG",
+        rotulo: "MP-ILU-05 · Ilustración · 21:9 · 2000×860 · SVG",
         descripcion:
-          "Corte lateral y planta de la bodega de un narrow-body: posiciones de ULD, bultos CAO accesibles, separación del material radiactivo respecto de personas, animales vivos y películas no reveladas, y un ejemplo de segregación entre incompatibles. Referencia visual; no sustituye la tabla de segregación.",
-        alto: 320,
+          "Línea de tiempo 1987 → 2011 con los cuatro accidentes (South African 295, ValuJet 592, UPS 6, Asiana 991) y, debajo de cada uno, la regla que cambió después. Estilo Aviatory, sin texto pequeño.",
+        alto: 240,
       },
-      { kind: "sub", text: "Segregación: no sentar juntos a los que se pelean" },
+      {
+        kind: "fichas",
+        columnas: 2,
+        items: [
+          {
+            titulo: "South African 295 · 1987",
+            puntos: [
+              "**Qué falló:** un incendio en la cubierta principal de un combi, en una zona a la que la tripulación no podía llegar. La causa de la ignición nunca se determinó.",
+              "**Qué cambió:** los requisitos de los combi y la exigencia de que la carga sea accesible y separable en vuelo.",
+              "**Lo que reconoces:** por qué los bultos «Exclusivamente en aeronaves de carga» se estiban donde un tripulante pueda verlos y manipularlos.",
+            ],
+          },
+          {
+            titulo: "ValuJet 592 · 1996",
+            puntos: [
+              "**Qué falló:** generadores de oxígeno sin tapas, declarados como «vacíos» y despachados como material de la compañía. Tres eslabones: expedidor, explotador y una regla de diseño de la autoridad.",
+              "**Qué cambió:** detección y supresión de incendios obligatorias en las bodegas de clase D.",
+              "**Lo que reconoces:** la descripción general que esconde una mercancía peligrosa y el peso de la firma del comandante.",
+            ],
+          },
+          {
+            titulo: "UPS 6 · 2010",
+            puntos: [
+              "**Qué falló:** autoignición de una paleta con más de 81.000 baterías de litio. El humo llenó la cabina en minutos; el capitán quedó incapacitado al fallar su oxígeno.",
+              "**Qué cambió:** la OACI endureció las baterías de litio como carga; desde 2016 las de ion litio sueltas no van en aeronaves de pasajeros.",
+              "**Lo que reconoces:** por qué la información tiene que estar al alcance del comandante en vuelo y disponible de inmediato para la emergencia.",
+            ],
+          },
+          {
+            titulo: "Asiana 991 · 2011",
+            puntos: [
+              "**Qué falló:** un incendio en o cerca de una paleta con mercancías peligrosas en el fuselaje trasero, más rápido que el descenso. Los registradores se perdieron y la causa exacta no se determinó.",
+              "**Qué cambió:** más presión sobre la estiba y la segregación de las mercancías peligrosas en cargueros y sobre la respuesta al humo en cabina.",
+              "**Lo que reconoces:** el fuego empieza en un sitio concreto (por eso la estiba y la segregación) y la respuesta se da con lo que ya estaba a bordo.",
+            ],
+          },
+        ],
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Mirando los cuatro juntos",
+        situacion:
+          "South African 295, ValuJet 592, UPS 6 y Asiana 991. Cuatro aviones distintos, cuatro décadas, cuatro mercancías distintas. En los cuatro el fuego empezó en la carga y en ninguno la tripulación pudo llegar hasta él.",
+        pregunta: "Si tuvieras que quedarte con una sola lección de los cuatro, ¿cuál?",
+        claves: [
+          "Que el fuego en bodega **no se apaga: se gestiona hasta el suelo**. Todo lo que decide el resultado se decidió antes de que empezara.",
+          "Que lo que falló primero fue siempre **la información**: una clasificación, una declaración, una descripción. El fuego vino después.",
+          "Que el tiempo hasta un aeródromo utilizable es la variable que más pesa, y esa la fijas tú al planificar.",
+          "Y que en tres de los cuatro había alguien que podía haber preguntado algo y no lo preguntó.",
+        ],
+        cierre:
+          "Por eso este módulo insiste tanto en un papel. No porque el papel apague nada, sino porque es el último sitio donde la cadena se puede parar.",
+      },
+      { kind: "sub", text: "El patrón" },
       {
         kind: "p",
-        text: "Hay clases que no pueden viajar juntas. Un comburente junto a un inflamable es el ejemplo clásico: el comburente no arde, pero si hay una fuga alimenta el fuego del otro. La segregación evita que una fuga ponga en contacto sustancias incompatibles.",
+        text: "Ninguno de los cuatro empezó en cabina. Los cuatro empezaron en una bodega, con algo que no debía estar ahí, o que estaba mal preparado, o a lo que no se podía llegar. Y en los cuatro, cuando la tripulación se enteró, el fuego ya llevaba minutos.",
       },
       {
-        kind: "norma",
-        texto:
-          "El explotador de aeronave se cerciorará que los bultos que contengan mercancías peligrosas capaces de reaccionar peligrosamente entre sí, no se estiben en una aeronave unos juntos a otros de tal manera que puedan entrar en contacto en caso de que se produzcan pérdidas.",
-      },
-      {
-        kind: "kv",
+        kind: "vinetas",
         items: [
-          { k: "Regla general", v: "La tabla de segregación de las Instrucciones Técnicas. La aplican el explotador y el operador de terminal de carga." },
-          { k: "Explosivos", v: "Tienen su propia tabla. Si van con dispensa, se aplica la del Suplemento de las Instrucciones." },
-          { k: "Radiactivo", v: "Separado de las personas, los animales vivos y las películas no reveladas. Y afianzado para mantener esa separación todo el vuelo." },
-          { k: "4.1 y 5.2", v: "Las sustancias de reacción espontánea y los peróxidos orgánicos se cubren del sol y van en un lugar ventilado, lejos de toda fuente de calor." },
-          { k: "Tóxicas e infecciosas", v: "Se estiban según las disposiciones de las Instrucciones Técnicas." },
+          "**El papel y la caja no coincidían.** ValuJet es el caso puro: lo que decía el manifiesto no era lo que iba en la bodega. Toda la cadena de la lección 04 existe para que coincidan, y tu firma es el último punto donde alguien lo comprueba.",
+          "**El fuego fue más rápido que la respuesta.** En UPS 6, Asiana 991 y el Helderberg la tripulación hizo lo que pudo con lo que tenía. Por eso el reglamento exige que la información, el conocimiento y el equipo existan antes de que algo pase.",
+          "**La información que salva es la que ya estaba a bordo.** Cuando el humo no deja ver el panel, no hay tiempo de buscar. El NOTOC al alcance y la guía de respuesta de emergencia disponible de inmediato no son trámite: son lo único que queda.",
         ],
       },
       {
         kind: "callout",
         tone: "info",
-        title: "Radiactivo: la aeronave contaminada sale de servicio",
-        text: "Toda aeronave que quede contaminada por materiales radiactivos se retira inmediatamente de servicio y no se reintegra hasta que el nivel de radiación de toda superficie accesible y la contaminación transitoria estén por debajo de los valores de las Instrucciones.",
+        title: "Lo que no se sabe también enseña",
+        text: "En South African 295 y en Asiana 991 la causa exacta de la ignición nunca se determinó. Eso no debilita la lección: la refuerza. Si no se puede saber qué encendió el fuego, lo que se puede controlar es qué había en la bodega, cómo estaba estibado y qué tan rápido lo supo la tripulación. Ahí es donde actúa el reglamento, y ahí es donde actúas tú.",
       },
       {
-        kind: "enLaOperacion",
-        momento: "En la rampa, al descargar",
-        texto:
-          "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación. Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado. Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
+        kind: "escenario",
+        titulo: "Seis cajas que no están en el NOTOC",
+        situacion:
+          "Rampa, veinte minutos antes de la salida de un vuelo con pasajeros. El agente te trae el NOTOC con dos líneas: pintura, clase 3, y hielo seco, clase 9. Al pasar por la bodega ves seis cajas marcadas «AOG PARTS – COMPANY MATERIAL» que no aparecen en el NOTOC ni en el manifiesto de mercancías peligrosas.",
+        preguntas: [
+          {
+            q: "¿Qué te dice esa marca?",
+            a: "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho. Repuestos de aeronave pueden incluir generadores de oxígeno, extintores, baterías o aerosoles; si alguno está clasificado como mercancía peligrosa, es COMAT peligroso y sigue todas las reglas, incluida la información al piloto al mando. Es exactamente la descripción con la que viajaron los generadores de ValuJet.",
+          },
+          {
+            q: "¿Qué preguntas antes de firmar?",
+            a: "Qué contienen las cajas y quién las aceptó. Un envío con mercancías peligrosas solo se acepta con su documento de transporte diligenciado y después de inspeccionar el bulto, y si contiene mercancías peligrosas tiene que estar en la información escrita que firmas. «Repuestos» es una de esas descripciones generales que pueden esconder una mercancía peligrosa: debe hacerte dudar.",
+          },
+          {
+            q: "¿Firmas el NOTOC tal como está?",
+            a: "No hasta aclararlo. Firmar es dejar constancia de que sabes qué llevas y dónde. Si hay carga cuyo contenido nadie te puede confirmar, no lo sabes. Si el explotador confirma que las cajas no contienen mercancías peligrosas y queda registrado, firmas; si contienen, entran al NOTOC o no salen.",
+          },
+          {
+            q: "El vuelo sale sin aclararlo y después resulta que traía generadores de oxígeno. ¿Qué es eso?",
+            a: "Un suceso con mercancías peligrosas, y por dos vías: mercancía no declarada o mal declarada descubierta en la carga, y mercancía transportada sin información al piloto al mando. Se notifica a la autoridad del Estado del explotador y a la del Estado donde ocurrió. Y si no pasó nada, es un incumplimiento imputable a mercancías peligrosas: el nivel que más datos aporta al SMS.",
+          },
+        ],
+        concepto:
+          "COMAT y COMAT peligroso, mercancía peligrosa oculta, la aceptación y la información al piloto al mando, y la notificación. Es ValuJet contado desde tu asiento.",
       },
     ],
   },
@@ -149,641 +141,248 @@ export const NIVEL_4: DocScreen[] = [
   // ── 14 ──────────────────────────────────────────────────────────────────
   {
     n: 14,
-    title: "El NOTOC",
-    kicker: "La información al piloto al mando",
+    title: "Lo que te exigen y veinte respuestas listas",
+    kicker: "Instrucción y repaso",
     minutes: 8,
     blocks: [
       {
         kind: "p",
-        text: "El comandante no clasifica ni embala. Pero responde por la operación segura del vuelo, y para eso el reglamento le exige al explotador entregarle, por escrito y antes de la salida, qué mercancías peligrosas lleva y dónde. Ese papel es el que la operación llama NOTOC, Notification to Captain. Es la sección que más rinde en entrevista: casi todas las preguntas del tema terminan aquí.",
+        text: "El curso de mercancías peligrosas no es un requisito de la aerolínea: es del reglamento, y en Colombia aparece en tres reglamentos distintos. Esta lección te dice cuánto, cada cuánto y dónde está escrito, y cierra con las veinte respuestas que no puedes dudar en una entrevista.",
       },
       {
         kind: "norma",
+        titulo: "Los tres componentes de la instrucción",
         texto:
-          "Salvo en los casos en que las Instrucciones Técnicas indiquen lo contrario, el explotador de toda aeronave en la cual haya que transportar mercancías peligrosas, deberá proporcionar al piloto al mando, lo antes posible antes de la salida de la aeronave y por escrito, la información prevista en las Instrucciones Técnicas.",
+          "(1) Instrucción general de familiarización: debe tener como objetivo la familiarización con las disposiciones generales; (2) instrucción específica según la función: debe proporcionar formación detallada sobre los requisitos que se aplican a la función de la cual se encarga esa persona; y (3) instrucción sobre seguridad operacional: debe abarcar los peligros que suponen las mercancías peligrosas, la manipulación sin riesgos y los procedimientos de respuesta de emergencia.",
       },
-      { kind: "p", text: "Siete requisitos salen de ese texto y de lo que le sigue en el reglamento. Toca cada uno." },
+      { kind: "sub", text: "Cuánto y cada cuánto" },
       {
-        kind: "flujo",
-        pista: "Elige un requisito para leer el texto del reglamento.",
-        pasos: [
-          {
-            clave: "momento",
-            etiqueta: "Momento",
-            texto: "Lo antes posible antes de la salida de la aeronave. No al cerrar puertas, no en crucero.",
-          },
-          {
-            clave: "forma",
-            etiqueta: "Forma",
-            texto: "Por escrito. La información no puede ser verbal. El contenido concreto lo fijan las Instrucciones Técnicas.",
-          },
-          {
-            clave: "firma",
-            etiqueta: "Firma",
-            texto:
-              "«La información por escrito sobre las mercancías peligrosas embarcadas en un vuelo deberá ser firmada por el piloto al mando antes que sean transportadas.» La firma es previa al transporte, no posterior al despegue.",
-          },
-          {
-            clave: "vuelo",
-            etiqueta: "En vuelo",
-            texto:
-              "«La información prevista deberá estar al alcance del piloto al mando de la aeronave durante el vuelo.» Es lo que te permite responder al ATS y a los servicios de emergencia si algo ocurre.",
-          },
-          {
-            clave: "tierra",
-            etiqueta: "En tierra",
-            texto:
-              "A disposición del aeródromo de la última salida y del de la próxima llegada prevista, para cada vuelo en el que se transporten mercancías peligrosas.",
-          },
-          {
-            clave: "copia",
-            etiqueta: "Copia",
-            texto:
-              "El explotador conserva en tierra, para fines de control, una copia de cada información firmada por el piloto al mando de cada vuelo despachado con mercancías peligrosas.",
-          },
-          {
-            clave: "idioma",
-            etiqueta: "Idioma",
-            texto:
-              "«En el transporte internacional, en la información de mercancías peligrosas al piloto al mando, además de los idiomas exigidos por el Estado de origen, deberá utilizarse el inglés.» La misma regla aplica a las marcas.",
-          },
+        kind: "table",
+        head: ["Cargo", "Inicial (h)", "Recurrente (h)"],
+        rows: [
+          ["Expedidores y quienes asumen sus responsabilidades", "40", "8"],
+          ["Personal de aceptación de mercancías peligrosas", "40", "8"],
+          ["Personal de aceptación de mercancías no peligrosas", "4", "4"],
+          ["Personal de pasajeros: tiquetes, chequeo, salas, desembarque", "8", "4"],
+          ["Tripulación de vuelo", "16", "8"],
+          ["Tripulación de cabina u otros tripulantes", "8", "4"],
+          ["Seguridad aeroportuaria: gerentes, coordinadores, supervisores, guardas", "8", "4"],
+          ["Manipulación, almacenamiento y estiba de carga", "8", "4"],
+          ["Trámite de carga, correo y suministros", "8", "4"],
+          ["Administrativos, mantenimiento aeronáutico y almacenistas", "4", "4"],
+          ["Cualquier otro personal con contacto frecuente", "4", "4"],
         ],
       },
       {
-        kind: "definicion",
-        text: "La frase que suma puntos en una entrevista: «El comandante es la última barrera del sistema. La mercancía ya fue clasificada, embalada y documentada, pero yo verifico el NOTOC, decido si acepto el vuelo y gestiono cualquier emergencia».",
+        kind: "callout",
+        tone: "verificar",
+        title: "Las horas, contra el original",
+        text: "Las horas por cargo son un añadido nacional: el LAR fija el currículo y la periodicidad, pero no una tabla de horas, así que cada país publica la suya y la autoridad aprueba en definitiva cada programa. Las de arriba son las de Colombia, transcritas de un PDF cuya maquetación desalinea las columnas: la fila de tripulación de vuelo (16 y 8) coincide con la transcripción de referencia, pero confírmala contra la tabla original de tu reglamento antes de citarla en una entrevista.",
       },
-      { kind: "sub", text: "Qué revisas antes de firmar" },
       {
-        kind: "vinetas",
+        kind: "fichas",
+        columnas: 3,
         items: [
-          "**Documentos a bordo**: NOTOC y declaración del expedidor, presentes y firmados. La declaración es la fuente; el NOTOC se arma a partir de ella.",
-          "**Clase y aeronave**: a qué clase pertenece cada envío y si está permitido en ese tipo de aeronave. Ningún CAO en un vuelo con pasajeros; nada en cabina ni en el puesto de pilotaje.",
-          "**Coherencia de datos**: que el UN, la designación, la clase, el grupo de embalaje y la cantidad coincidan entre la declaración, el NOTOC y la lista. Un grupo de embalaje junto a un UN de litio, o junto a un gas, es una alarma.",
-          "**Posición y segregación**: dónde va cada bulto y qué tiene al lado.",
+          {
+            titulo: "Cada 24 meses como mínimo",
+            puntos: ["Todas las personas que realicen o supervisen funciones relacionadas con pasajeros, equipajes, carga o correo."],
+          },
+          {
+            titulo: "Al contratar",
+            puntos: ["La instrucción se imparte o se verifica en el momento de la contratación."],
+          },
+          {
+            titulo: "Registro para la autoridad",
+            puntos: ["Cada organización mantiene el registro de la instrucción de sus empleados, disponible para la AAC."],
+          },
+          {
+            titulo: "Ventana de 30 días",
+            puntos: ["El LAR permite hacer el recurrente dentro de los 30 días siguientes al vencimiento. Después de ese plazo, toca instrucción inicial otra vez."],
+          },
+          {
+            titulo: "Instructores de Categoría 6",
+            puntos: ["Competencia pedagógica, programa de Categoría 6 completado y los requisitos de instructor que fije tu reglamento."],
+          },
+          {
+            titulo: "Aunque no acepte mercancías peligrosas",
+            puntos: ["El explotador que decide no transportarlas cumple igual los programas de capacitación."],
+          },
         ],
       },
-      { kind: "sub", text: "El NOTOC, columna por columna" },
+      { kind: "sub", text: "Dónde más aparece: en tu licencia" },
       {
         kind: "p",
-        text: "El formato es horizontal y cada explotador usa el suyo, pero el bloque de mercancías peligrosas trae en general estas columnas. Los campos concretos los fija una parte de las Instrucciones Técnicas que no está cargada en el proyecto: esto es lo que vas a encontrar en la práctica.",
+        text: "El reglamento de mercancías peligrosas no es el único sitio donde te exigen esto. El reglamento de licencias de cada país repite el requisito, porque el conocimiento de mercancías peligrosas se pide para la licencia, no solo para la operación. Abajo va Colombia como ejemplo, con el RAC 2 y el RAC 61; busca el artículo equivalente en el reglamento de licencias del tuyo, porque en una entrevista te lo pueden preguntar con el número.",
+      },
+      {
+        kind: "fichas",
+        columnas: 2,
+        items: [
+          {
+            titulo: "Entrenamientos periódicos del piloto",
+            puntos: [
+              "Curso de Transporte de Mercancías Peligrosas conforme al Anexo 18 y a los documentos vigentes de la OACI (las Instrucciones Técnicas, la guía de respuesta de emergencia y el programa de instrucción), con una frecuencia no mayor a dos años, dentro del programa de entrenamiento del operador.",
+            ],
+          },
+          {
+            titulo: "Tripulantes que no son pilotos",
+            puntos: ["El mismo curso cada dos años para los demás miembros de la tripulación."],
+          },
+          {
+            titulo: "Licencia de piloto comercial",
+            puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga, los posibles riesgos en relación con el transporte de mercancías peligrosas»."],
+          },
+          {
+            titulo: "Licencia de piloto de transporte de línea aérea",
+            puntos: ["Conocimientos: «los procedimientos operacionales para el transporte de carga y de mercancías peligrosas»."],
+          },
+          {
+            titulo: "Auxiliar de servicios a bordo",
+            puntos: [
+              "Transporte de mercancías peligrosas: conceptos generales, sus posibles riesgos, identificación de etiquetas, mercancías prohibidas, excepciones y procedimientos de emergencia. Es el temario más detallado de los cinco, y describe bien lo que un piloto debe dominar.",
+            ],
+          },
+        ],
+      },
+      {
+        kind: "hueco",
+        rotulo: "MP-POR-04 · Fotografía · 16:9 · 1600×900 · JPG o WebP",
+        descripcion:
+          "Una sala de entrevista o una mesa de selección de aerolínea, sobria, con un piloto de uniforme respondiendo. Sin caras reconocibles ni marcas de aerolínea. Es la imagen que le pone escenario al simulador: recuerda que esto se responde hablando, no marcando una opción.",
+        alto: 300,
+      },
+      { kind: "sub", text: "Simulador: respóndelas en voz alta" },
+      {
+        kind: "p",
+        text: "Antes del repaso, seis preguntas como te las van a hacer: sin opciones y esperando que hables treinta segundos. Léelas, respóndelas **en voz alta** y solo después abre la respuesta esperada. Si te saltas la parte de hablar, esto no sirve de nada.",
+      },
+      { kind: "sub", text: "Veinte respuestas que debes tener listas" },
+      {
+        kind: "p",
+        text: "El repaso de última hora antes de una entrevista. Veinte respuestas cortas, para que la respuesta no sea «creo que» sino «el reglamento dice que».",
       },
       {
         kind: "kv",
         items: [
-          { k: "Station of Unloading", v: "Aeropuerto de descarga." },
-          { k: "AWB No.", v: "Número de guía aérea (Air Waybill)." },
-          { k: "No. of Packages", v: "Número de bultos." },
-          { k: "Proper Shipping Name", v: "La designación oficial de transporte." },
-          { k: "Class / Division", v: "Clase y división de riesgo." },
-          { k: "UN Number", v: "El número ONU de la sustancia." },
-          { k: "Subsidiary Hazard", v: "Los riesgos secundarios, si los hay." },
-          { k: "Net Quantity", v: "Cantidad neta por bulto, si no es radiactivo." },
-          { k: "Transport Index", v: "El índice de transporte, si es material radiactivo." },
-          { k: "Packing Group", v: "Grupo de embalaje: I, II o III." },
-          { k: "Loading position", v: "La posición de estiba a bordo." },
-          { k: "ERG code", v: "El código de la guía de respuesta de emergencia." },
+          { k: "1 · Definición", v: "Objeto o sustancia que pueda constituir un riesgo para la salud, la seguridad, los bienes o el medio ambiente y que figure en la lista de las Instrucciones Técnicas o esté clasificado conforme a ellas." },
+          { k: "2 · Marco", v: "Anexo 18 → Doc 9284 (Instrucciones Técnicas) → LAR 175 del SRVSOP → el reglamento de tu país. En Colombia, el RAC 175." },
+          { k: "3 · Alcance", v: "Cualquier aeronave civil con origen, destino, tránsito o sobrevuelo en el territorio nacional: vuelos internos e internacionales por igual, matrícula y operador nacionales o extranjeros." },
+          { k: "4 · Nueve clases", v: "Una sola clase por mercancía, según el peligro o el más importante de los peligros que represente." },
+          { k: "5 · Grupos de embalaje", v: "I gran peligro, II intermedio, III escaso. No aplican a las clases 1, 2 y 7, ni a 5.2 y 6.2." },
+          { k: "6 · Dos tipos de etiqueta", v: "De riesgo, para la mayoría de las mercancías de todas las clases; de manipulación, para algunas." },
+          { k: "7 · Etiqueta ilegible", v: "Se repone conforme al documento de transporte; sin certeza de cuál corresponde, no se transporta." },
+          { k: "8 · Cuatro niveles", v: "Prohibido siempre; prohibido salvo dispensa; permitido con aprobación cuando las Instrucciones lo prevén; permitido cumpliendo las Instrucciones." },
+          { k: "9 · Aviación civil privada", v: "En Colombia, prohibido todo tipo de mercancías peligrosas." },
+          { k: "10 · Monomotores", v: "Es un añadido nacional, no del Anexo: en Colombia, clase 3 combustibles prohibida salvo las excepciones para pasajeros y tripulantes, y las demás clases solo con aprobación de la autoridad. Mira qué añade el tuyo." },
+          { k: "11 · Pasajeros y tripulantes", v: "Prohibido en equipaje facturado, de mano o consigo, salvo las excepciones que las Instrucciones Técnicas prevén para pasajeros y tripulantes, y cumpliendo todos sus requisitos." },
+          { k: "12 · Cantidades exceptuadas", v: "No van como equipaje ni como correo. E0 en la lista de las Instrucciones significa que no admiten ese régimen." },
+          { k: "13 · Aceptación", v: "No se acepta sin documento de transporte diligenciado y sin haber inspeccionado el bulto. Con lista de verificación." },
+          { k: "14 · Estiba", v: "Nunca en cabina ocupada por pasajeros ni en el puesto de pilotaje. Los CAO no van en aeronave de pasajeros y en carguero deben ser accesibles en vuelo." },
+          { k: "15 · Segregación", v: "Los incompatibles no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Las Instrucciones Técnicas traen una tabla de segregación general y otra para explosivos." },
+          { k: "16 · Radiactivo", v: "Separado de personas, animales vivos y películas no reveladas. Aeronave contaminada, fuera de servicio de inmediato. Y encima del permiso aeronáutico, el del organismo nuclear del país: Servicio Geológico en Colombia, CNEN en Brasil." },
+          { k: "17 · Información al piloto al mando", v: "Por escrito, lo antes posible antes de la salida, firmada antes del transporte, al alcance en vuelo, a disposición de los aeródromos de salida y llegada, copia en tierra, y en inglés en transporte internacional." },
+          { k: "18 · Emergencia en vuelo", v: "Información de respuesta disponible de inmediato (la guía de la OACI), tripulación al corriente, equipo a bordo, e informar al ATS tan pronto la situación lo permita." },
+          { k: "19 · Equipo mínimo de respuesta", v: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma." },
+          { k: "20 · Instrucción de la tripulación de vuelo", v: "Como mínimo cada 24 meses; en Colombia, además, como curso dentro de los entrenamientos periódicos con frecuencia no mayor a dos años; la intensidad en horas, según la tabla nacional (verificar)." },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MP-IMG-02 · Imagen real · 4:3 · 2000×1500 · JPG o WebP",
-        descripcion:
-          "Un NOTOC diligenciado y anotado por campo, con permiso del explotador y anonimizado (matrícula, número de vuelo, nombres). Con el aviso: «Documento de estudio; datos operacionales no vigentes».",
-        alto: 360,
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "El bloque de carga especial",
-        text: "El NOTOC suele traer además un bloque de **Special Cargo** que no es mercancía peligrosa pero también requiere aviso al comandante: animales vivos, restos humanos o carga con requisitos particulares. Lo firma el agente de rampa y también lo lees.",
-      },
-      {
-        kind: "fichas",
-        columnas: 3,
-        items: [
-          {
-            titulo: "«Firmo el NOTOC en crucero, cuando hay tiempo»",
-            puntos: ["La información se firma antes de que las mercancías sean transportadas. Firmar después no cumple la norma."],
-          },
-          {
-            titulo: "«El NOTOC se queda con el despachador»",
-            puntos: ["Debe estar al alcance del piloto al mando durante el vuelo, y además a disposición del aeródromo de última salida y del de próxima llegada."],
-          },
-          {
-            titulo: "«Si el vuelo es internacional, basta con el idioma del Estado de origen»",
-            puntos: ["En transporte internacional debe utilizarse además el inglés, tanto en la información al piloto al mando como en las marcas y los documentos."],
-          },
-        ],
-      },
-      {
-        kind: "enLaOperacion",
-        momento: "En el briefing",
-        texto:
-          "El NOTOC dice UN 1263, clase 3, grupo II, dos bultos en la bodega trasera. La declaración del expedidor dice grupo III. No firmas: preguntas. Si la discrepancia no se resuelve, el envío no sale. Y si alguien descubre después del vuelo que se transportaron mercancías sin información al piloto al mando, eso es un suceso que se notifica.",
-      },
-      { kind: "sub", text: "Léelo tú antes de que te lo expliquen" },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Escenario de práctica",
-        text: "Lo que sigue **no es un documento real**: es un NOTOC de ejemplo construido para este curso, con el formato y los campos que vas a encontrar. Los datos operacionales son inventados.",
-      },
-      {
-        kind: "code",
-        tabular: true,
-        text: `NOTIFICATION TO CAPTAIN          FLT AV0000 / 00MMM / HK-XXXX
-STA: SKBO   DEST: SBGR   CPT: ______________________
-
-POS  UN     PROPER SHIPPING NAME        CL  GE  PKG  ULD
----  -----  --------------------------  --  --  ---  ------------
-1FL  1263   PAINT                       3   II   2   AKE 12345 AV
-1FL  1830   SULPHURIC ACID              8   II   1   AKE 12345 AV
-5AR  3480   LITHIUM ION BATTERIES       9   --   4   PMC 67890 AV
-                                             CAO
-
-DRILL CODE: 3L / 8L / 9FZ        EMERGENCY RESPONSE: DOC 9481`,
-      },
-      {
-        kind: "piensaComoPiloto",
-        momento: "Antes de firmar",
-        situacion:
-          "Ese es el papel que te acaban de pasar. Tienes treinta segundos antes de que el despachador se vaya.",
-        pregunta: "¿Qué cuatro cosas miras, y qué te chirría?",
-        claves: [
-          "**Qué hay:** tres mercancías. Pintura y ácido sulfúrico en bodega delantera, baterías de litio en la trasera.",
-          "**Dónde:** las dos primeras comparten ULD. Clase 3 y clase 8 juntas es una combinación que la tabla de segregación regula: es una pregunta legítima.",
-          "**La marca CAO** bajo las baterías: ese bulto solo puede ir en aeronave de carga. Si este vuelo lleva pasajeros, ahí hay un problema serio.",
-          "**Lo que chirría:** las baterías de litio traen columna GE vacía, correcto. Si trajeran «II», el documento estaría mal.",
-          "Y falta lo más importante: **tu firma**. Sin ella la mercancía no se transporta.",
-        ],
-        cierre:
-          "No hace falta ser experto en embalaje para leer eso. Hace falta saber qué columna es cuál y qué combinaciones no cuadran.",
-      },
-    ],
-  },
-
-  // ── 15 ──────────────────────────────────────────────────────────────────
-  {
-    n: 15,
-    title: "Emergencia en vuelo",
-    kicker: "Asiana 991 y el orden de las decisiones",
-    minutes: 8,
-    blocks: [
-      {
-        kind: "casoReal",
-        titulo: "Asiana Cargo 991",
-        fecha: "28 de julio de 2011",
-        lugar: "Mar de China Oriental, cerca de la isla de Jeju",
-        aeronave: "Boeing 747-48EF · HL7604 · Incheon a Shanghái",
-        mercancia:
-          "Unos 400 kg de mercancías peligrosas, entre ellas baterías de litio, pinturas y líquidos fotorresistentes, en paletas de la parte trasera del fuselaje.",
-        queOcurrio: [
-          "Menos de una hora después del despegue la tripulación recibió la alarma de incendio en la bodega de carga. Declaró emergencia e intentó desviarse a Jeju.",
-          "El fuego avanzó más rápido que el descenso. La tripulación perdió el control y el avión cayó al mar. Murieron los dos pilotos.",
-        ],
-        consecuencia:
-          "La ARAIB de Corea concluyó que el fuego se inició en o cerca de una de las paletas que contenían mercancías peligrosas en el fuselaje trasero. La causa exacta no se pudo determinar porque los registradores de vuelo se perdieron.",
-        leccion:
-          "La segregación y la posición de estiba no son burocracia: el fuego empieza en un sitio concreto. Y cuando la respuesta tiene que darse en minutos, lo que cuenta es lo que la tripulación ya sabía y ya tenía a mano: la información de emergencia disponible de inmediato, la tripulación al corriente de las medidas y el equipo a bordo.",
-        hueco: {
-          id: "MP-IMG-05",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion: "Foto de referencia del 747-400F de Asiana Cargo o de una paleta con mercancías peligrosas etiquetadas. Con crédito.",
-        },
-      },
-      {
-        kind: "p",
-        text: "La respuesta exacta está en el QRH y en la guía de respuesta a emergencias de tu explotador. Lo que sigue es lo que el reglamento exige que exista antes, durante y después, y el orden de las decisiones, que es lo que se pregunta en entrevista y lo que hay que tener claro antes de necesitarlo.",
-      },
-      {
-        kind: "norma",
-        texto:
-          "El explotador debe asegurar que para envíos con respecto a los cuales las Instrucciones Técnicas requieren un documento de transporte de mercancías peligrosas, se disponga en todo momento y de inmediato de la información apropiada para utilizar en la respuesta de emergencia en caso de accidentes e incidentes relacionados con mercancías peligrosas transportadas por vía aérea. (1) Esta información debe estar a disposición del piloto al mando y puede obtenerse del Documento OACI 9481, Orientación sobre respuesta de emergencia para afrontar incidentes aéreos relacionados con mercancías peligrosas. (2) Los tripulantes de la aeronave deberán estar al corriente de las medidas que haya que tomar en caso de emergencia.",
-      },
-      {
-        kind: "flujo",
-        pista: "Elige un momento para leer qué exige la norma.",
-        pasos: [
-          {
-            clave: "info",
-            etiqueta: "Antes · Información",
-            texto:
-              "La información de respuesta de emergencia existe y está disponible de inmediato para el piloto al mando. La fuente que nombra el reglamento es la guía de la OACI para estas emergencias, cuyo código ERG aparece en el NOTOC.",
-          },
-          {
-            clave: "trip",
-            etiqueta: "Antes · Tripulación",
-            texto:
-              "Los tripulantes están al corriente de las medidas que hay que tomar. El explotador las pone en su manual de operaciones.",
-          },
-          {
-            clave: "equipo",
-            etiqueta: "Antes · Equipo",
-            texto:
-              "El equipo de respuesta de emergencia para mercancías peligrosas va a bordo, con instrucción a los tripulantes sobre su uso. Contenido mínimo: bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
-          },
-          {
-            clave: "ats",
-            etiqueta: "Durante · ATS",
-            texto:
-              "De presentarse en vuelo una emergencia, el piloto al mando informa a la dependencia de los servicios de tránsito aéreo, tan pronto la situación lo permita, para que esta informe a la administración aeroportuaria de la presencia de mercancías peligrosas a bordo.",
-          },
-          {
-            clave: "despues",
-            etiqueta: "Después · Servicios de emergencia",
-            texto:
-              "En accidente o incidente grave, el explotador facilita sin dilación al personal de emergencia la información de las mercancías a bordo, conforme a lo proporcionado por escrito al piloto al mando. En incidente, a los servicios de emergencia y a las autoridades del Estado donde ocurrió, si lo piden.",
-          },
-        ],
-      },
-      { kind: "sub", text: "El orden de las decisiones" },
-      {
-        kind: "secuencia",
-        numerada: true,
-        orientacion: "vertical",
-        items: [
-          "**Volar primero.** Control de la aeronave, oxígeno y máscaras, gestión del humo. El orden de prioridades del vuelo no cambia por llevar mercancías peligrosas.",
-          "**Identificar.** El NOTOC dice qué sustancia es, de qué clase y dónde está. Por eso va al alcance del comandante durante el vuelo.",
-          "**Contener.** Aplicar el QRH: fuego y humo, ventilación, y el equipo de respuesta para aislar lo que se pueda.",
-          "**Declarar.** MAYDAY o PAN PAN, e informar al ATS qué mercancía peligrosa hay a bordo, tan pronto la situación lo permita.",
-          "**Desviar.** Al aeródromo adecuado más cercano. Con un incendio a bordo, el tiempo es la variable.",
-          "**Informar.** Pasar los datos de la mercancía a los servicios de emergencia y notificar el suceso (lección 16).",
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "tip",
-        title: "Una forma de recordarlo",
-        text: "Volar, identificar, contener, declarar, desviar, informar. Primero se vuela; el NOTOC es la fuente de información inmediata para todo lo demás.",
-      },
-      {
-        kind: "p",
-        text: "Informar la naturaleza de la mercancía cambia lo que encuentra el avión en tierra: qué agente extintor traen los bomberos, con qué protección se acercan y cómo evacúan. Un aviso tardío convierte una emergencia gestionable en una que se gestiona a ciegas. Por eso el reglamento dice «tan pronto la situación lo permita» y no «de inmediato»: reconoce que primero se controla la aeronave, pero no admite que la información no llegue.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-FLJ-03 · Flujograma · 16:9 · 2000×1125 · SVG",
-        descripcion:
-          "Dos carriles, cabina de mando y cabina de pasajeros, con los hitos: identificación del bulto o dispositivo, consulta del NOTOC y de la guía de respuesta de emergencia, uso del equipo de respuesta, notificación al ATS, coordinación con el aeródromo de destino y entrega de información a los servicios de emergencia.",
-        alto: 320,
-      },
-      {
-        kind: "escenario",
-        titulo: "Olor químico y humo en crucero",
-        situacion:
-          "En crucero, la tripulación de cabina reporta olor químico y humo tenue procedente de la zona del galley trasero. El NOTOC declara un envío de la clase 8 en la bodega posterior y un envío de la división 6.1 en la bodega delantera. Decide qué miras primero, qué consultas, qué usas y a quién informas.",
-        preguntas: [
-          {
-            q: "¿Qué hace la cabina de mando primero?",
-            a: "Volar. Máscaras y oxígeno según el QRH de humo, control de la aeronave y de la ventilación. Solo después, identificar: el NOTOC ya está al alcance del comandante y dice que en la bodega posterior, la más cercana al galley trasero, va un envío de clase 8, corrosivo.",
-          },
-          {
-            q: "¿Qué consultas para saber cómo responder?",
-            a: "La información de respuesta de emergencia, que debe estar disponible de inmediato: la guía de la OACI (o el documento equivalente del explotador) con el código ERG que trae el NOTOC para ese envío.",
-          },
-          {
-            q: "¿Qué hace la tripulación de cabina con lo que tiene?",
-            a: "Lo que su procedimiento indique para humo de origen desconocido, y el equipo de respuesta si hay algo que contener: bolsas grandes de polietileno, ligaduras y guantes largos de goma como mínimo. Con un corrosivo, los guantes no son opcionales.",
-          },
-          {
-            q: "¿A quién informa el comandante y cuándo?",
-            a: "A la dependencia ATS, tan pronto la situación lo permita, para que esta informe a la administración aeroportuaria de la presencia de mercancías peligrosas a bordo. Con el desvío decidido, ese aviso es lo que hace que los bomberos lleguen sabiendo que hay un corrosivo.",
-          },
-          {
-            q: "¿Qué pasa después de aterrizar?",
-            a: "El explotador facilita sin dilación la información de las mercancías a los servicios de emergencia. Y es un incidente imputable a mercancías peligrosas: una ocurrencia relacionada con el transporte que vulneró la integridad de un embalaje o pudo poner en peligro a la aeronave. Se notifica.",
-          },
-        ],
-        concepto: "El orden de las decisiones (volar, identificar, contener, declarar, desviar, informar) y las cuatro cosas que el reglamento exige que existan antes de que algo pase.",
-      },
-      {
-        kind: "piensaComoPiloto",
-        momento: "FL330, 40 minutos de destino",
-        situacion:
-          "Salta la alarma de humo de la bodega delantera. Es la bodega donde, según el papel que firmaste, van dos bultos de clase 3 y uno de clase 8 en el mismo ULD. La tripulación de cabina no reporta nada raro arriba.",
-        pregunta: "¿En qué orden haces las cosas?",
-        claves: [
-          "**Primero el avión.** Procedimiento de humo o incendio en bodega del fabricante, y descenso o desvío si el procedimiento lo pide. Nada de esto empieza consultando papeles.",
-          "**Después el papel.** El NOTOC me dice qué hay, cuánto y en qué posición. Clase 3 en el ULD que arde cambia lo que espero: líquido inflamable.",
-          "**Después tierra.** El piloto al mando informa a la dependencia de tránsito aéreo, y esa es la vía por la que el aeródromo prepara los medios. Doy qué llevo, cuánto y dónde.",
-          "**Y la información de emergencia**, que tiene que estar disponible de inmediato: el código de intervención de la guía de la OACI me dice cómo se comporta esa mercancía.",
-        ],
-        cierre:
-          "El orden importa: volar, luego identificar, luego comunicar. Invertirlo es el error clásico, y consume el único recurso que no se recupera, que es el tiempo.",
-      },
-    ],
-  },
-
-  // ── 16 ──────────────────────────────────────────────────────────────────
-  {
-    n: 16,
-    title: "Notificar: qué, a quién y por qué",
-    kicker: "Sucesos y SMS",
-    minutes: 6,
-    blocks: [
-      {
-        kind: "p",
-        text: "Lo que pasó se notifica, aunque haya terminado bien. Y también lo que no pasó: el hallazgo de una mercancía no declarada, mal declarada o no permitida es un suceso, con o sin consecuencias. Ese reporte es el que hace que el sistema encuentre al expedidor que no declaró, y es la parte que más se olvida.",
-      },
-      {
-        kind: "table",
-        head: ["Qué ocurre", "A quién se notifica", "Tipo"],
-        rows: [
-          ["Accidente o incidente relacionado con mercancías peligrosas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Daño o peligro"],
-          ["Se descubren en la carga o el correo mercancías no declaradas o mal declaradas", "Autoridades del Estado del explotador y del Estado donde ocurrió", "Hallazgo en carga"],
-          ["Se descubren mercancías no permitidas en el equipaje o en la persona de pasajeros o tripulantes", "Autoridades del Estado donde ocurrió", "Hallazgo en equipaje"],
-          ["Se transportaron mercancías mal cargadas, segregadas, separadas o afianzadas, o sin información al piloto al mando", "Autoridades del Estado del explotador y del Estado de origen", "Fallo de estiba o de NOTOC"],
-          ["Entidades distintas del explotador que poseen mercancías al ocurrir un accidente o incidente", "Los mismos que el explotador", "Daño o peligro (terceros)"],
-          ["Entidades distintas del explotador que descubren mercancías no declaradas o mal declaradas (aduanas, inspección de seguridad)", "Los mismos que el explotador", "Hallazgo (terceros)"],
-        ],
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "¿A quién se notifica?",
-        text: "A las autoridades que corresponda del Estado del explotador y del Estado donde ocurrió el suceso. En un vuelo internacional pueden ser dos autoridades distintas, y las dos esperan el aviso. Los plazos y el formulario los fija cada una: búscalos en el manual de tu explotador antes de necesitarlos, no el día del suceso.",
-      },
-      { kind: "sub", text: "Los tres niveles de suceso" },
-      {
-        kind: "fichas",
-        columnas: 3,
-        items: [
-          {
-            titulo: "Accidente imputable",
-            puntos: [
-              "Suceso atribuible al transporte aéreo de mercancías peligrosas o relacionado con él.",
-              "Ocasiona lesiones mortales o graves a alguna persona, o daños de consideración a los bienes o al medio ambiente.",
-            ],
-          },
-          {
-            titulo: "Incidente imputable",
-            puntos: [
-              "Ocurrencia atribuible al transporte y relacionada con él que no constituye accidente. No tiene que producirse a bordo.",
-              "Ocasiona lesiones, daños, incendio, ruptura, derramamiento, fugas, radiación o cualquier manifestación de que se vulneró un embalaje.",
-              "También, toda ocurrencia que pueda haber puesto en peligro a la aeronave o a sus ocupantes.",
-            ],
-          },
-          {
-            titulo: "Incumplimiento imputable",
-            puntos: [
-              "Ocurrencia atribuible al transporte de mercancías peligrosas que no tiene como resultado un incidente ni un accidente.",
-              "El nivel más bajo de la escala, y el que más datos aporta al sistema.",
-            ],
-          },
-        ],
-      },
-      {
-        kind: "definicion",
-        text: "Suceso con mercancías peligrosas: cualquier ocurrencia de incumplimiento, incidente o accidente imputable a mercancías peligrosas, incluyendo el descubrimiento de una mercancía peligrosa oculta. Los tres niveles más el hallazgo.",
-      },
-      {
-        kind: "norma",
-        texto:
-          "Las Organizaciones Aeronáuticas deben integrar los programas de manejo de mercancías peligrosas a sus propios sistemas de gestión, SMS, con el fin de mantener en esta área los niveles aceptables de seguridad que prevengan la ocurrencia de accidentes e incidentes.",
-      },
-      {
-        kind: "callout",
-        tone: "info",
-        title: "Por qué esto es SMS y no papeleo",
-        text: "El transporte de mercancías peligrosas entra en el alcance del SMS del explotador: no es un trámite aparte, es parte del sistema con el que la empresa gestiona su seguridad. Y las autoridades recopilan además los incumplimientos que no llegan a incidente ni accidente, para trabajar de forma predictiva y proactiva. Un incumplimiento reportado hoy es el accidente que no ocurre el año que viene.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Consecuencia del incumplimiento",
-        text: "El incumplimiento da lugar a acciones administrativas, sin perjuicio de las penales, conforme a la legislación de cada país. Qué norma sanciona y con cuánto cambia según el Estado: en Colombia es el RAC 13, Régimen Sancionatorio. Y alcanza también al caso en que otro Estado notifica la infracción de un explotador extranjero, o el envío llega sin cumplir las Instrucciones.",
-      },
-      {
-        kind: "enLaOperacion",
-        momento: "Después del vuelo",
-        texto:
-          "Se notifica todo suceso o accidente con mercancías peligrosas, y también el hallazgo de mercancías no declaradas o mal declaradas, aunque no haya pasado nada. Si en el turnaround aparece una batería suelta en una maleta facturada, si un bulto llegó mojado, si el NOTOC no traía un envío que sí iba: los tres se reportan por el canal de tu explotador. Primero se vuela; después, lo que pasó se cuenta.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-DIA-03 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Los cuatro niveles de suceso como una escalera ascendente: incumplimiento (sin daño), incidente (daño, fuga, lesión), accidente (lesiones graves o mortales, daños de consideración) y, cruzando los tres, el descubrimiento de una mercancía oculta. La flecha del valor para el SMS apunta al revés que la de la gravedad: el escalón más bajo es el que más enseña.",
-        alto: 300,
+        kind: "cta",
+        texto: "Con las catorce lecciones leídas, lo que sigue es usarlas: reconocer etiquetas, clasificar envíos, resolver escenarios y ensayar las preguntas de una entrevista.",
+        destino: MP_PRACTICA,
+        rotulo: "Ir a la práctica",
       },
       {
         kind: "ponAPrueba",
-        titulo: "Control del nivel 4",
+        titulo: "Control del nivel 5",
         preguntas: [
           {
-            q: "Durante la descarga se detecta una avería en un bulto con mercancías peligrosas. ¿Qué exige el reglamento además de retirarlo?",
+            q: "¿Qué tienen en común los cuatro accidentes de esta lección?",
             opciones: [
               {
-                t: "Inspeccionar la zona en que iba estibado para averiguar si hay daños o contaminación, y eliminar sin demora toda contaminación peligrosa.",
+                t: "Todos empezaron en cabina por un dispositivo de un pasajero.",
+                fb: "Ninguno. Los cuatro empezaron en una bodega o en la cubierta de carga: con carga mal declarada, con baterías de litio como carga, o con un fuego al que no se podía llegar.",
+              },
+              {
+                t: "Todos empezaron en una bodega y la tripulación se enteró cuando el fuego ya llevaba minutos.",
                 ok: true,
-                fb: "La avería no se cierra retirando el bulto: hay que revisar la zona de estiba y descontaminar. El explotador comprueba además que el resto del envío está en condiciones y que no quedó contaminado ningún otro bulto.",
+                fb: "Es el patrón. Por eso el reglamento actúa antes del vuelo (aceptación, estiba, segregación, información al comandante) y exige que lo necesario para responder ya esté a bordo.",
               },
               {
-                t: "Solo anotarlo en la bitácora y continuar.",
-                fb: "La norma impone acciones materiales: descargar, verificar el resto del envío, comprobar la contaminación de otros bultos y eliminar sin demora la contaminación peligrosa.",
-              },
-              {
-                t: "Esperar instrucciones del expedidor.",
-                fb: "La obligación de actuar es del explotador; el expedidor responde por la preparación del envío, no por la respuesta en plataforma.",
+                t: "En todos se determinó la causa exacta y se sancionó al expedidor.",
+                fb: "En South African 295 y en Asiana 991 la causa de la ignición nunca se determinó. Y la lección no es la sanción: es lo que cambió en la norma después.",
               },
             ],
           },
           {
-            q: "En un carguero, ¿dónde va un bulto con la etiqueta «Exclusivamente en aeronaves de carga»?",
+            q: "En ValuJet 592, ¿en qué eslabones de la cadena falló el sistema?",
             opciones: [
               {
-                t: "En cualquier posición: en carguero no hay restricción.",
-                fb: "Sí la hay. Se cargan de modo que un tripulante o persona autorizada pueda verlos, manipularlos y, si su tamaño y peso lo permiten, separarlos en vuelo de las otras mercancías.",
+                t: "Solo en la tripulación, que no revisó la bodega.",
+                fb: "La tripulación firmó un manifiesto que decía «vacíos». El fallo estaba antes: en quien no identificó ni embaló (expedidor), en quien no vigiló a su contratista (explotador) y en una regla de diseño que la autoridad no había cerrado.",
               },
               {
-                t: "Donde un tripulante pueda verlo, manipularlo y separarlo en vuelo.",
+                t: "En el expedidor que no identificó ni embaló, en el explotador que no vigiló ni capacitó, y en una regla de diseño de la autoridad.",
                 ok: true,
-                fb: "Es la lección del Helderberg: un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada. La accesibilidad es la condición para que existan los CAO.",
+                fb: "Tres fallas, tres responsabilidades: la del expedidor, que debe clasificar, embalar y declarar; la del explotador, que responde por sus agentes y por la instrucción de su personal; y la exigencia de detección y supresión en bodegas de clase D que vino después.",
               },
               {
-                t: "Lo más lejos posible de la cabina de mando.",
-                fb: "La distancia no es el criterio; el acceso sí. Un bulto CAO al fondo de la bodega inferior, inaccesible en vuelo, incumple el (d) y el (e).",
+                t: "En el fabricante de los generadores.",
+                fb: "Los generadores funcionaron como estaban diseñados: produjeron oxígeno y calor. El problema fue transportarlos sin tapas, sin declarar y sin embalar.",
               },
             ],
           },
           {
-            q: "Un agente quiere aceptar un envío de mercancías peligrosas «porque el expedidor es de confianza», sin documento de transporte. ¿Puede?",
+            q: "Han pasado 25 meses desde tu último curso recurrente de mercancías peligrosas. ¿Qué corresponde?",
             opciones: [
               {
-                t: "Sí, si inspecciona bien el bulto.",
-                fb: "La inspección es la segunda condición, no un sustituto de la primera. Sin documento de transporte debidamente diligenciado no se acepta, salvo que las Instrucciones digan que no se requiere.",
-              },
-              {
-                t: "No: sin documento de transporte diligenciado y sin inspeccionar el bulto no se acepta.",
+                t: "Estás fuera del mínimo de 24 meses; el LAR admite el recurrente dentro de los 30 días siguientes al vencimiento, y pasado ese plazo toca instrucción inicial de nuevo.",
                 ok: true,
-                fb: "Las dos condiciones son acumulativas. Y el personal usa una lista de verificación para no saltarse ninguna.",
+                fb: "El mínimo de cada 24 meses es la regla general; el LAR añade la ventana de 30 días y la consecuencia de excederla: nueva instrucción inicial, no recurrente.",
               },
               {
-                t: "Sí, si el comandante lo autoriza.",
-                fb: "El comandante no puede autorizar lo que la norma prohíbe al explotador. Un envío sin documento no debería llegar nunca a tu firma.",
+                t: "No pasa nada mientras no vueles con carga peligrosa.",
+                fb: "La exigencia no depende de qué transporta el vuelo: aplica a quienes realizan o supervisan funciones relacionadas con pasajeros, equipajes, carga o correo, y a explotadores que ni siquiera aceptan mercancías peligrosas.",
+              },
+              {
+                t: "Se repone con el recurrente en cualquier momento del año.",
+                fb: "Pasada la ventana de 30 días, lo que corresponde es la instrucción inicial completa.",
               },
             ],
           },
           {
-            q: "Se descubre que un vuelo transportó mercancías peligrosas sin que se hubiera proporcionado la información al piloto al mando. ¿Qué obligación nace?",
+            q: "¿Qué documento son las «Instrucciones Técnicas» y quién las publica?",
             opciones: [
               {
-                t: "Notificar el suceso a las autoridades del Estado del explotador y del Estado de origen.",
+                t: "El Doc 9284 de la OACI, que cada reglamento nacional adopta en su última versión publicada.",
                 ok: true,
-                fb: "El reglamento obliga a notificar todo suceso en el que se descubra que se transportaron mercancías peligrosas mal cargadas, segregadas, separadas o afianzadas, o respecto de las cuales no se proporcionó información al piloto al mando.",
+                fb: "Son las Instrucciones Técnicas para el transporte sin riesgos de mercancías peligrosas por vía aérea, Doc 9284, aprobadas y publicadas periódicamente por la OACI. Cada autoridad las adopta en su última versión y toma las medidas para que sus enmiendas se apliquen.",
               },
               {
-                t: "Ninguna, si el vuelo terminó sin novedad.",
-                fb: "La obligación de notificar no depende de que haya habido consecuencias: es el hallazgo lo que la activa.",
+                t: "El Doc 9375 de la OACI, que cada autoridad adopta para la instrucción.",
+                fb: "El Doc 9375 es el Programa de Instrucción sobre Mercancías Peligrosas: sirve para diseñar la capacitación, no es la norma técnica del transporte.",
               },
               {
-                t: "Solo registrarlo internamente en el SMS del explotador.",
-                fb: "Se integra al SMS y además se notifica a las autoridades que correspondan.",
+                t: "El Doc 9481 de la OACI, que cada autoridad adopta para la respuesta de emergencia.",
+                fb: "El Doc 9481 es la orientación de respuesta de emergencia, la que debe estar disponible de inmediato en vuelo. Las Instrucciones Técnicas son el Doc 9284.",
               },
             ],
           },
           {
-            q: "¿Cuándo debe firmar el piloto al mando la información sobre mercancías peligrosas?",
+            q: "¿Qué obligación tiene un explotador que decidió no transportar mercancías peligrosas?",
             opciones: [
               {
-                t: "Antes de que las mercancías sean transportadas.",
+                t: "Especificar en su manual los procedimientos para evitar que se introduzcan mercancías no declaradas, y capacitar igualmente a su personal.",
                 ok: true,
-                fb: "Es literal. Además la información debe estar a su alcance durante el vuelo y el explotador conserva copia en tierra.",
+                fb: "La norma es explícita: tenga o no autorización para transportarlas, el explotador mantiene programas de instrucción inicial y de repaso. Que no las acepte no significa que no le lleguen.",
               },
               {
-                t: "Al cierre de puertas.",
-                fb: "No es el criterio de la norma. La información se proporciona lo antes posible antes de la salida y se firma antes del transporte.",
+                t: "Ninguna: el reglamento no le aplica.",
+                fb: "El reglamento es expreso en incluir a los explotadores que no aceptan mercancías peligrosas, precisamente porque son los que más riesgo tienen de recibirlas sin declarar.",
               },
               {
-                t: "Al llegar al destino, junto con el resto de la documentación.",
-                fb: "Sería demasiado tarde para cumplir su función: saber qué llevas y dónde antes de despegar.",
-              },
-            ],
-          },
-          {
-            q: "Vuelas Bogotá a Madrid con mercancías peligrosas. ¿En qué idioma va la información al piloto al mando?",
-            opciones: [
-              {
-                t: "Solo en el idioma que exija el Estado de origen.",
-                fb: "El español va, pero no basta: en transporte internacional, además de los idiomas exigidos por el Estado de origen, debe utilizarse el inglés.",
-              },
-              {
-                t: "En español y además en inglés.",
-                ok: true,
-                fb: "Es la misma regla que para las marcas: en transporte internacional, inglés además de los idiomas del Estado de origen.",
-              },
-              {
-                t: "Solo en inglés, como toda la documentación internacional.",
-                fb: "El inglés se añade a los idiomas exigidos por el Estado de origen, no los reemplaza.",
-              },
-            ],
-          },
-          {
-            q: "¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
-            opciones: [
-              {
-                t: "Bolsas grandes de polietileno de buena calidad, ligaduras para las bolsas y guantes largos de goma.",
-                ok: true,
-                fb: "Es literal, y es dato de examen. El reglamento fija ese contenido como mínimo y exige instrucción a los tripulantes sobre su uso.",
-              },
-              {
-                t: "Extintor de halón, máscara antihumo y guantes ignífugos.",
-                fb: "Ese es equipamiento contra incendios exigido por otras partes de la reglamentación. El equipo de respuesta de mercancías peligrosas es de contención.",
-              },
-              {
-                t: "La guía de respuesta de emergencia impresa y el NOTOC.",
-                fb: "Esos son información, no equipo. El reglamento separa la información de respuesta del equipo.",
-              },
-            ],
-          },
-          {
-            q: "Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
-            opciones: [
-              {
-                t: "Informar al ATC qué mercancía llevas.",
-                fb: "Viene enseguida, pero después. El propio reglamento dice «tan pronto la situación lo permita»: primero se controla la aeronave.",
-              },
-              {
-                t: "Volar la aeronave y gestionar el humo.",
-                ok: true,
-                fb: "Primero se vuela: control de la aeronave, oxígeno y máscaras, gestión del humo. Identificar con el NOTOC y avisar al ATS vienen inmediatamente después.",
-              },
-              {
-                t: "Consultar el NOTOC para identificar la sustancia.",
-                fb: "Es el segundo paso. Identificar sin haber asegurado el control de la aeronave es empezar por el final.",
-              },
-            ],
-          },
-          {
-            q: "En la emergencia, ¿a quién informa el piloto al mando de que lleva mercancías peligrosas, y para qué?",
-            opciones: [
-              {
-                t: "Al expedidor, para que confirme el contenido.",
-                fb: "El expedidor no está en la cadena de respuesta en vuelo. La información ya está a bordo, en el NOTOC.",
-              },
-              {
-                t: "A la dependencia ATS, para que esta informe a la administración aeroportuaria.",
-                ok: true,
-                fb: "Es la cadena que fija el reglamento: comandante → ATS → administración aeroportuaria. Así los bomberos saben qué van a encontrar antes de que el avión toque pista.",
-              },
-              {
-                t: "Directamente a los bomberos del aeródromo de destino.",
-                fb: "El comandante no tiene ese canal. Habla con el ATS, y el ATS con el aeródromo. Después del aterrizaje, es el explotador quien entrega la información a los servicios de emergencia.",
-              },
-            ],
-          },
-          {
-            q: "Un pasajero es sorprendido en el filtro con un artículo de la clase 2 no permitido. ¿Quién notifica y a quién?",
-            opciones: [
-              {
-                t: "El explotador notifica a las autoridades del Estado en el cual ocurrió; y las entidades distintas del explotador que descubren el hallazgo deberían cumplir los mismos requisitos.",
-                ok: true,
-                fb: "El reglamento obliga al explotador a notificar cuando se descubren mercancías no permitidas en el equipaje o en la persona, y extiende el deber a entidades como las autoridades aduaneras y los proveedores de inspección de seguridad.",
-              },
-              {
-                t: "Nadie: como no llegó a bordo, no hubo suceso.",
-                fb: "El descubrimiento de una mercancía peligrosa oculta es, por definición, un suceso con mercancías peligrosas.",
-              },
-              {
-                t: "Solo la autoridad aeroportuaria, en su informe interno.",
-                fb: "La obligación primaria recae en el explotador, y la norma extiende expresamente el deber de notificación a otras entidades.",
-              },
-            ],
-          },
-          {
-            q: "Un bulto de mercancías peligrosas voló sin la segregación exigida. Nadie resultó afectado y nada se derramó. ¿Qué es?",
-            opciones: [
-              {
-                t: "Nada: sin daño no hay suceso.",
-                fb: "Sí hay suceso. Una ocurrencia atribuible al transporte que no produce incidente ni accidente es un incumplimiento imputable, y el reglamento obliga a notificar lo transportado sin segregar correctamente.",
-              },
-              {
-                t: "Un incumplimiento imputable a mercancías peligrosas, que se notifica.",
-                ok: true,
-                fb: "Es el nivel más bajo de la escala y el que más datos aporta al sistema. Se notifica a las autoridades del Estado del explotador y del Estado de origen.",
-              },
-              {
-                t: "Un incidente imputable.",
-                fb: "El incidente exige una manifestación: lesiones, daños, incendio, fuga, o haber puesto en peligro a la aeronave. Sin nada de eso, es incumplimiento, y se notifica igual.",
-              },
-            ],
-          },
-          {
-            q: "La autoridad recopila datos sobre eventos con mercancías peligrosas que no constituyen accidente ni incidente. ¿Para qué?",
-            opciones: [
-              {
-                t: "Para alimentar los sistemas de recopilación y procesamiento de datos e implementar procesos predictivos y proactivos.",
-                ok: true,
-                fb: "Es la conexión directa entre mercancías peligrosas y el SMS: prevenir la ocurrencia de accidentes e incidentes con lo que el sistema aprende de lo que casi pasa.",
-              },
-              {
-                t: "Para calcular sanciones.",
-                fb: "El régimen sancionatorio existe, pero la finalidad declarada de esta recopilación es preventiva, no punitiva.",
-              },
-              {
-                t: "Para publicar estadísticas ante la OACI.",
-                fb: "La cooperación y el intercambio de información existen, pero el objeto de esta recopilación es el proceso predictivo y proactivo.",
+                t: "Solo informar a la autoridad su decisión.",
+                fb: "Insuficiente. La obligación material es tener procedimientos contra las no declaradas y capacitar.",
               },
             ],
           }

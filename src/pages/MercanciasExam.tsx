@@ -57,7 +57,7 @@ const CONFIG: ExamenConfig = {
     }
   },
   pasos: {
-    leccion: `Las ${MP_LECTURA_TOTAL} lecciones en cinco niveles: de la definición al NOTOC, con el artículo de cada afirmación.`,
+    leccion: `Las ${MP_LECTURA_TOTAL} lecciones en cuatro niveles: de la definición al NOTOC, con el artículo de cada afirmación.`,
     practica: "Etiquetas, clasificación, escenarios operacionales y las preguntas de una entrevista técnica.",
   },
 }

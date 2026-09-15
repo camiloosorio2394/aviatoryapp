@@ -498,216 +498,6 @@
       }
     },
     {
-      "id": "34",
-      "enunciado": "Un artículo no aparece en la lista, pero en las condiciones normales de transporte produce llamas. ¿Puede volar?",
-      "opciones": [
-        "Sí, porque no está nombrado en la lista de mercancías peligrosas de las Instrucciones Técnicas",
-        "Solo con dispensa",
-        "No: lo prohíbe el criterio material",
-        "Sí, pero solo en carguero"
-      ],
-      "correcta": 2,
-      "explicacion": "En ningún caso se transportan artículos que en las condiciones habituales del transporte puedan explotar, reaccionar peligrosamente, producir llamas o calor o emitir vapores peligrosos. La lista no es exhaustiva.",
-      "metadatos": {
-        "leccion": 9
-      }
-    },
-    {
-      "id": "35",
-      "enunciado": "¿Qué nivel de permiso aplica a los animales vivos infectados?",
-      "opciones": [
-        "Permitido sin más",
-        "Prohibido salvo dispensa",
-        "Prohibido en todos los casos",
-        "Permitido solo por correo"
-      ],
-      "correcta": 1,
-      "explicacion": "El reglamento los nombra expresamente: los animales vivos infectados estarán prohibidos salvo dispensa de la autoridad.",
-      "metadatos": {
-        "leccion": 9
-      }
-    },
-    {
-      "id": "36",
-      "enunciado": "¿Qué indica la palabra «Prohibido» en las columnas 2 y 3 de la lista de mercancías peligrosas?",
-      "opciones": [
-        "Prohibido solo en pasajeros",
-        "Prohibido salvo dispensa",
-        "Prohibido en todos los casos",
-        "Prohibido solo en Colombia"
-      ],
-      "correcta": 2,
-      "explicacion": "Las mercancías prohibidas cualesquiera que sean las circunstancias van con «Prohibido» en las columnas 2 y 3; las prohibidas en circunstancias normales, en las columnas de pasajeros o de carga.",
-      "metadatos": {
-        "leccion": 9
-      }
-    },
-    {
-      "id": "37",
-      "enunciado": "¿Qué dice el reglamento colombiano sobre las mercancías peligrosas en la aviación civil privada?",
-      "opciones": [
-        "Con aprobación",
-        "Solo en cantidades limitadas",
-        "Se prohíben todas",
-        "Solo en helicópteros"
-      ],
-      "correcta": 2,
-      "explicacion": "Por razones de seguridad se prohíbe el transporte de todo tipo de mercancías peligrosas en aeronaves clasificadas dentro de la aviación civil privada.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "38",
-      "enunciado": "Operas un monomotor y te piden llevar carga de la clase 8. ¿Qué necesitas?",
-      "opciones": [
-        "Nada especial: la clase 8 no está restringida en monomotores ni en la aviación civil privada",
-        "Aprobación de la autoridad, previa verificación de las condiciones de seguridad",
-        "Una dispensa del Estado de destino y del Estado de origen",
-        "Nada: está prohibido en todos los casos, como la clase 3"
-      ],
-      "correcta": 1,
-      "explicacion": "Lo prohibido en monomotor es la clase 3 combustibles. Las demás clases requieren aprobación de la autoridad, que además determina los aeródromos donde no aprueba esa operación.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "39",
-      "enunciado": "¿Qué mercancías peligrosas admite el correo aéreo en Colombia?",
-      "opciones": [
-        "Ninguna, sin excepción, por la limitación general del correo aéreo",
-        "Muestras de pacientes, infecciosas con hielo seco y radiactivo de muy baja actividad",
-        "Las mismas que en carga, si el operador postal designado las acepta con su manual y su programa de instrucción aprobados",
-        "Solo baterías de litio instaladas en equipos y en cantidades limitadas"
-      ],
-      "correcta": 1,
-      "explicacion": "Son las tres excepciones que admite la norma, a reserva de las autoridades postales y la UPU. El explotador necesita además la autorización en sus OpSpecs.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "40",
-      "enunciado": "Un expedidor entrega material radiactivo en Colombia. ¿Qué documento adicional presenta al explotador?",
-      "opciones": [
-        "Una dispensa de la autoridad",
-        "La autorización del Servicio Geológico Colombiano",
-        "Un certificado de la OIEA sobre el diseño del bulto y la actividad total del envío",
-        "Nada adicional"
-      ],
-      "correcta": 1,
-      "explicacion": "Cuando se trate de transportar material radiactivo, el expedidor presenta al explotador la autorización del Servicio Geológico Colombiano, Grupo de Seguridad Nuclear y Protección Radiológica.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "41",
-      "enunciado": "Según la discrepancia BR 6, ¿en qué idioma van las marcas en el transporte interior de Brasil?",
-      "opciones": [
-        "En inglés",
-        "En portugués",
-        "En español",
-        "El del explotador"
-      ],
-      "correcta": 1,
-      "explicacion": "Para todo el transporte del interior en territorio brasileño debe utilizarse el portugués en todas las marcas y documentos; para el internacional con origen en Brasil, además el inglés.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "42",
-      "enunciado": "¿Qué debe hacer el expedidor antes de entregar mercancías peligrosas respecto a las discrepancias de los Estados?",
-      "opciones": [
-        "Nada: las discrepancias son responsabilidad exclusiva del explotador",
-        "Observar las de cada Estado involucrado y las del explotador",
-        "Pedir una dispensa a cada Estado de tránsito y de destino",
-        "Consultar únicamente las discrepancias notificadas por Colombia"
-      ],
-      "correcta": 1,
-      "explicacion": "El expedidor observa las diferencias de cada Estado involucrado en el transporte y las notificadas por el explotador al que va a entregar la mercancía.",
-      "metadatos": {
-        "leccion": 10
-      }
-    },
-    {
-      "id": "43",
-      "enunciado": "¿Cuál es la regla general para las mercancías peligrosas en el equipaje de pasajeros y tripulantes?",
-      "opciones": [
-        "Permitidas en el equipaje facturado y prohibidas en el de mano",
-        "Prohibidas, salvo lo que admiten las Instrucciones Técnicas",
-        "Permitidas hasta 5 kg por persona con aviso en el mostrador",
-        "Permitidas para los tripulantes y prohibidas para los pasajeros"
-      ],
-      "correcta": 1,
-      "explicacion": "Prohibición general en equipaje facturado, de mano y en la persona, con la única excepción de lo que admiten las Instrucciones Técnicas y cumpliendo todos sus requisitos. Los tripulantes tienen la misma regla.",
-      "metadatos": {
-        "leccion": 11
-      }
-    },
-    {
-      "id": "44",
-      "enunciado": "Un pasajero compra su billete por internet. ¿Qué exige la norma sobre las mercancías peligrosas?",
-      "opciones": [
-        "Que se le envíe la lista de prohibidos por correo después de la compra",
-        "Que la compra no se complete sin su confirmación de haber entendido",
-        "Nada en ese momento: la información se le da en el mostrador",
-        "Que firme una declaración impresa antes de embarcar"
-      ],
-      "correcta": 1,
-      "explicacion": "En el punto de compra la información puede ir en texto o ilustración, pero el procedimiento debe ser tal que la compra no pueda completarse sin que el pasajero indique que comprendió las restricciones.",
-      "metadatos": {
-        "leccion": 11
-      }
-    },
-    {
-      "id": "45",
-      "enunciado": "En la recepción del equipaje, ¿qué debe obtener el personal del pasajero?",
-      "opciones": [
-        "Solo su confirmación verbal de que no lleva mercancías no permitidas, registrada por el agente en el sistema de despacho",
-        "Confirmación de que no lleva no permitidas y del contenido de lo sospechoso",
-        "Una copia firmada de la declaración del expedidor por cada maleta",
-        "Nada: la revisión corresponde al control de seguridad del aeródromo"
-      ],
-      "correcta": 1,
-      "explicacion": "Dos confirmaciones: que no lleva mercancías no permitidas y, ante cualquier artículo que haga sospechar, qué contiene.",
-      "metadatos": {
-        "leccion": 11
-      }
-    },
-    {
-      "id": "46",
-      "enunciado": "¿Qué es una mercancía peligrosa oculta?",
-      "opciones": [
-        "Una mercancía estibada en una posición inaccesible durante el vuelo",
-        "Carga con descripción general que debió declararse como peligrosa",
-        "Una mercancía cuya etiqueta de riesgo se despegó en la rampa",
-        "Un envío en cantidades exceptuadas que viaja sin la etiqueta de 100 mm"
-      ],
-      "correcta": 1,
-      "explicacion": "También lo es la mercancía prohibida o en exceso en el equipaje, en la persona o en el correo. «Oxy Canisters, Empty» en ValuJet es el ejemplo clásico.",
-      "metadatos": {
-        "leccion": 12
-      }
-    },
-    {
-      "id": "47",
-      "enunciado": "¿Qué información debe tener a mano el personal de reservas, ventas y recepción de carga y pasajeros?",
-      "opciones": [
-        "El precio del transporte de mercancías peligrosas por kilogramo y destino",
-        "Descripciones generales sospechosas, otras indicaciones y lo permitido al pasajero",
-        "El listado completo de sanciones y sus cuantías vigentes, para informar al expedidor en el momento de la aceptación",
-        "Los teléfonos de la OACI y de la Unión Postal Universal para consultas"
-      ],
-      "correcta": 1,
-      "explicacion": "Son las tres cosas que exige la norma: descripciones generales que pueden esconder mercancías peligrosas, otras indicaciones (etiquetas, marcas) y lo que el pasajero sí puede llevar.",
-      "metadatos": {
-        "leccion": 12
-      }
-    },
-    {
       "id": "48",
       "enunciado": "¿Cuáles son las dos condiciones acumulativas para aceptar mercancías peligrosas?",
       "opciones": [
@@ -719,7 +509,7 @@
       "correcta": 1,
       "explicacion": "Ningún explotador acepta mercancías peligrosas a menos que vayan con documento de transporte diligenciado y hasta que haya inspeccionado el bulto conforme a las Instrucciones. Con lista de verificación.",
       "metadatos": {
-        "leccion": 13
+        "leccion": 9
       }
     },
     {
@@ -734,7 +524,7 @@
       "correcta": 2,
       "explicacion": "Es la primera prohibición de estiba que fija la norma: nada en la cabina ocupada por pasajeros ni en el puesto de pilotaje.",
       "metadatos": {
-        "leccion": 13
+        "leccion": 9
       }
     },
     {
@@ -749,7 +539,7 @@
       "correcta": 1,
       "explicacion": "Es la lección de South African 295: un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada.",
       "metadatos": {
-        "leccion": 13
+        "leccion": 9
       }
     },
     {
@@ -764,7 +554,7 @@
       "correcta": 1,
       "explicacion": "Los bultos de materiales radiactivos se estiban separados de las personas, los animales vivos y las películas no reveladas, conforme a las Instrucciones.",
       "metadatos": {
-        "leccion": 13
+        "leccion": 9
       }
     },
     {
@@ -779,7 +569,7 @@
       "correcta": 2,
       "explicacion": "Se inspecciona la zona donde iba estibado, el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado, y elimina la contaminación sin demora.",
       "metadatos": {
-        "leccion": 13
+        "leccion": 9
       }
     },
     {
@@ -794,7 +584,7 @@
       "correcta": 1,
       "explicacion": "La información por escrito deberá ser firmada por el piloto al mando antes de que las mercancías sean transportadas.",
       "metadatos": {
-        "leccion": 14
+        "leccion": 10
       }
     },
     {
@@ -809,7 +599,7 @@
       "correcta": 2,
       "explicacion": "En el transporte internacional, además de los idiomas exigidos por el Estado de origen, deberá utilizarse el inglés. La misma regla aplica a las marcas.",
       "metadatos": {
-        "leccion": 14
+        "leccion": 10
       }
     },
     {
@@ -824,7 +614,7 @@
       "correcta": 1,
       "explicacion": "La información prevista deberá estar al alcance del piloto al mando durante el vuelo; además, a disposición del aeródromo de última salida y del de próxima llegada, y el explotador conserva copia en tierra.",
       "metadatos": {
-        "leccion": 14
+        "leccion": 10
       }
     },
     {
@@ -839,7 +629,7 @@
       "correcta": 2,
       "explicacion": "Es literal. El explotador da además instrucción a los tripulantes sobre su uso.",
       "metadatos": {
-        "leccion": 15
+        "leccion": 11
       }
     },
     {
@@ -854,7 +644,7 @@
       "correcta": 1,
       "explicacion": "La cadena es: comandante → ATS → administración aeroportuaria. «Tan pronto la situación lo permita» porque primero se controla la aeronave.",
       "metadatos": {
-        "leccion": 15
+        "leccion": 11
       }
     },
     {
@@ -869,7 +659,7 @@
       "correcta": 2,
       "explicacion": "Puede obtenerse de la guía de respuesta de emergencia de la OACI o de cualquier otro documento con información equivalente y apropiada respecto a las mercancías a bordo.",
       "metadatos": {
-        "leccion": 15
+        "leccion": 11
       }
     },
     {
@@ -884,7 +674,7 @@
       "correcta": 2,
       "explicacion": "Una ocurrencia atribuible al transporte que no produce incidente ni accidente es un incumplimiento imputable, y hay obligación de notificar lo transportado sin segregar correctamente.",
       "metadatos": {
-        "leccion": 16
+        "leccion": 12
       }
     },
     {
@@ -899,7 +689,7 @@
       "correcta": 1,
       "explicacion": "Es la conexión directa entre mercancías peligrosas y el SMS: el transporte de mercancías peligrosas entra en el ámbito del SMS del explotador y la autoridad recopila hasta lo que no llega a incidente.",
       "metadatos": {
-        "leccion": 16
+        "leccion": 12
       }
     }
   ]

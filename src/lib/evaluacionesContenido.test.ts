@@ -61,8 +61,8 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     // o se agrega aquí con su razón.
     const conocidas = [
       "src/lib/mercanciasLeccion/nivel2.ts: Un pasajero quiere llevar un power bank en su maleta facturada. ¿Puede?",
-      "src/lib/mercanciasLeccion/nivel4.ts: ¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
-      "src/lib/mercanciasLeccion/nivel4.ts: Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
+      "src/lib/mercanciasLeccion/nivel3.ts: ¿Cuál es el contenido mínimo del equipo de respuesta de emergencia para mercancías peligrosas a bordo?",
+      "src/lib/mercanciasLeccion/nivel3.ts: Hay humo en cabina y sospechas de la carga peligrosa. ¿Qué va primero?",
     ]
     expect(coincidencias.map((c) => `${c.archivo}: ${c.enunciado}`).sort()).toEqual([...conocidas].sort())
   })
