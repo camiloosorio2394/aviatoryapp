@@ -3,7 +3,7 @@
  *
  * Hechos de OZ991 contrastados con el informe final ARAIB/AAR1105
  * (24 julio 2015), alojado por la OACI. El origen de la ignición no se
- * estableció; la fotografía del caso es una recreación, no evidencia.
+ * estableció; la ilustración del caso no es evidencia del accidente.
  * La respuesta operacional se basa en los procedimientos del explotador,
  * el QRH y la edición 2025–2026 de la guía OACI Doc 9481.
  */
@@ -35,27 +35,22 @@ export const LECCION_11: DocScreen = {
       leccion: "La ubicación y la composición de la carga importan para interpretar una emergencia. Pero una ubicación conocida no permite deducir la causa de ignición ni sustituye las acciones previstas para la aeronave.",
       fuente: "ARAIB/AAR1105, informe final (2015), secciones 3.2–3.3 · OACI",
       imagen: {
-        src: "/modulos/mercancias/img-24-pales-carga-recreacion.webp",
-        alt: "Fotografía realista recreada de dos paletas en la cubierta de carga de un avión. Flechas señalan las paletas. La imagen dice de forma visible que no es una foto de OZ991 y que el origen de la ignición no se determinó.",
+        src: "/modulos/mercancias/img-28-asiana-tipos-carga.webp",
+        alt: "Fotografía didáctica nueva de paletas sujetas en la cubierta principal de un carguero. La franja superior enumera los tipos de carga citados por ARAIB: pintura y fotorresistentes inflamables, líquido corrosivo y baterías de ion-litio. La franja inferior aclara que no es una fotografía del vuelo.",
       },
     },
     {
       kind: "p",
-      text: "El informe citó como factores contribuyentes la presencia de materiales inflamables en posiciones de la cubierta principal y la dificultad de contener un incendio grande en una bodega de clase E sin supresión activa. Es una conclusión sobre ese accidente, no una regla para diagnosticar cualquier alarma de bodega ni una prueba de que una batería concreta inició el fuego.",
+      text: "La imagen ayuda a reconocer los tipos de carga, pero no reproduce las posiciones de OZ991 ni permite identificar qué producto pudo iniciar el incendio. Para eso se lee el informe, no los rótulos de una fotografía didáctica.",
+    },
+    {
+      kind: "p",
+      text: "El informe citó como factores contribuyentes la presencia de materiales inflamables en posiciones de la cubierta principal y la dificultad de contener un incendio grande en una bodega de clase E sin supresión activa. Es una conclusión sobre ese accidente, no una regla para diagnosticar cualquier alarma de bodega.",
     },
     { kind: "sub", text: "Dos escenarios que no se atienden igual" },
     {
       kind: "p",
       text: "En una bodega de carga, la tripulación puede tener una indicación de sistema, pero no acceso directo al bulto. En la cabina de pasajeros, un miembro de la tripulación puede observar un dispositivo caliente, humo o una fuga y comunicarlo al piloto. Son escenarios distintos: la actuación física de la tripulación de cabina no se traslada a una bodega inaccesible, y un NOTOC de carga no describe necesariamente los objetos personales de los pasajeros.",
-    },
-    {
-      // MP-IMG-32 · Fotografía explicada · 16:9 · 1600×900.
-      kind: "figura",
-      src: "/modulos/mercancias/foto-11-emergencia.webp",
-      alt: "Fotografía realista recreada de una bodega de carga con fuego al fondo y bultos sujetos. La explicación recuerda que primero se controla el avión y se sigue el procedimiento; el NOTOC aporta identidad y posición.",
-      ancho: 1600,
-      alto: 900,
-      pie: "La fotografía representa una emergencia en carga; no es evidencia de un accidente concreto ni una lista universal de maniobras. La respuesta depende de la aeronave, el operador y el incidente.",
     },
     { kind: "sub", text: "Qué aporta el NOTOC mientras se controla el vuelo" },
     {

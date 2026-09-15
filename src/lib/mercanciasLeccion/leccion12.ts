@@ -20,13 +20,13 @@ export const LECCION_12: DocScreen = {
       text: "Un vuelo puede terminar sin daño y, aun así, dejar un hallazgo importante: carga no declarada, un embalaje averiado o información incorrecta al piloto. No se espera a que haya un accidente para comunicarlo. Primero se registran los hechos por el canal del explotador; después, el responsable los clasifica y realiza las notificaciones que correspondan.",
     },
     {
-      // MP-IMG-25 · Fotografía explicada · 16:9 · 1600×900.
+      // Fotografía completa: se evita la conversión 16:9 que cortaba los rótulos.
       kind: "figura",
-      src: "/modulos/mercancias/foto-12-clasificacion.webp",
-      alt: "Fotografía recreada de terminal aérea: personal de carga observa la esquina húmeda de un bulto, la fotografía y revisa documentos. Flechas señalan la avería observada y los hechos documentados. Un mensaje indica que el hallazgo se comunica y se clasifica según la evidencia.",
-      ancho: 1600,
-      alto: 900,
-      pie: "Ejemplo conceptual. La humedad visible obliga a evaluar y documentar el bulto; la foto por sí sola no demuestra que contiene mercancías peligrosas ni determina el tipo jurídico del suceso.",
+      src: "/modulos/mercancias/img-25-hallazgo-documentado.webp",
+      alt: "Fotografía didáctica de un bulto con humedad visible en una terminal de carga. Una persona registra los hechos por escrito y otra documenta el embalaje con una tableta; los rótulos señalan la avería observada y los hechos documentados.",
+      ancho: 1200,
+      alto: 800,
+      pie: "La humedad visible exige evaluar y documentar el bulto. La imagen no demuestra por sí sola que contenga mercancías peligrosas ni determina el tipo jurídico del suceso.",
     },
     {
       kind: "p",
@@ -38,13 +38,13 @@ export const LECCION_12: DocScreen = {
       text: "El RAC 175 distingue accidente, incidente e incumplimiento atribuibles a mercancías peligrosas. Un accidente implica lesión mortal o grave, o daño de consideración a bienes o ambiente. Un incidente puede incluir fuga, incendio, daño o una situación que pudo poner en peligro al avión o a sus ocupantes, incluso sin daño consumado. Un incumplimiento vulnera un requisito sin convertirse en incidente ni accidente.",
     },
     {
-      // MP-IMG-33 · Fotografía explicada · 16:9 · 1600×900.
+      // Segunda fotografía nueva: distinta de la escena anterior.
       kind: "figura",
-      src: "/modulos/mercancias/img-25-hallazgo-documentado.webp",
-      alt: "Fotografía realista de personal de carga que documenta una avería en un bulto con una tableta y una ficha. Flechas señalan los hechos documentados y la avería observada; el tipo de suceso se determina con la evidencia.",
-      ancho: 1600,
-      alto: 900,
-      pie: "La fotografía muestra el primer paso: documentar hechos. Descubrir mercancías no declaradas o mal declaradas es un motivo de notificación; la clasificación depende de lo ocurrido y del riesgo comprobado.",
+      src: "/modulos/mercancias/img-29-hallazgo-evidencia.webp",
+      alt: "Fotografía didáctica nueva de una caja con una esquina golpeada. Una persona registra los hechos con cámara y ficha; flechas señalan la avería y el registro fotográfico.",
+      ancho: 1536,
+      alto: 1024,
+      pie: "Otro hallazgo: una esquina golpeada. Primero se registran los hechos; descubrir mercancías no declaradas o mal declaradas requiere notificación por los canales aplicables, pero la clasificación depende de la evidencia.",
     },
     {
       kind: "p",
