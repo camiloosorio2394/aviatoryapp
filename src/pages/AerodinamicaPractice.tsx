@@ -4,7 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, ClipboardList, MessageSquareText,
 import { useSession } from "@/hooks/useSession"
 import { accentText } from "@/lib/tileColors"
 import { registrarEstudioDiario } from "@/lib/activity"
-import { AERO_HUB, AERO_PRACTICA_TOTAL, AERO_TITULO } from "@/lib/aerodinamica"
+import { AERO_HUB, AERO_TITULO } from "@/lib/aerodinamica"
 import {
   AERO_ENTREVISTA,
   AERO_ESCENARIOS,
@@ -87,11 +87,6 @@ export function AerodinamicaPractice() {
   const clave = claves[iSeguro]
   const yaEsta = hechas.includes(clave)
 
-  const totalHechas = useMemo(
-    () => new Set(hechas.filter((k) => /^(esc|ent)-\d\d$/.test(k))).size,
-    [hechas],
-  )
-
   async function marcar(k: string): Promise<void> {
     if (hechas.includes(k)) return
     setGuardando(true)
@@ -123,24 +118,38 @@ export function AerodinamicaPractice() {
         <ArrowLeft className="h-3.5 w-3.5" /> Volver a {AERO_TITULO}
       </Link>
 
-      <header className="relative mb-8 overflow-hidden rounded-[18px] bg-[#0A1524] px-6 py-10 text-center sm:px-10 sm:py-12">
+      <header className="np-hero relative mb-8 overflow-hidden rounded-[18px] bg-[#0A1524]">
+        {/* La foto todavía no existe. El hueco conserva la caja y el velo, así
+            que cuando llegue se pone el <img> con la clase np-hero-foto y no
+            cambia nada más. */}
+        <div className="np-hero-velo" />
         <div
           className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
           aria-hidden
         />
-        <div className="relative">
-          <div className="rotulo inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
+        <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
+          AE-PRA-01 · 16:9 · 2000×1125 · espacio reservado
+        </span>
+        <div className="relative px-6 py-11 text-center sm:px-10 sm:py-14">
+          <div className="np-hero-rotulo">
             <Target className="h-3.5 w-3.5" /> Aerodinámica · Práctica
           </div>
-          <h1 className="nh-display mx-auto mt-4 max-w-[760px] text-[28px] font-semibold leading-[1.12] text-white sm:text-[36px]">
-            Aplica lo que leíste y ensaya lo que te van a preguntar
+          <h1 className="np-display mx-auto mt-4 max-w-[880px] text-[30px] font-semibold leading-[1.1] text-white sm:text-[40px]">
+            Practica lo que te van a preguntar
           </h1>
-          <p className="mx-auto mt-4 max-w-[640px] text-[15px] leading-[1.65] text-white/80 sm:text-[16px]">
+          <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
             Trece situaciones de vuelo que se resuelven con los conceptos del módulo, y las cuarenta
             y nueve preguntas que hace un entrevistador técnico, por nivel.
           </p>
-          <div className="tabular mt-5 text-[12.5px] text-white/55">
-            {totalHechas} de {AERO_PRACTICA_TOTAL} hechos en todo el módulo
+          <div className="np-hero-cifras">
+            {MODOS.map((m, i) => (
+              <span key={m.key} className="contents">
+                {i > 0 && <span aria-hidden="true" className="np-hero-punto" />}
+                <span>
+                  <strong className="tabular">{m.total}</strong> {m.label.toLowerCase()}
+                </span>
+              </span>
+            ))}
           </div>
         </div>
       </header>

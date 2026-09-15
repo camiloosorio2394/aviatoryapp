@@ -17,7 +17,7 @@ import {
 } from "@/lib/aerodinamicaProgress"
 
 /**
- * Quiz final de Aerodinámica: la misma pantalla que la de NOTAM y Mercancías,
+ * Evaluación de Aerodinámica: la misma pantalla que la de NOTAM y Mercancías,
  * con la evaluación aerodinamica_evaluacion del servidor, el acento azul acero
  * y el historial de `user_aerodinamica_exam_attempts`.
  *
@@ -38,7 +38,7 @@ function rutaDeTema(tema: string): string | null {
 
 const CONFIG: ExamenConfig = {
   nombre: "Aerodinámica",
-  eyebrow: "Aerodinámica · Quiz final",
+  eyebrow: "Aerodinámica · Evaluación",
   volverTexto: "Volver a Aerodinámica",
   hub: AERO_HUB,
   leccion: AERO_APRENDE,
