@@ -186,73 +186,58 @@ export const NIVEL_2: DocScreen[] = [
     kicker: "Tres conceptos distintos",
     minutes: 7,
     blocks: [
-      { kind: "p", text: "Hay tres conceptos que debes aprender a diferenciar." },
+      { kind: "p", text: "Al leer una mercancía peligrosa, responde tres preguntas distintas:" },
       {
         kind: "kv",
         items: [
-          { k: "Clase", v: "Indica qué tipo de riesgo presenta la mercancía." },
+          { k: "Clase", v: "¿Qué tipo de peligro presenta? Por ejemplo, clase 8: corrosivo." },
           {
             k: "Grupo de embalaje",
-            v: "Cuando aplica, indica el grado de riesgo de la sustancia dentro de su clasificación.",
+            v: "¿Qué grado de peligro tiene la sustancia? Solo existe si su entrada lo asigna.",
           },
           {
             k: "Cantidades limitadas y exceptuadas",
-            v: "Establecen condiciones específicas de transporte para determinadas mercancías cuando se encuentran en cantidades pequeñas.",
+            v: "¿Puede usarse un régimen para cantidades pequeñas? Depende de la entrada y de sus condiciones.",
           },
         ],
       },
-      { kind: "definicion", text: "No son tres niveles de una misma escala. Son conceptos diferentes." },
+      {
+        kind: "figura",
+        src: "/modulos/mercancias/dia-04-tres-conceptos.webp",
+        alt: "Fotografía de tres ejemplos separados en una terminal de carga: la etiqueta de clase 8 señala el tipo de peligro; una tarjeta didáctica con grupo II señala el grado cuando aplica; y otro bulto con marca Y señala un régimen de cantidad limitada. Flechas y textos explican cada concepto.",
+        ancho: 1200,
+        alto: 800,
+        pie: "Son ejemplos distintos. La clase se reconoce en la etiqueta; el grupo se confirma en la información del envío; la marca Y solo corresponde si la entrada permite cantidad limitada y se cumplen sus condiciones.",
+      },
       {
         kind: "callout",
         tone: "tip",
-        title: "Seamos honestos con lo que te toca a ti",
-        text: "Como piloto, tú no asignas el grupo de embalaje ni decides si una mercancía puede transportarse como cantidad limitada o exceptuada. Estas determinaciones corresponden a las etapas de clasificación, preparación y aceptación de la mercancía. Lo que sí necesitas saber es qué significa la información que recibes y reconocer cuándo algo necesita ser verificado.",
+        title: "Qué te corresponde como piloto",
+        text: "No asignas el grupo ni autorizas cantidades limitadas o exceptuadas: eso se determina en clasificación, preparación y aceptación. Tu tarea es interpretar la información que recibes y pedir verificación si un dato no cuadra.",
       },
 
       { kind: "sub", text: "Grupo de embalaje" },
       {
         kind: "p",
-        text: "El grupo de embalaje se utiliza para indicar el grado de riesgo de determinadas sustancias peligrosas. Cuando aplica, se identifica con números romanos:",
-      },
-      { kind: "code", text: "I · II · III", grande: true },
-      {
-        kind: "p",
-        text: "El Grupo I corresponde al mayor grado de riesgo, el Grupo II a un grado intermedio y el Grupo III al menor grado de riesgo dentro de los criterios establecidos.",
+        text: "Cuando la entrada de la mercancía lo asigna, el grupo de embalaje (GE) indica el grado de peligro de la sustancia. Se escribe con números romanos:",
       },
       {
-        kind: "p",
-        text: "El grupo de embalaje no indica cuánto se transporta. La cantidad permitida depende de otros factores establecidos para cada mercancía, como su número ONU, instrucción de embalaje, tipo de aeronave y régimen de transporte.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Importante",
-        text: "No todas las mercancías peligrosas tienen grupo de embalaje.",
-      },
-      {
-        kind: "figura",
-        src: "/modulos/mercancias/dia-04-grupos-embalaje.svg",
-        alt: "Tres columnas independientes: clase de riesgo, grupo de embalaje y régimen de cantidad. La clase indica qué riesgo presenta la mercancía; el grupo, qué grado de riesgo tiene cuando aplica; y el régimen, las condiciones específicas para cantidades pequeñas.",
-        ancho: 1600,
-        alto: 900,
-      },
-
-      { kind: "sub", text: "¿Por qué existen tres grupos?" },
-      {
-        kind: "p",
-        text: "Dos sustancias pueden pertenecer a la misma clase y, aun así, tener diferentes grados de riesgo.",
+        kind: "fichas",
+        columnas: 3,
+        items: [
+          { titulo: "GE I", puntos: ["Peligro elevado dentro de los criterios de clasificación que aplican a esa sustancia."] },
+          { titulo: "GE II", puntos: ["Peligro intermedio. No significa que el envío pueda ir en cantidad limitada."] },
+          { titulo: "GE III", puntos: ["Peligro menor dentro de esos criterios; no significa que sea inocuo."] },
+        ],
       },
       {
         kind: "p",
-        text: "Por ejemplo, dos sustancias pueden ser Clase 8, corrosivas, pero una puede cumplir los criterios para Grupo I y otra para Grupo III.",
+        text: "El GE no es una cantidad ni autoriza un régimen de envío. Los límites por bulto y la instrucción de embalaje se consultan para la entrada concreta y el tipo de aeronave.",
       },
+      { kind: "sub", text: "Misma clase, diferente grupo" },
       {
         kind: "p",
-        text: "Por eso, conocer solamente la clase no siempre es suficiente para conocer las condiciones de embalaje aplicables.",
-      },
-      {
-        kind: "p",
-        text: "La clase te dice qué tipo de riesgo presenta la mercancía. El grupo de embalaje añade información sobre el grado de riesgo cuando este criterio aplica.",
+        text: "Dos sustancias corrosivas pueden ser clase 8 y, aun así, tener distinto grado de peligro: una puede ser GE I y otra GE III. Por eso, el rombo de clase no basta para conocer el grupo ni las condiciones de embalaje.",
       },
       {
         kind: "figura",
@@ -260,53 +245,58 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Dos bultos corrosivos de clase 8 señalados con flechas. Uno indica grupo de embalaje I, mayor grado de riesgo, y el otro grupo III, menor grado de riesgo.",
         ancho: 1200,
         alto: 800,
-        pie: "La clase indica qué riesgo presenta la mercancía; el grupo de embalaje indica su grado cuando aplica.",
+        pie: "Las tarjetas de GE de esta foto son didácticas, no marcas que debas deducir del rombo. Confirma el grupo asignado para la entrada en la información del envío.",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Al contrastar la información",
+        texto: "Si el bulto muestra clase 8 y la información del envío indica un GE, no lo infieras solo de la etiqueta: verifica que corresponda a la entrada de la mercancía. Si algo difiere, pide aclaración a aceptación antes de operar con ese dato.",
       },
 
       { kind: "sub", text: "No todas las mercancías tienen grupo de embalaje" },
       {
         kind: "p",
-        text: "El grupo de embalaje no se asigna a todas las mercancías peligrosas. Se utiliza únicamente cuando las características de la sustancia y las reglas de clasificación de esa mercancía establecen un grado de peligro mediante Grupo de Embalaje I, II o III.",
+        text: "Algunas entradas no tienen GE, pero eso no significa menor peligro ni menos requisitos. Por ejemplo, las baterías de ion-litio UN 3480 son clase 9 y no tienen grupo asignado; sus condiciones se consultan en la instrucción de embalaje aplicable, que contempla aspectos como el estado de carga y el tipo de aeronave.",
       },
       {
-        kind: "p",
-        text: "Hay mercancías cuya clasificación utiliza otros criterios y, por eso, no tienen Grupo de Embalaje. Esto no significa que sean menos peligrosas ni que tengan un tratamiento más flexible. Simplemente, el sistema de clasificación aplicable a esa mercancía no utiliza los grupos I, II y III.",
+        kind: "callout",
+        tone: "warn",
+        title: "Ejemplo de dato que no cuadra",
+        text: "Si lees «UN 3480, baterías de ion-litio, clase 9, GE II», no lo des por válido: UN 3480 no tiene GE. Solicita que se verifique la información; no asignes tú un grupo ni corrijas el documento por cuenta propia.",
       },
       {
-        kind: "p",
-        text: "Un ejemplo muy importante en aviación son las baterías de ion-litio UN 3480. Se clasifican como Clase 9, pero no tienen Grupo de Embalaje asignado. Su transporte se controla mediante requisitos específicos relacionados con las características de la batería, su estado de carga, embalaje, cantidades y demás condiciones establecidas en las Instrucciones Técnicas.",
-      },
-      { kind: "p", text: "Por eso:" },
-      { kind: "code", text: "UN 3480 — LITHIUM ION BATTERIES — Clase 9 — GE II", grande: true },
-      {
-        kind: "p",
-        text: "sería una información que debe verificarse, porque UN 3480 no utiliza GE I, II o III.",
+        kind: "figura",
+        src: "/modulos/mercancias/img-15-un3480-sin-grupo.webp",
+        alt: "Bulto de baterías de ion-litio con el número UN 3480 y la etiqueta de clase 9 señalados. Un tercer aviso muestra que no aparece grupo de embalaje I, II ni III.",
+        ancho: 1200,
+        alto: 800,
+        pie: "UN 3480 pertenece a la clase 9, pero no tiene grupo de embalaje asignado.",
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Ver qué clases llevan grupo de embalaje y cuáles no",
+        etiqueta: "Qué entradas pueden llevar grupo de embalaje",
         bloques: [
           {
             kind: "p",
-            text: "El grupo de embalaje solo aplica donde el riesgo se gradúa así. Hay clases que se ordenan de otra manera: los explosivos por división, los gases por su comportamiento y el material radiactivo por su nivel de radiación.",
+            text: "El GE se asigna a determinadas sustancias, no a una clase entera por defecto. Otras mercancías se clasifican con criterios diferentes: los explosivos por división, los gases por su comportamiento y el material radiactivo por su nivel de radiación.",
           },
           {
             kind: "fichas",
             columnas: 2,
             items: [
               {
-                titulo: "Sí llevan grupo de embalaje",
+                titulo: "Pueden llevar GE según la entrada",
                 puntos: [
-                  "Clase 3, líquidos inflamables.",
-                  "Clase 4, salvo las sustancias de reacción espontánea de la 4.1.",
-                  "División 5.1, comburentes.",
-                  "División 6.1, tóxicas.",
-                  "Clase 8, corrosivas.",
-                  "Clase 9, según la sustancia.",
+                  "Sustancias de clase 3 (líquidos inflamables).",
+                  "Sustancias de clase 4, salvo las de reacción espontánea de la 4.1.",
+                  "Sustancias de división 5.1 (comburentes).",
+                  "Sustancias de división 6.1 (tóxicas).",
+                  "Sustancias de clase 8 (corrosivas).",
+                  "Algunas sustancias de clase 9.",
                 ],
               },
               {
-                titulo: "No llevan",
+                titulo: "No se les asigna GE",
                 puntos: [
                   "Clase 1, explosivos: se ordenan por división.",
                   "Clase 2, gases.",
@@ -326,35 +316,16 @@ export const NIVEL_2: DocScreen[] = [
           },
         ],
       },
-      {
-        kind: "figura",
-        src: "/modulos/mercancias/img-15-un3480-sin-grupo.webp",
-        alt: "Bulto de baterías de ion-litio con el número UN 3480 y la etiqueta de clase 9 señalados. Un tercer aviso muestra que no aparece grupo de embalaje I, II ni III.",
-        ancho: 1200,
-        alto: 800,
-        pie: "UN 3480 pertenece a la clase 9, pero no tiene grupo de embalaje asignado.",
-      },
-
       { kind: "sub", text: "Cantidades limitadas y exceptuadas" },
-      { kind: "p", text: "Ahora pasamos a otro concepto diferente." },
       {
         kind: "p",
-        text: "Una mercancía peligrosa puede transportarse bajo diferentes regímenes de cantidad cuando las Instrucciones Técnicas establecen condiciones específicas para ello.",
+        text: "Un bulto pequeño sigue pudiendo contener mercancía peligrosa. Cantidad limitada y cantidad exceptuada son dos regímenes distintos que solo se usan si la entrada concreta los permite y el envío cumple sus límites, embalaje y marcas. El tamaño del bulto, por sí solo, no autoriza ninguno de los dos; tampoco cambia la clase ni el grupo de embalaje.",
       },
-      {
-        kind: "p",
-        text: "Las dos categorías que debes diferenciar son cantidad limitada y cantidad exceptuada.",
-      },
-      { kind: "definicion", text: "No significan que la mercancía deje de ser peligrosa." },
 
       { kind: "sub", text: "Cantidad limitada" },
       {
         kind: "p",
-        text: "Una cantidad limitada corresponde a una cantidad pequeña de una determinada mercancía peligrosa que puede transportarse bajo las condiciones específicas establecidas para este régimen.",
-      },
-      {
-        kind: "p",
-        text: "La mercancía continúa estando sujeta a requisitos de transporte y debe cumplir las condiciones de embalaje, marcado y demás requisitos que correspondan.",
+        text: "En transporte aéreo, la cantidad limitada requiere que la entrada permita una instrucción de embalaje «Y» y que el bulto cumpla los límites y requisitos correspondientes. La marca Y identifica este régimen; no autoriza por sí sola el envío.",
       },
       {
         kind: "figura",
@@ -362,18 +333,13 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Bulto pequeño con la marca aérea de cantidad limitada impresa. Las flechas señalan el rombo y la letra Y en su centro.",
         ancho: 1200,
         alto: 800,
-        pie: "La letra Y identifica el régimen de cantidad limitada por vía aérea; la mercancía sigue siendo peligrosa y declarada.",
+        pie: "La Y señala cantidad limitada por vía aérea. Aun con esa marca, deben cumplirse la instrucción, los límites y la documentación que correspondan.",
       },
 
       { kind: "sub", text: "Cantidad exceptuada" },
       {
         kind: "p",
-        text: "Una cantidad exceptuada corresponde a cantidades muy pequeñas de determinadas mercancías peligrosas que, cuando cumplen las condiciones establecidas, pueden acogerse a determinadas excepciones del régimen general.",
-      },
-      { kind: "definicion", text: "Exceptuada no significa inofensiva." },
-      {
-        kind: "p",
-        text: "Significa que la normativa establece un tratamiento específico para esa pequeña cantidad.",
+        text: "La cantidad exceptuada se reserva para cantidades muy pequeñas de entradas que tengan un código E que la permita. Ese código fija límites por envase interior y bulto exterior, además de reglas propias de embalaje y marcado; E0 significa que no se admite este régimen. «Exceptuada» no quiere decir que la sustancia sea inofensiva, sino que el envío cumple condiciones específicas para esa pequeña cantidad.",
       },
       {
         kind: "figura",
@@ -381,36 +347,30 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Caja de laboratorio con marca de cantidad exceptuada. Las flechas señalan la clase en la parte superior, el expedidor en la parte inferior y tres frascos interiores pequeños junto al bulto.",
         ancho: 1200,
         alto: 800,
-        pie: "Las cantidades exceptuadas son muy pequeñas y cumplen un régimen específico; exceptuada no significa inofensiva.",
+        pie: "La marca de cantidad exceptuada no indica ausencia de peligro: señala un régimen específico cuando la entrada y el bulto cumplen sus condiciones.",
       },
       {
         kind: "detalleTecnico",
-        etiqueta: "Ver qué se admite en cantidades exceptuadas",
+        etiqueta: "Cómo comprobar los regímenes por entrada",
         bloques: [
           {
             kind: "p",
-            text: "Esta tabla es del expedidor y de quien acepta. Está aquí para consulta, y porque en una entrevista técnica puede caer la pregunta de si una clase concreta admite cantidades exceptuadas.",
+            text: "La clase por sí sola no autoriza cantidades exceptuadas o limitadas. El expedidor y aceptación consultan la entrada de la mercancía en las Instrucciones Técnicas vigentes, junto con las variaciones de Estado y explotador que correspondan.",
           },
           {
-            kind: "table",
-            head: ["Admitidas en cantidades exceptuadas", "Condición"],
-            rows: [
-              ["División 2.2", "Sin riesgos secundarios"],
-              ["Clase 3", "Todas"],
-              ["Clase 4", "Grupos de embalaje II y III"],
-              ["División 5.1", "Grupos de embalaje II y III"],
-              ["División 5.2", "Todas"],
-              ["División 6.1", "Todas"],
-              ["Clase 8", "Grupos de embalaje II y III"],
-              ["Clase 9", "Solo sustancias; no hielo seco ni organismos modificados; ningún artículo"],
+            kind: "kv",
+            items: [
+              { k: "Código E0", v: "La entrada no admite cantidades exceptuadas." },
+              { k: "Códigos E1 a E5", v: "Consulta los límites por envase interior y bulto exterior, además de las condiciones de embalaje y marcado." },
+              { k: "Instrucción Y", v: "Indica la opción de cantidad limitada por vía aérea, con límites y requisitos propios." },
             ],
           },
           {
             kind: "vinetas",
             items: [
-              "Si la lista de mercancías peligrosas trae «E0» para un artículo, ese artículo **no** puede ir en cantidades exceptuadas.",
-              "Cada bulto en cantidad exceptuada lleva una etiqueta de al menos 100 × 100 mm.",
-              "Las mercancías que en la lista traen la instrucción de embalaje «Y» son las que pueden ir en cantidades limitadas.",
+              "Un código E distinto de E0 no basta por sí solo: el bulto debe cumplir los límites, el embalaje y la marca de cantidad exceptuada.",
+              "Una instrucción Y tampoco basta por sí sola: hay que cumplir sus cantidades máximas, embalaje, marca y documentación aplicable.",
+              "En entrevista, responde **qué entrada y qué régimen verificas**, no «toda la clase está admitida».",
             ],
           },
         ],
