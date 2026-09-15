@@ -7,7 +7,7 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
-  Plane,
+  Play,
   Wind,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
@@ -89,12 +89,16 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
  *  - La rejilla responde al ancho del contenido y no al de la ventana, porque
  *    la barra lateral se come 245 px: una, dos, tres o cinco columnas, nunca
  *    cuatro, que con cinco temas deja uno huérfano en la segunda fila.
- *  - Lo que viene después va pegado a los temas, como una fila de pastillas: es
- *    la continuación de la rejilla, no un párrafo aparte.
+ *  - Lo que viene después («En camino») entra en la misma rejilla y ocupa las
+ *    celdas que le sobran a la segunda fila, en vez de ir suelto debajo.
  *
  * Las tarjetas son `TarjetaModulo`, la versión compacta de la tarjeta de
- * catálogo. El único botón primario de la pantalla sigue siendo el de
- * continuar.
+ * catálogo.
+ *
+ * El hero no lleva botón. Tenía uno de «Seguir con …», y en su sitio está ahora
+ * el hueco del video que presenta el módulo. Retomar no se pierde: la tarjeta
+ * del tema a medias va marcada «En curso» y es la primera de la rejilla, que es
+ * donde el ojo cae después del hero.
  */
 
 /**
@@ -443,7 +447,6 @@ export function AirlinePrep() {
   // El único botón primario de la pantalla: retomar donde ibas, o entrar al
   // primero si todavía no empezaste nada. Las herramientas no se retoman.
   const enCurso = cursables.find((t) => t.pct > 0 && t.pct < 100)
-  const continuar = enCurso ?? cursables[0]
 
   // Para la fila de lo que viene: cuántos temas hay abiertos y por cuál vas. Si
   // empezaste uno, vas por el primero, no por el segundo: el número es cuántos
@@ -505,22 +508,27 @@ export function AirlinePrep() {
                 Lo que evalúan las aerolíneas de la región, tema por tema.
               </p>
 
-              <div className="mt-5">
-                {loading ? (
-                  <span
-                    className="block h-11 w-48 rounded-[10px] bg-white/15 animate-pulse"
-                    aria-hidden="true"
-                  />
-                ) : (
-                  <Link
-                    to={continuar.to}
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-[10px] px-5 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-transform active:scale-[0.98]"
-                    style={{ background: "var(--av-blue-500)" }}
-                  >
-                    <Plane className="h-4 w-4" />
-                    {enCurso ? `Seguir con ${enCurso.nombre}` : `Empezar por ${continuar.nombre}`}
-                  </Link>
-                )}
+              {/* El sitio del video que presenta el módulo entero, con la misma
+                  tarjeta de hueco que usaban los hubs de tema antes de tener el
+                  suyo: miniatura, rótulo y la especificación de lo que falta.
+                  Cuando exista el mp4 se cambia por un `VideoIntro` y no se
+                  mueve nada alrededor.
+
+                  Aquí había un botón de «Seguir con …». No se reemplaza por
+                  otro: la acción de retomar vive en la tarjeta del tema, que ya
+                  va marcada «En curso» y es la primera de la rejilla. */}
+              <div className="mt-5 flex w-full max-w-[380px] items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
+                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
+                  <Play className="h-4 w-4 text-white/35" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Espacio reservado
+                  </span>
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/60">
+                    IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
+                  </span>
+                </span>
               </div>
             </div>
 
