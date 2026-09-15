@@ -2,11 +2,10 @@
  * Nivel 3 · Situaciones del piloto: de la aceptación a la bodega, el NOTOC,
  * la emergencia en vuelo y la notificación.
  *
- * Artículos contrastados con el RAC 175 (Edición original, marzo 2016). Los
- * casos reales salen de los informes oficiales que cada uno cita. Los campos
- * del NOTOC están en la Parte 7 de las Instrucciones Técnicas, que no está
- * cargada: se enseñan los requisitos del 175.515 y las columnas habituales
- * con su aviso.
+ * La lección 9 se revisó con el caso oficial de la FAA sobre SAA 295 y con
+ * las reglas ICAO de estiba y segregación. Las lecciones 10–12 se auditan por
+ * separado antes de reescribirlas. Los campos del NOTOC requieren contraste
+ * con las Instrucciones Técnicas vigentes y el formato del operador.
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
@@ -16,132 +15,111 @@ export const NIVEL_3: DocScreen[] = [
   {
     n: 9,
     title: "De la aceptación a la bodega",
-    kicker: "South African 295 y la estiba",
-    minutes: 8,
+    kicker: "De la carga física a la información de vuelo",
+    minutes: 9,
     blocks: [
       {
         kind: "casoReal",
         titulo: "South African Airways 295",
         fecha: "28 de noviembre de 1987",
         lugar: "Océano Índico, cerca de Mauricio",
-        aeronave: "Boeing 747-244B Combi · ZS-SAS «Helderberg» · Taipéi a Mauricio",
+        aeronave: "Boeing 747-200 · vuelo de Taipéi a Mauricio",
         mercancia:
-          "Carga en la cubierta principal de un avión combi, con pasajeros y carga en el mismo piso. El origen de la ignición nunca se determinó.",
+          "En la cubierta principal había seis palés con artículos eléctricos (incluidos computadores), ferretería, papel, textiles y otros productos. Los pasajeros viajaban en otro sector de esa cubierta. No se determinó qué inició el incendio ni se identificó una mercancía peligrosa como su causa.",
         queOcurrio: [
-          "En crucero nocturno la tripulación reportó humo. El incendio se originó en la posición delantera derecha del compartimento de carga de la cubierta principal, con material de embalaje de plástico y cartón involucrado. El humo llegó a la zona ocupada.",
-          "La tripulación intentó combatir el fuego y desviarse a Mauricio. El avión cayó al mar. Murieron las 159 personas a bordo.",
+          "Durante el vuelo se desarrolló un incendio en la zona de carga. El humo llegó a la zona de pasajeros y la tripulación lo comunicó al control de tránsito aéreo.",
+          "La tripulación preparaba un aterrizaje de emergencia en Mauricio. El avión cayó al mar y murieron las 159 personas a bordo.",
         ],
         consecuencia:
-          "La investigación no pudo determinar qué encendió el fuego. Sí mostró que en un compartimento de carga de clase B grande la extinción manual no funciona, que la detección era tardía, que el humo pasaba a la zona de pasajeros y que los extintores de mano no alcanzaban. La industria endureció los requisitos de los combi y de la accesibilidad de la carga en vuelo.",
+          "La investigación señaló limitaciones de detección, contención del humo y lucha manual contra un incendio en un compartimento de carga tan grande. Las medidas posteriores se centraron en la protección contra incendios de esa configuración; no hay base para atribuirle el origen de todas las reglas actuales de estiba de mercancías peligrosas.",
         leccion:
-          "Por qué existen las restricciones de estiba de los bultos «Exclusivamente en aeronaves de carga» y por qué el reglamento insiste en que se carguen de modo que un tripulante pueda verlos, manipularlos y separarlos en vuelo. Un bulto al que no se puede llegar es un bulto sobre el que no se puede hacer nada.",
-        hueco: {
-          id: "MP-IMG-04",
-          medida: "16:9 · 1600×900 · JPG o WebP",
-          descripcion:
-            "Foto de referencia del 747 Combi ZS-SAS o de una cubierta principal de un combi con la red de separación entre carga y pasajeros. Con crédito.",
-        },
+          "La ubicación de la carga y las características de su compartimento importan durante el vuelo. El caso ayuda a comprender ese vínculo, no a deducir que el incendio se debió a una mercancía peligrosa identificada.",
       },
       {
         kind: "p",
-        text: "Cuando un bulto llega a tu avión ya pasó por seis pasos. Ninguno es tuyo, pero todos existen para que tu firma sea sobre algo verdadero. Toca cada uno.",
+        text: "Un bulto no se convierte en una línea del NOTOC por arte de magia. Antes de despegar, personal formado identifica el envío, lo acepta cuando corresponde, lo carga y registra dónde quedó. El piloto no repite esos controles: necesita entender la información operacional que resulta de ellos.",
       },
       {
-        kind: "flujo",
-        pista: "Elige un paso para leer qué exige.",
-        pasos: [
-          {
-            clave: "doc",
-            etiqueta: "1 · Documento",
-            texto:
-              "Ningún explotador acepta mercancías peligrosas si no van acompañadas de un documento de transporte debidamente diligenciado, salvo cuando las Instrucciones Técnicas indiquen que no se requiere. El documento va con la declaración firmada del expedidor.",
-          },
-          {
-            clave: "insp",
-            etiqueta: "2 · Inspección",
-            texto:
-              "No se acepta hasta haber inspeccionado el bulto, sobre-embalaje o contenedor de carga conforme a los procedimientos de aceptación de las Instrucciones Técnicas.",
-          },
-          {
-            clave: "lista",
-            etiqueta: "3 · Lista de verificación",
-            texto:
-              "El personal de aceptación usa una lista de verificación que incluye la inspección del bulto y de la documentación. El envío se acepta únicamente si se cumplieron todos los requisitos.",
-          },
-          {
-            clave: "antes",
-            etiqueta: "4 · Antes de estibar",
-            texto:
-              "Los bultos se inspeccionan para verificar pérdidas o averías antes de estibarlos en la bodega o de meterlos en un ULD. No se estiba ningún bulto ni ULD sin esa comprobación.",
-          },
-          {
-            clave: "estiba",
-            etiqueta: "5 · Estiba y sujeción",
-            texto:
-              "Se estiban en un área a la que solo tenga acceso la tripulación de vuelo o las personas autorizadas para acompañar el envío. El explotador las protege de averías y las sujeta de modo que no puedan inclinarse en vuelo ni cambiar la posición relativa de los bultos.",
-          },
-          {
-            clave: "segr",
-            etiqueta: "6 · Segregación",
-            texto:
-              "Los bultos capaces de reaccionar peligrosamente entre sí no se estiban juntos ni donde puedan entrar en contacto si hay pérdidas. Las Instrucciones Técnicas tienen una tabla de segregación general y otra para explosivos.",
-          },
-        ],
+        // MP-IMG-21 · Fotografía explicativa · 3:2 · 1200×800.
+        kind: "figura",
+        src: "/modulos/mercancias/img-21-carga-ubicacion.webp",
+        alt: "Fotografía explicativa de una operación de carga comercial: cajas sobre una plataforma, un ULD sujeto y la entrada a la bodega. Tres flechas señalan los bultos cargados, el ULD y la posición de carga.",
+        ancho: 1200,
+        alto: 800,
+        pie: "La caja, la unidad de carga y su posición son cosas distintas. El NOTOC relaciona la mercancía identificada con la ubicación informada al piloto; esta escena ilustra la cadena, no un envío reglamentario concreto.",
       },
-      {
-        kind: "norma",
-        texto:
-          "Salvo en los casos permitidos en este Reglamento y en las Instrucciones Técnicas, no se estibarán mercancías peligrosas en la cabina de ninguna aeronave ocupada por pasajeros ni tampoco en el puesto de pilotaje. No se estibarán en una aeronave ocupada por pasajeros los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga».",
-      },
-      {
-        kind: "norma",
-        texto:
-          "A reserva de lo previsto en las Instrucciones Técnicas, los bultos de mercancías peligrosas que lleven la etiqueta «Exclusivamente en aeronaves de carga» se cargarán de modo tal que algún miembro de la tripulación o persona autorizada pueda verlos, manipularlos y, cuando su tamaño y peso lo permitan, separarlos en vuelo de las otras mercancías estibadas a bordo.",
-      },
-      {
-        kind: "callout",
-        tone: "warn",
-        title: "Tres prohibiciones de estiba que te preguntan",
-        text: "Nada de mercancías peligrosas en la cabina de pasajeros ni en el puesto de pilotaje. Ningún bulto «Exclusivamente en aeronaves de carga» en un avión con pasajeros. Y en el carguero, esos bultos donde un tripulante pueda verlos, manipularlos y separarlos en vuelo. Las tres salen del Helderberg y de lo que vino después.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "MP-DIA-01 · Diagrama · 16:9 · 1800×1000 · SVG",
-        descripcion:
-          "Corte lateral y planta de la bodega de un narrow-body: posiciones de ULD, bultos CAO accesibles, separación del material radiactivo respecto de personas, animales vivos y películas no reveladas, y un ejemplo de segregación entre incompatibles. Referencia visual; no sustituye la tabla de segregación.",
-        alto: 320,
-      },
-      { kind: "sub", text: "Segregación: no sentar juntos a los que se pelean" },
+      { kind: "sub", text: "Quién comprueba el envío y qué llega al piloto" },
       {
         kind: "p",
-        text: "Hay clases que no pueden viajar juntas. Un comburente junto a un inflamable es el ejemplo clásico: el comburente no arde, pero si hay una fuga alimenta el fuego del otro. La segregación evita que una fuga ponga en contacto sustancias incompatibles.",
+        text: "El expedidor identifica la mercancía y prepara el bulto y su documentación según el régimen aplicable. El personal de aceptación comprueba el envío con los procedimientos del operador; después, el equipo de carga revisa su estado, lo protege frente a daños y movimiento y deja constancia de su ubicación. Los documentos y comprobaciones no son tareas del piloto.",
       },
       {
-        kind: "norma",
-        texto:
-          "El explotador de aeronave se cerciorará que los bultos que contengan mercancías peligrosas capaces de reaccionar peligrosamente entre sí, no se estiben en una aeronave unos juntos a otros de tal manera que puedan entrar en contacto en caso de que se produzcan pérdidas.",
+        kind: "p",
+        text: "Lo importante para la tripulación es que los datos no queden separados de la realidad física. Si se informa que dos bultos van en una unidad de carga, debe existir una ubicación que permita reconocer dónde quedaron. Esa relación entre mercancía, riesgo y posición es la que leerás en la siguiente lección.",
       },
       {
-        kind: "kv",
-        items: [
-          { k: "Regla general", v: "La tabla de segregación de las Instrucciones Técnicas. La aplican el explotador y el operador de terminal de carga." },
-          { k: "Explosivos", v: "Tienen su propia tabla. Si van con dispensa, se aplica la del Suplemento de las Instrucciones." },
-          { k: "Radiactivo", v: "Separado de las personas, los animales vivos y las películas no reveladas. Y afianzado para mantener esa separación todo el vuelo." },
-          { k: "4.1 y 5.2", v: "Las sustancias de reacción espontánea y los peróxidos orgánicos se cubren del sol y van en un lugar ventilado, lejos de toda fuente de calor." },
-          { k: "Tóxicas e infecciosas", v: "Se estiban según las disposiciones de las Instrucciones Técnicas." },
-        ],
+        // MP-DIA-05 · Secuencia visual · 16:9 · 1600×900.
+        kind: "figura",
+        src: "/modulos/mercancias/dia-05-del-bulto-al-piloto.svg",
+        alt: "Secuencia visual de tres momentos: identificar y aceptar el envío, cargarlo y registrar su posición, e informar al piloto mediante el NOTOC. El piloto interpreta la información; no realiza los controles de tierra.",
+        ancho: 1600,
+        alto: 900,
+        pie: "El piloto recibe el resultado operacional de la cadena. No certifica la clasificación, el embalaje ni la aceptación del envío por el hecho de recibir la información.",
+      },
+      { kind: "sub", text: "Estibar no es solo acomodar" },
+      {
+        kind: "p",
+        text: "La carga se sujeta para que no cambie de posición ni dañe otros bultos durante el vuelo. También se respetan las condiciones de estiba que correspondan a cada mercancía y a la aeronave. Una unidad de carga (ULD) reúne bultos, pero no reemplaza la identificación de la mercancía ni la información de dónde quedó cargada.",
       },
       {
         kind: "callout",
         tone: "info",
-        title: "Radiactivo: la aeronave contaminada sale de servicio",
-        text: "Toda aeronave que quede contaminada por materiales radiactivos se retira inmediatamente de servicio y no se reintegra hasta que el nivel de radiación de toda superficie accesible y la contaminación transitoria estén por debajo de los valores de las Instrucciones.",
+        title: "La etiqueta «Exclusivamente en aeronaves de carga»",
+        text: "Ese bulto no puede ir como carga en un avión de pasajeros. En una aeronave de carga, su posición debe cumplir las condiciones aplicables; la etiqueta no garantiza que sea accesible desde la cabina. Si ves una discrepancia, aclárala antes de salir.",
+      },
+      { kind: "sub", text: "Segregación: evitar que una fuga conecte dos riesgos" },
+      {
+        kind: "p",
+        text: "Segregar significa mantener separados los bultos que podrían reaccionar peligrosamente si sus contenidos entraran en contacto. La pregunta no es si dos clases pueden viajar en el mismo avión, sino si su ubicación permitiría esa interacción en caso de una pérdida. El personal de carga aplica las reglas de compatibilidad y separación del envío concreto; el piloto necesita entender por qué su ubicación importa.",
+      },
+      {
+        // MP-DIA-06 · Comparación conceptual · 16:9 · 1600×900.
+        kind: "figura",
+        src: "/modulos/mercancias/dia-06-segregacion-conceptual.svg",
+        alt: "Comparación de dos estibas: a la izquierda una pérdida puede alcanzar otro bulto; a la derecha la separación impide el contacto. No se indican clases concretas ni distancias normativas.",
+        ancho: 1600,
+        alto: 900,
+        pie: "La comparación explica el propósito de la segregación. No permite decidir por sí sola qué mercancías deben separarse ni qué distancia utilizar.",
+      },
+      {
+        kind: "callout",
+        tone: "tip",
+        title: "La pregunta útil para la tripulación",
+        text: "Si la ubicación informada no coincide con la carga, o aparece un bulto dañado, aclara la discrepancia con el personal responsable antes de salir. No recalcules la segregación en cabina. En vuelo, la mercancía y su posición ayudan a interpretar una anomalía junto con la información de emergencia aplicable.",
       },
       {
         kind: "enLaOperacion",
-        momento: "En la rampa, al descargar",
+        momento: "Si se detecta una pérdida al descargar",
         texto:
-          "La inspección no termina al cerrar la bodega. Al descargar, los bultos se revisan otra vez; si hay pérdidas o averías, se inspecciona la zona donde iban para ver si hubo daño o contaminación. Un bulto averiado se descarga y el explotador comprueba que el resto del envío está bien y que ningún otro bulto quedó contaminado. Si en el turnaround te dicen «un bulto venía mojado», la pregunta es qué era y qué había al lado.",
+          "Una pérdida no afecta únicamente al bulto averiado: también puede alcanzar otras cargas o la aeronave. El personal responsable inspecciona el área y gestiona la contaminación según la mercancía. Para el piloto, el dato operacional es qué se transportó y dónde estuvo, especialmente si la anomalía se descubre antes de otro vuelo.",
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Consultar los requisitos de estiba y segregación",
+        bloques: [
+          {
+            kind: "p",
+            text: "La explicación visual anterior muestra el propósito de las reglas, no una tabla de compatibilidad ni una autorización de carga. La aplicación concreta depende de las Instrucciones Técnicas vigentes y de los procedimientos del explotador.",
+          },
+          {
+            kind: "norma",
+            texto: "Salvo en los casos permitidos en las Instrucciones Técnicas, las mercancías peligrosas no se estiban en una cabina ocupada por pasajeros ni en el puesto de pilotaje. Los bultos con la etiqueta «Exclusivamente en aeronaves de carga» no se estiban en una aeronave ocupada por pasajeros.",
+          },
+          {
+            kind: "norma",
+            texto: "Los bultos que puedan reaccionar peligrosamente entre sí no se estiban juntos ni en una posición que permita su contacto si se producen pérdidas. Las condiciones de estiba de bultos «Exclusivamente en aeronaves de carga» y los casos especiales se consultan en las Instrucciones Técnicas.",
+          },
+        ],
       },
     ],
   },

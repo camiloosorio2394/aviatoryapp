@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Del envío a la información del piloto</title>
+  <desc id="desc">Tres momentos: identificar y aceptar el envío, cargarlo y registrar su ubicación, y entregar al piloto la información operacional mediante el NOTOC.</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#10283b"/><stop offset="1" stop-color="#081827"/></linearGradient>
+    <marker id="arrow" markerWidth="18" markerHeight="18" refX="14" refY="9" orient="auto"><path d="M2 2 15 9 2 16" fill="none" stroke="#d6ad42" stroke-width="3"/></marker>
+  </defs>
+  <rect width="1600" height="900" rx="38" fill="url(#bg)"/>
+  <rect x="70" y="68" width="15" height="78" rx="7" fill="#f5c332"/>
+  <text x="108" y="133" font-family="Arial,sans-serif" font-size="72" font-weight="700" fill="#fff">DEL BULTO AL PILOTO</text>
+  <path d="M235 755 H1365" stroke="#d6ad42" stroke-width="8" marker-end="url(#arrow)"/>
+  <g font-family="Arial,sans-serif">
+    <rect x="74" y="246" width="454" height="409" rx="30" fill="#f8f4ed"/>
+    <rect x="573" y="246" width="454" height="409" rx="30" fill="#f8f4ed"/>
+    <rect x="1072" y="246" width="454" height="409" rx="30" fill="#e9c766"/>
+    <text x="111" y="342" font-size="60" font-weight="700" fill="#a07620">01</text>
+    <text x="610" y="342" font-size="60" font-weight="700" fill="#a07620">02</text>
+    <text x="1109" y="342" font-size="60" font-weight="700" fill="#58441c">03</text>
+    <text x="111" y="452" font-size="55" font-weight="700" fill="#173147">IDENTIFICAR</text>
+    <text x="111" y="522" font-size="55" font-weight="700" fill="#173147">Y ACEPTAR</text>
+    <text x="610" y="452" font-size="55" font-weight="700" fill="#173147">CARGAR Y</text>
+    <text x="610" y="522" font-size="55" font-weight="700" fill="#173147">UBICAR</text>
+    <text x="1109" y="452" font-size="55" font-weight="700" fill="#173147">INFORMAR</text>
+    <text x="1109" y="522" font-size="55" font-weight="700" fill="#173147">AL PILOTO</text>
+    <text x="111" y="602" font-size="37" fill="#425b6b">Envío documentado</text>
+    <text x="610" y="602" font-size="37" fill="#425b6b">Posición registrada</text>
+    <text x="1109" y="602" font-size="37" fill="#4a3b25">NOTOC antes de salir</text>
+    <text x="82" y="839" font-size="39" font-weight="700" fill="#bed1dd">PERSONAL FORMADO EN TIERRA</text>
+    <text x="1074" y="839" font-size="39" font-weight="700" fill="#e9c766">PILOTO: INTERPRETAR</text>
+  </g>
+</svg>

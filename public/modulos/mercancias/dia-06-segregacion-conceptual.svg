@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Segregación para evitar el contacto</title>
+  <desc id="desc">Comparación conceptual: a la izquierda, dos bultos próximos y una pérdida que llega de uno al otro; a la derecha, la separación impide el contacto. No muestra distancias reglamentarias.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f3ef"/>
+  <rect x="68" y="65" width="15" height="80" rx="7" fill="#d7aa33"/>
+  <text x="108" y="133" font-family="Arial,sans-serif" font-size="71" font-weight="700" fill="#153247">EVITAR EL CONTACTO</text>
+  <rect x="75" y="236" width="696" height="531" rx="35" fill="#fff" stroke="#e0bba7" stroke-width="4"/>
+  <rect x="829" y="236" width="696" height="531" rx="35" fill="#fff" stroke="#b7d4c8" stroke-width="4"/>
+  <g font-family="Arial,sans-serif" font-size="61" font-weight="700">
+    <text x="125" y="329" fill="#a64d32">PÉRDIDA</text>
+    <text x="125" y="401" fill="#a64d32">COMPARTIDA</text>
+    <text x="879" y="329" fill="#24785e">CONTACTO</text>
+    <text x="879" y="401" fill="#24785e">EVITADO</text>
+  </g>
+  <path d="M114 690 H733 M868 690 H1486" stroke="#cdd7d6" stroke-width="10"/>
+  <g fill="#bc8c63" stroke="#896243" stroke-width="8">
+    <rect x="169" y="476" width="180" height="213" rx="14"/>
+    <rect x="460" y="476" width="180" height="213" rx="14"/>
+    <rect x="928" y="476" width="180" height="213" rx="14"/>
+    <rect x="1274" y="476" width="180" height="213" rx="14"/>
+  </g>
+  <g stroke="#8b6345" stroke-width="8"><path d="M259 479 V685 M550 479 V685 M1018 479 V685 M1364 479 V685"/></g>
+  <path d="M353 646 C394 620 427 620 455 646" fill="none" stroke="#d35d42" stroke-width="24" stroke-linecap="round"/>
+  <path d="M1110 646 C1150 624 1178 624 1200 646" fill="none" stroke="#d35d42" stroke-width="24" stroke-linecap="round"/>
+  <path d="M1214 463 V705" stroke="#24785e" stroke-width="21" stroke-linecap="round" stroke-dasharray="26 24"/>
+  <text x="75" y="846" font-family="Arial,sans-serif" font-size="43" font-weight="700" fill="#3d596a">LA SEPARACIÓN DEPENDE DEL ENVÍO CONCRETO</text>
+</svg>
