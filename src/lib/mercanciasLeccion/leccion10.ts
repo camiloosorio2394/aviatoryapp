@@ -54,13 +54,13 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "Leer una mercancía, dato por dato" },
     {
-      // MP-DIA-07 · Anatomía de una línea · 16:9 · 1600×900.
+      // MP-IMG-28 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/dia-07-anatomia-notoc.svg",
-      alt: "Anatomía de una línea didáctica de NOTOC: UN 1263 es el número ONU, PAINT la denominación, 3 la clase, II el grupo de embalaje, 2 el número de bultos, 1 litro por bulto la cantidad y A1 dentro del ULD AKE 12345 la ubicación de estudio.",
+      src: "/modulos/mercancias/foto-10-anatomia-notoc.webp",
+      alt: "Fotografía realista de un NOTOC de estudio sobre una mesa de operaciones, con flechas que señalan los datos del vuelo, mercancías peligrosas, carga especial, firma y fecha.",
       ancho: 1600,
       alto: 900,
-      pie: "UN 1263, PAINT, clase 3 y grupo II forman un ejemplo técnicamente coherente. Dos bultos de un litro cada uno y la ubicación A1 / AKE 12345 son datos ficticios para aprender a leer campos diferentes.",
+      pie: "La fotografía explica cómo leer los campos del documento. El formato, el vuelo y los datos mostrados son didácticos y no constituyen un NOTOC vigente.",
     },
     {
       kind: "p",
@@ -76,13 +76,13 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "Por qué importa la posición" },
     {
-      // MP-DIA-09 · Corte conceptual · 16:9 · 1600×900.
+      // MP-IMG-29 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/dia-09-ubicacion-a-bordo.svg",
-      alt: "Aeronave comercial conceptual en vista lateral. Una línea didáctica del NOTOC con UN 1263 PAINT, dos bultos y ULD AKE 12345 apunta con una flecha a la posición ficticia A1 de la bodega delantera. No representa un código universal.",
+      src: "/modulos/mercancias/foto-10-ubicacion-uld.webp",
+      alt: "Fotografía realista de una plataforma de carga junto a una aeronave. Flechas señalan los bultos, la unidad de carga ULD y la posición de carga en la aeronave.",
       ancho: 1600,
       alto: 900,
-      pie: "La ubicación exacta permite relacionar información con una zona real de la aeronave. A1 y AKE 12345 son códigos de estudio: ningún nombre de posición o ULD funciona igual en todas las flotas.",
+      pie: "La ubicación exacta relaciona la información con una zona real de la aeronave. Los códigos de posición y ULD cambian según la flota y el explotador.",
     },
     {
       kind: "p",
@@ -90,13 +90,13 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "El grupo de embalaje no aparece en todas las mercancías" },
     {
-      // MP-DIA-08 · Comparación de campos · 16:9 · 1600×900.
+      // MP-IMG-30 · Dos fotografías explicadas · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/dia-08-grupo-cuando-aplica.svg",
-      alt: "Dos ejemplos independientes de lectura. UN 1263 PAINT, clase 3, muestra grupo de embalaje II; UN 3480 LITHIUM ION BATTERIES, clase 9, no tiene grupo de embalaje asignado. No tener grupo no significa no tener riesgo.",
+      src: "/modulos/mercancias/foto-10-grupo-embalaje.webp",
+      alt: "Composición fotográfica de dos bultos: a la izquierda mercancías clase 8 con grupos de embalaje I y III; a la derecha un bulto UN 3480 clase 9 con el rótulo sin grupo. La imagen explica que el grupo depende de la entrada de la mercancía.",
       ancho: 1600,
       alto: 900,
-      pie: "Son ejemplos independientes, no dos líneas sugeridas para el mismo vuelo. UN 3480 como batería de ion-litio suelta está sometida a condiciones propias y no se permite como carga en aeronaves de pasajeros.",
+      pie: "Son fotografías de estudio independientes, no dos líneas sugeridas para el mismo vuelo. UN 3480 como batería de ion-litio suelta está sometida a condiciones propias.",
     },
     {
       kind: "p",
@@ -119,10 +119,10 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "Usarlo ante una situación anormal" },
     {
-      // MP-DIA-10 · Relación operacional · 16:9 · 1600×900.
+      // MP-IMG-31 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/dia-10-notoc-situacion-anormal.svg",
-      alt: "Diagrama operacional: humo, olor o alerta lleva a consultar el NOTOC para identificar qué mercancía se lleva, qué riesgo presenta y dónde está. La actuación corresponde al procedimiento del operador y a la información de respuesta de emergencia.",
+      src: "/modulos/mercancias/foto-10-anormal.webp",
+      alt: "Fotografía realista de un NOTOC de estudio con una explicación sobre situación anormal: seguir el procedimiento de la aeronave, consultar el NOTOC e informar al ATS cuando la situación lo permita.",
       ancho: 1600,
       alto: 900,
       pie: "El NOTOC aporta identidad, riesgo y ubicación. No sustituye el QRH, la guía de respuesta ni las prioridades de control de la aeronave.",

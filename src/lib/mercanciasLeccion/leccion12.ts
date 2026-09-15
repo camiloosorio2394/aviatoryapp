@@ -22,7 +22,7 @@ export const LECCION_12: DocScreen = {
     {
       // MP-IMG-25 · Fotografía explicada · 3:2 · 1200×800.
       kind: "figura",
-      src: "/modulos/mercancias/img-25-hallazgo-documentado.webp",
+      src: "/modulos/mercancias/foto-12-clasificacion.webp",
       alt: "Fotografía recreada de terminal aérea: personal de carga observa la esquina húmeda de un bulto, la fotografía y revisa documentos. Flechas señalan la avería observada y los hechos documentados. Un mensaje indica que el hallazgo se comunica y se clasifica según la evidencia.",
       ancho: 1200,
       alto: 800,
@@ -38,13 +38,13 @@ export const LECCION_12: DocScreen = {
       text: "El RAC 175 distingue accidente, incidente e incumplimiento atribuibles a mercancías peligrosas. Un accidente implica lesión mortal o grave, o daño de consideración a bienes o ambiente. Un incidente puede incluir fuga, incendio, daño o una situación que pudo poner en peligro al avión o a sus ocupantes, incluso sin daño consumado. Un incumplimiento vulnera un requisito sin convertirse en incidente ni accidente.",
     },
     {
-      // MP-DIA-03 · Clasificación y hallazgo · 16:9 · 1600×900.
+      // MP-IMG-33 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/dia-03-suceso-y-hallazgo.svg",
-      alt: "Tres categorías basadas en hechos: incumplimiento sin incidente o accidente, incidente con daños o peligro para aeronave u ocupantes, y accidente con lesiones graves o mortales o daños considerables. Una franja transversal aclara que descubrir carga no declarada o mal declarada se notifica, pero no es automáticamente una cuarta categoría de gravedad. Los datos alimentan el SMS.",
+      src: "/modulos/mercancias/img-25-hallazgo-documentado.webp",
+      alt: "Fotografía realista de personal de carga que documenta una avería en un bulto con una tableta y una ficha. Flechas señalan los hechos documentados y la avería observada; el tipo de suceso se determina con la evidencia.",
       ancho: 1600,
       alto: 900,
-      pie: "Descubrir mercancías no declaradas o mal declaradas es un motivo de notificación, no un cuarto escalón universal de gravedad. La clasificación depende de lo que ocurrió y del riesgo comprobado.",
+      pie: "La fotografía muestra el primer paso: documentar hechos. Descubrir mercancías no declaradas o mal declaradas es un motivo de notificación; la clasificación depende de lo ocurrido y del riesgo comprobado.",
     },
     {
       kind: "p",

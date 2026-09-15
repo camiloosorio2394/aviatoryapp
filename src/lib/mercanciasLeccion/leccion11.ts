@@ -49,13 +49,13 @@ export const LECCION_11: DocScreen = {
       text: "En una bodega de carga, la tripulación puede tener una indicación de sistema, pero no acceso directo al bulto. En la cabina de pasajeros, un miembro de la tripulación puede observar un dispositivo caliente, humo o una fuga y comunicarlo al piloto. Son escenarios distintos: la actuación física de la tripulación de cabina no se traslada a una bodega inaccesible, y un NOTOC de carga no describe necesariamente los objetos personales de los pasajeros.",
     },
     {
-      // MP-FLJ-03 · Dos carriles operacionales · 16:9 · 1600×900.
+      // MP-IMG-32 · Fotografía explicada · 16:9 · 1600×900.
       kind: "figura",
-      src: "/modulos/mercancias/flj-03-emergencia-dos-escenarios.svg",
-      alt: "Flujo de dos escenarios. Bodega: indicación, procedimiento de aeronave, lectura de NOTOC e información al ATS cuando la situación lo permita. Cabina: observación del dispositivo, procedimiento de tripulación de cabina, información al piloto y coordinación posterior. Ambos usan información de respuesta y procedimientos del operador; no hay una lista universal de maniobras.",
+      src: "/modulos/mercancias/foto-11-emergencia.webp",
+      alt: "Fotografía realista recreada de una bodega de carga con fuego al fondo y bultos sujetos. La explicación recuerda que primero se controla el avión y se sigue el procedimiento; el NOTOC aporta identidad y posición.",
       ancho: 1600,
       alto: 900,
-      pie: "Los carriles distinguen bodega de carga y cabina de pasajeros. La secuencia exacta depende de la aeronave, del operador y del incidente; el NOTOC no equivale a una lista de acciones de emergencia.",
+      pie: "La fotografía representa una emergencia en carga; no es evidencia de un accidente concreto ni una lista universal de maniobras. La respuesta depende de la aeronave, el operador y el incidente.",
     },
     { kind: "sub", text: "Qué aporta el NOTOC mientras se controla el vuelo" },
     {

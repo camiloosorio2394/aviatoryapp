@@ -10,11 +10,11 @@ export const LECCION_13: DocScreen = {
     { kind: "p", text: "Los informes de accidentes no son una colección de historias para memorizar. Sirven para separar tres cosas: lo que se observó, lo que no pudo establecerse y qué barrera operacional debe estar preparada antes del próximo vuelo. En esta lección los casos se comparan sin convertir una hipótesis en una regla." },
     {
       kind: "figura",
-      src: "/modulos/mercancias/dia-11-casos-y-barreras.svg",
-      alt: "Línea de tiempo didáctica de cuatro investigaciones: South African 295, ValuJet 592, UPS 6 y Asiana 991. Cada tarjeta separa hecho documentado, incertidumbre y barrera de seguridad, sin afirmar que una sola causa explique todos los accidentes.",
+      src: "/modulos/mercancias/foto-13-casos-industria.webp",
+      alt: "Composición fotográfica de cuatro escenas de carga relacionadas con investigaciones de seguridad: ValuJet 592, UPS 6, Asiana 991 y South African 295. Las etiquetas identifican el caso sin afirmar que una sola causa explique todos los accidentes.",
       ancho: 1600,
       alto: 900,
-      pie: "Comparación de estudio basada en informes oficiales. Las fechas y nombres identifican investigaciones; la barrera indicada no significa que un único cambio reglamentario explique todo el accidente.",
+      pie: "Comparación fotográfica de estudio basada en informes oficiales. Las imágenes son recreaciones o escenas didácticas; las fechas y nombres identifican investigaciones y no prueban una causa.",
     },
     {
       kind: "fichas",
