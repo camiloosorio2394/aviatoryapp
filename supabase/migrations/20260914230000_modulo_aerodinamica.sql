@@ -208,6 +208,15 @@ as $$
 $$;
 
 -- ── 7 · El quiz final ──────────────────────────────────────────────────────
+--
+-- La columna destino lleva un CHECK con la lista de módulos que pueden recibir
+-- un intento. Se amplía antes de insertar: sin esto la fila de aerodinámica no
+-- entra, y como el editor de Supabase corre el archivo en una sola transacción,
+-- se cae la migración entera.
+
+alter table public.evaluaciones drop constraint if exists evaluaciones_destino_check;
+alter table public.evaluaciones add constraint evaluaciones_destino_check
+  check (destino in ('notam', 'metar', 'mercancias', 'aerodinamica', 'simulacro_aerolinea'));
 
 insert into public.evaluaciones
   (clave, titulo, retroalimentacion, preguntas_por_intento, aprobacion,
