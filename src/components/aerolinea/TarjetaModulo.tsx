@@ -35,7 +35,12 @@ export interface TarjetaModuloProps {
    * ámbar y el verde de la app son semántica (alerta y acierto), no identidad.
    */
   color?: string
-  foto: string
+  /**
+   * La portada del módulo. Es opcional a propósito: un módulo cuya portada
+   * todavía no existe pinta su acento en vez de pedir prestada la imagen de
+   * una página interior, que es lo que desalineaba la fila.
+   */
+  foto?: string
   cta: string
   estado: string
   /** Avance de 0 a 100. En 0 no se dibuja la barra, pero se reserva su hueco. */
@@ -75,6 +80,11 @@ export function TarjetaModulo({
   const tinte = color
     ? `linear-gradient(to top, color-mix(in oklab, ${color} 45%, rgb(11 16 32 / 88%)) 0%, rgb(11 16 32 / 12%) 55%, transparent 100%)`
     : "linear-gradient(to top, rgb(11 16 32 / 78%) 0%, rgb(11 16 32 / 12%) 55%, transparent 100%)"
+  // Sin foto: el navy de la app con una pizca del acento del módulo. Queda en
+  // el mismo registro oscuro que las portadas veladas, no como un hueco.
+  const liso = color
+    ? `linear-gradient(135deg, color-mix(in oklab, ${color} 44%, rgb(11 16 32)) 0%, rgb(9 14 28) 100%)`
+    : "linear-gradient(135deg, rgb(20 30 52) 0%, rgb(9 14 28) 100%)"
 
   return (
     <Link
@@ -89,14 +99,20 @@ export function TarjetaModulo({
         >
           {/* Hover a 300 ms con la curva de la casa y un 3 %: se ve decenas de
               veces al día, así que acompaña sin hacerse notar. */}
-          <img
-            src={foto}
-            alt=""
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-            style={{ transitionTimingFunction: "var(--ease-av)" }}
-          />
-          <div aria-hidden className="absolute inset-0" style={{ background: tinte }} />
+          {foto ? (
+            <>
+              <img
+                src={foto}
+                alt=""
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                style={{ transitionTimingFunction: "var(--ease-av)" }}
+              />
+              <div aria-hidden className="absolute inset-0" style={{ background: tinte }} />
+            </>
+          ) : (
+            <div aria-hidden className="absolute inset-0" style={{ background: liso }} />
+          )}
           <span
             className="absolute bottom-2.5 left-2.5 flex h-8 w-8 items-center justify-center rounded-lg backdrop-blur-sm"
             style={{ background: "rgb(11 16 32 / 45%)" }}
