@@ -141,3 +141,34 @@ export function armarSerieHeatmap(filas: ActivityDay[], ahora = new Date()): Act
   }
   return serie
 }
+
+/**
+ * «Ayer, 8:24 p. m.» — cuándo fue la última vez que el piloto tocó algo.
+ *
+ * Sale del `updated_at` que las cuatro tablas de progreso ya guardaban y que
+ * hasta ahora no se traía a la pantalla. Hoy y ayer se nombran, porque es lo
+ * que se reconoce de un vistazo; más atrás se dice la fecha, que dice más que
+ * «hace once días». Devuelve null si no hay fecha o si llega inservible: quien
+ * la pinta no muestra la fila en vez de inventarse una.
+ *
+ * `ahora` se inyecta para poder probarla, igual que armarSerieHeatmap.
+ */
+export function fechaDeUltimaActividad(iso: string | null, ahora = new Date()): string | null {
+  if (!iso) return null
+  const d = new Date(iso)
+  if (Number.isNaN(d.getTime())) return null
+
+  const soloDia = (x: Date) => new Date(x.getFullYear(), x.getMonth(), x.getDate()).getTime()
+  const diasAtras = Math.round((soloDia(ahora) - soloDia(d)) / 86_400_000)
+
+  if (diasAtras <= 1) {
+    const hora = d.toLocaleTimeString("es-CO", { hour: "numeric", minute: "2-digit" })
+    return `${diasAtras <= 0 ? "Hoy" : "Ayer"}, ${hora}`
+  }
+  const otroAno = d.getFullYear() !== ahora.getFullYear()
+  return d.toLocaleDateString("es-CO", {
+    day: "numeric",
+    month: "long",
+    ...(otroAno ? { year: "numeric" } : {}),
+  })
+}

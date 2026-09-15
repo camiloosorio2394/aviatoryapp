@@ -31,9 +31,22 @@ describe("progreso de módulo", () => {
 
   it("lee solo lo de la base; si la consulta falla devuelve null", async () => {
     supabase.consulta.maybeSingle.mockResolvedValueOnce({ data: { lesson_screens: [1], practice_done: null }, error: null })
-    expect(await modulo().progreso.leer("u")).toEqual({ lessonScreens: [1], practiceDone: [] })
+    expect(await modulo().progreso.leer("u")).toEqual({
+      lessonScreens: [1],
+      practiceDone: [],
+      actualizado: null,
+    })
     supabase.consulta.maybeSingle.mockResolvedValueOnce({ data: null, error: { message: "boom" } })
     expect(await modulo().progreso.leer("u")).toBeNull()
+  })
+
+  it("trae la fecha de la última vez que se tocó el tema", async () => {
+    supabase.consulta.maybeSingle.mockResolvedValueOnce({
+      data: { lesson_screens: [1, 2], practice_done: ["q-01"], updated_at: "2026-09-14T23:24:00Z" },
+      error: null,
+    })
+    const leido = await modulo().progreso.leer("u")
+    expect(leido?.actualizado).toBe("2026-09-14T23:24:00Z")
   })
 
   it("marca primero en local y después en la base", async () => {

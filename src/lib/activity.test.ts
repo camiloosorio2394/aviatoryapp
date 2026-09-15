@@ -8,7 +8,11 @@ const { rpc, getSession, reportarError } = vi.hoisted(() => ({
 vi.mock("@/integrations/supabase/client", () => ({ supabase: { rpc, auth: { getSession } } }))
 vi.mock("@/lib/errores", () => ({ reportarError }))
 
-import { registrarActividadDeEstudio, registrarEstudioDiario } from "./activity"
+import {
+  fechaDeUltimaActividad,
+  registrarActividadDeEstudio,
+  registrarEstudioDiario,
+} from "./activity"
 
 const conSesion = () => getSession.mockResolvedValue({ data: { session: { user: { id: "piloto" } } } })
 
@@ -57,5 +61,41 @@ describe("registro de actividad", () => {
     conSesion()
     await Promise.all([registrarEstudioDiario("metar-leccion"), registrarEstudioDiario("metar-leccion")])
     expect(rpc).toHaveBeenCalledTimes(2)
+  })
+})
+
+describe("fechaDeUltimaActividad", () => {
+  /** Un jueves cualquiera a las 3 de la tarde, para no depender del reloj real. */
+  const ahora = new Date(2026, 8, 15, 15, 0, 0)
+
+  it("sin fecha no inventa nada", () => {
+    expect(fechaDeUltimaActividad(null, ahora)).toBeNull()
+    expect(fechaDeUltimaActividad("", ahora)).toBeNull()
+  })
+
+  it("una fecha inservible tampoco se muestra", () => {
+    expect(fechaDeUltimaActividad("ayer por la tarde", ahora)).toBeNull()
+  })
+
+  it("lo de hoy se llama hoy, con su hora", () => {
+    const texto = fechaDeUltimaActividad(new Date(2026, 8, 15, 8, 24).toISOString(), ahora)
+    expect(texto).toMatch(/^Hoy, /)
+    expect(texto).toMatch(/8:24/)
+  })
+
+  it("lo de ayer se llama ayer aunque hayan pasado pocas horas", () => {
+    // 23:30 de ayer contra las 15:00 de hoy: menos de 24 horas, pero es ayer.
+    const texto = fechaDeUltimaActividad(new Date(2026, 8, 14, 23, 30).toISOString(), ahora)
+    expect(texto).toMatch(/^Ayer, /)
+  })
+
+  it("más atrás se dice la fecha, sin hora", () => {
+    const texto = fechaDeUltimaActividad(new Date(2026, 8, 4, 10, 0).toISOString(), ahora)
+    expect(texto).toBe("4 de septiembre")
+  })
+
+  it("de otro año lleva el año", () => {
+    const texto = fechaDeUltimaActividad(new Date(2025, 11, 20, 10, 0).toISOString(), ahora)
+    expect(texto).toContain("2025")
   })
 })

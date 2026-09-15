@@ -14,11 +14,16 @@ import { ArrowRight, CheckCircle2 } from "lucide-react"
  * los hubs y de la landing no se toca. Si el lenguaje de CourseCard cambia,
  * se cambia también aquí.
  *
- * Tres reglas la hacen caber en cuatro columnas sin desalinearse:
+ * Tres reglas la hacen caber en una fila de cinco sin desalinearse:
  *  - El nombre va antes que las cifras: primero se lee qué es.
- *  - La descripción reserva siempre dos renglones, ni más ni menos.
- *  - CTA y estado van anclados abajo, y la barra reserva su alto aunque el
- *    módulo no se haya empezado: los CTA de una fila caen a la misma altura.
+ *  - Título y descripción reservan dos renglones cada uno, ni más ni menos.
+ *  - El pie va anclado abajo y siempre ocupa lo mismo: estado, y debajo la
+ *    barra con su cifra y la flecha. La barra se dibuja aunque el avance sea
+ *    0 %, porque un carril vacío también informa y mantiene la altura.
+ *
+ * El CTA ya no es una línea de texto: es la flecha redonda del pie. Dice lo
+ * mismo, ocupa un renglón menos y es lo que permite la quinta columna. El verbo
+ * («Continuar», «Empezar», «Repasar») sobrevive en el título de la flecha.
  */
 
 export interface TarjetaModuloProps {
@@ -152,60 +157,75 @@ export function TarjetaModulo({
           )}
         </div>
 
-        <div className="flex min-w-0 flex-1 flex-col p-4">
-          <h3 className="m-0 text-[15.5px] font-semibold leading-snug tracking-[-0.01em] text-foreground">
+        <div className="flex min-w-0 flex-1 flex-col p-3.5">
+          {/* Dos renglones reservados: en una fila de cinco, «Meteorología
+              operacional» ocupa dos y «NOTAM» uno, y sin la reserva los pies de
+              las tarjetas caen a alturas distintas. */}
+          <h3 className="m-0 line-clamp-2 min-h-[2lh] text-[14.5px] font-semibold leading-snug tracking-[-0.01em] text-foreground">
             {titulo}
           </h3>
-          <div className="mt-0.5 truncate text-[12px] font-medium text-muted-foreground">{meta}</div>
-          <p className="mt-2 mb-0 line-clamp-2 min-h-[2lh] text-[13px] leading-relaxed text-muted-foreground">
+          <div className="mt-0.5 truncate text-[11.5px] font-medium text-muted-foreground">
+            {meta}
+          </div>
+          <p className="mt-1.5 mb-0 line-clamp-2 min-h-[2lh] text-[12.5px] leading-relaxed text-muted-foreground">
             {descripcion}
           </p>
 
-          <div className="mt-auto pt-3">
-            <span
-              className="inline-flex items-center gap-1 text-[13.5px] font-semibold"
-              style={{ color: acento }}
-            >
-              {cta}
-              <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />
-            </span>
-
-            <div className="mt-3 border-t border-border/60 pt-2.5">
-              {cargando ? (
-                <span className="block h-[34px] w-full rounded bg-muted animate-pulse" aria-hidden="true" />
-              ) : (
-                <>
-                  <div className="flex h-2.5 items-center gap-2">
-                    {avance > 0 && (
-                      <>
-                        <div
-                          className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted"
-                          role="progressbar"
-                          aria-label={`Avance de ${titulo}`}
-                          aria-valuenow={avance}
-                          aria-valuemin={0}
-                          aria-valuemax={100}
-                        >
-                          <div
-                            className="h-full rounded-full"
-                            style={{ width: `${Math.min(100, Math.max(0, avance))}%`, background: acento }}
-                          />
-                        </div>
-                        <span className="tabular text-[11.5px] font-semibold text-muted-foreground">
-                          {avance}%
-                        </span>
-                      </>
-                    )}
+          {/* El pie: estado arriba y, debajo, la barra con su cifra a la
+              izquierda y la flecha a la derecha. La flecha sustituye al CTA de
+              texto —lo dice igual y ocupa una línea menos—, y conserva el
+              verbo («Continuar», «Empezar», «Repasar») en su título. */}
+          <div className="mt-auto pt-2.5">
+            {cargando ? (
+              <span
+                className="block h-[34px] w-full rounded bg-muted animate-pulse"
+                aria-hidden="true"
+              />
+            ) : (
+              <>
+                <p
+                  className="m-0 truncate text-[11.5px] font-medium text-muted-foreground"
+                  title={estado}
+                >
+                  {estado}
+                </p>
+                <div className="mt-2 flex items-center gap-3">
+                  <div className="flex min-w-0 flex-1 items-center gap-2">
+                    <div
+                      className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-muted"
+                      role="progressbar"
+                      aria-label={`Avance de ${titulo}`}
+                      aria-valuenow={avance}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      <div
+                        className="h-full rounded-full transition-[width]"
+                        style={{
+                          width: `${Math.min(100, Math.max(0, avance))}%`,
+                          background: acento,
+                        }}
+                      />
+                    </div>
+                    <span className="tabular shrink-0 text-[11.5px] font-semibold text-muted-foreground">
+                      {avance}%
+                    </span>
                   </div>
-                  <p
-                    className="mt-1.5 mb-0 truncate text-[12px] font-medium text-muted-foreground"
-                    title={estado}
+                  {/* El icono no puede ir siempre en blanco: sin `color` el
+                      acento es el propio texto de la app, que en modo oscuro es
+                      casi blanco y dejaría la flecha invisible. Se invierte
+                      contra el fondo, que funciona en los dos temas. */}
+                  <span
+                    aria-hidden
+                    title={cta}
+                    className="grid h-8 w-8 shrink-0 place-items-center rounded-full transition-transform duration-200 group-hover:translate-x-0.5"
+                    style={{ background: acento, color: color ? "#fff" : "var(--background)" }}
                   >
-                    {estado}
-                  </p>
-                </>
-              )}
-            </div>
+                    <ArrowRight className="h-4 w-4" />
+                  </span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

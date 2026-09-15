@@ -11,6 +11,7 @@ import {
   Wind,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
+import { fechaDeUltimaActividad } from "@/lib/activity"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
@@ -74,19 +75,20 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
  * Antes era estática, así que quien llevaba 6 de 13 secciones de NOTAM veía
  * exactamente lo mismo que quien nunca lo abrió.
  *
- * Composición pensada para cuatro columnas (11 de septiembre de 2026):
+ * Composición densa, de una sola fila de temas (15 de septiembre de 2026):
  *
  *  - Arriba, el hero de las portadas de módulo en su versión corta: foto bajo
  *    velo navy, titular en Archivo y el panel de avance de cristal. Antes
  *    era la cabecera genérica de la app, y la pantalla que agrupa los módulos
  *    no se parecía a ninguno de ellos.
- *  - Los temas van en una rejilla de cuatro, porque son cuatro y son
- *    equivalentes. Las herramientas no se estudian ni se terminan, así que van
- *    en su propio grupo, en dos tarjetas horizontales que llenan la fila en vez
- *    de dejar dos huecos.
+ *  - Los cinco temas caben en una fila. La tarjeta perdió el renglón del CTA
+ *    —ahora es la flecha redonda del pie— y con eso entra la quinta columna.
+ *    Las herramientas no se estudian ni se terminan, así que van en su propio
+ *    grupo, en dos tarjetas horizontales que llenan la fila en vez de dejar
+ *    dos huecos.
  *  - La rejilla responde al ancho del contenido y no al de la ventana, porque
- *    la barra lateral se come 245 px: una, dos o cuatro columnas, nunca tres,
- *    que con cuatro temas deja uno huérfano.
+ *    la barra lateral se come 245 px: una, dos, tres o cinco columnas, nunca
+ *    cuatro, que con cinco temas deja uno huérfano en la segunda fila.
  *  - Lo que viene después va pegado a los temas, como una fila de pastillas: es
  *    la continuación de la rejilla, no un párrafo aparte.
  *
@@ -130,6 +132,7 @@ function ctaDeTema(pct: number): string {
   return pct > 0 ? "Continuar" : "Empezar"
 }
 
+
 export function AirlinePrep() {
   const { user, isLoading: sessionLoading } = useSession()
   const [notamProgress, setNotamProgress] = useState(() => {
@@ -157,6 +160,8 @@ export function AirlinePrep() {
     () => leerPsicoLocal().mejorSimulacro
   )
   const [hidratado, setHidratado] = useState(false)
+  /** ISO de la última vez que tocó cualquier tema. null sin sesión o sin avance. */
+  const [ultimaActividad, setUltimaActividad] = useState<string | null>(null)
 
   // Quien estudia sin cuenta ve su respaldo local de inmediato: no hay nada que
   // esperar. Con sesión, se espera a la base antes de dar el avance por bueno.
@@ -209,6 +214,18 @@ export function AirlinePrep() {
       setMejorSimulacro(mockRes)
       if (mpRes) setMercanciasProgreso(mpRes)
       if (aeRes) setAeroProgreso(aeRes)
+
+      // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
+      // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
+      // NOTAM y METAR devuelven el progreso remoto pelado; Mercancías y
+      // Aerodinámica lo envuelven y lo dejan en `remoto`.
+      const fechas = [
+        notamRes?.actualizado,
+        metarRes?.actualizado,
+        mpRes?.remoto.actualizado,
+        aeRes?.remoto.actualizado,
+      ].filter((f): f is string => typeof f === "string" && f.length > 0)
+      setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
       // intento se hizo sin sesión en este mismo equipo, no se pierde.
       if (psicoRes !== null) {
@@ -551,10 +568,29 @@ export function AirlinePrep() {
                 )}
               </div>
 
-              {PROXIMOS.length > 0 && (
-                <div className="border-t border-white/10 px-3.5 py-2.5 text-[11.5px] font-semibold leading-[1.5] text-white/80">
-                  Tema {temaActual} de {disponibles + PROXIMOS.length}
-                </div>
+              {/* El pie del panel: por dónde vas en la ruta y cuándo fue la
+                  última vez. La fecha solo aparece cuando la base tiene una —
+                  sin sesión o sin avance no hay nada que fechar, y una fila
+                  vacía diría menos que ninguna. */}
+              {(PROXIMOS.length > 0 || fechaDeUltimaActividad(ultimaActividad)) && (
+                <dl className="m-0 border-t border-white/10 px-3.5 py-2.5 text-[11.5px] leading-[1.5]">
+                  {PROXIMOS.length > 0 && (
+                    <div className="flex items-baseline justify-between gap-3">
+                      <dt className="text-white/55">Tema</dt>
+                      <dd className="tabular m-0 font-semibold text-white/85">
+                        {temaActual} de {disponibles + PROXIMOS.length}
+                      </dd>
+                    </div>
+                  )}
+                  {fechaDeUltimaActividad(ultimaActividad) && (
+                    <div className="mt-1 flex items-baseline justify-between gap-3">
+                      <dt className="shrink-0 text-white/55">Última actividad</dt>
+                      <dd className="m-0 truncate font-semibold text-white/85">
+                        {fechaDeUltimaActividad(ultimaActividad)}
+                      </dd>
+                    </div>
+                  )}
+                </dl>
               )}
             </div>
           </div>
@@ -565,10 +601,15 @@ export function AirlinePrep() {
             Temas de estudio
           </h2>
 
-          {/* Una, dos o tres columnas. Con cinco temas, tres dejan una pareja
-              en la segunda fila; cuatro dejarían uno solo, que se lee como un
-              sobrante. */}
-          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @4xl:grid-cols-3">
+          {/* Una, dos, tres o cinco columnas. Nunca cuatro: los temas son cinco
+              y una rejilla de cuatro deja el quinto solo en la segunda fila,
+              que se lee como un sobrante.
+
+              El salto a cinco está en @5xl y no más arriba a propósito: con la
+              barra lateral puesta, un portátil de 1440 px deja unos 1130 px de
+              contenido, y ahí es donde tienen que caber los cinco. A ese ancho
+              cada tarjeta mide ~213 px, que es para lo que se compactó. */}
+          <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @3xl:grid-cols-3 @5xl:grid-cols-5">
             {cursables.map((t) => (
               <TarjetaModulo
                 key={t.to}

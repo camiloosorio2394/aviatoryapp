@@ -19,6 +19,12 @@ import { reportarError } from "@/lib/errores"
 export interface ProgresoRemoto {
   lessonScreens: number[]
   practiceDone: string[]
+  /**
+   * Cuándo tocó el piloto este tema por última vez, en ISO, tal como lo guarda
+   * la base. Opcional porque el respaldo local no lo tiene: sin sesión no hay
+   * fila que fechar, y la pantalla lo trata como «todavía no hay actividad».
+   */
+  actualizado?: string | null
 }
 
 export interface MarcaProgreso {
@@ -46,6 +52,7 @@ export interface ConfigProgreso {
 interface Fila {
   lesson_screens: number[] | null
   practice_done: string[] | null
+  updated_at: string | null
 }
 
 /** Cuántas RPC de subida van en paralelo, para no abrir decenas de conexiones de golpe. */
@@ -64,12 +71,16 @@ export function crearProgresoModulo({ tabla, rpc, leerLocal, anotarLocal }: Conf
     try {
       const { data, error } = await supabase
         .from(tabla)
-        .select("lesson_screens, practice_done")
+        .select("lesson_screens, practice_done, updated_at")
         .eq("user_id", userId)
         .maybeSingle()
       if (error) return null
       const fila = data as Fila | null
-      return { lessonScreens: fila?.lesson_screens ?? [], practiceDone: fila?.practice_done ?? [] }
+      return {
+        lessonScreens: fila?.lesson_screens ?? [],
+        practiceDone: fila?.practice_done ?? [],
+        actualizado: fila?.updated_at ?? null,
+      }
     } catch {
       return null
     }
