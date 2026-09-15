@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen, GraduationCap, Play, Target } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, Target } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
+import { VideoIntro } from "@/components/modulo/VideoIntro"
 import { useSession } from "@/hooks/useSession"
 import {
   AERO_APRENDE,
@@ -30,9 +31,9 @@ import {
  *
  * La misma casa que los hubs de NOTAM, Meteorología y Mercancías, sin una
  * coma de diferencia: hero con velo navy sobre el hueco de la foto de fondo,
- * el espacio del vídeo de introducción, un botón primario y otro secundario,
- * el panel de avance con sus tres filas y las tres puertas numeradas. Lo único
- * propio es el acento, que aquí es el azul acero.
+ * el vídeo de introducción, un botón primario y otro secundario, el panel de
+ * avance con sus tres filas y las tres puertas numeradas. Lo único propio es
+ * el acento, que aquí es el azul acero.
  */
 
 const ACENTO = "var(--av-ae-700)"
@@ -190,19 +191,17 @@ export function Aerodinamica() {
             </p>
 
             <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
-              <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
-                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
-                  <Play className="h-4 w-4 text-white/35" aria-hidden />
-                </span>
-                <span className="min-w-0">
-                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
-                    Espacio reservado
-                  </span>
-                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/60">
-                    AE-VID-01 · Introducción al módulo · ~60 s · con su cartel 16:9
-                  </span>
-                </span>
-              </div>
+              <VideoIntro
+                src="/modulos/aerodinamica/intro.mp4"
+                miniatura="/modulos/aerodinamica/intro-poster.webp"
+                portada="/modulos/aerodinamica/intro-poster.webp"
+                duracion="58 s"
+                titulo="Introducción al módulo de Aerodinámica"
+                continuarA={AERO_APRENDE}
+                continuarTexto="Empezar la lección"
+                claveVisto="av:visto:intro:aerodinamica"
+                acento={ACENTO}
+              />
 
               <div className="flex flex-wrap items-center gap-3">
               <Link

@@ -1,0 +1,333 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* — index voice (code-editorial preset): JetBrains Mono. The whole frame is
+         indexical — four mono rotulos and one mono equation — so the mono face is
+         the only one this composition names (same reasoning as the sibling 03).
+         Local staged WOFF2 first, pinned Google WOFF2 as the fallback.
+         The greek slice has no local file (assets/fonts ships latin + latin-ext
+         only) and carries the rho U+03C1 of the equation. — */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_400-latin.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_400-latinext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500_ext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    /* greek — the rho of L = 1/2 rho V^2 S CL. No local slice is staged. */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxPcwhsk.woff2") format("woff2");
+      unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxPcwhsk.woff2") format("woff2");
+      unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+    }
+
+    /* frame root — styled by #root, never by a class on the composition element.
+       Carries NO background: the cream paper is its own full-duration clip below. */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      font-family: "JetBrains Mono", monospace;
+      color: #16191D;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── background: the warm cream paper, full-bleed, on its own full-duration clip ── */
+    .f03-sustentacion-paper {
+      position: absolute;
+      inset: 0;
+      background: #FBFAF8;
+    }
+    .f03-sustentacion-topline {
+      position: absolute;
+      left: 140px;
+      top: 100px;
+      width: 1640px;
+      height: 1px;
+      background: rgba(22, 25, 29, 0.16);
+      transform-origin: 0% 50%;
+    }
+
+    /* ── stage ── */
+    .f03-sustentacion-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── the cross: four rotulos around a centre that stays empty ──────────────
+         No silhouette, no arrowheads, no wing. Each arm is a short ink hairline
+         that stops 80px short of the centre — the void at (960, 354) is the
+         subject. The whole group attenuates to 45% in Scene 2.               */
+    .f03-sustentacion-cross {
+      position: absolute;
+      inset: 0;
+    }
+
+    .f03-sustentacion-label {
+      position: absolute;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 44px;
+      line-height: 1.15;
+      letter-spacing: 0.06em;
+      color: #16191D;
+      white-space: nowrap;
+    }
+    /* the English gloss rides the same line, one step quieter */
+    .f03-sustentacion-en {
+      font-weight: 400;
+      font-size: 28px;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.52);
+    }
+
+    /* arriba · abajo — centred across the full measure, no CSS transform */
+    .f03-sustentacion-lb-up {
+      left: 0;
+      right: 0;
+      top: 116px;
+      text-align: center;
+    }
+    .f03-sustentacion-lb-down {
+      left: 0;
+      right: 0;
+      top: 540px;
+      text-align: center;
+    }
+    /* izquierda · derecha — boxed against the centre void so the inner edges
+       land symmetrically at 960 ± 210 */
+    .f03-sustentacion-lb-left {
+      left: 140px;
+      right: 1170px;
+      top: 328px;
+      text-align: right;
+    }
+    .f03-sustentacion-lb-right {
+      left: 1170px;
+      right: 140px;
+      top: 328px;
+      text-align: left;
+    }
+
+    /* the four hairlines — 1px ink, pointing inward, stopping at the void edge */
+    .f03-sustentacion-hair {
+      position: absolute;
+      background: rgba(22, 25, 29, 0.42);
+    }
+    .f03-sustentacion-hair-up {
+      left: 960px;
+      top: 194px;
+      width: 1px;
+      height: 80px;
+      transform-origin: 50% 0%;
+    }
+    .f03-sustentacion-hair-down {
+      left: 960px;
+      top: 434px;
+      width: 1px;
+      height: 80px;
+      transform-origin: 50% 100%;
+    }
+    .f03-sustentacion-hair-left {
+      left: 776px;
+      top: 354px;
+      width: 104px;
+      height: 1px;
+      transform-origin: 0% 50%;
+    }
+    .f03-sustentacion-hair-right {
+      left: 1040px;
+      top: 354px;
+      width: 104px;
+      height: 1px;
+      transform-origin: 100% 50%;
+    }
+
+    /* ── the code surface: warm navy, ~46% of the width, cream@14% hairline ──
+         Scene 2's only full-ink element; bottom edge at 872px, clear of the
+         caption keep-out at 900.                                             */
+    .f03-sustentacion-panel {
+      position: absolute;
+      left: 518px;
+      top: 664px;
+      width: 884px;
+      height: 208px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #151618;
+      border: 1px solid rgba(251, 250, 248, 0.14);
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(22, 25, 29, 0.08), 0 4px 16px rgba(22, 25, 29, 0.04);
+    }
+
+    .f03-sustentacion-eq {
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 76px;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      text-indent: 0.02em; /* balances the trailing letter-space */
+      color: #FBFAF8;
+      white-space: pre;
+    }
+    /* tokens are inline and animate opacity only — the line never reflows */
+    .f03-sustentacion-tok {
+      color: inherit;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-sustentacion" data-width="1920" data-height="1080">
+    <!-- full-bleed ground: its own clip layer, full duration, lowest track -->
+    <div id="f03-sustentacion-ground" class="clip f03-sustentacion-paper" data-start="0" data-duration="9.561" data-track-index="0">
+      <div class="f03-sustentacion-topline"></div>
+    </div>
+
+    <div id="f03-sustentacion-scene" class="clip f03-sustentacion-stage" data-start="0" data-duration="9.561" data-track-index="1">
+      <div class="f03-sustentacion-cross">
+        <div class="f03-sustentacion-label f03-sustentacion-lb-up">SUSTENTACIÓN <span class="f03-sustentacion-en">(Lift)</span></div>
+        <div class="f03-sustentacion-hair f03-sustentacion-hair-up"></div>
+
+        <div class="f03-sustentacion-label f03-sustentacion-lb-down">PESO <span class="f03-sustentacion-en">(Weight)</span></div>
+        <div class="f03-sustentacion-hair f03-sustentacion-hair-down"></div>
+
+        <div class="f03-sustentacion-label f03-sustentacion-lb-left">EMPUJE <span class="f03-sustentacion-en">(Thrust)</span></div>
+        <div class="f03-sustentacion-hair f03-sustentacion-hair-left"></div>
+
+        <div class="f03-sustentacion-label f03-sustentacion-lb-right">RESISTENCIA <span class="f03-sustentacion-en">(Drag)</span></div>
+        <div class="f03-sustentacion-hair f03-sustentacion-hair-right"></div>
+      </div>
+
+      <div class="f03-sustentacion-panel">
+        <div class="f03-sustentacion-eq"><span class="f03-sustentacion-tok">L </span><span class="f03-sustentacion-tok">= </span><span class="f03-sustentacion-tok">½ </span><span class="f03-sustentacion-tok">ρ </span><span class="f03-sustentacion-tok">V² </span><span class="f03-sustentacion-tok">S </span><span class="f03-sustentacion-tok f03-sustentacion-cl">CL</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="03-sustentacion"]');
+      var one = function (sel) { return root.querySelector(sel); };
+      var all = function (sel) { return root.querySelectorAll(sel); };
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* ── Scene 1 (0.0–3.0s) — sobre papel, los cuatro rotulos entran en cruz,
+            uno cada 0.5s: sustentación (arriba), peso (abajo), empuje
+            (izquierda), resistencia (derecha). Cada uno arrastra su hairline
+            hacia el centro vacío, que nunca se llena. ── */
+      tl.fromTo(one(".f03-sustentacion-topline"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.70, ease: "power2.out" }, 0.02);
+
+      /* arriba — SUSTENTACIÓN (Lift), baja a su sitio */
+      tl.fromTo(one(".f03-sustentacion-lb-up"),
+        { opacity: 0, y: -22 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.12);
+      tl.fromTo(one(".f03-sustentacion-hair-up"),
+        { scaleY: 0 },
+        { scaleY: 1, duration: 0.45, ease: "power2.out" }, 0.32);
+
+      /* abajo — PESO (Weight), sube a su sitio */
+      tl.fromTo(one(".f03-sustentacion-lb-down"),
+        { opacity: 0, y: 22 },
+        { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.62);
+      tl.fromTo(one(".f03-sustentacion-hair-down"),
+        { scaleY: 0 },
+        { scaleY: 1, duration: 0.45, ease: "power2.out" }, 0.82);
+
+      /* izquierda — EMPUJE (Thrust), entra desde fuera del cuadro */
+      tl.fromTo(one(".f03-sustentacion-lb-left"),
+        { opacity: 0, x: -26 },
+        { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.12);
+      tl.fromTo(one(".f03-sustentacion-hair-left"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.45, ease: "power2.out" }, 1.32);
+
+      /* derecha — RESISTENCIA (Drag), cierra la cruz */
+      tl.fromTo(one(".f03-sustentacion-lb-right"),
+        { opacity: 0, x: 26 },
+        { opacity: 1, x: 0, duration: 0.55, ease: "power3.out" }, 1.62);
+      tl.fromTo(one(".f03-sustentacion-hair-right"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.45, ease: "power2.out" }, 1.82);
+
+      /* ── Scene 2 (3.0–6.2s) — la cruz se atenúa al 45% y sube desde abajo el
+            panel navy; la ecuación se escribe token a token, de modo que el
+            reveal sigue llegando en la segunda mitad del plano. ── */
+      tl.fromTo(one(".f03-sustentacion-cross"),
+        { opacity: 1 },
+        { opacity: 0.45, duration: 0.70, ease: "power2.inOut" }, 3.00);
+
+      tl.fromTo(one(".f03-sustentacion-panel"),
+        { opacity: 0, y: 150 },
+        { opacity: 1, y: 0, duration: 0.95, ease: "power3.out" }, 3.10);
+
+      tl.fromTo(all(".f03-sustentacion-tok"),
+        { opacity: 0 },
+        { opacity: 1, duration: 0.40, stagger: 0.32, ease: "power2.out" }, 4.10);
+
+      /* ── Scene 3 (6.2–9.4s) — CL, la única variable que el piloto mueve con el
+            ángulo de ataque, toma el acento acero #5D84AC: el único acento del
+            frame y el puente al frame siguiente. Quietud declarada: sólo un
+            empuje lentísimo sobre el panel, sin salida. ── */
+      tl.fromTo(one(".f03-sustentacion-cl"),
+        { color: "#FBFAF8" },
+        { color: "#5D84AC", duration: 0.75, ease: "power2.inOut" }, 6.50);
+
+      tl.fromTo(one(".f03-sustentacion-panel"),
+        { scale: 1 },
+        { scale: 1.018, duration: 2.40, ease: "power1.inOut" }, 6.70);
+
+      /* hold the full scene length (9.561s) */
+      tl.to({}, { duration: 0.01 }, 9.551);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["03-sustentacion"] = tl;
+    })();
+  </script>
+</template>
