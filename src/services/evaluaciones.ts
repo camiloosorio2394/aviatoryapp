@@ -17,6 +17,7 @@ export type ClaveEvaluacion =
   | "notam_evaluacion"
   | "metar_evaluacion"
   | "mercancias_evaluacion"
+  | "aerodinamica_evaluacion"
   | "simulacro_aerolinea"
 
 export type Retroalimentacion = "inmediata" | "al_final"

@@ -5,6 +5,9 @@ import { METAR_LESSON_MINUTES, METAR_LESSON_TOTAL } from "@/lib/metarLesson"
 import { MP_LECTURA_MINUTOS, MP_LECTURA_TOTAL, MP_NIVELES, MP_PRACTICA_TOTAL } from "@/lib/mercancias"
 import { MP_LECCIONES, MP_LECCION_TOTAL, MP_MINUTOS } from "@/lib/mercanciasLeccion"
 import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
+import { AERO_LECTURA_MINUTOS, AERO_LECTURA_TOTAL, AERO_PRACTICA_TOTAL } from "@/lib/aerodinamica"
+import { AERO_LECCION_TOTAL, AERO_MINUTOS } from "@/lib/aerodinamicaLeccion"
+import { AERO_PRACTICA_TOTAL as AERO_PRACTICA_CONTENIDO } from "@/lib/aerodinamicaPractica"
 
 /**
  * Los hubs y la lista de temas usan conteos fijos para no cargar el contenido
@@ -31,6 +34,14 @@ describe("conteos fijos de las lecciones", () => {
       MP_LECTURA_TOTAL: MP_LECCION_TOTAL,
       MP_LECTURA_MINUTOS: MP_MINUTOS,
       MP_PRACTICA_TOTAL: PRACTICA_TOTAL,
+    })
+  })
+
+  it("Aerodinámica: secciones, minutos y ejercicios de práctica", () => {
+    expect({ AERO_LECTURA_TOTAL, AERO_LECTURA_MINUTOS, AERO_PRACTICA_TOTAL }).toEqual({
+      AERO_LECTURA_TOTAL: AERO_LECCION_TOTAL,
+      AERO_LECTURA_MINUTOS: AERO_MINUTOS,
+      AERO_PRACTICA_TOTAL: AERO_PRACTICA_CONTENIDO,
     })
   })
 
