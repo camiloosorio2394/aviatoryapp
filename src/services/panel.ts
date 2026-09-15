@@ -10,6 +10,15 @@
 
 import { supabase } from "@/integrations/supabase/client"
 import { armarSerieHeatmap } from "@/lib/activity"
+import { MODULOS_AEROLINEA, type ClaveModulo } from "@/lib/modulosAerolinea"
+import type { PlanDeEstudio } from "@/services/planDeEstudio"
+
+/** Una postulación que todavía espera respuesta, como la cuenta el panel. */
+export interface PostulacionAbierta {
+  aerolinea: string
+  estado: "postulada" | "en_proceso"
+  dias: number
+}
 import type {
   Achievement,
   ActivityDay,
@@ -44,12 +53,17 @@ export interface TarjetasPanel {
   quizDiario: DailyQuizQuestion[]
   dominio: SubjectMastery[]
   /**
-   * Los tres módulos de Ingreso a aerolínea. `null` en uno significa que el
-   * piloto no lo ha tocado, y la tarjeta lo dice; no es un cero.
+   * Los módulos de Ingreso a aerolínea, por clave. `null` en uno significa que
+   * el piloto no lo ha tocado, y la tarjeta lo dice; no es un cero.
+   *
+   * Se recorren desde `MODULOS_AEROLINEA` y no uno por uno: así, cuando entra
+   * un módulo nuevo, el servicio no se queda corto sin que nadie lo note.
    */
-  notam: NotamResumen | null
-  metar: NotamResumen | null
-  mercancias: NotamResumen | null
+  modulos: Record<ClaveModulo, NotamResumen | null>
+  /** Qué días dijo que iba a estudiar. `null` si no se lo ha puesto. */
+  plan: PlanDeEstudio | null
+  /** Las postulaciones que siguen esperando respuesta, de la más vieja. */
+  postulaciones: PostulacionAbierta[]
   licencias: LicenseRow[]
   preparacion: PcaReadiness | null
 }
@@ -106,13 +120,20 @@ export function leerTarjetasPanel(datos: unknown, hoy = new Date()): TarjetasPan
     .sort((a, b) => Date.parse(b.unlocked_at) - Date.parse(a.unlocked_at))
 
   /**
-   * Los tres módulos vienen con la misma forma, así que se leen igual.
+   * Los módulos vienen todos con la misma forma, así que se leen igual.
    *
    * Un módulo que no viene se lee como «sin avance» y no como error: si el
-   * cliente sale antes que la migración que los agregó, el panel muestra el
+   * cliente sale antes que la migración que lo agregó, el panel muestra el
    * módulo sin empezar en vez de caerse entero. Lo que sí viene se valida
    * igual de estricto que todo lo demás.
    */
+  /** El plan viene con la forma de la tabla; se deja en la del servicio. */
+  const leerPlan = (v: unknown): PlanDeEstudio | null => {
+    if (v === null || v === undefined) return null
+    const p = objeto(v, "plan") as { dias: number[]; hora: string; zona: string; minutos_meta: number }
+    return { dias: p.dias, hora: p.hora.slice(0, 5), zona: p.zona, minutosMeta: p.minutos_meta }
+  }
+
   const moduloResumen = (campo: string): NotamResumen | null => {
     if (d[campo] === undefined || d[campo] === null) return null
     const m = objeto(d[campo], campo)
@@ -129,9 +150,16 @@ export function leerTarjetasPanel(datos: unknown, hoy = new Date()): TarjetasPan
     companeros: lista<Peer>(d.companeros, "companeros"),
     quizDiario: lista<DailyQuizQuestion>(d.quiz_diario, "quiz_diario"),
     dominio: lista<SubjectMastery>(d.dominio, "dominio"),
-    notam: moduloResumen("notam"),
-    metar: moduloResumen("metar"),
-    mercancias: moduloResumen("mercancias"),
+    plan: leerPlan(d.plan),
+    // Si el cliente sale antes que la migración que las agregó, no vienen: se
+    // leen como «ninguna» y no como error, igual que los módulos. Un panel que
+    // se cae entero por un campo que falta es peor que uno sin esa tira.
+    postulaciones: d.postulaciones === undefined
+      ? []
+      : lista<PostulacionAbierta>(d.postulaciones, "postulaciones"),
+    modulos: Object.fromEntries(
+      MODULOS_AEROLINEA.map((m) => [m.clave, moduloResumen(m.clave)]),
+    ) as Record<ClaveModulo, NotamResumen | null>,
     licencias: lista<LicenseRow>(d.licencias, "licencias"),
     preparacion: objetoONulo<PcaReadiness>(d.preparacion, "preparacion"),
   }

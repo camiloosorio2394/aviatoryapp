@@ -21,6 +21,7 @@ import {
 } from "@/lib/mercanciasPractica"
 import { AERO_LECCIONES, AERO_LECCION_TOTAL } from "@/lib/aerodinamicaLeccion"
 import { AERO_PRACTICA_CLAVES } from "@/lib/aerodinamicaPractica"
+import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
  * El catálogo que usa la base para validar el progreso: cuántas secciones tiene
@@ -84,5 +85,30 @@ describe("catálogo de contenido para la base", () => {
     expect(AERO_LECCIONES.map((l) => l.n)).toEqual(
       Array.from({ length: AERO_LECCION_TOTAL }, (_, i) => i + 1),
     )
+  })
+})
+
+/**
+ * El panel pinta los módulos que estén en `MODULOS_AEROLINEA`. Si el catálogo
+ * gana uno y esa lista no, el panel vuelve a anunciar menos módulos de los que
+ * la app tiene, que es lo que pasó al entrar Aerodinámica: dos días mostrando
+ * tres de cuatro.
+ */
+describe("el panel conoce todos los módulos del catálogo", () => {
+  it("la lista de Ingreso a aerolínea tiene las mismas claves que el catálogo", () => {
+    const catalogo = Object.keys(JSON.parse(fs.readFileSync(ARCHIVO, "utf8"))).sort()
+    const lista = MODULOS_AEROLINEA.map((m) => m.clave).sort()
+    expect(lista).toEqual(catalogo)
+  })
+
+  it("cada módulo dice a dónde va y con qué acento, sin repetirlos", () => {
+    for (const m of MODULOS_AEROLINEA) {
+      expect(m.hub.startsWith("/app/")).toBe(true)
+      expect(m.acento.startsWith("var(--")).toBe(true)
+      expect(m.totales.secciones).toBeGreaterThan(0)
+      expect(m.totales.practicas).toBeGreaterThan(0)
+    }
+    expect(new Set(MODULOS_AEROLINEA.map((m) => m.hub)).size).toBe(MODULOS_AEROLINEA.length)
+    expect(new Set(MODULOS_AEROLINEA.map((m) => m.acento)).size).toBe(MODULOS_AEROLINEA.length)
   })
 })

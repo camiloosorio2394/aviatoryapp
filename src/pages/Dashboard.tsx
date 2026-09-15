@@ -1,7 +1,14 @@
 import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RotateCcw } from "lucide-react"
-import { HoldingIcon, LocalizerIcon, VorIcon, WaypointIcon } from "@/components/icons/aero"
+import { AerodromeIcon, HoldingIcon, LocalizerIcon, NdbIcon, VorIcon, WaypointIcon } from "@/components/icons/aero"
+import { Wind } from "lucide-react"
+import {
+  avanceDeModulo,
+  MODULOS_AEROLINEA,
+  type ClaveModulo,
+} from "@/lib/modulosAerolinea"
+import type { IconComponent } from "@/components/dashboard/plan"
 import { reportarError } from "@/lib/errores"
 import { useSession } from "@/hooks/useSession"
 import { useRachaEnBarra } from "@/components/layout/rachaEnBarra"
@@ -9,6 +16,8 @@ import { EstadoError } from "@/components/EstadoError"
 import { SectionTitle } from "@/components/ui/section-title"
 import { KpiTile, KpiPanel } from "@/components/ui/kpi-tile"
 import { revisarVencimientos, traerInicioPanel, traerTarjetasPanel } from "@/services/panel"
+import type { PostulacionAbierta } from "@/services/panel"
+import type { PlanDeEstudio } from "@/services/planDeEstudio"
 import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import type {
   PilotState,
@@ -30,10 +39,9 @@ import {
   computeAirlineProgress,
   buildTodayPlan,
   trialDaysLeft,
-  avanceDeModulo,
-  MODULOS_AEROLINEA,
 } from "@/components/dashboard/plan"
 import { CourseCard } from "@/components/dashboard/CourseCard"
+import { CompromisosDeHoy } from "@/components/dashboard/CompromisosDeHoy"
 import { ExpiryAlert } from "@/components/dashboard/ExpiryAlert"
 import { CockpitHero } from "@/components/dashboard/CockpitHero"
 import { TodayRow } from "@/components/dashboard/TodayRow"
@@ -42,6 +50,27 @@ import { ActivityHeatmap } from "@/components/dashboard/ActivityHeatmap"
 import { AchievementsCard } from "@/components/dashboard/AchievementsCard"
 import { CohortCard } from "@/components/dashboard/CohortCard"
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton"
+
+/**
+ * El icono de cada módulo. `Record<ClaveModulo, …>` a propósito: si entra un
+ * módulo y nadie le da icono, esto no compila. Es el aviso más temprano posible.
+ */
+const ICONO_DE_MODULO: Record<ClaveModulo, IconComponent> = {
+  notam: LocalizerIcon,
+  metar: AerodromeIcon,
+  mercancias: NdbIcon,
+  aerodinamica: Wind,
+}
+
+/** Hoy en Bogotá, que es con lo que la base cierra el día de estudio. */
+function hoyEnBogota(): string {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Bogota",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date())
+}
 
 export function Dashboard() {
   const { user } = useSession()
@@ -66,6 +95,8 @@ export function Dashboard() {
   const [daily, setDaily] = useState<DailyQuizQuestion[]>([])
   const [mastery, setMastery] = useState<SubjectMastery[]>([])
   const [modulos, setModulos] = useState<Record<string, NotamResumen | null>>({})
+  const [plan, setPlan] = useState<PlanDeEstudio | null>(null)
+  const [postulaciones, setPostulaciones] = useState<PostulacionAbierta[]>([])
   const [licenses, setLicenses] = useState<LicenseRow[]>([])
   const [readiness, setReadiness] = useState<PcaReadiness | null>(null)
 
@@ -122,7 +153,9 @@ export function Dashboard() {
         setMastery(tarjetas.dominio)
         // NOTAM contado en la base contra el catálogo; null si no ha empezado,
         // y la card lo dice con un guion en vez de un 0%.
-        setModulos({ notam: tarjetas.notam, metar: tarjetas.metar, mercancias: tarjetas.mercancias })
+        setModulos(tarjetas.modulos)
+        setPlan(tarjetas.plan)
+        setPostulaciones(tarjetas.postulaciones)
         setLicenses(tarjetas.licencias)
         setReadiness(tarjetas.preparacion)
       } catch (err) {
@@ -307,6 +340,15 @@ export function Dashboard() {
           </KpiPanel>
         </div>
 
+        {/* Lo que él mismo se puso. Va antes de los cursos porque responde una
+            pregunta más chica y más inmediata: no «cuánto me falta» sino «¿hoy
+            me toca?». Si no se ha puesto nada, no aparece. */}
+        <CompromisosDeHoy
+          plan={plan}
+          estudioHoy={heatmap.some((d) => d.date === hoyEnBogota() && d.activities_count > 0)}
+          postulaciones={postulaciones}
+        />
+
         {/* Tus cursos. Es la respuesta a "cuánto me falta para terminar", que es
             la pregunta con la que un estudiante entra, así que va antes que los
             indicadores. Cada número sale de práctica registrada: donde no hay
@@ -382,7 +424,7 @@ export function Dashboard() {
           <SectionTitle
             icon={LocalizerIcon}
             eyebrow="Ingreso a aerolínea"
-            title="Los tres módulos del proceso"
+            title={`Los ${MODULOS_AEROLINEA.length} módulos del proceso`}
             hint="Lección, práctica y evaluación de cada uno. El avance sale de lo que registraste."
           />
           {deferredLoading ? (
@@ -399,12 +441,12 @@ export function Dashboard() {
                 return (
                   <CourseCard
                     key={m.clave}
-                    icon={m.icono}
-                    color={m.color}
+                    icon={ICONO_DE_MODULO[m.clave]}
+                    color={m.acento}
                     eyebrow="Prep aerolínea"
                     title={m.titulo}
-                    href={m.href}
-                    pct={avance ? avanceDeModulo(avance, m.totales) : null}
+                    href={m.hub}
+                    pct={avance ? avanceDeModulo(avance, m) : null}
                     done={aprobada}
                     status={
                       avance

@@ -17,6 +17,7 @@ const tarjetas = (cambios: Record<string, unknown> = {}) => ({
   notam: { lecciones: 4, practicas: 3, mejor: 76 },
   metar: { lecciones: 2, practicas: 9, mejor: null },
   mercancias: { lecciones: 0, practicas: 0, mejor: null },
+  aerodinamica: { lecciones: 1, practicas: 5, mejor: null },
   licencias: [],
   preparacion: null,
   ...cambios,
@@ -51,10 +52,10 @@ describe("panel del piloto", () => {
   })
 
   it("NOTAM sin avance es null, y con avance trae lo contado en la base", () => {
-    expect(leerTarjetasPanel(tarjetas()).notam).toEqual({ lesson: 4, practice: 3, best: 76 })
+    expect(leerTarjetasPanel(tarjetas()).modulos.notam).toEqual({ lesson: 4, practice: 3, best: 76 })
     // Los tres módulos se leen igual, y el que no se ha tocado queda en null.
-    expect(leerTarjetasPanel(tarjetas()).metar).toEqual({ lesson: 2, practice: 9, best: null })
-    expect(leerTarjetasPanel(tarjetas()).mercancias).toBeNull()
+    expect(leerTarjetasPanel(tarjetas()).modulos.metar).toEqual({ lesson: 2, practice: 9, best: null })
+    expect(leerTarjetasPanel(tarjetas()).modulos.mercancias).toBeNull()
   })
 
   it("un módulo que la base todavía no manda no tumba el panel", () => {
@@ -62,11 +63,15 @@ describe("panel del piloto", () => {
     const sinModulos = tarjetas()
     delete (sinModulos as Record<string, unknown>).metar
     delete (sinModulos as Record<string, unknown>).mercancias
+    delete (sinModulos as Record<string, unknown>).plan
+    delete (sinModulos as Record<string, unknown>).postulaciones
     const leido = leerTarjetasPanel(sinModulos)
-    expect(leido.metar).toBeNull()
-    expect(leido.mercancias).toBeNull()
-    expect(leido.notam).toEqual({ lesson: 4, practice: 3, best: 76 })
-    expect(leerTarjetasPanel(tarjetas({ notam: { lecciones: 0, practicas: 0, mejor: null } })).notam).toBeNull()
+    expect(leido.plan).toBeNull()
+    expect(leido.postulaciones).toEqual([])
+    expect(leido.modulos.metar).toBeNull()
+    expect(leido.modulos.mercancias).toBeNull()
+    expect(leido.modulos.notam).toEqual({ lesson: 4, practice: 3, best: 76 })
+    expect(leerTarjetasPanel(tarjetas({ notam: { lecciones: 0, practicas: 0, mejor: null } })).modulos.notam).toBeNull()
   })
 
   it("una forma distinta falla en vez de pintar tarjetas vacías", () => {
