@@ -1,5 +1,5 @@
 /**
- * Evaluación de Mercancías peligrosas: 60 preguntas de opción múltiple, cuatro
+ * Evaluación de Mercancías peligrosas: 46 preguntas de opción múltiple, cuatro
  * opciones, una correcta. Cada intento toma 25 al azar y baraja las opciones.
  *
  * El banco se edita en contenido/bancos/mercancias_evaluacion.json y lo presenta
@@ -18,7 +18,7 @@
  */
 
 export const MP_EVALUACION_META = {
-  total: 60,
+  total: 46,
   porIntento: 25,
   puntajePorPregunta: 4,
   aprobacion: 80,

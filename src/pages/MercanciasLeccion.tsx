@@ -18,7 +18,7 @@ import {
 
 /**
  * Lección de Mercancías peligrosas, con el mismo lector que NOTAM y el tema
- * amarillo del módulo (`lector-mp`). Dieciocho lecciones en cinco niveles; el
+ * amarillo del módulo (`lector-mp`). Catorce lecciones en cuatro niveles; el
  * índice los rotula, y cada nivel cierra con su entrevista de aerolínea.
  *
  * Ruta: /app/aerolinea/mercancias/aprende?l=1 (lección) o ?e=1 (entrevista)

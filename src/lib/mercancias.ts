@@ -38,20 +38,19 @@ export const MP_EVALUACION = `${MP_HUB}/evaluacion`
 /** Ruta vieja del lector propio. Redirige a la lección; se conserva por los enlaces guardados. */
 export const MP_LECTOR = `${MP_HUB}/leccion`
 
-/** Los cinco niveles de la lección, con el número de su primera lección. */
+/** Los cuatro niveles de la lección, con el número de su primera lección. */
 export const MP_NIVELES: LectorNivel[] = [
   { titulo: "Nivel 1 · Introducción", desde: 1 },
   { titulo: "Nivel 2 · Identificación", desde: 5 },
-  { titulo: "Nivel 3 · Transporte aéreo", desde: 9 },
-  { titulo: "Nivel 4 · Situaciones del piloto", desde: 13 },
-  { titulo: "Nivel 5 · Casos reales y repaso", desde: 17 },
+  { titulo: "Nivel 3 · Situaciones del piloto", desde: 9 },
+  { titulo: "Nivel 4 · Casos reales y repaso", desde: 13 },
 ]
 
 /** Cuántas lecciones tiene el módulo (MP_LECCION_TOTAL). Denominador del progreso de lectura. */
-export const MP_LECTURA_TOTAL = 18
+export const MP_LECTURA_TOTAL = 14
 
 /** Lectura estimada de todas las lecciones, en minutos (MP_MINUTOS). */
-export const MP_LECTURA_MINUTOS = 134
+export const MP_LECTURA_MINUTOS = 106
 
 /** Ejercicios de la práctica: etiquetas, casos, escenarios y entrevista (PRACTICA_TOTAL). Denominador de esa parte. */
 export const MP_PRACTICA_TOTAL = 49

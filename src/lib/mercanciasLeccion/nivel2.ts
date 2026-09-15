@@ -591,7 +591,7 @@ export const NIVEL_2: DocScreen[] = [
           "Si hay llama, el extintor de a bordo la apaga. Pero no apaga la reacción: la batería se va a volver a calentar.",
           "**Enfriar** con agua u otro líquido no inflamable, en abundancia: lo que hay que frenar es el calor que pasa a las celdas vecinas.",
           "No cubrirla y no moverla sin protección hasta que esté fría. Cubrirla no le quita el oxígeno, porque lo produce ella.",
-          "Vigilarla hasta aterrizar, informar al comandante y, después, notificar el suceso (lección 16).",
+          "Vigilarla hasta aterrizar, informar al comandante y, después, notificar el suceso (lección 12).",
         ],
       },
       {
@@ -756,7 +756,7 @@ export const NIVEL_2: DocScreen[] = [
               {
                 t: "No: las cantidades exceptuadas no van en equipaje ni en correo.",
                 ok: true,
-                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fijan las reglas para pasajeros y tripulantes de las Instrucciones Técnicas (lección 11), no el régimen de cantidades exceptuadas.",
+                fb: "Es la trampa del régimen. Lo que puede llevar un pasajero lo fijan las reglas para pasajeros y tripulantes de las Instrucciones Técnicas, no el régimen de cantidades exceptuadas.",
               },
               {
                 t: "Solo si el explotador lo autoriza en su manual.",

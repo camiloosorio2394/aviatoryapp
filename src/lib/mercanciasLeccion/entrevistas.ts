@@ -5,7 +5,7 @@
  *
  * Antes iban repartidas en cada lección, dos o tres al final. Camilo pidió
  * juntarlas al cierre de cada nivel para que la sección no se repitiera
- * dieciocho veces. Las que ya existían se conservaron (estaban verificadas)
+ * en cada lección. Las que ya existían se conservaron (estaban verificadas)
  * y se completaron hasta quince con lo que las aerolíneas de la región
  * preguntan de verdad: qué es el NOTOC, qué haces con humo en bodega, qué
  * puede llevar un pasajero.
@@ -250,121 +250,8 @@ export const MP_ENTREVISTAS: LectorEntrevista[] = [
   },
   {
     nivel: 3,
-    titulo: "Transporte aéreo",
-    tras: 12,
-    minutes: 12,
-    preguntas: [
-    {
-      nivel: "concepto",
-      q: "¿Qué mercancías peligrosas están prohibidas en el transporte aéreo?",
-      respuesta:
-        "Hay dos niveles de prohibición. Primero, un **criterio material**: lo que al presentarse para el transporte pueda explotar, reaccionar peligrosamente, producir llamas o desprender de manera peligrosa calor o gases tóxicos, corrosivos o inflamables en las condiciones normales de transporte no vuela, esté o no en la lista. Segundo, lo que las Instrucciones Técnicas nombran como prohibido, en todas las circunstancias o solo en circunstancias normales, donde cabe dispensa. Y la lista no es exhaustiva: no estar en ella no es un salvoconducto.",
-      claves: ["Criterio material ante todo", "Prohibido en todas las circunstancias", "Prohibido salvo dispensa", "La lista no es exhaustiva"],
-    },
-    {
-      nivel: "interpretacion",
-      q: "Te preguntan si una mercancía peligrosa puede volar. ¿Por qué no basta con sí o no?",
-      respuesta:
-        "Porque hay cuatro niveles. **Prohibido en todos los casos**: lo que las Instrucciones nombran como prohibido cualesquiera que sean las circunstancias; no vuela ni con dispensa. Prohibido salvo dispensa: lo prohibido en circunstancias normales y los animales vivos infectados. Permitido con aprobación, cuando las Instrucciones lo prevén. Y permitido cumpliendo las Instrucciones, el caso normal. Cada línea del NOTOC cae en uno y me dice qué papel tiene que traer. Si aparece algo prohibido en todos los casos, alguien se equivocó antes que yo.",
-      claves: ["Prohibido en todos los casos", "Prohibido salvo dispensa", "Permitido con aprobación", "Permitido cumpliendo las Instrucciones"],
-    },
-    {
-      nivel: "situacion",
-      q: "Operaciones te llama: un cliente quiere mandar en tu vuelo un artículo que figura como «Prohibido» en la columna de aeronave de pasajeros, y van a pedir «un permiso especial». ¿Qué respondes?",
-      respuesta:
-        "Que «permiso especial» no es una categoría. Si figura como prohibido en circunstancias normales, cabe una **dispensa**; si fuera prohibido en todos los casos, no vuela. Aprobación solo hay si las Instrucciones previeron ese caso; si no, es dispensa, y tiene motivos tasados. Las dos las da la autoridad, no el explotador ni el cliente. Y si sale, espero ver la mercancía en mi información escrita y las condiciones de la dispensa en los procedimientos del vuelo: no quita el riesgo, lo autoriza con un nivel de seguridad equivalente.",
-      claves: ["«Permiso especial» no es categoría", "Aprobación prevista, si no dispensa", "La otorga la autoridad", "Condiciones en la información escrita"],
-    },
-    {
-      nivel: "concepto",
-      q: "¿Qué son las discrepancias notificadas y dónde se publican?",
-      respuesta:
-        "Son las diferencias que un Estado o un explotador aplica respecto de las Instrucciones Técnicas. Se notifican a la OACI y se publican en las propias Instrucciones. Tocan cosas concretas: el idioma de marcas y documentos, los plazos para pedir aprobaciones, los permisos de organismos que no son la autoridad aeronáutica. Y cambian con cada edición: no se estudian de memoria, se buscan en la edición en vigor y en el manual del explotador.",
-      claves: ["Diferencias de Estados y explotadores", "Se notifican a la OACI", "Publicadas en las Instrucciones", "Cambian con cada edición"],
-    },
-    {
-      nivel: "interpretacion",
-      q: "¿Por qué una aerolínea tendría reglas más restrictivas que la norma?",
-      respuesta:
-        "Casi siempre porque le pasó algo. Las discrepancias de explotador nacen de la experiencia propia: LAN, por ejemplo, solo acepta generadores químicos de oxígeno si consta que no están vencidos ni usados, que es la lección de ValuJet convertida en regla de empresa. Un explotador puede ser más restrictivo que la norma; nunca menos. Sus condiciones propias las identifica en su manual de operaciones, y la autoridad las notifica a la OACI para que se publiquen.",
-      claves: ["Nacen de la experiencia propia", "Más restrictivas, nunca más permisivas", "Se identifican en el manual"],
-    },
-    {
-      nivel: "situacion",
-      q: "Vuelas a un país cuyo reglamento no conoces y llevas mercancías peligrosas. ¿De qué te tienes que preocupar?",
-      respuesta:
-        "De que alguien haya mirado las **discrepancias** de ese Estado antes de que saliera la carga. El explotador cumple las de los Estados en los que opera o sobrevuela, y el expedidor mira las de todos los Estados involucrados y las del explotador antes de entregar. Yo no las reviso bulto a bulto, pero no supongo que cumplir la norma de casa basta en toda la ruta. Brasil, por ejemplo, exige portugués en su transporte interior, inglés en los envíos internacionales que salen de allí y aprobación de su comisión nuclear para el radiactivo que sale de Brasil o circula dentro.",
-      claves: ["Explotador: Estados de la ruta", "Expedidor: antes de entregar", "Lo de casa no basta"],
-    },
-    {
-      nivel: "interpretacion",
-      q: "¿Qué añade Colombia para monomotores y aviación privada, y por qué no vale para toda la región?",
-      respuesta:
-        "En Colombia, además, el reglamento prohíbe por seguridad todo tipo de mercancías peligrosas en la **aviación civil privada**, y la clase 3 combustibles en **monomotores**, salvo lo que se permite llevar a pasajeros y tripulantes. Otras clases en monomotor requieren aprobación de la autoridad, que antes verifica las condiciones de seguridad del explotador y determina en qué aeródromos no la aprueba. No vale para la región porque es una limitación nacional: no está en el Anexo 18 ni en el LAR. Cada país añade las suyas.",
-      claves: ["Privada: ninguna mercancía peligrosa", "Monomotor: sin clase 3 combustibles", "Otras clases con aprobación", "Limitación nacional, no regional"],
-    },
-    {
-      nivel: "concepto",
-      q: "¿Qué puede llevar un pasajero en materia de mercancías peligrosas?",
-      respuesta:
-        "La regla general es la **prohibición**: ni en equipaje facturado, ni de mano, ni en la persona. La única excepción es lo que las Instrucciones Técnicas permiten expresamente, y siempre con todas las condiciones que imponen: cantidades, si va en cabina o facturado, y si hace falta aprobación del explotador. Los valores exactos (vatios-hora, litros, unidades) están en la edición vigente de las Instrucciones y en la política del explotador. De memoria tengo que saber la regla y dónde va cada cosa.",
-      claves: ["Prohibición general", "Solo lo expresamente permitido", "Con todas sus condiciones", "Cifras en la edición vigente"],
-    },
-    {
-      nivel: "situacion",
-      q: "En el embarque, la maleta de mano de un pasajero tiene que ir a bodega. Lleva dentro un power bank y un portátil, y discute con la auxiliar. ¿Qué se hace?",
-      respuesta:
-        "El **power bank** sale de la maleta y sube a cabina; el portátil puede seguir dentro, apagado y protegido contra activación accidental. No es una opinión mía ni de la auxiliar: lo dicen las Instrucciones Técnicas y el procedimiento del explotador. Si no lo acepta, la maleta no baja. La razón es la **fuga térmica**: hay que enfriar la batería, y para eso hay que llegar a ella. En cabina alguien lo ve y actúa en segundos; en bodega, hasta que salta un detector la reacción puede haber pasado a las celdas vecinas.",
-      claves: ["Power bank a cabina", "Portátil apagado y protegido", "Fuga térmica: hay que alcanzarla", "Si no acepta, no baja"],
-    },
-    {
-      nivel: "concepto",
-      q: "Dime dónde va cada uno: vapeador, encendedor, munición, oxígeno medicinal y una botella de ron.",
-      respuesta:
-        "El **vapeador**, solo en cabina o en la persona, y no se puede cargar a bordo. El encendedor, uno y en la persona, nunca en el equipaje. La **munición**, al revés: solo facturada, limitada, bien embalada y con aprobación del explotador. El oxígeno medicinal, con aprobación del explotador. Y el licor de 24 a 70 %, en su envase de venta y hasta 5 litros por persona; por encima del 70 % no vuela. Son cifras para estudiar la regla: confírmalas en las Instrucciones vigentes y en la política del explotador.",
-      claves: ["Vapeador: cabina, sin cargar", "Encendedor: uno, en la persona", "Munición: facturada, con aprobación", "Licor: 5 litros (verificar)"],
-    },
-    {
-      nivel: "interpretacion",
-      q: "¿Por qué no basta con avisarle al pasajero en el mostrador lo que no puede llevar?",
-      respuesta:
-        "Porque el reglamento no confía en que el pasajero sepa: obliga a decírselo en **seis momentos**. En la compra del pasaje; en el aeropuerto, con avisos y ejemplos visuales donde se venden pasajes, en el despacho y en el embarque; en el despacho a distancia; en el autoservicio; en la recepción del equipaje, con confirmación de que no lleva nada prohibido; y en el equipaje excedente que va como carga. En la compra por internet, el despacho a distancia y el autoservicio, el trámite no se completa sin que el pasajero **confirme**.",
-      claves: ["Seis momentos, desde la compra", "Avisos con ejemplos visuales", "Sin confirmación no se completa"],
-    },
-    {
-      nivel: "situacion",
-      q: "Vas de uniforme a recoger un avión en otra base y facturas una maleta con pilas de litio de repuesto y un encendedor. Un compañero te dice que a la tripulación eso no le aplica. ¿Qué le respondes?",
-      respuesta:
-        "Que se equivoca. La norma prohíbe las mercancías peligrosas a bordo tanto a pasajeros como a tripulantes, en equipaje facturado, de mano o en la persona, y la excepción es la misma para los dos. Las pilas de repuesto salen de la maleta y van en cabina, con los terminales protegidos: en bodega, si entran en fuga térmica, nadie interviene. El encendedor, uno y en la persona. Ir de uniforme no cambia nada: lo que la tripulación tiene es **formación** para saberlo, y por eso se le exige más, no menos.",
-      claves: ["La tripulación no tiene fuero", "Misma excepción que el pasajero", "Repuestos de litio en cabina", "Encendedor en la persona"],
-    },
-    {
-      nivel: "concepto",
-      q: "¿Qué es una mercancía peligrosa oculta?",
-      respuesta:
-        "Carga declarada con una **descripción general** que debería haberse declarado como mercancía peligrosa, o mercancías peligrosas prohibidas o en cantidad superior a la permitida presentes en el equipaje o junto al cuerpo de un pasajero o tripulante, o en un envío postal. El ejemplo clásico es «Oxy Canisters, Empty» en ValuJet: generadores de oxígeno que viajaron como vacíos y no lo estaban. El riesgo del sistema no es la carga declarada, que llega con papeles y etiquetas, sino la que nadie declaró.",
-      claves: ["Descripción general que oculta", "También equipaje o persona", "También en el correo"],
-    },
-    {
-      nivel: "interpretacion",
-      q: "¿Por qué el reglamento obliga a que el personal de reservas y de recepción tenga a mano una lista de descripciones generales?",
-      respuesta:
-        "Porque las mercancías ocultas no se reconocen por su aspecto sino por cómo se describen. «Material de la compañía», «muestras» o «equipo de campamento» pueden esconder generadores de oxígeno, hielo seco, aerosoles o baterías. La lista sirve para que quien recibe la carga o al pasajero sepa cuándo pedir **confirmación del contenido** en vez de dar por buena la descripción. Y aplica también al explotador que no transporta mercancías peligrosas: debe tener procedimientos para que no entren sin declarar.",
-      claves: ["Se reconocen por la descripción", "Confirmar el contenido", "Aplica a todo explotador"],
-    },
-    {
-      nivel: "situacion",
-      q: "En tierra descubren una mercancía peligrosa no declarada en la carga de tu vuelo y la retiran antes de embarcarla. No pasó nada. ¿Hay que notificar?",
-      respuesta:
-        "Sí. Descubrir una mercancía peligrosa oculta ya es un **suceso** con mercancías peligrosas, aunque no haya daños ni llegue a bordo, y el reglamento exige al explotador notificar cada vez que aparezcan en la carga o en el correo mercancías no declaradas o mal declaradas. Bajarla resuelve el vuelo, no el sistema. Es el nivel que más información aporta, porque señala un fallo de la cadena que todavía no ha costado nada. Notificarlo hoy es el accidente que no ocurre el año que viene.",
-      claves: ["Sí se notifica", "Suceso aunque no haya daño", "Bajarla no basta", "Alimenta el SMS"],
-    },
-    ],
-  },
-  {
-    nivel: 4,
     titulo: "Situaciones del piloto",
-    tras: 16,
+    tras: 12,
     minutes: 12,
     preguntas: [
     {
@@ -475,9 +362,9 @@ export const MP_ENTREVISTAS: LectorEntrevista[] = [
     ],
   },
   {
-    nivel: 5,
+    nivel: 4,
     titulo: "Casos reales y repaso",
-    tras: 18,
+    tras: 14,
     minutes: 12,
     preguntas: [
     {
