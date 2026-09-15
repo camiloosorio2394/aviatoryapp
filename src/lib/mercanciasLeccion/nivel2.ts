@@ -260,11 +260,11 @@ export const NIVEL_2: DocScreen[] = [
         text: "No todas las mercancías peligrosas tienen grupo de embalaje.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-DIA-04 · Diagrama · 16:9 · 1600×900 · SVG",
-        descripcion:
-          "Tres conceptos en paralelo, en tres columnas separadas y sin flechas que las encadenen. La primera, la clase (1 a 9): qué tipo de riesgo presenta la mercancía. La segunda, el grupo de embalaje (I, II, III), cuando aplica: el grado de riesgo dentro de su clasificación. La tercera, el régimen de cantidad (limitada, exceptuada): las condiciones específicas de transporte cuando la cantidad es pequeña. Lo que debe quedar claro al verlo es que responden preguntas distintas, no que sean tres peldaños de una escala.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/mercancias/dia-04-grupos-embalaje.svg",
+        alt: "Tres columnas independientes: clase de riesgo, grupo de embalaje y régimen de cantidad. La clase indica qué riesgo presenta la mercancía; el grupo, qué grado de riesgo tiene cuando aplica; y el régimen, las condiciones específicas para cantidades pequeñas.",
+        ancho: 1600,
+        alto: 900,
       },
 
       { kind: "sub", text: "¿Por qué existen tres grupos?" },
@@ -285,12 +285,12 @@ export const NIVEL_2: DocScreen[] = [
         text: "La clase te dice qué tipo de riesgo presenta la mercancía. El grupo de embalaje añade información sobre el grado de riesgo cuando este criterio aplica.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-IMG-14 · Fotografía · 3:2 · 1200×800",
-        descripcion:
-          "Dos bultos juntos en una terminal de carga, los dos con el rombo blanco y negro de la clase 8. En las marcas se distingue que uno declara grupo de embalaje I y el otro III: misma clase, distinto grado de riesgo y, por eso, distinto embalaje.",
-        alto: 320,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/mercancias/img-14-grupos-embalaje.webp",
+        alt: "Dos bultos corrosivos de clase 8 señalados con flechas. Uno indica grupo de embalaje I, mayor grado de riesgo, y el otro grupo III, menor grado de riesgo.",
+        ancho: 1200,
+        alto: 800,
+        pie: "La clase indica qué riesgo presenta la mercancía; el grupo de embalaje indica su grado cuando aplica.",
       },
 
       { kind: "sub", text: "No todas las mercancías tienen grupo de embalaje" },
@@ -357,12 +357,12 @@ export const NIVEL_2: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "MP-IMG-15 · Fotografía · 3:2 · 1200×800",
-        descripcion:
-          "Una batería de ion-litio de equipo, con su marcado UN 3480 y la etiqueta de clase 9 de litio a la vista. La foto tiene que dejar leer el marcado completo y que ahí no hay ningún número romano: es el ejemplo del texto.",
-        alto: 320,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/mercancias/img-15-un3480-sin-grupo.webp",
+        alt: "Bulto de baterías de ion-litio con el número UN 3480 y la etiqueta de clase 9 señalados. Un tercer aviso muestra que no aparece grupo de embalaje I, II ni III.",
+        ancho: 1200,
+        alto: 800,
+        pie: "UN 3480 pertenece a la clase 9, pero no tiene grupo de embalaje asignado.",
       },
 
       { kind: "sub", text: "Cantidades limitadas y exceptuadas" },
@@ -387,12 +387,12 @@ export const NIVEL_2: DocScreen[] = [
         text: "La mercancía continúa estando sujeta a requisitos de transporte y debe cumplir las condiciones de embalaje, marcado y demás requisitos que correspondan.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-IMG-16 · Fotografía · 3:2 · 1200×800",
-        descripcion:
-          "Un bulto pequeño con la marca de cantidad limitada: el cuadrado apoyado sobre una punta, con las mitades de arriba y de abajo negras y el centro en blanco. Lo que debe verse es que la marca va impresa en el bulto, porque un envío en cantidad limitada sigue siendo un envío declarado.",
-        alto: 320,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/mercancias/img-16-cantidad-limitada.webp",
+        alt: "Bulto pequeño con la marca aérea de cantidad limitada impresa. Las flechas señalan el rombo y la letra Y en su centro.",
+        ancho: 1200,
+        alto: 800,
+        pie: "La letra Y identifica el régimen de cantidad limitada por vía aérea; la mercancía sigue siendo peligrosa y declarada.",
       },
 
       { kind: "sub", text: "Cantidad exceptuada" },
@@ -406,12 +406,12 @@ export const NIVEL_2: DocScreen[] = [
         text: "Significa que la normativa establece un tratamiento específico para esa pequeña cantidad.",
       },
       {
-        kind: "hueco",
-        rotulo: "MP-IMG-17 · Fotografía · 3:2 · 1200×800",
-        descripcion:
-          "Una caja de laboratorio con la etiqueta de cantidad exceptuada: el rectángulo con las franjas en diagonal, el número de la clase arriba y el espacio para el nombre del expedidor. Al lado, para dar escala, los frascos pequeños que van dentro.",
-        alto: 320,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/mercancias/img-17-cantidad-exceptuada.webp",
+        alt: "Caja de laboratorio con marca de cantidad exceptuada. Las flechas señalan la clase en la parte superior, el expedidor en la parte inferior y tres frascos interiores pequeños junto al bulto.",
+        ancho: 1200,
+        alto: 800,
+        pie: "Las cantidades exceptuadas son muy pequeñas y cumplen un régimen específico; exceptuada no significa inofensiva.",
       },
       {
         kind: "detalleTecnico",
