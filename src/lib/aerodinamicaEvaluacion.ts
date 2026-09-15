@@ -1,5 +1,5 @@
 /**
- * Quiz final de Aerodinámica: 40 preguntas de opción múltiple, cuatro opciones,
+ * Evaluación de Aerodinámica: 40 preguntas de opción múltiple, cuatro opciones,
  * una correcta. Cada intento toma 20 al azar y baraja las opciones.
  *
  * El banco se edita en el documento del módulo (docs/contenido/aerodinamica.md,

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, BookOpen, Check, GraduationCap, Target } from "lucide-react"
+import { ArrowLeft, BookOpen, GraduationCap, Play, Target } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { FilaAvance } from "@/components/modulo/FilaAvance"
@@ -15,10 +15,8 @@ import {
   AERO_PRACTICA,
   AERO_PRACTICA_TOTAL,
   AERO_TITULO,
-  AERO_VIGENCIA,
   resumirAerodinamica,
 } from "@/lib/aerodinamica"
-import { AERO_LECCIONES, AERO_PRIORITARIAS } from "@/lib/aerodinamicaLeccion"
 import { AERO_ENTREVISTA, AERO_ESCENARIOS } from "@/lib/aerodinamicaPractica"
 import {
   fetchAerodinamicaProgress,
@@ -30,12 +28,11 @@ import {
  * Hub del tema Aerodinámica (módulo Ingreso a aerolínea).
  * Ruta: /app/aerolinea/aerodinamica
  *
- * La misma casa que los hubs de NOTAM, Meteorología y Mercancías: hero con
- * velo navy, panel de avance con sus tres filas y las tres puertas numeradas.
- * Lo que cambia es el acento, que aquí es el azul acero, y una cosa más: bajo
- * las tres puertas va la lista de las doce secciones con su estado, que es lo
- * que pidió el documento del módulo. Con doce secciones, entrar sabiendo por
- * cuál se va vale más que tres tarjetas solas.
+ * La misma casa que los hubs de NOTAM, Meteorología y Mercancías, sin una
+ * coma de diferencia: hero con velo navy sobre el hueco de la foto de fondo,
+ * el espacio del vídeo de introducción, un botón primario y otro secundario,
+ * el panel de avance con sus tres filas y las tres puertas numeradas. Lo único
+ * propio es el acento, que aquí es el azul acero.
  */
 
 const ACENTO = "var(--av-ae-700)"
@@ -74,7 +71,6 @@ export function Aerodinamica() {
   }, [user, sessionLoading])
 
   const resumen = useMemo(() => resumirAerodinamica(progreso), [progreso])
-  const leidas = useMemo(() => new Set(progreso.lessonScreens), [progreso.lessonScreens])
 
   const partes: CourseCardProps[] = [
     {
@@ -124,10 +120,10 @@ export function Aerodinamica() {
       icon: GraduationCap,
       color: ACENTO,
       meta: `${AERO_EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${AERO_PASS_SCORE}%`,
-      title: "3. Quiz final",
+      title: "3. Evaluación",
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación de cada una y qué secciones te toca repasar.",
-      cta: "Presentar el quiz",
+      cta: "Iniciar evaluación",
       photoHueco: "AE-POR-03 · Portada 5:2 · 1200×480 · Anemómetro con la banda de maniobra",
       status:
         resumen.best === null
@@ -175,7 +171,7 @@ export function Aerodinamica() {
                 className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]"
                 style={{ color: "var(--av-ae-500)" }}
               >
-                Módulo
+                Módulo 4
               </span>
               <span className="h-3 w-px bg-white/20" aria-hidden />
               <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
@@ -193,11 +189,22 @@ export function Aerodinamica() {
               los escenarios y las preguntas que hace un entrevistador técnico.
             </p>
 
-            <p className="nh-display mt-3 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
-              {AERO_VIGENCIA}
-            </p>
+            <div className="mt-5 flex w-fit max-w-full flex-col gap-3">
+              <div className="flex w-full items-center gap-3.5 rounded-[12px] border border-dashed border-white/20 bg-white/[0.05] p-2 pr-4 text-left">
+                <span className="grid h-[52px] w-[92px] shrink-0 place-items-center rounded-[8px] border border-dashed border-white/20 bg-white/[0.06]">
+                  <Play className="h-4 w-4 text-white/35" aria-hidden />
+                </span>
+                <span className="min-w-0">
+                  <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
+                    Espacio reservado
+                  </span>
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/60">
+                    AE-VID-01 · Introducción al módulo · ~60 s · con su cartel 16:9
+                  </span>
+                </span>
+              </div>
 
-            <div className="mt-5 flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-3">
               <Link
                 to={AERO_APRENDE}
                 className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-[filter] hover:brightness-110"
@@ -209,8 +216,9 @@ export function Aerodinamica() {
                 to={AERO_PRACTICA}
                 className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
               >
-                <Target className="h-4 w-4" /> Ir a la práctica
-              </Link>
+                  <Target className="h-4 w-4" /> Ir a la práctica
+                </Link>
+              </div>
             </div>
           </div>
 
@@ -272,7 +280,7 @@ export function Aerodinamica() {
                 cargando={loading}
               />
               <FilaAvance
-                titulo="Quiz final"
+                titulo="Evaluación"
                 to={AERO_EVALUACION}
                 valor={resumen.best === null ? "Sin intentos" : `${resumen.best} / 100`}
                 aviso={resumen.best === null}
@@ -294,50 +302,6 @@ export function Aerodinamica() {
         </div>
       </section>
 
-      {/* Las doce secciones, para entrar por la que toca. Las prioritarias van
-          marcadas: son las que un entrevistador técnico pregunta primero. */}
-      <section className="pt-10" aria-labelledby="aero-secciones">
-        <h2
-          id="aero-secciones"
-          className="nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
-        >
-          Las doce secciones
-        </h2>
-
-        <ol className="mt-3 grid list-none grid-cols-1 gap-2 p-0 md:grid-cols-2">
-          {AERO_LECCIONES.map((s) => {
-            const leida = leidas.has(s.n)
-            const prioritaria = AERO_PRIORITARIAS.includes(s.n)
-            return (
-              <li key={s.n}>
-                <Link
-                  to={`${AERO_APRENDE}?l=${s.n}`}
-                  className="surface surface-lift flex min-h-[56px] items-center gap-3 rounded-xl px-3.5 py-2.5"
-                >
-                  <span
-                    className="tabular shrink-0 text-[12.5px] font-semibold"
-                    style={{ color: leida ? ACENTO : "var(--muted-foreground)" }}
-                  >
-                    {String(s.n).padStart(2, "0")}
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14.5px] font-medium text-foreground">
-                      {s.title}
-                    </span>
-                    <span className="mt-0.5 block text-[12px] text-muted-foreground">
-                      {s.minutes} min
-                      {prioritaria && " · Prioritaria"}
-                    </span>
-                  </span>
-                  {leida && (
-                    <Check className="h-4 w-4 shrink-0" style={{ color: ACENTO }} aria-label="Leída" />
-                  )}
-                </Link>
-              </li>
-            )
-          })}
-        </ol>
-      </section>
     </div>
   )
 }
