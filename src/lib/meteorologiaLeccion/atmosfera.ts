@@ -502,12 +502,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         text: "Corrientes de convección: pequeñas circulaciones locales que nacen del calentamiento desparejo de la superficie. Son las responsables del aire con baches que se siente volando bajo en un día caluroso.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t04-01-cuatro-superficies.webp",
-        alt: "Perfil de terreno con cuatro superficies seguidas, asfalto, campo arado, bosque y lago, con flechas ascendentes sobre las dos primeras y descendentes sobre las dos últimas, y una trayectoria de vuelo bajo ondulada cruzándolas.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El mismo tramo de vuelo bajo, cuatro superficies, cuatro empujones distintos.",
+        kind: "infografia",
+        nombre: "meteo-superficies",
       },
       {
         kind: "sub",
@@ -553,6 +549,10 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
+        kind: "infografia",
+        nombre: "meteo-brisas",
+      },
+      {
         kind: "p",
         text: "En un aeropuerto costero eso significa que la pista en uso puede cambiar de forma previsible entre la tarde y la madrugada, sin que pase ningún frente ni cambie ningún sistema. Es la explicación de la mitad de los cambios de configuración que ves en un destino de playa.",
       },
@@ -572,12 +572,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t04-02-edificio-y-turbulencia.webp",
-        alt: "Pista con un hangar a barlovento: las líneas de corriente llegan lisas, se rompen en remolinos a sotavento y esa zona rota cae justo sobre la zona de toma, que cruza una aeronave en final.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El edificio no se mueve, pero mueve el aire donde vas a tomar.",
+        kind: "infografia",
+        nombre: "meteo-obstaculo",
       },
       {
         kind: "sub",
@@ -605,6 +601,10 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             ],
           },
         ],
+      },
+      {
+        kind: "infografia",
+        nombre: "meteo-montana",
       },
       {
         kind: "callout",

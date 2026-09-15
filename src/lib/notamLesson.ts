@@ -467,7 +467,15 @@ export type LessonBlock =
    */
   | {
       kind: "infografia"
-      nombre: "notam-que-es" | "notam-linea-q" | "meteo-atmosfera" | "meteo-coriolis"
+      nombre:
+        | "notam-que-es"
+        | "notam-linea-q"
+        | "meteo-atmosfera"
+        | "meteo-coriolis"
+        | "meteo-superficies"
+        | "meteo-brisas"
+        | "meteo-obstaculo"
+        | "meteo-montana"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
