@@ -616,3 +616,67 @@ export function MeteoMicrorrafaga() {
     </Lienzo>
   )
 }
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 2 · La misma aeronave, el mismo peso, dos altitudes de presión
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Los dos números son los del PHAK tal como los cita la sección: 745 ft de
+ * carrera al nivel del mar y **«más del doble»** a 8.000 ft de altitud de
+ * presión. El segundo no se convierte en una cifra concreta porque la fuente no
+ * la da, y poner un número inventado en una lámina de rendimiento sería
+ * exactamente lo que no se hace aquí. La barra de abajo se dibuja al doble justo,
+ * que es el mínimo que sostiene «más del doble».
+ */
+const CARRERA_MAR = 0.3
+
+export function MeteoCarrera() {
+  const x0 = IZQ
+  const x1 = DER
+  const largo = x1 - x0
+  const yMar = 196
+  const yAlto = 372
+  const alto = 46
+  const finMar = x0 + largo * CARRERA_MAR
+  const finAlto = x0 + largo * (CARRERA_MAR * 2)
+
+  const pista = (y: number, fin: number, rotulo: string) => (
+    <g>
+      {/* Lo recorrido, más oscuro; lo que queda, claro. */}
+      <rect x={x0} y={y} width={largo} height={alto} fill={ACENTO} opacity={0.12} />
+      <rect x={x0} y={y} width={fin - x0} height={alto} fill={ACENTO} opacity={0.34} />
+      {[0, 1, 2, 3, 4, 5, 6, 7].map((i) => (
+        <rect key={i} x={x0 + 40 + i * 108} y={y + alto / 2 - 2.5} width={52} height={5} fill={PAPEL} opacity={0.85} />
+      ))}
+      <g transform={`translate(${fin - 46} ${y + alto / 2}) scale(1)`}>
+        <Jet x={0} cy={0} ancho={52} color={TINTA} />
+      </g>
+      <Rotulo x={x0} y={y + alto + 34} color={SECUNDARIO} tam={17}>{rotulo}</Rotulo>
+    </g>
+  )
+
+  /** La acotación de la carrera, encima de su pista. */
+  const cota = (y: number, fin: number, texto: string, fuerte: boolean) => (
+    <g>
+      <line x1={x0} y1={y} x2={fin} y2={y} stroke={ACENTO} strokeWidth={2} />
+      <line x1={x0} y1={y - 9} x2={x0} y2={y + 9} stroke={ACENTO} strokeWidth={2} />
+      <line x1={fin} y1={y - 9} x2={fin} y2={y + 9} stroke={ACENTO} strokeWidth={2} />
+      <Rotulo x={x0 + 10} y={y - 18} color={ACENTO} tam={fuerte ? 22 : 20}>{texto}</Rotulo>
+    </g>
+  )
+
+  return (
+    <Lienzo etiqueta="Dos siluetas de pista, una encima de otra, con la misma aeronave y el mismo peso. Arriba, al nivel del mar en día estándar, la carrera de despegue acotada en 745 pies. Abajo, a 8.000 pies de altitud de presión, la carrera es más del doble: menos densidad significa menos sustentación, menos empuje y más pista.">
+      {cota(yMar - 34, finMar, "745 ft", false)}
+      {pista(yMar, finMar, "NIVEL DEL MAR · DÍA ESTÁNDAR")}
+
+      {cota(yAlto - 34, finAlto, "MÁS DEL DOBLE", true)}
+      {pista(yAlto, finAlto, "8.000 ft DE ALTITUD DE PRESIÓN")}
+
+      <Rotulo x={W / 2} y={H - 40} ancla="middle" color={ACENTO} tam={17}>
+        MENOS DENSIDAD: MENOS SUSTENTACIÓN, MENOS EMPUJE, MÁS CARRERA
+      </Rotulo>
+    </Lienzo>
+  )
+}

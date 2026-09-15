@@ -233,12 +233,8 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         ],
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-t02-01-carrera-dos-altitudes.webp",
-        alt: "Dos siluetas de pista con la misma aeronave: arriba, a nivel del mar, la carrera de despegue acotada en 745 ft; abajo, a 8.000 ft de altitud de presión, una carrera de más del doble.",
-        ancho: 1600,
-        alto: 900,
-        pie: "La misma aeronave, el mismo peso, dos altitudes de presión.",
+        kind: "infografia",
+        nombre: "meteo-carrera",
       },
       {
         kind: "sub",

@@ -493,6 +493,7 @@ export type LessonBlock =
         | "meteo-pirep"
         | "meteo-isobaras"
         | "meteo-microrrafaga"
+        | "meteo-carrera"
     }
   /** Ejemplo resuelto, en caja aparte: el enunciado, los pasos y la lectura final. */
   | {
