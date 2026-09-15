@@ -6,7 +6,8 @@ este repo (CRLF, ediciones por scripts `.mjs`, `npx tsc -b` para comprobar).
 
 Tres que no se negocian:
 
-- Nunca borrar filas de la base de datos del usuario. Se le entrega el SQL para que lo corra él.
+- Nunca borrar filas de la base de datos del usuario, y nunca aplicar una migración. Se le
+  entrega el SQL para que lo corra él.
 - Una cosa a la vez. Si se pide «sección 1», se trabaja solo la sección 1.
 - Verificar antes de afirmar. Comprobar con `npx tsc -b` antes de dar algo por terminado.
 
@@ -71,6 +72,12 @@ entras ahí, haz el cambio pequeño y abre el PR el mismo día — no lo dejes r
 **Las migraciones son tuyas y de nadie más.** `supabase/migrations/` se ordena por
 timestamp: si dos agentes crean migraciones en paralelo, al mergear quedan en un orden que
 nunca se probó. Tú eres el único que crea archivos ahí.
+
+**Pero no apliques migraciones nunca, por ningún medio.** Crear el archivo sí; ejecutarlo
+contra la base, no. En Codex Desktop tienes el conector de Supabase con `apply_migration`:
+no lo uses en este proyecto. Dejas la migración en el PR y le entregas el SQL a Camilo para
+que lo corra él, igual que con el borrado de filas. Esa base es producción y tiene alumnos
+dentro.
 
 ## Ramas y merge
 
