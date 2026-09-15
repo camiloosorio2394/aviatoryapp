@@ -11,10 +11,10 @@ export const LECCION_13: DocScreen = {
     {
       kind: "figura",
       src: "/modulos/mercancias/img-30-revision-casos.webp",
-      alt: "Fotografía didáctica nueva de un equipo de seguridad de carga que revisa documentos y fotografías en un hangar; no representa ninguno de los cuatro accidentes.",
+      alt: "Equipo de seguridad de carga que revisa documentos y fotografías en un hangar.",
       ancho: 1536,
       alto: 1024,
-      pie: "La fotografía muestra una revisión de seguridad, no escenas de los accidentes. Para cada caso, distingue lo probado, lo que la investigación no pudo determinar y la barrera operacional que conviene reforzar.",
+      pie: "Al revisar un caso, separa tres capas: el hecho probado, lo que sigue incierto y la barrera operacional que conviene reforzar.",
     },
     {
       kind: "fichas",

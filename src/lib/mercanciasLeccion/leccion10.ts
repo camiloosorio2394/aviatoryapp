@@ -22,22 +22,22 @@ export const LECCION_10: DocScreen = {
       text: "El NOTOC es la información sobre mercancías peligrosas que el explotador entrega al piloto al mando para ese vuelo. Relaciona lo que se cargó con sus riesgos y su ubicación. No es una lista de todo lo que podría transportarse: describe los envíos pertinentes que van a bordo. Si aparece humo o una indicación anormal, esa relación deja de ser administrativa y se vuelve operacional.",
     },
     {
-      // Formulario en blanco aportado por el usuario, conservado completo.
+      // Reconstrucción nítida del formulario y sus quince campos.
       kind: "figura",
-      src: "/modulos/mercancias/img-26-notoc-formulario-real.webp",
-      alt: "Formulario NOTOC real en blanco, mostrado completo sin recortar. Tiene encabezado, datos del vuelo, certificación de preparación, quince columnas de mercancías peligrosas y una columna final de código de respuesta de emergencia resaltada en rojo.",
-      ancho: 1600,
-      alto: 900,
-      pie: "Este es el formulario en blanco que compartiste, no un NOTOC emitido. Amplíalo para ubicar el encabezado, las filas de mercancías, la posición de carga y la columna 15. El formato concreto puede variar entre explotadores.",
+      src: "/modulos/mercancias/img-32-notoc-lectura-hd.webp",
+      alt: "NOTOC de lectura en alta resolución. Flechas señalan datos del vuelo, preparación, envío, riesgos, cantidad, condiciones, posición y respuesta de emergencia. Una fila de PAINT clase 3 muestra la relación entre los campos y plantea una pregunta en la columna 15.",
+      ancho: 2400,
+      alto: 1500,
+      pie: "Sigue las flechas de izquierda a derecha: identifica el envío y su riesgo, comprueba bultos y cantidad, ubícalo en la aeronave y revisa el código de respuesta. En la fila de estudio, la columna 15 plantea una discrepancia para el briefing.",
     },
     {
       kind: "p",
-      text: "El NOTOC no sustituye la declaración del expedidor. Esta describe el envío para su transporte; el explotador realiza la aceptación y prepara la información que necesita la operación. El formulario mostrado separa los datos del vuelo, la certificación de quien lo prepara y una tabla de carga: cada fila debe poder relacionarse con un envío y su ubicación. La información se entrega al piloto de forma legible antes de la salida y queda disponible durante el vuelo.",
+      text: "El NOTOC no sustituye la declaración del expedidor. Esta describe el envío para su transporte; el explotador realiza la aceptación y prepara la información que necesita la operación. La lámina separa los datos del vuelo, quién preparó la información y la tabla de carga: cada fila se relaciona con un envío y su ubicación. El piloto la recibe de forma legible antes de la salida y la tiene disponible durante el vuelo.",
     },
     { kind: "sub", text: "Una línea representa carga real" },
     {
       kind: "p",
-      text: "Piensa en dos bultos cargados en una unidad de carga (ULD). Una línea de información debe permitir reconocer qué mercancía contienen, cuánto hay y dónde quedó esa unidad en la aeronave. La fotografía muestra los tres objetos físicos: bultos, ULD y área de carga. Los bultos de la imagen no son el envío UN 1263 del ejemplo; sirven para visualizar la relación.",
+      text: "Piensa en dos bultos cargados en una unidad de carga (ULD). Una línea de información debe permitir reconocer qué mercancía contienen, cuánto hay y dónde quedó esa unidad en la aeronave. La fotografía muestra los tres objetos físicos que debes relacionar con la línea del NOTOC: bultos, ULD y área de carga.",
     },
     {
       // MP-IMG-23 · Fotografía explicativa · 3:2 · 1200×800.
@@ -50,7 +50,7 @@ export const LECCION_10: DocScreen = {
     },
     {
       kind: "p",
-      text: "Un ULD reúne y sujeta carga. Su identificación, como AKE 12345 en el ejemplo, señala cuál unidad se utilizó; no dice por sí sola dónde quedó instalada. La posición A1 es un código ficticio de este ejercicio. En un vuelo real, el sistema del operador debe permitir relacionar la unidad con su ubicación exacta.",
+      text: "Un ULD reúne y sujeta carga. Su identificación, como AKE 12345 en el ejercicio, señala cuál unidad se utilizó; no dice por sí sola dónde quedó instalada. A1 identifica la posición asignada a esa unidad en la fila. La tripulación debe poder relacionar ambos datos con la ubicación exacta en la aeronave.",
     },
     { kind: "sub", text: "Cómo leer el formulario: del vuelo a cada fila" },
     {
@@ -111,10 +111,10 @@ export const LECCION_10: DocScreen = {
       // Fotografía original del briefing; no reproduce el formulario aportado.
       kind: "figura",
       src: "/modulos/mercancias/img-27-briefing-notoc.webp",
-      alt: "Fotografía didáctica nueva de dos pilotos que revisan una hoja tabulada durante el briefing antes de la salida, mientras se carga la aeronave.",
+      alt: "Dos pilotos revisan una hoja tabulada durante el briefing antes de la salida, mientras se carga la aeronave.",
       ancho: 1536,
       alto: 1024,
-      pie: "La tripulación comprueba que la información recibida corresponde a la carga final. La fotografía ilustra el briefing, no muestra un NOTOC auténtico ni una operación identificable.",
+      pie: "En el briefing, contrasta la información recibida con la carga final. Si un campo está pendiente o la posición cambió, solicita la aclaración antes de salir.",
     },
     {
       kind: "p",
@@ -131,7 +131,7 @@ export const LECCION_10: DocScreen = {
       bloques: [
         {
           kind: "p",
-          text: "El ejemplo visual no es una plantilla reglamentaria. Las Instrucciones Técnicas vigentes establecen qué envíos requieren información al piloto y los datos que deben aparecer. Entre ellos figuran, según corresponda, fecha del vuelo, guía aérea cuando se haya emitido, denominación oficial y número ONU o ID, clase o división, riesgo secundario, grupo de embalaje cuando esté asignado, número de bultos, cantidad y ubicación exacta. Para material radiactivo hay datos particulares como categoría e índice de transporte cuando aplique.",
+          text: "El formato del NOTOC puede variar entre explotadores. Las Instrucciones Técnicas vigentes establecen qué envíos requieren información al piloto y qué datos debe incluir. Entre ellos figuran, según corresponda, fecha del vuelo, guía aérea cuando se haya emitido, denominación oficial y número ONU o ID, clase o división, riesgo secundario, grupo de embalaje cuando esté asignado, número de bultos, cantidad y ubicación exacta. Para material radiactivo hay datos particulares como categoría e índice de transporte cuando aplique.",
         },
         {
           kind: "p",

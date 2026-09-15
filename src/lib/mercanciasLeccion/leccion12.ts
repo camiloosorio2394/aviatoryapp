@@ -23,10 +23,10 @@ export const LECCION_12: DocScreen = {
       // Fotografía completa: se evita la conversión 16:9 que cortaba los rótulos.
       kind: "figura",
       src: "/modulos/mercancias/img-25-hallazgo-documentado.webp",
-      alt: "Fotografía didáctica de un bulto con humedad visible en una terminal de carga. Una persona registra los hechos por escrito y otra documenta el embalaje con una tableta; los rótulos señalan la avería observada y los hechos documentados.",
+      alt: "Bulto con humedad visible en una terminal de carga. Una persona registra los hechos por escrito y otra documenta el embalaje con una tableta; los rótulos señalan la avería y el registro.",
       ancho: 1200,
       alto: 800,
-      pie: "La humedad visible exige evaluar y documentar el bulto. La imagen no demuestra por sí sola que contenga mercancías peligrosas ni determina el tipo jurídico del suceso.",
+      pie: "Observa la humedad, documenta el estado del bulto y contrasta el contenido con la declaración. Con esos hechos, el responsable determina qué ocurrió y cómo debe notificarse.",
     },
     {
       kind: "p",
@@ -41,7 +41,7 @@ export const LECCION_12: DocScreen = {
       // Segunda fotografía nueva: distinta de la escena anterior.
       kind: "figura",
       src: "/modulos/mercancias/img-29-hallazgo-evidencia.webp",
-      alt: "Fotografía didáctica nueva de una caja con una esquina golpeada. Una persona registra los hechos con cámara y ficha; flechas señalan la avería y el registro fotográfico.",
+      alt: "Caja con una esquina golpeada. Una persona registra los hechos con cámara y ficha; flechas señalan la avería y el registro fotográfico.",
       ancho: 1536,
       alto: 1024,
       pie: "Otro hallazgo: una esquina golpeada. Primero se registran los hechos; descubrir mercancías no declaradas o mal declaradas requiere notificación por los canales aplicables, pero la clasificación depende de la evidencia.",
