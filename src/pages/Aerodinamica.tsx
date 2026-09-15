@@ -195,7 +195,7 @@ export function Aerodinamica() {
                 src="/modulos/aerodinamica/intro.mp4"
                 miniatura="/modulos/aerodinamica/intro-poster.webp"
                 portada="/modulos/aerodinamica/intro-poster.webp"
-                duracion="58 s"
+                duracion="55 s"
                 titulo="Introducción al módulo de Aerodinámica"
                 continuarA={AERO_APRENDE}
                 continuarTexto="Empezar la lección"

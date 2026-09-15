@@ -1,5 +1,5 @@
 {
-  "total_duration_s": 58.409,
+  "total_duration_s": 54.709,
   "width": 1920,
   "height": 1080,
   "groups": [
@@ -1053,63 +1053,63 @@
     {
       "id": "caption-group-47",
       "frame": 8,
-      "start": 53.856,
-      "end": 55.015,
+      "start": 50.156,
+      "end": 51.315,
       "text": "Doce secciones,",
       "words": [
         {
           "id": "caption-word-47-0",
           "text": "Doce",
-          "start": 53.856,
-          "end": 54.115
+          "start": 50.156,
+          "end": 50.415
         },
         {
           "id": "caption-word-47-1",
           "text": "secciones,",
-          "start": 54.235,
-          "end": 54.895
+          "start": 50.535,
+          "end": 51.195
         }
       ]
     },
     {
       "id": "caption-group-48",
       "frame": 8,
-      "start": 55.235,
-      "end": 56.855,
+      "start": 51.535,
+      "end": 53.155,
       "text": "práctica y evaluación.",
       "words": [
         {
           "id": "caption-word-48-0",
           "text": "práctica",
-          "start": 55.235,
-          "end": 55.816
+          "start": 51.535,
+          "end": 52.116
         },
         {
           "id": "caption-word-48-1",
           "text": "y",
-          "start": 55.875,
-          "end": 55.895
+          "start": 52.175,
+          "end": 52.195
         },
         {
           "id": "caption-word-48-2",
           "text": "evaluación.",
-          "start": 55.975,
-          "end": 56.735
+          "start": 52.275,
+          "end": 53.035
         }
       ]
     },
     {
       "id": "caption-group-49",
       "frame": 8,
-      "start": 57.316,
-      "end": 58.215,
+      "start": 53.616,
+      "end": 54.515,
       "text": "Empecemos.",
       "words": [
         {
           "id": "caption-word-49-0",
           "text": "Empecemos.",
-          "start": 57.316,
-          "end": 58.095
+          "start": 53.616,
+          "end": 54.395
         }
       ]
     }

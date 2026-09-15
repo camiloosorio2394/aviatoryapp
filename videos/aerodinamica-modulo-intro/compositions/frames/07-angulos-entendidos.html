@@ -1,11 +1,11 @@
 <template>
   <!-- ═══════════════════════════════════════════════════════════════════════
-       FRAME 07 — «Los mismos tres ángulos, entendidos» · 1920×1080 · 10.5s
+       FRAME 07 — «Los mismos tres ángulos, entendidos» · 1920×1080 · 6.8s
 
        ESTE FRAME ES UNA CALCA. Ese es todo su trabajo.
 
        El espectador vio esta misma imagen hace cuarenta segundos (Frame 02).
-       Durante el primer segundo y medio tiene que ser INDISTINGUIBLE de ella:
+       Durante el primer segundo tiene que ser INDISTINGUIBLE de ella:
        si el panel se mueve un píxel o el texto refluye, el video pierde su
        único argumento.
 
@@ -283,11 +283,11 @@
     }
   </style>
 
-  <div id="root" data-composition-id="07-angulos-entendidos" data-start="0" data-duration="10.5" data-width="1920" data-height="1080">
+  <div id="root" data-composition-id="07-angulos-entendidos" data-start="0" data-duration="6.8" data-width="1920" data-height="1080">
 
-    <div id="frame-07-angulos-entendidos-ground" class="clip f07ae-ground" data-start="0" data-duration="10.5" data-track-index="0"></div>
+    <div id="frame-07-angulos-entendidos-ground" class="clip f07ae-ground" data-start="0" data-duration="6.8" data-track-index="0"></div>
 
-    <div id="frame-07-angulos-entendidos-stage" class="clip f07ae-stage" data-start="0" data-duration="10.5" data-track-index="1">
+    <div id="frame-07-angulos-entendidos-stage" class="clip f07ae-stage" data-start="0" data-duration="6.8" data-track-index="1">
       <div class="f07ae-world">
 
         <div class="f07ae-panel"></div>
@@ -342,26 +342,30 @@
          sobre una rejilla inmóvil. Nada entra en Scene 1; nada se desplaza
          en Scene 2; sólo la banda llega en Scene 3.
 
-         VO (10.5s): «Al terminar, vas a ver una nariz quince grados arriba
-         y un avión cayendo. Y por qué la actitud, por sí sola, no dice si
-         el ala está volando.»
-           «vas a ver»      ≈1.6   «quince grados arriba» ≈2.2
-           «un avión cayendo» ≈3.0  «Y por qué la actitud» ≈4.4
+         ESTE PLANO VA SIN LOCUCIÓN, A PROPÓSITO. El guion tenía una línea
+         aquí —«Al terminar, vas a ver una nariz quince grados arriba y un
+         avión cayendo…»— pero lo que decía ya está escrito en la banda, así
+         que la voz solo lo iba a repetir. Callar al narrador justo cuando
+         aparece lo que hay que entender es el recurso, no una avería.
+
+         Sin voz que marcar, los tiempos los pone la lectura: la banda son 55
+         caracteres y necesita sus casi tres segundos de quietud para leerse.
+         Por eso el plano dura 6.8s y no los 10.5 de la versión narrada.
          ──────────────────────────────────────────────────────────────── */
 
       var tl = gsap.timeline({ paused: true });
 
-      /* Scene 1 (0.0–1.6s) — CORTE SECO E IDÉNTICO. Ni una entrada, ni un
+      /* Scene 1 (0.0–1.1s) — CORTE SECO E IDÉNTICO. Ni una entrada, ni un
          fundido, ni una escala: el frame aparece ya en el estado en que quedó
-         el Frame 02. Durante segundo y medio es literalmente la misma imagen.
+         el Frame 02. Durante un segundo es literalmente la misma imagen.
          El estado se fija explícitamente en t=0 para que cualquier seek hacia
          atrás lo reconstruya igual. El sujeto es visible en el fotograma 0. */
       tl.set(dim, { opacity: 1 }, 0);
       tl.set(hero, { opacity: 1 }, 0);
       tl.set(foot, { opacity: 1 }, 0);
 
-      /* Scene 2 (1.6–4.4s) — CAMBIA EL PESO, NO LA POSICIÓN.
-         (a) Todas las demás líneas bajan al 45% en «vas a ver». La fila focal
+      /* Scene 2 (1.1–3.3s) — CAMBIA EL PESO, NO LA POSICIÓN.
+         (a) Todas las demás líneas bajan al 45%. La fila focal
              no se toca: sube a plena tinta por contraste, que es la única
              manera de destacarla sin mover un píxel. El pie NO se atenúa: su
              crema al 50% ya lo deja al mismo peso óptico que las líneas
@@ -370,15 +374,15 @@
       tl.fromTo(dim,
         { opacity: 1 },
         { opacity: 0.45, duration: 0.72, ease: 'power2.inOut' },
-        1.60);
+        1.10);
 
-      /*   (b) «+15°» toma el acento en «quince grados arriba». Color de texto,
+      /*   (b) «+15°» toma el acento. Color de texto,
              no recuadro: el <span> es inline y sin caja, así que la rejilla
              mono no se mueve. Columna 35 → x = 885.0px. */
       tl.fromTo(cellPitch,
         { color: '#FBFAF8' },
         { color: '#5D84AC', duration: 0.54, ease: 'power2.out' },
-        2.20);
+        1.70);
 
       /*   (c) «40° (en pérdida)» toma el acento en «y un avión cayendo» —
              0.8s después, para que se lean como dos datos y no como un par.
@@ -387,22 +391,22 @@
       tl.fromTo(cellAoa,
         { color: '#FBFAF8' },
         { color: '#5D84AC', duration: 0.54, ease: 'power2.out' },
-        3.00);
+        2.40);
 
-      /* Scene 3 (4.4–10.5s) — la banda entra en «Y por qué la actitud…»: un
-         fundido corto con 16px de subida, aterrizado en 5.02. A partir de ahí,
-         LA QUIETUD MÁS LARGA DEL VIDEO: 5.5 segundos en los que no se mueve
+      /* Scene 3 (3.3–6.8s) — la banda entra con un
+         fundido corto con 16px de subida, aterrizada en 3.92. A partir de ahí,
+         LA QUIETUD MÁS LARGA DEL VIDEO: 2.9 segundos en los que no se mueve
          absolutamente nada. Sin push, sin drift, sin flotación. El panel
          completamente quieto es lo que hace legible el cambio de peso — por
          eso este frame renuncia al acercamiento del 2% del Frame 02. */
       tl.fromTo(band,
         { opacity: 0, y: 16 },
         { opacity: 1, y: 0, duration: 0.62, ease: 'power2.out' },
-        4.40);
+        3.30);
 
       /* Sostener el plano aterrizado hasta el último fotograma — sin animación
          de salida (el frame no es el último; la transición raíz es la salida). */
-      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 10.499);
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 6.799);
 
       window.__timelines = window.__timelines || {};
       window.__timelines['07-angulos-entendidos'] = tl;

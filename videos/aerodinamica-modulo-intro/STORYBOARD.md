@@ -1,6 +1,6 @@
 ---
 format: 1920x1080
-duration: 58s
+duration: 55s
 message: "La actitud por sí sola no indica si el ala está volando"
 arc: "Bienvenida → Los tres ángulos, inertes → Lo que vas a aprender (4 promesas) → Los mismos tres ángulos, entendidos → Empecemos"
 audience: "Pilotos que preparan el ingreso a una aerolínea en Latinoamérica"
@@ -230,11 +230,10 @@ Scene 3 (3.8–6.1s): entra al pie, en mono pequeño, `COFFIN CORNER`. Quietud d
 
 - status: animated
 - src: compositions/frames/07-angulos-entendidos.html
-- duration: 10.5s
+- duration: 6.8s
 - transition_in: cut
 - blueprint: grid-card-assemble (Adapt)
-- scene: La tabla vuelve idéntica al Frame 2. La tercera fila se enciende y una banda nombra lo que significa.
-- voiceover: Al terminar, vas a ver una nariz quince grados arriba y un avión cayendo. Y por qué la actitud, por sí sola, no dice si el ala está volando.
+- scene: La tabla vuelve idéntica al Frame 2. La tercera fila se enciende y una banda nombra lo que significa. Sin locución.
 - focal: la tercera fila, `Nariz arriba, descendiendo fuerte`
 - roles: la tercera fila = foreground subject · banda de pago = supporting · panel navy = background
 
@@ -283,9 +282,21 @@ Las dos celdas que reciben el acento, sobre la línea **R = 6**:
 
 El acento es color de texto, no un recuadro de fondo: la rejilla mono no se toca.
 
-Scene 1 (0.0–1.6s): el panel y la tabla entran ya idénticos al Frame 2, con un corte seco. Nada destacado todavía: durante segundo y medio es la misma imagen de antes.
-Scene 2 (1.6–4.4s): la tercera fila de datos sube a plena tinta mientras el resto baja al 45%. `+15°` y `40° (en pérdida)` reciben el acento `#5D84AC`. Nada se mueve de sitio: solo cambia el peso.
-Scene 3 (4.4–9.0s): una banda entra bajo el panel, en acento `#5D84AC` al 12% con borde hairline y texto en tinta: `LA ACTITUD POR SÍ SOLA NO INDICA SI EL ALA ESTÁ VOLANDO`. Quietud sostenida, la más larga del video.
+**ESTE PLANO VA SIN LOCUCIÓN, Y ES UNA DECISIÓN.** El guion tenía aquí la línea
+7 —«Al terminar, vas a ver una nariz quince grados arriba y un avión cayendo. Y
+por qué la actitud, por sí sola, no dice si el ala está volando»— y sigue en
+`SCRIPT.md` por si un día se graba. Pero lo que decía **ya está escrito en la
+banda**: la voz solo lo iba a repetir. Callar al narrador justo cuando aparece lo
+que hay que entender es el recurso del plano, no una avería.
+
+Sin voz que marcar, los tiempos los pone la lectura. La banda son 55 caracteres
+y necesita sus casi tres segundos de quietud. Por eso el plano dura 6.8s y no
+los 10.5 de la versión narrada: un silencio de diez segundos no se lee como un
+silencio, se lee como que se rompió el audio.
+
+Scene 1 (0.0–1.1s): el panel y la tabla entran ya idénticos al Frame 2, con un corte seco. Nada destacado todavía: durante un segundo es la misma imagen de antes.
+Scene 2 (1.1–3.3s): la tercera fila de datos sube a plena tinta mientras el resto baja al 45%. `+15°` y `40° (en pérdida)` reciben el acento `#5D84AC`. Nada se mueve de sitio: solo cambia el peso.
+Scene 3 (3.3–6.8s): una banda entra bajo el panel, en acento `#5D84AC` al 12% con borde hairline y texto en tinta: `LA ACTITUD POR SÍ SOLA NO INDICA SI EL ALA ESTÁ VOLANDO`. Aterriza en 3.92 y se queda: 2.9 segundos de quietud, la más larga del video, para leerla sin prisa.
 
 ## Frame 8 — Empecemos
 
