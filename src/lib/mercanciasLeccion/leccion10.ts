@@ -22,17 +22,17 @@ export const LECCION_10: DocScreen = {
       text: "El NOTOC es la información sobre mercancías peligrosas que el explotador entrega al piloto al mando para ese vuelo. Relaciona lo que se cargó con sus riesgos y su ubicación. No es una lista de todo lo que podría transportarse: describe los envíos pertinentes que van a bordo. Si aparece humo o una indicación anormal, esa relación deja de ser administrativa y se vuelve operacional.",
     },
     {
-      // MP-IMG-22 · Documento explicado sobre fotografía · 3:2 · 1200×800.
+      // Formulario en blanco aportado por el usuario, conservado completo.
       kind: "figura",
-      src: "/modulos/mercancias/img-22-notoc-panorama.webp",
-      alt: "Documento de estudio NOTOC sobre una mesa de operaciones. Cuatro zonas grandes identifican los datos del vuelo, la mercancía peligrosa, los bultos con su cantidad y ubicación, y la recepción por el piloto. El vuelo AV 0001, el ULD AKE 12345 y la posición A1 son ficticios.",
-      ancho: 1200,
-      alto: 800,
-      pie: "Primero reconoce las cuatro áreas del documento. El formato es didáctico: los datos del vuelo, ULD y posición no corresponden a una operación real ni constituyen un NOTOC vigente.",
+      src: "/modulos/mercancias/img-26-notoc-formulario-real.webp",
+      alt: "Formulario NOTOC real en blanco, mostrado completo sin recortar. Tiene encabezado, datos del vuelo, certificación de preparación, quince columnas de mercancías peligrosas y una columna final de código de respuesta de emergencia resaltada en rojo.",
+      ancho: 1600,
+      alto: 900,
+      pie: "Este es el formulario en blanco que compartiste, no un NOTOC emitido. Amplíalo para ubicar el encabezado, las filas de mercancías, la posición de carga y la columna 15. El formato concreto puede variar entre explotadores.",
     },
     {
       kind: "p",
-      text: "El NOTOC no sustituye la declaración del expedidor. Esta describe el envío para su transporte; el explotador realiza la aceptación y prepara la información que necesita la operación. Al piloto se le debe entregar una información clara y legible, a tiempo antes de la salida y disponible durante el vuelo. El diseño de la hoja puede cambiar entre operadores; su propósito no.",
+      text: "El NOTOC no sustituye la declaración del expedidor. Esta describe el envío para su transporte; el explotador realiza la aceptación y prepara la información que necesita la operación. El formulario mostrado separa los datos del vuelo, la certificación de quien lo prepara y una tabla de carga: cada fila debe poder relacionarse con un envío y su ubicación. La información se entrega al piloto de forma legible antes de la salida y queda disponible durante el vuelo.",
     },
     { kind: "sub", text: "Una línea representa carga real" },
     {
@@ -52,15 +52,22 @@ export const LECCION_10: DocScreen = {
       kind: "p",
       text: "Un ULD reúne y sujeta carga. Su identificación, como AKE 12345 en el ejemplo, señala cuál unidad se utilizó; no dice por sí sola dónde quedó instalada. La posición A1 es un código ficticio de este ejercicio. En un vuelo real, el sistema del operador debe permitir relacionar la unidad con su ubicación exacta.",
     },
-    { kind: "sub", text: "Leer una mercancía, dato por dato" },
+    { kind: "sub", text: "Cómo leer el formulario: del vuelo a cada fila" },
     {
-      // MP-IMG-28 · Fotografía explicada · 16:9 · 1600×900.
-      kind: "figura",
-      src: "/modulos/mercancias/foto-10-anatomia-notoc.webp",
-      alt: "Fotografía realista de un NOTOC de estudio sobre una mesa de operaciones, con flechas que señalan los datos del vuelo, mercancías peligrosas, carga especial, firma y fecha.",
-      ancho: 1600,
-      alto: 900,
-      pie: "La fotografía explica cómo leer los campos del documento. El formato, el vuelo y los datos mostrados son didácticos y no constituyen un NOTOC vigente.",
+      kind: "p",
+      text: "Empieza por el encabezado: lugar de carga, vuelo, fecha y matrícula deben corresponder a la operación que se va a realizar. Después verifica quién preparó la información. En la tabla, no leas una columna aislada: une denominación, peligros, cantidad y posición de una misma fila. Las quince columnas del ejemplo agrupan estos datos:",
+    },
+    {
+      kind: "kv",
+      items: [
+        { k: "1–3 · Envío", v: "Destino, referencia de guía aérea o nota de consignación y denominación oficial de transporte. La denominación no es una marca comercial." },
+        { k: "4–6 · Identidad y riesgos", v: "Clase o división, número ONU o ID y riesgo secundario cuando corresponda. El número identifica la entrada; la clase y el riesgo secundario describen peligros distintos." },
+        { k: "7–8 · Bultos y cantidad", v: "Número de bultos y cantidad neta de material no radiactivo, con su unidad. Dos cajas no equivalen automáticamente a dos litros." },
+        { k: "9–10 · Material radiactivo", v: "Índice de transporte y categoría del bulto radiactivo cuando aplican. No rellenes esos campos por analogía para una mercancía de otra clase." },
+        { k: "11–13 · Condiciones", v: "Grupo de embalaje si la entrada lo tiene asignado; el campo «Code» se interpreta con el formato del explotador. CAO indica «Cargo Aircraft Only» cuando corresponde. Un campo vacío no autoriza a inferir una excepción." },
+        { k: "14 · Ubicación", v: "Unidad de carga y posición donde quedó instalado el envío. Un ULD identifica la unidad; la posición ubica esa unidad en la aeronave." },
+        { k: "15 · Respuesta de emergencia", v: "El formulario aportado reserva una columna para el código de respuesta de emergencia. Ese código remite a la información aplicable; por sí solo no es una maniobra ni sustituye los procedimientos de la aeronave." },
+      ],
     },
     {
       kind: "p",
@@ -76,28 +83,10 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "Por qué importa la posición" },
     {
-      // MP-IMG-29 · Fotografía explicada · 16:9 · 1600×900.
-      kind: "figura",
-      src: "/modulos/mercancias/foto-10-ubicacion-uld.webp",
-      alt: "Fotografía realista de una plataforma de carga junto a una aeronave. Flechas señalan los bultos, la unidad de carga ULD y la posición de carga en la aeronave.",
-      ancho: 1600,
-      alto: 900,
-      pie: "La ubicación exacta relaciona la información con una zona real de la aeronave. Los códigos de posición y ULD cambian según la flota y el explotador.",
-    },
-    {
       kind: "p",
       text: "«Bodega delantera» puede orientar, pero no siempre basta para reconocer una posición concreta. En un NOTOC operacional, el código y la identificación del ULD se interpretan con la convención de la aeronave y del explotador. Si la carga terminó en una posición distinta de la informada, debe aclararse y actualizarse la información antes de salir. Durante el vuelo, la posición ayuda a relacionar una anomalía con la mercancía a bordo.",
     },
     { kind: "sub", text: "El grupo de embalaje no aparece en todas las mercancías" },
-    {
-      // MP-IMG-30 · Dos fotografías explicadas · 16:9 · 1600×900.
-      kind: "figura",
-      src: "/modulos/mercancias/foto-10-grupo-embalaje.webp",
-      alt: "Composición fotográfica de dos bultos: a la izquierda mercancías clase 8 con grupos de embalaje I y III; a la derecha un bulto UN 3480 clase 9 con el rótulo sin grupo. La imagen explica que el grupo depende de la entrada de la mercancía.",
-      ancho: 1600,
-      alto: 900,
-      pie: "Son fotografías de estudio independientes, no dos líneas sugeridas para el mismo vuelo. UN 3480 como batería de ion-litio suelta está sometida a condiciones propias.",
-    },
     {
       kind: "p",
       text: "UN 3480 — LITHIUM ION BATTERIES pertenece a la clase 9, pero no tiene grupo de embalaje asignado. Las baterías se rigen por criterios y requisitos específicos; no se les asigna automáticamente I, II o III como ocurre con determinadas sustancias. «Sin grupo de embalaje» no significa «sin riesgo», ni vuelve permitido un envío que tenga otras restricciones.",
@@ -119,13 +108,13 @@ export const LECCION_10: DocScreen = {
     },
     { kind: "sub", text: "Usarlo ante una situación anormal" },
     {
-      // MP-IMG-31 · Fotografía explicada · 16:9 · 1600×900.
+      // Fotografía original del briefing; no reproduce el formulario aportado.
       kind: "figura",
-      src: "/modulos/mercancias/foto-10-anormal.webp",
-      alt: "Fotografía realista de un NOTOC de estudio con una explicación sobre situación anormal: seguir el procedimiento de la aeronave, consultar el NOTOC e informar al ATS cuando la situación lo permita.",
-      ancho: 1600,
-      alto: 900,
-      pie: "El NOTOC aporta identidad, riesgo y ubicación. No sustituye el QRH, la guía de respuesta ni las prioridades de control de la aeronave.",
+      src: "/modulos/mercancias/img-27-briefing-notoc.webp",
+      alt: "Fotografía didáctica nueva de dos pilotos que revisan una hoja tabulada durante el briefing antes de la salida, mientras se carga la aeronave.",
+      ancho: 1536,
+      alto: 1024,
+      pie: "La tripulación comprueba que la información recibida corresponde a la carga final. La fotografía ilustra el briefing, no muestra un NOTOC auténtico ni una operación identificable.",
     },
     {
       kind: "p",

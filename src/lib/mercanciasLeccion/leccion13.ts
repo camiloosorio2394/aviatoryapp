@@ -10,11 +10,11 @@ export const LECCION_13: DocScreen = {
     { kind: "p", text: "Los informes de accidentes no son una colección de historias para memorizar. Sirven para separar tres cosas: lo que se observó, lo que no pudo establecerse y qué barrera operacional debe estar preparada antes del próximo vuelo. En esta lección los casos se comparan sin convertir una hipótesis en una regla." },
     {
       kind: "figura",
-      src: "/modulos/mercancias/foto-13-casos-industria.webp",
-      alt: "Composición fotográfica de cuatro escenas de carga relacionadas con investigaciones de seguridad: ValuJet 592, UPS 6, Asiana 991 y South African 295. Las etiquetas identifican el caso sin afirmar que una sola causa explique todos los accidentes.",
-      ancho: 1600,
-      alto: 900,
-      pie: "Comparación fotográfica de estudio basada en informes oficiales. Las imágenes son recreaciones o escenas didácticas; las fechas y nombres identifican investigaciones y no prueban una causa.",
+      src: "/modulos/mercancias/img-30-revision-casos.webp",
+      alt: "Fotografía didáctica nueva de un equipo de seguridad de carga que revisa documentos y fotografías en un hangar; no representa ninguno de los cuatro accidentes.",
+      ancho: 1536,
+      alto: 1024,
+      pie: "La fotografía muestra una revisión de seguridad, no escenas de los accidentes. Para cada caso, distingue lo probado, lo que la investigación no pudo determinar y la barrera operacional que conviene reforzar.",
     },
     {
       kind: "fichas",
@@ -30,7 +30,7 @@ export const LECCION_13: DocScreen = {
     },
     { kind: "sub", text: "El patrón que sí es útil para un piloto" },
     { kind: "p", text: "Una investigación puede no resolver el primer instante del fuego y aun así mostrar barreras que sí se pueden controlar: descripción fiel, embalaje y marcado correctos, aceptación con procedimiento, segregación, ubicación conocida, información al piloto y guía de respuesta disponible. El piloto no reconstruye el accidente en vuelo; usa esas barreras para reconocer qué información falta y qué procedimiento corresponde." },
-    { kind: "callout", tone: "info", title: "No uses una palabra que confunda", text: "En este curso hablamos de avión de transporte con pasajeros y carga cuando describimos la configuración histórica del caso. No usamos «combi» como si fuera un término de decisión operacional del piloto. La pregunta práctica es: ¿qué carga hay, en qué compartimento, con qué acceso y qué información está disponible?" },
+    { kind: "callout", tone: "info", title: "Describe la configuración, no solo el nombre", text: "En el caso histórico de South African 295 viajaban pasajeros y carga. Para razonar sobre un riesgo en vuelo, precisa qué carga hay, en qué compartimento está, si la tripulación puede acceder a él y qué información tiene disponible." },
     { kind: "enLaOperacion", momento: "En una entrevista o briefing", texto: "Explica primero el hecho comprobado, después la incertidumbre y al final la barrera. Por ejemplo: «El informe ubicó el fuego en o cerca de paletas con mercancías peligrosas; no estableció la ignición; por eso son esenciales la identificación, la posición, la información al piloto y el procedimiento de emergencia»." },
     { kind: "detalleTecnico", etiqueta: "Cómo leer una conclusión de investigación", bloques: [
       { kind: "p", text: "Una causa publicada por la autoridad investigadora no es una autorización para atribuir el evento a un solo producto. «Causa», «factores contribuyentes» y «recomendaciones» cumplen funciones distintas. La lección operacional debe conservar esa diferencia." },
