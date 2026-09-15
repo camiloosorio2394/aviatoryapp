@@ -61,13 +61,13 @@ export const NIVEL_3: DocScreen[] = [
         text: "Lo importante para la tripulación es que los datos no queden separados de la realidad física. Si se informa que dos bultos van en una unidad de carga, debe existir una ubicación que permita reconocer dónde quedaron. Esa relación entre mercancía, riesgo y posición es la que leerás en la siguiente lección.",
       },
       {
-        // MP-DIA-05 · Secuencia visual · 16:9 · 1600×900.
+        // MP-IMG-26 · Fotografía explicada · 16:9 · 1600×900.
         kind: "figura",
-        src: "/modulos/mercancias/dia-05-del-bulto-al-piloto.svg",
-        alt: "Secuencia visual de tres momentos: identificar y aceptar el envío, cargarlo y registrar su posición, e informar al piloto mediante el NOTOC. El piloto interpreta la información; no realiza los controles de tierra.",
+        src: "/modulos/mercancias/foto-09-cadena-del-bulto.webp",
+        alt: "Fotografía realista de una operación de carga junto a una aeronave. Flechas señalan la unidad de carga ULD, los bultos y la posición de carga; el texto de la imagen recuerda que el piloto interpreta el resultado operacional.",
         ancho: 1600,
         alto: 900,
-        pie: "El piloto recibe el resultado operacional de la cadena. No certifica la clasificación, el embalaje ni la aceptación del envío por el hecho de recibir la información.",
+        pie: "La fotografía muestra la cadena física que termina en la información al piloto. No certifica la clasificación, el embalaje ni la aceptación del envío.",
       },
       { kind: "sub", text: "Estibar no es solo acomodar" },
       {
@@ -86,13 +86,13 @@ export const NIVEL_3: DocScreen[] = [
         text: "Segregar significa mantener separados los bultos que podrían reaccionar peligrosamente si sus contenidos entraran en contacto. La pregunta no es si dos clases pueden viajar en el mismo avión, sino si su ubicación permitiría esa interacción en caso de una pérdida. El personal de carga aplica las reglas de compatibilidad y separación del envío concreto; el piloto necesita entender por qué su ubicación importa.",
       },
       {
-        // MP-DIA-06 · Comparación conceptual · 16:9 · 1600×900.
+        // MP-IMG-27 · Fotografía explicada · 16:9 · 1600×900.
         kind: "figura",
-        src: "/modulos/mercancias/dia-06-segregacion-conceptual.svg",
-        alt: "Comparación de dos estibas: a la izquierda una pérdida puede alcanzar otro bulto; a la derecha la separación impide el contacto. No se indican clases concretas ni distancias normativas.",
+        src: "/modulos/mercancias/foto-09-segregacion-real.webp",
+        alt: "Fotografía realista de dos bultos de mercancías incompatibles en una terminal, con rótulos que señalan una sustancia corrosiva clase 8, un líquido inflamable clase 3 y la separación entre ambos.",
         ancho: 1600,
         alto: 900,
-        pie: "La comparación explica el propósito de la segregación. No permite decidir por sí sola qué mercancías deben separarse ni qué distancia utilizar.",
+        pie: "La fotografía explica el propósito de la segregación. No permite decidir por sí sola qué mercancías deben separarse ni qué distancia utilizar.",
       },
       {
         kind: "callout",
