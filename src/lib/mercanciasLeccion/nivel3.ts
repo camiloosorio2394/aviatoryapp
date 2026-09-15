@@ -25,7 +25,7 @@ export const NIVEL_3: DocScreen[] = [
         lugar: "Océano Índico, cerca de Mauricio",
         aeronave: "Boeing 747-200 · vuelo de Taipéi a Mauricio",
         mercancia:
-          "En aquel avión, los pasajeros y la carga ocupaban sectores separados de la cubierta principal. No se determinó qué inició el incendio ni que una mercancía peligrosa concreta lo causara.",
+          "En la cubierta principal había seis palés con artículos eléctricos (incluidos computadores), ferretería, papel, textiles y otros productos. Los pasajeros viajaban en otro sector de esa cubierta. No se determinó qué inició el incendio ni se identificó una mercancía peligrosa como su causa.",
         queOcurrio: [
           "Durante el vuelo se desarrolló un incendio en la zona de carga. El humo llegó a la zona de pasajeros y la tripulación lo comunicó al control de tránsito aéreo.",
           "La tripulación preparaba un aterrizaje de emergencia en Mauricio. El avión cayó al mar y murieron las 159 personas a bordo.",
@@ -61,7 +61,7 @@ export const NIVEL_3: DocScreen[] = [
         // MP-DIA-05 · Secuencia visual · 16:9 · 1600×900.
         kind: "figura",
         src: "/modulos/mercancias/dia-05-del-bulto-al-piloto.svg",
-        alt: "Secuencia visual de cinco etapas: envío identificado, aceptación, carga y sujeción, ubicación registrada y NOTOC al piloto. La operación en tierra ejecuta las primeras cuatro y el piloto interpreta la última.",
+        alt: "Secuencia visual de tres momentos: identificar y aceptar el envío, cargarlo y registrar su posición, e informar al piloto mediante el NOTOC. El piloto interpreta la información; no realiza los controles de tierra.",
         ancho: 1600,
         alto: 900,
         pie: "El piloto recibe el resultado operacional de la cadena. No certifica la clasificación, el embalaje ni la aceptación del envío por el hecho de recibir la información.",
@@ -75,7 +75,7 @@ export const NIVEL_3: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "La etiqueta «Exclusivamente en aeronaves de carga»",
-        text: "Indica que ese bulto no puede transportarse como carga en un avión de pasajeros. Su estiba en una aeronave de carga se rige por las condiciones aplicables de las Instrucciones Técnicas; no supongas que todo bulto con esta etiqueta será accesible desde la cabina en vuelo. Como piloto, reconoce la restricción y consulta una discrepancia antes de salir.",
+        text: "Ese bulto no puede ir como carga en un avión de pasajeros. En una aeronave de carga, su posición debe cumplir las condiciones aplicables; la etiqueta no garantiza que sea accesible desde la cabina. Si ves una discrepancia, aclárala antes de salir.",
       },
       { kind: "sub", text: "Segregación: evitar que una fuga conecte dos riesgos" },
       {
@@ -95,7 +95,7 @@ export const NIVEL_3: DocScreen[] = [
         kind: "callout",
         tone: "tip",
         title: "La pregunta útil para la tripulación",
-        text: "Si la ubicación informada no coincide con lo que se cargó, o aparece un bulto dañado, la respuesta no es recalcular la segregación en cabina. Hay que aclarar la discrepancia con el personal responsable antes de la salida, según el procedimiento del operador. Durante el vuelo, conocer la mercancía y su posición ayuda a interpretar una situación anormal junto con la información de emergencia aplicable.",
+        text: "Si la ubicación informada no coincide con la carga, o aparece un bulto dañado, aclara la discrepancia con el personal responsable antes de salir. No recalcules la segregación en cabina. En vuelo, la mercancía y su posición ayudan a interpretar una anomalía junto con la información de emergencia aplicable.",
       },
       {
         kind: "enLaOperacion",

@@ -1,44 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Por qué se segregan bultos incompatibles</title>
-  <desc id="desc">Comparación conceptual: dos bultos juntos podrían permitir que una fuga entre en contacto con otra mercancía; con estiba separada se evita ese contacto. No se representan clases, distancias ni posiciones reglamentarias.</desc>
-  <defs>
-    <linearGradient id="paper" x2="0" y2="1">
-      <stop stop-color="#f7f4ed"/>
-      <stop offset="1" stop-color="#e7eef1"/>
-    </linearGradient>
-    <pattern id="floor" width="36" height="36" patternUnits="userSpaceOnUse">
-      <path d="M 0 35 H 36" stroke="#d2dce1" stroke-width="2"/>
-    </pattern>
-  </defs>
-  <rect width="1600" height="900" rx="42" fill="url(#paper)"/>
-  <text x="75" y="108" fill="#132c40" font-family="Arial, sans-serif" font-size="54" font-weight="700">SEGREGACIÓN: EVITAR EL CONTACTO</text>
-  <text x="75" y="158" fill="#526b79" font-family="Arial, sans-serif" font-size="28">Lo que importa es qué podría pasar si un bulto pierde su contenido.</text>
-  <rect x="75" y="225" width="694" height="516" rx="32" fill="#fff" stroke="#e4c6b6" stroke-width="3"/>
-  <rect x="831" y="225" width="694" height="516" rx="32" fill="#fff" stroke="#c5dcd2" stroke-width="3"/>
-  <rect x="106" y="591" width="632" height="90" fill="url(#floor)"/>
-  <rect x="862" y="591" width="632" height="90" fill="url(#floor)"/>
-  <g font-family="Arial, sans-serif" font-weight="700">
-    <text x="112" y="293" fill="#b75b38" font-size="33">CONTACTO POSIBLE</text>
-    <text x="868" y="293" fill="#21836c" font-size="33">CONTACTO EVITADO</text>
+  <title id="title">Segregación para evitar el contacto</title>
+  <desc id="desc">Comparación conceptual: a la izquierda, dos bultos próximos y una pérdida que llega de uno al otro; a la derecha, la separación impide el contacto. No muestra distancias reglamentarias.</desc>
+  <rect width="1600" height="900" rx="38" fill="#f3f3ef"/>
+  <rect x="68" y="65" width="15" height="80" rx="7" fill="#d7aa33"/>
+  <text x="108" y="133" font-family="Arial,sans-serif" font-size="71" font-weight="700" fill="#153247">EVITAR EL CONTACTO</text>
+  <rect x="75" y="236" width="696" height="531" rx="35" fill="#fff" stroke="#e0bba7" stroke-width="4"/>
+  <rect x="829" y="236" width="696" height="531" rx="35" fill="#fff" stroke="#b7d4c8" stroke-width="4"/>
+  <g font-family="Arial,sans-serif" font-size="61" font-weight="700">
+    <text x="125" y="329" fill="#a64d32">PÉRDIDA</text>
+    <text x="125" y="401" fill="#a64d32">COMPARTIDA</text>
+    <text x="879" y="329" fill="#24785e">CONTACTO</text>
+    <text x="879" y="401" fill="#24785e">EVITADO</text>
   </g>
-  <g fill="#c89a6f" stroke="#875e3c" stroke-width="4">
-    <rect x="169" y="410" width="180" height="180" rx="12"/>
-    <rect x="430" y="410" width="180" height="180" rx="12"/>
-    <rect x="920" y="410" width="180" height="180" rx="12"/>
-    <rect x="1300" y="410" width="180" height="180" rx="12"/>
+  <path d="M114 690 H733 M868 690 H1486" stroke="#cdd7d6" stroke-width="10"/>
+  <g fill="#bc8c63" stroke="#896243" stroke-width="8">
+    <rect x="169" y="476" width="180" height="213" rx="14"/>
+    <rect x="460" y="476" width="180" height="213" rx="14"/>
+    <rect x="928" y="476" width="180" height="213" rx="14"/>
+    <rect x="1274" y="476" width="180" height="213" rx="14"/>
   </g>
-  <g fill="#a8754e">
-    <path d="M 259 411 V 590" stroke="#a8754e" stroke-width="8"/>
-    <path d="M 520 411 V 590" stroke="#a8754e" stroke-width="8"/>
-    <path d="M 1010 411 V 590" stroke="#a8754e" stroke-width="8"/>
-    <path d="M 1390 411 V 590" stroke="#a8754e" stroke-width="8"/>
-  </g>
-  <path d="M 357 552 C 377 563 402 571 428 559" fill="none" stroke="#dd704b" stroke-width="15" stroke-linecap="round"/>
-  <path d="M 1107 552 C 1145 570 1180 570 1211 559" fill="none" stroke="#dd704b" stroke-width="15" stroke-linecap="round"/>
-  <path d="M 1200 345 V 657" stroke="#24856d" stroke-width="13" stroke-linecap="round" stroke-dasharray="18 15"/>
-  <g font-family="Arial, sans-serif" font-size="29" fill="#253d4b">
-    <text x="112" y="350">Una pérdida alcanza el otro bulto.</text>
-    <text x="868" y="350">La estiba impide esa interacción.</text>
-  </g>
-  <text x="76" y="809" fill="#435f6e" font-family="Arial, sans-serif" font-size="26">Esquema conceptual. La separación real depende de la mercancía y de las reglas aplicables; no representa distancias fijas.</text>
+  <g stroke="#8b6345" stroke-width="8"><path d="M259 479 V685 M550 479 V685 M1018 479 V685 M1364 479 V685"/></g>
+  <path d="M353 646 C394 620 427 620 455 646" fill="none" stroke="#d35d42" stroke-width="24" stroke-linecap="round"/>
+  <path d="M1110 646 C1150 624 1178 624 1200 646" fill="none" stroke="#d35d42" stroke-width="24" stroke-linecap="round"/>
+  <path d="M1214 463 V705" stroke="#24785e" stroke-width="21" stroke-linecap="round" stroke-dasharray="26 24"/>
+  <text x="75" y="846" font-family="Arial,sans-serif" font-size="43" font-weight="700" fill="#3d596a">LA SEPARACIÓN DEPENDE DEL ENVÍO CONCRETO</text>
 </svg>
