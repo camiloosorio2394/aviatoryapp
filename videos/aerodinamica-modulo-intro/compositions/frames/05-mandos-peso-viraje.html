@@ -1,0 +1,328 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Brand faces ──────────────────────────────────────────────────────────
+       Same Google-hosted Archivo + JetBrains Mono faces the sibling módulo-intro
+       frames declare (frame.md carries no auto-generated @font-face block), so
+       they are declared here, inside the template. latin + latin-ext are both
+       loaded: las glosas llevan é / ó y la banda lleva ° / É / %.
+       font-display:block so the renderer never snapshots a fallback face.        */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* The frame root is styled by #root (never a class on the composition-id
+       element) and carries NO background — el papel crema es su propia capa
+       class="clip" a sangre, debajo. */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "Archivo", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── full-bleed ground (papel crema a sangre): its own clip layer ─────── */
+    #mv05-bg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #fbfaf8;
+    }
+
+    #mv05-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* ── la armadura editorial: dos section-rules, arriba y al pie ────────── */
+    .mv05-rule {
+      position: absolute;
+      left: 80px;
+      width: 1760px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: 0 50%;
+    }
+    #mv05-toprule { top: 156px; }
+    #mv05-footrule { top: 590px; }
+
+    /* ── las tres estaciones (foreground subject) ──────────────────────────
+       Superficie crema sobre el mismo papel: la estación se levanta por el
+       hairline + UNA sombra cálida suave, no por un relleno. Deliberadamente sin
+       tile azul —el único azul del cuadro es la banda del pie, un solo momento
+       de voltaje— y así atenuarlas al 40% cambia SOLO el peso de la tinta. */
+    .mv05-col {
+      position: absolute;
+      top: 220px;
+      width: 560px;
+      height: 262px;
+      background-color: #fbfaf8;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(22, 25, 29, 0.08), 0 4px 16px rgba(22, 25, 29, 0.04);
+    }
+
+    .mv05-label {
+      position: absolute;
+      left: 40px;
+      top: 44px;
+      width: 480px;
+      height: 36px;
+      line-height: 36px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: rgba(22, 25, 29, 0.72);
+      white-space: nowrap;
+    }
+
+    .mv05-head-rule {
+      position: absolute;
+      left: 40px;
+      top: 110px;
+      width: 480px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+      transform-origin: 0 50%;
+    }
+
+    /* la glosa — Archivo 400, caja baja, tinta al 60% */
+    .mv05-gloss {
+      position: absolute;
+      left: 40px;
+      top: 152px;
+      width: 480px;
+      font-size: 44px;
+      font-weight: 400;
+      line-height: 54px;
+      letter-spacing: -0.005em;
+      color: rgba(22, 25, 29, 0.6);
+    }
+
+    /* hairline edge en su propia capa: se puede reforzar sin tocar la tarjeta */
+    .mv05-edge {
+      position: absolute;
+      inset: 0;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 12px;
+    }
+
+    /* ── la banda al pie — el ÚNICO momento de acento del cuadro ───────────
+       Azul acero #5D84AC al 12% con borde hairline del mismo acento y el texto
+       en tinta: nunca crema sobre azul pleno, que no daría contraste. */
+    #mv05-band {
+      position: absolute;
+      left: 80px;
+      top: 638px;
+      width: 1760px;
+      height: 128px;
+      background-color: rgba(93, 132, 172, 0.12);
+      border: 1px solid rgba(93, 132, 172, 0.55);
+      border-radius: 8px;
+    }
+
+    #mv05-band-text {
+      position: absolute;
+      inset: 0;
+      line-height: 126px;
+      text-align: center;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 34px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      color: #16191d;
+      white-space: pre;
+    }
+
+    .mv05-band-part {
+      display: inline-block;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="05-mandos-peso-viraje"
+    data-duration="6.139"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div id="mv05-bg" class="clip" data-start="0" data-duration="6.139" data-track-index="0"></div>
+
+    <div id="mv05-scene" class="clip" data-start="0" data-duration="6.139" data-track-index="1">
+      <div class="mv05-rule" id="mv05-toprule"></div>
+
+      <div class="mv05-col" id="mv05-c1" style="left: 80px">
+        <div class="mv05-label" id="mv05-lb1">SUPERFICIES DE CONTROL</div>
+        <div class="mv05-head-rule"></div>
+        <div class="mv05-gloss" id="mv05-g1">qué mueve cada mando</div>
+        <div class="mv05-edge" id="mv05-e1"></div>
+      </div>
+
+      <div class="mv05-col" id="mv05-c2" style="left: 680px">
+        <div class="mv05-label" id="mv05-lb2">CENTRO DE GRAVEDAD</div>
+        <div class="mv05-head-rule"></div>
+        <div class="mv05-gloss" id="mv05-g2">dónde va el peso</div>
+        <div class="mv05-edge" id="mv05-e2"></div>
+      </div>
+
+      <div class="mv05-col" id="mv05-c3" style="left: 1280px">
+        <div class="mv05-label" id="mv05-lb3">FACTOR DE CARGA</div>
+        <div class="mv05-head-rule"></div>
+        <div class="mv05-gloss" id="mv05-g3">qué cambia al virar</div>
+        <div class="mv05-edge" id="mv05-e3"></div>
+      </div>
+
+      <div class="mv05-rule" id="mv05-footrule"></div>
+
+      <div id="mv05-band">
+        <div id="mv05-band-text"><span class="mv05-band-part">60° DE ALABEO = 2 G</span><span class="mv05-band-part"> = +41 % EN LA VELOCIDAD DE PÉRDIDA</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="05-mandos-peso-viraje"]');
+      var el = function (s) { return root.querySelector(s); };
+      var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+
+      var INK = "#16191D";
+
+      // ── voice map (escena 6.139s, assets/voice/05.wav) ─────────────────────
+      //  "Vas a saber"        0.259–0.799  → las tres estaciones suben, escalonadas 0.2s
+      //  "qué mueve cada"     0.919–1.659  → la glosa de la estación 1 (0.92)
+      //  "mando,"             1.759–2.159  → el section-rule del pie se dibuja (1.76)
+      //  "dónde va el peso"   2.720–3.859  → la glosa de la estación 2 (2.72)
+      //  "y qué"              4.279–4.519  → la glosa de la estación 3 (4.28)
+      //  "cambia"             4.659–5.039  → el peso CAMBIA: 1 y 2 al 40%, 3 a plena tinta (4.54)
+      //  "cuando viras."      5.079–5.819  → la banda del pie con la cifra (4.66 → 5.58)
+      //  5.58–6.139                        → quietud
+
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.10–1.40) · se dibuja la armadura y las tres estaciones
+      //    entran desde abajo, escalonadas 0.2s. Nada se mueve de sitio después.
+      tl.fromTo(
+        el("#mv05-toprule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.86, ease: "power2.out" },
+        0.1
+      );
+
+      var COLS = ["#mv05-c1", "#mv05-c2", "#mv05-c3"];
+      var LABELS = ["#mv05-lb1", "#mv05-lb2", "#mv05-lb3"];
+      var EDGES = ["#mv05-e1", "#mv05-e2", "#mv05-e3"];
+      var GLOSS = ["#mv05-g1", "#mv05-g2", "#mv05-g3"];
+
+      for (var i = 0; i < 3; i++) {
+        var at = 0.22 + i * 0.2;
+        var col = el(COLS[i]);
+
+        tl.fromTo(
+          col,
+          { opacity: 0, y: 48 },
+          { opacity: 1, y: 0, duration: 0.56, ease: "power2.out" },
+          at
+        );
+        tl.fromTo(
+          el(LABELS[i]),
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" },
+          at + 0.16
+        );
+        tl.fromTo(
+          col.querySelector(".mv05-head-rule"),
+          { scaleX: 0 },
+          { scaleX: 1, duration: 0.46, ease: "power2.out" },
+          at + 0.3
+        );
+      }
+
+      // ── Scene 1b/2 · cada glosa llega cuando la voz la nombra ──────────────
+      //    (0.92 "qué mueve cada mando" · 2.72 "dónde va el peso" · 4.28 "y qué
+      //     cambia al virar") — así el cuadro sigue revelando hasta el final.
+      var GLOSS_AT = [0.92, 2.72, 4.28];
+      for (var g = 0; g < 3; g++) {
+        tl.fromTo(
+          el(GLOSS[g]),
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: g === 2 ? 0.46 : 0.5, ease: "power2.out" },
+          GLOSS_AT[g]
+        );
+      }
+
+      // el section-rule del pie se dibuja en "mando," — prepara el sitio de la banda
+      tl.fromTo(
+        el("#mv05-footrule"),
+        { scaleX: 0 },
+        { scaleX: 1, duration: 0.74, ease: "power2.inOut" },
+        1.76
+      );
+
+      // ── Scene 2 (4.54–5.14) · "cambia" — solo cambia el PESO: la tercera sube
+      //    a plena tinta y las otras dos bajan al 40%. Nada se mueve de sitio.
+      tl.to(el("#mv05-c1"), { opacity: 0.4, duration: 0.6, ease: "power2.inOut" }, 4.54);
+      tl.to(el("#mv05-c2"), { opacity: 0.4, duration: 0.6, ease: "power2.inOut" }, 4.54);
+      tl.to(el("#mv05-lb3"), { color: INK, duration: 0.46, ease: "power1.out" }, 4.54);
+      tl.to(el("#mv05-g3"), { color: "rgba(22, 25, 29, 0.86)", duration: 0.46, ease: "power1.out" }, 4.54);
+      tl.to(el("#mv05-e3"), { borderColor: "rgba(22, 25, 29, 0.20)", duration: 0.46, ease: "power1.out" }, 4.54);
+
+      // ── Scene 3 (4.66–5.58) · la tercera estación RECIBE la banda: azul acero
+      //    al 12%, hairline del acento, texto en tinta. La cifra llega entera,
+      //    con sus tres términos, y el último aterriza sobre "viras."
+      tl.fromTo(
+        el("#mv05-band"),
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, duration: 0.52, ease: "power2.out" },
+        4.66
+      );
+      var parts = all(".mv05-band-part");
+      tl.fromTo(parts[0], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 4.9);
+      tl.fromTo(parts[1], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.44, ease: "power2.out" }, 5.14);
+
+      // quietud — el cuadro se sostiene hasta el final (6.139), sin salida
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 6.138);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["05-mandos-peso-viraje"] = tl;
+    })();
+  </script>
+</template>

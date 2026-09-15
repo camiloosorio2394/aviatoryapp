@@ -1,0 +1,90 @@
+MÓDULO: AERODINÁMICA · AVIATORY
+Fuente: docs/contenido/aerodinamica.md, el documento del módulo (v1.0, 15 de septiembre de
+2026), 12 secciones más práctica y evaluación. Nada de lo que sigue está inventado: todo
+sale del documento o de las normas que cita.
+
+
+=== EL OBJETO QUE SOSTIENE EL VIDEO: LOS TRES ÁNGULOS ===
+
+La Sección 4 (Ángulo de ataque y pérdida) es una de las cuatro secciones prioritarias del
+módulo. Su objetivo, literal: «explicar la pérdida por ángulo de ataque, no por velocidad,
+y aplicarlo a cualquier actitud y configuración».
+
+Los tres ángulos, con la definición y la referencia que da el documento:
+
+  Ángulo de ataque (Angle of Attack – AOA)
+      Ángulo entre la cuerda del ala y el viento relativo. Referencia: la masa de aire.
+
+  Actitud de cabeceo (Pitch Attitude)
+      Ángulo entre el eje longitudinal del avión y el horizonte. Referencia: la Tierra.
+
+  Ángulo de trayectoria (Flight Path Angle)
+      Ángulo entre la trayectoria de vuelo y el horizonte. Referencia: la Tierra.
+
+La relación que los gobierna, tal como la escribe el documento (alas niveladas,
+simplificado):
+
+PITCH  ≈  AOA  +  ÁNGULO DE TRAYECTORIA
+
+Y la tabla, completa y con su pie. Va entera o no va:
+
+Situación                          Pitch   Trayectoria   AOA aproximado
+---------------------------------  ------  ------------  ------------------
+Ascenso normal                     +10°    +7°           3°
+Aproximación estabilizada          +3°     –3°           6°
+Nariz arriba, descendiendo fuerte  +15°    –25°          40° (en pérdida)
+
+Valores ilustrativos para mostrar la relación, no de un tipo de avión específico.
+
+La tercera fila es el giro del video: nariz quince grados arriba, trayectoria veinticinco
+grados abajo, ángulo de ataque de cuarenta grados. El avión apunta al cielo y está cayendo.
+
+Lo que el documento concluye, literal, en el bloque DEBES RECORDAR:
+
+  «Pitch y ángulo de ataque no son lo mismo. Una actitud de nariz arriba no garantiza que
+  el avión esté subiendo ni que el ala esté fuera de pérdida.»
+
+  «La actitud por sí sola no indica si el ala está volando.»
+
+  «Un avión entra en pérdida cuando supera su ángulo de ataque crítico. La pérdida no
+  ocurre simplemente porque el avión llegue a una velocidad determinada.»
+
+Y la respuesta de entrevista que lo cierra, literal: «La FAA lo resume: la pérdida puede
+ocurrir a cualquier velocidad, en cualquier actitud y con cualquier potencia.»
+
+
+=== LAS DOCE SECCIONES, Y DE AHÍ SALEN LAS PROMESAS ===
+
+S01 · Fundamentos de aerodinámica — el aire como fluido, viento relativo, capa límite.
+S02 · Las cuatro fuerzas del vuelo — sustentación, peso, empuje, resistencia; y cómo se
+      comportan por fase de vuelo.
+S03 · Sustentación y perfiles aerodinámicos — el perfil, cómo se genera la sustentación y
+      la ecuación L = ½ ρ V² S CL.
+S04 · Ángulo de ataque y pérdida — PRIORITARIA.
+S05 · Resistencia y eficiencia aerodinámica — parásita, inducida, L/D, planeo.
+S06 · Factor de carga, virajes y velocidad de maniobra — PRIORITARIA. Con 60° de alabeo
+      nivelado la velocidad de pérdida aumenta cerca de 41 %.
+S07 · Superficies de control y dispositivos hipersustentadores — primarias, de
+      estabilización, flaps y slats, spoilers.
+S08 · Estabilidad, control y centro de gravedad — estática y dinámica; qué ocurre según la
+      posición del CG.
+S09 · Fenómenos aerodinámicos operacionales — efecto suelo, guiñada adversa, factor P,
+      Dutch Roll, estabilidad espiral.
+S10 · Aerodinámica de alta velocidad y Mach — PRIORITARIA. Mach crítico, ondas de choque,
+      ala en flecha.
+S11 · Aerodinámica a gran altitud y Coffin Corner — PRIORITARIA. El margen entre el
+      low-speed buffet y el Mach buffet se reduce al mínimo.
+S12 · Densidad, altitud y performance — HIGH + HOT + HEAVY; IAS, CAS, EAS, TAS y GS.
+
+Práctica: 13 escenarios de aplicación y 49 preguntas de entrevista.
+Evaluación: banco de 40 preguntas, 20 al azar por intento, aprobación 80 %.
+
+Fuentes del módulo: FAA PHAK (8083-25A y 25C) · AC 61-107B · AUPRTA · EASA AMC 25.251.
+
+
+=== LO QUE NO SE DIBUJA ===
+
+No se inventa ningún instrumento, ninguna silueta de un tipo concreto ni ninguna cifra que
+no esté arriba. Los valores de la tabla son ilustrativos y así van rotulados. El módulo
+entero se apoya en no presentar como real lo que no lo es; el video no puede romper esa
+regla.

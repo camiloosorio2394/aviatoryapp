@@ -1,0 +1,32 @@
+# Qué se versiona de este proyecto de video y qué no.
+#
+# Se versiona la FUENTE: el brief, el guion, el storyboard, la especificación de
+# diseño, las composiciones HTML y las tipografías. Con eso se vuelve a renderizar
+# el video entero.
+#
+# No se versiona lo GENERADO, que es casi todo el peso del proyecto y se puede
+# reconstruir con `npm run render` y el pipeline de audio:
+#
+#   renders/      el mp4 de salida. Además ya vive, comprimido, en
+#                 public/modulos/aerodinamica/intro.mp4, que es el que sirve la app.
+#   assets/voice/ locución generada por TTS a partir de SCRIPT.md
+#   assets/bgm/   y sfx/: se descargan del catálogo de HeyGen
+#   snapshots/    capturas de verificación de lint
+#   .thumbnails/  las miniaturas que el Studio rehace solo
+#
+# OJO con la locución: regenerarla consume minutos de TTS de la cuenta de HeyGen,
+# que en el plan gratuito son pocos. El artefacto duradero es el mp4 comprimido de
+# public/modulos/aerodinamica/, no estos wav.
+#
+# Las tipografías SÍ entran: sin ellas el render sale con otra letra, y no se
+# descargan solas.
+
+renders/
+assets/voice/
+assets/bgm/
+assets/sfx/
+snapshots/
+node_modules/
+.hyperframes/
+.thumbnails/
+mosaico*.jpg

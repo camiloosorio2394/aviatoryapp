@@ -1,0 +1,306 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* JetBrains Mono — the indexical voice. The whole frame is a technical
+       schematic, so mono is the only face this composition names. Local staged
+       WOFF2 first (assets/fonts/), pinned Google WOFF2 as the fallback;
+       latin + latin-ext both loaded — the band carries · and Í.
+       font-display:block so the renderer never snapshots a fallback face. */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_400-latin.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_400-latinext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500-latinext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* the frame root — styled by #root, never by a class on the composition element */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", monospace;
+      color: #16191D;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── full-bleed ground (papel crema): its own clip layer, never on #root ── */
+    #ga06-bg {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #FBFAF8;
+    }
+
+    #ga06-scene {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* ── paper chrome: the two hairlines that frame the schematic ─────────── */
+    .ga06-rule {
+      position: absolute;
+      left: 140px;
+      width: 1640px;
+      height: 1px;
+      background-color: rgba(22, 25, 29, 0.12);
+    }
+    #ga06-rule-top { top: 128px; }
+    #ga06-rule-foot { top: 792px; }
+
+    /* ── the shared centre line, shown only in the gap between the two bars:
+         both spans are struck from x = 960, so the shorter one reads as a
+         narrowing, not as a bar that simply moved. ──────────────────────── */
+    #ga06-axis {
+      position: absolute;
+      left: 960px;
+      top: 410px;
+      width: 1px;
+      height: 202px;
+      background-color: rgba(22, 25, 29, 0.10);
+    }
+
+    /* ── the two bars (foreground subject) — half-step tile surface, hairline
+         elevation, no shadow, no gradient. Top: 1382px (~72% del ancho).
+         Bottom: 470px (~34% de la de arriba). Same centre: 960. ─────────── */
+    .ga06-bar {
+      position: absolute;
+      height: 72px;
+      background-color: #E6F0FA;
+      border: 1px solid rgba(22, 25, 29, 0.12);
+      border-radius: 6px;
+    }
+    #ga06-bar-a { left: 269px; top: 318px; width: 1382px; }
+    #ga06-bar-b { left: 725px; top: 632px; width: 470px; }
+
+    /* end markers — the dimension ticks at each end of a bar */
+    .ga06-cap {
+      position: absolute;
+      width: 3px;
+      height: 112px;
+      background-color: rgba(22, 25, 29, 0.55);
+    }
+    .ga06-cap-a { top: 298px; }
+    #ga06-cap-a1 { left: 269px; }
+    #ga06-cap-a2 { left: 1648px; }
+
+    /* el único voltaje del cuadro: los dos extremos de la barra de abajo */
+    .ga06-cap-b {
+      top: 612px;
+      background-color: #5D84AC;
+    }
+    #ga06-cap-b1 { left: 725px; }
+    #ga06-cap-b2 { left: 1192px; }
+
+    /* ── la condición, encima de cada barra ──────────────────────────────── */
+    .ga06-cond {
+      position: absolute;
+      height: 34px;
+      line-height: 34px;
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: rgba(22, 25, 29, 0.75);
+      white-space: pre;
+    }
+    #ga06-cond-a { left: 269px; top: 248px; }
+    #ga06-cond-b { left: 725px; top: 562px; }
+
+    /* ── el margen, dentro de la barra ───────────────────────────────────── */
+    .ga06-margin {
+      position: absolute;
+      height: 72px;
+      line-height: 72px;
+      text-align: center;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.92);
+      white-space: pre;
+    }
+    #ga06-margin-a { left: 269px; top: 318px; width: 1382px; }
+    #ga06-margin-b { left: 725px; top: 632px; width: 470px; }
+
+    /* ── los extremos rotulados, bajo cada barra ─────────────────────────── */
+    .ga06-ends {
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      height: 34px;
+    }
+    #ga06-ends-a { left: 269px; top: 428px; width: 1382px; }
+    #ga06-ends-b { left: 725px; top: 742px; width: 470px; }
+
+    .ga06-end {
+      display: block;
+      line-height: 34px;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.60);
+      white-space: pre;
+    }
+
+    /* ── el pie ──────────────────────────────────────────────────────────── */
+    #ga06-foot {
+      position: absolute;
+      left: 140px;
+      top: 818px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      color: rgba(22, 25, 29, 0.48);
+      white-space: pre;
+    }
+  </style>
+
+  <div
+    id="root"
+    data-composition-id="06-gran-altitud"
+    data-duration="6.217"
+    data-width="1920"
+    data-height="1080"
+  >
+    <div id="ga06-bg" class="clip" data-start="0" data-duration="6.217" data-track-index="0"></div>
+
+    <div id="ga06-scene" class="clip" data-start="0" data-duration="6.217" data-track-index="1">
+      <div class="ga06-rule" id="ga06-rule-top"></div>
+
+      <div id="ga06-axis"></div>
+
+      <!-- barra 1 — altitud media -->
+      <div class="ga06-cond" id="ga06-cond-a">ALTITUD MEDIA</div>
+      <div class="ga06-bar" id="ga06-bar-a"></div>
+      <div class="ga06-cap ga06-cap-a" id="ga06-cap-a1"></div>
+      <div class="ga06-cap ga06-cap-a" id="ga06-cap-a2"></div>
+      <div class="ga06-margin" id="ga06-margin-a">MARGEN OPERACIONAL AMPLIO</div>
+      <div class="ga06-ends" id="ga06-ends-a">
+        <span class="ga06-end">LOW-SPEED BUFFET</span>
+        <span class="ga06-end">MACH BUFFET</span>
+      </div>
+
+      <!-- barra 2 — gran altitud, cerca del techo -->
+      <div class="ga06-cond" id="ga06-cond-b">GRAN ALTITUD · CERCA DEL TECHO</div>
+      <div class="ga06-bar" id="ga06-bar-b"></div>
+      <div class="ga06-cap ga06-cap-b" id="ga06-cap-b1"></div>
+      <div class="ga06-cap ga06-cap-b" id="ga06-cap-b2"></div>
+      <div class="ga06-margin" id="ga06-margin-b">MARGEN MÍNIMO</div>
+      <div class="ga06-ends" id="ga06-ends-b">
+        <span class="ga06-end">LOW-SPEED BUFFET</span>
+        <span class="ga06-end">MACH BUFFET</span>
+      </div>
+
+      <div class="ga06-rule" id="ga06-rule-foot"></div>
+      <div id="ga06-foot">COFFIN CORNER</div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="06-gran-altitud"]');
+      var el = function (s) { return root.querySelector(s); };
+      var all = function (s) { return Array.prototype.slice.call(root.querySelectorAll(s)); };
+
+      // ── El documento pide SIN ANIMACIÓN para este esquema. Se respeta al pie
+      //    de la letra: lo único que se mueve es la opacidad, una sola vez, por
+      //    orden de lectura. Ni desplazamientos, ni escalas, ni pulsos, ni
+      //    deriva residual — sólo un fundido corto y después quietud.
+      //
+      //    Mapa de voz (escena 6.217s):
+      //    "Y vas a ver cómo se estrecha el margen"  ~0.2–2.3  → barra de arriba
+      //    "a gran altitud,"                         ~2.3–3.3  → barra de abajo
+      //    "hasta el Coffin Corner."                 ~3.9–5.6  → el pie
+      //    ~4.6–6.217                                          → quietud
+
+      var tl = gsap.timeline({ paused: true });
+
+      var FADE = 0.44;
+      var fade = function (target, at, dur) {
+        tl.fromTo(
+          target,
+          { opacity: 0 },
+          { opacity: 1, duration: dur || FADE, ease: "power1.out" },
+          at
+        );
+      };
+
+      var endsA = all("#ga06-ends-a .ga06-end");
+      var endsB = all("#ga06-ends-b .ga06-end");
+
+      // ── Scene 1 (0.0–1.8) · sobre papel, la barra de ancho completo entra con
+      //    un fundido corto; después sus extremos, su condición y su margen.
+      fade(el("#ga06-rule-top"), 0.00, 0.40);
+      fade(el("#ga06-bar-a"), 0.05, 0.45);
+      fade(el("#ga06-cap-a1"), 0.24, 0.40);
+      fade(el("#ga06-cap-a2"), 0.34, 0.40);
+      fade(el("#ga06-cond-a"), 0.40, 0.40);
+      fade(el("#ga06-margin-a"), 0.62);
+      fade(endsA[0], 0.86, 0.40);
+      fade(endsA[1], 1.00, 0.40);
+
+      // el eje compartido aparece justo antes de la segunda barra: prepara el ojo
+      // para que lea la de abajo como el MISMO centro, sólo que más corta
+      fade(el("#ga06-axis"), 1.58, 0.50);
+
+      // ── Scene 2 (1.8–3.8) · la barra de gran altitud: mismo centro, ~34% de
+      //    largo. Sus dos extremos son el único acento #5D84AC del cuadro.
+      fade(el("#ga06-bar-b"), 1.86, 0.45);
+      fade(el("#ga06-cap-b1"), 2.08, 0.42);
+      fade(el("#ga06-cap-b2"), 2.18, 0.42);
+      fade(el("#ga06-cond-b"), 2.36, 0.40);
+      fade(el("#ga06-margin-b"), 2.66);
+      fade(endsB[0], 2.98, 0.40);
+      fade(endsB[1], 3.12, 0.40);
+
+      // ── Scene 3 (3.8–6.1) · el pie, en mono pequeño. Después, quietud
+      //    declarada: nada se mueve hasta el final del plano.
+      fade(el("#ga06-rule-foot"), 3.92, 0.45);
+      fade(el("#ga06-foot"), 4.14, 0.45);
+
+      // quietud — el cuadro se sostiene hasta 6.217 sin salida alguna
+      tl.to({ hold: 0 }, { hold: 1, duration: 0.001 }, 6.216);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["06-gran-altitud"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,1117 @@
+{
+  "total_duration_s": 54.709,
+  "width": 1920,
+  "height": 1080,
+  "groups": [
+    {
+      "id": "caption-group-0",
+      "frame": 1,
+      "start": 0.219,
+      "end": 1.679,
+      "text": "Bienvenido al módulo",
+      "words": [
+        {
+          "id": "caption-word-0-0",
+          "text": "Bienvenido",
+          "start": 0.219,
+          "end": 0.919
+        },
+        {
+          "id": "caption-word-0-1",
+          "text": "al",
+          "start": 0.939,
+          "end": 1.059
+        },
+        {
+          "id": "caption-word-0-2",
+          "text": "módulo",
+          "start": 1.159,
+          "end": 1.639
+        }
+      ]
+    },
+    {
+      "id": "caption-group-1",
+      "frame": 1,
+      "start": 1.679,
+      "end": 2.879,
+      "text": "de Aerodinámica",
+      "words": [
+        {
+          "id": "caption-word-1-0",
+          "text": "de",
+          "start": 1.679,
+          "end": 1.779
+        },
+        {
+          "id": "caption-word-1-1",
+          "text": "Aerodinámica",
+          "start": 1.86,
+          "end": 2.759
+        }
+      ]
+    },
+    {
+      "id": "caption-group-2",
+      "frame": 1,
+      "start": 3.139,
+      "end": 4.159,
+      "text": "de Aviatory.",
+      "words": [
+        {
+          "id": "caption-word-2-0",
+          "text": "de",
+          "start": 3.139,
+          "end": 3.24
+        },
+        {
+          "id": "caption-word-2-1",
+          "text": "Aviatory.",
+          "start": 3.299,
+          "end": 4.039
+        }
+      ]
+    },
+    {
+      "id": "caption-group-3",
+      "frame": 2,
+      "start": 4.495,
+      "end": 5.076,
+      "text": "Tu avión",
+      "words": [
+        {
+          "id": "caption-word-3-0",
+          "text": "Tu",
+          "start": 4.495,
+          "end": 4.595
+        },
+        {
+          "id": "caption-word-3-1",
+          "text": "avión",
+          "start": 4.635,
+          "end": 4.995
+        }
+      ]
+    },
+    {
+      "id": "caption-group-4",
+      "frame": 2,
+      "start": 5.076,
+      "end": 5.735,
+      "text": "vuela con",
+      "words": [
+        {
+          "id": "caption-word-4-0",
+          "text": "vuela",
+          "start": 5.076,
+          "end": 5.395
+        },
+        {
+          "id": "caption-word-4-1",
+          "text": "con",
+          "start": 5.475,
+          "end": 5.615
+        }
+      ]
+    },
+    {
+      "id": "caption-group-5",
+      "frame": 2,
+      "start": 5.735,
+      "end": 6.576,
+      "text": "tres ángulos",
+      "words": [
+        {
+          "id": "caption-word-5-0",
+          "text": "tres",
+          "start": 5.735,
+          "end": 6.015
+        },
+        {
+          "id": "caption-word-5-1",
+          "text": "ángulos",
+          "start": 6.055,
+          "end": 6.516
+        }
+      ]
+    },
+    {
+      "id": "caption-group-6",
+      "frame": 2,
+      "start": 6.576,
+      "end": 6.796,
+      "text": "a la",
+      "words": [
+        {
+          "id": "caption-word-6-0",
+          "text": "a",
+          "start": 6.576,
+          "end": 6.615
+        },
+        {
+          "id": "caption-word-6-1",
+          "text": "la",
+          "start": 6.675,
+          "end": 6.735
+        }
+      ]
+    },
+    {
+      "id": "caption-group-7",
+      "frame": 2,
+      "start": 6.796,
+      "end": 7.215,
+      "text": "vez,",
+      "words": [
+        {
+          "id": "caption-word-7-0",
+          "text": "vez,",
+          "start": 6.796,
+          "end": 7.095
+        }
+      ]
+    },
+    {
+      "id": "caption-group-8",
+      "frame": 2,
+      "start": 7.556,
+      "end": 8.015,
+      "text": "y no",
+      "words": [
+        {
+          "id": "caption-word-8-0",
+          "text": "y",
+          "start": 7.556,
+          "end": 7.615
+        },
+        {
+          "id": "caption-word-8-1",
+          "text": "no",
+          "start": 7.755,
+          "end": 7.895
+        }
+      ]
+    },
+    {
+      "id": "caption-group-9",
+      "frame": 2,
+      "start": 8.056,
+      "end": 8.956,
+      "text": "son el mismo.",
+      "words": [
+        {
+          "id": "caption-word-9-0",
+          "text": "son",
+          "start": 8.056,
+          "end": 8.235
+        },
+        {
+          "id": "caption-word-9-1",
+          "text": "el",
+          "start": 8.275,
+          "end": 8.415
+        },
+        {
+          "id": "caption-word-9-2",
+          "text": "mismo.",
+          "start": 8.455,
+          "end": 8.836
+        }
+      ]
+    },
+    {
+      "id": "caption-group-10",
+      "frame": 2,
+      "start": 9.675,
+      "end": 9.995,
+      "text": "El que",
+      "words": [
+        {
+          "id": "caption-word-10-0",
+          "text": "El",
+          "start": 9.675,
+          "end": 9.756
+        },
+        {
+          "id": "caption-word-10-1",
+          "text": "que",
+          "start": 9.836,
+          "end": 9.915
+        }
+      ]
+    },
+    {
+      "id": "caption-group-11",
+      "frame": 2,
+      "start": 9.995,
+      "end": 10.695,
+      "text": "decide si",
+      "words": [
+        {
+          "id": "caption-word-11-0",
+          "text": "decide",
+          "start": 9.995,
+          "end": 10.455
+        },
+        {
+          "id": "caption-word-11-1",
+          "text": "si",
+          "start": 10.575,
+          "end": 10.655
+        }
+      ]
+    },
+    {
+      "id": "caption-group-12",
+      "frame": 2,
+      "start": 10.695,
+      "end": 11.135,
+      "text": "el ala",
+      "words": [
+        {
+          "id": "caption-word-12-0",
+          "text": "el",
+          "start": 10.695,
+          "end": 10.816
+        },
+        {
+          "id": "caption-word-12-1",
+          "text": "ala",
+          "start": 10.855,
+          "end": 11.095
+        }
+      ]
+    },
+    {
+      "id": "caption-group-13",
+      "frame": 2,
+      "start": 11.135,
+      "end": 12.095,
+      "text": "está volando",
+      "words": [
+        {
+          "id": "caption-word-13-0",
+          "text": "está",
+          "start": 11.135,
+          "end": 11.355
+        },
+        {
+          "id": "caption-word-13-1",
+          "text": "volando",
+          "start": 11.455,
+          "end": 11.975
+        }
+      ]
+    },
+    {
+      "id": "caption-group-14",
+      "frame": 2,
+      "start": 12.575,
+      "end": 12.855,
+      "text": "es",
+      "words": [
+        {
+          "id": "caption-word-14-0",
+          "text": "es",
+          "start": 12.575,
+          "end": 12.735
+        }
+      ]
+    },
+    {
+      "id": "caption-group-15",
+      "frame": 2,
+      "start": 12.995,
+      "end": 13.755,
+      "text": "uno solo.",
+      "words": [
+        {
+          "id": "caption-word-15-0",
+          "text": "uno",
+          "start": 12.995,
+          "end": 13.155
+        },
+        {
+          "id": "caption-word-15-1",
+          "text": "solo.",
+          "start": 13.296,
+          "end": 13.635
+        }
+      ]
+    },
+    {
+      "id": "caption-group-16",
+      "frame": 3,
+      "start": 14.116,
+      "end": 14.776,
+      "text": "Aquí vas",
+      "words": [
+        {
+          "id": "caption-word-16-0",
+          "text": "Aquí",
+          "start": 14.116,
+          "end": 14.416
+        },
+        {
+          "id": "caption-word-16-1",
+          "text": "vas",
+          "start": 14.476,
+          "end": 14.696
+        }
+      ]
+    },
+    {
+      "id": "caption-group-17",
+      "frame": 3,
+      "start": 14.776,
+      "end": 15.776,
+      "text": "a aprender de",
+      "words": [
+        {
+          "id": "caption-word-17-0",
+          "text": "a",
+          "start": 14.776,
+          "end": 14.816
+        },
+        {
+          "id": "caption-word-17-1",
+          "text": "aprender",
+          "start": 14.897,
+          "end": 15.517
+        },
+        {
+          "id": "caption-word-17-2",
+          "text": "de",
+          "start": 15.596,
+          "end": 15.736
+        }
+      ]
+    },
+    {
+      "id": "caption-group-18",
+      "frame": 3,
+      "start": 15.776,
+      "end": 16.536,
+      "text": "dónde sale",
+      "words": [
+        {
+          "id": "caption-word-18-0",
+          "text": "dónde",
+          "start": 15.776,
+          "end": 16.056
+        },
+        {
+          "id": "caption-word-18-1",
+          "text": "sale",
+          "start": 16.196,
+          "end": 16.456
+        }
+      ]
+    },
+    {
+      "id": "caption-group-19",
+      "frame": 3,
+      "start": 16.536,
+      "end": 17.737,
+      "text": "la sustentación,",
+      "words": [
+        {
+          "id": "caption-word-19-0",
+          "text": "la",
+          "start": 16.536,
+          "end": 16.617
+        },
+        {
+          "id": "caption-word-19-1",
+          "text": "sustentación,",
+          "start": 16.696,
+          "end": 17.617
+        }
+      ]
+    },
+    {
+      "id": "caption-group-20",
+      "frame": 3,
+      "start": 18.277,
+      "end": 18.796,
+      "text": "y cómo",
+      "words": [
+        {
+          "id": "caption-word-20-0",
+          "text": "y",
+          "start": 18.277,
+          "end": 18.317
+        },
+        {
+          "id": "caption-word-20-1",
+          "text": "cómo",
+          "start": 18.456,
+          "end": 18.676
+        }
+      ]
+    },
+    {
+      "id": "caption-group-21",
+      "frame": 3,
+      "start": 18.797,
+      "end": 20.036,
+      "text": "se equilibran las",
+      "words": [
+        {
+          "id": "caption-word-21-0",
+          "text": "se",
+          "start": 18.797,
+          "end": 18.897
+        },
+        {
+          "id": "caption-word-21-1",
+          "text": "equilibran",
+          "start": 18.956,
+          "end": 19.716
+        },
+        {
+          "id": "caption-word-21-2",
+          "text": "las",
+          "start": 19.756,
+          "end": 19.916
+        }
+      ]
+    },
+    {
+      "id": "caption-group-22",
+      "frame": 3,
+      "start": 20.036,
+      "end": 21.156,
+      "text": "cuatro fuerzas",
+      "words": [
+        {
+          "id": "caption-word-22-0",
+          "text": "cuatro",
+          "start": 20.036,
+          "end": 20.397
+        },
+        {
+          "id": "caption-word-22-1",
+          "text": "fuerzas",
+          "start": 20.536,
+          "end": 21.036
+        }
+      ]
+    },
+    {
+      "id": "caption-group-23",
+      "frame": 3,
+      "start": 21.496,
+      "end": 22.596,
+      "text": "en cada fase",
+      "words": [
+        {
+          "id": "caption-word-23-0",
+          "text": "en",
+          "start": 21.496,
+          "end": 21.696
+        },
+        {
+          "id": "caption-word-23-1",
+          "text": "cada",
+          "start": 21.756,
+          "end": 22.036
+        },
+        {
+          "id": "caption-word-23-2",
+          "text": "fase",
+          "start": 22.197,
+          "end": 22.556
+        }
+      ]
+    },
+    {
+      "id": "caption-group-24",
+      "frame": 3,
+      "start": 22.596,
+      "end": 23.317,
+      "text": "del vuelo.",
+      "words": [
+        {
+          "id": "caption-word-24-0",
+          "text": "del",
+          "start": 22.596,
+          "end": 22.716
+        },
+        {
+          "id": "caption-word-24-1",
+          "text": "vuelo.",
+          "start": 22.796,
+          "end": 23.197
+        }
+      ]
+    },
+    {
+      "id": "caption-group-25",
+      "frame": 4,
+      "start": 23.697,
+      "end": 24.717,
+      "text": "Vas a entender",
+      "words": [
+        {
+          "id": "caption-word-25-0",
+          "text": "Vas",
+          "start": 23.697,
+          "end": 23.897
+        },
+        {
+          "id": "caption-word-25-1",
+          "text": "a",
+          "start": 23.918,
+          "end": 23.958
+        },
+        {
+          "id": "caption-word-25-2",
+          "text": "entender",
+          "start": 24.018,
+          "end": 24.678
+        }
+      ]
+    },
+    {
+      "id": "caption-group-26",
+      "frame": 4,
+      "start": 24.717,
+      "end": 25.198,
+      "text": "por qué",
+      "words": [
+        {
+          "id": "caption-word-26-0",
+          "text": "por",
+          "start": 24.717,
+          "end": 24.938
+        },
+        {
+          "id": "caption-word-26-1",
+          "text": "qué",
+          "start": 24.958,
+          "end": 25.117
+        }
+      ]
+    },
+    {
+      "id": "caption-group-27",
+      "frame": 4,
+      "start": 25.198,
+      "end": 25.717,
+      "text": "un ala",
+      "words": [
+        {
+          "id": "caption-word-27-0",
+          "text": "un",
+          "start": 25.198,
+          "end": 25.277
+        },
+        {
+          "id": "caption-word-27-1",
+          "text": "ala",
+          "start": 25.397,
+          "end": 25.638
+        }
+      ]
+    },
+    {
+      "id": "caption-group-28",
+      "frame": 4,
+      "start": 25.717,
+      "end": 26.857,
+      "text": "entra en pérdida,",
+      "words": [
+        {
+          "id": "caption-word-28-0",
+          "text": "entra",
+          "start": 25.717,
+          "end": 25.997
+        },
+        {
+          "id": "caption-word-28-1",
+          "text": "en",
+          "start": 26.037,
+          "end": 26.198
+        },
+        {
+          "id": "caption-word-28-2",
+          "text": "pérdida,",
+          "start": 26.217,
+          "end": 26.737
+        }
+      ]
+    },
+    {
+      "id": "caption-group-29",
+      "frame": 4,
+      "start": 27.438,
+      "end": 27.777,
+      "text": "y por",
+      "words": [
+        {
+          "id": "caption-word-29-0",
+          "text": "y",
+          "start": 27.438,
+          "end": 27.537
+        },
+        {
+          "id": "caption-word-29-1",
+          "text": "por",
+          "start": 27.597,
+          "end": 27.757
+        }
+      ]
+    },
+    {
+      "id": "caption-group-30",
+      "frame": 4,
+      "start": 27.777,
+      "end": 28.377,
+      "text": "qué eso",
+      "words": [
+        {
+          "id": "caption-word-30-0",
+          "text": "qué",
+          "start": 27.777,
+          "end": 27.958
+        },
+        {
+          "id": "caption-word-30-1",
+          "text": "eso",
+          "start": 28.037,
+          "end": 28.257
+        }
+      ]
+    },
+    {
+      "id": "caption-group-31",
+      "frame": 4,
+      "start": 28.398,
+      "end": 29.077,
+      "text": "puede pasar",
+      "words": [
+        {
+          "id": "caption-word-31-0",
+          "text": "puede",
+          "start": 28.398,
+          "end": 28.657
+        },
+        {
+          "id": "caption-word-31-1",
+          "text": "pasar",
+          "start": 28.717,
+          "end": 29.057
+        }
+      ]
+    },
+    {
+      "id": "caption-group-32",
+      "frame": 4,
+      "start": 29.077,
+      "end": 30.578,
+      "text": "a cualquier velocidad.",
+      "words": [
+        {
+          "id": "caption-word-32-0",
+          "text": "a",
+          "start": 29.077,
+          "end": 29.177
+        },
+        {
+          "id": "caption-word-32-1",
+          "text": "cualquier",
+          "start": 29.217,
+          "end": 29.677
+        },
+        {
+          "id": "caption-word-32-2",
+          "text": "velocidad.",
+          "start": 29.757,
+          "end": 30.458
+        }
+      ]
+    },
+    {
+      "id": "caption-group-33",
+      "frame": 5,
+      "start": 30.979,
+      "end": 31.28,
+      "text": "Vas a",
+      "words": [
+        {
+          "id": "caption-word-33-0",
+          "text": "Vas",
+          "start": 30.979,
+          "end": 31.119
+        },
+        {
+          "id": "caption-word-33-1",
+          "text": "a",
+          "start": 31.159,
+          "end": 31.199
+        }
+      ]
+    },
+    {
+      "id": "caption-group-34",
+      "frame": 5,
+      "start": 31.28,
+      "end": 31.84,
+      "text": "saber qué",
+      "words": [
+        {
+          "id": "caption-word-34-0",
+          "text": "saber",
+          "start": 31.28,
+          "end": 31.519
+        },
+        {
+          "id": "caption-word-34-1",
+          "text": "qué",
+          "start": 31.639,
+          "end": 31.779
+        }
+      ]
+    },
+    {
+      "id": "caption-group-35",
+      "frame": 5,
+      "start": 31.84,
+      "end": 32.999,
+      "text": "mueve cada mando,",
+      "words": [
+        {
+          "id": "caption-word-35-0",
+          "text": "mueve",
+          "start": 31.84,
+          "end": 32.139
+        },
+        {
+          "id": "caption-word-35-1",
+          "text": "cada",
+          "start": 32.179,
+          "end": 32.379
+        },
+        {
+          "id": "caption-word-35-2",
+          "text": "mando,",
+          "start": 32.479,
+          "end": 32.879
+        }
+      ]
+    },
+    {
+      "id": "caption-group-36",
+      "frame": 5,
+      "start": 33.44,
+      "end": 33.96,
+      "text": "dónde va",
+      "words": [
+        {
+          "id": "caption-word-36-0",
+          "text": "dónde",
+          "start": 33.44,
+          "end": 33.759
+        },
+        {
+          "id": "caption-word-36-1",
+          "text": "va",
+          "start": 33.839,
+          "end": 33.919
+        }
+      ]
+    },
+    {
+      "id": "caption-group-37",
+      "frame": 5,
+      "start": 33.96,
+      "end": 34.699,
+      "text": "el peso",
+      "words": [
+        {
+          "id": "caption-word-37-0",
+          "text": "el",
+          "start": 33.96,
+          "end": 34.039
+        },
+        {
+          "id": "caption-word-37-1",
+          "text": "peso",
+          "start": 34.18,
+          "end": 34.579
+        }
+      ]
+    },
+    {
+      "id": "caption-group-38",
+      "frame": 5,
+      "start": 34.999,
+      "end": 35.359,
+      "text": "y qué",
+      "words": [
+        {
+          "id": "caption-word-38-0",
+          "text": "y",
+          "start": 34.999,
+          "end": 35.039
+        },
+        {
+          "id": "caption-word-38-1",
+          "text": "qué",
+          "start": 35.14,
+          "end": 35.239
+        }
+      ]
+    },
+    {
+      "id": "caption-group-39",
+      "frame": 5,
+      "start": 35.379,
+      "end": 36.659,
+      "text": "cambia cuando viras.",
+      "words": [
+        {
+          "id": "caption-word-39-0",
+          "text": "cambia",
+          "start": 35.379,
+          "end": 35.759
+        },
+        {
+          "id": "caption-word-39-1",
+          "text": "cuando",
+          "start": 35.799,
+          "end": 36.039
+        },
+        {
+          "id": "caption-word-39-2",
+          "text": "viras.",
+          "start": 36.1,
+          "end": 36.539
+        }
+      ]
+    },
+    {
+      "id": "caption-group-40",
+      "frame": 6,
+      "start": 37.078,
+      "end": 37.438,
+      "text": "Y vas",
+      "words": [
+        {
+          "id": "caption-word-40-0",
+          "text": "Y",
+          "start": 37.078,
+          "end": 37.158
+        },
+        {
+          "id": "caption-word-40-1",
+          "text": "vas",
+          "start": 37.178,
+          "end": 37.419
+        }
+      ]
+    },
+    {
+      "id": "caption-group-41",
+      "frame": 6,
+      "start": 37.438,
+      "end": 37.838,
+      "text": "a ver",
+      "words": [
+        {
+          "id": "caption-word-41-0",
+          "text": "a",
+          "start": 37.438,
+          "end": 37.518
+        },
+        {
+          "id": "caption-word-41-1",
+          "text": "ver",
+          "start": 37.558,
+          "end": 37.718
+        }
+      ]
+    },
+    {
+      "id": "caption-group-42",
+      "frame": 6,
+      "start": 37.878,
+      "end": 38.938,
+      "text": "cómo se estrecha",
+      "words": [
+        {
+          "id": "caption-word-42-0",
+          "text": "cómo",
+          "start": 37.878,
+          "end": 38.158
+        },
+        {
+          "id": "caption-word-42-1",
+          "text": "se",
+          "start": 38.238,
+          "end": 38.339
+        },
+        {
+          "id": "caption-word-42-2",
+          "text": "estrecha",
+          "start": 38.378,
+          "end": 38.878
+        }
+      ]
+    },
+    {
+      "id": "caption-group-43",
+      "frame": 6,
+      "start": 38.938,
+      "end": 39.658,
+      "text": "el margen",
+      "words": [
+        {
+          "id": "caption-word-43-0",
+          "text": "el",
+          "start": 38.938,
+          "end": 39.018
+        },
+        {
+          "id": "caption-word-43-1",
+          "text": "margen",
+          "start": 39.138,
+          "end": 39.538
+        }
+      ]
+    },
+    {
+      "id": "caption-group-44",
+      "frame": 6,
+      "start": 39.718,
+      "end": 40.858,
+      "text": "a gran altitud,",
+      "words": [
+        {
+          "id": "caption-word-44-0",
+          "text": "a",
+          "start": 39.718,
+          "end": 39.798
+        },
+        {
+          "id": "caption-word-44-1",
+          "text": "gran",
+          "start": 39.859,
+          "end": 40.099
+        },
+        {
+          "id": "caption-word-44-2",
+          "text": "altitud,",
+          "start": 40.158,
+          "end": 40.738
+        }
+      ]
+    },
+    {
+      "id": "caption-group-45",
+      "frame": 6,
+      "start": 41.299,
+      "end": 42.318,
+      "text": "hasta el Coffin",
+      "words": [
+        {
+          "id": "caption-word-45-0",
+          "text": "hasta",
+          "start": 41.299,
+          "end": 41.578
+        },
+        {
+          "id": "caption-word-45-1",
+          "text": "el",
+          "start": 41.618,
+          "end": 41.718
+        },
+        {
+          "id": "caption-word-45-2",
+          "text": "Coffin",
+          "start": 41.839,
+          "end": 42.198
+        }
+      ]
+    },
+    {
+      "id": "caption-group-46",
+      "frame": 6,
+      "start": 42.319,
+      "end": 42.878,
+      "text": "Corner.",
+      "words": [
+        {
+          "id": "caption-word-46-0",
+          "text": "Corner.",
+          "start": 42.319,
+          "end": 42.758
+        }
+      ]
+    },
+    {
+      "id": "caption-group-47",
+      "frame": 8,
+      "start": 50.156,
+      "end": 51.315,
+      "text": "Doce secciones,",
+      "words": [
+        {
+          "id": "caption-word-47-0",
+          "text": "Doce",
+          "start": 50.156,
+          "end": 50.415
+        },
+        {
+          "id": "caption-word-47-1",
+          "text": "secciones,",
+          "start": 50.535,
+          "end": 51.195
+        }
+      ]
+    },
+    {
+      "id": "caption-group-48",
+      "frame": 8,
+      "start": 51.535,
+      "end": 53.155,
+      "text": "práctica y evaluación.",
+      "words": [
+        {
+          "id": "caption-word-48-0",
+          "text": "práctica",
+          "start": 51.535,
+          "end": 52.116
+        },
+        {
+          "id": "caption-word-48-1",
+          "text": "y",
+          "start": 52.175,
+          "end": 52.195
+        },
+        {
+          "id": "caption-word-48-2",
+          "text": "evaluación.",
+          "start": 52.275,
+          "end": 53.035
+        }
+      ]
+    },
+    {
+      "id": "caption-group-49",
+      "frame": 8,
+      "start": 53.616,
+      "end": 54.515,
+      "text": "Empecemos.",
+      "words": [
+        {
+          "id": "caption-word-49-0",
+          "text": "Empecemos.",
+          "start": 53.616,
+          "end": 54.395
+        }
+      ]
+    }
+  ]
+}

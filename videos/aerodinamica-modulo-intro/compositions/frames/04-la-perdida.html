@@ -1,0 +1,333 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Fonts: los WOFF2 que viajan con el proyecto (assets/fonts), Google fijado como respaldo ── */
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src: url("assets/fonts/JetBrainsMono_500_ext.woff2") format("woff2"),
+           url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPx7cwhsk.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* ── Frame root: estilado por #root, nunca por una clase ── */
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* contract selector: la caja compartida de cada clip */
+    .clip {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ── Capa 0: el papel, crema a sangre, su propio clip de duración completa ── */
+    #f04-perdida-ground {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      background-color: #FBFAF8;
+    }
+
+    /* ── Capa 1: el escenario ── */
+    #f04-perdida-stage {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+    }
+
+    /* cámara macro: un empuje lentísimo que se detiene cuando el pie aterriza.
+       Origen en el centro óptico del diagrama (1010, 449), no del lienzo */
+    .f04-perdida-camera {
+      position: absolute;
+      inset: 0;
+      transform-origin: 1010px 449px;
+    }
+
+    /* ── El plano: ejes hairline al 20% + la curva en tinta plena ──
+       Ejes: origen (600, 664), vertical hasta y=144, horizontal hasta x=1420.
+       El máximo de la curva cae en (1162, 220): tangente horizontal exacta,
+       porque el punto de control previo comparte su y. */
+    .f04-perdida-plano {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 1920px;
+      height: 1080px;
+      overflow: visible;
+    }
+
+    .f04-perdida-eje {
+      fill: none;
+      stroke: #16191D;
+      stroke-opacity: 0.2;
+      stroke-width: 1;
+    }
+
+    .f04-perdida-curva {
+      fill: none;
+      stroke: #16191D;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* la marca vertical en acento: el único acento del frame */
+    .f04-perdida-marca {
+      fill: none;
+      stroke: #5D84AC;
+      stroke-width: 2;
+    }
+
+    .f04-perdida-punto {
+      fill: #16191D;
+    }
+
+    /* ── Rótulos mono ──
+       Truco de centrado sin transform (para no chocar con GSAP): la caja arranca en
+       left:0 y mide 2×cx, así que su centro de texto cae exactamente en cx. */
+    .f04-perdida-rotulo {
+      position: absolute;
+      left: 0;
+      text-align: center;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* CL — rótulo del eje vertical, centrado en x = 600 */
+    #f04-perdida-lab-cl {
+      top: 100px;
+      width: 1200px;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      color: rgba(22, 25, 29, 0.55);
+    }
+
+    /* CLmax — el rótulo del máximo, centrado en x = 1162, justo encima del punto */
+    #f04-perdida-lab-clmax {
+      top: 160px;
+      width: 2324px;
+      font-size: 26px;
+      letter-spacing: 0.02em;
+      color: rgba(22, 25, 29, 0.92);
+    }
+
+    /* ÁNGULO DE ATAQUE CRÍTICO — bajo la marca, centrado en x = 1162 */
+    #f04-perdida-lab-critico {
+      top: 706px;
+      width: 2324px;
+      font-size: 22px;
+      letter-spacing: 0.14em;
+      color: rgba(22, 25, 29, 0.72);
+    }
+
+    /* ÁNGULO DE ATAQUE — rótulo del eje horizontal, centrado en x = 1010 (medio del eje) */
+    #f04-perdida-lab-eje-x {
+      top: 772px;
+      width: 2020px;
+      font-size: 26px;
+      letter-spacing: 0.16em;
+      /* 0.45 daba 2.88:1 sobre el papel y no llegaba al mínimo de 3:1 del
+         chequeo de contraste. A 0.60 el rótulo del eje sigue siendo secundario
+         frente a la curva, pero se lee. */
+      color: rgba(22, 25, 29, 0.6);
+    }
+
+    /* ── El pie: la frase del módulo. Vive FUERA de la cámara: no deriva.
+       Ocupa 858 → 882px, muy por encima del corte de 900 ── */
+    #f04-perdida-pie {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 858px;
+      text-align: center;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: 0.10em;
+      white-space: nowrap;
+      color: rgba(22, 25, 29, 0.78);
+    }
+
+    .f04-perdida-pal {
+      display: inline-block;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-la-perdida" data-width="1920" data-height="1080">
+    <!-- Capa 0: el papel a sangre -->
+    <div id="f04-perdida-ground" class="clip" data-start="0" data-duration="7.262" data-track-index="0"></div>
+
+    <!-- Capa 1: el plano de la curva + el pie -->
+    <div id="f04-perdida-stage" class="clip" data-start="0" data-duration="7.262" data-track-index="1">
+      <!-- El desbordamiento es el acercamiento de cámara del 1,2%: la capa crece
+           dentro del escenario recortado, que es justo lo que tiene que pasar. -->
+      <div class="f04-perdida-camera" data-layout-allow-overflow>
+        <svg class="f04-perdida-plano" viewBox="0 0 1920 1080" width="1920" height="1080" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- ejes sin escala numérica: el documento no da cifras para esta curva -->
+          <path id="f04-perdida-eje-y" class="f04-perdida-eje" d="M 600.5 664.5 L 600.5 144" />
+          <path id="f04-perdida-eje-x" class="f04-perdida-eje" d="M 600.5 664.5 L 1420 664.5" />
+
+          <!-- la curva: sube casi recta, se curva hasta el máximo en (1162,220) y cae -->
+          <path id="f04-perdida-curva" class="f04-perdida-curva"
+                d="M 620 650 C 742 546 866 440 992 336 C 1060 280 1108 220 1162 220 C 1216 220 1276 316 1372 426" />
+
+          <!-- la marca vertical hairline en acento, sobre el eje horizontal, bajo el máximo -->
+          <path id="f04-perdida-marca" class="f04-perdida-marca" d="M 1162.5 640 L 1162.5 688" />
+
+          <!-- el punto del máximo -->
+          <circle id="f04-perdida-punto" class="f04-perdida-punto" cx="1162" cy="220" r="7" />
+        </svg>
+
+        <div id="f04-perdida-lab-cl" class="f04-perdida-rotulo">CL</div>
+        <div id="f04-perdida-lab-clmax" class="f04-perdida-rotulo">CLmax</div>
+        <div id="f04-perdida-lab-critico" class="f04-perdida-rotulo">ÁNGULO DE ATAQUE CRÍTICO</div>
+        <div id="f04-perdida-lab-eje-x" class="f04-perdida-rotulo">ÁNGULO DE ATAQUE</div>
+      </div>
+
+      <div id="f04-perdida-pie"><span class="f04-perdida-pal">LA</span> <span class="f04-perdida-pal">PÉRDIDA</span> <span class="f04-perdida-pal">NO</span> <span class="f04-perdida-pal">OCURRE</span> <span class="f04-perdida-pal">PORQUE</span> <span class="f04-perdida-pal">EL</span> <span class="f04-perdida-pal">AVIÓN</span> <span class="f04-perdida-pal">LLEGUE</span> <span class="f04-perdida-pal">A</span> <span class="f04-perdida-pal">UNA</span> <span class="f04-perdida-pal">VELOCIDAD</span> <span class="f04-perdida-pal">DETERMINADA</span></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var scope = document.querySelector('[data-composition-id="04-la-perdida"]');
+      if (!scope) return;
+
+      var q = function (sel) {
+        return scope.querySelector(sel);
+      };
+      var qa = function (sel) {
+        return Array.prototype.slice.call(scope.querySelectorAll(sel));
+      };
+
+      /* Voz real (audio_meta.json, frame 4): 7.262s
+         Vas 0.239 · a 0.46 · entender 0.56 · por 1.259 · qué 1.5 · un 1.74 · ala 1.939
+         entra 2.259 · en 2.579 · pérdida, 2.759–3.279
+         y 3.98 · por 4.139 · qué 4.319 · eso 4.579 · puede 4.94 · pasar 5.259
+         a 5.619 · cualquier 5.759 · velocidad. 6.299–7.0 */
+      var DUR = 7.262;
+      var QUIETUD = 6.05;
+
+      var camara = q(".f04-perdida-camera");
+      var ejeY = q("#f04-perdida-eje-y");
+      var ejeX = q("#f04-perdida-eje-x");
+      var curva = q("#f04-perdida-curva");
+      var marca = q("#f04-perdida-marca");
+      var punto = q("#f04-perdida-punto");
+      var palabras = qa(".f04-perdida-pal");
+
+      /* svg-path-draw: la longitud real del trazo alimenta dasharray/dashoffset.
+         Determinista — la misma geometría da la misma longitud en cada seek. */
+      var trazo = function (path) {
+        var L = path.getTotalLength();
+        path.style.strokeDasharray = L + "px";
+        return L;
+      };
+      var LY = trazo(ejeY);
+      var LX = trazo(ejeX);
+      var LC = trazo(curva);
+      var LM = trazo(marca);
+
+      var tl = gsap.timeline({ paused: true });
+
+      /* cámara macro: empuje casi imperceptible que decelera y se detiene con el pie */
+      tl.fromTo(camara, { scale: 1 }, { scale: 1.012, duration: QUIETUD, ease: "power2.out" }, 0);
+
+      /* ── Escena 1 — «Vas a entender» (0.239–1.22)
+         los dos ejes se dibujan en hairline tinta al 20%, desde el origen ── */
+      tl.fromTo(ejeY, { strokeDashoffset: LY }, { strokeDashoffset: 0, duration: 0.40, ease: "power2.out" }, 0.10);
+      tl.fromTo(ejeX, { strokeDashoffset: LX }, { strokeDashoffset: 0, duration: 0.44, ease: "power2.out" }, 0.16);
+
+      /* sus rótulos, en cuanto cada eje aterriza — sin escala numérica */
+      tl.fromTo(
+        q("#f04-perdida-lab-cl"),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+        0.40
+      );
+      tl.fromTo(
+        q("#f04-perdida-lab-eje-x"),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" },
+        0.52
+      );
+
+      /* ── Escena 1b — el trazo, de izquierda a derecha, a velocidad constante.
+         Arranca en 0.40 (la curva ya se ve antes de 0.5s) y corre 2.55s: el máximo
+         cae al 70% del recorrido ≈ 2.19s, y la caída entra justo bajo «en pérdida,» ── */
+      tl.fromTo(curva, { strokeDashoffset: LC }, { strokeDashoffset: 0, duration: 2.55, ease: "none" }, 0.40);
+
+      /* ── Escena 2 — «pérdida,» (2.759–3.279): el punto del máximo y su rótulo ── */
+      tl.fromTo(
+        punto,
+        { attr: { r: 0 }, opacity: 0 },
+        { attr: { r: 7 }, opacity: 1, duration: 0.34, ease: "power2.out" },
+        2.98
+      );
+      tl.fromTo(
+        q("#f04-perdida-lab-clmax"),
+        { opacity: 0, y: 10 },
+        { opacity: 1, y: 0, duration: 0.50, ease: "power2.out" },
+        3.12
+      );
+
+      /* «y» (3.98): la marca vertical en acento se dibuja sobre el eje horizontal */
+      tl.fromTo(marca, { strokeDashoffset: LM }, { strokeDashoffset: 0, duration: 0.34, ease: "power2.out" }, 3.98);
+
+      /* «qué eso» (4.319–4.799): el rótulo de la marca */
+      tl.fromTo(
+        q("#f04-perdida-lab-critico"),
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.52, ease: "power2.out" },
+        4.30
+      );
+
+      /* ── Escena 3 — «puede pasar a cualquier velocidad.» (4.94–7.0)
+         la frase del módulo se asienta palabra a palabra, sin rebote ── */
+      tl.fromTo(
+        palabras,
+        { opacity: 0, y: 8 },
+        { opacity: 1, y: 0, duration: 0.50, ease: "power2.out", stagger: 0.055 },
+        4.92
+      );
+
+      /* Quietud declarada — 6.05s → 7.262s: nada se mueve, ni la cámara.
+         Sostiene el timeline hasta DUR. */
+      tl.fromTo(
+        camara,
+        { scale: 1.012 },
+        { scale: 1.012, duration: DUR - QUIETUD, ease: "none", immediateRender: false },
+        QUIETUD
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-la-perdida"] = tl;
+    })();
+  </script>
+</template>

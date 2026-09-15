@@ -1,0 +1,282 @@
+<template>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+
+  <style>
+    /* ── Brand faces ──────────────────────────────────────────────────────────
+       Mismas familias que las tres aperturas hermanas (NOTAM, Mercancías,
+       Meteorología): Archivo 400 para el display, JetBrains Mono 500 para el
+       rótulo. A diferencia de Mercancías, ESTE proyecto sí trae los .woff2
+       montados en assets/fonts/, así que el src apunta primero al archivo real
+       (render determinista, sin red) y deja la misma URL de fonts.gstatic.com
+       que usan las hermanas como respaldo para la vista de Studio, donde el
+       fragmento se sirve desde compositions/frames/ y la ruta relativa no
+       resuelve.
+       latin + latin-ext: AERODINÁMICA lleva Á y el rótulo lleva Í / Ó / ·.
+       font-display:block para que el renderer nunca capture una fuente de
+       reemplazo.                                                                */
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src:
+        url("assets/fonts/Archivo_400.woff2") format("woff2"),
+        url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLydOxI.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "Archivo";
+      font-style: normal;
+      font-weight: 400;
+      font-display: block;
+      src:
+        url("assets/fonts/Archivo_400_ext.woff2") format("woff2"),
+        url("https://fonts.gstatic.com/s/archivo/v25/k3kPo8UDI-1M0wlSV9XAw6lQkqWY8Q82sLyTOxK-vA.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src:
+        url("assets/fonts/JetBrainsMono_500-latin.woff2") format("woff2"),
+        url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTOlOV.woff2") format("woff2");
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: "JetBrains Mono";
+      font-style: normal;
+      font-weight: 500;
+      font-display: block;
+      src:
+        url("assets/fonts/JetBrainsMono_500-latinext.woff2") format("woff2"),
+        url("https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbY2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8-qxTNFOVgaY.woff2") format("woff2");
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+
+    /* La raíz del frame se estiliza por #root (nunca por una clase sobre el
+       elemento data-composition-id) y NO lleva background — el campo navy a
+       sangre es su propia capa class="clip" de duración completa, debajo. */
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      container-type: size;
+      /* atomos de frame.md */
+      --ae01-navy: #14202e;
+      --ae01-cream: #fbfaf8;
+      /* El acento del módulo de Aerodinámica es el azul acero #5D84AC, que en
+         este proyecto ES el token `coral` de frame.md — sobre navy #14202E da
+         ~4.4:1, así que entra tal cual, sin sustituto brillante. ONE accent
+         moment: la hairline bajo el título y nada más. */
+      --ae01-accent: #5d84ac;
+    }
+
+    /* ── background: campo navy + retícula hairline, 3 capas de profundidad ──── */
+    .ae01-bg {
+      position: absolute;
+      inset: 0;
+      background-color: var(--ae01-navy);
+    }
+    .ae01-depth {
+      position: absolute;
+      inset: 0;
+    }
+    .ae01-grid-fine {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.06) 0 1px, rgba(251, 250, 248, 0) 1px 60px);
+    }
+    .ae01-grid-coarse {
+      background-image:
+        repeating-linear-gradient(to right, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px),
+        repeating-linear-gradient(to bottom, rgba(251, 250, 248, 0.085) 0 1px, rgba(251, 250, 248, 0) 1px 300px);
+    }
+    .ae01-pool {
+      background-image:
+        radial-gradient(78% 62% at 50% 44%, rgba(251, 250, 248, 0.055) 0%, rgba(251, 250, 248, 0) 68%),
+        radial-gradient(122% 100% at 50% 50%, rgba(9, 14, 21, 0) 42%, rgba(9, 14, 21, 0.62) 100%);
+    }
+
+    /* ── stage: geometría congelada ──────────────────────────────────────────
+       El padding inferior de 200px saca el centro de composición a y=440
+       (0.41 × 1080) y deja TODO el contenido muy por encima de y=900, la banda
+       de subtítulos. Con el rótulo (~31px) + 150px de aire + el título (~162px)
+       + la regla (49px) el bloque mide ~392px y cae entre y≈244 y y≈636: el
+       rótulo en el tercio superior, el título en el eje óptico.               */
+    .ae01-stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px 200px;
+    }
+
+    /* rótulo mono (supporting) */
+    .ae01-kicker {
+      display: flex;
+      align-items: center;
+      gap: 0.95em;
+      font-family: "JetBrains Mono", monospace;
+      font-weight: 500;
+      font-size: 1.6cqw;
+      line-height: 1;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(251, 250, 248, 0.66);
+      white-space: nowrap;
+    }
+    .ae01-tick {
+      display: block;
+      width: 3.4cqw;
+      height: 1px;
+      background: rgba(251, 250, 248, 0.24);
+      flex: none;
+    }
+    .ae01-kw {
+      display: inline-block;
+    }
+
+    /* AERODINÁMICA (foreground subject) + la hairline de acento.
+       UNA sola palabra larga => UNA línea, y el acento la subraya entera (esa es
+       la única diferencia estructural frente a Mercancías, que iba en dos).
+       12 caracteres ≈ 7.75em de avance: a 8.6cqw (≈165px) la palabra mide
+       ≈1277px, o sea ~67% del ancho — el ~68% que pide el paquete, con margen
+       de sobra dentro de los 1760px útiles. */
+    .ae01-lockup {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      width: fit-content;
+      margin-top: 150px;
+    }
+    /* máscara de entrada: las letras suben desde debajo de la línea base.
+       El padding/margen superior deja aire para el halo del desenfoque. */
+    .ae01-mask {
+      overflow: hidden;
+      padding-top: 64px;
+      margin-top: -64px;
+    }
+    .ae01-word {
+      display: block;
+      text-align: center;
+      font-family: "Archivo", sans-serif;
+      font-weight: 400;
+      font-size: 8.6cqw;
+      line-height: 0.98;
+      letter-spacing: -0.018em;
+      color: var(--ae01-cream);
+      white-space: nowrap;
+    }
+    .ae01-ltr {
+      --dof: 0px;
+      display: inline-block;
+      filter: blur(var(--dof));
+      will-change: filter, transform, opacity;
+    }
+    .ae01-rule {
+      height: 3px;
+      margin-top: 46px;
+      background: var(--ae01-accent);
+      transform-origin: left center;
+    }
+  </style>
+
+  <div id="root" data-composition-id="01-apertura" data-start="0" data-duration="4.336" data-width="1920" data-height="1080">
+    <!-- fondo a sangre: capa propia con class="clip", duración completa -->
+    <div id="ae01-fondo" class="clip ae01-bg" data-start="0" data-duration="4.336" data-track-index="0">
+      <div class="ae01-depth ae01-pool"></div>
+      <div class="ae01-depth ae01-grid-coarse"></div>
+      <div class="ae01-depth ae01-grid-fine"></div>
+    </div>
+
+    <div id="ae01-escena" class="clip ae01-stage" data-start="0" data-duration="4.336" data-track-index="1">
+      <div class="ae01-kicker">
+        <span class="ae01-tick"></span>
+        <span class="ae01-kw">INGRESO</span>
+        <span class="ae01-kw">A</span>
+        <span class="ae01-kw">AEROLÍNEA</span>
+        <span class="ae01-kw">·</span>
+        <span class="ae01-kw">MÓDULO</span>
+      </div>
+
+      <div class="ae01-lockup">
+        <div class="ae01-mask">
+          <span class="ae01-word"><span class="ae01-ltr">A</span><span class="ae01-ltr">E</span><span class="ae01-ltr">R</span><span class="ae01-ltr">O</span><span class="ae01-ltr">D</span><span class="ae01-ltr">I</span><span class="ae01-ltr">N</span><span class="ae01-ltr">Á</span><span class="ae01-ltr">M</span><span class="ae01-ltr">I</span><span class="ae01-ltr">C</span><span class="ae01-ltr">A</span></span>
+        </div>
+        <div class="ae01-rule"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var ID = "01-apertura";
+      var root = document.querySelector('[data-composition-id="' + ID + '"]');
+      if (!root) return;
+      var q = function (s) {
+        return root.querySelector(s);
+      };
+      var qa = function (s) {
+        return Array.prototype.slice.call(root.querySelectorAll(s));
+      };
+
+      var D = 4.336;
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+
+      // ── Scene 1 (0.0–1.0s) ────────────────────────────────────────────────
+      // "Bienvenido al módulo…" — el campo navy ya es opaco en t=0 (color de la
+      // capa .clip). Las tres capas de profundidad se asientan: pozo de luz,
+      // retícula gruesa, retícula fina.
+      tl.fromTo(q(".ae01-pool"), { opacity: 0.35 }, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0);
+      tl.fromTo(q(".ae01-grid-coarse"), { opacity: 0 }, { opacity: 1, duration: 1.1, ease: "power2.out" }, 0);
+      tl.fromTo(q(".ae01-grid-fine"), { opacity: 0 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.06);
+
+      // rótulo mono — revelado por palabra en el tercio superior, sobre
+      // "Bienvenido al" (VO 0.219–1.059s). Último remate en ~0.96s.
+      tl.fromTo(q(".ae01-tick"), { opacity: 0 }, { opacity: 1, duration: 0.34, ease: "power2.out" }, 0.12);
+      tl.fromTo(
+        qa(".ae01-kw"),
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.44, ease: "power3.out", stagger: 0.085 },
+        0.18,
+      );
+
+      // ── Scene 2 (1.42–2.66s) ──────────────────────────────────────────────
+      // AERODINÁMICA entra desde abajo tras la máscara y se resuelve desde el
+      // desenfoque (depth-of-field-blur: se tensa la variable --dof, que lee
+      // filter: blur()). Curva larga — power3.out en 0.88s, escalonado letra a
+      // letra: arranca sobre "de" (1.679s) y la palabra queda resuelta en 2.66s,
+      // justo antes de que la voz termine "Aerodinámica" (1.86–2.759s).
+      tl.fromTo(
+        qa(".ae01-ltr"),
+        { yPercent: 100, opacity: 0, "--dof": "22px" },
+        {
+          yPercent: 0,
+          opacity: 1,
+          "--dof": "0px",
+          duration: 0.88,
+          ease: "power3.out",
+          stagger: 0.033,
+        },
+        1.42,
+      );
+
+      // ── Scene 3 (2.72–3.62s, luego quietud) ───────────────────────────────
+      // La hairline de acento se dibuja de izquierda a derecha bajo la palabra
+      // ENTERA (una sola línea) y queda, cerrando sobre "de Aviatory."
+      // (VO 3.139–4.039s). Desde 3.62s todo se detiene: lectura sostenida, sin
+      // deriva de cámara y sin salida — la transición de raíz es la salida.
+      tl.fromTo(q(".ae01-rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.9, ease: "power2.inOut" }, 2.72);
+
+      // ancla de duración completa
+      tl.to({}, { duration: D }, 0);
+
+      window.__timelines[ID] = tl;
+    })();
+  </script>
+</template>
