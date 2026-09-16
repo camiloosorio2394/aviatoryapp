@@ -586,10 +586,10 @@ const CODIGO: DocScreen[] = [
       {
         kind: "figura",
         src: "/modulos/meteorologia/mt-img-01-cumulonimbo-desde-el-aire.webp",
-        alt: "Cumulonimbo maduro visto desde altitud de crucero, con el yunque extendiéndose por encima de las torres convectivas.",
+        alt: "Masa nubosa convectiva vista desde altitud de crucero, con torres de cúmulo de bordes duros en la parte baja y nubosidad extendida por encima.",
         ancho: 1600,
         alto: 900,
-        pie: "Desde crucero, el yunque se ve extendido por encima de todo lo demás. La escala se entiende sola.",
+        pie: "Así se ve la convección desde crucero: abajo las torres, con relieve y bordes duros, y encima la masa que ya se extendió. Eso es lo que hay detrás de un `CB` en el código.",
       },
       {
         kind: "piensaComoPiloto",
