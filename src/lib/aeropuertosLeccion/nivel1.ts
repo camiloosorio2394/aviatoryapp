@@ -170,11 +170,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 10,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-02-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Mesa de cabina vista desde arriba en ángulo, con una tableta que muestra un plano de aeródromo dibujado por nosotros (pista, calles, plataforma) y dos o tres hojas con tablas genéricas al lado. Pavimento gris, señales de pista blancas, señales de calle amarillas. Ojo: no puede aparecer ninguna carta de Jeppesen ni de Lido, ni borrosa ni de refilón, ni ninguna figura de un documento de la OACI.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-02-01-carta-aip.webp",
+        alt: "Mesa de preparación con una carta de aeródromo en una tableta y la sección AIP AD 2 en papel, identificadas con flechas en verde menta",
+        ancho: 1600,
+        alto: 900,
+        pie: "La carta de aeródromo te orienta espacialmente: muestra la pista, las calles de rodaje y la plataforma para que puedas construir la ruta en tierra. La sección AD 2 del AIP completa esa imagen con datos publicados como dimensiones, distancias declaradas, luces y procedimientos. En un briefing profesional no se elige una u otra: se consultan juntas.",
       },
       {
         kind: "hueco",
