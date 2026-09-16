@@ -180,3 +180,28 @@ Las imágenes. 231 huecos rotulados (162 de lección y 69 de catálogo), más
 `AP-VID-01`, que es el video de apertura. Cada hueco dice en pantalla qué tiene
 que mostrar y con qué medida, así que se pueden ir llenando de a uno sin volver
 a abrir el brief.
+
+## Resumen de lo hecho (cierre, 16-sep-2026)
+
+El plan está completo y en `origin/main`, en cuatro commits (`e910efd`,
+`4d6db89`, `367bff7`, `34a0a9f`):
+
+- 22 lecciones en 5 niveles (`src/lib/aeropuertosLeccion/nivel1.ts` a
+  `nivel5.ts`) sobre el lector compartido, con 162 huecos rotulados.
+- Entrevistas de 15 preguntas por nivel (`entrevistas.ts`).
+- Catálogo de 177 fichas con 69 huecos propios (`AP-CAT-*`); la ficha de A1 y B1
+  va sin imagen, a propósito.
+- Hub con el espacio del video, práctica, y evaluación de 60 preguntas en el
+  servidor (`contenido/bancos/aeropuertos_evaluacion.json`).
+- Progreso en la base con respaldo local, y las dos migraciones escritas **sin
+  aplicar** (ver «Lo que le queda por correr a Camilo»).
+
+Revisión de cierre: sin rayas largas, sin citas de artículos y ningún hueco pide
+A1 ni B1 (solo aparecen como advertencia o como opción incorrecta).
+`npx tsc -b` limpio, `npx vite build` limpio, y `npx vitest run` con 415 pruebas
+de 53 archivos, todas pasan. `npx eslint .` solo marca archivos que git ignora
+(`.agents/skills/` y `vista.local/`). Para que `tsc` y las pruebas corrieran hubo
+que hacer `npm install`: a `node_modules` le faltaba `vitest`, aunque el
+lockfile sí lo trae. El lockfile no cambió.
+
+La tarea programada `aeropuertos-continuar` se borró al cerrar.
