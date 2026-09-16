@@ -16,6 +16,7 @@ import {
 import { accentText } from "@/lib/tileColors"
 import { registrarEstudioDiario } from "@/lib/activity"
 import {
+  AP_ACENTO,
   AP_HUB,
   AP_TITULO,
   markAeropuertosPractica,
@@ -125,7 +126,7 @@ export function AeropuertosPractice() {
   return (
     <div
       className="notam-practica mx-auto max-w-[1100px] px-4 py-9 pb-20 sm:px-7 sm:py-11"
-      style={{ "--ap-acento": "#6B4FD8" } as React.CSSProperties}
+      style={{ "--ap-acento": AP_ACENTO } as React.CSSProperties}
     >
       <Link
         to={AP_HUB}

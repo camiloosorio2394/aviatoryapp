@@ -5,6 +5,7 @@ import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { EspacioVideo } from "@/components/modulo/EspacioVideo"
 import {
+  AP_ACENTO,
   AP_APRENDE,
   AP_CATALOGO,
   AP_EVALUACION,
@@ -29,8 +30,6 @@ import {
  * huecos rotulados con lo que hace falta producir, que es como se trabaja el
  * resto del módulo: nadie tiene que venir a preguntar qué imagen va aquí.
  */
-const ACENTO = "#6B4FD8"
-
 export function Aeropuertos() {
   const [leidas] = useState(() => readAeropuertosLocal().lessonScreens.length)
   const pct = Math.round((leidas / AP_LECTURA_TOTAL) * 100)
@@ -41,7 +40,7 @@ export function Aeropuertos() {
       densidad: "compacta",
       photoAspect: "5/2",
       icon: BookOpen,
-      color: ACENTO,
+      color: AP_ACENTO,
       meta: `${AP_LECTURA_TOTAL} lecciones · ${AP_NIVELES.length} niveles`,
       title: "1. Aprende",
       blurb:
@@ -58,7 +57,7 @@ export function Aeropuertos() {
       densidad: "compacta",
       photoAspect: "5/2",
       icon: LayoutGrid,
-      color: ACENTO,
+      color: AP_ACENTO,
       meta: "Todas las ayudas visuales del Anexo 14",
       title: "2. Catálogo",
       blurb:
@@ -72,7 +71,7 @@ export function Aeropuertos() {
       densidad: "compacta",
       photoAspect: "5/2",
       icon: Target,
-      color: ACENTO,
+      color: AP_ACENTO,
       meta: "Reconocer y decidir",
       title: "3. Práctica",
       blurb: "Qué estás viendo, dónde paras y qué cambió con la última enmienda.",
@@ -85,7 +84,7 @@ export function Aeropuertos() {
       densidad: "compacta",
       photoAspect: "5/2",
       icon: GraduationCap,
-      color: ACENTO,
+      color: AP_ACENTO,
       meta: "Opción múltiple, con explicación al final",
       title: "4. Evaluación",
       blurb: "Lo que preguntan de aeropuertos en una entrevista técnica, con corrección al terminar.",
