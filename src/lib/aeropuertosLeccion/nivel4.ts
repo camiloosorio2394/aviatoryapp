@@ -33,7 +33,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "De noche no ves la pista: ves su dibujo en luces. Cada color dice una cosa y ninguna está puesta por gusto.",
+        text: "De noche la pista se reconoce por el patrón completo de sus luces, no por un punto brillante aislado. El umbral verde, el extremo rojo, las filas blancas de borde y el eje codificado permiten confirmar dirección, anchura y distancia restante. En una aproximación, una configuración que no coincide con la carta es motivo para verificar o frustrar; no se corrige la identificación acomodando mentalmente las luces que faltan.",
       },
       {
         kind: "hueco",
@@ -192,7 +192,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "En rodaje los colores te dicen dónde estás y hasta dónde puedes seguir. El rojo siempre significa lo mismo: aquí se para.",
+        text: "En rodaje los colores ayudan a separar guía, límite, advertencia y detención. El eje verde orienta la ruta, el borde azul delimita la calle y las luces amarillas anuncian un punto que exige atención. Una barra roja encendida es una orden visual de detenerse aunque la autorización verbal parezca permitir el cruce: se para y se informa al control antes de continuar.",
       },
       {
         kind: "hueco",
@@ -347,14 +347,15 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Antes de ver la pista ves su aproximación. De ahí sacas dos cosas: dónde está el umbral y si vienes alto o bajo.",
+        text: "Antes de distinguir las señales pintadas, el sistema de aproximación ayuda a encontrar y alinear la pista, mientras el PAPI permite comprobar la relación angular con la senda visual. Son funciones distintas: los destellos y la línea central llevan la mirada hacia el umbral; la combinación roja y blanca indica si estás alto o bajo. El piloto la compara con los instrumentos y con la información publicada, especialmente de noche o con referencias visuales degradadas.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-15-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el asiento izquierdo, de noche, a 600 ft y alineado con el eje, con el sistema de aproximación delante y la pista al fondo. Las cuatro cajas del PAPI a la izquierda, nítidas y separadas 9 m con tolerancia de 1 m, la más interna a 15 m del borde de pista, con las dos internas rojas y las dos externas blancas. Detrás, la fila de eje de aproximación y la fila verde del umbral. Ojo: el PAPI nunca destella ni lleva tres cajas.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-15-02-papi.webp",
+        alt: "Vista desde cabina en final con una flecha verde menta que señala las cuatro cajas del PAPI, dos blancas y dos rojas",
+        ancho: 1600,
+        alto: 900,
+        pie: "El PAPI se reconoce como una fila de cuatro cajas junto a la pista. Dos blancas y dos rojas indican que el avión está en la senda visual; más blancas significan alto y más rojas, bajo.",
       },
       {
         kind: "fichas",
@@ -381,7 +382,7 @@ export const NIVEL_4: DocScreen[] = [
                 "Cinco filas, cada una con las cuatro cajas vistas de frente y el avión en perfil sobre una senda punteada: cuatro blancas, una roja y tres blancas, dos y dos, tres rojas y una blanca, cuatro rojas, con las rojas siempre del lado de la pista. Para una senda de 3 grados: 3°30′, 3°10′, 2°50′ y 2°30′, separación 9 m con tolerancia de 1 m. Abajo, el abreviado de dos cajas con sus tres lecturas, 3°15′ y 2°45′, separación 6 m. Rótulos «muy alto», «alto», «en senda», «bajo», «muy bajo» y «PAPI abreviado (APAPI)». Ojo: en el PAPI no existe el ámbar ni el verde.",
             },
             puntos: [
-              "Cuatro cajas a la izquierda. Dos rojas y dos blancas es senda. Más blanco, más alto; más rojo, más bajo. El abreviado usa dos cajas.",
+              "Cuatro cajas normalmente a un lado de la pista. Dos rojas y dos blancas es senda. Más blanco, más alto; más rojo, más bajo. El APAPI abreviado usa dos cajas.",
             ],
           },
           {
@@ -495,7 +496,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Hay luces que existen para que veas el aeropuerto y luces que existen para que veas lo que no debes tocar.",
+        text: "Hay luces que ayudan a localizar el aeródromo y otras que hacen visible un obstáculo. El faro confirma la ubicación general, pero no identifica por sí solo una pista utilizable; las luces de obstáculo muestran altura y extensión de estructuras que pueden confundirse con el fondo urbano. En aproximación o rodaje, el piloto interpreta el patrón y lo contrasta con la carta en vez de perseguir la luz más intensa.",
       },
       {
         kind: "hueco",
@@ -523,7 +524,7 @@ export const NIVEL_4: DocScreen[] = [
                 "Tabla visual de tres bloques: baja intensidad (A roja fija 10 cd; B roja fija 32 cd; C amarilla o azul de destellos 60 a 90 por minuto, 40 cd; D amarilla de destellos 200 cd; E roja de destellos 32 cd), mediana (A blanca de destellos 20 a 60 por minuto, 20 000 cd de día y 2 000 de noche; B roja de destellos 2 000 cd; C roja fija 2 000 cd) y alta (A blanca de destellos 40 a 60 por minuto, 200 000 cd de día; B igual, 100 000 cd). Cada fila con su círculo de color y su icono de fija o de destello. Ojo: nada de designaciones L-810, L-864, L-865, L-856 ni L-857, que son de la FAA.",
             },
             puntos: [
-              "Tres intensidades. Las bajas son rojas fijas, salvo las de vehículos. Las medias y las altas son el estrobo blanco de día y el rojo de noche.",
+              "Se seleccionan por altura, entorno y tipo de objeto. Pueden ser rojas o blancas, fijas o destellantes; importa reconocer el patrón publicado, no memorizar una sola combinación universal.",
             ],
           },
         ],
@@ -644,7 +645,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Ninguna instalación tiene todas las luces encendidas siempre. La norma dice cuántas pueden faltar y en cuánto tiempo tienen que volver.",
+        text: "Una instalación puede conservar un porcentaje de luces en servicio y aun así perder la forma visual que necesita el piloto. Por eso la norma combina porcentajes, distribución y tiempo de conmutación: dos luces contiguas apagadas pueden romper una fila aunque el total parezca aceptable. En operación, la tripulación no calcula esos porcentajes desde la cabina; recibe la condición por ATIS, NOTAM o control y decide con los mínimos y procedimientos del operador.",
       },
       {
         kind: "hueco",

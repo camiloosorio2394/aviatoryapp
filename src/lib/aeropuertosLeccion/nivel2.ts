@@ -32,11 +32,11 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Cada línea blanca dice dónde estás y cuánta pista queda.",
+        text: "Las señales blancas identifican la pista y organizan la alineación, el umbral, el punto de visada y la zona de toma de contacto. En corta final permiten confirmar que miras la superficie correcta; después del toque ayudan a reconocer cuánto te has alejado del umbral. No sustituyen la carta ni el cálculo de performance, pero convierten la geometría publicada en referencias que el piloto puede verificar de un vistazo.",
       },
       {
         kind: "p",
-        text: "En la pista todo es blanco: si ves amarillo, ya saliste.",
+        text: "La identidad de la pista es blanca; el amarillo pertenece a calles, puntos de espera, márgenes o superficies que no se usan como pista. Al abandonar después del aterrizaje puede aparecer una guía amarilla de salida sobre el pavimento, así que el color por sí solo no confirma que estés libre: todo el avión debe cruzar el punto de espera aplicable.",
       },
       {
         kind: "hueco",
@@ -97,7 +97,7 @@ export const NIVEL_2: DocScreen[] = [
               descripcion:
                 "Los primeros 900 m de una pista de precisión de 45 m, cenital y tumbada en horizontal, con la escala en metros abajo. Punto de visada a 400 m del umbral, dos fajas gruesas simétricas; seis pares de la zona de toma de contacto cada 150 m, de 22,5 por 3 m. Ojo: ningún par pegado al punto de visada; los que caigan a 50 m o menos se borran, y ese hueco tiene que verse.",
             },
-            puntos: ["Ahí apuntas; cada par es pista gastada."],
+            puntos: ["Ahí apuntas; los grupos de barras dan referencias de distancia desde el umbral."],
           },
         ],
       },
@@ -147,8 +147,11 @@ export const NIVEL_2: DocScreen[] = [
         situacion:
           "Despegas de una pista nueva. Cuentas doce fajas de umbral y el eje se ve angosto.",
         pregunta: "¿Qué pista tienes debajo?",
-        respuesta: "Doce fajas son 45 m.",
-        claves: ["Un eje CAT II o III se ve grueso: es CAT I."],
+        respuesta:
+          "Doce fajas corresponden a una pista de 45 m de ancho. Un eje angosto permite descartar visualmente el ancho de 0,90 m previsto para CAT II o III, pero no demuestra por sí solo que la pista sea CAT I.",
+        claves: [
+          "La categoría y el sistema disponible se confirman en la carta y en la información vigente; no se deducen de una sola señal.",
+        ],
         // Reutiliza la lámina de la ficha «Señal de umbral».
         hueco: {
           id: "AP-05-05",
@@ -176,7 +179,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "No todo el pavimento que ves adelante es tuyo.",
+        text: "No todo el pavimento alineado con una pista tiene el mismo uso. Las flechas blancas antes de un umbral desplazado permiten rodar y despegar en esa dirección, y también forman parte del recorrido de aterrizaje desde el sentido contrario; los galones amarillos identifican una zona que no se usa para rodar, despegar ni aterrizar. La diferencia cambia la TORA, la LDA y la decisión de continuar una aproximación.",
       },
       {
         kind: "p",
@@ -339,7 +342,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Rodar es seguir una línea amarilla hasta donde te manda a parar.",
+        text: "Rodar no es seguir una línea amarilla de forma automática: es comparar continuamente la autorización, la carta, los letreros y lo que aparece delante. Al acercarte a una pista, el eje mejorado anticipa el punto de espera; allí las líneas continuas quedan del lado donde debes detener todo el avión hasta recibir y entender la autorización correspondiente.",
       },
       {
         kind: "p",
@@ -495,7 +498,7 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "En la plataforma sigues una línea amarilla hasta donde para tu rueda de morro.",
+        text: "En plataforma la línea amarilla guía el eje del avión, pero la geometría se interpreta desde la posición del piloto. La barra de viraje aparece a la altura de la cabina para iniciar el giro y la línea de parada indica dónde detenerte según el tipo de avión o el sistema de atraque. Seguir el eje no garantiza por sí solo separación de punta de ala: también mandan el puesto asignado, la guía visual y el personal de tierra.",
       },
       {
         kind: "p",

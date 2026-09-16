@@ -36,7 +36,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Un aeropuerto es un conjunto de áreas con nombre propio. El nombre decide qué puedes hacer encima.",
+        text: "Un aeropuerto es un conjunto de áreas con nombre propio, y cada nombre cambia lo que el piloto puede hacer. En un despegue rechazado, por ejemplo, la zona de parada puede estar incluida en la ASDA para detener el avión, pero eso no la convierte en pista disponible para rodar o aterrizar. Reconocer la superficie evita sumar metros que no existen en el cálculo y ayuda a entender por qué un área despejada no siempre es pavimento utilizable.",
       },
       {
         kind: "fichas",
@@ -184,7 +184,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El aeródromo se publica en dos sitios. Las cartas te mueven; el AIP te da los números.",
+        text: "El aeródromo se publica en dos lugares que se complementan. La carta sirve para orientarse y seguir una ruta sin improvisar; la ficha AD 2 del AIP aporta dimensiones, resistencia, distancias, luces y procedimientos. Antes de rodar se estudian juntos: la línea de la carta puede llevarte a una intersección, pero la tabla publicada confirma si la distancia restante sirve para el peso y la configuración del día.",
       },
       {
         kind: "fichas",
@@ -348,7 +348,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Sobre una sola pista conviven cuatro longitudes. Se publican al metro y para cada dirección.",
+        text: "Sobre una sola pista conviven cuatro longitudes, publicadas por dirección porque un umbral desplazado, una zona de parada o una zona libre pueden afectar cada sentido de manera distinta. Si aceptas despegar desde una intersección, el avión no recupera el pavimento que dejó atrás: el cálculo se hace con la distancia publicada desde ese punto, no con la longitud total que recuerdas del aeropuerto.",
       },
       {
         kind: "fichas",
@@ -487,7 +487,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Cada aeródromo se describe con un número y una letra. Longitud y envergadura, nada más.",
+        text: "El código de referencia del aeródromo combina un número asociado a la longitud de campo de referencia del avión y una letra asociada a su envergadura. Sirve para relacionar el diseño de pistas, calles y separaciones con el avión que se pretende atender; no es por sí solo una autorización operacional. Un aeropuerto 4F puede tener una calle cerrada temporalmente para tu envergadura, de modo que la carta, el aviso vigente y la autorización siguen mandando sobre la etiqueta de diseño.",
       },
       {
         kind: "fichas",

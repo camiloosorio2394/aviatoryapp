@@ -41,7 +41,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Una incursión casi nunca empieza en la pista. Empieza en un cruce mal entendido, con poca visibilidad.",
+        text: "Una incursión suele empezar antes de llegar a la pista: una ruta distinta de la preparada, un letrero que no se verbaliza o una autorización que la tripulación cree haber entendido. Con poca visibilidad hay menos tiempo para detectar el error, pero la defensa es la misma: briefing de rodaje, carta abierta, verificación cruzada y detención inmediata cuando la posición real no coincide con la autorización.",
       },
       {
         kind: "hueco",
@@ -203,7 +203,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Con baja visibilidad el aeropuerto cambia: se protege el ILS y se mueve menos tránsito.",
+        text: "Con baja visibilidad no solo se ve menos: cambia la forma de usar el aeropuerto. Se activan procedimientos LVP, se protegen áreas del ILS, pueden aumentar las separaciones y se restringen rutas o cruces. El piloto debe saber qué punto de espera está activo y seguir la autorización y las luces; una RVR concreta no permite escoger por cuenta propia la ruta ni el punto de detención.",
       },
       {
         kind: "hueco",
@@ -226,7 +226,7 @@ export const NIVEL_5: DocScreen[] = [
             },
             puntos: [
               "Luces rojas cruzando la calle.",
-              "Obligatoria con visibilidad en pista menor que 550 m.",
+              "Se exige en puntos de espera que sirven pistas previstas para operar con RVR inferior a 550 m; el aeropuerto puede activarla también en otras condiciones.",
             ],
           },
           {
@@ -346,7 +346,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Desde el 4 de noviembre de 2021 el mundo describe la pista igual: un formato, una clave por tercio.",
+        text: "El formato global de OACI describe la superficie por tercios y asigna un código que la tripulación lleva al cálculo de performance. No basta con escuchar una cifra suelta: el informe se lee en el sentido de la pista de designador menor, y al operar en el sentido contrario se invierte el orden. Así, un 5/3/2 puede comenzar para ti por el 2 y condicionar desde el toque la distancia de aterrizaje disponible.",
       },
       {
         kind: "hueco",
@@ -490,7 +490,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Dos números deciden si puedes ir: lo que aguanta el pavimento y la categoría de bomberos.",
+        text: "La compatibilidad del pavimento y la categoría de salvamento son dos comprobaciones que pueden limitar una operación aun cuando la pista sea suficientemente larga. El ACR del avión se compara con el PCR publicado para las condiciones previstas, y la categoría de bomberos se contrasta con el tamaño del avión y la disponibilidad informada. Ninguna de las dos reemplaza el resto del despacho: obstáculos, dimensiones, performance, meteorología y avisos vigentes siguen formando parte de la decisión.",
       },
       {
         kind: "hueco",
@@ -650,7 +650,7 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Tocaste. Falta lo que más cuesta: salir rápido sin salir mal.",
+        text: "Después del toque todavía queda una fase de alta carga de trabajo: desacelerar, identificar la salida autorizada, confirmar que todo el avión libró la pista y entrar al puesto sin perder separación. Una salida rápida ayuda a abandonar antes, pero no obliga a forzar el frenado ni sustituye la autorización. Si se pierde la guía de atraque o la imagen no coincide con el puesto asignado, se detiene el avión antes de improvisar.",
       },
       {
         kind: "hueco",
