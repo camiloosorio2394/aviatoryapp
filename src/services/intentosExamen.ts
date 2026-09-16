@@ -1,6 +1,6 @@
 /**
- * Los intentos de evaluación de los módulos: NOTAM, Meteorología, Mercancías y
- * Aerodinámica.
+ * Los intentos de evaluación de los módulos: NOTAM, Meteorología, Mercancías,
+ * Aerodinámica y Aeropuertos.
  *
  * Cada módulo tiene su tabla y sus columnas (unas guardan `created_at` y otras
  * `taken_at`, unas el aprobado y otras lo deducen del puntaje), así que lo que
@@ -17,6 +17,7 @@ export type TablaDeIntentos =
   | "user_metar_exam_attempts"
   | "user_mercancias_exam_attempts"
   | "user_aerodinamica_exam_attempts"
+  | "user_aeropuertos_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
 export const INTENTOS_EN_LA_LISTA = 10
@@ -125,5 +126,18 @@ export function traerHistorialAerodinamica(
     "taken_at",
     userId,
     "aerodinámica: historial del quiz final",
+  )
+}
+
+/** Aeropuertos también. */
+export function traerHistorialAeropuertos(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_aeropuertos_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "aeropuertos: historial de evaluación",
   )
 }

@@ -8,6 +8,10 @@ import { PRACTICA_TOTAL } from "@/lib/mercanciasPractica"
 import { AERO_LECTURA_MINUTOS, AERO_LECTURA_TOTAL, AERO_PRACTICA_TOTAL } from "@/lib/aerodinamica"
 import { AERO_LECCION_TOTAL, AERO_MINUTOS } from "@/lib/aerodinamicaLeccion"
 import { AERO_PRACTICA_TOTAL as AERO_PRACTICA_CONTENIDO } from "@/lib/aerodinamicaPractica"
+import { AP_LECTURA_TOTAL, AP_NIVELES } from "@/lib/aeropuertos"
+import { AP_LECCIONES, AP_LECCION_TOTAL } from "@/lib/aeropuertosLeccion"
+import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
+import { AP_PRACTICA_TOTAL } from "@/lib/aeropuertosPractica"
 
 /**
  * Los hubs y la lista de temas usan conteos fijos para no cargar el contenido
@@ -43,6 +47,22 @@ describe("conteos fijos de las lecciones", () => {
       AERO_LECTURA_MINUTOS: AERO_MINUTOS,
       AERO_PRACTICA_TOTAL: AERO_PRACTICA_CONTENIDO,
     })
+  })
+
+  it("Aeropuertos: lecciones y ejercicios de práctica", () => {
+    // El panel no puede importar la práctica entera, así que lleva el número
+    // aparte. Si entra o sale un ejercicio, aquí se ve.
+    expect({ AP_LECTURA_TOTAL, AP_PRACTICA_CONTEO }).toEqual({
+      AP_LECTURA_TOTAL: AP_LECCION_TOTAL,
+      AP_PRACTICA_CONTEO: AP_PRACTICA_TOTAL,
+    })
+  })
+
+  it("Aeropuertos: cada nivel empieza en una lección que existe, en orden", () => {
+    const desde = AP_NIVELES.map((n) => n.desde)
+    expect(desde[0]).toBe(1)
+    expect(desde).toEqual([...desde].sort((a, b) => a - b))
+    for (const n of desde) expect(AP_LECCIONES[n - 1]?.n).toBe(n)
   })
 
   it("Mercancías: cada nivel empieza en una lección que existe, en orden", () => {

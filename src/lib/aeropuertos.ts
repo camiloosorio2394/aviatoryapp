@@ -15,6 +15,7 @@
  */
 
 import type { LectorNivel } from "@/components/lesson/LectorLeccion"
+import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
 
 /** Nombre del módulo, tal como aparece en la miga del lector. */
 export const AP_TITULO = "Aeropuertos"
@@ -69,13 +70,64 @@ export const AP_NIVELES: LectorNivel[] = [
  */
 export const AP_LECTURA_TOTAL = 22
 
-// ─── Avance, solo en este navegador ──────────────────────────────────────────
+// ─── Resumen del avance ──────────────────────────────────────────────────────
+
+export interface AeropuertosResumen {
+  lessonRead: number
+  practiceDone: number
+  best: number | null
+  passed: boolean
+  lessonPct: number
+  practicePct: number
+  examPct: number
+  /** Avance del módulo entero, 0 a 100. */
+  overall: number
+  empty: boolean
+}
 
 /**
- * De momento el avance no sube a la base: el módulo todavía no tiene tabla ni
- * RPC. El SQL está escrito y espera a que Camilo lo corra; mientras tanto, lo
- * leído vive en este navegador y no se pierde al recargar. Cuando la tabla
- * exista, esto se cambia por `crearProgresoModulo` como en Mercancías.
+ * Resume el avance del módulo.
+ *
+ * Las tres partes pesan igual, como en los demás módulos: mirarse las
+ * veintidós lecciones sin practicar ni evaluarse no es tener el tema hecho.
+ */
+export function resumirAeropuertos(p: {
+  lessonScreens: number[]
+  practiceDone: string[]
+  bestScore: number | null
+}): AeropuertosResumen {
+  const leidas = p.lessonScreens.filter((n) => n >= 1 && n <= AP_LECTURA_TOTAL)
+  const lessonRead = Math.min(leidas.length, AP_LECTURA_TOTAL)
+  const practiceDone = Math.min(p.practiceDone.length, AP_PRACTICA_CONTEO)
+  const best = p.bestScore
+  const passed = best !== null && best >= AP_PASS_SCORE
+
+  const lessonPct = Math.round((lessonRead / AP_LECTURA_TOTAL) * 100)
+  const practicePct = Math.round((practiceDone / AP_PRACTICA_CONTEO) * 100)
+  const examPct = passed ? 100 : (best ?? 0)
+
+  return {
+    lessonRead,
+    practiceDone,
+    best,
+    passed,
+    lessonPct,
+    practicePct,
+    examPct,
+    overall: Math.round((lessonPct + practicePct + examPct) / 3),
+    empty: lessonRead === 0 && practiceDone === 0 && best === null,
+  }
+}
+
+// ─── Respaldo local del avance ───────────────────────────────────────────────
+
+/**
+ * El respaldo local del avance. Se escribe siempre y primero: el módulo tiene
+ * que funcionar sin sesión y sin red, y lo que se estudie así se sube cuando
+ * aparezca una cuenta.
+ *
+ * Lo de la base vive en `aeropuertosProgress.ts`, que trae el cliente de
+ * Supabase detrás. Aquí no, porque este archivo lo carga el panel.
  */
 const LS_KEY = "aviatory.aeropuertos.progress"
 
@@ -118,6 +170,11 @@ export function writeAeropuertosLocal(lessonScreens: number[]): void {
   escribir({ ...readAeropuertosLocal(), lessonScreens })
 }
 
+/** Y al revés: guarda lo practicado sin pisar lo leído. */
+export function writeAeropuertosPracticas(practiceDone: string[]): void {
+  escribir({ ...readAeropuertosLocal(), practiceDone })
+}
+
 /**
  * Respaldo local del mejor puntaje de la evaluación.
  *
@@ -137,15 +194,3 @@ function escribir(p: AeropuertosProgreso): void {
   }
 }
 
-export function markAeropuertosLeccion(n: number): void {
-  const { lessonScreens } = readAeropuertosLocal()
-  if (lessonScreens.includes(n)) return
-  writeAeropuertosLocal([...lessonScreens, n].sort((a, b) => a - b))
-}
-
-/** Marca un ejercicio de práctica como resuelto. La clave la da su tipo. */
-export function markAeropuertosPractica(clave: string): void {
-  const p = readAeropuertosLocal()
-  if (p.practiceDone.includes(clave)) return
-  escribir({ ...p, practiceDone: [...p.practiceDone, clave] })
-}

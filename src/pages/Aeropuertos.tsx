@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, BookOpen, GraduationCap, LayoutGrid, Target } from "lucide-react"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import { EspacioVideo } from "@/components/modulo/EspacioVideo"
+import { useSession } from "@/hooks/useSession"
 import {
   AP_ACENTO,
   AP_APRENDE,
@@ -11,11 +12,14 @@ import {
   AP_EVALUACION,
   AP_LECTURA_TOTAL,
   AP_NIVELES,
+  AP_PASS_SCORE,
   AP_PRACTICA,
   AP_TITULO,
   AP_VIGENCIA,
   readAeropuertosLocal,
 } from "@/lib/aeropuertos"
+import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
+import { fetchAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuertosProgress"
 
 /**
  * Hub del módulo Aeropuertos. Ruta: /app/aerolinea/aeropuertos
@@ -31,8 +35,39 @@ import {
  * resto del módulo: nadie tiene que venir a preguntar qué imagen va aquí.
  */
 export function Aeropuertos() {
-  const [leidas] = useState(() => readAeropuertosLocal().lessonScreens.length)
-  const pct = Math.round((leidas / AP_LECTURA_TOTAL) * 100)
+  const { user, isLoading: sesionCargando } = useSession()
+  // Arranca con el respaldo local para no mostrar cero mientras carga, y se
+  // completa con la base, que es la verdad entre dispositivos.
+  const [progreso, setProgreso] = useState(() => readAeropuertosLocal())
+
+  useEffect(() => {
+    if (sesionCargando || !user) return
+    let cancelado = false
+    void (async () => {
+      try {
+        const traido = await fetchAeropuertosProgress(user.id)
+        if (cancelado || !traido) return
+        // Sube lo que se avanzó sin sesión y muestra la base unida con lo local.
+        await pushPendingAeropuertos(traido)
+        if (!cancelado) setProgreso(traido)
+      } catch {
+        /* sin red: se queda el respaldo local */
+      }
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [user, sesionCargando])
+
+  const { leidas, pct, practicados, mejor } = useMemo(
+    () => ({
+      leidas: progreso.lessonScreens.length,
+      pct: Math.round((progreso.lessonScreens.length / AP_LECTURA_TOTAL) * 100),
+      practicados: progreso.practiceDone.length,
+      mejor: progreso.bestScore,
+    }),
+    [progreso],
+  )
 
   const partes: CourseCardProps[] = [
     {
@@ -76,8 +111,15 @@ export function Aeropuertos() {
       title: "3. Práctica",
       blurb: "Qué estás viendo, dónde paras y qué cambió con la última enmienda.",
       photoHueco: "AP-POR-03 · 5:2 · 1200×480 · Punto de espera visto desde la cabina, de día",
-      status: "Sin empezar",
-      cta: "Iniciar práctica",
+      status:
+        practicados === 0
+          ? "Sin empezar"
+          : practicados >= AP_PRACTICA_CONTEO
+            ? "Práctica completa"
+            : `${practicados} de ${AP_PRACTICA_CONTEO} ejercicios`,
+      progress: Math.round((Math.min(practicados, AP_PRACTICA_CONTEO) / AP_PRACTICA_CONTEO) * 100),
+      done: practicados >= AP_PRACTICA_CONTEO,
+      cta: practicados === 0 ? "Iniciar práctica" : "Seguir practicando",
     },
     {
       to: AP_EVALUACION,
@@ -89,8 +131,9 @@ export function Aeropuertos() {
       title: "4. Evaluación",
       blurb: "Lo que preguntan de aeropuertos en una entrevista técnica, con corrección al terminar.",
       photoHueco: "AP-POR-04 · 5:2 · 1200×480 · Torre de control al atardecer",
-      status: "Sin intentos",
-      cta: "Iniciar evaluación",
+      status: mejor === null ? "Sin intentos" : `Mejor puntaje: ${mejor}`,
+      done: mejor !== null && mejor >= AP_PASS_SCORE,
+      cta: mejor === null ? "Iniciar evaluación" : "Volver a presentarla",
     },
   ]
 

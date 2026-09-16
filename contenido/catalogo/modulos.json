@@ -348,5 +348,40 @@
       "ent-48",
       "ent-49"
     ]
+  },
+  "aeropuertos": {
+    "lecciones": 22,
+    "practicas": [
+      "ap-rec-r01",
+      "ap-rec-r02",
+      "ap-rec-r03",
+      "ap-rec-r04",
+      "ap-rec-r05",
+      "ap-rec-r06",
+      "ap-rec-r07",
+      "ap-rec-r08",
+      "ap-rec-r09",
+      "ap-rec-r10",
+      "ap-rec-r11",
+      "ap-rec-r12",
+      "ap-dec-d01",
+      "ap-dec-d02",
+      "ap-dec-d03",
+      "ap-dec-d04",
+      "ap-dec-d05",
+      "ap-dec-d06",
+      "ap-dec-d07",
+      "ap-dec-d08",
+      "ap-dec-d09",
+      "ap-dec-d10",
+      "ap-cam-c01",
+      "ap-cam-c02",
+      "ap-cam-c03",
+      "ap-cam-c04",
+      "ap-cam-c05",
+      "ap-cam-c06",
+      "ap-cam-c07",
+      "ap-cam-c08"
+    ]
   }
 }

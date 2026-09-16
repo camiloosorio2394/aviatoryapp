@@ -696,8 +696,19 @@ export const AP_PRACTICA_TOTALES = {
   cambio: AP_CAMBIO.length,
 }
 
-export const AP_PRACTICA_TOTAL =
-  AP_PRACTICA_TOTALES.reconoce + AP_PRACTICA_TOTALES.decide + AP_PRACTICA_TOTALES.cambio
+/**
+ * Las claves válidas, en el orden en que se practican. Es lo que la base usa
+ * como catálogo: `aeropuertos_mark_progress` rechaza cualquier clave que no
+ * esté aquí, así que esta lista y `contenido/catalogo/modulos.json` tienen que
+ * decir lo mismo. De cuadrarlas se encarga scripts/catalogo/catalogo.test.ts.
+ */
+export const AP_PRACTICA_CLAVES: string[] = [
+  ...AP_RECONOCE.map((e) => claveReconoce(e.id)),
+  ...AP_DECIDE.map((e) => claveDecide(e.id)),
+  ...AP_CAMBIO.map((e) => claveCambio(e.id)),
+]
+
+export const AP_PRACTICA_TOTAL = AP_PRACTICA_CLAVES.length
 
 /**
  * El aviso del pie. Dice de dónde sale el material y qué no es: la práctica se

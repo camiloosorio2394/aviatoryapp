@@ -24,9 +24,11 @@ import { EXAM_PASS_SCORE as NOTAM_PASS_SCORE, NOTAM_PRACTICE_TOTAL, NOTAM_TOTALE
 import { METAR_CONTEO } from "@/lib/metarConteo"
 import { MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA_TOTAL } from "@/lib/mercancias"
 import { AERO_HUB, AERO_LECTURA_TOTAL, AERO_PASS_SCORE, AERO_PRACTICA_TOTAL } from "@/lib/aerodinamica"
+import { AP_HUB, AP_LECTURA_TOTAL, AP_PASS_SCORE } from "@/lib/aeropuertos"
+import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
-export type ClaveModulo = "notam" | "metar" | "mercancias" | "aerodinamica"
+export type ClaveModulo = "notam" | "metar" | "mercancias" | "aerodinamica" | "aeropuertos"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -87,6 +89,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: AERO_PASS_SCORE,
     },
     promesa: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
+  },
+  {
+    clave: "aeropuertos",
+    titulo: "Aeropuertos",
+    hub: AP_HUB,
+    acento: "var(--av-ap-500)",
+    totales: {
+      secciones: AP_LECTURA_TOTAL,
+      practicas: AP_PRACTICA_CONTEO,
+      aprobacion: AP_PASS_SCORE,
+    },
+    promesa: "Señales, letreros, luces y balizas, y dónde para el avión.",
   },
 ]
 

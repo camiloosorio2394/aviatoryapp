@@ -12,23 +12,22 @@ import {
   writeAeropuertosMejor,
 } from "@/lib/aeropuertos"
 import { AP_EVALUACION_META } from "@/lib/aeropuertosEvaluacion"
+import { fetchAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuertosProgress"
+import { traerHistorialAeropuertos } from "@/services/intentosExamen"
 
 /**
  * Evaluación de Aeropuertos: la misma pantalla que la de NOTAM, Mercancías y
  * Aerodinámica, con la evaluación `aeropuertos_evaluacion` del servidor y el
  * violeta del módulo. No se escribe nada nuevo: se configura `ExamenModulo`.
  *
- * Dos cosas siguen pendientes del SQL que Camilo tiene que correr, y las dos
- * están escritas para cambiar en una línea cuando lo haga:
+ * La lección leída y el historial salen de la base, como en Mercancías. Las dos
+ * consultas devuelven null cuando la base no contesta, y entonces la pantalla
+ * sigue con el respaldo de este navegador: mientras Camilo no corra las dos
+ * migraciones del módulo, ese es el caso normal y no se rompe nada.
  *
- *   - `sincronizarLeidas` devuelve null porque el módulo todavía no tiene tabla
- *     de progreso ni RPC. La puerta de entrada la decide entonces lo leído en
- *     este navegador. Cuando la tabla exista, aquí entra su `fetch` + `push`,
- *     igual que en Mercancías, y la migración pone `modulo_leccion` para que la
- *     puerta la decida también el servidor.
- *   - `cargarHistorial` devuelve null porque `user_aeropuertos_exam_attempts`
- *     nace con esa misma migración. Mientras tanto la nota vive en el respaldo
- *     local, que es lo que el bloque de historial usa como máximo.
+ * La puerta de entrada la decide además el servidor: `modulo_leccion` queda en
+ * `aeropuertos` con la migración de progreso, y desde ahí `evaluacion_iniciar`
+ * se niega a abrir la evaluación de quien no terminó las veintidós lecciones.
  *
  * Ruta: /app/aerolinea/aeropuertos/evaluacion
  */
@@ -48,10 +47,31 @@ const CONFIG: ExamenConfig = {
   evaluacion: "aeropuertos_evaluacion",
   leerLeidas: () => readAeropuertosLocal().lessonScreens,
   escribirLeidas: (ns) => writeAeropuertosLocal(ns),
-  sincronizarLeidas: async () => null,
+  sincronizarLeidas: async (uid) => {
+    const traido = await fetchAeropuertosProgress(uid)
+    if (!traido) return null
+    const remoto = await pushPendingAeropuertos(traido)
+    return remoto.lessonScreens
+  },
   leerMejorLocal: () => readAeropuertosLocal().bestScore,
   escribirMejorLocal: (score) => writeAeropuertosMejor(score),
-  cargarHistorial: async () => null,
+  cargarHistorial: async (uid) => {
+    const historial = await traerHistorialAeropuertos(uid)
+    if (!historial) return null
+    return {
+      rows: historial.filas.map((r) => ({
+        id: r.id,
+        score: r.score,
+        correct: r.correct,
+        total: r.total,
+        passed: r.score >= AP_PASS_SCORE,
+        duration: null,
+        at: r.taken_at,
+      })),
+      count: historial.cuantos,
+      best: historial.mejor,
+    }
+  },
   pasos: {
     leccion: `Las ${AP_LECTURA_TOTAL} lecciones en cinco niveles: de cómo se lee un aeropuerto a cómo se opera, con la entrevista de aerolínea al cierre de cada nivel.`,
     practica: "Reconocer lo que se ve en el pavimento, en los letreros y en las luces, y decidir qué se hace con ello.",

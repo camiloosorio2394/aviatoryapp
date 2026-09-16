@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import type { ReactNode } from "react"
 import { Link } from "react-router-dom"
 import {
@@ -13,15 +13,11 @@ import {
   RotateCcw,
   Signpost,
 } from "lucide-react"
+import { useSession } from "@/hooks/useSession"
 import { accentText } from "@/lib/tileColors"
 import { registrarEstudioDiario } from "@/lib/activity"
-import {
-  AP_ACENTO,
-  AP_HUB,
-  AP_TITULO,
-  markAeropuertosPractica,
-  readAeropuertosLocal,
-} from "@/lib/aeropuertos"
+import { AP_ACENTO, AP_HUB, AP_TITULO, readAeropuertosLocal } from "@/lib/aeropuertos"
+import { fetchAeropuertosProgress, markAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuertosProgress"
 import {
   AP_CAMBIO,
   AP_DECIDE,
@@ -97,6 +93,25 @@ export function AeropuertosPractice() {
   const [modo, setModo] = useState<Modo>("reconoce")
   const [idx, setIdx] = useState(0)
   const [hechos, setHechos] = useState<string[]>(() => readAeropuertosLocal().practiceDone)
+  const { user } = useSession()
+
+  // Lo resuelto en la base, y de paso sube lo que se resolvió sin sesión. Si
+  // falla (o la tabla todavía no existe), se sigue con lo del navegador.
+  useEffect(() => {
+    const uid = user?.id
+    if (!uid) return
+    let cancelado = false
+    void (async () => {
+      const traido = await fetchAeropuertosProgress(uid)
+      if (cancelado || !traido) return
+      const remoto = await pushPendingAeropuertos(traido)
+      if (cancelado || remoto.practiceDone.length === 0) return
+      setHechos((prev) => Array.from(new Set([...prev, ...remoto.practiceDone])))
+    })()
+    return () => {
+      cancelado = true
+    }
+  }, [user?.id])
 
   const claves = useMemo(() => clavesDe(modo), [modo])
   const total = claves.length
@@ -110,7 +125,7 @@ export function AeropuertosPractice() {
   function marcar(k: string): void {
     if (hechos.includes(k)) return
     setHechos((prev) => (prev.includes(k) ? prev : [...prev, k]))
-    markAeropuertosPractica(k)
+    void markAeropuertosProgress({ practiceId: k })
     void registrarEstudioDiario("aeropuertos-practica")
   }
 

@@ -1554,6 +1554,25 @@
   --av-ae-fg: oklch(0.77 0.062 250);
 }
 
+/* Aeropuertos: violeta claro. Lo pidió Camilo por nombre.
+   El matiz 287 queda cerca del 295 de psicotécnicas, que es el único otro
+   violeta de la app. No chocan porque no se ven juntos: psicotécnicas vive en
+   su propia sección y aquí manda el croma, que es alto y llega claro, como la
+   luz de una calle de rodaje de noche. Los hex del lector, más abajo, salen de
+   estos mismos oklch: #6B4FD8 es el 500 y #A78BFA el claro que lleva el hero. */
+:root {
+  --av-ap-500: oklch(0.535 0.200 287);
+  --av-ap-600: oklch(0.463 0.198 285);
+  --av-ap-700: oklch(0.385 0.170 285);
+  --av-ap-fg: oklch(0.360 0.155 286);
+}
+.dark {
+  --av-ap-500: oklch(0.640 0.180 288);
+  --av-ap-600: oklch(0.555 0.185 287);
+  --av-ap-700: oklch(0.470 0.175 286);
+  --av-ap-fg: oklch(0.790 0.120 292);
+}
+
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
    tinta y el navy del índice son los mismos, y solo lo que era azul carta
    pasa a amarillo. Los --av-blue-* re-anclados heredan el cambio, así que los

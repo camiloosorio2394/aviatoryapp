@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { RotateCcw } from "lucide-react"
 import { AerodromeIcon, HoldingIcon, LocalizerIcon, NdbIcon, VorIcon, WaypointIcon } from "@/components/icons/aero"
-import { Wind } from "lucide-react"
+import { TowerControl, Wind } from "lucide-react"
 import {
   avanceDeModulo,
   MODULOS_AEROLINEA,
@@ -60,6 +60,7 @@ const ICONO_DE_MODULO: Record<ClaveModulo, IconComponent> = {
   metar: AerodromeIcon,
   mercancias: NdbIcon,
   aerodinamica: Wind,
+  aeropuertos: TowerControl,
 }
 
 /** Hoy en Bogotá, que es con lo que la base cierra el día de estudio. */

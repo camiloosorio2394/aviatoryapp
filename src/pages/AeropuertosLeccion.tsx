@@ -5,15 +5,19 @@ import {
   AP_HUB,
   AP_NIVELES,
   AP_TITULO,
-  markAeropuertosLeccion,
   readAeropuertosLocal,
   writeAeropuertosLocal,
 } from "@/lib/aeropuertos"
 import { AP_ENTREVISTAS, AP_LECCIONES } from "@/lib/aeropuertosLeccion"
+import {
+  fetchAeropuertosProgress,
+  markAeropuertosProgress,
+  pushPendingAeropuertos,
+} from "@/lib/aeropuertosProgress"
 
 /**
  * Lección de Aeropuertos, con el mismo lector que NOTAM, Mercancías y
- * Meteorología, y el tema índigo del módulo (`lector-ap`). Veintidós lecciones
+ * Meteorología, y el tema violeta del módulo (`lector-ap`). Veintidós lecciones
  * en cinco niveles, y cada nivel cierra con su entrevista de aerolínea.
  *
  * Es el módulo más visual de la app: el texto de cada lección cabe en unas 150
@@ -47,8 +51,12 @@ const MODULO: LectorModulo = {
   escribirLocal: (ns) => {
     writeAeropuertosLocal(ns)
   },
-  marcar: (n) => {
-    markAeropuertosLeccion(n)
+  marcar: (n) => markAeropuertosProgress({ lessonScreen: n }),
+  hidratar: async (uid) => {
+    const traido = await fetchAeropuertosProgress(uid)
+    if (!traido) return null
+    const remoto = await pushPendingAeropuertos(traido)
+    return remoto.lessonScreens
   },
 }
 

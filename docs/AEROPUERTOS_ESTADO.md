@@ -43,11 +43,14 @@ Todo está en el scratchpad de la sesión del 15-sep-2026:
       tema del módulo en `src/index.css`, página del lector
       `src/pages/AeropuertosLeccion.tsx`, hub `src/pages/Aeropuertos.tsx`, rutas
       en `src/App.tsx` y tarjeta en `src/pages/AirlinePrep.tsx`.
-- [ ] **2. Progreso.** (pendiente: la tabla y su RPC; hoy el avance vive en el navegador)
+- [x] **2. Progreso.** Tabla, RPC, catálogo de contenido, logros, panel y la
+      puerta de la evaluación del lado del servidor. El SQL está escrito y **no
+      aplicado**: ver abajo.
 - [x] **2-bis. Práctica, evaluación, catálogo y hub**, con el espacio del video.
-- [ ] **2-ter. Migración de progreso.** `src/lib/aeropuertosProgress.ts` con respaldo local, y el
-      SQL para Camilo en `supabase/migrations/`. **La migración no se aplica: se
-      le entrega para que la corra él.**
+- [x] **2-ter. Migración de progreso.** `src/lib/aeropuertosProgress.ts` sobre el
+      progreso común, con el respaldo local en `src/lib/aeropuertos.ts`, y el SQL
+      en `supabase/migrations/20260916000000_progreso_de_aeropuertos.sql`. **La
+      migración no se aplica: se le entrega para que la corra él.**
 - [x] **3. Nivel 2** (lecciones 05 a 08, 31 huecos) desde `brief-nivel2.md`.
 - [x] **4. Nivel 1** (01 a 04, 28 huecos).
 - [x] **5. Nivel 3** (09 a 12, 31 huecos).
@@ -63,7 +66,7 @@ Todo está en el scratchpad de la sesión del 15-sep-2026:
       **La migración no está aplicada**: ver la sección de abajo.
 - [x] **10. Comprobar**: `npx tsc -b`, `npx eslint`, `npx vite build`, y ver el
       módulo en el navegador.
-- [ ] **11. Commit y push**, con rutas explícitas (hay otras sesiones sobre la
+- [x] **11. Commit y push**, con rutas explícitas (hay otras sesiones sobre la
       misma carpeta).
 
 ## Cómo se escribe cada lección
@@ -95,27 +98,46 @@ la sección 3 de Mercancías.
 
 ## Lo que le queda por correr a Camilo
 
-Nada de esto se aplicó. Va en este orden y de una sentada, porque la pantalla
-de la evaluación no funciona hasta que las dos cosas estén: la fila de reglas
-vive en la migración y las preguntas, en la siembra.
+Nada de esto se aplicó. Son cuatro pasos y van **en este orden y de una
+sentada**: la evaluación no abre hasta que estén la fila de reglas (migración 1)
+y las preguntas (siembra), y la migración 2 nombra tablas que crea la 1.
 
-**1. La migración**, en el SQL Editor de Supabase:
+**1. La migración de la evaluación**, en el SQL Editor de Supabase:
 
 ```
 supabase/migrations/20260915230000_evaluacion_de_aeropuertos.sql
 ```
 
-Crea `user_aeropuertos_exam_attempts`, registra las reglas de la evaluación en
-`evaluaciones` y `evaluacion_fuentes`, y reemplaza `evaluacion_terminar` con la
-rama del módulo nuevo. Después, el archivo se renombra con la versión que
-registró la base:
+Crea `user_aeropuertos_exam_attempts`, amplía el CHECK de `evaluaciones.destino`,
+registra las reglas en `evaluaciones` y `evaluacion_fuentes`, y reemplaza
+`evaluacion_terminar` con la rama del módulo nuevo.
 
-```sql
-select version from supabase_migrations.schema_migrations
-where name = 'evaluacion_de_aeropuertos';
+**2. La migración del progreso**, después de la anterior:
+
+```
+supabase/migrations/20260916000000_progreso_de_aeropuertos.sql
 ```
 
-**2. El banco de preguntas.** Imprime el SQL y se pega en Supabase:
+Crea `user_aeropuertos_progress` con su RLS y su RPC `aeropuertos_mark_progress`,
+mete el módulo en `modulos_contenido` (22 lecciones y 30 claves de práctica), sus
+umbrales y sus cuatro logros, engancha los dos disparadores que desbloquean, suma
+la rama de `aeropuertos` a `secciones_leidas`, `practicas_hechas`,
+`desbloquear_logros`, `check_and_unlock_achievements` y `panel_tarjetas`, y pone
+`modulo_leccion` para que el servidor exija la lección completa antes de abrir la
+evaluación.
+
+De paso agrega `aerodinamica` a la lista de grupos de
+`check_and_unlock_achievements`, que nunca la tuvo. Sus logros sí se
+desbloqueaban por disparador; lo que fallaba era el repaso manual.
+
+Las dos migraciones se renombran después con la versión que registró la base:
+
+```sql
+select version, name from supabase_migrations.schema_migrations
+where name in (evaluacion_de_aeropuertos, progreso_de_aeropuertos);
+```
+
+**3. El banco de preguntas.** Imprime el SQL y se pega en Supabase:
 
 ```
 node scripts/bancos/sembrar.mjs aeropuertos_evaluacion
@@ -125,7 +147,7 @@ Es idempotente: se vuelve a correr cada vez que el archivo del banco cambie.
 Hace upsert por id y lo que salga del archivo queda inactivo, nunca borrado,
 porque las sesiones ya jugadas referencian sus preguntas.
 
-**3. La prueba**, con la migración aplicada y el banco sembrado:
+**4. La prueba**, con las dos migraciones aplicadas y el banco sembrado:
 
 ```
 supabase/tests/aeropuertos_evaluacion.sql
@@ -133,27 +155,28 @@ supabase/tests/aeropuertos_evaluacion.sql
 
 Pasa si termina en `PRUEBA_DESHECHA` seguido de la lista de lo verificado.
 
-### Y lo que queda pendiente después de eso
+### Mientras no las corra
 
-Dos cosas de la pantalla de la evaluación esperan a la migración de **progreso**
-del módulo (paso 2 del plan), y las dos están señaladas en el comentario de
-`src/pages/AeropuertosExam.tsx`:
+Nada se rompe. Las consultas a las tablas que aún no existen fallan, y el módulo
+se queda con el respaldo local del navegador, que es exactamente como funcionaba
+antes: el hub, el lector, la práctica y la evaluación leen y escriben en
+`localStorage`, y el panel lee el módulo como «sin empezar» en vez de caerse. El
+día que las corra, lo que cada piloto tenga guardado se sube solo en su primera
+visita.
 
-- `sincronizarLeidas` devuelve `null`: la puerta de entrada la decide hoy lo
-  leído en el navegador. Cuando exista la tabla de progreso, ahí entra su
-  `fetch` + `push` y la migración de progreso corre:
+Lo único que se va a ver es una fila en `errores_cliente` por pestaña de quien
+abra el historial de la evaluación: la tabla de intentos todavía no está y eso
+se reporta como error, que es justamente el aviso de que falta correr el SQL.
 
-  ```sql
-  update public.evaluaciones set modulo_leccion = 'aeropuertos'
-  where clave = 'aeropuertos_evaluacion';
-  ```
+Los tipos de `src/integrations/supabase/types.ts` ya describen las dos tablas y
+la RPC nuevas, escritos a mano con la forma exacta que tienen en la migración,
+como se hizo con Aerodinámica. Cuando Camilo regenere los tipos no debería
+cambiar nada.
 
-  para que la lección completa también la exija el servidor, como en NOTAM y
-  Mercancías.
-- `cargarHistorial` devuelve `null`: la tabla de intentos nace con esta
-  migración, pero `src/integrations/supabase/types.ts` todavía no la conoce.
-  Cuando Camilo la aplique y se regeneren los tipos, se añade
-  `traerHistorialAeropuertos` a `src/services/intentosExamen.ts` (copia de la
-  de Aerodinámica, mismas columnas) y se engancha aquí. Mientras tanto la nota
-  vive en el respaldo local, que es lo que el bloque de historial usa como
-  máximo.
+## Lo que sigue faltando
+
+Las imágenes. 231 huecos rotulados (162 de lección y 69 de catálogo), más
+`AP-POR-01` a `AP-POR-04` del hub, `AP-PRA-01` a `AP-PRA-13` de la práctica y
+`AP-VID-01`, que es el video de apertura. Cada hueco dice en pantalla qué tiene
+que mostrar y con qué medida, así que se pueden ir llenando de a uno sin volver
+a abrir el brief.
