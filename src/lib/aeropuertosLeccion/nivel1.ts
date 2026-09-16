@@ -21,11 +21,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-01-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua de un aeródromo completo, mirando a lo largo del eje de la pista con la plataforma al fondo. Se ven los dos extremos de la pista, la faja de terreno verde a los dos lados, dos calles de rodaje, tres o cuatro aviones estacionados y la torre. Señales de pista blancas y de calle amarillas. Ojo: nada de logos, matrículas legibles ni nombres de aeropuertos reales.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-01-01-aerodromo.webp",
+        alt: "Vista aérea oblicua de un aeródromo con flechas que señalan la pista, la calle de rodaje, la plataforma y la torre de control",
+        ancho: 1600,
+        alto: 900,
+        pie: "La pista concentra despegues y aterrizajes; las calles conectan sus accesos; la plataforma organiza estacionamiento y servicio; la torre controla el movimiento cuando presta ese servicio. Reconocer las cuatro áreas permite anticipar qué autorización y qué señalización corresponden en cada una.",
       },
       {
         kind: "hueco",
@@ -36,7 +37,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Un aeropuerto es un conjunto de áreas con nombre propio. El nombre decide qué puedes hacer encima.",
+        text: "Un aeropuerto es un conjunto de áreas con nombre propio, y cada nombre cambia lo que el piloto puede hacer. En un despegue rechazado, por ejemplo, la zona de parada puede estar incluida en la ASDA para detener el avión, pero eso no la convierte en pista disponible para rodar o aterrizar. Reconocer la superficie evita sumar metros que no existen en el cálculo y ayuda a entender por qué un área despejada no siempre es pavimento utilizable.",
       },
       {
         kind: "fichas",
@@ -169,11 +170,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 10,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-02-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Mesa de cabina vista desde arriba en ángulo, con una tableta que muestra un plano de aeródromo dibujado por nosotros (pista, calles, plataforma) y dos o tres hojas con tablas genéricas al lado. Pavimento gris, señales de pista blancas, señales de calle amarillas. Ojo: no puede aparecer ninguna carta de Jeppesen ni de Lido, ni borrosa ni de refilón, ni ninguna figura de un documento de la OACI.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-02-01-carta-aip.webp",
+        alt: "Mesa de preparación con una carta de aeródromo en una tableta y la sección AIP AD 2 en papel, identificadas con flechas en verde menta",
+        ancho: 1600,
+        alto: 900,
+        pie: "La carta de aeródromo te orienta espacialmente: muestra la pista, las calles de rodaje y la plataforma para que puedas construir la ruta en tierra. La sección AD 2 del AIP completa esa imagen con datos publicados como dimensiones, distancias declaradas, luces y procedimientos. En un briefing profesional no se elige una u otra: se consultan juntas.",
       },
       {
         kind: "hueco",
@@ -184,7 +186,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El aeródromo se publica en dos sitios. Las cartas te mueven; el AIP te da los números.",
+        text: "El aeródromo se publica en dos lugares que se complementan. La carta sirve para orientarse y seguir una ruta sin improvisar; la ficha AD 2 del AIP aporta dimensiones, resistencia, distancias, luces y procedimientos. Antes de rodar se estudian juntos: la línea de la carta puede llevarte a una intersección, pero la tabla publicada confirma si la distancia restante sirve para el peso y la configuración del día.",
       },
       {
         kind: "fichas",
@@ -333,11 +335,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-03-01 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Una pista en planta cenital, centrada y horizontal sobre fondo neutro, y encima cuatro barras de distinta longitud alineadas por su extremo izquierdo, en la misma proporción que tendrán en el diagrama maestro. Ojo: ninguna cifra, ninguna sigla y ningún nombre de aeropuerto en esta imagen, que la promesa es visual y las cuatro cifras llegan después.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-03-01-distancias-declaradas.webp",
+        alt: "Vista aérea de una pista con umbral desplazado y líneas que comparan TORA, TODA, ASDA y LDA",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las cuatro distancias parten de referencias distintas. TORA, TODA y ASDA comienzan en el inicio de la carrera de despegue: TORA termina con la pista utilizable, ASDA añade la zona de parada y TODA alcanza la zona libre. LDA, en cambio, empieza en el umbral de aterrizaje; si está desplazado, las flechas anteriores pueden servir para despegar o rodar, pero no forman parte de la distancia disponible para aterrizar.",
       },
       {
         kind: "hueco",
@@ -348,7 +351,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Sobre una sola pista conviven cuatro longitudes. Se publican al metro y para cada dirección.",
+        text: "Sobre una sola pista conviven cuatro longitudes, publicadas por dirección porque un umbral desplazado, una zona de parada o una zona libre pueden afectar cada sentido de manera distinta. Si aceptas despegar desde una intersección, el avión no recupera el pavimento que dejó atrás: el cálculo se hace con la distancia publicada desde ese punto, no con la longitud total que recuerdas del aeropuerto.",
       },
       {
         kind: "fichas",
@@ -472,11 +475,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-04-01 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta cenital de tres siluetas genéricas de avión comercial superpuestas por el eje longitudinal, de menor a mayor envergadura, sobre fondo neutro, y una cota que recorre la envergadura de la mayor de punta de ala a punta de ala. Ojo: la cota nunca se toma de motor a motor ni de tren a tren, y en esta imagen no va ninguna cifra, ni libreas ni matrículas.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-04-01-envergadura-clave.webp",
+        alt: "Tres aviones comerciales vistos desde arriba, de envergadura creciente y clasificados con las letras C, D y E",
+        ancho: 1600,
+        alto: 900,
+        pie: "La letra de clave se obtiene midiendo de una punta de ala a la otra: C cubre de 24 a menos de 36 m; D, de 36 a menos de 52 m; y E, de 52 a menos de 65 m. Esa letra ayuda a dimensionar calles, márgenes y separaciones, pero no garantiza por sí sola que una ruta esté disponible hoy: una restricción publicada o un letrero de envergadura máxima puede exigir otra calle.",
       },
       {
         kind: "hueco",
@@ -487,7 +491,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Cada aeródromo se describe con un número y una letra. Longitud y envergadura, nada más.",
+        text: "El código de referencia del aeródromo combina un número asociado a la longitud de campo de referencia del avión y una letra asociada a su envergadura. Sirve para relacionar el diseño de pistas, calles y separaciones con el avión que se pretende atender; no es por sí solo una autorización operacional. Un aeropuerto 4F puede tener una calle cerrada temporalmente para tu envergadura, de modo que la carta, el aviso vigente y la autorización siguen mandando sobre la etiqueta de diseño.",
       },
       {
         kind: "fichas",

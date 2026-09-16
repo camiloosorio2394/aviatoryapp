@@ -24,15 +24,14 @@ import { fetchAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuer
 /**
  * Hub del módulo Aeropuertos. Ruta: /app/aerolinea/aeropuertos
  *
- * La misma casa que los hubs de NOTAM y Mercancías: hero con velo violeta, el
+ * La misma casa que los hubs de NOTAM y Mercancías: hero con velo menta, el
  * video de apertura y las puertas numeradas. Lo que cambia aquí es que este
  * módulo **se estudia mirando**, así que el catálogo visual entra como una
  * puerta más y no como un apéndice de la práctica: es donde están todas las
  * señales, letreros, luces y balizas del Anexo 14, para consultar de un vistazo.
  *
- * El hero todavía no tiene foto y el video no está grabado. Los dos quedan como
- * huecos rotulados con lo que hace falta producir, que es como se trabaja el
- * resto del módulo: nadie tiene que venir a preguntar qué imagen va aquí.
+ * El video todavía no está grabado. Su hueco queda rotulado con lo que hace
+ * falta producir; las cuatro puertas ya tienen fotografía propia.
  */
 export function Aeropuertos() {
   const { user, isLoading: sesionCargando } = useSession()
@@ -80,6 +79,7 @@ export function Aeropuertos() {
       title: "1. Aprende",
       blurb:
         "Señales, letreros, luces y balizas, en el orden en que te los encuentras. Cada nivel cierra con su entrevista.",
+      photo: "/modulos/aeropuertos/portada-aprende.webp",
       photoHueco: "AP-POR-01 · 5:2 · 1200×480 · Cabecera de pista con sus señales blancas desde el aire",
       status:
         leidas === 0 ? "Sin empezar" : leidas >= AP_LECTURA_TOTAL ? "Lección completa" : `${leidas} de ${AP_LECTURA_TOTAL} lecciones leídas`,
@@ -97,6 +97,7 @@ export function Aeropuertos() {
       title: "2. Catálogo",
       blurb:
         "La consulta rápida: cada señal, letrero, luz y baliza con su nombre, qué es y qué significa para ti.",
+      photo: "/modulos/aeropuertos/portada-catalogo.webp",
       photoHueco: "AP-POR-02 · 5:2 · 1200×480 · Mosaico de letreros y señales de un aeropuerto",
       status: "Abierto siempre",
       cta: "Abrir catálogo",
@@ -110,6 +111,7 @@ export function Aeropuertos() {
       meta: "Reconocer y decidir",
       title: "3. Práctica",
       blurb: "Qué estás viendo, dónde paras y qué cambió con la última enmienda.",
+      photo: "/modulos/aeropuertos/portada-practica.webp",
       photoHueco: "AP-POR-03 · 5:2 · 1200×480 · Punto de espera visto desde la cabina, de día",
       status:
         practicados === 0
@@ -130,6 +132,7 @@ export function Aeropuertos() {
       meta: "Opción múltiple, con explicación al final",
       title: "4. Evaluación",
       blurb: "Lo que preguntan de aeropuertos en una entrevista técnica, con corrección al terminar.",
+      photo: "/modulos/aeropuertos/portada-evaluacion.webp",
       photoHueco: "AP-POR-04 · 5:2 · 1200×480 · Torre de control al atardecer",
       status: mejor === null ? "Sin intentos" : `Mejor puntaje: ${mejor}`,
       done: mejor !== null && mejor >= AP_PASS_SCORE,
@@ -146,12 +149,12 @@ export function Aeropuertos() {
         <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
       </Link>
 
-      <section className="relative overflow-hidden rounded-[18px] bg-[#1A1230] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+      <section className="relative overflow-hidden rounded-[18px] bg-[#0E2D29] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(105deg, rgba(26,18,48,.96) 0%, rgba(40,28,74,.88) 45%, rgba(107,79,216,.45) 100%)",
+              "linear-gradient(105deg, rgba(14,45,41,.97) 0%, rgba(29,83,74,.90) 48%, rgba(154,219,201,.48) 100%)",
           }}
           aria-hidden
         />
@@ -159,7 +162,7 @@ export function Aeropuertos() {
         <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-10">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-3">
-              <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "#C4B5FD" }}>
+              <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em]" style={{ color: "#BCEADB" }}>
                 Módulo
               </span>
               <span className="h-3 w-px bg-white/20" aria-hidden />
@@ -190,7 +193,7 @@ export function Aeropuertos() {
               continuarA={AP_APRENDE}
               continuarTexto="Empezar el módulo"
               claveVisto="aviatory.aeropuertos.video"
-              acento="#C4B5FD"
+              acento="#9ADBC9"
               rotulo="AP-VID-01 · Video de apertura · 16:9 · 60 s"
               descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Recorre lo que el piloto ve al rodar, de la puerta a la pista. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
             />

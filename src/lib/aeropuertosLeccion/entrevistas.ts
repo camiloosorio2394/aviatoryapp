@@ -170,10 +170,10 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
     },
     {
       nivel: "interpretacion",
-      q: "Aterrizas en una pista con 2 600 m de distancia de aterrizaje disponible. ¿Dónde está el punto de visada y cuántos pares de la zona de toma de contacto vas a ver?",
+      q: "Aterrizas en una pista con 2 600 m de distancia de aterrizaje disponible. ¿A qué distancia del umbral aparece la referencia de apuntado y cuántos pares de la zona de toma de contacto vas a ver?",
       respuesta:
-        "Con 2 400 m o más, el punto de visada empieza a 400 m del umbral y se ven seis pares. Las dos cosas se escalonan por distancia de aterrizaje disponible: el punto de visada a 150, 250, 300 o 400 m, y los pares en uno, dos, tres, cuatro o seis. Los pares van cada 150 m contados desde el umbral. Se borran los que caigan sobre el punto de visada o a 50 m o menos de él, así que ahí queda un hueco.",
-      claves: ["400 m y seis pares", "Las dos cosas se escalonan por distancia de aterrizaje disponible", "Un par cada 150 m desde el umbral", "Se borran los pares pegados al punto de visada"],
+        "Con 2 400 m o más, la referencia de apuntado (denominada técnicamente señal de punto de visada) empieza a 400 m del umbral y se ven seis pares. Ambas referencias se escalonan según la distancia de aterrizaje disponible: la primera aparece a 150, 250, 300 o 400 m, y la zona de toma presenta uno, dos, tres, cuatro o seis pares. Los pares van cada 150 m desde el umbral y se eliminan los que coincidan con la referencia de apuntado o queden a 50 m o menos, por eso allí se observa un espacio libre.",
+      claves: ["400 m y seis pares", "Ambas referencias dependen de la distancia de aterrizaje disponible", "Un par cada 150 m desde el umbral", "No hay pares pegados a la referencia de apuntado"],
     },
     {
       nivel: "concepto",

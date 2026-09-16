@@ -45,7 +45,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El rojo es el único que te frena. Son nueve y casi todos están en el punto de espera.",
+        text: "En los letreros, el fondo rojo identifica una instrucción obligatoria: designa una pista, un punto de espera o un acceso prohibido y exige que la autorización coincida con lo que ves. No se interpreta aislado. Si la ruta autorizada parece llevarte más allá de un letrero rojo que no esperabas, el piloto se detiene antes del punto protegido y aclara la instrucción; no intenta resolver la contradicción mientras sigue rodando.",
       },
       {
         kind: "fichas",
@@ -188,7 +188,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Si el rojo te frena, el amarillo te orienta. Desde 2025 hay un color más: naranja.",
+        text: "Los letreros amarillos y negros permiten confirmar dónde estás y hacia dónde conduce cada salida; el naranja identifica información temporal asociada con un área fuera de servicio. En una intersección, el fondo negro con caracteres amarillos confirma la calle actual, mientras el fondo amarillo con caracteres negros y flecha anuncia la dirección. Leer ambos evita girar hacia una calle correcta desde una posición equivocada.",
       },
       {
         kind: "fichas",
@@ -329,7 +329,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "No todo lo que te informa es un letrero. Hay conos, tableros, una manga y un cuadrado.",
+        text: "No toda la información llega en un letrero. La manga muestra dirección y una estimación visual del viento en la superficie; las balizas delimitan bordes cuando no hay una señal pintada suficiente; el área de señales y la lámpara de la torre ofrecen indicaciones que todavía importan si falla la radio. El piloto usa estas ayudas para confirmar la situación, no para reemplazar el ATIS, la carta o una autorización recibida.",
       },
       {
         kind: "fichas",
@@ -468,7 +468,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Ahora todo junto. Un rodaje desde la puerta hasta la pista, letrero por letrero.",
+        text: "Ahora se integra todo en un rodaje desde la puerta hasta la pista. Antes de mover el avión, la tripulación traza la autorización en la carta e identifica puntos críticos; durante el rodaje confirma cada letrero y cada cruce en voz alta. Si la secuencia real deja de coincidir con la preparada, la decisión correcta es detenerse en un lugar seguro y preguntar, no seguir hasta encontrar una señal conocida.",
       },
       {
         kind: "hueco",
@@ -564,8 +564,11 @@ export const NIVEL_3: DocScreen[] = [
         situacion: "Estás en el punto 5, de noche y con RVR de 400 metros.",
         pregunta: "¿A2 o escalera?",
         respuesta:
-          "En la escalera. Con esa visibilidad manda el punto más alejado, el del área sensible.",
-        claves: ["Se para en el más alejado, el del patrón B2.", "Pasarse contamina el área sensible del ILS."],
+          "En el punto que indiquen el procedimiento de baja visibilidad vigente y la autorización. Si la operación protege el área sensible del ILS, será el punto de categoría más alejado, identificado por el patrón B2 y su letrero; la RVR por sí sola no autoriza a escogerlo ni a cruzarlo.",
+        claves: [
+          "Se verifica el procedimiento LVP y el punto asignado antes de llegar al cruce.",
+          "Pasarse del punto activo puede contaminar el área sensible del ILS.",
+        ],
         hueco: {
           id: "AP-12-07",
           medida: "Fotografía real · 3:2 · 1200×800",

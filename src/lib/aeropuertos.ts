@@ -41,13 +41,13 @@ export const AP_PRACTICA = `${AP_HUB}/practica`
 export const AP_EVALUACION = `${AP_HUB}/evaluacion`
 
 /**
- * El violeta del módulo, para las pantallas que no son el lector.
+ * El verde menta del módulo, para las pantallas que no son el lector.
  *
  * Dentro del lector el acento lo pone el tema `.lector-notam.lector-ap`; fuera
  * de él no hay tema que aplicar, así que el valor vive aquí una sola vez y no
  * escrito a mano en cada pantalla.
  */
-export const AP_ACENTO = "#6B4FD8"
+export const AP_ACENTO = "#2F766A"
 
 /** Preguntas por intento de la evaluación. Quien sortea es el servidor. */
 export const AP_EXAM_PER_ATTEMPT = 25
