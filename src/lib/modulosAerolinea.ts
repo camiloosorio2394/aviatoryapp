@@ -7,9 +7,9 @@
  * avance en su propia pantalla de inicio.
  *
  * Con la lista aquí, el panel pinta lo que haya en ella, y
- * `modulosAerolinea.test.ts` falla si el catálogo tiene un módulo que esta
- * lista no: agregar uno sin ponerlo aquí rompe CI, que es lo único que impide
- * que vuelva a pasar.
+ * `scripts/catalogo/catalogo.test.ts` falla si el catálogo tiene un módulo que
+ * esta lista no: agregar uno sin ponerlo aquí rompe CI, que es lo único que
+ * impide que vuelva a pasar.
  *
  * **Solo constantes livianas.** `metar.ts` pesa 22 KB porque lleva sus
  * ejercicios dentro, así que sus conteos vienen de `metarConteo.ts`. Si alguna
