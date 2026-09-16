@@ -335,11 +335,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-03-01 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Una pista en planta cenital, centrada y horizontal sobre fondo neutro, y encima cuatro barras de distinta longitud alineadas por su extremo izquierdo, en la misma proporción que tendrán en el diagrama maestro. Ojo: ninguna cifra, ninguna sigla y ningún nombre de aeropuerto en esta imagen, que la promesa es visual y las cuatro cifras llegan después.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-03-01-distancias-declaradas.webp",
+        alt: "Vista aérea de una pista con umbral desplazado y líneas que comparan TORA, TODA, ASDA y LDA",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las cuatro distancias parten de referencias distintas. TORA, TODA y ASDA comienzan en el inicio de la carrera de despegue: TORA termina con la pista utilizable, ASDA añade la zona de parada y TODA alcanza la zona libre. LDA, en cambio, empieza en el umbral de aterrizaje; si está desplazado, las flechas anteriores pueden servir para despegar o rodar, pero no forman parte de la distancia disponible para aterrizar.",
       },
       {
         kind: "hueco",
