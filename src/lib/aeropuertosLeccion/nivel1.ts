@@ -21,11 +21,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-01-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua de un aeródromo completo, mirando a lo largo del eje de la pista con la plataforma al fondo. Se ven los dos extremos de la pista, la faja de terreno verde a los dos lados, dos calles de rodaje, tres o cuatro aviones estacionados y la torre. Señales de pista blancas y de calle amarillas. Ojo: nada de logos, matrículas legibles ni nombres de aeropuertos reales.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-01-01-aerodromo.webp",
+        alt: "Vista aérea oblicua de un aeródromo con flechas que señalan la pista, la calle de rodaje, la plataforma y la torre de control",
+        ancho: 1600,
+        alto: 900,
+        pie: "La pista concentra despegues y aterrizajes; las calles conectan sus accesos; la plataforma organiza estacionamiento y servicio; la torre controla el movimiento cuando presta ese servicio. Reconocer las cuatro áreas permite anticipar qué autorización y qué señalización corresponden en cada una.",
       },
       {
         kind: "hueco",
