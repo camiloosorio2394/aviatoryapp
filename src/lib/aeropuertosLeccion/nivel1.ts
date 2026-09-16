@@ -475,11 +475,12 @@ export const NIVEL_1: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-04-01 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta cenital de tres siluetas genéricas de avión comercial superpuestas por el eje longitudinal, de menor a mayor envergadura, sobre fondo neutro, y una cota que recorre la envergadura de la mayor de punta de ala a punta de ala. Ojo: la cota nunca se toma de motor a motor ni de tren a tren, y en esta imagen no va ninguna cifra, ni libreas ni matrículas.",
-        alto: 300,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-04-01-envergadura-clave.webp",
+        alt: "Tres aviones comerciales vistos desde arriba, de envergadura creciente y clasificados con las letras C, D y E",
+        ancho: 1600,
+        alto: 900,
+        pie: "La letra de clave se obtiene midiendo de una punta de ala a la otra: C cubre de 24 a menos de 36 m; D, de 36 a menos de 52 m; y E, de 52 a menos de 65 m. Esa letra ayuda a dimensionar calles, márgenes y separaciones, pero no garantiza por sí sola que una ruta esté disponible hoy: una restricción publicada o un letrero de envergadura máxima puede exigir otra calle.",
       },
       {
         kind: "hueco",
