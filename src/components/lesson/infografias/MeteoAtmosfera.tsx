@@ -252,6 +252,7 @@ export function MeteoAtmosfera() {
       width={W}
       height={H}
       label="Corte vertical de la atmósfera. Abajo, la troposfera sobre montañas y mar, con nubes bajas y una tormenta cuyo yunque se extiende al llegar arriba. Una línea discontinua inclinada marca la tropopausa, más baja hacia los polos y más alta hacia el ecuador. Encima, la estratosfera, vacía y estable. Un avión de línea vuela en FL380, dentro de la troposfera y cerca de la tropopausa."
+      vectorial
     >
       <svg
         width={W}
