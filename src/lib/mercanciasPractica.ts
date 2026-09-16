@@ -1,10 +1,13 @@
 /**
  * Práctica del módulo Mercancías peligrosas: cuatro modos.
  *
- *   Etiquetas   → cuatro ejercicios visuales con los rombos de las etiquetas
+ *   Etiquetas   → ejercicios visuales por rondas con los rombos: primero los
+ *                 cuatro de conjunto, después uno por clase y los de
+ *                 especificación, manipulación y marcas
  *   Clasifica   → un envío, el piloto decide clase y grupo de embalaje
- *   Escenarios  → situaciones operacionales que se resuelven con las palabras
- *                 propias y después se comparan con la respuesta modelo
+ *   Escenarios  → situaciones operacionales que se resuelven conectando cada
+ *                 elemento con lo que le corresponde, y después se comparan
+ *                 con la respuesta modelo
  *   Entrevista  → lo que podrían preguntarte, con la respuesta modelo y qué
  *                 evalúan con cada pregunta
  *
@@ -42,6 +45,7 @@ export interface EjercicioEtiquetas {
 }
 
 const CLASES_TEXTO = {
+  "1": "Explosivos · clase 1",
   "2.1": "Gas inflamable · 2.1",
   "2.2": "Gas no inflamable, no tóxico · 2.2",
   "2.3": "Gas tóxico · 2.3",
@@ -53,6 +57,7 @@ const CLASES_TEXTO = {
   "5.2": "Peróxido orgánico · 5.2",
   "6.1": "Sustancia tóxica · 6.1",
   "6.2": "Sustancia infecciosa · 6.2",
+  "7": "Material radiactivo · clase 7",
   "8": "Corrosivo · clase 8",
   "9": "Mercancías peligrosas varias · clase 9",
 }
@@ -125,6 +130,251 @@ export const EJERCICIOS_ETIQUETAS: EjercicioEtiquetas[] = [
       { enunciado: "Sustancia infecciosa", imagen: "6-2", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: infecciosa, división 6.2. Riesgo." },
       { enunciado: "Etiqueta de baterías de litio", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "El reglamento la incluye como etiqueta de manipulación. El rombo de clase 9 es el de riesgo; esta dice cómo tratar el bulto." },
       { enunciado: "Mercancías peligrosas varias", imagen: "9", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 0, explicacion: "Dice qué es: clase 9. Riesgo." },
+    ],
+  },
+
+  // ── Leer la etiqueta: fondo, símbolo y número ───────────────────────────
+  {
+    id: "fondo",
+    titulo: "El fondo: qué dice el color",
+    descripcion: "Solo el color y el símbolo, sin número. Dices qué clase o división es, o si el fondo no alcanza. Seis rondas.",
+    rondas: [
+      { enunciado: "Fondo verde con una botella de gas en negro o blanco.", opciones: [t("2.1"), t("2.2"), t("2.3"), t("9")], correcta: 1, explicacion: "Fondo verde: gas no inflamable, no tóxico, división 2.2. Es la única de las tres de gases sin llama ni calavera." },
+      { enunciado: "Fondo azul con una llama en negro o blanco.", opciones: [t("4.1"), t("4.2"), t("4.3"), t("3")], correcta: 2, explicacion: "Fondo azul: división 4.3, sustancia que en contacto con el agua desprende gases inflamables. Es la única etiqueta azul." },
+      { enunciado: "Fondo anaranjado con una bomba haciendo explosión, en negro.", opciones: [t("5.1"), t("1"), t("9"), t("4.1")], correcta: 1, explicacion: "Fondo anaranjado: clase 1, explosivos. En la etiqueta se insertan la división y el grupo de compatibilidad." },
+      { enunciado: "Fondo amarillo con una llama sobre un círculo, en negro.", opciones: [t("3"), t("5.2"), t("5.1"), t("2.1")], correcta: 2, explicacion: "Llama sobre un círculo y fondo amarillo: comburente, división 5.1. El «5.1» va en el ángulo inferior." },
+      { enunciado: "Mitad superior roja y mitad inferior amarilla.", opciones: [t("4.2"), t("5.2"), t("5.1"), t("8")], correcta: 1, explicacion: "Peróxido orgánico, división 5.2. La 4.2 también va partida, pero al revés: blanca arriba y roja abajo." },
+      {
+        enunciado: "Fondo rojo con una llama. ¿Alcanza el fondo para decir la clase?",
+        opciones: [
+          { texto: "Sí: llama sobre rojo solo puede ser la clase 3" },
+          { texto: "No: la división 2.1 y la clase 3 comparten llama y fondo rojo" },
+          { texto: "No: el fondo rojo es de la división 4.2" },
+        ],
+        correcta: 1,
+        explicacion: "Gas inflamable (2.1) y líquido inflamable (clase 3) comparten símbolo y fondo. Quien las separa es el número del ángulo inferior.",
+      },
+    ],
+  },
+  {
+    id: "simbolo",
+    titulo: "El símbolo: qué dice el dibujo",
+    descripcion: "Se describe el símbolo como lo especifica la norma y dices a qué etiqueta pertenece. Seis rondas.",
+    rondas: [
+      { enunciado: "Tres medias lunas sobre un círculo, en negro sobre fondo blanco.", opciones: [t("6.1"), t("6.2"), t("9"), t("2.3")], correcta: 1, explicacion: "Sustancia infecciosa, división 6.2. Lleva además la inscripción de aviso a las autoridades sanitarias." },
+      { enunciado: "Siete franjas verticales en la mitad superior, en negro sobre fondo blanco.", opciones: [t("4.1"), t("9"), t("8"), t("6.1")], correcta: 1, explicacion: "Mercancías peligrosas varias, clase 9. La 4.1 también lleva siete franjas, pero rojas y en toda la etiqueta." },
+      { enunciado: "Líquido goteando de dos tubos de ensayo sobre una mano y una plancha de metal.", opciones: [t("8"), t("6.1"), t("5.1"), t("4.3")], correcta: 0, explicacion: "Corrosivo, clase 8. El símbolo dibuja el doble criterio: ataca tejidos vivos y ataca materiales." },
+      { enunciado: "Un trébol en negro, con el «7» en el ángulo inferior.", opciones: [t("5.1"), t("7"), t("9"), t("1")], correcta: 1, explicacion: "Material radiactivo, clase 7. La categoría se lee después, en el fondo y en las franjas rojas." },
+      { enunciado: "Una botella de gas en negro o blanco.", opciones: [t("2.2"), t("2.1"), t("2.3"), t("3")], correcta: 0, explicacion: "Gas no inflamable, no tóxico, división 2.2, sobre fondo verde. La 2.1 lleva llama y la 2.3, calavera." },
+      {
+        enunciado: "Calavera y tibias cruzadas en negro sobre fondo blanco. ¿Cuántas etiquetas llevan ese símbolo?",
+        opciones: [{ texto: "Solo la 6.1" }, { texto: "La 6.1 y la 2.3" }, { texto: "La 6.1, la 6.2 y la 2.3" }],
+        correcta: 1,
+        explicacion: "La 6.1 (sustancia tóxica) y la 2.3 (gas tóxico) comparten símbolo y fondo. La 6.2 lleva las tres medias lunas, no la calavera.",
+      },
+    ],
+  },
+  {
+    id: "numero",
+    titulo: "El número del ángulo inferior",
+    descripcion: "Cuando dos etiquetas comparten símbolo, el número decide. Cinco rondas.",
+    rondas: [
+      { enunciado: "Calavera y tibias sobre fondo blanco, con el «2» en el ángulo inferior.", opciones: [t("6.1"), t("2.3"), t("2.2"), t("6.2")], correcta: 1, explicacion: "Gas tóxico, división 2.3." },
+      { enunciado: "Calavera y tibias sobre fondo blanco, con el «6» en el ángulo inferior.", opciones: [t("2.3"), t("6.2"), t("6.1"), t("8")], correcta: 2, explicacion: "Sustancia tóxica, división 6.1. Mismo dibujo que la 2.3: solo cambia el número." },
+      { enunciado: "Llama sobre fondo rojo, con el «3» en el ángulo inferior.", opciones: [t("2.1"), t("3"), t("4.2"), t("4.1")], correcta: 1, explicacion: "Líquido inflamable, clase 3." },
+      { enunciado: "Llama sobre fondo rojo, con el «2» en el ángulo inferior.", opciones: [t("3"), t("2.2"), t("2.1"), t("4.2")], correcta: 2, explicacion: "Gas inflamable, división 2.1. Mismo dibujo y mismo fondo que la clase 3." },
+      {
+        enunciado: "Ves un dibujo pegado al bulto, sin número en el ángulo inferior. ¿Qué es?",
+        opciones: [
+          { texto: "Una etiqueta de riesgo mal impresa" },
+          { texto: "Una marca o etiqueta de manipulación" },
+          { texto: "Una etiqueta de clase 9, que no lleva número" },
+        ],
+        correcta: 1,
+        explicacion: "La regla que resume la lección 06: un rombo con número en la esquina inferior es riesgo; un rectángulo o un dibujo sin número es manipulación. La clase 9 sí lleva su número.",
+      },
+    ],
+  },
+
+  // ── Clase por clase ────────────────────────────────────────────────────
+  {
+    id: "clase1",
+    titulo: "Clase 1: las seis divisiones",
+    descripcion: "Se enuncia el tipo de peligro y eliges la división. No es una escala del 1 al 6. Seis rondas.",
+    rondas: [
+      { enunciado: "Peligro de explosión en masa.", opciones: [{ texto: "División 1.1" }, { texto: "División 1.2" }, { texto: "División 1.3" }, { texto: "División 1.4" }], correcta: 0, explicacion: "División 1.1." },
+      { enunciado: "Peligro de proyección, pero no de explosión en masa.", opciones: [{ texto: "División 1.1" }, { texto: "División 1.2" }, { texto: "División 1.5" }, { texto: "División 1.6" }], correcta: 1, explicacion: "División 1.2." },
+      { enunciado: "Peligro de incendio y peligro menor de explosión o de proyección, o ambos, pero no de explosión en masa.", opciones: [{ texto: "División 1.2" }, { texto: "División 1.3" }, { texto: "División 1.4" }, { texto: "División 1.5" }], correcta: 1, explicacion: "División 1.3." },
+      { enunciado: "No presentan peligro apreciable.", opciones: [{ texto: "División 1.3" }, { texto: "División 1.4" }, { texto: "División 1.5" }, { texto: "División 1.6" }], correcta: 1, explicacion: "División 1.4. Es la que lleva la etiqueta anaranjada con las cifras grandes y el grupo de compatibilidad." },
+      { enunciado: "Sustancias muy insensibles que tienen peligro de explosión en masa.", opciones: [{ texto: "División 1.4" }, { texto: "División 1.5" }, { texto: "División 1.6" }, { texto: "División 1.1" }], correcta: 1, explicacion: "División 1.5. Insensible no quiere decir inofensivo: vuelve a aparecer el peligro de explosión en masa." },
+      { enunciado: "Objetos sumamente insensibles que no tienen peligro de explosión en masa.", opciones: [{ texto: "División 1.5" }, { texto: "División 1.6" }, { texto: "División 1.2" }, { texto: "División 1.3" }], correcta: 1, explicacion: "División 1.6. Las divisiones describen el tipo de peligro, no una escala creciente." },
+    ],
+  },
+  {
+    id: "clase1-aire",
+    titulo: "Clase 1: qué vuela y qué no",
+    descripcion: "Lo que la propia etiqueta de explosivo advierte sobre el transporte aéreo. Cuatro rondas.",
+    rondas: [
+      { enunciado: "Además de la división, ¿qué se inserta en la etiqueta de explosivo?", opciones: [{ texto: "El grupo de embalaje" }, { texto: "El grupo de compatibilidad" }, { texto: "El número ONU" }], correcta: 1, explicacion: "El grupo de compatibilidad. La clase 1 no lleva grupo de embalaje." },
+      { enunciado: "Un bulto con etiqueta de división 1.1 o 1.2, ¿se transporta por vía aérea?", opciones: [{ texto: "Sí, en aeronave de carga" }, { texto: "Normalmente no" }, { texto: "Sí, si va segregado" }], correcta: 1, explicacion: "La advertencia va en la etiqueta: normalmente esos bultos no pueden transportarse por vía aérea." },
+      { enunciado: "¿Y los que llevan las etiquetas de las divisiones 1.5 y 1.6?", opciones: [{ texto: "Normalmente tampoco" }, { texto: "Sí, sin condiciones" }, { texto: "Solo con etiqueta CAO" }], correcta: 0, explicacion: "Llevan la misma advertencia: normalmente no se transportan por vía aérea." },
+      { enunciado: "¿Basta con saber que un envío es «explosivo» para saber si puede volar?", opciones: [{ texto: "Sí" }, { texto: "No: hacen falta la división y el grupo de compatibilidad" }], correcta: 1, explicacion: "Algunas divisiones y grupos de compatibilidad están prohibidos o tienen condiciones especiales. Sin esos dos datos la pregunta no tiene respuesta." },
+    ],
+  },
+  {
+    id: "clase2",
+    titulo: "Clase 2: los tres gases",
+    descripcion: "El color separa a la 2.2; el número separa a la 2.3. Cinco rondas.",
+    rondas: [
+      { enunciado: "¿Qué división es?", imagen: "2-1", opciones: [t("2.1"), t("2.2"), t("2.3"), t("3")], correcta: 0, explicacion: "Gas inflamable, división 2.1: llama sobre fondo rojo, con el «2» en el ángulo inferior." },
+      { enunciado: "Aerosoles, extintores, oxígeno, butano y objetos cargados con gas. ¿Qué clase?", opciones: [{ texto: "Clase 3" }, { texto: "Clase 2" }, { texto: "Clase 9" }, { texto: "Clase 8" }], correcta: 1, explicacion: "Todos son ejemplos de la clase 2. La división depende de si el gas es inflamable, tóxico, o ninguna de las dos." },
+      { enunciado: "¿Lleva grupo de embalaje la clase 2?", opciones: [{ texto: "Sí, las tres divisiones" }, { texto: "No" }, { texto: "Solo la 2.3" }], correcta: 1, explicacion: "No. La clase 2 no tiene grupo de embalaje, como tampoco lo tienen la clase 1 y la clase 7." },
+      { enunciado: "La 2.2, ¿qué símbolo y qué fondo lleva?", opciones: [{ texto: "Llama sobre fondo verde" }, { texto: "Botella de gas sobre fondo verde" }, { texto: "Botella de gas sobre fondo azul" }], correcta: 1, explicacion: "Símbolo (botella de gas) en negro o blanco, fondo verde." },
+      { enunciado: "La 2.3 comparte símbolo y fondo con la 6.1. ¿Qué las distingue?", opciones: [{ texto: "El tamaño de la etiqueta" }, { texto: "El número del ángulo inferior" }, { texto: "El color del símbolo" }], correcta: 1, explicacion: "Calavera y tibias en negro sobre fondo blanco las dos: la 2.3 lleva el «2» y la 6.1 el «6»." },
+    ],
+  },
+  {
+    id: "clase3y4",
+    titulo: "Clase 3 y clase 4: rojas, menos una",
+    descripcion: "Cuatro etiquetas de la misma familia visual y la que se sale. Cinco rondas.",
+    rondas: [
+      { enunciado: "¿Qué propiedad clasifica a un líquido en la clase 3?", opciones: [{ texto: "Su punto de inflamación" }, { texto: "Su densidad" }, { texto: "Su número ONU" }], correcta: 0, explicacion: "Despide vapores inflamables a temperaturas que no exceden de 60,5 °C en crisol cerrado. Lo que clasifica es la propiedad, no el nombre comercial del producto." },
+      { enunciado: "Fondo blanco con siete franjas rojas verticales y una llama en negro.", opciones: [t("4.1"), t("4.2"), t("4.3"), t("9")], correcta: 0, explicacion: "Sólido inflamable, división 4.1." },
+      { enunciado: "Mitad superior blanca, mitad inferior roja, llama en negro.", opciones: [t("4.1"), t("4.3"), t("4.2"), t("5.2")], correcta: 2, explicacion: "Combustión espontánea, división 4.2: puede calentarse sola en las condiciones normales de transporte." },
+      { enunciado: "De la clase 3 y las tres divisiones de la clase 4, ¿cuál no tiene rojo?", opciones: [t("4.1"), t("4.2"), t("4.3"), t("3")], correcta: 2, explicacion: "La 4.3 es azul. Es la señal de que ahí el agua es el problema, no la solución." },
+      { enunciado: "¿Lleva grupo de embalaje la clase 4?", opciones: [{ texto: "Sí, salvo las sustancias de reacción espontánea de la 4.1" }, { texto: "No, ninguna división" }, { texto: "Solo la 4.3" }], correcta: 0, explicacion: "La clase 4 lleva grupo de embalaje, salvo las sustancias de reacción espontánea de la división 4.1." },
+    ],
+  },
+  {
+    id: "clase5",
+    titulo: "Clase 5: comburente o peróxido",
+    descripcion: "Las dos amarillas, y por qué no son lo mismo. Cuatro rondas.",
+    rondas: [
+      { enunciado: "¿Cuál es la 5.1, comburente?", opciones: [img("5-1"), img("5-2")], correcta: 0, explicacion: "La 5.1 es toda amarilla, con la llama sobre un círculo y el «5.1» en el ángulo inferior. La 5.2 va roja arriba y amarilla abajo." },
+      { enunciado: "Una sustancia comburente, ¿arde ella misma?", opciones: [{ texto: "Siempre" }, { texto: "No necesariamente: libera oxígeno y hace arder a las demás" }], correcta: 1, explicacion: "Sin ser de por sí necesariamente combustible, puede causar o facilitar la combustión de otras sustancias liberando oxígeno." },
+      { enunciado: "¿Lleva grupo de embalaje la clase 5?", opciones: [{ texto: "Sí, salvo la división 5.2" }, { texto: "No" }, { texto: "Solo la 5.2" }], correcta: 0, explicacion: "La clase 5 lleva grupo de embalaje, salvo la división 5.2, los peróxidos orgánicos." },
+      { enunciado: "¿Qué etiqueta de manipulación se asocia a la 5.2?", opciones: [{ texto: "Material magnetizado" }, { texto: "Manténgase alejado del calor" }, { texto: "Líquidos criogénicos" }], correcta: 1, explicacion: "«Manténgase alejado del calor» la usan la 4.1 de reacción espontánea y la 5.2." },
+    ],
+  },
+  {
+    id: "clase6",
+    titulo: "Clase 6: tóxica o infecciosa",
+    descripcion: "Dos divisiones que no se parecen en nada salvo en el número. Cinco rondas.",
+    rondas: [
+      { enunciado: "¿Cuál es la 6.1, sustancia tóxica?", opciones: [img("6-1"), img("6-2")], correcta: 0, explicacion: "Calavera y tibias cruzadas en negro sobre fondo blanco." },
+      { enunciado: "¿Qué símbolo lleva la 6.2?", opciones: [{ texto: "Calavera y tibias" }, { texto: "Tres medias lunas sobre un círculo" }, { texto: "Un trébol" }], correcta: 1, explicacion: "Tres medias lunas sobre un círculo, en negro sobre fondo blanco, con el «6» en el ángulo inferior." },
+      { enunciado: "La 6.2 lleva una inscripción en la parte superior. ¿A quién manda advertir?", opciones: [{ texto: "Al expedidor" }, { texto: "A las autoridades sanitarias" }, { texto: "Al comandante" }], correcta: 1, explicacion: "«Sustancia infecciosa. En caso de averías o fugas, adviértase inmediatamente a las autoridades sanitarias»." },
+      { enunciado: "¿Lleva grupo de embalaje la clase 6?", opciones: [{ texto: "Sí, salvo la división 6.2" }, { texto: "No" }, { texto: "Solo la 6.2" }], correcta: 0, explicacion: "La clase 6 lleva grupo de embalaje, salvo la división 6.2." },
+      { enunciado: "¿Qué número lleva la 6.2 en el ángulo inferior?", opciones: [{ texto: "6.2" }, { texto: "6" }, { texto: "Ninguno" }], correcta: 1, explicacion: "El «6». La división se reconoce por el símbolo y la inscripción, no por un número distinto." },
+    ],
+  },
+  {
+    id: "clase7",
+    titulo: "Clase 7: las tres categorías",
+    descripcion: "La única clase cuya etiqueta cambia según el bulto, no según la sustancia. Cinco rondas.",
+    rondas: [
+      { enunciado: "Fondo blanco y una sola franja roja detrás de la palabra «Radioactivo».", opciones: [{ texto: "Categoría I-Blanca" }, { texto: "Categoría II-Amarilla" }, { texto: "Categoría III-Amarilla" }], correcta: 0, explicacion: "Categoría I-Blanca: trébol en negro, fondo blanco, «7» en el ángulo inferior y los textos «Radioactivo», «Contenido…» y «Actividad…»." },
+      { enunciado: "Mitad superior amarilla con borde blanco, dos franjas rojas e índice de transporte.", opciones: [{ texto: "Categoría I-Blanca" }, { texto: "Categoría II-Amarilla" }, { texto: "Categoría III-Amarilla" }], correcta: 1, explicacion: "Categoría II-Amarilla. El índice de transporte va en un recuadro negro." },
+      { enunciado: "¿Cuántas franjas rojas lleva la Categoría III-Amarilla?", opciones: [{ texto: "Una" }, { texto: "Dos" }, { texto: "Tres" }], correcta: 2, explicacion: "Tres. Es igual a la Categoría II con una franja más." },
+      { enunciado: "¿Qué determina la categoría de la etiqueta?", opciones: [{ texto: "La cantidad de material" }, { texto: "El nivel de radiación en la superficie del bulto y el índice de transporte" }, { texto: "El tipo de aeronave" }], correcta: 1, explicacion: "A mayor categoría, mayores son las condiciones de control aplicables." },
+      { enunciado: "¿Lleva grupo de embalaje la clase 7?", opciones: [{ texto: "Sí" }, { texto: "No" }], correcta: 1, explicacion: "No. Como la clase 1 y la clase 2, la clase 7 no tiene grupo de embalaje." },
+    ],
+  },
+  {
+    id: "clase8y9",
+    titulo: "Clase 8 y clase 9: las dos en blanco y negro",
+    descripcion: "Se parecen de lejos y no tienen nada que ver. Cinco rondas.",
+    rondas: [
+      { enunciado: "Fondo blanco en la mitad superior y negro con borde blanco en la mitad inferior.", opciones: [t("9"), t("8"), t("6.1"), t("4.2")], correcta: 1, explicacion: "Corrosivo, clase 8." },
+      { enunciado: "Fondo blanco con siete franjas verticales negras en la mitad superior.", opciones: [t("8"), t("4.1"), t("9"), t("6.2")], correcta: 2, explicacion: "Mercancías peligrosas varias, clase 9." },
+      { enunciado: "¿Qué dos etiquetas llevan siete franjas verticales?", opciones: [{ texto: "La 4.1 y la clase 9" }, { texto: "La clase 8 y la clase 9" }, { texto: "La 6.2 y la clase 9" }], correcta: 0, explicacion: "La 4.1 las lleva rojas y en toda la etiqueta; la clase 9, negras y solo en la mitad superior." },
+      { enunciado: "Baterías de litio, hielo seco, material magnetizado, motores de combustión interna y asbesto.", opciones: [{ texto: "Clase 8" }, { texto: "Clase 9" }, { texto: "Clase 4" }], correcta: 1, explicacion: "Todos son ejemplos de la clase 9: presentan un riesgo distinto de los de las demás clases." },
+      { enunciado: "¿Es la clase 9 la clase de lo que sobra, sin peligro real?", opciones: [{ texto: "Sí, por eso está al final" }, { texto: "No: reúne riesgos que no cubren las otras ocho" }], correcta: 1, explicacion: "Es donde están las baterías de litio y el hielo seco. Que el riesgo no encaje en otra clase no lo hace menor." },
+    ],
+  },
+
+  // ── Especificación, manipulación y marcas ──────────────────────────────
+  {
+    id: "spec",
+    titulo: "La especificación, al pie de la letra",
+    descripcion: "Se lee la especificación del Apéndice y eliges la etiqueta que describe. Cinco rondas.",
+    rondas: [
+      { enunciado: "Símbolo (llama) en negro. Fondo blanco con siete franjas rojas verticales.", opciones: [img("3"), img("4-1"), img("4-2"), img("9")], correcta: 1, explicacion: "División 4.1, sólido inflamable." },
+      { enunciado: "Símbolo (botella de gas) en negro o blanco. Fondo verde.", opciones: [img("2-1"), img("2-3"), img("2-2"), img("4-3")], correcta: 2, explicacion: "División 2.2, gas no inflamable, no tóxico." },
+      { enunciado: "Símbolo (llama) en negro o blanco. Fondo azul.", opciones: [img("4-1"), img("4-3"), img("2-2"), img("5-1")], correcta: 1, explicacion: "División 4.3, peligroso mojado." },
+      { enunciado: "Símbolo en negro. Fondo blanco en la mitad superior y negro con borde blanco en la mitad inferior.", opciones: [img("9"), img("6-1"), img("8"), img("4-2")], correcta: 2, explicacion: "Clase 8, corrosivo." },
+      { enunciado: "Símbolo (tres medias lunas sobre un círculo) e inscripción en negro. Fondo blanco. Número 6 en el ángulo inferior.", opciones: [img("6-1"), img("6-2"), img("2-3"), img("9")], correcta: 1, explicacion: "División 6.2, sustancia infecciosa." },
+    ],
+  },
+  {
+    id: "manipulacion",
+    titulo: "Las seis de manipulación",
+    descripcion: "No llevan número de clase porque no describen un riesgo, sino un cuidado. Seis rondas.",
+    rondas: [
+      { enunciado: "Color negro sobre fondo anaranjado, 120 × 110 mm.", opciones: [{ texto: "Exclusivamente en aeronaves de carga" }, { texto: "Material magnetizado" }, { texto: "Posición del bulto" }], correcta: 0, explicacion: "La etiqueta CAO. Los bultos que la llevan no se estiban en una aeronave ocupada por pasajeros." },
+      { enunciado: "Color azul sobre fondo blanco, 110 × 90 mm.", opciones: [{ texto: "Líquidos criogénicos" }, { texto: "Material magnetizado" }, { texto: "Baterías de litio" }], correcta: 1, explicacion: "Material magnetizado. Dice cómo estibarlo, no qué es." },
+      { enunciado: "Color rojo o negro sobre fondo contrastado, 74 × 105 mm, con flechas.", opciones: [{ texto: "Posición del bulto" }, { texto: "Manténgase alejado del calor" }, { texto: "Exclusivamente en aeronaves de carga" }], correcta: 0, explicacion: "Posición del bulto: las flechas indican hacia dónde va «arriba», y van en dos caras verticales opuestas." },
+      { enunciado: "Símbolo blanco sobre fondo verde, 74 × 105 mm.", opciones: [{ texto: "Material magnetizado" }, { texto: "Líquidos criogénicos" }, { texto: "Gas no inflamable, 2.2" }], correcta: 1, explicacion: "Líquidos criogénicos: su uso es obligatorio cuando se manipulen. No la confundas con el rombo verde de la 2.2, que sí es de riesgo." },
+      { enunciado: "¿A qué etiquetas de riesgo acompaña «Manténgase alejado del calor»?", opciones: [{ texto: "A la 4.1 de reacción espontánea y a la 5.2" }, { texto: "A la clase 8 y a la clase 9" }, { texto: "A la 2.2 y a la 2.3" }], correcta: 0, explicacion: "Son las que la norma asocia a ese cuidado." },
+      { enunciado: "La etiqueta de baterías de litio, ¿de qué familia es?", opciones: [{ texto: "De riesgo" }, { texto: "De manipulación" }], correcta: 1, explicacion: "La norma la incluye entre las de manipulación; el rombo de clase 9 es el de riesgo. Ediciones posteriores de las Instrucciones Técnicas la reemplazaron por la marca de batería de litio y la etiqueta 9A: verifica la edición en vigor." },
+    ],
+  },
+  {
+    id: "medidas",
+    titulo: "Las medidas del Apéndice",
+    descripcion: "Cuando la norma da una dimensión, es un dato, no un adorno. Cuatro rondas.",
+    rondas: [
+      { enunciado: "¿Qué etiqueta mide 120 × 110 mm?", opciones: [{ texto: "Material magnetizado" }, { texto: "Exclusivamente en aeronaves de carga" }, { texto: "Posición del bulto" }], correcta: 1, explicacion: "La CAO, en negro sobre fondo anaranjado." },
+      { enunciado: "¿Y cuál mide 110 × 90 mm?", opciones: [{ texto: "Material magnetizado" }, { texto: "Líquidos criogénicos" }, { texto: "Posición del bulto" }], correcta: 0, explicacion: "Material magnetizado, en azul sobre fondo blanco." },
+      { enunciado: "¿Qué dos etiquetas miden 74 × 105 mm?", opciones: [{ texto: "Posición del bulto y líquidos criogénicos" }, { texto: "CAO y material magnetizado" }, { texto: "Baterías de litio y calor" }], correcta: 0, explicacion: "Las dos comparten dimensión." },
+      { enunciado: "En la etiqueta de 100 × 100 mm de la división 1.4, ¿qué tamaño tienen las cifras?", opciones: [{ texto: "Unos 30 mm de altura y 5 mm de espesor" }, { texto: "Unos 10 mm de altura" }, { texto: "La norma no lo dice" }], correcta: 0, explicacion: "Fondo anaranjado y cifras en negro de unos 30 mm de altura y 5 mm de espesor. Las de la 1.5 y la 1.6 usan la misma numeración." },
+    ],
+  },
+  {
+    id: "marcas",
+    titulo: "Marcas que no son etiquetas",
+    descripcion: "Lo demás que lleva pegado un bulto, y qué te dice cada cosa. Cinco rondas.",
+    rondas: [
+      { enunciado: "«4GV/X17.3/S/18» junto al símbolo de la ONU.", opciones: [{ texto: "Marca de especificación del embalaje" }, { texto: "Número ONU de la mercancía" }, { texto: "Número de guía aérea" }], correcta: 0, explicacion: "Identifica un embalaje certificado según una especificación de diseño: tipo, grupo de embalaje que admite, estado de la materia y masa máxima. Su diseño pasó los ensayos de caída, apilamiento y presión interna." },
+      { enunciado: "Un pez y un árbol muertos.", opciones: [{ texto: "Sustancia infecciosa" }, { texto: "Contaminante del medio ambiente" }, { texto: "Peligroso mojado" }], correcta: 1, explicacion: "Marca de peligro para el medio ambiente, especialmente el acuático. Acompaña al riesgo principal; no lo sustituye." },
+      { enunciado: "Expedidor, destinatario y número de guía aérea.", opciones: [{ texto: "Etiqueta de expedición" }, { texto: "Documento de transporte" }, { texto: "NOTOC" }], correcta: 0, explicacion: "Es la trazabilidad del bulto desde su origen hasta su destino. No dice nada del riesgo." },
+      { enunciado: "Un rombo con una «Y» en el centro.", opciones: [{ texto: "Cantidad exceptuada" }, { texto: "Cantidad limitada por vía aérea" }, { texto: "Grupo de embalaje" }], correcta: 1, explicacion: "La marca Y señala el régimen de cantidad limitada. No autoriza por sí sola el envío: la entrada debe permitir una instrucción «Y» y el bulto cumplir sus límites." },
+      { enunciado: "Una entrada con código E0.", opciones: [{ texto: "Admite cantidad exceptuada" }, { texto: "No admite el régimen de cantidad exceptuada" }, { texto: "Es una marca de manipulación" }], correcta: 1, explicacion: "E0 significa que no se admite ese régimen. Los códigos E1 a E5 fijan límites por envase interior y bulto exterior." },
+    ],
+  },
+  {
+    id: "principal",
+    titulo: "Riesgo principal y riesgo secundario",
+    descripcion: "Un bulto puede llevar más de un rombo, y no dicen lo mismo. Cuatro rondas.",
+    rondas: [
+      { enunciado: "Un bulto lleva el rombo de clase 8 y, al lado, el de calavera con el «6» en el ángulo. ¿Qué significa?", opciones: [{ texto: "Dos envíos distintos en el mismo bulto" }, { texto: "Corrosivo como riesgo principal y tóxico como riesgo secundario" }, { texto: "Un error de etiquetado" }], correcta: 1, explicacion: "Es el bulto de la lección 06: el riesgo principal es el de clase 8 y el de 6.1 aparece como secundario." },
+      { enunciado: "¿Puede un bulto llevar varias etiquetas de riesgo y varias de manipulación a la vez?", opciones: [{ texto: "Sí, según la mercancía y las condiciones de transporte" }, { texto: "No: una de cada" }], correcta: 0, explicacion: "Un mismo bulto puede llevar varias indicaciones de ambas familias." },
+      { enunciado: "¿Cuál de las dos familias te dice qué hay dentro?", opciones: [{ texto: "La de riesgo" }, { texto: "La de manipulación" }], correcta: 0, explicacion: "La de riesgo identifica el peligro con el símbolo y el número de clase o división. La de manipulación dice cómo tratar el bulto." },
+      { enunciado: "¿Qué pregunta responde una etiqueta de manipulación?", opciones: [{ texto: "Qué es" }, { texto: "Cómo se trata" }, { texto: "Cuánto pesa" }], correcta: 1, explicacion: "Posición, temperatura, tipo de aeronave: cuidados, no riesgos." },
+    ],
+  },
+  {
+    id: "no-vuela",
+    titulo: "Cuándo el bulto se queda en tierra",
+    descripcion: "Las etiquetas también deciden qué no sale. Cuatro rondas.",
+    rondas: [
+      { enunciado: "Una etiqueta se desprendió en la rampa. ¿Puede reponerla el explotador?", opciones: [{ texto: "Nunca" }, { texto: "Sí: debe poseer etiquetas adecuadas para su reposición" }, { texto: "Solo el expedidor" }], correcta: 1, explicacion: "El explotador que cuenta con la autorización para transportar mercancías peligrosas debe poseer etiquetas de reposición para los casos de desprendimiento o deterioro." },
+      { enunciado: "Nadie sabe cuál era la etiqueta que se cayó. ¿Qué pasa?", opciones: [{ texto: "Se repone la más parecida" }, { texto: "No se transporta la mercancía" }, { texto: "Se anota en el NOTOC y sale" }], correcta: 1, explicacion: "Es una de las pocas veces que la norma dice «no se transportará» sin condiciones: si no se tiene la certeza de cuál etiqueta corresponde, el bulto se queda." },
+      { enunciado: "Aparece un bulto con la etiqueta «Exclusivamente en aeronaves de carga» en un vuelo de pasajeros.", opciones: [{ texto: "Puede ir si queda lejos de la cabina" }, { texto: "No se estiba en una aeronave ocupada por pasajeros" }, { texto: "Puede ir si el expedidor lo autoriza" }], correcta: 1, explicacion: "Ni la posición ni una autorización del expedidor lo habilitan." },
+      { enunciado: "Un bulto con la etiqueta de la división 1.2.", opciones: [{ texto: "Normalmente no se transporta por vía aérea" }, { texto: "Va en carguero sin condiciones" }, { texto: "Va en bodega delantera" }], correcta: 0, explicacion: "La advertencia va en la propia etiqueta de explosivo, para las divisiones 1.1 y 1.2." },
+    ],
+  },
+  {
+    id: "envios",
+    titulo: "Del envío a la clase",
+    descripcion: "Lo que llega a la bodega con su nombre comercial, y qué clase le corresponde. Seis rondas.",
+    rondas: [
+      { enunciado: "Pintura para mantenimiento en latas metálicas de 5 litros.", opciones: [{ texto: "Clase 3" }, { texto: "Clase 8" }, { texto: "Clase 9" }, { texto: "Clase 5" }], correcta: 0, explicacion: "Clase 3: los disolventes tienen punto de inflamación por debajo de 60,5 °C. Lo que clasifica es la propiedad, no que se llame pintura." },
+      { enunciado: "Un palé de baterías de ion litio que viajan solas, como carga.", opciones: [{ texto: "Clase 3" }, { texto: "Clase 8" }, { texto: "Clase 9" }, { texto: "Clase 4" }], correcta: 2, explicacion: "Clase 9, y sin grupo de embalaje. No son clase 3 ni clase 8: es el error que más se repite." },
+      { enunciado: "Hielo seco para mantener frías unas muestras médicas.", opciones: [{ texto: "Clase 2" }, { texto: "Clase 9" }, { texto: "Clase 5" }, { texto: "Clase 6" }], correcta: 1, explicacion: "Clase 9. El hielo seco es dióxido de carbono sólido." },
+      { enunciado: "Isótopos médicos para un hospital.", opciones: [{ texto: "Clase 6" }, { texto: "Clase 7" }, { texto: "Clase 9" }, { texto: "Clase 5" }], correcta: 1, explicacion: "Clase 7, material radiactivo. La categoría de la etiqueta se determina después, según el bulto." },
+      { enunciado: "Municiones y pirotecnia.", opciones: [{ texto: "Clase 1" }, { texto: "Clase 4" }, { texto: "Clase 5" }, { texto: "Clase 9" }], correcta: 0, explicacion: "Clase 1, explosivos. Sin la división y el grupo de compatibilidad no se sabe si puede volar." },
+      { enunciado: "Material magnetizado.", opciones: [{ texto: "Clase 2" }, { texto: "Clase 7" }, { texto: "Clase 9" }, { texto: "No es mercancía peligrosa" }], correcta: 2, explicacion: "Clase 9. Además lleva su etiqueta de manipulación, azul sobre blanco, que dice cómo estibarlo." },
     ],
   },
 ]
@@ -258,12 +508,27 @@ export const CASOS: CasoMP[] = [
 
 // ─── Escenarios ──────────────────────────────────────────────────────────────
 
+/**
+ * Una pareja del ejercicio: a la izquierda algo que aparece en el escenario, a
+ * la derecha lo que le corresponde. Las dos mitades van cortas a propósito:
+ * son fichas que se tocan con el pulgar, no frases que se leen.
+ */
+export interface ConexionMP {
+  izquierda: string
+  derecha: string
+}
+
 export interface EscenarioMP {
   id: string
   titulo: string
   situacion: string
   /** Lo que el piloto tiene que decidir, en preguntas. */
   preguntas: string[]
+  /**
+   * El ejercicio. El escenario se resuelve conectando cada elemento con lo que
+   * le corresponde; cuando están todas, se abre la respuesta modelo.
+   */
+  conexiones: ConexionMP[]
   /** La respuesta modelo. */
   modelo: string
   puntos: string[]
@@ -276,6 +541,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Embarque de un vuelo lleno. La auxiliar te avisa que van a bajar a bodega diez maletas de mano por falta de espacio. Un pasajero se niega a sacar nada de la suya: dice que solo lleva ropa, el portátil y un power bank.",
     preguntas: ["¿Qué puede ir en esa maleta a bodega y qué no?", "¿Qué le dices al pasajero y con qué respaldo?", "¿Qué pasa si la maleta baja como está?"],
+    conexiones: [
+      { izquierda: "El power bank", derecha: "Solo en cabina, con los terminales protegidos" },
+      { izquierda: "El portátil, si baja a bodega", derecha: "Apagado y protegido contra activación accidental" },
+      { izquierda: "El respaldo de lo que dices", derecha: "Instrucciones Técnicas y procedimiento del explotador" },
+      { izquierda: "El pasajero no acepta", derecha: "La maleta no baja" },
+      { izquierda: "Bajó así y se descubre después", derecha: "Mercancía no permitida en el equipaje: se notifica" },
+    ],
     modelo:
       "El power bank es una batería de repuesto: va solo en cabina, con los terminales protegidos, nunca en bodega. El portátil puede bajar si va apagado y protegido contra activación accidental. Eso sale de lo que las Instrucciones Técnicas permiten a los pasajeros y del procedimiento del explotador; no es una opinión de la tripulación. Si el pasajero no lo acepta, la maleta no baja: la norma prohíbe al explotador permitir mercancías peligrosas en el equipaje salvo lo que las Instrucciones autorizan. Si baja como está y se descubre después, es una mercancía no permitida en el equipaje y se notifica.",
     puntos: ["Power bank = repuesto = solo cabina, terminales protegidos", "Portátil a bodega apagado y protegido", "Respaldo: Instrucciones Técnicas y procedimiento del explotador", "Si no acepta, la maleta no baja", "Si baja y se descubre: notificación"],
@@ -286,6 +558,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Briefing. El NOTOC muestra UN 1263, pintura, clase 3, grupo de embalaje II, dos bultos en la bodega trasera. La declaración del expedidor que te muestran dice grupo de embalaje III para el mismo envío.",
     preguntas: ["¿Firmas el NOTOC?", "¿Por qué importa una diferencia entre II y III?", "¿Qué tiene que pasar para que el envío salga?"],
+    conexiones: [
+      { izquierda: "NOTOC dice II, declaración dice III", derecha: "Discrepancia abierta: no se firma" },
+      { izquierda: "Qué gradúa el grupo de embalaje", derecha: "El peligro dentro de la clase" },
+      { izquierda: "Qué fija el grupo de embalaje", derecha: "El embalaje exigido y la cantidad por bulto" },
+      { izquierda: "Cuándo se firma la información al piloto", derecha: "Antes de que las mercancías se transporten" },
+      { izquierda: "Si el dato no se puede aclarar", derecha: "El envío no sale" },
+    ],
     modelo:
       "No se firma con una discrepancia abierta. El grupo de embalaje gradúa el peligro dentro de la clase y fija qué embalaje exige y cuánta cantidad admite por bulto: un II no es un III. La información al piloto al mando se firma antes de que las mercancías se transporten y firmar es dejar constancia de que sabes qué llevas. El envío sale cuando el explotador aclara con la declaración cuál es el dato correcto y corrige el documento que esté mal; si no se puede aclarar, no sale. Si el envío ya voló con información incorrecta, se notifica.",
     puntos: ["No se firma con discrepancia", "El grupo cambia embalaje y cantidad admitida", "La firma es previa al transporte", "Se aclara con la declaración del expedidor o no sale", "Voló mal: notificación"],
@@ -296,6 +575,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Vuelo de pasajeros. En el NOTOC aparece un envío con la marca «Cargo Aircraft Only». El agente dice que va bien estibado en la bodega delantera, lejos de la cabina, y que el expedidor autorizó por escrito.",
     preguntas: ["¿Sale ese bulto?", "¿Cambia algo la posición o la autorización del expedidor?", "¿Qué tienes que asegurarte tú?"],
+    conexiones: [
+      { izquierda: "La marca «Cargo Aircraft Only»", derecha: "No se estiba en aeronave ocupada por pasajeros" },
+      { izquierda: "Bodega delantera, lejos de la cabina", derecha: "La posición no lo arregla" },
+      { izquierda: "La autorización escrita del expedidor", derecha: "No habilita lo que la norma prohíbe" },
+      { izquierda: "Antes de firmar el NOTOC", derecha: "Comprobar que ningún CAO va en el vuelo" },
+      { izquierda: "Si el bulto aparece igual", derecha: "Se baja y queda registrado por qué" },
+    ],
     modelo:
       "No sale. Los bultos con la etiqueta «Exclusivamente en aeronaves de carga» no se estiban en una aeronave ocupada por pasajeros. La posición no lo arregla y el expedidor no puede autorizar lo que la norma prohíbe. Comprobar que ningún CAO va en un vuelo con pasajeros es parte de lo que revisas antes de firmar la información al piloto al mando. Si aparece, el envío se baja y queda registrado por qué.",
     puntos: ["CAO nunca en aeronave con pasajeros", "Ni la posición ni el expedidor lo habilitan", "Es una comprobación previa a la firma del NOTOC", "El envío se baja"],
@@ -306,6 +592,14 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Crucero. Olor químico y humo tenue en el galley trasero. El NOTOC declara un envío de clase 8 en la bodega posterior y uno de 6.1 en la delantera.",
     preguntas: ["¿Qué hace primero la cabina de mando?", "¿Qué consultas y qué usas?", "¿A quién informas y cuándo?", "¿Qué queda después de aterrizar?"],
+    conexiones: [
+      { izquierda: "Lo primero, siempre", derecha: "Volar: máscaras, oxígeno y control del humo según el QRH" },
+      { izquierda: "Qué identifica la carga en vuelo", derecha: "El NOTOC, al alcance del comandante" },
+      { izquierda: "Qué se consulta para actuar", derecha: "La información de respuesta de emergencia" },
+      { izquierda: "La cabina de pasajeros", derecha: "Equipo de respuesta: bolsas, ligaduras y guantes largos" },
+      { izquierda: "Tan pronto la situación lo permita", derecha: "Declarar la emergencia e informar al ATS" },
+      { izquierda: "Después de aterrizar", derecha: "Información a los servicios de emergencia y notificación" },
+    ],
     modelo:
       "Primero se vuela: máscaras, oxígeno, control de la aeronave y del humo según el QRH. Después se identifica con el NOTOC, que está al alcance del comandante en vuelo: un corrosivo en la bodega posterior, la más cercana al humo. Se consulta la información de respuesta de emergencia, que debe estar disponible de inmediato, y la cabina de pasajeros usa el equipo de respuesta (bolsas, ligaduras, guantes largos de goma). Se declara la emergencia y se informa al ATS tan pronto la situación lo permita para que avise a la administración aeroportuaria; se desvía al aeródromo adecuado más cercano. Después, el explotador entrega la información a los servicios de emergencia y se notifica el incidente.",
     puntos: ["Volar primero", "Identificar con el NOTOC", "Guía de emergencia y equipo de respuesta", "Declarar e informar al ATS tan pronto se pueda", "Desviar; después, información a servicios y notificación"],
@@ -316,6 +610,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Veinte minutos antes de la salida ves en la bodega seis cajas marcadas «AOG PARTS – COMPANY MATERIAL» que no aparecen en el NOTOC ni en el manifiesto de mercancías peligrosas.",
     preguntas: ["¿Qué te dice esa marca?", "¿Qué preguntas antes de firmar?", "¿Firmas?"],
+    conexiones: [
+      { izquierda: "«Company material»", derecha: "COMAT: propiedad del explotador, en su propio provecho" },
+      { izquierda: "COMAT que es mercancía peligrosa", derecha: "Sigue todas las reglas, incluido el NOTOC" },
+      { izquierda: "«Repuestos» como descripción", derecha: "Descripción general: obliga a preguntar" },
+      { izquierda: "Un envío con mercancías peligrosas", derecha: "Necesita documento de transporte e inspección" },
+      { izquierda: "Mientras no se aclare el contenido", derecha: "No se firma" },
+    ],
     modelo:
       "«Company material» es COMAT: propiedad del explotador que viaja en su propio provecho. Si algo de eso está clasificado como mercancía peligrosa (un generador de oxígeno, una batería, un aerosol) es COMAT peligroso y sigue todas las reglas, incluida la información al piloto al mando. «Repuestos» es una descripción general que debe hacer dudar. Antes de firmar se pregunta qué contienen y quién las aceptó: un envío con mercancías peligrosas necesita documento de transporte e inspección. No se firma hasta aclararlo; si el contenido no es peligroso y queda registrado, se firma; si lo es, entra al NOTOC o no sale. Es ValuJet contado desde tu asiento.",
     puntos: ["COMAT y COMAT peligroso", "Descripción general = pregunta", "Aceptación exige documento e inspección", "No se firma hasta aclarar", "Si es peligroso: al NOTOC o no sale"],
@@ -326,6 +627,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Durante el walkaround ves en la plataforma un bulto para tu vuelo con la etiqueta de riesgo medio despegada y con el número UN legible. El agente dice que la pega y ya.",
     preguntas: ["¿Puede reponerla el explotador?", "¿Con qué condición?", "¿Y si no está claro cuál etiqueta va?"],
+    conexiones: [
+      { izquierda: "Etiqueta desprendida o deteriorada", derecha: "El explotador autorizado la repone" },
+      { izquierda: "Con qué datos se repone", derecha: "Los del documento de transporte" },
+      { izquierda: "Sin certeza de cuál corresponde", derecha: "No se transporta la mercancía" },
+      { izquierda: "Quién pega la etiqueta", derecha: "El explotador, no la tripulación" },
+      { izquierda: "Lo que sí te corresponde", derecha: "No firmar por un bulto que nadie sabe qué es" },
+    ],
     modelo:
       "Sí puede: el explotador autorizado debe tener etiquetas de reposición para los casos de desprendimiento o deterioro y las reemplaza conforme a los datos del documento de transporte. La condición es esa: que el documento diga cuál es. Si no se tiene la certeza de cuál etiqueta corresponde, no se transporta la mercancía. Tú no pegas etiquetas, pero no firmas por un bulto que nadie sabe qué es.",
     puntos: ["Reposición permitida", "Según el documento de transporte", "Sin certeza, no vuela", "La etiqueta es parte del acondicionamiento exigido"],
@@ -336,6 +644,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Operas un monomotor de carga en el Vichada. Te piden llevar tres canecas de gasolina de aviación para un aeródromo remoto, junto con otros repuestos.",
     preguntas: ["¿Puedes llevar la gasolina?", "¿Y los repuestos, si alguno es mercancía peligrosa de otra clase?", "¿De dónde sale esa regla?"],
+    conexiones: [
+      { izquierda: "Clase 3 combustibles en monomotor", derecha: "Prohibida en Colombia" },
+      { izquierda: "Las demás clases en monomotor", derecha: "Requieren aprobación de la autoridad" },
+      { izquierda: "Lo que la autoridad verifica", derecha: "Las condiciones de seguridad del explotador" },
+      { izquierda: "Lo que la autoridad puede excluir", derecha: "Los aeródromos donde no aprueba" },
+      { izquierda: "De dónde sale la regla", derecha: "Añadido nacional, no del Anexo 18" },
+    ],
     modelo:
       "La gasolina no, pero por una regla que no está en el Anexo 18: es un añadido nacional. En Colombia se prohíbe la clase 3 combustibles en aeronaves monomotores, salvo las excepciones para pasajeros y tripulantes; las demás clases en monomotor requieren aprobación de la autoridad, que verifica las condiciones de seguridad del explotador y determina en qué aeródromos no la aprueba. Por eso no aparece en los cursos genéricos, y por eso tienes que abrir el reglamento de tu país: el mecanismo que permite estos añadidos está en el propio LAR, y lo que cada Estado añade se notifica a la OACI.",
     puntos: ["Colombia: clase 3 combustibles prohibida en monomotor", "Otras clases: aprobación de la autoridad", "La autoridad puede excluir aeródromos", "Es un añadido nacional, no del Anexo 18: busca el de tu país"],
@@ -346,6 +661,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Un pasajero con movilidad reducida embarca con su silla de ruedas eléctrica. La silla lleva una batería de ion litio. El agente pregunta si la batería va instalada en la silla o la retiran.",
     preguntas: ["¿Es mercancía peligrosa?", "¿Dónde se resuelve qué hacer con la batería?", "¿Qué debe saber el comandante?"],
+    conexiones: [
+      { izquierda: "La batería de ion litio", derecha: "Clase 9, sin grupo de embalaje" },
+      { izquierda: "La ayuda de movilidad con batería", derecha: "Excepción de pasajeros de las Instrucciones Técnicas" },
+      { izquierda: "De qué dependen las condiciones", derecha: "Del tipo de batería y de si se retira o no" },
+      { izquierda: "Los vatios-hora exactos", derecha: "Se verifican en la edición vigente" },
+      { izquierda: "El comandante", derecha: "Debe saber que se transporta y dónde va" },
+    ],
     modelo:
       "Sí: es una batería de ion litio, clase 9, sin grupo de embalaje. Las ayudas de movilidad con batería son una de las excepciones para pasajeros que regulan las Instrucciones Técnicas, con condiciones que dependen del tipo de batería y de si se retira o no: esas condiciones y los vatios-hora exactos hay que verificarlos en la edición vigente y en el procedimiento del explotador. Lo que el comandante debe saber es que se transporta y dónde va: para las ayudas de movilidad con batería de litio las Instrucciones exigen informar al piloto al mando, y la operación debe reflejarlo en el NOTOC o en el documento que use el explotador.",
     puntos: ["Batería de litio = clase 9, sin grupo de embalaje", "Excepción de pasajeros de las Instrucciones Técnicas: verificar edición", "Condiciones según tipo de batería y si se retira", "El comandante debe saber que va y dónde"],
@@ -356,6 +678,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Turnaround en destino. El agente de rampa te comenta que uno de los bultos de mercancías peligrosas «venía mojado por fuera» y que ya lo bajaron.",
     preguntas: ["¿Qué tiene que hacer el explotador además de bajarlo?", "¿Qué preguntas tú?", "¿Es un suceso?"],
+    conexiones: [
+      { izquierda: "Un bulto con averías o pérdidas", derecha: "Se descarga" },
+      { izquierda: "El resto del envío", derecha: "Se comprueba que esté en condiciones" },
+      { izquierda: "La zona donde iba estibado", derecha: "Se inspecciona por si hubo daño" },
+      { izquierda: "La contaminación en la aeronave", derecha: "Se elimina sin demora" },
+      { izquierda: "La integridad del embalaje vulnerada", derecha: "Incidente imputable: se notifica" },
+    ],
     modelo:
       "Un bulto con averías o pérdidas se descarga, y el explotador se asegura de que el resto del envío esté en condiciones y de que ningún otro bulto quedó contaminado; toda contaminación peligrosa en la aeronave se elimina sin demora. Al descargar, si hay pérdidas se inspecciona la zona donde iba estibado para ver si hubo daño. Lo que preguntas es qué era y qué había al lado: un corrosivo mojando otra carga es otro problema. Es un incidente imputable a mercancías peligrosas, porque hubo una manifestación de que se vulneró la integridad de un embalaje, y se notifica.",
     puntos: ["Descargar y revisar el resto del envío", "Inspeccionar la zona de estiba", "Eliminar la contaminación", "Qué era y qué tenía al lado", "Incidente imputable: se notifica"],
@@ -366,6 +695,13 @@ export const ESCENARIOS: EscenarioMP[] = [
     situacion:
       "Un instituto de investigación quiere enviar por tu aerolínea animales vivos infectados para un estudio. Tu jefe de operaciones te pregunta qué papel necesitan.",
     preguntas: ["¿En qué nivel de permiso caen?", "¿Aprobación o dispensa?", "¿Quién la pide y quién la da?"],
+    conexiones: [
+      { izquierda: "Animales vivos infectados", derecha: "Prohibidos salvo dispensa de la autoridad" },
+      { izquierda: "La aprobación", derecha: "Solo existe si las Instrucciones la prevén para ese caso" },
+      { izquierda: "Quién otorga la dispensa", derecha: "La autoridad de aviación civil" },
+      { izquierda: "Quién la solicita", derecha: "El explotador" },
+      { izquierda: "Lo prohibido en todas las circunstancias", derecha: "Nunca se dispensa" },
+    ],
     modelo:
       "Los animales vivos infectados están nombrados expresamente entre las mercancías prohibidas salvo dispensa de la autoridad. No es un caso de aprobación: la aprobación solo existe cuando las Instrucciones Técnicas dicen que ese caso puede transportarse con aprobación; si no hay esa referencia, lo que procede es la dispensa. La dispensa la otorga la autoridad de aviación civil, la solicita el explotador y procede por extrema urgencia, cuando otro modo de transporte no es apropiado o cuando cumplirlo todo sería contrario al interés público, siempre con un nivel de seguridad equivalente y nunca para lo prohibido en todas las circunstancias.",
     puntos: ["Prohibido salvo dispensa", "Aprobación solo si las Instrucciones la prevén", "Dispensa: la da la autoridad (en Colombia, la Secretaría de Seguridad Aérea)", "La pide el explotador", "Nunca para lo prohibido en todos los casos"],

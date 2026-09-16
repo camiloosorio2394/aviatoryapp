@@ -11,45 +11,29 @@ import { ACENTO } from "@/components/mercancias/practica/comun"
 
 // ─── Piezas ──────────────────────────────────────────────────────────────────
 
-export function PuntosClave({ puntos, ticked, onToggle }: { puntos: string[]; ticked: number[]; onToggle: (i: number) => void }) {
-  const ratio = puntos.length > 0 ? ticked.length / puntos.length : 0
-  const color = ratio >= 0.8 ? "var(--av-green-400)" : ratio >= 0.5 ? "var(--av-amber-400)" : "var(--av-red-400)"
+/**
+ * Los puntos que un briefing sobre el caso debería tocar. Se leen, no se
+ * tildan: el escenario ya se resolvió conectando, así que aquí no queda nada
+ * que autoevaluar.
+ */
+export function PuntosModelo({ puntos }: { puntos: string[] }) {
   return (
     <div className="mt-5">
       <div className="flex items-center gap-1.5 text-[13px] font-semibold">
         <ListChecks className="h-4 w-4" style={{ color: ACENTO }} />
-        Puntos clave
+        Lo que tenía que salir
       </div>
-      <p className="mt-1 mb-2.5 text-[12px] text-muted-foreground leading-relaxed">Tilda los que sí mencionaste. El conteo es orientativo, para que veas qué se te escapó.</p>
+      <p className="mt-1 mb-2.5 text-[12px] text-muted-foreground leading-relaxed">
+        En una entrevista, estos son los puntos que esperan oírte decir sobre este caso.
+      </p>
       <ul className="m-0 p-0 list-none space-y-1.5">
-        {puntos.map((p, i) => {
-          const on = ticked.includes(i)
-          return (
-            <li key={i}>
-              <label
-                className="flex items-start gap-2.5 rounded-lg border p-2.5 cursor-pointer transition-colors"
-                style={{
-                  borderColor: on ? "color-mix(in oklab, var(--av-green-400) 38%, transparent)" : "var(--border)",
-                  background: on ? "color-mix(in oklab, var(--av-green-400) 9%, transparent)" : "transparent",
-                }}
-              >
-                <input type="checkbox" checked={on} onChange={() => onToggle(i)} className="mt-0.5 h-4 w-4 flex-shrink-0" style={{ accentColor: "var(--av-green-400)" }} />
-                <span className="text-[13px] leading-snug text-foreground/90">{p}</span>
-              </label>
-            </li>
-          )
-        })}
+        {puntos.map((p, i) => (
+          <li key={i} className="flex items-start gap-2.5 rounded-lg border border-border p-2.5">
+            <Check className="mt-[3px] h-3.5 w-3.5 flex-shrink-0" strokeWidth={3} style={{ color: "var(--av-green-400)" }} />
+            <span className="text-[13px] leading-snug text-foreground/90">{p}</span>
+          </li>
+        ))}
       </ul>
-      {ticked.length > 0 && (
-        <div
-          className="mt-3 rounded-lg p-3 text-[13px] leading-relaxed"
-          style={{ color: accentText(color), background: `color-mix(in oklab, ${color} 10%, transparent)`, border: `1px solid color-mix(in oklab, ${color} 28%, transparent)` }}
-        >
-          <span className="font-semibold tabular">
-            Mencionaste {ticked.length} de {puntos.length} puntos clave.
-          </span>
-        </div>
-      )}
     </div>
   )
 }

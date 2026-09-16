@@ -47,15 +47,21 @@ import { ModeButton } from "@/components/mercancias/practica/Piezas"
  *
  *   Etiquetas   → ejercicios visuales por rondas con los rombos de las etiquetas
  *   Clasifica   → un envío; el piloto elige clase y si lleva grupo de embalaje
- *   Escenarios  → situaciones que se resuelven con las palabras propias y
- *                 después se comparan con la respuesta modelo
+ *   Escenarios  → situaciones que se resuelven conectando cada elemento con lo
+ *                 que le corresponde, y después se comparan con el modelo
  *   Entrevista  → lo que podrían preguntarte, con respuesta modelo y qué evalúan
  *
  * El acento es el amarillo del módulo (--av-dg-*); el verde sigue marcando lo
  * resuelto, como en NOTAM.
  */
 
-const HERO = "/infografias/mercancias/portada.webp"
+/**
+ * La misma foto con la que abre el módulo. La práctica es la puerta de al lado
+ * del hub, no otro sitio: con la portada propia parecía una sección aparte, y
+ * además era 3:2 y en un banner ancho se recortaba por la mitad. Esta es
+ * 2432 × 860, la proporción del banner.
+ */
+const HERO = "/modulos/mercancias/hub-hero.webp"
 
 const AVISO =
   "Ejercicios construidos con fines formativos a partir del LAR 175, del Anexo 18 y de las Instrucciones Técnicas, con el RAC 175 de Colombia como ejemplo de adopción nacional. Los escenarios no son documentos reales ni sustituyen el manual de operaciones del explotador; las cifras de las Instrucciones y los artículos de tu reglamento nacional se verifican en la edición vigente."
@@ -152,9 +158,9 @@ export function MercanciasPractice() {
               Practica lo que te van a preguntar
             </h1>
             <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
-              Reconoce etiquetas, clasifica envíos, resuelve escenarios operacionales con tus
-              palabras y ensaya las preguntas de una entrevista técnica. Cada respuesta trae su
-              artículo de la norma.
+              Reconoce etiquetas, clasifica envíos, resuelve escenarios operacionales conectando
+              cada dato con lo que le corresponde y ensaya las preguntas de una entrevista
+              técnica. Cada respuesta trae su explicación.
             </p>
             <div className="np-hero-cifras">
               {MODOS.map((m, i) => (
