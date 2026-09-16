@@ -54,7 +54,7 @@ export const AERO_LECCIONES: DocScreen[] = [
           [
             "**Presión dinámica (q)**",
             "Presión asociada al movimiento: q = ½ ρ V²",
-            "Es lo que \"siente\" el ala y lo que mide el anemómetro (IAS)"
+            "Es lo que \"siente\" el ala; la IAS sigue esa presión a través del sistema pitot-estático, con sus errores de instrumento y posición"
           ],
           [
             "**Densidad (ρ)**",
@@ -64,7 +64,7 @@ export const AERO_LECCIONES: DocScreen[] = [
           [
             "**Temperatura**",
             "Estado térmico del aire",
-            "Afecta la densidad y **es lo único de lo que depende la velocidad del sonido**"
+            "Afecta la densidad y es la variable principal de la velocidad del sonido en el modelo de aire ideal usado en operación"
           ],
           [
             "**Viscosidad**",
@@ -89,11 +89,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-01 · FLUJO DE AIRE Y VIENTO RELATIVO",
-        "descripcion": "El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-01-viento-relativo.webp",
+        "alt": "Dos aviones comparan trayectoria, actitud y viento relativo en vuelo nivelado y en descenso",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz."
       },
       {
         "kind": "sub",
@@ -101,14 +102,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "Por viscosidad, el aire en contacto con la superficie queda con velocidad cero y la velocidad aumenta en una capa delgada hasta el valor del flujo libre. Esa capa es la **capa límite (Boundary Layer)**."
+        "text": "Por viscosidad, el aire justo en contacto con la superficie tiene velocidad relativa prácticamente nula. Desde allí, la velocidad aumenta dentro de una capa delgada hasta alcanzar la del flujo libre. Esa región es la **capa límite (Boundary Layer)**."
       },
       {
         "kind": "vinetas",
         "items": [
-          "**Flujo laminar:** capas ordenadas, poca fricción, pero con poca energía; se separa con facilidad.",
-          "**Flujo turbulento:** mezcla y remolinos, más fricción, pero más energía cerca de la superficie; resiste mejor la separación.",
-          "**Separación:** cuando la capa límite ya no puede seguir la superficie, se desprende. Aumenta mucho la resistencia y destruye sustentación. Con más ángulo de ataque, el punto de separación avanza hacia el borde de ataque."
+          "**Flujo laminar:** capas ordenadas y poca fricción, pero con menos intercambio de cantidad de movimiento con el flujo exterior; se separa con mayor facilidad ante un gradiente de presión adverso.",
+          "**Flujo turbulento:** mezcla y remolinos, más fricción, pero también más intercambio de cantidad de movimiento cerca de la superficie; resiste mejor la separación.",
+          "**Separación:** cuando la capa límite ya no puede seguir la superficie, se desprende. La resistencia aumenta y la sustentación disminuye. Con más ángulo de ataque, el punto de separación avanza hacia el borde de ataque."
         ]
       },
       {
@@ -169,11 +170,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-02 · LAS CUATRO FUERZAS DEL VUELO",
-        "descripcion": "Vuelo nivelado y ascenso estabilizado. En ascenso, una componente del peso actúa hacia atrás a lo largo de la trayectoria.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-02-cuatro-fuerzas.webp",
+        "alt": "Vectores de sustentación, peso, empuje y resistencia en vuelo nivelado y ascenso estabilizado",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Vuelo nivelado y ascenso estabilizado. En ascenso, una componente del peso actúa hacia atrás a lo largo de la trayectoria."
       },
       {
         "kind": "sub",
@@ -293,11 +295,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-03 · PERFIL AERODINÁMICO ETIQUETADO",
-        "descripcion": "Borde de ataque, borde de salida, cuerda, curvatura, espesor, viento relativo y ángulo de ataque.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-03-perfil-aerodinamico.webp",
+        "alt": "Perfil aerodinámico con cuerda, ángulo de ataque, presiones, viento relativo y sustentación",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Borde de ataque, borde de salida, cuerda, curvatura, espesor, viento relativo y ángulo de ataque."
       },
       {
         "kind": "sub",
@@ -376,7 +379,7 @@ export const AERO_LECCIONES: DocScreen[] = [
           [
             "**½ ρ V²**",
             "Presión dinámica (q)",
-            "Lo que mide el anemómetro: por eso la IAS es la referencia aerodinámica"
+            "La IAS se obtiene de la diferencia entre presión total y estática; a bajo Mach esa presión de impacto aproxima q, por eso la IAS es la referencia aerodinámica"
           ],
           [
             "**S**",
@@ -397,7 +400,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "pasos": [
           "La sustentación depende del **cuadrado** de la velocidad. Si la velocidad baja a la mitad, para sostener el mismo peso el CL tendría que ser cuatro veces mayor. Por eso, cuando la velocidad cae, el ángulo de ataque sube rápido hacia el crítico.",
           "Para un peso dado, a baja velocidad el ala vuela con alto ángulo de ataque; a alta velocidad, con bajo ángulo de ataque.",
-          "A igual IAS, la presión dinámica es la misma en cualquier altitud (a bajo Mach). Por eso las velocidades de pérdida, rotación y límites de flaps se publican en IAS/CAS."
+          "A igual IAS, la presión de impacto indicada es la misma; a bajo Mach aproxima la misma presión dinámica. Por eso las velocidades de pérdida, rotación y límites de flaps se publican en IAS/CAS."
         ]
       },
       {
@@ -512,11 +515,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-04 · CURVA DE SUSTENTACIÓN VS ÁNGULO DE ATAQUE",
-        "descripcion": "CL aumenta con el ángulo de ataque hasta CLmax; después del ángulo crítico el CL cae. Curvas comparadas: ala limpia, con flaps y con slats.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-04-curva-sustentacion.webp",
+        "alt": "Curvas de coeficiente de sustentación frente al ángulo de ataque para ala limpia, flaps y slats",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "CL aumenta con el ángulo de ataque hasta CLmax; después del ángulo crítico el CL cae. Curvas comparadas: ala limpia, con flaps y con slats."
       },
       {
         "kind": "callout",
@@ -718,11 +722,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         "tabular": true
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-05 · CURVA DE RESISTENCIA (DRAG CURVE)",
-        "descripcion": "Resistencia parásita (creciente), inducida (decreciente) y total (U). El mínimo de la total marca L/Dmax y la velocidad de mínima resistencia.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-05-curva-resistencia.webp",
+        "alt": "Curvas de resistencia inducida, parásita y total con el punto de máxima eficiencia",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Resistencia parásita (creciente), inducida (decreciente) y total (U). El mínimo de la total marca L/Dmax y la velocidad de mínima resistencia."
       },
       {
         "kind": "sub",
@@ -827,11 +832,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         "text": "*El valor de 130 kt es ilustrativo.*"
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-06 · BANK ANGLE / LOAD FACTOR",
-        "descripcion": "Vector de sustentación inclinado en viraje: componente vertical que equilibra el peso y componente horizontal que produce el viraje. Curva de factor de carga vs alabeo con 30°, 45° y 60° marcados.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-06-factor-carga.webp",
+        "alt": "Sustentación inclinada en un viraje y curva del factor de carga según el alabeo",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Vector de sustentación inclinado en viraje: componente vertical que equilibra el peso y componente horizontal que produce el viraje. Curva de factor de carga vs alabeo con 30°, 45° y 60° marcados."
       },
       {
         "kind": "sub",
@@ -941,11 +947,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         "text": "**Objetivo:** identificar cada superficie de un avión de transporte y su efecto aerodinámico."
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-07 · SUPERFICIES DE CONTROL DE UN AVIÓN DE TRANSPORTE",
-        "descripcion": "Vista en planta de un jet de transporte: alerones, elevador, timón de dirección, estabilizadores, flaps, slats, spoilers de vuelo y de tierra.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-07-superficies-control.webp",
+        "alt": "Vista superior de un avión con alerones, flaps, slats, spoilers, elevador y timón señalados por color",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Vista en planta de un jet de transporte: alerones, elevador, timón de dirección, estabilizadores, flaps, slats, spoilers de vuelo y de tierra."
       },
       {
         "kind": "sub",
@@ -1055,7 +1062,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**QUÉ ES:** paneles en el extradós que se levantan.",
-          "**QUÉ HACE:** destruyen sustentación y aumentan resistencia.",
+          "**QUÉ HACE:** reducen la sustentación del sector de ala donde se despliegan y aumentan la resistencia.",
           "**CUÁNDO SE UTILIZA:**",
           "**Spoilers de vuelo:** asimétricos para ayudar al alabeo (sin guiñada adversa); simétricos como frenos aerodinámicos.",
           "**Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado."
@@ -1166,16 +1173,17 @@ export const AERO_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**Centro de gravedad (CG):** punto donde se considera aplicado el peso total. En aviones de transporte se expresa en % de la cuerda aerodinámica media (% MAC).",
-          "**Centro de presión (CP):** punto donde se considera aplicada la resultante de la sustentación del ala. Se desplaza con el ángulo de ataque: en un perfil convencional avanza al aumentarlo y retrocede al reducirlo.",
-          "**Momento:** fuerza × brazo. En un avión convencional el CG está delante del CP: el ala genera un momento de nariz abajo que el estabilizador horizontal equilibra con una fuerza hacia abajo."
+          "**Centro de presión (CP):** punto donde se considera aplicada la resultante aerodinámica del ala. Su posición cambia con el ángulo de ataque y no debe confundirse con el centro aerodinámico ni con el punto neutro.",
+          "**Momento:** fuerza × brazo. La estabilidad longitudinal exige que el CG permanezca delante del punto neutro. En un avión convencional, el momento del ala y el fuselaje se equilibra normalmente con una fuerza hacia abajo del estabilizador horizontal."
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-08 · CG Y ESTABILIDAD LONGITUDINAL",
-        "descripcion": "Peso en el CG, sustentación en el CP detrás del CG, fuerza hacia abajo en la cola y los brazos de momento. Comparación CG adelantado vs atrasado.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-08-centro-gravedad.webp",
+        "alt": "Comparación de fuerzas y estabilidad con el centro de gravedad adelantado y atrasado",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Peso en el CG, resultante aerodinámica del ala, fuerza hacia abajo en la cola y brazos de momento. La comparación muestra cómo un CG adelantado exige más carga de cola y uno atrasado reduce el margen de estabilidad."
       },
       {
         "kind": "sub",
@@ -1344,8 +1352,16 @@ export const AERO_LECCIONES: DocScreen[] = [
         "pasos": [
           "**Aterrizaje:** con exceso de velocidad en el flare, el avión \"flota\" y consume pista.",
           "**Despegue:** el avión puede despegar por debajo de la velocidad recomendada y no sostenerse al salir del efecto suelo. Al salir, necesita más ángulo de ataque para el mismo CL y aumenta la resistencia inducida.",
-          "**Instrumentos:** en efecto suelo aumenta la presión local en la toma estática; el anemómetro y el altímetro pueden indicar menos."
+          "**Instrumentos:** cualquier error de indicación cerca del suelo depende de la ubicación de las tomas y del diseño del avión; se consulta el AFM, no se asume como un efecto universal."
         ]
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-09-fenomenos-operacionales.webp",
+        "alt": "Comparación entre el efecto suelo y la oscilación acoplada del Dutch Roll",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "El efecto suelo reduce el downwash y la resistencia inducida cerca de la pista. El Dutch Roll es otra cosa: una oscilación acoplada de alabeo y guiñada que el Yaw Damper amortigua."
       },
       {
         "kind": "sub",
@@ -1381,7 +1397,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "kind": "vinetas",
         "items": [
           "**Número de Mach (Mach Number):** relación entre la velocidad verdadera (TAS) y la velocidad del sonido en el aire que rodea al avión. Mach 0,80 = 80 % de la velocidad del sonido local.",
-          "Como la velocidad del sonido depende solo de la temperatura y la temperatura baja con la altitud, **a igual TAS el Mach aumenta al subir**."
+          "En el modelo atmosférico operativo, la velocidad del sonido depende principalmente de la temperatura. Como esta baja con la altitud hasta la tropopausa, **a igual TAS el Mach aumenta al subir**."
         ]
       },
       {
@@ -1442,11 +1458,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-09 · ONDA DE CHOQUE Y ALA EN FLECHA",
-        "descripcion": "(1) Perfil con zona supersónica sobre el extradós, onda de choque normal y separación detrás. (2) Ala en flecha: descomposición de la velocidad en componente perpendicular al borde de ataque y componente a lo largo de la envergadura.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-10-mach-ala-flecha.webp",
+        "alt": "Perfil transónico con onda de choque y descomposición de velocidad sobre un ala en flecha",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "(1) Perfil con zona supersónica sobre el extradós, onda de choque normal y separación detrás. (2) Ala en flecha: descomposición de la velocidad en componente perpendicular al borde de ataque y componente a lo largo de la envergadura."
       },
       {
         "kind": "sub",
@@ -1586,11 +1603,12 @@ export const AERO_LECCIONES: DocScreen[] = [
         "nombre": "aero-margen-velocidad"
       },
       {
-        "kind": "hueco",
-        "rotulo": "IMG-10 · COFFIN CORNER / HIGH ALTITUDE SPEED MARGIN",
-        "descripcion": "Envolvente altitud vs velocidad (Mach). La línea de low-speed buffet sube hacia la derecha y la de high-speed buffet/MMO se mantiene o baja; ambas convergen en el techo aerodinámico. Una tercera curva punteada muestra el efecto de 1,3 G: estrecha aún más el margen.",
-        "alto": 320,
-        "ratio": "16 / 9"
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-11-coffin-corner.webp",
+        "alt": "Envolvente de altitud y Mach donde convergen los límites de buffet de baja y alta velocidad",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Envolvente altitud vs velocidad (Mach). La línea de low-speed buffet sube hacia la derecha y la de high-speed buffet/MMO se mantiene o baja; ambas convergen en el techo aerodinámico. Una tercera curva punteada muestra el efecto de 1,3 G: estrecha aún más el margen."
       },
       {
         "kind": "sub",
@@ -1719,6 +1737,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "tabular": true
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-12-densidad-performance.webp",
+        "alt": "Cadena causal de alta elevación, temperatura y peso sobre velocidad y distancia de pista",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Alto y caliente reducen la densidad; pesado aumenta la sustentación requerida. Para la misma IAS, la TAS y la GS son mayores, aumenta la pista necesaria y disminuye el margen de ascenso."
+      },
+      {
         "kind": "table",
         "head": [
           "Efecto sobre",
@@ -1759,7 +1785,7 @@ export const AERO_LECCIONES: DocScreen[] = [
       },
       {
         "kind": "p",
-        "text": "**Configuración:** más flaps acortan la carrera de despegue y aterrizaje, pero reducen el gradiente de ascenso por la mayor resistencia. La selección de flaps en despegue es un compromiso entre pista y obstáculos."
+        "text": "**Configuración:** los flaps reducen la velocidad necesaria, pero también añaden resistencia. En despegue no se cumple que \"más flap siempre es mejor\": la posición óptima depende de pista, obstáculos, peso y condiciones, y se obtiene de los datos de performance del tipo."
       },
       {
         "kind": "sub",

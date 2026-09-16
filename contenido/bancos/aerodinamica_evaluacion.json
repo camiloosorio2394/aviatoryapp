@@ -12,7 +12,7 @@
         "La presión medida por la toma estática"
       ],
       "correcta": 0,
-      "explicacion": "Es la presión que resulta del movimiento; el anemómetro mide la diferencia entre presión total y estática, es decir, la presión dinámica.",
+      "explicacion": "Es la presión asociada al movimiento. El sistema pitot-estático mide presión de impacto; a bajo Mach coincide aproximadamente con la presión dinámica, mientras que a mayor Mach requiere corrección de compresibilidad.",
       "metadatos": {
         "tema": "S01",
         "seccion": 1
@@ -23,7 +23,7 @@
       "enunciado": "La separación de la capa límite en el extradós:",
       "opciones": [
         "Es producida por el tren de aterrizaje",
-        "Aumenta la resistencia y destruye sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque",
+        "Aumenta la resistencia y reduce la sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque",
         "Solo ocurre a velocidades supersónicas",
         "Reduce la resistencia y aumenta la sustentación"
       ],
@@ -92,7 +92,7 @@
         "La superficie alar"
       ],
       "correcta": 1,
-      "explicacion": "Es la presión dinámica (q), la misma magnitud que mide el anemómetro.",
+      "explicacion": "Es la presión dinámica (q). A bajo Mach, la presión de impacto obtenida por el sistema pitot-estático la aproxima; a mayor Mach se corrige la compresibilidad para obtener EAS.",
       "metadatos": {
         "tema": "S03",
         "seccion": 3
@@ -348,7 +348,7 @@
         "Genera sustentación hacia arriba igual a la del ala"
       ],
       "correcta": 2,
-      "explicacion": "Con el CG delante del centro de presión, la cola empuja hacia abajo para equilibrar el momento.",
+      "explicacion": "En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.",
       "metadatos": {
         "tema": "S07",
         "seccion": 7

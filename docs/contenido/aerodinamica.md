@@ -19,7 +19,7 @@
 | Práctica | Sección 13 · Aplicación (13 escenarios, `esc-01` a `esc-13`) · Sección 14 · Entrevista (49 preguntas, `ent-01` a `ent-49`) |
 | Quiz por sección | 3 a 5 preguntas al final de S01–S12 (45 en total) |
 | Quiz final | Banco de 40 preguntas (`ev-01` a `ev-40`), 20 al azar por intento, aprobación 80 % |
-| Imágenes | 10 espacios visuales (`IMG-01` a `IMG-10`), ver Anexo A |
+| Imágenes | 12 figuras didácticas (`IMG-01` a `IMG-12`), una por lección, ver Anexo A |
 | Tiempo estimado | 12 secciones × 10–15 min + práctica ≈ 4 a 5 h |
 | Tarjeta de progreso | **Aerodinámica** · Progreso: 0 % · 12 secciones |
 
@@ -68,9 +68,9 @@ El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del ord
 | Propiedad | Qué es | Por qué le importa al piloto |
 |---|---|---|
 | **Presión estática** | Presión que ejerce el aire en reposo sobre cualquier superficie | Base del altímetro; su distribución sobre el ala produce la sustentación |
-| **Presión dinámica (q)** | Presión asociada al movimiento: q = ½ ρ V² | Es lo que "siente" el ala y lo que mide el anemómetro (IAS) |
+| **Presión dinámica (q)** | Presión asociada al movimiento: q = ½ ρ V² | Es lo que "siente" el ala; la IAS sigue esa presión a través del sistema pitot-estático, con sus errores de instrumento y posición |
 | **Densidad (ρ)** | Masa de aire por unidad de volumen | Menos densidad → menos sustentación, empuje y potencia a una misma TAS |
-| **Temperatura** | Estado térmico del aire | Afecta la densidad y **es lo único de lo que depende la velocidad del sonido** |
+| **Temperatura** | Estado térmico del aire | Afecta la densidad y es la variable principal de la velocidad del sonido en el modelo de aire ideal usado en operación |
 | **Viscosidad** | Resistencia interna del aire a fluir | Origina la capa límite y la resistencia por fricción |
 
 **Dato de referencia (atmósfera estándar):** a nivel del mar, 15 °C, la velocidad del sonido es 661 kt; a unos –55 °C (≈ 40.000 ft) baja a 574 kt (FAA, PHAK).
@@ -85,10 +85,10 @@ El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del ord
 
 ### Capa límite
 **CONCEPTO**
-Por viscosidad, el aire en contacto con la superficie queda con velocidad cero y la velocidad aumenta en una capa delgada hasta el valor del flujo libre. Esa capa es la **capa límite (Boundary Layer)**.
-- **Flujo laminar:** capas ordenadas, poca fricción, pero con poca energía; se separa con facilidad.
-- **Flujo turbulento:** mezcla y remolinos, más fricción, pero más energía cerca de la superficie; resiste mejor la separación.
-- **Separación:** cuando la capa límite ya no puede seguir la superficie, se desprende. Aumenta mucho la resistencia y destruye sustentación. Con más ángulo de ataque, el punto de separación avanza hacia el borde de ataque.
+Por viscosidad, el aire justo en contacto con la superficie tiene velocidad relativa prácticamente nula. Desde allí, la velocidad aumenta dentro de una capa delgada hasta alcanzar la del flujo libre. Esa región es la **capa límite (Boundary Layer)**.
+- **Flujo laminar:** capas ordenadas y poca fricción, pero con menos intercambio de cantidad de movimiento con el flujo exterior; se separa con mayor facilidad ante un gradiente de presión adverso.
+- **Flujo turbulento:** mezcla y remolinos, más fricción, pero también más intercambio de cantidad de movimiento cerca de la superficie; resiste mejor la separación.
+- **Separación:** cuando la capa límite ya no puede seguir la superficie, se desprende. La resistencia aumenta y la sustentación disminuye. Con más ángulo de ataque, el punto de separación avanza hacia el borde de ataque.
 
 **APLICACIÓN OPERACIONAL**
 Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía con la capa límite para retrasar la separación. Hielo, escarcha o suciedad en el ala alteran la capa límite y adelantan la separación: el ala entra en pérdida a menor ángulo de ataque.
@@ -106,13 +106,13 @@ Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía co
 **Correcta:** A · **Tema:** S01
 **Explicación:** El viento relativo es paralelo y opuesto a la trayectoria de vuelo. La actitud y la cuerda no lo determinan; el viento meteorológico cambia la velocidad sobre el terreno, no el viento relativo.
 
-**s01-q2** · La velocidad del sonido en la atmósfera depende únicamente de:
+**s01-q2** · En el modelo de aire ideal usado en operación, ¿qué variable determina principalmente la velocidad del sonido?
 - A) La humedad
 - B) La temperatura
 - C) La presión
 - D) La densidad
 **Correcta:** B · **Tema:** S01
-**Explicación:** La velocidad del sonido depende solo de la temperatura del aire. Por eso disminuye al ascender hasta la tropopausa.
+**Explicación:** Para una composición del aire prácticamente constante, la velocidad del sonido depende principalmente de la temperatura. Por eso disminuye al ascender hasta la tropopausa; la humedad introduce una corrección pequeña que no cambia esta regla operacional.
 
 **s01-q3** · Frente a una capa límite laminar, la turbulenta:
 - A) No produce fricción porque el aire se mezcla
@@ -232,14 +232,14 @@ L = ½ ρ V² S CL
 | **L** | Sustentación | Resultado |
 | **ρ** (rho) | Densidad del aire | La atmósfera (altitud, temperatura, humedad) |
 | **V** | Velocidad verdadera respecto al aire (TAS) | El piloto, con empuje y actitud |
-| **½ ρ V²** | Presión dinámica (q) | Lo que mide el anemómetro: por eso la IAS es la referencia aerodinámica |
+| **½ ρ V²** | Presión dinámica (q) | La IAS se obtiene de la diferencia entre presión total y estática; a bajo Mach esa presión de impacto aproxima q, por eso la IAS es la referencia aerodinámica |
 | **S** | Superficie alar | Fija (los flaps tipo Fowler la aumentan) |
 | **CL** | Coeficiente de sustentación | El piloto, con el ángulo de ataque y la configuración (flaps, slats). También lo afectan el Mach, la contaminación y el número de Reynolds |
 
 **APLICACIÓN OPERACIONAL**
 - La sustentación depende del **cuadrado** de la velocidad. Si la velocidad baja a la mitad, para sostener el mismo peso el CL tendría que ser cuatro veces mayor. Por eso, cuando la velocidad cae, el ángulo de ataque sube rápido hacia el crítico.
 - Para un peso dado, a baja velocidad el ala vuela con alto ángulo de ataque; a alta velocidad, con bajo ángulo de ataque.
-- A igual IAS, la presión dinámica es la misma en cualquier altitud (a bajo Mach). Por eso las velocidades de pérdida, rotación y límites de flaps se publican en IAS/CAS.
+- A igual IAS, la presión de impacto indicada es la misma; a bajo Mach aproxima la misma presión dinámica. Por eso las velocidades de pérdida, rotación y límites de flaps se publican en IAS/CAS.
 
 > **DEBES RECORDAR**
 > Newton, Bernoulli y la distribución de presión describen el mismo fenómeno. En vuelo, el piloto modifica la sustentación con la velocidad y el ángulo de ataque.
@@ -642,7 +642,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 ### Otros
 **Spoilers**
 - **QUÉ ES:** paneles en el extradós que se levantan.
-- **QUÉ HACE:** destruyen sustentación y aumentan resistencia.
+- **QUÉ HACE:** reducen la sustentación del sector de ala donde se despliegan y aumentan la resistencia.
 - **CUÁNDO SE UTILIZA:**
   - **Spoilers de vuelo:** asimétricos para ayudar al alabeo (sin guiñada adversa); simétricos como frenos aerodinámicos.
   - **Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado.
@@ -709,11 +709,11 @@ Un avión puede tener estabilidad estática positiva y aun así oscilaciones que
 ### CG, centro de presión y momento
 **CONCEPTO**
 - **Centro de gravedad (CG):** punto donde se considera aplicado el peso total. En aviones de transporte se expresa en % de la cuerda aerodinámica media (% MAC).
-- **Centro de presión (CP):** punto donde se considera aplicada la resultante de la sustentación del ala. Se desplaza con el ángulo de ataque: en un perfil convencional avanza al aumentarlo y retrocede al reducirlo.
-- **Momento:** fuerza × brazo. En un avión convencional el CG está delante del CP: el ala genera un momento de nariz abajo que el estabilizador horizontal equilibra con una fuerza hacia abajo.
+- **Centro de presión (CP):** punto donde se considera aplicada la resultante aerodinámica del ala. Su posición cambia con el ángulo de ataque y no debe confundirse con el centro aerodinámico ni con el punto neutro.
+- **Momento:** fuerza × brazo. La estabilidad longitudinal exige que el CG permanezca delante del punto neutro. En un avión convencional, el momento del ala y el fuselaje se equilibra normalmente con una fuerza hacia abajo del estabilizador horizontal.
 
 [IMAGEN — CG Y ESTABILIDAD LONGITUDINAL] · `IMG-08`
-*Pie:* Peso en el CG, sustentación en el CP detrás del CG, fuerza hacia abajo en la cola y los brazos de momento. Comparación CG adelantado vs atrasado.
+*Pie:* Peso en el CG, resultante aerodinámica del ala, fuerza hacia abajo en la cola y brazos de momento. La comparación muestra cómo un CG adelantado exige más carga de cola y uno atrasado reduce el margen de estabilidad.
 
 ### Qué ocurre según la posición del CG
 | Aspecto | CG demasiado **adelantado** | CG demasiado **atrasado** |
@@ -797,7 +797,10 @@ Reducción de la resistencia inducida según el PHAK de la FAA:
 **APLICACIÓN OPERACIONAL**
 - **Aterrizaje:** con exceso de velocidad en el flare, el avión "flota" y consume pista.
 - **Despegue:** el avión puede despegar por debajo de la velocidad recomendada y no sostenerse al salir del efecto suelo. Al salir, necesita más ángulo de ataque para el mismo CL y aumenta la resistencia inducida.
-- **Instrumentos:** en efecto suelo aumenta la presión local en la toma estática; el anemómetro y el altímetro pueden indicar menos.
+- **Instrumentos:** cualquier error de indicación cerca del suelo depende de la ubicación de las tomas y del diseño del avión; se consulta el AFM, no se asume como un efecto universal.
+
+[IMAGEN — EFECTO SUELO Y DUTCH ROLL] · `IMG-09`
+*Pie:* El efecto suelo reduce el downwash y la resistencia inducida cerca de la pista. El Dutch Roll es otra cosa: una oscilación acoplada de alabeo y guiñada que el Yaw Damper amortigua.
 
 ### Dutch Roll y estabilidad espiral
 **CONCEPTO**
@@ -840,7 +843,7 @@ Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con ef
 ### Número de Mach
 **CONCEPTO**
 - **Número de Mach (Mach Number):** relación entre la velocidad verdadera (TAS) y la velocidad del sonido en el aire que rodea al avión. Mach 0,80 = 80 % de la velocidad del sonido local.
-- Como la velocidad del sonido depende solo de la temperatura y la temperatura baja con la altitud, **a igual TAS el Mach aumenta al subir**.
+- En el modelo atmosférico operativo, la velocidad del sonido depende principalmente de la temperatura. Como esta baja con la altitud hasta la tropopausa, **a igual TAS el Mach aumenta al subir**.
 
 | Régimen (referencia del PHAK) | Mach |
 |---|---|
@@ -867,7 +870,7 @@ Los aviones civiles de transporte cruzan normalmente entre Mach 0,70 y 0,90. En 
 - **Buffet:** vibración estructural causada por flujo separado que golpea el ala o la cola.
 - **Mach Buffet (High-Speed Buffet):** buffet causado por la separación detrás de la onda de choque cuando el avión vuela demasiado rápido, o con demasiado ángulo de ataque cerca de MMO.
 
-[IMAGEN — ONDA DE CHOQUE Y ALA EN FLECHA] · `IMG-09`
+[IMAGEN — ONDA DE CHOQUE Y ALA EN FLECHA] · `IMG-10`
 *Pie:* (1) Perfil con zona supersónica sobre el extradós, onda de choque normal y separación detrás. (2) Ala en flecha: descomposición de la velocidad en componente perpendicular al borde de ataque y componente a lo largo de la envergadura.
 
 ### Qué ocurre al acercarse a velocidades transónicas
@@ -978,7 +981,7 @@ MACH / HIGH-SPEED BUFFET
 ```
 *Implementación sugerida:* dos barras horizontales con los extremos marcados como LOW-SPEED BUFFET y MACH BUFFET; la barra de gran altitud es visiblemente más corta. Sin animación.
 
-[IMAGEN — COFFIN CORNER / HIGH ALTITUDE SPEED MARGIN] · `IMG-10`
+[IMAGEN — COFFIN CORNER / HIGH ALTITUDE SPEED MARGIN] · `IMG-11`
 *Pie:* Envolvente altitud vs velocidad (Mach). La línea de low-speed buffet sube hacia la derecha y la de high-speed buffet/MMO se mantiene o baja; ambas convergen en el techo aerodinámico. Una tercera curva punteada muestra el efecto de 1,3 G: estrecha aún más el margen.
 
 ### Por qué disminuye el margen a gran altitud
@@ -1079,6 +1082,9 @@ ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
    MÁS TAS Y MÁS GS PARA LA MISMA IAS  →  MÁS DISTANCIA
 ```
 
+[IMAGEN — HIGH, HOT Y HEAVY] · `IMG-12`
+*Pie:* Alto y caliente reducen la densidad; pesado aumenta la sustentación requerida. Para la misma IAS, la TAS y la GS son mayores, aumenta la pista necesaria y disminuye el margen de ascenso.
+
 | Efecto sobre | Alta altitud de densidad | Mayor peso |
 |---|---|---|
 | **Distancia de despegue** | Aumenta: la misma IAS de rotación es una TAS y GS mayores, y hay menos empuje | Aumenta. Según el PHAK, +10 % de peso produce ≈ +5 % en velocidad de despegue y al menos +21 % en distancia de despegue |
@@ -1089,7 +1095,7 @@ ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
 
 **Viento:** el viento de frente reduce la distancia sobre el terreno y el de cola la aumenta. Para certificación de transporte, los datos de despegue consideran no más del 50 % del viento de frente reportado y no menos del 150 % del viento de cola (14 CFR 25.105(d)).
 
-**Configuración:** más flaps acortan la carrera de despegue y aterrizaje, pero reducen el gradiente de ascenso por la mayor resistencia. La selección de flaps en despegue es un compromiso entre pista y obstáculos.
+**Configuración:** los flaps reducen la velocidad necesaria, pero también añaden resistencia. En despegue no se cumple que "más flap siempre es mejor": la posición óptima depende de pista, obstáculos, peso y condiciones, y se obtiene de los datos de performance del tipo.
 
 ### IAS, CAS, EAS, TAS y GS
 | Velocidad | Definición | Para qué importa |
@@ -1792,11 +1798,11 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 - C) La presión del aire en reposo
 - D) La presión medida por la toma estática
 **Correcta:** A · **Tema:** S01
-**Explicación:** Es la presión que resulta del movimiento; el anemómetro mide la diferencia entre presión total y estática, es decir, la presión dinámica.
+**Explicación:** Es la presión asociada al movimiento. El sistema pitot-estático mide presión de impacto; a bajo Mach coincide aproximadamente con la presión dinámica, mientras que a mayor Mach requiere corrección de compresibilidad.
 
 **ev-02** · La separación de la capa límite en el extradós:
 - A) Es producida por el tren de aterrizaje
-- B) Aumenta la resistencia y destruye sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque
+- B) Aumenta la resistencia y reduce la sustentación; avanza hacia el borde de ataque al aumentar el ángulo de ataque
 - C) Solo ocurre a velocidades supersónicas
 - D) Reduce la resistencia y aumenta la sustentación
 **Correcta:** B · **Tema:** S01
@@ -1832,7 +1838,7 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 - C) El coeficiente de sustentación
 - D) La superficie alar
 **Correcta:** B · **Tema:** S03
-**Explicación:** Es la presión dinámica (q), la misma magnitud que mide el anemómetro.
+**Explicación:** Es la presión dinámica (q). A bajo Mach, la presión de impacto obtenida por el sistema pitot-estático la aproxima; a mayor Mach se corrige la compresibilidad para obtener EAS.
 
 **ev-07** · El coeficiente de sustentación (CL) de un ala depende principalmente de:
 - A) Solo de la velocidad
@@ -1960,7 +1966,7 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 - C) Genera una fuerza hacia abajo que equilibra el momento de nariz abajo del ala y el CG
 - D) Genera sustentación hacia arriba igual a la del ala
 **Correcta:** C · **Tema:** S07
-**Explicación:** Con el CG delante del centro de presión, la cola empuja hacia abajo para equilibrar el momento.
+**Explicación:** En la configuración convencional descrita, la cola genera fuerza hacia abajo para equilibrar el momento del conjunto ala-fuselaje y mantener el equilibrio alrededor del CG.
 
 **ev-23** · Un avión estáticamente estable pero dinámicamente inestable, ante una perturbación:
 - A) Se aleja de inmediato del equilibrio
@@ -2107,9 +2113,9 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** El vapor de agua es más liviano que el aire seco: sube la altitud de densidad.
 
 ---
-# ANEXO A · ESPACIOS VISUALES (10)
+# ANEXO A · FIGURAS DIDÁCTICAS (12)
 
-Los espacios se muestran como figuras integradas: marco con borde fino, número de figura, título y pie. Mientras no exista la ilustración, se muestra un fondo neutro con el título y el pie; no debe parecer un error. Ilustraciones en línea técnica, fondo claro, un color de acento de AVIATORY, sin degradados ni sombras.
+Cada lección lleva una figura integrada de 1600 × 900, con título, señales visuales y un pie que explica qué debe mirar el alumno. Los diagramas usan fondo claro, jerarquía tipográfica y los colores semánticos del módulo; no son decoración ni espacios pendientes.
 
 | ID | Sección | Título | Qué debe mostrar |
 |---|---|---|---|
@@ -2121,10 +2127,10 @@ Los espacios se muestran como figuras integradas: marco con borde fino, número 
 | IMG-06 | S06 | Bank angle / load factor | Vector de sustentación inclinado con componentes; gráfica de n vs alabeo con 30°, 45° y 60° marcados (1,15 · 1,41 · 2,0) |
 | IMG-07 | S07 | Superficies de control de un avión de transporte | Planta de jet de ala en flecha: alerones interiores y exteriores, spoilers de vuelo y de tierra, flaps, slats, estabilizador horizontal compensable, elevador, estabilizador vertical, timón |
 | IMG-08 | S08 | CG y estabilidad longitudinal | Peso en CG, sustentación en CP, fuerza de cola hacia abajo, brazos de momento; comparación CG adelantado vs atrasado |
-| IMG-09 | S10 | Onda de choque y ala en flecha | (1) Perfil transónico: zona supersónica, onda de choque normal, separación. (2) Ala en flecha con descomposición de la velocidad (normal al borde de ataque y a lo largo de la envergadura) |
-| IMG-10 | S11 | Coffin Corner / margen de velocidad a gran altitud | Altitud vs Mach: línea de low-speed buffet (sube con la altitud), línea de MMO/high-speed buffet; convergencia en el techo aerodinámico; curva punteada a 1,3 G |
-
-Secciones sin imagen: S09 (tabla), S12 (tabla y esquema), S13 y S14 (práctica).
+| IMG-09 | S09 | Efecto suelo y Dutch Roll | Comparación visual: menor downwash y resistencia inducida cerca de la pista frente a la oscilación acoplada de alabeo y guiñada |
+| IMG-10 | S10 | Onda de choque y ala en flecha | (1) Perfil transónico: zona supersónica, onda de choque normal, separación. (2) Ala en flecha con descomposición de la velocidad (normal al borde de ataque y a lo largo de la envergadura) |
+| IMG-11 | S11 | Coffin Corner / margen de velocidad a gran altitud | Altitud vs Mach: línea de low-speed buffet, línea de MMO/high-speed buffet y curva punteada a 1,3 G; convergencia en el techo aerodinámico |
+| IMG-12 | S12 | High, hot y heavy | Cadena causal: menor densidad y mayor sustentación requerida; misma IAS con mayor TAS y GS, más pista y menos ascenso |
 
 ---
 
@@ -2187,7 +2193,7 @@ Revisión hecha desde cuatro perspectivas: instructor de vuelo, piloto de aerol�
 **Revisión de UX aplicada al contenido**
 - Extensión: 12 secciones de 10–15 minutos. Sin derivaciones matemáticas.
 - Tarjetas DEBES RECORDAR / PUNTO CLAVE: una o dos por sección.
-- Imágenes: 10 espacios, solo donde mejoran la comprensión.
+- Imágenes: una portada fotográfica y una figura didáctica distinta en cada una de las 12 lecciones.
 - Tablas diseñadas para apilarse en celular (dos o tres columnas; las de cuatro columnas deben permitir desplazamiento horizontal dentro de su propio contenedor).
 - Esquemas tipográficos (Coffin Corner, curva de resistencia, High-Hot-Heavy) pensados para renderizarse como bloques visuales simples, no como imágenes.
 

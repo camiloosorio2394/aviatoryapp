@@ -66,14 +66,16 @@ describe("Aerodinámica: las doce secciones", () => {
     expect(AERO_PRIORITARIAS).toEqual([4, 6, 10, 11])
   })
 
-  it("lleva los diez espacios de imagen, cada uno con su IMG-xx y su pie", () => {
-    const huecos = AERO_LECCIONES.flatMap((s) => s.blocks.filter((b) => b.kind === "hueco"))
-    expect(huecos).toHaveLength(10)
-    const ids = huecos.map((h) => (h.kind === "hueco" ? h.rotulo.split(" · ")[0] : ""))
-    expect(ids).toEqual(Array.from({ length: 10 }, (_, i) => `IMG-${String(i + 1).padStart(2, "0")}`))
-    for (const h of huecos) {
-      if (h.kind !== "hueco") continue
-      expect(h.descripcion.length, h.rotulo).toBeGreaterThan(10)
+  it("lleva una figura didáctica completa y distinta en cada lección", () => {
+    const figuras = AERO_LECCIONES.flatMap((s) => s.blocks.filter((b) => b.kind === "figura"))
+    expect(figuras).toHaveLength(12)
+    expect(new Set(figuras.map((f) => (f.kind === "figura" ? f.src : ""))).size).toBe(12)
+    for (const f of figuras) {
+      if (f.kind !== "figura") continue
+      expect(f.src).toMatch(/^\/modulos\/aerodinamica\/figuras\/img-\d\d-.+\.webp$/)
+      expect(f.alt.length, f.src).toBeGreaterThan(20)
+      expect(f.pie?.length ?? 0, f.src).toBeGreaterThan(20)
+      expect([f.ancho, f.alto]).toEqual([1600, 900])
     }
   })
 })

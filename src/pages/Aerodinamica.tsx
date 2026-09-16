@@ -85,7 +85,7 @@ export function Aerodinamica() {
       blurb:
         "De las cuatro fuerzas al Coffin Corner: sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
       cta: "Iniciar formación",
-      photoHueco: "AE-POR-01 · Portada 5:2 · 1200×480 · Ala en flecha vista desde la cabina de pasajeros",
+      photo: "/modulos/aerodinamica/hub-aprende.webp",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -106,7 +106,7 @@ export function Aerodinamica() {
       blurb:
         "Analizas situaciones reales de vuelo y ensayas las preguntas que hace un entrevistador técnico, por nivel.",
       cta: "Iniciar práctica",
-      photoHueco: "AE-POR-02 · Portada 5:2 · 1200×480 · Cabina en crucero, con el Mach a la vista",
+      photo: "/modulos/aerodinamica/hub-practica.webp",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -125,7 +125,7 @@ export function Aerodinamica() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación de cada una y qué secciones te toca repasar.",
       cta: "Iniciar evaluación",
-      photoHueco: "AE-POR-03 · Portada 5:2 · 1200×480 · Anemómetro con la banda de maniobra",
+      photo: "/modulos/aerodinamica/hub-evaluacion.webp",
       status:
         resumen.best === null
           ? "Sin intentos"
