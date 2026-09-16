@@ -3,6 +3,15 @@
 Aviatory · preparación para entrevista de aerolínea.
 Generado el 2026-09-16.
 
+> **Corregido después.** La auditoría del 16-sep-2026 encontró cifras de este
+> brief que no coinciden con el Anexo 14 vigente (entre otras: la franja de
+> precisión es de 140 m, no 150; el letrero de distancia restante lleva una sola
+> cifra sin unidades; la señal de instrucción obligatoria va centrada con menos
+> de 9 m de anchura entre ruedas; los 15 nudos de la manga no son de la OACI; las
+> luces indicadoras de salida rápida no tienen juego a 60 m). El brief se deja
+> como estaba; la lista completa está en `docs/AEROPUERTOS_ESTADO.md`, sección
+> «Auditoría de contenido», y manda sobre lo que aquí se diga.
+
 **Qué es esto.** El módulo completo antes de escribirlo en la app: el texto de
 cada lección y, sobre todo, el hueco de cada imagen con la descripción cerrada de
 lo que tiene que mostrar. Ninguna imagen está creada: aquí están los espacios.

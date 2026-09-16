@@ -55,9 +55,9 @@ export const NIVEL_2: DocScreen[] = [
               id: "AP-05-03",
               medida: "Fotografía real · 3:2 · 1200×800",
               descripcion:
-                "Designadora vista desde unos 60 m, casi en el eje de aproximación, para que los dígitos se lean derechos. Dos cifras blancas de 9 m de alto, la décima de grado del norte magnético visto desde la aproximación, con la letra de paralela al lado. Dice «13L». Ojo: nunca una sola cifra sin cero delante, ni dígitos amarillos.",
+                "Designadora vista desde unos 60 m, casi en el eje de aproximación, para que los dígitos se lean derechos. Dos cifras blancas de 9 m de alto, la décima parte del rumbo magnético del eje, redondeada, vista desde la aproximación, con la letra de paralela al lado. Dice «13L». Ojo: nunca una sola cifra sin cero delante, ni dígitos amarillos.",
             },
-            puntos: ["Rumbo magnético sin la última cifra, desde la aproximación."],
+            puntos: ["La décima parte del rumbo magnético, redondeada, desde la aproximación."],
           },
           {
             titulo: "Señal de eje",
@@ -281,7 +281,7 @@ export const NIVEL_2: DocScreen[] = [
             x: 0,
             y: 0,
             que: "Galones amarillos",
-            significa: "Pavimento inútil.",
+            significa: "No apto para uso normal.",
             piloto: "Ni aterrizas ni ruedas.",
           },
           {
@@ -375,7 +375,7 @@ export const NIVEL_2: DocScreen[] = [
               id: "AP-07-04",
               medida: "Ilustración técnica · 3:2 · 1200×800",
               descripcion:
-                "Cenital pura, partida en dos. A la izquierda, la instrucción obligatoria «13L-31R» blanca sobre rojo, repartida a los dos lados del eje porque la anchura entre ruedas del tren principal es menor de 9 m; a la derecha, «NO ENTRY». Fondo sobresaliendo 0,50 m del texto, carácter de 4 m y 1 m hasta el punto de espera insinuado al borde. Ojo: nunca a la izquierda del eje, que eso es FAA, y las continuas van del lado de espera y nunca miran a la pista.",
+                "Cenital pura, partida en dos. A la izquierda, la instrucción obligatoria «13L-31R» blanca sobre rojo, centrada sobre el eje, en un solo bloque, porque la anchura exterior entre ruedas del tren principal es menor de 9 m; a la derecha, «NO ENTRY». Fondo sobresaliendo 0,50 m del texto, carácter de 4 m y 1 m hasta el punto de espera insinuado al borde. Ojo: nunca a la izquierda del eje, que eso es FAA, y las continuas van del lado de espera y nunca miran a la pista.",
             },
             puntos: ["Blanco sobre rojo: no pasas sin autorización."],
           },
@@ -435,7 +435,7 @@ export const NIVEL_2: DocScreen[] = [
             y: 0,
             que: "Eje mejorado",
             significa: "Trazos a los lados.",
-            piloto: "Quedan 47 m.",
+            piloto: "El punto de espera, a 47 m o menos.",
           },
           {
             x: 0,
@@ -486,7 +486,7 @@ export const NIVEL_2: DocScreen[] = [
   {
     n: 8,
     title: "Plataforma y puesto",
-    kicker: "Las líneas que te llevan hasta el parqueo",
+    kicker: "Las líneas que te llevan hasta el puesto",
     minutes: 7,
     blocks: [
       {

@@ -69,7 +69,7 @@ export const NIVEL_3: DocScreen[] = [
               descripcion:
                 "La misma foto de la apertura: la A2 cruzando la calle con sus cuatro líneas de 0,30 m, el letrero rojo «25-07» a cada lado y el emplazamiento «E» por fuera. Detrás, la B2 y el letrero «25 CAT II/III». Ojo: las continuas de la A2 van del lado de espera, nunca mirando a la pista.",
             },
-            puntos: ["Calle más número, `B2`. Protege el área crítica."],
+            puntos: ["Calle más número, `E2`. Protege el área crítica."],
           },
           {
             titulo: "Los CAT",
@@ -77,9 +77,9 @@ export const NIVEL_3: DocScreen[] = [
               id: "AP-09-03",
               medida: "Ilustración técnica · 3:2 · 1200×800",
               descripcion:
-                "Lámina plana con los nueve letreros obligatorios en tres filas de tres, blanco sobre rojo con contorno negro de 20 mm: «25-07», «B2», los cinco de categoría hasta «25 CAT I/II/III», el disco rojo con barra blanca sin texto y el de vía de vehículos, «PARE · NO CONTINUAR SIN AUTORIZACIÓN ATC · E1». Debajo de cada uno, su nombre en español. Ojo: no existe «25-07 CAT II», el de categoría lleva una sola cabecera.",
+                "Lámina plana con los nueve letreros obligatorios en tres filas de tres, blanco sobre rojo con contorno negro de 20 mm: «25-07», «E2», los cinco de categoría hasta «25 CAT I/II/III», el disco rojo con barra blanca sin texto y el de vía de vehículos, «PARE · NO CONTINUAR SIN AUTORIZACIÓN ATC · E1». Debajo de cada uno, su nombre en español. Ojo: no existe «25-07 CAT II», el de categoría lleva una sola cabecera.",
             },
-            puntos: ["Pista más categoría, `25 CAT II/III`. Cuantas más, más atrás paras."],
+            puntos: ["Pista más categoría, `25 CAT II/III`: dice qué operación protege ese punto."],
           },
           {
             titulo: "Prohibida la entrada",
@@ -112,7 +112,7 @@ export const NIVEL_3: DocScreen[] = [
             piloto: "Esa pista tienes enfrente.",
           },
           { x: 0, y: 0, que: "Escalera amarilla atrás", significa: "Patrón B2.", piloto: "Punto de baja visibilidad." },
-          { x: 0, y: 0, que: "Trazos dobles en el eje", significa: "Eje mejorado.", piloto: "Pista a 47 metros." },
+          { x: 0, y: 0, que: "Trazos dobles en el eje", significa: "Eje mejorado.", piloto: "Punto de espera a 47 m o menos." },
         ],
       },
       // La comparación de dos imágenes 4:3 y un renglón: dos fichas iguales en
@@ -167,7 +167,7 @@ export const NIVEL_3: DocScreen[] = [
   {
     n: 10,
     title: "Los que informan",
-    kicker: "Amarillo, negro y ahora naranja. Tres familias de color en el área de movimiento.",
+    kicker: "Amarillo, negro y ahora naranja: los letreros que te orientan en el área de movimiento.",
     minutes: 8,
     blocks: [
       {
@@ -220,7 +220,7 @@ export const NIVEL_3: DocScreen[] = [
               id: "AP-10-05",
               medida: "Ilustración técnica · 3:2 · 1200×800",
               descripcion:
-                "Arriba, una pista con sus letreros blanco sobre negro a los dos lados, acotados cada 300 m con tolerancia de ±30 m. Abajo, cuatro viñetas negro sobre amarillo: despegue desde intersección «2 150 m →», verificación de VOR «VOR 116.3 · 147° 4.3NM», identificación del aeródromo «AEROPUERTO DEL NORTE» con caracteres de 3 m y puesto «K14». Ojo: ni pies ni miles de pies, ni unidades escritas en el letrero de distancia restante.",
+                "Arriba, una pista con sus letreros blanco sobre negro a los dos lados, acotados cada 300 m con tolerancia de ±30 m. Abajo, cuatro viñetas negro sobre amarillo: despegue desde intersección «2 150 m →», verificación de VOR «VOR 116.3 · 147° 4.3NM», identificación del aeródromo «AEROPUERTO DEL NORTE» con caracteres de 3 m y puesto «K14». Ojo: el de despegue desde intersección va en metros, nunca en pies, y el de distancia restante lleva una sola cifra, sin unidades.",
             },
             puntos: ["Blanco sobre negro, cada 300 metros. Y cuatro que casi no verás."],
           },
@@ -268,7 +268,7 @@ export const NIVEL_3: DocScreen[] = [
               id: "AP-10-07",
               medida: "Fotografía real · 4:3 · 1200×900",
               descripcion:
-                "A ras de pavimento, desde unos 15 m, día nublado de luz plana. Un letrero solo, aislado, cara negra con la inscripción amarilla «M2» y el borde amarillo corrido de 0,5 veces el ancho de trazo, porque va solo. Carácter de 300 mm, cara de 600 mm, altura instalada máxima de 900 mm, soporte frangible bajo. Rótulo «Emplazamiento» arriba a la izquierda. Ojo: sin flechas y sin fondo amarillo.",
+                "A ras de pavimento, desde unos 15 m, día nublado de luz plana. Un letrero solo, aislado, cara negra con la inscripción amarilla «M2» y el borde amarillo corrido de 0,5 veces el ancho de trazo, porque va solo. Carácter de 300 mm, cara de 450 mm, altura instalada máxima de 900 mm, soporte frangible bajo. Rótulo «Emplazamiento» arriba a la izquierda. Ojo: sin flechas y sin fondo amarillo.",
             },
           },
           {
@@ -389,7 +389,7 @@ export const NIVEL_3: DocScreen[] = [
         puntos: [
           { x: 0, y: 0, que: "Cono de tela", significa: "El viento real.", piloto: "Sale por la boca chica." },
           { x: 0, y: 0, que: "Cinco bandas", significa: "Dos colores.", piloto: "Primera y última, oscuras." },
-          { x: 0, y: 0, que: "Cono horizontal", significa: "Intensidad.", piloto: "15 nudos lo extienden." },
+          { x: 0, y: 0, que: "Cono horizontal", significa: "Intensidad.", piloto: "Cuanto más horizontal, más viento." },
           { x: 0, y: 0, que: "Círculo blanco en el suelo", significa: "Emplazamiento.", piloto: "15 metros." },
         ],
       },
@@ -504,7 +504,7 @@ export const NIVEL_3: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**3. Punto de espera intermedio.** Línea de trazos y letrero `M2`. Paras ahí.",
+        text: "**3. Punto de espera intermedio.** Línea de trazos y letrero `M2`. Paras ahí si te lo indican.",
       },
       {
         kind: "hueco",
@@ -522,19 +522,19 @@ export const NIVEL_3: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-12-07 · Fotografía real · 3:2 · 1200×800",
         descripcion:
-          "Foto 5 de 6, misma cámara y misma luz, acercándose despacio al punto de espera. El eje mejorado arranca en el primer tercio, con doble línea de trazos a cada lado del eje continuo, y llega hasta 47 m desde la A2. Cruzando al fondo, la A2 de cuatro líneas de 0,30 m con las continuas del lado de espera, sus letreros rojos «25-07» y el emplazamiento «E» por fuera; detrás, la B2 con «25 CAT II/III». Ojo: nunca la A2 invertida.",
+          "Foto 5 de 6, misma cámara y misma luz, acercándose despacio al punto de espera. El eje mejorado arranca en el primer tercio, con doble línea de trazos a cada lado del eje continuo, y llega hasta 47 m desde la A2. Cruzando al fondo, la A2 de cuatro líneas de 0,30 m con las continuas del lado de espera, sus letreros rojos «25-07» y el emplazamiento «E» por fuera; antes de ella, más cerca de la cámara, la B2 con «25 CAT II/III». Ojo: nunca la A2 invertida.",
         alto: 300,
         ratio: "3 / 2",
       },
       {
         kind: "p",
-        text: "**5. Acercándote a la pista.** El eje mejorado arranca a 47 metros. Frenas antes.",
+        text: "**5. Acercándote a la pista.** El eje mejorado arranca a 47 m o menos. Frenas antes.",
       },
       {
         kind: "hueco",
         rotulo: "AP-12-08 · Fotografía real · 3:2 · 1200×800",
         descripcion:
-          "Foto 6 de 6, misma cámara y misma luz, girando para alinearse y entrando a la pista por una intersección. A la izquierda, el letrero de despegue desde intersección, negro sobre amarillo, con «2 150 m →», a 60 m o más del eje de pista. Al fondo, la señal de eje de pista y un letrero blanco sobre negro de distancia restante. Ojo: ni pies ni miles de pies en ninguna cifra.",
+          "Foto 6 de 6, misma cámara y misma luz, girando para alinearse y entrando a la pista por una intersección. A la izquierda, el letrero de despegue desde intersección, negro sobre amarillo, con «2 150 m →», a 60 m o más del eje de pista. Al fondo, la señal de eje de pista y un letrero blanco sobre negro de distancia restante. Ojo: la cifra del letrero de intersección va en metros, nunca en pies.",
         alto: 300,
         ratio: "3 / 2",
       },
@@ -573,7 +573,7 @@ export const NIVEL_3: DocScreen[] = [
           id: "AP-12-07",
           medida: "Fotografía real · 3:2 · 1200×800",
           descripcion:
-            "La foto 5 de la secuencia: el eje mejorado arrancando a 47 m, la A2 cruzando al fondo con las continuas del lado de espera y los letreros rojos «25-07», y detrás la B2 en escalera con «25 CAT II/III». Ojo: nunca la A2 invertida.",
+            "La foto 5 de la secuencia: el eje mejorado arrancando a 47 m, la A2 cruzando al fondo con las continuas del lado de espera y los letreros rojos «25-07», y antes de ella, más cerca de la cámara, la B2 en escalera con «25 CAT II/III». Ojo: nunca la A2 invertida.",
         },
       },
     ],

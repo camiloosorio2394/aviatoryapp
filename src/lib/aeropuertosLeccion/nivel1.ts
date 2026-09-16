@@ -32,7 +32,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-01-02 · Ilustración técnica · 16:9 · 1600×900",
         descripcion:
-          "Planta cenital con todo lo que nombra la lección, acotado y rotulado: franja (60 m antes del umbral, 150 m a cada lado del eje), RESA (90 m mínimo, 240 m recomendado), zona libre de obstáculos (75 m a cada lado, 1,25 %), zona de parada con galones, calle de salida rápida (30°, radio 550 m) y puntos de espera en patrón A2. Ojo: las dos continuas del A2 van del lado de espera, nunca mirando a la pista, y no se calca ninguna figura de la OACI.",
+          "Planta cenital con todo lo que nombra la lección, acotado y rotulado: franja (60 m antes del umbral y, en pista de precisión, 140 m a cada lado del eje), RESA (90 m mínimo, 240 m recomendado), zona libre de obstáculos (75 m a cada lado, 1,25 %), zona de parada con galones, calle de salida rápida (30°, radio 550 m) y puntos de espera en patrón A2. Ojo: las dos continuas del A2 van del lado de espera, nunca mirando a la pista, y no se calca ninguna figura de la OACI.",
         alto: 340,
       },
       {
@@ -140,8 +140,8 @@ export const NIVEL_1: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Pasado el extremo de la pista",
         situacion: "Pasado el extremo ves 200 m de pavimento con galones amarillos.",
-        pregunta: "¿Cuentas con ellos para frenar?",
-        respuesta: "No. Es zona de parada: suma a la ASDA, no a la LDA.",
+        pregunta: "¿Cuentas con ellos para frenar al aterrizar?",
+        respuesta: "No. Si es zona de parada, suma a la ASDA, y a la LDA nunca.",
         claves: [
           "Tiene la misma anchura que la pista y aguanta el avión en un despegue abortado.",
           "Los galones dicen que ese pavimento no se usa para rodar ni para aterrizar.",
@@ -406,7 +406,7 @@ export const NIVEL_1: DocScreen[] = [
           id: "AP-03-07",
           medida: "Fotografía · 16:9 · 1600×900",
           descripcion:
-            "Desde el eje de la pista, a la altura de los ojos en cabina: un letrero blanco sobre negro completo y legible, otros dos iguales alejándose, la señal blanca de borde con el letrero claramente por fuera, las luces de borde y el eje discontinuo. Van cada 300 m, bajos y frangibles. Ojo: la cifra no se retoca y tiene que estar en metros; un letrero de Estados Unidos, en miles de pies, no sirve.",
+            "Desde el eje de la pista, a la altura de los ojos en cabina: un letrero blanco sobre negro completo y legible, otros dos iguales alejándose, la señal blanca de borde con el letrero claramente por fuera, las luces de borde y el eje discontinuo. Van cada 300 m, bajos y frangibles, y cada uno lleva una sola cifra: cuántos tramos de unos 300 m de pista quedan. Ojo: la cifra no se retoca y va sin unidades escritas.",
         },
         puntos: [
           {
@@ -427,7 +427,7 @@ export const NIVEL_1: DocScreen[] = [
             x: 0,
             y: 0,
             que: "Ubicación",
-            significa: "Por fuera del borde, a los dos lados.",
+            significa: "Por fuera del borde, a uno o a los dos lados.",
             piloto: "Nunca invade el pavimento.",
           },
           {
@@ -592,7 +592,7 @@ export const NIVEL_1: DocScreen[] = [
         respuesta: "El letrero y el aviso que lo respalda. La clave planifica; la restricción manda hoy.",
         claves: [
           "La letra F cubre de 65 m a menos de 80 m: dice cómo se diseñó el aeródromo, no qué está abierto hoy.",
-          "Negro sobre naranja es zona fuera de servicio, y es el tercer color del área de movimiento.",
+          "Negro sobre naranja es zona fuera de servicio: el color que trajo la Enmienda 18.",
           "El letrero complementa lo publicado y no puede contradecirlo: si difieren, se pregunta.",
         ],
         hueco: {

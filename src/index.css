@@ -1010,6 +1010,28 @@
 }
 .lector-notam .ln-paso { animation: ln-paso-entra 180ms ease-out; }
 
+/* La imagen se sale de la columna de lectura, el texto no.
+ *
+ * El texto vive en 800 px porque ahí la línea ya ronda los noventa caracteres.
+ * Una portada o una lámina no tienen esa restricción, y en un monitor ancho
+ * quedarse en 720 px las convierte en miniaturas.
+ *
+ * Se mide con `@container` y no con `@media` a propósito: lo que decide es el
+ * ancho del área de contenido, y el índice lateral se come 296 px que una
+ * consulta de ventana no vería. Por eso el mismo portátil con el índice abierto
+ * y cerrado se comporta distinto, que es justo lo que se quiere.
+ *
+ * El `100%` del cálculo es el ancho de la columna (720 px con su relleno), y
+ * `100cqi` el del área de contenido. El tope de 1200 px existe para que en una
+ * pantalla muy ancha la portada no crezca sin fin y se despegue del texto. */
+.lector-notam .ln-flujo { container: lnflujo / inline-size; }
+
+@container lnflujo (min-width: 960px) {
+  .lector-notam .ln-medio {
+    margin-inline: calc((100% - min(1200px, 100cqi - 112px)) / 2);
+  }
+}
+
 /* Aparición suave. La comparte la portada de psicotécnicas: el mismo
    vocabulario en las dos pantallas es lo que las hace la misma aplicación.
  Lo que entra a mitad de scroll sube diez píxeles en vez

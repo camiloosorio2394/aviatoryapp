@@ -209,7 +209,7 @@ export const NIVEL_5: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-19-02 · Fotografía real · 16:9 · 1600×900",
         descripcion:
-          "Desde el pavimento, al amanecer con niebla, a unos 40 m de un punto de espera de categoría: la pista se pierde y solo se ve lo cercano. La escalera del patrón B2 completa, dos continuas de 0,30 m separadas 1,5 m con travesaños de 0,9 m cada 3,0 m, el letrero rojo y, detrás, la barra de parada encendida. Ojo: el patrón B no lleva líneas de trazos, y el B1 no se dibuja.",
+          "Desde el pavimento, al amanecer con niebla, a unos 40 m de un punto de espera de categoría: la pista se pierde y solo se ve lo cercano. La escalera del patrón B2 completa, dos continuas de 0,30 m separadas 1,5 m con travesaños de 0,9 m cada 3,0 m, el letrero rojo y la barra de parada encendida en el punto de espera. Ojo: el patrón B no lleva líneas de trazos, y el B1 no se dibuja.",
         alto: 320,
       },
       {
@@ -222,7 +222,7 @@ export const NIVEL_5: DocScreen[] = [
               id: "AP-19-03",
               medida: "Fotografía real · 3:2 · 1200×800",
               descripcion:
-                "De noche, desde el pavimento, a unos 15 m y sin niebla, para que las luces se cuenten. La fila completa de luces rojas empotradas de borde a borde, separadas 3 m como máximo, un par de rojas elevadas en los extremos y el eje verde apagado más allá. Delante, el punto de espera patrón A2. Ojo: la barra queda del lado de la pista y las dos continuas, del lado de espera.",
+                "De noche, desde el pavimento, a unos 15 m y sin niebla, para que las luces se cuenten. La fila completa de luces rojas empotradas de borde a borde, separadas 3 m como máximo, un par de rojas elevadas en los extremos y el eje verde apagado más allá. Delante, el punto de espera patrón A2. Ojo: las dos continuas del A2 van del lado de espera.",
             },
             puntos: [
               "Luces rojas cruzando la calle.",
@@ -625,7 +625,7 @@ export const NIVEL_5: DocScreen[] = [
         momento: "Planificando el vuelo",
         situacion: "Vas a un aeropuerto cuyo PCR es menor que tu ACR de hoy.",
         pregunta: "¿Puedes ir igual?",
-        respuesta: "Solo si el explotador lo acepta.",
+        respuesta: "Solo si el aeródromo lo autoriza.",
         claves: [
           "Hasta un 10 % por encima es excepcional, nunca rutina.",
           "Más, hace falta análisis.",
@@ -667,7 +667,7 @@ export const NIVEL_5: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-22-03 · Ilustración técnica · 16:9 · 1600×900",
         descripcion:
-          "Planta esquemática a todo el ancho: la pista abajo y la salida rápida arriba a la derecha, con su punto de tangencia marcado. Tres juegos de luces amarillas sobre la pista, del mismo lado que la salida, acotados «60 m» al punto de tangencia y «100 m» entre juegos. El eje de la salida, con sus luces verdes y su tramo de verde y amarillo. Ojo: ninguna luz amarilla después del perímetro del área crítica o sensible.",
+          "Planta esquemática a todo el ancho: la pista abajo y la salida rápida arriba a la derecha, con su punto de tangencia marcado. Tres juegos de luces amarillas sobre la pista, del mismo lado que la salida, de tres, dos y una luz, acotados «100 m» entre juegos y «100 m» del de una luz al punto de tangencia. El eje de la salida, con sus luces verdes y su tramo de verde y amarillo. Ojo: ninguna luz amarilla después del perímetro del área crítica o sensible.",
         alto: 340,
       },
       {
@@ -709,7 +709,7 @@ export const NIVEL_5: DocScreen[] = [
               id: "AP-22-06",
               medida: "Fotografía real · 3:2 · 1200×800",
               descripcion:
-                "Desde la posición del piloto, al anochecer: el señalero de frente al avión y a la izquierda del eje, en plano entero, con chaleco reflectivo, protección auditiva y los dos bastones iluminados. Los brazos hacen la parada normal, extendidos a 90° y subiendo despacio hasta cruzar los bastones sobre la cabeza. Ojo: nadie cerca del avión con las anticolisión encendidas y los motores en marcha.",
+                "Desde la posición del piloto, al anochecer: el señalero de frente al avión y a la izquierda del eje, en plano entero, con chaleco reflectante, protección auditiva y los dos bastones iluminados. Los brazos hacen la parada normal, extendidos a 90° y subiendo despacio hasta cruzar los bastones sobre la cabeza. Ojo: nadie cerca del avión con las anticolisión encendidas y los motores en marcha.",
             },
             puntos: ["Manda en el puesto.", "La parada normal es lenta; la de emergencia, brusca."],
           },

@@ -55,7 +55,7 @@ const DER = W - IZQ
 /** Cabecera común de las cuatro: mismo lienzo, mismo papel, misma tipografía. */
 function Lienzo({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
-    <InfografiaCanvas width={W} height={H} label={etiqueta}>
+    <InfografiaCanvas width={W} height={H} label={etiqueta} vectorial>
       <svg
         width={W}
         height={H}

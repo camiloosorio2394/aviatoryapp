@@ -30,13 +30,24 @@ interface Props {
   height: number
   /** Título accesible: lo que un lector de pantalla anuncia al llegar. */
   label: string
+  /**
+   * El lienzo es trazo puro y puede agrandarse sin perder nitidez.
+   *
+   * Por defecto el ajuste se topa en el 100 %: una lámina con fotos o iconos
+   * de mapa de bits (la de "¿Qué es un NOTAM?") se vuelve borrosa en cuanto
+   * pasa de su tamaño de diseño, así que ahí el tope es correcto. Las 24
+   * láminas de Meteorología están dibujadas en SVG y no tienen ese problema:
+   * plantarlas al 100 % en un monitor ancho solo consigue dejar el resto del
+   * marco en blanco.
+   */
+  vectorial?: boolean
   children: React.ReactNode
 }
 
 const ZOOM_MIN = 0.25
 const ZOOM_MAX = 2
 
-export function InfografiaCanvas({ width, height, label, children }: Props) {
+export function InfografiaCanvas({ width, height, label, vectorial, children }: Props) {
   const marco = useRef<HTMLDivElement>(null)
   /** Escala que hace que el lienzo entre justo en el ancho disponible. */
   const [ajuste, setAjuste] = useState(1)
@@ -48,8 +59,8 @@ export function InfografiaCanvas({ width, height, label, children }: Props) {
     const el = marco.current
     if (!el) return
     const disponible = el.clientWidth
-    if (disponible > 0) setAjuste(Math.min(1, disponible / width))
-  }, [width])
+    if (disponible > 0) setAjuste(vectorial ? disponible / width : Math.min(1, disponible / width))
+  }, [width, vectorial])
 
   useEffect(() => {
     medir()
@@ -99,7 +110,11 @@ export function InfografiaCanvas({ width, height, label, children }: Props) {
       {/* El espaciador ocupa el tamaño YA escalado: es lo que le da al
           contenedor el área de scroll correcta, porque `transform` no afecta
           al flujo del documento. */}
-      <div style={{ width: width * escala, height: height * escala }}>
+      {/* `margin-inline: auto` y no un flex centrado: cuando el contenido es
+          MÁS ancho que el marco (con el zoom del piloto), el margen automático
+          se resuelve en cero y el scroll sigue llegando al borde izquierdo. Un
+          flex centrado, en ese caso, recorta lo que se sale por la izquierda. */}
+      <div style={{ width: width * escala, height: height * escala, marginInline: "auto" }}>
         <div
           role="img"
           aria-label={label}

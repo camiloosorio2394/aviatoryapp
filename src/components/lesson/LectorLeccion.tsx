@@ -305,7 +305,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
         </header>
 
         {/* Área de contenido: la única región que puede desplazarse */}
-        <div ref={contentRef} className="flex-1 overflow-y-auto">
+        <div ref={contentRef} className="ln-flujo flex-1 overflow-y-auto">
           <div className="mx-auto w-full max-w-[800px] px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
             {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
             <header>
@@ -368,12 +368,14 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
               ) : (
               <div className="flex flex-col" style={{ rowGap: 38 }}>
                 {modulo.portadaAuto !== false && (
-                  <Portada
-                    dir={modulo.portadas}
-                    n={l}
-                    titulo={leccion.title}
-                    ratio={modulo.portadaRatio}
-                  />
+                  <div className="ln-medio min-w-0">
+                    <Portada
+                      dir={modulo.portadas}
+                      n={l}
+                      titulo={leccion.title}
+                      ratio={modulo.portadaRatio}
+                    />
+                  </div>
                 )}
                 {leccion.blocks.map((block, i) => {
                   if (block.kind === "interactivo") {
@@ -385,13 +387,13 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                   }
                   if (block.kind === "hueco") {
                     return (
-                      <div key={i} className="min-w-0">
+                      <div key={i} className="ln-medio min-w-0">
                         <HuecoImagen {...block} />
                       </div>
                     )
                   }
                   return (
-                    <div key={i} className="min-w-0">
+                    <div key={i} className={`min-w-0${BLOQUES_ANCHOS.has(block.kind) ? " ln-medio" : ""}`}>
                       <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
                         <DocBlock block={block} />
                       </div>
@@ -718,6 +720,22 @@ function formatZulu(d: Date): string {
  * que la contiene lleva key={l} y se remonta entero.
  */
 const PORTADA_RATIO = "8 / 3"
+
+/**
+ * Los bloques que son imagen y no texto.
+ *
+ * La columna de lectura está fijada en 800 px porque a ese ancho la línea ya
+ * ronda los noventa caracteres, que es el techo de lo cómodo: ensancharla para
+ * llenar una pantalla grande se lee peor, no mejor. Pero una portada o una
+ * lámina no tienen medida de lectura, y a 720 px en un monitor ancho una
+ * portada deja de parecer una portada.
+ *
+ * Así que el texto se queda quieto y **la imagen se sale de la columna**. La
+ * cuenta va en CSS, con una consulta de contenedor: lo que manda es el ancho
+ * del área de contenido, no el de la ventana, porque el índice lateral ocupa
+ * 296 px y una consulta de ventana los ignoraría.
+ */
+const BLOQUES_ANCHOS = new Set(["figura", "infografia", "reconoce", "hueco"])
 
 function Portada({
   dir,

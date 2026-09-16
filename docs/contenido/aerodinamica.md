@@ -59,11 +59,11 @@ La explicación se muestra después de responder (quiz de sección: inmediata; q
 
 ### Qué es la aerodinámica
 **CONCEPTO**
-La aerodinámica estudia las fuerzas que aparecen cuando un cuerpo se mueve en el aire. Para el piloto se reduce a una pregunta: cómo se generan y cómo cambian la sustentación y la resistencia cuando cambian la velocidad, la actitud, la configuración y la atmósfera.
+La aerodinámica estudia las fuerzas que aparecen cuando un cuerpo se mueve en el aire. Para un piloto de aerolínea no es una colección de fórmulas: explica por qué el avión necesita más empuje al configurar, por qué pierde margen al virar lento, por qué flota si llega rápido al flare y por qué una misma IAS representa una TAS mayor en altura. La pregunta útil siempre es la misma: qué cambió en la velocidad, el ángulo de ataque, la configuración o la atmósfera, y cómo cambia con ello la sustentación, la resistencia y el margen disponible.
 
 ### El aire como fluido
 **CONCEPTO**
-El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del orden de Mach 0,3 o menos) su densidad casi no cambia al rodear el avión y se analiza como incompresible. A velocidades de crucero de un jet la compresibilidad ya no se puede ignorar (Sección 10).
+El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del orden de Mach 0,3 o menos) su densidad casi no cambia al rodear el avión y se analiza como incompresible. A velocidades de crucero de un jet la compresibilidad ya no se puede ignorar (Sección 10): por eso en aproximación se vigila principalmente la IAS, mientras que a FL350 también importa el Mach y el margen hasta MMO.
 
 | Propiedad | Qué es | Por qué le importa al piloto |
 |---|---|---|
@@ -80,6 +80,8 @@ El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del ord
 - **Viento relativo (Relative Wind):** dirección del flujo de aire respecto al ala. Es paralelo y opuesto a la **trayectoria de vuelo**, no a la actitud. Si el avión desciende, el viento relativo llega desde abajo, aunque la nariz esté arriba.
 - **Líneas de corriente (Streamlines):** trayectorias del aire en un flujo estable. Donde se juntan, el aire se acelera y su presión estática baja; donde se separan, se frena y la presión sube.
 
+En una aproximación estabilizada el avión puede llevar la nariz unos grados arriba mientras su trayectoria desciende hacia la pista. El viento relativo llega opuesto a esa trayectoria descendente; el ángulo entre ese flujo y la cuerda es el ángulo de ataque. Esta diferencia permite entender por qué «nariz arriba» no significa necesariamente «subiendo» y por qué un avión todavía puede entrar en pérdida mientras desciende.
+
 [IMAGEN — FLUJO DE AIRE Y VIENTO RELATIVO] · `IMG-01`
 *Pie:* El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz.
 
@@ -88,13 +90,13 @@ El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del ord
 
 ### Capa límite
 **CONCEPTO**
-Por viscosidad, el aire justo en contacto con la superficie tiene velocidad relativa prácticamente nula. Desde allí, la velocidad aumenta dentro de una capa delgada hasta alcanzar la del flujo libre. Esa región es la **capa límite (Boundary Layer)**.
+Por viscosidad, el aire justo en contacto con la superficie tiene velocidad relativa prácticamente nula. Desde allí, la velocidad aumenta dentro de una capa delgada hasta alcanzar la del flujo libre. Esa región es la **capa límite (Boundary Layer)**. Aunque no sea visible desde la cabina, su estado explica señales que sí reconoce el piloto: un ala contaminada necesita más ángulo de ataque para sostener el vuelo, produce más resistencia y puede separarse antes de que el aviso de pérdida calibrado para un ala limpia dé el margen esperado.
 - **Flujo laminar:** capas ordenadas y poca fricción, pero con menos intercambio de cantidad de movimiento con el flujo exterior; se separa con mayor facilidad ante un gradiente de presión adverso.
 - **Flujo turbulento:** mezcla y remolinos, más fricción, pero también más intercambio de cantidad de movimiento cerca de la superficie; resiste mejor la separación.
 - **Separación:** cuando la capa límite ya no puede seguir la superficie, se desprende. La resistencia aumenta y la sustentación disminuye. Con más ángulo de ataque, el punto de separación avanza hacia el borde de ataque.
 
 **APLICACIÓN OPERACIONAL**
-Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía con la capa límite para retrasar la separación. Hielo, escarcha o suciedad en el ala alteran la capa límite y adelantan la separación: el ala entra en pérdida a menor ángulo de ataque.
+Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía con la capa límite para retrasar la separación. Hielo, escarcha o suciedad en el ala hacen lo contrario: alteran el flujo, adelantan la separación y reducen el CLmax. Por eso una capa de escarcha antes del despegue no se trata como un problema cosmético; puede aumentar la carrera, degradar el ascenso y hacer que el ala entre en pérdida a menor ángulo de ataque.
 
 > **DEBES RECORDAR**
 > El viento relativo lo define la trayectoria, no la actitud. Y la separación de la capa límite es el mecanismo físico de la pérdida.
@@ -152,8 +154,10 @@ Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía co
 | **Aceleración en nivelado** | T > D | Al aumentar la velocidad hay que **reducir** el ángulo de ataque para no ganar altitud |
 | **Desaceleración en nivelado** | T < D | Al bajar la velocidad hay que **aumentar** el ángulo de ataque para mantener L = W |
 
+La tabla se reconoce en maniobras normales. Al nivelar después del ascenso, el piloto baja la nariz y mantiene o ajusta el empuje; el avión acelera y el ángulo de ataque disminuye para conservar la altitud. En una aproximación ocurre lo contrario: al reducir velocidad y extender configuración, se necesita más ángulo de ataque y más empuje para equilibrar la resistencia adicional. Si se intenta corregir una velocidad baja solo levantando la nariz, se intercambia velocidad por altura y se agrava la falta de energía.
+
 **APLICACIÓN OPERACIONAL**
-En un ascenso con empuje fijo, si subes la nariz aumentas el ángulo de trayectoria, pero la velocidad cae, porque el empuje disponible no cambió. La energía se intercambia; no se crea con el mando de profundidad.
+En un ascenso con empuje fijo, si subes la nariz aumentas inicialmente el ángulo de trayectoria, pero la velocidad cae porque el empuje disponible no cambió. Es lo que el piloto observa cuando intenta seguir una restricción de altitud demasiado exigente sin energía suficiente: el flight director puede pedir más pitch, pero la velocidad empieza a deteriorarse. El mando de profundidad redistribuye energía entre velocidad y altura; no crea energía.
 
 [IMAGEN — PITCH, EMPUJE Y ENERGÍA] · `IMG-14`
 *Pie:* Cambiar la actitud redistribuye velocidad y altura; el empuje disponible determina cuánta energía puede sostener o recuperar el avión.
@@ -209,12 +213,14 @@ No. Es ligeramente menor. En la trayectoria inclinada, una componente del peso a
 | **Ángulo de ataque (AOA)** | Ángulo entre la cuerda y el viento relativo |
 | **Coeficiente de sustentación (CL)** | Número sin unidades que resume la capacidad del ala para producir sustentación en una condición dada |
 
+Estos términos aparecen juntos cada vez que el avión cambia de fase. Al seleccionar flaps para la aproximación aumenta la curvatura del perfil y el CL disponible; el avión puede sostener el peso a menor velocidad, pero también aumenta la resistencia. Al retraer la configuración después del despegue, el ala vuelve progresivamente a una forma más eficiente para acelerar y ascender.
+
 [IMAGEN — PERFIL AERODINÁMICO ETIQUETADO] · `IMG-03`
 *Pie:* Borde de ataque, borde de salida, cuerda, curvatura, espesor, viento relativo y ángulo de ataque.
 
 ### Cómo se genera la sustentación
 **CONCEPTO**
-El ala está inclinada y curvada respecto al flujo. Al pasar, **desvía el aire hacia abajo** detrás del ala (downwash), con una corriente ascendente delante (upwash). Para desviar ese flujo, el ala crea una **distribución de presiones**: menor presión sobre el extradós y mayor presión en el intradós. La diferencia de presión, sumada sobre toda el ala, es la sustentación.
+El ala está inclinada y curvada respecto al flujo. Al pasar, **desvía el aire hacia abajo** detrás del ala (downwash), con una corriente ascendente delante (upwash). Para desviar ese flujo, el ala crea una **distribución de presiones**: menor presión sobre el extradós y mayor presión en el intradós. La diferencia de presión, sumada sobre toda el ala, es la sustentación. En operación, cuando el avión reduce velocidad en la aproximación, el piloto aumenta el ángulo de ataque y configura el ala para mantener esa diferencia de presión; si sigue reduciendo velocidad sin añadir empuje, el ángulo requerido se acerca al crítico y el margen de pérdida disminuye.
 
 Hay tres formas de describir el mismo fenómeno. No compiten entre sí:
 
@@ -246,8 +252,8 @@ L = ½ ρ V² S CL
 | **CL** | Coeficiente de sustentación | El piloto, con el ángulo de ataque y la configuración (flaps, slats). También lo afectan el Mach, la contaminación y el número de Reynolds |
 
 **APLICACIÓN OPERACIONAL**
-- La sustentación depende del **cuadrado** de la velocidad. Si la velocidad baja a la mitad, para sostener el mismo peso el CL tendría que ser cuatro veces mayor. Por eso, cuando la velocidad cae, el ángulo de ataque sube rápido hacia el crítico.
-- Para un peso dado, a baja velocidad el ala vuela con alto ángulo de ataque; a alta velocidad, con bajo ángulo de ataque.
+- La sustentación depende del **cuadrado** de la velocidad. Si la velocidad baja a la mitad, para sostener el mismo peso el CL tendría que ser cuatro veces mayor. En una final, una pequeña pérdida de velocidad no se compensa gratis: exige más ángulo de ataque y aumenta la resistencia inducida, de modo que el piloto necesita corregir con empuje antes de que la tendencia se amplifique.
+- Para un peso dado, a baja velocidad el ala vuela con alto ángulo de ataque; a alta velocidad, con bajo ángulo de ataque. Por eso el mismo avión que en crucero lleva una actitud casi nivelada necesita una actitud de nariz arriba y dispositivos hipersustentadores al aproximarse.
 - A igual IAS, la presión de impacto indicada es la misma; a bajo Mach aproxima la misma presión dinámica. Por eso las velocidades de pérdida, rotación y límites de flaps se publican en IAS/CAS.
 
 > **DEBES RECORDAR**
@@ -337,7 +343,7 @@ La última fila no es teórica. En el accidente del AF447 (BEA, informe final), 
 
 ### Velocidad de pérdida
 **CONCEPTO**
-La **velocidad de pérdida (Stall Speed)** es la velocidad a la que, **en unas condiciones concretas**, el ala alcanza su ángulo de ataque crítico. Es una consecuencia, no la causa.
+La **velocidad de pérdida (Stall Speed)** es la velocidad a la que, **en unas condiciones concretas**, el ala alcanza su ángulo de ataque crítico. Es una consecuencia, no la causa. Una velocidad publicada solo es válida para el peso, la configuración y el factor de carga con que fue determinada; por eso un avión puede activar el stick shaker por encima de esa cifra durante un viraje, una ráfaga o una recuperación con G elevada.
 
 | Factor | Efecto en la velocidad de pérdida | Por qué |
 |---|---|---|
@@ -353,7 +359,7 @@ La certificación de transporte (14 CFR 25.103) determina la velocidad de pérdi
 
 ### Pérdida acelerada y pérdida en viraje
 **CONCEPTO**
-- **Pérdida acelerada (Accelerated Stall):** pérdida con factor de carga mayor a 1 g. Ocurre a una velocidad superior a la de pérdida en 1 g. Ejemplos: tirón brusco en una recuperación, viraje escarpado, salida de un picado.
+- **Pérdida acelerada (Accelerated Stall):** pérdida con factor de carga mayor a 1 g. Ocurre a una velocidad superior a la de pérdida en 1 g. Por ejemplo, si el piloto corrige con un tirón brusco una senda baja o la salida de un picado, el aumento de G exige más sustentación y puede llevar el ala al ángulo crítico aunque la velocidad parezca suficiente.
 - **Pérdida en viraje:** en un viraje nivelado el ala debe producir más sustentación que el peso. Para lograrlo, el piloto aumenta el ángulo de ataque; con más alabeo, el ángulo crítico se alcanza a mayor velocidad (Sección 6).
 - **Pérdida en diferentes configuraciones:** con flaps y slats la velocidad de pérdida baja. En alas en flecha la tendencia es entrar en pérdida primero en las puntas, lo que desplaza la sustentación hacia adelante y produce cabeceo hacia arriba. En aviones con cola en T, la cola puede quedar en la estela del ala en pérdida y perder efectividad; por eso muchos tienen empujador de bastón (Stick Pusher).
 
@@ -441,29 +447,26 @@ No. Cambia con peso, factor de carga, configuración, posición del CG, contamin
 | **Resistencia inducida (Induced Drag)** | Consecuencia de producir sustentación: la diferencia de presión genera vórtices de punta y el flujo desviado inclina hacia atrás la fuerza aerodinámica | En vuelo nivelado, disminuye con el cuadrado de la velocidad |
 | **Resistencia total** | Parásita + inducida | Curva en forma de "U" con un mínimo |
 
-La resistencia inducida es mayor cuando el ala está **pesada y lenta**: más peso o más factor de carga implican más sustentación, más CL y más ángulo de ataque. (La regla "pesado, limpio y lento" describe la estela turbulenta más intensa, no la resistencia inducida.) Alas de gran alargamiento (Aspect Ratio) y winglets la reducen; el efecto suelo también (Sección 9).
+La resistencia inducida es mayor cuando el ala está **pesada y lenta**: más peso o más factor de carga implican más sustentación, más CL y más ángulo de ataque. En una aproximación, si la velocidad cae por debajo de la prevista y el piloto levanta la nariz para sostener la senda, el ala aumenta el ángulo de ataque, los vórtices se intensifican y aparece más resistencia inducida; sin empuje adicional, la velocidad sigue deteriorándose. En crucero rápido ocurre lo contrario: el ángulo de ataque es bajo y dominan la resistencia de forma, fricción e interferencia, por lo que unos pocos nudos adicionales pueden exigir bastante más empuje. (La regla "pesado, limpio y lento" describe la estela turbulenta más intensa, no la resistencia inducida.) Alas de gran alargamiento (Aspect Ratio) y winglets la reducen; el efecto suelo también (Sección 9).
 
-**ESQUEMA**
-```
-BAJA VELOCIDAD  →  alto ángulo de ataque  →  RESISTENCIA INDUCIDA DOMINANTE
-                    ↓
-            RESISTENCIA TOTAL MÍNIMA  =  L/D MÁXIMA
-                    ↓
-ALTA VELOCIDAD  →  bajo ángulo de ataque  →  RESISTENCIA PARÁSITA DOMINANTE
-```
+| Zona de la curva | Qué domina | Cómo lo reconoce el piloto |
+|---|---|---|
+| Baja velocidad | Resistencia inducida | Más pitch y más empuje para sostener una velocidad todavía menor |
+| L/Dmax | Resistencia total mínima | Mejor relación de planeo y mínimo empuje requerido |
+| Alta velocidad | Resistencia parásita | Cada aumento de velocidad requiere un incremento creciente de empuje |
 
 [IMAGEN — CURVA DE RESISTENCIA (DRAG CURVE)] · `IMG-05`
 *Pie:* Resistencia parásita (creciente), inducida (decreciente) y total (U). El mínimo de la total marca L/Dmax y la velocidad de mínima resistencia.
 
 ### Eficiencia aerodinámica: L/D
 **CONCEPTO**
-- **L/D** es la relación entre sustentación y resistencia. Indica cuánta sustentación obtiene el ala por cada unidad de resistencia.
-- **L/Dmax** ocurre a un ángulo de ataque y un CL específicos. Ahí la resistencia total es mínima; en la teoría clásica coincide con el punto donde la resistencia inducida iguala a la parásita.
-- La **velocidad de máxima eficiencia** (mínima resistencia) no es fija: aumenta con el peso, porque se necesita más presión dinámica para el mismo CL.
+- **L/D** es la relación entre sustentación y resistencia. Indica cuánta sustentación obtiene el ala por cada unidad de resistencia; cuanto mayor sea, más distancia puede recorrer el avión por cada unidad de altura que pierde.
+- **L/Dmax** ocurre a un ángulo de ataque y un CL específicos. Ahí la resistencia total es mínima; en la teoría clásica coincide con el punto donde la resistencia inducida iguala a la parásita. En una pérdida de empuje, volar cerca de esa condición permite maximizar las opciones de alcance, mientras que volar más lento o más rápido consume altura sin ganar distancia útil.
+- La **velocidad de máxima eficiencia** (mínima resistencia) no es fija: aumenta con el peso, porque se necesita más presión dinámica para el mismo CL. Un avión pesado debe planear más rápido que uno liviano, aunque ambos conservan esencialmente el mismo ángulo y la misma relación de planeo en aire calmo.
 
 ### Planeo
 **CONCEPTO**
-- La relación de planeo máxima es numéricamente igual a L/Dmax. Volando al ángulo de ataque de L/Dmax se obtiene la máxima distancia recorrida en el aire.
+- La relación de planeo máxima es numéricamente igual a L/Dmax. Volando al ángulo de ataque de L/Dmax se obtiene la máxima distancia recorrida en el aire. Si el avión pierde ambos motores, esta es la condición que permite comparar aeropuertos alcanzables; el viento después determina cuál ofrece realmente más distancia sobre el suelo.
 - **Un avión más pesado no planea menos distancia:** a L/Dmax recorre la misma distancia, pero a una velocidad mayor y con mayor régimen de descenso.
 - Volar más lento o más rápido que la velocidad de mejor planeo reduce la distancia.
 
@@ -537,10 +540,10 @@ ALTA VELOCIDAD  →  bajo ángulo de ataque  →  RESISTENCIA PARÁSITA DOMINANT
 
 ### Por qué aumenta la velocidad de pérdida en un viraje
 **CONCEPTO**
-Al alabear, la sustentación se inclina. Solo su componente vertical sostiene el peso. Para no descender, la sustentación total debe aumentar, y a la misma velocidad eso solo se logra con más ángulo de ataque. Con más alabeo, el ala llega a su ángulo de ataque crítico a una velocidad mayor.
+Al alabear, la sustentación se inclina. Solo su componente vertical sostiene el peso. Para no descender, la sustentación total debe aumentar, y a la misma velocidad eso solo se logra con más ángulo de ataque. Con más alabeo, el ala llega a su ángulo de ataque crítico a una velocidad mayor. Un ejemplo típico es el overshoot de final: si el piloto cierra el viraje aumentando mucho el alabeo y tira para no perder altura, eleva simultáneamente el factor de carga, la velocidad de pérdida y la resistencia inducida justo cuando dispone de poca altura para recuperar.
 
 **APLICACIÓN OPERACIONAL**
-- Mantener altitud en viraje exige más ángulo de ataque y más empuje, porque aumenta la resistencia inducida.
+- Mantener altitud en viraje exige más ángulo de ataque y más empuje, porque aumenta la resistencia inducida. En un viraje de espera, el autothrottle suele aumentar empuje para conservar la velocidad; si no lo hace, el avión desacelera aunque el pitch parezca estable.
 - A gran altitud, el mismo viraje reduce el margen hasta el buffet de baja velocidad (Sección 11).
 - Un viraje escarpado a baja altura y baja velocidad (circuito, aproximación en circuito, maniobra de escape) combina alto factor de carga con poco margen de altitud para recuperar.
 
@@ -555,7 +558,7 @@ Es la pérdida que ocurre con n > 1. En viraje o en un tirón, el ala alcanza el
 
 [IMAGEN — VA, PESO Y TURBULENCIA] · `IMG-18`
 *Pie:* Va disminuye con el peso. No protege frente a entradas múltiples o bruscas y no sustituye la velocidad de penetración en turbulencia publicada por el fabricante.
-- **Va (Design Maneuvering Speed):** velocidad máxima a la que se puede aplicar la deflexión completa de **un** mando, en **un** eje, sin exceder la carga límite de diseño. Por debajo de Va, en una maniobra de cabeceo, el ala entra en pérdida antes de alcanzar el factor de carga límite.
+- **Va (Design Maneuvering Speed):** velocidad máxima a la que se puede aplicar la deflexión completa de **un** mando, en **un** eje, sin exceder la carga límite de diseño. Por debajo de Va, en una maniobra de cabeceo, el ala entra en pérdida antes de alcanzar el factor de carga límite. Eso no significa que el piloto pueda mover los mandos de un tope al otro: la protección se refiere a una sola aplicación y no cubre reversas rápidas ni combinaciones de alerón, elevador y timón.
 - **Va disminuye cuando el peso disminuye.** Con menos peso, la misma sustentación produce un factor de carga mayor (n = L/W) y la velocidad de pérdida es menor. La velocidad por debajo de la cual el ala entra en pérdida antes de alcanzar la carga límite es, por tanto, más baja.
 
 **Lo que Va NO protege:**
@@ -619,6 +622,8 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 [IMAGEN — SUPERFICIES DE CONTROL DE UN AVIÓN DE TRANSPORTE] · `IMG-07`
 *Pie:* Vista en planta de un jet de transporte: alerones, elevador, timón de dirección, estabilizadores, flaps, slats, spoilers de vuelo y de tierra.
 
+En un avión de transporte las superficies trabajan como un sistema. Al iniciar un viraje, los alerones y spoilers producen alabeo, el timón o el yaw damper controlan la guiñada y el elevador ajusta la sustentación necesaria para mantener la trayectoria. Durante la aproximación, flaps y slats permiten volar más lento; después del toque, los ground spoilers eliminan sustentación para que el peso pase a las ruedas y el frenado sea efectivo.
+
 ### Superficies primarias
 **Alerones (Ailerons)**
 - **QUÉ ES:** superficies móviles en el borde de salida, hacia las puntas del ala.
@@ -628,7 +633,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 **Elevador (Elevator)**
 - **QUÉ ES:** superficie móvil en el borde de salida del estabilizador horizontal.
 - **QUÉ HACE:** controla el cabeceo alrededor del eje lateral y, con ello, el ángulo de ataque del ala.
-- **CUÁNDO SE UTILIZA:** rotación, ascenso, nivelación, flare y cualquier cambio de actitud.
+- **CUÁNDO SE UTILIZA:** rotación, ascenso, nivelación, flare y cualquier cambio de actitud. En el flare, por ejemplo, una orden suave de elevador aumenta el ángulo de ataque y reduce el régimen de descenso; una orden excesiva puede consumir la velocidad, provocar flotación o acercar la cola a la pista.
 
 **Timón de dirección (Rudder)**
 - **QUÉ ES:** superficie móvil en el borde de salida del estabilizador vertical.
@@ -653,7 +658,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 **Flaps**
 - **QUÉ ES:** superficies en el borde de salida del ala (sencillos, partidos, ranurados, Fowler).
 - **QUÉ HACE:** aumentan la curvatura y, en los Fowler, también la superficie alar. Aumentan el CLmax y la resistencia, y reducen la velocidad de pérdida. Permiten volar a menor velocidad con una actitud de cabeceo más baja. Reducen el ángulo de ataque crítico.
-- **CUÁNDO SE UTILIZA:** despegue con posiciones parciales (más sustentación sin tanta resistencia) y aproximación y aterrizaje con posiciones mayores (velocidad baja y ángulo de descenso más pronunciado).
+- **CUÁNDO SE UTILIZA:** despegue con posiciones parciales (más sustentación sin tanta resistencia) y aproximación y aterrizaje con posiciones mayores (velocidad baja y ángulo de descenso más pronunciado). Por eso una retracción anticipada durante un go-around puede eliminar sustentación antes de que el avión haya acelerado; la configuración se retrae por etapas siguiendo el procedimiento y las velocidades del tipo.
 
 **Slats y dispositivos de borde de ataque (Leading Edge Devices)**
 - **QUÉ ES:** slats (móviles, abren una ranura), slots (ranuras fijas) y flaps Krueger en el borde de ataque.
@@ -666,7 +671,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 - **QUÉ HACE:** reducen la sustentación del sector de ala donde se despliegan y aumentan la resistencia.
 - **CUÁNDO SE UTILIZA:**
   - **Spoilers de vuelo:** asimétricos para ayudar al alabeo (sin guiñada adversa); simétricos como frenos aerodinámicos.
-  - **Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado.
+  - **Spoilers de tierra (Ground Spoilers / Lift Dumpers):** tras el toque, eliminan sustentación y transfieren peso a las ruedas para mejorar el frenado. Si no se despliegan, el avión conserva sustentación, carga menos los trenes y necesita más distancia para frenar aunque la reversa funcione.
 
 **Frenos aerodinámicos (Speed Brakes)**
 - **QUÉ ES:** dispositivos de resistencia; en la mayoría de los jets de transporte son los mismos spoilers usados de forma simétrica en vuelo.
@@ -710,7 +715,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 
 ### Estabilidad y control
 **CONCEPTO**
-- **Estabilidad:** tendencia del avión a volver a su condición de equilibrio después de una perturbación, sin intervención del piloto.
+- **Estabilidad:** tendencia del avión a volver a su condición de equilibrio después de una perturbación, sin intervención del piloto. Si una ráfaga levanta la nariz en crucero, la estabilidad estática positiva inicia una corrección hacia el trim original; la estabilidad dinámica determina si esa corrección se amortigua o continúa oscilando.
 - **Control:** capacidad del piloto de cambiar esa condición con los mandos.
 - Son opuestos en el diseño: más estabilidad implica más fuerza y menos respuesta; menos estabilidad, más maniobrabilidad y más carga de trabajo.
 
@@ -719,7 +724,7 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 | **Estabilidad estática** | ¿Cuál es la **tendencia inicial** después de la perturbación? | Tiende a volver | Se queda en la nueva posición | Se aleja más |
 | **Estabilidad dinámica** | ¿Qué pasa **con el tiempo**? | Las oscilaciones se amortiguan | Oscilan sin cambiar amplitud | Las oscilaciones crecen |
 
-Un avión puede tener estabilidad estática positiva y aun así oscilaciones que no se amortigüen: la estática es condición necesaria, no suficiente.
+Un avión puede tener estabilidad estática positiva y aun así oscilaciones que no se amortigüen: la estática es condición necesaria, no suficiente. Para el piloto, la diferencia se reconoce en el tiempo: que la nariz comience a regresar no garantiza que el movimiento termine sin varias oscilaciones o sin ayuda del sistema de amortiguación.
 
 | Eje | Tipo de estabilidad | Qué la produce |
 |---|---|---|
@@ -729,7 +734,7 @@ Un avión puede tener estabilidad estática positiva y aun así oscilaciones que
 
 ### CG, centro de presión y momento
 **CONCEPTO**
-- **Centro de gravedad (CG):** punto donde se considera aplicado el peso total. En aviones de transporte se expresa en % de la cuerda aerodinámica media (% MAC).
+- **Centro de gravedad (CG):** punto donde se considera aplicado el peso total. En aviones de transporte se expresa en % de la cuerda aerodinámica media (% MAC). No es un dato administrativo: determina el ajuste de trim de despegue y cambia cuánto mando se necesita para rotar y para recuperar una pérdida.
 - **Centro de presión (CP):** punto donde se considera aplicada la resultante aerodinámica del ala. Su posición cambia con el ángulo de ataque y no debe confundirse con el centro aerodinámico ni con el punto neutro.
 - **Momento:** fuerza × brazo. La estabilidad longitudinal exige que el CG permanezca delante del punto neutro. En un avión convencional, el momento del ala y el fuselaje se equilibra normalmente con una fuerza hacia abajo del estabilizador horizontal.
 
@@ -752,8 +757,7 @@ Un avión puede tener estabilidad estática positiva y aun así oscilaciones que
 | **Pérdida y recuperación** | Recuperación más fácil | Recuperación más difícil; más allá del límite trasero puede faltar elevador para bajar la nariz |
 
 **APLICACIÓN OPERACIONAL**
-- La hoja de carga y balance no es un trámite: el CG define la compensación de despegue, las fuerzas de rotación y los márgenes de pérdida.
-- El consumo de combustible y el movimiento de pasajeros o carga desplazan el CG en vuelo.
+- La hoja de carga y balance no es un trámite. Con CG adelantado, el piloto percibe una rotación más pesada y puede necesitar más pista y más mando en el flare; con CG atrasado, la rotación es más sensible y una pequeña entrada puede producir una respuesta grande. El consumo de combustible y el movimiento de pasajeros o carga desplazan el CG en vuelo, por lo que el cálculo debe permanecer dentro de la envolvente durante todo el trayecto, no solo al salir.
 
 > **DEBES RECORDAR**
 > CG adelantado: más estable, más pesado de mandos, mayor velocidad de pérdida y más consumo. CG atrasado: menos estable, mandos livianos, peor recuperación de pérdida.
@@ -809,6 +813,8 @@ Un avión puede tener estabilidad estática positiva y aun así oscilaciones que
 | **Estabilidad espiral (Spiral Stability)** | Depende de la relación entre estabilidad direccional y efecto diedro; hay inestabilidad espiral cuando la direccional es muy fuerte frente al efecto diedro | Si es negativa, el alabeo aumenta lentamente y la nariz baja en espiral; se corrige con facilidad si se detecta a tiempo |
 | **Efecto diedro (Dihedral Effect)** | Tendencia a nivelar alas cuando hay derrape; la producen el diedro, la flecha y el ala alta | Estabilidad lateral; demasiado efecto diedro favorece el Dutch Roll |
 
+Estos fenómenos se distinguen por lo que hace el avión. Si flota después del flare, la causa puede ser el exceso de velocidad combinado con la reducción de resistencia inducida en efecto suelo. Si al iniciar un viraje la nariz se mueve primero hacia el lado contrario, es guiñada adversa. Si en crucero la nariz y las alas oscilan repetidamente a ambos lados, es Dutch Roll; si el alabeo aumenta despacio mientras la nariz cae y la velocidad crece, se trata de una tendencia espiral. Identificar el patrón evita aplicar una corrección apropiada para otro fenómeno.
+
 ### Efecto suelo, con números
 **CONCEPTO**
 Reducción de la resistencia inducida según el PHAK de la FAA:
@@ -819,8 +825,8 @@ Reducción de la resistencia inducida según el PHAK de la FAA:
 | Un décimo de envergadura | ≈ 47,6 % |
 
 **APLICACIÓN OPERACIONAL**
-- **Aterrizaje:** con exceso de velocidad en el flare, el avión "flota" y consume pista.
-- **Despegue:** el avión puede despegar por debajo de la velocidad recomendada y no sostenerse al salir del efecto suelo. Al salir, necesita más ángulo de ataque para el mismo CL y aumenta la resistencia inducida.
+- **Aterrizaje:** con exceso de velocidad en el flare, el avión "flota" porque todavía tiene energía y, cerca de la pista, produce menos resistencia inducida. Forzarlo a tocar empujando la nariz no elimina esa energía y puede provocar un contacto duro; la solución empieza con una aproximación estabilizada y la velocidad correcta.
+- **Despegue:** el avión puede levantarse por debajo de la velocidad recomendada y no sostenerse al salir del efecto suelo. Al ganar altura reaparecen plenamente el downwash y la resistencia inducida; por eso en transporte se respetan las V-speeds y la técnica de rotación calculadas. Una rotación anticipada o un pitch excesivo consume velocidad y degrada el ascenso justo cuando desaparece esa reducción temporal de resistencia.
 - **Instrumentos:** cualquier error de indicación cerca del suelo depende de la ubicación de las tomas y del diseño del avión; se consulta el AFM, no se asume como un efecto universal.
 
 [IMAGEN — EFECTO SUELO Y DUTCH ROLL] · `IMG-09`
@@ -828,7 +834,7 @@ Reducción de la resistencia inducida según el PHAK de la FAA:
 
 ### Dutch Roll y estabilidad espiral
 **CONCEPTO**
-Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con efecto diedro débil favorece la inestabilidad espiral; un efecto diedro fuerte con estabilidad direccional débil favorece el Dutch Roll. La FAA indica que la mayoría de los aviones se diseñan con una leve inestabilidad espiral, porque es preferible al Dutch Roll. En jets con ala en flecha, el Yaw Damper corrige el Dutch Roll; si está inoperativo, aplica las limitaciones y el procedimiento del fabricante.
+Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con efecto diedro débil favorece la inestabilidad espiral; un efecto diedro fuerte con estabilidad direccional débil favorece el Dutch Roll. La FAA indica que la mayoría de los aviones se diseñan con una leve inestabilidad espiral, porque es preferible al Dutch Roll. En un jet con ala en flecha, una perturbación puede iniciar una guiñada que cambia la sustentación entre ambas alas y produce alabeo alternado; el Yaw Damper detecta esa oscilación y ordena pequeños movimientos de timón para amortiguarla. Si está inoperativo, el avión no se «cae», pero pueden aplicarse límites de altitud, velocidad o despacho y debe seguirse el procedimiento del fabricante.
 
 [IMAGEN — DUTCH ROLL E INESTABILIDAD ESPIRAL] · `IMG-21`
 *Pie:* El Dutch Roll combina oscilaciones de guiñada y alabeo; la inestabilidad espiral es un alabeo progresivo que tiende a cerrar la trayectoria descendente.
@@ -869,8 +875,8 @@ Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con ef
 
 ### Número de Mach
 **CONCEPTO**
-- **Número de Mach (Mach Number):** relación entre la velocidad verdadera (TAS) y la velocidad del sonido en el aire que rodea al avión. Mach 0,80 = 80 % de la velocidad del sonido local.
-- En el modelo atmosférico operativo, la velocidad del sonido depende principalmente de la temperatura. Como esta baja con la altitud hasta la tropopausa, **a igual TAS el Mach aumenta al subir**.
+- **Número de Mach (Mach Number):** relación entre la velocidad verdadera (TAS) y la velocidad del sonido en el aire que rodea al avión. Mach 0,80 = 80 % de la velocidad del sonido local. No es otra forma de mostrar la IAS: un jet puede mantener una IAS constante durante el ascenso mientras la TAS y el Mach aumentan.
+- En el modelo atmosférico operativo, la velocidad del sonido depende principalmente de la temperatura. Como esta baja con la altitud hasta la tropopausa, **a igual TAS el Mach aumenta al subir**. Por eso el ascenso normalmente cambia de una velocidad objetivo en nudos a una velocidad objetivo en Mach en la altitud de cruce; continuar persiguiendo la misma IAS terminaría acercando el avión a MMO.
 
 | Régimen (referencia del PHAK) | Mach |
 |---|---|
@@ -884,7 +890,7 @@ Los aviones civiles de transporte cruzan normalmente entre Mach 0,70 y 0,90. En 
 ### Mach crítico y compresibilidad
 **CONCEPTO**
 - El ala acelera el aire sobre el extradós: la velocidad local es mayor que la del avión.
-- **Mach crítico (Critical Mach Number – MCRIT):** Mach de vuelo al que el flujo, en algún punto del avión, alcanza por primera vez Mach 1,0. Marca el límite entre vuelo subsónico y transónico.
+- **Mach crítico (Critical Mach Number – MCRIT):** Mach de vuelo al que el flujo, en algún punto del avión, alcanza por primera vez Mach 1,0. Marca el límite entre vuelo subsónico y transónico. Así, un avión que cruza a Mach 0,78 puede tener una pequeña zona supersónica sobre el ala aunque el avión completo siga volando por debajo de Mach 1.
 - **Compresibilidad (Compressibility):** a medida que la velocidad aumenta, el aire deja de comportarse como incompresible: su densidad cambia de forma apreciable al rodear el avión. Por encima del Mach crítico sus efectos aparecen como ondas de choque, aumento de resistencia, buffet y cambios de compensación.
 - **Mach de divergencia de resistencia (Drag Divergence Mach):** Mach al que la resistencia sube bruscamente. Según el PHAK, suele estar entre 5 % y 10 % por encima del Mach crítico.
 
@@ -893,7 +899,7 @@ Los aviones civiles de transporte cruzan normalmente entre Mach 0,70 y 0,90. En 
 - Por encima del Mach crítico se forma una zona supersónica sobre el extradós. Donde el flujo vuelve a subsónico aparece una **onda de choque normal (Shock Wave)**: la presión y la densidad suben de golpe y el flujo pierde energía.
 - Al aumentar la velocidad, la onda se hace más intensa y se desplaza hacia el borde de salida. También puede formarse en el intradós.
 - Detrás de la onda, la capa límite puede separarse: **separación inducida por onda de choque**.
-- **Resistencia de onda (Wave Drag):** resistencia producida por las ondas de choque y la separación asociada.
+- **Resistencia de onda (Wave Drag):** resistencia producida por las ondas de choque y la separación asociada. Desde la cabina se reconoce porque cerca del límite transónico hace falta mucho más empuje para obtener muy poca aceleración; no es una resistencia constante que crezca suavemente como a baja velocidad.
 - **Buffet:** vibración estructural causada por flujo separado que golpea el ala o la cola.
 - **Mach Buffet (High-Speed Buffet):** buffet causado por la separación detrás de la onda de choque cuando el avión vuela demasiado rápido, o con demasiado ángulo de ataque cerca de MMO.
 
@@ -910,11 +916,11 @@ Los aviones civiles de transporte cruzan normalmente entre Mach 0,70 y 0,90. En 
 | Menor efectividad de mandos | Respuesta reducida; posibles vibraciones de superficies (Aileron Buzz) |
 | Cambios de estabilidad y compensación | El avión requiere más atención en cabeceo |
 
-**VMO / MMO:** velocidad máxima operativa. **VMO** en nudos (CAS) domina a baja altitud (cargas estructurales y presión dinámica); **MMO** en Mach domina a gran altitud (compresibilidad y buffet). Ejemplo del PHAK: en los primeros jets civiles, VMO de 306 KCAS equivalía a MMO 0,82 cerca de FL310; a FL380, Mach 0,82 equivale a unos 261 KCAS.
+**VMO / MMO:** velocidad máxima operativa. **VMO** en nudos (CAS) domina a baja altitud (cargas estructurales y presión dinámica); **MMO** en Mach domina a gran altitud (compresibilidad y buffet). Por ejemplo, en un descenso el avión puede iniciar cerca de MMO con una IAS relativamente baja; al entrar en aire más cálido y denso, la IAS aumenta y el límite relevante pasa a ser VMO. El piloto o el sistema de gestión cambia la referencia para no exceder ninguno de los dos límites. Como dato del PHAK, en los primeros jets civiles VMO de 306 KCAS equivalía a MMO 0,82 cerca de FL310; a FL380, Mach 0,82 equivale a unos 261 KCAS.
 
 ### Ala en flecha (Swept Wing)
 **CONCEPTO**
-Solo la componente del flujo **perpendicular al borde de ataque** determina la distribución de presión y la formación de ondas de choque. Al inclinar el ala hacia atrás, esa componente es menor que la velocidad del avión.
+Solo la componente del flujo **perpendicular al borde de ataque** determina la distribución de presión y la formación de ondas de choque. Al inclinar el ala hacia atrás, esa componente es menor que la velocidad del avión. En crucero esto permite volar rápido sin que el ala «vea» toda la velocidad de frente; en aproximación, la misma geometría es menos eficiente para producir sustentación y obliga a usar slats, flaps y velocidades mayores que las de un ala recta comparable.
 
 [IMAGEN — ALA EN FLECHA Y MACH CRÍTICO] · `IMG-22`
 *Pie:* La flecha reduce la componente normal del flujo y retrasa los efectos de compresibilidad, pero introduce compromisos de pérdida en punta, pitch-up y complejidad.
@@ -984,7 +990,7 @@ Solo la componente del flujo **perpendicular al borde de ataque** determina la d
 
 ### Coffin Corner
 **CONCEPTO**
-**Coffin Corner** es la zona de gran altitud en la que el margen entre el límite de baja velocidad (low-speed buffet / pérdida) y el límite de alta velocidad (MMO / Mach buffet) se reduce al mínimo. La circular AC 61-107B de la FAA la describe como la operación a gran altitud donde velocidades indicadas bajas corresponden a TAS altas (Mach alto) con ángulos de ataque altos.
+**Coffin Corner** es la zona de gran altitud en la que el margen entre el límite de baja velocidad (low-speed buffet / pérdida) y el límite de alta velocidad (MMO / Mach buffet) se reduce al mínimo. La circular AC 61-107B de la FAA la describe como la operación a gran altitud donde velocidades indicadas bajas corresponden a TAS altas (Mach alto) con ángulos de ataque altos. Para el piloto esto significa que «un poco más lento» puede acercar el ala al buffet de baja velocidad y «un poco más rápido» puede acercarla al Mach buffet; una ráfaga o un viraje moderado puede consumir gran parte de ese margen sin que la velocidad seleccionada haya cambiado.
 
 **ESQUEMA** · Margen de velocidad según la altitud (dos bloques apilados; en celular uno debajo del otro)
 ```
@@ -1027,6 +1033,8 @@ MACH / HIGH-SPEED BUFFET
 - **Margen de maniobra:** la EASA (AMC 25.251(e)) y los fabricantes usan como referencia poder alcanzar **1,3 G** (un incremento de 0,3 G) sin llegar al buffet. 1,3 G equivale a un viraje nivelado de unos 40° de alabeo.
 - **Altitud máxima (AUPRTA):** es la menor entre la altitud máxima certificada, la limitada por empuje y la limitada por buffet (margen de maniobra). Cuando la temperatura aumenta, los motores entregan menos empuje y la altitud limitada por empuje baja de forma significativa; la limitada por buffet depende del Mach, el peso, el G y la altitud de presión, no de la temperatura.
 
+Por eso una autorización de ATC para subir no significa que convenga aceptarla. Si el FMS muestra una altitud máxima cercana al nivel solicitado, el avión puede llegar con poco exceso de empuje, sin capacidad útil de acelerar y con escaso margen para virar o atravesar turbulencia. A veces la decisión más segura y eficiente es permanecer más bajo hasta consumir combustible y reducir peso.
+
 ### Q-Corner
 **CONCEPTO**
 La AC 61-107B de la FAA usa el término **"Q-Corner or Coffin Corner"**: son sinónimos. No lo confundas con la **altitud de cruce (Crossover Altitude)**, que es la altitud a la que una CAS dada y un Mach dado representan la misma velocidad; ahí el límite pasa de VMO a MMO (Sección 10). Algunas fuentes secundarias atribuyen la "Q" a la presión dinámica (q), pero no hay una fuente primaria que lo confirme: en una entrevista, basta con decir que es otro nombre del Coffin Corner.
@@ -1040,7 +1048,7 @@ La AC 61-107B de la FAA usa el término **"Q-Corner or Coffin Corner"**: son sin
 - **Poco empuje sobrante:** acelerar o recuperar velocidad es lento; en ocasiones la única forma de recuperar energía es descender.
 - **Turbulencia:** una ráfaga aumenta el ángulo de ataque y el factor de carga; puede llevar al buffet de baja o de alta velocidad.
 - **Vuelo manual a gran altitud:** entradas pequeñas y suaves; el avión responde distinto que a baja altitud (Airbus, Safety First).
-- **Pérdida a gran altitud:** reducir el ángulo de ataque es la prioridad y la recuperación puede requerir varios miles de pies (AC 120-109A, AFH).
+- **Pérdida a gran altitud:** reducir el ángulo de ataque es la prioridad y la recuperación puede requerir varios miles de pies (AC 120-109A, AFH). Intentar conservar el nivel tirando de la columna mantiene el ala cerca del ángulo crítico y retrasa la recuperación de energía; primero se recupera el vuelo controlado y después se vuelve a la altitud autorizada coordinando con ATC.
 - **Planificación:** respetar la altitud máxima que calcula el FMS/AFM para el peso y la temperatura del día, y considerar turbulencia pronosticada antes de subir.
 
 > **DEBES RECORDAR**
@@ -1099,21 +1107,14 @@ El buffet de alta velocidad aparece cuando la onda de choque sobre el extradós 
 ### Altitudes
 **CONCEPTO**
 - **Atmósfera estándar (ISA):** a nivel del mar 15 °C y 1013,25 hPa (29,92 inHg); la temperatura disminuye cerca de 2 °C por cada 1.000 ft hasta la tropopausa.
-- **Altitud de presión (Pressure Altitude):** la que indica el altímetro con 1013,25 hPa / 29,92 inHg. Es la base de los niveles de vuelo y de las tablas de performance.
-- **Altitud de densidad (Density Altitude):** altitud de presión corregida por la temperatura no estándar. Es la altitud de la atmósfera estándar que tiene la densidad real del aire. El avión "rinde" según la altitud de densidad.
+- **Altitud de presión (Pressure Altitude):** la que indica el altímetro con 1013,25 hPa / 29,92 inHg. Es la base de los niveles de vuelo y de las tablas de performance. Un aeropuerto puede estar físicamente a la misma elevación dos días distintos y tener diferente altitud de presión si cambia la presión atmosférica.
+- **Altitud de densidad (Density Altitude):** altitud de presión corregida por la temperatura no estándar. Es la altitud de la atmósfera estándar que tiene la densidad real del aire. El avión "rinde" según la altitud de densidad: una pista a 5.000 ft en una tarde muy caliente puede hacer que motores y alas se comporten como si operaran varios miles de pies más arriba.
 - La **humedad** también reduce la densidad: el aire húmedo es menos denso que el seco.
 
 ### HIGH + HOT + HEAVY
-**ESQUEMA**
-```
-ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
-            ↓                     ↓                     ↓
-   MENOS DENSIDAD      MENOS DENSIDAD      MÁS SUSTENTACIÓN REQUERIDA
-            ↓
-   MENOS SUSTENTACIÓN, EMPUJE Y POTENCIA A UNA MISMA TAS
-            ↓
-   MÁS TAS Y MÁS GS PARA LA MISMA IAS  →  MÁS DISTANCIA
-```
+«High» y «hot» aumentan la altitud de densidad: hay menos masa de aire por unidad de volumen, el motor produce menos empuje y el avión necesita más TAS para obtener la misma presión dinámica indicada. «Heavy» no reduce la densidad; aumenta la sustentación requerida y, con ella, las velocidades de despegue y la energía que debe acelerarse o detenerse. Cuando coinciden las tres condiciones, el avión rota con mayor GS, consume más pista y asciende con menos margen.
+
+Piénsalo en un despegue cercano al peso máximo desde un aeropuerto elevado al mediodía. La V-speeds siguen protegiendo la aerodinámica del ala, pero la TAS y la GS correspondientes son mayores, los motores disponen de menos empuje y queda menos exceso de energía para ascender o librar un obstáculo. La decisión operacional no sale de una regla mental: se confirma con el cálculo de performance del avión, que puede exigir reducir peso, cambiar la configuración, esperar una temperatura menor o usar otra pista.
 
 [IMAGEN — HIGH, HOT Y HEAVY] · `IMG-12`
 *Pie:* Alto y caliente reducen la densidad; pesado aumenta la sustentación requerida. Para la misma IAS, la TAS y la GS son mayores, aumenta la pista necesaria y disminuye el margen de ascenso.
@@ -1126,7 +1127,7 @@ ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
 | **Aterrizaje (Landing Performance)** | Aumenta la distancia: mayor TAS y GS al tocar para la misma IAS | Aumenta: mayor velocidad de aproximación y más energía que disipar |
 | **Velocidad de pérdida en IAS** | Prácticamente igual a bajo Mach | Aumenta |
 
-**Viento:** el viento de frente reduce la distancia sobre el terreno y el de cola la aumenta. Para certificación de transporte, los datos de despegue consideran no más del 50 % del viento de frente reportado y no menos del 150 % del viento de cola (14 CFR 25.105(d)).
+**Viento:** el viento de frente reduce la GS necesaria para alcanzar la IAS de rotación y acorta la distancia sobre el terreno; el viento de cola hace lo contrario. Por eso dos despegues con la misma V1 y VR pueden usar distancias distintas según la componente de viento. Para certificación de transporte, los datos de despegue consideran no más del 50 % del viento de frente reportado y no menos del 150 % del viento de cola (14 CFR 25.105(d)).
 
 **Configuración:** los flaps reducen la velocidad necesaria, pero también añaden resistencia. En despegue no se cumple que "más flap siempre es mejor": la posición óptima depende de pista, obstáculos, peso y condiciones, y se obtiene de los datos de performance del tipo.
 
@@ -1146,7 +1147,7 @@ ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
 **Regla práctica (PHAK):** la TAS es aproximadamente la CAS + 2 % por cada 1.000 ft de altitud. Es una estimación.
 
 **APLICACIÓN OPERACIONAL**
-- A 250 KIAS en FL100 (atmósfera estándar) la TAS es de unos 290 kt; la regla del 2 % da ≈ 300 kt: la IAS define cómo vuela el ala; la TAS y la GS, cuánto terreno recorre.
+- A 250 KIAS en FL100 (atmósfera estándar) la TAS es de unos 290 kt; la regla del 2 % da ≈ 300 kt. Si además hay 40 kt de viento de cola, la GS será aproximadamente 330 kt: el ala continúa «sintiendo» 250 KIAS, pero el avión cubre más terreno por minuto. Esta diferencia afecta el tiempo de descenso, el combustible y la distancia disponible para desacelerar.
 - En un aeródromo alto y caliente la IAS de rotación es prácticamente la misma que en uno a nivel del mar para el mismo peso y configuración (las tablas del tipo pueden aplicar pequeños ajustes por altitud de presión y temperatura), pero la TAS y la GS son mayores: más pista, más energía en un despegue abortado y más carga para los neumáticos y frenos.
 
 > **DEBES RECORDAR**
