@@ -341,7 +341,7 @@ export const NIVEL_5: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-20-01 · Fotografía real · 16:9 · 1600×900",
         descripcion:
-          "Desde la cabina, en corta final, con la pista mojada y agua visible sobre el pavimento, luz de tarde y cielo cargado. Se ven el designador y el umbral, las señales blancas de umbral, punto de visada y zona de toma de contacto, y las franjas más limpias que deja el paso de las ruedas. Ojo: nada de logos, matrículas ni pantallas de cabina con datos legibles.",
+          "Desde la cabina, en corta final, con la pista mojada y agua visible sobre el pavimento, luz de tarde y cielo cargado. Se ven el designador y el umbral, las señales blancas de umbral, la referencia de apuntado y la zona de toma de contacto, y las franjas más limpias que deja el paso de las ruedas. Ojo: nada de logos, matrículas ni pantallas de cabina con datos legibles.",
         alto: 320,
       },
       {

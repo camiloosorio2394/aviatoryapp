@@ -24,15 +24,16 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-05-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Cabecera de una pista de 45 m vista desde unos 300 m, cenital inclinada 15°, con luz de media mañana. Se ven la designadora de dos cifras, las doce fajas de umbral, el eje en trazos de 0,45 m, el punto de visada y un par de la zona de toma de contacto, con la faja lateral a los dos bordes. Todo en blanco. Ojo: ni una sola señal amarilla sobre la pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-05-01-senales-pista.webp",
+        alt: "Vista aérea de la cabecera de la pista 27 con umbral, designador, eje, referencia de apuntado y zona de toma señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "En corta final, las fajas de umbral confirman dónde comienza la superficie disponible para aterrizar y el designador identifica la orientación de la pista. Después, el eje mantiene la alineación. Las dos barras largas son la referencia de apuntado (su nombre técnico es señal de punto de visada), no el lugar exacto donde deben tocar las ruedas; las barras posteriores delimitan la zona prevista para la toma de contacto. Todas estas señales son blancas: una línea amarilla pertenece al sistema de rodaje, no a la pista.",
       },
       {
         kind: "p",
-        text: "Las señales blancas identifican la pista y organizan la alineación, el umbral, el punto de visada y la zona de toma de contacto. En corta final permiten confirmar que miras la superficie correcta; después del toque ayudan a reconocer cuánto te has alejado del umbral. No sustituyen la carta ni el cálculo de performance, pero convierten la geometría publicada en referencias que el piloto puede verificar de un vistazo.",
+        text: "Las señales blancas identifican la pista y organizan la alineación, el umbral, la referencia de apuntado y la zona de toma de contacto. En publicaciones técnicas, esa referencia aparece como «señal de punto de visada»: son las dos barras largas hacia las que diriges visualmente la trayectoria, no una orden de posar allí las ruedas. En corta final permiten confirmar que miras la superficie correcta; después del toque, las marcas siguientes ayudan a reconocer cuánto te has alejado del umbral.",
       },
       {
         kind: "p",
@@ -42,7 +43,7 @@ export const NIVEL_2: DocScreen[] = [
         kind: "hueco",
         rotulo: "AP-05-02 · Fotografía real · 16:9 · 1600×900",
         descripcion:
-          "Fotografía aérea cenital del tercio de aproximación de una pista de precisión de 45 o 60 m, con el umbral entrando por abajo. Los seis elementos tienen que ser contables a ojo: designadora, fajas de umbral, eje en trazos, punto de visada, los primeros pares de toma de contacto y la faja lateral. Ojo: nada de umbral desplazado ni de galones, que son de otra lección.",
+          "Fotografía aérea cenital del tercio de aproximación de una pista de precisión de 45 o 60 m, con el umbral entrando por abajo. Los seis elementos tienen que ser contables a ojo: designadora, fajas de umbral, eje en trazos, referencia de apuntado (señal de punto de visada en la publicación), los primeros pares de toma de contacto y la faja lateral. Ojo: nada de umbral desplazado ni de galones, que son de otra lección.",
         alto: 340,
       },
       {
@@ -90,12 +91,12 @@ export const NIVEL_2: DocScreen[] = [
             puntos: ["Hasta ahí llega el pavimento de pista."],
           },
           {
-            titulo: "Punto de visada y toma de contacto",
+            titulo: "Referencia de apuntado y zona de toma",
             hueco: {
               id: "AP-05-07",
               medida: "Ilustración técnica · 3:2 · 1200×800",
               descripcion:
-                "Los primeros 900 m de una pista de precisión de 45 m, cenital y tumbada en horizontal, con la escala en metros abajo. Punto de visada a 400 m del umbral, dos fajas gruesas simétricas; seis pares de la zona de toma de contacto cada 150 m, de 22,5 por 3 m. Ojo: ningún par pegado al punto de visada; los que caigan a 50 m o menos se borran, y ese hueco tiene que verse.",
+                "Los primeros 900 m de una pista de precisión de 45 m, cenital y tumbada en horizontal, con la escala en metros abajo. Referencia de apuntado a 400 m del umbral, formada por las dos barras largas de la señal de punto de visada; seis pares de la zona de toma de contacto cada 150 m, de 22,5 por 3 m. Ojo: ningún par pegado a la referencia de apuntado; los que caigan a 50 m o menos se borran, y ese hueco tiene que verse.",
             },
             puntos: ["Ahí apuntas; los grupos de barras dan referencias de distancia desde el umbral."],
           },
@@ -108,7 +109,7 @@ export const NIVEL_2: DocScreen[] = [
           id: "AP-05-08",
           medida: "Fotografía real · 16:9 · 1600×900",
           descripcion:
-            "Desde la cabina, en corta final a 60 m sobre el umbral y en el eje, con un pedazo de glareshield abajo. Pista de precisión de 45 m: doce fajas de umbral contables, designadora, eje en trazos, punto de visada y al menos dos pares de toma de contacto, con faja lateral a los dos lados. Ojo: ninguna señal amarilla sobre la pista y ninguna otra aeronave.",
+            "Desde la cabina, en corta final a 60 m sobre el umbral y en el eje, con un pedazo de glareshield abajo. Pista de precisión de 45 m: doce fajas de umbral contables, designadora, eje en trazos, referencia de apuntado y al menos dos pares de toma de contacto, con faja lateral a los dos lados. Ojo: ninguna señal amarilla sobre la pista y ninguna otra aeronave.",
         },
         // Sin foto todavía: los puntos van en 0 y el bloque los pinta como
         // lista numerada. Cuando exista AP-05-08 se les pone la posición.
@@ -129,7 +130,7 @@ export const NIVEL_2: DocScreen[] = [
           {
             x: 0,
             y: 0,
-            que: "Punto de visada",
+            que: "Referencia de apuntado",
             significa: "Dos fajas gruesas.",
             piloto: "Ahí apuntas.",
           },
