@@ -12,7 +12,7 @@
         "El plano del 1,5 % de la superficie de aproximación"
       ],
       "correcta": 1,
-      "explicacion": "La zona libre no es pavimento: es aire vigilado. Se extiende 75 m a cada lado del eje prolongado y nada supera el plano del 1,25 %. El 1,2 % es otra cosa: el plano que dibuja el perfil de la carta de obstáculos tipo A.",
+      "explicacion": "La zona libre no es pavimento: es aire vigilado. En pista por instrumentos se extiende 75 m a cada lado del eje prolongado y nada supera el plano del 1,25 %. El 1,2 % es otra cosa: el plano que dibuja el perfil de la carta de obstáculos tipo A.",
       "metadatos": { "nivel": 1, "leccion": 1 }
     },
     {
@@ -82,15 +82,15 @@
     },
     {
       "id": "ev-07",
-      "enunciado": "El letrero de distancia de pista restante lleva una cifra sola. ¿En qué unidad y cómo se escribe?",
+      "enunciado": "El letrero de distancia de pista restante lleva una cifra sola. ¿Qué te dice esa cifra?",
       "opciones": [
-        "En metros, con la abreviatura escrita a continuación de la cifra",
-        "En metros, y la unidad no va escrita en el letrero",
-        "En miles de pies, sin unidad escrita",
-        "En pies, con la abreviatura escrita a continuación de la cifra"
+        "Los metros que quedan, con la unidad escrita al lado",
+        "Cuántos tramos de unos 300 m de pista quedan",
+        "Los cientos de metros que quedan",
+        "El número del letrero, contado desde el umbral"
       ],
       "correcta": 1,
-      "explicacion": "La cifra va sola y en metros: la unidad no se escribe en la cara del letrero. Un letrero en miles de pies pertenece a otro sistema y no es lo que se lee en un aeródromo que sigue la norma de la OACI.",
+      "explicacion": "Los letreros van cada 300 m, con una tolerancia de 30 m, y cada uno lleva una sola cifra blanca sobre negro, sin unidad: el 3 quiere decir que quedan unos 900 m hasta el final de la pista, y el que está más cerca del final lleva un 1. Se cuentan desde el final, no desde el umbral.",
       "metadatos": { "nivel": 1, "leccion": 3 }
     },
     {
@@ -205,7 +205,7 @@
         "Cuando el tramo mide menos de 60 m"
       ],
       "correcta": 0,
-      "explicacion": "Si el tramo previo sirve para rodar o para despegar, lleva flechas sobre el eje. Los galones solo aparecen cuando ese pavimento no sirve para nada, mide más de 60 m y está pavimentado: sobre galones no se aterriza, no se despega y no se rueda.",
+      "explicacion": "Si el tramo previo sirve para rodar o para despegar, lleva flechas sobre el eje. Los galones solo aparecen cuando ese pavimento no es apto para uso normal, mide más de 60 m y está pavimentado: sobre galones no se aterriza, no se despega y no se rueda.",
       "metadatos": { "nivel": 2, "leccion": 6 }
     },
     {
@@ -223,15 +223,15 @@
     },
     {
       "id": "ev-19",
-      "enunciado": "Ves una señal de instrucción obligatoria pintada repartida a los dos lados del eje de la calle. ¿Por qué no va entera de un lado?",
+      "enunciado": "Ves la señal pintada de instrucción obligatoria centrada sobre el eje de la calle, en un solo bloque. ¿Qué te dice eso?",
       "opciones": [
-        "Porque la calle es de clave 4",
-        "Porque la anchura entre ruedas del tren principal que usa esa calle es menor de 9 m",
-        "Porque la pista es de aproximación de precisión",
-        "Porque el letrero del borde está fuera de servicio"
+        "Que la calle es de clave 4 y admite aviones de fuselaje ancho",
+        "Que la anchura exterior entre ruedas del tren principal que usa esa calle es menor de 9 m",
+        "Que el punto de espera protege una pista de aproximación de precisión",
+        "Que el letrero rojo de ese punto de espera está fuera de servicio"
       ],
       "correcta": 1,
-      "explicacion": "La inscripción blanca sobre rojo se reparte a los dos lados del eje cuando la anchura entre ruedas del tren principal es menor de 9 m, para que quede a la vista del piloto. Lo que nunca se hace es ponerla solo a la izquierda del eje.",
+      "explicacion": "Con una anchura exterior entre ruedas menor de 9 m, la inscripción blanca sobre rojo va centrada sobre el eje; de 9 m a menos de 15 m, va a los dos lados del eje. En los dos casos queda del lado de espera y a 1 m como mínimo del punto de espera. Lo que nunca se hace es ponerla solo a la izquierda del eje.",
       "metadatos": { "nivel": 2, "leccion": 7 }
     },
     {
@@ -300,19 +300,19 @@
       "opciones": [
         "«25-07»",
         "«25 CAT II/III»",
-        "«B2»",
+        "«E2»",
         "«25-07 CAT II»"
       ],
       "correcta": 3,
-      "explicacion": "El letrero de designación de pista nombra las dos cabeceras; el de categoría nombra una sola, la que protege, y por eso los dos no se mezclan en una misma cara. «B2» es el de punto de espera de la pista: la calle más su número.",
+      "explicacion": "El letrero de designación de pista nombra las dos cabeceras; el de categoría nombra una sola, la que protege, y por eso los dos no se mezclan en una misma cara. «E2» es el de punto de espera de la pista: la calle más su número.",
       "metadatos": { "nivel": 3, "leccion": 9 }
     },
     {
       "id": "ev-26",
-      "enunciado": "¿A qué distancia mínima del eje de la calle intersecada se instala un conjunto de letreros de dirección?",
+      "enunciado": "En un aeródromo de clave 3 o 4, en una intersección sin punto de espera intermedio, ¿a qué distancia mínima del eje de la calle intersecada se instalan los letreros de dirección?",
       "opciones": ["30 m", "15 m", "100 m", "60 m"],
       "correcta": 3,
-      "explicacion": "Van antes de la intersección y a la izquierda, a 60 m o más del eje de la calle que se cruza, para que se lean con tiempo. El letrero de salida de pista respeta esa misma distancia respecto del punto de tangencia.",
+      "explicacion": "Van antes de la intersección y a la izquierda. Si hay punto de espera intermedio, en línea con él; si no lo hay, a 60 m o más del eje de la calle que se cruza en clave 3 o 4, y a 40 m o más en clave 1 o 2. El letrero de salida de pista también va a 60 m o más del punto de tangencia en clave 3 o 4.",
       "metadatos": { "nivel": 3, "leccion": 10 }
     },
     {
@@ -343,10 +343,15 @@
     },
     {
       "id": "ev-29",
-      "enunciado": "¿Con qué intensidad de viento queda completamente extendida una manga?",
-      "opciones": ["3 nudos", "10 nudos", "15 nudos", "25 nudos"],
-      "correcta": 2,
-      "explicacion": "La manga da dirección y una idea de la intensidad: se mueve con muy poco viento y queda horizontal con 15 nudos. El cono mide 3,6 m de largo como mínimo y 0,9 m de diámetro en la base mayor, y tiene que leerse desde 300 m de altura.",
+      "enunciado": "¿Desde qué altura tiene que poder leerse una manga de viento?",
+      "opciones": [
+        "Desde 100 m de altura",
+        "Desde 300 m de altura como mínimo",
+        "Desde 1 000 m de altura",
+        "Solo desde el suelo, a 300 m de distancia"
+      ],
+      "correcta": 1,
+      "explicacion": "Tiene que ser visible y entenderse desde una altura de 300 m como mínimo. El cono mide 3,6 m de largo como mínimo y 0,9 m de diámetro en la base mayor, y si es de dos colores lleva cinco bandas, con la primera y la última del color más oscuro. La norma de la OACI no fija con cuántos nudos queda extendida.",
       "metadatos": { "nivel": 3, "leccion": 11 }
     },
     {
@@ -385,7 +390,7 @@
         "Un punto de espera intermedio"
       ],
       "correcta": 3,
-      "explicacion": "Una sola línea de trazos es el punto de espera intermedio: se para ahí aunque no haya pista delante. Cuatro líneas, con dos continuas de tu lado, ya serían un punto de espera de la pista, y ese siempre lleva letrero rojo.",
+      "explicacion": "Una sola línea de trazos es el punto de espera intermedio: se para ahí cuando te lo indican, aunque no haya pista delante. Cuatro líneas, con dos continuas de tu lado, ya serían un punto de espera de la pista, y ese siempre lleva letrero rojo.",
       "metadatos": { "nivel": 3, "leccion": 12 }
     },
     {
@@ -473,10 +478,10 @@
         "En juegos cada 300 m, contados desde el umbral",
         "En una sola fila continua hasta la salida",
         "En juegos cada 150 m, a los dos lados del eje",
-        "En juegos cada 100 m, con el más cercano a 60 m del punto de tangencia"
+        "En juegos de tres, dos y una luz, cada 100 m antes de la salida"
       ],
       "correcta": 3,
-      "explicacion": "Son amarillas, fijas y unidireccionales, y van siempre del mismo lado del eje que la salida a la que sirven. Cada juego es una cuenta regresiva de 100 m y el último queda a 60 m del punto de tangencia. No autorizan a salir: eso lo sigue dando el control.",
+      "explicacion": "Son amarillas, fijas y unidireccionales, y van siempre del mismo lado del eje que la salida a la que sirven. Hay tres juegos: de tres luces a 300 m del punto de tangencia, de dos a 200 m y de una a 100 m, así que cada juego es una cuenta regresiva de 100 m. Si falla una sola luz, no se muestra ninguna. No autorizan a salir: eso lo sigue dando el control.",
       "metadatos": { "nivel": 4, "leccion": 14 }
     },
     {
@@ -523,7 +528,7 @@
         "El área crítica del ILS"
       ],
       "correcta": 2,
-      "explicacion": "Si un objeto penetra esa superficie no vale dejar el sistema encendido: se quita el objeto, se sube la pendiente, se recorta el sector, se corre el sistema pista adentro o se apaga. Un indicador en servicio con la superficie penetrada te llevaría en senda contra el obstáculo.",
+      "explicacion": "Si un objeto penetra esa superficie no vale dejar el sistema encendido: se quita el objeto, se sube la pendiente, se recorta el sector, se desplaza su eje hasta 5° o se corre el sistema pista adentro. Un indicador en servicio con la superficie penetrada te llevaría en senda contra el obstáculo.",
       "metadatos": { "nivel": 4, "leccion": 15 }
     },
     {
@@ -570,7 +575,7 @@
       "enunciado": "En categorías II y III, ¿qué porcentaje de luces servibles se exige en la zona de toma de contacto?",
       "opciones": ["95 %", "85 %", "90 %", "75 %"],
       "correcta": 2,
-      "explicacion": "En categorías II y III el eje de pista, el umbral, el borde y los 450 m interiores del sistema de aproximación piden 95 %; la zona de toma de contacto, 90 %; el resto del sistema, 85 %, y el extremo, 75 %. Y por encima de cualquier porcentaje manda una regla: nunca dos luces contiguas apagadas.",
+      "explicacion": "En categorías II y III el eje de pista, el umbral, el borde y los 450 m interiores del sistema de aproximación piden 95 %; la zona de toma de contacto, 90 %; el resto del sistema, 85 %, y el extremo, 75 %. Y por encima de cualquier porcentaje manda una regla: nunca dos luces contiguas apagadas, salvo dentro de una barreta o de una barra transversal.",
       "metadatos": { "nivel": 4, "leccion": 17 }
     },
     {
@@ -609,7 +614,7 @@
         "La crítica se despeja siempre; la sensible se controla según la operación"
       ],
       "correcta": 3,
-      "explicacion": "La crítica queda libre de aeronaves y de vehículos en todo momento; la sensible se protege cuando la operación lo exige. La sensible envuelve a la crítica, y el tamaño de las dos lo publica cada aeródromo.",
+      "explicacion": "La crítica queda libre de aeronaves y de vehículos durante cualquier operación con el ILS; la sensible se protege cuando la operación lo exige. La sensible envuelve a la crítica, y el tamaño de las dos lo publica cada aeródromo.",
       "metadatos": { "nivel": 5, "leccion": 19 }
     },
     {

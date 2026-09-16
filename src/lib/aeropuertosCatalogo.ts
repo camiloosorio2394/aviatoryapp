@@ -141,7 +141,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "senal",
     es: "Señal designadora de pista",
     en: "Runway designation marking",
-    linea: "Los dos números del umbral: décimas de grado del norte magnético vistas desde la aproximación",
+    linea: "Los dos números del umbral: la décima parte del rumbo magnético, redondeada, vista desde la aproximación",
     imagen: {
       clase: "prestada",
       codigo: "AP-05-03",
@@ -176,7 +176,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Señal de umbral",
     en: "Threshold marking",
     linea: "Las fajas blancas: aquí empieza la pista utilizable para aterrizar",
-    nota: "Enm. 18 amplía su aplicación",
+    nota: "Enmienda 18 amplía su aplicación",
     imagen: {
       clase: "prestada",
       codigo: "AP-05-05",
@@ -411,7 +411,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "senal",
     es: "Señal de punto de espera intermedio",
     en: "Intermediate holding position marking",
-    linea: "Una sola línea amarilla de trazos: pare aquí si no tiene autorización para seguir",
+    linea: "Una sola línea amarilla de trazos: paras ahí cuando te lo indican",
     imagen: {
       clase: "prestada",
       codigo: "AP-12-05",
@@ -646,9 +646,9 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "senal",
     es: "Señal para pistas no pavimentadas",
     en: "Unpaved runway marking",
-    linea: "La norma regional le da numeral propio y remite a un manual aparte que no se consiguió",
+    linea: "El reglamento regional la trata aparte y remite a un manual específico: consulta la norma de tu país",
     consulta: true,
-    nota: "LAR 154, contenido NO VERIFICADO",
+    nota: "LAR 154",
   },
   {
     n: 37,
@@ -767,7 +767,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Señal de pista cerrada",
     en: "Closed runway marking",
     linea: "Cruz blanca sobre la pista: no se aterriza, no se despega, no se rueda",
-    nota: "Enm. 18 explicita el blanco",
+    nota: "Enmienda 18 explicita el blanco",
     imagen: {
       clase: "prestada",
       codigo: "AP-06-06",
@@ -785,7 +785,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Señal de calle de rodaje cerrada",
     en: "Closed taxiway marking",
     linea: "Cruz amarilla, más pequeña que la de pista: esa calle está cerrada",
-    nota: "Enm. 18 explicita el amarillo",
+    nota: "Enmienda 18 explicita el amarillo",
     imagen: {
       clase: "propia",
       codigo: "AP-CAT-17",
@@ -819,7 +819,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Señal de área fuera de servicio",
     en: "Unserviceability marking",
     linea: "Texto negro sobre fondo naranja en el piso: ese pedazo no sirve",
-    nota: "Nueva con la Enm. 18",
+    nota: "Nueva con la Enmienda 18",
     imagen: {
       clase: "propia",
       codigo: "AP-CAT-18",
@@ -835,15 +835,15 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "letrero",
     es: "Letrero de área fuera de servicio",
     en: "Unserviceability sign",
-    linea: "El tercer color de letrero: naranja con texto negro, para cambios temporales",
-    nota: "Nuevo con la Enm. 18",
+    linea: "El color nuevo de letrero: naranja con texto negro, para cambios temporales",
+    nota: "Nuevo con la Enmienda 18",
     imagen: {
       clase: "propia",
       codigo: "AP-CAT-19",
       medida: "Fotografía de estudio · 3:2 · 1200×800",
       ratio: "3 / 2",
       descripcion:
-        "Cara rectangular naranja con la inscripción negra centrada y su contorno, sobre acople frangible y con las dos luces destellantes encima. Ojo: son dos luces, y el naranja es el tercer color de letrero.",
+        "Cara rectangular naranja con la inscripción negra centrada y su contorno, sobre acople frangible y con las dos luces destellantes encima. Ojo: son dos luces, y el naranja no se confunde con el rojo de los letreros obligatorios.",
     },
   },
   {
@@ -916,7 +916,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Luces de pista cerrada",
     en: "Closed runway lighting",
     linea: "Una cruz de luces blancas que destella sobre el eje de una pista cerrada",
-    nota: "Nueva con la Enm. 18",
+    nota: "Nueva con la Enmienda 18",
     imagen: {
       clase: "propia",
       codigo: "AP-CAT-22",
@@ -1241,7 +1241,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     es: "Letrero de distancia de pista restante",
     en: "Runway distance remaining sign",
     linea: "Blanco sobre negro cada 300 metros: cuánta pista te queda para frenar o irte al aire",
-    nota: "Nuevo con la Enm. 18",
+    nota: "Nuevo con la Enmienda 18",
     imagen: {
       clase: "prestada",
       codigo: "AP-03-07",
@@ -2124,14 +2124,14 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "luz",
     es: "Luces de punto de espera intermedio",
     en: "Intermediate holding position lights",
-    linea: "Tres luces amarillas fijas: pare aquí y espere",
+    linea: "Tres luces amarillas fijas: paras ahí cuando te lo indican",
     imagen: {
       clase: "propia",
       codigo: "AP-CAT-53",
       medida: "Fotografía real · 3:2 · 1200×800",
       ratio: "3 / 2",
       descripcion:
-        "Exactamente tres luces amarillas fijas empotradas, en línea perpendicular al eje y simétricas, justo detrás de la señal de una sola línea de trazos, con el eje verde siguiendo más allá. Ojo: rojas serían barra de parada.",
+        "Exactamente tres luces amarillas fijas empotradas, en línea perpendicular al eje y simétricas, a 0,3 m antes de la señal de una sola línea de trazos, del lado del que llega, con el eje verde siguiendo más allá. Ojo: rojas serían barra de parada.",
     },
   },
   {
@@ -2391,7 +2391,7 @@ export const AP_CAT_FICHAS: ApCatFicha[] = [
     tipo: "obstaculo",
     es: "Balizas sobre o junto a objetos",
     en: "Markers on or adjacent to objects",
-    linea: "Deben reconocerse a un kilómetro desde el aire y a trescientos metros desde tierra",
+    linea: "Deben reconocerse a 1 000 m desde el aire y a 300 m desde tierra",
     consulta: true,
   },
   {
