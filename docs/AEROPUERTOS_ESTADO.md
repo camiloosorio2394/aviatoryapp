@@ -43,7 +43,9 @@ Todo está en el scratchpad de la sesión del 15-sep-2026:
       tema del módulo en `src/index.css`, página del lector
       `src/pages/AeropuertosLeccion.tsx`, hub `src/pages/Aeropuertos.tsx`, rutas
       en `src/App.tsx` y tarjeta en `src/pages/AirlinePrep.tsx`.
-- [ ] **2. Progreso.** `src/lib/aeropuertosProgress.ts` con respaldo local, y el
+- [ ] **2. Progreso.** (pendiente: la tabla y su RPC; hoy el avance vive en el navegador)
+- [x] **2-bis. Práctica, evaluación, catálogo y hub**, con el espacio del video.
+- [ ] **2-ter. Migración de progreso.** `src/lib/aeropuertosProgress.ts` con respaldo local, y el
       SQL para Camilo en `supabase/migrations/`. **La migración no se aplica: se
       le entrega para que la corra él.**
 - [x] **3. Nivel 2** (lecciones 05 a 08, 31 huecos) desde `brief-nivel2.md`.
@@ -52,8 +54,14 @@ Todo está en el scratchpad de la sesión del 15-sep-2026:
 - [x] **6. Nivel 4** (13 a 17, 37 huecos).
 - [x] **7. Nivel 5** (18 a 22, 35 huecos).
 - [x] **8. Entrevistas** de los cinco niveles en `aeropuertosLeccion/entrevistas.ts`.
-- [ ] **9. Catálogo visual**, con su componente.
-- [ ] **10. Comprobar**: `npx tsc -b`, `npx eslint`, `npx vite build`, y ver el
+- [x] **9. Catálogo visual**, con su componente.
+- [x] **9b. Evaluación.** Banco de 60 preguntas en
+      `contenido/bancos/aeropuertos_evaluacion.json`, pantalla
+      `src/pages/AeropuertosExam.tsx` sobre `ExamenModulo`, ruta
+      `/app/aerolinea/aeropuertos/evaluacion` y la migración
+      `supabase/migrations/20260915230000_evaluacion_de_aeropuertos.sql`.
+      **La migración no está aplicada**: ver la sección de abajo.
+- [x] **10. Comprobar**: `npx tsc -b`, `npx eslint`, `npx vite build`, y ver el
       módulo en el navegador.
 - [ ] **11. Commit y push**, con rutas explícitas (hay otras sesiones sobre la
       misma carpeta).
@@ -84,3 +92,68 @@ la sección 3 de Mercancías.
   trazos miran a la pista. Verificado en la Figura 5-6 del Anexo 14.
 - No aplicar migraciones a la base: el SQL se le entrega a Camilo.
 - `git add` con rutas explícitas, nunca `-A`.
+
+## Lo que le queda por correr a Camilo
+
+Nada de esto se aplicó. Va en este orden y de una sentada, porque la pantalla
+de la evaluación no funciona hasta que las dos cosas estén: la fila de reglas
+vive en la migración y las preguntas, en la siembra.
+
+**1. La migración**, en el SQL Editor de Supabase:
+
+```
+supabase/migrations/20260915230000_evaluacion_de_aeropuertos.sql
+```
+
+Crea `user_aeropuertos_exam_attempts`, registra las reglas de la evaluación en
+`evaluaciones` y `evaluacion_fuentes`, y reemplaza `evaluacion_terminar` con la
+rama del módulo nuevo. Después, el archivo se renombra con la versión que
+registró la base:
+
+```sql
+select version from supabase_migrations.schema_migrations
+where name = 'evaluacion_de_aeropuertos';
+```
+
+**2. El banco de preguntas.** Imprime el SQL y se pega en Supabase:
+
+```
+node scripts/bancos/sembrar.mjs aeropuertos_evaluacion
+```
+
+Es idempotente: se vuelve a correr cada vez que el archivo del banco cambie.
+Hace upsert por id y lo que salga del archivo queda inactivo, nunca borrado,
+porque las sesiones ya jugadas referencian sus preguntas.
+
+**3. La prueba**, con la migración aplicada y el banco sembrado:
+
+```
+supabase/tests/aeropuertos_evaluacion.sql
+```
+
+Pasa si termina en `PRUEBA_DESHECHA` seguido de la lista de lo verificado.
+
+### Y lo que queda pendiente después de eso
+
+Dos cosas de la pantalla de la evaluación esperan a la migración de **progreso**
+del módulo (paso 2 del plan), y las dos están señaladas en el comentario de
+`src/pages/AeropuertosExam.tsx`:
+
+- `sincronizarLeidas` devuelve `null`: la puerta de entrada la decide hoy lo
+  leído en el navegador. Cuando exista la tabla de progreso, ahí entra su
+  `fetch` + `push` y la migración de progreso corre:
+
+  ```sql
+  update public.evaluaciones set modulo_leccion = 'aeropuertos'
+  where clave = 'aeropuertos_evaluacion';
+  ```
+
+  para que la lección completa también la exija el servidor, como en NOTAM y
+  Mercancías.
+- `cargarHistorial` devuelve `null`: la tabla de intentos nace con esta
+  migración, pero `src/integrations/supabase/types.ts` todavía no la conoce.
+  Cuando Camilo la aplique y se regeneren los tipos, se añade
+  `traerHistorialAeropuertos` a `src/services/intentosExamen.ts` (copia de la
+  de Aerodinámica, mismas columnas) y se engancha aquí. Mientras tanto la nota
+  vive en el respaldo local, que es lo que el bloque de historial usa como
+  máximo.

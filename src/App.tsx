@@ -75,7 +75,11 @@ const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
 const MercanciasLeccion = page(() => import("@/pages/MercanciasLeccion"), "MercanciasLeccion")
+const Aeropuertos = page(() => import("@/pages/Aeropuertos"), "Aeropuertos")
 const AeropuertosLeccion = page(() => import("@/pages/AeropuertosLeccion"), "AeropuertosLeccion")
+const AeropuertosExam = page(() => import("@/pages/AeropuertosExam"), "AeropuertosExam")
+const AeropuertosPractice = page(() => import("@/pages/AeropuertosPractice"), "AeropuertosPractice")
+const AeropuertosCatalogo = page(() => import("@/pages/AeropuertosCatalogo"), "AeropuertosCatalogo")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -218,6 +222,10 @@ function App() {
               {/* Tema Aerodinámica. Mismo reparto: el hub, la práctica y el quiz
                   final dentro de la app; la lección va arriba, a pantalla completa. */}
               <Route path="/app/aerolinea/aerodinamica" element={<Aerodinamica />} />
+              <Route path="/app/aerolinea/aeropuertos" element={<Aeropuertos />} />
+              <Route path="/app/aerolinea/aeropuertos/practica" element={<AeropuertosPractice />} />
+              <Route path="/app/aerolinea/aeropuertos/catalogo" element={<AeropuertosCatalogo />} />
+              <Route path="/app/aerolinea/aeropuertos/evaluacion" element={<AeropuertosExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
               <Route path="/app/aerolinea/simulacro" element={<AirlineMockExam />} />
@@ -269,11 +277,7 @@ function App() {
             {/* Picture Description y Discussion se unificaron en un solo módulo
                 (TEA Part 3). La ruta vieja /discussion redirige para no romper links. */}
             <Route path="/app/icao/discussion" element={<Navigate to="/app/icao/picture-description" replace />} />
-            {/* Aeropuertos todavía no tiene hub propio: su puerta es la lección. */}
-            <Route
-              path="/app/aerolinea/aeropuertos"
-              element={<Navigate to="/app/aerolinea/aeropuertos/aprende" replace />}
-            />
+
             {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
             <Route
               path="/app/aerolinea/mercancias/leccion"

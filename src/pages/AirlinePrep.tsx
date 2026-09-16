@@ -51,7 +51,7 @@ import {
   fetchAerodinamicaProgress,
   readAerodinamicaLocal,
 } from "@/lib/aerodinamicaProgress"
-import { AP_APRENDE, AP_LECTURA_TOTAL, readAeropuertosLocal } from "@/lib/aeropuertos"
+import { AP_HUB, AP_LECTURA_TOTAL, readAeropuertosLocal } from "@/lib/aeropuertos"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -368,12 +368,12 @@ export function AirlinePrep() {
       // del navegador y no de la base, porque todavía no tiene tabla propia.
       {
         nombre: "Aeropuertos",
-        to: AP_APRENDE,
+        to: AP_HUB,
         pct: aeropuertosPct,
         card: {
-          to: AP_APRENDE,
+          to: AP_HUB,
           icon: TowerControl,
-          color: "#3B3A7A",
+          color: "#6B4FD8",
           titulo: "Aeropuertos",
           meta: `${AP_LECTURA_TOTAL} lecciones · 5 niveles`,
           descripcion: "Señales, letreros y luces: leer un aeropuerto de un vistazo.",

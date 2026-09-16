@@ -34,6 +34,25 @@ export const AP_HUB = "/app/aerolinea/aeropuertos"
 export const AP_APRENDE = `${AP_HUB}/aprende`
 /** El catálogo visual: todas las señales, letreros, luces y balizas. */
 export const AP_CATALOGO = `${AP_HUB}/catalogo`
+/** La práctica: reconocer lo que se ve, decidir lo que se hace. */
+export const AP_PRACTICA = `${AP_HUB}/practica`
+/** La evaluación, con el banco en el servidor. */
+export const AP_EVALUACION = `${AP_HUB}/evaluacion`
+
+/**
+ * El violeta del módulo, para las pantallas que no son el lector.
+ *
+ * Dentro del lector el acento lo pone el tema `.lector-notam.lector-ap`; fuera
+ * de él no hay tema que aplicar, así que el valor vive aquí una sola vez y no
+ * escrito a mano en cada pantalla.
+ */
+export const AP_ACENTO = "#6B4FD8"
+
+/** Preguntas por intento de la evaluación. Quien sortea es el servidor. */
+export const AP_EXAM_PER_ATTEMPT = 25
+
+/** Mínimo de aprobación de la evaluación, sobre 100. Quien califica es el servidor. */
+export const AP_PASS_SCORE = 80
 
 /** Los cinco niveles, con el número de su primera lección. */
 export const AP_NIVELES: LectorNivel[] = [
@@ -63,22 +82,56 @@ const LS_KEY = "aviatory.aeropuertos.progress"
 export interface AeropuertosProgreso {
   /** Números de lección leída, 1 a AP_LECTURA_TOTAL. */
   lessonScreens: number[]
+  /**
+   * Claves de los ejercicios de práctica ya resueltos. Salen de
+   * `claveReconoce`, `claveDecide` y `claveCambio` (lib/aeropuertosPractica),
+   * nunca escritas a mano, para que el día que esto suba a la base las claves
+   * ya cuadren con el catálogo.
+   */
+  practiceDone: string[]
+  /** Mejor puntaje de la evaluación, 0 a 100. `null` si todavía no la ha presentado. */
+  bestScore: number | null
 }
+
+const VACIO: AeropuertosProgreso = { lessonScreens: [], practiceDone: [], bestScore: null }
 
 export function readAeropuertosLocal(): AeropuertosProgreso {
   try {
     const raw = localStorage.getItem(LS_KEY)
-    if (!raw) return { lessonScreens: [] }
+    if (!raw) return { ...VACIO }
     const p = JSON.parse(raw) as Partial<AeropuertosProgreso>
-    return { lessonScreens: Array.isArray(p.lessonScreens) ? p.lessonScreens : [] }
+    return {
+      lessonScreens: Array.isArray(p.lessonScreens) ? p.lessonScreens : [],
+      practiceDone: Array.isArray(p.practiceDone) ? p.practiceDone : [],
+      bestScore: typeof p.bestScore === "number" ? p.bestScore : null,
+    }
   } catch {
-    return { lessonScreens: [] }
+    return { ...VACIO }
   }
 }
 
+/**
+ * Guarda lo leído sin pisar lo practicado: el lector solo conoce las
+ * lecciones, así que lo demás se conserva tal como estaba.
+ */
 export function writeAeropuertosLocal(lessonScreens: number[]): void {
+  escribir({ ...readAeropuertosLocal(), lessonScreens })
+}
+
+/**
+ * Respaldo local del mejor puntaje de la evaluación.
+ *
+ * Mientras el módulo no tenga tabla de intentos, este es el único sitio donde
+ * la nota sobrevive a una recarga. Cuando la tabla exista sigue sirviendo: el
+ * historial toma el máximo entre la nube y esto.
+ */
+export function writeAeropuertosMejor(bestScore: number): void {
+  escribir({ ...readAeropuertosLocal(), bestScore })
+}
+
+function escribir(p: AeropuertosProgreso): void {
   try {
-    localStorage.setItem(LS_KEY, JSON.stringify({ lessonScreens }))
+    localStorage.setItem(LS_KEY, JSON.stringify(p))
   } catch {
     /* localStorage bloqueado (incógnito): el avance queda en memoria */
   }
@@ -88,4 +141,11 @@ export function markAeropuertosLeccion(n: number): void {
   const { lessonScreens } = readAeropuertosLocal()
   if (lessonScreens.includes(n)) return
   writeAeropuertosLocal([...lessonScreens, n].sort((a, b) => a - b))
+}
+
+/** Marca un ejercicio de práctica como resuelto. La clave la da su tipo. */
+export function markAeropuertosPractica(clave: string): void {
+  const p = readAeropuertosLocal()
+  if (p.practiceDone.includes(clave)) return
+  escribir({ ...p, practiceDone: [...p.practiceDone, clave] })
 }

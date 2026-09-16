@@ -18,6 +18,7 @@ export type ClaveEvaluacion =
   | "metar_evaluacion"
   | "mercancias_evaluacion"
   | "aerodinamica_evaluacion"
+  | "aeropuertos_evaluacion"
   | "simulacro_aerolinea"
 
 export type Retroalimentacion = "inmediata" | "al_final"

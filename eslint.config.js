@@ -37,6 +37,21 @@ const CONTENIDO = [
     permitido: ['src/pages/MercanciasPractice.tsx'],
     message: 'Trae la práctica completa de Mercancías. Su total está en MP_PRACTICA_TOTAL (@/lib/mercancias).',
   },
+  {
+    name: '@/lib/aeropuertosLeccion',
+    permitido: ['src/pages/AeropuertosLeccion.tsx'],
+    message: 'Trae las 22 lecciones de Aeropuertos. Niveles y conteos están en @/lib/aeropuertos.',
+  },
+  {
+    name: '@/lib/aeropuertosCatalogo',
+    permitido: ['src/pages/AeropuertosCatalogo.tsx'],
+    message: 'Trae las 177 fichas del catálogo de Aeropuertos, que pesan como una lección entera.',
+  },
+  {
+    name: '@/lib/aeropuertosPractica',
+    permitido: ['src/pages/AeropuertosPractice.tsx'],
+    message: 'Trae la práctica completa de Aeropuertos.',
+  },
 ]
 
 const CLIENTE_SUPABASE = {

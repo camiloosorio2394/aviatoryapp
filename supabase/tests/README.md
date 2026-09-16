@@ -14,6 +14,7 @@ esa forma.
 | --- | --- |
 | `permisos.sql` | RLS en todas las tablas, `anon` sin tablas, `private` cerrado, funciones con `search_path`, permisos por defecto cerrados, columnas de corrección ocultas, tablas que el cliente escribe, límites de archivos. Solo lee. |
 | `progreso_y_evaluaciones.sql` | Marcas de progreso contra el catálogo, lección completa para abrir la evaluación, corrección solo de lo respondido, tope de intentos. |
+| `aeropuertos_evaluacion.sql` | Las reglas de la evaluación de Aeropuertos (25 de 60, aprueba con 80, corrección al final, un solo banco), el banco completo y repartido por nivel, la tabla de intentos cerrada y que `evaluacion_terminar` siga enrutando a los seis destinos. |
 | `comunidad_y_reportes.sql` | Topes de mensajes y reportes, fecha del servidor, reportes sin editar, visitas de la biblioteca, reacciones con canal y borrados filtrables en vivo. |
 | `icao_quiz.sql` | Corrección en el servidor, opciones válidas, intentos solo por la función, tope por hora. |
 | `errores_cliente.sql` | Reporte de errores solo con sesión, recortado, con tope por hora y sin acceso directo a la tabla. |

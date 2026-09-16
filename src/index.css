@@ -1581,16 +1581,19 @@
   }
 }
 
-/* Y el de Aeropuertos, en índigo. Es el hueco que quedaba libre: el azul carta
-   es de NOTAM, el mostaza de Mercancías, el turquesa de Meteorología y el
-   violeta de psicotécnicas. El ámbar y el rojo no se tocan, que son semántica. */
+/* Y el de Aeropuertos, en violeta claro, que es el color que eligió Camilo
+   para el módulo. El primario es el violeta profundo porque sobre el papel
+   tiene que leerse (6,5 a 1); el claro manda en el acento, las pastillas y el
+   velo, que es donde se reconoce el módulo de un vistazo. El violeta de
+   psicotécnicas es más magenta y vive en otra sección. El ámbar y el rojo no se
+   tocan, que son semántica. */
 .lector-notam.lector-ap {
-  --ln-primary: #3B3A7A;
-  --ln-primary-hover: #2C2B5C;
-  --ln-bright: #6F6DB8;
-  --ln-tint: #E9E8F4;
-  --ln-pill: #35346D;
-  --ln-focus: #8A88D0;
+  --ln-primary: #6B4FD8;
+  --ln-primary-hover: #5539C0;
+  --ln-bright: #A78BFA;
+  --ln-tint: #F1EDFD;
+  --ln-pill: #5B41B8;
+  --ln-focus: #B9A5FF;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }

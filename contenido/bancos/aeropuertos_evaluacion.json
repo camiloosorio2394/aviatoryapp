@@ -1,0 +1,731 @@
+{
+  "banco": "aeropuertos_evaluacion",
+  "descripcion": "Evaluación de Aeropuertos: 60 preguntas de opción múltiple sobre las 22 lecciones de los cinco niveles. Cada intento toma 25 al azar y baraja las opciones. Norma OACI: Anexo 14 Vol. I, 9.ª edición con la Enmienda 18. Ninguna pregunta repite una de las entrevistas de nivel ni de la práctica.",
+  "preguntas": [
+    {
+      "id": "ev-01",
+      "enunciado": "Dentro de una zona libre de obstáculos, ¿qué plano no puede penetrar ningún objeto?",
+      "opciones": [
+        "El plano del 2 % que sale de la franja de pista",
+        "El plano del 1,25 % que arranca en el extremo de la pista",
+        "El plano del 1,2 % de la carta de obstáculos tipo A",
+        "El plano del 1,5 % de la superficie de aproximación"
+      ],
+      "correcta": 1,
+      "explicacion": "La zona libre no es pavimento: es aire vigilado. Se extiende 75 m a cada lado del eje prolongado y nada supera el plano del 1,25 %. El 1,2 % es otra cosa: el plano que dibuja el perfil de la carta de obstáculos tipo A.",
+      "metadatos": { "nivel": 1, "leccion": 1 }
+    },
+    {
+      "id": "ev-02",
+      "enunciado": "¿Qué anchura tiene una zona de parada?",
+      "opciones": [
+        "El doble de la anchura de la pista",
+        "75 m a cada lado del eje prolongado",
+        "La misma anchura que la pista",
+        "La mitad de la anchura de la pista"
+      ],
+      "correcta": 2,
+      "explicacion": "La zona de parada es pavimento que sigue al extremo con exactamente la misma anchura de la pista, porque tiene que aguantar el avión en un despegue abortado. Lo que mide el doble de la pista es la anchura de la RESA, y los 75 m a cada lado son de la zona libre de obstáculos.",
+      "metadatos": { "nivel": 1, "leccion": 1 }
+    },
+    {
+      "id": "ev-03",
+      "enunciado": "El perfil de una carta de obstáculos tipo A, ¿qué dibuja?",
+      "opciones": [
+        "El plano del 1,2 % saliendo del extremo de pista y los obstáculos que lo penetran",
+        "Las curvas de nivel del terreno alrededor del aeródromo",
+        "La senda del indicador de pendiente con su superficie de protección",
+        "El corte de la plataforma con sus puestos de estacionamiento"
+      ],
+      "correcta": 0,
+      "explicacion": "La tipo A va partida en dos bandas alineadas por el eje: arriba el perfil, con el plano del 1,2 % y los obstáculos acotados que lo penetran, y abajo la planta del área de trayectoria de despegue, que se abre desde 180 m a razón de 0,25 D. Las curvas de nivel son de la carta topográfica de precisión.",
+      "metadatos": { "nivel": 1, "leccion": 2 }
+    },
+    {
+      "id": "ev-04",
+      "enunciado": "¿Qué pistas publican carta topográfica de precisión?",
+      "opciones": [
+        "Todas las pistas pavimentadas",
+        "Solo las de aproximación que no es de precisión",
+        "Solo las de clave 4",
+        "Solo las de aproximación de precisión de categorías II y III"
+      ],
+      "correcta": 3,
+      "explicacion": "Es la carta del terreno del área de aproximación y solo existe donde se opera en categorías II y III. Los demás aeródromos se publican con la carta de aeródromo, el plano de movimientos en tierra, el de estacionamiento y atraque y la de obstáculos tipo A.",
+      "metadatos": { "nivel": 1, "leccion": 2 }
+    },
+    {
+      "id": "ev-05",
+      "enunciado": "Buscas los procedimientos de baja visibilidad de un aeródromo. ¿En qué casilla de la ficha AD 2 están?",
+      "opciones": [
+        "AD 2.12, características físicas de la pista",
+        "AD 2.22, procedimientos de vuelo",
+        "AD 2.13, distancias declaradas",
+        "AD 2.14, luces de aproximación y de pista"
+      ],
+      "correcta": 1,
+      "explicacion": "AD 2.22 es la casilla de procedimientos de vuelo, y ahí es donde se publica lo de baja visibilidad. AD 2.12 trae las características físicas y la resistencia del pavimento, AD 2.13 las cuatro distancias por cabecera y AD 2.14 qué luces vas a ver.",
+      "metadatos": { "nivel": 1, "leccion": 2 }
+    },
+    {
+      "id": "ev-06",
+      "enunciado": "La carta electrónica de terreno y obstáculos, ¿en qué se diferencia de las otras cinco cartas de aeródromo?",
+      "opciones": [
+        "No es una hoja para leer, es un conjunto de datos",
+        "Solo se publica en papel",
+        "Solo cubre el área de plataforma",
+        "Reemplaza a la carta de aeródromo"
+      ],
+      "correcta": 0,
+      "explicacion": "Las otras cinco son hojas: se miran. La electrónica de terreno y obstáculos es un conjunto de datos que consumen los sistemas, no una lámina que el piloto lea en el briefing.",
+      "metadatos": { "nivel": 1, "leccion": 2 }
+    },
+    {
+      "id": "ev-07",
+      "enunciado": "El letrero de distancia de pista restante lleva una cifra sola. ¿En qué unidad y cómo se escribe?",
+      "opciones": [
+        "En metros, con la abreviatura escrita a continuación de la cifra",
+        "En metros, y la unidad no va escrita en el letrero",
+        "En miles de pies, sin unidad escrita",
+        "En pies, con la abreviatura escrita a continuación de la cifra"
+      ],
+      "correcta": 1,
+      "explicacion": "La cifra va sola y en metros: la unidad no se escribe en la cara del letrero. Un letrero en miles de pies pertenece a otro sistema y no es lo que se lee en un aeródromo que sigue la norma de la OACI.",
+      "metadatos": { "nivel": 1, "leccion": 3 }
+    },
+    {
+      "id": "ev-08",
+      "enunciado": "Una cabecera publica TORA 3 800, TODA 4 100, ASDA 3 800 y LDA 3 800. ¿Qué hay pasado el extremo de esa pista?",
+      "opciones": [
+        "300 m de zona de parada y ninguna zona libre de obstáculos",
+        "300 m de zona libre de obstáculos y ninguna zona de parada",
+        "300 m de área de seguridad de extremo y nada más",
+        "Ni zona de parada ni zona libre: las cuatro cifras coinciden"
+      ],
+      "correcta": 1,
+      "explicacion": "La TODA supera al TORA en 300 m, y lo que suma a la TODA es la zona libre de obstáculos. La ASDA es igual al TORA, así que no hay zona de parada. Y la LDA igual al TORA dice además que el umbral no está desplazado.",
+      "metadatos": { "nivel": 1, "leccion": 3 }
+    },
+    {
+      "id": "ev-09",
+      "enunciado": "Una pista con longitud de campo de referencia de 1 500 m, ¿qué número de clave tiene?",
+      "opciones": ["2", "4", "1", "3"],
+      "correcta": 3,
+      "explicacion": "El número sale solo de la longitud de campo de referencia: 1 es menos de 800 m, 2 de 800 a menos de 1 200, 3 de 1 200 a menos de 1 800 y 4 de 1 800 o más.",
+      "metadatos": { "nivel": 1, "leccion": 4 }
+    },
+    {
+      "id": "ev-10",
+      "enunciado": "Un avión de 54 m de envergadura, ¿en qué letra de clave cae?",
+      "opciones": ["D", "E", "F", "C"],
+      "correcta": 1,
+      "explicacion": "La letra la manda la envergadura y nada más: C de 24 a menos de 36 m, D de 36 a menos de 52 m, E de 52 a menos de 65 m y F de 65 a menos de 80 m.",
+      "metadatos": { "nivel": 1, "leccion": 4 }
+    },
+    {
+      "id": "ev-11",
+      "enunciado": "Desde 2018 la letra de clave depende solo de la envergadura. ¿Qué pasó entonces con la anchura entre ruedas del tren principal?",
+      "opciones": [
+        "Desapareció de la norma",
+        "Pasó a decidir el número de clave",
+        "Quedó como parámetro propio, que fija anchuras de pista y de calle",
+        "Se fundió dentro de la letra, como un segundo criterio"
+      ],
+      "correcta": 2,
+      "explicacion": "Antes la letra mezclaba envergadura y tren. Ahora la letra es envergadura pura y la anchura entre ruedas va aparte, con vida propia, para dimensionar pistas, calles y separaciones.",
+      "metadatos": { "nivel": 1, "leccion": 4 }
+    },
+    {
+      "id": "ev-12",
+      "enunciado": "El trazo y el espacio de una señal de eje de pista, sumados, ¿cuánto miden?",
+      "opciones": [
+        "Entre 15 y 30 m",
+        "Exactamente 30 m",
+        "Entre 100 y 150 m",
+        "Entre 50 y 75 m"
+      ],
+      "correcta": 3,
+      "explicacion": "El eje va siempre en trazos, nunca continuo: un trazo más su espacio suman entre 50 y 75 m. Lo que cambia con la categoría de la pista es el ancho, que puede ser de 0,90 m, 0,45 m o 0,30 m.",
+      "metadatos": { "nivel": 2, "leccion": 5 }
+    },
+    {
+      "id": "ev-13",
+      "enunciado": "¿A qué distancia del umbral arranca el grupo de fajas de la señal de umbral?",
+      "opciones": ["6 m", "30 m", "1,80 m", "60 m"],
+      "correcta": 0,
+      "explicacion": "Las fajas empiezan 6 m después del umbral y son simétricas respecto del eje. Cada faja mide 30 m de largo por 1,80 m de ancho y van separadas 1,80 m; contarlas te da la anchura de la pista.",
+      "metadatos": { "nivel": 2, "leccion": 5 }
+    },
+    {
+      "id": "ev-14",
+      "enunciado": "En la zona de toma de contacto falta un par de barretas justo al lado del punto de visada. ¿Por qué?",
+      "opciones": [
+        "Porque se borran los pares de los primeros 300 m",
+        "Porque solo se pintan pares en pistas de más de 2 400 m",
+        "Porque los pares que caen a 50 m o menos del punto de visada se suprimen",
+        "Porque el punto de visada reemplaza al primer par de cada lado"
+      ],
+      "correcta": 2,
+      "explicacion": "Los pares van cada 150 m desde el umbral, pero el que quede a 50 m o menos del punto de visada se suprime para que las dos señales no se lean como una sola. Ese hueco es normal y no es una señal borrada.",
+      "metadatos": { "nivel": 2, "leccion": 5 }
+    },
+    {
+      "id": "ev-15",
+      "enunciado": "La cruz luminosa de pista cerrada que trajo la Enmienda 18, ¿cómo se comporta?",
+      "opciones": [
+        "Roja fija",
+        "Blanca variable y destellante, un segundo encendida y un segundo apagada",
+        "Amarilla destellante, de 30 a 60 veces por minuto",
+        "Blanca fija, sin destello"
+      ],
+      "correcta": 1,
+      "explicacion": "Va en el eje, cerca de cada extremo de la pista cerrada, en forma de cruz de 5, 7 o 9 luces por brazo. Es blanco variable destellante, un segundo encendida y un segundo apagada, y si el destello falla revierte a fija. La cruz luminosa amarilla es de otro sistema, no de la OACI.",
+      "metadatos": { "nivel": 2, "leccion": 6 }
+    },
+    {
+      "id": "ev-16",
+      "enunciado": "Una pista cerrada larga, ¿cuántas cruces pintadas lleva y cada cuánto?",
+      "opciones": [
+        "Solo una, en el punto medio",
+        "Una cada 1 000 m",
+        "Solo una en cada umbral, sin más",
+        "Las que hagan falta, sin separarse más de 300 m"
+      ],
+      "correcta": 3,
+      "explicacion": "Las cruces de pista cerrada son blancas, de 36 m de brazo y 14,5 m de travesaño, y no pueden quedar separadas más de 300 m. La cruz de una calle de rodaje cerrada es amarilla y mucho más pequeña, de 9 m de brazo.",
+      "metadatos": { "nivel": 2, "leccion": 6 }
+    },
+    {
+      "id": "ev-17",
+      "enunciado": "¿Cuándo se pintan galones en el tramo anterior a un umbral desplazado permanente?",
+      "opciones": [
+        "Cuando ese tramo está pavimentado, mide más de 60 m y no sirve para uso normal",
+        "Siempre que el umbral esté desplazado",
+        "Cuando el desplazamiento es temporal",
+        "Cuando el tramo mide menos de 60 m"
+      ],
+      "correcta": 0,
+      "explicacion": "Si el tramo previo sirve para rodar o para despegar, lleva flechas sobre el eje. Los galones solo aparecen cuando ese pavimento no sirve para nada, mide más de 60 m y está pavimentado: sobre galones no se aterriza, no se despega y no se rueda.",
+      "metadatos": { "nivel": 2, "leccion": 6 }
+    },
+    {
+      "id": "ev-18",
+      "enunciado": "Las configuraciones estrechas A1 y B1 del punto de espera de la pista dejan de ser válidas. ¿Desde cuándo?",
+      "opciones": [
+        "Desde el 27 de noviembre de 2025",
+        "Desde el 4 de noviembre de 2021",
+        "Desde el 26 de noviembre de 2026",
+        "Desde el 28 de noviembre de 2024"
+      ],
+      "correcta": 2,
+      "explicacion": "A partir del 26 de noviembre de 2026 solo valen los patrones anchos: el A2, de cuatro líneas de 0,30 m con tres espacios de 0,30 m, y el B2, de dos continuas separadas 1,50 m unidas por travesaños. Los dos miden 2,10 m de ancho total. El 27 de noviembre de 2025 es la fecha general de la Enmienda 18.",
+      "metadatos": { "nivel": 2, "leccion": 7 }
+    },
+    {
+      "id": "ev-19",
+      "enunciado": "Ves una señal de instrucción obligatoria pintada repartida a los dos lados del eje de la calle. ¿Por qué no va entera de un lado?",
+      "opciones": [
+        "Porque la calle es de clave 4",
+        "Porque la anchura entre ruedas del tren principal que usa esa calle es menor de 9 m",
+        "Porque la pista es de aproximación de precisión",
+        "Porque el letrero del borde está fuera de servicio"
+      ],
+      "correcta": 1,
+      "explicacion": "La inscripción blanca sobre rojo se reparte a los dos lados del eje cuando la anchura entre ruedas del tren principal es menor de 9 m, para que quede a la vista del piloto. Lo que nunca se hace es ponerla solo a la izquierda del eje.",
+      "metadatos": { "nivel": 2, "leccion": 7 }
+    },
+    {
+      "id": "ev-20",
+      "enunciado": "Un punto de espera patrón B2 se extiende más de 60 m. ¿Cada cuánto se repite la inscripción de categoría?",
+      "opciones": [
+        "Cada 30 m",
+        "Cada 100 m",
+        "No se repite: va una sola vez, en el centro",
+        "Cada 45 m como máximo"
+      ],
+      "correcta": 3,
+      "explicacion": "La inscripción de categoría lleva letras de 1,80 m de alto como mínimo, se pinta a 0,90 m o menos de la señal y se repite cada 45 m como máximo mientras la señal siga.",
+      "metadatos": { "nivel": 2, "leccion": 7 }
+    },
+    {
+      "id": "ev-21",
+      "enunciado": "En la plataforma ves un círculo blanco de 6 m con una línea que sale del centro y termina en punta de flecha. ¿Qué es?",
+      "opciones": [
+        "Un punto de espera intermedio",
+        "El centro del área de señales",
+        "El punto de verificación del VOR, con su línea de azimut",
+        "La señal de un puesto de estacionamiento de helicóptero"
+      ],
+      "correcta": 2,
+      "explicacion": "El punto de verificación del VOR es un círculo blanco de 6 m de diámetro, de línea de 0,15 m, bordeado de negro para contrastar con el hormigón. La línea de azimut es opcional, sobresale 6 m del círculo y termina en punta de flecha. Va en blanco: el amarillo es de calle de rodaje.",
+      "metadatos": { "nivel": 2, "leccion": 7 }
+    },
+    {
+      "id": "ev-22",
+      "enunciado": "¿Qué señal de detención se pinta donde una vía de vehículos llega a la pista?",
+      "opciones": [
+        "Un punto de espera patrón A2",
+        "Un punto de espera patrón B2",
+        "Una cruz amarilla",
+        "La que fija el código de tránsito local, con su señal vial al lado"
+      ],
+      "correcta": 3,
+      "explicacion": "El punto de espera patrón A o B es para aeronaves. En la vía de vehículos la línea de detención la dibuja el código de tránsito del país, acompañada de su señal vial, y la refuerza un letrero rojo que dice «PARE, NO CONTINUAR SIN AUTORIZACIÓN ATC».",
+      "metadatos": { "nivel": 2, "leccion": 8 }
+    },
+    {
+      "id": "ev-23",
+      "enunciado": "¿Cuántos letreros de instrucción obligatoria define la norma?",
+      "opciones": ["Cinco", "Nueve", "Doce", "Cuatro"],
+      "correcta": 1,
+      "explicacion": "Son nueve, todos blanco sobre rojo, y casi todos viven en el punto de espera: designación de pista, punto de espera de la pista, los cinco de categoría, el de prohibida la entrada y el de la vía de vehículos. El rojo es el único color que te frena.",
+      "metadatos": { "nivel": 3, "leccion": 9 }
+    },
+    {
+      "id": "ev-24",
+      "enunciado": "En un aeródromo de clave 3 o 4, ¿qué contorno lleva un letrero de instrucción obligatoria?",
+      "opciones": [
+        "Contorno negro de 10 mm",
+        "No lleva contorno",
+        "Contorno negro de 20 mm",
+        "Contorno blanco de 20 mm"
+      ],
+      "correcta": 2,
+      "explicacion": "En clave 3 o 4 el contorno negro es de 20 mm; en clave 1 o 2, de 10 mm. El carácter del letrero de designación de pista y del de pista libre es de 400 mm, y el de los letreros de guía para el rodaje, de 300 mm.",
+      "metadatos": { "nivel": 3, "leccion": 9 }
+    },
+    {
+      "id": "ev-25",
+      "enunciado": "¿Cuál de estos letreros no existe?",
+      "opciones": [
+        "«25-07»",
+        "«25 CAT II/III»",
+        "«B2»",
+        "«25-07 CAT II»"
+      ],
+      "correcta": 3,
+      "explicacion": "El letrero de designación de pista nombra las dos cabeceras; el de categoría nombra una sola, la que protege, y por eso los dos no se mezclan en una misma cara. «B2» es el de punto de espera de la pista: la calle más su número.",
+      "metadatos": { "nivel": 3, "leccion": 9 }
+    },
+    {
+      "id": "ev-26",
+      "enunciado": "¿A qué distancia mínima del eje de la calle intersecada se instala un conjunto de letreros de dirección?",
+      "opciones": ["30 m", "15 m", "100 m", "60 m"],
+      "correcta": 3,
+      "explicacion": "Van antes de la intersección y a la izquierda, a 60 m o más del eje de la calle que se cruza, para que se lean con tiempo. El letrero de salida de pista respeta esa misma distancia respecto del punto de tangencia.",
+      "metadatos": { "nivel": 3, "leccion": 10 }
+    },
+    {
+      "id": "ev-27",
+      "enunciado": "El letrero de salida de pista, ¿de qué lado se instala?",
+      "opciones": [
+        "Del mismo lado de la salida",
+        "Del lado contrario a la salida, para que no estorbe",
+        "Sobre el eje de la pista",
+        "Siempre a la derecha, sin importar dónde esté la salida"
+      ],
+      "correcta": 0,
+      "explicacion": "Va del mismo lado por donde vas a salir y con antelación suficiente. Más adelante viene el de pista libre, que lleva dibujada dentro la configuración A del punto de espera: cuando el avión entero lo pasa, liberaste la pista.",
+      "metadatos": { "nivel": 3, "leccion": 10 }
+    },
+    {
+      "id": "ev-28",
+      "enunciado": "Un letrero de emplazamiento instalado solo, sin otros al lado, ¿qué lleva además de su inscripción amarilla sobre negro?",
+      "opciones": [
+        "Una flecha a la derecha",
+        "Un borde amarillo corrido",
+        "Un contorno rojo",
+        "Nada: va igual que cuando forma parte de un conjunto"
+      ],
+      "correcta": 1,
+      "explicacion": "Cuando el emplazamiento va aislado se le añade un borde amarillo corrido de 0,5 veces el ancho del trazo. Lo que nunca lleva es flecha: esa es la marca del letrero de dirección, que es negro sobre amarillo.",
+      "metadatos": { "nivel": 3, "leccion": 10 }
+    },
+    {
+      "id": "ev-29",
+      "enunciado": "¿Con qué intensidad de viento queda completamente extendida una manga?",
+      "opciones": ["3 nudos", "10 nudos", "15 nudos", "25 nudos"],
+      "correcta": 2,
+      "explicacion": "La manga da dirección y una idea de la intensidad: se mueve con muy poco viento y queda horizontal con 15 nudos. El cono mide 3,6 m de largo como mínimo y 0,9 m de diámetro en la base mayor, y tiene que leerse desde 300 m de altura.",
+      "metadatos": { "nivel": 3, "leccion": 11 }
+    },
+    {
+      "id": "ev-30",
+      "enunciado": "¿Qué forma y qué medida tiene el área de señales?",
+      "opciones": [
+        "Circular, de 15 m de diámetro",
+        "Cuadrada, de 4 m de lado",
+        "Rectangular, de 30 por 15 m",
+        "Cuadrada, de 9 m de lado como mínimo, con borde blanco de 0,3 m"
+      ],
+      "correcta": 3,
+      "explicacion": "El área de señales es un cuadrado de 9 m de lado como mínimo con borde blanco de 0,3 m, y encima van los paneles que se leen desde el aire: la haltera, la cruz de cerrado, la «T» de aterrizaje, las cifras de despegue y la flecha de circuito. El círculo de 15 m es el de la manga.",
+      "metadatos": { "nivel": 3, "leccion": 11 }
+    },
+    {
+      "id": "ev-31",
+      "enunciado": "Las balizas del aeródromo son de ocho familias distintas. ¿Qué tienen todas en común?",
+      "opciones": [
+        "Que son frangibles y van bajas",
+        "Que son todas azules",
+        "Que son todas retrorreflectantes",
+        "Que se instalan siempre sobre el pavimento"
+      ],
+      "correcta": 0,
+      "explicacion": "Van del borde de pista sin pavimentar a las delimitadoras y las de área fuera de servicio, con colores distintos: azul el borde de calle, verde el eje. Lo que comparten es que ninguna puede ser alta ni rígida junto a una pista o una calle.",
+      "metadatos": { "nivel": 3, "leccion": 11 }
+    },
+    {
+      "id": "ev-32",
+      "enunciado": "Cruzando la calle ves una sola línea amarilla de trazos, sin ningún letrero rojo al lado. ¿Qué es?",
+      "opciones": [
+        "Un punto de espera de la pista patrón A2",
+        "Un punto de espera de categoría patrón B2",
+        "El límite de la plataforma",
+        "Un punto de espera intermedio"
+      ],
+      "correcta": 3,
+      "explicacion": "Una sola línea de trazos es el punto de espera intermedio: se para ahí aunque no haya pista delante. Cuatro líneas, con dos continuas de tu lado, ya serían un punto de espera de la pista, y ese siempre lleva letrero rojo.",
+      "metadatos": { "nivel": 3, "leccion": 12 }
+    },
+    {
+      "id": "ev-33",
+      "enunciado": "El letrero rojo que dice «PARE, NO CONTINUAR SIN AUTORIZACIÓN ATC», ¿a quién le habla?",
+      "opciones": [
+        "A la aeronave que rueda hacia la pista",
+        "Al tránsito de la vía de vehículos",
+        "Al remolcador que empuja en la plataforma",
+        "A la aeronave que acaba de aterrizar"
+      ],
+      "correcta": 1,
+      "explicacion": "Es uno de los nueve letreros de instrucción obligatoria y marca el punto de espera de una vía de vehículos. Que la vía tenga su propio letrero rojo es la razón por la que un piloto debe contar con tránsito de tierra cruzando su ruta.",
+      "metadatos": { "nivel": 3, "leccion": 12 }
+    },
+    {
+      "id": "ev-34",
+      "enunciado": "En una pista de menos de 1 800 m, ¿dónde arranca el tramo de luces de eje rojas y blancas alternadas?",
+      "opciones": [
+        "A 900 m del extremo, como en todas",
+        "A 600 m del extremo",
+        "En el punto medio de la pista utilizable para el aterrizaje",
+        "No hay tramo alternado en pistas cortas"
+      ],
+      "correcta": 2,
+      "explicacion": "La regla general es blanco hasta 900 m del extremo, rojo y blanco de 900 a 300 y rojo en los últimos 300. En una pista de menos de 1 800 m esos 900 m no caben, así que el alternado arranca en el punto medio y el aviso te llega desde la mitad.",
+      "metadatos": { "nivel": 4, "leccion": 13 }
+    },
+    {
+      "id": "ev-35",
+      "enunciado": "¿Qué son las barras de ala del umbral?",
+      "opciones": [
+        "Las dos primeras luces de borde, pintadas de verde",
+        "Dos grupos de al menos 5 luces verdes, uno a cada lado, que se extienden 10 m hacia afuera",
+        "La fila roja del extremo opuesto",
+        "Los destellos blancos de identificación de umbral"
+      ],
+      "correcta": 1,
+      "explicacion": "Refuerzan el umbral: a cada lado de la fila verde, un grupo de 5 luces como mínimo que se extiende 10 m hacia afuera, con la luz más interna en línea con las de borde. Los destellos blancos a los lados del umbral son otra cosa: las luces de identificación de umbral.",
+      "metadatos": { "nivel": 4, "leccion": 13 }
+    },
+    {
+      "id": "ev-36",
+      "enunciado": "¿Qué luces lleva una zona de parada?",
+      "opciones": [
+        "Blancas, iguales a las de borde de pista",
+        "Azules, como las de borde de calle de rodaje",
+        "Ninguna: la zona de parada no se ilumina",
+        "Rojas, en prolongación de las de borde, más una fila roja en su final"
+      ],
+      "correcta": 3,
+      "explicacion": "Todo lo de la zona de parada es rojo: dos filas en prolongación de las de borde de pista y una fila que cierra su final. El eje de pista ya va rojo en ese tramo, y dentro de la zona de parada no hay ninguna luz blanca ni verde.",
+      "metadatos": { "nivel": 4, "leccion": 13 }
+    },
+    {
+      "id": "ev-37",
+      "enunciado": "Con una barra de parada encendida, ¿qué pasa con las luces de eje de la calle que quedan más allá?",
+      "opciones": [
+        "Quedan apagadas en 90 m como mínimo",
+        "Se ponen amarillas",
+        "Siguen verdes, sin cambio",
+        "Destellan hasta que la barra se apaga"
+      ],
+      "correcta": 0,
+      "explicacion": "Barra encendida y eje apagado van enclavados: el verde desaparece al menos 90 m más allá de la barra. Si ves eje encendido detrás de una barra roja, algo no está funcionando como debe.",
+      "metadatos": { "nivel": 4, "leccion": 14 }
+    },
+    {
+      "id": "ev-38",
+      "enunciado": "Una calle de rodaje se usa con alcance visual en la pista por debajo de 300 m. ¿Cada cuánto van sus luces de eje en tramo recto?",
+      "opciones": [
+        "Cada 30 m como máximo",
+        "Cada 60 m como máximo",
+        "Cada 15 m como máximo",
+        "Cada 7,5 m como máximo"
+      ],
+      "correcta": 2,
+      "explicacion": "En recta la separación normal es de 30 m como máximo, pero baja a 15 m cuando la calle se usa por debajo de 300 m. Ese umbral era de 350 m hasta la Enmienda 18: si tu aeropuerto cambió el alumbrado de rodaje hace poco, esta es la razón.",
+      "metadatos": { "nivel": 4, "leccion": 14 }
+    },
+    {
+      "id": "ev-39",
+      "enunciado": "Las luces indicadoras de calle de salida rápida, ¿cómo se reparten sobre la pista?",
+      "opciones": [
+        "En juegos cada 300 m, contados desde el umbral",
+        "En una sola fila continua hasta la salida",
+        "En juegos cada 150 m, a los dos lados del eje",
+        "En juegos cada 100 m, con el más cercano a 60 m del punto de tangencia"
+      ],
+      "correcta": 3,
+      "explicacion": "Son amarillas, fijas y unidireccionales, y van siempre del mismo lado del eje que la salida a la que sirven. Cada juego es una cuenta regresiva de 100 m y el último queda a 60 m del punto de tangencia. No autorizan a salir: eso lo sigue dando el control.",
+      "metadatos": { "nivel": 4, "leccion": 14 }
+    },
+    {
+      "id": "ev-40",
+      "enunciado": "¿Qué configuración de luces de protección de pista no comparte emplazamiento con una barra de parada?",
+      "opciones": [
+        "La configuración A, los dos pares a los lados de la calle",
+        "La configuración B, la fila amarilla que cruza la calle",
+        "Ninguna de las dos",
+        "Las dos, indistintamente"
+      ],
+      "correcta": 1,
+      "explicacion": "La configuración B cruza la calle con luces amarillas cada 3 m y se confundiría con la barra de parada, así que no van juntas. La configuración A, de dos pares amarillos a los lados que se encienden alternadamente, sí puede convivir con ella. Las dos destellan de 30 a 60 ciclos por minuto.",
+      "metadatos": { "nivel": 4, "leccion": 14 }
+    },
+    {
+      "id": "ev-41",
+      "enunciado": "¿Qué longitud mínima tiene el eje de un sistema de luces de aproximación sencillo?",
+      "opciones": ["270 m", "300 m", "900 m", "420 m"],
+      "correcta": 3,
+      "explicacion": "El sencillo llega a 420 m del umbral como mínimo, con luces cada 60 m (que pueden bajar a 30 m) y una barra transversal a 300 m. Los de precisión llegan a 900 m, con luces cada 30 m.",
+      "metadatos": { "nivel": 4, "leccion": 15 }
+    },
+    {
+      "id": "ev-42",
+      "enunciado": "El indicador de pendiente de aproximación abreviado, el de dos cajas, ¿cuántas lecturas da?",
+      "opciones": [
+        "Tres: alto, en senda y bajo",
+        "Cinco, igual que el de cuatro cajas",
+        "Dos: en senda y fuera de senda",
+        "Cuatro: muy alto, alto, bajo y muy bajo"
+      ],
+      "correcta": 0,
+      "explicacion": "Con dos cajas solo hay tres combinaciones, y sus ángulos para una senda de 3 grados son 3°15′ y 2°45′, con las cajas separadas 6 m. El de cuatro cajas da cinco lecturas y va separado 9 m, con una tolerancia de 1 m.",
+      "metadatos": { "nivel": 4, "leccion": 15 }
+    },
+    {
+      "id": "ev-43",
+      "enunciado": "¿Qué hay detrás de cada indicador de pendiente de aproximación visual?",
+      "opciones": [
+        "Un radiofaro de senda de planeo",
+        "Una zona libre de obstáculos",
+        "Una superficie de protección contra obstáculos que debe quedar libre",
+        "El área crítica del ILS"
+      ],
+      "correcta": 2,
+      "explicacion": "Si un objeto penetra esa superficie no vale dejar el sistema encendido: se quita el objeto, se sube la pendiente, se recorta el sector, se corre el sistema pista adentro o se apaga. Un indicador en servicio con la superficie penetrada te llevaría en senda contra el obstáculo.",
+      "metadatos": { "nivel": 4, "leccion": 15 }
+    },
+    {
+      "id": "ev-44",
+      "enunciado": "De noche ves una estructura alta con luces rojas de destellos. ¿Qué tipo de luz de obstáculo es?",
+      "opciones": [
+        "Alta intensidad tipo A",
+        "Baja intensidad tipo A",
+        "Mediana intensidad tipo C",
+        "Mediana intensidad tipo B"
+      ],
+      "correcta": 3,
+      "explicacion": "La mediana intensidad tipo B es roja de destellos; la tipo C es roja pero fija y la tipo A es el estrobo blanco. Las de alta intensidad son blancas de destellos y se usan de día en las estructuras más altas.",
+      "metadatos": { "nivel": 4, "leccion": 16 }
+    },
+    {
+      "id": "ev-45",
+      "enunciado": "¿Por qué las turbinas de un parque eólico destellan todas a la vez?",
+      "opciones": [
+        "Porque el parque se trata como un objeto extenso y su perímetro destella simultáneo",
+        "Porque comparten un solo circuito eléctrico",
+        "Porque así consumen menos energía",
+        "Porque la norma prohíbe iluminar turbinas por separado"
+      ],
+      "correcta": 0,
+      "explicacion": "Lo que se baliza es el conjunto, no cada máquina: las luces del perímetro destellan al mismo tiempo para que se lea como un solo obstáculo. En las turbinas de 150 m a 315 m se añade un nivel intermedio a la mitad de la altura de la barquilla, con 3 luces rojas de destellos como mínimo y al mismo régimen.",
+      "metadatos": { "nivel": 4, "leccion": 16 }
+    },
+    {
+      "id": "ev-46",
+      "enunciado": "¿Qué mide exactamente el tiempo de conmutación de un sistema de luces?",
+      "opciones": [
+        "Lo que tarda el grupo electrógeno en arrancar",
+        "El tiempo que la luz pasa por debajo del 50 % de su intensidad al cambiar de fuente",
+        "Lo que tarda el operador en detectar la falla",
+        "El tiempo entre el apagón y el aviso al control"
+      ],
+      "correcta": 1,
+      "explicacion": "No mide el generador: mide la luz. Se toma en una dirección dada, con la luz operando al 25 % de intensidad o más, y es el tramo en que su haz queda por debajo de la mitad de lo que daba.",
+      "metadatos": { "nivel": 4, "leccion": 17 }
+    },
+    {
+      "id": "ev-47",
+      "enunciado": "En categorías II y III, ¿qué porcentaje de luces servibles se exige en la zona de toma de contacto?",
+      "opciones": ["95 %", "85 %", "90 %", "75 %"],
+      "correcta": 2,
+      "explicacion": "En categorías II y III el eje de pista, el umbral, el borde y los 450 m interiores del sistema de aproximación piden 95 %; la zona de toma de contacto, 90 %; el resto del sistema, 85 %, y el extremo, 75 %. Y por encima de cualquier porcentaje manda una regla: nunca dos luces contiguas apagadas.",
+      "metadatos": { "nivel": 4, "leccion": 17 }
+    },
+    {
+      "id": "ev-48",
+      "enunciado": "Según el informe oficial, ¿cuál fue la causa fundamental del accidente de Los Rodeos en 1977?",
+      "opciones": [
+        "Que la torre no tenía radar de movimiento en superficie",
+        "Que la salida indicada estaba mal señalizada",
+        "Que una de las aeronaves inició el despegue sin autorización",
+        "Que la niebla impedía ver las señales del pavimento"
+      ],
+      "correcta": 2,
+      "explicacion": "Los dos Boeing 747 coincidieron con niebla y uno inició el despegue sin autorización con el otro todavía sobre la pista. Murieron 583 personas y hubo 61 supervivientes. La niebla fue el escenario; la causa fundamental fue despegar sin autorización.",
+      "metadatos": { "nivel": 5, "leccion": 18 }
+    },
+    {
+      "id": "ev-49",
+      "enunciado": "En Linate, en 2001, el bimotor cruzó una fila de luces rojas encendidas antes de salir a la pista. ¿Por qué se cruzaban esas luces?",
+      "opciones": [
+        "Porque desde 1998 no eran gobernables desde el control y quedaban encendidas siempre, así que se instruía cruzarlas",
+        "Porque el control las había apagado y se encendieron solas",
+        "Porque la tripulación las confundió con luces de borde",
+        "Porque el aeródromo no tenía radar de movimiento en superficie"
+      ],
+      "correcta": 0,
+      "explicacion": "Aquellas marcas y luces no cumplían lo que la norma pide de una barra de parada. Al no poder gobernarse desde la torre desde 1998, quedaban permanentemente encendidas y las tripulaciones tenían instrucción de cruzarlas. El aeródromo tampoco tenía luces de protección de pista ni radar de movimiento en superficie.",
+      "metadatos": { "nivel": 5, "leccion": 18 }
+    },
+    {
+      "id": "ev-50",
+      "enunciado": "Área crítica y área sensible del ILS: ¿en qué se diferencian?",
+      "opciones": [
+        "La crítica es la de la senda de planeo y la sensible la del localizador",
+        "La sensible es siempre más pequeña que la crítica",
+        "Son dos nombres de lo mismo",
+        "La crítica se despeja siempre; la sensible se controla según la operación"
+      ],
+      "correcta": 3,
+      "explicacion": "La crítica queda libre de aeronaves y de vehículos en todo momento; la sensible se protege cuando la operación lo exige. La sensible envuelve a la crítica, y el tamaño de las dos lo publica cada aeródromo.",
+      "metadatos": { "nivel": 5, "leccion": 19 }
+    },
+    {
+      "id": "ev-51",
+      "enunciado": "Las luces de un punto de espera intermedio, ¿cómo son?",
+      "opciones": [
+        "Una fila de rojas de borde a borde de la calle",
+        "Tres amarillas fijas separadas 1,5 m, perpendiculares al eje",
+        "Dos pares de amarillas destellantes, a los lados",
+        "Tres verdes fijas sobre el eje"
+      ],
+      "correcta": 1,
+      "explicacion": "Tres amarillas fijas y unidireccionales, hacia el que llega, separadas 1,5 m y a 0,3 m antes de la señal pintada. La fila roja de borde a borde es la barra de parada, y los pares amarillos que destellan son las luces de protección de pista.",
+      "metadatos": { "nivel": 5, "leccion": 19 }
+    },
+    {
+      "id": "ev-52",
+      "enunciado": "Un tercio de pista con escarcha, ¿qué clave de estado lleva?",
+      "opciones": [
+        "6, porque la escarcha no cuenta como contaminante",
+        "4, con eficacia de frenado BUENA A MEDIA",
+        "3, con eficacia de frenado MEDIA",
+        "5, con eficacia de frenado BUENA"
+      ],
+      "correcta": 3,
+      "explicacion": "El 5 agrupa la escarcha, la pista mojada con agua hasta 3 mm inclusive y la nieve fundente, seca o mojada hasta 3 mm, todas con eficacia de frenado BUENA. El 6 es solo pista seca.",
+      "metadatos": { "nivel": 5, "leccion": 20 }
+    },
+    {
+      "id": "ev-53",
+      "enunciado": "Un tercio de pista está mojado en el 20 % de su superficie. ¿Qué clave se notifica para ese tercio?",
+      "opciones": ["5", "6", "3", "2"],
+      "correcta": 1,
+      "explicacion": "Si el 25 % o menos del tercio está mojado o cubierto, ese tercio se notifica como 6, es decir seca. La clave se da por tercio y siempre desde el designador más bajo.",
+      "metadatos": { "nivel": 5, "leccion": 20 }
+    },
+    {
+      "id": "ev-54",
+      "enunciado": "La nieve compactada lleva clave 4 o clave 3. ¿Qué lo decide?",
+      "opciones": [
+        "El espesor: 4 hasta 3 mm y 3 por encima",
+        "La hora del día",
+        "La temperatura exterior: 4 con −15 °C o menos, 3 por encima de −15 °C",
+        "El tipo de pavimento"
+      ],
+      "correcta": 2,
+      "explicacion": "Con temperatura exterior de −15 °C o inferior la nieve compactada da 4, con frenado BUENA A MEDIA; por encima de −15 °C baja a 3, con frenado MEDIA. Es el único criterio de la tabla que depende de la temperatura.",
+      "metadatos": { "nivel": 5, "leccion": 20 }
+    },
+    {
+      "id": "ev-55",
+      "enunciado": "En un código publicado como «PCR 980 / F / C / X / T», ¿qué dice la X?",
+      "opciones": [
+        "Que el pavimento es flexible",
+        "Que la subrasante es de resistencia baja",
+        "Que la evaluación se hizo por experiencia",
+        "La presión máxima de neumáticos admisible, hasta 1,75 MPa"
+      ],
+      "correcta": 3,
+      "explicacion": "Los cinco elementos van siempre en el mismo orden: valor del índice, tipo de pavimento (R rígido, F flexible), resistencia de la subrasante (A alta, B media, C baja, D muy baja), presión máxima de neumáticos (W sin límite, X hasta 1,75 MPa, Y hasta 1,25 MPa, Z hasta 0,50 MPa) y método de evaluación (T técnica, U por experiencia).",
+      "metadatos": { "nivel": 5, "leccion": 21 }
+    },
+    {
+      "id": "ev-56",
+      "enunciado": "Un avión de 45 m de longitud total, ¿qué categoría de salvamento y extinción de incendios exige?",
+      "opciones": ["6", "7", "8", "5"],
+      "correcta": 1,
+      "explicacion": "La categoría se elige por la longitud total del avión: la 7 cubre de 39 a menos de 49 m. Después se comprueba la anchura máxima de fuselaje de esa fila, 5 m para la 7, y si el avión la excede la categoría sube un nivel.",
+      "metadatos": { "nivel": 5, "leccion": 21 }
+    },
+    {
+      "id": "ev-57",
+      "enunciado": "¿Cuándo puede un aeródromo bajar su categoría de salvamento y extinción de incendios?",
+      "opciones": [
+        "Cuando lo pida el explotador del aeródromo",
+        "De noche, si no hay vuelos programados",
+        "Con menos de 700 movimientos en los tres meses consecutivos de mayor actividad, y solo una categoría",
+        "Nunca: la categoría es fija"
+      ],
+      "correcta": 2,
+      "explicacion": "Es la única remisión que admite la norma y baja una sola categoría. El conteo se hace sobre los tres meses consecutivos de mayor actividad, no sobre el promedio del año.",
+      "metadatos": { "nivel": 5, "leccion": 21 }
+    },
+    {
+      "id": "ev-58",
+      "enunciado": "¿Qué anchura mínima tiene la barra de alineación de un puesto de estacionamiento?",
+      "opciones": ["10 cm", "15 cm", "30 cm", "6 m"],
+      "correcta": 1,
+      "explicacion": "Las señales del puesto van en amarillo y de 0,15 m de ancho como mínimo. Las que llevan 0,10 m o más son las líneas de seguridad de plataforma, y esas van en un color que contraste con el amarillo. Los 6 m son la longitud mínima de la barra de viraje y de la línea de parada.",
+      "metadatos": { "nivel": 5, "leccion": 22 }
+    },
+    {
+      "id": "ev-59",
+      "enunciado": "La pantalla de un sistema avanzado de guía visual de atraque, ¿qué te confirma?",
+      "opciones": [
+        "La presión de neumáticos y el peso al aterrizaje",
+        "El número de vuelo y la puerta asignada",
+        "El tipo de avión, el desvío en azimut y la distancia que falta",
+        "El viento en la plataforma"
+      ],
+      "correcta": 2,
+      "explicacion": "Confirma con qué avión cree que está tratando, hacia dónde te estás desviando y cuánto falta, y avisa si te pasaste. El rojo es peligro, el amarillo precaución y el verde correcto. Si la pantalla se apaga, no hay guía válida: se frena.",
+      "metadatos": { "nivel": 5, "leccion": 22 }
+    },
+    {
+      "id": "ev-60",
+      "enunciado": "¿En qué se diferencian la señal de parada normal del señalero y la de parada de emergencia?",
+      "opciones": [
+        "La normal se hace con un solo bastón",
+        "La de emergencia se hace de espaldas al avión",
+        "La normal se hace con los brazos abajo",
+        "La normal es lenta y la de emergencia, brusca"
+      ],
+      "correcta": 3,
+      "explicacion": "En la parada normal los brazos van extendidos a 90 grados y suben despacio hasta cruzar los bastones sobre la cabeza; en la de emergencia el movimiento es brusco. El señalero manda en el puesto, se coloca de frente al avión y a la izquierda del eje.",
+      "metadatos": { "nivel": 5, "leccion": 22 }
+    }
+  ]
+}

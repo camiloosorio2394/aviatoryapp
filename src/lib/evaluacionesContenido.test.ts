@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest"
 import { BANCO_TOTAL, MP_CHEQUEO_TOTAL, TEMAS_SIMULACRO } from "@/lib/airlineMock"
+import { AP_EVALUACION_META } from "@/lib/aeropuertosEvaluacion"
 import { MP_EVALUACION_META } from "@/lib/mercanciasEvaluacion"
 import { METAR_EXAM_TOTAL } from "@/lib/metar"
 import { TOTALS } from "@/lib/notam"
@@ -30,12 +31,20 @@ describe("evaluaciones: la app y los bancos del servidor", () => {
     expect(METAR_EXAM_TOTAL).toBe(banco("metar_evaluacion").preguntas.length)
     expect(MP_EVALUACION_META.total).toBe(banco("mercancias_evaluacion").preguntas.length)
     expect(MP_CHEQUEO_TOTAL).toBe(banco("mercancias_chequeo").preguntas.length)
+    expect(AP_EVALUACION_META.total).toBe(banco("aeropuertos_evaluacion").preguntas.length)
+    expect(AP_EVALUACION_META.porIntento).toBeLessThanOrEqual(AP_EVALUACION_META.total)
     expect(BANCO_TOTAL).toBe(TEMAS_SIMULACRO.reduce((s, t) => s + t.preguntas, 0))
     expect(EXAM_PER_ATTEMPT).toBeLessThanOrEqual(TOTALS.examQuestions)
   })
 
   it("ningún archivo de src/ vuelve a traer el banco de una evaluación", () => {
-    const enunciados = ["notam_evaluacion", "metar_evaluacion", "mercancias_evaluacion", "mercancias_chequeo"]
+    const enunciados = [
+      "notam_evaluacion",
+      "metar_evaluacion",
+      "mercancias_evaluacion",
+      "mercancias_chequeo",
+      "aeropuertos_evaluacion",
+    ]
       .flatMap((nombre) => banco(nombre).preguntas.map((p) => p.enunciado))
       // Los enunciados muy cortos ("¿Qué significa RWY?") pueden coincidir con
       // una lección sin ser una copia del banco.
