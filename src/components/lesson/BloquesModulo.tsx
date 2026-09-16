@@ -183,14 +183,16 @@ export function CasoReal({ block }: { block: CasoRealBlock }) {
       )}
 
       <div className="px-5 py-5 sm:px-6" style={{ background: "var(--doc-bg)" }}>
-        <dl className="m-0 grid gap-x-5 gap-y-1 sm:grid-cols-[150px_1fr]">
-          <dt className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
-            Qué se transportaba
-          </dt>
-          <dd className="m-0 text-[15px] leading-[1.6]">{renderInline(block.mercancia)}</dd>
-        </dl>
+        {block.mercancia && (
+          <dl className="m-0 grid gap-x-5 gap-y-1 sm:grid-cols-[150px_1fr]">
+            <dt className="rotulo text-[11px] font-semibold uppercase tracking-[0.12em] doc-muted">
+              Qué se transportaba
+            </dt>
+            <dd className="m-0 text-[15px] leading-[1.6]">{renderInline(block.mercancia)}</dd>
+          </dl>
+        )}
 
-        <div className="mt-4 flex flex-col gap-3">
+        <div className={`flex flex-col gap-3 ${block.mercancia ? "mt-4" : ""}`}>
           {block.queOcurrio.map((p, i) => (
             <p key={i} className="m-0 text-[15px] leading-[1.7]">
               {renderInline(p)}

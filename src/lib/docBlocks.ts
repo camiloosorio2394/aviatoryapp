@@ -96,8 +96,12 @@ export interface CasoRealBlock {
   lugar?: string
   /** "DC-9-32 · N904VJ · Miami a Atlanta". */
   aeronave?: string
-  /** Qué mercancía peligrosa estaba involucrada. */
-  mercancia: string
+  /**
+   * Qué mercancía peligrosa estaba involucrada. Opcional: en Aeropuertos los
+   * casos son incursiones en pista y no hay carga que mirar, así que la ficha
+   * «Qué se transportaba» no se pinta.
+   */
+  mercancia?: string
   /** Párrafos cortos, en orden. */
   queOcurrio: string[]
   consecuencia: string
@@ -216,7 +220,14 @@ export interface ReconoceBlock {
   kind: "reconoce"
   titulo?: string
   intro?: string
-  imagen: { src: string; alt: string; ancho: number; alto: number }
+  /** La foto real, con los puntos encima. */
+  imagen?: { src: string; alt: string; ancho: number; alto: number }
+  /**
+   * Mientras la foto no exista: el hueco rotulado y los puntos como lista
+   * numerada debajo. Aeropuertos nace con 231 huecos, y sin esto su bloque más
+   * visual no podría usarse hasta tener todas las fotos.
+   */
+  hueco?: HuecoFoto
   puntos: {
     /** Posición del punto, en % del ancho y del alto de la imagen. */
     x: number

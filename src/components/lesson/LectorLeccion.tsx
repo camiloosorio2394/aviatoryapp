@@ -47,6 +47,12 @@ export interface LectorModulo {
    * comería justamente eso.
    */
   portadaRatio?: string
+  /**
+   * La portada por nombre de archivo, encendida por defecto. Aeropuertos la
+   * apaga: allí la portada es el primer hueco de la lección, con la
+   * descripción de qué dibujar, y la automática saldría repetida encima.
+   */
+  portadaAuto?: boolean
   /** Clave de la actividad diaria que se registra al completar una lección. */
   actividad: Parameters<typeof registrarEstudioDiario>[0]
   lecciones: DocScreen[]
@@ -361,12 +367,14 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                 />
               ) : (
               <div className="flex flex-col" style={{ rowGap: 38 }}>
-                <Portada
-                  dir={modulo.portadas}
-                  n={l}
-                  titulo={leccion.title}
-                  ratio={modulo.portadaRatio}
-                />
+                {modulo.portadaAuto !== false && (
+                  <Portada
+                    dir={modulo.portadas}
+                    n={l}
+                    titulo={leccion.title}
+                    ratio={modulo.portadaRatio}
+                  />
+                )}
                 {leccion.blocks.map((block, i) => {
                   if (block.kind === "interactivo") {
                     return (

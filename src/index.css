@@ -1581,6 +1581,23 @@
   }
 }
 
+/* Y el de Aeropuertos, en índigo. Es el hueco que quedaba libre: el azul carta
+   es de NOTAM, el mostaza de Mercancías, el turquesa de Meteorología y el
+   violeta de psicotécnicas. El ámbar y el rojo no se tocan, que son semántica. */
+.lector-notam.lector-ap {
+  --ln-primary: #3B3A7A;
+  --ln-primary-hover: #2C2B5C;
+  --ln-bright: #6F6DB8;
+  --ln-tint: #E9E8F4;
+  --ln-pill: #35346D;
+  --ln-focus: #8A88D0;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-ap .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+
 /* Y el de Meteorología, igual, en turquesa petróleo. Mismo papel, misma
    tinta, mismo navy: cambia lo que era azul carta. Cada hex es el mismo oklch
    de los tokens --av-mt-* de arriba, convertido: si un día se mueve el matiz,

@@ -75,6 +75,7 @@ const NotamPractice = page(() => import("@/pages/NotamPractice"), "NotamPractice
 const NotamExam = page(() => import("@/pages/NotamExam"), "NotamExam")
 const Mercancias = page(() => import("@/pages/Mercancias"), "Mercancias")
 const MercanciasLeccion = page(() => import("@/pages/MercanciasLeccion"), "MercanciasLeccion")
+const AeropuertosLeccion = page(() => import("@/pages/AeropuertosLeccion"), "AeropuertosLeccion")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -172,6 +173,7 @@ function App() {
               <Route path="/app/aerolinea/meteorologia/aprende" element={<MetarLesson />} />
               <Route path="/app/aerolinea/mercancias/aprende" element={<MercanciasLeccion />} />
               <Route path="/app/aerolinea/aerodinamica/aprende" element={<AerodinamicaLeccion />} />
+              <Route path="/app/aerolinea/aeropuertos/aprende" element={<AeropuertosLeccion />} />
             </Route>
 
             {/* Con sesión, dentro de la app. AppLayout es la ruta de layout: se monta
@@ -267,6 +269,11 @@ function App() {
             {/* Picture Description y Discussion se unificaron en un solo módulo
                 (TEA Part 3). La ruta vieja /discussion redirige para no romper links. */}
             <Route path="/app/icao/discussion" element={<Navigate to="/app/icao/picture-description" replace />} />
+            {/* Aeropuertos todavía no tiene hub propio: su puerta es la lección. */}
+            <Route
+              path="/app/aerolinea/aeropuertos"
+              element={<Navigate to="/app/aerolinea/aeropuertos/aprende" replace />}
+            />
             {/* Ruta del lector anterior: los enlaces guardados siguen llegando a la lección. */}
             <Route
               path="/app/aerolinea/mercancias/leccion"

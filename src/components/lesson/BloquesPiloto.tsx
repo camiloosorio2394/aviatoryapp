@@ -25,6 +25,7 @@ import type {
 import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
 import { Ficha, VisualFicha } from "@/components/lesson/FichaPiloto"
+import { HuecoImagen } from "@/components/lesson/HuecoImagen"
 
 /** El acento del lector: azul en NOTAM, amarillo en Mercancías. */
 const ACENTO = "var(--av-blue-500)"
@@ -73,6 +74,35 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
         <p className="m-0 px-4 pt-2 text-[15px] leading-[1.65] sm:px-5">{renderInline(block.intro)}</p>
       )}
 
+      {!block.imagen && block.hueco && (
+        <div className="mt-3.5 border-y" style={{ borderColor: docAccent(ACENTO, 18) }}>
+          <HuecoImagen
+            rotulo={`${block.hueco.id} · ${block.hueco.medida}`}
+            descripcion={block.hueco.descripcion}
+            alto={300}
+            ratio="16 / 9"
+          />
+          <ol className="m-0 flex list-none flex-col gap-2 px-4 py-4 sm:px-5">
+            {block.puntos.map((p, i) => (
+              <li key={i} className="grid grid-cols-[26px_1fr] gap-2.5 text-[14.5px] leading-[1.55]">
+                <span
+                  aria-hidden
+                  className="grid h-[22px] w-[22px] place-items-center rounded-full text-[12px] font-bold"
+                  style={{ background: docAccent(ACENTO, 70), color: "#FFFFFF" }}
+                >
+                  {i + 1}
+                </span>
+                <span>
+                  <strong style={{ color: "var(--doc-fg)" }}>{p.que}.</strong> {renderInline(p.significa)}
+                  {p.piloto && <span className="doc-muted"> {renderInline(p.piloto)}</span>}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
+
+      {block.imagen && (
       <div className="relative mt-3.5">
         <img
           src={block.imagen.src}
@@ -105,8 +135,11 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
           </button>
         ))}
       </div>
+      )}
 
-      {/* La misma botonera, para el dedo. */}
+      {/* La misma botonera, para el dedo. Con hueco no hay dónde pulsar: los
+          puntos ya van en la lista numerada de arriba. */}
+      {block.imagen && (
       <div className="flex flex-wrap gap-1.5 border-t px-4 py-3 sm:px-5" style={{ borderColor: docAccent(ACENTO, 18) }}>
         {block.puntos.map((p, i) => (
           <button
@@ -127,7 +160,9 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
           </button>
         ))}
       </div>
+      )}
 
+      {block.imagen && (
       <div id={`${base}-detalle`} aria-live="polite" className="px-4 pb-4 sm:px-5 sm:pb-5">
         {punto ? (
           <div className="rev-aparece-2 rounded-lg border p-3.5" style={{ borderColor: "var(--doc-border)", background: "var(--doc-bg)" }}>
@@ -156,6 +191,7 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
           </p>
         )}
       </div>
+      )}
     </section>
   )
 }

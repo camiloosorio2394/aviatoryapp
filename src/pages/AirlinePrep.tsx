@@ -9,6 +9,7 @@ import {
   CloudSun,
   Play,
   Wind,
+  TowerControl,
 } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { fechaDeUltimaActividad } from "@/lib/activity"
@@ -50,6 +51,7 @@ import {
   fetchAerodinamicaProgress,
   readAerodinamicaLocal,
 } from "@/lib/aerodinamicaProgress"
+import { AP_APRENDE, AP_LECTURA_TOTAL, readAeropuertosLocal } from "@/lib/aeropuertos"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
@@ -160,6 +162,8 @@ export function AirlinePrep() {
   )
   const [mercanciasProgreso, setMercanciasProgreso] = useState(() => readMercanciasLocal())
   const [aeroProgreso, setAeroProgreso] = useState(() => readAerodinamicaLocal())
+  // Aeropuertos todavía no tiene tabla: lo leído vive solo en este navegador.
+  const [aeropuertosLeidas] = useState(() => readAeropuertosLocal().lessonScreens.length)
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -251,6 +255,7 @@ export function AirlinePrep() {
   const metar = useMemo(() => resumirMetar(metarProgress), [metarProgress])
   const mercancias = useMemo(() => resumirMercancias(mercanciasProgreso), [mercanciasProgreso])
   const aero = useMemo(() => resumirAerodinamica(aeroProgreso), [aeroProgreso])
+  const aeropuertosPct = Math.round((aeropuertosLeidas / AP_LECTURA_TOTAL) * 100)
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -359,6 +364,30 @@ export function AirlinePrep() {
                 : `${aero.lessonRead}/${AERO_LECTURA_TOTAL} secciones · ${aero.practiceDone}/${AERO_PRACTICA_TOTAL} ejercicios`,
         },
       },
+      // Aeropuertos es el módulo más visual: se estudia mirando. Su avance sale
+      // del navegador y no de la base, porque todavía no tiene tabla propia.
+      {
+        nombre: "Aeropuertos",
+        to: AP_APRENDE,
+        pct: aeropuertosPct,
+        card: {
+          to: AP_APRENDE,
+          icon: TowerControl,
+          color: "#3B3A7A",
+          titulo: "Aeropuertos",
+          meta: `${AP_LECTURA_TOTAL} lecciones · 5 niveles`,
+          descripcion: "Señales, letreros y luces: leer un aeropuerto de un vistazo.",
+          cta: ctaDeTema(aeropuertosPct),
+          avance: aeropuertosPct,
+          completo: aeropuertosPct >= 100,
+          estado:
+            aeropuertosLeidas === 0
+              ? "Sin empezar"
+              : aeropuertosLeidas >= AP_LECTURA_TOTAL
+                ? "Tema completo"
+                : `${aeropuertosLeidas}/${AP_LECTURA_TOTAL} lecciones`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -439,7 +468,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, aeropuertosLeidas, aeropuertosPct, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)
