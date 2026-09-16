@@ -267,13 +267,25 @@ había dos cifras con punto de miles.
 - El espacio del video ya no pide la voz de William Shanks: los videos se van a
   rehacer con el avatar y la voz propios.
 
+### Opciones parejas en la evaluación (16-sep-2026, segunda pasada)
+
+En 17 preguntas la respuesta correcta era desde un 37 % más larga que la
+siguiente hasta más del doble, y se podía acertar sin saber: ev-06, 15, 16, 17, 22, 30, 34, 35,
+36, 39, 43, 45, 46, 49, 54, 55 y 57. Se acortó la buena (el detalle sigue en la
+explicación) y se alargaron los distractores con datos plausibles y falsos.
+Ahora en ninguna la correcta pasa de un 30 % más larga que la siguiente, y es
+la más larga en 18 de las 60 y la más corta en otras 18.
+
+De paso, ev-57 cambió de fondo: decía que la rebaja por menos de 700
+movimientos era «la única» que admite la norma, y 9.2.7 permite otra en los
+períodos previstos de poca actividad. La pregunta ahora pregunta cuánto se
+puede bajar por poco tráfico y la explicación distingue los dos casos.
+
 ### Queda por decidir (Camilo)
 
 - **Largo de las lecciones.** La regla es 120 a 160 palabras de texto. Con el
   mismo conteo, los niveles 2 y 3 cumplen, pero las lecciones 01 a 04 tienen
   182 a 228, la 13 a la 18 tienen 289 a 483 y la 19 a la 22, 164 a 242.
-- **Evaluación:** en ev-17, 22, 30, 35, 43, 46, 49, 54 y 57 la opción correcta
-  es mucho más larga que las demás y se puede adivinar por la forma.
 - **Ficha 36 del catálogo** (señal de pista no pavimentada, LAR 154): su
   contenido sigue sin verificar. Las variantes nacionales del catálogo
   (Colombia, Chile) no se revisaron en esta pasada.
