@@ -19,7 +19,7 @@
 | Práctica | Sección 13 · Aplicación (13 escenarios, `esc-01` a `esc-13`) · Sección 14 · Entrevista (49 preguntas, `ent-01` a `ent-49`) |
 | Quiz por sección | 3 a 5 preguntas al final de S01–S12 (45 en total) |
 | Quiz final | Banco de 40 preguntas (`ev-01` a `ev-40`), 20 al azar por intento, aprobación 80 % |
-| Imágenes | 12 figuras didácticas (`IMG-01` a `IMG-12`), una por lección, ver Anexo A |
+| Imágenes | 24 figuras didácticas (`IMG-01` a `IMG-24`), dos por lección, ver Anexo A |
 | Tiempo estimado | 12 secciones × 10–15 min + práctica ≈ 4 a 5 h |
 | Tarjeta de progreso | **Aerodinámica** · Progreso: 0 % · 12 secciones |
 
@@ -82,6 +82,9 @@ El aire es un gas: fluye, tiene masa y se comprime. A bajas velocidades (del ord
 
 [IMAGEN — FLUJO DE AIRE Y VIENTO RELATIVO] · `IMG-01`
 *Pie:* El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz.
+
+[IMAGEN — ACTITUD, TRAYECTORIA Y VIENTO RELATIVO] · `IMG-13`
+*Pie:* La actitud describe hacia dónde apunta el avión; la trayectoria indica hacia dónde se mueve. El viento relativo siempre llega en sentido opuesto a esa trayectoria.
 
 ### Capa límite
 **CONCEPTO**
@@ -151,6 +154,9 @@ Los generadores de vórtice (Vortex Generators) mezclan aire de alta energía co
 
 **APLICACIÓN OPERACIONAL**
 En un ascenso con empuje fijo, si subes la nariz aumentas el ángulo de trayectoria, pero la velocidad cae, porque el empuje disponible no cambió. La energía se intercambia; no se crea con el mando de profundidad.
+
+[IMAGEN — PITCH, EMPUJE Y ENERGÍA] · `IMG-14`
+*Pie:* Cambiar la actitud redistribuye velocidad y altura; el empuje disponible determina cuánta energía puede sostener o recuperar el avión.
 
 > **PUNTO CLAVE**
 > En vuelo estabilizado (ascenso, crucero o descenso) las fuerzas están en equilibrio. Lo que hace subir al avión es el exceso de empuje sobre la resistencia, no más sustentación que peso.
@@ -223,6 +229,9 @@ NASA lo resume así: tanto Bernoulli como Newton son correctos; integrar la pres
 **Error común que debes evitar en una entrevista:** la teoría del "tiempo de tránsito igual" (el aire de arriba recorre más distancia y debe llegar al mismo tiempo que el de abajo) es **falsa**. El aire del extradós llega antes al borde de salida, y un perfil simétrico, con extradós e intradós de igual longitud, produce sustentación con ángulo de ataque positivo.
 
 ### La ecuación de sustentación
+
+[IMAGEN — VARIABLES DE LA SUSTENTACIÓN] · `IMG-15`
+*Pie:* La sustentación depende de densidad, velocidad al cuadrado, superficie alar y coeficiente de sustentación. Ninguna variable actúa de forma aislada.
 **ESQUEMA**
 ```
 L = ½ ρ V² S CL
@@ -322,6 +331,9 @@ La última fila no es teórica. En el accidente del AF447 (BEA, informe final), 
 
 > **DEBES RECORDAR**
 > Un avión entra en pérdida cuando supera su ángulo de ataque crítico. La pérdida no ocurre simplemente porque el avión llegue a una velocidad determinada.
+
+[IMAGEN — RECUPERACIÓN DE LA PÉRDIDA] · `IMG-16`
+*Pie:* La prioridad es reducir el ángulo de ataque. Después se nivelan las alas, se gestiona el empuje y se ajusta la configuración según el procedimiento del fabricante.
 
 ### Velocidad de pérdida
 **CONCEPTO**
@@ -455,6 +467,9 @@ ALTA VELOCIDAD  →  bajo ángulo de ataque  →  RESISTENCIA PARÁSITA DOMINANT
 - **Un avión más pesado no planea menos distancia:** a L/Dmax recorre la misma distancia, pero a una velocidad mayor y con mayor régimen de descenso.
 - Volar más lento o más rápido que la velocidad de mejor planeo reduce la distancia.
 
+[IMAGEN — PLANEO Y L/D] · `IMG-17`
+*Pie:* A L/Dmax se obtiene el mejor ángulo de planeo. Más peso exige más velocidad para el mismo ángulo en aire calmo; el viento cambia la distancia recorrida sobre el suelo.
+
 **APLICACIÓN OPERACIONAL**
 - **Por debajo de la velocidad de mínima resistencia** (régimen de mando invertido, Back Side of the Drag Curve) volar más lento exige **más** empuje. Si en la aproximación la velocidad cae y el piloto solo sube la nariz, la resistencia aumenta y la velocidad sigue cayendo. La corrección requiere empuje.
 - En un jet el consumo depende del empuje. Cerca de la velocidad de mínima resistencia el empuje requerido es mínimo, lo que minimiza el consumo por hora: es la lógica de las velocidades de espera (holding).
@@ -537,6 +552,9 @@ Es la pérdida que ocurre con n > 1. En viraje o en un tirón, el ala alcanza el
 
 ### Velocidad de maniobra (Va)
 **CONCEPTO**
+
+[IMAGEN — VA, PESO Y TURBULENCIA] · `IMG-18`
+*Pie:* Va disminuye con el peso. No protege frente a entradas múltiples o bruscas y no sustituye la velocidad de penetración en turbulencia publicada por el fabricante.
 - **Va (Design Maneuvering Speed):** velocidad máxima a la que se puede aplicar la deflexión completa de **un** mando, en **un** eje, sin exceder la carga límite de diseño. Por debajo de Va, en una maniobra de cabeceo, el ala entra en pérdida antes de alcanzar el factor de carga límite.
 - **Va disminuye cuando el peso disminuye.** Con menos peso, la misma sustentación produce un factor de carga mayor (n = L/W) y la velocidad de pérdida es menor. La velocidad por debajo de la cual el ala entra en pérdida antes de alcanzar la carga límite es, por tanto, más baja.
 
@@ -618,6 +636,9 @@ La estructura se diseña para soportar 1,5 veces la carga límite (carga última
 - **CUÁNDO SE UTILIZA:** coordinación, viento cruzado en despegue y aterrizaje, y control con empuje asimétrico por falla de motor. En muchos aviones de transporte su recorrido se limita automáticamente al aumentar la velocidad. No se usa para alabear ni para "combatir" estela o turbulencia a velocidades medias y altas (Sección 6; AA587 ocurrió en el ascenso inicial, en estela turbulenta).
 
 ### Superficies de estabilización
+
+[IMAGEN — CONFIGURACIÓN DEL ALA] · `IMG-19`
+*Pie:* Slats, flaps y spoilers cambian sustentación y resistencia para cada fase. La configuración limpia, de despegue y de aterrizaje responde a compromisos distintos.
 **Estabilizador horizontal (Horizontal Stabilizer)**
 - **QUÉ ES:** superficie fija o ajustable en la cola.
 - **QUÉ HACE:** da estabilidad longitudinal. En un avión convencional produce normalmente una fuerza hacia abajo que equilibra el momento de nariz abajo del ala.
@@ -715,6 +736,9 @@ Un avión puede tener estabilidad estática positiva y aun así oscilaciones que
 [IMAGEN — CG Y ESTABILIDAD LONGITUDINAL] · `IMG-08`
 *Pie:* Peso en el CG, resultante aerodinámica del ala, fuerza hacia abajo en la cola y brazos de momento. La comparación muestra cómo un CG adelantado exige más carga de cola y uno atrasado reduce el margen de estabilidad.
 
+[IMAGEN — ESTABILIDAD ESTÁTICA Y DINÁMICA] · `IMG-20`
+*Pie:* La estabilidad estática describe la tendencia inicial tras una perturbación; la dinámica muestra cómo evoluciona la respuesta con el tiempo.
+
 ### Qué ocurre según la posición del CG
 | Aspecto | CG demasiado **adelantado** | CG demasiado **atrasado** |
 |---|---|---|
@@ -806,6 +830,9 @@ Reducción de la resistencia inducida según el PHAK de la FAA:
 **CONCEPTO**
 Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con efecto diedro débil favorece la inestabilidad espiral; un efecto diedro fuerte con estabilidad direccional débil favorece el Dutch Roll. La FAA indica que la mayoría de los aviones se diseñan con una leve inestabilidad espiral, porque es preferible al Dutch Roll. En jets con ala en flecha, el Yaw Damper corrige el Dutch Roll; si está inoperativo, aplica las limitaciones y el procedimiento del fabricante.
 
+[IMAGEN — DUTCH ROLL E INESTABILIDAD ESPIRAL] · `IMG-21`
+*Pie:* El Dutch Roll combina oscilaciones de guiñada y alabeo; la inestabilidad espiral es un alabeo progresivo que tiende a cerrar la trayectoria descendente.
+
 > **DEBES RECORDAR**
 > Efecto suelo = menos resistencia inducida, no un "colchón de aire". Dutch Roll = efecto diedro mayor que la estabilidad direccional.
 
@@ -888,6 +915,9 @@ Los aviones civiles de transporte cruzan normalmente entre Mach 0,70 y 0,90. En 
 ### Ala en flecha (Swept Wing)
 **CONCEPTO**
 Solo la componente del flujo **perpendicular al borde de ataque** determina la distribución de presión y la formación de ondas de choque. Al inclinar el ala hacia atrás, esa componente es menor que la velocidad del avión.
+
+[IMAGEN — ALA EN FLECHA Y MACH CRÍTICO] · `IMG-22`
+*Pie:* La flecha reduce la componente normal del flujo y retrasa los efectos de compresibilidad, pero introduce compromisos de pérdida en punta, pitch-up y complejidad.
 
 **Ventajas**
 - Aumenta el Mach crítico y el Mach de divergencia.
@@ -1001,6 +1031,9 @@ MACH / HIGH-SPEED BUFFET
 **CONCEPTO**
 La AC 61-107B de la FAA usa el término **"Q-Corner or Coffin Corner"**: son sinónimos. No lo confundas con la **altitud de cruce (Crossover Altitude)**, que es la altitud a la que una CAS dada y un Mach dado representan la misma velocidad; ahí el límite pasa de VMO a MMO (Sección 10). Algunas fuentes secundarias atribuyen la "Q" a la presión dinámica (q), pero no hay una fuente primaria que lo confirme: en una entrevista, basta con decir que es otro nombre del Coffin Corner.
 
+[IMAGEN — RECUPERACIÓN A GRAN ALTITUD] · `IMG-23`
+*Pie:* Ante buffet o pérdida de energía a gran altitud, primero se reduce el ángulo de ataque, luego se nivelan las alas y se recupera energía; mantener la altitud no es la prioridad inicial.
+
 ### Operar cerca del techo máximo
 **APLICACIÓN OPERACIONAL**
 - **Menos margen de alabeo:** en el techo de buffet los márgenes están en el mínimo; la capacidad de viraje es reducida.
@@ -1098,6 +1131,10 @@ ALTO (elevación)  +  CALIENTE (temperatura)  +  PESADO (peso)   [+ HÚMEDO]
 **Configuración:** los flaps reducen la velocidad necesaria, pero también añaden resistencia. En despegue no se cumple que "más flap siempre es mejor": la posición óptima depende de pista, obstáculos, peso y condiciones, y se obtiene de los datos de performance del tipo.
 
 ### IAS, CAS, EAS, TAS y GS
+
+[IMAGEN — IAS, CAS, EAS, TAS Y GS] · `IMG-24`
+*Pie:* IAS parte de la indicación; CAS corrige errores; EAS añade compresibilidad; TAS describe el movimiento respecto a la masa de aire y GS incorpora el viento.
+
 | Velocidad | Definición | Para qué importa |
 |---|---|---|
 | **IAS (Indicated Airspeed)** | La que muestra el anemómetro, sin corregir errores | Referencia aerodinámica: pérdida, rotación, límites de flaps |
@@ -2113,7 +2150,7 @@ En crucero, con el Yaw Damper inoperativo, el avión presenta una oscilación en
 **Explicación:** El vapor de agua es más liviano que el aire seco: sube la altitud de densidad.
 
 ---
-# ANEXO A · FIGURAS DIDÁCTICAS (12)
+# ANEXO A · FIGURAS DIDÁCTICAS (24)
 
 Cada lección lleva una figura integrada de 1600 × 900, con título, señales visuales y un pie que explica qué debe mirar el alumno. Los diagramas usan fondo claro, jerarquía tipográfica y los colores semánticos del módulo; no son decoración ni espacios pendientes.
 
@@ -2131,6 +2168,18 @@ Cada lección lleva una figura integrada de 1600 × 900, con título, señales v
 | IMG-10 | S10 | Onda de choque y ala en flecha | (1) Perfil transónico: zona supersónica, onda de choque normal, separación. (2) Ala en flecha con descomposición de la velocidad (normal al borde de ataque y a lo largo de la envergadura) |
 | IMG-11 | S11 | Coffin Corner / margen de velocidad a gran altitud | Altitud vs Mach: línea de low-speed buffet, línea de MMO/high-speed buffet y curva punteada a 1,3 G; convergencia en el techo aerodinámico |
 | IMG-12 | S12 | High, hot y heavy | Cadena causal: menor densidad y mayor sustentación requerida; misma IAS con mayor TAS y GS, más pista y menos ascenso |
+| IMG-13 | S01 | Actitud, trayectoria y viento relativo | Dos actitudes distintas comparadas con su trayectoria y con el viento relativo siempre opuesto al movimiento |
+| IMG-14 | S02 | Pitch, empuje y energía | Intercambio entre velocidad y altura, con el empuje como aporte externo de energía |
+| IMG-15 | S03 | Variables de la sustentación | Ecuación de sustentación explicada mediante densidad, velocidad, superficie y coeficiente de sustentación |
+| IMG-16 | S04 | Recuperación de la pérdida | Secuencia priorizada: reducir ángulo de ataque, nivelar alas, gestionar empuje y configuración según procedimiento |
+| IMG-17 | S05 | Planeo y L/D | L/Dmax, efecto del peso sobre la velocidad de planeo y efecto del viento sobre la distancia en tierra |
+| IMG-18 | S06 | Va, peso y turbulencia | Escalamiento de Va con el peso y diferencia entre Va y la velocidad de turbulencia publicada |
+| IMG-19 | S07 | Configuración del ala | Comparación visual de ala limpia, despegue, aterrizaje y spoilers |
+| IMG-20 | S08 | Estabilidad estática y dinámica | Tendencia inicial positiva, neutra o negativa y respuesta dinámica amortiguada, constante o divergente |
+| IMG-21 | S09 | Dutch Roll e inestabilidad espiral | Oscilación acoplada frente a alabeo progresivo y descenso en espiral |
+| IMG-22 | S10 | Ala en flecha y Mach crítico | Componente normal del flujo, retraso del Mach crítico y compromisos a baja velocidad |
+| IMG-23 | S11 | Recuperación a gran altitud | Prioridades para recuperar energía sin perseguir inicialmente la altitud |
+| IMG-24 | S12 | IAS, CAS, EAS, TAS y GS | Cadena de correcciones desde la indicación hasta la velocidad sobre el suelo |
 
 ---
 
@@ -2193,7 +2242,7 @@ Revisión hecha desde cuatro perspectivas: instructor de vuelo, piloto de aerol�
 **Revisión de UX aplicada al contenido**
 - Extensión: 12 secciones de 10–15 minutos. Sin derivaciones matemáticas.
 - Tarjetas DEBES RECORDAR / PUNTO CLAVE: una o dos por sección.
-- Imágenes: una portada fotográfica y una figura didáctica distinta en cada una de las 12 lecciones.
+- Imágenes: una portada editorial fotográfica y dos figuras didácticas distintas en cada una de las 12 lecciones.
 - Tablas diseñadas para apilarse en celular (dos o tres columnas; las de cuatro columnas deben permitir desplazamiento horizontal dentro de su propio contenedor).
 - Esquemas tipográficos (Coffin Corner, curva de resistencia, High-Hot-Heavy) pensados para renderizarse como bloques visuales simples, no como imágenes.
 

@@ -66,10 +66,13 @@ describe("Aerodinámica: las doce secciones", () => {
     expect(AERO_PRIORITARIAS).toEqual([4, 6, 10, 11])
   })
 
-  it("lleva una figura didáctica completa y distinta en cada lección", () => {
+  it("lleva dos figuras didácticas completas y distintas en cada lección", () => {
     const figuras = AERO_LECCIONES.flatMap((s) => s.blocks.filter((b) => b.kind === "figura"))
-    expect(figuras).toHaveLength(12)
-    expect(new Set(figuras.map((f) => (f.kind === "figura" ? f.src : ""))).size).toBe(12)
+    expect(figuras).toHaveLength(24)
+    expect(new Set(figuras.map((f) => (f.kind === "figura" ? f.src : ""))).size).toBe(24)
+    for (const s of AERO_LECCIONES) {
+      expect(s.blocks.filter((b) => b.kind === "figura"), `sección ${s.n}`).toHaveLength(2)
+    }
     for (const f of figuras) {
       if (f.kind !== "figura") continue
       expect(f.src).toMatch(/^\/modulos\/aerodinamica\/figuras\/img-\d\d-.+\.webp$/)

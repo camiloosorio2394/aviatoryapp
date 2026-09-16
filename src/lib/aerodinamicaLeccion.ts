@@ -97,6 +97,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "pie": "El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz."
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-13-actitud-trayectoria.webp",
+        "alt": "Comparación entre actitud, trayectoria de vuelo y viento relativo en dos condiciones de vuelo",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La actitud describe hacia dónde apunta el avión; la trayectoria indica hacia dónde se mueve. El viento relativo siempre llega en sentido opuesto a esa trayectoria."
+      },
+      {
         "kind": "sub",
         "text": "Capa límite"
       },
@@ -220,6 +228,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "kind": "enLaOperacion",
         "momento": "Aplicación operacional",
         "texto": "En un ascenso con empuje fijo, si subes la nariz aumentas el ángulo de trayectoria, pero la velocidad cae, porque el empuje disponible no cambió. La energía se intercambia; no se crea con el mando de profundidad."
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-14-pitch-energia.webp",
+        "alt": "Relación operativa entre actitud de cabeceo, empuje, velocidad y altura",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Cambiar la actitud redistribuye velocidad y altura; el empuje disponible determina cuánta energía puede sostener o recuperar el avión."
       },
       {
         "kind": "callout",
@@ -346,6 +362,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       {
         "kind": "sub",
         "text": "La ecuación de sustentación"
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-15-variables-sustentacion.webp",
+        "alt": "Variables de la ecuación de sustentación explicadas con escenas y anotaciones aerodinámicas",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La sustentación depende de densidad, velocidad al cuadrado, superficie alar y coeficiente de sustentación. Ninguna variable actúa de forma aislada."
       },
       {
         "kind": "code",
@@ -527,6 +551,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "tone": "tip",
         "title": "Debes recordar",
         "text": "Un avión entra en pérdida cuando supera su ángulo de ataque crítico. La pérdida no ocurre simplemente porque el avión llegue a una velocidad determinada."
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-16-recuperacion-perdida.webp",
+        "alt": "Secuencia visual para recuperar una pérdida reduciendo primero el ángulo de ataque",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La prioridad es reducir el ángulo de ataque. Después se nivelan las alas, se gestiona el empuje y se ajusta la configuración según el procedimiento del fabricante."
       },
       {
         "kind": "sub",
@@ -754,6 +786,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         ]
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-17-planeo-ld.webp",
+        "alt": "Relación de planeo, máximo L sobre D y efectos del peso y el viento",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "A L/Dmax se obtiene el mejor ángulo de planeo. Más peso exige más velocidad para el mismo ángulo en aire calmo; el viento cambia la distancia recorrida sobre el suelo."
+      },
+      {
         "kind": "enLaOperacion",
         "momento": "Aplicación operacional",
         "texto": "",
@@ -874,6 +914,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       {
         "kind": "sub",
         "text": "Velocidad de maniobra (Va)"
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-18-va-turbulencia.webp",
+        "alt": "Relación entre velocidad de maniobra, peso y velocidad publicada para turbulencia",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Va disminuye con el peso. No protege frente a entradas múltiples o bruscas y no sustituye la velocidad de penetración en turbulencia publicada por el fabricante."
       },
       {
         "kind": "vinetas",
@@ -997,6 +1045,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       {
         "kind": "sub",
         "text": "Superficies de estabilización"
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-19-configuracion-ala.webp",
+        "alt": "Comparación fotográfica de ala limpia, configuración de despegue, aterrizaje y spoilers",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Slats, flaps y spoilers cambian sustentación y resistencia para cada fase. La configuración limpia, de despegue y de aterrizaje responde a compromisos distintos."
       },
       {
         "kind": "p",
@@ -1186,6 +1242,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "pie": "Peso en el CG, resultante aerodinámica del ala, fuerza hacia abajo en la cola y brazos de momento. La comparación muestra cómo un CG adelantado exige más carga de cola y uno atrasado reduce el margen de estabilidad."
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-20-estabilidad-dinamica.webp",
+        "alt": "Comparación entre estabilidad estática y respuesta dinámica con el tiempo",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La estabilidad estática describe la tendencia inicial tras una perturbación; la dinámica muestra cómo evoluciona la respuesta con el tiempo."
+      },
+      {
         "kind": "sub",
         "text": "Qué ocurre según la posición del CG"
       },
@@ -1372,6 +1436,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "text": "Los diseñadores eligen un compromiso: una estabilidad direccional fuerte con efecto diedro débil favorece la inestabilidad espiral; un efecto diedro fuerte con estabilidad direccional débil favorece el Dutch Roll. La FAA indica que la mayoría de los aviones se diseñan con una leve inestabilidad espiral, porque es preferible al Dutch Roll. En jets con ala en flecha, el Yaw Damper corrige el Dutch Roll; si está inoperativo, aplica las limitaciones y el procedimiento del fabricante."
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-21-dutch-roll-espiral.webp",
+        "alt": "Comparación visual del Dutch Roll y la inestabilidad espiral",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "El Dutch Roll combina oscilaciones de guiñada y alabeo; la inestabilidad espiral es un alabeo progresivo que tiende a cerrar la trayectoria descendente."
+      },
+      {
         "kind": "callout",
         "tone": "tip",
         "title": "Debes recordar",
@@ -1516,6 +1588,14 @@ export const AERO_LECCIONES: DocScreen[] = [
         "text": "Solo la componente del flujo **perpendicular al borde de ataque** determina la distribución de presión y la formación de ondas de choque. Al inclinar el ala hacia atrás, esa componente es menor que la velocidad del avión."
       },
       {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-22-ala-flecha-mach.webp",
+        "alt": "Componente normal del flujo, Mach crítico y compromisos del ala en flecha",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "La flecha reduce la componente normal del flujo y retrasa los efectos de compresibilidad, pero introduce compromisos de pérdida en punta, pitch-up y complejidad."
+      },
+      {
         "kind": "p",
         "text": "**Ventajas**"
       },
@@ -1643,6 +1723,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       {
         "kind": "p",
         "text": "La AC 61-107B de la FAA usa el término **\"Q-Corner or Coffin Corner\"**: son sinónimos. No lo confundas con la **altitud de cruce (Crossover Altitude)**, que es la altitud a la que una CAS dada y un Mach dado representan la misma velocidad; ahí el límite pasa de VMO a MMO (Sección 10). Algunas fuentes secundarias atribuyen la \"Q\" a la presión dinámica (q), pero no hay una fuente primaria que lo confirme: en una entrevista, basta con decir que es otro nombre del Coffin Corner."
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-23-recuperacion-altura.webp",
+        "alt": "Secuencia de recuperación de energía a gran altitud con pérdida de altura aceptada",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "Ante buffet o pérdida de energía a gran altitud, primero se reduce el ángulo de ataque, luego se nivelan las alas y se recupera energía; mantener la altitud no es la prioridad inicial."
       },
       {
         "kind": "sub",
@@ -1790,6 +1878,14 @@ export const AERO_LECCIONES: DocScreen[] = [
       {
         "kind": "sub",
         "text": "IAS, CAS, EAS, TAS y GS"
+      },
+      {
+        "kind": "figura",
+        "src": "/modulos/aerodinamica/figuras/img-24-velocidades-ias-tas-gs.webp",
+        "alt": "Relación entre IAS, CAS, EAS, TAS y velocidad sobre el suelo",
+        "ancho": 1600,
+        "alto": 900,
+        "pie": "IAS parte de la indicación; CAS corrige errores; EAS añade compresibilidad; TAS describe el movimiento respecto a la masa de aire y GS incorpora el viento."
       },
       {
         "kind": "table",

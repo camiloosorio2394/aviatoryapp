@@ -40,7 +40,7 @@ import { fileURLToPath } from "node:url"
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/aerodinamica.md")
 
-const CUENTAS_ESPERADAS = { secciones: 12, quiz: 45, escenarios: 13, entrevista: 49, banco: 40, imagenes: 12 }
+const CUENTAS_ESPERADAS = { secciones: 12, quiz: 45, escenarios: 13, entrevista: 49, banco: 40, imagenes: 24 }
 
 /**
  * El rótulo corto de cada sección.
@@ -77,6 +77,18 @@ const FIGURAS = {
   "IMG-10": ["img-10-mach-ala-flecha.webp", "Perfil transónico con onda de choque y descomposición de velocidad sobre un ala en flecha"],
   "IMG-11": ["img-11-coffin-corner.webp", "Envolvente de altitud y Mach donde convergen los límites de buffet de baja y alta velocidad"],
   "IMG-12": ["img-12-densidad-performance.webp", "Cadena causal de alta elevación, temperatura y peso sobre velocidad y distancia de pista"],
+  "IMG-13": ["img-13-actitud-trayectoria.webp", "Comparación entre actitud, trayectoria de vuelo y viento relativo en dos condiciones de vuelo"],
+  "IMG-14": ["img-14-pitch-energia.webp", "Relación operativa entre actitud de cabeceo, empuje, velocidad y altura"],
+  "IMG-15": ["img-15-variables-sustentacion.webp", "Variables de la ecuación de sustentación explicadas con escenas y anotaciones aerodinámicas"],
+  "IMG-16": ["img-16-recuperacion-perdida.webp", "Secuencia visual para recuperar una pérdida reduciendo primero el ángulo de ataque"],
+  "IMG-17": ["img-17-planeo-ld.webp", "Relación de planeo, máximo L sobre D y efectos del peso y el viento"],
+  "IMG-18": ["img-18-va-turbulencia.webp", "Relación entre velocidad de maniobra, peso y velocidad publicada para turbulencia"],
+  "IMG-19": ["img-19-configuracion-ala.webp", "Comparación fotográfica de ala limpia, configuración de despegue, aterrizaje y spoilers"],
+  "IMG-20": ["img-20-estabilidad-dinamica.webp", "Comparación entre estabilidad estática y respuesta dinámica con el tiempo"],
+  "IMG-21": ["img-21-dutch-roll-espiral.webp", "Comparación visual del Dutch Roll y la inestabilidad espiral"],
+  "IMG-22": ["img-22-ala-flecha-mach.webp", "Componente normal del flujo, Mach crítico y compromisos del ala en flecha"],
+  "IMG-23": ["img-23-recuperacion-altura.webp", "Secuencia de recuperación de energía a gran altitud con pérdida de altura aceptada"],
+  "IMG-24": ["img-24-velocidades-ias-tas-gs.webp", "Relación entre IAS, CAS, EAS, TAS y velocidad sobre el suelo"],
 }
 
 /**

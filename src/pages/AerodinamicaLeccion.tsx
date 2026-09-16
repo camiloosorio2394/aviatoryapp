@@ -32,7 +32,7 @@ const MODULO: LectorModulo = {
   hub: AERO_HUB,
   practica: AERO_PRACTICA,
   evaluacion: AERO_EVALUACION,
-  portadas: "/modulos/aerodinamica",
+  portadas: "/modulos/aerodinamica/portadas",
   portadaRatio: "16 / 9",
   actividad: "aerodinamica-leccion",
   lecciones: AERO_LECCIONES,
