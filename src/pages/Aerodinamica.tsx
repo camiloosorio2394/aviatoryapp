@@ -30,7 +30,7 @@ import {
  * Ruta: /app/aerolinea/aerodinamica
  *
  * La misma casa que los hubs de NOTAM, Meteorología y Mercancías, sin una
- * coma de diferencia: hero con velo navy sobre el hueco de la foto de fondo,
+ * coma de diferencia: hero con velo navy sobre la foto de fondo,
  * el vídeo de introducción, un botón primario y otro secundario, el panel de
  * avance con sus tres filas y las tres puertas numeradas. Lo único propio es
  * el acento, que aquí es el azul acero.
@@ -85,7 +85,7 @@ export function Aerodinamica() {
       blurb:
         "De las cuatro fuerzas al Coffin Corner: sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
       cta: "Iniciar formación",
-      photoHueco: "AE-POR-01 · Portada 5:2 · 1200×480 · Ala en flecha vista desde la cabina de pasajeros",
+      photo: "/modulos/aerodinamica/hub-aprende.webp",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -106,7 +106,7 @@ export function Aerodinamica() {
       blurb:
         "Analizas situaciones reales de vuelo y ensayas las preguntas que hace un entrevistador técnico, por nivel.",
       cta: "Iniciar práctica",
-      photoHueco: "AE-POR-02 · Portada 5:2 · 1200×480 · Cabina en crucero, con el Mach a la vista",
+      photo: "/modulos/aerodinamica/hub-practica.webp",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -125,7 +125,7 @@ export function Aerodinamica() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación de cada una y qué secciones te toca repasar.",
       cta: "Iniciar evaluación",
-      photoHueco: "AE-POR-03 · Portada 5:2 · 1200×480 · Anemómetro con la banda de maniobra",
+      photo: "/modulos/aerodinamica/hub-evaluacion.webp",
       status:
         resumen.best === null
           ? "Sin intentos"
@@ -145,25 +145,22 @@ export function Aerodinamica() {
         <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
       </Link>
 
-      {/* Hero de sección. La imagen de fondo todavía no existe: el hueco
-          conserva la caja, el velo y la forma, así que cuando llegue la foto se
-          pone el <img> aquí y no cambia nada más. */}
+      {/* La foto conserva espacio oscuro para el texto a la izquierda. */}
       <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <img
+          src="/modulos/aerodinamica/hub-hero.webp"
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover object-[67%_center] lg:object-center"
+        />
         <div
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(105deg, rgba(8,20,36,.97) 0%, rgba(8,20,36,.94) 42%, rgba(8,20,36,.86) 72%, rgba(8,20,36,.78) 100%)",
+              "linear-gradient(105deg, rgba(8,20,36,.93) 0%, rgba(8,20,36,.79) 42%, rgba(8,20,36,.53) 72%, rgba(8,20,36,.38) 100%)",
           }}
           aria-hidden
         />
-        <div
-          className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
-          aria-hidden
-        />
-        <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-          [Imagen de fondo · 2432×860 · espacio reservado]
-        </span>
 
         <div className="relative grid gap-7 px-7 pb-7 pt-7 sm:px-12 sm:pb-8 sm:pt-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,248px)] lg:gap-10">
           <div className="min-w-0">

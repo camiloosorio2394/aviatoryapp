@@ -26,7 +26,7 @@
  *   > **DEBES RECORDAR** / PUNTO CLAVE  callout tone tip, con su rótulo
  *   **PREGUNTA DE ENTREVISTA** · *q*  detalleTecnico: la pregunta a la vista,
  *                                     la respuesta al desplegar
- *   [IMAGEN — …] · `IMG-xx`           hueco rotulado, con su pie
+ *   [IMAGEN — …] · `IMG-xx`           figura didáctica, con alt y pie
  *   **ESQUEMA** + ```…```             code (el de S11 lleva su propio visual)
  *   ### Quiz · Sección N              ponAPrueba, al cierre de la sección
  *
@@ -40,7 +40,7 @@ import { fileURLToPath } from "node:url"
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..")
 const FUENTE = path.join(RAIZ, "docs/contenido/aerodinamica.md")
 
-const CUENTAS_ESPERADAS = { secciones: 12, quiz: 45, escenarios: 13, entrevista: 49, banco: 40, imagenes: 10 }
+const CUENTAS_ESPERADAS = { secciones: 12, quiz: 45, escenarios: 13, entrevista: 49, banco: 40, imagenes: 24 }
 
 /**
  * El rótulo corto de cada sección.
@@ -62,6 +62,33 @@ const ROTULOS = {
   S10: "Compresibilidad y ondas de choque",
   S11: "El margen que se estrecha",
   S12: "High, hot y heavy",
+}
+
+const FIGURAS = {
+  "IMG-01": ["img-01-viento-relativo.webp", "Dos aviones comparan trayectoria, actitud y viento relativo en vuelo nivelado y en descenso"],
+  "IMG-02": ["img-02-cuatro-fuerzas.webp", "Vectores de sustentación, peso, empuje y resistencia en vuelo nivelado y ascenso estabilizado"],
+  "IMG-03": ["img-03-perfil-aerodinamico.webp", "Perfil aerodinámico con cuerda, ángulo de ataque, presiones, viento relativo y sustentación"],
+  "IMG-04": ["img-04-curva-sustentacion.webp", "Curvas de coeficiente de sustentación frente al ángulo de ataque para ala limpia, flaps y slats"],
+  "IMG-05": ["img-05-curva-resistencia.webp", "Curvas de resistencia inducida, parásita y total con el punto de máxima eficiencia"],
+  "IMG-06": ["img-06-factor-carga.webp", "Sustentación inclinada en un viraje y curva del factor de carga según el alabeo"],
+  "IMG-07": ["img-07-superficies-control.webp", "Vista superior de un avión con alerones, flaps, slats, spoilers, elevador y timón señalados por color"],
+  "IMG-08": ["img-08-centro-gravedad.webp", "Comparación de fuerzas y estabilidad con el centro de gravedad adelantado y atrasado"],
+  "IMG-09": ["img-09-fenomenos-operacionales.webp", "Comparación entre el efecto suelo y la oscilación acoplada del Dutch Roll"],
+  "IMG-10": ["img-10-mach-ala-flecha.webp", "Perfil transónico con onda de choque y descomposición de velocidad sobre un ala en flecha"],
+  "IMG-11": ["img-11-coffin-corner.webp", "Envolvente de altitud y Mach donde convergen los límites de buffet de baja y alta velocidad"],
+  "IMG-12": ["img-12-densidad-performance.webp", "Cadena causal de alta elevación, temperatura y peso sobre velocidad y distancia de pista"],
+  "IMG-13": ["img-13-actitud-trayectoria.webp", "Comparación entre actitud, trayectoria de vuelo y viento relativo en dos condiciones de vuelo"],
+  "IMG-14": ["img-14-pitch-energia.webp", "Relación operativa entre actitud de cabeceo, empuje, velocidad y altura"],
+  "IMG-15": ["img-15-variables-sustentacion.webp", "Variables de la ecuación de sustentación explicadas con escenas y anotaciones aerodinámicas"],
+  "IMG-16": ["img-16-recuperacion-perdida.webp", "Secuencia visual para recuperar una pérdida reduciendo primero el ángulo de ataque"],
+  "IMG-17": ["img-17-planeo-ld.webp", "Relación de planeo, máximo L sobre D y efectos del peso y el viento"],
+  "IMG-18": ["img-18-va-turbulencia.webp", "Relación entre velocidad de maniobra, peso y velocidad publicada para turbulencia"],
+  "IMG-19": ["img-19-configuracion-ala.webp", "Comparación fotográfica de ala limpia, configuración de despegue, aterrizaje y spoilers"],
+  "IMG-20": ["img-20-estabilidad-dinamica.webp", "Comparación entre estabilidad estática y respuesta dinámica con el tiempo"],
+  "IMG-21": ["img-21-dutch-roll-espiral.webp", "Comparación visual del Dutch Roll y la inestabilidad espiral"],
+  "IMG-22": ["img-22-ala-flecha-mach.webp", "Componente normal del flujo, Mach crítico y compromisos del ala en flecha"],
+  "IMG-23": ["img-23-recuperacion-altura.webp", "Secuencia de recuperación de energía a gran altitud con pérdida de altura aceptada"],
+  "IMG-24": ["img-24-velocidades-ias-tas-gs.webp", "Relación entre IAS, CAS, EAS, TAS y velocidad sobre el suelo"],
 }
 
 /**
@@ -338,7 +365,7 @@ function bloquesDeSeccion(cuerpo, idSeccion) {
       continue
     }
 
-    // Imagen: hueco rotulado con su pie.
+    // Imagen: figura didáctica renderizada, con dimensiones estables y pie.
     const imagen = l.match(/^\[IMAGEN — (.+)\] · `(IMG-\d\d)`$/)
     if (imagen) {
       i++
@@ -348,12 +375,15 @@ function bloquesDeSeccion(cuerpo, idSeccion) {
         pie = m[1].trim()
         i++
       }
+      const meta = FIGURAS[imagen[2]]
+      if (!meta) throw new Error(`${imagen[2]}: falta metadato de figura`)
       bloques.push({
-        kind: "hueco",
-        rotulo: `${imagen[2]} · ${imagen[1].trim()}`,
-        descripcion: pie,
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: `/modulos/aerodinamica/figuras/${meta[0]}`,
+        alt: meta[1],
+        ancho: 1600,
+        alto: 900,
+        pie,
       })
       continue
     }
@@ -582,7 +612,7 @@ comprobar(escenarios.length === CUENTAS_ESPERADAS.escenarios, `escenarios: ${esc
 comprobar(entrevista.length === CUENTAS_ESPERADAS.entrevista, `entrevista: ${entrevista.length}`)
 comprobar(banco.length === CUENTAS_ESPERADAS.banco, `banco: ${banco.length}`)
 
-const imagenes = secciones.flatMap((s) => s.blocks.filter((b) => b.kind === "hueco"))
+const imagenes = secciones.flatMap((s) => s.blocks.filter((b) => b.kind === "figura"))
 comprobar(imagenes.length === CUENTAS_ESPERADAS.imagenes, `imágenes: ${imagenes.length}`)
 
 const TEMAS = new Set(secciones.map((s) => s.id))

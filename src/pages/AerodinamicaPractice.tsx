@@ -38,9 +38,6 @@ import {
 
 type Modo = "aplicacion" | "entrevista"
 
-const AVISO =
-  "Escenarios y preguntas construidos con fines formativos a partir del PHAK de la FAA, la AC 61-107B, el AUPRTA y la AMC 25.251 de EASA. No sustituyen el manual de operaciones ni el AFM de tu tipo: las cifras concretas se verifican ahí."
-
 export function AerodinamicaPractice() {
   const { user } = useSession()
   const [modo, setModo] = useState<Modo>("aplicacion")
@@ -119,17 +116,13 @@ export function AerodinamicaPractice() {
       </Link>
 
       <header className="np-hero relative mb-8 overflow-hidden rounded-[18px] bg-[#0A1524]">
-        {/* La foto todavía no existe. El hueco conserva la caja y el velo, así
-            que cuando llegue se pone el <img> con la clase np-hero-foto y no
-            cambia nada más. */}
-        <div className="np-hero-velo" />
-        <div
-          className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
+        <img
+          src="/modulos/aerodinamica/practica-hero.webp"
+          alt=""
           aria-hidden
+          className="np-hero-foto object-[72%_center]"
         />
-        <span className="nh-display pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-          AE-PRA-01 · 16:9 · 2000×1125 · espacio reservado
-        </span>
+        <div className="np-hero-velo" />
         <div className="relative px-6 py-11 text-center sm:px-10 sm:py-14">
           <div className="np-hero-rotulo">
             <Target className="h-3.5 w-3.5" /> Aerodinámica · Práctica
@@ -335,7 +328,6 @@ export function AerodinamicaPractice() {
         </nav>
       )}
 
-      <p className="mt-8 mb-0 text-[12px] leading-[1.6] text-muted-foreground">{AVISO}</p>
     </div>
   )
 }
