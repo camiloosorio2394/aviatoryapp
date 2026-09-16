@@ -205,3 +205,80 @@ que hacer `npm install`: a `node_modules` le faltaba `vitest`, aunque el
 lockfile sí lo trae. El lockfile no cambió.
 
 La tarea programada `aeropuertos-continuar` se borró al cerrar.
+
+## Auditoría de contenido (16-sep-2026)
+
+Se contrastó todo el texto visible (lecciones, fichas de los huecos, entrevistas,
+práctica, evaluación, catálogo y pantallas) contra el texto consolidado del Anexo
+14 con la Enmienda 18 (`an14_9ed.txt` del scratchpad del 15-sep, pie de página
+«No. 18»), el Anexo 4 y el Doc 9981, y contra las figuras del PDF donde el texto
+no alcanzaba (Fig. 5-25, A-10 y A4-5). La ortografía se pasó con cspell en
+español, distinguiendo tildes, más reglas propias (tildes que cambian el
+sentido, signos, espacios, rayas, citas, cifras): el texto está limpio; solo
+había dos cifras con punto de miles.
+
+### Corregido
+
+- **Franja de pista de precisión, clave 3 o 4: 140 m** a cada lado del eje
+  (3.4.3). El brief y el inventario traían 150 m, una cifra anterior.
+- **Letrero de distancia de pista restante:** lleva **una sola cifra sin
+  unidades**, que cuenta tramos de unos 300 m hasta el final (Fig. A-10 y
+  A4-5); no «en metros». Puede ir a uno o a los dos lados (configuración C).
+- **Señal de instrucción obligatoria:** con anchura exterior entre ruedas
+  **menor de 9 m va centrada sobre el eje**; de 9 m a menos de 15 m, a los dos
+  lados (5.2.16.3 y 5.2.16.4). Estaba al revés en la lección 07, en la práctica
+  (c08) y en la evaluación (ev-19).
+- **Luces sencillas de toma de contacto:** solo donde **no** hay barretas
+  (5.3.14.1), y son un par a cada lado del eje. Se quitaron de la escena de
+  categoría III de la lección 13.
+- **Luces indicadoras de salida rápida:** juegos de **3, 2 y 1 luz** a 300, 200
+  y 100 m del punto de tangencia (Fig. 5-25). No hay juego a 60 m.
+- **Manga de viento:** «se extiende con 15 nudos» es de la FAA, no de la OACI.
+  Salió de la lección 11, la entrevista, la práctica (d06) y la evaluación
+  (ev-29, reescrita sobre la altura de lectura).
+- **Superficie de protección del indicador de pendiente:** arranca a D1 + 30 m
+  o D1 + 60 m del sistema (Tabla 5-3), no 30 o 60 m por delante; las medidas
+  correctivas son las de 5.3.5.46, que no incluyen «apagarlo».
+- **Tiempos de conmutación:** la nota del terreno peligroso o escarpado también
+  aplica a la aproximación que no es de precisión (Tabla 8-1).
+- **Designadora:** la décima parte del rumbo magnético, **redondeada** (5.2.2.4),
+  no «sin la última cifra».
+- **Letrero de información con carácter de 300 mm:** cara de **450 mm** (Tabla
+  5-5 y Apéndice 4).
+- **Luces de punto de espera intermedio:** 0,3 m **antes** de la señal (5.3.21.3).
+- **Luces de entrada a la pista:** encendidas, se para **aunque haya
+  autorización** y se avisa (Adjunto A, sección 20).
+- **Umbral de 300 m de RVR:** toca ejes de calle, plataformas de viraje, puntos
+  de espera intermedios e indicadoras de salida rápida; no las luces de
+  protección de pista ni la barra de parada, que siguen en 550 m.
+- Precisiones menores: excepción de barretas en la regla de adyacencia (10.5.7),
+  colores de las luces de obstáculo, altura de la catenaria, la sobrecarga
+  ACR-PCR la autoriza el aeródromo, «hold short **of** runway», la barra de
+  parada no tiene lado fijado en la norma, galones «no aptos para uso normal»
+  (Capítulo 7, área anterior al umbral), y el letrero de ejemplo `B2` pasó a
+  `E2` para no confundirlo con el patrón B2 en la misma lección.
+- Coherencia: se quitó el «tercer color de letrero» (con el blanco sobre negro
+  del letrero de distancia restante son cuatro familias), el trato de «usted»
+  del catálogo y «Enm. 18».
+- Texto interno que se veía en pantalla: la ficha 36 del catálogo («un manual
+  que no se consiguió», «NO VERIFICADO») y dos notas de producción en «Lo que
+  dice el material viejo» de la práctica. El ejercicio c01 se reformuló porque
+  decía «hoy» y quedaba falso después del 26-nov-2026.
+- El espacio del video ya no pide la voz de William Shanks: los videos se van a
+  rehacer con el avatar y la voz propios.
+
+### Queda por decidir (Camilo)
+
+- **Largo de las lecciones.** La regla es 120 a 160 palabras de texto. Con el
+  mismo conteo, los niveles 2 y 3 cumplen, pero las lecciones 01 a 04 tienen
+  182 a 228, la 13 a la 18 tienen 289 a 483 y la 19 a la 22, 164 a 242.
+- **Evaluación:** en ev-17, 22, 30, 35, 43, 46, 49, 54 y 57 la opción correcta
+  es mucho más larga que las demás y se puede adivinar por la forma.
+- **Ficha 36 del catálogo** (señal de pista no pavimentada, LAR 154): su
+  contenido sigue sin verificar. Las variantes nacionales del catálogo
+  (Colombia, Chile) no se revisaron en esta pasada.
+- Las correcciones del banco llegan a la base cuando se siembre
+  (`node scripts/bancos/sembrar.mjs aeropuertos_evaluacion`), que ya estaba en la
+  lista de arriba.
+- `docs/BRIEF_AEROPUERTOS.md` conserva las cifras viejas: si se vuelve a generar
+  algo desde el brief, manda esta lista.

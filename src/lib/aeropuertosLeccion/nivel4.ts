@@ -83,7 +83,7 @@ export const NIVEL_4: DocScreen[] = [
           {
             titulo: "Toma de contacto",
             puntos: [
-              "Las barretas blancas dibujan dónde poner el tren. Un par suelto de blancas marca el último punto útil para aterrizar.",
+              "Las barretas blancas dibujan dónde poner el tren. Donde no hay barretas puede haber luces sencillas: un par blanco a cada lado del eje, al final de esa zona.",
             ],
           },
         ],
@@ -95,7 +95,7 @@ export const NIVEL_4: DocScreen[] = [
           id: "AP-13-06",
           medida: "Fotografía real · 16:9 · 1600×900",
           descripcion:
-            "Cámara a 3 m de altura sobre el eje, mirando al extremo, noche, aire limpio y pista seca: tiene que caber el ancho completo y al menos 1 000 m de profundidad. Filas de borde blancas, eje blanco cada 15 m, barretas de toma de contacto en pares cada 30 m o 60 m a lo largo de 900 m, el par suelto de blancas junto al eje y, al fondo, el tramo alternado rojo y blanco y la fila roja del extremo. Ojo: sin luces amarillas de salida rápida en este cuadro.",
+            "Cámara a 3 m de altura sobre el eje, mirando al extremo, noche, aire limpio y pista seca: tiene que caber el ancho completo y al menos 1 000 m de profundidad. Filas de borde blancas, eje blanco cada 15 m, barretas de toma de contacto en pares cada 30 m o 60 m a lo largo de 900 m y, al fondo, el tramo alternado rojo y blanco y la fila roja del extremo. Ojo: sin luces amarillas de salida rápida en este cuadro.",
         },
         puntos: [
           {
@@ -118,13 +118,6 @@ export const NIVEL_4: DocScreen[] = [
             que: "Barretas de zona de toma de contacto",
             significa: "Ahí es donde debes poner el tren.",
             piloto: "Si las pasas de largo, ya no aterrizaste donde calculaste.",
-          },
-          {
-            x: 0,
-            y: 0,
-            que: "Par suelto de luces blancas junto al eje",
-            significa: "Es el último punto útil para aterrizar.",
-            piloto: "Si llegas ahí sin tren en el piso, es motor y al aire.",
           },
           {
             x: 0,
@@ -272,7 +265,7 @@ export const NIVEL_4: DocScreen[] = [
             y: 0,
             que: "Tres amarillas atravesadas",
             significa: "Punto de espera intermedio.",
-            piloto: "Ahí paras aunque no haya pista delante.",
+            piloto: "Ahí paras si te lo indican, aunque no haya pista delante.",
           },
           {
             x: 0,
@@ -293,7 +286,7 @@ export const NIVEL_4: DocScreen[] = [
             y: 0,
             que: "Rojas en línea hacia la pista",
             significa: "Luces de entrada a la pista: hay tráfico en la pista o llegando.",
-            piloto: "No sustituyen la autorización del control.",
+            piloto: "Encendidas, paras aunque tengas autorización, y avisas.",
           },
         ],
       },
@@ -306,7 +299,7 @@ export const NIVEL_4: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Verde es el eje y azul es el borde. El amarillo advierte y el rojo detiene. Desde finales de 2025 casi todo este alumbrado se exige con RVR por debajo de 300 m, no de 350 m: tu aeropuerto pudo cambiarlo hace poco.",
+        text: "Verde es el eje y azul es el borde. El amarillo advierte y el rojo detiene. Desde finales de 2025, las luces de eje y las de punto de espera intermedio se exigen con RVR por debajo de 300 m, no de 350 m: tu aeropuerto pudo cambiarlo hace poco.",
       },
       {
         kind: "piensaComoPiloto",
@@ -325,7 +318,7 @@ export const NIVEL_4: DocScreen[] = [
           id: "AP-14-08",
           medida: "Ilustración de escena · 16:9 · 1600×900",
           descripcion:
-            "Desde la cabina, de noche, en carrera de aterrizaje a 400 m de una salida rápida que se abre a la derecha. Tres juegos de amarillas fijas empotradas del mismo lado del eje que la salida, con 2 m entre luces del juego y 2 m del eje, los juegos cada 100 m y el más cercano a 60 m del punto de tangencia. Eje blanco al centro, bordes blancos y, al fondo, el arranque de la salida con su eje verde y amarillo. Sin verificar cuántas luces lleva cada juego: dibujar tres y revisar antes de publicar. Ojo: ninguna amarilla igual al otro lado del eje.",
+            "Desde la cabina, de noche, en carrera de aterrizaje a 400 m de una salida rápida que se abre a la derecha. Tres juegos de amarillas fijas empotradas del mismo lado del eje que la salida, con 2 m entre luces del juego y 2 m del eje, los juegos cada 100 m, de tres, dos y una luz, y el de una luz a 100 m del punto de tangencia. Eje blanco al centro, bordes blancos y, al fondo, el arranque de la salida con su eje verde y amarillo. Ojo: ninguna amarilla igual al otro lado del eje.",
         },
       },
     ],
@@ -463,7 +456,7 @@ export const NIVEL_4: DocScreen[] = [
           "Vuelas a un aeropuerto donde levantaron una grúa a un costado de la aproximación. El PAPI sigue publicado, pero el NOTAM dice que está fuera de servicio, y el resto de las luces funciona.",
         pregunta: "¿Por qué apagarían el PAPI si la grúa no está en la pista?",
         respuesta:
-          "Porque cada indicador de pendiente tiene detrás una superficie que debe quedar libre. Si un objeto la penetra, la salida no es dejar el sistema encendido: hay que quitar el objeto, subir la pendiente, recortar el sector, correr el sistema pista adentro o apagarlo. Un PAPI encendido con un obstáculo dentro de su superficie te llevaría en senda contra la grúa.",
+          "Porque cada indicador de pendiente tiene detrás una superficie que debe quedar libre. Si un objeto la penetra, hay que quitar el objeto, subir la pendiente, recortar el sector, desplazar el eje hasta 5° o correr el sistema pista adentro; mientras tanto, el sistema no puede guiarte. Un PAPI encendido con un obstáculo dentro de su superficie te llevaría en senda contra la grúa.",
         claves: [
           "Detrás del indicador hay una superficie de protección contra obstáculos.",
           "Si algo la penetra, se corrige el obstáculo o se corrige el sistema.",
@@ -473,7 +466,7 @@ export const NIVEL_4: DocScreen[] = [
           id: "AP-15-08",
           medida: "Ilustración técnica · 16:9 · 1600×900",
           descripcion:
-            "Perfil arriba y planta abajo. En el perfil: la pista, el indicador de pendiente, la senda y la superficie de protección arrancando 30 m por delante del sistema en pista visual de clave 1 y 60 m en los demás casos, con una grúa atravesándola, marcada. En la planta: el borde interno acotado (60, 80, 150 o 300 m según la pista) y los lados divergiendo 10 % en visual y 15 % en instrumental, hasta 7 500 m o 15 000 m. Rótulos «superficie de protección contra obstáculos», «borde interno», «10 % / 15 %» y «objeto que la penetra». Ojo: no mezclar aquí las superficies limitadoras de obstáculos del aeródromo.",
+            "Perfil arriba y planta abajo. En el perfil: la pista, el indicador de pendiente, la senda y la superficie de protección arrancando a D1 + 30 m del sistema en pista visual de clave 1 y a D1 + 60 m en los demás casos, donde D1 es la distancia del sistema al umbral, es decir 30 m o 60 m antes del umbral, con una grúa atravesándola, marcada. En la planta: el borde interno acotado (60, 80, 150 o 300 m según la pista) y los lados divergiendo 10 % en visual y 15 % en instrumental, hasta 7 500 m o 15 000 m. Rótulos «superficie de protección contra obstáculos», «borde interno», «10 % / 15 %» y «objeto que la penetra». Ojo: no mezclar aquí las superficies limitadoras de obstáculos del aeródromo.",
         },
       },
     ],
@@ -523,7 +516,7 @@ export const NIVEL_4: DocScreen[] = [
                 "Tabla visual de tres bloques: baja intensidad (A roja fija 10 cd; B roja fija 32 cd; C amarilla o azul de destellos 60 a 90 por minuto, 40 cd; D amarilla de destellos 200 cd; E roja de destellos 32 cd), mediana (A blanca de destellos 20 a 60 por minuto, 20 000 cd de día y 2 000 de noche; B roja de destellos 2 000 cd; C roja fija 2 000 cd) y alta (A blanca de destellos 40 a 60 por minuto, 200 000 cd de día; B igual, 100 000 cd). Cada fila con su círculo de color y su icono de fija o de destello. Ojo: nada de designaciones L-810, L-864, L-865, L-856 ni L-857, que son de la FAA.",
             },
             puntos: [
-              "Tres intensidades. Las bajas son rojas fijas, salvo las de vehículos. Las medias y las altas son el estrobo blanco de día y el rojo de noche.",
+              "Tres intensidades. Las bajas son rojas, salvo las amarillas y azules de los vehículos. Las medias pueden ser el estrobo blanco o rojas; las altas son siempre el estrobo blanco.",
             ],
           },
         ],
@@ -576,7 +569,7 @@ export const NIVEL_4: DocScreen[] = [
             y: 0,
             que: "Luz blanca del nivel bajo",
             significa: "Está a la altura del punto más bajo del cable.",
-            piloto: "Por debajo de ella hay cable, no aire libre.",
+            piloto: "Hasta esa altura baja el cable entre las torres.",
           },
           {
             x: 0,
@@ -695,8 +688,8 @@ export const NIVEL_4: DocScreen[] = [
           ],
           [
             "Aproximación que no es de precisión",
-            "Nada",
-            "Sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos",
+            "Indicador de pendiente, borde y umbral, solo si la aproximación se hace sobre terreno peligroso o escarpado",
+            "Todo lo demás: sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos",
           ],
           [
             "Precisión categoría I",
@@ -736,7 +729,7 @@ export const NIVEL_4: DocScreen[] = [
             x: 0,
             y: 0,
             que: "Dos apagadas seguidas",
-            significa: "Está prohibido en todos los niveles de servicio.",
+            significa: "En una fila de borde no se admite en ningún nivel de servicio.",
             piloto: "Abre un hueco que se puede leer como una curva del borde.",
           },
           {
@@ -751,14 +744,14 @@ export const NIVEL_4: DocScreen[] = [
             x: 0,
             y: 0,
             que: "La línea de eje completa",
-            significa: "Es la que más exigencia tiene en categorías II y III.",
-            piloto: "Si le faltan luces, la operación baja de categoría antes que por el borde.",
+            significa: "En categorías II y III pide el 95 %, igual que el borde y el umbral.",
+            piloto: "Con la visibilidad mínima, es tu guía en la carrera.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Hay una regla que manda sobre los porcentajes: nunca dos luces contiguas apagadas. Dos apagadas seguidas abren un hueco en el patrón, y un hueco se lee como una curva o como el borde de la pista donde no lo hay.",
+        text: "Hay una regla que manda sobre los porcentajes: nunca dos luces contiguas apagadas, salvo dentro de una barreta o de una barra transversal. Dos apagadas seguidas abren un hueco en el patrón, y un hueco se lee como una curva o como el borde de la pista donde no lo hay.",
       },
       {
         kind: "piensaComoPiloto",

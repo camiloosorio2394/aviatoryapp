@@ -31,8 +31,8 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué es la franja de pista y qué se admite dentro?",
       respuesta:
-        "Es la faja de terreno que envuelve la pista y sus zonas de parada. Se extiende 60 m antes del umbral y, en pista de aproximación de precisión de clave 3 o 4, 150 m a cada lado del eje. La superficie que colinda con la pista queda enrasada, sin escalón. Dentro de la parte protegida no hay objetos fijos, salvo ayudas visuales frangibles.",
-      claves: ["60 m antes del umbral", "150 m a cada lado del eje", "Enrasada, sin resalto", "Solo ayudas visuales frangibles"],
+        "Es la faja de terreno que envuelve la pista y sus zonas de parada. Se extiende 60 m antes del umbral y, en pista de aproximación de precisión de clave 3 o 4, 140 m a cada lado del eje. La superficie que colinda con la pista queda enrasada, sin escalón. Dentro de la parte protegida no hay objetos fijos, salvo ayudas visuales frangibles.",
+      claves: ["60 m antes del umbral", "140 m a cada lado del eje, en precisión", "Enrasada, sin resalto", "Solo ayudas visuales frangibles"],
     },
     {
       nivel: "concepto",
@@ -45,7 +45,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "interpretacion",
       q: "La zona de parada y la zona libre de obstáculos están en el mismo sitio. ¿En qué se diferencian?",
       respuesta:
-        "Las dos van pasado el extremo de la pista, pero la zona de parada es pavimento y la zona libre es aire limpio sobre terreno vigilado. La zona de parada tiene la misma anchura que la pista, aguanta un despegue abortado y suma a la ASDA. La zona libre se extiende 75 m a cada lado del eje prolongado, nunca mide más de la mitad del recorrido de despegue y suma a la TODA.",
+        "Las dos van pasado el extremo de la pista, pero la zona de parada es pavimento y la zona libre es aire limpio sobre terreno vigilado. La zona de parada tiene la misma anchura que la pista, aguanta un despegue abortado y suma a la ASDA. En pista por instrumentos, la zona libre se extiende 75 m a cada lado del eje prolongado, nunca mide más de la mitad del recorrido de despegue y suma a la TODA.",
       claves: ["Pavimento contra aire", "La zona de parada suma a la ASDA", "La zona libre suma a la TODA", "La zona libre no pasa de la mitad del TORA"],
     },
     {
@@ -151,8 +151,8 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué te dice la señal designadora de una pista y cómo se leen las letras cuando hay paralelas?",
       respuesta:
-        "El número es el rumbo magnético de la pista sin la última cifra, visto desde la aproximación; si queda de una sola cifra se le antepone un cero. Las letras identifican las paralelas y se leen de izquierda a derecha vistas desde la aproximación. Con dos pistas van L y R, con tres van L, C y R. Los dígitos son blancos y de unos nueve metros de alto.",
-      claves: ["Rumbo magnético sin la última cifra", "Se lee siempre desde la aproximación", "L, C y R de izquierda a derecha", "Blanco, dígitos de 9 m"],
+        "El número es la décima parte del rumbo magnético del eje, redondeada al entero más próximo y vista desde la aproximación; si queda de una sola cifra se le antepone un cero. Las letras identifican las paralelas y se leen de izquierda a derecha vistas desde la aproximación. Con dos pistas van L y R, con tres van L, C y R. Los dígitos son blancos y de unos nueve metros de alto.",
+      claves: ["Décima parte del rumbo magnético, redondeada", "Se lee siempre desde la aproximación", "L, C y R de izquierda a derecha", "Blanco, dígitos de 9 m"],
     },
     {
       nivel: "interpretacion",
@@ -170,9 +170,9 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
     },
     {
       nivel: "interpretacion",
-      q: "Aterrizas en una pista con 2.600 m de distancia de aterrizaje disponible. ¿Dónde está el punto de visada y cuántos pares de la zona de toma de contacto vas a ver?",
+      q: "Aterrizas en una pista con 2 600 m de distancia de aterrizaje disponible. ¿Dónde está el punto de visada y cuántos pares de la zona de toma de contacto vas a ver?",
       respuesta:
-        "Con 2.400 m o más, el punto de visada empieza a 400 m del umbral y se ven seis pares. Las dos cosas se escalonan por distancia de aterrizaje disponible: el punto de visada a 150, 250, 300 o 400 m, y los pares en uno, dos, tres, cuatro o seis. Los pares van cada 150 m contados desde el umbral. Se borran los que caigan sobre el punto de visada o a 50 m o menos de él, así que ahí queda un hueco.",
+        "Con 2 400 m o más, el punto de visada empieza a 400 m del umbral y se ven seis pares. Las dos cosas se escalonan por distancia de aterrizaje disponible: el punto de visada a 150, 250, 300 o 400 m, y los pares en uno, dos, tres, cuatro o seis. Los pares van cada 150 m contados desde el umbral. Se borran los que caigan sobre el punto de visada o a 50 m o menos de él, así que ahí queda un hueco.",
       claves: ["400 m y seis pares", "Las dos cosas se escalonan por distancia de aterrizaje disponible", "Un par cada 150 m desde el umbral", "Se borran los pares pegados al punto de visada"],
     },
     {
@@ -186,7 +186,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "situacion",
       q: "Te autorizan a despegar desde el comienzo del pavimento y adelante ves flechas blancas sobre el eje. ¿Lo aceptas? ¿Y si en vez de flechas vieras galones amarillos?",
       respuesta:
-        "Con flechas, sí. El tramo anterior a un umbral desplazado sirve para rodar, para despegar y para terminar el aterrizaje; lo único que no se puede hacer ahí es tomar contacto. Con galones amarillos, no: ese pavimento no sirve para nada, ni siquiera para rodar. Los galones van a 45 grados apuntando hacia la pista y marcan zonas de parada, áreas de chorro o pavimento inutilizable.",
+        "Con flechas, sí. El tramo anterior a un umbral desplazado sirve para rodar, para despegar y para terminar el aterrizaje; lo único que no se puede hacer ahí es tomar contacto. Con galones amarillos, no: ese pavimento no es apto para uso normal, ni siquiera para rodar. Los galones van a 45 grados apuntando hacia la pista y marcan zonas de parada, áreas de chorro o pavimento inutilizable.",
       claves: ["Flechas: se rueda, se despega y se termina el aterrizaje", "Lo único prohibido sobre las flechas es tomar contacto", "Galones: ni aterrizar, ni despegar, ni rodar", "Galones amarillos a 45 grados apuntando hacia la pista"],
     },
     {
@@ -207,7 +207,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué dos elementos nuevos trae la norma desde noviembre de 2025 y cómo se reconocen?",
       respuesta:
-        "Uno es la iluminación de pista cerrada: una cruz de luces blancas, elevada, que destella un segundo encendida y un segundo apagada, orientada hacia la dirección de aproximación, con un mínimo de cinco luces por brazo. Si el sistema de destellos falla, las luces pasan solas a fijas. El otro es la señal de área fuera de servicio, con inscripción negra sobre fondo naranja, y su letrero del mismo color. El naranja es un color nuevo en el catálogo de señales pintadas.",
+        "Uno es la iluminación de pista cerrada: una cruz de luces blancas que destella un segundo encendida y un segundo apagada, orientada hacia la dirección de aproximación, con un mínimo de cinco luces por brazo. Si el sistema de destellos falla, las luces pasan solas a fijas. El otro es la señal de área fuera de servicio, con inscripción negra sobre fondo naranja, y su letrero del mismo color. El naranja es un color nuevo en el catálogo de señales pintadas.",
       claves: ["Cruz de luces blancas: un segundo encendida, un segundo apagada", "Mínimo cinco luces por brazo", "Si falla el destello, pasan a fijas", "Área fuera de servicio: negro sobre naranja"],
     },
     {
@@ -265,14 +265,14 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       q: "Estás rodando y ves un letrero rojo que dice `25-07`. ¿Qué te está diciendo?",
       respuesta:
         "Es el letrero de designación de pista: enfrente tienes la pista 07-25. Las cifras van en el orden en que las ves, así que el umbral de la 25 queda a tu izquierda y el de la 07 a tu derecha. Cerca de un extremo puede llevar solo esa cabecera.",
-      claves: ["Designación de pista, no longitud ni nombre de calle", "El orden indica dónde queda cada umbral", "Cerca de un extremo va una sola cifra"],
+      claves: ["Designación de pista, no longitud ni nombre de calle", "El orden indica dónde queda cada umbral", "En un extremo, una sola designación"],
     },
     {
       nivel: "interpretacion",
-      q: "Dos letreros rojos seguidos: uno dice `B2` y otro dice `25 CAT II/III`. ¿Qué diferencia hay?",
+      q: "Dos letreros rojos seguidos: uno dice `E2` y otro dice `25 CAT II/III`. ¿Qué diferencia hay?",
       respuesta:
-        "El de `B2` lleva la designación de la calle más un número y marca un punto de espera puesto donde la calle dejaría infringir una superficie limitadora de obstáculos o interferir con las radioayudas. El de `25 CAT II/III` lleva un solo designador de pista seguido de la categoría y marca el punto de espera del área crítica de esa pista. Cuantas más categorías, más atrás queda.",
-      claves: ["B2 es calle más número", "El de categoría lleva un solo designador de pista", "25-07 CAT II no existe: nunca las dos cabeceras con CAT"],
+        "El de `E2` lleva la designación de la calle más un número y marca un punto de espera puesto donde la calle dejaría infringir una superficie limitadora de obstáculos o interferir con las radioayudas. El de `25 CAT II/III` lleva un solo designador de pista seguido de la categoría y marca el punto de espera del área crítica de esa pista.",
+      claves: ["E2 es calle más número", "El de categoría lleva un solo designador de pista", "25-07 CAT II no existe: nunca las dos cabeceras con CAT"],
     },
     {
       nivel: "interpretacion",
@@ -283,7 +283,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
     },
     {
       nivel: "situacion",
-      q: "Ruedas de noche con autorización «taxi via F, hold short runway 25». Al llegar a una unión ves de frente un disco rojo con una barra blanca horizontal, sin texto. ¿Qué haces?",
+      q: "Ruedas de noche con autorización «taxi via F, hold short of runway 25». Al llegar a una unión ves de frente un disco rojo con una barra blanca horizontal, sin texto. ¿Qué haces?",
       respuesta:
         "No entras. Ese es el letrero de prohibida la entrada y marca un pavimento al que ninguna aeronave puede entrar por ese lado, aunque tu autorización te lleve hacia allá. Te detienes antes, avisas que no puedes seguir por ahí y pides encaminamiento. Nunca sustituye a un punto de espera de pista.",
       claves: ["No se entra, aunque la autorización apunte hacia allá", "No lleva texto, y va a cada lado de la calle prohibida", "No es un «hold short»"],
@@ -299,7 +299,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué es un letrero negro sobre naranja y desde cuándo existe?",
       respuesta:
-        "Es el letrero de área fuera de servicio, el tercer color de letrero del área de movimiento. Avisa de obras o de distancias declaradas reducidas, y se refuerza con dos luces destellantes rojas o amarillas que destellan a la vez. Entró con la Enmienda 18 y es aplicable desde el 27 de noviembre de 2025.",
+        "Es el letrero de área fuera de servicio. Avisa de obras o de distancias declaradas reducidas, y puede reforzarse con dos luces destellantes rojas o amarillas que destellan a la vez. Entró con la Enmienda 18 y es aplicable desde el 27 de noviembre de 2025.",
       claves: ["Área fuera de servicio", "Dos luces destellantes que destellan a la vez", "Aplicable desde el 27 de noviembre de 2025"],
     },
     {
@@ -313,7 +313,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿De qué color es el letrero de distancia de pista restante y cada cuánto va?",
       respuesta:
-        "Inscripción blanca sobre fondo negro. Va a lo largo de toda la pista, a los dos lados, por fuera de los bordes del pavimento, cada 300 metros aproximadamente con tolerancia de más o menos 30 metros. Todos los de una misma pista son del mismo tamaño.",
+        "Inscripción blanca sobre fondo negro. Va a lo largo de toda la pista, a uno o a los dos lados, por fuera de los bordes del pavimento, cada 300 metros aproximadamente con tolerancia de más o menos 30 metros. Todos los de una misma pista son del mismo tamaño.",
       claves: ["Blanco sobre negro", "Cada 300 m, con tolerancia de ±30 m", "Por fuera de los bordes y del mismo tamaño en toda la pista"],
     },
     {
@@ -327,7 +327,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué medidas mínimas tiene la manga de viento y cómo se lee su codificación de colores?",
       respuesta:
-        "El cono de tela mide 3,6 metros de largo como mínimo y 0,9 metros de diámetro en la base mayor, y tiene que ser legible desde 300 metros de altura. Si lleva dos colores son cinco bandas alternas, y la primera y la última son las del color más oscuro. El viento sale por la boca pequeña, y con 15 nudos la manga queda del todo extendida.",
+        "El cono de tela mide 3,6 metros de largo como mínimo y 0,9 metros de diámetro en la base mayor, y tiene que ser legible desde 300 metros de altura. Si lleva dos colores son cinco bandas alternas, y la primera y la última son las del color más oscuro. El viento sale por la boca pequeña, y cuanto más horizontal queda la manga, más viento hay.",
       claves: ["3,6 m de largo y 0,9 m de diámetro, mínimos", "Cinco bandas, la primera y la última oscuras", "Se lee desde 300 m de altura"],
     },
     {
@@ -353,7 +353,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
     },
     {
       nivel: "situacion",
-      q: "De noche, con RVR de 400 metros, te dicen «hold short runway 25». Ves la A2 adelante y, más atrás, la escalera B2 con el letrero `25 CAT II/III`. ¿En cuál paras?",
+      q: "De noche, con RVR de 400 metros, te dicen «hold short of runway 25». Ves la A2 adelante y, más atrás, la escalera B2 con el letrero `25 CAT II/III`. ¿En cuál paras?",
       respuesta:
         "En la de atrás, la de la escalera. Con esa visibilidad el aeropuerto está en procedimientos de baja visibilidad y el punto de espera que protege el área sensible del ILS es el más alejado de la pista. Parar en la A2 te deja dentro del área sensible y puede desviar la señal del que viene aterrizando. Si tienes duda, preguntas antes de avanzar.",
       claves: ["Se para en el más alejado, el del patrón B2", "El letrero rojo da la categoría; el controlador dice cuál aplica hoy", "Pasarse contamina el área sensible del ILS"],
@@ -391,7 +391,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "¿Qué destella el faro de un aeródromo y a qué ritmo?",
       respuesta:
-        "De 20 a 30 destellos por minuto. En aeródromo terrestre alterna verde y blanco, y en hidroaeródromo, amarillo y blanco. Tiene un pariente cercano, el faro de identificación, que manda la identificación del aeródromo en clave Morse, aunque casi no queda ninguno en servicio.",
+        "De 20 a 30 destellos por minuto. En aeródromo terrestre alterna verde y blanco, y en hidroaeródromo, amarillo y blanco. Tiene un pariente cercano, el faro de identificación, que manda la identificación del aeródromo en clave Morse.",
       claves: ["20 a 30 destellos por minuto", "Verde y blanco en terrestre", "Amarillo y blanco en hidroaeródromo", "Faro de identificación en Morse"],
     },
     {
@@ -518,7 +518,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       nivel: "concepto",
       q: "El umbral de visibilidad que dispara casi todo el alumbrado de rodaje se movió. ¿De cuánto a cuánto, y desde cuándo?",
       respuesta:
-        "Pasó de 350 m a 300 m de alcance visual en la pista, y aplica desde el 27 de noviembre de 2025. Es un cambio que recorre casi todas las disposiciones de luces de calle de rodaje: ejes, luces de protección de pista y barras de parada.",
+        "Pasó de 350 m a 300 m de alcance visual en la pista, y aplica desde el 27 de noviembre de 2025. Es un cambio que recorre buena parte de las luces de rodaje: ejes de calle, plataformas de viraje, puntos de espera intermedios e indicadoras de salida rápida.",
       claves: ["De 350 m a 300 m", "Desde el 27 de noviembre de 2025", "Alcance visual en la pista", "Afecta al alumbrado de rodaje en bloque"],
     },
     {
@@ -554,7 +554,7 @@ export const AP_ENTREVISTAS: LectorEntrevista[] = [
       q: "Vas a un aeropuerto cuyo PCR publicado es menor que tu ACR de hoy. ¿Puedes ir?",
       respuesta:
         "La regla es que tu ACR sea igual o menor que el PCR. Por encima solo se admite de forma excepcional y con el explotador del aeródromo de acuerdo: hasta un 10 % por encima, siempre que esos movimientos no pasen del 5 % del total del año. Más que eso exige un análisis, y nunca se hace como rutina.",
-      claves: ["ACR igual o menor que PCR", "Hasta 10 % por encima, excepcional", "Los movimientos, dentro del 5 % anual", "Lo acepta el explotador, no el piloto"],
+      claves: ["ACR igual o menor que PCR", "Hasta 10 % por encima, excepcional", "Los movimientos, dentro del 5 % anual", "Lo autoriza el aeródromo, no el piloto"],
     },
     {
       nivel: "concepto",

@@ -112,7 +112,7 @@ export const AP_RECONOCE: ApReconoce[] = [
       codigo: "AP-PRA-04",
       medida: "Fotografía aérea cenital · 16:9 · 1600×900",
       descripcion:
-        "Cenital pura del comienzo de una pista pavimentada de 45 m, con el eje vertical en el cuadro. Un grupo de fajas blancas largas y paralelas al eje, todas del mismo largo y del mismo ancho, repartidas en igual número a cada lado del eje, arrancando a 6 m del borde del pavimento. Ojo: sin designadora en el encuadre, sin flechas y sin ninguna señal amarilla.",
+        "Cenital pura del comienzo de una pista pavimentada de 45 m, con el eje vertical en el cuadro. Un grupo de fajas blancas largas y paralelas al eje, todas del mismo largo y del mismo ancho, repartidas en igual número a cada lado del eje, arrancando a 6 m del umbral. Ojo: sin designadora en el encuadre, sin flechas y sin ninguna señal amarilla.",
     },
     pregunta: "¿Qué señal estás viendo?",
     opciones: [
@@ -189,7 +189,7 @@ export const AP_RECONOCE: ApReconoce[] = [
     ],
     correcta: 3,
     explicacion:
-      "Es el único letrero obligatorio sin texto: disco rojo con barra blanca horizontal, y va a cada lado de la calle prohibida. No es un punto de espera, así que no hay autorización que lo levante: por ese pavimento no se entra nunca, aunque la autorización apunte hacia allá. Si te encuentras uno, te detienes y pides encaminamiento. Los otros letreros rojos sí llevan inscripción: la designación de pista lleva las dos cabeceras y el de punto de espera lleva la calle y su número, o la pista y la categoría.",
+      "Es el único letrero obligatorio sin texto: disco rojo con barra blanca horizontal, y va a cada lado de la calle prohibida. No es un punto de espera, así que no hay autorización que lo levante: por ese pavimento no se entra nunca, aunque la autorización apunte hacia allá. Si te encuentras uno, te detienes y pides encaminamiento. Los otros letreros rojos sí llevan inscripción: la designación de pista lleva las cabeceras y el de punto de espera lleva la calle y su número, o la pista y la categoría.",
   },
   {
     id: "r07",
@@ -387,7 +387,7 @@ export const AP_DECIDE: ApDecide[] = [
     ],
     correcta: 1,
     explicacion:
-      "Las dos continuas están del lado donde se espera y las dos de trazos miran a la pista, así que las continuas son la línea que no se pisa: todo el avión queda de tu lado. Es la misma regla al revés cuando sales de la pista, y ahí es donde más se falla: no estás libre hasta que has cruzado la señal entera. El eje amarillo de la calle se interrumpe justo en esa señal para recordártelo, y el eje mejorado, con sus trazos a los lados, te venía avisando desde 47 m antes.",
+      "Las dos continuas están del lado donde se espera y las dos de trazos miran a la pista, así que las continuas son la línea que no se pisa: todo el avión queda de tu lado. Es la misma regla al revés cuando sales de la pista, y ahí es donde más se falla: no estás libre hasta que has cruzado la señal entera. El eje amarillo de la calle se interrumpe justo en esa señal para recordártelo, y el eje mejorado, con sus trazos a los lados, te venía avisando desde, como mucho, 47 m antes.",
   },
   {
     id: "d04",
@@ -435,13 +435,13 @@ export const AP_DECIDE: ApDecide[] = [
     pregunta: "¿Qué viento tienes?",
     opciones: [
       "Viento del este, y la manga no dice nada de la intensidad",
-      "Viento del oeste, de unos 15 nudos o más",
-      "Viento del este, de unos 15 nudos o más",
+      "Viento del oeste, y fuerte",
+      "Viento del este, y fuerte",
       "Viento del oeste, pero sin dato de intensidad hasta ver otra manga",
     ],
     correcta: 1,
     explicacion:
-      "El aire entra por la boca grande y sale por la pequeña, así que la manga apunta hacia donde va el viento: si la boca chica mira al este, el viento viene del oeste. Y la manga sí da intensidad: cuando queda extendida en horizontal, el viento anda por los 15 nudos. Es el único indicador de viento garantizado en todo aeródromo del mundo. Sus medidas también las puedes usar de referencia: cono de tela de 3,6 m como mínimo, 0,9 m de diámetro en la boca grande y legible desde 300 m de altura.",
+      "El aire entra por la boca grande y sale por la pequeña, así que la manga apunta hacia donde va el viento: si la boca chica mira al este, el viento viene del oeste. Y la manga también da una idea de la intensidad: cuanto más horizontal, más viento. La norma de la OACI no fija con cuántos nudos queda extendida. Es el único indicador de viento garantizado en todo aeródromo del mundo. Sus medidas también las puedes usar de referencia: cono de tela de 3,6 m como mínimo, 0,9 m de diámetro en la boca grande y legible desde 300 m de altura.",
   },
   {
     id: "d07",
@@ -534,7 +534,7 @@ export const AP_CAMBIO: ApCambio[] = [
     leccion: 18,
     fecha: "26 de noviembre de 2026",
     pregunta:
-      "Ruedas hoy hacia una pista de precisión en un aeropuerto cualquiera del mundo. ¿Qué puedes encontrarte pintado en el punto de espera?",
+      "Hasta el 26 de noviembre de 2026, rodando hacia una pista de precisión en cualquier aeropuerto del mundo, ¿qué puedes encontrarte pintado en el punto de espera?",
     opciones: [
       "Solo los patrones anchos A2 y B2: los estrechos ya no existen",
       "Los cuatro: A1 y B1 siguen siendo válidos hasta el 26 de noviembre de 2026",
@@ -543,7 +543,7 @@ export const AP_CAMBIO: ApCambio[] = [
     ],
     correcta: 1,
     explicacion:
-      "Es el punto más práctico de todo el cambio. Las configuraciones estrechas siguen valiendo hasta el 26 de noviembre de 2026, así que la mayoría de los aeropuertos del mundo todavía las tiene pintadas, y lo que ves en el suelo puede no ser lo que enseña el material nuevo. Lo que no cambia es la regla que te salva de una incursión: en el patrón A las dos líneas continuas van del lado donde se espera y las de trazos miran a la pista, y el patrón A es siempre el más cercano a la pista.",
+      "Es el punto más práctico de todo el cambio. Las configuraciones estrechas siguen valiendo hasta el 26 de noviembre de 2026, así que muchos aeropuertos todavía las tienen pintadas, y lo que ves en el suelo puede no ser lo que enseña el material nuevo. Lo que no cambia es la regla que te salva de una incursión: en el patrón A las dos líneas continuas van del lado donde se espera y las de trazos miran a la pista, y el patrón A es siempre el más cercano a la pista.",
     antes:
       "El material anterior dibuja A1 y B1 como si fueran la norma, sin ninguna fecha de vencimiento.",
   },
@@ -571,16 +571,16 @@ export const AP_CAMBIO: ApCambio[] = [
     nivel: 3,
     leccion: 10,
     fecha: "27 de noviembre de 2025",
-    pregunta: "La Enmienda 18 metió un color nuevo en el área de movimiento. ¿Dónde se usa?",
+    pregunta: "La Enmienda 18 metió un color nuevo en las señales y los letreros del área de movimiento. ¿Dónde se usa?",
     opciones: [
-      "En la señal y en el letrero de área fuera de servicio, y en nada más",
+      "En la señal pintada y en el letrero de área fuera de servicio",
       "También en las cruces que cierran una pista o una calle de rodaje",
       "En las balizas de borde de calle de rodaje",
       "En los letreros con instrucciones obligatorias, que pasan de rojo a naranja",
     ],
     correcta: 0,
     explicacion:
-      "El catálogo de señales pintadas solo tenía blanco, amarillo, rojo con blanco y negro con amarillo. El naranja es el color nuevo y significa que eso no sirve: lo llevan la señal pintada de área fuera de servicio y el letrero del mismo nombre, que es el tercer color de letrero del área de movimiento. Si ves naranja en cualquier otra cosa, está mal. El fondo naranja sobresale 0,50 m o más del texto, el contorno negro es de 10 mm en clave 1 o 2 y de 20 mm en clave 3 o 4, y el letrero se refuerza con dos luces destellantes que destellan a la vez.",
+      "El catálogo de señales pintadas solo tenía blanco, amarillo, rojo con blanco y negro con amarillo. El naranja es el color nuevo y significa que eso no sirve: lo llevan la señal pintada de área fuera de servicio y el letrero del mismo nombre, el color nuevo de los letreros. En señales pintadas y en letreros, el naranja solo significa eso. El fondo naranja sobresale 0,50 m o más del texto, el contorno negro es de 10 mm en clave 1 o 2 y de 20 mm en clave 3 o 4, y el letrero puede reforzarse con dos luces destellantes que destellan a la vez.",
     antes:
       "El material anterior enseña cuatro familias de color en el suelo y dos de letrero, sin el naranja.",
   },
@@ -599,7 +599,7 @@ export const AP_CAMBIO: ApCambio[] = [
     ],
     correcta: 1,
     explicacion:
-      "Es uno de los elementos que estrena esta edición, y por eso no está en casi ningún material de estudio. Es inscripción blanca sobre fondo negro, va a lo largo de toda la pista espaciado cada 300 m, paralelo al eje y equidistante de él, y siempre por fuera de los bordes del pavimento. Es frangible, va bajo, y todos los letreros de una misma pista son del mismo tamaño. La cifra va sin unidades escritas: ni pies ni miles de pies, que eso es de otra autoridad.",
+      "Es uno de los elementos que estrena la Enmienda 18, y por eso no está en casi ningún material de estudio. Es inscripción blanca sobre fondo negro, va a lo largo de toda la pista espaciado cada 300 m, paralelo al eje y equidistante de él, y siempre por fuera de los bordes del pavimento. Es frangible, va bajo, y todos los letreros de una misma pista son del mismo tamaño. Lleva una sola cifra, sin unidades: cuántos tramos de unos 300 m quedan hasta el final de la pista.",
     antes:
       "Los manuales anteriores lo describen como un elemento ajeno a esta norma, propio de otra autoridad.",
   },
@@ -609,7 +609,7 @@ export const AP_CAMBIO: ApCambio[] = [
     leccion: 14,
     fecha: "27 de noviembre de 2025",
     pregunta:
-      "Tu aeropuerto encendía el eje verde de las calles y las luces de protección de pista cuando el alcance visual en la pista bajaba de 350 m, y desde hace poco lo hace cuando baja de 300 m. ¿Por qué?",
+      "En tu aeropuerto, las luces de eje de calle se exigían donde se rodaba con alcance visual en la pista menor que 350 m, y ahora la cifra que se aplica es 300 m. ¿Por qué?",
     opciones: [
       "Es una decisión del explotador del aeródromo, no de la norma",
       "Cambió el mínimo de las operaciones de categoría II",
@@ -618,7 +618,7 @@ export const AP_CAMBIO: ApCambio[] = [
     ],
     correcta: 2,
     explicacion:
-      "Es un cambio de una sola cifra que recorre en bloque casi todas las disposiciones de luces de calle de rodaje: ejes, luces de protección de pista y barras de parada. Por eso tu aeropuerto pudo haberlo movido hace poco sin que nada más cambiara a la vista. Ojo con no mezclarlo con la otra cifra del mismo capítulo: la barra de parada sigue siendo obligatoria cuando el alcance visual en la pista es menor que 550 m, y en una calle que se usa por debajo de 300 m las luces de eje van cada 15 m en vez de cada 30.",
+      "Es un cambio de una sola cifra que recorre buena parte de las luces de rodaje: ejes de calle, plataformas de viraje, puntos de espera intermedios e indicadoras de salida rápida. Por eso tu aeropuerto pudo haberlo movido hace poco sin que nada más cambiara a la vista. Ojo con no mezclarlo con la otra cifra del mismo capítulo: la barra de parada sigue siendo obligatoria cuando el alcance visual en la pista es menor que 550 m, y en una calle que se usa por debajo de 300 m las luces de eje van cada 15 m en vez de cada 30.",
     antes:
       "Todo el material anterior, y todavía algunos reglamentos nacionales, dan 350 m como el umbral que dispara este alumbrado.",
   },
@@ -638,7 +638,7 @@ export const AP_CAMBIO: ApCambio[] = [
     explicacion:
       "La Enmienda 18 quitó la restricción que acotaba la exigencia y la extendió a todas las pistas pavimentadas. Es un cambio fácil de leer al revés, porque la redacción vieja se parece mucho y sigue circulando. En la práctica te cambia una cosa: en una pista pavimentada pequeña también puedes contar las fajas para saber el ancho, y siguen siendo 4, 6, 8, 12 y 16 fajas para 18, 23, 30, 45 y 60 m.",
     antes:
-      "El material anterior limita la señal de umbral a determinadas pistas, y el encargo original de este módulo traía esa versión.",
+      "El material anterior limita la señal de umbral a las pistas por instrumentos y a algunas de vuelo visual.",
   },
   {
     id: "c07",
@@ -656,7 +656,7 @@ export const AP_CAMBIO: ApCambio[] = [
     explicacion:
       "Es una recomendación nueva, y la clave está en el ritmo: blanco variable de destellos, un segundo encendida y un segundo apagada, montada sobre el eje y visible desde la dirección de aproximación. Lleva 5 luces por brazo como mínimo, con 1,5 m de intervalo, y si el brazo tiene 7 luces el intervalo baja a 1,0 m y con 9 luces a 0,8 m. Si el sistema de destellos falla, las luces pasan automáticamente a fijas. De día lo que cierra la pista es la cruz pintada, que es blanca, y la de la calle de rodaje, que es amarilla.",
     antes:
-      "Como el elemento es nuevo, es probable que ni siquiera exista todavía una fotografía de uno instalado.",
+      "El material anterior no la trae: de noche, una pista cerrada solo se reconocía porque tenía el alumbrado apagado.",
   },
   {
     id: "c08",
@@ -664,7 +664,7 @@ export const AP_CAMBIO: ApCambio[] = [
     leccion: 7,
     fecha: "27 de noviembre de 2025",
     pregunta:
-      "La señal pintada con instrucciones obligatorias puede ir repartida a los dos lados del eje o de un solo lado. ¿Qué dato lo decide hoy?",
+      "La señal pintada con instrucciones obligatorias puede ir centrada sobre el eje o repartida a los dos lados. ¿Qué dato lo decide hoy?",
     opciones: [
       "La anchura exterior entre ruedas del tren principal",
       "La letra de la clave de referencia del aeródromo",
@@ -673,7 +673,7 @@ export const AP_CAMBIO: ApCambio[] = [
     ],
     correcta: 0,
     explicacion:
-      "El criterio se movió de la letra de clave a la anchura exterior entre ruedas del tren principal: por debajo de 9 m, la inscripción se reparte a los dos lados del eje. Tiene sentido porque lo que hay que garantizar es que el piloto la lea sin que el propio tren la tape. Es el mismo parámetro que dejó de determinar la letra de clave en 2018 y quedó como dato aparte, el que fija anchuras de pista, de calles y de márgenes. La señal es blanca sobre rojo y vale exactamente lo mismo que el letrero rojo.",
+      "El criterio se movió de la letra de clave a la anchura exterior entre ruedas del tren principal: por debajo de 9 m, la inscripción va centrada sobre el eje; de 9 m a menos de 15 m, va a los dos lados, y en los dos casos a 1 m como mínimo del punto de espera y del eje. Es el mismo parámetro que dejó de determinar la letra de clave en 2018 y quedó como dato aparte, el que fija anchuras de pista, de calles y de márgenes. La señal es blanca sobre rojo y vale exactamente lo mismo que el letrero rojo.",
     antes:
       "El material anterior explica esta señal en función de la letra de clave, que ya no es el criterio.",
   },

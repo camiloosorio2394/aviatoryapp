@@ -192,7 +192,7 @@ export function Aeropuertos() {
               claveVisto="aviatory.aeropuertos.video"
               acento="#C4B5FD"
               rotulo="AP-VID-01 · Video de apertura · 16:9 · 60 s"
-              descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, voz William Shanks en español. Recorre lo que el piloto ve al rodar, de la puerta a la pista. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
+              descripcion="El video del módulo, con la misma serie que NOTAM y Mercancías: ocho escenas, un minuto, con el avatar y la voz propios del curso. Recorre lo que el piloto ve al rodar, de la puerta a la pista. Se guarda como intro.mp4 y su primer cuadro como intro-poster.webp; en cuanto estén, el reproductor aparece aquí solo."
             />
           </div>
         </div>
