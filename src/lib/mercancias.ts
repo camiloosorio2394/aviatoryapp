@@ -53,7 +53,7 @@ export const MP_LECTURA_TOTAL = 14
 export const MP_LECTURA_MINUTOS = 102
 
 /** Ejercicios de la práctica: etiquetas, casos, escenarios y entrevista (PRACTICA_TOTAL). Denominador de esa parte. */
-export const MP_PRACTICA_TOTAL = 49
+export const MP_PRACTICA_TOTAL = 67
 
 /** Mínimo de la evaluación, sobre 100. */
 export const MP_PASS_SCORE = 80

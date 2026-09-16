@@ -1476,6 +1476,18 @@
   font-weight: 500;
 }
 
+/* Las fichas del ejercicio de conexión de Mercancías. Hundirse al pulsar es lo
+   único que las hace sentir botón y no etiqueta; con reduced-motion se anula. */
+.notam-practica .mp-ficha:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .notam-practica .mp-ficha:not(:disabled):active {
+    transform: none;
+  }
+}
+
 /* === Mercancías peligrosas: amarillo aviación ==============================
    El acento del módulo. Es un amarillo sobrio, de instrumento, no el ámbar de
    alerta (--av-amber-400) ni un amarillo de señal: el módulo entero se pinta
