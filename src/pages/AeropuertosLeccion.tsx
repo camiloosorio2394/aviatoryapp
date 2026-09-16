@@ -17,7 +17,7 @@ import {
 
 /**
  * Lección de Aeropuertos, con el mismo lector que NOTAM, Mercancías y
- * Meteorología, y el tema violeta del módulo (`lector-ap`). Veintidós lecciones
+ * Meteorología, y el tema verde menta del módulo (`lector-ap`). Veintidós lecciones
  * en cinco niveles, y cada nivel cierra con su entrevista de aerolínea.
  *
  * Es el módulo más visual de la app: el texto de cada lección cabe en unas 150

@@ -1600,19 +1600,16 @@
   }
 }
 
-/* Y el de Aeropuertos, en violeta claro, que es el color que eligió Camilo
-   para el módulo. El primario es el violeta profundo porque sobre el papel
-   tiene que leerse (6,5 a 1); el claro manda en el acento, las pastillas y el
-   velo, que es donde se reconoce el módulo de un vistazo. El violeta de
-   psicotécnicas es más magenta y vive en otra sección. El ámbar y el rojo no se
-   tocan, que son semántica. */
+/* Aeropuertos usa verde menta pastel. El primario conserva contraste suficiente
+   sobre el papel; el menta claro manda en acentos, pastillas y foco. El ámbar,
+   el rojo y el verde de correcto no se tocan, porque conservan su semántica. */
 .lector-notam.lector-ap {
-  --ln-primary: #6B4FD8;
-  --ln-primary-hover: #5539C0;
-  --ln-bright: #A78BFA;
-  --ln-tint: #F1EDFD;
-  --ln-pill: #5B41B8;
-  --ln-focus: #B9A5FF;
+  --ln-primary: #2F766A;
+  --ln-primary-hover: #255D55;
+  --ln-bright: #9ADBC9;
+  --ln-tint: #ECF9F5;
+  --ln-pill: #397F70;
+  --ln-focus: #BCEADB;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }
