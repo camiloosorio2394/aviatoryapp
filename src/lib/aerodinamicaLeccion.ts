@@ -98,6 +98,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Dos aviones comparan trayectoria, actitud y viento relativo en vuelo nivelado y en descenso",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "El viento relativo es opuesto a la trayectoria de vuelo, no a la dirección hacia donde apunta la nariz."
       },
       {
@@ -106,6 +107,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación entre actitud, trayectoria de vuelo y viento relativo en dos condiciones de vuelo",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "La actitud describe hacia dónde apunta el avión; la trayectoria indica hacia dónde se mueve. El viento relativo siempre llega en sentido opuesto a esa trayectoria."
       },
       {
@@ -187,6 +189,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Vectores de sustentación, peso, empuje y resistencia en vuelo nivelado y ascenso estabilizado",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Vuelo nivelado y ascenso estabilizado. En ascenso, una componente del peso actúa hacia atrás a lo largo de la trayectoria."
       },
       {
@@ -243,6 +246,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Relación operativa entre actitud de cabeceo, empuje, velocidad y altura",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Cambiar la actitud redistribuye velocidad y altura; el empuje disponible determina cuánta energía puede sostener o recuperar el avión."
       },
       {
@@ -328,6 +332,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Perfil aerodinámico con cuerda, ángulo de ataque, presiones, viento relativo y sustentación",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Borde de ataque, borde de salida, cuerda, curvatura, espesor, viento relativo y ángulo de ataque."
       },
       {
@@ -381,6 +386,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Variables de la ecuación de sustentación explicadas con escenas y anotaciones aerodinámicas",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "La sustentación depende de densidad, velocidad al cuadrado, superficie alar y coeficiente de sustentación. Ninguna variable actúa de forma aislada."
       },
       {
@@ -556,6 +562,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Curvas de coeficiente de sustentación frente al ángulo de ataque para ala limpia, flaps y slats",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "CL aumenta con el ángulo de ataque hasta CLmax; después del ángulo crítico el CL cae. Curvas comparadas: ala limpia, con flaps y con slats."
       },
       {
@@ -570,6 +577,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Secuencia visual para recuperar una pérdida reduciendo primero el ángulo de ataque",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "La prioridad es reducir el ángulo de ataque. Después se nivelan las alas, se gestiona el empuje y se ajusta la configuración según el procedimiento del fabricante."
       },
       {
@@ -790,6 +798,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Curvas de resistencia inducida, parásita y total con el punto de máxima eficiencia",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Resistencia parásita (creciente), inducida (decreciente) y total (U). El mínimo de la total marca L/Dmax y la velocidad de mínima resistencia."
       },
       {
@@ -822,6 +831,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Relación de planeo, máximo L sobre D y efectos del peso y el viento",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "A L/Dmax se obtiene el mejor ángulo de planeo. Más peso exige más velocidad para el mismo ángulo en aire calmo; el viento cambia la distancia recorrida sobre el suelo."
       },
       {
@@ -908,6 +918,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Sustentación inclinada en un viraje y curva del factor de carga según el alabeo",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Vector de sustentación inclinado en viraje: componente vertical que equilibra el peso y componente horizontal que produce el viraje. Curva de factor de carga vs alabeo con 30°, 45° y 60° marcados."
       },
       {
@@ -952,6 +963,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Relación entre velocidad de maniobra, peso y velocidad publicada para turbulencia",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Va disminuye con el peso. No protege frente a entradas múltiples o bruscas y no sustituye la velocidad de penetración en turbulencia publicada por el fabricante."
       },
       {
@@ -1031,6 +1043,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Vista superior de un avión con alerones, flaps, slats, spoilers, elevador y timón señalados por color",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Vista en planta de un jet de transporte: alerones, elevador, timón de dirección, estabilizadores, flaps, slats, spoilers de vuelo y de tierra."
       },
       {
@@ -1087,6 +1100,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación fotográfica de ala limpia, configuración de despegue, aterrizaje y spoilers",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Slats, flaps y spoilers cambian sustentación y resistencia para cada fase. La configuración limpia, de despegue y de aterrizaje responde a compromisos distintos."
       },
       {
@@ -1274,6 +1288,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación de fuerzas y estabilidad con el centro de gravedad adelantado y atrasado",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Peso en el CG, resultante aerodinámica del ala, fuerza hacia abajo en la cola y brazos de momento. La comparación muestra cómo un CG adelantado exige más carga de cola y uno atrasado reduce el margen de estabilidad."
       },
       {
@@ -1282,6 +1297,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación entre estabilidad estática y respuesta dinámica con el tiempo",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "La estabilidad estática describe la tendencia inicial tras una perturbación; la dinámica muestra cómo evoluciona la respuesta con el tiempo."
       },
       {
@@ -1463,6 +1479,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación entre el efecto suelo y la oscilación acoplada del Dutch Roll",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "El efecto suelo reduce el downwash y la resistencia inducida cerca de la pista. El Dutch Roll es otra cosa: una oscilación acoplada de alabeo y guiñada que el Yaw Damper amortigua."
       },
       {
@@ -1479,6 +1496,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Comparación visual del Dutch Roll y la inestabilidad espiral",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "El Dutch Roll combina oscilaciones de guiñada y alabeo; la inestabilidad espiral es un alabeo progresivo que tiende a cerrar la trayectoria descendente."
       },
       {
@@ -1573,6 +1591,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Perfil transónico con onda de choque y descomposición de velocidad sobre un ala en flecha",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "(1) Perfil con zona supersónica sobre el extradós, onda de choque normal y separación detrás. (2) Ala en flecha: descomposición de la velocidad en componente perpendicular al borde de ataque y componente a lo largo de la envergadura."
       },
       {
@@ -1631,6 +1650,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Componente normal del flujo, Mach crítico y compromisos del ala en flecha",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "La flecha reduce la componente normal del flujo y retrasa los efectos de compresibilidad, pero introduce compromisos de pérdida en punta, pitch-up y complejidad."
       },
       {
@@ -1726,6 +1746,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Envolvente de altitud y Mach donde convergen los límites de buffet de baja y alta velocidad",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Envolvente altitud vs velocidad (Mach). La línea de low-speed buffet sube hacia la derecha y la de high-speed buffet/MMO se mantiene o baja; ambas convergen en el techo aerodinámico. Una tercera curva punteada muestra el efecto de 1,3 G: estrecha aún más el margen."
       },
       {
@@ -1772,6 +1793,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Secuencia de recuperación de energía a gran altitud con pérdida de altura aceptada",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Ante buffet o pérdida de energía a gran altitud, primero se reduce el ángulo de ataque, luego se nivelan las alas y se recupera energía; mantener la altitud no es la prioridad inicial."
       },
       {
@@ -1874,6 +1896,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Cadena causal de alta elevación, temperatura y peso sobre velocidad y distancia de pista",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "Alto y caliente reducen la densidad; pesado aumenta la sustentación requerida. Para la misma IAS, la TAS y la GS son mayores, aumenta la pista necesaria y disminuye el margen de ascenso."
       },
       {
@@ -1929,6 +1952,7 @@ export const AERO_LECCIONES: DocScreen[] = [
         "alt": "Relación entre IAS, CAS, EAS, TAS y velocidad sobre el suelo",
         "ancho": 1600,
         "alto": 900,
+        "anchoMax": 720,
         "pie": "IAS parte de la indicación; CAS corrige errores; EAS añade compresibilidad; TAS describe el movimiento respecto a la masa de aire y GS incorpora el viento."
       },
       {
