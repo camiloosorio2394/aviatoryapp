@@ -79,6 +79,9 @@ describe("Aerodinámica: las doce secciones", () => {
       expect(f.alt.length, f.src).toBeGreaterThan(20)
       expect(f.pie?.length ?? 0, f.src).toBeGreaterThan(20)
       expect([f.ancho, f.alto]).toEqual([1600, 900])
+      // Sin tope se saldrían de la columna de lectura, como las portadas, y
+      // quedarían más anchas que los párrafos entre los que van.
+      expect(f.anchoMax, f.src).toBe(720)
     }
   })
 })
