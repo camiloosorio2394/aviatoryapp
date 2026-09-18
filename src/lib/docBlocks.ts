@@ -33,11 +33,10 @@ export interface FiguraBlock {
   /** Pie opcional, debajo de la imagen. */
   pie?: string
   /**
-   * Ancho máximo en píxeles. Sin él la figura ocupa todo el ancho que le dé
-   * quien la pinta, y en el lector de lecciones eso es más que la columna de
-   * texto: es lo que quiere una lámina. Con él se acota y se centra, que es lo
-   * que pide el diagrama intercalado entre párrafos, para quedar a la medida
-   * del texto y no dominar la página.
+   * Ancho máximo en píxeles. Sin él la figura ocupa la columna entera, que es
+   * la medida estándar de las fotos del curso y lo que quiere un plano o un
+   * diagrama. Con él se acota y se centra, para lo que ilustra un detalle y no
+   * debe dominar la página.
    */
   anchoMax?: number
 }

@@ -64,18 +64,6 @@ const ROTULOS = {
   S12: "High, hot y heavy",
 }
 
-/**
- * Las figuras se quedan en la medida del texto: 720 px, el ancho de la columna
- * de lectura del lector (800 px menos su relleno).
- *
- * El lector deja que las láminas se salgan de la columna, que es lo que quiere
- * una portada. Estas no lo son: son diagramas densos que van intercalados entre
- * los párrafos, y salidos de la columna quedaban unos 150 px más anchos que el
- * texto, con el bloque desalineado a lado y lado. Para los rótulos pequeños
- * está el botón de ampliar, que la figura trae siempre.
- */
-const ANCHO_FIGURA = 720
-
 const FIGURAS = {
   "IMG-01": ["img-01-viento-relativo.webp", "Dos aviones comparan trayectoria, actitud y viento relativo en vuelo nivelado y en descenso"],
   "IMG-02": ["img-02-cuatro-fuerzas.webp", "Vectores de sustentación, peso, empuje y resistencia en vuelo nivelado y ascenso estabilizado"],
@@ -395,7 +383,6 @@ function bloquesDeSeccion(cuerpo, idSeccion) {
         alt: meta[1],
         ancho: 1600,
         alto: 900,
-        anchoMax: ANCHO_FIGURA,
         pie,
       })
       continue

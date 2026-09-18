@@ -884,14 +884,12 @@ function variablesDeChip(color?: string): CSSProperties | undefined {
 /**
  * Ilustración dentro de la hoja, con su pie.
  *
- * En la hoja suelta el ancho lo pone la medida de lectura (las mismas 64
- * columnas que la entradilla), no el del contenedor: una imagen a todo lo ancho
- * corta el ritmo del texto que la rodea. En el lector de lecciones esa medida
- * se suelta y las figuras se salen de la columna, que es lo que quiere una
- * lámina; el diagrama que va entre párrafos pide `anchoMax` para volver a la
- * medida del texto. `NotamFigure` es la excepción justificada, y por eso es
- * otra pieza: un recorte de la Aerocivil es texto dentro de un píxel y por
- * debajo de 700 px deja de leerse.
+ * El ancho máximo es la medida de lectura —las mismas 64 columnas que la
+ * entradilla en la hoja suelta, la columna del lector dentro de una lección—,
+ * no el del contenedor: una imagen a todo lo ancho corta el ritmo del texto que
+ * la rodea. `NotamFigure` es la excepción justificada, y por eso es otra pieza:
+ * un recorte de la Aerocivil es texto dentro de un píxel y por debajo de 700 px
+ * deja de leerse.
  */
 function Figura({
   src,

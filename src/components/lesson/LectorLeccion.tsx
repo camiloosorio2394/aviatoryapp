@@ -378,6 +378,12 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                   </div>
                 )}
                 {leccion.blocks.map((block, i) => {
+                  /* Donde no hay portada automática, el primer bloque hace de
+                     portada: en Aeropuertos es la foto de cabecera de la
+                     lección, o el hueco que la espera. Se sale de la columna
+                     igual que la portada de los demás módulos. */
+                  const deAncho = BLOQUES_ANCHOS.has(block.kind) || (modulo.portadaAuto === false && i === 0)
+
                   if (block.kind === "interactivo") {
                     return (
                       <div key={i} className="min-w-0">
@@ -385,15 +391,17 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                       </div>
                     )
                   }
+                  /* El hueco va sin la hoja porque no lleva texto, pero ocupa
+                     el mismo sitio que la foto que espera. */
                   if (block.kind === "hueco") {
                     return (
-                      <div key={i} className="ln-medio min-w-0">
+                      <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
                         <HuecoImagen {...block} />
                       </div>
                     )
                   }
                   return (
-                    <div key={i} className={`min-w-0${BLOQUES_ANCHOS.has(block.kind) ? " ln-medio" : ""}`}>
+                    <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
                       <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
                         <DocBlock block={block} />
                       </div>
@@ -722,20 +730,24 @@ function formatZulu(d: Date): string {
 const PORTADA_RATIO = "8 / 3"
 
 /**
- * Los bloques que son imagen y no texto.
+ * Los bloques que se salen de la columna de lectura.
  *
- * La columna de lectura está fijada en 800 px porque a ese ancho la línea ya
- * ronda los noventa caracteres, que es el techo de lo cómodo: ensancharla para
- * llenar una pantalla grande se lee peor, no mejor. Pero una portada o una
- * lámina no tienen medida de lectura, y a 720 px en un monitor ancho una
- * portada deja de parecer una portada.
+ * La columna está fijada en 800 px porque a ese ancho la línea ya ronda los
+ * noventa caracteres, que es el techo de lo cómodo: ensancharla para llenar una
+ * pantalla grande se lee peor, no mejor. La lámina de trazo no tiene medida de
+ * lectura y a 720 px en un monitor ancho se queda en miniatura, así que **se
+ * sale de la columna**. La cuenta va en CSS, con una consulta de contenedor: lo
+ * que manda es el ancho del área de contenido, no el de la ventana, porque el
+ * índice lateral ocupa 296 px y una consulta de ventana lo ignoraría. La
+ * portada de la sección hace lo mismo, pero va por su cuenta, arriba del todo.
  *
- * Así que el texto se queda quieto y **la imagen se sale de la columna**. La
- * cuenta va en CSS, con una consulta de contenedor: lo que manda es el ancho
- * del área de contenido, no el de la ventana, porque el índice lateral ocupa
- * 296 px y una consulta de ventana los ignoraría.
+ * Las fotos no: se quedan a la medida del texto. Van intercaladas entre los
+ * párrafos, y salidas de la columna quedan más anchas que ellos y desalinean la
+ * lectura. Vale para la figura, para la ficha de reconocer y para el hueco que
+ * espera a la foto, que tiene que ocupar el sitio que ocupará la foto. Cuando
+ * una figura tenga que ser más pequeña todavía, es `anchoMax` quien lo dice.
  */
-const BLOQUES_ANCHOS = new Set(["figura", "infografia", "reconoce", "hueco"])
+const BLOQUES_ANCHOS = new Set(["infografia"])
 
 function Portada({
   dir,
