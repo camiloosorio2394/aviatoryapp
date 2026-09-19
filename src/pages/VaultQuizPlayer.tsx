@@ -17,7 +17,7 @@ import { ProtectedContent } from "@/components/ProtectedContent"
 import { KpiRing } from "@/components/ui/kpi-ring"
 import { useVaultQuiz, type AnswerResult, type VaultError } from "@/hooks/useVaultQuiz"
 import { registrarActividadDeEstudio } from "@/lib/activity"
-import { getSubjectMeta } from "@/lib/vaultSubjects"
+import { getSubjectMeta, PCA_APROBADO } from "@/lib/vaultSubjects"
 import { TILE_COLOR, tileBorder, tileTint, type TileColorKey } from "@/lib/tileColors"
 
 const MODULE_LABEL: Record<string, string> = {
@@ -188,7 +188,7 @@ export function VaultQuizPlayer() {
   // ──────────────────── Final summary ────────────────────
   if (completed && session) {
     const scorePct = Math.round((correctCount / session.questionCount) * 100)
-    const passed = scorePct >= 70
+    const passed = scorePct >= PCA_APROBADO
     return (
       <>
         <div className="px-5 sm:px-7 py-9 sm:py-11 pb-20 max-w-[920px] mx-auto">

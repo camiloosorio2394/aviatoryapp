@@ -1,6 +1,47 @@
+import type { ComponentType } from "react"
 import { Link } from "react-router-dom"
 import { ArrowUpRight, Brain, Calendar, ClipboardCheck, Clock, Plane, Radar } from "lucide-react"
 import { PSICO_HUB } from "@/lib/psicotecnicas"
+
+/**
+ * Una herramienta a un toque: icono, nombre y la frase de lo que hace. Es la
+ * misma fila en el panel y en las portadas de curso, para que un enlace se
+ * reconozca igual en cualquier pantalla.
+ */
+export function FilaDeAcceso({
+  to,
+  titulo,
+  detalle,
+  icon: Icon,
+}: {
+  to: string
+  titulo: string
+  detalle: string
+  icon: ComponentType<{ className?: string }>
+}) {
+  return (
+    <Link
+      to={to}
+      className="group flex h-full items-center gap-3.5 rounded-2xl surface surface-lift px-4 py-3.5"
+    >
+      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
+        <Icon className="h-[18px] w-[18px]" aria-hidden />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate text-[14px] font-semibold tracking-[-0.01em] text-foreground">
+          {titulo}
+        </span>
+        <span className="mt-0.5 line-clamp-2 block text-[12.5px] leading-snug text-muted-foreground">
+          {detalle}
+        </span>
+      </span>
+      <ArrowUpRight
+        className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        aria-hidden
+      />
+    </Link>
+  )
+}
 
 /**
  * Las herramientas a un toque.
@@ -60,28 +101,9 @@ const ACCESOS = [
 export function AccesosDirectos() {
   return (
     <ul className="m-0 grid list-none grid-cols-1 gap-3 p-0 @xl:grid-cols-2 @4xl:grid-cols-3">
-      {ACCESOS.map(({ to, titulo, detalle, icon: Icon }) => (
-        <li key={to} className="min-w-0">
-          <Link
-            to={to}
-            className="group flex h-full items-center gap-3.5 rounded-2xl surface surface-lift px-4 py-3.5"
-          >
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
-              <Icon className="h-[18px] w-[18px]" aria-hidden />
-            </span>
-            <span className="min-w-0 flex-1">
-              <span className="block truncate text-[14px] font-semibold tracking-[-0.01em] text-foreground">
-                {titulo}
-              </span>
-              <span className="mt-0.5 line-clamp-2 block text-[12.5px] leading-snug text-muted-foreground">
-                {detalle}
-              </span>
-            </span>
-            <ArrowUpRight
-              className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              aria-hidden
-            />
-          </Link>
+      {ACCESOS.map((a) => (
+        <li key={a.to} className="min-w-0">
+          <FilaDeAcceso {...a} />
         </li>
       ))}
     </ul>

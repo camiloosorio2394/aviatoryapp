@@ -49,7 +49,9 @@ export function Indicadores({ items }: { items: Indicador[] }) {
               <span className="text-[13px] font-semibold text-muted-foreground">{it.unidad}</span>
             )}
           </dd>
-          <dd className="m-0 mt-1.5 truncate text-[12px] text-muted-foreground" title={it.nota}>
+          {/* Dos renglones y no uno truncado: en el teléfono la nota caía justo
+              en lo que la explica («Bajo el 70 % para a…»). */}
+          <dd className="m-0 mt-1.5 line-clamp-2 text-[12px] leading-snug text-muted-foreground">
             {it.nota}
           </dd>
         </div>

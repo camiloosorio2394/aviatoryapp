@@ -113,6 +113,16 @@ export const SUBJECT_META: Record<string, SubjectMetaEntry> = {
   // Add more as content is loaded
 }
 
+/**
+ * El porcentaje con el que la app da un quiz del banco por aprobado.
+ *
+ * Lo leen el reproductor, que dice «aprobado» al terminar, y la portada del
+ * PCA, que avisa cuando el dominio está por debajo. Estaba escrito a mano en
+ * los dos sitios: si uno cambiaba y el otro no, la portada avisaba con una
+ * nota y el quiz aprobaba con otra.
+ */
+export const PCA_APROBADO = 70
+
 export function getSubjectMeta(slug: string): SubjectMetaEntry {
   return SUBJECT_META[slug] ?? {
     name: slug.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
