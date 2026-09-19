@@ -797,27 +797,6 @@
   font-family: "Archivo", var(--font-sans);
 }
 
-/* === Portada del tema Pruebas psicotécnicas ================================
-   Misma casa que la portada de NOTAM: si las dos titulan igual, se leen como
-   la misma pantalla con otro contenido. Igual que allá, con alcance a la
-   pantalla y sin tocar la familia global. */
-.psico-hub .ph-display {
-  font-family: "Archivo", var(--font-sans);
-}
-
-/* El sello de «Sin intentos» de la franja. Dice pendiente sin fingir un cero,
-   y va con el ámbar de marca en translúcido —no con un crema fijo— para que en
-   tema oscuro no quede un bloque claro fuera de sitio. Es el mismo trato que
-   ya tiene .chip-amber, con la geometría de la franja. */
-.psico-hub .ph-sello {
-  background: color-mix(in oklab, var(--av-amber-400) 14%, transparent);
-  border: 1px solid color-mix(in oklab, var(--av-amber-400) 30%, transparent);
-  color: oklch(0.5 0.16 60);
-}
-.dark .psico-hub .ph-sello {
-  color: var(--av-amber-400);
-}
-
 /* === Sesión de psicotécnicas ===============================================
    La pantalla del ejercicio cronometrado. Aquí el movimiento tiene que pedir
    permiso: cada milisegundo de animación entre ejercicios es tiempo que el

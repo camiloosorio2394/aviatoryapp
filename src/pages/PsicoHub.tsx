@@ -1,62 +1,139 @@
 import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
-import { ArrowLeft, ArrowRight, Brain, GraduationCap, Target, Timer } from "lucide-react"
-import { Rotulo } from "@/components/ui/rotulo"
-import { accentText } from "@/lib/tileColors"
-import { CourseCard } from "@/components/ui/course-card"
-import type { CourseCardProps } from "@/components/ui/course-card"
+import { ArrowLeft, ArrowRight, Check, Compass, Timer } from "lucide-react"
 import heroPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
+import { Nota } from "@/components/dashboard/Nota"
+import { EJEMPLOS_ESPACIAL, TEORIA_CUBO } from "@/data/psicotecnicas/aprende"
 import { useInView } from "@/hooks/useInView"
 import { useSession } from "@/hooks/useSession"
 import {
   CATEGORIAS,
+  FACTOR_NIVEL,
   MODOS,
   NIVELES,
   NOTA_TIEMPOS,
+  PSICO_APRUEBA_CON,
+  PSICO_HUB,
   SIMULACRO,
   SIMULACRO_TOTAL,
   TIEMPOS,
   type CategoriaPsico,
+  type NivelPsico,
 } from "@/lib/psicotecnicas"
-import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
+import { leerPsicoLocal, mejorSimulacroRemoto, type PsicoLocal } from "@/lib/psicotecnicasProgress"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 
 /**
- * Portada del tema Pruebas psicotécnicas (módulo Ingreso a aerolínea).
+ * Portada del tema Pruebas psicotécnicas (módulo Ingreso a aerolínea), con el
+ * vocabulario del panel, del PCA y de Inglés ICAO.
  * Ruta: /app/aerolinea/psicotecnicas
  *
- * Responde tres preguntas en este orden, y ese orden **es** el diseño: qué es
- * esta sección, cómo vas, por dónde entras. Sigue el patrón de la portada de
- * NOTAM —hero con la foto a sangre bajo un velo navy, franja de avance de una
- * sola caja y las partes en `CourseCard`— para que las dos se lean como la
- * misma casa con otro contenido.
+ * Tenía el aire de antes: un titular de 64 px que no se parecía a ninguno, un
+ * rótulo «Sección 02» que ya no era cierto, dos botones sueltos, un color por
+ * familia y otro por parte (violeta, cian, verde, azul, ámbar) que no
+ * significaban nada, un «Sin intentos» en ámbar como si fuera una alerta, un
+ * «Popular» sin ningún dato detrás y el aviso final en ámbar cuando solo
+ * informa. En esta app el ámbar avisa y el verde es acierto: nada de eso lo era.
  *
- * Ninguna cifra está escrita a mano: los totales salen del banco, así que si
- * mañana entran los ejercicios que faltan por cargar, la pantalla lo dice
- * sola.
+ * El orden responde a las preguntas con las que se entra: qué hago hoy y cómo
+ * voy (el hero), dónde flojeo (las familias), por dónde entro (las partes),
+ * cómo sube la exigencia (los niveles) y qué hay que saber (al pie).
  *
- * El avance que hay es el que hay: mientras la migración del módulo siga sin
- * aplicar (ver `docs/PENDIENTES_CAMILO.md` §8.6) los intentos solo viven en
- * `localStorage`, así que la franja enseña el último acierto por familia y no
- * un recuento de ejercicios resueltos que hoy no existe. Antes eso que
- * inventar una cifra.
+ * Ninguna cifra está escrita a mano: ejercicios, segundos, resueltos y el
+ * umbral salen del banco y de las constantes que son espejo del servidor.
+ *
+ * El acierto por familia es el que guarda el respaldo local
+ * (`leerPsicoLocal`); el mejor simulacro llega de la cuenta. Sin dato no se
+ * pinta ningún cero: se dice «Sin intentos».
  */
 
+/** Rótulo de grupo: el mismo del panel, del PCA y de Inglés ICAO. */
+const ROTULO =
+  "nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
+
+const FAMILIAS = ["abstracto", "espacial", "numerico"] as const satisfies readonly CategoriaPsico[]
+const ORDEN_NIVELES = ["basico", "intermedio", "avanzado"] as const satisfies readonly NivelPsico[]
+
 /** La ilustración de cada parte, dibujada para el módulo. */
-const MEDIA = {
+const PORTADA = {
   aprende: "/infografias/psicotecnicas/familia-espacial.webp",
   practica: "/infografias/psicotecnicas/familia-abstracto.webp",
   evaluacion: "/infografias/psicotecnicas/familia-numerico.webp",
   simulacro: "/infografias/psicotecnicas/portada.webp",
 }
 
-const COLOR_FAMILIA: Record<CategoriaPsico, string> = {
-  abstracto: "var(--av-violet-400)",
-  espacial: "var(--av-cyan-400)",
-  numerico: "var(--av-green-400)",
+function practicar(familia?: CategoriaPsico) {
+  return `${PSICO_HUB}/practica${familia ? `?categoria=${familia}` : ""}`
 }
 
-const FAMILIAS = ["abstracto", "espacial", "numerico"] as const
+/** Segundos por ejercicio en evaluación y simulacro: el reloj de `private.psico_limite()`. */
+function segundos(familia: CategoriaPsico, nivel: NivelPsico) {
+  return Math.round(TIEMPOS.evaluacion[familia] * FACTOR_NIVEL[nivel])
+}
+
+/**
+ * Las familias agrupadas por su reloj en un nivel: «Abstracto y espacial»
+ * 45 s, «Numérico» 60 s. Se agrupa en vez de escribirlo, para que el día que
+ * cambie un tiempo no quede un texto diciendo el de antes.
+ */
+function relojes(nivel: NivelPsico) {
+  const grupos = new Map<number, string[]>()
+  for (const f of FAMILIAS) {
+    const s = segundos(f, nivel)
+    grupos.set(s, [...(grupos.get(s) ?? []), CATEGORIAS[f].corto])
+  }
+  return [...grupos].map(([s, nombres]) => ({
+    familias: nombres
+      .map((n, i) => (i === 0 ? n : n.toLowerCase()))
+      .join(", ")
+      .replace(/, ([^,]*)$/, " y $1"),
+    segundos: s,
+  }))
+}
+
+/** La familia más floja, si hay con qué compararla: con una sola no la hay. */
+function masFloja(local: PsicoLocal): CategoriaPsico | null {
+  const probadas = FAMILIAS.filter((f) => local.ultimoPorCategoria[f] !== undefined)
+  if (probadas.length < 2) return null
+  return probadas.reduce((a, b) =>
+    (local.ultimoPorCategoria[b] ?? 0) < (local.ultimoPorCategoria[a] ?? 0) ? b : a
+  )
+}
+
+/**
+ * La acción del hero: una sola, y la que toca. Sin nada hecho, una tanda de
+ * práctica; con una familia sin probar, esa; con las tres probadas, la más
+ * floja.
+ */
+function recomendar(local: PsicoLocal, floja: CategoriaPsico | null) {
+  const sinProbar = FAMILIAS.find((f) => local.ultimoPorCategoria[f] === undefined)
+  const alguna = FAMILIAS.some((f) => local.ultimoPorCategoria[f] !== undefined)
+  if (alguna && sinProbar) {
+    return {
+      rotulo: "Te falta probar",
+      titulo: CATEGORIAS[sinProbar].nombre,
+      detalle: "Todavía no tienes una tanda de esta familia",
+      to: practicar(sinProbar),
+      cta: "Entrenar",
+    }
+  }
+  if (floja) {
+    return {
+      rotulo: "Refuerza la más floja",
+      titulo: CATEGORIAS[floja].nombre,
+      detalle: `${local.ultimoPorCategoria[floja]} % de acierto en tu última tanda`,
+      to: practicar(floja),
+      cta: "Entrenar",
+    }
+  }
+  return {
+    rotulo: "Empieza por aquí",
+    titulo: "Una tanda de práctica",
+    detalle: "El reloj orienta y no te saca: ves la explicación al instante",
+    to: practicar(),
+    cta: "Empezar",
+  }
+}
 
 export function PsicoHub() {
   const { user, isLoading: sessionLoading } = useSession()
@@ -95,344 +172,479 @@ export function PsicoHub() {
     return candidatos.length > 0 ? Math.max(...candidatos) : null
   }, [mejorRemoto, local.mejorSimulacro])
 
-  const partes: CourseCardProps[] = [
+  const floja = masFloja(local)
+  const siguiente = recomendar(local, floja)
+  const relojBase = relojes("intermedio")
+
+  const partes: Parte[] = [
     {
-      title: "Aprende",
-      blurb:
-        "Las reglas que resuelven la mitad de los ejercicios espaciales, y ocho ejercicios ya resueltos paso a paso. Sin reloj.",
-      icon: GraduationCap,
-      color: "var(--av-cyan-400)",
-      meta: "Lección · cubos y desarrollos",
-      photo: MEDIA.aprende,
-      to: "/app/aerolinea/psicotecnicas/aprende",
+      parte: "Parte 1",
+      titulo: "Aprende",
+      meta: `Lección · ${TEORIA_CUBO.length} reglas y ${EJEMPLOS_ESPACIAL.length} resueltos`,
+      descripcion:
+        "Las reglas del cubo y ejercicios ya resueltos paso a paso: te ahorran la mitad del trabajo en los espaciales.",
+      portada: PORTADA.aprende,
+      to: `${PSICO_HUB}/aprende`,
       cta: "Ver la lección",
-      status: "Sin cronómetro",
+      estado: "Sin cronómetro, a tu ritmo",
     },
     {
-      title: "Práctica",
-      blurb: MODOS.entrenamiento.descripcion,
-      icon: Brain,
-      color: "var(--av-violet-400)",
-      meta: `${PSICO_TOTAL} ejercicios · ${TIEMPOS.entrenamiento.abstracto} s recomendados`,
-      photo: MEDIA.practica,
-      to: "/app/aerolinea/psicotecnicas/practica",
+      parte: "Parte 2",
+      titulo: "Práctica",
+      meta: `${PSICO_TOTAL} ejercicios · ${TIEMPOS.entrenamiento.abstracto}\u00a0s recomendados`,
+      descripcion: MODOS.entrenamiento.descripcion,
+      portada: PORTADA.practica,
+      to: practicar(),
       cta: "Entrenar",
-      status: local.sesiones > 0 ? `${local.sesiones} tandas terminadas` : "Empieza por aquí",
-      statusLoading: loading,
+      estado: "El reloj orienta, no castiga",
     },
     {
-      title: "Evaluación",
-      blurb: MODOS.evaluacion.descripcion,
-      icon: Target,
-      color: "var(--av-blue-500)",
-      meta: `Abstracto y espacial ${TIEMPOS.evaluacion.abstracto} s · numérico ${TIEMPOS.evaluacion.numerico} s`,
-      photo: MEDIA.evaluacion,
-      to: "/app/aerolinea/psicotecnicas/evaluacion",
+      parte: "Parte 3",
+      titulo: "Evaluación",
+      // Sin espacios que partan: el renglón se corta en el punto medio, no entre
+      // la familia y su tiempo ni entre la cifra y la unidad.
+      meta: relojBase.map((r) => `${r.familias}\u00a0${r.segundos}\u00a0s`).join(" · "),
+      descripcion: MODOS.evaluacion.descripcion,
+      portada: PORTADA.evaluacion,
+      to: `${PSICO_HUB}/evaluacion`,
       cta: "Presentar evaluación",
-      status: "Con el reloj apretado",
+      estado: "Con el reloj apretado",
     },
     {
-      title: "Simulacro",
-      blurb: MODOS.simulacion.descripcion,
-      icon: Timer,
-      color: "var(--av-amber-400)",
+      parte: "Parte 4",
+      titulo: "Simulacro",
       meta: `${SIMULACRO_TOTAL} ejercicios · ${SIMULACRO.abstracto} de cada familia`,
-      photo: MEDIA.simulacro,
-      to: "/app/aerolinea/psicotecnicas/simulacro",
+      descripcion: MODOS.simulacion.descripcion,
+      portada: PORTADA.simulacro,
+      to: `${PSICO_HUB}/simulacro`,
       cta: "Ir al simulacro",
-      status: mejorSimulacro === null ? "Sin intentos" : `Tu mejor resultado: ${mejorSimulacro}%`,
-      progress: mejorSimulacro ?? undefined,
-      statusLoading: loading,
-      highlight: true,
+      estado:
+        mejorSimulacro === null
+          ? "Sin presentar todavía"
+          : mejorSimulacro >= PSICO_APRUEBA_CON
+            ? `Tu mejor resultado: ${mejorSimulacro} sobre 100 · aprobado`
+            : `Tu mejor resultado: ${mejorSimulacro} sobre 100 · apruebas con ${PSICO_APRUEBA_CON}`,
+      avance: mejorSimulacro,
+      cargando: loading,
     },
   ]
 
   return (
-    <>
-      <div className="@container psico-hub mx-auto max-w-[1600px] px-5 py-9 pb-24 sm:px-8 sm:py-11">
-        <Link
-          to="/app/aerolinea"
-          className="mb-4 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <ArrowLeft className="h-3.5 w-3.5" /> Volver a Ingreso a aerolínea
-        </Link>
+    <div className="notam-hub psico-hub @container mx-auto max-w-[1600px] px-5 py-6 pb-16 sm:px-8 sm:py-8">
+      <Link
+        to="/app/aerolinea"
+        className="mb-4 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
+      >
+        <ArrowLeft className="h-3.5 w-3.5" aria-hidden /> Volver a Ingreso a aerolínea
+      </Link>
 
-        {/* Hero de sección. La foto va a sangre bajo un velo navy: el título
-            tiene que leerse sobre cualquier zona de la imagen, y por eso el
-            velo es un degradado y no una opacidad plana. El panel de avance
-            vive dentro del hero porque "qué es esto" y "cómo voy" son la misma
-            pregunta al llegar. */}
-        <section className="relative overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
-          <img
-            src={heroPhoto}
-            alt=""
-            className="absolute inset-0 h-full w-full object-cover"
-            aria-hidden
-          />
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(105deg, rgba(8,20,36,.90) 0%, rgba(8,20,36,.76) 40%, rgba(8,20,36,.50) 70%, rgba(8,20,36,.30) 100%)",
-            }}
-            aria-hidden
-          />
-
-          <div className="relative grid gap-8 px-7 pb-10 pt-9 sm:px-12 sm:pb-12 sm:pt-11 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-10">
-            <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="ph-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
-                  Sección 02
-                </span>
-                <span className="h-3 w-px bg-white/20" aria-hidden />
-                <span className="ph-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
-                  Ingreso a aerolínea
-                </span>
-              </div>
-
-              <h1 className="ph-display mt-4 text-[42px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[52px] lg:text-[64px]">
-                Pruebas psicotécnicas
-              </h1>
-
-              <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.6] text-white/80">
-                Razonamiento abstracto, espacial y numérico contra el reloj. Las aerolíneas las
-                piden porque miden cómo piensas cuando el tiempo aprieta, que es la mitad del
-                trabajo en cabina.
-              </p>
-
-              <div className="mt-7 flex flex-wrap items-center gap-3">
-                <Link
-                  to="/app/aerolinea/psicotecnicas/practica"
-                  className="inline-flex min-h-[48px] items-center gap-2 rounded-[10px] px-6 text-[15px] font-semibold text-white shadow-[0_6px_18px_rgba(10,26,47,0.35)] transition-colors"
-                  style={{ background: "var(--av-blue-500)" }}
-                >
-                  <Brain className="h-4 w-4" /> Empezar a practicar
-                </Link>
-                <Link
-                  to="/app/aerolinea/psicotecnicas/simulacro"
-                  className="inline-flex min-h-[48px] items-center gap-2 whitespace-nowrap rounded-[10px] border border-white/25 px-5 text-[15px] font-medium text-white/90 transition-colors hover:border-white/60 hover:text-white"
-                >
-                  <Timer className="h-4 w-4" /> Hacer el simulacro
-                </Link>
-              </div>
-            </div>
-
-            {/* Panel de avance. Cristal sobre la foto, no tarjeta blanca: una
-                superficie clara aquí partiría el hero en dos pantallas. */}
-            <div className="self-start rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] px-5 py-[18px] backdrop-blur-[6px] lg:min-w-[230px]">
-              <div className="ph-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
-                Tu avance
-              </div>
-              {loading ? (
-                <>
-                  <div className="mt-3 h-9 w-24 animate-pulse rounded bg-white/15" />
-                  <div className="mt-4 h-1 animate-pulse rounded-sm bg-white/15" />
-                </>
-              ) : mejorSimulacro === null ? (
-                <>
-                  <div className="mt-2 text-[15px] font-semibold leading-tight text-white">
-                    Todavía sin simulacro
-                  </div>
-                  <div className="mt-4 h-1 rounded-sm bg-white/15" aria-hidden />
-                </>
-              ) : (
-                <>
-                  <div className="mt-2 flex items-baseline gap-2">
-                    <span className="ph-display tabular text-[40px] font-bold leading-none text-white">
-                      {mejorSimulacro}%
-                    </span>
-                    <span className="text-[13px] text-white/60">en el simulacro</span>
-                  </div>
-                  <div
-                    className="mt-4 h-1 overflow-hidden rounded-sm bg-white/15"
-                    role="progressbar"
-                    aria-valuenow={mejorSimulacro}
-                    aria-valuemin={0}
-                    aria-valuemax={100}
-                    aria-label="Mejor resultado en el simulacro psicotécnico"
-                  >
-                    <div
-                      className="h-full rounded-sm transition-[width]"
-                      style={{ width: `${mejorSimulacro}%`, background: "#4E9BF5" }}
-                    />
-                  </div>
-                </>
-              )}
-              <p className="mt-3 text-[12px] leading-[1.5] text-white/55">
-                {user
-                  ? "Se guarda en tu cuenta a medida que avanzas."
-                  : "Inicia sesión para guardar tu avance en la cuenta."}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Franja de avance. El separador entre celdas es el hueco de un píxel
-            de la retícula sobre el color del borde: una sola caja con tres
-            celdas, y no tres tarjetas sueltas. */}
-        <FranjaFamilias local={local} cargando={loading} />
-
-        {/* Las 4 partes */}
-        <section className="pt-14">
-          <Rotulo>La sección · 4 partes</Rotulo>
-          <h2 className="ph-display mt-1.5 text-[24px] font-semibold leading-tight tracking-[-0.021em]">
-            Por dónde vas a pasar
-          </h2>
-          <p className="mt-1.5 max-w-[60ch] text-[15px] text-muted-foreground">
-            El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera.
-          </p>
-          <div className="mt-5 grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
-            {partes.map((p) => (
-              <CourseCard key={p.to} {...p} />
-            ))}
-          </div>
-        </section>
-
-        {/* Progresión de niveles */}
-        <section className="mt-14 rounded-[14px] border border-border bg-card p-6 sm:p-8">
-          <Rotulo>Progresión</Rotulo>
-          <h2 className="ph-display mt-1.5 text-[24px] font-semibold leading-tight tracking-[-0.021em]">
-            Precisión, después velocidad, después precisión bajo presión
-          </h2>
-          <p className="mt-1.5 max-w-[68ch] text-[15px] text-muted-foreground">
-            Subir de nivel no es solo cambiar de ejercicios: es hacer los mismos con menos tiempo.
-            En evaluación, el nivel multiplica el reloj.
-          </p>
-          <div className="mt-5 grid gap-4 @2xl:grid-cols-3">
-            {(["basico", "intermedio", "avanzado"] as const).map((n, i) => (
-              <div key={n} className="rounded-[12px] border border-border p-4">
-                <div className="text-[13px] font-semibold" style={{ color: accentText("var(--av-blue-500)", 60) }}>
-                  Nivel {i + 1}
-                </div>
-                <div className="ph-display mt-0.5 text-[15px] font-semibold">
-                  {NIVELES[n].nombre}
-                </div>
-                <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
-                  {NIVELES[n].descripcion}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Lo que el módulo no promete. Va al final y no al principio: importa,
-            pero no es lo primero que necesita saber quien llega a entrenar. */}
+      {/* El hero de las portadas de módulo: la foto bajo el velo navy, el
+          titular en Archivo, la acción que toca en su tarjeta de cristal y, a
+          la derecha, el panel con el mejor simulacro. */}
+      <section className="relative overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <img
+          src={heroPhoto}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center 55%" }}
+        />
         <div
-          className="mt-6 rounded-[12px] p-4 text-[13px] leading-relaxed"
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
           style={{
-            background: "color-mix(in oklab, var(--av-amber-400) 8%, transparent)",
-            border: "1px solid color-mix(in oklab, var(--av-amber-400) 26%, transparent)",
+            background:
+              "linear-gradient(105deg, rgba(8,20,36,.93) 0%, rgba(8,20,36,.82) 42%, rgba(8,20,36,.62) 72%, rgba(8,20,36,.48) 100%)",
           }}
-        >
-          <strong className="font-semibold text-foreground">Importante:</strong> el módulo es una
-          herramienta de preparación y no representa la prueba oficial de ninguna aerolínea. Las
-          pruebas de selección varían bastante entre aerolíneas y proveedores de evaluación, así
-          que el objetivo aquí es desarrollar la capacidad cognitiva y acostumbrarte a trabajar
-          contra el reloj.{" "}
-          {/* El panorama de las nueve categorías cuelga de aquí y ya no del
-              menú: es el contexto de la frase anterior —qué más te pueden
-              poner—, no un módulo aparte. */}
-          <Link
-            to="/app/psicotecnicas"
-            className="font-medium underline underline-offset-2 transition-colors hover:text-foreground"
-          >
-            Qué otras pruebas usan las aerolíneas
-          </Link>
-          .
-        </div>
+        />
 
-        <p className="mt-6 max-w-[76ch] text-[13px] leading-relaxed text-muted-foreground">
-          {NOTA_TIEMPOS}
-        </p>
-      </div>
-    </>
+        <div className="relative grid gap-6 px-6 py-6 sm:px-10 sm:py-8 @4xl:grid-cols-[minmax(0,1fr)_minmax(0,272px)] @4xl:gap-10">
+          <div className="min-w-0 self-center">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                Módulo
+              </span>
+              <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
+              <span className="nh-display inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/78">
+                <Timer className="h-3.5 w-3.5" aria-hidden /> {FAMILIAS.length} familias · {PSICO_TOTAL} ejercicios
+              </span>
+            </div>
+
+            <h1 className="nh-display mt-3 text-[32px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[38px] @5xl:text-[44px]">
+              Pruebas psicotécnicas
+            </h1>
+            <p className="mt-3 mb-0 max-w-[58ch] text-[15px] leading-[1.55] text-white/85">
+              Razonamiento abstracto, espacial y numérico contra el reloj. Las aerolíneas las piden porque miden
+              cómo piensas cuando el tiempo aprieta.
+            </p>
+
+            {/* Una sola acción, la que toca: empezar, probar la familia que
+                falta o reforzar la más floja. */}
+            <div className="mt-6 flex max-w-[560px] flex-col gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.55)] p-4 backdrop-blur-[6px] @lg:flex-row @lg:items-center @lg:justify-between">
+              <div className="min-w-0">
+                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                  {siguiente.rotulo}
+                </div>
+                <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">{siguiente.titulo}</div>
+                <div className="mt-0.5 text-[12.5px] text-white/78">{siguiente.detalle}</div>
+              </div>
+              <Link
+                to={siguiente.to}
+                className="inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-white px-5 text-[13.5px] font-semibold text-[#0B1B30] transition-colors hover:bg-white/90 @lg:self-auto"
+              >
+                {siguiente.cta}
+                <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            </div>
+          </div>
+
+          <PanelDelSimulacro cargando={loading} mejor={mejorSimulacro} />
+        </div>
+      </section>
+
+      <FranjaFamilias local={local} floja={floja} />
+
+      <section className="mt-8" aria-labelledby="psico-partes">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+          <h2 id="psico-partes" className={ROTULO}>
+            Las cuatro partes
+          </h2>
+          <span className="text-[12.5px] text-muted-foreground">En orden, o donde quieras entrar</span>
+        </div>
+        {/* Cuatro tarjetas: dos columnas en tableta, cuatro cuando hay sitio.
+            Nunca tres, que con cuatro deja una huérfana. */}
+        <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
+          {partes.map((p) => (
+            <TarjetaParte key={p.to} {...p} />
+          ))}
+        </div>
+      </section>
+
+      <Niveles />
+
+      {/* Lo que el módulo no promete, al pie: importa, pero no es lo primero
+          que necesita quien llega a entrenar. Informa, no alerta, así que va en
+          tinta neutra y no en ámbar. */}
+      <section className="mt-8" aria-labelledby="psico-antes">
+        <h2 id="psico-antes" className={ROTULO}>
+          Antes de empezar
+        </h2>
+        <div className="mt-3 grid grid-cols-1 gap-3 @3xl:grid-cols-2">
+          {/* El panorama de las nueve categorías cuelga de aquí y no del menú:
+              es el contexto de esta nota (qué más te pueden poner), no un
+              módulo aparte. */}
+          <Nota
+            icon={Compass}
+            titulo="Una preparación, no la prueba oficial"
+            linea="Cada aerolínea y cada proveedor de evaluación usa su propia prueba. Aquí se entrena la capacidad y el trabajo contra el reloj."
+            to="/app/psicotecnicas"
+            toLabel="Qué otras pruebas usan las aerolíneas"
+          />
+          <Nota icon={Timer} titulo="Los tiempos son de práctica" linea={NOTA_TIEMPOS} />
+        </div>
+      </section>
+    </div>
   )
 }
 
 // ─── Sub componentes ─────────────────────────────────────────────────────────
 
 /**
- * La franja de las tres familias.
- *
- * Una sola caja con tres celdas —el separador es el hueco de un píxel de la
- * retícula sobre el color del borde—, no tres tarjetas sueltas. Entra con el
- * carril de NOTAM: las tres barras se trazan al llegar a pantalla, una detrás
- * de otra, y eso enseña de un golpe dónde estás flojo sin tener que escribirlo.
+ * El panel de cristal: el mejor simulacro, sobre 100 de resultado global. Bajo
+ * el umbral va en ámbar, porque ahí sí es un aviso: todavía no aprobaría. La
+ * fila de abajo dice con cuánto se aprueba y la línea del número dice cuánto
+ * falta, para que el color nunca sea lo único que lo cuenta.
  */
-function FranjaFamilias({
-  local,
-  cargando,
-}: {
-  local: ReturnType<typeof leerPsicoLocal>
-  cargando: boolean
-}) {
+function PanelDelSimulacro({ cargando, mejor }: { cargando: boolean; mejor: number | null }) {
+  const aprobado = mejor !== null && mejor >= PSICO_APRUEBA_CON
+  return (
+    <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
+      <div className="px-4 pb-4 pt-4">
+        <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/72">
+          Tu mejor simulacro
+        </div>
+        {cargando ? (
+          <div className="mt-2.5 h-12 w-24 animate-pulse rounded bg-white/15" aria-hidden />
+        ) : mejor === null ? (
+          <>
+            <p className="m-0 mt-2 text-[14px] leading-snug text-white/85">
+              Preséntalo y aquí verás tu resultado.
+            </p>
+            <Link
+              to={`${PSICO_HUB}/simulacro`}
+              className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 text-[13px] font-semibold text-white transition-colors hover:bg-white/20"
+            >
+              Ir al simulacro <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+            </Link>
+          </>
+        ) : (
+          <>
+            <div className="mt-1 flex items-baseline gap-2">
+              <span
+                className="nh-display tabular text-[52px] font-bold leading-none tracking-[-0.04em]"
+                style={{ color: aprobado ? "#fff" : "var(--av-amber-400)" }}
+              >
+                {mejor}
+              </span>
+              <span className="text-[13px] font-semibold text-white/78">sobre 100</span>
+            </div>
+            <div className="mt-1.5 inline-flex items-center gap-1 text-[12.5px] font-semibold text-white/85">
+              {aprobado ? (
+                <>
+                  <Check className="h-3.5 w-3.5" style={{ color: "var(--av-green-400)" }} aria-hidden /> Aprobado
+                </>
+              ) : (
+                `Te faltan ${PSICO_APRUEBA_CON - mejor} para aprobar`
+              )}
+            </div>
+          </>
+        )}
+      </div>
+      {!cargando && (
+        <dl className="m-0 border-t border-white/10 px-4 py-3 text-[12px] leading-[1.5]">
+          <div className="flex items-baseline justify-between gap-3">
+            <dt className="text-white/72">Se aprueba con</dt>
+            <dd className="tabular m-0 font-semibold text-white/90">{PSICO_APRUEBA_CON} sobre 100</dd>
+          </div>
+          <div className="mt-1 flex items-baseline justify-between gap-3">
+            <dt className="text-white/72">El simulacro</dt>
+            <dd className="tabular m-0 font-semibold text-white/90">{SIMULACRO_TOTAL} ejercicios</dd>
+          </div>
+        </dl>
+      )}
+    </div>
+  )
+}
+
+/**
+ * Las tres familias con su último acierto.
+ *
+ * La pregunta es una sola, «dónde flojeo», así que la forma es de énfasis y no
+ * categórica: la más floja va en azul y las otras en gris, como el dominio del
+ * PCA en el panel (mismos tonos, comprobados con el validador en los dos
+ * temas). La más floja lleva además su rótulo escrito: el color nunca es lo
+ * único que lo dice. Con una sola familia probada no hay a quién comparar y
+ * todas van en gris.
+ *
+ * Sin intentos no hay barra en cero, que se leería como «0 % de acierto»: hay
+ * el carril vacío, para que las tres celdas midan lo mismo, y la invitación.
+ *
+ * Entra con el carril de NOTAM: las barras se trazan al llegar a pantalla, una
+ * detrás de otra.
+ */
+function FranjaFamilias({ local, floja }: { local: PsicoLocal; floja: CategoriaPsico | null }) {
   const { ref, inView } = useInView<HTMLDivElement>({ threshold: 0.3 })
 
   return (
-    <div
-      ref={ref}
-      className={`ln-aparece${inView ? " ln-visible" : ""} mt-6 grid gap-px overflow-hidden rounded-[14px] border border-border bg-border [grid-template-columns:repeat(auto-fit,minmax(240px,1fr))]`}
-    >
-      {FAMILIAS.map((familia, i) => {
-        const acierto = local.ultimoPorCategoria[familia]
-        return (
-          <div key={familia} className="bg-card px-6 py-[22px]">
-            <div className="flex items-center justify-between gap-3">
-              <span className="ph-display text-[16px] font-semibold">
-                {CATEGORIAS[familia].corto}
-              </span>
-              {cargando ? (
-                <span className="h-4 w-14 animate-pulse rounded bg-muted" />
-              ) : acierto === undefined ? (
-                // El sello no puede partirse en dos líneas: sin esto, "Sin
-                // intentos" rompe la altura de la celda y descuadra la franja.
-                <span className="ph-sello shrink-0 whitespace-nowrap rounded-[5px] px-[9px] py-[3px] text-[13px] font-medium">
-                  Sin intentos
-                </span>
-              ) : (
-                <span className="tabular text-[14px]" style={{ color: accentText(COLOR_FAMILIA[familia], 55) }}>
-                  {acierto}% de acierto
-                </span>
-              )}
-            </div>
-            <div
-              className="mt-3 h-[5px] overflow-hidden rounded-[3px] bg-muted"
-              role="progressbar"
-              aria-valuenow={cargando ? undefined : (acierto ?? 0)}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-label={`Último acierto en ${CATEGORIAS[familia].corto}`}
-            >
-              <div
-                className="ln-carril h-full rounded-[3px]"
-                style={{
-                  width: `${acierto ?? 0}%`,
-                  background: COLOR_FAMILIA[familia],
-                  // Escalonado: las tres barras no se trazan a la vez, se leen
-                  // en orden y así se ve cuál va más corta.
-                  transitionDelay: `${120 + i * 130}ms`,
-                }}
-              />
-            </div>
-            {/* La celda no se queda en el dato: lleva a arreglarlo. Un «Sin
-                intentos» sin salida es un reproche; con el enlace al lado es
-                una invitación, y de paso ahorra volver arriba a buscar el
-                botón. Lo que había aquí antes —cuántos ejercicios hay
-                cargados— es inventario nuestro, no algo que le sirva a quien
-                entrena. */}
+    <section className="mt-8" aria-labelledby="psico-familias">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+        <h2 id="psico-familias" className={ROTULO}>
+          Tus tres familias
+        </h2>
+        <span className="text-[12.5px] text-muted-foreground">Acierto en tu última tanda</span>
+      </div>
+      <div
+        ref={ref}
+        className={`ln-aparece${inView ? " ln-visible" : ""} mt-3 grid grid-cols-1 overflow-hidden rounded-2xl surface @2xl:grid-cols-3 [--dp-enfasis:var(--av-blue-500)] [--dp-contexto:#858a93] dark:[--dp-enfasis:var(--av-blue-400)] dark:[--dp-contexto:#6c717a]`}
+      >
+        {FAMILIAS.map((familia, i) => {
+          const acierto = local.ultimoPorCategoria[familia]
+          const enfasis = familia === floja
+          return (
             <Link
-              to={`/app/aerolinea/psicotecnicas/practica?categoria=${familia}`}
-              className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium transition-colors hover:underline"
-              // El color de la familia es de relleno: sirve para la barra, pero
-              // como texto daba 1,9:1 sobre blanco. Mezclado con la tinta se lee.
-              style={{ color: accentText(COLOR_FAMILIA[familia], 55) }}
+              key={familia}
+              to={practicar(familia)}
+              className={[
+                "group flex min-w-0 flex-col px-5 py-4 transition-colors hover:bg-muted/50 focus-visible:bg-muted/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
+                // Divisores finos: una sola pieza con tres celdas, no tres tarjetas.
+                i > 0 ? "border-t border-border @2xl:border-l @2xl:border-t-0" : "",
+              ].join(" ")}
             >
-              {acierto === undefined ? "Empezar" : "Seguir entrenando"}
-              <ArrowRight className="h-3.5 w-3.5" />
+              <div className="flex items-center justify-between gap-3">
+                <span className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">
+                  {CATEGORIAS[familia].corto}
+                </span>
+                {enfasis && (
+                  <span className="shrink-0 rounded-full border border-border px-2 py-0.5 text-[11px] font-semibold text-foreground">
+                    La más floja
+                  </span>
+                )}
+              </div>
+              <div className="mt-2 flex h-[30px] items-end gap-1.5">
+                {acierto === undefined ? (
+                  <span className="text-[13px] font-medium text-muted-foreground">Sin intentos</span>
+                ) : (
+                  <>
+                    <span className="nh-display tabular text-[30px] font-bold leading-none tracking-[-0.03em] text-foreground">
+                      {acierto}
+                    </span>
+                    <span className="text-[13px] font-semibold text-muted-foreground">% de acierto</span>
+                  </>
+                )}
+              </div>
+              {/* 8 px, extremo redondeado y cuadrado en la base, que es de
+                  donde crece. La pista es el 0-100 entero. La cifra ya está
+                  escrita encima: la barra no necesita leerse en voz alta. */}
+              <div className="mt-3 h-2 overflow-hidden rounded-r-[4px] bg-muted" aria-hidden>
+                {acierto !== undefined && (
+                  <div
+                    className="ln-carril h-full rounded-r-[4px]"
+                    style={{
+                      width: `${Math.max(acierto, 2)}%`,
+                      background: enfasis ? "var(--dp-enfasis)" : "var(--dp-contexto)",
+                      // Escalonado: se trazan en orden y así se ve cuál va más corta.
+                      transitionDelay: `${120 + i * 130}ms`,
+                    }}
+                  />
+                )}
+              </div>
+              <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
+                {acierto === undefined ? "Empezar" : "Seguir entrenando"}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+              </span>
             </Link>
+          )
+        })}
+      </div>
+    </section>
+  )
+}
+
+interface Parte {
+  parte: string
+  titulo: string
+  meta: string
+  descripcion: string
+  portada: string
+  to: string
+  cta: string
+  estado: string
+  /** Mejor resultado sobre 100. Solo el simulacro lo tiene. */
+  avance?: number | null
+  cargando?: boolean
+}
+
+/**
+ * Una parte del tema: la portada ilustrada arriba y, debajo, lo mismo que las
+ * partes de Inglés ICAO. Neutra: las cuatro ilustraciones ya las distinguen, y
+ * un color por parte no significaba nada.
+ *
+ * Las ilustraciones son cuadradas (y la del simulacro, 3:2) y están dibujadas
+ * sobre el mismo navy: van enteras, centradas sobre ese navy, en vez de
+ * recortarlas y perder el cubo o la secuencia.
+ *
+ * El título es el enlace y se estira sobre toda la tarjeta; el anillo de foco
+ * se dibuja en la tarjeta, que es lo que se ve.
+ */
+function TarjetaParte({ parte, titulo, meta, descripcion, portada, to, cta, estado, avance, cargando }: Parte) {
+  return (
+    <div className="group relative flex h-full flex-col overflow-hidden rounded-2xl surface surface-lift has-[a:focus-visible]:ring-2 has-[a:focus-visible]:ring-ring">
+      <div className="relative aspect-[16/9] shrink-0 overflow-hidden bg-[#07121e]">
+        <img
+          src={portada}
+          alt=""
+          loading="lazy"
+          className="absolute inset-0 h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.03]"
+          style={{ transitionTimingFunction: "var(--ease-av)" }}
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col p-5">
+        <span className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+          {parte}
+        </span>
+        <h3 className="m-0 mt-1 text-[17px] font-semibold tracking-[-0.02em] text-foreground">
+          <Link to={to} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
+            {titulo}
+          </Link>
+        </h3>
+        <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
+        <p className="m-0 mt-2 text-[13px] leading-relaxed text-muted-foreground">{descripcion}</p>
+
+        {/* El pie: el estado y, si hay resultado, su barra. Una barra vacía
+            diría «vas perdiendo» cuando lo que pasa es que no lo has hecho. */}
+        <div className="mt-auto pt-4">
+          <div className="border-t border-border pt-3">
+            {cargando ? (
+              <span className="block h-4 w-40 animate-pulse rounded bg-muted" aria-hidden />
+            ) : (
+              <>
+                {typeof avance === "number" && avance > 0 && (
+                  <div
+                    className="mb-2 h-1.5 overflow-hidden rounded-r-[3px] bg-muted"
+                    role="progressbar"
+                    aria-label={`Mejor resultado en ${titulo}`}
+                    aria-valuenow={avance}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                  >
+                    <div
+                      className="h-full rounded-r-[3px] transition-[width]"
+                      style={{ width: `${Math.min(avance, 100)}%`, background: "var(--foreground)" }}
+                    />
+                  </div>
+                )}
+                <p className="m-0 text-[12px] leading-snug text-muted-foreground">{estado}</p>
+              </>
+            )}
           </div>
-        )
-      })}
+          <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
+            {cta} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </span>
+        </div>
+      </div>
     </div>
+  )
+}
+
+/**
+ * Los tres niveles, con los segundos que de verdad marca el reloj en cada uno.
+ * Subir de nivel no es solo cambiar de ejercicios: es hacer los mismos con
+ * menos tiempo.
+ */
+function Niveles() {
+  return (
+    <section className="mt-8" aria-labelledby="psico-niveles">
+      <h2 id="psico-niveles" className={ROTULO}>
+        Tres niveles
+      </h2>
+      <div className="mt-3 overflow-hidden rounded-2xl surface">
+        <div className="border-b border-border px-5 py-4">
+          <div className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">
+            Precisión, después velocidad, después precisión bajo presión
+          </div>
+          <p className="m-0 mt-0.5 text-[12.5px] leading-relaxed text-muted-foreground">
+            En evaluación y en el simulacro, el nivel fija el reloj de cada ejercicio. En práctica siempre tienes{" "}
+            {TIEMPOS.entrenamiento.abstracto}&nbsp;s.
+          </p>
+        </div>
+        <ol className="m-0 grid list-none grid-cols-1 p-0 @2xl:grid-cols-3">
+          {ORDEN_NIVELES.map((nivel, i) => (
+            <li
+              key={nivel}
+              className={`min-w-0 px-5 py-4 ${i > 0 ? "border-t border-border @2xl:border-l @2xl:border-t-0" : ""}`}
+            >
+              <div className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                Nivel {i + 1}
+              </div>
+              <div className="mt-1 text-[16px] font-semibold tracking-[-0.01em] text-foreground">
+                {NIVELES[nivel].nombre}
+              </div>
+              <dl className="m-0 mt-3 grid grid-cols-[minmax(0,1fr)_auto] gap-x-4 gap-y-1 text-[12.5px]">
+                {relojes(nivel).map((r) => (
+                  <div key={r.familias} className="contents">
+                    <dt className="text-muted-foreground">{r.familias}</dt>
+                    <dd className="tabular m-0 text-right font-semibold text-foreground">{r.segundos}&nbsp;s</dd>
+                  </div>
+                ))}
+              </dl>
+              <p className="m-0 mt-3 text-[12.5px] leading-relaxed text-muted-foreground">
+                {NIVELES[nivel].descripcion}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   )
 }
