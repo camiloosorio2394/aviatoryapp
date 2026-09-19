@@ -8,14 +8,12 @@ import {
   ArrowRight,
   Clock,
   Check,
-  Sparkles,
   ClipboardCheck,
   Gauge,
   Award,
   ChevronDown,
+  Users,
 } from "lucide-react"
-import { TILE_COLOR, tileTint, tileBorder, type TileColorKey } from "@/lib/tileColors"
-import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import { useSession } from "@/hooks/useSession"
 import {
   ICAO_PROGRESS_VACIO,
@@ -33,28 +31,38 @@ import {
   SHORT_AUDIO_TOTAL,
 } from "@/lib/icaoComprehension"
 import { PART3_TASK_STEPS, PICTURE_PAIRS } from "@/lib/icaoPictures"
+import { FilaDeAcceso } from "@/components/dashboard/AccesosDirectos"
 import heroPhoto from "@/assets/photos/icao-night-cockpit.webp"
 
 /**
- * Módulo Inglés ICAO — estructurado según el examen TEA (Test of English for
- * Aviation, Mayflower College). 4 secciones:
- *   1. Vocabulario   (glosario + quiz)                       — LISTO
- *   2. Interview      (TEA Part 1)                           — LISTO
- *   3. Interactive Comprehension (TEA Part 2)                — LISTO (audios reales)
- *   4. Picture Description & Discussion (TEA Part 3)         — LISTO (13 pares)
+ * Módulo Inglés ICAO, estructurado según el examen TEA (Test of English for
+ * Aviation, Mayflower College), con el vocabulario del panel y del PCA.
  *
- * Jerarquía: hero → las 4 secciones (la navegación real) → simulacro → tip →
- * bloque de referencia colapsable (qué es el TEA, los 6 descriptores, niveles).
- * La teoría no compite con la navegación.
+ * Tenía el aire de antes: el título en degradado dorado —el dorado es ámbar,
+ * el color de los avisos— repitiendo el rótulo que llevaba encima, un color
+ * distinto por sección (cian, azul, violeta, verde) que no significaba nada y
+ * que como texto sobre blanco no llegaba al contraste, y tres cajas tintadas
+ * de azul seguidas compitiendo entre sí. Ahora usa las mismas piezas: el hero
+ * con su panel de cristal, tarjetas neutras y los rótulos de grupo en Archivo.
+ *
+ * El orden: qué hago hoy y en qué nivel estoy (el hero), las cuatro partes (la
+ * navegación real), ponerse a prueba (el simulacro, que es de donde sale el
+ * nivel) y la referencia plegada, para que la teoría no compita con la
+ * navegación.
  *
  * La pantalla lee el avance real y ordena por él: primero lo que quedó a
- * medias, después lo que no se ha tocado y de último lo terminado. El manual es
- * el de `AirlinePrep.tsx`, que ya está probado.
- *
- * Dos secciones (comprensión y descripción de imágenes) todavía no guardan
- * nada, así que no tienen avance que mostrar. No se les pinta un 0%: se les
- * pinta lo que hay dentro, con las cifras del propio contenido.
+ * medias, después lo que no se ha tocado y de último lo terminado. Comprensión
+ * y descripción de imágenes todavía no guardan nada: no se les pinta un 0 %,
+ * se les pinta lo que hay dentro, con las cifras del propio contenido.
  */
+
+/** Rótulo de grupo: el mismo del panel, del PCA y de Ingreso a aerolínea. */
+const ROTULO =
+  "nh-display m-0 text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground"
+
+/** El mínimo legal para volar comercial internacional. */
+const NIVEL_MINIMO = 4
+
 export function Icao() {
   const { user, isLoading: sessionLoading } = useSession()
   const [progreso, setProgreso] = useState<IcaoProgress>(ICAO_PROGRESS_VACIO)
@@ -85,7 +93,6 @@ export function Icao() {
       {
         to: "/app/icao/vocabulario",
         icon: BookOpen,
-        color: "cyan",
         part: "Base",
         title: "Vocabulario",
         // Las cifras salen de la base: si el glosario crece, la promesa de la
@@ -103,7 +110,6 @@ export function Icao() {
       {
         to: "/app/icao/interview",
         icon: Mic,
-        color: "blue",
         part: "TEA · Parte 1",
         title: "Entrevista",
         meta: `${TEA_PART1_TOTAL} preguntas · ${TEA_PART1_SETS.length} sets · respuestas modelo`,
@@ -115,7 +121,6 @@ export function Icao() {
       {
         to: "/app/icao/comprension",
         icon: Headphones,
-        color: "violet",
         part: "TEA · Parte 2",
         title: "Comprensión interactiva",
         meta: `${SHORT_AUDIO_TOTAL} clips cortos · ${LONG_AUDIOS.length} largos · ${INTERACTIVE_ITEMS.length} interactivos`,
@@ -130,7 +135,6 @@ export function Icao() {
       {
         to: "/app/icao/picture-description",
         icon: ImageIcon,
-        color: "green",
         part: "TEA · Parte 3",
         title: "Descripción de imágenes",
         meta: `${PICTURE_PAIRS.length} pares de imágenes · ${PART3_TASK_STEPS.length} pasos por par`,
@@ -165,314 +169,230 @@ export function Icao() {
   const simulacro = resumirSimulacro(progreso)
 
   return (
-    <>
-      <div className="px-7 py-9 sm:py-11 pb-20 max-w-[1240px] mx-auto">
-        {/* === HERO === */}
-        <section className="relative overflow-hidden rounded-2xl">
-          <img
-            src={heroPhoto}
-            alt=""
-            aria-hidden
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(135deg, rgb(11 16 32 / 88%) 0%, color-mix(in oklab, var(--av-blue-500) 34%, rgb(11 16 32 / 86%)) 100%)",
-            }}
-          />
-          <div className="relative p-7 sm:p-10">
-            <div className="text-[13px] font-semibold text-white/70">
-              Inglés ICAO · estructura del examen TEA
-            </div>
-            <h1 className="text-gradient-gold mt-1.5 text-[32px] sm:text-[32px] font-semibold tracking-[-0.03em] leading-[1.12] pb-1">
-              Inglés ICAO, con la estructura del examen TEA
-            </h1>
-            <p className="mt-3 max-w-[680px] text-[15px] leading-relaxed text-white/70">
-              Está organizado igual que el{" "}
-              <strong className="font-semibold text-white">Test of English for Aviation</strong>: 4
-              secciones que cubren las dos habilidades que mide el examen,{" "}
-              <strong className="font-semibold text-white">hablar y comprender</strong> inglés en
-              contexto aeronáutico.
-            </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
-              {loading ? (
-                <span
-                  className="block h-11 w-52 rounded-lg bg-white/15 animate-pulse"
-                  aria-hidden="true"
-                />
-              ) : (
-                <Link
-                  to={continuar.to}
-                  className={appButtonClass({ size: "lg" })}
-                  style={appButtonStyle()}
-                >
-                  <Mic className="h-4 w-4" />
-                  {enCurso ? `Seguir con ${continuar.title}` : `Empezar por ${continuar.title}`}
-                </Link>
-              )}
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3.5 py-1.5 text-[12px] font-semibold text-white">
-                <Clock className="h-3.5 w-3.5" /> TEA · 25 a 30 minutos
+    <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto">
+      {/* El hero de las portadas de módulo: la foto bajo el velo navy, el
+          titular en Archivo, la acción del día en su tarjeta de cristal y, a la
+          derecha, el panel con el nivel. Antes el título iba en degradado
+          dorado, que es ámbar, el color de los avisos, y repetía el rótulo que
+          llevaba encima. */}
+      <section className="relative overflow-hidden rounded-[18px] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <img
+          src={heroPhoto}
+          alt=""
+          aria-hidden
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ objectPosition: "center 45%" }}
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(105deg, rgba(8,20,36,.93) 0%, rgba(8,20,36,.82) 42%, rgba(8,20,36,.62) 72%, rgba(8,20,36,.48) 100%)",
+          }}
+        />
+
+        <div className="relative grid gap-6 px-6 py-6 sm:px-10 sm:py-8 @4xl:grid-cols-[minmax(0,1fr)_minmax(0,272px)] @4xl:gap-10">
+          <div className="min-w-0 self-center">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                Módulo
+              </span>
+              <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
+              <span className="nh-display inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/78">
+                <Clock className="h-3.5 w-3.5" aria-hidden /> Examen TEA · 25 a 30 minutos
               </span>
             </div>
-          </div>
-        </section>
 
-        {/* === LAS SECCIONES (la navegación del módulo) === */}
-        <div className="mt-8 mb-4">
-          <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            El módulo · 4 secciones
+            <h1 className="nh-display mt-3 text-[32px] font-bold leading-none tracking-[-0.03em] text-white sm:text-[38px] @5xl:text-[44px]">
+              Inglés ICAO
+            </h1>
+            <p className="mt-3 mb-0 max-w-[58ch] text-[15px] leading-[1.55] text-white/85">
+              Organizado como el <strong className="font-semibold text-white">Test of English for Aviation</strong>: cuatro
+              partes para lo único que mide el examen, <strong className="font-semibold text-white">hablar y comprender</strong>{" "}
+              inglés en contexto aeronáutico.
+            </p>
+
+            {/* Retomar la parte a medias, o empezar por la primera. */}
+            <div className="mt-6 flex max-w-[560px] flex-col gap-4 rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.55)] p-4 backdrop-blur-[6px] @lg:flex-row @lg:items-center @lg:justify-between">
+              {loading ? (
+                <span className="block h-[58px] w-full animate-pulse rounded-lg bg-white/10" aria-hidden />
+              ) : (
+                <>
+                  <div className="min-w-0">
+                    <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-[#7FB2F2]">
+                      {enCurso ? "Sigue donde ibas" : "Empieza por aquí"}
+                    </div>
+                    <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">{continuar.title}</div>
+                    <div className="mt-0.5 text-[12.5px] text-white/78">{continuar.resumen.estado}</div>
+                  </div>
+                  <Link
+                    to={continuar.to}
+                    className="inline-flex h-10 shrink-0 items-center justify-center gap-2 self-start rounded-full bg-white px-5 text-[13.5px] font-semibold text-[#0B1B30] transition-colors hover:bg-white/90 @lg:self-auto"
+                  >
+                    {enCurso ? "Seguir" : "Empezar"}
+                    <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
-          <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em]">
-            Dónde entrenas cada habilidad
-          </h2>
+
+          <PanelDeNivel cargando={loading} mejorNivel={progreso.mejorNivel} simulacros={progreso.simulacros} />
         </div>
+      </section>
 
-        <div className="grid gap-3.5 sm:grid-cols-2 xl:grid-cols-4">
+      <section className="mt-8" aria-labelledby="icao-partes">
+        <h2 id="icao-partes" className={ROTULO}>
+          Las cuatro partes
+        </h2>
+        {/* Cuatro tarjetas: dos columnas en tableta, cuatro cuando hay sitio.
+            Nunca tres, que con cuatro deja una huérfana. */}
+        <div className="mt-3 grid grid-cols-1 gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
           {secciones.map((s) => (
-            <SectionCard key={s.title} {...s} statusLoading={loading} />
+            <TarjetaParte
+              key={s.title}
+              {...s}
+              enCurso={Boolean(enCurso) && s.title === enCurso?.title}
+              cargando={loading}
+            />
           ))}
         </div>
+      </section>
 
-        {/* === SIMULACRO (destacado) === */}
-        <Link
-          to="/app/icao/simulacro"
-          className="card-apple group mt-8 block rounded-2xl border p-6"
-          style={{
-            borderColor: "color-mix(in oklab, var(--av-blue-500) 35%, transparent)",
-            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-          }}
-        >
-          <div className="flex items-center gap-5">
-            <div
-              className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, var(--av-blue-400), var(--av-blue-500))" }}
-            >
-              <Award className="h-7 w-7 text-white" strokeWidth={1.6} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-                Ponte a prueba
-              </div>
-              <div className="mt-0.5 text-[20px] font-semibold tracking-[-0.02em]">
-                Simulacro TEA: examen completo
-              </div>
-              <p className="mt-1 text-[13px] text-muted-foreground max-w-[640px]">
-                Las 3 partes seguidas, cronometradas y con audios reales. Grábate, responde en voz
-                alta y autoevalúate con los 6 descriptores al final.
-              </p>
-              {/* De aquí sale tu nivel ICAO: no se auto-declara, se evalúa. */}
-              <div className="mt-2 text-[12px] font-medium text-muted-foreground">
-                {loading ? (
-                  <span className="block h-4 w-40 rounded bg-muted animate-pulse" aria-hidden="true" />
-                ) : (
-                  simulacro.estado
-                )}
-              </div>
-            </div>
-            <ArrowRight className="hidden sm:block h-5 w-5 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
-          </div>
-        </Link>
-
-        {/* === Wingman helper === */}
-        <section
-          className="mt-8 rounded-2xl border p-7 flex flex-col md:flex-row items-start md:items-center justify-between gap-5"
-          style={{
-            borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-            background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-          }}
-        >
-          <div>
-            <div
-              className="inline-flex items-center gap-1.5 text-[13px] font-semibold"
-              style={{ color: "var(--av-blue-500)" }}
-            >
-              <Sparkles className="h-3.5 w-3.5" /> Consejo de práctica
-            </div>
-            <h3 className="mt-1.5 text-[17px] font-semibold">Practica en voz alta y grábate</h3>
-            <p className="mt-1 text-[15px] text-muted-foreground max-w-[680px]">
-              El TEA es oral. Leer las respuestas no alcanza: respóndelas en voz alta, grábate con el
-              celular y escúchate después. Es lo más incómodo y lo que más rápido sube tu nivel. En la
-              comunidad #icao puedes pedir comentarios y practicar con otros pilotos.
-            </p>
-          </div>
-          <Link
-            to="/app/comunidad"
-            className="inline-flex items-center gap-1.5 h-10 px-4 rounded-lg text-[15px] font-semibold text-white border-0 flex-shrink-0 transition-transform hover:-translate-y-0.5"
-            style={{ background: "var(--av-blue-500)" }}
-          >
-            Comunidad #icao <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </section>
-
-        {/* === REFERENCIA (colapsable) === */}
-        <ReferenceBlock />
-      </div>
-    </>
-  )
-}
-
-// ────────────────────────────────────────────────────────────────────────────
-// BLOQUE DE REFERENCIA: qué es el TEA · los 6 descriptores · niveles 4 y 5
-// ────────────────────────────────────────────────────────────────────────────
-function ReferenceBlock() {
-  const [open, setOpen] = useState(false)
-  return (
-    <section className="mt-8 rounded-2xl surface overflow-hidden">
-      <button
-        onClick={() => setOpen((o) => !o)}
-        aria-expanded={open}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left"
-      >
-        <div className="min-w-0">
-          <div className="text-[12px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
-            Referencia
-          </div>
-          <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.01em]">
-            Qué es el TEA y cómo se califica
-          </div>
-          <p className="mt-0.5 text-[13px] text-muted-foreground">
-            Estructura, duración, los 6 descriptores ICAO y qué piden los niveles 4 y 5.
-          </p>
-        </div>
-        <ChevronDown
-          className="flex-shrink-0 h-4.5 w-4.5 text-muted-foreground transition-transform"
-          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
-        />
-      </button>
-
-      {open && (
-        <div className="border-t border-border p-5 sm:p-6">
-          {/* Qué es el examen */}
-          <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-            <div>
-              <h3 className="text-[17px] font-semibold tracking-[-0.01em]">
-                Test of English for Aviation
-              </h3>
-              <p className="mt-2 text-[15px] text-foreground/90 leading-relaxed">
-                El TEA es un examen diseñado por{" "}
-                <strong className="text-foreground">Mayflower College</strong> para evaluar el nivel de
-                inglés de pilotos y controladores frente a los requisitos lingüísticos de la OACI.
-                Evalúa <strong className="text-foreground">solo hablar y escuchar</strong>, en contexto
-                aeronáutico:{" "}
-                <strong className="text-foreground">
-                  no evalúa conocimiento técnico ni fraseología estándar
-                </strong>
-                .
-              </p>
-              <p className="mt-3 text-[15px] text-foreground/90 leading-relaxed">
-                La entrevista de la Parte 1 evalúa si puedes sostener una conversación espontánea en
-                inglés natural, técnico y profesional. Las partes siguientes miden tu comprensión
-                auditiva y tu capacidad de describir, comparar y dar opiniones.
-              </p>
-            </div>
-
-            <div
-              className="rounded-2xl border p-5"
-              style={{
-                borderColor: "color-mix(in oklab, var(--av-blue-500) 22%, transparent)",
-                background: "color-mix(in oklab, var(--av-blue-500) 5%, transparent)",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <Clock className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-                <div className="text-[13px] font-semibold">Duración total: 25 a 30 minutos</div>
-              </div>
-              <ul className="space-y-2.5">
-                <FactRow label="Parte 1 · Interview" detail="7 a 8 minutos, conversación sobre tu rol" />
-                <FactRow label="Parte 2 · Comprensión" detail="audios de situaciones no rutinarias" />
-                <FactRow label="Parte 3 · Imágenes y conversación" detail="describir, comparar y opinar" />
-              </ul>
-              <div className="mt-4 pt-3 border-t border-border/50 text-[13px] text-muted-foreground leading-relaxed">
-                Solo mide <strong className="text-foreground/90">hablar y escuchar</strong>. No hay parte
-                escrita ni preguntas técnicas de aviación.
-              </div>
-            </div>
-          </div>
-
-          {/* Los 6 descriptores */}
-          <div className="mt-8">
-            <h3 className="text-[17px] font-semibold tracking-[-0.01em]">Los 6 descriptores ICAO</h3>
-            <p className="mt-1.5 text-[15px] text-muted-foreground max-w-[760px]">
-              El TEA califica seis descriptores.{" "}
-              <strong className="text-foreground">Tu resultado final es tu descriptor más bajo</strong>:
-              si sacas 5 en cinco de ellos y 4 en comprensión, tu resultado oficial es ICAO 4. Ser bueno
-              en algunos no alcanza: tienes que subirlos todos.
-            </p>
-            <div className="mt-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
-              {DESCRIPTORS.map((d) => (
-                <div
-                  key={d.name}
-                  className="rounded-xl border p-4"
-                  style={{ borderColor: "color-mix(in oklab, var(--border) 65%, transparent)" }}
-                >
-                  <div className="flex items-center gap-2">
-                    <Gauge className="h-4 w-4" style={{ color: "var(--av-blue-500)" }} />
-                    <div className="text-[15px] font-semibold tracking-[-0.01em]">{d.name}</div>
-                  </div>
-                  <p className="mt-1 text-[13px] text-muted-foreground leading-snug">{d.detail}</p>
+      <section className="mt-8" aria-labelledby="icao-prueba">
+        <h2 id="icao-prueba" className={ROTULO}>
+          Ponte a prueba
+        </h2>
+        <div className="mt-3 grid grid-cols-1 gap-4 @4xl:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+          {/* El simulacro: de aquí sale el nivel del panel de arriba. No se
+              auto-declara, se evalúa. */}
+          <div className="flex h-full flex-col rounded-2xl surface p-5">
+            <span className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Examen completo
+            </span>
+            <div className="mt-3 flex items-center gap-3">
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground">
+                <Award className="h-5 w-5" aria-hidden />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[18px] font-semibold tracking-[-0.02em] text-foreground">Simulacro TEA</div>
+                <div className="mt-0.5 text-[12.5px] text-muted-foreground">
+                  {loading ? "Cargando tu historial" : simulacro.estado}
                 </div>
-              ))}
+              </div>
+            </div>
+            <p className="m-0 mt-3 max-w-[62ch] text-[13.5px] leading-relaxed text-muted-foreground">
+              Las tres partes seguidas, cronometradas y con audios reales. Te grabas, respondes en voz alta y al final te
+              autoevalúas con los seis descriptores.
+            </p>
+            <div className="mt-auto flex justify-end pt-5">
+              <Link
+                to="/app/icao/simulacro"
+                className="inline-flex h-10 items-center gap-2 rounded-full bg-foreground px-5 text-[13.5px] font-semibold text-background transition-opacity hover:opacity-90"
+              >
+                Hacer el simulacro <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
             </div>
           </div>
 
-          {/* Niveles 4 y 5 */}
-          <div className="mt-8">
-            <h3 className="text-[17px] font-semibold tracking-[-0.01em]">Qué piden los niveles 4 y 5</h3>
-            <div className="mt-4 grid gap-4 md:grid-cols-2">
-              <LevelPanel
-                level={4}
-                title="Operational"
-                color="cyan"
-                blurb="El mínimo legal para volar comercial internacional. Tienes que llegar a 4 en TODOS los descriptores."
-                traits={[
-                  "Sostiene conversaciones sobre temas operacionales",
-                  "Entiende casi toda la comunicación rutinaria y muchas situaciones no rutinarias",
-                  "Comete algunos errores gramaticales, pero rara vez afectan la comunicación",
-                  "Tiene vocabulario suficiente para explicar problemas y pedir ayuda",
-                  "Habla con fluidez razonable y puede pedir aclaraciones",
-                ]}
-              />
-              <LevelPanel
-                level={5}
-                title="Extended"
-                color="green"
-                blurb="El nivel objetivo para una carrera en aerolínea. Mínimo 5 en TODOS los descriptores."
-                traits={[
-                  "Habla con mucha soltura y confianza",
-                  "Usa estructuras gramaticales variadas y comete muy pocos errores",
-                  "Maneja vocabulario amplio y preciso",
-                  "Entiende casi todo, incluso acentos y situaciones complejas",
-                  "Interactúa de forma espontánea y necesita muy pocas repeticiones",
-                ]}
+          <div className="flex h-full flex-col rounded-2xl surface p-5">
+            <span className="nh-display text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Consejo de práctica
+            </span>
+            <div className="mt-3 text-[16px] font-semibold tracking-[-0.01em] text-foreground">
+              Practica en voz alta y grábate
+            </div>
+            <p className="m-0 mt-1.5 text-[13.5px] leading-relaxed text-muted-foreground">
+              El TEA es oral. Leer las respuestas no alcanza: respóndelas en voz alta, grábate con el celular y escúchate
+              después. Es lo más incómodo y lo que más rápido sube tu nivel.
+            </p>
+            <div className="mt-auto pt-4">
+              <FilaDeAcceso
+                to="/app/comunidad"
+                titulo="Comunidad #icao"
+                detalle="Pide comentarios y practica con otros pilotos"
+                icon={Users}
               />
             </div>
           </div>
         </div>
+      </section>
+
+      <ReferenceBlock />
+    </div>
+  )
+}
+
+/**
+ * El panel de cristal: el mejor nivel en un simulacro, que es de donde sale el
+ * nivel en esta app. Sin simulacro no se inventa ninguno. Bajo el 4 va en
+ * ámbar, porque el 4 es el mínimo legal para volar comercial internacional: ahí
+ * sí es un aviso, y la fila de abajo dice cuál es el mínimo.
+ */
+function PanelDeNivel({
+  cargando,
+  mejorNivel,
+  simulacros,
+}: {
+  cargando: boolean
+  mejorNivel: number | null
+  simulacros: number
+}) {
+  return (
+    <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
+      <div className="px-4 pb-4 pt-4">
+        <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/72">
+          Tu nivel ICAO
+        </div>
+        {cargando ? (
+          <div className="mt-2.5 h-12 w-20 animate-pulse rounded bg-white/15" aria-hidden />
+        ) : mejorNivel === null ? (
+          <>
+            <p className="m-0 mt-2 text-[14px] leading-snug text-white/85">
+              Sale del simulacro: preséntalo y aquí verás tu nivel.
+            </p>
+            <Link
+              to="/app/icao/simulacro"
+              className="mt-3 inline-flex h-9 items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3.5 text-[13px] font-semibold text-white transition-colors hover:bg-white/20"
+            >
+              Hacer el simulacro <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+            </Link>
+          </>
+        ) : (
+          <div className="mt-1 flex items-baseline gap-2">
+            <span
+              className="nh-display text-[52px] font-bold leading-none tracking-[-0.04em]"
+              style={{ color: mejorNivel < NIVEL_MINIMO ? "var(--av-amber-400)" : "#fff" }}
+            >
+              {mejorNivel}
+            </span>
+            <span className="text-[13px] font-semibold text-white/78">mejor simulacro</span>
+          </div>
+        )}
+      </div>
+      {!cargando && (
+        <dl className="m-0 border-t border-white/10 px-4 py-3 text-[12px] leading-[1.5]">
+          <div className="flex items-baseline justify-between gap-3">
+            <dt className="text-white/72">Mínimo para aerolínea</dt>
+            <dd className="tabular m-0 font-semibold text-white/90">ICAO {NIVEL_MINIMO}</dd>
+          </div>
+          <div className="mt-1 flex items-baseline justify-between gap-3">
+            <dt className="text-white/72">Simulacros</dt>
+            <dd className="tabular m-0 font-semibold text-white/90">{simulacros > 0 ? simulacros : "Ninguno aún"}</dd>
+          </div>
+        </dl>
       )}
-    </section>
+    </div>
   )
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-function FactRow({ label, detail }: { label: string; detail: string }) {
-  return (
-    <li className="flex items-start gap-2">
-      <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: "var(--av-blue-500)" }} strokeWidth={3} />
-      <div>
-        <div className="text-[13px] font-semibold leading-tight">{label}</div>
-        <div className="text-[13px] text-muted-foreground leading-tight">{detail}</div>
-      </div>
-    </li>
-  )
-}
-
+// Una parte del módulo
+// ────────────────────────────────────────────────────────────────────────────
 interface Seccion {
   to: string
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>
-  color: TileColorKey
   part: string
   title: string
   /** Cuánto contenido hay dentro, con cifras reales. */
@@ -483,10 +403,18 @@ interface Seccion {
   resumen: SeccionResumen
 }
 
-function SectionCard({
+/**
+ * Tarjeta neutra: el color de cada parte era decoración, y como texto no
+ * llegaba al contraste. Lo que la distingue es su icono y su nombre. «Completa»
+ * sí va en verde, como el «Listo» de los módulos: ahí el verde dice algo.
+ *
+ * El enlace principal cubre la tarjeta entera con un ::after; el secundario (el
+ * quiz del vocabulario) va por encima con z-10. Un enlace dentro de otro no es
+ * HTML válido, y así los dos funcionan.
+ */
+function TarjetaParte({
   to,
   icon: Icon,
-  color,
   part,
   title,
   meta,
@@ -494,88 +422,220 @@ function SectionCard({
   cta,
   secondary,
   resumen,
-  statusLoading,
-}: Seccion & { statusLoading?: boolean }) {
-  const c = TILE_COLOR[color]
+  enCurso,
+  cargando,
+}: Seccion & { enCurso: boolean; cargando: boolean }) {
   const completa = resumen.pct !== null && resumen.pct >= 100
   return (
-    <div
-      className="card-apple relative rounded-2xl surface p-5 flex flex-col gap-3"
-      style={{ borderColor: tileBorder(color, 32) }}
-    >
-      <div className="flex items-start justify-between">
-        <div
-          className="w-11 h-11 rounded-xl flex items-center justify-center"
-          style={{
-            background: tileTint(color, 14),
-            border: `1px solid ${tileBorder(color, 32)}`,
-            color: c,
-          }}
-        >
+    <div className="group relative flex h-full flex-col rounded-2xl surface surface-lift p-5">
+      <div className="flex items-start justify-between gap-3">
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-muted text-foreground transition-colors group-hover:bg-foreground group-hover:text-background">
           <Icon className="h-5 w-5" strokeWidth={2} />
-        </div>
-        {completa && <span className="chip chip-green">Completa</span>}
+        </span>
+        {completa ? (
+          <span className="chip chip-green">Completa</span>
+        ) : enCurso ? (
+          <span className="rounded-full border border-border px-2 py-0.5 text-[11px] font-semibold text-foreground">
+            En curso
+          </span>
+        ) : null}
       </div>
 
-      <div>
-        <div className="text-[12px] font-semibold" style={{ color: c }}>
-          {part}
-        </div>
-        <div className="mt-0.5 text-[17px] font-semibold tracking-[-0.02em]">{title}</div>
-        <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
-        <p className="mt-1.5 text-[13px] text-muted-foreground leading-relaxed">{description}</p>
-      </div>
-
-      <div className="mt-auto pt-1 flex items-center gap-2">
-        {/* El ::after estira el área de click a toda la tarjeta: si se levanta con
-            hover, tiene que llevar a algún lado. */}
-        <Link
-          to={to}
-          className="inline-flex items-center gap-1 text-[13px] font-semibold after:absolute after:inset-0 after:content-['']"
-          style={{ color: c }}
-        >
-          {cta} <ArrowRight className="h-3 w-3" />
+      <span className="nh-display mt-4 text-[10.5px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+        {part}
+      </span>
+      <h3 className="m-0 mt-1 text-[17px] font-semibold tracking-[-0.02em] text-foreground">
+        <Link to={to} className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">
+          {title}
         </Link>
-        {secondary && (
-          <>
-            <span className="text-border">·</span>
+      </h3>
+      <div className="mt-1 text-[12px] font-medium text-muted-foreground">{meta}</div>
+      <p className="m-0 mt-2 text-[13px] leading-relaxed text-muted-foreground">{description}</p>
+
+      {/* El pie: el estado y, si hay avance, su barra. Una barra vacía diría
+          «vas perdiendo» cuando lo que pasa es que todavía no empezaste. */}
+      <div className="mt-auto pt-4">
+        <div className="border-t border-border pt-3">
+          {cargando ? (
+            <span className="block h-4 w-32 animate-pulse rounded bg-muted" aria-hidden />
+          ) : (
+            <>
+              {resumen.pct !== null && resumen.pct > 0 && (
+                <div
+                  className="mb-2 h-1.5 overflow-hidden rounded-r-[3px] bg-muted"
+                  role="progressbar"
+                  aria-label={`Avance de ${title}`}
+                  aria-valuenow={resumen.pct}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                >
+                  <div
+                    className="h-full rounded-r-[3px] transition-[width]"
+                    style={{ width: `${resumen.pct}%`, background: "var(--foreground)" }}
+                  />
+                </div>
+              )}
+              <p className="m-0 text-[12px] leading-snug text-muted-foreground">{resumen.estado}</p>
+            </>
+          )}
+        </div>
+        <div className="mt-3 flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-1 text-[13px] font-semibold text-foreground">
+            {cta} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+          </span>
+          {secondary && (
             <Link
               to={secondary.to}
-              className="relative z-10 inline-flex items-center gap-1 text-[13px] font-semibold text-muted-foreground hover:text-foreground transition-colors"
+              className="relative z-10 inline-flex items-center gap-1 rounded-full border border-border px-2.5 py-1 text-[12px] font-semibold text-foreground transition-colors hover:bg-muted"
             >
-              <secondary.icon className="h-3 w-3" /> {secondary.label}
+              <secondary.icon className="h-3.5 w-3.5" aria-hidden /> {secondary.label}
             </Link>
-          </>
-        )}
-      </div>
-
-      {/* El pie: la barra solo se dibuja cuando hay avance. Una barra vacía dice
-          "vas perdiendo" cuando lo que pasa es que todavía no empezaste. */}
-      <div className="pt-3 border-t border-border/60">
-        {statusLoading ? (
-          <span className="block h-4 w-32 rounded bg-muted animate-pulse" aria-hidden="true" />
-        ) : (
-          <>
-            {resumen.pct !== null && resumen.pct > 0 && (
-              <div
-                className="mb-2 h-1.5 rounded-full bg-muted overflow-hidden"
-                role="progressbar"
-                aria-label={`Avance de ${title}`}
-                aria-valuenow={resumen.pct}
-                aria-valuemin={0}
-                aria-valuemax={100}
-              >
-                <div
-                  className="h-full rounded-full transition-[width]"
-                  style={{ width: `${resumen.pct}%`, background: c }}
-                />
-              </div>
-            )}
-            <span className="text-[12px] font-medium text-muted-foreground">{resumen.estado}</span>
-          </>
-        )}
+          )}
+        </div>
       </div>
     </div>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+// BLOQUE DE REFERENCIA: qué es el TEA · los 6 descriptores · niveles 4 y 5
+// ────────────────────────────────────────────────────────────────────────────
+function ReferenceBlock() {
+  const [open, setOpen] = useState(false)
+  return (
+    <section className="mt-8" aria-labelledby="icao-referencia">
+      <h2 id="icao-referencia" className={ROTULO}>
+        Referencia
+      </h2>
+      <div className="mt-3 overflow-hidden rounded-2xl surface">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          className="flex w-full items-center justify-between gap-4 p-5 text-left transition-colors hover:bg-muted/40"
+        >
+          <div className="min-w-0">
+            <div className="text-[16px] font-semibold tracking-[-0.01em] text-foreground">
+              Qué es el TEA y cómo se califica
+            </div>
+            <p className="m-0 mt-0.5 text-[13px] text-muted-foreground">
+              Estructura, duración, los seis descriptores ICAO y qué piden los niveles 4 y 5.
+            </p>
+          </div>
+          <ChevronDown
+            className="h-4.5 w-4.5 shrink-0 text-muted-foreground transition-transform"
+            style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+            aria-hidden
+          />
+        </button>
+
+        {open && (
+          <div className="border-t border-border p-5 sm:p-6">
+            {/* Qué es el examen */}
+            <div className="grid gap-6 @4xl:grid-cols-[1.4fr_1fr]">
+              <div>
+                <h3 className="m-0 text-[17px] font-semibold tracking-[-0.01em] text-foreground">
+                  Test of English for Aviation
+                </h3>
+                <p className="m-0 mt-2 text-[15px] leading-relaxed text-foreground/90">
+                  El TEA es un examen diseñado por <strong className="text-foreground">Mayflower College</strong> para
+                  evaluar el nivel de inglés de pilotos y controladores frente a los requisitos lingüísticos de la OACI.
+                  Evalúa <strong className="text-foreground">solo hablar y escuchar</strong>, en contexto aeronáutico:{" "}
+                  <strong className="text-foreground">no evalúa conocimiento técnico ni fraseología estándar</strong>.
+                </p>
+                <p className="m-0 mt-3 text-[15px] leading-relaxed text-foreground/90">
+                  La entrevista de la Parte 1 evalúa si puedes sostener una conversación espontánea en inglés natural,
+                  técnico y profesional. Las partes siguientes miden tu comprensión auditiva y tu capacidad de
+                  describir, comparar y dar opiniones.
+                </p>
+              </div>
+
+              <div className="rounded-2xl bg-muted/60 p-5">
+                <div className="mb-3 flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-foreground" aria-hidden />
+                  <div className="text-[13px] font-semibold text-foreground">Duración total: 25 a 30 minutos</div>
+                </div>
+                <ul className="m-0 list-none space-y-2.5 p-0">
+                  <FactRow label="Parte 1 · Interview" detail="7 a 8 minutos, conversación sobre tu rol" />
+                  <FactRow label="Parte 2 · Comprensión" detail="audios de situaciones no rutinarias" />
+                  <FactRow label="Parte 3 · Imágenes y conversación" detail="describir, comparar y opinar" />
+                </ul>
+                <div className="mt-4 border-t border-border pt-3 text-[13px] leading-relaxed text-muted-foreground">
+                  Solo mide <strong className="text-foreground">hablar y escuchar</strong>. No hay parte escrita ni
+                  preguntas técnicas de aviación.
+                </div>
+              </div>
+            </div>
+
+            {/* Los 6 descriptores */}
+            <div className="mt-8">
+              <h3 className="m-0 text-[17px] font-semibold tracking-[-0.01em] text-foreground">Los seis descriptores ICAO</h3>
+              <p className="m-0 mt-1.5 max-w-[760px] text-[15px] text-muted-foreground">
+                El TEA califica seis descriptores.{" "}
+                <strong className="text-foreground">Tu resultado final es tu descriptor más bajo</strong>: si sacas 5 en
+                cinco de ellos y 4 en comprensión, tu resultado oficial es ICAO 4. Ser bueno en algunos no alcanza:
+                tienes que subirlos todos.
+              </p>
+              <div className="mt-4 grid gap-2.5 @xl:grid-cols-2 @4xl:grid-cols-3">
+                {DESCRIPTORS.map((d) => (
+                  <div key={d.name} className="rounded-xl border border-border p-4">
+                    <div className="flex items-center gap-2">
+                      <Gauge className="h-4 w-4 text-muted-foreground" aria-hidden />
+                      <div className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">{d.name}</div>
+                    </div>
+                    <p className="m-0 mt-1 text-[13px] leading-snug text-muted-foreground">{d.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Niveles 4 y 5 */}
+            <div className="mt-8">
+              <h3 className="m-0 text-[17px] font-semibold tracking-[-0.01em] text-foreground">Qué piden los niveles 4 y 5</h3>
+              <div className="mt-4 grid gap-4 @3xl:grid-cols-2">
+                <LevelPanel
+                  level={4}
+                  title="Operational"
+                  blurb="El mínimo legal para volar comercial internacional. Tienes que llegar a 4 en TODOS los descriptores."
+                  traits={[
+                    "Sostiene conversaciones sobre temas operacionales",
+                    "Entiende casi toda la comunicación rutinaria y muchas situaciones no rutinarias",
+                    "Comete algunos errores gramaticales, pero rara vez afectan la comunicación",
+                    "Tiene vocabulario suficiente para explicar problemas y pedir ayuda",
+                    "Habla con fluidez razonable y puede pedir aclaraciones",
+                  ]}
+                />
+                <LevelPanel
+                  level={5}
+                  title="Extended"
+                  blurb="El nivel objetivo para una carrera en aerolínea. Mínimo 5 en TODOS los descriptores."
+                  traits={[
+                    "Habla con mucha soltura y confianza",
+                    "Usa estructuras gramaticales variadas y comete muy pocos errores",
+                    "Maneja vocabulario amplio y preciso",
+                    "Entiende casi todo, incluso acentos y situaciones complejas",
+                    "Interactúa de forma espontánea y necesita muy pocas repeticiones",
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
+// ────────────────────────────────────────────────────────────────────────────
+function FactRow({ label, detail }: { label: string; detail: string }) {
+  return (
+    <li className="flex items-start gap-2">
+      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-foreground" strokeWidth={3} aria-hidden />
+      <div>
+        <div className="text-[13px] font-semibold leading-tight text-foreground">{label}</div>
+        <div className="text-[13px] leading-tight text-muted-foreground">{detail}</div>
+      </div>
+    </li>
   )
 }
 
@@ -591,29 +651,24 @@ const DESCRIPTORS: { name: string; detail: string }[] = [
   { name: "Interactions", detail: "Sostener la conversación, responder, pedir aclaraciones y manejar el intercambio." },
 ]
 
-function LevelPanel({ level, title, color, blurb, traits }: { level: number; title: string; color: TileColorKey; blurb: string; traits: string[] }) {
-  const c = TILE_COLOR[color]
+/** Cada nivel en su tarjeta neutra: la cifra grande lo identifica, no un color. */
+function LevelPanel({ level, title, blurb, traits }: { level: number; title: string; blurb: string; traits: string[] }) {
   return (
-    <div
-      className="rounded-2xl border p-5"
-      style={{ borderColor: tileBorder(color, 30), background: tileTint(color, 5) }}
-    >
-      <div className="flex items-baseline gap-2">
-        <div className="text-[32px] font-semibold tracking-[-0.04em] leading-none" style={{ color: c }}>
-          {level}
-        </div>
+    <div className="rounded-2xl border border-border p-5">
+      <div className="flex items-baseline gap-3">
+        <div className="nh-display text-[40px] font-bold leading-none tracking-[-0.04em] text-foreground">{level}</div>
         <div>
-          <div className="text-[15px] font-semibold tracking-[-0.01em]">ICAO {level} · {title}</div>
-          <div className="text-[12px] text-muted-foreground">
-            mínimo {level} en cada descriptor
+          <div className="text-[15px] font-semibold tracking-[-0.01em] text-foreground">
+            ICAO {level} · {title}
           </div>
+          <div className="text-[12px] text-muted-foreground">mínimo {level} en cada descriptor</div>
         </div>
       </div>
-      <p className="mt-2 text-[13px] text-foreground/90 leading-relaxed">{blurb}</p>
-      <ul className="mt-3 space-y-1.5">
+      <p className="m-0 mt-3 text-[13px] leading-relaxed text-foreground/90">{blurb}</p>
+      <ul className="m-0 mt-3 list-none space-y-1.5 p-0">
         {traits.map((t) => (
           <li key={t} className="flex items-start gap-2 text-[13px] text-foreground/90">
-            <Check className="flex-shrink-0 mt-0.5 h-3.5 w-3.5" style={{ color: c }} strokeWidth={3} />
+            <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-foreground" strokeWidth={3} aria-hidden />
             <span>{t}</span>
           </li>
         ))}
