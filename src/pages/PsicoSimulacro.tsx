@@ -12,6 +12,7 @@ import { appButtonClass, appButtonStyle } from "@/lib/buttonStyles"
 import {
   CATEGORIAS,
   NOTA_TIEMPOS,
+  PSICO_APRUEBA_CON as APRUEBA_CON,
   PSICO_HUB,
   SIMULACRO,
   SIMULACRO_TOTAL,
@@ -19,9 +20,6 @@ import {
 } from "@/lib/psicotecnicas"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
 import type { ParametrosPsico } from "@/services/psicotecnicas"
-
-/** Umbral de aprobación que se anuncia antes de empezar. El informe usa el del servidor (module_thresholds). */
-const APRUEBA_CON = 80
 
 const SIMULACRO_PARAMETROS: ParametrosPsico = {
   modo: "simulacion",

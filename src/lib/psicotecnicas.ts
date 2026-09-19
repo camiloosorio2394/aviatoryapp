@@ -205,6 +205,14 @@ export const SIMULACRO = { abstracto: 10, espacial: 10, numerico: 10 } as const
 export const SIMULACRO_TOTAL =
   SIMULACRO.abstracto + SIMULACRO.espacial + SIMULACRO.numerico
 
+/**
+ * Con cuánto se aprueba el simulacro, sobre 100 de resultado global. Espejo de
+ * `psico_simulacro_pass` en module_thresholds: el informe usa el del servidor,
+ * y esta cifra es la que se anuncia antes (la portada del tema y la del
+ * simulacro).
+ */
+export const PSICO_APRUEBA_CON = 80
+
 // ────────────────────────────────────────────────────────────────────────────
 // Selección
 
