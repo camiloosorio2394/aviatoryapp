@@ -1,6 +1,4 @@
 import type { ComponentType } from "react"
-import { Users } from "lucide-react"
-import { AerodromeIcon, NdbIcon, VorIcon } from "@/components/icons/aero"
 import type { PilotStage } from "@/components/dashboard/tipos"
 
 /** Días desde hoy hasta la fecha, negativo si ya pasó. */
@@ -47,74 +45,12 @@ export function computeAirlineProgress(stage: PilotStage, icao: number | null, a
 
 export type IconComponent = ComponentType<{ size?: number; className?: string }>
 
-export interface NextStep {
-  title: string
-  description: string
-  href: string
-  cta: string
-  minutes: number
-  icon: IconComponent
-}
-
-/**
- * Acción del día. La dueña única es la card "Quiz del día" que va justo debajo
- * del hero: el CTA del hero apunta ahí y el plan de hoy ya no repite el quiz,
- * así las 3 micro-acciones son distintas entre sí y distintas del quiz.
- */
+/** Acción del día: el botón del hero del panel cuando hay quiz curado. */
 export const DAILY_ACTION = { href: "/app/pca", cta: "Empezar quiz de hoy", minutes: 12 }
 
 /** El test inicial manda mientras no haya nivel medido: sin él, el resto del
  *  tablero no tiene con qué calibrar. */
 export const FIRST_ACTION = { href: "/app/test-inicial", cta: "Hacer test inicial", minutes: 15 }
-
-export function buildTodayPlan(stage: PilotStage | null): NextStep[] {
-  const baseWingman: NextStep = {
-    title: "Pregúntale a Wingman",
-    description: "Aclara un concepto que te quedó dando vueltas.",
-    href: "/app/pca",
-    cta: "Abrir Wingman",
-    minutes: 8,
-    icon: NdbIcon,
-  }
-  const baseIcao: NextStep = {
-    title: "Inglés ICAO",
-    description: "Vocabulario y audio del examen TEA, en bloques cortos.",
-    href: "/app/icao",
-    cta: "Practicar ICAO",
-    minutes: 15,
-    icon: VorIcon,
-  }
-  const baseAirline: NextStep = {
-    title: "Revisa tu match",
-    description: "Mira qué te falta para postular a tu aerolínea objetivo.",
-    href: "/app/match",
-    cta: "Ver aerolíneas",
-    minutes: 5,
-    icon: AerodromeIcon,
-  }
-  const baseCommunity: NextStep = {
-    title: "Saluda a tu cohorte",
-    description: "Preséntate y encuentra pilotos en tu misma etapa.",
-    href: "/app/comunidad",
-    cta: "Ir a comunidad",
-    minutes: 3,
-    icon: Users,
-  }
-
-  if (!stage) return [baseWingman, baseIcao, baseCommunity]
-  switch (stage) {
-    case "student_ppl":
-    case "ppl":
-      return [baseWingman, baseIcao, baseCommunity]
-    case "cpl_in_progress":
-    case "cpl_ready":
-      return [baseWingman, baseIcao, baseAirline]
-    case "hour_building":
-    case "instructor":
-    case "airline_candidate":
-      return [baseAirline, baseIcao, baseCommunity]
-  }
-}
 
 export function greetingTime(): string {
   const hour = new Date().getHours()

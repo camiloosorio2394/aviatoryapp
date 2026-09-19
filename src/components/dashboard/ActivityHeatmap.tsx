@@ -1,13 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import {
-  AlertTriangle,
-  ArrowRight,
-  Share2,
-  Activity,
-} from "lucide-react"
+import { AlertTriangle, ArrowRight, Share2 } from "lucide-react"
 import { toast } from "sonner"
-import { CountUp } from "@/components/ui/count-up"
 import { shareStreak } from "@/lib/shareStreak"
 import { appButtonClass } from "@/lib/buttonStyles"
 import type { ActivityDay } from "@/components/dashboard/tipos"
@@ -20,6 +14,11 @@ import { DAILY_ACTION } from "@/components/dashboard/plan"
  *
  * Absorbe además el aviso de racha en riesgo, que antes vivía en una card
  * aparte repitiendo un dato que ya está en el panel de indicadores.
+ *
+ * Es un mapa de calor de un solo tono, de claro a oscuro: la magnitud no
+ * necesita más de un color, y la leyenda «Menos / Más» dice cómo leerlo. Las
+ * celdas se estiran para llenar su tarjeta: con 14 px fijos, en una columna del
+ * panel la rejilla quedaba arrinconada a la izquierda con el resto en blanco.
  */
 export function ActivityHeatmap({
   data,
@@ -61,80 +60,57 @@ export function ActivityHeatmap({
   }
 
   return (
-    <div className="rounded-xl surface p-5">
-      <div className="flex justify-between items-start gap-4 mb-4">
-        <div>
-          <div className="inline-flex items-center gap-2 text-[13px] text-muted-foreground">
-            <Activity className="h-3 w-3" /> Tu actividad
-          </div>
-          <div className="text-[15px] font-semibold text-foreground mt-1">
+    <div className="flex h-full flex-col rounded-2xl surface p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h3 className="m-0 text-[15px] font-semibold tracking-[-0.01em] text-foreground">Actividad</h3>
+          <p className="m-0 mt-0.5 text-[12.5px] text-muted-foreground">
             {total > 0 ? "Últimas 12 semanas" : "Esta semana"}
-          </div>
+          </p>
         </div>
-        <div className="flex items-start gap-4">
-          {/* Compartir la racha: la imagen sale con la marca y los galones del
-              hito. Solo aparece con racha viva: compartir un cero no motiva. */}
-          {streakDays > 0 && (
-            <button
-              type="button"
-              onClick={() => void compartir()}
-              disabled={sharing}
-              className="inline-flex items-center gap-1.5 h-9 px-3.5 rounded-full text-[13px] font-semibold border border-border bg-background text-foreground hover:bg-muted transition-colors disabled:opacity-60"
-            >
-              <Share2 className="h-3.5 w-3.5" />
-              {sharing ? "Generando" : "Compartir racha"}
-            </button>
-          )}
-          <div className="text-right">
-            <div className="tabular-nums text-[24px] font-semibold text-foreground tracking-[-0.03em] leading-none">
-              {total > 0 ? <CountUp to={total} /> : "—"}
-            </div>
-            <div className="text-[13px] text-muted-foreground mt-1">actividades</div>
+        <div className="shrink-0 text-right">
+          <div className="nh-display text-[26px] font-bold leading-none tracking-[-0.03em] text-foreground">
+            {total > 0 ? total : "—"}
           </div>
+          <div className="mt-1 text-[12px] text-muted-foreground">actividades</div>
         </div>
       </div>
 
       {loading ? (
-        <div className="h-[60px] rounded-xl bg-muted animate-pulse" />
+        <div className="mt-4 h-[140px] rounded-xl bg-muted animate-pulse" />
       ) : total === 0 ? (
         <>
           {/* Una sola fila de 7 días en lugar de 12 semanas en gris. */}
-          <div className="flex gap-2 items-end">
+          <div className="mt-4 flex items-end gap-2">
             {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 flex-1">
-                <div
-                  className="w-full rounded-lg"
-                  style={{ height: 32, background: "var(--muted)" }}
-                />
+              <div key={i} className="flex flex-1 flex-col items-center gap-2">
+                <div className="h-8 w-full rounded-lg" style={{ background: "var(--muted)" }} />
                 <span className="text-[12px] text-muted-foreground">{d}</span>
               </div>
             ))}
           </div>
-          <p className="mt-4 text-[13px] text-muted-foreground">
-            Tu primera actividad aparece aquí hoy.
-          </p>
+          <p className="m-0 mt-4 text-[13px] text-muted-foreground">Tu primera actividad aparece aquí hoy.</p>
         </>
       ) : (
         <>
-          <div className="flex gap-2 items-start">
-            <div className="flex flex-col gap-[3px] mt-1 mr-1">
+          <div className="mt-4 flex items-start gap-2">
+            <div className="flex flex-col gap-[3px]" aria-hidden>
               {["L", "M", "X", "J", "V", "S", "D"].map((d, i) => (
                 <div
                   key={i}
-                  className="text-[12px] text-muted-foreground text-right"
-                  style={{ height: 14, lineHeight: "14px", width: 12 }}
+                  className="flex aspect-square w-3 items-center justify-end text-[11px] text-muted-foreground"
                 >
                   {i % 2 === 0 ? d : ""}
                 </div>
               ))}
             </div>
-            <div className="flex gap-[3px] overflow-x-auto flex-1 pb-1">
+            <div className="grid min-w-0 flex-1 auto-cols-fr grid-flow-col gap-[3px]">
               {weeks.map((week, wi) => (
-                <div key={wi} className="flex flex-col gap-[3px]">
+                <div key={wi} className="flex min-w-0 flex-col gap-[3px]">
                   {week.map((d) => (
                     <div
                       key={d.date}
-                      className="w-[14px] h-[14px] rounded-[3px] flex-shrink-0 transition-transform hover:scale-150"
+                      className="aspect-square w-full max-w-[22px] rounded-[3px] transition-transform hover:scale-125"
                       style={{ background: color(d.activities_count) }}
                       title={`${d.date} · ${d.activities_count} actividad${d.activities_count !== 1 ? "es" : ""}`}
                     />
@@ -144,42 +120,54 @@ export function ActivityHeatmap({
             </div>
           </div>
 
-          <div className="mt-4 flex items-center justify-between gap-4 flex-wrap">
-            {longestStreak > 0 ? (
-              <span className="tabular-nums text-[13px] text-muted-foreground">
-                Mejor racha: {longestStreak} días
-              </span>
-            ) : (
-              <span />
+          <div className="mt-3 flex items-center justify-end gap-2 text-[11.5px] text-muted-foreground">
+            <span>Menos</span>
+            {[0, 1, 3, 5, 7].map((c) => (
+              <div key={c} className="h-[10px] w-[10px] rounded-[2px]" style={{ background: color(c) }} />
+            ))}
+            <span>Más</span>
+          </div>
+
+          {/* El pie: la mejor racha y, con racha viva, compartirla. La imagen
+              sale con la marca y los galones del hito; compartir un cero no
+              motiva, así que sin racha el botón no aparece. */}
+          <div className="mt-auto flex flex-wrap items-center justify-between gap-3 pt-4">
+            <span className="text-[12.5px] text-muted-foreground">
+              {longestStreak > 0 ? `Mejor racha: ${longestStreak} días` : ""}
+            </span>
+            {streakDays > 0 && (
+              <button
+                type="button"
+                onClick={() => void compartir()}
+                disabled={sharing}
+                className="inline-flex h-8 items-center gap-1.5 rounded-full border border-border bg-background px-3 text-[12.5px] font-semibold text-foreground transition-colors hover:bg-muted disabled:opacity-60"
+              >
+                <Share2 className="h-3.5 w-3.5" aria-hidden />
+                {sharing ? "Generando" : "Compartir racha"}
+              </button>
             )}
-            <div className="flex items-center gap-2 text-[12px] text-muted-foreground">
-              <span>Menos</span>
-              {[0, 1, 3, 5, 7].map((c) => (
-                <div key={c} className="w-[11px] h-[11px] rounded-[3px]" style={{ background: color(c) }} />
-              ))}
-              <span>Más</span>
-            </div>
           </div>
         </>
       )}
 
       {/* El aviso de racha vive aquí, junto a la actividad que lo produce, y no
-          en una card propia repitiendo un dato que ya está en los indicadores. */}
+          en una card propia repitiendo un dato que ya está en los indicadores.
+          Ámbar porque es un aviso de verdad: si no estudias hoy, la pierdes. */}
       {streakAtRisk && (
-        <div className="mt-4 pt-4 border-t border-border flex flex-wrap items-center justify-between gap-3">
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
           <div className="min-w-0">
             <span
-              className="inline-flex items-center gap-2 text-[15px] font-semibold"
+              className="inline-flex items-center gap-2 text-[14px] font-semibold"
               style={{ color: "var(--av-warn-fg)" }}
             >
-              <AlertTriangle className="h-4 w-4" /> Tu racha está en riesgo
+              <AlertTriangle className="h-4 w-4" aria-hidden /> Tu racha está en riesgo
             </span>
-            <p className="mt-1 text-[13px] text-muted-foreground">
+            <p className="m-0 mt-1 text-[12.5px] text-muted-foreground">
               Si no estudias hoy se reinicia. Con una pregunta la salvas.
             </p>
           </div>
           <Link to={DAILY_ACTION.href} className={appButtonClass({ variant: "secondary" })}>
-            Salvar mi racha <ArrowRight className="h-3.5 w-3.5" />
+            Salvar mi racha <ArrowRight className="h-3.5 w-3.5" aria-hidden />
           </Link>
         </div>
       )}

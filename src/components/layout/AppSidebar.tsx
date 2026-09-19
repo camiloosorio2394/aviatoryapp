@@ -63,7 +63,7 @@ interface NavSection {
  */
 const navSections: NavSection[] = [
   {
-    items: [{ to: "/app", label: "Dashboard", icon: LayoutDashboard, end: true }],
+    items: [{ to: "/app", label: "Inicio", icon: LayoutDashboard, end: true }],
   },
   {
     label: "Módulos",

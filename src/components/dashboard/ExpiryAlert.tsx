@@ -26,7 +26,7 @@ export function ExpiryAlert({
   return (
     <Link
       to="/app/vencimientos"
-      className="surface-lift mb-6 flex items-center justify-between gap-4 rounded-xl border p-4"
+      className="surface-lift flex items-center justify-between gap-4 rounded-2xl border p-4"
       style={{
         borderColor: `color-mix(in oklab, ${color} 38%, transparent)`,
         background: `color-mix(in oklab, ${color} 7%, transparent)`,
@@ -37,7 +37,9 @@ export function ExpiryAlert({
           <AlertTriangle className="h-5 w-5" />
         </span>
         <div className="min-w-0">
-          <div className="text-[15px] font-semibold text-foreground truncate">
+          {/* Sin truncar: en un teléfono el corte caía justo antes de los días
+              que quedan, que es lo único que este aviso tiene que decir. */}
+          <div className="text-[15px] font-semibold leading-snug text-foreground">
             {nombre}: {texto.toLowerCase()}
           </div>
           <div className="text-[13px] text-muted-foreground">

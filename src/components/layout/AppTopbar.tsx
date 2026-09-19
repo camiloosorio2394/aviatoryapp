@@ -23,7 +23,7 @@ import { NotificationsBell } from "@/components/NotificationsBell"
 import { getThemePref, applyThemePref, isDark as themeIsDark, watchSystemTheme, type ThemePref } from "@/lib/theme"
 
 const ROUTE_LABEL: Record<string, string> = {
-  "/app": "Dashboard",
+  "/app": "Inicio",
   "/app/pca": "Examen PCA",
   "/app/pca/quiz": "Examen PCA",
   "/app/icao": "Inglés ICAO",

@@ -28,7 +28,7 @@ export function CompromisosDeHoy({
   if (!plan && !esperando) return null
 
   return (
-    <div className="rounded-xl border border-border px-4 py-3 mb-6 flex flex-wrap items-center gap-x-7 gap-y-2.5"
+    <div className="rounded-2xl border border-border px-4 py-3 flex flex-wrap items-center gap-x-7 gap-y-2.5"
       style={{ background: "var(--card)" }}>
       {plan && <Estudio plan={plan} hecho={estudioHoy} />}
       {esperando && (
