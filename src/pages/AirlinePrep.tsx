@@ -14,6 +14,7 @@ import {
 import { AerodromeIcon } from "@/components/icons/aero"
 import { fechaDeUltimaActividad } from "@/lib/activity"
 import { TarjetaModulo } from "@/components/aerolinea/TarjetaModulo"
+import { TEMAS_EN_CAMINO } from "@/components/aerolinea/carasDeModulo"
 import type { TarjetaModuloProps } from "@/components/aerolinea/TarjetaModulo"
 import { appButtonClass } from "@/lib/buttonStyles"
 import { traerMejoresPuntajesDeExamen } from "@/services/aerolineas"
@@ -111,20 +112,8 @@ import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
  * donde el ojo cae después del hero.
  */
 
-/**
- * Temas que todavía no tienen contenido, en el orden en que se van abriendo.
- *
- * "Requisitos por aerolínea" salió de esta lista: no está pendiente, ya existe
- * como /app/match ("Para cuál calificas"), que consulta aerolíneas, horas y
- * perfil y calcula exactamente eso. Anunciarlo como futuro y enlazarlo cuarenta
- * píxeles más abajo era la contradicción del hallazgo C5.
- */
-const PROXIMOS: string[] = [
-  "Performance y planificación",
-  "Sistemas y motor a reacción",
-  "Entrevista técnica",
-  "Entrevista HR y CRM",
-]
+/** Temas que todavía no tienen contenido: la lista vive en `carasDeModulo`. */
+const PROXIMOS = TEMAS_EN_CAMINO
 
 /** Rótulo de grupo: el de las portadas de módulo, en Archivo y con aire. */
 const ROTULO =
