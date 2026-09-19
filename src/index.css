@@ -543,23 +543,32 @@
      oklch(1 0 0 / 8%)) y el modo claro no era una opción.
 
      Portado a mano de 3e21bee, de la rama redesign/app-como-el-inicio, que
-     quedó 100 commits atrás y no se puede mergear. */
-  --rail: oklch(0.978 0.004 260);
-  --rail-2: oklch(0.955 0.005 260);
+     quedó 100 commits atrás y no se puede mergear.
+
+     Sigue claro, y ahora habla como los hubs: el rail es el mismo lienzo que
+     el fondo (lo separa el borde) y el ítem activo es una tarjeta blanca
+     apoyada en él, como las tarjetas de cada pantalla. Los grupos llevan el
+     rótulo en Archivo de los hubs, y el único navy es la tarjeta de Pro, el
+     del velo de los heros. */
+  --rail: var(--lienzo);
   --rail-border: oklch(0.9 0.005 260);
-  --rail-text: oklch(0.42 0.01 260);
+  /* 0.36 y no 0.42: el menú se lee de pasada y a 13,5 px el gris claro se
+     quedaba lavado junto al texto de las tarjetas. */
+  --rail-text: oklch(0.36 0.012 260);
   --rail-text-active: oklch(0.2 0.01 260);
   --rail-hover: oklch(0.2 0.01 260 / 5%);
-  --rail-chip-bg: oklch(0.2 0.01 260 / 5%);
-  --rail-chip-text: oklch(0.45 0.01 260);
   /* Encabezado de grupo del menú. Va por debajo de --rail-text a propósito:
      ordena sin competir con los items, que son lo que se clickea. */
-  --rail-section-label: oklch(0.5 0.01 260);
-  /* Activo: tinte azul suave con texto azul, como el desplegable del topbar.
-     Antes era bloque azul al 26% con texto blanco, que en fondo claro gritaba. */
-  --rail-active-bg: color-mix(in oklab, var(--av-blue-500) 12%, transparent);
-  --rail-active-text: oklch(0.48 0.2 264);
+  --rail-section-label: oklch(0.48 0.012 260);
+  /* Activo: la tarjeta blanca, con la sombra y el filo de las tarjetas, y el
+     icono en el azul de la app. Ni el bloque azul con texto blanco de antes,
+     que gritaba, ni solo un tinte, que en el lienzo casi no se veía. */
+  --rail-active-bg: var(--card);
+  --rail-active-shadow: 0 1px 2px rgb(11 27 48 / 8%), 0 0 0 1px oklch(0.9 0.005 260);
+  --rail-active-text: oklch(0.2 0.01 260);
   --rail-active-mark: var(--av-blue-500);
+  /* La tarjeta de Pro: el navy del velo de los heros. */
+  --rail-promo: oklch(0.21 0.035 254);
 
   /* Panel de instrumentos (la fila de indicadores del dashboard).
      Navy en los dos temas a propósito: fondo oscuro con cifra luminosa es la
@@ -595,17 +604,17 @@
    borde de luz que no depende del color de marca. */
 .dark {
   --rail: oklch(0.2 0.03 250);
-  --rail-2: oklch(0.25 0.035 250);
   --rail-border: oklch(1 0 0 / 12%);
-  --rail-text: oklch(0.7 0.025 250);
+  --rail-text: oklch(0.8 0.025 250);
   --rail-text-active: oklch(0.98 0 0);
   --rail-hover: oklch(1 0 0 / 6%);
-  --rail-chip-bg: oklch(1 0 0 / 8%);
-  --rail-chip-text: oklch(0.82 0.02 250);
-  --rail-section-label: oklch(0.74 0.03 250);
-  --rail-active-bg: color-mix(in oklab, var(--av-blue-500) 26%, transparent);
+  --rail-section-label: oklch(0.72 0.03 250);
+  /* En oscuro no hay tarjeta blanca: el activo es una placa de luz con su filo. */
+  --rail-active-bg: oklch(1 0 0 / 9%);
+  --rail-active-shadow: inset 0 0 0 1px oklch(1 0 0 / 8%);
   --rail-active-text: oklch(0.98 0 0);
-  --rail-active-mark: var(--av-blue-400);
+  --rail-active-mark: oklch(0.76 0.11 252);
+  --rail-promo: oklch(0.27 0.04 254);
 
   /* Pares brillantes de los tokens de texto semántico */
   --av-success-fg: var(--av-green-400);
