@@ -102,11 +102,18 @@
     --secondary: oklch(0.97 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.42 0.01 260);
+    /* 0.38 y no 0.42: el texto secundario va casi siempre en 12 y 12,5 px, y a
+       ese tamaño el 0.42 cumplía el contraste pero se leía lavado. */
+    --muted-foreground: oklch(0.38 0.012 260);
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
     --destructive: oklch(0.577 0.245 27.325);
     --border: oklch(0 0 0 / 16%);
+    /* El suelo de las pantallas con sesión. Las tarjetas son blancas, y sobre un
+       fondo también blanco solo las separaba un borde de un píxel: se leían como
+       cajas dibujadas y no como piezas apoyadas. Un gris frío casi imperceptible
+       basta para que cada tarjeta se despegue sin añadir una sola línea. */
+    --lienzo: oklch(0.972 0.004 255);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.54 0.22 264);
     --chart-1: oklch(0.87 0 0);
@@ -136,11 +143,13 @@
     --secondary: oklch(0.269 0 0);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.78 0.01 260);
+    --muted-foreground: oklch(0.83 0.01 260);
     --accent: oklch(0.269 0 0);
     --accent-foreground: oklch(0.985 0 0);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 14%);
+    /* En oscuro las tarjetas ya son más claras que el fondo: el lienzo es el fondo. */
+    --lienzo: var(--background);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
     --chart-1: oklch(0.87 0 0);

@@ -124,7 +124,7 @@ export function AppTopbar({
   return (
     <header
       className="sticky top-0 z-40 h-16 grid grid-cols-[auto_1fr_auto] items-center gap-3 px-5 backdrop-blur-xl border-b border-border"
-      style={{ background: "color-mix(in oklab, var(--background) 96%, transparent)" }}
+      style={{ background: "color-mix(in oklab, var(--lienzo) 96%, transparent)" }}
     >
       {/* === LEFT COLUMN === */}
       <div className="flex items-center gap-3 min-w-0">

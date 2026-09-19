@@ -89,7 +89,7 @@ export function AppLayout() {
 
   return (
     <NotificacionesProvider>
-      <div className="min-h-screen flex bg-background">
+      <div className="min-h-screen flex bg-[var(--lienzo)]">
         {/* Desktop sidebar — slide out if hidden */}
         <div
           className={`hidden lg:flex lg:flex-col lg:fixed lg:inset-y-0 z-30 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${

@@ -51,7 +51,7 @@ export function PanelDelExamen({
   return (
     <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
       <div className="px-4 pb-4 pt-4">
-        <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+        <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/72">
           Tu examen
         </div>
 
@@ -123,7 +123,7 @@ export function PanelDelExamen({
       {fechaLegible && dias !== null && dias >= 0 && !editando && (
         <dl className="m-0 border-t border-white/10 px-4 py-3 text-[12px] leading-[1.5]">
           <div className="flex items-baseline justify-between gap-3">
-            <dt className="text-white/55">Fecha</dt>
+            <dt className="text-white/72">Fecha</dt>
             <dd className="m-0 font-semibold text-white/85">{fechaLegible}</dd>
           </div>
         </dl>

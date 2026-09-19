@@ -137,7 +137,7 @@ export function Aerodinamica() {
   ]
 
   return (
-    <div className="notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1280px] mx-auto">
+    <div className="@container notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1600px] mx-auto">
       <Link
         to="/app/aerolinea"
         className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -291,7 +291,7 @@ export function Aerodinamica() {
 
       {/* Las tres partes */}
       <section className="pt-10">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 @xl:grid-cols-2 @3xl:grid-cols-3">
           {partes.map((p) => (
             <CourseCard key={p.title} {...p} statusLoading={loading} />
           ))}
