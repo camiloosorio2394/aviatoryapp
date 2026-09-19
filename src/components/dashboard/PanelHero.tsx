@@ -98,7 +98,7 @@ export function PanelHero({
               Tu panel
             </span>
             <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
-            <span className="nh-display truncate text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+            <span className="nh-display truncate text-[11px] font-semibold uppercase tracking-[0.16em] text-white/78">
               {etapa}
               {aerolineaObjetivo ? ` · objetivo ${aerolineaObjetivo}` : ""}
             </span>
@@ -117,7 +117,7 @@ export function PanelHero({
                 {accion.rotulo}
               </div>
               <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">{accion.titulo}</div>
-              <div className="mt-0.5 text-[12.5px] text-white/60">{accion.detalle}</div>
+              <div className="mt-0.5 text-[12.5px] text-white/78">{accion.detalle}</div>
             </div>
             <Link
               to={accion.href}
@@ -133,7 +133,7 @@ export function PanelHero({
             resume todo; debajo, en filas, lo que tiene fecha. */}
         <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
           <div className="px-4 pb-4 pt-4">
-            <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+            <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/72">
               Tu avance a aerolínea
             </div>
             {avance === null ? (
@@ -176,7 +176,7 @@ export function PanelHero({
             <dl className="m-0 border-t border-white/10 px-4 py-3 text-[12px] leading-[1.5]">
               {diasAlExamen !== null && (
                 <div className="flex items-baseline justify-between gap-3">
-                  <dt className="text-white/55">Examen PCA</dt>
+                  <dt className="text-white/72">Examen PCA</dt>
                   <dd className="m-0 font-semibold">
                     {diasAlExamen < 0 ? (
                       <Link to="/app/pca" className="text-white/85 underline decoration-white/30 underline-offset-2">
@@ -197,7 +197,7 @@ export function PanelHero({
               )}
               {diasDePrueba !== null && diasDePrueba > 0 && (
                 <div className="mt-1 flex items-baseline justify-between gap-3">
-                  <dt className="text-white/55">Prueba gratuita</dt>
+                  <dt className="text-white/72">Prueba gratuita</dt>
                   <dd className="tabular m-0 font-semibold text-white/85">
                     {diasDePrueba} día{diasDePrueba !== 1 ? "s" : ""}
                   </dd>

@@ -41,7 +41,9 @@ export function Indicadores({ items }: { items: Indicador[] }) {
           <dd className="m-0 mt-2 flex items-baseline gap-1">
             <span
               className="nh-display text-[30px] font-bold leading-none tracking-[-0.03em]"
-              style={{ color: it.aviso ? "var(--av-amber-400)" : "var(--foreground)" }}
+              // --av-warn-fg y no --av-amber-400: el ámbar de relleno como color de
+              // texto daba 1,8:1 sobre blanco, ni el 3:1 del texto grande.
+              style={{ color: it.aviso ? "var(--av-warn-fg)" : "var(--foreground)" }}
             >
               {it.valor ?? "—"}
             </span>

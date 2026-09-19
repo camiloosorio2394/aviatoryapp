@@ -14,7 +14,7 @@ function Rotulo({ ancho }: { ancho: number }) {
 export function DashboardSkeleton() {
   return (
     <div
-      className="@container mx-auto max-w-[1280px] animate-pulse px-5 py-6 pb-16 sm:px-8 sm:py-8"
+      className="@container mx-auto max-w-[1600px] animate-pulse px-5 py-6 pb-16 sm:px-8 sm:py-8"
       aria-busy="true"
       aria-label="Cargando tu panel"
     >

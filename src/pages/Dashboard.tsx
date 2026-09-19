@@ -229,7 +229,7 @@ export function Dashboard() {
 
   if (fallo) {
     return (
-      <div className="px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1280px] mx-auto">
+      <div className="@container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto">
         <EstadoError
           titulo="No pudimos cargar tu panel"
           mensaje="Revisa tu conexión e inténtalo de nuevo. Tu avance está guardado."
@@ -317,7 +317,7 @@ export function Dashboard() {
   const enCurso = modulosEnOrden.find((x) => x.pct > 0 && x.pct < 100)?.m.clave ?? null
 
   return (
-    <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1280px] mx-auto">
+    <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto">
       <PanelHero
         nombre={firstName}
         etapa={stageLabel}

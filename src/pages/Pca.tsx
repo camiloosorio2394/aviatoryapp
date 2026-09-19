@@ -124,7 +124,7 @@ export function Pca() {
       : null
 
   return (
-    <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1280px] mx-auto">
+    <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto">
       {/* El hero de las portadas de módulo: la foto bajo el velo navy, el
           titular en Archivo, la acción del día en su tarjeta de cristal y, a la
           derecha, el panel con la cuenta atrás, que se fija aquí mismo. */}
@@ -152,7 +152,7 @@ export function Pca() {
                 Módulo
               </span>
               <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
-              <span className="nh-display inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+              <span className="nh-display inline-flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/78">
                 <ShieldCheck className="h-3.5 w-3.5" aria-hidden /> Banco oficial Aerocivil
               </span>
             </div>
@@ -173,7 +173,7 @@ export function Pca() {
                 <div className="mt-1.5 text-[15px] font-semibold leading-snug text-white">
                   {examCount} preguntas de todas las materias
                 </div>
-                <div className="mt-0.5 text-[12.5px] text-white/60">
+                <div className="mt-0.5 text-[12.5px] text-white/78">
                   Mezcladas, con la explicación de cada respuesta
                 </div>
               </div>

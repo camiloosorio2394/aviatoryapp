@@ -492,7 +492,7 @@ export function AirlinePrep() {
           `@container`: las rejillas responden al ancho del contenido, no al de
           la ventana. La variable del violeta vive aquí porque solo esta
           pantalla la necesita. */}
-      <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1280px] mx-auto [--psico-acento:oklch(0.45_0.2_295)] dark:[--psico-acento:var(--av-violet-400)]">
+      <div className="notam-hub @container px-5 sm:px-8 py-6 sm:py-8 pb-16 max-w-[1600px] mx-auto [--psico-acento:oklch(0.45_0.2_295)] dark:[--psico-acento:var(--av-violet-400)]">
         {/* El hero de las portadas de módulo, en su versión corta: la foto a
             sangre bajo el velo navy, el titular en Archivo, un solo botón y el
             panel de avance dentro, porque «qué es esto» y «cómo voy» son la
@@ -522,7 +522,7 @@ export function AirlinePrep() {
                   Módulo
                 </span>
                 <span className="hidden h-3 w-px bg-white/20 @md:block" aria-hidden />
-                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                <span className="nh-display text-[11px] font-semibold uppercase tracking-[0.16em] text-white/78">
                   {disponibles} temas abiertos
                 </span>
               </div>
@@ -552,7 +552,7 @@ export function AirlinePrep() {
                   <span className="nh-display block text-[10px] font-semibold uppercase tracking-[0.16em] text-white/40">
                     Espacio reservado
                   </span>
-                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/60">
+                  <span className="mt-1 block text-[13px] font-medium leading-[1.4] text-white/78">
                     IA-VID-01 · Presentación del módulo · ~60 s · con su cartel 16:9
                   </span>
                 </span>
@@ -565,7 +565,7 @@ export function AirlinePrep() {
                 global y por dónde vas en la ruta. */}
             <div className="self-start overflow-hidden rounded-[14px] border border-white/15 bg-[rgba(6,17,31,0.62)] backdrop-blur-[6px] @4xl:self-center">
               <div className="px-3.5 pb-3 pt-3.5">
-                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/55">
+                <div className="nh-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/72">
                   Tu avance
                 </div>
                 {loading ? (
@@ -579,7 +579,7 @@ export function AirlinePrep() {
                       <span className="nh-display tabular text-[23px] font-bold leading-none text-white">
                         {avanceGeneral}%
                       </span>
-                      <span className="text-[11px] text-white/60">de los temas abiertos</span>
+                      <span className="text-[11px] text-white/78">de los temas abiertos</span>
                     </div>
                     <div
                       className="mt-3 h-1 overflow-hidden rounded-sm bg-white/15"
@@ -597,7 +597,7 @@ export function AirlinePrep() {
                   </>
                 )}
                 {!sessionLoading && !user && (
-                  <p className="mt-2 mb-0 text-[10.5px] leading-[1.5] text-white/55">
+                  <p className="mt-2 mb-0 text-[10.5px] leading-[1.5] text-white/72">
                     Inicia sesión para guardar tu avance en la cuenta.
                   </p>
                 )}
@@ -611,7 +611,7 @@ export function AirlinePrep() {
                 <dl className="m-0 border-t border-white/10 px-3.5 py-2.5 text-[11.5px] leading-[1.5]">
                   {PROXIMOS.length > 0 && (
                     <div className="flex items-baseline justify-between gap-3">
-                      <dt className="text-white/55">Tema</dt>
+                      <dt className="text-white/72">Tema</dt>
                       <dd className="tabular m-0 font-semibold text-white/85">
                         {temaActual} de {disponibles + PROXIMOS.length}
                       </dd>
@@ -619,7 +619,7 @@ export function AirlinePrep() {
                   )}
                   {fechaDeUltimaActividad(ultimaActividad) && (
                     <div className="mt-1 flex items-baseline justify-between gap-3">
-                      <dt className="shrink-0 text-white/55">Última actividad</dt>
+                      <dt className="shrink-0 text-white/72">Última actividad</dt>
                       <dd className="m-0 truncate font-semibold text-white/85">
                         {fechaDeUltimaActividad(ultimaActividad)}
                       </dd>

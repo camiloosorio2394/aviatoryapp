@@ -1,6 +1,7 @@
 import type { ComponentType } from "react"
 import { Link } from "react-router-dom"
 import { ArrowRight, CheckCircle2, Star } from "lucide-react"
+import { accentText } from "@/lib/tileColors"
 
 /**
  * Tarjeta de catálogo de curso: miniatura fotográfica teñida con el color del
@@ -147,7 +148,7 @@ export function CourseCard({
         </span>
         {highlight && (
           <span
-            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-semibold text-white shadow-sm"
+            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[12px] font-semibold text-[#2A1B00] shadow-sm"
             style={{ background: "linear-gradient(135deg, oklch(0.8 0.14 85), oklch(0.63 0.15 65))" }}
           >
             <Star className="h-3 w-3 fill-current" /> Popular
@@ -199,7 +200,7 @@ export function CourseCard({
           className={`inline-flex items-center gap-1 font-semibold ${
             densidad === "compacta" ? "mt-3 text-[14px]" : "mt-4 text-[15px]"
           }`}
-          style={{ color: soon ? "var(--muted-foreground)" : color }}
+          style={{ color: soon ? "var(--muted-foreground)" : accentText(color, 55) }}
         >
           {soon ? (
             "En construcción · Muy pronto"

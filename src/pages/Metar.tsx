@@ -175,7 +175,7 @@ export function Metar() {
 
   return (
     <>
-      <div className="px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1280px] mx-auto">
+      <div className="@container px-4 sm:px-7 py-6 sm:py-8 pb-12 max-w-[1600px] mx-auto">
         {/* Mismo control de volver que el hub de NOTAM: un enlace de texto sobre
             el título, no un botón compitiendo con la acción de la página. */}
         <Link
@@ -343,7 +343,7 @@ export function Metar() {
         </section>
 
         <section className="pt-10">
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
             {partes.map((p) => (
               <CourseCard key={p.title} {...p} statusLoading={cargando} />
             ))}

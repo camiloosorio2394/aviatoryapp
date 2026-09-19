@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react"
 import { Link } from "react-router-dom"
 import { ArrowLeft, ArrowRight, Brain, GraduationCap, Target, Timer } from "lucide-react"
 import { Rotulo } from "@/components/ui/rotulo"
+import { accentText } from "@/lib/tileColors"
 import { CourseCard } from "@/components/ui/course-card"
 import type { CourseCardProps } from "@/components/ui/course-card"
 import heroPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
@@ -148,7 +149,7 @@ export function PsicoHub() {
 
   return (
     <>
-      <div className="psico-hub mx-auto max-w-[1280px] px-5 py-9 pb-24 sm:px-8 sm:py-11">
+      <div className="@container psico-hub mx-auto max-w-[1600px] px-5 py-9 pb-24 sm:px-8 sm:py-11">
         <Link
           to="/app/aerolinea"
           className="mb-4 inline-flex items-center gap-1.5 text-[13px] text-muted-foreground transition-colors hover:text-foreground"
@@ -280,7 +281,7 @@ export function PsicoHub() {
           <p className="mt-1.5 max-w-[60ch] text-[15px] text-muted-foreground">
             El orden recomendado es de arriba abajo, pero puedes entrar a cualquiera.
           </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-5 grid gap-4 @xl:grid-cols-2 @5xl:grid-cols-4">
             {partes.map((p) => (
               <CourseCard key={p.to} {...p} />
             ))}
@@ -297,10 +298,10 @@ export function PsicoHub() {
             Subir de nivel no es solo cambiar de ejercicios: es hacer los mismos con menos tiempo.
             En evaluación, el nivel multiplica el reloj.
           </p>
-          <div className="mt-5 grid gap-4 sm:grid-cols-3">
+          <div className="mt-5 grid gap-4 @2xl:grid-cols-3">
             {(["basico", "intermedio", "avanzado"] as const).map((n, i) => (
               <div key={n} className="rounded-[12px] border border-border p-4">
-                <div className="text-[13px] font-semibold" style={{ color: "var(--av-blue-500)" }}>
+                <div className="text-[13px] font-semibold" style={{ color: accentText("var(--av-blue-500)", 60) }}>
                   Nivel {i + 1}
                 </div>
                 <div className="ph-display mt-0.5 text-[15px] font-semibold">
@@ -389,7 +390,7 @@ function FranjaFamilias({
                   Sin intentos
                 </span>
               ) : (
-                <span className="tabular text-[14px]" style={{ color: COLOR_FAMILIA[familia] }}>
+                <span className="tabular text-[14px]" style={{ color: accentText(COLOR_FAMILIA[familia], 55) }}>
                   {acierto}% de acierto
                 </span>
               )}
@@ -422,7 +423,9 @@ function FranjaFamilias({
             <Link
               to={`/app/aerolinea/psicotecnicas/practica?categoria=${familia}`}
               className="mt-3 inline-flex items-center gap-1 text-[13px] font-medium transition-colors hover:underline"
-              style={{ color: COLOR_FAMILIA[familia] }}
+              // El color de la familia es de relleno: sirve para la barra, pero
+              // como texto daba 1,9:1 sobre blanco. Mezclado con la tinta se lee.
+              style={{ color: accentText(COLOR_FAMILIA[familia], 55) }}
             >
               {acierto === undefined ? "Empezar" : "Seguir entrenando"}
               <ArrowRight className="h-3.5 w-3.5" />
