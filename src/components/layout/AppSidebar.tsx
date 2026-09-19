@@ -14,9 +14,8 @@ import {
   Gift,
   GraduationCap,
   User,
-  Timer,
   ArrowRight,
-  ChevronDown,
+  Sparkles,
   X,
   Library as LibraryIcon,
   Video,
@@ -28,16 +27,10 @@ import { LogoIsotype } from "@/components/Logo"
 interface NavItem {
   to: string
   label: string
-  icon: React.ComponentType<{ className?: string; size?: number; style?: React.CSSProperties }>
+  icon: React.ComponentType<{ className?: string; size?: number; strokeWidth?: number; style?: React.CSSProperties }>
   end?: boolean
   /** Módulo en construcción (página placeholder) — muestra chip "Pronto". */
   soon?: boolean
-  /**
-   * Cantidad de contenido publicado en el módulo (catálogo, no progreso del
-   * piloto). Sirve para probar que adentro hay material de verdad.
-   * Si crece el contenido, hay que actualizar el número en esta lista.
-   */
-  count?: number
 }
 
 interface NavSection {
@@ -51,7 +44,8 @@ interface NavSection {
  *
  * "Módulos" es el catálogo académico: los cursos que ofrece Aviatory, y nada
  * más. Es la vitrina del producto, así que cada curso nuevo entra ahí y la
- * lista crece sola.
+ * lista crece sola. Los que todavía no tienen contenido van al final del
+ * grupo con su «Pronto».
  *
  * Todo lo demás son herramientas que operan sobre datos del piloto o de la
  * comunidad. "Qué cayó en el examen" y "Para cuál calificas" parecen contenido
@@ -78,6 +72,10 @@ const navSections: NavSection[] = [
       // categorías, seis todavía vacías— en vez de al tema con los ejercicios.
       // El panorama sigue existiendo, ahora colgando del propio tema.
       { to: "/app/materias", label: "Materias generales", icon: GraduationCap, soon: true },
+      // Entrevistas vivía sola en un grupo plegable «Próximamente». Con un
+      // único módulo, la cabecera del pliegue ocupaba lo mismo que el módulo y
+      // pedía un clic de más para verlo.
+      { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
     ],
   },
   {
@@ -103,14 +101,6 @@ const navSections: NavSection[] = [
   },
 ]
 
-/**
- * Módulos todavía sin contenido. Van juntos al final, en un bloque colapsado,
- * para que el menú real entre completo en la pantalla de un portátil.
- */
-const soonItems: NavItem[] = [
-  { to: "/app/entrevistas", label: "Entrevistas", icon: Video, soon: true },
-]
-
 interface Props {
   onClose?: () => void
   /** When true (mobile drawer), force-expanded; desktop ignores this and uses hover. */
@@ -124,8 +114,18 @@ interface Props {
 }
 
 /**
- * Collapsible icon rail (64px → 240px on hover).
- * Dark navy with blue accent for active state.
+ * La navegación lateral: rail de 64 px que se abre a 240 al pasar el ratón, o
+ * fijo abierto. En el teléfono es el cajón.
+ *
+ * Habla como los hubs: el lienzo de fondo, el ítem activo como una tarjeta
+ * blanca apoyada en él (en oscuro, una placa de luz), los grupos con el rótulo
+ * en Archivo y el único navy en la tarjeta de Pro, el del velo de los heros.
+ * Los colores viven en los tokens `--rail-*`; el componente no sabe en qué
+ * tema está.
+ *
+ * Las filas miden 32 px en escritorio para que el menú entero quepa en un
+ * portátil de 768 px de alto sin desplazarse; en el cajón del teléfono, 44,
+ * que es lo que pide un dedo.
  *
  * Para que el topbar no se interponga con la expansión, el AppLayout consume
  * `onHoverChange` y empuja el contenido principal (incluido el topbar)
@@ -133,8 +133,8 @@ interface Props {
  */
 export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinned = false, onPinChange }: Props) {
   const [hovered, setHovered] = useState(false)
-  const [soonOpen, setSoonOpen] = useState(false)
   const expanded = forceExpanded || pinned || hovered
+  const tactil = forceExpanded
 
   /**
    * Fila de navegación. Cuando el rail está colapsado el nombre viaja en el
@@ -148,59 +148,50 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       end={item.end}
       onClick={onClose}
       title={expanded ? undefined : item.soon ? `${item.label} · Pronto` : item.label}
-      className="group relative flex items-center gap-3 h-10 px-2.5 rounded-lg text-[13px] font-semibold transition-colors hover:bg-[var(--rail-hover)]"
+      className={`group relative flex items-center gap-3 rounded-[10px] px-2.5 font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)] ${
+        tactil ? "h-11 text-[15px]" : "h-8 text-[13.5px]"
+      }`}
       style={({ isActive }) =>
         isActive
           ? {
               color: "var(--rail-active-text)",
               background: "var(--rail-active-bg)",
-              boxShadow: "inset 2px 0 0 var(--rail-active-mark)",
+              boxShadow: "var(--rail-active-shadow)",
+              fontWeight: 600,
             }
-          : { color: "var(--rail-text)" }
+          : // Un módulo sin contenido va en el gris de los rótulos: se ve que
+            // existe y que todavía no es para hoy, y sigue pasando el contraste.
+            { color: item.soon ? "var(--rail-section-label)" : "var(--rail-text)" }
       }
     >
       {({ isActive }) => (
         <>
+          {/* El fondo del hover va en una capa aparte: así no pisa la tarjeta
+              del activo, que lleva su propio fondo en línea. */}
+          {!isActive && (
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-0 rounded-[10px] opacity-0 transition-opacity group-hover:opacity-100"
+              style={{ background: "var(--rail-hover)" }}
+            />
+          )}
           <item.icon
             size={18}
-            className="flex-shrink-0 transition-colors"
-            style={{ color: isActive ? "var(--rail-active-mark)" : "currentColor" }}
+            strokeWidth={isActive ? 2 : 1.75}
+            className="relative flex-shrink-0 transition-colors"
+            style={{
+              color: isActive ? "var(--rail-active-mark)" : "currentColor",
+              // Un módulo sin contenido se ve a media luz en el rail cerrado;
+              // abierto, lo dice su «Pronto».
+              opacity: item.soon && !expanded ? 0.5 : 1,
+            }}
           />
           <span
-            className="whitespace-nowrap overflow-hidden transition-opacity duration-200 flex-1"
+            className="relative min-w-0 flex-1 truncate transition-opacity duration-200"
             style={{ opacity: expanded ? 1 : 0 }}
           >
             {item.label}
           </span>
-          {/* Conteo de contenido publicado (solo expandido) */}
-          {item.count !== undefined && expanded && (
-            <span
-              className="mono tabular-nums flex-shrink-0 text-[12px] font-semibold px-1.5 py-0.5 rounded"
-              style={{
-                color: "var(--rail-chip-text)",
-                background: "var(--rail-chip-bg)",
-                border: "1px solid var(--rail-border)",
-              }}
-            >
-              {item.count}
-            </span>
-          )}
-          {/* Chip "Pronto" para módulos en construcción (solo expandido) */}
-          {item.soon && expanded && (
-            <span
-              className="flex-shrink-0 text-[12px] px-1.5 py-0.5 rounded-md"
-              style={{ color: "var(--rail-section-label)", background: "var(--rail-hover)" }}
-            >
-              Pronto
-            </span>
-          )}
-          {/* Punto indicador "pronto" cuando está colapsado */}
-          {item.soon && !expanded && (
-            <span
-              className="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full"
-              style={{ background: "var(--av-amber-400)" }}
-            />
-          )}
         </>
       )}
     </NavLink>
@@ -216,7 +207,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         setHovered(false)
         onHoverChange?.(false)
       }}
-      className="flex flex-col h-full overflow-hidden"
+      className="flex h-full flex-col overflow-hidden"
       style={{
         width: expanded ? 240 : 64,
         background: "var(--rail)",
@@ -230,12 +221,15 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
         El wordmark "Aviatory" SOLO se muestra en el drawer mobile (forceExpanded)
         donde el topbar no aparece — en desktop el topbar muestra el breadcrumb
         "Aviatory · Sección".
+
+        64 px de alto, los mismos que la barra superior: con 60 los dos filetes
+        quedaban a distinta altura y se veía el escalón.
       */}
       <div
-        className="flex items-center gap-2.5 px-3.5"
-        style={{ height: 60, borderBottom: "1px solid var(--rail-border)" }}
+        className="flex h-16 flex-shrink-0 items-center gap-2.5 px-3.5"
+        style={{ borderBottom: "1px solid var(--rail-border)" }}
       >
-        <Link to="/app" onClick={onClose} className="flex items-center gap-2.5 flex-1 min-w-0">
+        <Link to="/app" onClick={onClose} className="flex min-w-0 flex-1 items-center gap-2.5">
           {/*
             El isotipo va solo: el asset ya trae su propio squircle azul. La caja
             con gradiente que lo envolvía apilaba dos azules y dos radios.
@@ -243,10 +237,9 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
             del rail colapsado (64px).
           */}
           <LogoIsotype variant="color" className="h-9 w-9 flex-shrink-0 rounded-full" />
-          {/* Wordmark solo en mobile drawer */}
           {forceExpanded && (
             <div
-              className="font-semibold text-[17px] tracking-[-0.03em] whitespace-nowrap"
+              className="rotulo whitespace-nowrap text-[18px] font-bold tracking-[-0.02em]"
               style={{ color: "var(--rail-text-active)" }}
             >
               Aviatory
@@ -257,7 +250,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={onClose}
-            className="lg:hidden p-2 -mr-1 transition-colors"
+            className="-mr-1 rounded-lg p-2 transition-colors hover:bg-[var(--rail-hover)] lg:hidden"
             style={{ color: "var(--rail-text)" }}
             aria-label="Cerrar menú"
           >
@@ -269,7 +262,7 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
           <button
             type="button"
             onClick={() => onPinChange(!pinned)}
-            className="hidden lg:inline-flex p-1.5 -mr-1 rounded-md transition-colors hover:bg-[var(--rail-hover)]"
+            className="-mr-1 hidden rounded-md p-1.5 transition-colors hover:bg-[var(--rail-hover)] lg:inline-flex"
             style={{ color: "var(--rail-text)" }}
             aria-label={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
             title={pinned ? "Soltar sidebar (auto-colapsar)" : "Fijar sidebar"}
@@ -280,99 +273,81 @@ export function AppSidebar({ onClose, forceExpanded = false, onHoverChange, pinn
       </div>
 
       {/* Nav — agrupada en secciones */}
-      <nav className="flex-1 px-2.5 pt-2 pb-2 flex flex-col gap-0.5 overflow-y-auto">
+      <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-2.5 pb-3 pt-2 [scrollbar-width:thin]">
         {navSections.map((section, sectionIdx) => (
           <Fragment key={section.label ?? `s-${sectionIdx}`}>
-            {/* Section header — only when expanded; collapsed = subtle divider */}
-            {section.label && (
-              <>
-                {expanded ? (
-                  <div
-                    className="px-2.5 pt-4 pb-1 text-[12px] whitespace-nowrap transition-opacity duration-200"
-                    style={{ color: "var(--rail-section-label)" }}
-                  >
-                    {section.label}
-                  </div>
-                ) : (
-                  <div className="mx-2.5 my-1 border-t" style={{ borderColor: "var(--rail-border)" }} />
-                )}
-              </>
-            )}
+            {/* El rótulo de los hubs; con el rail cerrado, un filete. */}
+            {section.label &&
+              (expanded ? (
+                <div
+                  className={`rotulo whitespace-nowrap px-2.5 text-[10.5px] font-semibold uppercase tracking-[0.16em] ${
+                    tactil ? "pb-2 pt-5" : "pb-1.5 pt-4"
+                  }`}
+                  style={{ color: "var(--rail-section-label)" }}
+                >
+                  {section.label}
+                </div>
+              ) : (
+                <div className="mx-2.5 my-2 h-px flex-shrink-0" style={{ background: "var(--rail-border)" }} />
+              ))}
 
-            {section.items.map(renderItem)}
+            {section.items.filter((i) => !i.soon).map(renderItem)}
+            {/* Lo que todavía no tiene contenido, al final del grupo y bajo su
+                propio rótulo. Con un chip «Pronto» en cada fila el nombre no
+                cabía: «Materias generales» se cortaba en «Materias gen…». */}
+            {expanded && section.items.some((i) => i.soon) && (
+              <div
+                className="rotulo flex items-center gap-2 px-2.5 pb-1 pt-2 text-[9.5px] font-semibold uppercase tracking-[0.14em]"
+                style={{ color: "var(--rail-section-label)" }}
+              >
+                Pronto
+                <span aria-hidden className="h-px flex-1" style={{ background: "var(--rail-border)" }} />
+              </div>
+            )}
+            {section.items.filter((i) => i.soon).map(renderItem)}
           </Fragment>
         ))}
-
-        {/*
-          Próximamente — los módulos sin contenido van juntos y colapsados.
-          Saca 3 filas y un header del nav: el menú entra completo en un
-          portátil y desaparece el scroll interno sin indicio.
-        */}
-        <div className="mt-2 pt-2" style={{ borderTop: "1px solid var(--rail-border)" }}>
-          <button
-            type="button"
-            onClick={() => setSoonOpen((v) => !v)}
-            className="w-full flex items-center gap-3 h-9 px-2.5 rounded-lg text-[12px] transition-colors hover:bg-[var(--rail-hover)]"
-            style={{ color: "var(--rail-section-label)" }}
-            aria-expanded={soonOpen}
-            title={expanded ? undefined : "Próximamente"}
-          >
-            <ChevronDown
-              size={18}
-              className="flex-shrink-0 transition-transform duration-200"
-              style={{ transform: soonOpen ? "none" : "rotate(-90deg)" }}
-            />
-            <span
-              className="flex-1 text-left whitespace-nowrap overflow-hidden transition-opacity duration-200"
-              style={{ opacity: expanded ? 1 : 0 }}
-            >
-              Próximamente
-            </span>
-            <span
-              className="mono tabular-nums flex-shrink-0 text-[12px] transition-opacity duration-200"
-              style={{ opacity: expanded ? 1 : 0 }}
-            >
-              {soonItems.length}
-            </span>
-          </button>
-
-          {soonOpen && <div className="mt-0.5 flex flex-col gap-0.5">{soonItems.map(renderItem)}</div>}
-        </div>
       </nav>
 
-      {/* Pro upgrade */}
-      <div className="p-2.5">
+      {/* Pro: la única pieza navy del rail, la del velo de los heros. */}
+      <div className="flex-shrink-0 p-2.5">
         <Link
           to="/pricing"
-          className="block transition-transform hover:-translate-y-0.5"
+          onClick={onClose}
+          title={expanded ? undefined : "Aviatory Pro · Prueba gratis"}
+          className="group relative block overflow-hidden rounded-xl outline-none transition-transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-[var(--rail-active-mark)]"
           style={{
-            padding: expanded ? 14 : 10,
-            borderRadius: 12,
-            background: "var(--rail-2)",
-            border: "1px solid var(--rail-border)",
+            background: "var(--rail-promo)",
+            boxShadow: "0 1px 2px rgb(11 27 48 / 12%)",
           }}
         >
+          {/* Un brillo azul en la esquina, como la luz de la cabina de los heros. */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-8 -top-10 h-24 w-24 rounded-full opacity-60 blur-2xl"
+            style={{ background: "var(--av-blue-500)" }}
+          />
           {expanded ? (
-            <>
-              <div className="text-[13px] font-semibold" style={{ color: "var(--rail-text-active)" }}>
-                Prueba gratis
+            <div className="relative flex items-center gap-3 px-3 py-2.5">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 whitespace-nowrap text-[13px] font-semibold text-white">
+                  <Sparkles className="h-3.5 w-3.5 flex-shrink-0 text-[#7FB2F2]" aria-hidden /> Aviatory Pro
+                </div>
+                <div className="mt-0.5 whitespace-nowrap text-[12px] leading-snug text-white/75">
+                  Pruébalo gratis · Ver planes
+                </div>
               </div>
-              <div
-                className="mt-0.5 text-[12px] leading-snug"
-                style={{ color: "var(--rail-text)" }}
+              {/* La flecha redonda de las tarjetas de módulo. */}
+              <span
+                aria-hidden
+                className="grid h-8 w-8 flex-shrink-0 place-items-center rounded-full bg-white text-[#0B1B30] transition-transform duration-200 group-hover:translate-x-0.5"
               >
-                Pasa a Pro y desbloquea todo Aviatory.
-              </div>
-              <div
-                className="mt-3 flex items-center justify-center gap-1 w-full h-8 px-3 rounded-lg text-[12px] font-medium text-white"
-                style={{ background: "var(--av-blue-500)" }}
-              >
-                Ver planes <ArrowRight className="h-3 w-3" />
-              </div>
-            </>
+                <ArrowRight className="h-4 w-4" />
+              </span>
+            </div>
           ) : (
-            <div className="flex justify-center">
-              <Timer className="h-[18px] w-[18px]" style={{ color: "var(--rail-text)" }} />
+            <div className="relative flex h-10 items-center justify-center">
+              <Sparkles className="h-[18px] w-[18px] text-[#7FB2F2]" aria-hidden />
             </div>
           )}
         </Link>
