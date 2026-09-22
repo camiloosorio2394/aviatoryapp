@@ -488,15 +488,16 @@ export const NIVEL_1: DocScreen[] = [
         pie: "La letra de clave se obtiene midiendo de una punta de ala a la otra: C cubre de 24 a menos de 36 m; D, de 36 a menos de 52 m; y E, de 52 a menos de 65 m. Esa letra ayuda a dimensionar calles, márgenes y separaciones, pero no garantiza por sí sola que una ruta esté disponible hoy: una restricción publicada o un letrero de envergadura máxima puede exigir otra calle.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-04-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "La tabla entera en dos bloques separados. Izquierda, el número por longitud de campo de referencia: 1 menos de 800 m, 2 de 800 a menos de 1 200, 3 de 1 200 a menos de 1 800, 4 de 1 800 o más. Derecha, la letra por envergadura, de la A a la F, cada una con su silueta de ala. Abajo y aparte, la franja de anchura entre ruedas. Ojo: dentro del bloque de la letra no va ninguna columna de anchura entre ruedas, que es justo el error que la lección corrige.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-04-02-codigo-referencia.webp",
+        alt: "Tabla didáctica del código de referencia del aeródromo: número por longitud de campo de referencia, letra por envergadura y OMGWS como medida independiente",
+        ancho: 1600,
+        alto: 900,
+        pie: "El código tiene dos elementos: el número sale de la longitud de campo de referencia del avión y la letra de la envergadura. La OMGWS (Outer Main Gear Wheel Span), o anchura exterior del tren principal, se verifica aparte para dimensionar calles, curvas y márgenes. Ninguno de estos datos sustituye la distancia disponible, la resistencia del pavimento ni una restricción operacional vigente.",
       },
       {
         kind: "p",
-        text: "El código de referencia del aeródromo combina un número asociado a la longitud de campo de referencia del avión y una letra asociada a su envergadura. Sirve para relacionar el diseño de pistas, calles y separaciones con el avión que se pretende atender; no es por sí solo una autorización operacional. Un aeropuerto 4F puede tener una calle cerrada temporalmente para tu envergadura, de modo que la carta, el aviso vigente y la autorización siguen mandando sobre la etiqueta de diseño.",
+        text: "El código de referencia del aeródromo combina un número asociado a la longitud de campo de referencia del avión y una letra asociada a su envergadura. La anchura exterior del tren principal —OMGWS (Outer Main Gear Wheel Span)— ya no determina esa letra, pero sigue siendo una medida propia para diseñar calles, curvas y márgenes. El código relaciona infraestructura y avión; no autoriza por sí solo una operación. Un aeropuerto 4F puede tener una calle temporalmente limitada a 65 m, de modo que la publicación vigente, el letrero y la autorización de control siguen mandando sobre la etiqueta de diseño.",
       },
       {
         kind: "fichas",
@@ -504,37 +505,51 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "La letra la manda la envergadura",
-            hueco: {
-              id: "AP-04-03",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Tres siluetas genéricas en planta, una debajo de otra, cada una con su cota de punta de ala a punta de ala y su letra al lado: C de 24 a menos de 36 m, D de 36 a menos de 52 m y E de 52 a menos de 65 m, con una escala común al pie. Ojo: la cota no se toma entre motores ni entre trenes, y ninguna silueta lleva librea, logo ni nombre de modelo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-04-03-envergadura-punta-a-punta.webp",
+              alt: "Avión comercial visto desde arriba con una línea menta que mide la envergadura de punta de ala a punta de ala",
             },
-            puntos: ["Desde 2018 depende solo de eso."],
+            puntos: [
+              "La cota se toma entre las dos puntas de ala, no entre motores ni entre trenes.",
+              "Desde la revisión de 2018, la letra del código depende únicamente de la envergadura.",
+              "Una envergadura de 60 m corresponde a la letra E: desde 52 m hasta menos de 65 m.",
+            ],
           },
           {
             titulo: "El tren va aparte",
-            hueco: {
-              id: "AP-04-04",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Arriba, un tren principal de frente con la cota tomada por fuera de las dos ruedas exteriores y líneas de referencia bajando desde el borde de cada neumático. Abajo, el mismo avión en planta sobre una calle, con la cabina encima del eje amarillo continuo y acotada la separación de la rueda exterior al borde del pavimento. Ojo: la cota nunca va entre centros de rueda, y el avión no rueda con las ruedas centradas sino con la cabina sobre la línea.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-04-04-omgws-tren-principal.webp",
+              alt: "Vista superior del tren principal de un avión con la anchura OMGWS medida entre los bordes exteriores de las ruedas",
             },
-            puntos: ["La anchura entre ruedas es parámetro propio."],
+            puntos: [
+              "La OMGWS se mide de borde exterior a borde exterior de las ruedas principales.",
+              "No se mide entre centros de rueda y no cambia la letra asignada por envergadura.",
+              "Durante el rodaje, la cabina sigue el eje; por eso la rueda exterior y el margen de pavimento siguen siendo críticos.",
+            ],
           },
           {
             titulo: "El letrero naranja",
-            hueco: {
-              id: "AP-04-05",
-              medida: "Fotografía · 3:2 · 1200×800",
-              descripcion:
-                "Desde el puesto del piloto, rodando hacia una intersección: el letrero rectangular de lado largo horizontal, negro sobre naranja, retrorreflectante y frangible, legible de punta a punta con el texto «MAX SPAN 65 m», con el borde de la calle y el eje amarillo continuo a la vista. Contorno negro de 20 mm en clave 3 o 4. Ojo: si se produce en estudio es un letrero real fotografiado; un montaje digital sobre una foto genérica no se acepta.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-04-05-letrero-max-span.webp",
+              alt: "Vista desde cabina de un letrero naranja junto a una calle de rodaje con la restricción MAX SPAN 65 m",
             },
-            puntos: ["Negro sobre naranja: restricción temporal en el terreno."],
+            puntos: [
+              "Negro sobre naranja advierte una condición fuera de servicio o una restricción temporal en el área de movimiento.",
+              "MAX SPAN 65 m significa que una aeronave con mayor envergadura no debe continuar por esa ruta.",
+              "El letrero debe estar fuera del pavimento, ser frangible y coincidir con la información publicada.",
+            ],
           },
           {
             titulo: "El aviso publicado manda",
-            puntos: ["Letrero y aviso no pueden contradecirse."],
+            imagen: {
+              src: "/modulos/aeropuertos/ap-04-08-briefing-restriccion.webp",
+              alt: "Dos pilotos revisan antes del vuelo una restricción de envergadura y la ruta alterna publicada para el rodaje",
+            },
+            puntos: [
+              "La tripulación revisa la restricción vigente antes de aceptar la ruta de rodaje.",
+              "La calle afectada, la envergadura máxima y la ruta alterna deben coincidir con el letrero del terreno.",
+              "Si el avión supera el límite o la información no coincide, la ruta se aclara antes de mover la aeronave.",
+            ],
           },
         ],
       },
@@ -545,49 +560,46 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "El aviso de restricción de calle",
-        hueco: {
-          id: "AP-04-06",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "Tableta de frente en el pedestal con un aviso a los navegantes en texto monoespaciado, redibujado: la identificación «A0123/26», la línea «TWY B RESTRINGIDA. MAX SPAN 65 M.», la ruta alterna por la calle C y las horas de inicio y fin de vigencia. La cifra coincide con la del letrero del terreno. Ojo: aeródromo, indicador de lugar y número son ficticios, sin logo de autoridad ni de proveedor.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-04-06-aviso-restriccion-calle.webp",
+          alt: "Tableta de cabina con un aviso operacional que restringe la calle B a una envergadura máxima de 65 m y ofrece la calle C como ruta alterna",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 31,
             que: "Calle afectada",
-            significa: "Dónde aplica.",
-            piloto: "Si no es tuya, sigue.",
+            significa: "TWY B identifica la calle donde aplica la limitación.",
+            piloto: "Confirma que esa calle forma parte de tu autorización de rodaje.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 52,
+            y: 38,
             que: "La restricción",
-            significa: "Envergadura máxima.",
-            piloto: "Compárala con tu avión.",
+            significa: "MAX SPAN 65 M fija la envergadura máxima admisible.",
+            piloto: "Compárala con la envergadura real de tu aeronave, no con su letra de clave.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 58,
+            y: 53,
             que: "Fechas y horas",
-            significa: "Desde cuándo y hasta cuándo.",
-            piloto: "Vencido no restringe.",
+            significa: "Indican el comienzo y el final de la vigencia en UTC.",
+            piloto: "Comprueba la hora operacional; no des por vencido un aviso sin verificar la publicación actual.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 55,
+            y: 47,
             que: "La ruta alterna",
-            significa: "Por dónde sí se puede.",
-            piloto: "Eso pides.",
-          },
-          {
-            x: 0,
-            y: 0,
-            que: "El letrero en el terreno",
-            significa: "Dice lo mismo.",
-            piloto: "Si difieren, pregunta.",
+            significa: "TWY C ofrece una ruta compatible alrededor de la restricción.",
+            piloto: "Solicita y confirma esa ruta antes de desviarte de la autorización recibida.",
           },
         ],
+      },
+      {
+        kind: "p",
+        text: "El aviso publicado aporta alcance, límite y vigencia; el letrero protege el punto donde la restricción se vuelve operativa. Ambos deben contar la misma historia. Si la publicación, el letrero o la autorización de control no coinciden, detén el rodaje en una posición segura y aclara la ruta antes de continuar.",
       },
       {
         kind: "piensaComoPiloto",
@@ -597,14 +609,12 @@ export const NIVEL_1: DocScreen[] = [
         respuesta: "El letrero y el aviso que lo respalda. La clave planifica; la restricción manda hoy.",
         claves: [
           "La letra F cubre de 65 m a menos de 80 m: dice cómo se diseñó el aeródromo, no qué está abierto hoy.",
-          "Negro sobre naranja es zona fuera de servicio: el color que trajo la Enmienda 18.",
-          "El letrero complementa lo publicado y no puede contradecirlo: si difieren, se pregunta.",
+          "Negro sobre naranja identifica una condición fuera de servicio o una restricción temporal del área de movimiento.",
+          "El letrero complementa la publicación vigente; si difieren, detén el rodaje y aclara con control.",
         ],
-        hueco: {
-          id: "AP-04-05",
-          medida: "Fotografía · 3:2 · 1200×800",
-          descripcion:
-            "El mismo letrero de la ficha «El letrero naranja»: rectangular, de lado largo horizontal, negro sobre naranja, retrorreflectante y frangible, con el texto «MAX SPAN 65 m» legible de punta a punta y el eje amarillo de la calle a la vista. Ojo: nada de montajes digitales sobre una foto genérica; si no hay letrero instalado, se fotografía uno real construido con estas medidas.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-04-07-decision-max-span.webp",
+          alt: "Cabina de un avión de 70 m de envergadura ante una señal MAX SPAN 65 m, con la calle C indicada como ruta alterna",
         },
       },
     ],
