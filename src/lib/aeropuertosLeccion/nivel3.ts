@@ -171,12 +171,12 @@ export const NIVEL_3: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-10-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde el puesto de pilotaje, mañana despejada, una unión grande de calles de rodaje de clave 4. Letrero combinado «← N», el emplazamiento «M» en cara negra y «E →», separados por líneas negras verticales. Eje de calle amarillo continuo de 15 cm y, cruzándolo, un punto de espera intermedio de una sola línea de trazos. Carácter de 300 mm, altura instalada máxima de 900 mm. Ojo: el emplazamiento nunca lleva flechas.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-10-01-letreros-informativos.webp",
+        alt: "Vista desde cabina de una intersección con letreros de dirección hacia N y E, emplazamiento M y una espera intermedia",
+        ancho: 1600,
+        alto: 900,
+        pie: "Los paneles amarillos con caracteres negros y flechas anuncian hacia dónde conducen las calles N y E; el panel negro con la letra amarilla confirma que la aeronave está en M y, por eso, no lleva flecha. La línea amarilla discontinua que cruza la calle marca una espera intermedia: si la autorización exige detenerte allí, espera antes de la línea y confirma la ruta antes de escoger una bifurcación.",
       },
       {
         kind: "hueco",
