@@ -29,11 +29,12 @@ export const NIVEL_1: DocScreen[] = [
         pie: "La pista concentra despegues y aterrizajes; las calles conectan sus accesos; la plataforma organiza estacionamiento y servicio; la torre controla el movimiento cuando presta ese servicio. Reconocer las cuatro áreas permite anticipar qué autorización y qué señalización corresponden en cada una.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-01-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta cenital con todo lo que nombra la lección, acotado y rotulado: franja (60 m antes del umbral y, en pista de precisión, 140 m a cada lado del eje), RESA (90 m mínimo, 240 m recomendado), zona libre de obstáculos (75 m a cada lado, 1,25 %), zona de parada con galones, calle de salida rápida (30°, radio 550 m) y puntos de espera en patrón A2. Ojo: las dos continuas del A2 van del lado de espera, nunca mirando a la pista, y no se calca ninguna figura de la OACI.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-01-02-zonas-seguridad.webp",
+        alt: "Vista cenital de una pista 09-27 con la franja, la RESA, la zona de parada, la zona libre, una salida rápida y un punto de espera A2 identificados",
+        ancho: 1600,
+        alto: 901,
+        pie: "La franja rodea la pista y continúa más allá de sus extremos para reducir daños si una aeronave se desvía. Después de esa prolongación comienza la RESA, preparada para disminuir las consecuencias de una salida de pista. La zona de parada es pavimento que puede aumentar la ASDA; la zona libre es un volumen despejado que puede aumentar la TODA, pero no ofrece pavimento para rodar o frenar. En tierra, el patrón A2 marca dónde detenerse y la salida rápida permite abandonar la pista con un ángulo menor.",
       },
       {
         kind: "p",
@@ -45,43 +46,43 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Franja de pista",
-            hueco: {
-              id: "AP-01-03",
-              medida: "Fotografía · 4:3 · 1200×900",
-              descripcion:
-                "Desde el borde de la pista hacia afuera, a la altura de los ojos: el borde del pavimento con su señal blanca, la transición enrasada sin escalón y el terreno nivelado y uniforme que sigue. Al fondo, como único objeto, una luz de borde o una ayuda visual frangible. Ojo: ni vehículos, ni conos, ni vallas, ni postes rígidos dentro de la franja.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-01-03-franja-pista.webp",
+              alt: "Borde de pista con transición enrasada, franja nivelada y una luz frangible señalados en verde menta",
             },
-            puntos: ["Envuelve la pista desde 60 m antes del umbral."],
+            puntos: [
+              "La franja es el terreno nivelado y despejado que envuelve la pista y se prolonga más allá de sus extremos. Se reconoce por la transición enrasada desde el pavimento y por la ausencia de obstáculos rígidos. No es una superficie para rodar: protege a la aeronave si se desvía y facilita el trabajo de los servicios de emergencia.",
+            ],
           },
           {
             titulo: "Área de seguridad de extremo (RESA)",
-            hueco: {
-              id: "AP-01-04",
-              medida: "Fotografía · 4:3 · 1200×900",
-              descripcion:
-                "Desde un dron, mirando el extremo de la pista en el sentido del despegue: el pavimento en el tercio inferior y, más allá, el terreno despejado y preparado, al menos el doble de ancho que la pista, hasta su final visible. Misma hora y misma luz que la foto de la franja. Ojo: nada de antenas, edificios ni carreteras dentro del área, y nunca la sigla «RSA», que no es de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-01-04-resa.webp",
+              alt: "Vista aérea del fin de pista, la prolongación de la franja y la RESA como áreas consecutivas y despejadas",
             },
-            puntos: ["Empieza donde termina la franja."],
+            puntos: [
+              "La RESA comienza después de la prolongación de la franja, no al terminar el asfalto. Es un área preparada y despejada que reduce las consecuencias de un aterrizaje demasiado corto o una salida por el extremo. El piloto no la suma a la LDA ni la usa como pista: su función es mitigar daños.",
+            ],
           },
           {
             titulo: "Zona de parada",
-            hueco: {
-              id: "AP-01-05",
-              medida: "Fotografía · 4:3 · 1200×900",
-              descripcion:
-                "Desde un dron algo oblicuo sobre el extremo de la pista: el pavimento continúa con exactamente la misma anchura de la pista y lleva galones amarillos a 45 grados, de 0,9 m o más de trazo y separados 30 m, con la punta hacia la pista. Ojo: ningún avión rodando sobre los galones y ninguna flecha blanca, que esa es la señal de umbral desplazado.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-01-05-zona-parada.webp",
+              alt: "Zona de parada pavimentada con galones amarillos orientados hacia la pista y límites de ASDA y LDA señalados",
             },
-            puntos: ["Pavimento del ancho de la pista. Suma a la ASDA."],
+            puntos: [
+              "La zona de parada es pavimento del mismo ancho que la pista, identificado aquí por galones amarillos. Puede aumentar la ASDA para detener el avión después de un despegue rechazado, pero no aumenta la LDA ni autoriza a rodar o aterrizar sobre ella.",
+            ],
           },
           {
             titulo: "Zona libre de obstáculos",
-            hueco: {
-              id: "AP-01-06",
-              medida: "Fotografía · 4:3 · 1200×900",
-              descripcion:
-                "Desde un dron sobre el extremo de la pista, mirando hacia afuera: el pavimento apenas asoma abajo y el resto es terreno abierto o agua, sin un solo objeto que sobresalga, con los límites laterales visibles. Llega a 75 m a cada lado del eje prolongado y nada supera el plano del 1,25 %. Ojo: ni pavimento ni galones aquí, que eso es la zona de parada y arruina la comparación.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-01-06-zona-libre.webp",
+              alt: "Zona libre sin pavimento ni obstáculos más allá del fin de pista, con el eje prolongado señalado",
             },
-            puntos: ["No es pavimento: es aire. Suma a la TODA."],
+            puntos: [
+              "La zona libre es un volumen despejado centrado en el eje prolongado; no es una extensión pavimentada. Puede aumentar la TODA porque permite continuar la trayectoria inicial de despegue sin obstáculos, pero no añade superficie para acelerar, frenar o aterrizar.",
+            ],
           },
         ],
       },
@@ -92,47 +93,40 @@ export const NIVEL_1: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Lo que ves al entrar a la pista",
-        hueco: {
-          id: "AP-01-07",
-          medida: "Fotografía · 16:9 · 1600×900",
-          descripcion:
-            "Desde el puesto del piloto, rodando hacia la pista y deteniéndose en el punto de espera: la señal en patrón A2 cruzando la calle (cuatro líneas de 0,30 m y tres espacios de 0,30 m, 2,10 m en total), el letrero blanco sobre rojo a los dos lados, el eje amarillo interrumpido en la señal, la pista al frente y una salida rápida. Ojo: las dos continuas quedan de tu lado y las de trazos miran a la pista, nunca al revés.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-01-07-punto-espera.webp",
+          alt: "Vista desde cabina de un punto de espera A2 con dos líneas continuas del lado del avión, dos discontinuas hacia la pista, letreros 09-27 y una salida rápida",
+          ancho: 1600,
+          alto: 901,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 89,
+            y: 16,
             que: "Salida rápida",
-            significa: "Sale de la pista en ángulo agudo.",
-            piloto: "Libera la pista antes.",
+            significa: "Abandona la pista con un ángulo agudo para reducir el tiempo de ocupación.",
+            piloto: "La usas solo con una autorización compatible y una velocidad segura; no sacrificas control por liberar antes.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 51,
             que: "Punto de espera A2",
-            significa: "Las continuas están de tu lado.",
-            piloto: "Ahí paras.",
+            significa: "Las dos continuas quedan del lado de espera y las dos discontinuas miran hacia la pista.",
+            piloto: "Sin autorización de entrada o cruce, detienes la aeronave antes de la primera línea continua.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 18,
+            y: 38,
             que: "Letrero de designación",
-            significa: "Blanco sobre rojo.",
-            piloto: "Qué pista tienes.",
+            significa: "El fondo rojo con caracteres blancos identifica una instrucción obligatoria y la pista 09-27.",
+            piloto: "Confirma la pista antes de cruzar; una duda exige detenerse y aclarar con ATC.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 76,
+            y: 35,
             que: "Franja",
-            significa: "Terreno enrasado junto al pavimento.",
-            piloto: "No ruedes ahí.",
-          },
-          {
-            x: 0,
-            y: 0,
-            que: "Puesto de estacionamiento",
-            significa: "Separación por letra de clave.",
-            piloto: "Te guían.",
+            significa: "Es el terreno nivelado y despejado que protege los márgenes de la pista.",
+            piloto: "No es una calle de rodaje ni una salida: mantienes la aeronave sobre las superficies publicadas.",
           },
         ],
       },
