@@ -492,18 +492,19 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "En plataforma la línea amarilla guía el eje del avión, pero la geometría se interpreta desde la posición del piloto. La barra de viraje aparece a la altura de la cabina para iniciar el giro y la línea de parada indica dónde detenerte según el tipo de avión o el sistema de atraque. Seguir el eje no garantiza por sí solo separación de punta de ala: también mandan el puesto asignado, la guía visual y el personal de tierra.",
+        text: "En plataforma la línea amarilla guía el avión hacia el puesto, pero no basta con seguirla de forma automática. La barra de viraje se coloca a la altura del piloto izquierdo en el punto donde debe comenzar el giro; la línea de parada también se lee desde esa posición, no desde el morro. Antes de entrar, confirma el puesto y la guía que corresponde a tu aeronave. Durante la maniobra, vigila la separación de alas y sigue el sistema de atraque o las señales del personal de tierra cuando estén presentes.",
       },
       {
         kind: "p",
-        text: "El puesto se lee en siete partes, de la identificación a la salida.",
+        text: "Un puesto puede reunir siete referencias visuales, desde la identificación hasta la salida. No todas aparecen en cada configuración: aprende a reconocer las que realmente estén pintadas y contrástalas con la información del aeropuerto.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-08-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cenital pura de un puesto completo, con los siete elementos rotulados: identificación «2A-B747» dentro de la línea de entrada, línea de entrada, barra de viraje, línea de viraje, barra de alineación, línea de parada y línea de salida. Todo amarillo y de 0,15 m o más; la barra de viraje y la línea de parada, de 6 m o más y en ángulo recto. Una silueta gris marca dónde cae el puesto del piloto izquierdo. Ojo: ninguna línea del puesto en blanco, que eso sería pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-08-02-anatomia-puesto.webp",
+        alt: "Plano técnico de un puesto con identificación, guía de entrada, barra y línea de viraje, alineación, parada y salida",
+        ancho: 1600,
+        alto: 900,
+        pie: "Primero identificas el puesto 2A y sigues la guía de entrada. La barra transversal con flecha indica el inicio del giro; la línea curva conduce a la alineación final y la barra de parada señala dónde debe quedar el piloto izquierdo. La línea de salida solo existe cuando la configuración permite esa maniobra. Las líneas amarillas guían al avión; la roja representa un límite de seguridad para equipos. El sistema de atraque y el procedimiento local siguen siendo decisivos.",
       },
       {
         kind: "fichas",
@@ -511,73 +512,73 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Barra de viraje y línea de parada",
-            hueco: {
-              id: "AP-08-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Dos mitades. A la izquierda, cenital de la silueta del avión sobre el puesto, con dos líneas de mira punteadas que salen del puesto del piloto izquierdo y caen sobre la barra de viraje y sobre la línea de parada, las dos de 6 m o más y en ángulo recto. A la derecha, la misma barra vista desde la ventanilla izquierda a 5 m del suelo, a la altura del hombro. Ojo: nunca alineada con el morro, ni sin punta de flecha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-03-referencia-piloto.webp",
+              alt: "Plano del puesto que distingue la barra de viraje perpendicular a la entrada y la línea de parada perpendicular a la alineación",
             },
-            puntos: ["Van a la altura de tu ventanilla, no del morro."],
+            puntos: [
+              "La barra de viraje es perpendicular a la guía de entrada, lleva una flecha y queda a la altura del piloto izquierdo cuando corresponde iniciar el giro. La línea de parada es perpendicular a la alineación final y queda a la altura del mismo piloto en el punto de detención. Ambas tienen al menos 6 m de longitud y 0,15 m de ancho; si hay varias para distintos aviones, debes seguir la asignada a tu tipo y comprobar la guía de atraque.",
+            ],
           },
           {
             titulo: "Líneas de seguridad",
-            hueco: {
-              id: "AP-08-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el suelo, a 1,6 m de altura, en el borde de un puesto ocupado, mirando a lo largo de la línea de seguridad que corre por delante del ala. Se ven la línea de separación de punta de plano y la de límite de vía de servicio, continuas y de 0,10 m o más, en un color que contrasta con el amarillo del puesto, y un equipo de tierra del lado correcto. Ojo: si salen amarillas se pierde justo lo que la ficha enseña.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-04-lineas-seguridad.webp",
+              alt: "Fotografía de una plataforma con una línea roja continua de seguridad para delimitar el área de equipos",
             },
-            puntos: ["De otro color: hasta ahí llega el ala."],
+            puntos: [
+              "La línea de seguridad de plataforma delimita las zonas previstas para vehículos o equipos y ayuda a mantenerlos separados del avión. Es continua, mide al menos 0,10 m de ancho y tiene un color visible distinto del amarillo de las guías del puesto. Su trazado exacto cambia según la plataforma: no supongas que la punta del ala llega justo a la pintura. Antes de mover el avión, confirma que el área y el camino de las alas estén libres.",
+            ],
           },
           {
             titulo: "Espera en la vía de vehículos",
-            hueco: {
-              id: "AP-08-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde dentro de un vehículo de rampa, a 1,3 m de altura, mirando hacia la entrada de la vía a la pista. La línea de detención cruza el primer tercio del encuadre con la forma que le da el código de tránsito local, con su señal vial al lado, que dice «PARE»; al fondo, el borde de la pista. Ojo: aquí no se pinta el punto de espera patrón A ni B, que es el error que esta ficha existe para evitar.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-05-espera-vehiculo.webp",
+              alt: "Vista desde un vehículo de rampa ante una línea blanca de detención y una señal vial de pare antes de una calle de rodaje",
             },
-            puntos: ["La dibuja el código de tránsito local."],
+            puntos: [
+              "Esta es una espera para vehículos en la vía de servicio, no un punto de espera de aeronaves A2 o B2. En el ejemplo, el conductor encuentra una línea blanca y una señal de «PARE» antes de una calle de rodaje. La forma de la marca y las autorizaciones aplicables dependen de la regulación vial y del procedimiento local del aeropuerto. Como piloto, ten presente que vehículos y equipos pueden cruzar rutas de rodaje y verifica que tu trayectoria esté libre.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Entrando al puesto",
-        hueco: {
-          id: "AP-08-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, por la ventanilla izquierda y el parabrisas, a 5 m del pavimento, con el avión entrando al puesto y la línea de entrada pasando bajo el morro. Se ven la identificación pintada dentro de la línea, la barra de viraje con su punta de flecha entrando por la izquierda, la línea de parada al fondo y al menos una línea de seguridad de color contrastante. Ojo: nada de las dos líneas amarillas de límite de área de no movimiento, que no son de la OACI.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-08-06-reconoce-puesto.webp",
+          alt: "Vista didáctica desde cabina del puesto 2A con identificación, barra de viraje, línea de parada y línea roja de seguridad",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 49,
+            y: 68,
             que: "Identificación",
-            significa: "Dentro de la línea de entrada.",
-            piloto: "Confirma el puesto.",
+            significa: "El 2A pintado sobre la guía indica el puesto al que conduce esta línea.",
+            piloto: "Compruebas que coincide con el puesto asignado y no sigues por error una guía hacia otro puesto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 62,
             que: "Barra de viraje",
-            significa: "A tu ventanilla.",
-            piloto: "Aquí empieza el giro.",
+            significa: "La barra amarilla queda perpendicular a la guía de entrada y su flecha indica el sentido del giro.",
+            piloto: "Inicias el giro cuando queda a la altura del piloto izquierdo, siguiendo la guía y la ayuda de atraque disponible.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 59,
+            y: 50,
             que: "Línea de parada",
-            significa: "En ángulo recto.",
-            piloto: "Cuando la ves, frenas.",
+            significa: "La barra transversal se coloca perpendicular a la alineación final del puesto.",
+            piloto: "Te detienes con el piloto izquierdo a su altura, según la marca del tipo de avión y el sistema de atraque.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 78,
+            y: 49,
             que: "Línea de seguridad",
-            significa: "De otro color.",
-            piloto: "Ahí mandan los equipos de tierra.",
+            significa: "La línea roja contrasta con las guías amarillas y delimita el área prevista para equipos.",
+            piloto: "Verificas que equipos, vehículos y personas no invadan la trayectoria ni el espacio de las alas.",
           },
         ],
       },
@@ -585,19 +586,16 @@ export const NIVEL_2: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Entrando al puesto",
         situacion:
-          "Entras al puesto. Por tu ventanilla izquierda aparece una barra corta con punta de flecha.",
-        pregunta: "¿Qué acabas de pasar y qué haces?",
-        respuesta: "Es la barra de viraje.",
+          "Te aproximas al puesto asignado. A tu izquierda ves una barra amarilla con flecha; la guía principal empieza a curvarse hacia el lugar de estacionamiento.",
+        pregunta: "¿Qué te indica esa barra y desde qué punto decides iniciar el giro?",
+        respuesta: "Es la barra de viraje. Cuando queda a la altura del piloto izquierdo, inicia el giro en el sentido de la flecha y sigue la línea curva. No tomes el morro como referencia ni continúes si la ruta, la separación o la guía de atraque no están claras.",
         claves: [
-          "Va a la altura del piloto izquierdo: ahí empieza el giro.",
-          "La flecha dice hacia dónde.",
+          "La barra es perpendicular a la guía de entrada y su flecha muestra la dirección prevista.",
+          "El puesto asignado, la separación de alas y la ayuda de atraque siguen condicionando la maniobra.",
         ],
-        // Reutiliza la fotografía del «Reconoce».
-        hueco: {
-          id: "AP-08-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Se reutiliza la vista desde la cabina del «Reconoce», con la identificación del puesto, la barra de viraje, la línea de parada al fondo y una línea de seguridad de color contrastante. Ojo: nada de las dos líneas amarillas de límite de área de no movimiento, que no son de la OACI.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-08-07-decision-viraje.webp",
+          alt: "Vista distinta desde el puesto del piloto izquierdo con una barra de viraje amarilla señalada antes de la curva de entrada",
         },
       },
     ],
