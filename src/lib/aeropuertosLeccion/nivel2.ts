@@ -336,11 +336,12 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-07-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina de un avión que rueda, a 5 m sobre el pavimento y con luz de amanecer sobre asfalto húmedo. El eje amarillo continuo bajo el morro, el eje mejorado con doble línea de trazos a cada lado y, a 60 m, el punto de espera patrón A2 de cuatro líneas y 2,10 m de ancho total, con la pista al fondo. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-07-01-punto-espera.webp",
+        alt: "Vista desde una cabina de un eje mejorado y un punto de espera de pista antes de las marcas blancas de la pista",
+        ancho: 1600,
+        alto: 900,
+        pie: "El eje mejorado avisa que te aproximas a un punto de espera, pero no sustituye la autorización ni la carta. En el patrón A2, las dos líneas continuas quedan del lado desde el que llega la aeronave y las dos discontinuas miran hacia la pista. Si no tienes autorización para entrar o cruzar, detén toda la aeronave antes de las continuas: no basta con que el tren de nariz quede detrás.",
       },
       {
         kind: "p",
