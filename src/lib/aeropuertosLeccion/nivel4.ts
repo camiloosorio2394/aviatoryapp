@@ -25,11 +25,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-13-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua desde 800 ft y 2 NM del umbral, noche cerrada, la pista en diagonal. Dos filas de borde blancas parejas, fila verde de umbral, fila roja de extremo al fondo y el eje cambiando de color: blanco hasta 900 m del extremo, rojo y blanco alternados de 900 m a 300 m y rojo en los últimos 300 m, con luces cada 15 m. Al costado, calles de rodaje azules. Ojo: ninguna luz de eje roja al principio de la pista.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-01-luces-pista.webp",
+        alt: "Vista aérea nocturna de una pista con umbral verde, bordes blancos, eje codificado y extremo rojo señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La fila verde identifica el umbral visto desde la aproximación: desde allí comienza la superficie disponible para aterrizar. Las filas blancas laterales muestran los bordes y permiten percibir anchura y alineación. El eje empieza blanco y cambia a rojo y blanco, y después a rojo, para advertir que el extremo se aproxima; la fila roja transversal confirma el final. Si el patrón no coincide con la pista publicada, no acomodes mentalmente las luces: verifica la identificación o frustra la aproximación.",
       },
       {
         kind: "p",
@@ -177,11 +178,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-14-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea inclinada, de noche, sobre un nudo de calles de rodaje entre la plataforma y la pista, sin ciudad de fondo. Ejes verdes dibujando las curvas, bordes azules acompañándolos, un punto de espera con la barra roja cruzada (luces cada 3 m como máximo), un par de amarillas destellando a los lados de esa calle y, al fondo, las blancas de borde de pista. Ojo: ningún patrón de punto de espera A1 ni B1.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-01-luces-rodaje.webp",
+        alt: "Nudo de calles de rodaje nocturno con eje verde, bordes azules, barra de parada roja y luces amarillas de advertencia",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las luces verdes marcan el eje que debes seguir y las azules delimitan los bordes de la calle, pero ninguna sustituye la autorización. Las luces amarillas llaman la atención sobre la proximidad de la pista. La barra roja encendida es una orden visual de detenerse: aunque una transmisión parezca autorizar el cruce, no la atravieses hasta que se apague y la autorización sea inequívoca. Observa también que el eje verde no continúa encendido inmediatamente después de la barra.",
       },
       {
         kind: "p",
@@ -332,11 +334,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 10,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-15-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde el aire, a 400 ft y 1,5 NM del umbral, algo alto respecto de la senda, de noche, con el sistema de aproximación al centro y la pista abriéndose detrás. Eje de 900 m con luces cada 30 m en blanco variable, dos barras transversales a 150 m y a 300 m, las dos filas laterales rojas de los 270 m más cercanos al umbral, la fila verde del umbral y el PAPI a la izquierda con tres blancas y una roja. Ojo: el PAPI no va a la derecha sin justificación.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-15-01-aproximacion-papi.webp",
+        alt: "Aproximación nocturna con sistema de luces, barras transversales, umbral verde y PAPI de tres blancas y una roja",
+        ancho: 1600,
+        alto: 900,
+        pie: "La línea central del sistema de aproximación lleva la mirada hacia el eje antes de que las señales pintadas sean fáciles de distinguir. Sus barras transversales aportan referencias de anchura y distancia, y ayudan a reconocer la estructura del sistema; no son umbrales. La fila verde sí marca el umbral de la pista. A la izquierda, el PAPI muestra tres blancas y una roja: la aeronave está ligeramente alta y el piloto debe corregir de forma estabilizada, comparando la referencia visual con los instrumentos y el procedimiento publicado.",
       },
       {
         kind: "p",
@@ -481,11 +484,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-16-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Noche, plano general desde el suelo a media distancia y cielo limpio. A la izquierda, la torre del faro de aeródromo girando, con un destello verde saliendo hacia la cámara, a 20 a 30 destellos por minuto alternados con blanco. A la derecha y al fondo, una torre alta con al menos tres niveles de luces rojas de destellos de mediana intensidad tipo B, de 20 a 60 por minuto. Entre las dos, la silueta del aeródromo con sus luces de pista. Ojo: el faro de doble destello blanco no es de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-01-faro-obstaculo.webp",
+        alt: "Aeródromo nocturno con faro verde y blanco, y una torre marcada con varios niveles de luces rojas de obstáculo",
+        ancho: 1600,
+        alto: 900,
+        pie: "El faro verde y blanco ayuda a localizar el aeródromo en el entorno nocturno, pero no confirma por sí solo qué pista está disponible ni cuál es su orientación. Las luces rojas distribuidas en varios niveles hacen visible la altura y extensión de la torre: señalan un obstáculo, no una ruta de vuelo. El piloto identifica ambos patrones y los contrasta con la carta, las luces de pista y la autorización antes de tomar una decisión.",
       },
       {
         kind: "p",
@@ -630,11 +634,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-17-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Noche, vista baja y frontal de una pista, con las dos filas de borde blancas perdiéndose al fondo con separación uniforme (dibujar 60 m) y la línea de eje completa. En la fila derecha, un hueco oscuro de dos luces seguidas que rompe la simetría y hace que esa fila se lea torcida. Ojo: dos luces contiguas apagadas no se permiten en ningún nivel de servicio, y ese es justo el problema que la imagen enseña.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-17-01-luces-fuera-servicio.webp",
+        alt: "Pista nocturna con dos luces consecutivas de borde apagadas y la ruptura de continuidad señalada",
+        ancho: 1600,
+        alto: 900,
+        pie: "Una fila de luces funciona como patrón, no como suma de puntos aislados. Dos luces contiguas apagadas crean un hueco que rompe la continuidad y puede deformar la percepción del borde, aunque el porcentaje total de luces en servicio todavía parezca alto. La tripulación no calcula la disponibilidad desde la cabina: confirma la condición mediante ATIS, NOTAM o control y la aplica a los mínimos y procedimientos del operador.",
       },
       {
         kind: "p",

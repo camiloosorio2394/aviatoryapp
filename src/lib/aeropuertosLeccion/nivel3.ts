@@ -312,12 +312,12 @@ export const NIVEL_3: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-11-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista a ras de pasto, al borde de la pista y al atardecer. A la derecha, la manga extendida contra el cielo: cono de tela de 3,6 m o más y 0,9 m de diámetro en la base mayor, cinco bandas alternas con la primera y la última anaranjadas. Alrededor del soporte, la banda circular blanca de 15 m por 1,2 m. Al fondo, un cono y un tablero de franjas. Ojo: ni mangas de tres bandas ni con la primera banda clara.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-11-01-manga-viento.webp",
+        alt: "Manga de viento de cinco bandas junto a una pista, con su boca, dirección y círculo de visibilidad señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La boca ancha de la manga queda hacia el lugar del que viene el viento y la punta se extiende hacia sotavento. Las cinco bandas alternas ayudan a reconocerla desde lejos, mientras el círculo blanco hace visible su emplazamiento desde el aire. La manga aporta una indicación visual inmediata, no una lectura exacta: la tripulación la contrasta con ATIS, torre y los datos de viento disponibles.",
       },
       {
         kind: "hueco",
@@ -451,12 +451,12 @@ export const NIVEL_3: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-12-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde el puesto de pilotaje, gran angular suave, rodando al amanecer por una calle ancha de un aeropuerto latinoamericano grande. El eje amarillo continuo de 15 cm se pierde hacia el horizonte y a lo largo de él se escalonan tres conjuntos de letreros a la izquierda, con uno rojo muy pequeño al fondo. Montaña andina o vegetación tropical. Ojo: nada reconocible, ni libreas, ni matrículas, ni nombres de aeropuerto.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-01-rodaje-secuencia.webp",
+        alt: "Rodaje desde cabina con una secuencia de letreros de emplazamiento, dirección y pista explicados paso a paso",
+        ancho: 1600,
+        alto: 900,
+        pie: "Un rodaje seguro se confirma por etapas. Primero, el panel negro «M» fija tu posición; después, los paneles amarillos con flecha permiten comparar cada giro con la ruta autorizada; finalmente, el letrero rojo «13-31» anuncia el límite protegido de la pista. Si cualquiera de esas tres lecturas no coincide con la carta o la autorización, detén la aeronave antes de improvisar el siguiente movimiento.",
       },
       {
         kind: "hueco",

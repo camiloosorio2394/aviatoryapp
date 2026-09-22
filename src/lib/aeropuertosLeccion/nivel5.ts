@@ -33,11 +33,12 @@ export const NIVEL_5: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-18-01 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina, al atardecer, pavimento húmedo, el cruce de la calle con la pista a unos 60 m. Punto de espera patrón A2 de lado a lado: cuatro líneas de 0,30 m con tres espacios de 0,30 m, 2,10 m en total. Letrero rojo con inscripción blanca, dos pares de luces amarillas destellantes y el eje con señal mejorada. Ojo: las dos continuas van del lado de espera, nunca miran a la pista.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-18-01-incursion-pista.webp",
+        alt: "Vista desde cabina de un punto de espera A2 con letrero 18-36, eje mejorado y luces amarillas de protección",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las dos líneas continuas del patrón A2 quedan del lado desde el que llega la aeronave: sin autorización, todo el avión debe permanecer antes de ellas. Las dos líneas discontinuas miran hacia la pista. El letrero rojo «18-36» confirma qué pista proteges y las luces amarillas refuerzan la advertencia. Si posición, carta, señalización y autorización no coinciden, la defensa correcta contra una incursión es detenerse y aclarar, no continuar mientras se interpreta.",
       },
       {
         kind: "p",
@@ -195,11 +196,12 @@ export const NIVEL_5: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-19-01 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina, de noche y con niebla densa: apenas 100 m de calle por delante. Al fondo, la fila de luces rojas de la barra de parada cruzando la calle entera, separadas 3 m como máximo. Las luces verdes de eje llegan hasta ella y quedan apagadas al menos 90 m más allá. Un par de luces amarillas destellantes a los lados. Ojo: ninguna luz de eje encendida detrás de la barra.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-19-01-baja-visibilidad.webp",
+        alt: "Rodaje nocturno con niebla, barra de parada roja y eje verde apagado más allá del punto de espera",
+        ancho: 1600,
+        alto: 900,
+        pie: "En baja visibilidad, la barra roja encendida es el límite visual que no se cruza. El eje verde guía hasta la barra y queda apagado más allá para evitar que una ruta iluminada parezca autorizar el movimiento. Las luces amarillas llaman la atención sobre el punto protegido. La tripulación continúa solo cuando la autorización es clara, la barra se apaga y la guía luminosa corresponde con la ruta asignada.",
       },
       {
         kind: "p",
@@ -338,11 +340,12 @@ export const NIVEL_5: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-20-01 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina, en corta final, con la pista mojada y agua visible sobre el pavimento, luz de tarde y cielo cargado. Se ven el designador y el umbral, las señales blancas de umbral, la referencia de apuntado y la zona de toma de contacto, y las franjas más limpias que deja el paso de las ruedas. Ojo: nada de logos, matrículas ni pantallas de cabina con datos legibles.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-20-01-pista-mojada.webp",
+        alt: "Pista mojada vista desde corta final con agua, huellas de ruedas y sus tres tercios longitudinales señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "El brillo y el agua visible permiten reconocer una superficie mojada, pero una huella más limpia no demuestra que ese tramo esté seco ni permite asignar un código desde la cabina. El informe divide la pista en tres tercios longitudinales y publica un RWYCC para cada uno. Como el orden se informa desde el designador menor, al operar en el sentido contrario debes invertir mentalmente la secuencia antes de llevarla al cálculo de performance.",
       },
       {
         kind: "p",
@@ -482,11 +485,12 @@ export const NIVEL_5: DocScreen[] = [
     minutes: 10,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-21-01 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el pavimento, gran angular bajo y luz de mañana: el tren principal completo de un avión de fuselaje ancho en primer plano a la izquierda, apoyado sobre un pavimento con junta o sello visible, y al fondo a la derecha, desenfocado, un vehículo de salvamento y extinción de incendios, reconocible por su silueta y su color. Ojo: sin logos de aerolínea, matrículas ni nombres de fabricante en el vehículo.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-01-acr-pcr-rff.webp",
+        alt: "Tren principal de un avión sobre pavimento aeroportuario y un vehículo de salvamento al fondo, con ACR, PCR y categoría RFF señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "El ACR expresa la exigencia que la aeronave impone al pavimento y se compara con el PCR publicado para ese pavimento y las condiciones aplicables; la fotografía no reemplaza esa comprobación documental. La categoría RFF describe el nivel de salvamento y extinción disponible para el tamaño de aeronave previsto. Una pista suficientemente larga todavía puede no ser compatible si falla cualquiera de estas dos verificaciones.",
       },
       {
         kind: "p",
@@ -642,11 +646,12 @@ export const NIVEL_5: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-22-01 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina, en el rollout al atardecer y con pavimento seco: la boca de la calle de salida rápida abriéndose a la derecha en ángulo agudo, entre 25° y 45° y de preferencia 30°, con su eje amarillo continuo arrancando del eje blanco de trazos de la pista y las luces de borde blancas a los lados. Ojo: sin logos, matrículas ni pantallas de cabina con datos legibles.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-22-01-salida-rapida.webp",
+        alt: "Salida rápida a la derecha durante el rollout, con su ángulo aproximado y el punto para confirmar pista libre señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La salida rápida se abre en un ángulo agudo, cercano a 30 grados, para abandonar la pista con menor desaceleración que en una salida perpendicular. Es una opción, no una orden de forzar el frenado: si la velocidad o la autorización no permiten tomarla con seguridad, continúa hasta otra salida. Solo informa pista libre cuando toda la aeronave haya cruzado el límite protegido y la tripulación haya confirmado visualmente su posición.",
       },
       {
         kind: "p",
