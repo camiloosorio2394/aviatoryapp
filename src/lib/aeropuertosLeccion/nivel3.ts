@@ -36,16 +36,24 @@ export const NIVEL_3: DocScreen[] = [
         pie: "Blanco sobre rojo identifica una instrucción obligatoria: el «25-07» confirma que la calle llega al punto protegido de esa pista y no debes cruzarlo sin la autorización correspondiente. Amarillo sobre negro informa tu emplazamiento actual: estás en la calle E. Las dos líneas continuas quedan de tu lado y las dos discontinuas miran hacia la pista; ante cualquier contradicción entre autorización, carta y señalización, detente antes de las continuas y aclara.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-09-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Avión detenido en el punto de espera, mediodía sin contraluz. Cruzando la calle, la A2 de cuatro líneas de 0,30 m y 2,10 m de ancho total; un letrero rojo «25-07» a cada lado y el emplazamiento «E» por fuera. Detrás, la B2 en escalera con «25 CAT II/III», y el eje mejorado, que llega hasta 47 m. Ojo: las continuas de la A2 van del lado de espera, nunca mirando a la pista.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-09-02-punto-espera-a2.webp",
+        alt: "Vista desde cabina de un punto de espera A2 con dos líneas continuas del lado del avión, dos discontinuas hacia la pista y letreros 25-07 a ambos lados",
+        ancho: 1600,
+        alto: 900,
+        pie: "El patrón A2 cruza toda la calle: las dos líneas continuas quedan de tu lado y las dos discontinuas miran hacia la pista. Los letreros rojos «25-07» identifican el punto de espera de esa pista; el panel negro «E» confirma la calle actual. Antes de entrar o cruzar, comprueba que la autorización de control corresponde a la pista y mantén todo el avión antes de las continuas si no la tienes.",
       },
       {
         kind: "p",
-        text: "En los letreros, el fondo rojo identifica una instrucción obligatoria: designa una pista, un punto de espera o un acceso prohibido y exige que la autorización coincida con lo que ves. No se interpreta aislado. Si la ruta autorizada parece llevarte más allá de un letrero rojo que no esperabas, el piloto se detiene antes del punto protegido y aclara la instrucción; no intenta resolver la contradicción mientras sigue rodando.",
+        text: "El fondo rojo con caracteres blancos identifica una instrucción obligatoria. Puede señalar una pista, una posición de espera o una entrada prohibida. Léelo junto con la carta de rodaje y la autorización: si los tres no coinciden, detente antes del punto protegido y aclara la instrucción. No intentes resolver la contradicción mientras sigues rodando.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-09-03-familias-obligatorias.webp",
+        alt: "Nueve ejemplos de letreros obligatorios: pista 25, intersección 25-07, esperas CAT I, II, III y combinadas, entrada prohibida y punto de espera B2",
+        ancho: 1200,
+        alto: 800,
+        pie: "Estas son nueve inscripciones o símbolos de referencia, no nueve pasos sucesivos. «25-07» designa la pista en una intersección; «25 CAT II/III» identifica la posición que protege operaciones de categoría II y III; «B2» puede identificar un punto de espera distinto. CAT viene de Category (categoría). La forma circular con barra blanca prohíbe entrar a esa ruta. En cada caso, identifica qué posición tienes delante y confirma la autorización antes de rebasarla.",
       },
       {
         kind: "fichas",
@@ -53,66 +61,69 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Designación de pista",
-            hueco: {
-              id: "AP-09-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Vista cenital: la pista con «25» a la izquierda y «07» a la derecha, la calle «E» llegando por abajo y la A2 cruzándola. Un letrero rojo «25-07» a cada lado y el emplazamiento «E» en la posición exterior. Flechas finas van del ojo del piloto a cada cabecera. Cotas de 0,30 m y 2,10 m. Ojo: nada de flechas dentro de la cara roja ni de A2 invertida.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-04-designacion-pista.webp",
+              alt: "Plano didáctico de una calle E ante la pista: el letrero 25-07 indica que la dirección de la 25 queda a la izquierda y la de la 07 a la derecha",
             },
-            puntos: ["Si lees `25-07`, la 25 queda a tu izquierda."],
+            puntos: ["En esta intersección, «25-07» sitúa la dirección de la pista 25 a tu izquierda y la 07 a tu derecha. El panel «E» confirma la calle desde la que llegas. Antes de escoger sentido o cruzar, coteja la carta, la ruta autorizada y el punto de espera A2; el letrero no es por sí solo autorización para entrar."],
           },
           {
             titulo: "Punto de espera de la pista",
-            hueco: {
-              id: "AP-09-02",
-              medida: "Fotografía real · 16:9 · 1600×900",
-              descripcion:
-                "La misma foto de la apertura: la A2 cruzando la calle con sus cuatro líneas de 0,30 m, el letrero rojo «25-07» a cada lado y el emplazamiento «E» por fuera. Detrás, la B2 y el letrero «25 CAT II/III». Ojo: las continuas de la A2 van del lado de espera, nunca mirando a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-10-letrero-espera.webp",
+              alt: "Acercamiento fotográfico a los paneles 25-07 en rojo y E en negro junto a un punto de espera de pista",
             },
-            puntos: ["Calle más número, `E2`. Protege el área crítica."],
+            puntos: ["El letrero de designación «25-07» confirma la pista que tienes delante y se coloca junto al punto de espera correspondiente. «E» es tu calle actual, no otra autorización. Una señal roja con calle y número, por ejemplo «B2», identifica una posición de espera distinta que puede proteger una superficie de limitación de obstáculos o el área sensible del ILS (Instrument Landing System)."],
           },
           {
             titulo: "Los CAT",
-            hueco: {
-              id: "AP-09-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Lámina plana con los nueve letreros obligatorios en tres filas de tres, blanco sobre rojo con contorno negro de 20 mm: «25-07», «E2», los cinco de categoría hasta «25 CAT I/II/III», el disco rojo con barra blanca sin texto y el de vía de vehículos, «PARE · NO CONTINUAR SIN AUTORIZACIÓN ATC · E1». Debajo de cada uno, su nombre en español. Ojo: no existe «25-07 CAT II», el de categoría lleva una sola cabecera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-11-cat-ii-iii.webp",
+              alt: "Fotografía cercana de un letrero rojo 25 CAT II/III con caracteres blancos junto a una calle de rodaje",
             },
-            puntos: ["Pista más categoría, `25 CAT II/III`: dice qué operación protege ese punto."],
+            puntos: ["«25 CAT II/III» se lee como una posición de espera para la pista 25 que protege operaciones de categoría II y III. No son dos cabeceras ni una instrucción para entrar: la tripulación debe confirmar la posición publicada, el procedimiento de baja visibilidad y la autorización que le corresponde."],
           },
           {
             titulo: "Prohibida la entrada",
-            hueco: {
-              id: "AP-09-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "De noche, rodando despacio hacia una unión, pavimento húmedo con reflejos. Letrero iluminado de cara roja con un disco rojo y una barra blanca horizontal, sin ninguna letra, y otro igual al otro lado de la calle prohibida. El eje amarillo continuo de la calle por la que sí se sigue. Ojo: el letrero no lleva texto y va a cada lado, nunca uno solo a la izquierda.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-05-prohibida-entrada.webp",
+              alt: "Fotografía nocturna de una rama de rodaje prohibida con señales luminosas de entrada prohibida a ambos lados",
             },
-            puntos: ["Disco rojo con barra blanca, sin texto, a cada lado."],
+            puntos: ["El círculo con barra blanca sobre rojo, sin letras, marca la entrada prohibida. Aquí aparece a ambos lados de la rama cerrada; la línea amarilla conduce por otra calle. Como piloto no tomas esa rama, aunque una autorización parezca apuntar hacia ella: te detienes en un lugar seguro y aclaras la ruta."],
           },
         ],
       },
       {
         kind: "reconoce",
-        titulo: "En el punto de espera",
-        hueco: {
-          id: "AP-09-02",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "La foto de referencia del nivel: el punto de espera completo visto desde cabina, con la A2 cruzando la calle, los dos letreros rojos «25-07», el emplazamiento «E», la B2 en escalera con «25 CAT II/III» y el eje mejorado acercándose. Ojo: las continuas de la A2 van del lado de espera, nunca mirando a la pista.",
+        titulo: "Ante una posición CAT II/III",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-09-08-reconoce-cat.webp",
+          alt: "Vista desde cabina de una posición de espera B2 con marca en escalera y letrero rojo 25 CAT II/III",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
-          { x: 0, y: 0, que: "Cuatro líneas anchas", significa: "Patrón A2.", piloto: "Ahí paras." },
           {
-            x: 0,
-            y: 0,
-            que: "Letrero rojo `25-07`",
-            significa: "Designación de pista.",
-            piloto: "Esa pista tienes enfrente.",
+            x: 35,
+            y: 51,
+            que: "Escalera amarilla",
+            significa: "Es el patrón B2: dos líneas continuas unidas por travesaños, no cuatro líneas A2.",
+            piloto: "Si tu autorización exige esperar aquí, detienes todo el avión antes de la marca.",
           },
-          { x: 0, y: 0, que: "Escalera amarilla atrás", significa: "Patrón B2.", piloto: "Punto de baja visibilidad." },
-          { x: 0, y: 0, que: "Trazos dobles en el eje", significa: "Eje mejorado.", piloto: "Punto de espera a 47 m o menos." },
+          {
+            x: 88,
+            y: 35,
+            que: "25 CAT II/III",
+            significa: "El letrero rojo identifica la pista 25 y la posición que protege operaciones de categoría II y III.",
+            piloto: "Confirmas que es la posición asignada; no la cruzas por asumir que ya puedes llegar al A2.",
+          },
+          {
+            x: 48,
+            y: 60,
+            que: "Eje amarillo",
+            significa: "Te mantiene sobre la ruta de rodaje, pero no sustituye la autorización de control.",
+            piloto: "Sigues el eje solo hasta la posición autorizada y te detienes ante cualquier discrepancia.",
+          },
         ],
       },
       // La comparación de dos imágenes 4:3 y un renglón: dos fichas iguales en
@@ -123,41 +134,37 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Patrón A2",
-            hueco: {
-              id: "AP-09-06",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Vista cenital del punto de espera, con un recuadro de la misma señal vista desde cabina. Cuatro líneas amarillas de 0,30 m con tres espacios de 0,30 m, 2,10 m de ancho total: las dos continuas del lado de espera y las dos de trazos del lado de la pista. Rótulo «A2», cotas y un letrero rojo «25-07» a cada lado. Ojo: ni A1 ni travesaños, y jamás la A2 invertida.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-06-patron-a2.webp",
+              alt: "Plano técnico del patrón A2 con dos líneas continuas del lado de espera y dos discontinuas hacia la pista, junto a un letrero 25-07",
             },
+            puntos: ["A2 tiene cuatro líneas transversales: dos continuas hacia tu avión y dos discontinuas hacia la pista. Identifica el punto de espera asociado con la designación de pista; sin autorización para entrar o cruzar, detén todo el avión antes de las continuas."],
           },
           {
             titulo: "Patrón B2",
-            hueco: {
-              id: "AP-09-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "El mismo dibujo, la misma escala y el mismo ángulo que AP-09-06, para comparar sin mover los ojos. Dos líneas amarillas continuas de 0,30 m separadas 1,5 m, 2,10 m de ancho total, unidas por travesaños de 0,9 m cada 3,0 m: la escalera. Letrero rojo «25 CAT II/III» a cada lado y rótulo «B2». Ojo: nada de patrón B1 ni de cuatro líneas sin travesaños.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-09-07-patron-b2.webp",
+              alt: "Plano técnico del patrón B2 con dos líneas continuas unidas por travesaños junto a un letrero 25 CAT II/III",
             },
+            puntos: ["B2 parece una escalera: dos líneas continuas unidas por travesaños. Cuando protege una aproximación de precisión se acompaña del letrero CAT que corresponde a la posición. Identifica la marca y el letrero, coteja la carta y espera allí si esa es la posición que control te asignó."],
           },
         ],
       },
       {
         kind: "p",
-        text: "Cuatro líneas es A2, el primer punto de espera; la escalera es B2, más atrás.",
+        text: "A2 y B2 no se distinguen solo por estar «más cerca» o «más lejos». A2 son cuatro líneas, con las continuas de tu lado; B2 es una escalera de dos líneas y travesaños que puede proteger el área sensible de la aproximación de precisión. El aeropuerto puede tener ambas posiciones o solo la que aplique a esa intersección. La carta, el letrero y la autorización indican dónde debes detenerte.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En una unión de calles",
-        situacion: "De noche, hacia la 25, ves un disco rojo con barra blanca.",
+        situacion: "Al amanecer, tu ruta de rodaje parece llevarte a una rama con dos letreros rojos de círculo y barra blanca.",
         pregunta: "¿Qué haces?",
         respuesta:
-          "No entras. Es «prohibida la entrada»: por ahí no pasa nadie. Detente y pide encaminamiento.",
-        claves: ["No entras aunque la autorización apunte hacia allá.", "No es un «hold short»."],
-        hueco: {
-          id: "AP-09-05",
-          medida: "Fotografía real · 3:2 · 1200×800",
-          descripcion:
-            "La escena de noche: el letrero iluminado de cara roja con el disco rojo y la barra blanca horizontal, sin ninguna letra, y otro igual al otro lado de la calle prohibida, con el pavimento húmedo y las luces de eje verdes. Ojo: el letrero no lleva texto y va a cada lado, nunca uno solo a la izquierda.",
+          "No tomas esa rama. El símbolo significa «prohibida la entrada», incluso si crees que la autorización apuntaba hacia allí. Detente en un lugar seguro, informa de la discrepancia y confirma otra ruta antes de seguir.",
+        claves: ["El círculo con barra blanca no es una posición de espera que puedas rebasar con otra autorización.", "Aclara la ruta antes de mover el avión."],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-09-09-decision-entrada.webp",
+          alt: "Vista desde cabina de una bifurcación con letreros de entrada prohibida en la rama derecha y la ruta permitida hacia la izquierda",
         },
       },
     ],
