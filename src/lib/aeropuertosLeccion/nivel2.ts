@@ -341,14 +341,15 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Las continuas siempre miran al lado donde esperas.",
+        text: "La regla visual es sencilla: en el patrón A2, las dos líneas continuas quedan del lado desde el que te aproximas y allí debes esperar; las discontinuas quedan hacia la pista. Cuando existe un sistema ILS (Instrument Landing System) puede haber un segundo punto de espera, patrón B2, más alejado para proteger el área crítica. No avances de una señal a otra por intuición: cada cruce requiere que la autorización sea clara y aplicable a tu posición.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-07-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cenital pura, el recorrido entero de izquierda a derecha en el orden en que lo encuentra el avión: punto de espera intermedio de una sola línea de trazos, patrón B2 con «CAT III» al lado, eje mejorado acotado a 47 m, patrón A2 de 2,10 m y señal de instrucción obligatoria blanca sobre rojo. Todo lo de calle en amarillo, todo lo de pista en blanco. Ojo: nada de patrón A1 ni B1, y las continuas van del lado de espera y nunca miran a la pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-07-02-ruta-espera.webp",
+        alt: "Diagrama cenital de una calle de rodaje con punto de espera intermedio, patrón B2, eje mejorado, patrón A2 y pista",
+        ancho: 1600,
+        alto: 900,
+        pie: "Al rodar hacia una pista de precisión puedes encontrar varias referencias, pero no significan lo mismo. La línea discontinua única es un punto de espera intermedio; el patrón B2, parecido a una escalera, protege una posición más alejada; el eje mejorado anuncia que se aproxima el patrón A2; y, en este recorrido, el A2 es el último punto de espera antes de la pista. El amarillo pertenece a la ruta de rodaje; las señales blancas identifican la pista.",
       },
       {
         kind: "fichas",
@@ -356,33 +357,33 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Eje mejorado",
-            hueco: {
-              id: "AP-07-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Setenta metros de calle de rodaje, cenital pura, con la pista entrando por la derecha. Eje continuo amarillo de 0,15 m con la doble línea de trazos a cada lado, acotada a 47 m desde el patrón A2 y alejándose de la pista; un B2 dentro de esos 47 m interrumpe el realce 0,90 m antes y 0,90 m después. El tramo entre el punto de espera y la pista va sin realzar. Ojo: las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-03-eje-mejorado.webp",
+              alt: "Diagrama del eje mejorado con trazos laterales, interrupción en un patrón B2 y terminación en el patrón A2",
             },
-            puntos: ["Trazos a los lados del eje: pista adelante, prepárate."],
+            puntos: [
+              "El eje mejorado añade trazos amarillos a ambos lados del eje continuo y se extiende hasta 47 m desde el patrón A2, alejándose de la pista. Su función es llamar tu atención antes de llegar al punto de espera; no es una autorización para avanzar. Si un B2 queda dentro de ese tramo, el realce se interrumpe alrededor de la señal. Entre el A2 y la pista el eje vuelve a ser sencillo.",
+            ],
           },
           {
             titulo: "Instrucción obligatoria",
-            hueco: {
-              id: "AP-07-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cenital pura, partida en dos. A la izquierda, la instrucción obligatoria «13L-31R» blanca sobre rojo, centrada sobre el eje, en un solo bloque, porque la anchura exterior entre ruedas del tren principal es menor de 9 m; a la derecha, «NO ENTRY». Fondo sobresaliendo 0,50 m del texto, carácter de 4 m y 1 m hasta el punto de espera insinuado al borde. Ojo: nunca a la izquierda del eje, que eso es FAA, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-04-instruccion-obligatoria.webp",
+              alt: "Comparación entre una señal pintada blanca sobre rojo con designadores de pista y la señal NO ENTRY",
             },
-            puntos: ["Blanco sobre rojo: no pasas sin autorización."],
+            puntos: [
+              "Una inscripción blanca sobre fondo rojo transmite una instrucción obligatoria. Los designadores 13L–31R identifican la pista que vas a cruzar o ingresar; NO ENTRY prohíbe continuar por esa superficie. Si la autorización no incluye esa pista, detienes el avión antes de la señal y aclaras la instrucción. El fondo rojo debe sobresalir al menos 0,50 m alrededor del texto para conservar su visibilidad.",
+            ],
           },
           {
             titulo: "Punto de verificación del VOR",
-            hueco: {
-              id: "AP-07-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Rincón de plataforma de hormigón claro, cenital pura, con el punto de verificación en el centro: círculo de 6 m de diámetro y línea de 0,15 m de ancho, bordeado de negro para contrastar. La línea de azimut sale del centro, sobresale 6 m del círculo y termina en punta de flecha; es opcional. Una flecha de norte al margen. Ojo: blanco, nunca amarillo, que el amarillo es de calle de rodaje.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-05-verificacion-vor.webp",
+              alt: "Diagrama de un punto de verificación del VOR con círculo blanco de seis metros y línea de azimut",
             },
-            puntos: ["Círculo blanco de 6 m en la plataforma."],
+            puntos: [
+              "El punto de verificación del VOR (VHF Omnidirectional Range) marca la posición exacta donde se estaciona la aeronave para comprobar la indicación del receptor con datos publicados. El círculo mide 6 m de diámetro y su línea tiene 0,15 m de ancho. La línea de azimut, cuando existe, orienta el avión hacia un rumbo concreto. No improvises valores: usa la ubicación y los datos oficiales del aeródromo.",
+            ],
           },
         ],
       },
@@ -395,63 +396,63 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Punto de espera patrón A2",
-            hueco: {
-              id: "AP-07-06",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad izquierda de la comparación, primer plano cenital de 25 m de calle con el patrón A2 cruzándola de arriba abajo, la pista a la derecha y el lado de espera a la izquierda. Cuatro líneas de 0,30 m y tres espacios de 0,30 m, ancho total 2,10 m, y el eje amarillo cortándose en la señal. Es siempre la señal más cercana a la pista. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-06-patron-a2.webp",
+              alt: "Diagrama cenital del patrón A2 con dos líneas continuas del lado de espera y dos discontinuas hacia la pista",
             },
-            puntos: ["Cuatro líneas, el más cercano a la pista."],
+            puntos: [
+              "El patrón A2 cruza toda la calle con cuatro líneas amarillas: dos continuas del lado de espera y dos discontinuas hacia la pista. Cada línea y cada espacio miden 0,30 m, para un ancho total de 2,10 m. Es el punto de espera más cercano a la pista. Sin autorización para entrar o cruzar, detienes todo el avión antes de las continuas.",
+            ],
           },
           {
             titulo: "Punto de espera patrón B2",
-            hueco: {
-              id: "AP-07-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad derecha, con la misma escala y el mismo encuadre que la izquierda. Patrón B2: dos líneas continuas de 0,30 m separadas 1,50 m, ancho total 2,10 m, unidas por travesaños de 0,90 m cada 3,0 m. La inscripción «CAT III», de letras de 1,80 m o más, va a 0,90 m o menos de la señal y se repite cada 45 m; un A2 se insinúa al fondo. Ojo: nada de patrón B1, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-07-patron-b2.webp",
+              alt: "Diagrama cenital del patrón B2 con dos líneas unidas por travesaños, como una escalera, y la inscripción CAT III",
             },
-            puntos: ["La escalera, siempre detrás."],
+            puntos: [
+              "El patrón B2 parece una escalera: dos líneas continuas de 0,30 m separadas 1,50 m y unidas por travesaños. También mide 2,10 m de ancho, pero aparece en posiciones más alejadas de la pista para proteger el área crítica o sensible de una aproximación de precisión. La inscripción CAT III ayuda a identificar la condición. Si se te indicó esperar allí, no avances hacia el A2 sin una autorización que permita hacerlo.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Una intersección de calle de rodaje y pista de precisión",
-        hueco: {
-          id: "AP-07-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Aérea oblicua desde 120 m, a lo largo de una calle ancha que llega a una pista CAT III, con el recorrido completo: punto de espera intermedio al fondo, patrón B2 con «CAT III», eje mejorado y patrón A2 junto a la pista. Si no se consigue una foto con A2 y B2, se hace como ilustración técnica con el mismo encuadre: mejor una ilustración correcta que una foto con patrones vencidos. Ojo: nada de patrón A1 ni B1, y las continuas van del lado de espera y nunca miran a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-07-08-reconoce-espera.webp",
+          alt: "Fotografía didáctica de una calle de rodaje con eje mejorado, punto de espera intermedio, patrón B2 y patrón A2 antes de una pista",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 67,
             que: "Eje mejorado",
-            significa: "Trazos a los lados.",
-            piloto: "El punto de espera, a 47 m o menos.",
+            significa: "Los trazos amarillos a ambos lados del eje anuncian que te aproximas a un punto de espera de pista.",
+            piloto: "Concentras la atención en la ruta autorizada y te preparas para detenerte en la señal que corresponda.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 45,
+            y: 35,
             que: "Patrón A2",
-            significa: "Las continuas de tu lado.",
-            piloto: "Aquí paras.",
+            significa: "Dos líneas continuas de tu lado y dos discontinuas hacia la pista; es el punto de espera más cercano.",
+            piloto: "Sin autorización para entrar o cruzar, todo el avión permanece antes de las continuas.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 48,
+            y: 54,
             que: "Patrón B2",
-            significa: "La escalera.",
-            piloto: "Protege el área crítica del ILS.",
+            significa: "Dos líneas unidas por travesaños forman la escalera en una posición más alejada.",
+            piloto: "Si tu autorización ordena esperar en B2, te detienes allí para proteger el área del ILS.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 78,
             que: "Punto de espera intermedio",
-            significa: "Una sola línea de trazos.",
-            piloto: "No es pista.",
+            significa: "Una sola línea discontinua transversal sirve para ordenar el tránsito dentro de la calle.",
+            piloto: "No la confundes con A2 o B2; esperas allí cuando control te lo indique.",
           },
         ],
       },
@@ -459,19 +460,16 @@ export const NIVEL_2: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Rodando hacia la pista",
         situacion:
-          "Ruedas hacia la 13L. Cuatro líneas cruzan la calle: las continuas de tu lado. Sin autorización.",
+          "Ruedas hacia la pista 13L. El patrón A2 cruza la calle y las dos líneas continuas están de tu lado. Todavía no tienes autorización para entrar.",
         pregunta: "¿Dónde paras exactamente?",
-        respuesta: "Antes de las continuas, con todo el avión de tu lado.",
+        respuesta: "Te detienes antes de las líneas continuas, dejando todo el avión del lado de espera. La nariz y el tren no son la única referencia: ninguna parte de la aeronave debe sobrepasar el punto de espera sin la autorización correspondiente.",
         claves: [
-          "Las de trazos miran a la pista.",
-          "No estás libre hasta cruzarla entera.",
+          "Las líneas discontinuas del A2 miran hacia la pista; las continuas marcan el lado de espera.",
+          "Para declarar la pista libre al salir, todo el avión debe quedar más allá del punto de espera aplicable.",
         ],
-        // Reutiliza la mitad izquierda de la comparación.
-        hueco: {
-          id: "AP-07-06",
-          medida: "Ilustración técnica · 4:3 · 1200×900",
-          descripcion:
-            "Se reutiliza la lámina del patrón A2: cuatro líneas de 0,30 m y tres espacios de 0,30 m, ancho total 2,10 m, con la pista a la derecha y el lado de espera a la izquierda. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-07-09-decision-espera.webp",
+          alt: "Vista desde cabina hacia una pista con patrón A2 y una indicación de detener todo el avión antes de las líneas continuas",
         },
       },
     ],
