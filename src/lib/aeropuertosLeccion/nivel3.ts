@@ -28,12 +28,12 @@ export const NIVEL_3: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-09-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista desde el puesto de pilotaje, tarde de luz rasante, la calle de rodaje muere contra la pista. Letrero blanco sobre rojo «25-07», carácter de 400 mm y contorno negro de 20 mm; al lado, el emplazamiento «E», amarillo sobre negro. En el suelo la A2: cuatro líneas de 0,30 m, tres espacios de 0,30 m, 2,10 m de ancho, las continuas del lado de espera. Ojo: ni patrón A1 ni A2 invertida.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-09-01-letrero-obligatorio.webp",
+        alt: "Vista desde cabina de un letrero obligatorio de pista 25-07, un letrero de emplazamiento E y un punto de espera A2",
+        ancho: 1600,
+        alto: 900,
+        pie: "Blanco sobre rojo identifica una instrucción obligatoria: el «25-07» confirma que la calle llega al punto protegido de esa pista y no debes cruzarlo sin la autorización correspondiente. Amarillo sobre negro informa tu emplazamiento actual: estás en la calle E. Las dos líneas continuas quedan de tu lado y las dos discontinuas miran hacia la pista; ante cualquier contradicción entre autorización, carta y señalización, detente antes de las continuas y aclara.",
       },
       {
         kind: "hueco",
