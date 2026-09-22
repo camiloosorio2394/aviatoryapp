@@ -493,11 +493,12 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-08-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Aérea oblicua desde 80 m de un puesto de estacionamiento con el avión entrando, de tres cuartos por delante y con luz de atardecer sobre hormigón claro. Delante del avión se ven completas la línea de entrada, la barra de viraje con su punta de flecha, la línea de viraje, la barra de alineación y la línea de parada, amarillas y de 0,15 m o más, con las líneas de seguridad de otro color alrededor. Ojo: ninguna señal blanca de pista en la plataforma.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-08-01-puesto-plataforma.webp",
+        alt: "Avión entrando a un puesto de estacionamiento con la línea de entrada, el inicio del giro, la alineación y la línea de parada señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La línea amarilla de entrada guía el tren de nariz, pero cada marca se interpreta desde la posición del piloto. La barra con flecha indica cuándo iniciar el giro; la línea curva conduce hacia la alineación final y la línea transversal marca la detención prevista para el puesto o tipo de aeronave. Mantener el tren sobre la guía no garantiza por sí solo la separación de alas: también debes seguir el sistema de atraque, las señales del personal de tierra y las limitaciones del puesto asignado.",
       },
       {
         kind: "p",
