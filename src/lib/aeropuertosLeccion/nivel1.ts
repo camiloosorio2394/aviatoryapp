@@ -34,7 +34,7 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Vista cenital de una pista 09-27 con la franja, la RESA, la zona de parada, la zona libre, una salida rápida y un punto de espera A2 identificados",
         ancho: 1600,
         alto: 901,
-        pie: "La franja rodea la pista y continúa más allá de sus extremos para reducir daños si una aeronave se desvía. Después de esa prolongación comienza la RESA, preparada para disminuir las consecuencias de una salida de pista. La zona de parada es pavimento que puede aumentar la ASDA; la zona libre es un volumen despejado que puede aumentar la TODA, pero no ofrece pavimento para rodar o frenar. En tierra, el patrón A2 marca dónde detenerse y la salida rápida permite abandonar la pista con un ángulo menor.",
+        pie: "La franja rodea la pista y continúa más allá de sus extremos para reducir daños si una aeronave se desvía. Después de esa prolongación comienza la RESA (Runway End Safety Area), el área preparada para disminuir las consecuencias de una salida por el extremo. La zona de parada es pavimento que puede aumentar la ASDA (Accelerate-Stop Distance Available); la zona libre es un volumen despejado que puede aumentar la TODA (Take-Off Distance Available), pero no ofrece pavimento para rodar o frenar. En tierra, el patrón A2 marca dónde detenerse y la salida rápida permite abandonar la pista con un ángulo menor.",
       },
       {
         kind: "p",
@@ -55,13 +55,13 @@ export const NIVEL_1: DocScreen[] = [
             ],
           },
           {
-            titulo: "Área de seguridad de extremo (RESA)",
+            titulo: "RESA (Runway End Safety Area)",
             imagen: {
               src: "/modulos/aeropuertos/ap-01-04-resa.webp",
               alt: "Vista aérea del fin de pista, la prolongación de la franja y la RESA como áreas consecutivas y despejadas",
             },
             puntos: [
-              "La RESA comienza después de la prolongación de la franja, no al terminar el asfalto. Es un área preparada y despejada que reduce las consecuencias de un aterrizaje demasiado corto o una salida por el extremo. El piloto no la suma a la LDA ni la usa como pista: su función es mitigar daños.",
+              "La RESA (Runway End Safety Area), o área de seguridad de extremo de pista, comienza después de la prolongación de la franja, no al terminar el asfalto. Es un área preparada y despejada que reduce las consecuencias de un aterrizaje demasiado corto o una salida por el extremo. El piloto no la suma a la LDA (Landing Distance Available) ni la usa como pista: su función es mitigar daños.",
             ],
           },
           {
@@ -71,7 +71,7 @@ export const NIVEL_1: DocScreen[] = [
               alt: "Zona de parada pavimentada con galones amarillos orientados hacia la pista y límites de ASDA y LDA señalados",
             },
             puntos: [
-              "La zona de parada es pavimento del mismo ancho que la pista, identificado aquí por galones amarillos. Puede aumentar la ASDA para detener el avión después de un despegue rechazado, pero no aumenta la LDA ni autoriza a rodar o aterrizar sobre ella.",
+              "La zona de parada es pavimento del mismo ancho que la pista, identificado aquí por galones amarillos. Puede aumentar la ASDA (Accelerate-Stop Distance Available), la distancia disponible para acelerar y detenerse después de un despegue rechazado. No aumenta la LDA (Landing Distance Available) ni autoriza a rodar o aterrizar sobre ella.",
             ],
           },
           {
@@ -81,7 +81,7 @@ export const NIVEL_1: DocScreen[] = [
               alt: "Zona libre sin pavimento ni obstáculos más allá del fin de pista, con el eje prolongado señalado",
             },
             puntos: [
-              "La zona libre es un volumen despejado centrado en el eje prolongado; no es una extensión pavimentada. Puede aumentar la TODA porque permite continuar la trayectoria inicial de despegue sin obstáculos, pero no añade superficie para acelerar, frenar o aterrizar.",
+              "La zona libre es un volumen despejado centrado en el eje prolongado; no es una extensión pavimentada. Puede aumentar la TODA (Take-Off Distance Available), la distancia disponible para despegar, porque permite continuar la trayectoria inicial sin obstáculos. No añade superficie para acelerar, frenar o aterrizar.",
             ],
           },
         ],
@@ -135,7 +135,7 @@ export const NIVEL_1: DocScreen[] = [
         momento: "Pasado el extremo de la pista",
         situacion: "Pasado el extremo ves 200 m de pavimento con galones amarillos.",
         pregunta: "¿Cuentas con ellos para frenar al aterrizar?",
-        respuesta: "No. Si es zona de parada, suma a la ASDA, y a la LDA nunca.",
+        respuesta: "No. Si es zona de parada, suma a la ASDA (Accelerate-Stop Distance Available), pero nunca a la LDA (Landing Distance Available).",
         claves: [
           "Tiene la misma anchura que la pista y aguanta el avión en un despegue abortado.",
           "Los galones dicen que ese pavimento no se usa para rodar ni para aterrizar.",
@@ -152,11 +152,9 @@ export const NIVEL_1: DocScreen[] = [
   },
 
   // ── 02 ──────────────────────────────────────────────────────────────────
-  // Las ocho imágenes de esta lección se redibujan desde cero con los datos
-  // publicados del AIP: el dato es un hecho, el dibujo es obra de alguien. Por
-  // eso cada hueco repite la prohibición en su descripción, que es donde la lee
-  // quien genera la imagen. Nada de Jeppesen, nada de Lido, ninguna figura de
-  // un documento de la OACI, y tampoco diagramas de aeropuerto de la FAA.
+  // Las cartas y las tablas de esta lección proceden de la publicación oficial
+  // vigente de Aerocivil. Los dos patrones de señal se explican con fotografías
+  // didácticas porque la carta muestra su ubicación, no su geometría de cerca.
   {
     n: 2,
     title: "La carta y el AIP",
@@ -169,14 +167,15 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Mesa de preparación con una carta de aeródromo en una tableta y la sección AIP AD 2 en papel, identificadas con flechas en verde menta",
         ancho: 1600,
         alto: 900,
-        pie: "La carta de aeródromo te orienta espacialmente: muestra la pista, las calles de rodaje y la plataforma para que puedas construir la ruta en tierra. La sección AD 2 del AIP completa esa imagen con datos publicados como dimensiones, distancias declaradas, luces y procedimientos. En un briefing profesional no se elige una u otra: se consultan juntas.",
+        pie: "La carta de aeródromo te orienta espacialmente: muestra pistas, calles de rodaje y plataformas para que puedas anticipar la ruta en tierra. La sección AD 2 (Aerodromes) del AIP (Aeronautical Information Publication) completa esa imagen con dimensiones, resistencia del pavimento, distancias declaradas, luces y procedimientos. En un briefing profesional no se elige una u otra: se consultan juntas y se confirma que la enmienda esté vigente.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-02-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Seis hojas en abanico, cada una reconocible: planta del aeródromo, área de rodaje con dos círculos de punto crítico, plataforma con puestos numerados, hoja partida en planta y perfil con el recuadro de las cuatro distancias, perfil de terreno con curvas de nivel y una pantalla con malla de datos. Debajo de cada hoja, su nombre. Ojo: las seis se dibujan desde cero, sin calcar ni recortar cartas de Jeppesen o de Lido ni figuras de la OACI.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-02-02-cartas-oficiales.webp",
+        alt: "Seis extractos reales de publicaciones oficiales de Aerocivil: carta de aeródromo, movimiento en tierra, estacionamiento, obstáculos, terreno de precisión y ficha AD 2",
+        ancho: 1600,
+        alto: 900,
+        pie: "Fuente visual: Aerocivil, eAIP (Electronic Aeronautical Information Publication) Colombia, AIRAC (Aeronautical Information Regulation and Control) AMDT 72/26, vigente desde el 9 de julio de 2026. Cada publicación responde una pregunta distinta: la carta de aeródromo da la vista general; el plano de movimiento amplía calles y puntos críticos; el de estacionamiento ubica puestos y guías; la carta de obstáculos combina planta y perfil; la topográfica de precisión muestra el terreno en la aproximación; y la ficha AD 2 reúne los datos operativos. Primero eliges la publicación según la decisión que necesitas tomar y después confirmas que siga vigente.",
       },
       {
         kind: "p",
@@ -188,85 +187,104 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Carta de aeródromo",
-            hueco: {
-              id: "AP-02-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "La hoja completa de frente: planta con pista, designadores, calles y plataforma; nortes verdadero y magnético; escala lineal; tabla lateral con umbral, elevación, resistencia, dimensiones, distancias declaradas, RESA y franja; punto de referencia, frecuencias y pie de unidades. Ojo: se redibuja desde cero con datos genéricos, porque está prohibido recortar o calcar una carta de Jeppesen, de Lido o de un AIP.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-03-carta-aerodromo-oficial.webp",
+              alt: "Carta oficial de aeródromo de SKBO con la hoja completa, la tabla superior y la planta ampliada",
             },
-            puntos: ["La principal: del puesto a la pista."],
+            puntos: [
+              "La carta oficial de aeródromo muestra la configuración general, las pistas, las calles, las plataformas y las distancias publicadas. La reconoces por la planta completa, la escala, el norte y las tablas que acompañan el plano. Úsala para construir una imagen general del aeropuerto; si una calle o un puesto queda demasiado pequeño, pasa al plano específico en vez de adivinar.",
+            ],
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta de aeródromo SKBO, AIRAC AMDT 72/26.",
           },
           {
             titulo: "Plano de movimientos en tierra",
-            hueco: {
-              id: "AP-02-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Recorte del área de rodaje: calles con designador, puntos de espera en patrón A2 en cada entrada a la pista, un punto de espera intermedio de una sola línea de trazos, dos círculos de punto crítico rotulados «HS 1» y «HS 2» y su tabla al pie. Ojo: dibujo propio, sin calcar cartas de Jeppesen ni de Lido ni diagramas de la FAA, y con las dos continuas del A2 del lado de espera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-04-movimiento-tierra-oficial.webp",
+              alt: "Plano oficial de movimiento en tierra de SKBO, configuración oriente, con calles, puntos de espera y puntos críticos",
             },
-            puntos: ["Cuando el rodaje no cabe en la anterior."],
+            puntos: [
+              "El plano de movimiento en tierra amplía la red de calles, los puntos de espera y los HS (Hot Spots), o puntos críticos. Se reconoce porque el rodaje ocupa el centro de la hoja y los HS aparecen identificados en el plano y explicados en una tabla. Se estudia antes de arrancar: durante el rodaje se confirma la autorización, la señalización exterior y la posición, sin intentar aprender la ruta con la aeronave en movimiento.",
+            ],
+            nota: "Fuente: Aerocivil, eAIP Colombia, plano de movimiento en tierra SKBO, AIRAC AMDT 72/26.",
           },
           {
             titulo: "Plano de estacionamiento y atraque",
-            puntos: ["Puestos, guías y atraque."],
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-09-estacionamiento-atraque-oficial.webp",
+              alt: "Plano oficial de estacionamiento y atraque de la Terminal 1 de SKBO, con puestos, calles de acceso y guías de entrada",
+            },
+            puntos: [
+              "El plano de estacionamiento y atraque amplía la plataforma hasta mostrar puestos, calles de acceso y guías de entrada. Lo reconoces por la numeración detallada de posiciones y por la silueta de la terminal. Sirve para anticipar por dónde entrar al puesto y qué referencias buscar; la autorización de ATC y la guía del sistema de atraque o del señalero siguen teniendo prioridad sobre la interpretación del plano.",
+            ],
+            nota: "Fuente: Aerocivil, eAIP Colombia, plano de estacionamiento y atraque de aeronaves de la Terminal 1 de SKBO, AIRAC AMDT 72/26.",
           },
           {
             titulo: "Carta de obstáculos tipo A",
-            hueco: {
-              id: "AP-02-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "La hoja partida en dos bandas alineadas por el eje: arriba el perfil, con el plano del 1,2 % saliendo del extremo de pista y dos o tres obstáculos que lo penetran, acotados; abajo la planta, con el área de trayectoria de despegue abriéndose desde 180 m a razón de 0,25 D. Retícula, escalas y el recuadro TORA, TODA, ASDA y LDA. Ojo: se redibuja entera, sin recortar ni calcar la carta tipo A de ningún AIP ni figuras de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-05-obstaculos-tipo-a-oficial.webp",
+              alt: "Carta oficial de obstáculos tipo A para la pista 14L-32R de SKBO, con perfil superior y planta inferior",
             },
-            puntos: ["Una por pista, con las distancias declaradas."],
+            puntos: [
+              "La carta de obstáculos tipo A combina un perfil lateral con una planta de la trayectoria de despegue. Se reconoce por la superficie de pendiente, los obstáculos acotados y el recuadro de TORA (Take-Off Run Available), TODA (Take-Off Distance Available), ASDA (Accelerate-Stop Distance Available) y LDA (Landing Distance Available). Sirve para entender qué obstáculo limita la salida; el cálculo final se hace con la documentación operacional aprobada de la aeronave y los datos vigentes.",
+            ],
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta de obstáculos tipo A SKBO 14L-32R, AIRAC AMDT 72/26.",
           },
           {
             titulo: "Carta topográfica de precisión",
-            puntos: ["Solo categorías II y III."],
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-10-topografica-precision-oficial.webp",
+              alt: "Carta topográfica oficial de aproximación de precisión para las pistas 14L y 32R de SKBO",
+            },
+            puntos: [
+              "La carta topográfica de aproximación de precisión representa el perfil del terreno y las alturas alrededor del eje final. La reconoces por la vista en planta, el perfil longitudinal y las curvas de nivel. Apoya el estudio y la certificación de aproximaciones de precisión, especialmente categorías II y III; no reemplaza la carta de aproximación instrumental que la tripulación utiliza para volar el procedimiento.",
+            ],
+            nota: "Fuente: Aerocivil, eAIP Colombia, carta topográfica de aproximación de precisión SKBO 14L-32R, AIRAC AMDT 72/26.",
           },
           {
             titulo: "Carta electrónica de terreno y obstáculos",
-            puntos: ["Datos, no hoja."],
+            puntos: [
+              "No siempre aparece como una hoja lista para imprimir. Es un conjunto digital de datos de terreno y obstáculos que alimenta sistemas autorizados y análisis operacionales. Por eso no debes confundir una captura de pantalla con la fuente oficial: se consulta mediante la publicación o el sistema aprobado, se comprueba su vigencia y se usa solo dentro del alcance para el que fue emitido.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "La ficha AD 2 del AIP",
-        hueco: {
-          id: "AP-02-06",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "Facsímil redibujado de una página del AIP, a dos idiomas, con cuatro bloques titulados en orden: características físicas de la pista, distancias declaradas, luces y procedimientos de vuelo. La tabla de distancias lleva TORA 3 800, TODA 4 100, ASDA 3 800 y LDA 3 800, y la celda de resistencia, PCR 980/F/C/X/T. Ojo: la página se dibuja desde cero; el dato es un hecho publicado, pero la maquetación del AIP no se fotografía ni se recorta.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-02-06-ficha-ad2-oficial.webp",
+          alt: "Cuatro extractos reales de la ficha AD 2 de SKBO: características físicas, distancias declaradas, luces y procedimientos de vuelo",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 24,
+            y: 23,
             que: "AD 2.12",
-            significa: "Características físicas y resistencia del pavimento.",
-            piloto: "El código que cumples.",
+            significa: "Características físicas de las pistas, dimensiones, superficie y PCR (Pavement Classification Rating).",
+            piloto: "Compruebas que la pista y su resistencia sean compatibles con la operación prevista.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 75,
+            y: 23,
             que: "AD 2.13",
-            significa: "Distancias declaradas.",
-            piloto: "Cuatro cifras por cabecera.",
+            significa: "Distancias declaradas por cabecera: TORA, TODA, ASDA y LDA.",
+            piloto: "Tomas las cifras vigentes para el cálculo; no las deduces midiendo el dibujo.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 24,
+            y: 68,
             que: "AD 2.14",
             significa: "Luces de aproximación y de pista.",
-            piloto: "Qué verás.",
+            piloto: "Anticipas qué ayudas visuales existen y confirmas cualquier degradación en los NOTAM.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 75,
+            y: 68,
             que: "AD 2.22",
             significa: "Procedimientos de vuelo.",
-            piloto: "La baja visibilidad.",
+            piloto: "Revisas procedimientos locales, mínimos de despegue y condiciones de baja visibilidad que afectan la operación.",
           },
         ],
       },
@@ -276,29 +294,29 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "Patrón A2",
-            hueco: {
-              id: "AP-02-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Recorte en planta de una carta redibujada: la calle llega a la pista, que entra por arriba, y la señal de punto de espera la cruza en patrón A2, cuatro líneas de 0,30 m con tres espacios de 0,30 m, 2,10 m acotados. Eje amarillo interrumpido y letrero blanco sobre rojo a los dos lados. Ojo: las de trazos arriba, del lado de la pista, y las continuas abajo; nada de A1, de B1 ni de calcos de cartas comerciales o de figuras de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-07-patron-a2.webp",
+              alt: "Fotografía didáctica del patrón A2 con dos líneas continuas del lado de espera y dos discontinuas hacia la pista",
             },
-            puntos: ["El más cercano a la pista. Cuatro líneas de 0,30 m con tres espacios de 0,30 m."],
+            puntos: [
+              "El patrón A2 marca el punto de espera asociado a la pista. Lo reconoces por cuatro líneas amarillas: dos continuas del lado donde debes detenerte y dos discontinuas hacia la pista. Sin autorización para entrar o cruzar, paras antes de la primera línea continua y confirmas que toda la aeronave permanezca fuera del área protegida.",
+            ],
           },
           {
             titulo: "Patrón B2",
-            hueco: {
-              id: "AP-02-08",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mismo encuadre y misma escala que el A2, pero con dos puntos de espera en la misma calle: el A2 pegado a la pista y el B2 más atrás, dibujado como escalera de dos líneas continuas de 0,30 m separadas 1,50 m y unidas por travesaños de 0,9 m cada 3,0 m, 2,10 m en total. Ojo: nada de A1, de B1 ni de la escalera de 0,6 m, y ningún calco de Jeppesen, de Lido ni de figuras de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-02-08-patron-b2.webp",
+              alt: "Fotografía didáctica del patrón B2 en forma de escalera, situado más lejos de la pista",
             },
-            puntos: ["El más alejado. Dos líneas continuas separadas 1,50 m, unidas por travesaños."],
+            puntos: [
+              "El patrón B2 es una marca intermedia en forma de escalera: dos líneas continuas unidas por travesaños. Puede proteger una zona sensible o definir un punto de espera más alejado que el A2. Si la autorización termina allí, no continúas por intuición aunque la pista todavía se vea lejos; te detienes antes de la marca y aclaras cualquier duda con ATC (Air Traffic Control).",
+            ],
           },
         ],
       },
       {
         kind: "definicion",
-        text: "El A2 son cuatro líneas; el B2 es la escalera de más atrás.",
+        text: "A2: dos continuas y dos discontinuas junto a la pista. B2: dos continuas unidas como escalera en un punto más alejado.",
       },
       {
         kind: "piensaComoPiloto",
@@ -307,15 +325,13 @@ export const NIVEL_1: DocScreen[] = [
         pregunta: "¿Cuándo se revisa eso?",
         respuesta: "En el briefing, antes de arrancar. Rodando, los ojos van afuera.",
         claves: [
-          "El círculo solo rodea la ubicación y le pone identificador: no explica nada por sí mismo.",
-          "Lo que significa cada identificador está en la tabla de la misma hoja.",
+          "HS significa Hot Spot: el círculo ubica el punto crítico, pero la razón del riesgo está en la tabla de la misma hoja.",
+          "Se revisa antes de arrancar qué conflicto existe y cuál es la ruta prevista para cruzarlo sin improvisar.",
           "Si el rodaje no cabe en la carta de aeródromo, esto se lee en el plano de movimientos en tierra.",
         ],
-        hueco: {
-          id: "AP-02-04",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "El mismo plano de movimientos en tierra de la ficha: calles con designador, puntos de espera en patrón A2, el intermedio de una sola línea de trazos, los círculos «HS 1» y «HS 2» y la tabla de puntos críticos al pie. Ojo: dibujo propio, sin calcar ninguna carta comercial ni ningún diagrama de aeropuerto de la FAA.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-02-04-movimiento-tierra-oficial.webp",
+          alt: "Plano oficial de movimiento en tierra de SKBO con puntos críticos identificados para revisarlos durante el briefing",
         },
       },
     ],
