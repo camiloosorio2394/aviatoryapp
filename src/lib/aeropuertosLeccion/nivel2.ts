@@ -172,11 +172,12 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-06-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Cabecera con umbral desplazado permanente vista desde 250 m, oblicua a 30° y con luz de tarde. De abajo arriba: galones amarillos a 45° apuntando a la pista, de trazo 0,90 m y separados 30 m; flechas blancas sobre el eje; puntas de flecha; faja transversal blanca de 1,80 m de borde a borde; y las fajas de umbral detrás. Ojo: ninguna cruz de cierre, que va en otra imagen.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-06-01-umbral-desplazado.webp",
+        alt: "Vista aérea de una pista con galones amarillos, flechas blancas y un umbral desplazado, señalados con rótulos didácticos",
+        ancho: 1600,
+        alto: 900,
+        pie: "Los galones amarillos delimitan pavimento que no se usa para rodar, despegar ni aterrizar. Las flechas blancas identifican el tramo anterior al umbral: en esta dirección puede utilizarse para rodaje y despegue, pero no para iniciar el aterrizaje; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal y las fajas de umbral marcan dónde comienza la LDA para la aproximación mostrada. Antes de operar, confirma las distancias publicadas y cualquier restricción vigente.",
       },
       {
         kind: "p",
