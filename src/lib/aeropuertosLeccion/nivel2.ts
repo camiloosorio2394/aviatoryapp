@@ -167,22 +167,23 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Vista aérea de una pista con galones amarillos, flechas blancas y un umbral desplazado, señalados con rótulos didácticos",
         ancho: 1600,
         alto: 900,
-        pie: "Los galones amarillos delimitan pavimento que no se usa para rodar, despegar ni aterrizar. Las flechas blancas identifican el tramo anterior al umbral: en esta dirección puede utilizarse para rodaje y despegue, pero no para iniciar el aterrizaje; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal y las fajas de umbral marcan dónde comienza la LDA para la aproximación mostrada. Antes de operar, confirma las distancias publicadas y cualquier restricción vigente.",
+        pie: "Los galones amarillos delimitan pavimento que no se usa para rodar, despegar ni aterrizar. Las flechas blancas identifican el tramo anterior al umbral: en esta dirección puede utilizarse para rodaje y despegue, pero no para iniciar el aterrizaje; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal y las fajas de umbral marcan dónde comienza la LDA (Landing Distance Available). Antes de operar, confirma las distancias publicadas y cualquier restricción vigente.",
       },
       {
         kind: "p",
-        text: "No todo el pavimento alineado con una pista tiene el mismo uso. Las flechas blancas antes de un umbral desplazado permiten rodar y despegar en esa dirección, y también forman parte del recorrido de aterrizaje desde el sentido contrario; los galones amarillos identifican una zona que no se usa para rodar, despegar ni aterrizar. La diferencia cambia la TORA, la LDA y la decisión de continuar una aproximación.",
+        text: "No todo el pavimento alineado con una pista tiene el mismo uso. Las flechas blancas antes de un umbral desplazado permiten rodar y despegar en esa dirección, y también forman parte del recorrido de aterrizaje desde el sentido contrario; los galones amarillos identifican una zona que no se usa para rodar, despegar ni aterrizar. La diferencia cambia la TORA (Take-Off Run Available), la LDA y la decisión de continuar una aproximación.",
       },
       {
         kind: "p",
-        text: "Te lo dicen las flechas, los galones y las cruces.",
+        text: "Un desplazamiento temporal no se reconoce igual que uno permanente, y una cruz cambia por completo el significado de la superficie. Antes de usar cualquier tramo, relaciona lo que ves con la carta, el NOTAM y la autorización vigente: la señal visual te permite detectar la condición, pero las distancias declaradas y las restricciones publicadas determinan la operación.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-06-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Anatomía completa del umbral desplazado permanente, cenital pura y de izquierda a derecha: galones amarillos, tramo de flechas, puntas de flecha, faja transversal de 1,80 m y fajas de umbral arrancando a 6 m. Los galones solo se pintan si el pavimento previo está pavimentado, mide más de 60 m y no sirve para uso normal. Ojo: nada de barra de demarcación amarilla de 1 m, que es de la FAA.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-06-02-anatomia-umbral.webp",
+        alt: "Diagrama cenital de un umbral desplazado permanente con galones, flechas, puntas de flecha, faja transversal y fajas de umbral",
+        ancho: 1600,
+        alto: 900,
+        pie: "La secuencia se lee desde el extremo de pista hacia el área utilizable: los galones amarillos señalan una superficie no apta para la operación normal; las flechas blancas guían hacia el umbral desplazado; la fila de puntas y la faja transversal identifican el nuevo comienzo de la LDA. Las fajas de umbral aparecen después de esa línea. Reconocer cada zona evita confundir pavimento disponible para despegar con pavimento disponible para tomar contacto.",
       },
       {
         kind: "fichas",
@@ -190,43 +191,43 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Umbral desplazado temporal",
-            hueco: {
-              id: "AP-06-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tramo de 400 m con umbral desplazado temporal, cenital pura. Las señales anteriores van tapadas, apenas un fantasma gris; el eje se convierte en flechas blancas; un galón grande en punta de flecha, de altura 10 m o más y trazo de 1,2 m o más, cruza al final del tramo; a un costado, una baliza portátil para los desplazamientos cortos. Ojo: nada de galones amarillos aquí, que son del caso permanente.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-03-umbral-temporal.webp",
+              alt: "Diagrama de un umbral desplazado temporal con señales anteriores ocultas, flechas blancas y una gran punta de flecha",
             },
-            puntos: ["Se tapan las señales viejas; el eje se vuelve flechas."],
+            puntos: [
+              "En un desplazamiento temporal se ocultan las señales que ya no aplican y el eje anterior se convierte en flechas blancas que conducen al nuevo umbral. La gran punta de flecha tiene al menos 10 m de altura y un trazo mínimo de 1,20 m; cuando la condición dura poco pueden emplearse balizas. El piloto no toma contacto antes de la nueva faja transversal y confirma la LDA temporal en la información vigente.",
+            ],
           },
           {
             titulo: "Pista cerrada y calle cerrada",
-            hueco: {
-              id: "AP-06-06",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cenital pura y a la misma escala: arriba, un tramo de pista cerrada con dos cruces blancas de 36 m de brazo, 14,5 m de travesaño y faja de 1,80 m, separadas 300 m como máximo; abajo, una calle de rodaje cerrada con una cruz amarilla de 9 m, travesaño de 3,75 m y faja de 1,50 m. Ojo: la cruz de la pista es blanca y la de la calle amarilla, nunca al revés.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-06-cruces-cierre.webp",
+              alt: "Comparación cenital entre cruces blancas de cierre de pista y una cruz amarilla de cierre de calle de rodaje",
             },
-            puntos: ["Cruz blanca en la pista; amarilla en la calle."],
+            puntos: [
+              "Una cruz blanca indica una pista cerrada; una cruz amarilla indica una calle de rodaje cerrada. En pista, las cruces se repiten a intervalos máximos de 300 m para que la condición sea evidente desde el aire y desde tierra. Si la superficie aparece cerrada, no se entra ni se continúa solo porque el pavimento esté libre: se confirma la autorización y la condición publicada.",
+            ],
           },
           {
             titulo: "Cruz de luces",
-            hueco: {
-              id: "AP-06-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Cruz de luces de pista cerrada en aproximación nocturna, desde 150 m de altura y a 1 km del umbral. Blanca variable y destellante, un segundo encendida y un segundo apagada, montada sobre el eje, con 5 luces por brazo como mínimo separadas 1,5 m, y la pista a oscuras alrededor. Si todavía no hay foto de una instalada, se hace como ilustración técnica con el mismo encuadre. Ojo: nunca amarilla, que esa es la de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-05-cruz-luces.webp",
+              alt: "Pista cerrada de noche con una cruz de luces blancas destellantes sobre el eje",
             },
-            puntos: ["Nueva: destella un segundo sí y un segundo no."],
+            puntos: [
+              "La cruz luminosa blanca refuerza de noche la identificación de una pista temporalmente cerrada o restringida para el despegue. La recomendación prevé como mínimo cinco luces por brazo y un ciclo de un segundo encendida y uno apagada. Si aparece durante la aproximación o el rodaje, se trata como una advertencia de cierre: no se usa la pista hasta aclarar la condición con control y la información operacional.",
+            ],
           },
           {
             titulo: "Área fuera de servicio",
-            hueco: {
-              id: "AP-06-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Calle de rodaje vista a 20° de la vertical, como la ve quien llega rodando. Señal pintada con inscripción negra sobre fondo naranja que dice «FUERA DE SERVICIO», con el fondo sobresaliendo 0,50 m o más del texto, y al fondo el letrero del mismo color con contorno negro de 10 mm en clave 1 o 2 y de 20 mm en clave 3 o 4. Ojo: el fondo nunca rojo ni amarillo, que son otras dos señales.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-04-fuera-servicio.webp",
+              alt: "Calle de rodaje con señal y letrero naranja de fuera de servicio, ambos con letras negras",
             },
-            puntos: ["También nueva: negro sobre naranja."],
+            puntos: [
+              "La inscripción negra sobre fondo naranja identifica un área fuera de servicio y puede aparecer pintada en el pavimento o en un letrero. No equivale a una autorización para bordearla por cuenta propia: el piloto mantiene la ruta autorizada, comprueba NOTAM y publicaciones vigentes, y pide aclaración si la señal no coincide con la instrucción recibida.",
+            ],
           },
         ],
       },
@@ -239,62 +240,63 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Flechas de umbral desplazado",
-            hueco: {
-              id: "AP-06-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad izquierda de la comparación, cenital pura: 250 m de pista de 45 m con el eje de abajo arriba. Flechas blancas sobre el eje apuntando al umbral, la fila de puntas de flecha, la faja transversal blanca de 1,80 m y las fajas de umbral arrancando a 6 m. Una silueta gris de avión despegando sobre el tramo, porque ahí se rueda, se despega y se termina el aterrizaje. Ojo: en esta mitad no entra ni un galón amarillo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-07-flechas.webp",
+              alt: "Diagrama cenital de flechas blancas que conducen a un umbral desplazado",
             },
-            puntos: ["Sobre las flechas despegas y ruedas."],
+            puntos: [
+              "Las flechas blancas conducen hacia un umbral desplazado. En el sentido mostrado, el tramo puede usarse para rodar y para iniciar el despegue, pero no para tomar contacto; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal señala dónde comienza la LDA para esa aproximación.",
+            ],
           },
           {
             titulo: "Galones",
-            hueco: {
-              id: "AP-06-08",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad derecha, con el encuadre, la escala y la faja transversal exactamente donde están en la izquierda. El tramo previo, lleno de galones amarillos a 45° apuntando a la pista, de trazo 0,90 m y separados 30 m; y la misma silueta de avión, esta vez tachada, porque ahí no se aterriza, no se despega y no se rueda. Ojo: en esta mitad no va ninguna flecha ni punta de flecha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-08-galones.webp",
+              alt: "Diagrama cenital de galones amarillos sobre pavimento anterior al umbral que no sirve para uso normal",
             },
-            puntos: ["Sobre los galones, nada."],
+            puntos: [
+              "Los galones amarillos cubren un tramo pavimentado anterior al umbral que no es apto para el uso normal de la aeronave. A diferencia de las flechas blancas, no permiten rodaje, despegue ni aterrizaje. Si la trayectoria exige pasar sobre ellos en tierra, se detiene la maniobra y se aclara la ruta.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Cabecera con umbral desplazado",
-        hueco: {
-          id: "AP-06-09",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Fotografía aérea oblicua desde 200 m de altura y 800 m de la cabecera, en el eje de aproximación, con la secuencia entera de abajo arriba: galones amarillos contables, flechas sobre el eje, puntas de flecha, faja transversal de borde a borde, primera fila de fajas de umbral y la designadora. Ojo: ninguna cruz de cierre ni barra de demarcación amarilla de 1 m, que es de la FAA.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-06-09-reconoce-umbral.webp",
+          alt: "Vista aérea oblicua de una pista con galones amarillos, flechas blancas, faja transversal y fajas de umbral",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 28,
+            y: 78,
             que: "Galones amarillos",
-            significa: "No apto para uso normal.",
-            piloto: "Ni aterrizas ni ruedas.",
+            significa: "Delimitan pavimento anterior al umbral que no es apto para el uso normal de la aeronave.",
+            piloto: "No ruedas, no despegas y no aterrizas sobre ese tramo.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 39,
             que: "Faja transversal",
-            significa: "El umbral real.",
-            piloto: "Desde aquí cuenta tu aterrizaje.",
+            significa: "Identifica el umbral desplazado y separa el tramo previo de la superficie disponible para tomar contacto.",
+            piloto: "Desde esta línea comienza la LDA para la aproximación mostrada.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 47,
+            y: 53,
             que: "Flechas sobre el eje",
-            significa: "Tramo previo.",
-            piloto: "Sirve para despegar.",
+            significa: "Conducen visualmente hacia el umbral desplazado.",
+            piloto: "Puedes usar ese tramo para rodaje y despegue en esta dirección, pero no para tomar contacto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 45,
+            y: 30,
             que: "Primera faja de umbral",
-            significa: "Aquí empieza lo que puedes tocar.",
+            significa: "Confirma el inicio de la pista disponible para aterrizar en este sentido.",
+            piloto: "La relacionas con la faja transversal y el designador antes de continuar la aproximación.",
           },
         ],
       },
@@ -305,14 +307,14 @@ export const NIVEL_2: DocScreen[] = [
           "Estás alineado para despegar. Delante ves flechas blancas y, más allá, la faja transversal.",
         pregunta: "¿Puedes usar ese tramo para despegar?",
         respuesta:
-          "Sí. El tramo previo al umbral desplazado sirve para rodar y despegar; no para tomar contacto.",
-        claves: ["Sobre galones, nada."],
-        // Reutiliza la fotografía del «Reconoce».
-        hueco: {
-          id: "AP-06-09",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Se reutiliza la aérea oblicua del «Reconoce», con la secuencia entera: galones, flechas, puntas de flecha, faja transversal y fajas de umbral. Ojo: ninguna cruz de cierre ni barra de demarcación amarilla de 1 m, que es de la FAA.",
+          "Sí, si las distancias publicadas y tu autorización lo permiten. Las flechas blancas indican que el tramo anterior al umbral desplazado puede utilizarse para rodar y para iniciar el despegue en esta dirección; no puede utilizarse para tomar contacto.",
+        claves: [
+          "Confirma la TORA publicada y cualquier reducción temporal antes de calcular o iniciar el despegue.",
+          "Los galones amarillos significan que el pavimento no está disponible para la operación normal.",
+        ],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-06-10-decision-despegue.webp",
+          alt: "Vista aérea de un umbral desplazado con indicaciones sobre el uso de las flechas blancas para despegue y la prohibición de tomar contacto antes del umbral",
         },
       },
     ],
