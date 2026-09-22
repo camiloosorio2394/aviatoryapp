@@ -350,14 +350,7 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Vista aérea de una pista con umbral desplazado y líneas que comparan TORA, TODA, ASDA y LDA",
         ancho: 1600,
         alto: 900,
-        pie: "Las cuatro distancias parten de referencias distintas. TORA, TODA y ASDA comienzan en el inicio de la carrera de despegue: TORA termina con la pista utilizable, ASDA añade la zona de parada y TODA alcanza la zona libre. LDA, en cambio, empieza en el umbral de aterrizaje; si está desplazado, las flechas anteriores pueden servir para despegar o rodar, pero no forman parte de la distancia disponible para aterrizar.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-03-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta cenital: la pista con designadores 14 y 32 y, a la derecha del extremo, la zona de parada (pavimento del mismo ancho, con galones) y la zona libre de obstáculos (rectángulo punteado, más ancho y más largo) dibujadas en el mismo tramo. Encima, las cuatro cotas apiladas con sus líneas de referencia; la de la LDA arranca en el umbral. Tabla de cuatro filas en la esquina. Ojo: la zona libre no pasa de media TORA, y del Anexo 14 no se calca nada.",
-        alto: 340,
+        pie: "Las cuatro distancias parten de referencias distintas. TORA (Take-Off Run Available), TODA (Take-Off Distance Available) y ASDA (Accelerate-Stop Distance Available) comienzan donde inicia la carrera de despegue: TORA termina con la pista utilizable, ASDA añade la zona de parada y TODA puede alcanzar la zona libre. LDA (Landing Distance Available), en cambio, empieza en el umbral de aterrizaje; si está desplazado, las flechas anteriores pueden servir para rodar o despegar cuando esté autorizado, pero no forman parte de la distancia disponible para aterrizar en ese sentido.",
       },
       {
         kind: "p",
@@ -369,92 +362,96 @@ export const NIVEL_1: DocScreen[] = [
         items: [
           {
             titulo: "TODA",
-            hueco: {
-              id: "AP-03-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Recorte del extremo de pista, planta arriba y perfil abajo alineados: el rectángulo punteado con su cota de 75 m a cada lado del eje prolongado y, en el perfil, la línea de pendiente del 1,25 % con dos o tres árboles y un poste por debajo, ninguno tocándola. Una cota la limita a media TORA. Ojo: dentro del rectángulo no hay pavimento ni galones, que eso sería la zona de parada.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-03-03-toda-zona-libre.webp",
+              alt: "Vista cenital del final de una pista y la zona libre como terreno despejado más allá del fin de TORA",
             },
-            puntos: ["Recorrido de despegue más la zona libre de obstáculos."],
+            puntos: [
+              "La TODA es la TORA más la zona libre publicada. Esa zona libre puede ser tierra o agua bajo control del aeródromo y debe permanecer despejada, pero no es pavimento para acelerar, frenar o rodar. En la operación, el piloto no la estima mirando la foto: usa la cifra vigente de la publicación y el cálculo aprobado de performance.",
+            ],
           },
           {
             titulo: "ASDA",
-            hueco: {
-              id: "AP-03-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Mismo tratamiento que la ficha anterior: planta arriba, perfil abajo. El pavimento sigue al extremo de la pista con exactamente la misma anchura, con galones amarillos a 45 grados de 0,9 m o más separados 30 m, y una silueta de avión frenando encima. La cota de la ASDA por arriba. Ojo: ni más ancho ni más angosto que la pista, y ningún avión aterrizando, que la zona de parada no es para aterrizar.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-03-04-asda-zona-parada.webp",
+              alt: "Vista cenital del final de pista y una zona de parada pavimentada del mismo ancho con galones amarillos",
             },
-            puntos: ["Recorrido de despegue más la zona de parada. La del abortado."],
+            puntos: [
+              "La ASDA es la TORA más la zona de parada publicada. Esa superficie está preparada para detener una aeronave después de un despegue rechazado; no aumenta la distancia disponible para aterrizar ni convierte la zona de parada en pista de uso normal. En una entrevista, relaciónala con la decisión de parar, no con la capacidad de continuar el despegue.",
+            ],
           },
           {
             titulo: "LDA",
-            hueco: {
-              id: "AP-03-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta de la pista entera con las dos direcciones a la vez. En la cabecera izquierda, el umbral desplazado con su barra transversal y flechas blancas en el tramo anterior; arriba, la cota de la LDA arrancando en el umbral junto a la de la TORA, que arranca en el extremo. Abajo, la cota de la dirección contraria, entera. Ojo: los galones en ese tramo dirían que no se usa para nada, y la dirección recíproca no se recorta.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-03-05-lda-umbral-desplazado.webp",
+              alt: "Vista cenital de una pista con flechas blancas antes de un umbral desplazado y la LDA iniciando en la barra transversal",
             },
-            puntos: ["Pista disponible para aterrizar. El umbral desplazado la recorta."],
+            puntos: [
+              "La LDA es la longitud disponible para aterrizar en una dirección concreta. Si el umbral está desplazado, empieza en la barra transversal y no en el comienzo del pavimento. El tramo con flechas blancas anterior al umbral puede seguir disponible para otras operaciones publicadas, pero un aterrizaje desde ese sentido no cuenta con esos metros.",
+            ],
           },
           {
             titulo: "Desde intersección",
-            hueco: {
-              id: "AP-03-06",
-              medida: "Ilustración técnica · 16:9 · 1600×900",
-              descripcion:
-                "Planta de la pista con dos calles de entrada, una en cabecera y otra a un tercio. Dos cotas alineadas: TORA 3 800 m y, desde la intersección, 2 579 m; el tramo que se pierde, atenuado y rotulado. El punto de espera de esa entrada en patrón A2 y, ampliado, el letrero negro sobre amarillo con la cifra y la flecha. Ojo: calle con letra genérica, nunca un designador real, y ninguna cifra en pies.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-03-06-salida-interseccion.webp",
+              alt: "Vista aérea oblicua de una salida desde la intersección C que deja parte de la pista detrás de la aeronave",
             },
-            puntos: ["Pierdes lo que queda atrás. Va publicado y hay letrero."],
+            puntos: [
+              "Una salida desde intersección reduce la TORA porque la carrera empieza más adelante. Si desde cabecera hay 3 800 m y desde C quedan 2 579 m, el cálculo se hace con 2 579 m: los 1 221 m que quedaron detrás no se recuperan. Antes de aceptar, confirma la intersección, la distancia publicada y que la performance del día sea suficiente.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "El letrero de distancia de pista restante",
-        hueco: {
-          id: "AP-03-07",
-          medida: "Fotografía · 16:9 · 1600×900",
-          descripcion:
-            "Desde el eje de la pista, a la altura de los ojos en cabina: un letrero blanco sobre negro completo y legible, otros dos iguales alejándose, la señal blanca de borde con el letrero claramente por fuera, las luces de borde y el eje discontinuo. Van cada 300 m, bajos y frangibles, y cada uno lleva una sola cifra: cuántos tramos de unos 300 m de pista quedan. Ojo: la cifra no se retoca y va sin unidades escritas.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-03-07-distancia-restante.webp",
+          alt: "Vista desde cabina de letreros negros con numerales blancos 6 y 5 instalados fuera del borde de la pista",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Letrero de distancia restante",
-            significa: "Blanco sobre negro.",
-            piloto: "Cuánta pista queda.",
+            x: 92,
+            y: 47,
+            que: "Numeral blanco sobre negro",
+            significa: "El 6 indica 6 000 ft de pista restantes, aproximadamente 1 829 m.",
+            piloto: "Es una referencia visual; no sustituye la distancia declarada usada en performance.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 62,
+            y: 36,
             que: "Separación",
-            significa: "Uno cada 300 m.",
-            piloto: "Te deja decidir si frenas.",
+            significa: "Los numerales disminuyen en intervalos de 1 000 ft, cerca de 305 m.",
+            piloto: "La secuencia te ayuda a mantener conciencia de cuánta pista queda durante la carrera.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 88,
+            y: 55,
             que: "Ubicación",
-            significa: "Por fuera del borde, a uno o a los dos lados.",
-            piloto: "Nunca invade el pavimento.",
+            significa: "Se instala fuera de la línea blanca de borde, a uno o a ambos lados.",
+            piloto: "No confundas el letrero con una marca dentro del pavimento.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 95,
+            y: 51,
             que: "Altura",
-            significa: "Frangible y bajo.",
-            piloto: "Da guarda a góndola y hélice.",
+            significa: "Es bajo y frangible para reducir el riesgo si una aeronave se desvía.",
+            piloto: "Su diseño no cambia el significado del numeral.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 79,
+            y: 53,
             que: "Señal de borde",
             significa: "Línea blanca continua.",
-            piloto: "El letrero queda por fuera.",
+            piloto: "El letrero permanece completamente fuera del pavimento de pista.",
           },
         ],
+      },
+      {
+        kind: "p",
+        text: "El letrero muestra miles de pies, aunque las distancias declaradas de la publicación puedan aparecer en metros. Por eso un numeral 6 no significa seis kilómetros: representa 6 000 ft restantes, aproximadamente 1 829 m. Úsalo para mantener conciencia situacional durante la carrera, pero toma la decisión con la performance calculada y las distancias publicadas.",
       },
       {
         kind: "piensaComoPiloto",
@@ -467,11 +464,9 @@ export const NIVEL_1: DocScreen[] = [
           "El letrero de la entrada lo repite: negro sobre amarillo, en metros y con la flecha del sentido del despegue.",
           "Lo que queda atrás no se recupera, y esos 1 221 m no están en ningún cálculo.",
         ],
-        hueco: {
-          id: "AP-03-06",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "La misma planta de la ficha «Desde intersección»: las dos cotas alineadas, TORA 3 800 m y 2 579 m desde la intersección, el tramo perdido atenuado, el punto de espera en patrón A2 y el letrero negro sobre amarillo ampliado. Ojo: designador de calle genérico y ninguna cifra en pies.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-03-08-briefing-interseccion.webp",
+          alt: "Dos pilotos verifican en cabina la TORA de 2 579 m disponible desde la intersección C antes de aceptar la salida",
         },
       },
     ],
