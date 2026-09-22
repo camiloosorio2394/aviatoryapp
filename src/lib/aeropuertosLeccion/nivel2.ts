@@ -29,22 +29,15 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Vista aérea de la cabecera de la pista 27 con umbral, designador, eje, referencia de apuntado y zona de toma señalados",
         ancho: 1600,
         alto: 900,
-        pie: "En corta final, las fajas de umbral confirman dónde comienza la superficie disponible para aterrizar y el designador identifica la orientación de la pista. Después, el eje mantiene la alineación. Las dos barras largas son la referencia de apuntado (su nombre técnico es señal de punto de visada), no el lugar exacto donde deben tocar las ruedas; las barras posteriores delimitan la zona prevista para la toma de contacto. Todas estas señales son blancas: una línea amarilla pertenece al sistema de rodaje, no a la pista.",
+        pie: "En corta final, las fajas de umbral confirman dónde comienza la superficie disponible para aterrizar y el designador identifica la orientación de la pista. Después, el eje ayuda a mantener la alineación. Las dos barras largas son la referencia de apuntado, no el lugar exacto donde deben tocar las ruedas; los pares de barras posteriores forman la zona de toma de contacto. Todas estas señales son blancas: una línea amarilla pertenece al sistema de rodaje, no a la pista.",
       },
       {
         kind: "p",
-        text: "Las señales blancas identifican la pista y organizan la alineación, el umbral, la referencia de apuntado y la zona de toma de contacto. En publicaciones técnicas, esa referencia aparece como «señal de punto de visada»: son las dos barras largas hacia las que diriges visualmente la trayectoria, no una orden de posar allí las ruedas. En corta final permiten confirmar que miras la superficie correcta; después del toque, las marcas siguientes ayudan a reconocer cuánto te has alejado del umbral.",
+        text: "Las señales blancas identifican la pista y ordenan las referencias que usas en aproximación y aterrizaje. Las dos barras largas forman la referencia de apuntado —denominada «señal de punto de visada» en la publicación OACI—: hacia ellas estabilizas visualmente la trayectoria, pero no significan que las ruedas deban tocar exactamente allí. Los pares de barras que siguen marcan la zona de toma de contacto y permiten estimar cuánto te has alejado del umbral.",
       },
       {
         kind: "p",
         text: "La identidad de la pista es blanca; el amarillo pertenece a calles, puntos de espera, márgenes o superficies que no se usan como pista. Al abandonar después del aterrizaje puede aparecer una guía amarilla de salida sobre el pavimento, así que el color por sí solo no confirma que estés libre: todo el avión debe cruzar el punto de espera aplicable.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-05-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Fotografía aérea cenital del tercio de aproximación de una pista de precisión de 45 o 60 m, con el umbral entrando por abajo. Los seis elementos tienen que ser contables a ojo: designadora, fajas de umbral, eje en trazos, referencia de apuntado (señal de punto de visada en la publicación), los primeros pares de toma de contacto y la faja lateral. Ojo: nada de umbral desplazado ni de galones, que son de otra lección.",
-        alto: 340,
       },
       {
         kind: "fichas",
@@ -52,93 +45,93 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Señal designadora",
-            hueco: {
-              id: "AP-05-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Designadora vista desde unos 60 m, casi en el eje de aproximación, para que los dígitos se lean derechos. Dos cifras blancas de 9 m de alto, la décima parte del rumbo magnético del eje, redondeada, vista desde la aproximación, con la letra de paralela al lado. Dice «13L». Ojo: nunca una sola cifra sin cero delante, ni dígitos amarillos.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-03-designador-13l.webp",
+              alt: "Designador blanco 13L señalado sobre una pista y explicado como rumbo magnético aproximado 130 grados, pista izquierda",
             },
-            puntos: ["La décima parte del rumbo magnético, redondeada, desde la aproximación."],
+            puntos: [
+              "El designador se forma con la décima parte del rumbo magnético del eje, redondeada y vista desde la aproximación. Por eso 13 indica aproximadamente 130° y la L identifica la pista izquierda de un sistema paralelo. Antes de entrar o aterrizar, comparas número y letra con tu autorización; coincidir solo en el número no basta si existen paralelas.",
+            ],
           },
           {
             titulo: "Señal de eje",
-            hueco: {
-              id: "AP-05-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tres franjas de pavimento apiladas, cenital pura, cada una con su eje a escala: 0,90 m para CAT II y CAT III, 0,45 m para CAT I y no precisión clave 3 o 4, y 0,30 m para visual y no precisión clave 1 o 2. En las tres, trazo más espacio entre 50 y 75 m, acotado arriba. Ojo: el eje va siempre en trazos, nunca continuo y nunca amarillo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-04-anchos-eje.webp",
+              alt: "Comparación técnica de los anchos de la señal de eje para pistas CAT II y III, CAT I y no instrumentales",
             },
-            puntos: ["Su ancho delata la pista: 0,90, 0,45 o 0,30 m."],
+            puntos: [
+              "El eje siempre es blanco y discontinuo. Su anchura es de 0,90 m en pistas CAT II y III; 0,45 m en CAT I y en pistas de no precisión con clave 3 o 4; y 0,30 m en pistas no instrumentales o de no precisión con clave 1 o 2. Ese ancho ayuda a reconocer el tipo de señalización, pero la categoría disponible se confirma en la carta y en la información vigente.",
+            ],
           },
           {
             titulo: "Señal de umbral",
-            hueco: {
-              id: "AP-05-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cinco umbrales en fila, cenital pura y a la misma escala, con 4, 6, 8, 12 y 16 fajas para pistas de 18, 23, 30, 45 y 60 m. Faja de 30 m de largo por 1,80 m de ancho, separadas 1,80 m, con el grupo arrancando a 6 m del umbral y simétrico respecto del eje. Ojo: nunca un número impar de fajas a un lado del eje.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-05-fajas-umbral.webp",
+              alt: "Cinco esquemas de umbral que relacionan 4, 6, 8, 12 y 16 fajas con pistas de 18, 23, 30, 45 y 60 metros",
             },
-            puntos: ["Cuenta las fajas y sabes el ancho."],
+            puntos: [
+              "Las fajas blancas del umbral están dispuestas de forma simétrica. El total permite reconocer el ancho de pista: 4 para 18 m, 6 para 23 m, 8 para 30 m, 12 para 45 m y 16 para 60 m. En corta final, contar las fajas sirve como comprobación visual; no sustituye las dimensiones publicadas.",
+            ],
           },
           {
             titulo: "Faja lateral",
-            hueco: {
-              id: "AP-05-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Faja lateral vista desde el borde de la pista a 1,6 m del suelo, mirando a lo largo hasta el punto de fuga, con luz rasante de atardecer. Faja blanca continua de 0,90 m o más, con su borde exterior sobre el borde del pavimento; detrás, el margen y el pasto. Ojo: si la faja sale amarilla o doble ya es calle de rodaje, no pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-06-faja-lateral.webp",
+              alt: "Fotografía a nivel del suelo de una faja lateral blanca y continua cuyo borde exterior coincide con el borde de pista",
             },
-            puntos: ["Hasta ahí llega el pavimento de pista."],
+            puntos: [
+              "La faja lateral es blanca, continua y define visualmente el borde de la pista cuando el contraste con el terreno o el margen puede resultar insuficiente. Su borde exterior coincide con el borde de pista. Mantienes ruedas y trayectoria dentro de esas líneas: el pavimento o terreno exterior no se interpreta como ancho adicional disponible.",
+            ],
           },
           {
             titulo: "Referencia de apuntado y zona de toma",
-            hueco: {
-              id: "AP-05-07",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Los primeros 900 m de una pista de precisión de 45 m, cenital y tumbada en horizontal, con la escala en metros abajo. Referencia de apuntado a 400 m del umbral, formada por las dos barras largas de la señal de punto de visada; seis pares de la zona de toma de contacto cada 150 m, de 22,5 por 3 m. Ojo: ningún par pegado a la referencia de apuntado; los que caigan a 50 m o menos se borran, y ese hueco tiene que verse.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-07-apuntado-zona-toma.webp",
+              alt: "Diagrama a escala de una referencia de apuntado a 400 metros y pares de marcas de zona de toma cada 150 metros",
             },
-            puntos: ["Ahí apuntas; los grupos de barras dan referencias de distancia desde el umbral."],
+            puntos: [
+              "En una pista con LDA (Landing Distance Available) de 2.400 m o más, la referencia de apuntado comienza a 400 m del umbral. Las marcas de zona de toma aparecen por pares a intervalos de 150 m; si un par quedara a 50 m o menos de la referencia de apuntado, se omite. En aproximación las usas para vigilar el punto previsto de toma y decidir una ida al aire si el avión queda largo o inestable.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "La pista desde corta final",
-        hueco: {
-          id: "AP-05-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, en corta final a 60 m sobre el umbral y en el eje, con un pedazo de glareshield abajo. Pista de precisión de 45 m: doce fajas de umbral contables, designadora, eje en trazos, referencia de apuntado y al menos dos pares de toma de contacto, con faja lateral a los dos lados. Ojo: ninguna señal amarilla sobre la pista y ninguna otra aeronave.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-05-08-corta-final.webp",
+          alt: "Vista desde cabina en corta final de una pista 27 con doce fajas de umbral, referencia de apuntado y zona de toma señaladas",
+          ancho: 1600,
+          alto: 900,
         },
-        // Sin foto todavía: los puntos van en 0 y el bloque los pinta como
-        // lista numerada. Cuando exista AP-05-08 se les pone la posición.
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 67,
             que: "Fajas de umbral",
-            significa: "Dan el ancho de la pista.",
+            significa: "Las doce fajas blancas corresponden a una pista de 45 m de ancho.",
+            piloto: "Las cuentas como comprobación visual y confirmas el dato en la carta; no corriges una autorización solo por la apariencia.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 52,
             que: "Designadora",
-            significa: "Rumbo de aproximación.",
-            piloto: "No es la paralela.",
+            significa: "El 27 identifica una orientación magnética aproximada de 270°.",
+            piloto: "Compruebas número y, cuando corresponda, letra de paralela antes de continuar.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 35,
             que: "Referencia de apuntado",
-            significa: "Dos fajas gruesas.",
-            piloto: "Ahí apuntas.",
+            significa: "Son las dos barras largas y simétricas situadas antes de la zona de toma.",
+            piloto: "Vigilas la trayectoria hacia esa referencia sin convertirla en un punto obligatorio de contacto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 24,
             que: "Zona de toma de contacto",
-            significa: "Un par cada 150 m.",
+            significa: "Los pares de marcas dan referencias de distancia desde el umbral.",
+            piloto: "Si la toma prevista se desplaza fuera del margen estabilizado, aplicas el criterio de ida al aire de tu operación.",
           },
         ],
       },
@@ -153,12 +146,9 @@ export const NIVEL_2: DocScreen[] = [
         claves: [
           "La categoría y el sistema disponible se confirman en la carta y en la información vigente; no se deducen de una sola señal.",
         ],
-        // Reutiliza la lámina de la ficha «Señal de umbral».
-        hueco: {
-          id: "AP-05-05",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Se reutiliza la lámina de los cinco umbrales, con 4, 6, 8, 12 y 16 fajas para pistas de 18, 23, 30, 45 y 60 m. Ojo: nunca un número impar de fajas a un lado del eje.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-05-09-doce-fajas.webp",
+          alt: "Vista oblicua de una pista 27 con doce fajas de umbral y un eje angosto, acompañada de la advertencia de confirmar la categoría en la carta",
         },
       },
     ],
