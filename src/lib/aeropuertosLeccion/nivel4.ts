@@ -37,11 +37,12 @@ export const NIVEL_4: DocScreen[] = [
         text: "De noche la pista se reconoce por el patrón completo de sus luces, no por un punto brillante aislado. El umbral verde, el extremo rojo, las filas blancas de borde y el eje codificado permiten confirmar dirección, anchura y distancia restante. En una aproximación, una configuración que no coincide con la carta es motivo para verificar o frustrar; no se corrige la identificación acomodando mentalmente las luces que faltan.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-13-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el asiento izquierdo, de noche, a 200 ft sobre el umbral y alineado con el eje. Fila verde de umbral cruzando el cuadro, filas blancas de borde abriéndose hacia la cámara, eje blanco, barretas blancas de toma de contacto en pares simétricos cada 30 m o 60 m y el PAPI a la izquierda con dos rojas y dos blancas. Ojo: en este tramo no va ninguna luz amarilla.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-02-final-nocturna.webp",
+        alt: "Corta final nocturna desde cabina: umbral verde, bordes y eje blancos, barretas simétricas y PAPI con dos luces blancas y dos rojas",
+        ancho: 1600,
+        alto: 900,
+        pie: "La fila verde señala el inicio de la superficie disponible para aterrizar en esta dirección; no significa que debas tocar allí. Las luces blancas de borde y eje ayudan a comprobar alineación, y las barretas blancas identifican la zona de toma de contacto. A la izquierda, dos luces blancas y dos rojas del PAPI (Precision Approach Path Indicator) indican que estás cerca de su senda nominal. La tripulación mantiene la aproximación estabilizada y compara el patrón con la pista y el procedimiento previstos.",
       },
       {
         kind: "fichas",
@@ -49,42 +50,40 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Borde",
-            hueco: {
-              id: "AP-13-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "A ras de pista, desde el eje, de noche, mirando al extremo: la fila de borde derecha entra por la esquina inferior y se pierde al fondo. Blancas, en el borde del pavimento o hasta 3 m por fuera, separación uniforme de 60 m como máximo en pista por instrumentos (100 m en visual), y el punto exacto donde pasan a amarillas: los últimos 600 m o el último tercio, lo que sea menor, contado desde el extremo opuesto al de la carrera de despegue. Ojo: el azul es de calle de rodaje, nunca del borde de pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-03-borde-blanco-amarillo.webp",
+              alt: "Fotografía nocturna de luces blancas de borde de pista que cambian a amarillo hacia el extremo lejano",
             },
             puntos: [
-              "Dos filas blancas marcan hasta dónde llega el pavimento: cada 60 m por instrumentos, cada 100 m en visual. El último tramo puede verse amarillo.",
+              "Las dos filas delimitan la pista utilizable. Según la referencia EASA (European Union Aviation Safety Agency), las luces se separan como máximo 60 m en pista por instrumentos y 100 m en visual; pueden estar hasta 3 m fuera del borde. Vistas en dirección de despegue, las del último tramo pueden ser amarillas: un aviso visual de que se acerca el extremo, no una nueva calle de rodaje.",
             ],
           },
           {
             titulo: "Umbral",
-            hueco: {
-              id: "AP-13-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "El umbral visto de frente, de noche, desde 100 ft o desde el suelo. La fila verde cruza perpendicular al eje, completa, a 3 m por fuera del extremo como máximo y con al menos 6 luces en pista visual o de no precisión. A cada lado, una barra de ala de al menos 5 luces que se extiende 10 m como mínimo hacia afuera, con la luz más interna en línea con las de borde. Ojo: ninguna roja mezclada en la fila verde, y ningún patrón A1 ni B1 al fondo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-04-umbral-verde.webp",
+              alt: "Umbral de pista visto de frente con fila transversal verde y barras de ala verdes a ambos lados",
             },
             puntos: [
-              "Verde es dónde empieza tu pista. Las barras de ala refuerzan el umbral con dos grupos verdes.",
+              "La fila verde, vista desde la aproximación, identifica el inicio del tramo disponible para aterrizar. Cuando se instalan barras de ala, los grupos verdes a ambos lados hacen más reconocible el umbral, en especial si está desplazado. Confirma el punto de entrada con la carta y sigue hacia la zona de toma de contacto prevista.",
             ],
           },
           {
             titulo: "Extremo",
-            hueco: {
-              id: "AP-13-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el eje, de noche, a 300 m del extremo y con la cámara baja. La fila roja de extremo cierra la pista (a 3 m por fuera como máximo, al menos 6 luces, separadas 6 m como máximo en categoría III) y detrás siguen las dos filas rojas de la zona de parada, en prolongación de las de borde, más la fila roja de su final. El eje ya va rojo en ese tramo. Ojo: ninguna luz blanca ni verde dentro de la zona de parada.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-05-extremo-rojo.webp",
+              alt: "Eje rojo y fila roja transversal que termina la pista; más allá, dos hileras rojas delimitan una zona de parada",
             },
-            puntos: ["Rojo es dónde se termina."],
+            puntos: ["La fila transversal roja marca el final de la pista en esta dirección. Si hay una zona de parada más allá, sus luces rojas la delimitan, pero no la convierten en pista utilizable para un aterrizaje normal. Al ver el eje rojo y luego esa fila, confirma la distancia restante y la salida o detención prevista."],
           },
           {
             titulo: "Toma de contacto",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-09-zona-toma-contacto.webp",
+              alt: "Pares de barretas blancas a ambos lados del eje en una zona de toma de contacto iluminada",
+            },
             puntos: [
-              "Las barretas blancas dibujan dónde poner el tren. Donde no hay barretas puede haber luces sencillas: un par blanco a cada lado del eje, al final de esa zona.",
+              "Los pares de barretas blancas identifican la zona de toma de contacto en una pista de precisión equipada para ello. No ordenan poner el tren sobre una barreta: el punto real se determina con la trayectoria estabilizada, la referencia de apuntado y la distancia de aterrizaje calculada. Si la toma se desplaza más allá de lo previsto, aplica el procedimiento del operador; no persigas las últimas luces.",
             ],
           },
         ],
@@ -92,79 +91,78 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Una pista de categoría III, de noche, desde el eje",
-        hueco: {
-          id: "AP-13-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Cámara a 3 m de altura sobre el eje, mirando al extremo, noche, aire limpio y pista seca: tiene que caber el ancho completo y al menos 1 000 m de profundidad. Filas de borde blancas, eje blanco cada 15 m, barretas de toma de contacto en pares cada 30 m o 60 m a lo largo de 900 m y, al fondo, el tramo alternado rojo y blanco y la fila roja del extremo. Ojo: sin luces amarillas de salida rápida en este cuadro.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-13-06-reconoce-pista.webp",
+          alt: "Vista nocturna de pista de precisión con bordes blancos, eje blanco y rojo, barretas blancas y fila roja del extremo",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 91,
+            y: 43,
             que: "Luces de borde, blancas",
-            significa: "Marcan el ancho utilizable.",
-            piloto: "Si las pierdes de vista por un lado, te saliste del eje.",
+            significa: "Delimitan ambos lados de la pista.",
+            piloto: "Compruebas la alineación con el patrón completo, no deduces una salida de pista por perder una luz aislada.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 60,
             que: "Luces de eje, blancas",
-            significa: "Dicen que todavía sobra pista.",
-            piloto: "Es tu referencia de alineación en visibilidad baja.",
+            significa: "Aportan una referencia longitudinal antes del tramo de aviso final.",
+            piloto: "Mantienes la alineación y sigues evaluando la distancia disponible con la operación prevista.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 73,
+            y: 49,
             que: "Barretas de zona de toma de contacto",
-            significa: "Ahí es donde debes poner el tren.",
-            piloto: "Si las pasas de largo, ya no aterrizaste donde calculaste.",
+            significa: "Los pares blancos muestran la zona preparada para la toma.",
+            piloto: "Vigila el punto real de toma; las luces no sustituyen la referencia de apuntado ni los criterios de aterrizaje.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Eje rojo y blanco alternados",
-            significa: "Quedan menos de 900 m.",
-            piloto: "Empieza a mirar el frenado.",
+            x: 50,
+            y: 24,
+            que: "Eje rojo",
+            significa: "En la parte final del eje iluminado, el rojo marca los últimos 300 m.",
+            piloto: "Confirma que la deceleración y la salida prevista siguen siendo realistas; no lo confundas con el fin mismo.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 13,
             que: "Fila roja del extremo",
-            significa: "Ahí se acaba el pavimento.",
-            piloto: "No hay nada útil después.",
+            significa: "Marca el final de la pista disponible en esta dirección.",
+            piloto: "No cuentes una eventual zona de parada como longitud de aterrizaje.",
           },
         ],
       },
       {
         kind: "p",
-        text: "El eje te da la distancia que falta sin leer nada: blanco mientras sobra pista, rojo y blanco cuando empieza a faltar, rojo cuando se acabó. En pistas cortas el aviso llega desde la mitad. Rojo bajo la nariz: últimos 300 m.",
+        text: "Cuando la pista tiene luces de eje, la secuencia también orienta sobre la distancia hasta el extremo: blancas antes de los últimos 900 m, rojas y blancas alternadas entre 900 y 300 m, y rojas en los últimos 300 m. En una pista de menos de 1 800 m, la alternancia comienza en el punto medio. Por ejemplo, durante la carrera de aterrizaje, ver rojo bajo la nariz no significa que la pista ya terminó, sino que quedan aproximadamente 300 m o menos: una referencia para contrastar con la deceleración y el plan de salida, no para improvisar una frenada.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-13-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta de una pista completa con el eje en tres tramos: blanco desde el umbral hasta 900 m del extremo, rojo y blanco alternados de 900 m a 300 m y rojo en los últimos 300 m, con luces cada 15 m y las cotas medidas desde el extremo. Debajo, la misma pista más corta: con menos de 1 800 m el tramo alternado arranca en el punto medio. Rótulos «900 m», «300 m», «blanco», «rojo y blanco», «rojo», «pista de menos de 1 800 m» y «punto medio». Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-07-secuencia-eje.webp",
+        alt: "Esquema del eje luminoso: blanco hasta 900 metros del extremo, rojo y blanco alternados hasta 300 metros y rojo al final; en pista corta alterna desde la mitad",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las cotas se miden hacia atrás desde el final de la pista. El cambio a rojo y blanco avisa del tramo final; las luces totalmente rojas ocupan los últimos 300 m. En pistas de menos de 1 800 m, el tramo alternado empieza en la mitad. Es un esquema didáctico: el piloto consulta la longitud publicada y usa el patrón como confirmación visual, no como sustituto de los cálculos de aterrizaje.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Rodando hacia el extremo, de noche",
         situacion:
-          "Aterrizaste de noche en una pista sin salida en la cabecera. Rodando hacia el extremo, el eje que sigues se pone rojo y adelante ves que unas luces verdes se curvan hacia la derecha, fuera de la pista.",
+          "Aterrizaste de noche en una pista sin salida de rodaje cerca de la cabecera. Rodando hacia el extremo, el eje que sigues se pone rojo y adelante ves que unas luces verdes se curvan hacia un ensanche del pavimento a la derecha.",
         pregunta: "¿Qué son esas luces verdes y qué te están diciendo?",
         respuesta:
-          "Son las luces de plataforma de viraje. Te marcan el camino para dar la vuelta de 180 grados sin salirte del pavimento. Las verdes de viraje solo las ve el avión que va hacia ellas, y el rojo del eje te confirma que estás en los últimos 300 m.",
+          "Son luces de la plataforma de viraje de pista. La curva verde guía hacia el espacio ensanchado donde se puede completar el giro de 180 grados; no es una calle de rodaje lateral. Esas luces verdes son fijas y unidireccionales, visibles desde la aeronave que se aproxima a la plataforma. Las luces rojas del eje indican que estás en los últimos 300 m, así que reduces la velocidad y sigues el procedimiento de viraje y las instrucciones de control aplicables; no giras solo por ver verde.",
         claves: [
           "Verdes, fijas y unidireccionales: solo las ve el avión que va hacia la plataforma.",
           "Van sobre la señal de viraje o desplazadas 30 cm como máximo.",
           "El eje rojo es la confirmación de los últimos 300 m.",
         ],
-        hueco: {
-          id: "AP-13-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, rodando hacia el extremo de una pista sin salida en la cabecera, con el pavimento ensanchándose hacia un lado. Se ve la línea de luces verdes curvándose hacia la plataforma de viraje (tramo recto 15 m como máximo, curvo 7,5 m como máximo), las blancas de borde terminando, la fila roja del extremo cerca y, si la plataforma lleva borde iluminado, azules cada 30 m como máximo. Ojo: nada de ejes verdes de calle de rodaje entrando por el costado, que aquí confunden.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-13-08-plataforma-viraje.webp",
+          alt: "Vista desde cabina de eje rojo en los últimos metros de pista y luces verdes que guían hacia la plataforma de viraje a la derecha",
         },
       },
     ],
