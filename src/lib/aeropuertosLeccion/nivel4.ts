@@ -188,11 +188,12 @@ export const NIVEL_4: DocScreen[] = [
         text: "En rodaje los colores ayudan a separar guía, límite, advertencia y detención. El eje verde orienta la ruta, el borde azul delimita la calle y las luces amarillas anuncian un punto que exige atención. Una barra roja encendida es una orden visual de detenerse aunque la autorización verbal parezca permitir el cruce: se para y se informa al control antes de continuar.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-14-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el asiento izquierdo, de noche, rodando por una calle recta. Las luces de eje verdes, empotradas, se pierden al frente sobre la señal de eje amarilla pintada (sobre la señal o desplazadas 30 cm como máximo, cada 30 m como máximo en recta, 15 m si la calle se usa con RVR menor de 300 m) y las dos filas de borde azules, elevadas, se abren a los lados cada 60 m como máximo. Ojo: en este tramo el eje no lleva ninguna luz amarilla.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-02-eje-bordes.webp",
+        alt: "Calle recta de noche desde cabina con luces verdes sobre el eje y luces azules en los dos bordes",
+        ancho: 1600,
+        alto: 900,
+        pie: "En esta calle recta, las luces verdes empotradas siguen el eje pintado de amarillo; las azules, elevadas, ayudan a distinguir ambos bordes. Es una guía para mantener la trayectoria de rodaje, no una autorización para entrar en cualquier tramo que aparezca iluminado. Compara el recorrido con la carta, las señales y la instrucción de control.",
       },
       {
         kind: "fichas",
@@ -200,38 +201,32 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Barra de parada",
-            hueco: {
-              id: "AP-14-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la cabina, de noche, detenido antes del punto de espera: la fila de luces rojas empotradas cruza toda la calle a unos 15 m, separadas 3 m como máximo y unidireccionales hacia el avión que espera, con un par de rojas elevadas a cada extremo. Detrás de la barra, el eje verde apagado en 90 m como mínimo. Señal patrón A2: cuatro líneas amarillas de 0,3 m con tres espacios de 0,3 m, 2,10 m de ancho total. Ojo: las dos líneas continuas van del lado de espera, nunca mirando a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-03-barra-parada.webp",
+              alt: "Barra de parada roja que cruza toda la calle, reforzada por luces rojas elevadas en ambos extremos",
             },
             puntos: [
-              "Una fila roja a través de la calle. Encendida no se cruza, ni con autorización. Dos pares de luces rojas altas la refuerzan.",
+              "La fila roja atraviesa la calle en el lugar donde debes detenerte. Puede tener luces elevadas en los extremos para verse mejor desde cabina. Si está encendida, no la cruces aunque la radio parezca autorizarlo: detente, confirma con control y espera a que se apague. Las luces verdes después de la barra también deben permanecer apagadas.",
             ],
           },
           {
             titulo: "Luces de protección de pista",
-            hueco: {
-              id: "AP-14-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta de un punto de espera partida en dos mitades a la misma escala: a la izquierda la configuración A, con dos pares de luces amarillas, uno a cada lado de la calle, que se encienden alternadamente; a la derecha la configuración B, con la fila amarilla cruzando la calle cada 3 m, las adyacentes alternando y las alternas al unísono. Las dos destellan de 30 a 60 ciclos por minuto hacia el punto de espera. Rótulos «configuración A», «configuración B», «30 a 60 ciclos por minuto» y «lado de espera». Ojo: la configuración B nunca comparte emplazamiento con una barra de parada.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-04-proteccion-a-b.webp",
+              alt: "Esquema en planta: protección de pista A con dos pares amarillos a los lados y B con una fila amarilla transversal",
             },
             puntos: [
-              "Amarillas y destellando. Avisan que la pista está a un paso. Dos formas: a los lados de la calle o cruzándola completa.",
+              "Las luces amarillas intermitentes advierten que estás llegando a una pista. La configuración A tiene dos pares a los lados; la B, una fila transversal. Ninguna permite ingresar por sí sola: identifica el punto de espera y confirma la autorización. La configuración B no se coloca en el mismo sitio que una barra de parada.",
             ],
           },
           {
             titulo: "Salida verde y amarilla",
-            hueco: {
-              id: "AP-14-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la cabina, de noche, saliendo de la pista por una calle de salida, con la pista quedando atrás a la derecha. La curva de luces de eje alterna verde y amarillo desde el eje de la pista hasta el perímetro del área crítica o sensible del ILS (o el borde inferior de la superficie de transición interna, lo que quede más lejos): la primera luz siempre verde, la última amarilla, y de ahí en adelante todas verdes. Bordes azules a los lados. Ojo: ninguna barra de parada encendida en el sentido de salida.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-05-salida-verde-amarilla.webp",
+              alt: "Salida nocturna de pista con luces del eje alternadas verdes y amarillas cerca de la pista y verdes más adelante",
             },
             puntos: [
-              "Cuando sales de la pista, el eje alterna verde y amarillo. Mientras veas amarillo, todavía estás dentro del área sensible del ILS.",
+              "En una salida equipada así, las luces verdes y amarillas alternadas señalan el tramo próximo a la pista y a su área protegida; más adelante el eje queda verde. No declares la pista libre solo porque apareció una luz verde: confirma que todo el avión superó el punto de espera y cualquier límite aplicable a la operación.",
             ],
           },
         ],
@@ -239,67 +234,58 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Llegando al punto de espera de la pista, de noche",
-        hueco: {
-          id: "AP-14-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, rodando hacia un punto de espera que está a 60 m, con el ancho completo de la calle y el comienzo de la pista al fondo. Eje verde hasta la barra, bordes azules, tres amarillas fijas separadas 1,5 m atravesadas en el punto de espera intermedio, dos pares de amarillas destellando a los lados, la barra de parada roja cruzando y la fila de rojas de entrada a la pista corriendo a 0,6 m del eje. Señal patrón A2. Ojo: las dos líneas continuas van del lado de espera, nunca mirando a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-14-06-reconoce-luces.webp",
+          alt: "Vista nocturna desde cabina con eje verde, bordes azules, protección amarilla a los lados y barra de parada roja",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 56,
             que: "Eje verde",
-            significa: "Es el camino autorizado.",
-            piloto: "Si lo pierdes, estás fuera de la calle.",
+            significa: "Guía la trayectoria por el centro de esta calle.",
+            piloto: "Síguelo solo por la ruta autorizada; la luz no sustituye la instrucción de control.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 22,
+            y: 44,
             que: "Borde azul",
-            significa: "Es hasta dónde llega el pavimento.",
-            piloto: "Si lo cruzas, el tren se va al pasto.",
+            significa: "Ayuda a reconocer el borde de la calle de rodaje.",
+            piloto: "Úsalo para vigilar tu posición lateral; no infieras el margen exacto del tren a partir de una sola luz.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Tres amarillas atravesadas",
-            significa: "Punto de espera intermedio.",
-            piloto: "Ahí paras si te lo indican, aunque no haya pista delante.",
-          },
-          {
-            x: 0,
-            y: 0,
+            x: 36,
+            y: 26,
             que: "Amarillas destellando a los lados",
             significa: "Luces de protección de pista.",
-            piloto: "La pista está a un paso.",
+            piloto: "Te alertan de la proximidad de la pista; localiza el punto de espera y verifica la autorización.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 30,
             que: "Barra roja",
             significa: "Barra de parada.",
-            piloto: "No se cruza encendida, ni con autorización.",
-          },
-          {
-            x: 0,
-            y: 0,
-            que: "Rojas en línea hacia la pista",
-            significa: "Luces de entrada a la pista: hay tráfico en la pista o llegando.",
-            piloto: "Encendidas, paras aunque tengas autorización, y avisas.",
+            piloto: "Detente antes de la fila roja encendida y aclara cualquier autorización contradictoria.",
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-14-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta de un extremo de pista con una calle entrando por el costado. Arriba la pista, abajo la calle. Luces de entrada a la pista: rojas fijas empotradas a 0,6 m del eje de la calle, al menos 5 elementos separados entre 3,8 m y 15,2 m, más una luz dentro de la pista a 0,6 m de su eje. Luces de espera de despegue: dos filas rojas en pares a 1,8 m a cada lado del eje de pista, desde 115 m del comienzo y cada 30 m durante 450 m como mínimo. Rótulos con las cotas en metros. Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
-        alto: 320,
+        kind: "p",
+        text: "En la foto de reconocimiento, el eje verde orienta la ruta y el borde azul ayuda a mantener el avión dentro de la calle. Los pares amarillos advierten que se acerca una pista; la fila roja encendida indica el lugar donde debes detenerte. Antes de seguir, comprueba la ruta autorizada, el punto de espera y el estado de la barra: ninguna luz verde ni amarilla reemplaza una autorización clara.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-07-tres-advertencias.webp",
+        alt: "Esquema de tres sistemas distintos: tres luces amarillas de espera intermedia, rojas de entrada a pista y dos filas rojas de espera de despegue",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las tres amarillas fijas atraviesan una calle en un punto de espera intermedio y no equivalen a una barra roja. En aeropuertos que cuentan con luces de estado de pista, las luces rojas de entrada REL (Runway Entrance Lights) siguen un lado del eje de la calle; las luces de espera de despegue THL (Take-off Hold Lights) aparecen en pares a ambos lados del eje de pista. Si las REL están encendidas, no entres en la pista; si se encienden las THL, no inicies la carrera. Informa al control. El esquema diferencia sistemas; no significa que todos estén instalados en cada aeropuerto.",
       },
       {
         kind: "p",
-        text: "Verde es el eje y azul es el borde. El amarillo advierte y el rojo detiene. Desde finales de 2025, las luces de eje y las de punto de espera intermedio se exigen con RVR por debajo de 300 m, no de 350 m: tu aeropuerto pudo cambiarlo hace poco.",
+        text: "Verde guía el eje y azul ayuda a reconocer el borde; ninguno autoriza a avanzar. Amarillo puede advertir la proximidad de una pista o señalar una espera intermedia: el patrón y la ubicación importan. Una barra roja encendida detiene el rodaje. La especificación europea usa 350 m de RVR (Runway Visual Range, alcance visual en pista) para ciertos requisitos de luces de eje y espera intermedia; no conviertas ese umbral de diseño en una regla universal para todas las pistas. Consulta el equipamiento publicado y los procedimientos del aeropuerto.",
       },
       {
         kind: "piensaComoPiloto",
@@ -308,17 +294,15 @@ export const NIVEL_4: DocScreen[] = [
           "Acabas de aterrizar de noche. Mientras frenas, ves aparecer a tu derecha tres juegos de luces amarillas empotradas en la pista, separados entre sí, y el último queda cerca de una salida.",
         pregunta: "¿Qué te están contando esas luces amarillas?",
         respuesta:
-          "Son luces indicadoras de calle de salida rápida. Cada juego es una cuenta regresiva de 100 m hasta la salida rápida, que está del mismo lado. Te dejan dosificar el frenado sin adivinar la distancia. No son una autorización para salir: eso lo sigue dando el control.",
+          "Son luces indicadoras de salida rápida RETIL (Rapid Exit Taxiway Indicator Lights). En la pista equipada, las tres, luego dos y finalmente una luz amarilla aparecen del mismo lado del eje que la salida; cada grupo te acerca 100 m al punto donde comienza la curva. Sirven para anticipar el frenado, no para improvisar la velocidad ni para cambiar de salida sin coordinación con control.",
         claves: [
-          "Cada juego marca 100 m menos hasta la salida.",
+          "Los grupos 3–2–1 se separan 100 m; el último queda 100 m antes del inicio de la curva.",
           "Van siempre del mismo lado del eje que la calle de salida rápida.",
-          "No sustituyen la autorización del control.",
+          "Confirma la salida asignada y su velocidad compatible con el avión y la pista.",
         ],
-        hueco: {
-          id: "AP-14-08",
-          medida: "Ilustración de escena · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, en carrera de aterrizaje a 400 m de una salida rápida que se abre a la derecha. Tres juegos de amarillas fijas empotradas del mismo lado del eje que la salida, con 2 m entre luces del juego y 2 m del eje, los juegos cada 100 m, de tres, dos y una luz, y el de una luz a 100 m del punto de tangencia. Eje blanco al centro, bordes blancos y, al fondo, el arranque de la salida con su eje verde y amarillo. Ojo: ninguna amarilla igual al otro lado del eje.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-14-08-salida-rapida.webp",
+          alt: "Vista nocturna desde cabina con tres, dos y una luces amarillas junto al eje de pista antes de una salida rápida a la derecha",
         },
       },
     ],
