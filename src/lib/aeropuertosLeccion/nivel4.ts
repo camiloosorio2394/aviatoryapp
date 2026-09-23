@@ -321,7 +321,7 @@ export const NIVEL_4: DocScreen[] = [
         alt: "Aproximación nocturna con sistema de luces, barras transversales, umbral verde y PAPI de tres blancas y una roja",
         ancho: 1600,
         alto: 900,
-        pie: "La línea central del sistema de aproximación lleva la mirada hacia el eje antes de que las señales pintadas sean fáciles de distinguir. Sus barras transversales aportan referencias de anchura y distancia, y ayudan a reconocer la estructura del sistema; no son umbrales. La fila verde sí marca el umbral de la pista. A la izquierda, el PAPI muestra tres blancas y una roja: la aeronave está ligeramente alta y el piloto debe corregir de forma estabilizada, comparando la referencia visual con los instrumentos y el procedimiento publicado.",
+        pie: "La línea central del sistema de aproximación lleva la mirada hacia el eje antes de que las señales pintadas sean fáciles de distinguir. Sus barras transversales aportan referencias de anchura y distancia; no son umbrales. La fila verde sí marca el umbral. A la izquierda, el PAPI (Precision Approach Path Indicator, indicador de trayectoria de aproximación de precisión) muestra tres blancas y una roja: la aeronave está ligeramente alta. El piloto corrige de forma estabilizada y compara la referencia visual con los instrumentos y el procedimiento publicado.",
       },
       {
         kind: "p",
@@ -341,38 +341,32 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Los tres sistemas de aproximación",
-            hueco: {
-              id: "AP-15-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tres bandas apiladas a la misma escala, con el umbral alineado a la derecha y una cinta de cotas común. Sencillo: eje de 420 m como mínimo, luces cada 60 m (puede bajar a 30 m) y barra transversal a 300 m. Categoría I: eje de 900 m cada 30 m, barra a 300 m y barras adicionales a 150, 450, 600 y 750 m. Categorías II y III: eje de 900 m cada 30 m, filas laterales rojas de 270 m y barras a 150 m y a 300 m. Sin verificar el color del sencillo: la norma solo pide que sea fácilmente distinguible; dibujarlo blanco. Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-03-sistemas-aproximacion.webp",
+              alt: "Esquema a escala de tres sistemas de luces de aproximación: sencillo de 420 metros, precisión categoría I de 900 metros y categorías II/III con filas rojas laterales",
             },
             puntos: [
-              "El sencillo llega a 420 m del umbral; los de precisión, a 900 m. El de categorías II y III añade dos filas rojas laterales.",
+              "El sencillo llega aproximadamente 420 m antes del umbral; los de precisión, 900 m. En la configuración mostrada, la barra blanca a 300 m ayuda a reconocer la distancia y las filas rojas cercanas al umbral distinguen el sistema de categorías II y III. Identifica el patrón real en la carta publicada: estas luces ayudan a alinearte, pero no indican si estás alto o bajo.",
             ],
           },
           {
             titulo: "PAPI",
-            hueco: {
-              id: "AP-15-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cinco filas, cada una con las cuatro cajas vistas de frente y el avión en perfil sobre una senda punteada: cuatro blancas, una roja y tres blancas, dos y dos, tres rojas y una blanca, cuatro rojas, con las rojas siempre del lado de la pista. Para una senda de 3 grados: 3°30′, 3°10′, 2°50′ y 2°30′, separación 9 m con tolerancia de 1 m. Abajo, el abreviado de dos cajas con sus tres lecturas, 3°15′ y 2°45′, separación 6 m. Rótulos «muy alto», «alto», «en senda», «bajo», «muy bajo» y «PAPI abreviado (APAPI)». Ojo: en el PAPI no existe el ámbar ni el verde.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-04-lectura-papi.webp",
+              alt: "Cinco lecturas correctas de un PAPI de cuatro luces, de cuatro blancas a cuatro rojas, y lectura en senda del APAPI de dos luces",
             },
             puntos: [
-              "Cuatro cajas normalmente a un lado de la pista. Dos rojas y dos blancas es senda. Más blanco, más alto; más rojo, más bajo. El APAPI abreviado usa dos cajas.",
+              "Reconoces el PAPI por cuatro luces a un lado de la pista: dos blancas y dos rojas señalan la senda visual; más blancas indican alto y más rojas, bajo. El APAPI (Abbreviated Precision Approach Path Indicator) usa dos luces; una blanca y una roja indican su senda. Compara cualquier corrección con la aproximación estabilizada y los instrumentos: ni el PAPI ni el APAPI sustituyen los mínimos publicados.",
             ],
           },
           {
             titulo: "Las otras tres",
-            hueco: {
-              id: "AP-15-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Un solo dibujo en planta con la pista abajo a la derecha y el área de aproximación ocupando el resto. Luces de identificación de umbral: dos destellos blancos de 60 a 120 por minuto, simétricos, en línea con el umbral y a unos 10 m por fuera de cada fila de borde. Sistema de luces de entrada a la pista: grupos de al menos 3 destellos blancos en secuencia hacia la pista, con los grupos a 1 600 m como máximo entre sí. Y un par de luces de guía para el circuito, del lado con viento en cola. Ojo: la sigla REIL no va en el dibujo, que es de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-05-otras-ayudas.webp",
+              alt: "Tres esquemas separados: destellos blancos para identificar el umbral, grupos de luces de entrada y luces que guían una maniobra de circuito",
             },
             puntos: [
-              "Destellos blancos a los lados del umbral lo hacen visible. Grupos de destellos te guían cuando el terreno obliga a entrar torcido. Y hay luces para el circuito.",
+              "Dos destellos blancos a los lados ayudan a localizar el umbral; no lo desplazan. Grupos de destellos pueden marcar una ruta de entrada cuando el terreno exige una trayectoria particular: sigue solo la ruta publicada y autorizada. Las luces de circuito ayudan a ubicar la pista durante esa maniobra; no te dan pendiente. Comprueba cuáles de estas ayudas tiene el aeropuerto antes de depender de ellas.",
             ],
           },
         ],
@@ -380,60 +374,61 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Un sistema de categorías II y III visto en final",
-        hueco: {
-          id: "AP-15-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, a 300 ft y alineado, con todo el sistema delante y la pista empezando al fondo. Fila central de eje de 900 m cada 30 m en blanco variable, las dos filas laterales rojas de los 270 m más cercanos al umbral, la barra transversal de 300 m (15 m a cada lado del eje, luces cada 2,7 m como máximo) más ancha que la de 150 m, la fila verde del umbral, el PAPI a la izquierda y los destellos secuenciales captados con arrastre. Ojo: ninguna carta de aproximación ni pantalla de cabina legible en el cuadro.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-15-06-reconoce-aproximacion.webp",
+          alt: "Aproximación nocturna desde cabina con eje de luces blancas, barra de 300 metros, filas laterales rojas, umbral verde y PAPI a la izquierda",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 57,
+            y: 62,
             que: "Fila central de luces blancas",
             significa: "Es el eje prolongado de la pista.",
             piloto: "Si la ves torcida, estás descentrado.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 58,
+            y: 34,
             que: "Filas laterales rojas",
-            significa: "Solo existen en los últimos 270 m antes del umbral.",
-            piloto: "Si las ves, el umbral está muy cerca.",
+            significa: "Identifican la zona próxima al umbral de este sistema de precisión de categorías II y III.",
+            piloto: "Reconoce la configuración publicada; su presencia te confirma que estás cerca del umbral, no una altitud segura por sí sola.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 53,
             que: "Barra transversal ancha",
-            significa: "Está a 300 m del umbral.",
-            piloto: "Te da un horizonte artificial y una referencia de distancia.",
+            significa: "En esta configuración, es la barra a 300 m del umbral.",
+            piloto: "Te da una referencia transversal y de distancia mientras verificas la alineación con el eje.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Destellos corriendo hacia la pista",
-            significa: "Dos por segundo.",
-            piloto: "Sirven para encontrar el sistema, no para volar la senda.",
+            x: 43,
+            y: 27,
+            que: "PAPI a la izquierda",
+            significa: "Las cuatro luces blancas y rojas indican posición respecto a la senda visual.",
+            piloto: "Lee el patrón de colores y compáralo con instrumentos y procedimiento; no infieras la pendiente de las barras blancas.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 56,
+            y: 29,
             que: "Fila verde",
             significa: "El umbral.",
-            piloto: "Desde ahí cuenta tu pista disponible.",
+            piloto: "Reconoce dónde empieza la pista utilizable para aterrizar; comprueba la distancia publicada antes de la aproximación.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Los destellos secuenciales corren hacia el umbral dos veces por segundo: sirven para encontrar el sistema, no para volar la senda. La senda la da el indicador de pendiente, y detrás de cada uno hay una superficie libre de obstáculos.",
+        text: "En la fotografía, el eje blanco y las barras transversales muestran la alineación; la fila verde marca el umbral y las filas rojas pertenecen al tramo cercano de esta configuración de precisión. El PAPI aporta una referencia distinta: la posición angular respecto a la senda visual. Si un aeropuerto tiene destellos secuenciales, ayudan a encontrar el sistema, pero tampoco sustituyen la guía vertical, los instrumentos ni los mínimos publicados.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-15-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cuadro partido en dos. Arriba, los cuatro indicadores de pendiente normalizados con su lectura en senda: PAPI de cuatro cajas, APAPI de dos, T-VASIS de 20 elementos y AT-VASIS de 10, los dos últimos con la marca «en retiro desde 2020». Abajo, los tres sistemas de aproximación con sus longitudes rotuladas «420 m», «900 m» y «900 m». Ojo: no dibujar el VASI de barras, el tricolor ni el pulsante, que no son de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-15-07-dos-preguntas.webp",
+        alt: "Comparación: las luces blancas de aproximación y el umbral verde ayudan a alinearse; la combinación roja y blanca del PAPI indica si se está alto, en senda o bajo",
+        ancho: 1600,
+        alto: 900,
+        pie: "Son dos preguntas diferentes en corta final. El eje blanco, las barras y el umbral verde ayudan a ubicar y alinear la pista, pero no dan la pendiente. El PAPI o APAPI muestra alto, en senda o bajo mediante luces blancas y rojas. Usa ambas referencias junto con los instrumentos y la aproximación publicada; no persigas una luz aislada ni confundas alineación con altura segura.",
       },
       {
         kind: "piensaComoPiloto",
@@ -442,17 +437,15 @@ export const NIVEL_4: DocScreen[] = [
           "Vuelas a un aeropuerto donde levantaron una grúa a un costado de la aproximación. El PAPI sigue publicado, pero el NOTAM dice que está fuera de servicio, y el resto de las luces funciona.",
         pregunta: "¿Por qué apagarían el PAPI si la grúa no está en la pista?",
         respuesta:
-          "Porque cada indicador de pendiente tiene detrás una superficie que debe quedar libre. Si un objeto la penetra, hay que quitar el objeto, subir la pendiente, recortar el sector, desplazar el eje hasta 5° o correr el sistema pista adentro; mientras tanto, el sistema no puede guiarte. Un PAPI encendido con un obstáculo dentro de su superficie te llevaría en senda contra la grúa.",
+          "El PAPI tiene una superficie de protección contra obstáculos en la aproximación. Una grúa que la comprometa exige una evaluación y una medida: retirar el obstáculo, ajustar la pendiente o el sector visible, o modificar el emplazamiento, según el caso. No significa que cualquier penetración lleve necesariamente al avión contra la grúa. Aquí el NOTAM declara el PAPI fuera de servicio: no lo uses como guía. Aplica el procedimiento y los mínimos vigentes; si no tienes las referencias requeridas o la aproximación deja de estar estabilizada, ejecuta la aproximación frustrada.",
         claves: [
-          "Detrás del indicador hay una superficie de protección contra obstáculos.",
-          "Si algo la penetra, se corrige el obstáculo o se corrige el sistema.",
-          "Un indicador en servicio con la superficie penetrada te guía contra el objeto.",
+          "La superficie protegida se extiende por la aproximación, delante del umbral, no detrás del PAPI.",
+          "Una grúa en esa zona requiere evaluación y medidas publicadas; no se supone automáticamente una colisión.",
+          "Si el NOTAM declara el PAPI fuera de servicio, no lo sigas y usa el procedimiento aplicable.",
         ],
-        hueco: {
-          id: "AP-15-08",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "Perfil arriba y planta abajo. En el perfil: la pista, el indicador de pendiente, la senda y la superficie de protección arrancando a D1 + 30 m del sistema en pista visual de clave 1 y a D1 + 60 m en los demás casos, donde D1 es la distancia del sistema al umbral, es decir 30 m o 60 m antes del umbral, con una grúa atravesándola, marcada. En la planta: el borde interno acotado (60, 80, 150 o 300 m según la pista) y los lados divergiendo 10 % en visual y 15 % en instrumental, hasta 7 500 m o 15 000 m. Rótulos «superficie de protección contra obstáculos», «borde interno», «10 % / 15 %» y «objeto que la penetra». Ojo: no mezclar aquí las superficies limitadoras de obstáculos del aeródromo.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-15-08-obstaculo-papi.webp",
+          alt: "Corte esquemático de una aproximación con grúa que compromete la superficie de protección del PAPI, mostrado apagado junto al umbral",
         },
       },
     ],
