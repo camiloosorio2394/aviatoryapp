@@ -301,6 +301,9 @@ export const NIVEL_3: DocScreen[] = [
   },
 
   // ── 11 ──────────────────────────────────────────────────────────────────
+  // Referencias: EASA CS ADR-DSN.K.490/K.500 y GM K.515 (indicadores,
+  // lámpara y área); CS ADR-DSN.P.805–P.830 (balizas); OACI Anexo 2,
+  // apéndice 1, §§ 4.1–4.2 (señales luminosas y paneles del área).
   {
     n: 11,
     title: "Balizas, paneles e indicadores",
@@ -313,19 +316,19 @@ export const NIVEL_3: DocScreen[] = [
         alt: "Manga de viento de cinco bandas junto a una pista, con su boca, dirección y círculo de visibilidad señalados",
         ancho: 1600,
         alto: 900,
-        pie: "La boca ancha de la manga queda hacia el lugar del que viene el viento y la punta se extiende hacia sotavento. Las cinco bandas alternas ayudan a reconocerla desde lejos, mientras el círculo blanco hace visible su emplazamiento desde el aire. La manga aporta una indicación visual inmediata, no una lectura exacta: la tripulación la contrasta con ATIS, torre y los datos de viento disponibles.",
+        pie: "La boca ancha de la manga queda hacia el lugar del que viene el viento y la punta se extiende hacia sotavento. Si se usan dos colores, cinco bandas alternas facilitan reconocerla; el círculo blanco ayuda a ubicarla desde el aire. La manga muestra dirección y una idea general de la intensidad, no una lectura exacta: la tripulación la contrasta con el ATIS (Automatic Terminal Information Service), la torre y los demás datos de viento disponibles.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-11-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde unos 25 m, a la altura del pecho, la manga de perfil y extendida al mediodía. Se cuentan las cinco bandas alternas, con la primera y la última anaranjadas; se ven la boca grande y la pequeña, esta hacia sotavento, y la banda circular blanca de 15 m de diámetro y 1,2 m de ancho alrededor del soporte, con su luz. Ojo: la manga a medio inflar no sirve, hay que poder contar las bandas.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-11-02-manga-campo.webp",
+        alt: "Fotografía de una manga naranja y blanca extendida, con la boca ancha, la punta y el círculo blanco de emplazamiento señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La manga se orienta por el viento: la boca ancha queda a barlovento y la punta apunta hacia donde sopla. El círculo blanco permite encontrarla entre otras instalaciones. Antes de calcular una componente de viento, confirma el valor comunicado; la tela solo ofrece una comprobación visual general.",
       },
       {
         kind: "p",
-        text: "No toda la información llega en un letrero. La manga muestra dirección y una estimación visual del viento en la superficie; las balizas delimitan bordes cuando no hay una señal pintada suficiente; el área de señales y la lámpara de la torre ofrecen indicaciones que todavía importan si falla la radio. El piloto usa estas ayudas para confirmar la situación, no para reemplazar el ATIS, la carta o una autorización recibida.",
+        text: "No toda la información llega en un letrero. La manga muestra dirección y una idea general del viento en superficie; algunas balizas delimitan bordes cuando la superficie no basta para distinguirlos. Si existe un área de señales, sus paneles se leen desde el aire; si falla la radio, la torre puede usar una lámpara de señales. Cada ayuda se interpreta en su contexto y se contrasta con la información vigente: ninguna reemplaza por sí sola una carta, una autorización o un procedimiento de falla de radio.",
       },
       {
         kind: "fichas",
@@ -333,60 +336,52 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "El indicador de dirección del viento",
-            hueco: {
-              id: "AP-11-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Lámina plana con la manga de perfil y en horizontal, cotada: longitud de 3,6 m como mínimo, diámetro de la base mayor de 0,9 m como mínimo, legible desde 300 m de altura. Las cinco bandas numeradas, con la 1 y la 5 del color oscuro. A la derecha, el círculo de emplazamiento con sus cotas de 15 m y 1,2 m. Al pie, en gris, «Colombia exige el color anaranjado». Ojo: nada de medidas en pies.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-03-medidas-manga.webp",
+              alt: "Esquema de referencia EASA de una manga de al menos 3,6 m de largo y 0,9 m de diámetro mayor, junto al círculo blanco de 15 m de diámetro y 1,2 m de ancho",
             },
-            puntos: ["Cono de tela de 3,6 metros como mínimo."],
+            puntos: ["Como referencia técnica EASA, el cono de tela mide al menos 3,6 m de largo y 0,9 m en la boca ancha. La banda circular que ubica al menos una manga mide 15 m de diámetro y 1,2 m de ancho. Estas cotas explican su visibilidad; no sirven para calcular nudos a ojo."],
           },
           {
             titulo: "Las balizas",
-            hueco: {
-              id: "AP-11-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Ocho viñetas en dos filas con las familias de balizas: borde de pista sin pavimentar de 1 por 3 m mínimo, borde de zona de parada, coníferas cada 100 m en nieve, borde de calle de rodaje azul retrorreflectante de 150 cm² de área visible, eje verde de 20 cm², cono de borde sin pavimentar, delimitadora de 3 por 1 m con recorte de 0,5 m y área fuera de servicio. Ojo: ninguna baliza alta junto a pista o calle.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-04-balizas.webp",
+              alt: "Comparación técnica de baliza plana para borde de pista sin pavimentar, baliza azul para borde de calle y baliza verde para eje de calle",
             },
-            puntos: ["Ocho familias, frangibles y bajas. Azul el borde, verde el eje."],
+            puntos: ["La placa plana puede delimitar una pista sin pavimentar cuyo borde se confunde con el terreno. En calles de rodaje, una baliza azul retrorreflectante señala el borde y una verde puede reforzar el eje. Las balizas cercanas al movimiento de aeronaves deben ser bajas y frangibles: reconoce qué superficie delimitan antes de seguir una guía."],
           },
           {
             titulo: "La lámpara de señales",
-            hueco: {
-              id: "AP-11-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Interior de una torre al anochecer, desde detrás del controlador, que aparece de espaldas y sin rasgos. La lámpara montada y apuntada al ventanal, con su empuñadura y su mira, y el haz verde saliendo hacia la pista, que se adivina al fondo con sus luces. Da rojo, verde y blanco, haz de 1° a 3°, 6 000 cd o más de día. Ojo: ninguna cara identificable ni pantallas con datos reales.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-05-lampara-torre.webp",
+              alt: "Fotografía desde una torre de control al anochecer con una lámpara de señales de lente verde junto al controlador",
             },
-            puntos: ["Rojo, verde y blanco. Te aterriza sin radio."],
+            puntos: ["La torre puede dirigir una lámpara roja, verde o blanca a una aeronave cuando no hay comunicación por radio. No basta ver el color: distingue luz fija de intermitente y confirma que la señal va dirigida a tu avión. La interpretación también cambia entre vuelo y tierra."],
           },
           {
             titulo: "El área de señales",
-            hueco: {
-              id: "AP-11-06",
-              medida: "Ilustración técnica · 16:9 · 1600×900",
-              descripcion:
-                "A la izquierda, el área de señales cenital: cuadrada, de 9 m de lado como mínimo, con borde blanco de 0,3 m. A la derecha, los paneles a la misma escala: cuadrado rojo con dos diagonales amarillas y con una sola, haltera blanca, haltera con barras negras, cruz de cerrado, la «T» de aterrizaje con brazo de 4 por 0,4 m, las cifras de despegue, la flecha de circuito, la «C» de ARO y la doble cruz de planeadores. Ojo: nada de tetraedro ni de círculo segmentado.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-06-area-senales.webp",
+              alt: "Área de señales vista desde arriba con borde blanco, un panel rojo de dos diagonales, otro de una diagonal y una haltera blanca",
             },
-            puntos: ["Nueve metros de lado, con paneles que ves desde arriba."],
+            puntos: ["Si se instala, el área de señales es una superficie horizontal de al menos 9 m de lado con borde blanco de al menos 0,3 m, según la referencia EASA. Dos diagonales amarillas en rojo prohíben aterrizar; una pide precauciones especiales. La haltera blanca limita aterrizajes, despegues y rodaje a pistas y calles. Consulta la información publicada antes de actuar por un panel aislado."],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "La manga y su círculo",
-        hueco: {
-          id: "AP-11-02",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "La manga de perfil y extendida al mediodía, con las cinco bandas alternas contables, la primera y la última anaranjadas, la boca pequeña hacia sotavento y la banda circular blanca de 15 m de diámetro y 1,2 m de ancho alrededor del soporte. Ojo: la manga a medio inflar no sirve, hay que poder contar las bandas.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-11-09-reconoce-manga.webp",
+          alt: "Vista cenital didáctica de una manga y su círculo de emplazamiento para identificar boca, punta, bandas y dirección de viento",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
-          { x: 0, y: 0, que: "Cono de tela", significa: "El viento real.", piloto: "Sale por la boca chica." },
-          { x: 0, y: 0, que: "Cinco bandas", significa: "Dos colores.", piloto: "Primera y última, oscuras." },
-          { x: 0, y: 0, que: "Cono horizontal", significa: "Intensidad.", piloto: "Cuanto más horizontal, más viento." },
-          { x: 0, y: 0, que: "Círculo blanco en el suelo", significa: "Emplazamiento.", piloto: "15 metros." },
+          { x: 39, y: 50, que: "Boca ancha", significa: "Se orienta hacia el viento que llega.", piloto: "Identificas de dónde viene antes de evaluar la componente para la pista." },
+          { x: 47, y: 50, que: "Punta estrecha", significa: "Se extiende hacia sotavento.", piloto: "No inviertes la dirección del viento al leer la manga." },
+          { x: 43, y: 42, que: "Cinco bandas", significa: "En esta manga alternan naranja y blanco; la primera y la última son oscuras.", piloto: "Reconoces el cono desde lejos, pero no asignas una velocidad exacta por contar bandas." },
+          { x: 38, y: 75, que: "Círculo blanco", significa: "Ayuda a localizar la manga desde el aire.", piloto: "Una vez ubicada, comparas su indicación con el viento comunicado y las limitaciones del avión." },
         ],
       },
       {
@@ -395,41 +390,37 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Haltera sola",
-            hueco: {
-              id: "AP-11-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Vista cenital del panel solo y centrado sobre el área de señales, fondo gris claro sin sombras. Una haltera blanca, dos discos unidos por una barra, sin ninguna barra negra encima, y un fragmento del borde blanco de 0,3 m para dar escala. Rótulo «Haltera sola» y, debajo en gris, «Todo limitado a pistas y calles de rodaje». Ojo: sin cotas del panel, que no están verificadas.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-07-haltera-sola.webp",
+              alt: "Haltera blanca sin barras negras: aterrizaje, despegue y rodaje limitados a pistas y calles de rodaje",
             },
+            puntos: ["La haltera blanca sin barras significa que aterrizaje, despegue y rodaje deben hacerse únicamente en pistas y calles de rodaje. Al reconocerla desde arriba, descartas operar por superficies distintas aunque parezcan transitables."],
           },
           {
             titulo: "Haltera con barras",
-            hueco: {
-              id: "AP-11-08",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "El mismo dibujo, la misma escala y el mismo ángulo que AP-11-07: solo cambian las barras. La misma haltera blanca con una barra negra perpendicular al eje sobre cada uno de los dos discos, y el mismo fragmento de borde blanco. Rótulo «Haltera con barras» y, debajo en gris, «Solo aterrizaje y despegue limitados a pistas». Ojo: ni una sola barra ni barras paralelas al eje.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-11-08-haltera-barras.webp",
+              alt: "Haltera blanca con una barra negra perpendicular sobre cada extremo: aterrizajes y despegues solo en pistas",
             },
+            puntos: ["Las dos barras negras cambian la instrucción: aterrizajes y despegues se hacen solo en pistas, pero otros movimientos no quedan limitados necesariamente a pistas y calles. Compruebas ambas barras antes de confundir este panel con la haltera sola."],
           },
         ],
       },
       {
         kind: "p",
-        text: "La haltera sola limita todo a pistas y calles; con barras, solo aterrizaje y despegue.",
+        text: "La diferencia entre las dos halteras importa: sin barras, aterrizaje, despegue y rodaje quedan limitados a pistas y calles de rodaje; con dos barras negras, la limitación a pistas se aplica al aterrizaje y al despegue, no a todos los demás movimientos.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Sin radio, en circuito",
         situacion: "Te quedas sin radio en circuito. La torre te apunta y ves verde fija.",
-        pregunta: "¿Qué contestas?",
+        pregunta: "¿Cómo interpretas la señal y acusas recibo?",
         respuesta:
-          "Verde fija en vuelo: autorizado a aterrizar. Contestas balanceando las alas o con las luces.",
-        claves: ["El mismo verde en tierra es despegue.", "La lámpara da rojo, verde y blanco."],
-        hueco: {
-          id: "AP-11-05",
-          medida: "Fotografía real · 3:2 · 1200×800",
-          descripcion:
-            "La lámpara de señales de la torre al anochecer, apuntada al ventanal y con el haz verde saliendo hacia la pista, con el controlador de espaldas y sin rasgos reconocibles. Ojo: ninguna cara identificable ni pantallas con datos reales.",
+          "Una verde fija dirigida a una aeronave en vuelo significa autorizado a aterrizar. De día, acusas recibo balanceando las alas, pero no se espera ese gesto en base o final; de noche, haces dos destellos con las luces de aterrizaje o navegación. Sigues el procedimiento de falla de radio de tu operación.",
+        claves: ["Verde fija en tierra significa autorizado a despegar: la fase cambia la lectura.", "Confirma que la señal está dirigida a tu aeronave y distingue luz fija de intermitente."],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-11-10-verde-fija.webp",
+          alt: "Tarjeta de decisión: verde fija en vuelo significa autorizado a aterrizar y se acusa recibo según sea de día o de noche",
         },
       },
     ],
