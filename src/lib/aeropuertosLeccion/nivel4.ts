@@ -616,18 +616,19 @@ export const NIVEL_4: DocScreen[] = [
         alt: "Pista nocturna con dos luces consecutivas de borde apagadas y la ruptura de continuidad señalada",
         ancho: 1600,
         alto: 900,
-        pie: "Una fila de luces funciona como patrón, no como suma de puntos aislados. Dos luces contiguas apagadas crean un hueco que rompe la continuidad y puede deformar la percepción del borde, aunque el porcentaje total de luces en servicio todavía parezca alto. La tripulación no calcula la disponibilidad desde la cabina: confirma la condición mediante ATIS, NOTAM o control y la aplica a los mínimos y procedimientos del operador.",
+        pie: "Una fila de luces funciona como patrón, no como suma de puntos aislados. Dos luces contiguas apagadas crean un hueco que puede deformar la percepción del borde aunque el porcentaje total todavía parezca alto. La tripulación no calcula la disponibilidad desde la cabina: confirma la condición mediante ATIS (Automatic Terminal Information Service, servicio automático de información terminal), NOTAM (Notice to Airmen, aviso a los aviadores) o control, y la aplica a los mínimos y procedimientos del operador.",
       },
       {
         kind: "p",
-        text: "Una instalación puede conservar un porcentaje de luces en servicio y aun así perder la forma visual que necesita el piloto. Por eso la norma combina porcentajes, distribución y tiempo de conmutación: dos luces contiguas apagadas pueden romper una fila aunque el total parezca aceptable. En operación, la tripulación no calcula esos porcentajes desde la cabina; recibe la condición por ATIS, NOTAM o control y decide con los mínimos y procedimientos del operador.",
+        text: "Una instalación puede conservar un porcentaje alto de luces en servicio y aun así perder la forma visual que necesita el piloto. Por eso se revisan tanto el porcentaje como la distribución de las luces y el tiempo que tardan en recuperarse tras cambiar de fuente eléctrica. Estos son criterios de diseño y mantenimiento, no mínimos de aterrizaje que la tripulación pueda calcular a ojo. Antes de operar con una ayuda degradada, consulta la información vigente y aplica los mínimos y procedimientos de tu operador.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-17-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "A todo el ancho. A la izquierda, el camino de la energía: red pública, tablero, llave de transferencia, grupo electrógeno y circuito de pista. A la derecha, una gráfica de intensidad contra tiempo con el momento de la falla marcado, la línea horizontal del 50 % de intensidad y el tramo de la curva que queda por debajo, acotado: eso es el tiempo de conmutación, medido en una dirección dada y con la luz operando al 25 % de intensidad o más. Rótulos «fuente primaria», «fuente secundaria», «50 % de intensidad» y «tiempo de conmutación». Ojo: las cifras por tipo de pista no van aquí.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-17-02-conmutacion.webp",
+        alt: "Esquema de cambio de fuente primaria a secundaria y gráfica del intervalo en que una luz cae por debajo de la mitad de su intensidad",
+        ancho: 1600,
+        alto: 900,
+        pie: "La conmutación es el intervalo durante el cual la intensidad de una luz, medida en una dirección, cae por debajo del 50 % y luego vuelve a ese nivel al cambiar de fuente. Se mide con la luz operando al menos al 25 % de su intensidad. Reconoce el cambio de fuente en el esquema, pero no confundas el tiempo de arranque del generador con el tiempo sin luz útil: para decidir si la ayuda está disponible, consulta la condición publicada o informada por control.",
       },
       {
         kind: "fichas",
@@ -635,26 +636,22 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Tiempo de conmutación",
-            hueco: {
-              id: "AP-17-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Matriz visual: cinco filas con los casos de pista (vuelo visual, aproximación que no es de precisión, precisión CAT I, precisión CAT II/III y despegue con RVR menor de 800 m) y una columna por sistema de luces. Cada celda, un chip con «1 s», «15 s» o un guion. Al pie, la leyenda con las dos excepciones: «terreno peligroso o escarpado: 1 s» y «sin luces de eje: 1 s». Ojo: la fila de pista visual no lleva cifra inventada, porque la norma solo pide que el intervalo sea lo más corto posible.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-17-03-tiempos.webp",
+              alt: "Matriz de tiempos máximos de conmutación de ayudas luminosas por tipo de operación, con las excepciones de terreno peligroso y ausencia de luces de eje",
             },
             puntos: [
-              "No es lo que tarda el generador: es el tiempo que la luz pasa bajo la mitad de su intensidad al cambiar de fuente. En categoría I casi todo tarda 15 segundos; en categorías II y III casi todo vuelve en 1, pero el borde puede tardar 15.",
+              "La tabla separa los sistemas que deben recuperarse en 1 segundo de los que pueden tardar 15. En aproximaciones de precisión de categoría II/III, el umbral, el extremo, el eje, la zona de toma de contacto, las barras de parada y los 300 m interiores de aproximación están en el grupo de 1 segundo; el borde de pista queda en el de 15. El PAPI (Precision Approach Path Indicator, indicador de trayectoria de aproximación de precisión) puede requerir 1 segundo junto con borde y umbral en terreno peligroso o escarpado. Identifica el sistema afectado antes de interpretar una falla; la tabla no reemplaza la información operacional vigente.",
             ],
           },
           {
             titulo: "Niveles de mantenimiento",
-            hueco: {
-              id: "AP-17-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta de una pista con su sistema de aproximación, por zonas coloreadas con su porcentaje para categorías II y III: 95 % en los 450 m interiores del sistema, en el eje de pista, en el umbral y en el borde; 90 % en la zona de toma de contacto; 85 % en el sistema más allá de 450 m; 75 % en el extremo. Una tira aparte, rotulada categoría I, con 85 % en sus cuatro elementos. Al costado, la regla de adyacencia: una apagada aislada con un visto y dos seguidas con una equis. Ojo: no dibujar apagadas en pares fuera de esa tira.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-17-04-mantenimiento.webp",
+              alt: "Objetivos de mantenimiento de luces para aproximaciones de precisión: porcentajes por sistema en categorías II y III, referencia de categoría I y advertencia sobre luces contiguas",
             },
             puntos: [
-              "Una luz está fuera de servicio cuando su haz principal baja del 50 %. En categoría I debe servir el 85 % de cada sistema; en categorías II y III la exigencia sube hasta el 95 %.",
+              "Una luz se considera fuera de servicio si la intensidad media de su haz principal baja del 50 % de la especificada o si el color o filtro es incorrecto; no se determina mirando una foto. En categoría I, el objetivo es 85 % para aproximación, umbral, borde y extremo. En categoría II/III varía por sistema: 95 % en los 450 m interiores de aproximación, umbral, eje y borde; 90 % en zona de toma de contacto; 85 % en el resto de aproximación y 75 % en el extremo. Son objetivos de mantenimiento, no permiso automático para aterrizar.",
             ],
           },
         ],
@@ -662,98 +659,100 @@ export const NIVEL_4: DocScreen[] = [
       { kind: "sub", text: "Los tiempos por tipo de pista" },
       {
         kind: "table",
-        head: ["Caso de pista", "Vuelven en 1 segundo", "Pueden tardar 15 segundos"],
+        head: ["Caso de pista", "Deben volver en 1 segundo", "Pueden tardar hasta 15 segundos"],
         rows: [
           [
             "Vuelo visual",
-            "Sin cifra: el intervalo debe ser lo más corto posible",
-            "Puede resolverse con alumbrado de emergencia desplegable en 15 minutos",
+            "No se fija un valor de 1 segundo",
+            "No se fija un valor de 15 segundos: debe ser lo más corto posible",
           ],
           [
             "Aproximación que no es de precisión",
             "Indicador de pendiente, borde y umbral, solo si la aproximación se hace sobre terreno peligroso o escarpado",
-            "Todo lo demás: sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos",
+            "Sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos, salvo la excepción indicada",
           ],
           [
             "Precisión categoría I",
             "Indicador de pendiente, borde y umbral, solo si la aproximación se hace sobre terreno peligroso o escarpado",
-            "Todo lo demás",
+            "Sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos, salvo la excepción indicada",
           ],
           [
             "Precisión categorías II y III",
-            "Los 300 m interiores del sistema de aproximación, umbral, extremo, eje de pista, zona de toma de contacto y todas las barras de parada",
-            "Resto del sistema de aproximación, borde de pista, calle de rodaje esencial y obstáculos",
+            "Los 300 m interiores de aproximación, umbral, extremo, eje, zona de toma de contacto, barras de parada y extremo de zona de parada",
+            "Resto de aproximación, borde de pista, calle esencial, obstáculos, luces de protección de pista y bordes de zona de parada",
           ],
           [
-            "Despegue con RVR menor de 800 m",
-            "Extremo, eje y barras de parada",
-            "Borde de pista (1 s si no hay luces de eje), calle de rodaje esencial y obstáculos",
+            "Despegue con RVR (Runway Visual Range, alcance visual en pista) menor de 800 m",
+            "Extremo, eje, barras de parada, extremo de zona de parada y borde si no hay luces de eje",
+            "Borde si hay eje, calle esencial, obstáculos y bordes de zona de parada",
           ],
         ],
       },
       {
+        kind: "p",
+        text: "Para una pista de vuelo visual no se impone aquí un máximo de 1 o 15 segundos: la conmutación debe ser lo más corta posible. En ciertos casos puede haber alumbrado de emergencia desplegable en 15 minutos; eso no significa que las luces instaladas puedan tardar 15 minutos en volver. Estos tiempos describen la instalación, no autorizan a continuar una aproximación sin la referencia visual requerida.",
+      },
+      {
         kind: "reconoce",
         titulo: "Una fila de borde con luces faltando",
-        hueco: {
-          id: "AP-17-05",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "De noche, desde el borde de la pista o desde un vehículo detenido, ángulo bajo, mirando a lo largo de una fila de borde que se pierde al fondo y se lee como una línea de puntos. Blancas, separación uniforme de 60 m como máximo en pista por instrumentos. En la fila: una luz apagada aislada, dos apagadas seguidas en otro tramo y una encendida pero claramente más débil que sus vecinas, que ya puede estar fuera de servicio si su haz principal cayó del 50 %. Al costado, la línea de eje completa. Ojo: nada de montaje digital evidente ni colores distintos en la misma fila.",
+        intro: "La fotografía muestra un tramo de tres luces de borde consecutivas apagadas. Las flechas menta señalan esa fila y el borde opuesto de la pista: ver luces al otro lado no repara el hueco cercano. Una foto no permite medir la intensidad reglamentaria ni decidir si la pista cumple los objetivos de mantenimiento; confirma el estado de las ayudas por los canales operacionales.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-17-05-fila-borde.webp",
+          alt: "Fotografía nocturna de una fila de luces blancas de borde con tres luminarias consecutivas oscuras; al otro lado se ve el borde opuesto encendido",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Una luz apagada aislada",
-            significa: "Cabe dentro del porcentaje permitido.",
-            piloto: "No rompe el patrón y la fila se sigue leyendo derecha.",
+            x: 24,
+            y: 30,
+            que: "Fila blanca de borde",
+            significa: "Las luces encendidas revelan una secuencia de puntos a lo largo del borde de pista.",
+            piloto: "Úsala para orientarte solo si está disponible y ofrece la guía visual que exige la operación.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Dos apagadas seguidas",
-            significa: "En una fila de borde no se admite en ningún nivel de servicio.",
-            piloto: "Abre un hueco que se puede leer como una curva del borde.",
+            x: 42,
+            y: 43,
+            que: "Tres luces seguidas apagadas",
+            significa: "Forman un hueco en la continuidad del borde; no son una marca que indique un viraje.",
+            piloto: "No reconstruyas el borde por intuición: contrasta la condición de la ayuda con control y tus mínimos.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Una luz más débil que las vecinas",
-            significa:
-              "Si su haz principal cayó del 50 %, cuenta como fuera de servicio aunque esté encendida.",
-            piloto: "El conteo no se hace a ojo.",
+            x: 49,
+            y: 66,
+            que: "Luz de borde encendida en primer plano",
+            significa: "Permite comparar la fila visible con el tramo sin luces, pero no cuantifica la intensidad de ninguna luminaria.",
+            piloto: "No infieras un porcentaje de servicio ni una autorización a partir de este contraste.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "La línea de eje completa",
-            significa: "En categorías II y III pide el 95 %, igual que el borde y el umbral.",
-            piloto: "Con la visibilidad mínima, es tu guía en la carrera.",
+            x: 73,
+            y: 24,
+            que: "Luces del borde opuesto",
+            significa: "Marcan el otro lado de la pista; que estén encendidas no restaura la continuidad de la fila cercana.",
+            piloto: "No tomes una fila visible como prueba de que todo el sistema de borde está disponible.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Hay una regla que manda sobre los porcentajes: nunca dos luces contiguas apagadas, salvo dentro de una barreta o de una barra transversal. Dos apagadas seguidas abren un hueco en el patrón, y un hueco se lee como una curva o como el borde de la pista donde no lo hay.",
+        text: "En los objetivos de mantenimiento de categoría II/III no debe haber dos luces contiguas fuera de servicio, excepto dentro de una barreta o barra transversal, donde pueden admitirse dos. En categoría I también se controla la adyacencia, con la salvedad de separaciones significativamente menores que las requeridas. Una luz aislada tampoco queda aprobada automáticamente: importan su ubicación, la cantidad total y el sistema afectado. Si una fila presenta un hueco, el piloto no decide su aptitud contando lámparas desde cabina.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En corta final de categoría III",
         situacion:
-          "Estás en corta final en categoría III. Se va la energía del aeropuerto. Ves que el eje, la zona de toma de contacto y el umbral siguen encendidos, pero las dos filas de borde se apagaron.",
-        pregunta: "¿Es normal eso o es una falla del aeropuerto?",
+          "Estás en corta final para una aproximación de categoría III cuando falla la fuente eléctrica principal. Después del primer segundo ves el eje, la zona de toma de contacto, el umbral y la parte interior de las luces de aproximación, pero las dos filas de borde aún están apagadas.",
+        pregunta: "¿Qué puede explicar esa diferencia y qué haces si la guía visual no alcanza para continuar?",
         respuesta:
-          "Está dentro de norma. En categorías II y III el eje, la zona de toma de contacto, el umbral, el extremo y las barras de parada tienen que volver en 1 segundo, pero el borde de la pista puede tardar hasta 15. Por eso puede parecer que se apagó media pista sin que nadie haya incumplido nada. Lo que sí decide si sigues es el aviso que el sistema de vigilancia le manda al control cuando el nivel de servicio cae por debajo del mínimo.",
+          "La diferencia puede corresponder a los tiempos máximos de conmutación: esos sistemas interiores deben recuperarse en 1 segundo, mientras el borde puede tardar hasta 15. No significa que la aproximación esté automáticamente autorizada o que la instalación esté sana; si la iluminación requerida no se recupera, es una falla que debe notificarse. La tripulación aplica sus mínimos y procedimiento: si no tiene la referencia visual requerida o no puede continuar con seguridad, ejecuta la aproximación frustrada y comunica la condición a control. La información del sistema de vigilancia y los avisos operacionales ayudan a determinar la disponibilidad posterior.",
         claves: [
-          "En 1 segundo: eje, zona de toma de contacto, umbral, extremo y barras de parada.",
-          "Hasta 15 segundos: borde de pista, resto del sistema de aproximación, calle esencial y obstáculos.",
-          "Lo que decide es el aviso al control cuando cae el nivel de servicio.",
+          "En categoría II/III, eje, umbral, extremo, zona de toma de contacto y aproximación interior deben recuperarse en 1 segundo.",
+          "Borde de pista y aproximación exterior pueden tardar hasta 15 segundos.",
+          "Sin la referencia visual necesaria, no continúes solo porque otros sistemas estén encendidos: sigue tus mínimos y frustra si corresponde.",
         ],
-        hueco: {
-          id: "AP-17-06",
-          medida: "Ilustración de escena · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche y con niebla densa que reduce la escena a las luces, en corta final de categoría III, en el instante siguiente a una falla de energía. Encendidos: el eje de pista, las barretas de zona de toma de contacto, la fila de umbral y los 300 m interiores del sistema de aproximación. Apagados: las dos filas de borde y el tramo exterior del sistema de aproximación. Ojo: no dibujar la pista entera a oscuras, porque esto es una conmutación y no un apagón.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-17-06-falla-en-final.webp",
+          alt: "Esquema técnico de una conmutación en aproximación de categoría II o III: luces interiores, umbral, eje y zona de toma de contacto encendidas mientras borde y aproximación exterior siguen apagados",
         },
       },
     ],
