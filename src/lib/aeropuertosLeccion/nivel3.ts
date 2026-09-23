@@ -427,14 +427,11 @@ export const NIVEL_3: DocScreen[] = [
   },
 
   // ── 12 ──────────────────────────────────────────────────────────────────
-  // La lección práctica: seis fotos del mismo rodaje, en orden, con una línea
-  // de texto cada una. Van como hueco y párrafo alternados, no como fichas, para
-  // que se lea como una secuencia y no como un catálogo. No lleva comparación:
-  // una secuencia no compara nada.
+  // Secuencia didáctica simulada: seis vistas distintas y una decisión por paso.
   {
     n: 12,
     title: "Un rodaje leído letrero por letrero",
-    kicker: "De la puerta a la pista, seis fotos y seis decisiones.",
+    kicker: "De la puerta a la pista: seis escenas, seis decisiones.",
     minutes: 9,
     blocks: [
       {
@@ -446,121 +443,120 @@ export const NIVEL_3: DocScreen[] = [
         pie: "Un rodaje seguro se confirma por etapas. Primero, el panel negro «M» fija tu posición; después, los paneles amarillos con flecha permiten comparar cada giro con la ruta autorizada; finalmente, el letrero rojo «13-31» anuncia el límite protegido de la pista. Si cualquiera de esas tres lecturas no coincide con la carta o la autorización, detén la aeronave antes de improvisar el siguiente movimiento.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-12-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Plano cenital esquemático: la plataforma abajo con el puesto «K14», las calles «M», «E» y «F» en el centro, la pista «07-25» arriba y la paralela más allá. La ruta va marcada con línea gruesa y seis círculos numerados del 1 al 6, uno por foto. Se ven el punto de espera intermedio, la calle prohibida, la A2 con la B2 detrás y la vía de vehículos. Ojo: ni A1 ni B1, ni la A2 invertida.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-02-ruta-rodaje.webp",
+        alt: "Ruta didáctica numerada desde el puesto K14 por las calles M y E hasta la pista 13-31, con espera intermedia y puntos de espera B2 y A2",
+        ancho: 1600,
+        alto: 900,
+        pie: "Este plano es un ejemplo de entrenamiento, no una carta de aeródromo. Los números relacionan la ruta con las seis escenas de abajo: K14, salida a M, espera intermedia, giro a E, puntos B2 y A2, y acceso a la pista 13–31. Antes de rodar, identifica estos puntos en la carta real y confirma que coinciden con tu autorización; la línea del ejemplo no autoriza a cruzar ninguna espera.",
       },
       {
         kind: "p",
-        text: "Ahora se integra todo en un rodaje desde la puerta hasta la pista. Antes de mover el avión, la tripulación traza la autorización en la carta e identifica puntos críticos; durante el rodaje confirma cada letrero y cada cruce en voz alta. Si la secuencia real deja de coincidir con la preparada, la decisión correcta es detenerse en un lugar seguro y preguntar, no seguir hasta encontrar una señal conocida.",
+        text: "Imagina que control te autoriza a salir del puesto K14 por M y luego E hacia la pista 13. Antes de mover el avión, traza la ruta en la carta vigente y marca los cruces y puntos de espera. Durante el rodaje, ambos pilotos confirman cada cambio de calle en voz alta. Si una señal no coincide con la ruta prevista, detente en un lugar seguro y acláralo con control; no improvises un giro ni cruces una línea de espera.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-12-03 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 1 de 6, misma cámara y misma luz que las cinco siguientes. Avión detenido en el puesto de un aeropuerto latinoamericano grande, mañana de luz lateral. Letrero de identificación de puesto, negro sobre amarillo, con la inscripción «K14», legible sin esfuerzo; las señales pintadas de entrada y de parada del puesto, y el eje de rodaje arrancando por delante. Ojo: ningún logo, matrícula ni rotulación en otro idioma.",
-        alto: 300,
-        ratio: "3 / 2",
-      },
-      {
-        kind: "p",
-        text: "**1. En el puesto.** Letrero amarillo `K14`. Lo lees antes de entrar.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-12-04 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 2 de 6, misma cámara, mismo avión, misma luz. Ya en movimiento, llegando al límite de la plataforma. A la izquierda del eje, el letrero combinado en este orden: «← N», «M» en cara negra con borde amarillo y «E →», con líneas negras verticales separando cada elemento. El eje de calle amarillo continuo entra al cuadro. Ojo: ninguna flecha dentro del letrero de emplazamiento.",
-        alto: 300,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-03-puesto-k14.webp",
+        alt: "Vista desde cabina de un puesto de estacionamiento al amanecer, con línea de salida y referencia didáctica K14",
+        ancho: 1200,
+        alto: 800,
+        pie: "El puesto es tu punto de partida: en la escena de entrenamiento, K14 identifica dónde está estacionado el avión y la línea amarilla guía la salida. Contrasta el número del puesto con la carta de plataforma y la autorización antes de iniciar el movimiento; la línea por sí sola no confirma la ruta de rodaje.",
       },
       {
         kind: "p",
-        text: "**2. Saliendo de plataforma.** Combinado `← N`, `M`, `E →`. Estás en la M.",
+        text: "**1. En el puesto.** Antes de pedir movimiento, ambos pilotos verifican el puesto K14 en la carta. Si el número real no coincide, todavía no sabes desde qué lugar comienza la autorización: acláralo antes de soltar frenos.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-12-05 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 3 de 6, misma cámara y misma luz, el avión frenando. Una sola línea amarilla de trazos cruza la calle de lado a lado en el tercio inferior, y el eje de calle se interrumpe al cruzarla. A la izquierda, un letrero de emplazamiento aislado, cara negra con la inscripción amarilla «M2» y su borde amarillo. Ojo: cuatro líneas serían un punto de espera de pista, y aquí no hay ninguno.",
-        alto: 300,
-        ratio: "3 / 2",
-      },
-      {
-        kind: "p",
-        text: "**3. Punto de espera intermedio.** Línea de trazos y letrero `M2`. Paras ahí si te lo indican.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-12-06 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 4 de 6, misma cámara y misma luz, llegando a una unión en cruz. A la izquierda, el letrero de dirección «↖ F» y «G ↗», separados por una línea negra vertical. Al fondo a la derecha, la calle prohibida con su disco rojo y barra blanca, sin texto. Al fondo a la izquierda, el letrero de vía de vehículos, «PARE · NO CONTINUAR SIN AUTORIZACIÓN ATC», en español. Ojo: nada de «NO ENTRY» dentro del disco.",
-        alto: 300,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-04-salida-plataforma.webp",
+        alt: "Vista desde cabina de la salida de plataforma con línea amarilla de eje y ampliación didáctica del letrero de posición M y dirección hacia E",
+        ancho: 1200,
+        alto: 800,
+        pie: "En el recuadro, el panel negro con la M identifica la calle donde estás; los paneles amarillos indican las salidas hacia N y E. Compara esa lectura con la autorización: si te corresponde E, sigue el eje hasta el giro indicado, pero no asumas que la flecha por sí sola te autoriza a tomar la calle.",
       },
       {
         kind: "p",
-        text: "**4. Unión con la F.** Dirección `↖ F` y `G ↗`. Y un disco rojo.",
+        text: "**2. Saliendo de plataforma.** La M sobre fondo negro responde «¿dónde estoy?»; E con flecha responde «¿hacia dónde queda el siguiente tramo?». El piloto que no conduce confirma en la carta que E es parte de la ruta antes del giro.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-12-07 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 5 de 6, misma cámara y misma luz, acercándose despacio al punto de espera. El eje mejorado arranca en el primer tercio, con doble línea de trazos a cada lado del eje continuo, y llega hasta 47 m desde la A2. Cruzando al fondo, la A2 de cuatro líneas de 0,30 m con las continuas del lado de espera, sus letreros rojos «25-07» y el emplazamiento «E» por fuera; antes de ella, más cerca de la cámara, la B2 con «25 CAT II/III». Ojo: nunca la A2 invertida.",
-        alto: 300,
-        ratio: "3 / 2",
-      },
-      {
-        kind: "p",
-        text: "**5. Acercándote a la pista.** El eje mejorado arranca a 47 m o menos. Frenas antes.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-12-08 · Fotografía real · 3:2 · 1200×800",
-        descripcion:
-          "Foto 6 de 6, misma cámara y misma luz, girando para alinearse y entrando a la pista por una intersección. A la izquierda, el letrero de despegue desde intersección, negro sobre amarillo, con «2 150 m →», a 60 m o más del eje de pista. Al fondo, la señal de eje de pista y un letrero blanco sobre negro de distancia restante. Ojo: la cifra del letrero de intersección va en metros, nunca en pies.",
-        alto: 300,
-        ratio: "3 / 2",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-05-espera-intermedia.webp",
+        alt: "Vista desde cabina de una línea transversal amarilla discontinua de espera intermedia, señalada en menta, con ampliación didáctica M2",
+        ancho: 1200,
+        alto: 800,
+        pie: "La línea amarilla discontinua que cruza la calle representa un punto de espera intermedio; el recuadro M2 ayuda a ubicarlo en esta ruta simulada. Si control te instruye a esperar en M2, detente antes de la línea y confirma la instrucción. No la confundas con el patrón de cuatro líneas de un punto de espera de pista.",
       },
       {
         kind: "p",
-        text: "**6. Autorizado a entrar.** `2 150 m →` es el TORA que te queda.",
+        text: "**3. Espera intermedia.** Al acercarse a M2, la tripulación busca la línea discontinua y reduce velocidad. La instrucción de control determina si debes detenerte allí; aunque el tramo siguiente se vea libre, no avances si te asignaron ese punto de espera.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-06-union-direccion.webp",
+        alt: "Vista desde cabina de una bifurcación de calles de rodaje con ampliación didáctica de direcciones F y E",
+        ancho: 1200,
+        alto: 800,
+        pie: "En esta bifurcación simulada, el recuadro indica F a la izquierda y E a la derecha; las flechas no significan que puedas tomar cualquiera. El eje se divide delante de la cabina: compara E con la ruta autorizada antes del giro. Si ninguna rama coincide, detente y solicita aclaración.",
+      },
+      {
+        kind: "p",
+        text: "**4. En el cruce.** Las direcciones sirven para orientarte, no reemplazan la autorización. Confirma la calle asignada antes de tomar una rama; si tienes dudas, detente.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-07-esperas-pista.webp",
+        alt: "Vista desde cabina de la aproximación a una pista, con recuadro didáctico de dos posibles puntos de espera: B2 para CAT II/III y A2 para la pista 13-31",
+        ancho: 1200,
+        alto: 800,
+        pie: "La fotografía muestra la aproximación a la pista; el recuadro distingue los letreros de dos posiciones posibles en este ejemplo, no marcas visibles en la foto. CAT (Category) significa «categoría»: el letrero CAT II/III identifica una espera para proteger áreas sensibles cuando corresponda. A2 delimita la entrada a la pista 13–31. Identifica en la carta y en la autorización cuál está activa y detente antes de ella: no elijas una por la distancia aparente a la pista.",
+      },
+      {
+        kind: "p",
+        text: "**5. Acercándote a la pista.** En este ejemplo hay dos posiciones de espera, pero no todos los aeropuertos tienen ambas. La tripulación confirma el punto asignado y se detiene antes de cruzarlo. El eje mejorado ayuda a advertir la proximidad de una espera de pista; no indica que esté permitido pasar.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-12-08-interseccion-pista.webp",
+        alt: "Vista desde cabina antes de entrar a una pista por una intersección, con ampliación didáctica de señal de 2 150 metros de carrera de despegue disponible",
+        ancho: 1200,
+        alto: 800,
+        pie: "El recuadro ilustra un letrero de despegue desde intersección: «2 150 m →» indica la carrera de despegue disponible en la dirección de la flecha, en metros, para ese acceso. Antes de aceptar la intersección, verifica la distancia publicada y el cálculo de performance para tu avión. Aunque la pista esté a la vista, solo entra o despega con la autorización específica correspondiente.",
+      },
+      {
+        kind: "p",
+        text: "**6. Antes de entrar.** TORA (Take-Off Run Available) es la carrera de despegue disponible. En el ejemplo, el letrero indica 2 150 m desde esa intersección en la dirección de la flecha; la tripulación compara ese dato con la publicación vigente y su cálculo de despegue, y confirma la autorización de entrada antes de cruzar la espera.",
       },
       {
         kind: "reconoce",
         titulo: "El plano de la ruta",
-        hueco: {
-          id: "AP-12-02",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "El mismo plano cenital de la apertura: la ruta desde el puesto «K14» hasta el punto de espera de la 25, con los seis círculos numerados donde se tomó cada foto, el punto de espera intermedio de la «M», la calle prohibida, la A2 con la B2 detrás y la entrada de la vía de vehículos. Ojo: ni A1 ni B1, ni la A2 invertida.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-12-10-reconoce-ruta.webp",
+          alt: "Plano simplificado distinto del mapa inicial para reconocer puesto K14, espera intermedia, B2, A2 y rama no autorizada",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
-          { x: 0, y: 0, que: "Línea amarilla continua", significa: "Eje de rodaje.", piloto: "Tu carril." },
-          { x: 0, y: 0, que: "Seis puntos", significa: "La secuencia.", piloto: "Cada uno con su letrero." },
-          { x: 0, y: 0, que: "Rojo en el punto 5", significa: "Obligatoria.", piloto: "Único freno." },
-          { x: 0, y: 0, que: "Vía de vehículos", significa: "Tránsito de tierra.", piloto: "Espera lo mismo." },
+          { x: 20, y: 79, que: "Puesto K14", significa: "Origen de esta ruta de entrenamiento.", piloto: "Verifica tu puesto real en la carta antes de iniciar el rodaje." },
+          { x: 21, y: 70, que: "Espera M2", significa: "Una línea discontinua marca una espera intermedia.", piloto: "Si control te asigna M2, detente antes de esa línea." },
+          { x: 66, y: 49, que: "B2", significa: "La posición más alejada protege áreas sensibles cuando aplica.", piloto: "Confirma si esta es la espera asignada; no la cruces por intuición." },
+          { x: 66, y: 39, que: "A2", significa: "La posición de espera antes del área protegida de la pista.", piloto: "Sin autorización específica, todo el avión permanece antes de la marca." },
+          { x: 85, y: 62, que: "Rama no autorizada", significa: "El símbolo rojo señala una ruta que no forma parte del ejemplo.", piloto: "Si la autorización parece llevarte allí, detente y aclárala." },
         ],
       },
       {
         kind: "piensaComoPiloto",
-        momento: "En el punto 5",
-        situacion: "Estás en el punto 5, de noche y con RVR de 400 metros.",
-        pregunta: "¿A2 o escalera?",
+        momento: "Antes del punto 5",
+        situacion: "Te aproximas a dos posiciones de espera publicadas. De noche, la RVR (Runway Visual Range, alcance visual en pista) es de 400 m.",
+        pregunta: "¿En qué punto debes detenerte antes de entrar a la pista?",
         respuesta:
-          "En el punto que indiquen el procedimiento de baja visibilidad vigente y la autorización. Si la operación protege el área sensible del ILS, será el punto de categoría más alejado, identificado por el patrón B2 y su letrero; la RVR por sí sola no autoriza a escogerlo ni a cruzarlo.",
+          "Detente en el punto que indiquen el procedimiento LVP (Low-Visibility Procedures, procedimientos de baja visibilidad) vigente y la autorización de control. En este ejemplo, B2 es la posición más alejada, que puede proteger el área sensible del ILS (Instrument Landing System, sistema de aterrizaje por instrumentos); A2 queda más cerca de la pista. La RVR por sí sola no te permite elegir una de las dos ni cruzarla.",
         claves: [
-          "Se verifica el procedimiento LVP y el punto asignado antes de llegar al cruce.",
-          "Pasarse del punto activo puede contaminar el área sensible del ILS.",
+          "Antes de llegar, confirma en la carta la ubicación de B2 y A2, el procedimiento vigente y la espera asignada.",
+          "Pasar del punto activo sin autorización puede invadir un área protegida y afectar una aproximación de precisión.",
         ],
-        hueco: {
-          id: "AP-12-07",
-          medida: "Fotografía real · 3:2 · 1200×800",
-          descripcion:
-            "La foto 5 de la secuencia: el eje mejorado arrancando a 47 m, la A2 cruzando al fondo con las continuas del lado de espera y los letreros rojos «25-07», y antes de ella, más cerca de la cámara, la B2 en escalera con «25 CAT II/III». Ojo: nunca la A2 invertida.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-12-09-decision-esperas.webp",
+          alt: "Diagrama distinto para comparar las posiciones de espera B2 y A2 antes de la pista 13-31",
         },
       },
     ],
