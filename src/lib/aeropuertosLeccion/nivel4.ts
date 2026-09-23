@@ -464,18 +464,19 @@ export const NIVEL_4: DocScreen[] = [
         alt: "Aeródromo nocturno con faro verde y blanco, y una torre marcada con varios niveles de luces rojas de obstáculo",
         ancho: 1600,
         alto: 900,
-        pie: "El faro verde y blanco ayuda a localizar el aeródromo en el entorno nocturno, pero no confirma por sí solo qué pista está disponible ni cuál es su orientación. Las luces rojas distribuidas en varios niveles hacen visible la altura y extensión de la torre: señalan un obstáculo, no una ruta de vuelo. El piloto identifica ambos patrones y los contrasta con la carta, las luces de pista y la autorización antes de tomar una decisión.",
+        pie: "En este ejemplo, los destellos verdes y blancos del faro ayudan a localizar el aeródromo de noche; algunos faros de aeródromo también pueden emitir solo blanco. Ninguno confirma por sí solo qué pista está disponible. Las luces rojas distribuidas en varios niveles señalan una torre como obstáculo, no una ruta de vuelo. El piloto contrasta ambos patrones con la carta, las luces de pista y la autorización antes de decidir.",
       },
       {
         kind: "p",
-        text: "Hay luces que ayudan a localizar el aeródromo y otras que hacen visible un obstáculo. El faro confirma la ubicación general, pero no identifica por sí solo una pista utilizable; las luces de obstáculo muestran altura y extensión de estructuras que pueden confundirse con el fondo urbano. En aproximación o rodaje, el piloto interpreta el patrón y lo contrasta con la carta en vez de perseguir la luz más intensa.",
+        text: "Hay luces para encontrar el aeródromo y otras para advertir de un obstáculo. Un faro da una ubicación general, pero no identifica por sí solo una pista utilizable; las luces de obstáculo revelan estructuras que pueden perderse entre las luces de la ciudad. En aproximación o rodaje, interpreta el patrón completo y compáralo con la carta, en vez de perseguir la luz más intensa.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-16-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "De noche, ángulo bajo al pie de la torre del faro o a media distancia, con el faro en el tercio izquierdo y el cielo ocupando el resto. La lámpara encendida en verde, el haz saliendo hacia arriba y, al fondo desenfocadas, las luces del aeródromo. De 20 a 30 destellos por minuto, 2 000 cd como mínimo, verde en aeródromo terrestre alternando con blanco. Ojo: el amarillo es de hidroaeródromo, no de un aeropuerto en tierra.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-02-faro-cercano.webp",
+        alt: "Faro giratorio en el borde de un aeropuerto terrestre, con lente verde iluminada y lente blanca opuesta frente a hangares al anochecer",
+        ancho: 1600,
+        alto: 900,
+        pie: "El cabezal giratorio tiene lentes opuestas; la foto captura el momento en que se ve la verde. En esta configuración, al girar alterna destellos verdes y blancos, normalmente de 20 a 30 destellos por minuto. Sirve para ubicar el aeródromo, no para elegir pista o aproximación. La foto no permite medir la frecuencia: confirma la instalación y la operación con la información publicada.",
       },
       {
         kind: "fichas",
@@ -484,19 +485,17 @@ export const NIVEL_4: DocScreen[] = [
           {
             titulo: "Faro de aeródromo",
             puntos: [
-              "Gira y destella de 20 a 30 veces por minuto: verde y blanco en tierra, amarillo y blanco en agua. El faro de identificación manda Morse.",
+              "En un aeródromo terrestre, el faro puede alternar verde y blanco o emitir solo blanco; el ejemplo fotografiado es verde y blanco. El faro de identificación es distinto: transmite caracteres en código Morse con destellos verdes. Ambos ayudan a identificar el lugar, pero no autorizan una pista.",
             ],
           },
           {
             titulo: "Luces de obstáculo",
-            hueco: {
-              id: "AP-16-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tabla visual de tres bloques: baja intensidad (A roja fija 10 cd; B roja fija 32 cd; C amarilla o azul de destellos 60 a 90 por minuto, 40 cd; D amarilla de destellos 200 cd; E roja de destellos 32 cd), mediana (A blanca de destellos 20 a 60 por minuto, 20 000 cd de día y 2 000 de noche; B roja de destellos 2 000 cd; C roja fija 2 000 cd) y alta (A blanca de destellos 40 a 60 por minuto, 200 000 cd de día; B igual, 100 000 cd). Cada fila con su círculo de color y su icono de fija o de destello. Ojo: nada de designaciones L-810, L-864, L-865, L-856 ni L-857, que son de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-16-03-familias-luces.webp",
+              alt: "Lámina de familias de luces de obstáculo: roja fija de baja intensidad, roja o blanca de intensidad media, blanca destellante de alta intensidad y colores de vehículos",
             },
             puntos: [
-              "Tres intensidades. Las bajas son rojas, salvo las amarillas y azules de los vehículos. Las medias pueden ser el estrobo blanco o rojas; las altas son siempre el estrobo blanco. Importa reconocer el patrón publicado.",
+              "En objetos fijos puedes encontrar roja fija de baja intensidad; el tipo E, también de baja intensidad, destella en ciertos aerogeneradores. En intensidad media hay roja fija, roja destellante o blanca destellante; en alta, blanca destellante. La franja inferior separa los vehículos: azul para emergencia o seguridad y amarillo para servicio o guía. Identifica si la luz señala una estructura fija o tráfico en movimiento; ningún color sustituye la distancia segura ni la ruta autorizada.",
             ],
           },
         ],
@@ -508,13 +507,13 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Parque eólico",
-            hueco: {
-              id: "AP-16-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "De noche, desde el suelo a media distancia o desde el aire, con al menos seis aerogeneradores en el cuadro y las luces rojas de las barquillas encendidas al mismo tiempo, porque el parque se trata como un objeto extenso y su perímetro destella simultáneo. En las turbinas de 150 m a 315 m, además, un nivel intermedio a la mitad de la altura de la barquilla con al menos 3 luces de baja intensidad tipo E, rojas de destellos, al mismo régimen. Álabes, barquilla y los dos tercios superiores del mástil en blanco. Ojo: ninguna turbina destellando desfasada de las demás.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-16-04-parque-eolico.webp",
+              alt: "Seis aerogeneradores al anochecer con luces rojas de obstáculo en las barquillas, encendidas en el mismo instante",
             },
-            puntos: ["Un parque eólico destella todo a la vez."],
+            puntos: [
+              "Las luces rojas en lo alto de las barquillas marcan el parque eólico como obstáculo extenso. En esta instalación se ven encendidas al mismo tiempo; cuando un parque usa destellos, estos se sincronizan. La foto es un instante, no una medición del ritmo. En vuelo, identifica el conjunto, no solo la turbina más cercana, y contrástalo con la carta y las altitudes publicadas.",
+            ],
           },
         ],
       },
@@ -522,80 +521,83 @@ export const NIVEL_4: DocScreen[] = [
         kind: "reconoce",
         titulo: "Una torre de línea eléctrica con balizas",
         intro:
-          "Destella en orden fijo: medio, arriba y abajo. Lo peligroso no es la torre, es el cable que cuelga.",
-        hueco: {
-          id: "AP-16-05",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Atardecer con luz suficiente para ver las esferas y las luces ya encendidas, cámara desde el suelo a media distancia, con la torre completa y el cable cruzando hacia otra torre al fondo. Tres niveles de luces blancas de alta intensidad tipo B, de 40 a 60 destellos por minuto y 100 000 cd de día: cima, mitad y altura del punto más bajo de la catenaria, destellando primero la del medio, después la superior y al final la inferior. Esferas de 60 cm como mínimo, un color cada una, alternando blanco con rojo o anaranjado, separadas 30 m como máximo. Ojo: en estos tres niveles no van luces rojas.",
+          "La foto muestra tres niveles de luces blancas y esferas que hacen visible parte del tendido. Una imagen fija no enseña el orden de destellos: si la instalación usa luces de alta intensidad tipo B, la secuencia es medio, cima e inferior. El cable puede ser más difícil de ver que la torre.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-16-05-torre-cables.webp",
+          alt: "Torre eléctrica al atardecer con tres niveles de luces blancas, cables que cuelgan entre torres y esferas blancas y anaranjadas alternadas",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 5,
             que: "Luz blanca de la cima",
-            significa: "Marca el punto más alto de la estructura.",
-            piloto: "Es lo último que libras si vuelas por encima.",
+            significa: "Hace visible la parte más alta de esta torre.",
+            piloto: "No calcules la altura libre mirando solo esa luz: verifica la altitud y los obstáculos publicados.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 29,
             que: "Luz blanca del nivel medio",
-            significa: "Es la que destella primero.",
-            piloto: "Si captas el orden, sabes que estás mirando una línea eléctrica.",
+            significa: "Es el nivel intermedio de la señalización.",
+            piloto: "Si la instalación es tipo B y observas varios ciclos, esta luz destella primero; una foto sola no lo demuestra.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 48,
             que: "Luz blanca del nivel bajo",
-            significa: "Está a la altura del punto más bajo del cable.",
-            piloto: "Hasta esa altura baja el cable entre las torres.",
+            significa: "Completa la señalización vertical de esta estructura.",
+            piloto: "No tomes este punto luminoso como límite inferior del cable; la catenaria puede descender entre torres.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 43,
+            y: 35,
             que: "Esferas en el cable",
-            significa: "Hacen visible de día lo que de noche no se ve.",
-            piloto: "Su separación depende del diámetro.",
+            significa: "Los marcadores esféricos blancos y anaranjados alternan para hacer más visible el tendido de día.",
+            piloto: "Te ayudan a localizar el cable, pero no garantizan que todo su tramo sea fácil de ver.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 67,
+            y: 71,
             que: "La catenaria entre torres",
-            significa: "Es el obstáculo real.",
-            piloto: "Las torres se ven, el cable no.",
+            significa: "El cable cuelga y cruza el espacio entre las torres.",
+            piloto: "Trata todo el tendido como obstáculo; usa la ruta y la altitud publicadas, no una estimación visual desde la cabina.",
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-16-06 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Dos franjas. Arriba, la secuencia verde, blanco, verde, blanco del faro sobre una línea de tiempo de un minuto, con el contador «20 a 30 destellos por minuto» y, en un recuadro, el faro de identificación mandando Morse a 6 u 8 palabras por minuto. Abajo, una torre tipo con sus niveles acotados: cada 105 m como máximo con mediana intensidad tipo A y cima de más de 105 m; cada 52 m como máximo con tipo B alternando con baja tipo B, o con tipo C. Ojo: nada de designaciones de la FAA ni cifras en pies.",
-        alto: 320,
+        kind: "p",
+        text: "En la imagen de reconocimiento, las tres luces blancas hacen más fácil ubicar la torre, mientras las esferas blancas y anaranjadas resaltan el cable con luz diurna. La amenaza no termina en la torre: el tendido cruza el valle y puede bajar entre apoyos. Si encuentras esta escena en una aproximación o salida, comprueba las altitudes y restricciones publicadas; no infieras separación vertical por la posición de una sola luz.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-06-patrones-luces.webp",
+        alt: "Comparación entre faro de aeródromo verde y blanco, faro de identificación con Morse verde y secuencia medio-cima-inferior de una torre eléctrica con luces blancas tipo B",
+        ancho: 1600,
+        alto: 900,
+        pie: "El faro de aeródromo del ejemplo alterna verde y blanco para ayudar a encontrar el campo; uno instalado puede emitir solo blanco. El faro de identificación transmite caracteres verdes en código Morse. Abajo, si una torre que sostiene cables usa luces blancas de alta intensidad tipo B, destellan primero en el nivel medio, luego en la cima y al final en el inferior. Reconoce el propósito de cada patrón y verifica cartas y procedimientos: ninguno indica por sí mismo que una pista esté autorizada.",
       },
       {
         kind: "p",
-        text: "En tierra, azul es emergencia y amarillo es servicio.",
+        text: "En plataforma, la baliza azul destellante identifica un vehículo de emergencia o seguridad; la amarilla, uno de servicio o guía. El color advierte qué tipo de vehículo puede estar moviéndose, pero no le otorga por sí solo prioridad para cruzar la ruta de tu avión.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Rodando de noche hacia el puesto",
         situacion:
           "Rodando de noche hacia el puesto, ves dos luces destellando cruzando tu ruta: una azul y una amarilla. Las dos van hacia el mismo punto de la plataforma.",
-        pregunta: "¿Cuál de las dos te obliga a prestar más atención y por qué?",
+        pregunta: "¿Qué identificas por las balizas y cómo decides si puedes continuar?",
         respuesta:
-          "La azul. El azul destellante identifica un vehículo de emergencia o de seguridad, y si va en movimiento hacia la plataforma es probable que esté atendiendo algo. El amarillo destellante es un vehículo de servicio normal. Y si el amarillo es más potente y va delante de ti, es el vehículo guía.",
+          "La baliza azul identifica un vehículo de emergencia o seguridad; la amarilla, uno de servicio. Un vehículo guía también puede llevar una baliza amarilla, pero se reconoce por su función y por las instrucciones recibidas, no solo porque parezca más brillante. Si cualquiera de ellos se acerca a tu ruta, reduce la velocidad o detente según el riesgo y confirma con control antes de seguir. El color no concede por sí solo prioridad de paso.",
         claves: [
-          "Azul de destellos: emergencia o seguridad.",
-          "Amarillo de destellos: vehículo de servicio.",
-          "El amarillo más potente que va delante de ti es el vehículo guía.",
+          "Azul destellante: vehículo de emergencia o seguridad.",
+          "Amarillo destellante: servicio o guía; la función se confirma por contexto e instrucciones.",
+          "Ante una trayectoria que se cruza, protege la separación y aclara la autorización.",
         ],
-        hueco: {
-          id: "AP-16-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "De noche, desde la cabina o desde el borde de la plataforma, con dos vehículos en el cuadro: uno de emergencia con baliza azul y uno de servicio con baliza amarilla, los dos con luz de baja intensidad tipo C de 60 a 90 destellos por minuto y 40 cd. Al fondo, el vehículo guía con su tipo D amarilla de 200 cd, más potente. Pavimento iluminado por proyectores y, si entran en cuadro, las luces rojas fijas de una pasarela de embarque. Ojo: nada de luces rojas y azules de patrulla, que no son de aviación.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-16-07-vehiculos-plataforma.webp",
+          alt: "Vista nocturna desde cabina con vehículo de emergencia o seguridad de baliza azul, camioneta de servicio de baliza amarilla y vehículo guía al fondo",
         },
       },
     ],
