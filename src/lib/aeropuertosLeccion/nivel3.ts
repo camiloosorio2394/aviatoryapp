@@ -6,8 +6,10 @@
  * final un rodaje entero leído letrero por letrero, que es donde todo lo
  * anterior se usa junto y de corrido.
  *
- * La norma que se enseña es la OACI: Anexo 14 Vol. I, 9.ª edición, Enmienda 18,
- * aplicable desde el 27 de noviembre de 2025. Los puntos de espera se dibujan
+ * La base de señalización es la OACI: Anexo 14 Vol. I, 9.ª edición, Enmienda 18,
+ * aplicable desde el 27 de noviembre de 2025. La lección 10 distingue además
+ * dos ejemplos propios de publicaciones FAA y no los presenta como universales.
+ * Los puntos de espera se dibujan
  * siempre con los patrones anchos A2 y B2, y en el patrón A las dos líneas
  * continuas van del lado en que la aeronave espera y las de trazos miran a la
  * pista: esa guarda está repetida hueco por hueco a propósito.
@@ -174,7 +176,7 @@ export const NIVEL_3: DocScreen[] = [
   {
     n: 10,
     title: "Los que informan",
-    kicker: "Amarillo, negro y ahora naranja: los letreros que te orientan en el área de movimiento.",
+    kicker: "Amarillo y negro para orientarte; dos señales FAA que conviene reconocer.",
     minutes: 8,
     blocks: [
       {
@@ -186,16 +188,16 @@ export const NIVEL_3: DocScreen[] = [
         pie: "Los paneles amarillos con caracteres negros y flechas anuncian hacia dónde conducen las calles N y E; el panel negro con la letra amarilla confirma que la aeronave está en M y, por eso, no lleva flecha. La línea amarilla discontinua que cruza la calle marca una espera intermedia: si la autorización exige detenerte allí, espera antes de la línea y confirma la ruta antes de escoger una bifurcación.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-10-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Lámina de cuatro columnas con las familias de color del área de movimiento: blanco sobre rojo «25-07», negro sobre amarillo «← E» junto al amarillo sobre negro «M», blanco sobre negro para la distancia de pista restante y negro sobre naranja «CONSTRUCTION AHEAD». Contorno negro de 20 mm en clave 3 o 4. Ojo: no hay un quinto color, y el numeral de distancia va sin unidades escritas.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-10-02-familias-color.webp",
+        alt: "Comparación de letreros rojos obligatorios, amarillos de dirección, negros de distancia restante FAA y naranjas temporales FAA",
+        ancho: 1600,
+        alto: 900,
+        pie: "Rojo con blanco exige identificar un límite o una prohibición; amarillo con negro indica una dirección, y amarillo sobre negro identifica la calle actual. Los otros dos ejemplos pertenecen a la señalización publicada por la FAA: el «3» blanco sobre negro significa 3.000 pies de pista restantes y el naranja alerta sobre obras. No presupongas que todos los aeropuertos usan estas cuatro familias: verifica la señalización local y su publicación vigente.",
       },
       {
         kind: "p",
-        text: "Los letreros amarillos y negros permiten confirmar dónde estás y hacia dónde conduce cada salida; el naranja identifica información temporal asociada con un área fuera de servicio. En una intersección, el fondo negro con caracteres amarillos confirma la calle actual, mientras el fondo amarillo con caracteres negros y flecha anuncia la dirección. Leer ambos evita girar hacia una calle correcta desde una posición equivocada.",
+        text: "En una intersección, el panel negro con letras amarillas confirma la calle donde estás; el amarillo con letras negras y flecha muestra hacia dónde conduce cada giro. Léelos juntos y compáralos con la ruta autorizada antes de mover el avión. Más adelante verás ejemplos de la FAA, como el aviso naranja de obras y la distancia restante en pies: sirven para reconocerlos si operas donde se utilizan, no para asumir que aparecerán igual en todos los aeropuertos.",
       },
       {
         kind: "fichas",
@@ -203,66 +205,57 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Dirección y destino",
-            hueco: {
-              id: "AP-10-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Arriba, vista cenital de una unión en cruz con el conjunto de letreros antes de la intersección y a la izquierda; abajo, los tres dibujados de frente. Combinado «← N», «M» y «E →» con línea negra separadora; dirección suelta «↖ F» y «G ↗»; destino «CARGA →». Acotación de 60 m mínimo desde el eje de la calle intersecada. Ojo: el emplazamiento va sin flechas.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-03-direccion-destino.webp",
+              alt: "Conjunto de letreros de dirección a N y E a ambos lados del emplazamiento M, con ejemplo separado de destino hacia carga",
             },
-            puntos: ["Negro sobre amarillo, con flecha. El destino manda a un sitio."],
+            puntos: ["El panel negro «M» confirma que estás en esa calle y no lleva flecha. Los amarillos señalan los giros hacia N y E; «CARGA →» indica un destino, no el nombre de la calle donde estás. Sigue solo la ruta autorizada y aclara cualquier discrepancia antes del giro."],
           },
           {
             titulo: "Salida de pista y pista libre",
-            hueco: {
-              id: "AP-10-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Vista cenital de una salida de pista en ángulo, con dos globos que amplían los letreros. El de salida, «E4 →», del mismo lado de la salida y a 60 m o más del punto de tangencia; el de pista libre con la configuración A dibujada dentro y, en el pavimento, la A2 con esa misma orientación. Los dos negro sobre amarillo, carácter de 400 mm. Ojo: nunca la A2 invertida ni la configuración B dentro del letrero.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-04-salida-pista-libre.webp",
+              alt: "Comparación técnica de un letrero de salida E4 con flecha y otro de pista libre con el símbolo de la posición de espera patrón A",
             },
-            puntos: ["Detrás del segundo ya libraste la pista."],
+            puntos: ["«E4 →» anuncia la salida que viene. El letrero de pista libre representa el patrón A y ayuda a ubicar el límite protegido al abandonar la pista; no sustituye verificar que todo el avión haya pasado la marca correspondiente. Confirma posición y procedimiento antes de notificar que libraste."],
           },
           {
             titulo: "Distancia de pista restante",
-            hueco: {
-              id: "AP-10-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Arriba, una pista con sus letreros blanco sobre negro a los dos lados, acotados cada 300 m con tolerancia de ±30 m. Abajo, cuatro viñetas negro sobre amarillo: despegue desde intersección «2 150 m →», verificación de VOR «VOR 116.3 · 147° 4.3NM», identificación del aeródromo «AEROPUERTO DEL NORTE» con caracteres de 3 m y puesto «K14». Ojo: el de despegue desde intersección va en metros, nunca en pies, y el de distancia restante lleva una sola cifra, sin unidades.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-05-distancias-letreros.webp",
+              alt: "Comparación entre el 3 blanco sobre negro de distancia restante FAA y un letrero amarillo de despegue por intersección que muestra 2.150 metros",
             },
-            puntos: ["Blanco sobre negro, cada 300 metros. Y cuatro que casi no verás."],
+            puntos: ["En el ejemplo FAA, «3» blanco sobre negro significa 3.000 pies de pista restantes, no 3 km. El letrero amarillo «2 150 m →» informa la TORA (Take-Off Run Available), es decir, la carrera de despegue disponible desde esa intersección, en metros. Para calcular performance manda la distancia publicada y el punto de entrada real, no una estimación visual."],
           },
           {
             titulo: "Área fuera de servicio",
-            hueco: {
-              id: "AP-10-06",
-              medida: "Fotografía real · 16:9 · 1600×900",
-              descripcion:
-                "Rodando despacio hacia un tramo de calle en obra, día claro y luz lateral. Letrero rectangular de cara naranja con inscripción negra «CONSTRUCTION AHEAD» y contorno de 20 mm, reforzado con dos luces destellantes que destellan a la vez. Cerca, un letrero amarillo cubierto con una funda, conos de 0,5 m y un tablero de fajas rojas y blancas de 0,5 por 0,9 m. Ojo: ningún texto inventado en la cara naranja.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-06-area-obras.webp",
+              alt: "Fotografía de una calle bloqueada por obras con barreras y letrero naranja temporal CONSTRUCTION AHEAD como ejemplo FAA",
             },
-            puntos: ["Negro sobre naranja. Avisa de obras o de distancias reducidas."],
+            puntos: ["En este ejemplo FAA, «CONSTRUCTION AHEAD» avisa que hay obras adelante; la barrera, no el letrero, muestra el tramo físicamente cerrado. Antes de rodar confirma la ruta vigente, el NOTAM (Notice to Airmen) aplicable y la autorización de control. Si la ruta parece conducir al cierre, detente y aclárala."],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "El tramo en obra",
-        hueco: {
-          id: "AP-10-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "La misma escena de la obra vista desde cabina: el letrero naranja «CONSTRUCTION AHEAD» con sus dos luces destellantes, el letrero amarillo tapado con una funda, los conos y el tablero de fajas rojas y blancas, y el eje de calle amarillo continuo entrando al cuadro. Ojo: ningún texto inventado en la cara naranja.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-10-09-reconoce-obra.webp",
+          alt: "Calle en obras al amanecer con un letrero naranja FAA a la izquierda, conos y barrera de cierre adelante",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
-          { x: 0, y: 0, que: "Cara naranja", significa: "Área fuera de servicio.", piloto: "Hay obra adelante." },
-          { x: 0, y: 0, que: "Dos luces destellando", significa: "Refuerzo.", piloto: "Te obligan a mirarlo." },
+          { x: 14, y: 47, que: "Letrero naranja", significa: "Aviso temporal FAA de obras adelante, no una señal universal.", piloto: "Cotejas el NOTAM y la ruta autorizada antes de seguir." },
+          { x: 56, y: 39, que: "Barrera transversal", significa: "Delimita físicamente el tramo cerrado.", piloto: "No ruedas hacia la zona bloqueada." },
           {
-            x: 0,
-            y: 0,
-            que: "Texto corto en mayúsculas",
-            significa: "Mensaje operacional.",
-            piloto: "Tu cálculo cambia.",
+            x: 58,
+            y: 44,
+            que: "Conos de obra",
+            significa: "Hacen visible el cierre a lo largo de la calle.",
+            piloto: "Si la autorización parece llevarte entre ellos, te detienes y pides aclaración.",
           },
-          { x: 0, y: 0, que: "Letrero amarillo tapado", significa: "Ayuda retirada.", piloto: "Ya no aplica." },
         ],
       },
       {
@@ -271,27 +264,25 @@ export const NIVEL_3: DocScreen[] = [
         items: [
           {
             titulo: "Emplazamiento",
-            hueco: {
-              id: "AP-10-07",
-              medida: "Fotografía real · 4:3 · 1200×900",
-              descripcion:
-                "A ras de pavimento, desde unos 15 m, día nublado de luz plana. Un letrero solo, aislado, cara negra con la inscripción amarilla «M2» y el borde amarillo corrido de 0,5 veces el ancho de trazo, porque va solo. Carácter de 300 mm, cara de 450 mm, altura instalada máxima de 900 mm, soporte frangible bajo. Rótulo «Emplazamiento» arriba a la izquierda. Ojo: sin flechas y sin fondo amarillo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-07-emplazamiento.webp",
+              alt: "Fotografía de un letrero aislado de emplazamiento M2 amarillo sobre negro con borde amarillo y sin flecha",
             },
+            puntos: ["«M2» identifica la calle o posición en la que estás. El fondo negro, las letras amarillas y la ausencia de flecha te permiten distinguirlo de un letrero de dirección. Si tu carta o autorización nombran otra calle, no elijas un giro por intuición: confirma la posición."],
           },
           {
             titulo: "Dirección",
-            hueco: {
-              id: "AP-10-08",
-              medida: "Fotografía real · 4:3 · 1200×900",
-              descripcion:
-                "El mismo punto de vista, la misma luz y el mismo tamaño de letrero que AP-10-07: solo cambia el letrero. Cara amarilla con la inscripción negra «E →», la flecha dentro de la cara y a la derecha de la letra, sin borde. Carácter de 300 mm, altura instalada máxima de 900 mm, el mismo soporte frangible. Rótulo «Dirección» arriba a la izquierda. Ojo: un letrero de dirección sin flecha no existe.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-10-08-direccion.webp",
+              alt: "Fotografía de un letrero amarillo de dirección E con flecha negra hacia la derecha junto a una bifurcación realista",
             },
+            puntos: ["«E →» anuncia que el giro a la derecha conduce a la calle E; no dice que ya estés en ella. Identifica la flecha, comprueba que el giro coincide con la autorización y, después de hacerlo, busca una referencia que confirme tu nuevo emplazamiento."],
           },
         ],
       },
       {
         kind: "p",
-        text: "Emplazamiento: amarillo sobre negro, sin flecha. Dirección: negro sobre amarillo, siempre con flecha.",
+        text: "Para recordarlo durante el rodaje: amarillo sobre negro, sin flecha, confirma dónde estás; negro sobre amarillo, con flecha, te orienta hacia la próxima calle. La señal nunca reemplaza la carta de rodaje ni la autorización.",
       },
       {
         kind: "piensaComoPiloto",
@@ -299,13 +290,11 @@ export const NIVEL_3: DocScreen[] = [
         situacion: "Aterrizaste y saliste por la calle E. El controlador pregunta si libraste.",
         pregunta: "¿Ya libraste?",
         respuesta:
-          "Solo si el avión entero pasó el letrero de pista libre. Ese marca el área crítica.",
-        claves: ["El avión entero tiene que haberlo pasado.", "Lleva dibujada dentro la configuración A."],
-        hueco: {
-          id: "AP-10-04",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "La salida de pista en ángulo con sus dos letreros ampliados: «E4 →» antes de la salida y, más adelante, el de pista libre con la configuración A dibujada dentro, junto a la A2 pintada en el pavimento con la misma orientación. Ojo: nunca la A2 invertida ni la configuración B dentro del letrero.",
+          "Confirma que todo el avión pasó la marca de espera que delimita la pista y que ya estás fuera de su área protegida. El letrero de pista libre puede ayudarte a ubicar ese límite, pero no basta verlo por la ventanilla: verifica la posición completa de la aeronave antes de informar a control.",
+        claves: ["Todo el avión debe haber pasado el límite aplicable.", "El letrero muestra el patrón A, pero no sustituye la comprobación de posición."],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-10-10-decision-pista-libre.webp",
+          alt: "Plano técnico de una aeronave completamente más allá de la marca de espera A2 al abandonar una pista",
         },
       },
     ],
