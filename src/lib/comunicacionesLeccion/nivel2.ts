@@ -1,0 +1,1286 @@
+/**
+ * Nivel 2 · El idioma (lecciones 08 a 11, capítulos 8 a 11 de la especificación).
+ *
+ * El inglés de la radio no es el inglés académico: aquí se separan el inglés
+ * general, el Aviation English, la fraseología y el plain language, y se
+ * repasan las palabras estándar que no admiten sinónimos.
+ *
+ * Fuente: docs/comunicaciones/nivel-2.md, entero. Cada intercambio del
+ * Markdown es un bloque `code` con su significado debajo; lo que el Markdown
+ * marca VERIFICAR sale en un callout «Verificar» visible antes de la
+ * fraseología y, completo, en el detalle técnico de FUENTES. El formato de
+ * los bloques y de los huecos está documentado al inicio de index.ts.
+ */
+
+import type { DocBlockData, DocScreen } from "@/lib/docBlocks"
+
+/**
+ * Un intercambio o una entrada de vocabulario: el título en negrita y, en
+ * orden, sus piezas. Un texto es un párrafo en español; una lista de líneas es
+ * la transmisión literal, una línea por turno de palabra.
+ */
+function entrada(titulo: string, ...partes: (string | string[])[]): DocBlockData[] {
+  return [
+    { kind: "p", text: `**${titulo}**` },
+    ...partes.map((parte): DocBlockData =>
+      typeof parte === "string" ? { kind: "p", text: parte } : { kind: "code", text: parte.join("\n") },
+    ),
+  ]
+}
+
+/** Un error frecuente: el nombre del error como título y la explicación. */
+function error(titulo: string, text: string): DocBlockData {
+  return { kind: "callout", tone: "warn", title: titulo, text }
+}
+
+/** Las convenciones de los ejemplos de todo el nivel (cabecera de nivel-2.md). */
+const CONVENCIONES: DocBlockData = {
+  kind: "list",
+  items: [
+    "Distintivo de ejemplo: `AVIATORY 452` (y `AVIATORY 425`, `AVIATORY 542` cuando hace falta un distintivo parecido). Estaciones («Bogota Ground», «Bogota Approach», «Bogota Control»), frecuencias, códigos y waypoints son **ficticios y educativos**. GIKOS es ficticio.",
+    "Los números van en cifras, como en el Doc 9432. Se pronuncian según el capítulo 5.",
+    "Cuando un intercambio sale de un ejemplo del Doc 9432, se indica «adaptado de Doc 9432 x.x»: se cambió `FASTAIR 345` o `G-CD` por `AVIATORY 452` y las estaciones del manual (que también son ficticias) por estaciones de ejemplo.",
+    "Lo rotulado **PLAIN LANGUAGE** no es fraseología normalizada: es lenguaje común.",
+    "Lo rotulado **(ejemplo construido)** no aparece en las fuentes cargadas y está listado en la línea VERIFICAR del capítulo.",
+  ],
+}
+
+export const NIVEL_2: DocScreen[] = [
+  // ── 08 ──────────────────────────────────────────────────────────────────
+  {
+    n: 8,
+    title: "Aviation English",
+    kicker: "Comunicar con eficacia, no con sofisticación",
+    minutes: 10,
+    blocks: [
+      {
+        kind: "p",
+        text: "El nivel 1 enseñó el mecanismo (servicios, principios, alfabeto, números, distintivos, estructura de una transmisión). Este nivel enseña el idioma con el que se usa ese mecanismo: qué inglés se habla en la frecuencia, qué exige la OACI, cuándo se usa fraseología y cuándo lenguaje común, y qué significa exactamente cada palabra normalizada.",
+      },
+      { kind: "sub", text: "¿Qué es?" },
+      {
+        kind: "p",
+        text: "«Aviation English» es el nombre con el que la instrucción conoce el inglés que se usa en la radiotelefonía aeronáutica. La OACI no lo mide por lo culto o lo correcto que suene, sino por si funciona: un mensaje claro, preciso, comprensible, conciso, sin ambigüedad y que produce la acción correcta en la cabina y en la consola.",
+      },
+      {
+        kind: "p",
+        text: "El Doc 9835 ordena el terreno en capas que conviene tener claras (3.2.6 y 3.2.7):",
+      },
+      {
+        kind: "table",
+        head: ["Capa", "Qué es", "Quién la usa", "Ejemplo"],
+        rows: [
+          [
+            "**General English**",
+            "El idioma de todos los días: conversación, prensa, cine.",
+            "Cualquiera",
+            "«Could you possibly let us go a bit lower?»",
+          ],
+          [
+            "**Lenguaje aeronáutico** (lo que en instrucción se llama Aviation English en sentido amplio)",
+            "Todo el uso del idioma en la aviación: ingeniería, mantenimiento, despacho, operaciones, servicio al pasajero.",
+            "Toda la industria",
+            "Un manual de mantenimiento, un briefing de despacho",
+          ],
+          [
+            "**Radiotelefonía aeronáutica**",
+            "La subcategoría que miden los requisitos de competencia lingüística de la OACI. Solo pilotos y controladores. Comprende **fraseología normalizada + lenguaje común**.",
+            "Pilotos y ATC",
+            "Todo lo que se dice en la frecuencia",
+          ],
+          [
+            "**Fraseología normalizada (RT phraseology)**",
+            "Un «sublenguaje» restringido y codificado: cada palabra tiene un significado fijo.",
+            "Pilotos y ATC",
+            "«Aviatory 452, request descent»",
+          ],
+          [
+            "**Lenguaje común (plain language)**",
+            "«Uso espontáneo, creativo y no codificado de un idioma natural dado» (Doc 9835, glosario), dentro de los temas de la radiotelefonía y con inteligibilidad, precisión, propiedad, univocidad y concisión (3.3.14).",
+            "Pilotos y ATC, cuando la fraseología no alcanza",
+            "«We have a passenger with severe chest pain»",
+          ],
+        ],
+      },
+      {
+        kind: "p",
+        text: "Las tres últimas capas son las que importan al piloto en la frecuencia. El capítulo 10 trabaja la frontera entre fraseología y lenguaje común.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "CM-08-01 · Diagrama · 4:3 · 1200×900 px",
+        descripcion:
+          "Imagen sugerida: círculos concéntricos (o conjuntos anidados). El más grande: «General English». Dentro: «Lenguaje aeronáutico (ingeniería, mantenimiento, despacho, cabina de pasajeros…)». Dentro: «Radiotelefonía aeronáutica (pilotos y ATC)», partido en dos mitades: «Fraseología normalizada» y «Lenguaje común (plain language)». En cada zona, una frase de ejemplo corta. Al margen, la leyenda «Esto es lo que mide la competencia lingüística OACI» señalando el círculo de radiotelefonía. Objetivo: que el piloto ubique de un vistazo qué inglés se exige en la frecuencia y entienda que la competencia OACI no mide el General English ni el vocabulario técnico de otras áreas.",
+        alto: 360,
+        ratio: "4 / 3",
+      },
+
+      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "p",
+        text: "**1. La fraseología es un idioma reducido a propósito.** El Doc 9835 (3.3.10) describe sus rasgos: vocabulario de unas 400 palabras con significado preciso, oraciones cortas sin artículos, sin pronombres, sin verbos auxiliares y con pocas preposiciones; cerca de la mitad de las oraciones son imperativas o pasivas. Por eso «Cleared to land» y no «You are now cleared to land on the runway». Quitar palabras no es pobreza del idioma: es lo que reduce la ambigüedad.",
+      },
+      {
+        kind: "p",
+        text: "**2. Lo que se mide no es el acento, es la inteligibilidad.** El nivel operacional de la OACI «no apunta a un alto grado de corrección gramatical ni una pronunciación de hablante nativo» (Doc 9835 4.5.5 c). La escala no toma al hablante nativo como modelo (4.5.10), y a los hablantes nativos también se les exige modular su inglés para ser entendidos (3.3.3 b; 5.3.1.4 d).",
+      },
+      {
+        kind: "p",
+        text: "**3. El inglés informal es un riesgo operacional.** El Doc 9835 pide evitar la jerga de la calle, las jergas de otras disciplinas (por ejemplo la militar) y todo lo que dificulte la comprensión (3.3.9); y recuerda que los modismos «atentan contra la inteligibilidad» (4.6.4, nivel experto). El Preámbulo del Doc 9432 lo resume: las declaraciones directas sin expresiones idiomáticas se entienden mejor que las indirectas, coloquiales o informales.",
+      },
+      {
+        kind: "p",
+        text: "**4. El idioma de la frecuencia.** Según el Anexo 10, Vol. II, 5.2.1.2, citado en el Doc 9835 4.3.5, la radiotelefonía se hace en el idioma de la estación terrestre o en inglés, y el inglés debe estar disponible en las estaciones que atienden rutas y aeropuertos de servicios internacionales. El propio Doc 9835 pone el ejemplo de México, Centroamérica y gran parte de Sudamérica: en vuelos internacionales se puede usar español o inglés, pero el inglés tiene que estar disponible. Para el piloto latinoamericano esto significa frecuencias **bilingües**: el mismo controlador puede hablar en español con un vuelo nacional y en inglés con uno extranjero. El Doc 9835 (3.3.22) advierte el costo: el piloto que solo habla inglés no entiende lo que se dice en español a las demás aeronaves y pierde parte de la conciencia situacional de la frecuencia.",
+      },
+      {
+        kind: "p",
+        text: "**5. Por qué la OACI insiste tanto.** El Doc 9835 (3.3.7) trae dos malentendidos por errores de expresión:",
+      },
+      {
+        kind: "list",
+        items: [
+          "«Descend two four zero zero feet»: la similitud entre «two» y «to» hizo que el piloto entendiera 400 pies en lugar de 2 400. La aeronave se estrelló contra el suelo. (Por eso el Doc 9432 2.4.3 manda transmitir las altitudes en millares y centenas enteros como «two thousand four hundred».)",
+          "«We are at take-off»: el controlador entendió que la aeronave esperaba en posición; en realidad ya estaba acelerando. Con neblina, chocó con otra aeronave. (Por eso el Doc 9432 2.8.3.3 reserva la palabra TAKE-OFF para la autorización de despegue o su anulación.)",
+        ],
+      },
+      { kind: "p", text: "El documento no nombra los sucesos; aquí tampoco." },
+
+      { kind: "sub", text: "Fraseología OACI" },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Cómo leer los ejemplos de este nivel",
+        text: "Distintivos (AVIATORY 452, 425, 542), estaciones, frecuencias, códigos y waypoints son ficticios y educativos. «Adaptado de Doc 9432 x.x» quiere decir que el intercambio sale del manual con el distintivo y las estaciones cambiados. **PLAIN LANGUAGE** es lenguaje común, no fraseología normalizada. **(ejemplo construido)** no aparece en las fuentes cargadas y está en la línea VERIFICAR del capítulo.",
+      },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Verificar",
+        text: "Tres frases de esta lección no están comprobadas contra su fuente. «Aviatory 452, going around»: consultar Doc 4444 cap. 12 (fraseología de aproximación frustrada) y Anexo 10 Vol. II cap. 5. «Request heading 270 to avoid» y «Request to hold present position» van como PLAIN LANGUAGE: consultar Doc 4444 cap. 12 (desvíos por meteorología y fraseología de espera). El idioma de cada dependencia ATS en Colombia se confirma en la AIP Colombia GEN 3.4 vigente.",
+      },
+      {
+        kind: "p",
+        text: "Cada pareja muestra la misma intención dicha en General English (lo que **no** se debe transmitir) y en fraseología o en lenguaje común bien construido.",
+      },
+      ...entrada(
+        "Solicitar descenso",
+        [
+          `PILOT (General English, incorrecto): "Bogota Control, Aviatory 452, hi, we were wondering if we could maybe start going down now."`,
+          `PILOT: "Aviatory 452, request descent."`,
+          `ATC:   "Aviatory 452, descend to FL 240."`,
+          `PILOT: "Leaving FL 350, descending to FL 240, Aviatory 452."`,
+        ],
+        "Significado: la versión correcta cabe en cuatro palabras y el controlador reconoce la solicitud sin interpretar. La respuesta del piloto informa el nivel que abandona y el nivel autorizado. Adaptado de Doc 9432 3.3.3.1 (REQUEST DESCENT; LEAVING FL 90 DESCENDING TO FL 60).",
+      ),
+      ...entrada(
+        "Informar que no se puede cumplir",
+        [
+          `ATC:   "Aviatory 452, cleared to GIKOS, FL 290, cross TOLKO FL 150 or above, if unable, maintain FL 130."`,
+          `PILOT (incorrecto): "Uh, I don't think we're going to make that one, it's a bit tight."`,
+          `PILOT: "Unable to cross TOLKO FL 150 due weight, maintaining FL 130, Aviatory 452."`,
+        ],
+        "Significado: UNABLE más el motivo. «I don't think…» obliga al controlador a adivinar si el piloto cumplirá o no. TOLKO es ficticio. Adaptado de Doc 9432 2.8.3.10.",
+      ),
+      ...entrada(
+        "Notificar la maniobra de motor y al aire",
+        [
+          `PILOT (jerga, incorrecto): "Aviatory 452, we're on the go."`,
+          `PILOT: "Aviatory 452, going around."`,
+          `ATC:   "Aviatory 452, roger."`,
+        ],
+        "Significado: el Doc 9835 (5.3.2.2) cuenta que un mismo motor y al aire se anuncia según la aerolínea o el país como «go-around», «missed approach», «balked approach», «abandon approach» o «we're on the go», y que los demás en la frecuencia (incluido el controlador que separa) pueden no entender qué va a hacer la aeronave. La fraseología OACI del motor y al aire se trabaja en los capítulos 29 y 30; la forma «going around» está en VERIFICAR.",
+      ),
+      ...entrada(
+        "Designar una pista",
+        [
+          `ATC (incorrecto): "Aviatory 452, runway ten left, cleared to land."`,
+          `ATC:   "Aviatory 452, runway 10 left, cleared to land."   (dicho "one zero left")`,
+          `PILOT: "Runway 10 left, cleared to land, Aviatory 452."`,
+        ],
+        "Significado: el Doc 9835 (3.3.11) pone este caso: «ten» puede oírse como «turn» (gire). Por eso cada dígito se pronuncia por separado (Doc 9432 2.4.2: «pista dos siete»).",
+      ),
+      ...entrada(
+        "Decir lo que preocupa, sin rodeos (PLAIN LANGUAGE)",
+        [
+          `PILOT (indirecto, incorrecto): "Aviatory 452, we were just wondering about the weather ahead, it looks kind of interesting."`,
+          `PILOT: "Aviatory 452, we have weather ahead on our route. Request heading 270 to avoid."`,
+        ],
+        "Significado: el Doc 9835 (5.3.3.4 y 5.3.3.5) atribuye incidentes y accidentes a problemas informados con lenguaje poco directo y pide exponer la preocupación de forma explícita. «Kind of interesting» no dice ni el problema ni lo que se necesita. La fraseología de desvío por meteorología va en el capítulo 25.",
+      ),
+      ...entrada(
+        "Limitar la carga de cada transmisión (PLAIN LANGUAGE)",
+        [
+          `PILOT (incorrecto): "Aviatory 452, we have a hydraulic problem and we need to run the checklist and maybe we will need to return but we don't know yet and we also need to talk to the company and the passengers are fine."`,
+          `PILOT: "Aviatory 452, we have a hydraulic problem. Request to hold present position for about ten minutes to run the checklist. Will advise intentions."`,
+        ],
+        "Significado: el Doc 9835 (5.3.3.7) dice que la inteligibilidad se controla moderando la velocidad, limitando la carga informativa de cada enunciado y haciendo pausas. Tres frases cortas: problema, necesidad, lo que viene.",
+      ),
+
+      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "enLaOperacion",
+        momento: "Frecuencia bilingüe en Latinoamérica",
+        texto:
+          "Las autorizaciones a vuelos nacionales pueden salir en español y las de vuelos extranjeros en inglés. Un piloto de aerolínea escucha las dos: una instrucción en español a otro tráfico puede afectar su propia secuencia. Qué idioma se usa en cada dependencia lo publica el Estado (en Colombia, AIP GEN 3.4; VERIFICAR la versión vigente).",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Cabina multicultural",
+        texto:
+          "En una aerolínea con tripulaciones de varios países, la fraseología es el idioma común de los dos pilotos, no solo del piloto con ATC. El Doc 9835 (5.3.3.5) usa un ejemplo de cabina: «¿Qué pasa con los flaps?» es peor que «Es preciso desplegar más los flaps».",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Controladores anglófonos rápidos",
+        texto:
+          "En aeropuertos de alta densidad el controlador puede hablar rápido o con modismos. El Doc 9835 (3.3.3 b y 5.3.1.4 d) pone la carga también en el hablante experto, pero en la cabina la herramienta del piloto es pedir que se repita: SAY AGAIN o SPEAK SLOWER (capítulo 11).",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Entrevista",
+        texto:
+          "Un evaluador de aerolínea que oye a un candidato decir «affirmative», «okay» o «we're gonna» en un ejercicio de radio no está evaluando su inglés: está evaluando su disciplina de fraseología.",
+      },
+
+      { kind: "sub", text: "Error frecuente" },
+      error(
+        "Traducir mentalmente del español",
+        "«We are in take-off» (estamos en el despegue) repite el error que el Doc 9835 3.3.7 b documenta.",
+      ),
+      error(
+        "Adornar la fraseología",
+        "Con cortesías y rellenos («please», «thank you very much», «uh», «okay»). El Doc 9432 2.2.1 g) pide evitar los sonidos de duda («humm», «este»).",
+      ),
+      error(
+        "Salto de código",
+        "El Doc 9835 (3.3.21) describe la mezcla de registros: meter palabras que no son normalizadas dentro de una frase normalizada, o alargar la frase normalizada con gramática común. El resultado ya no es ni fraseología ni lenguaje común claro.",
+      ),
+      error(
+        "Creer que hablar rápido es hablar bien",
+        "El Doc 9432 2.2.1 d) fija una velocidad que no exceda 100 palabras por minuto, y más lenta cuando el destinatario debe anotar.",
+      ),
+      error(
+        "Suponer que el hablante nativo siempre tiene razón",
+        "Si el mensaje no fue claro, el problema es del mensaje, no del oyente. Se pide repetición.",
+      ),
+
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "La radiotelefonía tiene dos registros: fraseología normalizada y lenguaje común. Los dos cuentan.",
+          "Aviation English busca efectividad, no sofisticación: claro, preciso, conciso, sin ambigüedad.",
+          "La fraseología es corta a propósito: sin artículos, sin pronombres, sin rellenos.",
+          "Nada de jerga, modismos ni coloquialismos, aunque el otro los use.",
+          "En Latinoamérica las frecuencias son bilingües: escuche también lo que se dice en español.",
+          "Una transmisión, una idea: problema, necesidad, intención.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes",
+        cita: "Doc 9835 · Doc 9432",
+        bloques: [
+          { kind: "sub", text: "Verificado" },
+          {
+            kind: "p",
+            text: "Doc 9835 (2.ª ed.) glosario «Lenguaje común», 3.2.6, 3.2.7, 3.3.3, 3.3.7, 3.3.9, 3.3.10, 3.3.11, 3.3.14, 3.3.21, 3.3.22, 4.3.5, 4.5.5 c), 4.5.10, 4.6.4, 5.3.1.4 d), 5.3.2.2, 5.3.3.4, 5.3.3.5, 5.3.3.7; Doc 9432 (4.ª ed.) Preámbulo, 2.2.1 d) y g), 2.4.2, 2.4.3, 2.8.3.3, 2.8.3.10, 3.3.3.1.",
+          },
+          { kind: "sub", text: "Por verificar" },
+          {
+            kind: "list",
+            items: [
+              "VERIFICAR: la frase del piloto «Aviatory 452, going around» contra Doc 4444 cap. 12 (fraseología de aproximación frustrada) y Anexo 10 Vol. II cap. 5 (no cargados).",
+              "VERIFICAR: idioma de cada dependencia ATS en Colombia contra AIP Colombia GEN 3.4 (no cargado).",
+              "VERIFICAR: la solicitud «Request heading 270 to avoid» contra Doc 4444 cap. 12, desvíos por meteorología (no cargado); aquí se presenta como PLAIN LANGUAGE.",
+              "VERIFICAR: «Request to hold present position» (PLAIN LANGUAGE) contra la fraseología de espera del Doc 4444 cap. 12 (no cargado).",
+            ],
+          },
+          { kind: "sub", text: "Convenciones de los ejemplos" },
+          CONVENCIONES,
+        ],
+      },
+    ],
+  },
+
+  // ── 09 ──────────────────────────────────────────────────────────────────
+  {
+    n: 9,
+    title: "Competencia lingüística OACI",
+    kicker: "Los seis niveles y qué exige el nivel 4",
+    minutes: 11,
+    blocks: [
+      { kind: "sub", text: "¿Qué es?" },
+      {
+        kind: "p",
+        text: "Son los requisitos de competencia lingüística de la OACI: el nivel de comprensión y expresión oral que pilotos, controladores y operadores de estaciones aeronáuticas deben acreditar en el idioma que usan en radiotelefonía. Están en el Anexo 1 (normas 1.2.9, descriptores integrales del Apéndice 1 y escala de calificación del Adjunto A) y los explica el Doc 9835.",
+      },
+      {
+        kind: "callout",
+        tone: "info",
+        title: "Esto no es la preparación del examen",
+        text: "La app tiene un módulo de Inglés ICAO que entrena para la evaluación. **Este capítulo no prepara el examen**: explica qué significa, en la frecuencia, comunicarse al nivel que la OACI considera operacional.",
+      },
+
+      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "p", text: "**La escala tiene seis niveles** (Doc 9835 4.5.6):" },
+      {
+        kind: "table",
+        head: ["Nivel", "Nombre (Doc 9835, español)", "Nombre en inglés"],
+        rows: [
+          ["1", "Preelemental", "Pre-elementary"],
+          ["2", "Elemental", "Elementary"],
+          ["3", "Preoperacional", "Pre-operational"],
+          ["4", "**Operacional**", "**Operational**"],
+          ["5", "Avanzado", "Extended"],
+          ["6", "Experto", "Expert"],
+        ],
+      },
+      {
+        kind: "p",
+        text: "Los descriptores de los niveles 1 y 2 están en el Apéndice A del Doc 9835 y en el Adjunto A del Anexo 1, que no están cargados (VERIFICAR). El Doc 9835 solo explica los niveles 3 a 6 (4.6.1).",
+      },
+      {
+        kind: "p",
+        text: "**El nivel 4 es el mínimo operacional.** Desde el 5 de marzo de 2008 los pilotos de aviones, dirigibles, helicópteros y aeronaves de despegue vertical, los controladores y los operadores de estaciones aeronáuticas deben acreditar el nivel de comprensión y expresión oral del Apéndice 1 del Anexo 1 (Doc 9835 4.4.4 y 4.4.11). El nivel 4 es «el nivel mínimo de dominio considerado seguro para las comunicaciones de control del tránsito aéreo» (4.6.2). Cómo se acredita y se anota en la licencia lo decide la autoridad que otorga licencias (4.4.9); en Colombia, VERIFICAR contra el RAC 61.",
+      },
+      {
+        kind: "p",
+        text: "**Se califica en seis habilidades**: pronunciación, estructura, vocabulario, fluidez, comprensión e interacción (Pronunciation, Structure, Vocabulary, Fluency, Comprehension, Interactions) (Doc 9835 4.5.6).",
+      },
+      {
+        kind: "p",
+        text: "**La nota final es la más baja de las seis, no el promedio** (4.5.5 d y 4.5.11). Un piloto con 5 en todo y 3 en pronunciación es nivel 3. El Doc 9835 da la razón: un piloto con nivel 4 en todo menos en pronunciación «puede no ser comprendido» por los controladores.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "CM-09-01 · Esquema · 16:9 · 1600×900 px",
+        descripcion:
+          "Imagen sugerida: escala horizontal de seis escalones numerados 1 a 6 con su nombre en español e inglés. Una línea vertical gruesa entre el 3 y el 4 rotulada «mínimo operacional». Debajo, seis barras verticales (una por habilidad: pronunciación, estructura, vocabulario, fluidez, comprensión, interacción) con valores de ejemplo 5, 5, 4, 5, 3, 5; la barra de comprensión resaltada y una flecha que dice «Nota final: 3 (la más baja)». Sin cifras de reevaluación. Objetivo: que el piloto entienda que el nivel 4 es un piso y que una sola habilidad débil define la calificación completa.",
+        alto: 300,
+        ratio: "16 / 9",
+      },
+      { kind: "p", text: "**Nivel 4, descriptores textuales** (Doc 9835 4.6.2 a 4.6.7):" },
+      {
+        kind: "fichas",
+        columnas: 2,
+        items: [
+          {
+            titulo: "Pronunciación",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«La pronunciación, acentuación, ritmo y entonación tienen la influencia de la lengua primaria o de la variante regional pero sólo en algunas ocasiones interfieren en la facilidad de comprensión.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: [
+              "Se le nota el acento colombiano y está bien. Lo que no puede pasar es que el controlador tenga que pedir repetición a menudo.",
+            ],
+          },
+          {
+            titulo: "Estructura",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«Utiliza las estructuras gramaticales y sintácticas básicas creativamente, y por lo general con buen dominio. Puede cometer errores, especialmente en circunstancias inusuales o imprevistas, pero los errores rara vez interfieren con el significado.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: [
+              "Arma frases simples nuevas, no solo frases memorizadas. Un error de gramática que no cambia el sentido no es el problema.",
+            ],
+          },
+          {
+            titulo: "Vocabulario",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«La amplitud y precisión del vocabulario son por lo general suficientes para comunicarse eficazmente sobre temas comunes, concretos y relacionados con el trabajo. Con frecuencia puede parafrasear satisfactoriamente aunque carece del vocabulario necesario para desenvolverse en circunstancias extraordinarias o imprevistas.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: ["Si no sabe la palabra técnica, la describe con palabras simples (capítulo 52)."],
+          },
+          {
+            titulo: "Fluidez",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«Capaz de expresarse con frases largas a un ritmo apropiado. Ocasionalmente puede perder fluidez durante la transición entre un discurso practicado o formulado y la interacción espontánea pero sin impedir una comunicación eficaz. En su discurso emplea limitadamente acentuaciones o conjunciones. Las palabras superfluas no lo confunden.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: ["Puede salir de la fraseología al lenguaje común sin quedarse mudo."],
+          },
+          {
+            titulo: "Comprensión",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«Comprende con bastante exactitud temas comunes, concretos y relacionados con el trabajo, cuando el acento o las variantes utilizadas son suficientemente inteligibles para la comunidad internacional de usuarios. Cuando enfrenta complicaciones de carácter lingüístico o circunstancial o acontecimientos imprevistos su comprensión es más lenta o requiere estrategias de aclaración.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: [
+              "Entiende la rutina y, cuando algo se sale de lo esperado, pide aclaración en vez de suponer.",
+            ],
+          },
+          {
+            titulo: "Interacciones",
+            tecnica: {
+              rotulo: "Nivel 4, Operacional (texto del Doc 9835)",
+              texto: "«Por lo general las respuestas son inmediatas, apropiadas e informativas. Inicia y sostiene intercambios verbales aun cuando trate sobre situaciones imprevistas. Ante posibles malentendidos verifica, confirma o clarifica adecuadamente.»",
+            },
+            puntosRotulo: "Qué significa en la frecuencia",
+            puntos: ["Responde sin demora, inicia la conversación cuando la necesita y verifica lo dudoso."],
+          },
+        ],
+      },
+      { kind: "p", text: "**Lo que separa al 4 de sus vecinos**, según el mismo Doc 9835:" },
+      {
+        kind: "list",
+        items: [
+          "**Nivel 3**: la comprensión «se limita a las comunicaciones de rutina en condiciones óptimas»; no alcanza para sucesos imprevistos ni mala recepción (4.6.6). La respuesta suele ser inadecuada ante lo imprevisto (4.6.7).",
+          "**Nivel 5**: parafrasea de forma coherente, comprende con exactitud incluso con complicaciones y entiende gran diversidad de acentos (4.6.4, 4.6.6).",
+          "**Nivel 6**: excede lo que requieren las comunicaciones radiotelefónicas y «no es un requisito indispensable para una buena comunicación aeronáutica» (4.5.9).",
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Reevaluación.** Quien no alcanza el nivel 6 debe reevaluarse a intervalos (Anexo 1, 1.2.9.6, citado en Doc 9835 4.4.8 y 4.4.9); quien acredita el nivel 6 no necesita reevaluación periódica (Nota 1 de 1.2.9.7). La razón es la **pérdida del idioma** que se puede dar en los niveles bajos (4.4.7). Los intervalos recomendados están en el Anexo 1, 1.2.9.7, que no está cargado: VERIFICAR, y confirmar además qué exige la autoridad colombiana.",
+      },
+      {
+        kind: "p",
+        text: "**Fraseología y lenguaje común.** Los requisitos se aplican a los dos (Doc 9835 4.5.2), pero el dominio de la fraseología es una competencia operacional que se enseña y evalúa como tal; la evaluación lingüística se concentra en el lenguaje común (6.2.8.6). En palabras simples: saber de memoria «cleared for take-off» no demuestra nivel 4. Explicar en inglés simple un problema que no tiene frase hecha, sí.",
+      },
+      {
+        kind: "p",
+        text: "**El silencio no es comprensión.** El Doc 9835 (4.5.3 c y 4.6.7) insiste:",
+      },
+      {
+        kind: "quote",
+        text: "Es mucho más seguro repreguntar o pedir aclaración, incluso reconocer sencillamente que uno no ha entendido, que dejar que el silencio se interprete erróneamente como comprensión del mensaje.",
+        source: "Doc 9835 4.5.3 c) y 4.6.7",
+      },
+      {
+        kind: "p",
+        text: "Y SAY AGAIN a veces debe entenderse como un pedido de aclaración, no de repetición literal: el controlador puede reformular.",
+      },
+
+      { kind: "sub", text: "Fraseología OACI" },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Verificar",
+        text: "Varias frases de esta lección son ejemplos construidos y no están comprobadas: «say again slowly», el diálogo «are we number one or number two», la respuesta ATC «you are number two, following…» (fraseología de secuencia en aproximación) y la respuesta ATC «roger, maintain FL 240, report when ready to proceed» con «request to maintain present level» (PLAIN LANGUAGE). Consultar Doc 4444 cap. 12. Tampoco están cargados los descriptores de los niveles 1 y 2 ni los nombres en inglés de niveles y habilidades (Doc 9835 Apéndice A y Anexo 1 Adjunto A en inglés), los intervalos de reevaluación (Anexo 1, 1.2.9.7) ni cómo se acredita la competencia en Colombia (RAC 61).",
+      },
+      {
+        kind: "p",
+        text: "Los intercambios muestran conductas del nivel 4 en la frecuencia. No son ejercicios de examen.",
+      },
+      ...entrada(
+        "Interacción: detectar un malentendido y verificar",
+        [
+          `ATC:   "Aviatory 452, QNH 1003."`,
+          `PILOT: "QNH 1013, Aviatory 452."`,
+          `ATC:   "Aviatory 452, negative, I say again, QNH 1003."`,
+          `PILOT: "QNH 1003, Aviatory 452."`,
+        ],
+        "Significado: el controlador escucha la colación, detecta el error y corrige con NEGATIVE I SAY AGAIN. El piloto colaciona otra vez. Adaptado de Doc 9432 2.8.3.9.",
+      ),
+      ...entrada(
+        "Comprensión: algo inesperado, y el piloto pide aclaración en vez de suponer",
+        [
+          `ATC:   "Aviatory 452, (transmisión en lenguaje común, rápida, con un término que el piloto no conoce)."`,
+          `PILOT: "Aviatory 452, say again slowly."   (o "speak slower")`,
+        ],
+        "Significado: comprensión de nivel 4 «más lenta o requiere estrategias de aclaración» ante lo imprevisto. Pedirla es lo que el descriptor espera. SPEAK SLOWER está en el Doc 9432 2.6 con el significado «Disminuya la velocidad al hablar». «Say again slowly» es (ejemplo construido).",
+      ),
+      ...entrada(
+        "Vocabulario: parafrasear cuando no aparece la palabra (PLAIN LANGUAGE)",
+        [
+          `PILOT: "Aviatory 452, we have a problem with the... the system that moves the flight controls. Hydraulic system. Pressure is low on one system. Request to maintain present level while we run the checklist."`,
+          `ATC:   "Aviatory 452, roger, maintain FL 240, report when ready to proceed."`,
+          `PILOT: "Maintaining FL 240, wilco, Aviatory 452."`,
+        ],
+        "Significado: el piloto no encuentra de entrada el término, describe la función con palabras simples y termina con lo que necesita. Eso es parafrasear (descriptor de vocabulario, nivel 4).",
+      ),
+      ...entrada(
+        "Pronunciación y fluidez: repetir lo crítico cuando la recepción es mala",
+        [
+          `PILOT: "Bogota Approach, Aviatory 452, 2 500 feet, I say again 2 500 feet, engine losing power, engine losing power."`,
+        ],
+        "Significado: el Doc 9432 2.8.1.8 manda repetir los elementos importantes cuando se prevé recepción difícil. Adaptado de Doc 9432 2.8.1.8 (en el ejemplo original es una aeronave liviana en VFR; el procedimiento de urgencia y socorro va en los capítulos 34 a 36).",
+      ),
+      ...entrada(
+        "Interacción: iniciar un intercambio no previsto (PLAIN LANGUAGE)",
+        [
+          `PILOT: "Bogota Approach, Aviatory 452, request information: are we number one or number two for the approach, behind the Airbus?"`,
+          `ATC:   "Aviatory 452, you are number two, following an A320 on 8 miles final."`,
+          `PILOT: "Number two, traffic in sight, Aviatory 452."`,
+        ],
+        "Significado: el Doc 9835 (3.3.18) cita un caso real («¿Quién va adelante? ¿Nosotros o el Air Europe?») para mostrar que no existe fraseología OACI para esa pregunta y que se necesita lenguaje común. El nivel 4 «inicia y sostiene intercambios verbales aun cuando trate sobre situaciones imprevistas». Diálogo (ejemplo construido) sobre esa base.",
+      ),
+
+      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "enLaOperacion",
+        momento: "Requisito de contratación",
+        texto:
+          "Las aerolíneas que vuelan internacional exigen el nivel vigente anotado en la licencia. Cuál y con qué vigencia lo fija cada autoridad; VERIFICAR RAC 61 para Colombia y la norma del Estado del operador.",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "El nivel es un piso, no una meta",
+        texto:
+          "El Doc 9835 (4.4.7) explica que el nivel 4 está lejos del 6 y que en esos niveles puede aparecer pérdida del idioma; por eso la reevaluación periódica. Un piloto que obtuvo 4 y no vuelve a practicar inglés operacional llega a la siguiente evaluación peor.",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Nivel 4 no es lo que se ve en la entrevista",
+        texto:
+          "El evaluador no le pone nota OACI: mira si entiende a la primera, si responde breve y si pide aclaración sin nervios. Esas son las conductas de «interacciones» y «comprensión».",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Cabina con dos niveles distintos",
+        texto:
+          "Si uno de los pilotos tiene nivel 6 y el otro 4, el de nivel más alto no debe asumir las comunicaciones difíciles «por comodidad» sin que el SOP lo diga: los dos tienen que entender cada autorización (capítulo 59).",
+      },
+
+      { kind: "sub", text: "Error frecuente" },
+      error(
+        "Callar por no quedar mal",
+        "Aceptar una instrucción que no se entendió es exactamente lo que el Doc 9835 señala como más peligroso que preguntar (4.6.7).",
+      ),
+      error(
+        "Leer ROGER como comprensión",
+        "Del otro lado pasa igual: un «roger» sin colación no le dice al controlador que el piloto entendió (capítulo 11).",
+      ),
+      error(
+        "Usar modismos para «subir de nivel»",
+        "Los descriptores de los niveles altos mencionan estructuras complejas y modismos, pero el Doc 9835 (4.5.12 y 4.6.4) advierte que eso no autoriza a dejar la fraseología ni a usar modismos en la frecuencia.",
+      ),
+      error(
+        "Confundir el examen con la operación",
+        "Tener el nivel no garantiza entender a un controlador rápido con mala recepción. La estrategia sigue siendo: SAY AGAIN, CONFIRM, SPEAK SLOWER.",
+      ),
+
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "Seis niveles: preelemental, elemental, preoperacional, operacional, avanzado, experto.",
+          "El nivel 4 (operacional) es el mínimo para operar donde aplican los requisitos.",
+          "Seis habilidades, y la nota final es la más baja de todas.",
+          "El acento no es el problema; que interfiera con la comprensión, sí.",
+          "Quien no es nivel 6 se reevalúa periódicamente; los intervalos los fija la norma (verificar).",
+          "El nivel 4 se nota en la frecuencia: responde rápido, parafrasea y verifica lo dudoso.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes",
+        cita: "Doc 9835 · Doc 9432",
+        bloques: [
+          { kind: "sub", text: "Verificado" },
+          {
+            kind: "p",
+            text: "Doc 9835 (2.ª ed.) 4.4.4, 4.4.7, 4.4.8, 4.4.9, 4.4.11, 4.5.2, 4.5.3 c), 4.5.5 c) y d), 4.5.6, 4.5.9, 4.5.11, 4.5.12, 4.6.1, 4.6.2 a 4.6.7 (descriptores niveles 3 a 6, citados textualmente los del nivel 4), 3.3.18, 6.2.8.6; Doc 9432 (4.ª ed.) 2.6 (SPEAK SLOWER), 2.8.1.8, 2.8.3.9.",
+          },
+          { kind: "sub", text: "Por verificar" },
+          {
+            kind: "list",
+            items: [
+              "VERIFICAR: descriptores de los niveles 1 (preelemental) y 2 (elemental) contra Doc 9835 Apéndice A y Anexo 1 Adjunto A (no cargados).",
+              "VERIFICAR: nombres en inglés de los niveles (Pre-elementary, Elementary, Pre-operational, Operational, Extended, Expert) y de las habilidades (Pronunciation, Structure, Vocabulary, Fluency, Comprehension, Interactions) contra la versión en inglés del Anexo 1 Adjunto A (no cargada; el Doc 9835 cargado está en español).",
+              "VERIFICAR: intervalos de reevaluación contra Anexo 1, 1.2.9.7 (no cargado). No se dan cifras aquí.",
+              "VERIFICAR: cómo se acredita y anota la competencia en Colombia, y su vigencia, contra RAC 61 (no cargado).",
+              "VERIFICAR: las frases «say again slowly» y el diálogo de secuencia «are we number one or number two» son ejemplos construidos; la respuesta ATC «you are number two, following…» contra Doc 4444 cap. 12, fraseología de secuencia en aproximación (no cargado).",
+              "VERIFICAR: la respuesta ATC construida «roger, maintain FL 240, report when ready to proceed» y «request to maintain present level» (PLAIN LANGUAGE) contra Doc 4444 cap. 12 (no cargado).",
+            ],
+          },
+          { kind: "sub", text: "Convenciones de los ejemplos" },
+          CONVENCIONES,
+        ],
+      },
+    ],
+  },
+
+  // ── 10 ──────────────────────────────────────────────────────────────────
+  {
+    n: 10,
+    title: "Fraseología estándar y plain English",
+    kicker: "Cuándo alcanza la frase estándar y cuándo no",
+    minutes: 9,
+    blocks: [
+      { kind: "sub", text: "¿Qué es?" },
+      { kind: "p", text: "Dos registros que conviven en la frecuencia:" },
+      {
+        kind: "list",
+        items: [
+          "**Fraseología normalizada**: la formulación codificada de palabras con un significado preciso y unívoco (Doc 9835 6.2.8.4). Está en el Anexo 10, Vol. II y en el Doc 4444 cap. 12; el Doc 9432 la ilustra (Doc 9835 3.3.8).",
+          "**Lenguaje común (plain language, plain English)**: el uso espontáneo, creativo y no codificado del idioma, al que se recurre para situaciones que la fraseología no prevé (Doc 9835 glosario y 6.2.8.4).",
+        ],
+      },
+      {
+        kind: "norma",
+        titulo: "La regla de uso",
+        ref: "Anexo 10, Vol. II, 5.1.1.1 (citado en la Nota 1 del glosario del Doc 9835)",
+        texto: "Se empleará el lenguaje común **«sólo cuando la fraseología normalizada no sea útil para la transmisión prevista»**.",
+        naturaleza: "requisito",
+      },
+
+      { kind: "sub", text: "Lo que debe saber un piloto" },
+      {
+        kind: "p",
+        text: "**1. La fraseología va siempre primero.** El Doc 9835 (4.3.3) es explícito: que el Anexo 10 reconozca el lenguaje común «no significa que el lenguaje común se considere un sustituto suficiente de la fraseología normalizada de la OACI. La fraseología de la OACI debería utilizarse siempre en primera instancia».",
+      },
+      {
+        kind: "p",
+        text: "**2. La fraseología no cubre todo.** El Doc 4444 cap. 12 (12.2, citado en Doc 9835 4.7.2) aclara que su lista no es exhaustiva ni elimina la necesidad del lenguaje común. El Doc 9835 (3.3.13) enumera casos típicos: un piloto que se pierde, un problema técnico, un pasajero que se indispone, una amenaza de bomba, una falla del equipo de ATC. Y no solo emergencias: también rutinas sin frase hecha, como preguntar quién va adelante en la secuencia (3.3.18) o pedir mantener alta velocidad (3.3.17).",
+      },
+      { kind: "p", text: "**3. Cuándo usar lenguaje común** (Doc 9835 4.3.4):" },
+      {
+        kind: "list",
+        items: [
+          "en emergencias y situaciones imprevistas;",
+          "para aclarar o explicar mejor una instrucción;",
+          "para negociar información o instrucciones cuando haga falta.",
+        ],
+      },
+      { kind: "p", text: "**4. Plain English NO es:**" },
+      {
+        kind: "list",
+        items: [
+          "hablar informal;",
+          "hablar de más o «charlar» (el Doc 9835 4.3.4 dice que la norma «no debe interpretarse como licencia para charlar»);",
+          "slang, modismos o coloquialismos (5.3.3.3);",
+          "inventar fraseología que suena oficial pero no existe;",
+          "abandonar la fraseología a mitad de frase cuando sí había una (salto de código, 3.3.21).",
+        ],
+      },
+      {
+        kind: "p",
+        text: "**5. Plain English SÍ es** hablar «con claridad y concisión y evitando toda ambigüedad, como si se tratara de la fraseología normalizada» (4.3.4): fluidez, claridad, concisión y términos inequívocos (3.3.20). Frases cortas, directas, una idea por frase.",
+      },
+      {
+        kind: "p",
+        text: "**6. Los dos registros se combinan.** Un mensaje en lenguaje común sigue empezando con el distintivo y usa las palabras normalizadas donde existan (REQUEST, UNABLE, CONFIRM, niveles en FL, rumbos en tres dígitos). Lo que cambia es la parte que no tiene fórmula.",
+      },
+      {
+        kind: "secuencia",
+        titulo: "Estructura útil para el lenguaje común",
+        items: ["Problema", "Qué puedo y qué no puedo hacer", "Qué necesito", "Intenciones"],
+        orientacion: "horizontal",
+        nota: "Herramienta didáctica, no norma OACI; se desarrolla en el capítulo 52.",
+      },
+      {
+        kind: "table",
+        head: ["Use fraseología normalizada", "Use lenguaje común (plain English)"],
+        rows: [
+          ["Solicitar descenso, ascenso, rumbo", "Describir una falla técnica y sus consecuencias"],
+          ["Colacionar autorizaciones y pistas", "Explicar un problema médico a bordo"],
+          ["Informar que no puede cumplir (UNABLE + motivo)", "Explicar el motivo cuando no es simple"],
+          ["Pedir repetición o confirmación", "Preguntar algo sin fórmula (secuencia, estado de un aeropuerto)"],
+          ["Cambios de frecuencia, transpondedor, QNH", "Negociar una alternativa con ATC"],
+          ["Notificaciones de posición", "Informar humo, olor, pasajero disruptivo, daño sospechado"],
+        ],
+      },
+      {
+        kind: "hueco",
+        rotulo: "CM-10-01 · Diagrama · 4:5 · 1080×1350 px",
+        descripcion:
+          "Imagen sugerida: dos columnas sobre fondo papel. Izquierda, encabezado «FRASEOLOGÍA NORMALIZADA» con seis tarjetas cortas: solicitar descenso, colacionar pista, UNABLE + motivo, SAY AGAIN / CONFIRM, cambio de frecuencia, transpondedor. Derecha, encabezado «PLAIN ENGLISH» con seis tarjetas: falla técnica, pasajero enfermo, humo u olor, pregunta sin fórmula (secuencia), negociar alternativa, aclarar una instrucción. Una flecha de izquierda a derecha rotulada «solo cuando la fraseología no alcanza». Al pie, franja: «Plain English ≠ charla, jerga ni fraseología inventada». Objetivo: que el piloto decida en un segundo qué registro corresponde a cada situación.",
+        alto: 520,
+        ratio: "4 / 5",
+        anchoMax: 420,
+      },
+
+      { kind: "sub", text: "Fraseología OACI" },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Verificar",
+        text: "«request descent due turbulence», «request progressive taxi», «request medical services on arrival» y «request priority for landing» se presentan como construcciones o PLAIN LANGUAGE, y la respuesta ATC «Aviatory 452, roger, maintain FL 150, report when ready to proceed» es construida: consultar Doc 4444 cap. 12. La fraseología de la señal de urgencia se consulta en el Anexo 10 Vol. II cap. 5 y el Doc 4444 cap. 15 (capítulo 35).",
+      },
+      ...entrada(
+        "Falla técnica compleja explicada en plain English (PLAIN LANGUAGE)",
+        [
+          `PILOT: "Bogota Control, Aviatory 452, we have a problem with the flaps. They are stuck at position 1 and will not retract. Our maximum speed is now 230 knots. We are able to maintain FL 150. Request to hold at present position for about fifteen minutes to run the checklist. Will advise intentions."`,
+          `ATC:   "Aviatory 452, roger, maintain FL 150, report when ready to proceed."`,
+          `PILOT: "Maintaining FL 150, wilco, Aviatory 452."`,
+        ],
+        "Significado: problema (flaps trabados), límite (230 nudos), capacidad (mantiene FL 150), necesidad (tiempo y espacio), intención (informará). El controlador no tiene que hacer preguntas para entender. MAINTAIN, REPORT y WILCO son palabras normalizadas dentro de un intercambio de lenguaje común. La respuesta ATC es (ejemplo construido).",
+      ),
+      ...entrada(
+        "El mismo caso mal dicho (PLAIN LANGUAGE incorrecto)",
+        [
+          `PILOT: "Bogota, 452, uh, we got a little issue here with the flaps, they're kinda stuck, so we'd like to just hang around for a bit if that's okay with you guys."`,
+        ],
+        "Significado: distintivo abreviado sin autorización, modismos («hang around», «kinda»), no dice velocidad límite ni nivel ni tiempo. El controlador tendrá que preguntar tres o cuatro cosas.",
+      ),
+      ...entrada(
+        "Pasajero enfermo (PLAIN LANGUAGE)",
+        [
+          `PILOT: "Bogota Approach, Aviatory 452, we have a passenger with severe chest pain. Request priority for landing. Request medical services on arrival."`,
+          `ATC:   "Aviatory 452, roger, (instrucciones de secuencia)."`,
+        ],
+        "Significado: tres frases: qué pasa, qué se necesita en el aire, qué se necesita en tierra. Si el caso amerita la señal de urgencia PAN PAN, se trabaja en el capítulo 35; aquí solo interesa el lenguaje.",
+      ),
+      ...entrada(
+        "Fraseología cuando existe: no reemplazarla por lenguaje común",
+        [
+          `PILOT (incorrecto): "Aviatory 452, we would like to go down to a lower altitude if possible, because of the turbulence."`,
+          `PILOT: "Aviatory 452, request descent due turbulence."`,
+        ],
+        "Significado: existía fraseología (REQUEST DESCENT) y el motivo cabe en dos palabras. Adaptado de Doc 9432 3.3.3.1. «Due turbulence» sigue el patrón «due weight» del Doc 9432 2.8.3.10; ver VERIFICAR.",
+      ),
+      ...entrada(
+        "Rutina sin fórmula: pedir mantener velocidad (PLAIN LANGUAGE)",
+        [
+          `ATC:   "Aviatory 452, radar contact, proceed direct GIKOS."`,
+          `PILOT: "Direct GIKOS, Aviatory 452. Request to maintain high speed on descent."`,
+          `ATC:   "Aviatory 452, for now, affirm."`,
+        ],
+        "Significado: basado en el intercambio real que cita el Doc 9835 3.3.17 («¿Podemos mantener alta velocidad?» / «Por el momento, sí»), donde el Doc señala que no hay fraseología OACI para esa solicitud. La redacción en inglés es (ejemplo construido).",
+      ),
+      ...entrada(
+        "Negociar cuando la instrucción no sirve (fraseología + PLAIN LANGUAGE)",
+        [
+          `ATC:   "Aviatory 452, climb to FL 370."`,
+          `PILOT: "Unable FL 370 due weight, Aviatory 452. We can accept FL 350."`,
+          `ATC:   "Aviatory 452, climb to FL 350."`,
+          `PILOT: "Climbing to FL 350, Aviatory 452."`,
+        ],
+        "Significado: UNABLE con motivo (normalizado) y una alternativa (lenguaje común). El controlador recibe lo que necesita para reorganizar. Patrón de UNABLE adaptado de Doc 9432 2.8.3.10.",
+      ),
+      ...entrada(
+        "Aclarar una instrucción (PLAIN LANGUAGE)",
+        [
+          `ATC:   "Aviatory 452, taxi to holding point runway 13 via A, B."`,
+          `PILOT: "Aviatory 452, confirm via A then B. We are not familiar with the airport, request progressive taxi."`,
+        ],
+        "Significado: CONFIRM normalizado para verificar la ruta y lenguaje común para explicar el motivo. La fraseología de rodaje progresivo y la colación completa de rodaje van en el capítulo 16.",
+      ),
+
+      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "enLaOperacion",
+        momento: "En la aerolínea",
+        texto:
+          "En un vuelo normal de aerolínea, la mayor parte de lo que se dice es fraseología: autorizaciones, colaciones, cambios de frecuencia. El lenguaje común aparece en lo imprevisto, y ahí es donde se nota el nivel real. Pero el Doc 9835 (3.3.17) advierte que también hace falta en situaciones ordinarias.\n\nEl Doc 9835 (3.3.19) cita el análisis de un diálogo con un avión liviano que no podía bajar el tren: el 60 % del diálogo fue en lenguaje común. En una falla real el piloto habla más lenguaje común de lo que espera.\n\nCon CPDLC existe la opción de texto libre; la disciplina es la misma (capítulo 43).\n\nEn la entrevista de aerolínea es frecuente el ejercicio «explíquele esta falla al controlador». Se evalúa exactamente lo de este capítulo: estructura, brevedad y que no invente fraseología.",
+      },
+
+      { kind: "sub", text: "Error frecuente" },
+      error(
+        "Contar la historia",
+        "El Doc 9835 (3.3.15 y 3.3.16) trae un ejemplo real de un piloto que explica un traslado médico en un solo bloque largo, con hipótesis y rodeos, y concluye que ese lenguaje común «puede ser bien poco claro». Frases cortas, en orden.",
+      ),
+      error(
+        "Inventar fraseología",
+        "«Request lower», «we're on the go», «say intentions please» dichas como si fueran normalizadas. Si no está seguro de que existe, dígalo en lenguaje común claro.",
+      ),
+      error(
+        "Pasarse al lenguaje común cuando había fraseología",
+        "«We would like to go down» en vez de REQUEST DESCENT.",
+      ),
+      error(
+        "Suavizar el problema",
+        "«Little issue», «kind of» restan urgencia a algo que puede ser serio. El Doc 9835 (5.3.3.4) vincula el lenguaje poco directo con incidentes y accidentes.",
+      ),
+      error(
+        "Olvidar el distintivo y los números normalizados",
+        "En el lenguaje común también. Los niveles siguen siendo FL, los rumbos siguen en tres dígitos, las pistas dígito por dígito.",
+      ),
+
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "Fraseología siempre primero; lenguaje común solo cuando la fraseología no sirve.",
+          "El lenguaje común también es claro, conciso, sin ambigüedad: no es charla ni jerga.",
+          "Emergencias, aclaraciones y negociaciones son el terreno del lenguaje común.",
+          "Combine: distintivo y palabras normalizadas + frases simples para lo que no tiene fórmula.",
+          "Estructura: problema, qué puede y no puede, qué necesita, intenciones.",
+          "Si no está seguro de que una frase es normalizada, no la invente: dígala en inglés simple.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes",
+        cita: "Doc 9835 · Doc 9432",
+        bloques: [
+          { kind: "sub", text: "Verificado" },
+          {
+            kind: "p",
+            text: "Doc 9835 (2.ª ed.) glosario «Lenguaje común» y Nota 1 (Anexo 10 Vol. II 5.1.1.1), 3.3.8, 3.3.13, 3.3.15 a 3.3.21, 4.3.3, 4.3.4, 4.7.2, 5.3.3.3, 5.3.3.4, 6.2.8.4; Doc 9432 (4.ª ed.) Preámbulo, 2.6 (MAINTAIN, REPORT, WILCO, CONFIRM, UNABLE), 2.8.3.10, 3.3.3.1.",
+          },
+          { kind: "sub", text: "Por verificar" },
+          {
+            kind: "list",
+            items: [
+              "VERIFICAR: «request descent due turbulence», «request progressive taxi», «request medical services on arrival», «request priority for landing» contra Doc 4444 cap. 12 (no cargado). Se presentan como construcciones o PLAIN LANGUAGE.",
+              "VERIFICAR: «Aviatory 452, roger, maintain FL 150, report when ready to proceed» (respuesta ATC construida) contra Doc 4444 cap. 12 (no cargado).",
+              "VERIFICAR: la fraseología de la señal de urgencia contra Anexo 10 Vol. II cap. 5 y Doc 4444 cap. 15 (no cargados; capítulo 35).",
+            ],
+          },
+          { kind: "sub", text: "Convenciones de los ejemplos" },
+          CONVENCIONES,
+        ],
+      },
+    ],
+  },
+
+  // ── 11 ──────────────────────────────────────────────────────────────────
+  {
+    n: 11,
+    title: "Palabras y expresiones estándar",
+    kicker: "ROGER no es WILCO, STANDBY no es aprobación",
+    minutes: 16,
+    blocks: [
+      { kind: "sub", text: "¿Qué es?" },
+      {
+        kind: "p",
+        text: "Son las palabras y frases normalizadas de la radiotelefonía, cada una con un significado fijo. El Doc 9432 2.6 dice que «deberán utilizarse» con el significado que les da su tabla (español, inglés, significado). Ese significado es el que se cita aquí, entre comillas, tal cual.",
+      },
+      {
+        kind: "definicion",
+        text: "La idea central: **cada palabra tiene un solo significado y compromete a algo concreto**. Decir ROGER cuando correspondía WILCO, o tomar STANDBY como una aprobación, cambia lo que el otro cree que usted va a hacer.",
+      },
+
+      { kind: "sub", text: "Lo que debe saber un piloto" },
+      { kind: "p", text: "Tres pares que se confunden y que hay que dominar antes que el resto:" },
+      { kind: "p", text: "**ROGER ≠ WILCO**" },
+      {
+        kind: "table",
+        head: ["", "ROGER", "WILCO"],
+        rows: [
+          [
+            "Significado oficial (Doc 9432 2.6)",
+            "«He recibido toda su transmisión anterior».",
+            "«He comprendido su mensaje y procederé de acuerdo». (WILCO abrevia «will comply».)",
+          ],
+          ["Qué compromete", "Solo que la transmisión llegó.", "Que entendió **y** que va a cumplir."],
+          [
+            "Cuándo",
+            "Información que no pide acción (tránsito, meteorología, una notificación que ATC recibe).",
+            "Una instrucción que no requiere colación (por ejemplo, «report passing FL 80»).",
+          ],
+          [
+            "Nunca",
+            "Como respuesta a una pregunta que exige AFFIRM o NEGATIVE, ni en lugar de una colación (nota del Doc 9432 2.6).",
+            "En lugar de la colación de los elementos que siempre se colacionan (Doc 4444 4.5.7.5.1).",
+          ],
+        ],
+      },
+      {
+        kind: "p",
+        text: "**STANDBY ≠ aprobación.** Significado: «Espere y le llamaré». La nota del Doc 9432 2.6 lo dice sin matices: «\"ESPERE\" no es ni una aprobación ni una denegación». Quien la recibe no hace nada nuevo y espera la llamada; si la demora es considerable, quien llamó normalmente vuelve a llamar.",
+      },
+      { kind: "p", text: "**MONITOR ≠ CONTACT.**" },
+      {
+        kind: "kv",
+        items: [
+          { k: "CONTACT", v: "«Establezca comunicaciones con…». Usted cambia de frecuencia **y llama**." },
+          { k: "MONITOR", v: "«Escuchar en (frecuencia)». Usted cambia (o sintoniza) **y escucha, sin llamar**." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "El Doc 9432 2.8.2.2 lo aplica así: se ordena «haga escucha» (MONITOR) de una frecuencia donde se radiodifunde información (el ejemplo es ATIS), y «quede en escucha» (STAND BY FOR…) de una dependencia que tiene intención de llamarlo pronto. En los dos casos, el que llama es el otro.",
+      },
+      {
+        kind: "hueco",
+        rotulo: "CM-11-01 · Esquema · 16:9 · 1600×900 px",
+        descripcion:
+          "Imagen sugerida: tres tarjetas lado a lado, cada una dividida en dos mitades enfrentadas. Tarjeta 1: «ROGER» (icono de oído, «recibido») frente a «WILCO» (oído + mano en acción, «entendido y cumpliré»). Tarjeta 2: «STANDBY» (reloj de arena, «espere, lo llamo») frente a «APPROVED» (visto bueno, «concedido»), con una banda que dice «STANDBY ≠ sí». Tarjeta 3: «CONTACT» (radio con flecha saliente, «cambie y llame») frente a «MONITOR» (radio con auricular, «cambie y escuche»). Debajo de cada tarjeta, la cita corta del significado oficial del Doc 9432 2.6. Objetivo: fijar visualmente los tres pares que más se confunden y el compromiso que implica cada palabra.",
+        alto: 300,
+        ratio: "16 / 9",
+      },
+
+      { kind: "sub", text: "Fraseología OACI" },
+      {
+        kind: "callout",
+        tone: "verificar",
+        title: "Verificar",
+        text: "GO AHEAD y VERIFY no están confirmados como palabras normalizadas vigentes: consultar el Anexo 10 Vol. II cap. 5 (tabla de palabras y frases normalizadas, edición vigente) y, para VERIFY, también el Doc 4444 cap. 12. El uso actual de MONITOR para transferencias se confirma en el Doc 4444 cap. 12 y la AIP de cada Estado. Los ejemplos rotulados (ejemplo construido) (ACKNOWLEDGE, BREAK, BREAK BREAK, CONFIRM del piloto, CORRECT, DISREGARD, HOW DO YOU READ, READ BACK, SAY AGAIN ALL BEFORE, STANDBY a una solicitud de directo, VERIFY LEVEL y «are you able to accept runway 31») y la redacción del cruce de pista con número de pista se confirman contra el Doc 4444 cap. 12 y el Anexo 10 Vol. II cap. 5.",
+      },
+      {
+        kind: "p",
+        text: "Orden alfabético en inglés. Cada entrada: significado oficial, uso y ejemplo.",
+      },
+      ...entrada(
+        "ACKNOWLEDGE · «Comuníqueme si ha recibido y comprendido este mensaje».",
+        "ATC pide una confirmación explícita de recepción y comprensión.",
+        [
+          `ATC:   "Aviatory 452, birds reported in the vicinity of the airport, acknowledge."`,
+          `PILOT: "Roger, Aviatory 452."`,
+        ],
+        "(ejemplo construido) Si el mensaje contuviera algo que se colaciona (pista, nivel, QNH), la respuesta es la colación, no ROGER.",
+      ),
+      ...entrada(
+        "AFFIRM · «Sí».",
+        "La palabra normalizada es AFFIRM, no «affirmative» ni «yes».",
+        [
+          `ATC:   "Aviatory 452, are you ready for immediate departure?"`,
+          `PILOT: "Aviatory 452, affirm."`,
+          `ATC:   "Aviatory 452, line up. Be ready for immediate departure."`,
+          `PILOT: "Lining up, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 4.5.5. Nótese que LINE UP no es autorización de despegue (capítulo 17).",
+      ),
+      ...entrada(
+        "APPROVED · «Autorización concedida para la medida propuesta».",
+        "Responde a algo que el piloto pidió.",
+        [
+          `PILOT: "Bogota Ground, Aviatory 452, stand 27, request push-back."`,
+          `ATC:   "Aviatory 452, push-back approved."`,
+        ],
+        "Adaptado de Doc 9432 4.3.1. También «start up approved» (4.2.2). En el Doc 9432 la solicitud va a «Apron»: según el procedimiento local, el retroceso se pide al ATC o al servicio de dirección en la plataforma (4.3.1).",
+      ),
+      ...entrada(
+        "BREAK · «Por medio de esta palabra le indico la separación entre las partes del mensaje».",
+        "Se usa cuando no hay distinción clara entre el texto y las otras partes del mensaje.",
+        [
+          `ATC:   "Aviatory 452, descend to FL 180, break, traffic 12 o'clock, 10 miles, opposite direction, FL 190."`,
+        ],
+        "(ejemplo construido) El piloto colaciona la instrucción de nivel y responde a la información de tránsito.",
+      ),
+      ...entrada(
+        "BREAK BREAK · «Por medio de estas palabras se indica la separación entre los mensajes transmitidos a distintas aeronaves en un ambiente atareado».",
+        [
+          `ATC:   "Aviatory 452, contact Bogota Control 128.7, break break, Aviatory 425, descend to FL 200."`,
+          `PILOT: "128.7, Aviatory 452."`,
+          `PILOT: "Descending to FL 200, Aviatory 425."`,
+        ],
+        "(ejemplo construido) Con distintivos parecidos (452 / 425), escuchar hasta el final: la segunda instrucción es para otro.",
+      ),
+      ...entrada(
+        "CANCEL · «Anular la autorización transmitida anteriormente».",
+        [
+          `ATC:   "Aviatory 452, hold position, cancel take-off, I say again, cancel take-off, vehicle on runway."`,
+          `PILOT: "Holding, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 4.5.10. Es uno de los dos únicos usos permitidos de la palabra TAKE-OFF (Doc 9432 2.8.3.3).",
+      ),
+      ...entrada(
+        "CHECK · «Examine un sistema o procedimiento».",
+        "Nota: «No debe utilizarse en ningún otro contexto. Normalmente no se espera respuesta».",
+        [
+          `ATC:   "Aviatory 452, check altimeter setting and confirm level."`,
+          `PILOT: "Aviatory 452, altimeter 1013, FL 80."`,
+        ],
+        "Adaptado de Doc 9432 6.5.2. Aquí sí hay respuesta porque la instrucción incluye CONFIRM.",
+      ),
+      ...entrada(
+        "CLEARED · «Autorización para seguir en las condiciones determinadas».",
+        "Lo emite ATC. Diferencia con APPROVED: CLEARED fija condiciones (límite, ruta, nivel); APPROVED concede algo pedido.",
+        [
+          `ATC:   "Aviatory 452, cleared to GIKOS via A1, FL 280, Delta departure, squawk 5501."`,
+          `PILOT: "Cleared to GIKOS via A1, FL 280, Delta departure, squawk 5501, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 2.8.3.6. Una autorización de ruta no es autorización de despegue (2.8.3.3).",
+      ),
+      ...entrada(
+        "CONFIRM · «Solicito verificación de: (autorización, instrucciones, medidas, información)».",
+        "La usan los dos lados.",
+        [`ATC:   "Aviatory 452, confirm squawk."`, `PILOT: "Aviatory 452, squawking 6411."`],
+        "Adaptado de Doc 9432 6.5.2.",
+        [
+          `ATC:   "Aviatory 452, descend to FL 240."`,
+          `PILOT: "Aviatory 452, confirm descend to FL 240?"`,
+          `ATC:   "Aviatory 452, affirm, descend to FL 240."`,
+          `PILOT: "Descending to FL 240, Aviatory 452."`,
+        ],
+        "(ejemplo construido) El piloto duda del nivel (esperaba otro) y verifica antes de ejecutar.",
+      ),
+      ...entrada(
+        "CONTACT · «Establezca comunicaciones con…».",
+        [`ATC:   "Aviatory 452, contact Bogota Control 129.1."`, `PILOT: "129.1, Aviatory 452."`],
+        "Adaptado de Doc 9432 2.8.2.1. Después del cambio, el piloto **llama** a Bogota Control.",
+        [
+          `ATC:   "Aviatory 452, when passing FL 80 contact Bogota Control 129.1."`,
+          `PILOT: "When passing FL 80, 129.1, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 2.8.2.1: el cambio es condicional y se colaciona con la condición.",
+      ),
+      ...entrada(
+        "CORRECT · «Cierto» o «Exacto».",
+        [`PILOT: "Aviatory 452, confirm we are number two?"`, `ATC:   "Aviatory 452, correct, number two."`],
+        "(ejemplo construido) No confundir con CORRECTION.",
+      ),
+      ...entrada(
+        "CORRECTION · «Ha habido un error en esta transmisión (o mensaje indicado). La versión correcta es…».",
+        [`PILOT: "Aviatory 452, GIKOS 47, FL 330, TOLKO 07, correction, TOLKO 57."`, `ATC:   "Aviatory 452, roger."`],
+        "Adaptado de Doc 9432 2.8.1.6 (puntos ficticios). Se repite el último grupo correcto y luego la versión corregida. Si conviene repetir todo: «correction, I say again» (Doc 9432 2.8.1.7, en español «CORRECCIÓN, REPITO»).",
+      ),
+      ...entrada(
+        "DISREGARD · «Haga caso omiso de esto».",
+        [
+          `ATC:   "Aviatory 452, turn left heading 270... disregard. Aviatory 452, continue present heading."`,
+          `PILOT: "Continuing present heading, Aviatory 452."`,
+        ],
+        "(ejemplo construido) El piloto no ejecuta la instrucción anulada.",
+      ),
+      ...entrada(
+        "GO AHEAD · Estado a verificar.",
+        "El Doc 9432 (4.ª ed.) 2.6 dice: «Se ha omitido el término \"PROSIGA\" (GO AHEAD) y, en su lugar, el distintivo de llamada de la estación aeronáutica que llama seguido del distintivo de llamada de la estación aeronáutica que contesta se considerará como invitación para proseguir».",
+        [`PILOT: "Bogota Tower, Aviatory 452."`, `ATC:   "Aviatory 452, Bogota Tower."`, `PILOT: "Aviatory 452, (mensaje)."`],
+        "Significado: según el Doc 9432 cargado, la respuesta con los dos distintivos ya es la invitación a continuar. Adaptado de Doc 9432 2.8.1.1. Si GO AHEAD figura hoy en la lista vigente del Anexo 10 y con qué restricciones: VERIFICAR.",
+      ),
+      ...entrada(
+        "HOW DO YOU READ · «¿Cuál es la inteligibilidad de mi transmisión?».",
+        "La respuesta usa la escala de 1 (ininteligible) a 5 (perfectamente inteligible) del Doc 9432 2.8.4.3.",
+        [`PILOT: "Bogota Tower, Aviatory 452, radio check 118.7."`, `ATC:   "Aviatory 452, Bogota Tower, reading you five."`],
+        "Adaptado de Doc 9432 2.8.4.3 (prueba de radio).",
+        [`PILOT: "Bogota Tower, Aviatory 452, how do you read?"`, `ATC:   "Aviatory 452, reading you three, loud background whistle."`],
+        "(ejemplo construido con la respuesta del Doc 9432 2.8.4.3.)",
+      ),
+      ...entrada(
+        "I SAY AGAIN · «Repito para aclarar o recalcar».",
+        [
+          `ATC:   "Aviatory 452, QNH 1003."`,
+          `PILOT: "QNH 1013, Aviatory 452."`,
+          `ATC:   "Aviatory 452, negative, I say again, QNH 1003."`,
+          `PILOT: "QNH 1003, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 2.8.3.9. No confundir con SAY AGAIN (que pide al otro que repita).",
+      ),
+      ...entrada(
+        "MAINTAIN · «Continúe según las condiciones especificadas» o en sentido literal, p. ej., «mantenga VFR».",
+        [`ATC:   "Aviatory 452, maintain 2 500 feet."`, `PILOT: "Maintaining 2 500 feet, Aviatory 452."`],
+        "Adaptado de Doc 9432 3.3.3.1.",
+      ),
+      ...entrada(
+        "MONITOR · «Escuchar en (frecuencia)».",
+        [`ATC:   "Aviatory 452, monitor ATIS 123.25."`, `PILOT: "Monitoring 123.25, Aviatory 452."`],
+        "Adaptado de Doc 9432 2.8.2.2. El piloto escucha; no transmite en esa frecuencia.",
+        "Comparación con «quede en escucha»:",
+        [`ATC:   "Aviatory 452, stand by for Bogota Tower 118.9."`, `PILOT: "118.9, Aviatory 452."`],
+        "Adaptado de Doc 9432 2.8.2.2. El piloto cambia y espera a que la torre lo llame.",
+      ),
+      ...entrada(
+        "NEGATIVE · «No» o «Permiso no concedido», o «Es incorrecto» o «No se puede».",
+        [
+          `ATC:   "Aviatory 452, confirm transponder operating."`,
+          `PILOT: "Aviatory 452, negative, transponder unserviceable."`,
+        ],
+        "Adaptado de Doc 9432 6.5.2.",
+      ),
+      ...entrada(
+        "READ BACK · «Repítame todo este mensaje, o la parte especificada del mismo, exactamente como la haya recibido».",
+        [
+          `ATC:   "Aviatory 452, runway 13, QNH 1021, squawk 4127."`,
+          `PILOT: "Roger, Aviatory 452."`,
+          `ATC:   "Aviatory 452, read back."`,
+          `PILOT: "Runway 13, QNH 1021, squawk 4127, Aviatory 452."`,
+        ],
+        "(ejemplo construido) ROGER no bastaba: pista, reglaje de altímetro y código SSR siempre se colacionan (Doc 4444 4.5.7.5.1 c).",
+      ),
+      ...entrada(
+        "RECLEARED · «Se efectúa una modificación en su última autorización y esta nueva autorización invalida la anterior o parte de ella».",
+        [`ATC:   "Aviatory 452, recleared FL 330."`, `PILOT: "Recleared FL 330, Aviatory 452."`],
+        "Adaptado de Doc 9432 3.3.3.2. La autorización anterior (o la parte modificada) deja de valer.",
+      ),
+      ...entrada(
+        "REPORT · «Páseme la siguiente información…».",
+        [
+          `ATC:   "Aviatory 452, report passing FL 80."`,
+          `PILOT: "Aviatory 452, wilco."`,
+          `PILOT: "Aviatory 452, passing FL 80."`,
+        ],
+        "Adaptado de Doc 9432 3.3.3.1.",
+      ),
+      ...entrada(
+        "REQUEST · «Desearía saber…» o «Deseo obtener…».",
+        [
+          `PILOT: "Aviatory 452, request descent."`,
+          `ATC:   "Aviatory 452, descend to FL 60."`,
+          `PILOT: "Leaving FL 90, descending to FL 60, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 3.3.3.1. También «request time check» (2.5.2).",
+      ),
+      ...entrada(
+        "ROGER · «He recibido toda su transmisión anterior».",
+        "Nota: «En ningún caso debe utilizarse como contestación a una pregunta que exija que se \"COLACIONE\" una respuesta directa afirmativa (AFIRMATIVO) o negativa (NEGATIVO)».",
+        [`PILOT: "Aviatory 452, GIKOS 47, FL 330, TOLKO 57, RUMIK next."`, `ATC:   "Aviatory 452, roger."`],
+        "Adaptado de Doc 9432 3.4.1: el controlador recibe una notificación de posición.",
+        [
+          `ATC:   "Aviatory 452, traffic 2 o'clock, 5 miles, northbound, Cessna at 2 000 feet."`,
+          `PILOT: "Looking out, Aviatory 452."`,
+        ],
+        "Adaptado de Doc 9432 6.4.2 (información de tránsito). ROGER también sería aceptable aquí porque no hay instrucción.",
+      ),
+      ...entrada(
+        "ROGER mal usado",
+        [
+          `ATC:   "Aviatory 452, are you able to accept runway 31?"`,
+          `PILOT (incorrecto): "Roger, Aviatory 452."`,
+          `PILOT: "Aviatory 452, affirm."   (o "negative")`,
+        ],
+        "(ejemplo construido) Una pregunta pide AFFIRM o NEGATIVE; ROGER no dice ni sí ni no.",
+      ),
+      ...entrada(
+        "SAY AGAIN · «Repítame todo, o la siguiente parte, de su última transmisión».",
+        [
+          `ATC:   "Aviatory 452, (transmisión cortada) ...ading 250, descend to FL 180."`,
+          `PILOT: "Aviatory 452, say again all before descend."`,
+          `ATC:   "Aviatory 452, turn right heading 250, descend to FL 180."`,
+          `PILOT: "Right heading 250, descending to FL 180, Aviatory 452."`,
+        ],
+        "Formas del Doc 9432 2.8.1.4: «say again», «say again (elemento)», «say again all before…», «say again all after…», «say again all between… and…». Diálogo (ejemplo construido).",
+        [`ATC:   "Station calling Bogota Ground, say again your call sign."`, `PILOT: "Bogota Ground, Aviatory 452."`],
+        "Adaptado de Doc 9432 2.8.1.5.",
+      ),
+      ...entrada(
+        "STANDBY · «Espere y le llamaré».",
+        "Nota: «\"ESPERE\" no es ni una aprobación ni una denegación».",
+        [
+          `PILOT: "Bogota Ground, Aviatory 452, stand 27, request push-back."`,
+          `ATC:   "Aviatory 452, stand by. Expect one minute delay due B747 taxiing behind."`,
+          `PILOT: "Aviatory 452."   (y NO inicia el retroceso)`,
+        ],
+        "Adaptado de Doc 9432 4.3.1. El piloto no pide al tractor que empuje: espera la llamada. Si pasa un tiempo considerable, vuelve a llamar.",
+        [`PILOT: "Bogota Approach, Aviatory 452, request direct GIKOS."`, `ATC:   "Aviatory 452, standby."`],
+        "(ejemplo construido) El avión sigue en su ruta o rumbo actual. «Standby» no es «direct GIKOS».",
+      ),
+      ...entrada(
+        "UNABLE · «No puedo cumplir su solicitud, instrucciones o autorización».",
+        "Nota: normalmente va seguida de algún motivo.",
+        [`ATC:   "Aviatory 452, climb to FL 240, expedite until passing FL 180."`, `PILOT: "Unable to expedite, Aviatory 452."`],
+        "Adaptado de Doc 9432 3.3.3.3. Con motivo: «unable to cross TOLKO FL 150 due weight, maintaining FL 130» (2.8.3.10). UNABLE es una respuesta profesional, no una falta.",
+      ),
+      ...entrada(
+        "VERIFY · Estado a verificar.",
+        "No aparece en la tabla del Doc 9432 2.6 cargado. En la tabla de instrucciones SSR (Doc 9432 6.5.1) aparece en español «VERIFIQUE NIVEL: Compruebe y confirme su nivel», usada para verificar el nivel que presenta el Modo C, sin la columna en inglés.",
+        [`ATC:   "Aviatory 452, verify level."`, `PILOT: "Aviatory 452, maintaining FL 240."`],
+        "(ejemplo construido) Si VERIFY es palabra normalizada vigente y con qué significado exacto: VERIFICAR.",
+      ),
+      ...entrada(
+        "WILCO · «He comprendido su mensaje y procederé de acuerdo».",
+        [`ATC:   "Aviatory 452, next report RUMIK."`, `PILOT: "Aviatory 452, wilco."`],
+        "Adaptado de Doc 9432 3.4.2.",
+        [`ATC:   "Aviatory 452, cross runway 24, report vacated."`, `PILOT: "Crossing, wilco, Aviatory 452."`],
+        "Adaptado de Doc 9432 4.4.2 (en el ejemplo original, «CROSSING, WILCO G-CD»): la parte de pista se colaciona (CROSSING) y WILCO cubre «report vacated». En la práctica actual el cruce de pista se colaciona con el número de pista (Doc 4444 4.5.7.5.1 b; capítulo 16).",
+      ),
+      ...entrada(
+        "ROGER frente a WILCO, en la misma situación",
+        [
+          `ATC:   "Aviatory 452, report when ready for departure."`,
+          `PILOT: "Aviatory 452, wilco."          (correcto: entendió y va a notificar)`,
+          `PILOT: "Roger, Aviatory 452."          (incompleto: solo dice que lo escuchó)`,
+        ],
+        "Adaptado de Doc 9432 4.5.3 («G-CD WILCO»).",
+      ),
+      { kind: "p", text: "**Otras palabras de la tabla del Doc 9432 2.6** que conviene reconocer:" },
+      {
+        kind: "table",
+        head: ["Palabra", "Significado oficial", "Nota"],
+        rows: [
+          ["OVER", "«Mi transmisión ha terminado y espero su respuesta».", "No se utiliza normalmente en VHF."],
+          [
+            "OUT",
+            "«Este intercambio de transmisiones ha terminado y no se espera respuesta».",
+            "No se utiliza normalmente en VHF.",
+          ],
+          ["SPEAK SLOWER", "«Disminuya la velocidad al hablar».", "Útil con controladores rápidos."],
+          [
+            "WORDS TWICE",
+            "Como solicitud: «La comunicación es difícil. Ruego transmita cada palabra o grupo de palabras dos veces». Como información: cada palabra o grupo se transmitirá dos veces.",
+            "Comunicaciones difíciles.",
+          ],
+        ],
+      },
+
+      { kind: "sub", text: "Aplicación en aerolínea" },
+      {
+        kind: "enLaOperacion",
+        momento: "Cambio de frecuencia en salida",
+        texto:
+          "Después del despegue, la torre suele pasar a salida con CONTACT: se cambia y se llama. En algunos aeropuertos la torre pide MONITOR y la salida llama primero. Cuál se usa depende del procedimiento local publicado; lo que no cambia es qué exige cada palabra.",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "Pushback con STANDBY",
+        texto:
+          "El PM responde a Ground y avisa al personal de tierra que no hay autorización todavía. Un «standby» mal oído como «approved» termina en un retroceso sin autorización.",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "WILCO en crucero",
+        texto:
+          "Instrucciones de notificar un punto o una hora se contestan con WILCO; las de nivel, rumbo, velocidad, SSR y QNH se colacionan (Doc 4444 4.5.7.5.1 c).",
+      },
+      {
+        kind: "enLaOperacion",
+        momento: "CONFIRM antes de ejecutar",
+        texto:
+          "Si el nivel o el rumbo no coincide con lo esperado, se confirma antes de mover el selector. Es la defensa contra el sesgo de expectativa (capítulo 55).",
+      },
+
+      { kind: "sub", text: "Error frecuente" },
+      error(
+        "ROGER en lugar de colación",
+        "El error más común. ROGER no le permite al controlador verificar que el piloto entendió el nivel, la pista o el QNH.",
+      ),
+      error("ROGER a una pregunta", "La nota del Doc 9432 2.6 lo prohíbe: una pregunta pide AFFIRM o NEGATIVE."),
+      error("«Affirmative» en vez de AFFIRM", "La palabra de la tabla es AFFIRM."),
+      error(
+        "Tomar STANDBY como «sí»",
+        "Empezar un rodaje, un pushback o un viraje porque ATC dijo «standby».",
+      ),
+      error(
+        "MONITOR tratado como CONTACT",
+        "Llamar en una frecuencia de monitoreo congestiona o interrumpe a la dependencia; y tratar CONTACT como MONITOR deja a la aeronave sin contacto establecido.",
+      ),
+      error(
+        "CORRECTION vs CORRECT",
+        "CORRECTION anuncia un error propio; CORRECT confirma que lo dicho está bien.",
+      ),
+      error(
+        "CHECK usado como «confirme»",
+        "El Doc 9432 2.6 limita CHECK a examinar un sistema o procedimiento, «en ningún otro contexto».",
+      ),
+      error("SAY AGAIN vs I SAY AGAIN", "Uno pide repetición; el otro la anuncia."),
+
+      {
+        kind: "hueco",
+        rotulo: "CM-11-02 · Diagrama · 9:16 · 1080×1920 px",
+        descripcion:
+          "Imagen sugerida: árbol de decisión vertical para responder a una transmisión de ATC. Pregunta 1: «¿Es una pregunta?» → sí: AFFIRM / NEGATIVE (nunca ROGER). Pregunta 2: «¿Contiene pista, nivel, rumbo, velocidad, SSR, QNH, nivel de transición o autorización de ruta?» → sí: colación completa + distintivo. Pregunta 3: «¿Es una instrucción que no se colaciona?» → sí: WILCO (o colación). Pregunta 4: «¿Es solo información?» → ROGER. En cualquier punto: «¿No entendió?» → SAY AGAIN / CONFIRM. «¿No puede?» → UNABLE + motivo. Objetivo: que el piloto elija la respuesta correcta según el tipo de transmisión y no use ROGER como respuesta universal.",
+        alto: 560,
+        ratio: "9 / 16",
+        anchoMax: 340,
+      },
+      {
+        kind: "summary",
+        title: "En pocas palabras",
+        items: [
+          "ROGER = recibido. WILCO = entendido y voy a cumplir. Ninguno reemplaza la colación.",
+          "STANDBY = espere; no es aprobación ni denegación.",
+          "CONTACT = cambie y llame. MONITOR = cambie y escuche.",
+          "AFFIRM y NEGATIVE para preguntas; nunca ROGER.",
+          "UNABLE + motivo es una respuesta profesional.",
+          "GO AHEAD y VERIFY: verificar su estado en la norma vigente antes de enseñarlos como normalizados.",
+        ],
+      },
+      {
+        kind: "detalleTecnico",
+        etiqueta: "Fuentes",
+        cita: "Doc 9432 2.6 · Doc 4444",
+        bloques: [
+          { kind: "sub", text: "Verificado" },
+          {
+            kind: "p",
+            text: "Doc 9432 (4.ª ed.) 2.6 (tabla completa de palabras y frases normalizadas con sus notas, incluida la nota de omisión de GO AHEAD), 2.5.2, 2.8.1.1, 2.8.1.4 a 2.8.1.7, 2.8.2.1, 2.8.2.2, 2.8.3.3, 2.8.3.6, 2.8.3.9, 2.8.3.10, 2.8.4.3, 3.3.3.1 a 3.3.3.3, 3.4.1, 3.4.2, 4.3.1, 4.5.3, 4.5.5, 4.5.10, 4.2.2, 4.4.2, 6.4.2, 6.5.1, 6.5.2; Doc 4444 (15.ª ed., Enm. 4) 4.5.7.5.1.",
+          },
+          { kind: "sub", text: "Por verificar" },
+          {
+            kind: "list",
+            items: [
+              "VERIFICAR: estado vigente de GO AHEAD («proceed with your message») contra Anexo 10 Vol. II cap. 5, tabla de palabras y frases normalizadas, edición vigente (no cargado).",
+              "VERIFICAR: VERIFY como palabra normalizada en inglés y su significado, contra Anexo 10 Vol. II cap. 5 y Doc 4444 cap. 12 (no cargados). El Doc 9432 6.5.1 solo trae «VERIFIQUE NIVEL» en español.",
+              "VERIFICAR: uso actual de MONITOR para transferencias (p. ej. «monitor (dependencia) (frecuencia)») contra Doc 4444 cap. 12 y la AIP de cada Estado (no cargados).",
+              "VERIFICAR: ejemplos construidos de ACKNOWLEDGE, BREAK, BREAK BREAK, CONFIRM (pregunta del piloto), CORRECT, DISREGARD, HOW DO YOU READ, READ BACK, SAY AGAIN ALL BEFORE, STANDBY a solicitud de directo, VERIFY LEVEL y la pregunta «are you able to accept runway 31» contra Doc 4444 cap. 12 y Anexo 10 Vol. II cap. 5 (no cargados).",
+              "VERIFICAR: redacción actual de la autorización de cruce de pista con número de pista contra Doc 4444 cap. 12 (no cargado; capítulo 16).",
+            ],
+          },
+          { kind: "sub", text: "Convenciones de los ejemplos" },
+          CONVENCIONES,
+        ],
+      },
+    ],
+  },
+]

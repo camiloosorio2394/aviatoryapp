@@ -16,7 +16,7 @@ const { from, rpc, respuestas } = vi.hoisted(() => {
       then: (ok: (v: unknown) => unknown, mal?: (e: unknown) => unknown) =>
         Promise.resolve(respuesta()).then(ok, mal),
     }
-    for (const paso of ["select", "eq", "order", "limit", "not"]) cadena[paso] = () => cadena
+    for (const paso of ["select", "eq", "order", "limit", "not", "update", "upsert"]) cadena[paso] = () => cadena
     return cadena
   }
 
@@ -33,7 +33,7 @@ vi.mock("@/services/bitacora", async (original) => ({
 }))
 
 import { RESUMEN_BITACORA_VACIO } from "./bitacora"
-import { comprobarUsuarioLibre, contarRecurrencia, resolverIcao, traerPerfil } from "./perfil"
+import { comprobarUsuarioLibre, contarRecurrencia, guardarPerfil, resolverIcao, traerPerfil } from "./perfil"
 
 const CERT = { id: "1", license_type: "PPL", custom_name: null, issued_date: null, expires_date: null }
 
@@ -174,5 +174,36 @@ describe("comprobar si el usuario está libre", () => {
     expect(await comprobarUsuarioLibre("quien_sea")).toEqual({ libre: null, fallo: true })
     expect(avisos).toHaveBeenCalledWith("check_username_available", "sin red")
     avisos.mockRestore()
+  })
+})
+
+describe("guardar el perfil", () => {
+  const datos = {
+    fullName: "Ana",
+    country: "Colombia",
+    username: "capi_ana",
+    stage: "cpl_ready" as const,
+    horasPreviasTotal: "250",
+    horasPreviasPic: "120",
+    targetAirline: "Avianca",
+    licenses: ["PPL", "CPL"],
+  }
+
+  it("con las dos tablas guardadas, termina sin error", async () => {
+    await expect(guardarPerfil("piloto-1", datos)).resolves.toBeUndefined()
+    expect(from).toHaveBeenCalledWith("profiles")
+    expect(from).toHaveBeenCalledWith("pilot_state")
+  })
+
+  it("si falla el estado de piloto (horas, etapa, licencias) lanza: no se anuncia guardado lo que no se guardó", async () => {
+    const fallo = { message: "new row violates row-level security policy" }
+    respuestas.set("pilot_state", { data: null, error: fallo })
+    await expect(guardarPerfil("piloto-1", datos)).rejects.toBe(fallo)
+  })
+
+  it("si falla la identidad, también lanza", async () => {
+    const fallo = { message: "duplicate key value violates unique constraint" }
+    respuestas.set("profiles", { data: null, error: fallo })
+    await expect(guardarPerfil("piloto-1", datos)).rejects.toBe(fallo)
   })
 })

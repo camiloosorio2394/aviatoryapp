@@ -1497,12 +1497,12 @@
 
 /* Las fichas del ejercicio de conexión de Mercancías. Hundirse al pulsar es lo
    único que las hace sentir botón y no etiqueta; con reduced-motion se anula. */
-.notam-practica .mp-ficha:not(:disabled):active {
+.notam-practica .mp-ficha:not([aria-disabled="true"]):active {
   transform: scale(0.98);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .notam-practica .mp-ficha:not(:disabled):active {
+  .notam-practica .mp-ficha:not([aria-disabled="true"]):active {
     transform: none;
   }
 }
@@ -1527,8 +1527,27 @@
 .dark {
   --av-dg-500: oklch(0.80 0.12 88);
   --av-dg-600: oklch(0.72 0.12 86);
-  --av-dg-700: oklch(0.58 0.11 82);
+  /* 0.56 y no 0.58: con 0.58 el blanco encima daba 4,3:1 y el botón
+     principal quedaba bajo AA en modo oscuro. Con 0.56 da 4,7:1. */
+  --av-dg-700: oklch(0.56 0.11 82);
   --av-dg-fg: oklch(0.82 0.10 88);
+}
+
+/* Foco de teclado en el hub y la práctica de Mercancías. El anillo por
+   defecto de la app es --ring al 50 %, que sobre blanco se queda en 2:1; aquí
+   va sólido y en el tono de texto del módulo (7,9:1 en claro, 10:1 en
+   oscuro). Sobre la foto del hero, que es navy en los dos temas, va el 500.
+   Lo que recibe el foco por programa (tabindex -1, el resultado que se acaba
+   de revelar) no lleva anillo: no es un control. */
+.mp-foco :focus-visible:not([tabindex="-1"]) {
+  outline: 2px solid var(--av-dg-fg);
+  outline-offset: 2px;
+}
+.mp-foco .mp-sobre-foto :focus-visible:not([tabindex="-1"]) {
+  outline-color: var(--av-dg-500);
+}
+.mp-foco [tabindex="-1"]:focus {
+  outline: none;
 }
 
 /* Meteorología: turquesa petróleo.
@@ -1610,6 +1629,32 @@
   --av-pf-fg: oklch(0.790 0.095 50);
 }
 
+/* Comunicaciones ATC: ciruela de radio.
+   Se propuso un índigo violeta (#4A3B7A, matiz 292), pero en Ingreso a
+   aerolínea su tarjeta va al lado de la de psicotécnicas, que es violeta en el
+   295 (oklch 0.45 0.2 295), y el 287 del token --av-ap-* también es violeta:
+   tres módulos casi del mismo matiz en la misma pantalla. Se corre al 320, que
+   es ciruela: sigue siendo de la familia que se pidió pero se separa por matiz
+   (25 grados de psicotécnicas) y por croma (la mitad). Queda lejos del rojo de
+   error (25), del ámbar (70) y del verde de correcto (155), que son semántica.
+
+   Contraste, medido: 700 sobre el papel del lector (#FBFAF8) da 9,2:1 y el
+   blanco encima 9,6:1; 500 sobre papel 4,7:1. En oscuro, el blanco sobre el
+   700 da 6,2:1 y el fg sobre las tarjetas oscuras 8,6:1. Los hex del lector,
+   más abajo, salen de estos mismos oklch. */
+:root {
+  --av-cm-500: oklch(0.560 0.100 320);
+  --av-cm-600: oklch(0.470 0.095 320);
+  --av-cm-700: oklch(0.400 0.095 320);
+  --av-cm-fg: oklch(0.370 0.080 320);
+}
+.dark {
+  --av-cm-500: oklch(0.700 0.100 320);
+  --av-cm-600: oklch(0.610 0.100 320);
+  --av-cm-700: oklch(0.500 0.090 320);
+  --av-cm-fg: oklch(0.800 0.075 320);
+}
+
 /* El lector de Mercancías es el de NOTAM con el acento cambiado: el papel, la
    tinta y el navy del índice son los mismos, y solo lo que era azul carta
    pasa a amarillo. Los --av-blue-* re-anclados heredan el cambio, así que los
@@ -1620,12 +1665,19 @@
   --ln-bright: #B08A2E;
   --ln-tint: #F7F0DC;
   --ln-pill: #6B5418;
-  --ln-focus: #C9A13F;
+  /* El foco era #C9A13F: 2,3:1 sobre el papel, bajo el 3:1 que pide un
+     indicador. #9A7418 da 4,1:1 sobre el papel y 3,8:1 sobre --ln-sunk. */
+  --ln-focus: #9A7418;
   --av-blue-500: var(--ln-primary);
   --av-blue-400: var(--ln-bright);
 }
 .lector-notam.lector-mp .doc-sheet {
   --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el foco oscuro no se vería: ahí va un mostaza claro, que
+   da 10:1 sobre el navy y 4,4:1 sobre la pastilla de la lección abierta. */
+.lector-notam.lector-mp .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #E3C77A;
 }
 /* En la columna estrecha de Mercancías, justificar la prosa abría huecos y
    partía palabras largas. En móvil se lee mejor con alineación natural. */
@@ -1702,6 +1754,31 @@
 }
 .lector-notam.lector-ae .doc-sheet {
   --doc-accent: var(--ln-primary);
+}
+
+/* Y el de Comunicaciones ATC, en ciruela de radio. Los hex salen de los
+   mismos oklch de los tokens --av-cm-* de arriba (matiz 320): primario
+   #5E3567 (0.40 0.095), 9,2:1 sobre el papel; el foco #8B5D96 (0.55 0.10)
+   da 4,9:1 sobre el papel, por encima del 3:1 que pide un indicador. */
+.lector-notam.lector-cm {
+  --ln-primary: #5E3567;
+  --ln-primary-hover: #482550;
+  --ln-bright: #9B6CA5;
+  --ln-tint: #F6ECF8;
+  /* La pastilla de la lección abierta, sobre el navy: 2:1 contra el índice
+     (la de NOTAM da 1,9) y 8,2:1 con el texto blanco. */
+  --ln-pill: #6A3F74;
+  --ln-focus: #8B5D96;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-cm .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+/* En el índice navy el foco oscuro no se vería (3,2:1): ahí va una ciruela
+   clara, #D9B6E1, que da 9,2:1 sobre el navy y 4,5:1 sobre la pastilla. */
+.lector-notam.lector-cm .ln-side :where(a, button, [role="button"]):focus-visible {
+  outline-color: #D9B6E1;
 }
 
 /* ============================================================

@@ -67,8 +67,10 @@ export function ExamTracker() {
   const [formOpen, setFormOpen] = useState(false)
 
   const aplicar = useCallback((r: Awaited<ReturnType<typeof traerIntelDeMaterias>>) => {
-    if (r.error) toast.error(r.error.message)
-    else setIntel(r.materias)
+    if (r.error) {
+      reportarError("exam tracker: cargar materias", r.error)
+      toast.error(r.error.message)
+    } else setIntel(r.materias)
     setLoading(false)
   }, [])
 

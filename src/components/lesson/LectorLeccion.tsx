@@ -79,6 +79,12 @@ export interface LectorModulo {
    * bloques se pintan igual pero no cuentan.
    */
   marcarPractica?: (clave: string) => void
+  /**
+   * Si la lección `n` cuenta como leída al llegar al pie. Por defecto todas.
+   * Comunicaciones ATC nace con sus lecciones en redacción: esas no se marcan
+   * ni suman estudio del día hasta que tengan contenido.
+   */
+  cuenta?: (n: number) => boolean
   /** Trae lo leído desde la base y sube lo local pendiente. Devuelve la lista remota. */
   hidratar?: (uid: string) => Promise<number[] | null>
   /** Pinta un bloque `interactivo` por su nombre. Sin él, el bloque no pinta nada. */
@@ -123,7 +129,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
     soloExistentes(modulo.leerLocal()),
   )
   const [drawer, setDrawer] = useState(false)
-  const contentRef = useRef<HTMLDivElement | null>(null)
+  const contentRef = useRef<HTMLElement | null>(null)
 
   // Las entrevistas hechas viven solo en este navegador: son ensayo, no progreso.
   const claveEntrevistas = `aviatory.${modulo.actividad}.entrevistas`
@@ -194,6 +200,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
   // no al abrirla: llegar al pie es haberla recorrido.
   const markRead = useCallback(
     (n: number) => {
+      if (modulo.cuenta && !modulo.cuenta(n)) return
       setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
       if (modulo.leerLocal().includes(n)) return
       void modulo.marcar(n)
@@ -323,8 +330,10 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
             <RelojZulu />
           </header>
 
-          {/* Área de contenido: la única región que puede desplazarse */}
-          <div ref={contentRef} className="ln-flujo flex-1 overflow-y-auto">
+          {/* Área de contenido: la única región que puede desplazarse. Es el
+              <main> de la pantalla, así el lector de pantalla salta directo aquí
+              y la cabecera de la lección no cuenta como una segunda barra. */}
+          <main ref={contentRef} className="ln-flujo flex-1 overflow-y-auto">
             <div className="mx-auto w-full max-w-[800px] px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
               {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
               <header>
@@ -477,7 +486,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
                 </footer>
               </div>
             </div>
-          </div>
+          </main>
         </div>
       </div>
     </PracticaContexto.Provider>
@@ -615,6 +624,9 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
           {indice.map((f, i) => {
             const nivel = f.tipo === "leccion" ? nivelDe(f.n) : undefined
             const activa = i === iActiva
+            // Sobre la pastilla de la fila abierta, el gris del índice se queda
+            // en 2,2:1 (Mercancías) o 2,7:1 (NOTAM): ahí va el tono del título.
+            const tenue = activa ? "var(--ln-item)" : "var(--ln-navy-dim)"
             const hecha = f.tipo === "leccion" ? readSections.includes(f.n) : entrevistasHechas.includes(f.nivel)
             return (
               <div key={f.clave}>
@@ -643,7 +655,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
                 >
                   {f.tipo === "leccion" ? (
                     <>
-                      <span className="mono mt-[3px] text-[11px] tabular" style={{ color: "var(--ln-navy-dim)" }}>
+                      <span className="mono mt-[3px] text-[11px] tabular" style={{ color: tenue }}>
                         {String(f.n).padStart(2, "0")}
                       </span>
                       <span className="ln-fila-titulo text-[14px] leading-[1.3]" style={{ color: "var(--ln-item)" }}>
@@ -662,7 +674,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
                         </span>
                         <span
                           className="rotulo mt-[3px] block text-[9.5px] font-semibold uppercase tracking-[0.14em]"
-                          style={{ color: "var(--ln-navy-dim)" }}
+                          style={{ color: tenue }}
                         >
                           Entrevista · {f.preguntas} preguntas
                         </span>
@@ -673,7 +685,7 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
                     <Check
                       className="mt-[4px] h-[11px] w-[11px]"
                       strokeWidth={3}
-                      style={{ color: "var(--ln-navy-dim)" }}
+                      style={{ color: tenue }}
                       aria-label={f.tipo === "leccion" ? "Completada" : "Ensayada"}
                     />
                   )}

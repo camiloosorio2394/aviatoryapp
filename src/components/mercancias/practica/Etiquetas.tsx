@@ -1,5 +1,5 @@
-import { useState } from "react"
-import { CheckCircle2, ChevronRight, RotateCcw } from "lucide-react"
+import { useEffect, useRef, useState } from "react"
+import { Check, CheckCircle2, ChevronRight, RotateCcw, X } from "lucide-react"
 import { accentText } from "@/lib/tileColors"
 import { rombo } from "@/lib/mercanciasClases"
 import type { EjercicioEtiquetas } from "@/lib/mercanciasPractica"
@@ -32,6 +32,24 @@ export function Etiquetas({
   const [fin, setFin] = useState(false)
   const r = ejercicio.rondas[ronda]
   const rondas = ejercicio.rondas.length
+
+  // Al responder, las opciones se deshabilitan y el foco se perdería con
+  // ellas: pasa a la explicación, que es lo siguiente que hay que leer. Al
+  // cambiar de ronda vuelve a la primera opción, y al terminar, al marcador.
+  const resultadoRef = useRef<HTMLDivElement>(null)
+  const opcionesRef = useRef<HTMLDivElement>(null)
+  const marcadorRef = useRef<HTMLDivElement>(null)
+  // Se compara con el estado anterior y no con un «ya montado»: así, al abrir
+  // el ejercicio, el foco no salta a ninguna parte.
+  const paso = `${ronda}|${picked}|${fin}`
+  const pasoAnterior = useRef(paso)
+  useEffect(() => {
+    if (pasoAnterior.current === paso) return
+    pasoAnterior.current = paso
+    if (fin) marcadorRef.current?.focus()
+    else if (picked !== null) resultadoRef.current?.focus()
+    else opcionesRef.current?.querySelector("button")?.focus()
+  }, [paso, picked, fin])
 
   function elegir(i: number) {
     if (picked !== null) return
@@ -78,7 +96,7 @@ export function Etiquetas({
       </header>
 
       {fin ? (
-        <div className="mt-6 rounded-xl border p-5 text-center" style={{ borderColor: "var(--border)" }}>
+        <div ref={marcadorRef} tabIndex={-1} className="mt-6 rounded-xl border p-5 text-center" style={{ borderColor: "var(--border)" }}>
           <div className="np-rotulo">Marcador</div>
           <div className="tabular mt-1 text-[40px] font-semibold leading-none" style={{ color: ACENTO }}>
             {aciertos} / {rondas}
@@ -118,7 +136,7 @@ export function Etiquetas({
 
           <div className="min-w-0">
             <div className="np-rotulo mb-2.5">Elige</div>
-            <div className={`grid gap-2.5 ${r.opciones[0]?.imagen ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-1"}`}>
+            <div ref={opcionesRef} className={`grid gap-2.5 ${r.opciones[0]?.imagen ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-1"}`}>
               {r.opciones.map((op, i) => {
                 const elegida = picked === i
                 const esLaBuena = i === r.correcta
@@ -144,13 +162,24 @@ export function Etiquetas({
                         <span>{op.texto}</span>
                       </span>
                     )}
+                    {/* Qué opción era la buena, dicho con palabras y no solo
+                        con el color del borde. */}
+                    {revelada && (
+                      <span
+                        className={`mt-2 flex items-center gap-1 text-[12px] font-semibold ${op.imagen ? "justify-center" : "pl-[22px]"}`}
+                        style={{ color: accentText(tono) }}
+                      >
+                        {esLaBuena ? <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden /> : <X className="h-3.5 w-3.5" strokeWidth={3} aria-hidden />}
+                        {esLaBuena ? "Correcta" : "Tu respuesta"}
+                      </span>
+                    )}
                   </button>
                 )
               })}
             </div>
 
             {picked !== null && (
-              <div className="rev-aparece mt-4 rounded-xl border p-4" style={{ borderColor: "var(--border)" }}>
+              <div ref={resultadoRef} tabIndex={-1} className="rev-aparece mt-4 rounded-xl border p-4" style={{ borderColor: "var(--border)" }}>
                 <div
                   className="text-[13px] font-semibold"
                   style={{ color: accentText(picked === r.correcta ? "var(--av-green-400)" : "var(--av-amber-400)") }}

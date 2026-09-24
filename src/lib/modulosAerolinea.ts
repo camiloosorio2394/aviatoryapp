@@ -28,8 +28,18 @@ import { AP_HUB, AP_LECTURA_TOTAL, AP_PASS_SCORE } from "@/lib/aeropuertos"
 import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
 import { PERF_HUB, PERF_LECTURA_TOTAL, PERF_PASS_SCORE, PERF_PRACTICA_TOTAL } from "@/lib/performance"
 
+import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
-export type ClaveModulo = "notam" | "metar" | "mercancias" | "aerodinamica" | "aeropuertos" | "performance"
+export type ClaveModulo =
+  | "notam"
+  | "metar"
+  | "mercancias"
+  | "aerodinamica"
+  | "aeropuertos"
+  | "performance"
+  | "comunicaciones"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -114,6 +124,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: PERF_PASS_SCORE,
     },
     promesa: "V₁, campo equilibrado, segundo segmento, obstáculos y aterrizaje.",
+  },
+  {
+    clave: "comunicaciones",
+    titulo: "Comunicaciones ATC",
+    hub: CM_HUB,
+    acento: "var(--av-cm-500)",
+    totales: {
+      secciones: CM_LECTURA_TOTAL,
+      practicas: CM_PRACTICA_CONTEO,
+      aprobacion: CM_PASS_SCORE,
+    },
+    promesa: "Escuchar, interpretar, confirmar y responder al ATC.",
   },
 ]
 

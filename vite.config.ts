@@ -177,6 +177,21 @@ export default defineConfig({
             },
           },
           {
+            // Audios de la practica de Comunicaciones ATC: mismo trato que las
+            // imagenes de modulo. Fuera del precache (modulos/** ya esta en
+            // globIgnores), y quien escucho un ejercicio lo tiene sin red en
+            // la segunda visita. Solo audio/mpeg: un index.html con 200 no se
+            // guarda nunca como si fuera la grabacion. Sin la regla funciona
+            // igual; sin red cae a la voz del navegador.
+            urlPattern: /\/modulos\/comunicaciones\/audio\/.*\.mp3$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'comunicaciones-audio-v1',
+              expiration: { maxEntries: 300, maxAgeSeconds: 60 * 60 * 24 * 180 },
+              cacheableResponse: { statuses: [200], headers: { 'Content-Type': 'audio/mpeg' } },
+            },
+          },
+          {
             // Fonts: cache-first (rarely change)
             urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*$/,
             handler: 'CacheFirst',

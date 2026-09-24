@@ -52,6 +52,24 @@ const CONTENIDO = [
     permitido: ['src/pages/AeropuertosPractice.tsx'],
     message: 'Trae la práctica completa de Aeropuertos.',
   },
+  {
+    name: '@/lib/comunicacionesLeccion',
+    permitido: ['src/pages/ComunicacionesLeccion.tsx'],
+    message: 'Trae las 69 lecciones de Comunicaciones ATC. Niveles y conteos están en @/lib/comunicaciones.',
+  },
+  {
+    // El guion de la práctica pasa por comunicacionesPracticaGrupos, que lo
+    // ordena y deriva las claves; la página importa ese y no este.
+    name: '@/lib/comunicacionesPracticaEjemplos',
+    permitido: ['src/lib/comunicacionesPracticaGrupos.ts'],
+    message:
+      'Trae el guion completo de la práctica de Comunicaciones ATC. La página lo recibe de @/lib/comunicacionesPracticaGrupos; el total está en @/lib/comunicacionesConteo.',
+  },
+  {
+    name: '@/lib/comunicacionesPracticaGrupos',
+    permitido: ['src/pages/ComunicacionesPractice.tsx'],
+    message: 'Trae la práctica completa de Comunicaciones ATC. Su total está en CM_PRACTICA_CONTEO (@/lib/comunicacionesConteo).',
+  },
 ]
 
 const CLIENTE_SUPABASE = {

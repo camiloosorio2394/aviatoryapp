@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CheckCircle2, Eye, MessageSquareText } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import type { PreguntaEntrevista } from "@/lib/mercanciasPractica"
@@ -24,6 +24,11 @@ export function Entrevista({
 }) {
   const [answer, setAnswer] = useState("")
   const [revealed, setRevealed] = useState(false)
+  // El botón desaparece al pulsarlo: el foco pasa a la respuesta modelo.
+  const respuestaRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (revealed) respuestaRef.current?.focus()
+  }, [revealed])
 
   return (
     <div className="grid gap-5 xl:gap-6 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] items-start">
@@ -53,7 +58,7 @@ export function Entrevista({
           value={answer}
           onChange={(e) => setAnswer(e.target.value)}
           placeholder="Lo esencial de tu respuesta, con el artículo si lo recuerdas."
-          className="mt-4 w-full min-h-[140px] rounded-xl border border-border bg-background p-3.5 text-[13px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 resize-y focus:outline-none focus:border-foreground/30 transition-colors"
+          className="mt-4 w-full min-h-[140px] rounded-xl border border-border bg-background p-3.5 text-[13px] leading-relaxed text-foreground placeholder:text-muted-foreground/70 resize-y focus:border-foreground/30 transition-colors"
         />
       </section>
 
@@ -68,7 +73,7 @@ export function Entrevista({
             <Eye className="h-4 w-4" /> Ver la respuesta modelo
           </button>
         ) : (
-          <div className="rev-aparece">
+          <div ref={respuestaRef} tabIndex={-1} className="rev-aparece">
             <p className="m-0 text-[13.5px] text-foreground/90 leading-relaxed">{pregunta.respuesta}</p>
             <div className="mt-4 rounded-xl border p-3.5" style={{ borderColor: `color-mix(in oklab, ${ACENTO} 30%, transparent)`, background: `color-mix(in oklab, ${ACENTO} 6%, transparent)` }}>
               <div className="np-rotulo">Qué evalúan</div>

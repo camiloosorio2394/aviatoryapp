@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { CheckCircle2, Eye, PencilLine } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import { CLASES, rombo } from "@/lib/mercanciasClases"
@@ -29,6 +29,12 @@ export function Clasifica({
   const claseOk = clase === caso.clase
   const geOk = ge === caso.ge
   const listo = clase !== null && ge !== null
+  // «Comprobar» desaparece al pulsarlo: el foco pasa al resultado, que es lo
+  // que hay que leer, en vez de perderse al principio de la página.
+  const resultadoRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (revelado) resultadoRef.current?.focus()
+  }, [revelado])
 
   return (
     <div className="grid gap-5 xl:gap-6 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-start">
@@ -66,6 +72,7 @@ export function Clasifica({
                   key={c.n}
                   onClick={() => !revelado && setClase(c.n)}
                   aria-pressed={activa}
+                  aria-label={`Clase ${c.n}`}
                   disabled={revelado}
                   className="flex flex-col items-center gap-1 rounded-[10px] border px-1 py-2 transition-colors disabled:cursor-default"
                   style={{
@@ -73,7 +80,7 @@ export function Clasifica({
                     background: revelaOk || activa ? `color-mix(in oklab, ${borde} 10%, transparent)` : "transparent",
                   }}
                 >
-                  <img src={rombo(c.rombos[0])} alt={`Clase ${c.n}`} width={40} height={40} className="block h-10 w-10 object-contain" />
+                  <img src={rombo(c.rombos[0])} alt="" width={40} height={40} className="block h-10 w-10 object-contain" />
                   <span className="mono text-[11px] font-semibold">{c.n}</span>
                 </button>
               )
@@ -118,7 +125,7 @@ export function Clasifica({
             <Eye className="h-4 w-4" /> Comprobar
           </button>
         ) : (
-          <div className="rev-aparece">
+          <div ref={resultadoRef} tabIndex={-1} className="rev-aparece">
             <div
               className="rounded-xl border p-3.5 text-[14px] leading-relaxed"
               style={{

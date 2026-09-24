@@ -20,7 +20,7 @@
 --
 -- ⚠ NO CORRER JUNTO CON LAS DE COMUNICACIONES SIN RECONCILIAR ANTES.
 -- La rama `claude/session-credits-cloud-0gyhkk` trae el módulo Comunicaciones
--- ATC con 20260925000000/010000/020000, y su tercer archivo republica estas
+-- ATC con 20260927000000/010000/020000, y su tercer archivo republica estas
 -- mismas funciones compartidas con la rama de 'comunicaciones' y SIN la de
 -- 'performance'. Este archivo hace lo simétrico. No se pisan por el nombre
 -- —por eso este es 26 y no 25— pero sí por el contenido: la última que corra

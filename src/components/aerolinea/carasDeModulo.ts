@@ -1,5 +1,5 @@
 import type { ComponentType } from "react"
-import { AlertTriangle, CloudSun, Gauge, TowerControl, Wind } from "lucide-react"
+import { AlertTriangle, CloudSun, Gauge, Headset, TowerControl, Wind } from "lucide-react"
 import { AerodromeIcon } from "@/components/icons/aero"
 import { AP_ACENTO } from "@/lib/aeropuertos"
 import type { ClaveModulo } from "@/lib/modulosAerolinea"
@@ -83,5 +83,12 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     color: "var(--av-pf-700)",
     fotoHueco: "PERF-TEMA · Portada de tema · 3:2 · 1200×800 · Avión de transporte iniciando la carrera de despegue, visto desde el costado de la pista",
     descripcion: "V₁, campo equilibrado, segundo segmento y peso máximo del día.",
+  },
+  comunicaciones: {
+    // El mismo icono que su tarjeta en Ingreso a aerolínea.
+    icon: Headset,
+    color: "var(--av-cm-700)",
+    fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
+    descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
   },
 }

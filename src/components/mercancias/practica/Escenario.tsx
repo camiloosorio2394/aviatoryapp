@@ -3,7 +3,7 @@ import { CheckCircle2, Link2, RotateCcw } from "lucide-react"
 import { SectionTitle } from "@/components/ui/section-title"
 import { accentText } from "@/lib/tileColors"
 import type { EscenarioMP } from "@/lib/mercanciasPractica"
-import { ACENTO } from "@/components/mercancias/practica/comun"
+import { ACENTO, VERDE_CON_TEXTO } from "@/components/mercancias/practica/comun"
 import { PuntosModelo, MarcarResuelto } from "@/components/mercancias/practica/Piezas"
 
 // ─── Escenarios ──────────────────────────────────────────────────────────────
@@ -61,26 +61,30 @@ function Ficha({
   onClick: () => void
 }) {
   const hecha = estado === "hecha"
+  // Una ficha conectada no se deshabilita con `disabled`: el foco estaba en
+  // ella y se iría al principio de la página. Queda aria-disabled, y quien la
+  // toca no cambia nada (lo filtra tocarIzq/tocarDer).
   return (
     <button
       type="button"
       onClick={onClick}
-      disabled={hecha}
+      aria-disabled={hecha || undefined}
       aria-pressed={estado === "elegida"}
-      className="mp-ficha flex w-full items-start gap-2 rounded-xl border p-2.5 text-left transition-[background-color,border-color,transform] duration-150 disabled:cursor-default"
+      className="mp-ficha flex w-full items-start gap-2 rounded-xl border p-2.5 text-left transition-[background-color,border-color,transform] duration-150 aria-disabled:cursor-default"
       style={{ borderColor: COLOR[estado].borde, background: COLOR[estado].fondo }}
     >
       <span
         aria-hidden
         className="mono mt-[1px] grid h-[18px] w-[18px] shrink-0 place-items-center rounded-[5px] text-[10px] font-semibold"
         style={{
-          background: hecha ? "var(--av-green-400)" : "color-mix(in oklab, var(--border) 55%, transparent)",
+          background: hecha ? VERDE_CON_TEXTO : "color-mix(in oklab, var(--border) 55%, transparent)",
           color: hecha ? "#fff" : "var(--muted-foreground)",
         }}
       >
         {hecha ? numero : "·"}
       </span>
       <span className="text-[13px] leading-[1.45] text-foreground">{texto}</span>
+      {hecha && <span className="sr-only">(conectada, pareja {numero})</span>}
     </button>
   )
 }
@@ -273,7 +277,7 @@ export function Escenario({
         </div>
 
         {!completo ? (
-          <p className="mt-3 mb-0 text-[12px] text-muted-foreground leading-relaxed">
+          <p className="mt-3 mb-0 text-[12px] text-muted-foreground leading-relaxed" aria-live="polite">
             {fallo
               ? "Esa no es. Mira otra vez qué parte del escenario estás resolviendo."
               : "Si fallas no pierdes nada: la pareja se libera y vuelves a intentarlo."}

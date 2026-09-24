@@ -24,6 +24,7 @@ function Rombo({ id, tam, etiqueta }: { id?: string; tam: number; etiqueta?: str
       <span
         className="mono flex shrink-0 items-center justify-center rounded-[6px] border border-dashed text-[10px]"
         style={{ width: tam, height: tam, borderColor: "var(--doc-border)", color: "var(--doc-muted)" }}
+        role="img"
         aria-label={etiqueta ?? "Sin etiqueta en el material del módulo"}
       >
         —
@@ -185,7 +186,11 @@ export function ClasesMP() {
                         className="text-[15px] font-semibold leading-snug"
                         style={{ color: "var(--doc-fg)" }}
                       >
-                        <span style={{ color: clase.color }}>{d.id}</span> · {d.txt}
+                        {/* El color del rombo tal cual no alcanza como texto
+                            (el naranja de la 1 da 2,8:1 sobre el papel, el
+                            amarillo de la 5 y la 7, 2,9:1): se mezcla con la
+                            tinta, que conserva el matiz y pasa de 4,5:1. */}
+                        <span style={{ color: `color-mix(in oklab, ${clase.color} 58%, var(--doc-fg))` }}>{d.id}</span> · {d.txt}
                       </div>
                       {d.detalle && <p className="m-0 mt-1 text-[13.5px] leading-[1.55] doc-muted">{d.detalle}</p>}
                     </div>
@@ -291,6 +296,7 @@ export function EtiquetasMP({ grupo }: { grupo: GrupoEtiqueta | "todas" }) {
                 <div
                   className="flex h-[72px] w-[72px] shrink-0 flex-col items-center justify-center border px-1 text-center"
                   style={{ background: "var(--doc-soft)", borderColor: "var(--doc-border)" }}
+                  role="img"
                   aria-label={`Hueco de imagen ${e.id}`}
                 >
                   <span className="mono text-[9px] font-semibold leading-tight" style={{ color: "var(--doc-accent)" }}>

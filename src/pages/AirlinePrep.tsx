@@ -7,6 +7,7 @@ import {
   ClipboardCheck,
   ClipboardList,
   CloudSun,
+  Headset,
   Play,
   Wind,
   TowerControl,
@@ -60,11 +61,22 @@ import {
   resumirAeropuertos,
 } from "@/lib/aeropuertos"
 import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
+import {
+  CM_ACENTO,
+  CM_HUB,
+  CM_LECTURA_TOTAL,
+  CM_NIVELES,
+  CM_TITULO_CORTO,
+  readComunicacionesLocal,
+  resumirComunicaciones,
+} from "@/lib/comunicaciones"
 import { PSICO_HUB, SIMULACRO_TOTAL } from "@/lib/psicotecnicas"
 import { PSICO_TOTAL } from "@/lib/psicotecnicasConteo"
 import { leerPsicoLocal, mejorSimulacroRemoto } from "@/lib/psicotecnicasProgress"
 import { fetchMercanciasProgress, readMercanciasLocal } from "@/lib/mercanciasProgress"
 import { fetchAeropuertosProgress } from "@/lib/aeropuertosProgress"
+import { fetchComunicacionesProgress } from "@/lib/comunicacionesProgress"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 // Reusa la foto que la portada ya asocia a este módulo: la herramienta es del
 // módulo, no un curso aparte, y compartir la imagen lo dice sin texto.
 import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
@@ -158,6 +170,7 @@ export function AirlinePrep() {
   const [mercanciasProgreso, setMercanciasProgreso] = useState(() => readMercanciasLocal())
   const [aeroProgreso, setAeroProgreso] = useState(() => readAerodinamicaLocal())
   const [aeropuertosProgreso, setAeropuertosProgreso] = useState(() => readAeropuertosLocal())
+  const [comunicacionesProgreso, setComunicacionesProgreso] = useState(() => readComunicacionesLocal())
   const [mejorPsico, setMejorPsico] = useState<number | null>(
     () => leerPsicoLocal().mejorSimulacro
   )
@@ -178,7 +191,7 @@ export function AirlinePrep() {
     let cancelled = false
 
     void (async () => {
-      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, psicoRes] =
+      const [notamRes, metarRes, mejoresExamen, mockRes, mpRes, aeRes, apRes, cmRes, psicoRes] =
         await Promise.all([
           fetchNotamProgress(user.id),
           fetchMetarProgress(user.id),
@@ -187,6 +200,7 @@ export function AirlinePrep() {
           fetchMercanciasProgress(user.id),
           fetchAerodinamicaProgress(user.id),
           fetchAeropuertosProgress(user.id),
+          fetchComunicacionesProgress(user.id),
           mejorSimulacroRemoto(user.id),
         ])
       if (cancelled) return
@@ -219,6 +233,7 @@ export function AirlinePrep() {
       if (mpRes) setMercanciasProgreso(mpRes)
       if (aeRes) setAeroProgreso(aeRes)
       if (apRes) setAeropuertosProgreso(apRes)
+      if (cmRes) setComunicacionesProgreso(cmRes)
 
       // La última vez que tocó CUALQUIER tema: la más reciente de las cuatro
       // filas de progreso. Se compara en ISO, que ordena igual que la fecha.
@@ -230,6 +245,7 @@ export function AirlinePrep() {
         mpRes?.remoto.actualizado,
         aeRes?.remoto.actualizado,
         apRes?.remoto.actualizado,
+        cmRes?.remoto.actualizado,
       ].filter((f): f is string => typeof f === "string" && f.length > 0)
       setUltimaActividad(fechas.length > 0 ? fechas.reduce((a, b) => (a > b ? a : b)) : null)
       // Se queda con el mayor entre la base y el respaldo local: si el mejor
@@ -254,6 +270,7 @@ export function AirlinePrep() {
   const mercancias = useMemo(() => resumirMercancias(mercanciasProgreso), [mercanciasProgreso])
   const aero = useMemo(() => resumirAerodinamica(aeroProgreso), [aeroProgreso])
   const aeropuertos = useMemo(() => resumirAeropuertos(aeropuertosProgreso), [aeropuertosProgreso])
+  const comunicaciones = useMemo(() => resumirComunicaciones(comunicacionesProgreso), [comunicacionesProgreso])
 
   // Los estados van en cifras cortas («9/9 secciones») porque la tarjeta de
   // cuatro columnas les da un renglón. Los que decían «13 secciones cortas» o
@@ -380,6 +397,30 @@ export function AirlinePrep() {
               : `${aeropuertos.lessonRead}/${AP_LECTURA_TOTAL} lecciones · ${aeropuertos.practiceDone}/${AP_PRACTICA_CONTEO} ejercicios`,
         },
       },
+      // Comunicaciones ATC: lección, práctica con audio y evaluación, como
+      // Aeropuertos.
+      {
+        nombre: CM_TITULO_CORTO,
+        to: CM_HUB,
+        pct: comunicaciones.overall,
+        card: {
+          to: CM_HUB,
+          icon: Headset,
+          color: CM_ACENTO,
+          titulo: CM_TITULO_CORTO,
+          meta: `${CM_LECTURA_TOTAL} lecciones · ${CM_NIVELES.length} niveles`,
+          descripcion: "Escuchar, interpretar, confirmar y responder al ATC, de la rampa al océano.",
+          fotoHueco: "CM-TEM-01 · 2:1 · 1200×600 · Piloto con auriculares y la mano en el selector de frecuencia",
+          cta: ctaDeTema(comunicaciones.overall),
+          avance: comunicaciones.overall,
+          completo: comunicaciones.overall >= 100,
+          estado: comunicaciones.empty
+            ? "Sin empezar"
+            : comunicaciones.overall >= 100
+              ? "Tema completo"
+              : `${comunicaciones.lessonRead}/${CM_LECTURA_TOTAL} lecciones · ${comunicaciones.practiceDone}/${CM_PRACTICA_CONTEO} ejercicios`,
+        },
+      },
       // Psicotécnicas no se "termina": es un banco para entrenar. Lo que hace
       // de avance es el mejor resultado del simulacro, que es lo único que
       // mide de verdad si ya estás listo para el proceso.
@@ -460,7 +501,7 @@ export function AirlinePrep() {
       .map((t, i) => ({ t, i }))
       .sort((a, b) => grupo(a.t) - grupo(b.t) || b.t.pct - a.t.pct || a.i - b.i)
       .map(({ t }) => t)
-  }, [notam, metar, mercancias, aero, aeropuertos, mejorSimulacro, mejorPsico])
+  }, [notam, metar, mercancias, aero, aeropuertos, comunicaciones, mejorSimulacro, mejorPsico])
 
   const cursables = temas.filter((t) => !t.herramienta)
   const herramientas = temas.filter((t) => t.herramienta)

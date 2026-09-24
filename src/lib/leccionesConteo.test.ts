@@ -19,6 +19,11 @@ import {
   PERF_MINUTOS,
   PERF_PRACTICA_CLAVES,
 } from "@/lib/performanceLeccion"
+import { CM_LECTURA_TOTAL, CM_NIVELES } from "@/lib/comunicaciones"
+import { CM_LECCIONES, CM_LECCION_TOTAL } from "@/lib/comunicacionesLeccion"
+import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
+import { CM_PRACTICA_TOTAL } from "@/lib/comunicacionesPracticaGrupos"
+import migracionComunicaciones from "../../supabase/migrations/20260927000000_progreso_de_comunicaciones.sql?raw"
 
 /**
  * Los hubs y la lista de temas usan conteos fijos para no cargar el contenido
@@ -81,6 +86,23 @@ describe("conteos fijos de las lecciones", () => {
     expect(desde[0]).toBe(1)
     expect(desde).toEqual([...desde].sort((a, b) => a - b))
     for (const n of desde) expect(AP_LECCIONES[n - 1]?.n).toBe(n)
+  })
+
+  it("Comunicaciones ATC: el total fijo, los ocho niveles y el catálogo de la migración", () => {
+    expect(CM_LECTURA_TOTAL).toBe(CM_LECCION_TOTAL)
+    // Los cortes de la especificación: 1-7, 8-11, 12-18, 19-30, 31-40, 41-50,
+    // 51-61 y 62-69 (el repaso de las 50 frases es la 69).
+    expect(CM_NIVELES.map((n) => n.desde)).toEqual([1, 8, 12, 19, 31, 41, 51, 62])
+    for (const n of CM_NIVELES.map((x) => x.desde)) expect(CM_LECCIONES[n - 1]?.n).toBe(n)
+    // La migración de progreso nace con el número de lecciones; desde ahí la
+    // fila la mantiene contenido/catalogo/modulos.json (scripts/catalogo).
+    expect(migracionComunicaciones).toContain(`values ('comunicaciones', ${CM_LECCION_TOTAL}, '{}'::text[])`)
+  })
+
+  it("Comunicaciones ATC: el conteo liviano de la práctica", () => {
+    // El panel y el hub no pueden importar el guion entero, así que llevan el
+    // número aparte. Si entra o sale un ejercicio, aquí se ve.
+    expect(CM_PRACTICA_CONTEO).toBe(CM_PRACTICA_TOTAL)
   })
 
   it("Mercancías: cada nivel empieza en una lección que existe, en orden", () => {

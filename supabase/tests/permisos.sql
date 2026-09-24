@@ -155,6 +155,9 @@ begin
       'licenses_held',          -- licencias que el piloto declara
       'pilot_state',            -- horas y metas que el piloto declara
       'plan_de_estudio',        -- el plan que el piloto arma para sí mismo
+      'postulaciones',          -- su búsqueda de trabajo, que él declara; por
+                                -- columnas, sin borrar y sin tocar las fechas
+                                -- que mide el seguimiento (20260915120000)
       'profiles',               -- nombre, país, usuario, foto, CV público
       'user_achievements',      -- solo la marca «visto»
       'user_icao_mock_results', -- autoevaluación del simulacro ICAO

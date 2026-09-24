@@ -1,7 +1,8 @@
 -- ============================================================================
 -- Evaluación del módulo Aeropuertos. Migración 20260915230000.
 --
--- Corre esto JUSTO DESPUÉS de aplicar la migración y de sembrar el banco con
+-- Corre esto JUSTO DESPUÉS de aplicar las dos migraciones de Aeropuertos
+-- (20260915230000 y 20260916000000) y de sembrar el banco con
 --   node scripts/bancos/sembrar.mjs aeropuertos_evaluacion
 -- Sin el banco cargado falla en el conteo de preguntas, que es lo que se quiere:
 -- una evaluación sin banco se cae en el primer intento de un piloto.
@@ -33,14 +34,15 @@ begin
   if not x_b then raise exception 'FALLO las opciones no se barajan'; end if;
   x_log := x_log || ' reglas_25_de_60_y_80';
 
-  -- El destino manda el intento a la tabla del módulo, y la lección todavía no
-  -- se exige en el servidor porque el módulo no tiene tabla de progreso.
+  -- El destino manda el intento a la tabla del módulo, y la lección completa
+  -- la exige el servidor: la migración de progreso (20260916000000) pone
+  -- modulo_leccion. La puerta en sí se prueba en supabase/tests/aeropuertos.sql.
   select destino into x_t from public.evaluaciones where clave = 'aeropuertos_evaluacion';
   if x_t <> 'aeropuertos' then raise exception 'FALLO destino %', x_t; end if;
   select count(*) into x_n from public.evaluaciones
-  where clave = 'aeropuertos_evaluacion' and modulo_leccion is null;
-  if x_n <> 1 then raise exception 'FALLO modulo_leccion no está en null'; end if;
-  x_log := x_log || ' destino_y_leccion_sin_gobernar';
+  where clave = 'aeropuertos_evaluacion' and modulo_leccion = 'aeropuertos';
+  if x_n <> 1 then raise exception 'FALLO la evaluación no exige la lección de aeropuertos'; end if;
+  x_log := x_log || ' destino_y_leccion_gobernada';
 
   -- ── De qué banco sale ─────────────────────────────────────────────────────
   select count(*) into x_n from public.evaluacion_fuentes

@@ -9,6 +9,7 @@ import {
   traerPerfil,
 } from "@/services/perfil"
 import { useSession } from "@/hooks/useSession"
+import { reportarError } from "@/lib/errores"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -118,6 +119,7 @@ export function Profile() {
         setIcaoTakenAt(datos.icao.takenAt)
         setIcaoSource(datos.icao.source)
       } catch (err) {
+        reportarError("perfil: cargar", err)
         toast.error(err instanceof Error ? err.message : "No pudimos cargar tu perfil")
       } finally {
         if (!cancelled) setLoading(false)
@@ -220,6 +222,7 @@ export function Profile() {
       setOriginalUsername(username)
       toast.success("Perfil actualizado")
     } catch (err) {
+      reportarError("perfil: guardar", err)
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
     } finally {
       setSaving(false)

@@ -7,7 +7,7 @@ import {
   Loader2,
 } from "lucide-react"
 import { accentText } from "@/lib/tileColors"
-import { ACENTO } from "@/components/mercancias/practica/comun"
+import { ACENTO, VERDE_CON_TEXTO } from "@/components/mercancias/practica/comun"
 
 // ─── Piezas ──────────────────────────────────────────────────────────────────
 
@@ -73,7 +73,7 @@ export function MarcarResuelto({
           onClick={onDone}
           disabled={saving}
           className="mt-3 w-full inline-flex items-center justify-center gap-2 h-11 px-4 rounded-xl text-[15px] font-semibold text-white border-0 transition-transform hover:-translate-y-0.5 disabled:opacity-60 disabled:hover:translate-y-0"
-          style={{ background: "var(--av-green-400)" }}
+          style={{ background: VERDE_CON_TEXTO }}
         >
           {saving ? (
             <>
