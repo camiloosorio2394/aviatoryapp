@@ -128,12 +128,13 @@ begin
   --
   -- Estos números salen de contenido/bancos/, que es la fuente; del lado del
   -- cliente ya los vigila src/lib/evaluacionesContenido.test.ts. Aquí se cierra
-  -- el círculo contra producción. Si cambia un banco, se actualizan los dos.
+  -- el círculo contra producción. Si cambia un banco, se actualiza esta lista;
+  -- scripts/db/conteosDeBancos.test.ts falla si no cuadra con contenido/bancos.
   for x_clave, x_n in
     select * from (values
       ('notam_evaluacion', 100),
       ('metar_evaluacion', 104),
-      ('mercancias_evaluacion', 60),
+      ('mercancias_evaluacion', 46),
       ('mercancias_chequeo', 5),
       ('psicotecnicas', 238)
     ) as esperado(banco, cuantas)
