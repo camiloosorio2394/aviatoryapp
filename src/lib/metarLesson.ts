@@ -31,52 +31,68 @@ const CODIGO: DocScreen[] = [
   {
     n: 1,
     title: "¿Qué es un METAR?",
-    kicker: "El estado del cielo, en una línea",
-    minutes: 2,
+    kicker: "La observación del aeródromo, con hora y alcance definidos",
+    minutes: 4,
     blocks: [
       {
         kind: "p",
-        text: "El **METAR** (informe meteorológico aeronáutico de rutina) te dice la meteorología reinante en un aeródromo en un momento dado. Los datos salen de la estación meteorológica del propio aeropuerto y se publican a intervalos regulares.",
+        text: "**Qué ves en la portada:** un piloto y una observadora comparan el tiempo visible en un aeródromo con la información de trabajo. **Cómo lo reconoces:** hay nubosidad y lluvia a distancia, pero la imagen no proporciona valores de viento, techo ni visibilidad. **Qué decides:** consultar la observación más reciente y su hora, y contrastarla con el pronóstico y las condiciones de la operación.",
       },
       {
         kind: "p",
-        text: "Cuando algo cambia fuerte antes de la siguiente observación (una tormenta que llega, la visibilidad que se desploma), se emite un **SPECI**: un informe especial fuera de horario. Si ves SPECI en vez de METAR, alguien decidió que no podía esperar.",
+        text: "El **METAR** (informe meteorológico rutinario de aeródromo; Meteorological Aerodrome Report) resume una observación hecha en una hora concreta. Incluye, según corresponda, viento, visibilidad, tiempo presente, nubosidad, temperatura y presión. Puede reunir sensores automáticos y observación humana, según el aeródromo. **No es una imagen en tiempo real de toda la pista o de la ruta.**",
       },
       {
         kind: "p",
-        text: "**Por qué importa en la entrevista y en cabina:** junto con el NOTAM, el METAR es la lectura obligada del briefing. Un piloto que no decodifica `27010G25KT 4000 +TSRA BKN015CB` de memoria no puede decidir si despega.",
+        text: "Un **SPECI** (informe meteorológico especial de aeródromo; Special Aerodrome Meteorological Report) puede emitirse cuando se cumplen criterios establecidos de cambio entre informes rutinarios. No significa por sí solo que el tiempo sea peor ni que el METAR anterior sea erróneo: compara los grupos y la hora de ambos. La frecuencia de emisión y los criterios aplicables dependen del servicio meteorológico local.",
+      },
+      {
+        kind: "p",
+        text: "**Para una selección de aerolínea y para el vuelo:** saber leer un grupo como `27010G25KT 4000 +TSRA BKN015CB` ayuda a detectar viento con ráfagas, visibilidad reducida, tormenta con lluvia fuerte y nube convectiva. Son datos de un informe ilustrativo, no una autorización para despegar. La decisión exige además mínimos, pista, procedimientos, pronóstico, avisos y condiciones actualizadas.",
       },
       {
         kind: "callout",
         tone: "tip",
         title: "Cómo aprovechar esta lección",
-        text: "Léela de corrido: cada sección usa lo de la anterior, y va con comprobaciones intercaladas para que uses lo que acabas de leer. Después abre el Decodificador: pegas cualquier METAR y te lo desarma grupo por grupo.",
+        text: "Primero identifica aeródromo y hora de observación; luego lee cada grupo y pregúntate qué cambia en tu operación. Las lecciones siguientes desarman la clave paso a paso. El decodificador ayuda a practicar, pero no sustituye la fuente oficial ni la verificación del informe vigente.",
       },
       {
         kind: "check",
-        question: "Estás en la sala de despacho y sale un `SPECI` de tu destino. ¿Qué significa?",
+        question: "En despacho aparece un SPECI posterior al METAR de tu destino. ¿Qué haces?",
         options: [
-          "Que el informe de rutina se retrasó y este lo sustituye",
-          "Que algo cambió lo bastante como para no esperar a la siguiente observación",
-          "Que es un informe de aeródromo militar, con clave distinta",
+          "Supongo que el tiempo empeoró y cancelo sin leerlo",
+          "Comparo su hora y sus grupos con el METAR anterior y reevalúo la operación",
+          "Ignoro el SPECI porque solo el informe de rutina sirve para planear",
         ],
         answer: 1,
         explain:
-          "El `SPECI` es un informe **especial**, fuera de horario. Se emite justo porque la condición cambió fuerte antes de la observación siguiente. Si ves uno, mira qué grupo se movió: alguien decidió que no podía esperar.",
+          "Un SPECI refleja una observación especial de acuerdo con criterios del servicio meteorológico. Puede señalar cambios relevantes, no necesariamente un empeoramiento. Lee la hora y los grupos que cambiaron, y revisa sus consecuencias para mínimos, pista y ruta.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-por-01-preparacion-vuelo.webp",
-        alt: "Piloto en cabina durante la preparación del vuelo, con la carta aeronáutica desplegada sobre las piernas, una tablilla con el plan y el teléfono encima.",
-        ancho: 1600,
-        alto: 900,
-        pie: "El dato meteorológico se consulta aquí, antes de soltar frenos: no es teoría, es parte del briefing.",
+        kind: "reconoce",
+        titulo: "De la observación al informe",
+        intro: "Los instrumentos aportan parte de las mediciones; la foto no muestra un METAR real ni valores para despegar.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t13-01-observacion-aerodromo.webp",
+          alt: "Instrumentos meteorológicos junto a un aeródromo al amanecer, con anemómetro, abrigo de sensor y precipitación distante",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 18, y: 18, que: "Anemómetro y veleta", significa: "Estos instrumentos registran velocidad y dirección del viento en el punto de medición.", piloto: "Lee el viento reportado y contrástalo con la pista prevista y la información local más reciente." },
+          { x: 63, y: 68, que: "Sensor protegido", significa: "El abrigo protege la medición ambiental; la imagen no muestra ninguna temperatura numérica.", piloto: "Usa la temperatura y el punto de rocío del informe para performance y análisis meteorológico." },
+          { x: 76, y: 26, que: "Lluvia distante", significa: "Se aprecia precipitación fuera de la zona de los instrumentos; una foto no dice si afecta la pista o la ruta.", piloto: "Comprueba tiempo presente, radar, avisos y tendencia antes de decidir." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** instrumentos de superficie y lluvia distante. **Cómo lo reconoces:** el anemómetro está sobre el mástil y el sensor protegido cerca de la cerca; la cortina de lluvia queda al fondo. **Qué decides:** leer el METAR o SPECI con su hora, confirmar la evolución y no atribuir al reporte condiciones idénticas en cada punto del aeródromo.",
       },
       {
         kind: "enLaOperacion",
         momento: "Antes de cada vuelo",
         texto:
-          "El METAR no es un trámite del briefing: es el único dato que te dice qué hay de verdad ahora mismo en ese aeródromo. Todo lo demás que miras (el TAF, las cartas, el pronóstico de ruta) es previsión. Cuando el pronóstico y la observación no coinciden, el que manda es el METAR.",
+          "El METAR aporta una observación valiosa, pero tiene una hora y representa una zona limitada. Compárala con el pronóstico de aeródromo (TAF, Terminal Aerodrome Forecast), avisos, radar, información local y reportes más recientes. Si la observación difiere del pronóstico, investiga la tendencia y actualiza el plan; ningún producto, por sí solo, decide el vuelo.",
       },
     ],
   },
