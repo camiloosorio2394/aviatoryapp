@@ -188,11 +188,19 @@ explicación: la diferencia es la separación vertical, no un reflejo.
 ## Estado de los redibujos visuales
 
 **ES-E1-01 a ES-E1-09** tienen fuente SVG editable en
-`scripts/psicotecnicas/redibujos/`, contrastada con las páginas 1 y 2 del PDF
-E1. Los WebP publicados conservan sus URL; las alternativas y claves no cambian.
-`node scripts/psicotecnicas/redibujar-e1.mjs` regenera solo los redibujos
-aprobados. E1-10 a E1-14 y las láminas de E2 siguen pendientes; no se dan por
-corregidas por el trabajo en las primeras nueve.
+`scripts/psicotecnicas/redibujos/`, contrastada con las páginas 1 a 3 del PDF
+E1. `node scripts/psicotecnicas/redibujar-e1.mjs` regenera esos WebP.
+**ES-E1-10 a ES-E1-14** tienen bases PNG limpias, editadas con la herramienta de
+imagen integrada a partir de recortes del PDF. Las instrucciones de edición
+fueron conservar exactamente la geometría de conectores, aristas, cavidades y
+alternativas, y quitar únicamente la marca de agua y artefactos de impresión.
+Se contrastaron con las páginas 3 a 5 y con las claves impresas de la página 6.
+`node scripts/psicotecnicas/componer-e1-10.mjs`,
+`node scripts/psicotecnicas/componer-e1-volumen.mjs` y
+`node scripts/psicotecnicas/componer-e1-areas.mjs` reordenan las bases en
+paneles legibles para móvil. En E1-13 y E1-14, la pieza y los huecos conservan
+la misma escala. Los WebP conservan sus URL y las claves no cambian.
+Las láminas de E2 siguen pendientes.
 
 ## Derechos
 

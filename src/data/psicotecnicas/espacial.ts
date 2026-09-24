@@ -19,8 +19,8 @@ import type { EjercicioPsico } from "@/lib/psicotecnicas"
  *
  * Las figuras son el ejercicio: sin ellas el enunciado no se puede responder.
  * Los recortes salen del PDF original por scripts/psicotecnicas/extraer-figuras.mjs.
- * E1-01 a E1-09 son excepciones visuales: se redibujaron desde las páginas 1
- * a 3 para separar y ampliar las alternativas sin cambiar su respuesta.
+ * E1-01 a E1-14 son excepciones visuales: se redibujaron desde las páginas 1
+ * a 5 para separar y ampliar las alternativas sin cambiar su respuesta.
  */
 export const ESPACIAL: EjercicioPsico[] = [
   {
