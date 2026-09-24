@@ -76,6 +76,25 @@ begin
   end if;
   x_log := x_log || ' claves_viejas_no_cuentan';
 
+  -- Aeropuertos (20260916000000): la lección cuenta contra su catálogo de 22,
+  -- no contra lo que haya en la fila. Lecciones fuera de rango no la completan.
+  insert into public.user_aeropuertos_progress (user_id, lesson_screens, practice_done)
+  values (x_b, (select array_agg(i::smallint) from generate_series(1, 21) i) || '{23,40}'::smallint[], '{ap-viejo}')
+  on conflict (user_id) do update
+    set lesson_screens = excluded.lesson_screens, practice_done = excluded.practice_done;
+  if exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+             where ua.user_id = x_b and a.code in ('aeropuertos_lesson', 'aeropuertos_practice')) then
+    raise exception 'FALLO aeropuertos ganó logros con 21 lecciones y claves viejas';
+  end if;
+  update public.user_aeropuertos_progress
+  set lesson_screens = (select array_agg(i::smallint) from generate_series(1, 22) i)
+  where user_id = x_b;
+  if not exists (select 1 from public.user_achievements ua join public.achievements a on a.id = ua.achievement_id
+                 where ua.user_id = x_b and a.code = 'aeropuertos_lesson') then
+    raise exception 'FALLO aeropuertos_lesson no se ganó con las 22 lecciones';
+  end if;
+  x_log := x_log || ' aeropuertos_con_catalogo';
+
   -- Cada disparador evalúa su grupo: un mensaje no revisa first_step.
   delete from public.user_achievements ua using public.achievements a
   where ua.user_id = x_a and a.id = ua.achievement_id and a.code in ('first_step', 'community_hello');

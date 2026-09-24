@@ -98,62 +98,132 @@ la sección 3 de Mercancías.
 
 ## Lo que le queda por correr a Camilo
 
-Nada de esto se aplicó. Son cuatro pasos y van **en este orden y de una
-sentada**: la evaluación no abre hasta que estén la fila de reglas (migración 1)
-y las preguntas (siembra), y la migración 2 nombra tablas que crea la 1.
+Revisado y probado el 24-sep-2026. Nada de esto está aplicado en producción
+(`gvwqmfxphsbmbrhyjcmk`). Van **en este orden y de una sentada**, cada paso en
+**su propia ejecución** del SQL Editor (el editor corre cada ejecución en una
+sola transacción, así que si algo falla no queda nada a medias).
 
-**1. La migración de la evaluación**, en el SQL Editor de Supabase:
+### Lo que encontró la revisión
 
-```
-supabase/migrations/20260915230000_evaluacion_de_aeropuertos.sql
-```
+- **Hay cuatro migraciones más sin aplicar, de otro trabajo, y la de progreso
+  depende de ellas**: las tres de postulaciones (`20260915120000`,
+  `20260915120500`, `20260915121000`) y `20260915140000_panel_completo`. La
+  de progreso de Aeropuertos reescribe `panel_tarjetas` entera y la primera
+  versión la copiaba **sin `plan` ni `postulaciones`**, que el cliente ya lee
+  (`src/services/panel.ts`). Aplicadas las dos, la que corriera última borraba
+  lo de la otra. Se corrigió: la versión de Aeropuertos es ahora la de
+  `panel_completo` más la tarjeta del módulo, y por eso va después.
+- **Aerodinámica sí está aplicada** en producción (tablas, catálogo, banco de
+  40, logros, disparadores y las ramas en las funciones compartidas), pero
+  **sin fila en `supabase_migrations.schema_migrations`**: se corrió desde el
+  editor, que no registra. Las funciones que la migración de Aeropuertos
+  reemplaza (`secciones_leidas`, `practicas_hechas`, `desbloquear_logros`,
+  `check_and_unlock_achievements`, `evaluacion_terminar`) se compararon con las
+  de producción: son las mismas más la rama de `aeropuertos`, sin nada perdido.
+- `supabase/tests/aeropuertos_evaluacion.sql` esperaba `modulo_leccion` en
+  null, pero la migración de progreso lo pone en `'aeropuertos'`: corrida como
+  decía este documento (después de las dos), fallaba. Se corrigió.
+- `supabase/tests/permisos.sql` fallaba con las postulaciones aplicadas («el
+  cliente escribe en: postulaciones»). La tabla está bien (el piloto declara
+  su búsqueda, por columnas y sin borrar); faltaba en la lista de tablas que el
+  cliente escribe, con su razón, como pide la propia prueba.
+- Faltaba la prueba del progreso: se agregó `supabase/tests/aeropuertos.sql`,
+  y el caso de Aeropuertos en `supabase/tests/logros.sql`.
 
-Crea `user_aeropuertos_exam_attempts`, amplía el CHECK de `evaluaciones.destino`,
-registra las reglas en `evaluaciones` y `evaluacion_fuentes`, y reemplaza
-`evaluacion_terminar` con la rama del módulo nuevo.
+### El orden
 
-**2. La migración del progreso**, después de la anterior:
+| # | Qué se pega en el SQL Editor | Resultado esperado |
+|---|---|---|
+| 1 | `supabase/migrations/20260915120000_postulaciones.sql` | Sin error (avisos de «does not exist, skipping», normales) |
+| 2 | `supabase/migrations/20260915120500_aviso_de_postulacion.sql` | Sin error. **Sola**: el `alter type … add value` no se puede usar en la misma transacción |
+| 3 | `supabase/migrations/20260915121000_seguimiento_de_postulaciones.sql` | Sin error |
+| 4 | `supabase/migrations/20260915140000_panel_completo.sql` | Sin error |
+| 5 | `supabase/migrations/20260915230000_evaluacion_de_aeropuertos.sql` | Sin error |
+| 6 | `supabase/migrations/20260916000000_progreso_de_aeropuertos.sql` | Sin error |
+| 7 | `supabase/seeds/aeropuertos_evaluacion.sql` (el banco, 60 preguntas) | `UPDATE 0` |
+| 8 | Las pruebas, una por ejecución: `supabase/tests/aeropuertos_evaluacion.sql`, `aeropuertos.sql`, `logros.sql`, `permisos.sql`, `panel.sql`, `postulaciones.sql`, `aerodinamica.sql` | Cada una termina en el error `PRUEBA_DESHECHA …` (eso es pasar: la prueba se deshace sola) |
 
-```
-supabase/migrations/20260916000000_progreso_de_aeropuertos.sql
-```
+Qué pasa si se cambia el orden:
 
-Crea `user_aeropuertos_progress` con su RLS y su RPC `aeropuertos_mark_progress`,
-mete el módulo en `modulos_contenido` (22 lecciones y 30 claves de práctica), sus
-umbrales y sus cuatro logros, engancha los dos disparadores que desbloquean, suma
-la rama de `aeropuertos` a `secciones_leidas`, `practicas_hechas`,
-`desbloquear_logros`, `check_and_unlock_achievements` y `panel_tarjetas`, y pone
-`modulo_leccion` para que el servidor exija la lección completa antes de abrir la
-evaluación.
+- 6 antes que 5: falla en la primera función que nombra
+  `user_aeropuertos_exam_attempts`, y no queda nada aplicado.
+- 6 sin 1 a 4: **no falla al aplicarse** (PL/pgSQL no revisa las tablas al
+  crear la función), pero `panel_tarjetas` se cae en tiempo de ejecución porque
+  no existe `postulaciones`, y el panel de todos los pilotos queda sin tarjetas.
+  Por eso el orden no es opcional.
+- 4 después de 6: el panel pierde la tarjeta de Aeropuertos.
+- 7 antes que 5 funciona (el banco no depende de las migraciones), pero la
+  evaluación no abre hasta que estén las reglas.
 
-De paso agrega `aerodinamica` a la lista de grupos de
-`check_and_unlock_achievements`, que nunca la tuvo. Sus logros sí se
-desbloqueaban por disparador; lo que fallaba era el repaso manual.
+El paso 7 es la salida de `node scripts/bancos/sembrar.mjs aeropuertos_evaluacion`
+guardada con una cabecera. Es idempotente (upsert por id; lo que sale del
+archivo queda inactivo, nunca borrado). Si `contenido/bancos/aeropuertos_evaluacion.json`
+cambió después del 24-sep-2026, se pega la salida del comando en vez del archivo.
 
-Las dos migraciones se renombran después con la versión que registró la base:
+### Cómo se probó y con qué resultado
 
-```sql
-select version, name from supabase_migrations.schema_migrations
-where name in (evaluacion_de_aeropuertos, progreso_de_aeropuertos);
-```
+El MCP de Supabase de esta sesión es **de solo lectura** (`supabase_read_only_user`,
+transacción `read only`): ni siquiera un bloque `do` que se deshace puede crear
+una tabla. Así que:
 
-**3. El banco de preguntas.** Imprime el SQL y se pega en Supabase:
+1. **Contra producción, solo lectura**: se leyó el historial de migraciones, el
+   estado de Aerodinámica, las definiciones de las funciones que se reemplazan
+   y el conteo de los bancos.
+2. **Réplica local**: un Postgres 16 con lo mínimo de Supabase (roles,
+   `auth.users`, `auth.uid()`, esquemas de storage, cron y vault de mentira),
+   todas las migraciones del repo hasta `20260914230000` en orden, el catálogo
+   de `scripts/catalogo/sembrar.mjs` (sin la fila de aeropuertos), los bancos
+   de producción y tres pilotos. Se comparó con producción por huella (md5 de
+   cada definición): **restricciones (364), políticas (120), columnas de las 98
+   tablas y disparadores (26) idénticos**; de las 77 funciones, 70 idénticas y
+   7 que solo difieren en comentarios (se compararon sin ellos: iguales).
+   Diferencias ajenas a esto: una función `set_library_item_pages` que el repo
+   crea y producción no tiene (se quitó de la réplica), y el catálogo de
+   Mercancías y Aerodinámica, que en producción está más viejo que el del repo
+   (ver abajo).
+3. Sobre copias de esa réplica, los pasos 1 a 8 en orden. Resultados:
 
-```
-node scripts/bancos/sembrar.mjs aeropuertos_evaluacion
-```
+| Prueba | Antes de las correcciones | Después |
+|---|---|---|
+| `aeropuertos_evaluacion.sql` sin sembrar | | falla «el banco tiene 0 preguntas activas» (esperado) |
+| `aeropuertos_evaluacion.sql` | falla (`modulo_leccion` en null) | pasa: `reglas_25_de_60_y_80 destino_y_leccion_gobernada un_solo_banco_sin_cupo banco_60_bien_formado reparto_por_nivel intentos_cerrados sin_intento_a_mano terminar_enruta_los_seis` |
+| `aeropuertos.sql` (nueva) | falla «el panel perdió el plan o las postulaciones» | pasa: `catalogo_22_y_30 umbrales leccion_fuera leccion_cero practica_inventada clave_ajena rpc_idempotente rls_progreso sin_update_directo sin_intento_a_mano puerta_cerrada_con_21 puerta_abierta_con_22 terminar_escribe_en_aeropuertos conteos_y_modulos_viejos panel_con_plan_y_postulaciones grupos_y_disparadores logros_leccion_y_practica logros_los_cuatro` |
+| `logros.sql` | | pasa, con `aeropuertos_con_catalogo` |
+| `permisos.sql` | falla «el cliente escribe en: postulaciones» | pasa (también sin las migraciones nuevas) |
+| `panel.sql` | pasa | pasa |
+| `postulaciones.sql` | | pasa |
+| `aerodinamica.sql` | pasa | pasa |
 
-Es idempotente: se vuelve a correr cada vez que el archivo del banco cambie.
-Hace upsert por id y lo que salga del archivo queda inactivo, nunca borrado,
-porque las sesiones ya jugadas referencian sus preguntas.
+Y además: correr otra vez los pasos 5, 6 y 7 sobre la base ya migrada no da
+error y las pruebas siguen pasando (se pueden repetir sin miedo).
 
-**4. La prueba**, con las dos migraciones aplicadas y el banco sembrado:
+Lo que **no** se pudo probar: la corrida en la base real. La réplica calza con
+producción en todo lo que estas migraciones tocan, pero es Postgres 16 y
+producción es 17 (la única diferencia que apareció fue `revoke maintain`, de
+una migración vieja, que no existe en 16), y cron y vault son de mentira.
 
-```
-supabase/tests/aeropuertos_evaluacion.sql
-```
+### Después de aplicar
 
-Pasa si termina en `PRUEBA_DESHECHA` seguido de la lista de lo verificado.
+- **El historial.** El SQL Editor no escribe en
+  `supabase_migrations.schema_migrations` (por eso Aerodinámica no tiene fila).
+  Si se aplican desde el editor, los archivos se quedan con su nombre y hay que
+  decidir si se registran a mano; si se aplican con `apply_migration` o la CLI,
+  se renombran con la versión que registre la base:
+
+  ```sql
+  select version, name from supabase_migrations.schema_migrations
+  where name in ('postulaciones', 'aviso_de_postulacion', 'seguimiento_de_postulaciones',
+                 'panel_completo', 'evaluacion_de_aeropuertos', 'progreso_de_aeropuertos');
+  ```
+
+- **`supabase/tests/progreso_y_evaluaciones.sql` falla hoy, antes y después de
+  esto**: espera 60 preguntas activas en `mercancias_evaluacion` y el banco
+  tiene 46 (en el repo y en producción) desde que las preguntas de lección
+  salieron de Mercancías (#210). No es de Aeropuertos; queda anotado.
+- **Catálogo de Mercancías y Aerodinámica.** El de producción no es el que
+  genera hoy `node scripts/catalogo/sembrar.mjs`. No se tocó; conviene correr
+  ese SQL (el de todos los módulos, que ya incluye aeropuertos igual que la
+  migración) cuando se revise por qué quedó atrás.
 
 ### Mientras no las corra
 

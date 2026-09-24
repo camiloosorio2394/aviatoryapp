@@ -14,11 +14,12 @@ esa forma.
 | --- | --- |
 | `permisos.sql` | RLS en todas las tablas, `anon` sin tablas, `private` cerrado, funciones con `search_path`, permisos por defecto cerrados, columnas de corrección ocultas, tablas que el cliente escribe, límites de archivos. Solo lee. |
 | `progreso_y_evaluaciones.sql` | Marcas de progreso contra el catálogo, lección completa para abrir la evaluación, corrección solo de lo respondido, tope de intentos. |
-| `aeropuertos_evaluacion.sql` | Las reglas de la evaluación de Aeropuertos (25 de 60, aprueba con 80, corrección al final, un solo banco), el banco completo y repartido por nivel, la tabla de intentos cerrada y que `evaluacion_terminar` siga enrutando a los seis destinos. |
+| `aeropuertos_evaluacion.sql` | Las reglas de la evaluación de Aeropuertos (25 de 60, aprueba con 80, corrección al final, un solo banco, lección exigida), el banco completo y repartido por nivel, la tabla de intentos cerrada y que `evaluacion_terminar` siga enrutando a los seis destinos. Con las dos migraciones de Aeropuertos y el banco sembrado. |
+| `aeropuertos.sql` | Progreso de Aeropuertos contra su catálogo (22 lecciones, 30 prácticas), RLS y sin escritura directa, la puerta de la evaluación (con 21 lecciones no abre, con 22 sí) y el intento que llega a su tabla, los conteos de los otros módulos, el panel con los cinco módulos, el plan y las postulaciones, y los cuatro logros. Con las dos migraciones y el banco sembrado. |
 | `comunidad_y_reportes.sql` | Topes de mensajes y reportes, fecha del servidor, reportes sin editar, visitas de la biblioteca, reacciones con canal y borrados filtrables en vivo. |
 | `icao_quiz.sql` | Corrección en el servidor, opciones válidas, intentos solo por la función, tope por hora. |
 | `errores_cliente.sql` | Reporte de errores solo con sesión, recortado, con tope por hora y sin acceso directo a la tabla. |
-| `logros.sql` | Lección y práctica contra el catálogo, claves viejas que no cuentan, un grupo por disparador, ponerse al día solo sobre sí mismo. |
+| `logros.sql` | Lección y práctica contra el catálogo (NOTAM y Aeropuertos), claves viejas que no cuentan, un grupo por disparador, ponerse al día solo sobre sí mismo. Desde el caso de Aeropuertos necesita `20260916000000` aplicada. |
 | `psicotecnicas.sql` | El reloj lo lleva el servidor: aplazar acumula el tiempo, el tiempo agotado no cuenta, y ni el banco ni la sesión se leen desde el cliente. |
 | `panel.sql` | `panel_inicio()` y `panel_tarjetas()` devuelven lo mismo que las consultas que reemplazan, piloto por piloto, sin sesión no responden. Solo lee. |
 | `constancia.sql` | El plan de estudio es del piloto y solo suyo, la racha sobrevive a un día por mes (uno, no dos), y los avisos que corren de noche salen cuando deben y una sola vez al día. |

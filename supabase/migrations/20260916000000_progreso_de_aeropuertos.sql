@@ -11,6 +11,12 @@
 -- panel y los logros leen user_aeropuertos_exam_attempts, que nace allí.
 -- Corrida al revés, falla en la primera función que la nombra.
 --
+-- Y va DESPUÉS de 20260915140000_panel_completo.sql (y de las tres de
+-- postulaciones que esa necesita): panel_tarjetas se reemplaza entera y lleva
+-- 'plan' y 'postulaciones', que el cliente ya lee. La primera versión de este
+-- archivo copiaba el panel de antes de esa migración; aplicadas las dos, la
+-- que corriera última borraba lo de la otra (24-sep-2026).
+--
 -- Una cosa más, que no es de este módulo y se explica en su sección: la lista
 -- de grupos de check_and_unlock_achievements nunca recibió 'aerodinamica'. Sus
 -- logros sí se desbloquean, porque de eso viven los disparadores de sus tablas,
@@ -524,6 +530,26 @@ begin
       'practicas', private.practicas_hechas(v_user, 'aeropuertos'),
       'mejor', (select max(e.score) from public.user_aeropuertos_exam_attempts e where e.user_id = v_user)
     ),
+    -- Lo que el piloto se comprometió a hacer: igual que en 20260915140000.
+    'plan', (
+      select jsonb_build_object(
+        'dias', pe.dias, 'hora', pe.hora, 'zona', pe.zona, 'minutos_meta', pe.minutos_meta
+      )
+      from public.plan_de_estudio pe where pe.user_id = v_user
+    ),
+    'postulaciones', coalesce((
+      select jsonb_agg(
+        jsonb_build_object(
+          'aerolinea', coalesce(a.name, po.aerolinea),
+          'estado', po.estado,
+          'dias', current_date - po.postulada_en
+        )
+        order by po.postulada_en
+      )
+      from public.postulaciones po
+      left join public.airlines a on a.id = po.airline_id
+      where po.user_id = v_user and po.estado in ('postulada', 'en_proceso')
+    ), '[]'::jsonb),
     'licencias', coalesce((
       select jsonb_agg(
         jsonb_build_object('id', l.id, 'license_type', l.license_type, 'custom_name', l.custom_name, 'expires_date', l.expires_date)

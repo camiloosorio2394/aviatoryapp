@@ -40,8 +40,10 @@
 --   - No crea logros: van con el progreso del módulo, en su migración, para
 --     que el disparador y su caso en supabase/tests/logros.sql lleguen juntos.
 --
--- Prueba: supabase/tests/aeropuertos_evaluacion.sql, que se corre justo
--- después de aplicar esto y de sembrar el banco.
+-- Prueba: supabase/tests/aeropuertos_evaluacion.sql, que se corre después de
+-- aplicar esto y 20260916000000_progreso_de_aeropuertos.sql (que pone
+-- modulo_leccion) y de sembrar el banco. Orden completo, con las migraciones
+-- de postulaciones que van antes: docs/AEROPUERTOS_ESTADO.md.
 -- ============================================================================
 
 -- ── 1 · Intentos de la evaluación ──────────────────────────────────────────
