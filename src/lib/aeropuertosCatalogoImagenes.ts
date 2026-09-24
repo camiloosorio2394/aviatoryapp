@@ -110,6 +110,22 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-26-espera-vehiculos.webp",
     explicacion: "Este letrero rojo en español está al costado de una vía vehicular que entra a la pista. Ordena parar y obtener autorización del ATC (Air Traffic Control), control de tránsito aéreo, antes de acceder.",
   },
+  "AP-CAT-29": {
+    src: "/modulos/aeropuertos/ap-cat-29-vor-verificacion.webp",
+    explicacion: "El letrero amarillo muestra la frecuencia 116.3 y la marcación 147° del VOR (VHF Omnidirectional Radio Range; VHF significa Very High Frequency). Sitúa el avión en la señal circular y compara la indicación del equipo con el valor publicado antes de usarlo.",
+  },
+  "AP-CAT-30": {
+    src: "/modulos/aeropuertos/ap-cat-30-identificacion-aerodromo.webp",
+    explicacion: "Las letras blancas de gran tamaño sobre el terreno permiten leer el nombre desde el aire. Es un ejemplo didáctico de identificación visual; este numeral está reservado en Colombia, así que confirma siempre el aeródromo por medios publicados.",
+  },
+  "AP-CAT-31": {
+    src: "/modulos/aeropuertos/ap-cat-31-identificacion-puesto.webp",
+    explicacion: "El letrero amarillo con «12» coincide con el número pintado sobre la línea de entrada al puesto. Comprueba ambos desde la cabina antes de entrar y mantén libre la zona de estacionamiento.",
+  },
+  "AP-CAT-32": {
+    src: "/modulos/aeropuertos/ap-cat-32-mensaje-variable.webp",
+    explicacion: "Los puntos luminosos forman «A ←» en un letrero electrónico junto a la calle. Reconoce que el mensaje puede cambiar o quedar en blanco; sigue únicamente la indicación vigente y tu autorización de rodaje.",
+  },
   "AP-CAT-34": {
     src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
     explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
