@@ -14,6 +14,7 @@ import {
   type ApCatFicha,
   type ApCatTipo,
 } from "@/lib/aeropuertosCatalogo"
+import { explicacionDeImagen, imagenDeFicha } from "@/lib/aeropuertosCatalogoImagenes"
 import { registrarEstudioDiario } from "@/lib/activity"
 
 /**
@@ -30,13 +31,9 @@ import { registrarEstudioDiario } from "@/lib/activity"
  * tema. Así el violeta del módulo sale de `--ln-primary` y aquí no hay un solo
  * color escrito a mano.
  *
- * Las imágenes todavía no existen. Cada ficha con hueco propio pinta su hueco
- * rotulado con el código y la medida, como en las lecciones. Las que reutilizan
- * una imagen de lección pintan el hueco de esa lección tal cual, con su código,
- * su medida (que puede ser 16:9 o 4:3, y no se recorta), el elemento que se
- * aprovecha y el enlace para abrirla: no se abre un código nuevo ni se genera
- * la imagen dos veces. Las que reutilizan otra ficha del catálogo llevan un
- * botón que lleva a esa ficha.
+ * Las fichas reutilizan el archivo de la lección cuando el elemento coincide.
+ * Si faltara un activo propio, conservaría su hueco rotulado. Ninguna
+ * imagen se recorta para forzarla a la proporción de otra ficha.
  *
  * Se lee con el pulgar: una columna en el teléfono, la tira de filtros se
  * barre de lado y el buscador se queda pegado arriba.
@@ -48,6 +45,7 @@ function marcarEstudio(): void {
 }
 
 const TOTAL_PROPIAS = AP_CAT_FICHAS.filter((f) => f.imagen?.clase === "propia").length
+const TOTAL_CON_IMAGEN = AP_CAT_FICHAS.filter((f) => Boolean(imagenDeFicha(f))).length
 
 export function AeropuertosCatalogo() {
   const [texto, setTexto] = useState("")
@@ -241,10 +239,9 @@ export function AeropuertosCatalogo() {
           className="mt-12 border-t pt-5 text-[12.5px] leading-[1.6]"
           style={{ borderColor: "var(--ln-row-rule)", color: "var(--ln-faint)" }}
         >
-          {AP_CAT_TOTAL} fichas, {TOTAL_PROPIAS} con imagen propia del catálogo. Las imágenes
-          todavía se están produciendo: cada hueco lleva el código y la medida del archivo que
-          falta, y las fichas que reutilizan una imagen de lección apuntan a la lección que la
-          genera.
+          {AP_CAT_TOTAL} fichas: {TOTAL_CON_IMAGEN} con imagen y {AP_CAT_TOTAL - TOTAL_CON_IMAGEN} de consulta textual.
+          {" "}{TOTAL_PROPIAS} tienen código propio del catálogo; las imágenes de las lecciones
+          se reutilizan sin duplicar archivos.
         </p>
       </div>
     </div>
@@ -304,13 +301,38 @@ function Ficha({
   onVerFicha: (codigo: string) => void
 }) {
   const { imagen } = ficha
+  const src = imagenDeFicha(ficha)
+  const explicacion = explicacionDeImagen(ficha)
   // Las de consulta pura van con la imagen pequeña: son las que un piloto de
   // línea casi con seguridad no verá desde la cabina.
   const anchoMax = ficha.consulta ? 240 : undefined
 
   return (
     <article className="flex flex-col">
-      {imagen?.clase === "propia" && (
+      {src && (
+        <figure
+          className="flex h-[220px] items-center justify-center overflow-hidden border"
+          style={{ background: "var(--ln-sunk)", borderColor: "var(--ln-hair)", maxWidth: anchoMax }}
+        >
+          <img
+            src={src}
+            alt={`${ficha.es}: ${ficha.linea}`}
+            loading="lazy"
+            decoding="async"
+            className="max-h-full max-w-full object-contain"
+          />
+        </figure>
+      )}
+      {explicacion && (
+        <p
+          className="border-l-2 px-3 py-2 text-[12.5px] leading-[1.45]"
+          style={{ borderColor: "var(--ln-primary)", background: "var(--ln-tint)", color: "var(--ln-body)" }}
+        >
+          {explicacion}
+        </p>
+      )}
+
+      {!src && imagen?.clase === "propia" && (
         <HuecoImagen
           rotulo={`${imagen.codigo} · ${imagen.medida}`}
           descripcion={imagen.descripcion}
@@ -320,7 +342,7 @@ function Ficha({
         />
       )}
 
-      {imagen?.clase === "prestada" && imagen.de === "leccion" && (
+      {!src && imagen?.clase === "prestada" && imagen.de === "leccion" && (
         <HuecoImagen
           rotulo={`${imagen.codigo} · ${imagen.medida ?? "Imagen de lección"}`}
           descripcion={

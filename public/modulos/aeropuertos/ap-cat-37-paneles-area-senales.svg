@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Diez paneles del área de señales</title>
+  <desc id="desc">Cuadrícula de diez señales visuales de tierra: prohibición de aterrizar, precauciones, dos halteras, área cerrada, dirección de aterrizaje, dirección de despegue, circuito derecho, oficina de notificación y planeadores.</desc>
+  <defs>
+    <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#e9edeb"/><stop offset="1" stop-color="#d4dcda"/></linearGradient>
+    <style>
+      .card { fill:#f9fbf9; stroke:#b7c4c0; stroke-width:2; }
+      .tile { fill:#40524d; }
+      .label { font:600 23px Arial,Helvetica,sans-serif; fill:#27352f; text-anchor:middle; }
+      .white { fill:#fff; stroke:#fff; }
+      .red { fill:#bb2832; }
+      .yellow { fill:#f4d34e; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g class="card">
+    <rect x="28" y="30" width="292" height="400" rx="18"/><rect x="341" y="30" width="292" height="400" rx="18"/>
+    <rect x="654" y="30" width="292" height="400" rx="18"/><rect x="967" y="30" width="292" height="400" rx="18"/>
+    <rect x="1280" y="30" width="292" height="400" rx="18"/>
+    <rect x="28" y="470" width="292" height="400" rx="18"/><rect x="341" y="470" width="292" height="400" rx="18"/>
+    <rect x="654" y="470" width="292" height="400" rx="18"/><rect x="967" y="470" width="292" height="400" rx="18"/>
+    <rect x="1280" y="470" width="292" height="400" rx="18"/>
+  </g>
+  <g class="tile">
+    <rect x="53" y="55" width="242" height="260" rx="10"/><rect x="366" y="55" width="242" height="260" rx="10"/>
+    <rect x="679" y="55" width="242" height="260" rx="10"/><rect x="992" y="55" width="242" height="260" rx="10"/>
+    <rect x="1305" y="55" width="242" height="260" rx="10"/>
+    <rect x="53" y="495" width="242" height="260" rx="10"/><rect x="366" y="495" width="242" height="260" rx="10"/>
+    <rect x="679" y="495" width="242" height="260" rx="10"/><rect x="992" y="495" width="242" height="260" rx="10"/>
+    <rect x="1305" y="495" width="242" height="260" rx="10"/>
+  </g>
+  <!-- Dos diagonales y una diagonal amarillas sobre rojo. -->
+  <rect class="red" x="87" y="90" width="174" height="174"/><path d="M95 98 253 256 M253 98 95 256" stroke="#f4d34e" stroke-width="28"/>
+  <rect class="red" x="400" y="90" width="174" height="174"/><path d="M408 256 566 98" stroke="#f4d34e" stroke-width="28"/>
+  <!-- Haltera: dos discos y un eje, con barras negras solo en la variante. -->
+  <rect class="white" x="741" y="160" width="117" height="34"/><circle class="white" cx="740" cy="177" r="52"/><circle class="white" cx="858" cy="177" r="52"/>
+  <rect class="white" x="1054" y="160" width="117" height="34"/><circle class="white" cx="1053" cy="177" r="52"/><circle class="white" cx="1171" cy="177" r="52"/>
+  <path d="M1053 115v124 M1171 115v124" stroke="#17211e" stroke-width="15"/>
+  <!-- Cruz blanca sobre pavimento de zona cerrada. -->
+  <rect x="1332" y="83" width="188" height="188" fill="#737f7c"/><path d="m1360 111 132 132 m0-132-132 132" stroke="#fff" stroke-width="28"/>
+  <!-- T blanca, cifras verticales, flecha derecha, C de notificación y doble cruz. -->
+  <rect x="79" y="522" width="190" height="208" fill="#70836b"/>
+  <path d="M103 552h142v30h-56v126h-30V582h-56z" fill="#fff"/>
+  <rect x="413" y="519" width="148" height="213" fill="#f4d34e" stroke="#202a25" stroke-width="5"/>
+  <text x="487" y="658" font-family="Arial,Helvetica,sans-serif" font-size="100" font-weight="700" text-anchor="middle" fill="#161d19">25</text>
+  <rect x="703" y="522" width="194" height="206" fill="#70836b"/>
+  <path d="M725 606h98v-38l58 57-58 57v-38h-98z" fill="#fff"/>
+  <rect class="yellow" x="1027" y="536" width="172" height="172"/>
+  <text x="1113" y="666" font-family="Arial,Helvetica,sans-serif" font-size="130" font-weight="700" text-anchor="middle" fill="#151a17">C</text>
+  <rect x="1331" y="523" width="190" height="205" fill="#70836b"/>
+  <path d="M1426 545v161 M1370 588h112 M1370 663h112" stroke="#fff" stroke-width="23" stroke-linecap="square"/>
+  <g class="label">
+    <text x="174" y="357">Prohibido aterrizar</text>
+    <text x="487" y="357">Precauciones especiales</text>
+    <text x="800" y="349"><tspan x="800">Solo pistas y calles</tspan><tspan x="800" dy="27">de rodaje</tspan></text>
+    <text x="1113" y="344"><tspan x="1113">Solo pistas para aterrizar</tspan><tspan x="1113" dy="27">y despegar</tspan></text>
+    <text x="1426" y="357">Área cerrada</text>
+    <text x="174" y="800">Dirección de aterrizaje</text>
+    <text x="487" y="800">Dirección de despegue</text>
+    <text x="800" y="800">Circuito por la derecha</text>
+    <text x="1113" y="800">Oficina de notificación</text>
+    <text x="1426" y="800">Planeadores en operación</text>
+  </g>
+</svg>
