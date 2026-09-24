@@ -33,7 +33,7 @@ export const NIVEL_1: DocScreen[] = [
         src: "/modulos/aeropuertos/ap-01-02-zonas-seguridad.webp",
         alt: "Vista cenital de una pista 09-27 con la franja, la RESA, la zona de parada, la zona libre, una salida rápida y un punto de espera A2 identificados",
         ancho: 1600,
-        alto: 901,
+        alto: 900,
         pie: "La franja rodea la pista y continúa más allá de sus extremos para reducir daños si una aeronave se desvía. Después de esa prolongación comienza la RESA (Runway End Safety Area), el área preparada para disminuir las consecuencias de una salida por el extremo. La zona de parada es pavimento que puede aumentar la ASDA (Accelerate-Stop Distance Available); la zona libre es un volumen despejado que puede aumentar la TODA (Take-Off Distance Available), pero no ofrece pavimento para rodar o frenar. En tierra, el patrón A2 marca dónde detenerse y la salida rápida permite abandonar la pista con un ángulo menor.",
       },
       {
@@ -97,7 +97,7 @@ export const NIVEL_1: DocScreen[] = [
           src: "/modulos/aeropuertos/ap-01-07-punto-espera.webp",
           alt: "Vista desde cabina de un punto de espera A2 con dos líneas continuas del lado del avión, dos discontinuas hacia la pista, letreros 09-27 y una salida rápida",
           ancho: 1600,
-          alto: 901,
+          alto: 900,
         },
         puntos: [
           {
