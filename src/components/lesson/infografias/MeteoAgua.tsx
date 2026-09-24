@@ -349,23 +349,15 @@ export function MeteoFamilias() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 9 · Cuatro nieblas, cuatro decisiones
+// 9 · Cuatro mecanismos de formación de niebla
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * El veredicto de cada una sale del texto de la sección, que es donde está la
- * decisión del despacho: la de radiación **se quema con el sol y el viento**, la
- * de advección y la de ladera **no**, y pueden durar días. La de vapor es la
- * única a la que el módulo le asocia hielo, así que ese es su rótulo.
- *
- * Son cuatro y no cinco a propósito: la de hielo la llevan las fichas de arriba,
- * es de regiones árticas y meter una quinta viñeta solo añadiría densidad.
- */
+/** El esquema compara mecanismos; ningún rótulo predice la disipación ni excluye engelamiento. */
 const NIEBLAS = [
-  { clave: "radiacion", nombre: "DE RADIACIÓN", veredicto: "SE QUEMA CON EL SOL", bueno: true },
-  { clave: "adveccion", nombre: "DE ADVECCIÓN", veredicto: "NO SE QUEMA", bueno: false },
-  { clave: "ladera", nombre: "DE LADERA", veredicto: "NO SE QUEMA", bueno: false },
-  { clave: "vapor", nombre: "DE VAPOR", veredicto: "ADEMÁS TRAE HIELO", bueno: false },
+  { clave: "radiacion", nombre: "DE RADIACIÓN", mecanismo: "SUELO SE ENFRÍA" },
+  { clave: "adveccion", nombre: "DE ADVECCIÓN", mecanismo: "AIRE SOBRE SUPERFICIE FRÍA" },
+  { clave: "ladera", nombre: "DE LADERA", mecanismo: "ASCENSO POR LA LADERA" },
+  { clave: "vapor", nombre: "DE VAPOR", mecanismo: "AIRE FRÍO SOBRE AGUA TIBIA" },
 ] as const
 
 /** El mecanismo de cada niebla, dibujado dentro de su viñeta. */
@@ -378,7 +370,7 @@ function Mecanismo({ clave, x, y: yy, w, h }: { clave: string; x: number; y: num
     return (
       <g>
         {banda}
-        {/* El suelo se enfría de noche y el sol la levanta por la mañana. */}
+        {/* El suelo se enfría y enfría el aire próximo; la viñeta no predice disipación. */}
         {[0, 1, 2].map((i) => (
           <Flecha key={i} x1={x + 40 + i * 46} y1={suelo - 34} x2={x + 40 + i * 46} y2={suelo - 74} color={SECUNDARIO} grosor={1.8} tam={10} />
         ))}
@@ -455,7 +447,7 @@ export function MeteoNieblas() {
   const w = (DER - IZQ - 36) / 2
   const h = 176
   return (
-    <Lienzo etiqueta="Cuatro viñetas con el mecanismo de cada tipo de niebla: de radiación, de advección, de ladera y de vapor. Debajo de cada una, si se quema con el sol o no. La de radiación se quema; la de advección y la de ladera no; la de vapor además trae hielo.">
+    <Lienzo etiqueta="Cuatro viñetas comparan mecanismos de niebla: enfriamiento nocturno del suelo, aire húmedo sobre una superficie fría, ascenso por ladera y aire frío sobre agua relativamente cálida. El mecanismo no determina por sí solo cuándo se disipará ni excluye el riesgo de hielo.">
       {NIEBLAS.map((n, i) => {
         const x = IZQ + (i % 2) * (w + 36)
         const yy = 78 + Math.floor(i / 2) * (h + 92)
@@ -467,8 +459,8 @@ export function MeteoNieblas() {
             <rect x={x} y={yy} width={w} height={h} fill="none" stroke={LINEA} strokeWidth={1.4} />
             <Mecanismo clave={n.clave} x={x} y={yy} w={w} h={h} />
             <line x1={x} y1={yy + h} x2={x + w} y2={yy + h} stroke={TINTA} strokeWidth={2} />
-            <Rotulo x={x} y={yy + h + 32} color={n.bueno ? ACENTO_CLARO : ACENTO} tam={16}>
-              {n.veredicto}
+            <Rotulo x={x} y={yy + h + 32} color={ACENTO} tam={14}>
+              {n.mecanismo}
             </Rotulo>
           </g>
         )
