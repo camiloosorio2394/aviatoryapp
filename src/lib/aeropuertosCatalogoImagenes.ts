@@ -82,9 +82,21 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-39-balizas-pista-nieve.webp",
     explicacion: "Con la pintura oculta por la nieve, las hileras simétricas de balizas visibles delimitan la pista. Reconoce sus bordes antes de rodar o aterrizar; este caso está reservado en la norma colombiana.",
   },
+  "AP-CAT-43": {
+    src: "/modulos/aeropuertos/ap-cat-43-identificacion-umbral.webp",
+    explicacion: "Dos destellos blancos, uno fuera de cada borde y alineados con la fila verde, ayudan a encontrar el umbral. Identifícalos como referencia visual; la autorización y los mínimos de aproximación siguen vigentes.",
+  },
+  "AP-CAT-44": {
+    src: "/modulos/aeropuertos/ap-cat-44-apapi.webp",
+    explicacion: "El indicador simplificado tiene dos unidades a la izquierda: blanca la exterior y roja la interior indican que vas en la senda. Si cambia la combinación, corrige la trayectoria según el procedimiento aplicable.",
+  },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
     explicacion: "Dos líneas amarillas continuas delimitan el borde de la calle. El pavimento más claro del otro lado no amplía el ancho utilizable: mantén el avión dentro del margen autorizado.",
+  },
+  "AP-CAT-67": {
+    src: "/modulos/aeropuertos/ap-cat-67-damero-obstaculo.webp",
+    explicacion: "El damero anaranjado y blanco marca una superficie amplia y maciza; las esquinas exteriores son anaranjadas. Identifica el objeto como obstáculo y mantén la separación indicada para la operación.",
   },
   "AP-CAT-68": {
     src: "/modulos/aeropuertos/ap-cat-68-fajas-obstaculo.webp",
