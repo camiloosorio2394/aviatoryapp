@@ -90,6 +90,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-44-apapi.webp",
     explicacion: "El indicador simplificado tiene dos unidades a la izquierda: blanca la exterior y roja la interior indican que vas en la senda. Si cambia la combinación, corrige la trayectoria según el procedimiento aplicable.",
   },
+  "AP-CAT-48": {
+    src: "/modulos/aeropuertos/ap-cat-48-barra-ala.webp",
+    explicacion: "Dos grupos verdes simétricos se extienden hacia afuera desde los bordes, a la altura del umbral. Úsalos para reconocer el comienzo utilizable de la pista; confirma el umbral publicado.",
+  },
   "AP-CAT-51": {
     src: "/modulos/aeropuertos/ap-cat-51-luces-zona-parada.webp",
     explicacion: "Más allá del extremo de pista, dos hileras y una fila final rojas delimitan la zona de parada. Ese pavimento no es pista disponible para continuar el despegue; respeta las distancias publicadas.",
@@ -101,6 +105,14 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-53": {
     src: "/modulos/aeropuertos/ap-cat-53-espera-intermedia.webp",
     explicacion: "Tres luces amarillas fijas están antes de la línea transversal amarilla discontinua de espera intermedia. Detente en el punto indicado y continúa solo cuando corresponda.",
+  },
+  "AP-CAT-55": {
+    src: "/modulos/aeropuertos/ap-cat-55-prohibicion-acceso.webp",
+    explicacion: "La fila roja que cruza la calle, reforzada por luces elevadas y la señal de prohibición, marca una entrada no permitida. No la cruces; busca la ruta de rodaje autorizada.",
+  },
+  "AP-CAT-56": {
+    src: "/modulos/aeropuertos/ap-cat-56-espera-despegue.webp",
+    explicacion: "Dos filas rojas junto a las luces blancas del eje indican que no es seguro iniciar el despegue. Permanece detenido; que se apaguen no sustituye la autorización de la torre.",
   },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
