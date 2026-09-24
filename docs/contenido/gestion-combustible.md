@@ -23,7 +23,7 @@
 Los valores de este módulo salen de la norma, no de la costumbre. En orden de importancia para un piloto que va a volar en Colombia:
 
 1. **RAC 121** (operación de aerolíneas). Dos secciones hacen todo el trabajo: **121.2645** (cuánto combustible se planifica) y **121.2553** (cómo se gestiona en vuelo). Es la norma que aplica tu aerolínea.
-2. **RAC 91** (reglas generales para toda aeronave): 91.610 y 91.637, y la Parte 2 (91.2012 y 91.2013) para aviones grandes de aviación general.
+2. **RAC 91** (reglas generales para toda aeronave): 91.610 y 91.637, y la Parte 2 (91.2012 y 91.2013) para aviones grandes y turborreactores de aviación general.
 3. **OACI**: Anexo 6, Parte I, y el **Doc 9976**, Manual de planificación de vuelo y gestión del combustible (FPFM). El RAC 121 sigue su estructura y sus valores, y remite al Doc 9976 como orientación.
 4. **Para comparar**: EASA (Reglamento (UE) 965/2012, CAT.OP.MPA.181 y 185) y FAA (14 CFR 121.639 y 121.645; AIM 5-5-15). Sirven para ver que los valores cambian de un Estado a otro. Si vas a volar para un operador extranjero, estudia su norma.
 
@@ -51,11 +51,11 @@ Los ejemplos numéricos son **didácticos**: no corresponden a un avión ni a un
 | Trayecto | 3.000 |
 | Contingencias | 200 |
 | Alterno | 1.100 |
-| Reserva final | 1.150 |
+| Reserva final (30 min de espera, con el peso de llegada al alterno) | 1.150 |
 | Adicional | 0 |
 | Discrecional | 300 |
 | **Block fuel** | **5.950** |
-| Consumo en espera a 1.500 ft | 40 kg/min (2.400 kg/h) |
+| Consumo en espera a 1.500 ft sobre el destino | 40 kg/min (2.400 kg/h) |
 
 ---
 
@@ -72,7 +72,7 @@ No es un número que se calcula una vez. Es una pregunta que la tripulación se 
 
 #### Por qué es crítica
 
-El combustible es el único recurso del vuelo que no se puede recuperar. Una falla de sistema tiene un procedimiento; un tanque vacío no. En los casos que se estudian en formación de pilotos (Anexo B), el problema casi nunca fue el cálculo del despacho: fueron decisiones tardías con el combustible que quedaba y comunicaciones que no dijeron con claridad lo que pasaba.
+El combustible es el único recurso del vuelo que no se puede recuperar. Una falla de sistema tiene un procedimiento; un tanque vacío no. En la mayoría de los casos que se estudian en formación de pilotos (Anexo B), el problema no fue el cálculo del despacho: fueron decisiones tardías con el combustible que quedaba y comunicaciones que no dijeron con claridad lo que pasaba.
 
 #### Planificar no es lo mismo que gestionar
 
@@ -131,7 +131,7 @@ Antes de calcular hay que hablar el mismo idioma. Los términos de este capítul
 #### Utilizable y no utilizable
 
 - **Combustible utilizable (usable fuel):** el que los motores pueden consumir. **La norma se escribe en combustible utilizable**: «Todo avión llevará una cantidad de combustible utilizable suficiente para completar el vuelo planificado de manera segura» (121.2645 (a)).
-- **Combustible no utilizable (unusable fuel):** el que queda en tanques y tuberías y los motores no pueden consumir. Lo fija el fabricante en la certificación y aparece en el manual de vuelo del avión (AFM). No cuenta para ningún cálculo.
+- **Combustible no utilizable (unusable fuel):** el que queda en tanques y tuberías y los motores no pueden consumir. Lo fija el fabricante en la certificación y aparece en el manual de vuelo del avión (AFM). No cuenta para ningún cálculo de combustible; su peso va incluido en el peso vacío de operación.
 
 [ESPACIO PARA IMAGEN]
 
@@ -155,7 +155,7 @@ Facilitar la comprensión de usable fuel y unusable fuel.
 
 **Ramp y block.** En muchos OFP son sinónimos. Algunos operadores distinguen el cargado en plataforma (ramp) del que hay al quitar calzos (block), porque el APU consume en tierra. **Usa la definición de tu operador.**
 
-**Planificado frente a real.** El OFP da valores **planificados**; el FMS da **predicciones** (EFOB, estimated fuel on board, en cada punto y en destino) y el sistema del avión da los **reales**. Saber cuál estás mirando evita la mitad de los errores.
+**Planificado frente a real.** El OFP da valores **planificados**; el FMS da **predicciones** (EFOB, estimated fuel on board, en cada punto y en destino) y el sistema del avión da los **reales**. Saber cuál estás mirando evita muchos errores.
 
 #### Masa, volumen y densidad
 
@@ -174,7 +174,7 @@ Con el vuelo de referencia: block fuel 5.950 kg, rodaje 200 kg, combustible de d
 
 ### En pocas palabras
 
-- La norma cuenta combustible **utilizable**; el no utilizable no existe para el cálculo.
+- La norma cuenta combustible **utilizable**; el no utilizable no existe para el cálculo de combustible.
 - Block fuel menos rodaje es igual al combustible de despegue; combustible de despegue menos trayecto es igual al combustible al aterrizaje.
 - El OFP planifica, el FMS predice y los indicadores miden: no los confundas.
 - Se planifica en masa y se carga en volumen: la densidad importa.
@@ -243,7 +243,7 @@ El combustible de un vuelo de aerolínea no es un solo número: es una suma de p
 [ESPACIO PARA IMAGEN]
 
 IMAGEN SUGERIDA:
-Barra vertical acumulativa, de abajo hacia arriba: reserva final (color de alerta, rotulada «protegida»), alterno, contingencias, trayecto, rodaje, adicional y discrecional, con la suma total rotulada «Block fuel». A la derecha, una llave que agrupe trayecto, contingencias, alterno, reserva final y adicional con el rótulo «combustible requerido para despegar (121.2645 (d))». Formato vertical, 900 × 1400 px.
+Barra vertical acumulativa, de abajo hacia arriba: reserva final (color de alerta, rotulada «protegida»), adicional, alterno, contingencias, trayecto, discrecional y rodaje, con la suma total rotulada «Block fuel». A la derecha, una llave que agrupe trayecto, contingencias, alterno, reserva final y adicional con el rótulo «combustible requerido para despegar (121.2645 (d))». Formato vertical, 900 × 1400 px.
 
 OBJETIVO:
 Visualizar la composición completa del combustible de despacho.
@@ -251,9 +251,9 @@ Visualizar la composición completa del combustible de despacho.
 ### Aplicación operacional
 
 - **Planificación y despacho:** lees el OFP componente por componente, no solo el total.
-- **Briefing:** identificas cuáles son tus márgenes reales: contingencias y discrecional. El alterno y la reserva final no son margen para esperar.
+- **Briefing:** identificas cuáles son tus márgenes reales: contingencias y discrecional. Gastar el alterno esperando es renunciar a él, y la reserva final no es margen.
 - **En vuelo:** cuando algo consume más de lo previsto, sabes de qué parte está saliendo.
-- **Decisiones:** el orden importa. Primero se consumen el discrecional y la contingencia; después, el alterno, y eso significa renunciar a ir al alterno. La reserva final no se toca.
+- **Decisiones:** el orden importa. Primero se consume el margen (contingencia y discrecional; cómo se reparte entre ambos lo define tu MO); después, el alterno, y eso significa renunciar a ir al alterno. La reserva final no se toca.
 
 ### Ejemplo
 
@@ -291,7 +291,7 @@ BLOCK FUEL =
   + Discrecional o extra (discretionary / extra)
 ```
 
-Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: EASA, por ejemplo, separa el extra del discrecional, y la FAA calcula la reserva de otra manera (capítulo 6).
+Es la suma de los siete componentes de 121.2645 (c). **La composición exacta depende de la norma de cada Estado y de la política de cada operador**: EASA, por ejemplo, separa el extra del discrecional, y la FAA calcula la reserva de otra manera (capítulos 6 y 8).
 
 #### Block fuel frente a combustible requerido
 
@@ -350,7 +350,7 @@ Si en rodaje consumes 450 kg en lugar de 200, despegas con 5.500 kg. Todavía cu
 
 ### ¿Qué es?
 
-El combustible para el trayecto es el que se necesita para volar desde el despegue, o desde el punto de nueva planificación en vuelo, hasta aterrizar en el aeródromo de destino (121.2645 (c)(2)). Es el único componente que se planea consumir completo.
+El combustible para el trayecto es el que se necesita para volar desde el despegue, o desde el punto de nueva planificación en vuelo, hasta aterrizar en el aeródromo de destino (121.2645 (c)(2)). Con el rodaje, es el componente que se planea consumir completo.
 
 ### Lo que debe saber un piloto
 
@@ -396,7 +396,7 @@ El **cost index (CI)** es la relación entre el costo del tiempo y el costo del 
 
 ### Ejemplo
 
-El OFP del vuelo de referencia planea FL 350 con 20 kt de viento de cara. Por tránsito te dejan en FL 290 durante media hora de crucero. Ese tramo quema más de lo planificado y el exceso sale primero de la contingencia. Si luego te dan un directo, recuperas parte. El fuel check es el que te dice el balance.
+El OFP del vuelo de referencia planea FL 350 con 20 kt de viento de cara. Por tránsito te dejan en FL 290 durante media hora de crucero. Ese tramo quema más de lo planificado y el exceso sale de tu margen (contingencia y discrecional). Si luego te dan un directo, recuperas parte. El fuel check es el que te dice el balance.
 
 ### En pocas palabras
 
@@ -445,7 +445,7 @@ No memorices la tabla entera: memoriza la de tu Estado y la idea de que **el val
 
 - **La contingencia es para lo imprevisto** y la fija la norma.
 - **El discrecional o extra es para lo que sí se puede prever** (tormentas pronosticadas, congestión conocida) y lo decide el PIC (121.2645 (c)(7)).
-- Si ya sabes que habrá demora, no cuentes con la contingencia para cubrirla: esa demora es previsible y se cubre con extra.
+- Si ya sabes que habrá demora, no cuentes con la contingencia para cubrirla: esa demora es previsible y va en el cálculo del plan (121.2645 (b)(2)(iv)) o como extra, según tu operador.
 
 [ESPACIO PARA IMAGEN]
 
@@ -459,19 +459,19 @@ Mostrar por qué existe el combustible de contingencia.
 
 - **Despacho:** verificas que la contingencia sea la mayor entre el 5 % y los 5 minutos.
 - **Briefing:** si esperas demoras conocidas, no las cargues a la contingencia: pide extra.
-- **En vuelo:** en cada fuel check, la pregunta es cuánta contingencia llevas consumida y a qué ritmo.
-- **Decisiones:** una contingencia que se agota a mitad de ruta es una señal temprana. Todavía no es un problema, pero ya es momento de revisar opciones.
+- **En vuelo:** en cada fuel check, la pregunta es cuánto te apartas del plan, comparado con la contingencia, y a qué ritmo.
+- **Decisiones:** una desviación que iguala la contingencia a mitad de ruta es una señal temprana. Todavía no es un problema, pero ya es momento de revisar opciones.
 
 ### Ejemplo
 
-Vuelo de referencia: trayecto 3.000 kg y contingencia de 200 kg. A mitad de ruta el fuel check muestra 120 kg menos que el plan: se consumió el 60 % de la contingencia en la mitad del vuelo. Si la tendencia sigue, llegarás a destino con la contingencia en cero y sin margen para una espera. Es el momento de mirar el discrecional, el nivel de vuelo y la situación del destino.
+Vuelo de referencia: trayecto 3.000 kg y contingencia de 200 kg. A mitad de ruta el fuel check muestra 120 kg menos que el plan: el equivalente al 60 % de la contingencia en la mitad del vuelo. Si la tendencia sigue, llegarás unos 240 kg por debajo del plan, más que toda la contingencia: de los 500 kg de margen (contingencia y discrecional) te quedarán unos 260. Es el momento de mirar el nivel de vuelo y la situación del destino.
 
 ### En pocas palabras
 
 - La contingencia cubre lo imprevisto: consumo, meteorología, demoras, ruta y nivel.
 - En Colombia: 5 % del trayecto, nunca menos de 5 min de espera a 1.500 ft sobre el destino.
 - Otras normas usan otros valores; las variaciones las aprueba la autoridad.
-- Lo previsible no se cubre con contingencia: se cubre con extra.
+- Lo previsible no se cubre con contingencia: va en el plan o como extra.
 - Usarla es normal; lo que importa es el ritmo al que se consume.
 
 ---
@@ -525,12 +525,12 @@ Otras normas lo aplican con sus propias condiciones: **EASA** pide también 15 m
 
 - **Despacho:** revisas qué alterno eligió el despachador, su meteorología en la ventana de uso, sus NOTAM y la distancia.
 - **Briefing:** acuerdas **cuánto combustible necesitas para abandonar el destino e ir al alterno**. Esa cifra es tu línea de decisión en la llegada.
-- **En vuelo:** si el alterno se deteriora, el despacho se puede enmendar en ruta para incluir otro alterno dentro del alcance del avión (121.2625 (b)). Quien lo enmienda lo registra (121.2625 (i)).
+- **En vuelo:** si el alterno se deteriora, el despacho se puede enmendar en ruta para incluir otro alterno dentro del alcance del avión (121.2625 (b)(2)). Quien lo enmienda lo registra (121.2625 (i)).
 - **Decisiones:** mientras conserves combustible para el alterno más la reserva final, tienes dos opciones. Cuando lo gastas esperando en destino, te quedas con una.
 
 ### Ejemplo
 
-Vuelo de referencia: alterno 1.100 kg y reserva final 1.150 kg, en total 2.250 kg. Si llegas al destino con 2.750 kg, tienes 500 kg (contingencia y discrecional, unos 12 minutos de espera a 40 kg/min) antes de tocar el combustible para el alterno. Esa es tu verdadera capacidad de espera **conservando el alterno**.
+Vuelo de referencia: alterno 1.100 kg y reserva final 1.150 kg, en total 2.250 kg. Si la predicción al aterrizar en destino es 2.750 kg, tienes 500 kg (contingencia y discrecional, unos 12 minutos de espera a 40 kg/min) antes de tocar el combustible para el alterno. Esa es tu verdadera capacidad de espera **conservando el alterno**.
 
 ### En pocas palabras
 
@@ -664,8 +664,8 @@ Cuando los demás componentes ya alcanzan, el adicional sale en **cero** en el O
 
 - **Planificación y despacho:** revisas si el adicional es distinto de cero y por qué, y qué extra propone el OFP.
 - **Briefing:** explicas a la tripulación por qué llevas extra y para qué se piensa usar.
-- **En vuelo:** el extra es tu primer margen para esperar o desviarte **sin tocar** la contingencia.
-- **Decisiones:** cuando el extra se agota, empiezas a consumir la contingencia y la conversación sobre alternativas debe empezar ya.
+- **En vuelo:** el extra se suma a la contingencia en tu margen para esperar o desviarte; cómo se contabiliza cada uno lo define tu MO.
+- **Decisiones:** cuando ves que el margen (extra y contingencia) no cubre la espera prevista, la conversación sobre alternativas debe empezar ya.
 
 ### Ejemplo
 
@@ -714,7 +714,7 @@ Cargar combustible no es gratis y **no es siempre más seguro**. El peso extra:
 - puede acercarte a los límites de **masa máxima de despegue o de aterrizaje**;
 - **sube el costo** del vuelo.
 
-**Transportar combustible para transportar combustible.** Airbus estima que, en promedio, un 1 % más de peso reduce cerca de un 1 % el alcance específico (lo que el avión recorre por cada kg de combustible). Para un A320, cada tonelada extra cuesta del orden de 82 kg de combustible cada 1.000 NM (Airbus, *Getting to Grips with Fuel Economy*, 2004). Boeing, por su parte, indica que reducir un 1 % el peso de aterrizaje reduce cerca de un 0,75 % el combustible del trayecto en motores de alta relación de derivación. Las cifras exactas dependen del avión y del vuelo, pero la idea es fija: **el extra se paga**.
+**Transportar combustible para transportar combustible.** Airbus estima que, en promedio, un aumento de peso igual al 1 % de la masa máxima de despegue reduce cerca de un 1 % el alcance específico (lo que el avión recorre por cada kg de combustible). Para un A320, cada tonelada extra cuesta del orden de 82 kg de combustible cada 1.000 NM (Airbus, *Getting to Grips with Fuel Economy*, 2004). Boeing, por su parte, indica que reducir un 1 % el peso de aterrizaje reduce cerca de un 0,75 % el combustible del trayecto en motores de alta relación de derivación. Las cifras exactas dependen del avión y del vuelo, pero la idea es fija: **el extra se paga**.
 
 La decisión correcta no es «lo máximo posible» ni «lo mínimo legal». Es **el que la situación justifica**, y poder explicar por qué.
 
@@ -727,7 +727,7 @@ La decisión correcta no es «lo máximo posible» ni «lo mínimo legal». Es *
 
 ### Ejemplo
 
-Con 800 kg extra en un avión de unos 70 t, el peso sube cerca de un 1,1 %. Con la regla de Airbus, el trayecto de 3.000 kg costaría del orden de un 1,1 % más: unos 35 kg. El costo existe, pero comparado con 20 minutos de espera disponibles en un destino con tormentas, la decisión se justifica. *Cifras ilustrativas.*
+Con 800 kg extra en un avión de unos 70 t de masa máxima de despegue, el peso sube cerca de un 1,1 % de esa masa. Con la regla de Airbus, el trayecto de 3.000 kg costaría del orden de un 1,1 % más: unos 35 kg. El costo existe, pero comparado con 20 minutos de espera disponibles en un destino con tormentas, la decisión se justifica. *Cifras ilustrativas.*
 
 ### En pocas palabras
 
@@ -759,7 +759,7 @@ El tankering es cargar en origen **más combustible del que el vuelo requiere**,
 - **Beneficio económico:** si la diferencia de precio es grande, puede compensar el combustible extra quemado.
 - **Penalización de peso:** el combustible transportado aumenta el peso y el consumo de todo el vuelo.
 - **La cuenta:** Airbus define un coeficiente de transporte **K** (cuánto hay que cargar de más en origen para que llegue una cantidad en destino). En su ejemplo, con K = 1,3, cargar 1.300 kg de más deja 1.000 kg adicionales en destino. Si solo pesa el precio, el tankering conviene cuando el precio en destino dividido por el precio en origen es mayor que K (Airbus, *Getting to Grips with Fuel Economy*, 2004).
-- **Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales. Desde 2025, la Unión Europea obliga a cada operador a cargar en cada aeropuerto de la UE al menos el **90 %** del combustible que necesita al año para salir de él (Reglamento (UE) 2023/2405, art. 5). Es una norma europea, no colombiana, pero muestra hacia dónde va la industria.
+- **Impacto ambiental:** EUROCONTROL estimó en 2019 que el tankering en Europa quemaba unas 286.000 toneladas de combustible extra al año y emitía unas 901.000 toneladas de CO₂ adicionales. Desde 2025, la Unión Europea obliga a los operadores a cargar en cada aeropuerto de la UE sujeto al reglamento al menos el **90 %** del combustible que necesitan al año para salir de él, salvo cuando lo impidan las reglas de seguridad del combustible (Reglamento (UE) 2023/2405, art. 5). Es una norma europea, no colombiana, pero muestra hacia dónde va la industria.
 
 #### Consideraciones operacionales
 
@@ -828,15 +828,15 @@ El FOB te dice cuánto hay, pero no te dice:
 
 #### La prueba de la suma
 
-**Combustible a bordo más combustible usado debe ser igual al combustible que había al poner en marcha** (FOB + FU = FOB inicial). Si la suma es claramente menor, o baja con el tiempo, puede haber una fuga (Airbus, *Safety First*, «Fuel Leak Management in Flight», 2025). Es una de las comprobaciones que habrían cambiado el final del vuelo 236 de Air Transat en 2001 (Anexo B).
+**Combustible a bordo más combustible usado debe ser igual al combustible que había al poner en marcha** (FOB + FU = FOB inicial). Si la suma es claramente menor, o baja con el tiempo, puede haber una fuga (Airbus, *Safety First*, «Fuel Leak Management in Flight», 2025). Los procedimientos de Air Transat ya la pedían en cada punto; en el vuelo 236 (2001), no reconocer la fuga fue el factor clave del agotamiento del combustible (Anexo B).
 
 #### Cada cuánto
 
 El RAC 121 no fija un intervalo: lo fija el MO (121.2553 (a); Apéndice 10, A9.3.18). Como referencia:
-- EASA pide verificaciones a intervalos regulares, **al menos una cada 60 minutos** (AMC1 CAT.OP.MPA.185).
-- Airbus recomienda en sus procedimientos revisar **al sobrevolar un punto de notificación o al menos cada 30 minutos** (*Safety First*, 2025).
+- EASA pide verificaciones a intervalos regulares, **al menos una cada 60 minutos** (AMC1 CAT.OP.MPA.185(a)).
+- Airbus recomienda en sus procedimientos revisar en crucero **al sobrevolar un punto de la ruta (waypoint) o al menos cada 30 minutos** (*Safety First*, 2025).
 
-El Doc 9976 de la OACI describe lo que debe incluir la verificación: comparar el consumo real con el planificado y el combustible usado y remanente con el plan, conciliar el FMS con el flujo de combustible y los indicadores, investigar las diferencias y calcular el combustible al aterrizar frente al del alterno más la reserva final (Doc 9976, 6.6).
+El Doc 9976 de la OACI describe lo que suele incluir la verificación: comparar el consumo real con el planificado y el combustible usado y remanente con el plan, conciliar el FMS con el flujo de combustible y los indicadores, investigar las diferencias y calcular el combustible al aterrizar frente al del alterno más la reserva final (Doc 9976, 6.6).
 
 [ESPACIO PARA IMAGEN]
 
@@ -914,13 +914,13 @@ Vuelo de referencia con 2.750 kg previstos al aterrizar en destino (alterno más
 
 | Punto | Hora | Planificado | Real | Diferencia |
 |---|---|---|---|---|
-| Punto 1 | 0:30 | 4.900 | 4.860 | −40 |
-| Punto 2 | 1:00 | 4.300 | 4.180 | −120 |
-| Punto 3 | 1:30 | 3.700 | 3.500 | −200 |
+| Punto 1 | 0:20 | 4.900 | 4.860 | −40 |
+| Punto 2 | 0:35 | 4.300 | 4.180 | −120 |
+| Punto 3 | 0:50 | 3.700 | 3.500 | −200 |
 
-- La diferencia crece unos 80 kg cada 30 minutos, es decir, unos **160 kg por hora**.
-- Quedan unos 50 minutos de vuelo: si la tendencia sigue, se sumarán unos 130 kg más, y la diferencia al llegar será de unos −330 kg.
-- Predicción al aterrizar: 2.750 − 330 = **unos 2.420 kg**, todavía por encima de 2.250 kg, pero ya consumiste toda la contingencia (200) y parte del discrecional (300).
+- La diferencia crece unos 80 kg cada 15 minutos, es decir, unos **320 kg por hora**.
+- Quedan unos 25 minutos de vuelo: si la tendencia sigue, se sumarán unos 130 kg más, y la diferencia al llegar será de unos −330 kg.
+- Predicción al aterrizar: 2.750 − 330 = **unos 2.420 kg**, todavía por encima de 2.250 kg, pero al llegar habrás consumido 330 de los 500 kg de margen (contingencia y discrecional).
 - La prueba FOB + FU cuadra, así que no es una fuga: es consumo (viento mayor al pronosticado o nivel más bajo).
 - **Qué haces ahora:** revisar la llegada (esperas, pista en uso), pedir el nivel óptimo o un directo si hay, y preparar la decisión de desvío con una cifra clara. *Cifras ilustrativas.*
 
@@ -966,7 +966,7 @@ Cuando algo cambia (te asignan una espera, cambian la pista, te dan un directo),
 
 Las reglas de la norma se disparan con **predicciones**, no con el combustible actual:
 - Se piden demoras cuando se **prevé** aterrizar en destino con menos del alterno más la reserva final (121.2553 (b)(1)).
-- Se declara «combustible mínimo» cuando se **calcula** que cualquier cambio puede dejarte por debajo de la reserva final (121.2553 (b)(2)).
+- Se declara «combustible mínimo» cuando, obligado a aterrizar en un aeródromo, se **calcula** que cualquier cambio puede dejarte por debajo de la reserva final (121.2553 (b)(2)).
 - Se declara «MAYDAY COMBUSTIBLE» cuando se **calcula** que aterrizarás por debajo de la reserva final en el aeródromo más cercano (121.2553 (b)(3)).
 
 ### Aplicación operacional
@@ -1019,7 +1019,7 @@ El combustible es una variable de decisión durante todo el vuelo. Cada decisió
 
 #### Coordinar con la empresa
 
-El despachador responde contigo por el redespacho o la cancelación si alguno de los dos cree que el vuelo no puede seguir con seguridad según lo planificado (121.2215 (d)(7)). Cuando el tiempo lo permita, involúcralo: ve información que tú no ves.
+El despachador es responsable de cancelar o redespachar el vuelo si, en su opinión o en la tuya, no puede seguir con seguridad según lo planificado (121.2215 (d)(7)). Cuando el tiempo lo permita, involúcralo: ve información que tú no ves.
 
 ### Aplicación operacional
 
@@ -1031,7 +1031,7 @@ El despachador responde contigo por el redespacho o la cancelación si alguno de
 
 ### Ejemplo
 
-Llegando al destino, la predicción es 2.400 kg (alterno más reserva final: 2.250). ATC anuncia 15 minutos de espera: 600 kg. Aceptar la espera completa te dejaría en 1.800 kg: sin alterno, a 650 kg de la reserva final. Opciones: aceptar solo lo que tu margen cubre (unos 3 minutos), pedir una hora prevista de aproximación, o desviarte ahora con 2.400 kg y llegar al alterno con margen. La decisión se toma **ahora**, no en la tercera vuelta de la espera. *Cifras ilustrativas.*
+Llegando al destino, la predicción es 2.400 kg (alterno más reserva final: 2.250). ATC anuncia 15 minutos de espera: 600 kg. Aceptar la espera completa te dejaría en 1.800 kg: sin alterno, a 650 kg de la reserva final. Opciones: aceptar solo lo que tu margen cubre (unos 3 minutos), pedir una hora prevista de aproximación, o desviarte ahora, mientras conservas alterno más reserva final, y llegar al alterno con margen. La decisión se toma **ahora**, no en la tercera vuelta de la espera. *Cifras ilustrativas.*
 
 ### En pocas palabras
 
@@ -1055,7 +1055,7 @@ Llegando al destino, la predicción es 2.400 kg (alterno más reserva final: 2.2
 #### Qué significa operacionalmente
 
 Se declara cuando se cumplen **las dos condiciones** (121.2553 (b)(2); 91.637 (b); Anexo 6, 4.3.7.2.2):
-1. Tienes **la obligación de aterrizar en un aeródromo específico** (committed to land): ya no alcanzas otro con la reserva final intacta.
+1. Tienes **la obligación de aterrizar en un aeródromo específico** (committed to land): tus opciones se redujeron a ese aeródromo, porque ya no alcanzas otro con la reserva final intacta o porque los demás dejaron de ser opción.
 2. **Calculas** que cualquier cambio en la autorización para ese aeródromo puede hacerte aterrizar con **menos de la reserva final prevista**.
 
 La declaración le informa al ATC que tus opciones se redujeron a un solo aeródromo (121.2553 (b)(2), Nota).
@@ -1151,7 +1151,7 @@ La reserva final prevista es «la cantidad mínima de combustible que se requier
 | RAC 91 (91.637 (c)) | «MAYDAY MAYDAY MAYDAY COMBUSTIBLE» |
 | OACI, en inglés (Anexo 6, 4.3.7.2.3) | «MAYDAY MAYDAY MAYDAY FUEL» |
 
-«MAYDAY COMBUSTIBLE» describe la índole de la emergencia según el Anexo 10, Volumen II (121.2553 (b)(3), Nota 2). **Usa las palabras exactas.** Frases como «estamos bajos de combustible» o «necesitamos prioridad» pueden no significar lo que crees para el controlador.
+El término «MAYDAY, COMBUSTIBLE» describe la índole de la emergencia según el Anexo 10, Volumen II (121.2553 (b)(3), Nota 2). **Usa las palabras exactas.** Frases como «estamos bajos de combustible» o «necesitamos prioridad» pueden no significar lo que crees para el controlador.
 
 #### Lo que te va a preguntar el ATC
 
@@ -1159,14 +1159,14 @@ Ante una emergencia, el controlador obtiene, entre otros datos, el **combustible
 
 #### Prioridad y autoridad
 
-- La declaración de MAYDAY te da **prioridad**: las dependencias ATS dan la mayor atención, asistencia y prioridad a la aeronave en emergencia (RAC 211, 211.360 (a)). El Doc 9976 añade que abre opciones al ATC, como pistas cerradas o aeródromos militares (Doc 9976, 6.9).
-- Del lado del ATS, que el combustible se considere agotado o insuficiente para llegar a un lugar seguro es un criterio de **fase de peligro (DETRESFA)**, que activa la búsqueda y salvamento (211.720 (c)(2)).
+- La declaración de MAYDAY te da **prioridad**: las dependencias ATS dan la mayor atención, asistencia y prioridad a la aeronave en emergencia (RAC 211, 211.360 (a)). El Doc 9976 añade que te abre todas las opciones (pistas cerradas disponibles, aeródromos militares) y le da más flexibilidad al ATC (Doc 9976, 6.9.3).
+- Del lado del ATS, que el combustible se considere agotado o insuficiente para llegar a un lugar seguro es un criterio de **fase de peligro (DETRESFA)**, y el centro de control de área debe notificarlo al centro coordinador de salvamento (211.720 (c)(2)).
 - En emergencia, el PIC puede apartarse de procedimientos, mínimos y del propio reglamento en la medida necesaria. Después envía un reporte escrito dentro de los **10 días calendario** siguientes al regreso a su base (121.2300 (a) y (c)(2)).
 - Una emergencia declarada por combustible puede calificarse como **incidente grave**, y la tripulación involucrada se comunica con la autoridad de investigación dentro de las **12 horas** (RAC 114, 114.335 (a); Adjunto C). *Este tema se complementa con el módulo RAC.*
 
 #### La lección que dejó la terminología
 
-En 1990, el Boeing 707 del vuelo Avianca 052 se quedó sin combustible cerca de Nueva York después de más de una hora de esperas. La NTSB concluyó que la tripulación no manejó adecuadamente el combustible y **no comunicó una situación de emergencia de combustible al ATC** antes de agotarlo. Señaló como factor contribuyente la falta de terminología normalizada y comprensible para pilotos y controladores sobre combustible mínimo y de emergencia, y recomendó crearla (NTSB AAR-91/04). La fraseología de este capítulo es, en buena parte, la respuesta a ese accidente.
+En 1990, el Boeing 707 del vuelo Avianca 052 se quedó sin combustible cerca de Nueva York después de más de una hora de esperas. La NTSB concluyó que la tripulación no manejó adecuadamente el combustible y **no comunicó una situación de emergencia de combustible al ATC** antes de agotarlo. Señaló como factor contribuyente la falta de terminología normalizada y comprensible para pilotos y controladores sobre combustible mínimo y de emergencia, y recomendó crearla (NTSB AAR-91/04). Ese es el vacío que cubre la fraseología normalizada de este capítulo.
 
 [ESPACIO PARA IMAGEN]
 
@@ -1187,7 +1187,7 @@ Diferenciar claramente los tres estados operacionales.
 
 Estás comprometido con el destino y declaraste combustible mínimo con 1.600 kg (reserva final: 1.150 kg). Un avión se sale de la pista y la cierran por tiempo indefinido. El aeródromo más cercano está a 15 minutos: 600 kg más la aproximación. Aterrizarías con menos de 1.000 kg, así que declaras: «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE».
 
-Después das la información en el orden en que el controlador la necesita (Doc 4444, 15.1.1.2): identificación, tipo de emergencia, intenciones (proceder a ese aeródromo), posición y nivel, y luego personas a bordo, combustible remanente en minutos y mercancías peligrosas. Lo normalizado es la declaración; el resto del mensaje sigue el formato de tu MO. *Cifras ilustrativas.*
+Después das los datos que el controlador necesita (Doc 4444, 15.1.1.2): identificación, tipo de emergencia, intenciones (proceder a ese aeródromo), posición y nivel, y luego personas a bordo, combustible remanente en minutos y mercancías peligrosas. El formato completo del mensaje lo fija tu MO. *Cifras ilustrativas.*
 
 ### En pocas palabras
 
@@ -1236,7 +1236,7 @@ Con esa cifra dices, antes de entrar a la espera, **a qué hora sales** si no ha
 
 #### Cómo ahorrar en espera
 
-La velocidad de espera del manual y el nivel más alto aceptable reducen el consumo. Si el ATC anuncia la demora con tiempo, absorberla en ruta reduciendo la velocidad suele costar menos que esperar a baja altura. Según el avión y el MO.
+La velocidad de espera del manual y el nivel más alto aceptable reducen el consumo. Si el ATC anuncia la demora con tiempo, absorberla en ruta reduciendo la velocidad suele costar menos que esperar a baja altura (Airbus, *Getting to Grips with Fuel Economy*, 2004, 5.5.3). Según el avión y el MO.
 
 ### Aplicación operacional
 
@@ -1281,7 +1281,7 @@ Es la relación entre **destino, alterno, meteorología y combustible disponible
 
 #### Todo vuelo llega con menos opciones de las que tenía al salir
 
-El Doc 9976 lo dice así: todo vuelo, sin importar su duración, llega a las cercanías del destino con muchas menos opciones de las que tenía al salir. Lo que normalmente queda al llegar: el discrecional (si se cargó), la contingencia no usada, el combustible para la aproximación, el del alterno y la reserva final (Doc 9976, 6.4.24, Figura 6-4).
+El Doc 9976 lo dice así: todo vuelo, sin importar su duración, llega a las cercanías del destino con muchas menos opciones de las que tenía al salir. Lo que normalmente queda al llegar: el discrecional (si se cargó), la contingencia no usada, el previsto para factores conocidos (como demoras ATC), el combustible para la aproximación, el del alterno (si aplica) y la reserva final (Doc 9976, 6.4.24, Figura 6-4).
 
 #### Las piezas de la decisión
 
@@ -1307,7 +1307,7 @@ Algunas autoridades y operadores permiten que el PIC **use el combustible del al
 
 #### Cambiar de alterno en vuelo
 
-Si el alterno planificado se deteriora, el despacho se puede enmendar en ruta para incluir otro alterno dentro del alcance del avión (121.2625 (b)), y quien lo enmienda lo registra (121.2625 (i)). Coordínalo con el despachador.
+Si el alterno planificado se deteriora, el despacho se puede enmendar en ruta para incluir otro alterno dentro del alcance del avión (121.2625 (b)(2)), y quien lo enmienda lo registra (121.2625 (i)). Coordínalo con el despachador.
 
 [ESPACIO PARA IMAGEN]
 
@@ -1334,7 +1334,7 @@ Tu destino tiene tormenta sobre el aeropuerto y el alterno planificado está a 2
 - El alterno es una opción que se gasta: con combustible y con el tiempo.
 - Desviarse temprano suele ser mejor que decidir tarde entre menos opciones.
 - Comprometerse con el destino depende de la norma y del MO, y activa las reglas de combustible mínimo.
-- Si el alterno se deteriora, enmienda el despacho y cámbialo (121.2625 (b)).
+- Si el alterno se deteriora, enmienda el despacho y cámbialo (121.2625 (b)(2)).
 
 ---
 
@@ -1353,7 +1353,7 @@ Son puntos de la ruta en los que el combustible define **qué opciones tienes a 
 - **En el RAC 121:** no se usa la palabra «punto de decisión». Se habla de **punto de nueva planificación en vuelo** (121.2645 (c)(2) y (c)(3)) y de **redespacho** o enmienda del despacho (121.2625). El procedimiento lo pone el MO (Apéndice 10, A9.3.9 (d)).
 - **Por qué existe:** la contingencia se calcula sobre el combustible **desde ese punto** y no sobre todo el trayecto (121.2645 (c)(3)). Eso reduce el combustible que hay que cargar y permite llevar más carga en vuelos largos.
 - **Qué se verifica en el punto:**
-  1. Que el destino esté en o sobre sus mínimos a la hora prevista y cada alterno en o sobre sus mínimos de planificación (121.2625 (b)).
+  1. Que el destino esté en o sobre sus mínimos a la hora prevista y cada alterno en o sobre sus mínimos de planificación (121.2625 (b)(1) y (b)(2)).
   2. Que el combustible a bordo cumpla trayecto desde ese punto, contingencias, alterno, reserva final y adicional si aplica (121.2645 (d)).
 - **Si no se cumple:** el vuelo sigue al destino intermedio. El explotador puede fijar como destino del despacho un aeródromo de reabastecimiento autorizado (121.2625 (a)).
 - **Registro:** quien enmienda el despacho en ruta lo registra (121.2625 (i)).
@@ -1366,7 +1366,7 @@ Más allá del procedimiento planificado, **todo uso del combustible para algo d
 
 - **Qué es:** el último punto geográfico desde el que el avión puede ir **tanto al destino como a un alterno en ruta disponible** (RAC 91, 91.001; Anexo 6, Capítulo 1).
 - **Cuándo se usa:** en vuelos a **aeródromos aislados**, donde se determina en cada vuelo y no se sigue más allá sin información actualizada que indique un aterrizaje seguro (Anexo 6, 4.3.4.3.1 b)), y en helicópteros hacia plataformas en el mar (91.605). **El RAC 121 no usa el concepto de aeródromo aislado** (121.001), así que en la operación doméstica colombiana es sobre todo materia de examen teórico y de operaciones internacionales.
-- **Cálculo de examen (ATPL):** con autonomía E (h), velocidad sobre el terreno de ida O y de regreso H, el tiempo hasta el PNR es **E × H ÷ (O + H)**. El Doc 9976 advierte que el PNR real suele quedar más tarde que el del OFP, por lo que la tripulación necesita un medio práctico para recalcularlo en vuelo (Doc 9976, 4.10.4).
+- **Cálculo de examen (ATPL):** con autonomía E (h), velocidad sobre el terreno de ida O y de regreso H, el tiempo hasta el PNR, cuando la opción de regreso es el aeródromo de salida, es **E × H ÷ (O + H)**, con E la autonomía disponible sin las reservas. El Doc 9976 advierte que el PNR real suele quedar más tarde que el del OFP, por lo que la tripulación necesita un medio práctico para recalcularlo en vuelo (Doc 9976, 4.10.4 y 4.10.5).
 
 #### Punto crítico o punto de igual tiempo (CP o ETP)
 
@@ -1407,7 +1407,7 @@ Un vuelo largo se despacha con punto de decisión a 2 horas del destino final, c
 
 - Punto de decisión, punto de nueva planificación en vuelo y redespacho son lo mismo en la práctica (Doc 9976); el RAC 121 usa los dos últimos.
 - La contingencia se calcula desde el punto de nueva planificación: por eso se ahorra combustible.
-- En el punto se verifican meteorología, mínimos y el combustible requerido (121.2625 (b); 121.2645 (d)).
+- En el punto se verifican meteorología, mínimos y el combustible requerido (121.2625 (b)(1) y (b)(2); 121.2645 (d)).
 - El PNR es para aeródromos aislados; en el RAC 121 no se usan.
 - El CP o ETP es un punto de tiempo para planificar fallas, no un límite de combustible.
 
@@ -1418,13 +1418,13 @@ Un vuelo largo se despacha con punto de decisión a 2 horas del destino final, c
 
 ### ¿Qué es?
 
-Son las condiciones que hacen que el avión queme más combustible del que el plan preveía. El Doc 9976 menciona entre las causas típicas un peso sin combustible mayor, un rodaje más largo, rutas más largas, un nivel o una velocidad de crucero menos favorables y vientos peores que los pronosticados (Doc 9976, 6.4).
+Son las condiciones que hacen que el avión queme más combustible del que el plan preveía. El Doc 9976 menciona entre las causas típicas un peso sin combustible mayor, un rodaje más largo, rutas más largas, un nivel o una velocidad de crucero menos favorables y vientos peores que los pronosticados (Doc 9976, 6.4.5).
 
 ### Lo que debe saber un piloto
 
 | Factor | Por qué aumenta el consumo | Qué hacer |
 |---|---|---|
-| **Mayor peso** | Más sustentación requerida, más resistencia y un nivel óptimo más bajo. Airbus estima cerca de 1 % menos alcance específico por cada 1 % de peso adicional | Verifica la masa real frente a la planificada |
+| **Mayor peso** | Más sustentación requerida, más resistencia y un nivel óptimo más bajo. Airbus estima cerca de 1 % menos alcance específico por cada 1 % de la masa máxima de despegue añadido | Verifica la masa real frente a la planificada |
 | **Viento de frente** | Menos velocidad sobre el terreno: más tiempo para la misma distancia | Revisa los vientos reales y considera otro nivel |
 | **Temperatura** | Una desviación respecto a la atmósfera estándar cambia el empuje necesario y la performance | El OFP la incluye; vigila los cambios |
 | **Altitud** | Lejos del nivel óptimo, los motores y el avión son menos eficientes | Pide el nivel óptimo cuando se pueda |
@@ -1448,7 +1448,7 @@ No hace falta memorizar cifras de cada factor. Lo importante es **reconocerlos a
 
 ### Ejemplo
 
-En un mismo vuelo: 15 minutos a un nivel más bajo por tránsito, 10 minutos de antihielo en descenso, vectores que alargan la llegada y una espera de 5 minutos. Ninguno parece grave, pero sumados pueden igualar la contingencia completa. *Ejemplo de práctica.*
+En un mismo vuelo: 15 minutos a un nivel más bajo por tránsito, 10 minutos de antihielo en descenso, vectores que alargan la llegada y una espera de 5 minutos. Ninguno parece grave, pero sumados pueden superar la contingencia completa: la espera sola ya equivale a su piso de 5 minutos. *Ejemplo de práctica.*
 
 ### En pocas palabras
 
@@ -1471,7 +1471,7 @@ Una aproximación frustrada (go-around) consume combustible en el ascenso con mu
 #### Cómo está planificado
 
 - El combustible para el alterno **incluye una aproximación frustrada en el destino** (121.2645 (c)(4)(i)(A)). Es decir, el plan prevé **un** sobrepaso seguido de desvío al alterno.
-- **Un segundo intento en el destino no está planificado**: sale de la contingencia, del discrecional o, si ya no hay, del combustible del alterno.
+- **Un segundo intento en el destino no está planificado**: sale del margen (contingencia y discrecional) o, si ya no hay, del combustible del alterno.
 
 #### Qué combustible necesitas después de un sobrepaso
 
@@ -1523,7 +1523,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - **La causa y la certeza de la demora:** ¿es una estimación o una hora prevista de aproximación asignada? ¿La causa se está resolviendo?
 - **El alterno:** tiempo, distancia y si otros vuelos ya se desvían allí.
 - **La norma:** si la predicción al destino queda bajo alterno más reserva final, se piden demoras (121.2553 (b)(1)). Si la tripulación se compromete con el destino y cualquier cambio la dejaría bajo la reserva final, declara combustible mínimo (121.2553 (b)(2)).
-- **La decisión con hora:** «esperamos hasta las HH:MM; si no hay aproximación, salimos al alterno». Esperar sin hora de salida es la forma más común de terminar en emergencia.
+- **La decisión con hora:** «esperamos hasta las HH:MM; si no hay aproximación, salimos al alterno». Esperar sin hora de salida deja la decisión para cuando ya no hay opciones.
 
 ### Escenario 2 · Rodaje interminable
 
@@ -1531,7 +1531,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 
 **Pregunta.** ¿Puedes despegar?
 
-**Razonamiento.** Lo que decide no es el block fuel, sino el **combustible requerido para despegar**: trayecto, contingencias, alterno, reserva final y adicional (121.2645 (d)). Si el FOB en cabecera está por debajo, no se despega: se regresa a cargar o se replanifica según el MO. Si está por encima, calcula cuánto margen propio te queda (el discrecional ya se usó). El Doc 9976 trata el uso de la contingencia en tierra como un evento que obliga a un nuevo análisis (Doc 9976, 6.4).
+**Razonamiento.** Lo que decide no es el block fuel, sino el **combustible requerido para despegar**: trayecto, contingencias, alterno, reserva final y adicional (121.2645 (d)). Si el FOB en cabecera está por debajo, no se despega: se regresa a cargar o se replanifica según el MO. Si está por encima, calcula cuánto margen propio te queda (con el vuelo de referencia, ya se fueron 250 de los 300 kg del discrecional). El Doc 9976 trata el uso de la contingencia en tierra como un evento que obliga a un nuevo análisis (Doc 9976, 6.4.10).
 
 ### Escenario 3 · La suma que no cuadra
 
@@ -1547,7 +1547,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 
 **Pregunta.** ¿Qué haces?
 
-**Razonamiento.** Un alterno bajo sus mínimos de planificación ya no te protege. Coordinas con el despachador para **enmendar el despacho en ruta** con otro alterno dentro del alcance del avión (121.2625 (b)), lo registras (121.2625 (i)) y recalculas: el nuevo alterno puede estar más lejos y pedir más combustible. Si con el nuevo alterno la predicción al destino queda bajo alterno más reserva final, ya estás en la línea de pedir demoras (121.2553 (b)(1)).
+**Razonamiento.** Un alterno pronosticado bajo mínimos a tu hora de llegada ya no te protege. Coordinas con el despachador para **enmendar el despacho en ruta** con otro alterno dentro del alcance del avión (121.2625 (b)(2)), lo registras (121.2625 (i)) y recalculas: el nuevo alterno puede estar más lejos y pedir más combustible. Si con el nuevo alterno la predicción al destino queda bajo alterno más reserva final, ya estás en la línea de pedir demoras (121.2553 (b)(1)).
 
 ### Escenario 5 · Sobrepaso con techo bajo
 
@@ -1587,7 +1587,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 
 **Pregunta.** ¿Qué haces y qué dices?
 
-**Razonamiento.** Calcula el combustible con el que aterrizarías en el **aeródromo más cercano donde puedas aterrizar con seguridad**. Si es menor que la reserva final prevista, la norma exige declarar «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE» (121.2553 (b)(3)). Informa tu intención y tu autonomía en minutos. La emergencia te da prioridad y le abre opciones al ATC (Doc 9976, 6.9). Después viene el reporte escrito de 121.2300 y, si corresponde, la comunicación con la autoridad de investigación (RAC 114).
+**Razonamiento.** Calcula el combustible con el que aterrizarías en el **aeródromo más cercano donde puedas aterrizar con seguridad**. Si es menor que la reserva final prevista, la norma exige declarar «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE» (121.2553 (b)(3)). Informa tu intención y tu autonomía en minutos. La emergencia te da prioridad, te abre opciones y le da más flexibilidad al ATC (Doc 9976, 6.9.3). Después viene el reporte escrito de 121.2300 y, si corresponde, la comunicación con la autoridad de investigación (RAC 114).
 
 ### Escenario 10 · El vuelo que no cabía
 
@@ -1606,7 +1606,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 3. **Conoce cada componente**: rodaje, trayecto, contingencias, alterno, reserva final, adicional y discrecional (121.2645 (c)).
 4. **El requerido para despegar** es trayecto, contingencias, alterno, reserva final y adicional. Sin él, no se despega ni se sigue desde un punto de nueva planificación (121.2645 (d)).
 5. **La contingencia es para lo imprevisto**: 5 % del trayecto, nunca menos de 5 minutos de espera a 1.500 ft sobre el destino (121.2645 (c)(3)).
-6. **Lo previsible se cubre con extra o discrecional**, no con contingencia.
+6. **Lo previsible va en el plan o como extra**, no en la contingencia.
 7. **El discrecional es decisión del PIC** (121.2645 (c)(7)), y más combustible también cuesta.
 8. **El alterno es una opción que se gasta**: mientras lo conservas, tienes dos caminos.
 9. **La reserva final es una barrera**: 30 minutos de espera a 1.500 ft en turbina, no se planifica para consumirla y no admite variaciones.
@@ -1671,7 +1671,7 @@ Solo casos con informe oficial publicado. Se resume lo que el informe establece;
 
 | Caso | Qué pasó | Lo que enseña | Informe |
 |---|---|---|---|
-| **United 173**, DC-8, Portland, 28 de diciembre de 1978 | Cerca de una hora en espera resolviendo una falla del tren; extinción del combustible en todos los motores | La NTSB determinó que el comandante no vigiló el estado del combustible ni respondió a los avisos de la tripulación. Es un caso fundacional del CRM | NTSB AAR-79-07 |
+| **United 173**, DC-8, Portland, 28 de diciembre de 1978 | Cerca de una hora en espera resolviendo una falla del tren; extinción del combustible en todos los motores | La NTSB determinó que el comandante no vigiló el estado del combustible ni respondió a los avisos de la tripulación. La NTSB recomendó formar a las tripulaciones en gestión de recursos de cabina (CRM) | NTSB AAR-79-07 |
 | **Air Canada 143**, Boeing 767, Gimli, 23 de julio de 1983 | Salió con los indicadores de cantidad inoperativos y con un cálculo de carga que usó un factor en libras como si fuera en kilos; se quedó sin combustible y planeó hasta Gimli | Masa, volumen y densidad; verificar la carga por dos caminos | Junta de Investigación (juez G. H. Lockwood), informe final de 1985 |
 | **Avianca 052**, Boeing 707, Cove Neck (Nueva York), 25 de enero de 1990 | Más de una hora de esperas; aproximación frustrada; extinción del combustible maniobrando para el segundo intento | Causa probable: no manejar adecuadamente el combustible y no comunicar una emergencia de combustible al ATC a tiempo. Contribuyeron no usar el despacho de la aerolínea y la falta de terminología normalizada | NTSB AAR-91/04 |
 | **Air Transat 236**, Airbus A330, Lajes (Azores), 24 de agosto de 2001 | Fuga de combustible tras un cambio de motor mal hecho; la tripulación aplicó de memoria el procedimiento de desbalance y alimentó la fuga; planeó hasta Lajes | FOB + FU; aplicar el procedimiento de fuga del QRH | GPIAA, 22/ACCID/GPIAA/2001 |
@@ -1713,7 +1713,7 @@ Solo casos con informe oficial publicado. Se resume lo que el informe establece;
 
 - **Textos OACI.** Se leyeron copias alojadas por terceros; en la app se parafrasea. La 11.ª edición en español del Anexo 6 dice «sobre la elevación del aeródromo de destino» en la reserva final y en el adicional; el inglés dice solo «above aerodrome elevation». El módulo usa el RAC 121, que dice «sobre la elevación del aeródromo».
 - **Fraseología en español.** Tomada del Doc 4444 en español (15.ª edición, Enmiendas 4 a 6) y del Anexo 6 en español. Confirmar contra la edición vigente antes de grabar audio.
-- **Definición del RAC 91.** La definición de «Declaración de MAYDAY Combustible» en 91.001 (opciones reducidas a un lugar; parte de la reserva final podría consumirse) no coincide con el criterio de 91.637 (c) y del Anexo 6 (aterrizaje calculado bajo la reserva final en el aeródromo más cercano). El módulo usa 121.2553 (b)(3).
+- **Definición del RAC 91.** La definición de «Declaración de MAYDAY Combustible» en 91.001 (opciones reducidas a un lugar; parte de la reserva final podría consumirse), que repite la Nota 1 de 91.637 (c), describe lo que informa la declaración, no el criterio para hacerla (aterrizaje calculado bajo la reserva final en el aeródromo más cercano, 91.637 (c) y Anexo 6). El módulo usa 121.2553 (b)(3).
 - **91.2013 (d)** omite «menos del» en la regla de combustible mínimo; su Nota y 91.637 (b) lo traen. Probable error de redacción del original.
 - **91.2012 (c)(3)** (Parte 2 del RAC 91) fija la contingencia en «no inferior al 5 %» sin el piso de 5 minutos; el RAC 121 sí trae el piso. El módulo enseña el RAC 121.
 - **RAC 1.** Sus definiciones de combustible (básico, contingencia del 10 %, sostenimiento, mínimo) son de 2004 y usan la terminología antigua; para aerolínea prevalecen las del RAC 121 (RAC 1, 1.2). No se usan en el módulo. El Apéndice 10, B6.3 del RAC 121 repite esos términos antiguos en la lista de contenido del MO.
