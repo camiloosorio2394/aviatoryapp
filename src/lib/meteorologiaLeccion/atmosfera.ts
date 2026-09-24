@@ -1,8 +1,8 @@
 /**
  * Nivel 1 · La atmósfera y el aire en movimiento.
  *
- * Adapta el capítulo 11 del Pilot Handbook of Aeronautical Knowledge (FAA
- * H-8083-25, edición en español) a lo que un piloto necesita para una
+ * Adapta el capítulo 12 del Pilot's Handbook of Aeronautical Knowledge (FAA
+ * H-8083-25C) a lo que un piloto necesita para una
  * entrevista de aerolínea y para decidir en cabina. No es un resumen del
  * manual: el manual explica el fenómeno y aquí se explica qué se ve, qué
  * significa, cómo se lo van a preguntar y qué hace con eso el que va sentado
@@ -25,36 +25,70 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Vas de México a Santiago, en FL380, de noche y en aire liso. Debajo, la capa de nubes parece cortarse a una altura y no pasar de ahí. No hay ninguna tapa: lo que se acaba ahí arriba es la mezcla vertical del aire, y con ella la mayor parte de lo que forma tiempo. Ese límite se llama **tropopausa**, y saber a qué altura está te dice tres cosas antes de que te las diga el meteorólogo.",
+        text: "Vas de México a Santiago en el nivel de vuelo 380 (FL380, Flight Level 380). A lo lejos, una tormenta extiende su parte superior en forma de yunque. No hay una tapa visible: cerca de esa altura cambia la estabilidad del aire y se limita gran parte del desarrollo vertical. La **tropopausa** es el límite entre la troposfera y la estratosfera; conocer su altura ayuda a interpretar el tiempo y la posible cercanía de la corriente en chorro.",
       },
       {
         kind: "p",
-        text: "Por debajo se desarrolla casi todo el tiempo que te cambia el plan: las nubes, la precipitación, la turbulencia de convección, el engelamiento. Casi todo, no todo. Una tormenta con desarrollo vertical fuerte sube hasta la tropopausa y ahí se extiende de lado, que es el yunque que le ves encima, y las más potentes la penetran un trecho. Por eso la primera pregunta de una entrevista sobre atmósfera casi nunca es «cuántas capas tiene»: es «por qué el tiempo se concentra en la de abajo».",
+        text: "En la troposfera se desarrolla la mayor parte del tiempo que cambia tu plan: nubes, precipitación, turbulencia convectiva y condiciones de engelamiento. Una tormenta intensa puede alcanzar la tropopausa, extender su cima lateralmente y formar un yunque; las corrientes ascendentes más fuertes incluso pueden sobrepasarla. La pregunta útil no es cuántas capas tiene la atmósfera, sino por qué la mayor parte del tiempo se concentra en la inferior.",
       },
       {
         kind: "sub",
-        text: "Qué hay ahí fuera",
+        text: "Reconocer el yunque sin confundirlo con una frontera visible",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-atmosfera",
+        kind: "reconoce",
+        titulo: "El yunque y la cima que sobresale",
+        intro: "Toca los puntos numerados para identificar lo que sí muestra la fotografía. La tropopausa no es una línea visible y no se puede medir en esta imagen.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l01-yunque-tropopausa.webp",
+          alt: "Cumulonimbo visto de lado con una cima en forma de yunque y un pequeño domo que sobresale",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 38,
+            y: 17,
+            que: "Cima sobresaliente",
+            significa: "Un domo de nube se eleva por encima del yunque y revela una corriente ascendente intensa.",
+            piloto: "Trata la tormenta como un área peligrosa y consulta información actual para planear cómo evitarla; no deduzcas una altura exacta de la foto.",
+          },
+          {
+            x: 75,
+            y: 29,
+            que: "Yunque",
+            significa: "La parte superior se extiende lateralmente al encontrar aire más estable en altura.",
+            piloto: "No supongas que el aire bajo el yunque es seguro: la amenaza puede extenderse fuera de la zona de precipitación visible.",
+          },
+          {
+            x: 40,
+            y: 54,
+            que: "Torre convectiva",
+            significa: "La nube crece en vertical gracias a corrientes ascendentes y humedad disponible.",
+            piloto: "El desarrollo vertical advierte de convección; verifica la ruta y las alternativas antes de acercarte.",
+          },
+        ],
       },
       {
         kind: "p",
-        text: "Del aire seco, el nitrógeno y el oxígeno se reparten el 99 % y no le cambian el día a nadie. El que manda es el que ni siquiera sale en esa cuenta: el **vapor de agua**, que va de 0 a 5 % según dónde y cuándo, y es responsable de casi todo lo que te cambia el plan. Las nubes, la precipitación, la niebla, el engelamiento. Todo lo que decide si sales o no sales sale de ese cero a cinco por ciento.",
+        text: "**Qué ves:** una tormenta con torre convectiva, yunque y una cima que sobresale. **Cómo la reconoces:** por su gran desarrollo vertical y su cima extendida. **Qué decides:** evitar la célula según la información meteorológica vigente y los procedimientos de tu operación; la foto no te da por sí sola la altura de la tropopausa.",
+      },
+      {
+        kind: "p",
+        text: "En el aire seco, el nitrógeno y el oxígeno suman cerca del 99 %. Para comprender por qué cambian las nubes, la precipitación y la niebla, hay que mirar además el **vapor de agua**: su proporción es variable y puede llegar a cerca del 5 %. También importan la temperatura, la presión y el movimiento del aire; el vapor por sí solo no decide si un vuelo puede salir.",
       },
       {
         kind: "check",
         question:
-          "De todo lo que compone el aire, ¿qué parte decide si tu vuelo sale o se complica?",
+          "¿Qué componente variable del aire interviene directamente en la formación de nubes, niebla y precipitación?",
         options: [
           "El nitrógeno, que es el 78 % del aire seco y es el que le da su densidad",
           "El oxígeno, porque de él dependen el rendimiento del motor y la presurización",
-          "El vapor de agua, que va de 0 a 5 % y ni siquiera entra en la cuenta del aire seco",
+          "El vapor de agua, que es variable y no entra en la composición del aire seco",
         ],
         answer: 2,
         explain:
-          "El nitrógeno y el oxígeno se reparten el 99 % del aire seco y son prácticamente constantes: por constantes, no explican por qué hoy hay niebla y ayer no. Lo que cambia de un día a otro, de 0 a 5 %, es el vapor de agua, y de ahí salen las nubes, la precipitación, la niebla y el engelamiento.",
+          "El nitrógeno y el oxígeno suman cerca del 99 % del aire seco y sus proporciones cambian poco. El vapor de agua sí varía y participa en la formación de nubes, precipitación y niebla. También hacen falta condiciones apropiadas de temperatura y movimiento del aire.",
       },
       {
         kind: "sub",
@@ -70,7 +104,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             puntos: [
               "Aquí ocurre casi todo: nubes, tormentas, turbulencia y las variaciones de temperatura.",
               "La temperatura baja unos 2 °C por cada 1.000 ft.",
-              "La presión baja alrededor de 1 pulgada de mercurio por cada 1.000 ft (un milibar cada 30 ft).",
+              "Cerca del nivel del mar, la presión baja aproximadamente 1 pulgada de mercurio por cada 1.000 ft (cerca de 1 milibar cada 30 ft); esa tasa no es constante en altura.",
             ],
             nota: "Que sea más alta sobre el ecuador que sobre los polos no es un dato de examen: es la razón de que en una ruta larga norte a sur ese límite te suba y te baje.",
           },
@@ -79,7 +113,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             ref: "el límite de arriba",
             puntos: [
               "Debajo de ella queda el grueso de la humedad y del tiempo asociado.",
-              "Su altura cambia con la latitud y la estación, así que su forma es elíptica y no redonda.",
+              "Su altura cambia con la latitud y la estación: no está a un nivel uniforme alrededor del planeta.",
               "Se asocia con la corriente en chorro y con la turbulencia en aire claro.",
             ],
           },
@@ -106,11 +140,11 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         pregunta: "¿Qué acaba de cambiar para ti, aunque el nivel sea el mismo?",
         claves: [
           "Empezaste debajo de la tropopausa y vas a acabar por encima de ella: el límite bajó hasta quedar por debajo de tu nivel.",
-          "Cerca de la tropopausa es donde vive la corriente en chorro, así que ahí se concentra la turbulencia en aire claro. Es el tramo en el que conviene tener el cinturón puesto aunque el aire esté liso.",
-          "Por encima de la tropopausa el aire es más estable, así que si la turbulencia aparece justo al cruzarla y luego se calma, eso es lo que pasó y no una casualidad.",
+          "La tropopausa puede estar asociada con la corriente en chorro y turbulencia en aire claro. El cambio de altura te obliga a revisar el pronóstico de vientos y turbulencia para ese tramo, aunque ahora el aire esté liso.",
+          "Por encima de la tropopausa el aire suele ser más estable, pero cruzarla no garantiza aire liso ni permite atribuir una turbulencia concreta a ese límite sin más información.",
         ],
         cierre:
-          "El nivel de la tropopausa viene en el plan de vuelo y en las cartas de altura. Mirarlo cuesta cinco segundos y explica la mitad de las sorpresas de una ruta larga.",
+          "Consulta la altura prevista de la tropopausa y los vientos y la turbulencia en la información meteorológica disponible para tu ruta; no la deduzcas solo de la vista exterior.",
       },
       {
         kind: "entrevista",
@@ -131,14 +165,14 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "interpretacion",
             q: "En la troposfera, ¿cuánto baja la temperatura y cuánto la presión al subir?",
             respuesta:
-              "Unos 2 °C por cada 1.000 ft de temperatura, y alrededor de una pulgada de mercurio por cada 1.000 ft de presión, que es lo mismo que un milibar cada 30 ft.",
-            claves: ["2 °C por 1.000 ft", "1 \"Hg por 1.000 ft", "1 mb cada 30 ft"],
+              "En la atmósfera estándar, unos 2 °C por cada 1.000 ft dentro de la troposfera. Cerca del nivel del mar, la presión disminuye aproximadamente una pulgada de mercurio por cada 1.000 ft, equivalente a cerca de un milibar cada 30 ft. Esa aproximación de presión no se mantiene igual a cualquier altitud.",
+            claves: ["Temperatura estándar: cerca de 2 °C por 1.000 ft", "Presión: aproximación válida cerca del nivel del mar", "La tasa de presión cambia con la altura"],
           },
           {
             nivel: "situacion",
             q: "Un compañero dice que la tropopausa está siempre a la misma altura. ¿Qué le corrige?",
             respuesta:
-              "Que cambia con la latitud y con la estación del año. Va de unos 26.000 ft en los polos a unos 48.000 ft sobre las regiones ecuatoriales, y por eso su forma es elíptica y no una esfera regular. En una ruta larga norte a sur la vas cruzando de altura sin cambiar de nivel.",
+              "Que cambia con la latitud y con la estación del año. Puede estar alrededor de 26.000 ft en las regiones polares y de 48.000 ft cerca del ecuador. Por eso, en una ruta larga, la posición de ese límite respecto a tu nivel de vuelo puede cambiar aunque mantengas el mismo nivel.",
             claves: ["Cambia con latitud y estación", "26.000 ft en polos", "48.000 ft en el ecuador"],
           },
         ],
@@ -146,7 +180,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Ver el detalle del capítulo",
-        cita: "PHAK cap. 11",
+        cita: "FAA-H-8083-25C, cap. 12",
         bloques: [
           {
             kind: "p",
