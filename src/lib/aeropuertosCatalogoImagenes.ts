@@ -54,6 +54,26 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-03-eje-rodaje-sobre-pista.webp",
     explicacion: "La línea amarilla continua guía el rodaje sobre la pista y sale hacia una calle. Distínguela del eje blanco discontinuo; antes de seguir, confirma tu autorización y la ruta asignada.",
   },
+  "AP-CAT-04": {
+    src: "/modulos/aeropuertos/ap-cat-04-plataforma-viraje.webp",
+    explicacion: "El ensanche lateral permite invertir el sentido al final de la pista. Reconoce la línea amarilla curva y síguela dentro del pavimento; no confundas la plataforma con una salida de pista.",
+  },
+  "AP-CAT-08": {
+    src: "/modulos/aeropuertos/ap-cat-08-lineas-seguridad-plataforma.webp",
+    explicacion: "Las marcas amarillas guían al avión; la línea roja separa la zona de seguridad del puesto. Mantén vehículos y equipos en el lado permitido y confirma que el área esté libre antes de mover el avión.",
+  },
+  "AP-CAT-14": {
+    src: "/modulos/aeropuertos/ap-cat-14-borde-plataforma.webp",
+    explicacion: "La línea continua delimita la parte resistente de la plataforma: el avión permanece dentro, mientras el pavimento más oscuro y el terreno exterior no se cuentan como área apta para estacionar.",
+  },
+  "AP-CAT-15": {
+    src: "/modulos/aeropuertos/ap-cat-15-umbral-pista-no-pavimentada.webp",
+    explicacion: "En esta pista de grama el umbral se reconoce por dos tableros laterales «07», no por fajas pintadas. Los tableros rojos lejanos señalan el extremo: verifica la pista autorizada antes de alinearte.",
+  },
+  "AP-CAT-34": {
+    src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
+    explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
+  },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
     explicacion: "Dos líneas amarillas continuas delimitan el borde de la calle. El pavimento más claro del otro lado no amplía el ancho utilizable: mantén el avión dentro del margen autorizado.",
