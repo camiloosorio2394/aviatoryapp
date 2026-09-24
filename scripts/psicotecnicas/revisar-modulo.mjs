@@ -49,7 +49,7 @@ const escapar = (s) =>
 
 /** En qué estado está cada ejercicio, y por qué. */
 function estadoDe(e) {
-  if (/^ES-E1-(0[1-9]|1[0-4])$/.test(e.id)) {
+  if (/^ES-E1-(0[1-9]|1[0-4])$|^ES-E2-(07|08|09|10)$/.test(e.id)) {
     return { clase: "dibujada", texto: "Redibujada · contrastada con el cuadernillo" }
   }
   if (e.figura) {
@@ -198,7 +198,7 @@ fs.writeFileSync(
     es suficiente para llegar al archivo, a la ficha y a la página del cuadernillo. Hay un
     botón «copiar id» en cada tarjeta.</p>
     <p><b>Lo que ya sé que está mal:</b> los ocho ejemplos del E2 tienen el dibujo mordido
-    en origen. Las E1-01 a E1-14 ya están redibujadas; faltan las láminas de E2 y los ejemplos de aprendizaje.</p>
+    en origen. Los ejercicios E1-01 a E1-14 y E2-07 a E2-10 ya están redibujados; faltan los ejemplos de aprendizaje.</p>
   </div>
   ${secciones}
 </div>

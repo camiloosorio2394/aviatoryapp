@@ -200,7 +200,12 @@ Se contrastaron con las páginas 3 a 5 y con las claves impresas de la página 6
 `node scripts/psicotecnicas/componer-e1-areas.mjs` reordenan las bases en
 paneles legibles para móvil. En E1-13 y E1-14, la pieza y los huecos conservan
 la misma escala. Los WebP conservan sus URL y las claves no cambian.
-Las láminas de E2 siguen pendientes.
+**ES-E2-07 a ES-E2-10** tienen bases PNG redibujadas desde las páginas 10 a
+13 del PDF E2 y publicadas por `node scripts/psicotecnicas/componer-e2-ejercicios.mjs`.
+La edición mantuvo la disposición de cubos y cavidades. En E2-10 conserva
+exactamente 5 + 3 + 1 puntos visibles arriba y 5 + 3 abajo: 17 en total.
+Los cuatro WebP conservan sus URL, las claves no cambian y los recortes
+anteriores permanecen en el repositorio como referencia de comparación.
 
 ## Derechos
 

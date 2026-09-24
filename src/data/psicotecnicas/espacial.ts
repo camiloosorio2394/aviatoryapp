@@ -320,7 +320,7 @@ export const ESPACIAL: EjercicioPsico[] = [
     nivel: "avanzado",
     enunciado: "De acuerdo al gráfico, ¿cuál es la cantidad de puntos no visibles?",
     imagen: "/psicotecnicas/espacial/ES-E2-10-limpio.webp",
-    imagenAlt: "Dos dados apilados uno sobre otro, encima de una mesa.",
+    imagenAlt: "Dos dados apilados sobre una mesa: cada frente muestra cinco puntos, cada lado derecho tres y la cara superior visible uno.",
     opciones: ["25", "26", "24", "22", "20"],
     respuesta: 0,
     explicacion:
