@@ -18,6 +18,7 @@
 | Clave de módulo | `performance` |
 | Lecciones (teoría) | 40 temas agrupados en 7 niveles (ver más abajo) |
 | Práctica | Ejercicios resueltos (18, `ej-01` a `ej-18`) · Escenarios operacionales (10 casos, `esc-01` a `esc-10`) · Errores de entrevista (15 fichas) |
+| Evaluación | 60 preguntas (`ev-01` a `ev-60`) en `contenido/bancos/performance_evaluacion.json`, 25 por intento, aprobación 80 % |
 | Imágenes | 20 figuras (`PERF-01` a `PERF-20`), ver Anexo A |
 | Tiempo estimado | 40 temas × 3–5 min + práctica ≈ 4 h |
 
