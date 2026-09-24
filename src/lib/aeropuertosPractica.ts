@@ -13,9 +13,9 @@
  * Enmienda 18, aplicable desde el 27 de noviembre de 2025, y Anexo 4 para las
  * cartas. Nada de FAA. Sin citas de artículo en el texto que ve el piloto.
  *
- * Cada ejercicio de reconocimiento usa una imagen sin rótulos que revelen la
- * respuesta. Los huecos pendientes conservan el código y las indicaciones
- * de producción hasta tener una imagen verificada.
+ * Las imágenes de reconocimiento se verifican antes de publicarse. Las cartas
+ * conservan sus rótulos oficiales: no se redibujan ni se modifican para ocultar
+ * la respuesta.
  *
  * Los puntos de espera se dibujan siempre en patrón A2 o B2, nunca A1 ni B1, y
  * las dos líneas continuas del patrón A van del lado de espera.
@@ -54,7 +54,7 @@ export interface ApReconoce extends ApBase {
   /** Señal pintada, letrero, luz, baliza o carta. Va como pastilla. */
   familia: string
   /** Imagen de la prueba, sin rótulos que revelen la respuesta. */
-  imagen?: { src: string; alt: string; pie: string }
+  imagen?: { src: string; alt: string; pie: string; fuente?: string }
   hueco?: ApHueco
   pregunta: string
 }
@@ -86,11 +86,12 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 1,
     leccion: 2,
     familia: "Carta",
-    hueco: {
-      codigo: "AP-PRA-03",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Una hoja de carta redibujada, propia y no identificable, en tres partes: arriba una planta con una sola pista y los objetos que sobresalen marcados; abajo un perfil del terreno a lo largo del eje prolongado, con la misma escala horizontal; y a un costado un recuadro con cuatro cifras por cada cabecera. Ojo: no puede parecerse a una carta comercial ni calcar figuras de la OACI.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-03-carta-obstaculos-aerocivil.webp",
+      alt: "Carta oficial de Aerocivil para la pista 14R/32L de Bogotá, con tabla de distancias, perfiles de obstáculos y planta del aeródromo",
+      pie: "Carta auténtica de Aerocivil para SKBO 14R/32L, incluida en la publicación electrónica de información aeronáutica (eAIP, Electronic Aeronautical Information Publication) de Colombia, enmienda 72/26 del ciclo de reglamentación y control de la información aeronáutica (AIRAC, Aeronautical Information Regulation and Control), vigente al 24 de septiembre de 2026. Reconoce la tabla de distancias declaradas, el perfil longitudinal y la planta. Para planear una operación, abre la publicación vigente y consulta también los avisos aeronáuticos; esta imagen es solo material de estudio.",
+      fuente:
+        "https://eaip-colombia.atnaerocivil.gov.co/eaip/A%2072-26_2026_07_09/documents/Root_WePub/Colombia/CHARTS/AD/SKBO/AMDT_70/Aerodrome%20obstacle%20chart%20RWY%2014R%2032L.pdf",
     },
     pregunta: "¿Qué carta tienes delante?",
     opciones: [
