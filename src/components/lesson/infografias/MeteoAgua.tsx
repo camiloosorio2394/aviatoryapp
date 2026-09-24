@@ -134,13 +134,13 @@ export function MeteoInversion() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 7 · Dónde se cortan las dos rectas está la base de la nube
+// 7 · Convergencia de temperatura y rocío de una parcela ascendente
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
  * Las cifras son las del ejemplo de la sección y no otras: 29 °C de temperatura,
- * 21 °C de punto de rocío, y la base a 3.260 ft porque los 8 °C de separación se
- * cierran a 2,45 °C por cada 1.000 ft. Si el ejemplo del texto cambia, cambian
+ * 21 °C de punto de rocío, y la condensación cerca de 3.270 ft porque los 8 °C
+ * se cierran a 2,45 °C por cada 1.000 ft. Si el ejemplo del texto cambia, cambian
  * aquí: la lámina no puede enseñar una cuenta distinta de la que está escrita.
  */
 const T_SUELO = 29
@@ -157,11 +157,12 @@ export function MeteoBaseNube() {
   const yBase = y(BASE_KFT)
   // En superficie, el punto de rocío queda a la izquierda de la temperatura.
   const xPR = x0 + 300
-  const xT = x0 + 520
-  const xCorte = x0 + 96
+  const xT = x0 + 500
+  // Escala horizontal: 25 px/°C. Ambas rectas recorren así la misma escala.
+  const xCorte = xT - 3 * BASE_KFT * 25
 
   return (
-    <Lienzo etiqueta="Gráfico de temperatura contra altura. Dos rectas salen del suelo, la de temperatura desde 29 grados y la de punto de rocío desde 21, y se acercan 2,45 grados por cada mil pies hasta cortarse a 3.260 pies. Ahí está la base de la nube.">
+    <Lienzo etiqueta="Gráfico de una parcela ascendente: temperatura de 29 grados y punto de rocío de 21 grados en superficie convergen aproximadamente a 3.270 pies sobre el terreno. La intersección estima el nivel de condensación por ascenso, no el techo observado.">
       {/* Rejilla de alturas. */}
       {[1, 2, 3, 4].map((k) => (
         <g key={k}>
@@ -179,7 +180,7 @@ export function MeteoBaseNube() {
       <Corriente d={`M${xT},${ySuelo} L${xCorte},${yBase}`} color={ACENTO} grosor={3} />
       <Corriente d={`M${xPR},${ySuelo} L${xCorte},${yBase}`} color={ACENTO_CLARO} grosor={3} />
 
-      {/* La nube donde se encuentran. */}
+      {/* La nube representa la posible condensación si el ascenso continúa. */}
       <g>
         {[0, 1, 2, 3].map((i) => (
           <circle
@@ -196,11 +197,11 @@ export function MeteoBaseNube() {
         <line x1={xCorte - 68} y1={yBase} x2={xCorte + 72} y2={yBase} stroke={ACENTO} strokeWidth={2.4} />
       </g>
 
-      <Rotulo x={xCorte + 92} y={yBase - 6} color={ACENTO} tam={19}>
-        BASE DE LA NUBE
+      <Rotulo x={xCorte + 92} y={yBase - 6} color={ACENTO} tam={17}>
+        NIVEL DE CONDENSACIÓN
       </Rotulo>
       <Rotulo x={xCorte + 92} y={yBase + 20} color={SECUNDARIO} tam={17}>
-        3.260 ft
+        ≈ 3.270 ft AGL
       </Rotulo>
 
       <Rotulo x={xPR - 4} y={ySuelo + 34} color={ACENTO_CLARO} tam={17}>

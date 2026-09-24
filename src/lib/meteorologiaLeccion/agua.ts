@@ -6,10 +6,8 @@
  * dentro. Y la cuenta de la separación temperatura/punto de rocío, que es la
  * pregunta de entrevista más repetida de meteorología.
  *
- * Los bloques `reconoce` (imagen real con puntos numerados) son los que esta
- * parte pide a gritos y todavía no se pueden escribir: no hay fotografías. En
- * su sitio queda el hueco rotulado con los puntos que llevará, para que el día
- * que lleguen las fotos el bloque se escriba encima sin rehacer la lección.
+ * Las fotografías de reconocimiento se incorporan lección por lección y se
+ * acompañan de una decisión operativa; una imagen nunca sustituye un reporte.
  */
 
 import type { DocScreen } from "@/lib/docBlocks"
@@ -241,85 +239,85 @@ export const PARTE_AGUA: DocScreen[] = [
   {
     n: 7,
     title: "Humedad y punto de rocío",
-    kicker: "La cuenta que te dice a qué altura está la base",
+    kicker: "De la saturación a una estimación de la base convectiva",
     minutes: 8,
     blocks: [
       {
         kind: "p",
-        text: "El METAR te da dos números pegados, temperatura y punto de rocío, y casi todo el mundo los lee como dos datos sueltos. No lo son: lo que informa es la **distancia entre ellos**, y de esa distancia sale a qué altura vas a encontrar la base de las nubes. Esta es la lección que convierte dos cifras en una altura.",
+        text: "El reporte meteorológico rutinario de aeródromo, METAR (Meteorological Aerodrome Report), incluye temperatura y punto de rocío. Su diferencia ayuda a estimar cuán cerca está el aire de la saturación y, bajo supuestos concretos, la altura aproximada a la que una parcela ascendente podría condensarse. **No calcula el techo observado ni reemplaza el METAR, el pronóstico o la información en ruta.**",
       },
       {
         kind: "sub",
-        text: "Ver: cuánta agua cabe en el aire",
+        text: "Ver: qué significa acercarse a la saturación",
       },
       {
         kind: "p",
-        text: "La cantidad de humedad que la atmósfera puede contener depende de su temperatura. **Cada 11 °C (20 °F) de aumento, la capacidad se duplica.** Cada 11 °C de bajada, se reduce a la mitad. Por eso el mismo vapor de agua que de tarde no era nada, de madrugada es niebla.",
+        text: "La presión de vapor de saturación aumenta con la temperatura. Si el contenido de vapor cambia poco durante la noche, el enfriamiento acerca el aire a la saturación; pueden aparecer rocío o niebla si se cumplen las demás condiciones. No existe una regla exacta de «mitad de capacidad cada 11 °C» aplicable a cualquier temperatura.",
       },
       {
         kind: "check",
         question:
           "El aire de la madrugada tiene la misma cantidad de vapor de agua que tenía por la tarde, y sin embargo ahora hay niebla. ¿Por qué?",
         options: [
-          "Porque de noche el suelo sigue evaporando y entra humedad nueva a las capas bajas",
-          "Porque sin sol el aire deja de moverse y la humedad que había se acumula abajo",
-          "Porque al bajar la temperatura baja la capacidad: cada 11 °C menos, se reduce a la mitad",
+          "Porque el METAR siempre reporta 100 % de humedad al amanecer",
+          "Porque al enfriarse aumenta la presión de vapor de saturación",
+          "Porque al enfriarse disminuye la presión de vapor de saturación y el aire puede saturarse",
         ],
         answer: 2,
         explain:
-          "No cambió cuánta humedad hay: cambió cuánta cabe. La capacidad del aire se duplica cada 11 °C que sube y se reduce a la mitad cada 11 °C que baja. La misma humedad que de tarde no llegaba ni a la mitad de la capacidad, de madrugada ya es el 100 %, y ahí condensa. Es la misma cuenta que la de la base de las nubes, solo que aquí el que enfría es el suelo y no la altura.",
+          "Al bajar la temperatura disminuye la presión de vapor de saturación. Con contenido de vapor casi constante, la humedad relativa aumenta y puede llegar al 100 %. La niebla requiere además condensación en una capa próxima al suelo; no surge automáticamente de cualquier enfriamiento.",
       },
       {
         kind: "kv",
         items: [
           {
             k: "Humedad relativa",
-            v: "la humedad que hay comparada con la que cabría a esa temperatura y presión",
+            v: "relación entre el vapor de agua presente y el de saturación a la misma temperatura, expresada en porcentaje",
           },
           {
             k: "Punto de rocío",
-            v: "la temperatura a la que el aire ya no puede contener más humedad",
+            v: "temperatura a la que el aire se saturaría si se enfría sin cambiar mucho su presión ni su contenido de vapor",
           },
         ],
       },
       {
         kind: "p",
-        text: "Cuando la temperatura del aire baja hasta el punto de rocío, el aire queda saturado y la humedad empieza a condensarse: niebla, rocío, escarcha, nubes, lluvia, granizo o nieve. Todo lo que te cambia el plan sale de ese momento.",
+        text: "Cuando una parcela se enfría hasta su punto de rocío, alcanza la saturación. Según dónde ocurra y cómo siga evolucionando, puede haber rocío sobre superficies, niebla cerca del suelo o nubes en altura. **La saturación por sí sola no implica lluvia, granizo ni nieve.**",
       },
       {
         kind: "sub",
-        text: "Entender: la tasa de convergencia",
+        text: "Entender: una estimación del nivel de condensación por ascenso",
       },
       {
         kind: "p",
-        text: "Al ascender, la temperatura y el punto de rocío no bajan al mismo ritmo, y ahí está el truco:",
+        text: "Si una parcela superficial no saturada asciende sin mezclarse demasiado con el entorno, su temperatura y su punto de rocío disminuyen aproximadamente a ritmos distintos:",
       },
       {
         kind: "kv",
         items: [
-          { k: "El aire no saturado se enfría", v: "3 °C por cada 1.000 ft" },
-          { k: "El punto de rocío baja", v: "0,55 °C por cada 1.000 ft" },
-          { k: "Se acercan entre sí a razón de", v: "2,45 °C por cada 1.000 ft" },
+          { k: "Temperatura de la parcela", v: "baja cerca de 3 °C por cada 1.000 ft" },
+          { k: "Punto de rocío de la parcela", v: "baja cerca de 0,55 °C por cada 1.000 ft" },
+          { k: "Convergencia aproximada", v: "2,45 °C por cada 1.000 ft" },
         ],
       },
       {
         kind: "p",
-        text: "Como se acercan a un ritmo conocido, sabiendo cuánto los separa en superficie sabes cuántos miles de pies tardan en encontrarse. Y donde se encuentran, se forma la base de la nube.",
+        text: "La separación inicial permite estimar el **nivel de condensación por ascenso** de esa parcela. Si hay ascenso suficiente y las condiciones son favorables, suele aproximar la base de los cúmulos alimentados desde superficie. No predice la base de todos los tipos de nube ni el techo reportado en el aeródromo.",
       },
       {
         kind: "pasos",
         items: [
           {
             rotulo: "La separación",
-            texto: "Resta el punto de rocío a la temperatura, los dos en superficie. Ese es tu margen en grados.",
+            texto: "Resta el punto de rocío a la temperatura de superficie, ambos en °C.",
           },
           {
             rotulo: "Divide",
-            texto: "Divide esa separación entre la tasa de convergencia, 2,45 °C.",
+            texto: "Divide la separación entre 2,45 °C por cada 1.000 ft.",
           },
           {
             rotulo: "Multiplica",
-            texto: "Multiplica el resultado por 1.000. Eso son pies sobre el terreno (AGL): la altura aproximada de la base de las nubes.",
+            texto: "Multiplica por 1.000 para obtener una altura aproximada sobre el terreno, AGL (Above Ground Level), del nivel de condensación de esa parcela.",
             fuerte: true,
           },
         ],
@@ -327,17 +325,59 @@ export const PARTE_AGUA: DocScreen[] = [
       {
         kind: "code",
         grande: true,
-        text: "T = 29 °C   PR = 21 °C\n29 - 21 = 8 °C\n8 / 2,45 = 3,26\n3,26 x 1.000 = 3.260 ft AGL",
+        text: "T = 29 °C   PR = 21 °C\n29 - 21 = 8 °C\n8 / 2,45 ≈ 3,27\n3,27 x 1.000 ≈ 3.270 ft AGL",
       },
       {
         kind: "callout",
         tone: "tip",
         title: "Esto se responde de cabeza en una entrevista",
-        text: "La separación dividida entre 2,45, por mil. Y si quieres el atajo mental, cada grado de separación son unos 400 ft de base. Con 8 grados, unos 3.200 ft, que es la cuenta de arriba con un error de sesenta pies.",
+        text: "Como aproximación de entrevista, divide la separación en °C entre 2,45 y multiplica por 1.000 ft; un atajo es unos 400 ft por grado. Con 8 °C, cerca de 3.200 ft AGL. **Di qué estimaste:** el nivel de condensación por ascenso, no el techo ni una autorización para operar.",
       },
       {
         kind: "infografia",
         nombre: "meteo-base-nube",
+      },
+      {
+        kind: "p",
+        text: "**Qué muestra el esquema:** dos valores de una misma parcela que convergen al ascender. **Cómo lo lees:** la intersección aproxima su nivel de condensación, no mide la altura de la nubosidad existente. **Qué decides:** contrastar la estimación con bases, techo y tendencia observados antes de planificar una salida o llegada.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Bases planas de cúmulos sobre el aeródromo",
+        intro: "La fotografía muestra bases de cúmulos a una altura parecida. No permite medirla ni sustituye las bases informadas.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l07-bases-cumulos.webp",
+          alt: "Cúmulos con bases visualmente planas y cielo despejado entre ellos sobre un aeropuerto",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          {
+            x: 49,
+            y: 38,
+            que: "Base del cúmulo central",
+            significa: "El vapor de la parcela ascendente se hizo visible al condensarse; la foto no cuantifica su altura.",
+            piloto: "Compara la observación de nubes vigente con los mínimos y la ruta previstos.",
+          },
+          {
+            x: 75,
+            y: 40,
+            que: "Otra base de cúmulo",
+            significa: "Bases parecidas pueden sugerir una capa de humedad compartida, pero no son un techo uniforme.",
+            piloto: "No conviertas la fórmula de punto de rocío en una base exacta para todas las nubes.",
+          },
+          {
+            x: 55,
+            y: 57,
+            que: "Espacio despejado entre nubes",
+            significa: "La cobertura nubosa también importa: algunas nubes dispersas no equivalen a un techo.",
+            piloto: "Verifica cobertura y altura informadas en METAR y pronóstico.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** cúmulos separados con bases parecidas. **Cómo lo reconoces:** la condensación comienza donde el aire ascendente alcanza la saturación. **Qué decides:** usar la cuenta solo como orientación y consultar bases, cobertura y tendencia observadas para la operación.",
       },
       {
         kind: "sub",
@@ -354,7 +394,7 @@ export const PARTE_AGUA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Sea cual sea el camino, el destino es el mismo: **aire saturado significa nubes, lluvia y situaciones meteorológicas críticas.**",
+        text: "La saturación puede producir condensación visible; sus efectos operativos dependen de la altura, la cobertura, la temperatura y los procesos posteriores. No toda nube precipita ni toda saturación implica una condición crítica.",
       },
       {
         kind: "sub",
@@ -369,19 +409,19 @@ export const PARTE_AGUA: DocScreen[] = [
             puntos: [
               "En noches frías y en calma, la temperatura de los objetos hace bajar la del aire que los rodea por debajo del punto de rocío.",
               "La humedad se condensa sobre el terreno, los edificios, los autos y los aviones.",
-              "No representa una amenaza para la aeronave.",
+              "El agua líquida no es lo mismo que escarcha, pero una superficie fría puede congelarla; verifica el estado real del avión.",
             ],
           },
           {
             titulo: "Escarcha",
-            ref: "cuando la temperatura está bajo cero",
+            ref: "cuando la superficie del avión está a 0 °C o menos",
             puntos: [
-              "La humedad se deposita congelada.",
+              "El vapor puede depositarse como hielo o el agua condensada puede congelarse sobre una superficie suficientemente fría, incluso si el aire está por encima de 0 °C.",
               "Interrumpe el flujo de aire sobre el ala y puede reducir drásticamente la sustentación.",
               "Además aumenta la resistencia, y las dos cosas juntas afectan a la capacidad de despegue.",
-              "La aeronave debe limpiarse completamente de escarcha antes de iniciar el vuelo.",
+              "Las superficies críticas deben cumplir la condición de limpieza exigida por los procedimientos aprobados antes del despegue.",
             ],
-            nota: "No es una recomendación de manual: es la diferencia entre despegar y no despegar.",
+            nota: "No se despega con contaminación en superficies críticas fuera de las excepciones expresamente aprobadas para ese tipo y operación.",
           },
         ],
       },
@@ -389,7 +429,38 @@ export const PARTE_AGUA: DocScreen[] = [
         kind: "callout",
         tone: "warn",
         title: "El error de bulto",
-        text: "La escarcha no «se va con el rodaje» ni «se derrite con el sol en la carrera». Una capa que a la vista parece un velo basta para romper el flujo sobre el ala justo cuando más falta hace. El capítulo lo dice sin matices: completamente limpia antes de iniciar vuelo.",
+        text: "No presupongas que la escarcha se irá durante el rodaje o la carrera de despegue. Incluso una capa delgada puede degradar sustentación y aumentar resistencia. Inspecciona y aplica el procedimiento de deshielo/antihielo y la comprobación de superficies críticas correspondientes al avión y a la operación.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Escarcha visible en el extradós antes de salir",
+        intro: "Una superficie contaminada requiere evaluación y tratamiento conforme a los procedimientos aprobados; el grosor no se puede certificar a partir de una fotografía.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l07-escarcha-ala.webp",
+          alt: "Escarcha blanca irregular sobre la parte superior de un ala de avión comercial estacionado al amanecer",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          {
+            x: 62,
+            y: 56,
+            que: "Escarcha sobre el extradós",
+            significa: "La rugosidad altera el flujo y puede reducir el margen de sustentación en el despegue.",
+            piloto: "Detén la salida hasta resolver la contaminación conforme al procedimiento aprobado.",
+          },
+          {
+            x: 32,
+            y: 52,
+            que: "Superficie de control próxima",
+            significa: "La inspección no se limita a la zona con escarcha más evidente.",
+            piloto: "Comprueba todas las superficies críticas según el tipo de aeronave.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** escarcha irregular sobre la parte superior del ala. **Cómo la reconoces:** por su textura blanca adherida, distinta de una película de agua. **Qué decides:** no iniciar el despegue hasta verificar y restablecer la condición exigida para las superficies críticas, según los procedimientos aprobados.",
       },
       {
         kind: "entrevista",
@@ -399,22 +470,22 @@ export const PARTE_AGUA: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es el punto de rocío y qué relación tiene con la humedad relativa?",
             respuesta:
-              "El punto de rocío es la temperatura a la que el aire ya no puede contener más humedad. La humedad relativa es la humedad que hay comparada con la que ese aire podría contener a esa temperatura y presión. Cuando la temperatura baja hasta el punto de rocío el aire está saturado, la humedad relativa es del 100 % y empieza la condensación.",
-            claves: ["Temperatura de saturación", "Relativa: real frente a capacidad", "Al igualarse, condensa"],
+              "El punto de rocío es la temperatura a la que una parcela llegaría a saturarse si se enfría sin cambiar mucho su presión ni su contenido de vapor. La humedad relativa compara el vapor presente con el de saturación a la temperatura actual. Cuando temperatura y punto de rocío se igualan, la humedad relativa llega al 100 %; la condensación visible depende también de núcleos y del entorno.",
+            claves: ["Temperatura de saturación", "Relativa: vapor presente frente al de saturación", "Igualarse no implica lluvia"],
           },
           {
             nivel: "interpretacion",
-            q: "Temperatura 24 °C, punto de rocío 12 °C. ¿A qué altura espera la base de las nubes?",
+            q: "Temperatura 24 °C, punto de rocío 12 °C. ¿Qué altura aproximada puedes estimar y qué no puedes deducir?",
             respuesta:
-              "La separación es de 12 °C. Dividida entre la tasa de convergencia de 2,45 °C da 4,9, y por mil, unos 4.900 ft AGL.",
-            claves: ["Separación 12 °C", "Dividir entre 2,45", "Unos 4.900 ft AGL"],
+              "La separación es de 12 °C. Dividida entre 2,45 °C por cada 1.000 ft da unos 4.900 ft AGL para el nivel de condensación por ascenso de una parcela superficial. Puede orientar sobre la base de cúmulos alimentados desde superficie, pero no determina el techo ni la altura de otros estratos: compruebo el reporte y el pronóstico vigentes.",
+            claves: ["Separación 12 °C", "Unos 4.900 ft AGL", "No sustituye techo observado"],
           },
           {
             nivel: "situacion",
             q: "Llega al avión al amanecer y hay escarcha en el extradós. ¿Qué hace y por qué?",
             respuesta:
-              "No se despega. La escarcha interrumpe el flujo de aire sobre el ala, reduce drásticamente la sustentación y además aumenta la resistencia, y las dos cosas juntas afectan a la capacidad de despegue. La aeronave tiene que limpiarse completamente antes de iniciar el vuelo.",
-            claves: ["Rompe el flujo sobre el ala", "Menos sustentación y más resistencia", "Limpieza completa antes de volar"],
+              "No inicio el despegue con esa contaminación. La escarcha puede reducir la sustentación y aumentar la resistencia. Hago evaluar y tratar el avión conforme al programa de deshielo/antihielo y verifico las superficies críticas según los procedimientos aprobados para el tipo y la operación.",
+            claves: ["No despegar contaminado", "Menos sustentación y más resistencia", "Procedimiento aprobado y verificación"],
           },
         ],
       },
