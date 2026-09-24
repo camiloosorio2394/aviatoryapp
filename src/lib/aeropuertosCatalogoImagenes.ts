@@ -142,6 +142,14 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-39-balizas-pista-nieve.webp",
     explicacion: "Con la pintura oculta por la nieve, las hileras simétricas de balizas visibles delimitan la pista. Reconoce sus bordes antes de rodar o aterrizar; este caso está reservado en la norma colombiana.",
   },
+  "AP-CAT-40": {
+    src: "/modulos/aeropuertos/ap-cat-40-balizas-rodaje-reflectantes.webp",
+    explicacion: "Los pequeños paneles azules reflejan los faros en ambos bordes y los verdes planos siguen la línea amarilla del eje. No son luces encendidas: úsalos para mantenerte dentro de la calle de rodaje; este caso está reservado en Colombia.",
+  },
+  "AP-CAT-41": {
+    src: "/modulos/aeropuertos/ap-cat-41-balizas-delimitadoras.webp",
+    explicacion: "Las balizas anaranjadas y blancas siguen dos lados del área de aterrizaje de grama y se encuentran en la esquina. Reconoce el perímetro completo antes de operar: no hay una pista marcada dentro de él.",
+  },
   "AP-CAT-42": {
     src: "/modulos/aeropuertos/ap-cat-42-entrada-pista.svg",
     explicacion: "Los grupos de tres destellos blancos siguen una trayectoria curva que rodea el relieve y termina en el umbral. Reconoce que la secuencia avanza hacia la pista; sigue solo la trayectoria y el procedimiento publicados.",
@@ -181,6 +189,14 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-56": {
     src: "/modulos/aeropuertos/ap-cat-56-espera-despegue.webp",
     explicacion: "Dos filas rojas junto a las luces blancas del eje indican que no es seguro iniciar el despegue. Permanece detenido; que se apaguen no sustituye la autorización de la torre.",
+  },
+  "AP-CAT-59": {
+    src: "/modulos/aeropuertos/ap-cat-59-guia-puesto.webp",
+    explicacion: "Las luces amarillas fijas siguen la línea pintada del puesto vacío y las rojas señalan dónde detenerse. En baja visibilidad, sigue el trazado iluminado y para antes de las luces rojas.",
+  },
+  "AP-CAT-60": {
+    src: "/modulos/aeropuertos/ap-cat-60-banderas-obstaculo.webp",
+    explicacion: "Las banderas pequeñas trianguladas marcan el borde superior del objeto fijo; la bandera cuadriculada mayor va sobre el equipo móvil. Identifica ambos como obstáculos y mantén la separación correspondiente.",
   },
   "AP-CAT-61": {
     src: "/modulos/aeropuertos/ap-cat-61-balizas-cable.webp",
