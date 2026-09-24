@@ -3155,7 +3155,7 @@
         "D"
       ],
       "correcta": 0,
-      "explicacion": "Se montan las piezas sin girarlas más de lo que permite el enunciado y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D exigen deformar o duplicar alguna de las dos piezas; la A las usa tal cual.",
+      "explicacion": "Se montan las tres piezas conservando sus contornos y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D alteran o colocan mal algún trazo; la A conserva la combinación mostrada.",
       "referencia": "Test razonamiento espacial (670006116), ej. 6",
       "metadatos": {
         "categoria": "espacial",
@@ -3163,7 +3163,7 @@
         "nivel": "intermedio",
         "tiempo": 45,
         "imagen": "/psicotecnicas/espacial/ES-E1-06.webp",
-        "imagenAlt": "Dos piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
+        "imagenAlt": "Tres piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
         "opcionesEnImagen": true
       }
     },

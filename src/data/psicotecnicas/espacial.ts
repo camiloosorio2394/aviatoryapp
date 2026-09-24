@@ -19,8 +19,8 @@ import type { EjercicioPsico } from "@/lib/psicotecnicas"
  *
  * Las figuras son el ejercicio: sin ellas el enunciado no se puede responder.
  * Los recortes salen del PDF original por scripts/psicotecnicas/extraer-figuras.mjs.
- * E1-01 es la excepción visual: se redibujó cara por cara desde la página 1
- * para quitar la marca de agua, sin cambiar la geometría ni las alternativas.
+ * E1-01 a E1-07 son excepciones visuales: se redibujaron desde las páginas 1
+ * y 2 para separar y ampliar las alternativas sin cambiar su geometría.
  */
 export const ESPACIAL: EjercicioPsico[] = [
   {
@@ -118,12 +118,12 @@ export const ESPACIAL: EjercicioPsico[] = [
       "Indica qué figura, de las 4 opciones, corresponde a la figura descompuesta de la izquierda:",
     imagen: "/psicotecnicas/espacial/ES-E1-06.webp",
     imagenAlt:
-      "Dos piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
+      "Tres piezas sueltas a la izquierda y cuatro montajes posibles A a D dentro de recuadros.",
     opciones: ["A", "B", "C", "D"],
     opcionesEnImagen: true,
     respuesta: 0,
     explicacion:
-      "Se montan las piezas sin girarlas más de lo que permite el enunciado y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D exigen deformar o duplicar alguna de las dos piezas; la A las usa tal cual.",
+      "Se montan las tres piezas conservando sus contornos y se comprueba que ninguna se solape ni sobre material. Las opciones B, C y D alteran o colocan mal algún trazo; la A conserva la combinación mostrada.",
     tiempo: 45,
     fuente: "Test razonamiento espacial (670006116), ej. 6",
   },

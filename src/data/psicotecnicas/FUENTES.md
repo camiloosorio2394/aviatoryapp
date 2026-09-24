@@ -185,12 +185,12 @@ de los ejercicios 23 y 34 de N1, que `pdftotext` pierde al extraer.
 
 ## Estado de los redibujos visuales
 
-**ES-E1-01** se redibujó en `scripts/psicotecnicas/redibujos/ES-E1-01.svg`
-contrastando el cubo y las cuatro redes con la página 1 del PDF E1. El WebP
-publicado conserva la misma URL; no cambian el enunciado, las opciones ni la
-respuesta C. `node scripts/psicotecnicas/redibujar-e1.mjs` lo regenera sin
-reemplazar los demás recortes. Los otros ejercicios E1 siguen pendientes de
-revisión visual y no se dan por corregidos con este primer redibujo.
+**ES-E1-01 a ES-E1-07** tienen fuente SVG editable en
+`scripts/psicotecnicas/redibujos/`, contrastada con las páginas 1 y 2 del PDF
+E1. Los WebP publicados conservan sus URL; las alternativas y claves no cambian.
+`node scripts/psicotecnicas/redibujar-e1.mjs` regenera solo los redibujos
+aprobados. E1-08 a E1-14 y las láminas de E2 siguen pendientes; no se dan por
+corregidas por el trabajo en las primeras siete.
 
 ## Derechos
 

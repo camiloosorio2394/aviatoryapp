@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Papel plegado y cuatro patrones de perforaciones</title>
+  <desc id="descripcion">Redibujo del ejercicio 5 del cuadernillo E1. Conserva el pliegue diagonal, los agujeros mostrados y las distribuciones distintas de las alternativas A a D.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .borde { fill: #fff; stroke: #202631; stroke-width: 2.6; }
+      .pliegue { fill: none; stroke: #202631; stroke-width: 2.8; }
+      .agujero { fill: #fff; stroke: #202631; stroke-width: 2.2; }
+    </style>
+    <g id="papel-base">
+      <rect class="borde" width="190" height="130"/>
+      <circle class="agujero" cx="8" cy="8" r="3.7"/>
+      <circle class="agujero" cx="182" cy="8" r="3.7"/>
+      <circle class="agujero" cx="8" cy="58" r="3.7"/>
+      <circle class="agujero" cx="182" cy="58" r="3.7"/>
+    </g>
+    <g id="seis-inferiores">
+      <circle class="agujero" cx="79" cy="82" r="3.7"/>
+      <circle class="agujero" cx="111" cy="82" r="3.7"/>
+      <circle class="agujero" cx="79" cy="102" r="3.7"/>
+      <circle class="agujero" cx="111" cy="102" r="3.7"/>
+      <circle class="agujero" cx="79" cy="122" r="3.7"/>
+      <circle class="agujero" cx="111" cy="122" r="3.7"/>
+    </g>
+  </defs>
+
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="45">PAPEL PLEGADO Y AGUJEREADO</text>
+  <g transform="translate(455 70)">
+    <path d="M0 0H190V130H0Z" fill="#fff" stroke="#637182" stroke-width="2.4" stroke-dasharray="9 6"/>
+    <path class="pliegue" d="M0 130 95 0 152 52Z M0 130H95V78"/>
+    <circle class="agujero" cx="140" cy="52" r="3.7"/>
+    <circle class="agujero" cx="78" cy="78" r="3.7"/>
+    <circle class="agujero" cx="78" cy="103" r="3.7"/>
+    <circle class="agujero" cx="78" cy="123" r="3.7"/>
+  </g>
+
+  <rect class="panel" x="30" y="235" width="510" height="260" rx="16"/>
+  <rect class="panel" x="560" y="235" width="510" height="260" rx="16"/>
+  <rect class="panel" x="30" y="510" width="510" height="260" rx="16"/>
+  <rect class="panel" x="560" y="510" width="510" height="260" rx="16"/>
+
+  <text class="rotulo" x="62" y="276">A</text>
+  <g transform="translate(196 292) scale(1.35)">
+    <use href="#papel-base"/><use href="#seis-inferiores"/>
+    <circle class="agujero" cx="52" cy="52" r="3.7"/>
+    <circle class="agujero" cx="138" cy="52" r="3.7"/>
+  </g>
+
+  <text class="rotulo" x="592" y="276">B</text>
+  <g transform="translate(726 292) scale(1.35)">
+    <use href="#papel-base"/><use href="#seis-inferiores"/>
+  </g>
+
+  <text class="rotulo" x="62" y="551">C</text>
+  <g transform="translate(196 567) scale(1.35)">
+    <use href="#papel-base"/><use href="#seis-inferiores"/>
+    <circle class="agujero" cx="138" cy="52" r="3.7"/>
+  </g>
+
+  <text class="rotulo" x="592" y="551">D</text>
+  <g transform="translate(726 567) scale(1.35)">
+    <use href="#papel-base"/>
+    <circle class="agujero" cx="52" cy="52" r="3.7"/>
+    <circle class="agujero" cx="138" cy="52" r="3.7"/>
+    <circle class="agujero" cx="95" cy="78" r="3.7"/>
+    <circle class="agujero" cx="79" cy="102" r="3.7"/>
+    <circle class="agujero" cx="111" cy="102" r="3.7"/>
+    <circle class="agujero" cx="79" cy="122" r="3.7"/>
+    <circle class="agujero" cx="111" cy="122" r="3.7"/>
+  </g>
+</svg>

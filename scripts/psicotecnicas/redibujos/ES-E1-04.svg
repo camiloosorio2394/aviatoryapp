@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="790" viewBox="0 0 1100 790" role="img" aria-labelledby="titulo descripcion">
+  <title id="titulo">Pieza tridimensional, dirección de vista y cuatro proyecciones</title>
+  <desc id="descripcion">Redibujo del ejercicio 4 del cuadernillo E1. Las alternativas conservan el ancho del rebaje superior y la diagonal o ausencia de diagonal en la esquina inferior izquierda.</desc>
+  <defs>
+    <style>
+      .panel { fill: #fafbfc; stroke: #d8dee5; stroke-width: 2; }
+      .rotulo { fill: #202631; font: 700 25px Arial, sans-serif; }
+      .guia { fill: #637182; font: 600 18px Arial, sans-serif; letter-spacing: 1px; }
+      .linea { fill: none; stroke: #202631; stroke-width: 3.2; stroke-linejoin: round; stroke-linecap: round; }
+    </style>
+    <g id="vista-base">
+      <path class="linea" d="M0 0H160V120H0Z M128 0V95H0 M0 95H128"/>
+    </g>
+  </defs>
+
+  <rect width="1100" height="790" fill="#fff"/>
+  <text class="guia" x="36" y="45">PIEZA Y DIRECCIÓN DE OBSERVACIÓN</text>
+  <g transform="translate(415 62) scale(0.84)">
+    <path class="linea" d="M0 86 50 40 150 0 179 12 179 32 147 52 147 82 194 52 222 69V161L90 236 0 178Z"/>
+    <path class="linea" d="M0 86H44L179 12 M44 86V109L147 52 M44 109 147 82 M147 82V53 M147 82H194V52 M194 52 222 69 M194 52V154L90 236 M222 69V161L90 236 M0 86V160L90 236 M0 160 194 154 M0 178 90 236 M0 160 50 183 90 236 M50 183 194 154"/>
+    <path class="linea" d="M248 197 278 218 270 226 291 226 310 211 297 208 280 192 278 202Z"/>
+  </g>
+
+  <rect class="panel" x="30" y="285" width="510" height="233" rx="16"/>
+  <rect class="panel" x="560" y="285" width="510" height="233" rx="16"/>
+  <rect class="panel" x="30" y="533" width="510" height="233" rx="16"/>
+  <rect class="panel" x="560" y="533" width="510" height="233" rx="16"/>
+
+  <text class="rotulo" x="62" y="325">A</text>
+  <g transform="translate(202 332) scale(1.45)">
+    <use href="#vista-base"/>
+    <path class="linea" d="M32 0V25H96V0 M0 120 32 95"/>
+  </g>
+
+  <text class="rotulo" x="592" y="325">B</text>
+  <g transform="translate(732 332) scale(1.45)">
+    <use href="#vista-base"/>
+    <path class="linea" d="M32 0V25H60V0 M0 120 32 95"/>
+  </g>
+
+  <text class="rotulo" x="62" y="573">C</text>
+  <g transform="translate(202 580) scale(1.45)">
+    <use href="#vista-base"/>
+    <path class="linea" d="M32 0V25H96V0"/>
+  </g>
+
+  <text class="rotulo" x="592" y="573">D</text>
+  <g transform="translate(732 580) scale(1.45)">
+    <use href="#vista-base"/>
+    <path class="linea" d="M32 0V25H128V0 M0 120 32 95"/>
+  </g>
+</svg>
