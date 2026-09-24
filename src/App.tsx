@@ -79,6 +79,7 @@ const Aeropuertos = page(() => import("@/pages/Aeropuertos"), "Aeropuertos")
 const AeropuertosLeccion = page(() => import("@/pages/AeropuertosLeccion"), "AeropuertosLeccion")
 const AeropuertosExam = page(() => import("@/pages/AeropuertosExam"), "AeropuertosExam")
 const AeropuertosPractice = page(() => import("@/pages/AeropuertosPractice"), "AeropuertosPractice")
+const AeropuertosMisiones = page(() => import("@/pages/AeropuertosMisiones"), "AeropuertosMisiones")
 const AeropuertosCatalogo = page(() => import("@/pages/AeropuertosCatalogo"), "AeropuertosCatalogo")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
@@ -228,6 +229,7 @@ function App() {
               <Route path="/app/aerolinea/aerodinamica" element={<Aerodinamica />} />
               <Route path="/app/aerolinea/aeropuertos" element={<Aeropuertos />} />
               <Route path="/app/aerolinea/aeropuertos/practica" element={<AeropuertosPractice />} />
+              <Route path="/app/aerolinea/aeropuertos/practica/misiones" element={<AeropuertosMisiones />} />
               <Route path="/app/aerolinea/aeropuertos/catalogo" element={<AeropuertosCatalogo />} />
               <Route path="/app/aerolinea/aeropuertos/evaluacion" element={<AeropuertosExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />

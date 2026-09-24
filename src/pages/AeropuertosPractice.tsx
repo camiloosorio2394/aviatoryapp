@@ -10,13 +10,14 @@ import {
   ChevronRight,
   Eye,
   History,
+  MapPinned,
   RotateCcw,
   Signpost,
 } from "lucide-react"
 import { useSession } from "@/hooks/useSession"
 import { accentText } from "@/lib/tileColors"
 import { registrarEstudioDiario } from "@/lib/activity"
-import { AP_ACENTO, AP_HUB, AP_TITULO, readAeropuertosLocal } from "@/lib/aeropuertos"
+import { AP_ACENTO, AP_HUB, AP_MISIONES_RUTA, AP_TITULO, readAeropuertosLocal } from "@/lib/aeropuertos"
 import { fetchAeropuertosProgress, markAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuertosProgress"
 import {
   AP_CAMBIO,
@@ -162,7 +163,7 @@ export function AeropuertosPractice() {
             <Eye className="h-3.5 w-3.5" /> Aeropuertos · Práctica
           </div>
           <h1 className="np-display mx-auto mt-4 max-w-[880px] text-[30px] font-semibold leading-[1.1] text-white sm:text-[40px]">
-            Practica lo que tienes que reconocer
+            Practica lo que ves y decides
           </h1>
           <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
             Di qué señal, letrero, luz o baliza estás viendo; resuelve situaciones de rodaje, de
@@ -181,6 +182,24 @@ export function AeropuertosPractice() {
           </div>
         </div>
       </header>
+
+      <section className="mb-8 overflow-hidden rounded-2xl border border-[#9CCDBB] bg-[#ECF7F0] p-5 sm:p-6" aria-labelledby="misiones-practica-titulo">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-[730px]">
+            <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#2F766A]">
+              <MapPinned className="h-4 w-4" /> Otra forma de practicar
+            </div>
+            <h2 id="misiones-practica-titulo" className="mt-2 font-[Archivo] text-[23px] font-semibold text-[#173E35]">Cuatro misiones guiadas</h2>
+            <p className="mt-2 text-[13.5px] leading-relaxed text-[#31564C]">
+              Observa una escena, decide qué hacer y reevalúa cuando aparece un dato nuevo.
+              Son escenarios separados de los 30 ejercicios de abajo y no cambian su avance.
+            </p>
+          </div>
+          <Link to={AP_MISIONES_RUTA} className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-xl bg-[#2F766A] px-4 text-[13px] font-semibold text-white transition-colors hover:bg-[#245E54]">
+            Explorar misiones <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
 
       {/* === CONTROLES === */}
       <section className="surface min-w-0 rounded-2xl p-5 sm:p-6">
