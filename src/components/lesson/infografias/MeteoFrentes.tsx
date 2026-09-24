@@ -14,14 +14,8 @@ import {
  * Las cuatro láminas del nivel 3, "Masas de aire, frentes y tormentas"
  * (secciones 10 a 12).
  *
- * **Los símbolos frontales van en la paleta del módulo, no en el rojo y azul de
- * una carta de superficie.** En esta app el rojo significa error y el verde
- * correcto, y gastar el rojo en un frente cálido lo rompería en las treinta
- * secciones. No se pierde nada: lo que identifica un frente en una carta es la
- * **forma** (triángulos contra semicírculos) y de qué lado del trazo van, no el
- * color, y las cartas de fax llevan décadas imprimiéndose en negro. Lo que sí
- * hay que respetar y se respeta es que los símbolos apunten hacia donde avanza
- * el frente.
+ * Los símbolos frontales conservan las convenciones de color y forma de los
+ * análisis de superficie. Los cortes verticales siguen la paleta del módulo.
  */
 
 const W = 1000
@@ -89,7 +83,7 @@ export function MeteoMasas() {
   }
 
   return (
-    <Lienzo etiqueta="Rejilla de dos por dos con el doble apellido de una masa de aire. Las filas son la temperatura, tropical arriba y polar abajo; las columnas son la humedad, marítima a la izquierda sobre el mar y continental a la derecha sobre tierra. Cada celda muestra la superficie sobre la que la masa estuvo quieta y que le dio su carácter.">
+    <Lienzo etiqueta="Rejilla de dos por dos con una clasificación habitual de masas de aire. Las filas indican origen térmico, tropical arriba y polar abajo; las columnas indican superficie de origen, marítima a la izquierda y continental a la derecha. Cada celda recuerda que las características se modifican después de salir de la región de origen.">
       {/* Cabeceras de columna: la humedad. */}
       <Rotulo x={x0 + cw / 2} y={y0 - 24} ancla="middle" color={ACENTO} tam={19}>MARÍTIMA</Rotulo>
       <Rotulo x={x0 + cw + cw / 2} y={y0 - 24} ancla="middle" color={ACENTO} tam={19}>CONTINENTAL</Rotulo>
@@ -126,7 +120,7 @@ export function MeteoMasas() {
       })}
 
       <Rotulo x={IZQ} y={H - 44} color={SECUNDARIO} tam={16}>
-        EL AIRE SE PARECE A DONDE ESTUVO QUIETO
+        LA REGIÓN DE ORIGEN INFLUYE EN EL AIRE
       </Rotulo>
     </Lienzo>
   )
@@ -143,41 +137,54 @@ const FRENTES = [
   { clave: "ocluido", rotulo: "OCLUIDO" },
 ] as const
 
+const FRENTE_FRIO = "#2B6CB0"
+const FRENTE_CALIDO = "#C94F4F"
+const FRENTE_OCLUIDO = "#7950A2"
+
 /** Triángulo del símbolo de frente frío. Apunta hacia donde avanza. */
-function Diente({ x, y, arriba }: { x: number; y: number; arriba: boolean }) {
+function Diente({ x, y, arriba, color }: { x: number; y: number; arriba: boolean; color: string }) {
   const h = arriba ? -13 : 13
-  return <path d={`M${x - 8},${y} L${x + 8},${y} L${x},${y + h} Z`} fill={ACENTO} />
+  return <path d={`M${x - 8},${y} L${x + 8},${y} L${x},${y + h} Z`} fill={color} />
 }
 
 /** Semicírculo del símbolo de frente cálido. */
-function Bulbo({ x, y, arriba }: { x: number; y: number; arriba: boolean }) {
+function Bulbo({ x, y, arriba, color }: { x: number; y: number; arriba: boolean; color: string }) {
   return (
     <path
       d={`M${x - 8},${y} A 8,8 0 0,${arriba ? 1 : 0} ${x + 8},${y} Z`}
-      fill={ACENTO}
+      fill={color}
     />
   )
 }
 
 function Simbolo({ clave, x, y, w }: { clave: string; x: number; y: number; w: number }) {
   const pos = [x + w * 0.2, x + w * 0.5, x + w * 0.8]
+  const color = clave === "frio" ? FRENTE_FRIO : clave === "calido" ? FRENTE_CALIDO : FRENTE_OCLUIDO
   return (
     <g>
-      <line x1={x + 6} y1={y} x2={x + w - 6} y2={y} stroke={ACENTO} strokeWidth={2.6} />
-      {clave === "frio" && pos.map((px) => <Diente key={px} x={px} y={y} arriba />)}
-      {clave === "calido" && pos.map((px) => <Bulbo key={px} x={px} y={y} arriba />)}
+      {clave === "estacionario" ? (
+        <>
+          <line x1={x + 6} y1={y} x2={x + w * 0.35} y2={y} stroke={FRENTE_FRIO} strokeWidth={2.6} />
+          <line x1={x + w * 0.35} y1={y} x2={x + w * 0.65} y2={y} stroke={FRENTE_CALIDO} strokeWidth={2.6} />
+          <line x1={x + w * 0.65} y1={y} x2={x + w - 6} y2={y} stroke={FRENTE_FRIO} strokeWidth={2.6} />
+        </>
+      ) : (
+        <line x1={x + 6} y1={y} x2={x + w - 6} y2={y} stroke={color} strokeWidth={2.6} />
+      )}
+      {clave === "frio" && pos.map((px) => <Diente key={px} x={px} y={y} arriba color={FRENTE_FRIO} />)}
+      {clave === "calido" && pos.map((px) => <Bulbo key={px} x={px} y={y} arriba color={FRENTE_CALIDO} />)}
       {clave === "estacionario" && (
         <>
-          <Diente x={pos[0]} y={y} arriba />
-          <Bulbo x={pos[1]} y={y} arriba={false} />
-          <Diente x={pos[2]} y={y} arriba />
+          <Diente x={pos[0]} y={y} arriba color={FRENTE_FRIO} />
+          <Bulbo x={pos[1]} y={y} arriba={false} color={FRENTE_CALIDO} />
+          <Diente x={pos[2]} y={y} arriba color={FRENTE_FRIO} />
         </>
       )}
       {clave === "ocluido" && (
         <>
-          <Diente x={pos[0]} y={y} arriba />
-          <Bulbo x={pos[1]} y={y} arriba />
-          <Diente x={pos[2]} y={y} arriba />
+          <Diente x={pos[0]} y={y} arriba color={FRENTE_OCLUIDO} />
+          <Bulbo x={pos[1]} y={y} arriba color={FRENTE_OCLUIDO} />
+          <Diente x={pos[2]} y={y} arriba color={FRENTE_OCLUIDO} />
         </>
       )}
     </g>
@@ -241,7 +248,7 @@ function Corte({ clave, x, y, w, h }: { clave: string; x: number; y: number; w: 
 export function MeteoSimbolos() {
   const w = (DER - IZQ - 3 * 22) / 4
   return (
-    <Lienzo etiqueta="Los cuatro símbolos frontales de carta, en fila: frío con triángulos, cálido con semicírculos, estacionario alternando triángulos y semicírculos a lados opuestos del trazo, y ocluido con los dos al mismo lado. Debajo de cada símbolo, el corte vertical de cómo se monta una masa sobre la otra.">
+    <Lienzo etiqueta="Cuatro símbolos frontales convencionales: frío con triángulos azules, cálido con semicírculos rojos, estacionario alternando ambos en lados opuestos, y ocluido morado con ambos del mismo lado. Debajo, cortes verticales conceptuales; no son una carta meteorológica vigente.">
       {FRENTES.map((f, i) => {
         const x = IZQ + i * (w + 22)
         return (

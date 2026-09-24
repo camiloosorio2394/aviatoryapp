@@ -19,47 +19,51 @@ export const PARTE_FRENTES: DocScreen[] = [
   {
     n: 10,
     title: "Masas de aire y frentes",
-    kicker: "De dónde viene el aire y qué pasa cuando se encuentran dos",
+    kicker: "Origen del aire, límites y cambios posibles",
     minutes: 9,
     blocks: [
       {
         kind: "p",
-        text: "Un frente en la carta es una línea con triángulos o semicírculos. Para el que la mira sin entenderla es un adorno; para el que la entiende es un pronóstico completo: qué nubes, qué visibilidad, qué viento, qué presión y en qué orden. Esta lección enseña a leer esa línea.",
+        text: "**Qué ves en la portada:** nubosidad extensa y precipitación distante sobre un aeródromo. **Cómo lo reconoces:** hay sectores con condiciones distintas, pero una sola imagen no demuestra la presencia ni el tipo de frente. **Qué decides:** ubicar el sistema en un análisis meteorológico vigente y contrastar pronóstico, observaciones, radar y avisos antes de planear la ruta o la llegada.",
       },
       {
         kind: "sub",
-        text: "Ver: el aire se parece a donde estuvo quieto",
+        text: "Ver: la región de origen influye en el aire",
       },
       {
         kind: "definicion",
-        text: "Una masa de aire es un volumen grande de aire que ha estado relativamente quieto varios días sobre una región, y que ha tomado la temperatura y la humedad de esa región de origen.",
+        text: "Una masa de aire es un cuerpo extenso con temperatura y humedad relativamente uniformes, adquiridas en buena parte durante su permanencia sobre una región de origen. Sus propiedades cambian al desplazarse.",
       },
       {
         kind: "p",
-        text: "Se nombran con dos apellidos. El primero por la temperatura: **polar** o **tropical**. El segundo por la humedad: **marítima** o **continental**. Una masa de aire polar continental trae aire frío y seco; una tropical marítima, formada sobre aguas cálidas como el mar Caribe, trae aire cálido y húmedo.",
+        text: "Una clasificación frecuente combina origen térmico (**polar** o **tropical**) y superficie de origen (**marítima** o **continental**). Por ejemplo, el aire polar continental suele ser frío y seco respecto de su entorno; el tropical marítimo suele ser cálido y húmedo. Son características relativas, no un pronóstico de nubes o visibilidad en cualquier lugar.",
       },
       {
         kind: "callout",
         tone: "tip",
-        title: "Lo que decide el tiempo no es la masa, es sobre qué pasa",
-        text: "Al moverse de su región de origen, la masa se modifica. Y ahí está la regla útil: si pasa sobre una superficie MÁS CALIENTE, se calienta desde abajo, se hace inestable y da cúmulos, chaparrones y turbulencia, con buena visibilidad en superficie. Si pasa sobre una superficie MÁS FRÍA, se hace estable y da estratos bajos y niebla, con mala visibilidad, porque el humo y el polvo no pueden ascender y se quedan atrapados abajo.",
+        title: "La superficie modifica la masa de aire",
+        text: "Sobre una superficie más cálida, el calentamiento desde abajo puede favorecer mezcla y convección; con humedad suficiente podrían aparecer cúmulos y chubascos. Sobre una superficie más fría, el enfriamiento de las capas bajas puede favorecer estabilidad, estratos o niebla si hay humedad. Ninguno de esos resultados, incluida la visibilidad, está garantizado por la etiqueta de la masa: comprueba el perfil, la humedad y los reportes actuales.",
       },
       {
         kind: "infografia",
         nombre: "meteo-masas",
       },
       {
+        kind: "p",
+        text: "**Qué ves en la matriz:** dos criterios de origen, temperatura y superficie marítima o continental. **Cómo la reconoces:** cruza la fila térmica con la columna de humedad; es una clasificación general. **Qué decides:** úsala para formular hipótesis, no para sustituir el pronóstico de la ruta ni las observaciones del aeródromo.",
+      },
+      {
         kind: "check",
         question:
-          "Una masa de aire polar continental, fría y seca, se desplaza sobre una región mucho más caliente. ¿Qué esperas encontrar?",
+          "Una masa polar continental se desplaza sobre una superficie mucho más cálida. ¿Cuál es la interpretación más prudente?",
         options: [
-          "Estratos bajos y niebla: el aire de origen polar trae mala visibilidad vaya donde vaya",
-          "Nada nuevo: la masa conserva la temperatura y la humedad de su región de origen",
-          "Cúmulos, chaparrones y turbulencia, y aun así buena visibilidad en superficie",
+          "Siempre habrá estratos y niebla por su origen polar",
+          "El calentamiento desde abajo puede aumentar la mezcla y la convección; compruebo humedad y condiciones observadas antes de esperar chubascos o buena visibilidad",
+          "La masa conservará exactamente sus propiedades de origen durante todo el trayecto",
         ],
-        answer: 2,
+        answer: 1,
         explain:
-          "Lo que decide no es de dónde vino la masa, es sobre qué está pasando ahora. Sobre una superficie más caliente se calienta desde abajo, se vuelve inestable y da cúmulos, chaparrones y turbulencia. Y la visibilidad en superficie es buena por lo mismo: las corrientes de convección se llevan el humo y el polvo hacia arriba. El caso contrario, sobre superficie más fría, da estratos bajos, niebla y mala visibilidad.",
+          "El calentamiento desde abajo puede desestabilizar las capas bajas. Para anticipar nubes o precipitación también importan la humedad, el ascenso y el perfil térmico. La mezcla puede mejorar la visibilidad, pero no la garantiza: usa observaciones y pronóstico vigentes.",
       },
       {
         kind: "sub",
@@ -67,11 +71,11 @@ export const PARTE_FRENTES: DocScreen[] = [
       },
       {
         kind: "definicion",
-        text: "Un frente es la capa límite entre dos masas de aire con características distintas. Un frente de cualquier tipo que se acerca siempre indica cambios inminentes en el tiempo.",
+        text: "Un frente es una zona de transición entre masas de aire con propiedades distintas, sobre todo temperatura y densidad. Su desplazamiento puede cambiar viento, nubosidad, precipitación y visibilidad, pero la intensidad y el momento dependen del sistema concreto.",
       },
       {
         kind: "p",
-        text: "Se nombran por la temperatura del aire que **avanza** respecto del que va a sustituir. Y conviene decirlo de entrada: no hay dos frentes iguales. Lo que sigue son las condiciones generales que se asocian a cada tipo, que es lo que ayuda a identificarlo.",
+        text: "Los frentes frío y cálido se nombran por la masa que avanza. Los símbolos en la carta muestran tipo y dirección de avance; las nubes y el tiempo asociados son patrones posibles, no una secuencia obligatoria. Confirma posición y movimiento en productos vigentes.",
       },
       {
         kind: "fichas",
@@ -82,37 +86,35 @@ export const PARTE_FRENTES: DocScreen[] = [
             titulo: "Cálido",
             ref: "el aire cálido avanza y sustituye al frío",
             puntos: [
-              "Se mueve despacio: de 15 a 40 km/h (10 a 25 mph).",
-              "La pendiente del frente se desliza por encima del aire frío y lo va empujando fuera.",
-              "Trae aire cálido, a menudo con humedad muy alta.",
-              "Avisa con antelación y puede tardar días en pasar por una región.",
+              "El aire cálido tiende a ascender gradualmente sobre aire más frío cerca de la superficie.",
+              "Con humedad y ascenso suficientes puede producir nubosidad estratiforme extensa y precipitación continua por delante del límite en superficie.",
+              "No todos se mueven a la misma velocidad ni traen niebla; comprueba posición, tendencia y cambios de techo y visibilidad.",
             ],
           },
           {
             titulo: "Frío",
             ref: "el aire frío avanza y sustituye al cálido",
             puntos: [
-              "Se mueve más rápido: de 30 a 55 km/h (20 a 35 mph), y se han registrado extremos de hasta 100 km/h.",
-              "Es denso, se queda pegado al suelo y se mete por debajo del aire cálido, forzándolo a ascender.",
-              "El ascenso rápido baja la temperatura de golpe y crea nubes.",
-              "Llega con poca o ninguna advertencia y cambia el tiempo entero en unas horas.",
+              "El aire más frío y denso avanza bajo el cálido y favorece su ascenso.",
+              "Si el aire cálido es húmedo e inestable, pueden aparecer chubascos o tormentas cerca del límite o delante de él.",
+              "La velocidad, la pendiente y el tiempo asociado varían: un frente frío puede pronosticarse y no implica tormentas en todos los casos.",
             ],
           },
           {
             titulo: "Estacionario",
-            ref: "las dos masas se empujan con fuerzas parecidas",
+            ref: "el límite se desplaza poco",
             puntos: [
-              "El límite se queda quieto e influye en el tiempo local durante días.",
-              "El tiempo asociado es una mezcla del de un frente frío y el de uno cálido.",
+              "Las masas pueden moverse a lo largo del límite aunque este apenas avance.",
+              "Con humedad y ascenso puede mantener nubes o precipitación durante un período prolongado; no siempre tiene tiempo severo.",
             ],
           },
           {
             titulo: "Ocluido",
-            ref: "un frente frío rápido alcanza a uno cálido lento",
+            ref: "un frente frío alcanza a uno cálido",
             puntos: [
-              "Al acercarse prevalece el tiempo del frente cálido, e inmediatamente después el del frío.",
-              "Oclusión de frente frío: el aire que llega es más frío que el de delante, y levanta al frente cálido. Da una mezcla de los dos tiempos si el aire es relativamente estable.",
-              "Oclusión de frente cálido: el aire de delante es más frío, y el frente frío sube por encima. Si el aire forzado a subir es inestable, el tiempo es más severo que en la otra: tormentas, lluvia y niebla.",
+              "Se forma cuando un frente frío alcanza uno cálido y el aire cálido queda elevado sobre la superficie.",
+              "En una oclusión fría, el aire que llega detrás es el más frío; en una cálida, el aire que está delante es el más frío.",
+              "Puede combinar nubes y precipitación extensas con zonas convectivas; el tipo de oclusión no fija por sí solo la severidad.",
             ],
           },
         ],
@@ -122,18 +124,42 @@ export const PARTE_FRENTES: DocScreen[] = [
         nombre: "meteo-simbolos",
       },
       {
-        kind: "sub",
-        text: "Interpretar: el viento cambia porque el frente es una frontera de presión",
+        kind: "p",
+        text: "**Qué ves en el esquema:** cuatro símbolos de carta y cortes verticales simplificados. **Cómo los reconoces:** triángulos para el frío, semicírculos para el cálido, símbolos en lados opuestos para el estacionario y en el mismo lado para el ocluido. **Qué decides:** ubicar la posición real en el análisis vigente; el corte conceptual no indica nubes, intensidad ni mínimos en tu ruta.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Banda extensa de nubes y lluvia",
+        intro: "Una vista lateral permite reconocer la extensión de una capa y la precipitación distante. Es compatible con una zona frontal, pero también puede tener otras causas.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t10-01-banda-nubosa.webp",
+          alt: "Vista aérea oblicua de una extensa capa nubosa con una banda distante de precipitación sobre el terreno",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 64, y: 30, que: "Capa extensa", significa: "La nubosidad ocupa un área amplia; una foto no identifica por sí sola el frente ni su altitud.", piloto: "Contrasta el análisis y las bases y coberturas reportadas a lo largo de la ruta." },
+          { x: 74, y: 46, que: "Precipitación distante", significa: "La cortina sugiere caída de precipitación, pero no muestra intensidad medida ni lo que ocurre dentro de la nube.", piloto: "Revisa radar, observaciones y avisos antes de planear un cruce o una llegada." },
+          { x: 22, y: 37, que: "Sector más abierto", significa: "Una zona menos cubierta en este encuadre no asegura que el resto de la ruta esté despejado.", piloto: "Considera toda la trayectoria, el alterno y la evolución prevista, no solo el claro visible." },
+        ],
       },
       {
         kind: "p",
-        text: "Los vientos alrededor de una alta y de una baja giran en sentidos opuestos. Cuando dos sistemas están pegados, en el punto de contacto los vientos van casi en oposición directa. Un frente es justo el límite entre dos áreas de presión, así que **dentro de un frente hay cambios de viento continuamente**, y el cambio de dirección es más pronunciado en los frentes fríos.",
+        text: "**Qué ves:** una capa amplia y una banda de precipitación en el horizonte. **Cómo la reconoces:** la lluvia se distingue como una cortina bajo las nubes. **Qué decides:** integrar análisis frontal, radar y reportes de ruta; la fotografía no demuestra si el frente es cálido, frío o incluso si hay uno.",
+      },
+      {
+        kind: "sub",
+        text: "Interpretar: el viento puede cambiar al cruzar una zona frontal",
+      },
+      {
+        kind: "p",
+        text: "El gradiente de presión, la circulación del sistema, la fricción y el relieve influyen en el viento. Al atravesar una zona frontal puede cambiar su dirección o intensidad, a veces de manera marcada; no ocurre igual en todos los frentes. Revisa el viento actual y previsto a las altitudes y horas relevantes, especialmente cerca del suelo.",
       },
       {
         kind: "callout",
         tone: "warn",
         title: "Esto conecta con la lección 5",
-        text: "«Cambio de viento pronunciado» cerca del suelo tiene otro nombre: cizalladura a bajo nivel. El paso de un sistema frontal está en la lista corta de situaciones con las que se asocia. Un frente frío cruzando el aeródromo a la hora de tu aproximación no es un dato de la carta: es una condición de tu aterrizaje.",
+        text: "Un cambio rápido del viento con la altura o en una distancia corta cerca del suelo puede ser cizalladura a bajo nivel. Un sistema frontal puede favorecerla, pero su presencia e intensidad se evalúan con avisos, reportes, observaciones y procedimientos de la operación; el símbolo de la carta no la confirma.",
       },
       {
         kind: "entrevista",
@@ -143,25 +169,26 @@ export const PARTE_FRENTES: DocScreen[] = [
             nivel: "concepto",
             q: "¿Cómo se clasifican las masas de aire?",
             respuesta:
-              "Por su región de origen, que es donde estuvieron quietas varios días tomando su temperatura y su humedad. Se identifican como polares o tropicales por temperatura, y como marítimas o continentales por humedad. Una polar continental trae aire frío y seco; una tropical marítima, formada por ejemplo sobre el Caribe, trae aire cálido y húmedo.",
-            claves: ["Región de origen", "Polar o tropical", "Marítima o continental"],
+              "Por propiedades adquiridas en su región de origen: una clasificación frecuente distingue origen térmico polar o tropical y superficie marítima o continental. El aire polar continental suele ser relativamente frío y seco, y el tropical marítimo, relativamente cálido y húmedo. Al desplazarse, sus propiedades se modifican; para el vuelo consulto condiciones actuales y pronóstico.",
+            claves: ["Región de origen", "Polar o tropical", "Marítima o continental", "La masa cambia al desplazarse"],
           },
           {
             nivel: "interpretacion",
             q: "Una masa de aire se mueve sobre una superficie más fría que ella. ¿Qué tiempo espera?",
             respuesta:
-              "Se hace estable, porque no se forman corrientes de convección. Espero estratos bajos y niebla, y mala visibilidad en superficie, porque el humo, el polvo y las partículas no pueden ascender y quedan atrapados cerca del suelo.",
-            claves: ["Estable", "Sin convección", "Estratos bajos y niebla", "Mala visibilidad en superficie"],
+              "El enfriamiento desde abajo tiende a estabilizar las capas bajas y, si hay humedad suficiente, puede favorecer estratos o niebla. No deduzco automáticamente mala visibilidad: la compruebo en observaciones y pronóstico, junto con la temperatura, la humedad y el viento.",
+            claves: ["Enfriamiento desde abajo", "Posible estabilidad", "La humedad condiciona nubes y niebla", "Confirmar visibilidad"],
           },
           {
             nivel: "situacion",
             q: "¿Qué diferencia hay entre una oclusión de frente frío y una de frente cálido?",
             respuesta:
-              "En la de frente frío, el aire del frente frío que llega es más frío que el que hay delante del cálido, así que lo reemplaza y obliga al frente cálido a subir; suele dar una mezcla del tiempo de los dos si el aire es relativamente estable. En la de frente cálido, el aire de delante es más frío que el del frente frío, y entonces el frío sube por encima; si el aire forzado a ascender es inestable, el tiempo es más severo que en la otra, con tormentas, lluvia y niebla.",
+              "En una oclusión fría, la masa que avanza por detrás del frente frío es la más fría y se mete por debajo de la que está delante. En una oclusión cálida, la masa situada por delante es la más fría y el aire que llega asciende sobre ella. En ambos casos el aire cálido queda elevado; la severidad depende también de humedad, estabilidad y dinámica, no solo del nombre de la oclusión.",
             claves: [
               "Depende de cuál de los dos aires es más frío",
-              "Oclusión fría: mezcla de ambos tiempos",
-              "Oclusión cálida con aire inestable: más severa",
+              "Oclusión fría: el más frío llega detrás",
+              "Oclusión cálida: el más frío está delante",
+              "La severidad no es automática",
             ],
           },
         ],
