@@ -306,9 +306,8 @@ function Tramo({
 
       {calido ? (
         <>
-          {/* La cuña fría va DELANTE del frente y el aire cálido se desliza por
-              encima: pendiente larga y tendida. La nubosidad va justo encima de
-              esa superficie, así que baja al acercarse al frente. */}
+          {/* Ascenso gradual posible del aire cálido sobre el frío. La nubosidad
+              dibujada es ilustrativa y depende de humedad y estabilidad. */}
           <path d={`M${x0},${suelo} L${x0},${y + 104} L${x1 - 30},${suelo} Z`} fill={ACENTO} opacity={0.26} />
           <path d={`M${x0},${y + 104} L${x1 - 30},${suelo}`} fill="none" stroke={TINTA} strokeWidth={1.6} />
           {[0, 1, 2, 3].map((i) => (
@@ -326,8 +325,8 @@ function Tramo({
         </>
       ) : (
         <>
-          {/* La cuña fría se mete por debajo: pared, y el aire cálido sube de
-              golpe. De ahí la tormenta pegada al frente. */}
+          {/* El aire frío avanza bajo el cálido. La tormenta dibujada es una
+              posibilidad en aire húmedo e inestable, no una consecuencia fija. */}
           <path d={`M${x1},${suelo} L${x1},${y + 26} L${x1 - 210},${suelo} Z`} fill={ACENTO} opacity={0.26} />
           <path d={`M${x1},${y + 26} L${x1 - 210},${suelo}`} fill="none" stroke={TINTA} strokeWidth={1.6} />
           <path
@@ -361,7 +360,7 @@ function Tramo({
 
 export function MeteoRuta() {
   return (
-    <Lienzo etiqueta="Dos cortes verticales apilados. Arriba, un frente cálido: la pendiente es larga y tendida, el aire cálido se desliza por encima del frío y la nubosidad estratiforme va bajando al acercarse al frente. Abajo, un frente frío: la pendiente es una pared, el aire cálido sube de golpe y se forma una tormenta pegada al frente, con chaparrones.">
+    <Lienzo etiqueta="Dos cortes verticales conceptuales. Arriba, un frente cálido con ascenso gradual y nubosidad estratiforme posible. Abajo, un frente frío con ascenso más concentrado y convección posible si hay humedad e inestabilidad. El dibujo no es un análisis actual ni predice dónde habrá tormentas.">
       <Tramo y={82} h={172} rotulo="FRENTE CÁLIDO" calido />
       <Tramo y={344} h={172} rotulo="FRENTE FRÍO" calido={false} />
     </Lienzo>

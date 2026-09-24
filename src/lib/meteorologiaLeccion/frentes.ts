@@ -200,47 +200,71 @@ export const PARTE_FRENTES: DocScreen[] = [
   {
     n: 11,
     title: "Cruzar un frente",
-    kicker: "El mismo tramo, dos frentes, dos decisiones",
+    kicker: "Evalúa el trayecto completo, no solo el destino",
     minutes: 10,
     blocks: [
       {
         kind: "p",
-        text: "El capítulo hace algo poco común y muy útil: coge un tramo concreto, Junín a Formosa, y lo vuela dos veces, una contra un frente cálido y otra contra uno frío. Los dos vuelos acaban en la misma decisión (quedarse en tierra), pero por razones distintas y con avisos distintos. Vamos a hacer los dos.",
+        text: "**Qué ves en la portada:** una banda de células y cortinas de lluvia vista desde una aeronave a distancia. **Cómo la reconoces:** los núcleos convectivos ocupan una franja amplia, con sectores de distinta intensidad. **Qué decides:** no elegir un hueco solo por la foto; comprueba radar, avisos, movimiento del sistema, combustible y ruta alternativa con la tripulación y control. Una imagen no demuestra que la banda sea frontal ni que un costado sea seguro.",
+      },
+      {
+        kind: "p",
+        text: "Los dos recorridos siguientes son **escenarios didácticos**, no meteorología vigente ni autorizaciones para volar. Sirven para comparar cómo un frente cálido o uno frío puede afectar puntos distintos de una misma ruta entre Junín y Formosa. Para una operación de aerolínea, la decisión se prepara con despacho, mínimos, ruta, alternos y combustible; no se traslada literalmente la decisión de un vuelo visual de escuela.",
       },
       {
         kind: "titulo",
-        text: "Vuelo 1: contra un frente cálido",
-        sub: "Un frente cálido avanza hacia el sur desde Formosa",
+        text: "Escenario 1: frente cálido en la ruta",
+        sub: "Condiciones hipotéticas que empeoran hacia Formosa",
       },
       {
         kind: "pasos",
         items: [
           {
             rotulo: "Salida de Junín",
-            texto: "Buen tiempo VFR, cirros dispersos a 15.000 ft. Nada que reportar.",
+            texto: "Cielo con algunos cirros; la salida no revela por sí sola las condiciones más adelante.",
           },
           {
             rotulo: "Hacia Paraná",
-            texto: "Las nubes se profundizan y se hacen estratiformes, con techo de 6.000 ft. Visibilidad 10 km con neblina, y la presión barométrica cayendo.",
+            texto: "Aumentan las capas de nubes. El escenario informa techo de 6.000 ft, visibilidad de 10 km con neblina y presión en descenso.",
           },
           {
             rotulo: "Acercándose a Reconquista",
-            texto: "Nubes con pocos claros a 2.000 ft, 5 km de visibilidad y lluvia. La temperatura ha igualado al punto de rocío, así que es probable que haya niebla.",
+            texto: "Techo cercano a 2.000 ft, visibilidad de 5 km y lluvia. Una temperatura próxima al punto de rocío favorece saturación, pero no demuestra por sí sola niebla.",
             fuerte: true,
           },
           {
             rotulo: "Formosa",
-            texto: "Cielo cubierto con nubes bajas, llovizna y 1 km de visibilidad.",
+            texto: "Cielo cubierto con nube baja, llovizna y visibilidad de 1 km en el ejercicio; compara esos datos con los mínimos aplicables y el pronóstico para la hora de llegada.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Más allá de Reconquista el techo y la visibilidad ya serían demasiado bajos para continuar VFR. Lo prudente es **quedarse en Reconquista hasta que pase el frente cálido, lo que puede llevar un día o dos**.",
+        text: "En el ejemplo, techo y visibilidad se deterioran hacia el destino. Antes de salir, la tripulación y el despacho deben evaluar mínimos, pronóstico a la hora de llegada, alternos y combustible. En vuelo, si las condiciones no cumplen el plan autorizado, se reconsideran espera o desvío a un aeródromo adecuado; el ejercicio no fija un lugar ni una hora de mejora.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Lluvia y capa baja en un aeródromo",
+        intro: "La escena ayuda a reconocer precipitación y horizonte degradado en un punto de la ruta. No identifica qué frente hay ni ofrece un techo medido.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t11-01-techo-lluvia-ruta.webp",
+          alt: "Aeronave estacionada en un aeródromo bajo una capa extensa de nubes bajas y lluvia que reduce la nitidez de los hangares distantes",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 55, y: 24, que: "Capa extensa", significa: "La nube cubre gran parte del cielo, pero la fotografía no permite determinar su base en pies.", piloto: "Consulta techo y cobertura informados, pronóstico y mínimos del aeródromo." },
+          { x: 72, y: 49, que: "Fondo poco nítido", significa: "Lluvia y bruma reducen el contraste a distancia; no se puede estimar la visibilidad en metros con esta imagen.", piloto: "Revisa visibilidad o alcance visual en pista reportados y su tendencia." },
+          { x: 36, y: 76, que: "Plataforma mojada", significa: "La superficie refleja lluvia reciente o en curso; no revela por sí sola el estado de la pista operativa.", piloto: "Solicita información vigente de condición de pista y aplica los cálculos de performance del operador." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** lluvia, plataforma mojada y nube extendida. **Cómo lo reconoces:** el fondo pierde contraste y la cubierta nubosa domina el cielo. **Qué decides:** comprobar techo, visibilidad, condición de pista, tendencia y mínimos; la foto no permite asignar el fenómeno a un frente cálido ni calcular los valores operativos.",
       },
       {
         kind: "sub",
-        text: "La firma de un frente cálido, en tres tiempos",
+        text: "Un patrón posible de frente cálido",
       },
       {
         kind: "fichas",
@@ -249,113 +273,106 @@ export const PARTE_FRENTES: DocScreen[] = [
           {
             titulo: "Antes de que pase",
             puntos: [
-              "Nubes estratiformes o cirros a lo largo del límite frontal, con niebla.",
-              "En verano pueden desarrollarse cumulonimbus.",
-              "Precipitación ligera a moderada: lluvia, aguanieve, nieve o llovizna.",
-              "Escasa visibilidad. Temperatura fresca o fría y punto de rocío en aumento.",
-              "La presión sigue cayendo hasta que el frente pasa del todo.",
+              "El ascenso gradual del aire cálido puede extender capas de nubes por delante del frente en superficie.",
+              "Con humedad suficiente puede aparecer precipitación extensa; su fase e intensidad dependen del perfil térmico.",
+              "Vigila tendencias de techo, visibilidad, temperatura, punto de rocío y presión, sin asumir una secuencia fija.",
             ],
           },
           {
             titulo: "Durante el paso",
             puntos: [
-              "Nubes estratiformes visibles y posible llovizna.",
-              "Visibilidad generalmente pobre, que mejora con los vientos variables.",
-              "La temperatura sube de forma constante.",
-              "El punto de rocío se mantiene estable y la presión se nivela.",
+              "Pueden cambiar viento, temperatura y punto de rocío cerca del límite en superficie.",
+              "La lluvia o llovizna y el techo bajo pueden continuar; un cambio de viento no garantiza visibilidad suficiente.",
+              "Compara observaciones sucesivas con el pronóstico a la hora de llegada.",
             ],
           },
           {
             titulo: "Después",
             puntos: [
-              "Predominan los estratocúmulos y son posibles lluvias.",
-              "La visibilidad acaba mejorando, aunque puede haber niebla un rato.",
-              "El punto de rocío sube y luego se estabiliza.",
-              "Ligero aumento de presión y después un descenso.",
+              "El aire cálido ocupa la superficie, pero puede conservar humedad, nube baja o precipitación.",
+              "La mejora no es automática ni inmediata; revisa condiciones reales del destino y alterno.",
             ],
           },
         ],
       },
       {
         kind: "titulo",
-        text: "Vuelo 2: el mismo tramo, contra un frente frío",
+        text: "Escenario 2: frente frío en el mismo tramo",
       },
       {
         kind: "pasos",
         items: [
           {
             rotulo: "Salida de Junín",
-            texto: "VFR con 5 km de visibilidad con humo y una capa dispersa a 3.500 ft.",
+            texto: "El ejercicio parte con 5 km de visibilidad por humo y nubosidad dispersa a 3.500 ft; el dato exige análisis aunque no haya tormenta local.",
           },
           {
             rotulo: "Hacia Paraná",
-            texto: "Las nubes muestran signos de desarrollo vertical, con una capa con claros a 2.500 ft. Visibilidad 10 km con neblina y la presión bajando.",
+            texto: "Aparece mayor desarrollo vertical y la presión desciende. El escenario informa nubes a 2.500 ft y visibilidad de 10 km.",
           },
           {
             rotulo: "Aproximándose a Paraná",
-            texto: "Cielo cubierto a 1.000 ft y 5 km de visibilidad, con tormentas y fuertes chaparrones.",
+            texto: "El caso sitúa tormentas y chubascos fuertes cerca del punto medio, con techo de 1.000 ft y visibilidad de 5 km. La ruta, no solo el destino, requiere una decisión.",
             fuerte: true,
           },
           {
             rotulo: "Formosa",
-            texto: "El tiempo mejora: nubes dispersas a 1.000 ft y 15 km de visibilidad.",
+            texto: "El ejercicio plantea 15 km de visibilidad y nubes dispersas en el destino, pero eso no convierte en seguro el tramo convectivo intermedio.",
           },
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Fíjate en el detalle que cambia todo",
-        text: "En el frente frío el destino está mejor que el punto medio. La tentación de seguir es enorme, porque el pronóstico de llegada es bueno. Y aun así lo correcto es quedarse en Paraná hasta que el frente pase: volar por debajo de una línea de tormentas es peligroso, y volar por encima o alrededor no es una opción cuando la línea se extiende de 500 a 800 km y las tormentas suben mucho más de lo que alcanza un avión pequeño.",
+        title: "El destino favorable no borra el peligro en ruta",
+        text: "En este caso la zona convectiva queda antes del destino. No se planea atravesar la célula ni pasar bajo ella para alcanzar tiempo mejor del otro lado. Para una operación de aerolínea se evalúan cambios de ruta o nivel cuando sean seguros y estén autorizados, demora, alternos y combustible, con radar y avisos vigentes. Si no hay trayectoria segura, se retrasa la salida o se desvía según corresponda.",
       },
       {
         kind: "sub",
-        text: "Comparar los dos, que es lo que se pregunta",
+        text: "Comparar patrones, sin convertirlos en reglas fijas",
       },
       {
         kind: "table",
         head: ["", "Frente cálido", "Frente frío"],
         rows: [
-          ["Velocidad", "15 a 40 km/h", "30 a 55 km/h, extremos hasta 100"],
-          ["Pendiente frontal", "Tendida: se desliza por encima", "Pronunciada: se mete por debajo"],
-          ["Aviso", "Avisa con antelación, tarda días", "Poca o ninguna advertencia"],
-          ["Dónde está el tiempo", "Por delante del frente", "A lo largo del límite frontal"],
-          ["Qué trae", "Techos bajos, poca visibilidad y lluvia", "Tormentas repentinas, viento racheado, turbulencia, a veces granizo y tornados"],
-          ["Después de pasar", "Mejora lentamente", "Mejora rápido, aire seco y visibilidad ilimitada"],
+          ["Estructura habitual", "Ascenso más gradual del aire cálido", "Aire frío avanza bajo el cálido; ascenso a veces más concentrado"],
+          ["Nubosidad posible", "Capas extensas con humedad suficiente", "Nubosidad convectiva si hay humedad e inestabilidad"],
+          ["Precipitación posible", "Puede extenderse por delante del frente en superficie", "Puede concentrarse cerca del límite o aparecer delante en una línea prefrontal"],
+          ["Riesgos para el vuelo", "Techo, visibilidad, hielo o precipitación según el perfil", "Convección, ráfagas, cizalladura o granizo cuando se desarrollan tormentas"],
+          ["Después del paso", "Puede seguir nuboso o húmedo", "Puede mejorar, pero no se garantiza cielo despejado ni visibilidad ilimitada"],
         ],
       },
       {
         kind: "callout",
         tone: "info",
-        title: "La excepción que hay que saberse",
-        text: "El tiempo de un frente frío se produce a lo largo del límite frontal y no por delante. Pero en los meses de verano pueden formarse líneas de turbonada hasta 300 km POR DELANTE de un frente frío severo. Ver el frente lejos en la carta no significa que el tiempo esté lejos.",
+        title: "La convección también puede estar delante",
+        text: "Una línea de turbonada o convección prefrontal puede formarse por delante de un frente frío. No hay una distancia universal que la descarte. El análisis de superficie localiza el frente; radar, imágenes, pronóstico y avisos muestran dónde está la amenaza para la ruta y la hora del vuelo.",
       },
       {
         kind: "check",
         question:
-          "Es verano y en la carta el frente frío está todavía a 200 km de tu ruta. ¿Puedes contar con que el tiempo está igual de lejos?",
+          "El análisis sitúa un frente frío lejos de tu ruta. ¿Puedes concluir que también están lejos las tormentas?",
         options: [
-          "Sí: el tiempo de un frente frío se produce a lo largo del límite frontal, así que viaja con él",
-          "No: pueden formarse líneas de turbonada hasta 300 km por delante de un frente frío severo",
-          "No, pero al revés: el tiempo de un frente frío queda por detrás, así que ya lo tienes pasado",
+          "Sí: toda tormenta coincide exactamente con la línea frontal de la carta",
+          "No: puede haber convección prefrontal; verifico radar, avisos y tendencia para mi ruta y hora",
+          "Sí, si el pronóstico del destino muestra buena visibilidad",
         ],
         answer: 1,
         explain:
-          "La regla general sí dice que el tiempo de un frente frío se produce a lo largo del límite frontal y no por delante, y por eso la primera opción suena razonable. La excepción es justo la que hay que saberse: en los meses de verano pueden formarse líneas de turbonada hasta 300 km por delante de un frente frío severo. Ver el frente lejos en la carta no significa que el tiempo esté lejos.",
+          "La convección puede desarrollarse delante del frente frío. La línea frontal no es el borde de todos sus peligros y no existe una distancia fija que garantice seguridad. Comprueba información vigente para toda la ruta.",
       },
       {
         kind: "sub",
-        text: "El frente frío rápido, que es el peor de los dos",
+        text: "Cuando el frente frío tiene convección activa",
       },
       {
         kind: "vinetas",
         items: [
-          "Lo empujan sistemas de presión intensos por detrás.",
-          "La fricción con el suelo frena la parte baja y hace la superficie frontal más empinada todavía.",
-          "El resultado es una banda muy estrecha y concentrada en el borde delantero.",
-          "Si el aire cálido que alcanza es estable, puede haber cielo nublado y lluvias bastante por delante del frente.",
-          "Si el aire cálido es inestable, se forman tormentas dispersas y chaparrones, y puede formarse una línea de turbonada por delante o a lo largo del frente.",
-          "Detrás, los cielos se despejan rápido y quedan vientos racheados, turbulentos y temperaturas más frías.",
+          "El contraste térmico, la humedad, la inestabilidad y el ascenso determinan dónde se desarrollan nubes y precipitación.",
+          "Las células pueden organizarse en líneas cerca del frente o por delante de él; un claro visual no valida por sí solo un corredor.",
+          "La precipitación intensa puede atenuar el radar de a bordo y ocultar actividad detrás de los ecos fuertes.",
+          "La salida de aire de una tormenta puede producir ráfagas y cizalladura fuera de la cortina de lluvia visible.",
+          "Después del paso puede mejorar el tiempo o persistir nubosidad, viento fuerte y precipitación; confirma la tendencia observada.",
         ],
       },
       {
@@ -363,23 +380,29 @@ export const PARTE_FRENTES: DocScreen[] = [
         nombre: "meteo-ruta",
       },
       {
+        kind: "p",
+        text: "**Qué ves en el esquema:** dos cortes verticales idealizados: ascenso gradual del aire cálido y ascenso más concentrado ante aire frío. **Cómo los reconoces:** compara la pendiente y la distribución ilustrativa de nubes, no una posición real de tormentas. **Qué decides:** usar análisis y avisos vigentes para el trayecto; el dibujo no garantiza precipitación ni una zona segura de cruce.",
+      },
+      {
         kind: "piensaComoPiloto",
-        momento: "En ruta, decidiendo",
+        momento: "En el despacho y luego en ruta",
         situacion:
-          "Vas hacia un destino que en el pronóstico está bueno. En el punto medio de la ruta hay un frente frío con tormentas y el destino está detrás de él. Tienes combustible para llegar.",
-        pregunta: "¿Qué es lo que no puedes hacer, y por qué la calidad del destino no lo cambia?",
+          "El pronóstico del destino es favorable, pero una línea de tormentas afecta el tramo medio de la ruta prevista. El combustible calculado alcanza para llegar por la ruta original; todavía no has confirmado margen para rodear el sistema ni un alterno adecuado.",
+        pregunta: "¿Qué revisarías antes de salir y qué harías si la línea bloquea el trayecto en vuelo?",
         claves: [
-          "No puedes volar por debajo de la línea de tormentas: es peligroso, y por debajo está la cizalladura del frente de ráfaga.",
-          "No puedes volar por encima ni rodearla con facilidad: las tormentas se extienden mucho más arriba de lo que alcanza un avión ligero y la línea puede medir de 500 a 800 km.",
-          "Que el destino esté bueno es exactamente lo que hace peligrosa esta situación: el pronóstico de llegada empuja a cruzar, y lo que hay que decidir no es el destino sino el punto medio.",
-          "La decisión del capítulo, para el mismo caso, es quedarse en tierra hasta que el frente pase.",
+          "Antes de salir, analiza radar, avisos, movimiento de células y pronóstico para toda la ruta, no solo el destino.",
+          "No planees penetrar tormentas ni pasar por debajo de ellas. Un cambio de nivel o un rodeo solo sirve si permite margen seguro y está autorizado según el operador.",
+          "Calcula combustible para la ruta revisada, contingencias y alterno; poder llegar por la ruta original no prueba que puedas desviarte con seguridad.",
+          "En vuelo, coordina temprano con control y la tripulación. Si no existe ruta segura dentro de las limitaciones, espera o desvía conforme al plan y procedimientos.",
         ],
+        cierre:
+          "Un destino despejado no compensa una ruta bloqueada. La decisión segura depende de información actualizada, márgenes de separación, combustible y opciones viables, no de alcanzar a toda costa el lado de buen tiempo.",
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Y lo que decide de verdad es tu manual",
-        text: "Distancias mínimas a células, criterios de desvío, uso del radar y política de combustible extra son del manual de operaciones de tu explotador y del tipo que vueles. Lo de arriba es cómo se comporta el frente, que es lo que te permite entender por qué esos criterios dicen lo que dicen.",
+        title: "Aplica los procedimientos de tu operación",
+        text: "Los márgenes frente a células, el empleo del radar, los desvíos y las reservas de combustible se rigen por normativa y procedimientos del explotador para el avión y la ruta. Coordina con despacho y control según corresponda. Reconocer un patrón frontal ayuda a anticipar amenazas; no reemplaza esos requisitos.",
       },
     ],
   },
