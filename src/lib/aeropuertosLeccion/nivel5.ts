@@ -476,26 +476,27 @@ export const NIVEL_5: DocScreen[] = [
         alt: "Tren principal de un avión sobre pavimento aeroportuario y un vehículo de salvamento al fondo, con ACR, PCR y categoría RFF señalados",
         ancho: 1600,
         alto: 900,
-        pie: "El ACR expresa la exigencia que la aeronave impone al pavimento y se compara con el PCR publicado para ese pavimento y las condiciones aplicables; la fotografía no reemplaza esa comprobación documental. La categoría RFF describe el nivel de salvamento y extinción disponible para el tamaño de aeronave previsto. Una pista suficientemente larga todavía puede no ser compatible si falla cualquiera de estas dos verificaciones.",
+        pie: "El índice de clasificación de aeronaves (Aircraft Classification Rating, ACR) expresa la exigencia que el avión impone al pavimento; se compara con el índice de clasificación de pavimentos (Pavement Classification Rating, PCR) publicado para la superficie y las condiciones aplicables. La categoría de salvamento y extinción de incendios (Rescue and Fire Fighting, RFF) describe la protección disponible para el tamaño de aeronave previsto. La foto no reemplaza estas comprobaciones documentales: una pista larga puede seguir siendo incompatible.",
       },
       {
         kind: "p",
         text: "La compatibilidad del pavimento y la categoría de salvamento son dos comprobaciones que pueden limitar una operación aun cuando la pista sea suficientemente larga. El ACR del avión se compara con el PCR publicado para las condiciones previstas, y la categoría de bomberos se contrasta con el tamaño del avión y la disponibilidad informada. Ninguna de las dos reemplaza el resto del despacho: obstáculos, dimensiones, performance, meteorología y avisos vigentes siguen formando parte de la decisión.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista cenital de una plataforma a media mañana, con al menos tres aviones de tamaños claramente distintos en sus puestos. Se ven las señales amarillas de puesto de estacionamiento y las líneas de seguridad de plataforma, continuas, de 10 cm de ancho como mínimo y en un color que contrasta con el amarillo. Ojo: sin logos de aerolínea, matrículas ni nombres de terminal.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-02-plataforma.webp",
+        alt: "Tres aeronaves de distinto tamaño estacionadas en puestos separados de plataforma, con líneas amarillas de guía y límites de seguridad rojos",
+        ancho: 1600,
+        alto: 900,
+        pie: "Reconoce las líneas amarillas que guían cada avión a su puesto y los límites de seguridad de color contrastante. Los tamaños distintos recuerdan que la compatibilidad se comprueba para la aeronave y las superficies que realmente usará, no mirando el avión vecino. Antes de planificar o aceptar un puesto, verifica dimensiones, resistencia publicada y servicios disponibles; la fotografía no demuestra el PCR de la plataforma.",
       },
       {
         kind: "p",
-        text: "Desde el 28 de noviembre de 2024 el pavimento se publica en **ACR-PCR**: cinco elementos, siempre en el mismo orden.",
+        text: "Desde el 28 de noviembre de 2024, el método de la OACI usa **ACR-PCR**. El código PCR tiene cinco elementos, siempre en el mismo orden.",
       },
       {
         kind: "breakdown",
-        caption: "Un PCR publicado, elemento por elemento: PCR 980 / F / C / X / T.",
+        caption: "Ejemplo didáctico ficticio, no publicado para ningún aeródromo: PCR 980 / F / C / X / T.",
         parts: [
           { token: "980", label: "Valor del índice", detail: "Un número." },
           { token: "F", label: "Tipo de pavimento", detail: "R, rígido. F, flexible." },
@@ -517,12 +518,12 @@ export const NIVEL_5: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "A todo el ancho: arriba «PCR 980 / F / C / X / T» en monoespaciada grande, con cada elemento separado, y debajo cinco columnas unidas al código por una línea guía, una por elemento, con todos sus códigos posibles listados. Abajo, un recuadro: «Tu ACR debe ser igual o menor que el PCR», y la sobrecarga admisible. Ojo: ninguna referencia al ACN-PCN como si siguiera vigente.",
-        alto: 340,
-        pie: "Vigente desde el 28 de noviembre de 2024.",
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-03-codigo-pcr.webp",
+        alt: "Esquema didáctico ficticio de cinco elementos del código PCR: valor, pavimento, subrasante, presión de neumáticos y método de evaluación",
+        ancho: 1600,
+        alto: 900,
+        pie: "Lee el ejemplo ficticio de izquierda a derecha: 980 es el valor, F el pavimento flexible, C la subrasante baja, X el límite de presión de neumáticos de 1,75 MPa y T una evaluación técnica. No es una ficha de un aeropuerto ni sustituye el dato vigente. Para operación normal compara el ACR calculado para tu avión con el PCR aplicable, incluida la presión; una sobrecarga ocasional exige evaluación y autorización del operador, no una decisión unilateral de la tripulación.",
       },
       {
         kind: "fichas",
@@ -531,21 +532,19 @@ export const NIVEL_5: DocScreen[] = [
           {
             titulo: "La regla",
             puntos: [
-              "Tu ACR debe ser igual o menor que el PCR.",
-              "Por encima, hasta 10 % si no pasan del 5 % anual.",
+              "Para operación normal, tu ACR debe ser igual o menor que el PCR aplicable; comprueba también presión de neumáticos y estado del pavimento.",
+              "Una sobrecarga ocasional de hasta 10 % y aproximadamente 5 % de movimientos anuales, excluidos los aviones ligeros, es un criterio orientativo de evaluación, no un permiso automático. Consulta al operador del aeródromo.",
             ],
           },
           {
             titulo: "Categoría de bomberos",
-            hueco: {
-              id: "AP-21-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "La tabla de abajo, vertical y con tipografía grande: diez filas, de la categoría 1 a la 10, con la longitud total del avión y la anchura máxima de fuselaje. Al pie, la corrección por anchura y la regla de remisión por poco tráfico. El contenido va literal, sin redondear ni resumir. Ojo: nada del sistema de índices por letra de la FAA ni figuras copiadas de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-04-categorias-rff.webp",
+              alt: "Tabla visual de categorías de salvamento y extinción 1 a 10 según longitud total y anchura máxima del fuselaje",
             },
             puntos: [
-              "Se elige por la longitud total del avión y se comprueba el fuselaje.",
-              "Si se pasa, sube un nivel.",
+              "Reconoce primero la fila que corresponde a la longitud total del avión y comprueba el límite de anchura del fuselaje. Si lo supera, se eleva una categoría.",
+              "Contrasta la categoría resultante con el servicio RFF efectivamente disponible y publicado para la operación; no asumas el nivel por ver un vehículo de bomberos.",
             ],
           },
         ],
@@ -569,7 +568,7 @@ export const NIVEL_5: DocScreen[] = [
       {
         kind: "callout",
         tone: "info",
-        text: "Si el fuselaje excede la anchura de su fila, la categoría sube un nivel. Con menos de 700 movimientos en los tres meses consecutivos de mayor actividad, el nivel puede bajar una sola categoría.",
+        text: "Si el fuselaje excede la anchura de su fila, la categoría sube un nivel. Si las aeronaves de la categoría más alta que normalmente usan el aeródromo realizan menos de 700 movimientos en los tres meses consecutivos de mayor actividad, el nivel de protección puede ser una categoría menor. No es una rebaja que la tripulación decida: verifica el servicio publicado y disponible.",
       },
       {
         kind: "fichas",
@@ -577,48 +576,45 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Fauna",
-            hueco: {
-              id: "AP-21-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el borde de la pista, con teleobjetivo y luz de amanecer: un grupo de aves posadas sobre la franja de hierba, al lado del pavimento, con el borde del pavimento en primer plano y la pista al fondo, reconocible por sus señales o por sus luces de borde blancas. Ojo: nada morboso, ni animales heridos, ni restos de impacto, ni personas identificables.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-05-fauna.webp",
+              alt: "Grupo de aves en la franja de hierba junto a la pista al amanecer, con el pavimento visible",
             },
             puntos: [
-              "El peligro se evalúa siempre, se notifica cada choque y se eliminan los focos que atraen animales.",
+              "Las aves posadas en la franja junto a la pista son un peligro de fauna aunque no estén sobre el pavimento. Reconoce su cercanía a la trayectoria y comunica el avistamiento según los procedimientos locales antes de operar.",
+              "El aeródromo evalúa y mitiga los focos que atraen animales; cada choque se notifica. No supongas que una pista despejada está libre de riesgo de fauna.",
             ],
           },
           {
             titulo: "Objetos y chorro",
-            hueco: {
-              id: "AP-21-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Cámara a ras del pavimento y muy cerca, con poca profundidad de campo: un objeto metálico pequeño, nítido y claramente ajeno al pavimento, la textura de la superficie y una junta a su lado; al fondo, desenfocada, una señal blanca de pista. Ojo: el objeto no puede llevar marca de fabricante ni número de parte legible.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-21-06-objeto-extrano.webp",
+              alt: "Tornillo suelto señalado sobre el pavimento aeroportuario, con señal blanca desenfocada al fondo",
             },
             puntos: [
-              "La pista se inspecciona para retirar objetos extraños.",
-              "El chorro levanta todo lo que encuentra.",
+              "El tornillo resaltado es un objeto extraño (Foreign Object Debris, FOD), no parte de la superficie. Puede dañar neumáticos o ser ingerido por un motor: notifica su posición para que personal autorizado lo retire.",
+              "La inspección debe identificar y retirar estos objetos antes de seguir usando el área afectada. El chorro de reacción también puede desplazarlos y aumentar el riesgo.",
             ],
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-21-07 · Fotografía real · 3:2 · 1200×800",
-        ratio: "3 / 2",
-        descripcion:
-          "Desde atrás y a un costado, a unos 60 m y con teleobjetivo comprimido: un bimotor de fuselaje estrecho arrancando el rodaje, con el aire distorsionado por el calor detrás de los motores, polvo y hierba levantándose en la estela y la superficie no pavimentada justo detrás de la pavimentada. Ojo: nadie dentro de la estela, ni personas ni vehículos.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-21-07-chorro.webp",
+        alt: "Avión bimotor iniciando el rodaje, con polvo tenue detrás de un motor y sin personas en la zona posterior",
+        ancho: 1200,
+        alto: 800,
+        pie: "La aeronave está iniciando el rodaje y detrás del motor cercano se distingue algo de polvo junto al pavimento: esa zona posterior puede quedar expuesta al chorro de reacción, incluso si la estela no se ve claramente. La foto no permite calcular una distancia segura. Antes de iniciar potencia o pasar por detrás de otro avión, respeta las separaciones y procedimientos locales; mantén personas, equipos y objetos fuera de la estela.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Planificando el vuelo",
         situacion: "Vas a un aeropuerto cuyo PCR es menor que tu ACR de hoy.",
         pregunta: "¿Puedes ir igual?",
-        respuesta: "Solo si el aeródromo lo autoriza.",
+        respuesta: "No como operación normal. Solo si el operador del aeródromo evalúa y autoriza la sobrecarga aplicable.",
         claves: [
-          "Hasta un 10 % por encima es excepcional, nunca rutina.",
-          "Más, hace falta análisis.",
+          "Hasta un 10 % por encima es un criterio para sobrecargas ocasionales, no una autorización automática.",
+          "Un exceso mayor o pavimento debilitado exige análisis específico; confirma siempre con el operador.",
         ],
       },
     ],
