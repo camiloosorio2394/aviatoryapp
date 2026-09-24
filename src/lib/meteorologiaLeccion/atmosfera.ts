@@ -213,7 +213,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "Sales de Bogotá, elevación 8.360 ft. El METAR te da un QNH y el altímetro, con ese ajuste, marca la elevación del aeródromo en la plataforma. Todo bien. Ese mismo aeropuerto, con ese mismo altímetro, te va a dar una carrera de despegue muy distinta en un día caliente que en uno frío, y el instrumento no te lo va a decir. Esta lección es sobre lo que la presión sí te dice y lo que te esconde.",
+        text: "Sales de un aeropuerto de altura. El informe meteorológico de aeródromo (METAR, Meteorological Aerodrome Report) publica el QNH, el ajuste altimétrico local; con él, el altímetro en tierra indica aproximadamente la elevación del aeródromo. Eso no te dice cuánto rendirá el avión. En un día caluroso, la distancia de despegue puede ser muy distinta de la de un día frío, aunque el ajuste sea el mismo. Esta lección separa esas dos preguntas.",
       },
       {
         kind: "sub",
@@ -221,33 +221,33 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Imagina una columna de aire sellada de un centímetro cuadrado de base y 700 kilómetros de alto. Levantarla costaría 1,03 kg. Ese es el peso del aire que tienes encima al nivel del mar. Si acortas la columna, pesa menos: a 18.000 ft el peso es de unos 0,52 kg, casi la mitad.",
+        text: "El aire tiene masa y ejerce presión sobre la superficie. Cerca del nivel del mar, una columna de aire sobre un centímetro cuadrado ejerce una fuerza equivalente al peso de cerca de 1 kg. Al ascender queda menos aire encima y, en general, la presión disminuye.",
       },
       {
         kind: "definicion",
-        text: "La presión atmosférica es la fuerza que ejerce el peso de las moléculas de aire. No se ven, pero pesan y ocupan sitio.",
+        text: "La presión atmosférica es la fuerza que ejerce el aire por unidad de superficie. El altímetro barométrico interpreta los cambios de presión como cambios de altitud.",
       },
       {
         kind: "p",
-        text: "De ahí sale la regla que vas a usar toda tu carrera: **cada 1.000 ft de subida, la presión baja alrededor de 1 pulgada de mercurio** (unos 34 milibares).",
+        text: "**Cerca del nivel del mar**, una diferencia de 1 pulgada de mercurio (\"Hg) equivale aproximadamente a 1.000 ft de altitud de presión. Es una regla rápida local, no una conversión válida a cualquier altura: la relación entre presión y altitud cambia al ascender.",
       },
       {
         kind: "sub",
-        text: "Entender: por qué todas las estaciones mienten a propósito",
+        text: "Entender: presión medida y ajuste altimétrico no son lo mismo",
       },
       {
         kind: "p",
-        text: "Una estación a 4.000 ft de elevación mide 25,92 \"Hg de verdad. Si informara ese número, tu altímetro y el de la estación de al lado, que está a nivel del mar, nunca se pondrían de acuerdo. Así que cada estación **convierte su lectura a presión al nivel del mar**, sumando aproximadamente 1 \"Hg por cada 1.000 ft de su propia elevación. Los 25,92 se informan como 29,92.",
+        text: "Una estación elevada mide la presión en su propio emplazamiento; esa presión es menor que la que habría al nivel del mar en una atmósfera comparable. El **ajuste altimétrico** se obtiene reduciendo la presión de la estación a una referencia de nivel del mar mediante el procedimiento meteorológico establecido. No se calcula sumando 1 \"Hg por cada 1.000 ft: esa aproximación no sirve para convertir una observación real en QNH.",
       },
       {
         kind: "callout",
         tone: "tip",
         title: "Esto es exactamente lo que lees en el METAR",
-        text: "El grupo de presión del METAR (el `Q1013` o el `A2992`) no es la presión que hay en esa pista: es la presión llevada al nivel del mar. Por eso el mismo ajuste sirve para todos los aviones de la zona y por eso, puesto en el altímetro, te da elevación y no cero.",
+        text: "El grupo `Q1013` informa QNH en hectopascales; `A2992` expresa el ajuste altimétrico en pulgadas de mercurio. No son la presión medida sobre la pista. Con el ajuste local vigente, el altímetro en el aeródromo debe indicar aproximadamente su elevación, dentro de la tolerancia del instrumento. El ajuste es local y debe actualizarse durante el vuelo según los procedimientos aplicables.",
       },
       {
         kind: "sub",
-        text: "La atmósfera estándar, que es una ficción útil",
+        text: "La atmósfera estándar como referencia",
       },
       {
         kind: "kv",
@@ -255,33 +255,66 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           { k: "Presión estándar al nivel del mar", v: "1013,2 mb (29,92 \"Hg)" },
           { k: "Temperatura estándar", v: "15 °C (59 °F)" },
           { k: "Equivalencia", v: "1 \"Hg ≈ 34 mb" },
-          { k: "Rango habitual de lecturas", v: "de 950 a 1.040 mb" },
+          { k: "Referencia", v: "Atmósfera estándar internacional (ISA, International Standard Atmosphere)" },
         ],
       },
       {
         kind: "p",
-        text: "La ISA no describe ningún día concreto: es la referencia sobre la que están calibrados tus instrumentos y sobre la que están calculadas casi todas las tablas de performance del avión. Cuando el día real se aparta de ella, el avión no rinde lo que dice la tabla, y ahí es donde empieza el trabajo del piloto.",
+        text: "La ISA no describe un día concreto: es una referencia para instrumentos y datos de rendimiento. Las tablas del manual de vuelo contemplan condiciones distintas de las estándar; debes usar las entradas y correcciones que correspondan al avión y a la operación real.",
       },
       {
         kind: "sub",
-        text: "Interpretar: altitud de densidad, que es la que vuela el avión",
+        text: "Interpretar: altitud de densidad y rendimiento",
       },
       {
         kind: "p",
-        text: "Al bajar la presión el aire se hace menos denso, «fino». Volar en aire fino equivale a estar más arriba de lo que marca el altímetro, y a eso se le llama **altitud de densidad**. La temperatura hace lo mismo: aire caliente es aire menos denso. Dos días con el mismo QNH y distinta temperatura son dos aviones distintos.",
+        text: "La **altitud de densidad** es la altitud que tendría, en la atmósfera estándar, la misma densidad del aire que existe aquí y ahora. La presión y la temperatura influyen en ella: aire más caliente o de menor presión suele ser menos denso. Es un índice de rendimiento, **no** una altura sobre el terreno ni una lectura directa del altímetro. Con el mismo QNH, dos temperaturas distintas pueden producir rendimientos distintos.",
       },
       {
         kind: "vinetas",
         items: [
-          "Con aire fino hace falta más velocidad para generar la misma sustentación, así que la carrera de despegue se alarga.",
-          "El PHAK lo pone en números: un avión que necesita 745 ft de carrera al nivel del mar necesita más del doble a 8.000 ft de altitud de presión.",
-          "Motores y hélices también rinden menos, así que baja el régimen de ascenso y crece la distancia para franquear obstáculos.",
-          "El aterrizaje se alarga por lo mismo.",
+          "A una misma velocidad **indicada**, una altitud de densidad alta implica mayor velocidad verdadera y, con el mismo viento, mayor velocidad respecto al suelo. La carrera de despegue y la distancia de aterrizaje suelen aumentar.",
+          "La menor densidad puede reducir el empuje disponible y el rendimiento de ascenso; el efecto exacto depende de la aeronave, sus motores y las condiciones de operación.",
+          "La longitud de pista y el franqueamiento de obstáculos se verifican con datos de rendimiento aprobados para el avión, no con una regla general ni con la imagen.",
         ],
       },
       {
-        kind: "infografia",
-        nombre: "meteo-carrera",
+        kind: "reconoce",
+        titulo: "Aeródromo de altura: qué puedes observar",
+        intro: "Toca los puntos. La foto ilustra el contexto de una operación en pista, pero no permite medir la altitud de densidad ni calcular distancias.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l02-altitud-densidad.webp",
+          alt: "Avión comercial sobre una pista en una meseta andina, con aire cálido sobre el pavimento",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 16,
+            y: 65,
+            que: "Reverberación térmica",
+            significa: "El aire cerca del pavimento caliente distorsiona el fondo. Sugiere calor, pero no proporciona una temperatura utilizable para el cálculo.",
+            piloto: "Obtén la temperatura observada y verifica el rendimiento con los datos del avión; no estimes la altitud de densidad mirando la pista.",
+          },
+          {
+            x: 76,
+            y: 34,
+            que: "Entorno montañoso",
+            significa: "El relieve sugiere un aeródromo de altura, pero la imagen no permite conocer su elevación.",
+            piloto: "Consulta la elevación publicada y el ajuste altimétrico vigente antes de calcular la altitud de presión.",
+          },
+          {
+            x: 52,
+            y: 57,
+            que: "Avión sobre pista",
+            significa: "Para una misma velocidad indicada, una densidad menor suele requerir mayor velocidad respecto al suelo.",
+            piloto: "Confirma distancia de despegue, ascenso y márgenes de obstáculos con el manual y los procedimientos del operador.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** aire cálido sobre la pista, relieve montañoso y un avión. **Cómo lo reconoces:** por la posible reverberación y el entorno, no por un valor numérico visible. **Qué decides:** usar elevación, QNH, temperatura, viento, configuración, masa y datos aprobados del avión para verificar despegue y ascenso. La imagen no sustituye ese cálculo.",
       },
       {
         kind: "sub",
@@ -291,34 +324,34 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "En el briefing",
         situacion:
-          "Aeropuerto de altura, mediodía, 32 °C, QNH estándar. El comandante mira el ajuste, ve que el altímetro marca la elevación de la plataforma y dice que la performance está bien porque la presión es la estándar.",
+          "Aeropuerto de altura, mediodía, 32 °C, QNH estándar. El comandante mira el ajuste, ve que el altímetro marca la elevación de la plataforma y dice que el rendimiento será adecuado porque la presión es la estándar.",
         pregunta: "¿Qué falta en ese razonamiento?",
         claves: [
           "El altímetro correcto solo dice que el ajuste de presión está bien. No dice nada de la densidad del aire.",
-          "A 32 °C el aire está muy por encima de la temperatura estándar de 15 °C, así que es menos denso: la altitud de densidad es mucho mayor que la altitud de presión.",
-          "La carrera de despegue, el régimen de ascenso y el franqueamiento de obstáculos hay que sacarlos de la tabla con la altitud de densidad, no con lo que marca el altímetro.",
+          "A un aeropuerto alto le corresponde una temperatura ISA inferior a 15 °C; 32 °C está muy por encima de esa referencia y eleva la altitud de densidad.",
+          "Hay que comprobar distancia de despegue, ascenso y franqueamiento de obstáculos con el procedimiento y los datos aprobados para el avión, usando las condiciones reales.",
         ],
         cierre:
-          "El altímetro ajustado te dice dónde estás. La altitud de densidad te dice cómo va a volar el avión. Son dos preguntas distintas y solo una la contesta el instrumento.",
+          "El altímetro ajustado indica altitud barométrica; no certifica que haya margen de rendimiento. Son dos comprobaciones distintas.",
       },
       {
         kind: "callout",
         tone: "info",
-        title: "Lo que la tendencia de presión te adelanta",
-        text: "Siguiendo la presión de una estación a lo largo del tiempo: si sube de forma sostenida, lo normal es que se acerque buen tiempo. Si baja, y sobre todo si cae rápido, lo normal es mal tiempo y posiblemente tormentas fuertes. Es la lectura más barata que existe y está en cada METAR sucesivo del mismo aeródromo.",
+        title: "La tendencia de presión es una pista, no un pronóstico",
+        text: "Una caída de presión en observaciones sucesivas puede acompañar la llegada de un sistema de baja presión, pero no demuestra por sí sola que habrá tormentas ni determina su intensidad. Comprueba los METAR, pronósticos y avisos vigentes, además de la situación sinóptica, antes de decidir. Actualiza siempre el ajuste altimétrico cuando corresponda.",
       },
       {
         kind: "check",
         question:
           "Miras los METAR sucesivos de tu destino y el QNH va 1015, 1012, 1008 en tres horas. ¿Qué haces con eso?",
         options: [
-          "Corregir el ajuste del altímetro y seguir igual: es lo único que cambia una presión que baja",
-          "Nada todavía: las tres lecturas están dentro del rango habitual, de 950 a 1.040 mb",
-          "Contar con deterioro, y posiblemente con tormentas fuertes: la presión no solo baja, cae rápido",
+          "Actualizar el altímetro si corresponde y asumir que la presión no aporta nada más",
+          "Descartar el cambio porque todos los valores parecen normales",
+          "Actualizar el ajuste y revisar pronósticos, avisos y condiciones observadas antes de inferir un cambio de tiempo",
         ],
         answer: 2,
         explain:
-          "Presión que sube de forma sostenida suele traer buen tiempo; presión que baja, y sobre todo que cae rápido, suele traer mal tiempo y posiblemente tormentas fuertes. Corregir el ajuste del altímetro es obligatorio, pero es lo de menos: lo que acaba de cambiar es el pronóstico. Y que las lecturas estén en rango no dice nada, porque lo que informa aquí es la tendencia y no el valor.",
+          "El descenso sostenido es una señal para investigar el contexto meteorológico, no un pronóstico de tormenta por sí mismo. Usa el ajuste vigente y contrasta METAR, pronósticos y avisos; que cada valor parezca habitual no elimina la importancia de la tendencia.",
       },
       {
         kind: "entrevista",
@@ -329,25 +362,25 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             q: "¿Qué es la atmósfera estándar internacional y para qué sirve?",
             respuesta:
               "Es una referencia común: 1013,2 mb (29,92 \"Hg) y 15 °C al nivel del mar. Sirve porque sobre ella están calibrados ciertos instrumentos de vuelo y calculada la mayoría de los datos de performance de la aeronave.",
-            claves: ["1013,2 mb / 29,92 \"Hg", "15 °C", "Base de instrumentos y de performance"],
+            claves: ["1013,2 mb / 29,92 \"Hg", "15 °C", "Referencia para instrumentos y rendimiento"],
           },
           {
             nivel: "interpretacion",
-            q: "Una estación a 4.000 ft mide 25,92 \"Hg. ¿Qué informa y por qué?",
+            q: "¿Por qué la presión medida en una estación elevada no se publica sin más como QNH?",
             respuesta:
-              "Informa 29,92 \"Hg. Convierte su presión a presión al nivel del mar sumando aproximadamente 1 \"Hg por cada 1.000 ft de elevación, para que todas las estaciones den una referencia comparable y los altímetros de todos los aviones queden bien ajustados.",
-            claves: ["29,92", "1 \"Hg por 1.000 ft", "Referencia común entre estaciones"],
+              "Porque se mide a la elevación de la estación. El QNH se determina reduciendo esa presión a la referencia altimétrica del nivel del mar con el procedimiento establecido, no sumando linealmente una pulgada de mercurio por cada 1.000 ft. Con el QNH local, el altímetro en el aeródromo indica aproximadamente su elevación.",
+            claves: ["Presión de estación ≠ QNH", "Reducción establecida, no suma lineal", "Altímetro: elevación aproximada"],
           },
           {
             nivel: "situacion",
             q: "Va a despegar de un aeropuerto de altura en un día caluroso. ¿Qué espera del avión y por qué?",
             respuesta:
-              "Espero peor performance en todo: carrera de despegue más larga, menor régimen de ascenso y más distancia para franquear obstáculos, y también aterrizaje más largo. La causa es la altitud de densidad: menos presión por la altura y menos densidad por el calor. Los motores y las hélices además rinden menos en aire fino.",
+              "Espero una altitud de densidad alta y posibles aumentos de distancia de despegue y aterrizaje, con menor capacidad de ascenso. A igual velocidad indicada, la velocidad respecto al suelo tiende a ser mayor. Debo calcular el resultado exacto y el margen sobre obstáculos con datos aprobados para ese avión y esas condiciones.",
             claves: [
               "Altitud de densidad alta",
               "Carrera y distancia de franqueamiento mayores",
               "Menor régimen de ascenso",
-              "Motores y hélices menos eficientes",
+              "Comprobación con datos del avión",
             ],
           },
         ],
@@ -355,7 +388,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "detalleTecnico",
         etiqueta: "Ver el detalle del capítulo",
-        cita: "PHAK cap. 11",
+        cita: "PHAK cap. 8 y 11; FAA AC 00-6B",
         bloques: [
           {
             kind: "p",
@@ -363,7 +396,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           },
           {
             kind: "p",
-            text: "El barómetro aneroide es la alternativa portátil. Lleva una cápsula cerrada que se contrae o se expande con los cambios de presión, unida por un enlace mecánico a un indicador. La parte sensora de presión del altímetro de un avión es básicamente un barómetro aneroide, y por ese enlace mecánico no es tan preciso como el de mercurio.",
+            text: "El barómetro aneroide utiliza una cápsula que se deforma con los cambios de presión y mueve un indicador mediante un mecanismo. El altímetro barométrico emplea un principio semejante. Su precisión depende de la calibración, la instalación y las condiciones de uso; no se deduce solo de que tenga un mecanismo.",
           },
           {
             kind: "p",
