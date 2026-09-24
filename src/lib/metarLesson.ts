@@ -1,10 +1,9 @@
 /**
  * Contenido de la lección "Qué es un METAR y cómo leerlo".
  *
- * Fuentes: briefing para pilotos METAR (Erick De Paz, Meteorólogo Clase III
- * OMM), leyenda de lectura METAR y TAF (Volar3.com, material de curso). La
- * norma de referencia es el Anexo 3 de la OACI y el Manual de claves No. 306
- * de la OMM: confirma siempre contra la edición vigente.
+ * Referencias primarias: Anexo 3 de la OACI (21.ª edición, 2025) y manual de
+ * claves para usuarios OMM N.º 782 (edición 2025). Los informes SKBO/SKRG de
+ * esta lección son ejemplos didácticos, no observaciones publicadas.
  *
  * Reusa los tipos de bloque de la lección NOTAM para que las dos lecciones se
  * lean idénticas: misma hoja, mismos bloques, mismo registro.
@@ -101,46 +100,54 @@ const CODIGO: DocScreen[] = [
   {
     n: 2,
     title: "La plantilla completa",
-    kicker: "Todo METAR sigue el mismo orden",
-    minutes: 3,
+    kicker: "Lee los grupos en orden, sin inventar los que faltan",
+    minutes: 5,
     blocks: [
       {
         kind: "p",
-        text: "El informe siempre trae los mismos grupos en el mismo orden. Esta es la plantilla de la OMM, simplificada a lo que ves a diario:",
+        text: "**Qué ves en la portada:** dos pilotos observan el tiempo del aeródromo antes de salir. **Cómo lo reconoces:** la imagen muestra nubosidad baja y sectores con visibilidad distinta, pero no un reporte codificado. **Qué decides:** leer el informe con su hora y contrastar cada grupo con la operación; la foto no sustituye al METAR.",
+      },
+      {
+        kind: "p",
+        text: "Los elementos de un METAR siguen un **orden definido**, pero no todos aparecen siempre. Viento, visibilidad, tiempo presente, nubes, temperatura y presión se leen en su lugar cuando corresponde; algunos grupos son condicionales o regionales. Los dos informes siguientes son **ejemplos didácticos inventados**, no reportes vigentes de Bogotá ni Rionegro.",
       },
       {
         kind: "breakdown",
         caption:
-          "Nueve grupos separados por espacios. Cada uno responde una pregunta, y siempre en el mismo orden: qué informe, dónde, cuándo, cómo sopla, cuánto ves, qué tapa, qué números y qué viene.",
+          "Ejemplo didáctico de buen tiempo: sigue el orden tipo, aeródromo, hora, viento, visibilidad, nubes, temperatura, presión y tendencia. El tiempo presente no se incluye si no hay fenómeno que reportar.",
         parts: [
-          { token: "METAR", label: "tipo", detail: "Informe de rutina. `SPECI` si es especial." },
+          { token: "METAR", label: "tipo", detail: "Informe rutinario de aeródromo. SPECI identifica uno especial cuando el servicio lo emite." },
           {
             token: "SKBO",
             label: "estación",
-            detail: "Indicador OACI del aeródromo, el mismo de la casilla A) del NOTAM.",
+            detail: "Indicador de Bogotá asignado por la Organización de Aviación Civil Internacional (OACI, International Civil Aviation Organization). El código es real; el reporte completo es inventado para enseñar.",
           },
           {
             token: "261300Z",
             label: "fecha y hora",
-            detail: "Día 26 a las 13:00 **UTC**. La `Z` es zulu: en Colombia resta 5 horas, son las 08:00.",
+            detail: "Observación del día 26 a las 13:00 de tiempo universal coordinado (UTC, Coordinated Universal Time). En Colombia serían las 08:00 locales; el grupo no indica mes ni año.",
           },
-          { token: "09006KT", label: "viento", detail: "Del este (090°) a 6 nudos." },
-          { token: "9999", label: "visibilidad", detail: "10 km o más, el mejor valor de la clave." },
+          { token: "09006KT", label: "viento", detail: "Desde 090° verdaderos a 6 nudos (KT, knots). Para la componente en pista hace falta conocer la pista en uso." },
+          { token: "9999", label: "visibilidad", detail: "Visibilidad predominante de 10 km o más; no significa exactamente 9.999 m ni visibilidad ilimitada." },
           {
             token: "SCT023 BKN080",
             label: "nubes",
-            detail: "Dispersas a 2300 ft y fragmentadas a 8000 ft. El techo es la BKN: 8000 ft.",
+            detail: "Nubes dispersas (SCT, scattered) con base a 2.300 ft y fragmentadas (BKN, broken) a 8.000 ft sobre el aeródromo. La primera capa que constituye techo es BKN080.",
           },
-          { token: "14/09", label: "temp / rocío", detail: "14 °C de temperatura y 9 °C de punto de rocío." },
-          { token: "Q1027", label: "QNH", detail: "1027 hectopascales al altímetro." },
-          { token: "NOSIG", label: "tendencia", detail: "Sin cambio significativo previsto." },
+          { token: "14/09", label: "temp / rocío", detail: "Temperatura de 14 °C y punto de rocío de 9 °C; no es un techo ni una visibilidad." },
+          { token: "Q1027", label: "QNH", detail: "Ajuste altimétrico QNH de 1.027 hectopascales (hPa, hectopascals). Verifica unidad y procedimiento de tu operación." },
+          { token: "NOSIG", label: "tendencia", detail: "Sin cambio significativo previsto (NOSIG, no significant change) en el periodo de tendencia; no garantiza tiempo seguro para el vuelo." },
         ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves en el ejemplo:** un reporte con visibilidad de al menos 10 km y dos capas nubosas. **Cómo lo reconoces:** `SCT` no da techo por sí sola; la primera capa `BKN` sí. **Qué decides:** comparar viento, techo y visibilidad con la pista y los mínimos aplicables, siempre con un informe real y vigente.",
       },
       {
         kind: "callout",
         tone: "info",
         title: "El orden es tu mapa",
-        text: "Si un grupo falta, el resto conserva su posición. Con el orden en la cabeza puedes leer cualquier METAR del mundo aunque tenga grupos que nunca hayas visto: sabes qué debería ir ahí.",
+        text: "Si un grupo condicional no aparece, los demás conservan su secuencia relativa, pero no un número fijo de casilla. No supongas que toda omisión significa buen tiempo: puede haber datos no disponibles o un informe incompleto. Comprueba la fuente y las convenciones del Estado cuando la clave te resulte extraña.",
       },
       {
         kind: "check",
@@ -148,40 +155,44 @@ const CODIGO: DocScreen[] = [
         options: ["A las 13:00", "A las 08:00", "A las 18:00"],
         answer: 1,
         explain:
-          "`261300Z` es el día 26 a las 13:00 **UTC**. Colombia va en UTC menos 5, así que son las 08:00 locales. La `Z` de zulu es el aviso: en el METAR nunca hay hora local.",
+          "`261300Z` sitúa la observación el día 26 a las 13:00 UTC. Colombia usa UTC menos cinco horas, por lo que corresponde a las 08:00 locales. La `Z` indica la referencia horaria universal del informe.",
       },
       {
         kind: "p",
-        text: "**Uno más, y feo.** El de arriba era un día tranquilo en Bogotá. Este es el que te van a poner en la entrevista:",
+        text: "**Ahora un caso adverso, también inventado.** Compara su hora, los grupos nuevos y lo que cambia para un vuelo; no lo trates como un reporte actual de Rionegro.",
       },
       {
         kind: "breakdown",
         caption:
-          "Mismo orden, mismas posiciones. Lo único que cambia es que ahora casi todos los grupos traen malas noticias.",
+          "Segundo ejemplo didáctico: un SPECI con viento racheado, visibilidad reducida, tormenta y cumulonimbos. La tendencia al final es una previsión, no una nueva observación.",
         parts: [
-          { token: "SPECI", label: "tipo", detail: "Informe especial: alguien decidió que no podía esperar." },
-          { token: "SKRG", label: "estación", detail: "Rionegro, José María Córdova." },
-          { token: "151740Z", label: "fecha y hora", detail: "Día 15 a las 17:40 UTC, 12:40 en Colombia." },
+          { token: "SPECI", label: "tipo", detail: "Informe especial emitido conforme a criterios del servicio; no implica por sí solo empeoramiento." },
+          { token: "SKRG", label: "estación", detail: "Indicador real de Rionegro, José María Córdova; los demás grupos son simulados." },
+          { token: "151740Z", label: "fecha y hora", detail: "Observación del día 15 a las 17:40 UTC; serían las 12:40 en Colombia." },
           {
             token: "27015G28KT",
             label: "viento",
-            detail: "Del oeste a 15 nudos con ráfagas de 28. El pico es el problema, no el promedio.",
+            detail: "Desde 270° a 15 nudos, con ráfagas de 28. Compara viento medio y ráfagas con la pista, límites y desempeño de la aeronave.",
           },
-          { token: "3000", label: "visibilidad", detail: "3 km. Muy lejos de los 9999 del ejemplo anterior." },
-          { token: "+TSRA", label: "tiempo presente", detail: "Tormenta eléctrica (`TS`) con lluvia (`RA`) fuerte (`+`)." },
+          { token: "3000", label: "visibilidad", detail: "Visibilidad predominante de 3.000 m. No equivale automáticamente al alcance visual en pista." },
+          { token: "+TSRA", label: "tiempo presente", detail: "Tormenta (TS, thunderstorm) con lluvia (RA, rain) fuerte, indicada por +. Evalúa la convección, no solo el mínimo de visibilidad." },
           {
             token: "BKN012CB",
             label: "nubes",
-            detail: "Fragmentadas a 1200 ft, y el `CB` dice que son cumulonimbos: convección sobre el aeródromo.",
+            detail: "Capa fragmentada con base a 1.200 ft sobre el aeródromo y cumulonimbos (CB, cumulonimbus). El reporte no delimita toda la extensión de la tormenta.",
           },
-          { token: "18/17", label: "temp / rocío", detail: "Un grado de diferencia: aire saturado." },
-          { token: "Q1013", label: "QNH", detail: "1013 hectopascales." },
+          { token: "18/17", label: "temp / rocío", detail: "Temperatura 18 °C y rocío 17 °C: aire cercano a la saturación, no prueba de niebla." },
+          { token: "Q1013", label: "QNH", detail: "Ajuste altimétrico QNH de 1.013 hPa en este ejemplo." },
           {
-            token: "TEMPO 1820 4000 SHRA",
+            token: "BECMG FM1800 TL1930 4000 SHRA BKN020",
             label: "tendencia",
-            detail: "Entre las 18:00 y las 20:00 UTC, ratos con 4 km y chubascos de lluvia.",
+            detail: "Cambio gradual previsto (BECMG, becoming) entre las 18:00 (FM, from) y las 19:30 UTC (TL, till): 4 km, chubascos de lluvia y capa fragmentada a 2.000 ft. No es mejora observada.",
           },
         ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves en el segundo ejemplo:** lluvia tormentosa, ráfagas, 3 km de visibilidad y base de cumulonimbos a 1.200 ft. **Cómo lo reconoces:** lee `G28`, `+TSRA` y `BKN012CB` juntos, no por separado. **Qué decides:** no planear la aproximación a partir de la mejora pronosticada en `BECMG`; confirma la evolución real, mínimos, alternos y procedimientos de tormenta.",
       },
       {
         kind: "entrevista",
@@ -190,15 +201,15 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿En qué orden van los grupos de un METAR?",
             respuesta:
-              "Siempre el mismo: identificador de la estación, día y hora en Zulú, viento, visibilidad, alcance visual en pista si lo hay, tiempo presente, nubes o CAVOK, temperatura y punto de rocío, QNH, y al final la información suplementaria y la tendencia. Ese orden fijo es lo que permite leerlo rápido: no busco un dato, voy a su posición.",
-            claves: ["Orden fijo", "Estación, hora Z, viento, visibilidad, RVR, tiempo, nubes, T/Td, QNH, tendencia"],
+              "Primero tipo de informe, aeródromo y hora; después viento, visibilidad, alcance visual en pista cuando se reporte, tiempo presente, nubes o CAVOK (ceiling and visibility OK), temperatura y rocío, presión y, si aparecen, información suplementaria y tendencia. Algunos grupos son condicionales; conservo el orden relativo sin inventar casillas vacías.",
+            claves: ["Orden relativo definido", "Hora, viento, visibilidad y nubes", "Grupos condicionales", "Tendencia no es observación"],
           },
           {
             nivel: "interpretacion",
             q: "Un grupo no aparece en el informe. ¿Qué significa?",
             respuesta:
-              "Que no procede. La clave omite lo que no hay: si no se reporta tiempo presente es que no hay fenómeno significativo, y si no hay RVR es que la visibilidad no lo exige. La ausencia es información, no un olvido. Lo que sí obliga a preguntar es un informe que llegue truncado o con grupos ilegibles.",
-            claves: ["La ausencia significa que no procede", "La clave omite lo que no hay", "Distinto de un informe truncado"],
+              "No siempre significa lo mismo. Un fenómeno de tiempo presente puede no existir, pero otros grupos solo se incluyen bajo ciertas condiciones o pueden faltar por disponibilidad de datos o formato local. Si una omisión afecta la decisión, confirmo con la fuente oficial o información local y no infiero que todo está bien.",
+            claves: ["Depende del grupo y la fuente", "No rellenar datos ausentes", "Confirmar si afecta la decisión"],
           },
         ],
       },
