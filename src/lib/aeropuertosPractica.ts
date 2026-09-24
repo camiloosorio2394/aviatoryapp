@@ -13,10 +13,9 @@
  * Enmienda 18, aplicable desde el 27 de noviembre de 2025, y Anexo 4 para las
  * cartas. Nada de FAA. Sin citas de artículo en el texto que ve el piloto.
  *
- * Las imágenes todavía no existen: cada ejercicio de reconocimiento lleva su
- * hueco rotulado con el código (AP-PRA-NN), la medida y qué tiene que mostrar.
- * La descripción del hueco nunca nombra la respuesta: si la nombrara, el
- * ejercicio se resolvería leyendo el rótulo.
+ * Las imágenes de reconocimiento se verifican antes de publicarse. Las cartas
+ * conservan sus rótulos oficiales: no se redibujan ni se modifican para ocultar
+ * la respuesta.
  *
  * Los puntos de espera se dibujan siempre en patrón A2 o B2, nunca A1 ni B1, y
  * las dos líneas continuas del patrón A van del lado de espera.
@@ -54,7 +53,9 @@ interface ApBase {
 export interface ApReconoce extends ApBase {
   /** Señal pintada, letrero, luz, baliza o carta. Va como pastilla. */
   familia: string
-  hueco: ApHueco
+  /** Imagen de la prueba, sin rótulos que revelen la respuesta. */
+  imagen?: { src: string; alt: string; pie: string; fuente?: string }
+  hueco?: ApHueco
   pregunta: string
 }
 
@@ -64,13 +65,12 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 1,
     leccion: 1,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-02",
-      medida: "Ilustración técnica · 16:9 · 1600×900",
-      descripcion:
-        "Desde un dron algo oblicuo sobre el extremo de una pista: el pavimento sigue más allá del extremo con exactamente la misma anchura y va cubierto de trazos amarillos a 45 grados, de 0,9 m de trazo y separados 30 m, con la punta apuntando hacia la pista. Ojo: sin ninguna flecha blanca sobre el eje y sin aviones rodando encima.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-02-reconoce-area.webp",
+      alt: "Vista aérea de un extremo de pista con pavimento continuo y marcas amarillas en ángulo más allá de la línea blanca transversal",
+      pie: "Observa dónde termina el eje blanco, si la superficie continúa y qué color tienen las marcas. Elige el área antes de abrir la explicación; la fotografía no te da por sí sola ninguna distancia declarada.",
     },
-    pregunta: "¿Qué área estás viendo?",
+    pregunta: "Si está declarada para frenar un despegue interrumpido, ¿qué área es?",
     opciones: [
       "La zona libre de obstáculos",
       "El área de seguridad de extremo de pista",
@@ -79,18 +79,19 @@ export const AP_RECONOCE: ApReconoce[] = [
     ],
     correcta: 3,
     explicacion:
-      "Se reconoce por dos cosas juntas: es pavimento y tiene la misma anchura que la pista. Aguanta un despegue abortado y por eso suma a la distancia de aceleración y parada. Los trazos en ángulo dicen que ahí no se aterriza, no se despega y no se rueda. La zona libre de obstáculos está en el mismo sitio pero no es pavimento: es aire limpio sobre terreno vigilado, llega 75 m a cada lado del eje prolongado y suma a la distancia de despegue disponible.",
+      "La zona de parada se extiende más allá del extremo de despegue y se prepara para que una aeronave pueda detenerse tras interrumpir el despegue; si está declarada, se suma a la distancia de aceleración y parada disponible. Los galones amarillos advierten que el pavimento no es pista utilizable para aterrizar, despegar ni rodar. La foto sola no demuestra que sea una zona de parada: un área pavimentada previa al umbral también puede llevar galones. Confirma la designación y las distancias declaradas en la información oficial del aeródromo; la zona libre de obstáculos es un volumen despejado, no una distancia de frenado.",
   },
   {
     id: "r02",
     nivel: 1,
     leccion: 2,
     familia: "Carta",
-    hueco: {
-      codigo: "AP-PRA-03",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Una hoja de carta redibujada, propia y no identificable, en tres partes: arriba una planta con una sola pista y los objetos que sobresalen marcados; abajo un perfil del terreno a lo largo del eje prolongado, con la misma escala horizontal; y a un costado un recuadro con cuatro cifras por cada cabecera. Ojo: no puede parecerse a una carta comercial ni calcar figuras de la OACI.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-03-carta-obstaculos-aerocivil.webp",
+      alt: "Carta oficial de Aerocivil para la pista 14R/32L de Bogotá, con tabla de distancias, perfiles de obstáculos y planta del aeródromo",
+      pie: "Carta auténtica de Aerocivil para SKBO 14R/32L, incluida en la publicación electrónica de información aeronáutica (eAIP, Electronic Aeronautical Information Publication) de Colombia, enmienda 72/26 del ciclo de reglamentación y control de la información aeronáutica (AIRAC, Aeronautical Information Regulation and Control), vigente al 24 de septiembre de 2026. Reconoce la tabla de distancias declaradas, el perfil longitudinal y la planta. Para planear una operación, abre la publicación vigente y consulta también los avisos aeronáuticos; esta imagen es solo material de estudio.",
+      fuente:
+        "https://eaip-colombia.atnaerocivil.gov.co/eaip/A%2072-26_2026_07_09/documents/Root_WePub/Colombia/CHARTS/AD/SKBO/AMDT_70/Aerodrome%20obstacle%20chart%20RWY%2014R%2032L.pdf",
     },
     pregunta: "¿Qué carta tienes delante?",
     opciones: [
@@ -108,11 +109,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 5,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-04",
-      medida: "Fotografía aérea cenital · 16:9 · 1600×900",
-      descripcion:
-        "Cenital pura del comienzo de una pista pavimentada de 45 m, con el eje vertical en el cuadro. Un grupo de fajas blancas largas y paralelas al eje, todas del mismo largo y del mismo ancho, repartidas en igual número a cada lado del eje, arrancando a 6 m del umbral. Ojo: sin designadora en el encuadre, sin flechas y sin ninguna señal amarilla.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-04-umbral.svg",
+      alt: "Vista cenital técnica de una pista con doce fajas blancas longitudinales simétricas, seis a cada lado del eje",
+      pie: "Esquema cenital: cuenta las fajas a cada lado del eje y compara su longitud con la línea central que aparece más adelante. El trazo debe reconocerse antes de consultar la explicación.",
     },
     pregunta: "¿Qué señal estás viendo?",
     opciones: [
@@ -130,11 +130,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 6,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-05",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Cenital pura de un pavimento estrecho con su eje amarillo continuo entrando y saliendo del cuadro. Centrada sobre ese eje, una cruz amarilla de brazos rectos de unos 9 m, faja de 1,5 m de ancho y travesaño de unos 3,75 m. Al fondo, más pequeña por la perspectiva, otra igual al otro extremo del tramo. Ojo: la cruz nunca blanca en este pavimento, y sin conos ni vallas alrededor.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-05-calle-cerrada.webp",
+      alt: "Vista oblicua de una calle de rodaje con una gran cruz amarilla sobre el eje y otra más lejana",
+      pie: "Observa el color de las cruces, el ancho del pavimento y su línea central. La combinación te dice qué superficie está afectada y qué maniobra debes descartar.",
     },
     pregunta: "¿Qué te está diciendo esa cruz?",
     opciones: [
@@ -152,11 +151,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 7,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-06",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Primer plano cenital de 25 m de calle de rodaje, con la pista fuera del cuadro a la derecha. Cruzando la calle de arriba abajo, dos líneas amarillas continuas de 0,30 m separadas 1,50 m, con travesaños de 0,90 m uniéndolas cada 3,0 m, y 2,10 m de ancho total. El eje amarillo de la calle se interrumpe al llegar. Ojo: nada de patrón B1 con las continuas a 0,6 m, y sin inscripción pintada al costado.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-06-patron-b2.webp",
+      alt: "Vista cenital de una calle de rodaje con dos barras amarillas continuas cruzadas por travesaños regulares",
+      pie: "Compara el dibujo transversal con cuatro líneas paralelas o una línea segmentada: los travesaños son la pista para clasificar el punto de espera. Antes de avanzar, confirma siempre la autorización y tu posición real.",
     },
     pregunta: "¿Qué punto de espera es?",
     opciones: [
@@ -174,11 +172,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 9,
     familia: "Letrero",
-    hueco: {
-      codigo: "AP-PRA-07",
-      medida: "Fotografía real · 3:2 · 1200×800",
-      descripcion:
-        "De noche, rodando despacio hacia una unión de calles con el pavimento húmedo. Un letrero iluminado bajo y frangible, de cara roja, con un disco rojo y una barra blanca horizontal en el centro y ninguna letra ni cifra, y otro exactamente igual al otro lado de la misma calle. El eje amarillo continuo de la calle por la que sí se sigue entra al cuadro. Ojo: el letrero no lleva texto y va a cada lado, nunca uno solo a la izquierda.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-07-prohibida-entrada.webp",
+      alt: "Entrada nocturna a una calle de rodaje con dos letreros rojos iluminados, uno a cada lado, sin inscripciones",
+      pie: "Mira ambos lados de la entrada y observa el símbolo en cada cara. Antes de responder, decide qué maniobra permite o impide esa señalización.",
     },
     pregunta: "¿Qué letrero es y qué te obliga a hacer?",
     opciones: [
@@ -196,11 +193,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 10,
     familia: "Letrero",
-    hueco: {
-      codigo: "AP-PRA-08",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Un solo letrero visto de frente, bajo y frangible, sobre fondo neutro. Cara amarilla con contorno negro, y dentro, dibujado en negro, el esquema de una señal de cuatro líneas con sus tres espacios, sin ninguna letra ni cifra. Al fondo y desenfocado, un tramo de calle de rodaje con su eje amarillo. Ojo: el dibujo de dentro nunca es una escalera con travesaños.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-08-pista-libre.webp",
+      alt: "Primer plano de un letrero amarillo con borde negro y cuatro trazos negros paralelos, dos continuos y dos discontinuos",
+      pie: "Fíjate en el dibujo negro: no son letras ni una flecha. Reconoce qué señal de pavimento representa antes de decidir cuándo puedes informar al control.",
     },
     pregunta: "¿Qué letrero es?",
     opciones: [
@@ -218,33 +214,31 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 11,
     familia: "Baliza",
-    hueco: {
-      codigo: "AP-PRA-09",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Vista cenital de un panel blanco centrado sobre un área cuadrada con borde blanco de 0,3 m, fondo gris claro y sin sombras. El panel son dos discos unidos por una barra, y sobre cada disco hay una barra negra corta puesta en perpendicular al eje que los une. Ojo: las dos barras negras, nunca una sola, y nunca paralelas al eje.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-09-haltera-barras.webp",
+      alt: "Vista cenital de un área de señales con una figura blanca de dos discos unidos y una barra negra vertical sobre cada disco",
+      pie: "El detalle decisivo está en los extremos de la figura. Comprueba si hay una barra negra en cada disco antes de interpretar qué movimientos quedan limitados.",
     },
     pregunta: "¿Qué te está diciendo ese panel?",
     opciones: [
-      "Que el aterrizaje y el despegue están limitados a las pistas, pero el rodaje es libre",
+      "Que aterrizaje y despegue se limitan a las pistas; el panel no define por sí solo dónde rodar",
       "Que aterrizaje, despegue y rodaje están limitados a pistas y calles de rodaje",
       "Que el aeródromo está cerrado",
       "Que hay tránsito de planeadores",
     ],
     correcta: 0,
     explicacion:
-      "La haltera cambia de significado según lleve o no las barras. Sola, quiere decir que aterrizajes, despegues y rodaje quedan limitados a pistas y calles de rodaje. Con una barra negra perpendicular sobre cada disco, la limitación se estrecha: solo el aterrizaje y el despegue quedan atados a las pistas. El cierre del aeródromo lo dice una cruz, y los planeadores, una doble cruz. Todo esto vive en el área de señales, cuadrada y de 9 m de lado como mínimo.",
+      "La haltera cambia de significado según lleve o no las barras. Sola, indica que aterrizajes, despegues y rodaje se limitan a pistas y calles de rodaje. Con una barra negra perpendicular sobre cada disco, el panel limita a las pistas el aterrizaje y el despegue, pero no autoriza por sí mismo a rodar por cualquier superficie: confirma las instrucciones y la información publicada. El cierre del aeródromo lo indica una cruz, y los planeadores, una doble cruz. Todo esto vive en el área de señales, cuadrada y de 9 m de lado como mínimo.",
   },
   {
     id: "r09",
     nivel: 4,
     leccion: 13,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-10",
-      medida: "Fotografía real · 16:9 · 1600×900",
-      descripcion:
-        "De noche, desde el asiento izquierdo, con el avión rodando por el eje de una pista larga hacia el fondo del cuadro. La fila central de luces empotradas alterna rojo y blanco a lo largo de todo el tramo visible, con luces cada 15 m, y las dos filas de los lados siguen blancas. Ojo: ninguna luz amarilla y ningún tramo enteramente rojo en el encuadre.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-10-eje-alternado.webp",
+      alt: "Vista nocturna desde cabina de una pista con luces empotradas rojas y blancas alternadas en el eje y bordes blancos",
+      pie: "Lee el eje desde la aeronave hacia delante: la sucesión roja y blanca, distinta de las dos filas blancas de borde, comunica una referencia de distancia restante. No reemplaza la distancia publicada.",
     },
     pregunta: "¿Qué estás viendo y qué te dice?",
     opciones: [
@@ -262,11 +256,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 4,
     leccion: 14,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-11",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Planta de una calle de rodaje llegando a una pista, de noche. Cruzando la calle de lado a lado, una fila de luces amarillas separadas 3 m, con las adyacentes en fases opuestas, dibujadas unas encendidas y otras apagadas para que se lea el destello en ola. Un rótulo al margen dice «30 a 60 ciclos por minuto» y otro, «lado de espera». Ojo: en este emplazamiento no se dibuja ninguna barra de parada.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-11-proteccion-b.webp",
+      alt: "Vista nocturna de una calle hacia una pista con una fila transversal de luces amarillas empotradas, unas encendidas y otras apagadas",
+      pie: "La fila amarilla cruza toda la calle; la foto captura una de las fases de destello de luminarias adyacentes. Distingue esta advertencia de una barrera roja antes de decidir si puedes proseguir.",
     },
     pregunta: "¿Qué luces son?",
     opciones: [
@@ -284,11 +277,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 4,
     leccion: 15,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-12",
-      medida: "Ilustración técnica · 16:9 · 1600×900",
-      descripcion:
-        "Planta del área de aproximación con el umbral abajo a la derecha y una cinta de cotas al pie. Una fila central de luces blancas de 900 m con luces cada 30 m, barras transversales a 150 m y a 300 m del umbral, y dos filas laterales de luces rojas que acompañan a la central solo en los 270 m más cercanos al umbral. Ojo: ninguna sigla de otra autoridad y ninguna cifra en pies.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-12-aproximacion-precision.svg",
+      alt: "Planta técnica de luces de aproximación: eje blanco, barras a 150 y 300 metros, y dos filas rojas laterales cerca del umbral",
+      pie: "Esquema didáctico, no carta publicada: identifica qué luces solo aparecen junto al umbral y compara sus cotas con las barras transversales. Confirma siempre el sistema real del aeródromo en su publicación vigente.",
     },
     pregunta: "¿Qué sistema de aproximación es?",
     opciones: [
@@ -306,11 +298,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 5,
     leccion: 19,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-13",
-      medida: "Fotografía real · 3:2 · 1200×800",
-      descripcion:
-        "Desde la cabina, de noche y con niebla ligera, el avión detenido a unos 15 m. Una fila de luces rojas empotradas cruza la calle de lado a lado, separadas 3 m, apuntando hacia el avión, y un par de luces rojas elevadas refuerza cada extremo. Detrás de la fila, el eje verde de la calle está apagado en un tramo largo. Ojo: ninguna luz amarilla destellando en el encuadre.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-13-barra-parada.webp",
+      alt: "Vista nocturna desde una cabina detenida ante una hilera transversal de luces rojas con dos luces elevadas en cada extremo",
+      pie: "La hilera roja cruza toda la calle; observa también las luces elevadas a sus extremos y el tramo oscuro del eje más allá. Identifica qué orden comunica antes de responder.",
     },
     pregunta: "¿Qué estás viendo?",
     opciones: [

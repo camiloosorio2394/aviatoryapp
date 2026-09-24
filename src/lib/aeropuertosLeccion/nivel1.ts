@@ -141,12 +141,6 @@ export const NIVEL_1: DocScreen[] = [
           "Los galones dicen que ese pavimento no se usa para rodar ni para aterrizar.",
           "La cifra que te sirve al aterrizar es la LDA, y esos 200 m no están dentro.",
         ],
-        hueco: {
-          id: "AP-01-05",
-          medida: "Fotografía · 4:3 · 1200×900",
-          descripcion:
-            "La misma foto de la ficha «Zona de parada»: el pavimento que sigue al extremo, del ancho de la pista, con los galones amarillos a 45 grados apuntando hacia la pista. Ojo: ningún avión rodando sobre los galones, y las flechas blancas no caben aquí porque esas son de umbral desplazado.",
-        },
       },
     ],
   },
