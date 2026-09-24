@@ -104,7 +104,7 @@ function Perfil({
 export function MeteoInversion() {
   const w = (DER - IZQ - 74) / 2
   return (
-    <Lienzo etiqueta="Dos perfiles verticales de temperatura, uno al lado del otro. En el normal la temperatura baja de forma continua con la altura. En el de inversión, los primeros cientos de pies se calientan con la altura en lugar de enfriarse, y esa capa deja atrapado debajo el tiempo y la mala visibilidad.">
+    <Lienzo etiqueta="Dos perfiles verticales ideales de temperatura, uno al lado del otro. En el primero la temperatura baja con la altura. En el segundo, dentro de una capa baja de inversión, aumenta con la altura. La inversión limita la mezcla vertical y puede favorecer acumulación de humedad o contaminantes; no implica niebla ni visibilidad reducida por sí sola.">
       <Perfil x={IZQ} w={w} titulo="SIN INVERSIÓN" />
       <Perfil x={IZQ + w + 74} w={w} titulo="CON INVERSIÓN" invertido />
 
@@ -127,7 +127,7 @@ export function MeteoInversion() {
         </Rotulo>
       </g>
       <Rotulo x={DER} y={H - 42} ancla="end" color={SECUNDARIO} tam={16}>
-        DEBAJO QUEDA ATRAPADO EL TIEMPO
+        PUEDE LIMITAR LA MEZCLA VERTICAL
       </Rotulo>
     </Lienzo>
   )

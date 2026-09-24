@@ -1,7 +1,7 @@
 /**
  * Nivel 2 · Agua, estabilidad y nubes.
  *
- * Sigue con el capítulo 11 del PHAK. Aquí está la lección que más se usa en
+ * Sigue con el capítulo 12 del PHAK. Aquí está la lección que más se usa en
  * cabina de todo el módulo: reconocer una nube por su forma y saber qué trae
  * dentro. Y la cuenta de la separación temperatura/punto de rocío, que es la
  * pregunta de entrevista más repetida de meteorología.
@@ -19,16 +19,16 @@ export const PARTE_AGUA: DocScreen[] = [
   {
     n: 6,
     title: "Estabilidad: cuándo el aire sube solo",
-    kicker: "Lo que decide si el día trae baches o calma",
+    kicker: "Movimiento vertical, nubes e inversiones",
     minutes: 7,
     blocks: [
       {
         kind: "p",
-        text: "Dos días con la misma nubosidad en el METAR y uno te da un vuelo liso y el otro te tiene con el cinturón puesto toda la subida. La diferencia no está en las nubes: está en si el aire de ese día resiste el movimiento vertical o lo amplifica. Eso es la estabilidad, y es el concepto que ordena casi todo lo que viene después.",
+        text: "Dos reportes de aeródromo (Meteorological Aerodrome Report, METAR) pueden mostrar una nubosidad parecida, pero no describir por sí solos toda la estabilidad de la columna de aire. La distribución de temperatura y humedad con la altura ayuda a explicar por qué unas capas favorecen ascensos y otras los frenan. Para volar, interesa relacionar ese perfil con nubes, turbulencia, techo y visibilidad, no adivinarlo por una sola foto.",
       },
       {
         kind: "definicion",
-        text: "La estabilidad de la atmósfera es su capacidad de resistir el movimiento vertical. En una atmósfera estable las perturbaciones verticales pequeñas se amortiguan y desaparecen. En una inestable, esos mismos movimientos crecen.",
+        text: "La estabilidad atmosférica describe cómo responde una parcela de aire al desplazarse verticalmente. Si queda más fría y densa que el entorno, tiende a volver; si queda más cálida y menos densa, puede continuar ascendiendo. La respuesta depende de la capa y de si la parcela está saturada.",
       },
       {
         kind: "fichas",
@@ -38,18 +38,17 @@ export const PARTE_AGUA: DocScreen[] = [
           {
             titulo: "Aire estable",
             puntos: [
-              "El movimiento vertical cuesta y las perturbaciones se apagan solas.",
-              "Aire seco y frío es muy estable.",
-              "Tiempo bueno y claro en general.",
+              "El ascenso espontáneo se frena; predominan nubes en capas cuando hay humedad y ascenso forzado.",
+              "Puede favorecer estratos, niebla o visibilidad reducida cerca de una inversión.",
+              "Estable no significa automáticamente cielo despejado ni ausencia de otros peligros.",
             ],
           },
           {
             titulo: "Aire inestable",
             puntos: [
-              "Los movimientos verticales pequeños se hacen grandes.",
-              "Flujo turbulento y actividad convectiva.",
-              "Puede llevar a turbulencia fuerte, nubes de gran desarrollo vertical y tiempo severo.",
-              "La mayor inestabilidad se da con aire húmedo y caliente, como el trópico en verano.",
+              "Una parcela levantada puede seguir ascendiendo si queda más cálida que el entorno.",
+              "Favorece desarrollo de cúmulos y turbulencia convectiva si hay humedad y otros ingredientes.",
+              "No toda inestabilidad produce tormenta; también influyen humedad, ascenso inicial y cizalladura.",
             ],
           },
         ],
@@ -57,8 +56,8 @@ export const PARTE_AGUA: DocScreen[] = [
       {
         kind: "callout",
         tone: "info",
-        title: "Por qué en el trópico truena todos los días",
-        text: "Aire húmedo y caliente es la combinación más inestable que hay. Por eso en las regiones tropicales aparecen tormentas a diario, no por casualidad ni por la estación: es el estado normal de esa atmósfera. Si vuelas la región, esa es tu meteorología de base y no la excepción.",
+        title: "El trópico no garantiza tormenta diaria",
+        text: "El calentamiento y la humedad pueden favorecer convección profunda, pero hacen falta un perfil atmosférico favorable y, normalmente, un mecanismo de ascenso. La frecuencia y hora de las tormentas varían con relieve, circulación y temporada. Antes de operar, revisa observaciones, pronósticos y avisos vigentes.",
       },
       {
         kind: "sub",
@@ -70,74 +69,74 @@ export const PARTE_AGUA: DocScreen[] = [
         items: [
           "El aire sube hacia una zona de menor presión.",
           "Al haber menos presión encima, se expande y ocupa más volumen.",
-          "Expandirse le cuesta energía, así que su temperatura baja.",
+          "Al expandirse sin intercambiar mucho calor con el entorno, su temperatura baja.",
           "Al bajar, todo al revés: se comprime y se calienta.",
         ],
       },
       {
         kind: "p",
-        text: "A eso se le llama enfriamiento y calentamiento **adiabáticos**, y ocurre en todo movimiento vertical del aire. La velocidad a la que la temperatura cambia con la altura es el **gradiente**.",
+        text: "Ese enfriamiento o calentamiento aproximado se llama **adiabático**. No confundas el gradiente observado del ambiente con el ritmo de enfriamiento de una parcela que asciende. Este último cambia cuando la parcela alcanza la saturación y libera calor latente por condensación.",
       },
       {
         kind: "kv",
         items: [
-          { k: "Gradiente medio de la atmósfera (el de la ISA)", v: "2 °C (3,5 °F) por cada 1.000 ft" },
-          { k: "Gradiente adiabático seco (aire no saturado)", v: "3 °C (5,4 °F) por cada 1.000 ft" },
-          { k: "Gradiente adiabático húmedo", v: "de 1,1 °C a 2,8 °C por cada 1.000 ft" },
+          { k: "Atmósfera estándar internacional (International Standard Atmosphere, ISA)", v: "aprox. 2 °C menos por cada 1.000 ft en la troposfera; es una referencia, no el perfil real del día" },
+          { k: "Parcela no saturada", v: "se enfría aprox. 3 °C por cada 1.000 ft al ascender" },
+          { k: "Parcela saturada", v: "se enfría más lentamente, a una tasa variable por la liberación de calor latente" },
         ],
       },
       {
         kind: "p",
-        text: "Fíjate en la consecuencia, que es lo que importa: **el aire húmedo se enfría más despacio**, así que tiene que subir más antes de igualar la temperatura del aire que lo rodea. Por eso el aire húmedo es generalmente menos estable que el seco. Y como el vapor de agua es más liviano que el aire, la humedad además baja la densidad y lo ayuda a ascender.",
+        text: "Una parcela **no saturada** se enfría aproximadamente al ritmo adiabático seco aunque contenga vapor de agua. **Después de saturarse**, la condensación libera calor y su enfriamiento al ascender suele ser menor. Por eso la humedad puede favorecer inestabilidad condicional, pero no determina por sí sola que una capa sea inestable: compárala con el perfil real de temperatura del ambiente.",
       },
       {
         kind: "p",
-        text: "Con esos números se decide si el aire de un día es estable: **se compara lo que se enfría la atmósfera de ese día con lo que se enfría la burbuja que sube**. La burbuja se enfría a su ritmo adiabático; el aire que la rodea, al ritmo que tenga ese día. Mientras la burbuja quede más caliente que su entorno, sigue subiendo.",
+        text: "Para una capa determinada, compara cuánto baja la temperatura **ambiental** con la altura y cuánto se enfría una **parcela desplazada**. Si al elevarla queda más cálida que el ambiente, tiene flotabilidad positiva; si queda más fría, el ascenso libre se frena. Es una explicación simplificada: en la atmósfera real también cuentan mezcla, humedad y el impulso inicial.",
       },
       {
         kind: "kv",
         items: [
-          { k: "La atmósfera se enfría más de 3 °C por cada 1.000 ft", v: "absolutamente inestable: la burbuja sube siempre, seca o saturada" },
-          { k: "Se enfría menos que el gradiente húmedo", v: "absolutamente estable: la burbuja se frena siempre" },
-          { k: "Entre los dos", v: "condicionalmente inestable: estable mientras el aire siga seco, inestable en cuanto se satura" },
+          { k: "Gradiente ambiental mayor que el seco", v: "capa absolutamente inestable en la comparación ideal" },
+          { k: "Gradiente ambiental menor que el saturado", v: "capa absolutamente estable en la comparación ideal" },
+          { k: "Entre ambos gradientes", v: "inestabilidad condicional: la parcela puede volverse flotante tras elevarse y saturarse suficientemente" },
         ],
       },
       {
         kind: "check",
         question:
-          "El sondeo del día dice que la atmósfera se enfría 3,5 °C por cada 1.000 ft. ¿Qué tipo de día tienes?",
+          "En una capa, el sondeo indica que la temperatura ambiental baja 3,5 °C por cada 1.000 ft. ¿Qué indica la comparación ideal con una parcela no saturada?",
         options: [
-          "Absolutamente inestable: la burbuja sube igual, esté seca o saturada",
-          "Estable: 3,5 °C es más de lo normal, y cuanto más frío haga arriba más le cuesta subir al aire",
-          "Condicionalmente inestable: hará falta que el aire se sature para que la burbuja siga subiendo",
+          "La capa es absolutamente inestable en esa comparación: el ambiente se enfría más rápido que la parcela",
+          "Es estable porque 3,5 °C es mayor que el valor de la atmósfera estándar",
+          "Solo puede haber ascenso si la parcela se satura, porque 3,5 °C es menor que el gradiente seco",
         ],
         answer: 0,
         explain:
-          "La cuenta es una comparación: la burbuja se enfría a su ritmo adiabático (3 °C por 1.000 ft si está seca, menos si está saturada) y la atmósfera de ese día al suyo. Si la atmósfera se enfría más rápido que la burbuja, la burbuja siempre queda más caliente que su entorno y sigue subiendo. Con 3,5 °C eso pasa incluso con aire seco. El caso condicional es el de en medio, entre el gradiente húmedo y el seco, y ese sí depende de que el aire se sature.",
+          "En la comparación ideal, la parcela no saturada pierde cerca de 3 °C por 1.000 ft y el ambiente 3,5 °C: la parcela elevada queda relativamente más cálida y tiende a continuar ascendiendo. Esto describe esa capa, no garantiza tormentas ni clasifica todo el día; el perfil real puede variar con la altura.",
       },
       {
         kind: "sub",
-        text: "La inversión, que es la excepción que hay que reconocer",
+        text: "La inversión: una capa estable que hay que reconocer",
       },
       {
         kind: "definicion",
-        text: "Inversión de temperatura: cuando la temperatura del aire aumenta con la altitud en vez de bajar. La capa suele ser fina, de aire suave y estable, cerca del suelo.",
+        text: "Inversión de temperatura: capa en la que la temperatura aumenta con la altura. Es una configuración estable, pero puede darse cerca del suelo o en niveles superiores y no garantiza aire suave en sus bordes.",
       },
       {
         kind: "p",
-        text: "El aire del techo de la inversión actúa como tapa y deja debajo el tiempo y la contaminación. Si además la humedad relativa es alta, ahí se te forman nubes, niebla, neblina o humo, y **la visibilidad se cae dentro de la capa**.",
+        text: "Una inversión puede limitar la mezcla vertical y favorecer la acumulación de humedad o contaminantes debajo. Si el aire cercano al suelo alcanza la saturación, puede formarse niebla o nube baja; la visibilidad puede reducirse, pero la inversión sola no crea niebla ni predice su duración.",
       },
       {
         kind: "fichas",
         columnas: 2,
-        titulo: "Las dos que vas a encontrar",
+        titulo: "Dos mecanismos frecuentes",
         items: [
           {
             titulo: "Inversión de superficie",
             puntos: [
-              "Noches claras y frías.",
+              "Noches despejadas y con poco viento favorecen el enfriamiento del suelo.",
               "El suelo se enfría y enfría el aire pegado a él.",
-              "En unos pocos cientos de pies, el aire de abajo queda más frío que el de encima.",
+              "En una capa baja, el aire de abajo puede quedar más frío que el situado encima.",
             ],
           },
           {
@@ -154,16 +153,58 @@ export const PARTE_AGUA: DocScreen[] = [
         nombre: "meteo-inversion",
       },
       {
+        kind: "p",
+        text: "**Qué muestra el esquema:** una capa donde la temperatura sube con la altura. **Cómo leerlo:** ubica el aire frío abajo y el relativamente cálido encima; esto limita la mezcla vertical. **Qué decides:** comprobar techo, visibilidad y tendencia antes de una salida o llegada; el dibujo no permite pronosticar una hora de disipación.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Niebla baja sobre un aeródromo de valle",
+        intro: "La imagen permite reconocer visibilidad limitada cerca del suelo y aire claro por encima; no mide la temperatura vertical ni confirma por sí sola una inversión.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l06-inversion.webp",
+          alt: "Banco de niebla al amanecer en un valle con terminal y torre de aeródromo parcialmente visibles",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 38,
+            y: 52,
+            que: "Terminal y torre entre niebla",
+            significa: "La capa baja puede reducir la visibilidad en el aeródromo aunque arriba el cielo esté despejado.",
+            piloto: "Consulta la observación y la tendencia vigentes; verifica mínimos y opciones operativas.",
+          },
+          {
+            x: 62,
+            y: 42,
+            que: "Tope de niebla",
+            significa: "La parte superior visible delimita la capa en esta fotografía, no la altura exacta de una inversión térmica.",
+            piloto: "No deduzcas una hora de mejora solo por ver sol sobre la capa.",
+          },
+          {
+            x: 74,
+            y: 18,
+            que: "Aire claro por encima",
+            significa: "Una condición favorable en altura puede coexistir con mínimos restrictivos en superficie.",
+            piloto: "Planifica despegue, llegada y alternos con datos del aeródromo, no con la vista desde arriba.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** niebla baja sobre el aeródromo y cielo claro por encima. **Cómo lo reconoces:** la torre y la terminal asoman parcialmente entre la capa. **Qué decides:** confirmar visibilidad, techo, tendencias y mínimos aplicables; la imagen no demuestra una inversión ni indica cuándo se disipará.",
+      },
+      {
         kind: "piensaComoPiloto",
         momento: "Antes del vuelo, primera hora",
         situacion:
-          "Amanece despejado y sin viento tras una noche fría y clara. El METAR de tu aeródromo da visibilidad reducida y una capa baja, pero la carta no muestra ningún frente cerca y el destino está limpio.",
+          "Amanece tras una noche despejada y de poco viento. El METAR de tu aeródromo da visibilidad reducida y una capa baja, pero la carta no muestra ningún frente cerca y el destino tiene condiciones favorables.",
         pregunta: "¿Qué está pasando y qué esperas que ocurra en las próximas horas?",
         claves: [
-          "Noche clara, fría y en calma es la receta exacta de una inversión de superficie: el suelo se enfría por radiación y enfría el aire pegado a él.",
-          "El techo de la inversión hace de tapa y deja debajo la humedad, así que la visibilidad se cae dentro de esa capa.",
-          "No hace falta un frente para explicarlo: es un fenómeno local y de las primeras horas.",
-          "Con el sol la temperatura sube, la inversión se rompe y lo de debajo se disipa. Lo que hay que estimar es cuándo, no si va a pasar.",
+          "Una noche despejada, con poco viento y suelo que se enfría por radiación favorece una inversión de superficie; el perfil debe confirmarse.",
+          "Si el aire bajo se satura, puede formarse niebla o nube baja y reducir techo y visibilidad.",
+          "No hace falta un frente para explicar una niebla local, pero hay que revisar la situación completa y los reportes vigentes.",
+          "El sol y la mezcla pueden disipar la niebla, pero no es seguro ni se deduce una hora fija: consulta tendencia, pronóstico, mínimos y alternos.",
         ],
       },
       {
@@ -174,22 +215,22 @@ export const PARTE_AGUA: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es la estabilidad atmosférica y qué tiempo trae cada caso?",
             respuesta:
-              "Es la capacidad de la atmósfera de resistir el movimiento vertical. En una atmósfera estable las perturbaciones verticales se amortiguan y el tiempo suele ser bueno y claro. En una inestable los movimientos verticales crecen, y eso da flujo turbulento, actividad convectiva, nubes de gran desarrollo vertical y posible tiempo severo.",
-            claves: ["Resistir el movimiento vertical", "Estable: bueno y claro", "Inestable: turbulencia y convección"],
+              "Describe si una parcela desplazada verticalmente tiende a volver o a seguir ascendiendo. Una capa estable puede presentar estratos o niebla; una inestable puede favorecer cúmulos y turbulencia convectiva. Ninguna etiqueta por sí sola determina todo el tiempo del vuelo.",
+            claves: ["Respuesta de una parcela desplazada", "Estable también puede traer estratos o niebla", "Inestable favorece convección"],
           },
           {
             nivel: "interpretacion",
-            q: "¿Por qué el aire húmedo es menos estable que el seco?",
+            q: "¿Cuándo se enfría más lentamente al ascender una parcela húmeda?",
             respuesta:
-              "Porque se enfría a menor velocidad al ascender: el gradiente adiabático húmedo va de 1,1 a 2,8 °C por cada 1.000 ft, contra 3 °C del seco. Al enfriarse más despacio tiene que subir más antes de igualar la temperatura del aire circundante, así que sigue ascendiendo. Además el vapor de agua es más liviano que el aire, con lo que baja la densidad y favorece el ascenso.",
-            claves: ["Se enfría más despacio", "Gradiente húmedo 1,1 a 2,8 °C", "Gradiente seco 3 °C", "Vapor más liviano"],
+              "Mientras no esté saturada, se enfría aproximadamente al gradiente adiabático seco. Tras alcanzar la saturación, la condensación libera calor latente y el enfriamiento al ascender se reduce a una tasa variable. Para saber si seguirá subiendo hay que compararla con la temperatura del ambiente en esa capa.",
+            claves: ["No saturada: gradiente seco", "Saturada: calor latente", "Comparar con ambiente"],
           },
           {
             nivel: "situacion",
             q: "¿Qué es una inversión y qué problema operativo trae?",
             respuesta:
-              "Es una capa en la que la temperatura aumenta con la altitud en lugar de bajar. Es aire suave y estable, normalmente fino y cerca del suelo. El problema es que su techo actúa como tapa: atrapa debajo el tiempo y la contaminación, y con humedad relativa alta forma nubes, niebla, neblina o humo, con la visibilidad reducida dentro de la capa.",
-            claves: ["Temperatura sube con la altura", "Capa estable cerca del suelo", "Tapa: atrapa humedad y contaminación", "Visibilidad reducida"],
+              "Es una capa en la que la temperatura aumenta con la altura. Puede limitar la mezcla y favorecer acumulación de humedad o contaminantes. Si se forma niebla o nube baja, el techo y la visibilidad pueden restringir la operación; no debes suponer que el sol la disipará a una hora fija.",
+            claves: ["Temperatura sube con altura", "Limita mezcla", "Niebla posible si hay saturación", "Confirmar mínimos y tendencia"],
           },
         ],
       },
