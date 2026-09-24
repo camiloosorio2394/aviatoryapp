@@ -21,8 +21,7 @@ import {
  * en cinco niveles, y cada nivel cierra con su entrevista de aerolínea.
  *
  * Es el módulo más visual de la app: el texto de cada lección cabe en unas 150
- * palabras y lo que enseña son las imágenes, que por ahora son huecos rotulados
- * con el código y la medida de la foto que falta.
+ * palabras y las imágenes muestran qué reconocer y cómo actuar.
  *
  * Ruta: /app/aerolinea/aeropuertos/aprende?l=1 (lección) o ?e=1 (entrevista)
  */
@@ -38,8 +37,7 @@ const MODULO: LectorModulo = {
   // Las portadas de este módulo se diseñan con el título dentro, como las de
   // Mercancías, así que van a 16:9 y no a la franja 8:3 de NOTAM.
   portadaRatio: "16 / 9",
-  // La portada de cada lección es su primer hueco (AP-LL-01), que lleva la
-  // descripción de qué dibujar. Sin esto saldrían dos huecos seguidos.
+  // Cada lección ya incluye su portada (AP-LL-01) en el contenido.
   portadaAuto: false,
   actividad: "aeropuertos-leccion",
   lecciones: AP_LECCIONES,

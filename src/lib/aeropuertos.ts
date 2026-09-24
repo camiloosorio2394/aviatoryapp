@@ -37,6 +37,8 @@ export const AP_APRENDE = `${AP_HUB}/aprende`
 export const AP_CATALOGO = `${AP_HUB}/catalogo`
 /** La práctica: reconocer lo que se ve, decidir lo que se hace. */
 export const AP_PRACTICA = `${AP_HUB}/practica`
+/** Misiones narrativas, separadas de los ejercicios con progreso oficial. */
+export const AP_MISIONES_RUTA = `${AP_PRACTICA}/misiones`
 /** La evaluación, con el banco en el servidor. */
 export const AP_EVALUACION = `${AP_HUB}/evaluacion`
 

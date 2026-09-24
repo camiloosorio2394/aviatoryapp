@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Vista cenital de un umbral de pista</title>
+  <desc id="desc">Doce fajas blancas paralelas y simétricas sobre pavimento oscuro, seis a cada lado del eje.</desc>
+  <defs>
+    <linearGradient id="grass" x2="0" y2="1">
+      <stop stop-color="#708e65"/>
+      <stop offset="1" stop-color="#496947"/>
+    </linearGradient>
+    <linearGradient id="asphalt" x2="0" y2="1">
+      <stop stop-color="#333b3c"/>
+      <stop offset="1" stop-color="#252d2f"/>
+    </linearGradient>
+    <pattern id="seams" width="76" height="128" patternUnits="userSpaceOnUse">
+      <path d="M0 0H76M0 0V128" fill="none" stroke="#66706d" stroke-opacity=".14" stroke-width="2"/>
+    </pattern>
+    <filter id="grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".18" numOctaves="2" seed="9" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer><feFuncA type="linear" slope=".065"/></feComponentTransfer>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#grass)"/>
+  <path d="M416 0H1184V900H416Z" fill="url(#asphalt)"/>
+  <path d="M416 0H1184V900H416Z" fill="url(#seams)"/>
+  <rect x="416" width="768" height="900" filter="url(#grain)" opacity=".45"/>
+  <path d="M445 0V900M1155 0V900" fill="none" stroke="#f5f5ed" stroke-width="9"/>
+  <path d="M800 0V118M800 182V300" fill="none" stroke="#f5f5ed" stroke-width="14"/>
+  <g fill="#f8f8f0">
+    <path d="M480 362H509V746H480ZM529 362H558V746H529ZM578 362H607V746H578ZM627 362H656V746H627ZM676 362H705V746H676ZM725 362H754V746H725Z"/>
+    <path d="M846 362H875V746H846ZM895 362H924V746H895ZM944 362H973V746H944ZM993 362H1022V746H993ZM1042 362H1071V746H1042ZM1091 362H1120V746H1091Z"/>
+  </g>
+</svg>

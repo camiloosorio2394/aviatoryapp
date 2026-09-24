@@ -10,13 +10,14 @@ import {
   ChevronRight,
   Eye,
   History,
+  MapPinned,
   RotateCcw,
   Signpost,
 } from "lucide-react"
 import { useSession } from "@/hooks/useSession"
 import { accentText } from "@/lib/tileColors"
 import { registrarEstudioDiario } from "@/lib/activity"
-import { AP_ACENTO, AP_HUB, AP_TITULO, readAeropuertosLocal } from "@/lib/aeropuertos"
+import { AP_ACENTO, AP_HUB, AP_MISIONES_RUTA, AP_TITULO, readAeropuertosLocal } from "@/lib/aeropuertos"
 import { fetchAeropuertosProgress, markAeropuertosProgress, pushPendingAeropuertos } from "@/lib/aeropuertosProgress"
 import {
   AP_CAMBIO,
@@ -151,23 +152,18 @@ export function AeropuertosPractice() {
       </Link>
 
       <header className="np-hero relative mb-8 overflow-hidden rounded-[18px] bg-[#1B1430]">
-        {/* La foto todavía no existe. El hueco conserva la caja y el velo, así
-            que cuando llegue se pone el <img> con la clase np-hero-foto y no
-            cambia nada más. */}
-        <div className="np-hero-velo" />
-        <div
-          className="pointer-events-none absolute inset-2 rounded-[14px] border border-dashed border-white/[0.10]"
-          aria-hidden
+        <img
+          className="np-hero-foto"
+          src="/modulos/aeropuertos/ap-pra-01-practica.webp"
+          alt="Vista al atardecer de calles de rodaje iluminadas junto a una pista y la torre de control"
         />
-        <span className="pointer-events-none absolute bottom-3 right-4 text-[9px] font-semibold uppercase tracking-[0.14em] text-white/30">
-          AP-PRA-01 · 16:9 · 2000×1125 · espacio reservado
-        </span>
+        <div className="np-hero-velo" />
         <div className="relative px-6 py-11 text-center sm:px-10 sm:py-14">
           <div className="np-hero-rotulo">
             <Eye className="h-3.5 w-3.5" /> Aeropuertos · Práctica
           </div>
           <h1 className="np-display mx-auto mt-4 max-w-[880px] text-[30px] font-semibold leading-[1.1] text-white sm:text-[40px]">
-            Practica lo que tienes que reconocer
+            Practica lo que ves y decides
           </h1>
           <p className="mx-auto mt-5 max-w-[720px] text-[15px] leading-[1.7] text-white/80 sm:text-[16px]">
             Di qué señal, letrero, luz o baliza estás viendo; resuelve situaciones de rodaje, de
@@ -186,6 +182,24 @@ export function AeropuertosPractice() {
           </div>
         </div>
       </header>
+
+      <section className="mb-8 overflow-hidden rounded-2xl border border-[#9CCDBB] bg-[#ECF7F0] p-5 sm:p-6" aria-labelledby="misiones-practica-titulo">
+        <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="max-w-[730px]">
+            <div className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.14em] text-[#2F766A]">
+              <MapPinned className="h-4 w-4" /> Otra forma de practicar
+            </div>
+            <h2 id="misiones-practica-titulo" className="mt-2 font-[Archivo] text-[23px] font-semibold text-[#173E35]">Cuatro misiones guiadas</h2>
+            <p className="mt-2 text-[13.5px] leading-relaxed text-[#31564C]">
+              Observa una escena, decide qué hacer y reevalúa cuando aparece un dato nuevo.
+              Son escenarios separados de los 30 ejercicios de abajo y no cambian su avance.
+            </p>
+          </div>
+          <Link to={AP_MISIONES_RUTA} className="inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-xl bg-[#2F766A] px-4 text-[13px] font-semibold text-white transition-colors hover:bg-[#245E54]">
+            Explorar misiones <ChevronRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
 
       {/* === CONTROLES === */}
       <section className="surface min-w-0 rounded-2xl p-5 sm:p-6">
@@ -282,7 +296,31 @@ export function AeropuertosPractice() {
             explicacion={reconoce.explicacion}
             onResponder={() => marcar(clave)}
           >
-            <Hueco hueco={reconoce.hueco} />
+            {reconoce.imagen ? (
+              <figure className="m-0">
+                <img
+                  src={reconoce.imagen.src}
+                  alt={reconoce.imagen.alt}
+                  className="block w-full rounded-xl object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="mt-2 text-[12px] leading-relaxed text-muted-foreground">
+                  {reconoce.imagen.pie}
+                  {reconoce.imagen.fuente && (
+                    <a
+                      href={reconoce.imagen.fuente}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-1 underline underline-offset-2 hover:text-foreground"
+                    >
+                      Abrir carta oficial en PDF
+                    </a>
+                  )}
+                </figcaption>
+              </figure>
+            ) : reconoce.hueco ? (
+              <Hueco hueco={reconoce.hueco} />
+            ) : null}
           </Ejercicio>
         )}
 
@@ -362,9 +400,8 @@ function pad(n: number): string {
 // ─── Piezas ──────────────────────────────────────────────────────────────────
 
 /**
- * El hueco de la imagen que falta, rotulado con su código y su medida. Es
- * visible a propósito, como en las lecciones: mientras Camilo genera las fotos,
- * el hueco es el recordatorio de cuál falta y qué tiene que mostrar.
+ * Reserva visible de un material oficial pendiente de verificar, rotulada con
+ * su código y medida. No se sustituye una carta aeronáutica por una inventada.
  */
 function Hueco({ hueco }: { hueco: ApHueco }) {
   return (
