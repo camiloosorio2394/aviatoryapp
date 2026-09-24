@@ -213,33 +213,31 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 11,
     familia: "Baliza",
-    hueco: {
-      codigo: "AP-PRA-09",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Vista cenital de un panel blanco centrado sobre un área cuadrada con borde blanco de 0,3 m, fondo gris claro y sin sombras. El panel son dos discos unidos por una barra, y sobre cada disco hay una barra negra corta puesta en perpendicular al eje que los une. Ojo: las dos barras negras, nunca una sola, y nunca paralelas al eje.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-09-haltera-barras.webp",
+      alt: "Vista cenital de un área de señales con una figura blanca de dos discos unidos y una barra negra vertical sobre cada disco",
+      pie: "El detalle decisivo está en los extremos de la figura. Comprueba si hay una barra negra en cada disco antes de interpretar qué movimientos quedan limitados.",
     },
     pregunta: "¿Qué te está diciendo ese panel?",
     opciones: [
-      "Que el aterrizaje y el despegue están limitados a las pistas, pero el rodaje es libre",
+      "Que aterrizaje y despegue se limitan a las pistas; el panel no define por sí solo dónde rodar",
       "Que aterrizaje, despegue y rodaje están limitados a pistas y calles de rodaje",
       "Que el aeródromo está cerrado",
       "Que hay tránsito de planeadores",
     ],
     correcta: 0,
     explicacion:
-      "La haltera cambia de significado según lleve o no las barras. Sola, quiere decir que aterrizajes, despegues y rodaje quedan limitados a pistas y calles de rodaje. Con una barra negra perpendicular sobre cada disco, la limitación se estrecha: solo el aterrizaje y el despegue quedan atados a las pistas. El cierre del aeródromo lo dice una cruz, y los planeadores, una doble cruz. Todo esto vive en el área de señales, cuadrada y de 9 m de lado como mínimo.",
+      "La haltera cambia de significado según lleve o no las barras. Sola, indica que aterrizajes, despegues y rodaje se limitan a pistas y calles de rodaje. Con una barra negra perpendicular sobre cada disco, el panel limita a las pistas el aterrizaje y el despegue, pero no autoriza por sí mismo a rodar por cualquier superficie: confirma las instrucciones y la información publicada. El cierre del aeródromo lo indica una cruz, y los planeadores, una doble cruz. Todo esto vive en el área de señales, cuadrada y de 9 m de lado como mínimo.",
   },
   {
     id: "r09",
     nivel: 4,
     leccion: 13,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-10",
-      medida: "Fotografía real · 16:9 · 1600×900",
-      descripcion:
-        "De noche, desde el asiento izquierdo, con el avión rodando por el eje de una pista larga hacia el fondo del cuadro. La fila central de luces empotradas alterna rojo y blanco a lo largo de todo el tramo visible, con luces cada 15 m, y las dos filas de los lados siguen blancas. Ojo: ninguna luz amarilla y ningún tramo enteramente rojo en el encuadre.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-10-eje-alternado.webp",
+      alt: "Vista nocturna desde cabina de una pista con luces empotradas rojas y blancas alternadas en el eje y bordes blancos",
+      pie: "Lee el eje desde la aeronave hacia delante: la sucesión roja y blanca, distinta de las dos filas blancas de borde, comunica una referencia de distancia restante. No reemplaza la distancia publicada.",
     },
     pregunta: "¿Qué estás viendo y qué te dice?",
     opciones: [
@@ -257,11 +255,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 4,
     leccion: 14,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-11",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Planta de una calle de rodaje llegando a una pista, de noche. Cruzando la calle de lado a lado, una fila de luces amarillas separadas 3 m, con las adyacentes en fases opuestas, dibujadas unas encendidas y otras apagadas para que se lea el destello en ola. Un rótulo al margen dice «30 a 60 ciclos por minuto» y otro, «lado de espera». Ojo: en este emplazamiento no se dibuja ninguna barra de parada.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-11-proteccion-b.webp",
+      alt: "Vista nocturna de una calle hacia una pista con una fila transversal de luces amarillas empotradas, unas encendidas y otras apagadas",
+      pie: "La fila amarilla cruza toda la calle; la foto captura una de las fases de destello de luminarias adyacentes. Distingue esta advertencia de una barrera roja antes de decidir si puedes proseguir.",
     },
     pregunta: "¿Qué luces son?",
     opciones: [
@@ -279,11 +276,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 4,
     leccion: 15,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-12",
-      medida: "Ilustración técnica · 16:9 · 1600×900",
-      descripcion:
-        "Planta del área de aproximación con el umbral abajo a la derecha y una cinta de cotas al pie. Una fila central de luces blancas de 900 m con luces cada 30 m, barras transversales a 150 m y a 300 m del umbral, y dos filas laterales de luces rojas que acompañan a la central solo en los 270 m más cercanos al umbral. Ojo: ninguna sigla de otra autoridad y ninguna cifra en pies.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-12-aproximacion-precision.svg",
+      alt: "Planta técnica de luces de aproximación: eje blanco, barras a 150 y 300 metros, y dos filas rojas laterales cerca del umbral",
+      pie: "Esquema didáctico, no carta publicada: identifica qué luces solo aparecen junto al umbral y compara sus cotas con las barras transversales. Confirma siempre el sistema real del aeródromo en su publicación vigente.",
     },
     pregunta: "¿Qué sistema de aproximación es?",
     opciones: [
