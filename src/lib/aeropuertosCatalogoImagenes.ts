@@ -62,6 +62,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-08-lineas-seguridad-plataforma.webp",
     explicacion: "Las marcas amarillas guían al avión; la línea roja separa la zona de seguridad del puesto. Mantén vehículos y equipos en el lado permitido y confirma que el área esté libre antes de mover el avión.",
   },
+  "AP-CAT-12": {
+    src: "/modulos/aeropuertos/ap-cat-12-emplazamiento-pintado.webp",
+    explicacion: "La B amarilla sobre fondo negro indica la calle en la que estás, sin flecha de dirección. Confirma que coincide con tu ruta autorizada antes de continuar el rodaje.",
+  },
   "AP-CAT-14": {
     src: "/modulos/aeropuertos/ap-cat-14-borde-plataforma.webp",
     explicacion: "La línea continua delimita la parte resistente de la plataforma: el avión permanece dentro, mientras el pavimento más oscuro y el terreno exterior no se cuentan como área apta para estacionar.",
@@ -113,6 +117,14 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-56": {
     src: "/modulos/aeropuertos/ap-cat-56-espera-despegue.webp",
     explicacion: "Dos filas rojas junto a las luces blancas del eje indican que no es seguro iniciar el despegue. Permanece detenido; que se apaguen no sustituye la autorización de la torre.",
+  },
+  "AP-CAT-61": {
+    src: "/modulos/aeropuertos/ap-cat-61-balizas-cable.webp",
+    explicacion: "Las esferas anaranjadas y blancas alternadas vuelven visible el cable tendido entre torres. Reconócelas como advertencia de obstáculo y mantén la separación de vuelo publicada.",
+  },
+  "AP-CAT-64": {
+    src: "/modulos/aeropuertos/ap-cat-64-vehiculo-guia.webp",
+    explicacion: "El vehículo guía lleva tablero «FOLLOW ME» y destello amarillo en el techo. Síguelo por la ruta indicada, manteniendo distancia y sin confundir su luz con la azul de emergencia.",
   },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
