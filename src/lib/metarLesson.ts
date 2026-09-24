@@ -317,42 +317,64 @@ const CODIGO: DocScreen[] = [
     n: 4,
     title: "Visibilidad y alcance de pista",
     kicker: "Metros, millas y el RVR",
-    minutes: 3,
+    minutes: 4,
     blocks: [
+      {
+        kind: "p",
+        text: "**Qué ves en la portada:** la plataforma cercana se distingue, mientras una franja de niebla oculta parte del aeródromo. **Cómo lo reconoces:** el contraste y las luces se pierden gradualmente hacia el fondo; la foto no ofrece metros de visibilidad. **Qué decides:** consultar la observación vigente, el alcance visual de la pista prevista y los mínimos de la operación antes de elegir aproximación o alternativa.",
+      },
       {
         kind: "list",
         items: [
-          "**`9999`**: visibilidad de 10 km o más. Es el mejor valor que reporta la clave.",
-          "**`4000`**: visibilidad horizontal en metros (4 km). Colombia y casi todo el mundo reportan en metros.",
-          "**`6SM`**: Estados Unidos reporta en millas terrestres (statute miles). 1 SM = 1609 m.",
-          "**`R28L/1200`**: el **RVR** (alcance visual en pista): desde la aproximación a la pista 28 izquierda se ven 1200 metros. L, C y R distinguen pistas paralelas (izquierda, central, derecha).",
-          "El RVR puede traer tendencia: **U** mejorando (up), **D** empeorando (down), **N** sin cambio. En EE. UU. va en pies: `R28C/3600FT`.",
+          "**`9999`**: visibilidad predominante de 10 km o más; no significa exactamente 9.999 m ni visibilidad ilimitada.",
+          "**`4000`**: visibilidad predominante de 4.000 m en el formato usado en Colombia. No describe necesariamente cada sector o cabecera.",
+          "**`6SM`**: en el formato estadounidense, visibilidad en millas terrestres (SM, statute miles). Una milla terrestre equivale aproximadamente a 1.609 m.",
+          "**`R28L/1200`**: alcance visual en pista (RVR, Runway Visual Range) de 1.200 m para la pista 28 izquierda. L, C y R distinguen pistas paralelas; el código no significa que un piloto en final ya ve 1.200 m en línea oblicua.",
+          "El RVR puede incluir tendencia: **U** en aumento (up), **D** en disminución (down), **N** sin cambio (no change). No es un pronóstico. En el formato estadounidense puede expresarse en pies, por ejemplo `R28C/3600FT`.",
         ],
       },
       {
         kind: "p",
-        text: "El RVR se mide con las luces de alta intensidad de la pista o el contraste con otros objetos, y es el número que define si puedes iniciar una aproximación con niebla. Cuando la visibilidad general y el RVR difieren, el RVR manda para esa pista.",
+        text: "El RVR representa el alcance horizontal a lo largo de la pista desde el cual un piloto situado sobre su eje podría distinguir las marcas o las luces que la delimitan o identifican. Se estima con equipos próximos a la pista y considera el contraste y la intensidad luminosa. No es una foto de la aproximación ni una promesa de ver las referencias requeridas al llegar a la altura de decisión.",
+      },
+      {
+        kind: "callout",
+        tone: "warn",
+        title: "El valor no autoriza por sí solo",
+        text: "Cuando los mínimos aplicables están expresados en RVR, usa el valor vigente y los puntos de medición requeridos para esa pista conforme a la regulación y a los procedimientos del operador. También cuentan la aproximación publicada, ayudas y luces operativas, autorización, aeronave, tripulación y referencias visuales exigidas. Un RVR por encima del mínimo no garantiza aterrizar.",
       },
       {
         kind: "check",
         question:
-          "El METAR trae visibilidad `0800` y además `R28L/1200`. Vas a la 28 izquierda. ¿Con qué número decides?",
+          "Ejemplo didáctico: el METAR indica visibilidad predominante `0800` y `R28L/1200`. La aproximación a la 28L tiene un mínimo expresado en RVR. ¿Qué comparas primero con ese mínimo?",
         options: [
-          "Con los 800 m: es la visibilidad oficial del aeródromo",
-          "Con los 1200 m del RVR, que es el que manda para esa pista",
-          "Con el promedio de los dos",
+          "Los 800 m de visibilidad predominante; el RVR no sirve para la pista",
+          "Los 1.200 m de RVR de la 28L; además verifico condiciones y requisitos de la operación",
+          "El promedio de ambos valores: 1.000 m",
         ],
         answer: 1,
         explain:
-          "El RVR es el alcance visual medido **en esa pista**, y cuando difiere de la visibilidad general es el que manda para la aproximación. Por eso un aeródromo con niebla puede seguir operando: la visibilidad general está peor que lo que se ve desde la senda.",
+          "Para un mínimo publicado en RVR de la 28L, compara el valor vigente de esa pista y los demás puntos exigidos por el procedimiento. `0800` describe la visibilidad predominante del aeródromo y no se promedia con el RVR. Ninguno de los dos números, aislado, autoriza continuar hasta el aterrizaje.",
       },
       {
-        kind: "figura",
-        src: "/modulos/meteorologia/mt-img-02-pista-baja-visibilidad.webp",
-        alt: "Cabecera de pista en baja visibilidad, con las barras rojas de umbral y las luces de aproximación perdiéndose en la bruma, y una aeronave en la toma.",
-        ancho: 1600,
-        alto: 900,
-        pie: "Esto es el RVR hecho imagen: se ve exactamente hasta dónde llega la vista, y dónde deja de llegar.",
+        kind: "reconoce",
+        titulo: "De la niebla al dato de pista",
+        intro: "Esta escena ilustra la medición cerca de una pista; no muestra un RVR numérico ni un aeródromo real.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t16-01-sensor-rvr.webp",
+          alt: "Representación fotográfica de sensores ópticos junto a una pista con luces y marcas que se desvanecen en la niebla",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 20, y: 35, que: "Sensores ópticos", significa: "El equipo situado junto a la pista aporta información para estimar el alcance visual; la foto no enseña una lectura real.", piloto: "Comprueba el RVR publicado para la pista y sus posiciones de medición requeridas." },
+          { x: 68, y: 58, que: "Luces y marcas de pista", significa: "Son las referencias que el concepto de RVR representa a lo largo del eje de pista.", piloto: "No confundas alcance horizontal medido con las referencias visuales que debes adquirir durante la aproximación." },
+          { x: 74, y: 24, que: "Niebla hacia el fondo", significa: "La pérdida de contraste ilustra visibilidad reducida, pero no permite calcular un número de metros a ojo.", piloto: "Revisa tendencia, observación reciente y alterno si la condición cambia." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** sensores ópticos, luces de borde y marcas que se atenúan en la niebla. **Cómo lo reconoces:** los equipos están fuera del pavimento y la pista pierde contraste hacia el fondo; ninguna distancia exacta puede medirse en la foto. **Qué decides:** usar el RVR oficial, su tendencia y los requisitos de la aproximación, sin sustituirlos por una impresión visual de la imagen.",
       },
       {
         kind: "entrevista",
@@ -361,22 +383,22 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es el RVR y en qué se diferencia de la visibilidad del METAR?",
             respuesta:
-              "El RVR es el alcance visual en pista: la distancia a la que se ven las luces de alta intensidad o el contraste de los objetos desde la senda de aproximación de una pista concreta. La visibilidad del METAR es la visibilidad horizontal general del aeródromo. Se diferencian en que el RVR es de esa pista y de ese momento, y por eso es el número con el que se decide una aproximación de baja visibilidad.",
-            claves: ["Alcance visual en una pista concreta", "La visibilidad es general del aeródromo", "El RVR manda para la aproximación"],
+              "El RVR representa la distancia horizontal a lo largo del eje de una pista a la que pueden distinguirse sus marcas o luces. La visibilidad predominante del METAR describe una zona más amplia del aeródromo. Si los mínimos de la aproximación están expresados en RVR, comparo los valores vigentes de los puntos de medición exigidos para esa pista y sigo el procedimiento aplicable; no equiparo RVR con lo que veré en final.",
+            claves: ["Alcance horizontal en una pista concreta", "Visibilidad predominante del aeródromo", "Mínimos y puntos de medición aplicables"],
           },
           {
             nivel: "interpretacion",
             q: "¿Por qué un aeródromo con visibilidad de 600 metros puede seguir operando?",
             respuesta:
-              "Porque la visibilidad general y el RVR miden cosas distintas. La niebla puede estar cerrando el campo mientras las luces de alta intensidad de la pista siguen siendo visibles desde mucho más lejos. Si el RVR de esa pista está por encima del mínimo de la aproximación, se puede operar aunque la visibilidad general esté por debajo.",
-            claves: ["Miden cosas distintas", "Las luces de alta intensidad se ven más lejos", "Decide el RVR de esa pista"],
+              "Porque la visibilidad predominante y el RVR no representan exactamente el mismo fenómeno ni el mismo lugar. Si hay un RVR válido que cumple los mínimos aplicables, y además se satisfacen los requisitos de procedimiento, equipos, tripulación, aeronave y regulación, puede ser posible operar con niebla. El número por sí solo no da autorización ni asegura adquirir las referencias visuales para aterrizar.",
+            claves: ["Visibilidad y RVR son distintos", "Se necesitan mínimos y requisitos completos", "RVR no garantiza aterrizaje"],
           },
           {
             nivel: "situacion",
             q: "El RVR viene como `R28L/1200U`. ¿Qué te dice la U?",
             respuesta:
-              "Que la tendencia es de mejora, up. La D sería empeorando, down, y la N sin cambio. Es un dato pequeño y muy útil: con 1200 metros y tendencia a mejorar puedo plantearme esperar; con los mismos 1200 y una D, lo que toca es contar con que al llegar habrá menos y tener el alterno listo.",
-            claves: ["U mejora, D empeora, N sin cambio", "Cambia la decisión de esperar o desviar"],
+              "La U indica una tendencia observada de aumento del RVR. D señala disminución y N ausencia de cambio apreciable. No predice el valor a la hora de llegada: contrasto la hora del reporte y los valores locales actualizados, y mantengo una alternativa si la operación depende de que mejore.",
+            claves: ["U aumento, D disminución, N sin cambio", "No es pronóstico", "Confirmar valor actualizado y alternativa"],
           },
         ],
       },
