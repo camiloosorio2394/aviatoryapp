@@ -417,16 +417,16 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
   {
     n: 3,
     title: "Por qué se mueve el aire",
-    kicker: "Calentamiento desigual, Coriolis y de qué lado te conviene volar",
+    kicker: "Calentamiento desigual, presión y efecto de Coriolis",
     minutes: 7,
     blocks: [
       {
         kind: "p",
-        text: "Vuelas de Bogotá a Buenos Aires con viento de cola durante buena parte del tramo. A la vuelta, el mismo trayecto te cuesta cuarenta minutos más. No es mala suerte ni necesariamente una mala planificación: los vientos asociados a los sistemas de presión pueden favorecer una dirección y penalizar la contraria. Esta lección te ayuda a mirar una carta de superficie y anticipar dónde puedes encontrar los vientos más favorables para tu ruta.",
+        text: "En un vuelo de ida puedes encontrar viento de cola y, en el regreso, viento de frente. La distribución de presión y la rotación terrestre ayudan a explicar esos patrones, pero una carta de superficie **no** basta para conocer el viento a la altitud de crucero. Esta lección te enseña a interpretar el mecanismo; la planificación operativa exige pronósticos de viento en altura para la ruta y el nivel previstos.",
       },
       {
         kind: "sub",
-        text: "Ver: el motor de todo esto es que el sol no calienta parejo",
+        text: "Ver: el sol no calienta de manera uniforme",
       },
       {
         kind: "secuencia",
@@ -435,13 +435,13 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         items: [
           "El sol calienta la superficie de forma desigual: el ecuador recibe más que los polos, porque la Tierra es curva y su eje está inclinado.",
           "El aire caliente se expande, se hace menos denso y sube.",
-          "El aire frío, más denso y pesado, baja y ocupa el sitio del que subió.",
-          "Ese movimiento circular, repetido a escala del planeta, es la circulación atmosférica.",
+          "El aire que se enfría tiende a hacerse más denso y puede descender.",
+          "Los contrastes de temperatura y presión impulsan la circulación atmosférica; la rotación terrestre y otros factores modifican el flujo.",
         ],
       },
       {
         kind: "p",
-        text: "El calentamiento desigual no solo cambia la densidad: cambia la presión. Y donde hay diferencia de presión, hay viento, porque **el aire siempre va de la alta a la baja**.",
+        text: "El calentamiento desigual también genera diferencias de presión. La **fuerza del gradiente de presión** inicia el movimiento hacia presiones menores. El viento resultante no sopla siempre directamente de alta a baja: la rotación terrestre lo desvía y, cerca del suelo, la fricción cambia su velocidad y dirección.",
       },
       {
         kind: "sub",
@@ -449,39 +449,43 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "definicion",
-        text: "La fuerza de Coriolis es el efecto de la rotación de la Tierra sobre lo que se mueve por ella. Desvía el aire hacia la derecha en el hemisferio norte y hacia la izquierda en el hemisferio sur.",
+        text: "El efecto de Coriolis es la desviación aparente que produce la rotación de la Tierra en un flujo de aire visto desde la superficie: hacia la derecha de su movimiento en el hemisferio norte y hacia la izquierda en el sur.",
       },
       {
         kind: "vinetas",
         items: [
-          "No la notas al caminar: te mueves despacio y poco. Sí afecta a lo que recorre grandes distancias, como una masa de aire o de agua.",
+          "Es relevante para flujos extensos y duraderos, como los grandes sistemas atmosféricos; no explica por sí solo una ráfaga local.",
           "La desviación es máxima en los polos y se anula en el ecuador.",
-          "Cuanto más rápido se mueve el cuerpo, mayor es la desviación.",
-          "Por ella, el flujo general se parte en tres células por hemisferio en lugar de ir del polo al ecuador en línea recta.",
+          "Cuanto más rápido se mueve el flujo, mayor es el efecto de desviación.",
+          "Junto con el calentamiento desigual y otros procesos, contribuye al patrón de circulación de tres células por hemisferio.",
         ],
       },
       {
         kind: "callout",
         tone: "warn",
         title: "Cruzar el ecuador te invierte el dibujo",
-        text: "Un piloto de la región vuela los dos hemisferios en la misma semana, así que este no es un dato de examen. En el hemisferio sur el aire que sale de una alta se desvía a la izquierda y la circula en sentido antihorario (anticiclónica), y alrededor de una baja gira en sentido horario (ciclónica). En el hemisferio norte es al revés. El mismo símbolo en la carta significa un giro distinto según de qué lado del ecuador esté.",
+        text: "En el hemisferio norte, el flujo a gran escala gira en sentido horario alrededor de una alta y antihorario alrededor de una baja. En el hemisferio sur esos sentidos se invierten. Es un patrón general, no una dirección de viento garantizada en cada punto ni a cualquier altitud.",
       },
       {
         kind: "infografia",
         nombre: "meteo-coriolis",
       },
       {
+        kind: "p",
+        text: "**Qué muestra el esquema:** la circulación general cerca de la superficie alrededor de altas (A) y bajas (B) a cada lado del ecuador. **Cómo leerlo:** compara el sentido de las flechas en ambos hemisferios; el giro se invierte. **Qué decides:** úsalo para comprender el patrón, pero verifica el viento real y pronosticado en el nivel de vuelo antes de calcular tiempo y combustible. Este mecanismo global no se puede identificar con precisión en una sola fotografía.",
+      },
+      {
         kind: "check",
         question:
           "El mismo día vuelas Bogotá y luego Santiago, y en las dos cartas hay una baja. ¿Qué cambia al cruzar el ecuador?",
         options: [
-          "Nada: el símbolo de baja significa lo mismo en los dos hemisferios y el aire entra igual",
+          "Nada: el sentido de giro alrededor de la baja es igual en ambos hemisferios",
           "El sentido de giro se invierte: antihorario alrededor de la baja en el norte, horario en el sur",
           "El aire deja de entrar hacia la baja y pasa a salir de ella, como si fuera una alta",
         ],
         answer: 1,
         explain:
-          "Lo que se invierte es el giro, no el flujo. En las dos bajas el aire sigue entrando para reemplazar al que asciende, porque el aire siempre va de la alta a la baja. Lo que cambia es hacia dónde lo tuerce Coriolis: a la derecha en el norte y a la izquierda en el sur, así que alrededor de una baja el giro es antihorario arriba y horario abajo. El mismo símbolo en la carta significa un giro distinto según de qué lado del ecuador esté.",
+          "Se invierte el sentido general de giro: antihorario alrededor de una baja en el norte y horario en el sur. Cerca de la superficie, la fricción hace que el aire cruce las isobaras hacia la baja. La carta de superficie no describe por sí sola los vientos de crucero.",
       },
       {
         kind: "sub",
@@ -494,54 +498,52 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           {
             titulo: "Alta presión",
             puntos: [
-              "Aire que desciende, seco y estable.",
-              "Se asocia normalmente con buen tiempo.",
+              "El aire tiende a descender en el centro del sistema.",
+              "Suele favorecer estabilidad, pero no garantiza cielo despejado ni ausencia de peligros.",
             ],
           },
           {
             titulo: "Baja presión",
             puntos: [
-              "El aire entra para reemplazar al que asciende.",
-              "Aire inestable, más nubosidad y precipitación.",
-              "El mal tiempo se asocia normalmente con las bajas.",
+              "Cerca del suelo, el aire tiende a converger hacia el centro.",
+              "Puede favorecer ascenso, nubosidad y precipitación; las condiciones concretas requieren observación y pronóstico.",
             ],
           },
         ],
       },
       {
         kind: "sub",
-        text: "Aplicar: elegir el lado del sistema",
+        text: "Aplicar: del patrón general al viento de ruta",
       },
       {
         kind: "p",
-        text: "Aquí está el rendimiento de esta lección. Si entiendes el sentido de giro, sabes de qué lado del sistema el viento sopla a tu favor. El PHAK lo plantea para el hemisferio norte: **volando de este a oeste los vientos favorables están por el lado norte de una alta o por el lado sur de una baja**, y a la vuelta, al revés.",
+        text: "El sentido de giro ayuda a interpretar una carta, pero no permite escoger automáticamente un lado del sistema para una ruta de aerolínea. Las altas y bajas de superficie no bastan para deducir la componente de viento en crucero; compara los pronósticos de viento y temperatura en altura para las rutas y niveles permitidos.",
       },
       {
         kind: "callout",
         tone: "verificar",
-        title: "Antes de aplicarlo al sur",
-        text: "Esa regla está escrita para el hemisferio norte. Al sur del ecuador el sentido de giro se invierte, así que el lado favorable también. No des por buena la regla tal cual: dedúcela del sentido de giro que corresponda al hemisferio en el que estás volando, o contrástala con la carta de vientos en altura de la ruta.",
+        title: "Primero el nivel de vuelo, después la componente",
+        text: "En ambos hemisferios, distingue la circulación de superficie del viento en altura. La ruta, la altitud autorizada, las restricciones, el tiempo previsto y los datos del operador forman parte de la decisión; el giro dibujado en una carta no reemplaza esos datos.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Planificando la ruta",
         situacion:
-          "Tienes dos rutas posibles hacia el oeste con casi la misma distancia. En la carta de superficie hay un sistema de alta presión entre las dos: una ruta pasa por el norte del sistema y la otra por el sur. Estás en el hemisferio norte.",
-        pregunta: "¿Cuál eliges y por qué?",
+          "Tienes dos rutas posibles hacia el oeste con distancias parecidas. Una pasa al norte y la otra al sur de una alta de superficie en el hemisferio norte. Alguien propone elegir la del norte porque allí el giro horario sugiere viento del este.",
+        pregunta: "¿Es suficiente para elegir la ruta?",
         claves: [
-          "En el hemisferio norte el aire gira alrededor de una alta en sentido horario, así que por el lado norte del sistema el viento sopla hacia el oeste.",
-          "Volando hacia el oeste, esa es la ruta que te da componente de cola: se elige la que pasa por el norte de la alta.",
-          "De regreso hacia el este el favorable sería el lado sur de esa misma alta.",
-          "Además de combustible ganas información: sabes qué tipo de tiempo esperar en cada sector según sea alta o baja.",
+          "El giro horario de una alta en el norte es una orientación conceptual, no un pronóstico de componente de cola para el vuelo.",
+          "Compara vientos y temperaturas pronosticados a los niveles utilizables de ambas rutas y calcula tiempo y combustible.",
+          "Revisa también convección, turbulencia, restricciones de espacio aéreo y los procedimientos del operador.",
         ],
         cierre:
-          "Y si el mismo tramo fuera en el hemisferio sur, la respuesta sería la contraria, porque el giro se invierte. La regla que se memoriza es el sentido del giro, no el lado.",
+          "La carta de superficie aporta contexto; la decisión operativa necesita datos del nivel de vuelo y de toda la ruta. En el hemisferio sur cambia el sentido general de giro, no ese método de verificación.",
       },
       {
         kind: "callout",
         tone: "info",
         title: "La teoría no llega hasta el suelo",
-        text: "Todo esto describe la circulación a gran escala. Cerca del suelo mandan las condiciones locales: dentro de los primeros 2.000 ft la fricción con la superficie frena el aire y reduce el efecto de Coriolis, así que el viento en superficie sopla desde una dirección algo distinta que el de unos miles de pies más arriba. Esa diferencia es la lección siguiente.",
+        text: "Todo esto describe patrones a gran escala. En la capa próxima al suelo, la fricción reduce la velocidad y cambia el equilibrio entre el gradiente de presión y Coriolis; por eso el viento puede cruzar las isobaras. La profundidad de esa capa varía con terreno y condiciones atmosféricas: 2.000 ft es una referencia, no un límite universal. La siguiente lección trata los vientos locales.",
       },
       {
         kind: "entrevista",
@@ -551,7 +553,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué es la fuerza de Coriolis y cómo actúa en cada hemisferio?",
             respuesta:
-              "Es el efecto de la rotación de la Tierra sobre los cuerpos que se mueven grandes distancias. Desvía el aire a la derecha en el hemisferio norte y a la izquierda en el hemisferio sur. Es máxima en los polos y nula en el ecuador, y crece con la velocidad del cuerpo.",
+              "Es la desviación aparente de un flujo observada en una Tierra en rotación: a la derecha en el hemisferio norte y a la izquierda en el sur. Su efecto aumenta con la velocidad del flujo y la latitud; es nulo en el ecuador para el movimiento horizontal.",
             claves: [
               "Rotación de la Tierra",
               "Derecha en el norte, izquierda en el sur",
@@ -562,15 +564,15 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "interpretacion",
             q: "¿Qué tiempo esperaría en una alta y qué tiempo en una baja?",
             respuesta:
-              "En la alta, aire descendente, seco y estable, y por lo general buen tiempo. En la baja, aire que asciende y es inestable, con más nubosidad y precipitación, así que por lo general mal tiempo.",
-            claves: ["Alta: desciende, estable, buen tiempo", "Baja: asciende, inestable, mal tiempo"],
+              "Una alta suele favorecer subsidencia y estabilidad; una baja puede favorecer convergencia, ascenso, nubosidad y precipitación. No son garantías: confirmo el tiempo con observaciones, pronósticos y avisos.",
+            claves: ["Alta: tendencia a estabilidad", "Baja: posible ascenso y nubosidad", "Verificar productos vigentes"],
           },
           {
             nivel: "situacion",
             q: "¿Por qué el viento en superficie no sopla en la misma dirección que a 3.000 ft?",
             respuesta:
-              "Porque dentro de los primeros 2.000 ft la fricción con la superficie frena el movimiento del aire, y al frenarlo reduce la fuerza de Coriolis. Con menos desviación, el viento de superficie queda girado respecto del de arriba.",
-            claves: ["Fricción en los primeros 2.000 ft", "Reduce Coriolis", "Cambio de dirección"],
+              "La fricción próxima al suelo frena el flujo y cambia el equilibrio de fuerzas; el viento puede cruzar las isobaras y diferir del de niveles superiores. La profundidad de la capa afectada varía, especialmente sobre terreno complejo.",
+            claves: ["Fricción cerca del suelo", "Equilibrio de fuerzas distinto", "Profundidad variable"],
           },
         ],
       },
