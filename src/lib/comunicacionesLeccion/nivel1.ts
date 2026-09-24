@@ -54,7 +54,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "Sobre los ejemplos de este módulo",
-        text: "El Doc 9432 combina fraseología con ejemplos ficticios. Las transmisiones de práctica de esta lección que usan `AVIATORY 452` también son **simulaciones**, no grabaciones ni autorizaciones vigentes: sus frecuencias, puntos y procedimientos deben contrastarse con el AIP actual antes de cualquier uso operacional. La historieta de abajo es distinta: reconstruye, sin atribuir diálogos inventados a los protagonistas, la secuencia documentada del vuelo US Airways 1549 entre LaGuardia y Charlotte. La fraseología de ejemplo se muestra en inglés; `PLAIN LANGUAGE` identifica el lenguaje no normalizado. La lección 5 explica cómo pronunciar los números.",
+        text: "El Doc 9432 combina fraseología con ejemplos ficticios. Las transmisiones de práctica de esta lección que usan `AVIATORY 452` también son **simulaciones**, no grabaciones ni autorizaciones vigentes: sus frecuencias, puntos y procedimientos deben contrastarse con la publicación de información aeronáutica (AIP, Aeronautical Information Publication) actual antes de cualquier uso operacional. La historieta de abajo es distinta: reconstruye, sin atribuir diálogos inventados a los protagonistas, la secuencia documentada del vuelo US Airways 1549 entre LaGuardia y Charlotte. La fraseología de ejemplo se muestra en inglés; `PLAIN LANGUAGE` identifica el lenguaje no normalizado. La lección 5 explica cómo pronunciar los números.",
       },
       { kind: "sub", text: "¿Qué es?" },
       {
@@ -63,7 +63,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El servicio de control de tránsito aéreo existe para prevenir colisiones entre aeronaves y, en el área de maniobras, entre aeronaves y obstáculos, y para acelerar y mantener ordenado el movimiento del tránsito (Doc 4444, cap. 1, definición de «Servicio de control de tránsito aéreo»). La radio es la herramienta con la que eso ocurre.",
+        text: "El servicio de control de tránsito aéreo (ATC, Air Traffic Control) existe para prevenir colisiones entre aeronaves y, en el área de maniobras, entre aeronaves y obstáculos, y para acelerar y mantener ordenado el movimiento del tránsito (Doc 4444, cap. 1, definición de «Servicio de control de tránsito aéreo»). La radio es la herramienta con la que eso ocurre.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       {
@@ -76,7 +76,7 @@ export const NIVEL_1: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "**Las cinco cualidades que busca la OACI.** La fraseología se concibió para que las comunicaciones sean **eficientes, claras, concisas e inequívocas** (Doc 9432, Preámbulo; 3.2.2). A eso se suma:",
+        text: "**Las cinco cualidades que busca la Organización de Aviación Civil Internacional (OACI; International Civil Aviation Organization, ICAO).** La fraseología se concibió para que las comunicaciones sean **eficientes, claras, concisas e inequívocas** (Doc 9432, Preámbulo; 3.2.2). A eso se suma:",
       },
       {
         kind: "table",
@@ -113,7 +113,7 @@ export const NIVEL_1: DocScreen[] = [
         alt: "Historieta de cuatro escenas: tripulación del vuelo 1549 en ascenso, encuentro con aves, controlador de salida de Nueva York y decisión de amaraje en el río Hudson.",
         ancho: 1600,
         alto: 900,
-        pie: "Caso real, ilustración interpretativa: US Airways 1549, LaGuardia–Charlotte, 15 de enero de 2009. Amplía la imagen para examinar las escenas; lee debajo la secuencia operacional. Fuente: NTSB, informe AAR-10/03, sección 1.1.",
+        pie: "Caso real, ilustración interpretativa: US Airways 1549, LaGuardia–Charlotte, 15 de enero de 2009. Amplía la imagen para examinar las escenas; lee debajo la secuencia operacional. Fuente: Junta Nacional de Seguridad del Transporte de EE. UU. (NTSB, National Transportation Safety Board), informe AAR-10/03, sección 1.1.",
       },
       {
         kind: "pasos",
@@ -286,7 +286,7 @@ export const NIVEL_1: DocScreen[] = [
       { kind: "sub", text: "¿Qué es?" },
       {
         kind: "p",
-        text: "El ATS (servicio de tránsito aéreo) es la expresión genérica que abarca información de vuelo, alerta, asesoramiento de tránsito aéreo y control de tránsito aéreo, este último dividido en control de área, de aproximación y de aeródromo (Doc 4444, cap. 1; Doc 9432, 1.1). Cada servicio lo presta una dependencia, y cada dependencia tiene su distintivo de llamada en la radio.",
+        text: "Los servicios de tránsito aéreo (ATS, Air Traffic Services) abarcan información de vuelo, alerta, asesoramiento de tránsito aéreo y control de tránsito aéreo (ATC, Air Traffic Control). Este último se divide en control de área, de aproximación y de aeródromo (Doc 4444, cap. 1; Doc 9432, 1.1). Cada servicio lo presta una dependencia, y cada dependencia tiene su distintivo de llamada en la radio.",
       },
       { kind: "sub", text: "Lo que debe saber un piloto" },
       { kind: "p", text: "**Quién presta cada servicio** (Doc 4444, 4.1 y 4.2):" },
@@ -356,12 +356,12 @@ export const NIVEL_1: DocScreen[] = [
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "CM-02-01 · Diagrama · 21:9 · 2100×900",
-        descripcion:
-          "Línea de tiempo horizontal de un vuelo completo entre dos aeropuertos, dividida en ocho tramos de color neutro con el acento del módulo. De izquierda a derecha: DELIVERY (aeronave en el puesto, autorización de ruta) → GROUND (rodaje) → TOWER (pista, despegue) → DEPARTURE (ascenso inicial) → CONTROL (en ruta, crucero) → APPROACH (descenso y aproximación) → TOWER (aterrizaje) → GROUND (rodaje a puesto). En cada cambio de tramo, un marcador con la palabra CONTACT y una frecuencia ficticia. Encima de todo, una franja fina con la FIR y el rótulo INFORMATION para vuelos fuera de espacio controlado. Objetivo: que el piloto memorice la secuencia típica de dependencias y entienda que cada cambio es una transferencia ordenada, no un salto.",
-        alto: 280,
-        ratio: "21 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-02-01.svg",
+        alt: "Flujo orientativo de ocho fases: Delivery, Ground, Tower, Departure, Control, Approach, Tower y Ground; el servicio disponible y cada transferencia dependen del aeropuerto y de ATC.",
+        ancho: 1600,
+        alto: 760,
+        pie: "Secuencia de referencia, no carta ni procedimiento de un aeropuerto concreto. La disponibilidad de cada dependencia y la frecuencia aplicable se consultan en el AIP vigente y en las instrucciones de ATC. Amplía el esquema para leer cada fase.",
       },
       { kind: "sub", text: "Fraseología OACI" },
       {
