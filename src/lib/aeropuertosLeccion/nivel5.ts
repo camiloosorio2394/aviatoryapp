@@ -198,14 +198,15 @@ export const NIVEL_5: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Con baja visibilidad no solo se ve menos: cambia la forma de usar el aeropuerto. Se activan procedimientos LVP, se protegen áreas del ILS, pueden aumentar las separaciones y se restringen rutas o cruces. El piloto debe saber qué punto de espera está activo y seguir la autorización y las luces; una RVR concreta no permite escoger por cuenta propia la ruta ni el punto de detención.",
+        text: "Con baja visibilidad no solo se ve menos: cambia la forma de usar el aeropuerto. Se activan procedimientos de baja visibilidad (Low Visibility Procedures, LVP), se protegen áreas del sistema de aterrizaje por instrumentos (Instrument Landing System, ILS) para operaciones de categoría II/III (Category II/III, CAT II/III), pueden aumentar las separaciones y se restringen rutas o cruces. El piloto debe saber qué punto de espera está activo y seguir la autorización y las luces; un alcance visual en pista (Runway Visual Range, RVR) concreto no permite escoger por cuenta propia la ruta ni el punto de detención.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-19-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el pavimento, al amanecer con niebla, a unos 40 m de un punto de espera de categoría: la pista se pierde y solo se ve lo cercano. La escalera del patrón B2 completa, dos continuas de 0,30 m separadas 1,5 m con travesaños de 0,9 m cada 3,0 m, el letrero rojo y la barra de parada encendida en el punto de espera. Ojo: el patrón B no lleva líneas de trazos, y el B1 no se dibuja.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-19-02-visibilidad-reducida.webp",
+        alt: "Punto de espera de categoría con escalera amarilla B2, letrero rojo y barra de parada encendida entre la niebla",
+        ancho: 1600,
+        alto: 900,
+        pie: "La niebla oculta la pista, pero cerca se reconocen la escalera amarilla B2, el letrero rojo de instrucción obligatoria y la fila roja de la barra de parada. El eje verde termina antes de ella. Identifica en la publicación vigente qué punto de espera corresponde a tu ruta; si la barra está encendida, detente aunque tengas autorización verbal y notifícalo al control.",
       },
       {
         kind: "fichas",
@@ -213,101 +214,95 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Barra de parada",
-            hueco: {
-              id: "AP-19-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "De noche, desde el pavimento, a unos 15 m y sin niebla, para que las luces se cuenten. La fila completa de luces rojas empotradas de borde a borde, separadas 3 m como máximo, un par de rojas elevadas en los extremos y el eje verde apagado más allá. Delante, el punto de espera patrón A2. Ojo: las dos continuas del A2 van del lado de espera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-03-barra-parada.webp",
+              alt: "Barra roja de parada completa con luces elevadas rojas a ambos lados y eje verde que termina antes de la barra",
             },
             puntos: [
-              "Luces rojas cruzando la calle.",
-              "Se exige en puntos de espera que sirven pistas previstas para operar con RVR inferior a 550 m; el aeropuerto puede activarla también en otras condiciones.",
+              "Se reconoce por la fila de luces rojas que cruza toda la calle y las luces rojas elevadas en sus extremos; el eje verde no continúa encendido detrás. Si está roja, no cruces, incluso con autorización verbal.",
+              "En los puntos que sirven pistas previstas para operar con RVR inferior a 550 m se exige esta protección; el aeropuerto puede usarla también en otras condiciones. Confirma su estado con control.",
             ],
           },
           {
             titulo: "La regla dura",
             puntos: [
               "Una barra roja encendida no se cruza, aunque te autoricen.",
-              "Si se apaga sola, avisa.",
+              "Que se apague no equivale a autorización. Si el estado de la barra no coincide con la instrucción recibida, detente en un lugar seguro y avisa al control.",
             ],
           },
           {
             titulo: "Áreas del ILS",
-            hueco: {
-              id: "AP-19-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática propia: pista, antena de localizador más allá del extremo y antena de senda de planeo al costado. Un área interior sombreada, «Área crítica», dentro de otra más suave, «Área sensible». El punto de espera patrón A2 cerca de la pista y el B2 más atrás, justo fuera del área exterior, con una silueta esperando detrás. Ojo: sin cotas ni metros, que el tamaño de las áreas lo publica cada aeródromo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-05-areas-ils.webp",
+              alt: "Esquema didáctico no a escala de pista, antenas del ILS, áreas crítica y sensible, y puntos de espera A2 y B2",
             },
             puntos: [
-              "La crítica se despeja siempre; la sensible se controla.",
-              "Un avión dentro deforma la señal.",
+              "El esquema distingue el entorno cercano a las antenas (área crítica) del área sensible exterior. Sus límites reales no se deducen del dibujo: consulta los procedimientos vigentes del aeródromo.",
+              "Una aeronave o vehículo puede perturbar la señal. Durante LVP, mantén el punto de espera asignado y no avances por interpretar visualmente el límite del área.",
             ],
           },
           {
             titulo: "Punto de espera CAT II/III",
-            hueco: {
-              id: "AP-19-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el pavimento, a unos 20 m y en tres cuartos, con luz pareja: la escalera del patrón B2 completa, el letrero rojo que dice «25 CAT II/III» y la inscripción «CAT III» pintada en un extremo, con letras de 1,8 m de alto como mínimo. Al fondo y borroso, un segundo punto de espera patrón A2. Ojo: nada de B1 ni de líneas de trazos dentro de la escalera.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-19-04-espera-categoria.webp",
+              alt: "Fotografía diurna de punto de espera de categoría: escalera amarilla B2 y letrero rojo 25 CAT II/III",
             },
-            puntos: ["El de más atrás: escalera B2 y letrero rojo con la categoría."],
+            puntos: ["Reconócelo por la escalera amarilla de dos líneas continuas unidas por travesaños y el letrero rojo con la pista y categoría. Espera antes de la marca que corresponda a la autorización y al procedimiento activo; su ubicación se confirma en la publicación vigente."],
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-19-06 · Ilustración técnica · 3:2 · 1200×800",
-        ratio: "3 / 2",
-        descripcion:
-          "Planta esquemática de una calle de salida que arranca del eje de la pista y se aleja en curva, con sus luces de eje dibujadas una por una: el tramo inicial alterna verde y amarillo, el final va todo verde. Una línea de trazos marca el perímetro del área crítica o sensible, donde cambia el patrón. La primera luz es verde y la más cercana al perímetro, amarilla. Ojo: ninguna luz amarilla después del perímetro.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-19-06-eje-salida.webp",
+        alt: "Esquema de salida de pista con luces de eje verde y amarillo alternadas hasta el perímetro protegido, y solo verdes después",
+        ancho: 1200,
+        alto: 800,
+        pie: "En una calle de salida, las luces de eje alternan verde y amarillo desde la pista hasta el límite protegido aplicable; después quedan solo verdes. El esquema muestra la secuencia, no el perímetro real de un aeródromo. Sigue la ruta autorizada y comunica pista libre únicamente cuando toda la aeronave haya rebasado el punto de espera correspondiente, no por el color de una luz aislada.",
       },
       {
         kind: "reconoce",
         titulo: "El punto de espera de categoría, completo",
-        hueco: {
-          id: "AP-19-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, al anochecer, a unos 30 m y mirando a la pista, con las luces ya encendidas. Se ven la escalera del patrón B2, el letrero rojo, la barra de parada encendida, tres luces amarillas de un punto de espera intermedio a un costado y el eje verde con un tramo de verde y amarillo. Cinco chinchetas numeradas, sin texto. Ojo: ninguna luz de eje encendida más allá de la barra.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-19-07-reconoce.webp",
+          alt: "Comparación fotográfica: punto de espera CAT II/III con escalera, letrero y barra roja; dos recuadros separados muestran espera intermedia y luces de eje de salida",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 42,
+            y: 33,
             que: "Escalera amarilla",
             significa: "Patrón B2: el punto de espera de categoría.",
-            piloto: "Esperas en operación de categoría.",
+            piloto: "Detén todo el avión antes de este punto cuando sea el asignado para la operación.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 10,
+            y: 14,
             que: "Letrero rojo con «CAT II/III»",
-            significa: "Dice qué pista y qué categoría protege.",
-            piloto: "Es un letrero obligatorio.",
+            significa: "Es una instrucción obligatoria: identifica la pista y la categoría protegida.",
+            piloto: "Confirma que coincide con el punto de espera asignado y no avances sin autorización.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 70,
+            y: 25,
             que: "Fila de luces rojas",
             significa: "Barra de parada encendida.",
-            piloto: "Pare.",
+            piloto: "Detente y avisa al control si la autorización parece contradecirla.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 25,
+            y: 88,
             que: "Tres luces amarillas",
-            significa: "Punto de espera intermedio.",
-            piloto: "No es de pista.",
+            significa: "En el recuadro B se reconoce un punto de espera intermedio, distinto del punto de espera de pista.",
+            piloto: "Respeta la instrucción de detención que corresponda a ese punto; no lo confundas con la barra roja del recuadro A.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 71,
+            y: 87,
             que: "Eje verde y amarillo",
-            significa: "Sigues dentro del área del ILS.",
-            piloto: "Todo verde, saliste.",
+            significa: "En el recuadro C, la alternancia identifica el tramo de salida próximo a la pista; luego aparecen solo luces verdes.",
+            piloto: "Sigue la ruta autorizada. Confirma que todo el avión esté fuera de la pista antes de reportarla libre.",
           },
         ],
       },
