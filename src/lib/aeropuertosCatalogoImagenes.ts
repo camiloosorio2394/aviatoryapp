@@ -98,6 +98,18 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-21-luces-fuera-servicio.webp",
     explicacion: "Una fila de luces rojas fijas cruza la entrada de la calle cerrada; el eje verde termina antes de ella. De noche, no cruces esa delimitación y confirma una ruta de rodaje utilizable.",
   },
+  "AP-CAT-23": {
+    src: "/modulos/aeropuertos/ap-cat-23-espera-pista.webp",
+    explicacion: "El letrero rojo B2 identifica un punto de espera especial, no la designación de una pista. Reconócelo por la calle y el número; detente allí para no interferir con la radioayuda ni penetrar el área protegida.",
+  },
+  "AP-CAT-24": {
+    src: "/modulos/aeropuertos/ap-cat-24-categorias-espera.svg",
+    explicacion: "Los cuatro letreros rojos distinguen las categorías CAT (Category) II, III y sus combinaciones en el punto de espera de la pista 25. Identifica la categoría aplicable y permanece antes del punto hasta recibir autorización.",
+  },
+  "AP-CAT-26": {
+    src: "/modulos/aeropuertos/ap-cat-26-espera-vehiculos.webp",
+    explicacion: "Este letrero rojo en español está al costado de una vía vehicular que entra a la pista. Ordena parar y obtener autorización del ATC (Air Traffic Control), control de tránsito aéreo, antes de acceder.",
+  },
   "AP-CAT-34": {
     src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
     explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
