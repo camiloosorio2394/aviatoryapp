@@ -411,12 +411,16 @@ export const PARTE_FRENTES: DocScreen[] = [
   {
     n: 12,
     title: "Tormentas y sus peligros",
-    kicker: "Todo lo que puede salir mal, en un solo paquete",
+    kicker: "Reconoce la convección y conserva una salida segura",
     minutes: 11,
     blocks: [
       {
         kind: "p",
-        text: "El capítulo lo dice con una frase que vale la pena repetir: **una tormenta junta casi todos los peligros meteorológicos conocidos para la aviación en un solo paquete.** No es una lista de cosas que pueden pasar: es una lista de cosas que están pasando a la vez ahí dentro.",
+        text: "**Qué ves en la portada:** un cumulonimbo distante con yunque, cortina de lluvia y descarga eléctrica, observado desde un aeródromo. **Cómo lo reconoces:** el desarrollo vertical contrasta con la nube extendida en la cima y la precipitación bajo la base. **Qué decides:** consultar radar, avisos y evolución antes de planear salida o aproximación; la foto no permite medir la distancia ni delimitar una zona segura.",
+      },
+      {
+        kind: "p",
+        text: "Una tormenta puede combinar turbulencia, granizo, cizalladura, hielo, rayos y baja visibilidad. **No todas presentan todos esos peligros ni al mismo tiempo**, y la ausencia de un indicio visible no descarta los demás. Para una tripulación de aerolínea, identificar la célula es el comienzo: hay que evaluar su movimiento, su organización y las opciones de ruta, combustible y alternos.",
       },
       {
         kind: "sub",
@@ -424,12 +428,12 @@ export const PARTE_FRENTES: DocScreen[] = [
       },
       {
         kind: "secuencia",
-        titulo: "Tres ingredientes, y hacen falta los tres",
+        titulo: "Tres condiciones que favorecen su formación",
         numerada: true,
         items: [
-          "Vapor de agua suficiente.",
-          "Un gradiente térmico inestable.",
-          "Una acción de elevación inicial que arranque el proceso.",
+          "Humedad suficiente para alimentar la nube.",
+          "Aire inestable que pueda seguir ascendiendo.",
+          "Un mecanismo de ascenso inicial, como calentamiento, convergencia, relieve o un frente.",
         ],
       },
       {
@@ -437,54 +441,78 @@ export const PARTE_FRENTES: DocScreen[] = [
         columnas: 2,
         items: [
           {
-            titulo: "Tormenta de masa de aire",
+            titulo: "Célula aislada",
             puntos: [
-              "Aparece al azar en aire inestable, por calentamiento de la superficie.",
-              "Dura una o dos horas.",
-              "Da ráfagas de viento y lluvias moderadas.",
+              "Puede desarrollarse por calentamiento de superficie en aire húmedo e inestable, sin coincidir con un frente.",
+              "Una célula suele evolucionar en menos tiempo que un sistema multicelular; su duración e intensidad no se deducen solo de su apariencia.",
+              "También puede producir rayos, lluvia intensa, granizo o corrientes descendentes peligrosas.",
             ],
           },
           {
-            titulo: "Tormenta de estado estable",
+            titulo: "Convección organizada",
             puntos: [
-              "Asociada a sistemas meteorológicos: frentes, vientos convergentes, valles en altura.",
-              "En la etapa de madurez las corrientes ascendentes son más fuertes y duran mucho más que en las de masa de aire, y de ahí el nombre.",
-              "A menudo se forman en líneas de turbonada.",
+              "Varias células pueden agruparse o alinearse por convergencia, frentes y cizalladura del viento con la altura.",
+              "Algunas tormentas con corrientes ascendentes persistentes duran mucho más que una célula aislada.",
+              "Una línea puede bloquear una ruta extensa y regenerar células aunque otras se debiliten.",
             ],
           },
         ],
       },
       {
         kind: "sub",
-        text: "Entender: las tres etapas, y cuál es la mala",
+        text: "Entender: tres etapas de una célula, no de todo un sistema",
       },
       {
         kind: "pasos",
         items: [
           {
             rotulo: "Cúmulo",
-            texto: "Empieza el ascenso. Con humedad e inestabilidad suficientes la nube sigue creciendo en altura, y las corrientes ascendentes fuertes y continuas impiden que la humedad caiga. La región de ascendentes se hace más grande que las térmicas que la alimentan.",
+            texto: "Predomina la corriente ascendente y la nube crece en forma de torre. La precipitación todavía no domina la célula, pero su evolución puede ser rápida y no se interpreta como un corredor seguro.",
           },
           {
             rotulo: "Madurez",
-            texto: "A los quince minutos aproximadamente. Es el periodo más violento del ciclo. Las gotas ya pesan demasiado para que la nube las sostenga y caen como lluvia o granizo, y eso crea un movimiento descendente. Dentro y cerca de la nube conviven aire cálido ascendente, aire frío descendente inducido por la precipitación y turbulencia violenta. Debajo, el aire descendente aumenta el viento en superficie y baja la temperatura.",
+            texto: "Cuando comienza la precipitación y coexisten ascendentes y descendentes, la célula alcanza su fase madura, habitualmente la más peligrosa. La lluvia o el granizo arrastran aire hacia abajo; al extenderse cerca del suelo, ese aire puede crear ráfagas y cizalladura antes de que llegue la lluvia. No hay un minuto fijo para este cambio.",
             fuerte: true,
           },
           {
             rotulo: "Disipación",
-            texto: "Cuando el movimiento vertical de la parte alta se frena, la cima se expande y toma forma de yunque. Las corrientes descendentes se generalizan y reemplazan a las ascendentes que sostenían la tormenta.",
+            texto: "La descendente domina y la ascendente que alimentaba esa célula se debilita. Pueden persistir precipitación, rayos o salida de aire; en una línea o grupo, otras células pueden seguir intensas o nacer de nuevo.",
           },
         ],
       },
       {
         kind: "callout",
         tone: "tip",
-        title: "Lo que el yunque dice, y lo que no",
-        text: "El capítulo dibuja el yunque en la disipación, cuando la cima deja de crecer y se extiende. Mucha bibliografía de meteorología lo muestra ya en la madurez, en cuanto la corriente ascendente llega arriba. Para la cabina la lectura es la misma con cualquiera de las dos: **un yunque no significa que la tormenta se esté apagando**. Dice que la ascendente llegó hasta arriba, y la célula se sigue rodeando igual: como verás más abajo, el granizo puede caer varios kilómetros fuera de la nube.",
+        title: "El yunque no marca el final",
+        text: "La cima puede extenderse en forma de yunque ya durante la madurez. **Ver el yunque no demuestra que la célula se disipe.** Puede haber granizo y turbulencia lejos de la cortina de lluvia, incluso bajo el yunque. La secuencia siguiente simplifica una célula individual; un sistema multicelular contiene etapas distintas a la vez.",
       },
       {
         kind: "infografia",
         nombre: "meteo-etapas",
+      },
+      {
+        kind: "p",
+        text: "**Qué ves en el esquema:** el predominio de ascensos, la coexistencia de corrientes y, luego, el dominio de descensos en una célula idealizada. **Cómo lo reconoces:** compara flechas y precipitación; el yunque puede aparecer antes de la disipación. **Qué decides:** no usar esta secuencia para calcular cuándo será seguro pasar cerca de un sistema real.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "El frente de ráfaga puede adelantarse a la lluvia",
+        intro: "La nube de borde y la manga de viento muestran indicios visibles de salida de aire; la fotografía no mide la cizalladura.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t12-02-frente-rafaga.webp",
+          alt: "Desde el borde de un aeródromo, nube baja horizontal delante de la cortina de lluvia de una tormenta y manga de viento extendida",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 54, y: 32, que: "Nube de borde", significa: "Una nube horizontal puede acompañar el frente de ráfaga; por sí sola no cuantifica el viento.", piloto: "Revisa avisos, viento observado y alertas de cizalladura antes de operar cerca del aeródromo." },
+          { x: 85, y: 48, que: "Lluvia detrás", significa: "La precipitación intensa queda más atrás que parte del borde nuboso; la salida de aire puede precederla.", piloto: "No esperes a que la lluvia alcance la pista para considerar el riesgo." },
+          { x: 9, y: 42, que: "Manga extendida", significa: "Indica viento local en ese instante, sin describir todo el campo de viento de la pista.", piloto: "Confirma dirección, intensidad y variaciones con reportes y procedimientos vigentes." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** una nube baja de borde, una cortina de lluvia más atrás y una manga extendida. **Cómo lo reconoces:** el borde de la nube precede a parte de la precipitación. **Qué decides:** tratar la posible ráfaga y cizalladura como amenaza para despegue o aterrizaje, consultar alertas y no inferir una distancia segura de la foto.",
       },
       {
         kind: "sub",
@@ -498,59 +526,74 @@ export const PARTE_FRENTES: DocScreen[] = [
           {
             titulo: "Turbulencia",
             puntos: [
-              "Está presente en todas las tormentas y una severa puede destruir una aeronave.",
-              "Dentro de la nube nace de la cizalladura entre corrientes ascendentes y descendentes.",
-              "Fuera de la nube se ha encontrado turbulencia de cizalladura a varios miles de pies por encima y hasta 30 km lateralmente de una tormenta fuerte.",
-              "El frente de ráfaga se mueve por delante de la precipitación, hasta 25 km, y produce cambios rápidos y drásticos del viento en superficie.",
+              "Las ascendentes, descendentes y su cizalladura pueden generar turbulencia severa dentro y fuera de la nube.",
+              "Un eco libre de precipitación no garantiza aire libre de turbulencia: el radar meteorológico detecta hidrometeoros, no turbulencia directamente.",
+              "La salida de aire puede avanzar delante de la lluvia y cambiar el viento con rapidez cerca del suelo.",
             ],
-            nota: "La nube rollo en el frente de la tormenta marca el techo de esos remolinos: es una zona muy turbulenta.",
+            nota: "Una nube de borde puede alertar sobre la salida de aire, pero la cizalladura también puede existir sin una señal visual nítida.",
           },
           {
             titulo: "Granizo",
             puntos: [
-              "Compite con la turbulencia como mayor peligro.",
-              "Las gotas superenfriadas suben y bajan con las corrientes, creciendo al tocar más humedad, hasta que caen.",
-              "Puede ir del tamaño de un poroto a 10 cm de diámetro, más que una pelota de béisbol.",
-              "Piedras de más de media pulgada pueden dañar una aeronave en pocos segundos.",
+              "Se forma al crecer partículas de hielo en regiones de fuertes ascendentes con agua sobreenfriada.",
+              "Puede ser pequeño o grande; incluso granizo no observado desde cabina puede dañar parabrisas, radomo, bordes de ataque o motores.",
+              "Puede caer fuera de la nube visible o bajo el yunque, por lo que evitar solo la cortina de lluvia no basta.",
             ],
           },
           {
             titulo: "Engelamiento",
             puntos: [
-              "Las ascendentes mantienen arriba mucha agua líquida y con gotas grandes; por encima del nivel de congelación queda superenfriada.",
-              "El agua superenfriada se congela al impactar con el avión.",
-              "El hielo claro se forma muy rápido entre 0 °C y -15 °C, y es frecuente en un grupo de células.",
-              "Hacia -15 °C la mayor parte del vapor restante se sublima como cristales de hielo, y por encima hay menos agua superenfriada.",
+              "Las ascendentes pueden mantener gotas de agua sobreenfriada a temperaturas inferiores a 0 °C.",
+              "Al impactar en el avión, esas gotas pueden formar hielo; también existen riesgos asociados a cristales de hielo en ciertas zonas convectivas.",
+              "La intensidad y el tipo de acumulación dependen del contenido de agua, tamaño de gota, temperatura y aeronave; no se predicen con una sola temperatura.",
             ],
-            nota: "Ojo con generalizar: hay engelamiento siempre que la temperatura se acerque a 0 °C y haya humedad visible, no solo en tormentas.",
+            nota: "Aplica las limitaciones y procedimientos de protección contra hielo del avión; la presencia de nube y frío requiere evaluación, no una regla automática.",
           },
           {
             titulo: "Tornados",
             puntos: [
-              "Las tormentas más violentas meten aire en la base con mucho vigor; si ese aire trae rotación, se forma un vórtice muy concentrado.",
-              "El viento en ese vórtice puede superar los 200 kt.",
-              "Si el embudo no llega al suelo es una nube embudo; si toca, es un tornado.",
-              "Una aeronave que entra en el vórtice casi con seguridad sufre daño estructural.",
-              "El vórtice se extiende hacia dentro de la nube, así que en IFR se puede encontrar uno oculto.",
+              "Algunas tormentas severas con rotación pueden producir tornados o mangas marinas; no toda tormenta los genera.",
+              "Un embudo visible que no alcanza la superficie no demuestra que el resto de la célula sea seguro.",
+              "El vórtice y la convección asociada pueden quedar ocultos por nube o lluvia: evita la zona, no intentes identificar un pasillo desde cabina.",
             ],
           },
           {
             titulo: "Rayos",
             puntos: [
-              "Puede perforar el recubrimiento y dañar equipos de comunicaciones y navegación.",
-              "Un relámpago cercano puede cegar momentáneamente al piloto.",
-              "También puede inducir errores permanentes en el compás magnético.",
+              "Puede ocurrir dentro o cerca de la tormenta, incluso fuera de la lluvia intensa.",
+              "Una descarga puede afectar temporal o permanentemente sistemas y estructura; se aplican las listas y revisiones del avión tras un impacto sospechado.",
+              "El resplandor también puede perjudicar momentáneamente la visión nocturna de la tripulación.",
             ],
           },
           {
-            titulo: "Techo, visibilidad y altímetro",
+            titulo: "Visibilidad y presión",
             puntos: [
-              "Dentro de la nube la visibilidad es casi nula, y debajo la restringen la precipitación y el polvo.",
-              "La presión cae rápido al llegar la tormenta, sube de golpe con la primera ráfaga y la descendente fría, y vuelve a caer al pasar.",
-              "Ese ciclo entero puede darse en 15 minutos, y sin un ajuste correcto el altímetro puede tener más de 100 ft de error.",
+              "La lluvia intensa y el polvo levantado por la salida de aire pueden degradar con rapidez la visibilidad en aproximación o superficie.",
+              "La presión local puede variar al paso de una tormenta; comprueba los ajustes de altímetro y la información actual del aeródromo.",
+              "Una lectura de presión actualizada no elimina cizalladura, turbulencia ni mínimos meteorológicos insuficientes.",
             ],
           },
         ],
+      },
+      {
+        kind: "reconoce",
+        titulo: "Granizo en plataforma: el peligro no termina en la nube",
+        intro: "La escena muestra granizo después de un chubasco convectivo. Su tamaño visible no permite calcular el que pudo existir en vuelo.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-t12-01-granizo-plataforma.webp",
+          alt: "Granizos esparcidos sobre plataforma mojada de aeropuerto observados desde un edificio, con aeronave estacionada y lluvia al fondo",
+          ancho: 1600,
+          alto: 800,
+        },
+        puntos: [
+          { x: 53, y: 84, que: "Granizos en el suelo", significa: "Las piedras de hielo confirman precipitación sólida reciente en este lugar, pero no revelan la distribución en altura.", piloto: "Valora el reporte meteorológico y la inspección requerida antes de reanudar la operación." },
+          { x: 84, y: 22, que: "Cortina al fondo", significa: "La precipitación activa se concentra más lejos; el granizo puede caer separado del núcleo de lluvia más visible.", piloto: "Mantén separación de toda la célula y considera el yunque, no solo el borde de la lluvia." },
+          { x: 48, y: 30, que: "Aeronave estacionada", significa: "La foto no demuestra daño ni aptitud para salir después del evento.", piloto: "Sigue las verificaciones de mantenimiento y operación aplicables si se sospecha impacto." },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** granizos sobre una plataforma mojada, lluvia al fondo y una aeronave inmóvil. **Cómo lo reconoces:** las partículas de hielo resaltan sobre el pavimento. **Qué decides:** no deducir del tamaño en tierra el riesgo en altura ni declarar apta la aeronave; evalúa la célula y aplica las inspecciones que correspondan.",
       },
       {
         kind: "sub",
@@ -563,36 +606,49 @@ export const PARTE_FRENTES: DocScreen[] = [
       {
         kind: "vinetas",
         items: [
-          "Puede ser demasiado larga para desviarla con facilidad y demasiado ancha y severa para penetrarla.",
-          "Suele contener tormentas estables y presenta el riesgo meteorológico individual más intenso para las aeronaves.",
-          "Se forma rápidamente y alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad.",
+          "Puede abarcar una extensión que obligue a replantear la ruta completa, los alternos y el combustible.",
+          "Sus células no tienen por qué madurar o disiparse juntas; una aparente abertura puede cerrarse con nuevos desarrollos.",
+          "Su intensidad y horario dependen del sistema y la región. No existe una hora del día que autorice cruzarla.",
         ],
       },
       {
         kind: "check",
         question:
-          "Tienes una línea de turbonada pronosticada en la zona y puedes salir a media mañana o a última hora de la tarde. ¿Qué tienes en cuenta?",
+          "El radar muestra una línea de tormentas sobre la ruta prevista y un hueco estrecho entre ecos intensos. ¿Qué haces antes de aceptar ese paso?",
         options: [
-          "Que alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad",
-          "Que lo peor es a media mañana, cuando el calentamiento del suelo dispara la convección",
-          "Que la hora da igual: una línea de turbonada mantiene su intensidad mientras exista",
+          "Cruzo por el hueco: donde el radar no muestra lluvia tampoco hay turbulencia",
+          "Evalúo separación, tendencia, atenuación del radar y ruta alternativa con tripulación y control; si no hay corredor seguro, no lo cruzo",
+          "Espero a que anochezca, porque la convección deja de ser peligrosa al perder calentamiento solar",
         ],
-        answer: 0,
+        answer: 1,
         explain:
-          "La línea de turbonada se forma rápidamente y alcanza su máxima intensidad al atardecer y en las primeras horas de oscuridad. Eso convierte la hora de salida en una decisión meteorológica: la misma ruta a las once de la mañana y a las siete de la tarde no es el mismo vuelo. Y si la línea ya está hecha, suele ser demasiado larga para desviarla con facilidad y demasiado ancha y severa para penetrarla.",
+          "Un hueco visual o en la presentación del radar no garantiza separación de turbulencia, granizo ni nuevas células. Verifica la evolución y los límites del radar, coordina una alternativa viable y conserva combustible y alternos. Si no hay paso seguro, cambia la ruta o demora la operación.",
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "La regla de oro del capítulo",
-        text: "Rodear las tormentas identificadas como severas o que den un eco de radar intenso a por lo menos 20 millas náuticas, porque el granizo puede caer varios kilómetros fuera de la nube. Y si rodearla no es una opción: permanecer en el suelo hasta que pase.",
-        sellos: ["20 NM", "El granizo cae fuera de la nube", "Si no se puede rodear, no se sale"],
+        title: "Referencia de separación, no garantía",
+        text: "La guía de la Administración Federal de Aviación (FAA, Federal Aviation Administration) recomienda evitar por al menos 20 millas náuticas (NM, nautical miles) las tormentas identificadas como severas o con eco de radar intenso, especialmente bajo el yunque. No es un límite universal de seguridad: una situación concreta o el procedimiento del explotador pueden exigir más distancia. Si no existe un rodeo seguro, cambia la ruta, demora la salida o desvía el vuelo según la fase de operación.",
+        sellos: ["20 NM: referencia FAA", "No pasar bajo el yunque", "Conservar alternativa"],
       },
       {
         kind: "callout",
         tone: "info",
-        title: "Un apunte sobre lo que sí ves",
-        text: "Se han observado familias de tornados como apéndices de una nube principal, extendiéndose varios kilómetros fuera de la zona de rayos y precipitación. La consecuencia práctica es directa: cualquier nube conectada a una tormenta severa lleva la amenaza, aunque ahí no esté lloviendo ni relampagueando.",
+        title: "Radar y vista exterior se complementan",
+        text: "El radar de a bordo muestra principalmente precipitación y puede atenuarse detrás de ecos fuertes; no mide directamente la turbulencia ni revela todo el granizo. Usa además avisos, observaciones, reportes de otras aeronaves y la evolución del sistema. Nunca trates un sector sin eco o sin relámpagos visibles como autorización automática para entrar.",
+      },
+      {
+        kind: "piensaComoPiloto",
+        momento: "Antes de salir y durante el vuelo",
+        situacion: "Una línea convectiva se desplaza hacia tu ruta. El destino tiene buen tiempo, pero el rodeo previsto aumentaría tiempo y consumo; el alterno y la reserva se calcularon para el trayecto original.",
+        pregunta: "¿Qué debe resolver la tripulación con despacho y control antes de comprometerse con el cruce o el rodeo?",
+        claves: [
+          "Actualiza radar, avisos, movimiento de las células, condiciones de salida, ruta y destino; no uses una sola imagen retrasada.",
+          "Comprueba un rodeo con separación y autorización adecuadas, sin penetrar ecos intensos ni pasar bajo el yunque.",
+          "Recalcula combustible, contingencias y alternos para la ruta viable; un destino despejado no compensa una ruta bloqueada.",
+          "Si no hay solución segura, demora la salida o coordina espera o desvío en vuelo conforme a los procedimientos de la operación.",
+        ],
+        cierre: "La decisión se toma antes de perder opciones de combustible o ruta. Una línea de tormentas no se atraviesa por cumplir el horario.",
       },
       {
         kind: "entrevista",
@@ -602,22 +658,22 @@ export const PARTE_FRENTES: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué hace falta para que se forme una tormenta y cuáles son sus etapas?",
             respuesta:
-              "Hacen falta vapor de agua suficiente, un gradiente térmico inestable y una acción de elevación inicial. Las etapas son cúmulo, en la que empieza el ascenso y la nube crece; madurez, que llega a los quince minutos aproximadamente y es el periodo más violento, con ascendentes y descendentes conviviendo y precipitación cayendo; y disipación, cuando las descendentes se generalizan y reemplazan a las ascendentes. Un yunque a la vista no quiere decir que la tormenta esté en disipación: se rodea igual.",
-            claves: ["Vapor, inestabilidad y elevación inicial", "Cúmulo, madurez, disipación", "La madura es la violenta"],
+              "Se necesitan humedad, inestabilidad y un mecanismo de ascenso. En una célula individual, el cúmulo crece con ascendentes predominantes; la fase madura combina ascendentes, descendentes y precipitación; en la disipación domina la descendente. No existe un tiempo fijo para el cambio ni el yunque indica por sí solo disipación. En un sistema multicelular pueden coexistir células en fases distintas.",
+            claves: ["Humedad, inestabilidad y ascenso", "Cúmulo, madurez y disipación", "El yunque no prueba disipación"],
           },
           {
             nivel: "interpretacion",
             q: "¿A qué distancia rodearía una tormenta severa y por qué?",
             respuesta:
-              "A por lo menos 20 millas náuticas, porque el granizo puede caer varios kilómetros fuera de la nube. Y hay que contar además con que la turbulencia de cizalladura se encuentra hasta 30 km lateralmente de una tormenta fuerte y que el frente de ráfaga puede ir 25 km por delante de la precipitación.",
-            claves: ["20 NM", "El granizo cae fuera", "Turbulencia a 30 km y frente de ráfaga a 25 km"],
+              "La FAA da como referencia al menos 20 millas náuticas para una tormenta severa o un eco intenso, especialmente bajo el yunque. Es un mínimo orientativo de esa guía, no una distancia universalmente segura: granizo y turbulencia pueden extenderse fuera de la nube. Aplico las separaciones y procedimientos de mi operador y, si no hay rodeo seguro, busco otra ruta o demoro el vuelo.",
+            claves: ["20 NM como referencia FAA", "No garantiza seguridad", "Procedimiento del operador y alternativa"],
           },
           {
             nivel: "situacion",
-            q: "¿Por qué el altímetro es un problema al pasar una tormenta?",
+            q: "El destino está despejado pero una línea convectiva bloquea la ruta. ¿Qué decide?",
             respuesta:
-              "Porque la presión cae rápido al llegar, sube abruptamente con la primera ráfaga y la corriente descendente fría, y luego vuelve a caer cuando la tormenta pasa. Ese ciclo completo puede ocurrir en quince minutos, y si no se recibe un ajuste de altímetro correcto el error puede superar los 100 ft.",
-            claves: ["Ciclo de presión en 15 minutos", "Más de 100 ft de error", "Hace falta ajuste actualizado"],
+              "No intento cruzar por horario ni por un hueco sin eco. Actualizo radar y avisos, evalúo movimiento y separación, y coordino con la tripulación, despacho y control una ruta viable. Compruebo combustible y alternos para esa opción; si no existe margen seguro, demoro o desvío según la fase del vuelo.",
+            claves: ["La ruta importa aunque el destino esté bien", "Rodeo y combustible viables", "Demora o desvío si no hay opción segura"],
           },
         ],
       },

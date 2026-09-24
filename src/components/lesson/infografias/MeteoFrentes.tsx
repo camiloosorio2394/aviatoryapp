@@ -373,9 +373,9 @@ export function MeteoRuta() {
 
 /**
  * Las corrientes de cada etapa salen del texto de la sección: en la de cúmulo
- * **solo ascendentes**, en la madura **las dos a la vez**, y en la de disipación
- * **solo descendentes** con el yunque ya abierto. Que las dos convivan es lo que
- * hace violenta la etapa madura, así que es la única con las dos.
+ * predominan las ascendentes, en la madura coexisten ambos flujos y en la
+ * disipación predominan las descendentes. Es un esquema de una célula, no de
+ * una línea multicelular, y el yunque ya puede existir durante la madurez.
  */
 const ETAPAS = [
   { clave: "cumulo", rotulo: "CÚMULO", sube: true, baja: false },
@@ -389,7 +389,7 @@ export function MeteoEtapas() {
   const cima = 130
 
   return (
-    <Lienzo etiqueta="Las tres etapas de una tormenta en fila. En la de cúmulo la nube crece y dentro solo hay corrientes ascendentes. En la madura conviven ascendentes y descendentes a la vez, con precipitación: es la etapa violenta. En la de disipación solo quedan descendentes y el yunque ya está abierto.">
+    <Lienzo etiqueta="Esquema idealizado de las tres etapas de una célula de tormenta. En cúmulo predominan las ascendentes; en madurez coexisten ascendentes, descendentes y precipitación, con yunque posible; en disipación predominan las descendentes. Las etapas no indican cuándo es seguro acercarse.">
       {ETAPAS.map((e, i) => {
         const x = IZQ + i * (w + 30)
         const cx = x + w / 2
@@ -400,7 +400,7 @@ export function MeteoEtapas() {
             <Rotulo x={cx} y={98} ancla="middle" color={ACENTO} tam={18}>{e.rotulo}</Rotulo>
             <rect x={x} y={cima - 18} width={w} height={suelo - cima + 18} fill={RESALTADO} opacity={0.35} />
 
-            {/* La nube. En disipación pierde la torre y se queda el yunque. */}
+            {/* La torre se debilita en disipación; el yunque puede existir antes. */}
             {e.clave !== "disipacion" ? (
               <path
                 d={`M${cx - 54},${suelo - 18}
@@ -439,7 +439,7 @@ export function MeteoEtapas() {
               />
             )}
 
-            {/* Las corrientes. Solo la madura tiene las dos. */}
+            {/* Corrientes predominantes simplificadas; no son exclusivas. */}
             {e.sube && (
               <Flecha x1={cx - 26} y1={suelo - 34} x2={cx - 26} y2={techo + 66} color={ACENTO} grosor={2.4} tam={12} />
             )}
