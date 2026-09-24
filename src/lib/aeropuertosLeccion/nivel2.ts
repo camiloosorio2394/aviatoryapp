@@ -29,22 +29,15 @@ export const NIVEL_2: DocScreen[] = [
         alt: "Vista aérea de la cabecera de la pista 27 con umbral, designador, eje, referencia de apuntado y zona de toma señalados",
         ancho: 1600,
         alto: 900,
-        pie: "En corta final, las fajas de umbral confirman dónde comienza la superficie disponible para aterrizar y el designador identifica la orientación de la pista. Después, el eje mantiene la alineación. Las dos barras largas son la referencia de apuntado (su nombre técnico es señal de punto de visada), no el lugar exacto donde deben tocar las ruedas; las barras posteriores delimitan la zona prevista para la toma de contacto. Todas estas señales son blancas: una línea amarilla pertenece al sistema de rodaje, no a la pista.",
+        pie: "En corta final, las fajas de umbral confirman dónde comienza la superficie disponible para aterrizar y el designador identifica la orientación de la pista. Después, el eje ayuda a mantener la alineación. Las dos barras largas son la referencia de apuntado, no el lugar exacto donde deben tocar las ruedas; los pares de barras posteriores forman la zona de toma de contacto. Todas estas señales son blancas: una línea amarilla pertenece al sistema de rodaje, no a la pista.",
       },
       {
         kind: "p",
-        text: "Las señales blancas identifican la pista y organizan la alineación, el umbral, la referencia de apuntado y la zona de toma de contacto. En publicaciones técnicas, esa referencia aparece como «señal de punto de visada»: son las dos barras largas hacia las que diriges visualmente la trayectoria, no una orden de posar allí las ruedas. En corta final permiten confirmar que miras la superficie correcta; después del toque, las marcas siguientes ayudan a reconocer cuánto te has alejado del umbral.",
+        text: "Las señales blancas identifican la pista y ordenan las referencias que usas en aproximación y aterrizaje. Las dos barras largas forman la referencia de apuntado —denominada «señal de punto de visada» en la publicación OACI—: hacia ellas estabilizas visualmente la trayectoria, pero no significan que las ruedas deban tocar exactamente allí. Los pares de barras que siguen marcan la zona de toma de contacto y permiten estimar cuánto te has alejado del umbral.",
       },
       {
         kind: "p",
         text: "La identidad de la pista es blanca; el amarillo pertenece a calles, puntos de espera, márgenes o superficies que no se usan como pista. Al abandonar después del aterrizaje puede aparecer una guía amarilla de salida sobre el pavimento, así que el color por sí solo no confirma que estés libre: todo el avión debe cruzar el punto de espera aplicable.",
-      },
-      {
-        kind: "hueco",
-        rotulo: "AP-05-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Fotografía aérea cenital del tercio de aproximación de una pista de precisión de 45 o 60 m, con el umbral entrando por abajo. Los seis elementos tienen que ser contables a ojo: designadora, fajas de umbral, eje en trazos, referencia de apuntado (señal de punto de visada en la publicación), los primeros pares de toma de contacto y la faja lateral. Ojo: nada de umbral desplazado ni de galones, que son de otra lección.",
-        alto: 340,
       },
       {
         kind: "fichas",
@@ -52,93 +45,93 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Señal designadora",
-            hueco: {
-              id: "AP-05-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Designadora vista desde unos 60 m, casi en el eje de aproximación, para que los dígitos se lean derechos. Dos cifras blancas de 9 m de alto, la décima parte del rumbo magnético del eje, redondeada, vista desde la aproximación, con la letra de paralela al lado. Dice «13L». Ojo: nunca una sola cifra sin cero delante, ni dígitos amarillos.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-03-designador-13l.webp",
+              alt: "Designador blanco 13L señalado sobre una pista y explicado como rumbo magnético aproximado 130 grados, pista izquierda",
             },
-            puntos: ["La décima parte del rumbo magnético, redondeada, desde la aproximación."],
+            puntos: [
+              "El designador se forma con la décima parte del rumbo magnético del eje, redondeada y vista desde la aproximación. Por eso 13 indica aproximadamente 130° y la L identifica la pista izquierda de un sistema paralelo. Antes de entrar o aterrizar, comparas número y letra con tu autorización; coincidir solo en el número no basta si existen paralelas.",
+            ],
           },
           {
             titulo: "Señal de eje",
-            hueco: {
-              id: "AP-05-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tres franjas de pavimento apiladas, cenital pura, cada una con su eje a escala: 0,90 m para CAT II y CAT III, 0,45 m para CAT I y no precisión clave 3 o 4, y 0,30 m para visual y no precisión clave 1 o 2. En las tres, trazo más espacio entre 50 y 75 m, acotado arriba. Ojo: el eje va siempre en trazos, nunca continuo y nunca amarillo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-04-anchos-eje.webp",
+              alt: "Comparación técnica de los anchos de la señal de eje para pistas CAT II y III, CAT I y no instrumentales",
             },
-            puntos: ["Su ancho delata la pista: 0,90, 0,45 o 0,30 m."],
+            puntos: [
+              "El eje siempre es blanco y discontinuo. Su anchura es de 0,90 m en pistas CAT II y III; 0,45 m en CAT I y en pistas de no precisión con clave 3 o 4; y 0,30 m en pistas no instrumentales o de no precisión con clave 1 o 2. Ese ancho ayuda a reconocer el tipo de señalización, pero la categoría disponible se confirma en la carta y en la información vigente.",
+            ],
           },
           {
             titulo: "Señal de umbral",
-            hueco: {
-              id: "AP-05-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cinco umbrales en fila, cenital pura y a la misma escala, con 4, 6, 8, 12 y 16 fajas para pistas de 18, 23, 30, 45 y 60 m. Faja de 30 m de largo por 1,80 m de ancho, separadas 1,80 m, con el grupo arrancando a 6 m del umbral y simétrico respecto del eje. Ojo: nunca un número impar de fajas a un lado del eje.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-05-fajas-umbral.webp",
+              alt: "Cinco esquemas de umbral que relacionan 4, 6, 8, 12 y 16 fajas con pistas de 18, 23, 30, 45 y 60 metros",
             },
-            puntos: ["Cuenta las fajas y sabes el ancho."],
+            puntos: [
+              "Las fajas blancas del umbral están dispuestas de forma simétrica. El total permite reconocer el ancho de pista: 4 para 18 m, 6 para 23 m, 8 para 30 m, 12 para 45 m y 16 para 60 m. En corta final, contar las fajas sirve como comprobación visual; no sustituye las dimensiones publicadas.",
+            ],
           },
           {
             titulo: "Faja lateral",
-            hueco: {
-              id: "AP-05-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Faja lateral vista desde el borde de la pista a 1,6 m del suelo, mirando a lo largo hasta el punto de fuga, con luz rasante de atardecer. Faja blanca continua de 0,90 m o más, con su borde exterior sobre el borde del pavimento; detrás, el margen y el pasto. Ojo: si la faja sale amarilla o doble ya es calle de rodaje, no pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-06-faja-lateral.webp",
+              alt: "Fotografía a nivel del suelo de una faja lateral blanca y continua cuyo borde exterior coincide con el borde de pista",
             },
-            puntos: ["Hasta ahí llega el pavimento de pista."],
+            puntos: [
+              "La faja lateral es blanca, continua y define visualmente el borde de la pista cuando el contraste con el terreno o el margen puede resultar insuficiente. Su borde exterior coincide con el borde de pista. Mantienes ruedas y trayectoria dentro de esas líneas: el pavimento o terreno exterior no se interpreta como ancho adicional disponible.",
+            ],
           },
           {
             titulo: "Referencia de apuntado y zona de toma",
-            hueco: {
-              id: "AP-05-07",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Los primeros 900 m de una pista de precisión de 45 m, cenital y tumbada en horizontal, con la escala en metros abajo. Referencia de apuntado a 400 m del umbral, formada por las dos barras largas de la señal de punto de visada; seis pares de la zona de toma de contacto cada 150 m, de 22,5 por 3 m. Ojo: ningún par pegado a la referencia de apuntado; los que caigan a 50 m o menos se borran, y ese hueco tiene que verse.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-05-07-apuntado-zona-toma.webp",
+              alt: "Diagrama a escala de una referencia de apuntado a 400 metros y pares de marcas de zona de toma cada 150 metros",
             },
-            puntos: ["Ahí apuntas; los grupos de barras dan referencias de distancia desde el umbral."],
+            puntos: [
+              "En una pista con LDA (Landing Distance Available) de 2.400 m o más, la referencia de apuntado comienza a 400 m del umbral. Las marcas de zona de toma aparecen por pares a intervalos de 150 m; si un par quedara a 50 m o menos de la referencia de apuntado, se omite. En aproximación las usas para vigilar el punto previsto de toma y decidir una ida al aire si el avión queda largo o inestable.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "La pista desde corta final",
-        hueco: {
-          id: "AP-05-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, en corta final a 60 m sobre el umbral y en el eje, con un pedazo de glareshield abajo. Pista de precisión de 45 m: doce fajas de umbral contables, designadora, eje en trazos, referencia de apuntado y al menos dos pares de toma de contacto, con faja lateral a los dos lados. Ojo: ninguna señal amarilla sobre la pista y ninguna otra aeronave.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-05-08-corta-final.webp",
+          alt: "Vista desde cabina en corta final de una pista 27 con doce fajas de umbral, referencia de apuntado y zona de toma señaladas",
+          ancho: 1600,
+          alto: 900,
         },
-        // Sin foto todavía: los puntos van en 0 y el bloque los pinta como
-        // lista numerada. Cuando exista AP-05-08 se les pone la posición.
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 67,
             que: "Fajas de umbral",
-            significa: "Dan el ancho de la pista.",
+            significa: "Las doce fajas blancas corresponden a una pista de 45 m de ancho.",
+            piloto: "Las cuentas como comprobación visual y confirmas el dato en la carta; no corriges una autorización solo por la apariencia.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 52,
             que: "Designadora",
-            significa: "Rumbo de aproximación.",
-            piloto: "No es la paralela.",
+            significa: "El 27 identifica una orientación magnética aproximada de 270°.",
+            piloto: "Compruebas número y, cuando corresponda, letra de paralela antes de continuar.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 35,
             que: "Referencia de apuntado",
-            significa: "Dos fajas gruesas.",
-            piloto: "Ahí apuntas.",
+            significa: "Son las dos barras largas y simétricas situadas antes de la zona de toma.",
+            piloto: "Vigilas la trayectoria hacia esa referencia sin convertirla en un punto obligatorio de contacto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 24,
             que: "Zona de toma de contacto",
-            significa: "Un par cada 150 m.",
+            significa: "Los pares de marcas dan referencias de distancia desde el umbral.",
+            piloto: "Si la toma prevista se desplaza fuera del margen estabilizado, aplicas el criterio de ida al aire de tu operación.",
           },
         ],
       },
@@ -153,12 +146,9 @@ export const NIVEL_2: DocScreen[] = [
         claves: [
           "La categoría y el sistema disponible se confirman en la carta y en la información vigente; no se deducen de una sola señal.",
         ],
-        // Reutiliza la lámina de la ficha «Señal de umbral».
-        hueco: {
-          id: "AP-05-05",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Se reutiliza la lámina de los cinco umbrales, con 4, 6, 8, 12 y 16 fajas para pistas de 18, 23, 30, 45 y 60 m. Ojo: nunca un número impar de fajas a un lado del eje.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-05-09-doce-fajas.webp",
+          alt: "Vista oblicua de una pista 27 con doce fajas de umbral y un eje angosto, acompañada de la advertencia de confirmar la categoría en la carta",
         },
       },
     ],
@@ -172,26 +162,28 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-06-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Cabecera con umbral desplazado permanente vista desde 250 m, oblicua a 30° y con luz de tarde. De abajo arriba: galones amarillos a 45° apuntando a la pista, de trazo 0,90 m y separados 30 m; flechas blancas sobre el eje; puntas de flecha; faja transversal blanca de 1,80 m de borde a borde; y las fajas de umbral detrás. Ojo: ninguna cruz de cierre, que va en otra imagen.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-06-01-umbral-desplazado.webp",
+        alt: "Vista aérea de una pista con galones amarillos, flechas blancas y un umbral desplazado, señalados con rótulos didácticos",
+        ancho: 1600,
+        alto: 900,
+        pie: "Los galones amarillos delimitan pavimento que no se usa para rodar, despegar ni aterrizar. Las flechas blancas identifican el tramo anterior al umbral: en esta dirección puede utilizarse para rodaje y despegue, pero no para iniciar el aterrizaje; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal y las fajas de umbral marcan dónde comienza la LDA (Landing Distance Available). Antes de operar, confirma las distancias publicadas y cualquier restricción vigente.",
       },
       {
         kind: "p",
-        text: "No todo el pavimento alineado con una pista tiene el mismo uso. Las flechas blancas antes de un umbral desplazado permiten rodar y despegar en esa dirección, y también forman parte del recorrido de aterrizaje desde el sentido contrario; los galones amarillos identifican una zona que no se usa para rodar, despegar ni aterrizar. La diferencia cambia la TORA, la LDA y la decisión de continuar una aproximación.",
+        text: "No todo el pavimento alineado con una pista tiene el mismo uso. Las flechas blancas antes de un umbral desplazado permiten rodar y despegar en esa dirección, y también forman parte del recorrido de aterrizaje desde el sentido contrario; los galones amarillos identifican una zona que no se usa para rodar, despegar ni aterrizar. La diferencia cambia la TORA (Take-Off Run Available), la LDA y la decisión de continuar una aproximación.",
       },
       {
         kind: "p",
-        text: "Te lo dicen las flechas, los galones y las cruces.",
+        text: "Un desplazamiento temporal no se reconoce igual que uno permanente, y una cruz cambia por completo el significado de la superficie. Antes de usar cualquier tramo, relaciona lo que ves con la carta, el NOTAM y la autorización vigente: la señal visual te permite detectar la condición, pero las distancias declaradas y las restricciones publicadas determinan la operación.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-06-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Anatomía completa del umbral desplazado permanente, cenital pura y de izquierda a derecha: galones amarillos, tramo de flechas, puntas de flecha, faja transversal de 1,80 m y fajas de umbral arrancando a 6 m. Los galones solo se pintan si el pavimento previo está pavimentado, mide más de 60 m y no sirve para uso normal. Ojo: nada de barra de demarcación amarilla de 1 m, que es de la FAA.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-06-02-anatomia-umbral.webp",
+        alt: "Diagrama cenital de un umbral desplazado permanente con galones, flechas, puntas de flecha, faja transversal y fajas de umbral",
+        ancho: 1600,
+        alto: 900,
+        pie: "La secuencia se lee desde el extremo de pista hacia el área utilizable: los galones amarillos señalan una superficie no apta para la operación normal; las flechas blancas guían hacia el umbral desplazado; la fila de puntas y la faja transversal identifican el nuevo comienzo de la LDA. Las fajas de umbral aparecen después de esa línea. Reconocer cada zona evita confundir pavimento disponible para despegar con pavimento disponible para tomar contacto.",
       },
       {
         kind: "fichas",
@@ -199,43 +191,43 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Umbral desplazado temporal",
-            hueco: {
-              id: "AP-06-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tramo de 400 m con umbral desplazado temporal, cenital pura. Las señales anteriores van tapadas, apenas un fantasma gris; el eje se convierte en flechas blancas; un galón grande en punta de flecha, de altura 10 m o más y trazo de 1,2 m o más, cruza al final del tramo; a un costado, una baliza portátil para los desplazamientos cortos. Ojo: nada de galones amarillos aquí, que son del caso permanente.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-03-umbral-temporal.webp",
+              alt: "Diagrama de un umbral desplazado temporal con señales anteriores ocultas, flechas blancas y una gran punta de flecha",
             },
-            puntos: ["Se tapan las señales viejas; el eje se vuelve flechas."],
+            puntos: [
+              "En un desplazamiento temporal se ocultan las señales que ya no aplican y el eje anterior se convierte en flechas blancas que conducen al nuevo umbral. La gran punta de flecha tiene al menos 10 m de altura y un trazo mínimo de 1,20 m; cuando la condición dura poco pueden emplearse balizas. El piloto no toma contacto antes de la nueva faja transversal y confirma la LDA temporal en la información vigente.",
+            ],
           },
           {
             titulo: "Pista cerrada y calle cerrada",
-            hueco: {
-              id: "AP-06-06",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cenital pura y a la misma escala: arriba, un tramo de pista cerrada con dos cruces blancas de 36 m de brazo, 14,5 m de travesaño y faja de 1,80 m, separadas 300 m como máximo; abajo, una calle de rodaje cerrada con una cruz amarilla de 9 m, travesaño de 3,75 m y faja de 1,50 m. Ojo: la cruz de la pista es blanca y la de la calle amarilla, nunca al revés.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-06-cruces-cierre.webp",
+              alt: "Comparación cenital entre cruces blancas de cierre de pista y una cruz amarilla de cierre de calle de rodaje",
             },
-            puntos: ["Cruz blanca en la pista; amarilla en la calle."],
+            puntos: [
+              "Una cruz blanca indica una pista cerrada; una cruz amarilla indica una calle de rodaje cerrada. En pista, las cruces se repiten a intervalos máximos de 300 m para que la condición sea evidente desde el aire y desde tierra. Si la superficie aparece cerrada, no se entra ni se continúa solo porque el pavimento esté libre: se confirma la autorización y la condición publicada.",
+            ],
           },
           {
             titulo: "Cruz de luces",
-            hueco: {
-              id: "AP-06-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Cruz de luces de pista cerrada en aproximación nocturna, desde 150 m de altura y a 1 km del umbral. Blanca variable y destellante, un segundo encendida y un segundo apagada, montada sobre el eje, con 5 luces por brazo como mínimo separadas 1,5 m, y la pista a oscuras alrededor. Si todavía no hay foto de una instalada, se hace como ilustración técnica con el mismo encuadre. Ojo: nunca amarilla, que esa es la de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-05-cruz-luces.webp",
+              alt: "Pista cerrada de noche con una cruz de luces blancas destellantes sobre el eje",
             },
-            puntos: ["Nueva: destella un segundo sí y un segundo no."],
+            puntos: [
+              "La cruz luminosa blanca refuerza de noche la identificación de una pista temporalmente cerrada o restringida para el despegue. La recomendación prevé como mínimo cinco luces por brazo y un ciclo de un segundo encendida y uno apagada. Si aparece durante la aproximación o el rodaje, se trata como una advertencia de cierre: no se usa la pista hasta aclarar la condición con control y la información operacional.",
+            ],
           },
           {
             titulo: "Área fuera de servicio",
-            hueco: {
-              id: "AP-06-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Calle de rodaje vista a 20° de la vertical, como la ve quien llega rodando. Señal pintada con inscripción negra sobre fondo naranja que dice «FUERA DE SERVICIO», con el fondo sobresaliendo 0,50 m o más del texto, y al fondo el letrero del mismo color con contorno negro de 10 mm en clave 1 o 2 y de 20 mm en clave 3 o 4. Ojo: el fondo nunca rojo ni amarillo, que son otras dos señales.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-04-fuera-servicio.webp",
+              alt: "Calle de rodaje con señal y letrero naranja de fuera de servicio, ambos con letras negras",
             },
-            puntos: ["También nueva: negro sobre naranja."],
+            puntos: [
+              "La inscripción negra sobre fondo naranja identifica un área fuera de servicio y puede aparecer pintada en el pavimento o en un letrero. No equivale a una autorización para bordearla por cuenta propia: el piloto mantiene la ruta autorizada, comprueba NOTAM y publicaciones vigentes, y pide aclaración si la señal no coincide con la instrucción recibida.",
+            ],
           },
         ],
       },
@@ -248,62 +240,63 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Flechas de umbral desplazado",
-            hueco: {
-              id: "AP-06-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad izquierda de la comparación, cenital pura: 250 m de pista de 45 m con el eje de abajo arriba. Flechas blancas sobre el eje apuntando al umbral, la fila de puntas de flecha, la faja transversal blanca de 1,80 m y las fajas de umbral arrancando a 6 m. Una silueta gris de avión despegando sobre el tramo, porque ahí se rueda, se despega y se termina el aterrizaje. Ojo: en esta mitad no entra ni un galón amarillo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-07-flechas.webp",
+              alt: "Diagrama cenital de flechas blancas que conducen a un umbral desplazado",
             },
-            puntos: ["Sobre las flechas despegas y ruedas."],
+            puntos: [
+              "Las flechas blancas conducen hacia un umbral desplazado. En el sentido mostrado, el tramo puede usarse para rodar y para iniciar el despegue, pero no para tomar contacto; desde el sentido contrario puede formar parte del recorrido de aterrizaje. La faja transversal señala dónde comienza la LDA para esa aproximación.",
+            ],
           },
           {
             titulo: "Galones",
-            hueco: {
-              id: "AP-06-08",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad derecha, con el encuadre, la escala y la faja transversal exactamente donde están en la izquierda. El tramo previo, lleno de galones amarillos a 45° apuntando a la pista, de trazo 0,90 m y separados 30 m; y la misma silueta de avión, esta vez tachada, porque ahí no se aterriza, no se despega y no se rueda. Ojo: en esta mitad no va ninguna flecha ni punta de flecha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-06-08-galones.webp",
+              alt: "Diagrama cenital de galones amarillos sobre pavimento anterior al umbral que no sirve para uso normal",
             },
-            puntos: ["Sobre los galones, nada."],
+            puntos: [
+              "Los galones amarillos cubren un tramo pavimentado anterior al umbral que no es apto para el uso normal de la aeronave. A diferencia de las flechas blancas, no permiten rodaje, despegue ni aterrizaje. Si la trayectoria exige pasar sobre ellos en tierra, se detiene la maniobra y se aclara la ruta.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Cabecera con umbral desplazado",
-        hueco: {
-          id: "AP-06-09",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Fotografía aérea oblicua desde 200 m de altura y 800 m de la cabecera, en el eje de aproximación, con la secuencia entera de abajo arriba: galones amarillos contables, flechas sobre el eje, puntas de flecha, faja transversal de borde a borde, primera fila de fajas de umbral y la designadora. Ojo: ninguna cruz de cierre ni barra de demarcación amarilla de 1 m, que es de la FAA.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-06-09-reconoce-umbral.webp",
+          alt: "Vista aérea oblicua de una pista con galones amarillos, flechas blancas, faja transversal y fajas de umbral",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 28,
+            y: 78,
             que: "Galones amarillos",
-            significa: "No apto para uso normal.",
-            piloto: "Ni aterrizas ni ruedas.",
+            significa: "Delimitan pavimento anterior al umbral que no es apto para el uso normal de la aeronave.",
+            piloto: "No ruedas, no despegas y no aterrizas sobre ese tramo.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 39,
             que: "Faja transversal",
-            significa: "El umbral real.",
-            piloto: "Desde aquí cuenta tu aterrizaje.",
+            significa: "Identifica el umbral desplazado y separa el tramo previo de la superficie disponible para tomar contacto.",
+            piloto: "Desde esta línea comienza la LDA para la aproximación mostrada.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 47,
+            y: 53,
             que: "Flechas sobre el eje",
-            significa: "Tramo previo.",
-            piloto: "Sirve para despegar.",
+            significa: "Conducen visualmente hacia el umbral desplazado.",
+            piloto: "Puedes usar ese tramo para rodaje y despegue en esta dirección, pero no para tomar contacto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 45,
+            y: 30,
             que: "Primera faja de umbral",
-            significa: "Aquí empieza lo que puedes tocar.",
+            significa: "Confirma el inicio de la pista disponible para aterrizar en este sentido.",
+            piloto: "La relacionas con la faja transversal y el designador antes de continuar la aproximación.",
           },
         ],
       },
@@ -314,14 +307,14 @@ export const NIVEL_2: DocScreen[] = [
           "Estás alineado para despegar. Delante ves flechas blancas y, más allá, la faja transversal.",
         pregunta: "¿Puedes usar ese tramo para despegar?",
         respuesta:
-          "Sí. El tramo previo al umbral desplazado sirve para rodar y despegar; no para tomar contacto.",
-        claves: ["Sobre galones, nada."],
-        // Reutiliza la fotografía del «Reconoce».
-        hueco: {
-          id: "AP-06-09",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Se reutiliza la aérea oblicua del «Reconoce», con la secuencia entera: galones, flechas, puntas de flecha, faja transversal y fajas de umbral. Ojo: ninguna cruz de cierre ni barra de demarcación amarilla de 1 m, que es de la FAA.",
+          "Sí, si las distancias publicadas y tu autorización lo permiten. Las flechas blancas indican que el tramo anterior al umbral desplazado puede utilizarse para rodar y para iniciar el despegue en esta dirección; no puede utilizarse para tomar contacto.",
+        claves: [
+          "Confirma la TORA publicada y cualquier reducción temporal antes de calcular o iniciar el despegue.",
+          "Los galones amarillos significan que el pavimento no está disponible para la operación normal.",
+        ],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-06-10-decision-despegue.webp",
+          alt: "Vista aérea de un umbral desplazado con indicaciones sobre el uso de las flechas blancas para despegue y la prohibición de tomar contacto antes del umbral",
         },
       },
     ],
@@ -335,11 +328,12 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-07-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde la cabina de un avión que rueda, a 5 m sobre el pavimento y con luz de amanecer sobre asfalto húmedo. El eje amarillo continuo bajo el morro, el eje mejorado con doble línea de trazos a cada lado y, a 60 m, el punto de espera patrón A2 de cuatro líneas y 2,10 m de ancho total, con la pista al fondo. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-07-01-punto-espera.webp",
+        alt: "Vista desde una cabina de un eje mejorado y un punto de espera de pista antes de las marcas blancas de la pista",
+        ancho: 1600,
+        alto: 900,
+        pie: "El eje mejorado avisa que te aproximas a un punto de espera, pero no sustituye la autorización ni la carta. En el patrón A2, las dos líneas continuas quedan del lado desde el que llega la aeronave y las dos discontinuas miran hacia la pista. Si no tienes autorización para entrar o cruzar, detén toda la aeronave antes de las continuas: no basta con que el tren de nariz quede detrás.",
       },
       {
         kind: "p",
@@ -347,14 +341,15 @@ export const NIVEL_2: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "Las continuas siempre miran al lado donde esperas.",
+        text: "La regla visual es sencilla: en el patrón A2, las dos líneas continuas quedan del lado desde el que te aproximas y allí debes esperar; las discontinuas quedan hacia la pista. Cuando existe un sistema ILS (Instrument Landing System) puede haber un segundo punto de espera, patrón B2, más alejado para proteger el área crítica. No avances de una señal a otra por intuición: cada cruce requiere que la autorización sea clara y aplicable a tu posición.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-07-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cenital pura, el recorrido entero de izquierda a derecha en el orden en que lo encuentra el avión: punto de espera intermedio de una sola línea de trazos, patrón B2 con «CAT III» al lado, eje mejorado acotado a 47 m, patrón A2 de 2,10 m y señal de instrucción obligatoria blanca sobre rojo. Todo lo de calle en amarillo, todo lo de pista en blanco. Ojo: nada de patrón A1 ni B1, y las continuas van del lado de espera y nunca miran a la pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-07-02-ruta-espera.webp",
+        alt: "Diagrama cenital de una calle de rodaje con punto de espera intermedio, patrón B2, eje mejorado, patrón A2 y pista",
+        ancho: 1600,
+        alto: 900,
+        pie: "Al rodar hacia una pista de precisión puedes encontrar varias referencias, pero no significan lo mismo. La línea discontinua única es un punto de espera intermedio; el patrón B2, parecido a una escalera, protege una posición más alejada; el eje mejorado anuncia que se aproxima el patrón A2; y, en este recorrido, el A2 es el último punto de espera antes de la pista. El amarillo pertenece a la ruta de rodaje; las señales blancas identifican la pista.",
       },
       {
         kind: "fichas",
@@ -362,33 +357,33 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Eje mejorado",
-            hueco: {
-              id: "AP-07-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Setenta metros de calle de rodaje, cenital pura, con la pista entrando por la derecha. Eje continuo amarillo de 0,15 m con la doble línea de trazos a cada lado, acotada a 47 m desde el patrón A2 y alejándose de la pista; un B2 dentro de esos 47 m interrumpe el realce 0,90 m antes y 0,90 m después. El tramo entre el punto de espera y la pista va sin realzar. Ojo: las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-03-eje-mejorado.webp",
+              alt: "Diagrama del eje mejorado con trazos laterales, interrupción en un patrón B2 y terminación en el patrón A2",
             },
-            puntos: ["Trazos a los lados del eje: pista adelante, prepárate."],
+            puntos: [
+              "El eje mejorado añade trazos amarillos a ambos lados del eje continuo y se extiende hasta 47 m desde el patrón A2, alejándose de la pista. Su función es llamar tu atención antes de llegar al punto de espera; no es una autorización para avanzar. Si un B2 queda dentro de ese tramo, el realce se interrumpe alrededor de la señal. Entre el A2 y la pista el eje vuelve a ser sencillo.",
+            ],
           },
           {
             titulo: "Instrucción obligatoria",
-            hueco: {
-              id: "AP-07-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cenital pura, partida en dos. A la izquierda, la instrucción obligatoria «13L-31R» blanca sobre rojo, centrada sobre el eje, en un solo bloque, porque la anchura exterior entre ruedas del tren principal es menor de 9 m; a la derecha, «NO ENTRY». Fondo sobresaliendo 0,50 m del texto, carácter de 4 m y 1 m hasta el punto de espera insinuado al borde. Ojo: nunca a la izquierda del eje, que eso es FAA, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-04-instruccion-obligatoria.webp",
+              alt: "Comparación entre una señal pintada blanca sobre rojo con designadores de pista y la señal NO ENTRY",
             },
-            puntos: ["Blanco sobre rojo: no pasas sin autorización."],
+            puntos: [
+              "Una inscripción blanca sobre fondo rojo transmite una instrucción obligatoria. Los designadores 13L–31R identifican la pista que vas a cruzar o ingresar; NO ENTRY prohíbe continuar por esa superficie. Si la autorización no incluye esa pista, detienes el avión antes de la señal y aclaras la instrucción. El fondo rojo debe sobresalir al menos 0,50 m alrededor del texto para conservar su visibilidad.",
+            ],
           },
           {
             titulo: "Punto de verificación del VOR",
-            hueco: {
-              id: "AP-07-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Rincón de plataforma de hormigón claro, cenital pura, con el punto de verificación en el centro: círculo de 6 m de diámetro y línea de 0,15 m de ancho, bordeado de negro para contrastar. La línea de azimut sale del centro, sobresale 6 m del círculo y termina en punta de flecha; es opcional. Una flecha de norte al margen. Ojo: blanco, nunca amarillo, que el amarillo es de calle de rodaje.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-05-verificacion-vor.webp",
+              alt: "Diagrama de un punto de verificación del VOR con círculo blanco de seis metros y línea de azimut",
             },
-            puntos: ["Círculo blanco de 6 m en la plataforma."],
+            puntos: [
+              "El punto de verificación del VOR (VHF Omnidirectional Range) marca la posición exacta donde se estaciona la aeronave para comprobar la indicación del receptor con datos publicados. El círculo mide 6 m de diámetro y su línea tiene 0,15 m de ancho. La línea de azimut, cuando existe, orienta el avión hacia un rumbo concreto. No improvises valores: usa la ubicación y los datos oficiales del aeródromo.",
+            ],
           },
         ],
       },
@@ -401,63 +396,63 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Punto de espera patrón A2",
-            hueco: {
-              id: "AP-07-06",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad izquierda de la comparación, primer plano cenital de 25 m de calle con el patrón A2 cruzándola de arriba abajo, la pista a la derecha y el lado de espera a la izquierda. Cuatro líneas de 0,30 m y tres espacios de 0,30 m, ancho total 2,10 m, y el eje amarillo cortándose en la señal. Es siempre la señal más cercana a la pista. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-06-patron-a2.webp",
+              alt: "Diagrama cenital del patrón A2 con dos líneas continuas del lado de espera y dos discontinuas hacia la pista",
             },
-            puntos: ["Cuatro líneas, el más cercano a la pista."],
+            puntos: [
+              "El patrón A2 cruza toda la calle con cuatro líneas amarillas: dos continuas del lado de espera y dos discontinuas hacia la pista. Cada línea y cada espacio miden 0,30 m, para un ancho total de 2,10 m. Es el punto de espera más cercano a la pista. Sin autorización para entrar o cruzar, detienes todo el avión antes de las continuas.",
+            ],
           },
           {
             titulo: "Punto de espera patrón B2",
-            hueco: {
-              id: "AP-07-07",
-              medida: "Ilustración técnica · 4:3 · 1200×900",
-              descripcion:
-                "Mitad derecha, con la misma escala y el mismo encuadre que la izquierda. Patrón B2: dos líneas continuas de 0,30 m separadas 1,50 m, ancho total 2,10 m, unidas por travesaños de 0,90 m cada 3,0 m. La inscripción «CAT III», de letras de 1,80 m o más, va a 0,90 m o menos de la señal y se repite cada 45 m; un A2 se insinúa al fondo. Ojo: nada de patrón B1, y las continuas van del lado de espera y nunca miran a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-07-07-patron-b2.webp",
+              alt: "Diagrama cenital del patrón B2 con dos líneas unidas por travesaños, como una escalera, y la inscripción CAT III",
             },
-            puntos: ["La escalera, siempre detrás."],
+            puntos: [
+              "El patrón B2 parece una escalera: dos líneas continuas de 0,30 m separadas 1,50 m y unidas por travesaños. También mide 2,10 m de ancho, pero aparece en posiciones más alejadas de la pista para proteger el área crítica o sensible de una aproximación de precisión. La inscripción CAT III ayuda a identificar la condición. Si se te indicó esperar allí, no avances hacia el A2 sin una autorización que permita hacerlo.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Una intersección de calle de rodaje y pista de precisión",
-        hueco: {
-          id: "AP-07-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Aérea oblicua desde 120 m, a lo largo de una calle ancha que llega a una pista CAT III, con el recorrido completo: punto de espera intermedio al fondo, patrón B2 con «CAT III», eje mejorado y patrón A2 junto a la pista. Si no se consigue una foto con A2 y B2, se hace como ilustración técnica con el mismo encuadre: mejor una ilustración correcta que una foto con patrones vencidos. Ojo: nada de patrón A1 ni B1, y las continuas van del lado de espera y nunca miran a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-07-08-reconoce-espera.webp",
+          alt: "Fotografía didáctica de una calle de rodaje con eje mejorado, punto de espera intermedio, patrón B2 y patrón A2 antes de una pista",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 67,
             que: "Eje mejorado",
-            significa: "Trazos a los lados.",
-            piloto: "El punto de espera, a 47 m o menos.",
+            significa: "Los trazos amarillos a ambos lados del eje anuncian que te aproximas a un punto de espera de pista.",
+            piloto: "Concentras la atención en la ruta autorizada y te preparas para detenerte en la señal que corresponda.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 45,
+            y: 35,
             que: "Patrón A2",
-            significa: "Las continuas de tu lado.",
-            piloto: "Aquí paras.",
+            significa: "Dos líneas continuas de tu lado y dos discontinuas hacia la pista; es el punto de espera más cercano.",
+            piloto: "Sin autorización para entrar o cruzar, todo el avión permanece antes de las continuas.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 48,
+            y: 54,
             que: "Patrón B2",
-            significa: "La escalera.",
-            piloto: "Protege el área crítica del ILS.",
+            significa: "Dos líneas unidas por travesaños forman la escalera en una posición más alejada.",
+            piloto: "Si tu autorización ordena esperar en B2, te detienes allí para proteger el área del ILS.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 78,
             que: "Punto de espera intermedio",
-            significa: "Una sola línea de trazos.",
-            piloto: "No es pista.",
+            significa: "Una sola línea discontinua transversal sirve para ordenar el tránsito dentro de la calle.",
+            piloto: "No la confundes con A2 o B2; esperas allí cuando control te lo indique.",
           },
         ],
       },
@@ -465,19 +460,16 @@ export const NIVEL_2: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Rodando hacia la pista",
         situacion:
-          "Ruedas hacia la 13L. Cuatro líneas cruzan la calle: las continuas de tu lado. Sin autorización.",
+          "Ruedas hacia la pista 13L. El patrón A2 cruza la calle y las dos líneas continuas están de tu lado. Todavía no tienes autorización para entrar.",
         pregunta: "¿Dónde paras exactamente?",
-        respuesta: "Antes de las continuas, con todo el avión de tu lado.",
+        respuesta: "Te detienes antes de las líneas continuas, dejando todo el avión del lado de espera. La nariz y el tren no son la única referencia: ninguna parte de la aeronave debe sobrepasar el punto de espera sin la autorización correspondiente.",
         claves: [
-          "Las de trazos miran a la pista.",
-          "No estás libre hasta cruzarla entera.",
+          "Las líneas discontinuas del A2 miran hacia la pista; las continuas marcan el lado de espera.",
+          "Para declarar la pista libre al salir, todo el avión debe quedar más allá del punto de espera aplicable.",
         ],
-        // Reutiliza la mitad izquierda de la comparación.
-        hueco: {
-          id: "AP-07-06",
-          medida: "Ilustración técnica · 4:3 · 1200×900",
-          descripcion:
-            "Se reutiliza la lámina del patrón A2: cuatro líneas de 0,30 m y tres espacios de 0,30 m, ancho total 2,10 m, con la pista a la derecha y el lado de espera a la izquierda. Ojo: nada de patrón A1, y las continuas van del lado de espera y nunca miran a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-07-09-decision-espera.webp",
+          alt: "Vista desde cabina hacia una pista con patrón A2 y una indicación de detener todo el avión antes de las líneas continuas",
         },
       },
     ],
@@ -491,26 +483,28 @@ export const NIVEL_2: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-08-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Aérea oblicua desde 80 m de un puesto de estacionamiento con el avión entrando, de tres cuartos por delante y con luz de atardecer sobre hormigón claro. Delante del avión se ven completas la línea de entrada, la barra de viraje con su punta de flecha, la línea de viraje, la barra de alineación y la línea de parada, amarillas y de 0,15 m o más, con las líneas de seguridad de otro color alrededor. Ojo: ninguna señal blanca de pista en la plataforma.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-08-01-puesto-plataforma.webp",
+        alt: "Avión entrando a un puesto de estacionamiento con la línea de entrada, el inicio del giro, la alineación y la línea de parada señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La línea amarilla de entrada guía el tren de nariz, pero cada marca se interpreta desde la posición del piloto. La barra con flecha indica cuándo iniciar el giro; la línea curva conduce hacia la alineación final y la línea transversal marca la detención prevista para el puesto o tipo de aeronave. Mantener el tren sobre la guía no garantiza por sí solo la separación de alas: también debes seguir el sistema de atraque, las señales del personal de tierra y las limitaciones del puesto asignado.",
       },
       {
         kind: "p",
-        text: "En plataforma la línea amarilla guía el eje del avión, pero la geometría se interpreta desde la posición del piloto. La barra de viraje aparece a la altura de la cabina para iniciar el giro y la línea de parada indica dónde detenerte según el tipo de avión o el sistema de atraque. Seguir el eje no garantiza por sí solo separación de punta de ala: también mandan el puesto asignado, la guía visual y el personal de tierra.",
+        text: "En plataforma la línea amarilla guía el avión hacia el puesto, pero no basta con seguirla de forma automática. La barra de viraje se coloca a la altura del piloto izquierdo en el punto donde debe comenzar el giro; la línea de parada también se lee desde esa posición, no desde el morro. Antes de entrar, confirma el puesto y la guía que corresponde a tu aeronave. Durante la maniobra, vigila la separación de alas y sigue el sistema de atraque o las señales del personal de tierra cuando estén presentes.",
       },
       {
         kind: "p",
-        text: "El puesto se lee en siete partes, de la identificación a la salida.",
+        text: "Un puesto puede reunir siete referencias visuales, desde la identificación hasta la salida. No todas aparecen en cada configuración: aprende a reconocer las que realmente estén pintadas y contrástalas con la información del aeropuerto.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-08-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cenital pura de un puesto completo, con los siete elementos rotulados: identificación «2A-B747» dentro de la línea de entrada, línea de entrada, barra de viraje, línea de viraje, barra de alineación, línea de parada y línea de salida. Todo amarillo y de 0,15 m o más; la barra de viraje y la línea de parada, de 6 m o más y en ángulo recto. Una silueta gris marca dónde cae el puesto del piloto izquierdo. Ojo: ninguna línea del puesto en blanco, que eso sería pista.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-08-02-anatomia-puesto.webp",
+        alt: "Plano técnico de un puesto con identificación, guía de entrada, barra y línea de viraje, alineación, parada y salida",
+        ancho: 1600,
+        alto: 900,
+        pie: "Primero identificas el puesto 2A y sigues la guía de entrada. La barra transversal con flecha indica el inicio del giro; la línea curva conduce a la alineación final y la barra de parada señala dónde debe quedar el piloto izquierdo. La línea de salida solo existe cuando la configuración permite esa maniobra. Las líneas amarillas guían al avión; la roja representa un límite de seguridad para equipos. El sistema de atraque y el procedimiento local siguen siendo decisivos.",
       },
       {
         kind: "fichas",
@@ -518,73 +512,73 @@ export const NIVEL_2: DocScreen[] = [
         items: [
           {
             titulo: "Barra de viraje y línea de parada",
-            hueco: {
-              id: "AP-08-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Dos mitades. A la izquierda, cenital de la silueta del avión sobre el puesto, con dos líneas de mira punteadas que salen del puesto del piloto izquierdo y caen sobre la barra de viraje y sobre la línea de parada, las dos de 6 m o más y en ángulo recto. A la derecha, la misma barra vista desde la ventanilla izquierda a 5 m del suelo, a la altura del hombro. Ojo: nunca alineada con el morro, ni sin punta de flecha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-03-referencia-piloto.webp",
+              alt: "Plano del puesto que distingue la barra de viraje perpendicular a la entrada y la línea de parada perpendicular a la alineación",
             },
-            puntos: ["Van a la altura de tu ventanilla, no del morro."],
+            puntos: [
+              "La barra de viraje es perpendicular a la guía de entrada, lleva una flecha y queda a la altura del piloto izquierdo cuando corresponde iniciar el giro. La línea de parada es perpendicular a la alineación final y queda a la altura del mismo piloto en el punto de detención. Ambas tienen al menos 6 m de longitud y 0,15 m de ancho; si hay varias para distintos aviones, debes seguir la asignada a tu tipo y comprobar la guía de atraque.",
+            ],
           },
           {
             titulo: "Líneas de seguridad",
-            hueco: {
-              id: "AP-08-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el suelo, a 1,6 m de altura, en el borde de un puesto ocupado, mirando a lo largo de la línea de seguridad que corre por delante del ala. Se ven la línea de separación de punta de plano y la de límite de vía de servicio, continuas y de 0,10 m o más, en un color que contrasta con el amarillo del puesto, y un equipo de tierra del lado correcto. Ojo: si salen amarillas se pierde justo lo que la ficha enseña.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-04-lineas-seguridad.webp",
+              alt: "Fotografía de una plataforma con una línea roja continua de seguridad para delimitar el área de equipos",
             },
-            puntos: ["De otro color: hasta ahí llega el ala."],
+            puntos: [
+              "La línea de seguridad de plataforma delimita las zonas previstas para vehículos o equipos y ayuda a mantenerlos separados del avión. Es continua, mide al menos 0,10 m de ancho y tiene un color visible distinto del amarillo de las guías del puesto. Su trazado exacto cambia según la plataforma: no supongas que la punta del ala llega justo a la pintura. Antes de mover el avión, confirma que el área y el camino de las alas estén libres.",
+            ],
           },
           {
             titulo: "Espera en la vía de vehículos",
-            hueco: {
-              id: "AP-08-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde dentro de un vehículo de rampa, a 1,3 m de altura, mirando hacia la entrada de la vía a la pista. La línea de detención cruza el primer tercio del encuadre con la forma que le da el código de tránsito local, con su señal vial al lado, que dice «PARE»; al fondo, el borde de la pista. Ojo: aquí no se pinta el punto de espera patrón A ni B, que es el error que esta ficha existe para evitar.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-08-05-espera-vehiculo.webp",
+              alt: "Vista desde un vehículo de rampa ante una línea blanca de detención y una señal vial de pare antes de una calle de rodaje",
             },
-            puntos: ["La dibuja el código de tránsito local."],
+            puntos: [
+              "Esta es una espera para vehículos en la vía de servicio, no un punto de espera de aeronaves A2 o B2. En el ejemplo, el conductor encuentra una línea blanca y una señal de «PARE» antes de una calle de rodaje. La forma de la marca y las autorizaciones aplicables dependen de la regulación vial y del procedimiento local del aeropuerto. Como piloto, ten presente que vehículos y equipos pueden cruzar rutas de rodaje y verifica que tu trayectoria esté libre.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Entrando al puesto",
-        hueco: {
-          id: "AP-08-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, por la ventanilla izquierda y el parabrisas, a 5 m del pavimento, con el avión entrando al puesto y la línea de entrada pasando bajo el morro. Se ven la identificación pintada dentro de la línea, la barra de viraje con su punta de flecha entrando por la izquierda, la línea de parada al fondo y al menos una línea de seguridad de color contrastante. Ojo: nada de las dos líneas amarillas de límite de área de no movimiento, que no son de la OACI.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-08-06-reconoce-puesto.webp",
+          alt: "Vista didáctica desde cabina del puesto 2A con identificación, barra de viraje, línea de parada y línea roja de seguridad",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 49,
+            y: 68,
             que: "Identificación",
-            significa: "Dentro de la línea de entrada.",
-            piloto: "Confirma el puesto.",
+            significa: "El 2A pintado sobre la guía indica el puesto al que conduce esta línea.",
+            piloto: "Compruebas que coincide con el puesto asignado y no sigues por error una guía hacia otro puesto.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 38,
+            y: 62,
             que: "Barra de viraje",
-            significa: "A tu ventanilla.",
-            piloto: "Aquí empieza el giro.",
+            significa: "La barra amarilla queda perpendicular a la guía de entrada y su flecha indica el sentido del giro.",
+            piloto: "Inicias el giro cuando queda a la altura del piloto izquierdo, siguiendo la guía y la ayuda de atraque disponible.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 59,
+            y: 50,
             que: "Línea de parada",
-            significa: "En ángulo recto.",
-            piloto: "Cuando la ves, frenas.",
+            significa: "La barra transversal se coloca perpendicular a la alineación final del puesto.",
+            piloto: "Te detienes con el piloto izquierdo a su altura, según la marca del tipo de avión y el sistema de atraque.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 78,
+            y: 49,
             que: "Línea de seguridad",
-            significa: "De otro color.",
-            piloto: "Ahí mandan los equipos de tierra.",
+            significa: "La línea roja contrasta con las guías amarillas y delimita el área prevista para equipos.",
+            piloto: "Verificas que equipos, vehículos y personas no invadan la trayectoria ni el espacio de las alas.",
           },
         ],
       },
@@ -592,19 +586,16 @@ export const NIVEL_2: DocScreen[] = [
         kind: "piensaComoPiloto",
         momento: "Entrando al puesto",
         situacion:
-          "Entras al puesto. Por tu ventanilla izquierda aparece una barra corta con punta de flecha.",
-        pregunta: "¿Qué acabas de pasar y qué haces?",
-        respuesta: "Es la barra de viraje.",
+          "Te aproximas al puesto asignado. A tu izquierda ves una barra amarilla con flecha; la guía principal empieza a curvarse hacia el lugar de estacionamiento.",
+        pregunta: "¿Qué te indica esa barra y desde qué punto decides iniciar el giro?",
+        respuesta: "Es la barra de viraje. Cuando queda a la altura del piloto izquierdo, inicia el giro en el sentido de la flecha y sigue la línea curva. No tomes el morro como referencia ni continúes si la ruta, la separación o la guía de atraque no están claras.",
         claves: [
-          "Va a la altura del piloto izquierdo: ahí empieza el giro.",
-          "La flecha dice hacia dónde.",
+          "La barra es perpendicular a la guía de entrada y su flecha muestra la dirección prevista.",
+          "El puesto asignado, la separación de alas y la ayuda de atraque siguen condicionando la maniobra.",
         ],
-        // Reutiliza la fotografía del «Reconoce».
-        hueco: {
-          id: "AP-08-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Se reutiliza la vista desde la cabina del «Reconoce», con la identificación del puesto, la barra de viraje, la línea de parada al fondo y una línea de seguridad de color contrastante. Ojo: nada de las dos líneas amarillas de límite de área de no movimiento, que no son de la OACI.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-08-07-decision-viraje.webp",
+          alt: "Vista distinta desde el puesto del piloto izquierdo con una barra de viraje amarilla señalada antes de la curva de entrada",
         },
       },
     ],

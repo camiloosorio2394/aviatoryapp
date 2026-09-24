@@ -25,22 +25,24 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-13-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua desde 800 ft y 2 NM del umbral, noche cerrada, la pista en diagonal. Dos filas de borde blancas parejas, fila verde de umbral, fila roja de extremo al fondo y el eje cambiando de color: blanco hasta 900 m del extremo, rojo y blanco alternados de 900 m a 300 m y rojo en los últimos 300 m, con luces cada 15 m. Al costado, calles de rodaje azules. Ojo: ninguna luz de eje roja al principio de la pista.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-01-luces-pista.webp",
+        alt: "Vista aérea nocturna de una pista con umbral verde, bordes blancos, eje codificado y extremo rojo señalados",
+        ancho: 1600,
+        alto: 900,
+        pie: "La fila verde identifica el umbral visto desde la aproximación: desde allí comienza la superficie disponible para aterrizar. Las filas blancas laterales muestran los bordes y permiten percibir anchura y alineación. El eje empieza blanco y cambia a rojo y blanco, y después a rojo, para advertir que el extremo se aproxima; la fila roja transversal confirma el final. Si el patrón no coincide con la pista publicada, no acomodes mentalmente las luces: verifica la identificación o frustra la aproximación.",
       },
       {
         kind: "p",
         text: "De noche la pista se reconoce por el patrón completo de sus luces, no por un punto brillante aislado. El umbral verde, el extremo rojo, las filas blancas de borde y el eje codificado permiten confirmar dirección, anchura y distancia restante. En una aproximación, una configuración que no coincide con la carta es motivo para verificar o frustrar; no se corrige la identificación acomodando mentalmente las luces que faltan.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-13-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el asiento izquierdo, de noche, a 200 ft sobre el umbral y alineado con el eje. Fila verde de umbral cruzando el cuadro, filas blancas de borde abriéndose hacia la cámara, eje blanco, barretas blancas de toma de contacto en pares simétricos cada 30 m o 60 m y el PAPI a la izquierda con dos rojas y dos blancas. Ojo: en este tramo no va ninguna luz amarilla.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-02-final-nocturna.webp",
+        alt: "Corta final nocturna desde cabina: umbral verde, bordes y eje blancos, barretas simétricas y PAPI con dos luces blancas y dos rojas",
+        ancho: 1600,
+        alto: 900,
+        pie: "La fila verde señala el inicio de la superficie disponible para aterrizar en esta dirección; no significa que debas tocar allí. Las luces blancas de borde y eje ayudan a comprobar alineación, y las barretas blancas identifican la zona de toma de contacto. A la izquierda, dos luces blancas y dos rojas del PAPI (Precision Approach Path Indicator) indican que estás cerca de su senda nominal. La tripulación mantiene la aproximación estabilizada y compara el patrón con la pista y el procedimiento previstos.",
       },
       {
         kind: "fichas",
@@ -48,42 +50,40 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Borde",
-            hueco: {
-              id: "AP-13-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "A ras de pista, desde el eje, de noche, mirando al extremo: la fila de borde derecha entra por la esquina inferior y se pierde al fondo. Blancas, en el borde del pavimento o hasta 3 m por fuera, separación uniforme de 60 m como máximo en pista por instrumentos (100 m en visual), y el punto exacto donde pasan a amarillas: los últimos 600 m o el último tercio, lo que sea menor, contado desde el extremo opuesto al de la carrera de despegue. Ojo: el azul es de calle de rodaje, nunca del borde de pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-03-borde-blanco-amarillo.webp",
+              alt: "Fotografía nocturna de luces blancas de borde de pista que cambian a amarillo hacia el extremo lejano",
             },
             puntos: [
-              "Dos filas blancas marcan hasta dónde llega el pavimento: cada 60 m por instrumentos, cada 100 m en visual. El último tramo puede verse amarillo.",
+              "Las dos filas delimitan la pista utilizable. Según la referencia EASA (European Union Aviation Safety Agency), las luces se separan como máximo 60 m en pista por instrumentos y 100 m en visual; pueden estar hasta 3 m fuera del borde. Vistas en dirección de despegue, las del último tramo pueden ser amarillas: un aviso visual de que se acerca el extremo, no una nueva calle de rodaje.",
             ],
           },
           {
             titulo: "Umbral",
-            hueco: {
-              id: "AP-13-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "El umbral visto de frente, de noche, desde 100 ft o desde el suelo. La fila verde cruza perpendicular al eje, completa, a 3 m por fuera del extremo como máximo y con al menos 6 luces en pista visual o de no precisión. A cada lado, una barra de ala de al menos 5 luces que se extiende 10 m como mínimo hacia afuera, con la luz más interna en línea con las de borde. Ojo: ninguna roja mezclada en la fila verde, y ningún patrón A1 ni B1 al fondo.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-04-umbral-verde.webp",
+              alt: "Umbral de pista visto de frente con fila transversal verde y barras de ala verdes a ambos lados",
             },
             puntos: [
-              "Verde es dónde empieza tu pista. Las barras de ala refuerzan el umbral con dos grupos verdes.",
+              "La fila verde, vista desde la aproximación, identifica el inicio del tramo disponible para aterrizar. Cuando se instalan barras de ala, los grupos verdes a ambos lados hacen más reconocible el umbral, en especial si está desplazado. Confirma el punto de entrada con la carta y sigue hacia la zona de toma de contacto prevista.",
             ],
           },
           {
             titulo: "Extremo",
-            hueco: {
-              id: "AP-13-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde el eje, de noche, a 300 m del extremo y con la cámara baja. La fila roja de extremo cierra la pista (a 3 m por fuera como máximo, al menos 6 luces, separadas 6 m como máximo en categoría III) y detrás siguen las dos filas rojas de la zona de parada, en prolongación de las de borde, más la fila roja de su final. El eje ya va rojo en ese tramo. Ojo: ninguna luz blanca ni verde dentro de la zona de parada.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-05-extremo-rojo.webp",
+              alt: "Eje rojo y fila roja transversal que termina la pista; más allá, dos hileras rojas delimitan una zona de parada",
             },
-            puntos: ["Rojo es dónde se termina."],
+            puntos: ["La fila transversal roja marca el final de la pista en esta dirección. Si hay una zona de parada más allá, sus luces rojas la delimitan, pero no la convierten en pista utilizable para un aterrizaje normal. Al ver el eje rojo y luego esa fila, confirma la distancia restante y la salida o detención prevista."],
           },
           {
             titulo: "Toma de contacto",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-13-09-zona-toma-contacto.webp",
+              alt: "Pares de barretas blancas a ambos lados del eje en una zona de toma de contacto iluminada",
+            },
             puntos: [
-              "Las barretas blancas dibujan dónde poner el tren. Donde no hay barretas puede haber luces sencillas: un par blanco a cada lado del eje, al final de esa zona.",
+              "Los pares de barretas blancas identifican la zona de toma de contacto en una pista de precisión equipada para ello. No ordenan poner el tren sobre una barreta: el punto real se determina con la trayectoria estabilizada, la referencia de apuntado y la distancia de aterrizaje calculada. Si la toma se desplaza más allá de lo previsto, aplica el procedimiento del operador; no persigas las últimas luces.",
             ],
           },
         ],
@@ -91,79 +91,78 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Una pista de categoría III, de noche, desde el eje",
-        hueco: {
-          id: "AP-13-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Cámara a 3 m de altura sobre el eje, mirando al extremo, noche, aire limpio y pista seca: tiene que caber el ancho completo y al menos 1 000 m de profundidad. Filas de borde blancas, eje blanco cada 15 m, barretas de toma de contacto en pares cada 30 m o 60 m a lo largo de 900 m y, al fondo, el tramo alternado rojo y blanco y la fila roja del extremo. Ojo: sin luces amarillas de salida rápida en este cuadro.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-13-06-reconoce-pista.webp",
+          alt: "Vista nocturna de pista de precisión con bordes blancos, eje blanco y rojo, barretas blancas y fila roja del extremo",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 91,
+            y: 43,
             que: "Luces de borde, blancas",
-            significa: "Marcan el ancho utilizable.",
-            piloto: "Si las pierdes de vista por un lado, te saliste del eje.",
+            significa: "Delimitan ambos lados de la pista.",
+            piloto: "Compruebas la alineación con el patrón completo, no deduces una salida de pista por perder una luz aislada.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 60,
             que: "Luces de eje, blancas",
-            significa: "Dicen que todavía sobra pista.",
-            piloto: "Es tu referencia de alineación en visibilidad baja.",
+            significa: "Aportan una referencia longitudinal antes del tramo de aviso final.",
+            piloto: "Mantienes la alineación y sigues evaluando la distancia disponible con la operación prevista.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 73,
+            y: 49,
             que: "Barretas de zona de toma de contacto",
-            significa: "Ahí es donde debes poner el tren.",
-            piloto: "Si las pasas de largo, ya no aterrizaste donde calculaste.",
+            significa: "Los pares blancos muestran la zona preparada para la toma.",
+            piloto: "Vigila el punto real de toma; las luces no sustituyen la referencia de apuntado ni los criterios de aterrizaje.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Eje rojo y blanco alternados",
-            significa: "Quedan menos de 900 m.",
-            piloto: "Empieza a mirar el frenado.",
+            x: 50,
+            y: 24,
+            que: "Eje rojo",
+            significa: "En la parte final del eje iluminado, el rojo marca los últimos 300 m.",
+            piloto: "Confirma que la deceleración y la salida prevista siguen siendo realistas; no lo confundas con el fin mismo.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 13,
             que: "Fila roja del extremo",
-            significa: "Ahí se acaba el pavimento.",
-            piloto: "No hay nada útil después.",
+            significa: "Marca el final de la pista disponible en esta dirección.",
+            piloto: "No cuentes una eventual zona de parada como longitud de aterrizaje.",
           },
         ],
       },
       {
         kind: "p",
-        text: "El eje te da la distancia que falta sin leer nada: blanco mientras sobra pista, rojo y blanco cuando empieza a faltar, rojo cuando se acabó. En pistas cortas el aviso llega desde la mitad. Rojo bajo la nariz: últimos 300 m.",
+        text: "Cuando la pista tiene luces de eje, la secuencia también orienta sobre la distancia hasta el extremo: blancas antes de los últimos 900 m, rojas y blancas alternadas entre 900 y 300 m, y rojas en los últimos 300 m. En una pista de menos de 1 800 m, la alternancia comienza en el punto medio. Por ejemplo, durante la carrera de aterrizaje, ver rojo bajo la nariz no significa que la pista ya terminó, sino que quedan aproximadamente 300 m o menos: una referencia para contrastar con la deceleración y el plan de salida, no para improvisar una frenada.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-13-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta de una pista completa con el eje en tres tramos: blanco desde el umbral hasta 900 m del extremo, rojo y blanco alternados de 900 m a 300 m y rojo en los últimos 300 m, con luces cada 15 m y las cotas medidas desde el extremo. Debajo, la misma pista más corta: con menos de 1 800 m el tramo alternado arranca en el punto medio. Rótulos «900 m», «300 m», «blanco», «rojo y blanco», «rojo», «pista de menos de 1 800 m» y «punto medio». Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-13-07-secuencia-eje.webp",
+        alt: "Esquema del eje luminoso: blanco hasta 900 metros del extremo, rojo y blanco alternados hasta 300 metros y rojo al final; en pista corta alterna desde la mitad",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las cotas se miden hacia atrás desde el final de la pista. El cambio a rojo y blanco avisa del tramo final; las luces totalmente rojas ocupan los últimos 300 m. En pistas de menos de 1 800 m, el tramo alternado empieza en la mitad. Es un esquema didáctico: el piloto consulta la longitud publicada y usa el patrón como confirmación visual, no como sustituto de los cálculos de aterrizaje.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Rodando hacia el extremo, de noche",
         situacion:
-          "Aterrizaste de noche en una pista sin salida en la cabecera. Rodando hacia el extremo, el eje que sigues se pone rojo y adelante ves que unas luces verdes se curvan hacia la derecha, fuera de la pista.",
+          "Aterrizaste de noche en una pista sin salida de rodaje cerca de la cabecera. Rodando hacia el extremo, el eje que sigues se pone rojo y adelante ves que unas luces verdes se curvan hacia un ensanche del pavimento a la derecha.",
         pregunta: "¿Qué son esas luces verdes y qué te están diciendo?",
         respuesta:
-          "Son las luces de plataforma de viraje. Te marcan el camino para dar la vuelta de 180 grados sin salirte del pavimento. Las verdes de viraje solo las ve el avión que va hacia ellas, y el rojo del eje te confirma que estás en los últimos 300 m.",
+          "Son luces de la plataforma de viraje de pista. La curva verde guía hacia el espacio ensanchado donde se puede completar el giro de 180 grados; no es una calle de rodaje lateral. Esas luces verdes son fijas y unidireccionales, visibles desde la aeronave que se aproxima a la plataforma. Las luces rojas del eje indican que estás en los últimos 300 m, así que reduces la velocidad y sigues el procedimiento de viraje y las instrucciones de control aplicables; no giras solo por ver verde.",
         claves: [
           "Verdes, fijas y unidireccionales: solo las ve el avión que va hacia la plataforma.",
           "Van sobre la señal de viraje o desplazadas 30 cm como máximo.",
           "El eje rojo es la confirmación de los últimos 300 m.",
         ],
-        hueco: {
-          id: "AP-13-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, rodando hacia el extremo de una pista sin salida en la cabecera, con el pavimento ensanchándose hacia un lado. Se ve la línea de luces verdes curvándose hacia la plataforma de viraje (tramo recto 15 m como máximo, curvo 7,5 m como máximo), las blancas de borde terminando, la fila roja del extremo cerca y, si la plataforma lleva borde iluminado, azules cada 30 m como máximo. Ojo: nada de ejes verdes de calle de rodaje entrando por el costado, que aquí confunden.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-13-08-plataforma-viraje.webp",
+          alt: "Vista desde cabina de eje rojo en los últimos metros de pista y luces verdes que guían hacia la plataforma de viraje a la derecha",
         },
       },
     ],
@@ -177,22 +176,24 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 9,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-14-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea inclinada, de noche, sobre un nudo de calles de rodaje entre la plataforma y la pista, sin ciudad de fondo. Ejes verdes dibujando las curvas, bordes azules acompañándolos, un punto de espera con la barra roja cruzada (luces cada 3 m como máximo), un par de amarillas destellando a los lados de esa calle y, al fondo, las blancas de borde de pista. Ojo: ningún patrón de punto de espera A1 ni B1.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-01-luces-rodaje.webp",
+        alt: "Nudo de calles de rodaje nocturno con eje verde, bordes azules, barra de parada roja y luces amarillas de advertencia",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las luces verdes marcan el eje que debes seguir y las azules delimitan los bordes de la calle, pero ninguna sustituye la autorización. Las luces amarillas llaman la atención sobre la proximidad de la pista. La barra roja encendida es una orden visual de detenerse: aunque una transmisión parezca autorizar el cruce, no la atravieses hasta que se apague y la autorización sea inequívoca. Observa también que el eje verde no continúa encendido inmediatamente después de la barra.",
       },
       {
         kind: "p",
         text: "En rodaje los colores ayudan a separar guía, límite, advertencia y detención. El eje verde orienta la ruta, el borde azul delimita la calle y las luces amarillas anuncian un punto que exige atención. Una barra roja encendida es una orden visual de detenerse aunque la autorización verbal parezca permitir el cruce: se para y se informa al control antes de continuar.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-14-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Desde el asiento izquierdo, de noche, rodando por una calle recta. Las luces de eje verdes, empotradas, se pierden al frente sobre la señal de eje amarilla pintada (sobre la señal o desplazadas 30 cm como máximo, cada 30 m como máximo en recta, 15 m si la calle se usa con RVR menor de 300 m) y las dos filas de borde azules, elevadas, se abren a los lados cada 60 m como máximo. Ojo: en este tramo el eje no lleva ninguna luz amarilla.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-02-eje-bordes.webp",
+        alt: "Calle recta de noche desde cabina con luces verdes sobre el eje y luces azules en los dos bordes",
+        ancho: 1600,
+        alto: 900,
+        pie: "En esta calle recta, las luces verdes empotradas siguen el eje pintado de amarillo; las azules, elevadas, ayudan a distinguir ambos bordes. Es una guía para mantener la trayectoria de rodaje, no una autorización para entrar en cualquier tramo que aparezca iluminado. Compara el recorrido con la carta, las señales y la instrucción de control.",
       },
       {
         kind: "fichas",
@@ -200,38 +201,32 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Barra de parada",
-            hueco: {
-              id: "AP-14-03",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la cabina, de noche, detenido antes del punto de espera: la fila de luces rojas empotradas cruza toda la calle a unos 15 m, separadas 3 m como máximo y unidireccionales hacia el avión que espera, con un par de rojas elevadas a cada extremo. Detrás de la barra, el eje verde apagado en 90 m como mínimo. Señal patrón A2: cuatro líneas amarillas de 0,3 m con tres espacios de 0,3 m, 2,10 m de ancho total. Ojo: las dos líneas continuas van del lado de espera, nunca mirando a la pista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-03-barra-parada.webp",
+              alt: "Barra de parada roja que cruza toda la calle, reforzada por luces rojas elevadas en ambos extremos",
             },
             puntos: [
-              "Una fila roja a través de la calle. Encendida no se cruza, ni con autorización. Dos pares de luces rojas altas la refuerzan.",
+              "La fila roja atraviesa la calle en el lugar donde debes detenerte. Puede tener luces elevadas en los extremos para verse mejor desde cabina. Si está encendida, no la cruces aunque la radio parezca autorizarlo: detente, confirma con control y espera a que se apague. Las luces verdes después de la barra también deben permanecer apagadas.",
             ],
           },
           {
             titulo: "Luces de protección de pista",
-            hueco: {
-              id: "AP-14-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta de un punto de espera partida en dos mitades a la misma escala: a la izquierda la configuración A, con dos pares de luces amarillas, uno a cada lado de la calle, que se encienden alternadamente; a la derecha la configuración B, con la fila amarilla cruzando la calle cada 3 m, las adyacentes alternando y las alternas al unísono. Las dos destellan de 30 a 60 ciclos por minuto hacia el punto de espera. Rótulos «configuración A», «configuración B», «30 a 60 ciclos por minuto» y «lado de espera». Ojo: la configuración B nunca comparte emplazamiento con una barra de parada.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-04-proteccion-a-b.webp",
+              alt: "Esquema en planta: protección de pista A con dos pares amarillos a los lados y B con una fila amarilla transversal",
             },
             puntos: [
-              "Amarillas y destellando. Avisan que la pista está a un paso. Dos formas: a los lados de la calle o cruzándola completa.",
+              "Las luces amarillas intermitentes advierten que estás llegando a una pista. La configuración A tiene dos pares a los lados; la B, una fila transversal. Ninguna permite ingresar por sí sola: identifica el punto de espera y confirma la autorización. La configuración B no se coloca en el mismo sitio que una barra de parada.",
             ],
           },
           {
             titulo: "Salida verde y amarilla",
-            hueco: {
-              id: "AP-14-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la cabina, de noche, saliendo de la pista por una calle de salida, con la pista quedando atrás a la derecha. La curva de luces de eje alterna verde y amarillo desde el eje de la pista hasta el perímetro del área crítica o sensible del ILS (o el borde inferior de la superficie de transición interna, lo que quede más lejos): la primera luz siempre verde, la última amarilla, y de ahí en adelante todas verdes. Bordes azules a los lados. Ojo: ninguna barra de parada encendida en el sentido de salida.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-14-05-salida-verde-amarilla.webp",
+              alt: "Salida nocturna de pista con luces del eje alternadas verdes y amarillas cerca de la pista y verdes más adelante",
             },
             puntos: [
-              "Cuando sales de la pista, el eje alterna verde y amarillo. Mientras veas amarillo, todavía estás dentro del área sensible del ILS.",
+              "En una salida equipada así, las luces verdes y amarillas alternadas señalan el tramo próximo a la pista y a su área protegida; más adelante el eje queda verde. No declares la pista libre solo porque apareció una luz verde: confirma que todo el avión superó el punto de espera y cualquier límite aplicable a la operación.",
             ],
           },
         ],
@@ -239,67 +234,58 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Llegando al punto de espera de la pista, de noche",
-        hueco: {
-          id: "AP-14-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, rodando hacia un punto de espera que está a 60 m, con el ancho completo de la calle y el comienzo de la pista al fondo. Eje verde hasta la barra, bordes azules, tres amarillas fijas separadas 1,5 m atravesadas en el punto de espera intermedio, dos pares de amarillas destellando a los lados, la barra de parada roja cruzando y la fila de rojas de entrada a la pista corriendo a 0,6 m del eje. Señal patrón A2. Ojo: las dos líneas continuas van del lado de espera, nunca mirando a la pista.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-14-06-reconoce-luces.webp",
+          alt: "Vista nocturna desde cabina con eje verde, bordes azules, protección amarilla a los lados y barra de parada roja",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 51,
+            y: 56,
             que: "Eje verde",
-            significa: "Es el camino autorizado.",
-            piloto: "Si lo pierdes, estás fuera de la calle.",
+            significa: "Guía la trayectoria por el centro de esta calle.",
+            piloto: "Síguelo solo por la ruta autorizada; la luz no sustituye la instrucción de control.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 22,
+            y: 44,
             que: "Borde azul",
-            significa: "Es hasta dónde llega el pavimento.",
-            piloto: "Si lo cruzas, el tren se va al pasto.",
+            significa: "Ayuda a reconocer el borde de la calle de rodaje.",
+            piloto: "Úsalo para vigilar tu posición lateral; no infieras el margen exacto del tren a partir de una sola luz.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Tres amarillas atravesadas",
-            significa: "Punto de espera intermedio.",
-            piloto: "Ahí paras si te lo indican, aunque no haya pista delante.",
-          },
-          {
-            x: 0,
-            y: 0,
+            x: 36,
+            y: 26,
             que: "Amarillas destellando a los lados",
             significa: "Luces de protección de pista.",
-            piloto: "La pista está a un paso.",
+            piloto: "Te alertan de la proximidad de la pista; localiza el punto de espera y verifica la autorización.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 30,
             que: "Barra roja",
             significa: "Barra de parada.",
-            piloto: "No se cruza encendida, ni con autorización.",
-          },
-          {
-            x: 0,
-            y: 0,
-            que: "Rojas en línea hacia la pista",
-            significa: "Luces de entrada a la pista: hay tráfico en la pista o llegando.",
-            piloto: "Encendidas, paras aunque tengas autorización, y avisas.",
+            piloto: "Detente antes de la fila roja encendida y aclara cualquier autorización contradictoria.",
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-14-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta de un extremo de pista con una calle entrando por el costado. Arriba la pista, abajo la calle. Luces de entrada a la pista: rojas fijas empotradas a 0,6 m del eje de la calle, al menos 5 elementos separados entre 3,8 m y 15,2 m, más una luz dentro de la pista a 0,6 m de su eje. Luces de espera de despegue: dos filas rojas en pares a 1,8 m a cada lado del eje de pista, desde 115 m del comienzo y cada 30 m durante 450 m como mínimo. Rótulos con las cotas en metros. Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
-        alto: 320,
+        kind: "p",
+        text: "En la foto de reconocimiento, el eje verde orienta la ruta y el borde azul ayuda a mantener el avión dentro de la calle. Los pares amarillos advierten que se acerca una pista; la fila roja encendida indica el lugar donde debes detenerte. Antes de seguir, comprueba la ruta autorizada, el punto de espera y el estado de la barra: ninguna luz verde ni amarilla reemplaza una autorización clara.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-14-07-tres-advertencias.webp",
+        alt: "Esquema de tres sistemas distintos: tres luces amarillas de espera intermedia, rojas de entrada a pista y dos filas rojas de espera de despegue",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las tres amarillas fijas atraviesan una calle en un punto de espera intermedio y no equivalen a una barra roja. En aeropuertos que cuentan con luces de estado de pista, las luces rojas de entrada REL (Runway Entrance Lights) siguen un lado del eje de la calle; las luces de espera de despegue THL (Take-off Hold Lights) aparecen en pares a ambos lados del eje de pista. Si las REL están encendidas, no entres en la pista; si se encienden las THL, no inicies la carrera. Informa al control. El esquema diferencia sistemas; no significa que todos estén instalados en cada aeropuerto.",
       },
       {
         kind: "p",
-        text: "Verde es el eje y azul es el borde. El amarillo advierte y el rojo detiene. Desde finales de 2025, las luces de eje y las de punto de espera intermedio se exigen con RVR por debajo de 300 m, no de 350 m: tu aeropuerto pudo cambiarlo hace poco.",
+        text: "Verde guía el eje y azul ayuda a reconocer el borde; ninguno autoriza a avanzar. Amarillo puede advertir la proximidad de una pista o señalar una espera intermedia: el patrón y la ubicación importan. Una barra roja encendida detiene el rodaje. La especificación europea usa 350 m de RVR (Runway Visual Range, alcance visual en pista) para ciertos requisitos de luces de eje y espera intermedia; no conviertas ese umbral de diseño en una regla universal para todas las pistas. Consulta el equipamiento publicado y los procedimientos del aeropuerto.",
       },
       {
         kind: "piensaComoPiloto",
@@ -308,17 +294,15 @@ export const NIVEL_4: DocScreen[] = [
           "Acabas de aterrizar de noche. Mientras frenas, ves aparecer a tu derecha tres juegos de luces amarillas empotradas en la pista, separados entre sí, y el último queda cerca de una salida.",
         pregunta: "¿Qué te están contando esas luces amarillas?",
         respuesta:
-          "Son luces indicadoras de calle de salida rápida. Cada juego es una cuenta regresiva de 100 m hasta la salida rápida, que está del mismo lado. Te dejan dosificar el frenado sin adivinar la distancia. No son una autorización para salir: eso lo sigue dando el control.",
+          "Son luces indicadoras de salida rápida RETIL (Rapid Exit Taxiway Indicator Lights). En la pista equipada, las tres, luego dos y finalmente una luz amarilla aparecen del mismo lado del eje que la salida; cada grupo te acerca 100 m al punto donde comienza la curva. Sirven para anticipar el frenado, no para improvisar la velocidad ni para cambiar de salida sin coordinación con control.",
         claves: [
-          "Cada juego marca 100 m menos hasta la salida.",
+          "Los grupos 3–2–1 se separan 100 m; el último queda 100 m antes del inicio de la curva.",
           "Van siempre del mismo lado del eje que la calle de salida rápida.",
-          "No sustituyen la autorización del control.",
+          "Confirma la salida asignada y su velocidad compatible con el avión y la pista.",
         ],
-        hueco: {
-          id: "AP-14-08",
-          medida: "Ilustración de escena · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, en carrera de aterrizaje a 400 m de una salida rápida que se abre a la derecha. Tres juegos de amarillas fijas empotradas del mismo lado del eje que la salida, con 2 m entre luces del juego y 2 m del eje, los juegos cada 100 m, de tres, dos y una luz, y el de una luz a 100 m del punto de tangencia. Eje blanco al centro, bordes blancos y, al fondo, el arranque de la salida con su eje verde y amarillo. Ojo: ninguna amarilla igual al otro lado del eje.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-14-08-salida-rapida.webp",
+          alt: "Vista nocturna desde cabina con tres, dos y una luces amarillas junto al eje de pista antes de una salida rápida a la derecha",
         },
       },
     ],
@@ -332,11 +316,12 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 10,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-15-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Desde el aire, a 400 ft y 1,5 NM del umbral, algo alto respecto de la senda, de noche, con el sistema de aproximación al centro y la pista abriéndose detrás. Eje de 900 m con luces cada 30 m en blanco variable, dos barras transversales a 150 m y a 300 m, las dos filas laterales rojas de los 270 m más cercanos al umbral, la fila verde del umbral y el PAPI a la izquierda con tres blancas y una roja. Ojo: el PAPI no va a la derecha sin justificación.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-15-01-aproximacion-papi.webp",
+        alt: "Aproximación nocturna con sistema de luces, barras transversales, umbral verde y PAPI de tres blancas y una roja",
+        ancho: 1600,
+        alto: 900,
+        pie: "La línea central del sistema de aproximación lleva la mirada hacia el eje antes de que las señales pintadas sean fáciles de distinguir. Sus barras transversales aportan referencias de anchura y distancia; no son umbrales. La fila verde sí marca el umbral. A la izquierda, el PAPI (Precision Approach Path Indicator, indicador de trayectoria de aproximación de precisión) muestra tres blancas y una roja: la aeronave está ligeramente alta. El piloto corrige de forma estabilizada y compara la referencia visual con los instrumentos y el procedimiento publicado.",
       },
       {
         kind: "p",
@@ -356,38 +341,32 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Los tres sistemas de aproximación",
-            hueco: {
-              id: "AP-15-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tres bandas apiladas a la misma escala, con el umbral alineado a la derecha y una cinta de cotas común. Sencillo: eje de 420 m como mínimo, luces cada 60 m (puede bajar a 30 m) y barra transversal a 300 m. Categoría I: eje de 900 m cada 30 m, barra a 300 m y barras adicionales a 150, 450, 600 y 750 m. Categorías II y III: eje de 900 m cada 30 m, filas laterales rojas de 270 m y barras a 150 m y a 300 m. Sin verificar el color del sencillo: la norma solo pide que sea fácilmente distinguible; dibujarlo blanco. Ojo: nada de cifras en pies ni figuras calcadas de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-03-sistemas-aproximacion.webp",
+              alt: "Esquema a escala de tres sistemas de luces de aproximación: sencillo de 420 metros, precisión categoría I de 900 metros y categorías II/III con filas rojas laterales",
             },
             puntos: [
-              "El sencillo llega a 420 m del umbral; los de precisión, a 900 m. El de categorías II y III añade dos filas rojas laterales.",
+              "El sencillo llega aproximadamente 420 m antes del umbral; los de precisión, 900 m. En la configuración mostrada, la barra blanca a 300 m ayuda a reconocer la distancia y las filas rojas cercanas al umbral distinguen el sistema de categorías II y III. Identifica el patrón real en la carta publicada: estas luces ayudan a alinearte, pero no indican si estás alto o bajo.",
             ],
           },
           {
             titulo: "PAPI",
-            hueco: {
-              id: "AP-15-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Cinco filas, cada una con las cuatro cajas vistas de frente y el avión en perfil sobre una senda punteada: cuatro blancas, una roja y tres blancas, dos y dos, tres rojas y una blanca, cuatro rojas, con las rojas siempre del lado de la pista. Para una senda de 3 grados: 3°30′, 3°10′, 2°50′ y 2°30′, separación 9 m con tolerancia de 1 m. Abajo, el abreviado de dos cajas con sus tres lecturas, 3°15′ y 2°45′, separación 6 m. Rótulos «muy alto», «alto», «en senda», «bajo», «muy bajo» y «PAPI abreviado (APAPI)». Ojo: en el PAPI no existe el ámbar ni el verde.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-04-lectura-papi.webp",
+              alt: "Cinco lecturas correctas de un PAPI de cuatro luces, de cuatro blancas a cuatro rojas, y lectura en senda del APAPI de dos luces",
             },
             puntos: [
-              "Cuatro cajas normalmente a un lado de la pista. Dos rojas y dos blancas es senda. Más blanco, más alto; más rojo, más bajo. El APAPI abreviado usa dos cajas.",
+              "Reconoces el PAPI por cuatro luces a un lado de la pista: dos blancas y dos rojas señalan la senda visual; más blancas indican alto y más rojas, bajo. El APAPI (Abbreviated Precision Approach Path Indicator) usa dos luces; una blanca y una roja indican su senda. Compara cualquier corrección con la aproximación estabilizada y los instrumentos: ni el PAPI ni el APAPI sustituyen los mínimos publicados.",
             ],
           },
           {
             titulo: "Las otras tres",
-            hueco: {
-              id: "AP-15-05",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Un solo dibujo en planta con la pista abajo a la derecha y el área de aproximación ocupando el resto. Luces de identificación de umbral: dos destellos blancos de 60 a 120 por minuto, simétricos, en línea con el umbral y a unos 10 m por fuera de cada fila de borde. Sistema de luces de entrada a la pista: grupos de al menos 3 destellos blancos en secuencia hacia la pista, con los grupos a 1 600 m como máximo entre sí. Y un par de luces de guía para el circuito, del lado con viento en cola. Ojo: la sigla REIL no va en el dibujo, que es de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-15-05-otras-ayudas.webp",
+              alt: "Tres esquemas separados: destellos blancos para identificar el umbral, grupos de luces de entrada y luces que guían una maniobra de circuito",
             },
             puntos: [
-              "Destellos blancos a los lados del umbral lo hacen visible. Grupos de destellos te guían cuando el terreno obliga a entrar torcido. Y hay luces para el circuito.",
+              "Dos destellos blancos a los lados ayudan a localizar el umbral; no lo desplazan. Grupos de destellos pueden marcar una ruta de entrada cuando el terreno exige una trayectoria particular: sigue solo la ruta publicada y autorizada. Las luces de circuito ayudan a ubicar la pista durante esa maniobra; no te dan pendiente. Comprueba cuáles de estas ayudas tiene el aeropuerto antes de depender de ellas.",
             ],
           },
         ],
@@ -395,60 +374,61 @@ export const NIVEL_4: DocScreen[] = [
       {
         kind: "reconoce",
         titulo: "Un sistema de categorías II y III visto en final",
-        hueco: {
-          id: "AP-15-06",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche, a 300 ft y alineado, con todo el sistema delante y la pista empezando al fondo. Fila central de eje de 900 m cada 30 m en blanco variable, las dos filas laterales rojas de los 270 m más cercanos al umbral, la barra transversal de 300 m (15 m a cada lado del eje, luces cada 2,7 m como máximo) más ancha que la de 150 m, la fila verde del umbral, el PAPI a la izquierda y los destellos secuenciales captados con arrastre. Ojo: ninguna carta de aproximación ni pantalla de cabina legible en el cuadro.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-15-06-reconoce-aproximacion.webp",
+          alt: "Aproximación nocturna desde cabina con eje de luces blancas, barra de 300 metros, filas laterales rojas, umbral verde y PAPI a la izquierda",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 57,
+            y: 62,
             que: "Fila central de luces blancas",
             significa: "Es el eje prolongado de la pista.",
             piloto: "Si la ves torcida, estás descentrado.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 58,
+            y: 34,
             que: "Filas laterales rojas",
-            significa: "Solo existen en los últimos 270 m antes del umbral.",
-            piloto: "Si las ves, el umbral está muy cerca.",
+            significa: "Identifican la zona próxima al umbral de este sistema de precisión de categorías II y III.",
+            piloto: "Reconoce la configuración publicada; su presencia te confirma que estás cerca del umbral, no una altitud segura por sí sola.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 61,
+            y: 53,
             que: "Barra transversal ancha",
-            significa: "Está a 300 m del umbral.",
-            piloto: "Te da un horizonte artificial y una referencia de distancia.",
+            significa: "En esta configuración, es la barra a 300 m del umbral.",
+            piloto: "Te da una referencia transversal y de distancia mientras verificas la alineación con el eje.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Destellos corriendo hacia la pista",
-            significa: "Dos por segundo.",
-            piloto: "Sirven para encontrar el sistema, no para volar la senda.",
+            x: 43,
+            y: 27,
+            que: "PAPI a la izquierda",
+            significa: "Las cuatro luces blancas y rojas indican posición respecto a la senda visual.",
+            piloto: "Lee el patrón de colores y compáralo con instrumentos y procedimiento; no infieras la pendiente de las barras blancas.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 56,
+            y: 29,
             que: "Fila verde",
             significa: "El umbral.",
-            piloto: "Desde ahí cuenta tu pista disponible.",
+            piloto: "Reconoce dónde empieza la pista utilizable para aterrizar; comprueba la distancia publicada antes de la aproximación.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Los destellos secuenciales corren hacia el umbral dos veces por segundo: sirven para encontrar el sistema, no para volar la senda. La senda la da el indicador de pendiente, y detrás de cada uno hay una superficie libre de obstáculos.",
+        text: "En la fotografía, el eje blanco y las barras transversales muestran la alineación; la fila verde marca el umbral y las filas rojas pertenecen al tramo cercano de esta configuración de precisión. El PAPI aporta una referencia distinta: la posición angular respecto a la senda visual. Si un aeropuerto tiene destellos secuenciales, ayudan a encontrar el sistema, pero tampoco sustituyen la guía vertical, los instrumentos ni los mínimos publicados.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-15-07 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Cuadro partido en dos. Arriba, los cuatro indicadores de pendiente normalizados con su lectura en senda: PAPI de cuatro cajas, APAPI de dos, T-VASIS de 20 elementos y AT-VASIS de 10, los dos últimos con la marca «en retiro desde 2020». Abajo, los tres sistemas de aproximación con sus longitudes rotuladas «420 m», «900 m» y «900 m». Ojo: no dibujar el VASI de barras, el tricolor ni el pulsante, que no son de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-15-07-dos-preguntas.webp",
+        alt: "Comparación: las luces blancas de aproximación y el umbral verde ayudan a alinearse; la combinación roja y blanca del PAPI indica si se está alto, en senda o bajo",
+        ancho: 1600,
+        alto: 900,
+        pie: "Son dos preguntas diferentes en corta final. El eje blanco, las barras y el umbral verde ayudan a ubicar y alinear la pista, pero no dan la pendiente. El PAPI o APAPI muestra alto, en senda o bajo mediante luces blancas y rojas. Usa ambas referencias junto con los instrumentos y la aproximación publicada; no persigas una luz aislada ni confundas alineación con altura segura.",
       },
       {
         kind: "piensaComoPiloto",
@@ -457,17 +437,15 @@ export const NIVEL_4: DocScreen[] = [
           "Vuelas a un aeropuerto donde levantaron una grúa a un costado de la aproximación. El PAPI sigue publicado, pero el NOTAM dice que está fuera de servicio, y el resto de las luces funciona.",
         pregunta: "¿Por qué apagarían el PAPI si la grúa no está en la pista?",
         respuesta:
-          "Porque cada indicador de pendiente tiene detrás una superficie que debe quedar libre. Si un objeto la penetra, hay que quitar el objeto, subir la pendiente, recortar el sector, desplazar el eje hasta 5° o correr el sistema pista adentro; mientras tanto, el sistema no puede guiarte. Un PAPI encendido con un obstáculo dentro de su superficie te llevaría en senda contra la grúa.",
+          "El PAPI tiene una superficie de protección contra obstáculos en la aproximación. Una grúa que la comprometa exige una evaluación y una medida: retirar el obstáculo, ajustar la pendiente o el sector visible, o modificar el emplazamiento, según el caso. No significa que cualquier penetración lleve necesariamente al avión contra la grúa. Aquí el NOTAM declara el PAPI fuera de servicio: no lo uses como guía. Aplica el procedimiento y los mínimos vigentes; si no tienes las referencias requeridas o la aproximación deja de estar estabilizada, ejecuta la aproximación frustrada.",
         claves: [
-          "Detrás del indicador hay una superficie de protección contra obstáculos.",
-          "Si algo la penetra, se corrige el obstáculo o se corrige el sistema.",
-          "Un indicador en servicio con la superficie penetrada te guía contra el objeto.",
+          "La superficie protegida se extiende por la aproximación, delante del umbral, no detrás del PAPI.",
+          "Una grúa en esa zona requiere evaluación y medidas publicadas; no se supone automáticamente una colisión.",
+          "Si el NOTAM declara el PAPI fuera de servicio, no lo sigas y usa el procedimiento aplicable.",
         ],
-        hueco: {
-          id: "AP-15-08",
-          medida: "Ilustración técnica · 16:9 · 1600×900",
-          descripcion:
-            "Perfil arriba y planta abajo. En el perfil: la pista, el indicador de pendiente, la senda y la superficie de protección arrancando a D1 + 30 m del sistema en pista visual de clave 1 y a D1 + 60 m en los demás casos, donde D1 es la distancia del sistema al umbral, es decir 30 m o 60 m antes del umbral, con una grúa atravesándola, marcada. En la planta: el borde interno acotado (60, 80, 150 o 300 m según la pista) y los lados divergiendo 10 % en visual y 15 % en instrumental, hasta 7 500 m o 15 000 m. Rótulos «superficie de protección contra obstáculos», «borde interno», «10 % / 15 %» y «objeto que la penetra». Ojo: no mezclar aquí las superficies limitadoras de obstáculos del aeródromo.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-15-08-obstaculo-papi.webp",
+          alt: "Corte esquemático de una aproximación con grúa que compromete la superficie de protección del PAPI, mostrado apagado junto al umbral",
         },
       },
     ],
@@ -481,22 +459,24 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 8,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-16-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Noche, plano general desde el suelo a media distancia y cielo limpio. A la izquierda, la torre del faro de aeródromo girando, con un destello verde saliendo hacia la cámara, a 20 a 30 destellos por minuto alternados con blanco. A la derecha y al fondo, una torre alta con al menos tres niveles de luces rojas de destellos de mediana intensidad tipo B, de 20 a 60 por minuto. Entre las dos, la silueta del aeródromo con sus luces de pista. Ojo: el faro de doble destello blanco no es de la OACI.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-01-faro-obstaculo.webp",
+        alt: "Aeródromo nocturno con faro verde y blanco, y una torre marcada con varios niveles de luces rojas de obstáculo",
+        ancho: 1600,
+        alto: 900,
+        pie: "En este ejemplo, los destellos verdes y blancos del faro ayudan a localizar el aeródromo de noche; algunos faros de aeródromo también pueden emitir solo blanco. Ninguno confirma por sí solo qué pista está disponible. Las luces rojas distribuidas en varios niveles señalan una torre como obstáculo, no una ruta de vuelo. El piloto contrasta ambos patrones con la carta, las luces de pista y la autorización antes de decidir.",
       },
       {
         kind: "p",
-        text: "Hay luces que ayudan a localizar el aeródromo y otras que hacen visible un obstáculo. El faro confirma la ubicación general, pero no identifica por sí solo una pista utilizable; las luces de obstáculo muestran altura y extensión de estructuras que pueden confundirse con el fondo urbano. En aproximación o rodaje, el piloto interpreta el patrón y lo contrasta con la carta en vez de perseguir la luz más intensa.",
+        text: "Hay luces para encontrar el aeródromo y otras para advertir de un obstáculo. Un faro da una ubicación general, pero no identifica por sí solo una pista utilizable; las luces de obstáculo revelan estructuras que pueden perderse entre las luces de la ciudad. En aproximación o rodaje, interpreta el patrón completo y compáralo con la carta, en vez de perseguir la luz más intensa.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-16-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "De noche, ángulo bajo al pie de la torre del faro o a media distancia, con el faro en el tercio izquierdo y el cielo ocupando el resto. La lámpara encendida en verde, el haz saliendo hacia arriba y, al fondo desenfocadas, las luces del aeródromo. De 20 a 30 destellos por minuto, 2 000 cd como mínimo, verde en aeródromo terrestre alternando con blanco. Ojo: el amarillo es de hidroaeródromo, no de un aeropuerto en tierra.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-02-faro-cercano.webp",
+        alt: "Faro giratorio en el borde de un aeropuerto terrestre, con lente verde iluminada y lente blanca opuesta frente a hangares al anochecer",
+        ancho: 1600,
+        alto: 900,
+        pie: "El cabezal giratorio tiene lentes opuestas; la foto captura el momento en que se ve la verde. En esta configuración, al girar alterna destellos verdes y blancos, normalmente de 20 a 30 destellos por minuto. Sirve para ubicar el aeródromo, no para elegir pista o aproximación. La foto no permite medir la frecuencia: confirma la instalación y la operación con la información publicada.",
       },
       {
         kind: "fichas",
@@ -505,19 +485,17 @@ export const NIVEL_4: DocScreen[] = [
           {
             titulo: "Faro de aeródromo",
             puntos: [
-              "Gira y destella de 20 a 30 veces por minuto: verde y blanco en tierra, amarillo y blanco en agua. El faro de identificación manda Morse.",
+              "En un aeródromo terrestre, el faro puede alternar verde y blanco o emitir solo blanco; el ejemplo fotografiado es verde y blanco. El faro de identificación es distinto: transmite caracteres en código Morse con destellos verdes. Ambos ayudan a identificar el lugar, pero no autorizan una pista.",
             ],
           },
           {
             titulo: "Luces de obstáculo",
-            hueco: {
-              id: "AP-16-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Tabla visual de tres bloques: baja intensidad (A roja fija 10 cd; B roja fija 32 cd; C amarilla o azul de destellos 60 a 90 por minuto, 40 cd; D amarilla de destellos 200 cd; E roja de destellos 32 cd), mediana (A blanca de destellos 20 a 60 por minuto, 20 000 cd de día y 2 000 de noche; B roja de destellos 2 000 cd; C roja fija 2 000 cd) y alta (A blanca de destellos 40 a 60 por minuto, 200 000 cd de día; B igual, 100 000 cd). Cada fila con su círculo de color y su icono de fija o de destello. Ojo: nada de designaciones L-810, L-864, L-865, L-856 ni L-857, que son de la FAA.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-16-03-familias-luces.webp",
+              alt: "Lámina de familias de luces de obstáculo: roja fija de baja intensidad, roja o blanca de intensidad media, blanca destellante de alta intensidad y colores de vehículos",
             },
             puntos: [
-              "Tres intensidades. Las bajas son rojas, salvo las amarillas y azules de los vehículos. Las medias pueden ser el estrobo blanco o rojas; las altas son siempre el estrobo blanco. Importa reconocer el patrón publicado.",
+              "En objetos fijos puedes encontrar roja fija de baja intensidad; el tipo E, también de baja intensidad, destella en ciertos aerogeneradores. En intensidad media hay roja fija, roja destellante o blanca destellante; en alta, blanca destellante. La franja inferior separa los vehículos: azul para emergencia o seguridad y amarillo para servicio o guía. Identifica si la luz señala una estructura fija o tráfico en movimiento; ningún color sustituye la distancia segura ni la ruta autorizada.",
             ],
           },
         ],
@@ -529,13 +507,13 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Parque eólico",
-            hueco: {
-              id: "AP-16-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "De noche, desde el suelo a media distancia o desde el aire, con al menos seis aerogeneradores en el cuadro y las luces rojas de las barquillas encendidas al mismo tiempo, porque el parque se trata como un objeto extenso y su perímetro destella simultáneo. En las turbinas de 150 m a 315 m, además, un nivel intermedio a la mitad de la altura de la barquilla con al menos 3 luces de baja intensidad tipo E, rojas de destellos, al mismo régimen. Álabes, barquilla y los dos tercios superiores del mástil en blanco. Ojo: ninguna turbina destellando desfasada de las demás.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-16-04-parque-eolico.webp",
+              alt: "Seis aerogeneradores al anochecer con luces rojas de obstáculo en las barquillas, encendidas en el mismo instante",
             },
-            puntos: ["Un parque eólico destella todo a la vez."],
+            puntos: [
+              "Las luces rojas en lo alto de las barquillas marcan el parque eólico como obstáculo extenso. En esta instalación se ven encendidas al mismo tiempo; cuando un parque usa destellos, estos se sincronizan. La foto es un instante, no una medición del ritmo. En vuelo, identifica el conjunto, no solo la turbina más cercana, y contrástalo con la carta y las altitudes publicadas.",
+            ],
           },
         ],
       },
@@ -543,80 +521,83 @@ export const NIVEL_4: DocScreen[] = [
         kind: "reconoce",
         titulo: "Una torre de línea eléctrica con balizas",
         intro:
-          "Destella en orden fijo: medio, arriba y abajo. Lo peligroso no es la torre, es el cable que cuelga.",
-        hueco: {
-          id: "AP-16-05",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Atardecer con luz suficiente para ver las esferas y las luces ya encendidas, cámara desde el suelo a media distancia, con la torre completa y el cable cruzando hacia otra torre al fondo. Tres niveles de luces blancas de alta intensidad tipo B, de 40 a 60 destellos por minuto y 100 000 cd de día: cima, mitad y altura del punto más bajo de la catenaria, destellando primero la del medio, después la superior y al final la inferior. Esferas de 60 cm como mínimo, un color cada una, alternando blanco con rojo o anaranjado, separadas 30 m como máximo. Ojo: en estos tres niveles no van luces rojas.",
+          "La foto muestra tres niveles de luces blancas y esferas que hacen visible parte del tendido. Una imagen fija no enseña el orden de destellos: si la instalación usa luces de alta intensidad tipo B, la secuencia es medio, cima e inferior. El cable puede ser más difícil de ver que la torre.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-16-05-torre-cables.webp",
+          alt: "Torre eléctrica al atardecer con tres niveles de luces blancas, cables que cuelgan entre torres y esferas blancas y anaranjadas alternadas",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 5,
             que: "Luz blanca de la cima",
-            significa: "Marca el punto más alto de la estructura.",
-            piloto: "Es lo último que libras si vuelas por encima.",
+            significa: "Hace visible la parte más alta de esta torre.",
+            piloto: "No calcules la altura libre mirando solo esa luz: verifica la altitud y los obstáculos publicados.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 29,
             que: "Luz blanca del nivel medio",
-            significa: "Es la que destella primero.",
-            piloto: "Si captas el orden, sabes que estás mirando una línea eléctrica.",
+            significa: "Es el nivel intermedio de la señalización.",
+            piloto: "Si la instalación es tipo B y observas varios ciclos, esta luz destella primero; una foto sola no lo demuestra.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 23,
+            y: 48,
             que: "Luz blanca del nivel bajo",
-            significa: "Está a la altura del punto más bajo del cable.",
-            piloto: "Hasta esa altura baja el cable entre las torres.",
+            significa: "Completa la señalización vertical de esta estructura.",
+            piloto: "No tomes este punto luminoso como límite inferior del cable; la catenaria puede descender entre torres.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 43,
+            y: 35,
             que: "Esferas en el cable",
-            significa: "Hacen visible de día lo que de noche no se ve.",
-            piloto: "Su separación depende del diámetro.",
+            significa: "Los marcadores esféricos blancos y anaranjados alternan para hacer más visible el tendido de día.",
+            piloto: "Te ayudan a localizar el cable, pero no garantizan que todo su tramo sea fácil de ver.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 67,
+            y: 71,
             que: "La catenaria entre torres",
-            significa: "Es el obstáculo real.",
-            piloto: "Las torres se ven, el cable no.",
+            significa: "El cable cuelga y cruza el espacio entre las torres.",
+            piloto: "Trata todo el tendido como obstáculo; usa la ruta y la altitud publicadas, no una estimación visual desde la cabina.",
           },
         ],
       },
       {
-        kind: "hueco",
-        rotulo: "AP-16-06 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Dos franjas. Arriba, la secuencia verde, blanco, verde, blanco del faro sobre una línea de tiempo de un minuto, con el contador «20 a 30 destellos por minuto» y, en un recuadro, el faro de identificación mandando Morse a 6 u 8 palabras por minuto. Abajo, una torre tipo con sus niveles acotados: cada 105 m como máximo con mediana intensidad tipo A y cima de más de 105 m; cada 52 m como máximo con tipo B alternando con baja tipo B, o con tipo C. Ojo: nada de designaciones de la FAA ni cifras en pies.",
-        alto: 320,
+        kind: "p",
+        text: "En la imagen de reconocimiento, las tres luces blancas hacen más fácil ubicar la torre, mientras las esferas blancas y anaranjadas resaltan el cable con luz diurna. La amenaza no termina en la torre: el tendido cruza el valle y puede bajar entre apoyos. Si encuentras esta escena en una aproximación o salida, comprueba las altitudes y restricciones publicadas; no infieras separación vertical por la posición de una sola luz.",
+      },
+      {
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-16-06-patrones-luces.webp",
+        alt: "Comparación entre faro de aeródromo verde y blanco, faro de identificación con Morse verde y secuencia medio-cima-inferior de una torre eléctrica con luces blancas tipo B",
+        ancho: 1600,
+        alto: 900,
+        pie: "El faro de aeródromo del ejemplo alterna verde y blanco para ayudar a encontrar el campo; uno instalado puede emitir solo blanco. El faro de identificación transmite caracteres verdes en código Morse. Abajo, si una torre que sostiene cables usa luces blancas de alta intensidad tipo B, destellan primero en el nivel medio, luego en la cima y al final en el inferior. Reconoce el propósito de cada patrón y verifica cartas y procedimientos: ninguno indica por sí mismo que una pista esté autorizada.",
       },
       {
         kind: "p",
-        text: "En tierra, azul es emergencia y amarillo es servicio.",
+        text: "En plataforma, la baliza azul destellante identifica un vehículo de emergencia o seguridad; la amarilla, uno de servicio o guía. El color advierte qué tipo de vehículo puede estar moviéndose, pero no le otorga por sí solo prioridad para cruzar la ruta de tu avión.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "Rodando de noche hacia el puesto",
         situacion:
           "Rodando de noche hacia el puesto, ves dos luces destellando cruzando tu ruta: una azul y una amarilla. Las dos van hacia el mismo punto de la plataforma.",
-        pregunta: "¿Cuál de las dos te obliga a prestar más atención y por qué?",
+        pregunta: "¿Qué identificas por las balizas y cómo decides si puedes continuar?",
         respuesta:
-          "La azul. El azul destellante identifica un vehículo de emergencia o de seguridad, y si va en movimiento hacia la plataforma es probable que esté atendiendo algo. El amarillo destellante es un vehículo de servicio normal. Y si el amarillo es más potente y va delante de ti, es el vehículo guía.",
+          "La baliza azul identifica un vehículo de emergencia o seguridad; la amarilla, uno de servicio. Un vehículo guía también puede llevar una baliza amarilla, pero se reconoce por su función y por las instrucciones recibidas, no solo porque parezca más brillante. Si cualquiera de ellos se acerca a tu ruta, reduce la velocidad o detente según el riesgo y confirma con control antes de seguir. El color no concede por sí solo prioridad de paso.",
         claves: [
-          "Azul de destellos: emergencia o seguridad.",
-          "Amarillo de destellos: vehículo de servicio.",
-          "El amarillo más potente que va delante de ti es el vehículo guía.",
+          "Azul destellante: vehículo de emergencia o seguridad.",
+          "Amarillo destellante: servicio o guía; la función se confirma por contexto e instrucciones.",
+          "Ante una trayectoria que se cruza, protege la separación y aclara la autorización.",
         ],
-        hueco: {
-          id: "AP-16-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "De noche, desde la cabina o desde el borde de la plataforma, con dos vehículos en el cuadro: uno de emergencia con baliza azul y uno de servicio con baliza amarilla, los dos con luz de baja intensidad tipo C de 60 a 90 destellos por minuto y 40 cd. Al fondo, el vehículo guía con su tipo D amarilla de 200 cd, más potente. Pavimento iluminado por proyectores y, si entran en cuadro, las luces rojas fijas de una pasarela de embarque. Ojo: nada de luces rojas y azules de patrulla, que no son de aviación.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-16-07-vehiculos-plataforma.webp",
+          alt: "Vista nocturna desde cabina con vehículo de emergencia o seguridad de baliza azul, camioneta de servicio de baliza amarilla y vehículo guía al fondo",
         },
       },
     ],
@@ -630,22 +611,24 @@ export const NIVEL_4: DocScreen[] = [
     minutes: 7,
     blocks: [
       {
-        kind: "hueco",
-        rotulo: "AP-17-01 · Ilustración de escena · 16:9 · 1600×900",
-        descripcion:
-          "Noche, vista baja y frontal de una pista, con las dos filas de borde blancas perdiéndose al fondo con separación uniforme (dibujar 60 m) y la línea de eje completa. En la fila derecha, un hueco oscuro de dos luces seguidas que rompe la simetría y hace que esa fila se lea torcida. Ojo: dos luces contiguas apagadas no se permiten en ningún nivel de servicio, y ese es justo el problema que la imagen enseña.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-17-01-luces-fuera-servicio.webp",
+        alt: "Pista nocturna con dos luces consecutivas de borde apagadas y la ruptura de continuidad señalada",
+        ancho: 1600,
+        alto: 900,
+        pie: "Una fila de luces funciona como patrón, no como suma de puntos aislados. Dos luces contiguas apagadas crean un hueco que puede deformar la percepción del borde aunque el porcentaje total todavía parezca alto. La tripulación no calcula la disponibilidad desde la cabina: confirma la condición mediante ATIS (Automatic Terminal Information Service, servicio automático de información terminal), NOTAM (Notice to Airmen, aviso a los aviadores) o control, y la aplica a los mínimos y procedimientos del operador.",
       },
       {
         kind: "p",
-        text: "Una instalación puede conservar un porcentaje de luces en servicio y aun así perder la forma visual que necesita el piloto. Por eso la norma combina porcentajes, distribución y tiempo de conmutación: dos luces contiguas apagadas pueden romper una fila aunque el total parezca aceptable. En operación, la tripulación no calcula esos porcentajes desde la cabina; recibe la condición por ATIS, NOTAM o control y decide con los mínimos y procedimientos del operador.",
+        text: "Una instalación puede conservar un porcentaje alto de luces en servicio y aun así perder la forma visual que necesita el piloto. Por eso se revisan tanto el porcentaje como la distribución de las luces y el tiempo que tardan en recuperarse tras cambiar de fuente eléctrica. Estos son criterios de diseño y mantenimiento, no mínimos de aterrizaje que la tripulación pueda calcular a ojo. Antes de operar con una ayuda degradada, consulta la información vigente y aplica los mínimos y procedimientos de tu operador.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-17-02 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "A todo el ancho. A la izquierda, el camino de la energía: red pública, tablero, llave de transferencia, grupo electrógeno y circuito de pista. A la derecha, una gráfica de intensidad contra tiempo con el momento de la falla marcado, la línea horizontal del 50 % de intensidad y el tramo de la curva que queda por debajo, acotado: eso es el tiempo de conmutación, medido en una dirección dada y con la luz operando al 25 % de intensidad o más. Rótulos «fuente primaria», «fuente secundaria», «50 % de intensidad» y «tiempo de conmutación». Ojo: las cifras por tipo de pista no van aquí.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-17-02-conmutacion.webp",
+        alt: "Esquema de cambio de fuente primaria a secundaria y gráfica del intervalo en que una luz cae por debajo de la mitad de su intensidad",
+        ancho: 1600,
+        alto: 900,
+        pie: "La conmutación es el intervalo durante el cual la intensidad de una luz, medida en una dirección, cae por debajo del 50 % y luego vuelve a ese nivel al cambiar de fuente. Se mide con la luz operando al menos al 25 % de su intensidad. Reconoce el cambio de fuente en el esquema, pero no confundas el tiempo de arranque del generador con el tiempo sin luz útil: para decidir si la ayuda está disponible, consulta la condición publicada o informada por control.",
       },
       {
         kind: "fichas",
@@ -653,26 +636,22 @@ export const NIVEL_4: DocScreen[] = [
         items: [
           {
             titulo: "Tiempo de conmutación",
-            hueco: {
-              id: "AP-17-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Matriz visual: cinco filas con los casos de pista (vuelo visual, aproximación que no es de precisión, precisión CAT I, precisión CAT II/III y despegue con RVR menor de 800 m) y una columna por sistema de luces. Cada celda, un chip con «1 s», «15 s» o un guion. Al pie, la leyenda con las dos excepciones: «terreno peligroso o escarpado: 1 s» y «sin luces de eje: 1 s». Ojo: la fila de pista visual no lleva cifra inventada, porque la norma solo pide que el intervalo sea lo más corto posible.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-17-03-tiempos.webp",
+              alt: "Matriz de tiempos máximos de conmutación de ayudas luminosas por tipo de operación, con las excepciones de terreno peligroso y ausencia de luces de eje",
             },
             puntos: [
-              "No es lo que tarda el generador: es el tiempo que la luz pasa bajo la mitad de su intensidad al cambiar de fuente. En categoría I casi todo tarda 15 segundos; en categorías II y III casi todo vuelve en 1, pero el borde puede tardar 15.",
+              "La tabla separa los sistemas que deben recuperarse en 1 segundo de los que pueden tardar 15. En aproximaciones de precisión de categoría II/III, el umbral, el extremo, el eje, la zona de toma de contacto, las barras de parada y los 300 m interiores de aproximación están en el grupo de 1 segundo; el borde de pista queda en el de 15. El PAPI (Precision Approach Path Indicator, indicador de trayectoria de aproximación de precisión) puede requerir 1 segundo junto con borde y umbral en terreno peligroso o escarpado. Identifica el sistema afectado antes de interpretar una falla; la tabla no reemplaza la información operacional vigente.",
             ],
           },
           {
             titulo: "Niveles de mantenimiento",
-            hueco: {
-              id: "AP-17-04",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta de una pista con su sistema de aproximación, por zonas coloreadas con su porcentaje para categorías II y III: 95 % en los 450 m interiores del sistema, en el eje de pista, en el umbral y en el borde; 90 % en la zona de toma de contacto; 85 % en el sistema más allá de 450 m; 75 % en el extremo. Una tira aparte, rotulada categoría I, con 85 % en sus cuatro elementos. Al costado, la regla de adyacencia: una apagada aislada con un visto y dos seguidas con una equis. Ojo: no dibujar apagadas en pares fuera de esa tira.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-17-04-mantenimiento.webp",
+              alt: "Objetivos de mantenimiento de luces para aproximaciones de precisión: porcentajes por sistema en categorías II y III, referencia de categoría I y advertencia sobre luces contiguas",
             },
             puntos: [
-              "Una luz está fuera de servicio cuando su haz principal baja del 50 %. En categoría I debe servir el 85 % de cada sistema; en categorías II y III la exigencia sube hasta el 95 %.",
+              "Una luz se considera fuera de servicio si la intensidad media de su haz principal baja del 50 % de la especificada o si el color o filtro es incorrecto; no se determina mirando una foto. En categoría I, el objetivo es 85 % para aproximación, umbral, borde y extremo. En categoría II/III varía por sistema: 95 % en los 450 m interiores de aproximación, umbral, eje y borde; 90 % en zona de toma de contacto; 85 % en el resto de aproximación y 75 % en el extremo. Son objetivos de mantenimiento, no permiso automático para aterrizar.",
             ],
           },
         ],
@@ -680,98 +659,100 @@ export const NIVEL_4: DocScreen[] = [
       { kind: "sub", text: "Los tiempos por tipo de pista" },
       {
         kind: "table",
-        head: ["Caso de pista", "Vuelven en 1 segundo", "Pueden tardar 15 segundos"],
+        head: ["Caso de pista", "Deben volver en 1 segundo", "Pueden tardar hasta 15 segundos"],
         rows: [
           [
             "Vuelo visual",
-            "Sin cifra: el intervalo debe ser lo más corto posible",
-            "Puede resolverse con alumbrado de emergencia desplegable en 15 minutos",
+            "No se fija un valor de 1 segundo",
+            "No se fija un valor de 15 segundos: debe ser lo más corto posible",
           ],
           [
             "Aproximación que no es de precisión",
             "Indicador de pendiente, borde y umbral, solo si la aproximación se hace sobre terreno peligroso o escarpado",
-            "Todo lo demás: sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos",
+            "Sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos, salvo la excepción indicada",
           ],
           [
             "Precisión categoría I",
             "Indicador de pendiente, borde y umbral, solo si la aproximación se hace sobre terreno peligroso o escarpado",
-            "Todo lo demás",
+            "Sistema de aproximación, indicador de pendiente, borde, umbral, extremo y obstáculos, salvo la excepción indicada",
           ],
           [
             "Precisión categorías II y III",
-            "Los 300 m interiores del sistema de aproximación, umbral, extremo, eje de pista, zona de toma de contacto y todas las barras de parada",
-            "Resto del sistema de aproximación, borde de pista, calle de rodaje esencial y obstáculos",
+            "Los 300 m interiores de aproximación, umbral, extremo, eje, zona de toma de contacto, barras de parada y extremo de zona de parada",
+            "Resto de aproximación, borde de pista, calle esencial, obstáculos, luces de protección de pista y bordes de zona de parada",
           ],
           [
-            "Despegue con RVR menor de 800 m",
-            "Extremo, eje y barras de parada",
-            "Borde de pista (1 s si no hay luces de eje), calle de rodaje esencial y obstáculos",
+            "Despegue con RVR (Runway Visual Range, alcance visual en pista) menor de 800 m",
+            "Extremo, eje, barras de parada, extremo de zona de parada y borde si no hay luces de eje",
+            "Borde si hay eje, calle esencial, obstáculos y bordes de zona de parada",
           ],
         ],
       },
       {
+        kind: "p",
+        text: "Para una pista de vuelo visual no se impone aquí un máximo de 1 o 15 segundos: la conmutación debe ser lo más corta posible. En ciertos casos puede haber alumbrado de emergencia desplegable en 15 minutos; eso no significa que las luces instaladas puedan tardar 15 minutos en volver. Estos tiempos describen la instalación, no autorizan a continuar una aproximación sin la referencia visual requerida.",
+      },
+      {
         kind: "reconoce",
         titulo: "Una fila de borde con luces faltando",
-        hueco: {
-          id: "AP-17-05",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "De noche, desde el borde de la pista o desde un vehículo detenido, ángulo bajo, mirando a lo largo de una fila de borde que se pierde al fondo y se lee como una línea de puntos. Blancas, separación uniforme de 60 m como máximo en pista por instrumentos. En la fila: una luz apagada aislada, dos apagadas seguidas en otro tramo y una encendida pero claramente más débil que sus vecinas, que ya puede estar fuera de servicio si su haz principal cayó del 50 %. Al costado, la línea de eje completa. Ojo: nada de montaje digital evidente ni colores distintos en la misma fila.",
+        intro: "La fotografía muestra un tramo de tres luces de borde consecutivas apagadas. Las flechas menta señalan esa fila y el borde opuesto de la pista: ver luces al otro lado no repara el hueco cercano. Una foto no permite medir la intensidad reglamentaria ni decidir si la pista cumple los objetivos de mantenimiento; confirma el estado de las ayudas por los canales operacionales.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-17-05-fila-borde.webp",
+          alt: "Fotografía nocturna de una fila de luces blancas de borde con tres luminarias consecutivas oscuras; al otro lado se ve el borde opuesto encendido",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Una luz apagada aislada",
-            significa: "Cabe dentro del porcentaje permitido.",
-            piloto: "No rompe el patrón y la fila se sigue leyendo derecha.",
+            x: 24,
+            y: 30,
+            que: "Fila blanca de borde",
+            significa: "Las luces encendidas revelan una secuencia de puntos a lo largo del borde de pista.",
+            piloto: "Úsala para orientarte solo si está disponible y ofrece la guía visual que exige la operación.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Dos apagadas seguidas",
-            significa: "En una fila de borde no se admite en ningún nivel de servicio.",
-            piloto: "Abre un hueco que se puede leer como una curva del borde.",
+            x: 42,
+            y: 43,
+            que: "Tres luces seguidas apagadas",
+            significa: "Forman un hueco en la continuidad del borde; no son una marca que indique un viraje.",
+            piloto: "No reconstruyas el borde por intuición: contrasta la condición de la ayuda con control y tus mínimos.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Una luz más débil que las vecinas",
-            significa:
-              "Si su haz principal cayó del 50 %, cuenta como fuera de servicio aunque esté encendida.",
-            piloto: "El conteo no se hace a ojo.",
+            x: 49,
+            y: 66,
+            que: "Luz de borde encendida en primer plano",
+            significa: "Permite comparar la fila visible con el tramo sin luces, pero no cuantifica la intensidad de ninguna luminaria.",
+            piloto: "No infieras un porcentaje de servicio ni una autorización a partir de este contraste.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "La línea de eje completa",
-            significa: "En categorías II y III pide el 95 %, igual que el borde y el umbral.",
-            piloto: "Con la visibilidad mínima, es tu guía en la carrera.",
+            x: 73,
+            y: 24,
+            que: "Luces del borde opuesto",
+            significa: "Marcan el otro lado de la pista; que estén encendidas no restaura la continuidad de la fila cercana.",
+            piloto: "No tomes una fila visible como prueba de que todo el sistema de borde está disponible.",
           },
         ],
       },
       {
         kind: "p",
-        text: "Hay una regla que manda sobre los porcentajes: nunca dos luces contiguas apagadas, salvo dentro de una barreta o de una barra transversal. Dos apagadas seguidas abren un hueco en el patrón, y un hueco se lee como una curva o como el borde de la pista donde no lo hay.",
+        text: "En los objetivos de mantenimiento de categoría II/III no debe haber dos luces contiguas fuera de servicio, excepto dentro de una barreta o barra transversal, donde pueden admitirse dos. En categoría I también se controla la adyacencia, con la salvedad de separaciones significativamente menores que las requeridas. Una luz aislada tampoco queda aprobada automáticamente: importan su ubicación, la cantidad total y el sistema afectado. Si una fila presenta un hueco, el piloto no decide su aptitud contando lámparas desde cabina.",
       },
       {
         kind: "piensaComoPiloto",
         momento: "En corta final de categoría III",
         situacion:
-          "Estás en corta final en categoría III. Se va la energía del aeropuerto. Ves que el eje, la zona de toma de contacto y el umbral siguen encendidos, pero las dos filas de borde se apagaron.",
-        pregunta: "¿Es normal eso o es una falla del aeropuerto?",
+          "Estás en corta final para una aproximación de categoría III cuando falla la fuente eléctrica principal. Después del primer segundo ves el eje, la zona de toma de contacto, el umbral y la parte interior de las luces de aproximación, pero las dos filas de borde aún están apagadas.",
+        pregunta: "¿Qué puede explicar esa diferencia y qué haces si la guía visual no alcanza para continuar?",
         respuesta:
-          "Está dentro de norma. En categorías II y III el eje, la zona de toma de contacto, el umbral, el extremo y las barras de parada tienen que volver en 1 segundo, pero el borde de la pista puede tardar hasta 15. Por eso puede parecer que se apagó media pista sin que nadie haya incumplido nada. Lo que sí decide si sigues es el aviso que el sistema de vigilancia le manda al control cuando el nivel de servicio cae por debajo del mínimo.",
+          "La diferencia puede corresponder a los tiempos máximos de conmutación: esos sistemas interiores deben recuperarse en 1 segundo, mientras el borde puede tardar hasta 15. No significa que la aproximación esté automáticamente autorizada o que la instalación esté sana; si la iluminación requerida no se recupera, es una falla que debe notificarse. La tripulación aplica sus mínimos y procedimiento: si no tiene la referencia visual requerida o no puede continuar con seguridad, ejecuta la aproximación frustrada y comunica la condición a control. La información del sistema de vigilancia y los avisos operacionales ayudan a determinar la disponibilidad posterior.",
         claves: [
-          "En 1 segundo: eje, zona de toma de contacto, umbral, extremo y barras de parada.",
-          "Hasta 15 segundos: borde de pista, resto del sistema de aproximación, calle esencial y obstáculos.",
-          "Lo que decide es el aviso al control cuando cae el nivel de servicio.",
+          "En categoría II/III, eje, umbral, extremo, zona de toma de contacto y aproximación interior deben recuperarse en 1 segundo.",
+          "Borde de pista y aproximación exterior pueden tardar hasta 15 segundos.",
+          "Sin la referencia visual necesaria, no continúes solo porque otros sistemas estén encendidos: sigue tus mínimos y frustra si corresponde.",
         ],
-        hueco: {
-          id: "AP-17-06",
-          medida: "Ilustración de escena · 16:9 · 1600×900",
-          descripcion:
-            "Desde la cabina, de noche y con niebla densa que reduce la escena a las luces, en corta final de categoría III, en el instante siguiente a una falla de energía. Encendidos: el eje de pista, las barretas de zona de toma de contacto, la fila de umbral y los 300 m interiores del sistema de aproximación. Apagados: las dos filas de borde y el tramo exterior del sistema de aproximación. Ojo: no dibujar la pista entera a oscuras, porque esto es una conmutación y no un apagón.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-17-06-falla-en-final.webp",
+          alt: "Esquema técnico de una conmutación en aproximación de categoría II o III: luces interiores, umbral, eje y zona de toma de contacto encendidas mientras borde y aproximación exterior siguen apagados",
         },
       },
     ],
