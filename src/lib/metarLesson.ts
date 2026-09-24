@@ -225,55 +225,63 @@ const CODIGO: DocScreen[] = [
     blocks: [
       {
         kind: "p",
-        text: "**`27010KT`**: los tres primeros dígitos son la dirección **verdadera desde donde sopla**, redondeada a decenas de grado; los siguientes, la velocidad en nudos. Aquí: viento del oeste a 10 nudos.",
+        text: "**Qué ves en la portada:** una manga de viento extendida junto a un aeródromo con lluvia a distancia. **Cómo lo reconoces:** la boca ancha mira hacia el viento y la manga apunta hacia donde se desplaza el aire; su posición no proporciona una velocidad exacta. **Qué decides:** confirmar el viento reportado y el local más reciente, llevar ambos a la misma referencia que el eje de pista y comprobar componentes, ráfagas y límites aplicables.",
+      },
+      {
+        kind: "p",
+        text: "**`27010KT`**: los tres primeros dígitos son la dirección **verdadera desde donde sopla**, redondeada a decenas de grados; los siguientes, la velocidad media en nudos. Aquí: viento del oeste a 10 nudos. El grupo resume un periodo de observación: no es una medición instantánea ni asegura el mismo viento en cada punto del aeródromo.",
       },
       {
         kind: "list",
         items: [
           "**`00000KT`**: viento en calma.",
-          "**`VRB03KT`**: dirección variable, 3 nudos. Típico de vientos muy flojos.",
-          "**`27010G25KT`**: la **G** es ráfaga (gust): viento de 10 nudos con ráfagas de 25.",
-          "**`240V300`**: si la dirección varía 60° o más, se agrega el rango entre el que oscila.",
-          "**`WS`**: cizalladura del viento reportada (wind shear), por ejemplo `WS R28` o `WS ALL RWY`.",
+          "**`VRB03KT`**: dirección variable a 3 nudos. La clave `VRB` expresa que no se codifica una dirección única bajo los criterios del informe; no la confundas con calma.",
+          "**`27010G25KT`**: la **G** indica ráfaga (gust): media de 10 nudos y valor de ráfaga reportado de 25. Evalúa cómo exige usarlo el manual y el procedimiento de tu operador; no todos los límites se comparan del mismo modo.",
+          "**`240V300`**: dirección variable entre 240° y 300° cuando se cumplen los criterios de variación del reporte. Considera todo el sector, no solo la dirección media.",
+          "**`WS`**: cizalladura del viento reportada (wind shear), por ejemplo `WS R28` o `WS ALL RWY`. Confirma la vigencia del aviso y los reportes locales.",
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "La cizalladura es la que mata",
-        text: "Un cambio súbito de dirección o velocidad del viento, asociado a microrráfagas descendentes o inversiones térmicas bajas, puede variar de golpe tu velocidad aerodinámica y empujarte hacia el suelo. Es especialmente peligrosa en despegue y aterrizaje: si el METAR trae WS, el briefing cambia.",
+        title: "Cizalladura cerca del suelo: cambia el plan",
+        text: "Un cambio rápido de velocidad o dirección puede alterar la velocidad aerodinámica y la trayectoria durante despegue o aproximación. Puede tener distintas causas; `WS` no identifica por sí solo una microrráfaga. Consulta alertas y reportes recientes, evalúa evitar la zona y aplica los procedimientos de prevención y escape de tu aeronave y operador.",
       },
       {
         kind: "check",
         question:
-          "La pista en uso es la 09 y el METAR dice `27015G28KT`. ¿Qué tienes de frente y qué te preocupa?",
+          "En este ejercicio el eje de la pista 09 es 090° verdaderos. El METAR dice `27015G28KT`. ¿Cómo interpretas el viento?",
         options: [
           "Viento de cara de 15 nudos; las ráfagas ayudan a frenar",
-          "Viento de cola de 15 nudos con ráfagas de 28, que es el número que manda",
+          "Viento de cola: media de 15 nudos y ráfaga reportada de 28; verifico límites y procedimiento",
           "Viento cruzado puro de 28 nudos por la derecha",
         ],
         answer: 1,
         explain:
-          "El viento sopla **desde** 270°, y la 09 apunta a 090°: lo tienes justo por la cola. Y el número que limita no es el promedio sino la ráfaga, 28 nudos, que es contra la que se compara el límite de viento de cola del avión.",
+          "El viento viene **desde** 270° y, bajo la referencia verdadera fijada en el ejercicio, la pista 09 apunta a 090°: es viento de cola. El informe aporta media de 15 nudos y ráfaga de 28; comprueba cómo se aplican al límite de cola y al cálculo de aterrizaje según el manual y el operador.",
       },
       {
         kind: "infografia",
         nombre: "meteo-componente",
       },
       {
+        kind: "p",
+        text: "**Qué ves en el esquema:** un mismo viento favorece la cabecera 27 y perjudica la 09. **Cómo lo reconoces:** las flechas van desde el oeste hacia el este, aunque `270` nombra el lugar de donde viene el viento. **Qué decides:** para calcular componentes reales, usa la dirección exacta de la pista y convierte la referencia verdadera del METAR a la magnética de la pista, o ambas a una referencia común. El dibujo supone ejes exactamente 090°/270° verdaderos; no representa un aeródromo específico.",
+      },
+      {
         kind: "piensaComoPiloto",
         momento: "Aproximándote al aeródromo de destino",
         situacion:
-          "El METAR trae **`31018G30KT 280V350`**. Las pistas disponibles son la 04 y la 22, y el límite de viento cruzado de tu avión con pista seca es de 33 nudos.",
-        pregunta: "¿Qué tienes y con qué número comparas?",
+          "El METAR trae **`31018G30KT 280V350`**. Para este ejercicio, los ejes verdaderos disponibles son 040° y 220°. El límite de viento cruzado indicado para pista seca es 33 nudos.",
+        pregunta: "¿Basta con observar que 30 es menor que 33 para elegir pista?",
         claves: [
-          "El viento sopla **desde 310°**. Contra la 04 (040°) hay 90° de diferencia menos un poco: es prácticamente **cruzado puro por la izquierda**.",
-          "**El número que manda es la ráfaga, 30 nudos**, no los 18 de promedio. Es contra la ráfaga contra lo que se compara el límite.",
-          "30 contra un límite de 33 **no deja margen**, y el 280V350 dice que la dirección oscila 70°: puede irse a más cruzado en cualquier momento.",
-          "Y ese límite de 33 es **con pista seca**. Si está mojada o contaminada, el límite del manual baja.",
+          "La media viene **desde 310°**: forma 90° con ambos ejes. Es cruzado puro por la izquierda para la 04 y por la derecha para la 22, bajo la referencia fijada en el ejercicio.",
+          "La ráfaga reportada es de **30 nudos**. Una componente cruzada no puede superar la velocidad total del viento en ese instante, pero el reporte no garantiza que el viento posterior no cambie. Usa media, ráfaga y límites como indiquen el manual y el operador.",
+          "Entre **280° y 350°** la componente cruzada cambia y puede aparecer componente de cola: hacia 280° en la 04, hacia 350° en la 22. Calcula ambas componentes para el rango pertinente y confirma el viento local actualizado.",
+          "El límite de 33 corresponde a **pista seca en este ejemplo**. Si la pista está mojada o contaminada, consulta los límites y datos de desempeño específicos; no supongas un valor universal.",
         ],
         cierre:
-          "«Está dentro de límites» y «tengo margen» no son lo mismo. La variación de dirección es la parte del informe que convierte lo primero en lo segundo, o al revés.",
+          "Que 30 sea menor que 33 no resuelve la elección: también importan la componente de cola, el estado de pista, la información actual y los criterios de tu operación.",
       },
       {
         kind: "entrevista",
@@ -282,22 +290,22 @@ const CODIGO: DocScreen[] = [
             nivel: "concepto",
             q: "¿Cómo se lee el grupo de viento de un METAR?",
             respuesta:
-              "Los tres primeros dígitos son la dirección verdadera desde la que sopla, redondeada a decenas de grado, y los siguientes la velocidad en nudos. Si hay ráfagas aparece una G con el valor máximo. Si la dirección varía 60 grados o más se añade el rango con una V en medio. Y 00000KT es calma, mientras que VRB es dirección variable, típico de vientos muy flojos.",
+              "Los tres primeros dígitos son la dirección verdadera desde la que sopla, redondeada a decenas de grados, y los siguientes la velocidad media en nudos. Si se reportan ráfagas aparece una G con su valor; un grupo adicional con V muestra los extremos de dirección cuando corresponde. 00000KT es calma y VRB indica dirección variable, no necesariamente calma.",
             claves: ["Dirección verdadera, desde donde sopla", "G de ráfaga", "V para el rango de variación", "VRB y calma"],
           },
           {
             nivel: "interpretacion",
             q: "¿Por qué la dirección del METAR es verdadera y no magnética?",
             respuesta:
-              "Porque el METAR es un informe meteorológico y se codifica en referencia verdadera, igual que el resto de la información meteorológica. En cambio la torre da el viento en magnético, que es la misma referencia de los rumbos de pista. Es una diferencia que hay que tener presente al comparar el viento del informe con el de la pista, sobre todo donde la declinación magnética es grande.",
+              "El grupo de viento del METAR se codifica respecto al norte verdadero. El viento que se transmite para despegue o aterrizaje normalmente se da respecto al norte magnético, como la designación aproximada de pista. Para calcular componentes uso referencias iguales y el rumbo real publicado de la pista, no solo su número redondeado; confirmo la convención del servicio local.",
             claves: ["METAR en verdadero", "Torre en magnético", "Los rumbos de pista son magnéticos"],
           },
           {
             nivel: "situacion",
             q: "El METAR trae `WS ALL RWY`. ¿Qué significa y qué cambia?",
             respuesta:
-              "Que hay cizalladura reportada en todas las pistas: cambios súbitos de dirección o velocidad del viento, típicamente asociados a microrráfagas descendentes o a inversiones térmicas bajas. Cambia el briefing entero: velocidades de aproximación, configuración, criterios de aproximación frustrada y la disposición a irse al alterno. Es de los pocos grupos del METAR que por sí solos justifican no intentarlo.",
-            claves: ["Cizalladura en todas las pistas", "Microrráfagas o inversión baja", "Cambia el briefing completo"],
+              "Indica cizalladura reportada para todas las pistas, sin identificar por sí sola la causa ni describir exactamente el viento del momento. Reviso su vigencia, alertas y reportes recientes; considero retrasar o evitar la aproximación si la amenaza persiste y preparo las acciones de escape y alternativa según los procedimientos de la aeronave y el operador. No improviso velocidades ni configuración a partir de ese grupo aislado.",
+            claves: ["Cizalladura reportada en todas las pistas", "Confirmar vigencia y alertas", "Aplicar procedimientos del operador"],
           },
         ],
       },

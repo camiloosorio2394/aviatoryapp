@@ -142,7 +142,9 @@ export function MeteoTiempoPresente() {
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * Viento de 270 grados: **sopla desde** el oeste, así que va hacia el este. Por
+ * Ejemplo idealizado: ejes 090°/270° verdaderos, de modo que la dirección del
+ * METAR y la de la pista comparten referencia. Viento de 270 grados: **sopla
+ * desde** el oeste, así que va hacia el este. Por
  * eso aterrizando en la 27 (rumbo 270, hacia el oeste) se le vuela de cara, y en
  * la 09 (rumbo 090, hacia el este) se le lleva de cola. El error clásico es leer
  * «270» como la dirección a la que va el viento; en meteorología es siempre de
@@ -153,7 +155,8 @@ export function MeteoComponente() {
   const px = 210
   const pw = DER - px - 40
   return (
-    <Lienzo etiqueta="Una pista 09 barra 27 vista desde arriba, con viento de 270 grados a 15 nudos soplando desde el oeste. Aterrizando por la cabecera 27 se vuela contra ese viento, así que es viento de cara; aterrizando por la 09 se vuela con él detrás, así que es de cola.">
+    <Lienzo etiqueta="Ejemplo idealizado con ejes de pista 090 y 270 grados verdaderos, la misma referencia que el viento del METAR. Una pista 09 barra 27 vista desde arriba, con viento de 270 grados a 15 nudos soplando desde el oeste. Aterrizando por la cabecera 27 se vuela contra ese viento, así que es viento de cara; aterrizando por la 09 se vuela con él detrás, así que es de cola.">
+      <Rotulo x={IZQ} y={86} color={SECUNDARIO} tam={17}>EJEMPLO · EJES 090° / 270° VERDADEROS</Rotulo>
       {/* La pista, de canto. */}
       <rect x={px} y={cy - 34} width={pw} height={68} fill={ACENTO} opacity={0.42} />
       {[0, 1, 2, 3, 4, 5].map((i) => (
@@ -165,7 +168,7 @@ export function MeteoComponente() {
       {/* El viento. «270» es de DÓNDE viene, no a dónde va: viene del oeste, así
           que las flechas apuntan al este. Dibujarlas al revés contradice los
           rótulos de cara y cola que hay debajo. */}
-      {[-96, -48, 0, 48, 96].map((dy) => (
+      {[-96, -48, 48, 96].map((dy) => (
         <Flecha
           key={dy}
           x1={px - 24}
@@ -173,8 +176,8 @@ export function MeteoComponente() {
           x2={px + pw + 14}
           y2={cy + dy}
           color={ACENTO}
-          grosor={dy === 0 ? 2.8 : 2}
-          tam={dy === 0 ? 15 : 12}
+          grosor={2}
+          tam={12}
         />
       ))}
       <Rotulo x={DER} y={cy - 130} ancla="end" color={ACENTO} tam={19}>
