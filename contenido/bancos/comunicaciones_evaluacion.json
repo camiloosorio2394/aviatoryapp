@@ -1,0 +1,1126 @@
+{
+  "banco": "comunicaciones_evaluacion",
+  "descripcion": "Evaluación de Comunicaciones aeronáuticas y gestión ATC (OACI): 80 preguntas de opción múltiple sobre los ocho niveles, con más peso en colación, pistas y rodaje, autorizaciones, niveles y rumbos, aclaración y lenguaje común. Solo contenido verificado en las fuentes cargadas: Doc 9432 (4.ª ed.), Doc 4444 (15.ª ed., Enm. 4) cap. 1 a 5 y Doc 9835 (2.ª ed.). Ninguna pregunta repite un ejercicio de nivel ni de la práctica.",
+  "preguntas": [
+    {
+      "id": "cm-ev-001",
+      "enunciado": "Estás en el puesto con el plan IFR presentado y necesitas la autorización de ruta. En un aeropuerto con dependencias separadas, ¿qué sufijo lleva la estación que te la entrega?",
+      "opciones": [
+        "GROUND",
+        "DELIVERY",
+        "APRON",
+        "TOWER"
+      ],
+      "correcta": 1,
+      "explicacion": "El Doc 9432 (2.7.1.1) asigna un sufijo a cada servicio: DELIVERY es la entrega de la autorización, GROUND el control del movimiento en la superficie, APRON el control de la plataforma y TOWER el control de aeródromo. Saber el sufijo te dice qué te va a dar cada frecuencia.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.7.1.1",
+      "metadatos": { "nivel": 1, "leccion": 2 }
+    },
+    {
+      "id": "cm-ev-002",
+      "enunciado": "Tu distintivo es AVIATORY 452 (designador telefónico más número de vuelo). Llevas un rato en la frecuencia de Bogota Approach con buena comunicación. ¿Puedes abreviarlo?",
+      "opciones": [
+        "Sí, a «452», después de una comunicación satisfactoria",
+        "Sí, a «AVIATORY 52», si no hay distintivos parecidos",
+        "Solo si el controlador lo abrevia primero",
+        "No: ese tipo de distintivo no se abrevia"
+      ],
+      "correcta": 3,
+      "explicacion": "El Doc 9432 (2.7.2.2) permite abreviar la matrícula (tipo a) y el designador con matrícula (tipo b), pero el tipo c, designador telefónico más identificación del vuelo, «no se abrevia». La regla de esperar a que la estación abrevie primero (2.7.2.2.1) aplica a los tipos que sí se abrevian. El tipo c es el formato de los vuelos de aerolínea.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.7.2.1, 2.7.2.2 y 2.7.2.2.1",
+      "metadatos": { "nivel": 1, "leccion": 6 }
+    },
+    {
+      "id": "cm-ev-003",
+      "enunciado": "Vuelas un avión de categoría pesada de estela turbulenta. ¿Cuándo dices «HEAVY» después de tu distintivo?",
+      "opciones": [
+        "En el primer contacto con cada dependencia ATS",
+        "En todas las transmisiones mientras estés en el aire",
+        "Solo al pedir despegue y al notificar final",
+        "Solo cuando el controlador pregunta tu categoría"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (2.7.2.4) y Doc 4444 (4.9.2): la palabra va inmediatamente después del distintivo en el contacto inicial con las dependencias ATS. Así el controlador sabe desde la primera llamada qué categoría de estela tiene enfrente. No se repite en cada transmisión.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.7.2.4; Doc 4444 (15.ª ed.) 4.9.2",
+      "metadatos": { "nivel": 1, "leccion": 6 }
+    },
+    {
+      "id": "cm-ev-004",
+      "enunciado": "Approach te autoriza a 13 000 ft sobre el QNH. ¿Cómo dices esa altitud al colacionar?",
+      "opciones": [
+        "«Thirteen thousand feet»",
+        "«One three zero zero zero feet»",
+        "«One three thousand feet»",
+        "«Flight level one three zero»"
+      ],
+      "correcta": 2,
+      "explicacion": "Para altitudes en millares enteros se dice cada dígito de los millares seguido de THOUSAND (Doc 9432, 2.4.3); «thirteen» no sigue la regla de enunciar dígitos. Dígito por dígito hasta el último cero es la regla general (2.4.2), pero no para centenas y millares enteros de altitud. Y «flight level» es otra referencia de presión: una altitud sobre QNH va seguida de «feet» (Doc 4444, 4.5.7.5.1, Nota).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.4.2 y 2.4.3; Doc 4444 (15.ª ed.) 4.5.7.5.1, Nota",
+      "metadatos": { "nivel": 1, "leccion": 5 }
+    },
+    {
+      "id": "cm-ev-005",
+      "enunciado": "Te pasan a la frecuencia 127,300 MHz. Según el Doc 9432, ¿cuántos dígitos del designador se enuncian?",
+      "opciones": [
+        "Los seis: «127,300»",
+        "Cuatro: «127,3»",
+        "Cinco: «127,30»",
+        "Tres: «127»"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (2.4.4 y 2.4.5): se enuncian los seis dígitos (o cinco, en espacio de 25 kHz sin requisito de seis), salvo cuando el quinto y el sexto son ceros; entonces solo los cuatro primeros. En 127,300 ambos son cero. Si alguno no lo fuera, en espacio de 8,33 kHz un dígito que falte cambia el canal.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.4.4 y 2.4.5",
+      "metadatos": { "nivel": 1, "leccion": 5 }
+    },
+    {
+      "id": "cm-ev-006",
+      "enunciado": "Vas a dar la hora 1437 en un reporte y no hay riesgo de confusión con la hora. ¿Qué transmites?",
+      "opciones": [
+        "Solo los minutos, dígito por dígito: «three seven»",
+        "La hora completa, dígito por dígito: «one four three seven»",
+        "La hora en palabras: «fourteen thirty-seven»",
+        "La hora redondeada al cuarto: «one four three zero»"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (2.5.1): normalmente bastan los minutos, cada dígito por separado; la hora se incluye si hay riesgo de confusión. Si pides verificación de hora, la dependencia ATS la da redondeada al medio minuto más próximo (2.5.2).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.5.1 y 2.5.2",
+      "metadatos": { "nivel": 1, "leccion": 5 }
+    },
+    {
+      "id": "cm-ev-007",
+      "enunciado": "En una autorización escuchas un valor de RVR. ¿Cómo se pronuncia la abreviatura «RVR» en radiotelefonía?",
+      "opciones": [
+        "Con el alfabeto: «Romeo Victor Romeo»",
+        "Como una palabra completa, sin separar letras",
+        "Deletreada dos veces para evitar errores",
+        "Por sus letras, tal como se escribe"
+      ],
+      "correcta": 3,
+      "explicacion": "Algunas abreviaturas de uso extendido, como ILS, QNH y RVR, se pronuncian leyéndolas tal cual se escriben y no con el alfabeto de deletreo (Doc 9432, 3.1.2). La nota de 1.2 aclara que solo las marcadas con asterisco (por ejemplo ATIS o SID) se dicen como palabras; RVR no lo lleva.",
+      "referencia": "Doc 9432 (4.ª ed.) 1.2, Nota, y 3.1.2",
+      "metadatos": { "nivel": 1, "leccion": 3 }
+    },
+    {
+      "id": "cm-ev-008",
+      "enunciado": "Vas a transmitir a una estación en tierra un mensaje que el operador tendrá que anotar. ¿Qué recomienda el Doc 9432 sobre tu velocidad de dicción?",
+      "opciones": [
+        "Hablar más rápido para no ocupar la frecuencia",
+        "Deletrear cada palabra con el alfabeto fonético",
+        "No pasar de 100 palabras por minuto y hablar más lento",
+        "Partir el mensaje en tres llamadas cortas separadas"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (2.2.1 d): velocidad constante que no exceda 100 palabras por minuto, y más lenta cuando el destinatario va a anotar. El mismo párrafo pide una ligera pausa antes y después de los números (2.2.1 f). Deletrear no se exige salvo que haya riesgo de que el mensaje no se reciba bien (2.3.1).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.2.1 d) y f), 2.3.1",
+      "metadatos": { "nivel": 1, "leccion": 3 }
+    },
+    {
+      "id": "cm-ev-009",
+      "enunciado": "Vas a llamar por primera vez a Bogota Approach. ¿Cómo empiezas la transmisión?",
+      "opciones": [
+        "Solo con tu distintivo, para ahorrar tiempo de frecuencia",
+        "Con el distintivo completo de la estación y el tuyo completo",
+        "Con «GO AHEAD» para que el controlador te dé paso",
+        "Con tu distintivo abreviado y el sufijo «Approach»"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (2.8.1.1): al iniciar las comunicaciones, la aeronave emplea su distintivo y el de la estación, ambos completos. Omitir el nombre del lugar o el sufijo solo cabe después de una comunicación satisfactoria y si no hay confusión (2.7.1.2). Un distintivo de aerolínea, además, no se abrevia (2.7.2.2 c).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.1.1, 2.7.1.2 y 2.7.2.2",
+      "metadatos": { "nivel": 1, "leccion": 7 }
+    },
+    {
+      "id": "cm-ev-010",
+      "enunciado": "Llamas: «Bogota Tower, AVIATORY 452». La torre contesta: «AVIATORY 452, Bogota Tower». ¿Qué te está diciendo?",
+      "opciones": [
+        "Que esperes: te llamará cuando tenga tiempo",
+        "Que tu transmisión llegó ilegible y repitas",
+        "Que cambies a la frecuencia de superficie",
+        "Que transmitas tu mensaje: te está escuchando"
+      ],
+      "correcta": 3,
+      "explicacion": "El Doc 9432 (2.6, Nota) omitió «GO AHEAD»: el distintivo de la estación que llama seguido del de la que contesta es la invitación a proseguir con la transmisión. Si te pidiera esperar, diría STANDBY («espere y le llamaré»).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y su Nota",
+      "metadatos": { "nivel": 1, "leccion": 7 }
+    },
+    {
+      "id": "cm-ev-011",
+      "enunciado": "Estás en el punto de espera y la torre pregunta: «AVIATORY 452, are you ready for immediate departure?». Estás listo. ¿Qué respondes?",
+      "opciones": [
+        "«ROGER, AVIATORY 452»",
+        "«WILCO, AVIATORY 452»",
+        "«AFFIRM, AVIATORY 452»",
+        "«APPROVED, AVIATORY 452»"
+      ],
+      "correcta": 2,
+      "explicacion": "La pregunta pide un sí: AFFIRM (Doc 9432, 2.6; así responde el piloto en el ejemplo de 4.5.5). ROGER solo dice que recibiste la transmisión, y su nota prohíbe usarlo cuando se espera AFFIRM o NEGATIVE. WILCO es «entendido, cumpliré», y APPROVED lo dice quien concede una medida.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 4.5.5",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-012",
+      "enunciado": "El controlador te dice «AVIATORY 452, report passing FL 150» y respondes «WILCO, AVIATORY 452». ¿Qué le comunicaste?",
+      "opciones": [
+        "Que entendiste y vas a cumplir",
+        "Que recibiste la transmisión, sin más",
+        "Que ya pasaste el FL 150 en ascenso",
+        "Que por ahora no puedes notificarlo"
+      ],
+      "correcta": 0,
+      "explicacion": "WILCO («will comply») significa «he comprendido su mensaje y procederé de acuerdo» (Doc 9432, 2.6). Es la respuesta del ejemplo de 3.3.3.1 a una orden de notificar un nivel. Cuando lo pases, lo notificas en otra transmisión. ROGER solo diría que recibiste.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 3.3.3.1",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-013",
+      "enunciado": "Según el Doc 9432, cuando el ATC usa la palabra CHECK, ¿qué te pide y qué respuesta espera?",
+      "opciones": [
+        "Que verifiques un dato de la autorización; espera AFFIRM o NEGATIVE",
+        "Que examines un sistema o procedimiento; no suele esperar respuesta",
+        "Que repitas el mensaje tal como lo recibiste; espera la colación",
+        "Que cumplas la instrucción anterior sin demora; espera WILCO con tu distintivo"
+      ],
+      "correcta": 1,
+      "explicacion": "CHECK: «examine un sistema o procedimiento»; la nota aclara que no se usa en ningún otro contexto y que normalmente no se espera respuesta (Doc 9432, 2.6). Pedir verificación de un dato es CONFIRM, y pedir la repetición exacta de un mensaje es READ BACK.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-014",
+      "enunciado": "Pides ascenso a FL 360 y el controlador responde «AVIATORY 452, standby». ¿Qué significa?",
+      "opciones": [
+        "Que el ascenso está aprobado y puedes iniciarlo",
+        "Que te lo niega por tránsito y debes mantener nivel",
+        "Que cambies de frecuencia y vuelvas a pedirlo",
+        "Que esperes: no es aprobación ni denegación"
+      ],
+      "correcta": 3,
+      "explicacion": "STANDBY: «espere y le llamaré». La nota del Doc 9432 (2.6) dice que no es ni una aprobación ni una denegación, y que quien llama normalmente vuelve a establecer contacto si la demora es considerable. Mientras tanto sigues con tu última autorización.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y su nota a STANDBY",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-015",
+      "enunciado": "Vas autorizado a FL 280 y oyes: «AVIATORY 452, recleared FL 330». ¿Qué pasa con la autorización a FL 280?",
+      "opciones": [
+        "Sigue vigente: FL 330 es solo un nivel que puedes esperar más adelante",
+        "Queda reemplazada: la nueva invalida la anterior o parte de ella",
+        "Se suma: primero FL 280 y después, cuando lo pidas, FL 330",
+        "Queda suspendida hasta que confirmes el cambio con CONFIRM"
+      ],
+      "correcta": 1,
+      "explicacion": "RECLEARED: «se efectúa una modificación en su última autorización y esta nueva autorización invalida la anterior o parte de ella» (Doc 9432, 2.6). Se colaciona («recleared FL 330» y el distintivo, como en 3.3.3.2) porque es una instrucción de nivel (Doc 4444, 4.5.7.5.1 c).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 3.3.3.2; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-016",
+      "enunciado": "En una transmisión el controlador dice «... I SAY AGAIN, FL 190». ¿Por qué usa esa frase?",
+      "opciones": [
+        "Porque quiere que repitas tu última transmisión",
+        "Porque corrige un error de su transmisión anterior",
+        "Porque repite el dato para aclararlo o recalcarlo",
+        "Porque la frecuencia está congestionada y lo avisa"
+      ],
+      "correcta": 2,
+      "explicacion": "I SAY AGAIN: «repito para aclarar o recalcar» (Doc 9432, 2.6). Si quisiera que tú repitieras, diría SAY AGAIN; si corrigiera un error suyo, diría CORRECTION. Tras un «NEGATIVE, I SAY AGAIN» por una colación errada (2.8.3.9), lo que sigue es la versión correcta y se colaciona otra vez.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 2.8.3.9",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-017",
+      "enunciado": "Das tu reporte de posición y te equivocas en la hora estimada del punto siguiente. ¿Cómo lo corriges según el Doc 9432?",
+      "opciones": [
+        "«CORRECTION», el último grupo correcto y la versión corregida",
+        "«DISREGARD» y repites el reporte completo en la próxima llamada al ATC",
+        "«NEGATIVE» y solo el dato corregido, sin repetir lo anterior",
+        "«I SAY AGAIN» y todo el reporte otra vez desde el comienzo"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (2.8.1.6): el error se advierte con CORRECTION, repitiendo el último grupo o frase correctos seguido de la versión corregida. Si conviene repetir todo el mensaje, se dice «CORRECCIÓN, REPITO» antes de transmitirlo por segunda vez (2.8.1.7). DISREGARD significa «haga caso omiso de esto» (2.6).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.1.6, 2.8.1.7 y 2.6",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-018",
+      "enunciado": "El controlador dice «AVIATORY 452, monitor ATIS 127.650». ¿Qué haces?",
+      "opciones": [
+        "Llamas al ATIS para acusar recibo de la letra",
+        "Estableces comunicación con esa dependencia",
+        "Esperas en esa frecuencia a que te llamen",
+        "Escuchas la radiodifusión en esa frecuencia"
+      ],
+      "correcta": 3,
+      "explicacion": "MONITOR: «escuchar en (frecuencia)» (Doc 9432, 2.6); se usa para una frecuencia donde se radiodifunde información, y el piloto responde «MONITORING (frecuencia)» (2.8.2.2). CONTACT es establecer comunicación. Quedar a la espera de que una dependencia te llame es «STAND BY FOR (dependencia) (frecuencia)», del mismo párrafo.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 2.8.2.2",
+      "metadatos": { "nivel": 2, "leccion": 11 }
+    },
+    {
+      "id": "cm-ev-019",
+      "enunciado": "Un pasajero se indispone y necesitas explicarle al ATC qué pasa y qué necesitas. No hay una frase normalizada para eso. ¿Qué indica la OACI?",
+      "opciones": [
+        "Usar solo palabras de la fraseología, aunque no alcancen",
+        "Usar lenguaje común claro, conciso y sin ambigüedad",
+        "Pasar al idioma local para explicarlo con más detalle",
+        "Pedirle al controlador la frase normalizada que aplica"
+      ],
+      "correcta": 1,
+      "explicacion": "El Doc 9835 pone el pasajero indispuesto como ejemplo de situación sin fórmula normalizada, en la que hay que usar lenguaje común (3.3.13), y pide articularlo con claridad, concisión y sin ambigüedad (4.3.4). El Doc 9432 (3.2.3) recuerda que muchos interlocutores usan el inglés como segunda lengua. El uso de más de un idioma en un mismo espacio aéreo es uno de los tres factores de accidente que cita el Doc 9835 (1.2.2 c).",
+      "referencia": "Doc 9835 (2.ª ed.) 1.2.2, 3.3.13 y 4.3.4; Doc 9432 (4.ª ed.) 3.2.3",
+      "metadatos": { "nivel": 2, "leccion": 10 }
+    },
+    {
+      "id": "cm-ev-020",
+      "enunciado": "¿Qué relación hay entre la fraseología normalizada y el lenguaje común, según el Doc 9835?",
+      "opciones": [
+        "El lenguaje común la puede sustituir si ambos lo entienden",
+        "Son equivalentes y el piloto elige según la carga de trabajo",
+        "Primero la fraseología; el lenguaje común la complementa",
+        "El lenguaje común solo se admite en emergencias declaradas"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9835 (4.3.3): el Anexo 10 reconoce la necesidad del lenguaje común, pero no como sustituto suficiente: «la fraseología de la OACI debería utilizarse siempre en primera instancia». Tampoco queda solo para emergencias: el mismo manual muestra que hace falta en muchas situaciones ordinarias (3.3.17). Y no es licencia para charlar (4.3.4).",
+      "referencia": "Doc 9835 (2.ª ed.) 3.3.17, 4.3.3 y 4.3.4",
+      "metadatos": { "nivel": 2, "leccion": 10 }
+    },
+    {
+      "id": "cm-ev-021",
+      "enunciado": "¿Cuál es el nivel mínimo de la escala de competencia lingüística de la OACI que se exige a pilotos en operaciones internacionales?",
+      "opciones": [
+        "Nivel 3, preoperacional",
+        "Nivel 4, operacional",
+        "Nivel 5, avanzado",
+        "Nivel 6, experto"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9835 (4.4.4 y 4.4.11): desde el 5 de marzo de 2008 se exige el nivel operacional (nivel 4). El manual lo describe como el nivel mínimo de dominio considerado seguro para las comunicaciones ATC (4.6.2) y aclara que no equivale al de un hablante nativo (4.4.7). Por debajo del nivel 6 hay reevaluación a intervalos (4.4.8).",
+      "referencia": "Doc 9835 (2.ª ed.) 4.4.4, 4.4.7, 4.4.8, 4.4.11 y 4.6.2",
+      "metadatos": { "nivel": 2, "leccion": 9 }
+    },
+    {
+      "id": "cm-ev-022",
+      "enunciado": "En un mismo tramo recibes varias cosas. ¿Cuál NO está en la lista de elementos que se colacionan siempre (Doc 4444, 4.5.7.5.1)?",
+      "opciones": [
+        "Un código SSR nuevo",
+        "El nivel de transición del ATIS",
+        "Una información de tránsito",
+        "Una instrucción de velocidad"
+      ],
+      "correcta": 2,
+      "explicacion": "La lista obligatoria es: autorizaciones de ruta; lo que toca una pista (entrar, aterrizar, despegar, mantenerse fuera, cruzar, rodar y retroceder); y pista en uso, reglajes de altímetro, códigos SSR, instrucciones de nivel, rumbo y velocidad y niveles de transición, vengan del controlador o del ATIS (Doc 4444, 4.5.7.5.1). La información de tránsito se acusa, por ejemplo con «LOOKING OUT» o «TRAFFIC IN SIGHT» (Doc 9432, 6.4.1).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1; Doc 9432 (4.ª ed.) 6.4.1",
+      "metadatos": { "nivel": 3, "leccion": 12 }
+    },
+    {
+      "id": "cm-ev-023",
+      "enunciado": "Ground te avisa que la pista en uso pasa a ser la 31 y te da QNH 1018. Respondes «ROGER, AVIATORY 452». ¿Cómo quedó esa respuesta?",
+      "opciones": [
+        "Incompleta: pista en uso y QNH se colacionan",
+        "Correcta: ROGER dice que recibiste todo",
+        "Correcta si esos datos ya venían en el ATIS",
+        "Incompleta: faltó el WILCO antes del distintivo"
+      ],
+      "correcta": 0,
+      "explicacion": "Pista en uso y reglaje de altímetro están en la lista de colación obligatoria, «ya sea que sean expedidos por el controlador ya sea que estén incluidos en las radiodifusiones» ATIS (Doc 4444, 4.5.7.5.1 c). ROGER solo significa «he recibido toda su transmisión anterior» y no sustituye una colación (Doc 9432, 2.6). Lo correcto: «Runway 31, QNH 1018, AVIATORY 452».",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 c); Doc 9432 (4.ª ed.) 2.6",
+      "metadatos": { "nivel": 3, "leccion": 12 }
+    },
+    {
+      "id": "cm-ev-024",
+      "enunciado": "Colacionas «QNH 1012, AVIATORY 452» y el controlador responde: «AVIATORY 452, negative, I say again, QNH 1021». ¿Qué haces?",
+      "opciones": [
+        "Mantienes 1012: el controlador solo repitió",
+        "Ajustas 1021 y respondes «ROGER»",
+        "Pides «SAY AGAIN»: hubo dos valores distintos",
+        "Ajustas 1021 y colacionas «QNH 1021»"
+      ],
+      "correcta": 3,
+      "explicacion": "«NEGATIVE, I SAY AGAIN» es la forma con que el controlador marca una colación incorrecta, seguida de la versión correcta (Doc 9432, 2.8.3.9). Esa versión es la que vale y, como es un reglaje de altímetro, se colaciona de nuevo (Doc 4444, 4.5.7.5.1 c). ROGER no sirve donde se exige colación (Doc 9432, 2.6).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.3.9 y 2.6; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 3, "leccion": 12 }
+    },
+    {
+      "id": "cm-ev-025",
+      "enunciado": "En el Doc 4444, ¿qué diferencia hay entre una autorización y una instrucción del control de tránsito aéreo?",
+      "opciones": [
+        "La autorización llega por Delivery y la instrucción por las demás dependencias",
+        "La autorización te permite proceder; la instrucción te exige una medida",
+        "La instrucción es opcional y la autorización es de cumplimiento obligatorio",
+        "Ninguna: el Doc 4444 las usa como sinónimos en todo el texto"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 4444, cap. 1: una autorización del control de tránsito aéreo es la autorización para que una aeronave proceda en condiciones especificadas por una dependencia ATC; una instrucción son directrices impartidas por el ATC «con la finalidad de exigir que un piloto tome determinada medida». Ambas se colacionan o se acusan dejando claro que se entendieron y se cumplirán (4.5.7.5.1 y 4.5.7.5.1.1).",
+      "referencia": "Doc 4444 (15.ª ed.) cap. 1 (definiciones), 4.5.7.5.1 y 4.5.7.5.1.1",
+      "metadatos": { "nivel": 3, "leccion": 13 }
+    },
+    {
+      "id": "cm-ev-026",
+      "enunciado": "Departure te dice «AVIATORY 452, cross GIKOS FL 170 or above». Con el peso de hoy sabes que no llegas. ¿Qué haces?",
+      "opciones": [
+        "Colacionas y ajustas el ascenso lo mejor que puedas",
+        "Respondes ROGER y avisas si ves que no llegas",
+        "Avisas UNABLE con el motivo desde ya",
+        "Guardas silencio hasta tener el cálculo terminado"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (2.8.3.10): si recibes una autorización o instrucción que no puedes cumplir, lo adviertes con UNABLE dando los motivos (en el ejemplo, «UNABLE TO CROSS WICKEN FL 150 DUE WEIGHT»). La nota de UNABLE (2.6) dice que normalmente va seguida del motivo. Colacionar algo que no vas a cumplir le hace creer al controlador que el problema no existe; si la autorización no te conviene, puedes pedir una enmendada (Doc 4444, 4.5.1.2).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 2.8.3.10; Doc 4444 (15.ª ed.) 4.5.1.2",
+      "metadatos": { "nivel": 3, "leccion": 13 }
+    },
+    {
+      "id": "cm-ev-027",
+      "enunciado": "Estás en el punto de espera y la torre te lee una autorización de ruta nueva que termina con un código SSR. La colacionas bien. ¿Puedes entrar a la pista?",
+      "opciones": [
+        "No: la de ruta no autoriza entrar a la pista ni despegar",
+        "Sí: la autorización de ruta incluye la salida por la pista asignada",
+        "Sí, pero solo para alinearte y esperar la autorización de despegue",
+        "Sí, si no hay tránsito en final y ves la pista libre"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (2.8.3.3): «una autorización de ruta del control de tránsito aéreo (ATC) no es una instrucción de despegue o para entrar en una pista en servicio». Por eso TAKE-OFF se reserva para autorizar o cancelar un despegue. Entrar a la pista exige su propia instrucción, que también se colaciona (Doc 4444, 4.5.7.5.1 b).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.3.3; Doc 4444 (15.ª ed.) 4.5.7.5.1 b)",
+      "metadatos": { "nivel": 3, "leccion": 14 }
+    },
+    {
+      "id": "cm-ev-028",
+      "enunciado": "Vas a pedir puesta en marcha a Ground. Además de tu distintivo y la solicitud, ¿qué incluyes?",
+      "opciones": [
+        "Tu peso de despegue y el combustible a bordo",
+        "La pista que prefieres y tu nivel de crucero",
+        "El número de pasajeros y la hora de salida",
+        "Tu puesto y la letra del ATIS recibido"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 9432 (4.2.2): junto con la solicitud, el piloto indica la ubicación de la aeronave y acusa recibo del ATIS (en el ejemplo: puesto, «REQUEST START UP» y la letra de la información). La solicitud sirve a la planificación del ATC y evita que los aviones demorados en tierra consuman demasiado combustible.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.2.2",
+      "metadatos": { "nivel": 3, "leccion": 15 }
+    },
+    {
+      "id": "cm-ev-029",
+      "enunciado": "Ground te responde: «AVIATORY 452, expect start up at 45, QNH 1016». Son las 32. ¿Puedes poner en marcha ya?",
+      "opciones": [
+        "Sí: es una aprobación con una hora solo sugerida",
+        "No: es una hora prevista, no una aprobación",
+        "Sí, pero solo el motor número uno por ahora",
+        "No: primero debes pedir el empuje a Apron"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (4.2.2) distingue «START UP APPROVED» (aprobada), «START UP AT (minutos)» (ponga en marcha a esa hora) y «EXPECT START UP AT (minutos)» (prevea la puesta en marcha a esa hora). EXPECT no autoriza nada. El QNH que viene en el mensaje sí se colaciona (Doc 4444, 4.5.7.5.1 c).",
+      "referencia": "Doc 9432 (4.ª ed.) 4.2.2; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 3, "leccion": 15 }
+    },
+    {
+      "id": "cm-ev-030",
+      "enunciado": "Ground: «AVIATORY 452, taxi to holding point runway 13 via taxiway Alfa». ¿Qué es el punto de espera de la pista 13 en esa instrucción?",
+      "opciones": [
+        "Una referencia: sigues hasta la cabecera y te alineas",
+        "El sitio donde debes pasar a la frecuencia de Departure",
+        "El límite: ahí te detienes hasta otra autorización",
+        "El punto donde cumples la lista antes del despegue"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (4.4.1): toda instrucción de rodaje lleva un límite de autorización, el punto donde la aeronave se detiene hasta que reciba otra autorización; para las salidas suele ser el punto de espera de la pista en uso. El Doc 4444 (cap. 1) define ese punto como el lugar donde aeronaves y vehículos se detienen y esperan, salvo que la torre autorice otra cosa.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.4.1; Doc 4444 (15.ª ed.) cap. 1, «Punto de espera de la pista»",
+      "metadatos": { "nivel": 3, "leccion": 16 }
+    },
+    {
+      "id": "cm-ev-031",
+      "enunciado": "Tu ruta de rodaje autorizada hacia la pista 13 atraviesa la pista 04, y la instrucción no dice nada de la 04. ¿Qué haces?",
+      "opciones": [
+        "Te detienes antes de la 04 y pides instrucción",
+        "La cruzas: está dentro de la ruta autorizada",
+        "La cruzas si no ves tránsito en final ni despegando",
+        "Sigues y avisas a la torre cuando la hayas cruzado"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (4.4.2): si el límite de rodaje queda más allá de una pista, la autorización debe contener una autorización explícita para cruzarla o una instrucción de esperar fuera de ella. Si no la trae, no tienes permiso de cruce: te detienes en el punto de espera de la 04, que existe para eso (Doc 4444, cap. 1), y preguntas. Mirar la final no reemplaza la autorización.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.4.2; Doc 4444 (15.ª ed.) cap. 1, «Punto de espera de la pista»",
+      "metadatos": { "nivel": 3, "leccion": 16 }
+    },
+    {
+      "id": "cm-ev-032",
+      "enunciado": "Ground: «AVIATORY 452, hold short runway 22». ¿Qué colacionas?",
+      "opciones": [
+        "«Roger, runway 22 in sight, AVIATORY 452»",
+        "«Wilco, will hold, AVIATORY 452»",
+        "«Crossing runway 22, AVIATORY 452»",
+        "«Holding short runway 22, AVIATORY 452»"
+      ],
+      "correcta": 3,
+      "explicacion": "Las instrucciones de mantenerse fuera de una pista se colacionan siempre (Doc 4444, 4.5.7.5.1 b), repitiendo la acción y la pista y cerrando con el distintivo (Doc 9432, 2.8.3.7; ejemplos de 4.4.2). ROGER o WILCO no muestran qué entendiste, y el controlador no tiene nada que verificar.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 b); Doc 9432 (4.ª ed.) 2.8.3.7 y 4.4.2",
+      "metadatos": { "nivel": 3, "leccion": 16 }
+    },
+    {
+      "id": "cm-ev-033",
+      "enunciado": "Acabas de aterrizar y sales por una calle de rodaje. ¿Cuándo puedes notificar «runway vacated»?",
+      "opciones": [
+        "Cuando la nariz del avión sale del borde de pista",
+        "Cuando todo el avión pasó el punto de espera",
+        "Cuando bajas a velocidad normal de rodaje",
+        "Cuando cruzas la línea de eje de la calle de salida"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (4.4, Nota): «la pista queda libre cuando toda la aeronave ha sobrepasado el correspondiente punto de espera de la pista». Antes de eso sigues dentro del área que el punto de espera protege.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.4, Nota",
+      "metadatos": { "nivel": 3, "leccion": 17 }
+    },
+    {
+      "id": "cm-ev-034",
+      "enunciado": "En la carta de aeródromo ves marcado un punto crítico («hot spot») en una intersección. ¿Qué significa?",
+      "opciones": [
+        "Una zona de la plataforma con chorro de reactor fuerte",
+        "Un área donde el rodaje solo se hace con remolque",
+        "Un sitio con riesgo conocido de colisión o incursión",
+        "Un punto donde la señal del ILS no está protegida"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 4444, cap. 1: punto crítico es un «sitio del área de movimiento de un aeródromo con antecedentes o riesgo potencial de colisión o de incursión en la pista, y en el que es necesario que pilotos y conductores presten mayor atención». Al acercarte a uno, más atención a la ruta autorizada y a los límites.",
+      "referencia": "Doc 4444 (15.ª ed.) cap. 1, «Punto crítico»",
+      "metadatos": { "nivel": 3, "leccion": 17 }
+    },
+    {
+      "id": "cm-ev-035",
+      "enunciado": "Tower: «AVIATORY 452, behind the landing Boeing 737, line up and wait behind». No tienes a la vista ningún 737. ¿Qué haces?",
+      "opciones": [
+        "Te alineas cuando aterrice el primer avión que veas",
+        "Te alineas ya: esa condición la vigila la torre",
+        "Colacionas solo «line up and wait» y te alineas",
+        "Avisas que no tienes el tránsito a la vista"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 9432 (4.5.7): las autorizaciones condicionales sobre pistas en actividad solo se emplean cuando la aeronave o el vehículo del que dependen está a la vista del controlador y del piloto, y el que sale debe identificar correctamente al que llega; a veces hace falta el color o la compañía. Si no lo ves, lo dices antes de moverte. Seguir «al primero que aterrice» es justo el error que la regla quiere evitar.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.5.7",
+      "metadatos": { "nivel": 3, "leccion": 17 }
+    },
+    {
+      "id": "cm-ev-036",
+      "enunciado": "¿En qué orden se da una autorización condicional, según el Doc 9432?",
+      "opciones": [
+        "Distintivo, condición, autorización, reiteración de la condición",
+        "Distintivo, autorización, condición y colación final de la condición",
+        "Condición, distintivo, autorización y hora prevista del movimiento",
+        "Distintivo, autorización, condición y reiteración de la autorización"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (4.5.7): 1) distintivo; 2) condiciones; 3) autorización; 4) breve reiteración de las condiciones. Por eso la condición se oye antes que la acción («behind the landing (aeronave), line up and wait behind») y vuelve al final. Las autorizaciones condicionales se colacionan o se acusan dejando claro que se cumplirán (Doc 4444, 4.5.7.5.1.1).",
+      "referencia": "Doc 9432 (4.ª ed.) 4.5.7; Doc 4444 (15.ª ed.) 4.5.7.5.1.1",
+      "metadatos": { "nivel": 3, "leccion": 17 }
+    },
+    {
+      "id": "cm-ev-037",
+      "enunciado": "¿En qué casos se usa la palabra TAKE-OFF en la frecuencia?",
+      "opciones": [
+        "En cualquier instrucción que se dé desde el punto de espera",
+        "También en la autorización de ruta, para indicar la pista de salida",
+        "Solo al autorizar un despegue o al cancelar esa autorización",
+        "Cuando el avión ya está alineado y listo en la cabecera"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (2.8.3.3): TAKE-OFF solo se usa cuando la aeronave está autorizada a despegar o cuando se anula una autorización de despegue; en los demás casos se dice DEPARTURE o AIRBORNE. El Doc 9835 (3.3.7 b) cita el mensaje «We are at take-off»: el controlador entendió que el avión esperaba en posición cuando ya aceleraba, y con niebla chocó con otra aeronave.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.3.3; Doc 9835 (2.ª ed.) 3.3.7 b)",
+      "metadatos": { "nivel": 3, "leccion": 18 }
+    },
+    {
+      "id": "cm-ev-038",
+      "enunciado": "Tower: «AVIATORY 452, climb straight ahead until 3 000 feet before turning left, runway 13 cleared for take-off». ¿Qué debe llevar tu colación?",
+      "opciones": [
+        "Solo «cleared for take-off» y tu distintivo",
+        "Instrucción de salida, pista y autorización de despegue",
+        "Solo la instrucción de salida, porque el despegue ya es evidente",
+        "La pista y un WILCO que cubra lo demás"
+      ],
+      "correcta": 1,
+      "explicacion": "Las instrucciones de salida pueden ir con la autorización de despegue (Doc 9432, 4.5.9), y en el ejemplo el piloto colaciona ascenso, viraje, pista y despegue. La autorización de despegue y la pista están en la lista obligatoria (Doc 4444, 4.5.7.5.1 b); la restricción de ascenso y viraje se colaciona o se acusa dejando claro que se cumplirá (4.5.7.5.1.1). Un WILCO suelto no le muestra al controlador qué pista entendiste.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.5.9; Doc 4444 (15.ª ed.) 4.5.7.5.1 b) y 4.5.7.5.1.1",
+      "metadatos": { "nivel": 3, "leccion": 18 }
+    },
+    {
+      "id": "cm-ev-039",
+      "enunciado": "Llegas al punto de espera sin haber terminado la lista y la torre dice: «AVIATORY 452, take off immediately or hold short of runway». ¿Qué respondes?",
+      "opciones": [
+        "«Taking off immediately, AVIATORY 452»",
+        "«Standby, AVIATORY 452»",
+        "«Roger, AVIATORY 452»",
+        "«Holding short, AVIATORY 452»"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 9432 (4.5.10): el ATC da esa opción cuando necesita la pista; si no puedes salir de inmediato, respondes «HOLDING SHORT», como en el ejemplo. El mismo manual reconoce que algunas aeronaves requieren verificaciones antes de la salida y no siempre están listas al llegar al punto de espera (4.5.3).",
+      "referencia": "Doc 9432 (4.ª ed.) 4.5.3 y 4.5.10",
+      "metadatos": { "nivel": 3, "leccion": 18 }
+    },
+    {
+      "id": "cm-ev-040",
+      "enunciado": "Abortas el despegue por decisión propia, a baja velocidad. ¿Qué haces con la radio?",
+      "opciones": [
+        "Informas a la torre cuanto antes y pides ayuda o rodaje",
+        "Esperas a que la torre te llame para no ocupar la frecuencia",
+        "Cambias a Ground y pides el regreso a la plataforma",
+        "Transmites solo después de haber salido de la pista"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (4.5.12): cuando el piloto abandona la maniobra de despegue debe informar a la torre, tan pronto como sea posible, que la suspende, y pedir ayuda o instrucciones de rodaje según el caso (en el ejemplo: «STOPPING» y luego «REQUEST RETURN TO RAMP»). Sigues en la pista y la torre lo necesita saber.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.5.12",
+      "metadatos": { "nivel": 3, "leccion": 18 }
+    },
+    {
+      "id": "cm-ev-041",
+      "enunciado": "Pides rodaje acusando la información Charlie del ATIS. Ground te da la ruta y el QNH, pero no viento ni temperatura. ¿Es normal?",
+      "opciones": [
+        "No: Ground debe dar siempre la información de salida",
+        "No: tienes que pedirla antes de empezar a rodar",
+        "Sí: si acusaste el ATIS, no tiene que repetírtela",
+        "Sí, pero solo si la visibilidad es buena ese día"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (4.4.3): cuando las aeronaves acusan recibo del ATIS, el controlador no necesita suministrar información de salida al dar las instrucciones de rodaje. El QNH sí puede venir en la autorización de rodaje de una aeronave que sale (Doc 4444, 4.10.4.5), y se colaciona.",
+      "referencia": "Doc 9432 (4.ª ed.) 4.4.3; Doc 4444 (15.ª ed.) 4.10.4.5",
+      "metadatos": { "nivel": 3, "leccion": 16 }
+    },
+    {
+      "id": "cm-ev-042",
+      "enunciado": "Departure: «AVIATORY 452, turn right heading 310 until passing FL 90, then direct RUMAK» (RUMAK es un punto ficticio). ¿Cuándo pones rumbo directo a RUMAK?",
+      "opciones": [
+        "En cuanto terminas de colacionar la instrucción",
+        "Al pasar FL 90; antes mantienes rumbo 310",
+        "Al alcanzar el rumbo 310 y estabilizar el viraje",
+        "Cuando el controlador te lo confirme de nuevo"
+      ],
+      "correcta": 1,
+      "explicacion": "«Until passing FL 90» limita el rumbo y «then» dice qué sigue (estructura del Doc 9432, 7.1.2). La colación repite rumbo, condición y siguiente acción: «Right heading 310 until passing FL 90, then direct RUMAK, AVIATORY 452». Las instrucciones de rumbo y de nivel se colacionan siempre (Doc 4444, 4.5.7.5.1 c).",
+      "referencia": "Doc 9432 (4.ª ed.) 7.1.2; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 4, "leccion": 19 }
+    },
+    {
+      "id": "cm-ev-043",
+      "enunciado": "Approach: «AVIATORY 452, descend to 5 000 feet, QNH 1015». ¿Cuál colación es la correcta?",
+      "opciones": [
+        "«Descending to 5 000, AVIATORY 452»",
+        "«Descending FL 50, QNH 1015, AVIATORY 452»",
+        "«Roger, descending 5 000 feet with the new QNH, AVIATORY 452»",
+        "«Descending to 5 000 feet, QNH 1015, AVIATORY 452»"
+      ],
+      "correcta": 3,
+      "explicacion": "Nivel y reglaje de altímetro se colacionan siempre (Doc 4444, 4.5.7.5.1 c). La Nota del mismo párrafo pide que las cifras referidas a QNH o QFE vayan seguidas de «FEET» (o metros) y que las referidas a 1 013,2 hPa vayan precedidas de «FLIGHT LEVEL». Sin la unidad, o con la referencia cambiada, el controlador no puede verificar lo que entendiste; y «with the new QNH» no dice qué valor pusiste.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 c) y su Nota",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-044",
+      "enunciado": "Desciendes y estás atravesando la capa de transición. ¿Cómo expresas tu posición vertical?",
+      "opciones": [
+        "En altitudes",
+        "En niveles de vuelo",
+        "En alturas sobre el aeródromo",
+        "En niveles hasta llegar al umbral"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 4444 (4.10.1.1): al atravesar la capa de transición, la posición vertical se expresa en niveles de vuelo durante el ascenso y en altitudes durante el descenso. La capa de transición es el espacio aéreo entre la altitud de transición y el nivel de transición (cap. 1).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.10.1.1 y cap. 1, «Capa de transición»",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-045",
+      "enunciado": "¿En qué momento debe el ATC incluir el QNH en una autorización de descenso, según el Doc 4444?",
+      "opciones": [
+        "En cada autorización de descenso, sin excepción",
+        "Solo cuando el piloto lo pide antes del descenso",
+        "Al autorizarte por primera vez bajo el nivel de transición",
+        "Al transferirte de Control a Approach, en la llamada inicial de este"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 4444 (4.10.4.5): el QNH se incluye en la autorización de descenso cuando por primera vez se autoriza a descender a una altitud por debajo del nivel de transición, y también en las autorizaciones de aproximación, de entrada al circuito y de rodaje para salidas, salvo que se sepa que la aeronave ya lo recibió. Lo colacionas siempre (4.5.7.5.1 c).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.10.4.5 y 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-046",
+      "enunciado": "El ATC necesita cambiar solo una parte de una autorización de nivel que te dio antes. ¿Qué debe hacer, según el Doc 9432?",
+      "opciones": [
+        "Transmitir únicamente la parte que cambió",
+        "Repetir entera la autorización de nivel",
+        "Usar CORRECTION seguido del valor nuevo",
+        "Cancelar la anterior y esperar tu solicitud"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (3.3.3): «cuando se cambie alguna parte de una autorización de nivel se debe enunciar de nuevo toda la autorización de nivel». Así no quedan en cabina pedazos viejos y nuevos mezclados. Tú colacionas la autorización completa que recibiste.",
+      "referencia": "Doc 9432 (4.ª ed.) 3.3.3",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-047",
+      "enunciado": "Desciendes autorizado a FL 100 y, pasando FL 185, oyes: «AVIATORY 452, stop descent at FL 170». ¿Qué haces?",
+      "opciones": [
+        "Sigues a FL 100 y solo reduces el régimen",
+        "Sigues a FL 100: FL 170 es un nivel de paso",
+        "Nivelas en FL 170 si lo alcanzas en un minuto",
+        "Nivelas en FL 170 y lo colacionas"
+      ],
+      "correcta": 3,
+      "explicacion": "Después de una instrucción de ascenso o descenso puede darse otra que anule la anterior (Doc 9432, 3.3.3.2); en el ejemplo, «STOP DESCENT AT FL 150» se colacionaba igual. Es una instrucción de nivel: se colaciona siempre (Doc 4444, 4.5.7.5.1 c) y reemplaza el FL 100.",
+      "referencia": "Doc 9432 (4.ª ed.) 3.3.3.2; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-048",
+      "enunciado": "Departure: «AVIATORY 452, climb to FL 260, expedite until passing FL 200». Con tu peso no puedes subir más rápido de lo normal. ¿Qué respondes?",
+      "opciones": [
+        "«Unable to expedite, AVIATORY 452»",
+        "«Negative, AVIATORY 452»",
+        "«Roger, normal rate, AVIATORY 452»",
+        "«Standby on expedite, AVIATORY 452»"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (3.3.3.3): a «CLIMB TO ... EXPEDITE UNTIL PASSING ...» se responde colacionando o, si no se puede, con «UNABLE TO EXPEDITE». El Doc 4444 (4.7.1.3) exige informar si no puedes cumplir un régimen de ascenso o descenso, para que el controlador aplique sin demora otro método de separación. ROGER le haría creer que cumplirás.",
+      "referencia": "Doc 9432 (4.ª ed.) 3.3.3.3; Doc 4444 (15.ª ed.) 4.7.1.3",
+      "metadatos": { "nivel": 4, "leccion": 20 }
+    },
+    {
+      "id": "cm-ev-049",
+      "enunciado": "Approach: «AVIATORY 452, unknown traffic 11 o'clock, 5 miles, crossing left to right, fast moving». Lo buscas, no lo ves y prefieres que te separen. ¿Qué respondes?",
+      "opciones": [
+        "«Traffic in sight, AVIATORY 452»",
+        "«Unable, AVIATORY 452»",
+        "«Negative contact, request vectors, AVIATORY 452»",
+        "«Negative, say again the traffic position please, AVIATORY 452»"
+      ],
+      "correcta": 2,
+      "explicacion": "La respuesta modelo es del Doc 9432 (6.4.2): «NEGATIVE CONTACT, REQUEST VECTORS». Los vectores los puede ofrecer el controlador o pedirlos el piloto, y el controlador avisa cuando cesa el conflicto. Decir «traffic in sight» sin verlo es falso y quita la protección. La información de tránsito ya trae marcación en la esfera del reloj, distancia y dirección de vuelo (6.4.1), y «please» sobra (3.1.4).",
+      "referencia": "Doc 9432 (4.ª ed.) 3.1.4, 6.4.1 y 6.4.2",
+      "metadatos": { "nivel": 4, "leccion": 21 }
+    },
+    {
+      "id": "cm-ev-050",
+      "enunciado": "En aproximación final, ¿a partir de qué punto no debería aplicarte el ATC control de velocidad, según el Doc 4444?",
+      "opciones": [
+        "A 8 NM del umbral",
+        "A 4 NM del umbral",
+        "Al punto de aproximación final",
+        "A 1 000 ft sobre la pista"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 4444 (4.6.3.7): no debería aplicarse control de velocidad después de que la aeronave pase un punto a 7 km (4 NM) del umbral en la aproximación final. En la aproximación intermedia y final solo se usan ajustes menores, que no excedan de ±20 kt IAS (4.6.3.6).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.6.3.6 y 4.6.3.7",
+      "metadatos": { "nivel": 4, "leccion": 22 }
+    },
+    {
+      "id": "cm-ev-051",
+      "enunciado": "Control te asignó mantener una velocidad y ahora te transfiere a otra frecuencia. ¿Qué incluyes en la llamada inicial?",
+      "opciones": [
+        "Solo tu distintivo y la posición",
+        "La velocidad solo si te la preguntan",
+        "El nivel, el rumbo y la hora estimada",
+        "El nivel y la velocidad asignada"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 4444 (4.11.2.1.1 y 4.11.2.2): en la llamada inicial después de un cambio de canal se incluye el nivel de vuelo o la altitud, y la velocidad asignada también, se requiera o no un informe de posición completo. Donde la autoridad ATS lo disponga, esa llamada lleva además el nivel de paso y el autorizado si no lo mantienes (4.11.3).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.11.2.1.1, 4.11.2.2 y 4.11.3",
+      "metadatos": { "nivel": 4, "leccion": 22 }
+    },
+    {
+      "id": "cm-ev-052",
+      "enunciado": "¿En qué orden van los elementos de un reporte de posición completo?",
+      "opciones": [
+        "Identificación, posición, hora, nivel, próxima posición y hora, punto siguiente",
+        "Posición, identificación, nivel, hora, próxima posición y velocidad asignada",
+        "Identificación, nivel, posición, hora, velocidad y punto significativo siguiente",
+        "Identificación, posición, nivel, hora estimada de destino y autonomía restante"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (3.4.1) y Doc 4444 (4.11.2.1): 1) identificación; 2) posición; 3) hora; 4) nivel, con el de paso y el autorizado si no lo mantienes; 5) próxima posición y hora sobre ella; 6) punto significativo siguiente. Los tres últimos pueden omitirse por acuerdo regional, pero el nivel va siempre en la llamada inicial tras un cambio de frecuencia (4.11.2.1.1).",
+      "referencia": "Doc 9432 (4.ª ed.) 3.4.1; Doc 4444 (15.ª ed.) 4.11.2.1 y 4.11.2.1.1",
+      "metadatos": { "nivel": 4, "leccion": 24 }
+    },
+    {
+      "id": "cm-ev-053",
+      "enunciado": "En el primer contacto, Approach te dice: «AVIATORY 452, descend to 6 000 feet, QNH 1011, expect ILS approach runway 13», sin nivel de transición. ¿Por qué puede omitirlo?",
+      "opciones": [
+        "Porque por debajo de FL 100 no se usa nivel de transición",
+        "Porque el QNH ya reemplaza al nivel de transición",
+        "Porque está publicado, por ejemplo en la AIP nacional",
+        "Porque en una aproximación ILS no hace falta ese dato"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (7.3.1): en el contacto inicial la dependencia de aproximación normalmente comunica el tipo de aproximación previsto, y cuando el nivel de transición se publica, por ejemplo en la AIP nacional, se puede omitir. Si te lo dan, se colaciona (Doc 4444, 4.5.7.5.1 c), igual que el nivel y el QNH.",
+      "referencia": "Doc 9432 (4.ª ed.) 7.3.1; Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 4, "leccion": 27 }
+    },
+    {
+      "id": "cm-ev-054",
+      "enunciado": "Haces una aproximación directa y todavía no tienes autorización de aterrizaje. ¿Cuándo notificas «FINAL»?",
+      "opciones": [
+        "A unas 8 NM del umbral, junto con «LONG FINAL»",
+        "A unas 4 NM de la toma de contacto",
+        "Al interceptar la trayectoria de planeo",
+        "Al pasar la altitud de decisión"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (4.7.1): en aproximación directa se notifica «LONG FINAL» a unos 15 km (8 NM) del punto de toma de contacto y, si en ese momento no se ha recibido la autorización de aterrizaje, «FINAL» a los 7 km (4 NM). Si el viraje a final se hace a 4 NM o menos, se notifica directamente «FINAL».",
+      "referencia": "Doc 9432 (4.ª ed.) 4.7.1",
+      "metadatos": { "nivel": 4, "leccion": 29 }
+    },
+    {
+      "id": "cm-ev-055",
+      "enunciado": "Tower: «AVIATORY 452, runway 31 cleared to land, wind 290 degrees 12 knots». ¿Qué colacionas?",
+      "opciones": [
+        "«Runway 31 cleared to land, AVIATORY 452»",
+        "«Cleared to land, wind 290 at 12, AVIATORY 452»",
+        "«Roger, cleared to land, AVIATORY 452»",
+        "«Landing, wind copied, AVIATORY 452»"
+      ],
+      "correcta": 0,
+      "explicacion": "La autorización de aterrizaje y la pista se colacionan siempre (Doc 4444, 4.5.7.5.1 b); el viento no está en esa lista. Es el modelo del Doc 9432 (4.7.1): el piloto responde pista, «CLEARED TO LAND» y su distintivo. Sin el número de pista, el controlador no puede detectar que entendiste otra.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 b); Doc 9432 (4.ª ed.) 4.7.1",
+      "metadatos": { "nivel": 4, "leccion": 29 }
+    },
+    {
+      "id": "cm-ev-056",
+      "enunciado": "En corto final escuchas: «AVIATORY 452, go around, aircraft on the runway». ¿Qué respondes mientras ejecutas la maniobra?",
+      "opciones": [
+        "«Roger, go around, AVIATORY 452»",
+        "«Missed approach, AVIATORY 452»",
+        "«Going around, AVIATORY 452»",
+        "«Wilco, AVIATORY 452»"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (4.8.1 y 4.8.3): la respuesta a la orden es «GOING AROUND» con el distintivo, y es la misma frase cuando el piloto inicia la maniobra por su cuenta. En motor y al aire la carga de trabajo es alta y las transmisiones deben ser breves. En una aproximación por instrumentos, sin otra instrucción, se vuela el procedimiento de aproximación frustrada (4.8.2).",
+      "referencia": "Doc 9432 (4.ª ed.) 4.8.1, 4.8.2 y 4.8.3",
+      "metadatos": { "nivel": 4, "leccion": 30 }
+    },
+    {
+      "id": "cm-ev-057",
+      "enunciado": "Approach: «AVIATORY 452, low altitude warning, check your altitude immediately, QNH is 1009, the minimum flight altitude is 2 800 feet». ¿Qué te está diciendo?",
+      "opciones": [
+        "Que tu transpondedor dejó de transmitir la altitud",
+        "Que tienes un tránsito por debajo a 2 800 pies",
+        "Que el QNH cambió y solo debes reajustar el altímetro",
+        "Que te ve por debajo de una altitud segura: actúa ya"
+      ],
+      "correcta": 3,
+      "explicacion": "Es la fraseología de alerta del Doc 9432 (6.7.1): cuando se genera una advertencia de altitud mínima de seguridad (MSAW), el controlador informa a la aeronave y da instrucciones, con el QNH y la altitud mínima de vuelo. INMEDIATAMENTE solo se usa cuando la seguridad exige una medida inmediata (3.1.5): compruebas altitud y QNH y corriges sin demora.",
+      "referencia": "Doc 9432 (4.ª ed.) 3.1.5 y 6.7.1",
+      "metadatos": { "nivel": 4, "leccion": 27 }
+    },
+    {
+      "id": "cm-ev-058",
+      "enunciado": "Tienes seleccionado el código 4617 y el controlador dice: «AVIATORY 452, confirm squawk». ¿Qué respondes?",
+      "opciones": [
+        "«Affirm, AVIATORY 452»",
+        "«AVIATORY 452, squawking 4617»",
+        "«Squawk ident, AVIATORY 452»",
+        "«Roger, squawk confirmed, AVIATORY 452»"
+      ],
+      "correcta": 1,
+      "explicacion": "CONFIRM SQUAWK pide confirmar el modo y el código seleccionados en el transpondedor (Doc 9432, 6.5.1), y en el ejemplo el piloto responde con el código: «SQUAWKING (código)» (6.5.2). AFFIRM o ROGER no le dan al controlador el dato que necesita comparar.",
+      "referencia": "Doc 9432 (4.ª ed.) 6.5.1 y 6.5.2",
+      "metadatos": { "nivel": 5, "leccion": 31 }
+    },
+    {
+      "id": "cm-ev-059",
+      "enunciado": "Pierdes la capacidad de transmitir por radio. Según el Doc 9432, ¿qué código SSR se espera que selecciones?",
+      "opciones": [
+        "7700",
+        "7500",
+        "7600",
+        "2000"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (6.6, Nota): «se espera que las aeronaves que experimenten problemas de radiocomunicaciones seleccionen el código SSR 7600». El resto del procedimiento de falla de comunicaciones está en documentos que este módulo no tiene cargados (Anexo 2 y Doc 4444, cap. 15) y en la AIP de cada Estado.",
+      "referencia": "Doc 9432 (4.ª ed.) 6.6, Nota",
+      "metadatos": { "nivel": 5, "leccion": 32 }
+    },
+    {
+      "id": "cm-ev-060",
+      "enunciado": "Recibes al ATC pero él no te oye. Escuchas: «AVIATORY 452, reply not received, if you read Bogota Control turn left heading 250». ¿Qué haces?",
+      "opciones": [
+        "Viras al 250: así el radar confirma que recibes",
+        "Repites la colación más fuerte hasta que te conteste",
+        "Mantienes rumbo: sin colación no hay instrucción válida",
+        "Seleccionas 7700 y mantienes el rumbo que llevabas"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9432 (6.6): cuando el controlador sospecha que la aeronave recibe pero no transmite, usa el radar para confirmar que el piloto recibió la instrucción; en el ejemplo responde «TURN OBSERVED ... WILL CONTINUE RADAR CONTROL». La misma técnica se usa con «SQUAWK IDENT». El código esperado para problemas de radiocomunicaciones es el 7600 (Nota de 6.6).",
+      "referencia": "Doc 9432 (4.ª ed.) 6.6 y su Nota",
+      "metadatos": { "nivel": 5, "leccion": 32 }
+    },
+    {
+      "id": "cm-ev-061",
+      "enunciado": "Haces una prueba de radio y la torre te contesta: «AVIATORY 452, reading you three». ¿Qué significa?",
+      "opciones": [
+        "Perfectamente inteligible",
+        "Inteligible por momentos",
+        "Ininteligible: no se le entiende",
+        "Inteligible pero con dificultad"
+      ],
+      "correcta": 3,
+      "explicacion": "Escala del Doc 9432 (2.8.4.3): 1 ininteligible, 2 inteligible por momentos, 3 inteligible pero con dificultad, 4 inteligible, 5 perfectamente inteligible. La prueba lleva la estación llamada, tu identificación, «RADIO CHECK» y la frecuencia (2.8.4.1).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.4.1 y 2.8.4.3",
+      "metadatos": { "nivel": 5, "leccion": 32 }
+    },
+    {
+      "id": "cm-ev-062",
+      "enunciado": "¿Entre qué niveles se aplica la separación vertical mínima reducida de 1 000 ft (RVSM)?",
+      "opciones": [
+        "Entre FL 290 y FL 410, inclusive",
+        "Entre FL 280 y FL 400, inclusive",
+        "Por encima de FL 410 únicamente",
+        "Entre FL 250 y FL 450, inclusive"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 4444 (2.6.1.1, Nota 1): RVSM es la separación vertical mínima reducida de 300 m (1 000 ft) entre FL 290 y FL 410 inclusive. El explotador se asegura antes de la salida de que la aeronave tiene la aprobación RVSM cuando se prevé operar en ese espacio aéreo (4.4.1.4 b).",
+      "referencia": "Doc 4444 (15.ª ed.) 2.6.1.1, Nota 1, y 4.4.1.4 b)",
+      "metadatos": { "nivel": 5, "leccion": 39 }
+    },
+    {
+      "id": "cm-ev-063",
+      "enunciado": "En crucero en espacio RVSM falla parte del sistema de altimetría y la performance del avión queda por debajo de la requerida para ese espacio. ¿Qué exige el Doc 4444?",
+      "opciones": [
+        "Notificarlo en el reporte técnico después del aterrizaje",
+        "Notificarlo sin demora a la dependencia ATC",
+        "Descender por debajo de FL 290 y luego avisar",
+        "Avisar solo si el controlador te pregunta el nivel"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 4444 (5.2.2): si por falla o deterioro de los sistemas de navegación, comunicaciones, altimetría, mando de vuelo u otros la performance queda por debajo del nivel requerido para el espacio aéreo, la tripulación lo notifica sin demora a la dependencia ATC. Si la falla afecta la mínima de separación en uso, el controlador establece otro tipo de separación.",
+      "referencia": "Doc 4444 (15.ª ed.) 5.2.2",
+      "metadatos": { "nivel": 5, "leccion": 39 }
+    },
+    {
+      "id": "cm-ev-064",
+      "enunciado": "Llamas por primera vez a la torre de un aeródromo que tiene ATIS, y ya lo escuchaste. ¿Qué haces con la letra del ATIS?",
+      "opciones": [
+        "No la dices: el controlador ya sabe cuál es la vigente",
+        "La dices solo si el QNH cambió desde la última hora",
+        "La mencionas: se acusa recibo del ATIS en esa llamada",
+        "La dices después, al pedir la autorización de aterrizaje"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (4.6.2): cuando hay ATIS se acusa recibo de la radiodifusión al llamar al aeródromo la primera vez (en el ejemplo, «INFORMATION BRAVO»). Lo mismo se hace al pedir la puesta en marcha (4.2.2) y en el primer contacto con aproximación (7.3.1).",
+      "referencia": "Doc 9432 (4.ª ed.) 4.2.2, 4.6.2 y 7.3.1",
+      "metadatos": { "nivel": 6, "leccion": 41 }
+    },
+    {
+      "id": "cm-ev-065",
+      "enunciado": "El ATIS trae pista en uso, viento, temperatura, QNH y nivel de transición. ¿Cuáles de esos elementos están en la lista de colación del Doc 4444?",
+      "opciones": [
+        "Pista en uso, QNH y nivel de transición",
+        "Todos: lo que viene del ATIS se colaciona entero",
+        "Ninguno: la información del ATIS no se colaciona",
+        "Viento, temperatura y QNH"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 4444 (4.5.7.5.1 c): pista en uso, reglajes de altímetro, códigos SSR, instrucciones de nivel, rumbo y velocidad y niveles de transición se colacionan, ya los dé el controlador o vengan en las radiodifusiones ATIS. Viento y temperatura no están en la lista. Cómo aplica cada Estado la colación de lo que viene por ATIS se consulta en su AIP.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 c)",
+      "metadatos": { "nivel": 6, "leccion": 41 }
+    },
+    {
+      "id": "cm-ev-066",
+      "enunciado": "Recibes por CPDLC una instrucción de nivel. ¿Tienes que colacionarla por voz?",
+      "opciones": [
+        "Sí, siempre: toda instrucción de nivel se colaciona",
+        "Sí, pero solo en espacio aéreo RVSM",
+        "No, y tampoco se responde por enlace de datos",
+        "No, salvo que lo prescriba la autoridad ATS"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 4444 (4.5.7.5.2.1): a menos que lo prescriba la autoridad ATS competente, no se requiere la colación oral de mensajes CPDLC. La nota remite el intercambio y el acuse de recibo de los mensajes CPDLC al Anexo 10 Vol. II y al cap. 14 de los PANS-ATM: el mensaje se responde, pero por el enlace de datos.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.2.1 y su Nota",
+      "metadatos": { "nivel": 6, "leccion": 44 }
+    },
+    {
+      "id": "cm-ev-067",
+      "enunciado": "Vas a entrar en un espacio aéreo donde la dependencia ATS requiere aplicaciones de enlace de datos. ¿Cuándo debe iniciarse la conexión (DLIC)?",
+      "opciones": [
+        "Con el primer contacto por voz ya dentro",
+        "Antes de entrar en ese espacio aéreo",
+        "Al recibir la primera instrucción CPDLC",
+        "Al pasar el primer punto de notificación"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 4444 (4.15.1.1): antes de entrar en el espacio aéreo donde la dependencia ATS requiere enlace de datos, se inician las comunicaciones para registrar la aeronave; lo inicia la aeronave, automáticamente o por el piloto, o la dependencia ATS. La dirección DLIC de cada dependencia se publica en la AIP (4.15.1.2) y la dependencia no debe rechazar un mensaje de iniciación (4.15.2).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.15.1.1, 4.15.1.2 y 4.15.2",
+      "metadatos": { "nivel": 6, "leccion": 43 }
+    },
+    {
+      "id": "cm-ev-068",
+      "enunciado": "En una frecuencia HF escuchas que otra tripulación termina su mensaje con «OVER». ¿Qué significa y por qué casi no lo oyes en VHF?",
+      "opciones": [
+        "«Terminé y espero respuesta»; normalmente no se usa en VHF",
+        "«Terminé y no espero respuesta»; en VHF lo reemplaza ROGER",
+        "«Cambio de frecuencia»; en VHF se dice CONTACT",
+        "«Repita el mensaje»; en VHF se usa SAY AGAIN"
+      ],
+      "correcta": 0,
+      "explicacion": "OVER: «mi transmisión ha terminado y espero su respuesta»; OUT: «este intercambio de transmisiones ha terminado y no se espera respuesta». Las notas del Doc 9432 (2.6) dicen que ninguna de las dos se utiliza normalmente en VHF. Cuando la recepción es difícil, también conviene repetir los elementos importantes (2.8.1.8).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 2.8.1.8",
+      "metadatos": { "nivel": 6, "leccion": 48 }
+    },
+    {
+      "id": "cm-ev-069",
+      "enunciado": "Vuelas una ruta que no está definida por puntos de notificación designados. Si la dependencia no pide otra cosa, ¿cuándo das los reportes de posición?",
+      "opciones": [
+        "Cada 30 minutos, contados desde el despegue",
+        "Solo al cruzar un límite de FIR",
+        "Tras la primera media hora, luego cada hora",
+        "Cada vez que cambies de nivel de vuelo"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 4444 (4.11.1.2): en rutas no definidas por puntos significativos designados, los informes de posición se dan tan pronto como sea posible después de la primera media hora de vuelo y luego a intervalos de una hora; la dependencia puede pedir informes más seguidos. En rutas definidas por puntos, se reporta al pasar cada punto de notificación obligatoria (4.11.1.1), salvo exención de la autoridad ATS (4.11.1.3).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.11.1.1 a 4.11.1.3",
+      "metadatos": { "nivel": 6, "leccion": 50 }
+    },
+    {
+      "id": "cm-ev-070",
+      "enunciado": "Oyes «AVIATORY 452, descend to FL 200, ...» y el resto llega tapado por un ruido. Lo recibido hasta «FL 200» está claro. ¿Qué pides?",
+      "opciones": [
+        "«Say again all before FL 200»",
+        "«Confirm FL 200»",
+        "«Words twice»",
+        "«Say again all after FL 200»"
+      ],
+      "correcta": 3,
+      "explicacion": "Doc 9432 (2.8.1.4): «SAY AGAIN ALL AFTER» seguido de la última palabra recibida bien pide repetir lo que siguió; «ALL BEFORE» pide lo anterior a la primera palabra recibida bien. CONFIRM solo verifica lo que ya tienes, y WORDS TWICE pide que cada palabra se transmita dos veces porque la comunicación es difícil (2.6).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.8.1.4 y 2.6",
+      "metadatos": { "nivel": 7, "leccion": 53 }
+    },
+    {
+      "id": "cm-ev-071",
+      "enunciado": "Crees haber oído que te autorizan a FL 150, pero la transmisión fue rápida y no estás seguro del número. ¿Qué es lo correcto?",
+      "opciones": [
+        "Colacionar FL 150 y esperar que el controlador corrija",
+        "Pedir verificación con CONFIRM y el nivel que crees",
+        "Responder ROGER y preguntar más adelante",
+        "Ir al nivel más conservador mientras aclaras"
+      ],
+      "correcta": 1,
+      "explicacion": "Si hay dudas de que un mensaje se recibió bien, se pide repetición (Doc 9432, 2.8.1.4) o verificación con CONFIRM, «solicito verificación de...» (2.6). El Doc 9835 (4.6.7) describe al nivel 4 como el que ante posibles malentendidos verifica, confirma o clarifica, y dice que es más seguro pedir aclaración que dejar que el silencio pase por comprensión. Colacionar con dudas deja todo en manos del hearback del controlador.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.6 y 2.8.1.4; Doc 9835 (2.ª ed.) 4.6.7",
+      "metadatos": { "nivel": 7, "leccion": 53 }
+    },
+    {
+      "id": "cm-ev-072",
+      "enunciado": "Toda la aproximación te prepararon para la pista 13. En corto final la torre transmite algo con «runway 31» que no esperabas. ¿Qué haces?",
+      "opciones": [
+        "Pides CONFIRM de la pista antes de actuar",
+        "Sigues a la 13: es la que tienes en la carta",
+        "Colacionas «31» y sigues preparado para la 13",
+        "Lo ignoras: seguro era para otro tránsito"
+      ],
+      "correcta": 0,
+      "explicacion": "El Doc 9835 (4.6.6) insiste en que el piloto debe comprender las instrucciones del controlador especialmente cuando difieren de lo que anticipaba escuchar. Lo que no calza con lo esperado se verifica con CONFIRM (Doc 9432, 2.6). Asumir que era para otro, o colacionar sin procesar, es como pasa un error de expectativa.",
+      "referencia": "Doc 9835 (2.ª ed.) 4.6.6; Doc 9432 (4.ª ed.) 2.6",
+      "metadatos": { "nivel": 7, "leccion": 55 }
+    },
+    {
+      "id": "cm-ev-073",
+      "enunciado": "En la misma frecuencia vuelan AVIATORY 452 y AVIATORY 425. Según el Doc 9432, ¿qué puede hacer el ATC para evitar confusiones?",
+      "opciones": [
+        "Pasar a uno de los dos a otra frecuencia hasta aterrizar",
+        "Asignarles el mismo código SSR para identificarlos",
+        "Cambiarle a uno, temporalmente, el tipo de distintivo",
+        "Dar instrucciones a uno de ellos solo por CPDLC"
+      ],
+      "correcta": 2,
+      "explicacion": "Doc 9432 (2.7.2.3): las aeronaves no cambian el tipo de distintivo durante el vuelo, salvo cuando distintivos similares pueden causar confusión; entonces la dependencia ATC puede darles instrucciones de modificarlo temporalmente. Terminar cada colación con tu distintivo (2.8.3.7) es la otra defensa: el controlador escucha quién colacionó.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.7.2.3 y 2.8.3.7",
+      "metadatos": { "nivel": 7, "leccion": 56 }
+    },
+    {
+      "id": "cm-ev-074",
+      "enunciado": "Después de transmitir, nadie te responde, la frecuencia parece muerta y el indicador de transmisión de tu radio sigue encendido. ¿Qué está pasando?",
+      "opciones": [
+        "El ATC te dejó en STANDBY sin decírtelo",
+        "Tu micrófono quedó trabado transmitiendo",
+        "Tu receptor falló y debes seleccionar 7600",
+        "Otra estación está interfiriendo con su portadora"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9432 (2.2.2): un interruptor de micrófono trabado es una situación molesta y potencialmente peligrosa: mientras sigas transmitiendo, nadie más puede usar la frecuencia, tampoco el ATC. Después de cada transmisión hay que asegurarse de que el interruptor quedó libre y guardar el micrófono donde no se active sin querer.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.2.2",
+      "metadatos": { "nivel": 7, "leccion": 57 }
+    },
+    {
+      "id": "cm-ev-075",
+      "enunciado": "¿Por qué se dice «runway one zero» y no «runway ten»?",
+      "opciones": [
+        "Porque los números de pista se dicen con el alfabeto",
+        "Porque «ten» solo se usa en los rumbos radar",
+        "Porque así lo pide la torre para pistas paralelas",
+        "Porque «ten» puede entenderse como «turn»"
+      ],
+      "correcta": 3,
+      "explicacion": "Los números se transmiten dígito por dígito, salvo centenas y millares enteros de altitud, nubes, visibilidad y RVR (Doc 9432, 2.4.2 y 2.4.3); la pista 27 se dice «pista dos siete». El Doc 9835 (3.3.11) usa justo este ejemplo: «ten» podría interpretarse como «turn», con riesgo para las maniobras en tierra.",
+      "referencia": "Doc 9432 (4.ª ed.) 2.4.2 y 2.4.3; Doc 9835 (2.ª ed.) 3.3.11",
+      "metadatos": { "nivel": 7, "leccion": 61 }
+    },
+    {
+      "id": "cm-ev-076",
+      "enunciado": "El Doc 9835 cita la instrucción «descend two four zero zero feet», que terminó en accidente. ¿Qué malentendido hubo?",
+      "opciones": [
+        "«Two» sonó como «to»: el piloto entendió 400 ft",
+        "El piloto entendió FL 240 en lugar de 2 400 ft",
+        "El piloto no escuchó la unidad y bajó en metros",
+        "El controlador omitió el QNH y el piloto usó 1013"
+      ],
+      "correcta": 0,
+      "explicacion": "Doc 9835 (3.3.7 a): la semejanza de pronunciación entre «two» y «to» hizo que el piloto interpretara 400 pies en lugar de 2 400; la aeronave se estrelló contra el suelo. Por eso importa la forma normalizada de las altitudes, con millares y centenas enteros (Doc 9432, 2.4.3), y por eso la colación del valor completo es una barrera.",
+      "referencia": "Doc 9835 (2.ª ed.) 3.3.7 a); Doc 9432 (4.ª ed.) 2.4.3",
+      "metadatos": { "nivel": 7, "leccion": 61 }
+    },
+    {
+      "id": "cm-ev-077",
+      "enunciado": "El controlador habla muy rápido y se te escapan datos de una autorización. ¿Qué frase normalizada usas?",
+      "opciones": [
+        "«Standby»",
+        "«Words twice»",
+        "«Speak slower»",
+        "«Say again slowly please»"
+      ],
+      "correcta": 2,
+      "explicacion": "SPEAK SLOWER: «disminuya la velocidad al hablar» (Doc 9432, 2.6). WORDS TWICE es para cuando la comunicación es difícil, no para la velocidad. «Please» sobra: el Doc 9432 (3.1.4) pide evitar expresiones de cortesía. La referencia general es no pasar de 100 palabras por minuto (2.2.1 d).",
+      "referencia": "Doc 9432 (4.ª ed.) 2.2.1 d), 2.6 y 3.1.4",
+      "metadatos": { "nivel": 7, "leccion": 53 }
+    },
+    {
+      "id": "cm-ev-078",
+      "enunciado": "Un piloto colombiano habla inglés con acento marcado del español. ¿Puede obtener nivel 6 (experto) en pronunciación?",
+      "opciones": [
+        "No: el nivel 6 exige pronunciación de hablante nativo",
+        "Sí, si su acento casi nunca interfiere con la comprensión",
+        "Solo si su acento corresponde a una variante regional del inglés",
+        "No: con acento marcado el techo es el nivel 4"
+      ],
+      "correcta": 1,
+      "explicacion": "Doc 9835 (4.6.2): quien revela claramente que el idioma evaluado no es su lengua materna puede obtener nivel 6 si su pronunciación «casi nunca» interfiere con la facilidad de comprensión. Lo que se evalúa es la inteligibilidad, no el acento. Al revés, un hablante nativo con un dialecto regional muy localizado puede quedar en nivel 2.",
+      "referencia": "Doc 9835 (2.ª ed.) 4.6.2",
+      "metadatos": { "nivel": 7, "leccion": 54 }
+    },
+    {
+      "id": "cm-ev-079",
+      "enunciado": "Delivery: «AVIATORY 452, cleared to Medellin via W5, FL 190, RUMAK 1B departure, squawk 3321» (ruta y salida ficticias). ¿Qué colacionas?",
+      "opciones": [
+        "Solo el nivel y el código: la ruta ya está en el plan de vuelo",
+        "Solo el código SSR: lo demás ya está cargado en el FMS",
+        "Todo: límite, ruta, nivel, salida y código, con tu distintivo",
+        "ROGER y el código; la ruta se confirma luego con Departure"
+      ],
+      "correcta": 2,
+      "explicacion": "Las autorizaciones de ruta se colacionan siempre, igual que los códigos SSR y las instrucciones de nivel (Doc 4444, 4.5.7.5.1 a y c). El modelo del Doc 9432 (2.8.3.6) repite la autorización completa y termina con el distintivo (2.8.3.7). Es la única forma de que el controlador compruebe que lo que cargas en el FMS es lo que te autorizó.",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 a) y c); Doc 9432 (4.ª ed.) 2.8.3.6 y 2.8.3.7",
+      "metadatos": { "nivel": 8, "leccion": 68 }
+    },
+    {
+      "id": "cm-ev-080",
+      "enunciado": "Approach: «AVIATORY 452, turn left heading 270, descend to FL 140, squawk 5207». ¿Cuál colación está bien construida?",
+      "opciones": [
+        "«Roger, heading 270, 140, AVIATORY 452»",
+        "«Left heading 270, descending to FL 140, squawk 5207, AVIATORY 452»",
+        "«AVIATORY 452, left 270, descending 140, 5207»",
+        "«Left heading 270, descending to 14 000 feet, squawk 5207, AVIATORY 452»"
+      ],
+      "correcta": 1,
+      "explicacion": "Rumbo, nivel y código SSR están en la lista de colación obligatoria (Doc 4444, 4.5.7.5.1 c). Un nivel de vuelo va precedido de «FLIGHT LEVEL» y una altitud va seguida de «FEET» (Nota del mismo párrafo), así que cambiar FL 140 por 14 000 ft es otro valor. La colación termina con el distintivo (Doc 9432, 2.8.3.7), y ROGER no reemplaza la colación (2.6).",
+      "referencia": "Doc 4444 (15.ª ed.) 4.5.7.5.1 c) y su Nota; Doc 9432 (4.ª ed.) 2.6 y 2.8.3.7",
+      "metadatos": { "nivel": 8, "leccion": 68 }
+    }
+  ]
+}
