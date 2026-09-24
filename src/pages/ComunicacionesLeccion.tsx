@@ -31,8 +31,8 @@ const MODULO: LectorModulo = {
   rotulo: "Comunicaciones ATC · Módulo",
   hub: CM_HUB,
   portadas: "/modulos/comunicaciones",
-  // Como Mercancías y Aeropuertos: portadas diseñadas, a 16:9.
-  portadaRatio: "16 / 9",
+  // Franja editorial baja, como NOTAM: acompaña al texto sin dominar la hoja.
+  portadaRatio: "8 / 3",
   actividad: "comunicaciones-leccion",
   lecciones: CM_LECCIONES,
   niveles: CM_NIVELES,

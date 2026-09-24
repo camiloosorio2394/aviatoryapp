@@ -54,7 +54,7 @@ export const NIVEL_1: DocScreen[] = [
         kind: "callout",
         tone: "info",
         title: "Sobre los ejemplos de este módulo",
-        text: "Los ejemplos del Doc 9432 usan distintivos y lugares ficticios (FASTAIR 345, STEPHENVILLE, GEORGETOWN). Aquí se adaptan a `AVIATORY 452` y a estaciones colombianas de ejemplo («Bogota Ground», «Bogota Approach»). **Son ejemplos educativos**: frecuencias, puestos, waypoints (GIKOS y similares) y SID son ficticios. Lo real está en el AIP de cada Estado. La fraseología va en inglés, como la usa el piloto. Lo que no es fraseología normalizada va rotulado **PLAIN LANGUAGE**. Los números en las transmisiones se escriben en cifras para leerlos rápido; la lección 5 explica cómo se pronuncian.",
+        text: "El Doc 9432 combina fraseología con ejemplos ficticios. Las transmisiones de práctica de esta lección que usan `AVIATORY 452` también son **simulaciones**, no grabaciones ni autorizaciones vigentes: sus frecuencias, puntos y procedimientos deben contrastarse con el AIP actual antes de cualquier uso operacional. La historieta de abajo es distinta: reconstruye, sin atribuir diálogos inventados a los protagonistas, la secuencia documentada del vuelo US Airways 1549 entre LaGuardia y Charlotte. La fraseología de ejemplo se muestra en inglés; `PLAIN LANGUAGE` identifica el lenguaje no normalizado. La lección 5 explica cómo pronunciar los números.",
       },
       { kind: "sub", text: "¿Qué es?" },
       {
@@ -108,27 +108,51 @@ export const NIVEL_1: DocScreen[] = [
         text: "El Preámbulo del Doc 9432 añade un punto que un piloto latinoamericano vive todos los días: a menudo ni quien transmite ni quien recibe habla en su primer idioma. Por eso las transmisiones deben ser lentas y claras, y las frases directas, sin modismos, se entienden mejor que las indirectas o coloquiales.",
       },
       {
-        kind: "hueco",
-        rotulo: "CM-01-01 · Diagrama · 16:9 · 1600×900",
-        descripcion:
-          "Vista lateral esquemática de un vuelo de línea (despegue, ascenso, crucero, descenso, aproximación). Sobre la trayectoria, la aeronave en tres posiciones unidas por líneas de radio punteadas a tres dependencias en tierra: torre de control (junto a la pista de salida), dependencia de aproximación (radar terminal) y centro de control de área (edificio con pantallas, en ruta). En cada línea, un rótulo corto en mono mayúsculas: TOWER, APPROACH, CONTROL. Al pie, franja con las palabras CLARO · BREVE · PRECISO · ESTÁNDAR. Objetivo: que el piloto vea que durante un vuelo habla con varias dependencias, cada una responsable de una parte, y que todas usan el mismo idioma normalizado.",
-        alto: 320,
-        ratio: "16 / 9",
+        kind: "figura",
+        src: "/modulos/comunicaciones/CM-01-01.webp",
+        alt: "Historieta de cuatro escenas: tripulación del vuelo 1549 en ascenso, encuentro con aves, controlador de salida de Nueva York y decisión de amaraje en el río Hudson.",
+        ancho: 1600,
+        alto: 900,
+        pie: "Caso real, ilustración interpretativa: US Airways 1549, LaGuardia–Charlotte, 15 de enero de 2009. Amplía la imagen para examinar las escenas; lee debajo la secuencia operacional. Fuente: NTSB, informe AAR-10/03, sección 1.1.",
       },
-      { kind: "sub", text: "Fraseología OACI" },
       {
         kind: "pasos",
         items: [
           {
-            rotulo: "Colación con corrección del controlador (hearback)",
+            rotulo: "1 · Salida: transmitir posición y autorización completa",
+            texto: "Tras despegar de LaGuardia, la tripulación contactó a la dependencia de salida e informó su altitud y el ascenso autorizado. El controlador emitió una nueva instrucción de ascenso. **Para el piloto de aerolínea, la tarea no es repetir un dato aislado:** hay que identificar el vuelo, entender el nuevo límite vertical, compararlo con la autorización anterior y confirmar lo que efectivamente se va a cumplir. La ruta prevista era LaGuardia–Charlotte; el informe del NTSB documenta esa secuencia antes del encuentro con aves.",
+          },
+          {
+            rotulo: "2 · Emergencia: prioridad, condición y capacidad",
+            texto: "Aproximadamente dos minutos después del despegue, la aeronave encontró aves y perdió casi todo el empuje de ambos motores. El comandante asumió el control, pidió al primer oficial la lista de doble falla de motor y comunicó la emergencia a salida: impacto con aves, pérdida de empuje en ambos motores e intención inicial de regresar a LaGuardia. El informe señala un detalle crucial de disciplina de frecuencia: las primeras palabras de emergencia coincidieron con otra transmisión y **no llegaron al controlador**. La cabina debe transmitir la condición y verificar que ATC la haya recibido; emitir una frase no equivale a haber establecido comunicación.",
+          },
+          {
+            rotulo: "3 · ATC responde; la tripulación evalúa, no acepta por reflejo",
+            texto: "El controlador acusó recibo y ofreció un rumbo y opciones de aterrizaje. La tripulación, mientras ejecutaba tareas de cabina y evaluaba la energía disponible, no trató la propuesta como una orden que pudiera cumplirse automáticamente. En una comunicación real, el piloto debe comunicar con claridad si una autorización es inviable y evitar una colación que sugiera una capacidad inexistente. Aquí el valor de la radio es crear una imagen compartida de la situación entre cabina y control, no solo mantener frases breves.",
+          },
+          {
+            rotulo: "4 · Decisión: «unable» y alternativa comunicada",
+            texto: "Cuando el controlador planteó la pista 13 de LaGuardia, el comandante respondió que no podían alcanzarla y que quizá terminarían en el Hudson. Esa respuesta puso una limitación operacional explícita sobre la mesa y permitió a ATC ajustar su apoyo a la decisión de la tripulación. El caso enseña a **decir lo que la aeronave puede o no puede hacer**, sostener la prioridad de volar el avión y mantener la información esencial circulando aun bajo carga de trabajo extrema. La ilustración resume hechos del informe; no pretende reproducir la cabina ni el radar con exactitud histórica.",
+          },
+        ],
+      },
+      { kind: "sub", text: "Fraseología y secuencia de radio" },
+      {
+        kind: "pasos",
+        items: [
+          {
+            rotulo: "Vuelo 1549: del ascenso normal a una emergencia real",
             codigo: tx(
-              "ATC:   AVIATORY 452, QNH 1003.",
-              "PILOT: QNH 1013, AVIATORY 452.",
-              "ATC:   AVIATORY 452, NEGATIVE I SAY AGAIN, QNH 1003.",
-              "PILOT: QNH 1003, AVIATORY 452.",
+              "SECUENCIA DOCUMENTADA POR NTSB · RESUMEN, NO TRANSCRIPCIÓN LITERAL",
+              "15:25:51 · CABINA → SALIDA: 700 ft, en ascenso a 5 000 ft.",
+              "           SALIDA → CABINA: continuar ascenso hasta 15 000 ft; la tripulación acusa recibo.",
+              "15:27:33 · CABINA → SALIDA: impacto de aves, pérdida de empuje en ambos motores, intención de regresar a LaGuardia.",
+              "           SALIDA → CABINA: ofrece viraje izquierdo rumbo 220°; la tripulación confirma el rumbo.",
+              "15:28:05 · SALIDA → CABINA: pregunta si pueden usar la pista 13.",
+              "           CABINA → SALIDA: no pueden; quizá deban amarar en el Hudson.",
             ),
             texto:
-              "**Significado:** el piloto colacionó mal el reglaje. El controlador escuchó la colación, detectó el error y lo corrigió con «NEGATIVE I SAY AGAIN» seguido del valor correcto (Doc 9432, 2.8.3.9). Así funciona la red: nadie actúa sobre un dato que no se confirmó.",
+              "**Qué debe detectar un piloto de aerolínea:** la comunicación cambió de una autorización de ascenso con límite vertical a una emergencia con capacidad de maniobra degradada. El controlador propuso opciones, pero la tripulación evaluó si realmente podía cumplirlas y comunicó la imposibilidad. No es un ejercicio de colacionar un número aislado. Los hechos y los tiempos proceden del informe NTSB AAR-10/03, §1.1; para estudiar las palabras exactas hay que acudir al registro del apéndice B. El primer MAYDAY se superpuso con otra transmisión y no llegó al controlador.",
           },
           {
             rotulo: "Un número ambiguo y su forma correcta",
@@ -233,7 +257,7 @@ export const NIVEL_1: DocScreen[] = [
           { kind: "sub", text: "Fuentes cargadas en este nivel" },
           {
             kind: "p",
-            text: "Doc 9432 «Manual de radiotelefonía» (4.ª ed., 2007, edición en español), Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012, edición en español, parcial) y Doc 9835 (2.ª ed., 2010). La 15.ª edición del Doc 4444 no es la vigente; cada lección marca con «Verificar» lo que hay que confirmar en la edición en vigor.",
+            text: "Doc 9432 «Manual de radiotelefonía» (4.ª ed., 2007, edición en español), Doc 4444 PANS-ATM (15.ª ed., Enm. 4, 2012, edición en español, parcial), Doc 9835 (2.ª ed., 2010) y NTSB AAR-10/03, §1.1 y apéndice B (https://www.ntsb.gov/investigations/accidentreports/reports/aar1003.pdf). La 15.ª edición del Doc 4444 no es la vigente; cada lección marca con «Verificar» lo que hay que confirmar en la edición en vigor.",
           },
           { kind: "sub", text: "Verificado" },
           {
