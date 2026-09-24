@@ -39,12 +39,13 @@ const CONTENIDO = [
   },
   {
     name: '@/lib/aeropuertosLeccion',
-    permitido: ['src/pages/AeropuertosLeccion.tsx'],
+    // El mapa visual solo se importa desde la pantalla diferida del catálogo.
+    permitido: ['src/pages/AeropuertosLeccion.tsx', 'src/lib/aeropuertosCatalogoImagenes.ts'],
     message: 'Trae las 22 lecciones de Aeropuertos. Niveles y conteos están en @/lib/aeropuertos.',
   },
   {
     name: '@/lib/aeropuertosCatalogo',
-    permitido: ['src/pages/AeropuertosCatalogo.tsx'],
+    permitido: ['src/pages/AeropuertosCatalogo.tsx', 'src/lib/aeropuertosCatalogoImagenes.ts'],
     message: 'Trae las 177 fichas del catálogo de Aeropuertos, que pesan como una lección entera.',
   },
   {
