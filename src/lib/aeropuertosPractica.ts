@@ -13,10 +13,9 @@
  * Enmienda 18, aplicable desde el 27 de noviembre de 2025, y Anexo 4 para las
  * cartas. Nada de FAA. Sin citas de artículo en el texto que ve el piloto.
  *
- * Las imágenes todavía no existen: cada ejercicio de reconocimiento lleva su
- * hueco rotulado con el código (AP-PRA-NN), la medida y qué tiene que mostrar.
- * La descripción del hueco nunca nombra la respuesta: si la nombrara, el
- * ejercicio se resolvería leyendo el rótulo.
+ * Cada ejercicio de reconocimiento usa una imagen sin rótulos que revelen la
+ * respuesta. Los huecos pendientes conservan el código y las indicaciones
+ * de producción hasta tener una imagen verificada.
  *
  * Los puntos de espera se dibujan siempre en patrón A2 o B2, nunca A1 ni B1, y
  * las dos líneas continuas del patrón A van del lado de espera.
@@ -54,7 +53,9 @@ interface ApBase {
 export interface ApReconoce extends ApBase {
   /** Señal pintada, letrero, luz, baliza o carta. Va como pastilla. */
   familia: string
-  hueco: ApHueco
+  /** Imagen de la prueba, sin rótulos que revelen la respuesta. */
+  imagen?: { src: string; alt: string; pie: string }
+  hueco?: ApHueco
   pregunta: string
 }
 
@@ -64,13 +65,12 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 1,
     leccion: 1,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-02",
-      medida: "Ilustración técnica · 16:9 · 1600×900",
-      descripcion:
-        "Desde un dron algo oblicuo sobre el extremo de una pista: el pavimento sigue más allá del extremo con exactamente la misma anchura y va cubierto de trazos amarillos a 45 grados, de 0,9 m de trazo y separados 30 m, con la punta apuntando hacia la pista. Ojo: sin ninguna flecha blanca sobre el eje y sin aviones rodando encima.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-02-reconoce-area.webp",
+      alt: "Vista aérea de un extremo de pista con pavimento continuo y marcas amarillas en ángulo más allá de la línea blanca transversal",
+      pie: "Observa dónde termina el eje blanco, si la superficie continúa y qué color tienen las marcas. Elige el área antes de abrir la explicación; la fotografía no te da por sí sola ninguna distancia declarada.",
     },
-    pregunta: "¿Qué área estás viendo?",
+    pregunta: "Si está declarada para frenar un despegue interrumpido, ¿qué área es?",
     opciones: [
       "La zona libre de obstáculos",
       "El área de seguridad de extremo de pista",
@@ -79,7 +79,7 @@ export const AP_RECONOCE: ApReconoce[] = [
     ],
     correcta: 3,
     explicacion:
-      "Se reconoce por dos cosas juntas: es pavimento y tiene la misma anchura que la pista. Aguanta un despegue abortado y por eso suma a la distancia de aceleración y parada. Los trazos en ángulo dicen que ahí no se aterriza, no se despega y no se rueda. La zona libre de obstáculos está en el mismo sitio pero no es pavimento: es aire limpio sobre terreno vigilado, llega 75 m a cada lado del eje prolongado y suma a la distancia de despegue disponible.",
+      "La zona de parada se extiende más allá del extremo de despegue y se prepara para que una aeronave pueda detenerse tras interrumpir el despegue; si está declarada, se suma a la distancia de aceleración y parada disponible. Los galones amarillos advierten que el pavimento no es pista utilizable para aterrizar, despegar ni rodar. La foto sola no demuestra que sea una zona de parada: un área pavimentada previa al umbral también puede llevar galones. Confirma la designación y las distancias declaradas en la información oficial del aeródromo; la zona libre de obstáculos es un volumen despejado, no una distancia de frenado.",
   },
   {
     id: "r02",

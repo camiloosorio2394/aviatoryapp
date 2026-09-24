@@ -282,7 +282,21 @@ export function AeropuertosPractice() {
             explicacion={reconoce.explicacion}
             onResponder={() => marcar(clave)}
           >
-            <Hueco hueco={reconoce.hueco} />
+            {reconoce.imagen ? (
+              <figure className="m-0">
+                <img
+                  src={reconoce.imagen.src}
+                  alt={reconoce.imagen.alt}
+                  className="block w-full rounded-xl object-cover"
+                  loading="lazy"
+                />
+                <figcaption className="mt-2 text-[12px] leading-relaxed text-muted-foreground">
+                  {reconoce.imagen.pie}
+                </figcaption>
+              </figure>
+            ) : reconoce.hueco ? (
+              <Hueco hueco={reconoce.hueco} />
+            ) : null}
           </Ejercicio>
         )}
 
