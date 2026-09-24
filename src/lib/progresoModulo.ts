@@ -2,7 +2,8 @@
  * Progreso de un módulo de curso (lecciones leídas y prácticas resueltas):
  * puente entre el respaldo local y la base. Lo comparten NOTAM, Meteorología,
  * Mercancías, Aerodinámica y Aeropuertos, que antes tenían una copia casi
- * idéntica de esto cada uno, y Comunicaciones ATC, que nació ya sobre él.
+ * idéntica de esto cada uno, y Performance, Comunicaciones ATC y MEL, que
+ * nacieron ya sobre él.
  *
  * Reglas:
  *   - El respaldo local siempre se escribe primero: el módulo funciona sin
@@ -42,6 +43,7 @@ export interface ConfigProgreso {
     | "user_aeropuertos_progress"
     | "user_performance_progress"
     | "user_comunicaciones_progress"
+    | "user_mel_progress"
   rpc:
     | "notam_mark_progress"
     | "metar_mark_progress"
@@ -50,6 +52,7 @@ export interface ConfigProgreso {
     | "aeropuertos_mark_progress"
     | "performance_mark_progress"
     | "comunicaciones_mark_progress"
+    | "mel_mark_progress"
   /** Lo que el respaldo local tiene leído y resuelto. */
   leerLocal: () => ProgresoRemoto
   /** Anota una marca en el respaldo local. */

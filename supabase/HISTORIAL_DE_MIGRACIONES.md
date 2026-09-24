@@ -154,11 +154,19 @@ versión del nombre de archivo, así que en `schema_migrations` hay dos filas po
 cada una: la del conector (`20260924203326` y siguientes) y la de la versión de
 archivo, insertada después para que `db push` no las vea pendientes.
 
+## Las tres de Comunicaciones ATC (verificadas el 24 de septiembre de 2026)
+
+`20260927000000_progreso_de_comunicaciones`, `20260927010000_evaluacion_de_comunicaciones`
+y `20260927020000_panel_y_logros_de_comunicaciones` están aplicadas en producción:
+se comprobó en `schema_migrations` el 24 de septiembre. Desde entonces la última
+aplicada es `20260927020000`. Entre `010000` y `020000` quedaron publicadas las
+seis funciones compartidas con los siete módulos del catálogo.
+
 ### La regla del orden, que es la que muerde
 
-<!-- ULTIMA_APLICADA: 20260926010000 -->
+<!-- ULTIMA_APLICADA: 20260927020000 -->
 
-**Toda migración nueva lleva una versión posterior a `20260926010000`.**
+**Toda migración nueva lleva una versión posterior a `20260927020000`.**
 
 No es burocracia. Seis funciones se republican enteras en cada migración de
 módulo —`private.secciones_leidas`, `private.practicas_hechas`,

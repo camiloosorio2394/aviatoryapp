@@ -71,6 +71,11 @@ const CONTENIDO = [
     permitido: ['src/pages/ComunicacionesPractice.tsx'],
     message: 'Trae la práctica completa de Comunicaciones ATC. Su total está en CM_PRACTICA_CONTEO (@/lib/comunicacionesConteo).',
   },
+  {
+    name: '@/lib/melLeccion',
+    permitido: ['src/pages/MelLeccion.tsx'],
+    message: 'Trae las 40 lecciones de MEL. Niveles y conteos están en @/lib/mel.',
+  },
 ]
 
 const CLIENTE_SUPABASE = {
