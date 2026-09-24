@@ -12,9 +12,10 @@
  * línea de qué es y qué significa para el piloto, y su imagen, que es una de
  * tres cosas:
  *
- *   hueco propio  → `AP-CAT-01` a `AP-CAT-69`, con la ficha de lo que la
- *                   imagen tiene que mostrar. Todavía no existe el archivo: se
- *                   pinta el hueco rotulado, como en las lecciones.
+ *   propia       → `AP-CAT-01` a `AP-CAT-69`, con la ficha de lo que la
+ *                   imagen tiene que mostrar. Sus activos están resueltos en
+ *                   `aeropuertosCatalogoImagenes.ts`; si faltara uno se vería
+ *                   el hueco rotulado, como en las lecciones.
  *   prestada      → la imagen ya se genera para una lección (`AP-LL-NN`) o para
  *                   otra ficha del catálogo (`AP-CAT-NN`). No se abre un código
  *                   nuevo ni se vuelve a generar la imagen.
@@ -23,8 +24,8 @@
  * En las prestadas de lección **manda el elemento, no el código**: si un nivel
  * renumera sus huecos, el código se vuelve a resolver buscando ese elemento.
  * Los siete que apuntan al nivel 3 (`AP-09-03`, `AP-09-04`, `AP-10-03`,
- * `AP-10-04`, `AP-10-05`, `AP-11-03` y `AP-12-05`) hay que volver a
- * comprobarlos cuando ese nivel quede cerrado.
+ * `AP-10-04`, `AP-10-05`, `AP-11-03` y `AP-12-05`) se resuelven por su
+ * elemento y se comprueban junto al catálogo.
  *
  * Las dos numeraciones no se cruzan: ninguna ficha del catálogo abre un hueco
  * con código de lección y ninguna lección usa un `AP-CAT`.
@@ -43,7 +44,7 @@ import { AP_APRENDE } from "@/lib/aeropuertos"
 /** Los cinco filtros de tipo, que es el único filtro del catálogo. */
 export type ApCatTipo = "senal" | "letrero" | "baliza" | "luz" | "obstaculo"
 
-/** Hueco propio del catálogo: la imagen no existe y esto es lo que pide. */
+/** Especificación de un activo propio del catálogo. */
 export interface ApCatHuecoPropio {
   clase: "propia"
   /** `AP-CAT-01` a `AP-CAT-69`. Nunca se reasigna. */

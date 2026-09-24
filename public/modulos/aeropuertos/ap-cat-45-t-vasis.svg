@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Indicaciones T-VASIS y AT-VASIS</title>
+  <desc id="desc">Tres vistas desde aproximación: alto con barras y luces hacia arriba; en senda solo las barras blancas; bajo con barras y luces hacia abajo. Muy bajo, todas rojas.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#101b2a"/><stop offset="1" stop-color="#263844"/></linearGradient>
+    <filter id="glow"><feGaussianBlur stdDeviation="8"/></filter>
+    <g id="wing" fill="#fff">
+      <circle cx="-174" cy="0" r="14"/><circle cx="-139" cy="0" r="14"/><circle cx="-104" cy="0" r="14"/><circle cx="-69" cy="0" r="14"/>
+      <circle cx="69" cy="0" r="14"/><circle cx="104" cy="0" r="14"/><circle cx="139" cy="0" r="14"/><circle cx="174" cy="0" r="14"/>
+    </g>
+    <g id="high" fill="#fff">
+      <circle cx="-122" cy="-58" r="14"/><circle cx="-122" cy="-109" r="14"/><circle cx="-122" cy="-160" r="14"/>
+      <circle cx="122" cy="-58" r="14"/><circle cx="122" cy="-109" r="14"/><circle cx="122" cy="-160" r="14"/>
+    </g>
+    <g id="low" fill="#fff">
+      <circle cx="-122" cy="58" r="14"/><circle cx="-122" cy="109" r="14"/><circle cx="-122" cy="160" r="14"/>
+      <circle cx="122" cy="58" r="14"/><circle cx="122" cy="109" r="14"/><circle cx="122" cy="160" r="14"/>
+    </g>
+    <style>.head{fill:#e8f7f1;font:700 32px Arial,Helvetica,sans-serif;text-anchor:middle}.sub{fill:#a8cac0;font:500 25px Arial,Helvetica,sans-serif;text-anchor:middle}.frame{fill:#1a2a34;stroke:#516d71;stroke-width:2}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect class="frame" x="35" y="40" width="490" height="805" rx="18"/>
+  <rect class="frame" x="555" y="40" width="490" height="805" rx="18"/>
+  <rect class="frame" x="1075" y="40" width="490" height="805" rx="18"/>
+  <text class="head" x="280" y="105">Por encima de la senda</text>
+  <text class="head" x="800" y="105">En senda</text>
+  <text class="head" x="1320" y="105">Por debajo de la senda</text>
+  <g stroke="#49616a" stroke-width="2">
+    <path d="M70 254h420M590 254h420M1110 254h420"/>
+    <path d="M280 260v418M800 260v418M1320 260v418" stroke-dasharray="13 14"/>
+  </g>
+  <g transform="translate(280 490)" filter="url(#glow)"><use href="#wing"/><use href="#high"/></g>
+  <g transform="translate(280 490)"><use href="#wing"/><use href="#high"/></g>
+  <g transform="translate(800 490)" filter="url(#glow)"><use href="#wing"/></g>
+  <g transform="translate(800 490)"><use href="#wing"/></g>
+  <g transform="translate(1320 430)" filter="url(#glow)"><use href="#wing"/><use href="#low"/></g>
+  <g transform="translate(1320 430)"><use href="#wing"/><use href="#low"/></g>
+  <rect x="1130" y="686" width="380" height="115" rx="12" fill="#351f29" stroke="#b8424b" stroke-width="2"/>
+  <text x="1320" y="716" fill="#f4bfc0" font="600 23px Arial,Helvetica,sans-serif" text-anchor="middle">Muy bajo</text>
+  <g fill="#ef3e4e" filter="url(#glow)">
+    <circle cx="1243" cy="757" r="9"/><circle cx="1273" cy="757" r="9"/><circle cx="1303" cy="757" r="9"/>
+    <circle cx="1333" cy="757" r="9"/><circle cx="1363" cy="757" r="9"/><circle cx="1393" cy="757" r="9"/>
+    <circle cx="1293" cy="780" r="9"/><circle cx="1343" cy="780" r="9"/>
+  </g>
+  <text class="sub" x="280" y="781">Barra + luces superiores</text>
+  <text class="sub" x="800" y="781">Solo las barras de ala</text>
+  <text class="sub" x="1320" y="656">Barra + luces inferiores</text>
+</svg>

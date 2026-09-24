@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sistema de luces de entrada a la pista</title>
+  <desc id="desc">Vista en planta: cinco grupos de tres destellos blancos guían por una trayectoria curva alrededor de un relieve hasta el umbral de pista.</desc>
+  <defs>
+    <linearGradient id="night" x2="0" y2="1"><stop stop-color="#101f2b"/><stop offset="1" stop-color="#253b3d"/></linearGradient>
+    <filter id="halo"><feGaussianBlur stdDeviation="9"/></filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M2 2 10 6 2 10" fill="none" stroke="#a7e6d4" stroke-width="2.5"/></marker>
+    <style>.contour{fill:none;stroke:#415f5a;stroke-width:3}.ridge{fill:#445752;stroke:#67817a;stroke-width:4}.lamp{fill:#fff}.label{fill:#e9fbf5;font:600 32px Arial,Helvetica,sans-serif}.detail{fill:#c9e4db;font:500 25px Arial,Helvetica,sans-serif}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#night)"/>
+  <g opacity=".55" class="contour">
+    <path d="M-50 225Q300 60 630 160T1280 140"/><path d="M-50 280Q310 125 650 220T1280 205"/>
+    <path d="M-50 335Q320 190 670 280T1280 270"/><path d="M-50 390Q330 255 690 340T1280 335"/>
+    <path d="M-40 820Q360 790 700 800T1270 745"/>
+  </g>
+  <path class="ridge" d="M205 430Q325 225 455 235T675 330Q775 425 738 570T585 645Q515 603 450 615T275 600Q205 555 205 430Z"/>
+  <path d="M260 445Q380 290 480 310T640 385Q675 445 645 532T545 568Q455 520 340 550" fill="none" stroke="#a9b8aa" stroke-width="4" opacity=".55"/>
+  <path d="M1260 390h300v110h-300z" fill="#3c4548" stroke="#c9d8d5" stroke-width="3"/>
+  <path d="M1262 395v100" stroke="#42d8a1" stroke-width="10"/>
+  <path d="M1292 443h238" stroke="#f3f6f5" stroke-width="5" stroke-dasharray="35 24"/>
+  <path d="M1390 390v110" stroke="#d1dad7" stroke-width="3" stroke-dasharray="12 12"/>
+  <path d="M95 700C200 655 275 700 353 740S600 805 745 715S845 520 990 470S1155 445 1244 445" fill="none" stroke="#77bcae" stroke-width="11" opacity=".25"/>
+  <path d="M95 700C200 655 275 700 353 740S600 805 745 715S845 520 990 470S1155 445 1244 445" fill="none" stroke="#a7e6d4" stroke-width="4" stroke-dasharray="19 18"/>
+  <path d="M365 742q53 31 113 31M750 710q50-35 70-84M1030 461q80-20 155-17" fill="none" stroke="#a7e6d4" stroke-width="4" marker-end="url(#arrow)"/>
+  <g filter="url(#halo)" fill="#fff">
+    <circle cx="194" cy="672" r="17"/><circle cx="204" cy="692" r="17"/><circle cx="214" cy="712" r="17"/>
+    <circle cx="429" cy="746" r="17"/><circle cx="449" cy="750" r="17"/><circle cx="469" cy="754" r="17"/>
+    <circle cx="695" cy="745" r="17"/><circle cx="712" cy="731" r="17"/><circle cx="729" cy="717" r="17"/>
+    <circle cx="873" cy="548" r="17"/><circle cx="888" cy="533" r="17"/><circle cx="903" cy="518" r="17"/>
+    <circle cx="1080" cy="458" r="17"/><circle cx="1080" cy="445" r="17"/><circle cx="1080" cy="432" r="17"/>
+  </g>
+  <g class="lamp">
+    <circle cx="194" cy="672" r="7"/><circle cx="204" cy="692" r="7"/><circle cx="214" cy="712" r="7"/>
+    <circle cx="429" cy="746" r="7"/><circle cx="449" cy="750" r="7"/><circle cx="469" cy="754" r="7"/>
+    <circle cx="695" cy="745" r="7"/><circle cx="712" cy="731" r="7"/><circle cx="729" cy="717" r="7"/>
+    <circle cx="873" cy="548" r="7"/><circle cx="888" cy="533" r="7"/><circle cx="903" cy="518" r="7"/>
+    <circle cx="1080" cy="458" r="7"/><circle cx="1080" cy="445" r="7"/><circle cx="1080" cy="432" r="7"/>
+  </g>
+  <rect x="60" y="46" width="650" height="90" rx="14" fill="#122c30" stroke="#6bc8ad" stroke-width="2"/>
+  <text class="label" x="86" y="100">Grupos de destellos en secuencia hacia la pista</text>
+  <path d="M1256 392 1188 326h-130" fill="none" stroke="#8fe0c5" stroke-width="3"/>
+  <text class="label" x="1053" y="310">Umbral</text>
+  <text class="detail" x="250" y="205">Relieve que exige una entrada curva</text>
+</svg>

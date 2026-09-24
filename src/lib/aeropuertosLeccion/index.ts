@@ -6,8 +6,7 @@
  * que es una pantalla aparte y no cuenta como lección.
  *
  * Es el módulo más visual de la app: el texto de cada lección cabe en unas 150
- * palabras y lo que enseña son las imágenes. Mientras Camilo las genera, cada
- * una vive como un hueco rotulado con su código y su medida.
+ * palabras y las imágenes explican los elementos y decisiones operativas.
  *
  * Norma: **solo OACI**. Anexo 14, Volumen I, 9.ª edición (2022) con la Enmienda
  * 18, aplicable desde el 27 de noviembre de 2025, y Anexo 4 para las cartas. Lo
