@@ -1,0 +1,221 @@
+{
+  "descripcion": "Transmisiones de la práctica con audio de Comunicaciones. El id es el nombre del mp3 en public/modulos/comunicaciones/audio/<id>.mp3. Se valida con node scripts/audio/comunicaciones.mjs.",
+  "formato": {
+    "contenedor": "mp3",
+    "frecuenciaMuestreo": 24000,
+    "canales": 1
+  },
+  "voces": {
+    "atc_latam": "Controlador latinoamericano, inglés con acento hispano, ritmo de frecuencia ATC.",
+    "atc_uk": "Controlador británico.",
+    "atc_us": "Controlador estadounidense.",
+    "piloto": "Piloto (tercera aeronave o tú mismo en ejemplos).",
+    "piloto_pm": "Tu compañero, el PM, que colaciona en los ejercicios de hearback."
+  },
+  "transmisiones": [
+    {
+      "id": "cm-ej-aut-ruta-kennington",
+      "texto": "Aviatory four five two, cleared to Kennington via Alfa one, flight level two eight zero, Wicken three Delta departure, squawk five five zero one.",
+      "voz": "atc_latam",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-salida-rumbo-040",
+      "texto": "Aviatory four five two, turn right heading zero four zero until passing flight level seven zero, then direct Wicken VOR.",
+      "voz": "atc_uk",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-llegada-descenso-4000",
+      "texto": "Aviatory four five two, descend to four thousand feet, QNH one zero zero five, transition level five zero, expect ILS approach runway two four.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-squawk-6402",
+      "texto": "Aviatory four five two, squawk six four zero two.",
+      "voz": "atc_latam",
+      "perfil": "limpia"
+    },
+    {
+      "id": "cm-ej-rodaje-27",
+      "texto": "Aviatory four five two, taxi to holding point runway two seven, give way to B seven four seven passing left to right, QNH one zero one niner.",
+      "voz": "atc_uk",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-425-contacto",
+      "texto": "Aviatory four two five, contact Alexander Control one two niner decimal one.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-452-squawk",
+      "texto": "Aviatory four five two, squawk six four one one.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-542-rumbo",
+      "texto": "Aviatory five four two, turn left heading zero five zero for separation.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-452-rumbo",
+      "texto": "Aviatory four five two, fly heading zero five zero.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-425-detenga",
+      "texto": "Aviatory four two five, stop descent at flight level one five zero.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-452-ascenso",
+      "texto": "Aviatory four five two, continue climb to flight level three three zero.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-epm-542-apresure",
+      "texto": "Aviatory five four two, expedite descent to flight level eight zero.",
+      "voz": "atc_latam",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-epm-452-notifique-rumbo",
+      "texto": "Aviatory four five two, report heading.",
+      "voz": "atc_latam",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-epm-425-reactive",
+      "texto": "Aviatory four two five, reset squawk six four one one.",
+      "voz": "atc_latam",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-epm-452-nueva-aut",
+      "texto": "Aviatory four five two, recleared flight level three three zero.",
+      "voz": "atc_latam",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-hb-ascenso-240",
+      "texto": "Aviatory four five two, climb to flight level two four zero, expedite until passing flight level one eight zero.",
+      "voz": "atc_uk",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-hb-ascenso-240-pm",
+      "texto": "Climbing to flight level two four zero, expediting until passing flight level one eight zero, Aviatory four five two.",
+      "voz": "piloto_pm",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-hb-qnh-1003",
+      "texto": "Aviatory four five two, QNH one zero zero three.",
+      "voz": "atc_latam",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-hb-qnh-1003-pm",
+      "texto": "QNH one zero one three, Aviatory four five two.",
+      "voz": "piloto_pm",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-hb-rumbo-050",
+      "texto": "Aviatory four five two, turn left heading zero five zero for separation.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-hb-rumbo-050-pm",
+      "texto": "Heading left one five zero, Aviatory four five two.",
+      "voz": "piloto_pm",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-qr-salida-inmediata",
+      "texto": "Aviatory four five two, are you ready for immediate departure?",
+      "voz": "atc_uk",
+      "perfil": "limpia"
+    },
+    {
+      "id": "cm-ej-des-north-cross",
+      "texto": "Aviatory four five two, after passing North Cross NDB descend to flight level eight zero.",
+      "voz": "atc_latam",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-des-despegue-24",
+      "texto": "Aviatory four five two, runway two four, cleared for take-off, report airborne.",
+      "voz": "atc_uk",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-raf-salida-121750",
+      "texto": "Aviatory four five two, contact Departure one two one decimal seven five zero.",
+      "voz": "atc_us",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-raf-puesta-marcha-1009",
+      "texto": "Aviatory four five two, start up approved, QNH one zero zero niner.",
+      "voz": "atc_latam",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-raf-matricula-gabcd",
+      "texto": "Stephenville Tower, Golf Alfa Bravo Charlie Delta, radio check one one eight decimal seven.",
+      "voz": "piloto",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-raf-torre-1187",
+      "texto": "Aviatory four five two, contact Tower one one eight decimal seven.",
+      "voz": "atc_us",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-raf-reset-6411",
+      "texto": "Aviatory four five two, reset squawk six four one one.",
+      "voz": "atc_uk",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-raf-aterrizaje-24",
+      "texto": "Aviatory four five two, runway two four, cleared to land, wind two seven zero degrees two zero knots.",
+      "voz": "atc_uk",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-eop-cruce-wicken",
+      "texto": "Aviatory four five two, Georgetown Departure, cleared to Colinton flight level two niner zero, cross Wicken flight level one five zero or above, if unable, maintain flight level one three zero.",
+      "voz": "atc_latam",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-vc-despegue-27",
+      "texto": "Aviatory four five two, runway two seven, cleared for take-off, report airborne.",
+      "voz": "atc_uk",
+      "perfil": "normal"
+    },
+    {
+      "id": "cm-ej-vc-ils-directa-24",
+      "texto": "Aviatory four five two, cleared straight-in ILS approach runway two four, report established.",
+      "voz": "atc_us",
+      "perfil": "sucia"
+    },
+    {
+      "id": "cm-ej-vc-primera-derecha",
+      "texto": "Aviatory four five two, take first right, when vacated contact Ground one one eight decimal three five zero.",
+      "voz": "atc_latam",
+      "perfil": "sucia"
+    }
+  ]
+}
