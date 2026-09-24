@@ -227,7 +227,7 @@ export function MeteoBaseNube() {
 // 8 · Las cuatro familias, cada una a su altura
 // ═══════════════════════════════════════════════════════════════════════════
 
-/** Fronteras del capítulo: bases de 6.500 y 20.000 ft AGL. */
+/** Referencias visuales aproximadas; los niveles se superponen y varían con la latitud. */
 const FRONTERA_BAJA = 6.5
 const FRONTERA_ALTA = 20
 const TECHO_KFT = 30
@@ -257,7 +257,7 @@ export function MeteoFamilias() {
   )
 
   return (
-    <Lienzo etiqueta="Corte vertical con las cuatro familias de nubes a su altura. Las bajas van de la superficie a 6.500 pies, las medias de 6.500 a 20.000, y las altas por encima de 20.000. A la derecha, una nube de desarrollo vertical con la base entre las bajas y la cima arriba del todo, atravesándolas todas.">
+    <Lienzo etiqueta="Esquema orientativo de cuatro familias de nubes. Una línea marca 6.500 pies y otra 20.000 pies sobre el terreno como referencias; los niveles medios y altos pueden superponerse y cambian con la latitud. A la derecha una nube de desarrollo vertical atraviesa varios niveles.">
       {/* Bandas de cada familia, cada vez más tenues al subir. */}
       <rect x={xEje} y={y(FRONTERA_BAJA)} width={DER - xEje} height={ySuelo - y(FRONTERA_BAJA)} fill={RESALTADO} />
       <rect
