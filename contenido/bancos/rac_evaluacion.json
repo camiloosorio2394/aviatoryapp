@@ -178,7 +178,7 @@
       "opciones": [
         "Puedes tomar lo recetado; alcohol dentro de 2 h y lo demás dentro de 8 h",
         "No consumes ninguna sustancia hasta la prueba; alcohol dentro de 8 h y lo demás en 32 h",
-        "Solo se hace si un supervisor documenta por escrito una sospecha justificada",
+        "Solo se hace si un supervisor del programa documenta por escrito una sospecha justificada",
         "Se hace al día siguiente, para no demorar la atención médica que necesites"
       ],
       "correcta": 1,
@@ -196,7 +196,7 @@
         "Al menos 1 año de solicitudes rechazadas y suspensión o cancelación inmediata de atribuciones",
         "Una amonestación escrita de la empresa y una nueva prueba programada al mes siguiente",
         "Suspensión de la licencia por 60 días, sin ningún efecto sobre tu certificado médico",
-        "Ninguna, si en las 48 horas siguientes entregas una prueba negativa de otro laboratorio"
+        "Ninguna, si dentro de las 48 horas siguientes entregas una prueba negativa hecha en otro laboratorio"
       ],
       "correcta": 0,
       "explicacion": "Negarte acarrea el rechazo de cualquier solicitud de licencia o habilitación por al menos un año, la suspensión o cancelación inmediata de tus atribuciones y la suspensión de tu aptitud psicofísica. La empresa notifica la negativa a la Aerocivil en máximo 48 horas (120.105).",
@@ -336,7 +336,7 @@
       ],
       "correcta": 1,
       "explicacion": "Si el ATS sabe o sospecha interferencia ilícita, no hace referencia a la naturaleza de la emergencia en las comunicaciones aeroterrestres, salvo que la tripulación la haya mencionado antes y se tenga certeza de que no agrava la situación. Sí te da prioridad, atiende tus solicitudes y avisa a la Aerocivil y a las autoridades militares o policiales.",
-      "referencia": "RAC 211, 211.755 y 211.360 (a)(2)",
+      "referencia": "RAC 211, 211.755, 211.360 (a)(2) y 211.365 (a) y (b)",
       "metadatos": {
         "tema": "U06",
         "bloque": 2
@@ -603,7 +603,7 @@
       "opciones": [
         "En la autorización previa y escrita de la Aerocivil para cada caso.",
         "En el concepto de la autoridad migratoria del aeropuerto de salida.",
-        "En su conducta o comportamiento, que genere grave preocupación por la seguridad.",
+        "En su conducta, que genere grave preocupación por la seguridad.",
         "En el resultado de la inspección de seguridad de su equipaje de mano."
       ],
       "correcta": 2,

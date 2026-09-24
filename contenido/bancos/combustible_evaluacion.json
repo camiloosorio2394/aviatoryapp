@@ -46,7 +46,7 @@
         "El block fuel menos el trayecto, porque el rodaje también llega a destino."
       ],
       "correcta": 0,
-      "explicacion": "Al aterrizaje llega el combustible de despegue menos el trayecto: contingencia, alterno y reserva final, que no se planea consumir, más el discrecional. La opción D olvida que el rodaje ya se quemó antes del despegue.",
+      "explicacion": "Al aterrizaje llega el combustible de despegue menos el trayecto: contingencia, alterno y reserva final, que no se planea consumir, más el discrecional. El error típico es restar otra vez el rodaje, que ya se quemó antes del despegue.",
       "referencia": "RAC 121, 121.2645 (c)(1) a (c)(7)",
       "metadatos": {
         "tema": "C02",

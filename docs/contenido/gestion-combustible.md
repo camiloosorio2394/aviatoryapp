@@ -238,7 +238,7 @@ Con el vuelo de referencia: block fuel 5.950 kg, rodaje 200 kg, combustible de d
 - C) Despegue 8.900 kg; aterrizaje 3.800 kg.
 - D) Despegue 8.300 kg; aterrizaje 3.200 kg.
 **Correcta:** D · **Tema:** C02 · **Referencia:** RAC 121, 121.2645 (c)(1) y (c)(2)
-**Explicación:** El combustible de despegue es el block fuel menos el rodaje (8.600 menos 300 = 8.300 kg), y el previsto al aterrizaje es el de despegue menos el trayecto (8.300 menos 5.100 = 3.200 kg). La opción A confunde block fuel con combustible de despegue.
+**Explicación:** El combustible de despegue es el block fuel menos el rodaje (8.600 menos 300 = 8.300 kg), y el previsto al aterrizaje es el de despegue menos el trayecto (8.300 menos 5.100 = 3.200 kg). Tomar el block fuel como combustible de despegue es el error típico.
 
 **c02-q3** · Antes de salir, el proveedor informa que cargó 6.000 litros y la densidad del combustible ese día es 0,80 kg/L. ¿Cuánto debería aumentar el FOB en los indicadores?
 - A) 4.800 kg
@@ -2260,7 +2260,7 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - C) Alterno y reserva final, porque la contingencia siempre se consume en ruta.
 - D) El block fuel menos el trayecto, porque el rodaje también llega a destino.
 **Correcta:** A · **Tema:** C02 · **Referencia:** RAC 121, 121.2645 (c)(1) a (c)(7)
-**Explicación:** Al aterrizaje llega el combustible de despegue menos el trayecto: contingencia, alterno y reserva final, que no se planea consumir, más el discrecional. La opción D olvida que el rodaje ya se quemó antes del despegue.
+**Explicación:** Al aterrizaje llega el combustible de despegue menos el trayecto: contingencia, alterno y reserva final, que no se planea consumir, más el discrecional. El error típico es restar otra vez el rodaje, que ya se quemó antes del despegue.
 
 **ev-04** · Llegas a la espera en destino con 350 kg de discrecional sin usar, 130 kg de contingencia restante y el adicional en cero. El alterno es 1.400 kg y la reserva final 1.300 kg. La espera cuesta 48 kg/min. ¿Cuánto puedes esperar antes de empezar a gastar el combustible del alterno?
 - A) Unos 7 minutos
