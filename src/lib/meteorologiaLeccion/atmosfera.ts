@@ -843,36 +843,74 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
   {
     n: 5,
     title: "Cizalladura a bajo nivel",
-    kicker: "La microrráfaga, paso a paso",
+    kicker: "Reconocer el peligro y evitar la microrráfaga",
     minutes: 9,
     blocks: [
       {
         kind: "p",
-        text: "De todo el capítulo de teoría del clima, esta es la lección que hay que saberse de memoria. No porque la pregunten más, que la preguntan, sino porque es la única en la que la reacción tiene que salir antes que el razonamiento.",
+        text: "La cizalladura a bajo nivel importa en una entrevista y, sobre todo, en despegue y aproximación. Reconocer indicios y evitar la zona peligrosa es la primera defensa. Si ocurre un encuentro, la tripulación aplica de inmediato el procedimiento de su aeronave y operador: esta lección explica el fenómeno, no sustituye ese entrenamiento.",
       },
       {
         kind: "definicion",
-        text: "Cizalladura del viento: un cambio repentino y drástico de velocidad y/o dirección del viento sobre un área muy pequeña.",
+        text: "Cizalladura del viento: cambio de velocidad o dirección del viento a lo largo de una distancia horizontal o vertical. Puede ser abrupto e intenso; no se limita a un área de tamaño fijo.",
       },
       {
         kind: "p",
-        text: "Puede pasar a cualquier altitud. Lo que hace peligrosa a la **cizalladura a bajo nivel** es la cercanía al suelo: no hay altura para recuperar. Se le asocian cambios de dirección de hasta 180° y cambios de velocidad de 50 nudos o más.",
+        text: "Puede ocurrir a distintas altitudes. Cerca del suelo, durante el despegue o la aproximación, queda poco margen para recuperar velocidad o trayectoria. Su intensidad es variable: no existe un cambio único de dirección o velocidad que describa todos los encuentros.",
       },
       {
         kind: "sub",
-        text: "Ver: dónde vive",
+        text: "Ver: condiciones en las que puede aparecer",
       },
       {
         kind: "vinetas",
         items: [
           "Al paso de sistemas frontales.",
           "Con tormentas eléctricas.",
-          "Con inversiones térmicas cuando arriba hay viento fuerte (más de 25 nudos).",
+          "Cerca de inversiones térmicas cuando el viento cambia mucho con la altura.",
         ],
       },
       {
         kind: "p",
-        text: "El tipo más severo a baja altura es el asociado a la **precipitación convectiva**, es decir, a la lluvia de las tormentas. Y el caso crítico de ese tipo tiene nombre propio.",
+        text: "Una microrráfaga es una descendencia convectiva intensa que, al llegar al suelo, se dispersa horizontalmente. Puede acompañar a una tormenta con lluvia fuerte, pero también a células de aspecto menos amenazante o a precipitación que se evapora antes de tocar el suelo (virga). No exijas una cortina de lluvia visible para considerarla posible.",
+      },
+      {
+        kind: "reconoce",
+        titulo: "Señales visuales: convección y polvo cercano al suelo",
+        intro: "La fotografía ayuda a buscar indicios, no a diagnosticar una microrráfaga ni a medir su fuerza.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l05-indicios.webp",
+          alt: "Nube convectiva con precipitación localizada y polvo visible cerca de un aeródromo árido",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 52,
+            y: 23,
+            que: "Nube convectiva",
+            significa: "Puede sostener corrientes intensas y precipitación localizada; su apariencia no mide la cizalladura debajo.",
+            piloto: "Consulta radar, avisos y evolución de la célula antes de operar cerca de ella.",
+          },
+          {
+            x: 52,
+            y: 47,
+            que: "Cortina de precipitación",
+            significa: "Se observa precipitación bajo la nube; una microrráfaga también puede ocurrir con lluvia escasa o virga.",
+            piloto: "No uses la presencia o ausencia de lluvia en superficie como único criterio de seguridad.",
+          },
+          {
+            x: 52,
+            y: 67,
+            que: "Polvo cercano al suelo",
+            significa: "Puede sugerir viento fuerte o salida de aire, pero la imagen fija no demuestra su causa ni dirección.",
+            piloto: "Confirma viento, reportes de aeronaves y alertas disponibles; evita el sector de riesgo conforme al procedimiento.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** una nube convectiva, precipitación localizada y polvo cerca del suelo. **Cómo lo reconoces:** por el desarrollo de la nube, la cortina bajo su base y el polvo levantado. **Qué decides:** reunir información vigente y evitar una posible zona de cizalladura; la foto no prueba ni descarta una microrráfaga.",
       },
       {
         kind: "sub",
@@ -881,47 +919,46 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Extensión horizontal", v: "menos de una milla" },
-          { k: "Extensión vertical", v: "dentro de 1.000 ft" },
-          { k: "Duración", v: "unos 15 minutos" },
-          { k: "Corrientes descendentes", v: "hasta 6.000 ft por minuto" },
-          { k: "Cambio de dirección", v: "45° o más, en cuestión de segundos" },
+          { k: "Núcleo descendente", v: "habitualmente menos de 1 milla de diámetro antes de llegar al suelo" },
+          { k: "Flujo de salida", v: "puede extenderse cerca del suelo hasta unas 2,5 millas de diámetro" },
+          { k: "Duración individual", v: "por lo general no supera 15 minutos; pueden repetirse en la misma zona" },
+          { k: "Descendencia extrema", v: "se han observado hasta 6.000 ft/min; no es un valor típico de cada evento" },
         ],
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Léelo otra vez",
-        text: "Seis mil pies por minuto de descendente, dentro de los primeros mil pies. Ese número es el que explica por qué la microrráfaga no se negocia: se evita.",
+        title: "Evitar es la primera defensa",
+        text: "Una microrráfaga intensa puede superar la capacidad de una aeronave de transporte. Los valores extremos ilustran el peligro, pero no permiten calcular desde la cabina una separación segura: aplica la evaluación de riesgo y los procedimientos del operador.",
       },
       {
         kind: "sub",
-        text: "Interpretar: los cuatro tiempos de la trampa",
+        text: "Interpretar: secuencia posible durante el encuentro",
       },
       {
         kind: "p",
-        text: "Esta es la secuencia que el PHAK describe para un despegue que entra sin querer en una microrráfaga, y es exactamente lo que engaña: **empieza pareciendo una buena noticia.**",
+        text: "En un despegue que atraviesa el flujo de salida, puede aparecer primero viento de frente, luego descendencia y finalmente viento de cola. El diagrama muestra un caso posible, no una secuencia obligatoria ni una trayectoria que deba aceptarse.",
       },
       {
         kind: "pasos",
         items: [
           {
             rotulo: "Viento de frente",
-            texto: "La velocidad sube y la performance mejora. El avión se siente bien, y ese es el problema: parece que sobra energía.",
+            texto: "Puede aumentar la velocidad indicada y mejorar transitoriamente el ascenso; no es una reserva de energía garantizada.",
             fuerte: true,
           },
           {
             rotulo: "Corriente descendente",
-            texto: "La performance empieza a caer mientras el aire te empuja hacia abajo.",
+            texto: "La descendencia puede degradar la trayectoria y exigir más rendimiento del disponible.",
           },
           {
             rotulo: "Viento de cola",
-            texto: "El viento se da la vuelta. La velocidad se desploma y la performance con ella.",
+            texto: "Al pasar a viento de cola puede caer bruscamente la velocidad indicada y empeorar el margen de ascenso.",
             fuerte: true,
           },
           {
-            rotulo: "El resultado",
-            texto: "Impacto con el terreno, o vuelo peligrosamente cerca del suelo.",
+            rotulo: "El riesgo",
+            texto: "La combinación puede llevar a pérdida crítica de margen con el terreno; el impacto es posible, no inevitable.",
           },
         ],
       },
@@ -931,7 +968,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "El mecanismo, en una frase: un viento de cola que pasa a viento de frente sube la velocidad y la performance; un viento de frente que pasa a viento de cola las derrumba. La microrráfaga te hace las dos cosas seguidas y en menos de un minuto.",
+        text: "**Qué muestra el esquema:** un posible cruce del flujo de salida durante el despegue. **Cómo leerlo:** sigue el cambio de viento de frente a descendencia y viento de cola. **Qué decides:** priorizar la evitación; si ocurre el encuentro, ejecutar las indicaciones y el procedimiento de escape aplicables a tu avión. La foto anterior no permite ver esta circulación invisible.",
       },
       {
         kind: "sub",
@@ -939,45 +976,45 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "En los aeropuertos hay redes de anemómetros repartidos que detectan diferencias de velocidad del viento entre puntos. **Cuando la diferencia supera los 15 nudos, se emite una advertencia de cizalladura.** Ese sistema es el LLWAS (Low Level Wind Shear Alert System).",
+        text: "Algunos aeropuertos cuentan con un sistema de alerta de cizalladura a bajo nivel (Low Level Wind Shear Alert System, LLWAS) u otros sensores. Las capacidades, áreas vigiladas y umbrales dependen del equipo y la instalación. El LLWAS básico alerta de cizalladura en su red, pero no equivale a un detector de todas las microrráfagas; versiones ampliadas y radares pueden ofrecer avisos adicionales. Una ausencia de alerta **no** despeja tu trayectoria.",
       },
       {
         kind: "check",
         question:
           "El aeropuerto tiene sistema de alerta de cizalladura y no ha emitido ninguna advertencia. ¿Qué puedes concluir?",
         options: [
-          "Que no hay cizalladura en el campo: para eso está el sistema y por eso se instala",
-          "Que ninguna pareja de anemómetros ha medido todavía una diferencia de más de 15 kt",
-          "Que si hay cizalladura será la de inversión térmica, que es la que el sistema no detecta",
+          "Que no hay cizalladura en el campo ni en la trayectoria de salida",
+          "Que el sistema no ha emitido una alerta; aún debes valorar tormentas, reportes y limitaciones de cobertura",
+          "Que solo puede haber cizalladura asociada a una inversión térmica",
         ],
         answer: 1,
         explain:
-          "El sistema compara la velocidad del viento entre anemómetros repartidos por el campo y avisa cuando la diferencia supera los 15 kt. Una microrráfaga mide menos de una milla de extensión horizontal y dura unos quince minutos: puede formarse, hacer daño y desaparecer sin que ninguna pareja de sensores llegue al umbral. La advertencia existe cuando existe; estar alerta tiene que ser permanente.",
+          "Sin alerta no hay confirmación de aire seguro. El LLWAS básico solo cubre su red y no genera avisos específicos de microrráfaga. Las versiones ampliadas y otros sensores tienen capacidades diferentes, pero también límites de cobertura y detección. Contrasta la situación con observaciones, avisos y reportes de pilotos.",
       },
       {
         kind: "callout",
         tone: "warn",
-        title: "Lo que el capítulo insiste en dejar dicho",
-        text: "Las microrráfagas son difíciles de detectar porque ocurren en áreas pequeñas. La cizalladura puede afectar a cualquier vuelo, a cualquier piloto y a cualquier altitud, y muchas veces no se detecta: es un peligro silencioso. La advertencia existe cuando existe; la actitud de estar alerta tiene que existir siempre, sobre todo volando en tormentas o cerca de sistemas frontales.",
+        title: "Una alerta ayuda; su ausencia no garantiza seguridad",
+        text: "Las microrráfagas pueden ser localizadas y aparecer con poca lluvia en superficie. Combina información meteorológica, reportes, alertas de aeródromo y, cuando exista, el sistema predictivo de la aeronave. Evita atravesar convección peligrosa: el entrenamiento de recuperación no convierte en aceptable un encuentro deliberado.",
       },
       {
         kind: "escenario",
         titulo: "Escenario de práctica",
-        concepto: "Reconocer la primera fase de una microrráfaga, que es la que engaña.",
+        concepto: "Reconocer un indicio posible sin diagnosticar el fenómeno por una sola señal.",
         situacion:
-          "Despegas de un aeropuerto con una tormenta a cuatro millas del extremo de pista y lluvia visible debajo de ella. Rotas normal y, pasando 300 ft, la velocidad indicada sube 12 nudos sin que hayas tocado nada y el avión asciende mejor de lo previsto.",
+          "Antes del despegue observas una célula convectiva próxima al corredor de salida. No hay alerta del sistema del aeródromo. Durante un ejercicio de simulador, ya en ascenso inicial, la velocidad indicada aumenta de forma inesperada y luego la trayectoria empieza a deteriorarse.",
         preguntas: [
           {
-            q: "¿Qué acaba de pasar y qué es lo peligroso de ello?",
-            a: "Entraste en el viento de frente de la fase 1: la velocidad y la performance mejoran. Lo peligroso es que es una ganancia prestada. Si es una microrráfaga, en segundos viene la descendente y después el viento de cola, y todo lo que ganaste se pierde de golpe y con creces.",
+            q: "¿Qué interpretación inicial harías y qué no puedes asegurar?",
+            a: "La variación inesperada de velocidad y trayectoria es compatible con cizalladura. Un aumento inicial puede preceder a una descendencia y pérdida de viento de frente, pero una sola señal no confirma que sea una microrráfaga ni permite predecir su intensidad.",
           },
           {
-            q: "¿Qué NO deberías hacer al ver la ganancia de velocidad?",
-            a: "Corregirla hacia abajo. Reducir potencia o bajar el morro para «devolver» esa velocidad extra te deja sin nada justo antes de que el viento se dé la vuelta. La energía sobrante es lo único que vas a tener cuando llegue la fase 3.",
+            q: "¿Qué guía tu reacción en el simulador?",
+            a: "Las alertas de a bordo y el procedimiento de escape de cizalladura del tipo de aeronave y operador. No hago una corrección aislada solo para anular el aumento de velocidad sin evaluar la trayectoria y el procedimiento aplicable.",
           },
           {
-            q: "¿Qué información habrías querido tener antes de alinear?",
-            a: "La advertencia de cizalladura del sistema del aeropuerto si la hubiera, cualquier PIREP de aeronaves que acaben de salir, y la posición y evolución de esa célula. Con una tormenta con lluvia a cuatro millas del extremo, la pregunta razonable es si el despegue puede esperar quince minutos, que es lo que dura una microrráfaga.",
+            q: "¿Qué debió revisarse antes de alinear para despegar?",
+            a: "La posición y evolución de la célula, observaciones y radar disponibles, avisos de aeródromo y de a bordo, y los informes meteorológicos de pilotos (Pilot Weather Reports, PIREP) si existen. Una espera fija de quince minutos no garantiza que el área sea segura: pueden presentarse otras microrráfagas. La decisión de demorar, cambiar la salida o no despegar se toma con información actual y procedimientos del operador.",
           },
         ],
       },
@@ -985,7 +1022,7 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         kind: "callout",
         tone: "verificar",
         title: "La técnica de escape la manda tu operador",
-        text: "Qué se hace exactamente al encontrar cizalladura (actitud, potencia, configuración, cuándo se abandona la aproximación) es un procedimiento del explotador y del fabricante, y cambia por tipo de avión. Está en el FCOM y en el manual de operaciones de tu compañía, no en un curso general. Lo que sí es tuyo y no depende del tipo: reconocerla en la fase 1 y no gastarte la energía que te sobra.",
+        text: "La respuesta a una alerta o encuentro de cizalladura —actitud, empuje, configuración y trayectoria— depende del fabricante y del operador. Se entrena con el manual de operaciones de la tripulación (Flight Crew Operating Manual, FCOM) y los procedimientos de la compañía. Aquí debes comprender por qué se evita la zona y por qué un aumento inicial de velocidad no significa que el peligro terminó.",
       },
       {
         kind: "entrevista",
@@ -995,26 +1032,25 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "concepto",
             q: "Defina cizalladura del viento y diga por qué la de bajo nivel es la peligrosa.",
             respuesta:
-              "Es un cambio repentino y drástico de velocidad y/o dirección del viento en un área muy pequeña. La de bajo nivel es la peligrosa por la proximidad al suelo: no queda altura para recuperar. Se le asocian cambios de dirección de hasta 180° y de velocidad de 50 nudos o más.",
-            claves: ["Cambio repentino de velocidad y/o dirección", "Área pequeña", "Proximidad al suelo", "180° y 50 kt"],
+              "Es una variación de la velocidad o dirección del viento con la distancia horizontal o vertical. En despegue y aproximación resulta especialmente peligrosa porque puede alterar rápido la velocidad indicada y la trayectoria con poco margen sobre el terreno.",
+            claves: ["Cambio horizontal o vertical de viento", "Velocidad indicada y trayectoria", "Poco margen a baja altura"],
           },
           {
             nivel: "interpretacion",
             q: "¿Con qué condiciones se asocia comúnmente la cizalladura a bajo nivel?",
             respuesta:
-              "Con el paso de sistemas frontales, con tormentas eléctricas y con inversiones térmicas cuando hay viento fuerte en niveles superiores, por encima de 25 nudos. La más severa es la asociada a precipitación convectiva.",
-            claves: ["Frentes", "Tormentas", "Inversión con viento superior mayor a 25 kt"],
+              "Puede asociarse con frentes, tormentas y fuertes diferencias de viento cerca de una inversión. Las microrráfagas convectivas son un peligro crítico a baja altura y no siempre van acompañadas de lluvia intensa en superficie.",
+            claves: ["Frentes", "Convección", "Cambio de viento con la altura", "Puede haber poca lluvia"],
           },
           {
             nivel: "situacion",
             q: "Describa la secuencia de una microrráfaga durante un despegue.",
             respuesta:
-              "Primero un viento de frente que aumenta la velocidad y la performance. Después las corrientes descendentes, que la disminuyen. Después el viento cambia a viento de cola y la velocidad cae. Y el resultado puede ser el impacto con el terreno o el vuelo peligrosamente cerca del suelo. La microrráfaga típica ocupa menos de una milla horizontal y menos de 1.000 ft vertical, dura unos 15 minutos y puede dar descendentes de hasta 6.000 ft por minuto.",
+              "En un encuentro posible, primero aumenta el viento de frente y puede subir la velocidad indicada; después llegan la descendencia y, al cruzar, el viento de cola, que puede reducirla bruscamente. El riesgo es perder margen con el terreno. La secuencia no es inevitable: la defensa prioritaria es evitar la zona, y si se produce el encuentro se aplica el procedimiento del avión y operador.",
             claves: [
-              "Frente, descendente, cola, impacto",
-              "Menos de 1 milla y 1.000 ft",
-              "15 minutos",
-              "6.000 ft/min",
+              "Viento de frente, descendencia, viento de cola",
+              "Pérdida de velocidad y margen con terreno",
+              "Evitar y aplicar procedimiento del operador",
             ],
           },
         ],
