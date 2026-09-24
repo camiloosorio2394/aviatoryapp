@@ -136,7 +136,7 @@ export function Mercancias() {
 
   return (
     <>
-      <div className="@container notam-hub px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1600px] mx-auto">
+      <div className="@container notam-hub mp-foco px-5 sm:px-8 py-9 sm:py-11 pb-24 max-w-[1600px] mx-auto">
         <Link
           to="/app/aerolinea"
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
@@ -146,7 +146,7 @@ export function Mercancias() {
 
         {/* Hero de sección: la foto a sangre bajo un velo navy en degradado,
             para que el título se lea sobre cualquier zona de la imagen. */}
-        <section className="relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
+        <section className="mp-sobre-foto relative overflow-hidden rounded-[18px] bg-[#0A1524] shadow-[0_1px_2px_rgba(11,27,48,0.08)]">
           <img
             src="/modulos/mercancias/hub-hero.webp"
             alt=""
@@ -299,7 +299,12 @@ export function Mercancias() {
         </section>
 
         {/* Las tres partes */}
-        <section className="pt-10">
+        <section className="pt-10" aria-labelledby="mp-partes">
+          {/* Solo para lectores de pantalla: sin él, las tarjetas (h3) cuelgan
+              directo del h1 y el esquema de la página salta un nivel. */}
+          <h2 id="mp-partes" className="sr-only">
+            Las tres partes del módulo
+          </h2>
           <div className="grid gap-4 @xl:grid-cols-2 @3xl:grid-cols-3">
             {partes.map((p) => (
               <CourseCard key={p.title} {...p} statusLoading={loading} />

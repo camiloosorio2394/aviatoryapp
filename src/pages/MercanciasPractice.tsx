@@ -139,7 +139,7 @@ export function MercanciasPractice() {
 
   return (
     <>
-      <div className="notam-practica px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1560px] mx-auto">
+      <div className="notam-practica mp-foco px-4 sm:px-7 py-9 sm:py-11 pb-20 max-w-[1560px] mx-auto">
         <Link
           to={MP_HUB}
           className="inline-flex items-center gap-1.5 text-[13px] text-muted-foreground hover:text-foreground transition-colors mb-4"
