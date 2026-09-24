@@ -1,0 +1,856 @@
+{
+  "banco": "rac_evaluacion",
+  "descripcion": "Quiz final del módulo RAC. Cada intento toma 20 al azar.",
+  "preguntas": [
+    {
+      "id": "ev-01",
+      "enunciado": "En una aerolínea de transporte público regular te programan como copiloto, con 61 años, junto a un comandante de 63. Según el RAC 2, ¿es válida esa tripulación?",
+      "opciones": [
+        "Sí: los dos tienen menos de 65, que es el tope del RAC 2",
+        "Sí, si el comandante es PTL y el copiloto tiene PCA vigente",
+        "Sí: el tope es 65 y la regla de 60 solo aplica a vuelos internacionales",
+        "No: en tripulación de más de un piloto solo uno puede pasar de 60 años"
+      ],
+      "correcta": 3,
+      "explicacion": "En servicios aéreos comerciales de transporte público nadie actúa como comandante o copiloto una vez cumplidos 65 años y, en tripulaciones de más de un piloto, solo uno puede tener más de 60. Con 63 y 61 años, los dos pasan de 60.",
+      "referencia": "RAC 2, 2.2.1.11",
+      "metadatos": {
+        "tema": "U01",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-02",
+      "enunciado": "Eres PTL y comandante, y llevas 8 meses sin volar por una licencia no remunerada. Según el RAC 2, ¿qué necesitas para recobrar la autonomía en tu equipo?",
+      "opciones": [
+        "Repaso de tierra, dos periodos de 2 horas con instructor y chequeo de proeficiencia",
+        "Tres despegues y tres aterrizajes ante un chequeador, sin repaso de tierra",
+        "Tierra de 16 horas, cuatro periodos de 2 horas con LOFT y chequeo de proeficiencia",
+        "El entrenamiento inicial completo de tierra y de vuelo en ese mismo equipo"
+      ],
+      "correcta": 0,
+      "explicacion": "Un receso mayor a 6 meses y menor de 12 exige repaso del curso de tierra, dos periodos de 2 horas en avión o simulador con instructor calificado y un chequeo de proeficiencia. Las 16 horas de tierra y los cuatro periodos son para recesos de 12 a 60 meses (2.2.7.9(d)).",
+      "referencia": "RAC 2, 2.2.7.9 (c)",
+      "metadatos": {
+        "tema": "U01",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-03",
+      "enunciado": "Tu mes base para el chequeo de proeficiencia es junio y lo presentas el 20 de mayo. Según el RAC 2, ¿cómo cuenta ese chequeo?",
+      "opciones": [
+        "Como hecho en mayo, y tu mes base pasa a ser mayo desde entonces",
+        "No cuenta: el chequeo debe hacerse dentro del mismo mes base",
+        "Como hecho en junio, porque mayo está en tu periodo de elegibilidad",
+        "Cuenta solo si la Aerocivil aprueba el adelanto por escrito"
+      ],
+      "correcta": 2,
+      "explicacion": "El periodo de elegibilidad son tres meses calendario: el anterior al mes base, el mes base y el siguiente, y lo hecho en él se considera cumplido en el mes base. El mes base solo cambia si pierdes la autonomía durante ese periodo.",
+      "referencia": "RAC 2, 2.2.1.1.4 (a)",
+      "metadatos": {
+        "tema": "U01",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-04",
+      "enunciado": "Tienes licencia PCA expedida en 2025 y mantienes todos sus requisitos. Según las normas de transición al RAC 61, ¿qué pasa con esa licencia?",
+      "opciones": [
+        "Pierde validez el 31/12/2026 y debes tramitar la del RAC 61 pagando los derechos",
+        "Sigue válida y, a más tardar el 31/08/2027, se reemplaza de oficio y sin costo por la del RAC 61",
+        "Solo valía hasta el 31/07/2026; desde entonces queda suspendida hasta que pidas el reemplazo",
+        "Sigue rigiéndose por el RAC 2 sin fecha límite, porque se expidió antes de iniciar la transición"
+      ],
+      "correcta": 1,
+      "explicacion": "Las licencias ya expedidas siguen válidas hasta el 31/08/2027 mientras mantengas sus requisitos, y a más tardar esa fecha la Aerocivil las reemplaza de oficio por las del RAC 61, en formato digital y sin costo. El 31/07/2026 era la fecha anterior a la ampliación.",
+      "referencia": "RAC 61, Normas de transición (c) y (d), en el texto de la Res. 02543 de 2026",
+      "metadatos": {
+        "tema": "U01",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-05",
+      "enunciado": "Según el RAC 61, que aplica desde el 31/08/2027: eres PTL, tienes 62 años y te programan como PIC en un vuelo comercial internacional con un copiloto de 57. ¿Puedes ser el PIC?",
+      "opciones": [
+        "Sí: en tripulación de más de un piloto, menos de 65 si el copiloto es menor de 60",
+        "No: con PTL, el PIC en transporte comercial siempre debe tener menos de 60 años",
+        "Solo en vuelos nacionales, porque en internacionales el límite del PIC es 60 años",
+        "Sí, sin condiciones: el tope de 65 años no depende de la edad del copiloto"
+      ],
+      "correcta": 0,
+      "explicacion": "El PTL puede ser PIC en transporte comercial con menos de 60 años o, en operaciones nacionales e internacionales con más de un piloto, con menos de 65 si el copiloto tiene menos de 60. El límite de 60 en vuelos internacionales es del PCA que vuela solo (61.635(a)(1)).",
+      "referencia": "RAC 61, 61.835 (a)(2)",
+      "metadatos": {
+        "tema": "U02",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-06",
+      "enunciado": "Según el RAC 61, que aplica desde el 31/08/2027: llevas 26 meses sin ejercer actividad aeronáutica. ¿Qué debes cumplir para restablecer las atribuciones de tu licencia?",
+      "opciones": [
+        "Solo tres despegues y tres aterrizajes con un instructor de vuelo",
+        "Un repaso de tierra y un periodo de 2 horas en simulador ante chequeador",
+        "Tramitar una licencia nueva desde cero, empezando por la de alumno piloto",
+        "Médico vigente, exámenes teóricos, reentrenamiento y prueba de pericia"
+      ],
+      "correcta": 3,
+      "explicacion": "Con 24 meses o más sin actividad aeronáutica pierdes las atribuciones y, para restablecerlas, necesitas médico vigente, aprobar los exámenes teóricos ante la UAEAC, un reentrenamiento certificado por un CIAC, CEAC o explotador y una prueba de pericia ante la UAEAC.",
+      "referencia": "RAC 61, 61.060 (a)(2)",
+      "metadatos": {
+        "tema": "U02",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-07",
+      "enunciado": "Según el RAC 61, que aplica desde el 31/08/2027: aprobaste en simulador nivel D un tipo «limitado a la experiencia operacional» y vas a empezar esa experiencia. ¿Qué licencia provisional puede darte la UAEAC?",
+      "opciones": [
+        "Una de 90 días calendario, sin posibilidad de prórroga",
+        "Una de 180 días calendario, prorrogables hasta 90 días más",
+        "Una de 180 días calendario, sin posibilidad de prórroga",
+        "Una de 12 meses, lo que dure la experiencia operacional"
+      ],
+      "correcta": 1,
+      "explicacion": "El 61.050 permite una licencia provisional de 180 días calendario, prorrogables hasta por 90 días, entre otros casos para cumplir la experiencia operacional. El RAC 2, que rige hasta el 31/08/2027, fija 180 días como máximo (2.1.13.2).",
+      "referencia": "RAC 61, 61.050 (a)(1)",
+      "metadatos": {
+        "tema": "U02",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-08",
+      "enunciado": "Tu certificado Clase 1 vence el 30 de junio y haces el examen de renovación el 1 de junio. Según el RAC 67, ¿desde cuándo se cuenta la nueva vigencia?",
+      "opciones": [
+        "Desde el 1 de junio, la fecha del examen, y pierdes esos 29 días",
+        "Desde el 30 de junio, solo si renuevas dentro de los 15 días previos",
+        "Desde el 30 de junio, porque renovaste dentro de los 45 días previos",
+        "Desde el día en que la Aerocivil registre el nuevo certificado"
+      ],
+      "correcta": 2,
+      "explicacion": "La validez empieza el día del examen (67.025(h)), pero si renuevas durante la vigencia con no más de 45 días de antelación, se cuenta desde el vencimiento anterior y conservas tu fecha año tras año. El 1 de junio está 29 días antes del vencimiento.",
+      "referencia": "RAC 67, 67.025 (h) y Nota del párrafo (i)",
+      "metadatos": {
+        "tema": "U03",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-09",
+      "enunciado": "Hoy tu médico te formula un medicamento que nunca habías tomado y mañana tienes vuelo. Según el RAC 67, ¿qué aplica?",
+      "opciones": [
+        "Los 3 primeros días de un tratamiento nuevo causan pérdida temporal de aptitud",
+        "Puedes volar si el médico que lo formuló no te dio una incapacidad por escrito",
+        "Debes esperar 8 horas desde la primera dosis y luego puedes presentarte a volar",
+        "Solo debes informarlo a Medicina Aeronáutica si el tratamiento dura más de 20 días"
+      ],
+      "correcta": 0,
+      "explicacion": "El 67.030(b)(8) incluye entre las causas de pérdida temporal de aptitud los primeros 3 días de toda terapia farmacológica nueva. Además, debes estar libre de efectos de cualquier medicamento que pueda interferir con la operación segura (67.090(a)(4)).",
+      "referencia": "RAC 67, 67.030 (b)(8)",
+      "metadatos": {
+        "tema": "U03",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-10",
+      "enunciado": "Vas a tu primer examen para obtener un certificado médico aeronáutico y no cumples un requisito físico. Según el RAC 67, ¿puedes pedir una dispensa médica?",
+      "opciones": [
+        "Sí: la Junta Médica puede otorgarla con limitaciones operacionales",
+        "Sí, pero solo para requisitos mentales, con informe del psiquiatra",
+        "Sí, si apruebas una prueba en vuelo con un inspector de la UAEAC",
+        "No: la dispensa no aplica a quien aspira por primera vez"
+      ],
+      "correcta": 3,
+      "explicacion": "La Nota 2 del 67.035 dice que la dispensa médica no es aplicable a los aspirantes por primera vez a un certificado médico aeronáutico. Para los titulares, la decide una Junta Médica y solo cubre requisitos físicos (67.035(c)).",
+      "referencia": "RAC 67, 67.035, Nota 2",
+      "metadatos": {
+        "tema": "U03",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-11",
+      "enunciado": "Volabas el avión cuando ocurrió un incidente en el aterrizaje y hay condiciones para hacer las pruebas. Según el RAC 120, ¿qué aplica al examen toxicológico posincidente?",
+      "opciones": [
+        "Puedes tomar lo recetado; alcohol dentro de 2 h y lo demás dentro de 8 h",
+        "No consumes ninguna sustancia hasta la prueba; alcohol dentro de 8 h y lo demás en 32 h",
+        "Solo se hace si un supervisor documenta por escrito una sospecha justificada",
+        "Se hace al día siguiente, para no demorar la atención médica que necesites"
+      ],
+      "correcta": 1,
+      "explicacion": "Tras un accidente o incidente se examina a todos los involucrados que hacían funciones sensibles; no consumen ninguna sustancia hasta la prueba, que debe hacerse dentro de 8 horas para alcohol y de 32 horas para las demás. La prueba nunca puede demorar la atención médica.",
+      "referencia": "RAC 120, 120.320 (c)(1) a (c)(5)",
+      "metadatos": {
+        "tema": "U04",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-12",
+      "enunciado": "Te seleccionan para una prueba toxicológica aleatoria y te niegas a hacerla. Según el RAC 120, ¿qué consecuencias tiene?",
+      "opciones": [
+        "Al menos 1 año de solicitudes rechazadas y suspensión o cancelación inmediata de atribuciones",
+        "Una amonestación escrita de la empresa y una nueva prueba programada al mes siguiente",
+        "Suspensión de la licencia por 60 días, sin ningún efecto sobre tu certificado médico",
+        "Ninguna, si en las 48 horas siguientes entregas una prueba negativa de otro laboratorio"
+      ],
+      "correcta": 0,
+      "explicacion": "Negarte acarrea el rechazo de cualquier solicitud de licencia o habilitación por al menos un año, la suspensión o cancelación inmediata de tus atribuciones y la suspensión de tu aptitud psicofísica. La empresa notifica la negativa a la Aerocivil en máximo 48 horas (120.105).",
+      "referencia": "RAC 120, 120.100 (a)",
+      "metadatos": {
+        "tema": "U04",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-13",
+      "enunciado": "Un copiloto dio positivo en marzo de 2026, no es reincidente y terminó su rehabilitación en diciembre de 2026. Según el RAC 120, ¿cuándo es lo más pronto que puede presentar la prueba para reasumir funciones?",
+      "opciones": [
+        "En diciembre de 2026, al terminar la rehabilitación",
+        "En marzo de 2027, un año después del positivo",
+        "En marzo de 2028, dos años después del positivo",
+        "En marzo de 2029, tres años después del positivo"
+      ],
+      "correcta": 2,
+      "explicacion": "La prueba para reasumir funciones exige haber completado el tratamiento y no se hace antes de 2 años desde la detección del positivo (3 si es reincidente). Si es titular de certificado médico, necesita además autorización previa de la Aerocivil (120.410). Un año es solo el plazo mínimo de rechazo de solicitudes de licencia (120.320(g)(1)).",
+      "referencia": "RAC 120, 120.320 (e) y 120.410",
+      "metadatos": {
+        "tema": "U04",
+        "bloque": 1
+      }
+    },
+    {
+      "id": "ev-14",
+      "enunciado": "Tienes que aterrizar en un aeródromo específico y calculas que cualquier cambio en tu autorización te haría aterrizar con menos del combustible de reserva final previsto. Según el RAC 91, ¿qué declaras al ATC?",
+      "opciones": [
+        "MAYDAY MAYDAY MAYDAY COMBUSTIBLE, porque ya es una emergencia",
+        "COMBUSTIBLE MÍNIMO, que no es una situación de emergencia",
+        "PAN PAN PAN COMBUSTIBLE, porque es una situación de urgencia",
+        "Nada todavía: solo se declara al empezar a usar la reserva final"
+      ],
+      "correcta": 1,
+      "explicacion": "COMBUSTIBLE MÍNIMO avisa que las opciones se redujeron a un aeródromo y que cualquier cambio puede hacerte aterrizar con menos de la reserva final; no es una emergencia. MAYDAY MAYDAY MAYDAY COMBUSTIBLE se declara cuando lo calculado al aterrizar en el aeródromo seguro más cercano ya es inferior a la reserva final.",
+      "referencia": "RAC 91, 91.637 (b) y (c)",
+      "metadatos": {
+        "tema": "U05",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-15",
+      "enunciado": "Te intercepta una aeronave militar y, por radio, el ATS te da una instrucción que contradice las señales visuales del interceptor. Según el RAC 91, ¿qué haces?",
+      "opciones": [
+        "Sigues al ATS, porque sus instrucciones prevalecen sobre las visuales",
+        "Mantienes tu plan de vuelo actualizado hasta que se aclare el conflicto",
+        "Pones 7500 y sigues la instrucción del ATS mientras te aclaran",
+        "Sigues las señales visuales del interceptor y pides aclaración"
+      ],
+      "correcta": 3,
+      "explicacion": "Si una instrucción por radio de cualquier fuente contradice las señales visuales del interceptor, la aeronave interceptada pide aclaración inmediata mientras sigue cumpliendo las instrucciones visuales. Además llama en 121,5 MHz y pone 7700, salvo otra instrucción del ATS.",
+      "referencia": "RAC 91, 91.270 (b) y Apéndice 9 (g)(1) y (g)(2)",
+      "metadatos": {
+        "tema": "U05",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-16",
+      "enunciado": "Vas a salir VFR de un aeródromo dentro de una zona de control. El techo es de 1.200 ft y la visibilidad en tierra, de 6 km. Según el RAC 91, ¿puedes despegar?",
+      "opciones": [
+        "Solo con autorización ATC: el techo es inferior a 1.500 ft",
+        "Sí, porque la visibilidad en tierra es superior a 5 km",
+        "Sí, porque el techo es superior a 1.000 ft sobre el terreno",
+        "No, en ningún caso: el VFR exige un techo de 3.000 ft"
+      ],
+      "correcta": 0,
+      "explicacion": "Dentro de una zona de control, sin autorización ATC no se despega, no se aterriza ni se entra al circuito si el techo es inferior a 1.500 ft o la visibilidad en tierra es inferior a 5 km. Aquí la visibilidad cumple, pero el techo no.",
+      "referencia": "RAC 91, 91.300 (b)",
+      "metadatos": {
+        "tema": "U05",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-17",
+      "enunciado": "Eres piloto comercial sin habilitación IFR y quieres hacer un vuelo VFR nocturno entre dos aeródromos iluminados de una misma área autorizada. Según el RAC 91, ¿puedes hacerlo como PIC?",
+      "opciones": [
+        "Sí, porque los dos aeródromos tienen la iluminación reglamentaria",
+        "Sí, si llevas la reserva final de 45 minutos del VFR nocturno",
+        "No: necesitas habilitación IFR y chequeo de instrumentos vigente",
+        "No: en Colombia no existe ningún tipo de vuelo VFR de noche"
+      ],
+      "correcta": 2,
+      "explicacion": "El VFR nocturno del Apéndice 19 exige que el PIC tenga habilitación IFR y chequeo de instrumentos vigente, para pasar a IFR si el tiempo no permite seguir en VFR. Los aeródromos iluminados y la reserva de 45 minutos también se exigen, pero no bastan.",
+      "referencia": "RAC 91, 91.112 (a) y Apéndice 19 (a)(4)",
+      "metadatos": {
+        "tema": "U05",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-18",
+      "enunciado": "En una aproximación, la DH del procedimiento es 250 ft, la autorizada para tu aeronave es 200 ft y la prescrita para ti como PIC es 300 ft. Según el RAC 91, ¿qué DH aplicas?",
+      "opciones": [
+        "300 ft, la más alta de las tres",
+        "250 ft, la del procedimiento publicado",
+        "200 ft, la autorizada para la aeronave",
+        "La más baja, si el avión está equipado para ella"
+      ],
+      "correcta": 0,
+      "explicacion": "Cuando el procedimiento usa DA/DH o MDA, aplica la más alta entre la del procedimiento, la prescrita para el PIC y aquella para la que la aeronave está equipada y autorizada. En este caso, 300 ft.",
+      "referencia": "RAC 91, 91.370 (b)",
+      "metadatos": {
+        "tema": "U05",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-19",
+      "enunciado": "Te autorizan a aterrizar, pero no aterrizas y la torre pierde el contacto contigo. Según el RAC 211, ¿cuándo se declara la fase de alerta (ALERFA)?",
+      "opciones": [
+        "De inmediato, al perderse el contacto con la torre",
+        "Si no aterrizas en 30 minutos tras la hora prevista de llegada",
+        "Si no aterrizas en 5 minutos tras la hora prevista de aterrizaje",
+        "Si no aterrizas dentro de los 15 minutos siguientes a la autorización"
+      ],
+      "correcta": 2,
+      "explicacion": "Hay ALERFA cuando una aeronave autorizada para aterrizar no lo hace en los 5 minutos siguientes a la hora prevista de aterrizaje y no se restablece la comunicación. Los 30 minutos de retraso sobre la hora prevista de llegada son un criterio de la INCERFA.",
+      "referencia": "RAC 211, 211.720 (b)(2)",
+      "metadatos": {
+        "tema": "U06",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-20",
+      "enunciado": "Sufres interferencia ilícita, pones 7500 y no has mencionado la situación por radio. Según el RAC 211, ¿cómo manejará el ATS sus comunicaciones contigo?",
+      "opciones": [
+        "Te pedirá confirmar la emergencia por radio, en claro",
+        "No mencionará la naturaleza de la emergencia en la frecuencia",
+        "Avisará de tu situación a todas las aeronaves en la frecuencia",
+        "Te pasará a 121,5 MHz para que hables con la Fuerza Aérea"
+      ],
+      "correcta": 1,
+      "explicacion": "Si el ATS sabe o sospecha interferencia ilícita, no hace referencia a la naturaleza de la emergencia en las comunicaciones aeroterrestres, salvo que la tripulación la haya mencionado antes y se tenga certeza de que no agrava la situación. Sí te da prioridad, atiende tus solicitudes y avisa a la Aerocivil y a las autoridades militares o policiales.",
+      "referencia": "RAC 211, 211.755 y 211.360 (a)(2)",
+      "metadatos": {
+        "tema": "U06",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-21",
+      "enunciado": "Eres la primera aeronave en llegar al lugar de un accidente y no eres una aeronave SAR. Luego llegan otras dos aeronaves a ayudar. Según el RAC 212, ¿quién dirige las actividades en el lugar?",
+      "opciones": [
+        "La aeronave con más combustible remanente",
+        "La aeronave de mayor tamaño que llegue",
+        "Nadie, hasta que el RCC designe a una aeronave SAR",
+        "Tú, hasta que llegue la primera aeronave SAR"
+      ],
+      "correcta": 3,
+      "explicacion": "Si la primera aeronave en la escena no es SAR, se hace cargo de las actividades de las que lleguen después hasta que llegue la primera aeronave SAR. Si no puede comunicarse con el RCC o el ATS, cede la dirección, de común acuerdo, a una que sí pueda.",
+      "referencia": "RAC 212, 212.425 (c)",
+      "metadatos": {
+        "tema": "U07",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-22",
+      "enunciado": "Tu explotador necesita probar un ELT durante 40 segundos en una revisión. Según el RAC 212, ¿qué debe hacer?",
+      "opciones": [
+        "Avisar al RCC por correo con al menos 24 horas de antelación",
+        "Nada especial: el límite de 20 segundos solo aplica en vuelo",
+        "Avisar a la torre por radio justo antes de iniciar la prueba",
+        "Avisar a la Aerocivil por escrito con al menos 10 días de antelación"
+      ],
+      "correcta": 0,
+      "explicacion": "Las pruebas de ELT no deben pasar de 20 segundos, para no disparar falsas alertas en el sistema COSPAS-SARSAT. Si se necesita más tiempo, el explotador avisa al RCC de Colombia por correo electrónico con una antelación no inferior a 24 horas.",
+      "referencia": "RAC 212, 212.455 (a) y (b)",
+      "metadatos": {
+        "tema": "U07",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-23",
+      "enunciado": "Tu avión no tiene enlace de datos aire-tierra y en crucero encuentras engelamiento fuerte. Según el RAC 203, ¿qué debes hacer?",
+      "opciones": [
+        "Nada: sin enlace de datos estás exento de observaciones de aeronave",
+        "Anotarlo en el libro de a bordo y reportarlo al aterrizar",
+        "Reportarlo por voz al ATS, en el momento o lo antes posible",
+        "Reportarlo solo si el ATS te designó para observaciones ordinarias"
+      ],
+      "correcta": 2,
+      "explicacion": "Sin enlace de datos solo estás exento de las observaciones ordinarias; las especiales, como el engelamiento fuerte, las hacen todas las aeronaves y, sin enlace de datos, se notifican por voz en el momento o lo antes posible. El ATS las retransmite sin demora a la oficina de vigilancia meteorológica (OVM).",
+      "referencia": "RAC 203, 203.315, 203.320 (a)(2) y 203.330 (a), (b) y (d)",
+      "metadatos": {
+        "tema": "U08",
+        "bloque": 2
+      }
+    },
+    {
+      "id": "ev-24",
+      "enunciado": "Estás al mando y un inspector acreditado de la Aerocivil se presenta para inspeccionar el vuelo. Según el RAC 119, ¿qué debes hacer?",
+      "opciones": [
+        "Pedirle que espere autorización escrita del director de operaciones",
+        "Admitirlo a bordo, con acceso libre, y darle medios para su labor",
+        "Admitirlo solo en la cabina de pasajeros, nunca en la de mando",
+        "Negarte si el vuelo ya está despachado y con la puerta cerrada"
+      ],
+      "correcta": 1,
+      "explicacion": "El PIC debe admitir al inspector a bordo, con acceso libre e ininterrumpido, y darle los medios necesarios; si se niega, el inspector puede inmovilizar la aeronave, sin perjuicio de sanciones. El explotador reserva el asiento del observador para los inspectores.",
+      "referencia": "RAC 119, 119.315 (b)(4) y (c)",
+      "metadatos": {
+        "tema": "U09",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-25",
+      "enunciado": "Terminas un servicio en tu base de residencia después de volar 9 horas. Según el Apéndice 18 del RAC 121, ¿cuál es tu período mínimo de descanso?",
+      "opciones": [
+        "12 horas, como en cualquier vuelo de hasta 9 horas",
+        "10 horas, el mínimo general para todo tripulante",
+        "24 horas, porque el vuelo pasó de 8 horas",
+        "18 horas, el doble de las horas voladas"
+      ],
+      "correcta": 3,
+      "explicacion": "En la base de residencia, tras vuelos de más de 8 horas el descanso es el doble de las horas voladas, sin exceder 24 horas: aquí, 18 horas. Las 12 horas para vuelos de hasta 9 horas son la regla fuera de la base de residencia.",
+      "referencia": "RAC 121, Apéndice 18, 1.1 (h)(2)(i)(C)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-26",
+      "enunciado": "En un vuelo nacional bien programado, una circunstancia de fuerza mayor alarga tu servicio. Según el Apéndice 18 del RAC 121, ¿cuánto puede excederse el servicio para terminar el vuelo?",
+      "opciones": [
+        "Hasta 1 hora, y la empresa lo informa a la UAEAC en 48 horas",
+        "Hasta 2 horas, y la empresa lo informa a la UAEAC en 48 horas",
+        "Hasta 1 hora, y el comandante lo informa a la UAEAC en 10 días",
+        "Hasta 3 horas, y la empresa lo informa a la UAEAC en 72 horas"
+      ],
+      "correcta": 0,
+      "explicacion": "Por fuerza mayor o caso fortuito, el vuelo puede seguir hasta su destino si el servicio no se excede en más de 1 hora en vuelos nacionales o 2 horas en internacionales. La empresa da cuenta escrita a la UAEAC dentro de las 48 horas siguientes.",
+      "referencia": "RAC 121, Apéndice 18, 1.1 (e)(2)(xi)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-27",
+      "enunciado": "Aprobaste la prueba de pericia de tu habilitación de tipo y empiezas a volar en línea. Según el RAC 121, ¿en qué plazo debes completar las 100 horas de consolidación, sin extensión?",
+      "opciones": [
+        "90 días",
+        "150 días",
+        "120 días",
+        "180 días"
+      ],
+      "correcta": 2,
+      "explicacion": "Las 100 horas de vuelo en línea, que incluyen la experiencia operacional, se completan dentro de los 120 días siguientes a la prueba de pericia. El explotador puede extender el plazo hasta 150 días si el piloto hace a tiempo su entrenamiento periódico o un chequeador verifica su competencia en un vuelo supervisado.",
+      "referencia": "RAC 121, 121.1725 (g) y (h)(2)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-28",
+      "enunciado": "En crucero, uno de los dos motores de tu avión falla y lo apagas. Según el RAC 121, ¿dónde debes aterrizar?",
+      "opciones": [
+        "En el aeródromo que elijas, si es tan seguro como el más cercano",
+        "En el aeródromo apropiado más cercano con aterrizaje seguro",
+        "En el destino, si está a menos de 60 minutos con un motor inoperativo",
+        "En el alterno del despacho, porque ya tiene la meteorología revisada"
+      ],
+      "correcta": 1,
+      "explicacion": "Con un motor fallado o detenido, el PIC aterriza en el aeródromo apropiado más cercano en el que pueda hacerlo con seguridad. Elegir otro aeródromo igual de seguro solo se permite en aviones de tres o más motores con no más de un motor afectado.",
+      "referencia": "RAC 121, 121.2320 (a) y (b)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-29",
+      "enunciado": "En un vuelo de 4 horas, tu empresa tiene aprobado el descanso controlado en el puesto de pilotaje. Según el Apéndice 19 del RAC 121, ¿cuánto dura como máximo y hasta cuándo puede tomarse?",
+      "opciones": [
+        "Hasta 45 minutos, y hasta 20 minutos antes del tope de descenso",
+        "Hasta 60 minutos, y hasta que se inicie el descenso",
+        "Hasta 40 minutos, y también durante el descenso si el PM lo autoriza",
+        "Hasta 40 minutos, y hasta 30 minutos antes del tope de descenso"
+      ],
+      "correcta": 3,
+      "explicacion": "El descanso controlado dura máximo 40 minutos, más 20 para reasumir funciones, y solo en crucero, desde que terminan los chequeos de esa fase hasta 30 minutos antes del punto previsto de inicio del descenso. Lo toma un solo piloto a la vez, con el piloto automático operativo.",
+      "referencia": "RAC 121, 121.1916 y Apéndice 19 (d)(13) y (14)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-30",
+      "enunciado": "Vas a salir en un bimotor RAC 121 de un aeródromo con meteorología por debajo de los mínimos de aterrizaje. Según el RAC 121, ¿a qué distancia máxima debe estar el alterno de despegue?",
+      "opciones": [
+        "A 2 horas de vuelo a velocidad de crucero con todos los motores",
+        "A 30 minutos de vuelo a velocidad de crucero con un motor inoperativo",
+        "A 1 hora de vuelo a velocidad de crucero con un motor inoperativo",
+        "A 1 hora de vuelo a velocidad de crucero con todos los motores"
+      ],
+      "correcta": 2,
+      "explicacion": "Para aviones de dos motores, el alterno de despegue debe estar a no más de 1 hora de vuelo a velocidad de crucero con un motor inoperativo, calculada con el peso de despegue real. Las 2 horas con todos los motores son para aviones de tres o más motores.",
+      "referencia": "RAC 121, 121.2575 (a) y (b)(1)",
+      "metadatos": {
+        "tema": "U10",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-31",
+      "enunciado": "Tu empresa RAC 135 quiere programarte como piloto único en vuelos de noche. Según el RAC 135, ¿con qué avión puede hacerse, con aprobación de la Aerocivil?",
+      "opciones": [
+        "Uno de hélice, con 9 asientos de pasajeros o menos",
+        "Uno de hélice, con 19 asientos de pasajeros o menos",
+        "Cualquiera, si tiene piloto automático aprobado",
+        "Uno turborreactor, con 9 asientos de pasajeros o menos"
+      ],
+      "correcta": 0,
+      "explicacion": "Las operaciones IFR o nocturnas con un solo piloto requieren aprobación específica, un avión propulsado por hélice, no más de 9 asientos de pasajeros y que el manual de vuelo no exija más de un piloto. El PIC necesita además la experiencia y la recencia del 135.850.",
+      "referencia": "RAC 135, 135.375 (a) y (b)",
+      "metadatos": {
+        "tema": "U11",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-32",
+      "enunciado": "Eres copiloto de un avión RAC 135 certificado para dos pilotos y llevas 4 meses sin despegar ni aterrizar. Según el RAC 135, ¿qué necesitas para volver a volar?",
+      "opciones": [
+        "Entrenamiento periódico en tierra, dos periodos de vuelo y un chequeo",
+        "3 despegues y 3 aterrizajes con un instructor o un chequeador",
+        "Entrenamiento inicial y un chequeo ante un inspector de la Aerocivil",
+        "Un vuelo de línea como observador en la cabina de mando"
+      ],
+      "correcta": 1,
+      "explicacion": "Si pasaron más de 3 meses y hasta 6 de inactividad, haces como mínimo 3 despegues y 3 aterrizajes en aeronave o simulador aprobado con un instructor o un chequeador. De 6 a 12 meses se pide entrenamiento periódico, dos periodos y chequeo; con más de 12, entrenamiento inicial y chequeo ante inspector o examinador designado.",
+      "referencia": "RAC 135, 135.835 (a)(1)",
+      "metadatos": {
+        "tema": "U11",
+        "bloque": 3
+      }
+    },
+    {
+      "id": "ev-33",
+      "enunciado": "En crucero se presenta una emergencia a bordo y llevas mercancías peligrosas como carga. Según el RAC 175, ¿qué debes hacer respecto de los servicios de tránsito aéreo?",
+      "opciones": [
+        "Nada en vuelo; el explotador informa al aeropuerto con la copia firmada que guarda en tierra.",
+        "Informar a ATS en cuanto puedas, para que avise al aeropuerto de las mercancías peligrosas a bordo.",
+        "Informar a la Aerocivil por escrito dentro de las 12 horas siguientes al aterrizaje.",
+        "Informar a ATS solo si la emergencia involucra directamente a las mercancías peligrosas de la bodega."
+      ],
+      "correcta": 1,
+      "explicacion": "Ante una situación de emergencia en vuelo, el PIC informa a la dependencia ATS tan pronto la situación lo permita, para que esta avise a la administración aeroportuaria de las mercancías peligrosas a bordo. La norma no condiciona el aviso a que la emergencia la cause la carga.",
+      "referencia": "RAC 175, 175.620 (e)",
+      "metadatos": {
+        "tema": "U12",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-34",
+      "enunciado": "Te contratan como copiloto en una empresa que decidió no transportar mercancías peligrosas. Según el RAC 175, ¿qué pasa con tu instrucción en la materia?",
+      "opciones": [
+        "No la necesitas mientras la empresa no acepte carga peligrosa.",
+        "Basta con la instrucción de seguridad de la aviación del RAC 160.",
+        "La recibes, pero con la intensidad de referencia de cabina: 8 h inicial y 4 h recurrente.",
+        "La recibes igual; la referencia para tripulación de vuelo es 16 h inicial y 8 h recurrente."
+      ],
+      "correcta": 3,
+      "explicacion": "Todo explotador, incluso el que no acepta mercancías peligrosas, capacita a su personal con un programa que aprueba la Aerocivil. La Tabla C.1 da como referencia 16 h inicial y 8 h recurrente para tripulación de vuelo; 8 y 4 son las de tripulación de cabina.",
+      "referencia": "RAC 175, 175.305 (b); 175.316 (a)(1) y (a)(3), Tabla C.1",
+      "metadatos": {
+        "tema": "U12",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-35",
+      "enunciado": "Al llegar a destino se descubre que el avión transportó mercancías peligrosas de las que nunca se te entregó información escrita como PIC. Según el RAC 175, ¿qué es este hallazgo?",
+      "opciones": [
+        "Un suceso que el explotador debe notificar a las autoridades competentes.",
+        "Un asunto interno del expedidor, que el explotador no tiene que notificar.",
+        "Un accidente imputable a mercancías peligrosas, aunque no haya daños ni lesiones.",
+        "Un hecho sin consecuencias, siempre que los bultos llegaran sin pérdidas ni averías."
+      ],
+      "correcta": 0,
+      "explicacion": "Transportar mercancías peligrosas sin haber informado al PIC es un suceso que el explotador debe notificar. No es un accidente: el accidente imputable exige lesiones mortales o graves o daños de consideración (175.001 (a)(1)).",
+      "referencia": "RAC 175, 175.625 (d) y (d)(1)",
+      "metadatos": {
+        "tema": "U12",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-36",
+      "enunciado": "Estás embarcando y un pasajero, visiblemente alterado, amenaza a la tripulación de cabina. Según el RAC 160, ¿en qué se debe basar tu decisión de negarle el transporte?",
+      "opciones": [
+        "En la autorización previa y escrita de la Aerocivil para cada caso.",
+        "En el concepto de la autoridad migratoria del aeropuerto de salida.",
+        "En su conducta o comportamiento, que genere grave preocupación por la seguridad.",
+        "En el resultado de la inspección de seguridad de su equipaje de mano."
+      ],
+      "correcta": 2,
+      "explicacion": "El PIC tiene autoridad para negar el transporte o desembarcar a quien ponga en peligro el vuelo, y la negación debe basarse en la conducta o el comportamiento que suscite grave preocupación por la seguridad. Si la autoridad lo pide, el explotador explica por escrito los motivos (160.605 (e)).",
+      "referencia": "RAC 160, 160.605 (a), (b) y (d)",
+      "metadatos": {
+        "tema": "U13",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-37",
+      "enunciado": "Tu vuelo fue objeto de un acto de interferencia ilícita y ya aterrizaste. Como PIC, ¿qué te corresponde según el RAC 121 y el RAC 160?",
+      "opciones": [
+        "Presentar sin demora un informe sobre el acto a la Aerocivil.",
+        "Notificar el hecho a la OACI dentro de los 30 días siguientes.",
+        "Informar a los medios para tranquilizar a los familiares de los pasajeros.",
+        "Esperar a que el explotador lo incluya en su informe anual de seguridad."
+      ],
+      "correcta": 0,
+      "explicacion": "Después de un acto de interferencia ilícita, el PIC presenta sin demora un informe a la Aerocivil. Las notificaciones a la OACI y la información a los medios corresponden en forma exclusiva al Director General de la Aerocivil.",
+      "referencia": "RAC 121, 121.6125; RAC 160, 160.1745 (a)",
+      "metadatos": {
+        "tema": "U13",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-38",
+      "enunciado": "Reportas por el sistema voluntario de tu aerolínea un error tuyo que no tuvo consecuencias. Según el RAC 219, salvo excepción concedida por la Aerocivil, ¿para qué no puede usarse ese reporte?",
+      "opciones": [
+        "Para tomar medidas preventivas o correctivas que mejoren la seguridad de la operación.",
+        "Para alimentar los indicadores de rendimiento del SMS.",
+        "Para el análisis del gerente de seguridad operacional.",
+        "Para procesos disciplinarios, civiles, administrativos o penales en tu contra."
+      ],
+      "correcta": 3,
+      "explicacion": "La información de seguridad se usa para mantener o mejorar la seguridad operacional y no puede usarse en procesos disciplinarios, civiles, administrativos o penales contra empleados o personal de operaciones, salvo las excepciones del 219.130.",
+      "referencia": "RAC 219, 219.120 y 219.125 (a)",
+      "metadatos": {
+        "tema": "U14",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-39",
+      "enunciado": "En tu aerolínea se discute si un reporte de seguridad puede perder su protección. Según el RAC 219, ¿cuál de estos casos permite que la Aerocivil conceda una excepción?",
+      "opciones": [
+        "Que el reporte se haya hecho por el sistema voluntario y no por el obligatorio.",
+        "Que el evento se haya originado en una conducta equivalente a negligencia grave.",
+        "Que el piloto tenga otro reporte registrado en los últimos 12 meses.",
+        "Que el evento haya ocurrido fuera de la jornada programada del piloto."
+      ],
+      "correcta": 1,
+      "explicacion": "La Aerocivil solo concede excepciones en los casos del 219.130; uno es la evidencia de un acto con intención de causar daño o equivalente a conducta temeraria, negligencia grave o acto doloso. El canal no cambia nada: los sistemas voluntario y obligatorio están protegidos por igual (219.115).",
+      "referencia": "RAC 219, 219.130 a)",
+      "metadatos": {
+        "tema": "U14",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-40",
+      "enunciado": "Después de un incidente grave, el jefe de mantenimiento quiere retirar el CVR para revisarlo en el taller mientras llega el investigador. Según el RAC 114, ¿qué corresponde?",
+      "opciones": [
+        "Puede hacerlo si antes hace una copia con un grabador de alta velocidad.",
+        "Puede hacerlo si el explotador lo autoriza por escrito y lo anota en el libro de vuelo.",
+        "Nadie puede retirarlo ni manipularlo sin autorización expresa de la AIG.",
+        "Puede hacerlo si el PIC está presente y firma el acta de la cadena de custodia."
+      ],
+      "correcta": 2,
+      "explicacion": "Está totalmente prohibido que el explotador, el propietario o cualquier otra persona retire, opere o manipule el FDR o el CVR sin autorización expresa de la AIG o del investigador a cargo. Además, los registradores no se energizan, abren ni copian antes de su lectura.",
+      "referencia": "RAC 114, 114.505 (f)(3) y (f)(7)",
+      "metadatos": {
+        "tema": "U15",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-41",
+      "enunciado": "Tras un accidente sin víctimas mortales, tu avión quedó fuera de la pista en una zona que no afecta las operaciones del aeródromo. Según el RAC 114, ¿qué se hace con la aeronave?",
+      "opciones": [
+        "Se preserva y no se remueve hasta que el investigador llegue al sitio y lo autorice.",
+        "Se remolca de inmediato a la plataforma para liberar el área de maniobras del aeródromo.",
+        "Se remueve si el PIC toma fotos de la posición final y hace un croquis.",
+        "Se repara en el sitio para trasladarla en vuelo al taller autorizado."
+      ],
+      "correcta": 0,
+      "explicacion": "Si la aeronave no afecta la seguridad de las operaciones, se preserva y no se remueve hasta que el investigador llegue y autorice la remoción. Las fotos y el croquis se hacen cuando sí hay que moverla, y durante la suspensión está prohibido repararla.",
+      "referencia": "RAC 114, 114.505 (b)(3) y (c)(3); 114.500 (d)(4)",
+      "metadatos": {
+        "tema": "U15",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-42",
+      "enunciado": "Una semana después de un incidente grave en el que eras copiloto, la AIG te cita a entrevista y te pide documentos. Según el RAC 114, ¿qué debes hacer?",
+      "opciones": [
+        "Puedes negarte, porque la investigación no busca culpables ni responsabilidades.",
+        "Solo debes asistir si el explotador te lo ordena por escrito.",
+        "Solo entregas documentos; la entrevista es voluntaria.",
+        "Entregar la documentación que te pida y atender las entrevistas y diligencias."
+      ],
+      "correcta": 3,
+      "explicacion": "La tripulación que pudo estar comprometida en el suceso está obligada a entregar la documentación que pida la AIG y a atender las entrevistas y diligencias. Que la investigación no busque culpables no te exime de colaborar.",
+      "referencia": "RAC 114, 114.500 (c); 114.335 (b)",
+      "metadatos": {
+        "tema": "U15",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-43",
+      "enunciado": "Recibes un pliego de cargos por una infracción técnica; no eres reincidente. Admites los hechos y pagas la multa dentro de los 5 días siguientes a la notificación. Según el RAC 13, ¿qué pasa?",
+      "opciones": [
+        "La multa se reduce un 16,66 % por atenuante, pero cumples la suspensión accesoria.",
+        "La multa se reduce a la mitad, el proceso se archiva y no cumples la suspensión accesoria.",
+        "Pagas la multa completa y el proceso sigue hasta la decisión definitiva.",
+        "La multa se reduce a la mitad, pero igual cumples la suspensión accesoria de la licencia."
+      ],
+      "correcta": 1,
+      "explicacion": "Si pagas dentro de los 5 días siguientes a la notificación del pliego y no eres reincidente, la multa se reduce a la mitad y el proceso se archiva; no se cumple la suspensión accesoria, aunque sí cualquier suspensión preventiva ya ordenada.",
+      "referencia": "RAC 13, 13.2085 y 13.2095",
+      "metadatos": {
+        "tema": "U16",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-44",
+      "enunciado": "Según el RAC 13, ¿cuál de estas conductas de un piloto trae la sanción accesoria más severa?",
+      "opciones": [
+        "No portar la licencia a bordo, aunque esté vigente.",
+        "No verificar la lista de chequeo antes de una fase del vuelo.",
+        "Falsificar una licencia o certificado de aptitud, o usar uno falso.",
+        "Apartarse sin justa causa de las especificaciones de operación del explotador."
+      ],
+      "correcta": 2,
+      "explicacion": "La falsificación se sanciona con la cancelación de la licencia. Las otras conductas llevan suspensión: hasta 15 días (no portar la licencia), de 60 a 90 días (lista de chequeo) y de 90 a 120 días (especificaciones de operación).",
+      "referencia": "RAC 13, 13.605 (a) y 13.610; 13.625 (g) y 13.630; 13.635 (f) y 13.640; 13.670 (b) y 13.675",
+      "metadatos": {
+        "tema": "U16",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-45",
+      "enunciado": "Eres copiloto, tienes dos períodos de vacaciones vencidos sin disfrutar y la empresa te programa un vuelo. No hubo ninguna baja súbita en la planta de tripulantes. Según el RAC 13, ¿qué aplica?",
+      "opciones": [
+        "Quedas suspendido de vuelo automáticamente; debes reportarlo y, si vuelas, te sancionan.",
+        "Puedes volar si el director de operaciones lo autoriza por escrito.",
+        "Solo se sanciona a la empresa; tú puedes volar sin consecuencias.",
+        "Puedes volar hasta 3 meses más mientras la empresa ajusta y aprueba su programa de vacaciones."
+      ],
+      "correcta": 0,
+      "explicacion": "Con más de un período de vacaciones pendiente quedas suspendido preventivamente de vuelo en forma automática, salvo una disminución imprevista y súbita de más del 5 % de la planta. Si te programan así, debes reportarlo a la autoridad; si no lo haces o vuelas, la sanción también es para ti.",
+      "referencia": "RAC 13, 13.1095 y 13.615 (m)",
+      "metadatos": {
+        "tema": "U16",
+        "bloque": 4
+      }
+    },
+    {
+      "id": "ev-46",
+      "enunciado": "Te autorizan una aproximación ILS con altura de decisión de 45 m (150 ft) y RVR de 400 m. Según las definiciones del RAC 1, ¿qué categoría de operación es?",
+      "opciones": [
+        "CAT I.",
+        "CAT II.",
+        "CAT IIIA.",
+        "CAT IIIB."
+      ],
+      "correcta": 1,
+      "explicacion": "CAT II es la aproximación de precisión con DH inferior a 60 m (200 ft) pero no inferior a 30 m (100 ft) y RVR no inferior a 350 m. CAT I exige DH no inferior a 60 m, y CAT IIIA empieza por debajo de 30 m.",
+      "referencia": "RAC 1, 1.2.1 («Operación de aproximación y aterrizaje por instrumentos», categorías I a III)",
+      "metadatos": {
+        "tema": "U17",
+        "bloque": 5
+      }
+    },
+    {
+      "id": "ev-47",
+      "enunciado": "Antes de salir, mantenimiento te informa que falta un panel exterior del avión. Según el RAC 1, ¿qué documento indica si puedes iniciar el vuelo sin esa parte y con qué limitaciones?",
+      "opciones": [
+        "La MEL, que el explotador prepara a partir de la MMEL del tipo de avión.",
+        "El manual de control de mantenimiento (MCM) del explotador.",
+        "El certificado de operación de la empresa.",
+        "La CDL, establecida por el diseñador con aprobación del Estado de diseño."
+      ],
+      "correcta": 3,
+      "explicacion": "La CDL dice de qué partes exteriores puede prescindirse al iniciar un vuelo, con sus limitaciones y correcciones de performance. La MEL trata del equipo inoperativo, no de partes exteriores faltantes.",
+      "referencia": "RAC 1, 1.2.1 («Lista de desviaciones respecto a la configuración (CDL)» y «Lista de equipo mínimo (MEL)»)",
+      "metadatos": {
+        "tema": "U17",
+        "bloque": 5
+      }
+    },
+    {
+      "id": "ev-48",
+      "enunciado": "La empresa te traslada en un vuelo como tripulante adicional (tripadi) para operar otro avión en el destino. Según el RAC 1, ¿qué implica esa asignación?",
+      "opciones": [
+        "Viajas sin ejercer funciones, figuras en los documentos del vuelo y no genera doble asignación.",
+        "Cuentas como tripulación de vuelo y ese trayecto se anota como tiempo de vuelo en tu bitácora.",
+        "Ocupas el asiento de observador y apoyas al PIC como piloto de relevo en crucero.",
+        "Solo es válida si regresas a tu base; para operar después se requiere otra figura."
+      ],
+      "correcta": 0,
+      "explicacion": "El tripadi se traslada sin ejercer funciones, para operar después, volver a su base o cumplir una asignación de la escuela; figura en los documentos del vuelo y no ocasiona doble asignación. Actuar como piloto de relevo sería ejercer funciones.",
+      "referencia": "RAC 1, 1.2.1 («Tripulante adicional» y su Nota)",
+      "metadatos": {
+        "tema": "U17",
+        "bloque": 5
+      }
+    },
+    {
+      "id": "ev-49",
+      "enunciado": "Vuelas sobre una zona remota, fuera del alcance de las estaciones VHF de tierra, y necesitas intercambiar información operacional con otra aeronave. ¿Qué frecuencia prevé el RAC 210?",
+      "opciones": [
+        "121,500 MHz.",
+        "123,100 MHz.",
+        "123,450 MHz.",
+        "136,975 MHz."
+      ],
+      "correcta": 2,
+      "explicacion": "El canal aire-aire de 123,450 MHz sirve para que aeronaves en zonas remotas u oceánicas, fuera del alcance VHF de tierra, intercambien información operacional. 121,5 MHz es solo para emergencias y 123,1 MHz es auxiliar de búsqueda y salvamento.",
+      "referencia": "RAC 210, 210.630 (a)",
+      "metadatos": {
+        "tema": "U18",
+        "bloque": 5
+      }
+    },
+    {
+      "id": "ev-50",
+      "enunciado": "En la entrevista te piden citar la norma vigente de límites de tiempo de vuelo, servicio y descanso para tripulantes de aerolínea. Un compañero de proceso dice «RAC 4, numeral 4.17». ¿Qué respondes?",
+      "opciones": [
+        "RAC 91, porque fija las reglas generales de vuelo para todos.",
+        "RAC 121, 121.1910 y su Apéndice 18.",
+        "RAC 4, 4.17, porque sigue vigente para todas las aerolíneas.",
+        "RAC 1, en la definición de tiempo de servicio."
+      ],
+      "correcta": 1,
+      "explicacion": "Los límites que antes estaban en el RAC 4 (4.17) hoy se citan del RAC 121: el explotador los establece conforme al Apéndice 18 (121.1910). El RAC 1 solo define términos como tiempo de servicio; no fija límites.",
+      "referencia": "RAC 121, 121.1910 (b)(1) y Apéndice 18",
+      "metadatos": {
+        "tema": "U19",
+        "bloque": 5
+      }
+    }
+  ]
+}
