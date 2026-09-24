@@ -640,22 +640,24 @@ export const NIVEL_5: DocScreen[] = [
         text: "Después del toque todavía queda una fase de alta carga de trabajo: desacelerar, identificar la salida autorizada, confirmar que todo el avión libró la pista y entrar al puesto sin perder separación. Una salida rápida ayuda a abandonar antes, pero no obliga a forzar el frenado ni sustituye la autorización. Si se pierde la guía de atraque o la imagen no coincide con el puesto asignado, se detiene el avión antes de improvisar.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-22-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua desde unos 200 m, a mediodía, con la pista en diagonal y una salida rápida completa dentro del encuadre, desde la pista hasta la calle paralela: la curva entera, la recta que viene después y el punto donde se une a la paralela. Eje de salida amarillo continuo, eje de pista blanco de trazos. Ojo: sin nombres de aeropuerto, logos ni matrículas legibles.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-22-02-salida-aerea.webp",
+        alt: "Vista aérea de salida rápida de ángulo agudo que se separa de la pista y conecta con una calle paralela",
+        ancho: 1600,
+        alto: 900,
+        pie: "El eje blanco discontinuo identifica la pista; la línea amarilla continua se desprende de él, describe una curva amplia y lleva a la calle paralela. Reconoce la geometría de salida de ángulo agudo, pero no deduzcas de una fotografía la velocidad que tu avión puede mantener. Elige la salida autorizada solo si puedes alcanzarla y girar con seguridad; si no, continúa a la siguiente.",
       },
       {
         kind: "p",
-        text: "La salida rápida te saca de la pista antes: curva ancha, ángulo agudo, recta.",
+        text: "La salida rápida facilita abandonar la pista mediante una curva amplia y un ángulo agudo. Las luces indicadoras de salida rápida, cuando están instaladas, te anuncian la distancia al punto de salida; no sustituyen la velocidad de giro segura ni la autorización de rodaje.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-22-03 · Ilustración técnica · 16:9 · 1600×900",
-        descripcion:
-          "Planta esquemática a todo el ancho: la pista abajo y la salida rápida arriba a la derecha, con su punto de tangencia marcado. Tres juegos de luces amarillas sobre la pista, del mismo lado que la salida, de tres, dos y una luz, acotados «100 m» entre juegos y «100 m» del de una luz al punto de tangencia. El eje de la salida, con sus luces verdes y su tramo de verde y amarillo. Ojo: ninguna luz amarilla después del perímetro del área crítica o sensible.",
-        alto: 340,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-22-03-retills.webp",
+        alt: "Esquema conceptual de luces indicadoras de salida rápida amarillas en secuencia tres, dos y una antes del punto de tangencia, con luces de eje verde y amarillo en la salida",
+        ancho: 1600,
+        alto: 900,
+        pie: "En este dibujo, no a escala, los tres grupos de luces amarillas de la pista se reducen 3–2–1 a intervalos de 100 m antes del punto de tangencia, siempre del lado de la salida. Son luces indicadoras de salida rápida (Rapid Exit Taxiway Indicator Lights, RETIL): informan distancia, no ordenan tomar la salida. En la calle, el primer foco del eje próximo a pista es verde, se alterna con amarillo hasta el límite protegido aplicable y después queda verde; sigue únicamente la ruta autorizada y no informes pista libre hasta que todo el avión esté fuera.",
       },
       {
         kind: "fichas",
@@ -664,88 +666,90 @@ export const NIVEL_5: DocScreen[] = [
           {
             titulo: "Luces indicadoras de salida",
             puntos: [
-              "Amarillas, en la pista, del lado de la salida.",
-              "Cuentan la distancia.",
+              "Cuando existen, son grupos amarillos de tres, dos y una luz sobre la pista, del lado de la salida, separados 100 m. Reconócelos como anticipación del punto de tangencia.",
+              "Sirven para preparar la desaceleración. Si la salida no es segura para tu velocidad o no está autorizada, continúa por la pista.",
             ],
           },
           {
             titulo: "Guía visual de atraque",
-            hueco: {
-              id: "AP-22-04",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la posición del piloto izquierdo, con el sistema de atraque justo delante y la pasarela entrando por el borde derecho. Se ven la unidad de azimut sobre la prolongación del eje del puesto, el indicador de parada junto a ella y en el mismo campo visual, y la barra de alineación amarilla, de 15 cm de ancho como mínimo. Ojo: sin marca del fabricante, sin número de puesto real y sin logos.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-04-guia-atraque.webp",
+              alt: "Vista desde cabina de unidad genérica de guía visual de atraque al frente del puesto y pasarela a la derecha",
             },
-            puntos: ["Rumbo y punto de parada.", "Verde es siga; rojo, desviación y alto."],
+            puntos: [
+              "Reconoce el eje amarillo del puesto y la unidad de guía al frente, dentro del campo visual del piloto. La fotografía por sí sola no confirma que el sistema esté activo ni calibrado para tu avión.",
+              "Contrasta la guía lateral y la indicación de parada con el puesto y tipo asignados. Si la señal falta, es contradictoria o no coincide, detente y solicita una guía alternativa válida.",
+            ],
           },
           {
             titulo: "Versión avanzada",
-            hueco: {
-              id: "AP-22-05",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Frontal desde la cabina, al anochecer, con la pantalla del sistema avanzado llenando el centro del encuadre: una sola pantalla sin obstrucciones que muestra «A320», «12.5 m» y una flecha con la palabra «AZIMUTH», nada más. Rojo es peligro, amarillo precaución, verde correcto. Ojo: ni marca del fabricante, ni nombre de aeropuerto, ni número de puesto real.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-05-atraque-avanzado.webp",
+              alt: "Fotografía de unidad genérica con pantalla didáctica superpuesta que indica A320, corrección lateral y 12,5 m restantes",
             },
             puntos: [
-              "Una pantalla confirma tipo de avión, desvío y distancia, y avisa si te pasaste.",
+              "La pantalla superpuesta es un ejemplo didáctico, no una interfaz operacional: ilustra tipo de avión, guía lateral y distancia restante. Reconoce esos datos juntos; no uses el dibujo como referencia de un fabricante.",
+              "Un sistema avanzado también debe indicar parada, sobrepaso y parada de emergencia. Si se apaga, muestra un tipo equivocado o deja de guiar, detén la aeronave y coordina asistencia.",
             ],
           },
           {
             titulo: "El señalero",
-            hueco: {
-              id: "AP-22-06",
-              medida: "Fotografía real · 3:2 · 1200×800",
-              descripcion:
-                "Desde la posición del piloto, al anochecer: el señalero de frente al avión y a la izquierda del eje, en plano entero, con chaleco reflectante, protección auditiva y los dos bastones iluminados. Los brazos hacen la parada normal, extendidos a 90° y subiendo despacio hasta cruzar los bastones sobre la cabeza. Ojo: nadie cerca del avión con las anticolisión encendidas y los motores en marcha.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-22-06-senalero.webp",
+              alt: "Señalero con chaleco y protección auditiva frente al puesto, con dos bastones iluminados cruzados sobre la cabeza en señal de parada normal",
             },
-            puntos: ["Manda en el puesto.", "La parada normal es lenta; la de emergencia, brusca."],
+            puntos: [
+              "Reconoce los dos bastones cruzados sobre la cabeza: es la posición final de una señal de parada normal. La fotografía fija no muestra la velocidad del movimiento de los brazos.",
+              "Detente siguiendo la señal válida y mantén la posición hasta coordinar el aseguramiento del avión. La parada de emergencia se indica con movimiento brusco y exige detenerse de inmediato.",
+            ],
           },
         ],
       },
       {
         kind: "reconoce",
         titulo: "Las señales del puesto",
-        hueco: {
-          id: "AP-22-08",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Vista aérea oblicua de un puesto vacío desde unos 25 m, con señales recién pintadas: la línea de entrada continua con sus flechas y la identificación «2A», la barra de viraje con su punta de flecha, la línea de viraje curva, la barra de alineación larga, la línea de parada y una línea de seguridad contrastante. Cinco chinchetas numeradas, sin texto. Ojo: ningún número de puesto real ni marcas repintadas a medias.",
+        intro: "La foto muestra un puesto sin aeronave. Toca las cinco zonas señaladas y distingue la guía amarilla de los límites rojos; algunas barras cortas sirven a posiciones de parada distintas, no a un avión genérico.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-22-08-reconoce-puesto.webp",
+          alt: "Puesto vacío visto en oblicuo con línea amarilla de entrada y giro, eje de alineación, barras transversales y límites de seguridad rojos señalados",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
-            que: "Línea amarilla con flecha",
-            significa: "Entrada al puesto.",
-            piloto: "Síguela.",
+            x: 39,
+            y: 87,
+            que: "Línea amarilla de entrada",
+            significa: "Es la guía que llega desde la calle a la zona del puesto; aquí no se ve una flecha ni un número de puesto legible.",
+            piloto: "Sigue solo la línea correspondiente al puesto asignado y confirma que el área delante está libre.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra perpendicular",
-            significa: "Barra de viraje.",
-            piloto: "Aquí giras.",
+            x: 47,
+            y: 68,
+            que: "Curva de entrada",
+            significa: "La línea de guía cambia de dirección y lleva al eje recto del puesto; no se distingue una barra de viraje independiente en esta foto.",
+            piloto: "Haz el giro siguiendo el trazado y la guía autorizada, sin improvisar un punto de viraje a partir de otra marca.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra larga en tu eje",
-            significa: "Barra de alineación.",
-            piloto: "Tu referencia.",
+            x: 50,
+            y: 44,
+            que: "Eje amarillo recto",
+            significa: "Es la prolongación de la guía que centra el avión en el puesto; la foto no demuestra por sí sola la compatibilidad del puesto.",
+            piloto: "Mantén la alineación mientras contrastas la guía visual de atraque o las señales del señalero.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Barra corta al final",
-            significa: "Línea de parada.",
-            piloto: "A la altura del piloto.",
+            x: 50,
+            y: 18,
+            que: "Barras transversales",
+            significa: "Se aprecian varias marcas amarillas que cruzan el eje, incluida una barra más larga al fondo; pueden corresponder a posiciones de parada distintas.",
+            piloto: "Detente solo en la referencia válida para tu tipo de aeronave y la guía del puesto, no en la primera barra que veas.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Línea de otro color",
-            significa: "Línea de seguridad.",
-            piloto: "Afuera, el equipo.",
+            x: 22,
+            y: 43,
+            que: "Límite rojo del puesto",
+            significa: "La línea de color contrastante delimita el área de seguridad alrededor de la posición de estacionamiento.",
+            piloto: "Comprueba el espacio libre y respeta las restricciones de movimiento del equipo de tierra durante la llegada.",
           },
         ],
       },
@@ -754,14 +758,13 @@ export const NIVEL_5: DocScreen[] = [
         momento: "Entrando al puesto",
         situacion: "Entrando al puesto, la pantalla de atraque se apaga de golpe.",
         pregunta: "¿Qué haces?",
-        respuesta: "Frenas y esperas.",
-        claves: ["Sin guía válida no entras.", "El sistema debe avisar cuando falla."],
-        hueco: {
-          id: "AP-22-07",
-          medida: "Fotografía real · 3:2 · 1200×800",
-          descripcion:
-            "Desde arriba y a un costado, a unos 15 m de altura, con el puesto completo en el encuadre: el avión ya detenido y calzado, las líneas de seguridad de plataforma en color contrastante, continuas y de 10 cm de ancho como mínimo, la línea de límite de vía de servicio, y el equipo de tierra todavía por fuera de esas líneas. Ojo: nadie dentro del área del avión con las anticolisión encendidas.",
+        respuesta: "Detén el avión y pide una guía alternativa válida antes de continuar.",
+        claves: ["Una pantalla apagada no confirma eje ni punto de parada.", "Coordina con el personal de tierra; no avances por intuición."],
+        imagen: {
+          src: "/modulos/aeropuertos/ap-22-07-avion-calzado.webp",
+          alt: "Avión estacionado con calzos en el tren delantero y personal y equipos de apoyo alrededor del puesto",
         },
+        ves: ["La foto representa una fase posterior: el avión está detenido y calzado. Reconoce los calzos frente a las ruedas y el límite rojo del puesto.", "Antes de que entren los equipos, confirma la parada y el aseguramiento según el procedimiento local; los calzos visibles no prueban por sí solos que los motores estén apagados."],
       },
     ],
   },
