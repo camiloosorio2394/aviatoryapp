@@ -583,12 +583,12 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
   {
     n: 4,
     title: "El viento cerca del suelo",
-    kicker: "Convección, brisas y lo que hace un edificio con el aire",
+    kicker: "Convección, brisas y turbulencia junto a obstáculos",
     minutes: 8,
     blocks: [
       {
         kind: "p",
-        text: "Vienes en final a una pista corta con un hangar grande a barlovento. Todo estable, senda buena, y a doscientos pies el avión se cae medio punto y luego se te va de lado. No fue tuyo: el hangar te partió el viento. Esta lección es sobre los últimos mil pies, que es donde el aire deja de comportarse como en el libro.",
+        text: "En aproximación a una pista con un hangar grande próximo al corredor final, una racha cambia la trayectoria y exige corregirla. El edificio puede perturbar el flujo, pero no basta verlo para diagnosticar la causa de cada desviación. Como piloto, reconoces el riesgo, vigilas la estabilidad de la aproximación y aplicas los criterios de aproximación frustrada de tu operación si dejas de cumplirlos.",
       },
       {
         kind: "sub",
@@ -597,35 +597,69 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       {
         kind: "kv",
         items: [
-          { k: "Terreno arado, roca, arena, tierra árida", v: "emiten mucho calor: el aire sube" },
-          { k: "Agua, árboles, vegetación", v: "absorben y retienen el calor: el aire baja" },
+          { k: "Pavimento y terreno seco al sol", v: "pueden calentarse con rapidez y favorecer corrientes ascendentes" },
+          { k: "Agua y vegetación", v: "suelen calentarse de otra manera; la corriente local depende de las condiciones" },
         ],
       },
       {
         kind: "definicion",
-        text: "Corrientes de convección: pequeñas circulaciones locales que nacen del calentamiento desparejo de la superficie. Son las responsables del aire con baches que se siente volando bajo en un día caluroso.",
+        text: "Las corrientes convectivas son movimientos locales del aire asociados, entre otros factores, al calentamiento desigual de la superficie. Pueden contribuir a la turbulencia en vuelo bajo durante un día soleado; no toda turbulencia cerca del suelo tiene esa causa.",
       },
       {
-        kind: "infografia",
-        nombre: "meteo-superficies",
-      },
-      {
-        kind: "sub",
-        text: "Interpretar: esto te mueve el punto de toma",
+        kind: "reconoce",
+        titulo: "Superficies distintas junto al aeródromo",
+        intro: "Toca los puntos. La fotografía permite identificar los materiales; no muestra la dirección ni la intensidad de una corriente vertical.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l04-superficies.webp",
+          alt: "Pavimento, vegetación y agua contiguos en un aeródromo en un día soleado",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 26,
+            y: 82,
+            que: "Pavimento soleado",
+            significa: "Una superficie oscura puede calentarse más que su entorno y favorecer una corriente ascendente local.",
+            piloto: "Anticipa posible aire irregular a baja altura, pero confirma las condiciones reales y mantén los criterios de aproximación estable.",
+          },
+          {
+            x: 55,
+            y: 52,
+            que: "Vegetación",
+            significa: "Su respuesta térmica puede diferir de la del pavimento; no implica por sí sola una descendencia.",
+            piloto: "No conviertas el cambio de superficie en una predicción automática de la senda de vuelo.",
+          },
+          {
+            x: 82,
+            y: 51,
+            que: "Agua",
+            significa: "Suele calentarse y enfriarse más lentamente que el terreno contiguo, lo que puede crear contrastes térmicos.",
+            piloto: "Comprueba viento, rachas y reportes de turbulencia en lugar de deducir una corriente descendente de la foto.",
+          },
+        ],
       },
       {
         kind: "p",
-        text: "En final, el aire que sube desde un terreno pelado produce un efecto de globo que te pasa largo del punto previsto. Una aproximación sobre agua o sobre vegetación espesa hace lo contrario: te hunde y te deja corto. El avión no cambió; cambió el aire de los últimos segundos.",
+        text: "**Qué ves:** pavimento, vegetación y agua bajo el mismo sol. **Cómo lo reconoces:** por el cambio de material y la posible reverberación sobre el pavimento. **Qué decides:** considerar turbulencia local, confirmar viento y rachas, y volar la aproximación según los procedimientos; la imagen no revela corrientes verticales medibles.",
+      },
+      {
+        kind: "sub",
+        text: "Interpretar: una superficie no predice el punto de toma",
+      },
+      {
+        kind: "p",
+        text: "El aire ascendente sobre una superficie calentada puede afectar la trayectoria, y una descendencia local también puede hacerlo. Pero cruzar de pavimento a agua o vegetación **no** predice por sí solo si aterrizarás largo o corto. Vigila velocidad, trayectoria y energía; si la aproximación deja de estar estabilizada, sigue el procedimiento de aproximación frustrada.",
       },
       {
         kind: "callout",
         tone: "tip",
-        title: "La salida barata",
-        text: "La turbulencia de convección se evita subiendo. Volando por encima de la capa de cúmulos el aire vuelve a estar liso. Si el tramo bajo no es obligatorio, es la decisión más simple que hay.",
+        title: "Ajustar el plan no elimina todos los riesgos",
+        text: "En algunos casos, operar por encima de una capa convectiva poco profunda reduce la turbulencia térmica. No garantiza aire suave ni sustituye la evaluación de nubes, tormentas, turbulencia y altitudes autorizadas. En despegue y aterrizaje no puedes evitar toda la capa cercana al suelo: prepárate con información vigente y procedimientos del operador.",
       },
       {
         kind: "sub",
-        text: "Las brisas, que cambian de sentido entre el día y la noche",
+        text: "Brisas costeras: cómo puede cambiar el viento",
       },
       {
         kind: "fichas",
@@ -636,18 +670,18 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             titulo: "De día: brisa de mar",
             puntos: [
               "La tierra se calienta más rápido que el agua.",
-              "El aire sobre tierra se calienta, se hace menos denso y sube.",
+              "Con condiciones favorables, el aire sobre tierra se calienta, se hace menos denso y sube.",
               "Lo reemplaza aire más frío y denso que viene del agua.",
-              "Resultado: viento que entra desde el mar hacia la tierra.",
+              "Resultado posible: brisa desde el mar hacia la tierra.",
             ],
           },
           {
             titulo: "De noche: brisa de tierra",
             puntos: [
               "La tierra se enfría más rápido que el agua, y el aire sobre ella también.",
-              "Ahora el aire más caliente está sobre el agua, y es el que sube.",
+              "Si el agua permanece relativamente más cálida, el aire sobre ella puede ascender.",
               "Lo reemplaza el aire más frío y denso que baja de la tierra.",
-              "Resultado: viento que sale de la tierra hacia el agua.",
+              "Resultado posible: brisa desde la tierra hacia el agua, a menudo más débil.",
             ],
           },
         ],
@@ -658,43 +692,81 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
       },
       {
         kind: "p",
-        text: "En un aeropuerto costero eso significa que la pista en uso puede cambiar de forma previsible entre la tarde y la madrugada, sin que pase ningún frente ni cambie ningún sistema. Es la explicación de la mitad de los cambios de configuración que ves en un destino de playa.",
+        text: "**Qué muestra el esquema:** el mecanismo ideal de brisa marina de día y terrestre de noche. **Cómo leerlo:** compara cuál superficie está relativamente más cálida y la dirección de la flecha cerca del suelo. **Qué decides:** comprobar viento observado y pronosticado antes de prever una pista en uso; el viento sinóptico puede impedir o modificar ambas brisas. Una fotografía aislada no muestra la inversión entre día y noche.",
+      },
+      {
+        kind: "p",
+        text: "En un aeropuerto costero, un cambio de brisa puede contribuir a una variación del viento y de la pista en uso. No ocurre de manera obligatoria ni a una hora fija: intervienen el viento predominante, la topografía y la operación del aeródromo.",
       },
       {
         kind: "check",
         question:
           "Aterrizas en un aeropuerto costero a las tres de la tarde con viento que entra del mar. Vuelves a las cuatro de la madrugada. ¿Qué esperas?",
         options: [
-          "El mismo viento: la brisa la fija la geografía del lugar y no cambia de sentido",
-          "Calma: de noche se iguala la temperatura entre la tierra y el agua y la brisa desaparece",
-          "Viento saliendo de la tierra hacia el mar, y con eso, posiblemente la pista contraria en uso",
+          "El mismo viento con certeza: la brisa marina no cambia durante la noche",
+          "Calma obligatoria: al anochecer desaparece todo gradiente de temperatura",
+          "Puede aparecer una brisa de tierra, pero confirmas el viento vigente y la pista asignada",
         ],
         answer: 2,
         explain:
-          "De día la tierra se calienta más rápido que el agua: el aire sobre tierra sube y lo reemplaza el que viene del mar. De noche se invierte, porque la tierra también se enfría más rápido: ahora el aire más caliente está sobre el agua y el que baja de la tierra ocupa su sitio. Mismo aeropuerto, pista en uso contraria, y sin que pase ningún frente ni cambie ningún sistema.",
+          "El enfriamiento nocturno de la tierra puede favorecer una brisa hacia el mar. No es seguro que se forme ni que cambie la pista en uso: comprueba las observaciones, el pronóstico, el viento predominante y la información del aeródromo.",
       },
       {
         kind: "sub",
-        text: "Aplicar: obstáculos, que es el peligro invisible",
+        text: "Aplicar: viento perturbado junto a obstáculos",
       },
       {
         kind: "p",
-        text: "Las obstrucciones del suelo rompen el flujo del viento y crean ráfagas que cambian de dirección y de velocidad muy rápido. Valen igual un hangar que un acantilado. Lo importante operativamente: **la intensidad de la turbulencia depende del tamaño del obstáculo y de la velocidad del viento**, así que el mismo hangar es inofensivo con calma y serio con viento fuerte.",
+        text: "Edificios, árboles y relieve pueden perturbar el viento y generar turbulencia a sotavento. La intensidad depende, entre otros factores, de la velocidad y dirección del viento y de la forma y tamaño del obstáculo. Un hangar grande merece atención especial con viento fuerte; no puedes deducir la intensidad exacta desde una fotografía.",
       },
       {
         kind: "vinetas",
         items: [
-          "En aterrizaje, la aeronave puede «caer» por la turbulencia y quedar demasiado baja para franquear los obstáculos de la aproximación.",
-          "Conviene tenerlo presente al operar en aeropuertos con edificios grandes u obstáculos naturales cerca de la pista.",
+          "En final, una ráfaga o cizalladura local puede alterar velocidad y senda; controla la energía y aplica los criterios de aproximación estabilizada.",
+          "Revisa reportes, viento y disposición de edificios o relieve junto a la trayectoria, sin inventar una zona de peligro exacta a partir de la imagen.",
         ],
       },
       {
-        kind: "infografia",
-        nombre: "meteo-obstaculo",
+        kind: "reconoce",
+        titulo: "Un hangar puede perturbar el flujo",
+        intro: "Identifica los elementos de la escena. El polvo en suspensión puede sugerir aire en movimiento, pero también tener otras causas; no mide turbulencia ni cizalladura.",
+        imagen: {
+          src: "/modulos/meteorologia/mt-l04-hangar.webp",
+          alt: "Hangar próximo al área de maniobras, polvo en suspensión y avión distante en aproximación",
+          ancho: 1600,
+          alto: 900,
+        },
+        puntos: [
+          {
+            x: 24,
+            y: 38,
+            que: "Hangar",
+            significa: "Una estructura grande puede modificar el viento a su alrededor, especialmente a sotavento.",
+            piloto: "Consulta dirección e intensidad del viento antes de valorar qué sector podría quedar afectado.",
+          },
+          {
+            x: 53,
+            y: 62,
+            que: "Polvo en suspensión",
+            significa: "Podría deberse al viento o a una actividad en tierra; la imagen fija no identifica su causa ni mide la intensidad del flujo.",
+            piloto: "Trátalo como una señal de atención; confirma con reportes, observación y procedimientos de la operación.",
+          },
+          {
+            x: 93,
+            y: 40,
+            que: "Avión en aproximación",
+            significa: "En vuelo bajo queda menos altura para recuperar una desviación de velocidad o trayectoria.",
+            piloto: "Mantén los criterios de estabilización; si no se cumplen, ejecuta la aproximación frustrada según el procedimiento.",
+          },
+        ],
+      },
+      {
+        kind: "p",
+        text: "**Qué ves:** un hangar, polvo en suspensión y un avión distante. **Cómo lo reconoces:** la estructura sobresale junto al área de maniobras y hay polvo visible; la foto no permite saber qué lo levantó. **Qué decides:** confirmar viento y reportes, anticipar posible perturbación y aplicar los criterios de aproximación estable; la fotografía no cuantifica el peligro.",
       },
       {
         kind: "sub",
-        text: "Y en montaña, lo mismo pero peor",
+        text: "En montaña: ascensos y descendencias posibles",
       },
       {
         kind: "fichas",
@@ -704,16 +776,16 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
           {
             titulo: "Barlovento",
             puntos: [
-              "El viento sube la ladera de forma suave.",
-              "Las corrientes ascendentes ayudan a llevar la aeronave sobre la cima.",
+              "El flujo puede ascender por la ladera expuesta al viento.",
+              "También puede haber turbulencia; una ascendente no garantiza margen sobre la cima.",
             ],
           },
           {
             titulo: "Sotavento",
             puntos: [
-              "El aire sigue el contorno del terreno y se vuelve cada vez más turbulento.",
-              "Tiende a empujar la aeronave contra la ladera.",
-              "Cuanto más fuerte el viento, mayor la turbulencia y mayor la presión hacia abajo.",
+              "Pueden aparecer ondas, rotores, turbulencia y descendencias a sotavento.",
+              "Una descendencia puede superar la capacidad de ascenso disponible.",
+              "La intensidad depende del viento, estabilidad y relieve; no siempre aumenta de forma simple.",
               "En valles y cañones las corrientes descendentes pueden ser severas.",
             ],
           },
@@ -724,10 +796,14 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
         nombre: "meteo-montana",
       },
       {
+        kind: "p",
+        text: "**Qué muestra el esquema:** ascenso posible en barlovento y flujo perturbado a sotavento. **Cómo leerlo:** ubica la dirección del viento respecto de la cresta y observa dónde se representa la descendencia. **Qué decides:** consultar viento en altura, turbulencia y procedimientos de ruta, y mantener margen con el terreno; ninguna ladera es automáticamente segura. Una foto no revela por sí sola el flujo invisible a ambos lados de la montaña.",
+      },
+      {
         kind: "callout",
         tone: "warn",
         title: "Lo que recomienda el capítulo",
-        text: "Antes de volar en terreno montañoso desconocido, el PHAK recomienda hacer una salida con un instructor de vuelo en montaña calificado. No es una formalidad: el lado de sotavento se comporta al revés de lo que la intuición espera.",
+        text: "Para aviación general, el manual de la FAA recomienda instrucción específica antes de operar en montaña desconocida. En una aerolínea, la decisión se rige por entrenamiento, rutas, limitaciones y procedimientos del operador; la imagen no reemplaza esa preparación.",
       },
       {
         kind: "entrevista",
@@ -737,26 +813,25 @@ export const PARTE_ATMOSFERA: DocScreen[] = [
             nivel: "concepto",
             q: "¿Qué son las corrientes de convección y cuándo las nota un piloto?",
             respuesta:
-              "Son circulaciones locales producidas por el calentamiento desparejo de la superficie, porque cada tipo de terreno irradia calor de forma distinta. Se notan como aire turbulento y con baches, sobre todo volando bajo en tiempo caluroso.",
-            claves: ["Calentamiento desparejo", "Circulación local", "Vuelo bajo, tiempo caluroso"],
+              "Son movimientos locales asociados al calentamiento desigual de la superficie. Pueden generar ascendencias y aire irregular a baja altura, especialmente en días soleados; no se infiere su intensidad mirando solo el tipo de terreno.",
+            claves: ["Calentamiento desigual", "Circulación local", "No cuantificable por una foto"],
           },
           {
             nivel: "interpretacion",
-            q: "Va en final sobre un lago y después sobre terreno pelado. ¿Qué le hace cada uno?",
+            q: "Va en final sobre un lago y después sobre terreno seco. ¿Puede predecir el punto de toma solo por ese cambio?",
             respuesta:
-              "Sobre el agua predominan las corrientes descendentes, que tienden a hundirlo y a dejarlo corto del punto de toma. Sobre el terreno pelado predominan las ascendentes, con efecto de globo, que tienden a pasarlo largo.",
-            claves: ["Agua: descendente, corto", "Terreno árido: ascendente, largo"],
+              "No. El contraste térmico puede favorecer circulaciones locales, pero no garantiza una descendencia sobre el lago ni una ascendente sobre el terreno. Mantengo control de velocidad y senda y aplico la política de aproximación estabilizada.",
+            claves: ["Contraste térmico posible", "No garantiza corriente vertical", "Criterios de aproximación estable"],
           },
           {
             nivel: "situacion",
             q: "¿Por qué el lado de sotavento de una montaña es más peligroso que el de barlovento?",
             respuesta:
-              "A barlovento el viento sube la ladera de forma suave y las ascendentes incluso ayudan. A sotavento el aire sigue el contorno del terreno y se vuelve turbulento, empujando la aeronave hacia la ladera, y la presión hacia abajo crece con la fuerza del viento. En valles y cañones las descendentes pueden ser severas.",
+              "En sotavento pueden presentarse ondas, rotores y descendencias intensas que reduzcan el margen con el terreno. Barlovento puede tener ascendencias, pero no es automáticamente suave ni seguro. Verifico viento en altura, turbulencia prevista y los márgenes y procedimientos de la ruta.",
             claves: [
-              "Barlovento: flujo suave, ascendentes",
-              "Sotavento: turbulencia y descendentes",
-              "Empuja contra la ladera",
-              "Peor cuanto más fuerte el viento",
+              "Barlovento: ascenso posible, no garantizado",
+              "Sotavento: ondas, rotores y descendencias posibles",
+              "Margen con terreno y procedimientos",
             ],
           },
         ],
