@@ -135,7 +135,7 @@ Dos tripulaciones despegan con el mismo combustible hacia un destino con torment
 
 ### Quiz · Capítulo 1
 
-**c01-q1** · Vas hacia un destino con tormentas. El combustible total todavía «se ve bien», pero tu predicción muestra que la espera anunciada consumirá toda la contingencia. ¿Qué refleja una buena gestión del combustible?
+**c01-q1** · Vas hacia un destino con tormentas. El combustible total todavía «se ve bien», pero tu predicción muestra que la espera anunciada costará más que toda tu contingencia. ¿Qué refleja una buena gestión del combustible?
 - A) Esperar a que el FOB quede por debajo del OFP antes de cambiar el plan.
 - B) Aceptar todas las esperas, porque el total a bordo todavía se ve bien.
 - C) Pedir información de demoras temprano y preparar el desvío con margen.
@@ -628,15 +628,15 @@ Vuelo de referencia: trayecto 3.000 kg y contingencia de 200 kg. A mitad de ruta
 - C) Una falla de motor en el punto más crítico de una ruta sobre agua.
 - D) Una aproximación frustrada en destino seguida del desvío al alterno.
 **Correcta:** B · **Tema:** C06 · **Referencia:** RAC 121, 121.2645 (c)(3), Nota
-**Explicación:** Las desviaciones respecto de la meteorología prevista son factores imprevistos, y para eso está la contingencia. La espera publicada por NOTAM es previsible (extra), la falla en el punto crítico es del adicional y la frustrada con desvío es del combustible para el alterno.
+**Explicación:** Las desviaciones respecto de la meteorología prevista son factores imprevistos, y para eso está la contingencia. La espera publicada por NOTAM es previsible (va en el plan o como extra), la falla en el punto crítico es del adicional y la frustrada con desvío es del combustible para el alterno.
 
-**c06-q2** · Eres copiloto. El despacho sabe que a tu hora de llegada hay esperas habituales de unos 15 minutos por congestión. ¿Con qué componente se debe cubrir esa demora?
+**c06-q2** · Eres copiloto. El despacho sabe que a tu hora de llegada hay esperas habituales de unos 15 minutos por congestión. ¿Cómo se debe cubrir esa demora?
 - A) Con la contingencia, que existe para las demoras prolongadas.
 - B) Con el combustible adicional, que cubre las esperas en destino.
 - C) Con la reserva final, porque son solo 15 minutos de espera.
-- D) Con combustible extra o discrecional, porque es previsible.
-**Correcta:** D · **Tema:** C06 · **Referencia:** RAC 121, 121.2645 (c)(3), Nota, y (c)(7)
-**Explicación:** La contingencia compensa lo imprevisto; una demora que se conoce antes de salir es previsible y se cubre con extra o discrecional. Si la cargas a la contingencia, te quedas sin margen para lo que sí es imprevisto.
+- D) En el cálculo del plan o como extra, porque es previsible.
+**Correcta:** D · **Tema:** C06 · **Referencia:** RAC 121, 121.2645 (b)(2)(iv), (c)(3), Nota, y (c)(7)
+**Explicación:** La contingencia compensa lo imprevisto; una demora que se conoce antes de salir es previsible y va en el cálculo del plan (demoras ATS previstas) o como extra, según tu operador. Si la cargas a la contingencia, te quedas sin margen para lo que sí es imprevisto.
 
 **c06-q3** · Tu aerolínea quiere calcular la contingencia con un método propio basado en su programa de control del consumo, en lugar del 5 % con piso de 5 minutos. Según el RAC 121, ¿quién puede autorizarlo?
 - A) La Aerocivil, con una evaluación de riesgos del explotador que lo sustente.
@@ -927,7 +927,7 @@ El TAF del destino trae un TEMPO de tormentas justo a tu hora de llegada, y la e
 - C) Un rodaje más largo de lo previsto por congestión en la salida.
 - D) El combustible crítico exigido en una operación EDTO.
 **Correcta:** D · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (c)(6)(ii) y (iii); 121.2581 (b)(5)
-**Explicación:** El adicional también cubre el escenario de combustible crítico para EDTO y otros requisitos no considerados antes. La espera por NOTAM y el alterno marginal se cubren con extra, y un rodaje largo se paga con el margen antes del despegue.
+**Explicación:** El adicional también cubre el escenario de combustible crítico para EDTO y otros requisitos no considerados antes. La espera por NOTAM va en el plan o como extra, el alterno marginal justifica extra y un rodaje largo se paga con el margen antes del despegue.
 
 ---
 
@@ -1343,7 +1343,7 @@ El FMS predice 2.750 kg al aterrizar. ATC te anuncia vectores que alargan la lle
 
 ### Quiz · Capítulo 14
 
-**c14-q1** · ¿Sobre qué cifra se aplican los tres avisos del RAC 121 (pedir demoras, «combustible mínimo» y «MAYDAY COMBUSTIBLE»)?
+**c14-q1** · ¿Sobre qué cifra se aplican los tres avisos del RAC 121 (pedir demoras, «combustible mínimo» y «MAYDAY, MAYDAY, MAYDAY, COMBUSTIBLE»)?
 - A) Sobre el FOB que indica el avión en este momento, comparado con la reserva final.
 - B) Sobre el combustible calculado al aterrizar, es decir, sobre predicciones.
 - C) Sobre el FU acumulado, comparado con el combustible para el trayecto del OFP.
@@ -2075,7 +2075,7 @@ En 1990, la tripulación del vuelo Avianca 052 hizo una aproximación frustrada 
 - C) La contingencia, que se calcula para cubrir dos aproximaciones completas en el destino.
 - D) El del alterno: incluye una frustrada en destino; un segundo intento no está planificado.
 **Correcta:** D · **Tema:** C22 · **Referencia:** RAC 121, 121.2645 (c)(4)(i)(A)
-**Explicación:** El combustible para el alterno incluye la aproximación frustrada en destino, el ascenso, la ruta, el descenso y la aproximación y el aterrizaje en el alterno. El plan prevé un sobrepaso seguido de desvío; un segundo intento sale de la contingencia, del discrecional o, si ya no hay, del combustible del alterno.
+**Explicación:** El combustible para el alterno incluye la aproximación frustrada en destino, el ascenso, la ruta, el descenso y la aproximación y el aterrizaje en el alterno. El plan prevé un sobrepaso seguido de desvío; un segundo intento sale del margen (contingencia y discrecional) o, si ya no hay, del combustible del alterno.
 
 **c22-q2** · Eres PM y preparas el briefing de aproximación a un destino con techo cerca de los mínimos. Sobre el combustible, ¿qué debe quedar dicho antes de iniciarla?
 - A) Con cuánto quedan tras un sobrepaso, si alcanza para otro intento o solo para el alterno, y qué harán.
@@ -2294,13 +2294,13 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **Correcta:** A · **Tema:** C04 · **Referencia:** RAC 121, 121.2645 (d)
 **Explicación:** El requerido para despegar es trayecto, contingencias, alterno y reserva final: 7.480 kg. Con 7.430 kg no se despega; se regresa a cargar o se replanifica según el MO, y el block fuel no es el mínimo porque incluye rodaje y discrecional.
 
-**ev-08** · El avión sale con un ítem de mantenimiento diferido que aumenta el consumo. Según el RAC 121, ¿cómo debe tratarse ese efecto en el combustible?
-- A) Se cubre con la contingencia, porque es un factor imprevisto.
-- B) Solo con discrecional, si el PIC decide añadirlo al despacho.
-- C) No se planifica: se vigila después en los fuel checks en vuelo.
-- D) Se incluye en el cálculo previo como condición operacional.
-**Correcta:** D · **Tema:** C04 · **Referencia:** RAC 121, 121.2645 (b)(2)(v)
-**Explicación:** El efecto de los ítems de mantenimiento diferidos o de las desviaciones de configuración es una de las condiciones operacionales en que se basa el cálculo. Se conoce antes de salir, así que no es un imprevisto para la contingencia ni una opción del PIC.
+**ev-08** · Sales con un ítem de la MEL que, según tu manual, aumenta el consumo un 3 %. El trayecto sin esa penalización es 4.000 kg y la contingencia, 200 kg. Tu compañero propone no tocar el cálculo porque «la contingencia lo cubre». Según el RAC 121, ¿qué le respondes?
+- A) Que sí: los 120 kg caben en los 200 kg de contingencia, que existe para eso.
+- B) Que sí, siempre que el PIC lo acepte y lo deje anotado en el OFP del vuelo.
+- C) Que no: un ítem de MEL que aumenta el consumo se cubre con el adicional.
+- D) Que no: esos 120 kg son previsibles y van en el cálculo previo.
+**Correcta:** D · **Tema:** C04 · **Referencia:** RAC 121, 121.2645 (b)(2)(v), (c)(3), Nota, y (c)(6)
+**Explicación:** El efecto de los ítems de mantenimiento diferidos es una de las condiciones operacionales en que se basa el cálculo previo: 4.000 × 3 % = 120 kg que se conocen antes de salir. No es un imprevisto para la contingencia ni un caso del adicional, que cubre la falla en el punto crítico.
 
 **ev-09** · El OFP se calculó con el índice de costo (CI) de la empresa. Ya en crucero, para recuperar horario, te piden volar con un CI mucho más alto. ¿Qué esperas?
 - A) Menos consumo, porque llegas antes y vuelas menos tiempo.
@@ -2334,13 +2334,13 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **Correcta:** A · **Tema:** C07 · **Referencia:** RAC 121, 121.001 (aeródromo aislado, Nota); 121.2645 (c)(4)(iii) y (iv)
 **Explicación:** El RAC 121 dice que en Colombia no se considera el aeródromo aislado y que todos los vuelos deben contar, por lo menos, con un aeródromo alterno; los apartados de vuelo sin alterno están reservados. Los 15 minutos, las 6 horas y las 2 horas vienen de la OACI, EASA o la FAA.
 
-**ev-13** · A mitad de ruta, el TAF de tu alterno se enmienda con niebla por debajo de sus mínimos de planificación a tu hora prevista. El destino sigue con buen tiempo. Según el RAC 121, ¿qué puedes hacer?
-- A) Mantener el alterno original, porque el despacho no se cambia en vuelo.
-- B) Continuar sin alterno, porque el pronóstico del destino sigue siendo bueno.
-- C) Enmendar el despacho en ruta con otro alterno a tu alcance y dejarlo registrado.
-- D) Declarar combustible mínimo para que el ATC te asigne otro alterno en ruta.
-**Correcta:** C · **Tema:** C07 · **Referencia:** RAC 121, 121.2625 (b)(2) e (i)
-**Explicación:** Un alterno bajo sus mínimos de planificación ya no te protege. El RAC 121 permite enmendar el despacho en ruta para incluir cualquier alterno dentro del alcance del avión, y quien lo enmienda lo registra; después recalculas, porque el nuevo alterno puede pedir más combustible.
+**ev-13** · A mitad de ruta, el TAF de tu alterno se enmienda con niebla bajo mínimos a tu hora prevista. Tu predicción al destino queda 350 kg por encima del alterno más la reserva final. Con el despachador eligen otro alterno al alcance del avión, que pide 250 kg más que el original. ¿Qué es correcto?
+- A) Mantener el alterno original, porque el despacho no se puede cambiar en vuelo.
+- B) Pedir demoras al ATC: con el nuevo alterno ya quedas por debajo del alterno más la reserva final.
+- C) Enmendar y registrar el despacho: quedas unos 100 kg sobre alterno más reserva final.
+- D) Declarar combustible mínimo, porque el nuevo alterno te deja con menos margen del planificado.
+**Correcta:** C · **Tema:** C07 · **Referencia:** RAC 121, 121.2625 (b)(2) e (i); 121.2553 (b)(1) y (b)(2)
+**Explicación:** El RAC 121 permite enmendar el despacho en ruta para incluir cualquier alterno dentro del alcance del avión, y quien lo enmienda lo registra. Recalculado, quedas unos 100 kg sobre alterno más reserva final (350 − 250), no por debajo: es poco margen y hay que vigilar la llegada, pero no es combustible mínimo, que exige estar obligado a un aeródromo.
 
 **ev-14** · En el briefing de llegada tu comandante dice: «Tenemos 1.300 kg de reserva final; si hace falta, son 30 minutos más de espera». ¿Qué le respondes?
 - A) Correcto, siempre que declaremos combustible mínimo antes de empezar a usarla.
@@ -2379,8 +2379,8 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 - B) Subes el extra a unos 760 kg: la cantidad la decides tú como PIC.
 - C) Dejas el extra en 300 kg y cubres el resto con la contingencia.
 - D) Pides al despacho un adicional por la meteorología del destino.
-**Correcta:** B · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (c)(3), Nota, (c)(6) y (c)(7)
-**Explicación:** Una espera previsible se cubre con extra, y en el RAC 121 la cantidad es la que a juicio del PIC puede añadirse: 18 × 42 ≈ 760 kg. La contingencia es para lo imprevisto y el adicional solo cubre la falla en el punto crítico, EDTO u otros requisitos.
+**Correcta:** B · **Tema:** C09 · **Referencia:** RAC 121, 121.2645 (b)(2)(iv), (c)(3), Nota, (c)(6) y (c)(7)
+**Explicación:** Una espera previsible no se carga a la contingencia: va en el plan o como extra, y aquí el despacho la trata como extra. En el RAC 121 esa cantidad es la que a juicio del PIC puede añadirse: 18 × 42 ≈ 760 kg. El adicional solo cubre la falla en el punto crítico, EDTO u otros requisitos.
 
 **ev-19** · Preparas un vuelo con buen tiempo en destino y alterno, sin NOTAM relevantes ni congestión conocida. Tu compañero propone llenar tanques «por si acaso». ¿Qué criterio aplicas para el discrecional?
 - A) Llenar tanques, porque más combustible siempre es un vuelo más seguro.
@@ -2542,11 +2542,11 @@ Los escenarios son **de práctica**: no describen vuelos reales ni operadores re
 **Correcta:** B · **Tema:** C20 · **Referencia:** RAC 91, 91.610 (b); Anexo 6, Parte I, 4.3.6.7; RAC 121, 121.2553 (b), Nota
 **Explicación:** El uso del combustible después del inicio del vuelo para fines distintos de los previstos exige un nuevo análisis y, si corresponde, un ajuste de la operación. Conservar el alterno más la reserva final no te exime de replanificar desde donde estás; una rerruta larga es justo el motivo.
 
-**ev-39** · Tu contingencia es de 300 kg. En el mismo vuelo te dejan 15 minutos a un nivel más bajo (+80 kg), usas antihielo 10 minutos en el descenso (+40 kg), te dan vectores (+70 kg) y una espera de 3 minutos a 45 kg/min. ¿Qué pasa con la contingencia y qué correspondía hacer?
-- A) Se consume completa, unos 325 kg: tras cada evento tocaba un fuel check y actualizar la predicción.
-- B) Queda casi intacta: solo la espera consume contingencia; el nivel, el antihielo y los vectores son trayecto.
-- C) No se toca: las demoras que impone el ATC se cubren con el combustible para el alterno.
-- D) Se consume la mitad, unos 135 kg: los factores de menos de 100 kg no cambian la predicción.
+**ev-39** · Tu contingencia es de 300 kg. En el mismo vuelo te dejan 15 minutos a un nivel más bajo (+80 kg), usas antihielo 10 minutos en el descenso (+40 kg), te dan vectores (+70 kg) y una espera de 3 minutos a 45 kg/min. ¿Cuánto suman frente a la contingencia y qué correspondía hacer?
+- A) Unos 325 kg, más que toda la contingencia: tras cada evento tocaba un fuel check y actualizar la predicción.
+- B) Solo cuenta la espera, unos 135 kg: el nivel, el antihielo y los vectores ya estaban dentro del trayecto planificado.
+- C) Nada: las demoras que impone el ATC no cuentan frente a la contingencia; se cubren con el combustible para el alterno.
+- D) Menos de la mitad de la contingencia: los factores de menos de 100 kg no alcanzan a cambiar la predicción.
 **Correcta:** A · **Tema:** C21 · **Referencia:** Módulo C21, ejemplo; RAC 121, 121.2645 (c)(3), Nota; Doc 9976, 6.4.5
 **Explicación:** Sumados, los cuatro factores cuestan unos 325 kg (80 + 40 + 70 + 135), más que toda la contingencia, aunque ninguno parezca grave. Por eso, cuando aparece cada factor, se hace un fuel check y se actualiza la predicción.
 

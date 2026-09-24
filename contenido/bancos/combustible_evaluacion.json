@@ -123,16 +123,16 @@
     },
     {
       "id": "ev-08",
-      "enunciado": "El avión sale con un ítem de mantenimiento diferido que aumenta el consumo. Según el RAC 121, ¿cómo debe tratarse ese efecto en el combustible?",
+      "enunciado": "Sales con un ítem de la MEL que, según tu manual, aumenta el consumo un 3 %. El trayecto sin esa penalización es 4.000 kg y la contingencia, 200 kg. Tu compañero propone no tocar el cálculo porque «la contingencia lo cubre». Según el RAC 121, ¿qué le respondes?",
       "opciones": [
-        "Se cubre con la contingencia, porque es un factor imprevisto.",
-        "Solo con discrecional, si el PIC decide añadirlo al despacho.",
-        "No se planifica: se vigila después en los fuel checks en vuelo.",
-        "Se incluye en el cálculo previo como condición operacional."
+        "Que sí: los 120 kg caben en los 200 kg de contingencia, que existe para eso.",
+        "Que sí, siempre que el PIC lo acepte y lo deje anotado en el OFP del vuelo.",
+        "Que no: un ítem de MEL que aumenta el consumo se cubre con el adicional.",
+        "Que no: esos 120 kg son previsibles y van en el cálculo previo."
       ],
       "correcta": 3,
-      "explicacion": "El efecto de los ítems de mantenimiento diferidos o de las desviaciones de configuración es una de las condiciones operacionales en que se basa el cálculo. Se conoce antes de salir, así que no es un imprevisto para la contingencia ni una opción del PIC.",
-      "referencia": "RAC 121, 121.2645 (b)(2)(v)",
+      "explicacion": "El efecto de los ítems de mantenimiento diferidos es una de las condiciones operacionales en que se basa el cálculo previo: 4.000 × 3 % = 120 kg que se conocen antes de salir. No es un imprevisto para la contingencia ni un caso del adicional, que cubre la falla en el punto crítico.",
+      "referencia": "RAC 121, 121.2645 (b)(2)(v), (c)(3), Nota, y (c)(6)",
       "metadatos": {
         "tema": "C04",
         "capitulo": 4
@@ -208,16 +208,16 @@
     },
     {
       "id": "ev-13",
-      "enunciado": "A mitad de ruta, el TAF de tu alterno se enmienda con niebla por debajo de sus mínimos de planificación a tu hora prevista. El destino sigue con buen tiempo. Según el RAC 121, ¿qué puedes hacer?",
+      "enunciado": "A mitad de ruta, el TAF de tu alterno se enmienda con niebla bajo mínimos a tu hora prevista. Tu predicción al destino queda 350 kg por encima del alterno más la reserva final. Con el despachador eligen otro alterno al alcance del avión, que pide 250 kg más que el original. ¿Qué es correcto?",
       "opciones": [
-        "Mantener el alterno original, porque el despacho no se cambia en vuelo.",
-        "Continuar sin alterno, porque el pronóstico del destino sigue siendo bueno.",
-        "Enmendar el despacho en ruta con otro alterno a tu alcance y dejarlo registrado.",
-        "Declarar combustible mínimo para que el ATC te asigne otro alterno en ruta."
+        "Mantener el alterno original, porque el despacho no se puede cambiar en vuelo.",
+        "Pedir demoras al ATC: con el nuevo alterno ya quedas por debajo del alterno más la reserva final.",
+        "Enmendar y registrar el despacho: quedas unos 100 kg sobre alterno más reserva final.",
+        "Declarar combustible mínimo, porque el nuevo alterno te deja con menos margen del planificado."
       ],
       "correcta": 2,
-      "explicacion": "Un alterno bajo sus mínimos de planificación ya no te protege. El RAC 121 permite enmendar el despacho en ruta para incluir cualquier alterno dentro del alcance del avión, y quien lo enmienda lo registra; después recalculas, porque el nuevo alterno puede pedir más combustible.",
-      "referencia": "RAC 121, 121.2625 (b)(2) e (i)",
+      "explicacion": "El RAC 121 permite enmendar el despacho en ruta para incluir cualquier alterno dentro del alcance del avión, y quien lo enmienda lo registra. Recalculado, quedas unos 100 kg sobre alterno más reserva final (350 − 250), no por debajo: es poco margen y hay que vigilar la llegada, pero no es combustible mínimo, que exige estar obligado a un aeródromo.",
+      "referencia": "RAC 121, 121.2625 (b)(2) e (i); 121.2553 (b)(1) y (b)(2)",
       "metadatos": {
         "tema": "C07",
         "capitulo": 7
@@ -301,8 +301,8 @@
         "Pides al despacho un adicional por la meteorología del destino."
       ],
       "correcta": 1,
-      "explicacion": "Una espera previsible se cubre con extra, y en el RAC 121 la cantidad es la que a juicio del PIC puede añadirse: 18 × 42 ≈ 760 kg. La contingencia es para lo imprevisto y el adicional solo cubre la falla en el punto crítico, EDTO u otros requisitos.",
-      "referencia": "RAC 121, 121.2645 (c)(3), Nota, (c)(6) y (c)(7)",
+      "explicacion": "Una espera previsible no se carga a la contingencia: va en el plan o como extra, y aquí el despacho la trata como extra. En el RAC 121 esa cantidad es la que a juicio del PIC puede añadirse: 18 × 42 ≈ 760 kg. El adicional solo cubre la falla en el punto crítico, EDTO u otros requisitos.",
+      "referencia": "RAC 121, 121.2645 (b)(2)(iv), (c)(3), Nota, (c)(6) y (c)(7)",
       "metadatos": {
         "tema": "C09",
         "capitulo": 9
@@ -650,12 +650,12 @@
     },
     {
       "id": "ev-39",
-      "enunciado": "Tu contingencia es de 300 kg. En el mismo vuelo te dejan 15 minutos a un nivel más bajo (+80 kg), usas antihielo 10 minutos en el descenso (+40 kg), te dan vectores (+70 kg) y una espera de 3 minutos a 45 kg/min. ¿Qué pasa con la contingencia y qué correspondía hacer?",
+      "enunciado": "Tu contingencia es de 300 kg. En el mismo vuelo te dejan 15 minutos a un nivel más bajo (+80 kg), usas antihielo 10 minutos en el descenso (+40 kg), te dan vectores (+70 kg) y una espera de 3 minutos a 45 kg/min. ¿Cuánto suman frente a la contingencia y qué correspondía hacer?",
       "opciones": [
-        "Se consume completa, unos 325 kg: tras cada evento tocaba un fuel check y actualizar la predicción.",
-        "Queda casi intacta: solo la espera consume contingencia; el nivel, el antihielo y los vectores son trayecto.",
-        "No se toca: las demoras que impone el ATC se cubren con el combustible para el alterno.",
-        "Se consume la mitad, unos 135 kg: los factores de menos de 100 kg no cambian la predicción."
+        "Unos 325 kg, más que toda la contingencia: tras cada evento tocaba un fuel check y actualizar la predicción.",
+        "Solo cuenta la espera, unos 135 kg: el nivel, el antihielo y los vectores ya estaban dentro del trayecto planificado.",
+        "Nada: las demoras que impone el ATC no cuentan frente a la contingencia; se cubren con el combustible para el alterno.",
+        "Menos de la mitad de la contingencia: los factores de menos de 100 kg no alcanzan a cambiar la predicción."
       ],
       "correcta": 0,
       "explicacion": "Sumados, los cuatro factores cuestan unos 325 kg (80 + 40 + 70 + 135), más que toda la contingencia, aunque ninguno parezca grave. Por eso, cuando aparece cada factor, se hace un fuel check y se actualiza la predicción.",
