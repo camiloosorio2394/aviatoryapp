@@ -18,6 +18,7 @@ export type TablaDeIntentos =
   | "user_mercancias_exam_attempts"
   | "user_aerodinamica_exam_attempts"
   | "user_aeropuertos_exam_attempts"
+  | "user_performance_exam_attempts"
   | "user_comunicaciones_exam_attempts"
 
 /** Cuántos intentos trae la lista del historial. */
@@ -140,6 +141,19 @@ export function traerHistorialAeropuertos(
     "taken_at",
     userId,
     "aeropuertos: historial de evaluación",
+  )
+}
+
+/** Performance, igual. */
+export function traerHistorialPerformance(
+  userId: string,
+): Promise<Historial<FilaIntentoMercancias> | null> {
+  return traerHistorial<FilaIntentoMercancias>(
+    "user_performance_exam_attempts",
+    "id,score,correct,total,taken_at",
+    "taken_at",
+    userId,
+    "performance: historial de evaluación",
   )
 }
 

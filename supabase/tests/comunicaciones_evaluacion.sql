@@ -1,8 +1,8 @@
 -- ============================================================================
--- Evaluación del módulo Comunicaciones ATC. Migración 20260925010000.
+-- Evaluación del módulo Comunicaciones ATC. Migración 20260927010000.
 --
 -- Corre esto DESPUÉS de aplicar las tres migraciones de Comunicaciones
--- (20260925000000, 20260925010000 y 20260925020000) y de sembrar el banco con
+-- (20260927000000, 20260927010000 y 20260927020000) y de sembrar el banco con
 -- supabase/seeds/comunicaciones_evaluacion.sql (la salida de
 --   node scripts/bancos/sembrar.mjs comunicaciones_evaluacion).
 -- Sin el banco cargado falla en el conteo de preguntas, que es lo que se quiere:

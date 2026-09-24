@@ -26,7 +26,7 @@
 --
 -- Diferencia con Aeropuertos, a propósito: allá la puerta la puso la
 -- migración de progreso porque la evaluación llegó primero. Aquí el progreso
--- (20260925000000) ya existe, así que la puerta va con la evaluación.
+-- (20260927000000) ya existe, así que la puerta va con la evaluación.
 --
 -- Las preguntas NO van aquí: el banco se edita en
 -- contenido/bancos/comunicaciones_evaluacion.json y se carga con
@@ -37,10 +37,10 @@
 --   - No toca simulacro_aerolinea: meter este banco en el simulacro cambia
 --     otro producto y esa decisión es de Camilo.
 --   - No crea logros ni toca el panel: van en
---     20260925020000_panel_y_logros_de_comunicaciones.sql, que lee la tabla
+--     20260927020000_panel_y_logros_de_comunicaciones.sql, que lee la tabla
 --     de intentos que nace aquí.
 --
--- ORDEN: DESPUÉS de 20260925000000_progreso_de_comunicaciones.sql, que crea
+-- ORDEN: DESPUÉS de 20260927000000_progreso_de_comunicaciones.sql, que crea
 -- user_comunicaciones_progress (la nombra secciones_leidas) y la fila
 -- 'comunicaciones' de modulos_contenido (modulo_leccion es clave foránea a
 -- ella). Corrida antes, falla en el insert de `evaluaciones` y no queda nada.
@@ -93,7 +93,7 @@ grant select on table public.user_comunicaciones_exam_attempts to authenticated;
 
 alter table public.evaluaciones drop constraint if exists evaluaciones_destino_check;
 alter table public.evaluaciones add constraint evaluaciones_destino_check
-  check (destino in ('notam', 'metar', 'mercancias', 'aerodinamica', 'aeropuertos', 'comunicaciones', 'simulacro_aerolinea'));
+  check (destino in ('notam', 'metar', 'mercancias', 'aerodinamica', 'aeropuertos', 'performance', 'comunicaciones', 'simulacro_aerolinea'));
 
 insert into public.evaluaciones
   (clave, titulo, retroalimentacion, preguntas_por_intento, aprobacion,
@@ -123,7 +123,7 @@ on conflict (evaluacion, banco) do update set
   cupo = excluded.cupo;
 
 -- El aprobado, que documenta CM_PASS_SCORE de src/lib/comunicaciones.ts. Los
--- logros (20260925020000) comparan contra esto y no contra un 80 a mano.
+-- logros (20260927020000) comparan contra esto y no contra un 80 a mano.
 
 insert into public.module_thresholds (code, total, nota) values
   ('comunicaciones_pass', 80, 'CM_PASS_SCORE: 25 preguntas al azar de 80, apruebas con 80')
@@ -228,6 +228,9 @@ begin
       when 'aeropuertos' then
         insert into public.user_aeropuertos_exam_attempts (user_id, score, correct, total)
         values (v_user, v_puntaje, v_s.correctas, v_total);
+      when 'performance' then
+        insert into public.user_performance_exam_attempts (user_id, score, correct, total)
+        values (v_user, v_puntaje, v_s.correctas, v_total);
       when 'comunicaciones' then
         insert into public.user_comunicaciones_exam_attempts (user_id, score, correct, total)
         values (v_user, v_puntaje, v_s.correctas, v_total);
@@ -280,6 +283,8 @@ as $function$
     select unnest(lesson_screens) from public.user_aerodinamica_progress where p_modulo = 'aerodinamica' and user_id = p_user
     union all
     select unnest(lesson_screens) from public.user_aeropuertos_progress where p_modulo = 'aeropuertos' and user_id = p_user
+    union all
+    select unnest(lesson_screens) from public.user_performance_progress where p_modulo = 'performance' and user_id = p_user
     union all
     select unnest(lesson_screens) from public.user_comunicaciones_progress where p_modulo = 'comunicaciones' and user_id = p_user
   ) as leidas

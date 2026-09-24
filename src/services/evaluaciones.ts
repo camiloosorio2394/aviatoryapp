@@ -19,6 +19,7 @@ export type ClaveEvaluacion =
   | "mercancias_evaluacion"
   | "aerodinamica_evaluacion"
   | "aeropuertos_evaluacion"
+  | "performance_evaluacion"
   | "comunicaciones_evaluacion"
   | "simulacro_aerolinea"
 

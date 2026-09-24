@@ -26,6 +26,7 @@ import { docAccent, docTint } from "@/lib/docSheet"
 import { renderInline } from "@/components/lesson/inline"
 import { Ficha, VisualFicha } from "@/components/lesson/FichaPiloto"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
+import { useMarcarPractica } from "@/components/lesson/practicaContexto"
 
 /** El acento del lector: azul en NOTAM, amarillo en Mercancías. */
 const ACENTO = "var(--av-blue-500)"
@@ -209,6 +210,7 @@ export function Reconoce({ block }: { block: ReconoceBlock }) {
 export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
   const [visto, setVisto] = useState(false)
   const base = useId()
+  const marcarPractica = useMarcarPractica()
   const visual =
     block.imagen || block.hueco ? <VisualFicha imagen={block.imagen} hueco={block.hueco} ves={block.ves} /> : null
 
@@ -306,7 +308,10 @@ export function PiensaComoPiloto({ block }: { block: PiensaComoPilotoBlock }) {
         {!visto ? (
           <button
             type="button"
-            onClick={() => setVisto(true)}
+            onClick={() => {
+              setVisto(true)
+              if (block.clave) marcarPractica(block.clave)
+            }}
             aria-expanded={false}
             aria-controls={`${base}-resp`}
             className="mt-5 inline-flex h-11 items-center gap-2 rounded-[10px] px-5 text-[15px] font-semibold text-white transition-[filter,transform] duration-150 ease-out hover:brightness-110 active:scale-[0.98]"
@@ -443,14 +448,17 @@ function PreguntaEntrevista({ pregunta }: { pregunta: EntrevistaBlock["preguntas
 export function DetalleTecnico({
   etiqueta,
   cita,
+  clave,
   children,
 }: {
   etiqueta?: string
   cita?: string
+  clave?: string
   children: React.ReactNode
 }) {
   const [abierto, setAbierto] = useState(false)
   const base = useId()
+  const marcarPractica = useMarcarPractica()
 
   return (
     <div
@@ -459,7 +467,12 @@ export function DetalleTecnico({
     >
       <button
         type="button"
-        onClick={() => setAbierto((v) => !v)}
+        onClick={() => {
+          setAbierto((v) => !v)
+          // Al abrir, no al cerrar: volver a plegar la respuesta no deshace
+          // el ejercicio.
+          if (clave && !abierto) marcarPractica(clave)
+        }}
         aria-expanded={abierto}
         aria-controls={`${base}-c`}
         className="flex w-full items-center gap-2.5 px-3.5 py-2.5 text-left"

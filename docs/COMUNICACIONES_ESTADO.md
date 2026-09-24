@@ -148,12 +148,12 @@ Aeropuertos hizo la evaluación (230000) y después el progreso con todo lo
 compartido (0916). Aquí el progreso ya estaba (000000, mínimo a propósito),
 así que:
 
-- `20260925010000_evaluacion_de_comunicaciones.sql`: tabla de intentos, CHECK
+- `20260927010000_evaluacion_de_comunicaciones.sql`: tabla de intentos, CHECK
   de destino, reglas (25, 80, al final, 3 h), fuente, umbral
   `comunicaciones_pass`, `evaluacion_terminar` (copiada de 20260915230000) y
   `secciones_leidas` (copiada de 20260916000000) con su rama, y
   `modulo_leccion = 'comunicaciones'`.
-- `20260925020000_panel_y_logros_de_comunicaciones.sql`: `practicas_hechas`,
+- `20260927020000_panel_y_logros_de_comunicaciones.sql`: `practicas_hechas`,
   los cuatro logros (orden 30 a 33), `desbloquear_logros`, los dos
   disparadores, `check_and_unlock_achievements` y `panel_tarjetas` (la de
   20260916000000, con plan, postulaciones y los cinco módulos, más
@@ -215,9 +215,9 @@ propia ejecución** del SQL Editor:
 
 | # | Qué se pega en el SQL Editor | Resultado esperado |
 |---|---|---|
-| 8 | `supabase/migrations/20260925000000_progreso_de_comunicaciones.sql` | Sin error (un aviso de «does not exist, skipping» por la política, normal) |
-| 9 | `supabase/migrations/20260925010000_evaluacion_de_comunicaciones.sql` | Sin error (mismo tipo de aviso) |
-| 10 | `supabase/migrations/20260925020000_panel_y_logros_de_comunicaciones.sql` | Sin error (avisos de «does not exist, skipping» por los disparadores) |
+| 8 | `supabase/migrations/20260927000000_progreso_de_comunicaciones.sql` | Sin error (un aviso de «does not exist, skipping» por la política, normal) |
+| 9 | `supabase/migrations/20260927010000_evaluacion_de_comunicaciones.sql` | Sin error (mismo tipo de aviso) |
+| 10 | `supabase/migrations/20260927020000_panel_y_logros_de_comunicaciones.sql` | Sin error (avisos de «does not exist, skipping» por los disparadores) |
 | 11 | La salida de `node scripts/catalogo/sembrar.mjs comunicaciones` (solo este módulo: el catálogo de Mercancías y Aerodinámica en producción está en otra versión a propósito, ver el doc de Aeropuertos) | `INSERT 0 1` |
 | 12 | `supabase/seeds/comunicaciones_evaluacion.sql` (el banco, 80 preguntas) | `UPDATE 0` |
 | 13 | Las pruebas, una por ejecución: `supabase/tests/comunicaciones_evaluacion.sql`, `comunicaciones.sql`, `logros.sql`, `permisos.sql`, `panel.sql` | Cada una termina en el error `PRUEBA_DESHECHA …` (eso es pasar) |

@@ -8,13 +8,13 @@
  * cliente de Supabase detrás.
  *
  * Mientras Camilo no corra
- * `supabase/migrations/20260925000000_progreso_de_comunicaciones.sql` la tabla
+ * `supabase/migrations/20260927000000_progreso_de_comunicaciones.sql` la tabla
  * no existe: la consulta falla, `leer` devuelve null y el módulo sigue contando
  * con lo del navegador. El día que la corra, lo que cada piloto tenga guardado
  * aquí se sube solo en su primera visita.
  *
  * La mejor nota sale de user_comunicaciones_exam_attempts, que nace con
- * `20260925010000_evaluacion_de_comunicaciones.sql`. Si esa tabla todavía no
+ * `20260927010000_evaluacion_de_comunicaciones.sql`. Si esa tabla todavía no
  * existe, la consulta falla sola y queda la nota de este navegador.
  */
 

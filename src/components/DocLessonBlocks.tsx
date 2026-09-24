@@ -567,7 +567,7 @@ export function DocBlock({ block }: { block: DocBlockData }) {
        cabe cualquier bloque del catálogo sin reescribirlo. */
     case "detalleTecnico":
       return (
-        <DetalleTecnico etiqueta={block.etiqueta} cita={block.cita}>
+        <DetalleTecnico etiqueta={block.etiqueta} cita={block.cita} clave={block.clave}>
           {block.bloques.map((b, i) => (
             <DocBlock key={i} block={b} />
           ))}

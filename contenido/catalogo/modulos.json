@@ -384,6 +384,39 @@
       "ap-cam-c08"
     ]
   },
+  "performance": {
+    "lecciones": 40,
+    "practicas": [
+      "ej-01",
+      "ej-02",
+      "ej-03",
+      "ej-04",
+      "ej-05",
+      "ej-06",
+      "ej-07",
+      "ej-08",
+      "ej-09",
+      "ej-10",
+      "ej-11",
+      "ej-12",
+      "ej-13",
+      "ej-14",
+      "ej-15",
+      "ej-16",
+      "ej-17",
+      "ej-18",
+      "esc-01",
+      "esc-02",
+      "esc-03",
+      "esc-04",
+      "esc-05",
+      "esc-06",
+      "esc-07",
+      "esc-08",
+      "esc-09",
+      "esc-10"
+    ]
+  },
   "comunicaciones": {
     "lecciones": 69,
     "practicas": [

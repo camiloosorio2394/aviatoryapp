@@ -90,6 +90,9 @@ const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
 const AerodinamicaLeccion = page(() => import("@/pages/AerodinamicaLeccion"), "AerodinamicaLeccion")
 const AerodinamicaPractice = page(() => import("@/pages/AerodinamicaPractice"), "AerodinamicaPractice")
 const AerodinamicaExam = page(() => import("@/pages/AerodinamicaExam"), "AerodinamicaExam")
+const Performance = page(() => import("@/pages/Performance"), "Performance")
+const PerformanceLeccion = page(() => import("@/pages/PerformanceLeccion"), "PerformanceLeccion")
+const PerformanceExam = page(() => import("@/pages/PerformanceExam"), "PerformanceExam")
 const PsychTests = page(() => import("@/pages/PsychTests"), "PsychTests")
 const PsicoHub = page(() => import("@/pages/PsicoHub"), "PsicoHub")
 const PsicoPractica = page(() => import("@/pages/PsicoSesion"), "PsicoPractica")
@@ -181,6 +184,7 @@ function App() {
               <Route path="/app/aerolinea/meteorologia/aprende" element={<MetarLesson />} />
               <Route path="/app/aerolinea/mercancias/aprende" element={<MercanciasLeccion />} />
               <Route path="/app/aerolinea/aerodinamica/aprende" element={<AerodinamicaLeccion />} />
+              <Route path="/app/aerolinea/performance/aprende" element={<PerformanceLeccion />} />
               <Route path="/app/aerolinea/aeropuertos/aprende" element={<AeropuertosLeccion />} />
               <Route path="/app/aerolinea/comunicaciones/aprende" element={<ComunicacionesLeccion />} />
             </Route>
@@ -238,6 +242,10 @@ function App() {
               <Route path="/app/aerolinea/comunicaciones/evaluacion" element={<ComunicacionesExam />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
+              {/* Tema Performance. No lleva práctica aparte: los ejercicios y los
+                  escenarios viven dentro de los temas 38 y 40 de la lección. */}
+              <Route path="/app/aerolinea/performance" element={<Performance />} />
+              <Route path="/app/aerolinea/performance/evaluacion" element={<PerformanceExam />} />
               <Route path="/app/aerolinea/simulacro" element={<AirlineMockExam />} />
               {/* Tema Pruebas Psicotécnicas. El hub, los dos modos con filtro y el
                   simulacro; la lección va aparte porque no lleva reloj. */}

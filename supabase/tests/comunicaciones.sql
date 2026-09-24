@@ -1,7 +1,7 @@
 -- ============================================================================
 -- Módulo Comunicaciones ATC: progreso, catálogo, permisos, puerta de la
--- evaluación, panel y logros. Migraciones 20260925000000, 20260925010000 y
--- 20260925020000.
+-- evaluación, panel y logros. Migraciones 20260927000000, 20260927010000 y
+-- 20260927020000.
 --
 -- Corre esto con las tres migraciones aplicadas, el catálogo de la práctica
 -- cargado (node scripts/catalogo/sembrar.mjs comunicaciones) y el banco

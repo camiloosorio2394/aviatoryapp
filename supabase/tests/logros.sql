@@ -95,7 +95,7 @@ begin
   end if;
   x_log := x_log || ' aeropuertos_con_catalogo';
 
-  -- Comunicaciones ATC (20260925020000): igual, contra su catálogo de 69. Y la
+  -- Comunicaciones ATC (20260927020000): igual, contra su catálogo de 69. Y la
   -- práctica no se gana con claves que el catálogo no tiene.
   insert into public.user_comunicaciones_progress (user_id, lesson_screens, practice_done)
   values (x_b, (select array_agg(i::smallint) from generate_series(1, 68) i) || '{70,99}'::smallint[], '{cm-viejo}')

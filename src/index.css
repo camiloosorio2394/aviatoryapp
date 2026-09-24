@@ -1611,6 +1611,24 @@
   --av-ap-fg: oklch(0.790 0.120 292);
 }
 
+/* Performance: bronce.
+   El matiz 45 es el último hueco cálido que quedaba: el 78 ya es el ocre de
+   Mercancías y el 25 es semántica de error, así que este se mete entre los dos
+   y se separa de ambos por croma. Lee como metal caliente, que es de lo que
+   trata el módulo: empuje, energía y frenos. */
+:root {
+  --av-pf-500: oklch(0.585 0.125 45);
+  --av-pf-600: oklch(0.500 0.120 44);
+  --av-pf-700: oklch(0.410 0.100 43);
+  --av-pf-fg: oklch(0.385 0.092 43);
+}
+.dark {
+  --av-pf-500: oklch(0.690 0.120 46);
+  --av-pf-600: oklch(0.600 0.120 45);
+  --av-pf-700: oklch(0.505 0.108 44);
+  --av-pf-fg: oklch(0.790 0.095 50);
+}
+
 /* Comunicaciones ATC: ciruela de radio.
    Se propuso un índigo violeta (#4A3B7A, matiz 292), pero en Ingreso a
    aerolínea su tarjeta va al lado de la de psicotécnicas, que es violeta en el
@@ -1709,6 +1727,21 @@
 /* Y el de Aerodinámica, en azul acero. Los hex salen de los mismos oklch de
    los tokens --av-ae-* de arriba: si un día se mueve el matiz, se mueven los
    dos juntos. */
+/* Performance: el mismo lector con el acento en bronce. */
+.lector-notam.lector-pf {
+  --ln-primary: #8A4B1F;
+  --ln-primary-hover: #6F3B18;
+  --ln-bright: #C97B3C;
+  --ln-tint: #FBEFE4;
+  --ln-pill: #6B3A18;
+  --ln-focus: #D08A4F;
+  --av-blue-500: var(--ln-primary);
+  --av-blue-400: var(--ln-bright);
+}
+.lector-notam.lector-pf .doc-sheet {
+  --doc-accent: var(--ln-primary);
+}
+
 .lector-notam.lector-ae {
   --ln-primary: #2C4764;
   --ln-primary-hover: #1D344E;

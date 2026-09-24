@@ -26,11 +26,20 @@ import { MP_HUB, MP_LECTURA_TOTAL, MP_PASS_SCORE, MP_PRACTICA_TOTAL } from "@/li
 import { AERO_HUB, AERO_LECTURA_TOTAL, AERO_PASS_SCORE, AERO_PRACTICA_TOTAL } from "@/lib/aerodinamica"
 import { AP_HUB, AP_LECTURA_TOTAL, AP_PASS_SCORE } from "@/lib/aeropuertos"
 import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
+import { PERF_HUB, PERF_LECTURA_TOTAL, PERF_PASS_SCORE, PERF_PRACTICA_TOTAL } from "@/lib/performance"
+
 import { CM_HUB, CM_LECTURA_TOTAL, CM_PASS_SCORE } from "@/lib/comunicaciones"
 import { CM_PRACTICA_CONTEO } from "@/lib/comunicacionesConteo"
 
 /** Las claves son las de `contenido/catalogo/modulos.json`, y la prueba lo exige. */
-export type ClaveModulo = "notam" | "metar" | "mercancias" | "aerodinamica" | "aeropuertos" | "comunicaciones"
+export type ClaveModulo =
+  | "notam"
+  | "metar"
+  | "mercancias"
+  | "aerodinamica"
+  | "aeropuertos"
+  | "performance"
+  | "comunicaciones"
 
 export interface ModuloAerolinea {
   clave: ClaveModulo
@@ -103,6 +112,18 @@ export const MODULOS_AEROLINEA: ModuloAerolinea[] = [
       aprobacion: AP_PASS_SCORE,
     },
     promesa: "Señales, letreros, luces y balizas, y dónde para el avión.",
+  },
+  {
+    clave: "performance",
+    titulo: "Performance",
+    hub: PERF_HUB,
+    acento: "var(--av-pf-500)",
+    totales: {
+      secciones: PERF_LECTURA_TOTAL,
+      practicas: PERF_PRACTICA_TOTAL,
+      aprobacion: PERF_PASS_SCORE,
+    },
+    promesa: "V₁, campo equilibrado, segundo segmento, obstáculos y aterrizaje.",
   },
   {
     clave: "comunicaciones",

@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Check, ListOrdered, MessageSquareQuote, X } from
 import { DocBlock } from "@/components/DocLessonBlocks"
 import { HuecoImagen } from "@/components/lesson/HuecoImagen"
 import { PantallaEntrevista, type LectorEntrevista } from "@/components/lesson/EntrevistaNivel"
+import { PracticaContexto } from "@/components/lesson/practicaContexto"
 import { docAccent } from "@/lib/docSheet"
 import { registrarEstudioDiario } from "@/lib/activity"
 import { useSession } from "@/hooks/useSession"
@@ -72,6 +73,12 @@ export interface LectorModulo {
   escribirLocal: (ns: number[]) => void
   /** Marca una lección leída, local y en la base. */
   marcar: (n: number) => Promise<void> | void
+  /**
+   * Marca un ejercicio hecho, para los módulos que llevan la práctica dentro
+   * de la lección. La llaman los bloques que tengan `clave`; sin esto, esos
+   * bloques se pintan igual pero no cuentan.
+   */
+  marcarPractica?: (clave: string) => void
   /**
    * Si la lección `n` cuenta como leída al llegar al pie. Por defecto todas.
    * Comunicaciones ATC nace con sus lecciones en redacción: esas no se marcan
@@ -162,6 +169,17 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
     [setSearchParams],
   )
 
+  // Lo que los bloques con `clave` llaman al abrir su respuesta. Se envuelve
+  // para que el contexto no cambie de identidad en cada render y vuelva a
+  // pintar los cuarenta bloques de una lección por un clic en uno.
+  const alModulo = modulo.marcarPractica
+  const marcarPractica = useCallback(
+    (clave: string) => {
+      alModulo?.(clave)
+    },
+    [alModulo],
+  )
+
   const marcarEntrevista = useCallback(
     (nivel: number) => {
       setEntrevistasHechas((prev) => {
@@ -233,243 +251,245 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
   const nivel = leccion.level ? LEVEL_META[leccion.level] : null
 
   return (
-    <div className={`${modulo.tema ?? "lector-notam"} h-dvh flex overflow-hidden`}>
-      <SidebarNav
-        clase="hidden lg:flex"
-        modulo={modulo}
-        lActiva={l}
-        eActiva={entrevista?.nivel ?? null}
-        readSections={readSections}
-        entrevistasHechas={entrevistasHechas}
-        onPick={irALeccion}
-        onPickEntrevista={irAEntrevista}
-      />
+    <PracticaContexto.Provider value={marcarPractica}>
+      <div className={`${modulo.tema ?? "lector-notam"} h-dvh flex overflow-hidden`}>
+        <SidebarNav
+          clase="hidden lg:flex"
+          modulo={modulo}
+          lActiva={l}
+          eActiva={entrevista?.nivel ?? null}
+          readSections={readSections}
+          entrevistasHechas={entrevistasHechas}
+          onPick={irALeccion}
+          onPickEntrevista={irAEntrevista}
+        />
 
-      {/* Cajón móvil: el mismo sidebar, deslizado sobre el contenido */}
-      {drawer && (
-        <>
-          <div
-            className="lg:hidden fixed inset-0 z-40"
-            style={{ background: "rgba(22, 25, 29, 0.45)" }}
-            onClick={() => setDrawer(false)}
-            aria-hidden
-          />
-          <div className="lg:hidden fixed inset-y-0 left-0 z-50 flex">
-            <SidebarNav
-              clase="flex"
-              modulo={modulo}
-              lActiva={l}
-              eActiva={entrevista?.nivel ?? null}
-              readSections={readSections}
-              entrevistasHechas={entrevistasHechas}
-              onPick={irALeccion}
-              onPickEntrevista={irAEntrevista}
-            />
-            <button
-              type="button"
+        {/* Cajón móvil: el mismo sidebar, deslizado sobre el contenido */}
+        {drawer && (
+          <>
+            <div
+              className="lg:hidden fixed inset-0 z-40"
+              style={{ background: "rgba(22, 25, 29, 0.45)" }}
               onClick={() => setDrawer(false)}
-              aria-label="Cerrar el índice"
-              className="mt-4 ml-2 flex h-9 w-9 items-center justify-center rounded-[6px]"
-              style={{ background: "var(--ln-paper)", color: "var(--ln-ink)" }}
-            >
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        </>
-      )}
+              aria-hidden
+            />
+            <div className="lg:hidden fixed inset-y-0 left-0 z-50 flex">
+              <SidebarNav
+                clase="flex"
+                modulo={modulo}
+                lActiva={l}
+                eActiva={entrevista?.nivel ?? null}
+                readSections={readSections}
+                entrevistasHechas={entrevistasHechas}
+                onPick={irALeccion}
+                onPickEntrevista={irAEntrevista}
+              />
+              <button
+                type="button"
+                onClick={() => setDrawer(false)}
+                aria-label="Cerrar el índice"
+                className="mt-4 ml-2 flex h-9 w-9 items-center justify-center rounded-[6px]"
+                style={{ background: "var(--ln-paper)", color: "var(--ln-ink)" }}
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </>
+        )}
 
-      <div className="flex-1 min-w-0 flex flex-col">
-        {/* Barra superior: miga y hora Zulú real */}
-        <header
-          className="flex h-14 shrink-0 items-center justify-between px-4 lg:px-10 border-b"
-          style={{ borderColor: "var(--ln-hair)" }}
-        >
-          <div className="flex items-center gap-3 min-w-0">
-            <button
-              type="button"
-              onClick={() => setDrawer(true)}
-              aria-label="Abrir el índice de lecciones"
-              className="lg:hidden flex h-9 w-9 shrink-0 items-center justify-center rounded-[6px]"
-              style={{ color: "var(--ln-ink)" }}
-            >
-              <ListOrdered className="h-4 w-4" />
-            </button>
-            <nav className="flex items-center gap-2 text-[13.5px] min-w-0" aria-label="Miga de pan">
-              <Link to="/app/aerolinea" className="hidden sm:inline" style={{ color: "var(--ln-soft)" }}>
-                Ingreso a aerolínea
-              </Link>
-              <span className="hidden sm:inline" style={{ color: "var(--ln-hair-strong)" }}>/</span>
-              <Link to={modulo.hub} style={{ color: "var(--ln-soft)" }}>
-                {modulo.nombre}
-              </Link>
-              <span style={{ color: "var(--ln-hair-strong)" }}>/</span>
-              <span className="font-semibold truncate" style={{ color: "var(--ln-ink)" }}>
-                {entrevista ? `Entrevista · Nivel ${entrevista.nivel}` : `Lección ${String(l).padStart(2, "0")}`}
-              </span>
-            </nav>
-          </div>
-          <RelojZulu />
-        </header>
-
-        {/* Área de contenido: la única región que puede desplazarse. Es el
-            <main> de la pantalla, así el lector de pantalla salta directo aquí
-            y la cabecera de la lección no cuenta como una segunda barra. */}
-        <main ref={contentRef} className="ln-flujo flex-1 overflow-y-auto">
-          <div className="mx-auto w-full max-w-[800px] px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
-            {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
-            <header>
-              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-                {entrevista ? (
-                  <span className="ln-epigrafe">
-                    <span style={{ color: "var(--ln-primary)" }}>Entrevista</span> · Nivel {entrevista.nivel} ·{" "}
-                    {entrevista.titulo}
-                  </span>
-                ) : (
-                  <span className="ln-epigrafe">
-                    <span style={{ color: "var(--ln-primary)" }}>{String(l).padStart(2, "0")}</span> ·{" "}
-                    {leccion.kicker}
-                  </span>
-                )}
-                <span
-                  className="ln-epigrafe whitespace-nowrap"
-                  style={nivel && !entrevista ? { color: docAccent(nivel.color, 55) } : undefined}
-                >
-                  {entrevista
-                    ? `${entrevista.preguntas.length} preguntas · ${entrevista.minutes} min`
-                    : `${nivel ? `${nivel.label} · ` : ""}${leccion.minutes} min`}
+        <div className="flex-1 min-w-0 flex flex-col">
+          {/* Barra superior: miga y hora Zulú real */}
+          <header
+            className="flex h-14 shrink-0 items-center justify-between px-4 lg:px-10 border-b"
+            style={{ borderColor: "var(--ln-hair)" }}
+          >
+            <div className="flex items-center gap-3 min-w-0">
+              <button
+                type="button"
+                onClick={() => setDrawer(true)}
+                aria-label="Abrir el índice de lecciones"
+                className="lg:hidden flex h-9 w-9 shrink-0 items-center justify-center rounded-[6px]"
+                style={{ color: "var(--ln-ink)" }}
+              >
+                <ListOrdered className="h-4 w-4" />
+              </button>
+              <nav className="flex items-center gap-2 text-[13.5px] min-w-0" aria-label="Miga de pan">
+                <Link to="/app/aerolinea" className="hidden sm:inline" style={{ color: "var(--ln-soft)" }}>
+                  Ingreso a aerolínea
+                </Link>
+                <span className="hidden sm:inline" style={{ color: "var(--ln-hair-strong)" }}>/</span>
+                <Link to={modulo.hub} style={{ color: "var(--ln-soft)" }}>
+                  {modulo.nombre}
+                </Link>
+                <span style={{ color: "var(--ln-hair-strong)" }}>/</span>
+                <span className="font-semibold truncate" style={{ color: "var(--ln-ink)" }}>
+                  {entrevista ? `Entrevista · Nivel ${entrevista.nivel}` : `Lección ${String(l).padStart(2, "0")}`}
                 </span>
-              </div>
-              <h1
-                className="ln-display mt-2 mb-0 font-bold text-[34px] lg:text-[44px]"
-                style={{ lineHeight: 1.0, letterSpacing: "-0.012em", color: "var(--ln-ink)" }}
-              >
-                {entrevista ? "Lo que te pueden preguntar en una aerolínea" : leccion.title}
-              </h1>
-              <div
-                className="mt-4 grid gap-[3px] max-w-[420px]"
-                style={{ gridTemplateColumns: `repeat(${TOTAL}, minmax(0, 1fr))` }}
-                role="img"
-                aria-label={`${readSections.length} de ${TOTAL} lecciones completadas`}
-              >
-                {modulo.lecciones.map((s) => (
-                  <div
-                    key={s.n}
-                    className="h-[5px]"
-                    style={{
-                      background: readSections.includes(s.n)
-                        ? "var(--ln-primary)"
-                        : "var(--ln-hair-strong)",
-                    }}
-                  />
-                ))}
-              </div>
-            </header>
+              </nav>
+            </div>
+            <RelojZulu />
+          </header>
 
-            {/* La lección entera, de corrido: se lee scrolleando */}
-            <div key={entrevista ? `e${entrevista.nivel}` : l} className="ln-paso mt-8">
-              {entrevista ? (
-                <PantallaEntrevista
-                  dir={modulo.portadas}
-                  ratio={modulo.portadaRatio ?? PORTADA_RATIO}
-                  entrevista={entrevista}
-                  clave={`aviatory.${modulo.actividad}`}
-                />
-              ) : (
-              <div className="flex flex-col" style={{ rowGap: 38 }}>
-                {modulo.portadaAuto !== false && (
-                  <div className="ln-medio min-w-0">
-                    <Portada
-                      dir={modulo.portadas}
-                      n={l}
-                      titulo={leccion.title}
-                      ratio={modulo.portadaRatio}
-                    />
-                  </div>
-                )}
-                {leccion.blocks.map((block, i) => {
-                  /* Donde no hay portada automática, el primer bloque hace de
-                     portada: en Aeropuertos es la foto de cabecera de la
-                     lección, o el hueco que la espera. Se sale de la columna
-                     igual que la portada de los demás módulos. */
-                  const deAncho = BLOQUES_ANCHOS.has(block.kind) || (modulo.portadaAuto === false && i === 0)
-
-                  if (block.kind === "interactivo") {
-                    return (
-                      <div key={i} className="min-w-0">
-                        {modulo.interactivo?.(block.nombre)}
-                      </div>
-                    )
-                  }
-                  /* El hueco va sin la hoja porque no lleva texto, pero ocupa
-                     el mismo sitio que la foto que espera. */
-                  if (block.kind === "hueco") {
-                    return (
-                      <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
-                        <HuecoImagen {...block} />
-                      </div>
-                    )
-                  }
-                  return (
-                    <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
-                      <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
-                        <DocBlock block={block} />
-                      </div>
-                    </div>
-                  )
-                })}
-              </div>
-              )}
-
-              {/* Pie de la lección, al final del contenido como en el
-                  standalone: Siguiente a la izquierda, Continuar a la derecha */}
-              <footer
-                className="mt-11 flex items-center justify-between gap-4 border-t pt-6"
-                style={{ borderColor: "var(--ln-hair)" }}
-              >
-                <button
-                  type="button"
-                  onClick={completarYSeguir}
-                  className="hidden sm:block min-w-0 text-left"
-                >
-                  <span className="block text-[13px]" style={{ color: "var(--ln-soft)" }}>
-                    Siguiente
-                  </span>
-                  <span
-                    className="block truncate text-[15px] lg:text-[17.5px] font-semibold"
-                    style={{ color: "var(--ln-primary)" }}
-                  >
-                    {entrevistaTras
-                      ? `Entrevista · Nivel ${entrevistaTras.nivel} →`
-                      : siguiente
-                        ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
-                        : modulo.textoFinal}
-                  </span>
-                </button>
-
-                <div className="flex items-center gap-4 lg:gap-5 ml-auto">
-                  {(entrevista ? entrevistasHechas.includes(entrevista.nivel) : readSections.includes(l)) && (
-                    <span
-                      className="hidden lg:inline-flex items-center gap-1.5 text-[14px]"
-                      style={{ color: "var(--ln-primary)" }}
-                    >
-                      <Check className="h-3.5 w-3.5" strokeWidth={3} /> {entrevista ? "Entrevista ensayada" : "Lección completada"}
+          {/* Área de contenido: la única región que puede desplazarse. Es el
+              <main> de la pantalla, así el lector de pantalla salta directo aquí
+              y la cabecera de la lección no cuenta como una segunda barra. */}
+          <main ref={contentRef} className="ln-flujo flex-1 overflow-y-auto">
+            <div className="mx-auto w-full max-w-[800px] px-5 lg:px-10 pt-6 lg:pt-[34px] pb-8">
+              {/* Cabecera de la lección: no se re-anima al cambiar de paso */}
+              <header>
+                <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                  {entrevista ? (
+                    <span className="ln-epigrafe">
+                      <span style={{ color: "var(--ln-primary)" }}>Entrevista</span> · Nivel {entrevista.nivel} ·{" "}
+                      {entrevista.titulo}
+                    </span>
+                  ) : (
+                    <span className="ln-epigrafe">
+                      <span style={{ color: "var(--ln-primary)" }}>{String(l).padStart(2, "0")}</span> ·{" "}
+                      {leccion.kicker}
                     </span>
                   )}
+                  <span
+                    className="ln-epigrafe whitespace-nowrap"
+                    style={nivel && !entrevista ? { color: docAccent(nivel.color, 55) } : undefined}
+                  >
+                    {entrevista
+                      ? `${entrevista.preguntas.length} preguntas · ${entrevista.minutes} min`
+                      : `${nivel ? `${nivel.label} · ` : ""}${leccion.minutes} min`}
+                  </span>
+                </div>
+                <h1
+                  className="ln-display mt-2 mb-0 font-bold text-[34px] lg:text-[44px]"
+                  style={{ lineHeight: 1.0, letterSpacing: "-0.012em", color: "var(--ln-ink)" }}
+                >
+                  {entrevista ? "Lo que te pueden preguntar en una aerolínea" : leccion.title}
+                </h1>
+                <div
+                  className="mt-4 grid gap-[3px] max-w-[420px]"
+                  style={{ gridTemplateColumns: `repeat(${TOTAL}, minmax(0, 1fr))` }}
+                  role="img"
+                  aria-label={`${readSections.length} de ${TOTAL} lecciones completadas`}
+                >
+                  {modulo.lecciones.map((s) => (
+                    <div
+                      key={s.n}
+                      className="h-[5px]"
+                      style={{
+                        background: readSections.includes(s.n)
+                          ? "var(--ln-primary)"
+                          : "var(--ln-hair-strong)",
+                      }}
+                    />
+                  ))}
+                </div>
+              </header>
+
+              {/* La lección entera, de corrido: se lee scrolleando */}
+              <div key={entrevista ? `e${entrevista.nivel}` : l} className="ln-paso mt-8">
+                {entrevista ? (
+                  <PantallaEntrevista
+                    dir={modulo.portadas}
+                    ratio={modulo.portadaRatio ?? PORTADA_RATIO}
+                    entrevista={entrevista}
+                    clave={`aviatory.${modulo.actividad}`}
+                  />
+                ) : (
+                <div className="flex flex-col" style={{ rowGap: 38 }}>
+                  {modulo.portadaAuto !== false && (
+                    <div className="ln-medio min-w-0">
+                      <Portada
+                        dir={modulo.portadas}
+                        n={l}
+                        titulo={leccion.title}
+                        ratio={modulo.portadaRatio}
+                      />
+                    </div>
+                  )}
+                  {leccion.blocks.map((block, i) => {
+                    /* Donde no hay portada automática, el primer bloque hace de
+                       portada: en Aeropuertos es la foto de cabecera de la
+                       lección, o el hueco que la espera. Se sale de la columna
+                       igual que la portada de los demás módulos. */
+                    const deAncho = BLOQUES_ANCHOS.has(block.kind) || (modulo.portadaAuto === false && i === 0)
+
+                    if (block.kind === "interactivo") {
+                      return (
+                        <div key={i} className="min-w-0">
+                          {modulo.interactivo?.(block.nombre)}
+                        </div>
+                      )
+                    }
+                    /* El hueco va sin la hoja porque no lleva texto, pero ocupa
+                       el mismo sitio que la foto que espera. */
+                    if (block.kind === "hueco") {
+                      return (
+                        <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
+                          <HuecoImagen {...block} />
+                        </div>
+                      )
+                    }
+                    return (
+                      <div key={i} className={`min-w-0${deAncho ? " ln-medio" : ""}`}>
+                        <div className="doc-sheet doc-prose" style={{ background: "transparent" }}>
+                          <DocBlock block={block} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+                )}
+
+                {/* Pie de la lección, al final del contenido como en el
+                    standalone: Siguiente a la izquierda, Continuar a la derecha */}
+                <footer
+                  className="mt-11 flex items-center justify-between gap-4 border-t pt-6"
+                  style={{ borderColor: "var(--ln-hair)" }}
+                >
                   <button
                     type="button"
                     onClick={completarYSeguir}
-                    className="flex h-[46px] items-center justify-center rounded-[6px] px-6 lg:px-8 text-[15px] font-semibold text-white transition-colors duration-150 hover:brightness-110"
-                    style={{ background: "var(--ln-primary)" }}
+                    className="hidden sm:block min-w-0 text-left"
                   >
-                    Continuar
+                    <span className="block text-[13px]" style={{ color: "var(--ln-soft)" }}>
+                      Siguiente
+                    </span>
+                    <span
+                      className="block truncate text-[15px] lg:text-[17.5px] font-semibold"
+                      style={{ color: "var(--ln-primary)" }}
+                    >
+                      {entrevistaTras
+                        ? `Entrevista · Nivel ${entrevistaTras.nivel} →`
+                        : siguiente
+                          ? `${String(siguiente.n).padStart(2, "0")} · ${siguiente.title} →`
+                          : modulo.textoFinal}
+                    </span>
                   </button>
-                </div>
-              </footer>
+
+                  <div className="flex items-center gap-4 lg:gap-5 ml-auto">
+                    {(entrevista ? entrevistasHechas.includes(entrevista.nivel) : readSections.includes(l)) && (
+                      <span
+                        className="hidden lg:inline-flex items-center gap-1.5 text-[14px]"
+                        style={{ color: "var(--ln-primary)" }}
+                      >
+                        <Check className="h-3.5 w-3.5" strokeWidth={3} /> {entrevista ? "Entrevista ensayada" : "Lección completada"}
+                      </span>
+                    )}
+                    <button
+                      type="button"
+                      onClick={completarYSeguir}
+                      className="flex h-[46px] items-center justify-center rounded-[6px] px-6 lg:px-8 text-[15px] font-semibold text-white transition-colors duration-150 hover:brightness-110"
+                      style={{ background: "var(--ln-primary)" }}
+                    >
+                      Continuar
+                    </button>
+                  </div>
+                </footer>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+    </PracticaContexto.Provider>
   )
 }
 
@@ -604,10 +624,10 @@ function SidebarNav({ clase, modulo, lActiva, eActiva, readSections, entrevistas
           {indice.map((f, i) => {
             const nivel = f.tipo === "leccion" ? nivelDe(f.n) : undefined
             const activa = i === iActiva
-            const hecha = f.tipo === "leccion" ? readSections.includes(f.n) : entrevistasHechas.includes(f.nivel)
             // Sobre la pastilla de la fila abierta, el gris del índice se queda
             // en 2,2:1 (Mercancías) o 2,7:1 (NOTAM): ahí va el tono del título.
             const tenue = activa ? "var(--ln-item)" : "var(--ln-navy-dim)"
+            const hecha = f.tipo === "leccion" ? readSections.includes(f.n) : entrevistasHechas.includes(f.nivel)
             return (
               <div key={f.clave}>
                 {nivel && (

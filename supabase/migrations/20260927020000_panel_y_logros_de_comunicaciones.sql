@@ -7,7 +7,7 @@
 --   where name = 'panel_y_logros_de_comunicaciones';
 --
 -- Es la segunda mitad de 20260916000000_progreso_de_aeropuertos.sql, la que
--- 20260925000000_progreso_de_comunicaciones.sql dejó fuera a propósito porque
+-- 20260927000000_progreso_de_comunicaciones.sql dejó fuera a propósito porque
 -- el módulo todavía no tenía práctica ni evaluación:
 --
 --   1. (Las claves de práctica NO: van por scripts/catalogo, ver la sección 1.)
@@ -22,7 +22,7 @@
 -- la rama de 'comunicaciones'. panel_tarjetas conserva 'plan',
 -- 'postulaciones' y los cinco módulos de antes.
 --
--- ORDEN: DESPUÉS de 20260925010000_evaluacion_de_comunicaciones.sql, porque
+-- ORDEN: DESPUÉS de 20260927010000_evaluacion_de_comunicaciones.sql, porque
 -- el panel y los logros leen user_comunicaciones_exam_attempts, que nace allí,
 -- y comparan contra el umbral comunicaciones_pass. Y después de los siete
 -- pasos de Aeropuertos, por lo mismo que dice su documento: si esta corre y
@@ -46,7 +46,7 @@
 -- guion; scripts/catalogo/catalogo.test.ts falla si no está al día).
 --
 -- Mientras tanto la fila sigue con 69 lecciones y ninguna práctica, como la
--- dejó 20260925000000: la RPC rechaza toda clave y el logro de práctica no se
+-- dejó 20260927000000: la RPC rechaza toda clave y el logro de práctica no se
 -- puede ganar (ver la guarda en desbloquear_logros). Nada se rompe.
 --
 -- Tampoco va el umbral `comunicaciones_practice` en module_thresholds: es
@@ -55,7 +55,7 @@
 -- ── 2 · Contar lo practicado ───────────────────────────────────────────────
 --
 -- La de 20260916000000 con una rama más. (secciones_leidas ya la ganó en
--- 20260925010000, para la puerta de la evaluación.)
+-- 20260927010000, para la puerta de la evaluación.)
 
 create or replace function private.practicas_hechas(p_user uuid, p_modulo text)
 returns integer
@@ -74,6 +74,8 @@ as $function$
     select unnest(practice_done) from public.user_aerodinamica_progress where p_modulo = 'aerodinamica' and user_id = p_user
     union all
     select unnest(practice_done) from public.user_aeropuertos_progress where p_modulo = 'aeropuertos' and user_id = p_user
+    union all
+    select unnest(practice_done) from public.user_performance_progress where p_modulo = 'performance' and user_id = p_user
     union all
     select unnest(practice_done) from public.user_comunicaciones_progress where p_modulo = 'comunicaciones' and user_id = p_user
   ) as hechas
@@ -131,6 +133,7 @@ begin
     when 'mercancias' then array['mercancias_lesson', 'mercancias_practice', 'mercancias_exam', 'mercancias_master']
     when 'aerodinamica' then array['aerodinamica_lesson', 'aerodinamica_practice', 'aerodinamica_exam', 'aerodinamica_master']
     when 'aeropuertos' then array['aeropuertos_lesson', 'aeropuertos_practice', 'aeropuertos_exam', 'aeropuertos_master']
+    when 'performance' then array['performance_lesson', 'performance_practice', 'performance_exam', 'performance_master']
     when 'comunicaciones' then array['comunicaciones_lesson', 'comunicaciones_practice', 'comunicaciones_exam', 'comunicaciones_master']
     when 'aerolinea' then array['airline_mock_passed']
   end;
@@ -292,6 +295,23 @@ begin
       v_new := v_new + public._try_unlock(p_user, 'aeropuertos_master');
     end if;
 
+  when 'performance' then
+    v_lecciones := private.secciones_leidas(p_user, 'performance')
+      >= (select c.lecciones from public.modulos_contenido c where c.modulo = 'performance');
+    v_practicas := private.practicas_hechas(p_user, 'performance')
+      >= (select cardinality(c.practicas) from public.modulos_contenido c where c.modulo = 'performance');
+    v_aprobado := exists (
+      select 1 from public.user_performance_exam_attempts
+      where user_id = p_user
+        and coalesce(score, 0) >= coalesce((select total from public.module_thresholds where code = 'performance_pass'), 80)
+    );
+    if v_lecciones then v_new := v_new + public._try_unlock(p_user, 'performance_lesson'); end if;
+    if v_practicas then v_new := v_new + public._try_unlock(p_user, 'performance_practice'); end if;
+    if v_aprobado then v_new := v_new + public._try_unlock(p_user, 'performance_exam'); end if;
+    if v_lecciones and v_practicas and v_aprobado then
+      v_new := v_new + public._try_unlock(p_user, 'performance_master');
+    end if;
+
   when 'comunicaciones' then
     v_lecciones := private.secciones_leidas(p_user, 'comunicaciones')
       >= (select c.lecciones from public.modulos_contenido c where c.modulo = 'comunicaciones');
@@ -360,7 +380,7 @@ begin
 
   foreach v_grupo in array array[
     'piloto', 'quiz', 'racha', 'comunidad', 'suscripcion',
-    'notam', 'metar', 'aerolinea', 'mercancias', 'aerodinamica', 'aeropuertos', 'comunicaciones'
+    'notam', 'metar', 'aerolinea', 'mercancias', 'aerodinamica', 'aeropuertos', 'performance', 'comunicaciones'
   ] loop
     v_new := v_new + private.desbloquear_logros(p_user_id, v_grupo);
   end loop;
@@ -442,6 +462,11 @@ begin
       'lecciones', private.secciones_leidas(v_user, 'aeropuertos'),
       'practicas', private.practicas_hechas(v_user, 'aeropuertos'),
       'mejor', (select max(e.score) from public.user_aeropuertos_exam_attempts e where e.user_id = v_user)
+    ),
+    'performance', jsonb_build_object(
+      'lecciones', private.secciones_leidas(v_user, 'performance'),
+      'practicas', private.practicas_hechas(v_user, 'performance'),
+      'mejor', (select max(e.score) from public.user_performance_exam_attempts e where e.user_id = v_user)
     ),
     'comunicaciones', jsonb_build_object(
       'lecciones', private.secciones_leidas(v_user, 'comunicaciones'),

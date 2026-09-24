@@ -40,6 +40,7 @@ export interface ConfigProgreso {
     | "user_mercancias_progress"
     | "user_aerodinamica_progress"
     | "user_aeropuertos_progress"
+    | "user_performance_progress"
     | "user_comunicaciones_progress"
   rpc:
     | "notam_mark_progress"
@@ -47,6 +48,7 @@ export interface ConfigProgreso {
     | "mercancias_mark_progress"
     | "aerodinamica_mark_progress"
     | "aeropuertos_mark_progress"
+    | "performance_mark_progress"
     | "comunicaciones_mark_progress"
   /** Lo que el respaldo local tiene leído y resuelto. */
   leerLocal: () => ProgresoRemoto
