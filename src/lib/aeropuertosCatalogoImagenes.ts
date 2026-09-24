@@ -130,6 +130,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
     explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
   },
+  "AP-CAT-37": {
+    src: "/modulos/aeropuertos/ap-cat-37-paneles-area-senales.svg",
+    explicacion: "La cuadrícula reúne los diez paneles del área de señales, con forma, color y significado distintos. Identifica el símbolo concreto antes de operar: una prohibición o un cierre impiden usar la superficie afectada.",
+  },
   "AP-CAT-38": {
     src: "/modulos/aeropuertos/ap-cat-38-balizas-borde-pista-no-pavimentada.webp",
     explicacion: "Las balizas blancas planas marcan ambos bordes de la pista de grama. Su lado largo sigue el eje de la pista; mantén la trayectoria entre las dos hileras y verifica el ancho utilizable antes de operar.",
