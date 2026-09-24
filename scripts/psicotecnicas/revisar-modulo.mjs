@@ -49,6 +49,9 @@ const escapar = (s) =>
 
 /** En qué estado está cada ejercicio, y por qué. */
 function estadoDe(e) {
+  if (e.id === "ES-E1-01") {
+    return { clase: "dibujada", texto: "Redibujada · contrastada con el cuadernillo" }
+  }
   if (e.figura) {
     const v = solucionador.resolverFigura(e.figura)
     if (v.estado === "resuelto" && v.opcion === e.respuesta) {
@@ -195,8 +198,8 @@ fs.writeFileSync(
     es suficiente para llegar al archivo, a la ficha y a la página del cuadernillo. Hay un
     botón «copiar id» en cada tarjeta.</p>
     <p><b>Lo que ya sé que está mal:</b> los ocho ejemplos del E2 tienen el dibujo mordido
-    en origen, y las catorce del E1 llevan la marca de agua de DaVinci encima de las
-    opciones. Eso solo lo arregla dibujarlas.</p>
+    en origen. La E1-01 ya está redibujada; las otras trece del E1 todavía llevan la
+    marca de agua de DaVinci encima de las opciones.</p>
   </div>
   ${secciones}
 </div>

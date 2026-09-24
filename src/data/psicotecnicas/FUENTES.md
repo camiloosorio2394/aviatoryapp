@@ -179,15 +179,25 @@ alternativas. Como el módulo entero funciona con opción múltiple cronometrada
 partir de los errores típicos (repetir el salto anterior, adelantarse un
 término, invertir el signo). La respuesta y el desglose son los del documento.
 
-En todo lo demás no se tocó nada: ni enunciados, ni valores, ni alternativas, ni
-figuras. Lo único restituido son los superíndices de unidades al cuadrado de los
-ejercicios 23 y 34 de N1, que `pdftotext` pierde al extraer.
+En el contenido de los ejercicios no se tocaron enunciados, valores ni
+alternativas. Lo único restituido son los superíndices de unidades al cuadrado
+de los ejercicios 23 y 34 de N1, que `pdftotext` pierde al extraer.
+
+## Estado de los redibujos visuales
+
+**ES-E1-01** se redibujó en `scripts/psicotecnicas/redibujos/ES-E1-01.svg`
+contrastando el cubo y las cuatro redes con la página 1 del PDF E1. El WebP
+publicado conserva la misma URL; no cambian el enunciado, las opciones ni la
+respuesta C. `node scripts/psicotecnicas/redibujar-e1.mjs` lo regenera sin
+reemplazar los demás recortes. Los otros ejercicios E1 siguen pendientes de
+revisión visual y no se dan por corregidos con este primer redibujo.
 
 ## Derechos
 
 Los cuatro PDF llevan marca de agua o logotipo de sus autores (Hospital Farallón
 y DaVinci Centro de Estudios en E1; AulaContable y Grupo Pinillos en E2; Centro
-de Nivelación MARPID en A1; U. P. Aula Magna en N2). Las figuras se recortan tal
-cual porque alterarlas cambiaría el ejercicio. Publicarlas en un producto de pago
-es una decisión que no es técnica: queda anotada para que Camilo y Nico la tomen
+de Nivelación MARPID en A1; U. P. Aula Magna en N2). Los recortes se conservan
+como referencia; un redibujo solo es aceptable si mantiene cada rasgo que
+decide la respuesta. Publicar estas figuras, originales o redibujadas, en un
+producto de pago es una decisión de derechos que Camilo y Nico deben resolver
 antes de abrir el módulo al público.

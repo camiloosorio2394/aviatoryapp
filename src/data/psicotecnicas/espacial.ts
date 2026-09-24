@@ -18,8 +18,9 @@ import type { EjercicioPsico } from "@/lib/psicotecnicas"
  *   lo que de verdad son: ejercicios resueltos.
  *
  * Las figuras son el ejercicio: sin ellas el enunciado no se puede responder.
- * Están recortadas del PDF original por scripts/psicotecnicas/extraer-figuras.mjs
- * y no se redibujaron, porque redibujar es cambiar el ejercicio.
+ * Los recortes salen del PDF original por scripts/psicotecnicas/extraer-figuras.mjs.
+ * E1-01 es la excepción visual: se redibujó cara por cara desde la página 1
+ * para quitar la marca de agua, sin cambiar la geometría ni las alternativas.
  */
 export const ESPACIAL: EjercicioPsico[] = [
   {
