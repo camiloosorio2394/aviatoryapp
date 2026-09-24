@@ -274,6 +274,13 @@ export interface PiensaComoPilotoBlock {
   hueco?: HuecoFoto
   /** «Lo que estás viendo»: qué señalar en la foto. Solo se pinta con foto real. */
   ves?: string[]
+  /**
+   * Clave de práctica del módulo («esc-07»). Cuando está, pedir la respuesta
+   * cuenta como ejercicio hecho. Es para los módulos que llevan la práctica
+   * dentro de la lección, como Performance; los que tienen pantalla de
+   * práctica aparte no la usan y se pintan igual que siempre.
+   */
+  clave?: string
 }
 
 /**
@@ -305,6 +312,13 @@ export interface DetalleTecnicoBlock {
   etiqueta?: string
   /** Cita corta a la derecha del botón: "LAR 175.430". */
   cita?: string
+  /**
+   * Clave de práctica del módulo («ej-03»). Cuando está, abrir el detalle
+   * cuenta como ejercicio hecho: es como Performance cuenta sus dieciocho
+   * ejercicios resueltos, que viven dentro de la lección y no en una pantalla
+   * de práctica aparte.
+   */
+  clave?: string
   bloques: DocBlockData[]
 }
 

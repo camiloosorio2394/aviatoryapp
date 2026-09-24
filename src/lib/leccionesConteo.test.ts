@@ -12,6 +12,13 @@ import { AP_LECTURA_TOTAL, AP_NIVELES } from "@/lib/aeropuertos"
 import { AP_LECCIONES, AP_LECCION_TOTAL } from "@/lib/aeropuertosLeccion"
 import { AP_PRACTICA_CONTEO } from "@/lib/aeropuertosConteo"
 import { AP_PRACTICA_TOTAL } from "@/lib/aeropuertosPractica"
+import { PERF_LECTURA_MINUTOS, PERF_LECTURA_TOTAL, PERF_PRACTICA_TOTAL } from "@/lib/performance"
+import {
+  PERF_FIGURAS_PENDIENTES,
+  PERF_LECCION_TOTAL,
+  PERF_MINUTOS,
+  PERF_PRACTICA_CLAVES,
+} from "@/lib/performanceLeccion"
 
 /**
  * Los hubs y la lista de temas usan conteos fijos para no cargar el contenido
@@ -47,6 +54,17 @@ describe("conteos fijos de las lecciones", () => {
       AERO_LECTURA_MINUTOS: AERO_MINUTOS,
       AERO_PRACTICA_TOTAL: AERO_PRACTICA_CONTENIDO,
     })
+  })
+
+  it("Performance: temas, minutos y claves de práctica", () => {
+    expect(PERF_LECTURA_TOTAL).toBe(PERF_LECCION_TOTAL)
+    expect(PERF_LECTURA_MINUTOS).toBe(PERF_MINUTOS)
+    // Los ejercicios y los escenarios no tienen pantalla propia, pero el
+    // progreso los cuenta: el denominador tiene que ser el de las claves.
+    expect(PERF_PRACTICA_TOTAL).toBe(PERF_PRACTICA_CLAVES.length)
+    // Veinte figuras sin generar. El día que existan, este número baja y la
+    // prueba avisa de que el inventario del documento cambió.
+    expect(PERF_FIGURAS_PENDIENTES).toHaveLength(20)
   })
 
   it("Aeropuertos: lecciones y ejercicios de práctica", () => {
