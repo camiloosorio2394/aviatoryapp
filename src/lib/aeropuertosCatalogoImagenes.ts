@@ -74,9 +74,21 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-34-indicador-direccion-aterrizaje.webp",
     explicacion: "La T blanca indica la dirección de aterrizaje: el brazo largo se alinea con la pista y el travesaño señala hacia dónde se aterriza. Confirma también el viento y las instrucciones vigentes.",
   },
+  "AP-CAT-38": {
+    src: "/modulos/aeropuertos/ap-cat-38-balizas-borde-pista-no-pavimentada.webp",
+    explicacion: "Las balizas blancas planas marcan ambos bordes de la pista de grama. Su lado largo sigue el eje de la pista; mantén la trayectoria entre las dos hileras y verifica el ancho utilizable antes de operar.",
+  },
+  "AP-CAT-39": {
+    src: "/modulos/aeropuertos/ap-cat-39-balizas-pista-nieve.webp",
+    explicacion: "Con la pintura oculta por la nieve, las hileras simétricas de balizas visibles delimitan la pista. Reconoce sus bordes antes de rodar o aterrizar; este caso está reservado en la norma colombiana.",
+  },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
     explicacion: "Dos líneas amarillas continuas delimitan el borde de la calle. El pavimento más claro del otro lado no amplía el ancho utilizable: mantén el avión dentro del margen autorizado.",
+  },
+  "AP-CAT-68": {
+    src: "/modulos/aeropuertos/ap-cat-68-fajas-obstaculo.webp",
+    explicacion: "Las fajas horizontales anaranjadas y blancas hacen visible un obstáculo alto y estrecho; sus dos extremos son anaranjados. Reconócelo como obstáculo señalizado y respeta las separaciones publicadas.",
   },
 }
 
