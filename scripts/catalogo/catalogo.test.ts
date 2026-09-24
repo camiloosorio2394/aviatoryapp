@@ -23,6 +23,7 @@ import { AERO_LECCIONES, AERO_LECCION_TOTAL } from "@/lib/aerodinamicaLeccion"
 import { AERO_PRACTICA_CLAVES } from "@/lib/aerodinamicaPractica"
 import { AP_LECCION_TOTAL } from "@/lib/aeropuertosLeccion"
 import { AP_PRACTICA_CLAVES } from "@/lib/aeropuertosPractica"
+import { PERF_LECCION_TOTAL, PERF_PRACTICA_CLAVES } from "@/lib/performanceLeccion"
 import { MODULOS_AEROLINEA } from "@/lib/modulosAerolinea"
 
 /**
@@ -64,6 +65,10 @@ function catalogoDesdeContenido() {
     aeropuertos: {
       lecciones: AP_LECCION_TOTAL,
       practicas: AP_PRACTICA_CLAVES,
+    },
+    performance: {
+      lecciones: PERF_LECCION_TOTAL,
+      practicas: PERF_PRACTICA_CLAVES,
     },
   }
 }

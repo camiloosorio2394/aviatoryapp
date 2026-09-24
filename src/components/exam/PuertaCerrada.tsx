@@ -44,6 +44,13 @@ export function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: nu
   if (siguiente > T) siguiente = T
   const unidad = config.unidadLeccion
   const unidadSing = unidad.endsWith("es") ? unidad.slice(0, -2) : unidad.slice(0, -1)
+  // Los artículos concuerdan con la palabra del módulo: «las 22 lecciones»
+  // pero «los 40 temas».
+  const masculino = config.generoLeccion === "m"
+  const los = masculino ? "los" : "las"
+  const todas = masculino ? "todos" : "todas"
+  const unSing = masculino ? "un" : "una"
+  const elSing = masculino ? "el" : "la"
 
   return (
     <>
@@ -62,7 +69,7 @@ export function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: nu
             </>
           }
           title="La evaluación se abre cuando termines la lectura"
-          subtitle={`Son ${config.porIntento} preguntas al azar sobre las ${T} ${unidad} del módulo. Para presentarla necesitas haberlas leído todas.`}
+          subtitle={`Son ${config.porIntento} preguntas al azar sobre ${los} ${T} ${unidad} del módulo. Para presentarla necesitas haber${masculino ? "los" : "las"} leído ${todas}.`}
         />
 
         <div
@@ -82,10 +89,10 @@ export function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: nu
             </div>
             <div className="flex-1 min-w-0">
               <div className="text-[15px] font-semibold tracking-[-0.01em]">
-                {faltan === 1 ? `Te falta una ${unidadSing} por leer` : `Te faltan ${faltan} ${unidad} por leer`}
+                {faltan === 1 ? `Te falta ${unSing} ${unidadSing} por leer` : `Te faltan ${faltan} ${unidad} por leer`}
               </div>
               <p className="mt-1 text-[13px] text-muted-foreground leading-relaxed">
-                Llevas {hechas} de {T}. Termínalas y la evaluación se abre sola: no hay que pedir nada ni esperar nada.
+                Llevas {hechas} de {T}. Termína{masculino ? "los" : "las"} y la evaluación se abre sola: no hay que pedir nada ni esperar nada.
               </p>
             </div>
             <div
@@ -103,7 +110,7 @@ export function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: nu
             aria-valuemin={0}
             aria-valuemax={T}
             aria-valuenow={hechas}
-            aria-label={`${hechas} de ${T} ${unidad} leídas`}
+            aria-label={`${hechas} de ${T} ${unidad} leíd${masculino ? "os" : "as"}`}
           >
             <div className="h-full rounded-full transition-[width]" style={{ width: `${pct}%`, background: "var(--av-amber-400)" }} />
           </div>
@@ -115,7 +122,7 @@ export function Bloqueado({ config, leidas }: { config: ExamenConfig; leidas: nu
           style={{ background: config.acento }}
         >
           <BookOpen className="h-4.5 w-4.5" />
-          {hechas === 0 ? "Empezar la lectura" : `Continuar en la ${unidadSing} ${siguiente}`}
+          {hechas === 0 ? "Empezar la lectura" : `Continuar en ${elSing} ${unidadSing} ${siguiente}`}
         </Link>
 
         <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[13px]">

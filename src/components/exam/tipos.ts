@@ -22,8 +22,14 @@ export interface ExamenConfig {
   leccion: string
   practica: string
   totalLecciones: number
-  /** "secciones" o "lecciones", para los textos de la puerta cerrada. */
+  /** "secciones", "lecciones" o "temas", para los textos de la puerta cerrada. */
   unidadLeccion: string
+  /**
+   * El género de esa palabra, para concordar los artículos de la puerta
+   * cerrada. Femenino por defecto, que es lo que son «secciones» y
+   * «lecciones»; Performance cuenta «temas» y pide masculino.
+   */
+  generoLeccion?: "f" | "m"
   /** Preguntas por intento, para los textos previos. El sorteo real lo hace el servidor. */
   porIntento: number
   /** Mínimo de aprobación para los textos previos. El que califica lo devuelve el servidor. */
