@@ -123,3 +123,53 @@ Es equivalente a insertar su fila en `supabase_migrations.schema_migrations`
 Antes de registrarla hay que **comprobar que de verdad está aplicada**: si no lo
 está, marcarla hace que `db push` la salte para siempre. Eso es exactamente lo
 que llevaba tres días pasando con la evaluación de Meteorología.
+
+## 24 de septiembre de 2026: las ocho que estaban pendientes
+
+Se aplicaron por el conector de Supabase, en orden, contra producción:
+
+| Versión de archivo | Nombre | Qué trae |
+| --- | --- | --- |
+| 20260914230000 | modulo_aerodinamica | **ya estaba corrida a mano** desde el 14; solo se registró |
+| 20260915120000 | postulaciones | la tabla, su disparador y sus políticas |
+| 20260915120500 | aviso_de_postulacion | el valor nuevo del enum de notificaciones |
+| 20260915121000 | seguimiento_de_postulaciones | la función del recordatorio y su tarea de cron |
+| 20260915140000 | panel_completo | `plan` y `postulaciones` en el panel |
+| 20260915230000 | evaluacion_de_aeropuertos | intentos, reglas, fuente y la rama del CASE |
+| 20260916000000 | progreso_de_aeropuertos | progreso, catálogo, umbrales, RPC, logros y disparadores |
+| 20260926000000 | modulo_performance | lo mismo para Performance |
+| 20260926010000 | panel_y_logros_con_los_seis_modulos | las tres funciones compartidas, completas |
+
+Aerodinámica estaba aplicada pero sin registrar: sus tablas, su fila del
+catálogo, sus cuatro logros y sus ramas en las funciones compartidas ya estaban
+en la base. Se comprobaron una a una antes de registrarla.
+
+Las de Aeropuertos y Performance se aplicaron **sin** sus copias de
+`desbloquear_logros`, `check_and_unlock_achievements` y `panel_tarjetas`, para no
+publicar tres veces seguidas la misma función pisándose a sí misma. Esas tres las
+publica entera y una sola vez `20260926010000`.
+
+El conector registra cada migración con la hora en que la corre, no con la
+versión del nombre de archivo, así que en `schema_migrations` hay dos filas por
+cada una: la del conector (`20260924203326` y siguientes) y la de la versión de
+archivo, insertada después para que `db push` no las vea pendientes.
+
+### La regla del orden, que es la que muerde
+
+<!-- ULTIMA_APLICADA: 20260926010000 -->
+
+**Toda migración nueva lleva una versión posterior a `20260926010000`.**
+
+No es burocracia. Seis funciones se republican enteras en cada migración de
+módulo —`private.secciones_leidas`, `private.practicas_hechas`,
+`private.desbloquear_logros`, `public.check_and_unlock_achievements`,
+`public.evaluacion_terminar` y `public.panel_tarjetas`— y en la base manda la
+última que se corre. Una migración con versión anterior a la última aplicada se
+corre igual, *después*, y deja su versión de esas funciones encima de la buena.
+Sin error: la evaluación del módulo perdido revienta al terminar el intento, su
+progreso cuenta cero y su tarjeta desaparece del panel.
+
+`scripts/migraciones/funciones-compartidas.test.ts` comprueba las dos cosas: que
+la última migración que publica cada función conoce todos los módulos del
+catálogo, y que no hay archivos pendientes con versión anterior a la marca de
+arriba. Al aplicar una tanda, se actualiza esa marca.
