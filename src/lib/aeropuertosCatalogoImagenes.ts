@@ -142,6 +142,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-39-balizas-pista-nieve.webp",
     explicacion: "Con la pintura oculta por la nieve, las hileras simétricas de balizas visibles delimitan la pista. Reconoce sus bordes antes de rodar o aterrizar; este caso está reservado en la norma colombiana.",
   },
+  "AP-CAT-42": {
+    src: "/modulos/aeropuertos/ap-cat-42-entrada-pista.svg",
+    explicacion: "Los grupos de tres destellos blancos siguen una trayectoria curva que rodea el relieve y termina en el umbral. Reconoce que la secuencia avanza hacia la pista; sigue solo la trayectoria y el procedimiento publicados.",
+  },
   "AP-CAT-43": {
     src: "/modulos/aeropuertos/ap-cat-43-identificacion-umbral.webp",
     explicacion: "Dos destellos blancos, uno fuera de cada borde y alineados con la fila verde, ayudan a encontrar el umbral. Identifícalos como referencia visual; la autorización y los mínimos de aproximación siguen vigentes.",
@@ -149,6 +153,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-44": {
     src: "/modulos/aeropuertos/ap-cat-44-apapi.webp",
     explicacion: "El indicador simplificado tiene dos unidades a la izquierda: blanca la exterior y roja la interior indican que vas en la senda. Si cambia la combinación, corrige la trayectoria según el procedimiento aplicable.",
+  },
+  "AP-CAT-45": {
+    src: "/modulos/aeropuertos/ap-cat-45-t-vasis.svg",
+    explicacion: "En el T-VASIS (T Visual Approach Slope Indicator System), solo las barras blancas significan en senda; luces arriba indican alto y luces abajo, bajo. El AT-VASIS (Abbreviated T-VASIS) usa un solo lado. Son sistemas en retiro: confirma el procedimiento aplicable.",
   },
   "AP-CAT-48": {
     src: "/modulos/aeropuertos/ap-cat-48-barra-ala.webp",
@@ -178,9 +186,17 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-61-balizas-cable.webp",
     explicacion: "Las esferas anaranjadas y blancas alternadas vuelven visible el cable tendido entre torres. Reconócelas como advertencia de obstáculo y mantén la separación de vuelo publicada.",
   },
+  "AP-CAT-63": {
+    src: "/modulos/aeropuertos/ap-cat-63-tipos-luces-obstaculo.svg",
+    explicacion: "La tabla separa diez tipos de luces de obstáculo por color, intensidad en candelas y comportamiento fijo o destellante. Identifica el tipo observado, pero no deduzcas ausencia de obstáculos solo porque no ves una luz encendida.",
+  },
   "AP-CAT-64": {
     src: "/modulos/aeropuertos/ap-cat-64-vehiculo-guia.webp",
     explicacion: "El vehículo guía lleva tablero «FOLLOW ME» y destello amarillo en el techo. Síguelo por la ruta indicada, manteniendo distancia y sin confundir su luz con la azul de emergencia.",
+  },
+  "AP-CAT-65": {
+    src: "/modulos/aeropuertos/ap-cat-65-catenaria.svg",
+    explicacion: "Las luces blancas de la torre de catenaria marcan tres alturas ligadas a la curva del cable. Reconoce la secuencia de destellos medio, cima y nivel inferior; el cable sigue siendo un obstáculo aunque una fase esté apagada.",
   },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
