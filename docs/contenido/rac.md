@@ -1974,7 +1974,7 @@ Entre otros: explotadores **RAC 121** y **RAC 135**, operadores de aviación gen
 - C) El proceso de poner defensas o controles para reducir la gravedad de un peligro.
 - D) La probabilidad y la severidad previstas de las consecuencias de un peligro.
 **Correcta:** D · **Tema:** U14 · **Referencia:** RAC 219, 219.001 («Riesgo de seguridad operacional», «Peligro» y «Mitigación de riesgos»)
-**Explicación:** El riesgo se expresa en probabilidad y severidad de las consecuencias de un peligro. La opción A es la definición de peligro y la C, la de mitigación.
+**Explicación:** El riesgo se expresa en probabilidad y severidad de las consecuencias de un peligro. La condición u objeto que puede causar un incidente o accidente es el peligro, y poner defensas o controles para reducir la consecuencia es la mitigación.
 
 **u14-q2** · ¿Cuáles son los cuatro componentes de un SMS según el RAC 219?
 - A) Instrucción, comunicación, gestión del cambio y mejora continua.
@@ -2359,7 +2359,7 @@ El RAC 1 es el diccionario oficial de todos los RAC: fija el significado de los 
 - C) Desde el encendido de los motores hasta que se apaga la APU en plataforma.
 - D) Desde que la aeronave empieza a moverse para despegar hasta que se detiene al final del vuelo.
 **Correcta:** D · **Tema:** U17 · **Referencia:** RAC 1, 1.2.1 («Tiempo de vuelo»)
-**Explicación:** Para la tripulación el tiempo de vuelo es «de cuña a cuña»: desde que la aeronave empieza a moverse con el propósito de despegar hasta que se detiene. Del despegue al aterrizaje es el tiempo de vuelo de la aeronave, y la opción B se parece al período de servicio de vuelo.
+**Explicación:** Para la tripulación el tiempo de vuelo es «de cuña a cuña»: desde que la aeronave empieza a moverse con el propósito de despegar hasta que se detiene. Del despegue al aterrizaje es el tiempo de vuelo de la aeronave, y contar desde la presentación hasta el relevo de todo servicio se parece al período de servicio de vuelo.
 
 ---
 
@@ -2570,7 +2570,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **ev-11** · Volabas el avión cuando ocurrió un incidente en el aterrizaje y hay condiciones para hacer las pruebas. Según el RAC 120, ¿qué aplica al examen toxicológico posincidente?
 - A) Puedes tomar lo recetado; alcohol dentro de 2 h y lo demás dentro de 8 h
 - B) No consumes ninguna sustancia hasta la prueba; alcohol dentro de 8 h y lo demás en 32 h
-- C) Solo se hace si un supervisor documenta por escrito una sospecha justificada
+- C) Solo se hace si un supervisor del programa documenta por escrito una sospecha justificada
 - D) Se hace al día siguiente, para no demorar la atención médica que necesites
 **Correcta:** B · **Tema:** U04 · **Referencia:** RAC 120, 120.320 (c)(1) a (c)(5)
 **Explicación:** Tras un accidente o incidente se examina a todos los involucrados que hacían funciones sensibles; no consumen ninguna sustancia hasta la prueba, que debe hacerse dentro de 8 horas para alcohol y de 32 horas para las demás. La prueba nunca puede demorar la atención médica.
@@ -2579,7 +2579,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 - A) Al menos 1 año de solicitudes rechazadas y suspensión o cancelación inmediata de atribuciones
 - B) Una amonestación escrita de la empresa y una nueva prueba programada al mes siguiente
 - C) Suspensión de la licencia por 60 días, sin ningún efecto sobre tu certificado médico
-- D) Ninguna, si en las 48 horas siguientes entregas una prueba negativa de otro laboratorio
+- D) Ninguna, si dentro de las 48 horas siguientes entregas una prueba negativa hecha en otro laboratorio
 **Correcta:** A · **Tema:** U04 · **Referencia:** RAC 120, 120.100 (a)
 **Explicación:** Negarte acarrea el rechazo de cualquier solicitud de licencia o habilitación por al menos un año, la suspensión o cancelación inmediata de tus atribuciones y la suspensión de tu aptitud psicofísica. La empresa notifica la negativa a la Aerocivil en máximo 48 horas (120.105).
 
@@ -2644,7 +2644,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 - B) No mencionará la naturaleza de la emergencia en la frecuencia
 - C) Avisará de tu situación a todas las aeronaves en la frecuencia
 - D) Te pasará a 121,5 MHz para que hables con la Fuerza Aérea
-**Correcta:** B · **Tema:** U06 · **Referencia:** RAC 211, 211.755 y 211.360 (a)(2)
+**Correcta:** B · **Tema:** U06 · **Referencia:** RAC 211, 211.755, 211.360 (a)(2) y 211.365 (a) y (b)
 **Explicación:** Si el ATS sabe o sospecha interferencia ilícita, no hace referencia a la naturaleza de la emergencia en las comunicaciones aeroterrestres, salvo que la tripulación la haya mencionado antes y se tenga certeza de que no agrava la situación. Sí te da prioridad, atiende tus solicitudes y avisa a la Aerocivil y a las autoridades militares o policiales.
 
 **ev-21** · Eres la primera aeronave en llegar al lugar de un accidente y no eres una aeronave SAR. Luego llegan otras dos aeronaves a ayudar. Según el RAC 212, ¿quién dirige las actividades en el lugar?
@@ -2770,7 +2770,7 @@ Fuentes: notas al inicio de cada capítulo del RAC 4; RAC 121, Normas transitori
 **ev-36** · Estás embarcando y un pasajero, visiblemente alterado, amenaza a la tripulación de cabina. Según el RAC 160, ¿en qué se debe basar tu decisión de negarle el transporte?
 - A) En la autorización previa y escrita de la Aerocivil para cada caso.
 - B) En el concepto de la autoridad migratoria del aeropuerto de salida.
-- C) En su conducta o comportamiento, que genere grave preocupación por la seguridad.
+- C) En su conducta, que genere grave preocupación por la seguridad.
 - D) En el resultado de la inspección de seguridad de su equipaje de mano.
 **Correcta:** C · **Tema:** U13 · **Referencia:** RAC 160, 160.605 (a), (b) y (d)
 **Explicación:** El PIC tiene autoridad para negar el transporte o desembarcar a quien ponga en peligro el vuelo, y la negación debe basarse en la conducta o el comportamiento que suscite grave preocupación por la seguridad. Si la autoridad lo pide, el explotador explica por escrito los motivos (160.605 (e)).
