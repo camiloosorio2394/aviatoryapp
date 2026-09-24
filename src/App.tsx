@@ -80,6 +80,8 @@ const AeropuertosLeccion = page(() => import("@/pages/AeropuertosLeccion"), "Aer
 const AeropuertosExam = page(() => import("@/pages/AeropuertosExam"), "AeropuertosExam")
 const AeropuertosPractice = page(() => import("@/pages/AeropuertosPractice"), "AeropuertosPractice")
 const AeropuertosCatalogo = page(() => import("@/pages/AeropuertosCatalogo"), "AeropuertosCatalogo")
+const Comunicaciones = page(() => import("@/pages/Comunicaciones"), "Comunicaciones")
+const ComunicacionesLeccion = page(() => import("@/pages/ComunicacionesLeccion"), "ComunicacionesLeccion")
 const MercanciasPractice = page(() => import("@/pages/MercanciasPractice"), "MercanciasPractice")
 const MercanciasExam = page(() => import("@/pages/MercanciasExam"), "MercanciasExam")
 const Aerodinamica = page(() => import("@/pages/Aerodinamica"), "Aerodinamica")
@@ -178,6 +180,7 @@ function App() {
               <Route path="/app/aerolinea/mercancias/aprende" element={<MercanciasLeccion />} />
               <Route path="/app/aerolinea/aerodinamica/aprende" element={<AerodinamicaLeccion />} />
               <Route path="/app/aerolinea/aeropuertos/aprende" element={<AeropuertosLeccion />} />
+              <Route path="/app/aerolinea/comunicaciones/aprende" element={<ComunicacionesLeccion />} />
             </Route>
 
             {/* Con sesión, dentro de la app. AppLayout es la ruta de layout: se monta
@@ -226,6 +229,9 @@ function App() {
               <Route path="/app/aerolinea/aeropuertos/practica" element={<AeropuertosPractice />} />
               <Route path="/app/aerolinea/aeropuertos/catalogo" element={<AeropuertosCatalogo />} />
               <Route path="/app/aerolinea/aeropuertos/evaluacion" element={<AeropuertosExam />} />
+              {/* Tema Comunicaciones ATC. Por ahora solo el hub; la lección va arriba,
+                  a pantalla completa. */}
+              <Route path="/app/aerolinea/comunicaciones" element={<Comunicaciones />} />
               <Route path="/app/aerolinea/aerodinamica/practica" element={<AerodinamicaPractice />} />
               <Route path="/app/aerolinea/aerodinamica/evaluacion" element={<AerodinamicaExam />} />
               <Route path="/app/aerolinea/simulacro" element={<AirlineMockExam />} />

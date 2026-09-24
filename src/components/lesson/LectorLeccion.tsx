@@ -72,6 +72,12 @@ export interface LectorModulo {
   escribirLocal: (ns: number[]) => void
   /** Marca una lección leída, local y en la base. */
   marcar: (n: number) => Promise<void> | void
+  /**
+   * Si la lección `n` cuenta como leída al llegar al pie. Por defecto todas.
+   * Comunicaciones ATC nace con sus lecciones en redacción: esas no se marcan
+   * ni suman estudio del día hasta que tengan contenido.
+   */
+  cuenta?: (n: number) => boolean
   /** Trae lo leído desde la base y sube lo local pendiente. Devuelve la lista remota. */
   hidratar?: (uid: string) => Promise<number[] | null>
   /** Pinta un bloque `interactivo` por su nombre. Sin él, el bloque no pinta nada. */
@@ -176,6 +182,7 @@ export function LectorLeccion({ modulo }: { modulo: LectorModulo }) {
   // no al abrirla: llegar al pie es haberla recorrido.
   const markRead = useCallback(
     (n: number) => {
+      if (modulo.cuenta && !modulo.cuenta(n)) return
       setReadSections((prev) => (prev.includes(n) ? prev : [...prev, n].sort((a, b) => a - b)))
       if (modulo.leerLocal().includes(n)) return
       void modulo.marcar(n)

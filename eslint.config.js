@@ -52,6 +52,11 @@ const CONTENIDO = [
     permitido: ['src/pages/AeropuertosPractice.tsx'],
     message: 'Trae la práctica completa de Aeropuertos.',
   },
+  {
+    name: '@/lib/comunicacionesLeccion',
+    permitido: ['src/pages/ComunicacionesLeccion.tsx'],
+    message: 'Trae las 69 lecciones de Comunicaciones ATC. Niveles y conteos están en @/lib/comunicaciones.',
+  },
 ]
 
 const CLIENTE_SUPABASE = {

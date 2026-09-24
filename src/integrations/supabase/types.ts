@@ -2987,6 +2987,27 @@ export type Database = {
         }
         Relationships: []
       }
+      user_comunicaciones_progress: {
+        Row: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          lesson_screens?: number[]
+          practice_done?: string[]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_mercancias_exam_attempts: {
         Row: {
           correct: number
@@ -3538,6 +3559,21 @@ export type Database = {
         SetofOptions: {
           from: "*"
           to: "user_aeropuertos_progress"
+          isOneToOne: true
+          isSetofReturn: false
+        }
+      }
+      comunicaciones_mark_progress: {
+        Args: { p_lesson_screen?: number; p_practice_id?: string }
+        Returns: {
+          lesson_screens: number[]
+          practice_done: string[]
+          updated_at: string
+          user_id: string
+        }
+        SetofOptions: {
+          from: "*"
+          to: "user_comunicaciones_progress"
           isOneToOne: true
           isSetofReturn: false
         }
