@@ -90,6 +90,18 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-44-apapi.webp",
     explicacion: "El indicador simplificado tiene dos unidades a la izquierda: blanca la exterior y roja la interior indican que vas en la senda. Si cambia la combinación, corrige la trayectoria según el procedimiento aplicable.",
   },
+  "AP-CAT-51": {
+    src: "/modulos/aeropuertos/ap-cat-51-luces-zona-parada.webp",
+    explicacion: "Más allá del extremo de pista, dos hileras y una fila final rojas delimitan la zona de parada. Ese pavimento no es pista disponible para continuar el despegue; respeta las distancias publicadas.",
+  },
+  "AP-CAT-52": {
+    src: "/modulos/aeropuertos/ap-cat-52-faro-identificacion.webp",
+    explicacion: "El destello verde aislado identifica un aeródromo terrestre de noche; su secuencia transmite el identificador en Morse. No lo confundas con el faro verde y blanco ni con luces de umbral.",
+  },
+  "AP-CAT-53": {
+    src: "/modulos/aeropuertos/ap-cat-53-espera-intermedia.webp",
+    explicacion: "Tres luces amarillas fijas están antes de la línea transversal amarilla discontinua de espera intermedia. Detente en el punto indicado y continúa solo cuando corresponda.",
+  },
   "AP-CAT-66": {
     src: "/modulos/aeropuertos/ap-cat-66-faja-lateral-calle.webp",
     explicacion: "Dos líneas amarillas continuas delimitan el borde de la calle. El pavimento más claro del otro lado no amplía el ancho utilizable: mantén el avión dentro del margen autorizado.",
