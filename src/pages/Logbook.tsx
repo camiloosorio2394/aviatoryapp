@@ -28,6 +28,16 @@ function hoursToMinutes(h: string): number {
   return Math.round(n * 60)
 }
 
+/**
+ * La fecha del vuelo ("AAAA-MM-DD") como día del calendario del piloto. Sin
+ * hora se lee como medianoche UTC, y en Colombia eso es el día anterior a las
+ * 7 p. m.: el vuelo del 1 de septiembre salía como «31 AGO», en el grupo de
+ * agosto, y el del 1 de enero no entraba en «Este año».
+ */
+function fechaDelVuelo(iso: string): Date {
+  return new Date(iso.slice(0, 10) + "T00:00:00")
+}
+
 type FilterTab = "all" | "last30" | "year" | "pic" | "ifr"
 
 export function Logbook() {
@@ -121,11 +131,11 @@ export function Logbook() {
     if (filter === "last30") {
       const cutoff = new Date()
       cutoff.setDate(cutoff.getDate() - 30)
-      return flights.filter((f) => new Date(f.flight_date) >= cutoff)
+      return flights.filter((f) => fechaDelVuelo(f.flight_date) >= cutoff)
     }
     if (filter === "year") {
       const year = new Date().getFullYear()
-      return flights.filter((f) => new Date(f.flight_date).getFullYear() === year)
+      return flights.filter((f) => fechaDelVuelo(f.flight_date).getFullYear() === year)
     }
     if (filter === "pic") return flights.filter((f) => f.pic_minutes > 0)
     if (filter === "ifr") return flights.filter((f) => f.instrument_real_minutes + f.instrument_sim_minutes > 0)
@@ -136,7 +146,7 @@ export function Logbook() {
   const grouped = useMemo(() => {
     const map = new Map<string, Flight[]>()
     for (const f of filtered) {
-      const d = new Date(f.flight_date)
+      const d = fechaDelVuelo(f.flight_date)
       const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
       if (!map.has(key)) map.set(key, [])
       map.get(key)!.push(f)
@@ -368,7 +378,7 @@ function BigStat({
 }
 
 function FlightRow({ f, onDelete }: { f: Flight; onDelete: () => void }) {
-  const date = new Date(f.flight_date)
+  const date = fechaDelVuelo(f.flight_date)
   const day = String(date.getDate()).padStart(2, "0")
   const month = date.toLocaleDateString("es-CO", { month: "short" }).replace(".", "").toUpperCase()
   const dow = date.toLocaleDateString("es-CO", { weekday: "short" }).replace(".", "").toUpperCase()
@@ -624,6 +634,7 @@ function NewFlightDialog({ onClose, onSaved }: { onClose: () => void; onSaved: (
       })
       onSaved()
     } catch (err) {
+      reportarError("bitácora: guardar vuelo", err)
       toast.error(err instanceof Error ? err.message : "No pudimos guardar el vuelo")
     } finally {
       setSaving(false)

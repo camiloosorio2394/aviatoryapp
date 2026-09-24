@@ -119,6 +119,7 @@ export function Route() {
         else next.delete(item.id)
         return next
       })
+      reportarError("ruta: marcar paso", err)
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
     } finally {
       setTogglingId(null)

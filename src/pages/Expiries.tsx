@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react"
 import { AlertTriangle, Calendar, Loader2, Plus, Trash2, X, FileText, CheckCircle, Clock } from "lucide-react"
 import { toast } from "sonner"
+import { reportarError } from "@/lib/errores"
 import {
   borrarLicencia,
   guardarLicencia,
@@ -108,8 +109,10 @@ export function Expiries() {
 
   const aplicar = useCallback((r: Awaited<ReturnType<typeof traer>>) => {
     if (!r) return
-    if (r.error) toast.error(r.error.message)
-    else setLicenses(r.licencias)
+    if (r.error) {
+      reportarError("vencimientos: cargar", r.error)
+      toast.error(r.error.message)
+    } else setLicenses(r.licencias)
     setLoading(false)
   }, [])
 
@@ -136,6 +139,7 @@ export function Expiries() {
     setLicenses((p) => p.filter((l) => l.id !== id))
     const { error } = await borrarLicencia(id)
     if (error) {
+      reportarError("vencimientos: eliminar", error)
       toast.error(error.message)
       setLicenses(prev)
     } else {
@@ -474,6 +478,7 @@ function NewLicenseDialog({
       })
       onSaved()
     } catch (err) {
+      reportarError("vencimientos: guardar", err)
       toast.error(err instanceof Error ? err.message : "No pudimos guardar")
     } finally {
       setSaving(false)

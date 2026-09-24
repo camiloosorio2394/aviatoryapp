@@ -16,6 +16,7 @@ import {
 import { toast } from "sonner"
 import { guardarPerfilInicial } from "@/services/piloto"
 import { useSession } from "@/hooks/useSession"
+import { reportarError } from "@/lib/errores"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -224,6 +225,7 @@ export function Onboarding() {
       // Después del onboarding lo mandamos directo al test inicial (es skippable).
       navigate("/app/test-inicial", { replace: true })
     } catch (err) {
+      reportarError("onboarding: guardar perfil", err)
       toast.error(err instanceof Error ? err.message : "No pudimos guardar tu perfil")
     } finally {
       setSubmitting(false)

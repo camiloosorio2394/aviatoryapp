@@ -114,7 +114,9 @@ export function Referrals() {
                 </button>
               </div>
               <div className="mt-3 text-[12px] text-muted-foreground break-all max-w-[600px]">
-                {link || "Cargando…"}
+                {/* Sin código (o si la consulta falló, que ya quedó reportada) la
+                    carga terminó: seguir diciendo «Cargando…» era mentir. */}
+                {link || (loading ? "Cargando…" : "Tu enlace no está disponible ahora mismo. Vuelve a abrir esta pantalla en un rato.")}
               </div>
             </div>
             <div className="flex flex-col gap-3.5 w-full md:w-auto md:min-w-[220px]">
