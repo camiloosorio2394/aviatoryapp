@@ -51,13 +51,13 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
     // informa, no decora.
     icon: AerodromeIcon,
     color: "var(--av-blue-500)",
-    foto: "/modulos/notam/tema-notam-operacion.webp",
+    foto: "/modulos/notam/tema-notam-briefing.webp",
     descripcion: "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
   },
   metar: {
     icon: CloudSun,
     color: "var(--av-mt-700)",
-    foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
+    foto: "/modulos/meteorologia/tema-meteorologia-tormenta.webp",
     descripcion: "Del cielo al informe: nubes, frentes, METAR y TAF.",
   },
   mercancias: {
@@ -69,7 +69,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   aerodinamica: {
     icon: Wind,
     color: "var(--av-ae-700)",
-    foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
+    foto: "/modulos/aerodinamica/tema-aerodinamica-tunel.webp",
     descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
   },
   aeropuertos: {

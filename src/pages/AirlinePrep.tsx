@@ -276,7 +276,7 @@ export function AirlinePrep() {
           meta: `${NOTAM_TOTALES.lessonScreens} secciones · ${NOTAM_TOTALES.lessonMinutes} min`,
           descripcion:
             "Lee la línea Q y decodifica avisos reales de la Aerocivil.",
-          foto: "/modulos/notam/tema-notam-operacion.webp",
+          foto: "/modulos/notam/tema-notam-briefing.webp",
           cta: ctaDeTema(notam.overall),
           avance: notam.overall,
           completo: notam.overall >= 100,
@@ -300,7 +300,7 @@ export function AirlinePrep() {
           // Lo que se aprende, en el orden en que se lee.
           descripcion:
             "Del cielo al informe: nubes, frentes, METAR y TAF.",
-          foto: "/modulos/meteorologia/tema-meteorologia-conveccion.webp",
+          foto: "/modulos/meteorologia/tema-meteorologia-tormenta.webp",
           cta: ctaDeTema(metar.overall),
           avance: metar.overall,
           completo: metar.overall >= 100,
@@ -344,7 +344,7 @@ export function AirlinePrep() {
           titulo: "Aerodinámica",
           meta: `${AERO_LECTURA_TOTAL} secciones · ${AERO_LECTURA_MINUTOS} min`,
           descripcion: "Sustentación, pérdida, factor de carga, Mach y altitud de densidad.",
-          foto: "/modulos/aerodinamica/tema-aerodinamica-ala.webp",
+          foto: "/modulos/aerodinamica/tema-aerodinamica-tunel.webp",
           cta: ctaDeTema(aero.overall),
           avance: aero.overall,
           completo: aero.overall >= 100,
