@@ -63,7 +63,7 @@ export const CARA_DE_MODULO: Record<ClaveModulo, CaraDeModulo> = {
   mercancias: {
     icon: AlertTriangle,
     color: "var(--av-dg-700)",
-    foto: "/modulos/mercancias/tema-mercancias-carga.webp",
+    foto: "/modulos/mercancias/tema-mercancias-etiqueta.webp",
     descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
   },
   aerodinamica: {

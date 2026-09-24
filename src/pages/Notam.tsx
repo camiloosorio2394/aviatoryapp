@@ -130,7 +130,7 @@ export function Notam() {
       blurb:
         "Conoce la estructura del NOTAM, identifica sus componentes y aprende a interpretar la información aeronáutica.",
       cta: "Iniciar formación",
-      photoHueco: "NT-POR-01 · Portada 5:2 · 1200×480 · Mesa de estudio con cartas y un NOTAM impreso",
+      photo: "/modulos/notam/nt-por-01-aprende.webp",
       photoAspect: "5/2",
       status:
         resumen.lessonRead === 0
@@ -145,13 +145,13 @@ export function Notam() {
       to: "/app/aerolinea/notam/practica",
       densidad: "compacta" as const,
       icon: Target,
-      color: "var(--av-violet-400)",
+      color: "var(--av-blue-500)",
       meta: "NOTAMs reales · Imagen y texto",
       title: "2. Práctica",
       blurb:
         "Trabaja con NOTAMs reales y fortalece tu capacidad para reconocer abreviaturas, interpretar mensajes y comprender su significado operacional.",
       cta: "Iniciar práctica",
-      photoHueco: "NT-POR-02 · Portada 5:2 · 1200×480 · Tableta con NOTAM reales en preparación de vuelo",
+      photo: "/modulos/notam/nt-por-02-practica.webp",
       photoAspect: "5/2",
       status:
         resumen.practiceDone === 0
@@ -164,12 +164,12 @@ export function Notam() {
       to: "/app/aerolinea/notam/evaluacion",
       densidad: "compacta" as const,
       icon: GraduationCap,
-      color: "var(--av-amber-400)",
+      color: "var(--av-blue-500)",
       meta: `${EXAM_PER_ATTEMPT} preguntas · Puntaje mínimo ${EXAM_PASS_SCORE}%`,
       title: "3. Evaluación",
       blurb: `Comprueba tu dominio de la lectura e interpretación de NOTAMs mediante una evaluación de ${EXAM_PER_ATTEMPT} preguntas aleatorias.`,
       cta: "Iniciar evaluación",
-      photoHueco: "NT-POR-03 · Portada 5:2 · 1200×480 · Hoja de respuestas y cronómetro sobre la mesa",
+      photo: "/modulos/notam/nt-por-03-evaluacion.webp",
       photoAspect: "5/2",
       status:
         resumen.best === null

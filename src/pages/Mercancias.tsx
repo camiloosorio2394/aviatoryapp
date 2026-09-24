@@ -83,7 +83,7 @@ export function Mercancias() {
       blurb:
         "Las nueve clases, quién responde por qué y qué firmas antes de cada salida. Y al cierre de cada nivel, la entrevista de aerolínea.",
       cta: "Iniciar formación",
-      photo: "/modulos/mercancias/mp-por-01-aprende.webp",
+      photo: "/modulos/mercancias/mp-por-01-aprende-v2.webp",
       status:
         resumen.lessonRead === 0
           ? "Sin empezar"
@@ -104,7 +104,7 @@ export function Mercancias() {
       blurb:
         "Reconoces etiquetas, clasificas envíos y resuelves escenarios de entrevista técnica.",
       cta: "Iniciar práctica",
-      photo: "/modulos/mercancias/mp-por-02-practica.webp",
+      photo: "/modulos/mercancias/mp-por-02-practica-v2.webp",
       status:
         resumen.practiceDone === 0
           ? "Sin empezar"
@@ -123,7 +123,7 @@ export function Mercancias() {
       blurb:
         "Opción múltiple barajada. Al terminar ves la explicación y el artículo de cada pregunta.",
       cta: "Iniciar evaluación",
-      photo: "/modulos/mercancias/mp-por-03-evaluacion.webp",
+      photo: "/modulos/mercancias/mp-por-03-evaluacion-v2.webp",
       status:
         resumen.best === null
           ? "Sin intentos"

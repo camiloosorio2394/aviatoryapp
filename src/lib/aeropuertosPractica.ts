@@ -108,11 +108,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 5,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-04",
-      medida: "Fotografía aérea cenital · 16:9 · 1600×900",
-      descripcion:
-        "Cenital pura del comienzo de una pista pavimentada de 45 m, con el eje vertical en el cuadro. Un grupo de fajas blancas largas y paralelas al eje, todas del mismo largo y del mismo ancho, repartidas en igual número a cada lado del eje, arrancando a 6 m del umbral. Ojo: sin designadora en el encuadre, sin flechas y sin ninguna señal amarilla.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-04-umbral.svg",
+      alt: "Vista cenital técnica de una pista con doce fajas blancas longitudinales simétricas, seis a cada lado del eje",
+      pie: "Esquema cenital: cuenta las fajas a cada lado del eje y compara su longitud con la línea central que aparece más adelante. El trazo debe reconocerse antes de consultar la explicación.",
     },
     pregunta: "¿Qué señal estás viendo?",
     opciones: [
@@ -130,11 +129,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 6,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-05",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Cenital pura de un pavimento estrecho con su eje amarillo continuo entrando y saliendo del cuadro. Centrada sobre ese eje, una cruz amarilla de brazos rectos de unos 9 m, faja de 1,5 m de ancho y travesaño de unos 3,75 m. Al fondo, más pequeña por la perspectiva, otra igual al otro extremo del tramo. Ojo: la cruz nunca blanca en este pavimento, y sin conos ni vallas alrededor.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-05-calle-cerrada.webp",
+      alt: "Vista oblicua de una calle de rodaje con una gran cruz amarilla sobre el eje y otra más lejana",
+      pie: "Observa el color de las cruces, el ancho del pavimento y su línea central. La combinación te dice qué superficie está afectada y qué maniobra debes descartar.",
     },
     pregunta: "¿Qué te está diciendo esa cruz?",
     opciones: [
@@ -152,11 +150,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 2,
     leccion: 7,
     familia: "Señal pintada",
-    hueco: {
-      codigo: "AP-PRA-06",
-      medida: "Ilustración técnica · 4:3 · 1200×900",
-      descripcion:
-        "Primer plano cenital de 25 m de calle de rodaje, con la pista fuera del cuadro a la derecha. Cruzando la calle de arriba abajo, dos líneas amarillas continuas de 0,30 m separadas 1,50 m, con travesaños de 0,90 m uniéndolas cada 3,0 m, y 2,10 m de ancho total. El eje amarillo de la calle se interrumpe al llegar. Ojo: nada de patrón B1 con las continuas a 0,6 m, y sin inscripción pintada al costado.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-06-patron-b2.webp",
+      alt: "Vista cenital de una calle de rodaje con dos barras amarillas continuas cruzadas por travesaños regulares",
+      pie: "Compara el dibujo transversal con cuatro líneas paralelas o una línea segmentada: los travesaños son la pista para clasificar el punto de espera. Antes de avanzar, confirma siempre la autorización y tu posición real.",
     },
     pregunta: "¿Qué punto de espera es?",
     opciones: [
@@ -174,11 +171,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 9,
     familia: "Letrero",
-    hueco: {
-      codigo: "AP-PRA-07",
-      medida: "Fotografía real · 3:2 · 1200×800",
-      descripcion:
-        "De noche, rodando despacio hacia una unión de calles con el pavimento húmedo. Un letrero iluminado bajo y frangible, de cara roja, con un disco rojo y una barra blanca horizontal en el centro y ninguna letra ni cifra, y otro exactamente igual al otro lado de la misma calle. El eje amarillo continuo de la calle por la que sí se sigue entra al cuadro. Ojo: el letrero no lleva texto y va a cada lado, nunca uno solo a la izquierda.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-07-prohibida-entrada.webp",
+      alt: "Entrada nocturna a una calle de rodaje con dos letreros rojos iluminados, uno a cada lado, sin inscripciones",
+      pie: "Mira ambos lados de la entrada y observa el símbolo en cada cara. Antes de responder, decide qué maniobra permite o impide esa señalización.",
     },
     pregunta: "¿Qué letrero es y qué te obliga a hacer?",
     opciones: [
@@ -196,11 +192,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 3,
     leccion: 10,
     familia: "Letrero",
-    hueco: {
-      codigo: "AP-PRA-08",
-      medida: "Ilustración técnica · 3:2 · 1200×800",
-      descripcion:
-        "Un solo letrero visto de frente, bajo y frangible, sobre fondo neutro. Cara amarilla con contorno negro, y dentro, dibujado en negro, el esquema de una señal de cuatro líneas con sus tres espacios, sin ninguna letra ni cifra. Al fondo y desenfocado, un tramo de calle de rodaje con su eje amarillo. Ojo: el dibujo de dentro nunca es una escalera con travesaños.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-08-pista-libre.webp",
+      alt: "Primer plano de un letrero amarillo con borde negro y cuatro trazos negros paralelos, dos continuos y dos discontinuos",
+      pie: "Fíjate en el dibujo negro: no son letras ni una flecha. Reconoce qué señal de pavimento representa antes de decidir cuándo puedes informar al control.",
     },
     pregunta: "¿Qué letrero es?",
     opciones: [
@@ -306,11 +301,10 @@ export const AP_RECONOCE: ApReconoce[] = [
     nivel: 5,
     leccion: 19,
     familia: "Luz",
-    hueco: {
-      codigo: "AP-PRA-13",
-      medida: "Fotografía real · 3:2 · 1200×800",
-      descripcion:
-        "Desde la cabina, de noche y con niebla ligera, el avión detenido a unos 15 m. Una fila de luces rojas empotradas cruza la calle de lado a lado, separadas 3 m, apuntando hacia el avión, y un par de luces rojas elevadas refuerza cada extremo. Detrás de la fila, el eje verde de la calle está apagado en un tramo largo. Ojo: ninguna luz amarilla destellando en el encuadre.",
+    imagen: {
+      src: "/modulos/aeropuertos/ap-pra-13-barra-parada.webp",
+      alt: "Vista nocturna desde una cabina detenida ante una hilera transversal de luces rojas con dos luces elevadas en cada extremo",
+      pie: "La hilera roja cruza toda la calle; observa también las luces elevadas a sus extremos y el tramo oscuro del eje más allá. Identifica qué orden comunica antes de responder.",
     },
     pregunta: "¿Qué estás viendo?",
     opciones: [

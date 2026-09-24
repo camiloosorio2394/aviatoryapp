@@ -71,7 +71,6 @@ import matchPhoto from "@/assets/photos/aerolinea-piloto.webp"
 import simulacroPhoto from "@/assets/photos/notam-evaluacion-examen.webp"
 // La misma foto que abre el hub de Psicotécnicas. Antes la tarjeta traía la
 // portada del SIMULACRO, que es una página interior del tema.
-import psicoPhoto from "@/assets/photos/psicotecnicas-mano-panel.webp"
 // La cabina al amanecer: la foto no la usa ninguna tarjeta de esta pantalla,
 // así que el hero no repite imagen con lo que tiene debajo.
 import heroPhoto from "@/assets/photos/cta-cockpit-dawn.jpg"
@@ -323,7 +322,7 @@ export function AirlinePrep() {
           titulo: "Mercancías peligrosas",
           meta: `${MP_LECTURA_TOTAL} lecciones · ${MP_LECTURA_MINUTOS} min`,
           descripcion: "Clases, NOTOC, baterías de litio y qué hacer en vuelo.",
-          foto: "/modulos/mercancias/tema-mercancias-carga.webp",
+          foto: "/modulos/mercancias/tema-mercancias-etiqueta.webp",
           cta: ctaDeTema(mercancias.overall),
           avance: mercancias.overall,
           completo: mercancias.overall >= 100,
@@ -397,7 +396,7 @@ export function AirlinePrep() {
           titulo: "Pruebas psicotécnicas",
           meta: `${PSICO_TOTAL} ejercicios · simulacro de ${SIMULACRO_TOTAL}`,
           descripcion: "Razonamiento abstracto, espacial y numérico, con reloj.",
-          foto: psicoPhoto,
+          foto: "/modulos/psicotecnicas/tema-psicotecnicas-razonamiento.webp",
           cta: mejorPsico === null ? "Empezar" : "Entrenar",
           avance: mejorPsico ?? 0,
           estado:
