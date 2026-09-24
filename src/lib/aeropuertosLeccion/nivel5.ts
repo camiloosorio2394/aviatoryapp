@@ -45,11 +45,12 @@ export const NIVEL_5: DocScreen[] = [
         text: "Una incursión suele empezar antes de llegar a la pista: una ruta distinta de la preparada, un letrero que no se verbaliza o una autorización que la tripulación cree haber entendido. Con poca visibilidad hay menos tiempo para detectar el error, pero la defensa es la misma: briefing de rodaje, carta abierta, verificación cruzada y detención inmediata cuando la posición real no coincide con la autorización.",
       },
       {
-        kind: "hueco",
-        rotulo: "AP-18-02 · Fotografía real · 16:9 · 1600×900",
-        descripcion:
-          "Vista aérea oblicua con sol alto: dos calles de rodaje que convergen sobre una misma entrada a pista, con ángulos cerrados y una isla de pavimento en medio. Cada calle con su punto de espera patrón A2 y su letrero rojo. Al fondo, la pista con su eje de trazos blancos y su designador. Ojo: las continuas de cada A2 van del lado de espera, y no aparece ningún rótulo de aeropuerto reconocible.",
-        alto: 320,
+        kind: "figura",
+        src: "/modulos/aeropuertos/ap-18-02-convergencia.webp",
+        alt: "Vista aérea oblicua de dos calles de rodaje que convergen en una sola entrada a pista, señaladas con líneas menta",
+        ancho: 1600,
+        alto: 900,
+        pie: "Las dos calles convergen antes de una entrada compartida a la pista. Se reconocen por sus ejes amarillos que se unen; esta foto no permite ubicar un punto de espera ni leer un letrero. Antes de rodar, confirma en la carta oficial vigente qué ramal y qué punto de espera corresponden a tu autorización. Si tomas el ramal equivocado, detente en un lugar seguro y consulta al control; no supongas que ambos llevan a la misma autorización.",
       },
       {
         kind: "fichas",
@@ -57,28 +58,24 @@ export const NIVEL_5: DocScreen[] = [
         items: [
           {
             titulo: "Punto crítico",
-            hueco: {
-              id: "AP-18-03",
-              medida: "Ilustración técnica · 3:2 · 1200×800",
-              descripcion:
-                "Planta esquemática propia de un aeródromo: pista con designadores «09» y «27», calle paralela y tres de conexión con sus letras. Dos círculos de trazo negro grueso rodean dos ubicaciones, rotuladas «HS 1» y «HS 2», y un recuadro al costado, «PUNTOS CRÍTICOS», explica cada una en una línea. Ojo: no puede parecerse a una carta comercial ni copiar figuras de la OACI.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-18-03-puntos-criticos.webp",
+              alt: "Plano didáctico ficticio con una pista, calles de rodaje y dos puntos críticos HS señalados; no es una carta AIP",
             },
             puntos: [
-              "Sitio con riesgo de colisión o incursión.",
-              "En la carta va rodeado, rotulado «HS».",
+              "HS (Hot Spot) señala un punto publicado donde hay mayor riesgo de incursión o colisión. En este esquema ficticio se reconocen por los círculos; para una operación real localízalos en la carta oficial vigente, porque su posición y representación dependen del aeródromo.",
+              "Antes de rodar, identifica la secuencia de calles y el punto crítico que cruzarás. Si la posición no coincide con la ruta autorizada, detente y pide aclaración.",
             ],
           },
           {
             titulo: "Briefing de rodaje",
-            hueco: {
-              id: "AP-18-04",
-              medida: "Fotografía de escena · 3:2 · 1200×800",
-              descripcion:
-                "Desde atrás y arriba, entre los dos asientos: el avión detenido en plataforma, motores apagados, y los dos pilotos señalando a la vez la misma carta de aeródromo sobre la consola o en una tableta. La carta es un dibujo propio en planta, legible pero no identificable. Ojo: el briefing se hace con el avión detenido, nunca rodando, y sin cartas comerciales a la vista.",
+            imagen: {
+              src: "/modulos/aeropuertos/ap-18-04-briefing.webp",
+              alt: "Dos pilotos en cabina consultan juntos una tableta antes del rodaje; la pantalla es ilustrativa y no representa una carta oficial",
             },
             puntos: [
-              "Antes de arrancar y en el descenso, con la carta.",
-              "Sigue lo autorizado.",
+              "La foto muestra la verificación compartida antes de rodar, con el avión detenido; no reproduce una carta AIP. El briefing real se hace con la carta oficial vigente: ruta prevista, cruces de pista y puntos críticos.",
+              "Al recibir la autorización, ambos pilotos comparan la ruta con la carta y verbalizan cada cruce. Si cambia la ruta, se detienen en un lugar seguro para volver a revisarla.",
             ],
           },
         ],
@@ -96,14 +93,12 @@ export const NIVEL_5: DocScreen[] = [
         consecuencia:
           "Murieron 583 personas, 248 en un avión y 335 en el otro, y hubo 61 supervivientes. El informe concluye que la causa fundamental fue iniciar el despegue sin autorización.",
         leccion:
-          "Dos Boeing 747 en niebla. Uno despegó sin autorización con el otro en pista. La incursión se decide antes, en el cruce anterior, cuando ya no ves y crees que vas bien.",
+          "El esquema muestra dos aviones en la misma pista y poca visibilidad; las posiciones y distancias son ilustrativas. El hecho decisivo fue iniciar el despegue sin autorización mientras el otro avión todavía ocupaba la pista. Si no hay una autorización inequívoca o existe duda sobre la pista libre, no se inicia la carrera y se aclara con control.",
         fuente:
           "Informe oficial de la Subsecretaría de Aviación Civil de España sobre el accidente del 27 de marzo de 1977.",
-        hueco: {
-          id: "AP-18-05",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Planta esquemática: una pista única, su calle paralela y cuatro conexiones rotuladas «C-1» a «C-4». Una silueta gris de cuadrimotor al inicio, alineada para despegar, «Inicia el despegue sin autorización»; otra igual sobre la pista, entre la tercera y la cuarta conexión, «Todavía en la pista», y una banda de niebla entre las dos. Ojo: sin libreas, sin matrículas y sin una sola cifra de distancia o de velocidad, que el informe no las da.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-05-los-rodeos.webp",
+          alt: "Esquema didáctico no a escala de Los Rodeos con dos aviones sobre la pista y salidas C-1 a C-4",
         },
       },
       /* La nota de verificación de este hueco no es decorativa: la versión
@@ -126,53 +121,51 @@ export const NIVEL_5: DocScreen[] = [
         consecuencia:
           "Murieron 118 personas: 110 y 4 a bordo de las dos aeronaves y 4 en tierra. El aeródromo no tenía luces de protección de pista ni radar de movimiento en superficie.",
         leccion:
-          "Un bimotor ejecutivo tomó la calle equivocada y entró a la pista activa. Cuando la ruta que estás recorriendo no coincide con la autorizada, se para antes de la pista y se pregunta.",
+          "El esquema distingue la ruta R5 autorizada de la R6 recorrida. La fila roja del caso no era una barra de parada estándar de la OACI: su presencia por sí sola no aclara la autorización. Cuando la ruta real no coincide con la autorizada, hay que detenerse antes de la pista y pedir aclaración al control.",
         fuente:
           "Informe final de la ANSV sobre el accidente del 8 de octubre de 2001, aprobado el 20 de enero de 2004.",
-        hueco: {
-          id: "AP-18-06",
-          medida: "Ilustración técnica · 3:2 · 1200×800",
-          descripcion:
-            "Planta esquemática con niebla: la línea de guía se parte en dos, la ruta autorizada hacia el norte en trazos tenues y la recorrida hacia el sureste en trazo grueso, con la silueta de un bimotor ejecutivo. Al final, la pista activa con un avión en carrera y, antes, una fila de luces rojas encendidas. Ojo: esa fila no es una barra de parada de la OACI y no se rotula como tal; no se dibuja ninguna señal de punto de espera, ninguna luz de protección de pista ni ninguna cota de separación, porque nada de eso está en el informe.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-06-linate.webp",
+          alt: "Esquema didáctico no a escala de Linate: bifurcación entre R5 autorizada y R6 recorrida, luces rojas no estándar y pista activa",
         },
       },
       {
         kind: "reconoce",
         titulo: "La última línea antes de la pista",
-        hueco: {
-          id: "AP-18-07",
-          medida: "Fotografía real · 16:9 · 1600×900",
-          descripcion:
-            "Desde el pavimento, a unos 25 m del punto de espera y mirando a la pista, con día claro. Patrón A2 completo de lado a lado, el eje con señal mejorada hasta 47 m, letrero rojo, un par de luces amarillas del lado de espera y la pista con su designador legible. Cuatro chinchetas numeradas, sin texto. Ojo: las dos continuas van del lado de espera; nada de patrón A1.",
+        imagen: {
+          src: "/modulos/aeropuertos/ap-18-07-reconoce.webp",
+          alt: "Fotografía didáctica de entrada a pista con patrón A2, eje mejorado y letrero rojo 09-27 superpuestos con precisión; las marcas son ilustrativas",
+          ancho: 1600,
+          alto: 900,
         },
         puntos: [
           {
-            x: 0,
-            y: 0,
+            x: 55,
+            y: 57,
             que: "Doble línea continua de tu lado",
             significa: "Patrón A2: el punto de espera de la pista.",
-            piloto: "Paras.",
+            piloto: "Detén todo el avión antes de las líneas continuas hasta recibir autorización expresa para entrar a la pista.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 50,
+            y: 77,
             que: "Eje con trazos al lado",
             significa: "Señal mejorada de eje: viene el punto de espera.",
-            piloto: "Frena.",
+            piloto: "Reduce la velocidad y verifica el punto de espera, el letrero y la autorización antes de seguir.",
           },
           {
-            x: 0,
-            y: 0,
-            que: "Luces amarillas destellantes",
-            significa: "Luces de protección de pista: hay un cruce con la pista.",
-            piloto: "También de día.",
+            x: 60,
+            y: 51,
+            que: "Doble línea discontinua hacia la pista",
+            significa: "Es el lado del patrón A2 que mira a la pista; la pareja continua queda de tu lado.",
+            piloto: "Mantén todo el avión antes de las continuas si no hay autorización de ingreso.",
           },
           {
-            x: 0,
-            y: 0,
+            x: 8,
+            y: 45,
             que: "Letrero rojo con la pista",
             significa: "La pista que nombra está detrás del letrero.",
-            piloto: "No entras sin permiso.",
+            piloto: "Confirma que esa es la pista autorizada y no ingreses sin autorización expresa.",
           },
         ],
       },
