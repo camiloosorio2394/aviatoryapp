@@ -50,6 +50,10 @@ const reutilizacionesPropias: Record<string, string> = {
 }
 
 const activosPropios: Record<string, { src: string; explicacion: string }> = {
+  "AP-CAT-01": {
+    src: "/modulos/aeropuertos/ap-cat-01-zona-toma-patron-b.webp",
+    explicacion: "Las marcas blancas de la zona de toma de contacto aparecen como grupos de fajas paralelas a ambos lados del eje y se repiten en profundidad. Distínguelas del punto de visada, más largo; usa la secuencia para reconocer la zona, no como autorización para aterrizar.",
+  },
   "AP-CAT-03": {
     src: "/modulos/aeropuertos/ap-cat-03-eje-rodaje-sobre-pista.webp",
     explicacion: "La línea amarilla continua guía el rodaje sobre la pista y sale hacia una calle. Distínguela del eje blanco discontinuo; antes de seguir, confirma tu autorización y la ruta asignada.",
@@ -58,6 +62,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-04-plataforma-viraje.webp",
     explicacion: "El ensanche lateral permite invertir el sentido al final de la pista. Reconoce la línea amarilla curva y síguela dentro del pavimento; no confundas la plataforma con una salida de pista.",
   },
+  "AP-CAT-05": {
+    src: "/modulos/aeropuertos/ap-cat-05-inscripcion-cat-ii.webp",
+    explicacion: "La inscripción blanca CAT II (Category II) junto al extremo de la señal amarilla tipo B2 identifica el punto de espera para esa categoría. Detente antes de la señal y avanza solo cuando corresponda a tu autorización y procedimiento.",
+  },
   "AP-CAT-08": {
     src: "/modulos/aeropuertos/ap-cat-08-lineas-seguridad-plataforma.webp",
     explicacion: "Las marcas amarillas guían al avión; la línea roja separa la zona de seguridad del puesto. Mantén vehículos y equipos en el lado permitido y confirma que el área esté libre antes de mover el avión.",
@@ -65,6 +73,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-10": {
     src: "/modulos/aeropuertos/ap-cat-10-instrucciones-pintadas.webp",
     explicacion: "La inscripción blanca «09-27» sobre rojo repite una instrucción obligatoria antes de la señal amarilla de espera de pista. Detente del lado de espera y cruza solo con autorización.",
+  },
+  "AP-CAT-11": {
+    src: "/modulos/aeropuertos/ap-cat-11-no-entry.webp",
+    explicacion: "El panel rojo pintado dice «NO ENTRY» en blanco y el letrero lateral repite la prohibición con un disco rojo y barra blanca. Reconoce la entrada exclusiva de salida: no ingreses por esa calle, aunque veas el eje amarillo.",
   },
   "AP-CAT-12": {
     src: "/modulos/aeropuertos/ap-cat-12-emplazamiento-pintado.webp",
@@ -81,6 +93,10 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
   "AP-CAT-15": {
     src: "/modulos/aeropuertos/ap-cat-15-umbral-pista-no-pavimentada.webp",
     explicacion: "En esta pista de grama el umbral se reconoce por dos tableros laterales «07», no por fajas pintadas. Los tableros rojos lejanos señalan el extremo: verifica la pista autorizada antes de alinearte.",
+  },
+  "AP-CAT-16": {
+    src: "/modulos/aeropuertos/ap-cat-16-espera-interseccion-pistas.webp",
+    explicacion: "Sobre la pista por la que ruedas, dos líneas amarillas continuas quedan de tu lado y dos discontinuas miran hacia la pista que cruza. Detente antes de las continuas y no entres en la intersección sin autorización.",
   },
   "AP-CAT-18": {
     src: "/modulos/aeropuertos/ap-cat-18-senal-fuera-servicio.webp",
@@ -166,9 +182,21 @@ const activosPropios: Record<string, { src: string; explicacion: string }> = {
     src: "/modulos/aeropuertos/ap-cat-45-t-vasis.svg",
     explicacion: "En el T-VASIS (T Visual Approach Slope Indicator System), solo las barras blancas significan en senda; luces arriba indican alto y luces abajo, bajo. El AT-VASIS (Abbreviated T-VASIS) usa un solo lado. Son sistemas en retiro: confirma el procedimiento aplicable.",
   },
+  "AP-CAT-47": {
+    src: "/modulos/aeropuertos/ap-cat-47-borde-rojo-umbral-desplazado.webp",
+    explicacion: "En la aproximación, los bordes rojos delimitan el tramo anterior al umbral desplazado; la fila verde cruza donde comienza la pista utilizable y los bordes blancos continúan después. No tomes el pavimento previo como zona de aterrizaje.",
+  },
   "AP-CAT-48": {
     src: "/modulos/aeropuertos/ap-cat-48-barra-ala.webp",
     explicacion: "Dos grupos verdes simétricos se extienden hacia afuera desde los bordes, a la altura del umbral. Úsalos para reconocer el comienzo utilizable de la pista; confirma el umbral publicado.",
+  },
+  "AP-CAT-49": {
+    src: "/modulos/aeropuertos/ap-cat-49-luces-simples-toma-contacto.webp",
+    explicacion: "Dos luces blancas a cada lado del eje acompañan las últimas marcas de zona de toma de contacto, sin formar una alfombra completa. Son una referencia en aproximaciones empinadas; este sistema no está transpuesto en Colombia y debes seguir el procedimiento publicado.",
+  },
+  "AP-CAT-50": {
+    src: "/modulos/aeropuertos/ap-cat-50-salida-rapida.webp",
+    explicacion: "Dos grupos amarillos empotrados, ambos del lado derecho del eje blanco, anticipan la salida rápida que curva hacia ese mismo lado. Reconoce la secuencia completa y abandona la pista solo por la salida autorizada cuando puedas hacerlo con seguridad.",
   },
   "AP-CAT-51": {
     src: "/modulos/aeropuertos/ap-cat-51-luces-zona-parada.webp",

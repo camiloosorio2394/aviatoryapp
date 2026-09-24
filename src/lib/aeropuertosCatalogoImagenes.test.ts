@@ -24,8 +24,13 @@ describe("imágenes del catálogo de Aeropuertos", () => {
     expect(imagenDeFicha(foto)).toBe("/modulos/aeropuertos/ap-cat-03-eje-rodaje-sobre-pista.webp")
   })
 
-  it("conserva el hueco cuando aún no existe un activo apto", () => {
-    const pendiente = AP_CAT_FICHAS.find((f) => f.imagen?.codigo === "AP-CAT-01")!
-    expect(imagenDeFicha(pendiente)).toBeUndefined()
+  it("resuelve todas las fichas ilustradas a rutas de activos", () => {
+    const ilustradas = AP_CAT_FICHAS.filter((f) => f.imagen)
+    expect(ilustradas).toHaveLength(143)
+    for (const ficha of ilustradas) {
+      const src = imagenDeFicha(ficha)
+      expect(src, ficha.es).toBeDefined()
+      expect(src, ficha.es).toMatch(/^\/modulos\/aeropuertos\/[^/]+\.(webp|svg)$/)
+    }
   })
 })

@@ -32,7 +32,7 @@ import { registrarEstudioDiario } from "@/lib/activity"
  * color escrito a mano.
  *
  * Las fichas reutilizan el archivo de la lección cuando el elemento coincide.
- * Los activos propios aún pendientes conservan su hueco rotulado. Ninguna
+ * Si faltara un activo propio, conservaría su hueco rotulado. Ninguna
  * imagen se recorta para forzarla a la proporción de otra ficha.
  *
  * Se lee con el pulgar: una columna en el teléfono, la tira de filtros se
@@ -239,9 +239,9 @@ export function AeropuertosCatalogo() {
           className="mt-12 border-t pt-5 text-[12.5px] leading-[1.6]"
           style={{ borderColor: "var(--ln-row-rule)", color: "var(--ln-faint)" }}
         >
-          {AP_CAT_TOTAL} fichas: {TOTAL_CON_IMAGEN} ya muestran imagen y {TOTAL_PROPIAS} tienen
-          código propio del catálogo. Los huecos restantes identifican el activo que falta;
-          las imágenes de las lecciones se reutilizan sin duplicar archivos.
+          {AP_CAT_TOTAL} fichas: {TOTAL_CON_IMAGEN} con imagen y {AP_CAT_TOTAL - TOTAL_CON_IMAGEN} de consulta textual.
+          {" "}{TOTAL_PROPIAS} tienen código propio del catálogo; las imágenes de las lecciones
+          se reutilizan sin duplicar archivos.
         </p>
       </div>
     </div>
